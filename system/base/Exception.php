@@ -15,16 +15,16 @@ class Exception extends E
 	/**
 	 * Статус ошибки
 	 *
-	 * @var integer
+	 * @var int
 	 */
 	public $statusCode = 0;
 
 	/**
 	 * Конструктор
 	 *
-	 * @param string  $message сообщение
-	 * @param integer $status  статус
-	 * @param integer $code    код
+	 * @param string $message сообщение
+	 * @param int    $status  статус
+	 * @param int    $code    код
 	 */
 	public function __construct($message, $status = 500, $code = 0)
 	{

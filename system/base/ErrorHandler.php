@@ -16,7 +16,7 @@ class ErrorHandler
 	/**
 	 * Уровень поиска ошибки
 	 *
-	 * @var integer
+	 * @var int
 	 */
 	const TRACE_LEVEL = 3;
 
@@ -71,10 +71,10 @@ class ErrorHandler
 	/**
 	 * Обработчик ошибок
 	 *
-	 * @param integer $code    код
-	 * @param string  $message сообщение
-	 * @param string  $file    файл
-	 * @param integer $line    строка
+	 * @param int    $code    код
+	 * @param string $message сообщение
+	 * @param string $file    файл
+	 * @param int    $line    строка
 	 *
 	 * @return void
 	 */
