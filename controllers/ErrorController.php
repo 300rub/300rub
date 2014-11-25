@@ -44,8 +44,8 @@ class ErrorController extends Controller
 			"error",
 			array(
 				"statusCode" => $statusCode,
-				"message"    => $message,
-				"trace"      => $trace
+				"message"    => str_replace("\n", "<br />", $message),
+				"trace"      => str_replace("\n", "<br />", $trace)
 			)
 		);
 	}
