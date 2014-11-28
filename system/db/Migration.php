@@ -7,8 +7,10 @@ namespace system\db;
  *
  * @package system.db
  */
-class Migration
+abstract class Migration
 {
+
+	public abstract function up();
 
 	/**
 	 * Типы столбцов

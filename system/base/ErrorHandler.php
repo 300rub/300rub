@@ -50,22 +50,21 @@ class ErrorHandler
 		if (isset($_SERVER['REQUEST_URI'])) {
 			$message .= "\nREQUEST_URI=" . $_SERVER['REQUEST_URI'];
 		}
-		if (isset($_SERVER['HTTP_REFERER'])) {
-			$message .= "\nHTTP_REFERER=" . $_SERVER['HTTP_REFERER'];
-		}
 
 		Logger::log($message, Logger::LEVEL_ERROR, $category);
 
-		$trace = "";
-		if (App::$isDebug) {
-			$message = $exception->getMessage() . ' (' . $exception->getFile() . ':' . $exception->getLine() . ')';
-			$trace = $exception->getTraceAsString();
-		} else {
-			$message = $exception->getMessage();
-		}
+		if (isset($_SERVER['REQUEST_URI'])) {
+			$trace = "";
+			if (App::$isDebug) {
+				$message = $exception->getMessage() . ' (' . $exception->getFile() . ':' . $exception->getLine() . ')';
+				$trace = $exception->getTraceAsString();
+			} else {
+				$message = $exception->getMessage();
+			}
 
-		$controller = new ErrorController();
-		$controller->actionError($message, $exception->statusCode, $trace);
+			$controller = new ErrorController();
+			$controller->actionError($message, $exception->statusCode, $trace);
+		}
 	}
 
 	/**

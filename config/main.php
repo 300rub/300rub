@@ -3,16 +3,15 @@
 /**
  * Настройки
  */
-
 return array(
 	"isDebug" => true,
-	"rootDir" => __DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR,
+	"rootDir" => __DIR__ . DIRECTORY_SEPARATOR . "..",
 	"baseUrl" => "/",
 	"db"      => array(
 		"host"     => "localhost",
-		"user"     => "itnew",
+		"user"     => "mike",
 		"password" => "mypasS77",
-		"base"     => "_sites",
+		"base"     => "mike",
 		"charset"  => "utf8",
 	),
 );
