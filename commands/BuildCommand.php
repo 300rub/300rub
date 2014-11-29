@@ -32,7 +32,7 @@ class BuildCommand extends Command
 		$this->_gitCheckout(App::console()->releaseBranch);
 
 		$migrateCommand = new MigrateCommand;
-		if (!$migrateCommand->run()) {
+		if (!$migrateCommand->run($args)) {
 			$this->_gitCheckout(App::console()->prevReleaseBranch);
 
 			Logger::log("Build failure", Logger::LEVEL_INFO, "console.build");
