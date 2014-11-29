@@ -1,6 +1,7 @@
 <?php
 
 namespace system\console;
+use system\base\Logger;
 
 /**
  * Файл класса Command.
@@ -9,8 +10,6 @@ namespace system\console;
  */
 abstract class Command
 {
-
-	protected static $config = array();
 
 	/**
 	 * Выполняет команду
@@ -21,8 +20,4 @@ abstract class Command
 	 */
 	abstract public function run($args);
 
-	public function log($message)
-	{
-		echo $message;
-	}
 }

@@ -3,6 +3,7 @@
 namespace system\db;
 
 use system\App;
+use system\base\Logger;
 use system\base\Model;
 use system\base\Exception;
 use system\base\Language;
@@ -14,6 +15,8 @@ use system\base\Language;
  */
 class Db
 {
+
+	const PREFIX = "s_";
 
 	/**
 	 * Установлено ли соединение
@@ -92,15 +95,18 @@ class Db
 		}
 
 		if (!mysql_connect($host, $user, $password)) {
-			throw new Exception(Language::t("db", "Could not connect to MySQL server"));
+			Logger::log(Language::t("db", "Could not connect to MySQL server"), Logger::LEVEL_ERROR, "db");
+			return false;
 		}
 
 		if (!mysql_select_db($base)) {
-			throw new Exception(Language::t("db", "Unable to select database"));
+			Logger::log(Language::t("db", "Unable to select database"), Logger::LEVEL_ERROR, "db");
+			return false;
 		}
 
 		if (!mysql_query("SET NAMES '{$charset}'") || !mysql_set_charset($charset)) {
-			throw new Exception(Language::t("db", "Failed to set the encoding for the database"));
+			Logger::log(Language::t("db", "Failed to set the encoding for the database"), Logger::LEVEL_ERROR, "db");
+			return false;
 		}
 
 		self::$_isConnect = true;
@@ -219,4 +225,33 @@ class Db
 
 		return true;
 	}
+
+	/**
+	 * Проверяет таблицу на существование
+	 *
+	 * @param string $table название таблицы
+	 *
+	 * @return bool
+	 */
+	public static function isTableExist($table)
+	{
+		return (bool)mysql_query("SELECT * FROM `" . $table . "` WHERE 0");
+	}
+
+	public static function startTransaction()
+	{
+		mysql_query("START TRANSACTION");
+	}
+
+	public static function commitTransaction()
+	{
+		mysql_query("COMMIT");
+	}
+
+	public static function rollbackTransaction()
+	{
+		mysql_query("ROLLBACK");
+	}
+
+
 }

@@ -35,8 +35,18 @@ class Logger
 	 *
 	 * @return void
 	 */
-	public static function log($msg, $level = self::LEVEL_INFO, $category = 'application')
+	public static function log($msg, $level = self::LEVEL_INFO, $category = 'web')
 	{
+		$fileName = $category;
+		$categoryList = explode(".", $category, 2);
+		if (isset($categoryList[0])) {
+			$fileName = $categoryList[0];
+		}
+
+		if ($fileName === "console") {
+			echo "	> " . date("Y-m-d H:i:s", time()) . " [{$level}] [{$category}] " . $msg . "\n";
+		}
+
 		$traces = debug_backtrace();
 		$count = 0;
 		foreach ($traces as $trace) {
@@ -48,9 +58,9 @@ class Logger
 			}
 		}
 
-		$text = date("Y-m-d H:i:s", time()) . " [{$category}] " . $msg . "\n\n";
+		$text = date("Y-m-d H:i:s", time()) . " [{$level}] [{$category}] " . $msg . "\n\n";
 
-		$logFile = App::$rootDir . "logs" . DIRECTORY_SEPARATOR . $level . ".log";
+		$logFile = App::console()->rootDir . DIRECTORY_SEPARATOR . "logs" . DIRECTORY_SEPARATOR . $fileName . ".log";
 		$fp = @fopen($logFile, 'a');
 		@flock($fp, LOCK_EX);
 		@fwrite($fp, $text);

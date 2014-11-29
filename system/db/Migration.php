@@ -1,6 +1,7 @@
 <?php
 
 namespace system\db;
+use system\base\Logger;
 
 /**
  * Файл класса Migration
@@ -32,7 +33,7 @@ abstract class Migration
 	 * @param array  $columns столбцы
 	 * @param string $options опции
 	 *
-	 * @return void
+	 * @return bool
 	 */
 	public function createTable($table, $columns, $options = null)
 	{
@@ -41,7 +42,14 @@ abstract class Migration
 			$cols[] = "`{$name}`" . ' ' . $this->getColumnType($type);
 		}
 		$query = "\nCREATE TABLE " . $table . " (\n" . implode(",\n", $cols) . "\n)" . $options;
-		$this->execute($query);
+		$result = $this->execute($query);
+		if ($result) {
+			Logger::log("Table \"{$table}\" successfully created", Logger::LEVEL_INFO, "console.migrations.table");
+			return true;
+		}
+
+		Logger::log("Table \"{$table}\" could not be created", Logger::LEVEL_INFO, "console.migrations.table");
+		return false;
 	}
 
 	/**
@@ -81,14 +89,30 @@ abstract class Migration
 	 * @param string $column столбец
 	 * @param bool   $unique уникальный ли индекс
 	 *
-	 * @return void
+	 * @return bool
 	 */
 	public function createIndex($name, $table, $column, $unique = false)
 	{
 		$query = ($unique ? 'CREATE UNIQUE INDEX ' : 'CREATE INDEX ')
 			. $name . ' ON '
 			. $table . ' (' . $column . ')';
-		$this->execute($query);
+		$result = $this->execute($query);
+
+		if ($result) {
+			Logger::log(
+				"Index \"{$name}\" for table \"{$table}\" successfully created",
+				Logger::LEVEL_INFO,
+				"console.migrations.table"
+			);
+			return true;
+		}
+
+		Logger::log(
+			"Index \"{$name}\" for table \"{$table}\" could not be created",
+			Logger::LEVEL_INFO,
+			"console.migrations.table"
+		);
+		return false;
 	}
 
 	/**
@@ -112,10 +136,10 @@ abstract class Migration
 	 *
 	 * @param string $query запрос
 	 *
-	 * @return void
+	 * @return bool
 	 */
 	public function execute($query)
 	{
-		mysql_query($query);
+		return mysql_query($query);
 	}
 }

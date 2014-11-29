@@ -4,6 +4,7 @@ namespace system\console;
 
 use system\base\Application;
 use system\base\Exception;
+use system\base\Logger;
 
 /**
  * Файл класса Console.
@@ -66,11 +67,16 @@ class Console extends Application
 		}
 
 		$className = "\\commands\\" . ucfirst($this->_command) . self::COMMAND_ENDING;
+
 		/**
 		 * @var Command $class;
 		 */
 		$class = new $className;
-		$class->run($this->_args);
+		if ($class->run($this->_args)) {
+			Logger::log("The command completed successfully", Logger::LEVEL_INFO, "console.run");
+		} else {
+			Logger::log("Failed to execute command", Logger::LEVEL_ERROR, "console.run");
+		}
 	}
 
 	/**

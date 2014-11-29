@@ -107,12 +107,12 @@ class ErrorHandler
 			}
 			if (isset($_SERVER['REQUEST_URI'])) {
 				$message .= 'REQUEST_URI=' . $_SERVER['REQUEST_URI'];
+
+				Logger::log($message, Logger::LEVEL_ERROR, 'php');
+
+				$controller = new ErrorController();
+				$controller->actionError($message);
 			}
-
-			Logger::log($message, Logger::LEVEL_ERROR, 'php');
-
-			$controller = new ErrorController();
-			$controller->actionError($message);
 		}
 	}
 }
