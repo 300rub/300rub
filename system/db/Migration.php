@@ -11,7 +11,11 @@ use system\base\Logger;
 abstract class Migration
 {
 
-	public abstract function up();
+	abstract public function up();
+
+	abstract public function down();
+
+	abstract public function insertData();
 
 	/**
 	 * Типы столбцов

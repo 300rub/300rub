@@ -21,6 +21,16 @@ class MigrateCommand extends Command
 {
 
 	/**
+	 * Обновление базы полностью
+	 */
+	const ARG_RESET = "-r";
+
+	/**
+	 * Вставка тестовой информации в базу
+	 */
+	const ARG_DATA = "-d";
+
+	/**
 	 * Новые миграции
 	 *
 	 * @var string[]
@@ -35,11 +45,25 @@ class MigrateCommand extends Command
 	private $_sites = array();
 
 	/**
-	 * Примененные сайты
+	 * Забекапленые сайты
 	 *
 	 * @var array
 	 */
-	private $_appliedSites = array();
+	private $_dumpSites = array();
+
+	/**
+	 * Обновлять ли базы полностью
+	 *
+	 * @var bool
+	 */
+	private $_isReset = false;
+
+	/**
+	 * Загружать ли тестовую информацию
+	 *
+	 * @var bool
+	 */
+	private $_isData = false;
 
 	/**
 	 * Выполняет команду
@@ -63,6 +87,13 @@ class MigrateCommand extends Command
 
 		if (!$this->_checkCommonTables()) {
 			return false;
+		}
+
+		if (in_array(self::ARG_RESET, $args) && App::console()->isDebug) {
+			$this->_isReset = true;
+		}
+		if (in_array(self::ARG_DATA, $args) && App::console()->isDebug) {
+			$this->_isData = true;
 		}
 
 		if (!$this->_setNewMigrations()) {
@@ -89,7 +120,7 @@ class MigrateCommand extends Command
 			return false;
 		}
 
-		Logger::log("All migrations are applied successfully", Logger::LEVEL_ERROR, "console.migrate");
+		Logger::log("All migrations are applied successfully", Logger::LEVEL_INFO, "console.migrate");
 		return true;
 	}
 
@@ -151,7 +182,7 @@ class MigrateCommand extends Command
 		while (false !== ($file = readdir($handle))) {
 			if ($file != "." && $file != "..") {
 				$version = str_replace(".php", "", $file);
-				if (!in_array($version, $versions)) {
+				if (!in_array($version, $versions) || $this->_isReset) {
 					$this->_migrations[] = $version;
 				}
 			}
@@ -201,7 +232,7 @@ class MigrateCommand extends Command
 				return false;
 			}
 
-			$this->_appliedSites[] = $site;
+			$this->_dumpSites[] = $site;
 
 			$command =
 				"mysqldump -u " .
@@ -229,7 +260,7 @@ class MigrateCommand extends Command
 	 */
 	private function _rollbackDumps()
 	{
-		foreach ($this->_appliedSites as $site) {
+		foreach ($this->_dumpSites as $site) {
 			$file = App::console()->rootDir . "/backups/" . $site["db_name"] . ".sql.gz";
 			if (!file_exists($file)) {
 				Logger::log(
@@ -276,18 +307,97 @@ class MigrateCommand extends Command
 		sort($this->_migrations);
 
 		try {
-			foreach ($this->_migrations as $migrationName) {
-				/**
-				 * @var \system\db\Migration $migration
-				 */
-				$migrationName = "\\migrations\\{$migrationName}";
-				$migration = new $migrationName;
-				if (!$migration->up()) {
+			foreach ($this->_sites as $site) {
+				$connection = Db::setConnect(
+					$site["db_host"],
+					$site["db_user"],
+					$site["db_password"],
+					$site["db_name"],
+					App::console()->db["charset"]
+				);
+				if (!$connection) {
+					Logger::log(
+						"Unable to connect to db \"" . Db::PREFIX . $site["db_name"] . "\"",
+						Logger::LEVEL_ERROR,
+						"console.migrate"
+					);
 					return false;
+				}
+
+				if ($this->_isReset && App::console()->isDebug) {
+					$migrationsDesc = $this->_migrations;
+					rsort($migrationsDesc);
+					foreach ($migrationsDesc as $migrationName) {
+						/**
+						 * @var \system\db\Migration $migration
+						 */
+						$migrationName = "\\migrations\\{$migrationName}";
+						$migration = new $migrationName;
+						if (!$migration->down()) {
+							Logger::log(
+								"Unable to down migration \"{$migrationName}\" from db \"" .
+								Db::PREFIX .
+								$site["db_name"] .
+								"\"",
+								Logger::LEVEL_ERROR,
+								"console.migrate"
+							);
+							return false;
+						}
+					}
+				}
+
+				foreach ($this->_migrations as $migrationName) {
+					/**
+					 * @var \system\db\Migration $migration
+					 */
+					$migrationName = "\\migrations\\{$migrationName}";
+					$migration = new $migrationName;
+					if (!$migration->up()) {
+						Logger::log(
+							"Unable to up migration \"{$migrationName}\" from db \"" .
+							Db::PREFIX .
+							$site["db_name"] .
+							"\"",
+							Logger::LEVEL_ERROR,
+							"console.migrate"
+						);
+						return false;
+					}
+
+					if ($this->_isData && App::console()->isDebug && !$migration->insertData()) {
+						Logger::log(
+							"Unable to insert test data in migration \"{$migrationName}\" from db \"" .
+							Db::PREFIX .
+							$site["db_name"] .
+							"\"",
+							Logger::LEVEL_ERROR,
+							"console.migrate"
+						);
+						return false;
+					}
 				}
 			}
 		} catch (Exception $e) {
 			return false;
+		}
+
+		if ($this->_isReset && App::console()->isDebug) {
+			$connection = Db::setConnect(
+				App::console()->db["db_host"],
+				App::console()->db["db_user"],
+				App::console()->db["db_password"],
+				App::console()->db["db_name"],
+				App::console()->db["charset"]
+			);
+			if (!$connection) {
+				return false;
+			}
+
+			if (!mysql_query("TRUNCATE TABLE migrations")) {
+				Logger::log("Unable to truncate table \"migrations\"", Logger::LEVEL_ERROR, "console.migrate");
+				return false;
+			}
 		}
 
 		return true;

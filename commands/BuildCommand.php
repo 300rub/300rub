@@ -3,7 +3,6 @@
 namespace commands;
 
 use system\App;
-use system\base\Exception;
 use system\console\Command;
 use system\base\Logger;
 
@@ -30,11 +29,17 @@ class BuildCommand extends Command
 			exit();
 		}
 
+		$this->_gitCheckout(App::console()->releaseBranch);
+
 		$migrateCommand = new MigrateCommand;
 		if (!$migrateCommand->run()) {
+			$this->_gitCheckout(App::console()->prevReleaseBranch);
+
+			Logger::log("Build failure", Logger::LEVEL_INFO, "console.build");
 			return false;
 		}
 
+		Logger::log("Build successfully completed", Logger::LEVEL_INFO, "console.build");
 		return true;
 	}
 
@@ -66,11 +71,24 @@ class BuildCommand extends Command
 		return true;
 	}
 
+	/**
+	 * Производит сборку ветки
+	 *
+	 * @param string $branch название ветки
+	 *
+	 * @return bool
+	 */
 	private function _gitCheckout($branch) {
 		$command = "
 			git add .;
+			git reset --hard;
 			git fetch --all -p;
-			git reset --hard origin/{$branch};
+			git checkout {$branch};
+			git rebase origin/{$branch};
+			chmod 777 c;
 		";
+		exec($command);
+
+		return true;
 	}
 }
