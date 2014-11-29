@@ -22,6 +22,20 @@ class Console extends Application
 	const COMMAND_ENDING = "Command";
 
 	/**
+	 * Название ветки с релизом
+	 *
+	 * @var string
+	 */
+	public $releaseBranch = "";
+
+	/**
+	 * Название ветки с предыдущим релизом
+	 *
+	 * @var string
+	 */
+	public $prevReleaseBranch = "";
+
+	/**
 	 * Список всех команд
 	 *
 	 * @var string[]
@@ -49,6 +63,9 @@ class Console extends Application
 	 */
 	public function __construct($config)
 	{
+		$this->releaseBranch = $config["releaseBranch"];
+		$this->prevReleaseBranch = $config["prevReleaseBranch"];
+
 		parent::__construct($config);
 	}
 
