@@ -47,20 +47,21 @@ class BuildCommand extends Command
 
 		$this->_setBranches($args);
 
-		Logger::log("Building has been started from {$this->_branch} branch", Logger::LEVEL_INFO, "console.build");
+		Logger::log("Началась сборка из ветки {$this->_branch}", Logger::LEVEL_INFO, "console.build");
 		$this->_gitCheckout($this->_branch);
 
 		$migrateCommand = new MigrateCommand;
 		if (!$migrateCommand->run($args)) {
 
-			Logger::log("Building failure", Logger::LEVEL_INFO, "console.build");
-			Logger::log("Building has been reverted to {$this->_branch} branch", Logger::LEVEL_INFO, "console.build");
+			Logger::log("Во время сборки произошла ошибка", Logger::LEVEL_INFO, "console.build");
+
 			$this->_gitCheckout($this->_prevBranch);
+			Logger::log("Откатано из ветки {$this->_branch}", Logger::LEVEL_INFO, "console.build");
 
 			return false;
 		}
 
-		Logger::log("Building successfully completed", Logger::LEVEL_INFO, "console.build");
+		Logger::log("Сборка успешно завершена", Logger::LEVEL_INFO, "console.build");
 		return true;
 	}
 
@@ -96,19 +97,19 @@ class BuildCommand extends Command
 	{
 		$logs = App::console()->rootDir . DIRECTORY_SEPARATOR . "logs";
 		if (!file_exists($logs) && !mkdir($logs, 0777)) {
-			echo "	> Unable to create folder \"logs\"\n";
+			echo "	> Невозможно создать папку \"logs\"\n";
 			return false;
 		}
 
 		$backups = App::console()->rootDir . DIRECTORY_SEPARATOR . "backups";
 		if (!file_exists($backups) && !mkdir($backups, 0777)) {
-			Logger::log("Unable to create folder \"backups\"", Logger::LEVEL_ERROR, "console.build");
+			Logger::log("Невозможно создать папку \"backups\"", Logger::LEVEL_ERROR, "console.build");
 			return false;
 		}
 
 		$vendors = App::console()->rootDir . DIRECTORY_SEPARATOR . "vendors";
 		if (!file_exists($vendors) && !mkdir($vendors, 0777)) {
-			Logger::log("Unable to create folder \"vendors\"", Logger::LEVEL_ERROR, "console.build");
+			Logger::log("Невозможно создать папку \"vendors\"", Logger::LEVEL_ERROR, "console.build");
 			return false;
 		}
 
