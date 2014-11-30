@@ -14,6 +14,6 @@ return array(
 		"base"     => "mike",
 		"charset"  => "utf8",
 	),
-	"releaseBranch"     => "master",
-	"prevReleaseBranch" => "master",
+	"release"     => "1.0",
+	"prevRelease" => "0",
 );

@@ -16,6 +16,22 @@ use system\base\Logger;
 class BuildCommand extends Command
 {
 
+	const RELEASE_PREFIX = "release/";
+
+	/**
+	 * Применяемая ветка
+	 *
+	 * @var string
+	 */
+	private $_branch = "master";
+
+	/**
+	 * Ветка для отката
+	 *
+	 * @var string
+	 */
+	private $_prevBranch = "master";
+
 	/**
 	 * Выполняет команду
 	 *
@@ -25,15 +41,19 @@ class BuildCommand extends Command
 	 */
 	public function run($args)
 	{
+		Logger::log("Build has been started", Logger::LEVEL_INFO, "console.build");
+
 		if (!$this->_checkFolders()) {
 			exit();
 		}
 
-		$this->_gitCheckout(App::console()->releaseBranch);
+		$this->_setBranches($args);
+
+		$this->_gitCheckout($this->_branch);
 
 		$migrateCommand = new MigrateCommand;
 		if (!$migrateCommand->run($args)) {
-			$this->_gitCheckout(App::console()->prevReleaseBranch);
+			$this->_gitCheckout($this->_prevBranch);
 
 			Logger::log("Build failure", Logger::LEVEL_INFO, "console.build");
 			return false;
@@ -41,6 +61,29 @@ class BuildCommand extends Command
 
 		Logger::log("Build successfully completed", Logger::LEVEL_INFO, "console.build");
 		return true;
+	}
+
+	/**
+	 * Устанавливает ветки
+	 *
+	 * @param string[] $args аргументы
+	 *
+	 * @return void
+	 */
+	private function _setBranches($args)
+	{
+		foreach ($args as $arg) {
+			if ($arg != MigrateCommand::ARG_RESET && $arg != MigrateCommand::ARG_DATA) {
+				$this->_branch = $arg;
+			}
+		}
+
+		if (!App::console()->isDebug) {
+			$this->_branch = self::RELEASE_PREFIX . App::console()->release;
+		}
+		if (!App::console()->isDebug) {
+			$this->_prevBranch = self::RELEASE_PREFIX . App::console()->prevRelease;
+		}
 	}
 
 	/**
