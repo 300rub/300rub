@@ -90,9 +90,9 @@ class Console extends Application
 		 */
 		$class = new $className;
 		if ($class->run($this->_args)) {
-			Logger::log("The command completed successfully", Logger::LEVEL_INFO, "console.run");
+			Logger::log("Команда успешно выполнена", Logger::LEVEL_INFO, "console.run");
 		} else {
-			Logger::log("Failed to execute command", Logger::LEVEL_ERROR, "console.run");
+			Logger::log("Ошибка при выполнении команды", Logger::LEVEL_ERROR, "console.run");
 		}
 	}
 

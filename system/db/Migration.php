@@ -11,10 +11,18 @@ use system\base\Logger;
 abstract class Migration
 {
 
+	/**
+	 * Применяет миграцию
+	 *
+	 * @return bool
+	 */
 	abstract public function up();
 
-	abstract public function down();
-
+	/**
+	 * Добавляет тестовую информацию
+	 *
+	 * @return bool
+	 */
 	abstract public function insertData();
 
 	/**

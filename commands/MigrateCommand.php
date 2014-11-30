@@ -75,11 +75,10 @@ class MigrateCommand extends Command
 	public function run($args = array())
 	{
 		$connection = Db::setConnect(
-			App::console()->db["host"],
 			App::console()->db["user"],
 			App::console()->db["password"],
 			App::console()->db["base"],
-			App::console()->db["charset"]
+			true
 		);
 		if (!$connection) {
 			return false;
@@ -89,6 +88,8 @@ class MigrateCommand extends Command
 			return false;
 		}
 
+		Logger::log("Началось применение миграций", Logger::LEVEL_INFO, "console.build");
+
 		if (in_array(self::ARG_RESET, $args) && App::console()->isDebug) {
 			$this->_isReset = true;
 		}
@@ -97,30 +98,30 @@ class MigrateCommand extends Command
 		}
 
 		if (!$this->_setNewMigrations()) {
-			Logger::log("Unable to set migrations", Logger::LEVEL_ERROR, "console.migrate");
+			Logger::log("Не удалось определить миграции на выполнение", Logger::LEVEL_ERROR, "console.migrate");
 			return false;
 		}
 
 		if (!$this->_setSites()) {
-			Logger::log("Unable to set sites", Logger::LEVEL_ERROR, "console.migrate");
+			Logger::log("Не удалось определить сайты", Logger::LEVEL_ERROR, "console.migrate");
 			return false;
 		}
 
 		if (!$this->_createDumps()) {
-			Logger::log("Unable to create sql dumps", Logger::LEVEL_ERROR, "console.migrate");
+			Logger::log("Не удалось создать дампы для бэкапа", Logger::LEVEL_ERROR, "console.migrate");
 			return false;
 		}
 
 		if (!$this->_applyMigration() || !$this->_updateVersions()) {
-			Logger::log("Unable to apply migrations", Logger::LEVEL_ERROR, "console.migrate");
+			Logger::log("Не удалось применить миграции", Logger::LEVEL_ERROR, "console.migrate");
 
 			$this->_rollbackDumps();
-			Logger::log("All db were rollback", Logger::LEVEL_INFO, "console.migrate");
+			Logger::log("Все базы данных были успешно откатаны", Logger::LEVEL_INFO, "console.migrate");
 
 			return false;
 		}
 
-		Logger::log("All migrations are applied successfully", Logger::LEVEL_INFO, "console.migrate");
+		Logger::log("Все миграции успешно применены", Logger::LEVEL_INFO, "console.migrate");
 		return true;
 	}
 
@@ -164,7 +165,7 @@ class MigrateCommand extends Command
 	private function _setNewMigrations()
 	{
 		$versions = array();
-		$result = mysql_query("SELECT * FROM migrations");
+		$result = mysql_query("SELECT * FROM `migrations`");
 		if ($result) {
 			while ($row = mysql_fetch_assoc($result)) {
 				$versions[] = $row["version"];
@@ -175,7 +176,7 @@ class MigrateCommand extends Command
 
 		$handle = opendir($dir);
 		if (!$handle) {
-			Logger::log("Migrations folder does not open", Logger::LEVEL_ERROR, "console.migrate");
+			Logger::log("Не удалось открыть папку с миграциями", Logger::LEVEL_ERROR, "console.migrate");
 			return false;
 		}
 
@@ -198,7 +199,7 @@ class MigrateCommand extends Command
 	 */
 	private function _setSites()
 	{
-		$result = mysql_query("SELECT * FROM sites");
+		$result = mysql_query("SELECT * FROM `sites`");
 		if ($result) {
 			while ($row = mysql_fetch_assoc($result)) {
 				$this->_sites[] = $row;
@@ -217,15 +218,14 @@ class MigrateCommand extends Command
 	{
 		foreach ($this->_sites as $site) {
 			$connection = Db::setConnect(
-				$site["db_host"],
 				$site["db_user"],
 				$site["db_password"],
-				$site["db_name"],
-				App::console()->db["charset"]
+				Db::PREFIX . $site["db_name"],
+				true
 			);
 			if (!$connection) {
 				Logger::log(
-					"Unable to connect to db \"" . Db::PREFIX . $site["db_name"] . "\"",
+					"Не удалось соединиться с базой \"" . Db::PREFIX . $site["db_name"] . "\"",
 					Logger::LEVEL_ERROR,
 					"console.migrate"
 				);
@@ -264,7 +264,7 @@ class MigrateCommand extends Command
 			$file = App::console()->rootDir . "/backups/" . $site["db_name"] . ".sql.gz";
 			if (!file_exists($file)) {
 				Logger::log(
-					"Unable to load file for db \"" . Db::PREFIX . $site["db_name"] . "\"",
+					"Не удалось найти файл для базы \"" . Db::PREFIX . $site["db_name"] . "\"",
 					Logger::LEVEL_ERROR,
 					"console.migrate"
 				);
@@ -295,12 +295,12 @@ class MigrateCommand extends Command
 	private function _applyMigration()
 	{
 		if (!$this->_migrations) {
-			Logger::log("There are no new migrations", Logger::LEVEL_INFO, "console.migrate");
+			Logger::log("Нет не примененных миграций", Logger::LEVEL_INFO, "console.migrate");
 			return true;
 		}
 
 		if (!$this->_sites) {
-			Logger::log("There are no sites", Logger::LEVEL_INFO, "console.migrate");
+			Logger::log("Сайты не найдены", Logger::LEVEL_INFO, "console.migrate");
 			return true;
 		}
 
@@ -308,16 +308,16 @@ class MigrateCommand extends Command
 
 		try {
 			foreach ($this->_sites as $site) {
+
 				$connection = Db::setConnect(
-					$site["db_host"],
 					$site["db_user"],
 					$site["db_password"],
-					$site["db_name"],
-					App::console()->db["charset"]
+					Db::PREFIX . $site["db_name"],
+					true
 				);
 				if (!$connection) {
 					Logger::log(
-						"Unable to connect to db \"" . Db::PREFIX . $site["db_name"] . "\"",
+						"Не удалось соединиться с базой \"" . Db::PREFIX . $site["db_name"] . "\"",
 						Logger::LEVEL_ERROR,
 						"console.migrate"
 					);
@@ -325,26 +325,37 @@ class MigrateCommand extends Command
 				}
 
 				if ($this->_isReset && App::console()->isDebug) {
-					$migrationsDesc = $this->_migrations;
-					rsort($migrationsDesc);
-					foreach ($migrationsDesc as $migrationName) {
-						/**
-						 * @var \system\db\Migration $migration
-						 */
-						$migrationName = "\\migrations\\{$migrationName}";
-						$migration = new $migrationName;
-						if (!$migration->down()) {
+					$tables = array();
+
+					$result = mysql_query("SHOW TABLES FROM " . Db::PREFIX . $site["db_name"]);
+					if (!$result) {
+						Logger::log(
+							"Не удалось получить таблицы из базы " . Db::PREFIX . $site["db_name"],
+							Logger::LEVEL_ERROR,
+							"console.migrate"
+						);
+						return false;
+					}
+					while ($row = mysql_fetch_row($result)) {
+						$tables[] = $row[0];
+					}
+
+					foreach($tables as $table){
+						if (!mysql_query("DROP TABLE `{$table}`")) {
 							Logger::log(
-								"Unable to down migration \"{$migrationName}\" from db \"" .
-								Db::PREFIX .
-								$site["db_name"] .
-								"\"",
+								"Не удалось удалить таблицу {$table} из базы " . Db::PREFIX . $site["db_name"],
 								Logger::LEVEL_ERROR,
 								"console.migrate"
 							);
 							return false;
 						}
 					}
+
+					Logger::log(
+						"База \"" . Db::PREFIX . $site["db_name"] . "\" успешна очищена",
+						Logger::LEVEL_INFO,
+						"console.migrate"
+					);
 				}
 
 				foreach ($this->_migrations as $migrationName) {
@@ -355,7 +366,7 @@ class MigrateCommand extends Command
 					$migration = new $migrationName;
 					if (!$migration->up()) {
 						Logger::log(
-							"Unable to up migration \"{$migrationName}\" from db \"" .
+							"Не удалось применить миграцию \"{$migrationName}\" from db \"" .
 							Db::PREFIX .
 							$site["db_name"] .
 							"\"",
@@ -367,7 +378,7 @@ class MigrateCommand extends Command
 
 					if ($this->_isData && App::console()->isDebug && !$migration->insertData()) {
 						Logger::log(
-							"Unable to insert test data in migration \"{$migrationName}\" from db \"" .
+							"Не удалось вставить тестовую информацию \"{$migrationName}\" from db \"" .
 							Db::PREFIX .
 							$site["db_name"] .
 							"\"",
@@ -384,18 +395,19 @@ class MigrateCommand extends Command
 
 		if ($this->_isReset && App::console()->isDebug) {
 			$connection = Db::setConnect(
-				App::console()->db["db_host"],
-				App::console()->db["db_user"],
-				App::console()->db["db_password"],
-				App::console()->db["db_name"],
-				App::console()->db["charset"]
+				App::console()->db["user"],
+				App::console()->db["password"],
+				App::console()->db["base"],
+				true
 			);
 			if (!$connection) {
 				return false;
 			}
 
-			if (!mysql_query("TRUNCATE TABLE migrations")) {
-				Logger::log("Unable to truncate table \"migrations\"", Logger::LEVEL_ERROR, "console.migrate");
+
+
+			if (!mysql_query("TRUNCATE TABLE `migrations`")) {
+				Logger::log("Не удалось очистить таблицу \"migrations\"", Logger::LEVEL_ERROR, "console.migrate");
 				return false;
 			}
 		}
@@ -411,11 +423,10 @@ class MigrateCommand extends Command
 	private function _updateVersions()
 	{
 		$connection = Db::setConnect(
-			App::console()->db["host"],
 			App::console()->db["user"],
 			App::console()->db["password"],
 			App::console()->db["base"],
-			App::console()->db["charset"]
+			true
 		);
 		if (!$connection) {
 			return false;
@@ -423,10 +434,10 @@ class MigrateCommand extends Command
 
 		Db::startTransaction();
 		foreach ($this->_migrations as $migration) {
-			if (!mysql_query("INSERT INTO migrations (version) VALUES('" . $migration . "')")) {
+			if (!mysql_query("INSERT INTO `migrations` (version) VALUES('" . $migration . "')")) {
 				Db::rollbackTransaction();
 
-				Logger::log("Unable to update versions", Logger::LEVEL_INFO, "console.migrate");
+				Logger::log("Не удалось обновить версии миграций", Logger::LEVEL_INFO, "console.migrate");
 				return false;
 			}
 		}

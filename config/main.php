@@ -8,11 +8,9 @@ return array(
 	"rootDir"           => __DIR__ . DIRECTORY_SEPARATOR . "..",
 	"baseUrl"           => "/",
 	"db"                => array(
-		"host"     => "localhost",
 		"user"     => "mike",
 		"password" => "mypasS77",
 		"base"     => "mike",
-		"charset"  => "utf8",
 	),
 	"release"     => "1.0",
 	"prevRelease" => "0",

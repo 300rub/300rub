@@ -45,4 +45,14 @@ class Sites extends Migration {
 
 		return true;
 	}
+
+	/**
+	 * Добавляет тестовую информацию
+	 *
+	 * @return bool
+	 */
+	public function insertData()
+	{
+
+	}
 }

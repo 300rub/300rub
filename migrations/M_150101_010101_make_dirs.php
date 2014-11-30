@@ -12,12 +12,6 @@ class M_150101_010101_make_dirs extends Migration {
 		return true;
 	}
 
-	public function down()
-	{
-
-		return true;
-	}
-
 	public function insertData()
 	{
 

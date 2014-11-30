@@ -77,24 +77,22 @@ class Db
 	/**
 	 * Устанавливает соединение с базой
 	 *
-	 * @param string $host            хост
 	 * @param string $user            пользователь
 	 * @param string $password        пароль
 	 * @param string $base            база
-	 * @param string $charset         кодировка
 	 * @param bool   $isNewConnection новое соединение
 	 *
 	 * @throws Exception
 	 *
 	 * @return bool
 	 */
-	public static function setConnect($host, $user, $password, $base, $charset, $isNewConnection = false)
+	public static function setConnect($user, $password, $base, $isNewConnection = false)
 	{
 		if (self::$_isConnect && !$isNewConnection) {
 			return true;
 		}
 
-		if (!mysql_connect($host, $user, $password)) {
+		if (!mysql_connect("localhost", $user, $password)) {
 			Logger::log(Language::t("db", "Could not connect to MySQL server"), Logger::LEVEL_ERROR, "db");
 			return false;
 		}
@@ -104,7 +102,7 @@ class Db
 			return false;
 		}
 
-		if (!mysql_query("SET NAMES '{$charset}'") || !mysql_set_charset($charset)) {
+		if (!mysql_query("SET NAMES 'utf8'") || !mysql_set_charset("utf8")) {
 			Logger::log(Language::t("db", "Failed to set the encoding for the database"), Logger::LEVEL_ERROR, "db");
 			return false;
 		}
