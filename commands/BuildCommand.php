@@ -41,25 +41,26 @@ class BuildCommand extends Command
 	 */
 	public function run($args)
 	{
-		Logger::log("Build has been started", Logger::LEVEL_INFO, "console.build");
-
 		if (!$this->_checkFolders()) {
 			exit();
 		}
 
 		$this->_setBranches($args);
 
+		Logger::log("Building has been started from {$this->_branch} branch", Logger::LEVEL_INFO, "console.build");
 		$this->_gitCheckout($this->_branch);
 
 		$migrateCommand = new MigrateCommand;
 		if (!$migrateCommand->run($args)) {
+
+			Logger::log("Building failure", Logger::LEVEL_INFO, "console.build");
+			Logger::log("Building has been reverted to {$this->_branch} branch", Logger::LEVEL_INFO, "console.build");
 			$this->_gitCheckout($this->_prevBranch);
 
-			Logger::log("Build failure", Logger::LEVEL_INFO, "console.build");
 			return false;
 		}
 
-		Logger::log("Build successfully completed", Logger::LEVEL_INFO, "console.build");
+		Logger::log("Building successfully completed", Logger::LEVEL_INFO, "console.build");
 		return true;
 	}
 
