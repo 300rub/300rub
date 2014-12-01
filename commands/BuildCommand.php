@@ -3,8 +3,8 @@
 namespace commands;
 
 use system\App;
-use system\console\Command;
 use system\base\Logger;
+use system\console\Command;
 
 /**
  * Файл класса BuildCommand

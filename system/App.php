@@ -57,11 +57,10 @@ class App
 			return false;
 		}
 
-		include(__DIR__ .
-			DIRECTORY_SEPARATOR .
+		include(__DIR__ . DIRECTORY_SEPARATOR .
 			".." .
 			DIRECTORY_SEPARATOR .
-			str_replace("\\", "/", $className) .
+			str_replace("\\", DIRECTORY_SEPARATOR, $className) .
 			".php");
 		self::$classMap[] = $className;
 

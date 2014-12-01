@@ -81,19 +81,31 @@ class MigrateCommand extends Command
 			true
 		);
 		if (!$connection) {
+			Logger::log(
+				"Не удалось соединиться с базой " . App::console()->db["base"],
+				Logger::LEVEL_ERROR,
+				"console.migrate"
+			);
 			return false;
 		}
 
 		if (!$this->_checkCommonTables()) {
+			Logger::log(
+				"Не найдены базовые таблицы в базе " . App::console()->db["base"],
+				Logger::LEVEL_ERROR,
+				"console.migrate"
+			);
 			return false;
 		}
 
 		Logger::log("Началось применение миграций", Logger::LEVEL_INFO, "console.build");
 
 		if (in_array(self::ARG_RESET, $args) && App::console()->isDebug) {
+			Logger::log("Предусмотрена очистка баз перед выполнением", Logger::LEVEL_INFO, "console.migrate");
 			$this->_isReset = true;
 		}
 		if (in_array(self::ARG_DATA, $args) && App::console()->isDebug) {
+			Logger::log("Предусмотрена вставка тестовой информации", Logger::LEVEL_INFO, "console.migrate");
 			$this->_isData = true;
 		}
 
@@ -115,8 +127,11 @@ class MigrateCommand extends Command
 		if (!$this->_applyMigration() || !$this->_updateVersions()) {
 			Logger::log("Не удалось применить миграции", Logger::LEVEL_ERROR, "console.migrate");
 
-			$this->_rollbackDumps();
-			Logger::log("Все базы данных были успешно откатаны", Logger::LEVEL_INFO, "console.migrate");
+			if ($this->_rollbackDumps()) {
+				Logger::log("Все базы данных были успешно откатаны", Logger::LEVEL_INFO, "console.migrate");
+			} else {
+				Logger::log("Произошла ошибка при откате баз!!!", Logger::LEVEL_ERROR, "console.migrate");
+			}
 
 			return false;
 		}
@@ -139,6 +154,11 @@ class MigrateCommand extends Command
 					return false;
 				}
 			} catch (Exception $e) {
+				Logger::log(
+					"Не удалось создать таблицу \"migrations\" в базе " . App::console()->db["base"],
+					Logger::LEVEL_ERROR,
+					"console.migrate"
+				);
 				return false;
 			}
 		}
@@ -150,6 +170,11 @@ class MigrateCommand extends Command
 					return false;
 				}
 			} catch (Exception $e) {
+				Logger::log(
+					"Не удалось создать таблицу \"sites\" в базе " . App::console()->db["base"],
+					Logger::LEVEL_ERROR,
+					"console.migrate"
+				);
 				return false;
 			}
 		}
@@ -308,7 +333,6 @@ class MigrateCommand extends Command
 
 		try {
 			foreach ($this->_sites as $site) {
-
 				$connection = Db::setConnect(
 					$site["db_user"],
 					$site["db_password"],
@@ -403,8 +427,6 @@ class MigrateCommand extends Command
 			if (!$connection) {
 				return false;
 			}
-
-
 
 			if (!mysql_query("TRUNCATE TABLE `migrations`")) {
 				Logger::log("Не удалось очистить таблицу \"migrations\"", Logger::LEVEL_ERROR, "console.migrate");

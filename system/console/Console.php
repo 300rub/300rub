@@ -78,22 +78,28 @@ class Console extends Application
 	 */
 	public function run()
 	{
+		$startTime = microtime(true);
+
 		$this->_setCommandList();
 		if (!$this->_parseCommand()) {
 			$this->help();
 		}
 
 		$className = "\\commands\\" . ucfirst($this->_command) . self::COMMAND_ENDING;
+		Logger::log("Выполняется команда \"{$this->_command}\"...", Logger::LEVEL_INFO, "console.run");
 
 		/**
 		 * @var Command $class;
 		 */
 		$class = new $className;
 		if ($class->run($this->_args)) {
-			Logger::log("Команда успешно выполнена", Logger::LEVEL_INFO, "console.run");
+			Logger::log("Команда успешно выполнена!", Logger::LEVEL_INFO, "console.run");
 		} else {
-			Logger::log("Ошибка при выполнении команды", Logger::LEVEL_ERROR, "console.run");
+			Logger::log("Ошибка при выполнении команды.", Logger::LEVEL_ERROR, "console.run");
 		}
+
+		$time = microtime(true) - $startTime;
+		Logger::log("Время выполнения скрипта: {$time} сек.", Logger::LEVEL_INFO, "console.run");
 	}
 
 	/**
@@ -110,7 +116,7 @@ class Console extends Application
 
 		$handle = opendir($dir);
 		if (!$handle) {
-			throw new Exception("Commands folder does not open");
+			throw new Exception("Папку с командами не удалось открыть");
 		}
 
 		while (false !== ($file = readdir($handle))) {
@@ -121,7 +127,7 @@ class Console extends Application
 		closedir($handle);
 
 		if (!$list) {
-			throw new Exception("Commands not found");
+			throw new Exception("Команды не найдены");
 		}
 
 		$this->_commandList = $list;
@@ -157,7 +163,7 @@ class Console extends Application
 	 */
 	protected function help()
 	{
-		echo "Available commands are:";
+		echo "Доступные команды:";
 		foreach ($this->_commandList as $command) {
 			echo "\n   {$command}";
 		}
