@@ -390,7 +390,7 @@ class MigrateCommand extends Command
 					$migration = new $migrationName;
 					if (!$migration->up()) {
 						Logger::log(
-							"Не удалось применить миграцию \"{$migrationName}\" from db \"" .
+							"Не удалось применить миграцию \"{$migrationName}\" для базы \"" .
 							Db::PREFIX .
 							$site["db_name"] .
 							"\"",
@@ -402,7 +402,7 @@ class MigrateCommand extends Command
 
 					if ($this->_isData && App::console()->isDebug && !$migration->insertData()) {
 						Logger::log(
-							"Не удалось вставить тестовую информацию \"{$migrationName}\" from db \"" .
+							"Не удалось вставить тестовую информацию в миграции \"{$migrationName}\" для базы \"" .
 							Db::PREFIX .
 							$site["db_name"] .
 							"\"",
