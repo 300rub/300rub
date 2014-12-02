@@ -129,7 +129,7 @@ class BuildCommand extends Command
 			git reset --hard;
 			git fetch --all -p;
 			git checkout {$branch};
-			git rebase origin/{$branch};
+			git reset --hard origin/{$branch};
 			chmod 777 c;
 		";
 		exec($command);

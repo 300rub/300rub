@@ -39,6 +39,22 @@ abstract class Migration
 	);
 
 	/**
+	 * Получает тип столбца
+	 *
+	 * @param string $type тип
+	 *
+	 * @return string
+	 */
+	public function getColumnType($type)
+	{
+		if (array_key_exists($type, $this->_columnTypes)) {
+			return $this->_columnTypes[$type];
+		}
+
+		return $type;
+	}
+
+	/**
 	 * Создает таблицу
 	 *
 	 * @param string $table   таблица
@@ -56,41 +72,12 @@ abstract class Migration
 		$query = "\nCREATE TABLE " . $table . " (\n" . implode(",\n", $cols) . "\n)" . $options;
 		$result = $this->execute($query);
 		if ($result) {
-			Logger::log("Table \"{$table}\" successfully created", Logger::LEVEL_INFO, "console.migrations.table");
+			Logger::log("Таблица \"{$table}\" успешно создана", Logger::LEVEL_INFO, "console.migrations.table");
 			return true;
 		}
 
-		Logger::log("Table \"{$table}\" could not be created", Logger::LEVEL_INFO, "console.migrations.table");
+		Logger::log("Не удалось создать таблицу \"{$table}\"", Logger::LEVEL_INFO, "console.migrations.table");
 		return false;
-	}
-
-	/**
-	 * Добавляет внешний ключ
-	 *
-	 * @param string $name      название
-	 * @param string $table     таблица
-	 * @param string $column    столбец
-	 * @param string $refTable  связная таблица
-	 * @param string $refColumn связной столбец
-	 * @param string $delete    on delete
-	 * @param string $update    on update
-	 *
-	 * @return void
-	 */
-	public function addForeignKey($name, $table, $column, $refTable, $refColumn, $delete = null, $update = null)
-	{
-		$query = 'ALTER TABLE ' . $table
-			. ' ADD CONSTRAINT ' . $name
-			. ' FOREIGN KEY (' . $column . ')'
-			. ' REFERENCES ' . $refTable
-			. ' (' . $refColumn . ')';
-		if ($delete !== null) {
-			$query .= ' ON DELETE ' . $delete;
-		}
-		if ($update !== null) {
-			$query .= ' ON UPDATE ' . $update;
-		}
-		$this->execute($query);
 	}
 
 	/**
@@ -112,7 +99,7 @@ abstract class Migration
 
 		if ($result) {
 			Logger::log(
-				"Index \"{$name}\" for table \"{$table}\" successfully created",
+				"Индекс \"{$name}\" для таблицы \"{$table}\" успешно создан",
 				Logger::LEVEL_INFO,
 				"console.migrations.table"
 			);
@@ -120,27 +107,11 @@ abstract class Migration
 		}
 
 		Logger::log(
-			"Index \"{$name}\" for table \"{$table}\" could not be created",
+			"Не удалось создать индекс \"{$name}\" для таблицы \"{$table}\"",
 			Logger::LEVEL_INFO,
-			"console.migrations.table"
+			"console.migrations.index"
 		);
 		return false;
-	}
-
-	/**
-	 * Получает тип столбца
-	 *
-	 * @param string $type тип
-	 *
-	 * @return string
-	 */
-	public function getColumnType($type)
-	{
-		if (array_key_exists($type, $this->_columnTypes)) {
-			return $this->_columnTypes[$type];
-		}
-
-		return $type;
 	}
 
 	/**
