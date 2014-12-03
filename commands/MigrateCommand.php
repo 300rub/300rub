@@ -386,8 +386,8 @@ class MigrateCommand extends Command
 					/**
 					 * @var \system\db\Migration $migration
 					 */
-					$migrationName = "\\migrations\\{$migrationName}";
-					$migration = new $migrationName;
+					$migrationFullName = "\\migrations\\{$migrationName}";
+					$migration = new $migrationFullName;
 					if (!$migration->up()) {
 						Logger::log(
 							"Не удалось применить миграцию \"{$migrationName}\" для базы \"" .
@@ -399,6 +399,11 @@ class MigrateCommand extends Command
 						);
 						return false;
 					}
+					Logger::log(
+						"Миграция \"{$migrationName}\" успешно выполнена",
+						Logger::LEVEL_INFO,
+						"console.migrate"
+					);
 
 					if ($this->_isData && App::console()->isDebug && !$migration->insertData()) {
 						Logger::log(
@@ -411,6 +416,11 @@ class MigrateCommand extends Command
 						);
 						return false;
 					}
+					Logger::log(
+						"Тестовая информация для миграции \"{$migrationName}\" успешно вставлена",
+						Logger::LEVEL_INFO,
+						"console.migrate"
+					);
 				}
 			}
 		} catch (Exception $e) {

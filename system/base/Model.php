@@ -3,6 +3,7 @@
 namespace system\base;
 
 use system\db\Db;
+use system\base\Validator;
 
 /**
  * Файл класса Model.
@@ -27,6 +28,13 @@ abstract class Model
 	 * @var Db
 	 */
 	protected $db;
+
+	/**
+	 * Ошибки
+	 *
+	 * @var array
+	 */
+	public $errors = array();
 
 	/**
 	 * Получает название связной таблицы
@@ -168,5 +176,60 @@ abstract class Model
 		}
 
 		return true;
+	}
+
+	/**
+	 * Сохранение модели
+	 *
+	 * @return bool
+	 */
+	public function save()
+	{
+		$this->beforeValidate();
+
+		$validator = new Validator($this);
+		$this->errors = array_merge($this->errors, $validator->validate());
+		foreach ($this->relations() as $key => $value) {
+			if ($this->$key) {
+				$validator = new Validator($this->$key, $key);
+				$this->errors = array_merge($this->errors, $validator->validate());
+			}
+		}
+
+		if ($this->errors) {
+			return false;
+		}
+
+		$this->beforeSave();
+		$this->afterSave();
+
+		return true;
+	}
+
+	/**
+	 * Выполняется перед валидацией модели
+	 *
+	 * @return void
+	 */
+	protected function beforeValidate()
+	{
+	}
+
+	/**
+	 * Выполняется перед сохранением модели
+	 *
+	 * @return void
+	 */
+	protected function beforeSave()
+	{
+	}
+
+	/**
+	 * Выполняется после сохранения модели
+	 *
+	 * @return void
+	 */
+	protected function afterSave()
+	{
 	}
 }

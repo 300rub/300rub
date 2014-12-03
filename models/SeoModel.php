@@ -12,6 +12,12 @@ use system\base\Model;
 class SeoModel extends Model
 {
 
+	public $name = "";
+	public $url = "";
+	public $title = "";
+	public $keywords = "";
+	public $description = "";
+
 	/**
 	 * Получает название связной таблицы
 	 *
@@ -25,11 +31,11 @@ class SeoModel extends Model
 	public function rules()
 	{
 		return array(
-			"name"        => array(),
-			"url"         => array(),
-			"title"       => array(),
-			"keywords"    => array(),
-			"description" => array(),
+			"name"        => array("required", "max" => 255),
+			"url"         => array("required", "max" => 255),
+			"title"       => array("max" => 100),
+			"keywords"    => array("max" => 255),
+			"description" => array("max" => 255),
 		);
 	}
 

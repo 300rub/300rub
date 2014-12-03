@@ -1,0 +1,107 @@
+<?php
+
+namespace system\base;
+
+class Validator
+{
+
+	/**
+	 * Модель
+	 *
+	 * @var Model
+	 */
+	private $_model = null;
+
+	/**
+	 * Ошибки
+	 *
+	 * @var array
+	 */
+	private $_errors = array();
+
+	/**
+	 * Название связи
+	 *
+	 * @var string
+	 */
+	private $_relation = "";
+
+	/**
+	 * Конструктор
+	 *
+	 * @param Model  $model    модель
+	 * @param string $relation название связи
+	 */
+	public function __construct($model, $relation = null)
+	{
+		$this->_model = $model;
+		$this->_relation = $relation;
+	}
+
+	/**
+	 * Валидация
+	 *
+	 * @return array
+	 */
+	public function validate()
+	{
+		foreach ($this->_model->rules() as $field => $types) {
+			foreach ($types as $key => $value) {
+				if (is_int($key)) {
+					$value = "_" . $value;
+					$this->$value($field);
+				} else {
+					$key = "_" . $key;
+					$this->$key($field, $value);
+				}
+			}
+		}
+
+		if ($this->_errors && $this->_relation) {
+			$errors = array();
+
+			foreach ($this->_errors as $key => $value) {
+				$errors[$this->_relation . "__" . $key] = $value;
+			}
+
+			return $errors;
+		}
+
+		return $this->_errors;
+	}
+
+	/**
+	 * Делает проверку на обязательное заполнение
+	 *
+	 * @param string $field название поля
+	 *
+	 * @return void
+	 */
+	private function _required($field)
+	{
+		if (!$this->_model->$field) {
+			$this->_errors[$field] =
+				Language::t("validator", "{field} is required", array("field" => $field));
+		}
+	}
+
+	/**
+	 * Делает проверку на максимальную длину строки
+	 *
+	 * @param string $field название поля
+	 * @param int    $max   максимальная длина
+	 *
+	 * @return void
+	 */
+	private function _max($field, $max)
+	{
+		if (strlen($this->_model->$field) > $max) {
+			$this->_errors[$field] =
+				Language::t(
+					"validator",
+					"{field} is too long (maximum is {max} characters).",
+					array("field" => $field, "max" => $max)
+				);
+		}
+	}
+}

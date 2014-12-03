@@ -38,7 +38,7 @@ class Language
 	 */
 	public static $languageList = array(
 		self::LANGUAGE_RU => "ru",
-	);v
+	);
 
 	/**
 	 * Устанавливает идентификатор языка
