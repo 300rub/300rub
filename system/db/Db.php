@@ -175,9 +175,9 @@ class Db
 			$query .= " LIMIT {$this->limit}";
 		}
 
-		if (App::$isDebug) {
-			echo "<script>console.log(\"{$query}\");</script>";
-		}
+		//if (App::$isDebug) {
+		//	echo "<script>console.log(\"{$query}\");</script>";
+		//}
 
 		return $query;
 	}
@@ -292,5 +292,24 @@ class Db
 		}
 
 		return $row["LAST_INSERT_ID()"];
+	}
+
+	/**
+	 * Обновляет запись в базе.
+	 *
+	 * @param \system\base\Model $model
+	 *
+	 * @return bool
+	 */
+	public static function update($model)
+	{
+		$sets = array();
+
+		foreach ($model->rules() as $field => $value) {
+			$sets[] = "$field = '" . mysql_real_escape_string($model->$field) . "'";
+		}
+
+		$query = "UPDATE " . $model->tableName() . " SET " . implode(",", $sets) . " WHERE id = " . $model->id;
+		return mysql_query($query);
 	}
 }

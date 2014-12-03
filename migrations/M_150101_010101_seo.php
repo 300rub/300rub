@@ -127,6 +127,13 @@ class M_150101_010101_seo extends Migration
 			return false;
 		}
 
+		$model = SeoModel::model()->find();
+		$model->name = "Новое название";
+		if (!$model->save()) {
+			Logger::log("Не удалось обновить модель", Logger::LEVEL_ERROR, "console.migrations.seo");
+			return false;
+		}
+
 		return true;
 	}
 }

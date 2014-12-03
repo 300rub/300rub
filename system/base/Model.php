@@ -208,14 +208,15 @@ abstract class Model
 		}
 
 		if ($this->id) {
-
+			if (!Db::update($this)) {
+				return false;
+			}
 		} else {
 			$this->id = Db::insert($this);
 			if (!$this->id) {
 				return false;
 			}
 		}
-
 
 		$this->afterSave();
 
