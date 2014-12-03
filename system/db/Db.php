@@ -251,5 +251,46 @@ class Db
 		mysql_query("ROLLBACK");
 	}
 
+	/**
+	 * Вставляет запись в базу.
+	 * В случае удачи возвращает идентификатор
+	 *
+	 * @param \system\base\Model $model
+	 *
+	 * @return int
+	 */
+	public static function insert($model)
+	{
+		$columns = array();
+		$values = array();
 
+		foreach ($model->rules() as $field => $value) {
+			$columns[] = $field;
+			$values[] = "'" . mysql_real_escape_string($model->$field) . "'";
+		}
+
+		$query =
+			"INSERT INTO " .
+			$model->tableName() .
+			" (" .
+			implode(",", $columns) .
+			") VALUES (" .
+			implode(",", $values) .
+			")";
+		if (!mysql_query($query)) {
+			return 0;
+		}
+
+		$result = mysql_query("SELECT LAST_INSERT_ID() FROM " . $model->tableName());
+		if (!$result) {
+			return 0;
+		}
+
+		$row = mysql_fetch_assoc($result);
+		if (!$row || empty($row["LAST_INSERT_ID()"])) {
+			return 0;
+		}
+
+		return $row["LAST_INSERT_ID()"];
+	}
 }

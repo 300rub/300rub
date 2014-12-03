@@ -13,7 +13,8 @@ use models\SeoModel;
  *
  * @package system.db.repository_tables
  */
-class M_150101_010101_seo extends Migration {
+class M_150101_010101_seo extends Migration
+{
 
 	/**
 	 * Применяет миграцию
@@ -73,7 +74,9 @@ class M_150101_010101_seo extends Migration {
 			очень длинная строка больше 255 символов, очень длинная строка больше 255 символов,
 			очень длинная строка больше 255 символов, очень длинная строка больше 255 символов";
 		$model->url =
-			"ochen_dlinnaya_stroka_bolshe_255_simvolov_ochen_dlinnaya_stroka_bolshe_255_simvolov_ochen_dlinnaya_stroka_bolshe_255_simvolov_ochen_dlinnaya_stroka_bolshe_255_simvolov_ochen_dlinnaya_stroka_bolshe_255_simvolov_ochen_dlinnaya_stroka_bolshe_255_simvolov_ochen_dlinnaya_stroka_bolshe_255_simvolov";
+			"ochen_dlinnaya_stroka_bolshe_255_simvolov_ochen_dlinnaya_stroka_bolshe_255_simvolov_ochen_dlinnaya_
+			stroka_bolshe_255_simvolov_ochen_dlinnaya_stroka_bolshe_255_simvolov_ochen_dlinnaya_stroka_bolshe_255_
+			simvolov_ochen_dlinnaya_stroka_bolshe_255_simvolov_ochen_dlinnaya_stroka_bolshe_255_simvolov";
 		$model->title = "очень длинная строка больше 100 символов, очень длинная строка больше 100 символов,
 			очень длинная строка больше 100 символов, очень длинная строка больше 100 символов";
 		$model->keywords = "очень длинная строка больше 255 символов, очень длинная строка больше 255 символов,
@@ -92,6 +95,35 @@ class M_150101_010101_seo extends Migration {
 				Logger::LEVEL_ERROR,
 				"console.migrations.seo"
 			);
+			return false;
+		}
+
+		// Некорректный url
+		$model = new SeoModel;
+		$model->name = "Название 1";
+		$model->url = "url_url дфыае7 7ы в7ащ * ()№";
+		if (!$model->save()) {
+			Logger::log("Некорректный URL адрес не преобразовался", Logger::LEVEL_ERROR, "console.migrations.seo");
+			return false;
+		}
+
+		// Вставка с полными параметрами
+		$model = new SeoModel;
+		$model->name = "Название 2";
+		$model->url = "url2";
+		$model->title = "Заголовок 2";
+		$model->keywords = "ключевые слова 2";
+		$model->description = "описание 2";
+		if (!$model->save()) {
+			Logger::log("Не удалось сохранить SEO #2", Logger::LEVEL_ERROR, "console.migrations.seo");
+			return false;
+		}
+
+		// Вставка с минимальными параметрами
+		$model = new SeoModel;
+		$model->name = "Название 3";
+		if (!$model->save()) {
+			Logger::log("Не удалось сохранить SEO #3", Logger::LEVEL_ERROR, "console.migrations.seo");
 			return false;
 		}
 

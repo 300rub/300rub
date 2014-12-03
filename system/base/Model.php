@@ -201,6 +201,22 @@ abstract class Model
 		}
 
 		$this->beforeSave();
+
+		$data = array();
+		foreach ($this->rules() as $field => $value) {
+			$data[$field] = $this->$field;
+		}
+
+		if ($this->id) {
+
+		} else {
+			$this->id = Db::insert($this);
+			if (!$this->id) {
+				return false;
+			}
+		}
+
+
 		$this->afterSave();
 
 		return true;

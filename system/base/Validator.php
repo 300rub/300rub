@@ -104,4 +104,24 @@ class Validator
 				);
 		}
 	}
+
+	/**
+	 * Делает проверку на корректность url
+	 *
+	 * @param string $field название поля
+	 *
+	 * @return void
+	 */
+	private function _url($field)
+	{
+		if (!preg_match("/^[0-9a-z-]+$/i", $this->_model->$field)) {
+
+			$this->_errors[$field] =
+				Language::t(
+					"validator",
+					"{field} may consist of latin characters, numbers and hyphens",
+					array("field" => $field)
+				);
+		}
+	}
 }
