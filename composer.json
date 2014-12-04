@@ -1,0 +1,10 @@
+{
+	"require": {
+		"phpunit/phpunit": "4.3.*",
+		"phpunit/dbunit": "1.3.*"
+	},
+	"config": {
+		"vendor-dir": "vendors",
+		"discard-changes": true
+	}
+}
