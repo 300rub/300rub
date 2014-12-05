@@ -21,16 +21,6 @@ class MigrateCommand extends Command
 {
 
 	/**
-	 * Обновление базы полностью
-	 */
-	const ARG_RESET = "-r";
-
-	/**
-	 * Вставка тестовой информации в базу
-	 */
-	const ARG_DATA = "-d";
-
-	/**
 	 * Новые миграции
 	 *
 	 * @var string[]
@@ -50,20 +40,6 @@ class MigrateCommand extends Command
 	 * @var array
 	 */
 	private $_dumpSites = array();
-
-	/**
-	 * Обновлять ли базы полностью
-	 *
-	 * @var bool
-	 */
-	private $_isReset = false;
-
-	/**
-	 * Загружать ли тестовую информацию
-	 *
-	 * @var bool
-	 */
-	private $_isData = false;
 
 	/**
 	 * Выполняет команду
@@ -100,13 +76,9 @@ class MigrateCommand extends Command
 
 		Logger::log("Началось применение миграций", Logger::LEVEL_INFO, "console.build");
 
-		if (in_array(self::ARG_RESET, $args) && App::console()->isDebug) {
+		if (App::console()->isDebug) {
 			Logger::log("Предусмотрена очистка баз перед выполнением", Logger::LEVEL_INFO, "console.migrate");
-			$this->_isReset = true;
-		}
-		if (in_array(self::ARG_DATA, $args) && App::console()->isDebug) {
 			Logger::log("Предусмотрена вставка тестовой информации", Logger::LEVEL_INFO, "console.migrate");
-			$this->_isData = true;
 		}
 
 		if (!$this->_setNewMigrations()) {
@@ -208,7 +180,7 @@ class MigrateCommand extends Command
 		while (false !== ($file = readdir($handle))) {
 			if ($file != "." && $file != "..") {
 				$version = str_replace(".php", "", $file);
-				if (!in_array($version, $versions) || $this->_isReset) {
+				if (App::console()->isDebug || !in_array($version, $versions)) {
 					$this->_migrations[] = $version;
 				}
 			}
@@ -348,7 +320,7 @@ class MigrateCommand extends Command
 					return false;
 				}
 
-				if ($this->_isReset && App::console()->isDebug) {
+				if (App::console()->isDebug) {
 					$tables = array();
 
 					$result = mysql_query("SHOW TABLES FROM " . Db::PREFIX . $site["db_name"]);
@@ -405,7 +377,7 @@ class MigrateCommand extends Command
 						"console.migrate"
 					);
 
-					if ($this->_isData && App::console()->isDebug && !$migration->insertData()) {
+					if (App::console()->isDebug && !$migration->insertData()) {
 						Logger::log(
 							"Не удалось вставить тестовую информацию в миграции \"{$migrationName}\" для базы \"" .
 							Db::PREFIX .
@@ -427,7 +399,7 @@ class MigrateCommand extends Command
 			return false;
 		}
 
-		if ($this->_isReset && App::console()->isDebug) {
+		if (App::console()->isDebug) {
 			$connection = Db::setConnect(
 				App::console()->db["user"],
 				App::console()->db["password"],

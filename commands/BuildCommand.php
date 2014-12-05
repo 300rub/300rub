@@ -74,16 +74,12 @@ class BuildCommand extends Command
 	 */
 	private function _setBranches($args)
 	{
-		foreach ($args as $arg) {
-			if ($arg != MigrateCommand::ARG_RESET && $arg != MigrateCommand::ARG_DATA) {
-				$this->_branch = $arg;
+		if (App::console()->isDebug) {
+			if (!empty($args[0])) {
+				$this->_branch = $args[0];
 			}
-		}
-
-		if (!App::console()->isDebug) {
+		} else {
 			$this->_branch = self::RELEASE_PREFIX . App::console()->release;
-		}
-		if (!App::console()->isDebug) {
 			$this->_prevBranch = self::RELEASE_PREFIX . App::console()->prevRelease;
 		}
 	}
@@ -131,6 +127,7 @@ class BuildCommand extends Command
 			git checkout {$branch};
 			git reset --hard origin/{$branch};
 			chmod 777 c;
+			composer update;
 		";
 		exec($command);
 
