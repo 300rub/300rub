@@ -52,11 +52,10 @@ class BuildCommand extends Command
 
 		$migrateCommand = new MigrateCommand;
 		if (!$migrateCommand->run($args)) {
-
 			Logger::log("Во время сборки произошла ошибка", Logger::LEVEL_INFO, "console.build");
 
 			$this->_gitCheckout($this->_prevBranch);
-			Logger::log("Откатано из ветки {$this->_branch}", Logger::LEVEL_INFO, "console.build");
+			Logger::log("Откатано из ветки {$this->_prevBranch}", Logger::LEVEL_INFO, "console.build");
 
 			return false;
 		}

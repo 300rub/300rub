@@ -44,7 +44,13 @@ class ErrorHandler
 		restore_error_handler();
 		restore_exception_handler();
 
-		$category = 'exception.' . $exception->statusCode;
+		$statusCode = 500;
+		if (!empty($exception->statusCode)) {
+			$statusCode = $exception->statusCode;
+		}
+		$category = "exception.{$statusCode}";
+
+		var_dump($exception->getMessage());
 
 		$message = $exception->__toString();
 		if (isset($_SERVER['REQUEST_URI'])) {
@@ -63,7 +69,7 @@ class ErrorHandler
 			}
 
 			$controller = new ErrorController();
-			$controller->actionError($message, $exception->statusCode, $trace);
+			$controller->actionError($message, $statusCode, $trace);
 		}
 	}
 

@@ -2,6 +2,8 @@
 
 namespace system\base;
 
+use system\db\Db;
+
 abstract class Application
 {
 
@@ -25,5 +27,7 @@ abstract class Application
 		$this->isDebug = $config["isDebug"];
 		$this->rootDir = $config["rootDir"];
 		$this->db = $config["db"];
+
+		Db::setPdo($this->db["user"], $this->db["password"], $this->db["dbName"]);
 	}
 }

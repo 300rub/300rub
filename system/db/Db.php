@@ -2,11 +2,9 @@
 
 namespace system\db;
 
-use system\App;
-use system\base\Logger;
+use PDO;
+use PDOException;
 use system\base\Model;
-use system\base\Exception;
-use system\base\Language;
 
 /**
  * Файл класса Db
@@ -16,14 +14,10 @@ use system\base\Language;
 class Db
 {
 
-	const PREFIX = "s_";
-
 	/**
-	 * Установлено ли соединение
-	 *
-	 * @var bool
+	 * Префикс БД
 	 */
-	private static $_isConnect = false;
+	const PREFIX = "s_";
 
 	/**
 	 * Название таблицы
@@ -68,6 +62,13 @@ class Db
 	public $fields = array();
 
 	/**
+	 * Модель PDO
+	 *
+	 * @var PDO
+	 */
+	private static $_pdo;
+
+	/**
 	 * Связи
 	 *
 	 * @var array
@@ -75,39 +76,29 @@ class Db
 	public $relations = array();
 
 	/**
-	 * Устанавливает соединение с базой
+	 * Устанавливает PDO
 	 *
-	 * @param string $user            пользователь
-	 * @param string $password        пароль
-	 * @param string $base            база
-	 * @param bool   $isNewConnection новое соединение
-	 *
-	 * @throws Exception
+	 * @param string $user     пользователь
+	 * @param string $password парль
+	 * @param string $dbName   база
 	 *
 	 * @return bool
 	 */
-	public static function setConnect($user, $password, $base, $isNewConnection = false)
+	public static function setPdo($user, $password, $dbName)
 	{
-		if (self::$_isConnect && !$isNewConnection) {
-			return true;
-		}
-
-		if (!mysql_connect("localhost", $user, $password)) {
-			Logger::log(Language::t("db", "Could not connect to MySQL server"), Logger::LEVEL_ERROR, "db");
+		try {
+			self::$_pdo = new PDO(
+				"mysql:host=localhost;dbname={$dbName};charset=UTF-8",
+				$user,
+				$password,
+				array(
+					PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
+					PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC
+				)
+			);
+		} catch (PDOException $e) {
 			return false;
 		}
-
-		if (!mysql_select_db($base)) {
-			Logger::log(Language::t("db", "Unable to select database"), Logger::LEVEL_ERROR, "db");
-			return false;
-		}
-
-		if (!mysql_query("SET NAMES 'utf8'") || !mysql_set_charset("utf8")) {
-			Logger::log(Language::t("db", "Failed to set the encoding for the database"), Logger::LEVEL_ERROR, "db");
-			return false;
-		}
-
-		self::$_isConnect = true;
 
 		return true;
 	}
@@ -183,25 +174,6 @@ class Db
 	}
 
 	/**
-	 * Получает ассоциативный массив с данными из БД
-	 *
-	 * @return array
-	 */
-	public function getResult()
-	{
-		$rows = array();
-
-		$result = mysql_query($this->_getQuery());
-		if ($result) {
-			while ($row = mysql_fetch_assoc($result)) {
-				$rows[] = $row;
-			}
-		}
-
-		return $rows;
-	}
-
-	/**
 	 * Добавляет условие
 	 *
 	 * @param string $condition условие
@@ -227,28 +199,60 @@ class Db
 	/**
 	 * Проверяет таблицу на существование
 	 *
-	 * @param string $table название таблицы
+	 * @param string $condition команда
+	 * @param array  $params    параметры
 	 *
 	 * @return bool
 	 */
-	public static function isTableExist($table)
+	public static function execute($condition, $params = array())
 	{
-		return (bool)mysql_query("SELECT * FROM `" . $table . "` WHERE 0");
+		return self::$_pdo->prepare($condition)->execute($params);
 	}
 
+	/**
+	 * Выбирает несколько записей
+	 *
+	 * @param string $condition команда
+	 * @param array  $params    параметры
+	 *
+	 * @return array
+	 */
+	public static function fetchAll($condition, $params = array())
+	{
+		$sth = self::$_pdo->prepare($condition);
+		$sth->execute($params);
+
+		return $sth->fetchAll();
+	}
+
+	/**
+	 * Начинает трансакцию
+	 *
+	 * @return void
+	 */
 	public static function startTransaction()
 	{
-		mysql_query("START TRANSACTION");
+		self::$_pdo->beginTransaction();
 	}
 
+	/**
+	 * Коммит трансакции
+	 *
+	 * @return void
+	 */
 	public static function commitTransaction()
 	{
-		mysql_query("COMMIT");
+		self::$_pdo->commit();
 	}
 
+	/**
+	 * Откат трансакции
+	 *
+	 * @return void
+	 */
 	public static function rollbackTransaction()
 	{
-		mysql_query("ROLLBACK");
+		self::$_pdo->rollBack();
 	}
 
 	/**

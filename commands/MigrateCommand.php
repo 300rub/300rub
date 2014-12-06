@@ -50,27 +50,8 @@ class MigrateCommand extends Command
 	 */
 	public function run($args = array())
 	{
-		$connection = Db::setConnect(
-			App::console()->db["user"],
-			App::console()->db["password"],
-			App::console()->db["base"],
-			true
-		);
-		if (!$connection) {
-			Logger::log(
-				"Не удалось соединиться с базой " . App::console()->db["base"],
-				Logger::LEVEL_ERROR,
-				"console.migrate"
-			);
-			return false;
-		}
-
 		if (!$this->_checkCommonTables()) {
-			Logger::log(
-				"Не найдены базовые таблицы в базе " . App::console()->db["base"],
-				Logger::LEVEL_ERROR,
-				"console.migrate"
-			);
+			Logger::log("Не найдены базовые таблицы (migrations...)", Logger::LEVEL_ERROR, "console.migrate");
 			return false;
 		}
 
@@ -119,7 +100,7 @@ class MigrateCommand extends Command
 	 */
 	private function _checkCommonTables()
 	{
-		if (!Db::isTableExist("migrations")) {
+		if (!Db::execute("SHOW TABLES LIKE 'migrations'")) {
 			try {
 				$migration = new Migrations;
 				if (!$migration->up()) {
@@ -127,7 +108,7 @@ class MigrateCommand extends Command
 				}
 			} catch (Exception $e) {
 				Logger::log(
-					"Не удалось создать таблицу \"migrations\" в базе " . App::console()->db["base"],
+					"Не удалось создать таблицу \"migrations\" в базе " . App::console()->db["dbName"],
 					Logger::LEVEL_ERROR,
 					"console.migrate"
 				);
@@ -135,7 +116,7 @@ class MigrateCommand extends Command
 			}
 		}
 
-		if (!Db::isTableExist("sites")) {
+		if (!Db::execute("SHOW TABLES LIKE 'sites'")) {
 			try {
 				$migration = new Sites;
 				if (!$migration->up()) {
@@ -143,7 +124,7 @@ class MigrateCommand extends Command
 				}
 			} catch (Exception $e) {
 				Logger::log(
-					"Не удалось создать таблицу \"sites\" в базе " . App::console()->db["base"],
+					"Не удалось создать таблицу \"sites\" в базе " . App::console()->db["dbName"],
 					Logger::LEVEL_ERROR,
 					"console.migrate"
 				);
@@ -162,16 +143,12 @@ class MigrateCommand extends Command
 	private function _setNewMigrations()
 	{
 		$versions = array();
-		$result = mysql_query("SELECT * FROM `migrations`");
-		if ($result) {
-			while ($row = mysql_fetch_assoc($result)) {
-				$versions[] = $row["version"];
-			}
+		$rows = Db::fetchAll("SELECT * FROM `migrations`");
+		foreach ($rows as $row) {
+			$versions[] = $row["version"];
 		}
 
-		$dir = App::console()->rootDir . DIRECTORY_SEPARATOR . "migrations";
-
-		$handle = opendir($dir);
+		$handle = opendir(App::console()->rootDir . DIRECTORY_SEPARATOR . "migrations");
 		if (!$handle) {
 			Logger::log("Не удалось открыть папку с миграциями", Logger::LEVEL_ERROR, "console.migrate");
 			return false;
@@ -196,11 +173,9 @@ class MigrateCommand extends Command
 	 */
 	private function _setSites()
 	{
-		$result = mysql_query("SELECT * FROM `sites`");
-		if ($result) {
-			while ($row = mysql_fetch_assoc($result)) {
-				$this->_sites[] = $row;
-			}
+		$rows = Db::fetchAll("SELECT * FROM `sites`");
+		foreach ($rows as $row) {
+			$this->_sites[] = $row;
 		}
 
 		return true;
@@ -214,15 +189,9 @@ class MigrateCommand extends Command
 	private function _createDumps()
 	{
 		foreach ($this->_sites as $site) {
-			$connection = Db::setConnect(
-				$site["db_user"],
-				$site["db_password"],
-				Db::PREFIX . $site["db_name"],
-				true
-			);
-			if (!$connection) {
+			if (!Db::setPdo($site["db_user"], $site["db_password"], Db::PREFIX . $site["db_name"])) {
 				Logger::log(
-					"Не удалось соединиться с базой \"" . Db::PREFIX . $site["db_name"] . "\"",
+					"Не удалось подключиться к базе \"" . Db::PREFIX . $site["db_name"] . "\"",
 					Logger::LEVEL_ERROR,
 					"console.migrate"
 				);
@@ -231,7 +200,7 @@ class MigrateCommand extends Command
 
 			$this->_dumpSites[] = $site;
 
-			$command =
+			exec(
 				"mysqldump -u " .
 				$site["db_user"] .
 				" -h localhost -p'" .
@@ -243,8 +212,8 @@ class MigrateCommand extends Command
 				App::console()->rootDir .
 				"/backups/" .
 				$site["db_name"] .
-				".sql.gz";
-			exec($command);
+				".sql.gz"
+			);
 		}
 
 		return true;
@@ -268,7 +237,7 @@ class MigrateCommand extends Command
 				return false;
 			}
 
-			$command =
+			exec(
 				"gunzip < " .
 				$file .
 				" | mysql -u " .
@@ -277,8 +246,8 @@ class MigrateCommand extends Command
 				$site["db_password"] .
 				"' " .
 				Db::PREFIX .
-				$site["db_name"];
-			exec($command);
+				$site["db_name"]
+			);
 		}
 
 		return true;
@@ -305,13 +274,13 @@ class MigrateCommand extends Command
 
 		try {
 			foreach ($this->_sites as $site) {
-				$connection = Db::setConnect(
-					$site["db_user"],
-					$site["db_password"],
-					Db::PREFIX . $site["db_name"],
-					true
-				);
-				if (!$connection) {
+				if (
+					!Db::setPdo(
+						$site["db_user"],
+						$site["db_password"],
+						Db::PREFIX . $site["db_name"]
+					)
+				) {
 					Logger::log(
 						"Не удалось соединиться с базой \"" . Db::PREFIX . $site["db_name"] . "\"",
 						Logger::LEVEL_ERROR,
@@ -323,21 +292,14 @@ class MigrateCommand extends Command
 				if (App::console()->isDebug) {
 					$tables = array();
 
-					$result = mysql_query("SHOW TABLES FROM " . Db::PREFIX . $site["db_name"]);
-					if (!$result) {
-						Logger::log(
-							"Не удалось получить таблицы из базы " . Db::PREFIX . $site["db_name"],
-							Logger::LEVEL_ERROR,
-							"console.migrate"
-						);
-						return false;
-					}
-					while ($row = mysql_fetch_row($result)) {
-						$tables[] = $row[0];
+					$rows = Db::fetchAll("SHOW TABLES FROM " . Db::PREFIX . $site["db_name"]);
+					foreach ($rows as $row) {
+						foreach ($row as $key => $value)
+						$tables[] = $value;
 					}
 
 					foreach($tables as $table){
-						if (!mysql_query("DROP TABLE `{$table}`")) {
+						if (!Db::execute("DROP TABLE `{$table}`")) {
 							Logger::log(
 								"Не удалось удалить таблицу {$table} из базы " . Db::PREFIX . $site["db_name"],
 								Logger::LEVEL_ERROR,
@@ -400,17 +362,17 @@ class MigrateCommand extends Command
 		}
 
 		if (App::console()->isDebug) {
-			$connection = Db::setConnect(
-				App::console()->db["user"],
-				App::console()->db["password"],
-				App::console()->db["base"],
-				true
-			);
-			if (!$connection) {
+			if (
+				!Db::setPdo(
+					App::console()->db["user"],
+					App::console()->db["password"],
+					App::console()->db["dbName"]
+				)
+			) {
 				return false;
 			}
 
-			if (!mysql_query("TRUNCATE TABLE `migrations`")) {
+			if (!Db::execute("TRUNCATE TABLE `migrations`")) {
 				Logger::log("Не удалось очистить таблицу \"migrations\"", Logger::LEVEL_ERROR, "console.migrate");
 				return false;
 			}
@@ -426,22 +388,23 @@ class MigrateCommand extends Command
 	 */
 	private function _updateVersions()
 	{
-		$connection = Db::setConnect(
-			App::console()->db["user"],
-			App::console()->db["password"],
-			App::console()->db["base"],
-			true
-		);
-		if (!$connection) {
+		if (
+			!Db::setPdo(
+				App::console()->db["user"],
+				App::console()->db["password"],
+				App::console()->db["dbName"]
+			)
+		) {
+			Logger::log("Не удалось подключиться к основной базе", Logger::LEVEL_ERROR, "console.migrate");
 			return false;
 		}
 
 		Db::startTransaction();
 		foreach ($this->_migrations as $migration) {
-			if (!mysql_query("INSERT INTO `migrations` (version) VALUES('" . $migration . "')")) {
+			if (!Db::execute("INSERT INTO `migrations` (version) VALUES(?)", array($migration))) {
 				Db::rollbackTransaction();
 
-				Logger::log("Не удалось обновить версии миграций", Logger::LEVEL_INFO, "console.migrate");
+				Logger::log("Не удалось обновить версии миграций", Logger::LEVEL_ERROR, "console.migrate");
 				return false;
 			}
 		}

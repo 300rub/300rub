@@ -10,7 +10,7 @@ return array(
 	"db"                => array(
 		"user"     => "mike",
 		"password" => "mypasS77",
-		"base"     => "mike",
+		"dbName"   => "mike",
 	),
 	"release"     => "1.0",
 	"prevRelease" => "0",

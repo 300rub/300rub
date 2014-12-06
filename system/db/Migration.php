@@ -70,7 +70,7 @@ abstract class Migration
 			$cols[] = "`{$name}`" . ' ' . $this->getColumnType($type);
 		}
 		$query = "\nCREATE TABLE " . $table . " (\n" . implode(",\n", $cols) . "\n)" . $options;
-		$result = $this->execute($query);
+		$result = Db::execute($query);
 		if ($result) {
 			Logger::log("Таблица \"{$table}\" успешно создана", Logger::LEVEL_INFO, "console.migrations.table");
 			return true;
@@ -95,7 +95,7 @@ abstract class Migration
 		$query = ($unique ? 'CREATE UNIQUE INDEX ' : 'CREATE INDEX ')
 			. $name . ' ON '
 			. $table . ' (' . $column . ')';
-		$result = $this->execute($query);
+		$result = Db::execute($query);
 
 		if ($result) {
 			Logger::log(
@@ -112,17 +112,5 @@ abstract class Migration
 			"console.migrations.index"
 		);
 		return false;
-	}
-
-	/**
-	 * Выполняет запрос
-	 *
-	 * @param string $query запрос
-	 *
-	 * @return bool
-	 */
-	public function execute($query)
-	{
-		return mysql_query($query);
 	}
 }
