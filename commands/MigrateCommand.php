@@ -21,6 +21,14 @@ class MigrateCommand extends Command
 {
 
 	/**
+	 * Вставка тестовой информации
+	 * Доступна только в режиме отладки
+	 *
+	 * @var bool
+	 */
+	public $isTestData = true;
+
+	/**
 	 * Новые миграции
 	 *
 	 * @var string[]
@@ -59,7 +67,9 @@ class MigrateCommand extends Command
 
 		if (App::console()->isDebug) {
 			Logger::log("Предусмотрена очистка баз перед выполнением", Logger::LEVEL_INFO, "console.migrate");
-			Logger::log("Предусмотрена вставка тестовой информации", Logger::LEVEL_INFO, "console.migrate");
+			if ($this->isTestData) {
+				Logger::log("Предусмотрена вставка тестовой информации", Logger::LEVEL_INFO, "console.migrate");
+			}
 		}
 
 		if (!$this->_setNewMigrations()) {
@@ -339,22 +349,24 @@ class MigrateCommand extends Command
 						"console.migrate"
 					);
 
-					if (App::console()->isDebug && !$migration->insertData()) {
+					if (App::console()->isDebug && $this->isTestData) {
+						if (!$migration->insertData()) {
+							Logger::log(
+								"Не удалось вставить тестовую информацию в миграции \"{$migrationName}\" для базы \"" .
+								Db::PREFIX .
+								$site["db_name"] .
+								"\"",
+								Logger::LEVEL_ERROR,
+								"console.migrate"
+							);
+							return false;
+						}
 						Logger::log(
-							"Не удалось вставить тестовую информацию в миграции \"{$migrationName}\" для базы \"" .
-							Db::PREFIX .
-							$site["db_name"] .
-							"\"",
-							Logger::LEVEL_ERROR,
+							"Тестовая информация для миграции \"{$migrationName}\" успешно вставлена",
+							Logger::LEVEL_INFO,
 							"console.migrate"
 						);
-						return false;
 					}
-					Logger::log(
-						"Тестовая информация для миграции \"{$migrationName}\" успешно вставлена",
-						Logger::LEVEL_INFO,
-						"console.migrate"
-					);
 				}
 			}
 		} catch (Exception $e) {
