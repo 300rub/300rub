@@ -22,20 +22,6 @@ class Console extends Application
 	const COMMAND_ENDING = "Command";
 
 	/**
-	 * Номер релиза
-	 *
-	 * @var string
-	 */
-	public $release = "";
-
-	/**
-	 * Номер предыдущего релиза
-	 *
-	 * @var string
-	 */
-	public $prevRelease = "";
-
-	/**
 	 * Список всех команд
 	 *
 	 * @var string[]
@@ -55,19 +41,6 @@ class Console extends Application
 	 * @var string[]
 	 */
 	private $_args = array();
-
-	/**
-	 * Конструктор
-	 *
-	 * @param array $config конфиг
-	 */
-	public function __construct($config)
-	{
-		$this->release = $config["release"];
-		$this->prevRelease = $config["prevRelease"];
-
-		parent::__construct($config);
-	}
 
 	/**
 	 * Запускает команду
@@ -98,7 +71,7 @@ class Console extends Application
 			Logger::log("Ошибка при выполнении команды.", Logger::LEVEL_ERROR, "console.run");
 		}
 
-		$time = microtime(true) - $startTime;
+		$time = number_format(microtime(true) - $startTime, 3);
 		Logger::log("Время выполнения скрипта: {$time} сек.", Logger::LEVEL_INFO, "console.run");
 	}
 
@@ -112,7 +85,7 @@ class Console extends Application
 	private function _setCommandList()
 	{
 		$list = array();
-		$dir = $this->rootDir . DIRECTORY_SEPARATOR . "commands";
+		$dir = $this->config->rootDir . DIRECTORY_SEPARATOR . "commands";
 
 		$handle = opendir($dir);
 		if (!$handle) {

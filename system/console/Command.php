@@ -1,7 +1,6 @@
 <?php
 
 namespace system\console;
-use system\base\Logger;
 
 /**
  * Файл класса Command.
@@ -19,5 +18,4 @@ abstract class Command
 	 * @return bool
 	 */
 	abstract public function run($args);
-
 }

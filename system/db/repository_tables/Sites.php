@@ -2,6 +2,9 @@
 
 namespace system\db\repository_tables;
 
+use system\App;
+use system\base\Language;
+use system\db\Db;
 use system\db\Migration;
 
 /**
@@ -53,6 +56,20 @@ class Sites extends Migration {
 	 */
 	public function insertData()
 	{
+		$host = App::console()->config->db->name . "." . App::console()->config->host;
+		$dbHost = App::console()->config->db->host;
+		$dbUser = App::console()->config->db->user;
+		$dbPassword = App::console()->config->db->password;
+		$dbName = App::console()->config->db->name;
+		$language = array_search(App::console()->config->language, Language::$languageList);
+		$email = App::console()->config->email->adress;
 
+		return Db::execute(
+			"
+			INSERT INTO sites
+			(host, db_host, db_user, db_password, db_name, language, email)
+			VALUES ('{$host}', '{$dbHost}', '{$dbUser}', '{$dbPassword}', '{$dbName}', '{$language}', '{$email}')
+			"
+		);
 	}
 }

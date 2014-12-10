@@ -59,13 +59,13 @@ class MigrateCommand extends Command
 	public function run($args = array())
 	{
 		if (!$this->_checkCommonTables()) {
-			Logger::log("Не найдены базовые таблицы (migrations...)", Logger::LEVEL_ERROR, "console.migrate");
+			Logger::log("Не найдены базовые таблицы", Logger::LEVEL_ERROR, "console.migrate");
 			return false;
 		}
 
 		Logger::log("Началось применение миграций", Logger::LEVEL_INFO, "console.build");
 
-		if (App::console()->isDebug) {
+		if (App::console()->config->isDebug) {
 			Logger::log("Предусмотрена очистка баз перед выполнением", Logger::LEVEL_INFO, "console.migrate");
 			if ($this->isTestData) {
 				Logger::log("Предусмотрена вставка тестовой информации", Logger::LEVEL_INFO, "console.migrate");
@@ -110,7 +110,7 @@ class MigrateCommand extends Command
 	 */
 	private function _checkCommonTables()
 	{
-		if (!Db::execute("SHOW TABLES LIKE 'migrations'")) {
+		if (!Db::isTableExists("migrations")) {
 			try {
 				$migration = new Migrations;
 				if (!$migration->up()) {
@@ -118,7 +118,7 @@ class MigrateCommand extends Command
 				}
 			} catch (Exception $e) {
 				Logger::log(
-					"Не удалось создать таблицу \"migrations\" в базе " . App::console()->db["dbName"],
+					"Не удалось создать таблицу \"migrations\" в базе " . App::console()->config->db->name,
 					Logger::LEVEL_ERROR,
 					"console.migrate"
 				);
@@ -126,15 +126,18 @@ class MigrateCommand extends Command
 			}
 		}
 
-		if (!Db::execute("SHOW TABLES LIKE 'sites'")) {
+		if (!Db::isTableExists("sites")) {
 			try {
 				$migration = new Sites;
 				if (!$migration->up()) {
 					return false;
 				}
+				if (App::console()->config->isDebug && !$migration->insertData()) {
+					return false;
+				}
 			} catch (Exception $e) {
 				Logger::log(
-					"Не удалось создать таблицу \"sites\" в базе " . App::console()->db["dbName"],
+					"Не удалось создать таблицу \"sites\" в базе " . App::console()->config->db->name,
 					Logger::LEVEL_ERROR,
 					"console.migrate"
 				);
@@ -158,7 +161,7 @@ class MigrateCommand extends Command
 			$versions[] = $row["version"];
 		}
 
-		$handle = opendir(App::console()->rootDir . DIRECTORY_SEPARATOR . "migrations");
+		$handle = opendir(App::console()->config->rootDir . DIRECTORY_SEPARATOR . "migrations");
 		if (!$handle) {
 			Logger::log("Не удалось открыть папку с миграциями", Logger::LEVEL_ERROR, "console.migrate");
 			return false;
@@ -167,7 +170,7 @@ class MigrateCommand extends Command
 		while (false !== ($file = readdir($handle))) {
 			if ($file != "." && $file != "..") {
 				$version = str_replace(".php", "", $file);
-				if (App::console()->isDebug || !in_array($version, $versions)) {
+				if (App::console()->config->isDebug || !in_array($version, $versions)) {
 					$this->_migrations[] = $version;
 				}
 			}
@@ -185,6 +188,9 @@ class MigrateCommand extends Command
 	{
 		$rows = Db::fetchAll("SELECT * FROM `sites`");
 		foreach ($rows as $row) {
+			if (!App::console()->config->isDebug) {
+				$row["db_name"] = Db::PREFIX . $row["db_name"];
+			}
 			$this->_sites[] = $row;
 		}
 
@@ -199,9 +205,9 @@ class MigrateCommand extends Command
 	private function _createDumps()
 	{
 		foreach ($this->_sites as $site) {
-			if (!Db::setPdo($site["db_user"], $site["db_password"], Db::PREFIX . $site["db_name"])) {
+			if (!Db::setPdo($site["db_user"], $site["db_password"], $site["db_name"])) {
 				Logger::log(
-					"Не удалось подключиться к базе \"" . Db::PREFIX . $site["db_name"] . "\"",
+					"Не удалось подключиться к базе \"" . $site["db_name"] . "\"",
 					Logger::LEVEL_ERROR,
 					"console.migrate"
 				);
@@ -216,10 +222,9 @@ class MigrateCommand extends Command
 				" -h localhost -p'" .
 				$site["db_password"] .
 				"' " .
-				Db::PREFIX .
 				$site["db_name"] .
 				" | gzip -c > " .
-				App::console()->rootDir .
+				App::console()->config->rootDir .
 				"/backups/" .
 				$site["db_name"] .
 				".sql.gz"
@@ -237,7 +242,7 @@ class MigrateCommand extends Command
 	private function _rollbackDumps()
 	{
 		foreach ($this->_dumpSites as $site) {
-			$file = App::console()->rootDir . "/backups/" . $site["db_name"] . ".sql.gz";
+			$file = App::console()->config->rootDir . "/backups/" . $site["db_name"] . ".sql.gz";
 			if (!file_exists($file)) {
 				Logger::log(
 					"Не удалось найти файл для базы \"" . Db::PREFIX . $site["db_name"] . "\"",
@@ -284,34 +289,32 @@ class MigrateCommand extends Command
 
 		try {
 			foreach ($this->_sites as $site) {
-				if (
-					!Db::setPdo(
-						$site["db_user"],
-						$site["db_password"],
-						Db::PREFIX . $site["db_name"]
-					)
-				) {
+				if (!Db::setPdo($site["db_user"], $site["db_password"], $site["db_name"])) {
 					Logger::log(
-						"Не удалось соединиться с базой \"" . Db::PREFIX . $site["db_name"] . "\"",
+						"Не удалось соединиться с базой \"" . $site["db_name"] . "\"",
 						Logger::LEVEL_ERROR,
 						"console.migrate"
 					);
 					return false;
 				}
 
-				if (App::console()->isDebug) {
+				if (App::console()->config->isDebug) {
 					$tables = array();
 
-					$rows = Db::fetchAll("SHOW TABLES FROM " . Db::PREFIX . $site["db_name"]);
+					$rows = Db::fetchAll("SHOW TABLES FROM " . $site["db_name"]);
 					foreach ($rows as $row) {
 						foreach ($row as $key => $value)
 						$tables[] = $value;
 					}
 
 					foreach($tables as $table){
-						if (!Db::execute("DROP TABLE `{$table}`")) {
+						if (
+							$table !== "migrations"
+							&& $table !== "sites"
+							&& !Db::execute("DROP TABLE `{$table}`")
+						) {
 							Logger::log(
-								"Не удалось удалить таблицу {$table} из базы " . Db::PREFIX . $site["db_name"],
+								"Не удалось удалить таблицу {$table} из базы " . $site["db_name"],
 								Logger::LEVEL_ERROR,
 								"console.migrate"
 							);
@@ -320,7 +323,7 @@ class MigrateCommand extends Command
 					}
 
 					Logger::log(
-						"База \"" . Db::PREFIX . $site["db_name"] . "\" успешна очищена",
+						"База \"" . $site["db_name"] . "\" успешна очищена",
 						Logger::LEVEL_INFO,
 						"console.migrate"
 					);
@@ -334,10 +337,7 @@ class MigrateCommand extends Command
 					$migration = new $migrationFullName;
 					if (!$migration->up()) {
 						Logger::log(
-							"Не удалось применить миграцию \"{$migrationName}\" для базы \"" .
-							Db::PREFIX .
-							$site["db_name"] .
-							"\"",
+							"Не удалось применить миграцию \"{$migrationName}\" для базы \"" . $site["db_name"] . "\"",
 							Logger::LEVEL_ERROR,
 							"console.migrate"
 						);
@@ -349,11 +349,10 @@ class MigrateCommand extends Command
 						"console.migrate"
 					);
 
-					if (App::console()->isDebug && $this->isTestData) {
+					if (App::console()->config->isDebug && $this->isTestData) {
 						if (!$migration->insertData()) {
 							Logger::log(
 								"Не удалось вставить тестовую информацию в миграции \"{$migrationName}\" для базы \"" .
-								Db::PREFIX .
 								$site["db_name"] .
 								"\"",
 								Logger::LEVEL_ERROR,
@@ -373,12 +372,12 @@ class MigrateCommand extends Command
 			return false;
 		}
 
-		if (App::console()->isDebug) {
+		if (App::console()->config->isDebug) {
 			if (
 				!Db::setPdo(
-					App::console()->db["user"],
-					App::console()->db["password"],
-					App::console()->db["dbName"]
+					App::console()->config->db->user,
+					App::console()->config->db->password,
+					App::console()->config->db->name
 				)
 			) {
 				return false;
@@ -402,9 +401,9 @@ class MigrateCommand extends Command
 	{
 		if (
 			!Db::setPdo(
-				App::console()->db["user"],
-				App::console()->db["password"],
-				App::console()->db["dbName"]
+				App::console()->config->db->user,
+				App::console()->config->db->password,
+				App::console()->config->db->name
 			)
 		) {
 			Logger::log("Не удалось подключиться к основной базе", Logger::LEVEL_ERROR, "console.migrate");

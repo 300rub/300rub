@@ -1,6 +1,7 @@
 <?php
 
 namespace system\db;
+
 use system\base\Logger;
 
 /**
@@ -69,9 +70,8 @@ abstract class Migration
 		foreach ($columns as $name => $type) {
 			$cols[] = "`{$name}`" . ' ' . $this->getColumnType($type);
 		}
-		$query = "\nCREATE TABLE " . $table . " (\n" . implode(",\n", $cols) . "\n)" . $options;
-		$result = Db::execute($query);
-		if ($result) {
+
+		if (Db::execute("\nCREATE TABLE " . $table . " (\n" . implode(",\n", $cols) . "\n)" . $options)) {
 			Logger::log("Таблица \"{$table}\" успешно создана", Logger::LEVEL_INFO, "console.migrations.table");
 			return true;
 		}
@@ -92,12 +92,13 @@ abstract class Migration
 	 */
 	public function createIndex($name, $table, $column, $unique = false)
 	{
-		$query = ($unique ? 'CREATE UNIQUE INDEX ' : 'CREATE INDEX ')
-			. $name . ' ON '
-			. $table . ' (' . $column . ')';
-		$result = Db::execute($query);
-
-		if ($result) {
+		if (
+			Db::execute(
+				($unique ? 'CREATE UNIQUE INDEX ' : 'CREATE INDEX ')
+				. $name . ' ON '
+				. $table . ' (' . $column . ')'
+			)
+		) {
 			Logger::log(
 				"Индекс \"{$name}\" для таблицы \"{$table}\" успешно создан",
 				Logger::LEVEL_INFO,

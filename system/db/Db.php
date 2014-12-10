@@ -4,6 +4,7 @@ namespace system\db;
 
 use PDO;
 use PDOException;
+use system\base\Exception;
 use system\base\Model;
 
 /**
@@ -315,5 +316,23 @@ class Db
 
 		$query = "UPDATE " . $model->tableName() . " SET " . implode(",", $sets) . " WHERE id = " . $model->id;
 		return mysql_query($query);
+	}
+
+	/**
+	 * Проверяет на существование таблицу
+	 *
+	 * @param string $table название таблицы
+	 *
+	 * @return bool
+	 */
+	public static function isTableExists($table)
+	{
+		try {
+			$result = self::$_pdo->query("SELECT 1 FROM {$table} LIMIT 1");
+		} catch (PDOException $e) {
+			return false;
+		}
+
+		return $result !== false;
 	}
 }

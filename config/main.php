@@ -4,14 +4,21 @@
  * Настройки
  */
 return array(
-	"isDebug"           => true,
-	"rootDir"           => __DIR__ . DIRECTORY_SEPARATOR . "..",
-	"baseUrl"           => "/",
-	"db"                => array(
+	"host"     => "300rub.net",
+	"isDebug"  => true,
+	"language" => "ru",
+	"rootDir"  => __DIR__ . DIRECTORY_SEPARATOR . "..",
+	"db"       => array(
+		"host"     => "localhost",
 		"user"     => "mike",
 		"password" => "mypasS77",
-		"dbName"   => "mike",
+		"name"     => "mike",
 	),
-	"release"     => "1.0",
-	"prevRelease" => "0",
+	"release"  => array(
+		"current" => "master",
+		"prev"    => "master",
+	),
+	"email"    => array(
+		"adress" => "moyregion@inbox.ru",
+	)
 );
