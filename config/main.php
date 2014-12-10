@@ -15,8 +15,8 @@ return array(
 		"name"     => "mike",
 	),
 	"release"  => array(
-		"current" => "master",
-		"prev"    => "master",
+		"current" => "1.1",
+		"prev"    => "1.0",
 	),
 	"email"    => array(
 		"adress" => "moyregion@inbox.ru",

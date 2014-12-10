@@ -16,6 +16,9 @@ use system\console\Command;
 class BuildCommand extends Command
 {
 
+	/**
+	 * Префикс для релиза
+	 */
 	const RELEASE_PREFIX = "release/";
 
 	/**
@@ -73,13 +76,13 @@ class BuildCommand extends Command
 	 */
 	private function _setBranches($args)
 	{
-		if (App::console()->isDebug) {
+		if (App::console()->config->isDebug) {
 			if (!empty($args[0])) {
 				$this->_branch = $args[0];
 			}
 		} else {
-			$this->_branch = self::RELEASE_PREFIX . App::console()->release;
-			$this->_prevBranch = self::RELEASE_PREFIX . App::console()->prevRelease;
+			$this->_branch = self::RELEASE_PREFIX . App::console()->config->release->current;
+			$this->_prevBranch = self::RELEASE_PREFIX . App::console()->config->release->prev;
 		}
 	}
 
@@ -90,19 +93,19 @@ class BuildCommand extends Command
 	 */
 	private function _checkFolders()
 	{
-		$logs = App::console()->rootDir . DIRECTORY_SEPARATOR . "logs";
+		$logs = App::console()->config->rootDir . DIRECTORY_SEPARATOR . "logs";
 		if (!file_exists($logs) && !mkdir($logs, 0777)) {
 			echo "	> Невозможно создать папку \"logs\"\n";
 			return false;
 		}
 
-		$backups = App::console()->rootDir . DIRECTORY_SEPARATOR . "backups";
+		$backups = App::console()->config->rootDir . DIRECTORY_SEPARATOR . "backups";
 		if (!file_exists($backups) && !mkdir($backups, 0777)) {
 			Logger::log("Невозможно создать папку \"backups\"", Logger::LEVEL_ERROR, "console.build");
 			return false;
 		}
 
-		$vendors = App::console()->rootDir . DIRECTORY_SEPARATOR . "vendors";
+		$vendors = App::console()->config->rootDir . DIRECTORY_SEPARATOR . "vendors";
 		if (!file_exists($vendors) && !mkdir($vendors, 0777)) {
 			Logger::log("Невозможно создать папку \"vendors\"", Logger::LEVEL_ERROR, "console.build");
 			return false;
