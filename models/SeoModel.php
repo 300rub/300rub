@@ -2,8 +2,8 @@
 
 namespace models;
 
+use system\base\Language;
 use system\base\Model;
-use system\base\Lib;
 
 /**
  * Файл класса SeoModel
@@ -67,7 +67,7 @@ class SeoModel extends Model
 		if ($this->name && !$this->url) {
 			$this->url = $this->name;
 		}
-		$this->url = Lib::translit($this->url);
+		$this->url = Language::translit($this->url);
 		$this->url = str_replace("_", "-", $this->url);
 		$this->url = str_replace(" ", "-", $this->url);
 		$this->url = strtolower($this->url);

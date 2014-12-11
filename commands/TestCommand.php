@@ -59,6 +59,13 @@ class TestCommand extends Command
 	private $_errors = 0;
 
 	/**
+	 * Название активного теста
+	 *
+	 * @var string
+	 */
+	public static $activeTest = "";
+
+	/**
 	 * Выполняет команду
 	 *
 	 * @param string[] $args аргументы
@@ -85,13 +92,28 @@ class TestCommand extends Command
 		}
 
 		Logger::log("Всего тестов: {$this->_count}", Logger::LEVEL_INFO, "console.tests");
+
+		if (!$this->_applyFixtures()) {
+			Logger::log("Не удалось загрузить данные для тестов", Logger::LEVEL_ERROR, "console.tests");
+			return false;
+		}
+
 		if (!$this->_applyTests()) {
 			Logger::log("Не удалось применить тесты", Logger::LEVEL_ERROR, "console.tests");
 			return false;
 		}
 
+		if ($this->_count != $this->_success) {
+			Logger::log(
+				"Возникли ошибки во время выполнения тестов. Всего: {$this->_errors}",
+				Logger::LEVEL_ERROR,
+				"console.tests"
+			);
+			return false;
+		}
+
 		if (!$this->_setMigrations(true)) {
-			Logger::log("Не применить миграции после тестов", Logger::LEVEL_ERROR, "console.tests");
+			Logger::log("Не удалось применить миграции после тестов", Logger::LEVEL_ERROR, "console.tests");
 			return false;
 		}
 
@@ -108,7 +130,9 @@ class TestCommand extends Command
 	{
 		$dir = App::console()->config->rootDir . "/tests/unit";
 		foreach (new RecursiveIteratorIterator(new RecursiveDirectoryIterator($dir)) as $file) {
-			$file = str_replace($dir . "/", "", $file);
+
+			$file = str_replace($dir . "/", "", $file->getPathname());
+
 			if (strripos($file, self::COMMAND_ENDING . ".php")) {
 				$this->_classes[] = "\\tests\\unit\\" . str_replace(".php", "", str_replace("/", "\\", $file));
 			}
@@ -155,28 +179,62 @@ class TestCommand extends Command
 	}
 
 	/**
+	 * Загружает данные
+	 *
+	 * @return bool
+	 */
+	private function _applyFixtures()
+	{
+		$dir = App::console()->config->rootDir . "/tests/fixtures";
+
+		$handle = opendir($dir);
+		if (!$handle) {
+			Logger::log("Не удалось открыть папку с данными", Logger::LEVEL_ERROR, "console.migrate");
+			return false;
+		}
+
+		/**
+		 * @var \SplFileInfo       $file
+		 * @var \system\base\Model $model
+		 */
+		foreach (new RecursiveIteratorIterator(new RecursiveDirectoryIterator($dir)) as $file) {
+			$fixtures = require($file->getPathname());
+			$class = "\\models\\" . ucfirst(str_replace(".php", "", $file->getFilename())) . "Model";
+			foreach ($fixtures as $fixture) {
+				$model = new $class;
+				foreach ($fixture as $key => $value) {
+					$model->$key = $value;
+				}
+				$model->id = null;
+				if (!$model->save()) {
+					Logger::log("Не удалось сохранить данные для {$class}", Logger::LEVEL_ERROR, "console.migrate");
+					var_dump($model->errors);
+					return false;
+				}
+			}
+		}
+
+		return true;
+	}
+
+	/**
 	 * Применяет тесты
 	 *
 	 * @return bool
 	 */
 	private function _applyTests()
 	{
-		echo "	> ";
-
 		foreach ($this->_map as $className => $tests) {
 			$class = new $className;
 			foreach ($tests as $test) {
+				self::$activeTest = $test;
 				if ($class->$test() === false) {
-					echo "F";
 					$this->_errors++;
 				} else {
-					echo ".";
 					$this->_success++;
 				}
 			}
 		}
-
-		echo "\n";
 
 		return true;
 	}

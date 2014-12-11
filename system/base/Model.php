@@ -115,7 +115,8 @@ abstract class Model
 	 */
 	public function findAll()
 	{
-		$result = $this->db->getResult();
+		$result = $this->db->findAll();
+
 		if (!$result) {
 			return null;
 		}

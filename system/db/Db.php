@@ -89,12 +89,13 @@ class Db
 	{
 		try {
 			self::$_pdo = new PDO(
-				"mysql:host=localhost;dbname={$dbName};charset=UTF-8",
+				"mysql:host=localhost;dbname={$dbName};charset=UTF8",
 				$user,
 				$password,
 				array(
 					PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
-					PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC
+					PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+					PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES \'UTF8\''
 				)
 			);
 		} catch (PDOException $e) {
@@ -144,6 +145,7 @@ class Db
 		$query = "SELECT " . implode(", ", $select);
 		$query .= " FROM " . $this->tableName . " AS t";
 
+		/**
 		if ($this->condition && $this->params) {
 			foreach ($this->params as $key => $val) {
 				$val = mysql_escape_string(htmlspecialchars(strip_tags(trim($val))));
@@ -154,6 +156,7 @@ class Db
 				);
 			}
 		}
+		 */
 
 		foreach ($join as $item) {
 			$query .= $item;
@@ -172,6 +175,16 @@ class Db
 		//}
 
 		return $query;
+	}
+
+	/**
+	 * Выбирает несколько записей
+	 *
+	 * @return array
+	 */
+	public function findAll()
+	{
+		return self::fetchAll($this->_getQuery(), $this->params);
 	}
 
 	/**
@@ -268,10 +281,12 @@ class Db
 	{
 		$columns = array();
 		$values = array();
+		$substitutions = array();
 
 		foreach ($model->rules() as $field => $value) {
 			$columns[] = $field;
-			$values[] = "'" . mysql_real_escape_string($model->$field) . "'";
+			$substitutions[] = "?";
+			$values[] = $model->$field;
 		}
 
 		$query =
@@ -280,23 +295,13 @@ class Db
 			" (" .
 			implode(",", $columns) .
 			") VALUES (" .
-			implode(",", $values) .
+			implode(",", $substitutions) .
 			")";
-		if (!mysql_query($query)) {
+		if (!self::execute($query, $values)) {
 			return 0;
 		}
 
-		$result = mysql_query("SELECT LAST_INSERT_ID() FROM " . $model->tableName());
-		if (!$result) {
-			return 0;
-		}
-
-		$row = mysql_fetch_assoc($result);
-		if (!$row || empty($row["LAST_INSERT_ID()"])) {
-			return 0;
-		}
-
-		return $row["LAST_INSERT_ID()"];
+		return self::$_pdo->lastInsertId();
 	}
 
 	/**
