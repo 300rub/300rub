@@ -80,7 +80,7 @@ class Validator
 	private function _required($field)
 	{
 		if (!$this->_model->$field) {
-			$this->_errors[$field] =
+			$this->_errors[$field]["required"] =
 				Language::t("validator", "{field} is required", array("field" => $field));
 		}
 	}
@@ -96,7 +96,7 @@ class Validator
 	private function _max($field, $max)
 	{
 		if (strlen($this->_model->$field) > $max) {
-			$this->_errors[$field] =
+			$this->_errors[$field]["max"] =
 				Language::t(
 					"validator",
 					"{field} is too long (maximum is {max} characters).",
@@ -114,9 +114,9 @@ class Validator
 	 */
 	private function _url($field)
 	{
-		if (!preg_match("/^[0-9a-z-]+$/i", $this->_model->$field)) {
+		if ($this->_model->$field && !preg_match("/^[0-9a-z-]+$/i", $this->_model->$field)) {
 
-			$this->_errors[$field] =
+			$this->_errors[$field]["url"] =
 				Language::t(
 					"validator",
 					"{field} may consist of latin characters, numbers and hyphens",

@@ -1,24 +1,21 @@
 <?php
 
 return array(
-	array(
-		"id"          => 1,
+	1 => array(
 		"name"        => "Название 1",
 		"url"         => "url-1",
 		"title"       => "Заголовок 1",
 		"keywords"    => "Ключевые слова 1",
 		"description" => "Описание 1",
 	),
-	array(
-		"id"          => 2,
+	2 => array(
 		"name"        => "Название 2",
 		"url"         => "url-2",
 		"title"       => "Заголовок 2",
 		"keywords"    => "Ключевые слова 2",
 		"description" => "Описание 2",
 	),
-	array(
-		"id"          => 3,
+	3 => array(
 		"name"        => "Название 3",
 		"url"         => "url-3",
 		"title"       => "",

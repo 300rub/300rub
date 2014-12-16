@@ -180,13 +180,17 @@ abstract class Model
 	}
 
 	/**
-	 * Сохранение модели
+	 * Валидация модели
+	 *
+	 * @param bool $isBeforeValidate Выполнять ли действия перед валидацией
 	 *
 	 * @return bool
 	 */
-	public function save()
+	public function validate($isBeforeValidate = true)
 	{
-		$this->beforeValidate();
+		if ($isBeforeValidate) {
+			$this->beforeValidate();
+		}
 
 		$validator = new Validator($this);
 		$this->errors = array_merge($this->errors, $validator->validate());
@@ -197,7 +201,17 @@ abstract class Model
 			}
 		}
 
-		if ($this->errors) {
+		return !$this->errors;
+	}
+
+	/**
+	 * Сохранение модели
+	 *
+	 * @return bool
+	 */
+	public function save()
+	{
+		if (!$this->validate()) {
 			return false;
 		}
 
