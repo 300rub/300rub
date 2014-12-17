@@ -3,7 +3,6 @@
 namespace system\base;
 
 use system\db\Db;
-use system\base\Validator;
 
 /**
  * Файл класса Model.
