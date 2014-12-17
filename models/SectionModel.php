@@ -100,7 +100,7 @@ class SectionModel extends Model
 	 *
 	 * @param string $url url раздела
 	 *
-	 * @return $this
+	 * @return SectionModel
 	 */
 	public function byUrl($url = "")
 	{

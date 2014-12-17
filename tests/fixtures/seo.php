@@ -16,10 +16,6 @@ return array(
 		"description" => "Описание 2",
 	),
 	3 => array(
-		"name"        => "Название 3",
-		"url"         => "url-3",
-		"title"       => "",
-		"keywords"    => "",
-		"description" => "",
+		"name" => "Название 3",
 	)
 );

@@ -114,16 +114,29 @@ abstract class Test
 	 */
 	public function checkSave($model, $attributes = array())
 	{
+		if (!$model) {
+			Logger::log(
+				"Не удалось получить модель \n		> Класс:     " .
+				get_called_class() .
+				" \n		> Тест:      " .
+				TestCommand::$activeTest,
+				Logger::LEVEL_ERROR,
+				"console.test.checkSave"
+			);
+
+			return false;
+		}
+
 		Db::startTransaction();
 
-		if (!$model->save()) {
+		if (!$model->save(false)) {
 			Logger::log(
 				"Не удалось сохранить модель \n		> Класс:     " .
 				get_called_class() .
 				" \n		> Тест:      " .
 				TestCommand::$activeTest,
 				Logger::LEVEL_ERROR,
-				"console.test.checkInsert"
+				"console.test.checkSave"
 			);
 
 			Db::rollbackTransaction();
@@ -161,5 +174,47 @@ abstract class Test
 
 		Db::rollbackTransaction();
 		return false;
+	}
+
+	/**
+	 * Проверяет удаление модели
+	 *
+	 * @param \system\base\Model $model модель
+	 *
+	 * @return bool
+	 */
+	public function checkDelete($model)
+	{
+		if (!$model) {
+			Logger::log(
+				"Не удалось получить модель \n		> Класс:     " .
+				get_called_class() .
+				" \n		> Тест:      " .
+				TestCommand::$activeTest,
+				Logger::LEVEL_ERROR,
+				"console.test.checkDelete"
+			);
+
+			return false;
+		}
+
+		Db::startTransaction();
+
+		if (!$model->delete(false) || SeoModel::model()->byId($model->id)->find()) {
+			Logger::log(
+				"Не удалось удалить модель \n		> Класс:     " .
+				get_called_class() .
+				" \n		> Тест:      " .
+				TestCommand::$activeTest,
+				Logger::LEVEL_ERROR,
+				"console.test.checkDelete"
+			);
+
+			Db::rollbackTransaction();
+			return false;
+		}
+
+		Db::rollbackTransaction();
+		return true;
 	}
 }

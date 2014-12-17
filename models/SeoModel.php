@@ -64,6 +64,12 @@ class SeoModel extends Model
 	 */
 	protected function beforeValidate()
 	{
+		$this->name = strip_tags($this->name);
+		$this->url = strip_tags($this->url);
+		$this->title = strip_tags($this->title);
+		$this->keywords = strip_tags($this->keywords);
+		$this->description = strip_tags($this->description);
+
 		if ($this->name && !$this->url) {
 			$this->url = $this->name;
 		}
@@ -73,5 +79,24 @@ class SeoModel extends Model
 		$this->url = strtolower($this->url);
 		$this->url = preg_replace('~[^-a-z0-9]+~u', '', $this->url);
 		$this->url = trim($this->url, "-");
+	}
+
+	/**
+	 * Поиск по url
+	 *
+	 * @param string $url url
+	 *
+	 * @return SeoModel
+	 */
+	public function byUrl($url)
+	{
+		if (!$url) {
+			return $this;
+		}
+
+		$this->db->addCondition("t.url = :url");
+		$this->db->params["url"] = $url;
+
+		return $this;
 	}
 }

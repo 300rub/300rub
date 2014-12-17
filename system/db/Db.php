@@ -334,9 +334,23 @@ class Db
 			$values[] = $model->$field;
 		}
 
-		$query = "UPDATE " . $model->tableName() . " SET " . implode(",", $sets) . " WHERE id = " . $model->id;
+		$values[] = $model->id;
+
+		$query = "UPDATE " . $model->tableName() . " SET " . implode(",", $sets) . " WHERE id = ?";
 
 		return self::execute($query, $values);
+	}
+
+	/**
+	 * Удаляет запись в базе.
+	 *
+	 * @param \system\base\Model $model
+	 *
+	 * @return bool
+	 */
+	public static function delete($model)
+	{
+		return self::execute("DELETE FROM " . $model->tableName() . " WHERE id = ?", array($model->id));
 	}
 
 	/**

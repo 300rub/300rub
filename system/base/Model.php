@@ -207,15 +207,26 @@ abstract class Model
 	/**
 	 * Сохранение модели
 	 *
+	 * @param bool $useTransaction использовать ли транзакцию
+	 *
 	 * @return bool
 	 */
-	public function save()
+	public function save($useTransaction = true)
 	{
 		if (!$this->validate()) {
 			return false;
 		}
 
-		$this->beforeSave();
+		if ($useTransaction) {
+			Db::startTransaction();
+		}
+
+		if ($this->beforeSave() === false) {
+			if ($useTransaction) {
+				Db::rollbackTransaction();
+			}
+			return false;
+		}
 
 		$data = array();
 		foreach ($this->rules() as $field => $value) {
@@ -224,17 +235,75 @@ abstract class Model
 
 		if ($this->id) {
 			if (!Db::update($this)) {
+				if ($useTransaction) {
+					Db::rollbackTransaction();
+				}
 				return false;
 			}
 		} else {
 			$this->id = Db::insert($this);
 			if (!$this->id) {
+				if ($useTransaction) {
+					Db::rollbackTransaction();
+				}
 				return false;
 			}
 		}
 
-		$this->afterSave();
+		if ($this->afterSave() === false) {
+			if ($useTransaction) {
+				Db::rollbackTransaction();
+			}
+			return false;
+		}
 
+		if ($useTransaction) {
+			Db::commitTransaction();
+		}
+		return true;
+	}
+
+	/**
+	 * Удаление модели
+	 *
+	 * @param bool $useTransaction использовать ли транзакцию
+	 *
+	 * @return bool
+	 */
+	public function delete($useTransaction = true)
+	{
+		if (!$this->id) {
+			return false;
+		}
+
+		if ($useTransaction) {
+			Db::startTransaction();
+		}
+
+		if ($this->beforeDelete() === false) {
+			if ($useTransaction) {
+				Db::rollbackTransaction();
+			}
+			return false;
+		}
+
+		if (!Db::delete($this)) {
+			if ($useTransaction) {
+				Db::rollbackTransaction();
+			}
+			return false;
+		}
+
+		if ($this->afterDelete() === false) {
+			if ($useTransaction) {
+				Db::rollbackTransaction();
+			}
+			return false;
+		}
+
+		if ($useTransaction) {
+			Db::commitTransaction();
+		}
 		return true;
 	}
 
@@ -250,18 +319,40 @@ abstract class Model
 	/**
 	 * Выполняется перед сохранением модели
 	 *
-	 * @return void
+	 * @return bool
 	 */
 	protected function beforeSave()
 	{
+		return true;
 	}
 
 	/**
 	 * Выполняется после сохранения модели
 	 *
-	 * @return void
+	 * @return bool
 	 */
 	protected function afterSave()
 	{
+		return true;
+	}
+
+	/**
+	 * Выполняется перед удалением модели
+	 *
+	 * @return bool
+	 */
+	protected function beforeDelete()
+	{
+		return true;
+	}
+
+	/**
+	 * Выполняется после удаления модели
+	 *
+	 * @return bool
+	 */
+	protected function afterDelete()
+	{
+		return true;
 	}
 }
