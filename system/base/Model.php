@@ -92,7 +92,7 @@ abstract class Model
 	{
 		$this->db->limit = 1;
 
-		$result = $this->db->getResult();
+		$result = $this->db->find();
 		if (!$result) {
 			return null;
 		}
@@ -101,7 +101,7 @@ abstract class Model
 		 * @var Model $model
 		 */
 		$model = new $this;
-		if (!$model->setAttributes($result[0])) {
+		if (!$model->setAttributes($result, "__")) {
 			return null;
 		}
 
@@ -116,7 +116,6 @@ abstract class Model
 	public function findAll()
 	{
 		$result = $this->db->findAll();
-
 		if (!$result) {
 			return null;
 		}
@@ -128,7 +127,7 @@ abstract class Model
 			 * @var Model $model
 			 */
 			$model = new $this;
-			$model->setAttributes($values);
+			$model->setAttributes($values, "__");
 			if ($model) {
 				$list[] = $model;
 			}
@@ -140,11 +139,12 @@ abstract class Model
 	/**
 	 * Устанавливает атрибуты модели
 	 *
-	 * @param array $values значения атрибутов
+	 * @param array  $values    значения атрибутов
+	 * @param string $separator разделитель
 	 *
 	 * @return bool
 	 */
-	public function setAttributes($values = array())
+	public function setAttributes($values, $separator = ".")
 	{
 		if (!is_array($values)) {
 			return false;
@@ -153,7 +153,7 @@ abstract class Model
 		$attributes = array();
 
 		foreach ($values as $key => $val) {
-			$explode = explode("__", $key, 2);
+			$explode = explode($separator, $key, 2);
 			$attributes[$explode[0]][$explode[1]] = $val;
 		}
 

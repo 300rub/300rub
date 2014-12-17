@@ -92,4 +92,51 @@ class SeoModelTest extends Test
 			false
 		);
 	}
+
+	/**
+	 * Сохранение новой модели
+	 *
+	 * @return bool
+	 */
+	public function testInsert()
+	{
+		$attributes = array(
+			"t.name"        => "Название 1",
+			"t.url"         => "nazvanie-1",
+			"t.title"       => "Заголовок 1",
+			"t.keywords"    => "Ключевые слова 1",
+			"t.description" => "Описание 1",
+		);
+
+		$model = new SeoModel;
+		$model->setAttributes($attributes);
+
+		return $this->checkSave($model, $attributes);
+	}
+
+	/**
+	 * Обновление модели
+	 *
+	 * @return bool
+	 */
+	public function testUpdate()
+	{
+		$model = SeoModel::model()->byId(1)->find();
+		$model->name = "Новое название";
+		$model->url = "Новый URL";
+		$model->title = "Новый заголовок";
+		$model->keywords = "Новые ключевые слова";
+		$model->description = "Новое описание";
+
+		return $this->checkSave(
+			$model,
+			array(
+				"t.name"        => "Новое название",
+				"t.url"         => "novyy-url",
+				"t.title"       => "Новый заголовок",
+				"t.keywords"    => "Новые ключевые слова",
+				"t.description" => "Новое описание",
+			)
+		);
+	}
 }

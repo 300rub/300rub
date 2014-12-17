@@ -3,7 +3,9 @@
 namespace system\console;
 
 use commands\TestCommand;
+use models\SeoModel;
 use system\base\Logger;
+use system\db\Db;
 
 abstract class Test
 {
@@ -100,5 +102,64 @@ abstract class Test
 		}
 
 		return true;
+	}
+
+	/**
+	 * Проверяет сохранение модели
+	 *
+	 * @param \system\base\Model $model      модель
+	 * @param array              $attributes атрибуты для сравнения
+	 *
+	 * @return bool
+	 */
+	public function checkSave($model, $attributes = array())
+	{
+		Db::startTransaction();
+
+		if (!$model->save()) {
+			Logger::log(
+				"Не удалось сохранить модель \n		> Класс:     " .
+				get_called_class() .
+				" \n		> Тест:      " .
+				TestCommand::$activeTest,
+				Logger::LEVEL_ERROR,
+				"console.test.checkInsert"
+			);
+
+			Db::rollbackTransaction();
+			return false;
+		}
+
+		$errors = array();
+		$model = SeoModel::model()->byId($model->id)->find();
+
+		foreach ($attributes as $field => $value) {
+			$fieldExplode = explode(".", $field, 2);
+			$field = $fieldExplode[1];
+			if ($model->$field !== $value) {
+				$errors[$field] = array("expected" => $value, "actual" => $model->$field);
+			}
+		}
+
+		if (!$errors) {
+			Db::rollbackTransaction();
+			return true;
+		}
+
+		$message =
+			"Не совпадают значения модели \n		> Класс:     " .
+			get_called_class() .
+			" \n		> Тест:      " .
+			TestCommand::$activeTest .
+			"\n		> Различия:";
+		foreach ($errors as $key => $value) {
+			$message .= "\n			> {$key}";
+			$message .= "\n				- {$value['expected']}";
+			$message .= "\n				+ {$value['actual']}";
+		}
+		Logger::log($message, Logger::LEVEL_ERROR, "console.test.checkInsert");
+
+		Db::rollbackTransaction();
+		return false;
 	}
 }

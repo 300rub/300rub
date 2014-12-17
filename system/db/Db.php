@@ -145,19 +145,6 @@ class Db
 		$query = "SELECT " . implode(", ", $select);
 		$query .= " FROM " . $this->tableName . " AS t";
 
-		/**
-		if ($this->condition && $this->params) {
-			foreach ($this->params as $key => $val) {
-				$val = mysql_escape_string(htmlspecialchars(strip_tags(trim($val))));
-				$this->condition = str_replace(
-					":{$key}",
-					"'{$val}'",
-					$this->condition
-				);
-			}
-		}
-		 */
-
 		foreach ($join as $item) {
 			$query .= $item;
 		}
@@ -175,6 +162,16 @@ class Db
 		//}
 
 		return $query;
+	}
+
+	/**
+	 * Выбирает одну запись
+	 *
+	 * @return array
+	 */
+	public function find()
+	{
+		return self::fetch($this->_getQuery(), $this->params);
 	}
 
 	/**
@@ -221,6 +218,22 @@ class Db
 	public static function execute($condition, $params = array())
 	{
 		return self::$_pdo->prepare($condition)->execute($params);
+	}
+
+	/**
+	 * Выбирает одну запись
+	 *
+	 * @param string $condition команда
+	 * @param array  $params    параметры
+	 *
+	 * @return array
+	 */
+	public static function fetch($condition, $params = array())
+	{
+		$sth = self::$_pdo->prepare($condition);
+		$sth->execute($params);
+
+		return $sth->fetch();
 	}
 
 	/**
@@ -314,13 +327,16 @@ class Db
 	public static function update($model)
 	{
 		$sets = array();
+		$values = array();
 
 		foreach ($model->rules() as $field => $value) {
-			$sets[] = "$field = '" . mysql_real_escape_string($model->$field) . "'";
+			$sets[] = "$field = ?";
+			$values[] = $model->$field;
 		}
 
 		$query = "UPDATE " . $model->tableName() . " SET " . implode(",", $sets) . " WHERE id = " . $model->id;
-		return mysql_query($query);
+
+		return self::execute($query, $values);
 	}
 
 	/**
