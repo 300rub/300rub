@@ -11,7 +11,7 @@ use system\base\Logger;
  *
  * Приложение для консоли
  *
- * @package system
+ * @package system.console
  */
 class Console extends Application
 {

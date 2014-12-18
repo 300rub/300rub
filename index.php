@@ -1,12 +1,14 @@
 <?php
 
 use system\App;
-require(__DIR__ . "/system/App.php");
 
 /**
- * Подключает и инициализирует приложение
+ * Запускает web приложение
  *
- * Указывается путь до файла с настройками и передается в приложение
+ * Указывается путь до файла с настройками и передается в команду
  */
 
-App::run(__DIR__ . "/config/main.php");
+$config = require(__DIR__ . "/config/main.php");
+
+require(__DIR__ . "/system/App.php");
+App::web($config)->run();

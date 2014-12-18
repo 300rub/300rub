@@ -15,13 +15,6 @@ abstract class Application
 	public $config = null;
 
 	/**
-	 * Подключенные файлы класов
-	 *
-	 * @var string[]
-	 */
-	public static $classMap = array();
-
-	/**
 	 * Запускает команду
 	 *
 	 * @return void

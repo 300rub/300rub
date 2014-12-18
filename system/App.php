@@ -3,6 +3,7 @@
 namespace system;
 
 use system\console\Console;
+use system\web\Web;
 
 /**
  * Файл класса App.
@@ -29,6 +30,13 @@ class App
 	private static $_console = null;
 
 	/**
+	 * Объект web приложения
+	 *
+	 * @var Web
+	 */
+	private static $_web = null;
+
+	/**
 	 * Получает приложения для консоли
 	 *
 	 * @param array $config конфиг
@@ -42,6 +50,22 @@ class App
 		}
 
 		return self::$_console;
+	}
+
+	/**
+	 * Получает web приложение
+	 *
+	 * @param array $config конфиг
+	 *
+	 * @return Web
+	 */
+	public static function web($config = array())
+	{
+		if (!self::$_web) {
+			self::$_web = new Web($config);
+		}
+
+		return self::$_web;
 	}
 
 	/**

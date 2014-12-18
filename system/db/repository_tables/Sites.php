@@ -56,7 +56,7 @@ class Sites extends Migration {
 	 */
 	public function insertData()
 	{
-		$host = App::console()->config->db->name . "." . App::console()->config->host;
+		$host = App::console()->config->host;
 		$dbHost = App::console()->config->db->host;
 		$dbUser = App::console()->config->db->user;
 		$dbPassword = App::console()->config->db->password;
