@@ -34,6 +34,13 @@ class Web extends Application
 		}
 	}
 
+	/**
+	 * Устанавливает сайт
+	 *
+	 * @throws Exception
+	 *
+	 * @return void
+	 */
 	private function _setSite()
 	{
 		$host = $_SERVER['HTTP_HOST'];
@@ -52,7 +59,5 @@ class Web extends Application
 		if (!Db::setPdo($site["db_user"], $site["db_password"], $site["db_name"])) {
 			throw new Exception(Language::t("default", "Не удалось соединиться с базой данных"));
 		}
-
-		echo 123;
 	}
 }
