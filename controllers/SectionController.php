@@ -44,12 +44,12 @@ class SectionController extends Controller
 	{
 		$model = SectionModel::model()->byUrl($this->section)->find();
 		if (!$model) {
-			throw new Exception(Language::t("section", "Section not found"), 404);
+			throw new Exception(Language::t("default", "Раздел не найден"), 404);
 		}
 
 		$grids = GridModel::model()->bySectionId($model->id)->withContent()->findAll();
 		if (!$grids) {
-			throw new Exception(Language::t("section", "The structure for this section is not defined"));
+			throw new Exception(Language::t("default", "Не определена структура для раздела"));
 		}
 
 		$this->render("index", array("model" => $model, "grids" => $grids));

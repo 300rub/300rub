@@ -41,16 +41,16 @@ class Web extends Application
 			$host = substr($host, 4);
 		}
 		if (!$host) {
-			throw new Exception(Language::t("common", "Failed to detect host"));
+			throw new Exception(Language::t("default", "Не удалось определить адрес сайта"));
 		}
 
 		$site = Db::fetch("SELECT * FROM sites WHERE host = ?", array($host));
 		if (!$site) {
-			throw new Exception(Language::t("common", "Failed to detect site"));
+			throw new Exception(Language::t("default", "Не удалось определить сайт"));
 		}
 
 		if (!Db::setPdo($site["db_user"], $site["db_password"], $site["db_name"])) {
-			throw new Exception(Language::t("common", "Failed to connect to db"));
+			throw new Exception(Language::t("default", "Не удалось соединиться с базой данных"));
 		}
 
 		echo 123;

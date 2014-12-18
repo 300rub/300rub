@@ -81,7 +81,7 @@ class Validator
 	{
 		if (!$this->_model->$field) {
 			$this->_errors[$field]["required"] =
-				Language::t("validator", "{field} is required", array("field" => $field));
+				Language::t("default", "{field} обязательно для заполнения", array("field" => $field));
 		}
 	}
 
@@ -98,8 +98,8 @@ class Validator
 		if (strlen($this->_model->$field) > $max) {
 			$this->_errors[$field]["max"] =
 				Language::t(
-					"validator",
-					"{field} is too long (maximum is {max} characters).",
+					"default",
+					"{field} слишком длинное, (максимальное значение: {max}).",
 					array("field" => $field, "max" => $max)
 				);
 		}
@@ -118,8 +118,8 @@ class Validator
 
 			$this->_errors[$field]["url"] =
 				Language::t(
-					"validator",
-					"{field} may consist of latin characters, numbers and hyphens",
+					"default",
+					"{field} должно состоять из латинских символов, чисел и тире",
 					array("field" => $field)
 				);
 		}
