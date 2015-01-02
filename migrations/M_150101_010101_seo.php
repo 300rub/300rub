@@ -2,16 +2,13 @@
 
 namespace migrations;
 
-use system\base\Logger;
 use system\db\Migration;
 use models\SeoModel;
 
 /**
- * Файл класса M_150101_010101_seo.
- *
  * Создает таблицу seo
  *
- * @package system.db.repository_tables
+ * @package migrations
  */
 class M_150101_010101_seo extends Migration
 {

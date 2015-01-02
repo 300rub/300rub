@@ -14,6 +14,11 @@ class SectionModel extends Model
 {
 
 	/**
+	 * Стандартная ширина
+	 */
+	const DEFAULT_WIDTH = 980;
+
+	/**
 	 * Идннтификатор раздела
 	 *
 	 * @var int
@@ -57,18 +62,6 @@ class SectionModel extends Model
 	}
 
 	/**
-	 * Возвращает связи между объектами
-	 *
-	 * @return array
-	 */
-	public function relations()
-	{
-		return array(
-			"seoModel" => array('models\SeoModel', "seo_id")
-		);
-	}
-
-	/**
 	 * Правила валидации
 	 *
 	 * @return array
@@ -77,9 +70,21 @@ class SectionModel extends Model
 	{
 		return array(
 			"seo_id"   => array(),
-			"language" => array(),
+			"language" => array("required"),
 			"width"    => array(),
 			"is_main"  => array(),
+		);
+	}
+
+	/**
+	 * Возвращает связи между объектами
+	 *
+	 * @return array
+	 */
+	public function relations()
+	{
+		return array(
+			"seoModel" => array('models\SeoModel', "seo_id")
 		);
 	}
 
@@ -116,5 +121,22 @@ class SectionModel extends Model
 		}
 
 		return $this;
+	}
+
+	/**
+	 * Выполняется перед валидацией модели
+	 *
+	 * @return void
+	 */
+	protected function beforeValidate()
+	{
+		$this->seo_id = intval($this->seo_id);
+		$this->language = intval($this->language);
+		$this->width = intval($this->width);
+		$this->is_main = intval($this->is_main);
+
+		if (!$this->width) {
+			$this->width = self::DEFAULT_WIDTH;
+		}
 	}
 }

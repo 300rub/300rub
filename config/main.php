@@ -6,7 +6,6 @@
 return array(
 	"host"     => "300rub.net",
 	"isDebug"  => true,
-	"language" => "ru",
 	"rootDir"  => __DIR__ . DIRECTORY_SEPARATOR . "..",
 	"db"       => array(
 		"host"     => "localhost",

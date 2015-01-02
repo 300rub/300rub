@@ -72,12 +72,41 @@ abstract class Model
 	 *
 	 * @param int $id идентификатор
 	 *
-	 * @return $this
+	 * @return Model
 	 */
 	public function byId($id)
 	{
 		$this->db->addCondition("t.id = :id");
 		$this->db->params["id"] = $id;
+
+		return $this;
+	}
+
+	/**
+	 * Добавляет в выборку все связи
+	 *
+	 * @return Model
+	 */
+	public function withAll()
+	{
+		foreach ($this->relations() as $key => $value) {
+			$this->db->with[] = $key;
+		}
+
+		return $this;
+	}
+
+	/**
+	 * Добавляет в выборку определенные связи
+	 *
+	 * @param array $relations связи
+	 *
+	 * @return Model
+	 */
+	public function with($relations) {
+		foreach ($relations as $relation) {
+			$this->db->with[] = $relation;
+		}
 
 		return $this;
 	}
@@ -167,7 +196,11 @@ abstract class Model
 					$this->$name = $value;
 				}
 			} else {
-				$model = new $relations[$key][0];
+				if ($this->$key) {
+					$model = $this->$key;
+				} else {
+					$model = new $relations[$key][0];
+				}
 				foreach ($fields as $name => $value) {
 					$model->$name = $value;
 				}
@@ -193,9 +226,16 @@ abstract class Model
 
 		$validator = new Validator($this);
 		$this->errors = array_merge($this->errors, $validator->validate());
-		foreach ($this->relations() as $key => $value) {
-			if ($this->$key) {
-				$validator = new Validator($this->$key, $key);
+		foreach ($this->relations() as $relation => $options) {
+			if ($this->$relation) {
+				if ($isBeforeValidate) {
+					$this->$relation->beforeValidate();
+				}
+				$validator = new Validator($this->$relation, $relation);
+				$this->errors = array_merge($this->errors, $validator->validate());
+			} else if (!$this->$options[1]) {
+				$this->$relation = new $options[0];
+				$validator = new Validator($this->$relation, $relation);
 				$this->errors = array_merge($this->errors, $validator->validate());
 			}
 		}
@@ -322,6 +362,16 @@ abstract class Model
 	 */
 	protected function beforeSave()
 	{
+		foreach ($this->relations() as $relation => $options) {
+			if ($this->$relation) {
+				$field = $options[1];
+				if (!$this->$relation->save(false)) {
+					return false;
+				}
+				$this->$field = $this->$relation->id;
+			}
+		}
+
 		return true;
 	}
 
@@ -352,6 +402,12 @@ abstract class Model
 	 */
 	protected function afterDelete()
 	{
+		foreach ($this->relations() as $relation => $options) {
+			if ($this->$relation && !$this->$relation->delete(false)) {
+				return false;
+			}
+		}
+
 		return true;
 	}
 }

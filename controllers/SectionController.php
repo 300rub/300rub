@@ -42,6 +42,7 @@ class SectionController extends Controller
 	 */
 	public function actionIndex()
 	{
+
 		$model = SectionModel::model()->byUrl($this->section)->find();
 		if (!$model) {
 			throw new Exception(Language::t("default", "Раздел не найден"), 404);

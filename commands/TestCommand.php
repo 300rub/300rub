@@ -198,18 +198,20 @@ class TestCommand extends Command
 		 * @var \system\base\Model $model
 		 */
 		foreach (new RecursiveIteratorIterator(new RecursiveDirectoryIterator($dir)) as $file) {
-			$fixtures = require($file->getPathname());
-			$class = "\\models\\" . ucfirst(str_replace(".php", "", $file->getFilename())) . "Model";
-			foreach ($fixtures as $fixture) {
-				$model = new $class;
-				foreach ($fixture as $key => $value) {
-					$model->$key = $value;
-				}
-				$model->id = null;
-				if (!$model->save()) {
-					Logger::log("Не удалось сохранить данные для {$class}", Logger::LEVEL_ERROR, "console.migrate");
-					var_dump($model->errors);
-					return false;
+			if (strpos($file->getFilename(), ".php")) {
+				$fixtures = require($file->getPathname());
+				$class = "\\models\\" . ucfirst(str_replace(".php", "", $file->getFilename())) . "Model";
+				foreach ($fixtures as $fixture) {
+					$model = new $class;
+					foreach ($fixture as $key => $value) {
+						$model->$key = $value;
+					}
+					$model->id = null;
+					if (!$model->save()) {
+						Logger::log("Не удалось сохранить данные для {$class}", Logger::LEVEL_ERROR, "console.migrate");
+						var_dump($model->errors);
+						return false;
+					}
 				}
 			}
 		}

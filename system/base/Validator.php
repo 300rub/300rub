@@ -24,7 +24,7 @@ class Validator
 	 *
 	 * @var string
 	 */
-	private $_relation = "";
+	private $_relation = "t";
 
 	/**
 	 * Конструктор
@@ -32,7 +32,7 @@ class Validator
 	 * @param Model  $model    модель
 	 * @param string $relation название связи
 	 */
-	public function __construct($model, $relation = null)
+	public function __construct($model, $relation = "t")
 	{
 		$this->_model = $model;
 		$this->_relation = $relation;
@@ -57,11 +57,11 @@ class Validator
 			}
 		}
 
-		if ($this->_errors && $this->_relation) {
+		if ($this->_errors) {
 			$errors = array();
 
 			foreach ($this->_errors as $key => $value) {
-				$errors[$this->_relation . "__" . $key] = $value;
+				$errors[$this->_relation . "." . $key] = $value;
 			}
 
 			return $errors;

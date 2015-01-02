@@ -3,7 +3,6 @@
 namespace system\console;
 
 use commands\TestCommand;
-use models\SeoModel;
 use system\base\Logger;
 use system\db\Db;
 
@@ -144,13 +143,20 @@ abstract class Test
 		}
 
 		$errors = array();
-		$model = SeoModel::model()->byId($model->id)->find();
+		$model = $model->byId($model->id)->withAll()->find();
 
 		foreach ($attributes as $field => $value) {
 			$fieldExplode = explode(".", $field, 2);
+			$alias = $fieldExplode[0];
 			$field = $fieldExplode[1];
-			if ($model->$field !== $value) {
-				$errors[$field] = array("expected" => $value, "actual" => $model->$field);
+			if ($alias === "t") {
+				if ($model->$field != $value) {
+					$errors[$field] = array("expected" => $value, "actual" => $model->$field);
+				}
+			} else {
+				if ($model->$alias->$field != $value) {
+					$errors["{$alias}.{$field}"] = array("expected" => $value, "actual" => $model->$alias->$field);
+				}
 			}
 		}
 
@@ -200,7 +206,7 @@ abstract class Test
 
 		Db::startTransaction();
 
-		if (!$model->delete(false) || SeoModel::model()->byId($model->id)->find()) {
+		if (!$model->delete(false) || $model->byId($model->id)->find()) {
 			Logger::log(
 				"Не удалось удалить модель \n		> Класс:     " .
 				get_called_class() .
@@ -212,6 +218,25 @@ abstract class Test
 
 			Db::rollbackTransaction();
 			return false;
+		}
+
+		/**
+		 * @var \system\base\Model $relation
+		 */
+		foreach ($model->relations() as $relation => $options) {
+			if ($model->$relation && $model->$relation->byId($model->$relation->id)->find()) {
+				Logger::log(
+					"Не удалось удалить связную модель \"{$relation}\" \n		> Класс:     " .
+					get_called_class() .
+					" \n		> Тест:      " .
+					TestCommand::$activeTest,
+					Logger::LEVEL_ERROR,
+					"console.test.checkDelete"
+				);
+
+				Db::rollbackTransaction();
+				return false;
+			}
 		}
 
 		Db::rollbackTransaction();

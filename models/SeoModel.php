@@ -13,10 +13,39 @@ use system\base\Model;
 class SeoModel extends Model
 {
 
+	/**
+	 * Название
+	 *
+	 * @var string
+	 */
 	public $name = "";
+
+	/**
+	 * Абривиатура URL
+	 *
+	 * @var string
+	 */
 	public $url = "";
+
+	/**
+	 * Заголовок страницы
+	 *
+	 * @var string
+	 */
 	public $title = "";
+
+	/**
+	 * Ключевые слова
+	 *
+	 * @var string
+	 */
 	public $keywords = "";
+
+	/**
+	 * Описание
+	 *
+	 * @var string
+	 */
 	public $description = "";
 
 	/**
@@ -29,6 +58,11 @@ class SeoModel extends Model
 		return "seo";
 	}
 
+	/**
+	 * Правила валидации
+	 *
+	 * @return array
+	 */
 	public function rules()
 	{
 		return array(
@@ -41,6 +75,16 @@ class SeoModel extends Model
 	}
 
 	/**
+	 * Связи
+	 *
+	 * @return array
+	 */
+	public function relations()
+	{
+		return array();
+	}
+
+	/**
 	 * Получает объект модели
 	 *
 	 * @param string $className
@@ -50,11 +94,6 @@ class SeoModel extends Model
 	public static function model($className = __CLASS__)
 	{
 		return new $className;
-	}
-
-	public function relations()
-	{
-		return array();
 	}
 
 	/**
