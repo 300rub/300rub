@@ -1,7 +1,6 @@
 <?php
 
 namespace system\base;
-
 use system\App;
 
 /**
@@ -13,34 +12,6 @@ use system\App;
  */
 abstract class Controller
 {
-
-	/**
-	 * Абривиатура языка
-	 *
-	 * @var string
-	 */
-	public $language = "";
-
-	/**
-	 * Абривиатура раздела
-	 *
-	 * @var string
-	 */
-	public $section = "";
-
-	/**
-	 * Первый параметр
-	 *
-	 * @var string
-	 */
-	public $param1 = "";
-
-	/**
-	 * Второй параметр
-	 *
-	 * @var string
-	 */
-	public $param2 = "";
 
 	/**
 	 * Макет
@@ -55,30 +26,6 @@ abstract class Controller
 	 * @return string
 	 */
 	protected abstract function getViewsDir();
-
-	/**
-	 * Конструктор
-	 *
-	 * @param string $language абривиатура языка
-	 * @param string $section  абривиатура раздела
-	 * @param string $param1   первый параметр
-	 * @param string $param2   второй параметр
-	 */
-	public function __construct($language = "", $section = "", $param1 = "", $param2 = "")
-	{
-		$this->language = $language;
-		$this->section = $section;
-		$this->param1 = $param1;
-		$this->param2 = $param2;
-
-		if ($language) {
-			if (array_key_exists($language, App::$languageList)) {
-				App::$languageId = App::$languageList[$language];
-			} else {
-				//throw new Exception("Такого языка не существует");
-			}
-		}
-	}
 
 	/**
 	 * Показывает или возвращает представление в макете
@@ -144,6 +91,6 @@ abstract class Controller
 	 */
 	protected function getViewsRootDir()
 	{
-		return App::$rootDir . "views/";
+		return App::web()->config->rootDir . "views/";
 	}
 }

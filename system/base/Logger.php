@@ -47,6 +47,8 @@ class Logger
 			echo "	> " . date("Y-m-d H:i:s", time()) . " [{$level}] [{$category}] " . $msg . "\n";
 		}
 
+		var_dump($msg);
+
 		$traces = debug_backtrace();
 		$count = 0;
 		foreach ($traces as $trace) {
@@ -60,7 +62,7 @@ class Logger
 
 		$text = date("Y-m-d H:i:s", time()) . " [{$level}] [{$category}] " . $msg . "\n\n";
 
-		$logFile = App::console()->rootDir . DIRECTORY_SEPARATOR . "logs" . DIRECTORY_SEPARATOR . $fileName . ".log";
+		$logFile = App::web()->config->rootDir . DIRECTORY_SEPARATOR . "logs" . DIRECTORY_SEPARATOR . $fileName . ".log";
 		$fp = @fopen($logFile, 'a');
 		@flock($fp, LOCK_EX);
 		@fwrite($fp, $text);

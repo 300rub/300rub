@@ -15,14 +15,7 @@ class Language
 	 *
 	 * @var int
 	 */
-	public static $id = 1;
-
-	/**
-	 * Абривиатура языка
-	 *
-	 * @var string
-	 */
-	public static $name = "ru";
+	public static $activeId = 1;
 
 	/**
 	 * Идентификатор русского языка
@@ -36,7 +29,7 @@ class Language
 	 *
 	 * @var array
 	 */
-	public static $languageList = array(
+	public static $aliasList = array(
 		self::LANGUAGE_RU => "ru",
 	);
 
@@ -45,13 +38,17 @@ class Language
 	 *
 	 * @param string $name абривиатура языка
 	 *
+	 * @throws Exception
+	 *
 	 * @return void
 	 */
 	public static function setIdByName($name)
 	{
-		$id = array_search($name, self::$languageList);
+		$id = array_search($name, self::$aliasList);
 		if ($id) {
-			self::$id = $id;
+			self::$activeId = $id;
+		} else {
+			throw new Exception(Language::t("common", "Такого языка не существует"));
 		}
 	}
 

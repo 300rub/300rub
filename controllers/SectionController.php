@@ -36,23 +36,26 @@ class SectionController extends Controller
 	/**
 	 * Выводит раздел на экран
 	 *
+	 * @param string $section абривиатура раздела
+	 * @param string $param1 параметр 1
+	 * @param string $param2 параметр 2
+	 *
 	 * @throws Exception
 	 *
 	 * @return void
 	 */
-	public function actionIndex()
+	public function actionIndex($section = null, $param1 = null, $param2 = null)
 	{
-
-		$model = SectionModel::model()->byUrl($this->section)->find();
+		$model = SectionModel::model()->byUrl($section)->find();
 		if (!$model) {
 			throw new Exception(Language::t("default", "Раздел не найден"), 404);
 		}
 
-		$grids = GridModel::model()->bySectionId($model->id)->withContent()->findAll();
-		if (!$grids) {
-			throw new Exception(Language::t("default", "Не определена структура для раздела"));
-		}
+		//$grids = GridModel::model()->bySectionId($model->id)->withContent()->findAll();
+		//if (!$grids) {
+		//	throw new Exception(Language::t("default", "Не определена структура для раздела"));
+		//}
 
-		$this->render("index", array("model" => $model, "grids" => $grids));
+		//$this->render("index", array("model" => $model, "grids" => $grids));
 	}
 }

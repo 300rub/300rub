@@ -61,6 +61,8 @@ class Web extends Application
 		if (!Db::setPdo($site["db_user"], $site["db_password"], $site["db_name"])) {
 			throw new Exception(Language::t("default", "Не удалось соединиться с базой данных"));
 		}
+
+		Language::$activeId = $site["language"];
 	}
 
 	/**
@@ -85,8 +87,15 @@ class Web extends Application
 		}
 
 		if (empty($params[0]) || $params[0] != "ajax") {
-			$controller = new SectionController(!empty($params[0]) ? $params[0] : "", !empty($params[1]) ? $params[1] : "");
-			$controller->actionIndex();
+			if (!empty($params[0])) {
+				Language::setIdByName($params[0]);
+			}
+			$controller = new SectionController;
+			$controller->actionIndex(
+				!empty($params[1]) ? $params[1] : null,
+				!empty($params[2]) ? $params[2] : null,
+				!empty($params[3]) ? $params[3] : null
+			);
 
 			return true;
 		}

@@ -115,7 +115,7 @@ class SectionModel extends Model
 	{
 		$this->db->with[] = "seoModel";
 		$this->db->addCondition("t.language = :language");
-		$this->db->params["language"] = Language::$id;
+		$this->db->params["language"] = Language::$activeId;
 
 		if ($url) {
 			$this->db->addCondition("seoModel.url = :url");
