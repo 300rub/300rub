@@ -4,11 +4,15 @@ namespace models;
 
 use system\base\Language;
 use system\base\Model;
+use system\db\Db;
 
 /**
  * Файл класса SectionModel
  *
  * @package models
+ *
+ * @method SectionModel byId
+ * @method SectionModel find
  */
 class SectionModel extends Model
 {
@@ -138,5 +142,19 @@ class SectionModel extends Model
 		if (!$this->width) {
 			$this->width = self::DEFAULT_WIDTH;
 		}
+	}
+
+	/**
+	 * Выполняется перед сохранением модели
+	 *
+	 * @return bool
+	 */
+	protected function beforeSave()
+	{
+		if ($this->is_main) {
+			Db::execute("UPDATE " . $this->tableName() . " SET is_main = 0");
+		}
+
+		return parent::beforeSave();
 	}
 }

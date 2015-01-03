@@ -4,7 +4,6 @@ namespace migrations;
 
 use models\SectionModel;
 use system\db\Migration;
-use models\SeoModel;
 
 /**
  * Создает таблицу sections
@@ -64,11 +63,23 @@ class M_150101_020202_sections extends Migration
 			"t.width"    => SectionModel::DEFAULT_WIDTH,
 			"t.is_main"  => 1,
 		);
-		$model = new SeoModel;
+		$model = new SectionModel;
 		$model->setAttributes($attributes);
-		//if (!$model->save()) {
-		//	return false;
-		//}
+		if (!$model->save()) {
+			return false;
+		}
+
+		$attributes = array(
+			"t.seo_id"   => 2,
+			"t.language" => 1,
+			"t.width"    => 1024,
+			"t.is_main"  => 0,
+		);
+		$model = new SectionModel;
+		$model->setAttributes($attributes);
+		if (!$model->save()) {
+			return false;
+		}
 
 		return true;
 	}

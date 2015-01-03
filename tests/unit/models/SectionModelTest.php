@@ -4,6 +4,7 @@ namespace tests\unit\models;
 
 use system\console\Test;
 use models\SectionModel;
+use system\db\Db;
 
 /**
  * Тест для модели SectionModel
@@ -182,5 +183,35 @@ class SectionModelTest extends Test
 	public function testDelete()
 	{
 		return $this->checkDelete(SectionModel::model()->byId(1)->withAll()->find());
+	}
+
+	/**
+	 * Проверка на единственность is_main = 1
+	 *
+	 * @return bool
+	 */
+	public function testUniqueMain()
+	{
+		Db::startTransaction();
+		$model = new SectionModel;
+		$model->seo_id = 1;
+		$model->language = 1;
+		$model->is_main = 1;
+		if (!$model->save(false)) {
+			return false;
+		}
+
+		if (!$this->assertEquals(0, intval(SectionModel::model()->byId(1)->find()->is_main))) {
+			Db::rollbackTransaction();
+			return false;
+		}
+
+		if (!$this->assertEquals(1, intval($model->is_main))) {
+			Db::rollbackTransaction();
+			return false;
+		}
+
+		Db::rollbackTransaction();
+		return true;
 	}
 }

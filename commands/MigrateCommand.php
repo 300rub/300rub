@@ -189,7 +189,7 @@ class MigrateCommand extends Command
 		$rows = Db::fetchAll("SELECT * FROM `sites`");
 		foreach ($rows as $row) {
 			if (!App::console()->config->isDebug) {
-				$row["db_name"] = Db::PREFIX . $row["db_name"];
+				$row["db_name"] = $row["db_name"];
 			}
 			$this->_sites[] = $row;
 		}
@@ -245,7 +245,7 @@ class MigrateCommand extends Command
 			$file = App::console()->config->rootDir . "/backups/" . $site["db_name"] . ".sql.gz";
 			if (!file_exists($file)) {
 				Logger::log(
-					"Не удалось найти файл для базы \"" . Db::PREFIX . $site["db_name"] . "\"",
+					"Не удалось найти файл для базы \"" . $site["db_name"] . "\"",
 					Logger::LEVEL_ERROR,
 					"console.migrate"
 				);
@@ -260,7 +260,6 @@ class MigrateCommand extends Command
 				" -h localhost -p'" .
 				$site["db_password"] .
 				"' " .
-				Db::PREFIX .
 				$site["db_name"]
 			);
 		}

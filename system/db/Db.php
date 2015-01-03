@@ -16,11 +16,6 @@ class Db
 {
 
 	/**
-	 * Префикс БД
-	 */
-	const PREFIX = "s_";
-
-	/**
 	 * Название таблицы
 	 *
 	 * @var string
