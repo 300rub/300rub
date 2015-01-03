@@ -74,7 +74,7 @@ abstract class Model
 	 *
 	 * @return Model
 	 */
-	public function byId($id)
+	public final function byId($id)
 	{
 		$this->db->addCondition("t.id = :id");
 		$this->db->params["id"] = $id;
@@ -87,7 +87,7 @@ abstract class Model
 	 *
 	 * @return Model
 	 */
-	public function withAll()
+	public final function withAll()
 	{
 		foreach ($this->relations() as $key => $value) {
 			$this->db->with[] = $key;
@@ -103,7 +103,7 @@ abstract class Model
 	 *
 	 * @return Model
 	 */
-	public function with($relations) {
+	public final function with($relations) {
 		foreach ($relations as $relation) {
 			$this->db->with[] = $relation;
 		}
@@ -116,7 +116,7 @@ abstract class Model
 	 *
 	 * @return null|Model
 	 */
-	public function find()
+	public final function find()
 	{
 		$this->db->limit = 1;
 
@@ -141,7 +141,7 @@ abstract class Model
 	 *
 	 * @return null|Model[]
 	 */
-	public function findAll()
+	public final function findAll()
 	{
 		$result = $this->db->findAll();
 		if (!$result) {
@@ -172,7 +172,7 @@ abstract class Model
 	 *
 	 * @return bool
 	 */
-	public function setAttributes($values, $separator = ".")
+	public final function setAttributes($values, $separator = ".")
 	{
 		if (!is_array($values)) {
 			return false;
@@ -224,7 +224,7 @@ abstract class Model
 	 *
 	 * @return bool
 	 */
-	public function validate($isBeforeValidate = true)
+	public final function validate($isBeforeValidate = true)
 	{
 		if ($isBeforeValidate) {
 			$this->beforeValidate();
@@ -256,7 +256,7 @@ abstract class Model
 	 *
 	 * @return bool
 	 */
-	public function save($useTransaction = true)
+	public final function save($useTransaction = true)
 	{
 		if (!$this->validate()) {
 			return false;
@@ -315,7 +315,7 @@ abstract class Model
 	 *
 	 * @return bool
 	 */
-	public function delete($useTransaction = true)
+	public final function delete($useTransaction = true)
 	{
 		if (!$this->id) {
 			return false;
@@ -415,5 +415,31 @@ abstract class Model
 		}
 
 		return true;
+	}
+
+	/**
+	 * Производит обновление для всех полей
+	 *
+	 * @param array $params поле => значение
+	 *
+	 * @return bool
+	 */
+	protected final function updateForAll($params)
+	{
+		if (!is_array($params)) {
+			return false;
+		}
+
+		$sets = array();
+		$values = array();
+
+		foreach ($params as $key => $value) {
+			$sets[] = "$key = ?";
+			$values[] = $value;
+		}
+
+		$query = "UPDATE " . $this->tableName() . " SET " . implode(",", $sets);
+
+		return Db::execute($query, $values);
 	}
 }
