@@ -182,7 +182,9 @@ abstract class Model
 
 		foreach ($values as $key => $val) {
 			$explode = explode($separator, $key, 2);
-			$attributes[$explode[0]][$explode[1]] = $val;
+			if (!empty($explode[1])) {
+				$attributes[$explode[0]][$explode[1]] = $val;
+			}
 		}
 
 		if (!$attributes) {
@@ -193,16 +195,20 @@ abstract class Model
 		foreach ($attributes as $key => $fields) {
 			if ($key == "t") {
 				foreach ($fields as $name => $value) {
-					$this->$name = $value;
+					if (property_exists($this, $name)) {
+						$this->$name = $value;
+					}
 				}
-			} else {
+			} else if (property_exists($this, $key)) {
 				if ($this->$key) {
 					$model = $this->$key;
 				} else {
 					$model = new $relations[$key][0];
 				}
 				foreach ($fields as $name => $value) {
-					$model->$name = $value;
+					if (property_exists($model, $name)) {
+						$model->$name = $value;
+					}
 				}
 				$this->$key = $model;
 			}
