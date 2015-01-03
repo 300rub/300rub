@@ -1,0 +1,17 @@
+php_value date.timezone "Europe/Moscow"
+php_value upload_max_filesize 1024M
+php_value post_max_size 1024M
+
+AddDefaultCharset utf8
+php_flag register_globals 0
+
+RewriteEngine on
+
+RewriteBase /
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+RewriteRule ^((?!css|js).*)$ index.php [L]
+RewriteRule ^css(.*)$ public/css$1 [L]
+RewriteRule ^js(.*)$ public/js$1 [L]

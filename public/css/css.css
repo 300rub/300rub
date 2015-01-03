@@ -1,0 +1,38 @@
+* {
+	font-family: 'Open Sans', Arial, sans-serif;
+	font-weight: 400;
+	margin: 0;
+	padding: 0;
+	border: 0;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+*:before,
+*:after {
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+*:focus {
+	outline: 0;
+}
+
+body {
+	font-size: 14px;
+}
+
+#login-button {
+	position: fixed;
+	width: 60px;
+	height: 60px;
+	right: 0;
+	bottom: 0;
+	display: block;
+}
+
+#templates {
+	display: none;
+}
