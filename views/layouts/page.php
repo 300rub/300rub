@@ -11,62 +11,34 @@
 	<meta name="keywords" content="" />
 	<meta name="description" content="" />
 
-	<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,800,300,700&subset=latin,cyrillic-ext' rel='stylesheet' type='text/css'>
-	<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-
-
-
+	<link href='http://fonts.googleapis.com/css?family=Open+Sans:300,400,700,800&subset=latin,cyrillic-ext' rel='stylesheet' type='text/css'>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 </head>
 <body>
 
 <?php echo $content; ?>
 
-<a id="login-button" data-title="Вход"></a>
+<a href="#" id="login-button" data-title="Вход">Вход</a>
 
-<div id="ajax-templates">
+<div id="templates">
 	<div id="window-template">
-		<div class="window window-{TYPE} window-level-{LEVEL}">
-			<div class="close"></div>
-			<div class="title">{TITLE}</div>
-			<div class="scroll-container">
-				<div class="content">
-					{CONTENT}
-				</div>
-			</div>
-			<div class="footer">
-				<div class="container">
-					{FOOTER}
-				</div>
-			</div>
-		</div>
-		<div class="overlay overlay-{TYPE} overlay-level-{LEVEL}" data-type="{TYPE}"></div>
-	</div>
+		<div class="window window-{NAME}">
+			<form action="{ACTION}" method="post">
+				<a href="#" class="close">X</a>
 
-	<div id="panel-template">
-		<div id="panel">
-			<div class="container container-{TYPE}">
-				<i class="close"></i>
 				<div class="title">{TITLE}</div>
-				<div class="description">{DESCRIPTION}</div>
-				<div class="scroll-container">
+				<div class="container">
 					{CONTENT}
 				</div>
-			</div>
+				<div class="footer">
+					<button>234</button>
+				</div>
+			</form>
 		</div>
-	</div>
 
-	<div id="subpanel-template">
-		<div id="subpanel">
-			<i class="close"></i>
-			<div class="title">{TITLE}</div>
-			<div class="scroll-container">
-				{CONTENT}
-			</div>
-		</div>
+		<div class="overlay overlay-{NAME}"></div>
 	</div>
 </div>
-
-<div id="ajax-wrapper"></div>
 
 </body>
 </html>
