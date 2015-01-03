@@ -4,7 +4,7 @@ namespace system\db;
 
 use PDO;
 use PDOException;
-use system\base\Exception;
+use system\App;
 use system\base\Model;
 
 /**
@@ -152,9 +152,9 @@ class Db
 			$query .= " LIMIT {$this->limit}";
 		}
 
-		//if (App::$isDebug) {
-		//	echo "<script>console.log(\"{$query}\");</script>";
-		//}
+		if (PHP_SAPI !== "cli" && App::web()->config->isDebug) {
+			echo "<script>console.log(\"{$query}\");</script>";
+		}
 
 		return $query;
 	}

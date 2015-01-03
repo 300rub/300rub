@@ -69,6 +69,24 @@ class App
 	}
 
 	/**
+	 * Получает текущее приложение
+	 *
+	 * @return \system\base\Application
+	 */
+	public static function getApplication()
+	{
+		if (self::$_web) {
+			return self::$_web;
+		}
+
+		if (self::$_console) {
+			return self::$_console;
+		}
+
+		return null;
+	}
+
+	/**
 	 * Автоматическая загрузка классов
 	 *
 	 * @param string $className название класса

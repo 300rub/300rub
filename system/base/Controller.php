@@ -44,7 +44,6 @@ abstract class Controller
 
 		if (!$isReturn) {
 			require($path);
-			exit();
 		}
 
 		ob_start();
@@ -91,6 +90,6 @@ abstract class Controller
 	 */
 	protected function getViewsRootDir()
 	{
-		return App::web()->config->rootDir . "views/";
+		return App::web()->config->rootDir . "/views/";
 	}
 }

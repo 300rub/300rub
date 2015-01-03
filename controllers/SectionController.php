@@ -56,6 +56,6 @@ class SectionController extends Controller
 		//	throw new Exception(Language::t("default", "Не определена структура для раздела"));
 		//}
 
-		//$this->render("index", array("model" => $model, "grids" => $grids));
+		$this->render("index", array("model" => $model, "grids" => null));
 	}
 }
