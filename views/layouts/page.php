@@ -1,4 +1,6 @@
 <?php
+use system\base\Language;
+
 /**
  * @var string $content
  */
@@ -19,28 +21,36 @@
 </head>
 <body>
 
-<div id="wrapper"><?php echo $content; ?></div>
+<div id="wrapper">
+	<?php echo $content; ?>
+</div>
 
-<a href="#" id="login-button"></a>
+<a
+	href="#"
+	id="login-button"
+	data-action="<?php echo 123; ?>"
+	data-title="<?php echo Language::t("common", "Вход"); ?>"
+	data-button="<?php echo Language::t("common", "Войти"); ?>"
+	></a>
+
+<div id="ajax-wrapper"></div>
 
 <div id="templates">
-	<div id="window">
-		<div class="window window-{NAME}">
-			<form action="{ACTION}" method="post">
-				<a href="#" class="close">X</a>
+	<div class="window">
+		<form action="" method="post">
+			<a href="#" class="close">X</a>
 
-				<div class="title">{TITLE}</div>
-				<div class="container">
-					{CONTENT}
-				</div>
-				<div class="footer">
-					<button>{BUTTON}</button>
-				</div>
-			</form>
-		</div>
+			<div class="title"></div>
+			<div class="container">
 
-		<div class="overlay overlay-{NAME}"></div>
+			</div>
+			<div class="footer">
+				<button></button>
+			</div>
+		</form>
 	</div>
+
+	<div class="overlay"></div>
 </div>
 
 </body>
