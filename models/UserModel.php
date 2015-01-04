@@ -1,0 +1,115 @@
+<?php
+
+namespace models;
+
+use system\base\Model;
+
+/**
+ * @package models
+ */
+class UserModel extends Model
+{
+
+	/**
+	 * Логин
+	 *
+	 * @var string
+	 */
+	public $login = "";
+
+	/**
+	 * Пароль
+	 *
+	 * @var string
+	 */
+	public $password = "";
+
+	/**
+	 * Получает название связной таблицы
+	 *
+	 * @return string
+	 */
+	public function tableName()
+	{
+		return "users";
+	}
+
+	/**
+	 * Правила валидации
+	 *
+	 * @return array
+	 */
+	public function rules()
+	{
+		return array(
+			"login"    => array("required"),
+			"password" => array("required"),
+		);
+	}
+
+	/**
+	 * Связи
+	 *
+	 * @return array
+	 */
+	public function relations()
+	{
+		return array();
+	}
+
+	/**
+	 * Получает объект модели
+	 *
+	 * @param string $className
+	 *
+	 * @return UserModel
+	 */
+	public static function model($className = __CLASS__)
+	{
+		return new $className;
+	}
+
+	/**
+	 * Выполняется перед валидацией модели
+	 *
+	 * @return void
+	 */
+	protected function beforeValidate()
+	{
+		$this->login = strip_tags($this->login);
+		$this->password = strip_tags($this->password);
+	}
+
+	/**
+	 * Поиск по логину
+	 *
+	 * @param string $login логин
+	 *
+	 * @return SeoModel
+	 */
+	public function byLogin($login)
+	{
+		if (!$login) {
+			return $this;
+		}
+
+		$this->db->addCondition("t.login = :login");
+		$this->db->params["login"] = $login;
+
+		return $this;
+	}
+
+	/**
+	 * Выполняется перед сохранением
+	 *
+	 * @return bool
+	 */
+	protected function beforeSave()
+	{
+		if (mb_strlen($this->password, "UTF-8") != 40) {
+			$this->password = sha1(md5($this->password) . "salt");
+		}
+
+		return parent::beforeSave();
+	}
+}
