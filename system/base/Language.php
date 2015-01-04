@@ -29,7 +29,7 @@ class Language
 	 *
 	 * @var array
 	 */
-	public static $aliasList = array(
+	private static $_aliasList = array(
 		self::LANGUAGE_RU => "ru",
 	);
 
@@ -42,14 +42,28 @@ class Language
 	 *
 	 * @return void
 	 */
-	public static function setIdByName($name)
+	public static function setIdByAlias($name)
 	{
-		$id = array_search($name, self::$aliasList);
+		$id = array_search($name, self::$_aliasList);
 		if ($id) {
 			self::$activeId = $id;
 		} else {
 			throw new Exception(Language::t("common", "Такого языка не существует"));
 		}
+	}
+
+	/**
+	 * Получает активную абривиатуру url
+	 *
+	 * @return string
+	 */
+	public static function getActiveAlias()
+	{
+		if (in_array(self::$activeId, self::$_aliasList)) {
+			return self::$_aliasList[self::$activeId];
+		}
+
+		return self::$_aliasList[self::LANGUAGE_RU];
 	}
 
 	/**

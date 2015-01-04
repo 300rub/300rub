@@ -18,6 +18,9 @@ use system\base\Language;
 
 	<link href='/css/css.css' rel='stylesheet' type='text/css'>
 	<script src="/js/js.js"></script>
+	<script>
+		var LANG = "<?php echo Language::getActiveAlias(); ?>";
+	</script>
 </head>
 <body>
 
@@ -25,25 +28,18 @@ use system\base\Language;
 	<?php echo $content; ?>
 </div>
 
-<a
-	href="#"
-	id="login-button"
-	data-action="<?php echo 123; ?>"
-	data-title="<?php echo Language::t("common", "Вход"); ?>"
-	data-button="<?php echo Language::t("common", "Войти"); ?>"
-	></a>
+<a href="#" id="login-button" data-name="login"></a>
 
 <div id="ajax-wrapper"></div>
 
 <div id="templates">
 	<div class="window">
 		<form action="" method="post">
-			<a href="#" class="close">X</a>
-
-			<div class="title"></div>
-			<div class="container">
-
+			<div class="header">
+				<a href="#" class="close">X</a>
+				<div class="title"></div>
 			</div>
+			<div class="container"></div>
 			<div class="footer">
 				<button></button>
 			</div>
@@ -51,6 +47,14 @@ use system\base\Language;
 	</div>
 
 	<div class="overlay"></div>
+</div>
+
+<div id="forms">
+	<div class="input">
+		<label></label>
+		<input type="text" />
+		<div class="error"></div>
+	</div>
 </div>
 
 </body>

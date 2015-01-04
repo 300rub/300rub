@@ -19,21 +19,23 @@ class Web extends Application
 {
 
 	/**
+	 * Время начала исполнения скрипта
+	 *
+	 * @var int
+	 */
+	private $_startTime = 0;
+
+	/**
 	 * Запускает команду
 	 *
 	 * @return void
 	 */
 	public function run()
 	{
-		$startTime = microtime(true);
+		$this->_startTime = microtime(true);
 
 		$this->_setSite();
 		$this->_runController();
-
-		$time = number_format(microtime(true) - $startTime, 3);
-		if ($this->config->isDebug) {
-			echo "<script>console.log(\"Время выполнения скрипта: {$time} сек.\");</script>";
-		}
 	}
 
 	/**
@@ -88,7 +90,7 @@ class Web extends Application
 
 		if (empty($params[0]) || $params[0] != "ajax") {
 			if (!empty($params[0])) {
-				Language::setIdByName($params[0]);
+				Language::setIdByAlias($params[0]);
 			}
 			$controller = new SectionController;
 			$controller->actionIndex(
@@ -97,8 +99,15 @@ class Web extends Application
 				!empty($params[3]) ? $params[3] : null
 			);
 
+			$time = number_format(microtime(true) - $this->_startTime, 3);
+			if ($this->config->isDebug) {
+				echo "<script>console.log(\"Время выполнения скрипта: {$time} сек.\");</script>";
+			}
+
 			return true;
 		}
+
+		sleep(1);
 
 		if (empty($params[1])) {
 			throw new Exception(Language::t("common", "Не указан язык"), 404);
@@ -112,10 +121,20 @@ class Web extends Application
 			throw new Exception(Language::t("common", "Не указано действие контроллера"), 404);
 		}
 
-		$controllerName = "\\controllers\\" . ucfirst($params[2]);
+		if (!empty($params[1])) {
+			Language::setIdByAlias($params[1]);
+		}
+
+		$controllerName = "\\controllers\\" . ucfirst($params[2]) . "Controller";
 		$actionName = "action" . ucfirst($params[3]);
 		$controller = new $controllerName;
-		$controller->$actionName();
+		if (!empty($params[4]) && !empty($params[5])) {
+			$controller->$actionName($params[4], $params[5]);
+		} else if (!empty($params[4])) {
+			$controller->$actionName($params[4]);
+		} else {
+			$controller->$actionName();
+		}
 
 		return true;
 	}

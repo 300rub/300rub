@@ -36,7 +36,7 @@ abstract class Controller
 	 *
 	 * @return string|void
 	 */
-	public function render($viewFile, $data = array(), $isReturn = false)
+	protected function render($viewFile, $data = array(), $isReturn = false)
 	{
 		$path = $this->getViewsRootDir() . "layouts/{$this->layout}.php";
 
@@ -61,7 +61,7 @@ abstract class Controller
 	 *
 	 * @return string|void
 	 */
-	public function renderPartial($viewFile, $data = array(), $isReturn = false)
+	protected function renderPartial($viewFile, $data = array(), $isReturn = false)
 	{
 		$path = $this->getViewsRootDir();
 		if ($viewFile[0] !== "/") {
@@ -81,6 +81,16 @@ abstract class Controller
 		ob_implicit_flush(false);
 		require($path);
 		return ob_get_clean();
+	}
+
+	/**
+	 * Выводит на экран JSON
+	 *
+	 * @param array $array данные
+	 */
+	protected function renderJson($array)
+	{
+		echo json_encode($array);
 	}
 
 	/**
