@@ -101,6 +101,35 @@ var Window = function (params) {
 	};
 
 	/**
+	 * Загружает контект в окно
+	 */
+	this.showContent = function () {
+		var $loaderWindow = $loader.clone();
+		var $container = t.window.find(".container");
+
+		$.ajax({
+			url: "/ajax/" + LANG + "/" + t.forms + "/",
+			dataType: "json",
+			beforeSend: function (data) {
+				$loaderWindow.appendTo($container);
+			},
+			success: function (data) {
+				$loaderWindow.remove();
+				t.window.find(".title").text(t.title);
+				t.window.find("button").text(t.button);
+
+				$.each(data, function (name, params) {
+					(new Form(name, params)).get().appendTo($container);
+				});
+			},
+			error: function () {
+				$loaderWindow.remove();
+				$systemError.clone().appendTo($container);
+			}
+		});
+	};
+
+	/**
 	 * Нажатие на кнопку отправки
 	 *
 	 * @returns {boolean}
@@ -135,34 +164,5 @@ var Window = function (params) {
 		});
 
 		return false;
-	};
-
-	/**
-	 * Загружает контект в окно
-	 */
-	this.showContent = function () {
-		var $loaderWindow = $loader.clone();
-		var $container = t.window.find(".container");
-
-		$.ajax({
-			url: "/ajax/" + LANG + "/" + t.forms + "/",
-			dataType: "json",
-			beforeSend: function (data) {
-				$loaderWindow.appendTo($container);
-			},
-			success: function (data) {
-				$loaderWindow.remove();
-				t.window.find(".title").text(t.title);
-				t.window.find("button").text(t.button);
-
-				$.each(data, function (name, params) {
-					(new Form(name, params)).get().appendTo($container);
-				});
-			},
-			error: function () {
-				$loaderWindow.remove();
-				$systemError.clone().appendTo($container);
-			}
-		});
 	};
 };
