@@ -5,7 +5,6 @@ namespace controllers;
 use models\UserModel;
 use system\App;
 use system\base\Controller;
-use system\base\Exception;
 use system\base\Language;
 
 /**
@@ -16,42 +15,26 @@ use system\base\Language;
 class UserController extends Controller
 {
 
-	protected function getViewsDir()
-	{
-		return "user";
-	}
-
+	/**
+	 * Выводит на экран JSON с формами для авторизации
+	 *
+	 * @return void
+	 */
 	public function actionForm()
 	{
 		$this->renderJson(
 			array(
-				"title" => Language::t("common", "Вход"),
-				"button" => Language::t("common", "Войти"),
-				"forms" => array(
-					array(
-						"form"       => "input",
-						"label"      => Language::t("common", "Логин"),
-						"name"       => "t.login",
-						"attributes" => array(
-							"type" => "text",
-						),
-					),
-					array(
-						"form"       => "input",
-						"label"      => Language::t("common", "Пароль"),
-						"name"       => "t.password",
-						"attributes" => array(
-							"type" => "text",
-						),
-					),
-					array(
-						"form"       => "input",
-						"label"      => Language::t("common", "Запомнить"),
-						"name"       => "t.remember",
-						"attributes" => array(
-							"type" => "checkbox",
-						),
-					),
+				"t.login"    => array(
+					"form"  => "field",
+					"label" => Language::t("common", "Логин"),
+				),
+				"t.password" => array(
+					"form"  => "field",
+					"label" => Language::t("common", "Пароль"),
+				),
+				"t.remember" => array(
+					"form"  => "checkbox",
+					"label" => Language::t("common", "Запомнить"),
 				),
 			)
 		);
@@ -64,22 +47,20 @@ class UserController extends Controller
 			//throw new Exception(Language::t("common", "Некорректрый url"), 404);
 		}
 
-
-
 		$model = new UserModel;
 		$model->setAttributes($post);
 		$model->validate(false);
 
 		$json = array(
 			"success" => false,
-			"errors" => $model->errors,
+			"errors"  => $model->errors,
 		);
 
 		$this->renderJson($json);
 
 		//$model = UserModel::model()->byLogin($post["t.login"])->find();
 		//if (!$model) {
-			//$errors["t.login"] = array("required" => )
+		//$errors["t.login"] = array("required" => )
 		//}
 	}
 }

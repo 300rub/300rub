@@ -25,7 +25,9 @@ abstract class Controller
 	 *
 	 * @return string
 	 */
-	protected abstract function getViewsDir();
+	protected function getViewsDir() {
+		return "common";
+	}
 
 	/**
 	 * Показывает или возвращает представление в макете
