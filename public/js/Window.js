@@ -116,7 +116,7 @@ var Window = function (params) {
 			success: function (data) {
 				$loaderWindow.remove();
 				t.window.find(".title").text(t.title);
-				t.window.find("button").text(t.button);
+				t.window.find("button span").text(t.button);
 
 				$.each(data, function (name, params) {
 					(new Form(name, params)).get().appendTo($container);
@@ -136,6 +136,9 @@ var Window = function (params) {
 	 */
 	this.submit = function () {
 		var $form = $(this).parents("form");
+		var $loaderButton = $loader.clone();
+		var $button = $form.find("button");
+		var $buttonSpan = $button.find("span");
 
 		$.ajax({
 			url: "/ajax/" + LANG + "/" + t.send + "/",
@@ -143,9 +146,13 @@ var Window = function (params) {
 			data: $form.serialize(),
 			dataType: "json",
 			beforeSend: function (data) {
+				$loaderButton.appendTo($button);
+				$buttonSpan.css("opacity", 0);
 				$form.find(".error").text("");
 			},
 			success: function (data) {
+				$loaderButton.remove();
+				$buttonSpan.css("opacity", 1);
 				if (data.success === false) {
 					$.each(data.errors, function (name, errors) {
 						var errs = [];
@@ -157,6 +164,8 @@ var Window = function (params) {
 				}
 			},
 			error: function () {
+				$loaderButton.remove();
+				$buttonSpan.css("opacity", 1);
 				var $container = t.window.find(".container");
 				$container.text("");
 				$systemError.clone().appendTo($container);

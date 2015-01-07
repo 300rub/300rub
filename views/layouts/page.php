@@ -55,7 +55,9 @@ use system\base\Language;
 			</div>
 			<div class="container"></div>
 			<div class="footer">
-				<button></button>
+				<button>
+					<span></span>
+				</button>
 			</div>
 		</form>
 	</div>

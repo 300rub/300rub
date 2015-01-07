@@ -92,6 +92,8 @@ body {
 	position: absolute;
 	right: 10px;
 	bottom: 20px;
+	min-width: 60px;
+	min-height: 20px;
 }
 
 .window-login {
