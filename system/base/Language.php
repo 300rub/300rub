@@ -69,13 +69,18 @@ class Language
 	/**
 	 * Переводит фразу
 	 *
-	 * @param string $category категория
-	 * @param string $message  сообщение
+	 * @param string $category    категория
+	 * @param string $message     сообщение
+	 * @param array  $replacement замены
 	 *
 	 * @return string
 	 */
-	public static function t($category, $message)
+	public static function t($category, $message, $replacement = array())
 	{
+		foreach ($replacement as $key => $value) {
+			$message = str_replace("{" . $key . "}", $value, $message);
+		}
+
 		return $message;
 	}
 
