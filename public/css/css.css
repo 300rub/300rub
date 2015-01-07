@@ -94,6 +94,7 @@ body {
 	bottom: 20px;
 	min-width: 60px;
 	min-height: 20px;
+	display: none;
 }
 
 .window-login {

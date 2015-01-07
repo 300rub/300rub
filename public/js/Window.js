@@ -114,9 +114,12 @@ var Window = function (params) {
 				$loaderWindow.appendTo($container);
 			},
 			success: function (data) {
+				var $button = t.window.find("button");
+
 				$loaderWindow.remove();
 				t.window.find(".title").text(t.title);
-				t.window.find("button span").text(t.button);
+				$button.find("span").text(t.button);
+				$button.css("display", "block");
 
 				$.each(data, function (name, params) {
 					(new Form(name, params)).get().appendTo($container);
