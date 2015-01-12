@@ -54,7 +54,7 @@ var Window = function (params) {
 	/**
 	 * DOM-объект окна
 	 *
-	 * @type {string}
+	 * @type {HTMLElement}
 	 */
 	this.window = null;
 
@@ -153,25 +153,23 @@ var Window = function (params) {
 			data: $form.serialize(),
 			dataType: "json",
 			beforeSend: function (data) {
-				if ((new Validator($form)).validate() === false) {
-					return false;
-				}
-				return false;
 				$loaderButton.appendTo($button);
 				$buttonSpan.css("opacity", 0);
-				$form.find(".error").text("");
+
+				if ((new Validator($form)).validate() === false) {
+					$loaderButton.remove();
+					$buttonSpan.css("opacity", 1);
+					return false;
+				}
 			},
 			success: function (data) {
 				$loaderButton.remove();
 				$buttonSpan.css("opacity", 1);
+				console.log(data);
 				if (data.success === false) {
-					$.each(data.errors, function (name, errors) {
-						var errs = [];
-						$.each(errors, function (type, value) {
-							errs[errs.length] = value;
-						});
-						$form.find("." + name.replace(".", "__") + " .error").html(errs.join('<br />'));
-					});
+					(new Validator($form)).showErrors(data.errors);
+				} else {
+					alert(123);
 				}
 			},
 			error: function () {
@@ -179,7 +177,7 @@ var Window = function (params) {
 				$buttonSpan.css("opacity", 1);
 				var $container = t.window.find(".container");
 				$container.text("");
-				$systemError.clone().appendTo($container);
+				$errors.find(".system").clone().appendTo($container);
 			}
 		});
 

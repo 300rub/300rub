@@ -61,7 +61,7 @@ class UserModel extends Model
 	public function rules()
 	{
 		return array(
-			"login"    => array("required"),
+			"login"    => array("required", "max" => 3),
 			"password" => array("required"),
 		);
 	}

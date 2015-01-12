@@ -140,7 +140,7 @@ abstract class Controller
 			$explode = explode(".", $field, 2);
 			if ($explode[0] === "t" && property_exists($model, $explode[1])) {
 				$forms[$field] = array(
-					"rules" => implode(", ", $model->getRules($explode[1])),
+					"rules" => $model->getRules($explode[1]),
 					"label" => $model->getLabel($explode[1]),
 					"type"  => $model->getFormType($explode[1]),
 				);

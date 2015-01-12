@@ -106,7 +106,7 @@ class Web extends Application
 			return true;
 		}
 
-		//sleep(1);
+		sleep(1);
 
 		if (empty($params[1])) {
 			throw new Exception(Language::t("common", "Не указан язык"), 404);

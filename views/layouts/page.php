@@ -83,13 +83,11 @@ use system\base\Validator;
 	<div class="form-container field">
 		<label></label>
 		<input type="text" />
-		<div class="error"></div>
 	</div>
 
 	<div class="form-container password">
 		<label></label>
 		<input type="password" />
-		<div class="error"></div>
 	</div>
 
 	<div class="form-container checkbox">

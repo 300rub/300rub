@@ -63,7 +63,7 @@ class Validator
 			$errors = array();
 
 			foreach ($this->_errors as $key => $value) {
-				$errors[$this->_relation . "." . $key] = $value;
+				$errors[$this->_relation . "__" . $key] = $value;
 			}
 
 			return $errors;
@@ -81,8 +81,8 @@ class Validator
 	 */
 	private function _required($field)
 	{
-		if (!$this->_model->$field) {
-			$this->_errors[$field][] = "required";
+		if (!array_key_exists($field, $this->_errors) && !$this->_model->$field) {
+			$this->_errors[$field] = "required";
 		}
 	}
 
@@ -96,8 +96,8 @@ class Validator
 	 */
 	private function _max($field, $max)
 	{
-		if (strlen($this->_model->$field) > $max) {
-			$this->_errors[$field][] = "max";
+		if (!array_key_exists($field, $this->_errors) && strlen($this->_model->$field) > $max) {
+			$this->_errors[$field] = "max";
 		}
 	}
 
@@ -110,8 +110,12 @@ class Validator
 	 */
 	private function _url($field)
 	{
-		if ($this->_model->$field && !preg_match("/^[0-9a-z-]+$/i", $this->_model->$field)) {
-			$this->_errors[$field][] = "url";
+		if (
+			!array_key_exists($field, $this->_errors)
+			&& $this->_model->$field
+			&& !preg_match("/^[0-9a-z-]+$/i", $this->_model->$field)
+		) {
+			$this->_errors[$field] = "url";
 		}
 	}
 

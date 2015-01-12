@@ -35,12 +35,12 @@ class UserController extends Controller
 		$model->setAttributes($post);
 		$model->validate(false);
 
-		$json = array(
-			"success" => false,
+		$this->json = array(
+			"success" => !$model->errors,
 			"errors"  => $model->errors,
 		);
 
-		$this->renderJson($json);
+		$this->renderJson();
 
 		//$model = UserModel::model()->byLogin($post["t.login"])->find();
 		//if (!$model) {

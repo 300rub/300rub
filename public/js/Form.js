@@ -59,16 +59,28 @@ var Form = function (name, params) {
 
 		var $object = $forms.find("." + this.params.type).clone();
 		var $form = $object.find(this.fields[this.params.type]);
+		var container = t.name.replace(".", "__");
 
 		$form.attr("id", t.id);
 		$form.attr("name", "Data[" + t.name + "]");
-		$object.addClass(t.name.replace(".", "__")) ;
+
+		$object.addClass(container);
+		$form.attr("data-container", container);
 
 		$object.find("label").text(params.label).attr("for", t.id);
 
-		if (params.rules !== "") {
+
+		if (params.rules.length != 0) {
 			$form.addClass("validate");
-			$form.attr("data-rules", params.rules);
+			var rules = [];
+			var er = /^-?[0-9]+$/;
+			$.each(params.rules, function(key, value) {
+				if (er.test(key)) {
+					key = value;
+				}
+				rules[rules.length] = key + "-" + value;
+			});
+			$form.attr("data-rules", rules.join(", "));
 		}
 
 		return $object;
