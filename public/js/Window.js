@@ -165,7 +165,6 @@ var Window = function (params) {
 			success: function (data) {
 				$loaderButton.remove();
 				$buttonSpan.css("opacity", 1);
-				console.log(data);
 				if (data.success === false) {
 					(new Validator($form)).showErrors(data.errors);
 				} else {
