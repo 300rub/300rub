@@ -50,8 +50,8 @@ class SeoModelTest extends Test
 		return $this->checkValidate(
 			new SeoModel,
 			array(
-				"t.name" => array("required"),
-				"t.url"  => array("required")
+				"t__name" => "required",
+				"t__url"  => "required"
 			)
 		);
 	}
@@ -79,11 +79,11 @@ class SeoModelTest extends Test
 		return $this->checkValidate(
 			$model,
 			array(
-				"t.name"        => array("max"),
-				"t.url"         => array("max"),
-				"t.title"       => array("max"),
-				"t.keywords"    => array("max"),
-				"t.description" => array("max"),
+				"t__name"        => "max",
+				"t__url"         => "max",
+				"t__title"       => "max",
+				"t__keywords"    => "max",
+				"t__description" => "max",
 			)
 		);
 	}
@@ -102,7 +102,7 @@ class SeoModelTest extends Test
 		return $this->checkValidate(
 			$model,
 			array(
-				"t.url" => array("url")
+				"t__url" => "url"
 			),
 			false
 		);

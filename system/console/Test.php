@@ -59,24 +59,20 @@ abstract class Test
 		/**
 		 * @var string[] $types
 		 */
-		foreach ($errors as $field => $types) {
+		foreach ($errors as $field => $type) {
 			if (array_key_exists($field, $model->errors)) {
-				foreach ($types as $type) {
-					if (!array_key_exists($type, $model->errors[$field])) {
-						$notFound[] = "{$field}.{$type}";
-					}
+				if ($model->errors[$field] != $type) {
+					$notFound[] = "{$field}.{$type}";
 				}
 			} else {
 				$notFound[] = $field;
 			}
 		}
 
-		foreach ($model->errors as $field => $types) {
+		foreach ($model->errors as $field => $type) {
 			if (array_key_exists($field, $errors)) {
-				foreach ($types as $key => $type) {
-					if (!in_array($key, $errors[$field])) {
-						$notGiven[] = "{$field}.{$key}";
-					}
+				if ($errors[$field] != $type) {
+					$notGiven[] = "{$field}.{$type}";
 				}
 			} else {
 				$notGiven[] = $field;

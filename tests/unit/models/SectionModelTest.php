@@ -49,9 +49,9 @@ class SectionModelTest extends Test
 		return $this->checkValidate(
 			new SectionModel,
 			array(
-				"t.language"    => array("required"),
-				"seoModel.name" => array("required"),
-				"seoModel.url"  => array("required"),
+				"t__language"    => "required",
+				"seoModel__name" => "required",
+				"seoModel__url"  => "required",
 			)
 		);
 	}
@@ -75,7 +75,7 @@ class SectionModelTest extends Test
 		return $this->checkValidate(
 			$model,
 			array(
-				"seoModel.url" => array("url")
+				"seoModel__url" => "url"
 			),
 			false
 		);
