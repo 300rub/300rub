@@ -2,11 +2,10 @@
 
 namespace controllers;
 
-use models\GridModel;
-use system\base\Controller;
+use system\web\Controller;
 use models\SectionModel;
 use system\base\Exception;
-use system\base\Language;
+use system\web\Language;
 
 /**
  * Файл класса SectionController

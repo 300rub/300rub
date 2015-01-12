@@ -3,6 +3,7 @@
 namespace models;
 
 use system\base\Model;
+use system\web\Language;
 
 /**
  * @package models
@@ -25,6 +26,24 @@ class UserModel extends Model
 	public $password = "";
 
 	/**
+	 * Запомнить ли при входе
+	 *
+	 * @var bool
+	 */
+	public $remember = false;
+
+	/**
+	 * Типы форм для полей
+	 *
+	 * @var array
+	 */
+	public $formTypes = array(
+		"login" => "field",
+		"password" => "password",
+		"remember" => "checkbox",
+	);
+
+	/**
 	 * Получает название связной таблицы
 	 *
 	 * @return string
@@ -44,6 +63,20 @@ class UserModel extends Model
 		return array(
 			"login"    => array("required"),
 			"password" => array("required"),
+		);
+	}
+
+	/**
+	 * Названия полей
+	 *
+	 * @return array
+	 */
+	public function labels()
+	{
+		return array(
+			"login"    => Language::t("common", "Логин"),
+			"password" => Language::t("common", "Пароль"),
+			"remember" => Language::t("common", "Запонить"),
 		);
 	}
 

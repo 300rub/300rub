@@ -115,19 +115,23 @@ var Window = function (params) {
 			},
 			success: function (data) {
 				var $button = t.window.find("button");
+				var $form;
 
 				$loaderWindow.remove();
 				t.window.find(".title").text(t.title);
 				$button.find("span").text(t.button);
 				$button.css("display", "block");
 
-				$.each(data, function (name, params) {
-					(new Form(name, params)).get().appendTo($container);
+				$.each(data.forms, function (name, params) {
+					$form = (new Form(name, params)).get();
+					if ($form !== false) {
+						$form.appendTo($container);
+					}
 				});
 			},
 			error: function () {
 				$loaderWindow.remove();
-				$systemError.clone().appendTo($container);
+				$errors.find(".system").clone().appendTo($container);
 			}
 		});
 	};
@@ -149,6 +153,10 @@ var Window = function (params) {
 			data: $form.serialize(),
 			dataType: "json",
 			beforeSend: function (data) {
+				if ((new Validator($form)).validate() === false) {
+					return false;
+				}
+				return false;
 				$loaderButton.appendTo($button);
 				$buttonSpan.css("opacity", 0);
 				$form.find(".error").text("");

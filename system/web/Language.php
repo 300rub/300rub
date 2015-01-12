@@ -1,11 +1,11 @@
 <?php
 
-namespace system\base;
+namespace system\web;
 
 /**
  * Файл класса Language
  *
- * @package system.base
+ * @package system.web
  */
 class Language
 {

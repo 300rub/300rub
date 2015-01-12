@@ -2,6 +2,8 @@
 
 namespace system\base;
 
+use system\web\Language;
+
 class Validator
 {
 
@@ -80,8 +82,7 @@ class Validator
 	private function _required($field)
 	{
 		if (!$this->_model->$field) {
-			$this->_errors[$field]["required"] =
-				Language::t("default", "{field} обязательно для заполнения", array("field" => $field));
+			$this->_errors[$field][] = "required";
 		}
 	}
 
@@ -96,12 +97,7 @@ class Validator
 	private function _max($field, $max)
 	{
 		if (strlen($this->_model->$field) > $max) {
-			$this->_errors[$field]["max"] =
-				Language::t(
-					"default",
-					"{field} слишком длинное, (максимальное значение: {max}).",
-					array("field" => $field, "max" => $max)
-				);
+			$this->_errors[$field][] = "max";
 		}
 	}
 
@@ -115,13 +111,26 @@ class Validator
 	private function _url($field)
 	{
 		if ($this->_model->$field && !preg_match("/^[0-9a-z-]+$/i", $this->_model->$field)) {
-
-			$this->_errors[$field]["url"] =
-				Language::t(
-					"default",
-					"{field} должно состоять из латинских символов, чисел и тире",
-					array("field" => $field)
-				);
+			$this->_errors[$field][] = "url";
 		}
+	}
+
+	/**
+	 * Получает сообщения об ошибках
+	 *
+	 * @return array
+	 */
+	public static function getErrorMessages()
+	{
+		return array(
+			"required" => Language::t("default", "Поле должно быть заполнено"),
+			"max"      => Language::t("default", "Поле слишком длинное"),
+			"url"      => Language::t("default", "Поле должно состоять из латинских символов, чисел и тире"),
+			"system"   => Language::t(
+				"common",
+				"Случилось страшное, но мы уже знаем об этом. Проблема уже находится на стадии решения.
+					Приносим свои извинения. Попробуйте данную операцию чуть позже."
+			)
+		);
 	}
 }

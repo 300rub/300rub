@@ -36,6 +36,13 @@ abstract class Model
 	public $errors = array();
 
 	/**
+	 * Типы форм для полей
+	 *
+	 * @var array
+	 */
+	 public $formTypes = array();
+
+	/**
 	 * Получает название связной таблицы
 	 *
 	 * @return string
@@ -55,6 +62,13 @@ abstract class Model
 	 * @return array
 	 */
 	abstract public function rules();
+
+	/**
+	 * Возвращает названия полей
+	 *
+	 * @return array
+	 */
+	abstract public function labels();
 
 	/**
 	 * Конструктор
@@ -441,5 +455,55 @@ abstract class Model
 		$query = "UPDATE " . $this->tableName() . " SET " . implode(",", $sets);
 
 		return Db::execute($query, $values);
+	}
+
+	/**
+	 * Получает правила для поля
+	 *
+	 * @param string $field поле
+	 *
+	 * @return string[]
+	 */
+	public final function getRules($field)
+	{
+		$rules = $this->rules();
+		if (array_key_exists($field, $rules)) {
+			return $rules[$field];
+		}
+
+		return array();
+	}
+
+	/**
+	 * Получает название поля
+	 *
+	 * @param string $field поле
+	 *
+	 * @return string
+	 */
+	public final function getLabel($field)
+	{
+		$labels = $this->labels();
+		if (array_key_exists($field, $labels)) {
+			return $labels[$field];
+		}
+
+		return "";
+	}
+
+	/**
+	 * Получает тип формы
+	 *
+	 * @param string $field поле
+	 *
+	 * @return string
+	 */
+	public final function getFormType($field)
+	{
+		if (array_key_exists($field, $this->formTypes)) {
+			return $this->formTypes[$field];
+		}
+
+		return "";
 	}
 }

@@ -3,6 +3,7 @@
 namespace system\base;
 
 use system\db\Db;
+use system\web\Language;
 
 abstract class Application
 {

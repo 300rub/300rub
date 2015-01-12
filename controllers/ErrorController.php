@@ -2,7 +2,7 @@
 
 namespace controllers;
 
-use system\base\Controller;
+use system\web\Controller;
 
 /**
  * Файл класса ErrorController

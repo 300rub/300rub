@@ -3,7 +3,7 @@
 namespace system\db\repository_tables;
 
 use system\App;
-use system\base\Language;
+use system\web\Language;
 use system\db\Db;
 use system\db\Migration;
 

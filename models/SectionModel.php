@@ -2,9 +2,8 @@
 
 namespace models;
 
-use system\base\Language;
+use system\web\Language;
 use system\base\Model;
-use system\db\Db;
 
 /**
  * Файл класса SectionModel
@@ -78,6 +77,16 @@ class SectionModel extends Model
 			"width"    => array(),
 			"is_main"  => array(),
 		);
+	}
+
+	/**
+	 * Названия полей
+	 *
+	 * @return array
+	 */
+	public function labels()
+	{
+		return array();
 	}
 
 	/**

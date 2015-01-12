@@ -1,10 +1,10 @@
 $(document).ready(function () {
 
-	$templates = $("#templates");
 	$ajaxWrapper = $("#ajax-wrapper");
-	$forms = $("#forms");
+	$templates = $("#templates");
 	$loader = $templates.find(".loader");
-	$systemError = $templates.find(".system-error");
+	$forms = $("#forms");
+	$errors = $("#errors");
 
 	$(".window .container").css("max-height", parseInt($(document).height()) - 130);
 	$(window).resize(function () {

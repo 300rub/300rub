@@ -1,5 +1,6 @@
 <?php
-use system\base\Language;
+use system\web\Language;
+use system\base\Validator;
 
 /**
  * @var string $content
@@ -21,6 +22,7 @@ use system\base\Language;
 
 	<script src="/js/Window.js"></script>
 	<script src="/js/Form.js"></script>
+	<script src="/js/Validator.js"></script>
 	<script src="/js/js.js"></script>
 
 	<script>
@@ -69,25 +71,29 @@ use system\base\Language;
 		<div class="bounce2"></div>
 		<div class="bounce3"></div>
 	</div>
+</div>
 
-	<div class="system-error">
-		<?php echo Language::t(
-			"common",
-			"Случилось страшное, но мы уже знаем об этом. Проблема уже находится на стадии решения. Приносим свои извинения. Попробуйте данную операцию чуть позже."
-		); ?>
-	</div>
+<div id="errors">
+	<?php foreach (Validator::getErrorMessages() as $key => $value) { ?>
+		<div class="error <?php echo $key; ?>"><?php echo $value; ?></div>
+	<?php } ?>
 </div>
 
 <div id="forms">
-	<div class="field">
+	<div class="form-container field">
 		<label></label>
-		<input type="text"/>
-
+		<input type="text" />
 		<div class="error"></div>
 	</div>
 
-	<div class="checkbox">
-		<input type="checkbox"/>
+	<div class="form-container password">
+		<label></label>
+		<input type="password" />
+		<div class="error"></div>
+	</div>
+
+	<div class="form-container checkbox">
+		<input type="checkbox" />
 		<label></label>
 	</div>
 </div>

@@ -1,14 +1,17 @@
 <?php
 
-namespace system\base;
+namespace system\web;
+
 use system\App;
+use system\base\Exception;
+use system\base\Model;
 
 /**
  * Файл класса Controller.
  *
  * Базовый абстрактный класс для работы с контроллерами
  *
- * @package system.base
+ * @package system.web
  */
 abstract class Controller
 {
@@ -18,7 +21,14 @@ abstract class Controller
 	 *
 	 * @var string
 	 */
-	public $layout = "";
+	protected $layout = "";
+
+	/**
+	 * Для передачи JSON
+	 *
+	 * @var array
+	 */
+	protected $json = array();
 
 	/**
 	 * Название директории для представлений
@@ -87,12 +97,11 @@ abstract class Controller
 
 	/**
 	 * Выводит на экран JSON
-	 *
-	 * @param array $array данные
 	 */
-	protected function renderJson($array)
+	protected function renderJson()
 	{
-		echo json_encode($array);
+		echo json_encode($this->json);
+		exit();
 	}
 
 	/**
@@ -103,5 +112,46 @@ abstract class Controller
 	protected function getViewsRootDir()
 	{
 		return App::web()->config->rootDir . "/views/";
+	}
+
+	/**
+	 * Добавляет в JSON формы
+	 *
+	 * @param Model    $model
+	 * @param string[] $fields
+	 *
+	 * @throws Exception
+	 *
+	 * @return Controller
+	 */
+	protected function setFormsForJson($model, $fields)
+	{
+		if (!$model) {
+			throw new Exception("Не удалось получить модель");
+		}
+
+		if (!$fields) {
+			throw new Exception("Не указаны формы");
+		}
+
+		$forms = array();
+
+		foreach ($fields as $field) {
+			$explode = explode(".", $field, 2);
+			if ($explode[0] === "t" && property_exists($model, $explode[1])) {
+				$forms[$field] = array(
+					"rules" => implode(", ", $model->getRules($explode[1])),
+					"label" => $model->getLabel($explode[1]),
+					"type"  => $model->getFormType($explode[1]),
+				);
+			}
+		}
+
+		if ($forms) {
+			$this->json["forms"] = $forms;
+		}
+
+
+		return $this;
 	}
 }

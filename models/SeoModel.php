@@ -2,7 +2,7 @@
 
 namespace models;
 
-use system\base\Language;
+use system\web\Language;
 use system\base\Model;
 
 /**
@@ -72,6 +72,16 @@ class SeoModel extends Model
 			"keywords"    => array("max" => 255),
 			"description" => array("max" => 255),
 		);
+	}
+
+	/**
+	 * Названия полей
+	 *
+	 * @return array
+	 */
+	public function labels()
+	{
+		return array();
 	}
 
 	/**

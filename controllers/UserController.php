@@ -4,8 +4,7 @@ namespace controllers;
 
 use models\UserModel;
 use system\App;
-use system\base\Controller;
-use system\base\Language;
+use system\web\Controller;
 
 /**
  * Файл класса SectionController
@@ -22,22 +21,7 @@ class UserController extends Controller
 	 */
 	public function actionForm()
 	{
-		$this->renderJson(
-			array(
-				"t.login"    => array(
-					"form"  => "field",
-					"label" => Language::t("common", "Логин"),
-				),
-				"t.password" => array(
-					"form"  => "field",
-					"label" => Language::t("common", "Пароль"),
-				),
-				"t.remember" => array(
-					"form"  => "checkbox",
-					"label" => Language::t("common", "Запомнить"),
-				),
-			)
-		);
+		$this->setFormsForJson(new UserModel, array("t.login", "t.password", "t.remember"))->renderJson();
 	}
 
 	public function actionLogin()
