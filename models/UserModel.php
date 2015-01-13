@@ -7,6 +7,8 @@ use system\web\Language;
 
 /**
  * @package models
+ *
+ * @method UserModel find()
  */
 class UserModel extends Model
 {
@@ -118,7 +120,7 @@ class UserModel extends Model
 	 *
 	 * @param string $login логин
 	 *
-	 * @return SeoModel
+	 * @return UserModel
 	 */
 	public function byLogin($login)
 	{
@@ -140,9 +142,21 @@ class UserModel extends Model
 	protected function beforeSave()
 	{
 		if (mb_strlen($this->password, "UTF-8") != 40) {
-			$this->password = sha1(md5($this->password) . "salt");
+			$this->password = $this->getPassword($this->password);
 		}
 
 		return parent::beforeSave();
+	}
+
+	/**
+	 * Генерирует зашифрованный пароль
+	 *
+	 * @param string $password незашифрованный пароль
+	 *
+	 * @return string
+	 */
+	public function getPassword($password)
+	{
+		return sha1(md5($password) . "salt");
 	}
 }

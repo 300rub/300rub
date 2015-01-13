@@ -152,7 +152,7 @@ class Db
 			$query .= " LIMIT {$this->limit}";
 		}
 
-		if (PHP_SAPI !== "cli" && App::web()->config->isDebug) {
+		if (PHP_SAPI !== "cli" && App::web()->config->isDebug && !App::web()->isAjax) {
 			echo "<script>console.log(\"{$query}\");</script>";
 		}
 

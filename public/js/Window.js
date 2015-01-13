@@ -129,7 +129,7 @@ var Window = function (params) {
 					}
 				});
 			},
-			error: function () {
+			error: function (request, status, error) {
 				$loaderWindow.remove();
 				$errors.find(".system").clone().appendTo($container);
 			}
@@ -171,7 +171,7 @@ var Window = function (params) {
 					alert(123);
 				}
 			},
-			error: function () {
+			error: function (request, status, error) {
 				$loaderButton.remove();
 				$buttonSpan.css("opacity", 1);
 				var $container = t.window.find(".container");

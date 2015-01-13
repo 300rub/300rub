@@ -5,6 +5,8 @@ namespace controllers;
 use models\UserModel;
 use system\App;
 use system\web\Controller;
+use system\base\Exception;
+use system\web\Language;
 
 /**
  * Файл класса SectionController
@@ -28,23 +30,31 @@ class UserController extends Controller
 	{
 		$post = App::getPost();
 		if (!$post || !isset($post["t.login"]) || !isset($post["t.password"])) {
-			//throw new Exception(Language::t("common", "Некорректрый url"), 404);
+			throw new Exception(Language::t("common", "Некорректрый url"), 404);
 		}
 
 		$model = new UserModel;
 		$model->setAttributes($post);
 		$model->validate(false);
 
+		$success = false;
+
+		if (!$model->errors) {
+			$checkModel = UserModel::model()->byLogin($post["t.login"])->find();
+			if (!$checkModel) {
+				$model->errors["t__login"] = "login-not-exist";
+			} else if ($checkModel->getPassword($post["t.password"]) !== $checkModel->password) {
+				$model->errors["t__password"] = "password-incorrect";
+			} else {
+				$success = true;
+			}
+		}
+
 		$this->json = array(
-			"success" => !$model->errors,
+			"success" => $success,
 			"errors"  => $model->errors,
 		);
 
 		$this->renderJson();
-
-		//$model = UserModel::model()->byLogin($post["t.login"])->find();
-		//if (!$model) {
-		//$errors["t.login"] = array("required" => )
-		//}
 	}
 }

@@ -2,6 +2,8 @@
 
 namespace system\web;
 
+use system\base\Exception;
+
 /**
  * Файл класса Language
  *
@@ -48,7 +50,7 @@ class Language
 		if ($id) {
 			self::$activeId = $id;
 		} else {
-			throw new Exception(Language::t("common", "Такого языка не существует"));
+			throw new Exception(Language::t("common", "Такого языка не существует ({$name})"));
 		}
 	}
 

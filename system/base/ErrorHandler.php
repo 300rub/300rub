@@ -61,7 +61,7 @@ class ErrorHandler
 
 		if (isset($_SERVER['REQUEST_URI'])) {
 			$trace = "";
-			if (App::$isDebug) {
+			if (App::web()->config->isDebug) {
 				$message = $exception->getMessage() . ' (' . $exception->getFile() . ':' . $exception->getLine() . ')';
 				$trace = $exception->getTraceAsString();
 			} else {

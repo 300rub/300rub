@@ -18,6 +18,13 @@ class Web extends Application
 {
 
 	/**
+	 * AJAX ли
+	 *
+	 * @var bool
+	 */
+	public $isAjax = false;
+
+	/**
 	 * Время начала исполнения скрипта
 	 *
 	 * @var int
@@ -105,6 +112,8 @@ class Web extends Application
 
 			return true;
 		}
+
+		$this->isAjax = true;
 
 		sleep(1);
 
