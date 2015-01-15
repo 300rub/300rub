@@ -57,4 +57,14 @@ class SectionController extends Controller
 
 		$this->render("index", array("model" => $model, "grids" => null));
 	}
+
+	public function actionPanelList()
+	{
+		$this->json = array(
+			"success"   => true,
+			"errors"    => array(),
+		);
+
+		$this->renderJson();
+	}
 }

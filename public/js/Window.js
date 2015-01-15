@@ -24,32 +24,11 @@ var Window = function (params) {
 	var t = this;
 
 	/**
-	 * Название css-класса
+	 * Параметры
 	 *
-	 * @type {string}
+	 * @type {Object}
 	 */
-	this.name = params.name;
-
-	/**
-	 * Название кнопки
-	 *
-	 * @type {string}
-	 */
-	this.button = params.button;
-
-	/**
-	 * URL для получения форм
-	 *
-	 * @type {string}
-	 */
-	this.forms = params.forms;
-
-	/**
-	 * URL для отправки данных
-	 *
-	 * @type {string}
-	 */
-	this.send = params.send;
+	this.params = params;
 
 	/**
 	 * DOM-объект окна
@@ -63,7 +42,7 @@ var Window = function (params) {
 	 */
 	this.init = function () {
 		t.window = $templates.find(".window").clone();
-		t.window.addClass("window-" + t.name);
+		t.window.addClass("window-" + t.params.name);
 		t.window.appendTo($ajaxWrapper);
 
 		t.showOverlay();
@@ -108,7 +87,7 @@ var Window = function (params) {
 		var $container = t.window.find(".container");
 
 		$.ajax({
-			url: "/ajax/" + LANG + "/" + t.forms + "/",
+			url: "/ajax/" + LANG + "/" + t.params.forms + "/",
 			dataType: "json",
 			beforeSend: function (data) {
 				$loaderWindow.appendTo($container);
@@ -118,8 +97,8 @@ var Window = function (params) {
 				var $form;
 
 				$loaderWindow.remove();
-				t.window.find(".title").text(t.title);
-				$button.find("span").text(t.button);
+				t.window.find(".title").text(t.params.title);
+				$button.find("span").text(t.params.button);
 				$button.css("display", "block");
 
 				$.each(data.forms, function (name, params) {
@@ -148,7 +127,7 @@ var Window = function (params) {
 		var $buttonSpan = $button.find("span");
 
 		$.ajax({
-			url: "/ajax/" + LANG + "/" + t.send + "/",
+			url: "/ajax/" + LANG + "/" + t.params.send + "/",
 			type: "post",
 			data: $form.serialize(),
 			dataType: "json",

@@ -1,0 +1,32 @@
+.panel {
+	top: 15px;
+	left: 100px;
+	z-index: 500;
+	position: fixed;
+	background: #fff;
+	width: 250px;
+	padding: 50px 0;
+	border: 1px solid #c0c0c0;
+	box-shadow: 0 0 2px #c0c0c0;
+	-moz-box-shadow: 0 0 2px #c0c0c0;
+	-webkit-box-shadow: 0 0 2px #c0c0c0;
+}
+.panel .header {
+	top: 0;
+	width: 100%;
+	height: 50px;
+	position: absolute;
+}
+.panel .header .close {
+	top: 15px;
+	right: 15px;
+	position: absolute;
+	display: block;
+	background: url(/img/common/close.png);
+	width: 14px;
+	height: 14px;
+}
+.panel .container {
+	min-height: 20px;
+	overflow: auto;
+}

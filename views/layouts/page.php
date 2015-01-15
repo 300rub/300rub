@@ -21,11 +21,19 @@ use system\App;
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 
 	<link href='/css/css.css' rel='stylesheet' type='text/css'>
+	<?php if (App::web()->user !== null) { ?>
+		<link href='/css/admin.css' rel='stylesheet' type='text/css'>
+	<?php } ?>
 
 	<script src="/js/Window.js"></script>
 	<script src="/js/Form.js"></script>
 	<script src="/js/Validator.js"></script>
 	<script src="/js/js.js"></script>
+
+	<?php if (App::web()->user !== null) { ?>
+		<script src="/js/Panel.js"></script>
+		<script src="/js/admin.js"></script>
+	<?php } ?>
 
 	<script>
 		var LANG = "<?php echo Language::getActiveAlias(); ?>";
@@ -48,6 +56,13 @@ use system\App;
 		data-send="user/login"
 		></a>
 <?php } else { ?>
+	<a
+		href="#"
+		id="sections-button"
+		data-name="sections"
+		data-title="<?php echo Language::t("common", "Разделы"); ?>"
+		>Разделы</a>
+
 	<a href="#" id="logout-button"></a>
 <?php } ?>
 
@@ -76,6 +91,17 @@ use system\App;
 		<div class="bounce1"></div>
 		<div class="bounce2"></div>
 		<div class="bounce3"></div>
+	</div>
+
+	<div class="panel">
+		<form action="" method="post">
+			<div class="header">
+				<a href="#" class="close"></a>
+
+				<div class="title"></div>
+			</div>
+			<div class="container"></div>
+		</form>
 	</div>
 </div>
 
