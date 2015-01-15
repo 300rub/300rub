@@ -26,6 +26,13 @@ class UserController extends Controller
 		$this->setFormsForJson(new UserModel, array("t.login", "t.password", "t.remember"))->renderJson();
 	}
 
+	/**
+	 * Выполняется вход
+	 *
+	 * @throws Exception
+	 *
+	 * @return void
+	 */
 	public function actionLogin()
 	{
 		$post = App::getPost();
@@ -46,15 +53,38 @@ class UserController extends Controller
 			} else if ($checkModel->getPassword($post["t.password"]) !== $checkModel->password) {
 				$model->errors["t__password"] = "password-incorrect";
 			} else {
+				if (!empty($post["t.remember"])) {
+					setcookie("__lp", "{$model->login}|p{$checkModel->password}", 0x6FFFFFFF);
+					$_SESSION["__u"] = $checkModel;
+				} else {
+					$_SESSION["__u"] = $checkModel;
+				}
 				$success = true;
 			}
 		}
 
 		$this->json = array(
-			"success" => $success,
-			"errors"  => $model->errors,
+			"success"   => $success,
+			"errors"    => $model->errors,
+			"container" => null,
+			"redirect"  => "",
 		);
 
 		$this->renderJson();
+	}
+
+	/**
+	 * Выход
+	 *
+	 * @return void
+	 */
+	public function actionLogout()
+	{
+		setcookie("__lp", "", time() - 3600);
+		if (isset($_SESSION["__u"])) {
+			unset($_SESSION["__u"]);
+		}
+		session_unset();
+		session_destroy();
 	}
 }

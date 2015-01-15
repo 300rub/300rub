@@ -168,7 +168,12 @@ var Window = function (params) {
 				if (data.success === false) {
 					(new Validator($form)).showErrors(data.errors);
 				} else {
-					alert(123);
+					if (data.container !== null) {
+						$wrapper.find("#" + data.container).html(data.html);
+						t.close();
+					} else if (data.redirect !== null) {
+						window.location.replace(data.redirect);
+					}
 				}
 			},
 			error: function (request, status, error) {

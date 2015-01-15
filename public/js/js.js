@@ -1,5 +1,6 @@
 $(document).ready(function () {
 
+	$wrapper = $("#wrapper");
 	$ajaxWrapper = $("#ajax-wrapper");
 	$templates = $("#templates");
 	$loader = $templates.find(".loader");
@@ -19,6 +20,17 @@ $(document).ready(function () {
 			forms: $(this).data("forms"),
 			send: $(this).data("send")
 		})).init();
+		return false;
+	});
+
+	$("#logout-button").on("click", function () {
+		$.ajax({
+			url: "/ajax/" + LANG + "/user/logout/",
+			success: function () {
+				window.location.replace("");
+			}
+		});
+
 		return false;
 	});
 

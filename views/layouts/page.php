@@ -1,6 +1,8 @@
 <?php
+
 use system\web\Language;
 use system\base\Validator;
+use system\App;
 
 /**
  * @var string $content
@@ -35,15 +37,19 @@ use system\base\Validator;
 	<?php echo $content; ?>
 </div>
 
-<a
-	href="#"
-	id="login-button"
-	data-name="login"
-	data-title="<?php echo Language::t("common", "Вход"); ?>"
-	data-button="<?php echo Language::t("common", "Войти"); ?>"
-	data-forms="user/form"
-	data-send="user/login"
-	></a>
+<?php if (App::web()->user === null) { ?>
+	<a
+		href="#"
+		id="login-button"
+		data-name="login"
+		data-title="<?php echo Language::t("common", "Вход"); ?>"
+		data-button="<?php echo Language::t("common", "Войти"); ?>"
+		data-forms="user/form"
+		data-send="user/login"
+		></a>
+<?php } else { ?>
+	<a href="#" id="logout-button"></a>
+<?php } ?>
 
 <div id="ajax-wrapper"></div>
 

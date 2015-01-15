@@ -6,6 +6,7 @@ use system\base\Application;
 use system\db\Db;
 use system\base\Exception;
 use controllers\SectionController;
+use models\UserModel;
 
 /**
  * Файл класса Web.
@@ -31,6 +32,8 @@ class Web extends Application
 	 */
 	private $_startTime = 0;
 
+	public $user = null;
+
 	/**
 	 * Запускает команду
 	 *
@@ -39,9 +42,27 @@ class Web extends Application
 	public function run()
 	{
 		$this->_startTime = microtime(true);
-
+		session_start();
 		$this->_setSite();
 		$this->_runController();
+	}
+
+	/**
+	 * Устанавливает текущего пользователя
+	 *
+	 * @return void
+	 */
+	private function _setUser()
+	{
+		if (!empty($_SESSION["__u"])) {
+			$this->user = $_SESSION["__u"];
+		} else if (!empty($_COOKIE["__lp"])) {
+			$explode = explode("|p", $_COOKIE["__lp"], 2);
+			$model = UserModel::model()->byLogin($explode[0])->find();
+			if ($model->password === $explode[1]) {
+				$this->user = $model;
+			}
+		}
 	}
 
 	/**
@@ -95,6 +116,8 @@ class Web extends Application
 		}
 
 		if (empty($params[0]) || $params[0] != "ajax") {
+			$this->_setUser();
+
 			if (!empty($params[0])) {
 				Language::setIdByAlias($params[0]);
 			}
@@ -129,9 +152,9 @@ class Web extends Application
 			throw new Exception(Language::t("common", "Не указано действие контроллера"), 404);
 		}
 
-		if (!empty($params[1])) {
-			Language::setIdByAlias($params[1]);
-		}
+		$this->_setUser();
+
+		Language::setIdByAlias($params[1]);
 
 		$controllerName = "\\controllers\\" . ucfirst($params[2]) . "Controller";
 		$actionName = "action" . ucfirst($params[3]);

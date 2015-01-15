@@ -23,13 +23,17 @@ body {
 	font-size: 14px;
 }
 
-#login-button {
+#login-button, #logout-button {
 	position: fixed;
 	width: 60px;
 	height: 60px;
 	right: 0;
 	bottom: 0;
 	display: block;
+}
+
+#logout-button {
+	left: 0;
 }
 
 #templates, #forms, #errors {
