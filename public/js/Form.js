@@ -57,7 +57,7 @@ var Form = function (name, params) {
 			return false;
 		}
 
-		var $object = $forms.find("." + this.params.type).clone();
+		var $object = $forms.find(".form-container-" + this.params.type).clone();
 		var $form = $object.find(this.fields[this.params.type]);
 		var container = t.name.replace(".", "__");
 

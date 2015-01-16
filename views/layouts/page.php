@@ -16,10 +16,9 @@ use system\App;
 	<meta name="keywords" content=""/>
 	<meta name="description" content=""/>
 
-	<link href='//fonts.googleapis.com/css?family=Open+Sans:300,400,700,800&subset=latin,cyrillic-ext' rel='stylesheet'
-		  type='text/css'>
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 
+	<link href='/css/fonts/myriad-pro.css' rel='stylesheet' type='text/css'>
 	<link href='/css/css.css' rel='stylesheet' type='text/css'>
 	<?php if (App::web()->user !== null) { ?>
 		<link href='/css/admin.css' rel='stylesheet' type='text/css'>
@@ -54,7 +53,7 @@ use system\App;
 		data-button="<?php echo Language::t("common", "Войти"); ?>"
 		data-forms="user/form"
 		data-send="user/login"
-		></a>
+		>Вход</a>
 <?php } else { ?>
 	<a
 		href="#"
@@ -71,11 +70,8 @@ use system\App;
 <div id="templates">
 	<div class="window">
 		<form action="" method="post">
-			<div class="header">
-				<a href="#" class="close"></a>
-
-				<div class="title"></div>
-			</div>
+			<a href="#" class="close"></a>
+			<div class="header"></div>
 			<div class="container"></div>
 			<div class="footer">
 				<button>
@@ -112,17 +108,17 @@ use system\App;
 </div>
 
 <div id="forms">
-	<div class="form-container field">
+	<div class="form-container form-container-field">
 		<label></label>
 		<input type="text" />
 	</div>
 
-	<div class="form-container password">
+	<div class="form-container form-container-password">
 		<label></label>
 		<input type="password" />
 	</div>
 
-	<div class="form-container checkbox">
+	<div class="form-container form-container-checkbox">
 		<input type="checkbox" />
 		<label></label>
 	</div>

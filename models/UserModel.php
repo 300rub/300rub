@@ -78,7 +78,7 @@ class UserModel extends Model
 		return array(
 			"login"    => Language::t("common", "Логин"),
 			"password" => Language::t("common", "Пароль"),
-			"remember" => Language::t("common", "Запонить"),
+			"remember" => Language::t("common", "Запомнить"),
 		);
 	}
 

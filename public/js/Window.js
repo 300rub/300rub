@@ -93,13 +93,13 @@ var Window = function (params) {
 				$loaderWindow.appendTo($container);
 			},
 			success: function (data) {
-				var $button = t.window.find("button");
+				var $footer = t.window.find(".footer");
 				var $form;
 
 				$loaderWindow.remove();
-				t.window.find(".title").text(t.params.title);
-				$button.find("span").text(t.params.button);
-				$button.css("display", "block");
+				t.window.find(".header").text(t.params.title).css("display", "block");
+				$footer.find("button span").text(t.params.button);
+				$footer.css("display", "block");
 
 				$.each(data.forms, function (name, params) {
 					$form = (new Form(name, params)).get();
