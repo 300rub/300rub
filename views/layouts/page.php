@@ -15,9 +15,6 @@ use system\App;
 	<title>Site</title>
 	<meta name="keywords" content=""/>
 	<meta name="description" content=""/>
-	<?php if (App::web()->isMobile) { ?>
-		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
-	<?php } ?>
 
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 
@@ -34,7 +31,6 @@ use system\App;
 		<link href='/css/admin.css' rel='stylesheet' type='text/css'>
 	<?php } ?>
 
-	<script src="/js/functions.js"></script>
 	<script src="/js/Window.js"></script>
 	<script src="/js/Form.js"></script>
 	<script src="/js/Validator.js"></script>

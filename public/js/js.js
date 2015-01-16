@@ -1,3 +1,15 @@
+function setLayout() {
+	if (IS_MOBILE === true) {
+		var zoom = $(document).width() / 320;
+		$(".window").css({
+			"zoom" : zoom,
+			"-ms-zoom" : zoom
+		});
+	} else {
+		$(".window .container").css("max-height", parseInt($(document).height()) - 130);
+	}
+}
+
 $(document).ready(function () {
 
 	$wrapper = $("#wrapper");
@@ -7,12 +19,10 @@ $(document).ready(function () {
 	$forms = $("#forms");
 	$errors = $("#errors");
 
-	if (!IS_MOBILE === true) {
-		setWindow();
-		$(window).resize(function () {
-			setWindow();
-		});
-	}
+	setLayout();
+	$(window).resize(function () {
+		setLayout();
+	});
 
 	$("#login-button").on("click", function () {
 		(new Window({
