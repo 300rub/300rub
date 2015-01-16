@@ -5,7 +5,7 @@
  *
  * @param {HTMLElement} form форма для валидации
  */
-var Validator = function (form) {
+function Validator (form) {
 
 	/**
 	 * Объект класса
@@ -102,4 +102,4 @@ var Validator = function (form) {
 			t.form.find("." + container + " input").addClass("error");
 		});
 	};
-};
+}

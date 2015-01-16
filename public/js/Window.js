@@ -14,7 +14,7 @@
  *
  * @param {Object} params параметры
  */
-var Window = function (params) {
+function Window (params) {
 
 	/**
 	 * Объект класса
@@ -166,4 +166,4 @@ var Window = function (params) {
 
 		return false;
 	};
-};
+}

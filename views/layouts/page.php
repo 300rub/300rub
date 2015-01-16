@@ -15,15 +15,26 @@ use system\App;
 	<title>Site</title>
 	<meta name="keywords" content=""/>
 	<meta name="description" content=""/>
+	<?php if (App::web()->isMobile) { ?>
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+	<?php } ?>
 
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 
+	<script>
+		var LANG = "<?php echo Language::getActiveAlias(); ?>";
+		var IS_MOBILE = <?php echo App::web()->isMobile ? "true" : "false"; ?>;
+	</script>
+
 	<link href='/css/fonts/myriad-pro.css' rel='stylesheet' type='text/css'>
 	<link href='/css/css.css' rel='stylesheet' type='text/css'>
+	<link href='/css/window.css' rel='stylesheet' type='text/css'>
+	<link href='/css/form.css' rel='stylesheet' type='text/css'>
 	<?php if (App::web()->user !== null) { ?>
 		<link href='/css/admin.css' rel='stylesheet' type='text/css'>
 	<?php } ?>
 
+	<script src="/js/functions.js"></script>
 	<script src="/js/Window.js"></script>
 	<script src="/js/Form.js"></script>
 	<script src="/js/Validator.js"></script>
@@ -34,9 +45,10 @@ use system\App;
 		<script src="/js/admin.js"></script>
 	<?php } ?>
 
-	<script>
-		var LANG = "<?php echo Language::getActiveAlias(); ?>";
-	</script>
+	<?php if (App::web()->isMobile) { ?>
+		<link href='/css/mobile.css' rel='stylesheet' type='text/css' media="screen and (max-device-width:480px)">
+		<link href='/css/window-mobile.css' rel='stylesheet' type='text/css'>
+	<?php } ?>
 </head>
 <body>
 

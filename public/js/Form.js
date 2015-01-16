@@ -6,7 +6,7 @@
  * @param {string} name   название формы
  * @param {Object} params параметры
  */
-var Form = function (name, params) {
+function Form (name, params) {
 
 	/**
 	 * Объект класса
@@ -85,4 +85,4 @@ var Form = function (name, params) {
 
 		return $object;
 	};
-};
+}

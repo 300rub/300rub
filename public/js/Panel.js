@@ -5,7 +5,7 @@
  *
  * @param {Object} params параметры
  */
-var Panel = function (params) {
+function Panel (params) {
 
 	/**
 	 * Объект класса
@@ -71,4 +71,4 @@ var Panel = function (params) {
 
 		return false;
 	};
-};
+}

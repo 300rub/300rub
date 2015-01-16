@@ -7,6 +7,7 @@ use system\db\Db;
 use system\base\Exception;
 use controllers\SectionController;
 use models\UserModel;
+use Mobile_Detect;
 
 /**
  * Файл класса Web.
@@ -32,7 +33,19 @@ class Web extends Application
 	 */
 	private $_startTime = 0;
 
+	/**
+	 * Модель пользователя
+	 *
+	 * @var UserModel | null
+	 */
 	public $user = null;
+
+	/**
+	 * Является ли устройство мобильным
+	 *
+	 * @var bool
+	 */
+	public $isMobile = false;
 
 	/**
 	 * Запускает команду
@@ -43,6 +56,10 @@ class Web extends Application
 	{
 		$this->_startTime = microtime(true);
 		session_start();
+
+		$mobileDetect = new Mobile_Detect;
+		$this->isMobile = $mobileDetect->isMobile() && !$mobileDetect->isTablet();
+
 		$this->_setSite();
 		$this->_runController();
 	}

@@ -7,10 +7,12 @@ $(document).ready(function () {
 	$forms = $("#forms");
 	$errors = $("#errors");
 
-	$(".window .container").css("max-height", parseInt($(document).height()) - 130);
-	$(window).resize(function () {
-		$(".window .container").css("max-height", parseInt($(document).height()) - 130);
-	});
+	if (!IS_MOBILE === true) {
+		setWindow();
+		$(window).resize(function () {
+			setWindow();
+		});
+	}
 
 	$("#login-button").on("click", function () {
 		(new Window({
