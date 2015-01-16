@@ -1,6 +1,6 @@
 {
 	"require": {
-
+		"mobiledetect/mobiledetectlib": "dev-master"
 	},
 	"config": {
 		"vendor-dir": "vendors",
