@@ -57,9 +57,6 @@ class Web extends Application
 		$this->_startTime = microtime(true);
 		session_start();
 
-		$mobileDetect = new Mobile_Detect;
-		$this->isMobile = $mobileDetect->isMobile() && !$mobileDetect->isTablet();
-
 		$this->_setSite();
 		$this->_runController();
 	}

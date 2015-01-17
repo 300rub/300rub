@@ -1,13 +1,5 @@
 function setLayout() {
-	if (IS_MOBILE === true) {
-		var zoom = $(document).width() / 320;
-		$(".window").css({
-			"zoom" : zoom,
-			"-ms-zoom" : zoom
-		});
-	} else {
-		$(".window .container").css("max-height", parseInt($(document).height()) - 130);
-	}
+	$(".window .container").css("max-height", parseInt($(document).height()) - 130);
 }
 
 $(document).ready(function () {
