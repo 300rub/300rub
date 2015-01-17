@@ -61,8 +61,13 @@ use system\App;
 		href="#"
 		id="sections-button"
 		data-name="sections"
-		data-title="<?php echo Language::t("common", "Разделы"); ?>"
-		>Разделы</a>
+		><span><?php echo Language::t("common", "Разделы"); ?></span></a>
+
+	<a
+		href="#"
+		id="blocks-button"
+		data-name="blocks"
+		><span><?php echo Language::t("common", "Блоки"); ?></span></a>
 
 	<a href="#" id="logout-button"></a>
 <?php } ?>
@@ -99,6 +104,7 @@ use system\App;
 				<div class="title"></div>
 			</div>
 			<div class="container"></div>
+			<div class="footer"></div>
 		</form>
 	</div>
 </div>

@@ -32,6 +32,8 @@ function Panel (params) {
 	 * Производит инициализацию окна
 	 */
 	this.init = function () {
+		$("#sections-button, #blocks-button").addClass("panel-button-half");
+
 		t.panel = $templates.find(".panel").clone();
 		t.panel.addClass("panel-" + t.params.name);
 		t.panel.appendTo($ajaxWrapper);
@@ -68,6 +70,7 @@ function Panel (params) {
 	 */
 	this.close = function () {
 		t.panel.remove();
+		$("#sections-button, #blocks-button").removeClass("panel-button-half").removeClass("panel-button-active");
 
 		return false;
 	};
