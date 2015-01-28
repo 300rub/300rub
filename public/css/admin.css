@@ -12,8 +12,20 @@
 	-webkit-border-radius: 10px;
 	-moz-border-radius: 10px;
 	border-radius: 10px;
-	border-left: 10px solid #f99d1c;
+	border-left: 10px solid;
 	overflow: hidden;
+}
+.panel-sections {
+	border-color: #f99d1c;
+}
+.panel-blocks {
+	border-color: #32a0d4;
+}
+.panel-settings {
+	border-color: #b1b9bc;
+}
+.panel-payment {
+	border-color: #54b354;
 }
 .panel .header {
 	top: 0;
@@ -37,12 +49,12 @@
 	overflow: auto;
 }
 
-#sections-button, #blocks-button {
+#panel-buttons a {
 	width: 76px;
 	height: 76px;
 	position: fixed;
 	left: 16px;
-	top: 76px;
+	top: 48px;
 	-webkit-border-radius: 16px;
 	-moz-border-radius: 16px;
 	border-radius: 16px;
@@ -60,21 +72,43 @@
 	z-index: 100;
 }
 
-#sections-button span, #blocks-button span {
+#panel-buttons a span {
 	padding-left: 10px;
 	display: none;
 }
 
-#blocks-button {
-	top: 168px;
+#panel-buttons #blocks-button {
+	top: 140px;
 	background-position: 0 -76px;
 }
 
-#sections-button:hover, #blocks-button:hover {
+.panel-buttons-blocks-top {
+	top: 140px !important;
+}
+
+#panel-buttons #settings-button {
+	top: 232px;
+	background-position: 0 -152px;
+}
+
+.panel-buttons-settings-top {
+	top: 232px !important;
+}
+
+#panel-buttons #payment-button {
+	top: 324px;
+	background-position: 0 -228px;
+}
+
+.panel-buttons-payment-top {
+	top: 324px !important;
+}
+
+#panel-buttons a:hover {
 	width: 228px;
 }
 
-#sections-button:hover span, #blocks-button:hover span {
+#panel-buttons a:hover span {
 	display: block;
 }
 
@@ -98,6 +132,7 @@
 	-moz-border-radius: 0 !important;
 	border-radius: 0 !important;
 	width: 92px !important;
+	top: 48px !important;
 }
 
 .panel .footer {

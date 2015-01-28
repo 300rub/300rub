@@ -32,7 +32,8 @@ function Panel (params) {
 	 * Производит инициализацию окна
 	 */
 	this.init = function () {
-		$("#sections-button, #blocks-button").addClass("panel-button-half");
+		$("#panel-buttons a").addClass("panel-button-half");
+		$("#panel-buttons #sections-button").addClass("panel-buttons-" + t.params.name + "-top");
 
 		t.panel = $templates.find(".panel").clone();
 		t.panel.addClass("panel-" + t.params.name);
@@ -70,7 +71,8 @@ function Panel (params) {
 	 */
 	this.close = function () {
 		t.panel.remove();
-		$("#sections-button, #blocks-button").removeClass("panel-button-half").removeClass("panel-button-active");
+		$("#panel-buttons a").removeClass("panel-button-half").removeClass("panel-button-active");
+		$("#panel-buttons #sections-button").removeClass("panel-buttons-" + t.params.name + "-top");
 
 		return false;
 	};

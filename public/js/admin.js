@@ -5,23 +5,18 @@ $(document).ready(function () {
 		//$(".window .container").css("max-height", parseInt($(document).height()) - 130);
 	});
 
-	$("#sections-button").on("click", function () {
+
+
+	$("#panel-buttons a").on("click", function () {
+		$("#panel-buttons a").removeClass("panel-button-half").removeClass("panel-button-active");
+		$("#panel-buttons #sections-button").attr("class", "");
+		$ajaxWrapper.find(".panel").remove();
 		$(this).addClass("panel-button-active");
 		(new Panel({
-			name: "sections",
+			name: $(this).data("name"),
 			title: $(this).find("span").text(),
-			content: "section/panelList"
-		})).init();
-
-		return false;
-	});
-
-	$("#blocks-button").on("click", function () {
-		$(this).addClass("panel-button-active");
-		(new Panel({
-			name: "blocks",
-			title: $(this).find("span").text(),
-			content: "block/panelList"
+			content: $(this).data("content"),
+			reset: true
 		})).init();
 
 		return false;
