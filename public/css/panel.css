@@ -4,7 +4,7 @@
 	z-index: 90;
 	position: fixed;
 	background: #fff;
-	width: 300px;
+	width: 330px;
 	padding: 100px 0 65px 0;
 	webkit-box-shadow: 1px 0 0 0 #d2d2d2, -1px 0 0 0 #d2d2d2, 0 1px 0 0 #b6b6b6, 0 2px 0 0 #d2d2d2, 2px 0 0 0 #e6e6e6, -2px 0 0 0 #e6e6e6, 0 3px 0 0 #e6e6e6, 0 -1px 0 0 #e6e6e6;
 	-moz-box-shadow: 1px 0 0 0 #d2d2d2, -1px 0 0 0 #d2d2d2, 0 1px 0 0 #b6b6b6, 0 2px 0 0 #d2d2d2, 2px 0 0 0 #e6e6e6, -2px 0 0 0 #e6e6e6, 0 3px 0 0 #e6e6e6, 0 -1px 0 0 #e6e6e6;
@@ -172,6 +172,59 @@
 	top: 48px !important;
 }
 
-.panel-item {
+.panel .container .panel-item {
 	padding: 10px 0;
+	margin-left: 20px;
+	position: relative;
+	border-bottom: 1px solid #cdcdcd;
+}
+.panel .container .panel-item:last-child {
+	border: 0;
+}
+
+.panel .container .panel-item .design {
+	display: block;
+	width: 36px;
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	right: 36px;
+}
+
+.panel .container .panel-item .settings {
+	display: block;
+	width: 36px;
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	right: 0;
+}
+
+.panel .container .panel-item span {
+	top: 50%;
+	position: absolute;
+	margin-top: -8px;
+	width: 16px;
+	height: 16px;
+	background: url(/img/common/icons_small.png) no-repeat;
+}
+
+.panel .container .panel-item .design span {
+	left: 50%;
+	margin-left: -8px;
+	background-position: 0 0;
+}
+.panel .container .panel-item .settings span {
+	left: 50%;
+	margin-left: -8px;
+	background-position: -16px 0;
+}
+
+.panel .container .panel-item span.item {
+	right: 60px;
+	background-position: 0 -16px;
+}
+
+.panel .container .with-icon {
+	margin-left: 50px;
 }

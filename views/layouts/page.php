@@ -130,6 +130,9 @@ use system\App;
 
 		<div class="panel-item">
 			<div class="label"></div>
+			<a href="#" class="design"><span></span></a>
+			<a href="#" class="settings"><span></span></a>
+			<span class="item"></span>
 		</div>
 	<?php } ?>
 </div>

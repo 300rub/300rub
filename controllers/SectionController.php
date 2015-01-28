@@ -70,7 +70,14 @@ class SectionController extends Controller
 		}
 
 		$this->json = array(
-			"items" => $items,
+			"list" => array(
+				"items" => $items,
+				"icons" => array(
+					"big"      => false,
+					"design"   => false,
+					"settings" => true,
+				),
+			),
 			"errors"    => array(),
 		);
 

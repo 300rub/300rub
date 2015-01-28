@@ -59,9 +59,22 @@ function Panel (params) {
 				t.panel.find(".header").css("display", "block");
 				t.panel.find(".footer").css("display", "block");
 
-				if (data.items != undefined) {
+				if (data.list != undefined) {
 					var itemTemplate = $templates.find(".panel-item");
-					$.each(data.items, function (i, item) {
+					if (data.list.icons.big === true) {
+						itemTemplate.addClass("with-icon");
+					}
+					if (data.list.icons.design === false) {
+						itemTemplate.find("a.design").css("display", "none");
+					}
+					if (data.list.icons.settings === false) {
+						itemTemplate.find("a.settings").css("display", "none");
+					}
+					if (data.list.icons.design === true || data.list.icons.settings === true) {
+						itemTemplate.find("span.item").css("display", "none");
+					}
+
+					$.each(data.list.items, function (i, item) {
 						var clone = itemTemplate.clone();
 						clone.find(".label").text(item.label);
 						clone.appendTo(t.panel.find(".container"));
