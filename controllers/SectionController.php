@@ -60,8 +60,17 @@ class SectionController extends Controller
 
 	public function actionPanelList()
 	{
+		$items = array();
+		$models = SectionModel::model()->ordered()->findAll();
+
+		foreach ($models as $model) {
+			$items[] = array(
+				"label" => $model->seoModel->name
+			);
+		}
+
 		$this->json = array(
-			"success"   => true,
+			"items" => $items,
 			"errors"    => array(),
 		);
 

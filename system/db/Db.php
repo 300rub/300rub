@@ -44,6 +44,13 @@ class Db
 	public $limit = "";
 
 	/**
+	 * Сортировка
+	 *
+	 * @var string
+	 */
+	public $order = "";
+
+	/**
 	 * Связные таблицы
 	 *
 	 * @var string[]
@@ -127,6 +134,7 @@ class Db
 			}
 
 			$this->condition = str_replace("{$with}.", $class->tableName() . ".", $this->condition);
+			$this->order = str_replace("{$with}.", $class->tableName() . ".", $this->order);
 			$join[] =
 				" LEFT JOIN " .
 				$class->tableName() .
@@ -150,6 +158,10 @@ class Db
 
 		if ($this->limit) {
 			$query .= " LIMIT {$this->limit}";
+		}
+
+		if ($this->order) {
+			$query .= " ORDER BY {$this->order}";
 		}
 
 		if (PHP_SAPI !== "cli" && App::web()->config->isDebug && !App::web()->isAjax) {

@@ -10,8 +10,9 @@ use system\base\Model;
  *
  * @package models
  *
- * @method SectionModel byId
- * @method SectionModel find
+ * @method SectionModel   byId
+ * @method SectionModel   find
+ * @method SectionModel[] findAll
  */
 class SectionModel extends Model
 {
@@ -132,6 +133,19 @@ class SectionModel extends Model
 		} else {
 			$this->db->addCondition("t.is_main = 1");
 		}
+
+		return $this;
+	}
+
+	/**
+	 * Добавляет в условия выбора сортировку по названию
+	 *
+	 * @return SectionModel
+	 */
+	public function ordered()
+	{
+		$this->db->with[] = "seoModel";
+		$this->db->order = "seoModel.url";
 
 		return $this;
 	}

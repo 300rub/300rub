@@ -28,6 +28,7 @@ use system\App;
 	<link href='/css/form.css' rel='stylesheet' type='text/css'>
 	<?php if (App::web()->user !== null) { ?>
 		<link href='/css/admin.css' rel='stylesheet' type='text/css'>
+		<link href='/css/panel.css' rel='stylesheet' type='text/css'>
 	<?php } ?>
 
 	<script src="/js/Window.js"></script>
@@ -114,17 +115,23 @@ use system\App;
 		<div class="bounce3"></div>
 	</div>
 
-	<div class="panel">
-		<form action="" method="post">
-			<div class="header">
-				<a href="#" class="close"></a>
+	<?php if (App::web()->user !== null) { ?>
+		<div class="panel">
+			<a href="#" class="close"></a>
 
-				<div class="title"></div>
-			</div>
-			<div class="container"></div>
-			<div class="footer"></div>
-		</form>
-	</div>
+			<form action="" method="post">
+				<div class="header">
+					<div class="title"></div>
+				</div>
+				<div class="container"></div>
+				<div class="footer"></div>
+			</form>
+		</div>
+
+		<div class="panel-item">
+			<div class="label"></div>
+		</div>
+	<?php } ?>
 </div>
 
 <div id="errors">

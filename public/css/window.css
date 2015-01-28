@@ -68,7 +68,6 @@
 	height: 65px;
 	position: absolute;
 	border-top: 1px solid #cdcdcd;
-
 	background: -moz-linear-gradient(top, #fff 0, #f2f2f2 70%, #f2f2f2 100%);
 	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #fff), color-stop(70%, #f2f2f2), color-stop(100%, #f2f2f2));
 	background: -webkit-linear-gradient(top, #fff 0, #f2f2f2 70%, #f2f2f2 100%);
@@ -86,18 +85,14 @@
 	bottom: 14px;
 	min-width: 60px;
 	height: 35px;
-
 	padding: 7px 24px;
 	border: 1px solid #b5b5b7;
-
 	cursor: pointer;
 	text-align: center;
 	line-height: 19px;
-
 	-webkit-border-radius: 4px;
 	-moz-border-radius: 4px;
 	border-radius: 4px;
-
 	color: #fff;
 	border-top-color: #1992da;
 	border-left-color: #0c75bb;

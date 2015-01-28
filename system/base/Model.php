@@ -88,7 +88,7 @@ abstract class Model
 	 *
 	 * @return Model
 	 */
-	public final function byId($id)
+	public function byId($id)
 	{
 		$this->db->addCondition("t.id = :id");
 		$this->db->params["id"] = $id;
@@ -117,7 +117,7 @@ abstract class Model
 	 *
 	 * @return Model
 	 */
-	public final function with($relations) {
+	public function with($relations) {
 		foreach ($relations as $relation) {
 			$this->db->with[] = $relation;
 		}
@@ -130,7 +130,7 @@ abstract class Model
 	 *
 	 * @return null|Model
 	 */
-	public final function find()
+	public function find()
 	{
 		$this->db->limit = 1;
 
@@ -155,7 +155,7 @@ abstract class Model
 	 *
 	 * @return null|Model[]
 	 */
-	public final function findAll()
+	public function findAll()
 	{
 		$result = $this->db->findAll();
 		if (!$result) {
