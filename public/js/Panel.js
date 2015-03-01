@@ -55,7 +55,8 @@ function Panel (params) {
 			},
 			success: function (data) {
 				$loaderPanel.remove();
-				t.panel.find(".title").text(t.params.title);
+				t.panel.find(".title").text(data.title);
+				t.panel.find(".description").text(data.description);
 				t.panel.find(".header").css("display", "block");
 				t.panel.find(".footer").css("display", "block");
 
@@ -76,9 +77,12 @@ function Panel (params) {
 
 					$.each(data.list.items, function (i, item) {
 						var clone = itemTemplate.clone();
+						clone.attr("data-id", item.id);
 						clone.find(".label").text(item.label);
 						clone.appendTo(t.panel.find(".container"));
 					});
+
+					t.panel.find(".panel-item .settings").bind("click", t.settings);
 				}
 			},
 			error: function (request, status, error) {
@@ -98,6 +102,17 @@ function Panel (params) {
 		$panelButtons.find("a").removeClass("panel-button-half").removeClass("panel-button-active");
 		$("#sections-button").attr("class", "");
 
-		return this;
+		return false;
+	};
+
+	/**
+	 * Настройки
+	 *
+	 * @returns {boolean}
+	 */
+	this.settings = function () {
+		console.log($(this).parent().data("id"));
+
+		return false;
 	};
 }

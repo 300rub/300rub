@@ -65,12 +65,15 @@ class SectionController extends Controller
 
 		foreach ($models as $model) {
 			$items[] = array(
-				"label" => $model->seoModel->name
+				"label" => $model->seoModel->name,
+				"id"    => $model->id
 			);
 		}
 
 		$this->json = array(
-			"list" => array(
+			"title"       => Language::t("common", "Разделы"),
+			"description" => Language::t("common", "Чтобы добавить раздел, нажмите плюсик. Чтобы изменить структуру раздела нажмите на его название. Отредактировать СЕО - нажмите на шестеренку."),
+			"list"        => array(
 				"items" => $items,
 				"icons" => array(
 					"big"      => false,
@@ -78,7 +81,7 @@ class SectionController extends Controller
 					"settings" => true,
 				),
 			),
-			"errors"    => array(),
+			"errors"      => array(),
 		);
 
 		$this->renderJson();
