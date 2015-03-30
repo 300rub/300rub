@@ -95,6 +95,10 @@ function Form (name, params) {
 
 	/**
 	 * Преобразует строку в транслит
+	 *
+	 * @param {string} text входящая строка
+	 *
+	 * @returns {string}
 	 */
 	this.translit = function (text) {
 		var L = {
