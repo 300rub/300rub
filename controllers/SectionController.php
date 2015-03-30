@@ -78,10 +78,43 @@ class SectionController extends Controller
 				"icons" => array(
 					"big"      => false,
 					"design"   => false,
-					"settings" => true,
+					"settings" => "section/settings",
 				),
 			),
 			"errors"      => array(),
+		);
+
+		$this->renderJson();
+	}
+
+	/**
+	 * Настройки раздела
+	 *
+	 * @param int $id идентификатор раздела
+	 *
+	 * @throws Exception
+	 *
+	 * @return void
+	 */
+	public function actionSettings($id = 0)
+	{
+		if ($id) {
+			$model = SectionModel::model()->byId($id)->with(array("seoModel"))->find();
+		} else {
+			$model = new SectionModel;
+		}
+
+		if (!$model) {
+			throw new Exception(Language::t("default", "Раздел не найден"), 404);
+		}
+
+		$this->json = array(
+			"title" => Language::t("common", "Настройки раздела"),
+			"description" => Language::t("common", "Здесь вы можете редактировать название и СЕО"),
+		);
+		$this->setFormsForJson(
+			$model,
+			array("seoModel.name", "seoModel.url", "seoModel.title", "seoModel.keywords", "seoModel.description")
 		);
 
 		$this->renderJson();

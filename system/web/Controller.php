@@ -138,11 +138,24 @@ abstract class Controller
 
 		foreach ($fields as $field) {
 			$explode = explode(".", $field, 2);
-			if ($explode[0] === "t" && property_exists($model, $explode[1])) {
+
+			$m = null;
+			if ($explode[0] === "t") {
+				$m = $model;
+			} else if (property_exists($model, $explode[0])) {
+				$m = $model->$explode[0];
+				if (!$m) {
+					$className = $model->getRelationClass($explode[0]);
+					$m = new $className;
+				}
+			}
+
+			if ($m && property_exists($m, $explode[1])) {
 				$forms[$field] = array(
-					"rules" => $model->getRules($explode[1]),
-					"label" => $model->getLabel($explode[1]),
-					"type"  => $model->getFormType($explode[1]),
+					"rules" => $m->getRules($explode[1]),
+					"label" => $m->getLabel($explode[1]),
+					"type"  => $m->getFormType($explode[1]),
+					"value" => $m->$explode[1],
 				);
 			}
 		}

@@ -53,13 +53,15 @@ function Form (name, params) {
 	 * @returns {HTMLElement}
 	 */
 	this.get = function () {
-		if(this.fields[this.params.type] == undefined){
+		if (this.fields[this.params.type] == undefined) {
 			return false;
 		}
 
 		var $object = $forms.find(".form-container-" + this.params.type).clone();
 		var $form = $object.find(this.fields[this.params.type]);
 		var container = t.name.replace(".", "__");
+
+		$form.val(this.params.value);
 
 		$form.attr("id", t.id);
 		$form.attr("name", "Data[" + t.name + "]");

@@ -5,7 +5,6 @@ $(document).ready(function () {
 	$panelButtons.find("a").on("click", function () {
 		var panel = new Panel({
 			name: $(this).data("name"),
-			title: $(this).find("span").text(),
 			content: $(this).data("content")
 		});
 		panel.close();

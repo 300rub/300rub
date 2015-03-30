@@ -506,4 +506,25 @@ abstract class Model
 
 		return "";
 	}
+
+	/**
+	 * Получает название класса для связи
+	 *
+	 * @param string $relation нзвание связи
+	 *
+	 * @return string
+	 */
+	public function getRelationClass($relation)
+	{
+		if (!property_exists($this, $relation)) {
+			return null;
+		}
+
+		$relations = $this->relations();
+		if (array_key_exists($relation, $relations)) {
+			return null;
+		}
+
+		return $relations[$relation][0];
+	}
 }

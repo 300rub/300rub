@@ -189,7 +189,7 @@
 }
 
 .panel .container .panel-item .design {
-	display: block;
+	display: none;
 	width: 36px;
 	position: absolute;
 	top: 0;
@@ -198,7 +198,7 @@
 }
 
 .panel .container .panel-item .settings {
-	display: block;
+	display: none;
 	width: 36px;
 	position: absolute;
 	top: 0;
@@ -229,8 +229,13 @@
 .panel .container .panel-item span.item {
 	right: 60px;
 	background-position: 0 -16px;
+	display: none;
 }
 
 .panel .container .with-icon {
 	margin-left: 50px;
+}
+
+.panel .container .form-container {
+	margin: 15px;
 }

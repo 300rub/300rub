@@ -49,6 +49,19 @@ class SeoModel extends Model
 	public $description = "";
 
 	/**
+	 * Типы форм для полей
+	 *
+	 * @var array
+	 */
+	public $formTypes = array(
+		"name"        => "field",
+		"url"         => "field",
+		"title"       => "field",
+		"keywords"    => "field",
+		"description" => "field",
+	);
+
+	/**
 	 * Получает название связной таблицы
 	 *
 	 * @return string
@@ -81,7 +94,13 @@ class SeoModel extends Model
 	 */
 	public function labels()
 	{
-		return array();
+		return array(
+			"name"        => Language::t("common", "Название"),
+			"url"         => Language::t("common", "Абривиатура URL"),
+			"title"       => Language::t("common", "Тег title"),
+			"keywords"    => Language::t("common", "Тег keywords"),
+			"description" => Language::t("common", "Тег description"),
+		);
 	}
 
 	/**
