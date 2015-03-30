@@ -77,6 +77,10 @@ function Validator (form) {
 		}
 	};
 
+	this.url = function (form) {
+
+	};
+
 	/**
 	 * Добавляет ошибку
 	 *

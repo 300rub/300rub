@@ -64,10 +64,9 @@ class UserController extends Controller
 		}
 
 		$this->json = array(
-			"success"   => $success,
-			"errors"    => $model->errors,
-			"container" => null,
-			"redirect"  => "",
+			"success"  => $success,
+			"errors"   => $model->errors,
+			"redirect" => "",
 		);
 
 		$this->renderJson();

@@ -100,7 +100,7 @@ use system\App;
 			<div class="header"></div>
 			<div class="container"></div>
 			<div class="footer">
-				<button>
+				<button class="button">
 					<span></span>
 				</button>
 			</div>
@@ -160,6 +160,8 @@ use system\App;
 		<input type="checkbox" />
 		<label></label>
 	</div>
+
+	<button class="button"><span></span></button>
 </div>
 
 </body>

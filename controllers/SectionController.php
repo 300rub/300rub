@@ -2,10 +2,12 @@
 
 namespace controllers;
 
+use models\SeoModel;
 use system\web\Controller;
 use models\SectionModel;
 use system\base\Exception;
 use system\web\Language;
+use system\App;
 
 /**
  * Файл класса SectionController
@@ -109,12 +111,55 @@ class SectionController extends Controller
 		}
 
 		$this->json = array(
-			"title" => Language::t("common", "Настройки раздела"),
+			"title"       => Language::t("common", "Настройки раздела"),
 			"description" => Language::t("common", "Здесь вы можете редактировать название и СЕО"),
+			"button"      => array(
+				"label"  => Language::t("common", "Сохранить"),
+				"action" => "section/saveSettings/{$model->id}"
+			),
 		);
 		$this->setFormsForJson(
 			$model,
 			array("seoModel.name", "seoModel.url", "seoModel.title", "seoModel.keywords", "seoModel.description")
+		);
+
+		$this->renderJson();
+	}
+
+	public function actionSaveSettings($id = 0)
+	{
+		$post = App::getPost();
+		if (
+			!$post
+			|| !isset($post["seoModel.name"])
+			|| !isset($post["seoModel.url"])
+			|| !isset($post["seoModel.title"])
+			|| !isset($post["seoModel.keywords"])
+			|| !isset($post["seoModel.description"])
+		) {
+			throw new Exception(Language::t("common", "Некорректрый url"), 404);
+		}
+
+		if ($id) {
+			$model = SectionModel::model()->byId($id)->with(array("seoModel"))->find();
+		} else {
+			$model = new SectionModel;
+			$model->seoModel = new SeoModel();
+		}
+
+		$model->setAttributes($post);
+		$model->validate(false);
+
+		$success = false;
+
+		if (!$model->errors && $model->save()) {
+			$success = true;
+		}
+
+		$this->json = array(
+			"success" => $success,
+			"errors"  => $model->errors,
+			"content" => "section/panelList",
 		);
 
 		$this->renderJson();

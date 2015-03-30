@@ -49,7 +49,7 @@ function Window (params) {
 		t.showContent();
 
 		t.window.find(".close").bind("click", t.close);
-		t.window.find("button").bind("click", t.submit);
+		t.window.find(".button").bind("click", t.submit);
 		$ajaxWrapper.find(".overlay").bind("click", t.close);
 	};
 
@@ -98,7 +98,7 @@ function Window (params) {
 
 				$loaderWindow.remove();
 				t.window.find(".header").text(t.params.title).css("display", "block");
-				$footer.find("button span").text(t.params.button);
+				$footer.find(".button span").text(t.params.button);
 				$footer.css("display", "block");
 
 				$.each(data.forms, function (name, params) {
@@ -123,7 +123,7 @@ function Window (params) {
 	this.submit = function () {
 		var $form = $(this).parents("form");
 		var $loaderButton = $loader.clone();
-		var $button = $form.find("button");
+		var $button = $form.find(".button");
 		var $buttonSpan = $button.find("span");
 
 		$.ajax({
@@ -147,10 +147,10 @@ function Window (params) {
 				if (data.success === false) {
 					(new Validator($form)).showErrors(data.errors);
 				} else {
-					if (data.container !== null) {
+					if (data.container != undefined) {
 						$wrapper.find("#" + data.container).html(data.html);
 						t.close();
-					} else if (data.redirect !== null) {
+					} else if (data.redirect != undefined) {
 						window.location.replace(data.redirect);
 					}
 				}

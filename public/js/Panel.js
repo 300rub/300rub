@@ -95,6 +95,14 @@ function Panel (params) {
 						}
 					});
 				}
+
+				if (data.button != undefined) {
+					var $button = $forms.find(".button").clone();
+					$button.find("span").text(data.button.label);
+					$button.attr("data-action", data.button.action);
+					$button.appendTo(t.panel.find(".footer"));
+					$button.bind("click", t.submit);
+				}
 			},
 			error: function (request, status, error) {
 				$loaderPanel.remove();
@@ -130,6 +138,57 @@ function Panel (params) {
 		})).init();
 
 		t.panel.remove();
+
+		return false;
+	};
+
+	/**
+	 * Нажатие на кнопку сохрнения
+	 *
+	 * @returns {boolean}
+	 */
+	this.submit = function () {
+		var $form = $(this).parents("form");
+		var $loaderButton = $loader.clone();
+		var $button = $form.find(".button");
+		var $buttonSpan = $button.find("span");
+
+		$.ajax({
+			url: "/ajax/" + LANG + "/" + $button.data("action") + "/",
+			type: "post",
+			data: $form.serialize(),
+			dataType: "json",
+			beforeSend: function (data) {
+				$loaderButton.appendTo($button);
+				$buttonSpan.css("opacity", 0);
+
+				if ((new Validator($form)).validate() === false) {
+					$loaderButton.remove();
+					$buttonSpan.css("opacity", 1);
+					return false;
+				}
+			},
+			success: function (data) {
+				$loaderButton.remove();
+				$buttonSpan.css("opacity", 1);
+				if (data.success === false) {
+					(new Validator($form)).showErrors(data.errors);
+				} else {
+					(new Panel({
+						name: t.panel.data("name"),
+						content: data.content
+					})).init();
+					t.panel.remove();
+				}
+			},
+			error: function (request, status, error) {
+				$loaderButton.remove();
+				$buttonSpan.css("opacity", 1);
+				var $container = t.panel.find(".container");
+				$container.text("");
+				$errors.find(".system").clone().appendTo($container);
+			}
+		});
 
 		return false;
 	};
