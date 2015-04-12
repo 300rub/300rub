@@ -1,8 +1,36 @@
 {
-	"require": {
-	},
-	"config": {
-		"vendor-dir": "vendors",
-		"discard-changes": true
-	}
+  "require": {
+    "troolee/gridstack": "dev-master",
+    "lodash/lodash": "dev-master"
+  },
+  "repositories": [
+    {
+      "type": "package",
+      "package": {
+        "name": "troolee/gridstack",
+        "version": "dev-master",
+        "source": {
+          "type": "git",
+          "url": "https://github.com/troolee/gridstack.js.git",
+          "reference": "master"
+        }
+      }
+    },
+    {
+      "type": "package",
+      "package": {
+        "name": "lodash/lodash",
+        "version": "dev-master",
+        "source": {
+          "type": "git",
+          "url": "https://github.com/lodash/lodash.git",
+          "reference": "master"
+        }
+      }
+    }
+  ],
+  "config": {
+    "vendor-dir": "vendors",
+    "discard-changes": true
+  }
 }

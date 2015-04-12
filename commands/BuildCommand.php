@@ -121,7 +121,8 @@ class BuildCommand extends Command
 	 *
 	 * @return bool
 	 */
-	private function _gitCheckout($branch) {
+	private function _gitCheckout($branch)
+	{
 		$command = "
 			git add .;
 			git reset --hard;
