@@ -27,6 +27,7 @@ use system\App;
 	<link href='/css/window.css' rel='stylesheet' type='text/css'>
 	<link href='/css/form.css' rel='stylesheet' type='text/css'>
 	<?php if (App::web()->user !== null) { ?>
+		<link href='/css/lib/gridstack.min.css' rel='stylesheet' type='text/css'>
 		<link href='/css/admin.css' rel='stylesheet' type='text/css'>
 		<link href='/css/panel.css' rel='stylesheet' type='text/css'>
 	<?php } ?>
@@ -37,6 +38,7 @@ use system\App;
 	<script src="/js/js.js"></script>
 
 	<?php if (App::web()->user !== null) { ?>
+		<script src="/js/lib/gridstack.min.js"></script>
 		<script src="/js/Panel.js"></script>
 		<script src="/js/admin.js"></script>
 	<?php } ?>
@@ -97,6 +99,7 @@ use system\App;
 	<div class="window">
 		<form action="" method="post">
 			<a href="#" class="close"></a>
+
 			<div class="header"></div>
 			<div class="container"></div>
 			<div class="footer">
@@ -148,16 +151,16 @@ use system\App;
 <div id="forms">
 	<div class="form-container form-container-field">
 		<label></label>
-		<input type="text" />
+		<input type="text"/>
 	</div>
 
 	<div class="form-container form-container-password">
 		<label></label>
-		<input type="password" />
+		<input type="password"/>
 	</div>
 
 	<div class="form-container form-container-checkbox">
-		<input type="checkbox" />
+		<input type="checkbox"/>
 		<label></label>
 	</div>
 
