@@ -94,7 +94,7 @@ class Console extends Application
 
 		while (false !== ($file = readdir($handle))) {
 			if ($file != "." && $file != "..") {
-				$list[] = strtolower(str_replace(self::COMMAND_ENDING . ".php", "", $file));
+				$list[] = lcfirst(str_replace(self::COMMAND_ENDING . ".php", "", $file));
 			}
 		}
 		closedir($handle);

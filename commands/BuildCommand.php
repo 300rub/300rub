@@ -54,7 +54,9 @@ class BuildCommand extends Command
 		$this->_gitCheckout($this->_branch);
 
 		$migrateCommand = new MigrateCommand;
-		if (!$migrateCommand->run($args)) {
+		$publicStaticCommand = new PublicStaticCommand;
+
+		if (!$migrateCommand->run($args) || !$publicStaticCommand->run($args)) {
 			Logger::log("Во время сборки произошла ошибка", Logger::LEVEL_INFO, "console.build");
 
 			$this->_gitCheckout($this->_prevBranch);
@@ -135,19 +137,5 @@ class BuildCommand extends Command
 		exec($command);
 
 		return true;
-	}
-
-	private function _publicStatic()
-	{
-		$list = require(App::console()->config->rootDir . "/config/static_map.php");
-		var_dump($list);
-
-		$dir = App::console()->config->rootDir . DIRECTORY_SEPARATOR . "vendors";
-
-		if (file_exists("{$dir}/troolee/gridstack/dist")) {
-			var_dump(111);
-		} else {
-			var_dump(2222);
-		}
 	}
 }
