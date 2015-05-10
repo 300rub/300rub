@@ -27,6 +27,7 @@ use system\App;
 	<link href='/css/window.css' rel='stylesheet' type='text/css'>
 	<link href='/css/form.css' rel='stylesheet' type='text/css'>
 	<?php if (App::web()->user !== null) { ?>
+		<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
 		<link href='/css/lib/gridstack.min.css' rel='stylesheet' type='text/css'>
 		<link href='/css/admin.css' rel='stylesheet' type='text/css'>
 		<link href='/css/panel.css' rel='stylesheet' type='text/css'>
@@ -38,6 +39,8 @@ use system\App;
 	<script src="/js/js.js"></script>
 
 	<?php if (App::web()->user !== null) { ?>
+		<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+		<script src="/js/lib/lodash.min.js"></script>
 		<script src="/js/lib/gridstack.min.js"></script>
 		<script src="/js/Panel.js"></script>
 		<script src="/js/admin.js"></script>
