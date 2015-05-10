@@ -63,6 +63,9 @@ function Panel (params) {
 
 				if (data.list != undefined) {
 					var itemTemplate = $templates.find(".panel-item");
+					if (data.list.class != undefined) {
+						itemTemplate.addClass("panel-item-" + data.list.class);
+					}
 					if (data.list.icons.big === true) {
 						itemTemplate.addClass("with-icon");
 					}
@@ -84,6 +87,7 @@ function Panel (params) {
 						clone.appendTo(t.panel.find(".container"));
 					});
 
+					t.panel.find(".panel-item").bind("click", t.showItem);
 					t.panel.find(".panel-item .settings").bind("click", t.settings);
 				}
 
@@ -189,6 +193,21 @@ function Panel (params) {
 				$errors.find(".system").clone().appendTo($container);
 			}
 		});
+
+		return false;
+	};
+
+	/**
+	 * Клик по элементу списка
+	 *
+	 * @returns {boolean}
+	 */
+	this.showItem = function () {
+		if ($(this).hasClass("panel-item-grid")) {
+
+		} else {
+
+		}
 
 		return false;
 	};

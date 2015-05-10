@@ -76,6 +76,7 @@ class SectionController extends Controller
 			"title"       => Language::t("common", "Разделы"),
 			"description" => Language::t("common", "Чтобы добавить раздел, нажмите плюсик. Чтобы изменить структуру раздела нажмите на его название. Отредактировать СЕО - нажмите на шестеренку."),
 			"list"        => array(
+				"class" => "grid",
 				"items" => $items,
 				"icons" => array(
 					"big"      => false,
