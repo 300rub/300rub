@@ -136,4 +136,18 @@ class BuildCommand extends Command
 
 		return true;
 	}
+
+	private function _publicStatic()
+	{
+		$list = require(App::console()->config->rootDir . "/config/static_map.php");
+		var_dump($list);
+
+		$dir = App::console()->config->rootDir . DIRECTORY_SEPARATOR . "vendors";
+
+		if (file_exists("{$dir}/troolee/gridstack/dist")) {
+			var_dump(111);
+		} else {
+			var_dump(2222);
+		}
+	}
 }
