@@ -72,12 +72,12 @@ class SectionModel extends Model
 	 */
 	public function rules()
 	{
-		return array(
-			"seo_id"   => array(),
-			"language" => array("required"),
-			"width"    => array(),
-			"is_main"  => array(),
-		);
+		return [
+			"seo_id"   => [],
+			"language" => ["required"],
+			"width"    => [],
+			"is_main"  => [],
+		];
 	}
 
 	/**
@@ -87,7 +87,7 @@ class SectionModel extends Model
 	 */
 	public function labels()
 	{
-		return array();
+		return [];
 	}
 
 	/**
@@ -97,9 +97,9 @@ class SectionModel extends Model
 	 */
 	public function relations()
 	{
-		return array(
-			"seoModel" => array('models\SeoModel', "seo_id")
-		);
+		return [
+			"seoModel" => ['models\SeoModel', "seo_id"]
+		];
 	}
 
 	/**

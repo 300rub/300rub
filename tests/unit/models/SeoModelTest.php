@@ -115,13 +115,13 @@ class SeoModelTest extends Test
 	 */
 	public function testInsert()
 	{
-		$attributes = array(
+		$attributes = [
 			"t.name"        => "Название 1",
 			"t.url"         => "nazvanie-1",
 			"t.title"       => "Заголовок 1",
 			"t.keywords"    => "Ключевые слова 1",
 			"t.description" => "Описание 1",
-		);
+		];
 
 		$model = new SeoModel;
 		$model->setAttributes($attributes);

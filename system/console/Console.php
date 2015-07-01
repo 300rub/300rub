@@ -26,7 +26,7 @@ class Console extends Application
 	 *
 	 * @var string[]
 	 */
-	private $_commandList = array();
+	private $_commandList = [];
 
 	/**
 	 * Запускаемая команда
@@ -40,7 +40,7 @@ class Console extends Application
 	 *
 	 * @var string[]
 	 */
-	private $_args = array();
+	private $_args = [];
 
 	/**
 	 * Запускает команду
@@ -84,7 +84,7 @@ class Console extends Application
 	 */
 	private function _setCommandList()
 	{
-		$list = array();
+		$list = [];
 		$dir = $this->config->rootDir . DIRECTORY_SEPARATOR . "commands";
 
 		$handle = opendir($dir);

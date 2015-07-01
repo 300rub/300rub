@@ -31,13 +31,13 @@ abstract class Migration
 	 *
 	 * @var array
 	 */
-	private $_columnTypes = array(
+	private $_columnTypes = [
 		'pk'      => 'int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY',
 		'string'  => 'varchar(255) NOT NULL',
 		'integer' => 'int(11) NOT NULL',
 		'boolean' => 'tinyint(1) NOT NULL',
 		'text'    => 'text NOT NULL',
-	);
+	];
 
 	/**
 	 * Получает тип столбца
@@ -66,7 +66,7 @@ abstract class Migration
 	 */
 	public function createTable($table, $columns, $options = null)
 	{
-		$cols = array();
+		$cols = [];
 		foreach ($columns as $name => $type) {
 			$cols[] = "`{$name}`" . ' ' . $this->getColumnType($type);
 		}

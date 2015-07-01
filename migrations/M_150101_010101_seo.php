@@ -50,35 +50,35 @@ class M_150101_010101_seo extends Migration
 	 */
 	public function insertData()
 	{
-		$attributes = array(
+		$attributes = [
 			"t.name"        => "Название 1",
 			"t.url"         => "url-1",
 			"t.title"       => "Заголовок 1",
 			"t.keywords"    => "Ключевые слова 1",
 			"t.description" => "Описание 1",
-		);
+		];
 		$model = new SeoModel;
 		$model->setAttributes($attributes);
 		if (!$model->save()) {
 			return false;
 		}
 
-		$attributes = array(
+		$attributes = [
 			"t.name"        => "Название 2",
 			"t.url"         => "url-2",
 			"t.title"       => "Заголовок 2",
 			"t.keywords"    => "Ключевые слова 2",
 			"t.description" => "Описание 2",
-		);
+		];
 		$model = new SeoModel;
 		$model->setAttributes($attributes);
 		if (!$model->save()) {
 			return false;
 		}
 
-		$attributes = array(
+		$attributes = [
 			"t.name"        => "Название 3",
-		);
+		];
 		$model = new SeoModel;
 		$model->setAttributes($attributes);
 		if (!$model->save()) {

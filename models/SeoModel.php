@@ -53,13 +53,13 @@ class SeoModel extends Model
 	 *
 	 * @var array
 	 */
-	public $formTypes = array(
+	public $formTypes = [
 		"name"        => "field",
 		"url"         => "field",
 		"title"       => "field",
 		"keywords"    => "field",
 		"description" => "field",
-	);
+	];
 
 	/**
 	 * Получает название связной таблицы
@@ -78,13 +78,13 @@ class SeoModel extends Model
 	 */
 	public function rules()
 	{
-		return array(
-			"name"        => array("required", "max" => 255),
-			"url"         => array("required", "url", "max" => 255),
-			"title"       => array("max" => 100),
-			"keywords"    => array("max" => 255),
-			"description" => array("max" => 255),
-		);
+		return [
+			"name"        => ["required", "max" => 255],
+			"url"         => ["required", "url", "max" => 255],
+			"title"       => ["max" => 100],
+			"keywords"    => ["max" => 255],
+			"description" => ["max" => 255],
+		];
 	}
 
 	/**
@@ -94,13 +94,13 @@ class SeoModel extends Model
 	 */
 	public function labels()
 	{
-		return array(
+		return [
 			"name"        => Language::t("common", "Название"),
 			"url"         => Language::t("common", "Абривиатура URL"),
 			"title"       => Language::t("common", "Тег title"),
 			"keywords"    => Language::t("common", "Тег keywords"),
 			"description" => Language::t("common", "Тег description"),
-		);
+		];
 	}
 
 	/**
@@ -110,7 +110,7 @@ class SeoModel extends Model
 	 */
 	public function relations()
 	{
-		return array();
+		return [];
 	}
 
 	/**

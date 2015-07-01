@@ -39,11 +39,11 @@ class UserModel extends Model
 	 *
 	 * @var array
 	 */
-	public $formTypes = array(
-		"login" => "field",
+	public $formTypes = [
+		"login"    => "field",
 		"password" => "password",
 		"remember" => "checkbox",
-	);
+	];
 
 	/**
 	 * Получает название связной таблицы
@@ -62,10 +62,10 @@ class UserModel extends Model
 	 */
 	public function rules()
 	{
-		return array(
-			"login"    => array("required", "max" => 3),
-			"password" => array("required"),
-		);
+		return [
+			"login"    => ["required", "max" => 3],
+			"password" => ["required"],
+		];
 	}
 
 	/**
@@ -75,11 +75,11 @@ class UserModel extends Model
 	 */
 	public function labels()
 	{
-		return array(
+		return [
 			"login"    => Language::t("common", "Логин"),
 			"password" => Language::t("common", "Пароль"),
 			"remember" => Language::t("common", "Запомнить"),
-		);
+		];
 	}
 
 	/**
@@ -89,7 +89,7 @@ class UserModel extends Model
 	 */
 	public function relations()
 	{
-		return array();
+		return [];
 	}
 
 	/**

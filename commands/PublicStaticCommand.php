@@ -23,7 +23,7 @@ class PublicStaticCommand extends Command
 	 *
 	 * @return bool
 	 */
-	public function run($args = array())
+	public function run($args = [])
 	{
 		$vendorsDir = App::console()->config->rootDir . DIRECTORY_SEPARATOR . "vendors";
 		$staticDir = App::console()->config->rootDir . DIRECTORY_SEPARATOR . "public";

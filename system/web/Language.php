@@ -31,9 +31,9 @@ class Language
 	 *
 	 * @var array
 	 */
-	private static $_aliasList = array(
+	private static $_aliasList = [
 		self::LANGUAGE_RU => "ru",
-	);
+	];
 
 	/**
 	 * Устанавливает идентификатор языка
@@ -77,7 +77,7 @@ class Language
 	 *
 	 * @return string
 	 */
-	public static function t($category, $message, $replacement = array())
+	public static function t($category, $message, $replacement = [])
 	{
 		foreach ($replacement as $key => $value) {
 			$message = str_replace("{" . $key . "}", $value, $message);
@@ -95,7 +95,7 @@ class Language
 	 */
 	public static function translit($string)
 	{
-		$converter = array(
+		$converter = [
 			'а' => 'a',
 			'б' => 'b',
 			'в' => 'v',
@@ -162,7 +162,7 @@ class Language
 			'Э' => 'e',
 			'Ю' => 'yu',
 			'Я' => 'ya',
-		);
+		];
 
 		return strtr($string, $converter);
 	}

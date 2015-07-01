@@ -34,7 +34,7 @@ class Db
 	 *
 	 * @var array
 	 */
-	public $params = array();
+	public $params = [];
 
 	/**
 	 * Лимит
@@ -55,14 +55,14 @@ class Db
 	 *
 	 * @var string[]
 	 */
-	public $with = array();
+	public $with = [];
 
 	/**
 	 * Поля для выбора
 	 *
 	 * @var string[]
 	 */
-	public $fields = array();
+	public $fields = [];
 
 	/**
 	 * Модель PDO
@@ -76,7 +76,7 @@ class Db
 	 *
 	 * @var array
 	 */
-	public $relations = array();
+	public $relations = [];
 
 	/**
 	 * Устанавливает PDO
@@ -114,8 +114,8 @@ class Db
 	 */
 	private function _getQuery()
 	{
-		$join = array();
-		$select = array();
+		$join = [];
+		$select = [];
 
 		$select[] = "t.id AS t__id";
 		foreach ($this->fields as $field) {
@@ -222,7 +222,7 @@ class Db
 	 *
 	 * @return bool
 	 */
-	public static function execute($condition, $params = array())
+	public static function execute($condition, $params = [])
 	{
 		return self::$_pdo->prepare($condition)->execute($params);
 	}
@@ -235,7 +235,7 @@ class Db
 	 *
 	 * @return array
 	 */
-	public static function fetch($condition, $params = array())
+	public static function fetch($condition, $params = [])
 	{
 		$sth = self::$_pdo->prepare($condition);
 		$sth->execute($params);
@@ -251,7 +251,7 @@ class Db
 	 *
 	 * @return array
 	 */
-	public static function fetchAll($condition, $params = array())
+	public static function fetchAll($condition, $params = [])
 	{
 		$sth = self::$_pdo->prepare($condition);
 		$sth->execute($params);
@@ -299,9 +299,9 @@ class Db
 	 */
 	public static function insert($model)
 	{
-		$columns = array();
-		$values = array();
-		$substitutions = array();
+		$columns = [];
+		$values = [];
+		$substitutions = [];
 
 		foreach ($model->rules() as $field => $value) {
 			$columns[] = $field;
@@ -333,8 +333,8 @@ class Db
 	 */
 	public static function update($model)
 	{
-		$sets = array();
-		$values = array();
+		$sets = [];
+		$values = [];
 
 		foreach ($model->rules() as $field => $value) {
 			$sets[] = "$field = ?";
@@ -357,7 +357,7 @@ class Db
 	 */
 	public static function delete($model)
 	{
-		return self::execute("DELETE FROM " . $model->tableName() . " WHERE id = ?", array($model->id));
+		return self::execute("DELETE FROM " . $model->tableName() . " WHERE id = ?", [$model->id]);
 	}
 
 	/**

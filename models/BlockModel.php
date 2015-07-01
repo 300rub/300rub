@@ -17,9 +17,9 @@ class BlockModel extends Model
 	public $type;
 	public $content;
 
-	public static $typeList = array(
+	public static $typeList = [
 		self::TYPE_TEXT => "text",
-	);
+	];
 
 	/**
 	 * Получает название связной таблицы
@@ -31,9 +31,14 @@ class BlockModel extends Model
 		return "blocks";
 	}
 
+	/**
+	 * Связи
+	 *
+	 * @return array
+	 */
 	public function relations()
 	{
-		return array();
+		return [];
 	}
 
 	/**
@@ -43,12 +48,12 @@ class BlockModel extends Model
 	 */
 	public function rules()
 	{
-		return array(
-			"language" => array(),
-			"name"     => array(),
-			"type"     => array(),
-			"content"  => array(),
-		);
+		return [
+			"language" => [],
+			"name"     => [],
+			"type"     => [],
+			"content"  => [],
+		];
 	}
 
 	/**

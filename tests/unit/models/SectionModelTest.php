@@ -63,11 +63,11 @@ class SectionModelTest extends Test
 	 */
 	public function testUrl()
 	{
-		$attributes = array(
+		$attributes = [
 			"t.language"    => 1,
 			"seoModel.name" => "Название",
 			"seoModel.url"  => "некорректный url",
-		);
+		];
 
 		$model = new SectionModel;
 		$model->setAttributes($attributes);
@@ -115,13 +115,13 @@ class SectionModelTest extends Test
 	 */
 	public function testInsertWithSeo()
 	{
-		$attributes = array(
+		$attributes = [
 			"t.language"           => 1,
 			"seoModel.name"        => "Название",
 			"seoModel.title"       => "Заголовок",
 			"seoModel.keywords"    => "Ключевые слова",
 			"seoModel.description" => "Описание",
-		);
+		];
 
 		$model = new SectionModel;
 		$model->setAttributes($attributes);
@@ -149,14 +149,14 @@ class SectionModelTest extends Test
 	 */
 	public function testUpdate()
 	{
-		$attributes = array(
+		$attributes = [
 			"t.is_main"            => 0,
 			"t.width"              => 1200,
 			"seoModel.name"        => "Новое название",
 			"seoModel.title"       => "Новый заголовок",
 			"seoModel.keywords"    => "Новые ключевые слова",
 			"seoModel.description" => "Новое описание",
-		);
+		];
 
 		$model = SectionModel::model()->byId(1)->with(array("seoModel"))->find();
 		$model->setAttributes($attributes);

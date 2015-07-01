@@ -33,21 +33,21 @@ class MigrateCommand extends Command
 	 *
 	 * @var string[]
 	 */
-	private $_migrations = array();
+	private $_migrations = [];
 
 	/**
 	 * Все сайты
 	 *
 	 * @var array
 	 */
-	private $_sites = array();
+	private $_sites = [];
 
 	/**
 	 * Забекапленые сайты
 	 *
 	 * @var array
 	 */
-	private $_dumpSites = array();
+	private $_dumpSites = [];
 
 	/**
 	 * Выполняет команду
@@ -56,7 +56,7 @@ class MigrateCommand extends Command
 	 *
 	 * @return bool
 	 */
-	public function run($args = array())
+	public function run($args = [])
 	{
 		if (!$this->_checkCommonTables()) {
 			Logger::log("Не найдены базовые таблицы", Logger::LEVEL_ERROR, "console.migrate");
@@ -155,7 +155,7 @@ class MigrateCommand extends Command
 	 */
 	private function _setNewMigrations()
 	{
-		$versions = array();
+		$versions = [];
 		$rows = Db::fetchAll("SELECT * FROM `migrations`");
 		foreach ($rows as $row) {
 			$versions[] = $row["version"];
@@ -298,7 +298,7 @@ class MigrateCommand extends Command
 				}
 
 				if (App::console()->config->isDebug) {
-					$tables = array();
+					$tables = [];
 
 					$rows = Db::fetchAll("SHOW TABLES FROM " . $site["db_name"]);
 					foreach ($rows as $row) {
@@ -411,7 +411,7 @@ class MigrateCommand extends Command
 
 		Db::startTransaction();
 		foreach ($this->_migrations as $migration) {
-			if (!Db::execute("INSERT INTO `migrations` (version) VALUES(?)", array($migration))) {
+			if (!Db::execute("INSERT INTO `migrations` (version) VALUES(?)", [$migration])) {
 				Db::rollbackTransaction();
 
 				Logger::log("Не удалось обновить версии миграций", Logger::LEVEL_ERROR, "console.migrate");

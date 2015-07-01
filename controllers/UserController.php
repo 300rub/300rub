@@ -23,7 +23,7 @@ class UserController extends Controller
 	 */
 	public function actionForm()
 	{
-		$this->setFormsForJson(new UserModel, array("t.login", "t.password", "t.remember"))->renderJson();
+		$this->setFormsForJson(new UserModel, ["t.login", "t.password", "t.remember"])->renderJson();
 	}
 
 	/**
@@ -63,11 +63,11 @@ class UserController extends Controller
 			}
 		}
 
-		$this->json = array(
+		$this->json = [
 			"success"  => $success,
 			"errors"   => $model->errors,
 			"redirect" => "",
-		);
+		];
 
 		$this->renderJson();
 	}

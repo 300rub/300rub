@@ -96,7 +96,7 @@ class Web extends Application
 			throw new Exception(Language::t("default", "Не удалось определить адрес сайта"));
 		}
 
-		$site = Db::fetch("SELECT * FROM sites WHERE host = ?", array($host));
+		$site = Db::fetch("SELECT * FROM sites WHERE host = ?", [$host]);
 		if (!$site) {
 			throw new Exception(Language::t("default", "Не удалось определить сайт"));
 		}
@@ -120,7 +120,7 @@ class Web extends Application
 	 */
 	private function _runController()
 	{
-		$params = array();
+		$params = [];
 
 		$explodeForGet = explode("?", $_SERVER["REQUEST_URI"], 2);
 		foreach (explode("/", $explodeForGet[0]) as $param) {

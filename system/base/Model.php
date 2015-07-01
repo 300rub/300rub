@@ -33,14 +33,14 @@ abstract class Model
 	 *
 	 * @var array
 	 */
-	public $errors = array();
+	public $errors = [];
 
 	/**
 	 * Типы форм для полей
 	 *
 	 * @var array
 	 */
-	 public $formTypes = array();
+	 public $formTypes = [];
 
 	/**
 	 * Получает название связной таблицы
@@ -162,7 +162,7 @@ abstract class Model
 			return null;
 		}
 
-		$list = array();
+		$list = [];
 
 		foreach ($result as $values) {
 			/**
@@ -192,7 +192,7 @@ abstract class Model
 			return false;
 		}
 
-		$attributes = array();
+		$attributes = [];
 
 		foreach ($values as $key => $val) {
 			$explode = explode($separator, $key, 2);
@@ -287,7 +287,7 @@ abstract class Model
 			return false;
 		}
 
-		$data = array();
+		$data = [];
 		foreach ($this->rules() as $field => $value) {
 			$data[$field] = $this->$field;
 		}
@@ -444,8 +444,8 @@ abstract class Model
 			return false;
 		}
 
-		$sets = array();
-		$values = array();
+		$sets = [];
+		$values = [];
 
 		foreach ($params as $key => $value) {
 			$sets[] = "$key = ?";
@@ -471,7 +471,7 @@ abstract class Model
 			return $rules[$field];
 		}
 
-		return array();
+		return [];
 	}
 
 	/**

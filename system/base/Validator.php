@@ -19,7 +19,7 @@ class Validator
 	 *
 	 * @var array
 	 */
-	private $_errors = array();
+	private $_errors = [];
 
 	/**
 	 * Название связи
@@ -60,7 +60,7 @@ class Validator
 		}
 
 		if ($this->_errors) {
-			$errors = array();
+			$errors = [];
 
 			foreach ($this->_errors as $key => $value) {
 				$errors[$this->_relation . "__" . $key] = $value;
@@ -126,7 +126,7 @@ class Validator
 	 */
 	public static function getErrorMessages()
 	{
-		return array(
+		return [
 			"required"        => Language::t("default", "Поле должно быть заполнено"),
 			"max"             => Language::t("default", "Поле слишком длинное"),
 			"url"             => Language::t("default", "Поле должно состоять из латинских символов, чисел и тире"),
@@ -137,6 +137,6 @@ class Validator
 			),
 			"login-not-exist" => Language::t("default", "Пользователя с таким логином не существует"),
 			"password-incorrect" => Language::t("default", "Некорректный пароль"),
-		);
+		];
 	}
 }

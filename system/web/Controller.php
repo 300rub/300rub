@@ -28,7 +28,7 @@ abstract class Controller
 	 *
 	 * @var array
 	 */
-	protected $json = array();
+	protected $json = [];
 
 	/**
 	 * Название директории для представлений
@@ -48,7 +48,7 @@ abstract class Controller
 	 *
 	 * @return string|void
 	 */
-	protected function render($viewFile, $data = array(), $isReturn = false)
+	protected function render($viewFile, $data = [], $isReturn = false)
 	{
 		$path = $this->getViewsRootDir() . "layouts/{$this->layout}.php";
 
@@ -73,7 +73,7 @@ abstract class Controller
 	 *
 	 * @return string|void
 	 */
-	protected function renderPartial($viewFile, $data = array(), $isReturn = false)
+	protected function renderPartial($viewFile, $data = [], $isReturn = false)
 	{
 		$path = $this->getViewsRootDir();
 		if ($viewFile[0] !== "/") {
@@ -134,7 +134,7 @@ abstract class Controller
 			throw new Exception("Не указаны формы");
 		}
 
-		$forms = array();
+		$forms = [];
 
 		foreach ($fields as $field) {
 			$explode = explode(".", $field, 2);
@@ -151,12 +151,12 @@ abstract class Controller
 			}
 
 			if ($m && property_exists($m, $explode[1])) {
-				$forms[$field] = array(
+				$forms[$field] = [
 					"rules" => $m->getRules($explode[1]),
 					"label" => $m->getLabel($explode[1]),
 					"type"  => $m->getFormType($explode[1]),
 					"value" => $m->$explode[1],
-				);
+				];
 			}
 		}
 

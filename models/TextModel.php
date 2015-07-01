@@ -25,7 +25,7 @@ class TextModel extends Model
 
 	public function relations()
 	{
-		return array();
+		return [];
 	}
 
 	/**
@@ -35,12 +35,12 @@ class TextModel extends Model
 	 */
 	public function rules()
 	{
-		return array(
-			"rows"   => array(),
-			"editor" => array(),
-			"tag"    => array(),
-			"text"  => array(),
-		);
+		return [
+			"rows"   => [],
+			"editor" => [],
+			"tag"    => [],
+			"text"  => [],
+		];
 	}
 
 	/**

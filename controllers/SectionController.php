@@ -57,39 +57,39 @@ class SectionController extends Controller
 		//	throw new Exception(Language::t("default", "Не определена структура для раздела"));
 		//}
 
-		$this->render("index", array("model" => $model, "grids" => null));
+		$this->render("index", ["model" => $model, "grids" => null]);
 	}
 
 	public function actionPanelList()
 	{
-		$items = array();
+		$items = [];
 		$models = SectionModel::model()->ordered()->findAll();
 
 		foreach ($models as $model) {
-			$items[] = array(
+			$items[] = [
 				"label" => $model->seoModel->name,
 				"id"    => $model->id
-			);
+			];
 		}
 
-		$this->json = array(
+		$this->json = [
 			"title"       => Language::t("common", "Разделы"),
 			"description" => Language::t(
 				"common",
 				"Чтобы добавить раздел, нажмите плюсик. Чтобы изменить структуру раздела нажмите на его название. Отредактировать СЕО - нажмите на шестеренку."
 			),
-			"list"        => array(
+			"list"        => [
 				"class"   => "grid",
 				"items"   => $items,
 				"content" => "section/grid",
-				"icons"   => array(
+				"icons"   => [
 					"big"      => false,
 					"design"   => false,
 					"settings" => "section/settings",
-				),
-			),
-			"errors"      => array(),
-		);
+				],
+			],
+			"errors"      => [],
+		];
 
 		$this->renderJson();
 	}
@@ -115,14 +115,14 @@ class SectionController extends Controller
 			throw new Exception(Language::t("default", "Раздел не найден"), 404);
 		}
 
-		$this->json = array(
+		$this->json = [
 			"title"       => Language::t("common", "Настройки раздела"),
 			"description" => Language::t("common", "Здесь вы можете редактировать название и СЕО"),
-			"button"      => array(
+			"button"      => [
 				"label"  => Language::t("common", "Сохранить"),
 				"action" => "section/saveSettings/{$model->id}"
-			),
-		);
+			],
+		];
 		$this->setFormsForJson(
 			$model,
 			array("seoModel.name", "seoModel.url", "seoModel.title", "seoModel.keywords", "seoModel.description")
@@ -161,11 +161,11 @@ class SectionController extends Controller
 			$success = true;
 		}
 
-		$this->json = array(
+		$this->json = [
 			"success" => $success,
 			"errors"  => $model->errors,
 			"content" => "section/panelList",
-		);
+		];
 
 		$this->renderJson();
 	}

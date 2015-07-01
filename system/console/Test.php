@@ -45,7 +45,7 @@ abstract class Test
 	 *
 	 * @return bool
 	 */
-	protected function checkValidate($model, $errors = array(), $isBeforeValidate = true)
+	protected function checkValidate($model, $errors = [], $isBeforeValidate = true)
 	{
 		$model->validate($isBeforeValidate);
 
@@ -53,8 +53,8 @@ abstract class Test
 			return true;
 		}
 
-		$notFound = array();
-		$notGiven = array();
+		$notFound = [];
+		$notGiven = [];
 
 		/**
 		 * @var string[] $types
@@ -107,7 +107,7 @@ abstract class Test
 	 *
 	 * @return bool
 	 */
-	public function checkSave($model, $attributes = array())
+	public function checkSave($model, $attributes = [])
 	{
 		if (!$model) {
 			Logger::log(
@@ -138,7 +138,7 @@ abstract class Test
 			return false;
 		}
 
-		$errors = array();
+		$errors = [];
 		$model = $model->byId($model->id)->withAll()->find();
 
 		foreach ($attributes as $field => $value) {
@@ -147,11 +147,11 @@ abstract class Test
 			$field = $fieldExplode[1];
 			if ($alias === "t") {
 				if ($model->$field != $value) {
-					$errors[$field] = array("expected" => $value, "actual" => $model->$field);
+					$errors[$field] = ["expected" => $value, "actual" => $model->$field];
 				}
 			} else {
 				if ($model->$alias->$field != $value) {
-					$errors["{$alias}.{$field}"] = array("expected" => $value, "actual" => $model->$alias->$field);
+					$errors["{$alias}.{$field}"] = ["expected" => $value, "actual" => $model->$alias->$field];
 				}
 			}
 		}

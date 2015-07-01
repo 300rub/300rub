@@ -29,11 +29,16 @@ class GridModel extends Model
 		return "grids";
 	}
 
+	/**
+	 * Связи
+	 *
+	 * @return array
+	 */
 	public function relations()
 	{
-		return array(
-			"blockModel" => array("models\\BlockModel", "block_id")
-		);
+		return [
+			"blockModel" => ["models\\BlockModel", "block_id"]
+		];
 	}
 
 	/**
@@ -43,14 +48,24 @@ class GridModel extends Model
 	 */
 	public function rules()
 	{
-		return array(
-			"section_id" => array(),
-			"block_id"   => array(),
-			"line"       => array(),
-			"left"       => array(),
-			"top"        => array(),
-			"width"      => array(),
-		);
+		return [
+			"section_id" => [],
+			"block_id"   => [],
+			"line"       => [],
+			"left"       => [],
+			"top"        => [],
+			"width"      => [],
+		];
+	}
+
+	/**
+	 * Названия полей
+	 *
+	 * @return array
+	 */
+	public function labels()
+	{
+		return [];
 	}
 
 	/**
@@ -83,7 +98,7 @@ class GridModel extends Model
 
 	public static function getLines($grids)
 	{
-		$list = array();
+		$list = [];
 
 		foreach ($grids as $grid) {
 			$list[$grid->line][] = $grid;
@@ -94,9 +109,9 @@ class GridModel extends Model
 
 	public static function getLineTree($grids)
 	{
-		$tree = array();
+		$tree = [];
 
-		$doubleGrid = array();
+		$doubleGrid = [];
 		for ($i = 0; $i < self::GRID_SIZE * 2; $i++) {
 			$doubleGrid[$i] = 0;
 		}
@@ -106,7 +121,7 @@ class GridModel extends Model
 			}
 		}
 
-		$borders = array();
+		$borders = [];
 		$flag = 0;
 		foreach ($doubleGrid as $left => $val) {
 			if ($val != $flag) {
@@ -126,7 +141,7 @@ class GridModel extends Model
 				$offset = $borders[$i] / 2;
 			}
 
-			$gridsList = array();
+			$gridsList = [];
 			$right = 0;
 			foreach ($grids as $grid) {
 				if (
@@ -134,21 +149,21 @@ class GridModel extends Model
 					&& $grid->left < $borders[$i + 1] / 2
 					&& $grid->width <= ($borders[$i + 1] - $borders[$i] + 1) / 2
 				) {
-					$gridsList[] = array(
+					$gridsList[] = [
 						"block"  => $grid->blockModel,
 						"col"    => $grid->width,
 						"top"    => $grid->top,
 						"offset" => $grid->left - $borders[$i] / 2 - $right,
-					);
+					];
 					$right = $grid->left - $borders[$i] / 2 + $grid->width;
 				}
 			}
 
-			$tree[] = array(
+			$tree[] = [
 				"col"    => ($borders[$i + 1] - $borders[$i] + 1) / 2,
 				"offset" => $offset,
 				"grids"  => $gridsList,
-			);
+			];
 		}
 
 		return $tree;

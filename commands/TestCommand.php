@@ -28,14 +28,14 @@ class TestCommand extends Command
 	 *
 	 * @var array
 	 */
-	private $_classes = array();
+	private $_classes = [];
 
 	/**
 	 * Карта кассов и методов
 	 *
 	 * @var array
 	 */
-	private $_map = array();
+	private $_map = [];
 
 	/**
 	 * Количество исполняемых тестов
@@ -149,7 +149,7 @@ class TestCommand extends Command
 	private function _setMap()
 	{
 		foreach ($this->_classes as $class) {
-			$testMethods = array();
+			$testMethods = [];
 			$classMethods = get_class_methods($class);
 			foreach ($classMethods as $classMethod) {
 				if (strpos($classMethod, "test") !== false) {

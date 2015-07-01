@@ -20,7 +20,7 @@ class App
 	 *
 	 * @var string[]
 	 */
-	public static $classMap = array();
+	public static $classMap = [];
 
 	/**
 	 * Объект приложения для консоли
@@ -43,7 +43,7 @@ class App
 	 *
 	 * @return Console
 	 */
-	public static function console($config = array())
+	public static function console($config = [])
 	{
 		if (!self::$_console) {
 			self::$_console = new Console($config);
@@ -59,7 +59,7 @@ class App
 	 *
 	 * @return Web
 	 */
-	public static function web($config = array())
+	public static function web($config = [])
 	{
 		if (!self::$_web) {
 			self::$_web = new Web($config);

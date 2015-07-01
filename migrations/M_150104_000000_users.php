@@ -47,10 +47,10 @@ class M_150104_000000_users extends Migration
 	 */
 	public function insertData()
 	{
-		$attributes = array(
+		$attributes = [
 			"t.login"    => "l",
 			"t.password" => "p",
-		);
+		];
 		$model = new UserModel;
 		$model->setAttributes($attributes);
 		if (!$model->save()) {

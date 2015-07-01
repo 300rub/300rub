@@ -57,24 +57,24 @@ class M_150101_020202_sections extends Migration
 	 */
 	public function insertData()
 	{
-		$attributes = array(
+		$attributes = [
 			"t.seo_id"   => 1,
 			"t.language" => 1,
 			"t.width"    => SectionModel::DEFAULT_WIDTH,
 			"t.is_main"  => 1,
-		);
+		];
 		$model = new SectionModel;
 		$model->setAttributes($attributes);
 		if (!$model->save()) {
 			return false;
 		}
 
-		$attributes = array(
+		$attributes = [
 			"t.seo_id"   => 2,
 			"t.language" => 1,
 			"t.width"    => 1024,
 			"t.is_main"  => 0,
-		);
+		];
 		$model = new SectionModel;
 		$model->setAttributes($attributes);
 		if (!$model->save()) {
