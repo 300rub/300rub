@@ -106,7 +106,7 @@ class SectionController extends Controller
 	public function actionSettings($id = 0)
 	{
 		if ($id) {
-			$model = SectionModel::model()->byId($id)->with(array("seoModel"))->find();
+			$model = SectionModel::model()->byId($id)->with(["seoModel"])->find();
 		} else {
 			$model = new SectionModel;
 		}
@@ -125,7 +125,7 @@ class SectionController extends Controller
 		];
 		$this->setFormsForJson(
 			$model,
-			array("seoModel.name", "seoModel.url", "seoModel.title", "seoModel.keywords", "seoModel.description")
+			["seoModel.name", "seoModel.url", "seoModel.title", "seoModel.keywords", "seoModel.description"]
 		);
 
 		$this->renderJson();
@@ -146,7 +146,7 @@ class SectionController extends Controller
 		}
 
 		if ($id) {
-			$model = SectionModel::model()->byId($id)->with(array("seoModel"))->find();
+			$model = SectionModel::model()->byId($id)->with(["seoModel"])->find();
 		} else {
 			$model = new SectionModel;
 			$model->seoModel = new SeoModel();

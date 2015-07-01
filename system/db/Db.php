@@ -94,11 +94,11 @@ class Db
 				"mysql:host=localhost;dbname={$dbName};charset=UTF8",
 				$user,
 				$password,
-				array(
+				[
 					PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
 					PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
 					PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES \'UTF8\''
-				)
+				]
 			);
 		} catch (PDOException $e) {
 			return false;

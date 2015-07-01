@@ -42,11 +42,11 @@ class ErrorController extends Controller
 
 		$this->render(
 			"error",
-			array(
+			[
 				"statusCode" => $statusCode,
 				"message"    => str_replace("\n", "<br />", $message),
 				"trace"      => str_replace("\n", "<br />", $trace)
-			)
+			]
 		);
 	}
 }

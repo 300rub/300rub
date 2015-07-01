@@ -22,13 +22,13 @@ class M_150101_020202_sections extends Migration
 	{
 		$result = $this->createTable(
 			"sections",
-			array(
+			[
 				"id"       => "pk",
 				"seo_id"   => "integer",
 				"language" => "integer",
 				"width"    => "integer",
 				"is_main"  => "boolean",
-			),
+			],
 			"ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci"
 		);
 		if (!$result) {

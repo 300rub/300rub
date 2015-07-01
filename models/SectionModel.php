@@ -174,7 +174,7 @@ class SectionModel extends Model
 	 */
 	protected function beforeSave()
 	{
-		if ($this->is_main && !$this->updateForAll(array("is_main" => 0))) {
+		if ($this->is_main && !$this->updateForAll(["is_main" => 0])) {
 			return false;
 		}
 

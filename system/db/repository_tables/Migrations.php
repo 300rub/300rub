@@ -22,10 +22,10 @@ class Migrations extends Migration {
 	{
 		$result = $this->createTable(
 			"migrations",
-			array(
+			[
 				"id"      => "pk",
 				"version" => "string",
-			),
+			],
 			"ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci"
 		);
 		if (!$result) {

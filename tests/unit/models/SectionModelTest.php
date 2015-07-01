@@ -48,11 +48,11 @@ class SectionModelTest extends Test
 	{
 		return $this->checkValidate(
 			new SectionModel,
-			array(
+			[
 				"t__language"    => "required",
 				"seoModel__name" => "required",
 				"seoModel__url"  => "required",
-			)
+			]
 		);
 	}
 
@@ -74,9 +74,9 @@ class SectionModelTest extends Test
 
 		return $this->checkValidate(
 			$model,
-			array(
+			[
 				"seoModel__url" => "url"
-			),
+			],
 			false
 		);
 	}
@@ -94,7 +94,7 @@ class SectionModelTest extends Test
 
 		return $this->checkSave(
 			$model,
-			array(
+			[
 				"t.seo_id"             => 1,
 				"t.language"           => 1,
 				"t.width"              => SectionModel::DEFAULT_WIDTH,
@@ -104,7 +104,7 @@ class SectionModelTest extends Test
 				"seoModel.title"       => "Заголовок 1",
 				"seoModel.keywords"    => "Ключевые слова 1",
 				"seoModel.description" => "Описание 1",
-			)
+			]
 		);
 	}
 
@@ -128,7 +128,7 @@ class SectionModelTest extends Test
 
 		return $this->checkSave(
 			$model,
-			array(
+			[
 				"t.seo_id"             => 4,
 				"t.language"           => 1,
 				"t.width"              => SectionModel::DEFAULT_WIDTH,
@@ -138,7 +138,7 @@ class SectionModelTest extends Test
 				"seoModel.title"       => "Заголовок",
 				"seoModel.keywords"    => "Ключевые слова",
 				"seoModel.description" => "Описание",
-			)
+			]
 		);
 	}
 
@@ -158,12 +158,12 @@ class SectionModelTest extends Test
 			"seoModel.description" => "Новое описание",
 		];
 
-		$model = SectionModel::model()->byId(1)->with(array("seoModel"))->find();
+		$model = SectionModel::model()->byId(1)->with(["seoModel"])->find();
 		$model->setAttributes($attributes);
 
 		return $this->checkSave(
 			$model,
-			array(
+			[
 				"t.is_main"            => 0,
 				"t.width"              => 1200,
 				"seoModel.name"        => "Новое название",
@@ -171,7 +171,7 @@ class SectionModelTest extends Test
 				"seoModel.title"       => "Новый заголовок",
 				"seoModel.keywords"    => "Новые ключевые слова",
 				"seoModel.description" => "Новое описание",
-			)
+			]
 		);
 	}
 

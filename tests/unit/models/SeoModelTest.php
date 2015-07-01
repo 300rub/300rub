@@ -49,10 +49,10 @@ class SeoModelTest extends Test
 	{
 		return $this->checkValidate(
 			new SeoModel,
-			array(
+			[
 				"t__name" => "required",
 				"t__url"  => "required"
-			)
+			]
 		);
 	}
 
@@ -78,13 +78,13 @@ class SeoModelTest extends Test
 
 		return $this->checkValidate(
 			$model,
-			array(
+			[
 				"t__name"        => "max",
 				"t__url"         => "max",
 				"t__title"       => "max",
 				"t__keywords"    => "max",
 				"t__description" => "max",
-			)
+			]
 		);
 	}
 
@@ -101,9 +101,9 @@ class SeoModelTest extends Test
 
 		return $this->checkValidate(
 			$model,
-			array(
+			[
 				"t__url" => "url"
-			),
+			],
 			false
 		);
 	}
@@ -145,13 +145,13 @@ class SeoModelTest extends Test
 
 		return $this->checkSave(
 			$model,
-			array(
+			[
 				"t.name"        => "Название 2",
 				"t.url"         => "nazvanie-2",
 				"t.title"       => "Заголовок 2",
 				"t.keywords"    => "Ключевые слова 2",
 				"t.description" => "Описание 2",
-			)
+			]
 		);
 	}
 
@@ -171,13 +171,13 @@ class SeoModelTest extends Test
 
 		return $this->checkSave(
 			$model,
-			array(
+			[
 				"t.name"        => "Новое название",
 				"t.url"         => "novyy-url",
 				"t.title"       => "Новый заголовок",
 				"t.keywords"    => "Новые ключевые слова",
 				"t.description" => "Новое описание",
-			)
+			]
 		);
 	}
 
@@ -194,10 +194,10 @@ class SeoModelTest extends Test
 
 		return $this->checkSave(
 			$model,
-			array(
+			[
 				"t.name" => "Новое название",
 				"t.url"  => "novoe-nazvanie",
-			)
+			]
 		);
 	}
 
@@ -213,10 +213,10 @@ class SeoModelTest extends Test
 
 		return $this->checkSave(
 			$model,
-			array(
+			[
 				"t.name" => "Новое название",
 				"t.url"  => "url-1",
-			)
+			]
 		);
 	}
 

@@ -22,14 +22,14 @@ class M_150101_010101_seo extends Migration
 	{
 		$result = $this->createTable(
 			"seo",
-			array(
+			[
 				"id"          => "pk",
 				"name"        => "string",
 				"url"         => "string",
 				"title"       => "varchar(100) NOT NULL",
 				"keywords"    => "string",
 				"description" => "string",
-			),
+			],
 			"ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci"
 		);
 		if (!$result) {

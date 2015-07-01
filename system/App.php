@@ -126,4 +126,4 @@ class App
 	}
 }
 
-spl_autoload_register(array('system\App','autoload'));
+spl_autoload_register(['system\App','autoload']);

@@ -22,11 +22,11 @@ class M_150104_000000_users extends Migration
 	{
 		$result = $this->createTable(
 			"users",
-			array(
+			[
 				"id"       => "pk",
 				"login"    => "string",
 				"password" => "char(40) not null",
-			),
+			],
 			"ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci"
 		);
 		if (!$result) {

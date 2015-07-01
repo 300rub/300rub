@@ -25,7 +25,7 @@ class Sites extends Migration {
 	{
 		$result = $this->createTable(
 			"sites",
-			array(
+			[
 				"id"          => "pk",
 				"host"        => "string",
 				"db_host"     => "string",
@@ -34,7 +34,7 @@ class Sites extends Migration {
 				"db_name"     => "string",
 				"language"    => "integer",
 				"email"       => "string",
-			),
+			],
 			"ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci"
 		);
 		if (!$result) {
