@@ -9,7 +9,7 @@ return array(
 	"rootDir"  => __DIR__ . DIRECTORY_SEPARATOR . "..",
 	"db"       => array(
 		"host"     => "localhost",
-		"user"     => "mike",
+		"user"     => "300rub",
 		"password" => "mypasS77",
 		"name"     => "mike",
 	),
