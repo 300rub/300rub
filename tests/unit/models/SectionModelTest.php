@@ -129,7 +129,7 @@ class SectionModelTest extends Test
 		return $this->checkSave(
 			$model,
 			array(
-				"t.seo_id"             => 6,
+				"t.seo_id"             => 4,
 				"t.language"           => 1,
 				"t.width"              => SectionModel::DEFAULT_WIDTH,
 				"t.is_main"            => 0,
