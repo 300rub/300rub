@@ -74,11 +74,15 @@ class SectionController extends Controller
 
 		$this->json = array(
 			"title"       => Language::t("common", "Разделы"),
-			"description" => Language::t("common", "Чтобы добавить раздел, нажмите плюсик. Чтобы изменить структуру раздела нажмите на его название. Отредактировать СЕО - нажмите на шестеренку."),
+			"description" => Language::t(
+				"common",
+				"Чтобы добавить раздел, нажмите плюсик. Чтобы изменить структуру раздела нажмите на его название. Отредактировать СЕО - нажмите на шестеренку."
+			),
 			"list"        => array(
-				"class" => "grid",
-				"items" => $items,
-				"icons" => array(
+				"class"   => "grid",
+				"items"   => $items,
+				"content" => "section/grid",
+				"icons"   => array(
 					"big"      => false,
 					"design"   => false,
 					"settings" => "section/settings",
@@ -164,5 +168,19 @@ class SectionController extends Controller
 		);
 
 		$this->renderJson();
+	}
+
+	/**
+	 * Сетка
+	 *
+	 * @param int $id идентификатор раздела
+	 *
+	 * @throws Exception
+	 *
+	 * @return void
+	 */
+	public function actionGrid($id = 0)
+	{
+
 	}
 }
