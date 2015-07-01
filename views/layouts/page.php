@@ -42,6 +42,7 @@ use system\App;
 		<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
 		<script src="/js/lib/lodash.min.js"></script>
 		<script src="/js/lib/gridstack.min.js"></script>
+		<script src="/js/Grid.js"></script>
 		<script src="/js/Panel.js"></script>
 		<script src="/js/admin.js"></script>
 	<?php } ?>
