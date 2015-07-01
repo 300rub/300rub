@@ -66,6 +66,9 @@ function Panel (params) {
 					if (data.list.class != undefined) {
 						itemTemplate.addClass("panel-item-" + data.list.class);
 					}
+					if (data.list.content != undefined) {
+						t.panel.attr("data-content", data.list.content);
+					}
 					if (data.list.icons.big === true) {
 						itemTemplate.addClass("with-icon");
 					}
@@ -204,7 +207,7 @@ function Panel (params) {
 	 */
 	this.showItem = function () {
 		if ($(this).hasClass("panel-item-grid")) {
-
+			(new Grid($(this).data("id"))).init();
 		} else {
 
 		}
