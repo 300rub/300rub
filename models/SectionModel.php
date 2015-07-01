@@ -10,7 +10,7 @@ use system\base\Model;
  *
  * @package models
  *
- * @method SectionModel   byId
+ * @method SectionModel   byId($id)
  * @method SectionModel   find
  * @method SectionModel[] findAll
  */
