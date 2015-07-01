@@ -132,7 +132,7 @@ class BuildCommand extends Command
 			git checkout {$branch};
 			git reset --hard origin/{$branch};
 			chmod 777 c;
-			composer update;
+			php /root/composer.phar update;
 		";
 		exec($command);
 
