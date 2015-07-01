@@ -181,6 +181,23 @@ class SectionController extends Controller
 	 */
 	public function actionGrid($id = 0)
 	{
+		if (!$id) {
+			throw new Exception(Language::t("common", "Некорректный идентификатор"), 404);
+		}
 
+		$model = SectionModel::model()->byId($id)->with(["seoModel"])->find();
+		if (!$model) {
+			throw new Exception(Language::t("default", "Раздел не найден"), 404);
+		}
+
+		$this->json = [
+			"title" => $model->seoModel->name,
+			"button"      => [
+				"label"  => Language::t("common", "Сохранить"),
+				"action" => "section/saveGrid/{$model->id}"
+			],
+		];
+
+		$this->renderJson();
 	}
 }

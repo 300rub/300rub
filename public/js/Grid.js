@@ -77,7 +77,25 @@ function Grid (id) {
 		var $loaderWindow = $loader.clone();
 		var $container = t.window.find(".container");
 
+		$.ajax({
+			url: "/ajax/" + LANG + "/section/grid/" + t.id + "/",
+			dataType: "json",
+			beforeSend: function (data) {
+				$loaderWindow.appendTo($container);
+			},
+			success: function (data) {
+				var $footer = t.window.find(".footer");
+				$loaderWindow.remove();
 
+				t.window.find(".header").text(data.title).css("display", "block");
+				$footer.find(".button span").text(data.button.label);
+				$footer.css("display", "block");
+			},
+			error: function (request, status, error) {
+				$loaderWindow.remove();
+				$errors.find(".system").clone().appendTo($container);
+			}
+		});
 	};
 
 	/**
