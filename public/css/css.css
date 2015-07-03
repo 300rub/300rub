@@ -141,3 +141,7 @@ body {
 	background-color: #fff;
 	opacity: 1;
 }
+
+.clear {
+	clear: both;
+}

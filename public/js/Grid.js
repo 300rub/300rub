@@ -84,12 +84,31 @@ function Grid (id) {
 				$loaderWindow.appendTo($container);
 			},
 			success: function (data) {
-				var $footer = t.window.find(".footer");
-				$loaderWindow.remove();
+				var $button = $forms.find(".button").clone();
+				$button.find("span").text(data.button.label);
+				$button.attr("data-action", data.button.action);
+				$button.appendTo(t.window.find(".footer"));
+				$button.bind("click", t.submit);
 
+				$container.append('<div class="blocks"></div>');
+				var $blocks = $($container).find(".blocks");
+				$.each(data.blocks, function (id, params) {
+					$blocks.append('<h3>' + params.name + '</h3>');
+					$blocks.append('<div />');
+					var $last = $blocks.find("div").last();
+					$.each(params.blocks, function (id, name) {
+						$last.append('<div>' + name + '</div>');
+					});
+				});
+				$blocks.accordion({
+					heightStyle: "content"
+				});
+
+				$container.append('<div class="clear"></div>');
+
+				$loaderWindow.remove();
 				t.window.find(".header").text(data.title).css("display", "block");
-				$footer.find(".button span").text(data.button.label);
-				$footer.css("display", "block");
+				t.window.find(".footer").css("display", "block");
 			},
 			error: function (request, status, error) {
 				$loaderWindow.remove();

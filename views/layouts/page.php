@@ -31,6 +31,7 @@ use system\App;
 		<link href='/css/lib/gridstack.min.css' rel='stylesheet' type='text/css'>
 		<link href='/css/admin.css' rel='stylesheet' type='text/css'>
 		<link href='/css/panel.css' rel='stylesheet' type='text/css'>
+		<link href='/css/grid.css' rel='stylesheet' type='text/css'>
 	<?php } ?>
 
 	<script src="/js/Window.js"></script>

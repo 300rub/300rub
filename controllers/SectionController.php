@@ -131,6 +131,15 @@ class SectionController extends Controller
 		$this->renderJson();
 	}
 
+	/**
+	 * Сохраняет настройки раздела
+	 *
+	 * @param int $id идентификатор раздела
+	 *
+	 * @throws Exception
+	 *
+	 * @return void
+	 */
 	public function actionSaveSettings($id = 0)
 	{
 		$post = App::getPost();
@@ -190,12 +199,34 @@ class SectionController extends Controller
 			throw new Exception(Language::t("default", "Раздел не найден"), 404);
 		}
 
+		$blocks = [
+			1 => [
+				"name" => "Текст",
+				"blocks" => [
+					1 => "Блок 1",
+					2 => "Блок 2",
+				]
+			],
+			2 => [
+				"name" => "Изображения",
+				"blocks" => [
+					3 => "Блок 3",
+					4 => "Блок 4",
+					5 => "Блок 5",
+					6 => "Блок 6",
+					7 => "Блок 7",
+					8 => "Блок 8",
+				]
+			]
+		];
+
 		$this->json = [
-			"title" => $model->seoModel->name,
-			"button"      => [
+			"title"  => $model->seoModel->name,
+			"button" => [
 				"label"  => Language::t("common", "Сохранить"),
 				"action" => "section/saveGrid/{$model->id}"
 			],
+			"blocks" => $blocks
 		];
 
 		$this->renderJson();

@@ -13,6 +13,7 @@ use system\base\Model;
  * @method SectionModel   byId($id)
  * @method SectionModel   find
  * @method SectionModel[] findAll
+ * @method SectionModel   with($relations)
  */
 class SectionModel extends Model
 {
