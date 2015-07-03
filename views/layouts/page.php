@@ -54,15 +54,7 @@ use system\App;
 </div>
 
 <?php if (App::web()->user === null) { ?>
-	<a
-		href="#"
-		id="login-button"
-		data-name="login"
-		data-title="<?php echo Language::t("common", "Вход"); ?>"
-		data-button="<?php echo Language::t("common", "Войти"); ?>"
-		data-forms="user/form"
-		data-send="user/login"
-		>Вход</a>
+	<a href="#" id="login-button">Вход</a>
 <?php } else { ?>
 	<div id="panel-buttons">
 		<a
@@ -106,11 +98,7 @@ use system\App;
 
 			<div class="header"></div>
 			<div class="container"></div>
-			<div class="footer">
-				<button class="button">
-					<span></span>
-				</button>
-			</div>
+			<div class="footer"></div>
 		</form>
 	</div>
 

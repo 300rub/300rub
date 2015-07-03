@@ -17,13 +17,7 @@ $(document).ready(function () {
 	});
 
 	$("#login-button").on("click", function () {
-		(new Window({
-			name: $(this).data("name"),
-			title: $(this).data("title"),
-			button: $(this).data("button"),
-			forms: $(this).data("forms"),
-			send: $(this).data("send")
-		})).init();
+		(new Window("user/form")).init();
 		return false;
 	});
 

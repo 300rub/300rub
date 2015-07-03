@@ -23,6 +23,14 @@ class UserController extends Controller
 	 */
 	public function actionForm()
 	{
+		$this->json = [
+			"name" => "login",
+			"title" => Language::t("common", "Вход"),
+			"button"      => [
+				"label"  => Language::t("common", "Войти"),
+				"action" => "user/login"
+			],
+		];
 		$this->setFormsForJson(new UserModel, ["t.login", "t.password", "t.remember"])->renderJson();
 	}
 

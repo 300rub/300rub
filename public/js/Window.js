@@ -1,20 +1,11 @@
 /**
  * Класс для работы с окнами
  *
- * Пример:
- * (new Window({
- * 		name: "name",
- * 		title: "Заголовок",
- * 		button: "Текст кнопки",
- * 		forms: controller/forms,
- * 		send: controller/send
- * })).init();
- *
  * @constructor
  *
- * @param {Object} params параметры
+ * @param {string} action запрос
  */
-function Window (params) {
+function Window (action) {
 
 	/**
 	 * Объект класса
@@ -24,11 +15,11 @@ function Window (params) {
 	var t = this;
 
 	/**
-	 * Параметры
+	 * запрос
 	 *
-	 * @type {Object}
+	 * @type {string}
 	 */
-	this.params = params;
+	this.action = action;
 
 	/**
 	 * DOM-объект окна
@@ -42,7 +33,6 @@ function Window (params) {
 	 */
 	this.init = function () {
 		t.window = $templates.find(".window").clone();
-		t.window.addClass("window-" + t.params.name);
 		t.window.appendTo($ajaxWrapper);
 
 		t.showOverlay();
@@ -87,26 +77,34 @@ function Window (params) {
 		var $container = t.window.find(".container");
 
 		$.ajax({
-			url: "/ajax/" + LANG + "/" + t.params.forms + "/",
+			url: "/ajax/" + LANG + "/" + t.action + "/",
 			dataType: "json",
 			beforeSend: function (data) {
 				$loaderWindow.appendTo($container);
 			},
 			success: function (data) {
-				var $footer = t.window.find(".footer");
-				var $form;
+				if (data.forms != undefined) {
+					var $form;
+					$.each(data.forms, function (name, params) {
+						$form = (new Form(name, params)).get();
+						if ($form !== false) {
+							$form.appendTo($container);
+						}
+					});
+				}
 
+				if (data.button != undefined) {
+					var $button = $forms.find(".button").clone();
+					$button.find("span").text(data.button.label);
+					$button.attr("data-action", data.button.action);
+					$button.appendTo(t.window.find(".footer"));
+					$button.bind("click", t.submit);
+				}
+
+				t.window.find(".footer").css("display", "block");
+				t.window.addClass("window-" + data.name);
+				t.window.find(".header").text(data.title).css("display", "block");
 				$loaderWindow.remove();
-				t.window.find(".header").text(t.params.title).css("display", "block");
-				$footer.find(".button span").text(t.params.button);
-				$footer.css("display", "block");
-
-				$.each(data.forms, function (name, params) {
-					$form = (new Form(name, params)).get();
-					if ($form !== false) {
-						$form.appendTo($container);
-					}
-				});
 			},
 			error: function (request, status, error) {
 				$loaderWindow.remove();
@@ -125,9 +123,10 @@ function Window (params) {
 		var $loaderButton = $loader.clone();
 		var $button = $form.find(".button");
 		var $buttonSpan = $button.find("span");
+		var action = $(this).data("action");
 
 		$.ajax({
-			url: "/ajax/" + LANG + "/" + t.params.send + "/",
+			url: "/ajax/" + LANG + "/" + action + "/",
 			type: "post",
 			data: $form.serialize(),
 			dataType: "json",
