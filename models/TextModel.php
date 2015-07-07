@@ -2,7 +2,7 @@
 
 namespace models;
 
-use system\App;
+use system\web\Language;
 use system\base\Model;
 
 /**
@@ -14,6 +14,46 @@ class TextModel extends Model
 {
 
 	/**
+	 * Размер
+	 *
+	 * @var int
+	 */
+	public $size = 0;
+
+	/**
+	 * Использовать ли редактор
+	 *
+	 * @var boolean
+	 */
+	public $is_editor = false;
+
+	/**
+	 * Тип
+	 *
+	 * @var int
+	 */
+	public $type = 0;
+
+	/**
+	 * Текст
+	 *
+	 * @var string
+	 */
+	public $text = "";
+
+	/**
+	 * Типы форм для полей
+	 *
+	 * @var array
+	 */
+	public $formTypes = [
+		"size"      => "field",
+		"is_editor" => "field",
+		"type"      => "field",
+		"text"      => "field",
+	];
+
+	/**
 	 * Получает название связной таблицы
 	 *
 	 * @return string
@@ -21,11 +61,6 @@ class TextModel extends Model
 	public function tableName()
 	{
 		return "texts";
-	}
-
-	public function relations()
-	{
-		return [];
 	}
 
 	/**
@@ -36,11 +71,36 @@ class TextModel extends Model
 	public function rules()
 	{
 		return [
-			"rows"   => [],
-			"editor" => [],
-			"tag"    => [],
-			"text"  => [],
+			"size"      => [],
+			"is_editor" => [],
+			"type"      => [],
+			"text"      => [],
 		];
+	}
+
+	/**
+	 * Названия полей
+	 *
+	 * @return array
+	 */
+	public function labels()
+	{
+		return [
+			"size"      => Language::t("common", "Размер"),
+			"is_editor" => Language::t("common", "Редактор"),
+			"type"      => Language::t("common", "Тип"),
+			"text"      => Language::t("common", "Текст"),
+		];
+	}
+
+	/**
+	 * Связи
+	 *
+	 * @return array
+	 */
+	public function relations()
+	{
+		return [];
 	}
 
 	/**
