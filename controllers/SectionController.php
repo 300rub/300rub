@@ -38,8 +38,8 @@ class SectionController extends Controller
 	 * Выводит раздел на экран
 	 *
 	 * @param string $section абривиатура раздела
-	 * @param string $param1 параметр 1
-	 * @param string $param2 параметр 2
+	 * @param string $param1  параметр 1
+	 * @param string $param2  параметр 2
 	 *
 	 * @throws Exception
 	 *
@@ -201,14 +201,16 @@ class SectionController extends Controller
 
 		$blocks = [
 			1 => [
-				"name" => "Текст",
+				"name"   => "Текст",
+				"class"  => "text",
 				"blocks" => [
 					1 => "Блок 1",
 					2 => "Блок 2",
 				]
 			],
 			2 => [
-				"name" => "Изображения",
+				"name"   => "Изображения",
+				"class"  => "image",
 				"blocks" => [
 					3 => "Блок 3",
 					4 => "Блок 4",
@@ -220,15 +222,66 @@ class SectionController extends Controller
 			]
 		];
 
+		$grid = [
+			[
+				[
+					"id"       => 1,
+					"x"        => 0,
+					"y"        => 0,
+					"width"    => 4,
+					"cssClass" => "text",
+					"name"     => "Блок 1",
+				],
+				[
+					"id"       => 2,
+					"x"        => 8,
+					"y"        => 0,
+					"width"    => 4,
+					"cssClass" => "text",
+					"name"     => "Блок 2",
+				]
+			],
+			[
+				[
+					"id"       => 3,
+					"x"        => 0,
+					"y"        => 0,
+					"width"    => 3,
+					"cssClass" => "image",
+					"name"     => "Блок 3",
+				],
+				[
+					"id"       => 4,
+					"x"        => 1,
+					"y"        => 1,
+					"width"    => 5,
+					"cssClass" => "image",
+					"name"     => "Блок 4",
+				]
+			]
+		];
+
 		$this->json = [
 			"title"  => $model->seoModel->name,
 			"button" => [
 				"label"  => Language::t("common", "Сохранить"),
 				"action" => "section/saveGrid/{$model->id}"
 			],
-			"blocks" => $blocks
+			"blocks" => $blocks,
+			"grid"   => $grid
 		];
 
 		$this->renderJson();
+	}
+
+	/**
+	 * Сохраняет сетку
+	 *
+	 * @param int $id идентификатор раздела
+	 */
+	public function actionSaveGrid($id)
+	{
+		var_dump($id);
+		var_dump(App::getPost("data"));
 	}
 }

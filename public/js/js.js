@@ -1,5 +1,5 @@
 function setLayout() {
-	$(".window .container").css("max-height", parseInt($(document).height()) - 130);
+	$(".window .container").css("max-height", parseInt($(document).height()) - 150);
 }
 
 $(document).ready(function () {

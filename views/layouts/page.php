@@ -27,7 +27,8 @@ use system\App;
 	<link href='/css/window.css' rel='stylesheet' type='text/css'>
 	<link href='/css/form.css' rel='stylesheet' type='text/css'>
 	<?php if (App::web()->user !== null) { ?>
-		<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
+		<link rel="stylesheet"
+			  href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
 		<link href='/css/lib/gridstack.min.css' rel='stylesheet' type='text/css'>
 		<link href='/css/admin.css' rel='stylesheet' type='text/css'>
 		<link href='/css/panel.css' rel='stylesheet' type='text/css'>
@@ -131,6 +132,25 @@ use system\App;
 			<a href="#" class="design"><span></span></a>
 			<a href="#" class="settings"><span></span></a>
 			<span class="item"></span>
+		</div>
+
+		<div class="grid-stack-line">
+			<div class="grid-stack-line-header">
+				<div class="title"><?php echo Language::t("common", "Линия"); ?> <span></span></div>
+				<a href="#" class="remove">X</a>
+			</div>
+			<div class="grid-stack"></div>
+		</div>
+
+		<a href="#" class="grid-stack-line-add window-footer-button"><?php echo Language::t(
+				"common",
+				"Добавить линию"
+			); ?></a>
+
+		<div class="grid-stack-item">
+			<a href="#" class="remove">x</a>
+
+			<div class="grid-stack-item-content"></div>
 		</div>
 	<?php } ?>
 </div>
