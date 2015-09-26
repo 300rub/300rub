@@ -2,6 +2,8 @@
 
 namespace controllers;
 
+use models\BlockModel;
+use models\GridModel;
 use models\SeoModel;
 use system\web\Controller;
 use models\SectionModel;
@@ -199,76 +201,14 @@ class SectionController extends Controller
 			throw new Exception(Language::t("default", "Раздел не найден"), 404);
 		}
 
-		$blocks = [
-			1 => [
-				"name"   => "Текст",
-				"class"  => "text",
-				"blocks" => [
-					1 => "Блок 1",
-					2 => "Блок 2",
-				]
-			],
-			2 => [
-				"name"   => "Изображения",
-				"class"  => "image",
-				"blocks" => [
-					3 => "Блок 3",
-					4 => "Блок 4",
-					5 => "Блок 5",
-					6 => "Блок 6",
-					7 => "Блок 7",
-					8 => "Блок 8",
-				]
-			]
-		];
-
-		$grid = [
-			[
-				[
-					"id"       => 1,
-					"x"        => 0,
-					"y"        => 0,
-					"width"    => 4,
-					"cssClass" => "text",
-					"name"     => "Блок 1",
-				],
-				[
-					"id"       => 2,
-					"x"        => 8,
-					"y"        => 0,
-					"width"    => 4,
-					"cssClass" => "text",
-					"name"     => "Блок 2",
-				]
-			],
-			[
-				[
-					"id"       => 3,
-					"x"        => 0,
-					"y"        => 0,
-					"width"    => 3,
-					"cssClass" => "image",
-					"name"     => "Блок 3",
-				],
-				[
-					"id"       => 4,
-					"x"        => 1,
-					"y"        => 1,
-					"width"    => 5,
-					"cssClass" => "image",
-					"name"     => "Блок 4",
-				]
-			]
-		];
-
 		$this->json = [
 			"title"  => $model->seoModel->name,
 			"button" => [
 				"label"  => Language::t("common", "Сохранить"),
 				"action" => "section/saveGrid/{$model->id}"
 			],
-			"blocks" => $blocks,
-			"grid"   => $grid
+			"blocks" => BlockModel::model()->getAllBlocksForGridWindow(),
+			"grid"   => GridModel::model()->getAllGridsForGridWindow($model->id)
 		];
 
 		$this->renderJson();

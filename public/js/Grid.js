@@ -227,7 +227,6 @@ function Grid(id) {
 	 */
 	this.addWidget = function (line, id, cssClass, x, y, width, name, isAutoPosition) {
 		var grid = $('.grid-stack-line:nth-child(' + line + ') .grid-stack').data('gridstack');
-
 		var $gridStackItem = $templates.find(".grid-stack-item").clone();
 		var $gridStackItemContent = $gridStackItem.find(".grid-stack-item-content");
 		$gridStackItemContent.addClass("grid-stack-item-content-" + cssClass);

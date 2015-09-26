@@ -9,6 +9,8 @@ use system\web\Language;
  * Файл класса BlockModel
  *
  * @package models
+ *
+ * @method BlockModel[] findAll
  */
 class BlockModel extends Model
 {
@@ -34,13 +36,6 @@ class BlockModel extends Model
 	 * @var int
 	 */
 	public $language;
-
-	/**
-	 * @var array
-	 */
-	public static $typeList = [
-		self::TYPE_TEXT => "text",
-	];
 
 	/**
 	 * Типы форм для полей
@@ -108,5 +103,51 @@ class BlockModel extends Model
 	public static function model($className = __CLASS__)
 	{
 		return new $className;
+	}
+
+	/**
+	 * @return BlockModel
+	 */
+	public function ordered()
+	{
+		$this->db->order = "t.name";
+		return $this;
+	}
+
+	/**
+	 * @return array
+	 */
+	public static function getTypesList()
+	{
+		return [
+			self::TYPE_TEXT => [
+				"name"  => Language::t("common", "Текст"),
+				"class" => "text"
+			]
+		];
+	}
+
+	/**
+	 * @return array
+	 */
+	public function getAllBlocksForGridWindow()
+	{
+		$list = [];
+		$typesList = self::getTypesList();
+
+		foreach ($typesList as $key => $value) {
+			$list[$key] = [
+				"name"   => $value["name"],
+				"class"  => $value["class"],
+				"blocks" => []
+			];
+		}
+
+		$blocks = $this->ordered()->findAll();
+		foreach ($blocks as $block) {
+			$list[$block->type]["blocks"][$block->id] = $block->name;
+		}
+
+		return $list;
 	}
 }

@@ -8,6 +8,8 @@ use system\base\Model;
  * Файл класса GridModel
  *
  * @package models
+ *
+ * @method GridModel[] findAll
  */
 class GridModel extends Model
 {
@@ -32,12 +34,12 @@ class GridModel extends Model
 	/**
 	 * @var int
 	 */
-	public $left;
+	public $x;
 
 	/**
 	 * @var int
 	 */
-	public $top;
+	public $y;
 
 	/**
 	 * @var int
@@ -82,8 +84,8 @@ class GridModel extends Model
 			"section_id" => ["required"],
 			"block_id"   => ["required"],
 			"line"       => ["required"],
-			"left"       => [],
-			"top"        => [],
+			"x"          => [],
+			"y"          => [],
 			"width"      => ["required"],
 		];
 	}
@@ -110,6 +112,11 @@ class GridModel extends Model
 		return new $className;
 	}
 
+	/**
+	 * @param int $sectionId
+	 *
+	 * @return GridModel
+	 */
 	public function bySectionId($sectionId = null)
 	{
 		if ($sectionId) {
@@ -120,9 +127,21 @@ class GridModel extends Model
 		return $this;
 	}
 
-	public function withContent()
+	/**
+	 * @return GridModel
+	 */
+	public function withBlocks()
 	{
 		$this->db->with[] = "blockModel";
+		return $this;
+	}
+
+	/**
+	 * @return GridModel
+	 */
+	public function ordered()
+	{
+		$this->db->order = "t.line, t.y, t.x";
 		return $this;
 	}
 
@@ -146,16 +165,16 @@ class GridModel extends Model
 			$doubleGrid[$i] = 0;
 		}
 		foreach ($grids as $grid) {
-			for ($i = $grid->left * 2; $i < ($grid->left + $grid->width) * 2 - 1; $i++) {
+			for ($i = $grid->x * 2; $i < ($grid->x + $grid->width) * 2 - 1; $i++) {
 				$doubleGrid[$i] = 1;
 			}
 		}
 
 		$borders = [];
 		$flag = 0;
-		foreach ($doubleGrid as $left => $val) {
+		foreach ($doubleGrid as $x => $val) {
 			if ($val != $flag) {
-				$borders[] = $left;
+				$borders[] = $x;
 				$flag = $val;
 			}
 		}
@@ -175,17 +194,17 @@ class GridModel extends Model
 			$right = 0;
 			foreach ($grids as $grid) {
 				if (
-					$grid->left >= $borders[$i] / 2
-					&& $grid->left < $borders[$i + 1] / 2
+					$grid->x >= $borders[$i] / 2
+					&& $grid->x < $borders[$i + 1] / 2
 					&& $grid->width <= ($borders[$i + 1] - $borders[$i] + 1) / 2
 				) {
 					$gridsList[] = [
 						"block"  => $grid->blockModel,
 						"col"    => $grid->width,
-						"top"    => $grid->top,
-						"offset" => $grid->left - $borders[$i] / 2 - $right,
+						"y"      => $grid->y,
+						"offset" => $grid->x - $borders[$i] / 2 - $right,
 					];
-					$right = $grid->left - $borders[$i] / 2 + $grid->width;
+					$right = $grid->x - $borders[$i] / 2 + $grid->width;
 				}
 			}
 
@@ -197,5 +216,32 @@ class GridModel extends Model
 		}
 
 		return $tree;
+	}
+
+	/**
+	 * @param int $sectionId
+	 *
+	 * @return array
+	 */
+	public function getAllGridsForGridWindow($sectionId)
+	{
+		$list = [];
+		$typesList = BlockModel::getTypesList();
+
+		$grids = $this->bySectionId($sectionId)->withBlocks()->ordered()->findAll();
+		foreach ($grids as $grid) {
+			$list[$grid->line][] = [
+				"id"       => $grid->blockModel->id,
+				"x"        => $grid->x,
+				"y"        => $grid->y,
+				"width"    => $grid->width,
+				"cssClass" => $typesList[$grid->blockModel->type]["class"],
+				"name"     => $grid->blockModel->name,
+			];
+		}
+
+		sort($list);
+
+		return $list;
 	}
 }
