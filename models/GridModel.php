@@ -15,6 +15,36 @@ class GridModel extends Model
 	const GRID_SIZE = 12;
 
 	/**
+	 * @var int
+	 */
+	public $section_id;
+
+	/**
+	 * @var int
+	 */
+	public $block_id;
+
+	/**
+	 * @var int
+	 */
+	public $line;
+
+	/**
+	 * @var int
+	 */
+	public $left;
+
+	/**
+	 * @var int
+	 */
+	public $top;
+
+	/**
+	 * @var int
+	 */
+	public $width;
+
+	/**
 	 * @var BlockModel
 	 */
 	public $blockModel = null;
@@ -49,12 +79,12 @@ class GridModel extends Model
 	public function rules()
 	{
 		return [
-			"section_id" => [],
-			"block_id"   => [],
-			"line"       => [],
+			"section_id" => ["required"],
+			"block_id"   => ["required"],
+			"line"       => ["required"],
 			"left"       => [],
 			"top"        => [],
-			"width"      => [],
+			"width"      => ["required"],
 		];
 	}
 

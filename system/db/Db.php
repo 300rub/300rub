@@ -304,7 +304,7 @@ class Db
 		$substitutions = [];
 
 		foreach ($model->rules() as $field => $value) {
-			$columns[] = $field;
+			$columns[] = "`{$field}`";
 			$substitutions[] = "?";
 			$values[] = $model->$field;
 		}
@@ -337,7 +337,7 @@ class Db
 		$values = [];
 
 		foreach ($model->rules() as $field => $value) {
-			$sets[] = "$field = ?";
+			$sets[] = "'{$field}` = ?";
 			$values[] = $model->$field;
 		}
 

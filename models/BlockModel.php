@@ -3,6 +3,7 @@
 namespace models;
 
 use system\base\Model;
+use system\web\Language;
 
 /**
  * Файл класса BlockModel
@@ -14,11 +15,40 @@ class BlockModel extends Model
 
 	const TYPE_TEXT = 1;
 
+	/**
+	 * @var int
+	 */
 	public $type;
-	public $content;
 
+	/**
+	 * @var string
+	 */
+	public $name;
+
+	/**
+	 * @var int
+	 */
+	public $content_id;
+
+	/**
+	 * @var int
+	 */
+	public $language;
+
+	/**
+	 * @var array
+	 */
 	public static $typeList = [
 		self::TYPE_TEXT => "text",
+	];
+
+	/**
+	 * Типы форм для полей
+	 *
+	 * @var array
+	 */
+	public $formTypes = [
+		"name" => "field"
 	];
 
 	/**
@@ -49,10 +79,22 @@ class BlockModel extends Model
 	public function rules()
 	{
 		return [
-			"language" => [],
-			"name"     => [],
-			"type"     => [],
-			"content"  => [],
+			"language"   => ["required"],
+			"name"       => ["required", "max" => 255],
+			"type"       => ["required"],
+			"content_id" => ["required"],
+		];
+	}
+
+	/**
+	 * Названия полей
+	 *
+	 * @return array
+	 */
+	public function labels()
+	{
+		return [
+			"name" => Language::t("common", "Название"),
 		];
 	}
 
@@ -66,26 +108,5 @@ class BlockModel extends Model
 	public static function model($className = __CLASS__)
 	{
 		return new $className;
-	}
-
-	public function getType()
-	{
-		if (array_key_exists($this->type, self::$typeList)) {
-			return self::$typeList[$this->type];
-		}
-
-		return null;
-	}
-
-	public function getContentModel()
-	{
-		$modelName = "models\\" . ucfirst($this->getType() . "Model");
-
-		/**
-		 * @var \system\base\Model $model
-		 */
-		$model = new $modelName;
-
-		return $model->byIds($this->content)->find();
 	}
 }
