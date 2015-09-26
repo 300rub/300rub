@@ -2,6 +2,7 @@
 
 namespace models;
 
+use system\base\Exception;
 use system\base\Model;
 use system\web\Language;
 
@@ -149,5 +150,31 @@ class BlockModel extends Model
 		}
 
 		return $list;
+	}
+
+	/**
+	 * @return Model
+	 *
+	 * @throws Exception
+	 */
+	public function getContentModel()
+	{
+		$typeList = self::getTypesList();
+
+		if (!array_key_exists($this->type, $typeList)) {
+			throw new Exception(Language::t("default", "Модель не найдена"), 404);
+		}
+
+		$modelName = '\\models\\' . ucfirst($typeList[$this->type]["class"]) . 'Model';
+		/**
+		 * @var Model $model
+		 */
+		$model = new $modelName;
+		$model->byId($this->content_id)->find();
+		if (!$model) {
+			throw new Exception(Language::t("default", "Модель не найдена"), 404);
+		}
+
+		return $model;
 	}
 }

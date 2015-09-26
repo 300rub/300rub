@@ -146,20 +146,36 @@ class GridModel extends Model
 		return $this;
 	}
 
-	public static function getLines($grids)
+	/**
+	 * @param SectionModel $section
+	 *
+	 * @return array
+	 */
+	public function getStructure(SectionModel $section)
 	{
-		$list = [];
+		$structure["width"] = $section->getWidth();
+		$lines = [];
 
-		foreach ($grids as $grid) {
-			$list[$grid->line][] = $grid;
+		$models = $this->bySectionId($section->id)->ordered()->withBlocks()->findAll();
+		foreach ($models as $model) {
+			$lines[$model->line][] = $model;
 		}
 
-		return $list;
+		foreach ($lines as $number => $grids) {
+			$structure["lines"][$number] = $this->_getLineStructure($grids);
+		}
+
+		return $structure;
 	}
 
-	public static function getLineTree($grids)
+	/**
+	 * @param GridModel[] $grids
+	 *
+	 * @return array
+	 */
+	private function _getLineStructure($grids)
 	{
-		$tree = [];
+		$structure = [];
 
 		$doubleGrid = [];
 		for ($i = 0; $i < self::GRID_SIZE * 2; $i++) {
@@ -181,7 +197,7 @@ class GridModel extends Model
 		}
 
 		if (!$borders) {
-			return $tree;
+			return $structure;
 		}
 
 		for ($i = 0; $i < count($borders); $i = $i + 2) {
@@ -200,7 +216,7 @@ class GridModel extends Model
 					&& $grid->width <= ($borders[$i + 1] - $borders[$i] + 1) / 2
 				) {
 					$gridsList[] = [
-						"block"  => $grid->blockModel,
+						"model"  => $grid->blockModel->getContentModel(),
 						"col"    => $grid->width,
 						"y"      => $grid->y,
 						"offset" => $grid->x - $borders[$i] / 2 - $right,
@@ -209,14 +225,14 @@ class GridModel extends Model
 				}
 			}
 
-			$tree[] = [
+			$structure[] = [
 				"col"    => ($borders[$i + 1] - $borders[$i] + 1) / 2,
 				"offset" => $offset,
 				"grids"  => $gridsList,
 			];
 		}
 
-		return $tree;
+		return $structure;
 	}
 
 	/**

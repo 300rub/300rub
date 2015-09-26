@@ -55,12 +55,7 @@ class SectionController extends Controller
 			throw new Exception(Language::t("default", "Раздел не найден"), 404);
 		}
 
-		//$grids = GridModel::model()->bySectionId($model->id)->withContent()->findAll();
-		//if (!$grids) {
-		//	throw new Exception(Language::t("default", "Не определена структура для раздела"));
-		//}
-
-		$this->render("index", ["model" => $model, "grids" => null]);
+		$this->render("index", ["structure" => GridModel::model()->getStructure($model)]);
 	}
 
 	public function actionPanelList()

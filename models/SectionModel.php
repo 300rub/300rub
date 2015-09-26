@@ -181,4 +181,17 @@ class SectionModel extends Model
 
 		return parent::beforeSave();
 	}
+
+	/**
+	 * @return string
+	 */
+	public function getWidth()
+	{
+		if ($this->width == 0) {
+			return self::DEFAULT_WIDTH . "px";
+		} else if ($this->width < 100) {
+			return "{$this->width}%";
+		}
+		return "{$this->width}px";
+	}
 }
