@@ -5,6 +5,7 @@ namespace controllers;
 use models\BlockModel;
 use models\GridModel;
 use models\SeoModel;
+use system\db\Db;
 use system\web\Controller;
 use models\SectionModel;
 use system\base\Exception;
@@ -218,10 +219,24 @@ class SectionController extends Controller
 	 * Сохраняет сетку
 	 *
 	 * @param int $id идентификатор раздела
+	 *
+	 * @throws Exception
 	 */
 	public function actionSaveGrid($id)
 	{
-		var_dump($id);
-		var_dump(App::getPost("data"));
+		$this->json = false;
+
+		if (!$id) {
+			throw new Exception(Language::t("common", "Некорректный идентификатор"), 404);
+		}
+
+		$model = SectionModel::model()->byId($id)->find();
+		if (!$model) {
+			throw new Exception(Language::t("default", "Раздел не найден"), 404);
+		}
+
+		$data = App::getPost("data");
+		$this->json = GridModel::model()->updateGridForSection($model->id, $data);;
+		$this->renderJson();
 	}
 }

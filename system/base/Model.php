@@ -159,7 +159,7 @@ abstract class Model
 	{
 		$result = $this->db->findAll();
 		if (!$result) {
-			return null;
+			return [];
 		}
 
 		$list = [];

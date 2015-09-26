@@ -100,6 +100,7 @@ abstract class Controller
 	 */
 	protected function renderJson()
 	{
+		header('Content-Type: application/json');
 		echo json_encode($this->json);
 		exit();
 	}

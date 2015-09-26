@@ -3,6 +3,7 @@
 namespace models;
 
 use system\base\Model;
+use system\db\Db;
 
 /**
  * Файл класса GridModel
@@ -243,5 +244,45 @@ class GridModel extends Model
 		sort($list);
 
 		return $list;
+	}
+
+	/**
+	 * @param int $sectionId
+	 * @param array $data
+	 *
+	 * @return bool
+	 */
+	public function updateGridForSection($sectionId, $data)
+	{
+		Db::startTransaction();
+		$grids = $this->bySectionId($sectionId)->findAll();
+		foreach ($grids as $grid) {
+			if (!$grid->delete(false)) {
+				Db::rollbackTransaction();
+				return false;
+			}
+		}
+
+		$lineNumber = 1;
+		foreach ($data as $line) {
+			foreach ($line as $item) {
+				$model = new self;
+				$model->section_id = $sectionId;
+				$model->block_id = $item["id"];
+				$model->line = $lineNumber;
+				$model->x = $item["x"];
+				$model->y = $item["y"];
+				$model->width = $item["width"];
+				if (!$model->save(false)) {
+					Db::rollbackTransaction();
+					return false;
+				}
+			}
+
+			$lineNumber++;
+		}
+
+		Db::commitTransaction();
+		return true;
 	}
 }

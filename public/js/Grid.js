@@ -314,7 +314,7 @@ function Grid(id) {
 			url: "/ajax/" + LANG + "/section/saveGrid/" + t.id + "/",
 			type: "post",
 			data: {data: data},
-			//	dataType: "json",
+			dataType: "json",
 			beforeSend: function (data) {
 				$loaderButton.appendTo($button);
 				$buttonSpan.css("opacity", 0);
@@ -322,7 +322,6 @@ function Grid(id) {
 			success: function (data) {
 				$loaderButton.remove();
 				$buttonSpan.css("opacity", 1);
-				alert(data);
 			},
 			error: function (request, status, error) {
 				$loaderButton.remove();
