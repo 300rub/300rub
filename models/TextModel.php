@@ -35,6 +35,16 @@ class TextModel extends Model
 	public $text = "";
 
 	/**
+	 * @var int
+	 */
+	public $design_text_id;
+
+	/**
+	 * @var DesignTextModel
+	 */
+	public $designTextModel;
+
+	/**
 	 * Типы форм для полей
 	 *
 	 * @var array
@@ -63,9 +73,10 @@ class TextModel extends Model
 	public function rules()
 	{
 		return [
-			"is_editor" => [],
-			"type"      => [],
-			"text"      => [],
+			"is_editor"      => [],
+			"type"           => [],
+			"text"           => [],
+			"design_text_id" => []
 		];
 	}
 
@@ -90,7 +101,9 @@ class TextModel extends Model
 	 */
 	public function relations()
 	{
-		return [];
+		return [
+			"designTextModel" => ['models\DesignTextModel', "design_text_id"]
+		];
 	}
 
 	/**

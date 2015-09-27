@@ -2,6 +2,8 @@
 /**
  * @var \models\TextModel $model
  */
+
+$dt = $model->designTextModel;
 ?>
 
-<div style="border: 1px solid #000;"><?= $model->text; ?></div>
+<div style="<?= $dt->size ? " font-size: {$dt->size}px;" : "" ?>"><?= $model->text; ?></div>

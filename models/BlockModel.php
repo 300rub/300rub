@@ -123,7 +123,8 @@ class BlockModel extends Model
 		return [
 			self::TYPE_TEXT => [
 				"name"  => Language::t("common", "Текст"),
-				"class" => "text"
+				"class" => "text",
+				"with" => ["designTextModel"]
 			]
 		];
 	}
@@ -169,7 +170,7 @@ class BlockModel extends Model
 		/**
 		 * @var Model $model
 		 */
-		$model = $modelName::model()->byId($this->content_id)->find();
+		$model = $modelName::model()->byId($this->content_id)->withAll()->find();
 
 		if (!$model) {
 			throw new Exception(Language::t("default", "Модель не найдена"), 404);

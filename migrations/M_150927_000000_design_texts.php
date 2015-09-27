@@ -2,15 +2,13 @@
 
 namespace migrations;
 
-use models\TextModel;
+use models\DesignTextModel;
 use system\db\Migration;
 
 /**
- * Создает таблицу для текстов
- *
  * @package migrations
  */
-class M_150707_000000_texts extends Migration
+class M_150927_000000_design_texts extends Migration
 {
 
 	/**
@@ -21,13 +19,19 @@ class M_150707_000000_texts extends Migration
 	public function up()
 	{
 		$result = $this->createTable(
-			"texts",
+			"design_texts",
 			[
 				"id"             => "pk",
-				"type"           => "integer",
-				"is_editor"      => "boolean",
-				"text"           => "text",
-				"design_text_id" => "integer",
+				"size"           => "integer",
+				"family"         => "integer",
+				"color"          => "string",
+				"style"          => "integer",
+				"weight"         => "integer",
+				"align"          => "integer",
+				"decoration"     => "integer",
+				"transform"      => "integer",
+				"letter_spacing" => "integer",
+				"line_height"    => "integer",
 			],
 			"ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci"
 		);
@@ -46,12 +50,9 @@ class M_150707_000000_texts extends Migration
 	public function insertData()
 	{
 		$attributes = [
-			"t.is_editor"      => 0,
-			"t.type"           => 1,
-			"t.text"           => "Текстовая страница",
-			"t.design_text_id" => 1,
+			"t.size" => 20,
 		];
-		$model = new TextModel();
+		$model = new DesignTextModel();
 		$model->setAttributes($attributes);
 		if (!$model->save()) {
 			return false;
