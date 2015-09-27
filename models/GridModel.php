@@ -217,6 +217,7 @@ class GridModel extends Model
 				) {
 					$gridsList[] = [
 						"model"  => $grid->blockModel->getContentModel(),
+						"view"  => $grid->blockModel->getContentView(),
 						"col"    => $grid->width,
 						"y"      => $grid->y,
 						"offset" => $grid->x - $borders[$i] / 2 - $right,

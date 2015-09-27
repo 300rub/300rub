@@ -1,5 +1,6 @@
 <?php
 /**
+ * @var \controllers\SectionController $this
  * @var array $structure
  */
 ?>
@@ -23,7 +24,7 @@
 										<div class="clear"></div>
 									<?php } ?>
 									<div class="col-<?php echo $grid["col"]; ?> col-offset-<?= $grid["offset"]; ?>">
-										<?php var_dump($grid["model"]) ?>
+										<?php $this->renderPartial($grid["view"], ["model" => $grid["model"]]); ?>
 									</div>
 								<?php } ?>
 							</div>

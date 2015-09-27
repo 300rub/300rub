@@ -24,9 +24,8 @@ class M_150707_000000_texts extends Migration
 			"texts",
 			[
 				"id"        => "pk",
-				"size"      => "integer",
-				"is_editor" => "boolean",
 				"type"      => "integer",
+				"is_editor" => "boolean",
 				"text"      => "text",
 			],
 			"ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci"
@@ -46,7 +45,6 @@ class M_150707_000000_texts extends Migration
 	public function insertData()
 	{
 		$attributes = [
-			"t.size"      => 1,
 			"t.is_editor" => 0,
 			"t.type"      => 1,
 			"t.text"      => "Текстовая страница",

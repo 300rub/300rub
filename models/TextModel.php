@@ -14,13 +14,6 @@ class TextModel extends Model
 {
 
 	/**
-	 * Размер
-	 *
-	 * @var int
-	 */
-	public $size = 0;
-
-	/**
 	 * Использовать ли редактор
 	 *
 	 * @var boolean
@@ -47,7 +40,6 @@ class TextModel extends Model
 	 * @var array
 	 */
 	public $formTypes = [
-		"size"      => "field",
 		"is_editor" => "field",
 		"type"      => "field",
 		"text"      => "field",
@@ -71,7 +63,6 @@ class TextModel extends Model
 	public function rules()
 	{
 		return [
-			"size"      => [],
 			"is_editor" => [],
 			"type"      => [],
 			"text"      => [],
@@ -86,7 +77,6 @@ class TextModel extends Model
 	public function labels()
 	{
 		return [
-			"size"      => Language::t("common", "Размер"),
 			"is_editor" => Language::t("common", "Редактор"),
 			"type"      => Language::t("common", "Тип"),
 			"text"      => Language::t("common", "Текст"),

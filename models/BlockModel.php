@@ -169,12 +169,27 @@ class BlockModel extends Model
 		/**
 		 * @var Model $model
 		 */
-		$model = new $modelName;
-		$model->byId($this->content_id)->find();
+		$model = $modelName::model()->byId($this->content_id)->find();
+
 		if (!$model) {
 			throw new Exception(Language::t("default", "Модель не найдена"), 404);
 		}
 
 		return $model;
+	}
+
+	/**
+	 * @return string
+	 * @throws Exception
+	 */
+	public function getContentView()
+	{
+		$typeList = self::getTypesList();
+
+		if (!array_key_exists($this->type, $typeList)) {
+			throw new Exception(Language::t("default", "Модель не найдена"), 404);
+		}
+
+		return '/'. $typeList[$this->type]["class"] .'/content';
 	}
 }
