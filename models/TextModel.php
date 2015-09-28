@@ -9,6 +9,8 @@ use system\base\Model;
  * Файл класса TextModel
  *
  * @package models
+ *
+ * @method TextModel[] findAll
  */
 class TextModel extends Model
 {

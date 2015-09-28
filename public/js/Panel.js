@@ -62,7 +62,7 @@ function Panel (params) {
 				t.panel.find(".footer").css("display", "block");
 
 				if (data.list != undefined) {
-					var itemTemplate = $templates.find(".panel-item");
+					var itemTemplate = $templates.find(".panel-item").clone();
 					if (data.list.class != undefined) {
 						itemTemplate.addClass("panel-item-" + data.list.class);
 					}
@@ -190,6 +190,7 @@ function Panel (params) {
 				}
 			},
 			error: function (request, status, error) {
+				console.log(error);
 				$loaderButton.remove();
 				$buttonSpan.css("opacity", 1);
 				var $container = t.panel.find(".container");
