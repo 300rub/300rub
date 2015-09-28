@@ -86,6 +86,7 @@ function Panel (params) {
 					$.each(data.list.items, function (i, item) {
 						var clone = itemTemplate.clone();
 						clone.attr("data-id", item.id);
+						clone.attr("data-content", item.content);
 						clone.find(".label").text(item.label);
 						clone.appendTo(t.panel.find(".container"));
 					});
@@ -209,7 +210,13 @@ function Panel (params) {
 		if ($(this).hasClass("panel-item-grid")) {
 			(new Grid($(this).data("id"))).init();
 		} else {
+			var content = $(this).data("content");
+			(new Panel({
+				name: t.panel.data("name"),
+				content: content
+			})).init();
 
+			t.panel.remove();
 		}
 
 		return false;
