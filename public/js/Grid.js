@@ -176,10 +176,11 @@ function Grid(id) {
 	 * @param {HTMLElement} $lineContainer
 	 */
 	this.parseGrid = function (grid, $lineContainer) {
+
 		$.each(grid, function (lineNumber, line) {
 			t.addLine($lineContainer);
 			$.each(line, function (i, item) {
-				t.addWidget(lineNumber + 1, item.id, item.cssClass, item.x, item.y, item.width, item.name, false);
+				t.addWidget(lineNumber, item.id, item.cssClass, item.x, item.y, item.width, item.name, false);
 			});
 		});
 	};

@@ -1,9 +1,8 @@
 <?php
 /**
- * @var \models\TextModel $model
+ * @var \controllers\SectionController $this
+ * @var \models\TextModel              $model
  */
-
-$dt = $model->designTextModel;
 ?>
 
-<div style="<?= $dt->size ? " font-size: {$dt->size}px;" : "" ?>"><?= $model->text; ?></div>
+<div style="<?php $this->renderPartial("/design/text", ["model" => $model->designTextModel]); ?>"><?= $model->text; ?></div>

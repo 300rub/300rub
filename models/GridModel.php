@@ -248,7 +248,7 @@ class GridModel extends Model
 
 		$grids = $this->bySectionId($sectionId)->withBlocks()->ordered()->findAll();
 		foreach ($grids as $grid) {
-			$list[$grid->line][] = [
+			$list[intval($grid->line)][] = [
 				"id"       => $grid->blockModel->id,
 				"x"        => $grid->x,
 				"y"        => $grid->y,
@@ -258,7 +258,7 @@ class GridModel extends Model
 			];
 		}
 
-		sort($list);
+		//sort($list);
 
 		return $list;
 	}
