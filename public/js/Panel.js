@@ -139,6 +139,7 @@ function Panel (params) {
 	 */
 	this.settings = function () {
 		var content = t.panel.data("settings-content") + "/" + $(this).parent().data("id");
+		alert(content);
 
 		(new Panel({
 			name: t.panel.data("name"),
@@ -190,7 +191,6 @@ function Panel (params) {
 				}
 			},
 			error: function (request, status, error) {
-				console.log(error);
 				$loaderButton.remove();
 				$buttonSpan.css("opacity", 1);
 				var $container = t.panel.find(".container");
