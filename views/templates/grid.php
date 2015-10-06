@@ -3,7 +3,7 @@ use system\web\Language;
 ?>
 <div class="grid-stack-line">
 	<div class="grid-stack-line-header">
-		<div class="title"><?php echo Language::t("common", "Ëèíèÿ"); ?> <span></span></div>
+		<div class="title"><?php echo Language::t("common", "Ð›Ð¸Ð½Ð¸Ñ"); ?> <span></span></div>
 		<a href="#" class="remove">X</a>
 	</div>
 	<div class="grid-stack"></div>
@@ -11,7 +11,7 @@ use system\web\Language;
 
 <a href="#" class="grid-stack-line-add window-footer-button"><?php echo Language::t(
 		"common",
-		"Äîáàâèòü ëèíèþ"
+		"Ð”Ð¾Ð±Ð°Ð²Ð¸Ñ‚ÑŒ Ð»Ð¸Ð½Ð¸ÑŽ"
 	); ?></a>
 
 <div class="grid-stack-item">
