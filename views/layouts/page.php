@@ -1,11 +1,11 @@
 <?php
 
 use system\web\Language;
-use system\base\Validator;
 use system\App;
 
 /**
- * @var string $content
+ * @var \controllers\SectionController $this
+ * @var string                         $content
  */
 ?>
 <!DOCTYPE html>
@@ -58,127 +58,24 @@ use system\App;
 <?php if (App::web()->user === null) { ?>
 	<a href="#" id="login-button">Вход</a>
 <?php } else { ?>
-	<div id="panel-buttons">
-		<a
-			href="#"
-			id="sections-button"
-			data-name="sections"
-			data-content="section/panelList"
-			><span><?php echo Language::t("common", "Разделы"); ?></span></a>
-
-		<a
-			href="#"
-			id="blocks-button"
-			data-name="blocks"
-			data-content="blocks/panelList"
-			><span><?php echo Language::t("common", "Блоки"); ?></span></a>
-
-		<a
-			href="#"
-			id="settings-button"
-			data-name="settings"
-			data-content="blocks/panelList"
-			><span><?php echo Language::t("common", "Настройки"); ?></span></a>
-
-		<a
-			href="#"
-			id="payment-button"
-			data-name="payment"
-			data-content="blocks/panelList"
-			><span><?php echo Language::t("common", "Оплата"); ?></span></a>
-	</div>
-
+	<?php //require(__DIR__ . "/../section/panel_buttons.php"); ?>
 	<a href="#" id="logout-button"></a>
 <?php } ?>
 
 <div id="ajax-wrapper"></div>
 
 <div id="templates">
-	<div class="window">
-		<form action="" method="post">
-			<a href="#" class="close"></a>
-
-			<div class="header"></div>
-			<div class="container"></div>
-			<div class="footer"></div>
-		</form>
-	</div>
-
-	<div class="overlay"></div>
-
-	<div class="loader">
-		<div class="bounce1"></div>
-		<div class="bounce2"></div>
-		<div class="bounce3"></div>
-	</div>
-
+	<?php require(__DIR__ . "/../templates/window.php"); ?>
+	<?php require(__DIR__ . "/../templates/loader.php"); ?>
 	<?php if (App::web()->user !== null) { ?>
-		<div class="panel">
-			<a href="#" class="close"></a>
-
-			<form action="" method="post">
-				<div class="header">
-					<div class="back"></div>
-					<div class="title"></div>
-					<div class="description"></div>
-				</div>
-				<div class="container"></div>
-				<div class="footer"></div>
-			</form>
-		</div>
-
-		<div class="panel-item">
-			<div class="label"></div>
-			<a href="#" class="design"><span></span></a>
-			<a href="#" class="settings"><span></span></a>
-			<span class="item"></span>
-		</div>
-
-		<div class="grid-stack-line">
-			<div class="grid-stack-line-header">
-				<div class="title"><?php echo Language::t("common", "Линия"); ?> <span></span></div>
-				<a href="#" class="remove">X</a>
-			</div>
-			<div class="grid-stack"></div>
-		</div>
-
-		<a href="#" class="grid-stack-line-add window-footer-button"><?php echo Language::t(
-				"common",
-				"Добавить линию"
-			); ?></a>
-
-		<div class="grid-stack-item">
-			<a href="#" class="remove">x</a>
-
-			<div class="grid-stack-item-content"></div>
-		</div>
+		<?php require(__DIR__ . "/../templates/panel.php"); ?>
+		<?php require(__DIR__ . "/../templates/grid.php"); ?>
 	<?php } ?>
 </div>
 
-<div id="errors">
-	<?php foreach (Validator::getErrorMessages() as $key => $value) { ?>
-		<div class="error <?php echo $key; ?>"><?php echo $value; ?></div>
-	<?php } ?>
-</div>
-
-<div id="forms">
-	<div class="form-container form-container-field">
-		<label></label>
-		<input type="text"/>
-	</div>
-
-	<div class="form-container form-container-password">
-		<label></label>
-		<input type="password"/>
-	</div>
-
-	<div class="form-container form-container-checkbox">
-		<input type="checkbox"/>
-		<label></label>
-	</div>
-
-	<button class="button"><span></span></button>
-</div>
+<?php require(__DIR__ . "/../error/messages.php"); ?>
+<?php require(__DIR__ . "/../templates/forms.php"); ?>
+<?php require(__DIR__ . "/../design/text_forms.php"); ?>
 
 </body>
 </html>

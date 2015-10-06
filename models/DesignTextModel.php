@@ -67,6 +67,93 @@ class DesignTextModel extends Model
 	 */
 	public $formTypes = [];
 
+	const FAMILY_MYRAD = 0;
+	const FAMILY_ARIAL = 1;
+	const FAMILY_ARIAL_BLACK = 2;
+	const FAMILY_COMIC_SANS_MS = 3;
+	const FAMILY_COURIER_NEW = 4;
+	const FAMILY_GEORGIA = 5;
+	const FAMILY_IMPACT = 6;
+	const FAMILY_MONACO = 7;
+	const FAMILY_LUCIDA_GRANDE = 8;
+	const FAMILY_PALATINO = 9;
+	const FAMILY_TAHOMA = 10;
+	const FAMILY_TIMES = 11;
+	const FAMILY_HELVETICA = 12;
+	const FAMILY_VERDANA = 13;
+	const FAMILY_GENEVA = 14;
+	const FAMILY_MS_SERIF = 15;
+
+	/**
+	 * @var array
+	 */
+	public static $familyList = [
+		self::FAMILY_MYRAD       => [
+			"class" => "font-myrad",
+			"name"  => "MyriadPro"
+		],
+		self::FAMILY_ARIAL       => [
+			"class" => "font-arial",
+			"name"  => "Arial, Helvetica"
+		],
+		self::FAMILY_ARIAL_BLACK => [
+			"class" => "font-arial-black",
+			"name"  => "Arial Black, Gadget"
+		],
+		self::FAMILY_COMIC_SANS_MS => [
+			"class" => "font-comic-sans",
+			"name"  => "Comic Sans MS"
+		],
+		self::FAMILY_COURIER_NEW => [
+			"class" => "font-courier-new",
+			"name"  => "Courier New"
+		],
+		self::FAMILY_GEORGIA => [
+			"class" => "font-georgia",
+			"name"  => "Georgia"
+		],
+		self::FAMILY_IMPACT => [
+			"class" => "font-impact",
+			"name"  => "Impact, Charcoal"
+		],
+		self::FAMILY_MONACO => [
+			"class" => "font-monaco",
+			"name"  => "Lucida Console, Monaco"
+		],
+		self::FAMILY_LUCIDA_GRANDE => [
+			"class" => "font-lucida-grande",
+			"name"  => "Lucida Sans Unicode, Lucida Grande"
+		],
+		self::FAMILY_PALATINO => [
+			"class" => "font-palatino",
+			"name"  => "Palatino"
+		],
+		self::FAMILY_TAHOMA => [
+			"class" => "font-tahoma",
+			"name"  => "Tahoma, Geneva"
+		],
+		self::FAMILY_TIMES => [
+			"class" => "font-times",
+			"name"  => "Times New Roman, Times"
+		],
+		self::FAMILY_HELVETICA => [
+			"class" => "font-helvetica",
+			"name"  => "Trebuchet MS, Helvetica"
+		],
+		self::FAMILY_VERDANA => [
+			"class" => "font-verdana",
+			"name"  => "Verdana, Geneva"
+		],
+		self::FAMILY_GENEVA => [
+			"class" => "font-geneva",
+			"name"  => "MS Sans Serif, Geneva"
+		],
+		self::FAMILY_MS_SERIF => [
+			"class" => "font-ms-serif",
+			"name"  => "MS Serif, New York"
+		]
+	];
+
 	/**
 	 * Получает название связной таблицы
 	 *

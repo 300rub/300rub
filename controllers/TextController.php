@@ -42,8 +42,8 @@ class TextController extends Controller
 				"items"   => $items,
 				"content" => "text/edit",
 				"icons"   => [
-					"big"      => false,
-					"design"   => false,
+					"big"      => true,
+					"design"   => "text/design",
 					"settings" => "text/settings",
 				],
 			],
@@ -54,9 +54,42 @@ class TextController extends Controller
 	}
 
 	/**
-	 * Настройки раздела
+	 * @param int $id
 	 *
-	 * @param int $id идентификатор раздела
+	 * @throws Exception
+	 *
+	 * @return void
+	 */
+	public function actionDesign($id = 0)
+	{
+		if ($id) {
+			$model = TextModel::model()->byId($id)->withAll()->find();
+		} else {
+			$model = new TextModel;
+		}
+
+		if (!$model) {
+			throw new Exception(Language::t("default", "Модель не найдена"), 404);
+		}
+
+		$this->json = [
+			"title"       => Language::t("common", "Дизайн текстового блока"),
+			"description" => Language::t("common", "123"),
+			"button"      => [
+				"label"  => Language::t("common", "Сохранить"),
+				"action" => "text/saveDesign/{$model->id}"
+			],
+		];
+		$this->setFormsForJson(
+			$model,
+			["t.text"]
+		);
+
+		$this->renderJson();
+	}
+
+	/**
+	 * @param int $id
 	 *
 	 * @throws Exception
 	 *

@@ -74,6 +74,7 @@ function Panel (params) {
 					}
 					if (data.list.icons.design !== false) {
 						itemTemplate.find("a.design").css("display", "block");
+						t.panel.attr("data-design-content", data.list.icons.design);
 					}
 					if (data.list.icons.settings !== false) {
 						itemTemplate.find("a.settings").css("display", "block");
@@ -93,6 +94,7 @@ function Panel (params) {
 
 					t.panel.find(".panel-item").bind("click", t.showItem);
 					t.panel.find(".panel-item .settings").bind("click", t.settings);
+					t.panel.find(".panel-item .design").bind("click", t.design);
 				}
 
 				if (data.forms != undefined) {
@@ -139,7 +141,22 @@ function Panel (params) {
 	 */
 	this.settings = function () {
 		var content = t.panel.data("settings-content") + "/" + $(this).parent().data("id");
-		alert(content);
+
+		(new Panel({
+			name: t.panel.data("name"),
+			content: content
+		})).init();
+
+		t.panel.remove();
+
+		return false;
+	};
+
+	/**
+	 * @returns {boolean}
+	 */
+	this.design = function () {
+		var content = t.panel.data("design-content") + "/" + $(this).parent().data("id");
 
 		(new Panel({
 			name: t.panel.data("name"),

@@ -5,4 +5,7 @@
  */
 ?>
 
-<div style="<?php $this->renderPartial("/design/text", ["model" => $model->designTextModel]); ?>"><?= $model->text; ?></div>
+<div
+	class="design-text-<?= $model->designTextModel->id ?>"
+	style="<?php $this->renderPartial("/design/text", ["model" => $model->designTextModel]); ?>"
+	><?= $model->text; ?></div>
