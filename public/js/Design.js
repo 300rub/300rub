@@ -18,6 +18,10 @@ function Design (type, id) {
 		t.setSize(20);
 		t.setFont(3);
 		t.setColor("#3A236A");
+		t.setLetterSpacing(0);
+		t.setLineHeight(100);
+		t.setIsBold(0);
+		t.setIsItalic(0);
 
 		return t.editor;
 	};
@@ -57,6 +61,68 @@ function Design (type, id) {
 		$picker.colorPicker({
 			renderCallback: function($elm, toggled) {
 				t.object.css("color", $picker.val());
+			}
+		});
+	};
+
+	this.setLetterSpacing = function(value) {
+		t.editor.find(".letter-spacing-result").text(value);
+		t.editor.find(".letter-spacing-value").val(value);
+		t.editor.find(".letter-spacing-slider").slider({
+			value: value,
+			min: -10,
+			max: 40,
+			slide: function (event, ui) {
+				$(this).parent().find(".letter-spacing-result").text(ui.value);
+				$(this).parent().find(".letter-spacing-value").val(ui.value);
+				t.object.css("letter-spacing", ui.value + "px");
+			}
+		});
+	};
+
+	this.setLineHeight = function(value) {
+		t.editor.find(".line-height-result").text(value);
+		t.editor.find(".line-height-value").val(value);
+		t.editor.find(".line-height-slider").slider({
+			value: value,
+			min: 10,
+			max: 300,
+			slide: function (event, ui) {
+				$(this).parent().find(".line-height-result").text(ui.value);
+				$(this).parent().find(".line-height-value").val(ui.value);
+				t.object.css("line-height", parseInt(ui.value) / 100);
+			}
+		});
+	};
+
+	this.setIsBold = function(value) {
+		var $checkbox = t.editor.find('.is-bold');
+		if (parseInt(value) == 1) {
+			$checkbox.attr('checked', true);
+		}
+		$checkbox.attr('id', "is-bold-" + t.id);
+		$checkbox.parent().find("label").attr('for', "is-bold-" + t.id);
+		$checkbox.on("change", function() {
+			if ($(this).is(':checked')) {
+				t.object.css("font-weight", "bold");
+			} else {
+				t.object.css("font-weight", "normal");
+			}
+		});
+	};
+
+	this.setIsItalic = function(value) {
+		var $checkbox = t.editor.find('.is-italic');
+		if (parseInt(value) == 1) {
+			$checkbox.attr('checked', true);
+		}
+		$checkbox.attr('id', "is-italic-" + t.id);
+		$checkbox.parent().find("label").attr('for', "is-italic-" + t.id);
+		$checkbox.on("change", function() {
+			if ($(this).is(':checked')) {
+				t.object.css("font-style", "italic");
+			} else {
+				t.object.css("font-style", "normal");
 			}
 		});
 	};
