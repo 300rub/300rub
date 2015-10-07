@@ -44,8 +44,10 @@ use system\App;
 		<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
 		<script src="/js/lib/lodash.min.js"></script>
 		<script src="/js/lib/gridstack.min.js"></script>
+		<script src="/js/lib/jqColorPicker.min.js"></script>
 		<script src="/js/Grid.js"></script>
 		<script src="/js/Panel.js"></script>
+		<script src="/js/Design.js"></script>
 		<script src="/js/admin.js"></script>
 	<?php } ?>
 </head>
@@ -67,15 +69,24 @@ use system\App;
 <div id="templates">
 	<?php require(__DIR__ . "/../templates/window.php"); ?>
 	<?php require(__DIR__ . "/../templates/loader.php"); ?>
+	<?php require(__DIR__ . "/../templates/forms.php"); ?>
 	<?php if (App::web()->user !== null) { ?>
 		<?php require(__DIR__ . "/../templates/panel.php"); ?>
 		<?php require(__DIR__ . "/../templates/grid.php"); ?>
+		<?php require(__DIR__ . "/../design/text_forms.php"); ?>
 	<?php } ?>
+	<?php require(__DIR__ . "/../error/messages.php"); ?>
 </div>
 
-<?php require(__DIR__ . "/../error/messages.php"); ?>
-<?php require(__DIR__ . "/../templates/forms.php"); ?>
-<?php require(__DIR__ . "/../design/text_forms.php"); ?>
+<button id="test">111</button>
+<script>
+	$(function () {
+		$("#test").on("click", function() {
+			$design = (new Design("text", 1)).get();
+			$design.appendTo("#ajax-wrapper");
+		});
+	});
+</script>
 
 </body>
 </html>

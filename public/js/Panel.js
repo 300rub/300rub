@@ -99,7 +99,7 @@ function Panel (params) {
 
 				if (data.forms != undefined) {
 					$.each(data.forms, function (name, params) {
-						$form = (new Form(name, params)).get();
+						var $form = (new Form(name, params)).get();
 						if ($form !== false) {
 							$form.appendTo($container);
 						}

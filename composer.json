@@ -1,7 +1,8 @@
 {
   "require": {
     "troolee/gridstack": "dev-master",
-    "lodash/lodash": "dev-master"
+    "lodash/lodash": "dev-master",
+    "PitPik/tinyColorPicker": "dev-master"
   },
   "repositories": [
     {
@@ -24,6 +25,18 @@
         "source": {
           "type": "git",
           "url": "https://github.com/lodash/lodash.git",
+          "reference": "master"
+        }
+      }
+    },
+    {
+      "type": "package",
+      "package": {
+        "name": "PitPik/tinyColorPicker",
+        "version": "dev-master",
+        "source": {
+          "type": "git",
+          "url": "https://github.com/PitPik/tinyColorPicker",
           "reference": "master"
         }
       }
