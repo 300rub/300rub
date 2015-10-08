@@ -24,6 +24,8 @@ class M_150707_000000_texts extends Migration
 			"texts",
 			[
 				"id"             => "pk",
+				"name"           => "string",
+				"language"       => "integer",
 				"type"           => "integer",
 				"is_editor"      => "boolean",
 				"text"           => "text",
@@ -46,6 +48,8 @@ class M_150707_000000_texts extends Migration
 	public function insertData()
 	{
 		$attributes = [
+			"t.name"           => "Текстовый блок",
+			"t.language"       => 1,
 			"t.is_editor"      => 0,
 			"t.type"           => 1,
 			"t.text"           => "Текстовая страница",

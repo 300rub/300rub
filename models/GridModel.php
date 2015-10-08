@@ -2,8 +2,10 @@
 
 namespace models;
 
+use system\base\Exception;
 use system\base\Model;
 use system\db\Db;
+use system\web\Language;
 
 /**
  * Файл класса GridModel
@@ -16,6 +18,7 @@ class GridModel extends Model
 {
 
 	const GRID_SIZE = 12;
+	const TYPE_TEXT = 1;
 
 	/**
 	 * @var int
@@ -48,9 +51,14 @@ class GridModel extends Model
 	public $width;
 
 	/**
-	 * @var BlockModel
+	 * @var int
 	 */
-	public $blockModel = null;
+	public $content_type;
+
+	/**
+	 * @var int
+	 */
+	public $content_id;
 
 	/**
 	 * Получает название связной таблицы
@@ -69,9 +77,7 @@ class GridModel extends Model
 	 */
 	public function relations()
 	{
-		return [
-			"blockModel" => ["models\\BlockModel", "block_id"]
-		];
+		return [];
 	}
 
 	/**
@@ -82,12 +88,14 @@ class GridModel extends Model
 	public function rules()
 	{
 		return [
-			"section_id" => ["required"],
-			"block_id"   => ["required"],
-			"line"       => ["required"],
-			"x"          => [],
-			"y"          => [],
-			"width"      => ["required"],
+			"section_id"   => ["required"],
+			"block_id"     => ["required"],
+			"line"         => ["required"],
+			"x"            => [],
+			"y"            => [],
+			"width"        => ["required"],
+			"content_type" => ["required"],
+			"content_id"   => ["required"],
 		];
 	}
 
@@ -131,15 +139,6 @@ class GridModel extends Model
 	/**
 	 * @return GridModel
 	 */
-	public function withBlocks()
-	{
-		$this->db->with[] = "blockModel";
-		return $this;
-	}
-
-	/**
-	 * @return GridModel
-	 */
 	public function ordered()
 	{
 		$this->db->order = "t.line, t.y, t.x";
@@ -156,7 +155,7 @@ class GridModel extends Model
 		$structure["width"] = $section->getWidth();
 		$lines = [];
 
-		$models = $this->bySectionId($section->id)->ordered()->withBlocks()->findAll();
+		$models = $this->bySectionId($section->id)->ordered()->findAll();
 		foreach ($models as $model) {
 			$lines[$model->line][] = $model;
 		}
@@ -216,8 +215,8 @@ class GridModel extends Model
 					&& $grid->width <= ($borders[$i + 1] - $borders[$i] + 1) / 2
 				) {
 					$gridsList[] = [
-						"model"  => $grid->blockModel->getContentModel(),
-						"view"  => $grid->blockModel->getContentView(),
+						"model"  => $grid->getContentModel(),
+						"view"   => $grid->getContentView(),
 						"col"    => $grid->width,
 						"y"      => $grid->y,
 						"offset" => $grid->x - $borders[$i] / 2 - $right,
@@ -246,7 +245,7 @@ class GridModel extends Model
 		$list = [];
 		$typesList = BlockModel::getTypesList();
 
-		$grids = $this->bySectionId($sectionId)->withBlocks()->ordered()->findAll();
+		$grids = $this->bySectionId($sectionId)->ordered()->findAll();
 		foreach ($grids as $grid) {
 			$list[intval($grid->line)][] = [
 				"id"       => $grid->blockModel->id,
@@ -264,7 +263,7 @@ class GridModel extends Model
 	}
 
 	/**
-	 * @param int $sectionId
+	 * @param int   $sectionId
 	 * @param array $data
 	 *
 	 * @return bool
@@ -301,5 +300,85 @@ class GridModel extends Model
 
 		Db::commitTransaction();
 		return true;
+	}
+
+	/**
+	 * @return array
+	 */
+	public static function getTypesList()
+	{
+		return [
+			self::TYPE_TEXT => [
+				"name"  => Language::t("common", "Текст"),
+				"class" => "text",
+				"with" => ["designTextModel"]
+			]
+		];
+	}
+
+	/**
+	 * @return Model
+	 *
+	 * @throws Exception
+	 */
+	public function getContentModel()
+	{
+		$typeList = self::getTypesList();
+
+		if (!array_key_exists($this->content_type, $typeList)) {
+			throw new Exception(Language::t("default", "Модель не найдена"), 404);
+		}
+
+		$modelName = '\\models\\' . ucfirst($typeList[$this->content_type]["class"]) . 'Model';
+		/**
+		 * @var Model $model
+		 */
+		$model = $modelName::model()->byId($this->content_id)->withAll()->find();
+
+		if (!$model) {
+			throw new Exception(Language::t("default", "Модель не найдена"), 404);
+		}
+
+		return $model;
+	}
+
+	/**
+	 * @return string
+	 * @throws Exception
+	 */
+	public function getContentView()
+	{
+		$typeList = self::getTypesList();
+
+		if (!array_key_exists($this->content_type, $typeList)) {
+			throw new Exception(Language::t("default", "Модель не найдена"), 404);
+		}
+
+		return '/'. $typeList[$this->content_type]["class"] .'/content';
+	}
+
+	/**
+	 * @return array
+	 */
+	public function getAllBlocksForGridWindow()
+	{
+		$list = [];
+		$typesList = self::getTypesList();
+
+		foreach ($typesList as $key => $value) {
+			$list[$key] = [
+				"name"   => $value["name"],
+				"class"  => $value["class"],
+				"blocks" => []
+			];
+		}
+/**
+		$blocks = $this->ordered()->findAll();
+		foreach ($blocks as $block) {
+			$list[$block->content_type]["blocks"][$block->id] = $block->name;
+		}
+ */
+
+		return $list;
 	}
 }

@@ -16,6 +16,16 @@ class TextModel extends Model
 {
 
 	/**
+	 * @var string
+	 */
+	public $name;
+
+	/**
+	 * @var integer
+	 */
+	public $language;
+
+	/**
 	 * Использовать ли редактор
 	 *
 	 * @var boolean
