@@ -8,26 +8,26 @@ use system\web\Language;
 		id="sections-button"
 		data-name="sections"
 		data-content="section/panelList"
-		><span><?php echo Language::t("common", "Ðàçäåëû"); ?></span></a>
+		><span><?php echo Language::t("common", "Ð Ð°Ð·Ð´ÐµÐ»Ñ‹"); ?></span></a>
 
 	<a
 		href="#"
 		id="blocks-button"
 		data-name="blocks"
-		data-content="blocks/panelList"
-		><span><?php echo Language::t("common", "Áëîêè"); ?></span></a>
+		data-content="block/panelList"
+		><span><?php echo Language::t("common", "Ð‘Ð»Ð¾ÐºÐ¸"); ?></span></a>
 
 	<a
 		href="#"
 		id="settings-button"
 		data-name="settings"
 		data-content="blocks/panelList"
-		><span><?php echo Language::t("common", "Íàñòðîéêè"); ?></span></a>
+		><span><?php echo Language::t("common", "ÐÐ°ÑÑ‚Ñ€Ð¾Ð¹ÐºÐ¸"); ?></span></a>
 
 	<a
 		href="#"
 		id="payment-button"
 		data-name="payment"
 		data-content="blocks/panelList"
-		><span><?php echo Language::t("common", "Îïëàòà"); ?></span></a>
+		><span><?php echo Language::t("common", "ÐžÐ¿Ð»Ð°Ñ‚Ð°"); ?></span></a>
 </div>

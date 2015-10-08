@@ -60,7 +60,7 @@ use system\App;
 <?php if (App::web()->user === null) { ?>
 	<a href="#" id="login-button">Вход</a>
 <?php } else { ?>
-	<?php //require(__DIR__ . "/../section/panel_buttons.php"); ?>
+	<?php require(__DIR__ . "/../section/panel_buttons.php"); ?>
 	<a href="#" id="logout-button"></a>
 <?php } ?>
 
