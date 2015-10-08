@@ -227,9 +227,27 @@
 }
 
 .panel .container .panel-item span.item {
-	right: 60px;
+	right: 8px;
 	background-position: 0 -16px;
 	display: none;
+}
+
+.panel .container .panel-item .big-icon {
+	position: absolute;
+	left: -41px;
+	top: 50%;
+	margin-top: -16px;
+	width: 32px;
+	height: 32px;
+	background: #32a0d4;
+	display: none;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+}
+
+.panel .container .with-icon .big-icon {
+	display: block;
 }
 
 .panel .container .with-icon {

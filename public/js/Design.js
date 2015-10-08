@@ -48,7 +48,7 @@ function Design (type, id) {
 		$selector.addClass(className);
 		$selector.on("change", function () {
 			className = $(this).find(':selected').attr('class');
-			$(this).removeClassByMask("font-*");
+			$(this).removeClassByMask("font-family-*");
 			$(this).addClass(className);
 			t.object.removeClassByMask("font-*");
 			t.object.addClass(className);

@@ -1,0 +1,34 @@
+.design-editor {
+	width: 320px;
+	padding: 10px 0;
+}
+.design-block-container {
+	overflow: hidden;
+	padding: 5px 15px;
+	border-bottom: 1px solid #ccc;
+}
+.design-block-label {
+	width: 90px;
+	float: left;
+}
+.design-block-content {
+	width: 190px;
+	float: right;
+}
+.design-slider {
+	width: 140px;
+}
+.design-slider-result {
+	width: 45px;
+	float: right;
+	font-size: 12px;
+}
+.font-selector {
+	width: 180px;
+}
+.color-picker {
+	border: 1px solid #444;
+}
+.cp-color-picker {
+	z-index: 2;
+}
