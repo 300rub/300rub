@@ -89,6 +89,9 @@ body {
 	font-family: "MS Serif", "New York", serif !important;
 }
 
+.hide {
+	display: none;
+}
 
 #login-button, #logout-button {
 	position: fixed;

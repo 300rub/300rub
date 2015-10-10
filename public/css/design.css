@@ -1,34 +1,55 @@
 .design-editor {
 	width: 320px;
-	padding: 10px 0;
-}
-.design-block-container {
-	overflow: hidden;
-	padding: 5px 15px;
+	padding: 15px;
+	background: #fff;
 	border-bottom: 1px solid #ccc;
 }
-.design-block-label {
-	width: 90px;
-	float: left;
+.design-editor .design-slider-container {
+	display: inline-block;
 }
-.design-block-content {
-	width: 190px;
-	float: right;
+.design-editor .design-slider-container .design-slider-value {
+	width: 30px;
+	text-align: center;
 }
 .design-slider {
-	width: 140px;
-}
-.design-slider-result {
-	width: 45px;
-	float: right;
-	font-size: 12px;
-}
-.font-selector {
-	width: 180px;
-}
-.color-picker {
-	border: 1px solid #444;
-}
-.cp-color-picker {
+	height: 200px;
+	margin-left: 10px;
 	z-index: 2;
+	position: absolute;
+	display: none;
+}
+.design-font-selector {
+	width: 200px;
+}
+.design-slider-overlay {
+	position: fixed;
+	left: 0;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	z-index: 1;
+	display: none;
+}
+.design-checkbox-container,
+.design-radio-container,
+.design-radio-group {
+	display: inline-block;
+}
+.design-button-label {
+	width: 24px;
+	height: 24px;
+	display: inline-block;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	background: #ccc;
+	cursor: pointer;
+	text-align: center;
+	line-height: 24px;
+}
+.design-checkbox:checked + .design-button-label {
+	background: #777;
+}
+.design-radio:checked + .design-button-label {
+	background: #777;
 }

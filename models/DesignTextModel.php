@@ -28,12 +28,12 @@ class DesignTextModel extends Model
 	/**
 	 * @var int
 	 */
-	public $style;
+	public $is_italic;
 
 	/**
 	 * @var int
 	 */
-	public $weight;
+	public $is_bold;
 
 	/**
 	 * @var int
@@ -88,15 +88,15 @@ class DesignTextModel extends Model
 	 * @var array
 	 */
 	public static $familyList = [
-		self::FAMILY_MYRAD       => [
+		self::FAMILY_MYRAD         => [
 			"class" => "font-family-myrad",
 			"name"  => "MyriadPro"
 		],
-		self::FAMILY_ARIAL       => [
+		self::FAMILY_ARIAL         => [
 			"class" => "font-family-arial",
 			"name"  => "Arial, Helvetica"
 		],
-		self::FAMILY_ARIAL_BLACK => [
+		self::FAMILY_ARIAL_BLACK   => [
 			"class" => "font-family-arial-black",
 			"name"  => "Arial Black, Gadget"
 		],
@@ -104,19 +104,19 @@ class DesignTextModel extends Model
 			"class" => "font-family-comic-sans",
 			"name"  => "Comic Sans MS"
 		],
-		self::FAMILY_COURIER_NEW => [
+		self::FAMILY_COURIER_NEW   => [
 			"class" => "font-family-courier-new",
 			"name"  => "Courier New"
 		],
-		self::FAMILY_GEORGIA => [
+		self::FAMILY_GEORGIA       => [
 			"class" => "font-family-georgia",
 			"name"  => "Georgia"
 		],
-		self::FAMILY_IMPACT => [
+		self::FAMILY_IMPACT        => [
 			"class" => "font-family-impact",
 			"name"  => "Impact, Charcoal"
 		],
-		self::FAMILY_MONACO => [
+		self::FAMILY_MONACO        => [
 			"class" => "font-family-monaco",
 			"name"  => "Lucida Console, Monaco"
 		],
@@ -124,31 +124,31 @@ class DesignTextModel extends Model
 			"class" => "font-family-lucida-grande",
 			"name"  => "Lucida Sans Unicode, Lucida Grande"
 		],
-		self::FAMILY_PALATINO => [
+		self::FAMILY_PALATINO      => [
 			"class" => "font-family-palatino",
 			"name"  => "Palatino"
 		],
-		self::FAMILY_TAHOMA => [
+		self::FAMILY_TAHOMA        => [
 			"class" => "font-family-tahoma",
 			"name"  => "Tahoma, Geneva"
 		],
-		self::FAMILY_TIMES => [
+		self::FAMILY_TIMES         => [
 			"class" => "font-family-times",
 			"name"  => "Times New Roman, Times"
 		],
-		self::FAMILY_HELVETICA => [
+		self::FAMILY_HELVETICA     => [
 			"class" => "font-family-helvetica",
 			"name"  => "Trebuchet MS, Helvetica"
 		],
-		self::FAMILY_VERDANA => [
+		self::FAMILY_VERDANA       => [
 			"class" => "font-family-verdana",
 			"name"  => "Verdana, Geneva"
 		],
-		self::FAMILY_GENEVA => [
+		self::FAMILY_GENEVA        => [
 			"class" => "font-family-geneva",
 			"name"  => "MS Sans Serif, Geneva"
 		],
-		self::FAMILY_MS_SERIF => [
+		self::FAMILY_MS_SERIF      => [
 			"class" => "font-family-ms-serif",
 			"name"  => "MS Serif, New York"
 		]
@@ -175,8 +175,8 @@ class DesignTextModel extends Model
 			"size"           => [],
 			"family"         => [],
 			"color"          => [],
-			"style"          => [],
-			"weight"         => [],
+			"is_italic"      => [],
+			"is_bold"        => [],
 			"align"          => [],
 			"decoration"     => [],
 			"transform"      => [],
@@ -230,11 +230,11 @@ class DesignTextModel extends Model
 		if (!$this->color) {
 			$this->color = "";
 		}
-		if (!$this->style) {
-			$this->style = 0;
+		if (!$this->is_italic) {
+			$this->is_italic = 0;
 		}
-		if (!$this->weight) {
-			$this->weight = 0;
+		if (!$this->is_bold) {
+			$this->is_bold = 0;
 		}
 		if (!$this->align) {
 			$this->align = 0;

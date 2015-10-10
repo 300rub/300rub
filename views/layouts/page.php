@@ -79,13 +79,10 @@ use system\App;
 	<?php require(__DIR__ . "/../error/messages.php"); ?>
 </div>
 
-<button id="test">111</button>
 <script>
 	$(function () {
-		$("#test").on("click", function() {
-			$design = (new Design("text", 1)).get();
-			$design.appendTo("#ajax-wrapper");
-		});
+		$design = (new Design("text", 1, [])).get();
+		$design.appendTo("#ajax-wrapper");
 	});
 </script>
 

@@ -28,11 +28,6 @@ class GridModel extends Model
 	/**
 	 * @var int
 	 */
-	public $block_id;
-
-	/**
-	 * @var int
-	 */
 	public $line;
 
 	/**
@@ -89,7 +84,6 @@ class GridModel extends Model
 	{
 		return [
 			"section_id"   => ["required"],
-			"block_id"     => ["required"],
 			"line"         => ["required"],
 			"x"            => [],
 			"y"            => [],
@@ -284,7 +278,6 @@ class GridModel extends Model
 			foreach ($line as $item) {
 				$model = new self;
 				$model->section_id = $sectionId;
-				$model->block_id = $item["id"];
 				$model->line = $lineNumber;
 				$model->x = $item["x"];
 				$model->y = $item["y"];

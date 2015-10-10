@@ -25,13 +25,12 @@ class M_150925_000000_grids extends Migration
 			[
 				"id"           => "pk",
 				"section_id"   => "integer",
-				"block_id"     => "integer",
+				"content_type" => "integer",
+				"content_id"   => "integer",
 				"line"         => "integer",
 				"x"            => "integer",
 				"y"            => "integer",
-				"width"        => "integer",
-				"content_type" => "integer",
-				"content_id"   => "integer"
+				"width"        => "integer"
 			],
 			"ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci"
 		);
@@ -55,13 +54,12 @@ class M_150925_000000_grids extends Migration
 	{
 		$attributes = [
 			"t.section_id"   => 1,
-			"t.block_id"     => 1,
+			"t.content_type" => 1,
+			"t.content_id"   => 1,
 			"t.line"         => 1,
 			"t.x"            => 0,
 			"t.y"            => 0,
 			"t.width"        => 6,
-			"t.content_type" => 1,
-			"t.content_id"   => 1,
 		];
 		$model = new GridModel();
 		$model->setAttributes($attributes);
@@ -71,13 +69,12 @@ class M_150925_000000_grids extends Migration
 
 		$attributes = [
 			"t.section_id"   => 2,
-			"t.block_id"     => 1,
+			"t.content_type" => 1,
+			"t.content_id"   => 1,
 			"t.line"         => 1,
 			"t.x"            => 0,
 			"t.y"            => 0,
 			"t.width"        => 6,
-			"t.content_type" => 1,
-			"t.content_id"   => 1,
 		];
 		$model = new GridModel();
 		$model->setAttributes($attributes);
