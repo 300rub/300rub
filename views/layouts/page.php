@@ -48,7 +48,7 @@ use system\App;
 		<script src="/js/lib/jqColorPicker.min.js"></script>
 		<script src="/js/Grid.js"></script>
 		<script src="/js/Panel.js"></script>
-		<script src="/js/TextDesign.js"></script>
+		<script src="/js/Design.js"></script>
 		<script src="/js/admin.js"></script>
 	<?php } ?>
 </head>
@@ -75,13 +75,16 @@ use system\App;
 		<?php require(__DIR__ . "/../templates/panel.php"); ?>
 		<?php require(__DIR__ . "/../templates/grid.php"); ?>
 		<?php require(__DIR__ . "/../design/text_forms.php"); ?>
+		<?php require(__DIR__ . "/../design/block_forms.php"); ?>
 	<?php } ?>
 	<?php require(__DIR__ . "/../error/messages.php"); ?>
 </div>
 
 <script>
 	$(function () {
-		$design = (new TextDesign(1, "Текст", [])).get();
+		$design = (new Design(1, "text", "Текст", [])).get();
+		$design.appendTo("#ajax-wrapper");
+		$design = (new Design(1, "block", "Блок", [])).get();
 		$design.appendTo("#ajax-wrapper");
 	});
 </script>

@@ -1,36 +1,35 @@
-function TextDesign (id, title, values) {
+function Design (id, type, title, values) {
 
 	/**
-	 * @type {TextDesign}
+	 * @type {Design}
 	 */
 	var t = this;
 
 	this.id = id;
 	this.title = title;
+	this.type = type;
 	this.values = values;
 	this.editor = null;
 	this.object = null;
-	this.objectStyleForReset = "";
-	this.objectClassForReset = "";
 
 	this.get = function () {
-		t.editor = $templates.find(".design-text-editor").clone();
+		t.editor = $templates.find(".design-" + t.type + "-editor").clone();
 		t.editor.attr("data-id", t.id);
 		t.editor.find(".design-editor-title").text(t.title);
-		t.object = $(".design-text-" + t.id);
-		t.objectStyleForReset = t.object.attr("style");
-		t.objectClassForReset = t.object.attr("class");
+		t.object = $(".design-" + t.type + "-" + t.id);
 
-		t.setVerticalSlider("designTextModel__size" + t.id, 20, "font-size", 6, 200, "px");
-		t.setVerticalSlider("designTextModel__letter_spacing" + t.id, 0, "letter-spacing", -10, 40, "px");
-		t.setVerticalSlider("designTextModel__line_height" + t.id, 100, "line-height", 10, 300, "%");
-		t.setFont("designTextModel__family" + t.id, 0);
-		t.setColor("designTextModel__color" + t.id, "#000000", "color");
-		t.setCheckbox("designTextModel__is_bold" + t.id, 0, "font-weight", "bold", "normal");
-		t.setCheckbox("designTextModel__is_italic" + t.id, 0, "font-style", "italic", "normal");
-		t.setRadio("designTextModel__align" + t.id, 0, "text-align");
-		t.setRadio("designTextModel__transform" + t.id, 0, "text-transform");
-		t.setRadio("designTextModel__decoration" + t.id, 0, "text-decoration");
+		if (t.type === "text") {
+			t.setVerticalSlider("name1", 20, "font-size", 6, 200, "px");
+			t.setVerticalSlider("name2", 0, "letter-spacing", -10, 40, "px");
+			t.setVerticalSlider("name3", 100, "line-height", 10, 300, "%");
+			t.setFont("name4", 0);
+			t.setColor("name5", "#000000", "color");
+			t.setCheckbox("name6", 0, "font-weight", "bold", "normal");
+			t.setCheckbox("name7", 0, "font-style", "italic", "normal");
+			t.setRadio("name8", 0, "text-align");
+			t.setRadio("name9", 0, "text-transform");
+			t.setRadio("name0", 0, "text-decoration");
+		}
 
 		t.editor.find(".design-reset").bind("click", t.reset);
 
@@ -38,27 +37,27 @@ function TextDesign (id, title, values) {
 	};
 
 	this.reset = function() {
-		t.object.attr("style", t.objectStyleForReset);
-		t.object.attr("class", t.objectClassForReset);
-
-		t.resetVerticalSlider(t.editor.find(".design-font-size-slider"), 20);
-		t.resetVerticalSlider(t.editor.find(".design-letter-spacing-slider"), 0);
-		t.resetVerticalSlider(t.editor.find(".design-line-height-slider"), 100);
-		t.resetFont(t.editor.find(".design-font-selector"), 0);
-		t.resetColor(t.editor.find('.color-color-picker'), "#000000");
-		t.resetCkeckbox(t.editor.find(".design-font-weight-checkbox"), 0);
-		t.resetCkeckbox(t.editor.find(".design-font-style-checkbox"), 0);
-		t.resetRadio(t.editor.find(".design-text-align-radio-group"), 0);
-		t.resetRadio(t.editor.find(".design-text-transform-radio-group"), 0);
-		t.resetRadio(t.editor.find(".design-text-decoration-radio-group"), 0);
+		if (t.type === "text") {
+			t.resetVerticalSlider(20, "font-size", "px");
+			t.resetVerticalSlider(0, "letter-spacing", "px");
+			t.resetVerticalSlider(100, "line-height", "%");
+			t.resetFont(0);
+			t.resetColor("#000000", "color");
+			t.resetCkeckbox(0, "font-weight", "bold", "normal");
+			t.resetCkeckbox(0, "font-style", "italic", "normal");
+			t.resetRadio(0, "text-align");
+			t.resetRadio(0, "text-transform");
+			t.resetRadio(0, "text-decoration");
+		}
 
 		return false;
 	};
 
-	this.resetVerticalSlider = function($slider, value) {
-		var $value = $slider.parent().find(".design-slider-value");
+	this.resetVerticalSlider = function(value, cssAttr, cssEnd) {
+		var $slider = t.editor.find(".design-" + cssAttr + "-slider");
+		$slider.parent().find(".design-slider-value").val(value);
 		$slider.slider("value", parseInt(value) * -1);
-		$value.val(value);
+		t.object.css(cssAttr, value + cssEnd);
 	};
 
 	this.setVerticalSlider = function(name, value, cssAttr, min, max, cssEnd) {
@@ -66,6 +65,7 @@ function TextDesign (id, title, values) {
 		var $value = $slider.parent().find(".design-slider-value");
 		var $overlay = $slider.parent().find(".design-slider-overlay");
 		$value.attr("name", name);
+		$value.val(value);
 		$slider.slider({
 			orientation: "vertical",
 			value: value * -1,
@@ -76,7 +76,6 @@ function TextDesign (id, title, values) {
 				t.object.css(cssAttr, ui.value * -1 + cssEnd);
 			}
 		});
-		t.resetVerticalSlider($slider, value);
 		$value.on("keyup", function() {
 			var val = parseInt($(this).val());
 			$slider.slider("value", val * -1);
@@ -92,10 +91,23 @@ function TextDesign (id, title, values) {
 		});
 	};
 
+	this.resetFont = function(value) {
+		var $selector = t.editor.find(".design-font-selector");
+		$selector.val(value);
+		var className = $selector.find(':selected').attr('class');
+		$selector.removeClassByMask("font-family-*");
+		$selector.addClass(className);
+		t.object.removeClassByMask("font-*");
+		t.object.addClass(className);
+	};
+
 	this.setFont = function(name, value) {
 		var $selector = t.editor.find(".design-font-selector");
-		t.resetFont($selector, value);
+		$selector.val(value);
 		$selector.attr("name", name);
+		$selector.removeClassByMask("font-family-*");
+		var className = $selector.find(':selected').attr('class');
+		$selector.addClass(className);
 		$selector.on("change", function () {
 			className = $(this).find(':selected').attr('class');
 			$(this).removeClassByMask("font-family-*");
@@ -105,16 +117,11 @@ function TextDesign (id, title, values) {
 		});
 	};
 
-	this.resetFont = function($selector, value) {
-		$selector.val(value);
-		var className = $selector.find(':selected').attr('class');
-		$selector.removeClassByMask("font-family-*");
-		$selector.addClass(className);
-	};
-
-	this.resetColor = function($picker, value) {
+	this.resetColor = function(value, cssAttr) {
+		var $picker = t.editor.find('.color-' + cssAttr + '-picker');
 		$picker.val(value);
 		$picker.colorPicker("color", value);
+		t.object.css(cssAttr, value);
 	};
 
 	this.setColor = function(name, value, cssAttr) {
@@ -128,16 +135,19 @@ function TextDesign (id, title, values) {
 				var g = this.color.colors.RND.rgb.g;
 				var b = this.color.colors.RND.rgb.b;
 				var alpha = this.color.colors.alpha;
-				$(".design-text-" + id).css(cssAttr, "rgba(" + r + "," + g + "," + b + "," + alpha + ")");
+				t.object.css(cssAttr, "rgba(" + r + "," + g + "," + b + "," + alpha + ")");
 			}
 		});
 	};
 
-	this.resetCkeckbox = function($checkbox, value) {
+	this.resetCkeckbox = function(value, cssAttr, checked, notChecked) {
+		var $checkbox = t.editor.find(".design-" + cssAttr + "-checkbox");
 		if (parseInt(value) == 1) {
 			$checkbox.attr('checked', true);
+			t.object.css(cssAttr, checked);
 		} else {
 			$checkbox.attr('checked', false);
+			t.object.css(cssAttr, notChecked);
 		}
 	};
 
@@ -156,8 +166,11 @@ function TextDesign (id, title, values) {
 		});
 	};
 
-	this.resetRadio = function($group, value) {
-		$group.find('.design-radio[value="' + value + '"]').prop('checked', true);
+	this.resetRadio = function(value, cssAttr) {
+		var $group = t.editor.find(".design-" + cssAttr + "-radio-group");
+		var $radio = $group.find('.design-radio[value="' + value + '"]');
+		$radio.prop('checked', true);
+		t.object.css(cssAttr, $radio.data("value"));
 	};
 
 	this.setRadio = function(name, value, cssAttr) {
