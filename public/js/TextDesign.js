@@ -1,12 +1,12 @@
-function Design (type, id, values) {
+function TextDesign (id, title, values) {
 
 	/**
-	 * @type {Design}
+	 * @type {TextDesign}
 	 */
 	var t = this;
 
-	this.type = type;
 	this.id = id;
+	this.title = title;
 	this.values = values;
 	this.editor = null;
 	this.object = null;
@@ -14,9 +14,10 @@ function Design (type, id, values) {
 	this.objectClassForReset = "";
 
 	this.get = function () {
-		t.editor = $templates.find(".design-" + t.type + "-editor").clone();
+		t.editor = $templates.find(".design-text-editor").clone();
 		t.editor.attr("data-id", t.id);
-		t.object = $(".design-" + t.type + "-" + t.id);
+		t.editor.find(".design-editor-title").text(t.title);
+		t.object = $(".design-text-" + t.id);
 		t.objectStyleForReset = t.object.attr("style");
 		t.objectClassForReset = t.object.attr("class");
 

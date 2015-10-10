@@ -48,7 +48,7 @@ use system\App;
 		<script src="/js/lib/jqColorPicker.min.js"></script>
 		<script src="/js/Grid.js"></script>
 		<script src="/js/Panel.js"></script>
-		<script src="/js/Design.js"></script>
+		<script src="/js/TextDesign.js"></script>
 		<script src="/js/admin.js"></script>
 	<?php } ?>
 </head>
@@ -81,7 +81,7 @@ use system\App;
 
 <script>
 	$(function () {
-		$design = (new Design("text", 1, [])).get();
+		$design = (new TextDesign(1, "Текст", [])).get();
 		$design.appendTo("#ajax-wrapper");
 	});
 </script>
