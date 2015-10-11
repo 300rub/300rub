@@ -84,18 +84,22 @@ function Design(id, type, title, values) {
 		t.setRadio(t.values.decoration.name, t.values.decoration.value, "text-decoration");
 	};
 
+	this.resetText = function() {
+		t.resetVerticalSlider(t.values.size.value, "font-size", "px");
+		t.resetVerticalSlider(t.values.letter_spacing.value, "letter-spacing", "px");
+		t.resetVerticalSlider(t.values.line_height.value, "line-height", "%");
+		t.resetFont(t.values.family.value);
+		t.resetColor(t.values.color.value, "color");
+		t.resetCkeckbox(t.values.is_bold.value, "font-weight", "bold", "normal");
+		t.resetCkeckbox(t.values.is_italic.value, "font-style", "italic", "normal");
+		t.resetRadio(t.values.align.value, "text-align");
+		t.resetRadio(t.values.transform.value, "text-transform");
+		t.resetRadio(t.values.decoration.value, "text-decoration");
+	};
+
 	this.reset = function () {
 		if (t.type === "text") {
-			t.resetVerticalSlider(t.values.size.value, "font-size", "px");
-			t.resetVerticalSlider(t.values.letter_spacing.value, "letter-spacing", "px");
-			t.resetVerticalSlider(t.values.line_height.value, "line-height", "%");
-			t.resetFont(t.values.family.value);
-			t.resetColor(t.values.color.value, "color");
-			t.resetCkeckbox(t.values.is_bold.value, "font-weight", "bold", "normal");
-			t.resetCkeckbox(t.values.is_italic.value, "font-style", "italic", "normal");
-			t.resetRadio(t.values.align.value, "text-align");
-			t.resetRadio(t.values.transform.value, "text-transform");
-			t.resetRadio(t.values.decoration, "text-decoration");
+			t.resetText();
 		}
 		if (t.type === "block") {
 			t.resetVerticalSlider(0, "margin-top", "px");
