@@ -53,3 +53,12 @@
 .design-radio:checked + .design-button-label {
 	background: #777;
 }
+.design-color-gradient {
+	width: 140px;
+}
+.design-editor-title {
+	font-size: 16px;
+}
+.design-border-color {
+	width: 80px;
+}

@@ -6,20 +6,20 @@ use models\DesignTextModel;
 
 <div class="design-editor design-text-editor">
 	<div class="design-editor-title"></div>
-	<div>
+	<div style="margin: 15px 0">
 		<select class="design-font-selector">
 			<?php foreach (DesignTextModel::$familyList as $key => $value) { ?>
 				<option value="<?= $key ?>" class="<?= $value["class"] ?>"><?= $value["name"] ?></option>
 			<?php } ?>
 		</select>
-
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		<div class="design-slider-container">
 			<input type="text" class="design-slider-value design-font-size-value"> px
 			<div class="design-slider design-font-size-slider"></div>
 			<div class="design-slider-overlay"></div>
 		</div>
 	</div>
-	<div>
+	<div style="margin: 15px 0">
 		<div class="design-checkbox-container">
 			<input type="checkbox" class="hide design-checkbox design-font-weight-checkbox"/>
 			<label class="design-button-label"><strong>B</strong></label>
@@ -28,9 +28,10 @@ use models\DesignTextModel;
 			<input type="checkbox" class="hide design-checkbox design-font-style-checkbox"/>
 			<label class="design-button-label"><i>I</i></label>
 		</div>
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		<input class="color-picker color-color-picker">
 	</div>
-	<div>
+	<div style="margin: 15px 0">
 		<div class="design-radio-group design-text-align-radio-group">
 			<div class="design-radio-container">
 				<input class="hide design-radio" type="radio" value="0" data-value="left">
@@ -49,6 +50,7 @@ use models\DesignTextModel;
 				<label class="design-button-label">J</label>
 			</div>
 		</div>
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		<div class="design-radio-group design-text-transform-radio-group">
 			<div class="design-radio-container">
 				<input class="hide design-radio" type="radio" value="0" data-value="none">
@@ -68,7 +70,7 @@ use models\DesignTextModel;
 			</div>
 		</div>
 	</div>
-	<div>
+	<div style="margin: 15px 0">
 		<div class="design-radio-group design-text-decoration-radio-group">
 			<div class="design-radio-container">
 				<input class="hide design-radio" type="radio" value="0" data-value="none">
@@ -87,11 +89,13 @@ use models\DesignTextModel;
 				<label class="design-button-label">``</label>
 			</div>
 		</div>
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		<div class="design-slider-container">
 			<input type="text" class="design-slider-value design-letter-spacing-value"> px
 			<div class="design-slider design-letter-spacing-slider"></div>
 			<div class="design-slider-overlay"></div>
 		</div>
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		<div class="design-slider-container">
 			<input type="text" class="design-slider-value design-line-height-value"> %
 			<div class="design-slider design-line-height-slider"></div>
