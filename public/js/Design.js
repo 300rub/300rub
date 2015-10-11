@@ -19,16 +19,7 @@ function Design(id, type, title, values) {
 		t.object = $(".design-" + t.type + "-" + t.id);
 
 		if (t.type === "text") {
-			t.setVerticalSlider("name1", 20, "font-size", 6, 200, "px");
-			t.setVerticalSlider("name2", 0, "letter-spacing", -10, 40, "px");
-			t.setVerticalSlider("name3", 100, "line-height", 10, 300, "%");
-			t.setFont("name4", 0);
-			t.setColor("name5", "#000000", "color");
-			t.setCheckbox("name6", 0, "font-weight", "bold", "normal");
-			t.setCheckbox("name7", 0, "font-style", "italic", "normal");
-			t.setRadio("name8", 0, "text-align");
-			t.setRadio("name9", 0, "text-transform");
-			t.setRadio("name0", 0, "text-decoration");
+			t.setText();
 		}
 		if (t.type === "block") {
 			t.setVerticalSlider("name1", 0, "margin-top", -50, 200, "px", ["margin-right", "margin-bottom", "margin-left"]);
@@ -66,18 +57,45 @@ function Design(id, type, title, values) {
 		return t.editor;
 	};
 
+	this.setText = function() {
+		t.setVerticalSlider(t.values.size.name, t.values.size.value, "font-size", 6, 200, "px");
+		t.setVerticalSlider(
+			t.values.letter_spacing.name,
+			t.values.letter_spacing.value,
+			"letter-spacing",
+			-10,
+			40,
+			"px"
+		);
+		t.setVerticalSlider(
+			t.values.line_height.name,
+			t.values.line_height.value,
+			"line-height",
+			10,
+			300,
+			"%"
+		);
+		t.setFont(t.values.family.name, t.values.family.value);
+		t.setColor(t.values.color.name, t.values.color.value, "color");
+		t.setCheckbox(t.values.is_bold.name, t.values.is_bold.value, "font-weight", "bold", "normal");
+		t.setCheckbox(t.values.is_italic.name, t.values.is_italic.value, "font-style", "italic", "normal");
+		t.setRadio(t.values.align.name, t.values.align.value, "text-align");
+		t.setRadio(t.values.transform.name, t.values.transform.value, "text-transform");
+		t.setRadio(t.values.decoration.name, t.values.decoration.value, "text-decoration");
+	};
+
 	this.reset = function () {
 		if (t.type === "text") {
-			t.resetVerticalSlider(20, "font-size", "px");
-			t.resetVerticalSlider(0, "letter-spacing", "px");
-			t.resetVerticalSlider(100, "line-height", "%");
-			t.resetFont(0);
-			t.resetColor("#000000", "color");
-			t.resetCkeckbox(0, "font-weight", "bold", "normal");
-			t.resetCkeckbox(0, "font-style", "italic", "normal");
-			t.resetRadio(0, "text-align");
-			t.resetRadio(0, "text-transform");
-			t.resetRadio(0, "text-decoration");
+			t.resetVerticalSlider(t.values.size.value, "font-size", "px");
+			t.resetVerticalSlider(t.values.letter_spacing.value, "letter-spacing", "px");
+			t.resetVerticalSlider(t.values.line_height.value, "line-height", "%");
+			t.resetFont(t.values.family.value);
+			t.resetColor(t.values.color.value, "color");
+			t.resetCkeckbox(t.values.is_bold.value, "font-weight", "bold", "normal");
+			t.resetCkeckbox(t.values.is_italic.value, "font-style", "italic", "normal");
+			t.resetRadio(t.values.align.value, "text-align");
+			t.resetRadio(t.values.transform.value, "text-transform");
+			t.resetRadio(t.values.decoration, "text-decoration");
 		}
 		if (t.type === "block") {
 			t.resetVerticalSlider(0, "margin-top", "px");
@@ -409,7 +427,7 @@ function Design(id, type, title, values) {
 				$(this).attr("checked", true);
 			}
 		});
-		$group.find("input[type=radio][name=" + name + "]").on("change", function () {
+		$group.find("input[type=radio]").on("change", function () {
 			t.object.css(cssAttr, $(this).data("value"));
 		});
 	};

@@ -129,4 +129,19 @@ class TextModel extends Model
 	{
 		return new $className;
 	}
+
+	/**
+	 * @return array
+	 */
+	public function getDesignForms()
+	{
+		return [
+			[
+				"id"     => $this->designTextModel->id,
+				"type"   => "text",
+				"title"  => Language::t("common", "Текст"),
+				"values" => $this->designTextModel->getValues("designTextModel"),
+			]
+		];
+	}
 }

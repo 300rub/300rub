@@ -79,11 +79,32 @@ class TextController extends Controller
 				"label"  => Language::t("common", "Сохранить"),
 				"action" => "text/saveDesign/{$model->id}"
 			],
+			"design"      => $model->getDesignForms()
 		];
-		$this->setFormsForJson(
-			$model,
-			["t.text"]
-		);
+
+		$this->renderJson();
+	}
+
+	public function actionSaveDesign($id = 0)
+	{
+		$post = App::getPost();
+
+		$model = TextModel::model()->byId($id)->withAll()->find();
+
+		$model->setAttributes($post);
+		$model->validate(false);
+
+		$success = false;
+
+		if (!$model->errors && $model->save()) {
+			$success = true;
+		}
+
+		$this->json = [
+			"success" => $success,
+			"errors"  => $model->errors,
+			"content" => "text/panelList",
+		];
 
 		$this->renderJson();
 	}

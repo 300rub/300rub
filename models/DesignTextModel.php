@@ -252,4 +252,55 @@ class DesignTextModel extends Model
 			$this->line_height = 0;
 		}
 	}
+
+	/**
+	 * @param string $name
+	 *
+	 * @return array
+	 */
+	public function getValues($name)
+	{
+		return [
+			"family"     => [
+				"name"  => "Data[{$name}.family]",
+				"value" => $this->family
+			],
+			"size"       => [
+				"name"  => "Data[{$name}.size]",
+				"value" => $this->size
+			],
+			"color"           => [
+				"name"  => "Data[{$name}.color]",
+				"value" => $this->color
+			],
+			"is_italic"      => [
+				"name"  => "Data[{$name}.is_italic]",
+				"value" => $this->is_italic
+			],
+			"is_bold"     => [
+				"name"  => "Data[{$name}.is_bold]",
+				"value" => $this->is_bold
+			],
+			"align"      => [
+				"name"  => "Data[{$name}.align]",
+				"value" => $this->align
+			],
+			"decoration" => [
+				"name"  => "Data[{$name}.decoration]",
+				"value" => $this->decoration
+			],
+			"transform"  => [
+				"name"  => "Data[{$name}.transform]",
+				"value" => $this->transform
+			],
+			"letter_spacing"  => [
+				"name"  => "Data[{$name}.letter_spacing]",
+				"value" => $this->letter_spacing
+			],
+			"line_height"     => [
+				"name"  => "Data[{$name}.line_height]",
+				"value" => $this->line_height
+			]
+		];
+	}
 }

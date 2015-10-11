@@ -21,6 +21,9 @@
 .design-font-selector {
 	width: 200px;
 }
+.cp-color-picker {
+	z-index: 100;
+}
 .design-slider-overlay {
 	position: fixed;
 	left: 0;

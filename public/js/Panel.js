@@ -106,6 +106,15 @@ function Panel (params) {
 					});
 				}
 
+				if (data.design != undefined) {
+					$.each(data.design, function (i, params) {
+						var $design = (new Design(params.id, params.type, params.title, params.values)).get();
+						if ($design !== false) {
+							$design.appendTo($container);
+						}
+					});
+				}
+
 				if (data.button != undefined) {
 					var $button = $forms.find(".button").clone();
 					$button.find("span").text(data.button.label);

@@ -61,7 +61,7 @@ use system\App;
 <?php if (App::web()->user === null) { ?>
 	<a href="#" id="login-button">Вход</a>
 <?php } else { ?>
-	<?php //require(__DIR__ . "/../section/panel_buttons.php"); ?>
+	<?php require(__DIR__ . "/../section/panel_buttons.php"); ?>
 	<a href="#" id="logout-button"></a>
 <?php } ?>
 
@@ -79,15 +79,6 @@ use system\App;
 	<?php } ?>
 	<?php require(__DIR__ . "/../error/messages.php"); ?>
 </div>
-
-<script>
-	$(function () {
-		$design = (new Design(1, "text", "Текст", [])).get();
-		$design.appendTo("#ajax-wrapper");
-		$design = (new Design(1, "block", "Блок", [])).get();
-		$design.appendTo("#ajax-wrapper");
-	});
-</script>
 
 </body>
 </html>
