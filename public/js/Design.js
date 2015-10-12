@@ -222,13 +222,6 @@ function Design(id, type, title, values) {
 		return false;
 	};
 
-	this.resetVerticalSlider = function (value, cssAttr, cssEnd) {
-		var $slider = t.editor.find(".design-" + cssAttr + "-slider");
-		$slider.parent().find(".design-slider-value").val(value);
-		$slider.slider("value", parseInt(value) * -1);
-		t.object.css(cssAttr, value + cssEnd);
-	};
-
 	this.checkAndUpdateJointVerticalSliders = function (oldValue, value, cssEnd, joint) {
 		var isSame = true;
 		$.each(joint, function (key, cssAttr) {
@@ -293,14 +286,11 @@ function Design(id, type, title, values) {
 		});
 	};
 
-	this.resetFont = function (value) {
-		var $selector = t.editor.find(".design-font-selector");
-		$selector.val(value);
-		var className = $selector.find(':selected').attr('class');
-		$selector.removeClassByMask("font-family-*");
-		$selector.addClass(className);
-		t.object.removeClassByMask("font-*");
-		t.object.addClass(className);
+	this.resetVerticalSlider = function (value, cssAttr, cssEnd) {
+		var $slider = t.editor.find(".design-" + cssAttr + "-slider");
+		$slider.parent().find(".design-slider-value").val(value);
+		$slider.slider("value", parseInt(value) * -1);
+		t.object.css(cssAttr, value + cssEnd);
 	};
 
 	this.setFont = function (name, value) {
@@ -319,25 +309,14 @@ function Design(id, type, title, values) {
 		});
 	};
 
-	this.resetColor = function (value, cssAttr) {
-		var $picker = t.editor.find('.color-' + cssAttr + '-picker');
-		$picker.val(value);
-		$picker.css("background", value);
-		$picker.colorPicker("color", value);
-		t.object.css(cssAttr, value);
-	};
-
-	this.backgroundReset = function () {
-		t.object.css("background", "none");
-		t.object.css("background-color", "none");
-		$(this).parent().parent().find(".color-background-color-picker").val("").css("background", "#fff");
-		$(this).parent().parent().find(".color-background-picker").val("").css("background", "#fff");
-		return false;
-	};
-
-	this.resetGradientDirection = function (value) {
-		var $selector = t.editor.find(".design-gradient-direction");
+	this.resetFont = function (value) {
+		var $selector = t.editor.find(".design-font-selector");
 		$selector.val(value);
+		var className = $selector.find(':selected').attr('class');
+		$selector.removeClassByMask("font-family-*");
+		$selector.addClass(className);
+		t.object.removeClassByMask("font-*");
+		t.object.addClass(className);
 	};
 
 	this.setGradientDirection = function (name, value) {
@@ -354,10 +333,9 @@ function Design(id, type, title, values) {
 		});
 	};
 
-	this.resetSelector = function (value, cssAttr, cssEnd) {
-		var $selector = t.editor.find(".design-" + cssAttr + "-selector");
+	this.resetGradientDirection = function (value) {
+		var $selector = t.editor.find(".design-gradient-direction");
 		$selector.val(value);
-		t.object.css(cssAttr, value + cssEnd);
 	};
 
 	this.setSelector = function (name, value, cssAttr, cssEnd, joint) {
@@ -392,6 +370,70 @@ function Design(id, type, title, values) {
 
 			oldValue = value;
 		});
+	};
+
+	this.resetSelector = function (value, cssAttr, cssEnd) {
+		var $selector = t.editor.find(".design-" + cssAttr + "-selector");
+		$selector.val(value);
+		t.object.css(cssAttr, value + cssEnd);
+	};
+
+	this.setCheckbox = function (name, value, cssAttr, checked, notChecked) {
+		var $checkbox = t.editor.find(".design-" + cssAttr + "-checkbox");
+		var $value = $checkbox.parent().find(".design-checkbox-value");
+		if (parseInt(value) == 1) {
+			$checkbox.attr('checked', true);
+		} else {
+			$checkbox.attr('checked', false);
+		}
+		$value.val(value);
+		$value.attr("name", name);
+		$checkbox.attr('id', "design-" + cssAttr + "-checkbox" + t.id);
+		$checkbox.parent().find("label").attr('for', "design-" + cssAttr + "-checkbox" + t.id);
+		$checkbox.on("change", function () {
+			if ($(this).is(':checked')) {
+				t.object.css(cssAttr, checked);
+				$value.val(1);
+			} else {
+				t.object.css(cssAttr, notChecked);
+				$value.val(0);
+			}
+		});
+	};
+
+	this.resetCkeckbox = function (value, cssAttr, checked, notChecked) {
+		var $checkbox = t.editor.find(".design-" + cssAttr + "-checkbox");
+		$checkbox.parent().find(".design-checkbox-value").val(value);
+		if (parseInt(value) == 1) {
+			$checkbox.attr('checked', true);
+			t.object.css(cssAttr, checked);
+		} else {
+			$checkbox.attr('checked', false);
+			t.object.css(cssAttr, notChecked);
+		}
+	};
+
+	this.setRadio = function (name, value, cssAttr) {
+		var $group = t.editor.find(".design-" + cssAttr + "-radio-group");
+		$group.find(".design-radio").each(function () {
+			$(this).attr("name", name);
+			var id = name + "-" + $(this).attr("value");
+			$(this).attr("id", id);
+			$(this).parent().find(".design-button-label").attr("for", id);
+			if (parseInt($(this).attr("value")) == parseInt(value)) {
+				$(this).attr("checked", true);
+			}
+		});
+		$group.find("input[type=radio]").on("change", function () {
+			t.object.css(cssAttr, $(this).data("value"));
+		});
+	};
+
+	this.resetRadio = function (value, cssAttr) {
+		var $group = t.editor.find(".design-" + cssAttr + "-radio-group");
+		var $radio = $group.find('.design-radio[value="' + value + '"]');
+		$radio.prop('checked', true);
+		t.object.css(cssAttr, $radio.data("value"));
 	};
 
 	this.setColor = function (name, value, cssAttr) {
@@ -474,61 +516,19 @@ function Design(id, type, title, values) {
 		});
 	};
 
-	this.resetCkeckbox = function (value, cssAttr, checked, notChecked) {
-		var $checkbox = t.editor.find(".design-" + cssAttr + "-checkbox");
-		$checkbox.parent().find(".design-checkbox-value").val(value);
-		if (parseInt(value) == 1) {
-			$checkbox.attr('checked', true);
-			t.object.css(cssAttr, checked);
-		} else {
-			$checkbox.attr('checked', false);
-			t.object.css(cssAttr, notChecked);
-		}
+	this.resetColor = function (value, cssAttr) {
+		var $picker = t.editor.find('.color-' + cssAttr + '-picker');
+		$picker.val(value);
+		$picker.css("background", value);
+		$picker.colorPicker("color", value);
+		t.object.css(cssAttr, value);
 	};
 
-	this.setCheckbox = function (name, value, cssAttr, checked, notChecked) {
-		var $checkbox = t.editor.find(".design-" + cssAttr + "-checkbox");
-		var $value = $checkbox.parent().find(".design-checkbox-value");
-		if (parseInt(value) == 1) {
-			$checkbox.attr('checked', true);
-		} else {
-			$checkbox.attr('checked', false);
-		}
-		$value.val(value);
-		$value.attr("name", name);
-		$checkbox.attr('id', "design-" + cssAttr + "-checkbox" + t.id);
-		$checkbox.parent().find("label").attr('for', "design-" + cssAttr + "-checkbox" + t.id);
-		$checkbox.on("change", function () {
-			if ($(this).is(':checked')) {
-				t.object.css(cssAttr, checked);
-				$value.val(1);
-			} else {
-				t.object.css(cssAttr, notChecked);
-				$value.val(0);
-			}
-		});
-	};
-
-	this.resetRadio = function (value, cssAttr) {
-		var $group = t.editor.find(".design-" + cssAttr + "-radio-group");
-		var $radio = $group.find('.design-radio[value="' + value + '"]');
-		$radio.prop('checked', true);
-		t.object.css(cssAttr, $radio.data("value"));
-	};
-
-	this.setRadio = function (name, value, cssAttr) {
-		var $group = t.editor.find(".design-" + cssAttr + "-radio-group");
-		$group.find(".design-radio").each(function () {
-			$(this).attr("name", name);
-			var id = name + "-" + $(this).attr("value");
-			$(this).attr("id", id);
-			$(this).parent().find(".design-button-label").attr("for", id);
-			if (parseInt($(this).attr("value")) == parseInt(value)) {
-				$(this).attr("checked", true);
-			}
-		});
-		$group.find("input[type=radio]").on("change", function () {
-			t.object.css(cssAttr, $(this).data("value"));
-		});
+	this.backgroundReset = function () {
+		t.object.css("background", "none");
+		t.object.css("background-color", "none");
+		$(this).parent().parent().find(".color-background-color-picker").val("").css("background", "#fff");
+		$(this).parent().parent().find(".color-background-picker").val("").css("background", "#fff");
+		return false;
 	};
 }
