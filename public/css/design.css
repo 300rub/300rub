@@ -5,6 +5,7 @@
 }
 .design-editor .design-slider-container {
 	display: inline-block;
+	position: relative;
 }
 .design-editor .design-slider-container .design-slider-value {
 	width: 30px;
@@ -56,11 +57,15 @@
 	background: #777;
 }
 .design-color-gradient {
-	width: 140px;
+	width: 130px;
 }
 .design-editor-title {
 	font-size: 16px;
 }
 .design-border-color {
+	width: 80px;
+}
+.design-border-style {
+	font-size: 12px;
 	width: 80px;
 }

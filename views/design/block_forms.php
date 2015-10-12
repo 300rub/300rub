@@ -11,19 +11,19 @@ use system\web\Language;
 			<div class="design-slider design-margin-top-slider"></div>
 			<div class="design-slider-overlay"></div>
 		</div>
-		&nbsp;&nbsp;
+		&nbsp;
 		<div class="design-slider-container">
 			← <input type="text" class="design-slider-value design-margin-right-value"> px
 			<div class="design-slider design-margin-right-slider"></div>
 			<div class="design-slider-overlay"></div>
 		</div>
-		&nbsp;&nbsp;
+		&nbsp;
 		<div class="design-slider-container">
 			↑ <input type="text" class="design-slider-value design-margin-bottom-value"> px
 			<div class="design-slider design-margin-bottom-slider"></div>
 			<div class="design-slider-overlay"></div>
 		</div>
-		&nbsp;&nbsp;
+		&nbsp;
 		<div class="design-slider-container">
 			→ <input type="text" class="design-slider-value design-margin-left-value"> px
 			<div class="design-slider design-margin-left-slider"></div>
@@ -37,19 +37,19 @@ use system\web\Language;
 			<div class="design-slider design-padding-top-slider"></div>
 			<div class="design-slider-overlay"></div>
 		</div>
-		&nbsp;&nbsp;
+		&nbsp;
 		<div class="design-slider-container">
 			← <input type="text" class="design-slider-value design-padding-right-value"> px
 			<div class="design-slider design-padding-right-slider"></div>
 			<div class="design-slider-overlay"></div>
 		</div>
-		&nbsp;&nbsp;
+		&nbsp;
 		<div class="design-slider-container">
 			↑ <input type="text" class="design-slider-value design-padding-bottom-value"> px
 			<div class="design-slider design-padding-bottom-slider"></div>
 			<div class="design-slider-overlay"></div>
 		</div>
-		&nbsp;&nbsp;
+		&nbsp;
 		<div class="design-slider-container">
 			→ <input type="text" class="design-slider-value design-padding-left-value"> px
 			<div class="design-slider design-padding-left-slider"></div>
@@ -59,6 +59,7 @@ use system\web\Language;
 	<div style="margin: 15px 0">
 		<div><strong><?= Language::t("common", "Заливка") ?></strong></div>
 		<input class="design-color-gradient color-background-color-picker">
+		&nbsp;
 		<input class="design-color-gradient color-background-picker">
 		<select class="design-gradient-direction">
 			<option value="0" data-value="to right"><?= Language::t("common", "горизонтальная") ?>&nbsp;&nbsp;→</option>
@@ -78,7 +79,7 @@ use system\web\Language;
 				<div class="design-slider design-border-top-width-slider"></div>
 				<div class="design-slider-overlay"></div>
 			</div>
-			<select class="design-border-top-style-selector">
+			<select class="design-border-style design-border-top-style-selector">
 				<option value="0" data-value="none"><?= Language::t("common", "отсутствует") ?></option>
 				<option value="1" data-value="solid"><?= Language::t("common", "сплошная") ?></option>
 				<option value="2" data-value="dotted"><?= Language::t("common", "в точку") ?></option>
@@ -97,7 +98,7 @@ use system\web\Language;
 				<div class="design-slider design-border-right-width-slider"></div>
 				<div class="design-slider-overlay"></div>
 			</div>
-			<select class="design-border-right-style-selector">
+			<select class="design-border-style design-border-right-style-selector">
 				<option value="0" data-value="none"><?= Language::t("common", "отсутствует") ?></option>
 				<option value="1" data-value="solid"><?= Language::t("common", "сплошная") ?></option>
 				<option value="2" data-value="dotted"><?= Language::t("common", "в точку") ?></option>
@@ -116,7 +117,7 @@ use system\web\Language;
 				<div class="design-slider design-border-bottom-width-slider"></div>
 				<div class="design-slider-overlay"></div>
 			</div>
-			<select class="design-border-bottom-style-selector">
+			<select class="design-border-style design-border-bottom-style-selector">
 				<option value="0" data-value="none"><?= Language::t("common", "отсутствует") ?></option>
 				<option value="1" data-value="solid"><?= Language::t("common", "сплошная") ?></option>
 				<option value="2" data-value="dotted"><?= Language::t("common", "в точку") ?></option>
@@ -135,7 +136,7 @@ use system\web\Language;
 				<div class="design-slider design-border-left-width-slider"></div>
 				<div class="design-slider-overlay"></div>
 			</div>
-			<select class="design-border-left-style-selector">
+			<select class="design-border-style design-border-left-style-selector">
 				<option value="0" data-value="none"><?= Language::t("common", "отсутствует") ?></option>
 				<option value="1" data-value="solid"><?= Language::t("common", "сплошная") ?></option>
 				<option value="2" data-value="dotted"><?= Language::t("common", "в точку") ?></option>
