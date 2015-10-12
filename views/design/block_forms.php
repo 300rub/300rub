@@ -66,7 +66,6 @@ use system\web\Language;
 			<option value="1" data-value="to bottom"><?= Language::t("common", "вертикальная") ?>&nbsp;&nbsp;↓</option>
 			<option value="2" data-value="135deg"><?= Language::t("common", "диагональная") ?>&nbsp;&nbsp;↘</option>
 			<option value="3" data-value="45deg"><?= Language::t("common", "диагональная") ?>&nbsp;&nbsp;↗</option>
-			</option>
 		</select>
 		<a href="#" class="design-background-reset"><?= Language::t("common", "Убрать фон") ?></a>
 	</div>

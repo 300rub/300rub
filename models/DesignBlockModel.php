@@ -145,6 +145,68 @@ class DesignBlockModel extends Model
 	 */
 	public $border_bottom_left_radius;
 
+	const GRADIENT_DIRECTION_HORIZONTAL = 0;
+	const GRADIENT_DIRECTION_VERTICAL = 1;
+	const GRADIENT_DIRECTION_135DEG = 2;
+	const GRADIENT_DIRECTION_45DEG = 3;
+
+	/**
+	 * @var array
+	 */
+	public static $gradientDirectionList = [
+		self::GRADIENT_DIRECTION_HORIZONTAL => [
+			"mozLinear"    => "left",
+			"webkit"       => "linear, left top, right top",
+			"webkitLinear" => "left",
+			"oLinear"      => "left",
+			"msLinear"     => "left",
+			"linear"       => "to right",
+			"ie"           => 1
+		],
+		self::GRADIENT_DIRECTION_VERTICAL   => [
+			"mozLinear"    => "top",
+			"webkit"       => "linear, left top, left bottom",
+			"webkitLinear" => "top",
+			"oLinear"      => "top",
+			"msLinear"     => "top",
+			"linear"       => "to bottom",
+			"ie"           => 0
+		],
+		self::GRADIENT_DIRECTION_135DEG     => [
+			"mozLinear"    => "-45deg",
+			"webkit"       => "linear, left top, right bottom",
+			"webkitLinear" => "-45deg",
+			"oLinear"      => "-45deg",
+			"msLinear"     => "-45deg",
+			"linear"       => "135deg",
+			"ie"           => 1
+		],
+		self::GRADIENT_DIRECTION_45DEG      => [
+			"mozLinear"    => "45deg",
+			"webkit"       => "linear, left bottom, right top",
+			"webkitLinear" => "45deg",
+			"oLinear"      => "45deg",
+			"msLinear"     => "45deg",
+			"linear"       => "45deg",
+			"ie"           => 1
+		],
+	];
+
+	const BORDER_STYLE_NONE = 0;
+	const BORDER_STYLE_SOLID = 1;
+	const BORDER_STYLE_DOTTED = 2;
+	const BORDER_STYLE_DASHED = 3;
+
+	/**
+	 * @var array
+	 */
+	public static $borderStyleList = [
+		self::BORDER_STYLE_NONE   => "none",
+		self::BORDER_STYLE_SOLID  => "solid",
+		self::BORDER_STYLE_DOTTED => "dotted",
+		self::BORDER_STYLE_DASHED => "dashed",
+	];
+
 	/**
 	 * Получает название связной таблицы
 	 *
@@ -429,5 +491,65 @@ class DesignBlockModel extends Model
 				"value" => $this->border_bottom_left_radius
 			],
 		];
+	}
+
+	/**
+	 * @return array
+	 */
+	public function getGradientDirections()
+	{
+		if (array_key_exists($this->gradient_direction, self::$gradientDirectionList)) {
+			return self::$gradientDirectionList[$this->gradient_direction];
+		}
+
+		return self::$gradientDirectionList[self::GRADIENT_DIRECTION_HORIZONTAL];
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getBorderStyleTop()
+	{
+		if (array_key_exists($this->border_top_style, self::$borderStyleList)) {
+			return self::$borderStyleList[$this->border_top_style];
+		}
+
+		return self::$borderStyleList[self::BORDER_STYLE_NONE];
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getBorderStyleRight()
+	{
+		if (array_key_exists($this->border_right_style, self::$borderStyleList)) {
+			return self::$borderStyleList[$this->border_right_style];
+		}
+
+		return self::$borderStyleList[self::BORDER_STYLE_NONE];
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getBorderStyleBottom()
+	{
+		if (array_key_exists($this->border_bottom_style, self::$borderStyleList)) {
+			return self::$borderStyleList[$this->border_bottom_style];
+		}
+
+		return self::$borderStyleList[self::BORDER_STYLE_NONE];
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getBorderStyleLeft()
+	{
+		if (array_key_exists($this->border_left_style, self::$borderStyleList)) {
+			return self::$borderStyleList[$this->border_left_style];
+		}
+
+		return self::$borderStyleList[self::BORDER_STYLE_NONE];
 	}
 }
