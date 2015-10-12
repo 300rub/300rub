@@ -52,9 +52,19 @@ class TextModel extends Model
 	public $design_text_id;
 
 	/**
+	 * @var int
+	 */
+	public $design_block_id;
+
+	/**
 	 * @var DesignTextModel
 	 */
 	public $designTextModel;
+
+	/**
+	 * @var DesignBlockModel
+	 */
+	public $designBlockModel;
 
 	/**
 	 * Типы форм для полей
@@ -85,10 +95,11 @@ class TextModel extends Model
 	public function rules()
 	{
 		return [
-			"is_editor"      => [],
-			"type"           => [],
-			"text"           => [],
-			"design_text_id" => []
+			"is_editor"       => [],
+			"type"            => [],
+			"text"            => [],
+			"design_text_id"  => [],
+			"design_block_id" => []
 		];
 	}
 
@@ -114,7 +125,8 @@ class TextModel extends Model
 	public function relations()
 	{
 		return [
-			"designTextModel" => ['models\DesignTextModel', "design_text_id"]
+			"designTextModel"  => ['models\DesignTextModel', "design_text_id"],
+			"designBlockModel" => ['models\DesignBlockModel', "design_block_id"]
 		];
 	}
 
@@ -141,6 +153,12 @@ class TextModel extends Model
 				"type"   => "text",
 				"title"  => Language::t("common", "Текст"),
 				"values" => $this->designTextModel->getValues("designTextModel"),
+			],
+			[
+				"id"     => $this->designBlockModel->id,
+				"type"   => "block",
+				"title"  => Language::t("common", "Блок"),
+				"values" => $this->designBlockModel->getValues("designTextModel"),
 			]
 		];
 	}

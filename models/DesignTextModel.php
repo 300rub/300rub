@@ -60,13 +60,6 @@ class DesignTextModel extends Model
 	 */
 	public $line_height;
 
-	/**
-	 * Типы форм для полей
-	 *
-	 * @var array
-	 */
-	public $formTypes = [];
-
 	const FAMILY_MYRAD = 0;
 	const FAMILY_ARIAL = 1;
 	const FAMILY_ARIAL_BLACK = 2;
