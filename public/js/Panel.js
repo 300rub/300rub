@@ -107,12 +107,19 @@ function Panel (params) {
 				}
 
 				if (data.design != undefined) {
+					var $close = t.panel.find(".close");
+					$close.off();
 					$.each(data.design, function (i, params) {
-						var $design = (new Design(params.id, params.type, params.title, params.values)).get();
+						var designObject = new Design(params.id, params.type, params.title, params.values);
+						var $design = designObject.get();
 						if ($design !== false) {
 							$design.appendTo($container);
+							$close.on("click", function() {
+								designObject.reset();
+							});
 						}
 					});
+					$close.bind("click", t.close);
 				}
 
 				if (data.button != undefined) {
