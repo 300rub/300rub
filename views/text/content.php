@@ -6,6 +6,7 @@
 ?>
 
 <div
-	class="design-text-<?= $model->designTextModel->id ?> design-block-<?= $model->designTextModel->id ?>"
-	style="<?php $this->renderPartial("/design/text", ["model" => $model->designTextModel]); ?>"
+	class="design-text-<?= $model->designTextModel->id ?> design-block-<?= $model->designTextModel->id
+	?><?= $model->designTextModel->getFontFamilyClass() ? " " . $model->designTextModel->getFontFamilyClass() : "" ?>"
+	style="<?php $this->renderPartial("/design/text_style", ["model" => $model->designTextModel]); ?>"
 	><?= $model->text; ?></div>

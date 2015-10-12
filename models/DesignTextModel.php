@@ -154,6 +154,87 @@ class DesignTextModel extends Model
 		]
 	];
 
+	const TEXT_ALIGN_LEFT = 0;
+	const TEXT_ALIGN_CENTER = 1;
+	const TEXT_ALIGN_RIGHT = 2;
+	const TEXT_ALIGN_JUSTIFY = 3;
+
+	/**
+	 * @var array
+	 */
+	public static $textAlignList = [
+		self::TEXT_ALIGN_LEFT    => [
+			"value" => "left",
+			"label" => "L"
+		],
+		self::TEXT_ALIGN_CENTER  => [
+			"value" => "center",
+			"label" => "C"
+		],
+		self::TEXT_ALIGN_RIGHT   => [
+			"value" => "right",
+			"label" => "R"
+		],
+		self::TEXT_ALIGN_JUSTIFY => [
+			"value" => "justify",
+			"label" => "J"
+		],
+	];
+
+	const TEXT_DECORATION_NONE = 0;
+	const TEXT_DECORATION_UNDERLINE = 1;
+	const TEXT_DECORATION_LINE_THROUGH = 2;
+	const TEXT_DECORATION_OVERLINE = 3;
+
+	/**
+	 * @var array
+	 */
+	public static $textDecorationList = [
+		self::TEXT_DECORATION_NONE    => [
+			"value" => "none",
+			"label" => "Х"
+		],
+		self::TEXT_DECORATION_UNDERLINE  => [
+			"value" => "underline",
+			"label" => "__"
+		],
+		self::TEXT_DECORATION_LINE_THROUGH   => [
+			"value" => "line-through",
+			"label" => "--"
+		],
+		self::TEXT_DECORATION_OVERLINE => [
+			"value" => "overline",
+			"label" => "``"
+		],
+	];
+
+	const TEXT_TRANSFORM_NONE = 0;
+	const TEXT_TRANSFORM_UPPERCASE = 1;
+	const TEXT_TRANSFORM_LOWERCASE = 2;
+	const TEXT_TRANSFORM_CAPITALIZE = 3;
+
+	/**
+	 * @var array
+	 */
+	public static $textTransformList = [
+		self::TEXT_TRANSFORM_NONE    => [
+			"value" => "none",
+			"label" => "Х"
+		],
+		self::TEXT_TRANSFORM_UPPERCASE  => [
+			"value" => "uppercase",
+			"label" => "AA"
+		],
+		self::TEXT_TRANSFORM_LOWERCASE   => [
+			"value" => "lowercase",
+			"label" => "aa"
+		],
+		self::TEXT_TRANSFORM_CAPITALIZE => [
+			"value" => "capitalize",
+			"label" => "Aa"
+		],
+	];
+
 	/**
 	 * Получает название связной таблицы
 	 *
@@ -249,7 +330,7 @@ class DesignTextModel extends Model
 			$this->letter_spacing = 0;
 		}
 		if (!$this->line_height) {
-			$this->line_height = 0;
+			$this->line_height = 100;
 		}
 	}
 
@@ -302,5 +383,53 @@ class DesignTextModel extends Model
 				"value" => $this->line_height
 			]
 		];
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getTextAlign()
+	{
+		if (array_key_exists($this->align, self::$textAlignList)) {
+			return self::$textAlignList[$this->align]["value"];
+		}
+
+		return "";
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getTextDecoration()
+	{
+		if (array_key_exists($this->decoration, self::$textDecorationList)) {
+			return self::$textDecorationList[$this->decoration]["value"];
+		}
+
+		return "";
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getTextTransform()
+	{
+		if (array_key_exists($this->transform, self::$textTransformList)) {
+			return self::$textTransformList[$this->transform]["value"];
+		}
+
+		return "";
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getFontFamilyClass()
+	{
+		if (array_key_exists($this->family, self::$familyList)) {
+			return self::$familyList[$this->family]["class"];
+		}
+
+		return "";
 	}
 }

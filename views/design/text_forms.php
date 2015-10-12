@@ -23,71 +23,58 @@ use models\DesignTextModel;
 		<div class="design-checkbox-container">
 			<input type="checkbox" class="hide design-checkbox design-font-weight-checkbox"/>
 			<label class="design-button-label"><strong>B</strong></label>
+			<input type="hidden" class="design-checkbox-value">
 		</div>
 		<div class="design-checkbox-container">
 			<input type="checkbox" class="hide design-checkbox design-font-style-checkbox"/>
 			<label class="design-button-label"><i>I</i></label>
+			<input type="hidden" class="design-checkbox-value">
 		</div>
 		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		<input class="color-picker color-color-picker">
 	</div>
 	<div style="margin: 15px 0">
 		<div class="design-radio-group design-text-align-radio-group">
-			<div class="design-radio-container">
-				<input class="hide design-radio" type="radio" value="0" data-value="left">
-				<label class="design-button-label">L</label>
-			</div>
-			<div class="design-radio-container">
-				<input class="hide design-radio" type="radio" value="1" data-value="center">
-				<label class="design-button-label">C</label>
-			</div>
-			<div class="design-radio-container">
-				<input class="hide design-radio" type="radio" value="2" data-value="right">
-				<label class="design-button-label">R</label>
-			</div>
-			<div class="design-radio-container">
-				<input class="hide design-radio" type="radio" value="3" data-value="justify">
-				<label class="design-button-label">J</label>
-			</div>
+			<?php foreach (DesignTextModel::$textAlignList as $key => $value) { ?>
+				<div class="design-radio-container">
+					<input
+						class="hide design-radio"
+						type="radio"
+						value="<?= $key ?>"
+						data-value="<?= $value["value"] ?>"
+						>
+					<label class="design-button-label"><?= $value["label"] ?></label>
+				</div>
+			<?php } ?>
 		</div>
 		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		<div class="design-radio-group design-text-transform-radio-group">
-			<div class="design-radio-container">
-				<input class="hide design-radio" type="radio" value="0" data-value="none">
-				<label class="design-button-label">Х</label>
-			</div>
-			<div class="design-radio-container">
-				<input class="hide design-radio" type="radio" value="1" data-value="uppercase">
-				<label class="design-button-label">AA</label>
-			</div>
-			<div class="design-radio-container">
-				<input class="hide design-radio" type="radio" value="2" data-value="lowercase">
-				<label class="design-button-label">aa</label>
-			</div>
-			<div class="design-radio-container">
-				<input class="hide design-radio" type="radio" value="3" data-value="capitalize">
-				<label class="design-button-label">Aa</label>
-			</div>
+			<?php foreach (DesignTextModel::$textTransformList as $key => $value) { ?>
+				<div class="design-radio-container">
+					<input
+						class="hide design-radio"
+						type="radio"
+						value="<?= $key ?>"
+						data-value="<?= $value["value"] ?>"
+						>
+					<label class="design-button-label"><?= $value["label"] ?></label>
+				</div>
+			<?php } ?>
 		</div>
 	</div>
 	<div style="margin: 15px 0">
 		<div class="design-radio-group design-text-decoration-radio-group">
-			<div class="design-radio-container">
-				<input class="hide design-radio" type="radio" value="0" data-value="none">
-				<label class="design-button-label">Х</label>
-			</div>
-			<div class="design-radio-container">
-				<input class="hide design-radio" type="radio" value="1" data-value="underline">
-				<label class="design-button-label">_</label>
-			</div>
-			<div class="design-radio-container">
-				<input class="hide design-radio" type="radio" value="2" data-value="line-through">
-				<label class="design-button-label">-</label>
-			</div>
-			<div class="design-radio-container">
-				<input class="hide design-radio" type="radio" value="3" data-value="overline">
-				<label class="design-button-label">``</label>
-			</div>
+			<?php foreach (DesignTextModel::$textDecorationList as $key => $value) { ?>
+				<div class="design-radio-container">
+					<input
+						class="hide design-radio"
+						type="radio"
+						value="<?= $key ?>"
+						data-value="<?= $value["value"] ?>"
+						>
+					<label class="design-button-label"><?= $value["label"] ?></label>
+				</div>
+			<?php } ?>
 		</div>
 		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		<div class="design-slider-container">

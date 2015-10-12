@@ -389,6 +389,7 @@ function Design(id, type, title, values) {
 
 	this.resetCkeckbox = function (value, cssAttr, checked, notChecked) {
 		var $checkbox = t.editor.find(".design-" + cssAttr + "-checkbox");
+		$checkbox.parent().find(".design-checkbox-value").val(value);
 		if (parseInt(value) == 1) {
 			$checkbox.attr('checked', true);
 			t.object.css(cssAttr, checked);
@@ -400,15 +401,23 @@ function Design(id, type, title, values) {
 
 	this.setCheckbox = function (name, value, cssAttr, checked, notChecked) {
 		var $checkbox = t.editor.find(".design-" + cssAttr + "-checkbox");
-		t.resetCkeckbox($checkbox, value);
-		$checkbox.attr("name", name);
-		$checkbox.attr('id', ".design-" + cssAttr + "-checkbox" + t.id);
-		$checkbox.parent().find("label").attr('for', ".design-" + cssAttr + "-checkbox" + t.id);
+		var $value = $checkbox.parent().find(".design-checkbox-value");
+		if (parseInt(value) == 1) {
+			$checkbox.attr('checked', true);
+		} else {
+			$checkbox.attr('checked', false);
+		}
+		$value.val(value);
+		$value.attr("name", name);
+		$checkbox.attr('id', "design-" + cssAttr + "-checkbox" + t.id);
+		$checkbox.parent().find("label").attr('for', "design-" + cssAttr + "-checkbox" + t.id);
 		$checkbox.on("change", function () {
 			if ($(this).is(':checked')) {
 				t.object.css(cssAttr, checked);
+				$value.val(1);
 			} else {
 				t.object.css(cssAttr, notChecked);
+				$value.val(0);
 			}
 		});
 	};
