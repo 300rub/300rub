@@ -75,6 +75,7 @@ class TextModel extends Model
 		"is_editor" => "field",
 		"type"      => "field",
 		"text"      => "field",
+		"name"      => "field",
 	];
 
 	/**
@@ -99,7 +100,8 @@ class TextModel extends Model
 			"type"            => [],
 			"text"            => [],
 			"design_text_id"  => [],
-			"design_block_id" => []
+			"design_block_id" => [],
+			"name"            => [],
 		];
 	}
 
@@ -114,6 +116,7 @@ class TextModel extends Model
 			"is_editor" => Language::t("common", "Редактор"),
 			"type"      => Language::t("common", "Тип"),
 			"text"      => Language::t("common", "Текст"),
+			"name"      => Language::t("common", "Название"),
 		];
 	}
 

@@ -26,7 +26,7 @@ class TextController extends Controller
 
 		foreach ($models as $model) {
 			$items[] = [
-				"label" => $model->text,
+				"label" => $model->name,
 				"id"    => $model->id
 			];
 		}
@@ -85,11 +85,22 @@ class TextController extends Controller
 		$this->renderJson();
 	}
 
+	/**
+	 * @param int $id
+	 *
+	 * @throws Exception
+	 *
+	 * @return void
+	 */
 	public function actionSaveDesign($id = 0)
 	{
 		$post = App::getPost();
 
 		$model = TextModel::model()->byId($id)->withAll()->find();
+
+		if (!$model) {
+			throw new Exception(Language::t("default", "Модель не найдена"), 404);
+		}
 
 		$model->setAttributes($post);
 		$model->validate(false);
@@ -119,26 +130,26 @@ class TextController extends Controller
 	public function actionSettings($id = 0)
 	{
 		if ($id) {
-			$model = SectionModel::model()->byId($id)->with(["seoModel"])->find();
+			$model = TextModel::model()->byId($id)->find();
 		} else {
 			$model = new SectionModel;
 		}
 
 		if (!$model) {
-			throw new Exception(Language::t("default", "Раздел не найден"), 404);
+			throw new Exception(Language::t("default", "Модель не найдена"), 404);
 		}
 
 		$this->json = [
-			"title"       => Language::t("common", "Настройки раздела"),
-			"description" => Language::t("common", "Здесь вы можете редактировать название и СЕО"),
+			"title"       => Language::t("common", "Настройки текста"),
+			"description" => Language::t("common", "333"),
 			"button"      => [
 				"label"  => Language::t("common", "Сохранить"),
-				"action" => "section/saveSettings/{$model->id}"
+				"action" => "text/saveSettings/{$model->id}"
 			],
 		];
 		$this->setFormsForJson(
 			$model,
-			["seoModel.name", "seoModel.url", "seoModel.title", "seoModel.keywords", "seoModel.description"]
+			["t.name"]
 		);
 
 		$this->renderJson();
@@ -158,20 +169,15 @@ class TextController extends Controller
 		$post = App::getPost();
 		if (
 			!$post
-			|| !isset($post["seoModel.name"])
-			|| !isset($post["seoModel.url"])
-			|| !isset($post["seoModel.title"])
-			|| !isset($post["seoModel.keywords"])
-			|| !isset($post["seoModel.description"])
+			|| !isset($post["t.name"])
 		) {
 			throw new Exception(Language::t("common", "Некорректрый url"), 404);
 		}
 
 		if ($id) {
-			$model = SectionModel::model()->byId($id)->with(["seoModel"])->find();
+			$model = TextModel::model()->byId($id)->find();
 		} else {
-			$model = new SectionModel;
-			$model->seoModel = new SeoModel();
+			$model = new TextModel;
 		}
 
 		$model->setAttributes($post);
@@ -186,7 +192,7 @@ class TextController extends Controller
 		$this->json = [
 			"success" => $success,
 			"errors"  => $model->errors,
-			"content" => "section/panelList",
+			"content" => "text/panelList",
 		];
 
 		$this->renderJson();
