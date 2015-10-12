@@ -1,4 +1,4 @@
-function setLayout() {
+function setWindowHeight() {
 	$(".window .container").css("max-height", parseInt($(document).height()) - 150);
 }
 
@@ -11,9 +11,9 @@ $(document).ready(function () {
 	$forms = $("#forms");
 	$errors = $("#errors");
 
-	setLayout();
+	setWindowHeight();
 	$(window).resize(function () {
-		setLayout();
+		setWindowHeight();
 	});
 
 	$("#login-button").on("click", function () {

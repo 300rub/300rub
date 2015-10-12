@@ -1,4 +1,13 @@
+function setPanelHeight() {
+	$(".panel .container").css("max-height", parseInt($(document).height()) - 240);
+}
+
 $(document).ready(function () {
+
+	setPanelHeight();
+	$(window).resize(function () {
+		setPanelHeight();
+	});
 
 	$.fn.removeClassByMask = function(mask) {
 		return this.removeClass(function(index, cls) {
