@@ -374,8 +374,9 @@ function Design(id, type, title, values) {
 
 	this.resetSelector = function (value, cssAttr, cssEnd) {
 		var $selector = t.editor.find(".design-" + cssAttr + "-selector");
+		var val = $selector.find(':selected').data('value');
 		$selector.val(value);
-		t.object.css(cssAttr, value + cssEnd);
+		t.object.css(cssAttr, val + cssEnd);
 	};
 
 	this.setCheckbox = function (name, value, cssAttr, checked, notChecked) {
