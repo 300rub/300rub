@@ -22,34 +22,7 @@ function Design(id, type, title, values) {
 			t.setText();
 		}
 		if (t.type === "block") {
-			t.setVerticalSlider("name1", 0, "margin-top", -50, 200, "px", ["margin-right", "margin-bottom", "margin-left"]);
-			t.setVerticalSlider("name2", 0, "margin-right", -50, 200, "px");
-			t.setVerticalSlider("name3", 0, "margin-bottom", -50, 200, "px");
-			t.setVerticalSlider("name4", 0, "margin-left", -50, 200, "px");
-			t.setVerticalSlider("name5", 0, "padding-top", 0, 200, "px", ["padding-right", "padding-bottom", "padding-left"]);
-			t.setVerticalSlider("name6", 0, "padding-right", 0, 200, "px");
-			t.setVerticalSlider("name7", 0, "padding-bottom", 0, 200, "px");
-			t.setVerticalSlider("name8", 0, "padding-left", 0, 200, "px");
-			t.setColor("name9", "", "background-color");
-			t.setColor("name9", "", "background");
-			t.setGradientDirection("name10", 0);
-			t.setColor("name13", "", "border-top-color");
-			t.setColor("name15", "", "border-right-color");
-			t.setColor("name15", "", "border-bottom-color");
-			t.setColor("name15", "", "border-left-color");
-			t.setVerticalSlider("name11", 0, "border-top-width", 0, 20, "px", ["border-right-width", "border-bottom-width", "border-left-width"]);
-			t.setVerticalSlider("name16", 0, "border-right-width", 0, 20, "px");
-			t.setVerticalSlider("name19", 0, "border-bottom-width", 0, 20, "px");
-			t.setVerticalSlider("name20", 0, "border-left-width", 0, 20, "px");
-			t.setVerticalSlider("name12", 0, "border-top-left-radius", 0, 100, "px", ["border-top-right-radius", "border-bottom-right-radius", "border-bottom-left-radius"]);
-			t.setVerticalSlider("name17", 0, "border-top-right-radius", 0, 100, "px");
-			t.setVerticalSlider("name21", 0, "border-bottom-right-radius", 0, 100, "px");
-			t.setVerticalSlider("name22", 0, "border-bottom-left-radius", 0, 100, "px");
-			t.setSelector("name14", 0, "border-top-style", "", ["border-right-style", "border-bottom-style", "border-left-style"]);
-			t.setSelector("name23", 0, "border-right-style", "");
-			t.setSelector("name24", 0, "border-bottom-style", "");
-			t.setSelector("name25", 0, "border-left-style", "");
-			t.editor.find(".design-background-reset").bind("click", t.backgroundReset);
+			t.setBlock();
 		}
 
 		t.editor.find(".design-reset").bind("click", t.reset);
@@ -57,7 +30,7 @@ function Design(id, type, title, values) {
 		return t.editor;
 	};
 
-	this.setText = function() {
+	this.setText = function () {
 		t.setVerticalSlider(t.values.size.name, t.values.size.value, "font-size", 6, 200, "px");
 		t.setVerticalSlider(
 			t.values.letter_spacing.name,
@@ -84,7 +57,7 @@ function Design(id, type, title, values) {
 		t.setRadio(t.values.decoration.name, t.values.decoration.value, "text-decoration");
 	};
 
-	this.resetText = function() {
+	this.resetText = function () {
 		t.resetVerticalSlider(t.values.size.value, "font-size", "px");
 		t.resetVerticalSlider(t.values.letter_spacing.value, "letter-spacing", "px");
 		t.resetVerticalSlider(t.values.line_height.value, "line-height", "%");
@@ -97,39 +70,153 @@ function Design(id, type, title, values) {
 		t.resetRadio(t.values.decoration.value, "text-decoration");
 	};
 
+	this.setBlock = function () {
+		t.setVerticalSlider(
+			t.values.margin_top.name,
+			t.values.margin_top.value,
+			"margin-top",
+			-50,
+			200,
+			"px",
+			["margin-right", "margin-bottom", "margin-left"]
+		);
+		t.setVerticalSlider(t.values.margin_right.name, t.values.margin_right.value, "margin-right", -50, 200, "px");
+		t.setVerticalSlider(t.values.margin_bottom.name, t.values.margin_bottom.value, "margin-bottom", -50, 200, "px");
+		t.setVerticalSlider(t.values.margin_left.name, t.values.margin_left.value, "margin-left", -50, 200, "px");
+		t.setVerticalSlider(
+			t.values.padding_top.name,
+			t.values.padding_top.value,
+			"padding-top",
+			0,
+			200,
+			"px",
+			["padding-right", "padding-bottom", "padding-left"]
+		);
+		t.setVerticalSlider(t.values.padding_right.name, t.values.padding_right.value, "padding-right", 0, 200, "px");
+		t.setVerticalSlider(t.values.padding_bottom.name, t.values.padding_bottom.value, "padding-bottom", 0, 200, "px");
+		t.setVerticalSlider(t.values.padding_left.name, t.values.padding_left.value, "padding-left", 0, 200, "px");
+		t.setColor(t.values.background_color.name, t.values.background_color.value, "background-color");
+		t.setColor(t.values.background.name, t.values.background.value, "background");
+		t.setGradientDirection(t.values.gradient_direction.name, t.values.gradient_direction.value);
+		t.setColor(t.values.border_top_color.name, t.values.border_top_color.value, "border-top-color");
+		t.setColor(t.values.border_right_color.name, t.values.border_right_color.value, "border-right-color");
+		t.setColor(t.values.border_bottom_color.name, t.values.border_bottom_color.value, "border-bottom-color");
+		t.setColor(t.values.border_left_color.name, t.values.border_left_color.value, "border-left-color");
+		t.setVerticalSlider(
+			t.values.border_top_width.name,
+			t.values.border_top_width.value,
+			"border-top-width",
+			0,
+			20,
+			"px",
+			["border-right-width", "border-bottom-width", "border-left-width"]
+		);
+		t.setVerticalSlider(
+			t.values.border_right_width.name,
+			t.values.border_right_width.value,
+			"border-right-width",
+			0,
+			20,
+			"px"
+		);
+		t.setVerticalSlider(
+			t.values.border_bottom_width.name,
+			t.values.border_bottom_width.value,
+			"border-bottom-width",
+			0,
+			20,
+			"px"
+		);
+		t.setVerticalSlider(
+			t.values.border_left_width.name,
+			t.values.border_left_width.value,
+			"border-left-width",
+			0,
+			20,
+			"px"
+		);
+		t.setVerticalSlider(
+			t.values.border_top_left_radius.name,
+			t.values.border_top_left_radius.value,
+			"border-top-left-radius",
+			0,
+			100,
+			"px",
+			["border-top-right-radius", "border-bottom-right-radius", "border-bottom-left-radius"]
+		);
+		t.setVerticalSlider(
+			t.values.border_top_right_radius.name,
+			t.values.border_top_right_radius.value,
+			"border-top-right-radius",
+			0,
+			100,
+			"px"
+		);
+		t.setVerticalSlider(
+			t.values.border_bottom_right_radius.name,
+			t.values.border_bottom_right_radius.value,
+			"border-bottom-right-radius",
+			0,
+			100,
+			"px"
+		);
+		t.setVerticalSlider(
+			t.values.border_bottom_left_radius.name,
+			t.values.border_bottom_left_radius.value,
+			"border-bottom-left-radius",
+			0,
+			100,
+			"px"
+		);
+		t.setSelector(
+			t.values.border_top_style.name,
+			t.values.border_top_style.value,
+			"border-top-style",
+			"",
+			["border-right-style", "border-bottom-style", "border-left-style"]
+		);
+		t.setSelector(t.values.border_right_style.name, t.values.border_right_style.value, "border-right-style", "");
+		t.setSelector(t.values.border_bottom_style.name, t.values.border_bottom_style.value, "border-bottom-style", "");
+		t.setSelector(t.values.border_left_style.name, t.values.border_left_style.value, "border-left-style", "");
+		t.editor.find(".design-background-reset").bind("click", t.backgroundReset);
+	};
+
+	this.resetBlock = function () {
+		t.resetVerticalSlider(t.values.margin_top.value, "margin-top", "px");
+		t.resetVerticalSlider(t.values.margin_right.value, "margin-right", "px");
+		t.resetVerticalSlider(t.values.margin_bottom.value, "margin-bottom", "px");
+		t.resetVerticalSlider(t.values.margin_left.value, "margin-left", "px");
+		t.resetVerticalSlider(t.values.padding_top.value, "padding-top", "px");
+		t.resetVerticalSlider(t.values.padding_right.value, "padding-right", "px");
+		t.resetVerticalSlider(t.values.padding_bottom.value, "padding-bottom", "px");
+		t.resetVerticalSlider(t.values.padding_left.value, "padding-left", "px");
+		t.resetColor(t.values.background_color.value, "background-color");
+		t.resetColor(t.values.background.value, "background");
+		t.resetGradientDirection(t.values.gradient_direction.value);
+		t.resetColor(t.values.border_top_color.value, "border-top-color");
+		t.resetColor(t.values.border_right_color.value, "border-right-color");
+		t.resetColor(t.values.border_bottom_color.value, "border-bottom-color");
+		t.resetColor(t.values.border_left_color.value, "border-left-color");
+		t.resetVerticalSlider(t.values.border_top_width.value, "border-top-width", "px");
+		t.resetVerticalSlider(t.values.border_right_width.value, "border-right-width", "px");
+		t.resetVerticalSlider(t.values.border_bottom_width.value, "border-bottom-width", "px");
+		t.resetVerticalSlider(t.values.border_left_width.value, "border-left-width", "px");
+		t.resetVerticalSlider(t.values.border_top_left_radius.value, "border-top-left-radius", "px");
+		t.resetVerticalSlider(t.values.border_top_right_radius.value, "border-top-right-radius", "px");
+		t.resetVerticalSlider(t.values.border_bottom_right_radius.value, "border-bottom-right-radius", "px");
+		t.resetVerticalSlider(t.values.border_bottom_left_radius.value, "border-bottom-left-radius", "px");
+		t.resetSelector(t.values.border_top_style.value, "border-top-style", "");
+		t.resetSelector(t.values.border_right_style.value, "border-right-style", "");
+		t.resetSelector(t.values.border_bottom_style.value, "border-bottom-style", "");
+		t.resetSelector(t.values.border_left_style.value, "border-left-style", "");
+	};
+
 	this.reset = function () {
 		if (t.type === "text") {
 			t.resetText();
 		}
 		if (t.type === "block") {
-			t.resetVerticalSlider(0, "margin-top", "px");
-			t.resetVerticalSlider(0, "margin-right", "px");
-			t.resetVerticalSlider(0, "margin-bottom", "px");
-			t.resetVerticalSlider(0, "margin-left", "px");
-			t.resetVerticalSlider(0, "padding-top", "px");
-			t.resetVerticalSlider(0, "padding-right", "px");
-			t.resetVerticalSlider(0, "padding-bottom", "px");
-			t.resetVerticalSlider(0, "padding-left", "px");
-			t.resetColor("", "background-color");
-			t.resetColor("", "background");
-			t.resetGradientDirection(0);
-			t.setColor("name13", "", "border-top-color");
-			t.resetColor("", "border-top-color");
-			t.resetColor("", "border-right-color");
-			t.resetColor("", "border-bottom-color");
-			t.resetColor("", "border-left-color");
-			t.resetVerticalSlider(0, "border-top-width", "px");
-			t.resetVerticalSlider(0, "border-right-width", "px");
-			t.resetVerticalSlider(0, "border-bottom-width", "px");
-			t.resetVerticalSlider(0, "border-left-width", "px");
-			t.resetVerticalSlider(0, "border-top-left-radius", "px");
-			t.resetVerticalSlider(0, "border-top-right-radius", "px");
-			t.resetVerticalSlider(0, "border-bottom-right-radius", "px");
-			t.resetVerticalSlider(0, "border-bottom-left-radius", "px");
-			t.resetSelector(0, "border-top-style", "");
-			t.resetSelector(0, "border-right-style", "");
-			t.resetSelector(0, "border-bottom-style", "");
-			t.resetSelector(0, "border-left-style", "");
+			t.resetBlock();
 		}
 
 		return false;

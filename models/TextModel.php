@@ -158,7 +158,7 @@ class TextModel extends Model
 				"id"     => $this->designBlockModel->id,
 				"type"   => "block",
 				"title"  => Language::t("common", "Блок"),
-				"values" => $this->designBlockModel->getValues("designTextModel"),
+				"values" => $this->designBlockModel->getValues("designBlockModel"),
 			]
 		];
 	}
