@@ -46,6 +46,7 @@ use system\App;
 		<script src="/js/lib/lodash.min.js"></script>
 		<script src="/js/lib/gridstack.min.js"></script>
 		<script src="/js/lib/jqColorPicker.min.js"></script>
+		<script src="/js/lib/tinymce/tinymce.jquery.min.js"></script>
 		<script src="/js/Grid.js"></script>
 		<script src="/js/Panel.js"></script>
 		<script src="/js/Design.js"></script>

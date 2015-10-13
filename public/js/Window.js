@@ -85,10 +85,15 @@ function Window (action) {
 			success: function (data) {
 				if (data.forms != undefined) {
 					var $form;
+					var formObject;
 					$.each(data.forms, function (name, params) {
-						$form = (new Form(name, params)).get();
+						formObject = new Form(name, params)
+						$form = formObject.get();
 						if ($form !== false) {
 							$form.appendTo($container);
+							if (formObject.params.type === "tinymce") {
+								formObject.setTinyMce(formObject.id);
+							}
 						}
 					});
 				}

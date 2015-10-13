@@ -36,6 +36,21 @@ class PublicStaticCommand extends Command
 					Logger::log("Невозможно создать папку {$dir}", Logger::LEVEL_ERROR, "console.publicStatic");
 					return false;
 				}
+
+				$explode = explode("/", $key);
+				$newDir = $dir;
+				if (count($explode) > 1) {
+					for ($i = 0; $i < count($explode) - 1; $i++) {
+						$newDir .= "/" . $explode[$i];
+						if (!file_exists($newDir) && !mkdir($newDir, 0777)) {
+							Logger::log("Невозможно создать папку {$newDir}", Logger::LEVEL_ERROR, "console.publicStatic");
+							return false;
+						}
+					}
+					$key = $explode[count($explode) - 1];
+					$dir = $newDir;
+				}
+
 				if (!file_exists("{$dir}/{$key}")) {
 					$file = "{$vendorsDir}/{$value}";
 					if (file_exists($file)) {

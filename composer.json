@@ -2,7 +2,8 @@
   "require": {
     "troolee/gridstack": "dev-master",
     "lodash/lodash": "dev-master",
-    "PitPik/tinyColorPicker": "dev-master"
+    "PitPik/tinyColorPicker": "dev-master",
+    "tinymce/tinymce": "dev-master"
   },
   "repositories": [
     {

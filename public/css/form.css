@@ -33,8 +33,9 @@
 	width: 100%;
 }
 
-.form-container-text textarea {
-	height: 400px;
+.form-container-text textarea,
+.form-container-tinymce .tinymce {
+	height: 350px;
 }
 
 .form-container-checkbox label {

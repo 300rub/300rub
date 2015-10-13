@@ -27,5 +27,9 @@
 		<textarea></textarea>
 	</div>
 
+	<div class="form-container form-container-tinymce">
+		<textarea class="tinymce"></textarea>
+	</div>
+
 	<button class="button"><span></span></button>
 </div>

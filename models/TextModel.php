@@ -217,4 +217,23 @@ class TextModel extends Model
 
 		return self::$typeTagList[self::TYPE_DIV];
 	}
+
+	/**
+	 * Получает тип формы
+	 *
+	 * @param string $field поле
+	 *
+	 * @return string
+	 */
+	public function getFormType($field)
+	{
+		if (array_key_exists($field, $this->formTypes)) {
+			if ($field === "text" && $this->is_editor) {
+				return "tinymce";
+			}
+			return $this->formTypes[$field];
+		}
+
+		return "";
+	}
 }

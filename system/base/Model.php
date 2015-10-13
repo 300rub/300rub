@@ -498,7 +498,7 @@ abstract class Model
 	 *
 	 * @return string
 	 */
-	public final function getFormType($field)
+	public function getFormType($field)
 	{
 		if (array_key_exists($field, $this->formTypes)) {
 			return $this->formTypes[$field];
