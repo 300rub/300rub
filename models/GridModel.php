@@ -211,6 +211,7 @@ class GridModel extends Model
 					$gridsList[] = [
 						"model"  => $grid->getContentModel(),
 						"view"   => $grid->getContentView(),
+						"class"  => $grid->getBlockClass(),
 						"col"    => $grid->width,
 						"y"      => $grid->y,
 						"offset" => $grid->x - $borders[$i] / 2 - $right,
@@ -348,6 +349,22 @@ class GridModel extends Model
 		}
 
 		return '/'. $typeList[$this->content_type]["class"] .'/content';
+	}
+
+	/**
+	 * @return string
+	 *
+	 * @throws Exception
+	 */
+	public function getBlockClass()
+	{
+		$typeList = self::getTypesList();
+
+		if (!array_key_exists($this->content_type, $typeList)) {
+			throw new Exception(Language::t("default", "Модель не найдена"), 404);
+		}
+
+		return $typeList[$this->content_type]["class"] .'-' . $this->content_id;
 	}
 
 	/**

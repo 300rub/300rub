@@ -12,6 +12,14 @@
 	<div class="form-container form-container-checkbox">
 		<input type="checkbox"/>
 		<label></label>
+		<input type="hidden"/>
+	</div>
+
+	<div class="form-container form-container-select">
+		<label></label>
+		<select>
+
+		</select>
 	</div>
 
 	<button class="button"><span></span></button>

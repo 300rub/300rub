@@ -126,6 +126,10 @@ function Panel (params) {
 					var $button = $forms.find(".button").clone();
 					$button.find("span").text(data.button.label);
 					$button.attr("data-action", data.button.action);
+					if (data.button.update != undefined) {
+						$button.attr("data-update-block", data.button.update.block);
+						$button.attr("data-update-content", data.button.update.content);
+					}
 					$button.appendTo(t.panel.find(".footer"));
 					$button.bind("click", t.submit);
 				}
@@ -221,6 +225,15 @@ function Panel (params) {
 						content: data.content
 					})).init();
 					t.panel.remove();
+
+					if ($button.data("update-content") != undefined) {
+						$.ajax({
+							url: "/ajax/" + LANG + "/" + $button.data("update-content") + "/",
+							success: function (data) {
+								$("." + $button.data("update-block")).html(data);
+							}
+						});
+					}
 				}
 			},
 			error: function (request, status, error) {

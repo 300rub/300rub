@@ -35,7 +35,8 @@ abstract class Controller
 	 *
 	 * @return string
 	 */
-	protected function getViewsDir() {
+	protected function getViewsDir()
+	{
 		return "common";
 	}
 
@@ -143,20 +144,30 @@ abstract class Controller
 			$m = null;
 			if ($explode[0] === "t") {
 				$m = $model;
-			} else if (property_exists($model, $explode[0])) {
-				$m = $model->$explode[0];
-				if (!$m) {
-					$className = $model->getRelationClass($explode[0]);
-					$m = new $className;
+			} else {
+				if (property_exists($model, $explode[0])) {
+					$m = $model->$explode[0];
+					if (!$m) {
+						$className = $model->getRelationClass($explode[0]);
+						$m = new $className;
+					}
 				}
 			}
 
-			if ($m && property_exists($m, $explode[1])) {
-				$forms[$field] = [
-					"rules" => $m->getRules($explode[1]),
-					"label" => $m->getLabel($explode[1]),
-					"type"  => $m->getFormType($explode[1]),
-					"value" => $m->$explode[1],
+			$field = $explode[1];
+			if ($m && property_exists($m, $field)) {
+				$type = $m->getFormType($field);
+				$values = [];
+				if ($type === "select") {
+					$methodName = "get" . ucfirst($field) . "List";
+					$values = $m->$methodName();
+				}
+				$forms[$explode[0] . "." . $field] = [
+					"rules"  => $m->getRules($field),
+					"label"  => $m->getLabel($field),
+					"type"   => $type,
+					"value"  => $m->$field,
+					"values" => $values,
 				];
 			}
 		}
@@ -164,7 +175,6 @@ abstract class Controller
 		if ($forms) {
 			$this->json["forms"] = $forms;
 		}
-
 
 		return $this;
 	}

@@ -93,6 +93,10 @@ body {
 	display: none;
 }
 
+h1, h2, h3, adress, mark, code {
+	display: block;
+}
+
 #login-button, #logout-button {
 	position: fixed;
 	width: 60px;

@@ -144,12 +144,16 @@ class TextController extends Controller
 			"description" => Language::t("common", "333"),
 			"button"      => [
 				"label"  => Language::t("common", "Сохранить"),
-				"action" => "text/saveSettings/{$model->id}"
+				"action" => "text/saveSettings/{$model->id}",
+				"update" => [
+					"block"   => "text-{$id}",
+					"content" => "text/content/{$id}"
+				]
 			],
 		];
 		$this->setFormsForJson(
 			$model,
-			["t.name"]
+			["t.name", "t.type", "t.is_editor"]
 		);
 
 		$this->renderJson();
@@ -196,5 +200,20 @@ class TextController extends Controller
 		];
 
 		$this->renderJson();
+	}
+
+	public function actionContent($id)
+	{
+		if (!$id) {
+			throw new Exception(Language::t("common", "Некорректрый url"), 404);
+		}
+
+		$model = TextModel::model()->byId($id)->withAll()->find();
+
+		if (!$model) {
+			throw new Exception(Language::t("common", "Модель не найдена"), 404);
+		}
+
+		$this->renderPartial("/text/content", ["model" => $model]);
 	}
 }
