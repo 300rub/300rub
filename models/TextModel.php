@@ -75,6 +75,7 @@ class TextModel extends Model
 		"is_editor" => "checkbox",
 		"type"      => "select",
 		"name"      => "field",
+		"text"      => "text",
 	];
 
 	const TYPE_DIV = 0;
@@ -170,20 +171,23 @@ class TextModel extends Model
 	 */
 	public function getDesignForms()
 	{
-		return [
-			[
+		$list = [];
+		if (!$this->is_editor) {
+			$list[] = [
 				"id"     => $this->designTextModel->id,
 				"type"   => "text",
 				"title"  => Language::t("common", "Текст"),
 				"values" => $this->designTextModel->getValues("designTextModel"),
-			],
-			[
-				"id"     => $this->designBlockModel->id,
-				"type"   => "block",
-				"title"  => Language::t("common", "Блок"),
-				"values" => $this->designBlockModel->getValues("designBlockModel"),
-			]
+			];
+		}
+		$list[] = [
+			"id"     => $this->designBlockModel->id,
+			"type"   => "block",
+			"title"  => Language::t("common", "Блок"),
+			"values" => $this->designBlockModel->getValues("designBlockModel"),
 		];
+
+		return $list;
 	}
 
 	/**

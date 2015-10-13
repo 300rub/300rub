@@ -97,6 +97,10 @@ function Window (action) {
 					var $button = $forms.find(".button").clone();
 					$button.find("span").text(data.button.label);
 					$button.attr("data-action", data.button.action);
+					if (data.button.update != undefined) {
+						$button.attr("data-update-block", data.button.update.block);
+						$button.attr("data-update-content", data.button.update.content);
+					}
 					$button.appendTo(t.window.find(".footer"));
 					$button.bind("click", t.submit);
 				}
@@ -146,12 +150,18 @@ function Window (action) {
 				if (data.success === false) {
 					(new Validator($form)).showErrors(data.errors);
 				} else {
-					if (data.container != undefined) {
-						$wrapper.find("#" + data.container).html(data.html);
-						t.close();
+					if ($button.data("update-content") != undefined) {
+						$.ajax({
+							url: "/ajax/" + LANG + "/" + $button.data("update-content") + "/",
+							success: function (data) {
+								$("." + $button.data("update-block")).html(data);
+							}
+						});
 					} else if (data.redirect != undefined) {
 						window.location.replace(data.redirect);
 					}
+
+					t.close();
 				}
 			},
 			error: function (request, status, error) {

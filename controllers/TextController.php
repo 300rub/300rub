@@ -38,9 +38,9 @@ class TextController extends Controller
 				"Выберите текст для редактирования"
 			),
 			"list"        => [
-				"class"   => "panel",
+				"class"   => "window",
 				"items"   => $items,
-				"content" => "text/edit",
+				"content" => "text/window",
 				"icons"   => [
 					"big"      => true,
 					"design"   => "text/design",
@@ -48,6 +48,60 @@ class TextController extends Controller
 				],
 			],
 			"errors"      => [],
+		];
+
+		$this->renderJson();
+	}
+
+	public function actionWindow($id)
+	{
+		if (!$id) {
+			throw new Exception(Language::t("common", "Некорректрый url"), 404);
+		}
+
+		$model = TextModel::model()->byId($id)->find();
+
+		if (!$model) {
+			throw new Exception(Language::t("common", "Модель не найдена"), 404);
+		}
+
+		$this->json = [
+			"name" => "text",
+			"title" => Language::t("common", "Редактирование текста"),
+			"button"      => [
+				"label"  => Language::t("common", "Сохранить"),
+				"action" => "text/saveWindow/{$id}",
+				"update" => [
+					"block"   => "text-{$id}",
+					"content" => "text/content/{$id}"
+				]
+			],
+		];
+		$this->setFormsForJson($model, ["t.text"])->renderJson();
+	}
+
+	public function actionSaveWindow($id = 0)
+	{
+		$post = App::getPost();
+
+		$model = TextModel::model()->byId($id)->withAll()->find();
+
+		if (!$model) {
+			throw new Exception(Language::t("default", "Модель не найдена"), 404);
+		}
+
+		$model->setAttributes($post);
+		$model->validate(false);
+
+		$success = false;
+
+		if (!$model->errors && $model->save()) {
+			$success = true;
+		}
+
+		$this->json = [
+			"success" => $success,
+			"errors"  => $model->errors,
 		];
 
 		$this->renderJson();

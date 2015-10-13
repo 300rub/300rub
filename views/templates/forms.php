@@ -22,5 +22,10 @@
 		</select>
 	</div>
 
+	<div class="form-container form-container-text">
+		<label></label>
+		<textarea></textarea>
+	</div>
+
 	<button class="button"><span></span></button>
 </div>

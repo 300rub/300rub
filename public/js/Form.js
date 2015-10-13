@@ -61,8 +61,19 @@ function Form (name, params) {
 		if (this.params.type === "select") {
 			t.setSelect();
 		}
+		if (this.params.type === "text") {
+			t.setTextarea();
+		}
 
 		return t.object;
+	};
+
+	this.setTextarea = function() {
+		var $form = t.object.find("textarea");
+		$form.attr("id", t.id);
+		$form.attr("name", "Data[" + t.name + "]");
+		$form.attr("data-container", t.container);
+		$form.text(t.params.value);
 	};
 
 	this.setField = function() {

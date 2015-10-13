@@ -254,10 +254,14 @@ function Panel (params) {
 	 * @returns {boolean}
 	 */
 	this.showItem = function () {
+		var content;
 		if ($(this).hasClass("panel-item-grid")) {
 			(new Grid($(this).data("id"))).init();
+		} else if ($(this).hasClass("panel-item-window")) {
+			content = t.panel.data("content") + "/" + $(this).data("id");
+			(new Window(content)).init();
 		} else {
-			var content = $(this).data("content");
+			content = $(this).data("content");
 			(new Panel({
 				name: t.panel.data("name"),
 				content: content
