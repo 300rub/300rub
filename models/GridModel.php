@@ -238,21 +238,21 @@ class GridModel extends Model
 	public function getAllGridsForGridWindow($sectionId)
 	{
 		$list = [];
-		$typesList = BlockModel::getTypesList();
+		$typeList = self::getTypesList();
 
 		$grids = $this->bySectionId($sectionId)->ordered()->findAll();
 		foreach ($grids as $grid) {
+			$modelName = "\\models\\" . ucfirst($typeList[$grid->content_id]["class"]) . "Model";
+			$model = $modelName::model()->byId($grid->content_id)->find();
 			$list[intval($grid->line)][] = [
-				"id"       => $grid->blockModel->id,
-				"x"        => $grid->x,
-				"y"        => $grid->y,
-				"width"    => $grid->width,
-				"cssClass" => $typesList[$grid->blockModel->type]["class"],
-				"name"     => $grid->blockModel->name,
+				"id"    => $grid->content_id,
+				"x"     => $grid->x,
+				"y"     => $grid->y,
+				"width" => $grid->width,
+				"type"  => $grid->content_type,
+				"name"  => $model->name,
 			];
 		}
-
-		//sort($list);
 
 		return $list;
 	}
@@ -283,6 +283,8 @@ class GridModel extends Model
 				$model->x = $item["x"];
 				$model->y = $item["y"];
 				$model->width = $item["width"];
+				$model->content_type = $item["type"];
+				$model->content_id = $item["id"];
 				if (!$model->save(false)) {
 					Db::rollbackTransaction();
 					return false;
@@ -373,21 +375,25 @@ class GridModel extends Model
 	public function getAllBlocksForGridWindow()
 	{
 		$list = [];
-		$typesList = self::getTypesList();
+		$typeList = self::getTypesList();
 
-		foreach ($typesList as $key => $value) {
-			$list[$key] = [
-				"name"   => $value["name"],
-				"class"  => $value["class"],
-				"blocks" => []
+		$models = TextModel::model()->ordered()->findAll();
+		if ($models) {
+			$list[] = [
+				"name"       => $typeList[self::TYPE_TEXT]["name"],
+				"isDisabled" => true,
+				"type"       => 0,
+				"id"         => 0,
 			];
+			foreach ($models as $model) {
+				$list[] = [
+					"name"       => $model->name,
+					"isDisabled" => false,
+					"type"       => self::TYPE_TEXT,
+					"id"         => $model->id,
+				];
+			}
 		}
-/**
-		$blocks = $this->ordered()->findAll();
-		foreach ($blocks as $block) {
-			$list[$block->content_type]["blocks"][$block->id] = $block->name;
-		}
- */
 
 		return $list;
 	}

@@ -97,6 +97,18 @@ abstract class Model
 	}
 
 	/**
+	 * @param string $order
+	 *
+	 * @return Model
+	 */
+	public function ordered()
+	{
+		$this->db->order = "t.name";
+
+		return $this;
+	}
+
+	/**
 	 * Добавляет в выборку все связи
 	 *
 	 * @return Model

@@ -10,7 +10,7 @@ function Grid(id) {
 	/**
 	 * Объект класса
 	 *
-	 * @type {Window}
+	 * @type {Grid}
 	 */
 	var t = this;
 
@@ -34,6 +34,8 @@ function Grid(id) {
 	 * @type {HTMLElement}
 	 */
 	this.container = null;
+
+	this.lineClone = null;
 
 	/**
 	 * Производит инициализацию окна
@@ -97,8 +99,6 @@ function Grid(id) {
 				$button.appendTo(t.window.find(".footer"));
 				$button.bind("click", t.submit);
 
-				t.showBlocks(data.blocks);
-
 				var $lineContainer = $('<div class="line-container"></div>');
 				$lineContainer.appendTo(t.container);
 				$lineContainer.sortable({
@@ -114,6 +114,8 @@ function Grid(id) {
 				t.window.find(".header").text(data.title).css("display", "block");
 				t.window.find(".footer").css("display", "block");
 
+				t.setLineCloneWithBlocks(data.blocks);
+
 				if (data.grid) {
 					t.parseGrid(data.grid, $lineContainer);
 				} else {
@@ -124,6 +126,21 @@ function Grid(id) {
 				$loaderWindow.remove();
 				$errors.find(".system").clone().appendTo(t.container);
 			}
+		});
+	};
+
+	this.setLineCloneWithBlocks = function(blocks) {
+		t.lineClone = $templates.find(".grid-stack-line").clone();
+		var $select = t.lineClone.find(".grid-stack-line-select-block");
+		$.each(blocks, function(i, item) {
+			var $option = $("<option></option>");
+			$option.html(item.name);
+			if (item.isDisabled === true) {
+				$option.attr("disabled", true);
+			}
+			$option.attr("data-id", item.id);
+			$option.attr("data-type", item.type);
+			$select.append($option);
 		});
 	};
 
@@ -142,76 +159,18 @@ function Grid(id) {
 	};
 
 	/**
-	 * Показывает блоки
-	 *
-	 * @param {object} blocks
-	 */
-	this.showBlocks = function (blocks) {
-		t.container.append('<div class="blocks"></div>');
-		var $blocks = t.container.find(".blocks");
-		$.each(blocks, function (id, params) {
-			$blocks.append('<h3>' + params.name + '</h3>');
-			$blocks.append('<div />');
-			var $last = $blocks.find("div").last();
-			$.each(params.blocks, function (id, name) {
-				var $block = $("<div/>");
-				$block.addClass("block");
-				$block.addClass("block-" + params.class);
-				$block.attr("data-name", name);
-				$block.attr("data-class", params.class);
-				$block.attr("data-id", id);
-				$block.text(name);
-				$block.appendTo($last);
-			});
-		});
-		$blocks.accordion({
-			heightStyle: "content"
-		});
-	};
-
-	/**
 	 * Выводит блоки в сетке
 	 *
 	 * @param {object} grid
 	 * @param {HTMLElement} $lineContainer
 	 */
 	this.parseGrid = function (grid, $lineContainer) {
-
 		$.each(grid, function (lineNumber, line) {
 			t.addLine($lineContainer);
 			$.each(line, function (i, item) {
-				t.addWidget(lineNumber, item.id, item.cssClass, item.x, item.y, item.width, item.name, false);
+				t.addWidget(lineNumber, item.id, item.type, item.x, item.y, item.width, item.name, false);
 			});
 		});
-	};
-
-	/**
-	 * Добавляет selectы для блоков для выбора линии
-	 */
-	this.appendSelect = function () {
-		$(".blocks .block").each(function () {
-			$(this).find("select").remove();
-			var select = '<select>';
-			select += '<option disabled selected> -- select line -- </option>';
-			for (i = 1; i < $(".grid-stack-line").length; i++) {
-				select += '<option>' + i + '</option>';
-			}
-			select += '</select>';
-			$(this).append(select);
-		});
-		$(".blocks .block select").bind("change", t.blockSelectLine);
-	};
-
-	/**
-	 * Выбор линии для блока
-	 */
-	this.blockSelectLine = function () {
-		var line = $(this).val();
-		var cssClass = $(this).parent().data("class");
-		var id = $(this).parent().data("id");
-		var name = $(this).parent().data("name");
-		$(this).val(0);
-		t.addWidget(line, id, cssClass, 0, 0, 3, name, true);
 	};
 
 	/**
@@ -219,24 +178,39 @@ function Grid(id) {
 	 *
 	 * @param {int} line
 	 * @param {int} id
-	 * @param {string} cssClass
+	 * @param {int} type
 	 * @param {int} x
 	 * @param {int} y
 	 * @param {int} width
 	 * @param {string} name
 	 * @param {boolean} isAutoPosition
 	 */
-	this.addWidget = function (line, id, cssClass, x, y, width, name, isAutoPosition) {
+	this.addWidget = function (line, id, type, x, y, width, name, isAutoPosition) {
 		var grid = $('.grid-stack-line:nth-child(' + line + ') .grid-stack').data('gridstack');
 		var $gridStackItem = $templates.find(".grid-stack-item").clone();
 		var $gridStackItemContent = $gridStackItem.find(".grid-stack-item-content");
-		$gridStackItemContent.addClass("grid-stack-item-content-" + cssClass);
+		$gridStackItemContent.addClass("grid-stack-item-content-" + type);
 		$gridStackItem.attr("data-id", id);
+		$gridStackItem.attr("data-type", type);
 		$gridStackItemContent.text(name);
 		grid.add_widget($gridStackItem, x, y, width, 1, isAutoPosition);
 
 		$gridStackItem.find(".remove").on("click", function () {
 			grid.remove_widget($gridStackItem);
+		});
+	};
+
+	this.setBlockSelectForLine = function($line) {
+		var $select = $line.find(".grid-stack-line-select-block");
+		$select.on("change", function () {
+			var line = parseInt($line.find(".grid-stack-line-header .title span").text());
+			var name = $(this).val();
+			var id = parseInt($(this).find(':selected').data('id'));
+			var type = parseInt($(this).find(':selected').data('type'));
+			if (id > 0 && type > 0) {
+				t.addWidget(line, id, type, 0, 0, 3, name, true);
+			}
+			$(this).val(0);
 		});
 	};
 
@@ -246,8 +220,9 @@ function Grid(id) {
 	 * @param {HTMLElement} $lineContainer
 	 */
 	this.addLine = function ($lineContainer) {
-		var $line = $templates.find(".grid-stack-line").clone();
+		var $line = t.lineClone.clone();
 		$line.appendTo($lineContainer);
+		t.setBlockSelectForLine($line);
 		$line.find(".remove").bind("click", t.removeLine);
 
 		$line.find('.grid-stack').gridstack({
@@ -281,7 +256,6 @@ function Grid(id) {
 		$(t.window).find(".grid-stack-line").each(function (id) {
 			$(this).find(".title span").text(id + 1);
 		});
-		t.appendSelect();
 	};
 
 	/**
@@ -298,6 +272,7 @@ function Grid(id) {
 				var node = $(this).data('_gridstack_node');
 				var item = {
 					id: $(this).data("id"),
+					type: $(this).data("type"),
 					x: node.x,
 					y: node.y,
 					width: node.width
@@ -323,6 +298,7 @@ function Grid(id) {
 			success: function (data) {
 				$loaderButton.remove();
 				$buttonSpan.css("opacity", 1);
+				t.close();
 			},
 			error: function (request, status, error) {
 				$loaderButton.remove();

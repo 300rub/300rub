@@ -3,13 +3,18 @@ use system\web\Language;
 ?>
 <div class="grid-stack-line">
 	<div class="grid-stack-line-header">
-		<div class="title"><?php echo Language::t("common", "Линия"); ?> <span></span></div>
-		<a href="#" class="remove">X</a>
+		<div class="title">
+			<?= Language::t("common", "Линия"); ?> <span></span>
+			<select class="grid-stack-line-select-block">
+				<option value="0" data-id="0" data-type="0"><?php echo Language::t("common", "добавить блок"); ?></option>
+			</select>
+		</div>
+		<a href="#" class="remove"><?= Language::t("common", "Удалить"); ?></a>
 	</div>
 	<div class="grid-stack"></div>
 </div>
 
-<a href="#" class="grid-stack-line-add window-footer-button"><?php echo Language::t(
+<a href="#" class="grid-stack-line-add window-footer-button"><?= Language::t(
 		"common",
 		"Добавить линию"
 	); ?></a>

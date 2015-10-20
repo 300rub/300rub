@@ -203,7 +203,7 @@ class SectionController extends Controller
 				"label"  => Language::t("common", "Сохранить"),
 				"action" => "section/saveGrid/{$model->id}"
 			],
-			"blocks" => BlockModel::model()->getAllBlocksForGridWindow(),
+			"blocks" => GridModel::model()->getAllBlocksForGridWindow(),
 			"grid"   => GridModel::model()->getAllGridsForGridWindow($model->id)
 		];
 

@@ -11,6 +11,7 @@ use system\base\Model;
  * @package models
  *
  * @method TextModel[] findAll
+ * @method TextModel ordered
  */
 class TextModel extends Model
 {
