@@ -202,12 +202,16 @@ class GridModel extends Model
 
 			$gridsList = [];
 			$right = 0;
+			$prevY = 0;
 			foreach ($grids as $grid) {
 				if (
 					$grid->x >= $borders[$i] / 2
 					&& $grid->x < $borders[$i + 1] / 2
 					&& $grid->width <= ($borders[$i + 1] - $borders[$i] + 1) / 2
 				) {
+					if ($grid->y > $prevY) {
+						$right = 0;
+					}
 					$gridsList[] = [
 						"model"  => $grid->getContentModel(),
 						"view"   => $grid->getContentView(),
@@ -216,6 +220,7 @@ class GridModel extends Model
 						"y"      => $grid->y,
 						"offset" => $grid->x - $borders[$i] / 2 - $right,
 					];
+					$prevY = $grid->y;
 					$right = $grid->x - $borders[$i] / 2 + $grid->width;
 				}
 			}
