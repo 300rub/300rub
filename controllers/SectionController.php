@@ -132,6 +132,19 @@ class SectionController extends Controller
 			],
 		];
 
+		if ($id) {
+			$this->json["duplicate"] = [
+				"label"  => Language::t("common", "Дублировать"),
+				"action" => "section/duplicate/{$model->id}"
+			];
+			$this->json["delete"] = [
+				"label"    => Language::t("common", "Удалить"),
+				"action"   => "section/delete/{$model->id}",
+				"confirm"  => Language::t("common", "Вы действительно хотите удалить раздел?"),
+				"cssClass" => "section-{$id}"
+			];
+		}
+
 		if ($model->is_main) {
 			$forms =
 				[

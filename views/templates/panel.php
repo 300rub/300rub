@@ -8,6 +8,8 @@
 				<span></span>
 			</div>
 			<div class="description"></div>
+			<a href="#" class="duplicate"></a>
+			<a href="#" class="delete"></a>
 		</div>
 		<div class="container"></div>
 		<div class="footer"></div>

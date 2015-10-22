@@ -165,12 +165,45 @@ function Panel (params) {
 					$add.appendTo(t.panel.find(".footer"));
 					$add.bind("click", t.loadNewPanel);
 				}
+
+				if (data.duplicate != undefined) {
+					t.panel.find(".duplicate")
+						.css("display", "block")
+						.text(data.duplicate.label)
+						.attr("data-action", data.duplicate.action)
+						.bind("click", t.duplicate);
+				}
+
+				if (data.delete != undefined) {
+					t.panel.find(".delete")
+						.css("display", "block")
+						.text(data.delete.label)
+						.attr("data-action", data.delete.action)
+						.attr("data-confirm", data.delete.confirm)
+						.attr("data-css", data.delete.cssClass)
+						.bind("click", t.delete);
+				}
 			},
 			error: function (request, status, error) {
 				$loaderPanel.remove();
 				$errors.find(".system").clone().appendTo($container);
 			}
 		});
+	};
+
+	this.duplicate = function() {
+
+	};
+
+	this.delete = function() {
+		var message = $(this).data("confirm");
+		var css = $(this).data("css");
+
+		if (confirm(message) === true) {
+			$("." + css).remove();
+		}
+
+		return false;
 	};
 
 	/**

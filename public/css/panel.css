@@ -262,3 +262,17 @@
 .panel .container .form-container {
 	margin: 15px;
 }
+
+.panel .duplicate {
+	position: absolute;
+	left: 15px;
+	bottom: 5px;
+	display: none;
+}
+
+.panel .delete {
+	position: absolute;
+	right: 15px;
+	bottom: 5px;
+	display: none;
+}
