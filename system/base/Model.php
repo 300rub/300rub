@@ -299,11 +299,6 @@ abstract class Model
 			return false;
 		}
 
-		$data = [];
-		foreach ($this->rules() as $field => $value) {
-			$data[$field] = $this->$field;
-		}
-
 		if ($this->id) {
 			if (!Db::update($this)) {
 				if ($useTransaction) {

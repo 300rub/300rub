@@ -8,7 +8,7 @@
 <script>
 	var SECTION_ID = <?= $sectionId ?>;
 </script>
-<?php foreach ($structure["lines"] as $lineNumber => $gridContainers) { ?>
+<?php if (!empty($structure["lines"])) { foreach ($structure["lines"] as $lineNumber => $gridContainers) { ?>
 	<div class="line-<?= $lineNumber ?>">
 		<div class="container" style="width: <?= $structure["width"] ?>">
 			<div class="row">
@@ -39,4 +39,4 @@
 			</div>
 		</div>
 	</div>
-<?php } ?>
+<?php } } ?>

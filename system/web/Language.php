@@ -17,7 +17,7 @@ class Language
 	 *
 	 * @var int
 	 */
-	public static $activeId = 1;
+	public static $activeId = 0;
 
 	/**
 	 * Идентификатор русского языка

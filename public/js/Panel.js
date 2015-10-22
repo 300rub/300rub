@@ -62,8 +62,10 @@ function Panel (params) {
 				t.panel.find(".footer").css("display", "block");
 
 				if (data.back != undefined) {
-					var $back = t.panel.find(".title .back");
-					$back.css("display", "inline-block").attr("data-content", data.back).bind("click", t.back);;
+					t.panel.find(".title .back")
+						.css("display", "inline-block")
+						.attr("data-content", data.back)
+						.bind("click", t.loadNewPanel);
 				}
 
 				if (data.list != undefined) {
@@ -154,6 +156,15 @@ function Panel (params) {
 					$button.appendTo(t.panel.find(".footer"));
 					$button.bind("click", t.submit);
 				}
+
+				if (data.add != undefined) {
+					var $add = $forms.find(".button").clone();
+					$add.find("span").text(data.add.label);
+					$add.attr("data-content", data.add.content);
+					$add.addClass("footer-button");
+					$add.appendTo(t.panel.find(".footer"));
+					$add.bind("click", t.loadNewPanel);
+				}
 			},
 			error: function (request, status, error) {
 				$loaderPanel.remove();
@@ -175,7 +186,7 @@ function Panel (params) {
 		return false;
 	};
 
-	this.back = function() {
+	this.loadNewPanel = function() {
 		var content = $(this).data("content");
 
 		(new Panel({

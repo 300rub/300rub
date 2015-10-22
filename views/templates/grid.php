@@ -14,7 +14,7 @@ use system\web\Language;
 	<div class="grid-stack"></div>
 </div>
 
-<a href="#" class="grid-stack-line-add window-footer-button"><?= Language::t(
+<a href="#" class="grid-stack-line-add footer-button"><?= Language::t(
 		"common",
 		"Добавить линию"
 	); ?></a>

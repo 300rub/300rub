@@ -90,6 +90,10 @@ class SectionController extends Controller
 					"settings" => "section/settings",
 				],
 			],
+			"add"         => [
+				"label"   => Language::t("common", "Добавить"),
+				"content" => "section/settings",
+			],
 			"errors"      => [],
 		];
 
@@ -111,6 +115,7 @@ class SectionController extends Controller
 			$model = SectionModel::model()->byId($id)->with(["seoModel"])->find();
 		} else {
 			$model = new SectionModel;
+			$model->seoModel = new SeoModel();
 		}
 
 		if (!$model) {
@@ -181,6 +186,7 @@ class SectionController extends Controller
 			$model = SectionModel::model()->byId($id)->with(["seoModel"])->find();
 		} else {
 			$model = new SectionModel;
+			$model->language = Language::$activeId;
 			$model->seoModel = new SeoModel();
 		}
 
