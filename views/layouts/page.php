@@ -19,7 +19,7 @@ use system\App;
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 
 	<script>
-		var LANG = "<?php echo Language::getActiveAlias(); ?>";
+		var LANG = "<?= Language::getActiveAlias() ?>";
 	</script>
 
 	<link href='/css/fonts/myriad-pro.css' rel='stylesheet' type='text/css'>

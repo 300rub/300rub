@@ -48,6 +48,11 @@ class Web extends Application
 	public $isMobile = false;
 
 	/**
+	 * @var int
+	 */
+	public $sectionId = 0;
+
+	/**
 	 * Запускает команду
 	 *
 	 * @return void

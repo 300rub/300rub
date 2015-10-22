@@ -57,6 +57,16 @@ class SectionModel extends Model
 	public $seoModel = null;
 
 	/**
+	 * Типы форм для полей
+	 *
+	 * @var array
+	 */
+	public $formTypes = [
+		"is_main"  => "checkbox",
+		"width"    => "field",
+	];
+
+	/**
 	 * Получает название связной таблицы
 	 *
 	 * @return string
@@ -88,7 +98,10 @@ class SectionModel extends Model
 	 */
 	public function labels()
 	{
-		return [];
+		return [
+			"is_main" => Language::t("common", "сделать главным"),
+			"width"   => Language::t("common", "Ширина"),
+		];
 	}
 
 	/**
@@ -189,7 +202,7 @@ class SectionModel extends Model
 	{
 		if ($this->width == 0) {
 			return self::DEFAULT_WIDTH . "px";
-		} else if ($this->width < 100) {
+		} else if ($this->width <= 100) {
 			return "{$this->width}%";
 		}
 		return "{$this->width}px";

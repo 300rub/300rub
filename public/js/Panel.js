@@ -56,10 +56,15 @@ function Panel (params) {
 			},
 			success: function (data) {
 				$loaderPanel.remove();
-				t.panel.find(".title").text(data.title);
+				t.panel.find(".title span").text(data.title);
 				t.panel.find(".description").text(data.description);
 				t.panel.find(".header").css("display", "block");
 				t.panel.find(".footer").css("display", "block");
+
+				if (data.back != undefined) {
+					var $back = t.panel.find(".title .back");
+					$back.css("display", "inline-block").attr("data-content", data.back).bind("click", t.back);;
+				}
 
 				if (data.list != undefined) {
 					var itemTemplate = $templates.find(".panel-item").clone();
@@ -69,7 +74,7 @@ function Panel (params) {
 					if (data.list.content != undefined) {
 						t.panel.attr("data-content", data.list.content);
 					}
-					if (data.list.icons.big === true) {
+					if (data.list.icons.big !== false) {
 						itemTemplate.addClass("with-icon");
 					}
 					if (data.list.icons.design !== false) {
@@ -85,11 +90,21 @@ function Panel (params) {
 					}
 
 					$.each(data.list.items, function (i, item) {
-						var clone = itemTemplate.clone();
-						clone.attr("data-id", item.id);
-						clone.attr("data-content", item.content);
-						clone.find(".label").text(item.label);
-						clone.appendTo(t.panel.find(".container"));
+						var $clone = itemTemplate.clone();
+
+						if (item.icon != undefined) {
+							$clone.addClass("with-icon");
+							$clone.find(".big-icon").addClass("big-icon-" + item.icon);
+						}
+						if ($clone.hasClass("panel-item-grid") && parseInt(item.id) == parseInt(SECTION_ID)) {
+							$clone.addClass("with-icon");
+							$clone.find(".big-icon").addClass("big-icon-section-active");
+						}
+
+						$clone.attr("data-id", item.id);
+						$clone.attr("data-content", item.content);
+						$clone.find(".label").text(item.label);
+						$clone.appendTo(t.panel.find(".container"));
 					});
 
 					t.panel.find(".panel-item").bind("click", t.showItem);
@@ -108,7 +123,9 @@ function Panel (params) {
 
 				if (data.design != undefined) {
 					var $close = t.panel.find(".close");
+					var $back = t.panel.find(".back");
 					$close.off();
+					$back.off();
 					$.each(data.design, function (i, params) {
 						var designObject = new Design(params.id, params.type, params.title, params.values);
 						var $design = designObject.get();
@@ -117,9 +134,13 @@ function Panel (params) {
 							$close.on("click", function() {
 								designObject.reset();
 							});
+							$back.on("click", function() {
+								designObject.reset();
+							});
 						}
 					});
 					$close.bind("click", t.close);
+					$back.bind("click", t.back);
 				}
 
 				if (data.button != undefined) {
@@ -150,6 +171,19 @@ function Panel (params) {
 		$ajaxWrapper.find(".panel").remove();
 		$panelButtons.find("a").removeClass("panel-button-half").removeClass("panel-button-active");
 		$("#sections-button").attr("class", "");
+
+		return false;
+	};
+
+	this.back = function() {
+		var content = $(this).data("content");
+
+		(new Panel({
+			name: t.panel.data("name"),
+			content: content
+		})).init();
+
+		t.panel.remove();
 
 		return false;
 	};

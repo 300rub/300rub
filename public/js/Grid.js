@@ -296,9 +296,13 @@ function Grid(id) {
 				$buttonSpan.css("opacity", 0);
 			},
 			success: function (data) {
-				$loaderButton.remove();
-				$buttonSpan.css("opacity", 1);
-				t.close();
+				if (parseInt(t.id) == parseInt(SECTION_ID)) {
+					location.reload();
+				} else {
+					$loaderButton.remove();
+					$buttonSpan.css("opacity", 1);
+					t.close();
+				}
 			},
 			error: function (request, status, error) {
 				$loaderButton.remove();

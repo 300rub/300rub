@@ -3,8 +3,10 @@
 
 	<form action="" method="post">
 		<div class="header">
-			<div class="back"></div>
-			<div class="title"></div>
+			<div class="title">
+				<a href="#" class="back">←</a>
+				<span></span>
+			</div>
 			<div class="description"></div>
 		</div>
 		<div class="container"></div>

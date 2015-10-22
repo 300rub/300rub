@@ -1,9 +1,13 @@
 <?php
 /**
  * @var \controllers\SectionController $this
- * @var array $structure
+ * @var array                          $structure
+ * @var int                            $sectionId
  */
 ?>
+<script>
+	var SECTION_ID = <?= $sectionId ?>;
+</script>
 <?php foreach ($structure["lines"] as $lineNumber => $gridContainers) { ?>
 	<div class="line-<?= $lineNumber ?>">
 		<div class="container" style="width: <?= $structure["width"] ?>">
@@ -23,7 +27,8 @@
 										$y = $grid["y"]; ?>
 										<div class="clear"></div>
 									<?php } ?>
-									<div class="col-<?php echo $grid["col"]; ?> col-offset-<?= $grid["offset"]; ?> <?= $grid["class"] ?>">
+									<div
+										class="col-<?php echo $grid["col"]; ?> col-offset-<?= $grid["offset"]; ?> <?= $grid["class"] ?>">
 										<?php $this->renderPartial($grid["view"], ["model" => $grid["model"]]); ?>
 									</div>
 								<?php } ?>

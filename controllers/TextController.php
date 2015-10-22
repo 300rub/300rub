@@ -32,6 +32,7 @@ class TextController extends Controller
 		}
 
 		$this->json = [
+			"back"        => "block/panelList",
 			"title"       => Language::t("common", "Тексты"),
 			"description" => Language::t(
 				"common",
@@ -127,6 +128,7 @@ class TextController extends Controller
 		}
 
 		$this->json = [
+			"back"        => "text/panelList",
 			"title"       => Language::t("common", "Дизайн текстового блока"),
 			"description" => Language::t("common", "123"),
 			"button"      => [
@@ -194,6 +196,7 @@ class TextController extends Controller
 		}
 
 		$this->json = [
+			"back"        => "text/panelList",
 			"title"       => Language::t("common", "Настройки текста"),
 			"description" => Language::t("common", "333"),
 			"button"      => [

@@ -55,7 +55,7 @@ class SectionController extends Controller
 			throw new Exception(Language::t("default", "Раздел не найден"), 404);
 		}
 
-		$this->render("index", ["structure" => GridModel::model()->getStructure($model)]);
+		$this->render("index", ["sectionId" => $model->id, "structure" => GridModel::model()->getStructure($model)]);
 	}
 
 	public function actionPanelList()
@@ -64,10 +64,14 @@ class SectionController extends Controller
 		$models = SectionModel::model()->ordered()->findAll();
 
 		foreach ($models as $model) {
-			$items[] = [
+			$item = [
 				"label" => $model->seoModel->name,
 				"id"    => $model->id
 			];
+			if ($model->is_main) {
+				$item["icon"] = "section-main";
+			}
+			$items[] = $item;
 		}
 
 		$this->json = [
@@ -114,6 +118,7 @@ class SectionController extends Controller
 		}
 
 		$this->json = [
+			"back"        => "section/panelList",
 			"title"       => Language::t("common", "Настройки раздела"),
 			"description" => Language::t("common", "Здесь вы можете редактировать название и СЕО"),
 			"button"      => [
@@ -121,10 +126,30 @@ class SectionController extends Controller
 				"action" => "section/saveSettings/{$model->id}"
 			],
 		];
-		$this->setFormsForJson(
-			$model,
-			["seoModel.name", "seoModel.url", "seoModel.title", "seoModel.keywords", "seoModel.description"]
-		);
+
+		if ($model->is_main) {
+			$forms =
+				[
+					"seoModel.name",
+					"seoModel.url",
+					"t.width",
+					"seoModel.title",
+					"seoModel.keywords",
+					"seoModel.description"
+				];
+		} else {
+			$forms =
+				[
+					"seoModel.name",
+					"seoModel.url",
+					"t.is_main",
+					"t.width",
+					"seoModel.title",
+					"seoModel.keywords",
+					"seoModel.description"
+				];
+		}
+		$this->setFormsForJson($model, $forms);
 
 		$this->renderJson();
 	}

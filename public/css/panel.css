@@ -32,6 +32,11 @@
 	padding: 10px 30px 10px 20px;
 }
 
+.panel .header .title a {
+	text-decoration: none;
+	display: none;
+}
+
 .panel .header .description {
 	font-size: 14px;
 	font-weight: 300;
@@ -232,7 +237,7 @@
 	display: none;
 }
 
-.panel .container .panel-item .big-icon {
+.panel .big-icon {
 	position: absolute;
 	left: -41px;
 	top: 50%;
@@ -244,6 +249,12 @@
 	-webkit-border-radius: 5px;
 	-moz-border-radius: 5px;
 	border-radius: 5px;
+}
+
+.panel .big-icon-section-active {
+	-webkit-border-radius: 50%;
+	-moz-border-radius: 50%;
+	border-radius: 50%;
 }
 
 .panel .container .with-icon .big-icon {
