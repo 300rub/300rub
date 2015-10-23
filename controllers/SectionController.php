@@ -54,7 +54,10 @@ class SectionController extends Controller
 		if (!$model) {
 			$this->render("empty");
 		} else {
-			$this->render("index", ["sectionId" => $model->id, "structure" => GridModel::model()->getStructure($model)]);
+			$this->render(
+				"index",
+				["sectionId" => $model->id, "structure" => GridModel::model()->getStructure($model)]
+			);
 		}
 	}
 
@@ -135,8 +138,9 @@ class SectionController extends Controller
 
 		if ($id) {
 			$this->json["duplicate"] = [
-				"label"  => Language::t("common", "Дублировать"),
-				"action" => "section/duplicate/{$model->id}"
+				"label"   => Language::t("common", "Дублировать"),
+				"action"  => "section/duplicate/{$model->id}",
+				"content" => "section/settings",
 			];
 			$this->json["delete"] = [
 				"label"    => Language::t("common", "Удалить"),
@@ -293,6 +297,21 @@ class SectionController extends Controller
 		}
 
 		$this->json = $model->delete();
+		$this->renderJson();
+	}
+
+	public function actionDuplicate($id)
+	{
+		if (!$id) {
+			throw new Exception(Language::t("common", "Некорректный идентификатор"), 404);
+		}
+
+		$model = SectionModel::model()->byId($id)->with(["seoModel"])->find();
+		if (!$model) {
+			throw new Exception(Language::t("default", "Раздел не найден"), 404);
+		}
+
+		$this->json = $model->duplicate();
 		$this->renderJson();
 	}
 }

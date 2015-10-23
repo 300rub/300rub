@@ -171,6 +171,7 @@ function Panel (params) {
 						.css("display", "block")
 						.text(data.duplicate.label)
 						.attr("data-action", data.duplicate.action)
+						.attr("data-content", data.duplicate.content)
 						.bind("click", t.duplicate);
 				}
 
@@ -193,15 +194,47 @@ function Panel (params) {
 	};
 
 	this.duplicate = function() {
+		var $loaderDuplicate = $loader.clone();
+		var action = $(this).data("action");
+		var content = $(this).data("content");
+		var $container = t.panel.find(".container");
 
+		$.ajax({
+			url: "/ajax/" + LANG + "/" + action + "/",
+			dataType: "json",
+			beforeSend: function (data) {
+				$loaderDuplicate.appendTo(t.panel.find(".header"));
+			},
+			success: function (data) {
+				$loaderDuplicate.remove();
+				if (data === false) {
+					$container.text("");
+					$errors.find(".system").clone().appendTo($container);
+				} else {
+					(new Panel({
+						name: t.panel.data("name"),
+						content: content + "/" + data
+					})).init();
+
+					t.panel.remove();
+				}
+			},
+			error: function (request, status, error) {
+				$loaderDuplicate.remove();
+				$container.text("");
+				$errors.find(".system").clone().appendTo($container);
+			}
+		});
+
+		return false;
 	};
 
 	this.delete = function() {
+		var $loaderDelete = $loader.clone();
 		var message = $(this).data("confirm");
 		var css = $(this).data("css");
 		var action = $(this).data("action");
 		var content = $(this).data("content");
-		var $loaderDelete = $loader.clone();
 		var $container = t.panel.find(".container");
 
 		if (confirm(message) === true) {
@@ -213,7 +246,7 @@ function Panel (params) {
 				},
 				success: function (data) {
 					$loaderDelete.remove();
-					if (data.success === false) {
+					if (data === false) {
 						$container.text("");
 						$errors.find(".system").clone().appendTo($container);
 					} else {

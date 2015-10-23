@@ -276,3 +276,8 @@
 	bottom: 5px;
 	display: none;
 }
+
+.panel .header .loader {
+	top: auto;
+	bottom: 5px;
+}

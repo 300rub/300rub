@@ -167,4 +167,19 @@ class SeoModel extends Model
 
 		return $this;
 	}
+
+	public function duplicate($useTransaction = true)
+	{
+		$seoModel = clone $this;
+		$seoModel->id = null;
+		$seoModel->name .= " " . Language::t("common", "(копия)");
+		$seoModel->url .= "-copy" . rand(1000, 100000);
+		$seoModel->title = "";
+		$seoModel->keywords = "";
+		$seoModel->description = "";
+
+		$seoModel->save($useTransaction);
+
+		return $seoModel->id;
+	}
 }

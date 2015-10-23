@@ -2,6 +2,7 @@
 
 namespace models;
 
+use system\db\Db;
 use system\web\Language;
 use system\base\Model;
 
@@ -260,5 +261,40 @@ class SectionModel extends Model
 		}
 
 		return parent::afterDelete();
+	}
+
+	public function duplicate()
+	{
+		Db::startTransaction();
+
+		$seoId = $this->seoModel->duplicate(false);
+		if (!$seoId) {
+			Db::rollbackTransaction();
+			return false;
+		}
+
+		$model = clone $this;
+		$model->id = null;
+		$model->seoModel = null;
+		$model->seo_id = $seoId;
+		$model->is_main = 0;
+		if (!$model->save(false)) {
+			Db::rollbackTransaction();
+			return false;
+		}
+
+		$grids = GridModel::model()->bySectionId($this->id)->findAll();
+		foreach ($grids as $grid) {
+			$newGrid = clone $grid;
+			$newGrid->id = null;
+			$newGrid->section_id = $model->id;
+			if (!$newGrid->save(false)) {
+				Db::rollbackTransaction();
+				return false;
+			}
+		}
+
+		Db::commitTransaction();
+		return $model->id;
 	}
 }
