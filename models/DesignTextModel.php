@@ -156,22 +156,10 @@ class DesignTextModel extends Model
 	 * @var array
 	 */
 	public static $textAlignList = [
-		self::TEXT_ALIGN_LEFT    => [
-			"value" => "left",
-			"label" => "L"
-		],
-		self::TEXT_ALIGN_CENTER  => [
-			"value" => "center",
-			"label" => "C"
-		],
-		self::TEXT_ALIGN_RIGHT   => [
-			"value" => "right",
-			"label" => "R"
-		],
-		self::TEXT_ALIGN_JUSTIFY => [
-			"value" => "justify",
-			"label" => "J"
-		],
+		self::TEXT_ALIGN_LEFT    => "left",
+		self::TEXT_ALIGN_CENTER  => "center",
+		self::TEXT_ALIGN_RIGHT   => "right",
+		self::TEXT_ALIGN_JUSTIFY => "justify",
 	];
 
 	const TEXT_DECORATION_NONE = 0;
@@ -185,19 +173,19 @@ class DesignTextModel extends Model
 	public static $textDecorationList = [
 		self::TEXT_DECORATION_NONE    => [
 			"value" => "none",
-			"label" => "Х"
+			"label" => ""
 		],
 		self::TEXT_DECORATION_UNDERLINE  => [
 			"value" => "underline",
-			"label" => "__"
+			"label" => "T"
 		],
 		self::TEXT_DECORATION_LINE_THROUGH   => [
 			"value" => "line-through",
-			"label" => "--"
+			"label" => "T"
 		],
 		self::TEXT_DECORATION_OVERLINE => [
 			"value" => "overline",
-			"label" => "``"
+			"label" => "T"
 		],
 	];
 
@@ -212,7 +200,7 @@ class DesignTextModel extends Model
 	public static $textTransformList = [
 		self::TEXT_TRANSFORM_NONE    => [
 			"value" => "none",
-			"label" => "Х"
+			"label" => ""
 		],
 		self::TEXT_TRANSFORM_UPPERCASE  => [
 			"value" => "uppercase",
@@ -384,7 +372,7 @@ class DesignTextModel extends Model
 	public function getTextAlign()
 	{
 		if (array_key_exists($this->align, self::$textAlignList)) {
-			return self::$textAlignList[$this->align]["value"];
+			return self::$textAlignList[$this->align];
 		}
 
 		return "";

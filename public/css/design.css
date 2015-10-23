@@ -18,8 +18,42 @@
 	position: absolute;
 	display: none;
 }
-.design-font-selector {
-	width: 200px;
+.design-selector-container {
+	position: relative;
+}
+.design-selector-container span {
+	width: 16px;
+	height: 16px;
+	position: absolute;
+	background: url(../img/common/icons_small.png) -16px -16px;
+	top: 50%;
+	margin-top: -8px;
+	right: 10px;
+	pointer-events: none;
+}
+.design-selector {
+	display: block;
+	width: 100%;
+	height: 34px;
+	color: #333;
+	font-size: 16px;
+	font-weight: 400;
+	padding-left: 16px;
+	padding-right: 32px;
+	text-align: left;
+	background: white;
+	border: 1px solid #d6d6d6;
+	border-radius: 4px;
+	outline: 0;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	white-space: nowrap;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+}
+.design-selector:focus {
+	border-color: #0088cc;
 }
 .cp-color-picker {
 	z-index: 100;
@@ -33,28 +67,37 @@
 	z-index: 1;
 	display: none;
 }
-.design-checkbox-container,
-.design-radio-container,
-.design-radio-group {
-	display: inline-block;
-}
 .design-button-label {
-	width: 24px;
-	height: 24px;
+	width: 32px;
+	height: 32px;
 	display: inline-block;
-	-webkit-border-radius: 5px;
-	-moz-border-radius: 5px;
-	border-radius: 5px;
-	background: #ccc;
 	cursor: pointer;
 	text-align: center;
-	line-height: 24px;
+	line-height: 32px;
+	border: 1px solid #c4c4c4;
+	color: #8d8d8d;
+	font-size: 16px;
+	background: #ffffff; /* Old browsers */
+	background: -moz-linear-gradient(top,  #ffffff 0%, #ededed 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffffff), color-stop(100%,#ededed)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top,  #ffffff 0%,#ededed 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top,  #ffffff 0%,#ededed 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top,  #ffffff 0%,#ededed 100%); /* IE10+ */
+	background: linear-gradient(to bottom,  #ffffff 0%,#ededed 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ededed',GradientType=0 ); /* IE6-9 */
+}
+.design-button-label:hover {
+	color: #19a0e9;
 }
 .design-checkbox:checked + .design-button-label {
-	background: #777;
+	color: #454545;
+	background: #fff;
+	box-shadow: inset 0 2px 2px 0 rgba(0, 0, 0, 0.3);
 }
 .design-radio:checked + .design-button-label {
-	background: #777;
+	color: #454545;
+	background: #fff;
+	box-shadow: inset 0 2px 2px 0 rgba(0, 0, 0, 0.3);
 }
 .design-color-gradient {
 	width: 130px;
@@ -68,4 +111,60 @@
 .design-border-style {
 	font-size: 12px;
 	width: 80px;
+}
+.button-group-container {
+	display: inline-block;
+	height: 32px;
+	overflow: hidden;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	border: 1px solid #c4c4c4;
+}
+.button-group-container .design-checkbox-container,
+.button-group-container .design-radio-container {
+	float: left;
+	margin: -1px;
+}
+.button-group-container label span {
+	background: url(../img/common/big_icons.png) 0 0 no-repeat;
+	width: 32px;
+	height: 32px;
+	display: block;
+}
+.button-group-container .design-text-align-left span {
+	background-position: 0 -64px;
+}
+.button-group-container .design-text-align-left:hover span {
+	background-position: 0 -96px;
+}
+.button-group-container .design-radio:checked + .design-text-align-left span {
+	background-position: 0 -128px;
+}
+.button-group-container .design-text-align-center span {
+	background-position: -32px -64px;
+}
+.button-group-container .design-text-align-center:hover span {
+	background-position: -32px -96px;
+}
+.button-group-container .design-radio:checked + .design-text-align-center span {
+	background-position: -32px -128px;
+}
+.button-group-container .design-text-align-right span {
+	background-position: -64px -64px;
+}
+.button-group-container .design-text-align-right:hover span {
+	background-position: -64px -96px;
+}
+.button-group-container .design-radio:checked + .design-text-align-right span {
+	background-position: -64px -128px;
+}
+.button-group-container .design-text-align-justify span {
+	background-position: -96px -64px;
+}
+.button-group-container .design-text-align-justify:hover span {
+	background-position: -96px -96px;
+}
+.button-group-container .design-radio:checked + .design-text-align-justify span {
+	background-position: -96px -128px;
 }
