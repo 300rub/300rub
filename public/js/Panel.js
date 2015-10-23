@@ -181,6 +181,7 @@ function Panel (params) {
 						.attr("data-action", data.delete.action)
 						.attr("data-confirm", data.delete.confirm)
 						.attr("data-css", data.delete.cssClass)
+						.attr("data-content", data.delete.content)
 						.bind("click", t.delete);
 				}
 			},
@@ -198,9 +199,44 @@ function Panel (params) {
 	this.delete = function() {
 		var message = $(this).data("confirm");
 		var css = $(this).data("css");
+		var action = $(this).data("action");
+		var content = $(this).data("content");
+		var $loaderDelete = $loader.clone();
+		var $container = t.panel.find(".container");
 
 		if (confirm(message) === true) {
-			$("." + css).remove();
+			$.ajax({
+				url: "/ajax/" + LANG + "/" + action + "/",
+				dataType: "json",
+				beforeSend: function (data) {
+					$loaderDelete.appendTo(t.panel.find(".header"));
+				},
+				success: function (data) {
+					$loaderDelete.remove();
+					if (data.success === false) {
+						$container.text("");
+						$errors.find(".system").clone().appendTo($container);
+					} else {
+						if (css === "section-" + SECTION_ID) {
+							window.location.replace("/" + LANG + "/");
+						} else {
+							$("." + css).remove();
+
+							(new Panel({
+								name: t.panel.data("name"),
+								content: content
+							})).init();
+
+							t.panel.remove();
+						}
+					}
+				},
+				error: function (request, status, error) {
+					$loaderDelete.remove();
+					$container.text("");
+					$errors.find(".system").clone().appendTo($container);
+				}
+			});
 		}
 
 		return false;

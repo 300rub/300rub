@@ -14,6 +14,7 @@ use system\base\Model;
  * @method SectionModel   find
  * @method SectionModel[] findAll
  * @method SectionModel   with($relations)
+ * @method SectionModel   exceptId($id)
  */
 class SectionModel extends Model
 {
@@ -145,9 +146,15 @@ class SectionModel extends Model
 			$this->db->addCondition("seoModel.url = :url");
 			$this->db->params["url"] = $url;
 		} else {
-			$this->db->addCondition("t.is_main = 1");
+			$this->selectMain();
 		}
 
+		return $this;
+	}
+
+	public function selectMain()
+	{
+		$this->db->addCondition("t.is_main = 1");
 		return $this;
 	}
 
@@ -192,6 +199,10 @@ class SectionModel extends Model
 			return false;
 		}
 
+		if (!$this->is_main && !$this->selectMain()->find()) {
+			$this->is_main = 1;
+		}
+
 		return parent::beforeSave();
 	}
 
@@ -206,5 +217,48 @@ class SectionModel extends Model
 			return "{$this->width}%";
 		}
 		return "{$this->width}px";
+	}
+
+	/**
+	 * @return bool
+	 */
+	protected function beforeDelete()
+	{
+		$models = GridModel::model()->bySectionId($this->id)->findAll();
+		foreach ($models as $model) {
+			if (!$model->delete(false)) {
+				return false;
+			}
+		}
+
+		if ($this->is_main) {
+			$model = self::model()->exceptId($this->id)->find();
+			if ($model) {
+				$model->is_main = 1;
+				if (!$model->save(false)) {
+					return false;
+				}
+			}
+		}
+
+		return parent::beforeDelete();
+	}
+
+	/**
+	 * @return bool
+	 */
+	protected function afterDelete()
+	{
+		if (!$this->seoModel) {
+			$this->seoModel = SeoModel::model()->byId($this->seo_id)->find();
+			if (!$this->seoModel) {
+				return false;
+			}
+		}
+		if (!$this->seoModel->delete(false)) {
+			return false;
+		}
+
+		return parent::afterDelete();
 	}
 }

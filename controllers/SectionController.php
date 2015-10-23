@@ -52,10 +52,10 @@ class SectionController extends Controller
 	{
 		$model = SectionModel::model()->byUrl($section)->find();
 		if (!$model) {
-			throw new Exception(Language::t("default", "Раздел не найден"), 404);
+			$this->render("empty");
+		} else {
+			$this->render("index", ["sectionId" => $model->id, "structure" => GridModel::model()->getStructure($model)]);
 		}
-
-		$this->render("index", ["sectionId" => $model->id, "structure" => GridModel::model()->getStructure($model)]);
 	}
 
 	public function actionPanelList()
@@ -115,6 +115,7 @@ class SectionController extends Controller
 			$model = SectionModel::model()->byId($id)->with(["seoModel"])->find();
 		} else {
 			$model = new SectionModel;
+			$model->width = SectionModel::DEFAULT_WIDTH;
 			$model->seoModel = new SeoModel();
 		}
 
@@ -141,7 +142,8 @@ class SectionController extends Controller
 				"label"    => Language::t("common", "Удалить"),
 				"action"   => "section/delete/{$model->id}",
 				"confirm"  => Language::t("common", "Вы действительно хотите удалить раздел?"),
-				"cssClass" => "section-{$id}"
+				"cssClass" => "section-{$id}",
+				"content"  => "section/panelList",
 			];
 		}
 
@@ -276,6 +278,21 @@ class SectionController extends Controller
 
 		$data = App::getPost("data");
 		$this->json = GridModel::model()->updateGridForSection($model->id, $data);;
+		$this->renderJson();
+	}
+
+	public function actionDelete($id)
+	{
+		if (!$id) {
+			throw new Exception(Language::t("common", "Некорректный идентификатор"), 404);
+		}
+
+		$model = SectionModel::model()->byId($id)->with(["seoModel"])->find();
+		if (!$model) {
+			throw new Exception(Language::t("default", "Раздел не найден"), 404);
+		}
+
+		$this->json = $model->delete();
 		$this->renderJson();
 	}
 }

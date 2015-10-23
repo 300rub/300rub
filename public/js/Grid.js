@@ -296,7 +296,7 @@ function Grid(id) {
 				$buttonSpan.css("opacity", 0);
 			},
 			success: function (data) {
-				if (parseInt(t.id) == parseInt(SECTION_ID)) {
+				if (parseInt(t.id) == parseInt(SECTION_ID) || parseInt(SECTION_ID) == 0) {
 					location.reload();
 				} else {
 					$loaderButton.remove();

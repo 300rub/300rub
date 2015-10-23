@@ -97,6 +97,19 @@ abstract class Model
 	}
 
 	/**
+	 * @param int $id идентификатор
+	 *
+	 * @return Model
+	 */
+	public function exceptId($id)
+	{
+		$this->db->addCondition("t.id != :id");
+		$this->db->params["id"] = $id;
+
+		return $this;
+	}
+
+	/**
 	 * @param string $order
 	 *
 	 * @return Model
