@@ -19,7 +19,8 @@ class BlockController extends Controller
 
 		$items[] = [
 			"label"   => Language::t("common", "Текст"),
-			"content" => "text/panelList"
+			"content" => "text/panelList",
+			"icon"    => "text"
 		];
 
 		$this->json = [

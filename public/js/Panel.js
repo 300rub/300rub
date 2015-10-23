@@ -78,6 +78,7 @@ function Panel (params) {
 					}
 					if (data.list.icons.big !== false) {
 						itemTemplate.addClass("with-icon");
+						itemTemplate.find(".big-icon").addClass("big-icon-" + data.list.icons.big);
 					}
 					if (data.list.icons.design !== false) {
 						itemTemplate.find("a.design").css("display", "block");

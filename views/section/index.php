@@ -9,7 +9,7 @@
 		var SECTION_ID = <?= $sectionId ?>;
 	</script>
 <?php if (!empty($structure["lines"])) { ?>
-	<div class="section-<?= $sectionId ?>">
+	<div class="section-container section-<?= $sectionId ?>">
 		<?php foreach ($structure["lines"] as $lineNumber => $gridContainers) { ?>
 			<div class="line-<?= $lineNumber ?>">
 				<div class="container" style="width: <?= $structure["width"] ?>">

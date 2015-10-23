@@ -188,6 +188,7 @@
 	position: relative;
 	border-bottom: 1px solid #cdcdcd;
 	cursor: pointer;
+	line-height: 18px;
 }
 .panel .container .panel-item:last-child {
 	border: 0;
@@ -244,11 +245,29 @@
 	margin-top: -16px;
 	width: 32px;
 	height: 32px;
-	background: #32a0d4;
 	display: none;
 	-webkit-border-radius: 5px;
 	-moz-border-radius: 5px;
 	border-radius: 5px;
+	background-image: url(../img/common/big_icons.jpg);
+	background-repeat: no-repeat;
+	background-position: 0 0;
+}
+
+.panel .big-icon-section-main {
+	background-position: 0 -32px;
+}
+
+.panel .big-icon-text {
+	background-position: -32px 0;
+}
+
+.panel .big-icon-section-active {
+	background-position: -32px -32px;
+}
+
+.panel .big-icon-section-main.big-icon-section-active {
+	background-position: -64px -32px;
 }
 
 .panel .container .with-icon .big-icon {

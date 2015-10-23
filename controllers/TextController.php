@@ -43,7 +43,7 @@ class TextController extends Controller
 				"items"   => $items,
 				"content" => "text/window",
 				"icons"   => [
-					"big"      => true,
+					"big"      => "text",
 					"design"   => "text/design",
 					"settings" => "text/settings",
 				],

@@ -98,6 +98,10 @@ h1, h2, h3, adress, mark, code {
 	background: none;
 }
 
+#wrapper, .section-container {
+	min-height: 100%;
+}
+
 #login-button, #logout-button {
 	position: fixed;
 	width: 60px;
