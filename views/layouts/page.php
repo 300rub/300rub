@@ -30,6 +30,7 @@ use system\App;
 		<link rel="stylesheet"
 			  href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
 		<link href='/css/lib/gridstack.min.css' rel='stylesheet' type='text/css'>
+		<link href='/css/lib/colorpicker/jquery.colorpicker.css' rel='stylesheet' type='text/css'>
 		<link href='/css/admin.css' rel='stylesheet' type='text/css'>
 		<link href='/css/panel.css' rel='stylesheet' type='text/css'>
 		<link href='/css/grid.css' rel='stylesheet' type='text/css'>
@@ -45,7 +46,7 @@ use system\App;
 		<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
 		<script src="/js/lib/lodash.min.js"></script>
 		<script src="/js/lib/gridstack.min.js"></script>
-		<script src="/js/lib/jqColorPicker.min.js"></script>
+		<script src="/js/lib/jquery.colorpicker.js"></script>
 		<script src="/js/lib/tinymce/tinymce.jquery.min.js"></script>
 		<script src="/js/Grid.js"></script>
 		<script src="/js/Panel.js"></script>

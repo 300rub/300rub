@@ -2,13 +2,23 @@
 
 return [
 	"css" => [
-		"gridstack.min.css" => "troolee/gridstack/dist/gridstack.min.css",
+		"gridstack.min.css"                      => "troolee/gridstack/dist/gridstack.min.css",
+		"colorpicker/jquery.colorpicker.css"     => "vanderlee/colorpicker/jquery.colorpicker.css",
+		"colorpicker/images/bar.png"             => "vanderlee/colorpicker/images/bar.png",
+		"colorpicker/images/bar-alpha.png"       => "vanderlee/colorpicker/images/bar-alpha.png",
+		"colorpicker/images/bar-opacity.png"     => "vanderlee/colorpicker/images/bar-opacity.png",
+		"colorpicker/images/bar-pointer.png"     => "vanderlee/colorpicker/images/bar-pointer.png",
+		"colorpicker/images/map.png"             => "vanderlee/colorpicker/images/map.png",
+		"colorpicker/images/map-opacity.png"     => "vanderlee/colorpicker/images/map-opacity.png",
+		"colorpicker/images/map-pointer.png"     => "vanderlee/colorpicker/images/map-pointer.png",
+		"colorpicker/images/preview-opacity.png" => "vanderlee/colorpicker/images/preview-opacity.png",
+		"colorpicker/images/ui-colorpicker.png"  => "vanderlee/colorpicker/images/ui-colorpicker.png",
 	],
 	"js"  => [
 		"lodash.min.js"                              => "lodash/lodash/lodash.min.js",
 		"gridstack.min.js"                           => "troolee/gridstack/dist/gridstack.min.js",
 		"gridstack.min.map"                          => "troolee/gridstack/dist/gridstack.min.map",
-		"jqColorPicker.min.js"                       => "PitPik/tinyColorPicker/jqColorPicker.min.js",
+		"jquery.colorpicker.js"                      => "vanderlee/colorpicker/jquery.colorpicker.js",
 		"tinymce/tinymce.jquery.min.js"              => "tinymce/tinymce/tinymce.jquery.min.js",
 		"tinymce/themes/modern/theme.min.js"         => "tinymce/tinymce/themes/modern/theme.min.js",
 		"tinymce/skins/lightgray/skin.min.css"       => "tinymce/tinymce/skins/lightgray/skin.min.css",

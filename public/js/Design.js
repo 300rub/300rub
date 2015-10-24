@@ -15,7 +15,6 @@ function Design(id, type, title, values) {
 	this.get = function () {
 		t.editor = $templates.find(".design-" + t.type + "-editor").clone();
 		t.editor.attr("data-id", t.id);
-		t.editor.find(".design-editor-title").text(t.title);
 		t.object = $(".design-" + t.type + "-" + t.id);
 
 		if (t.type === "text") {
@@ -34,13 +33,41 @@ function Design(id, type, title, values) {
 		return t.editor;
 	};
 
+	this.setColorPicker = function() {
+		var $picker = t.editor.find(".color-color-picker");
+		$picker.colorpicker({
+			alpha: true,
+			colorFormat: 'RGBA',
+			buttonColorize: true,
+			showOn:         'both',
+			buttonImage:		'/img/common/color_picker_btn.png',
+			buttonImageOnly:	true,
+			position: {
+				my: 'center',
+				at: 'center',
+				of: window
+			},
+
+			parts:          'full',
+			init: function(event, color) {
+				t.object.css("color", color.formatted);
+			},
+			select: function(event, color) {
+				t.object.css("color", color.formatted);
+			}
+
+		});
+	};
+
 	this.setText = function () {
 		t.setSpinner(t.values.size.name, t.values.size.value, "font-size", 4, "px");
 		t.setSpinner(t.values.letter_spacing.name, t.values.letter_spacing.value, "letter-spacing", -10, "px");
 		t.setSpinner(t.values.line_height.name, t.values.line_height.value, "line-height", 10, "%");
 
+		t.setColorPicker();
+
 		t.setFont(t.values.family.name, t.values.family.value);
-		t.setColor(t.values.color.name, t.values.color.value, "color");
+		//t.setColor(t.values.color.name, t.values.color.value, "color");
 		t.setCheckbox(t.values.is_bold.name, t.values.is_bold.value, "font-weight", "bold", "normal");
 		t.setCheckbox(t.values.is_italic.name, t.values.is_italic.value, "font-style", "italic", "normal");
 		t.setRadio(t.values.align.name, t.values.align.value, "text-align");
@@ -86,13 +113,13 @@ function Design(id, type, title, values) {
 		t.setVerticalSlider(t.values.padding_right.name, t.values.padding_right.value, "padding-right", 0, 200, "px");
 		t.setVerticalSlider(t.values.padding_bottom.name, t.values.padding_bottom.value, "padding-bottom", 0, 200, "px");
 		t.setVerticalSlider(t.values.padding_left.name, t.values.padding_left.value, "padding-left", 0, 200, "px");
-		t.setColor(t.values.background_color.name, t.values.background_color.value, "background-color");
-		t.setColor(t.values.background.name, t.values.background.value, "background");
-		t.setGradientDirection(t.values.gradient_direction.name, t.values.gradient_direction.value);
-		t.setColor(t.values.border_top_color.name, t.values.border_top_color.value, "border-top-color");
-		t.setColor(t.values.border_right_color.name, t.values.border_right_color.value, "border-right-color");
-		t.setColor(t.values.border_bottom_color.name, t.values.border_bottom_color.value, "border-bottom-color");
-		t.setColor(t.values.border_left_color.name, t.values.border_left_color.value, "border-left-color");
+		//t.setColor(t.values.background_color.name, t.values.background_color.value, "background-color");
+		//t.setColor(t.values.background.name, t.values.background.value, "background");
+		//t.setGradientDirection(t.values.gradient_direction.name, t.values.gradient_direction.value);
+		//t.setColor(t.values.border_top_color.name, t.values.border_top_color.value, "border-top-color");
+		//t.setColor(t.values.border_right_color.name, t.values.border_right_color.value, "border-right-color");
+		//t.setColor(t.values.border_bottom_color.name, t.values.border_bottom_color.value, "border-bottom-color");
+		//t.setColor(t.values.border_left_color.name, t.values.border_left_color.value, "border-left-color");
 		t.setVerticalSlider(
 			t.values.border_top_width.name,
 			t.values.border_top_width.value,

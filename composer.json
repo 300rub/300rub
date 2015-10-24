@@ -2,8 +2,8 @@
   "require": {
     "troolee/gridstack": "dev-master",
     "lodash/lodash": "dev-master",
-    "PitPik/tinyColorPicker": "dev-master",
-    "tinymce/tinymce": "dev-master"
+    "tinymce/tinymce": "dev-master",
+    "vanderlee/colorpicker": "dev-master"
   },
   "repositories": [
     {
@@ -33,11 +33,11 @@
     {
       "type": "package",
       "package": {
-        "name": "PitPik/tinyColorPicker",
+        "name": "vanderlee/colorpicker",
         "version": "dev-master",
         "source": {
           "type": "git",
-          "url": "https://github.com/PitPik/tinyColorPicker",
+          "url": "https://github.com/vanderlee/colorpicker",
           "reference": "master"
         }
       }

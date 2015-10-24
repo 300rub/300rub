@@ -17,6 +17,33 @@
 	outline: 0;
 }
 
+*::-webkit-scrollbar {
+	-webkit-appearance: none;
+	width: 10px;
+	height: 10px;
+}
+
+*::-webkit-scrollbar-thumb {
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	background-color: #81cdff;
+	box-shadow: inset 0 0 0 1px #75c7fe;
+	border: 1px solid #eee;
+	padding: 2px;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+	background-color: #35aeff;
+}
+
+*::-webkit-scrollbar-track-piece {
+	background-color: #f0f0f0;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+}
+
 body {
 	font-weight: 400;
 	font-family: "MyriadPro", "Lucida Grande", "Helvetica Neue", "Helvetica", "Arial", "Verdana", "sans-serif";
