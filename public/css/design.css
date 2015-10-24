@@ -67,6 +67,7 @@
 	z-index: 1;
 	display: none;
 }
+
 .design-button-label {
 	width: 32px;
 	height: 32px;
@@ -78,13 +79,13 @@
 	color: #8d8d8d;
 	font-size: 16px;
 	background: #ffffff; /* Old browsers */
-	background: -moz-linear-gradient(top,  #ffffff 0%, #ededed 100%); /* FF3.6+ */
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffffff), color-stop(100%,#ededed)); /* Chrome,Safari4+ */
-	background: -webkit-linear-gradient(top,  #ffffff 0%,#ededed 100%); /* Chrome10+,Safari5.1+ */
-	background: -o-linear-gradient(top,  #ffffff 0%,#ededed 100%); /* Opera 11.10+ */
-	background: -ms-linear-gradient(top,  #ffffff 0%,#ededed 100%); /* IE10+ */
-	background: linear-gradient(to bottom,  #ffffff 0%,#ededed 100%); /* W3C */
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ededed',GradientType=0 ); /* IE6-9 */
+	background: -moz-linear-gradient(top,  #ffffff 0%, #ededed 100%);
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffffff), color-stop(100%,#ededed));
+	background: -webkit-linear-gradient(top,  #ffffff 0%,#ededed 100%);
+	background: -o-linear-gradient(top,  #ffffff 0%,#ededed 100%);
+	background: -ms-linear-gradient(top,  #ffffff 0%,#ededed 100%);
+	background: linear-gradient(to bottom,  #ffffff 0%,#ededed 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ededed',GradientType=0 );
 }
 .design-button-label:hover {
 	color: #19a0e9;
@@ -167,4 +168,39 @@
 }
 .button-group-container .design-radio:checked + .design-text-align-justify span {
 	background-position: -96px -128px;
+}
+
+.design-spinner-container {
+	display: inline-block;
+}
+
+.design-spinner-container input {
+	min-height: 24px;
+	height: auto;
+	padding: 0 5px;
+	color: #333;
+	text-align: left;
+	background: #fff;
+	font-size: 15px;
+	width: 50px;
+	float: left;
+}
+.ui-spinner {
+	border: 1px solid #d6d6d6;
+	-webkit-border-radius: 0 4px 4px 0;
+	-moz-border-radius: 0 4px 4px 0;
+	border-radius: 0 4px 4px 0;
+}
+.design-spinner-container label {
+	float: left;
+	width: 32px;
+	height: 32px;
+	-webkit-border-radius: 4px 0 0 4px;
+	-moz-border-radius: 4px 0 0 4px;
+	border-radius: 4px 0 0 4px;
+	border: 1px solid #d6d6d6;
+	border-right: 0;
+}
+.design-spinner-font-size-container label {
+	background: url(../img/common/big_icons.png) -64px 0 no-repeat;
 }

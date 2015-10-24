@@ -27,27 +27,18 @@ function Design(id, type, title, values) {
 
 		t.editor.find(".design-reset").bind("click", t.reset);
 
+
+
+
+
 		return t.editor;
 	};
 
 	this.setText = function () {
-		t.setVerticalSlider(t.values.size.name, t.values.size.value, "font-size", 6, 200, "px");
-		t.setVerticalSlider(
-			t.values.letter_spacing.name,
-			t.values.letter_spacing.value,
-			"letter-spacing",
-			-10,
-			40,
-			"px"
-		);
-		t.setVerticalSlider(
-			t.values.line_height.name,
-			t.values.line_height.value,
-			"line-height",
-			10,
-			300,
-			"%"
-		);
+		t.setSpinner(t.values.size.name, t.values.size.value, "font-size", 4, "px");
+		t.setSpinner(t.values.letter_spacing.name, t.values.letter_spacing.value, "letter-spacing", -10, "px");
+		t.setSpinner(t.values.line_height.name, t.values.line_height.value, "line-height", 10, "%");
+
 		t.setFont(t.values.family.name, t.values.family.value);
 		t.setColor(t.values.color.name, t.values.color.value, "color");
 		t.setCheckbox(t.values.is_bold.name, t.values.is_bold.value, "font-weight", "bold", "normal");
@@ -220,6 +211,27 @@ function Design(id, type, title, values) {
 		}
 
 		return false;
+	};
+
+	this.setSpinner = function(name, value, cssAttr, min, cssEnd) {
+		var $spinner = t.editor.find(".design-spinner-" + cssAttr + "-container");
+		var $value = $spinner.find("input");
+		$value.val(value);
+		$value.attr("name", name);
+		$value.attr("id", "design-spinner-" + cssAttr + t.id);
+		$spinner.find("label").attr('for', "design-spinner-" + cssAttr + t.id);
+		$spinner.find("span").text(cssEnd);
+
+		$value.spinner({
+			min: min,
+			spin: function( event, ui ) {
+				t.object.css(cssAttr, ui.value + cssEnd);
+			}
+		});
+
+		$value.on("keyup", function() {
+			t.object.css(cssAttr, $(this).val() + cssEnd);
+		});
 	};
 
 	this.checkAndUpdateJointVerticalSliders = function (oldValue, value, cssEnd, joint) {

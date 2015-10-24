@@ -60,6 +60,8 @@ class DesignTextModel extends Model
 	 */
 	public $line_height;
 
+	const DEFAULT_LINE_HEIGHT = 140;
+
 	const FAMILY_MYRAD = 0;
 	const FAMILY_ARIAL = 1;
 	const FAMILY_ARIAL_BLACK = 2;
@@ -311,7 +313,7 @@ class DesignTextModel extends Model
 			$this->letter_spacing = 0;
 		}
 		if (!$this->line_height) {
-			$this->line_height = 100;
+			$this->line_height = self::DEFAULT_LINE_HEIGHT;
 		}
 	}
 
