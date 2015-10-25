@@ -33,41 +33,116 @@ function Design(id, type, title, values) {
 		return t.editor;
 	};
 
-	this.setColorPicker = function() {
-		var $picker = t.editor.find(".color-color-picker");
-		$picker.colorpicker({
+	this.setBackgroundColor = function (nameFrom, nameTo, valueFrom, valueTo, nameDirection, valueDirection) {
+		var $from = t.editor.find(".color-background-from-picker");
+		$from.attr("name", nameFrom).val(valueFrom);
+		var $to = t.editor.find(".color-background-to-picker");
+		$to.attr("name", nameTo).val(valueTo);
+
+		var value = "to right";
+		var $direction = t.editor.find(".design-direction-radio-group");
+		$direction.find(".design-radio").each(function () {
+			$(this).attr("name", nameDirection);
+			var id = nameDirection + "-" + $(this).attr("value");
+			$(this).attr("id", id);
+			$(this).parent().find(".design-button-label").attr("for", id);
+			if (parseInt($(this).attr("value")) == parseInt(valueDirection)) {
+				$(this).attr("checked", true);
+			}
+		});
+		$direction.find("input[type=radio]").on("change", function () {
+			value = $(this).data("value");
+			if ($from.val() != "" && $to.val() != "") {
+				t.object.css("background", "linear-gradient(" + value + ", " + $from.val() + " 0%, " + $to.val() + " 100%)");
+			}
+		});
+
+		t.editor.find(".design-background-clear").on("click", function() {
+			$from.val("");
+			$from.parent().find("img").css("background", "none");
+			$to.val("");
+			$to.parent().find("img").css("background", "none");
+			$direction.find('.design-radio[value="0"]').prop('checked', true);
+			t.object.css("background", "none");
+			value = "to right";
+
+			return false;
+		});
+
+		$from.colorpicker({
 			alpha: true,
 			colorFormat: 'RGBA',
 			buttonColorize: true,
-			showOn:         'both',
-			buttonImage:		'/img/common/color_picker_btn.png',
-			buttonImageOnly:	true,
+			showOn: 'both',
+			buttonImage: '/img/common/color_picker_btn.png',
+			buttonImageOnly: true,
 			position: {
 				my: 'center',
 				at: 'center',
 				of: window
 			},
-
-			parts:          'full',
-			init: function(event, color) {
-				t.object.css("color", color.formatted);
-			},
-			select: function(event, color) {
-				t.object.css("color", color.formatted);
+			parts: 'full',
+			select: function (event, color) {
+				if ($to.val() == "") {
+					t.object.css("background", color.formatted);
+				} else {
+					t.object.css("background", "linear-gradient(" + value + ", " + color.formatted + " 0%, " + $to.val() + " 100%)");
+				}
 			}
-
 		});
+
+		$to.colorpicker({
+			alpha: true,
+			colorFormat: 'RGBA',
+			buttonColorize: true,
+			showOn: 'both',
+			buttonImage: '/img/common/color_picker_btn.png',
+			buttonImageOnly: true,
+			position: {
+				my: 'center',
+				at: 'center',
+				of: window
+			},
+			parts: 'full',
+			select: function (event, color) {
+				if ($from.val() == "") {
+					t.object.css("background", color.formatted);
+				} else {
+					t.object.css("background", "linear-gradient(" + value + ", " + $from.val() + " 0%, " + color.formatted + " 100%)");
+				}
+			}
+		});
+	};
+
+	this.setColorPicker = function (name, value, cssAttr) {
+		t.editor.find(".color-" + cssAttr + "-picker")
+			.attr("name", name)
+			.val(value)
+			.colorpicker({
+				alpha: true,
+				colorFormat: 'RGBA',
+				buttonColorize: true,
+				showOn: 'both',
+				buttonImage: '/img/common/color_picker_btn.png',
+				buttonImageOnly: true,
+				position: {
+					my: 'center',
+					at: 'center',
+					of: window
+				},
+				parts: 'full',
+				select: function (event, color) {
+					t.object.css(cssAttr, color.formatted);
+				}
+			});
 	};
 
 	this.setText = function () {
 		t.setSpinner(t.values.size.name, t.values.size.value, "font-size", 4, "px");
 		t.setSpinner(t.values.letter_spacing.name, t.values.letter_spacing.value, "letter-spacing", -10, "px");
 		t.setSpinner(t.values.line_height.name, t.values.line_height.value, "line-height", 10, "%");
-
-		t.setColorPicker();
-
+		t.setColorPicker(t.values.color.name, t.values.color.value, "color");
 		t.setFont(t.values.family.name, t.values.family.value);
-		//t.setColor(t.values.color.name, t.values.color.value, "color");
 		t.setCheckbox(t.values.is_bold.name, t.values.is_bold.value, "font-weight", "bold", "normal");
 		t.setCheckbox(t.values.is_italic.name, t.values.is_italic.value, "font-style", "italic", "normal");
 		t.setRadio(t.values.align.name, t.values.align.value, "text-align");
@@ -237,15 +312,15 @@ function Design(id, type, title, values) {
 
 		t.setRadio(t.values.border_style.name, t.values.border_style.value, "border-style");
 
-		//t.setColor(t.values.background_color.name, t.values.background_color.value, "background-color");
-		//t.setColor(t.values.background.name, t.values.background.value, "background");
-		//t.setGradientDirection(t.values.gradient_direction.name, t.values.gradient_direction.value);
-		//t.setColor(t.values.border_top_color.name, t.values.border_top_color.value, "border-top-color");
-		//t.setColor(t.values.border_right_color.name, t.values.border_right_color.value, "border-right-color");
-		//t.setColor(t.values.border_bottom_color.name, t.values.border_bottom_color.value, "border-bottom-color");
-		//t.setColor(t.values.border_left_color.name, t.values.border_left_color.value, "border-left-color");
-
-		t.editor.find(".design-background-reset").bind("click", t.backgroundReset);
+		t.setColorPicker(t.values.border_color.name, t.values.border_color.value, "border-color");
+		t.setBackgroundColor(
+			t.values.background_color_from.name,
+			t.values.background_color_to.name,
+			t.values.background_color_from.value,
+			t.values.background_color_to.value,
+			t.values.gradient_direction.name,
+			t.values.gradient_direction.value
+		);
 	};
 
 	this.resetBlock = function () {
@@ -291,23 +366,23 @@ function Design(id, type, title, values) {
 
 	this.setSpinner = function(name, value, cssAttr, min, cssEnd) {
 		var $spinner = t.editor.find(".design-spinner-" + cssAttr + "-container");
-		var $value = $spinner.find("input");
-		$value.val(value);
-		$value.attr("name", name);
-		$value.attr("id", "design-spinner-" + cssAttr + t.id);
 		$spinner.find("label").attr('for', "design-spinner-" + cssAttr + t.id);
 		$spinner.find("span").text(cssEnd);
 
-		$value.spinner({
-			min: min,
-			spin: function( event, ui ) {
-				t.object.css(cssAttr, ui.value + cssEnd);
-			}
-		});
-
-		$value.on("keyup", function() {
-			t.object.css(cssAttr, $(this).val() + cssEnd);
-		});
+		$spinner.find("input")
+			.val(value)
+			.attr("name", name)
+			.attr("id", "design-spinner-" + cssAttr + t.id)
+			.forceNumericOnly()
+			.spinner({
+				min: min,
+				spin: function (event, ui) {
+					t.object.css(cssAttr, ui.value + cssEnd);
+				}
+			})
+			.on("keyup", function () {
+				t.object.css(cssAttr, $(this).val() + cssEnd);
+			});
 	};
 
 	this.checkAndUpdateJointVerticalSliders = function (oldValue, value, cssEnd, joint) {

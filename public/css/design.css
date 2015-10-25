@@ -468,4 +468,25 @@
 
 .design-line-border-style-color {
 	margin: 15px 0 0 0;
+	overflow: visible;
+	height: 32px;
+}
+
+.design-line-background .design-color-picker-container {
+	float: left;
+}
+.design-line-background .color-background-arrow {
+	float: left;
+	line-height: 32px;
+	color: #8d8d8d;
+	font-size: 20px;
+}
+
+.design-direction-radio-group {
+	float: left;
+}
+
+.design-background-clear {
+	float: right;
+	line-height: 32px;
 }

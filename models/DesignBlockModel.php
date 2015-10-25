@@ -53,12 +53,12 @@ class DesignBlockModel extends Model
 	/**
 	 * @var string
 	 */
-	public $background_color;
+	public $background_color_from;
 
 	/**
 	 * @var string
 	 */
-	public $background;
+	public $background_color_to;
 
 	/**
 	 * @var int
@@ -131,7 +131,8 @@ class DesignBlockModel extends Model
 			"oLinear"      => "left",
 			"msLinear"     => "left",
 			"linear"       => "to right",
-			"ie"           => 1
+			"ie"           => 1,
+			"label"        => "→"
 		],
 		self::GRADIENT_DIRECTION_VERTICAL   => [
 			"mozLinear"    => "top",
@@ -140,7 +141,8 @@ class DesignBlockModel extends Model
 			"oLinear"      => "top",
 			"msLinear"     => "top",
 			"linear"       => "to bottom",
-			"ie"           => 0
+			"ie"           => 0,
+			"label"        => "↓"
 		],
 		self::GRADIENT_DIRECTION_135DEG     => [
 			"mozLinear"    => "-45deg",
@@ -149,7 +151,8 @@ class DesignBlockModel extends Model
 			"oLinear"      => "-45deg",
 			"msLinear"     => "-45deg",
 			"linear"       => "135deg",
-			"ie"           => 1
+			"ie"           => 1,
+			"label"        => "↘"
 		],
 		self::GRADIENT_DIRECTION_45DEG      => [
 			"mozLinear"    => "45deg",
@@ -158,7 +161,8 @@ class DesignBlockModel extends Model
 			"oLinear"      => "45deg",
 			"msLinear"     => "45deg",
 			"linear"       => "45deg",
-			"ie"           => 1
+			"ie"           => 1,
+			"label"        => "↗"
 		],
 	];
 
@@ -203,8 +207,8 @@ class DesignBlockModel extends Model
 			"padding_right"              => [],
 			"padding_bottom"             => [],
 			"padding_left"               => [],
-			"background_color"           => [],
-			"background"                 => [],
+			"background_color_from"      => [],
+			"background_color_to"        => [],
 			"gradient_direction"         => [],
 			"border_top_width"           => [],
 			"border_top_left_radius"     => [],
@@ -279,11 +283,11 @@ class DesignBlockModel extends Model
 		if (!$this->padding_left) {
 			$this->padding_left = 0;
 		}
-		if (!$this->background_color) {
-			$this->background_color = "";
+		if (!$this->background_color_from) {
+			$this->background_color_from = "";
 		}
-		if (!$this->background) {
-			$this->background = "";
+		if (!$this->background_color_to) {
+			$this->background_color_to = "";
 		}
 		if (!$this->gradient_direction) {
 			$this->gradient_direction = 0;
@@ -360,13 +364,13 @@ class DesignBlockModel extends Model
 				"name"  => "Data[{$name}.padding_left]",
 				"value" => $this->padding_left
 			],
-			"background_color"           => [
-				"name"  => "Data[{$name}.background_color]",
-				"value" => $this->background_color
+			"background_color_from"      => [
+				"name"  => "Data[{$name}.background_color_from]",
+				"value" => $this->background_color_from
 			],
-			"background"                 => [
-				"name"  => "Data[{$name}.background]",
-				"value" => $this->background
+			"background_color_to"        => [
+				"name"  => "Data[{$name}.background_color_to]",
+				"value" => $this->background_color_to
 			],
 			"gradient_direction"         => [
 				"name"  => "Data[{$name}.gradient_direction]",

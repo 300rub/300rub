@@ -12,21 +12,21 @@ if ($model->padding_top || $model->padding_right || $model->padding_bottom || $m
 	echo " padding: {$model->padding_top}px {$model->padding_right}px {$model->padding_bottom}px {$model->padding_left}px;";
 }
 
-if ($model->background_color && !$model->background) {
-	echo " background-color: {$model->background_color};";
-} elseif ($model->background && !$model->background_color) {
-	echo " background-color: {$model->background};";
-} elseif ($model->background_color && $model->background) {
+if ($model->background_color_from && !$model->background_color_to) {
+	echo " background-color: {$model->background_color_from};";
+} elseif ($model->background_color_to && !$model->background_color_from) {
+	echo " background-color: {$model->background_color_to};";
+} elseif ($model->background_color_from && $model->background_color_to) {
 	$gradientDirections = $model->getGradientDirections();
 	echo "
-	background: {$model->background_color};
-	background: -moz-linear-gradient({$gradientDirections["mozLinear"]}, {$model->background_color} 0%, {$model->background} 100%);
-	background: -webkit-gradient({$gradientDirections["webkit"]}, color-stop(0%, {$model->background_color}), color-stop(100%, {$model->background}));
-	background: -webkit-linear-gradient({$gradientDirections["webkitLinear"]}, {$model->background_color} 0%, {$model->background} 100%);
-	background: -o-linear-gradient({$gradientDirections["oLinear"]}, {$model->background_color} 0%, {$model->background} 100%);
-	background: -ms-linear-gradient({$gradientDirections["msLinear"]}, {$model->background_color} 0%, {$model->background} 100%);
-	background: linear-gradient({$gradientDirections["linear"]}, {$model->background_color} 0%, {$model->background} 100%);
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='{$model->background_color}', endColorstr='{$model->background}',GradientType={$gradientDirections["ie"]});
+	background: {$model->background_color_from};
+	background: -moz-linear-gradient({$gradientDirections["mozLinear"]}, {$model->background_color_from} 0%, {$model->background_color_to} 100%);
+	background: -webkit-gradient({$gradientDirections["webkit"]}, color-stop(0%, {$model->background_color_from}), color-stop(100%, {$model->background_color_to}));
+	background: -webkit-linear-gradient({$gradientDirections["webkitLinear"]}, {$model->background_color_from} 0%, {$model->background_color_to} 100%);
+	background: -o-linear-gradient({$gradientDirections["oLinear"]}, {$model->background_color_from} 0%, {$model->background_color_to} 100%);
+	background: -ms-linear-gradient({$gradientDirections["msLinear"]}, {$model->background_color_from} 0%, {$model->background_color_to} 100%);
+	background: linear-gradient({$gradientDirections["linear"]}, {$model->background_color_from} 0%, {$model->background_color_to} 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='{$model->background_color_from}', endColorstr='{$model->background_color_to}',GradientType={$gradientDirections["ie"]});
 	";
 }
 
