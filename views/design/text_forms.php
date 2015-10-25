@@ -6,6 +6,7 @@ use models\DesignTextModel;
 
 <div class="design-editor design-text-editor">
 	<div class="design-group-container">
+		<div class="design-group-title"><?= Language::t("common", "Текстовые стили") ?></div>
 		<div class="design-line">
 			<div class="design-selector-container">
 				<select class="design-font-selector design-selector">

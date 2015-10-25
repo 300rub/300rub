@@ -117,7 +117,7 @@ class DesignTextModel extends Model
 		],
 		self::FAMILY_LUCIDA_GRANDE => [
 			"class" => "font-family-lucida-grande",
-			"name"  => "Lucida Sans Unicode, Lucida Grande"
+			"name"  => "Lucida Sans Unicode"
 		],
 		self::FAMILY_PALATINO      => [
 			"class" => "font-family-palatino",

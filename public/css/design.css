@@ -3,7 +3,9 @@
 	-webkit-border-radius: 5px;
 	-moz-border-radius: 5px;
 	border-radius: 5px;
-	margin: 10px;
+	margin: 15px 10px;
+	position: relative;
+	padding-top: 5px;
 }
 
 .design-line {
@@ -21,12 +23,15 @@
 	text-align: center;
 }
 
-.design-slider {
-	height: 200px;
-	margin-left: 10px;
-	z-index: 2;
+.design-group-title {
+	background: #fff;
 	position: absolute;
-	display: none;
+	top: -7px;
+	left: 10px;
+	font-size: 14px;
+	line-height: 14px;
+	padding: 0 5px;
+	color: #8d8d8d;
 }
 
 .design-selector-container {
@@ -94,7 +99,7 @@
 	border: 1px solid #c4c4c4;
 	color: #8d8d8d;
 	font-size: 16px;
-	background: #ffffff; /* Old browsers */
+	background: #ffffff;
 	background: -moz-linear-gradient(top, #ffffff 0%, #ededed 100%);
 	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #ffffff), color-stop(100%, #ededed));
 	background: -webkit-linear-gradient(top, #ffffff 0%, #ededed 100%);
@@ -305,4 +310,162 @@
 
 .design-spinner-font-size-container {
 	float: left;
+}
+
+.design-angles-container {
+	position: relative;
+	padding: 15px 10px 10px 10px;
+}
+
+.design-angles-container div input {
+	width: 30px;
+}
+
+.design-angles-top-left {
+	position: absolute;
+	left: 10px;
+	top: 18px;
+}
+
+.design-angles-top-right {
+	position: absolute;
+	right: 10px;
+	top: 18px;
+}
+
+.design-angles-bottom-left {
+	position: absolute;
+	left: 10px;
+	top: 52px;
+}
+
+.design-angles-bottom-right {
+	position: absolute;
+	right: 10px;
+	top: 52px;
+}
+
+.design-angles-result-wrapper {
+	min-height: 60px;
+}
+
+.design-angles-result-container {
+	width: 100px;
+	margin: 0 auto 10px auto;
+	overflow: hidden;
+}
+
+.design-angles-result-container .design-angles-result {
+	width: auto;
+	height: 60px;
+}
+
+.design-angles-container label, .design-angles-container label input {
+	vertical-align: middle;
+	line-height: 16px;
+}
+
+.design-angles-margin-container .design-angles-result-container {
+	border: 1px solid #ccc;
+}
+
+.design-angles-margin-container .design-angles-result {
+	border: 2px solid #8d8d8d;
+	height: 58px;
+	background: #ffffff;
+	background: -moz-linear-gradient(top, #ffffff 0%, #ededed 100%);
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #ffffff), color-stop(100%, #ededed));
+	background: -webkit-linear-gradient(top, #ffffff 0%, #ededed 100%);
+	background: -o-linear-gradient(top, #ffffff 0%, #ededed 100%);
+	background: -ms-linear-gradient(top, #ffffff 0%, #ededed 100%);
+	background: linear-gradient(to bottom, #ffffff 0%, #ededed 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#ededed', GradientType=0);
+}
+
+.design-angles-padding-container .design-angles-result-container {
+	border: 1px solid #ccc;
+	background: #ffffff;
+	background: -moz-linear-gradient(top, #ffffff 0%, #ededed 100%);
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #ffffff), color-stop(100%, #ededed));
+	background: -webkit-linear-gradient(top, #ffffff 0%, #ededed 100%);
+	background: -o-linear-gradient(top, #ffffff 0%, #ededed 100%);
+	background: -ms-linear-gradient(top, #ffffff 0%, #ededed 100%);
+	background: linear-gradient(to bottom, #ffffff 0%, #ededed 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#ededed', GradientType=0);
+}
+
+.design-angles-padding-container .design-angles-result {
+	border: 2px solid #8d8d8d;
+	height: 58px;
+}
+
+.design-angles-border-radius-container .design-angles-result {
+	border: 2px solid #8d8d8d;
+	height: 58px;
+}
+
+.design-angles-border-container .design-angles-result {
+	border: 0 solid #8d8d8d;
+	height: 58px;
+	background: #ffffff;
+	background: -moz-linear-gradient(top, #ffffff 0%, #ededed 100%);
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #ffffff), color-stop(100%, #ededed));
+	background: -webkit-linear-gradient(top, #ffffff 0%, #ededed 100%);
+	background: -o-linear-gradient(top, #ffffff 0%, #ededed 100%);
+	background: -ms-linear-gradient(top, #ffffff 0%, #ededed 100%);
+	background: linear-gradient(to bottom, #ffffff 0%, #ededed 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#ededed', GradientType=0);
+}
+
+.button-group-container .design-border-style-solid span {
+	width: 20px;
+	height: 16px;
+	margin: 0 auto;
+	border-bottom: 2px solid #8d8d8d;
+}
+
+.button-group-container .design-border-style-solid:hover span {
+	border-color: #19a0e9;
+}
+
+.button-group-container .design-radio:checked + .design-border-style-solid span {
+	border-color: #454545;
+}
+
+.button-group-container .design-border-style-dotted span {
+	width: 20px;
+	height: 16px;
+	margin: 0 auto;
+	border-bottom: 2px dotted #8d8d8d;
+}
+
+.button-group-container .design-border-style-dotted:hover span {
+	border-color: #19a0e9;
+}
+
+.button-group-container .design-radio:checked + .design-border-style-dotted span {
+	border-color: #454545;
+}
+
+.button-group-container .design-border-style-dashed span {
+	width: 20px;
+	height: 16px;
+	margin: 0 auto;
+	border-bottom: 2px dashed #8d8d8d;
+}
+
+.button-group-container .design-border-style-dashed:hover span {
+	border-color: #19a0e9;
+}
+
+.button-group-container .design-radio:checked + .design-border-style-dashed span {
+	border-color: #454545;
+}
+
+.design-border-style-radio-group {
+	float: left;
+}
+
+.design-line-border-style-color {
+	margin: 15px 0 0 0;
 }

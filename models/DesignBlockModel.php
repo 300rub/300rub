@@ -66,11 +66,6 @@ class DesignBlockModel extends Model
 	public $gradient_direction;
 
 	/**
-	 * @var string
-	 */
-	public $border_top_color;
-
-	/**
 	 * @var int
 	 */
 	public $border_top_width;
@@ -78,17 +73,7 @@ class DesignBlockModel extends Model
 	/**
 	 * @var int
 	 */
-	public $border_top_style;
-
-	/**
-	 * @var int
-	 */
 	public $border_top_left_radius;
-
-	/**
-	 * @var string
-	 */
-	public $border_right_color;
 
 	/**
 	 * @var int
@@ -98,17 +83,7 @@ class DesignBlockModel extends Model
 	/**
 	 * @var int
 	 */
-	public $border_right_style;
-
-	/**
-	 * @var int
-	 */
 	public $border_top_right_radius;
-
-	/**
-	 * @var string
-	 */
-	public $border_bottom_color;
 
 	/**
 	 * @var int
@@ -118,17 +93,7 @@ class DesignBlockModel extends Model
 	/**
 	 * @var int
 	 */
-	public $border_bottom_style;
-
-	/**
-	 * @var int
-	 */
 	public $border_bottom_right_radius;
-
-	/**
-	 * @var string
-	 */
-	public $border_left_color;
 
 	/**
 	 * @var int
@@ -138,12 +103,17 @@ class DesignBlockModel extends Model
 	/**
 	 * @var int
 	 */
-	public $border_left_style;
+	public $border_bottom_left_radius;
+
+	/**
+	 * @var string
+	 */
+	public $border_color;
 
 	/**
 	 * @var int
 	 */
-	public $border_bottom_left_radius;
+	public $border_style;
 
 	const GRADIENT_DIRECTION_HORIZONTAL = 0;
 	const GRADIENT_DIRECTION_VERTICAL = 1;
@@ -236,22 +206,16 @@ class DesignBlockModel extends Model
 			"background_color"           => [],
 			"background"                 => [],
 			"gradient_direction"         => [],
-			"border_top_color"           => [],
 			"border_top_width"           => [],
-			"border_top_style"           => [],
 			"border_top_left_radius"     => [],
-			"border_right_color"         => [],
 			"border_right_width"         => [],
-			"border_right_style"         => [],
 			"border_top_right_radius"    => [],
-			"border_bottom_color"        => [],
 			"border_bottom_width"        => [],
-			"border_bottom_style"        => [],
 			"border_bottom_right_radius" => [],
-			"border_left_color"          => [],
 			"border_left_width"          => [],
-			"border_left_style"          => [],
 			"border_bottom_left_radius"  => [],
+			"border_color"               => [],
+			"border_style"               => [],
 		];
 	}
 
@@ -324,53 +288,35 @@ class DesignBlockModel extends Model
 		if (!$this->gradient_direction) {
 			$this->gradient_direction = 0;
 		}
-		if (!$this->border_top_color) {
-			$this->border_top_color = "";
-		}
 		if (!$this->border_top_width) {
 			$this->border_top_width = 0;
-		}
-		if (!$this->border_top_style) {
-			$this->border_top_style = 0;
 		}
 		if (!$this->border_top_left_radius) {
 			$this->border_top_left_radius = 0;
 		}
-		if (!$this->border_right_color) {
-			$this->border_right_color = "";
-		}
 		if (!$this->border_right_width) {
 			$this->border_right_width = 0;
-		}
-		if (!$this->border_right_style) {
-			$this->border_right_style = 0;
 		}
 		if (!$this->border_top_right_radius) {
 			$this->border_top_right_radius = 0;
 		}
-		if (!$this->border_bottom_color) {
-			$this->border_bottom_color = "";
-		}
 		if (!$this->border_bottom_width) {
 			$this->border_bottom_width = 0;
-		}
-		if (!$this->border_bottom_style) {
-			$this->border_bottom_style = 0;
 		}
 		if (!$this->border_bottom_right_radius) {
 			$this->border_bottom_right_radius = 0;
 		}
-		if (!$this->border_left_color) {
-			$this->border_left_color = "";
-		}
 		if (!$this->border_left_width) {
 			$this->border_left_width = 0;
 		}
-		if (!$this->border_left_style) {
-			$this->border_left_style = 0;
-		}
 		if (!$this->border_bottom_left_radius) {
 			$this->border_bottom_left_radius = 0;
+		}
+		if (!$this->border_color) {
+			$this->border_color = "";
+		}
+		if (!$this->border_style) {
+			$this->border_style = 0;
 		}
 	}
 
@@ -426,69 +372,45 @@ class DesignBlockModel extends Model
 				"name"  => "Data[{$name}.gradient_direction]",
 				"value" => $this->gradient_direction
 			],
-			"border_top_color"           => [
-				"name"  => "Data[{$name}.border_top_color]",
-				"value" => $this->border_top_color
-			],
 			"border_top_width"           => [
 				"name"  => "Data[{$name}.border_top_width]",
 				"value" => $this->border_top_width
-			],
-			"border_top_style"           => [
-				"name"  => "Data[{$name}.border_top_style]",
-				"value" => $this->border_top_style
 			],
 			"border_top_left_radius"     => [
 				"name"  => "Data[{$name}.border_top_left_radius]",
 				"value" => $this->border_top_left_radius
 			],
-			"border_right_color"         => [
-				"name"  => "Data[{$name}.border_right_color]",
-				"value" => $this->border_right_color
-			],
 			"border_right_width"         => [
 				"name"  => "Data[{$name}.border_right_width]",
 				"value" => $this->border_right_width
-			],
-			"border_right_style"         => [
-				"name"  => "Data[{$name}.border_right_style]",
-				"value" => $this->border_right_style
 			],
 			"border_top_right_radius"    => [
 				"name"  => "Data[{$name}.border_top_right_radius]",
 				"value" => $this->border_top_right_radius
 			],
-			"border_bottom_color"        => [
-				"name"  => "Data[{$name}.border_bottom_color]",
-				"value" => $this->border_bottom_color
-			],
 			"border_bottom_width"        => [
 				"name"  => "Data[{$name}.border_bottom_width]",
 				"value" => $this->border_bottom_width
-			],
-			"border_bottom_style"        => [
-				"name"  => "Data[{$name}.border_bottom_style]",
-				"value" => $this->border_bottom_style
 			],
 			"border_bottom_right_radius" => [
 				"name"  => "Data[{$name}.border_bottom_right_radius]",
 				"value" => $this->border_bottom_right_radius
 			],
-			"border_left_color"          => [
-				"name"  => "Data[{$name}.border_left_color]",
-				"value" => $this->border_left_color
-			],
 			"border_left_width"          => [
 				"name"  => "Data[{$name}.border_left_width]",
 				"value" => $this->border_left_width
 			],
-			"border_left_style"          => [
-				"name"  => "Data[{$name}.border_left_style]",
-				"value" => $this->border_left_style
-			],
 			"border_bottom_left_radius"  => [
 				"name"  => "Data[{$name}.border_bottom_left_radius]",
 				"value" => $this->border_bottom_left_radius
+			],
+			"border_color"               => [
+				"name"  => "Data[{$name}.border_color]",
+				"value" => $this->border_color
+			],
+			"border_style"               => [
+				"name"  => "Data[{$name}.border_style]",
+				"value" => $this->border_style
 			],
 		];
 	}
@@ -508,46 +430,10 @@ class DesignBlockModel extends Model
 	/**
 	 * @return string
 	 */
-	public function getBorderStyleTop()
+	public function getBorderStyle()
 	{
-		if (array_key_exists($this->border_top_style, self::$borderStyleList)) {
-			return self::$borderStyleList[$this->border_top_style];
-		}
-
-		return self::$borderStyleList[self::BORDER_STYLE_NONE];
-	}
-
-	/**
-	 * @return string
-	 */
-	public function getBorderStyleRight()
-	{
-		if (array_key_exists($this->border_right_style, self::$borderStyleList)) {
-			return self::$borderStyleList[$this->border_right_style];
-		}
-
-		return self::$borderStyleList[self::BORDER_STYLE_NONE];
-	}
-
-	/**
-	 * @return string
-	 */
-	public function getBorderStyleBottom()
-	{
-		if (array_key_exists($this->border_bottom_style, self::$borderStyleList)) {
-			return self::$borderStyleList[$this->border_bottom_style];
-		}
-
-		return self::$borderStyleList[self::BORDER_STYLE_NONE];
-	}
-
-	/**
-	 * @return string
-	 */
-	public function getBorderStyleLeft()
-	{
-		if (array_key_exists($this->border_left_style, self::$borderStyleList)) {
-			return self::$borderStyleList[$this->border_left_style];
+		if (array_key_exists($this->border_style, self::$borderStyleList)) {
+			return self::$borderStyleList[$this->border_style];
 		}
 
 		return self::$borderStyleList[self::BORDER_STYLE_NONE];

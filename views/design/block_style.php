@@ -31,20 +31,20 @@ if ($model->background_color && !$model->background) {
 }
 
 $borderTop = "";
-if ($model->border_top_width && $model->border_top_style && $model->border_top_color) {
-	$borderTop = "{$model->border_top_width}px " . $model->getBorderStyleTop() . " $model->border_top_color";
+if ($model->border_top_width && $model->border_style) {
+	$borderTop = "{$model->border_top_width}px " . $model->getBorderStyle() . " $model->border_color";
 }
 $borderRight = "";
-if ($model->border_right_width && $model->border_right_style && $model->border_right_color) {
-	$borderRight = "{$model->border_right_width}px " . $model->getBorderStyleRight() . " $model->border_right_color";
+if ($model->border_right_width && $model->border_style) {
+	$borderRight = "{$model->border_right_width}px " . $model->getBorderStyle() . " $model->border_color";
 }
 $borderBottom = "";
-if ($model->border_bottom_width && $model->border_bottom_style && $model->border_bottom_color) {
-	$borderBottom = "{$model->border_bottom_width}px " . $model->getBorderStyleBottom() . " $model->border_bottom_color";
+if ($model->border_bottom_width && $model->border_style) {
+	$borderBottom = "{$model->border_bottom_width}px " . $model->getBorderStyle() . " $model->border_color";
 }
 $borderLeft = "";
-if ($model->border_left_width && $model->border_left_style && $model->border_left_color) {
-	$borderLeft = "{$model->border_left_width}px " . $model->getBorderStyleLeft() . " $model->border_left_color";
+if ($model->border_left_width && $model->border_style) {
+	$borderLeft = "{$model->border_left_width}px " . $model->getBorderStyle() . " $model->border_color";
 }
 if ($borderTop && $borderTop === $borderRight && $borderTop === $borderBottom && $borderTop === $borderLeft) {
 	echo " border: {$borderTop};";
