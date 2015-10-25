@@ -2,6 +2,20 @@ function setPanelHeight() {
 	$(".panel .container").css("max-height", parseInt($(document).height()) - 240);
 }
 
+function setPanelButtons() {
+	$panelButtons.find("a").on("click", function () {
+		var panel = new Panel({
+			name: $(this).data("name"),
+			content: $(this).data("content")
+		});
+		panel.close();
+		panel.init();
+		$(this).addClass("panel-button-active");
+
+		return false;
+	});
+}
+
 $(document).ready(function () {
 
 	setPanelHeight();
@@ -18,16 +32,5 @@ $(document).ready(function () {
 
 	$panelButtons = $("#panel-buttons");
 
-	$panelButtons.find("a").on("click", function () {
-		var panel = new Panel({
-			name: $(this).data("name"),
-			content: $(this).data("content")
-		});
-		panel.close();
-		panel.init();
-		$(this).addClass("panel-button-active");
-
-		return false;
-	});
-
+	setPanelButtons();
 });

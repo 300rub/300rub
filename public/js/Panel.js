@@ -129,6 +129,7 @@ function Panel (params) {
 					var $back = t.panel.find(".back");
 					$close.off();
 					$back.off();
+					$panelButtons.find("a").off();
 					$.each(data.design, function (i, params) {
 						var designObject = new Design(params.id, params.type, params.title, params.values);
 						var $design = designObject.get();
@@ -140,10 +141,14 @@ function Panel (params) {
 							$back.on("click", function() {
 								designObject.resetObject();
 							});
+							$panelButtons.find("a").on("click", function() {
+								designObject.resetObject();
+							});
 						}
 					});
 					$close.bind("click", t.close);
 					$back.bind("click", t.loadNewPanel);
+					setPanelButtons();
 				}
 
 				if (data.button != undefined) {
