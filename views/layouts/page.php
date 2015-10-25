@@ -82,15 +82,5 @@ use system\App;
 	<?php require(__DIR__ . "/../error/messages.php"); ?>
 </div>
 
-<script>
-	$(document).ready(function() {
-		(new Panel({
-			name: "blocks",
-			content: "text/design/1"
-		})).init();
-	});
-
-</script>
-
 </body>
 </html>
