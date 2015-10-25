@@ -24,117 +24,7 @@ function Design(id, type, title, values) {
 			t.setBlock();
 		}
 
-		t.editor.find(".design-reset").bind("click", t.reset);
-
-
-
-
-
 		return t.editor;
-	};
-
-	this.setBackgroundColor = function (nameFrom, nameTo, valueFrom, valueTo, nameDirection, valueDirection) {
-		var $from = t.editor.find(".color-background-from-picker");
-		$from.attr("name", nameFrom).val(valueFrom);
-		var $to = t.editor.find(".color-background-to-picker");
-		$to.attr("name", nameTo).val(valueTo);
-
-		var value = "to right";
-		var $direction = t.editor.find(".design-direction-radio-group");
-		$direction.find(".design-radio").each(function () {
-			$(this).attr("name", nameDirection);
-			var id = nameDirection + "-" + $(this).attr("value");
-			$(this).attr("id", id);
-			$(this).parent().find(".design-button-label").attr("for", id);
-			if (parseInt($(this).attr("value")) == parseInt(valueDirection)) {
-				$(this).attr("checked", true);
-			}
-		});
-		$direction.find("input[type=radio]").on("change", function () {
-			value = $(this).data("value");
-			if ($from.val() != "" && $to.val() != "") {
-				t.object.css("background", "linear-gradient(" + value + ", " + $from.val() + " 0%, " + $to.val() + " 100%)");
-			}
-		});
-
-		t.editor.find(".design-background-clear").on("click", function() {
-			$from.val("");
-			$from.parent().find("img").css("background", "none");
-			$to.val("");
-			$to.parent().find("img").css("background", "none");
-			$direction.find('.design-radio[value="0"]').prop('checked', true);
-			t.object.css("background", "none");
-			value = "to right";
-
-			return false;
-		});
-
-		$from.colorpicker({
-			alpha: true,
-			colorFormat: 'RGBA',
-			buttonColorize: true,
-			showOn: 'both',
-			buttonImage: '/img/common/color_picker_btn.png',
-			buttonImageOnly: true,
-			position: {
-				my: 'center',
-				at: 'center',
-				of: window
-			},
-			parts: 'full',
-			select: function (event, color) {
-				if ($to.val() == "") {
-					t.object.css("background", color.formatted);
-				} else {
-					t.object.css("background", "linear-gradient(" + value + ", " + color.formatted + " 0%, " + $to.val() + " 100%)");
-				}
-			}
-		});
-
-		$to.colorpicker({
-			alpha: true,
-			colorFormat: 'RGBA',
-			buttonColorize: true,
-			showOn: 'both',
-			buttonImage: '/img/common/color_picker_btn.png',
-			buttonImageOnly: true,
-			position: {
-				my: 'center',
-				at: 'center',
-				of: window
-			},
-			parts: 'full',
-			select: function (event, color) {
-				if ($from.val() == "") {
-					t.object.css("background", color.formatted);
-				} else {
-					t.object.css("background", "linear-gradient(" + value + ", " + $from.val() + " 0%, " + color.formatted + " 100%)");
-				}
-			}
-		});
-	};
-
-	this.setColorPicker = function (name, value, cssAttr) {
-		t.editor.find(".color-" + cssAttr + "-picker")
-			.attr("name", name)
-			.val(value)
-			.colorpicker({
-				alpha: true,
-				colorFormat: 'RGBA',
-				buttonColorize: true,
-				showOn: 'both',
-				buttonImage: '/img/common/color_picker_btn.png',
-				buttonImageOnly: true,
-				position: {
-					my: 'center',
-					at: 'center',
-					of: window
-				},
-				parts: 'full',
-				select: function (event, color) {
-					t.object.css(cssAttr, color.formatted);
-				}
-			});
 	};
 
 	this.setText = function () {
@@ -148,117 +38,6 @@ function Design(id, type, title, values) {
 		t.setRadio(t.values.align.name, t.values.align.value, "text-align");
 		t.setRadio(t.values.transform.name, t.values.transform.value, "text-transform");
 		t.setRadio(t.values.decoration.name, t.values.decoration.value, "text-decoration");
-	};
-
-	this.resetText = function () {
-		t.resetVerticalSlider(t.values.size.value, "font-size", "px");
-		t.resetVerticalSlider(t.values.letter_spacing.value, "letter-spacing", "px");
-		t.resetVerticalSlider(t.values.line_height.value, "line-height", "%");
-		t.resetFont(t.values.family.value);
-		t.resetColor(t.values.color.value, "color");
-		t.resetCkeckbox(t.values.is_bold.value, "font-weight", "bold", "normal");
-		t.resetCkeckbox(t.values.is_italic.value, "font-style", "italic", "normal");
-		t.resetRadio(t.values.align.value, "text-align");
-		t.resetRadio(t.values.transform.value, "text-transform");
-		t.resetRadio(t.values.decoration.value, "text-decoration");
-	};
-
-	this.setAngles = function (
-		type,
-		topLeftName,
-		topRightName,
-		bottomRightName,
-		bottomLeftName,
-		topLeftValue,
-		topRightValue,
-		bottomRightValue,
-		bottomLeftValue
-	) {
-		var $container = t.editor.find(".design-angles-" + type + "-container");
-		var $topLeft = $container.find(".design-angles-top-left input");
-		$topLeft.attr("name", topLeftName).val(topLeftValue);
-		var $topRight = $container.find(".design-angles-top-right input");
-		$topRight.attr("name", topRightName).val(topRightValue);
-		var $bottomRight = $container.find(".design-angles-bottom-right input");
-		$bottomRight.attr("name", bottomRightName).val(bottomRightValue);
-		var $bottomLeft = $container.find(".design-angles-bottom-left input");
-		$bottomLeft.attr("name", bottomLeftName).val(bottomLeftValue);
-		var $result = $container.find("." + $container.data("result"));
-		var min = $container.data("min");
-		var $join = $container.find("label input");
-
-		$topLeft.forceNumericOnly();
-		$topRight.forceNumericOnly();
-		$bottomRight.forceNumericOnly();
-		$bottomLeft.forceNumericOnly();
-
-		$result
-			.css($topLeft.data("css"), $topLeft.val() + "px")
-			.css($topRight.data("css"), $topRight.val() + "px")
-			.css($bottomRight.data("css"), $bottomRight.val() + "px")
-			.css($bottomLeft.data("css"), $bottomLeft.val() + "px");
-
-		if (
-			$topLeft.val() == $topRight.val()
-			&& $topLeft.val() == $bottomRight.val()
-			&& $topLeft.val() == $bottomLeft.val())
-		{
-			$join.attr('checked', true);
-		}
-		$join.on("change", function () {
-			if ($(this).is(':checked')) {
-				var value = $topLeft.val();
-				t.object.css($topLeft.data("css"), value + "px");
-				$result.css($topLeft.data("css"), value + "px");
-				$topRight.val(value);
-				t.object.css($topRight.data("css"), value + "px");
-				$result.css($topRight.data("css"), value + "px");
-				$bottomRight.val(value);
-				t.object.css($bottomRight.data("css"), value + "px");
-				$result.css($bottomRight.data("css"), value + "px");
-				$bottomLeft.val(value);
-				t.object.css($bottomLeft.data("css"), value + "px");
-				$result.css($bottomLeft.data("css"), value + "px");
-			}
-		});
-
-		t.setAngleSpinner($topLeft, $result, min, $join, $topRight, $bottomRight, $bottomLeft);
-		t.setAngleSpinner($topRight, $result, min, $join, $topLeft, $bottomRight, $bottomLeft);
-		t.setAngleSpinner($bottomRight, $result, min, $join, $topLeft, $topRight, $bottomLeft);
-		t.setAngleSpinner($bottomLeft, $result, min, $join, $topLeft, $topRight, $bottomRight);
-	};
-
-	this.setAngleSpinner = function ($obj, $result, min, $join, $obj2, $obj3, $obj4) {
-		$obj.spinner({
-			min: min,
-			spin: function (event, ui) {
-				t.setAngleSpinnerValue($obj, $result, ui.value);
-				if ($join.is(':checked')) {
-					$obj2.val(ui.value);
-					$obj3.val(ui.value);
-					$obj4.val(ui.value);
-					t.setAngleSpinnerValue($obj2, $result, ui.value);
-					t.setAngleSpinnerValue($obj3, $result, ui.value);
-					t.setAngleSpinnerValue($obj4, $result, ui.value);
-				}
-			}
-		}).on("keyup", function () {
-			var value = $(this).val();
-			t.setAngleSpinnerValue($obj, $result, value);
-			if ($join.is(':checked')) {
-				$obj2.val(value);
-				$obj3.val(value);
-				$obj4.val(value);
-				t.setAngleSpinnerValue($obj2, $result, value);
-				t.setAngleSpinnerValue($obj3, $result, value);
-				t.setAngleSpinnerValue($obj4, $result, value);
-			}
-		});
-	};
-
-	this.setAngleSpinnerValue = function($obj, $result, value) {
-		t.object.css($obj.data("css"), value + "px");
-		$result.css($obj.data("css"), value + "px");
 	};
 
 	this.setBlock = function () {
@@ -323,48 +102,251 @@ function Design(id, type, title, values) {
 		);
 	};
 
-	this.resetBlock = function () {
-		t.resetVerticalSlider(t.values.margin_top.value, "margin-top", "px");
-		t.resetVerticalSlider(t.values.margin_right.value, "margin-right", "px");
-		t.resetVerticalSlider(t.values.margin_bottom.value, "margin-bottom", "px");
-		t.resetVerticalSlider(t.values.margin_left.value, "margin-left", "px");
-		t.resetVerticalSlider(t.values.padding_top.value, "padding-top", "px");
-		t.resetVerticalSlider(t.values.padding_right.value, "padding-right", "px");
-		t.resetVerticalSlider(t.values.padding_bottom.value, "padding-bottom", "px");
-		t.resetVerticalSlider(t.values.padding_left.value, "padding-left", "px");
-		t.resetColor(t.values.background_color.value, "background-color");
-		t.resetColor(t.values.background.value, "background");
-		t.resetGradientDirection(t.values.gradient_direction.value);
-		t.resetColor(t.values.border_top_color.value, "border-top-color");
-		t.resetColor(t.values.border_right_color.value, "border-right-color");
-		t.resetColor(t.values.border_bottom_color.value, "border-bottom-color");
-		t.resetColor(t.values.border_left_color.value, "border-left-color");
-		t.resetVerticalSlider(t.values.border_top_width.value, "border-top-width", "px");
-		t.resetVerticalSlider(t.values.border_right_width.value, "border-right-width", "px");
-		t.resetVerticalSlider(t.values.border_bottom_width.value, "border-bottom-width", "px");
-		t.resetVerticalSlider(t.values.border_left_width.value, "border-left-width", "px");
-		t.resetVerticalSlider(t.values.border_top_left_radius.value, "border-top-left-radius", "px");
-		t.resetVerticalSlider(t.values.border_top_right_radius.value, "border-top-right-radius", "px");
-		t.resetVerticalSlider(t.values.border_bottom_right_radius.value, "border-bottom-right-radius", "px");
-		t.resetVerticalSlider(t.values.border_bottom_left_radius.value, "border-bottom-left-radius", "px");
-		t.resetSelector(t.values.border_top_style.value, "border-top-style", "");
-		t.resetSelector(t.values.border_right_style.value, "border-right-style", "");
-		t.resetSelector(t.values.border_bottom_style.value, "border-bottom-style", "");
-		t.resetSelector(t.values.border_left_style.value, "border-left-style", "");
+	/**
+	 * @param {string} nameFrom
+	 * @param {string} nameTo
+	 * @param {string} valueFrom
+	 * @param {string} valueTo
+	 * @param {string} nameDirection
+	 * @param {int}    valueDirection
+	 */
+	this.setBackgroundColor = function (nameFrom, nameTo, valueFrom, valueTo, nameDirection, valueDirection) {
+		var $from = t.editor.find(".color-background-from-picker");
+		$from.attr("name", nameFrom).val(valueFrom);
+		var $to = t.editor.find(".color-background-to-picker");
+		$to.attr("name", nameTo).val(valueTo);
+
+		var value = "to right";
+		var $direction = t.editor.find(".design-direction-radio-group");
+		$direction.find(".design-radio").each(function () {
+			$(this).attr("name", nameDirection);
+			var id = nameDirection + "-" + $(this).attr("value");
+			$(this).attr("id", id);
+			$(this).parent().find(".design-button-label").attr("for", id);
+			if (parseInt($(this).attr("value")) == parseInt(valueDirection)) {
+				$(this).attr("checked", true);
+			}
+		});
+		$direction.find("input[type=radio]").on("change", function () {
+			value = $(this).data("value");
+			if ($from.val() != "" && $to.val() != "") {
+				t.object.css("background", "linear-gradient(" + value + ", " + $from.val() + " 0%, " + $to.val() + " 100%)");
+			}
+		});
+
+		t.editor.find(".design-background-clear").on("click", function () {
+			$from.val("");
+			$from.parent().find("img").css("background", "none");
+			$to.val("");
+			$to.parent().find("img").css("background", "none");
+			$direction.find('.design-radio[value="0"]').prop('checked', true);
+			t.object.css("background", "none");
+			value = "to right";
+
+			return false;
+		});
+
+		$from.colorpicker({
+			alpha: true,
+			colorFormat: 'RGBA',
+			buttonColorize: true,
+			showOn: 'both',
+			buttonImage: '/img/common/color_picker_btn.png',
+			buttonImageOnly: true,
+			position: {
+				my: 'center',
+				at: 'center',
+				of: window
+			},
+			parts: 'full',
+			select: function (event, color) {
+				if ($to.val() == "") {
+					t.object.css("background", color.formatted);
+				} else {
+					t.object.css("background", "linear-gradient(" + value + ", " + color.formatted + " 0%, " + $to.val() + " 100%)");
+				}
+			}
+		});
+
+		$to.colorpicker({
+			alpha: true,
+			colorFormat: 'RGBA',
+			buttonColorize: true,
+			showOn: 'both',
+			buttonImage: '/img/common/color_picker_btn.png',
+			buttonImageOnly: true,
+			position: {
+				my: 'center',
+				at: 'center',
+				of: window
+			},
+			parts: 'full',
+			select: function (event, color) {
+				if ($from.val() == "") {
+					t.object.css("background", color.formatted);
+				} else {
+					t.object.css("background", "linear-gradient(" + value + ", " + $from.val() + " 0%, " + color.formatted + " 100%)");
+				}
+			}
+		});
 	};
 
-	this.reset = function () {
-		if (t.type === "text") {
-			t.resetText();
-		}
-		if (t.type === "block") {
-			t.resetBlock();
-		}
-
-		return false;
+	/**
+	 * @param {string} name
+	 * @param {string} value
+	 * @param {string} cssAttr
+	 */
+	this.setColorPicker = function (name, value, cssAttr) {
+		t.editor.find(".color-" + cssAttr + "-picker")
+			.attr("name", name)
+			.val(value)
+			.colorpicker({
+				alpha: true,
+				colorFormat: 'RGBA',
+				buttonColorize: true,
+				showOn: 'both',
+				buttonImage: '/img/common/color_picker_btn.png',
+				buttonImageOnly: true,
+				position: {
+					my: 'center',
+					at: 'center',
+					of: window
+				},
+				parts: 'full',
+				select: function (event, color) {
+					t.object.css(cssAttr, color.formatted);
+				}
+			});
 	};
 
-	this.setSpinner = function(name, value, cssAttr, min, cssEnd) {
+	/**
+	 * @param {string} type
+	 * @param {string} topLeftName
+	 * @param {string} topRightName
+	 * @param {string} bottomRightName
+	 * @param {string} bottomLeftName
+	 * @param {int}    topLeftValue
+	 * @param {int}    topRightValue
+	 * @param {int}    bottomRightValue
+	 * @param {int}    bottomLeftValue
+	 */
+	this.setAngles = function (type,
+							   topLeftName,
+							   topRightName,
+							   bottomRightName,
+							   bottomLeftName,
+							   topLeftValue,
+							   topRightValue,
+							   bottomRightValue,
+							   bottomLeftValue) {
+		var $container = t.editor.find(".design-angles-" + type + "-container");
+		var $topLeft = $container.find(".design-angles-top-left input");
+		$topLeft.attr("name", topLeftName).val(topLeftValue);
+		var $topRight = $container.find(".design-angles-top-right input");
+		$topRight.attr("name", topRightName).val(topRightValue);
+		var $bottomRight = $container.find(".design-angles-bottom-right input");
+		$bottomRight.attr("name", bottomRightName).val(bottomRightValue);
+		var $bottomLeft = $container.find(".design-angles-bottom-left input");
+		$bottomLeft.attr("name", bottomLeftName).val(bottomLeftValue);
+		var $result = $container.find("." + $container.data("result"));
+		var min = $container.data("min");
+		var $join = $container.find("label input");
+
+		$topLeft.forceNumericOnly();
+		$topRight.forceNumericOnly();
+		$bottomRight.forceNumericOnly();
+		$bottomLeft.forceNumericOnly();
+
+		$result
+			.css($topLeft.data("css"), $topLeft.val() + "px")
+			.css($topRight.data("css"), $topRight.val() + "px")
+			.css($bottomRight.data("css"), $bottomRight.val() + "px")
+			.css($bottomLeft.data("css"), $bottomLeft.val() + "px");
+
+		if (
+			$topLeft.val() == $topRight.val()
+			&& $topLeft.val() == $bottomRight.val()
+			&& $topLeft.val() == $bottomLeft.val()) {
+			$join.attr('checked', true);
+		}
+		$join.on("change", function () {
+			if ($(this).is(':checked')) {
+				var value = $topLeft.val();
+				t.object.css($topLeft.data("css"), value + "px");
+				$result.css($topLeft.data("css"), value + "px");
+				$topRight.val(value);
+				t.object.css($topRight.data("css"), value + "px");
+				$result.css($topRight.data("css"), value + "px");
+				$bottomRight.val(value);
+				t.object.css($bottomRight.data("css"), value + "px");
+				$result.css($bottomRight.data("css"), value + "px");
+				$bottomLeft.val(value);
+				t.object.css($bottomLeft.data("css"), value + "px");
+				$result.css($bottomLeft.data("css"), value + "px");
+			}
+		});
+
+		t.setAngleSpinner($topLeft, $result, min, $join, $topRight, $bottomRight, $bottomLeft);
+		t.setAngleSpinner($topRight, $result, min, $join, $topLeft, $bottomRight, $bottomLeft);
+		t.setAngleSpinner($bottomRight, $result, min, $join, $topLeft, $topRight, $bottomLeft);
+		t.setAngleSpinner($bottomLeft, $result, min, $join, $topLeft, $topRight, $bottomRight);
+	};
+
+	/**
+	 * @param {HTMLElement} $obj
+	 * @param {int}         $result
+	 * @param {int}         min
+	 * @param {HTMLElement} $join
+	 * @param {HTMLElement} $obj2
+	 * @param {HTMLElement} $obj3
+	 * @param {HTMLElement} $obj4
+	 */
+	this.setAngleSpinner = function ($obj, $result, min, $join, $obj2, $obj3, $obj4) {
+		$obj.spinner({
+			min: min,
+			spin: function (event, ui) {
+				t.setAngleSpinnerValue($obj, $result, ui.value);
+				if ($join.is(':checked')) {
+					$obj2.val(ui.value);
+					$obj3.val(ui.value);
+					$obj4.val(ui.value);
+					t.setAngleSpinnerValue($obj2, $result, ui.value);
+					t.setAngleSpinnerValue($obj3, $result, ui.value);
+					t.setAngleSpinnerValue($obj4, $result, ui.value);
+				}
+			}
+		}).on("keyup", function () {
+			var value = $(this).val();
+			t.setAngleSpinnerValue($obj, $result, value);
+			if ($join.is(':checked')) {
+				$obj2.val(value);
+				$obj3.val(value);
+				$obj4.val(value);
+				t.setAngleSpinnerValue($obj2, $result, value);
+				t.setAngleSpinnerValue($obj3, $result, value);
+				t.setAngleSpinnerValue($obj4, $result, value);
+			}
+		});
+	};
+
+	/**
+	 * @param {HTMLElement} $obj
+	 * @param {HTMLElement} $result
+	 * @param {int}         value
+	 */
+	this.setAngleSpinnerValue = function ($obj, $result, value) {
+		t.object.css($obj.data("css"), value + "px");
+		$result.css($obj.data("css"), value + "px");
+	};
+
+	/**
+	 * @param {string} name
+	 * @param {int}    value
+	 * @param {string} cssAttr
+	 * @param {int}    min
+	 * @param {string} cssEnd
+	 */
+	this.setSpinner = function (name, value, cssAttr, min, cssEnd) {
 		var $spinner = t.editor.find(".design-spinner-" + cssAttr + "-container");
 		$spinner.find("label").attr('for', "design-spinner-" + cssAttr + t.id);
 		$spinner.find("span").text(cssEnd);
@@ -385,77 +367,10 @@ function Design(id, type, title, values) {
 			});
 	};
 
-	this.checkAndUpdateJointVerticalSliders = function (oldValue, value, cssEnd, joint) {
-		var isSame = true;
-		$.each(joint, function (key, cssAttr) {
-			var oldVal = t.editor.find(".design-" + cssAttr + "-slider").parent().find(".design-slider-value").val();
-			if (parseInt(oldValue) != parseInt(oldVal)) {
-				isSame = false;
-			}
-		});
-
-		if (isSame === true) {
-			$.each(joint, function (key, cssAttr) {
-				var $slider = t.editor.find(".design-" + cssAttr + "-slider");
-				var $value = $slider.parent().find(".design-slider-value");
-				$slider.slider("value", value * -1);
-				$value.val(value);
-				t.object.css(cssAttr, value + cssEnd);
-			});
-		}
-	};
-
-	this.setVerticalSlider = function (name, value, cssAttr, min, max, cssEnd, joint) {
-		if (typeof joint === 'undefined') {
-			joint = [];
-		}
-
-		var $slider = t.editor.find(".design-" + cssAttr + "-slider");
-		var $value = $slider.parent().find(".design-slider-value");
-		var $overlay = $slider.parent().find(".design-slider-overlay");
-		$value.attr("name", name);
-		$value.val(value);
-		var oldValue = value;
-		$value.on("focus", function () {
-			oldValue = $(this).val();
-		});
-
-		$slider.slider({
-			orientation: "vertical",
-			value: value * -1,
-			min: max * -1,
-			max: min * -1,
-			slide: function (event, ui) {
-				$value.val(ui.value * -1);
-				t.object.css(cssAttr, ui.value * -1 + cssEnd);
-				t.checkAndUpdateJointVerticalSliders(oldValue, ui.value * -1, cssEnd, joint);
-				oldValue = ui.value * -1;
-			}
-		});
-		$value.on("keyup", function () {
-			var val = parseInt($(this).val());
-			$slider.slider("value", val * -1);
-			t.object.css(cssAttr, val + cssEnd);
-			t.checkAndUpdateJointVerticalSliders(oldValue, val, cssEnd, joint);
-			oldValue = val;
-		});
-		$value.on("click", function () {
-			$overlay.css("display", "block");
-			$slider.css("display", "block");
-		});
-		$overlay.on("click", function () {
-			$(this).css("display", "none");
-			$slider.css("display", "none");
-		});
-	};
-
-	this.resetVerticalSlider = function (value, cssAttr, cssEnd) {
-		var $slider = t.editor.find(".design-" + cssAttr + "-slider");
-		$slider.parent().find(".design-slider-value").val(value);
-		$slider.slider("value", parseInt(value) * -1);
-		t.object.css(cssAttr, value + cssEnd);
-	};
-
+	/**
+	 * @param {string} name
+	 * @param {int}    value
+	 */
 	this.setFont = function (name, value) {
 		var $selector = t.editor.find(".design-font-selector");
 		$selector.val(value);
@@ -472,76 +387,13 @@ function Design(id, type, title, values) {
 		});
 	};
 
-	this.resetFont = function (value) {
-		var $selector = t.editor.find(".design-font-selector");
-		$selector.val(value);
-		var className = $selector.find(':selected').attr('class');
-		$selector.removeClassByMask("font-family-*");
-		$selector.addClass(className);
-		t.object.removeClassByMask("font-*");
-		t.object.addClass(className);
-	};
-
-	this.setGradientDirection = function (name, value) {
-		var $selector = t.editor.find(".design-gradient-direction");
-		$selector.val(value);
-		$selector.attr("name", name);
-		$selector.on("change", function () {
-			var value = $(this).find(':selected').data('value');
-			var from = $selector.parent().find(".color-background-color-picker").val();
-			var to = $selector.parent().find(".color-background-picker").val();
-			if (from !== "" && to !== "") {
-				t.object.css("background", "linear-gradient(" + value + ", " + from + " 0%, " + to + " 100%)");
-			}
-		});
-	};
-
-	this.resetGradientDirection = function (value) {
-		var $selector = t.editor.find(".design-gradient-direction");
-		$selector.val(value);
-	};
-
-	this.setSelector = function (name, value, cssAttr, cssEnd, joint) {
-		if (typeof joint === 'undefined') {
-			joint = [];
-		}
-
-		var $selector = t.editor.find(".design-" + cssAttr + "-selector");
-		$selector.val(value);
-		$selector.attr("name", name);
-		var oldValue = $selector.val();
-		$selector.on("change", function () {
-			var v = $(this).val();
-			var value = $(this).find(':selected').data('value');
-			t.object.css(cssAttr, value + cssEnd);
-
-			var isSame = true;
-			$.each(joint, function (key, cssAttr) {
-				var oldVal = t.editor.find(".design-" + cssAttr + "-selector").val();
-				if (parseInt(oldValue) != parseInt(oldVal)) {
-					isSame = false;
-				}
-			});
-
-			if (isSame === true) {
-				$.each(joint, function (key, cssAttr) {
-					var $s = t.editor.find(".design-" + cssAttr + "-selector");
-					$s.val(v);
-					t.object.css(cssAttr, value + cssEnd);
-				});
-			}
-
-			oldValue = value;
-		});
-	};
-
-	this.resetSelector = function (value, cssAttr, cssEnd) {
-		var $selector = t.editor.find(".design-" + cssAttr + "-selector");
-		var val = $selector.find(':selected').data('value');
-		$selector.val(value);
-		t.object.css(cssAttr, val + cssEnd);
-	};
-
+	/**
+	 * @param {string} name
+	 * @param {int}    value
+	 * @param {string} cssAttr
+	 * @param {string} checked
+	 * @param {string} notChecked
+	 */
 	this.setCheckbox = function (name, value, cssAttr, checked, notChecked) {
 		var $checkbox = t.editor.find(".design-" + cssAttr + "-checkbox");
 		var $value = $checkbox.parent().find(".design-checkbox-value");
@@ -565,18 +417,11 @@ function Design(id, type, title, values) {
 		});
 	};
 
-	this.resetCkeckbox = function (value, cssAttr, checked, notChecked) {
-		var $checkbox = t.editor.find(".design-" + cssAttr + "-checkbox");
-		$checkbox.parent().find(".design-checkbox-value").val(value);
-		if (parseInt(value) == 1) {
-			$checkbox.attr('checked', true);
-			t.object.css(cssAttr, checked);
-		} else {
-			$checkbox.attr('checked', false);
-			t.object.css(cssAttr, notChecked);
-		}
-	};
-
+	/**
+	 * @param {string} name
+	 * @param {int}    value
+	 * @param {string} cssAttr
+	 */
 	this.setRadio = function (name, value, cssAttr) {
 		var $group = t.editor.find(".design-" + cssAttr + "-radio-group");
 		$group.find(".design-radio").each(function () {
@@ -591,108 +436,5 @@ function Design(id, type, title, values) {
 		$group.find("input[type=radio]").on("change", function () {
 			t.object.css(cssAttr, $(this).data("value"));
 		});
-	};
-
-	this.resetRadio = function (value, cssAttr) {
-		var $group = t.editor.find(".design-" + cssAttr + "-radio-group");
-		var $radio = $group.find('.design-radio[value="' + value + '"]');
-		$radio.prop('checked', true);
-		t.object.css(cssAttr, $radio.data("value"));
-	};
-
-	this.setColor = function (name, value, cssAttr) {
-		var $picker = t.editor.find('.color-' + cssAttr + '-picker');
-		$picker.val(value);
-		$picker.attr("data-css", cssAttr);
-		$picker.attr("name", name);
-		$picker.attr("data-id", t.id);
-		$picker.attr("data-type", t.type);
-		var oldValue = $picker.val();
-		$picker.colorPicker({
-			renderCallback: function ($elm, toggled) {
-				var r = this.color.colors.RND.rgb.r;
-				var g = this.color.colors.RND.rgb.g;
-				var b = this.color.colors.RND.rgb.b;
-				var alpha = this.color.colors.alpha;
-				var css = $elm.data("css");
-				var value;
-				var $object = $(".design-" + $elm.data("type") + "-" + $elm.data("id"));
-				if (alpha < 1) {
-					value = "rgba(" + r + "," + g + "," + b + "," + alpha + ")";
-				} else {
-					value = "#" + this.color.colors.HEX;
-				}
-
-				var direction;
-				if (css === "border-top-color") {
-					var isSame = true;
-					var isEmpty = true;
-					var joint = ["border-right-color", "border-bottom-color", "border-left-color"];
-
-					$.each(joint, function (key, cssAttr) {
-						var oldVal = $elm.closest(".design-editor").find(".color-" + cssAttr + "-picker").val();
-						if (oldValue !== oldVal) {
-							isSame = false;
-						}
-					});
-
-					if (isSame === false) {
-						$.each(joint, function (key, cssAttr) {
-							var oldVal = $elm.closest(".design-editor").find(".color-" + cssAttr + "-picker").val();
-							if (oldVal !== "") {
-								isEmpty = false;
-							}
-						});
-					}
-
-					if (isSame === true || isEmpty === true) {
-						$.each(joint, function (key, cssAttr) {
-							var $s = $elm.closest(".design-editor").find(".color-" + cssAttr + "-picker");
-							$s.val(value);
-							$s.css("background", value);
-							$object.css(cssAttr, value);
-						});
-					}
-
-					oldValue = value;
-				}
-
-				if (css === "background") {
-					var valueBg = $elm.closest(".design-editor").find(".color-background-color-picker").val();
-					if (valueBg !== "") {
-						direction = $elm.parent().find('.design-gradient-direction :selected').data('value');
-						$object.css("background", "linear-gradient(" + direction + ", " + valueBg + " 0%, " + value + " 100%)");
-					} else {
-						$object.css("background-color", value);
-					}
-				} else if (css === "background-color") {
-					var valueBg2 = $elm.closest(".design-editor").find(".color-background-picker").val();
-					if (valueBg2 !== "") {
-						direction = $elm.parent().find('.design-gradient-direction :selected').data('value');
-						$object.css("background", "linear-gradient(" + direction + ", " + value + " 0%, " + valueBg2 + " 100%)");
-					} else {
-						$object.css("background-color", value);
-					}
-				} else {
-					$object.css(css, value);
-				}
-			}
-		});
-	};
-
-	this.resetColor = function (value, cssAttr) {
-		var $picker = t.editor.find('.color-' + cssAttr + '-picker');
-		$picker.val(value);
-		$picker.css("background", value);
-		$picker.colorPicker("color", value);
-		t.object.css(cssAttr, value);
-	};
-
-	this.backgroundReset = function () {
-		t.object.css("background", "none");
-		t.object.css("background-color", "none");
-		$(this).parent().parent().find(".color-background-color-picker").val("").css("background", "#fff");
-		$(this).parent().parent().find(".color-background-picker").val("").css("background", "#fff");
-		return false;
 	};
 }
