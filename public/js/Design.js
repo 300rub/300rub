@@ -11,11 +11,19 @@ function Design(id, type, title, values) {
 	this.values = values;
 	this.editor = null;
 	this.object = null;
+	this.style = "";
+	this.class = "";
+
+	this.resetObject = function() {
+		t.object.attr("class", t.class).attr("style", t.style);
+	};
 
 	this.get = function () {
 		t.editor = $templates.find(".design-" + t.type + "-editor").clone();
 		t.editor.attr("data-id", t.id);
 		t.object = $(".design-" + t.type + "-" + t.id);
+		t.style = t.object.attr("style");
+		t.class = t.object.attr("class");
 
 		if (t.type === "text") {
 			t.setText();

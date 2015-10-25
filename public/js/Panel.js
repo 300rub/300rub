@@ -135,15 +135,15 @@ function Panel (params) {
 						if ($design !== false) {
 							$design.appendTo($container);
 							$close.on("click", function() {
-								designObject.reset();
+								designObject.resetObject();
 							});
 							$back.on("click", function() {
-								designObject.reset();
+								designObject.resetObject();
 							});
 						}
 					});
 					$close.bind("click", t.close);
-					$back.bind("click", t.back);
+					$back.bind("click", t.loadNewPanel);
 				}
 
 				if (data.button != undefined) {
