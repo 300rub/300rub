@@ -250,7 +250,8 @@ h1, h2, h3, adress, mark, code {
 }
 
 .container {
-	margin: 0 auto;
+	margin-left: auto !important;
+	margin-right: auto !important;
 	overflow-x: hidden;
 }
 

@@ -97,6 +97,20 @@ abstract class Model
 	}
 
 	/**
+	 * @param string $field
+	 * @param array $values
+	 *
+	 * @return Model
+	 */
+	public function in($field, $values)
+	{
+		$this->db->addCondition("{$field} IN (:values)");
+		$this->db->params["values"] = implode(",", $values);
+
+		return $this;
+	}
+
+	/**
 	 * @param int $id идентификатор
 	 *
 	 * @return Model

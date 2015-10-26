@@ -13,6 +13,7 @@ use system\web\Language;
  * @package models
  *
  * @method GridModel[] findAll
+ * @method GridModel in($field, $values)
  */
 class GridModel extends Model
 {
@@ -23,12 +24,7 @@ class GridModel extends Model
 	/**
 	 * @var int
 	 */
-	public $section_id;
-
-	/**
-	 * @var int
-	 */
-	public $line;
+	public $grid_line_id;
 
 	/**
 	 * @var int
@@ -56,6 +52,11 @@ class GridModel extends Model
 	public $content_id;
 
 	/**
+	 * @var GridLineModel
+	 */
+	public $gridLineModel;
+
+	/**
 	 * Получает название связной таблицы
 	 *
 	 * @return string
@@ -72,7 +73,9 @@ class GridModel extends Model
 	 */
 	public function relations()
 	{
-		return [];
+		return [
+			"gridLineModel" => ['models\GridLineModel', "grid_line_id"]
+		];
 	}
 
 	/**
@@ -83,8 +86,7 @@ class GridModel extends Model
 	public function rules()
 	{
 		return [
-			"section_id"   => ["required"],
-			"line"         => ["required"],
+			"grid_line_id" => ["required"],
 			"x"            => [],
 			"y"            => [],
 			"width"        => ["required"],
@@ -116,26 +118,11 @@ class GridModel extends Model
 	}
 
 	/**
-	 * @param int $sectionId
-	 *
-	 * @return GridModel
-	 */
-	public function bySectionId($sectionId = null)
-	{
-		if ($sectionId) {
-			$this->db->addCondition("t.section_id = :section_id");
-			$this->db->params["section_id"] = $sectionId;
-		}
-
-		return $this;
-	}
-
-	/**
 	 * @return GridModel
 	 */
 	public function ordered()
 	{
-		$this->db->order = "t.line, t.y, t.x";
+		$this->db->order = "t.y, t.x";
 		return $this;
 	}
 
@@ -147,15 +134,39 @@ class GridModel extends Model
 	public function getStructure(SectionModel $section)
 	{
 		$structure["width"] = $section->getWidth();
-		$lines = [];
 
-		$models = $this->bySectionId($section->id)->ordered()->findAll();
-		foreach ($models as $model) {
-			$lines[$model->line][] = $model;
+		$gridLineIds = [];
+		$gridLineModels = GridLineModel::model()
+			->with(["outsideDesignModel", "insideDesignModel"])
+			->bySectionId($section->id)
+			->ordered()
+			->findAll();
+		foreach ($gridLineModels as $gridLineModel) {
+			$gridLineIds[] = $gridLineModel->id;
+		}
+		$gridModels = GridModel::model()->in("t.grid_line_id", $gridLineIds)->ordered()->findAll();
+
+		$lines = [];
+		$grids = [];
+		foreach ($gridLineModels as $gridLineModel) {
+			foreach ($gridModels as $gridModel) {
+				if ($gridModel->grid_line_id == $gridLineModel->id) {
+					$grids[] = $gridModel;
+				}
+			}
+			$lines[$gridLineModel->sort] = [
+				"line"  => $gridLineModel,
+				"grids" => $grids
+			];
 		}
 
-		foreach ($lines as $number => $grids) {
-			$structure["lines"][$number] = $this->_getLineStructure($grids);
+
+
+		foreach ($lines as $sort => $data) {
+			$structure["lines"][$sort] = [
+				"line"  => $data["line"],
+				"grids" => $this->_getLineStructure($data["grids"])
+			];
 		}
 
 		return $structure;
@@ -312,7 +323,7 @@ class GridModel extends Model
 			self::TYPE_TEXT => [
 				"name"  => Language::t("common", "Текст"),
 				"class" => "text",
-				"with" => ["designTextModel"]
+				"with"  => ["designTextModel"]
 			]
 		];
 	}
@@ -355,7 +366,7 @@ class GridModel extends Model
 			throw new Exception(Language::t("default", "Модель не найдена"), 404);
 		}
 
-		return '/'. $typeList[$this->content_type]["class"] .'/content';
+		return '/' . $typeList[$this->content_type]["class"] . '/content';
 	}
 
 	/**
@@ -371,7 +382,7 @@ class GridModel extends Model
 			throw new Exception(Language::t("default", "Модель не найдена"), 404);
 		}
 
-		return $typeList[$this->content_type]["class"] .'-' . $this->content_id;
+		return $typeList[$this->content_type]["class"] . '-' . $this->content_id;
 	}
 
 	/**

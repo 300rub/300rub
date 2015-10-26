@@ -3,6 +3,7 @@
 namespace controllers;
 
 use models\BlockModel;
+use models\GridLineModel;
 use models\GridModel;
 use models\SeoModel;
 use system\db\Db;
@@ -51,6 +52,7 @@ class SectionController extends Controller
 	public function actionIndex($section = null, $param1 = null, $param2 = null)
 	{
 		$model = SectionModel::model()->byUrl($section)->find();
+
 		if (!$model) {
 			$this->render("empty");
 		} else {

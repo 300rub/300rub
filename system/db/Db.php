@@ -128,9 +128,9 @@ class Db
 			 * @var Model $class
 			 */
 			$class = new $relation[0];
-			$select[] = $class->tableName() . ".id AS {$with}__id";
+			$select[] = $with . ".id AS {$with}__id";
 			foreach (array_keys($class->rules()) as $field) {
-				$select[] = $class->tableName() . ".{$field} AS {$with}__{$field}";
+				$select[] = $with . ".{$field} AS {$with}__{$field}";
 			}
 
 			$this->condition = str_replace("{$with}.", $class->tableName() . ".", $this->condition);
@@ -138,11 +138,7 @@ class Db
 			$join[] =
 				" LEFT JOIN " .
 				$class->tableName() .
-				" ON t." .
-				$relation[1] .
-				" = " .
-				$class->tableName() .
-				".id";
+				" AS {$with} ON t.{$relation[1]} = {$with}.id";
 		}
 
 		$query = "SELECT " . implode(", ", $select);

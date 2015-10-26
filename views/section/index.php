@@ -10,11 +10,21 @@
 	</script>
 <?php if (!empty($structure["lines"])) { ?>
 	<div class="section-container section-<?= $sectionId ?>">
-		<?php foreach ($structure["lines"] as $lineNumber => $gridContainers) { ?>
-			<div class="line-<?= $lineNumber ?>">
-				<div class="container" style="width: <?= $structure["width"] ?>">
+		<?php foreach ($structure["lines"] as $lineNumber => $data) { ?>
+			<div
+				class="line-<?= $lineNumber ?> design-block-<?= $data["line"]->outsideDesignModel->id ?>"
+				style="<?php $this->renderPartial(
+					"/design/block_style",
+					["model" => $data["line"]->outsideDesignModel]
+				); ?>"
+				>
+				<div
+					class="container design-block-<?= $data["line"]->insideDesignModel->id ?>"
+					style="width: <?= $structure["width"] ?>; <?php
+					$this->renderPartial("/design/block_style", ["model" => $data["line"]->insideDesignModel]); ?>"
+					>
 					<div class="row">
-						<?php foreach ($gridContainers as $gridContainer) { ?>
+						<?php foreach ($data["grids"] as $gridContainer) { ?>
 							<?php
 							/**
 							 * @var array $gridContainer
