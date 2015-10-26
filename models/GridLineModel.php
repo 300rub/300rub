@@ -11,6 +11,7 @@ use system\base\Model;
  *
  * @method GridLineModel with($array)
  * @method GridLineModel findAll
+ * @method GridLineModel byId($id)
  */
 class GridLineModel extends Model
 {

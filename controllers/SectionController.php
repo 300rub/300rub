@@ -283,7 +283,7 @@ class SectionController extends Controller
 		}
 
 		$data = App::getPost("data");
-		$this->json = GridModel::model()->updateGridForSection($model->id, $data);;
+		$this->json = GridModel::model()->updateGridForSection($model->id, $data);
 		$this->renderJson();
 	}
 

@@ -155,10 +155,10 @@ class GridModel extends Model
 			$gridLineIds[] = $gridLineModel->id;
 		}
 		$gridModels = GridModel::model()->in("t.grid_line_id", $gridLineIds)->ordered()->findAll();
-
 		$lines = [];
-		$grids = [];
+
 		foreach ($gridLineModels as $gridLineModel) {
+			$grids = [];
 			foreach ($gridModels as $gridModel) {
 				if ($gridModel->grid_line_id == $gridLineModel->id) {
 					$grids[] = $gridModel;
@@ -169,8 +169,6 @@ class GridModel extends Model
 				"grids" => $grids
 			];
 		}
-
-
 
 		foreach ($lines as $sort => $data) {
 			$structure["lines"][$sort] = [
@@ -306,20 +304,45 @@ class GridModel extends Model
 	public function updateGridForSection($sectionId, $data)
 	{
 		Db::startTransaction();
-		$grids = $this->bySectionId($sectionId)->findAll();
-		foreach ($grids as $grid) {
-			if (!$grid->delete(false)) {
-				Db::rollbackTransaction();
-				return false;
-			}
-		}
+		$oldGrids = $this->with(["gridLineModel"])->bySectionId($sectionId)->findAll();
 
 		$lineNumber = 1;
-		foreach ($data as $line) {
-			foreach ($line as $item) {
+		foreach ($data as $content) {
+			if ($content["id"]) {
+				$gridLineModel = GridLineModel::model()->byId($content["id"])->find();
+				if (!$gridLineModel) {
+					Db::rollbackTransaction();
+					return false;
+				}
+				$gridLineModel->sort = $lineNumber;
+				if (!$gridLineModel->save(false)) {
+					Db::rollbackTransaction();
+					return false;
+				}
+			} else {
+				$outsideDesignModel = new DesignBlockModel();
+				if (!$outsideDesignModel->save(false)) {
+					Db::rollbackTransaction();
+					return false;
+				}
+				$insideDesignModel = new DesignBlockModel();
+				if (!$insideDesignModel->save(false)) {
+					Db::rollbackTransaction();
+					return false;
+				}
+				$gridLineModel = new GridLineModel();
+				$gridLineModel->section_id = $sectionId;
+				$gridLineModel->sort = $lineNumber;
+				$gridLineModel->outside_design_id = $outsideDesignModel->id;
+				$gridLineModel->inside_design_id = $insideDesignModel->id;
+				if (!$gridLineModel->save(false)) {
+					Db::rollbackTransaction();
+					return false;
+				}
+			}
+			foreach ($content["items"] as $item) {
 				$model = new self;
-				$model->section_id = $sectionId;
-				$model->line = $lineNumber;
+				$model->grid_line_id = $gridLineModel->id;
 				$model->x = $item["x"];
 				$model->y = $item["y"];
 				$model->width = $item["width"];
@@ -332,6 +355,14 @@ class GridModel extends Model
 			}
 
 			$lineNumber++;
+		}
+
+		foreach ($oldGrids as $grid) {
+			$grid->gridLineModel = null;
+			if (!$grid->delete(false)) {
+				Db::rollbackTransaction();
+				return false;
+			}
 		}
 
 		Db::commitTransaction();

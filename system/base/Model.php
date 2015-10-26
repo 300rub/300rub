@@ -104,8 +104,7 @@ abstract class Model
 	 */
 	public function in($field, $values)
 	{
-		$this->db->addCondition("{$field} IN (:values)");
-		$this->db->params["values"] = implode(",", $values);
+		$this->db->addCondition("{$field} IN (" . implode(",", $values) . ")");
 
 		return $this;
 	}

@@ -268,7 +268,8 @@ function Grid(id) {
 		var data = [];
 
 		t.window.find(".grid-stack-line").each(function (i, val) {
-			var line = [];
+			var lineId = $(this).data("id");
+			var items = [];
 			t.window.find('.grid-stack-line:nth-child(' + (i + 1) + ') .grid-stack .grid-stack-item:visible').each(function () {
 				var node = $(this).data('_gridstack_node');
 				var item = {
@@ -278,9 +279,9 @@ function Grid(id) {
 					y: node.y,
 					width: node.width
 				};
-				line.push(item);
+				items.push(item);
 			});
-			data.push(line);
+			data.push({id: lineId, items: items});
 		});
 
 		var $loaderButton = $loader.clone();
@@ -297,12 +298,19 @@ function Grid(id) {
 				$buttonSpan.css("opacity", 0);
 			},
 			success: function (data) {
-				if (parseInt(t.id) == parseInt(SECTION_ID) || parseInt(SECTION_ID) == 0) {
-					location.reload();
+				if (data !== false) {
+					if (parseInt(t.id) == parseInt(SECTION_ID) || parseInt(SECTION_ID) == 0) {
+						location.reload();
+					} else {
+						$loaderButton.remove();
+						$buttonSpan.css("opacity", 1);
+						t.close();
+					}
 				} else {
 					$loaderButton.remove();
 					$buttonSpan.css("opacity", 1);
-					t.close();
+					t.container.text("");
+					$errors.find(".system").clone().appendTo(t.container);
 				}
 			},
 			error: function (request, status, error) {

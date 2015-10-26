@@ -60,11 +60,7 @@ class M_151012_000000_design_blocks extends Migration
 	 */
 	public function insertData()
 	{
-		$attributes = [
-			"t.margin_top" => 20,
-		];
 		$model = new DesignBlockModel();
-		$model->setAttributes($attributes);
 		if (!$model->save()) {
 			return false;
 		}
