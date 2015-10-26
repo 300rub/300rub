@@ -119,7 +119,7 @@ function Grid(id) {
 				if (data.grid) {
 					t.parseGrid(data.grid, $lineContainer);
 				} else {
-					t.addLine($lineContainer);
+					t.addLine($lineContainer, 0);
 				}
 			},
 			error: function (request, status, error) {
@@ -153,7 +153,7 @@ function Grid(id) {
 		var $lineAdd = $templates.find(".grid-stack-line-add").clone();
 		$lineAdd.appendTo(t.window.find(".footer"));
 		$lineAdd.on("click", function () {
-			t.addLine($lineContainer);
+			t.addLine($lineContainer, 0);
 			return false;
 		});
 	};
@@ -165,9 +165,9 @@ function Grid(id) {
 	 * @param {HTMLElement} $lineContainer
 	 */
 	this.parseGrid = function (grid, $lineContainer) {
-		$.each(grid, function (lineNumber, line) {
-			t.addLine($lineContainer);
-			$.each(line, function (i, item) {
+		$.each(grid, function (lineNumber, data) {
+			t.addLine($lineContainer, data.id);
+			$.each(data.grids, function (i, item) {
 				t.addWidget(lineNumber, item.id, item.type, item.x, item.y, item.width, item.name, false);
 			});
 		});
@@ -218,10 +218,11 @@ function Grid(id) {
 	 * Добавляет линию
 	 *
 	 * @param {HTMLElement} $lineContainer
+	 * @param {int}         id
 	 */
-	this.addLine = function ($lineContainer) {
+	this.addLine = function ($lineContainer, id) {
 		var $line = t.lineClone.clone();
-		$line.appendTo($lineContainer);
+		$line.attr("data-id", id).appendTo($lineContainer);
 		t.setBlockSelectForLine($line);
 		$line.find(".remove").bind("click", t.removeLine);
 

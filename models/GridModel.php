@@ -13,7 +13,8 @@ use system\web\Language;
  * @package models
  *
  * @method GridModel[] findAll
- * @method GridModel in($field, $values)
+ * @method GridModel   in($field, $values)
+ * @method GridModel   with($array)
  */
 class GridModel extends Model
 {
@@ -118,11 +119,20 @@ class GridModel extends Model
 	}
 
 	/**
-	 * @return GridModel
-	 */
+ * @return GridModel
+ */
 	public function ordered()
 	{
 		$this->db->order = "t.y, t.x";
+		return $this;
+	}
+
+	/**
+	 * @return GridModel
+	 */
+	public function orderedWithLines()
+	{
+		$this->db->order = "gridLineModel.sort, t.y, t.x";
 		return $this;
 	}
 
@@ -249,6 +259,19 @@ class GridModel extends Model
 	/**
 	 * @param int $sectionId
 	 *
+	 * @return GridModel
+	 */
+	public function bySectionId($sectionId)
+	{
+		$this->db->addCondition("gridLineModel.section_id = :sectionId");
+		$this->db->params["sectionId"] = $sectionId;
+
+		return $this;
+	}
+
+	/**
+	 * @param int $sectionId
+	 *
 	 * @return array
 	 */
 	public function getAllGridsForGridWindow($sectionId)
@@ -256,11 +279,12 @@ class GridModel extends Model
 		$list = [];
 		$typeList = self::getTypesList();
 
-		$grids = $this->bySectionId($sectionId)->ordered()->findAll();
+		$grids = $this->with(["gridLineModel"])->bySectionId($sectionId)->orderedWithLines()->findAll();
 		foreach ($grids as $grid) {
 			$modelName = "\\models\\" . ucfirst($typeList[$grid->content_id]["class"]) . "Model";
 			$model = $modelName::model()->byId($grid->content_id)->find();
-			$list[intval($grid->line)][] = [
+			$list[intval($grid->gridLineModel->sort)]["id"] = $grid->gridLineModel->id;
+			$list[intval($grid->gridLineModel->sort)]["grids"][] = [
 				"id"    => $grid->content_id,
 				"x"     => $grid->x,
 				"y"     => $grid->y,

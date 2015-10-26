@@ -133,8 +133,6 @@ class Db
 				$select[] = $with . ".{$field} AS {$with}__{$field}";
 			}
 
-			$this->condition = str_replace("{$with}.", $class->tableName() . ".", $this->condition);
-			$this->order = str_replace("{$with}.", $class->tableName() . ".", $this->order);
 			$join[] =
 				" LEFT JOIN " .
 				$class->tableName() .
