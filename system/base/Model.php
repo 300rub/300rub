@@ -139,7 +139,7 @@ abstract class Model
 	 *
 	 * @return Model
 	 */
-	public final function withAll()
+	public function withAll()
 	{
 		foreach ($this->relations() as $key => $value) {
 			$this->db->with[] = $key;

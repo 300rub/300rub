@@ -261,8 +261,22 @@ class GridModel extends Model
 	 */
 	public function bySectionId($sectionId)
 	{
+		$this->db->with[] = "gridLineModel";
 		$this->db->addCondition("gridLineModel.section_id = :sectionId");
 		$this->db->params["sectionId"] = $sectionId;
+
+		return $this;
+	}
+
+	/**
+	 * @param int $lineId
+	 *
+	 * @return GridModel
+	 */
+	public function byLineId($lineId)
+	{
+		$this->db->addCondition("t.grid_line_id = :lineId");
+		$this->db->params["lineId"] = $lineId;
 
 		return $this;
 	}
@@ -277,7 +291,7 @@ class GridModel extends Model
 		$list = [];
 		$typeList = self::getTypesList();
 
-		$grids = $this->with(["gridLineModel"])->bySectionId($sectionId)->orderedWithLines()->findAll();
+		$grids = $this->bySectionId($sectionId)->orderedWithLines()->findAll();
 		foreach ($grids as $grid) {
 			$modelName = "\\models\\" . ucfirst($typeList[$grid->content_id]["class"]) . "Model";
 			$model = $modelName::model()->byId($grid->content_id)->find();
@@ -304,7 +318,7 @@ class GridModel extends Model
 	public function updateGridForSection($sectionId, $data)
 	{
 		Db::startTransaction();
-		$oldGrids = $this->with(["gridLineModel"])->bySectionId($sectionId)->findAll();
+		$oldGrids = $this->bySectionId($sectionId)->findAll();
 
 		$lineNumber = 1;
 		foreach ($data as $content) {

@@ -16,6 +16,7 @@ use system\base\Model;
  * @method SectionModel[] findAll
  * @method SectionModel   with($relations)
  * @method SectionModel   exceptId($id)
+ * @method SectionModel   withAll
  */
 class SectionModel extends Model
 {
@@ -237,9 +238,9 @@ class SectionModel extends Model
 	 */
 	protected function beforeDelete()
 	{
-		$models = GridModel::model()->bySectionId($this->id)->findAll();
-		foreach ($models as $model) {
-			if (!$model->delete(false)) {
+		$gridLineModels = GridLineModel::model()->bySectionId($this->id)->withAll()->findAll();
+		foreach ($gridLineModels as $gridLineModel) {
+			if (!$gridLineModel->delete(false)) {
 				return false;
 			}
 		}
@@ -257,24 +258,6 @@ class SectionModel extends Model
 		return parent::beforeDelete();
 	}
 
-	/**
-	 * @return bool
-	 */
-	protected function afterDelete()
-	{
-		if (!$this->seoModel) {
-			$this->seoModel = SeoModel::model()->byId($this->seo_id)->find();
-			if (!$this->seoModel) {
-				return false;
-			}
-		}
-		if (!$this->seoModel->delete(false)) {
-			return false;
-		}
-
-		return parent::afterDelete();
-	}
-
 	public function duplicate()
 	{
 		Db::startTransaction();
@@ -285,24 +268,55 @@ class SectionModel extends Model
 			return false;
 		}
 
+		$designBlockModel = clone $this->designBlockModel;
+		$designBlockModel->id = null;
+		if (!$designBlockModel->save(false)) {
+			Db::rollbackTransaction();
+			return false;
+		}
+
 		$model = clone $this;
 		$model->id = null;
 		$model->seoModel = null;
+		$model->designBlockModel = null;
 		$model->seo_id = $seoId;
+		$model->design_block_id = $designBlockModel->id;
 		$model->is_main = 0;
 		if (!$model->save(false)) {
 			Db::rollbackTransaction();
 			return false;
 		}
 
-		$grids = GridModel::model()->bySectionId($this->id)->findAll();
-		foreach ($grids as $grid) {
-			$newGrid = clone $grid;
-			$newGrid->id = null;
-			$newGrid->section_id = $model->id;
-			if (!$newGrid->save(false)) {
+		$gridLines = GridLineModel::model()->bySectionId($this->id)->withAll()->findAll();
+		foreach ($gridLines as $gridLine) {
+			$outsideDesignModel = clone $gridLine->outsideDesignModel;
+			$outsideDesignModel->id = null;
+			if (!$outsideDesignModel->save(false)) {
 				Db::rollbackTransaction();
 				return false;
+			}
+			$insideDesignModel = clone $gridLine->insideDesignModel;
+			$insideDesignModel->id = null;
+			if (!$insideDesignModel->save(false)) {
+				Db::rollbackTransaction();
+				return false;
+			}
+			$line = clone $gridLine;
+			$line->id = null;
+			$line->section_id = $model->id;
+			if (!$line->save(false)) {
+				Db::rollbackTransaction();
+				return false;
+			}
+			$grids = GridModel::model()->byLineId($gridLine->id)->findAll();
+			foreach ($grids as $grid) {
+				$newGrid = clone $grid;
+				$newGrid->id = null;
+				$newGrid->grid_line_id = $line->id;
+				if (!$newGrid->save(false)) {
+					Db::rollbackTransaction();
+					return false;
+				}
 			}
 		}
 

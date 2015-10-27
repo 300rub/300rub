@@ -9,9 +9,10 @@ use system\base\Model;
  *
  * @package models
  *
- * @method GridLineModel with($array)
- * @method GridLineModel findAll
- * @method GridLineModel byId($id)
+ * @method GridLineModel   with($array)
+ * @method GridLineModel[] findAll
+ * @method GridLineModel   byId($id)
+ * @method GridLineModel   withAll
  */
 class GridLineModel extends Model
 {
@@ -118,5 +119,20 @@ class GridLineModel extends Model
 	{
 		$this->db->order = "t.sort";
 		return $this;
+	}
+
+	/**
+	 * @return bool
+	 */
+	protected function beforeDelete()
+	{
+		$gridModels = GridModel::model()->byLineId($this->id)->findAll();
+		foreach ($gridModels as $gridModel) {
+			if (!$gridModel->delete(false)) {
+				return false;
+			}
+		}
+
+		return parent::beforeDelete();
 	}
 }

@@ -3,6 +3,7 @@
 namespace controllers;
 
 use models\BlockModel;
+use models\DesignBlockModel;
 use models\GridLineModel;
 use models\GridModel;
 use models\SeoModel;
@@ -205,9 +206,14 @@ class SectionController extends Controller
 		if ($id) {
 			$model = SectionModel::model()->byId($id)->with(["seoModel"])->find();
 		} else {
+			$designBlockModel = new DesignBlockModel();
+			if (!$designBlockModel->save()) {
+				throw new Exception(Language::t("common", "Не удалось создать дизайн"), 404);
+			}
 			$model = new SectionModel;
 			$model->language = Language::$activeId;
 			$model->seoModel = new SeoModel();
+			$model->design_block_id = $designBlockModel->id;
 		}
 
 		$model->setAttributes($post);
@@ -297,17 +303,22 @@ class SectionController extends Controller
 			throw new Exception(Language::t("default", "Раздел не найден"), 404);
 		}
 
-		$this->json = $model->delete();
+		$this->json = $model->withAll()->delete();
 		$this->renderJson();
 	}
 
+	/**
+	 * @param int $id
+	 *
+	 * @throws Exception
+	 */
 	public function actionDuplicate($id)
 	{
 		if (!$id) {
 			throw new Exception(Language::t("common", "Некорректный идентификатор"), 404);
 		}
 
-		$model = SectionModel::model()->byId($id)->with(["seoModel"])->find();
+		$model = SectionModel::model()->byId($id)->withAll()->find();
 		if (!$model) {
 			throw new Exception(Language::t("default", "Раздел не найден"), 404);
 		}
