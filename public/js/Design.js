@@ -1,4 +1,4 @@
-function Design(id, type, title, values) {
+function Design(id, type, values) {
 
 	/**
 	 * @type {Design}
@@ -6,7 +6,6 @@ function Design(id, type, title, values) {
 	var t = this;
 
 	this.id = id;
-	this.title = title;
 	this.type = type;
 	this.values = values;
 	this.editor = null;

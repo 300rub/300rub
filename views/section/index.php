@@ -2,17 +2,20 @@
 /**
  * @var \controllers\SectionController $this
  * @var array                          $structure
- * @var int                            $sectionId
+ * @var \models\SectionModel           $model
  */
 ?>
 	<script>
-		var SECTION_ID = <?= $sectionId ?>;
+		var SECTION_ID = <?= $model->id ?>;
 	</script>
 <?php if (!empty($structure["lines"])) { ?>
-	<div class="section-container section-<?= $sectionId ?>">
+	<div
+		class="section-container section-<?= $model->id ?> design-block-<?= $model->designBlockModel->id ?>"
+		style="<?php $this->renderPartial("/design/block_style", ["model" => $model->designBlockModel]); ?>"
+		>
 		<?php foreach ($structure["lines"] as $lineNumber => $data) { ?>
 			<div
-				class="line-<?= $lineNumber ?> design-block-<?= $data["line"]->outsideDesignModel->id ?>"
+				class="line-container line-<?= $lineNumber ?> design-block-<?= $data["line"]->outsideDesignModel->id ?>"
 				style="<?php $this->renderPartial(
 					"/design/block_style",
 					["model" => $data["line"]->outsideDesignModel]

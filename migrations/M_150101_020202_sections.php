@@ -23,11 +23,12 @@ class M_150101_020202_sections extends Migration
 		$result = $this->createTable(
 			"sections",
 			[
-				"id"       => "pk",
-				"seo_id"   => "integer",
-				"language" => "integer",
-				"width"    => "integer",
-				"is_main"  => "boolean",
+				"id"              => "pk",
+				"seo_id"          => "integer",
+				"language"        => "integer",
+				"width"           => "integer",
+				"is_main"         => "boolean",
+				"design_block_id" => "integer"
 			],
 			"ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci"
 		);
@@ -47,6 +48,10 @@ class M_150101_020202_sections extends Migration
 			return false;
 		}
 
+		if (!$this->createIndex("sections_design_block_id", "sections", "design_block_id")) {
+			return false;
+		}
+
 		return true;
 	}
 
@@ -58,10 +63,11 @@ class M_150101_020202_sections extends Migration
 	public function insertData()
 	{
 		$attributes = [
-			"t.seo_id"   => 1,
-			"t.language" => 1,
-			"t.width"    => SectionModel::DEFAULT_WIDTH,
-			"t.is_main"  => 1,
+			"t.seo_id"          => 1,
+			"t.language"        => 1,
+			"t.width"           => SectionModel::DEFAULT_WIDTH,
+			"t.is_main"         => 1,
+			"t.design_block_id" => 1,
 		];
 		$model = new SectionModel;
 		$model->setAttributes($attributes);
@@ -70,10 +76,11 @@ class M_150101_020202_sections extends Migration
 		}
 
 		$attributes = [
-			"t.seo_id"   => 2,
-			"t.language" => 1,
-			"t.width"    => 1024,
-			"t.is_main"  => 0,
+			"t.seo_id"          => 2,
+			"t.language"        => 1,
+			"t.width"           => 1024,
+			"t.is_main"         => 0,
+			"t.design_block_id" => 2,
 		];
 		$model = new SectionModel;
 		$model->setAttributes($attributes);

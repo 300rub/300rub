@@ -51,14 +51,13 @@ class SectionController extends Controller
 	 */
 	public function actionIndex($section = null, $param1 = null, $param2 = null)
 	{
-		$model = SectionModel::model()->byUrl($section)->find();
-
+		$model = SectionModel::model()->byUrl($section)->with(["designBlockModel"])->find();
 		if (!$model) {
 			$this->render("empty");
 		} else {
 			$this->render(
 				"index",
-				["sectionId" => $model->id, "structure" => GridModel::model()->getStructure($model)]
+				["model" => $model, "structure" => GridModel::model()->getStructure($model)]
 			);
 		}
 	}
@@ -91,7 +90,7 @@ class SectionController extends Controller
 				"content" => "section/grid",
 				"icons"   => [
 					"big"      => false,
-					"design"   => false,
+					"design"   => "section/design",
 					"settings" => "section/settings",
 				],
 			],
@@ -314,6 +313,39 @@ class SectionController extends Controller
 		}
 
 		$this->json = $model->duplicate();
+		$this->renderJson();
+	}
+
+	/**
+	 * @param int $id
+	 *
+	 * @throws Exception
+	 *
+	 * @return void
+	 */
+	public function actionDesign($id = 0)
+	{
+		if ($id) {
+			$model = SectionModel::model()->byId($id)->with(["designBlockModel"])->find();
+		} else {
+			$model = new SectionModel;
+		}
+
+		if (!$model) {
+			throw new Exception(Language::t("default", "Модель не найдена"), 404);
+		}
+
+		$this->json = [
+			"back"        => "section/panelList",
+			"title"       => Language::t("common", "Дизайн раздела"),
+			"description" => Language::t("common", "123"),
+			"button"      => [
+				"label"  => Language::t("common", "Сохранить"),
+				"action" => "section/saveDesign/{$model->id}"
+			],
+			"design"      => $model->getDesignForms()
+		];
+
 		$this->renderJson();
 	}
 }

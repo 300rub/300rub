@@ -54,9 +54,19 @@ class SectionModel extends Model
 	public $is_main = false;
 
 	/**
+	 * @var int
+	 */
+	public $design_block_id;
+
+	/**
 	 * @var SeoModel
 	 */
 	public $seoModel = null;
+
+	/**
+	 * @var DesignBlockModel
+	 */
+	public $designBlockModel;
 
 	/**
 	 * Типы форм для полей
@@ -86,10 +96,11 @@ class SectionModel extends Model
 	public function rules()
 	{
 		return [
-			"seo_id"   => [],
-			"language" => ["required"],
-			"width"    => [],
-			"is_main"  => [],
+			"seo_id"          => [],
+			"language"        => ["required"],
+			"width"           => [],
+			"is_main"         => [],
+			"design_block_id" => ["required"],
 		];
 	}
 
@@ -114,7 +125,8 @@ class SectionModel extends Model
 	public function relations()
 	{
 		return [
-			"seoModel" => ['models\SeoModel', "seo_id"]
+			"seoModel"         => ['models\SeoModel', "seo_id"],
+			"designBlockModel" => ['models\DesignBlockModel', "design_block_id"]
 		];
 	}
 
@@ -296,5 +308,55 @@ class SectionModel extends Model
 
 		Db::commitTransaction();
 		return $model->id;
+	}
+
+	/**
+	 * @return array
+	 */
+	public function getDesignForms()
+	{
+		$list = [];
+
+		$list[] = [
+			"title" => Language::t("common", "Background"),
+			"forms" => [
+				[
+					"id"     => $this->designBlockModel->id,
+					"type"   => "block",
+					"values" => $this->designBlockModel->getValues("designBlockModel")
+				]
+			]
+		];
+
+		$lines = GridLineModel::model()
+			->ordered()
+			->bySectionId($this->id)
+			->with(["outsideDesignModel", "insideDesignModel"])
+			->findAll();
+		foreach ($lines as $line) {
+			$list[] = [
+				"title" => Language::t("common", "Линия {$line->sort}"),
+				"forms" => [
+					[
+						"id"     => $line->outsideDesignModel->id,
+						"type"   => "block",
+						"values" => $line->outsideDesignModel->getValues("lines][{$line->id}][outsideDesignModel"),
+					]
+				]
+			];
+
+			$list[] = [
+				"title" => Language::t("common", "Линия {$line->sort} контейнер"),
+				"forms" => [
+					[
+						"id"     => $line->insideDesignModel->id,
+						"type"   => "block",
+						"values" => $line->insideDesignModel->getValues("lines][{$line->id}][insideDesignModel"),
+					]
+				]
+			];
+		}
+
+		return $list;
 	}
 }

@@ -490,3 +490,13 @@
 	float: right;
 	line-height: 32px;
 }
+
+.ui-accordion .ui-accordion-content {
+	padding: 0;
+}
+
+.panel .container h3 {
+	-webkit-border-radius: 0;
+	-moz-border-radius: 0;
+	border-radius: 0;
+}

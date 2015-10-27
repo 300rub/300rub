@@ -127,6 +127,17 @@ h1, h2, h3, adress, mark, code {
 
 #wrapper, .section-container {
 	min-height: 100%;
+	margin-left: auto !important;
+	margin-right: auto !important;
+	padding-left: 0 !important;
+	padding-right: 0 !important;
+}
+
+#wrapper, .line-container {
+	margin-left: auto !important;
+	margin-right: auto !important;
+	padding-left: 0 !important;
+	padding-right: 0 !important;
 }
 
 #login-button, #logout-button {
@@ -252,6 +263,8 @@ h1, h2, h3, adress, mark, code {
 .container {
 	margin-left: auto !important;
 	margin-right: auto !important;
+	padding-left: 0 !important;
+	padding-right: 0 !important;
 	overflow-x: hidden;
 }
 

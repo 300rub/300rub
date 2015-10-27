@@ -173,19 +173,24 @@ class TextModel extends Model
 	public function getDesignForms()
 	{
 		$list = [];
+		$forms = [];
+
 		if (!$this->is_editor) {
-			$list[] = [
+			$forms[] = [
 				"id"     => $this->designTextModel->id,
 				"type"   => "text",
-				"title"  => Language::t("common", "Текст"),
 				"values" => $this->designTextModel->getValues("designTextModel"),
 			];
 		}
-		$list[] = [
+		$forms[] = [
 			"id"     => $this->designBlockModel->id,
 			"type"   => "block",
-			"title"  => Language::t("common", "Блок"),
 			"values" => $this->designBlockModel->getValues("designBlockModel"),
+		];
+
+		$list[] = [
+			"title" => Language::t("common", "Текст"),
+			"forms" => $forms
 		];
 
 		return $list;

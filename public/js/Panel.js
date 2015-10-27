@@ -130,22 +130,36 @@ function Panel (params) {
 					$close.off();
 					$back.off();
 					$panelButtons.find("a").off();
-					$.each(data.design, function (i, params) {
-						var designObject = new Design(params.id, params.type, params.title, params.values);
-						var $design = designObject.get();
-						if ($design !== false) {
-							$design.appendTo($container);
-							$close.on("click", function() {
-								designObject.resetObject();
-							});
-							$back.on("click", function() {
-								designObject.resetObject();
-							});
-							$panelButtons.find("a").on("click", function() {
-								designObject.resetObject();
-							});
+					$.each(data.design, function (i, p) {
+						if (data.design.length > 1) {
+							$("<h3 />").text(p.title).appendTo($container);
 						}
+						var $div = $("<div />").appendTo($container);
+
+						$.each(p.forms, function (i, params) {
+							var designObject = new Design(params.id, params.type, params.values);
+							var $design = designObject.get();
+							if ($design !== false) {
+								$design.appendTo($div);
+								$close.on("click", function () {
+									designObject.resetObject();
+								});
+								$back.on("click", function () {
+									designObject.resetObject();
+								});
+								$panelButtons.find("a").on("click", function () {
+									designObject.resetObject();
+								});
+							}
+						});
 					});
+
+					if (data.design.length > 1) {
+						$container.accordion({
+							heightStyle: "content"
+						});
+					}
+
 					$close.bind("click", t.close);
 					$back.bind("click", t.loadNewPanel);
 					setPanelButtons();
