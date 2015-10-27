@@ -323,7 +323,7 @@ class SectionModel extends Model
 				[
 					"id"     => $this->designBlockModel->id,
 					"type"   => "block",
-					"values" => $this->designBlockModel->getValues("designBlockModel")
+					"values" => $this->designBlockModel->getValues("designBlockModel][t")
 				]
 			]
 		];
@@ -358,5 +358,39 @@ class SectionModel extends Model
 		}
 
 		return $list;
+	}
+
+	/**
+	 * @param array $data
+	 *
+	 * @return bool
+	 */
+	public function saveDesign($data)
+	{
+		Db::startTransaction();
+		$this->designBlockModel->setAttributes($data["designBlockModel"]);
+		if (!$this->designBlockModel->save(false)) {
+			Db::rollbackTransaction();
+			return false;
+		}
+
+		foreach ($data["lines"] as $id => $values) {
+			$gridLineModel = GridLineModel::model()
+				->with(["outsideDesignModel", "insideDesignModel"])
+				->byId($id)
+				->find();
+			if (!$gridLineModel) {
+				Db::rollbackTransaction();
+				return false;
+			}
+			$gridLineModel->setAttributes($values);
+			if (!$gridLineModel->save(false)) {
+				Db::rollbackTransaction();
+				return false;
+			}
+		}
+
+		Db::commitTransaction();
+		return true;
 	}
 }

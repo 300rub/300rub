@@ -348,4 +348,30 @@ class SectionController extends Controller
 
 		$this->renderJson();
 	}
+
+	/**
+	 * @param int $id
+	 *
+	 * @throws Exception
+	 *
+	 * @return void
+	 */
+	public function actionSaveDesign($id = 0)
+	{
+		$post = App::getPost();
+
+		$model = SectionModel::model()->byId($id)->with(["designBlockModel"])->find();
+
+		if (!$model) {
+			throw new Exception(Language::t("default", "Модель не найдена"), 404);
+		}
+
+		$this->json = [
+			"success" => $model->saveDesign($post),
+			"errors"  => $model->errors,
+			"content" => "section/panelList",
+		];
+
+		$this->renderJson();
+	}
 }
