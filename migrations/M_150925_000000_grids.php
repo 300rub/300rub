@@ -83,8 +83,8 @@ class M_150925_000000_grids extends Migration
 		$attributes = [
 			"t.section_id"        => 1,
 			"t.sort"              => 1,
-			"t.outside_design_id" => 1,
-			"t.inside_design_id"  => 1,
+			"t.outside_design_id" => 4,
+			"t.inside_design_id"  => 5,
 		];
 		$model = new GridLineModel();
 		$model->setAttributes($attributes);
@@ -95,8 +95,8 @@ class M_150925_000000_grids extends Migration
 		$attributes = [
 			"t.section_id"        => 2,
 			"t.sort"              => 1,
-			"t.outside_design_id" => 1,
-			"t.inside_design_id"  => 1,
+			"t.outside_design_id" => 6,
+			"t.inside_design_id"  => 7,
 		];
 		$model = new GridLineModel();
 		$model->setAttributes($attributes);

@@ -60,9 +60,11 @@ class M_151012_000000_design_blocks extends Migration
 	 */
 	public function insertData()
 	{
-		$model = new DesignBlockModel();
-		if (!$model->save()) {
-			return false;
+		for ($i = 0; $i < 7; $i++) {
+			$model = new DesignBlockModel();
+			if (!$model->save()) {
+				return false;
+			}
 		}
 
 		return true;

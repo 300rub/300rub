@@ -6,7 +6,7 @@
 ?>
 
 <<?= $model->getTag() ?>
- class="design-text-<?= $model->designTextModel->id ?> design-block-<?= $model->designTextModel->id
+ class="design-text-<?= $model->designTextModel->id ?> design-block-<?= $model->designBlockModel->id
 ?><?= ($model->designTextModel->getFontFamilyClass() && !$model->is_editor) ? " " .
 	$model->designTextModel->getFontFamilyClass() : "" ?>"
 style="<?php

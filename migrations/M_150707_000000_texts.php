@@ -55,7 +55,7 @@ class M_150707_000000_texts extends Migration
 			"t.type"            => 1,
 			"t.text"            => "Текстовая страница",
 			"t.design_text_id"  => 1,
-			"t.design_block_id" => 1,
+			"t.design_block_id" => 3,
 		];
 		$model = new TextModel();
 		$model->setAttributes($attributes);
