@@ -304,6 +304,10 @@ class SectionModel extends Model
 			$line = clone $gridLine;
 			$line->id = null;
 			$line->section_id = $model->id;
+			$line->outsideDesignModel = null;
+			$line->insideDesignModel = null;
+			$line->outside_design_id = $outsideDesignModel->id;
+			$line->inside_design_id = $insideDesignModel->id;
 			if (!$line->save(false)) {
 				Db::rollbackTransaction();
 				return false;

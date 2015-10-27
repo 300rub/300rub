@@ -151,6 +151,11 @@ class GridModel extends Model
 			->bySectionId($section->id)
 			->ordered()
 			->findAll();
+
+		if (!$gridLineModels) {
+			return false;
+		}
+
 		foreach ($gridLineModels as $gridLineModel) {
 			$gridLineIds[] = $gridLineModel->id;
 		}

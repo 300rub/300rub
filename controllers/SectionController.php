@@ -56,10 +56,15 @@ class SectionController extends Controller
 		if (!$model) {
 			$this->render("empty");
 		} else {
-			$this->render(
-				"index",
-				["model" => $model, "structure" => GridModel::model()->getStructure($model)]
-			);
+			$structure = GridModel::model()->getStructure($model);
+			if (!$structure) {
+				$this->render("empty");
+			} else {
+				$this->render(
+					"index",
+					["model" => $model, "structure" => $structure]
+				);
+			}
 		}
 	}
 
@@ -298,12 +303,12 @@ class SectionController extends Controller
 			throw new Exception(Language::t("common", "Некорректный идентификатор"), 404);
 		}
 
-		$model = SectionModel::model()->byId($id)->with(["seoModel"])->find();
+		$model = SectionModel::model()->byId($id)->withAll()->find();
 		if (!$model) {
 			throw new Exception(Language::t("default", "Раздел не найден"), 404);
 		}
 
-		$this->json = $model->withAll()->delete();
+		$this->json = $model->delete();
 		$this->renderJson();
 	}
 
