@@ -34,5 +34,6 @@ return [
 		"tinymce/plugins/preview/plugin.min.js"      => "tinymce/tinymce/plugins/preview/plugin.min.js",
 		"tinymce/plugins/fullscreen/plugin.min.js"   => "tinymce/tinymce/plugins/fullscreen/plugin.min.js",
 		"tinymce/plugins/table/plugin.min.js"        => "tinymce/tinymce/plugins/table/plugin.min.js",
+		"less.min.js"                                => "less/less/dist/less.min.js",
 	],
 ];
