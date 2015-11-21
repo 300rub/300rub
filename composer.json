@@ -3,7 +3,8 @@
     "troolee/gridstack": "dev-master",
     "lodash/lodash": "dev-master",
     "tinymce/tinymce": "dev-master",
-    "vanderlee/colorpicker": "dev-master"
+    "vanderlee/colorpicker": "dev-master",
+    "less/less": "dev-master"
   },
   "repositories": [
     {
@@ -38,6 +39,18 @@
         "source": {
           "type": "git",
           "url": "https://github.com/vanderlee/colorpicker",
+          "reference": "master"
+        }
+      }
+    },
+    {
+      "type": "package",
+      "package": {
+        "name": "less/less",
+        "version": "dev-master",
+        "source": {
+          "type": "git",
+          "url": "https://github.com/less/less.js",
           "reference": "master"
         }
       }
