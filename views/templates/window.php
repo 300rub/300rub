@@ -1,11 +1,11 @@
-<div class="window">
+<div class="l-window window">
 	<form action="" method="post">
-		<a href="#" class="close"></a>
+		<a href="#" class="l-close close"></a>
 
-		<div class="header"></div>
-		<div class="container"></div>
-		<div class="footer"></div>
+		<div class="l-header header"></div>
+		<div class="l-container container"></div>
+		<div class="l-footer footer"></div>
 	</form>
 </div>
 
-<div class="overlay"></div>
+<div class="l-overlay overlay"></div>
