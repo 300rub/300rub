@@ -9,9 +9,9 @@ return [
 	"rootDir" => __DIR__ . DIRECTORY_SEPARATOR . "..",
 	"db"      => [
 		"host"     => "localhost",
-		"user"     => "300rub",
+		"user"     => "donvasilion",
 		"password" => "mypasS77",
-		"name"     => "mike",
+		"name"     => "project",
 	],
 	"release" => [
 		"current" => "1.1",

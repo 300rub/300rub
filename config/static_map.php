@@ -15,7 +15,7 @@ return [
 		"colorpicker/images/ui-colorpicker.png"  => "vanderlee/colorpicker/images/ui-colorpicker.png",
 	],
 	"js"  => [
-		"lodash.min.js"                              => "lodash/lodash/lodash.min.js",
+		"lodash.min.js"                              => "lodash/lodash/dist/lodash.min.js",
 		"gridstack.min.js"                           => "troolee/gridstack/dist/gridstack.min.js",
 		"gridstack.min.map"                          => "troolee/gridstack/dist/gridstack.min.map",
 		"jquery.colorpicker.js"                      => "vanderlee/colorpicker/jquery.colorpicker.js",
