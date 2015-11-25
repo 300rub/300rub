@@ -22,10 +22,8 @@ use system\App;
 		var LANG = "<?= Language::getActiveAlias() ?>";
 	</script>
 
-	<link href='/css/fonts/myriad-pro.css' rel='stylesheet' type='text/css'>
-	<link href='/css/css.css' rel='stylesheet' type='text/css'>
-	<link href='/css/window.css' rel='stylesheet' type='text/css'>
-	<link href='/css/form.css' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet/less" type="text/css" href="/css/common.less" />
+
 	<?php if (App::web()->user !== null) { ?>
 		<link href='/css/lib/gridstack.min.css' rel='stylesheet' type='text/css'>
 		<link href='/css/lib/colorpicker/jquery.colorpicker.css' rel='stylesheet' type='text/css'>
@@ -34,6 +32,8 @@ use system\App;
 		<link href='/css/grid.css' rel='stylesheet' type='text/css'>
 		<link href='/css/design.css' rel='stylesheet' type='text/css'>
 	<?php } ?>
+
+	<script src="/js/lib/less.min.js" type="text/javascript"></script>
 
 	<script src="/js/Window.js"></script>
 	<script src="/js/Form.js"></script>
