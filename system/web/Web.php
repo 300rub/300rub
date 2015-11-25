@@ -140,8 +140,7 @@ class Web extends Application
 			if (!empty($params[0])) {
 				Language::setIdByAlias($params[0]);
 			}
-			$controller = new SectionController;
-			$controller->actionIndex(
+			(new SectionController)->actionDisplay(
 				!empty($params[1]) ? $params[1] : null,
 				!empty($params[2]) ? $params[2] : null,
 				!empty($params[3]) ? $params[3] : null

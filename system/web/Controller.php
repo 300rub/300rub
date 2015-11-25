@@ -51,7 +51,7 @@ abstract class Controller
 	 */
 	protected function render($viewFile, $data = [], $isReturn = false)
 	{
-		$path = $this->getViewsRootDir() . "layouts/{$this->layout}.php";
+		$path = $this->getViewsRootDir() . "{$this->layout}.php";
 
 		$content = $this->renderPartial($viewFile, $data, true);
 

@@ -27,7 +27,7 @@ class SectionController extends Controller
 	 *
 	 * @var string
 	 */
-	public $layout = "page";
+	public $layout = "section/layout";
 
 	/**
 	 * Название директории для представлений
@@ -50,7 +50,7 @@ class SectionController extends Controller
 	 *
 	 * @return void
 	 */
-	public function actionIndex($section = null, $param1 = null, $param2 = null)
+	public function actionDisplay($section = null, $param1 = null, $param2 = null)
 	{
 		$model = SectionModel::model()->byUrl($section)->with(["designBlockModel"])->find();
 		if (!$model) {

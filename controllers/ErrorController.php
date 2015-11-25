@@ -17,7 +17,7 @@ class ErrorController extends Controller
 	 *
 	 * @var string
 	 */
-	public $layout = "error";
+	public $layout = "error/layout";
 
 	/**
 	 * Название директории для представлений
