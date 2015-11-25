@@ -1,63 +1,65 @@
 {
-  "require": {
-    "troolee/gridstack": "dev-master",
-    "lodash/lodash": "dev-master",
-    "tinymce/tinymce": "dev-master",
-    "vanderlee/colorpicker": "dev-master",
-    "less/less": "dev-master"
-  },
-  "repositories": [
-    {
-      "type": "package",
-      "package": {
-        "name": "troolee/gridstack",
-        "version": "dev-master",
-        "source": {
-          "type": "git",
-          "url": "https://github.com/troolee/gridstack.js.git",
-          "reference": "master"
-        }
-      }
-    },
-    {
-      "type": "package",
-      "package": {
-        "name": "lodash/lodash",
-        "version": "dev-master",
-        "source": {
-          "type": "git",
-          "url": "https://github.com/lodash/lodash.git",
-          "reference": "master"
-        }
-      }
-    },
-    {
-      "type": "package",
-      "package": {
-        "name": "vanderlee/colorpicker",
-        "version": "dev-master",
-        "source": {
-          "type": "git",
-          "url": "https://github.com/vanderlee/colorpicker",
-          "reference": "master"
-        }
-      }
-    },
-    {
-      "type": "package",
-      "package": {
-        "name": "less/less",
-        "version": "dev-master",
-        "source": {
-          "type": "git",
-          "url": "https://github.com/less/less.js",
-          "reference": "master"
-        }
-      }
-    }
-  ],
-  "config": {
-    "vendor-dir": "vendors",
-    "discard-changes": true
-  }
+	"require": {
+		"components/jquery": "1.11.3",
+		"components/jqueryui": "1.11.3",
+		"troolee/gridstack": "v0.2.3",
+		"lodash/lodash": "3.10.0",
+		"tinymce/tinymce": "4.3.0",
+		"vanderlee/colorpicker": "1.1.6",
+		"less/less": "2.5.1"
+	},
+    "repositories": [
+		{
+			"type": "package",
+			"package": {
+				"name": "troolee/gridstack",
+				"version": "v0.2.3",
+				"source": {
+					"type": "git",
+					"url": "https://github.com/troolee/gridstack.js.git",
+					"reference": "master"
+				}
+			}
+		},
+		{
+			"type": "package",
+			"package": {
+				"name": "lodash/lodash",
+				"version": "3.10.0",
+				"source": {
+					"type": "git",
+					"url": "https://github.com/lodash/lodash.git",
+					"reference": "master"
+				}
+			}
+		},
+		{
+			"type": "package",
+			"package": {
+				"name": "vanderlee/colorpicker",
+				"version": "1.1.6",
+				"source": {
+					"type": "git",
+					"url": "https://github.com/vanderlee/colorpicker",
+					"reference": "master"
+				}
+			}
+		},
+		{
+			"type": "package",
+			"package": {
+				"name": "less/less",
+				"version": "2.5.1",
+				"source": {
+					"type": "git",
+					"url": "https://github.com/less/less.js",
+					"reference": "master"
+				}
+			}
+		}
+    ],
+	"config": {
+		"vendor-dir": "vendors",
+		"discard-changes": true
+	}
 }
