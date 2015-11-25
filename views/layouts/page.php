@@ -16,7 +16,7 @@ use system\App;
 	<meta name="keywords" content=""/>
 	<meta name="description" content=""/>
 
-	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	<script src="/js/lib/jquery.min.js"></script>
 
 	<script>
 		var LANG = "<?= Language::getActiveAlias() ?>";
@@ -27,8 +27,6 @@ use system\App;
 	<link href='/css/window.css' rel='stylesheet' type='text/css'>
 	<link href='/css/form.css' rel='stylesheet' type='text/css'>
 	<?php if (App::web()->user !== null) { ?>
-		<link rel="stylesheet"
-			  href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
 		<link href='/css/lib/gridstack.min.css' rel='stylesheet' type='text/css'>
 		<link href='/css/lib/colorpicker/jquery.colorpicker.css' rel='stylesheet' type='text/css'>
 		<link href='/css/admin.css' rel='stylesheet' type='text/css'>
@@ -43,7 +41,7 @@ use system\App;
 	<script src="/js/js.js"></script>
 
 	<?php if (App::web()->user !== null) { ?>
-		<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+		<script src="/js/lib/jquery-ui.min.js"></script>
 		<script src="/js/lib/lodash.min.js"></script>
 		<script src="/js/lib/gridstack.min.js"></script>
 		<script src="/js/lib/jquery.colorpicker.js"></script>
