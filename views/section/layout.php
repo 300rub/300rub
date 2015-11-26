@@ -29,10 +29,17 @@ use system\App;
 		<link href='/css/lib/colorpicker/jquery.colorpicker.css' rel='stylesheet' type='text/css'>
 	<?php } ?>
 
+	<script>
+		less = {
+			async: true
+		};
+	</script>
 	<script src="/js/lib/less.min.js" type="text/javascript"></script>
 
 	<script src="/js/core.js"></script>
-	<script src="/js/js.js"></script>
+	<script src="/js/window.js"></script>
+	<script src="/js/window.login.js"></script>
+	<script src="/js/handler.js"></script>
 
 	<?php if (App::web()->user !== null) { ?>
 		<script src="/js/lib/jquery-ui.min.js"></script>

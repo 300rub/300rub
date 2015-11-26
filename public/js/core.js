@@ -3,6 +3,7 @@
 
 	$.Core = {
 		$templates: '',
+		$ajaxWrapper: '',
 		language: ''
 	}
 }(window);

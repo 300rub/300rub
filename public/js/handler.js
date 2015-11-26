@@ -51,3 +51,44 @@ $(document).ready(function () {
 });
 		*/
 
+!function ($, c) {
+	"use strict";
+
+	c.Handler = function () {
+		this.init();
+	};
+
+	c.Handler.prototype = {
+		init: function () {
+			this._setTemplates();
+			this._setAjaxWrapper();
+			this._setLanguage(LANG);
+			$("#login-button").on("click", this.onLoginButtonClick);
+		},
+
+		_setTemplates: function () {
+			c.$templates = $('#templates');
+		},
+
+		_setAjaxWrapper: function () {
+			c.$ajaxWrapper = $('#ajax-wrapper');
+		},
+
+		_setLanguage: function (lang) {
+			c.language = lang;
+		},
+
+		onLoginButtonClick: function () {
+			$.windowLogin("user/form");
+			return false;
+		}
+	};
+
+	$.handler = function() {
+		return new c.Handler();
+	};
+
+	$(document).ready(function() {
+		$.handler();
+	});
+}(window.jQuery, window.Core);
