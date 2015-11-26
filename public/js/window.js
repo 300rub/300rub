@@ -1,17 +1,25 @@
 !function ($, c) {
 	"use strict";
-
+	
 	c.Window = function (controller) {
 		this.controller = controller;
 		this.init();
 	};
 
 	c.Window.prototype = {
-		$window: null,
+		$html: null,
+		$overlay: null,
 
 		init: function() {
-			this.$window = c.$templates.find(".j-window").clone();
-			this.$window.appendTo(c.$ajaxWrapper);
+			this.$overlay = c.$templates.find(".j-overlay").clone().appendTo(c.$ajaxWrapper);
+			this.$html = c.$templates.find(".j-window").clone().appendTo(c.$ajaxWrapper);
+		},
+
+		close: function () {
+			this.$html.remove();
+			this.$overlay.remove();
+	
+			return true;
 		}
 	};
 

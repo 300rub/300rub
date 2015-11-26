@@ -11,6 +11,13 @@
 
 		init: function() {
 			this.window = $.window(this.controller);
+
+			this.window.$html.find(".j-close").on("click", $.proxy(this.close, this));
+			this.window.$overlay.on("click", $.proxy(this.close, this));
+		},
+
+		close: function () {
+			return this.window.close();
 		}
 	};
 
