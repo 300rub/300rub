@@ -1,3 +1,4 @@
+/*
 function setWindowHeight() {
 	$(".window .container").css("max-height", parseInt($(document).height()) - 150);
 }
@@ -48,3 +49,5 @@ $(document).ready(function () {
 	});
 
 });
+		*/
+

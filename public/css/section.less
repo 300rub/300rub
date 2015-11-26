@@ -1,42 +1,3 @@
-.l-box-sizing (@type: border-box) {
-	-webkit-box-sizing: @type;
-	-moz-box-sizing: @type;
-	box-sizing: @type;
-}
-
-.l-rounded (@radius: 50%) {
-	-webkit-border-radius: @radius;
-	-moz-border-radius: @radius;
-	border-radius: @radius;
-}
-
-*, *:before, *:after {
-	margin: 0;
-	padding: 0;
-	.l-box-sizing
-}
-
-*:focus {
-	outline: 0;
-}
-
-body {
-	font-family: "MyriadPro", "Lucida Grande", "Helvetica Neue", "Helvetica", "Arial", "Verdana", "sans-serif";
-}
-
-.l-clear {
-	clear: both;
-}
-
-.l-hide {
-	display: none;
-}
-
-h1, h2, h3, adress, mark, code {
-	display: block;
-	background: none;
-}
-
 #wrapper, .l-section-container {
 	min-height: 100%;
 	margin-left: auto !important;
@@ -249,10 +210,4 @@ h1, h2, h3, adress, mark, code {
 .l-container-fluid:after,
 .l-row:after {
 	clear: both;
-}
-
-#login-button, #logout-button {
-	position: fixed;
-	left: 10px;
-	bottom: 10px;
 }

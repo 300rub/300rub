@@ -22,22 +22,16 @@ use system\App;
 		var LANG = "<?= Language::getActiveAlias() ?>";
 	</script>
 
-	<link rel="stylesheet/less" type="text/css" href="/css/common.less" />
+	<link rel="stylesheet/less" type="text/css" href="/css/less.less" />
 
 	<?php if (App::web()->user !== null) { ?>
 		<link href='/css/lib/gridstack.min.css' rel='stylesheet' type='text/css'>
 		<link href='/css/lib/colorpicker/jquery.colorpicker.css' rel='stylesheet' type='text/css'>
-		<link href='/css/admin.css' rel='stylesheet' type='text/css'>
-		<link href='/css/panel.css' rel='stylesheet' type='text/css'>
-		<link href='/css/grid.css' rel='stylesheet' type='text/css'>
-		<link href='/css/design.css' rel='stylesheet' type='text/css'>
 	<?php } ?>
 
 	<script src="/js/lib/less.min.js" type="text/javascript"></script>
 
-	<script src="/js/Window.js"></script>
-	<script src="/js/Form.js"></script>
-	<script src="/js/Validator.js"></script>
+	<script src="/js/core.js"></script>
 	<script src="/js/js.js"></script>
 
 	<?php if (App::web()->user !== null) { ?>
@@ -46,10 +40,6 @@ use system\App;
 		<script src="/js/lib/gridstack.min.js"></script>
 		<script src="/js/lib/jquery.colorpicker.js"></script>
 		<script src="/js/lib/tinymce/tinymce.jquery.min.js"></script>
-		<script src="/js/Grid.js"></script>
-		<script src="/js/Panel.js"></script>
-		<script src="/js/Design.js"></script>
-		<script src="/js/admin.js"></script>
 	<?php } ?>
 </head>
 <body>
