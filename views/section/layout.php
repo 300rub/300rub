@@ -37,6 +37,7 @@ use system\App;
 	<script src="/js/lib/less.min.js" type="text/javascript"></script>
 
 	<script src="/js/core.js"></script>
+	<script src="/js/ajax.json.js"></script>
 	<script src="/js/window.js"></script>
 	<script src="/js/window.login.js"></script>
 	<script src="/js/handler.js"></script>
