@@ -66,16 +66,7 @@ use system\App;
 <div id="ajax-wrapper"></div>
 
 <div id="templates">
-	<?php require(__DIR__ . "/../templates/window.php"); ?>
-	<?php require(__DIR__ . "/../templates/loader.php"); ?>
-	<?php require(__DIR__ . "/../templates/forms.php"); ?>
-	<?php if (App::web()->user !== null) { ?>
-		<?php require(__DIR__ . "/../templates/panel.php"); ?>
-		<?php require(__DIR__ . "/../templates/grid.php"); ?>
-		<?php require(__DIR__ . "/../design/text_forms.php"); ?>
-		<?php require(__DIR__ . "/../design/block_forms.php"); ?>
-	<?php } ?>
-	<?php require(__DIR__ . "/../error/messages.php"); ?>
+	<?php require(__DIR__ . "/../templates/templates.php"); ?>
 </div>
 
 </body>

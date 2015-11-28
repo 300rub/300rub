@@ -79,7 +79,7 @@ $(document).ready(function () {
 		},
 
 		onLoginButtonClick: function () {
-			$.windowLogin("user/form");
+			$.window("user/form", "login");
 			return false;
 		}
 	};

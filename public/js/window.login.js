@@ -1,27 +1,8 @@
-!function ($, w) {
+!function ($, c) {
 	"use strict";
 
-	w.WindowLogin = function (controller) {
-		this.controller = controller;
-		this.init();
+	c.Window.prototype.login = function() {
+		var $template = c.$templates.find(".j-window-login-container").clone();
+		$template.appendTo(this.$window.find(".j-container"));
 	};
-
-	w.WindowLogin.prototype = {
-		window: null,
-
-		init: function() {
-			this.window = $.window(this.controller);
-
-			this.window.$html.find(".j-close").on("click", $.proxy(this.close, this));
-			this.window.$overlay.on("click", $.proxy(this.close, this));
-		},
-
-		close: function () {
-			return this.window.close();
-		}
-	};
-
-	$.windowLogin = function(controller) {
-		return new w.WindowLogin(controller);
-	};
-}(window.jQuery, window.Window);
+}(window.jQuery, window.Core);
