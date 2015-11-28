@@ -31,7 +31,8 @@ use system\App;
 
 	<script>
 		less = {
-			async: true
+			async: true,
+			env: 'development'
 		};
 	</script>
 	<script src="/js/lib/less.min.js" type="text/javascript"></script>

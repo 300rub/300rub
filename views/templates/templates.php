@@ -2,7 +2,6 @@
 
 use system\App;
 
-require("common/buttons.php");
 require("window/window.php");
 require("window/window.login.php");
 
