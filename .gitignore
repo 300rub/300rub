@@ -5,3 +5,4 @@ vendors
 composer.lock
 public/css/lib
 public/js/lib
+config/local.php
