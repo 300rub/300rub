@@ -1,5 +1,6 @@
 <?php
 
+// Map for publishing static files received from composer
 return [
 	"css" => [
 		"gridstack.min.css"                      => "troolee/gridstack/dist/gridstack.min.css",

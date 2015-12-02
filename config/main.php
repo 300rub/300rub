@@ -1,8 +1,6 @@
 <?php
 
-/**
- * Настройки
- */
+// Main settings
 return [
 	"host"    => "300rub.net",
 	"isDebug" => true,
