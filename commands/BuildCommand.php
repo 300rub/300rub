@@ -55,7 +55,7 @@ class BuildCommand extends Command
         $publicStaticCommand = new PublicStaticCommand;
 
         if (!$migrateCommand->run($args) || !$publicStaticCommand->run($args)) {
-            Logger::log("Errors during building", Logger::LEVEL_INFO, "console.build");
+            Logger::log("Errors during building", Logger::LEVEL_ERROR, "console.build");
 
             $this->_gitCheckout($this->_prevBranch);
             Logger::log("Rollback to branch {$this->_prevBranch}", Logger::LEVEL_INFO, "console.build");
