@@ -11,9 +11,7 @@ use system\db\repository_tables\Migrations;
 use system\db\repository_tables\Sites;
 
 /**
- * Файл класса MigrateCommand
- *
- * Применяет миграции
+ * Applies migrations
  *
  * @package commands
  */
@@ -21,90 +19,90 @@ class MigrateCommand extends Command
 {
 
 	/**
-	 * Вставка тестовой информации
-	 * Доступна только в режиме отладки
+	 * Is necessary to insert test information
+	 * Works only in debug mode
 	 *
 	 * @var bool
 	 */
 	public $isTestData = true;
 
 	/**
-	 * Новые миграции
+	 * New migrations
 	 *
 	 * @var string[]
 	 */
 	private $_migrations = [];
 
 	/**
-	 * Все сайты
+	 * All sites
 	 *
 	 * @var array
 	 */
 	private $_sites = [];
 
 	/**
-	 * Забекапленые сайты
+	 * Sites witch were backup
 	 *
 	 * @var array
 	 */
 	private $_dumpSites = [];
 
 	/**
-	 * Выполняет команду
+	 * Runs the command
 	 *
-	 * @param string[] $args аргументы
+	 * @param string[] $args command arguments
 	 *
 	 * @return bool
 	 */
 	public function run($args = [])
 	{
 		if (!$this->_checkCommonTables()) {
-			Logger::log("Не найдены базовые таблицы", Logger::LEVEL_ERROR, "console.migrate");
+			Logger::log("Basic tables are not found", Logger::LEVEL_ERROR, "console.migrate");
 			return false;
 		}
 
-		Logger::log("Началось применение миграций", Logger::LEVEL_INFO, "console.build");
+		Logger::log("Start to run migrations", Logger::LEVEL_INFO, "console.build");
 
 		if (App::console()->config->isDebug) {
-			Logger::log("Предусмотрена очистка баз перед выполнением", Logger::LEVEL_INFO, "console.migrate");
+			Logger::log("Cleaning database will be before performing", Logger::LEVEL_INFO, "console.migrate");
 			if ($this->isTestData) {
-				Logger::log("Предусмотрена вставка тестовой информации", Logger::LEVEL_INFO, "console.migrate");
+				Logger::log("Inserting test data will be ", Logger::LEVEL_INFO, "console.migrate");
 			}
 		}
 
 		if (!$this->_setNewMigrations()) {
-			Logger::log("Не удалось определить миграции на выполнение", Logger::LEVEL_ERROR, "console.migrate");
+			Logger::log("Unable to determine migrations", Logger::LEVEL_ERROR, "console.migrate");
 			return false;
 		}
 
 		if (!$this->_setSites()) {
-			Logger::log("Не удалось определить сайты", Logger::LEVEL_ERROR, "console.migrate");
+			Logger::log("Unable to determine sites", Logger::LEVEL_ERROR, "console.migrate");
 			return false;
 		}
 
 		if (!$this->_createDumps()) {
-			Logger::log("Не удалось создать дампы для бэкапа", Logger::LEVEL_ERROR, "console.migrate");
+			Logger::log("Unable to create backup dumps", Logger::LEVEL_ERROR, "console.migrate");
 			return false;
 		}
 
 		if (!$this->_applyMigration() || !$this->_updateVersions()) {
-			Logger::log("Не удалось применить миграции", Logger::LEVEL_ERROR, "console.migrate");
+			Logger::log("Failed to apply migrations", Logger::LEVEL_ERROR, "console.migrate");
 
 			if ($this->_rollbackDumps()) {
-				Logger::log("Все базы данных были успешно откатаны", Logger::LEVEL_INFO, "console.migrate");
+				Logger::log("All databases were successfully rollback", Logger::LEVEL_INFO, "console.migrate");
 			} else {
-				Logger::log("Произошла ошибка при откате баз!!!", Logger::LEVEL_ERROR, "console.migrate");
+				Logger::log("Unable to rollback databases!!!", Logger::LEVEL_ERROR, "console.migrate");
 			}
 
 			return false;
 		}
 
-		Logger::log("Все миграции успешно применены", Logger::LEVEL_INFO, "console.migrate");
+		Logger::log("All migration successfully applied", Logger::LEVEL_INFO, "console.migrate");
 		return true;
 	}
 
 	/**
-	 * Проверяет наличие основных таблиц
+	 * Checks the existence of the main tables
 	 *
 	 * @return bool
 	 */
@@ -118,7 +116,7 @@ class MigrateCommand extends Command
 				}
 			} catch (Exception $e) {
 				Logger::log(
-					"Не удалось создать таблицу \"migrations\" в базе " . App::console()->config->db->name,
+					"Unable to create table \"migrations\" " . App::console()->config->db->name,
 					Logger::LEVEL_ERROR,
 					"console.migrate"
 				);
@@ -137,7 +135,7 @@ class MigrateCommand extends Command
 				}
 			} catch (Exception $e) {
 				Logger::log(
-					"Не удалось создать таблицу \"sites\" в базе " . App::console()->config->db->name,
+					"Unable to create table \"sites\"" . App::console()->config->db->name,
 					Logger::LEVEL_ERROR,
 					"console.migrate"
 				);
@@ -149,7 +147,7 @@ class MigrateCommand extends Command
 	}
 
 	/**
-	 * Устанавливает список непримененных миграций
+	 * Sets the list of non-applied migrations
 	 *
 	 * @return bool
 	 */
@@ -163,7 +161,7 @@ class MigrateCommand extends Command
 
 		$handle = opendir(App::console()->config->rootDir . DIRECTORY_SEPARATOR . "migrations");
 		if (!$handle) {
-			Logger::log("Не удалось открыть папку с миграциями", Logger::LEVEL_ERROR, "console.migrate");
+			Logger::log("Unable to open folder with migrations", Logger::LEVEL_ERROR, "console.migrate");
 			return false;
 		}
 
@@ -180,7 +178,7 @@ class MigrateCommand extends Command
 	}
 
 	/**
-	 * Устанавливает сайты
+	 * Sets sites
 	 *
 	 * @return bool
 	 */
@@ -198,7 +196,7 @@ class MigrateCommand extends Command
 	}
 
 	/**
-	 * Делает дампы баз данных
+	 * Makes backup dumps for all DB
 	 *
 	 * @return bool
 	 */
@@ -207,7 +205,7 @@ class MigrateCommand extends Command
 		foreach ($this->_sites as $site) {
 			if (!Db::setPdo($site["db_user"], $site["db_password"], $site["db_name"])) {
 				Logger::log(
-					"Не удалось подключиться к базе \"" . $site["db_name"] . "\"",
+					"Unable to connect with DB \"" . $site["db_name"] . "\"",
 					Logger::LEVEL_ERROR,
 					"console.migrate"
 				);
@@ -235,7 +233,7 @@ class MigrateCommand extends Command
 	}
 
 	/**
-	 * Восстанавливает дампы баз данных
+	 * Restores all DB from backups
 	 *
 	 * @return bool
 	 */
@@ -245,7 +243,7 @@ class MigrateCommand extends Command
 			$file = App::console()->config->rootDir . "/backups/" . $site["db_name"] . ".sql.gz";
 			if (!file_exists($file)) {
 				Logger::log(
-					"Не удалось найти файл для базы \"" . $site["db_name"] . "\"",
+					"Unable to find the dump file of DB \"" . $site["db_name"] . "\"",
 					Logger::LEVEL_ERROR,
 					"console.migrate"
 				);
@@ -275,12 +273,12 @@ class MigrateCommand extends Command
 	private function _applyMigration()
 	{
 		if (!$this->_migrations) {
-			Logger::log("Нет не примененных миграций", Logger::LEVEL_INFO, "console.migrate");
+			Logger::log("There are not non-applied migrations", Logger::LEVEL_INFO, "console.migrate");
 			return true;
 		}
 
 		if (!$this->_sites) {
-			Logger::log("Сайты не найдены", Logger::LEVEL_INFO, "console.migrate");
+			Logger::log("Sites are not found", Logger::LEVEL_INFO, "console.migrate");
 			return true;
 		}
 
@@ -290,7 +288,7 @@ class MigrateCommand extends Command
 			foreach ($this->_sites as $site) {
 				if (!Db::setPdo($site["db_user"], $site["db_password"], $site["db_name"])) {
 					Logger::log(
-						"Не удалось соединиться с базой \"" . $site["db_name"] . "\"",
+						"Unable to connect with DB \"" . $site["db_name"] . "\"",
 						Logger::LEVEL_ERROR,
 						"console.migrate"
 					);
@@ -313,7 +311,7 @@ class MigrateCommand extends Command
 							&& !Db::execute("DROP TABLE `{$table}`")
 						) {
 							Logger::log(
-								"Не удалось удалить таблицу {$table} из базы " . $site["db_name"],
+								"Unable to delete table {$table} from DB " . $site["db_name"],
 								Logger::LEVEL_ERROR,
 								"console.migrate"
 							);
@@ -322,7 +320,7 @@ class MigrateCommand extends Command
 					}
 
 					Logger::log(
-						"База \"" . $site["db_name"] . "\" успешна очищена",
+						"DB \"" . $site["db_name"] . "\" was successfully cleaned",
 						Logger::LEVEL_INFO,
 						"console.migrate"
 					);
@@ -336,14 +334,14 @@ class MigrateCommand extends Command
 					$migration = new $migrationFullName;
 					if (!$migration->up()) {
 						Logger::log(
-							"Не удалось применить миграцию \"{$migrationName}\" для базы \"" . $site["db_name"] . "\"",
+							"Unable to apply migration \"{$migrationName}\" for DB \"" . $site["db_name"] . "\"",
 							Logger::LEVEL_ERROR,
 							"console.migrate"
 						);
 						return false;
 					}
 					Logger::log(
-						"Миграция \"{$migrationName}\" успешно выполнена",
+						"Migration \"{$migrationName}\" was applied successfully",
 						Logger::LEVEL_INFO,
 						"console.migrate"
 					);
@@ -351,7 +349,7 @@ class MigrateCommand extends Command
 					if (App::console()->config->isDebug && $this->isTestData) {
 						if (!$migration->insertData()) {
 							Logger::log(
-								"Не удалось вставить тестовую информацию в миграции \"{$migrationName}\" для базы \"" .
+								"Unable to insert test information in migration \"{$migrationName}\" for DB \"" .
 								$site["db_name"] .
 								"\"",
 								Logger::LEVEL_ERROR,
@@ -360,7 +358,7 @@ class MigrateCommand extends Command
 							return false;
 						}
 						Logger::log(
-							"Тестовая информация для миграции \"{$migrationName}\" успешно вставлена",
+							"Test information for migration \"{$migrationName}\" was successfully inserted",
 							Logger::LEVEL_INFO,
 							"console.migrate"
 						);
@@ -383,7 +381,7 @@ class MigrateCommand extends Command
 			}
 
 			if (!Db::execute("TRUNCATE TABLE `migrations`")) {
-				Logger::log("Не удалось очистить таблицу \"migrations\"", Logger::LEVEL_ERROR, "console.migrate");
+				Logger::log("Unable to truncate table \"migrations\"", Logger::LEVEL_ERROR, "console.migrate");
 				return false;
 			}
 		}
@@ -405,7 +403,7 @@ class MigrateCommand extends Command
 				App::console()->config->db->name
 			)
 		) {
-			Logger::log("Не удалось подключиться к основной базе", Logger::LEVEL_ERROR, "console.migrate");
+			Logger::log("Unable to connect with the main DB", Logger::LEVEL_ERROR, "console.migrate");
 			return false;
 		}
 
@@ -414,7 +412,7 @@ class MigrateCommand extends Command
 			if (!Db::execute("INSERT INTO `migrations` (version) VALUES(?)", [$migration])) {
 				Db::rollbackTransaction();
 
-				Logger::log("Не удалось обновить версии миграций", Logger::LEVEL_ERROR, "console.migrate");
+				Logger::log("Unable to update version of migrations", Logger::LEVEL_ERROR, "console.migrate");
 				return false;
 			}
 		}
