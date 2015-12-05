@@ -9,9 +9,7 @@ use system\base\Logger;
 use system\console\Command;
 
 /**
- * Файл класса TestCommand
- *
- * Команда для выполнения тестов
+ * Runs tests
  *
  * @package commands
  */
@@ -19,93 +17,85 @@ class TestCommand extends Command
 {
 
 	/**
-	 * Окончание в название команды
+	 * Ending of class names (ExampleTest)
 	 */
 	const COMMAND_ENDING = "Test";
 
 	/**
-	 * Названия классов для теста
+	 * Collection of test's classes
 	 *
 	 * @var array
 	 */
 	private $_classes = [];
 
 	/**
-	 * Карта кассов и методов
+	 * Map of classes and methods
 	 *
 	 * @var array
 	 */
 	private $_map = [];
 
 	/**
-	 * Количество исполняемых тестов
+	 * Test's count
 	 *
 	 * @var int
 	 */
 	private $_count = 0;
 
 	/**
-	 * Количество успешных тестов
+	 * Count of successful tests
 	 *
 	 * @var int
 	 */
 	private $_success = 0;
 
 	/**
-	 * Количество тестов с ошибками
+	 * Count of error tests
 	 *
 	 * @var int
 	 */
 	private $_errors = 0;
 
 	/**
-	 * Название активного теста
+	 * Name of current test
 	 *
 	 * @var string
 	 */
 	public static $activeTest = "";
 
 	/**
-	 * Выполняет команду
+	 * Runs the command
 	 *
-	 * @param string[] $args аргументы
+	 * @param string[] $args command arguments
 	 *
 	 * @return bool
 	 */
 	public function run($args)
 	{
-		Logger::log("Началось выполнение тестов", Logger::LEVEL_INFO, "console.tests");
+		Logger::log("Start to run tests", Logger::LEVEL_INFO, "console.tests");
 
-		if (!$this->_setClasses()) {
-			Logger::log("Не удалось установить классы для теста", Logger::LEVEL_ERROR, "console.tests");
-			return false;
-		}
-
-		if (!$this->_setMap()) {
-			Logger::log("Не удалось установить карту кассов и методов", Logger::LEVEL_ERROR, "console.tests");
-			return false;
-		}
+		$this->_setClasses()->_setMap();
 
 		if (!$this->_setMigrations()) {
-			Logger::log("Не применить миграции до тестов", Logger::LEVEL_ERROR, "console.tests");
+			Logger::log("Unable to apply migrations before tests", Logger::LEVEL_ERROR, "console.tests");
 			return false;
 		}
 
-		Logger::log("Всего тестов: {$this->_count}", Logger::LEVEL_INFO, "console.tests");
+		Logger::log("Count of all tests: {$this->_count}", Logger::LEVEL_INFO, "console.tests");
 
 		if (!$this->_applyFixtures()) {
-			Logger::log("Не удалось загрузить данные для тестов", Logger::LEVEL_ERROR, "console.tests");
+			Logger::log("Unable to load test's data", Logger::LEVEL_ERROR, "console.tests");
 			return false;
 		}
 
 		if (!$this->_applyTests()) {
-			Logger::log("Не удалось применить тесты", Logger::LEVEL_ERROR, "console.tests");
+			Logger::log("Unable to apply tests", Logger::LEVEL_ERROR, "console.tests");
 			return false;
 		}
 
 		if ($this->_count != $this->_success) {
 			Logger::log(
-				"Возникли ошибки во время выполнения тестов. Всего: {$this->_errors}",
+				"There are some errors. Count: {$this->_errors}",
 				Logger::LEVEL_ERROR,
 				"console.tests"
 			);
@@ -113,18 +103,18 @@ class TestCommand extends Command
 		}
 
 		if (!$this->_setMigrations(true)) {
-			Logger::log("Не удалось применить миграции после тестов", Logger::LEVEL_ERROR, "console.tests");
+			Logger::log("Unable to apply migrations after tests", Logger::LEVEL_ERROR, "console.tests");
 			return false;
 		}
 
-		Logger::log("Выполнение тестов успешно завершено", Logger::LEVEL_INFO, "console.tests");
+		Logger::log("All tests successfully executed", Logger::LEVEL_INFO, "console.tests");
 		return true;
 	}
 
 	/**
-	 * Устанавливает названия классов для теста
+	 * Sets classes for testing
 	 *
-	 * @return bool
+	 * @return TestCommand
 	 */
 	private function _setClasses()
 	{
@@ -138,13 +128,13 @@ class TestCommand extends Command
 			}
 		}
 
-		return true;
+		return $this;
 	}
 
 	/**
-	 * Устанавливает карту кассов и методов
+	 * Sets map of classes and methods
 	 *
-	 * @return bool
+	 * @return TestCommand
 	 */
 	private function _setMap()
 	{
@@ -160,13 +150,13 @@ class TestCommand extends Command
 			$this->_map[$class] = $testMethods;
 		}
 
-		return true;
+		return $this;
 	}
 
 	/**
-	 * Применяет миграции
+	 * Applies migrations
 	 *
-	 * @param bool $isTestData вставлять ли тестовую информацию
+	 * @param bool $isTestData is necessary to insert test data
 	 *
 	 * @return bool
 	 */
@@ -179,7 +169,7 @@ class TestCommand extends Command
 	}
 
 	/**
-	 * Загружает данные
+	 * Applies fixtures
 	 *
 	 * @return bool
 	 */
@@ -189,7 +179,7 @@ class TestCommand extends Command
 
 		$handle = opendir($dir);
 		if (!$handle) {
-			Logger::log("Не удалось открыть папку с данными", Logger::LEVEL_ERROR, "console.migrate");
+			Logger::log("Unable to open folder with fixtures", Logger::LEVEL_ERROR, "console.migrate");
 			return false;
 		}
 
@@ -208,7 +198,7 @@ class TestCommand extends Command
 					}
 					$model->id = null;
 					if (!$model->save()) {
-						Logger::log("Не удалось сохранить данные для {$class}", Logger::LEVEL_ERROR, "console.migrate");
+						Logger::log("Unable to save data for {$class}", Logger::LEVEL_ERROR, "console.migrate");
 						var_dump($model->errors);
 						return false;
 					}
@@ -220,7 +210,7 @@ class TestCommand extends Command
 	}
 
 	/**
-	 * Применяет тесты
+	 * Applies tests
 	 *
 	 * @return bool
 	 */
