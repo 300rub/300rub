@@ -7,9 +7,7 @@ use system\base\Logger;
 use system\console\Command;
 
 /**
- * Файл класса PublicStaticCommand
- *
- * Публикует статику
+ * Static public class
  *
  * @package commands
  */
@@ -17,9 +15,9 @@ class PublicStaticCommand extends Command
 {
 
 	/**
-	 * Выполняет команду
+	 * Runs the command
 	 *
-	 * @param string[] $args аргументы
+	 * @param string[] $args command arguments
 	 *
 	 * @return bool
 	 */
@@ -33,7 +31,7 @@ class PublicStaticCommand extends Command
 			foreach ($list as $key => $value) {
 				$dir = "{$staticDir}/{$folder}/lib";
 				if (!file_exists($dir) && !mkdir($dir, 0777)) {
-					Logger::log("Невозможно создать папку {$dir}", Logger::LEVEL_ERROR, "console.publicStatic");
+					Logger::log("НUnable to create folder {$dir}", Logger::LEVEL_ERROR, "console.publicStatic");
 					return false;
 				}
 
@@ -43,7 +41,11 @@ class PublicStaticCommand extends Command
 					for ($i = 0; $i < count($explode) - 1; $i++) {
 						$newDir .= "/" . $explode[$i];
 						if (!file_exists($newDir) && !mkdir($newDir, 0777)) {
-							Logger::log("Невозможно создать папку {$newDir}", Logger::LEVEL_ERROR, "console.publicStatic");
+							Logger::log(
+								"Unable to create folder {$newDir}",
+								Logger::LEVEL_ERROR,
+								"console.publicStatic"
+							);
 							return false;
 						}
 					}
@@ -57,7 +59,7 @@ class PublicStaticCommand extends Command
 						copy($file, "{$dir}/{$key}");
 					} else {
 						Logger::log(
-							"Не найден файл {$vendorsDir}/{$value}",
+							"File {$vendorsDir}/{$value} not found",
 							Logger::LEVEL_ERROR,
 							"console.publicStatic"
 						);
@@ -67,7 +69,7 @@ class PublicStaticCommand extends Command
 			}
 		}
 
-		Logger::log("Статика успешно опубликована", Logger::LEVEL_INFO, "console.publicStatic");
+		Logger::log("Static files were successfully published", Logger::LEVEL_INFO, "console.publicStatic");
 		return true;
 	}
 }
