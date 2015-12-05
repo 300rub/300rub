@@ -84,7 +84,7 @@ class TestCommand extends Command
 		Logger::log("Count of all tests: {$this->_count}", Logger::LEVEL_INFO, "console.tests");
 
 		if (!$this->_applyFixtures()) {
-			Logger::log("Unable to load test's data", Logger::LEVEL_ERROR, "console.tests");
+			Logger::log("Unable to load test's fixtures", Logger::LEVEL_ERROR, "console.tests");
 			return false;
 		}
 
