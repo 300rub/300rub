@@ -266,7 +266,7 @@ class MigrateCommand extends Command
 	}
 
 	/**
-	 * Применяет миграции
+	 * Applies the migrations
 	 *
 	 * @return bool
 	 */
@@ -300,11 +300,12 @@ class MigrateCommand extends Command
 
 					$rows = Db::fetchAll("SHOW TABLES FROM " . $site["db_name"]);
 					foreach ($rows as $row) {
-						foreach ($row as $key => $value)
-						$tables[] = $value;
+						foreach ($row as $key => $value) {
+							$tables[] = $value;
+						}
 					}
 
-					foreach($tables as $table){
+					foreach ($tables as $table) {
 						if (
 							$table !== "migrations"
 							&& $table !== "sites"
@@ -371,11 +372,11 @@ class MigrateCommand extends Command
 
 		if (App::console()->config->isDebug) {
 			if (
-				!Db::setPdo(
-					App::console()->config->db->user,
-					App::console()->config->db->password,
-					App::console()->config->db->name
-				)
+			!Db::setPdo(
+				App::console()->config->db->user,
+				App::console()->config->db->password,
+				App::console()->config->db->name
+			)
 			) {
 				return false;
 			}
@@ -390,18 +391,18 @@ class MigrateCommand extends Command
 	}
 
 	/**
-	 * Обновление версий
+	 * Version's update
 	 *
 	 * @return bool
 	 */
 	private function _updateVersions()
 	{
 		if (
-			!Db::setPdo(
-				App::console()->config->db->user,
-				App::console()->config->db->password,
-				App::console()->config->db->name
-			)
+		!Db::setPdo(
+			App::console()->config->db->user,
+			App::console()->config->db->password,
+			App::console()->config->db->name
+		)
 		) {
 			Logger::log("Unable to connect with the main DB", Logger::LEVEL_ERROR, "console.migrate");
 			return false;
