@@ -46,10 +46,7 @@ class BuildCommand extends Command
             exit();
         }
 
-        $this->_setBranches($args);
-
-        Logger::log("Building from branch {$this->_branch}", Logger::LEVEL_INFO, "console.build");
-        $this->_gitCheckout($this->_branch);
+        $this->_setBranches($args)->_gitCheckout($this->_branch);
 
         $migrateCommand = new MigrateCommand;
         $publicStaticCommand = new PublicStaticCommand;
@@ -72,7 +69,7 @@ class BuildCommand extends Command
      *
      * @param string[] $args command arguments
      *
-     * @return void
+     * @return BuildCommand
      */
     private function _setBranches($args)
     {
@@ -84,6 +81,8 @@ class BuildCommand extends Command
             $this->_branch = self::RELEASE_PREFIX . App::console()->config->release->current;
             $this->_prevBranch = self::RELEASE_PREFIX . App::console()->config->release->prev;
         }
+
+        return $this;
     }
 
     /**
@@ -119,10 +118,12 @@ class BuildCommand extends Command
      *
      * @param string $branch GIT branch name
      *
-     * @return bool
+     * @return BuildCommand
      */
     private function _gitCheckout($branch)
     {
+        Logger::log("Building from branch {$this->_branch}", Logger::LEVEL_INFO, "console.build");
+
         $command = "
 			git add .;
 			git reset --hard;
@@ -134,6 +135,6 @@ class BuildCommand extends Command
 		";
         exec($command);
 
-        return true;
+        return $this;
     }
 }
