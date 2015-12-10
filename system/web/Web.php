@@ -116,6 +116,30 @@ class Web extends Application
 
 	private function _runAjax($params)
 	{
+		if (
+			empty($_SERVER['HTTP_X_REQUESTED_WITH'])
+			|| strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) !== 'xmlhttprequest'
+		) {
+			throw new Exception(Language::t("common", "111"), 404);
+		}
+
+		if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+			throw new Exception(Language::t("common", "111"), 404);
+		}
+
+		if (
+			//empty($_POST["token"])
+			 empty($_POST["action"])
+			|| !isset($_POST["data"])
+		) {
+			throw new Exception(Language::t("common", "111"), 404);
+		}
+
+		//if ($_POST["token"] !== $this->_getToken()) {
+		//	return false;
+		//}
+
+
 		if (empty($params[1])) {
 			throw new Exception(Language::t("common", "Не указан язык"), 404);
 		}
