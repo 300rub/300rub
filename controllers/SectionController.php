@@ -5,23 +5,25 @@ namespace controllers;
 use models\DesignBlockModel;
 use models\GridModel;
 use models\SeoModel;
-use system\web\Controller;
 use models\SectionModel;
+use system\web\Controller;
 use system\base\Exception;
 use system\web\Language;
-use system\App;
 
 /**
- * Файл класса SectionController
+ * Section's controller
  *
  * @package controllers
  */
 class SectionController extends Controller
 {
 
+	/**
+	 * List of sections in panel
+	 */
 	public function actionPanelList()
 	{
-		$items = [];
+		$list = [];
 		$models = SectionModel::model()->ordered()->findAll();
 
 		foreach ($models as $model) {
@@ -30,44 +32,35 @@ class SectionController extends Controller
 				"id"    => $model->id
 			];
 			if ($model->is_main) {
-				$item["icon"] = "section-main";
+				$item["icon"] = "main";
 			}
-			$items[] = $item;
+			$list[] = $item;
 		}
 
 		$this->json = [
-			"title"       => Language::t("common", "Разделы"),
-			"description" => Language::t(
-				"common",
-				"Чтобы добавить раздел, нажмите плюсик. Чтобы изменить структуру раздела нажмите на его название. Отредактировать СЕО - нажмите на шестеренку."
-			),
-			"list"        => [
-				"class"   => "grid",
-				"items"   => $items,
-				"content" => "section/grid",
-				"icons"   => [
-					"big"      => false,
-					"design"   => "section/design",
-					"settings" => "section/settings",
-				],
-			],
-			"add"         => [
-				"label"   => Language::t("common", "Добавить"),
-				"content" => "section/settings",
-			],
-			"errors"      => [],
+			"title"       => Language::t("section", "Sections"),
+			"description" => Language::t("section", "Sections panel description"),
+			"list"        => $list,
+			"content"     => "section.grid",
+			"design"      => "section.design",
+			"settings"    => "section.settings",
+			"add"         => Language::t("common", "Add"),
 		];
 	}
 
 	/**
-	 * Настройки раздела
+	 * Section's settings
+	 *
+	 * @param array $data Data from POST
 	 *
 	 * @throws Exception
 	 *
 	 * @return void
 	 */
-	public function actionSettings()
+	public function actionSettings($data)
 	{
+		$id = !empty($id) ? intval($id) : 0;
+
 		if ($id) {
 			$model = SectionModel::model()->byId($id)->with(["seoModel"])->find();
 		} else {
@@ -81,27 +74,29 @@ class SectionController extends Controller
 		}
 
 		$this->json = [
-			"back"        => "section/panelList",
+			"back"        => "section.panelList",
 			"title"       => Language::t("common", "Настройки раздела"),
 			"description" => Language::t("common", "Здесь вы можете редактировать название и СЕО"),
-			"button"      => [
+			"save"        => [
 				"label"  => Language::t("common", "Сохранить"),
-				"action" => "section/saveSettings/{$model->id}"
+				"action" => "section.saveSettings",
+				"id"     => $model->id
 			],
 		];
 
 		if ($id) {
 			$this->json["duplicate"] = [
 				"label"   => Language::t("common", "Дублировать"),
-				"action"  => "section/duplicate/{$model->id}",
-				"content" => "section/settings",
+				"action"  => "section.duplicate",
+				"id"      => $model->id,
+				"content" => "section.settings",
 			];
 			$this->json["delete"] = [
 				"label"    => Language::t("common", "Удалить"),
-				"action"   => "section/delete/{$model->id}",
+				"action"   => "section.delete",
+				"id"       => $model->id,
 				"confirm"  => Language::t("common", "Вы действительно хотите удалить раздел?"),
-				"cssClass" => "section-{$id}",
-				"content"  => "section/panelList",
+				"content"  => "section.panelList",
 			];
 		}
 
@@ -186,7 +181,7 @@ class SectionController extends Controller
 	 *
 	 * @return void
 	 */
-	public function actionGrid()
+	public function actionWindow()
 	{
 		if (!$id) {
 			throw new Exception(Language::t("common", "Некорректный идентификатор"), 404);
@@ -213,7 +208,7 @@ class SectionController extends Controller
 	 *
 	 * @throws Exception
 	 */
-	public function actionSaveGrid()
+	public function actionSaveWindow()
 	{
 		$this->json = false;
 
