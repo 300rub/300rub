@@ -31,16 +31,6 @@ abstract class Controller
 	protected $json = [];
 
 	/**
-	 * Название директории для представлений
-	 *
-	 * @return string
-	 */
-	protected function getViewsDir()
-	{
-		return "common";
-	}
-
-	/**
 	 * Показывает или возвращает представление в макете
 	 *
 	 * @param string $viewFile представление
@@ -76,13 +66,7 @@ abstract class Controller
 	 */
 	protected function renderPartial($viewFile, $data = [], $isReturn = false)
 	{
-		$path = $this->getViewsRootDir();
-		if ($viewFile[0] !== "/") {
-			$path .= $this->getViewsDir() . "/";
-		} else {
-			$viewFile = substr($viewFile, 1);
-		}
-		$path .= "{$viewFile}.php";
+		$path = $this->getViewsRootDir() . $viewFile . ".php";
 
 		extract($data, EXTR_OVERWRITE);
 
@@ -94,16 +78,6 @@ abstract class Controller
 		ob_implicit_flush(false);
 		require($path);
 		return ob_get_clean();
-	}
-
-	/**
-	 * Выводит на экран JSON
-	 */
-	protected function renderJson()
-	{
-		header('Content-Type: application/json');
-		echo json_encode($this->json);
-		exit();
 	}
 
 	/**

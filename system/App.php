@@ -108,22 +108,6 @@ class App
 
 		return true;
 	}
-
-	/**
-	 * Получает переменную из post
-	 *
-	 * @param string $name название переменной
-	 *
-	 * @return mixed
-	 */
-	public static function getPost($name = "Data")
-	{
-		if (!empty($_POST[$name])) {
-			return $_POST[$name];
-		}
-
-		return null;
-	}
 }
 
 spl_autoload_register(['system\App','autoload']);

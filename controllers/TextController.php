@@ -50,11 +50,9 @@ class TextController extends Controller
 			],
 			"errors"      => [],
 		];
-
-		$this->renderJson();
 	}
 
-	public function actionWindow($id)
+	public function actionWindow()
 	{
 		if (!$id) {
 			throw new Exception(Language::t("common", "Некорректрый url"), 404);
@@ -78,13 +76,11 @@ class TextController extends Controller
 				]
 			],
 		];
-		$this->setFormsForJson($model, ["t.text"])->renderJson();
+		$this->setFormsForJson($model, ["t.text"]);
 	}
 
 	public function actionSaveWindow($id = 0)
 	{
-		$post = App::getPost();
-
 		$model = TextModel::model()->byId($id)->withAll()->find();
 
 		if (!$model) {

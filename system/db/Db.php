@@ -78,6 +78,8 @@ class Db
 	 */
 	public $relations = [];
 
+	public static $queries = [];
+
 	/**
 	 * Устанавливает PDO
 	 *
@@ -158,9 +160,7 @@ class Db
 			$query .= " ORDER BY {$this->order}";
 		}
 
-		if (PHP_SAPI !== "cli" && App::web()->config->isDebug && !App::web()->isAjax) {
-			echo "<script>console.log(\"{$query}\");</script>";
-		}
+		self::$queries[] = $query;
 
 		return $query;
 	}

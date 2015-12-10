@@ -5,7 +5,7 @@ namespace system\web;
 use system\base\Application;
 use system\db\Db;
 use system\base\Exception;
-use controllers\SectionController;
+use controllers\CommonController;
 use models\UserModel;
 use Mobile_Detect;
 
@@ -20,18 +20,16 @@ class Web extends Application
 {
 
 	/**
-	 * AJAX ли
-	 *
-	 * @var bool
-	 */
-	public $isAjax = false;
-
-	/**
 	 * Время начала исполнения скрипта
 	 *
 	 * @var int
 	 */
 	private $_startTime = 0;
+
+	/**
+	 * @var float
+	 */
+	private $_time = 0;
 
 	/**
 	 * Модель пользователя
@@ -59,17 +57,15 @@ class Web extends Application
 	 */
 	public function run()
 	{
-		$this->_startTime = microtime(true);
 		session_start();
-
-		$this->_setSite();
-		$this->_runController();
+		$this->_startTime = microtime(true);
+		$this->_setSite()->_setUser()->_runController();
 	}
 
 	/**
 	 * Устанавливает текущего пользователя
 	 *
-	 * @return void
+	 * @return Web
 	 */
 	private function _setUser()
 	{
@@ -79,9 +75,12 @@ class Web extends Application
 			$explode = explode("|p", $_COOKIE["__lp"], 2);
 			$model = UserModel::model()->byLogin($explode[0])->find();
 			if ($model->password === $explode[1]) {
+				$_SESSION["__u"] = $model;
 				$this->user = $model;
 			}
 		}
+
+		return $this;
 	}
 
 	/**
@@ -89,7 +88,7 @@ class Web extends Application
 	 *
 	 * @throws Exception
 	 *
-	 * @return void
+	 * @return Web
 	 */
 	private function _setSite()
 	{
@@ -111,6 +110,48 @@ class Web extends Application
 		}
 
 		Language::$activeId = $site["language"];
+
+		return $this;
+	}
+
+	private function _runAjax($params)
+	{
+		if (empty($params[1])) {
+			throw new Exception(Language::t("common", "Не указан язык"), 404);
+		}
+
+		if (empty($params[2])) {
+			throw new Exception(Language::t("common", "Не указан контроллер"), 404);
+		}
+
+		if (empty($params[3])) {
+			throw new Exception(Language::t("common", "Не указано действие контроллера"), 404);
+		}
+
+		Language::setIdByAlias($params[1]);
+
+		$controllerName = "\\controllers\\" . ucfirst($params[2]) . "Controller";
+		$actionName = "action" . ucfirst($params[3]);
+		$controller = new $controllerName;
+		$controller->$actionName($_POST);
+
+		$this->_time = number_format(microtime(true) - $this->_startTime, 3);
+
+		header('Content-Type: application/json');
+		echo json_encode($controller->json);
+		exit();
+	}
+
+	private function _runSite($params)
+	{
+		if (!empty($params[0])) {
+			Language::setIdByAlias($params[0]);
+		}
+		(new CommonController)->actionStructure(!empty($params[1]) ? $params[1] : null);
+
+		$this->_time = number_format(microtime(true) - $this->_startTime, 3);
+
+		return $this;
 	}
 
 	/**
@@ -121,7 +162,7 @@ class Web extends Application
 	 *
 	 * @throws Exception
 	 *
-	 * @return bool
+	 * @return Web
 	 */
 	private function _runController()
 	{
@@ -135,56 +176,11 @@ class Web extends Application
 		}
 
 		if (empty($params[0]) || $params[0] != "ajax") {
-			$this->_setUser();
-
-			if (!empty($params[0])) {
-				Language::setIdByAlias($params[0]);
-			}
-			(new SectionController)->actionDisplay(
-				!empty($params[1]) ? $params[1] : null,
-				!empty($params[2]) ? $params[2] : null,
-				!empty($params[3]) ? $params[3] : null
-			);
-
-			$time = number_format(microtime(true) - $this->_startTime, 3);
-			if ($this->config->isDebug) {
-				echo "<script>console.log(\"Время выполнения скрипта: {$time} сек.\");</script>";
-			}
-
-			return true;
-		}
-
-		$this->isAjax = true;
-
-		//sleep(1);
-
-		if (empty($params[1])) {
-			throw new Exception(Language::t("common", "Не указан язык"), 404);
-		}
-
-		if (empty($params[2])) {
-			throw new Exception(Language::t("common", "Не указан контроллер"), 404);
-		}
-
-		if (empty($params[3])) {
-			throw new Exception(Language::t("common", "Не указано действие контроллера"), 404);
-		}
-
-		$this->_setUser();
-
-		Language::setIdByAlias($params[1]);
-
-		$controllerName = "\\controllers\\" . ucfirst($params[2]) . "Controller";
-		$actionName = "action" . ucfirst($params[3]);
-		$controller = new $controllerName;
-		if (!empty($params[4]) && !empty($params[5])) {
-			$controller->$actionName($params[4], $params[5]);
-		} else if (!empty($params[4])) {
-			$controller->$actionName($params[4]);
+			$this->_runSite($params);
 		} else {
-			$controller->$actionName();
+			$this->_runAjax($params);
 		}
 
-		return true;
+		return $this;
 	}
 }

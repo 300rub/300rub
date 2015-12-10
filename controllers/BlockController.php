@@ -40,7 +40,5 @@ class BlockController extends Controller
 			],
 			"errors"      => [],
 		];
-
-		$this->renderJson();
 	}
 }

@@ -2,12 +2,9 @@
 
 namespace controllers;
 
-use models\BlockModel;
 use models\DesignBlockModel;
-use models\GridLineModel;
 use models\GridModel;
 use models\SeoModel;
-use system\db\Db;
 use system\web\Controller;
 use models\SectionModel;
 use system\base\Exception;
@@ -21,52 +18,6 @@ use system\App;
  */
 class SectionController extends Controller
 {
-
-	/**
-	 * Макет
-	 *
-	 * @var string
-	 */
-	public $layout = "section/layout";
-
-	/**
-	 * Название директории для представлений
-	 *
-	 * @return string
-	 */
-	protected function getViewsDir()
-	{
-		return "section";
-	}
-
-	/**
-	 * Выводит раздел на экран
-	 *
-	 * @param string $section абривиатура раздела
-	 * @param string $param1  параметр 1
-	 * @param string $param2  параметр 2
-	 *
-	 * @throws Exception
-	 *
-	 * @return void
-	 */
-	public function actionDisplay($section = null, $param1 = null, $param2 = null)
-	{
-		$model = SectionModel::model()->byUrl($section)->with(["designBlockModel"])->find();
-		if (!$model) {
-			$this->render("empty");
-		} else {
-			$structure = GridModel::model()->getStructure($model);
-			if (!$structure) {
-				$this->render("empty");
-			} else {
-				$this->render(
-					"index",
-					["model" => $model, "structure" => $structure]
-				);
-			}
-		}
-	}
 
 	public function actionPanelList()
 	{
@@ -106,20 +57,16 @@ class SectionController extends Controller
 			],
 			"errors"      => [],
 		];
-
-		$this->renderJson();
 	}
 
 	/**
 	 * Настройки раздела
 	 *
-	 * @param int $id идентификатор раздела
-	 *
 	 * @throws Exception
 	 *
 	 * @return void
 	 */
-	public function actionSettings($id = 0)
+	public function actionSettings()
 	{
 		if ($id) {
 			$model = SectionModel::model()->byId($id)->with(["seoModel"])->find();
@@ -181,22 +128,17 @@ class SectionController extends Controller
 				];
 		}
 		$this->setFormsForJson($model, $forms);
-
-		$this->renderJson();
 	}
 
 	/**
 	 * Сохраняет настройки раздела
 	 *
-	 * @param int $id идентификатор раздела
-	 *
 	 * @throws Exception
 	 *
 	 * @return void
 	 */
-	public function actionSaveSettings($id = 0)
+	public function actionSaveSettings()
 	{
-		$post = App::getPost();
 		if (
 			!$post
 			|| !isset($post["seoModel.name"])
@@ -235,20 +177,16 @@ class SectionController extends Controller
 			"errors"  => $model->errors,
 			"content" => "section/panelList",
 		];
-
-		$this->renderJson();
 	}
 
 	/**
 	 * Сетка
 	 *
-	 * @param int $id идентификатор раздела
-	 *
 	 * @throws Exception
 	 *
 	 * @return void
 	 */
-	public function actionGrid($id = 0)
+	public function actionGrid()
 	{
 		if (!$id) {
 			throw new Exception(Language::t("common", "Некорректный идентификатор"), 404);
@@ -268,18 +206,14 @@ class SectionController extends Controller
 			"blocks" => GridModel::model()->getAllBlocksForGridWindow(),
 			"grid"   => GridModel::model()->getAllGridsForGridWindow($model->id)
 		];
-
-		$this->renderJson();
 	}
 
 	/**
 	 * Сохраняет сетку
 	 *
-	 * @param int $id идентификатор раздела
-	 *
 	 * @throws Exception
 	 */
-	public function actionSaveGrid($id)
+	public function actionSaveGrid()
 	{
 		$this->json = false;
 
@@ -292,12 +226,10 @@ class SectionController extends Controller
 			throw new Exception(Language::t("default", "Раздел не найден"), 404);
 		}
 
-		$data = App::getPost("data");
 		$this->json = GridModel::model()->updateGridForSection($model->id, $data);
-		$this->renderJson();
 	}
 
-	public function actionDelete($id)
+	public function actionDelete()
 	{
 		if (!$id) {
 			throw new Exception(Language::t("common", "Некорректный идентификатор"), 404);
@@ -309,15 +241,12 @@ class SectionController extends Controller
 		}
 
 		$this->json = $model->delete();
-		$this->renderJson();
 	}
 
 	/**
-	 * @param int $id
-	 *
 	 * @throws Exception
 	 */
-	public function actionDuplicate($id)
+	public function actionDuplicate()
 	{
 		if (!$id) {
 			throw new Exception(Language::t("common", "Некорректный идентификатор"), 404);
@@ -329,17 +258,14 @@ class SectionController extends Controller
 		}
 
 		$this->json = $model->duplicate();
-		$this->renderJson();
 	}
 
 	/**
-	 * @param int $id
-	 *
 	 * @throws Exception
 	 *
 	 * @return void
 	 */
-	public function actionDesign($id = 0)
+	public function actionDesign()
 	{
 		if ($id) {
 			$model = SectionModel::model()->byId($id)->with(["designBlockModel"])->find();
@@ -361,21 +287,15 @@ class SectionController extends Controller
 			],
 			"design"      => $model->getDesignForms()
 		];
-
-		$this->renderJson();
 	}
 
 	/**
-	 * @param int $id
-	 *
 	 * @throws Exception
 	 *
 	 * @return void
 	 */
-	public function actionSaveDesign($id = 0)
+	public function actionSaveDesign()
 	{
-		$post = App::getPost();
-
 		$model = SectionModel::model()->byId($id)->with(["designBlockModel"])->find();
 
 		if (!$model) {
@@ -387,7 +307,5 @@ class SectionController extends Controller
 			"errors"  => $model->errors,
 			"content" => "section/panelList",
 		];
-
-		$this->renderJson();
 	}
 }
