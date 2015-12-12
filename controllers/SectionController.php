@@ -50,28 +50,10 @@ class SectionController extends Controller
 
 	/**
 	 * Section's settings
-	 *
-	 * @param array $data Data from POST
-	 *
-	 * @throws Exception
-	 *
-	 * @return void
 	 */
-	public function actionSettings($data)
+	public function actionSettings()
 	{
-		$id = !empty($id) ? intval($id) : 0;
-
-		if ($id) {
-			$model = SectionModel::model()->byId($id)->with(["seoModel"])->find();
-		} else {
-			$model = new SectionModel;
-			$model->width = SectionModel::DEFAULT_WIDTH;
-			$model->seoModel = new SeoModel();
-		}
-
-		if (!$model) {
-			throw new Exception(Language::t("default", "Раздел не найден"), 404);
-		}
+		$model = $this->_getModel(["seoModel"]);
 
 		$this->json = [
 			"back"        => "section.panelList",
@@ -80,11 +62,11 @@ class SectionController extends Controller
 			"save"        => [
 				"label"  => Language::t("common", "Сохранить"),
 				"action" => "section.saveSettings",
-				"id"     => $model->id
+				"id"     => intval($model->id)
 			],
 		];
 
-		if ($id) {
+		if ($model->id) {
 			$this->json["duplicate"] = [
 				"label"   => Language::t("common", "Дублировать"),
 				"action"  => "section.duplicate",
@@ -100,95 +82,53 @@ class SectionController extends Controller
 			];
 		}
 
-		if ($model->is_main) {
-			$forms =
-				[
-					"seoModel.name",
-					"seoModel.url",
-					"t.width",
-					"seoModel.title",
-					"seoModel.keywords",
-					"seoModel.description"
-				];
-		} else {
-			$forms =
-				[
-					"seoModel.name",
-					"seoModel.url",
-					"t.is_main",
-					"t.width",
-					"seoModel.title",
-					"seoModel.keywords",
-					"seoModel.description"
-				];
+		$forms = [
+				"seoModel.name",
+				"seoModel.url",
+				"t.width",
+				"seoModel.title",
+				"seoModel.keywords",
+				"seoModel.description"
+		];
+		if (!$model->is_main) {
+			$forms[] = "t.is_main";
 		}
+
 		$this->setFormsForJson($model, $forms);
 	}
 
 	/**
-	 * Сохраняет настройки раздела
+	 * Saves settings
+	 *
+	 * @param array $data Data from POST
 	 *
 	 * @throws Exception
 	 *
 	 * @return void
 	 */
-	public function actionSaveSettings()
+	public function actionSaveSettings($data)
 	{
-		if (
-			!$post
-			|| !isset($post["seoModel.name"])
-			|| !isset($post["seoModel.url"])
-			|| !isset($post["seoModel.title"])
-			|| !isset($post["seoModel.keywords"])
-			|| !isset($post["seoModel.description"])
-		) {
-			throw new Exception(Language::t("common", "Некорректрый url"), 404);
-		}
-
-		if ($id) {
-			$model = SectionModel::model()->byId($id)->with(["seoModel"])->find();
-		} else {
-			$designBlockModel = new DesignBlockModel();
-			if (!$designBlockModel->save()) {
-				throw new Exception(Language::t("common", "Не удалось создать дизайн"), 404);
-			}
-			$model = new SectionModel;
-			$model->language = Language::$activeId;
-			$model->seoModel = new SeoModel();
-			$model->design_block_id = $designBlockModel->id;
-		}
-
-		$model->setAttributes($post);
-		$model->validate(false);
-
-		$success = false;
-
-		if (!$model->errors && $model->save()) {
-			$success = true;
-		}
+		$model = $this->_getModel(["seoModel"]);
+		$model->setAttributes($data)->save();
 
 		$this->json = [
-			"success" => $success,
-			"errors"  => $model->errors,
-			"content" => "section/panelList",
+				"errors" => $model->errors,
+				"data"   => [
+						"content" => "section.panelList",
+				]
 		];
 	}
 
 	/**
-	 * Сетка
+	 * Window for grid editing
 	 *
 	 * @throws Exception
-	 *
-	 * @return void
 	 */
 	public function actionWindow()
 	{
-		if (!$id) {
-			throw new Exception(Language::t("common", "Некорректный идентификатор"), 404);
-		}
+		$model = $this->_getModel(["seoModel"]);
 
-		$model = SectionModel::model()->byId($id)->with(["seoModel"])->find();
-		if (!$model) {
+		if (!$model->id) {
 			throw new Exception(Language::t("default", "Раздел не найден"), 404);
 		}
 
@@ -302,5 +242,19 @@ class SectionController extends Controller
 			"errors"  => $model->errors,
 			"content" => "section/panelList",
 		];
+	}
+
+	private function _getModel($width = [])
+	{
+		if (!$this->id) {
+			return new SectionModel();
+		}
+
+		$model = SectionModel::model()->byId($this->id)->with($width)->find();
+		if (!$model) {
+			throw new Exception(Language::t("default", "Модель не найдена"), 404);
+		}
+
+		return $model;
 	}
 }

@@ -181,11 +181,17 @@ abstract class Model
 		 * @var Model $model
 		 */
 		$model = new $this;
-		if (!$model->setAttributes($result, "__")) {
-			return null;
-		}
+		$model->setAttributes($result, "__")->afterFind();
 
 		return $model;
+	}
+
+	/**
+	 * @return Model
+	 */
+	protected function afterFind()
+	{
+		return $this;
 	}
 
 	/**
@@ -207,7 +213,7 @@ abstract class Model
 			 * @var Model $model
 			 */
 			$model = new $this;
-			$model->setAttributes($values, "__");
+			$model->setAttributes($result, "__")->afterFind();
 			if ($model) {
 				$list[] = $model;
 			}
@@ -222,12 +228,12 @@ abstract class Model
 	 * @param array  $values    значения атрибутов
 	 * @param string $separator разделитель
 	 *
-	 * @return bool
+	 * @return Model
 	 */
 	public final function setAttributes($values, $separator = ".")
 	{
 		if (!is_array($values)) {
-			return false;
+			return $this;
 		}
 
 		$attributes = [];
@@ -240,7 +246,7 @@ abstract class Model
 		}
 
 		if (!$attributes) {
-			return false;
+			return $this;
 		}
 
 		$relations = $this->relations();
@@ -266,7 +272,7 @@ abstract class Model
 			}
 		}
 
-		return true;
+		return $this;
 	}
 
 	/**

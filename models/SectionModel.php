@@ -2,6 +2,7 @@
 
 namespace models;
 
+use system\base\Exception;
 use system\db\Db;
 use system\web\Language;
 use system\base\Model;
@@ -205,6 +206,8 @@ class SectionModel extends Model
 	/**
 	 * Выполняется перед сохранением модели
 	 *
+	 * @throws Exception
+	 *
 	 * @return bool
 	 */
 	protected function beforeSave()
@@ -212,9 +215,16 @@ class SectionModel extends Model
 		if ($this->is_main && !$this->updateForAll(["is_main" => 0])) {
 			return false;
 		}
-
 		if (!$this->is_main && !$this->selectMain()->find()) {
 			$this->is_main = 1;
+		}
+
+		if (!$this->design_block_id) {
+			$designBlockModel = new DesignBlockModel();
+			if (!$designBlockModel->save()) {
+				throw new Exception(Language::t("common", "Не удалось создать дизайн"), 404);
+			}
+			$this->design_block_id = $designBlockModel->id;
 		}
 
 		return parent::beforeSave();
@@ -410,5 +420,22 @@ class SectionModel extends Model
 
 		Db::commitTransaction();
 		return true;
+	}
+
+	protected function afterFind()
+	{
+		if (!$this->seoModel) {
+			$this->seoModel = new SeoModel();
+		}
+
+		if (!$this->language) {
+			$this->language = Language::$activeId;
+		}
+
+		if (!$this->width) {
+			$this->width = self::DEFAULT_WIDTH;
+		}
+
+		return parent::afterFind();
 	}
 }

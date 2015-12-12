@@ -17,6 +17,15 @@ abstract class Controller
 {
 
 	/**
+	 * Data from $_POST
+	 *
+	 * @var array
+	 */
+	public $data = [];
+
+	protected $id = 0;
+
+	/**
 	 * Макет
 	 *
 	 * @var string
