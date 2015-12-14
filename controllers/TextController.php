@@ -4,16 +4,27 @@ namespace controllers;
 
 use models\TextModel;
 use system\web\Controller;
-use system\base\Exception;
 use system\web\Language;
 
 /**
  * Text's controller
  *
  * @package controllers
+ *
+ * @method TextModel getModel($width = [], $allowEmpty = false)
  */
 class TextController extends Controller
 {
+
+    /**
+     * Gets model name
+     *
+     * @return string
+     */
+    protected function getModelName()
+    {
+        return "TextModel";
+    }
 
     /**
      * Content
@@ -21,7 +32,7 @@ class TextController extends Controller
     public function actionContent()
     {
         $this->json = [
-            "content" => $this->renderPartial("text.content", ["model" => $this->_getModel("*")], true)
+            "content" => $this->renderPartial("text.content", ["model" => $this->getModel("*")], true)
         ];
     }
 
@@ -57,7 +68,7 @@ class TextController extends Controller
      */
     public function actionSettings()
     {
-        $model = $this->_getModel([], true);
+        $model = $this->getModel([], true);
 
         $this->json = [
             "back"        => "text/panelList",
@@ -79,7 +90,7 @@ class TextController extends Controller
      */
     public function actionSaveSettings()
     {
-        $model = $this->_getModel([], true);
+        $model = $this->getModel([], true);
         $model->setAttributes($this->data)->save();
 
         $this->json = [
@@ -93,7 +104,7 @@ class TextController extends Controller
      */
     public function actionDesign()
     {
-        $model = $this->_getModel("*");
+        $model = $this->getModel("*");
 
         $this->json = [
             "back"        => "text.panelList",
@@ -110,7 +121,7 @@ class TextController extends Controller
      */
     public function actionSaveDesign()
     {
-        $model = $this->_getModel("*");
+        $model = $this->getModel("*");
         $model->setAttributes($this->data)->save();
 
         $this->json = [
@@ -124,7 +135,7 @@ class TextController extends Controller
      */
     public function actionWindow()
     {
-        $model = $this->_getModel();
+        $model = $this->getModel();
 
         $this->json = [
             "title"  => $model->name,
@@ -144,39 +155,11 @@ class TextController extends Controller
      */
     public function actionSaveWindow()
     {
-        $model = $this->_getModel();
+        $model = $this->getModel();
         $model->setAttributes($this->data)->save();
 
         $this->json = [
             "errors" => $model->errors,
         ];
-    }
-
-    /**
-     * Gets model
-     *
-     * @param string[] $width      Relations
-     * @param bool     $allowEmpty Allows empty ID
-     *
-     * @return TextModel
-     *
-     * @throws Exception
-     */
-    private function _getModel($width = [], $allowEmpty = false)
-    {
-        if (!$this->id && !$allowEmpty) {
-            throw new Exception(Language::t("common", "Некорректный идентификатор"), 404);
-        }
-
-        if (!$this->id) {
-            return new TextModel();
-        }
-
-        $model = TextModel::model()->byId($this->id)->with($width)->find();
-        if (!$model) {
-            throw new Exception(Language::t("default", "Модель не найдена"), 404);
-        }
-
-        return $model;
     }
 }

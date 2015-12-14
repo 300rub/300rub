@@ -5,16 +5,27 @@ namespace controllers;
 use models\GridModel;
 use models\SectionModel;
 use system\web\Controller;
-use system\base\Exception;
 use system\web\Language;
 
 /**
  * Section's controller
  *
  * @package controllers
+ *
+ * @method SectionModel getModel($width = [], $allowEmpty = false)
  */
 class SectionController extends Controller
 {
+
+    /**
+     * Gets model name
+     *
+     * @return string
+     */
+    protected function getModelName()
+    {
+        return "SectionModel";
+    }
 
     /**
      * Panel. List of sections
@@ -52,7 +63,7 @@ class SectionController extends Controller
      */
     public function actionSettings()
     {
-        $model = $this->_getModel(["seoModel"], true);
+        $model = $this->getModel(["seoModel"], true);
 
         $this->json = [
             "back"        => "section.panelList",
@@ -96,7 +107,7 @@ class SectionController extends Controller
      */
     public function actionSaveSettings()
     {
-        $model = $this->_getModel(["seoModel"], true);
+        $model = $this->getModel(["seoModel"], true);
         $model->setAttributes($this->data)->save();
 
         $this->json = [
@@ -106,27 +117,11 @@ class SectionController extends Controller
     }
 
     /**
-     * Panel. Deletes section
-     */
-    public function actionDelete()
-    {
-        $this->json = ["result" => $this->_getModel("*")->delete()];
-    }
-
-    /**
-     * Panel. Duplicates section
-     */
-    public function actionDuplicate()
-    {
-        $this->json = ["result" => $this->_getModel("*")->duplicate()];
-    }
-
-    /**
      * Panel. Design forms
      */
     public function actionDesign()
     {
-        $model = $this->_getModel(["designBlockModel"]);
+        $model = $this->getModel(["designBlockModel"]);
 
         $this->json = [
             "back"        => "section/panelList",
@@ -144,7 +139,7 @@ class SectionController extends Controller
     public function actionSaveDesign()
     {
         $this->json = [
-            "result"  => $this->_getModel(["designBlockModel"])->saveDesign($this->data),
+            "result"  => $this->getModel(["designBlockModel"])->saveDesign($this->data),
             "content" => "section/panelList",
         ];
     }
@@ -154,7 +149,7 @@ class SectionController extends Controller
      */
     public function actionWindow()
     {
-        $model = $this->_getModel(["seoModel"]);
+        $model = $this->getModel(["seoModel"]);
 
         $this->json = [
             "title"  => $model->seoModel->name,
@@ -172,37 +167,9 @@ class SectionController extends Controller
     {
         $this->json = [
             "result" => GridModel::model()->updateGridForSection(
-                $this->_getModel()->id,
+                $this->getModel()->id,
                 $this->data
             )
         ];
-    }
-
-    /**
-     * Gets model
-     *
-     * @param string[] $width      Relations
-     * @param bool     $allowEmpty Allows empty ID
-     *
-     * @return SectionModel
-     *
-     * @throws Exception
-     */
-    private function _getModel($width = [], $allowEmpty = false)
-    {
-        if (!$this->id && !$allowEmpty) {
-            throw new Exception(Language::t("common", "Некорректный идентификатор"), 404);
-        }
-
-        if (!$this->id) {
-            return new SectionModel();
-        }
-
-        $model = SectionModel::model()->byId($this->id)->with($width)->find();
-        if (!$model) {
-            throw new Exception(Language::t("default", "Модель не найдена"), 404);
-        }
-
-        return $model;
     }
 }

@@ -40,6 +40,13 @@ abstract class Controller
 	protected $json = [];
 
 	/**
+	 * Gets model name
+	 *
+	 * @return string
+	 */
+	abstract protected function getModelName();
+
+	/**
 	 * Показывает или возвращает представление в макете
 	 *
 	 * @param string $viewFile представление
@@ -160,5 +167,62 @@ abstract class Controller
 		}
 
 		return $this;
+	}
+
+	/**
+	 * Gets model
+	 *
+	 * @param string[] $width      Relations
+	 * @param bool     $allowEmpty Allows empty ID
+	 *
+	 * @return \system\base\Model
+	 *
+	 * @throws Exception
+	 */
+	protected function getModel($width = [], $allowEmpty = false)
+	{
+		$modelName = $this->getModelName();
+		if (!$modelName) {
+			throw new Exception(Language::t("common", "bla bla bla"), 500);
+		}
+
+		/**
+		 * @var \system\base\Model $model
+		 */
+		$model = new $modelName;
+		if (!$model) {
+			throw new Exception(Language::t("common", "bla bla bla"), 500);
+		}
+
+		if (!$this->id && !$allowEmpty) {
+			throw new Exception(Language::t("common", "Некорректный идентификатор"), 404);
+		}
+
+		if (!$this->id) {
+			return $model;
+		}
+
+		$model = $model->byId($this->id)->with($width)->find();
+		if (!$model) {
+			throw new Exception(Language::t("default", "Модель не найдена"), 404);
+		}
+
+		return $model;
+	}
+
+	/**
+	 * Panel. Deletes section
+	 */
+	public function actionDelete()
+	{
+		$this->json = ["result" => $this->getModel("*")->delete()];
+	}
+
+	/**
+	 * Panel. Duplicates section
+	 */
+	public function actionDuplicate()
+	{
+		$this->json = ["result" => $this->getModel("*")->duplicate()];
 	}
 }

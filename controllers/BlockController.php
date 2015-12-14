@@ -13,6 +13,16 @@ use system\web\Language;
 class BlockController extends Controller
 {
 
+	/**
+	 * Gets model name
+	 *
+	 * @return string
+	 */
+	protected function getModelName()
+	{
+		return "";
+	}
+
 	public function actionPanelList()
 	{
 		$items = [];

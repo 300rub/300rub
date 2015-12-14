@@ -410,6 +410,11 @@ abstract class Model
 		return true;
 	}
 
+	public function duplicate()
+	{
+		return true;
+	}
+
 	/**
 	 * Выполняется перед валидацией модели
 	 *
