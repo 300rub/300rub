@@ -106,35 +106,6 @@ class SectionController extends Controller
     }
 
     /**
-     * Window. Grids & blocks structure
-     */
-    public function actionWindow()
-    {
-        $model = $this->_getModel(["seoModel"]);
-
-        $this->json = [
-            "title"  => $model->seoModel->name,
-            "action" => "section.saveGrid",
-            "id"     => intval($model->id),
-            "blocks" => GridModel::model()->getAllBlocksForGridWindow(),
-            "grid"   => GridModel::model()->getAllGridsForGridWindow($model->id)
-        ];
-    }
-
-    /**
-     * Window. Saves grids & blocks structure
-     */
-    public function actionSaveWindow()
-    {
-        $this->json = [
-            "result" => GridModel::model()->updateGridForSection(
-                $this->_getModel()->id,
-                $this->data
-            )
-        ];
-    }
-
-    /**
      * Panel. Deletes section
      */
     public function actionDelete()
@@ -175,6 +146,35 @@ class SectionController extends Controller
         $this->json = [
             "result"  => $this->_getModel(["designBlockModel"])->saveDesign($this->data),
             "content" => "section/panelList",
+        ];
+    }
+
+    /**
+     * Window. Grids & blocks structure
+     */
+    public function actionWindow()
+    {
+        $model = $this->_getModel(["seoModel"]);
+
+        $this->json = [
+            "title"  => $model->seoModel->name,
+            "action" => "section.saveGrid",
+            "id"     => intval($model->id),
+            "blocks" => GridModel::model()->getAllBlocksForGridWindow(),
+            "grid"   => GridModel::model()->getAllGridsForGridWindow($model->id)
+        ];
+    }
+
+    /**
+     * Window. Saves grids & blocks structure
+     */
+    public function actionSaveWindow()
+    {
+        $this->json = [
+            "result" => GridModel::model()->updateGridForSection(
+                $this->_getModel()->id,
+                $this->data
+            )
         ];
     }
 

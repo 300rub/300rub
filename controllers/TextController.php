@@ -16,6 +16,16 @@ class TextController extends Controller
 {
 
     /**
+     * Content
+     */
+    public function actionContent()
+    {
+        $this->json = [
+            "content" => $this->renderPartial("text.content", ["model" => $this->_getModel("*")], true)
+        ];
+    }
+
+    /**
      * Panel. List of texts
      */
     public function actionPanelList()
@@ -39,70 +49,6 @@ class TextController extends Controller
             "icon"        => "text",
             "design"      => "text.design",
             "settings"    => "text.settings",
-        ];
-    }
-
-    /**
-     * Window. Text forms
-     */
-    public function actionWindow()
-    {
-        $model = $this->_getModel();
-
-        $this->json = [
-            "title"  => $model->name,
-            "action" => "section.saveWindow",
-            "id"     => intval($model->id),
-            "update" => [
-                "selector" => ".text-",
-                "content"  => "text.content",
-            ]
-        ];
-
-        $this->setFormsForJson($model, ["t.text"]);
-    }
-
-    /**
-     * Window. Saves text
-     */
-    public function actionSaveWindow()
-    {
-        $model = $this->_getModel();
-        $model->setAttributes($this->data)->save();
-
-        $this->json = [
-            "errors" => $model->errors,
-        ];
-    }
-
-    /**
-     * Panel. Design forms
-     */
-    public function actionDesign()
-    {
-        $model = $this->_getModel("*");
-
-        $this->json = [
-            "back"        => "text.panelList",
-            "title"       => Language::t("common", "Дизайн текстового блока"),
-            "description" => Language::t("common", "123"),
-            "action"      => "section.saveDesign",
-            "id"          => intval($model->id),
-            "design"      => $model->getDesignForms()
-        ];
-    }
-
-    /**
-     * Panel. Saves design
-     */
-    public function actionSaveDesign()
-    {
-        $model = $this->_getModel("*");
-        $model->setAttributes($this->data)->save();
-
-        $this->json = [
-            "errors"  => $model->errors,
-            "content" => "text.panelList",
         ];
     }
 
@@ -143,12 +89,66 @@ class TextController extends Controller
     }
 
     /**
-     * Content
+     * Panel. Design forms
      */
-    public function actionContent()
+    public function actionDesign()
     {
+        $model = $this->_getModel("*");
+
         $this->json = [
-            "html" => $this->renderPartial("text.content", ["model" => $this->_getModel("*")], true)
+            "back"        => "text.panelList",
+            "title"       => Language::t("common", "Дизайн текстового блока"),
+            "description" => Language::t("common", "123"),
+            "action"      => "section.saveDesign",
+            "id"          => intval($model->id),
+            "design"      => $model->getDesignForms()
+        ];
+    }
+
+    /**
+     * Panel. Saves design
+     */
+    public function actionSaveDesign()
+    {
+        $model = $this->_getModel("*");
+        $model->setAttributes($this->data)->save();
+
+        $this->json = [
+            "errors"  => $model->errors,
+            "content" => "text.panelList",
+        ];
+    }
+
+    /**
+     * Window. Text forms
+     */
+    public function actionWindow()
+    {
+        $model = $this->_getModel();
+
+        $this->json = [
+            "title"  => $model->name,
+            "action" => "section.saveWindow",
+            "id"     => intval($model->id),
+            "update" => [
+                "selector" => ".text-",
+                "content"  => "text.content",
+            ]
+        ];
+
+        $this->setFormsForJson($model, ["t.text"]);
+    }
+
+    /**
+     * Window. Saves text
+     */
+    public function actionSaveWindow()
+    {
+        $model = $this->_getModel();
+        $model->setAttributes($this->data)->save();
+
+        $this->json = [
+            "errors" => $model->errors,
         ];
     }
 
