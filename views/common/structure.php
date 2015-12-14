@@ -43,7 +43,7 @@
 												<div class="clear"></div>
 											<?php } ?>
 											<div
-												class="col-<?php echo $grid["col"]; ?> col-offset-<?= $grid["offset"]; ?> <?= $grid["class"] ?>">
+												class="col-<?= $grid["col"] ?> col-offset-<?= $grid["offset"]; ?> <?= $grid["class"] ?>">
 												<?php $this->renderPartial(
 													$grid["view"],
 													["model" => $grid["model"]]

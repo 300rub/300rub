@@ -60,7 +60,35 @@ use system\App;
 <?php if (App::web()->user === null) { ?>
 	<a href="#" id="login-button">Вход</a>
 <?php } else { ?>
-	<?php require(__DIR__ . "/../section/panel_buttons.php"); ?>
+	<div id="panel-buttons">
+		<a
+			href="#"
+			id="sections-button"
+			data-name="sections"
+			data-content="section/panelList"
+			><span><?= Language::t("common", "Разделы") ?></span></a>
+
+		<a
+			href="#"
+			id="blocks-button"
+			data-name="blocks"
+			data-content="block/panelList"
+			><span><?= Language::t("common", "Блоки") ?></span></a>
+
+		<a
+			href="#"
+			id="settings-button"
+			data-name="settings"
+			data-content="blocks/panelList"
+			><span><?= Language::t("common", "Настройки") ?></span></a>
+
+		<a
+			href="#"
+			id="payment-button"
+			data-name="payment"
+			data-content="blocks/panelList"
+			><span><?= Language::t("common", "Оплата") ?></span></a>
+	</div>
 	<a href="#" id="logout-button"></a>
 <?php } ?>
 

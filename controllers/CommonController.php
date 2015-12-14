@@ -10,6 +10,13 @@ class CommonController extends Controller
 {
 
     /**
+     * Layout's path
+     *
+     * @var string
+     */
+    protected $layout = "common.layout";
+
+    /**
      * Gets model name
      *
      * @return string
@@ -26,8 +33,6 @@ class CommonController extends Controller
      */
     public function actionStructure($section = null)
     {
-        $this->layout = "common.layout";
-
         $model = SectionModel::model()->byUrl($section)->with(["designBlockModel"])->find();
         if (!$model) {
             $this->render("common.empty");
@@ -53,11 +58,9 @@ class CommonController extends Controller
      */
     public function actionError($message, $statusCode = 500, $trace = "")
     {
-        $this->layout = "common.error";
-
         header("HTTP/1.0 {$statusCode}");
 
-        $this->render(
+        $this->renderPartial(
             "error",
             [
                 "statusCode" => $statusCode,
