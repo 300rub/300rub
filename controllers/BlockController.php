@@ -6,49 +6,40 @@ use system\web\Controller;
 use system\web\Language;
 
 /**
- * Файл класса SectionController
+ * Block's controller
  *
  * @package controllers
  */
 class BlockController extends Controller
 {
 
-	/**
-	 * Gets model name
-	 *
-	 * @return string
-	 */
-	protected function getModelName()
-	{
-		return "";
-	}
+    /**
+     * Gets model name
+     *
+     * @return string
+     */
+    protected function getModelName()
+    {
+        return "";
+    }
 
-	public function actionPanelList()
-	{
-		$items = [];
+    /**
+     * Panel. List of block types
+     */
+    public function actionPanelList()
+    {
+        $list = [
+            [
+                "label"   => Language::t("common", "Текст"),
+                "content" => "text.panelList",
+                "icon"    => "text"
+            ]
+        ];
 
-		$items[] = [
-			"label"   => Language::t("common", "Текст"),
-			"content" => "text/panelList",
-			"icon"    => "text"
-		];
-
-		$this->json = [
-			"title"       => Language::t("common", "Блоки"),
-			"description" => Language::t(
-				"common",
-				"Выберите категорию блоков"
-			),
-			"list"        => [
-				"class"   => "panel",
-				"items"   => $items,
-				"icons"   => [
-					"big"      => true,
-					"design"   => false,
-					"settings" => false,
-				],
-			],
-			"errors"      => [],
-		];
-	}
+        $this->json = [
+            "title"       => Language::t("common", "Блоки"),
+            "description" => Language::t("common", "Выберите категорию блоков"),
+            "list"        => $list,
+        ];
+    }
 }
