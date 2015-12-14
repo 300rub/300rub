@@ -17,7 +17,7 @@ class SectionController extends Controller
 {
 
     /**
-     * List of sections in panel
+     * Panel. List of sections
      */
     public function actionPanelList()
     {
@@ -47,7 +47,7 @@ class SectionController extends Controller
     }
 
     /**
-     * Section's settings
+     * Panel. Settings
      */
     public function actionSettings()
     {
@@ -91,7 +91,7 @@ class SectionController extends Controller
     }
 
     /**
-     * Saves settings
+     * Panel. Saves settings
      */
     public function actionSaveSettings()
     {
@@ -105,7 +105,7 @@ class SectionController extends Controller
     }
 
     /**
-     * Window for grid editing
+     * Window. Grids & blocks structure
      *
      * @throws Exception
      */
@@ -122,7 +122,7 @@ class SectionController extends Controller
     }
 
     /**
-     * Saves structure
+     * Window. Saves grids & blocks structure
      *
      * @throws Exception
      */
@@ -137,7 +137,7 @@ class SectionController extends Controller
     }
 
     /**
-     * Deletes section
+     * Panel. Deletes section
      */
     public function actionDelete()
     {
@@ -145,7 +145,7 @@ class SectionController extends Controller
     }
 
     /**
-     * Duplicates section
+     * Panel. Duplicates section
      */
     public function actionDuplicate()
     {
@@ -153,7 +153,7 @@ class SectionController extends Controller
     }
 
     /**
-     * Design
+     * Panel. Design forms
      */
     public function actionDesign()
     {
@@ -170,7 +170,7 @@ class SectionController extends Controller
     }
 
     /**
-     * Saves design
+     * Panel. Saves design
      */
     public function actionSaveDesign()
     {
