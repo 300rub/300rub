@@ -2,271 +2,181 @@
 
 namespace controllers;
 
-use models\BlockModel;
-use models\GridModel;
-use models\SeoModel;
 use models\TextModel;
-use system\db\Db;
 use system\web\Controller;
-use models\SectionModel;
 use system\base\Exception;
 use system\web\Language;
-use system\App;
 
 /**
+ * Text's controller
+ *
  * @package controllers
  */
 class TextController extends Controller
 {
 
-	public function actionPanelList()
-	{
-		$items = [];
-		$models = TextModel::model()->findAll();
+    /**
+     * Panel. List of texts
+     */
+    public function actionPanelList()
+    {
+        $list = [];
+        $models = TextModel::model()->ordered()->findAll();
 
-		foreach ($models as $model) {
-			$items[] = [
-				"label" => $model->name,
-				"id"    => $model->id
-			];
-		}
+        foreach ($models as $model) {
+            $items[] = [
+                "label" => $model->name,
+                "id"    => $model->id
+            ];
+        }
 
-		$this->json = [
-			"back"        => "block/panelList",
-			"title"       => Language::t("common", "Тексты"),
-			"description" => Language::t(
-				"common",
-				"Выберите текст для редактирования"
-			),
-			"list"        => [
-				"class"   => "window",
-				"items"   => $items,
-				"content" => "text/window",
-				"icons"   => [
-					"big"      => "text",
-					"design"   => "text/design",
-					"settings" => "text/settings",
-				],
-			],
-			"errors"      => [],
-		];
-	}
+        $this->json = [
+            "back"        => "block.panelList",
+            "title"       => Language::t("common", "Тексты"),
+            "description" => Language::t("common", "Выберите текст для редактирования"),
+            "list"        => $list,
+            "content"     => "text.window",
+            "icon"        => "text",
+            "design"      => "text.design",
+            "settings"    => "text.settings",
+        ];
+    }
 
-	public function actionWindow()
-	{
-		if (!$id) {
-			throw new Exception(Language::t("common", "Некорректрый url"), 404);
-		}
+    /**
+     * Window. Text forms
+     */
+    public function actionWindow()
+    {
+        $model = $this->_getModel();
 
-		$model = TextModel::model()->byId($id)->find();
+        $this->json = [
+            "title"  => $model->name,
+            "action" => "section.saveWindow",
+            "id"     => intval($model->id),
+            "update" => [
+                "selector" => ".text-",
+                "content"  => "text.content",
+            ]
+        ];
 
-		if (!$model) {
-			throw new Exception(Language::t("common", "Модель не найдена"), 404);
-		}
+        $this->setFormsForJson($model, ["t.text"]);
+    }
 
-		$this->json = [
-			"name" => "text",
-			"title" => Language::t("common", "Редактирование текста"),
-			"button"      => [
-				"label"  => Language::t("common", "Сохранить"),
-				"action" => "text/saveWindow/{$id}",
-				"update" => [
-					"block"   => "text-{$id}",
-					"content" => "text/content/{$id}"
-				]
-			],
-		];
-		$this->setFormsForJson($model, ["t.text"]);
-	}
+    /**
+     * Window. Saves text
+     */
+    public function actionSaveWindow()
+    {
+        $model = $this->_getModel();
+        $model->setAttributes($this->data)->save();
 
-	public function actionSaveWindow($id = 0)
-	{
-		$model = TextModel::model()->byId($id)->withAll()->find();
+        $this->json = [
+            "errors" => $model->errors,
+        ];
+    }
 
-		if (!$model) {
-			throw new Exception(Language::t("default", "Модель не найдена"), 404);
-		}
+    /**
+     * Panel. Design forms
+     */
+    public function actionDesign()
+    {
+        $model = $this->_getModel("*");
 
-		$model->setAttributes($post);
-		$model->validate(false);
+        $this->json = [
+            "back"        => "text.panelList",
+            "title"       => Language::t("common", "Дизайн текстового блока"),
+            "description" => Language::t("common", "123"),
+            "action"      => "section.saveDesign",
+            "id"          => intval($model->id),
+            "design"      => $model->getDesignForms()
+        ];
+    }
 
-		$success = false;
+    /**
+     * Panel. Saves design
+     */
+    public function actionSaveDesign()
+    {
+        $model = $this->_getModel("*");
+        $model->setAttributes($this->data)->save();
 
-		if (!$model->errors && $model->save()) {
-			$success = true;
-		}
+        $this->json = [
+            "errors"  => $model->errors,
+            "content" => "text.panelList",
+        ];
+    }
 
-		$this->json = [
-			"success" => $success,
-			"errors"  => $model->errors,
-		];
+    /**
+     * Panel. Setting's forms
+     */
+    public function actionSettings()
+    {
+        $model = $this->_getModel([], true);
 
-		$this->renderJson();
-	}
+        $this->json = [
+            "back"        => "text/panelList",
+            "title"       => Language::t("common", "Настройки текста"),
+            "description" => Language::t("common", "333"),
+            "action"      => "section.saveSettings",
+            "id"          => intval($model->id),
+            "update"      => [
+                "selector" => ".text-",
+                "content"  => "text.content"
+            ]
+        ];
 
-	/**
-	 * @param int $id
-	 *
-	 * @throws Exception
-	 *
-	 * @return void
-	 */
-	public function actionDesign($id = 0)
-	{
-		if ($id) {
-			$model = TextModel::model()->byId($id)->withAll()->find();
-		} else {
-			$model = new TextModel;
-		}
+        $this->setFormsForJson($model, ["t.name", "t.type", "t.is_editor"]);
+    }
 
-		if (!$model) {
-			throw new Exception(Language::t("default", "Модель не найдена"), 404);
-		}
+    /**
+     * Panel. Saves settings
+     */
+    public function actionSaveSettings()
+    {
+        $model = $this->_getModel([], true);
+        $model->setAttributes($this->data)->save();
 
-		$this->json = [
-			"back"        => "text/panelList",
-			"title"       => Language::t("common", "Дизайн текстового блока"),
-			"description" => Language::t("common", "123"),
-			"button"      => [
-				"label"  => Language::t("common", "Сохранить"),
-				"action" => "text/saveDesign/{$model->id}"
-			],
-			"design"      => $model->getDesignForms()
-		];
+        $this->json = [
+            "errors"  => $model->errors,
+            "content" => "text.panelList",
+        ];
+    }
 
-		$this->renderJson();
-	}
+    /**
+     * Content
+     */
+    public function actionContent()
+    {
+        $this->json = [
+            "html" => $this->renderPartial("text.content", ["model" => $this->_getModel("*")], true)
+        ];
+    }
 
-	/**
-	 * @param int $id
-	 *
-	 * @throws Exception
-	 *
-	 * @return void
-	 */
-	public function actionSaveDesign($id = 0)
-	{
-		$post = App::getPost();
+    /**
+     * Gets model
+     *
+     * @param string[] $width      Relations
+     * @param bool     $allowEmpty Allows empty ID
+     *
+     * @return TextModel
+     *
+     * @throws Exception
+     */
+    private function _getModel($width = [], $allowEmpty = false)
+    {
+        if (!$this->id && !$allowEmpty) {
+            throw new Exception(Language::t("common", "Некорректный идентификатор"), 404);
+        }
 
-		$model = TextModel::model()->byId($id)->withAll()->find();
+        if (!$this->id) {
+            return new TextModel();
+        }
 
-		if (!$model) {
-			throw new Exception(Language::t("default", "Модель не найдена"), 404);
-		}
+        $model = TextModel::model()->byId($this->id)->with($width)->find();
+        if (!$model) {
+            throw new Exception(Language::t("default", "Модель не найдена"), 404);
+        }
 
-		$model->setAttributes($post);
-		$model->validate(false);
-
-		$success = false;
-
-		if (!$model->errors && $model->save()) {
-			$success = true;
-		}
-
-		$this->json = [
-			"success" => $success,
-			"errors"  => $model->errors,
-			"content" => "text/panelList",
-		];
-
-		$this->renderJson();
-	}
-
-	/**
-	 * @param int $id
-	 *
-	 * @throws Exception
-	 *
-	 * @return void
-	 */
-	public function actionSettings($id = 0)
-	{
-		if ($id) {
-			$model = TextModel::model()->byId($id)->find();
-		} else {
-			$model = new SectionModel;
-		}
-
-		if (!$model) {
-			throw new Exception(Language::t("default", "Модель не найдена"), 404);
-		}
-
-		$this->json = [
-			"back"        => "text/panelList",
-			"title"       => Language::t("common", "Настройки текста"),
-			"description" => Language::t("common", "333"),
-			"button"      => [
-				"label"  => Language::t("common", "Сохранить"),
-				"action" => "text/saveSettings/{$model->id}",
-				"update" => [
-					"block"   => "text-{$id}",
-					"content" => "text/content/{$id}"
-				]
-			],
-		];
-		$this->setFormsForJson(
-			$model,
-			["t.name", "t.type", "t.is_editor"]
-		);
-
-		$this->renderJson();
-	}
-
-	/**
-	 * Сохраняет настройки раздела
-	 *
-	 * @param int $id идентификатор раздела
-	 *
-	 * @throws Exception
-	 *
-	 * @return void
-	 */
-	public function actionSaveSettings($id = 0)
-	{
-		$post = App::getPost();
-		if (
-			!$post
-			|| !isset($post["t.name"])
-		) {
-			throw new Exception(Language::t("common", "Некорректрый url"), 404);
-		}
-
-		if ($id) {
-			$model = TextModel::model()->byId($id)->find();
-		} else {
-			$model = new TextModel;
-		}
-
-		$model->setAttributes($post);
-		$model->validate(false);
-
-		$success = false;
-
-		if (!$model->errors && $model->save()) {
-			$success = true;
-		}
-
-		$this->json = [
-			"success" => $success,
-			"errors"  => $model->errors,
-			"content" => "text/panelList",
-		];
-
-		$this->renderJson();
-	}
-
-	public function actionContent($id)
-	{
-		if (!$id) {
-			throw new Exception(Language::t("common", "Некорректрый url"), 404);
-		}
-
-		$model = TextModel::model()->byId($id)->withAll()->find();
-
-		if (!$model) {
-			throw new Exception(Language::t("common", "Модель не найдена"), 404);
-		}
-
-		$this->renderPartial("/text/content", ["model" => $model]);
-	}
+        return $model;
+    }
 }

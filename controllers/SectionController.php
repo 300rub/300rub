@@ -43,11 +43,12 @@ class SectionController extends Controller
             "design"      => "section.design",
             "settings"    => "section.settings",
             "add"         => Language::t("common", "Add"),
+            "icon"        => "section",
         ];
     }
 
     /**
-     * Panel. Settings
+     * Panel. Setting's forms
      */
     public function actionSettings()
     {
@@ -106,8 +107,6 @@ class SectionController extends Controller
 
     /**
      * Window. Grids & blocks structure
-     *
-     * @throws Exception
      */
     public function actionWindow()
     {
@@ -115,7 +114,8 @@ class SectionController extends Controller
 
         $this->json = [
             "title"  => $model->seoModel->name,
-            "action" => "section/saveGrid/{$model->id}",
+            "action" => "section.saveGrid",
+            "id"     => intval($model->id),
             "blocks" => GridModel::model()->getAllBlocksForGridWindow(),
             "grid"   => GridModel::model()->getAllGridsForGridWindow($model->id)
         ];
@@ -123,8 +123,6 @@ class SectionController extends Controller
 
     /**
      * Window. Saves grids & blocks structure
-     *
-     * @throws Exception
      */
     public function actionSaveWindow()
     {
