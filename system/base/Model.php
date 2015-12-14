@@ -156,6 +156,11 @@ abstract class Model
 	 * @return Model
 	 */
 	public function with($relations) {
+		if ($relations === "*") {
+			$this->withAll();
+			return $this;
+		}
+
 		foreach ($relations as $relation) {
 			$this->db->with[] = $relation;
 		}

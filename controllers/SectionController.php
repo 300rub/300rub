@@ -2,9 +2,7 @@
 
 namespace controllers;
 
-use models\DesignBlockModel;
 use models\GridModel;
-use models\SeoModel;
 use models\SectionModel;
 use system\web\Controller;
 use system\base\Exception;
@@ -18,243 +16,195 @@ use system\web\Language;
 class SectionController extends Controller
 {
 
-	/**
-	 * List of sections in panel
-	 */
-	public function actionPanelList()
-	{
-		$list = [];
-		$models = SectionModel::model()->ordered()->findAll();
+    /**
+     * List of sections in panel
+     */
+    public function actionPanelList()
+    {
+        $list = [];
+        $models = SectionModel::model()->ordered()->findAll();
 
-		foreach ($models as $model) {
-			$item = [
-				"label" => $model->seoModel->name,
-				"id"    => $model->id
-			];
-			if ($model->is_main) {
-				$item["icon"] = "main";
-			}
-			$list[] = $item;
-		}
+        foreach ($models as $model) {
+            $item = [
+                "label" => $model->seoModel->name,
+                "id"    => $model->id
+            ];
+            if ($model->is_main) {
+                $item["icon"] = "main";
+            }
+            $list[] = $item;
+        }
 
-		$this->json = [
-			"title"       => Language::t("section", "Sections"),
-			"description" => Language::t("section", "Sections panel description"),
-			"list"        => $list,
-			"content"     => "section.grid",
-			"design"      => "section.design",
-			"settings"    => "section.settings",
-			"add"         => Language::t("common", "Add"),
-		];
-	}
+        $this->json = [
+            "title"       => Language::t("section", "Sections"),
+            "description" => Language::t("section", "Sections panel description"),
+            "list"        => $list,
+            "content"     => "section.grid",
+            "design"      => "section.design",
+            "settings"    => "section.settings",
+            "add"         => Language::t("common", "Add"),
+        ];
+    }
 
-	/**
-	 * Section's settings
-	 */
-	public function actionSettings()
-	{
-		$model = $this->_getModel(["seoModel"]);
+    /**
+     * Section's settings
+     */
+    public function actionSettings()
+    {
+        $model = $this->_getModel(["seoModel"], true);
 
-		$this->json = [
-			"back"        => "section.panelList",
-			"title"       => Language::t("common", "Настройки раздела"),
-			"description" => Language::t("common", "Здесь вы можете редактировать название и СЕО"),
-			"save"        => [
-				"label"  => Language::t("common", "Сохранить"),
-				"action" => "section.saveSettings",
-				"id"     => intval($model->id)
-			],
-		];
+        $this->json = [
+            "back"        => "section.panelList",
+            "title"       => Language::t("common", "Настройки раздела"),
+            "description" => Language::t("common", "Здесь вы можете редактировать название и СЕО"),
+            "action"      => "section.saveSettings",
+            "id"          => intval($model->id)
+        ];
 
-		if ($model->id) {
-			$this->json["duplicate"] = [
-				"label"   => Language::t("common", "Дублировать"),
-				"action"  => "section.duplicate",
-				"id"      => $model->id,
-				"content" => "section.settings",
-			];
-			$this->json["delete"] = [
-				"label"    => Language::t("common", "Удалить"),
-				"action"   => "section.delete",
-				"id"       => $model->id,
-				"confirm"  => Language::t("common", "Вы действительно хотите удалить раздел?"),
-				"content"  => "section.panelList",
-			];
-		}
+        if ($model->id) {
+            $this->json["duplicate"] = [
+                "action"  => "section.duplicate",
+                "id"      => $model->id,
+                "content" => "section.settings",
+            ];
+            $this->json["delete"] = [
+                "action"  => "section.delete",
+                "id"      => $model->id,
+                "confirm" => Language::t("common", "Вы действительно хотите удалить раздел?"),
+                "content" => "section.panelList",
+            ];
+        }
 
-		$forms = [
-				"seoModel.name",
-				"seoModel.url",
-				"t.width",
-				"seoModel.title",
-				"seoModel.keywords",
-				"seoModel.description"
-		];
-		if (!$model->is_main) {
-			$forms[] = "t.is_main";
-		}
+        $forms = [
+            "seoModel.name",
+            "seoModel.url",
+            "t.width",
+            "seoModel.title",
+            "seoModel.keywords",
+            "seoModel.description"
+        ];
+        if (!$model->is_main) {
+            $forms[] = "t.is_main";
+        }
 
-		$this->setFormsForJson($model, $forms);
-	}
+        $this->setFormsForJson($model, $forms);
+    }
 
-	/**
-	 * Saves settings
-	 *
-	 * @param array $data Data from POST
-	 *
-	 * @throws Exception
-	 *
-	 * @return void
-	 */
-	public function actionSaveSettings($data)
-	{
-		$model = $this->_getModel(["seoModel"]);
-		$model->setAttributes($data)->save();
+    /**
+     * Saves settings
+     */
+    public function actionSaveSettings()
+    {
+        $model = $this->_getModel(["seoModel"], true);
+        $model->setAttributes($this->data)->save();
 
-		$this->json = [
-				"errors" => $model->errors,
-				"data"   => [
-						"content" => "section.panelList",
-				]
-		];
-	}
+        $this->json = [
+            "errors"  => $model->errors,
+            "content" => "section.panelList"
+        ];
+    }
 
-	/**
-	 * Window for grid editing
-	 *
-	 * @throws Exception
-	 */
-	public function actionWindow()
-	{
-		$model = $this->_getModel(["seoModel"]);
+    /**
+     * Window for grid editing
+     *
+     * @throws Exception
+     */
+    public function actionWindow()
+    {
+        $model = $this->_getModel(["seoModel"]);
 
-		if (!$model->id) {
-			throw new Exception(Language::t("default", "Раздел не найден"), 404);
-		}
+        $this->json = [
+            "title"  => $model->seoModel->name,
+            "action" => "section/saveGrid/{$model->id}",
+            "blocks" => GridModel::model()->getAllBlocksForGridWindow(),
+            "grid"   => GridModel::model()->getAllGridsForGridWindow($model->id)
+        ];
+    }
 
-		$this->json = [
-			"title"  => $model->seoModel->name,
-			"button" => [
-				"label"  => Language::t("common", "Сохранить"),
-				"action" => "section/saveGrid/{$model->id}"
-			],
-			"blocks" => GridModel::model()->getAllBlocksForGridWindow(),
-			"grid"   => GridModel::model()->getAllGridsForGridWindow($model->id)
-		];
-	}
+    /**
+     * Saves structure
+     *
+     * @throws Exception
+     */
+    public function actionSaveWindow()
+    {
+        $this->json = [
+            "result" => GridModel::model()->updateGridForSection(
+                $this->_getModel()->id,
+                $this->data
+            )
+        ];
+    }
 
-	/**
-	 * Сохраняет сетку
-	 *
-	 * @throws Exception
-	 */
-	public function actionSaveWindow()
-	{
-		$this->json = false;
+    /**
+     * Deletes section
+     */
+    public function actionDelete()
+    {
+        $this->json = ["result" => $this->_getModel("*")->delete()];
+    }
 
-		if (!$id) {
-			throw new Exception(Language::t("common", "Некорректный идентификатор"), 404);
-		}
+    /**
+     * Duplicates section
+     */
+    public function actionDuplicate()
+    {
+        $this->json = ["result" => $this->_getModel("*")->duplicate()];
+    }
 
-		$model = SectionModel::model()->byId($id)->find();
-		if (!$model) {
-			throw new Exception(Language::t("default", "Раздел не найден"), 404);
-		}
+    /**
+     * Design
+     */
+    public function actionDesign()
+    {
+        $model = $this->_getModel(["designBlockModel"]);
 
-		$this->json = GridModel::model()->updateGridForSection($model->id, $data);
-	}
+        $this->json = [
+            "back"        => "section/panelList",
+            "title"       => Language::t("common", "Дизайн раздела"),
+            "description" => Language::t("common", "123"),
+            "action"      => "section.saveDesign",
+            "id"          => intval($model->id),
+            "design"      => $model->getDesignForms()
+        ];
+    }
 
-	public function actionDelete()
-	{
-		if (!$id) {
-			throw new Exception(Language::t("common", "Некорректный идентификатор"), 404);
-		}
+    /**
+     * Saves design
+     */
+    public function actionSaveDesign()
+    {
+        $this->json = [
+            "result"  => $this->_getModel(["designBlockModel"])->saveDesign($this->data),
+            "content" => "section/panelList",
+        ];
+    }
 
-		$model = SectionModel::model()->byId($id)->withAll()->find();
-		if (!$model) {
-			throw new Exception(Language::t("default", "Раздел не найден"), 404);
-		}
+    /**
+     * Gets model
+     *
+     * @param string[] $width      Relations
+     * @param bool     $allowEmpty Allows empty ID
+     *
+     * @return SectionModel
+     *
+     * @throws Exception
+     */
+    private function _getModel($width = [], $allowEmpty = false)
+    {
+        if (!$this->id && !$allowEmpty) {
+            throw new Exception(Language::t("common", "Некорректный идентификатор"), 404);
+        }
 
-		$this->json = $model->delete();
-	}
+        if (!$this->id) {
+            return new SectionModel();
+        }
 
-	/**
-	 * @throws Exception
-	 */
-	public function actionDuplicate()
-	{
-		if (!$id) {
-			throw new Exception(Language::t("common", "Некорректный идентификатор"), 404);
-		}
+        $model = SectionModel::model()->byId($this->id)->with($width)->find();
+        if (!$model) {
+            throw new Exception(Language::t("default", "Модель не найдена"), 404);
+        }
 
-		$model = SectionModel::model()->byId($id)->withAll()->find();
-		if (!$model) {
-			throw new Exception(Language::t("default", "Раздел не найден"), 404);
-		}
-
-		$this->json = $model->duplicate();
-	}
-
-	/**
-	 * @throws Exception
-	 *
-	 * @return void
-	 */
-	public function actionDesign()
-	{
-		if ($id) {
-			$model = SectionModel::model()->byId($id)->with(["designBlockModel"])->find();
-		} else {
-			$model = new SectionModel;
-		}
-
-		if (!$model) {
-			throw new Exception(Language::t("default", "Модель не найдена"), 404);
-		}
-
-		$this->json = [
-			"back"        => "section/panelList",
-			"title"       => Language::t("common", "Дизайн раздела"),
-			"description" => Language::t("common", "123"),
-			"button"      => [
-				"label"  => Language::t("common", "Сохранить"),
-				"action" => "section/saveDesign/{$model->id}"
-			],
-			"design"      => $model->getDesignForms()
-		];
-	}
-
-	/**
-	 * @throws Exception
-	 *
-	 * @return void
-	 */
-	public function actionSaveDesign()
-	{
-		$model = SectionModel::model()->byId($id)->with(["designBlockModel"])->find();
-
-		if (!$model) {
-			throw new Exception(Language::t("default", "Модель не найдена"), 404);
-		}
-
-		$this->json = [
-			"success" => $model->saveDesign($post),
-			"errors"  => $model->errors,
-			"content" => "section/panelList",
-		];
-	}
-
-	private function _getModel($width = [])
-	{
-		if (!$this->id) {
-			return new SectionModel();
-		}
-
-		$model = SectionModel::model()->byId($this->id)->with($width)->find();
-		if (!$model) {
-			throw new Exception(Language::t("default", "Модель не найдена"), 404);
-		}
-
-		return $model;
-	}
+        return $model;
+    }
 }
