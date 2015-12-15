@@ -6,7 +6,7 @@ use system\db\Migration;
 use models\SeoModel;
 
 /**
- * Создает таблицу seo
+ * Creates seo table
  *
  * @package migrations
  */
@@ -14,7 +14,7 @@ class M_150101_010101_seo extends Migration
 {
 
 	/**
-	 * Применяет миграцию
+	 * Applies migration
 	 *
 	 * @return bool
 	 */
@@ -44,7 +44,7 @@ class M_150101_010101_seo extends Migration
 	}
 
 	/**
-	 * Добавляет тестовую информацию
+	 * Inserts test data
 	 *
 	 * @return bool
 	 */

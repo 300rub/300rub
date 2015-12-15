@@ -6,7 +6,7 @@ use models\UserModel;
 use system\db\Migration;
 
 /**
- * Создает таблицу users
+ * Creates users table
  *
  * @package migrations
  */
@@ -14,7 +14,7 @@ class M_150104_000000_users extends Migration
 {
 
 	/**
-	 * Применяет миграцию
+	 * Applies migration
 	 *
 	 * @return bool
 	 */
@@ -41,7 +41,7 @@ class M_150104_000000_users extends Migration
 	}
 
 	/**
-	 * Добавляет тестовую информацию
+	 * Inserts test data
 	 *
 	 * @return bool
 	 */

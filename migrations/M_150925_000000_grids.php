@@ -7,7 +7,7 @@ use models\GridLineModel;
 use system\db\Migration;
 
 /**
- * Создает таблицу для структуры
+ * Creates grids table
  *
  * @package migrations
  */
@@ -15,7 +15,7 @@ class M_150925_000000_grids extends Migration
 {
 
 	/**
-	 * Применяет миграцию
+	 * Applies migration
 	 *
 	 * @return bool
 	 */
@@ -74,7 +74,7 @@ class M_150925_000000_grids extends Migration
 	}
 
 	/**
-	 * Добавляет тестовую информацию
+	 * Inserts test data
 	 *
 	 * @return bool
 	 */

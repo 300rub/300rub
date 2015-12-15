@@ -6,13 +6,15 @@ use models\DesignBlockModel;
 use system\db\Migration;
 
 /**
+ * Creates design_blocks table
+ *
  * @package migrations
  */
 class M_151012_000000_design_blocks extends Migration
 {
 
 	/**
-	 * Применяет миграцию
+	 * Applies migration
 	 *
 	 * @return bool
 	 */
@@ -54,7 +56,7 @@ class M_151012_000000_design_blocks extends Migration
 	}
 
 	/**
-	 * Добавляет тестовую информацию
+	 * Inserts test data
 	 *
 	 * @return bool
 	 */

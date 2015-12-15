@@ -6,7 +6,7 @@ use models\SectionModel;
 use system\db\Migration;
 
 /**
- * Создает таблицу sections
+ * Creates sections table
  *
  * @package migrations
  */
@@ -14,7 +14,7 @@ class M_150101_020202_sections extends Migration
 {
 
 	/**
-	 * Применяет миграцию
+	 * Applies migration
 	 *
 	 * @return bool
 	 */
@@ -56,7 +56,7 @@ class M_150101_020202_sections extends Migration
 	}
 
 	/**
-	 * Добавляет тестовую информацию
+	 * Inserts test data
 	 *
 	 * @return bool
 	 */

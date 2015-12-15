@@ -6,13 +6,15 @@ use models\DesignTextModel;
 use system\db\Migration;
 
 /**
+ * Creates design_texts table
+ *
  * @package migrations
  */
 class M_150927_000000_design_texts extends Migration
 {
 
 	/**
-	 * Применяет миграцию
+	 * Applies migration
 	 *
 	 * @return bool
 	 */
@@ -43,7 +45,7 @@ class M_150927_000000_design_texts extends Migration
 	}
 
 	/**
-	 * Добавляет тестовую информацию
+	 * Inserts test data
 	 *
 	 * @return bool
 	 */

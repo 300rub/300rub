@@ -6,7 +6,7 @@ use models\TextModel;
 use system\db\Migration;
 
 /**
- * Создает таблицу для текстов
+ * Creates texts table
  *
  * @package migrations
  */
@@ -14,7 +14,7 @@ class M_150707_000000_texts extends Migration
 {
 
 	/**
-	 * Применяет миграцию
+	 * Applies migration
 	 *
 	 * @return bool
 	 */
@@ -42,7 +42,7 @@ class M_150707_000000_texts extends Migration
 	}
 
 	/**
-	 * Добавляет тестовую информацию
+	 * Inserts test data
 	 *
 	 * @return bool
 	 */
