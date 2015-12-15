@@ -5,81 +5,231 @@ namespace models;
 use system\base\Model;
 
 /**
+ * Model for working with table "design_texts"
+ *
  * @package models
  */
 class DesignTextModel extends Model
 {
 
 	/**
+	 * Default line-heght value
+	 */
+	const DEFAULT_LINE_HEIGHT = 140;
+
+	/**
+	 * Font family type. MyriadPro
+	 */
+	const FAMILY_MYRAD = 0;
+
+	/**
+	 * Font family type. Arial
+	 */
+	const FAMILY_ARIAL = 1;
+
+	/**
+	 * Font family type. Arial Black
+	 */
+	const FAMILY_ARIAL_BLACK = 2;
+
+	/**
+	 * Font family type. Comic Sans MS
+	 */
+	const FAMILY_COMIC_SANS_MS = 3;
+
+	/**
+	 * Font family type. Courier New
+	 */
+	const FAMILY_COURIER_NEW = 4;
+
+	/**
+	 * Font family type. Georgia
+	 */
+	const FAMILY_GEORGIA = 5;
+
+	/**
+	 * Font family type. Impact
+	 */
+	const FAMILY_IMPACT = 6;
+
+	/**
+	 * Font family type. Monaco
+	 */
+	const FAMILY_MONACO = 7;
+
+	/**
+	 * Font family type. Lucida Sans Unicode
+	 */
+	const FAMILY_LUCIDA_GRANDE = 8;
+
+	/**
+	 * Font family type. Palatino Linotype
+	 */
+	const FAMILY_PALATINO = 9;
+
+	/**
+	 * Font family type. Tahoma
+	 */
+	const FAMILY_TAHOMA = 10;
+
+	/**
+	 * Font family type. Times New Roman
+	 */
+	const FAMILY_TIMES = 11;
+
+	/**
+	 * Font family type. Helvetica
+	 */
+	const FAMILY_HELVETICA = 12;
+
+	/**
+	 * Font family type. Verdana
+	 */
+	const FAMILY_VERDANA = 13;
+
+	/**
+	 * Font family type. Geneva
+	 */
+	const FAMILY_GENEVA = 14;
+
+	/**
+	 * Font family type. MS Serif
+	 */
+	const FAMILY_MS_SERIF = 15;
+
+	/**
+	 * Text align type. Left
+	 */
+	const TEXT_ALIGN_LEFT = 0;
+
+	/**
+	 * Text align type. Center
+	 */
+	const TEXT_ALIGN_CENTER = 1;
+
+	/**
+	 * Text align type. Right
+	 */
+	const TEXT_ALIGN_RIGHT = 2;
+
+	/**
+	 * Text align type. Justify
+	 */
+	const TEXT_ALIGN_JUSTIFY = 3;
+
+	/**
+	 * Text decoration type. None
+	 */
+	const TEXT_DECORATION_NONE = 0;
+
+	/**
+	 * Text decoration type. Underline
+	 */
+	const TEXT_DECORATION_UNDERLINE = 1;
+
+	/**
+	 * Text decoration type. Line through
+	 */
+	const TEXT_DECORATION_LINE_THROUGH = 2;
+
+	/**
+	 * Text decoration type. Overline
+	 */
+	const TEXT_DECORATION_OVERLINE = 3;
+
+	/**
+	 * Text transform type. None
+	 */
+	const TEXT_TRANSFORM_NONE = 0;
+
+	/**
+	 * Text transform type. Uppercase
+	 */
+	const TEXT_TRANSFORM_UPPERCASE = 1;
+
+	/**
+	 * Text transform type. Lowercase
+	 */
+	const TEXT_TRANSFORM_LOWERCASE = 2;
+
+	/**
+	 * Text transform type. Capitalize
+	 */
+	const TEXT_TRANSFORM_CAPITALIZE = 3;
+
+	/**
+	 * CSS font-size in px
+	 *
 	 * @var int
 	 */
 	public $size;
 
 	/**
+	 * Font family
+	 *
 	 * @var int
 	 */
 	public $family;
 
 	/**
+	 * CSS color
+	 *
 	 * @var string
 	 */
 	public $color;
 
 	/**
-	 * @var int
+	 * Is font-style: italic
+	 *
+	 * @var bool
 	 */
 	public $is_italic;
 
 	/**
+	 * Is font-weight: bold;
+	 *
 	 * @var int
 	 */
 	public $is_bold;
 
 	/**
+	 * Align type
+	 *
 	 * @var int
 	 */
 	public $align;
 
 	/**
+	 * Text decoration type
+	 *
 	 * @var int
 	 */
 	public $decoration;
 
 	/**
+	 * Text transform type
+	 *
 	 * @var int
 	 */
 	public $transform;
 
 	/**
+	 * CSS letter-spacing in px
+	 *
 	 * @var int
 	 */
 	public $letter_spacing;
 
 	/**
+	 * CSS line-height in %
+	 *
 	 * @var int
 	 */
 	public $line_height;
 
-	const DEFAULT_LINE_HEIGHT = 140;
-
-	const FAMILY_MYRAD = 0;
-	const FAMILY_ARIAL = 1;
-	const FAMILY_ARIAL_BLACK = 2;
-	const FAMILY_COMIC_SANS_MS = 3;
-	const FAMILY_COURIER_NEW = 4;
-	const FAMILY_GEORGIA = 5;
-	const FAMILY_IMPACT = 6;
-	const FAMILY_MONACO = 7;
-	const FAMILY_LUCIDA_GRANDE = 8;
-	const FAMILY_PALATINO = 9;
-	const FAMILY_TAHOMA = 10;
-	const FAMILY_TIMES = 11;
-	const FAMILY_HELVETICA = 12;
-	const FAMILY_VERDANA = 13;
-	const FAMILY_GENEVA = 14;
-	const FAMILY_MS_SERIF = 15;
-
 	/**
+	 * List of font family types
+	 *
 	 * @var array
 	 */
 	public static $familyList = [
@@ -149,12 +299,9 @@ class DesignTextModel extends Model
 		]
 	];
 
-	const TEXT_ALIGN_LEFT = 0;
-	const TEXT_ALIGN_CENTER = 1;
-	const TEXT_ALIGN_RIGHT = 2;
-	const TEXT_ALIGN_JUSTIFY = 3;
-
 	/**
+	 * List of text align types
+	 *
 	 * @var array
 	 */
 	public static $textAlignList = [
@@ -164,12 +311,9 @@ class DesignTextModel extends Model
 		self::TEXT_ALIGN_JUSTIFY => "justify",
 	];
 
-	const TEXT_DECORATION_NONE = 0;
-	const TEXT_DECORATION_UNDERLINE = 1;
-	const TEXT_DECORATION_LINE_THROUGH = 2;
-	const TEXT_DECORATION_OVERLINE = 3;
-
 	/**
+	 * List of text decoration types
+	 *
 	 * @var array
 	 */
 	public static $textDecorationList = [
@@ -191,12 +335,9 @@ class DesignTextModel extends Model
 		],
 	];
 
-	const TEXT_TRANSFORM_NONE = 0;
-	const TEXT_TRANSFORM_UPPERCASE = 1;
-	const TEXT_TRANSFORM_LOWERCASE = 2;
-	const TEXT_TRANSFORM_CAPITALIZE = 3;
-
 	/**
+	 * List of text transform types
+	 *
 	 * @var array
 	 */
 	public static $textTransformList = [
@@ -219,7 +360,7 @@ class DesignTextModel extends Model
 	];
 
 	/**
-	 * Получает название связной таблицы
+	 * Gets table name
 	 *
 	 * @return string
 	 */
@@ -229,7 +370,18 @@ class DesignTextModel extends Model
 	}
 
 	/**
-	 * Правила валидации
+	 * Gets model object
+	 *
+	 * @return DesignBlockModel
+	 */
+	public static function model()
+	{
+		$className = __CLASS__;
+		return new $className;
+	}
+
+	/**
+	 * Rules
 	 *
 	 * @return array
 	 */
@@ -250,7 +402,7 @@ class DesignTextModel extends Model
 	}
 
 	/**
-	 * Названия полей
+	 * Label names
 	 *
 	 * @return array
 	 */
@@ -260,7 +412,7 @@ class DesignTextModel extends Model
 	}
 
 	/**
-	 * Связи
+	 * Relations
 	 *
 	 * @return array
 	 */
@@ -270,17 +422,10 @@ class DesignTextModel extends Model
 	}
 
 	/**
-	 * Получает объект модели
+	 * Runs before validation
 	 *
-	 * @param string $className
-	 *
-	 * @return DesignTextModel
+	 * @return void
 	 */
-	public static function model($className = __CLASS__)
-	{
-		return new $className;
-	}
-
 	protected function beforeValidate()
 	{
 		parent::beforeValidate();
@@ -318,7 +463,9 @@ class DesignTextModel extends Model
 	}
 
 	/**
-	 * @param string $name
+	 * Gets values for object
+	 *
+	 * @param string $name Object name
 	 *
 	 * @return array
 	 */
@@ -326,49 +473,51 @@ class DesignTextModel extends Model
 	{
 		return [
 			"family"     => [
-				"name"  => "Data[{$name}.family]",
+				"name"  => "{$name}.family",
 				"value" => $this->family
 			],
 			"size"       => [
-				"name"  => "Data[{$name}.size]",
+				"name"  => "{$name}.size",
 				"value" => $this->size
 			],
 			"color"           => [
-				"name"  => "Data[{$name}.color]",
+				"name"  => "{$name}.color",
 				"value" => $this->color
 			],
 			"is_italic"      => [
-				"name"  => "Data[{$name}.is_italic]",
+				"name"  => "{$name}.is_italic",
 				"value" => $this->is_italic
 			],
 			"is_bold"     => [
-				"name"  => "Data[{$name}.is_bold]",
+				"name"  => "{$name}.is_bold",
 				"value" => $this->is_bold
 			],
 			"align"      => [
-				"name"  => "Data[{$name}.align]",
+				"name"  => "{$name}.align",
 				"value" => $this->align
 			],
 			"decoration" => [
-				"name"  => "Data[{$name}.decoration]",
+				"name"  => "{$name}.decoration",
 				"value" => $this->decoration
 			],
 			"transform"  => [
-				"name"  => "Data[{$name}.transform]",
+				"name"  => "{$name}.transform",
 				"value" => $this->transform
 			],
 			"letter_spacing"  => [
-				"name"  => "Data[{$name}.letter_spacing]",
+				"name"  => "{$name}.letter_spacing",
 				"value" => $this->letter_spacing
 			],
 			"line_height"     => [
-				"name"  => "Data[{$name}.line_height]",
+				"name"  => "{$name}.line_height",
 				"value" => $this->line_height
 			]
 		];
 	}
 
 	/**
+	 * Gets CSS text-align value
+	 *
 	 * @return string
 	 */
 	public function getTextAlign()
@@ -381,6 +530,8 @@ class DesignTextModel extends Model
 	}
 
 	/**
+	 * Gets CSS text-decoration value
+	 *
 	 * @return string
 	 */
 	public function getTextDecoration()
@@ -393,6 +544,8 @@ class DesignTextModel extends Model
 	}
 
 	/**
+	 * Gets CSS text-transform value
+	 *
 	 * @return string
 	 */
 	public function getTextTransform()
@@ -405,6 +558,8 @@ class DesignTextModel extends Model
 	}
 
 	/**
+	 * Gets CSS font-family value
+	 *
 	 * @return string
 	 */
 	public function getFontFamilyClass()

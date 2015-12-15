@@ -5,7 +5,7 @@ namespace models;
 use system\base\Model;
 
 /**
- * Model for working with table "design_block"
+ * Model for working with table "design_blocks"
  *
  * @package models
  */
@@ -53,63 +53,63 @@ class DesignBlockModel extends Model
 	const BORDER_STYLE_DASHED = 3;
 
 	/**
-	 * margin-top
+	 * CSS margin-top in px
 	 *
 	 * @var int
 	 */
 	public $margin_top;
 
 	/**
-	 * margin-right
+	 * CSS margin-right in px
 	 *
 	 * @var int
 	 */
 	public $margin_right;
 
 	/**
-	 * margin-bottom
+	 * CSS margin-bottom in px
 	 *
 	 * @var int
 	 */
 	public $margin_bottom;
 
 	/**
-	 * margin-left
+	 * CSS margin-left in px
 	 *
 	 * @var int
 	 */
 	public $margin_left;
 
 	/**
-	 * padding-top
+	 * CSS padding-top in px
 	 *
 	 * @var int
 	 */
 	public $padding_top;
 
 	/**
-	 * padding-right
+	 * CSS padding-right in px
 	 *
 	 * @var int
 	 */
 	public $padding_right;
 
 	/**
-	 * padding-bottom
+	 * CSS padding-bottom in px
 	 *
 	 * @var int
 	 */
 	public $padding_bottom;
 
 	/**
-	 * padding-left
+	 * CSS padding-left in px
 	 *
 	 * @var int
 	 */
 	public $padding_left;
 
 	/**
-	 * background-color (from)
+	 * CSS background-color (from)
 	 * used in gradient or simple background-color
 	 *
 	 * @var string
@@ -117,7 +117,7 @@ class DesignBlockModel extends Model
 	public $background_color_from;
 
 	/**
-	 * background-color (to)
+	 * CSS background-color (to)
 	 * used in gradient or simple background-color
 	 *
 	 * @var string
@@ -132,70 +132,70 @@ class DesignBlockModel extends Model
 	public $gradient_direction;
 
 	/**
-	 * border-top-width
+	 * CSS border-top-width in px
 	 *
 	 * @var int
 	 */
 	public $border_top_width;
 
 	/**
-	 * border-top-left-radius
+	 * CSS border-top-left-radius in px
 	 *
 	 * @var int
 	 */
 	public $border_top_left_radius;
 
 	/**
-	 * border-right-width
+	 * CSS border-right-width in px
 	 *
 	 * @var int
 	 */
 	public $border_right_width;
 
 	/**
-	 * border-top-right-radius
+	 * CSS border-top-right-radius in px
 	 *
 	 * @var int
 	 */
 	public $border_top_right_radius;
 
 	/**
-	 * border-bottom-width
+	 * CSS border-bottom-width in px
 	 *
 	 * @var int
 	 */
 	public $border_bottom_width;
 
 	/**
-	 * border-bottom-right-radius
+	 * CSS border-bottom-right-radius in px
 	 *
 	 * @var int
 	 */
 	public $border_bottom_right_radius;
 
 	/**
-	 * border-left-width
+	 * CSS border-left-width in px
 	 *
 	 * @var int
 	 */
 	public $border_left_width;
 
 	/**
-	 * border-bottom-left-radius
+	 * CSS border-bottom-left-radius in px
 	 *
 	 * @var int
 	 */
 	public $border_bottom_left_radius;
 
 	/**
-	 * border-color
+	 * CSS border-color
 	 *
 	 * @var string
 	 */
 	public $border_color;
 
 	/**
-	 * border-style
+	 * Border style
 	 *
 	 * @var int
 	 */
@@ -272,6 +272,17 @@ class DesignBlockModel extends Model
 	}
 
 	/**
+	 * Gets model object
+	 *
+	 * @return DesignBlockModel
+	 */
+	public static function model()
+	{
+		$className = __CLASS__;
+		return new $className;
+	}
+
+	/**
 	 * Validation rules
 	 *
 	 * @return array
@@ -321,17 +332,6 @@ class DesignBlockModel extends Model
 	public function relations()
 	{
 		return [];
-	}
-
-	/**
-	 * Gets model object
-	 *
-	 * @return DesignBlockModel
-	 */
-	public static function model()
-	{
-		$className = __CLASS__;
-		return new $className;
 	}
 
 	/**
