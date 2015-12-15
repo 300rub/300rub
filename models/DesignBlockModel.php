@@ -5,122 +5,205 @@ namespace models;
 use system\base\Model;
 
 /**
+ * Model for working with table "design_block"
+ *
  * @package models
  */
 class DesignBlockModel extends Model
 {
 
 	/**
+	 * Gradient direction. Horizontal
+	 */
+	const GRADIENT_DIRECTION_HORIZONTAL = 0;
+
+	/**
+	 * Gradient direction. Vertical
+	 */
+	const GRADIENT_DIRECTION_VERTICAL = 1;
+
+	/**
+	 * Gradient direction. 135 DEG
+	 */
+	const GRADIENT_DIRECTION_135DEG = 2;
+
+	/**
+	 * Gradient direction. 45 DEG
+	 */
+	const GRADIENT_DIRECTION_45DEG = 3;
+
+	/**
+	 * Border style. None
+	 */
+	const BORDER_STYLE_NONE = 0;
+
+	/**
+	 * Border style. Solid
+	 */
+	const BORDER_STYLE_SOLID = 1;
+
+	/**
+	 * Border style. Dotted
+	 */
+	const BORDER_STYLE_DOTTED = 2;
+
+	/**
+	 * Border style. Dashed
+	 */
+	const BORDER_STYLE_DASHED = 3;
+
+	/**
+	 * margin-top
+	 *
 	 * @var int
 	 */
 	public $margin_top;
 
 	/**
+	 * margin-right
+	 *
 	 * @var int
 	 */
 	public $margin_right;
 
 	/**
+	 * margin-bottom
+	 *
 	 * @var int
 	 */
 	public $margin_bottom;
 
 	/**
+	 * margin-left
+	 *
 	 * @var int
 	 */
 	public $margin_left;
 
 	/**
+	 * padding-top
+	 *
 	 * @var int
 	 */
 	public $padding_top;
 
 	/**
+	 * padding-right
+	 *
 	 * @var int
 	 */
 	public $padding_right;
 
 	/**
+	 * padding-bottom
+	 *
 	 * @var int
 	 */
 	public $padding_bottom;
 
 	/**
+	 * padding-left
+	 *
 	 * @var int
 	 */
 	public $padding_left;
 
 	/**
+	 * background-color (from)
+	 * used in gradient or simple background-color
+	 *
 	 * @var string
 	 */
 	public $background_color_from;
 
 	/**
+	 * background-color (to)
+	 * used in gradient or simple background-color
+	 *
 	 * @var string
 	 */
 	public $background_color_to;
 
 	/**
+	 * Gradient direction
+	 *
 	 * @var int
 	 */
 	public $gradient_direction;
 
 	/**
+	 * border-top-width
+	 *
 	 * @var int
 	 */
 	public $border_top_width;
 
 	/**
+	 * border-top-left-radius
+	 *
 	 * @var int
 	 */
 	public $border_top_left_radius;
 
 	/**
+	 * border-right-width
+	 *
 	 * @var int
 	 */
 	public $border_right_width;
 
 	/**
+	 * border-top-right-radius
+	 *
 	 * @var int
 	 */
 	public $border_top_right_radius;
 
 	/**
+	 * border-bottom-width
+	 *
 	 * @var int
 	 */
 	public $border_bottom_width;
 
 	/**
+	 * border-bottom-right-radius
+	 *
 	 * @var int
 	 */
 	public $border_bottom_right_radius;
 
 	/**
+	 * border-left-width
+	 *
 	 * @var int
 	 */
 	public $border_left_width;
 
 	/**
+	 * border-bottom-left-radius
+	 *
 	 * @var int
 	 */
 	public $border_bottom_left_radius;
 
 	/**
+	 * border-color
+	 *
 	 * @var string
 	 */
 	public $border_color;
 
 	/**
+	 * border-style
+	 *
 	 * @var int
 	 */
 	public $border_style;
 
-	const GRADIENT_DIRECTION_HORIZONTAL = 0;
-	const GRADIENT_DIRECTION_VERTICAL = 1;
-	const GRADIENT_DIRECTION_135DEG = 2;
-	const GRADIENT_DIRECTION_45DEG = 3;
-
 	/**
+	 * List of gradient directions options
+	 *
 	 * @var array
 	 */
 	public static $gradientDirectionList = [
@@ -166,12 +249,9 @@ class DesignBlockModel extends Model
 		],
 	];
 
-	const BORDER_STYLE_NONE = 0;
-	const BORDER_STYLE_SOLID = 1;
-	const BORDER_STYLE_DOTTED = 2;
-	const BORDER_STYLE_DASHED = 3;
-
 	/**
+	 * List of border styles
+	 *
 	 * @var array
 	 */
 	public static $borderStyleList = [
@@ -182,7 +262,7 @@ class DesignBlockModel extends Model
 	];
 
 	/**
-	 * Получает название связной таблицы
+	 * Gets table name
 	 *
 	 * @return string
 	 */
@@ -192,7 +272,7 @@ class DesignBlockModel extends Model
 	}
 
 	/**
-	 * Правила валидации
+	 * Validation rules
 	 *
 	 * @return array
 	 */
@@ -224,7 +304,7 @@ class DesignBlockModel extends Model
 	}
 
 	/**
-	 * Названия полей
+	 * Labels
 	 *
 	 * @return array
 	 */
@@ -234,7 +314,7 @@ class DesignBlockModel extends Model
 	}
 
 	/**
-	 * Связи
+	 * Relations
 	 *
 	 * @return array
 	 */
@@ -244,17 +324,21 @@ class DesignBlockModel extends Model
 	}
 
 	/**
-	 * Получает объект модели
-	 *
-	 * @param string $className
+	 * Gets model object
 	 *
 	 * @return DesignBlockModel
 	 */
-	public static function model($className = __CLASS__)
+	public static function model()
 	{
+		$className = __CLASS__;
 		return new $className;
 	}
 
+	/**
+	 * Runs before validation
+	 *
+	 * @return void
+	 */
 	protected function beforeValidate()
 	{
 		parent::beforeValidate();
@@ -325,7 +409,9 @@ class DesignBlockModel extends Model
 	}
 
 	/**
-	 * @param string $name
+	 * Gets values for object
+	 *
+	 * @param string $name Name of object
 	 *
 	 * @return array
 	 */
@@ -333,96 +419,98 @@ class DesignBlockModel extends Model
 	{
 		return [
 			"margin_top"                 => [
-				"name"  => "Data[{$name}.margin_top]",
+				"name"  => "{$name}.margin_top",
 				"value" => $this->margin_top
 			],
 			"margin_right"               => [
-				"name"  => "Data[{$name}.margin_right]",
+				"name"  => "{$name}.margin_right",
 				"value" => $this->margin_right
 			],
 			"margin_bottom"              => [
-				"name"  => "Data[{$name}.margin_bottom]",
+				"name"  => "{$name}.margin_bottom",
 				"value" => $this->margin_bottom
 			],
 			"margin_left"                => [
-				"name"  => "Data[{$name}.margin_left]",
+				"name"  => "{$name}.margin_left",
 				"value" => $this->margin_left
 			],
 			"padding_top"                => [
-				"name"  => "Data[{$name}.padding_top]",
+				"name"  => "{$name}.padding_top",
 				"value" => $this->padding_top
 			],
 			"padding_right"              => [
-				"name"  => "Data[{$name}.padding_right]",
+				"name"  => "{$name}.padding_right",
 				"value" => $this->padding_right
 			],
 			"padding_bottom"             => [
-				"name"  => "Data[{$name}.padding_bottom]",
+				"name"  => "{$name}.padding_bottom",
 				"value" => $this->padding_bottom
 			],
 			"padding_left"               => [
-				"name"  => "Data[{$name}.padding_left]",
+				"name"  => "{$name}.padding_left",
 				"value" => $this->padding_left
 			],
 			"background_color_from"      => [
-				"name"  => "Data[{$name}.background_color_from]",
+				"name"  => "{$name}.background_color_from",
 				"value" => $this->background_color_from
 			],
 			"background_color_to"        => [
-				"name"  => "Data[{$name}.background_color_to]",
+				"name"  => "{$name}.background_color_to",
 				"value" => $this->background_color_to
 			],
 			"gradient_direction"         => [
-				"name"  => "Data[{$name}.gradient_direction]",
+				"name"  => "{$name}.gradient_direction",
 				"value" => $this->gradient_direction
 			],
 			"border_top_width"           => [
-				"name"  => "Data[{$name}.border_top_width]",
+				"name"  => "{$name}.border_top_width",
 				"value" => $this->border_top_width
 			],
 			"border_top_left_radius"     => [
-				"name"  => "Data[{$name}.border_top_left_radius]",
+				"name"  => "{$name}.border_top_left_radius",
 				"value" => $this->border_top_left_radius
 			],
 			"border_right_width"         => [
-				"name"  => "Data[{$name}.border_right_width]",
+				"name"  => "{$name}.border_right_width",
 				"value" => $this->border_right_width
 			],
 			"border_top_right_radius"    => [
-				"name"  => "Data[{$name}.border_top_right_radius]",
+				"name"  => "{$name}.border_top_right_radius",
 				"value" => $this->border_top_right_radius
 			],
 			"border_bottom_width"        => [
-				"name"  => "Data[{$name}.border_bottom_width]",
+				"name"  => "{$name}.border_bottom_width",
 				"value" => $this->border_bottom_width
 			],
 			"border_bottom_right_radius" => [
-				"name"  => "Data[{$name}.border_bottom_right_radius]",
+				"name"  => "{$name}.border_bottom_right_radius",
 				"value" => $this->border_bottom_right_radius
 			],
 			"border_left_width"          => [
-				"name"  => "Data[{$name}.border_left_width]",
+				"name"  => "{$name}.border_left_width",
 				"value" => $this->border_left_width
 			],
 			"border_bottom_left_radius"  => [
-				"name"  => "Data[{$name}.border_bottom_left_radius]",
+				"name"  => "{$name}.border_bottom_left_radius",
 				"value" => $this->border_bottom_left_radius
 			],
 			"border_color"               => [
-				"name"  => "Data[{$name}.border_color]",
+				"name"  => "{$name}.border_color",
 				"value" => $this->border_color
 			],
 			"border_style"               => [
-				"name"  => "Data[{$name}.border_style]",
+				"name"  => "{$name}.border_style",
 				"value" => $this->border_style
 			],
 		];
 	}
 
 	/**
+	 * Gets gradient direction
+	 *
 	 * @return array
 	 */
-	public function getGradientDirections()
+	public function getGradientDirection()
 	{
 		if (array_key_exists($this->gradient_direction, self::$gradientDirectionList)) {
 			return self::$gradientDirectionList[$this->gradient_direction];
@@ -432,6 +520,8 @@ class DesignBlockModel extends Model
 	}
 
 	/**
+	 * Gets border style
+	 *
 	 * @return string
 	 */
 	public function getBorderStyle()
