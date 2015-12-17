@@ -8,57 +8,78 @@ use system\db\Db;
 use system\web\Language;
 
 /**
- * Файл класса GridModel
+ * Model for working with table "grids"
  *
  * @package models
  *
- * @method GridModel[] findAll
+ * @method GridModel[] findAll()
  * @method GridModel   in($field, $values)
  * @method GridModel   with($array)
  */
 class GridModel extends Model
 {
 
+	/**
+	 * Grid size
+	 */
 	const GRID_SIZE = 12;
+
+	/**
+	 * Content types. Text
+	 */
 	const TYPE_TEXT = 1;
 
 	/**
+	 * Grid line's ID
+	 *
 	 * @var int
 	 */
 	public $grid_line_id;
 
 	/**
+	 * Coordinates. X
+	 *
 	 * @var int
 	 */
 	public $x;
 
 	/**
+	 * Coordinates. Y
+	 *
 	 * @var int
 	 */
 	public $y;
 
 	/**
+	 * Width (1-12)
+	 *
 	 * @var int
 	 */
 	public $width;
 
 	/**
+	 * Content type
+	 *
 	 * @var int
 	 */
 	public $content_type;
 
 	/**
+	 * Content ID
+	 *
 	 * @var int
 	 */
 	public $content_id;
 
 	/**
+	 * Grid line's model
+	 *
 	 * @var GridLineModel
 	 */
 	public $gridLineModel;
 
 	/**
-	 * Получает название связной таблицы
+	 * Gets table name
 	 *
 	 * @return string
 	 */
@@ -68,7 +89,18 @@ class GridModel extends Model
 	}
 
 	/**
-	 * Связи
+	 * Gets model object
+	 *
+	 * @return GridModel
+	 */
+	public static function model()
+	{
+		$className = __CLASS__;
+		return new $className;
+	}
+
+	/**
+	 * Relations
 	 *
 	 * @return array
 	 */
@@ -80,7 +112,7 @@ class GridModel extends Model
 	}
 
 	/**
-	 * Правила валидации
+	 * Rules
 	 *
 	 * @return array
 	 */
@@ -97,7 +129,7 @@ class GridModel extends Model
 	}
 
 	/**
-	 * Названия полей
+	 * Label names
 	 *
 	 * @return array
 	 */
@@ -107,20 +139,10 @@ class GridModel extends Model
 	}
 
 	/**
-	 * Получает объект модели
-	 *
-	 * @param string $className
+	 * Adds order by y & x to SQL request
 	 *
 	 * @return GridModel
 	 */
-	public static function model($className = __CLASS__)
-	{
-		return new $className;
-	}
-
-	/**
- * @return GridModel
- */
 	public function ordered()
 	{
 		$this->db->order = "t.y, t.x";
@@ -128,6 +150,8 @@ class GridModel extends Model
 	}
 
 	/**
+	 * Adds order by line & y & x to SQL request
+	 *
 	 * @return GridModel
 	 */
 	public function orderedWithLines()
@@ -137,7 +161,9 @@ class GridModel extends Model
 	}
 
 	/**
-	 * @param SectionModel $section
+	 * Gets structure
+	 *
+	 * @param SectionModel $section Section model
 	 *
 	 * @return array
 	 */
@@ -186,7 +212,9 @@ class GridModel extends Model
 	}
 
 	/**
-	 * @param GridModel[] $grids
+	 * Gets line structure
+	 *
+	 * @param GridModel[] $grids Grid models
 	 *
 	 * @return array
 	 */
@@ -260,7 +288,9 @@ class GridModel extends Model
 	}
 
 	/**
-	 * @param int $sectionId
+	 * Adds section ID to SQL request
+	 *
+	 * @param int $sectionId Section ID
 	 *
 	 * @return GridModel
 	 */
@@ -274,7 +304,9 @@ class GridModel extends Model
 	}
 
 	/**
-	 * @param int $lineId
+	 * Adds line ID to SQL request
+	 *
+	 * @param int $lineId Line ID
 	 *
 	 * @return GridModel
 	 */
@@ -287,7 +319,9 @@ class GridModel extends Model
 	}
 
 	/**
-	 * @param int $sectionId
+	 * Gets all grids for sections structure window
+	 *
+	 * @param int $sectionId Section ID
 	 *
 	 * @return array
 	 */
@@ -299,7 +333,11 @@ class GridModel extends Model
 		$grids = $this->bySectionId($sectionId)->orderedWithLines()->findAll();
 		foreach ($grids as $grid) {
 			$modelName = "\\models\\" . ucfirst($typeList[$grid->content_id]["class"]) . "Model";
-			$model = $modelName::model()->byId($grid->content_id)->find();
+			/**
+			 * @var \system\base\Model|\models\TextModel $model
+			 */
+			$model = new $modelName;
+			$model = $model->byId($grid->content_id)->find();
 			$list[intval($grid->gridLineModel->sort)]["id"] = $grid->gridLineModel->id;
 			$list[intval($grid->gridLineModel->sort)]["grids"][] = [
 				"id"    => $grid->content_id,
@@ -315,8 +353,10 @@ class GridModel extends Model
 	}
 
 	/**
-	 * @param int   $sectionId
-	 * @param array $data
+	 * Updates grid'd structure for section
+	 *
+	 * @param int   $sectionId Section ID
+	 * @param array $data      Structure data
 	 *
 	 * @return bool
 	 */
@@ -389,6 +429,8 @@ class GridModel extends Model
 	}
 
 	/**
+	 * Gets content types list
+	 *
 	 * @return array
 	 */
 	public static function getTypesList()
@@ -403,6 +445,8 @@ class GridModel extends Model
 	}
 
 	/**
+	 * Gets content model
+	 *
 	 * @return Model
 	 *
 	 * @throws Exception
@@ -415,11 +459,12 @@ class GridModel extends Model
 			throw new Exception(Language::t("default", "Модель не найдена"), 404);
 		}
 
-		$modelName = '\\models\\' . ucfirst($typeList[$this->content_type]["class"]) . 'Model';
 		/**
 		 * @var Model $model
 		 */
-		$model = $modelName::model()->byId($this->content_id)->withAll()->find();
+		$modelName = '\\models\\' . ucfirst($typeList[$this->content_type]["class"]) . 'Model';
+		$model = new $modelName;
+		$model = $model->byId($this->content_id)->withAll()->find();
 
 		if (!$model) {
 			throw new Exception(Language::t("default", "Модель не найдена"), 404);
@@ -429,7 +474,10 @@ class GridModel extends Model
 	}
 
 	/**
+	 * Gets content view
+	 *
 	 * @return string
+	 *
 	 * @throws Exception
 	 */
 	public function getContentView()
@@ -440,10 +488,12 @@ class GridModel extends Model
 			throw new Exception(Language::t("default", "Модель не найдена"), 404);
 		}
 
-		return '/' . $typeList[$this->content_type]["class"] . '/content';
+		return 'content.' . $typeList[$this->content_type]["class"];
 	}
 
 	/**
+	 * Gets block class
+	 *
 	 * @return string
 	 *
 	 * @throws Exception
@@ -460,6 +510,8 @@ class GridModel extends Model
 	}
 
 	/**
+	 * Gets all blocks for sections window structure
+	 *
 	 * @return array
 	 */
 	public function getAllBlocksForGridWindow()

@@ -5,49 +5,64 @@ namespace models;
 use system\base\Model;
 
 /**
- * Class GridLineModel
+ * Model for working with table "grid_lines"
  *
  * @package models
  *
  * @method GridLineModel   with($array)
- * @method GridLineModel[] findAll
+ * @method GridLineModel[] findAll()
  * @method GridLineModel   byId($id)
- * @method GridLineModel   withAll
+ * @method GridLineModel   withAll()
+ * @method GridLineModel   find()
  */
 class GridLineModel extends Model
 {
 
 	/**
+	 * Section ID
+	 *
 	 * @var int
 	 */
 	public $section_id;
 
 	/**
+	 * Sort number
+	 *
 	 * @var int
 	 */
 	public $sort;
 
 	/**
+	 * ID of DesignBlockModel for line block
+	 *
 	 * @var int
 	 */
 	public $outside_design_id;
 
 	/**
+	 * ID of DesignBlockModel for container block
+	 *
 	 * @var int
 	 */
 	public $inside_design_id;
 
 	/**
+	 * DesignBlockModel for line block
+	 *
 	 * @var DesignBlockModel
 	 */
 	public $outsideDesignModel;
 
 	/**
+	 * DesignBlockModel for container block
+	 *
 	 * @var DesignBlockModel
 	 */
 	public $insideDesignModel;
 
 	/**
+	 * Gets table name
+	 *
 	 * @return string
 	 */
 	public function tableName()
@@ -56,6 +71,19 @@ class GridLineModel extends Model
 	}
 
 	/**
+	 * Gets model object
+	 *
+	 * @return GridLineModel
+	 */
+	public static function model()
+	{
+		$className = __CLASS__;
+		return new $className;
+	}
+
+	/**
+	 * Relations
+	 *
 	 * @return array
 	 */
 	public function relations()
@@ -67,6 +95,8 @@ class GridLineModel extends Model
 	}
 
 	/**
+	 * Rules
+	 *
 	 * @return array
 	 */
 	public function rules()
@@ -80,6 +110,8 @@ class GridLineModel extends Model
 	}
 
 	/**
+	 * Label names
+	 *
 	 * @return array
 	 */
 	public function labels()
@@ -88,17 +120,9 @@ class GridLineModel extends Model
 	}
 
 	/**
-	 * @param string $className
+	 * Adds section ID to SQL request
 	 *
-	 * @return GridLineModel
-	 */
-	public static function model($className = __CLASS__)
-	{
-		return new $className;
-	}
-
-	/**
-	 * @param int $sectionId
+	 * @param int $sectionId Section ID
 	 *
 	 * @return GridLineModel
 	 */
@@ -113,6 +137,8 @@ class GridLineModel extends Model
 	}
 
 	/**
+	 * Adds order by sort to SQL request
+	 *
 	 * @return GridLineModel
 	 */
 	public function ordered()
@@ -122,6 +148,23 @@ class GridLineModel extends Model
 	}
 
 	/**
+	 * Runs before validation
+	 *
+	 * @return void
+	 */
+	protected function beforeValidate()
+	{
+		parent::beforeValidate();
+
+		$this->section_id = intval($this->section_id);
+		$this->sort = intval($this->sort);
+		$this->outside_design_id = intval($this->outside_design_id);
+		$this->inside_design_id = intval($this->inside_design_id);
+	}
+
+	/**
+	 * Runs before deleting
+	 *
 	 * @return bool
 	 */
 	protected function beforeDelete()
