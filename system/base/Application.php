@@ -34,7 +34,7 @@ abstract class Application
 		new ErrorHandler();
 
 		$this->config = json_decode(json_encode($config));
-		require_once($this->config->rootDir . "/vendors/autoload.php");
+		require_once(__DIR__ . "/../../vendors/autoload.php");
 
 		if (!Db::setPdo($this->config->db->user, $this->config->db->password, $this->config->db->name)) {
 			throw new Exception(Language::t("default", "Не удалось соединиться с базой данных"));

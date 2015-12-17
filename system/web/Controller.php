@@ -103,7 +103,7 @@ abstract class Controller
 	 */
 	protected function getViewsRootDir()
 	{
-		return App::web()->config->rootDir . "/views/";
+		return __DIR__ . "/../../views/";
 	}
 
 	/**

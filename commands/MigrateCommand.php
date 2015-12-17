@@ -159,7 +159,7 @@ class MigrateCommand extends Command
 			$versions[] = $row["version"];
 		}
 
-		$handle = opendir(App::console()->config->rootDir . DIRECTORY_SEPARATOR . "migrations");
+		$handle = opendir(__DIR__ . "/../migrations");
 		if (!$handle) {
 			Logger::log("Unable to open folder with migrations", Logger::LEVEL_ERROR, "console.migrate");
 			return false;
@@ -222,8 +222,8 @@ class MigrateCommand extends Command
 				"' " .
 				$site["db_name"] .
 				" | gzip -c > " .
-				App::console()->config->rootDir .
-				"/backups/" .
+				__DIR__ .
+				"/../backups/" .
 				$site["db_name"] .
 				".sql.gz"
 			);
@@ -240,7 +240,7 @@ class MigrateCommand extends Command
 	private function _rollbackDumps()
 	{
 		foreach ($this->_dumpSites as $site) {
-			$file = App::console()->config->rootDir . "/backups/" . $site["db_name"] . ".sql.gz";
+			$file = __DIR__ . "/../backups/" . $site["db_name"] . ".sql.gz";
 			if (!file_exists($file)) {
 				Logger::log(
 					"Unable to find the dump file of DB \"" . $site["db_name"] . "\"",

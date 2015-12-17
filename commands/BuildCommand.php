@@ -92,19 +92,19 @@ class BuildCommand extends Command
      */
     private function _checkFolders()
     {
-        $logs = App::console()->config->rootDir . DIRECTORY_SEPARATOR . "logs";
+        $logs = __DIR__ . "/../logs";
         if (!file_exists($logs) && !mkdir($logs, 0777)) {
             echo "	> Unable to create folder \"logs\"\n";
             return false;
         }
 
-        $backups = App::console()->config->rootDir . DIRECTORY_SEPARATOR . "backups";
+        $backups = __DIR__ . "/../backups";
         if (!file_exists($backups) && !mkdir($backups, 0777)) {
             Logger::log("Unable to create folder \"backups\"", Logger::LEVEL_ERROR, "console.build");
             return false;
         }
 
-        $vendors = App::console()->config->rootDir . DIRECTORY_SEPARATOR . "vendors";
+        $vendors = __DIR__ . "/../vendors";
         if (!file_exists($vendors) && !mkdir($vendors, 0777)) {
             Logger::log("Unable to create folder \"vendors\"", Logger::LEVEL_ERROR, "console.build");
             return false;

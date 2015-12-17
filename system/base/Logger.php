@@ -60,13 +60,7 @@ class Logger
 
 		$text = date("Y-m-d H:i:s", time()) . " [{$level}] [{$category}] " . $msg . "\n\n";
 
-		$logFile =
-			App::getApplication()->config->rootDir .
-			DIRECTORY_SEPARATOR .
-			"logs" .
-			DIRECTORY_SEPARATOR .
-			$fileName .
-			".log";
+		$logFile = __DIR__ . "/../../logs/{$fileName}.log";
 		$fp = @fopen($logFile, 'a');
 		@flock($fp, LOCK_EX);
 		@fwrite($fp, $text);

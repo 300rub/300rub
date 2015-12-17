@@ -4,7 +4,6 @@
 return [
 	"host"    => "300rub.net",
 	"isDebug" => true,
-	"rootDir" => __DIR__ . DIRECTORY_SEPARATOR . "..",
 	"db"      => [
 		"host"     => "localhost",
 		"user"     => "donvasilion",

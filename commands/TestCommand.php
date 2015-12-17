@@ -118,7 +118,7 @@ class TestCommand extends Command
 	 */
 	private function _setClasses()
 	{
-		$dir = App::console()->config->rootDir . "/tests/unit";
+		$dir = __DIR__ . "/../tests/unit";
 		foreach (new RecursiveIteratorIterator(new RecursiveDirectoryIterator($dir)) as $file) {
 
 			$file = str_replace($dir . "/", "", $file->getPathname());
@@ -175,8 +175,7 @@ class TestCommand extends Command
 	 */
 	private function _applyFixtures()
 	{
-		$dir = App::console()->config->rootDir . "/tests/fixtures";
-
+		$dir = __DIR__ . "/../tests/fixtures";
 		$handle = opendir($dir);
 		if (!$handle) {
 			Logger::log("Unable to open folder with fixtures", Logger::LEVEL_ERROR, "console.migrate");

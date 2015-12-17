@@ -2,7 +2,6 @@
 
 namespace commands;
 
-use system\App;
 use system\base\Logger;
 use system\console\Command;
 
@@ -23,9 +22,9 @@ class PublicStaticCommand extends Command
 	 */
 	public function run($args = [])
 	{
-		$vendorsDir = App::console()->config->rootDir . DIRECTORY_SEPARATOR . "vendors";
-		$staticDir = App::console()->config->rootDir . DIRECTORY_SEPARATOR . "public";
-		$map = require(App::console()->config->rootDir . "/config/static_map.php");
+		$vendorsDir = __DIR__ . "/../vendors";
+		$staticDir = __DIR__ . "/../public";
+		$map = require(__DIR__ . "/../config/static_map.php");
 
 		foreach ($map as $folder => $list) {
 			foreach ($list as $key => $value) {

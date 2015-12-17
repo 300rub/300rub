@@ -85,7 +85,7 @@ class Console extends Application
 	private function _setCommandList()
 	{
 		$list = [];
-		$dir = $this->config->rootDir . DIRECTORY_SEPARATOR . "commands";
+		$dir = __DIR__ . "/../../commands";
 
 		$handle = opendir($dir);
 		if (!$handle) {
