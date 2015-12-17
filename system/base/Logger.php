@@ -2,10 +2,8 @@
 
 namespace system\base;
 
-use system\App;
-
 /**
- * Файл класса Logger
+ * Class for working with logging
  *
  * @package system.base
  */
@@ -13,29 +11,34 @@ class Logger
 {
 
 	/**
-	 * Информация
+	 * Level. Info
 	 *
 	 * @var string
 	 */
 	const LEVEL_INFO = "info";
 
 	/**
-	 * Ошибка
+	 * Level. Error
 	 *
 	 * @var string
 	 */
 	const LEVEL_ERROR = "error";
 
 	/**
-	 * Логирование
+	 * Default log category
+	 */
+	const DEFAULT_CATEGORY = "web";
+
+	/**
+	 * Logging
 	 *
-	 * @param string $msg      сообщение
-	 * @param string $level    уровень
-	 * @param string $category категория
+	 * @param string $msg      Message
+	 * @param string $level    Level
+	 * @param string $category Category
 	 *
 	 * @return void
 	 */
-	public static function log($msg, $level = self::LEVEL_INFO, $category = 'web')
+	public static function log($msg, $level = self::LEVEL_INFO, $category = self::DEFAULT_CATEGORY)
 	{
 		$fileName = $category;
 		$categoryList = explode(".", $category, 2);
