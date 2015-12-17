@@ -6,7 +6,7 @@ use system\web\Language;
 use system\base\Model;
 
 /**
- * Файл класса SeoModel
+ * Model for working with table "seo"
  *
  * @package models
  */
@@ -14,55 +14,42 @@ class SeoModel extends Model
 {
 
 	/**
-	 * Название
+	 * Name
 	 *
 	 * @var string
 	 */
 	public $name = "";
 
 	/**
-	 * Абривиатура URL
+	 * URL alias
 	 *
 	 * @var string
 	 */
 	public $url = "";
 
 	/**
-	 * Заголовок страницы
+	 * SEO title
 	 *
 	 * @var string
 	 */
 	public $title = "";
 
 	/**
-	 * Ключевые слова
+	 * SEO keywords
 	 *
 	 * @var string
 	 */
 	public $keywords = "";
 
 	/**
-	 * Описание
+	 * SEO description
 	 *
 	 * @var string
 	 */
 	public $description = "";
 
 	/**
-	 * Типы форм для полей
-	 *
-	 * @var array
-	 */
-	public $formTypes = [
-		"name"        => "field",
-		"url"         => "field",
-		"title"       => "field",
-		"keywords"    => "field",
-		"description" => "field",
-	];
-
-	/**
-	 * Получает название связной таблицы
+	 * Gets table name
 	 *
 	 * @return string
 	 */
@@ -72,7 +59,18 @@ class SeoModel extends Model
 	}
 
 	/**
-	 * Правила валидации
+	 * Gets model object
+	 *
+	 * @return SeoModel
+	 */
+	public static function model()
+	{
+		$className = __CLASS__;
+		return new $className;
+	}
+
+	/**
+	 * Rules
 	 *
 	 * @return array
 	 */
@@ -88,7 +86,7 @@ class SeoModel extends Model
 	}
 
 	/**
-	 * Названия полей
+	 * Label names
 	 *
 	 * @return array
 	 */
@@ -104,7 +102,7 @@ class SeoModel extends Model
 	}
 
 	/**
-	 * Связи
+	 * Relations
 	 *
 	 * @return array
 	 */
@@ -114,19 +112,7 @@ class SeoModel extends Model
 	}
 
 	/**
-	 * Получает объект модели
-	 *
-	 * @param string $className
-	 *
-	 * @return SectionModel
-	 */
-	public static function model($className = __CLASS__)
-	{
-		return new $className;
-	}
-
-	/**
-	 * Выполняется перед валидацией модели
+	 * Runs before validation
 	 *
 	 * @return void
 	 */
@@ -150,9 +136,9 @@ class SeoModel extends Model
 	}
 
 	/**
-	 * Поиск по url
+	 * Adds url condition to SQL
 	 *
-	 * @param string $url url
+	 * @param string $url URL
 	 *
 	 * @return SeoModel
 	 */
@@ -168,6 +154,13 @@ class SeoModel extends Model
 		return $this;
 	}
 
+	/**
+	 * Duplicates SEO
+	 *
+	 * @param bool $useTransaction Is transaction used
+	 *
+	 * @return int
+	 */
 	public function duplicate($useTransaction = true)
 	{
 		$seoModel = clone $this;
@@ -180,6 +173,6 @@ class SeoModel extends Model
 
 		$seoModel->save($useTransaction);
 
-		return $seoModel->id;
+		return intval($seoModel->id);
 	}
 }

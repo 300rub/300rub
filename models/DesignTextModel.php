@@ -13,6 +13,11 @@ class DesignTextModel extends Model
 {
 
 	/**
+	 * Value for replace
+	 */
+	const REPLACE_VALUE = "__";
+
+	/**
 	 * Default line-heght value
 	 */
 	const DEFAULT_LINE_HEIGHT = 140;
@@ -473,43 +478,43 @@ class DesignTextModel extends Model
 	{
 		return [
 			"family"     => [
-				"name"  => "{$name}.family",
+				"name"  => str_replace(self::REPLACE_VALUE, "family", $name),
 				"value" => $this->family
 			],
 			"size"       => [
-				"name"  => "{$name}.size",
+				"name"  => str_replace(self::REPLACE_VALUE, "size", $name),
 				"value" => $this->size
 			],
 			"color"           => [
-				"name"  => "{$name}.color",
+				"name"  => str_replace(self::REPLACE_VALUE, "color", $name),
 				"value" => $this->color
 			],
 			"is_italic"      => [
-				"name"  => "{$name}.is_italic",
+				"name"  => str_replace(self::REPLACE_VALUE, "is_italic", $name),
 				"value" => $this->is_italic
 			],
 			"is_bold"     => [
-				"name"  => "{$name}.is_bold",
+				"name"  => str_replace(self::REPLACE_VALUE, "is_bold", $name),
 				"value" => $this->is_bold
 			],
 			"align"      => [
-				"name"  => "{$name}.align",
+				"name"  => str_replace(self::REPLACE_VALUE, "align", $name),
 				"value" => $this->align
 			],
 			"decoration" => [
-				"name"  => "{$name}.decoration",
+				"name"  => str_replace(self::REPLACE_VALUE, "decoration", $name),
 				"value" => $this->decoration
 			],
 			"transform"  => [
-				"name"  => "{$name}.transform",
+				"name"  => str_replace(self::REPLACE_VALUE, "transform", $name),
 				"value" => $this->transform
 			],
 			"letter_spacing"  => [
-				"name"  => "{$name}.letter_spacing",
+				"name"  => str_replace(self::REPLACE_VALUE, "letter_spacing", $name),
 				"value" => $this->letter_spacing
 			],
 			"line_height"     => [
-				"name"  => "{$name}.line_height",
+				"name"  => str_replace(self::REPLACE_VALUE, "line_height", $name),
 				"value" => $this->line_height
 			]
 		];

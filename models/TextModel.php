@@ -6,7 +6,7 @@ use system\web\Language;
 use system\base\Model;
 
 /**
- * Файл класса TextModel
+ * Model for working with table "texts"
  *
  * @package models
  *
@@ -17,77 +17,106 @@ class TextModel extends Model
 {
 
 	/**
+	 * Type. <div>
+	 */
+	const TYPE_DIV = 0;
+
+	/**
+	 * Type. <h1>
+	 */
+	const TYPE_H1 = 1;
+
+	/**
+	 * Type. <h2>
+	 */
+	const TYPE_H2 = 2;
+
+	/**
+	 * Type. <h3>
+	 */
+	const TYPE_H3 = 3;
+
+	/**
+	 * Type. <adress>
+	 */
+	const TYPE_ADRESS = 4;
+
+	/**
+	 * Type. <mark>
+	 */
+	const TYPE_MARK = 5;
+
+	/**
+	 * Type. <code>
+	 */
+	const TYPE_CODE = 6;
+
+	/**
+	 * Block's name
+	 *
 	 * @var string
 	 */
 	public $name;
 
 	/**
+	 * Language ID
+	 *
 	 * @var integer
 	 */
 	public $language;
 
 	/**
-	 * Использовать ли редактор
+	 * Is editor used
 	 *
 	 * @var boolean
 	 */
 	public $is_editor = false;
 
 	/**
-	 * Тип
+	 * Text type
 	 *
 	 * @var int
 	 */
 	public $type = 0;
 
 	/**
-	 * Текст
+	 * Text
 	 *
 	 * @var string
 	 */
 	public $text = "";
 
 	/**
+	 * ID of DesignTextModel
+	 *
 	 * @var int
 	 */
 	public $design_text_id;
 
 	/**
+	 * ID of DesignTextModel
+	 *
 	 * @var int
 	 */
 	public $design_block_id;
 
 	/**
+	 * Design text model
+	 *
 	 * @var DesignTextModel
 	 */
 	public $designTextModel;
 
 	/**
+	 * Design block model
+	 *
 	 * @var DesignBlockModel
 	 */
 	public $designBlockModel;
 
 	/**
-	 * Типы форм для полей
+	 * List of tag type values
 	 *
-	 * @var array
-	 */
-	public $formTypes = [
-		"is_editor" => "checkbox",
-		"type"      => "select",
-		"name"      => "field",
-		"text"      => "text",
-	];
-
-	const TYPE_DIV = 0;
-	const TYPE_H1 = 1;
-	const TYPE_H2 = 2;
-	const TYPE_H3 = 3;
-	const TYPE_ADRESS = 4;
-	const TYPE_MARK = 5;
-	const TYPE_CODE = 6;
-
-	/**
 	 * @var array
 	 */
 	public static $typeTagList = [
@@ -101,7 +130,7 @@ class TextModel extends Model
 	];
 
 	/**
-	 * Получает название связной таблицы
+	 * Gets table name
 	 *
 	 * @return string
 	 */
@@ -111,7 +140,18 @@ class TextModel extends Model
 	}
 
 	/**
-	 * Правила валидации
+	 * Gets model object
+	 *
+	 * @return SeoModel
+	 */
+	public static function model()
+	{
+		$className = __CLASS__;
+		return new $className;
+	}
+
+	/**
+	 * Rules
 	 *
 	 * @return array
 	 */
@@ -128,7 +168,7 @@ class TextModel extends Model
 	}
 
 	/**
-	 * Названия полей
+	 * Label names
 	 *
 	 * @return array
 	 */
@@ -143,7 +183,7 @@ class TextModel extends Model
 	}
 
 	/**
-	 * Связи
+	 * Relations
 	 *
 	 * @return array
 	 */
@@ -156,18 +196,8 @@ class TextModel extends Model
 	}
 
 	/**
-	 * Получает объект модели
+	 * Gets design forms
 	 *
-	 * @param string $className
-	 *
-	 * @return TextModel
-	 */
-	public static function model($className = __CLASS__)
-	{
-		return new $className;
-	}
-
-	/**
 	 * @return array
 	 */
 	public function getDesignForms()
@@ -179,13 +209,17 @@ class TextModel extends Model
 			$forms[] = [
 				"id"     => $this->designTextModel->id,
 				"type"   => "text",
-				"values" => $this->designTextModel->getValues("designTextModel"),
+				"values" => $this->designTextModel->getValues(
+					"designTextModel." . DesignBlockModel::REPLACE_VALUE
+				),
 			];
 		}
 		$forms[] = [
 			"id"     => $this->designBlockModel->id,
 			"type"   => "block",
-			"values" => $this->designBlockModel->getValues("designBlockModel"),
+			"values" => $this->designBlockModel->getValues(
+				"designBlockModel." . DesignBlockModel::REPLACE_VALUE
+			),
 		];
 
 		$list[] = [
@@ -197,6 +231,8 @@ class TextModel extends Model
 	}
 
 	/**
+	 * Gets type list
+	 *
 	 * @return array
 	 */
 	public function getTypeList()
@@ -213,6 +249,8 @@ class TextModel extends Model
 	}
 
 	/**
+	 * Gets tag name
+	 *
 	 * @return string
 	 */
 	public function getTag()
@@ -222,24 +260,5 @@ class TextModel extends Model
 		}
 
 		return self::$typeTagList[self::TYPE_DIV];
-	}
-
-	/**
-	 * Получает тип формы
-	 *
-	 * @param string $field поле
-	 *
-	 * @return string
-	 */
-	public function getFormType($field)
-	{
-		if (array_key_exists($field, $this->formTypes)) {
-			if ($field === "text" && $this->is_editor) {
-				return "tinymce";
-			}
-			return $this->formTypes[$field];
-		}
-
-		return "";
 	}
 }
