@@ -6,6 +6,8 @@ use system\base\Model;
 use system\web\Language;
 
 /**
+ * Model for working with table "users"
+ *
  * @package models
  *
  * @method UserModel find()
@@ -14,39 +16,33 @@ class UserModel extends Model
 {
 
 	/**
-	 * Логин
+	 * Salt
+	 */
+	const SALT = "saltForUser";
+
+	/**
+	 * Login
 	 *
 	 * @var string
 	 */
 	public $login = "";
 
 	/**
-	 * Пароль
+	 * Password
 	 *
 	 * @var string
 	 */
 	public $password = "";
 
 	/**
-	 * Запомнить ли при входе
+	 * Remember or not
 	 *
 	 * @var bool
 	 */
-	public $remember = false;
+	public $is_remember = false;
 
 	/**
-	 * Типы форм для полей
-	 *
-	 * @var array
-	 */
-	public $formTypes = [
-		"login"    => "field",
-		"password" => "password",
-		"remember" => "checkbox",
-	];
-
-	/**
-	 * Получает название связной таблицы
+	 * Gets table name
 	 *
 	 * @return string
 	 */
@@ -56,20 +52,31 @@ class UserModel extends Model
 	}
 
 	/**
-	 * Правила валидации
+	 * Gets model object
+	 *
+	 * @return SeoModel
+	 */
+	public static function model()
+	{
+		$className = __CLASS__;
+		return new $className;
+	}
+
+	/**
+	 * Rules
 	 *
 	 * @return array
 	 */
 	public function rules()
 	{
 		return [
-			"login"    => ["required", "max" => 3],
+			"login"    => ["required"],
 			"password" => ["required"],
 		];
 	}
 
 	/**
-	 * Названия полей
+	 * Label names
 	 *
 	 * @return array
 	 */
@@ -78,12 +85,12 @@ class UserModel extends Model
 		return [
 			"login"    => Language::t("common", "Логин"),
 			"password" => Language::t("common", "Пароль"),
-			"remember" => Language::t("common", "Запомнить"),
+			"is_remember" => Language::t("common", "Запомнить"),
 		];
 	}
 
 	/**
-	 * Связи
+	 * Relations
 	 *
 	 * @return array
 	 */
@@ -93,19 +100,7 @@ class UserModel extends Model
 	}
 
 	/**
-	 * Получает объект модели
-	 *
-	 * @param string $className
-	 *
-	 * @return UserModel
-	 */
-	public static function model($className = __CLASS__)
-	{
-		return new $className;
-	}
-
-	/**
-	 * Выполняется перед валидацией модели
+	 * Runs before validation
 	 *
 	 * @return void
 	 */
@@ -116,9 +111,9 @@ class UserModel extends Model
 	}
 
 	/**
-	 * Поиск по логину
+	 * Add login condition to SQL request
 	 *
-	 * @param string $login логин
+	 * @param string $login Login
 	 *
 	 * @return UserModel
 	 */
@@ -135,7 +130,7 @@ class UserModel extends Model
 	}
 
 	/**
-	 * Выполняется перед сохранением
+	 * Runs before saving
 	 *
 	 * @return bool
 	 */
@@ -149,14 +144,14 @@ class UserModel extends Model
 	}
 
 	/**
-	 * Генерирует зашифрованный пароль
+	 * Gets password hash
 	 *
-	 * @param string $password незашифрованный пароль
+	 * @param string $password Password
 	 *
 	 * @return string
 	 */
 	public function getPassword($password)
 	{
-		return sha1(md5($password) . "salt");
+		return sha1(md5($password) . self::SALT);
 	}
 }
