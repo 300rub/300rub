@@ -4,78 +4,139 @@ namespace system\base;
 
 use system\web\Language;
 
+/**
+ * Class for validation model's fields
+ *
+ * @package system.base
+ */
 class Validator
 {
 
 	/**
-	 * Модель
+	 * Default object
+	 */
+	const DEFAULT_OBJECT = "t";
+
+	/**
+	 * Model
 	 *
 	 * @var Model
 	 */
 	private $_model = null;
 
 	/**
-	 * Ошибки
+	 * Errors
 	 *
 	 * @var array
 	 */
 	private $_errors = [];
 
 	/**
-	 * Название связи
+	 * Object name
 	 *
 	 * @var string
 	 */
-	private $_relation = "t";
+	private $_objectName = "";
 
 	/**
-	 * Конструктор
+	 * Map for verification
 	 *
-	 * @param Model  $model    модель
-	 * @param string $relation название связи
+	 * @var array
 	 */
-	public function __construct($model, $relation = "t")
+	private $_mapForVerification = [];
+
+	/**
+	 * Constructor
+	 *
+	 * @param Model  $model      Model
+	 * @param string $objectName Object name
+	 */
+	public function __construct($model, $objectName = self::DEFAULT_OBJECT)
 	{
 		$this->_model = $model;
-		$this->_relation = $relation;
+		$this->_objectName = $objectName;
 	}
 
 	/**
-	 * Валидация
+	 * Validation
 	 *
 	 * @return array
 	 */
 	public function validate()
 	{
-		foreach ($this->_model->rules() as $field => $types) {
-			foreach ($types as $key => $value) {
-				if (is_int($key)) {
-					$value = "_" . $value;
-					$this->$value($field);
-				} else {
-					$key = "_" . $key;
-					$this->$key($field, $value);
-				}
-			}
-		}
-
-		if ($this->_errors) {
-			$errors = [];
-
-			foreach ($this->_errors as $key => $value) {
-				$errors[$this->_relation . "__" . $key] = $value;
-			}
-
-			return $errors;
-		}
-
-		return $this->_errors;
+		return $this->_setMap()->_parseMap()->_getErrors();
 	}
 
 	/**
-	 * Делает проверку на обязательное заполнение
+	 * Sets map
 	 *
-	 * @param string $field название поля
+	 * @return Validator
+	 */
+	private function _setMap()
+	{
+		foreach ($this->_model->rules() as $field => $types) {
+			foreach ($types as $key => $value) {
+				$this->_mapForVerification[] = [
+					"method" => $value,
+					"field"  => $field,
+					"value"  => $value
+				];
+			}
+		}
+
+		return $this;
+	}
+
+	/**
+	 * Parses map
+	 *
+	 * @return Validator
+	 */
+	private function _parseMap()
+	{
+		foreach ($this->_mapForVerification as $item) {
+			switch ($item["method"]) {
+				case "required":
+					$this->_required($item["field"]);
+					break;
+				case "max":
+					$this->_max($item["field"], $item["value"]);
+					break;
+				case "url":
+					$this->_url($item["field"]);
+					break;
+				default:
+					break;
+			}
+		}
+
+		return $this;
+	}
+
+	/**
+	 * Gets errors
+	 *
+	 * @return array
+	 */
+	private function _getErrors()
+	{
+		if (!$this->_errors) {
+			return $this->_errors;
+		}
+
+		$errors = [];
+
+		foreach ($this->_errors as $key => $value) {
+			$errors[$this->_objectName . "__" . $key] = $value;
+		}
+
+		return $errors;
+	}
+
+	/**
+	 * Verifies required
+	 *
+	 * @param string $field Field name
 	 *
 	 * @return void
 	 */
@@ -87,10 +148,10 @@ class Validator
 	}
 
 	/**
-	 * Делает проверку на максимальную длину строки
+	 * Verifies max string
 	 *
-	 * @param string $field название поля
-	 * @param int    $max   максимальная длина
+	 * @param string $field Fields name
+	 * @param int    $max   Max value
 	 *
 	 * @return void
 	 */
@@ -102,9 +163,9 @@ class Validator
 	}
 
 	/**
-	 * Делает проверку на корректность url
+	 * Verifies URL
 	 *
-	 * @param string $field название поля
+	 * @param string $field Field name
 	 *
 	 * @return void
 	 */
@@ -120,7 +181,7 @@ class Validator
 	}
 
 	/**
-	 * Получает сообщения об ошибках
+	 * Gets all error messages
 	 *
 	 * @return array
 	 */
