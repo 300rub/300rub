@@ -5,7 +5,7 @@ namespace system\base;
 use Exception as E;
 
 /**
- * Файл класса Exception
+ * Exception class file
  *
  * @package system.base
  */
@@ -13,20 +13,20 @@ class Exception extends E
 {
 
 	/**
-	 * Статус ошибки
+	 * Status code
 	 *
 	 * @var int
 	 */
 	public $statusCode = 0;
 
 	/**
-	 * Конструктор
+	 * Constructor
 	 *
-	 * @param string $message сообщение
-	 * @param int    $status  статус
-	 * @param int    $code    код
+	 * @param string $message Message
+	 * @param int    $status  Status
+	 * @param int    $code    Code
 	 */
-	public function __construct($message, $status = 500, $code = 0)
+	public function __construct($message, $status = ErrorHandler::DEFAULT_STATUS_CODE, $code = 0)
 	{
 		$this->statusCode = $status;
 		parent::__construct($message, $code);
