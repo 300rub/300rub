@@ -196,7 +196,6 @@ abstract class Model
 	 */
 	protected function afterFind()
 	{
-		return $this;
 	}
 
 	/**

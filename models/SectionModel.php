@@ -8,80 +8,76 @@ use system\web\Language;
 use system\base\Model;
 
 /**
- * Файл класса SectionModel
+ * Model for working with table "sections"
  *
  * @package models
  *
  * @method SectionModel   byId($id)
- * @method SectionModel   find
+ * @method SectionModel   find()
  * @method SectionModel[] findAll
  * @method SectionModel   with($relations)
  * @method SectionModel   exceptId($id)
- * @method SectionModel   withAll
+ * @method SectionModel   withAll()
  */
 class SectionModel extends Model
 {
 
 	/**
-	 * Стандартная ширина
+	 * Default page with in px
 	 */
 	const DEFAULT_WIDTH = 980;
 
 	/**
-	 * Идннтификатор раздела
+	 * ID of SeoModel
 	 *
 	 * @var int
 	 */
 	public $seo_id = 0;
 
 	/**
-	 * Идентификатор языка
+	 * ID of language
 	 *
 	 * @var int
 	 */
 	public $language = 0;
 
 	/**
-	 * Ширина
+	 * Width in px
 	 *
 	 * @var int
 	 */
 	public $width = 0;
 
 	/**
-	 * Является ли раздел главным
+	 * Is this section main
 	 *
 	 * @var bool
 	 */
 	public $is_main = false;
 
 	/**
+	 * ID of DesignBlockModel
+	 *
 	 * @var int
 	 */
 	public $design_block_id;
 
 	/**
+	 * Seo model
+	 *
 	 * @var SeoModel
 	 */
 	public $seoModel = null;
 
 	/**
+	 * Design block model
+	 *
 	 * @var DesignBlockModel
 	 */
 	public $designBlockModel;
 
 	/**
-	 * Типы форм для полей
-	 *
-	 * @var array
-	 */
-	public $formTypes = [
-		"is_main"  => "checkbox",
-		"width"    => "field",
-	];
-
-	/**
-	 * Получает название связной таблицы
+	 * Gets table name
 	 *
 	 * @return string
 	 */
@@ -91,7 +87,18 @@ class SectionModel extends Model
 	}
 
 	/**
-	 * Правила валидации
+	 * Gets model object
+	 *
+	 * @return SectionModel
+	 */
+	public static function model()
+	{
+		$className = __CLASS__;
+		return new $className;
+	}
+
+	/**
+	 * Rules
 	 *
 	 * @return array
 	 */
@@ -107,7 +114,7 @@ class SectionModel extends Model
 	}
 
 	/**
-	 * Названия полей
+	 * Label names
 	 *
 	 * @return array
 	 */
@@ -120,7 +127,7 @@ class SectionModel extends Model
 	}
 
 	/**
-	 * Возвращает связи между объектами
+	 * Relations
 	 *
 	 * @return array
 	 */
@@ -133,19 +140,7 @@ class SectionModel extends Model
 	}
 
 	/**
-	 * Получает объект модели
-	 *
-	 * @param string $className
-	 *
-	 * @return SectionModel
-	 */
-	public static function model($className = __CLASS__)
-	{
-		return new $className;
-	}
-
-	/**
-	 * Поиск по url
+	 * Adds url & language condition in SQL request
 	 *
 	 * @param string $url url раздела
 	 *
@@ -167,6 +162,11 @@ class SectionModel extends Model
 		return $this;
 	}
 
+	/**
+	 * Adds is_main condition in SQL request
+	 *
+	 * @return SectionModel
+	 */
 	public function selectMain()
 	{
 		$this->db->addCondition("t.is_main = 1");
@@ -174,7 +174,7 @@ class SectionModel extends Model
 	}
 
 	/**
-	 * Добавляет в условия выбора сортировку по названию
+	 * Adds sort by seo.url in SQL request
 	 *
 	 * @return SectionModel
 	 */
@@ -187,7 +187,7 @@ class SectionModel extends Model
 	}
 
 	/**
-	 * Выполняется перед валидацией модели
+	 * Runs before validation
 	 *
 	 * @return void
 	 */
@@ -204,7 +204,7 @@ class SectionModel extends Model
 	}
 
 	/**
-	 * Выполняется перед сохранением модели
+	 * Runs before save
 	 *
 	 * @throws Exception
 	 *
@@ -231,6 +231,8 @@ class SectionModel extends Model
 	}
 
 	/**
+	 * Gets width
+	 *
 	 * @return string
 	 */
 	public function getWidth()
@@ -244,6 +246,8 @@ class SectionModel extends Model
 	}
 
 	/**
+	 * Runs before delete
+	 *
 	 * @return bool
 	 */
 	protected function beforeDelete()
@@ -268,6 +272,12 @@ class SectionModel extends Model
 		return parent::beforeDelete();
 	}
 
+	/**
+	 * Duplicates section
+	 * If success returns ID of new section
+	 *
+	 * @return bool|int
+	 */
 	public function duplicate()
 	{
 		Db::startTransaction();
@@ -335,10 +345,12 @@ class SectionModel extends Model
 		}
 
 		Db::commitTransaction();
-		return $model->id;
+		return intval($model->id);
 	}
 
 	/**
+	 * Gets design forms
+	 *
 	 * @return array
 	 */
 	public function getDesignForms()
@@ -351,7 +363,9 @@ class SectionModel extends Model
 				[
 					"id"     => $this->designBlockModel->id,
 					"type"   => "block",
-					"values" => $this->designBlockModel->getValues("designBlockModel][t")
+					"values" => $this->designBlockModel->getValues(
+						"designBlockModel[t." . DesignBlockModel::REPLACE_VALUE . "]"
+					)
 				]
 			]
 		];
@@ -368,18 +382,21 @@ class SectionModel extends Model
 					[
 						"id"     => $line->outsideDesignModel->id,
 						"type"   => "block",
-						"values" => $line->outsideDesignModel->getValues("lines][{$line->id}][outsideDesignModel"),
+						"values" => $line->outsideDesignModel->getValues(
+							"lines[{$line->id}][outsideDesignModel." . DesignBlockModel::REPLACE_VALUE . "]"
+						),
 					]
 				]
 			];
-
 			$list[] = [
 				"title" => Language::t("common", "Линия {$line->sort} контейнер"),
 				"forms" => [
 					[
 						"id"     => $line->insideDesignModel->id,
 						"type"   => "block",
-						"values" => $line->insideDesignModel->getValues("lines][{$line->id}][insideDesignModel"),
+						"values" => $line->insideDesignModel->getValues(
+							"lines[{$line->id}][insideDesignModel." . DesignBlockModel::REPLACE_VALUE . "]"
+						),
 					]
 				]
 			];
@@ -389,7 +406,9 @@ class SectionModel extends Model
 	}
 
 	/**
-	 * @param array $data
+	 * Saves design
+	 *
+	 * @param array $data Data
 	 *
 	 * @return bool
 	 */
@@ -422,8 +441,15 @@ class SectionModel extends Model
 		return true;
 	}
 
+	/**
+	 * Runs after finding model
+	 *
+	 * @return void
+	 */
 	protected function afterFind()
 	{
+		parent::afterFind();
+
 		if (!$this->seoModel) {
 			$this->seoModel = new SeoModel();
 		}
@@ -435,7 +461,5 @@ class SectionModel extends Model
 		if (!$this->width) {
 			$this->width = self::DEFAULT_WIDTH;
 		}
-
-		return parent::afterFind();
 	}
 }

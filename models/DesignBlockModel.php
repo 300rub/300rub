@@ -13,6 +13,11 @@ class DesignBlockModel extends Model
 {
 
 	/**
+	 * Value for replace
+	 */
+	const REPLACE_VALUE = "__";
+
+	/**
 	 * Gradient direction. Horizontal
 	 */
 	const GRADIENT_DIRECTION_HORIZONTAL = 0;
@@ -419,87 +424,87 @@ class DesignBlockModel extends Model
 	{
 		return [
 			"margin_top"                 => [
-				"name"  => "{$name}.margin_top",
+				"name"  => str_replace(self::REPLACE_VALUE, "margin_top", $name),
 				"value" => $this->margin_top
 			],
 			"margin_right"               => [
-				"name"  => "{$name}.margin_right",
+				"name"  => str_replace(self::REPLACE_VALUE, "margin_right", $name),
 				"value" => $this->margin_right
 			],
 			"margin_bottom"              => [
-				"name"  => "{$name}.margin_bottom",
+				"name"  => str_replace(self::REPLACE_VALUE, "margin_bottom", $name),
 				"value" => $this->margin_bottom
 			],
 			"margin_left"                => [
-				"name"  => "{$name}.margin_left",
+				"name"  => str_replace(self::REPLACE_VALUE, "margin_left", $name),
 				"value" => $this->margin_left
 			],
 			"padding_top"                => [
-				"name"  => "{$name}.padding_top",
+				"name"  => str_replace(self::REPLACE_VALUE, "padding_top", $name),
 				"value" => $this->padding_top
 			],
 			"padding_right"              => [
-				"name"  => "{$name}.padding_right",
+				"name"  => str_replace(self::REPLACE_VALUE, "padding_right", $name),
 				"value" => $this->padding_right
 			],
 			"padding_bottom"             => [
-				"name"  => "{$name}.padding_bottom",
+				"name"  => str_replace(self::REPLACE_VALUE, "padding_bottom", $name),
 				"value" => $this->padding_bottom
 			],
 			"padding_left"               => [
-				"name"  => "{$name}.padding_left",
+				"name"  => str_replace(self::REPLACE_VALUE, "padding_left", $name),
 				"value" => $this->padding_left
 			],
 			"background_color_from"      => [
-				"name"  => "{$name}.background_color_from",
+				"name"  => str_replace(self::REPLACE_VALUE, "background_color_from", $name),
 				"value" => $this->background_color_from
 			],
 			"background_color_to"        => [
-				"name"  => "{$name}.background_color_to",
+				"name"  => str_replace(self::REPLACE_VALUE, "background_color_to", $name),
 				"value" => $this->background_color_to
 			],
 			"gradient_direction"         => [
-				"name"  => "{$name}.gradient_direction",
+				"name"  => str_replace(self::REPLACE_VALUE, "gradient_direction", $name),
 				"value" => $this->gradient_direction
 			],
 			"border_top_width"           => [
-				"name"  => "{$name}.border_top_width",
+				"name"  => str_replace(self::REPLACE_VALUE, "border_top_width", $name),
 				"value" => $this->border_top_width
 			],
 			"border_top_left_radius"     => [
-				"name"  => "{$name}.border_top_left_radius",
+				"name"  => str_replace(self::REPLACE_VALUE, "border_top_left_radius", $name),
 				"value" => $this->border_top_left_radius
 			],
 			"border_right_width"         => [
-				"name"  => "{$name}.border_right_width",
+				"name"  => str_replace(self::REPLACE_VALUE, "border_right_width", $name),
 				"value" => $this->border_right_width
 			],
 			"border_top_right_radius"    => [
-				"name"  => "{$name}.border_top_right_radius",
+				"name"  => str_replace(self::REPLACE_VALUE, "border_top_right_radius", $name),
 				"value" => $this->border_top_right_radius
 			],
 			"border_bottom_width"        => [
-				"name"  => "{$name}.border_bottom_width",
+				"name"  => str_replace(self::REPLACE_VALUE, "border_bottom_width", $name),
 				"value" => $this->border_bottom_width
 			],
 			"border_bottom_right_radius" => [
-				"name"  => "{$name}.border_bottom_right_radius",
+				"name"  => str_replace(self::REPLACE_VALUE, "border_bottom_right_radius", $name),
 				"value" => $this->border_bottom_right_radius
 			],
 			"border_left_width"          => [
-				"name"  => "{$name}.border_left_width",
+				"name"  => str_replace(self::REPLACE_VALUE, "border_left_width", $name),
 				"value" => $this->border_left_width
 			],
 			"border_bottom_left_radius"  => [
-				"name"  => "{$name}.border_bottom_left_radius",
+				"name"  => str_replace(self::REPLACE_VALUE, "border_bottom_left_radius", $name),
 				"value" => $this->border_bottom_left_radius
 			],
 			"border_color"               => [
-				"name"  => "{$name}.border_color",
+				"name"  => str_replace(self::REPLACE_VALUE, "border_color", $name),
 				"value" => $this->border_color
 			],
 			"border_style"               => [
-				"name"  => "{$name}.border_style",
+				"name"  => str_replace(self::REPLACE_VALUE, "border_style", $name),
 				"value" => $this->border_style
 			],
 		];

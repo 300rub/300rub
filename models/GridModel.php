@@ -541,4 +541,21 @@ class GridModel extends Model
 
 		return $list;
 	}
+
+	/**
+	 * Runs before validation
+	 *
+	 * @return void
+	 */
+	protected function beforeValidate()
+	{
+		parent::beforeValidate();
+
+		$this->grid_line_id = intval($this->grid_line_id);
+		$this->content_type = intval($this->content_type);
+		$this->content_id = intval($this->content_id);
+		$this->x = intval($this->x);
+		$this->y = intval($this->y);
+		$this->width = intval($this->width);
+	}
 }

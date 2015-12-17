@@ -7,7 +7,7 @@ use models\GridLineModel;
 use system\db\Migration;
 
 /**
- * Creates grids table
+ * Creates grid_lines & grids tables
  *
  * @package migrations
  */
