@@ -5,9 +5,7 @@ namespace system\base;
 use system\db\Db;
 
 /**
- * Файл класса Model.
- *
- * Базовый абстрактный класс для работы с моделями
+ * Abstract class for working with models
  *
  * @package system.base
  */
@@ -15,63 +13,61 @@ abstract class Model
 {
 
 	/**
-	 * Идентификатор
+	 * Default separator
+	 */
+	const DEFAULT_SEPARATOR = ".";
+
+	/**
+	 * ID
 	 *
 	 * @var integer
 	 */
 	public $id = 0;
 
 	/**
-	 * Параметры для выборки из БД
+	 * DB object
 	 *
 	 * @var Db
 	 */
 	protected $db;
 
 	/**
-	 * Ошибки
+	 * Errors
 	 *
 	 * @var array
 	 */
 	public $errors = [];
 
 	/**
-	 * Типы форм для полей
-	 *
-	 * @var array
-	 */
-	 public $formTypes = [];
-
-	/**
-	 * Получает название связной таблицы
+	 * Gets table name
 	 *
 	 * @return string
 	 */
 	abstract public function tableName();
 
 	/**
-	 * Возвращает связи между объектами
+	 * Relations
 	 *
 	 * @return array
 	 */
 	abstract public function relations();
 
 	/**
-	 * Возвращает правила проверки для атрибутов модели
+	 * Rules
 	 *
 	 * @return array
 	 */
 	abstract public function rules();
 
 	/**
-	 * Возвращает названия полей
+	 * Label names
 	 *
 	 * @return array
 	 */
 	abstract public function labels();
 
 	/**
-	 * Конструктор
+	 * Constructor
 	 */
 	public function __construct()
 	{
@@ -82,9 +78,9 @@ abstract class Model
 	}
 
 	/**
-	 * Выборка по идентификатору
+	 * Adds ID condition to SQL request
 	 *
-	 * @param int $id идентификатор
+	 * @param int $id ID
 	 *
 	 * @return Model
 	 */
@@ -97,8 +93,10 @@ abstract class Model
 	}
 
 	/**
-	 * @param string $field
-	 * @param array $values
+	 * Adds in condition to SQL request
+	 *
+	 * @param string $field  Field name
+	 * @param array  $values Values
 	 *
 	 * @return Model
 	 */
@@ -110,7 +108,9 @@ abstract class Model
 	}
 
 	/**
-	 * @param int $id идентификатор
+	 * Adds except ID condition to SQL request
+	 *
+	 * @param int $id ID
 	 *
 	 * @return Model
 	 */
@@ -123,7 +123,7 @@ abstract class Model
 	}
 
 	/**
-	 * @param string $order
+	 * Adds sort by name to SQL request
 	 *
 	 * @return Model
 	 */
@@ -135,7 +135,7 @@ abstract class Model
 	}
 
 	/**
-	 * Добавляет в выборку все связи
+	 * Adds select all relations table to SQL request
 	 *
 	 * @return Model
 	 */
@@ -149,9 +149,9 @@ abstract class Model
 	}
 
 	/**
-	 * Добавляет в выборку определенные связи
+	 * Adds select some relations table to SQL request
 	 *
-	 * @param array $relations связи
+	 * @param array $relations Relations
 	 *
 	 * @return Model
 	 */
@@ -169,7 +169,7 @@ abstract class Model
 	}
 
 	/**
-	 * Поиск модели
+	 * Model search in DB
 	 *
 	 * @return null|Model
 	 */
@@ -192,6 +192,8 @@ abstract class Model
 	}
 
 	/**
+	 * Runs after finding model
+	 *
 	 * @return Model
 	 */
 	protected function afterFind()
@@ -199,7 +201,7 @@ abstract class Model
 	}
 
 	/**
-	 * Поиск моделей
+	 * Models search in DB
 	 *
 	 * @return null|Model[]
 	 */
@@ -217,7 +219,7 @@ abstract class Model
 			 * @var Model $model
 			 */
 			$model = new $this;
-			$model->setAttributes($result, "__")->afterFind();
+			$model->setAttributes($values, "__")->afterFind();
 			if ($model) {
 				$list[] = $model;
 			}
@@ -227,14 +229,14 @@ abstract class Model
 	}
 
 	/**
-	 * Устанавливает атрибуты модели
+	 * Sets model's attributes
 	 *
-	 * @param array  $values    значения атрибутов
-	 * @param string $separator разделитель
+	 * @param array  $values    attribute values
+	 * @param string $separator separator
 	 *
 	 * @return Model
 	 */
-	public final function setAttributes($values, $separator = ".")
+	public final function setAttributes($values, $separator = self::DEFAULT_SEPARATOR)
 	{
 		if (!is_array($values)) {
 			return $this;
@@ -280,9 +282,9 @@ abstract class Model
 	}
 
 	/**
-	 * Валидация модели
+	 * Validates model's fields
 	 *
-	 * @param bool $isBeforeValidate Выполнять ли действия перед валидацией
+	 * @param bool $isBeforeValidate Is run beforeValidate method
 	 *
 	 * @return bool
 	 */
@@ -312,9 +314,9 @@ abstract class Model
 	}
 
 	/**
-	 * Сохранение модели
+	 * Saves model in DB
 	 *
-	 * @param bool $useTransaction использовать ли транзакцию
+	 * @param bool $useTransaction Is transaction used
 	 *
 	 * @return bool
 	 */
@@ -366,9 +368,9 @@ abstract class Model
 	}
 
 	/**
-	 * Удаление модели
+	 * Deletes model from DB
 	 *
-	 * @param bool $useTransaction использовать ли транзакцию
+	 * @param bool $useTransaction Is transaction used
 	 *
 	 * @return bool
 	 */
@@ -409,13 +411,18 @@ abstract class Model
 		return true;
 	}
 
+	/**
+	 * Duplicates model
+	 *
+	 * @return bool
+	 */
 	public function duplicate()
 	{
 		return true;
 	}
 
 	/**
-	 * Выполняется перед валидацией модели
+	 * Runs before validation
 	 *
 	 * @return void
 	 */
@@ -424,7 +431,7 @@ abstract class Model
 	}
 
 	/**
-	 * Выполняется перед сохранением модели
+	 * Runs before saving
 	 *
 	 * @return bool
 	 */
@@ -444,7 +451,7 @@ abstract class Model
 	}
 
 	/**
-	 * Выполняется после сохранения модели
+	 * Runs after saving
 	 *
 	 * @return bool
 	 */
@@ -454,7 +461,7 @@ abstract class Model
 	}
 
 	/**
-	 * Выполняется перед удалением модели
+	 * Runs before deleting
 	 *
 	 * @return bool
 	 */
@@ -464,7 +471,7 @@ abstract class Model
 	}
 
 	/**
-	 * Выполняется после удаления модели
+	 * Runs after deleting
 	 *
 	 * @return bool
 	 */
@@ -480,9 +487,9 @@ abstract class Model
 	}
 
 	/**
-	 * Производит обновление для всех полей
+	 * Updates value for all fields
 	 *
-	 * @param array $params поле => значение
+	 * @param array $params Field => value
 	 *
 	 * @return bool
 	 */
@@ -506,9 +513,9 @@ abstract class Model
 	}
 
 	/**
-	 * Получает правила для поля
+	 * Gets field's rules
 	 *
-	 * @param string $field поле
+	 * @param string $field Field
 	 *
 	 * @return string[]
 	 */
@@ -523,9 +530,9 @@ abstract class Model
 	}
 
 	/**
-	 * Получает название поля
+	 * Get's fields name
 	 *
-	 * @param string $field поле
+	 * @param string $field Field
 	 *
 	 * @return string
 	 */
@@ -540,25 +547,9 @@ abstract class Model
 	}
 
 	/**
-	 * Получает тип формы
+	 * Gets relation class
 	 *
-	 * @param string $field поле
-	 *
-	 * @return string
-	 */
-	public function getFormType($field)
-	{
-		if (array_key_exists($field, $this->formTypes)) {
-			return $this->formTypes[$field];
-		}
-
-		return "";
-	}
-
-	/**
-	 * Получает название класса для связи
-	 *
-	 * @param string $relation нзвание связи
+	 * @param string $relation Relation name
 	 *
 	 * @return string
 	 */
