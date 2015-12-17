@@ -3,10 +3,10 @@
 namespace system\base;
 
 use system\App;
-use controllers\ErrorController;
+use controllers\CommonController;
 
 /**
- * Файл класса ErrorHandler
+ * Class for handling errors
  *
  * @package system.base
  */
@@ -14,26 +14,53 @@ class ErrorHandler
 {
 
 	/**
-	 * Уровень поиска ошибки
+	 * Trace level
 	 *
 	 * @var int
 	 */
-	const TRACE_LEVEL = 3;
+	const TRACE_LEVEL = 5;
 
 	/**
-	 * Конструктор
+	 * Default error status code
+	 */
+	const DEFAULT_STATUS_CODE = 500;
+
+	/**
+	 * Constructor
 	 */
 	public function __construct()
+	{
+		$this->_setErrorReporting()->_setExceptionHandler();
+	}
+
+	/**
+	 * Sets error reporting
+	 *
+	 * @return ErrorHandler
+	 */
+	private function _setErrorReporting()
 	{
 		ini_set("error_reporting", E_ALL);
 		ini_set("display_errors", "On");
 
-		set_exception_handler([$this, 'handleException']);
-		set_error_handler([$this, 'handleError'], error_reporting());
+		return $this;
 	}
 
 	/**
-	 * Обработчик исключений
+	 * Sets exception handler
+	 *
+	 * @return ErrorHandler
+	 */
+	private function _setExceptionHandler()
+	{
+		set_exception_handler([$this, 'handleException']);
+		set_error_handler([$this, 'handleError'], error_reporting());
+
+		return $this;
+	}
+
+	/**
+	 * Handles exceptions
 	 *
 	 * @param \system\base\Exception $exception
 	 *
@@ -44,13 +71,11 @@ class ErrorHandler
 		restore_error_handler();
 		restore_exception_handler();
 
-		$statusCode = 500;
+		$statusCode = self::DEFAULT_STATUS_CODE;
 		if (!empty($exception->statusCode)) {
 			$statusCode = $exception->statusCode;
 		}
 		$category = "exception.{$statusCode}";
-
-		var_dump($exception->getMessage());
 
 		$message = $exception->__toString();
 		if (isset($_SERVER['REQUEST_URI'])) {
@@ -68,18 +93,18 @@ class ErrorHandler
 				$message = $exception->getMessage();
 			}
 
-			$controller = new ErrorController();
+			$controller = new CommonController();
 			$controller->actionError($message, $statusCode, $trace);
 		}
 	}
 
 	/**
-	 * Обработчик ошибок
+	 * Handles errors
 	 *
-	 * @param int    $code    код
-	 * @param string $message сообщение
-	 * @param string $file    файл
-	 * @param int    $line    строка
+	 * @param int    $code    Code
+	 * @param string $message Message
+	 * @param string $file    File
+	 * @param int    $line    Line number
 	 *
 	 * @return void
 	 */
@@ -116,7 +141,7 @@ class ErrorHandler
 
 				Logger::log($message, Logger::LEVEL_ERROR, 'php');
 
-				$controller = new ErrorController();
+				$controller = new CommonController();
 				$controller->actionError($message);
 			}
 		}
