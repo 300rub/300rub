@@ -179,7 +179,7 @@ class GridModel extends Model
 			->findAll();
 
 		if (!$gridLineModels) {
-			return false;
+			return [];
 		}
 
 		foreach ($gridLineModels as $gridLineModel) {
@@ -332,10 +332,10 @@ class GridModel extends Model
 
 		$grids = $this->bySectionId($sectionId)->orderedWithLines()->findAll();
 		foreach ($grids as $grid) {
-			$modelName = "\\models\\" . ucfirst($typeList[$grid->content_id]["class"]) . "Model";
 			/**
 			 * @var \system\base\Model|\models\TextModel $model
 			 */
+			$modelName = "\\models\\" . ucfirst($typeList[$grid->content_id]["class"]) . "Model";
 			$model = new $modelName;
 			$model = $model->byId($grid->content_id)->find();
 			$list[intval($grid->gridLineModel->sort)]["id"] = $grid->gridLineModel->id;
@@ -437,9 +437,11 @@ class GridModel extends Model
 	{
 		return [
 			self::TYPE_TEXT => [
-				"name"  => Language::t("common", "Текст"),
-				"class" => "text",
-				"with"  => ["designTextModel"]
+				"name"     => Language::t("common", "Текст"),
+				"model"    => "TextModel",
+				"file"     => "text",
+				"selector" => "j-text-",
+				"with"     => ["designTextModel"]
 			]
 		];
 	}
@@ -462,7 +464,7 @@ class GridModel extends Model
 		/**
 		 * @var Model $model
 		 */
-		$modelName = '\\models\\' . ucfirst($typeList[$this->content_type]["class"]) . 'Model';
+		$modelName = '\\models\\' . $typeList[$this->content_type]["name"];
 		$model = new $modelName;
 		$model = $model->byId($this->content_id)->withAll()->find();
 
@@ -488,7 +490,7 @@ class GridModel extends Model
 			throw new Exception(Language::t("default", "Модель не найдена"), 404);
 		}
 
-		return 'content.' . $typeList[$this->content_type]["class"];
+		return 'content.' . $typeList[$this->content_type]["file"];
 	}
 
 	/**
@@ -506,7 +508,7 @@ class GridModel extends Model
 			throw new Exception(Language::t("default", "Модель не найдена"), 404);
 		}
 
-		return $typeList[$this->content_type]["class"] . '-' . $this->content_id;
+		return $typeList[$this->content_type]["selector"] . $this->content_id;
 	}
 
 	/**
