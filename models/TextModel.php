@@ -142,7 +142,7 @@ class TextModel extends Model
 	/**
 	 * Gets model object
 	 *
-	 * @return SeoModel
+	 * @return TextModel
 	 */
 	public static function model()
 	{

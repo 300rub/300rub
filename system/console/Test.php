@@ -6,14 +6,19 @@ use commands\TestCommand;
 use system\base\Logger;
 use system\db\Db;
 
+/**
+ * Abstract class for working with tests
+ *
+ * @package system.console
+ */
 abstract class Test
 {
 
 	/**
-	 * Проверка на совпадение
+	 * Asserts equals
 	 *
-	 * @param mixed $expected
-	 * @param mixed $actual
+	 * @param mixed $expected Expected value
+	 * @param mixed $actual   Actual value
 	 *
 	 * @return bool
 	 */
@@ -37,11 +42,11 @@ abstract class Test
 	}
 
 	/**
-	 * Проверяет валидацию
+	 * Checks validation
 	 *
-	 * @param \system\base\Model $model            модель
-	 * @param string[]           $errors           названия ошибок
-	 * @param bool               $isBeforeValidate Выполнять ли действия перед валидацией
+	 * @param \system\base\Model $model            Model
+	 * @param string[]           $errors           Error names
+	 * @param bool               $isBeforeValidate Is run before validate
 	 *
 	 * @return bool
 	 */
@@ -100,10 +105,10 @@ abstract class Test
 	}
 
 	/**
-	 * Проверяет сохранение модели
+	 * Checks model save
 	 *
-	 * @param \system\base\Model $model      модель
-	 * @param array              $attributes атрибуты для сравнения
+	 * @param \system\base\Model $model      Model
+	 * @param array              $attributes Attributes for comparison
 	 *
 	 * @return bool
 	 */
@@ -179,9 +184,9 @@ abstract class Test
 	}
 
 	/**
-	 * Проверяет удаление модели
+	 * Checks model deleting
 	 *
-	 * @param \system\base\Model $model модель
+	 * @param \system\base\Model $model Model
 	 *
 	 * @return bool
 	 */

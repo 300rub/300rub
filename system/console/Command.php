@@ -3,7 +3,7 @@
 namespace system\console;
 
 /**
- * Файл класса Command.
+ * Abstract command class
  *
  * @package system.console
  */
@@ -11,9 +11,9 @@ abstract class Command
 {
 
 	/**
-	 * Выполняет команду
+	 * Runs command
 	 *
-	 * @param string[] $args аргументы
+	 * @param string[] $args Arguments
 	 *
 	 * @return bool
 	 */

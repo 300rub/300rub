@@ -7,9 +7,7 @@ use system\base\Exception;
 use system\base\Logger;
 
 /**
- * Файл класса Console.
- *
- * Приложение для консоли
+ * Class for working with console
  *
  * @package system.console
  */
@@ -17,33 +15,33 @@ class Console extends Application
 {
 
 	/**
-	 * Окончание в название команды
+	 * Command's ending
 	 */
 	const COMMAND_ENDING = "Command";
 
 	/**
-	 * Список всех команд
+	 * List of all commands
 	 *
 	 * @var string[]
 	 */
 	private $_commandList = [];
 
 	/**
-	 * Запускаемая команда
+	 * Current command
 	 *
 	 * @var string
 	 */
 	private $_command = "";
 
 	/**
-	 * Список аргументов команды
+	 * List of command arguments
 	 *
 	 * @var string[]
 	 */
 	private $_args = [];
 
 	/**
-	 * Запускает команду
+	 * Runs command
 	 *
 	 * @throws Exception
 	 *
@@ -76,11 +74,11 @@ class Console extends Application
 	}
 
 	/**
-	 * Устанавливает список комманд
+	 * Sets list of command
 	 *
 	 * @throws Exception
 	 *
-	 * @return bool
+	 * @return Console
 	 */
 	private function _setCommandList()
 	{
@@ -104,11 +102,12 @@ class Console extends Application
 		}
 
 		$this->_commandList = $list;
-		return true;
+
+		return $this;
 	}
 
 	/**
-	 * Извлекает команду и аргументы
+	 * Sets command and arguments
 	 *
 	 * @return bool
 	 */
@@ -130,7 +129,7 @@ class Console extends Application
 	}
 
 	/**
-	 * Подсказка
+	 * Help
 	 *
 	 * @return void
 	 */
