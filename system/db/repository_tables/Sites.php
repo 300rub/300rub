@@ -8,16 +8,14 @@ use system\db\Db;
 use system\db\Migration;
 
 /**
- * Файл класса Sites.
- *
- * Создает таблицу для хранения информации о всех сайтах
+ * Creates table for storing information about all sites
  *
  * @package system.db.repository_tables
  */
 class Sites extends Migration {
 
 	/**
-	 * Применяет миграцию
+	 * Applies migration
 	 *
 	 * @return bool
 	 */
@@ -50,7 +48,7 @@ class Sites extends Migration {
 	}
 
 	/**
-	 * Добавляет тестовую информацию
+	 * Inserts test data
 	 *
 	 * @return bool
 	 */
@@ -61,7 +59,7 @@ class Sites extends Migration {
 		$dbUser = App::console()->config->db->user;
 		$dbPassword = App::console()->config->db->password;
 		$dbName = App::console()->config->db->name;
-		$language = array_search(App::console()->config->language, Language::$languageList);
+		$language = array_search(App::console()->config->language, Language::$aliasList);
 		$email = App::console()->config->email->adress;
 
 		return Db::execute(

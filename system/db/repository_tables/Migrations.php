@@ -5,16 +5,14 @@ namespace system\db\repository_tables;
 use system\db\Migration;
 
 /**
- * Файл класса Migrations.
- *
- * Создает таблицу для хранения списка миграций
+ * Creates table for storing list of migrations
  *
  * @package system.db.repository_tables
  */
 class Migrations extends Migration {
 
 	/**
-	 * Применяет миграцию
+	 * Applies migration
 	 *
 	 * @return bool
 	 */
@@ -36,12 +34,12 @@ class Migrations extends Migration {
 	}
 
 	/**
-	 * Добавляет тестовую информацию
+	 * Inserts test data
 	 *
 	 * @return bool
 	 */
 	public function insertData()
 	{
-
+		return true;
 	}
 }

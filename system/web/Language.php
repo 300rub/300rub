@@ -31,7 +31,7 @@ class Language
 	 *
 	 * @var array
 	 */
-	private static $_aliasList = [
+	public static $aliasList = [
 		self::LANGUAGE_RU => "ru",
 	];
 
@@ -46,7 +46,7 @@ class Language
 	 */
 	public static function setIdByAlias($name)
 	{
-		$id = array_search($name, self::$_aliasList);
+		$id = array_search($name, self::$aliasList);
 		if ($id) {
 			self::$activeId = $id;
 		} else {
@@ -61,11 +61,11 @@ class Language
 	 */
 	public static function getActiveAlias()
 	{
-		if (in_array(self::$activeId, self::$_aliasList)) {
-			return self::$_aliasList[self::$activeId];
+		if (in_array(self::$activeId, self::$aliasList)) {
+			return self::$aliasList[self::$activeId];
 		}
 
-		return self::$_aliasList[self::LANGUAGE_RU];
+		return self::$aliasList[self::LANGUAGE_RU];
 	}
 
 	/**

@@ -16,5 +16,6 @@ return [
 	],
 	"email"   => [
 		"adress" => "moyregion@inbox.ru",
-	]
+	],
+	"language" => "ru"
 ];
