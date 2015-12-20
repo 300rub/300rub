@@ -4,11 +4,10 @@ namespace system\db;
 
 use PDO;
 use PDOException;
-use system\App;
 use system\base\Model;
 
 /**
- * Файл класса Db
+ * Class for working with DB
  *
  * @package system.db
  */
@@ -16,76 +15,81 @@ class Db
 {
 
 	/**
-	 * Название таблицы
+	 * Table name
 	 *
 	 * @var string
 	 */
 	public $tableName = "";
 
 	/**
-	 * Условия выборки
+	 * Conditions (WHERE)
 	 *
 	 * @var string
 	 */
 	public $condition = "";
 
 	/**
-	 * Параметры
+	 * Parameters
 	 *
 	 * @var array
 	 */
 	public $params = [];
 
 	/**
-	 * Лимит
+	 * Limit
 	 *
 	 * @var string
 	 */
 	public $limit = "";
 
 	/**
-	 * Сортировка
+	 * Order
 	 *
 	 * @var string
 	 */
 	public $order = "";
 
 	/**
-	 * Связные таблицы
+	 * Relations
 	 *
 	 * @var string[]
 	 */
 	public $with = [];
 
 	/**
-	 * Поля для выбора
+	 * Fields for select
 	 *
 	 * @var string[]
 	 */
 	public $fields = [];
 
 	/**
-	 * Модель PDO
+	 * Model PDO
 	 *
 	 * @var PDO
 	 */
 	private static $_pdo;
 
 	/**
-	 * Связи
+	 * Relations
 	 *
 	 * @var array
 	 */
 	public $relations = [];
 
+	/**
+	 * Queries
+	 *
+	 * @var array
+	 */
 	public static $queries = [];
 
 	/**
-	 * Устанавливает PDO
+	 * Sets PDO
 	 *
-	 * @param string $user     пользователь
-	 * @param string $password парль
-	 * @param string $dbName   база
+	 * @param string $user     DB User
+	 * @param string $password DB Password
+	 * @param string $dbName   DB name
 	 *
 	 * @return bool
 	 */
@@ -110,7 +114,7 @@ class Db
 	}
 
 	/**
-	 * Формирует SQL запрос
+	 * Gets SQL query
 	 *
 	 * @return string
 	 */
@@ -166,7 +170,7 @@ class Db
 	}
 
 	/**
-	 * Выбирает одну запись
+	 * Finds ine record
 	 *
 	 * @return array
 	 */
@@ -176,7 +180,7 @@ class Db
 	}
 
 	/**
-	 * Выбирает несколько записей
+	 * Finds many records
 	 *
 	 * @return array
 	 */
@@ -186,10 +190,10 @@ class Db
 	}
 
 	/**
-	 * Добавляет условие
+	 * Adds condition
 	 *
-	 * @param string $condition условие
-	 * @param string $operator  оператор
+	 * @param string $condition Condition
+	 * @param string $operator  Operator
 	 *
 	 * @return bool
 	 */
@@ -209,10 +213,10 @@ class Db
 	}
 
 	/**
-	 * Проверяет таблицу на существование
+	 * Checks table for existence
 	 *
-	 * @param string $condition команда
-	 * @param array  $params    параметры
+	 * @param string $condition Condition
+	 * @param array  $params    Parameters
 	 *
 	 * @return bool
 	 */
@@ -222,10 +226,10 @@ class Db
 	}
 
 	/**
-	 * Выбирает одну запись
+	 * Fetches one record
 	 *
-	 * @param string $condition команда
-	 * @param array  $params    параметры
+	 * @param string $condition Condition
+	 * @param array  $params    Parameters
 	 *
 	 * @return array
 	 */
@@ -238,10 +242,10 @@ class Db
 	}
 
 	/**
-	 * Выбирает несколько записей
+	 * Fetches many record
 	 *
-	 * @param string $condition команда
-	 * @param array  $params    параметры
+	 * @param string $condition Condition
+	 * @param array  $params    Parameters
 	 *
 	 * @return array
 	 */
@@ -254,7 +258,7 @@ class Db
 	}
 
 	/**
-	 * Начинает трансакцию
+	 * Starts transaction
 	 *
 	 * @return void
 	 */
@@ -264,7 +268,7 @@ class Db
 	}
 
 	/**
-	 * Коммит трансакции
+	 * Applies transaction
 	 *
 	 * @return void
 	 */
@@ -274,7 +278,7 @@ class Db
 	}
 
 	/**
-	 * Откат трансакции
+	 * Rollbacks transaction
 	 *
 	 * @return void
 	 */
@@ -284,8 +288,8 @@ class Db
 	}
 
 	/**
-	 * Вставляет запись в базу.
-	 * В случае удачи возвращает идентификатор
+	 * Inserts record to DB
+	 * If success - returns new ID
 	 *
 	 * @param \system\base\Model $model
 	 *
@@ -319,7 +323,7 @@ class Db
 	}
 
 	/**
-	 * Обновляет запись в базе.
+	 * Updates record
 	 *
 	 * @param \system\base\Model $model
 	 *
@@ -343,7 +347,7 @@ class Db
 	}
 
 	/**
-	 * Удаляет запись в базе.
+	 * Deletes record
 	 *
 	 * @param \system\base\Model $model
 	 *
@@ -355,9 +359,9 @@ class Db
 	}
 
 	/**
-	 * Проверяет на существование таблицу
+	 * Checks for table existence
 	 *
-	 * @param string $table название таблицы
+	 * @param string $table Table name
 	 *
 	 * @return bool
 	 */

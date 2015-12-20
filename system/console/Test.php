@@ -144,6 +144,9 @@ abstract class Test
 		}
 
 		$errors = [];
+		/**
+		 * @var \system\base\Model $model
+		 */
 		$model = $model->byId($model->id)->withAll()->find();
 
 		foreach ($attributes as $field => $value) {

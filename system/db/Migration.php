@@ -5,7 +5,7 @@ namespace system\db;
 use system\base\Logger;
 
 /**
- * Файл класса Migration
+ * Abstract class for working with migrations
  *
  * @package system.db
  */
@@ -13,21 +13,21 @@ abstract class Migration
 {
 
 	/**
-	 * Применяет миграцию
+	 * Applies migration
 	 *
 	 * @return bool
 	 */
 	abstract public function up();
 
 	/**
-	 * Добавляет тестовую информацию
+	 * Inserts test data
 	 *
 	 * @return bool
 	 */
 	abstract public function insertData();
 
 	/**
-	 * Типы столбцов
+	 * List of types
 	 *
 	 * @var array
 	 */
@@ -40,9 +40,9 @@ abstract class Migration
 	];
 
 	/**
-	 * Получает тип столбца
+	 * Gets field type
 	 *
-	 * @param string $type тип
+	 * @param string $type Type
 	 *
 	 * @return string
 	 */
@@ -56,11 +56,11 @@ abstract class Migration
 	}
 
 	/**
-	 * Создает таблицу
+	 * Creates table
 	 *
-	 * @param string $table   таблица
-	 * @param array  $columns столбцы
-	 * @param string $options опции
+	 * @param string $table   Table name
+	 * @param array  $columns Columns
+	 * @param string $options Options
 	 *
 	 * @return bool
 	 */
@@ -81,12 +81,12 @@ abstract class Migration
 	}
 
 	/**
-	 * Создает индекс
+	 * Creates index
 	 *
-	 * @param string $name   название
-	 * @param string $table  таблица
-	 * @param string $column столбец
-	 * @param bool   $unique уникальный ли индекс
+	 * @param string $name   Index name
+	 * @param string $table  Table name
+	 * @param string $column Column
+	 * @param bool   $unique Is unique index
 	 *
 	 * @return bool
 	 */
