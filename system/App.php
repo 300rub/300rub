@@ -6,9 +6,7 @@ use system\console\Console;
 use system\web\Web;
 
 /**
- * Файл класса App.
- *
- * Выбирает и запускает приложение
+ * Class for running application
  *
  * @package system
  */
@@ -16,30 +14,30 @@ class App
 {
 
 	/**
-	 * Подключенные файлы классов
+	 * Class map
 	 *
 	 * @var string[]
 	 */
 	public static $classMap = [];
 
 	/**
-	 * Объект приложения для консоли
+	 * Console application
 	 *
 	 * @var Console
 	 */
 	private static $_console = null;
 
 	/**
-	 * Объект web приложения
+	 * Web application
 	 *
 	 * @var Web
 	 */
 	private static $_web = null;
 
 	/**
-	 * Получает приложения для консоли
+	 * Gets application for working with console
 	 *
-	 * @param array $config конфиг
+	 * @param array $config Config settings
 	 *
 	 * @return Console
 	 */
@@ -53,9 +51,9 @@ class App
 	}
 
 	/**
-	 * Получает web приложение
+	 * Gets Application for working with web
 	 *
-	 * @param array $config конфиг
+	 * @param array $config Config settings
 	 *
 	 * @return Web
 	 */
@@ -69,7 +67,7 @@ class App
 	}
 
 	/**
-	 * Получает текущее приложение
+	 * Gets current application
 	 *
 	 * @return \system\base\Application
 	 */
@@ -87,9 +85,9 @@ class App
 	}
 
 	/**
-	 * Автоматическая загрузка классов
+	 * Autoload for all classes
 	 *
-	 * @param string $className название класса
+	 * @param string $className Class name
 	 *
 	 * @return bool
 	 */
