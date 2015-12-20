@@ -5,7 +5,7 @@ namespace system\web;
 use system\base\Exception;
 
 /**
- * Файл класса Language
+ * Class contains lib of static functions for working with language
  *
  * @package system.web
  */
@@ -13,21 +13,21 @@ class Language
 {
 
 	/**
-	 * Идентификатор языка
+	 * Active language ID
 	 *
 	 * @var int
 	 */
 	public static $activeId = 0;
 
 	/**
-	 * Идентификатор русского языка
+	 * Language ID. Russian
 	 *
 	 * @var int
 	 */
 	const LANGUAGE_RU = 1;
 
 	/**
-	 * Список языков
+	 * List of languages
 	 *
 	 * @var array
 	 */
@@ -36,9 +36,9 @@ class Language
 	];
 
 	/**
-	 * Устанавливает идентификатор языка
+	 * Sets ID by alias
 	 *
-	 * @param string $name абривиатура языка
+	 * @param string $name Language alias
 	 *
 	 * @throws Exception
 	 *
@@ -55,7 +55,7 @@ class Language
 	}
 
 	/**
-	 * Получает активную абривиатуру url
+	 * Gets active alias
 	 *
 	 * @return string
 	 */
@@ -69,11 +69,11 @@ class Language
 	}
 
 	/**
-	 * Переводит фразу
+	 * Translates message
 	 *
-	 * @param string $category    категория
-	 * @param string $message     сообщение
-	 * @param array  $replacement замены
+	 * @param string $category    Category
+	 * @param string $message     Message
+	 * @param array  $replacement Replacement
 	 *
 	 * @return string
 	 */
@@ -87,9 +87,9 @@ class Language
 	}
 
 	/**
-	 * Транслитерация
+	 * Transliteration
 	 *
-	 * @param string $string входящая строка
+	 * @param string $string String for transliteration
 	 *
 	 * @return string
 	 */

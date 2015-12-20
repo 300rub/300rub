@@ -18,6 +18,11 @@ abstract class Model
 	const DEFAULT_SEPARATOR = ".";
 
 	/**
+	 * Object name
+	 */
+	const OBJECT_NAME = "t";
+
+	/**
 	 * ID
 	 *
 	 * @var integer

@@ -2,14 +2,11 @@
 
 namespace system\web;
 
-use system\App;
 use system\base\Exception;
 use system\base\Model;
 
 /**
- * Файл класса Controller.
- *
- * Базовый абстрактный класс для работы с контроллерами
+ * Abstract class for working with controllers
  *
  * @package system.web
  */
@@ -23,17 +20,22 @@ abstract class Controller
 	 */
 	public $data = [];
 
+	/**
+	 * Model ID
+	 *
+	 * @var int
+	 */
 	protected $id = 0;
 
 	/**
-	 * Макет
+	 * Layout
 	 *
 	 * @var string
 	 */
 	protected $layout = "";
 
 	/**
-	 * Для передачи JSON
+	 * JSON
 	 *
 	 * @var array
 	 */
@@ -47,11 +49,11 @@ abstract class Controller
 	abstract protected function getModelName();
 
 	/**
-	 * Показывает или возвращает представление в макете
+	 * Display content with layout
 	 *
-	 * @param string $viewFile представление
-	 * @param array  $data     данные
-	 * @param bool   $isReturn возвращать ли результат
+	 * @param string $viewFile View file
+	 * @param array  $data     Data
+	 * @param bool   $isReturn Is return result
 	 *
 	 * @return string|void
 	 */
@@ -72,11 +74,11 @@ abstract class Controller
 	}
 
 	/**
-	 * Показывает или возвращает представление
+	 * Display content with layout
 	 *
-	 * @param string $viewFile представление
-	 * @param array  $data     данные
-	 * @param bool   $isReturn возвращать ли результат
+	 * @param string $viewFile View file
+	 * @param array  $data     Data
+	 * @param bool   $isReturn Is return result
 	 *
 	 * @return string|void
 	 */
@@ -97,7 +99,7 @@ abstract class Controller
 	}
 
 	/**
-	 * Получает путь до директории представлений
+	 * Gets path to views root dir
 	 *
 	 * @return string
 	 */
@@ -107,10 +109,10 @@ abstract class Controller
 	}
 
 	/**
-	 * Добавляет в JSON формы
+	 * Adds forms into JSON
 	 *
-	 * @param Model    $model
-	 * @param string[] $fields
+	 * @param Model    $model  Model
+	 * @param string[] $fields Fields
 	 *
 	 * @throws Exception
 	 *
@@ -129,35 +131,26 @@ abstract class Controller
 		$forms = [];
 
 		foreach ($fields as $field) {
-			$explode = explode(".", $field, 2);
+			list($objectName, $field) = explode(".", $field, 2);
 
 			$m = null;
-			if ($explode[0] === "t") {
+			if ($objectName === Model::OBJECT_NAME) {
 				$m = $model;
 			} else {
-				if (property_exists($model, $explode[0])) {
-					$m = $model->$explode[0];
+				if (property_exists($model, $objectName)) {
+					$m = $model->$objectName;
 					if (!$m) {
-						$className = $model->getRelationClass($explode[0]);
+						$className = $model->getRelationClass($objectName);
 						$m = new $className;
 					}
 				}
 			}
 
-			$field = $explode[1];
 			if ($m && property_exists($m, $field)) {
-				$type = $m->getFormType($field);
-				$values = [];
-				if ($type === "select") {
-					$methodName = "get" . ucfirst($field) . "List";
-					$values = $m->$methodName();
-				}
-				$forms[$explode[0] . "." . $field] = [
+				$forms[$objectName . Model::DEFAULT_SEPARATOR . $field] = [
 					"rules"  => $m->getRules($field),
 					"label"  => $m->getLabel($field),
-					"type"   => $type,
 					"value"  => $m->$field,
-					"values" => $values,
 				];
 			}
 		}
@@ -211,7 +204,7 @@ abstract class Controller
 	}
 
 	/**
-	 * Panel. Deletes section
+	 * Panel. Deletes model
 	 */
 	public function actionDelete()
 	{
@@ -219,7 +212,7 @@ abstract class Controller
 	}
 
 	/**
-	 * Panel. Duplicates section
+	 * Panel. Duplicates model
 	 */
 	public function actionDuplicate()
 	{

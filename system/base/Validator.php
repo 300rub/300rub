@@ -13,11 +13,6 @@ class Validator
 {
 
 	/**
-	 * Default object
-	 */
-	const DEFAULT_OBJECT = "t";
-
-	/**
 	 * Model
 	 *
 	 * @var Model
@@ -51,7 +46,7 @@ class Validator
 	 * @param Model  $model      Model
 	 * @param string $objectName Object name
 	 */
-	public function __construct($model, $objectName = self::DEFAULT_OBJECT)
+	public function __construct($model, $objectName = Model::OBJECT_NAME)
 	{
 		$this->_model = $model;
 		$this->_objectName = $objectName;
