@@ -54,7 +54,7 @@ class UserModel extends Model
 	/**
 	 * Gets model object
 	 *
-	 * @return SeoModel
+	 * @return UserModel
 	 */
 	public static function model()
 	{

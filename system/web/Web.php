@@ -2,17 +2,15 @@
 
 namespace system\web;
 
+use system\App;
 use system\base\Application;
 use system\db\Db;
 use system\base\Exception;
 use controllers\CommonController;
 use models\UserModel;
-use Mobile_Detect;
 
 /**
- * Файл класса Web.
- *
- * Web приложение
+ * Class for working with WEB application
  *
  * @package system.web
  */
@@ -20,38 +18,28 @@ class Web extends Application
 {
 
 	/**
-	 * Время начала исполнения скрипта
+	 * Script start time
 	 *
 	 * @var int
 	 */
 	private $_startTime = 0;
 
 	/**
+	 * Time of script executing
+	 *
 	 * @var float
 	 */
 	private $_time = 0;
 
 	/**
-	 * Модель пользователя
+	 * User's model
 	 *
 	 * @var UserModel | null
 	 */
 	public $user = null;
 
 	/**
-	 * Является ли устройство мобильным
-	 *
-	 * @var bool
-	 */
-	public $isMobile = false;
-
-	/**
-	 * @var int
-	 */
-	public $sectionId = 0;
-
-	/**
-	 * Запускает команду
+	 * Runs application
 	 *
 	 * @return void
 	 */
@@ -63,7 +51,7 @@ class Web extends Application
 	}
 
 	/**
-	 * Устанавливает текущего пользователя
+	 * Sets current user
 	 *
 	 * @return Web
 	 */
@@ -84,7 +72,7 @@ class Web extends Application
 	}
 
 	/**
-	 * Устанавливает сайт
+	 * Sets site
 	 *
 	 * @throws Exception
 	 *
@@ -114,79 +102,8 @@ class Web extends Application
 		return $this;
 	}
 
-	private function _runAjax($params)
-	{
-		if (
-			empty($_SERVER['HTTP_X_REQUESTED_WITH'])
-			|| strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) !== 'xmlhttprequest'
-		) {
-			throw new Exception(Language::t("common", "111"), 404);
-		}
-
-		if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-			throw new Exception(Language::t("common", "111"), 404);
-		}
-
-		if (
-			//empty($_POST["token"])
-			 empty($_POST["action"])
-			|| !isset($_POST["data"])
-		) {
-			throw new Exception(Language::t("common", "111"), 404);
-		}
-
-		//if ($_POST["token"] !== $this->_getToken()) {
-		//	return false;
-		//}
-
-
-		if (empty($params[1])) {
-			throw new Exception(Language::t("common", "Не указан язык"), 404);
-		}
-
-		if (empty($params[2])) {
-			throw new Exception(Language::t("common", "Не указан контроллер"), 404);
-		}
-
-		if (empty($params[3])) {
-			throw new Exception(Language::t("common", "Не указано действие контроллера"), 404);
-		}
-
-		Language::setIdByAlias($params[1]);
-
-		$controllerName = "\\controllers\\" . ucfirst($params[2]) . "Controller";
-		$actionName = "action" . ucfirst($params[3]);
-		$controller = new $controllerName;
-		$controller->$actionName($_POST);
-
-		$this->_time = number_format(microtime(true) - $this->_startTime, 3);
-
-		header('Content-Type: application/json');
-		echo json_encode($controller->json);
-		exit();
-	}
-
-	private function _runSite($params)
-	{
-		if (!empty($params[0])) {
-			Language::setIdByAlias($params[0]);
-		}
-		(new CommonController)->actionStructure(!empty($params[1]) ? $params[1] : null);
-
-		$this->_time = number_format(microtime(true) - $this->_startTime, 3);
-
-		return $this;
-	}
-
 	/**
-	 * Запускает контроллео
-	 *
-	 * Если первым параметром в URL не указан ajax, то запускается контроллер раздела
-	 * Ели указан, то запускается указанный контроллер (ajax/ru/controller/action/param1/param2)
-	 *
-	 * @throws Exception
-	 *
-	 * @return Web
+	 * Runs controller
 	 */
 	private function _runController()
 	{
@@ -202,9 +119,92 @@ class Web extends Application
 		if (empty($params[0]) || $params[0] != "ajax") {
 			$this->_runSite($params);
 		} else {
-			$this->_runAjax($params);
+			$this->_runAjax();
 		}
 
-		return $this;
+		exit();
+	}
+
+	/**
+	 * Runs ajax
+	 *
+	 * @throws Exception
+	 *
+	 * @return void
+	 */
+	private function _runAjax()
+	{
+		if (
+			empty($_SERVER['HTTP_X_REQUESTED_WITH'])
+			|| strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) !== 'xmlhttprequest'
+		) {
+			throw new Exception(Language::t("common", "111"), 404);
+		}
+
+		if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+			throw new Exception(Language::t("common", "111"), 404);
+		}
+
+		if (
+			empty($_POST["action"])
+			|| empty($_POST["language"])
+			|| !isset($_POST["data"])
+		) {
+			throw new Exception(Language::t("common", "111"), 404);
+		}
+
+		$controllerParams = explode(".", $_POST["action"]);
+		if (count($controllerParams) !== 2) {
+			throw new Exception(Language::t("common", "111"), 404);
+		}
+
+		$className = "\\controllers\\" . ucfirst($controllerParams[0]) . "Controller";
+		if (!class_exists($className)) {
+			throw new Exception(Language::t("common", "111"), 404);
+		}
+
+		$controller = new $className;
+		$methodName = "action" . ucfirst($controllerParams[1]);
+		if (!method_exists($controller, $methodName)) {
+			throw new Exception(Language::t("common", "111"), 404);
+		}
+
+		if (
+				App::web()->user === null
+				//  $class->isProtectedMethod($controllerParams[1])
+
+		) {
+			throw new Exception(Language::t("common", "111"), 404);
+		}
+
+		Language::setIdByAlias($_POST["language"]);
+
+		if (empty($_POST["data"])) {
+			$controller->$methodName();
+		} else {
+			$controller->$methodName($_POST["data"]);
+		}
+
+		$this->_time = number_format(microtime(true) - $this->_startTime, 3);
+
+		header('Content-Type: application/json');
+		echo json_encode($controller->json);
+	}
+
+	/**
+	 * Runs site
+	 *
+	 * @param $params
+	 *
+	 * @return void
+	 */
+	private function _runSite($params)
+	{
+		if (!empty($params[0])) {
+			Language::setIdByAlias($params[0]);
+		}
+		(new CommonController)->actionStructure(!empty($params[1]) ? $params[1] : null);
+
+		$this->_time = number_format(microtime(true) - $this->_startTime, 3);
 	}
 }
