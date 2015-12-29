@@ -37,7 +37,7 @@
 		/**
 		 * Sends AJAX Request
 		 *
-		 * @returns {window.Core.AjaxJson}
+		 * @returns {c.AjaxJson}
 		 */
 		send: function () {
 			$.ajax({
@@ -66,7 +66,7 @@
 		 * @returns {String}
 		 */
 		_getUrl: function () {
-			return "/ajax/" + c.language;
+			return "/ajax/";
 		},
 
 		/**
@@ -80,7 +80,8 @@
 			return {
 				action: this.action,
 				token: c.token,
-				fields: this.fields
+				fields: this.fields,
+				language: c.language
 			};
 		}
 	};
@@ -94,7 +95,7 @@
 	 * @param {Function} [onSuccess]    Success handler
 	 * @param {Function} [onError]      Error handler
 	 *
-	 * @returns {window.Core.AjaxJson}
+	 * @returns {Window.Core.AjaxJson}
 	 */
 	$.ajaxJson = function (action, fields, onBeforeSend, onSuccess, onError) {
 		return new c.AjaxJson(action, fields, onBeforeSend, onSuccess, onError);
