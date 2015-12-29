@@ -1,35 +1,109 @@
 !function ($, c) {
 	"use strict";
 
-	c.AjaxJson = function (controller, data, callbackSuccess, callbackError) {
-		this.controller = controller;
-		this.data = data;
-		this.callbackSuccess = callbackSuccess;
-		this.callbackError = callbackError;
+	/**
+	 * Creates a new AjaxJson object
+	 *
+	 * @class
+	 *
+	 * @param {String}   [action]       Action
+	 * @param {Object}   [fields]       Data fields
+	 * @param {Function} [onBeforeSend] BeforeSend handler
+	 * @param {Function} [onSuccess]    Success handler
+	 * @param {Function} [onError]      Error handler
+	 */
+	c.AjaxJson = function (action, fields, onBeforeSend, onSuccess, onError) {
+		this.action = action;
+		this.fields = fields;
+		this.onBeforeSend = onBeforeSend;
+		this.onSuccess = onSuccess;
+		this.onError = onError;
 
 		this.send();
 	};
 
+	/**
+	  * AjaxJson prototype
+	  */
 	c.AjaxJson.prototype = {
-		send: function() {
+
+		/**
+		 * Constructor
+		 *
+		 * @var {Object}
+		 */
+		constructor: c.AjaxJson,
+
+		/**
+		 * Sends AJAX Request
+		 *
+		 * @returns {window.Core.AjaxJson}
+		 */
+		send: function () {
 			$.ajax({
 				url: this._getUrl(),
-				dataType: 'json',
-				data: (this.data !== false) ? this.data : {},
-				type: (this.data !== false) ? 'POST' : 'GET',
-				success: this.callbackSuccess,
-				error: this.callbackError
+				data: this._getData(),
+				contentType: "application/json",
+				accepts: "application/json",
+				dataType: "json",
+				global: false,
+				cache: false,
+				traditional: true,
+				type: "POST",
+				beforeSend: this.onBeforeSend,
+				success: this.onSuccess,
+				error: this.onError
 			});
 
 			return this;
 		},
 
-		_getUrl: function() {
-			return "/ajax/" + c.language + "/" + this.controller + "/";
+		/**
+		 * Gets URL
+		 *
+		 * @private
+		 *
+		 * @returns {String}
+		 */
+		_getUrl: function () {
+			return "/ajax/" + c.language;
+		},
+
+		/**
+		 * Gets data
+		 *
+		 * @private
+		 *
+		 * @returns {{action: *, token: *, fields: *}}
+		 */
+		_getData: function () {
+			return {
+				action: this.action,
+				token: c.token,
+				fields: this.fields
+			};
 		}
 	};
 
-	$.ajaxJson = function(controller, data, callbackSuccess, callbackError) {
-		return new c.AjaxJson(controller, data, callbackSuccess, callbackError);
+	/**
+	 * Adds JSON RPC to jquery
+	 *
+	 * @param {String}   [action]       Action
+	 * @param {Object}   [fields]       Data fields
+	 * @param {Function} [onBeforeSend] BeforeSend handler
+	 * @param {Function} [onSuccess]    Success handler
+	 * @param {Function} [onError]      Error handler
+	 *
+	 * @returns {window.Core.AjaxJson}
+	 */
+	$.ajaxJson = function (action, fields, onBeforeSend, onSuccess, onError) {
+		return new c.AjaxJson(action, fields, onBeforeSend, onSuccess, onError);
 	};
+
+	/**
+	 * AjaxJson constructor
+	 *
+	 * @constructor
+	 */
+	$.ajaxJson.Constructor = c.AjaxJson;
 }(window.jQuery, window.Core);
