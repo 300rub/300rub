@@ -148,7 +148,7 @@ class Web extends Application
 		if (
 			empty($_POST["action"])
 			|| empty($_POST["language"])
-			|| !isset($_POST["data"])
+			|| !isset($_POST["fields"])
 		) {
 			throw new Exception(Language::t("common", "111"), 404);
 		}
@@ -182,7 +182,7 @@ class Web extends Application
 		if (empty($_POST["data"])) {
 			$controller->$methodName();
 		} else {
-			$controller->$methodName($_POST["data"]);
+			$controller->$methodName($_POST["fields"]);
 		}
 
 		$this->_time = number_format(microtime(true) - $this->_startTime, 3);

@@ -1,8 +1,8 @@
 !function ($, c) {
 	"use strict";
-	
-	c.Window = function (controller, handler) {
-		this.controller = controller;
+
+	c.Window = function (action, handler) {
+		this.action = action;
 		this.handler = handler;
 		this.init();
 	};
@@ -11,7 +11,7 @@
 		$window: null,
 		$overlay: null,
 
-		init: function() {
+		init: function () {
 			this.$overlay = c.$templates.find(".j-overlay").clone().appendTo(c.$ajaxWrapper);
 			this.$window = c.$templates.find(".j-window").clone().appendTo(c.$ajaxWrapper);
 
@@ -19,34 +19,42 @@
 			this.$overlay.on("click", $.proxy(this.close, this));
 
 			$.ajaxJson(
-					this.controller,
-					false,
-					$.proxy(this.onShowSuccess, this),
-					$.proxy(this.onShowError, this)
+				this.action,
+				{},
+				this.onBeforeSend,
+				this.onSuccess,
+				this.onError
 			);
 		},
+
+
 
 		close: function () {
 			this.$window.remove();
 			this.$overlay.remove();
-	
+
 			return false;
 		},
 
+		onBeforeSend: function() {
 
-		onShowSuccess: function(data) {
+		},
+
+		onSuccess: function (data) {
+			console.log(data);
+
 			this.$window.find(".j-header").text(data.title).css("display", "block");
 			this.$window.find(".j-footer").css("display", "block");
 
 			this[this.handler]();
 		},
 
-		onShowError: function(jqXHR, textStatus, errorThrown) {
-
+		onError: function (jqXHR, textStatus, errorThrown) {
+console.log(jqXHR);
 		}
 	};
 
-	$.window = function(controller, handler) {
-		return new c.Window(controller, handler);
+	$.window = function (action, handler) {
+		return new c.Window(action, handler);
 	};
 }(window.jQuery, window.Core);
