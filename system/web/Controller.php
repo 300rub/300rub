@@ -59,7 +59,7 @@ abstract class Controller
 	 */
 	protected function render($viewFile, $data = [], $isReturn = false)
 	{
-		$path = $this->getViewsRootDir() . "{$this->layout}.php";
+		$path = $this->getViewsRootDir() . str_replace(".", "/", $this->layout) .".php";
 
 		$content = $this->renderPartial($viewFile, $data, true);
 
@@ -84,7 +84,7 @@ abstract class Controller
 	 */
 	protected function renderPartial($viewFile, $data = [], $isReturn = false)
 	{
-		$path = $this->getViewsRootDir() . $viewFile . ".php";
+		$path = $this->getViewsRootDir() . str_replace(".", "/", $viewFile) . ".php";
 
 		extract($data, EXTR_OVERWRITE);
 

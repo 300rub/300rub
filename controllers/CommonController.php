@@ -61,7 +61,7 @@ class CommonController extends Controller
         header("HTTP/1.0 {$statusCode}");
 
         $this->renderPartial(
-            "error",
+            "common.error",
             [
                 "statusCode" => $statusCode,
                 "message"    => str_replace("\n", "<br />", $message),
