@@ -77,12 +77,12 @@
 		 * @returns {{action: *, token: *, fields: *}}
 		 */
 		_getData: function () {
-			return {
+			return JSON.stringify({
 				action: this.action,
 				token: c.token,
 				fields: this.fields,
 				language: c.language
-			};
+			});
 		}
 	};
 

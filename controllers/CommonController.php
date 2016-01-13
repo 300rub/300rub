@@ -2,6 +2,7 @@
 
 namespace controllers;
 
+use system\App;
 use system\web\Controller;
 use models\SectionModel;
 use models\GridModel;
@@ -60,13 +61,24 @@ class CommonController extends Controller
     {
         header("HTTP/1.0 {$statusCode}");
 
-        $this->renderPartial(
-            "common.error",
-            [
+        if (App::web()->isAjax) {
+            header('Content-Type: application/json');
+            echo json_encode([
                 "statusCode" => $statusCode,
-                "message"    => str_replace("\n", "<br />", $message),
-                "trace"      => str_replace("\n", "<br />", $trace)
-            ]
-        );
+                "message"    => $message,
+                "trace"      => $trace
+            ]);
+        } else {
+            $this->renderPartial(
+                "common.error",
+                [
+                    "statusCode" => $statusCode,
+                    "message"    => str_replace("\n", "<br />", $message),
+                    "trace"      => str_replace("\n", "<br />", $trace)
+                ]
+            );
+        }
+
+        exit();
     }
 }

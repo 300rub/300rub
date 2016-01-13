@@ -39,6 +39,13 @@ class Web extends Application
 	public $user = null;
 
 	/**
+	 * Is AJAX request
+	 *
+	 * @var bool
+	 */
+	public $isAjax = false;
+
+	/**
 	 * Runs application
 	 *
 	 * @return void
@@ -138,22 +145,26 @@ class Web extends Application
 			empty($_SERVER['HTTP_X_REQUESTED_WITH'])
 			|| strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) !== 'xmlhttprequest'
 		) {
-			throw new Exception(Language::t("common", "111"), 404);
+			throw new Exception(Language::t("common", "This is not ajax request"), 404);
 		}
+
+		$this->isAjax = true;
 
 		if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-			throw new Exception(Language::t("common", "111"), 404);
+			throw new Exception(Language::t("common", "No post"), 404);
 		}
 
+		$input = json_decode(file_get_contents('php://input'));
+
 		if (
-			empty($_POST["action"])
-			|| empty($_POST["language"])
-			|| !isset($_POST["fields"])
+			empty($input->action)
+			|| empty($input->language)
+			|| !isset($input->fields)
 		) {
 			throw new Exception(Language::t("common", "111"), 404);
 		}
 
-		$controllerParams = explode(".", $_POST["action"]);
+		$controllerParams = explode(".", $input->action);
 		if (count($controllerParams) !== 2) {
 			throw new Exception(Language::t("common", "111"), 404);
 		}
@@ -163,26 +174,29 @@ class Web extends Application
 			throw new Exception(Language::t("common", "111"), 404);
 		}
 
+		/**
+		 * @var \system\web\Controller $controller
+		 */
 		$controller = new $className;
 		$methodName = "action" . ucfirst($controllerParams[1]);
 		if (!method_exists($controller, $methodName)) {
-			throw new Exception(Language::t("common", "111"), 404);
+			throw new Exception(Language::t("common", $className . $methodName), 404);
 		}
 
-		if (
-				App::web()->user === null
-				//  $class->isProtectedMethod($controllerParams[1])
+//		if (
+//				App::web()->user === null
+//				//  $class->isProtectedMethod($controllerParams[1])
+//
+//		) {
+//			throw new Exception(Language::t("common", "111"), 404);
+//		}
 
-		) {
-			throw new Exception(Language::t("common", "111"), 404);
-		}
+		Language::setIdByAlias($input->language);
 
-		Language::setIdByAlias($_POST["language"]);
-
-		if (empty($_POST["data"])) {
+		if (empty($input->fields)) {
 			$controller->$methodName();
 		} else {
-			$controller->$methodName($_POST["fields"]);
+			$controller->$methodName($input->fields);
 		}
 
 		$this->_time = number_format(microtime(true) - $this->_startTime, 3);

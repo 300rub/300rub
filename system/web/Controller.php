@@ -39,7 +39,7 @@ abstract class Controller
 	 *
 	 * @var array
 	 */
-	protected $json = [];
+	public $json = [];
 
 	/**
 	 * Gets model name
