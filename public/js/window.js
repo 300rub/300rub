@@ -22,12 +22,10 @@
 				this.action,
 				{},
 				this.onBeforeSend,
-				this.onSuccess,
+				$.proxy(this.onSuccess, this),
 				this.onError
 			);
 		},
-
-
 
 		close: function () {
 			this.$window.remove();
@@ -50,7 +48,7 @@
 		},
 
 		onError: function (jqXHR, textStatus, errorThrown) {
-console.log(jqXHR);
+			console.log(jqXHR);
 		}
 	};
 
