@@ -10,6 +10,7 @@
 	c.Window.prototype = {
 		$window: null,
 		$overlay: null,
+		data: {},
 
 		init: function () {
 			this.$overlay = c.$templates.find(".j-overlay").clone().appendTo(c.$ajaxWrapper);
@@ -39,7 +40,7 @@
 		},
 
 		onSuccess: function (data) {
-			console.log(data);
+			this.data = data;
 
 			this.$window.find(".j-header").text(data.title).css("display", "block");
 			this.$window.find(".j-footer").css("display", "block");

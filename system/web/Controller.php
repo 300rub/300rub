@@ -120,29 +120,19 @@ abstract class Controller
 	 */
 	protected function setFormsForJson($model, $fields)
 	{
-		if (!$model) {
-			throw new Exception("Не удалось получить модель");
-		}
-
-		if (!$fields) {
-			throw new Exception("Не указаны формы");
-		}
-
 		$forms = [];
 
 		foreach ($fields as $field) {
-			list($objectName, $field) = explode(".", $field, 2);
+			list($objectName, $field) = explode(Model::DEFAULT_SEPARATOR, $field, 2);
 
 			$m = null;
 			if ($objectName === Model::OBJECT_NAME) {
 				$m = $model;
-			} else {
-				if (property_exists($model, $objectName)) {
-					$m = $model->$objectName;
-					if (!$m) {
-						$className = $model->getRelationClass($objectName);
-						$m = new $className;
-					}
+			} else if (property_exists($model, $objectName)) {
+				$m = $model->$objectName;
+				if (!$m) {
+					$className = $model->getRelationClass($objectName);
+					$m = new $className;
 				}
 			}
 
