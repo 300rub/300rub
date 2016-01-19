@@ -56,9 +56,9 @@ class UserModel extends Model
 	 * @var array
 	 */
 	protected $formTypes = [
-		"login"       => "field",
-		"password"    => "field",
-		"is_remember" => "checkbox",
+		"login"       => self::FORM_TYPE_FIELD,
+		"password"    => self::FORM_TYPE_FIELD,
+		"is_remember" => self::FORM_TYPE_CHECKBOX
 	];
 
 	/**

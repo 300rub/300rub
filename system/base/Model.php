@@ -23,6 +23,16 @@ abstract class Model
 	const OBJECT_NAME = "t";
 
 	/**
+	 * Form type field
+	 */
+	const FORM_TYPE_FIELD = "field";
+
+	/**
+	 * Form type checkbox
+	 */
+	const FORM_TYPE_CHECKBOX = "checkbox";
+
+	/**
 	 * ID
 	 *
 	 * @var integer
@@ -526,12 +536,27 @@ abstract class Model
 	 */
 	public final function getRules($field)
 	{
-		$rules = $this->rules;
-		if (array_key_exists($field, $rules)) {
-			return $rules[$field];
+		if (array_key_exists($field, $this->rules)) {
+			return $this->rules[$field];
 		}
 
 		return [];
+	}
+
+	/**
+	 * Gets field's form type
+	 *
+	 * @param string $field Field
+	 *
+	 * @return string
+	 */
+	public final function getFormType($field)
+	{
+		if (array_key_exists($field, $this->formTypes)) {
+			return $this->formTypes[$field];
+		}
+
+		return self::FORM_TYPE_FIELD;
 	}
 
 	/**
