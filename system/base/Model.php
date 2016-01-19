@@ -89,7 +89,7 @@ abstract class Model
 		$this->db = new Db;
 		$this->db->tableName = $this->getTableName();
 		$this->db->relations = $this->relations;
-		$this->db->fields = array_keys($this->rules);
+		$this->db->fields = array_keys($this->getRules());
 	}
 
 	/**

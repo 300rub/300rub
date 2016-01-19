@@ -69,7 +69,7 @@ class Validator
 	 */
 	private function _setMap()
 	{
-		foreach ($this->_model->rules() as $field => $types) {
+		foreach ($this->_model->getRules() as $field => $types) {
 			foreach ($types as $key => $value) {
 				$this->_mapForVerification[] = [
 					"method" => $value,

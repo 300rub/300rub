@@ -135,13 +135,13 @@ class Db
 			 */
 			$class = new $relation[0];
 			$select[] = $with . ".id AS {$with}__id";
-			foreach (array_keys($class->rules()) as $field) {
+			foreach (array_keys($class->getRules()) as $field) {
 				$select[] = $with . ".{$field} AS {$with}__{$field}";
 			}
 
 			$join[] =
 				" LEFT JOIN " .
-				$class->tableName() .
+				$class->getTableName() .
 				" AS {$with} ON t.{$relation[1]} = {$with}.id";
 		}
 
@@ -301,7 +301,7 @@ class Db
 		$values = [];
 		$substitutions = [];
 
-		foreach ($model->rules() as $field => $value) {
+		foreach ($model->getRules() as $field => $value) {
 			$columns[] = $field;
 			$substitutions[] = "?";
 			$values[] = $model->$field;
@@ -309,7 +309,7 @@ class Db
 
 		$query =
 			"INSERT INTO " .
-			$model->tableName() .
+			$model->getTableName() .
 			" (" .
 			implode(",", $columns) .
 			") VALUES (" .
@@ -334,14 +334,14 @@ class Db
 		$sets = [];
 		$values = [];
 
-		foreach ($model->rules() as $field => $value) {
+		foreach ($model->getRules() as $field => $value) {
 			$sets[] = "{$field} = ?";
 			$values[] = $model->$field;
 		}
 
 		$values[] = $model->id;
 
-		$query = "UPDATE " . $model->tableName() . " SET " . implode(",", $sets) . " WHERE id = ?";
+		$query = "UPDATE " . $model->getTableName() . " SET " . implode(",", $sets) . " WHERE id = ?";
 
 		return self::execute($query, $values);
 	}
@@ -355,7 +355,7 @@ class Db
 	 */
 	public static function delete($model)
 	{
-		return self::execute("DELETE FROM " . $model->tableName() . " WHERE id = ?", [$model->id]);
+		return self::execute("DELETE FROM " . $model->getTableName() . " WHERE id = ?", [$model->id]);
 	}
 
 	/**
