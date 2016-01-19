@@ -77,6 +77,29 @@ class SectionModel extends Model
 	public $designBlockModel;
 
 	/**
+	 * Rules
+	 *
+	 * @var array
+	 */
+	protected $rules = [
+		"seo_id"          => [],
+		"language"        => ["required"],
+		"width"           => [],
+		"is_main"         => [],
+		"design_block_id" => ["required"],
+	];
+
+	/**
+	 * Relations
+	 *
+	 * @var array
+	 */
+	protected $relations = [
+		"seoModel"         => ['models\SeoModel', "seo_id"],
+		"designBlockModel" => ['models\DesignBlockModel', "design_block_id"]
+	];
+
+	/**
 	 * Gets table name
 	 *
 	 * @return string
@@ -95,35 +118,6 @@ class SectionModel extends Model
 	{
 		$className = __CLASS__;
 		return new $className;
-	}
-
-	/**
-	 * Rules
-	 *
-	 * @return array
-	 */
-	public function rules()
-	{
-		return [
-			"seo_id"          => [],
-			"language"        => ["required"],
-			"width"           => [],
-			"is_main"         => [],
-			"design_block_id" => ["required"],
-		];
-	}
-
-	/**
-	 * Relations
-	 *
-	 * @return array
-	 */
-	public function relations()
-	{
-		return [
-			"seoModel"         => ['models\SeoModel', "seo_id"],
-			"designBlockModel" => ['models\DesignBlockModel', "design_block_id"]
-		];
 	}
 
 	/**

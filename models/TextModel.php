@@ -130,6 +130,30 @@ class TextModel extends Model
 	];
 
 	/**
+	 * Rules
+	 *
+	 * @var array
+	 */
+	protected $rules = [
+		"is_editor"       => [],
+		"type"            => [],
+		"text"            => [],
+		"design_text_id"  => [],
+		"design_block_id" => [],
+		"name"            => ["required"],
+	];
+
+	/**
+	 * Relations
+	 *
+	 * @var array
+	 */
+	protected $relations = [
+		"designTextModel"  => ['models\DesignTextModel', "design_text_id"],
+		"designBlockModel" => ['models\DesignBlockModel', "design_block_id"]
+	];
+
+	/**
 	 * Gets table name
 	 *
 	 * @return string
@@ -148,36 +172,6 @@ class TextModel extends Model
 	{
 		$className = __CLASS__;
 		return new $className;
-	}
-
-	/**
-	 * Rules
-	 *
-	 * @return array
-	 */
-	public function rules()
-	{
-		return [
-			"is_editor"       => [],
-			"type"            => [],
-			"text"            => [],
-			"design_text_id"  => [],
-			"design_block_id" => [],
-			"name"            => ["required"],
-		];
-	}
-
-	/**
-	 * Relations
-	 *
-	 * @return array
-	 */
-	public function relations()
-	{
-		return [
-			"designTextModel"  => ['models\DesignTextModel', "design_text_id"],
-			"designBlockModel" => ['models\DesignBlockModel', "design_block_id"]
-		];
 	}
 
 	/**

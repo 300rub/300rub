@@ -365,6 +365,24 @@ class DesignTextModel extends Model
 	];
 
 	/**
+	 * Rules
+	 *
+	 * @var array
+	 */
+	protected $rules = [
+		"size"           => [],
+		"family"         => [],
+		"color"          => [],
+		"is_italic"      => [],
+		"is_bold"        => [],
+		"align"          => [],
+		"decoration"     => [],
+		"transform"      => [],
+		"letter_spacing" => [],
+		"line_height"    => [],
+	];
+
+	/**
 	 * Gets table name
 	 *
 	 * @return string
@@ -383,27 +401,6 @@ class DesignTextModel extends Model
 	{
 		$className = __CLASS__;
 		return new $className;
-	}
-
-	/**
-	 * Rules
-	 *
-	 * @return array
-	 */
-	public function rules()
-	{
-		return [
-			"size"           => [],
-			"family"         => [],
-			"color"          => [],
-			"is_italic"      => [],
-			"is_bold"        => [],
-			"align"          => [],
-			"decoration"     => [],
-			"transform"      => [],
-			"letter_spacing" => [],
-			"line_height"    => [],
-		];
 	}
 
 	/**

@@ -61,6 +61,28 @@ class GridLineModel extends Model
 	public $insideDesignModel;
 
 	/**
+	 * Rules
+	 *
+	 * @var array
+	 */
+	protected $rules = [
+		"section_id"        => ["required"],
+		"sort"              => ["required"],
+		"outside_design_id" => ["required"],
+		"inside_design_id"  => ["required"],
+	];
+
+	/**
+	 * Relations
+	 *
+	 * @var array
+	 */
+	protected $relations = [
+		"outsideDesignModel" => ['models\DesignBlockModel', "outside_design_id"],
+		"insideDesignModel" => ['models\DesignBlockModel', "inside_design_id"]
+	];
+
+	/**
 	 * Gets table name
 	 *
 	 * @return string
@@ -79,34 +101,6 @@ class GridLineModel extends Model
 	{
 		$className = __CLASS__;
 		return new $className;
-	}
-
-	/**
-	 * Relations
-	 *
-	 * @return array
-	 */
-	public function relations()
-	{
-		return [
-			"outsideDesignModel" => ['models\DesignBlockModel', "outside_design_id"],
-			"insideDesignModel" => ['models\DesignBlockModel', "inside_design_id"]
-		];
-	}
-
-	/**
-	 * Rules
-	 *
-	 * @return array
-	 */
-	public function rules()
-	{
-		return [
-			"section_id"        => ["required"],
-			"sort"              => ["required"],
-			"outside_design_id" => ["required"],
-			"inside_design_id"  => ["required"],
-		];
 	}
 
 	/**

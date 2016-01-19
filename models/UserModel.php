@@ -41,6 +41,27 @@ class UserModel extends Model
 	public $is_remember = false;
 
 	/**
+	 * Rules
+	 *
+	 * @var array
+	 */
+	protected $rules = [
+		"login"    => ["required"],
+		"password" => ["required"],
+	];
+
+	/**
+	 * Form types
+	 *
+	 * @var array
+	 */
+	protected $formTypes = [
+		"login"       => "field",
+		"password"    => "field",
+		"is_remember" => "checkbox",
+	];
+
+	/**
 	 * Gets table name
 	 *
 	 * @return string
@@ -59,28 +80,6 @@ class UserModel extends Model
 	{
 		$className = __CLASS__;
 		return new $className;
-	}
-
-	/**
-	 * Rules
-	 *
-	 * @return array
-	 */
-	public function rules()
-	{
-		return [
-			"login"    => ["required"],
-			"password" => ["required"],
-		];
-	}
-
-	public function formTypes()
-	{
-		return [
-			"login"       => "field",
-			"password"    => "field",
-			"is_remember" => "checkbox",
-		];
 	}
 
 	/**

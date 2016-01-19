@@ -44,6 +44,27 @@ abstract class Model
 	public $errors = [];
 
 	/**
+	 * Rules
+	 *
+	 * @var array
+	 */
+	protected $rules = [];
+
+	/**
+	 * Form types
+	 *
+	 * @var array
+	 */
+	protected $formTypes = [];
+
+	/**
+	 * Relations
+	 *
+	 * @var array
+	 */
+	protected $relations = [];
+
+	/**
 	 * Gets table name
 	 *
 	 * @return string
@@ -51,30 +72,14 @@ abstract class Model
 	abstract public function getTableName();
 
 	/**
-	 * Rules
-	 *
-	 * @return array
-	 */
-	abstract public function rules();
-
-	/**
 	 * Constructor
 	 */
 	public function __construct()
 	{
 		$this->db = new Db;
-		$this->db->tableName = $this->tableName();
-		$this->db->relations = $this->relations();
-		$this->db->fields = array_keys($this->rules());
-	}
-
-	/**
-	 * Relations
-	 *
-	 * @return array
-	 */
-	public function relations() {
-		return [];
+		$this->db->tableName = $this->getTableName();
+		$this->db->relations = $this->relations;
+		$this->db->fields = array_keys($this->rules);
 	}
 
 	/**
@@ -141,7 +146,7 @@ abstract class Model
 	 */
 	public function withAll()
 	{
-		foreach ($this->relations() as $key => $value) {
+		foreach ($this->relations as $key => $value) {
 			$this->db->with[] = $key;
 		}
 
@@ -255,7 +260,7 @@ abstract class Model
 			return $this;
 		}
 
-		$relations = $this->relations();
+		$relations = $this->relations;
 		foreach ($attributes as $key => $fields) {
 			if ($key == "t") {
 				foreach ($fields as $name => $value) {
@@ -296,7 +301,7 @@ abstract class Model
 
 		$validator = new Validator($this);
 		$this->errors = array_merge($this->errors, $validator->validate());
-		foreach ($this->relations() as $relation => $options) {
+		foreach ($this->relations as $relation => $options) {
 			if ($this->$relation) {
 				if ($isBeforeValidate) {
 					$this->$relation->beforeValidate();
@@ -437,7 +442,7 @@ abstract class Model
 	 */
 	protected function beforeSave()
 	{
-		foreach ($this->relations() as $relation => $options) {
+		foreach ($this->relations as $relation => $options) {
 			if ($this->$relation) {
 				$field = $options[1];
 				if (!$this->$relation->save(false)) {
@@ -477,7 +482,7 @@ abstract class Model
 	 */
 	protected function afterDelete()
 	{
-		foreach ($this->relations() as $relation => $options) {
+		foreach ($this->relations as $relation => $options) {
 			if ($this->$relation && !$this->$relation->delete(false)) {
 				return false;
 			}
@@ -507,7 +512,7 @@ abstract class Model
 			$values[] = $value;
 		}
 
-		$query = "UPDATE " . $this->tableName() . " SET " . implode(",", $sets);
+		$query = "UPDATE " . $this->getTableName() . " SET " . implode(",", $sets);
 
 		return Db::execute($query, $values);
 	}
@@ -521,7 +526,7 @@ abstract class Model
 	 */
 	public final function getRules($field)
 	{
-		$rules = $this->rules();
+		$rules = $this->rules;
 		if (array_key_exists($field, $rules)) {
 			return $rules[$field];
 		}
@@ -542,7 +547,7 @@ abstract class Model
 			return null;
 		}
 
-		$relations = $this->relations();
+		$relations = $this->relations;
 		if (array_key_exists($relation, $relations)) {
 			return null;
 		}
