@@ -81,7 +81,7 @@ class SectionModel extends Model
 	 *
 	 * @return string
 	 */
-	public function tableName()
+	public function getTableName()
 	{
 		return "sections";
 	}

@@ -134,7 +134,7 @@ class TextModel extends Model
 	 *
 	 * @return string
 	 */
-	public function tableName()
+	public function getTableName()
 	{
 		return "texts";
 	}

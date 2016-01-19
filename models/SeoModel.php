@@ -53,7 +53,7 @@ class SeoModel extends Model
 	 *
 	 * @return string
 	 */
-	public function tableName()
+	public function getTableName()
 	{
 		return "seo";
 	}

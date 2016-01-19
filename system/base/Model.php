@@ -48,7 +48,7 @@ abstract class Model
 	 *
 	 * @return string
 	 */
-	abstract public function tableName();
+	abstract public function getTableName();
 
 	/**
 	 * Rules

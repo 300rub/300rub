@@ -65,7 +65,7 @@ class GridLineModel extends Model
 	 *
 	 * @return string
 	 */
-	public function tableName()
+	public function getTableName()
 	{
 		return "grid_lines";
 	}

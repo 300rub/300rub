@@ -271,7 +271,7 @@ class DesignBlockModel extends Model
 	 *
 	 * @return string
 	 */
-	public function tableName()
+	public function getTableName()
 	{
 		return "design_blocks";
 	}
