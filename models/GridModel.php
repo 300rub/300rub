@@ -129,16 +129,6 @@ class GridModel extends Model
 	}
 
 	/**
-	 * Label names
-	 *
-	 * @return array
-	 */
-	public function labels()
-	{
-		return [];
-	}
-
-	/**
 	 * Adds order by y & x to SQL request
 	 *
 	 * @return GridModel

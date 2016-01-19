@@ -3,7 +3,6 @@
 namespace models;
 
 use system\base\Model;
-use system\web\Language;
 
 /**
  * Model for working with table "users"
@@ -75,28 +74,13 @@ class UserModel extends Model
 		];
 	}
 
-	/**
-	 * Label names
-	 *
-	 * @return array
-	 */
-	public function labels()
+	public function formTypes()
 	{
 		return [
-			"login"    => Language::t("common", "Логин"),
-			"password" => Language::t("common", "Пароль"),
-			"is_remember" => Language::t("common", "Запомнить"),
+			"login"       => "field",
+			"password"    => "field",
+			"is_remember" => "checkbox",
 		];
-	}
-
-	/**
-	 * Relations
-	 *
-	 * @return array
-	 */
-	public function relations()
-	{
-		return [];
 	}
 
 	/**

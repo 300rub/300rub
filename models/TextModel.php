@@ -168,21 +168,6 @@ class TextModel extends Model
 	}
 
 	/**
-	 * Label names
-	 *
-	 * @return array
-	 */
-	public function labels()
-	{
-		return [
-			"is_editor" => Language::t("common", "Редактор"),
-			"type"      => Language::t("common", "Тип"),
-			"text"      => Language::t("common", "Текст"),
-			"name"      => Language::t("common", "Название"),
-		];
-	}
-
-	/**
 	 * Relations
 	 *
 	 * @return array

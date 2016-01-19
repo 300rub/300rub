@@ -110,16 +110,6 @@ class GridLineModel extends Model
 	}
 
 	/**
-	 * Label names
-	 *
-	 * @return array
-	 */
-	public function labels()
-	{
-		return [];
-	}
-
-	/**
 	 * Adds section ID to SQL request
 	 *
 	 * @param int $sectionId Section ID

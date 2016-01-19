@@ -51,25 +51,11 @@ abstract class Model
 	abstract public function tableName();
 
 	/**
-	 * Relations
-	 *
-	 * @return array
-	 */
-	abstract public function relations();
-
-	/**
 	 * Rules
 	 *
 	 * @return array
 	 */
 	abstract public function rules();
-
-	/**
-	 * Label names
-	 *
-	 * @return array
-	 */
-	abstract public function labels();
 
 	/**
 	 * Constructor
@@ -80,6 +66,15 @@ abstract class Model
 		$this->db->tableName = $this->tableName();
 		$this->db->relations = $this->relations();
 		$this->db->fields = array_keys($this->rules());
+	}
+
+	/**
+	 * Relations
+	 *
+	 * @return array
+	 */
+	public function relations() {
+		return [];
 	}
 
 	/**
@@ -532,23 +527,6 @@ abstract class Model
 		}
 
 		return [];
-	}
-
-	/**
-	 * Get's fields name
-	 *
-	 * @param string $field Field
-	 *
-	 * @return string
-	 */
-	public final function getLabel($field)
-	{
-		$labels = $this->labels();
-		if (array_key_exists($field, $labels)) {
-			return $labels[$field];
-		}
-
-		return "";
 	}
 
 	/**

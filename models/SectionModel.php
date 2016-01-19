@@ -114,19 +114,6 @@ class SectionModel extends Model
 	}
 
 	/**
-	 * Label names
-	 *
-	 * @return array
-	 */
-	public function labels()
-	{
-		return [
-			"is_main" => Language::t("common", "сделать главным"),
-			"width"   => Language::t("common", "Ширина"),
-		];
-	}
-
-	/**
 	 * Relations
 	 *
 	 * @return array

@@ -407,26 +407,6 @@ class DesignTextModel extends Model
 	}
 
 	/**
-	 * Label names
-	 *
-	 * @return array
-	 */
-	public function labels()
-	{
-		return [];
-	}
-
-	/**
-	 * Relations
-	 *
-	 * @return array
-	 */
-	public function relations()
-	{
-		return [];
-	}
-
-	/**
 	 * Runs before validation
 	 *
 	 * @return void

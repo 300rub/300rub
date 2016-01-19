@@ -86,32 +86,6 @@ class SeoModel extends Model
 	}
 
 	/**
-	 * Label names
-	 *
-	 * @return array
-	 */
-	public function labels()
-	{
-		return [
-			"name"        => Language::t("common", "Название"),
-			"url"         => Language::t("common", "Абривиатура URL"),
-			"title"       => Language::t("common", "Тег title"),
-			"keywords"    => Language::t("common", "Тег keywords"),
-			"description" => Language::t("common", "Тег description"),
-		];
-	}
-
-	/**
-	 * Relations
-	 *
-	 * @return array
-	 */
-	public function relations()
-	{
-		return [];
-	}
-
-	/**
 	 * Runs before validation
 	 *
 	 * @return void
