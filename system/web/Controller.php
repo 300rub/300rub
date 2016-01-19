@@ -138,7 +138,7 @@ abstract class Controller
 
 			if ($m && property_exists($m, $field)) {
 				$forms[$objectName . Model::DEFAULT_SEPARATOR . $field] = [
-					"rules"    => $m->getRules($field),
+					"rules"    => $m->getRulesForField($field),
 					"formType" => $m->getFormType($field),
 					"value"    => $m->$field,
 				];

@@ -130,20 +130,6 @@ class TextModel extends Model
 	];
 
 	/**
-	 * Rules
-	 *
-	 * @var array
-	 */
-	protected $rules = [
-		"is_editor"       => [],
-		"type"            => [],
-		"text"            => [],
-		"design_text_id"  => [],
-		"design_block_id" => [],
-		"name"            => ["required"],
-	];
-
-	/**
 	 * Relations
 	 *
 	 * @var array
@@ -161,6 +147,23 @@ class TextModel extends Model
 	public function getTableName()
 	{
 		return "texts";
+	}
+
+	/**
+	 * Validation rules
+	 *
+	 * @return array
+	 */
+	public function getRules()
+	{
+		return [
+			"is_editor"       => [],
+			"type"            => [],
+			"text"            => [],
+			"design_text_id"  => [],
+			"design_block_id" => [],
+			"name"            => ["required"],
+		];
 	}
 
 	/**

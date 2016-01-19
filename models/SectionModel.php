@@ -77,19 +77,6 @@ class SectionModel extends Model
 	public $designBlockModel;
 
 	/**
-	 * Rules
-	 *
-	 * @var array
-	 */
-	protected $rules = [
-		"seo_id"          => [],
-		"language"        => ["required"],
-		"width"           => [],
-		"is_main"         => [],
-		"design_block_id" => ["required"],
-	];
-
-	/**
 	 * Relations
 	 *
 	 * @var array
@@ -107,6 +94,22 @@ class SectionModel extends Model
 	public function getTableName()
 	{
 		return "sections";
+	}
+
+	/**
+	 * Validation rules
+	 *
+	 * @return array
+	 */
+	public function getRules()
+	{
+		return [
+			"seo_id"          => [],
+			"language"        => ["required"],
+			"width"           => [],
+			"is_main"         => [],
+			"design_block_id" => ["required"],
+		];
 	}
 
 	/**

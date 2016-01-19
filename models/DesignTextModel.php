@@ -365,22 +365,25 @@ class DesignTextModel extends Model
 	];
 
 	/**
-	 * Rules
+	 * Validation rules
 	 *
-	 * @var array
+	 * @return array
 	 */
-	protected $rules = [
-		"size"           => [],
-		"family"         => [],
-		"color"          => [],
-		"is_italic"      => [],
-		"is_bold"        => [],
-		"align"          => [],
-		"decoration"     => [],
-		"transform"      => [],
-		"letter_spacing" => [],
-		"line_height"    => [],
-	];
+	public function getRules()
+	{
+		return [
+			"size"           => [],
+			"family"         => [],
+			"color"          => [],
+			"is_italic"      => [],
+			"is_bold"        => [],
+			"align"          => [],
+			"decoration"     => [],
+			"transform"      => [],
+			"letter_spacing" => [],
+			"line_height"    => [],
+		];
+	}
 
 	/**
 	 * Gets table name

@@ -49,19 +49,6 @@ class SeoModel extends Model
 	public $description = "";
 
 	/**
-	 * Rules
-	 *
-	 * @var array
-	 */
-	protected $rules = [
-		"name"        => ["required", "max" => 255],
-		"url"         => ["required", "url", "max" => 255],
-		"title"       => ["max" => 100],
-		"keywords"    => ["max" => 255],
-		"description" => ["max" => 255],
-	];
-
-	/**
 	 * Gets table name
 	 *
 	 * @return string
@@ -69,6 +56,22 @@ class SeoModel extends Model
 	public function getTableName()
 	{
 		return "seo";
+	}
+
+	/**
+	 * Validation rules
+	 *
+	 * @return array
+	 */
+	public function getRules()
+	{
+		return [
+			"name"        => ["required", "max" => 255],
+			"url"         => ["required", "url", "max" => 255],
+			"title"       => ["max" => 100],
+			"keywords"    => ["max" => 255],
+			"description" => ["max" => 255],
+		];
 	}
 
 	/**

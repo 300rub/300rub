@@ -61,18 +61,6 @@ class GridLineModel extends Model
 	public $insideDesignModel;
 
 	/**
-	 * Rules
-	 *
-	 * @var array
-	 */
-	protected $rules = [
-		"section_id"        => ["required"],
-		"sort"              => ["required"],
-		"outside_design_id" => ["required"],
-		"inside_design_id"  => ["required"],
-	];
-
-	/**
 	 * Relations
 	 *
 	 * @var array
@@ -90,6 +78,21 @@ class GridLineModel extends Model
 	public function getTableName()
 	{
 		return "grid_lines";
+	}
+
+	/**
+	 * Validation rules
+	 *
+	 * @return array
+	 */
+	public function getRules()
+	{
+		return [
+			"section_id"        => ["required"],
+			"sort"              => ["required"],
+			"outside_design_id" => ["required"],
+			"inside_design_id"  => ["required"],
+		];
 	}
 
 	/**

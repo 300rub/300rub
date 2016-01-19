@@ -41,16 +41,6 @@ class UserModel extends Model
 	public $is_remember = false;
 
 	/**
-	 * Rules
-	 *
-	 * @var array
-	 */
-	protected $rules = [
-		"login"    => ["required"],
-		"password" => ["required"],
-	];
-
-	/**
 	 * Form types
 	 *
 	 * @var array
@@ -69,6 +59,19 @@ class UserModel extends Model
 	public function getTableName()
 	{
 		return "users";
+	}
+
+	/**
+	 * Validation rules
+	 *
+	 * @return array
+	 */
+	public function getRules()
+	{
+		return [
+			"login"    => ["required"],
+			"password" => ["required"],
+		];
 	}
 
 	/**

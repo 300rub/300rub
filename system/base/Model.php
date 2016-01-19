@@ -54,13 +54,6 @@ abstract class Model
 	public $errors = [];
 
 	/**
-	 * Rules
-	 *
-	 * @var array
-	 */
-	protected $rules = [];
-
-	/**
 	 * Form types
 	 *
 	 * @var array
@@ -80,6 +73,13 @@ abstract class Model
 	 * @return string
 	 */
 	abstract public function getTableName();
+
+	/**
+	 * Gets rules
+	 *
+	 * @return array
+	 */
+	abstract public function getRules();
 
 	/**
 	 * Constructor
@@ -534,10 +534,11 @@ abstract class Model
 	 *
 	 * @return string[]
 	 */
-	public final function getRules($field)
+	public final function getRulesForField($field)
 	{
-		if (array_key_exists($field, $this->rules)) {
-			return $this->rules[$field];
+		$rules = $this->getRules();
+		if (array_key_exists($field, $rules)) {
+			return $rules[$field];
 		}
 
 		return [];

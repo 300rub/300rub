@@ -79,20 +79,6 @@ class GridModel extends Model
 	public $gridLineModel;
 
 	/**
-	 * Rules
-	 *
-	 * @var array
-	 */
-	protected $rules = [
-		"grid_line_id" => ["required"],
-		"x"            => [],
-		"y"            => [],
-		"width"        => ["required"],
-		"content_type" => ["required"],
-		"content_id"   => ["required"],
-	];
-
-	/**
 	 * Relations
 	 *
 	 * @var array
@@ -109,6 +95,23 @@ class GridModel extends Model
 	public function getTableName()
 	{
 		return "grids";
+	}
+
+	/**
+	 * Validation rules
+	 *
+	 * @return array
+	 */
+	public function getRules()
+	{
+		return [
+			"grid_line_id" => ["required"],
+			"x"            => [],
+			"y"            => [],
+			"width"        => ["required"],
+			"content_type" => ["required"],
+			"content_id"   => ["required"],
+		];
 	}
 
 	/**
