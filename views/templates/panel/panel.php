@@ -1,6 +1,6 @@
 <div class="j-panel l-panel">
 	<div class="j-header l-header">
-		<div class="j-title"></div>
+		<div class="j-title l-title"></div>
 		<div class="j-description"></div>
 		<a href="#" class="j-close l-close"></a>
 		<a href="#" class="j-back l-back">←</a>

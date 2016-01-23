@@ -16,62 +16,62 @@
 			this.$overlay = c.$templates.find(".j-overlay").clone().appendTo(c.$ajaxWrapper);
 			this.$window = c.$templates.find(".j-window").clone().appendTo(c.$ajaxWrapper);
 
-			this.$window.find(".j-close").on("click", $.proxy(this.close, this));
-			this.$overlay.on("click", $.proxy(this.close, this));
+			this.$window.find(".j-_close").on("click", $.proxy(this._close, this));
+			this.$overlay.on("click", $.proxy(this._close, this));
 
 			$.ajaxJson(
 				this.action,
 				{},
-				$.proxy(this.onLoadBefore, this),
-				$.proxy(this.onLoadSuccess, this),
-				$.proxy(this.onError, this)
+				$.proxy(this._onLoadBefore, this),
+				$.proxy(this._onLoadSuccess, this),
+				$.proxy(this._onError, this)
 			);
 		},
 
-		close: function () {
+		_close: function () {
 			this.$window.remove();
 			this.$overlay.remove();
 
 			return false;
 		},
 
-		onLoadBefore: function () {
+		_onLoadBefore: function () {
 
 		},
 
-		onLoadSuccess: function (data) {
+		_onLoadSuccess: function (data) {
 			this.data = data;
 
 			this.$window.find(".j-header").text(data.title).css("display", "block");
 			this.$window.find(".j-footer").css("display", "block");
-			this.$window.find(".j-submit").on("click", $.proxy(this.submit, this));
+			this.$window.find(".j-submit").on("click", $.proxy(this._submit, this));
 
 			this[this.handler]();
 		},
 
-		onError: function (jqXHR, textStatus, errorThrown) {
+		_onError: function (jqXHR, textStatus, errorThrown) {
 			console.log(jqXHR);
 		},
 
-		submit: function () {
+		_submit: function () {
 			$.ajaxJson(
 				this.data.action,
 				this.$window.find(".j-window-form").serializeObject(),
-				$.proxy(this.onSendBefore, this),
-				$.proxy(this.onSendSuccess, this),
-				$.proxy(this.onError, this)
+				$.proxy(this._onSendBefore, this),
+				$.proxy(this._onSendSuccess, this),
+				$.proxy(this._onError, this)
 			);
 
 			return false;
 		},
 
-		onSendBefore: function () {
+		_onSendBefore: function () {
 			if ($.validator(this.$window.find(".j-window-form")).validate() === false) {
 				return false;
 			}
 		},
 
-		onSendSuccess: function (data) {
+		_onSendSuccess: function (data) {
 			if (!$.isEmptyObject(data.errors)) {
 				console.log(data.errors);
 				$.validator(this.$window.find(".j-window-form")).showErrors(data.errors);
@@ -82,7 +82,7 @@
 				location.reload();
 			}
 
-			this.close();
+			this._close();
 		}
 	};
 
