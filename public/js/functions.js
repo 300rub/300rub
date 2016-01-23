@@ -9,11 +9,11 @@
 		return o;
 	};
 
-	String.prototype.nameToClass = function() {
+	String.prototype.nameToClass = function(withoutDot) {
 		var prefix = ".";
-		//if (withDot === false) {
-		//	prefix = "";
-		//}
+		if (withoutDot === true) {
+			prefix = "";
+		}
 
 		return prefix + "j-" + this.replace(".", "__");
 	};

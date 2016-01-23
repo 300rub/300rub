@@ -115,17 +115,21 @@ class Validator
 	 */
 	private function _getErrors()
 	{
-		if (!$this->_errors) {
-			return $this->_errors;
-		}
+		return $this->_errors;
+	}
 
-		$errors = [];
-
-		foreach ($this->_errors as $key => $value) {
-			$errors[$this->_objectName . "__" . $key] = $value;
-		}
-
-		return $errors;
+	/**
+	 * Adds error
+	 *
+	 * @param string $field Field
+	 * @param string $value Value
+	 *
+	 * @return Validator
+	 */
+	private function _addError($field, $value)
+	{
+		$this->_errors[$this->_objectName . Model::DEFAULT_SEPARATOR . $field] = $value;
+		return $this;
 	}
 
 	/**
@@ -138,7 +142,7 @@ class Validator
 	private function _required($field)
 	{
 		if (!array_key_exists($field, $this->_errors) && !$this->_model->$field) {
-			$this->_errors[$field] = "required";
+			$this->_addError($field, "required");
 		}
 	}
 
@@ -153,7 +157,7 @@ class Validator
 	private function _max($field, $max)
 	{
 		if (!array_key_exists($field, $this->_errors) && strlen($this->_model->$field) > $max) {
-			$this->_errors[$field] = "max";
+			$this->_addError($field, "max");
 		}
 	}
 
@@ -171,7 +175,7 @@ class Validator
 			&& $this->_model->$field
 			&& !preg_match("/^[0-9a-z-]+$/i", $this->_model->$field)
 		) {
-			$this->_errors[$field] = "url";
+			$this->_addError($field, "url");
 		}
 	}
 

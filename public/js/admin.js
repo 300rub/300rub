@@ -1,36 +1,44 @@
-function setPanelHeight() {
-	$(".panel .container").css("max-height", parseInt($(document).height()) - 240);
-}
+!function ($, c) {
+	"use strict";
 
-function setPanelButtons() {
-	$panelButtons.find("a").on("click", function () {
-		var panel = new Panel({
-			name: $(this).data("name"),
-			content: $(this).data("content")
-		});
-		panel.close();
-		panel.init();
-		$(this).addClass("panel-button-active");
-
-		return false;
-	});
-}
-
-$(document).ready(function () {
-
-	setPanelHeight();
-	$(window).resize(function () {
-		setPanelHeight();
-	});
-
-	$.fn.removeClassByMask = function(mask) {
-		return this.removeClass(function(index, cls) {
-			var re = mask.replace(/\*/g, '\\S+');
-			return (cls.match(new RegExp('\\b' + re + '', 'g')) || []).join(' ');
-		});
+	c.Admin = function () {
+		this.init();
 	};
 
-	$panelButtons = $("#panel-buttons");
+	c.Admin.prototype = {
+		init: function () {
+			$("#logout-button").on("click", $.proxy(this._onLogoutButtonClick, this));
+		},
 
-	setPanelButtons();
-});
+		_onLogoutButtonClick: function () {
+			$.ajaxJson(
+				"user.logout",
+				{},
+				$.proxy(this._onLogoutBefore, this),
+				$.proxy(this._onLogoutSuccess, this),
+				$.proxy(this._onError, this)
+			);
+			return false;
+		},
+
+		_onLogoutBefore: function() {
+
+		},
+
+		_onLogoutSuccess: function() {
+			location.reload();
+		},
+
+		_onError: function() {
+
+		}
+	};
+
+	$.admin = function() {
+		return new c.Admin();
+	};
+
+	$(document).ready(function() {
+		$.admin();
+	});
+}(window.jQuery, window.Core);

@@ -63,7 +63,7 @@ $(document).ready(function () {
 			this._setTemplates();
 			this._setAjaxWrapper();
 			this._setLanguage(LANG);
-			$("#login-button").on("click", this.onLoginButtonClick);
+			$("#login-button").on("click", this._onLoginButtonClick);
 		},
 
 		_setTemplates: function () {
@@ -78,7 +78,7 @@ $(document).ready(function () {
 			c.language = lang;
 		},
 
-		onLoginButtonClick: function () {
+		_onLoginButtonClick: function () {
 			$.window("user.window", "login");
 			return false;
 		}

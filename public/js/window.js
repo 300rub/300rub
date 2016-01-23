@@ -66,14 +66,21 @@
 		},
 
 		onSendBefore: function () {
-			if ($.validator(this.$window.find(".j-window-form")) === false) {
+			if ($.validator(this.$window.find(".j-window-form")).validate() === false) {
 				return false;
 			}
 		},
 
 		onSendSuccess: function (data) {
+			if (!$.isEmptyObject(data.errors)) {
+				console.log(data.errors);
+				$.validator(this.$window.find(".j-window-form")).showErrors(data.errors);
+				return false;
+			}
 
-		},
+			this.close();
+			location.reload();
+		}
 	};
 
 	$.window = function (action, handler) {

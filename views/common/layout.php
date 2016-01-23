@@ -52,6 +52,7 @@ use system\App;
 		<script src="/js/lib/gridstack.min.js"></script>
 		<script src="/js/lib/jquery.colorpicker.js"></script>
 		<script src="/js/lib/tinymce/tinymce.jquery.min.js"></script>
+		<script src="/js/admin.js"></script>
 	<?php } ?>
 </head>
 <body>
@@ -92,7 +93,7 @@ use system\App;
 			data-content="blocks/panelList"
 			><span><?= Language::t("common", "Оплата") ?></span></a>
 	</div>
-	<a href="#" id="logout-button"></a>
+	<a href="#" id="logout-button">Logout</a>
 <?php } ?>
 
 <div id="ajax-wrapper"></div>

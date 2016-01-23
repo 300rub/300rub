@@ -3,14 +3,13 @@
 
 	c.Validator = function (form) {
 		this.$form = form;
-		this.validate();
 	};
 
 	c.Validator.prototype = {
-		errors: {},
+		_errors: {},
 
 		validate: function() {
-			this.errors = {};
+			this._errors = {};
 
 			var $field, split;
 			this.$form.find(".j-validate").each($.proxy(function (i, field) {
@@ -25,13 +24,7 @@
 				}, this));
 			}, this));
 
-			this.hideErrors();
-			if (!$.isEmptyObject(this.errors)) {
-				this.showErrors();
-				return false;
-			}
-
-			return true;
+			return this.showErrors(this._errors);
 		},
 
 		required: function ($field) {
@@ -47,19 +40,23 @@
 		},
 
 		addError: function (key, value) {
-			if (this.errors[key] === undefined) {
-				this.errors[key] = value;
+			if (this._errors[key] === undefined) {
+				this._errors[key] = value;
 			}
 		},
 
-		hideErrors: function() {
+		showErrors: function (errors) {
 			this.$form.find("div.j-error").remove();
-		},
 
-		showErrors: function () {
-			$.each(this.errors, $.proxy(function (name, error) {
+			if ($.isEmptyObject(errors)) {
+				return true;
+			}
+			
+			$.each(errors, $.proxy(function (name, error) {
 				this.$form.find(name.nameToClass()).after(c.$templates.find(".j-error-" + error).clone());
 			}, this));
+			
+			return false;
 		}
 	};
 
