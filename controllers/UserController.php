@@ -74,6 +74,7 @@ class UserController extends Controller
 
         $this->json = [
             "errors" => $model->errors,
+            "reload" => true
         ];
     }
 

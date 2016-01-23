@@ -78,8 +78,11 @@
 				return false;
 			}
 
+			if (data.reload === true) {
+				location.reload();
+			}
+
 			this.close();
-			location.reload();
 		}
 	};
 
