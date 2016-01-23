@@ -2,7 +2,7 @@
 use system\web\Language;
 ?>
 <div class="l-window j-window">
-	<form>
+	<form class="j-window-form" method="post">
 		<a href="#" class="l-close j-close"></a>
 
 		<div class="l-header j-header"></div>

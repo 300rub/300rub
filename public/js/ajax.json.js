@@ -26,11 +26,10 @@
 	  * AjaxJson prototype
 	  */
 	c.AjaxJson.prototype = {
-
 		/**
 		 * Constructor
 		 *
-		 * @var {Object}
+		 * @var {window.Core.AjaxJson}
 		 */
 		constructor: c.AjaxJson,
 
@@ -87,7 +86,7 @@
 	};
 
 	/**
-	 * Adds JSON RPC to jquery
+	 * Adds AjaxJson to jquery
 	 *
 	 * @param {String}   [action]       Action
 	 * @param {Object}   [fields]       Data fields

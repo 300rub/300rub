@@ -22,9 +22,9 @@
 			$.ajaxJson(
 				this.action,
 				{},
-				this.onBeforeSend,
-				$.proxy(this.onSuccess, this),
-				this.onError
+				$.proxy(this.onLoadBefore, this),
+				$.proxy(this.onLoadSuccess, this),
+				$.proxy(this.onError, this)
 			);
 		},
 
@@ -35,22 +35,45 @@
 			return false;
 		},
 
-		onBeforeSend: function() {
+		onLoadBefore: function () {
 
 		},
 
-		onSuccess: function (data) {
+		onLoadSuccess: function (data) {
 			this.data = data;
 
 			this.$window.find(".j-header").text(data.title).css("display", "block");
 			this.$window.find(".j-footer").css("display", "block");
+			this.$window.find(".j-submit").on("click", $.proxy(this.submit, this));
 
 			this[this.handler]();
 		},
 
 		onError: function (jqXHR, textStatus, errorThrown) {
 			console.log(jqXHR);
-		}
+		},
+
+		submit: function () {
+			$.ajaxJson(
+				this.data.action,
+				this.$window.find(".j-window-form").serializeObject(),
+				$.proxy(this.onSendBefore, this),
+				$.proxy(this.onSendSuccess, this),
+				$.proxy(this.onError, this)
+			);
+
+			return false;
+		},
+
+		onSendBefore: function () {
+			if ($.validator(this.$window.find(".j-window-form")) === false) {
+				return false;
+			}
+		},
+
+		onSendSuccess: function (data) {
+
+		},
 	};
 
 	$.window = function (action, handler) {

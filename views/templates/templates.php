@@ -2,6 +2,7 @@
 
 use system\App;
 
+require("errors.php");
 require("window/window.php");
 require("window/window.login.php");
 

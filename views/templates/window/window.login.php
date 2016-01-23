@@ -7,10 +7,10 @@ $uniqueId = uniqid();
 <div class="j-window-login-container">
 	<div>
 		<label><?= Language::t("common", "Login") ?></label>
-		<input type="text"/>
+		<input class="j-t__login j-validate" type="text"/>
 	</div>
 	<div>
 		<label><?= Language::t("common", "Password") ?></label>
-		<input type="password"/>
+		<input class="j-t__password j-validate" type="password"/>
 	</div>
 </div>

@@ -183,15 +183,18 @@ class Validator
 	public static function getErrorMessages()
 	{
 		return [
-			"required"        => Language::t("default", "Поле должно быть заполнено"),
-			"max"             => Language::t("default", "Поле слишком длинное"),
-			"url"             => Language::t("default", "Поле должно состоять из латинских символов, чисел и тире"),
-			"system"          => Language::t(
-				"common",
-				"Случилось страшное, но мы уже знаем об этом. Проблема уже находится на стадии решения.
-					Приносим свои извинения. Попробуйте данную операцию чуть позже."
+			"required"           => Language::t("default", "Поле должно быть заполнено"),
+			"max"                => Language::t("default", "Поле слишком длинное"),
+			"url"                => Language::t(
+					"default",
+					"Поле должно состоять из латинских символов, чисел и тире"
 			),
-			"login-not-exist" => Language::t("default", "Пользователя с таким логином не существует"),
+			"system"             => Language::t(
+					"common",
+					"Случилось страшное, но мы уже знаем об этом. Проблема уже находится на стадии решения.
+				Приносим свои извинения. Попробуйте данную операцию чуть позже."
+			),
+			"login-not-exist"    => Language::t("default", "Пользователя с таким логином не существует"),
 			"password-incorrect" => Language::t("default", "Некорректный пароль"),
 		];
 	}

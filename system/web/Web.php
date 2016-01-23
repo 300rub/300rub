@@ -192,12 +192,8 @@ class Web extends Application
 //		}
 
 		Language::setIdByAlias($input->language);
-
-		if (empty($input->fields)) {
-			$controller->$methodName();
-		} else {
-			$controller->$methodName($input->fields);
-		}
+		$controller->data = (array)$input->fields;
+		$controller->$methodName();
 
 		$this->_time = number_format(microtime(true) - $this->_startTime, 3);
 
