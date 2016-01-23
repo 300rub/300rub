@@ -8,6 +8,12 @@
 	c.Admin.prototype = {
 		init: function () {
 			$("#logout-button").on("click", $.proxy(this._onLogoutButtonClick, this));
+			$("#panel-buttons").find("a").on("click", this._onPanelButtonClick);
+		},
+
+		_onPanelButtonClick: function () {
+			$.panel($(this).data("action"), $(this).data("handler"));
+			return false;
 		},
 
 		_onLogoutButtonClick: function () {

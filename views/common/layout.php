@@ -25,6 +25,7 @@ use system\App;
 	<link rel="stylesheet/less" type="text/css" href="/css/less.less" />
 
 	<?php if (App::web()->user !== null) { ?>
+		<link rel="stylesheet/less" type="text/css" href="/css/admin.less" />
 		<link href='/css/lib/gridstack.min.css' rel='stylesheet' type='text/css'>
 		<link href='/css/lib/colorpicker/jquery.colorpicker.css' rel='stylesheet' type='text/css'>
 	<?php } ?>
@@ -53,6 +54,7 @@ use system\App;
 		<script src="/js/lib/jquery.colorpicker.js"></script>
 		<script src="/js/lib/tinymce/tinymce.jquery.min.js"></script>
 		<script src="/js/admin.js"></script>
+		<script src="/js/panel.js"></script>
 	<?php } ?>
 </head>
 <body>
@@ -67,31 +69,15 @@ use system\App;
 	<div id="panel-buttons">
 		<a
 			href="#"
-			id="sections-button"
-			data-name="sections"
-			data-content="section/panelList"
+			data-action="section.panelList"
+			data-handler="section"
 			><span><?= Language::t("common", "Разделы") ?></span></a>
 
 		<a
 			href="#"
-			id="blocks-button"
-			data-name="blocks"
-			data-content="block/panelList"
+			data-action="block.panelList"
+			data-handler="block"
 			><span><?= Language::t("common", "Блоки") ?></span></a>
-
-		<a
-			href="#"
-			id="settings-button"
-			data-name="settings"
-			data-content="blocks/panelList"
-			><span><?= Language::t("common", "Настройки") ?></span></a>
-
-		<a
-			href="#"
-			id="payment-button"
-			data-name="payment"
-			data-content="blocks/panelList"
-			><span><?= Language::t("common", "Оплата") ?></span></a>
 	</div>
 	<a href="#" id="logout-button">Logout</a>
 <?php } ?>
