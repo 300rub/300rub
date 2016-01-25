@@ -1,92 +1,105 @@
-/*
-function setWindowHeight() {
-	$(".window .container").css("max-height", parseInt($(document).height()) - 150);
-}
-
-$(document).ready(function () {
-
-	jQuery.fn.forceNumericOnly = function () {
-		return this.each(function () {
-			$(this).keydown(function (e) {
-				var key = e.charCode || e.keyCode || 0;
-				return (
-				key == 8 ||
-				key == 9 ||
-				key == 46 ||
-				(key >= 37 && key <= 40) ||
-				(key >= 48 && key <= 57) ||
-				(key >= 96 && key <= 105));
-			});
-		});
-	};
-
-	$wrapper = $("#wrapper");
-	$ajaxWrapper = $("#ajax-wrapper");
-	$templates = $("#templates");
-	$loader = $templates.find(".loader");
-	$forms = $("#forms");
-	$errors = $("#errors");
-
-	setWindowHeight();
-	$(window).resize(function () {
-		setWindowHeight();
-	});
-
-	$("#login-button").on("click", function () {
-		(new Window("user/form")).init();
-		return false;
-	});
-
-	$("#logout-button").on("click", function () {
-		$.ajax({
-			url: "/ajax/" + LANG + "/user/logout/",
-			success: function () {
-				window.location.replace("");
-			}
-		});
-
-		return false;
-	});
-
-});
-		*/
-
 !function ($, c) {
 	"use strict";
 
+	/**
+	 * Object for initialising main configuration
+	 *
+	 * @constructor
+     */
 	c.Handler = function () {
 		this.init();
 	};
 
+	/**
+	 * Handler's prototype
+	 *
+	 * @type {Object}
+     */
 	c.Handler.prototype = {
+		/**
+		 * Constructor
+		 *
+		 * @var {window.Core.Handler}
+		 */
+		constructor: c.AjaxJson,
+
+		/**
+		 * Initialisation
+		 */
 		init: function () {
-			this._setTemplates();
-			this._setAjaxWrapper();
-			this._setLanguage(LANG);
+			this
+				._setTemplates()
+				._setAjaxWrapper()
+				._setLanguage(LANG);
 			$("#login-button").on("click", this._onLoginButtonClick);
 		},
 
+		/**
+		 * Sets templates
+		 *
+		 * @returns {c.Handler}
+		 *
+		 * @private
+         */
 		_setTemplates: function () {
 			c.$templates = $('#templates');
+			return this;
 		},
 
+		/**
+		 * Sets ajax wrapper
+		 *
+		 * @returns {c.Handler}
+		 *
+		 * @private
+         */
 		_setAjaxWrapper: function () {
 			c.$ajaxWrapper = $('#ajax-wrapper');
+			return this;
 		},
 
+		/**
+		 * Sets language
+		 *
+		 * @param {String} [lang] Language alias
+		 *
+		 * @returns {c.Handler}
+		 *
+		 * @private
+         */
 		_setLanguage: function (lang) {
 			c.language = lang;
+			return this;
 		},
 
+		/**
+		 * Login button click event
+		 *
+		 * @returns {Boolean}
+		 *
+         * @private
+         */
 		_onLoginButtonClick: function () {
 			$.window("user.window", "login");
 			return false;
 		}
 	};
 
+	/**
+	 * Adds Handler to jquery
+	 *
+	 * @returns {Window.Core.Handler}
+     */
 	$.handler = function() {
 		return new c.Handler();
 	};
+
+	/**
+	 * AjaxJson constructor
+	 *
+	 * @constructor
+	 */
+	$.handler.Constructor = c.Handler;
 
 	$(document).ready(function() {
 		$.handler();
