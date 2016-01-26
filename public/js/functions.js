@@ -1,5 +1,10 @@
 !function ($) {
 
+	/**
+	 * Gets data from form
+	 *
+	 * @returns {Object}
+     */
 	$.fn.serializeObject = function() {
 		var o = {};
 		var a = this.serializeArray();
@@ -9,6 +14,13 @@
 		return o;
 	};
 
+	/**
+	 * Converts name to class
+	 *
+	 * @param {Boolean} [withoutDot] Without dot
+	 *
+	 * @returns {String}
+     */
 	String.prototype.nameToClass = function(withoutDot) {
 		var prefix = ".";
 		if (withoutDot === true) {

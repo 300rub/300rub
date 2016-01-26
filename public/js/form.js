@@ -4,8 +4,8 @@
 	/**
 	 * Object for working with forms
 	 *
-	 * @param {Object} fields            Form fields
-	 * @param {String} containerSelector Container's selector
+	 * @param {Object} [fields]            Form fields
+	 * @param {String} [containerSelector] Container's selector
 	 *
 	 * @constructor
 	 */
@@ -16,7 +16,7 @@
 	};
 
 	/**
-	  * Form prototype
+	  * Form's prototype
 	  */
 	c.Form.prototype = {
 		/**
@@ -40,15 +40,22 @@
 			this.container = c.$ajaxWrapper.find(this.containerSelector);
 
 			$.each(this.fields, $.proxy(function(i, params) {
-				if (undefined !== this[params.type]) {
-					this[params.type](params);
+				if (undefined !== this["_" + params.type]) {
+					this["_" + params.type](params);
 				} else {
-					this.field(params);
+					this._field(params);
 				}
 			}, this));
 		},
 
-		field: function (params) {
+		/**
+		 * Sets field
+		 *
+		 * @param {Object} [params] Field's params
+		 *
+         * @private
+         */
+		_field: function (params) {
 			var $object = this.container.find(params.name.nameToClass());
 			$object
 				.attr("name", params.name)
@@ -56,7 +63,14 @@
 				.val(params.value);
 		},
 
-		checkbox: function (params) {
+		/**
+		 * Sets checkbox
+		 *
+		 * @param {Object} [params] Field's params
+		 *
+		 * @private
+		 */
+		_checkbox: function (params) {
 
 		}
 	};
@@ -64,8 +78,8 @@
 	/**
 	 * Adds Form to jquery
 	 *
-	 * @param {Object} fields            Form fields
-	 * @param {String} containerSelector Container's selector
+	 * @param {Object} [fields]            Form fields
+	 * @param {String} [containerSelector] Container's selector
  	 *
 	 * @returns {Window.Core.Form}
 	 */
