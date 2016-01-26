@@ -6,6 +6,7 @@
 	 *
 	 * @param {String} [action]  controller.action
 	 * @param {String} [handler] Panel handler
+	 *
 	 * @constructor
      */
 	c.Panel = function (action, handler) {
@@ -15,7 +16,7 @@
 	};
 
 	/**
-	  * AjaxJson prototype
+	  * Panel prototype
 	  */
 	c.Panel.prototype = {
 		/**
@@ -96,11 +97,13 @@
 		 * @param {jqXHR}  [jqXHR]       jQuery XMLHttpRequest
 		 * @param {String} [textStatus]  Text status
 		 * @param {String} [errorThrown] Error thrown
-		 * 
+		 *
          * @private
          */
 		_onError: function (jqXHR, textStatus, errorThrown) {
 			console.log(jqXHR);
+			console.log(textStatus);
+			console.log(errorThrown);
 		}
 	};
 
