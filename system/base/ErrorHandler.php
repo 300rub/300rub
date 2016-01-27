@@ -93,6 +93,8 @@ class ErrorHandler
 				$message = $exception->getMessage();
 			}
 
+			Logger::log("Message: {$message}. Trace: {$trace}", Logger::LEVEL_ERROR, "exception.{$statusCode}");
+
 			$controller = new CommonController();
 			$controller->actionError($message, $statusCode, $trace);
 		}
