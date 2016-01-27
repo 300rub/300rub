@@ -26,6 +26,20 @@ class UserController extends Controller
     }
 
     /**
+     * Gets guest actions
+     *
+     * @return string[]
+     */
+    protected function getGuestActions()
+    {
+        return [
+            "actionWindow",
+            "actionLogin",
+            "actionLogout"
+        ];
+    }
+
+    /**
      * Window. Login forms
      */
     public function actionWindow()

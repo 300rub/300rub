@@ -28,6 +28,19 @@ class CommonController extends Controller
     }
 
     /**
+     * Gets guest actions
+     *
+     * @return string[]
+     */
+    protected function getGuestActions()
+    {
+        return [
+            "actionStructure",
+            "actionError"
+        ];
+    }
+
+    /**
      * Displays all page structure
      *
      * @param string $section Section's name

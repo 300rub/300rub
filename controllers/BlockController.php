@@ -24,6 +24,16 @@ class BlockController extends Controller
     }
 
     /**
+     * Gets guest actions
+     *
+     * @return string[]
+     */
+    protected function getGuestActions()
+    {
+        return [];
+    }
+
+    /**
      * Panel. List of block types
      */
     public function actionPanelList()

@@ -27,6 +27,16 @@ class TextController extends Controller
     }
 
     /**
+     * Gets guest actions
+     *
+     * @return string[]
+     */
+    protected function getGuestActions()
+    {
+        return [];
+    }
+
+    /**
      * Content
      */
     public function actionContent()

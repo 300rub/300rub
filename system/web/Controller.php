@@ -2,6 +2,7 @@
 
 namespace system\web;
 
+use system\App;
 use system\base\Exception;
 use system\base\Model;
 
@@ -47,6 +48,36 @@ abstract class Controller
 	 * @return string
 	 */
 	abstract protected function getModelName();
+
+	/**
+	 * Gets guest actions
+	 *
+	 * @return string[]
+	 */
+	abstract protected function getGuestActions();
+
+	/**
+	 * Checks access for action
+	 *
+	 * @param string $action Action name
+	 *
+	 * @return bool
+	 */
+	public function hasAccess($action)
+	{
+		if (App::web()->user !== null) {
+			return true;
+		}
+
+		if (
+			App::web()->user === null
+			&& in_array($action, $this->getGuestActions())
+		) {
+			return true;
+		}
+
+		return false;
+	}
 
 	/**
 	 * Display content with layout
