@@ -64,7 +64,8 @@ class Logger
 		$text = date("Y-m-d H:i:s", time()) . " [{$level}] [{$category}] " . $msg . "\n\n";
 
 		$logFile = __DIR__ . "/../../logs/{$fileName}.log";
-		$fp = @fopen($logFile, 'a');
+		$fp = @fopen($logFile, 'w');
+		chmod($logFile, 0777);
 		@flock($fp, LOCK_EX);
 		@fwrite($fp, $text);
 		@flock($fp, LOCK_UN);

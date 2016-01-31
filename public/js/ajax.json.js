@@ -51,10 +51,24 @@
 				type: "POST",
 				beforeSend: this.onBeforeSend,
 				success: this.onSuccess,
-				error: this.onError
+				error: $.proxy(this._onError, this)
 			});
 
 			return this;
+		},
+
+		/**
+		 * AJAX error callback function
+		 *
+		 * @param {jqXHR}  [jqXHR]       jQuery XMLHttpRequest
+		 * @param {String} [textStatus]  Text status
+		 * @param {String} [errorThrown] Error thrown
+		 *
+		 * @private
+		 */
+		_onError: function (jqXHR, textStatus, errorThrown) {
+			alert(jqXHR.responseJSON.message);
+			this.onError(jqXHR, textStatus, errorThrown);;
 		},
 
 		/**

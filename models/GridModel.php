@@ -426,7 +426,7 @@ class GridModel extends Model
 			self::TYPE_TEXT => [
 				"name"     => Language::t("common", "Текст"),
 				"model"    => "TextModel",
-				"file"     => "text",
+				"view"     => "text",
 				"selector" => "j-text-",
 				"with"     => ["designTextModel"]
 			]
@@ -451,7 +451,7 @@ class GridModel extends Model
 		/**
 		 * @var Model $model
 		 */
-		$modelName = '\\models\\' . $typeList[$this->content_type]["name"];
+		$modelName = '\\models\\' . $typeList[$this->content_type]["model"];
 		$model = new $modelName;
 		$model = $model->byId($this->content_id)->withAll()->find();
 
@@ -477,7 +477,7 @@ class GridModel extends Model
 			throw new Exception(Language::t("default", "Модель не найдена"), 404);
 		}
 
-		return 'content.' . $typeList[$this->content_type]["file"];
+		return 'content.' . $typeList[$this->content_type]["view"];
 	}
 
 	/**

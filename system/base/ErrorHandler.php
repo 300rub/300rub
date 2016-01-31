@@ -93,8 +93,6 @@ class ErrorHandler
 				$message = $exception->getMessage();
 			}
 
-			Logger::log("Message: {$message}. Trace: {$trace}", Logger::LEVEL_ERROR, "exception.{$statusCode}");
-
 			$controller = new CommonController();
 			$controller->actionError($message, $statusCode, $trace);
 		}
@@ -138,10 +136,11 @@ class ErrorHandler
 				}
 				$message .= "{$t['function']}()\n";
 			}
+
+			Logger::log($message, Logger::LEVEL_ERROR, 'php');
+
 			if (isset($_SERVER['REQUEST_URI'])) {
 				$message .= 'REQUEST_URI=' . $_SERVER['REQUEST_URI'];
-
-				Logger::log($message, Logger::LEVEL_ERROR, 'php');
 
 				$controller = new CommonController();
 				$controller->actionError($message);
