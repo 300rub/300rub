@@ -183,8 +183,8 @@ class Web extends Application
 			throw new Exception(Language::t("common", $className . $methodName), 404);
 		}
 
-		if ($controller->hasAccess($methodName)) {
-			throw new Exception(Language::t("common", "111"), 404);
+		if (!$controller->hasAccess($methodName)) {
+			throw new Exception(Language::t("common", $methodName), 403);
 		}
 
 		Language::setIdByAlias($input->language);
