@@ -8,29 +8,46 @@
 	width: 330px;
 	overflow: hidden;
 
+	.l-close {
+		position: absolute;
+		right: 0;
+		top: 0;
+		width: 20px;
+		height: 20px;
+		background: black;
+		z-index: 1;
+	}
+
 	.l-header {
 		position: relative;
 		min-height: 20px;
-
-		.l-close {
-			position: absolute;
-			right: 0;
-			top: 0;
-			width: 20px;
-			height: 20px;
-			background: black;
-		}
+		border-bottom: 1px solid black;
+		display: none;
 
 		.l-back {
-			position: absolute;
-			left: 0;
-			top: 0;
 			width: 20px;
 			height: 20px;
+			display: none;
 		}
 
 		.l-title {
-			padding: 0 30px;
+			padding-right: 30px;
+			display: inline-block;
 		}
+
+		.l-description {
+
+		}
+	}
+
+	.l-container {
+		min-height: 20px;
+		overflow: auto;
+	}
+
+	.l-footer {
+		border-top: 1px solid black;
+		height: 40px;
+		display: none;
 	}
 }

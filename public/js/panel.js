@@ -89,6 +89,8 @@
 
 			this.$panel.find(".j-title").text(data.title);
 			this.$panel.find(".j-description").text(data.description);
+			this.$panel.find(".j-header").css("display", "block");
+			this.$panel.find(".j-footer").css("display", "block");
 		},
 
 		/**
