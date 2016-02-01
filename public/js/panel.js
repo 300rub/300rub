@@ -120,6 +120,10 @@
 				this._setList();
 			}
 
+			if (this.data.duplicate != undefined) {
+				this._setDuplicate();
+			}
+
 			return this;
 		},
 
@@ -164,6 +168,27 @@
 			}, this));
 
 			return this;
+		},
+
+		_setDuplicate: function() {
+			this.$panel.find(".duplicate")
+				.css("display", "block")
+				.attr("data-action", this.data.duplicate.action)
+				.attr("data-content", this.data.duplicate.content)
+				.on("click", this._onDuplicate);
+		},
+
+		_onDuplicate: function() {
+			var action = $(this).data("action");
+			var content = $(this).data("content");
+
+			$.ajaxJson(
+				action,
+				{},
+				$.proxy(this._onLoadBefore, this),
+				$.proxy(this._onLoadSuccess, this),
+				$.proxy(this._onError, this)
+			);
 		}
 	};
 
