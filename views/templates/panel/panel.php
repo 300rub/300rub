@@ -9,7 +9,11 @@ use system\web\Language;
 		<div class="j-title l-title"></div>
 		<div class="j-description l-description"></div>
 		<a href="#" class="j-duplicate l-hide"><?= Language::t("common", "Duplicate") ?></a>
-		<a href="#" class="j-delete l-hide"><?= Language::t("common", "Delete") ?></a>
+		<a
+			href="#"
+			class="j-delete l-hide"
+			data-confirm="<?= Language::t("common", "Вы действительно хотите удалить раздел?") ?>"
+		><?= Language::t("common", "Delete") ?></a>
 	</div>
 	<form class="j-panel-form" action="" method="post">
 		<div class="j-container l-container"></div>

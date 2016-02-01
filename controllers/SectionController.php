@@ -90,7 +90,6 @@ class SectionController extends Controller
             ];
             $this->json["delete"] = [
                 "action"  => "section.delete",
-                "confirm" => Language::t("common", "Вы действительно хотите удалить раздел?"),
                 "content" => "section.panelList",
             ];
         }

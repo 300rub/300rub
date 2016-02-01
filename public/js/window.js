@@ -16,7 +16,7 @@
 
 		this.id = 0;
 		if (id !== undefined) {
-			this.id = id;
+			this.id = parseInt(id);
 		}
 
 		this.init();

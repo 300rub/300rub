@@ -16,7 +16,7 @@
 
 		this.id = 0;
 		if (id !== undefined) {
-			this.id = id;
+			this.id = parseInt(id);
 		}
 
 		this.init();
@@ -51,6 +51,8 @@
 		 * Initialization
 		 */
 		init: function () {
+			$ajaxWrapper.find(".j-panel").remove();
+
 			this.$panel = c.$templates.find(".j-panel").clone().appendTo(c.$ajaxWrapper);
 			this.$panel.find(".j-close").on("click", $.proxy(this._close, this));
 
@@ -101,7 +103,17 @@
 			this.$panel.find(".j-header").css("display", "block");
 			this.$panel.find(".j-footer").css("display", "block");
 
-			this._setContent();
+			if (this.data.list != undefined) {
+				this._setList();
+			}
+
+			if (this.data.duplicate != undefined) {
+				this._setDuplicate();
+			}
+
+			if (this.data.delete != undefined) {
+				this._setDelete();
+			}
 		},
 
 		/**
@@ -115,25 +127,6 @@
 		 */
 		_onError: function (jqXHR, textStatus, errorThrown) {
 
-		},
-
-		/**
-		 * Sets content
-		 *
-		 * @returns {c.Panel}
-		 *
-         * @private
-         */
-		_setContent: function() {
-			if (this.data.list != undefined) {
-				this._setList();
-			}
-
-			if (this.data.duplicate != undefined) {
-				this._setDuplicate();
-			}
-
-			return this;
 		},
 
 		/**
@@ -182,15 +175,23 @@
 		/**
 		 * Sets duplicate
 		 *
-		 * @private
+		 * @returns {c.Panel}
+		 *
+         * @private
          */
 		_setDuplicate: function() {
-			this.$panel.find(".duplicate")
+			if (this.id === 0) {
+				return this;
+			}
+
+			this.$panel.find(".j-duplicate")
 				.css("display", "block")
 				.attr("data-action", this.data.duplicate.action)
 				.attr("data-content", this.data.duplicate.content)
 				.attr("data-id", this.data.id)
-				.on("click", $.proxy(this._onDuplicate));
+				.on("click", $.proxy(this._onDuplicate, this));
+
+			return this;
 		},
 
 		/**
@@ -199,7 +200,7 @@
 		 * @private
          */
 		_onDuplicate: function() {
-			var $duplicate = this.$panel.find(".duplicate");
+			var $duplicate = this.$panel.find(".j-duplicate");
 
 			$.ajaxJson(
 				$duplicate.data("action"),
@@ -210,10 +211,12 @@
 				$.proxy(this._onDuplicateSuccess, this),
 				$.proxy(this._onError, this)
 			);
+
+			return false;
 		},
 
 		/**
-		 * Load AJAX before callback function
+		 * Duplicate AJAX before callback function
 		 *
 		 * @private
 		 */
@@ -229,10 +232,83 @@
 		 * @private
 		 */
 		_onDuplicateSuccess: function (data) {
-			var $duplicate = this.$panel.find(".duplicate");
+			var $duplicate = this.$panel.find(".j-duplicate");
 
 			if (parseInt(data.id) !== 0) {
 				$.panel($duplicate.data("content"), this.handler, data.id);
+			} else {
+				// error
+			}
+		},
+
+		/**
+		 * Sets delete
+		 *
+		 * @returns {c.Panel}
+		 *
+		 * @private
+		 */
+		_setDelete: function() {
+			if (this.id === 0) {
+				return this;
+			}
+
+			this.$panel.find(".j-delete")
+				.css("display", "block")
+				.attr("data-action", this.data.delete.action)
+				.attr("data-content", this.data.delete.content)
+				.attr("data-id", this.data.id)
+				.on("click", $.proxy(this._onDelete, this));
+
+			return this;
+		},
+
+		/**
+		 * Delete click event
+		 *
+		 * @private
+		 */
+		_onDelete: function() {
+			var $delete = this.$panel.find(".j-delete");
+
+			if (confirm($delete.data("confirm")) !== true) {
+				return false;
+			}
+
+			$.ajaxJson(
+				$delete.data("action"),
+				{
+					id: $delete.data("id")
+				},
+				$.proxy(this._onDeleteBefore, this),
+				$.proxy(this._onDeleteSuccess, this),
+				$.proxy(this._onError, this)
+			);
+
+			return false;
+		},
+
+		/**
+		 * Delete AJAX before callback function
+		 *
+		 * @private
+		 */
+		_onDeleteBefore: function () {
+
+		},
+
+		/**
+		 * Delete AJAX success callback function
+		 *
+		 * @param {Object} [data] Data from server
+		 *
+		 * @private
+		 */
+		_onDeleteSuccess: function (data) {
+			var $delete = this.$panel.find(".j-delete");
+
+			if (parseInt(data.result) === true) {
+				$.panel($delete.data("content"), this.handler);
 			} else {
 				// error
 			}
