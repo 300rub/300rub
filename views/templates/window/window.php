@@ -5,9 +5,9 @@ use system\web\Language;
 	<form class="j-window-form" method="post">
 		<a href="#" class="l-close j-close"></a>
 
-		<div class="l-header j-header"></div>
+		<div class="l-header j-header l-hide"></div>
 		<div class="l-container j-container"></div>
-		<div class="l-footer j-footer">
+		<div class="l-footer j-footer l-hide">
 			<button class="j-submit"><span><?= Language::t("common", "Save") ?></span></button>
 		</div>
 	</form>

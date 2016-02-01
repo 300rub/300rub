@@ -87,10 +87,12 @@
 		_onLoadSuccess: function (data) {
 			this.data = data;
 
-			this.$panel.find(".j-title").text(data.title);
-			this.$panel.find(".j-description").text(data.description);
+			this.$panel.find(".j-title").text(this.data.title);
+			this.$panel.find(".j-description").text(this.data.description);
 			this.$panel.find(".j-header").css("display", "block");
 			this.$panel.find(".j-footer").css("display", "block");
+
+			this._setContent();
 		},
 
 		/**
@@ -100,12 +102,68 @@
 		 * @param {String} [textStatus]  Text status
 		 * @param {String} [errorThrown] Error thrown
 		 *
+		 * @private
+		 */
+		_onError: function (jqXHR, textStatus, errorThrown) {
+
+		},
+
+		/**
+		 * Sets content
+		 *
+		 * @returns {c.Panel}
+		 *
          * @private
          */
-		_onError: function (jqXHR, textStatus, errorThrown) {
-			console.log(jqXHR);
-			console.log(textStatus);
-			console.log(errorThrown);
+		_setContent: function() {
+			if (this.data.list != undefined) {
+				this._setList();
+			}
+
+			return this;
+		},
+
+		/**
+		 * Sets list
+		 *
+		 * @returns {c.Panel}
+		 *
+         * @private
+         */
+		_setList: function() {
+			var $itemTemplate, $clone;
+
+			$itemTemplate = $templates.find(".j-panel-item").clone();
+
+			if (this.data.design !== undefined) {
+				$itemTemplate.find(".j-design").css("display", "block");
+				this.$panel.attr("data-design", this.data.design);
+			}
+
+			if (this.data.settings !== undefined) {
+				$itemTemplate.find(".j-settings").css("display", "block");
+				this.$panel.attr("data-settings", this.data.settings);
+			}
+
+			if (this.data.content !== undefined) {
+				this.$panel.attr("data-content", this.data.content);
+			}
+
+			$.each(data.list.items, $.proxy(function (i, item) {
+				$clone = $itemTemplate.clone();
+
+				if (item.icon !== undefined) {
+					$clone.find(".j-icon").css("display", "block").addClass("l-icon-" + item.icon);
+				} else if (this.data.icon !== undefined) {
+					$clone.find(".j-icon").css("display", "block").addClass("l-icon-" + this.data.icon);
+				}
+
+				$clone.attr("data-id", item.id);
+				$clone.find(".j-label").text(item.label);
+				$clone.appendTo(this.$panel.find(".j-container"));
+			}, this));
+
+			return this;
 		}
 	};
 
