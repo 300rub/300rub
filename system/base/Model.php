@@ -429,11 +429,11 @@ abstract class Model
 	/**
 	 * Duplicates model
 	 *
-	 * @return bool
+	 * @return int
 	 */
 	public function duplicate()
 	{
-		return true;
+		return 0;
 	}
 
 	/**

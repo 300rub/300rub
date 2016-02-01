@@ -4,14 +4,21 @@
 	/**
 	 * Object for working with Panel
 	 *
-	 * @param {String} [action]  controller.action
-	 * @param {String} [handler] Panel handler
+	 * @param {String}  [action]  controller.action
+	 * @param {String}  [handler] Panel handler
+	 * @param {Integer} [id]      ID
 	 *
 	 * @constructor
      */
-	c.Panel = function (action, handler) {
+	c.Panel = function (action, handler, id) {
 		this.action = action;
 		this.handler = handler;
+
+		this.id = 0;
+		if (id !== undefined) {
+			this.id = id;
+		}
+
 		this.init();
 	};
 
@@ -49,7 +56,9 @@
 
 			$.ajaxJson(
 				this.action,
-				{},
+				{
+					id: this.id
+				},
 				$.proxy(this._onLoadBefore, this),
 				$.proxy(this._onLoadSuccess, this),
 				$.proxy(this._onError, this)
@@ -170,35 +179,77 @@
 			return this;
 		},
 
+		/**
+		 * Sets duplicate
+		 *
+		 * @private
+         */
 		_setDuplicate: function() {
 			this.$panel.find(".duplicate")
 				.css("display", "block")
 				.attr("data-action", this.data.duplicate.action)
 				.attr("data-content", this.data.duplicate.content)
-				.on("click", this._onDuplicate);
+				.attr("data-id", this.data.id)
+				.on("click", $.proxy(this._onDuplicate));
 		},
 
+		/**
+		 * Duplicate click event
+		 *
+		 * @private
+         */
 		_onDuplicate: function() {
-			var action = $(this).data("action");
-			var content = $(this).data("content");
+			var $duplicate = this.$panel.find(".duplicate");
 
 			$.ajaxJson(
-				action,
-				{},
-				$.proxy(this._onLoadBefore, this),
-				$.proxy(this._onLoadSuccess, this),
+				$duplicate.data("action"),
+				{
+					id: $duplicate.data("id")
+				},
+				$.proxy(this._onDuplicateBefore, this),
+				$.proxy(this._onDuplicateSuccess, this),
 				$.proxy(this._onError, this)
 			);
+		},
+
+		/**
+		 * Load AJAX before callback function
+		 *
+		 * @private
+		 */
+		_onDuplicateBefore: function () {
+
+		},
+
+		/**
+		 * Duplicate AJAX success callback function
+		 *
+		 * @param {Object} [data] Data from server
+		 *
+		 * @private
+		 */
+		_onDuplicateSuccess: function (data) {
+			var $duplicate = this.$panel.find(".duplicate");
+
+			if (parseInt(data.id) !== 0) {
+				$.panel($duplicate.data("content"), this.handler, data.id);
+			} else {
+				// error
+			}
 		}
 	};
 
 	/**
 	 * Adds Panel to jquery
 	 *
+	 * @param {String}  [action]  controller.action
+	 * @param {String}  [handler] Panel handler
+	 * @param {Integer} [id]      ID
+	 *
 	 * @returns {Window.Core.Panel}
-	 */
-	$.panel = function (action, handler) {
-		return new c.Panel(action, handler);
+     */
+	$.panel = function (action, handler, id) {
+		return new c.Panel(action, handler, id);
 	};
 
 	/**

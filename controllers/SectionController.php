@@ -86,12 +86,10 @@ class SectionController extends Controller
         if ($model->id) {
             $this->json["duplicate"] = [
                 "action"  => "section.duplicate",
-                "id"      => $model->id,
                 "content" => "section.settings",
             ];
             $this->json["delete"] = [
                 "action"  => "section.delete",
-                "id"      => $model->id,
                 "confirm" => Language::t("common", "Вы действительно хотите удалить раздел?"),
                 "content" => "section.panelList",
             ];

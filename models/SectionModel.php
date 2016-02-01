@@ -260,7 +260,7 @@ class SectionModel extends Model
 	 * Duplicates section
 	 * If success returns ID of new section
 	 *
-	 * @return bool|int
+	 * @return int
 	 */
 	public function duplicate()
 	{
@@ -269,14 +269,14 @@ class SectionModel extends Model
 		$seoId = $this->seoModel->duplicate(false);
 		if (!$seoId) {
 			Db::rollbackTransaction();
-			return false;
+			return 0;
 		}
 
 		$designBlockModel = clone $this->designBlockModel;
 		$designBlockModel->id = null;
 		if (!$designBlockModel->save(false)) {
 			Db::rollbackTransaction();
-			return false;
+			return 0;
 		}
 
 		$model = clone $this;
@@ -288,7 +288,7 @@ class SectionModel extends Model
 		$model->is_main = 0;
 		if (!$model->save(false)) {
 			Db::rollbackTransaction();
-			return false;
+			return 0;
 		}
 
 		$gridLines = GridLineModel::model()->bySectionId($this->id)->withAll()->findAll();
@@ -297,13 +297,13 @@ class SectionModel extends Model
 			$outsideDesignModel->id = null;
 			if (!$outsideDesignModel->save(false)) {
 				Db::rollbackTransaction();
-				return false;
+				return 0;
 			}
 			$insideDesignModel = clone $gridLine->insideDesignModel;
 			$insideDesignModel->id = null;
 			if (!$insideDesignModel->save(false)) {
 				Db::rollbackTransaction();
-				return false;
+				return 0;
 			}
 			$line = clone $gridLine;
 			$line->id = null;
@@ -314,7 +314,7 @@ class SectionModel extends Model
 			$line->inside_design_id = $insideDesignModel->id;
 			if (!$line->save(false)) {
 				Db::rollbackTransaction();
-				return false;
+				return 0;
 			}
 			$grids = GridModel::model()->byLineId($gridLine->id)->findAll();
 			foreach ($grids as $grid) {
@@ -323,7 +323,7 @@ class SectionModel extends Model
 				$newGrid->grid_line_id = $line->id;
 				if (!$newGrid->save(false)) {
 					Db::rollbackTransaction();
-					return false;
+					return 0;
 				}
 			}
 		}

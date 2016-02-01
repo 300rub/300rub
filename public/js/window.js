@@ -4,14 +4,21 @@
 	/**
 	 * Object for working with Window
 	 *
-	 * @param {String} [action]  controller.action
-	 * @param {String} [handler] Panel handler
+	 * @param {String}  [action]  controller.action
+	 * @param {String}  [handler] Panel handler
+	 * @param {Integer} [id]      ID
 	 *
 	 * @constructor
 	 */
-	c.Window = function (action, handler) {
+	c.Window = function (action, handler, id) {
 		this.action = action;
 		this.handler = handler;
+
+		this.id = 0;
+		if (id !== undefined) {
+			this.id = id;
+		}
+
 		this.init();
 	};
 
@@ -59,7 +66,9 @@
 
 			$.ajaxJson(
 				this.action,
-				{},
+				{
+					id: this.id
+				},
 				$.proxy(this._onLoadBefore, this),
 				$.proxy(this._onLoadSuccess, this),
 				$.proxy(this._onError, this)
@@ -176,10 +185,14 @@
 	/**
 	 * Adds Window to jquery
 	 *
+	 * @param {String}  [action]  controller.action
+	 * @param {String}  [handler] Window handler
+	 * @param {Integer} [id]      ID
+	 *
 	 * @returns {Window.Core.Window}
 	 */
-	$.window = function (action, handler) {
-		return new c.Window(action, handler);
+	$.window = function (action, handler, id) {
+		return new c.Window(action, handler, id);
 	};
 
 	/**
