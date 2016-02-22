@@ -4,16 +4,10 @@
 	/**
 	 * Panel blocks handler
 	 */
-	c.Panel.prototype.block = function() {
+	c.Panel.prototype.list = function() {
 		if (this.data.list != undefined) {
 			this._setList();
 		}
-
-
-		var $template = c.$templates.find(".j-window-login-container").clone();
-		$template.appendTo(this.$window.find(".j-container"));
-
-		$.form(this.data.forms, ".j-window-login-container");
 	};
 
 	/**
@@ -24,24 +18,22 @@
 	 * @private
 	 */
 	c.Panel.prototype._setList =  function() {
-		var $clone;
+		var $clone, designContent, designHandler, settingsContent, settingsHandler;
 		var $itemTemplate = $templates.find(".j-panel-item").clone();
-		var content = this.data.content;
-		var handler = this.data.handler;
+		var itemContent = this.data.item.content;
+		var itemHandler = this.data.item.handler;
 		var id = 0;
 
 		if (this.data.design !== undefined) {
 			$itemTemplate.find(".j-design").css("display", "block");
-			this.$panel.attr("data-design", this.data.design);
+			designContent = this.data.design.content;
+			designHandler = this.data.design.handler;
 		}
 
 		if (this.data.settings !== undefined) {
 			$itemTemplate.find(".j-settings").css("display", "block");
-			this.$panel.attr("data-settings", this.data.settings);
-		}
-
-		if (this.data.content !== undefined) {
-			this.$panel.attr("data-content", this.data.content);
+			settingsContent = this.data.design.content;
+			settingsHandler = this.data.design.handler;
 		}
 
 		$.each(this.data.list.items, $.proxy(function (i, item) {
@@ -56,15 +48,27 @@
 			$clone.find(".j-label").text(item.label);
 
 			if (item.content !== undefined) {
-				content = item.content;
+				itemContent = item.content;
 			}
 			if (item.handler !== undefined) {
-				handler = item.handler;
+				itemHandler = item.handler;
 			}
 			if (item.id !== undefined) {
 				id = item.id;
 			}
-			$clone.on("click", $.proxy(this._onItemClick(content, handler, id), this));
+			$clone.on("click", $.proxy(this._onItemClick(itemContent, itemHandler, id), this));
+
+			if (this.data.design !== undefined) {
+				$clone
+					.find(".j-design")
+					.on("click", $.proxy(this._onDesignClick(designContent, designHandler, id), this));
+			}
+
+			if (this.data.settings !== undefined) {
+				$clone
+					.find(".j-settings")
+					.on("click", $.proxy(this._onSettingsClick(settingsContent, settingsHandler, id), this));
+			}
 
 			$clone.appendTo(this.$panel.find(".j-container"));
 		}, this));
@@ -91,6 +95,34 @@
 			$.window(content, handler, id);
 		}
 
+		return false;
+	};
+
+	/**
+	 * Panel item design click event
+	 *
+	 * @var {String} [content] Content
+	 * @var {String} [handler] Handler
+	 * @var {int}    [id]      ID
+	 *
+	 * @private
+	 */
+	c.Panel.prototype._onDesignClick = function(content, handler, id) {
+		$.panel(content, handler, id);
+		return false;
+	};
+
+	/**
+	 * Panel item settings click event
+	 *
+	 * @var {String} [content] Content
+	 * @var {String} [handler] Handler
+	 * @var {int}    [id]      ID
+	 *
+	 * @private
+	 */
+	c.Panel.prototype._onSettingsClick = function(content, handler, id) {
+		$.panel(content, handler, id);
 		return false;
 	};
 }(window.jQuery, window.Core);

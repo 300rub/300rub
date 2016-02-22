@@ -59,13 +59,21 @@ class SectionController extends Controller
         $this->json = [
             "title"       => Language::t("section", "Sections"),
             "description" => Language::t("section", "Sections panel description"),
-            "list"        => $list,
-            "content"     => "section.window",
-            "design"      => "section.design",
-            "settings"    => "section.settings",
             "add"         => Language::t("common", "Add"),
             "icon"        => "section",
-            "handler"     => "sectionGrid"
+            "list"        => $list,
+            "item" => [
+                "content" => "section.window",
+                "handler" => "sectionGrid"
+            ],
+            "design" => [
+                "content" => "section.design",
+                "handler" => "sectionDesign"
+            ],
+            "settings" => [
+                "content" => "section.settings",
+                "handler" => "sectionSettings"
+            ]
         ];
     }
 

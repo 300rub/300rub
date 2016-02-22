@@ -76,7 +76,7 @@ use system\App;
 		<a
 			href="#"
 			data-action="block.panelList"
-			data-handler="block"
+			data-handler="list"
 			><span><?= Language::t("common", "Блоки") ?></span></a>
 	</div>
 	<a href="#" id="logout-button">Logout</a>
