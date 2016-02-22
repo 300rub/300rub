@@ -86,9 +86,6 @@
 	 * @private
 	 */
 	c.Panel.prototype._onItemClick = function(content, handler, id) {
-		/**
-		 * @var {bool} this.data.isParent
-		 */
 		if (this.data.isParent !== undefined) {
 			$.panel(content, handler, id);
 		} else {
