@@ -103,9 +103,7 @@
 			this.$panel.find(".j-header").css("display", "block");
 			this.$panel.find(".j-footer").css("display", "block");
 
-			if (this.data.list != undefined) {
-				this._setList();
-			}
+			this[this.handler]();
 
 			if (this.data.duplicate != undefined) {
 				this._setDuplicate();
@@ -127,49 +125,6 @@
 		 */
 		_onError: function (jqXHR, textStatus, errorThrown) {
 
-		},
-
-		/**
-		 * Sets list
-		 *
-		 * @returns {c.Panel}
-		 *
-         * @private
-         */
-		_setList: function() {
-			var $itemTemplate, $clone;
-
-			$itemTemplate = $templates.find(".j-panel-item").clone();
-
-			if (this.data.design !== undefined) {
-				$itemTemplate.find(".j-design").css("display", "block");
-				this.$panel.attr("data-design", this.data.design);
-			}
-
-			if (this.data.settings !== undefined) {
-				$itemTemplate.find(".j-settings").css("display", "block");
-				this.$panel.attr("data-settings", this.data.settings);
-			}
-
-			if (this.data.content !== undefined) {
-				this.$panel.attr("data-content", this.data.content);
-			}
-
-			$.each(data.list.items, $.proxy(function (i, item) {
-				$clone = $itemTemplate.clone();
-
-				if (item.icon !== undefined) {
-					$clone.find(".j-icon").css("display", "block").addClass("l-icon-" + item.icon);
-				} else if (this.data.icon !== undefined) {
-					$clone.find(".j-icon").css("display", "block").addClass("l-icon-" + this.data.icon);
-				}
-
-				$clone.attr("data-id", item.id);
-				$clone.find(".j-label").text(item.label);
-				$clone.appendTo(this.$panel.find(".j-container"));
-			}, this));
-
-			return this;
 		},
 
 		/**

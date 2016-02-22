@@ -60,11 +60,12 @@ class SectionController extends Controller
             "title"       => Language::t("section", "Sections"),
             "description" => Language::t("section", "Sections panel description"),
             "list"        => $list,
-            "content"     => "section.grid",
+            "content"     => "section.window",
             "design"      => "section.design",
             "settings"    => "section.settings",
             "add"         => Language::t("common", "Add"),
             "icon"        => "section",
+            "handler"     => "sectionGrid"
         ];
     }
 

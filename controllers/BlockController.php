@@ -50,6 +50,7 @@ class BlockController extends Controller
             "title"       => Language::t("common", "Блоки"),
             "description" => Language::t("common", "Выберите категорию блоков"),
             "list"        => $list,
+            "isParent"    => true
         ];
     }
 }
