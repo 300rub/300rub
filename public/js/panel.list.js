@@ -68,6 +68,13 @@
 				$clone
 					.find(".j-settings")
 					.on("click", $.proxy(this._onSettingsClick(settingsContent, settingsHandler, id), this));
+
+				if (this.data.add !== undefined) {
+					$clone
+						.find(".j-footer .j-add")
+						.text(this.data.add)
+						.on("click", $.proxy(this._onSettingsClick(settingsContent, settingsHandler), this));
+				}
 			}
 
 			$clone.appendTo(this.$panel.find(".j-container"));

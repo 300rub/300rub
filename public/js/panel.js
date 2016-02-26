@@ -267,6 +267,10 @@
 			} else {
 				// error
 			}
+		},
+
+		_setOnSubmit: function() {
+			this.$panel.find(".j-footer .j-submit")
 		}
 	};
 

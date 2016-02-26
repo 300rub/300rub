@@ -5,6 +5,7 @@ namespace controllers;
 use models\GridModel;
 use models\SectionModel;
 use system\web\Controller;
+use system\web\Json;
 use system\web\Language;
 
 /**
@@ -56,25 +57,21 @@ class SectionController extends Controller
             $list[] = $item;
         }
 
-        $this->json = [
-            "title"       => Language::t("section", "Sections"),
-            "description" => Language::t("section", "Sections panel description"),
-            "add"         => Language::t("common", "Add"),
-            "icon"        => "section",
-            "list"        => $list,
-            "item" => [
-                "content" => "section.window",
-                "handler" => "sectionGrid"
-            ],
-            "design" => [
-                "content" => "section.design",
-                "handler" => "sectionDesign"
-            ],
-            "settings" => [
-                "content" => "section.settings",
-                "handler" => "sectionSettings"
-            ]
-        ];
+        $this->json = (new Json())
+            ->setTitle(Language::t("section", "Sections"))
+            ->setDescription(Language::t("section", "Sections panel description"))
+            ->setPanelList(
+                $list,
+                "section",
+                "section.window",
+                "sectionGrid",
+                "section.design",
+                "sectionDesign",
+                "section.settings",
+                "sectionSettings",
+                Language::t("common", "Add")
+            )
+            ->getJson();
     }
 
     /**
@@ -88,8 +85,12 @@ class SectionController extends Controller
             "back"        => "section.panelList",
             "title"       => Language::t("common", "Настройки раздела"),
             "description" => Language::t("common", "Здесь вы можете редактировать название и СЕО"),
-            "action"      => "section.saveSettings",
-            "id"          => intval($model->id)
+            "id"          => intval($model->id),
+            "submit"      => [
+                "label" => Language::t("common", "Save"),
+                "content" => "section.panelList",
+                "action" => "section.saveSettings",
+            ]
         ];
 
         if ($model->id) {

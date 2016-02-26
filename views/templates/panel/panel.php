@@ -17,7 +17,9 @@ use system\web\Language;
 	</div>
 	<form class="j-panel-form" action="" method="post">
 		<div class="j-container l-container"></div>
-		<div class="j-footer l-footer l-hide"></div>
+		<div class="j-footer l-footer l-hide">
+			<a href="#" class="j-add l-hide"><?= Language::t("common", "Add") ?></a>
+		</div>
 	</form>
 </div>
 
