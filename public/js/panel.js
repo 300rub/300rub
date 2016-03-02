@@ -51,7 +51,7 @@
 		 * Initialization
 		 */
 		init: function () {
-			$ajaxWrapper.find(".j-panel").remove();
+			c.$ajaxWrapper.find(".j-panel").remove();
 
 			this.$panel = c.$templates.find(".j-panel").clone().appendTo(c.$ajaxWrapper);
 			this.$panel.find(".j-close").on("click", $.proxy(this._close, this));
@@ -98,20 +98,33 @@
 		_onLoadSuccess: function (data) {
 			this.data = data;
 
+			this._setBack();
 			this.$panel.find(".j-title").text(this.data.title);
 			this.$panel.find(".j-description").text(this.data.description);
 			this.$panel.find(".j-header").css("display", "block");
 			this.$panel.find(".j-footer").css("display", "block");
 
 			this[this.handler]();
+		},
 
-			if (this.data.duplicate != undefined) {
-				this._setDuplicate();
+		/**
+		 * Sets back link
+		 *
+		 * @returns {c.Panel}
+		 *
+         * @private
+         */
+		_setBack: function() {
+			if (this.data.back !== undefined) {
+				this.$panel.find(".j-back")
+					.css("display", "block")
+					.on("click", $.proxy(function() {
+						$.panel(this.data.back.content, this.data.back.handler);
+						return false;
+					}, this));
 			}
 
-			if (this.data.delete != undefined) {
-				this._setDelete();
-			}
+			return this;
 		},
 
 		/**

@@ -47,6 +47,7 @@ class BlockController extends Controller
         ];
 
         $this->json = [
+            "handler"     => "list",
             "title"       => Language::t("common", "Блоки"),
             "description" => Language::t("common", "Выберите категорию блоков"),
             "list"        => $list,

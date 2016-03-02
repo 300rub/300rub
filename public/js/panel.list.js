@@ -5,9 +5,7 @@
 	 * Panel blocks handler
 	 */
 	c.Panel.prototype.list = function() {
-		if (this.data.list != undefined) {
-			this._setList();
-		}
+		this._setList();
 	};
 
 	/**
@@ -19,7 +17,7 @@
 	 */
 	c.Panel.prototype._setList =  function() {
 		var $clone, designContent, designHandler, settingsContent, settingsHandler;
-		var $itemTemplate = $templates.find(".j-panel-item").clone();
+		var $itemTemplate = $templates.find(".j-panel-list-item").clone();
 		var itemContent = this.data.item.content;
 		var itemHandler = this.data.item.handler;
 		var id = 0;
@@ -68,13 +66,13 @@
 				$clone
 					.find(".j-settings")
 					.on("click", $.proxy(this._onSettingsClick(settingsContent, settingsHandler, id), this));
+			}
 
-				if (this.data.add !== undefined) {
-					$clone
-						.find(".j-footer .j-add")
-						.text(this.data.add)
-						.on("click", $.proxy(this._onSettingsClick(settingsContent, settingsHandler), this));
-				}
+			if (this.data.add !== undefined) {
+				$clone
+					.find(".j-footer .j-add")
+					.text(this.data.add.label)
+					.on("click", $.proxy(this._onAddClick(this.data.add.content, this.data.add.handler), this));
 			}
 
 			$clone.appendTo(this.$panel.find(".j-container"));
@@ -127,6 +125,19 @@
 	 */
 	c.Panel.prototype._onSettingsClick = function(content, handler, id) {
 		$.panel(content, handler, id);
+		return false;
+	};
+
+	/**
+	 * Panel add click event
+	 *
+	 * @var {String} [content] Content
+	 * @var {String} [handler] Handler
+	 *
+	 * @private
+	 */
+	c.Panel.prototype._onAddClick = function(content, handler) {
+		$.panel(content, handler);
 		return false;
 	};
 }(window.jQuery, window.Core);
