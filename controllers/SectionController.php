@@ -95,7 +95,11 @@ class SectionController extends Controller
         $model = $this->getModel(["seoModel"], true);
 
         $this->json = [
-            "back"        => "section.panelList",
+            "handler"     => "settingsSection",
+            "back"        => [
+                "content" => "section.panelList",
+                "handler" => "list"
+            ],
             "title"       => Language::t("common", "Настройки раздела"),
             "description" => Language::t("common", "Здесь вы можете редактировать название и СЕО"),
             "id"          => intval($model->id),

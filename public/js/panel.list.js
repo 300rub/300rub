@@ -2,7 +2,7 @@
 	"use strict";
 
 	/**
-	 * Panel blocks handler
+	 * Panel list handler
 	 */
 	c.Panel.prototype.list = function() {
 		this._setList();

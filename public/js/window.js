@@ -139,8 +139,8 @@
 			$.ajaxJson(
 				this.data.action,
 				this.$window.find(".j-window-form").serializeObject(),
-				$.proxy(this._onSendBefore, this),
-				$.proxy(this._onSendSuccess, this),
+				$.proxy(this._onSubmitBefore, this),
+				$.proxy(this._onSubmitSuccess, this),
 				$.proxy(this._onError, this)
 			);
 
@@ -148,26 +148,26 @@
 		},
 
 		/**
-		 * Send AJAX before callback function
+		 * Submit AJAX before callback function
 		 *
 		 * @returns {Boolean}
 		 *
          * @private
          */
-		_onSendBefore: function () {
+		_onSubmitBefore: function () {
 			if ($.validator(this.$window.find(".j-window-form")).validate() === false) {
 				return false;
 			}
 		},
 
 		/**
-		 * Send AJAX success callback function
+		 * Submit AJAX success callback function
 		 *
 		 * @param {Object} [data] Data from server
 		 *
 		 * @private
 		 */
-		_onSendSuccess: function (data) {
+		_onSubmitSuccess: function (data) {
 			if (!$.isEmptyObject(data.errors)) {
 				console.log(data.errors);
 				$.validator(this.$window.find(".j-window-form")).showErrors(data.errors);
