@@ -4,14 +4,14 @@
 	/**
 	 * Object for working with forms
 	 *
-	 * @param {Object} [fields]            Form fields
-	 * @param {String} [containerSelector] Container's selector
+	 * @param {Object}      [fields]     Form fields
+	 * @param {HTMLElement} [$container] Container
 	 *
 	 * @constructor
 	 */
-	c.Form = function (fields, containerSelector) {
+	c.Form = function (fields, $container) {
 		this.fields = fields;
-		this.containerSelector = containerSelector;
+		this.$container = $container;
 		this.init();
 	};
 
@@ -27,18 +27,9 @@
 		constructor: c.Form,
 
 		/**
-		 * DOM-element of container
-		 *
-		 * @type {HTMLElement}
-		 */
-		container: null,
-
-		/**
 		 * Initialized fields
 		 */
 		init: function () {
-			this.container = c.$ajaxWrapper.find(this.containerSelector);
-
 			$.each(this.fields, $.proxy(function(i, params) {
 				if (undefined !== this["_" + params.type]) {
 					this["_" + params.type](params);
@@ -46,6 +37,8 @@
 					this._field(params);
 				}
 			}, this));
+
+			$.validator(this.$container);
 		},
 
 		/**
@@ -56,7 +49,7 @@
          * @private
          */
 		_field: function (params) {
-			var $object = this.container.find(params.name.nameToClass());
+			var $object = this.$container.find(params.name.nameToClass());
 			$object
 				.attr("name", params.name)
 				.attr("data-rules", params.rules)
@@ -78,12 +71,12 @@
 	/**
 	 * Adds Form to jquery
 	 *
-	 * @param {Object} [fields]            Form fields
-	 * @param {String} [containerSelector] Container's selector
+	 * @param {Object} [fields]     Form fields
+	 * @param {String} [$container] Container
  	 *
 	 * @returns {Window.Core.Form}
 	 */
-	$.form = function (fields, containerSelector) {
-		return new c.Form(fields, containerSelector);
+	$.form = function (fields, $container) {
+		return new c.Form(fields, $container);
 	};
 }(window.jQuery, window.Core);

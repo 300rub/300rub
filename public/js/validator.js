@@ -4,13 +4,12 @@
 	/**
 	 * Object for working with form's validation
 	 *
-	 * @param    {HTMLElement} [$form] DOM-element of form
-	 * @property {HTMLElement} [$form] DOM-element of form
+	 * @param {Object} [$container] Container
 	 *
 	 * @constructor
 	 */
-	c.Validator = function ($form) {
-		this.$form = $form;
+	c.Validator = function ($container) {
+		this.$container = $container;
 	};
 
 	/**
@@ -40,7 +39,7 @@
 			var methodName, $field, split;
 			this._errors = {};
 
-			this.$form.find(".j-validate").each($.proxy(function (i, field) {
+			this.$container.find(".j-validate").each($.proxy(function (i, field) {
 				$field = $(field);
 				$.each($field.data("rules").split(", "), $.proxy(function (i, rule) {
 					split = rule.split("-");
@@ -66,14 +65,14 @@
 		 * @returns {Boolean}
          */
 		showErrors: function (errors) {
-			this.$form.find("div.j-error").remove();
+			this.$container.find("div.j-error").remove();
 
 			if ($.isEmptyObject(errors)) {
 				return true;
 			}
 
 			$.each(errors, $.proxy(function (name, error) {
-				this.$form.find(name.nameToClass()).after(c.$templates.find(".j-error-" + error).clone());
+				this.$container.find(name.nameToClass()).after(c.$templates.find(".j-error-" + error).clone());
 			}, this));
 
 			return false;
@@ -82,7 +81,7 @@
 		/**
 		 * Checks for requiring
 		 *
-		 * @param {HTMLElement} [$field] Field
+		 * @param {Object} [$field] Field
 		 *
          * @private
          */
@@ -95,8 +94,8 @@
 		/**
 		 * Checks for max value
 		 *
-		 * @param {HTMLElement} [$field] Field
-		 * @param {Integer}     [max]    Max value
+		 * @param {Object}  [$field] Field
+		 * @param {Integer} [max]    Max value
 		 *
          * @private
          */
@@ -124,10 +123,12 @@
 	/**
 	 * Adds Validator to jquery
 	 *
+	 * @param {HTMLElement} [$container] Container
+	 *
 	 * @returns {Window.Core.Validator}
 	 */
-	$.validator = function ($form) {
-		return new c.Validator($form);
+	$.validator = function ($container) {
+		return new c.Validator($container);
 	};
 
 	/**

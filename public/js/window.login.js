@@ -5,9 +5,9 @@
 	 * Window login handler
 	 */
 	c.Window.prototype.login = function() {
-		var $template = c.$templates.find(".j-window-login-container").clone();
-		$template.appendTo(this.$window.find(".j-container"));
+		var $container = c.$templates.find(".j-window-login-container").clone();
+		$container.appendTo(this.$window.find(".j-container"));
 
-		$.form(this.data.forms, ".j-window-login-container");
+		$.form(this.data.forms, $container);
 	};
 }(window.jQuery, window.Core);
