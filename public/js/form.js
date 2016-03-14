@@ -27,6 +27,11 @@
 		constructor: c.Form,
 
 		/**
+		 * Unique value for IDs and labels
+		 */
+		_uniqueValue: Math.floor((Math.random() * 10000) + 1),
+
+		/**
 		 * Initialized fields
 		 */
 		init: function () {
@@ -44,27 +49,80 @@
 		/**
 		 * Sets field
 		 *
-		 * @param {Object} [params] Field's params
+		 * @param {Object} [params] Params
 		 *
          * @private
          */
 		_field: function (params) {
 			var $object = this.$container.find(params.name.nameToClass());
+			var $label = $object.parent().find("label");
+
 			$object
 				.attr("name", params.name)
 				.attr("data-rules", params.rules)
+				.attr("id", $object.attr("id") + this._uniqueValue)
 				.val(params.value);
+
+			$label.attr("for", $label.attr("for") + this._uniqueValue);
+		},
+
+		/**
+		 * Sets textarea
+		 *
+		 * @param {Object} [params] Params
+		 *
+		 * @private
+		 */
+		_textArea: function (params) {
+			var $object = this.$container.find(params.name.nameToClass());
+			var $label = $object.parent().find("label");
+
+			$object
+				.attr("name", params.name)
+				.attr("data-rules", params.rules)
+				.attr("id", $object.attr("id") + this._uniqueValue)
+				.text(params.value);
+
+			$label.attr("for", $label.attr("for") + this._uniqueValue);
 		},
 
 		/**
 		 * Sets checkbox
 		 *
-		 * @param {Object} [params] Field's params
+		 * @param {Object} [params] Params
 		 *
 		 * @private
 		 */
 		_checkbox: function (params) {
+			var $object = this.$container.find(params.name.nameToClass());
+			var $label = $object.parent().find("label");
 
+			$object
+				.attr("name", params.name)
+				.attr("data-rules", params.rules)
+				.attr("id", $object.attr("id") + this._uniqueValue)
+				.attr("checked", parseInt(params.value) === 1);
+			$label.attr("for", $label.attr("for") + this._uniqueValue);
+		},
+
+		/**
+		 * Sets select
+		 *
+		 * @param {Object} [params] Params
+		 *
+		 * @private
+		 */
+		_select: function (params) {
+			var $object = this.$container.find(params.name.nameToClass());
+			var $label = $object.parent().find("label");
+
+			$object
+				.attr("name", params.name)
+				.attr("data-rules", params.rules)
+				.attr("id", $object.attr("id") + this._uniqueValue)
+				.val(params.value)
+				.change();
+			$label.attr("for", $label.attr("for") + this._uniqueValue);
 		}
 	};
 

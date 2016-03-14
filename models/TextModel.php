@@ -217,7 +217,7 @@ class TextModel extends Model
 	 *
 	 * @return array
 	 */
-	public function getTypeList()
+	public static function getTypeList()
 	{
 		return [
 			self::TYPE_DIV    => Language::t("common", "По умолчанию"),

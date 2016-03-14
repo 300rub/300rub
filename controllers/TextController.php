@@ -154,7 +154,8 @@ class TextController extends Controller
             "update" => [
                 "selector" => ".text-",
                 "content"  => "text.content",
-            ]
+            ],
+            "isEditor" => boolval($model->is_editor)
         ];
 
         $this->setFormsForJson($model, ["t.text"]);
