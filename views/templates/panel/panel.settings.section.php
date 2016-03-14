@@ -27,4 +27,5 @@ use system\web\Language;
         <label for="panel-settings-section-seoname-description"><?= Language::t("common", "Description") ?></label>
         <textarea id="panel-settings-section-seoname-description" class="j-seoModel__description j-validate"></textarea>
     </div>
+    <input type="hidden" class="j-t__id" />
 </div>

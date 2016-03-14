@@ -4,8 +4,8 @@
 	/**
 	 * Panel settings handler
 	 */
-	c.Panel.prototype.settings = function() {
-		this._setDuplicate()._setDelete()._setSettingsSubmit();
+	c.Panel.prototype.settingsInit = function() {
+		this._setSettingsDuplicate()._setSettingsDelete()._setSettingsSubmit();
 	};
 
 	/**
@@ -15,17 +15,14 @@
 	 *
 	 * @private
 	 */
-	c.Panel.prototype._setDuplicate = function() {
+	c.Panel.prototype._setSettingsDuplicate = function() {
 		if (this.id === 0) {
 			return this;
 		}
 
-		this.$panel.find(".j-duplicate")
-			.css("display", "block")
-			.attr("data-action", this.data.duplicate.action)
-			.attr("data-content", this.data.duplicate.content)
-			.attr("data-id", this.data.id)
-			.on("click", $.proxy(this._onDuplicate, this));
+		this.$panel.find(".j-panel-settings-duplicate")
+			.on("click", $.proxy(this._onSettingsDuplicate, this))
+			.appendTo(this.$panel.find(".j-header"));
 
 		return this;
 	};
@@ -35,16 +32,14 @@
 	 *
 	 * @private
 	 */
-	c.Panel.prototype._onDuplicate = function() {
-		var $duplicate = this.$panel.find(".j-duplicate");
-
+	c.Panel.prototype._onSettingsDuplicate = function() {
 		$.ajaxJson(
-			$duplicate.data("action"),
+			this.data.duplicate.action,
 			{
-				id: $duplicate.data("id")
+				id: this.data.id
 			},
-			$.proxy(this._onDuplicateBefore, this),
-			$.proxy(this._onDuplicateSuccess, this),
+			$.proxy(this._onSettingsDuplicateBefore, this),
+			$.proxy(this._onSettingsDuplicateSuccess, this),
 			$.proxy(this._onError, this)
 		);
 
@@ -56,7 +51,7 @@
 	 *
 	 * @private
 	 */
-	c.Panel.prototype._onDuplicateBefore = function () {
+	c.Panel.prototype._onSettingsDuplicateBefore = function () {
 
 	};
 
@@ -67,11 +62,9 @@
 	 *
 	 * @private
 	 */
-	c.Panel.prototype._onDuplicateSuccess = function (data) {
-		var $duplicate = this.$panel.find(".j-duplicate");
-
+	c.Panel.prototype._onSettingsDuplicateSuccess = function (data) {
 		if (parseInt(data.id) !== 0) {
-			$.panel($duplicate.data("content"), this.handler, data.id);
+			$.panel(this.data.duplicate.content, this.handler, data.id);
 		} else {
 			// error
 		}
@@ -84,17 +77,14 @@
 	 *
 	 * @private
 	 */
-	c.Panel.prototype._setDelete = function() {
+	c.Panel.prototype._setSettingsDelete = function() {
 		if (this.id === 0) {
 			return this;
 		}
 
 		this.$panel.find(".j-delete")
-			.css("display", "block")
-			.attr("data-action", this.data.delete.action)
-			.attr("data-content", this.data.delete.content)
-			.attr("data-id", this.data.id)
-			.on("click", $.proxy(this._onDelete, this));
+			.on("click", $.proxy(this._onSettingsDelete, this))
+			.appendTo(this.$panel.find(".j-header"));
 
 		return this;
 	};
@@ -104,20 +94,18 @@
 	 *
 	 * @private
 	 */
-	c.Panel.prototype._onDelete = function() {
-		var $delete = this.$panel.find(".j-delete");
-
-		if (confirm($delete.data("confirm")) !== true) {
+	c.Panel.prototype._onSettingsDelete = function() {
+		if (confirm(this.data.delete.confirm) !== true) {
 			return false;
 		}
 
 		$.ajaxJson(
-			$delete.data("action"),
+			this.data.delete.action,
 			{
-				id: $delete.data("id")
+				id: this.data.id
 			},
-			$.proxy(this._onDeleteBefore, this),
-			$.proxy(this._onDeleteSuccess, this),
+			$.proxy(this._onSettingsDeleteBefore, this),
+			$.proxy(this._onSettingsDeleteSuccess, this),
 			$.proxy(this._onError, this)
 		);
 
@@ -129,7 +117,7 @@
 	 *
 	 * @private
 	 */
-	c.Panel.prototype._onDeleteBefore = function () {
+	c.Panel.prototype._onSettingsDeleteBefore = function () {
 
 	};
 
@@ -140,11 +128,9 @@
 	 *
 	 * @private
 	 */
-	c.Panel.prototype._onDeleteSuccess = function (data) {
-		var $delete = this.$panel.find(".j-delete");
-
+	c.Panel.prototype._onSettingsDeleteSuccess = function (data) {
 		if (parseInt(data.result) === true) {
-			$.panel($delete.data("content"), this.handler);
+			$.panel(this.data.delete.content, this.data.delete.handler);
 		} else {
 			// error
 		}
@@ -156,7 +142,50 @@
 	 * @private
      */
 	c.Panel.prototype._setSettingsSubmit = function() {
-		this.$panel.find(".j-footer .j-submit")
-	}
+		this.$panel.find(".j-panel-settings-submit")
+			.on("click", $.proxy(this._onSettingsSubmit, this))
+			.appendTo(this.$panel.find(".j-header"));
+	};
+
+	/**
+	 * Delete click event
+	 *
+	 * @private
+	 */
+	c.Panel.prototype._onSettingsSubmit = function() {
+		$.ajaxJson(
+			this.data.submit.action,
+			this.$panel.find(".j-panel-form").serializeObject(),
+			$.proxy(this._onSettingsSubmitBefore, this),
+			$.proxy(this._onSettingsSubmitSuccess, this),
+			$.proxy(this._onError, this)
+		);
+
+		return false;
+	};
+
+	/**
+	 * Submit AJAX before callback function
+	 *
+	 * @private
+	 */
+	c.Panel.prototype._onSettingsSubmitBefore = function () {
+
+	};
+
+	/**
+	 * Submit AJAX success callback function
+	 *
+	 * @param {Object} [data] Data from server
+	 *
+	 * @private
+	 */
+	c.Panel.prototype._onSettingsSubmitSuccess = function (data) {
+		if (!data.errors) {
+			$.panel(this.data.submit.content, this.data.submit.handler);
+		} else {
+			// error
+		}
+	};
 
 }(window.jQuery, window.Core);

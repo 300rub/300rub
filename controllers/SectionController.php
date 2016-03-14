@@ -104,9 +104,10 @@ class SectionController extends Controller
             "description" => Language::t("common", "Здесь вы можете редактировать название и СЕО"),
             "id"          => intval($model->id),
             "submit"      => [
-                "label" => Language::t("common", "Save"),
+                "label"   => Language::t("common", "Save"),
                 "content" => "section.panelList",
-                "action" => "section.saveSettings",
+                "action"  => "section.saveSettings",
+                "handler" => "list",
             ]
         ];
 
@@ -118,6 +119,8 @@ class SectionController extends Controller
             $this->json["delete"] = [
                 "action"  => "section.delete",
                 "content" => "section.panelList",
+                "confirm" => Language::t("common", "Delete?"),
+                "handler" => "list",
             ];
         }
 
@@ -145,8 +148,7 @@ class SectionController extends Controller
         $model->setAttributes($this->data)->save();
 
         $this->json = [
-            "errors"  => $model->errors,
-            "content" => "section.panelList"
+            "errors"  => $model->errors
         ];
     }
 

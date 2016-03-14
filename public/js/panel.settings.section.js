@@ -13,6 +13,8 @@
 		$container.find(".j-seoModel__name").on("keyup", function () {
 			$container.find(".j-seoModel__url").val($(this).val().transliteration());
 		});
+
+		this.settingsInit();
 	};
 
 }(window.jQuery, window.Core);
