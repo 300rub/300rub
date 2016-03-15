@@ -403,90 +403,114 @@ class DesignBlockModel extends Model
 	public function getValues($name)
 	{
 		return [
-			"margin_top"                 => [
-				"name"  => str_replace(self::REPLACE_VALUE, "margin_top", $name),
-				"value" => $this->margin_top
+			"angle"           => [
+				[
+					"type"   => "margin",
+					"values" => [
+						[
+							"name"  => sprintf($name, "margin_top"),
+							"value" => $this->margin_top
+						],
+						[
+							"name"  => sprintf($name, "margin_right"),
+							"value" => $this->margin_right
+						],
+						[
+							"name"  => sprintf($name, "margin_bottom"),
+							"value" => $this->margin_bottom
+						],
+						[
+							"name"  => sprintf($name, "margin_left"),
+							"value" => $this->margin_left
+						]
+					]
+				],
+				[
+					"type"   => "padding",
+					"values" => [
+						[
+							"name"  => sprintf($name, "padding_top"),
+							"value" => $this->padding_top
+						],
+						[
+							"name"  => sprintf($name, "padding_right"),
+							"value" => $this->padding_right
+						],
+						[
+							"name"  => sprintf($name, "padding_bottom"),
+							"value" => $this->padding_bottom
+						],
+						[
+							"name"  => sprintf($name, "padding_left"),
+							"value" => $this->padding_left
+						]
+					]
+				],
+				[
+					"type"   => "border-width",
+					"values" => [
+						[
+							"name"  => sprintf($name, "border_top_width"),
+							"value" => $this->border_top_width
+						],
+						[
+							"name"  => sprintf($name, "border_right_width"),
+							"value" => $this->border_right_width
+						],
+						[
+							"name"  => sprintf($name, "border_bottom_width"),
+							"value" => $this->border_bottom_width
+						],
+						[
+							"name"  => sprintf($name, "border_left_width"),
+							"value" => $this->border_left_width
+						]
+					]
+				],
+				[
+					"type"   => "border-radius",
+					"values" => [
+						[
+							"name"  => sprintf($name, "border_top_left_radius"),
+							"value" => $this->border_top_left_radius
+						],
+						[
+							"name"  => sprintf($name, "border_top_right_radius"),
+							"value" => $this->border_top_right_radius
+						],
+						[
+							"name"  => sprintf($name, "border_bottom_right_radius"),
+							"value" => $this->border_bottom_right_radius
+						],
+						[
+							"name"  => sprintf($name, "border_bottom_left_radius"),
+							"value" => $this->border_bottom_left_radius
+						]
+					]
+				],
 			],
-			"margin_right"               => [
-				"name"  => str_replace(self::REPLACE_VALUE, "margin_right", $name),
-				"value" => $this->margin_right
+			"backgroundColor" => [
+				"fromName"      => sprintf($name, "background_color_from"),
+				"fromValue"     => $this->background_color_from,
+				"toName"        => sprintf($name, "background_color_to"),
+				"toValue"       => $this->background_color_to,
+				"gradientName"  => sprintf($name, "gradient_direction"),
+				"gradientValue" => $this->gradient_direction
 			],
-			"margin_bottom"              => [
-				"name"  => str_replace(self::REPLACE_VALUE, "margin_bottom", $name),
-				"value" => $this->margin_bottom
+			"color"           => [
+				[
+					"type"  => "border-color",
+					"name"  => sprintf($name, "border_color"),
+					"value" => $this->border_color
+				]
 			],
-			"margin_left"                => [
-				"name"  => str_replace(self::REPLACE_VALUE, "margin_left", $name),
-				"value" => $this->margin_left
-			],
-			"padding_top"                => [
-				"name"  => str_replace(self::REPLACE_VALUE, "padding_top", $name),
-				"value" => $this->padding_top
-			],
-			"padding_right"              => [
-				"name"  => str_replace(self::REPLACE_VALUE, "padding_right", $name),
-				"value" => $this->padding_right
-			],
-			"padding_bottom"             => [
-				"name"  => str_replace(self::REPLACE_VALUE, "padding_bottom", $name),
-				"value" => $this->padding_bottom
-			],
-			"padding_left"               => [
-				"name"  => str_replace(self::REPLACE_VALUE, "padding_left", $name),
-				"value" => $this->padding_left
-			],
-			"background_color_from"      => [
-				"name"  => str_replace(self::REPLACE_VALUE, "background_color_from", $name),
-				"value" => $this->background_color_from
-			],
-			"background_color_to"        => [
-				"name"  => str_replace(self::REPLACE_VALUE, "background_color_to", $name),
-				"value" => $this->background_color_to
-			],
-			"gradient_direction"         => [
-				"name"  => str_replace(self::REPLACE_VALUE, "gradient_direction", $name),
-				"value" => $this->gradient_direction
-			],
-			"border_top_width"           => [
-				"name"  => str_replace(self::REPLACE_VALUE, "border_top_width", $name),
-				"value" => $this->border_top_width
-			],
-			"border_top_left_radius"     => [
-				"name"  => str_replace(self::REPLACE_VALUE, "border_top_left_radius", $name),
-				"value" => $this->border_top_left_radius
-			],
-			"border_right_width"         => [
-				"name"  => str_replace(self::REPLACE_VALUE, "border_right_width", $name),
-				"value" => $this->border_right_width
-			],
-			"border_top_right_radius"    => [
-				"name"  => str_replace(self::REPLACE_VALUE, "border_top_right_radius", $name),
-				"value" => $this->border_top_right_radius
-			],
-			"border_bottom_width"        => [
-				"name"  => str_replace(self::REPLACE_VALUE, "border_bottom_width", $name),
-				"value" => $this->border_bottom_width
-			],
-			"border_bottom_right_radius" => [
-				"name"  => str_replace(self::REPLACE_VALUE, "border_bottom_right_radius", $name),
-				"value" => $this->border_bottom_right_radius
-			],
-			"border_left_width"          => [
-				"name"  => str_replace(self::REPLACE_VALUE, "border_left_width", $name),
-				"value" => $this->border_left_width
-			],
-			"border_bottom_left_radius"  => [
-				"name"  => str_replace(self::REPLACE_VALUE, "border_bottom_left_radius", $name),
-				"value" => $this->border_bottom_left_radius
-			],
-			"border_color"               => [
-				"name"  => str_replace(self::REPLACE_VALUE, "border_color", $name),
-				"value" => $this->border_color
-			],
-			"border_style"               => [
-				"name"  => str_replace(self::REPLACE_VALUE, "border_style", $name),
-				"value" => $this->border_style
-			],
+			"radio"           => [
+				[
+					"type"  => "border-style",
+					"name"  => sprintf($name, "border_style"),
+					"value" => $this->border_style
+				]
+			]
 		];
 	}
 
