@@ -3,7 +3,7 @@ use system\web\Language;
 use models\DesignBlockModel;
 ?>
 <div class="design-editor design-block-editor">
-	<div class="design-group-container">
+	<div>
 		<div class="design-group-title"><?= Language::t("common", "Внешние отступы") ?></div>
 		<div
 			class="design-angles-container design-angles-margin-container"
@@ -22,7 +22,7 @@ use models\DesignBlockModel;
 			<label><input type="checkbox"> <?= Language::t("common", "Соединить") ?></label>
 		</div>
 	</div>
-	<div class="design-group-container">
+	<div>
 		<div class="design-group-title"><?= Language::t("common", "Внутренние отступы") ?></div>
 		<div
 			class="design-angles-container design-angles-padding-container"
@@ -41,7 +41,7 @@ use models\DesignBlockModel;
 			<label><input type="checkbox"> <?= Language::t("common", "Соединить") ?></label>
 		</div>
 	</div>
-	<div class="design-group-container">
+	<div>
 		<div class="design-group-title"><?= Language::t("common", "Скругления углов") ?></div>
 		<div
 			class="design-angles-container design-angles-border-radius-container"
@@ -60,7 +60,7 @@ use models\DesignBlockModel;
 			<label><input type="checkbox"> <?= Language::t("common", "Соединить") ?></label>
 		</div>
 	</div>
-	<div class="design-group-container">
+	<div>
 		<div class="design-group-title"><?= Language::t("common", "Граница") ?></div>
 		<div
 			class="design-angles-container design-angles-border-container"
@@ -98,7 +98,7 @@ use models\DesignBlockModel;
 			</div>
 		</div>
 	</div>
-	<div class="design-group-container">
+	<div>
 		<div class="design-group-title"><?= Language::t("common", "Заливка") ?></div>
 		<div class="design-line design-line-background">
 			<a href="#" class="design-background-clear"><?= Language::t("common", "очистить") ?></a>
