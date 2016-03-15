@@ -68,7 +68,7 @@
 		 */
 		_onError: function (jqXHR, textStatus, errorThrown) {
 			alert(jqXHR.responseJSON.message);
-			this.onError(jqXHR, textStatus, errorThrown);;
+			this.onError(jqXHR, textStatus, errorThrown);
 		},
 
 		/**

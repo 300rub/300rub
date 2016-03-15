@@ -54,16 +54,10 @@
          * @private
          */
 		_field: function (params) {
-			var $object = this.$container.find(params.name.nameToClass());
-			var $label = $object.parent().find("label");
-
-			$object
+			this.$container.find(params.name.nameToClass())
 				.attr("name", params.name)
 				.attr("data-rules", params.rules)
-				.attr("id", $object.attr("id") + this._uniqueValue)
 				.val(params.value);
-
-			$label.attr("for", $label.attr("for") + this._uniqueValue);
 		},
 
 		/**
@@ -74,16 +68,10 @@
 		 * @private
 		 */
 		_textArea: function (params) {
-			var $object = this.$container.find(params.name.nameToClass());
-			var $label = $object.parent().find("label");
-
-			$object
+			this.$container.find(params.name.nameToClass())
 				.attr("name", params.name)
 				.attr("data-rules", params.rules)
-				.attr("id", $object.attr("id") + this._uniqueValue)
 				.text(params.value);
-
-			$label.attr("for", $label.attr("for") + this._uniqueValue);
 		},
 
 		/**
@@ -94,15 +82,10 @@
 		 * @private
 		 */
 		_checkbox: function (params) {
-			var $object = this.$container.find(params.name.nameToClass());
-			var $label = $object.parent().find("label");
-
-			$object
+			this.$container.find(params.name.nameToClass())
 				.attr("name", params.name)
 				.attr("data-rules", params.rules)
-				.attr("id", $object.attr("id") + this._uniqueValue)
 				.attr("checked", parseInt(params.value) === 1);
-			$label.attr("for", $label.attr("for") + this._uniqueValue);
 		},
 
 		/**
@@ -113,16 +96,11 @@
 		 * @private
 		 */
 		_select: function (params) {
-			var $object = this.$container.find(params.name.nameToClass());
-			var $label = $object.parent().find("label");
-
-			$object
+			this.$container.find(params.name.nameToClass())
 				.attr("name", params.name)
 				.attr("data-rules", params.rules)
-				.attr("id", $object.attr("id") + this._uniqueValue)
 				.val(params.value)
 				.change();
-			$label.attr("for", $label.attr("for") + this._uniqueValue);
 		}
 	};
 

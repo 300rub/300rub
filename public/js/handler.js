@@ -30,7 +30,6 @@
 			this
 				._setTemplates()
 				._setAjaxWrapper()
-				._setLanguage(LANG);
 			$("#login-button").on("click", this._onLoginButtonClick);
 		},
 
@@ -55,20 +54,6 @@
          */
 		_setAjaxWrapper: function () {
 			c.$ajaxWrapper = $('#ajax-wrapper');
-			return this;
-		},
-
-		/**
-		 * Sets language
-		 *
-		 * @param {String} [lang] Language alias
-		 *
-		 * @returns {c.Handler}
-		 *
-		 * @private
-         */
-		_setLanguage: function (lang) {
-			c.language = lang;
 			return this;
 		},
 

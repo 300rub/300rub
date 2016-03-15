@@ -61,8 +61,8 @@
 			this.$overlay = c.$templates.find(".j-overlay").clone().appendTo(c.$ajaxWrapper);
 			this.$window = c.$templates.find(".j-window").clone().appendTo(c.$ajaxWrapper);
 
-			this.$window.find(".j-_close").on("click", $.proxy(this._close, this));
-			this.$overlay.on("click", $.proxy(this._close, this));
+			this.$window.find(".j-close").on("click", $.proxy(this.close, this));
+			this.$overlay.on("click", $.proxy(this.close, this));
 
 			$.ajaxJson(
 				this.action,
@@ -82,7 +82,7 @@
 		 *
 		 * @private
 		 */
-		_close: function () {
+		close: function () {
 			this.$window.remove();
 			this.$overlay.remove();
 
@@ -178,7 +178,7 @@
 				location.reload();
 			}
 
-			this._close();
+			this.close();
 		}
 	};
 

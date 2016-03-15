@@ -26,6 +26,13 @@
 		 *
 		 * @type {String}
 		 */
-		language: ''
+		language: '',
+
+		/**
+		 * Section ID
+		 *
+		 * @type {Integer}
+		 */
+		sectionId: 0
 	}
 }(window);

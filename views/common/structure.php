@@ -6,7 +6,7 @@
  */
 ?>
 	<script>
-		var SECTION_ID = <?= $model->id ?>;
+		window.Core.sectionId = parseInt("<?= $model->id ?>");
 	</script>
 <?php if (!empty($structure["lines"])) { ?>
 	<div

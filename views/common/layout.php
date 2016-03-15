@@ -19,7 +19,7 @@ use system\App;
 	<script src="/js/lib/jquery.min.js"></script>
 
 	<script>
-		var LANG = "<?= Language::getActiveAlias() ?>";
+		window.Core.language = "<?= Language::getActiveAlias() ?>";
 	</script>
 
 	<link rel="stylesheet/less" type="text/css" href="/css/less.less" />
