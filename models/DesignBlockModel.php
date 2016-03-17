@@ -13,11 +13,6 @@ class DesignBlockModel extends Model
 {
 
 	/**
-	 * Value for replace
-	 */
-	const REPLACE_VALUE = "__";
-
-	/**
 	 * Gradient direction. Horizontal
 	 */
 	const GRADIENT_DIRECTION_HORIZONTAL = 0;

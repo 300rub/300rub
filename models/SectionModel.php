@@ -347,9 +347,7 @@ class SectionModel extends Model
 				[
 					"id"     => $this->designBlockModel->id,
 					"type"   => "block",
-					"values" => $this->designBlockModel->getValues(
-						"designBlockModel[t." . DesignBlockModel::REPLACE_VALUE . "]"
-					)
+					"values" => $this->designBlockModel->getValues("designBlockModel[t.%s]")
 				]
 			]
 		];
@@ -366,9 +364,7 @@ class SectionModel extends Model
 					[
 						"id"     => $line->outsideDesignModel->id,
 						"type"   => "block",
-						"values" => $line->outsideDesignModel->getValues(
-							"lines[{$line->id}][outsideDesignModel." . DesignBlockModel::REPLACE_VALUE . "]"
-						),
+						"values" => $line->outsideDesignModel->getValues("lines[{$line->id}][outsideDesignModel.%s]"),
 					]
 				]
 			];
@@ -378,9 +374,7 @@ class SectionModel extends Model
 					[
 						"id"     => $line->insideDesignModel->id,
 						"type"   => "block",
-						"values" => $line->insideDesignModel->getValues(
-							"lines[{$line->id}][insideDesignModel." . DesignBlockModel::REPLACE_VALUE . "]"
-						),
+						"values" => $line->insideDesignModel->getValues("lines[{$line->id}][insideDesignModel.%s]"),
 					]
 				]
 			];

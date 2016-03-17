@@ -43,8 +43,8 @@ use system\App;
 	<script src="/js/ajax.json.js"></script>
 	<script src="/js/form.js"></script>
 	<script src="/js/validator.js"></script>
-	<script src="/js/window.js"></script>
-	<script src="/js/window.login.js"></script>
+	<script src="/js/window/window.js"></script>
+	<script src="/js/window/window.login.js"></script>
 	<script src="/js/handler.js"></script>
 
 	<?php if (App::web()->user !== null) { ?>
@@ -54,7 +54,14 @@ use system\App;
 		<script src="/js/lib/jquery.colorpicker.js"></script>
 		<script src="/js/lib/tinymce/tinymce.jquery.min.js"></script>
 		<script src="/js/admin.js"></script>
-		<script src="/js/panel.js"></script>
+		<script src="/js/panel/panel.js"></script>
+		<script src="/js/panel/panel.list.js"></script>
+		<script src="/js/panel/panel.settings.js"></script>
+		<script src="/js/panel/panel.settings.section.js"></script>
+		<script src="/js/panel/panel.settings.text.js"></script>
+		<script src="/js/window/window.section.js"></script>
+		<script src="/js/window/window.text.js"></script>
+		<script src="/js/design.js"></script>
 	<?php } ?>
 </head>
 <body>

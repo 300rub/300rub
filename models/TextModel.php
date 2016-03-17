@@ -191,17 +191,13 @@ class TextModel extends Model
 			$forms[] = [
 				"id"     => $this->designTextModel->id,
 				"type"   => "text",
-				"values" => $this->designTextModel->getValues(
-					"designTextModel." . DesignBlockModel::REPLACE_VALUE
-				),
+				"values" => $this->designTextModel->getValues("designTextModel.%s"),
 			];
 		}
 		$forms[] = [
 			"id"     => $this->designBlockModel->id,
 			"type"   => "block",
-			"values" => $this->designBlockModel->getValues(
-				"designBlockModel." . DesignBlockModel::REPLACE_VALUE
-			),
+			"values" => $this->designBlockModel->getValues("designBlockModel.%s"),
 		];
 
 		$list[] = [
