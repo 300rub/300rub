@@ -54,6 +54,18 @@
                     this._setSpinner(options);
                 }, this));
             }
+
+            // colors
+            if ($.type(this.values.colors) === "array") {
+                $.each(this.values.colors, $.proxy(function (i, options) {
+                    this._setColor(options);
+                }, this));
+            }
+
+            // background-color
+            if ($.type(this.values.backgroundColor) === "object") {
+                this._setBackgroundColor(this.values.backgroundColor);
+            }
         },
 
         /**
@@ -182,6 +194,143 @@
                 .on("keyup", function () {
                     t.$_object.css(options.type, $(this).val() + options.measure);
                 });
+        },
+
+        /**
+         * Set color picker
+         *
+         * @param {Object} options:
+         * - {String}  [name]
+         * - {Integer} [value]
+         * - {String}  [type]
+         *
+         * @private
+         */
+        _setColor: function (options) {
+            this.$_editor.find(".j-" + options.type)
+                .attr("name", options.name)
+                .val(options.value)
+                .colorpicker({
+                    alpha: true,
+                    colorFormat: 'RGBA',
+                    buttonColorize: true,
+                    showOn: 'both',
+                    //buttonImage: '/img/common/color_picker_btn.png',
+                    buttonImageOnly: true,
+                    position: {
+                        my: 'center',
+                        at: 'center',
+                        of: window
+                    },
+                    parts: 'full',
+                    select: $.proxy(function (event, color) {
+                        this.$_object.css(options.type, color.formatted);
+                    }, this)
+                });
+        },
+
+        /**
+         * Sets background color
+         *
+         * @param {Object} options:
+         * - {String}  [fromName]
+         * - {String}  [fromValue]
+         * - {String}  [toName]
+         * - {String}  [toValue]
+         * - {String}  [gradientName]
+         * - {Integer} [gradientValue]
+         *
+         * @private
+         */
+        _setBackgroundColor: function (options) {
+            var t = this;
+            var id;
+            var value = "to right";
+            var $from = this.$_editor.find(".j-background-from")
+                .attr("name", options.fromName)
+                .val(options.fromValue);
+            var $to = this.$_editor.find(".j-background-to")
+                .attr("name", options.toName)
+                .val(options.toValue);
+
+            this.$_editor.find(".j-gradient-direction")
+                .each(function () {
+                    id = $.uniqueId();
+                    $(this)
+                        .attr("name", options.gradientName)
+                        .attr("id", id)
+                        .attr("checked", $(this).attr("value") === parseInt(options.gradientValue))
+                        .closest(".j-radio-container").find("label").attr("for", id);
+                })
+                .on("change", function () {
+                    value = $(this).data("value");
+                    if ($from.val() !== "" && $to.val() !== "") {
+                        t.$_object.css(
+                            "background",
+                            "linear-gradient(" + value + ", " + $from.val() + " 0%, " + $to.val() + " 100%)"
+                        );
+                    }
+                });
+
+            this.$_editor.find(".j-background-clear").on("click", function () {
+                $from.val("");
+                $to.val("");
+                t.$_editor.find('.j-gradient-direction[value="0"]').prop('checked', true);
+                t.$_object.css("background", "none");
+                value = "to right";
+
+                return false;
+            });
+
+            $from.colorpicker({
+                alpha: true,
+                colorFormat: 'RGBA',
+                buttonColorize: true,
+                showOn: 'both',
+                //buttonImage: '/img/common/color_picker_btn.png',
+                buttonImageOnly: true,
+                position: {
+                    my: 'center',
+                    at: 'center',
+                    of: window
+                },
+                parts: 'full',
+                select: function (event, color) {
+                    if ($to.val() === "") {
+                        t.$_object.css("background", color.formatted);
+                    } else {
+                        t.$_object.css(
+                            "background",
+                            "linear-gradient(" + value + ", " + color.formatted + " 0%, " + $to.val() + " 100%)")
+                        ;
+                    }
+                }
+            });
+
+            $to.colorpicker({
+                alpha: true,
+                colorFormat: 'RGBA',
+                buttonColorize: true,
+                showOn: 'both',
+                //buttonImage: '/img/common/color_picker_btn.png',
+                buttonImageOnly: true,
+                position: {
+                    my: 'center',
+                    at: 'center',
+                    of: window
+                },
+                parts: 'full',
+                select: function (event, color) {
+                    if ($from.val() === "") {
+                        t.$_object.css("background", color.formatted);
+                    } else {
+                        t.$_object.css(
+                            "background",
+                            "linear-gradient(" + value + ", " + $from.val() + " 0%, " + color.formatted + " 100%)"
+                        );
+                    }
+                }
+            });
         }
     };
 

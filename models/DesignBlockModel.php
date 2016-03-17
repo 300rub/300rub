@@ -497,7 +497,7 @@ class DesignBlockModel extends Model
 				"gradientName"  => sprintf($name, "gradient_direction"),
 				"gradientValue" => $this->gradient_direction
 			],
-			"color"           => [
+			"colors"           => [
 				[
 					"type"  => "border-color",
 					"name"  => sprintf($name, "border_color"),

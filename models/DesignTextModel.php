@@ -460,10 +460,13 @@ class DesignTextModel extends Model
                     "measure"  => "%"
                 ]
 			],
-			"color"           => [
-				"name"  => str_replace(self::REPLACE_VALUE, "color", $name),
-				"value" => $this->color
-			],
+            "colors"           => [
+                [
+                    "type"  => "color",
+                    "name"  => sprintf($name, "color"),
+                    "value" => $this->color
+                ]
+            ],
 			"checkboxes" => [
 				[
 					"name"      => sprintf($name, "is_italic"),
@@ -480,19 +483,23 @@ class DesignTextModel extends Model
 					"unChecked" => "normal"
 				]
 			],
-
-			"align"      => [
-				"name"  => str_replace(self::REPLACE_VALUE, "align", $name),
-				"value" => $this->align
-			],
-			"decoration" => [
-				"name"  => str_replace(self::REPLACE_VALUE, "decoration", $name),
-				"value" => $this->decoration
-			],
-			"transform"  => [
-				"name"  => str_replace(self::REPLACE_VALUE, "transform", $name),
-				"value" => $this->transform
-			]
+            "radios"           => [
+                [
+                    "type"  => "text-align",
+                    "name"  => sprintf($name, "align"),
+                    "value" => $this->align
+                ],
+                [
+                    "type"  => "text-decoration",
+                    "name"  => sprintf($name, "decoration"),
+                    "value" => $this->decoration
+                ],
+                [
+                    "type"  => "text-transform",
+                    "name"  => sprintf($name, "transform"),
+                    "value" => $this->transform
+                ]
+            ]
 		];
 	}
 
