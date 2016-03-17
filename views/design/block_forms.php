@@ -136,7 +136,7 @@ use models\DesignBlockModel;
 							data-value="<?= $value ?>"
 							title="border-style"
 							>
-						<label><span></span></label>
+						<label><?= $value ?></label>
 					</div>
 				<?php } ?>
 			</div>

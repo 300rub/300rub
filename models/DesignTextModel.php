@@ -322,22 +322,10 @@ class DesignTextModel extends Model
 	 * @var array
 	 */
 	public static $textDecorationList = [
-		self::TEXT_DECORATION_NONE    => [
-			"value" => "none",
-			"label" => ""
-		],
-		self::TEXT_DECORATION_UNDERLINE  => [
-			"value" => "underline",
-			"label" => "T"
-		],
-		self::TEXT_DECORATION_LINE_THROUGH   => [
-			"value" => "line-through",
-			"label" => "T"
-		],
-		self::TEXT_DECORATION_OVERLINE => [
-			"value" => "overline",
-			"label" => "T"
-		],
+		self::TEXT_DECORATION_NONE         => "none",
+		self::TEXT_DECORATION_UNDERLINE    => "underline",
+		self::TEXT_DECORATION_LINE_THROUGH => "line-through",
+		self::TEXT_DECORATION_OVERLINE     => "overline",
 	];
 
 	/**
@@ -346,22 +334,10 @@ class DesignTextModel extends Model
 	 * @var array
 	 */
 	public static $textTransformList = [
-		self::TEXT_TRANSFORM_NONE    => [
-			"value" => "none",
-			"label" => ""
-		],
-		self::TEXT_TRANSFORM_UPPERCASE  => [
-			"value" => "uppercase",
-			"label" => "AA"
-		],
-		self::TEXT_TRANSFORM_LOWERCASE   => [
-			"value" => "lowercase",
-			"label" => "aa"
-		],
-		self::TEXT_TRANSFORM_CAPITALIZE => [
-			"value" => "capitalize",
-			"label" => "Aa"
-		],
+		self::TEXT_TRANSFORM_NONE       => "none",
+		self::TEXT_TRANSFORM_UPPERCASE  => "uppercase",
+		self::TEXT_TRANSFORM_LOWERCASE  => "lowercase",
+		self::TEXT_TRANSFORM_CAPITALIZE => "capitalize",
 	];
 
 	/**
