@@ -11,29 +11,97 @@
     c.Design.prototype = {
         constructor: c.Design,
 
-        editor: null,
+        $_editor: null,
+        $_object: null,
+        _style: "",
+        _class: "",
 
         init: function () {
-            this.editor = c.$templates.find(".design-" + this.type + "-editor").clone();
-            t.editor.attr("data-id", t.id);
-            t.object = $(".design-" + t.type + "-" + t.id);
-            t.style = t.object.attr("style");
-            t.class = t.object.attr("class");
+            this.$_editor = c.$templates.find(".j-design-editor-" + this.type).clone().attr("data-id", this.id);
+            this.$_object = $(".j-design-" + this.type + "-" + this.id);
+            this._style = this.$_object.attr("style");
+            this._class = this.$_object.attr("class");
 
+            // radio
+            if ($.type(this.values.radio) === "array") {
+                $.each(this.values.radio, function (i, options) {
+                    this._setRadio(options);
+                });
+            }
 
-            if (this.data.angle !== undefined) {
-                $.each(this.data.angle, function (i, data) {
-                    this._setAngles(data);
+            // checkbox
+            if ($.type(this.values.checkbox) === "array") {
+                $.each(this.values.checkbox, function (i, options) {
+                    this._setCheckbox(options);
                 });
             }
         },
 
-        _setAngles: function (data) {
+        /**
+         * Sets radio
+         *
+         * @param {Object} options:
+         * - {String}  [name]
+         * - {Integer} [value]
+         * - {String}  [cssAttr]
+         *
+         * @private
+         */
+        _setRadio: function (options) {
+            var id, t = this;
+            this.$_editor.find(".j-" + options.type)
+                .each(function () {
+                    id = $.uniqueId();
+                    $(this)
+                        .attr("name", options.name)
+                        .attr("id", id)
+                        .attr("checked", parseInt($(this).attr("value")) === parseInt(options.value))
+                        .closest(".j-radio-container").find("label").attr("for", id);
+                })
+                .on("change", function () {
+                    t.$_object.css(options.type, $(this).data("value"));
+                });
+        },
 
+        /**
+         * Sets checkbox
+         *
+         * @param {Object} options:
+         * - {string} name
+         * - {int}    value
+         * - {string} type
+         * - {string} checked
+         * - {string} unChecked
+         *
+         * @private
+         */
+        _setCheckbox: function (options) {
+            var t = this;
+            var id = $.uniqueId();
+
+            var $container = this.$_editor.find(".j-" + options.type + "-container");
+            var $checkbox = $container.find(".j-checkbox")
+                .attr('checked', parseInt(options.value) == 1)
+                .attr('id', id);
+            var $value = $container.find(".j-value")
+                .val(options.value)
+                .attr("name", options.name);
+
+            $container.find("label").attr('for', id);
+
+            $checkbox.on("change", function () {
+                if ($(this).is(':checked')) {
+                    t.$_object.css(options.type, options.checked);
+                    $value.val(1);
+                } else {
+                    t.object.css(options.type, options.unChecked);
+                    $value.val(0);
+                }
+            });
         }
     };
 
-    $.design = function ($container, data) {
-        return new c.Design($container, data);
+    $.design = function (id, type, values) {
+        return new c.Design(id, type, values);
     };
 }(window.jQuery, window.Core);

@@ -445,14 +445,23 @@ class DesignTextModel extends Model
 				"name"  => str_replace(self::REPLACE_VALUE, "color", $name),
 				"value" => $this->color
 			],
-			"is_italic"      => [
-				"name"  => str_replace(self::REPLACE_VALUE, "is_italic", $name),
-				"value" => $this->is_italic
+			"ckeckbox" => [
+				[
+					"name"      => sprintf($name, "is_italic"),
+					"value"     => $this->is_italic,
+					"type"      => "font-style",
+					"checked"   => "italic",
+					"unChecked" => "normal"
+				],
+				[
+					"name"      => sprintf($name, "is_bold"),
+					"value"     => $this->is_bold,
+					"type"      => "font-weight",
+					"checked"   => "bold",
+					"unChecked" => "normal"
+				]
 			],
-			"is_bold"     => [
-				"name"  => str_replace(self::REPLACE_VALUE, "is_bold", $name),
-				"value" => $this->is_bold
-			],
+
 			"align"      => [
 				"name"  => str_replace(self::REPLACE_VALUE, "align", $name),
 				"value" => $this->align

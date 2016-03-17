@@ -42,7 +42,7 @@ use models\DesignTextModel;
 
 		<div>
 			<?php foreach (DesignTextModel::$textAlignList as $key => $value) { ?>
-				<div>
+				<div class="j-radio-container">
 					<input
 						class="l-hide j-text-align"
 						type="radio"
@@ -57,7 +57,7 @@ use models\DesignTextModel;
 
 		<div>
 			<?php foreach (DesignTextModel::$textTransformList as $key => $value) { ?>
-				<div>
+				<div class="j-radio-container">
 					<input
 						class="l-hide j-text-transform"
 						type="radio"
@@ -72,7 +72,7 @@ use models\DesignTextModel;
 
 		<div>
 			<?php foreach (DesignTextModel::$textDecorationList as $key => $value) { ?>
-				<div>
+				<div class="j-radio-container">
 					<input
 						class="l-hide j-text-decoration"
 						type="radio"

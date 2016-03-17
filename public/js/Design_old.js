@@ -40,8 +40,6 @@ function Design(id, type, values) {
 		t.setSpinner(t.values.line_height.name, t.values.line_height.value, "line-height", 10, "%");
 		t.setColorPicker(t.values.color.name, t.values.color.value, "color");
 		t.setFont(t.values.family.name, t.values.family.value);
-		t.setCheckbox(t.values.is_bold.name, t.values.is_bold.value, "font-weight", "bold", "normal");
-		t.setCheckbox(t.values.is_italic.name, t.values.is_italic.value, "font-style", "italic", "normal");
 		t.setRadio(t.values.align.name, t.values.align.value, "text-align");
 		t.setRadio(t.values.transform.name, t.values.transform.value, "text-transform");
 		t.setRadio(t.values.decoration.name, t.values.decoration.value, "text-decoration");
@@ -391,57 +389,6 @@ function Design(id, type, values) {
 			$(this).addClass(className);
 			t.object.removeClassByMask("font-*");
 			t.object.addClass(className);
-		});
-	};
-
-	/**
-	 * @param {string} name
-	 * @param {int}    value
-	 * @param {string} cssAttr
-	 * @param {string} checked
-	 * @param {string} notChecked
-	 */
-	this.setCheckbox = function (name, value, cssAttr, checked, notChecked) {
-		var $checkbox = t.editor.find(".design-" + cssAttr + "-checkbox");
-		var $value = $checkbox.parent().find(".design-checkbox-value");
-		if (parseInt(value) == 1) {
-			$checkbox.attr('checked', true);
-		} else {
-			$checkbox.attr('checked', false);
-		}
-		$value.val(value);
-		$value.attr("name", name);
-		$checkbox.attr('id', "design-" + cssAttr + "-checkbox" + t.id);
-		$checkbox.parent().find("label").attr('for', "design-" + cssAttr + "-checkbox" + t.id);
-		$checkbox.on("change", function () {
-			if ($(this).is(':checked')) {
-				t.object.css(cssAttr, checked);
-				$value.val(1);
-			} else {
-				t.object.css(cssAttr, notChecked);
-				$value.val(0);
-			}
-		});
-	};
-
-	/**
-	 * @param {string} name
-	 * @param {int}    value
-	 * @param {string} cssAttr
-	 */
-	this.setRadio = function (name, value, cssAttr) {
-		var $group = t.editor.find(".design-" + cssAttr + "-radio-group");
-		$group.find(".design-radio").each(function () {
-			$(this).attr("name", name);
-			var id = name + "-" + $(this).attr("value");
-			$(this).attr("id", id);
-			$(this).parent().find(".design-button-label").attr("for", id);
-			if (parseInt($(this).attr("value")) == parseInt(value)) {
-				$(this).attr("checked", true);
-			}
-		});
-		$group.find("input[type=radio]").on("change", function () {
-			t.object.css(cssAttr, $(this).data("value"));
 		});
 	};
 }

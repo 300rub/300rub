@@ -3,7 +3,7 @@ use system\web\Language;
 use models\DesignBlockModel;
 ?>
 
-<div class="j-design-editor j-design-block-editor">
+<div class="j-design-editor-block">
 	<div>
 		<div class="j-title"><?= Language::t("common", "Внешние отступы") ?></div>
 		<div
@@ -128,7 +128,7 @@ use models\DesignBlockModel;
 
 			<div>
 				<?php foreach (DesignBlockModel::$borderStyleList as $key => $value) { ?>
-					<div>
+					<div class="j-radio-container">
 						<input
 							class="l-hide j-border-style"
 							type="radio"
@@ -158,7 +158,7 @@ use models\DesignBlockModel;
 
 		<div>
 			<?php foreach (DesignBlockModel::$gradientDirectionList as $key => $value) { ?>
-				<div>
+				<div class="j-radio-container">
 					<input
 						class="l-hide j-gradient-direction"
 						type="radio"
