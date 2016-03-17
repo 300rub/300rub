@@ -15,6 +15,18 @@
 	};
 
 	/**
+	 * Removes class by mask
+	 *
+	 * @param {String} [mask] Mask. For example: "group-of-names-*"
+	 */
+	$.fn.removeClassByMask = function (mask) {
+		return this.removeClass(function (index, cls) {
+			var re = mask.replace(/\*/g, '\\S+');
+			return (cls.match(new RegExp('\\b' + re + '', 'g')) || []).join(' ');
+		});
+	};
+
+	/**
 	 * Converts name to class
 	 *
 	 * @param {Boolean} [withoutDot] Without dot

@@ -24,16 +24,21 @@
 
             // radio
             if ($.type(this.values.radio) === "array") {
-                $.each(this.values.radio, function (i, options) {
+                $.each(this.values.radio, $.proxy(function (i, options) {
                     this._setRadio(options);
-                });
+                }, this));
             }
 
             // checkbox
             if ($.type(this.values.checkbox) === "array") {
-                $.each(this.values.checkbox, function (i, options) {
+                $.each(this.values.checkbox, $.proxy(function (i, options) {
                     this._setCheckbox(options);
-                });
+                }, this));
+            }
+
+            // font-family
+            if ($.type(this.values.fontFamily) === "object") {
+                this._setFontFamily(this.values.fontFamily);
             }
         },
 
@@ -67,11 +72,11 @@
          * Sets checkbox
          *
          * @param {Object} options:
-         * - {string} name
-         * - {int}    value
-         * - {string} type
-         * - {string} checked
-         * - {string} unChecked
+         * - {string} [name]
+         * - {int}    [value]
+         * - {string} [type]
+         * - {string} [checked]
+         * - {string} [unChecked]
          *
          * @private
          */
@@ -98,6 +103,35 @@
                     $value.val(0);
                 }
             });
+        },
+
+        /**
+         * Sets font-family
+         *
+         * @param {Object} options:
+         * - {string} [name]
+         * - {int}    [value]
+         *
+         * @private
+         */
+        _setFontFamily: function (options) {
+            var t = this;
+            var className;
+
+            this.$_editor.find(".j-font-family")
+                .val(options.value)
+                .attr("name", options.name)
+                .removeClassByMask("l-font-family-*")
+                .on("change", function () {
+                    className = $(this).find(':selected').attr('class');
+                    $(this)
+                        .removeClassByMask("l-font-family-*")
+                        .addClass(className);
+                    t.$_object
+                        .removeClassByMask("l-font-family-*")
+                        .addClass(className);
+                })
+                .change();
         }
     };
 

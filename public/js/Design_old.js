@@ -39,7 +39,6 @@ function Design(id, type, values) {
 		t.setSpinner(t.values.letter_spacing.name, t.values.letter_spacing.value, "letter-spacing", -10, "px");
 		t.setSpinner(t.values.line_height.name, t.values.line_height.value, "line-height", 10, "%");
 		t.setColorPicker(t.values.color.name, t.values.color.value, "color");
-		t.setFont(t.values.family.name, t.values.family.value);
 		t.setRadio(t.values.align.name, t.values.align.value, "text-align");
 		t.setRadio(t.values.transform.name, t.values.transform.value, "text-transform");
 		t.setRadio(t.values.decoration.name, t.values.decoration.value, "text-decoration");
@@ -370,25 +369,5 @@ function Design(id, type, values) {
 			.on("keyup", function () {
 				t.object.css(cssAttr, $(this).val() + cssEnd);
 			});
-	};
-
-	/**
-	 * @param {string} name
-	 * @param {int}    value
-	 */
-	this.setFont = function (name, value) {
-		var $selector = t.editor.find(".design-font-selector");
-		$selector.val(value);
-		$selector.attr("name", name);
-		$selector.removeClassByMask("font-family-*");
-		var className = $selector.find(':selected').attr('class');
-		$selector.addClass(className);
-		$selector.on("change", function () {
-			className = $(this).find(':selected').attr('class');
-			$(this).removeClassByMask("font-family-*");
-			$(this).addClass(className);
-			t.object.removeClassByMask("font-*");
-			t.object.addClass(className);
-		});
 	};
 }

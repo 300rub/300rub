@@ -239,67 +239,67 @@ class DesignTextModel extends Model
 	 */
 	public static $familyList = [
 		self::FAMILY_MYRAD         => [
-			"class" => "font-family-myrad",
+			"class" => "l-font-family-myrad",
 			"name"  => "MyriadPro"
 		],
 		self::FAMILY_ARIAL         => [
-			"class" => "font-family-arial",
+			"class" => "l-font-family-arial",
 			"name"  => "Arial, Helvetica"
 		],
 		self::FAMILY_ARIAL_BLACK   => [
-			"class" => "font-family-arial-black",
+			"class" => "l-font-family-arial-black",
 			"name"  => "Arial Black, Gadget"
 		],
 		self::FAMILY_COMIC_SANS_MS => [
-			"class" => "font-family-comic-sans",
+			"class" => "l-font-family-comic-sans",
 			"name"  => "Comic Sans MS"
 		],
 		self::FAMILY_COURIER_NEW   => [
-			"class" => "font-family-courier-new",
+			"class" => "l-font-family-courier-new",
 			"name"  => "Courier New"
 		],
 		self::FAMILY_GEORGIA       => [
-			"class" => "font-family-georgia",
+			"class" => "l-font-family-georgia",
 			"name"  => "Georgia"
 		],
 		self::FAMILY_IMPACT        => [
-			"class" => "font-family-impact",
+			"class" => "l-font-family-impact",
 			"name"  => "Impact, Charcoal"
 		],
 		self::FAMILY_MONACO        => [
-			"class" => "font-family-monaco",
+			"class" => "l-font-family-monaco",
 			"name"  => "Lucida Console, Monaco"
 		],
 		self::FAMILY_LUCIDA_GRANDE => [
-			"class" => "font-family-lucida-grande",
+			"class" => "l-font-family-lucida-grande",
 			"name"  => "Lucida Sans Unicode"
 		],
 		self::FAMILY_PALATINO      => [
-			"class" => "font-family-palatino",
+			"class" => "l-font-family-palatino",
 			"name"  => "Palatino"
 		],
 		self::FAMILY_TAHOMA        => [
-			"class" => "font-family-tahoma",
+			"class" => "l-font-family-tahoma",
 			"name"  => "Tahoma, Geneva"
 		],
 		self::FAMILY_TIMES         => [
-			"class" => "font-family-times",
+			"class" => "l-font-family-times",
 			"name"  => "Times New Roman, Times"
 		],
 		self::FAMILY_HELVETICA     => [
-			"class" => "font-family-helvetica",
+			"class" => "l-font-family-helvetica",
 			"name"  => "Trebuchet MS, Helvetica"
 		],
 		self::FAMILY_VERDANA       => [
-			"class" => "font-family-verdana",
+			"class" => "l-font-family-verdana",
 			"name"  => "Verdana, Geneva"
 		],
 		self::FAMILY_GENEVA        => [
-			"class" => "font-family-geneva",
+			"class" => "l-font-family-geneva",
 			"name"  => "MS Sans Serif, Geneva"
 		],
 		self::FAMILY_MS_SERIF      => [
-			"class" => "font-family-ms-serif",
+			"class" => "l-font-family-ms-serif",
 			"name"  => "MS Serif, New York"
 		]
 	];
@@ -433,8 +433,8 @@ class DesignTextModel extends Model
 	public function getValues($name)
 	{
 		return [
-			"family"     => [
-				"name"  => str_replace(self::REPLACE_VALUE, "family", $name),
+			"fontFamily"     => [
+				"name"  => sprintf($name, "family"),
 				"value" => $this->family
 			],
 			"size"       => [
