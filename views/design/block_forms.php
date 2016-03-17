@@ -2,129 +2,173 @@
 use system\web\Language;
 use models\DesignBlockModel;
 ?>
-<div class="design-editor design-block-editor">
+
+<div class="j-design-editor j-design-block-editor">
 	<div>
-		<div class="design-group-title"><?= Language::t("common", "Внешние отступы") ?></div>
+		<div class="j-title"><?= Language::t("common", "Внешние отступы") ?></div>
 		<div
-			class="design-angles-container design-angles-margin-container"
+			class="j-margin-container"
 			data-min="-300"
-			data-result="design-angles-result"
+			data-result="j-result"
 			>
-			<div class="design-angles-top-left"><input type="text" data-css="margin-top">px</div>
-			<div class="design-angles-bottom-left"><input type="text" data-css="margin-left">px</div>
-			<div class="design-angles-top-right"><input type="text" data-css="margin-right">px</div>
-			<div class="design-angles-bottom-right"><input type="text" data-css="margin-bottom">px</div>
-			<div class="design-angles-result-wrapper">
-				<div class="design-angles-result-container">
-					<div class="design-angles-result"></div>
-				</div>
+			<div class="j-top-left">
+				<input type="text" data-css="margin-top" title="margin-top">px
 			</div>
-			<label><input type="checkbox"> <?= Language::t("common", "Соединить") ?></label>
-		</div>
-	</div>
-	<div>
-		<div class="design-group-title"><?= Language::t("common", "Внутренние отступы") ?></div>
-		<div
-			class="design-angles-container design-angles-padding-container"
-			data-min="0"
-			data-result="design-angles-result-container"
-			>
-			<div class="design-angles-top-left"><input type="text" data-css="padding-top">px</div>
-			<div class="design-angles-bottom-left"><input type="text" data-css="padding-left">px</div>
-			<div class="design-angles-top-right"><input type="text" data-css="padding-right">px</div>
-			<div class="design-angles-bottom-right"><input type="text" data-css="padding-bottom">px</div>
-			<div class="design-angles-result-wrapper">
-				<div class="design-angles-result-container">
-					<div class="design-angles-result"></div>
-				</div>
+			<div class="j-bottom-left">
+				<input type="text" data-css="margin-left" title="margin-left">px
 			</div>
-			<label><input type="checkbox"> <?= Language::t("common", "Соединить") ?></label>
-		</div>
-	</div>
-	<div>
-		<div class="design-group-title"><?= Language::t("common", "Скругления углов") ?></div>
-		<div
-			class="design-angles-container design-angles-border-radius-container"
-			data-min="0"
-			data-result="design-angles-result"
-			>
-			<div class="design-angles-top-left"><input type="text" data-css="border-top-left-radius">px</div>
-			<div class="design-angles-bottom-left"><input type="text" data-css="border-bottom-left-radius">px</div>
-			<div class="design-angles-top-right"><input type="text" data-css="border-top-right-radius">px</div>
-			<div class="design-angles-bottom-right"><input type="text" data-css="border-bottom-right-radius">px</div>
-			<div class="design-angles-result-wrapper">
-				<div class="design-angles-result-container">
-					<div class="design-angles-result"></div>
-				</div>
+			<div class="j-top-right">
+				<input type="text" data-css="margin-right" title="margin-right">px
 			</div>
-			<label><input type="checkbox"> <?= Language::t("common", "Соединить") ?></label>
-		</div>
-	</div>
-	<div>
-		<div class="design-group-title"><?= Language::t("common", "Граница") ?></div>
-		<div
-			class="design-angles-container design-angles-border-container"
-			data-min="0"
-			data-result="design-angles-result"
-			>
-			<div class="design-angles-top-left"><input type="text" data-css="border-top-width">px</div>
-			<div class="design-angles-bottom-left"><input type="text" data-css="border-left-width">px</div>
-			<div class="design-angles-top-right"><input type="text" data-css="border-right-width">px</div>
-			<div class="design-angles-bottom-right"><input type="text" data-css="border-bottom-width">px</div>
-			<div class="design-angles-result-wrapper">
-				<div class="design-angles-result-container">
-					<div class="design-angles-result"></div>
-				</div>
+			<div class="j-bottom-right">
+				<input type="text" data-css="margin-bottom" title="margin-bottom">px
 			</div>
-			<label><input type="checkbox"> <?= Language::t("common", "Соединить") ?></label>
-			<div class="design-line design-line-border-style-color">
-				<div class="design-color-picker-container design-color-picker-color-container">
-					<input type="hidden" class="color-picker color-border-color-picker">
-				</div>
 
-				<div class="design-radio-group design-border-style-radio-group button-group-container">
-					<?php foreach (DesignBlockModel::$borderStyleList as $key => $value) { ?>
-						<div class="design-radio-container">
-							<input
-								class="hide design-radio"
-								type="radio"
-								value="<?= $key ?>"
-								data-value="<?= $value ?>"
-								>
-							<label class="design-button-label design-border-style-<?= $value ?>"><span></span></label>
-						</div>
-					<?php } ?>
+			<div class="j-result-wrapper">
+				<div class="j-container">
+					<div class="j-result"></div>
 				</div>
 			</div>
+
+			<label><input type="checkbox"> <?= Language::t("common", "Соединить") ?></label>
 		</div>
 	</div>
-	<div>
-		<div class="design-group-title"><?= Language::t("common", "Заливка") ?></div>
-		<div class="design-line design-line-background">
-			<a href="#" class="design-background-clear"><?= Language::t("common", "очистить") ?></a>
-			<div class="design-color-picker-container">
-				<input type="hidden" class="color-picker color-background-from-picker">
-			</div>
-			<div class="color-background-arrow">→</div>
-			<div class="design-color-picker-container">
-				<input type="hidden" class="color-picker color-background-to-picker">
-			</div>
-		</div>
 
-		<div class="design-line">
-			<div class="design-radio-group design-direction-radio-group button-group-container">
-				<?php foreach (DesignBlockModel::$gradientDirectionList as $key => $value) { ?>
-					<div class="design-radio-container">
+	<div>
+		<div><?= Language::t("common", "Внутренние отступы") ?></div>
+		<div
+			class="j-padding-container"
+			data-min="0"
+			data-result="j-container"
+			>
+			<div class="j-top-left">
+				<input type="text" data-css="padding-top" title="padding-top">px
+			</div>
+			<div class="j-bottom-left">
+				<input type="text" data-css="padding-left" title="padding-left">px
+			</div>
+			<div class="j-top-right">
+				<input type="text" data-css="padding-right" title="padding-right">px
+			</div>
+			<div class="j-bottom-right">
+				<input type="text" data-css="padding-bottom" title="padding-bottom">px
+			</div>
+
+			<div class="j-result-wrapper">
+				<div class="j-container">
+					<div class="j-result"></div>
+				</div>
+			</div>
+
+			<label><input type="checkbox"> <?= Language::t("common", "Соединить") ?></label>
+		</div>
+	</div>
+
+	<div>
+		<div><?= Language::t("common", "Скругления углов") ?></div>
+		<div
+			class="j-border-radius-container"
+			data-min="0"
+			data-result="j-result"
+			>
+			<div class="j-top-left">
+				<input type="text" data-css="border-top-left-radius" title="border-top-left-radius">px
+			</div>
+			<div class="j-bottom-left">
+				<input type="text" data-css="border-bottom-left-radius" title="border-bottom-left-radius">px
+			</div>
+			<div class="j-top-right">
+				<input type="text" data-css="border-top-right-radius" title="border-top-right-radius">px
+			</div>
+			<div class="j-bottom-right">
+				<input type="text" data-css="border-bottom-right-radius" title="border-bottom-right-radius">px
+			</div>
+
+			<div class="j-result-wrapper">
+				<div class="j-container">
+					<div class="j-result"></div>
+				</div>
+			</div>
+
+			<label><input type="checkbox"> <?= Language::t("common", "Соединить") ?></label>
+		</div>
+	</div>
+
+	<div>
+		<div><?= Language::t("common", "Граница") ?></div>
+		<div
+			class="j-border-container"
+			data-min="0"
+			data-result="j-result"
+			>
+			<div class="j-top-left">
+				<input type="text" data-css="border-top-width" title="border-top-width">px
+			</div>
+			<div class="j-bottom-left">
+				<input type="text" data-css="border-left-width" title="border-left-width">px
+			</div>
+			<div class="j-top-right">
+				<input type="text" data-css="border-right-width" title="border-right-width">px
+			</div>
+			<div class="j-bottom-right">
+				<input type="text" data-css="border-bottom-width" title="border-bottom-width">px
+			</div>
+
+			<div class="j-result-wrapper">
+				<div class="j-container">
+					<div class="j-result"></div>
+				</div>
+			</div>
+
+			<label><input type="checkbox"> <?= Language::t("common", "Соединить") ?></label>
+
+			<div>
+				<input type="hidden" class="j-border-color">
+			</div>
+
+			<div>
+				<?php foreach (DesignBlockModel::$borderStyleList as $key => $value) { ?>
+					<div>
 						<input
-							class="hide design-radio"
+							class="l-hide j-border-style"
 							type="radio"
 							value="<?= $key ?>"
-							data-value="<?= $value["linear"] ?>"
+							data-value="<?= $value ?>"
+							title="border-style"
 							>
-						<label class="design-button-label"><?= $value["label"] ?></label>
+						<label><span></span></label>
 					</div>
 				<?php } ?>
 			</div>
+		</div>
+	</div>
+
+	<div>
+		<div><?= Language::t("common", "Заливка") ?></div>
+		<div>
+			<a href="#" class="j-background-clear"><?= Language::t("common", "очистить") ?></a>
+			<div>
+				<input type="hidden" class="j-background-from">
+			</div>
+			<div class="color-background-arrow">→</div>
+			<div>
+				<input type="hidden" class="j-background-to">
+			</div>
+		</div>
+
+		<div>
+			<?php foreach (DesignBlockModel::$gradientDirectionList as $key => $value) { ?>
+				<div>
+					<input
+						class="l-hide j-gradient-direction"
+						type="radio"
+						value="<?= $key ?>"
+						data-value="<?= $value["linear"] ?>"
+						title="<?= Language::t("common", "Gradient direction") ?>"
+						>
+					<label><?= $value["label"] ?></label>
+				</div>
+			<?php } ?>
 		</div>
 	</div>
 </div>
