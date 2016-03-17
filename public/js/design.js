@@ -1,6 +1,13 @@
 !function ($, c) {
     "use strict";
 
+    /**
+     *
+     * @param id
+     * @param  type
+     * @param {Object} values
+     * @constructor
+     */
     c.Design = function (id, type, values) {
         this.id = id;
         this.type = type;
@@ -22,16 +29,16 @@
             this._style = this.$_object.attr("style");
             this._class = this.$_object.attr("class");
 
-            // radio
-            if ($.type(this.values.radio) === "array") {
-                $.each(this.values.radio, $.proxy(function (i, options) {
+            // radios
+            if ($.type(this.values.radios) === "array") {
+                $.each(this.values.radios, $.proxy(function (i, options) {
                     this._setRadio(options);
                 }, this));
             }
 
-            // checkbox
-            if ($.type(this.values.checkbox) === "array") {
-                $.each(this.values.checkbox, $.proxy(function (i, options) {
+            // checkboxes
+            if ($.type(this.values.checkboxes) === "array") {
+                $.each(this.values.checkboxes, $.proxy(function (i, options) {
                     this._setCheckbox(options);
                 }, this));
             }
@@ -39,6 +46,13 @@
             // font-family
             if ($.type(this.values.fontFamily) === "object") {
                 this._setFontFamily(this.values.fontFamily);
+            }
+
+            // spinners
+            if ($.type(this.values.spinners) === "array") {
+                $.each(this.values.spinners, $.proxy(function (i, options) {
+                    this._setSpinner(options);
+                }, this));
             }
         },
 
@@ -72,11 +86,11 @@
          * Sets checkbox
          *
          * @param {Object} options:
-         * - {string} [name]
-         * - {int}    [value]
-         * - {string} [type]
-         * - {string} [checked]
-         * - {string} [unChecked]
+         * - {String}  [name]
+         * - {Integer} [value]
+         * - {String}  [type]
+         * - {String}  [checked]
+         * - {String}  [unChecked]
          *
          * @private
          */
@@ -109,8 +123,8 @@
          * Sets font-family
          *
          * @param {Object} options:
-         * - {string} [name]
-         * - {int}    [value]
+         * - {String}  [name]
+         * - {Integer} [value]
          *
          * @private
          */
@@ -132,6 +146,42 @@
                         .addClass(className);
                 })
                 .change();
+        },
+
+        /**
+         * Sets spinner
+         *
+         * @param {Object} options:
+         * - {String}  [name]
+         * - {Integer} [value]
+         * - {String}  [type]
+         * - {Integer} [minValue]
+         * - {String}  [measure]
+         *
+         * @private
+         */
+        _setSpinner: function (options) {
+            var t = this;
+            var id = $.uniqueId();
+            var $container = this.$_editor.find(".j-" + options.type + "-container");
+
+            $container.find("label").attr('for', id);
+            $container.find("span").text(options.measure);
+
+            $container.find("input")
+                .val(options.value)
+                .attr("name", options.name)
+                .attr("id", id)
+                .forceNumericOnly()
+                .spinner({
+                    min: options.minValue,
+                    spin: function (event, ui) {
+                        t.$_object.css(options.type, ui.value + options.measure);
+                    }
+                })
+                .on("keyup", function () {
+                    t.$_object.css(options.type, $(this).val() + options.measure);
+                });
         }
     };
 

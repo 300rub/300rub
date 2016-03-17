@@ -35,9 +35,6 @@ function Design(id, type, values) {
 	};
 
 	this.setText = function () {
-		t.setSpinner(t.values.size.name, t.values.size.value, "font-size", 4, "px");
-		t.setSpinner(t.values.letter_spacing.name, t.values.letter_spacing.value, "letter-spacing", -10, "px");
-		t.setSpinner(t.values.line_height.name, t.values.line_height.value, "line-height", 10, "%");
 		t.setColorPicker(t.values.color.name, t.values.color.value, "color");
 		t.setRadio(t.values.align.name, t.values.align.value, "text-align");
 		t.setRadio(t.values.transform.name, t.values.transform.value, "text-transform");
@@ -341,33 +338,5 @@ function Design(id, type, values) {
 	this.setAngleSpinnerValue = function ($obj, $result, value) {
 		t.object.css($obj.data("css"), value + "px");
 		$result.css($obj.data("css"), value + "px");
-	};
-
-	/**
-	 * @param {string} name
-	 * @param {int}    value
-	 * @param {string} cssAttr
-	 * @param {int}    min
-	 * @param {string} cssEnd
-	 */
-	this.setSpinner = function (name, value, cssAttr, min, cssEnd) {
-		var $spinner = t.editor.find(".design-spinner-" + cssAttr + "-container");
-		$spinner.find("label").attr('for', "design-spinner-" + cssAttr + t.id);
-		$spinner.find("span").text(cssEnd);
-
-		$spinner.find("input")
-			.val(value)
-			.attr("name", name)
-			.attr("id", "design-spinner-" + cssAttr + t.id)
-			.forceNumericOnly()
-			.spinner({
-				min: min,
-				spin: function (event, ui) {
-					t.object.css(cssAttr, ui.value + cssEnd);
-				}
-			})
-			.on("keyup", function () {
-				t.object.css(cssAttr, $(this).val() + cssEnd);
-			});
 	};
 }

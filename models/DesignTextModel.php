@@ -437,15 +437,34 @@ class DesignTextModel extends Model
 				"name"  => sprintf($name, "family"),
 				"value" => $this->family
 			],
-			"size"       => [
-				"name"  => str_replace(self::REPLACE_VALUE, "size", $name),
-				"value" => $this->size
+			"spinners" => [
+				[
+					"name"     => sprintf($name, "size"),
+					"value"    => $this->size,
+					"type"     => "font-size",
+					"minValue" => 4,
+					"measure"  => "px"
+				],
+                [
+                    "name"     => sprintf($name, "letter_spacing"),
+                    "value"    => $this->letter_spacing,
+                    "type"     => "letter-spacing",
+                    "minValue" => -10,
+                    "measure"  => "px"
+                ],
+                [
+                    "name"     => sprintf($name, "line_height"),
+                    "value"    => $this->line_height,
+                    "type"     => "line-height",
+                    "minValue" => 10,
+                    "measure"  => "%"
+                ]
 			],
 			"color"           => [
 				"name"  => str_replace(self::REPLACE_VALUE, "color", $name),
 				"value" => $this->color
 			],
-			"ckeckbox" => [
+			"checkboxes" => [
 				[
 					"name"      => sprintf($name, "is_italic"),
 					"value"     => $this->is_italic,
@@ -473,14 +492,6 @@ class DesignTextModel extends Model
 			"transform"  => [
 				"name"  => str_replace(self::REPLACE_VALUE, "transform", $name),
 				"value" => $this->transform
-			],
-			"letter_spacing"  => [
-				"name"  => str_replace(self::REPLACE_VALUE, "letter_spacing", $name),
-				"value" => $this->letter_spacing
-			],
-			"line_height"     => [
-				"name"  => str_replace(self::REPLACE_VALUE, "line_height", $name),
-				"value" => $this->line_height
 			]
 		];
 	}

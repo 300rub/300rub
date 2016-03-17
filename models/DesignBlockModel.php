@@ -403,7 +403,7 @@ class DesignBlockModel extends Model
 	public function getValues($name)
 	{
 		return [
-			"angle"           => [
+			"angles"          => [
 				[
 					"type"   => "margin",
 					"values" => [
@@ -504,7 +504,7 @@ class DesignBlockModel extends Model
 					"value" => $this->border_color
 				]
 			],
-			"radio"           => [
+			"radios"           => [
 				[
 					"type"  => "border-style",
 					"name"  => sprintf($name, "border_style"),
