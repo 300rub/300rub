@@ -2,10 +2,12 @@
     "use strict";
 
     /**
+     * Object for working with design
      *
-     * @param id
-     * @param  type
-     * @param {Object} values
+     * @param {Integer} [id]     Design ID
+     * @param {String}  [type]   Design type
+     * @param {Object}  [values] Data
+     *
      * @constructor
      */
     c.Design = function (id, type, values) {
@@ -15,14 +17,48 @@
         this.init();
     };
 
+    /**
+      * Design's prototype
+      */
     c.Design.prototype = {
+        /**
+         * Constructor
+         *
+         * @var {Window.Core.Design}
+         */
         constructor: c.Design,
 
+        /**
+         * DOM-element of editor
+         *
+         * @type {HTMLElement}
+         */
         $_editor: null,
+
+        /**
+         * DOM-element of HTML block
+         *
+         * @type {HTMLElement}
+         */
         $_object: null,
+
+        /**
+         * Block styles
+         *
+         * @type {String}
+         */
         _style: "",
+
+        /**
+         * Block classes
+         *
+         * @type {String}
+         */
         _class: "",
 
+        /**
+         * Initialization
+         */
         init: function () {
             this.$_editor = c.$templates.find(".j-design-editor-" + this.type).clone().attr("data-id", this.id);
             this.$_object = $(".j-design-" + this.type + "-" + this.id);
@@ -66,6 +102,22 @@
             if ($.type(this.values.backgroundColor) === "object") {
                 this._setBackgroundColor(this.values.backgroundColor);
             }
+
+            // angles
+            if ($.type(this.values.angles) === "array") {
+                $.each(this.values.angles, $.proxy(function (i, options) {
+                    this._setAngles(options);
+                }, this));
+            }
+        },
+
+        /**
+         * Resets object design
+         */
+        reset: function () {
+            this.$_object
+                .attr("class", this._class)
+                .attr("style", this._style);
         },
 
         /**
@@ -331,9 +383,141 @@
                     }
                 }
             });
+        },
+
+        /**
+         * Sets angles
+         *
+         * @param {Object} [options]
+         * - {String}  [type]
+         * - {Array}   [values]:
+         *   - {String} [name]
+         *   - {String} [value]
+         *
+         * @private
+         */
+        _setAngles: function (options) {
+            var t = this;
+            var $container = this.$_editor.find(".j-" + options.type + "-container");
+            var $topLeft = $container.find(".j-top-left input")
+                .attr("name", options.values[0].name)
+                .val(options.values[0].value);
+            var $topRight = $container.find(".j-top-right input")
+                .attr("name", options.values[1].name)
+                .val(options.values[1].value);
+            var $bottomRight = $container.find(".j-bottom-right input")
+                .attr("name", options.values[2].name)
+                .val(options.values[2].value);
+            var $bottomLeft = $container.find(".j-bottom-left input")
+                .attr("name", options.values[3].name)
+                .val(options.values[3].value);
+            var $result = $container.find("." + $container.data("result"));
+            var min = $container.data("min");
+            var $join = $container.find("label input");
+
+            $topLeft.forceNumericOnly();
+            $topRight.forceNumericOnly();
+            $bottomRight.forceNumericOnly();
+            $bottomLeft.forceNumericOnly();
+
+            $result
+                .css($topLeft.data("css"), $topLeft.val() + "px")
+                .css($topRight.data("css"), $topRight.val() + "px")
+                .css($bottomRight.data("css"), $bottomRight.val() + "px")
+                .css($bottomLeft.data("css"), $bottomLeft.val() + "px");
+
+            if (
+                $topLeft.val() === $topRight.val()
+                && $topLeft.val() === $bottomRight.val()
+                && $topLeft.val() === $bottomLeft.val()) {
+                $join.attr('checked', true);
+            }
+            $join.on("change", function () {
+                if ($(this).is(':checked')) {
+                    var value = $topLeft.val();
+                    t.$_object.css($topLeft.data("css"), value + "px");
+                    $result.css($topLeft.data("css"), value + "px");
+                    $topRight.val(value);
+                    t.$_object.css($topRight.data("css"), value + "px");
+                    $result.css($topRight.data("css"), value + "px");
+                    $bottomRight.val(value);
+                    t.$_object.css($bottomRight.data("css"), value + "px");
+                    $result.css($bottomRight.data("css"), value + "px");
+                    $bottomLeft.val(value);
+                    t.$_object.css($bottomLeft.data("css"), value + "px");
+                    $result.css($bottomLeft.data("css"), value + "px");
+                }
+            });
+
+            t._setAngleSpinner($topLeft, $result, min, $join, $topRight, $bottomRight, $bottomLeft);
+            t._setAngleSpinner($topRight, $result, min, $join, $topLeft, $bottomRight, $bottomLeft);
+            t._setAngleSpinner($bottomRight, $result, min, $join, $topLeft, $topRight, $bottomLeft);
+            t._setAngleSpinner($bottomLeft, $result, min, $join, $topLeft, $topRight, $bottomRight);
+        },
+
+        /**
+         * Sets angle spinner
+         *
+         * @param {Object}  $obj
+         * @param {Object}  $result
+         * @param {Integer} min
+         * @param {Object}  $join
+         * @param {Object}  $obj2
+         * @param {Object}  $obj3
+         * @param {Object}  $obj4
+         *
+         * @private
+         */
+        _setAngleSpinner: function ($obj, $result, min, $join, $obj2, $obj3, $obj4) {
+            t = this;
+
+            $obj.spinner({
+                min: min,
+                spin: function (event, ui) {
+                    t._setAngleSpinnerValue($obj, $result, ui.value);
+                    if ($join.is(':checked')) {
+                        $obj2.val(ui.value);
+                        $obj3.val(ui.value);
+                        $obj4.val(ui.value);
+                        t._setAngleSpinnerValue($obj2, $result, ui.value);
+                        t._setAngleSpinnerValue($obj3, $result, ui.value);
+                        t._setAngleSpinnerValue($obj4, $result, ui.value);
+                    }
+                }
+            }).on("keyup", function () {
+                var value = $(this).val();
+                t._setAngleSpinnerValue($obj, $result, value);
+                if ($join.is(':checked')) {
+                    $obj2.val(value);
+                    $obj3.val(value);
+                    $obj4.val(value);
+                    t._setAngleSpinnerValue($obj2, $result, value);
+                    t._setAngleSpinnerValue($obj3, $result, value);
+                    t._setAngleSpinnerValue($obj4, $result, value);
+                }
+            });
+        },
+
+        /**
+         * Sets angle spinner value
+         *
+         * @param {Object} $obj
+         * @param {Object} $result
+         * @param {int}    value
+         */
+        _setAngleSpinnerValue: function ($obj, $result, value) {
+            this.$_object.css($obj.data("css"), value + "px");
+            $result.css($obj.data("css"), value + "px");
         }
     };
 
+    /**
+     * Adds Design to jQuery
+     *
+     * @param {Integer} [id]     Design ID
+     * @param {String}  [type]   Design type
+     * @param {Object}  [values] Data
+     */
     $.design = function (id, type, values) {
         return new c.Design(id, type, values);
     };

@@ -16,7 +16,7 @@
     c.Window.prototype.$_sectionLineTemplate = null;
 
     /**
-     * Initialisation
+     * Initialization
      */
     c.Window.prototype.section = function () {
         this
