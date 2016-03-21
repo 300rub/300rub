@@ -2,11 +2,11 @@
 use system\web\Language;
 ?>
 
-<a href="#" class="j-panel-settings-duplicate"><?= Language::t("common", "Duplicate") ?></a>
+<a href="#" class="j-panel-settings-duplicate"><?= Language::t("common", "duplicate") ?></a>
 <a
     href="#"
     class="j-panel-settings-delete"
-    data-confirm="<?= Language::t("common", "Вы действительно хотите удалить раздел?") ?>"
-><?= Language::t("common", "Delete") ?></a>
+    data-confirm="<?= Language::t("section", "deleteConfirmation") ?>"
+><?= Language::t("common", "delete") ?></a>
 
-<button class="j-panel-settings-submit"><?= Language::t("common", "Save") ?></button>
+<button class="j-panel-settings-submit"><?= Language::t("common", "save") ?></button>

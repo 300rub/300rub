@@ -13,6 +13,26 @@ class Language
 {
 
 	/**
+	 * Language ID. English
+	 */
+	const LANGUAGE_EN_ID = 1;
+
+	/**
+	 * Language alias. English
+	 */
+	const LANGUAGE_EN_ALIAS = "en";
+
+	/**
+	 * Language ID. Russian
+	 */
+	const LANGUAGE_RU_ID = 2;
+
+	/**
+	 * Language alias. Russian
+	 */
+	const LANGUAGE_RU_ALIAS = "ru";
+
+	/**
 	 * Active language ID
 	 *
 	 * @var int
@@ -20,19 +40,13 @@ class Language
 	public static $activeId = 0;
 
 	/**
-	 * Language ID. Russian
-	 *
-	 * @var int
-	 */
-	const LANGUAGE_RU = 1;
-
-	/**
 	 * List of languages
 	 *
 	 * @var array
 	 */
 	public static $aliasList = [
-		self::LANGUAGE_RU => "ru",
+		self::LANGUAGE_EN_ID => self::LANGUAGE_EN_ALIAS,
+		self::LANGUAGE_RU_ID => self::LANGUAGE_RU_ALIAS,
 	];
 
 	/**
@@ -50,7 +64,7 @@ class Language
 		if ($id) {
 			self::$activeId = $id;
 		} else {
-			throw new Exception(Language::t("common", "Такого языка не существует ({$name})"));
+			throw new Exception("Language doesn't exists ({$name})");
 		}
 	}
 
@@ -65,25 +79,25 @@ class Language
 			return self::$aliasList[self::$activeId];
 		}
 
-		return self::$aliasList[self::LANGUAGE_RU];
+		return self::$aliasList[self::LANGUAGE_EN_ID];
 	}
 
 	/**
 	 * Translates message
 	 *
-	 * @param string $category    Category
-	 * @param string $message     Message
-	 * @param array  $replacement Replacement
+	 * @param string $category Category
+	 * @param string $key      Key
 	 *
 	 * @return string
 	 */
-	public static function t($category, $message, $replacement = [])
+	public static function t($category, $key)
 	{
-		foreach ($replacement as $key => $value) {
-			$message = str_replace("{" . $key . "}", $value, $message);
+		$messages = require_once(__DIR__ . "/../../messages/{$category}.php");
+		if (array_key_exists($key, $messages)) {
+			return $messages[$key][self::$activeId];
 		}
 
-		return $message;
+		return "";
 	}
 
 	/**

@@ -63,8 +63,8 @@ class TextController extends Controller
 
         $this->json = [
             "back"        => "block.panelList",
-            "title"       => Language::t("common", "Тексты"),
-            "description" => Language::t("common", "Выберите текст для редактирования"),
+            "title"       => Language::t("text", "texts"),
+            "description" => Language::t("text", "panelDescription"),
             "list"        => $list,
             "content"     => "text.window",
             "icon"        => "text",
@@ -82,8 +82,8 @@ class TextController extends Controller
 
         $this->json = [
             "back"        => "text/panelList",
-            "title"       => Language::t("common", "Настройки текста"),
-            "description" => Language::t("common", "333"),
+            "title"       => Language::t("common", "settings"),
+            "description" => Language::t("text", "settingsDescription"),
             "action"      => "section.saveSettings",
             "id"          => intval($model->id),
             "update"      => [
@@ -118,8 +118,8 @@ class TextController extends Controller
 
         $this->json = [
             "back"        => "text.panelList",
-            "title"       => Language::t("common", "Дизайн текстового блока"),
-            "description" => Language::t("common", "123"),
+            "title"       => Language::t("common", "design"),
+            "description" => Language::t("text", "designDescription"),
             "action"      => "section.saveDesign",
             "id"          => intval($model->id),
             "design"      => $model->getDesignForms()

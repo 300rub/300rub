@@ -26,6 +26,16 @@ class ErrorHandler
 	const DEFAULT_STATUS_CODE = 500;
 
 	/**
+	 * Status. Not found
+	 */
+	const STATUS_NOT_FOUND = 404;
+
+	/**
+	 * Status. Access denied
+	 */
+	const STATUS_ACCESS_DENIED = 403;
+
+	/**
 	 * Constructor
 	 */
 	public function __construct()

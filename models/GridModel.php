@@ -2,6 +2,7 @@
 
 namespace models;
 
+use system\base\ErrorHandler;
 use system\base\Exception;
 use system\base\Model;
 use system\db\Db;
@@ -424,7 +425,7 @@ class GridModel extends Model
 	{
 		return [
 			self::TYPE_TEXT => [
-				"name"     => Language::t("common", "Текст"),
+				"name"     => Language::t("text", "text"),
 				"model"    => "TextModel",
 				"view"     => "text",
 				"selector" => "j-text-",
@@ -445,7 +446,7 @@ class GridModel extends Model
 		$typeList = self::getTypesList();
 
 		if (!array_key_exists($this->content_type, $typeList)) {
-			throw new Exception(Language::t("default", "Модель не найдена"), 404);
+			throw new Exception("Model not found", ErrorHandler::STATUS_NOT_FOUND);
 		}
 
 		/**
@@ -456,7 +457,7 @@ class GridModel extends Model
 		$model = $model->byId($this->content_id)->withAll()->find();
 
 		if (!$model) {
-			throw new Exception(Language::t("default", "Модель не найдена"), 404);
+			throw new Exception("Model not found", ErrorHandler::STATUS_NOT_FOUND);
 		}
 
 		return $model;
@@ -474,7 +475,7 @@ class GridModel extends Model
 		$typeList = self::getTypesList();
 
 		if (!array_key_exists($this->content_type, $typeList)) {
-			throw new Exception(Language::t("default", "Модель не найдена"), 404);
+			throw new Exception("Type of model not found", ErrorHandler::STATUS_NOT_FOUND);
 		}
 
 		return 'content.' . $typeList[$this->content_type]["view"];
@@ -492,7 +493,7 @@ class GridModel extends Model
 		$typeList = self::getTypesList();
 
 		if (!array_key_exists($this->content_type, $typeList)) {
-			throw new Exception(Language::t("default", "Модель не найдена"), 404);
+			throw new Exception("Type of model not found", ErrorHandler::STATUS_NOT_FOUND);
 		}
 
 		return $typeList[$this->content_type]["selector"] . $this->content_id;

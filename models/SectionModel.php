@@ -206,7 +206,7 @@ class SectionModel extends Model
 		if (!$this->design_block_id) {
 			$designBlockModel = new DesignBlockModel();
 			if (!$designBlockModel->save()) {
-				throw new Exception(Language::t("common", "Не удалось создать дизайн"), 404);
+				throw new Exception("Failed to create a design");
 			}
 			$this->design_block_id = $designBlockModel->id;
 		}
@@ -342,7 +342,7 @@ class SectionModel extends Model
 		$list = [];
 
 		$list[] = [
-			"title" => Language::t("common", "Background"),
+			"title" => Language::t("section", "background"),
 			"forms" => [
 				[
 					"id"     => $this->designBlockModel->id,
@@ -358,8 +358,9 @@ class SectionModel extends Model
 			->with(["outsideDesignModel", "insideDesignModel"])
 			->findAll();
 		foreach ($lines as $line) {
+			$lineTitle = Language::t("section", "line") . " {$line->sort}";
 			$list[] = [
-				"title" => Language::t("common", "Линия {$line->sort}"),
+				"title" => $lineTitle,
 				"forms" => [
 					[
 						"id"     => $line->outsideDesignModel->id,
@@ -369,7 +370,7 @@ class SectionModel extends Model
 				]
 			];
 			$list[] = [
-				"title" => Language::t("common", "Линия {$line->sort} контейнер"),
+				"title" => "{$lineTitle} " . Language::t("section", "container"),
 				"forms" => [
 					[
 						"id"     => $line->insideDesignModel->id,

@@ -9,4 +9,4 @@ use system\web\Language;
     <a href="#" class="j-settings l-design l-hide"><span></span></a>
 </div>
 
-<a href="#" class="j-panel-list-add l-hide"><?= Language::t("common", "Add") ?></a>
+<a href="#" class="j-panel-list-add l-hide"><?= Language::t("common", "add") ?></a>

@@ -4,6 +4,7 @@ namespace system\web;
 
 use system\App;
 use system\base\Application;
+use system\base\ErrorHandler;
 use system\db\Db;
 use system\base\Exception;
 use controllers\CommonController;
@@ -92,16 +93,16 @@ class Web extends Application
 			$host = substr($host, 4);
 		}
 		if (!$host) {
-			throw new Exception(Language::t("default", "Не удалось определить адрес сайта"));
+			throw new Exception("Unable to determine the address of the site");
 		}
 
 		$site = Db::fetch("SELECT * FROM sites WHERE host = ?", [$host]);
 		if (!$site) {
-			throw new Exception(Language::t("default", "Не удалось определить сайт"));
+			throw new Exception("Unable to determine the site");
 		}
 
 		if (!Db::setPdo($site["db_user"], $site["db_password"], $site["db_name"])) {
-			throw new Exception(Language::t("default", "Не удалось соединиться с базой данных"));
+			throw new Exception("Unable to connect to database");
 		}
 
 		Language::$activeId = $site["language"];
@@ -145,13 +146,13 @@ class Web extends Application
 			empty($_SERVER['HTTP_X_REQUESTED_WITH'])
 			|| strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) !== 'xmlhttprequest'
 		) {
-			throw new Exception(Language::t("common", "This is not ajax request"), 404);
+			throw new Exception("This is not ajax request", ErrorHandler::STATUS_NOT_FOUND);
 		}
 
 		$this->isAjax = true;
 
 		if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-			throw new Exception(Language::t("common", "No post"), 404);
+			throw new Exception("REQUEST_METHOD is not POST", ErrorHandler::STATUS_NOT_FOUND);
 		}
 
 		$input = json_decode(file_get_contents('php://input'));
@@ -161,17 +162,17 @@ class Web extends Application
 			|| empty($input->language)
 			|| !isset($input->fields)
 		) {
-			throw new Exception(Language::t("common", "111"), 404);
+			throw new Exception("Incorrect post data", ErrorHandler::STATUS_NOT_FOUND);
 		}
 
 		$controllerParams = explode(".", $input->action);
 		if (count($controllerParams) !== 2) {
-			throw new Exception(Language::t("common", "111"), 404);
+			throw new Exception("Incorrect \"action\" parameter", ErrorHandler::STATUS_NOT_FOUND);
 		}
 
 		$className = "\\controllers\\" . ucfirst($controllerParams[0]) . "Controller";
 		if (!class_exists($className)) {
-			throw new Exception(Language::t("common", "111"), 404);
+			throw new Exception("Class \"$className\" doesn't exists");
 		}
 
 		/**
@@ -180,11 +181,11 @@ class Web extends Application
 		$controller = new $className;
 		$methodName = "action" . ucfirst($controllerParams[1]);
 		if (!method_exists($controller, $methodName)) {
-			throw new Exception(Language::t("common", $className . $methodName), 404);
+			throw new Exception("Class \"{$className} {$methodName}\" doesn't exists");
 		}
 
 		if (!$controller->hasAccess($methodName)) {
-			throw new Exception(Language::t("common", $methodName), 403);
+			throw new Exception("Access denied", ErrorHandler::STATUS_ACCESS_DENIED);
 		}
 
 		Language::setIdByAlias($input->language);

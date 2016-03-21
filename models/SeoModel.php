@@ -139,7 +139,7 @@ class SeoModel extends Model
 	{
 		$seoModel = clone $this;
 		$seoModel->id = null;
-		$seoModel->name .= " " . Language::t("common", "(копия)");
+		$seoModel->name = Language::t("common", "copy") . " {$seoModel->name}";
 		$seoModel->url .= "-copy" . rand(1000, 100000);
 		$seoModel->title = "";
 		$seoModel->keywords = "";

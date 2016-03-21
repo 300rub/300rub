@@ -63,8 +63,8 @@ class SectionController extends Controller
                 "content" => "block.panelList",
                 "handler" => "list"
             ],
-            "title"       => Language::t("section", "Sections"),
-            "description" => Language::t("section", "Sections panel description"),
+            "title"       => Language::t("section", "sections"),
+            "description" => Language::t("section", "panelDescription"),
             "list"        => $list,
             "icon"        => "section-list-item",
             "item"        => [
@@ -80,7 +80,7 @@ class SectionController extends Controller
                 "handler" => "section.saveSettings"
             ],
             "add"         => [
-                "label"   => Language::t("common", "Add"),
+                "label"   => Language::t("common", "add"),
                 "content" => "section.settings",
                 "handler" => "section.saveSettings"
             ]
@@ -100,11 +100,11 @@ class SectionController extends Controller
                 "content" => "section.panelList",
                 "handler" => "list"
             ],
-            "title"       => Language::t("common", "Настройки раздела"),
-            "description" => Language::t("common", "Здесь вы можете редактировать название и СЕО"),
+            "title"       => Language::t("common", "settings"),
+            "description" => Language::t("section", "settingsDescription"),
             "id"          => intval($model->id),
             "submit"      => [
-                "label"   => Language::t("common", "Save"),
+                "label"   => Language::t("common", "save"),
                 "content" => "section.panelList",
                 "action"  => "section.saveSettings",
                 "handler" => "list",
@@ -119,7 +119,7 @@ class SectionController extends Controller
             $this->json["delete"] = [
                 "action"  => "section.delete",
                 "content" => "section.panelList",
-                "confirm" => Language::t("common", "Delete?"),
+                "confirm" => Language::t("common", "delete?"),
                 "handler" => "list",
             ];
         }
@@ -161,8 +161,8 @@ class SectionController extends Controller
 
         $this->json = [
             "back"        => "section/panelList",
-            "title"       => Language::t("common", "Дизайн раздела"),
-            "description" => Language::t("common", "123"),
+            "title"       => Language::t("common", "design"),
+            "description" => Language::t("section", "designDescription"),
             "action"      => "section.saveDesign",
             "id"          => intval($model->id),
             "design"      => $model->getDesignForms()

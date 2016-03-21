@@ -3,6 +3,7 @@
 namespace controllers;
 
 use models\UserModel;
+use system\base\ErrorHandler;
 use system\web\Controller;
 use system\base\Exception;
 use system\web\Language;
@@ -45,9 +46,9 @@ class UserController extends Controller
     public function actionWindow()
     {
         $this->json = [
-            "title"       => Language::t("common", "Вход"),
+            "title"       => Language::t("user", "windowTitle"),
             "action"      => "user.login",
-            "buttonLabel" => Language::t("common", "Войти")
+            "buttonLabel" => Language::t("user", "windowButton")
         ];
 
         $this->setFormsForJson(new UserModel, ["t.login", "t.password", "t.remember"]);
@@ -59,7 +60,7 @@ class UserController extends Controller
     public function actionLogin()
     {
         if (!$this->data || !isset($this->data["t.login"]) || !isset($this->data["t.password"])) {
-            throw new Exception(Language::t("common", "Некорректрый url"), 404);
+            throw new Exception("Incorrect URL", ErrorHandler::STATUS_NOT_FOUND);
         }
 
         $model = new UserModel;

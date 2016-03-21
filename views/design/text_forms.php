@@ -5,7 +5,6 @@ use models\DesignTextModel;
 
 <div class="j-design-editor-text">
 	<div>
-		<div><?= Language::t("common", "Текстовые стили") ?></div>
 		<div>
 			<select class="j-font-family" title="font-family">
 				<?php foreach (DesignTextModel::$familyList as $key => $value) { ?>

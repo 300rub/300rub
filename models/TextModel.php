@@ -201,7 +201,7 @@ class TextModel extends Model
 		];
 
 		$list[] = [
-			"title" => Language::t("common", "Текст"),
+			"title" => Language::t("text", "text"),
 			"forms" => $forms
 		];
 
@@ -216,13 +216,13 @@ class TextModel extends Model
 	public static function getTypeList()
 	{
 		return [
-			self::TYPE_DIV    => Language::t("common", "По умолчанию"),
-			self::TYPE_H1     => Language::t("common", "Заголовок 1 уровня"),
-			self::TYPE_H2     => Language::t("common", "Заголовок 2 уровня"),
-			self::TYPE_H3     => Language::t("common", "Заголовок 3 уровня"),
-			self::TYPE_ADRESS => Language::t("common", "Адрес"),
-			self::TYPE_MARK   => Language::t("common", "Важный текст"),
-			self::TYPE_CODE   => Language::t("common", "Код"),
+			self::TYPE_DIV    => Language::t("text", "typeDefault"),
+			self::TYPE_H1     => Language::t("text", "typeH1"),
+			self::TYPE_H2     => Language::t("text", "typeH2"),
+			self::TYPE_H3     => Language::t("text", "typeH3"),
+			self::TYPE_ADRESS => Language::t("text", "typeAddress"),
+			self::TYPE_MARK   => Language::t("text", "typeImportant"),
+			self::TYPE_CODE   => Language::t("text", "typeCode"),
 		];
 	}
 

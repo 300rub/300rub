@@ -8,7 +8,7 @@ use system\web\Language;
 		<div class="l-header j-header l-hide"></div>
 		<div class="l-container j-container"></div>
 		<div class="l-footer j-footer l-hide">
-			<button class="j-submit"><span><?= Language::t("common", "Save") ?></span></button>
+			<button class="j-submit"><span><?= Language::t("common", "save") ?></span></button>
 		</div>
 	</form>
 </div>

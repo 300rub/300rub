@@ -40,8 +40,8 @@ class PaymentController extends Controller
     {
         $this->json = [
             "handler"     => "payment",
-            "title"       => Language::t("common", "Payment"),
-            "description" => Language::t("common", "Description")
+            "title"       => Language::t("payment", "payment"),
+            "description" => Language::t("payment", "panelDescription")
         ];
     }
 }

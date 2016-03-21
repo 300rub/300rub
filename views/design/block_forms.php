@@ -5,7 +5,7 @@ use models\DesignBlockModel;
 
 <div class="j-design-editor-block">
 	<div>
-		<div class="j-title"><?= Language::t("common", "Внешние отступы") ?></div>
+		<div class="j-title"><?= Language::t("design", "margin") ?></div>
 		<div
 			class="j-margin-container"
 			data-min="-300"
@@ -30,12 +30,12 @@ use models\DesignBlockModel;
 				</div>
 			</div>
 
-			<label><input type="checkbox"> <?= Language::t("common", "Соединить") ?></label>
+			<label><input type="checkbox"><?= Language::t("design", "combine") ?></label>
 		</div>
 	</div>
 
 	<div>
-		<div><?= Language::t("common", "Внутренние отступы") ?></div>
+		<div><?= Language::t("design", "padding") ?></div>
 		<div
 			class="j-padding-container"
 			data-min="0"
@@ -60,12 +60,12 @@ use models\DesignBlockModel;
 				</div>
 			</div>
 
-			<label><input type="checkbox"> <?= Language::t("common", "Соединить") ?></label>
+			<label><input type="checkbox"><?= Language::t("design", "combine") ?></label>
 		</div>
 	</div>
 
 	<div>
-		<div><?= Language::t("common", "Скругления углов") ?></div>
+		<div><?= Language::t("design", "borderRadius") ?></div>
 		<div
 			class="j-border-radius-container"
 			data-min="0"
@@ -90,12 +90,12 @@ use models\DesignBlockModel;
 				</div>
 			</div>
 
-			<label><input type="checkbox"> <?= Language::t("common", "Соединить") ?></label>
+			<label><input type="checkbox"><?= Language::t("design", "combine") ?></label>
 		</div>
 	</div>
 
 	<div>
-		<div><?= Language::t("common", "Граница") ?></div>
+		<div><?= Language::t("design", "border") ?></div>
 		<div
 			class="j-border-container"
 			data-min="0"
@@ -120,7 +120,7 @@ use models\DesignBlockModel;
 				</div>
 			</div>
 
-			<label><input type="checkbox"> <?= Language::t("common", "Соединить") ?></label>
+			<label><input type="checkbox"><?= Language::t("design", "combine") ?></label>
 
 			<div>
 				<input type="hidden" class="j-border-color">
@@ -144,9 +144,9 @@ use models\DesignBlockModel;
 	</div>
 
 	<div>
-		<div><?= Language::t("common", "Заливка") ?></div>
+		<div><?= Language::t("design", "fill") ?></div>
 		<div>
-			<a href="#" class="j-background-clear"><?= Language::t("common", "очистить") ?></a>
+			<a href="#" class="j-background-clear"><?= Language::t("design", "clear") ?></a>
 			<div>
 				<input type="hidden" class="j-background-from">
 			</div>
@@ -164,7 +164,7 @@ use models\DesignBlockModel;
 						type="radio"
 						value="<?= $key ?>"
 						data-value="<?= $value["linear"] ?>"
-						title="<?= Language::t("common", "Gradient direction") ?>"
+						title="<?= Language::t("design", "gradient") ?>"
 						>
 					<label><?= $value["label"] ?></label>
 				</div>

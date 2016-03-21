@@ -40,7 +40,7 @@ class BlockController extends Controller
     {
         $list = [
             [
-                "label"   => Language::t("common", "Текст"),
+                "label"   => Language::t("text", "text"),
                 "content" => "text.panelList",
                 "icon"    => "text"
             ]
@@ -48,8 +48,8 @@ class BlockController extends Controller
 
         $this->json = [
             "handler"     => "list",
-            "title"       => Language::t("common", "Блоки"),
-            "description" => Language::t("common", "Выберите категорию блоков"),
+            "title"       => Language::t("block", "blocks"),
+            "description" => Language::t("block", "selectCategory"),
             "list"        => $list,
             "isParent"    => true
         ];

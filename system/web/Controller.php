@@ -3,6 +3,7 @@
 namespace system\web;
 
 use system\App;
+use system\base\ErrorHandler;
 use system\base\Exception;
 use system\base\Model;
 
@@ -198,7 +199,7 @@ abstract class Controller
 	{
 		$modelName = $this->getModelName();
 		if (!$modelName) {
-			throw new Exception(Language::t("common", "bla bla bla"), 500);
+			throw new Exception("Model not found", ErrorHandler::STATUS_NOT_FOUND);
 		}
 
 		/**
@@ -206,11 +207,11 @@ abstract class Controller
 		 */
 		$model = new $modelName;
 		if (!$model) {
-			throw new Exception(Language::t("common", "bla bla bla"), 500);
+			throw new Exception("Model not found", ErrorHandler::STATUS_NOT_FOUND);
 		}
 
 		if (!$this->id && !$allowEmpty) {
-			throw new Exception(Language::t("common", "Некорректный идентификатор"), 404);
+			throw new Exception("Incorrect ID", ErrorHandler::STATUS_NOT_FOUND);
 		}
 
 		if (!$this->id) {
@@ -219,7 +220,7 @@ abstract class Controller
 
 		$model = $model->byId($this->id)->with($width)->find();
 		if (!$model) {
-			throw new Exception(Language::t("default", "Модель не найдена"), 404);
+			throw new Exception("Model not found", ErrorHandler::STATUS_NOT_FOUND);
 		}
 
 		return $model;

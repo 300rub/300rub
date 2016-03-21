@@ -89,7 +89,7 @@ abstract class Application
 	private function _checkDbConnection()
 	{
 		if (!Db::setPdo($this->config->db->user, $this->config->db->password, $this->config->db->name)) {
-			throw new Exception(Language::t("default", "Не удалось соединиться с базой данных"));
+			throw new Exception("Unable to connect to database");
 		}
 
 		return $this;

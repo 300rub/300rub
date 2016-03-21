@@ -87,7 +87,7 @@ class Console extends Application
 
 		$handle = opendir($dir);
 		if (!$handle) {
-			throw new Exception("Папку с командами не удалось открыть");
+			throw new Exception("Unable to open folder with commands");
 		}
 
 		while (false !== ($file = readdir($handle))) {
@@ -98,7 +98,7 @@ class Console extends Application
 		closedir($handle);
 
 		if (!$list) {
-			throw new Exception("Команды не найдены");
+			throw new Exception("Commands are not found");
 		}
 
 		$this->_commandList = $list;
