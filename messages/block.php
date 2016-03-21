@@ -3,7 +3,7 @@
 use system\web\Language;
 
 return [
-    "blocks" => [
+    "blocks"         => [
         Language::LANGUAGE_EN_ID => "Blocks",
         Language::LANGUAGE_RU_ID => "Блоки",
     ],

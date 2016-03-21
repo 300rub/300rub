@@ -3,7 +3,7 @@
 use system\web\Language;
 
 return [
-    "windowTitle" => [
+    "windowTitle"  => [
         Language::LANGUAGE_EN_ID => "Login",
         Language::LANGUAGE_RU_ID => "Вход",
     ],
@@ -11,11 +11,11 @@ return [
         Language::LANGUAGE_EN_ID => "Go",
         Language::LANGUAGE_RU_ID => "Войти",
     ],
-    "login" => [
+    "login"        => [
         Language::LANGUAGE_EN_ID => "Login",
         Language::LANGUAGE_RU_ID => "",
     ],
-    "password" => [
+    "password"     => [
         Language::LANGUAGE_EN_ID => "Password",
         Language::LANGUAGE_RU_ID => "",
     ],

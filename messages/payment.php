@@ -3,7 +3,7 @@
 use system\web\Language;
 
 return [
-    "payment" => [
+    "payment"          => [
         Language::LANGUAGE_EN_ID => "Payment",
         Language::LANGUAGE_RU_ID => "",
     ],

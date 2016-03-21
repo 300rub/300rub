@@ -3,7 +3,7 @@
 use system\web\Language;
 
 return [
-    "add" => [
+    "add"       => [
         Language::LANGUAGE_EN_ID => "Add",
         Language::LANGUAGE_RU_ID => "",
     ],
@@ -11,35 +11,35 @@ return [
         Language::LANGUAGE_EN_ID => "Duplicate",
         Language::LANGUAGE_RU_ID => "",
     ],
-    "delete" => [
+    "delete"    => [
         Language::LANGUAGE_EN_ID => "Delete",
         Language::LANGUAGE_RU_ID => "",
     ],
-    "save" => [
+    "save"      => [
         Language::LANGUAGE_EN_ID => "Save",
         Language::LANGUAGE_RU_ID => "",
     ],
-    "name" => [
+    "name"      => [
         Language::LANGUAGE_EN_ID => "Name",
         Language::LANGUAGE_RU_ID => "",
     ],
-    "title" => [
+    "title"     => [
         Language::LANGUAGE_EN_ID => "Title",
         Language::LANGUAGE_RU_ID => "",
     ],
-    "type" => [
+    "type"      => [
         Language::LANGUAGE_EN_ID => "Type",
         Language::LANGUAGE_RU_ID => "",
     ],
-    "settings" => [
+    "settings"  => [
         Language::LANGUAGE_EN_ID => "Settings",
         Language::LANGUAGE_RU_ID => "",
     ],
-    "design" => [
+    "design"    => [
         Language::LANGUAGE_EN_ID => "Design",
         Language::LANGUAGE_RU_ID => "",
     ],
-    "copy" => [
+    "copy"      => [
         Language::LANGUAGE_EN_ID => "Copy",
         Language::LANGUAGE_RU_ID => "",
     ],

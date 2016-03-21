@@ -3,15 +3,15 @@
 use system\web\Language;
 
 return [
-    "margin" => [
+    "margin"       => [
         Language::LANGUAGE_EN_ID => "External padding",
         Language::LANGUAGE_RU_ID => "Внешние отступы",
     ],
-    "padding" => [
+    "padding"      => [
         Language::LANGUAGE_EN_ID => "Internal padding",
         Language::LANGUAGE_RU_ID => "Внутренние отступы",
     ],
-    "combine" => [
+    "combine"      => [
         Language::LANGUAGE_EN_ID => "Combine",
         Language::LANGUAGE_RU_ID => "Соединить",
     ],
@@ -19,19 +19,19 @@ return [
         Language::LANGUAGE_EN_ID => "Corner rounding",
         Language::LANGUAGE_RU_ID => "Скругления углов",
     ],
-    "border" => [
+    "border"       => [
         Language::LANGUAGE_EN_ID => "Border",
         Language::LANGUAGE_RU_ID => "Граница",
     ],
-    "fill" => [
+    "fill"         => [
         Language::LANGUAGE_EN_ID => "Fill",
         Language::LANGUAGE_RU_ID => "Заливка",
     ],
-    "clear" => [
+    "clear"        => [
         Language::LANGUAGE_EN_ID => "Clear",
         Language::LANGUAGE_RU_ID => "очистить",
     ],
-    "gradient" => [
+    "gradient"     => [
         Language::LANGUAGE_EN_ID => "Gradient direction",
         Language::LANGUAGE_RU_ID => "",
     ],
