@@ -85,6 +85,12 @@ use system\App;
 			data-action="block.panelList"
 			data-handler="list"
 			><span><?= Language::t("common", "Блоки") ?></span></a>
+
+		<a
+			href="#"
+			data-action="payment.panel"
+			data-handler="list"
+		><span><?= Language::t("common", "Payment") ?></span></a>
 	</div>
 	<a href="#" id="logout-button">Logout</a>
 <?php } ?>
