@@ -224,7 +224,7 @@
             {data: data},
             $.proxy(this._sectionOnSubmitBeforeSend, this),
             $.proxy(this._sectionOnSubmitSuccess, this),
-            $.proxy(this._onError, this)
+            $.proxy(this.onError, this)
         );
 
         return false;

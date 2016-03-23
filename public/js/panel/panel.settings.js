@@ -65,7 +65,7 @@
 			},
 			$.proxy(this._onSettingsDuplicateBefore, this),
 			$.proxy(this._onSettingsDuplicateSuccess, this),
-			$.proxy(this._onError, this)
+			$.proxy(this.onError, this)
 		);
 
 		return false;
@@ -135,7 +135,7 @@
 			},
 			$.proxy(this._onSettingsDeleteBefore, this),
 			$.proxy(this._onSettingsDeleteSuccess, this),
-			$.proxy(this._onError, this)
+			$.proxy(this.onError, this)
 		);
 
 		return false;
@@ -163,7 +163,11 @@
 		this.$_settingsDelete.find(".j-loader").addClass("j-hide");
 
 		if (parseInt(data.result) === true) {
-			$.panel(this.data.delete.content, this.data.delete.handler);
+			if (parseInt(this.id) === c.sectionId || c.sectionId === 0) {
+				location.href = "/" + c.language + "/";
+			} else {
+				$.panel(this.data.delete.content, this.data.delete.handler);
+			}
 		} else {
 			// error
 		}
@@ -191,7 +195,7 @@
 			this.$panel.find(".j-panel-form").serializeObject(),
 			$.proxy(this._onSettingsSubmitBefore, this),
 			$.proxy(this._onSettingsSubmitSuccess, this),
-			$.proxy(this._onError, this)
+			$.proxy(this.onError, this)
 		);
 
 		return false;

@@ -71,7 +71,7 @@
 				},
 				$.proxy(this._onLoadBefore, this),
 				$.proxy(this._onLoadSuccess, this),
-				$.proxy(this._onError, this)
+				$.proxy(this.onError, this)
 			);
 		},
 
@@ -146,7 +146,7 @@
 		 *
 		 * @private
 		 */
-		_onError: function (jqXHR, textStatus, errorThrown) {
+		onError: function (jqXHR, textStatus, errorThrown) {
 			this.$container.find(".j-loader").addClass("j-hide");
 			alert("error");
 			console.log(jqXHR);
