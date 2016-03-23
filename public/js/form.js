@@ -5,7 +5,7 @@
 	 * Object for working with forms
 	 *
 	 * @param {Object}      [fields]     Form fields
-	 * @param {HTMLElement} [$container] Container
+	 * @param {Object} [$container] Container
 	 *
 	 * @constructor
 	 */

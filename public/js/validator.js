@@ -123,7 +123,7 @@
 	/**
 	 * Adds Validator to jquery
 	 *
-	 * @param {HTMLElement} [$container] Container
+	 * @param {Object} [$container] Container
 	 *
 	 * @returns {Window.Core.Validator}
 	 */

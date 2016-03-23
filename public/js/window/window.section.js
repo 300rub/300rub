@@ -30,7 +30,7 @@
             this._sectionAddLine(0);
         }
 
-        this.$window.find(".j-submit").off().on("click", $.proxy(this._sectionSubmit, this));
+        this.$submit.off().on("click", $.proxy(this._sectionSubmit, this));
     };
 
     /**
@@ -42,7 +42,7 @@
      */
     c.Window.prototype._sectionSetContainer = function () {
         this.$_sectionContainer = c.$templates.find(".j-window-section-container").clone()
-            .appendTo(this.$window.find(".j-container"))
+            .appendTo(this.$container)
             .sortable({
                 stop: $.proxy(function () {
                     this._sectionResetLineNumbers();
@@ -236,7 +236,8 @@
      * @private
      */
     c.Window.prototype._sectionOnSubmitBeforeSend = function () {
-
+        this.$submit.find(".j-label").addClass("j-hide");
+        this.$submit.find(".j-loader").removeClass("j-hide");
     };
 
     /**

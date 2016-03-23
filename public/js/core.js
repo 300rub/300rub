@@ -10,14 +10,14 @@
 		/**
 		 * DOM-element of templates
 		 *
-		 * @type {HTMLElement}
+		 * @type {Object}
 		 */
 		$templates: null,
 
 		/**
 		 * DOM-element of ajax wrapper
 		 *
-		 * @type {HTMLElement}
+		 * @type {Object}
 		 */
 		$ajaxWrapper: null,
 

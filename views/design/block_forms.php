@@ -130,7 +130,7 @@ use models\DesignBlockModel;
 				<?php foreach (DesignBlockModel::$borderStyleList as $key => $value) { ?>
 					<div class="j-radio-container">
 						<input
-							class="l-hide j-border-style"
+							class="j-hide j-border-style"
 							type="radio"
 							value="<?= $key ?>"
 							data-value="<?= $value ?>"
@@ -160,7 +160,7 @@ use models\DesignBlockModel;
 			<?php foreach (DesignBlockModel::$gradientDirectionList as $key => $value) { ?>
 				<div class="j-radio-container">
 					<input
-						class="l-hide j-gradient-direction"
+						class="j-hide j-gradient-direction"
 						type="radio"
 						value="<?= $key ?>"
 						data-value="<?= $value["linear"] ?>"

@@ -6,7 +6,7 @@
 	 */
 	c.Panel.prototype.settingsText = function() {
 		var $container = c.$templates.find(".j-panel-settings-text-container").clone();
-		$container.appendTo(this.$panel.find(".j-container"));
+		$container.appendTo(this.$container);
 
 		$.form(this.data.forms, $container);
 

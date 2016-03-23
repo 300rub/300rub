@@ -5,8 +5,33 @@
 	 * Panel settings handler
 	 */
 	c.Panel.prototype.settingsInit = function() {
+		this.$_settingsDuplicate = this.$panel.find(".j-panel-settings-duplicate");
+		this.$_settingsDelete = this.$panel.find(".j-panel-settings-delete");
+		this.$_settingsSubmit = this.$panel.find(".j-panel-settings-submit");
+
 		this._setSettingsDuplicate()._setSettingsDelete()._setSettingsSubmit();
 	};
+
+	/**
+	 * DOM-element of duplicate button
+	 *
+	 * @type {Object}
+	 */
+	c.Panel.prototype.$_settingsDuplicate = null;
+
+	/**
+	 * DOM-element of delete button
+	 *
+	 * @type {Object}
+	 */
+	c.Panel.prototype.$_settingsDelete = null;
+
+	/**
+	 * DOM-element of submit
+	 *
+	 * @type {Object}
+     */
+	c.Panel.prototype.$_settingsSubmit = null;
 
 	/**
 	 * Sets duplicate
@@ -20,7 +45,7 @@
 			return this;
 		}
 
-		this.$panel.find(".j-panel-settings-duplicate")
+		this.$_settingsDuplicate
 			.on("click", $.proxy(this._onSettingsDuplicate, this))
 			.appendTo(this.$panel.find(".j-header"));
 
@@ -52,7 +77,8 @@
 	 * @private
 	 */
 	c.Panel.prototype._onSettingsDuplicateBefore = function () {
-
+		this.$_settingsDuplicate.find(".j-label").addClass("j-hide");
+		this.$_settingsDuplicate.find(".j-loader").removeClass("j-hide");
 	};
 
 	/**
@@ -63,6 +89,9 @@
 	 * @private
 	 */
 	c.Panel.prototype._onSettingsDuplicateSuccess = function (data) {
+		this.$_settingsDuplicate.find(".j-label").removeClass("j-hide");
+		this.$_settingsDuplicate.find(".j-loader").addClass("j-hide");
+
 		if (parseInt(data.id) !== 0) {
 			$.panel(this.data.duplicate.content, this.handler, data.id);
 		} else {
@@ -82,7 +111,7 @@
 			return this;
 		}
 
-		this.$panel.find(".j-delete")
+		this.$_settingsDelete
 			.on("click", $.proxy(this._onSettingsDelete, this))
 			.appendTo(this.$panel.find(".j-header"));
 
@@ -118,7 +147,8 @@
 	 * @private
 	 */
 	c.Panel.prototype._onSettingsDeleteBefore = function () {
-
+		this.$_settingsDelete.find(".j-label").addClass("j-hide");
+		this.$_settingsDelete.find(".j-loader").removeClass("j-hide");
 	};
 
 	/**
@@ -129,6 +159,9 @@
 	 * @private
 	 */
 	c.Panel.prototype._onSettingsDeleteSuccess = function (data) {
+		this.$_settingsDelete.find(".j-label").removeClass("j-hide");
+		this.$_settingsDelete.find(".j-loader").addClass("j-hide");
+
 		if (parseInt(data.result) === true) {
 			$.panel(this.data.delete.content, this.data.delete.handler);
 		} else {
@@ -142,7 +175,7 @@
 	 * @private
      */
 	c.Panel.prototype._setSettingsSubmit = function() {
-		this.$panel.find(".j-panel-settings-submit")
+		this.$_settingsSubmit
 			.on("click", $.proxy(this._onSettingsSubmit, this))
 			.appendTo(this.$panel.find(".j-header"));
 	};
@@ -170,7 +203,8 @@
 	 * @private
 	 */
 	c.Panel.prototype._onSettingsSubmitBefore = function () {
-
+		this.$_settingsSubmit.find(".j-label").addClass("j-hide");
+		this.$_settingsSubmit.find(".j-loader").removeClass("j-hide");
 	};
 
 	/**
@@ -181,6 +215,9 @@
 	 * @private
 	 */
 	c.Panel.prototype._onSettingsSubmitSuccess = function (data) {
+		this.$_settingsSubmit.find(".j-label").removeClass("j-hide");
+		this.$_settingsSubmit.find(".j-loader").addClass("j-hide");
+
 		if (!data.errors) {
 			$.panel(this.data.submit.content, this.data.submit.handler);
 		} else {

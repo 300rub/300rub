@@ -6,7 +6,7 @@
 	 */
 	c.Window.prototype.login = function() {
 		var $container = c.$templates.find(".j-window-login-container").clone();
-		$container.appendTo(this.$window.find(".j-container"));
+		$container.appendTo(this.$container);
 
 		$.form(this.data.forms, $container);
 	};

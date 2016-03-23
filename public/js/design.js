@@ -31,14 +31,14 @@
         /**
          * DOM-element of editor
          *
-         * @type {HTMLElement}
+         * @type {Object}
          */
         $_editor: null,
 
         /**
          * DOM-element of HTML block
          *
-         * @type {HTMLElement}
+         * @type {Object}
          */
         $_object: null,
 

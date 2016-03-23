@@ -6,7 +6,7 @@
 	 */
 	c.Window.prototype.text = function() {
 		var $container = c.$templates.find(".j-window-text-container").clone();
-		$container.appendTo(this.$window.find(".j-container"));
+		$container.appendTo(this.$container);
 
 		$.form(this.data.forms, $container);
 

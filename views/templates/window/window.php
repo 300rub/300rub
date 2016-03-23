@@ -5,10 +5,19 @@ use system\web\Language;
 	<form class="j-window-form" method="post">
 		<a href="#" class="l-close j-close"></a>
 
-		<div class="l-header j-header l-hide"></div>
-		<div class="l-container j-container"></div>
-		<div class="l-footer j-footer l-hide">
-			<button class="j-submit"><span><?= Language::t("common", "save") ?></span></button>
+		<div class="l-header j-header j-hide"></div>
+		<div class="l-container j-container">
+			<div class="j-loader j-hide">
+				Loading
+			</div>
+		</div>
+		<div class="l-footer j-footer j-hide">
+			<a class="j-submit">
+				<span class="j-label"><?= Language::t("common", "save") ?></span>
+				<div class="j-loader j-hide">
+					Loading
+				</div>
+			</a>
 		</div>
 	</form>
 </div>

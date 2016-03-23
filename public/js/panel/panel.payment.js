@@ -6,6 +6,6 @@
 	 */
 	c.Panel.prototype.payment = function() {
 		var $container = c.$templates.find(".j-panel-payment-container").clone();
-		$container.appendTo(this.$panel.find(".j-container"));
+		$container.appendTo(this.$container);
 	};
 }(window.jQuery, window.Core);

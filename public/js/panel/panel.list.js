@@ -75,7 +75,7 @@
 					.on("click", $.proxy(this._onAddClick(this.data.add.content, this.data.add.handler), this));
 			}
 
-			$clone.appendTo(this.$panel.find(".j-container"));
+			$clone.appendTo(this.$container);
 		}, this));
 
 		return this;

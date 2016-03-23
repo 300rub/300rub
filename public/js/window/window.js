@@ -36,14 +36,28 @@
 		/**
 		 * DOM-element of window
 		 *
-		 * @type {HTMLElement}
+		 * @type {Object}
 		 */
 		$window: null,
 
 		/**
+		 * DOM-element of window's container
+		 *
+		 * @type {Object}
+		 */
+		$container: null,
+
+		/**
+		 * DOM-element of window's submit
+		 *
+		 * @type {Object}
+		 */
+		$submit: null,
+
+		/**
 		 * DOM-element of overlay
 		 *
-		 * @type {HTMLElement}
+		 * @type {Object}
 		 */
 		$overlay: null,
 
@@ -60,6 +74,8 @@
 		init: function () {
 			this.$overlay = c.$templates.find(".j-overlay").clone().appendTo(c.$ajaxWrapper);
 			this.$window = c.$templates.find(".j-window").clone().appendTo(c.$ajaxWrapper);
+			this.$container = this.$window.find(".j-container");
+			this.$submit = this.$window.find(".j-submit");
 
 			this.$window.find(".j-close").on("click", $.proxy(this.close, this));
 			this.$overlay.on("click", $.proxy(this.close, this));
@@ -95,7 +111,7 @@
 		 * @private
 		 */
 		_onLoadBefore: function () {
-
+			this.$container.find(".j-loader").removeClass("j-hide");
 		},
 
 		/**
@@ -106,11 +122,13 @@
 		 * @private
 		 */
 		_onLoadSuccess: function (data) {
+			this.$container.find(".j-loader").addClass("j-hide");
+
 			this.data = data;
 
 			this.$window.find(".j-header").text(data.title).css("display", "block");
 			this.$window.find(".j-footer").css("display", "block");
-			this.$window.find(".j-submit").on("click", $.proxy(this._submit, this));
+			this.$submit.on("click", $.proxy(this._submit, this));
 
 			this[this.handler]();
 		},
@@ -125,7 +143,11 @@
 		 * @private
 		 */
 		_onError: function (jqXHR, textStatus, errorThrown) {
-
+			this.$container.find(".j-loader").addClass("j-hide");
+			alert("error");
+			console.log(jqXHR);
+			console.log(textStatus);
+			console.log(errorThrown);
 		},
 
 		/**
@@ -155,6 +177,9 @@
          * @private
          */
 		_onSubmitBefore: function () {
+			this.$submit.find(".j-label").addClass("j-hide");
+			this.$submit.find(".j-loader").removeClass("j-hide");
+
 			if ($.validator(this.$window.find(".j-window-form")).validate() === false) {
 				return false;
 			}
@@ -168,6 +193,9 @@
 		 * @private
 		 */
 		_onSubmitSuccess: function (data) {
+			this.$submit.find(".j-label").removeClass("j-hide");
+			this.$submit.find(".j-loader").addClass("j-hide");
+
 			if (!$.isEmptyObject(data.errors)) {
 				console.log(data.errors);
 				$.validator(this.$window.find(".j-window-form")).showErrors(data.errors);

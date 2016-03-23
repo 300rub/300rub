@@ -36,9 +36,16 @@
 		/**
 		 * DOM-element of panel
 		 *
-		 * @type {HTMLElement}
+		 * @type {Object}
 		 */
 		$panel: null,
+
+		/**
+		 * DOM-element of panel's container
+		 *
+		 * @type {Object}
+		 */
+		$container: null,
 
 		/**
 		 * Data from AJAX request
@@ -54,6 +61,7 @@
 			c.$ajaxWrapper.find(".j-panel").remove();
 
 			this.$panel = c.$templates.find(".j-panel").clone().appendTo(c.$ajaxWrapper);
+			this.$container = this.$panel.find(".j-container");
 			this.$panel.find(".j-close").on("click", $.proxy(this._close, this));
 
 			$.ajaxJson(
@@ -85,7 +93,7 @@
 		 * @private
 		 */
 		_onLoadBefore: function () {
-
+			this.$container.find(".j-loader").removeClass("j-hide");
 		},
 
 		/**
@@ -96,6 +104,8 @@
          * @private
          */
 		_onLoadSuccess: function (data) {
+			this.$container.find(".j-loader").addClass("j-hide");
+
 			this.data = data;
 
 			this._setBack();
@@ -137,7 +147,11 @@
 		 * @private
 		 */
 		_onError: function (jqXHR, textStatus, errorThrown) {
-
+			this.$container.find(".j-loader").addClass("j-hide");
+			alert("error");
+			console.log(jqXHR);
+			console.log(textStatus);
+			console.log(errorThrown);
 		}
 	};
 
