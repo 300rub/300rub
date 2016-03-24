@@ -7,6 +7,8 @@ use system\App;
  * @var \controllers\SectionController $this
  * @var string                         $content
  */
+
+$staticMap = require(__DIR__ . "/../../config/static_map.php");
 ?>
 <!DOCTYPE html>
 <html>
@@ -16,53 +18,59 @@ use system\App;
 	<meta name="keywords" content=""/>
 	<meta name="description" content=""/>
 
-	<script src="/js/lib/jquery.min.js"></script>
+	<?php if (App::web()->config->isDebug) { ?>
+		<?php foreach ($staticMap["common"]["css"] as $fileName) { ?>
+			<link rel="stylesheet" type="text/css" href="/css/<?= $fileName ?>" />
+		<?php } ?>
+		<?php foreach ($staticMap["common"]["less"] as $fileName) { ?>
+			<link rel="stylesheet/less" type="text/css" href="/css/<?= $fileName ?>" />
+		<?php } ?>
+	<?php } else { ?>
+		<link rel='stylesheet' type='text/css' href='/css/<?= "common.min.css" ?>' />
+	<?php } ?>
+
+	<?php if (App::web()->user !== null) { ?>
+		<?php if (App::web()->config->isDebug) { ?>
+			<?php foreach ($staticMap["admin"]["css"] as $fileName) { ?>
+				<link rel="stylesheet" type="text/css" href="/css/<?= $fileName ?>" />
+			<?php } ?>
+			<?php foreach ($staticMap["admin"]["less"] as $fileName) { ?>
+				<link rel="stylesheet/less" type="text/css" href="/css/<?= $fileName ?>" />
+			<?php } ?>
+		<?php } else { ?>
+			<link rel='stylesheet' type='text/css' href='/css/<?= "admin.min.css" ?>' />
+		<?php } ?>
+	<?php } ?>
+
+	<?php if (App::web()->config->isDebug) { ?>
+		<?php foreach ($staticMap["common"]["js"] as $fileName) { ?>
+			<script src="/js/<?= $fileName ?>"></script>
+		<?php } ?>
+	<?php } else { ?>
+		<script src="/js/<?= "common.min.js" ?>"></script>
+	<?php } ?>
+
+	<?php if (App::web()->user !== null) { ?>
+		<?php if (App::web()->config->isDebug) { ?>
+			<?php foreach ($staticMap["admin"]["js"] as $fileName) { ?>
+				<script src="/js/<?= $fileName ?>"></script>
+			<?php } ?>
+		<?php } else { ?>
+			<script src="/js/<?= "admin.min.js" ?>"></script>
+		<?php } ?>
+	<?php } ?>
 
 	<script>
 		window.Core.language = "<?= Language::getActiveAlias() ?>";
 	</script>
 
-	<link rel="stylesheet/less" type="text/css" href="/css/less.less" />
-
-	<?php if (App::web()->user !== null) { ?>
-		<link rel="stylesheet/less" type="text/css" href="/css/admin.less" />
-		<link href='/css/lib/gridstack.min.css' rel='stylesheet' type='text/css'>
-		<link href='/css/lib/colorpicker/jquery.colorpicker.css' rel='stylesheet' type='text/css'>
-	<?php } ?>
-
-	<script>
-		less = {
-			async: true,
-			env: 'development'
-		};
-	</script>
-	<script src="/js/lib/less.min.js" type="text/javascript"></script>
-
-	<script src="/js/core.js"></script>
-	<script src="/js/functions.js"></script>
-	<script src="/js/ajax.json.js"></script>
-	<script src="/js/form.js"></script>
-	<script src="/js/validator.js"></script>
-	<script src="/js/window/window.js"></script>
-	<script src="/js/window/window.login.js"></script>
-	<script src="/js/handler.js"></script>
-
-	<?php if (App::web()->user !== null) { ?>
-		<script src="/js/lib/jquery-ui.min.js"></script>
-		<script src="/js/lib/lodash.min.js"></script>
-		<script src="/js/lib/gridstack.min.js"></script>
-		<script src="/js/lib/jquery.colorpicker.js"></script>
-		<script src="/js/lib/tinymce/tinymce.jquery.min.js"></script>
-		<script src="/js/admin.js"></script>
-		<script src="/js/panel/panel.js"></script>
-		<script src="/js/panel/panel.list.js"></script>
-		<script src="/js/panel/panel.payment.js"></script>
-		<script src="/js/panel/panel.settings.js"></script>
-		<script src="/js/panel/panel.settings.section.js"></script>
-		<script src="/js/panel/panel.settings.text.js"></script>
-		<script src="/js/window/window.section.js"></script>
-		<script src="/js/window/window.text.js"></script>
-		<script src="/js/design.js"></script>
+	<?php if (App::web()->config->isDebug) { ?>
+		<script>
+			less = {
+				async: true,
+				env: 'development'
+			};
+		</script>
 	<?php } ?>
 </head>
 <body>

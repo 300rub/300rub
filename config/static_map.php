@@ -2,18 +2,11 @@
 
 // Map for compressing static
 return [
-    "css" => [
-        "common.min.css" => [
-            "common.css",
+    "common" => [
+        "less" => [
+            "common.less",
         ],
-        "admin.min.css"  => [
-            "lib/gridstack.min.css",
-            "lib/colorpicker/jquery.colorpicker.css",
-            "admin.css",
-        ]
-    ],
-    "js"  => [
-        "common.min.js" => [
+        "js" => [
             "lib/jquery.min.js",
             "core.js",
             "functions.js",
@@ -24,7 +17,16 @@ return [
             "window/window.login.js",
             "handler.js",
         ],
-        "admin.min.js"  => [
+    ],
+    "admin" => [
+        "less" => [
+            "admin.less",
+        ],
+        "css"  => [
+            "lib/gridstack.min.css",
+            "lib/colorpicker/jquery.colorpicker.css",
+        ],
+        "js"  => [
             "lib/jquery-ui.min.js",
             "lib/lodash.min.js",
             "lib/gridstack.min.js",

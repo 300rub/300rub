@@ -2,7 +2,6 @@
 
 namespace system\web;
 
-use system\App;
 use system\base\Application;
 use system\base\ErrorHandler;
 use system\db\Db;
