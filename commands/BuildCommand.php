@@ -49,9 +49,9 @@ class BuildCommand extends Command
         $this->_setBranches($args)->_gitCheckout($this->_branch);
 
         $migrateCommand = new MigrateCommand;
-        $publicStaticCommand = new PublicStaticCommand;
+        $compressStaticCommand = new CompressStaticCommand;
 
-        if (!$migrateCommand->run($args) || !$publicStaticCommand->run($args)) {
+        if (!$migrateCommand->run($args) || !$compressStaticCommand->run($args)) {
             Logger::log("Errors during building", Logger::LEVEL_ERROR, "console.build");
 
             $this->_gitCheckout($this->_prevBranch);

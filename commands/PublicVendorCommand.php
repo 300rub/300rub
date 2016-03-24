@@ -10,7 +10,7 @@ use system\console\Command;
  *
  * @package commands
  */
-class PublicStaticCommand extends Command
+class PublicVendorCommand extends Command
 {
 
 	/**
@@ -24,7 +24,7 @@ class PublicStaticCommand extends Command
 	{
 		$vendorsDir = __DIR__ . "/../vendors";
 		$staticDir = __DIR__ . "/../public";
-		$map = require(__DIR__ . "/../config/static_map.php");
+		$map = require(__DIR__ . "/../config/vendor_map.php");
 
 		foreach ($map as $folder => $list) {
 			foreach ($list as $key => $value) {

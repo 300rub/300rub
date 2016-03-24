@@ -1,42 +1,45 @@
 <?php
 
-// Map for publishing static files received from composer
+// Map for compressing static
 return [
-	"css" => [
-		"gridstack.min.css"                      => "troolee/gridstack/dist/gridstack.min.css",
-		"colorpicker/jquery.colorpicker.css"     => "vanderlee/colorpicker/jquery.colorpicker.css",
-		"colorpicker/images/bar.png"             => "vanderlee/colorpicker/images/bar.png",
-		"colorpicker/images/bar-alpha.png"       => "vanderlee/colorpicker/images/bar-alpha.png",
-		"colorpicker/images/bar-opacity.png"     => "vanderlee/colorpicker/images/bar-opacity.png",
-		"colorpicker/images/bar-pointer.png"     => "vanderlee/colorpicker/images/bar-pointer.png",
-		"colorpicker/images/map.png"             => "vanderlee/colorpicker/images/map.png",
-		"colorpicker/images/map-opacity.png"     => "vanderlee/colorpicker/images/map-opacity.png",
-		"colorpicker/images/map-pointer.png"     => "vanderlee/colorpicker/images/map-pointer.png",
-		"colorpicker/images/preview-opacity.png" => "vanderlee/colorpicker/images/preview-opacity.png",
-		"colorpicker/images/ui-colorpicker.png"  => "vanderlee/colorpicker/images/ui-colorpicker.png",
-	],
-	"js"  => [
-		"jquery.min.js"                              => "components/jquery/jquery.min.js",
-		"jquery-ui.min.js"                           => "components/jqueryui/jquery-ui.min.js",
-		"lodash.min.js"                              => "lodash/lodash/dist/lodash.min.js",
-		"gridstack.min.js"                           => "troolee/gridstack/dist/gridstack.min.js",
-		"gridstack.min.map"                          => "troolee/gridstack/dist/gridstack.min.map",
-		"jquery.colorpicker.js"                      => "vanderlee/colorpicker/jquery.colorpicker.js",
-		"tinymce/tinymce.jquery.min.js"              => "tinymce/tinymce/tinymce.jquery.min.js",
-		"tinymce/themes/modern/theme.min.js"         => "tinymce/tinymce/themes/modern/theme.min.js",
-		"tinymce/skins/lightgray/skin.min.css"       => "tinymce/tinymce/skins/lightgray/skin.min.css",
-		"tinymce/skins/lightgray/content.min.css"    => "tinymce/tinymce/skins/lightgray/content.min.css",
-		"tinymce/skins/lightgray/fonts/tinymce.woff" => "tinymce/tinymce/skins/lightgray/fonts/tinymce.woff",
-		"tinymce/skins/lightgray/fonts/tinymce.ttf"  => "tinymce/tinymce/skins/lightgray/fonts/tinymce.ttf",
-		"tinymce/plugins/textcolor/plugin.min.js"    => "tinymce/tinymce/plugins/textcolor/plugin.min.js",
-		"tinymce/plugins/link/plugin.min.js"         => "tinymce/tinymce/plugins/link/plugin.min.js",
-		"tinymce/plugins/hr/plugin.min.js"           => "tinymce/tinymce/plugins/hr/plugin.min.js",
-		"tinymce/plugins/image/plugin.min.js"        => "tinymce/tinymce/plugins/image/plugin.min.js",
-		"tinymce/plugins/charmap/plugin.min.js"      => "tinymce/tinymce/plugins/charmap/plugin.min.js",
-		"tinymce/plugins/print/plugin.min.js"        => "tinymce/tinymce/plugins/print/plugin.min.js",
-		"tinymce/plugins/preview/plugin.min.js"      => "tinymce/tinymce/plugins/preview/plugin.min.js",
-		"tinymce/plugins/fullscreen/plugin.min.js"   => "tinymce/tinymce/plugins/fullscreen/plugin.min.js",
-		"tinymce/plugins/table/plugin.min.js"        => "tinymce/tinymce/plugins/table/plugin.min.js",
-		"less.min.js"                                => "less/less/dist/less.min.js",
-	],
+    "css" => [
+        "common.min.css" => [
+            "common.css",
+        ],
+        "admin.min.css"  => [
+            "lib/gridstack.min.css",
+            "lib/colorpicker/jquery.colorpicker.css",
+            "admin.css",
+        ]
+    ],
+    "js"  => [
+        "common.min.js" => [
+            "lib/jquery.min.js",
+            "core.js",
+            "functions.js",
+            "ajax.json.js",
+            "form.js",
+            "validator.js",
+            "window/window.js",
+            "window/window.login.js",
+            "handler.js",
+        ],
+        "admin.min.js"  => [
+            "lib/jquery-ui.min.js",
+            "lib/lodash.min.js",
+            "lib/gridstack.min.js",
+            "lib/jquery.colorpicker.js",
+            "lib/tinymce/tinymce.jquery.min.js",
+            "admin.js",
+            "panel/panel.js",
+            "panel/panel.list.js",
+            "panel/panel.payment.js",
+            "panel/panel.settings.js",
+            "panel/panel.settings.section.js",
+            "panel/panel.settings.text.js",
+            "window/window.section.js",
+            "window/window.text.js",
+            "design.js",
+        ]
+    ]
 ];

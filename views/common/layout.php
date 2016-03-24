@@ -56,6 +56,7 @@ use system\App;
 		<script src="/js/admin.js"></script>
 		<script src="/js/panel/panel.js"></script>
 		<script src="/js/panel/panel.list.js"></script>
+		<script src="/js/panel/panel.payment.js"></script>
 		<script src="/js/panel/panel.settings.js"></script>
 		<script src="/js/panel/panel.settings.section.js"></script>
 		<script src="/js/panel/panel.settings.text.js"></script>
