@@ -6,6 +6,7 @@ return [
         "less" => [
             "common.less",
         ],
+        "css" => [],
         "js" => [
             "lib/jquery.min.js",
             "core.js",

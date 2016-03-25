@@ -65,7 +65,7 @@ class Logger
 
 		$logFile = __DIR__ . "/../../logs/{$fileName}.log";
 		$fp = @fopen($logFile, 'a');
-		chmod($logFile, 0777);
+		//chmod($logFile, 0777);
 		@flock($fp, LOCK_EX);
 		@fwrite($fp, $text);
 		@flock($fp, LOCK_UN);

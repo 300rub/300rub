@@ -6,8 +6,8 @@ return [
 	"isDebug" => true,
 	"db"      => [
 		"host"     => "localhost",
-		"user"     => "donvasilion",
-		"password" => "mypasS77",
+		"user"     => "root",
+		"password" => "",
 		"name"     => "project",
 	],
 	"release" => [

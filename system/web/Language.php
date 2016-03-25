@@ -92,7 +92,7 @@ class Language
 	 */
 	public static function t($category, $key)
 	{
-		$messages = require_once(__DIR__ . "/../../messages/{$category}.php");
+		$messages = require(__DIR__ . "/../../messages/{$category}.php");
 		if (array_key_exists($key, $messages)) {
 			return $messages[$key][self::$activeId];
 		}
