@@ -65,6 +65,7 @@ $staticMap = require(__DIR__ . "/../../config/static_map.php");
 	</script>
 
 	<?php if (App::web()->config->isDebug) { ?>
+		<script src="/js/<?= "lib/less.min.js" ?>"></script>
 		<script>
 			less = {
 				async: true,
