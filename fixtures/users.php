@@ -1,9 +1,10 @@
 <?php
 
+use models\UserModel;
+
 return [
-    [
-        "id"       => 1,
-        "login"    => "",
-        "password" => "char(40) not null",
+    1 => [
+        "login"    => "1",
+        "password" => UserModel::getPassword(1),
     ]
 ];

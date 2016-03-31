@@ -2,8 +2,7 @@
 
 return [
     // texts_1
-    [
-        "id"             => 1,
+    1 => [
         "size"           => 0,
         "family"         => 0,
         "color"          => "",
@@ -16,8 +15,7 @@ return [
         "line_height"    => 0,
     ],
     // texts_2
-    [
-        "id"             => 2,
+    2 => [
         "size"           => 0,
         "family"         => 0,
         "color"          => "",
@@ -30,8 +28,7 @@ return [
         "line_height"    => 0,
     ],
     // texts_3
-    [
-        "id"             => 3,
+    3 => [
         "size"           => 0,
         "family"         => 0,
         "color"          => "",
@@ -44,8 +41,7 @@ return [
         "line_height"    => 0,
     ],
     // texts_4
-    [
-        "id"             => 4,
+    4 => [
         "size"           => 0,
         "family"         => 0,
         "color"          => "",
@@ -58,8 +54,7 @@ return [
         "line_height"    => 0,
     ],
     // texts_5
-    [
-        "id"             => 5,
+    5 => [
         "size"           => 0,
         "family"         => 0,
         "color"          => "",
@@ -72,8 +67,7 @@ return [
         "line_height"    => 0,
     ],
     // texts_6
-    [
-        "id"             => 6,
+    6 => [
         "size"           => 0,
         "family"         => 0,
         "color"          => "",
@@ -86,8 +80,7 @@ return [
         "line_height"    => 0,
     ],
     // texts_7
-    [
-        "id"             => 7,
+    7 => [
         "size"           => 25,
         "family"         => 3,
         "color"          => "#777777",
@@ -96,6 +89,19 @@ return [
         "align"          => 1,
         "decoration"     => 1,
         "transform"      => 1,
+        "letter_spacing" => 0,
+        "line_height"    => 0,
+    ],
+    // texts_8
+    8 => [
+        "size"           => 0,
+        "family"         => 0,
+        "color"          => "",
+        "is_italic"      => 0,
+        "is_bold"        => 0,
+        "align"          => 0,
+        "decoration"     => 0,
+        "transform"      => 0,
         "letter_spacing" => 0,
         "line_height"    => 0,
     ],

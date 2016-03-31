@@ -354,10 +354,10 @@ class MigrateCommand extends Command
 						$tableName = str_replace(".php", "", $file);
 						$records = require(__DIR__ . "/../fixtures/" . $file);
 
-						foreach ($records as $record) {
-							$columns = [];
-							$values = [];
-							$substitutions = [];
+						foreach ($records as $id => $record) {
+							$columns = ["id"];
+							$values = [$id];
+							$substitutions = ["?"];
 
 							foreach ($record as $field => $value) {
 								$columns[] = $field;

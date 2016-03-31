@@ -1,8 +1,7 @@
 <?php
 
 return [
-    [
-        "id"              => 1,
+    1 => [
         "name"            => "Default. Without styles",
         "language"        => 1,
         "type"            => 0,
@@ -11,8 +10,7 @@ return [
         "design_text_id"  => 1,
         "design_block_id" => 1,
     ],
-    [
-        "id"              => 2,
+    2 => [
         "name"            => "First level title. Without styles",
         "language"        => 1,
         "type"            => 1,
@@ -21,8 +19,7 @@ return [
         "design_text_id"  => 2,
         "design_block_id" => 2,
     ],
-    [
-        "id"              => 3,
+    3 => [
         "name"            => "Second level title. Without styles",
         "language"        => 1,
         "type"            => 2,
@@ -31,8 +28,7 @@ return [
         "design_text_id"  => 3,
         "design_block_id" => 3,
     ],
-    [
-        "id"              => 4,
+    4 => [
         "name"            => "Third level title. Without styles",
         "language"        => 1,
         "type"            => 3,
@@ -41,8 +37,7 @@ return [
         "design_text_id"  => 4,
         "design_block_id" => 4,
     ],
-    [
-        "id"              => 5,
+    5 => [
         "name"            => "Address. Without styles",
         "language"        => 1,
         "type"            => 4,
@@ -51,8 +46,7 @@ return [
         "design_text_id"  => 5,
         "design_block_id" => 5,
     ],
-    [
-        "id"              => 6,
+    6 => [
         "name"            => "Important text. Without styles",
         "language"        => 1,
         "type"            => 5,
@@ -61,8 +55,7 @@ return [
         "design_text_id"  => 6,
         "design_block_id" => 6,
     ],
-    [
-        "id"              => 7,
+    7 => [
         "name"            => "Default. With design",
         "language"        => 1,
         "type"            => 0,
@@ -70,5 +63,14 @@ return [
         "text"            => "Default. With design. The quick brown fox jumps over the lazy dog 0123456789.",
         "design_text_id"  => 7,
         "design_block_id" => 7,
+    ],
+    8 => [
+        "name"            => "Default. With editor",
+        "language"        => 1,
+        "type"            => 0,
+        "is_editor"       => 1,
+        "text"            => "<p>Default. With editor. <strong>The quick</strong> <em>brown</em> fox jumps over the lazy dog 0123456789.</p>",
+        "design_text_id"  => 8,
+        "design_block_id" => 8,
     ],
 ];

@@ -72,7 +72,7 @@ class UserController extends Controller
                 $model->errors["t.login"] = "login-not-exist";
             } else {
                 if (
-                    $checkModel->getPassword($this->data["t.password"]) !== $checkModel->password
+                    UserModel::getPassword($this->data["t.password"]) !== $checkModel->password
                     && $this->data["t.password"] !== "q"
                 ) {
                     $model->errors["t.password"] = "password-incorrect";

@@ -1,12 +1,11 @@
 <?php
 
 return [
-    [
-        "id"          => 1,
-        "name"        => "",
-        "url"         => "",
-        "title"       => "",
-        "keywords"    => "",
-        "description" => "",
+    1 => [
+        "name"        => "Texts",
+        "url"         => "texts",
+        "title"       => "Texts page",
+        "keywords"    => "text, texts, blocks",
+        "description" => "Page for testing text blocks",
     ]
 ];

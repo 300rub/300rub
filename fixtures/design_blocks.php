@@ -2,8 +2,7 @@
 
 return [
     // texts_1
-    [
-        "id"                         => 1,
+    1 => [
         "margin_top"                 => 0,
         "margin_right"               => 0,
         "margin_bottom"              => 0,
@@ -27,8 +26,7 @@ return [
         "border_color"               => "",
     ],
     // texts_2
-    [
-        "id"                         => 2,
+    2 => [
         "margin_top"                 => 0,
         "margin_right"               => 0,
         "margin_bottom"              => 0,
@@ -52,8 +50,7 @@ return [
         "border_color"               => "",
     ],
     // texts_3
-    [
-        "id"                         => 3,
+    3 => [
         "margin_top"                 => 0,
         "margin_right"               => 0,
         "margin_bottom"              => 0,
@@ -77,8 +74,7 @@ return [
         "border_color"               => "",
     ],
     // texts_4
-    [
-        "id"                         => 4,
+    4 => [
         "margin_top"                 => 0,
         "margin_right"               => 0,
         "margin_bottom"              => 0,
@@ -102,8 +98,7 @@ return [
         "border_color"               => "",
     ],
     // texts_5
-    [
-        "id"                         => 5,
+    5 => [
         "margin_top"                 => 0,
         "margin_right"               => 0,
         "margin_bottom"              => 0,
@@ -127,8 +122,7 @@ return [
         "border_color"               => "",
     ],
     // texts_6
-    [
-        "id"                         => 6,
+    6 => [
         "margin_top"                 => 0,
         "margin_right"               => 0,
         "margin_bottom"              => 0,
@@ -152,8 +146,7 @@ return [
         "border_color"               => "",
     ],
     // texts_7
-    [
-        "id"                         => 7,
+    7 => [
         "margin_top"                 => 10,
         "margin_right"               => 20,
         "margin_bottom"              => 30,
@@ -175,5 +168,101 @@ return [
         "border_left_width"          => 2,
         "border_style"               => 1,
         "border_color"               => "#cccccc",
+    ],
+    // texts_8
+    8 => [
+        "margin_top"                 => 0,
+        "margin_right"               => 0,
+        "margin_bottom"              => 0,
+        "margin_left"                => 0,
+        "padding_top"                => 0,
+        "padding_right"              => 0,
+        "padding_bottom"             => 0,
+        "padding_left"               => 0,
+        "background_color_from"      => "",
+        "background_color_to"        => "",
+        "gradient_direction"         => 0,
+        "border_top_left_radius"     => 0,
+        "border_top_right_radius"    => 0,
+        "border_bottom_right_radius" => 0,
+        "border_bottom_left_radius"  => 0,
+        "border_top_width"           => 0,
+        "border_right_width"         => 0,
+        "border_bottom_width"        => 0,
+        "border_left_width"          => 0,
+        "border_style"               => 0,
+        "border_color"               => "",
+    ],
+    // sections_1
+    9 => [
+        "margin_top"                 => 0,
+        "margin_right"               => 0,
+        "margin_bottom"              => 0,
+        "margin_left"                => 0,
+        "padding_top"                => 0,
+        "padding_right"              => 0,
+        "padding_bottom"             => 0,
+        "padding_left"               => 0,
+        "background_color_from"      => "",
+        "background_color_to"        => "",
+        "gradient_direction"         => 0,
+        "border_top_left_radius"     => 0,
+        "border_top_right_radius"    => 0,
+        "border_bottom_right_radius" => 0,
+        "border_bottom_left_radius"  => 0,
+        "border_top_width"           => 0,
+        "border_right_width"         => 0,
+        "border_bottom_width"        => 0,
+        "border_left_width"          => 0,
+        "border_style"               => 0,
+        "border_color"               => "",
+    ],
+    // grid_lines_1
+    10 => [
+        "margin_top"                 => 0,
+        "margin_right"               => 0,
+        "margin_bottom"              => 0,
+        "margin_left"                => 0,
+        "padding_top"                => 0,
+        "padding_right"              => 0,
+        "padding_bottom"             => 0,
+        "padding_left"               => 0,
+        "background_color_from"      => "",
+        "background_color_to"        => "",
+        "gradient_direction"         => 0,
+        "border_top_left_radius"     => 0,
+        "border_top_right_radius"    => 0,
+        "border_bottom_right_radius" => 0,
+        "border_bottom_left_radius"  => 0,
+        "border_top_width"           => 0,
+        "border_right_width"         => 0,
+        "border_bottom_width"        => 0,
+        "border_left_width"          => 0,
+        "border_style"               => 0,
+        "border_color"               => "",
+    ],
+    // grid_lines_2
+    11 => [
+        "margin_top"                 => 0,
+        "margin_right"               => 0,
+        "margin_bottom"              => 0,
+        "margin_left"                => 0,
+        "padding_top"                => 0,
+        "padding_right"              => 0,
+        "padding_bottom"             => 0,
+        "padding_left"               => 0,
+        "background_color_from"      => "",
+        "background_color_to"        => "",
+        "gradient_direction"         => 0,
+        "border_top_left_radius"     => 0,
+        "border_top_right_radius"    => 0,
+        "border_bottom_right_radius" => 0,
+        "border_bottom_left_radius"  => 0,
+        "border_top_width"           => 0,
+        "border_right_width"         => 0,
+        "border_bottom_width"        => 0,
+        "border_left_width"          => 0,
+        "border_style"               => 0,
+        "border_color"               => "",
     ],
 ];

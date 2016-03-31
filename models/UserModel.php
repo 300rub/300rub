@@ -123,7 +123,7 @@ class UserModel extends Model
 	protected function beforeSave()
 	{
 		if (mb_strlen($this->password, "UTF-8") != 40) {
-			$this->password = $this->getPassword($this->password);
+			$this->password = self::getPassword($this->password);
 		}
 
 		return parent::beforeSave();
@@ -136,7 +136,7 @@ class UserModel extends Model
 	 *
 	 * @return string
 	 */
-	public function getPassword($password)
+	public static function getPassword($password)
 	{
 		return sha1(md5($password) . self::SALT);
 	}
