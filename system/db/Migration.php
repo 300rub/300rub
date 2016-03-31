@@ -20,13 +20,6 @@ abstract class Migration
 	abstract public function up();
 
 	/**
-	 * Inserts test data
-	 *
-	 * @return bool
-	 */
-	abstract public function insertData();
-
-	/**
 	 * List of types
 	 *
 	 * @var array

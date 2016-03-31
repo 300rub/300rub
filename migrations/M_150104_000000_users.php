@@ -2,7 +2,6 @@
 
 namespace migrations;
 
-use models\UserModel;
 use system\db\Migration;
 
 /**
@@ -34,26 +33,6 @@ class M_150104_000000_users extends Migration
 		}
 
 		if (!$this->createIndex("users_login", "users", "login")) {
-			return false;
-		}
-
-		return true;
-	}
-
-	/**
-	 * Inserts test data
-	 *
-	 * @return bool
-	 */
-	public function insertData()
-	{
-		$attributes = [
-			"t.login"    => "l",
-			"t.password" => "p",
-		];
-		$model = new UserModel;
-		$model->setAttributes($attributes);
-		if (!$model->save()) {
 			return false;
 		}
 

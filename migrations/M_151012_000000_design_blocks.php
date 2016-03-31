@@ -2,7 +2,6 @@
 
 namespace migrations;
 
-use models\DesignBlockModel;
 use system\db\Migration;
 
 /**
@@ -50,23 +49,6 @@ class M_151012_000000_design_blocks extends Migration
 		);
 		if (!$result) {
 			return false;
-		}
-
-		return true;
-	}
-
-	/**
-	 * Inserts test data
-	 *
-	 * @return bool
-	 */
-	public function insertData()
-	{
-		for ($i = 0; $i < 7; $i++) {
-			$model = new DesignBlockModel();
-			if (!$model->save()) {
-				return false;
-			}
 		}
 
 		return true;

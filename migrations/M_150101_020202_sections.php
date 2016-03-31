@@ -2,7 +2,6 @@
 
 namespace migrations;
 
-use models\SectionModel;
 use system\db\Migration;
 
 /**
@@ -49,42 +48,6 @@ class M_150101_020202_sections extends Migration
 		}
 
 		if (!$this->createIndex("sections_design_block_id", "sections", "design_block_id")) {
-			return false;
-		}
-
-		return true;
-	}
-
-	/**
-	 * Inserts test data
-	 *
-	 * @return bool
-	 */
-	public function insertData()
-	{
-		$attributes = [
-			"t.seo_id"          => 1,
-			"t.language"        => 1,
-			"t.width"           => SectionModel::DEFAULT_WIDTH,
-			"t.is_main"         => 1,
-			"t.design_block_id" => 1,
-		];
-		$model = new SectionModel;
-		$model->setAttributes($attributes);
-		if (!$model->save()) {
-			return false;
-		}
-
-		$attributes = [
-			"t.seo_id"          => 2,
-			"t.language"        => 1,
-			"t.width"           => 1024,
-			"t.is_main"         => 0,
-			"t.design_block_id" => 2,
-		];
-		$model = new SectionModel;
-		$model->setAttributes($attributes);
-		if (!$model->save()) {
 			return false;
 		}
 

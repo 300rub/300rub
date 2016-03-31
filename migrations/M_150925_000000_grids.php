@@ -2,8 +2,6 @@
 
 namespace migrations;
 
-use models\GridModel;
-use models\GridLineModel;
 use system\db\Migration;
 
 /**
@@ -67,68 +65,6 @@ class M_150925_000000_grids extends Migration
 		}
 
 		if (!$this->createIndex("grids_grid_line_id", "grids", "grid_line_id")) {
-			return false;
-		}
-
-		return true;
-	}
-
-	/**
-	 * Inserts test data
-	 *
-	 * @return bool
-	 */
-	public function insertData()
-	{
-		$attributes = [
-			"t.section_id"        => 1,
-			"t.sort"              => 1,
-			"t.outside_design_id" => 4,
-			"t.inside_design_id"  => 5,
-		];
-		$model = new GridLineModel();
-		$model->setAttributes($attributes);
-		if (!$model->save()) {
-			return false;
-		}
-
-		$attributes = [
-			"t.section_id"        => 2,
-			"t.sort"              => 1,
-			"t.outside_design_id" => 6,
-			"t.inside_design_id"  => 7,
-		];
-		$model = new GridLineModel();
-		$model->setAttributes($attributes);
-		if (!$model->save()) {
-			return false;
-		}
-
-		$attributes = [
-			"t.grid_line_id" => 1,
-			"t.content_type" => 1,
-			"t.content_id"   => 1,
-			"t.x"            => 0,
-			"t.y"            => 0,
-			"t.width"        => 6,
-		];
-		$model = new GridModel();
-		$model->setAttributes($attributes);
-		if (!$model->save()) {
-			return false;
-		}
-
-		$attributes = [
-			"t.grid_line_id" => 2,
-			"t.content_type" => 1,
-			"t.content_id"   => 1,
-			"t.x"            => 0,
-			"t.y"            => 0,
-			"t.width"        => 6,
-		];
-		$model = new GridModel();
-		$model->setAttributes($attributes);
-		if (!$model->save()) {
 			return false;
 		}
 

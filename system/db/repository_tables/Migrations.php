@@ -32,14 +32,4 @@ class Migrations extends Migration {
 
 		return true;
 	}
-
-	/**
-	 * Inserts test data
-	 *
-	 * @return bool
-	 */
-	public function insertData()
-	{
-		return true;
-	}
 }
