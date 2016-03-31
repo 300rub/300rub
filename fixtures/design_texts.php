@@ -1,6 +1,7 @@
 <?php
 
 return [
+    // texts_1
     [
         "id"             => 1,
         "size"           => 0,
@@ -13,5 +14,75 @@ return [
         "transform"      => 0,
         "letter_spacing" => 0,
         "line_height"    => 0,
-    ]
+    ],
+    // texts_2
+    [
+        "id"             => 2,
+        "size"           => 0,
+        "family"         => 0,
+        "color"          => "",
+        "is_italic"      => 0,
+        "is_bold"        => 0,
+        "align"          => 0,
+        "decoration"     => 0,
+        "transform"      => 0,
+        "letter_spacing" => 0,
+        "line_height"    => 0,
+    ],
+    // texts_3
+    [
+        "id"             => 3,
+        "size"           => 0,
+        "family"         => 0,
+        "color"          => "",
+        "is_italic"      => 0,
+        "is_bold"        => 0,
+        "align"          => 0,
+        "decoration"     => 0,
+        "transform"      => 0,
+        "letter_spacing" => 0,
+        "line_height"    => 0,
+    ],
+    // texts_4
+    [
+        "id"             => 4,
+        "size"           => 0,
+        "family"         => 0,
+        "color"          => "",
+        "is_italic"      => 0,
+        "is_bold"        => 0,
+        "align"          => 0,
+        "decoration"     => 0,
+        "transform"      => 0,
+        "letter_spacing" => 0,
+        "line_height"    => 0,
+    ],
+    // texts_5
+    [
+        "id"             => 5,
+        "size"           => 0,
+        "family"         => 0,
+        "color"          => "",
+        "is_italic"      => 0,
+        "is_bold"        => 0,
+        "align"          => 0,
+        "decoration"     => 0,
+        "transform"      => 0,
+        "letter_spacing" => 0,
+        "line_height"    => 0,
+    ],
+    // texts_6
+    [
+        "id"             => 6,
+        "size"           => 0,
+        "family"         => 0,
+        "color"          => "",
+        "is_italic"      => 0,
+        "is_bold"        => 0,
+        "align"          => 0,
+        "decoration"     => 0,
+        "transform"      => 0,
+        "letter_spacing" => 0,
+        "line_height"    => 0,
+    ],
 ];

@@ -50,9 +50,5 @@ return [
     "typeImportant"       => [
         Language::LANGUAGE_EN_ID => "Important text",
         Language::LANGUAGE_RU_ID => "Важный текст",
-    ],
-    "typeCode"            => [
-        Language::LANGUAGE_EN_ID => "Code",
-        Language::LANGUAGE_RU_ID => "Код",
-    ],
+    ]
 ];

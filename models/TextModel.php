@@ -47,11 +47,6 @@ class TextModel extends Model
 	const TYPE_MARK = 5;
 
 	/**
-	 * Type. <code>
-	 */
-	const TYPE_CODE = 6;
-
-	/**
 	 * Block's name
 	 *
 	 * @var string
@@ -126,7 +121,6 @@ class TextModel extends Model
 		self::TYPE_H3     => "h3",
 		self::TYPE_ADRESS => "adress",
 		self::TYPE_MARK   => "mark",
-		self::TYPE_CODE   => "code",
 	];
 
 	/**
@@ -222,7 +216,6 @@ class TextModel extends Model
 			self::TYPE_H3     => Language::t("text", "typeH3"),
 			self::TYPE_ADRESS => Language::t("text", "typeAddress"),
 			self::TYPE_MARK   => Language::t("text", "typeImportant"),
-			self::TYPE_CODE   => Language::t("text", "typeCode"),
 		];
 	}
 
