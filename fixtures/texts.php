@@ -61,4 +61,14 @@ return [
         "design_text_id"  => 6,
         "design_block_id" => 6,
     ],
+    [
+        "id"              => 7,
+        "name"            => "Default. With design",
+        "language"        => 1,
+        "type"            => 0,
+        "is_editor"       => 0,
+        "text"            => "Default. With design. The quick brown fox jumps over the lazy dog 0123456789.",
+        "design_text_id"  => 7,
+        "design_block_id" => 7,
+    ],
 ];
