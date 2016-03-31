@@ -2,8 +2,6 @@
 
 namespace models;
 
-use system\base\Model;
-
 /**
  * Model for working with table "users"
  *
@@ -11,7 +9,7 @@ use system\base\Model;
  *
  * @method UserModel find()
  */
-class UserModel extends Model
+class UserModel extends AbstractModel
 {
 
 	/**

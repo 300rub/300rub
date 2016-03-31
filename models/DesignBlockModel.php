@@ -2,14 +2,12 @@
 
 namespace models;
 
-use system\base\Model;
-
 /**
  * Model for working with table "design_blocks"
  *
  * @package models
  */
-class DesignBlockModel extends Model
+class DesignBlockModel extends AbstractModel
 {
 
 	/**

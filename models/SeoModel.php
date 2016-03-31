@@ -3,14 +3,13 @@
 namespace models;
 
 use system\web\Language;
-use system\base\Model;
 
 /**
  * Model for working with table "seo"
  *
  * @package models
  */
-class SeoModel extends Model
+class SeoModel extends AbstractModel
 {
 
 	/**

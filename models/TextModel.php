@@ -3,7 +3,6 @@
 namespace models;
 
 use system\web\Language;
-use system\base\Model;
 
 /**
  * Model for working with table "texts"
@@ -13,7 +12,7 @@ use system\base\Model;
  * @method TextModel[] findAll
  * @method TextModel ordered
  */
-class TextModel extends Model
+class TextModel extends AbstractModel
 {
 
 	/**

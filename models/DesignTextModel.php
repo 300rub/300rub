@@ -2,14 +2,12 @@
 
 namespace models;
 
-use system\base\Model;
-
 /**
  * Model for working with table "design_texts"
  *
  * @package models
  */
-class DesignTextModel extends Model
+class DesignTextModel extends AbstractModel
 {
 
 	/**

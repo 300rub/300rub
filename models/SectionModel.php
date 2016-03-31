@@ -5,7 +5,6 @@ namespace models;
 use system\base\Exception;
 use system\db\Db;
 use system\web\Language;
-use system\base\Model;
 
 /**
  * Model for working with table "sections"
@@ -19,7 +18,7 @@ use system\base\Model;
  * @method SectionModel   exceptId($id)
  * @method SectionModel   withAll()
  */
-class SectionModel extends Model
+class SectionModel extends AbstractModel
 {
 
 	/**

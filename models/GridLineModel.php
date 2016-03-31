@@ -2,8 +2,6 @@
 
 namespace models;
 
-use system\base\Model;
-
 /**
  * Model for working with table "grid_lines"
  *
@@ -15,7 +13,7 @@ use system\base\Model;
  * @method GridLineModel   withAll()
  * @method GridLineModel   find()
  */
-class GridLineModel extends Model
+class GridLineModel extends AbstractModel
 {
 
 	/**

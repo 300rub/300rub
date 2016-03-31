@@ -4,7 +4,6 @@ namespace models;
 
 use system\base\ErrorHandler;
 use system\base\Exception;
-use system\base\Model;
 use system\db\Db;
 use system\web\Language;
 
@@ -17,7 +16,7 @@ use system\web\Language;
  * @method GridModel   in($field, $values)
  * @method GridModel   with($array)
  */
-class GridModel extends Model
+class GridModel extends AbstractModel
 {
 
 	/**

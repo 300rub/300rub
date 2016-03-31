@@ -1,15 +1,15 @@
 <?php
 
-namespace system\base;
+namespace models;
 
 use system\db\Db;
 
 /**
  * Abstract class for working with models
  *
- * @package system.base
+ * @package models
  */
-abstract class Model
+abstract class AbstractModel
 {
 
 	/**
@@ -97,7 +97,7 @@ abstract class Model
 	 *
 	 * @param int $id ID
 	 *
-	 * @return Model
+	 * @return AbstractModel
 	 */
 	public function byId($id)
 	{
@@ -113,7 +113,7 @@ abstract class Model
 	 * @param string $field  Field name
 	 * @param array  $values Values
 	 *
-	 * @return Model
+	 * @return AbstractModel
 	 */
 	public function in($field, $values)
 	{
@@ -127,7 +127,7 @@ abstract class Model
 	 *
 	 * @param int $id ID
 	 *
-	 * @return Model
+	 * @return AbstractModel
 	 */
 	public function exceptId($id)
 	{
@@ -140,7 +140,7 @@ abstract class Model
 	/**
 	 * Adds sort by name to SQL request
 	 *
-	 * @return Model
+	 * @return AbstractModel
 	 */
 	public function ordered()
 	{
@@ -152,7 +152,7 @@ abstract class Model
 	/**
 	 * Adds select all relations table to SQL request
 	 *
-	 * @return Model
+	 * @return AbstractModel
 	 */
 	public function withAll()
 	{
@@ -168,7 +168,7 @@ abstract class Model
 	 *
 	 * @param array $relations Relations
 	 *
-	 * @return Model
+	 * @return AbstractModel
 	 */
 	public function with($relations) {
 		if ($relations === "*") {
@@ -186,7 +186,7 @@ abstract class Model
 	/**
 	 * Model search in DB
 	 *
-	 * @return null|Model
+	 * @return null|AbstractModel
 	 */
 	public function find()
 	{
@@ -198,7 +198,7 @@ abstract class Model
 		}
 
 		/**
-		 * @var Model $model
+		 * @var AbstractModel $model
 		 */
 		$model = new $this;
 		$model->setAttributes($result, "__")->afterFind();
@@ -209,7 +209,7 @@ abstract class Model
 	/**
 	 * Runs after finding model
 	 *
-	 * @return Model
+	 * @return AbstractModel
 	 */
 	protected function afterFind()
 	{
@@ -218,7 +218,7 @@ abstract class Model
 	/**
 	 * Models search in DB
 	 *
-	 * @return null|Model[]
+	 * @return null|AbstractModel[]
 	 */
 	public function findAll()
 	{
@@ -231,7 +231,7 @@ abstract class Model
 
 		foreach ($result as $values) {
 			/**
-			 * @var Model $model
+			 * @var AbstractModel $model
 			 */
 			$model = new $this;
 			$model->setAttributes($values, "__")->afterFind();
@@ -249,7 +249,7 @@ abstract class Model
 	 * @param array  $values    attribute values
 	 * @param string $separator separator
 	 *
-	 * @return Model
+	 * @return AbstractModel
 	 */
 	public final function setAttributes($values, $separator = self::DEFAULT_SEPARATOR)
 	{
