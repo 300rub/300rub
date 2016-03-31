@@ -1,5 +1,5 @@
 <?php
-use system\web\Language;
+use components\Language;
 ?>
 
 <a href="#" class="j-panel-settings-duplicate">

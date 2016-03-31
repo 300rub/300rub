@@ -1,15 +1,15 @@
 <?php
 
-namespace system\db;
+namespace components;
 
+use models\AbstractModel;
 use PDO;
 use PDOException;
-use system\base\Model;
 
 /**
  * Class for working with DB
  *
- * @package system.db
+ * @package components
  */
 class Db
 {
@@ -131,7 +131,7 @@ class Db
 		foreach ($this->with as $with) {
 			$relation = $this->relations[$with];
 			/**
-			 * @var Model $class
+			 * @var AbstractModel $class
 			 */
 			$class = new $relation[0];
 			$select[] = $with . ".id AS {$with}__id";
@@ -291,7 +291,7 @@ class Db
 	 * Inserts record to DB
 	 * If success - returns new ID
 	 *
-	 * @param \system\base\Model $model
+	 * @param AbstractModel $model
 	 *
 	 * @return int
 	 */
@@ -325,7 +325,7 @@ class Db
 	/**
 	 * Updates record
 	 *
-	 * @param \system\base\Model $model
+	 * @param AbstractModel $model
 	 *
 	 * @return bool
 	 */
@@ -349,7 +349,7 @@ class Db
 	/**
 	 * Deletes record
 	 *
-	 * @param \system\base\Model $model
+	 * @param AbstractModel $model
 	 *
 	 * @return bool
 	 */

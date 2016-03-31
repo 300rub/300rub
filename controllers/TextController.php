@@ -2,8 +2,8 @@
 
 namespace controllers;
 
+use components\Language;
 use models\TextModel;
-use system\web\Language;
 
 /**
  * Text's controller

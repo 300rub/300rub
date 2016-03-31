@@ -2,14 +2,12 @@
 
 namespace migrations;
 
-use system\db\Migration;
-
 /**
  * Creates design_blocks table
  *
  * @package migrations
  */
-class M_151012_000000_design_blocks extends Migration
+class M_160315_000000_design_blocks extends AbstractMigration
 {
 
 	/**

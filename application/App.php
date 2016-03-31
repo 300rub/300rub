@@ -1,14 +1,11 @@
 <?php
 
-namespace system;
-
-use system\console\Console;
-use system\web\Web;
+namespace application;
 
 /**
  * Class for running application
  *
- * @package system
+ * @package application
  */
 class App
 {
@@ -69,7 +66,7 @@ class App
 	/**
 	 * Gets current application
 	 *
-	 * @return \system\base\Application
+	 * @return AbstractApplication
 	 */
 	public static function getApplication()
 	{
@@ -98,8 +95,6 @@ class App
 		}
 
 		include(__DIR__ . DIRECTORY_SEPARATOR .
-			".." .
-			DIRECTORY_SEPARATOR .
 			str_replace("\\", DIRECTORY_SEPARATOR, $className) .
 			".php");
 		self::$classMap[] = $className;

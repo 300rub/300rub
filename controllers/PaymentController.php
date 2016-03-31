@@ -2,7 +2,7 @@
 
 namespace controllers;
 
-use system\web\Language;
+use components\Language;
 
 /**
  * Payment's controller

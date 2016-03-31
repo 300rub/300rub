@@ -1,14 +1,14 @@
 <?php
 
-namespace system\base;
+namespace components;
 
-use system\App;
+use application\App;
 use controllers\CommonController;
 
 /**
  * Class for handling errors
  *
- * @package system.base
+ * @package components
  */
 class ErrorHandler
 {
@@ -72,7 +72,7 @@ class ErrorHandler
 	/**
 	 * Handles exceptions
 	 *
-	 * @param \system\base\Exception $exception
+	 * @param Exception $exception
 	 *
 	 * @return void;
 	 */

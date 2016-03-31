@@ -1,10 +1,10 @@
 <?php
 
-use system\App;
+use application\App;
 
 // Config file path
 $config = require(__DIR__ . "/config/main.php");
 
 // Runs the web application
-require(__DIR__ . "/system/App.php");
+require(__DIR__ . "/application/App.php");
 App::web($config)->run();

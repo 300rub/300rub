@@ -2,7 +2,7 @@
 
 namespace commands;
 
-use system\base\Logger;
+use components\Logger;
 
 /**
  * Static public class

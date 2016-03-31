@@ -2,14 +2,12 @@
 
 namespace migrations;
 
-use system\db\Migration;
-
 /**
  * Creates design_texts table
  *
  * @package migrations
  */
-class M_150927_000000_design_texts extends Migration
+class M_160313_000000_design_texts extends AbstractMigration
 {
 
 	/**

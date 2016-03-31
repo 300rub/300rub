@@ -2,7 +2,7 @@
 
 namespace commands;
 
-use system\base\Logger;
+use components\Logger;
 use MatthiasMullie\Minify\CSS;
 use MatthiasMullie\Minify\JS;
 

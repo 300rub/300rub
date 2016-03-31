@@ -1,15 +1,13 @@
 <?php
 
-namespace system\db\repository_tables;
-
-use system\db\Migration;
+namespace migrations;
 
 /**
  * Creates table for storing list of migrations
  *
- * @package system.db.repository_tables
+ * @package migrations
  */
-class Migrations extends Migration {
+class M_160302_000000_migrations extends AbstractMigration {
 
 	/**
 	 * Applies migration

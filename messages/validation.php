@@ -1,6 +1,6 @@
 <?php
 
-use system\web\Language;
+use components\Language;
 
 return [
     "required"          => [

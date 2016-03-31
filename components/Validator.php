@@ -1,13 +1,13 @@
 <?php
 
-namespace system\base;
+namespace components;
 
-use system\web\Language;
+use models\AbstractModel;
 
 /**
  * Class for validation model's fields
  *
- * @package system.base
+ * @package components
  */
 class Validator
 {
@@ -15,7 +15,7 @@ class Validator
 	/**
 	 * Model
 	 *
-	 * @var Model
+	 * @var AbstractModel
 	 */
 	private $_model = null;
 
@@ -43,10 +43,10 @@ class Validator
 	/**
 	 * Constructor
 	 *
-	 * @param Model  $model      Model
-	 * @param string $objectName Object name
+	 * @param AbstractModel  $model      Model
+	 * @param string         $objectName Object name
 	 */
-	public function __construct($model, $objectName = Model::OBJECT_NAME)
+	public function __construct($model, $objectName = AbstractModel::OBJECT_NAME)
 	{
 		$this->_model = $model;
 		$this->_objectName = $objectName;
@@ -128,7 +128,7 @@ class Validator
 	 */
 	private function _addError($field, $value)
 	{
-		$this->_errors[$this->_objectName . Model::DEFAULT_SEPARATOR . $field] = $value;
+		$this->_errors[$this->_objectName . AbstractModel::DEFAULT_SEPARATOR . $field] = $value;
 		return $this;
 	}
 

@@ -1,20 +1,20 @@
 <?php
 
-namespace system\web;
+namespace application;
 
-use system\base\Application;
-use system\base\ErrorHandler;
-use system\db\Db;
-use system\base\Exception;
+use components\Db;
+use components\ErrorHandler;
+use components\Exception;
+use components\Language;
 use controllers\CommonController;
 use models\UserModel;
 
 /**
  * Class for working with WEB application
  *
- * @package system.web
+ * @package application
  */
-class Web extends Application
+class Web extends AbstractApplication
 {
 
 	/**
@@ -175,7 +175,7 @@ class Web extends Application
 		}
 
 		/**
-		 * @var \system\web\Controller $controller
+		 * @var \controllers\AbstractController $controller
 		 */
 		$controller = new $className;
 		$methodName = "action" . ucfirst($controllerParams[1]);

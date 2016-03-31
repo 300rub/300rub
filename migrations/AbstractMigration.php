@@ -1,15 +1,16 @@
 <?php
 
-namespace system\db;
+namespace migrations;
 
-use system\base\Logger;
+use components\Db;
+use components\Logger;
 
 /**
  * Abstract class for working with migrations
  *
- * @package system.db
+ * @package migrations
  */
-abstract class Migration
+abstract class AbstractMigration
 {
 
 	/**

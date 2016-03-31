@@ -2,7 +2,7 @@
 
 namespace models;
 
-use system\web\Language;
+use components\Language;
 
 /**
  * Model for working with table "texts"

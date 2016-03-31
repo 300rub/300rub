@@ -1,17 +1,16 @@
 <?php
 
-namespace system\console;
+namespace application;
 
-use system\base\Application;
-use system\base\Exception;
-use system\base\Logger;
+use components\Exception;
+use components\Logger;
 
 /**
  * Class for working with console
  *
- * @package system.console
+ * @package application
  */
-class Console extends Application
+class Console extends AbstractApplication
 {
 
 	/**
@@ -60,7 +59,7 @@ class Console extends Application
 		Logger::log("Выполняется команда \"{$this->_command}\"...", Logger::LEVEL_INFO, "console.run");
 
 		/**
-		 * @var Command $class;
+		 * @var \commands\AbstractCommand $class;
 		 */
 		$class = new $className;
 		if ($class->run($this->_args)) {
@@ -83,7 +82,7 @@ class Console extends Application
 	private function _setCommandList()
 	{
 		$list = [];
-		$dir = __DIR__ . "/../../commands";
+		$dir = __DIR__ . "/../commands";
 
 		$handle = opendir($dir);
 		if (!$handle) {

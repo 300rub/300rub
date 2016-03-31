@@ -2,10 +2,10 @@
 
 namespace models;
 
-use system\base\ErrorHandler;
-use system\base\Exception;
-use system\db\Db;
-use system\web\Language;
+use components\Db;
+use components\ErrorHandler;
+use components\Exception;
+use components\Language;
 
 /**
  * Model for working with table "grids"
@@ -320,7 +320,7 @@ class GridModel extends AbstractModel
 		$grids = $this->bySectionId($sectionId)->orderedWithLines()->findAll();
 		foreach ($grids as $grid) {
 			/**
-			 * @var \system\base\Model|\models\TextModel $model
+			 * @var AbstractModel|TextModel $model
 			 */
 			$modelName = "\\models\\" . ucfirst($typeList[$grid->content_id]["class"]) . "Model";
 			$model = new $modelName;
@@ -436,7 +436,7 @@ class GridModel extends AbstractModel
 	/**
 	 * Gets content model
 	 *
-	 * @return Model
+	 * @return AbstractModel
 	 *
 	 * @throws Exception
 	 */
@@ -449,7 +449,7 @@ class GridModel extends AbstractModel
 		}
 
 		/**
-		 * @var Model $model
+		 * @var AbstractModel $model
 		 */
 		$modelName = '\\models\\' . $typeList[$this->content_type]["model"];
 		$model = new $modelName;

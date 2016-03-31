@@ -2,7 +2,7 @@
 
 namespace controllers;
 
-use system\web\Language;
+use components\Language;
 
 /**
  * Block's controller

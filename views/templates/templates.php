@@ -1,6 +1,6 @@
 <?php
 
-use system\App;
+use application\App;
 
 require("errors.php");
 require("window/window.php");

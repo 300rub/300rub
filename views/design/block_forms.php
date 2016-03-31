@@ -1,5 +1,5 @@
 <?php
-use system\web\Language;
+use components\Language;
 use models\DesignBlockModel;
 ?>
 

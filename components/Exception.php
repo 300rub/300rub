@@ -1,13 +1,13 @@
 <?php
 
-namespace system\base;
+namespace components;
 
 use Exception as E;
 
 /**
  * Exception class file
  *
- * @package system.base
+ * @package components
  */
 class Exception extends E
 {

@@ -1,13 +1,11 @@
 <?php
 
-namespace system\web;
-
-use system\base\Exception;
+namespace components;
 
 /**
  * Class contains lib of static functions for working with language
  *
- * @package system.web
+ * @package components
  */
 class Language
 {
@@ -92,7 +90,7 @@ class Language
 	 */
 	public static function t($category, $key)
 	{
-		$messages = require(__DIR__ . "/../../messages/{$category}.php");
+		$messages = require(__DIR__ . "/../messages/{$category}.php");
 		if (array_key_exists($key, $messages)) {
 			return $messages[$key][self::$activeId];
 		}

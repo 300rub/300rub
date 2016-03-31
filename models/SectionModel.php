@@ -2,9 +2,9 @@
 
 namespace models;
 
-use system\base\Exception;
-use system\db\Db;
-use system\web\Language;
+use components\Db;
+use components\Exception;
+use components\Language;
 
 /**
  * Model for working with table "sections"

@@ -1,5 +1,5 @@
 <?php
-use system\base\Validator;
+use components\Validator;
 ?>
 
 <?php foreach (Validator::getErrorMessages() as $key => $value) { ?>

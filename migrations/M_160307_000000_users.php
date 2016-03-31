@@ -2,14 +2,12 @@
 
 namespace migrations;
 
-use system\db\Migration;
-
 /**
  * Creates users table
  *
  * @package migrations
  */
-class M_150104_000000_users extends Migration
+class M_160307_000000_users extends AbstractMigration
 {
 
 	/**

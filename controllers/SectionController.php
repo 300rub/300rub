@@ -2,10 +2,9 @@
 
 namespace controllers;
 
+use components\Language;
 use models\GridModel;
 use models\SectionModel;
-use system\web\Json;
-use system\web\Language;
 
 /**
  * Section's controller

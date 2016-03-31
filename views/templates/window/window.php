@@ -1,5 +1,5 @@
 <?php
-use system\web\Language;
+use components\Language;
 ?>
 <div class="l-window j-window">
 	<form class="j-window-form" method="post">

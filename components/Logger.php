@@ -1,11 +1,11 @@
 <?php
 
-namespace system\base;
+namespace components;
 
 /**
  * Class for working with logging
  *
- * @package system.base
+ * @package components
  */
 class Logger
 {
@@ -63,7 +63,7 @@ class Logger
 
 		$text = date("Y-m-d H:i:s", time()) . " [{$level}] [{$category}] " . $msg . "\n\n";
 
-		$logFile = __DIR__ . "/../../logs/{$fileName}.log";
+		$logFile = __DIR__ . "/../logs/{$fileName}.log";
 		$fp = @fopen($logFile, 'a');
 		//chmod($logFile, 0777);
 		@flock($fp, LOCK_EX);

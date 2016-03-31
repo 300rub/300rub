@@ -2,8 +2,8 @@
 
 namespace commands;
 
-use system\App;
-use system\base\Logger;
+use application\App;
+use components\Logger;
 
 /**
  * Builds a repository

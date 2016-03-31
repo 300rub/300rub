@@ -2,7 +2,8 @@
 
 namespace models;
 
-use system\db\Db;
+use components\Db;
+use components\Validator;
 
 /**
  * Abstract class for working with models

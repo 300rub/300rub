@@ -3,9 +3,9 @@
 namespace controllers;
 
 use models\UserModel;
-use system\base\ErrorHandler;
-use system\base\Exception;
-use system\web\Language;
+use components\ErrorHandler;
+use components\Exception;
+use components\Language;
 
 /**
  * Users's controller

@@ -1,16 +1,17 @@
 <?php
 
-namespace system\base;
+namespace application;
 
-use system\db\Db;
-use system\web\Language;
+use components\Db;
+use components\ErrorHandler;
+use components\Exception;
 
 /**
  * Abstract class for work with application
  *
- * @package system.base
+ * @package application
  */
-abstract class Application
+abstract class AbstractApplication
 {
 
 	/**
@@ -44,7 +45,7 @@ abstract class Application
 	/**
 	 * Sets Error Handler
 	 *
-	 * @return Application
+	 * @return AbstractApplication
 	 */
 	private function _setErrorHandler()
 	{
@@ -58,7 +59,7 @@ abstract class Application
 	 *
 	 * @param array $config Config settings
 	 *
-	 * @return Application
+	 * @return AbstractApplication
 	 */
 	private function _parseConfig($config)
 	{
@@ -70,11 +71,11 @@ abstract class Application
 	/**
 	 * Activates vendor autoload
 	 *
-	 * @return Application
+	 * @return AbstractApplication
 	 */
 	private function _activateVendorAutoload()
 	{
-		require_once(__DIR__ . "/../../vendors/autoload.php");
+		require_once(__DIR__ . "/../vendors/autoload.php");
 
 		return $this;
 	}
@@ -82,7 +83,7 @@ abstract class Application
 	/**
 	 * Checks connection with DB
 	 *
-	 * @return Application
+	 * @return AbstractApplication
 	 *
 	 * @throws Exception
 	 */

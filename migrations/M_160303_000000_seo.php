@@ -2,14 +2,12 @@
 
 namespace migrations;
 
-use system\db\Migration;
-
 /**
  * Creates seo table
  *
  * @package migrations
  */
-class M_150101_010101_seo extends Migration
+class M_160303_000000_seo extends AbstractMigration
 {
 
 	/**

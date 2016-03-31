@@ -2,12 +2,12 @@
 
 namespace commands;
 
-use system\App;
-use system\base\Exception;
-use system\base\Logger;
-use system\db\Db;
-use system\db\repository_tables\Migrations;
-use system\db\repository_tables\Sites;
+use application\App;
+use components\Db;
+use components\Exception;
+use components\Logger;
+use migrations\M_160301_000000_sites;
+use migrations\M_160302_000000_migrations;
 
 /**
  * Applies migrations
@@ -107,25 +107,9 @@ class MigrateCommand extends AbstractCommand
 	 */
 	private function _checkCommonTables()
 	{
-		if (!Db::isTableExists("migrations")) {
-			try {
-				$migration = new Migrations;
-				if (!$migration->up()) {
-					return false;
-				}
-			} catch (Exception $e) {
-				Logger::log(
-					"Unable to create table \"migrations\" " . App::console()->config->db->name,
-					Logger::LEVEL_ERROR,
-					"console.migrate"
-				);
-				return false;
-			}
-		}
-
 		if (!Db::isTableExists("sites")) {
 			try {
-				$migration = new Sites;
+				$migration = new M_160301_000000_sites;
 				if (!$migration->up()) {
 					return false;
 				}
@@ -135,6 +119,22 @@ class MigrateCommand extends AbstractCommand
 			} catch (Exception $e) {
 				Logger::log(
 					"Unable to create table \"sites\"" . App::console()->config->db->name,
+					Logger::LEVEL_ERROR,
+					"console.migrate"
+				);
+				return false;
+			}
+		}
+
+		if (!Db::isTableExists("migrations")) {
+			try {
+				$migration = new M_160302_000000_migrations;
+				if (!$migration->up()) {
+					return false;
+				}
+			} catch (Exception $e) {
+				Logger::log(
+					"Unable to create table \"migrations\" " . App::console()->config->db->name,
 					Logger::LEVEL_ERROR,
 					"console.migrate"
 				);
@@ -165,7 +165,7 @@ class MigrateCommand extends AbstractCommand
 		}
 
 		while (false !== ($file = readdir($handle))) {
-			if ($file != "." && $file != "..") {
+			if (strpos($file, "M_") !== false) {
 				$version = str_replace(".php", "", $file);
 				if (App::console()->config->isDebug || !in_array($version, $versions)) {
 					$this->_migrations[] = $version;
@@ -328,7 +328,7 @@ class MigrateCommand extends AbstractCommand
 
 				foreach ($this->_migrations as $migrationName) {
 					/**
-					 * @var \system\db\Migration $migration
+					 * @var \migrations\AbstractMigration $migration
 					 */
 					$migrationFullName = "\\migrations\\{$migrationName}";
 					$migration = new $migrationFullName;

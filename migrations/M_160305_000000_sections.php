@@ -2,14 +2,12 @@
 
 namespace migrations;
 
-use system\db\Migration;
-
 /**
  * Creates sections table
  *
  * @package migrations
  */
-class M_150101_020202_sections extends Migration
+class M_160305_000000_sections extends AbstractMigration
 {
 
 	/**

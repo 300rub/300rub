@@ -1,11 +1,11 @@
 #!/usr/bin/env php
 <?php
 
-use system\App;
+use application\App;
 
 // Config file path
 $config = require(__DIR__ . "/config/main.php");
 
 // Runs a command
-require(__DIR__ . "/system/App.php");
+require(__DIR__ . "/application/App.php");
 App::console($config)->run();

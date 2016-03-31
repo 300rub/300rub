@@ -2,14 +2,12 @@
 
 namespace migrations;
 
-use system\db\Migration;
-
 /**
  * Creates grid_lines & grids tables
  *
  * @package migrations
  */
-class M_150925_000000_grids extends Migration
+class M_160311_000000_grids extends AbstractMigration
 {
 
 	/**

@@ -2,9 +2,9 @@
 
 namespace controllers;
 
-use system\App;
-use system\base\ErrorHandler;
-use system\base\Exception;
+use application\App;
+use components\ErrorHandler;
+use components\Exception;
 use models\AbstractModel;
 
 /**
@@ -137,7 +137,7 @@ abstract class AbstractController
 	 */
 	protected function getViewsRootDir()
 	{
-		return __DIR__ . "/../../views/";
+		return __DIR__ . "/../views/";
 	}
 
 	/**

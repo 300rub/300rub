@@ -1,18 +1,17 @@
 <?php
 
-namespace system\db\repository_tables;
+namespace migrations;
 
-use system\App;
-use system\web\Language;
-use system\db\Db;
-use system\db\Migration;
+use application\App;
+use components\Db;
+use components\Language;
 
 /**
  * Creates table for storing information about all sites
  *
- * @package system.db.repository_tables
+ * @package migrations
  */
-class Sites extends Migration {
+class M_160301_000000_sites extends AbstractMigration {
 
 	/**
 	 * Applies migration
@@ -54,20 +53,23 @@ class Sites extends Migration {
 	 */
 	public function insertData()
 	{
-		$host = App::console()->config->host;
-		$dbHost = App::console()->config->db->host;
-		$dbUser = App::console()->config->db->user;
-		$dbPassword = App::console()->config->db->password;
-		$dbName = App::console()->config->db->name;
-		$language = array_search(App::console()->config->language, Language::$aliasList);
-		$email = App::console()->config->email->adress;
+		$config = App::console()->config;
 
 		return Db::execute(
 			"
 			INSERT INTO sites
 			(host, db_host, db_user, db_password, db_name, language, email)
-			VALUES ('{$host}', '{$dbHost}', '{$dbUser}', '{$dbPassword}', '{$dbName}', '{$language}', '{$email}')
-			"
+			VALUES ('?', '?', '?', '?', '?', '?', '?')
+			",
+			[
+				$config->host,
+				$config->host,
+				$config->db->user,
+				$config->db->password,
+				$config->db->name,
+				array_search($config->language, Language::$aliasList),
+				$config->email->adress
+			]
 		);
 	}
 }
