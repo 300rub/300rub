@@ -1,18 +1,18 @@
 <?php
 
-namespace system\web;
+namespace controllers;
 
 use system\App;
 use system\base\ErrorHandler;
 use system\base\Exception;
-use system\base\Model;
+use models\AbstractModel;
 
 /**
  * Abstract class for working with controllers
  *
- * @package system.web
+ * @package controllers
  */
-abstract class Controller
+abstract class AbstractController
 {
 
 	/**
@@ -143,22 +143,22 @@ abstract class Controller
 	/**
 	 * Adds forms into JSON
 	 *
-	 * @param Model    $model  Model
-	 * @param string[] $fields Fields
+	 * @param AbstractModel $model  Model
+	 * @param string[]      $fields Fields
 	 *
 	 * @throws Exception
 	 *
-	 * @return Controller
+	 * @return AbstractController
 	 */
 	protected function setFormsForJson($model, $fields)
 	{
 		$forms = [];
 
 		foreach ($fields as $field) {
-			list($objectName, $field) = explode(Model::DEFAULT_SEPARATOR, $field, 2);
+			list($objectName, $field) = explode(AbstractModel::DEFAULT_SEPARATOR, $field, 2);
 
 			$m = null;
-			if ($objectName === Model::OBJECT_NAME) {
+			if ($objectName === AbstractModel::OBJECT_NAME) {
 				$m = $model;
 			} else if (property_exists($model, $objectName)) {
 				$m = $model->$objectName;
@@ -170,7 +170,7 @@ abstract class Controller
 
 			if ($m && property_exists($m, $field)) {
 				$forms[] = [
-					"name"  => $objectName . Model::DEFAULT_SEPARATOR . $field,
+					"name"  => $objectName . AbstractModel::DEFAULT_SEPARATOR . $field,
 					"rules" => $m->getRulesForField($field),
 					"type"  => $m->getFormType($field),
 					"value" => $m->$field
@@ -191,7 +191,7 @@ abstract class Controller
 	 * @param string[] $width      Relations
 	 * @param bool     $allowEmpty Allows empty ID
 	 *
-	 * @return \system\base\Model
+	 * @return AbstractModel
 	 *
 	 * @throws Exception
 	 */
@@ -203,7 +203,7 @@ abstract class Controller
 		}
 
 		/**
-		 * @var \system\base\Model $model
+		 * @var AbstractModel $model
 		 */
 		$model = new $modelName;
 		if (!$model) {

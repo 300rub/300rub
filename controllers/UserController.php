@@ -4,7 +4,6 @@ namespace controllers;
 
 use models\UserModel;
 use system\base\ErrorHandler;
-use system\web\Controller;
 use system\base\Exception;
 use system\web\Language;
 
@@ -13,7 +12,7 @@ use system\web\Language;
  *
  * @package controllers
  */
-class UserController extends Controller
+class UserController extends AbstractController
 {
 
     /**

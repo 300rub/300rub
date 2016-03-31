@@ -1,13 +1,13 @@
 <?php
 
-namespace system\console;
+namespace commands;
 
 /**
  * Abstract command class
  *
- * @package system.console
+ * @package commands
  */
-abstract class Command
+abstract class AbstractCommand
 {
 
 	/**

@@ -4,14 +4,13 @@ namespace commands;
 
 use system\App;
 use system\base\Logger;
-use system\console\Command;
 
 /**
  * Builds a repository
  *
  * @package commands
  */
-class BuildCommand extends Command
+class BuildCommand extends AbstractCommand
 {
 
     /**

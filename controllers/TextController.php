@@ -3,7 +3,6 @@
 namespace controllers;
 
 use models\TextModel;
-use system\web\Controller;
 use system\web\Language;
 
 /**
@@ -13,7 +12,7 @@ use system\web\Language;
  *
  * @method TextModel getModel($width = [], $allowEmpty = false)
  */
-class TextController extends Controller
+class TextController extends AbstractController
 {
 
     /**

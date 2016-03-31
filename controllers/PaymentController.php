@@ -2,7 +2,6 @@
 
 namespace controllers;
 
-use system\web\Controller;
 use system\web\Language;
 
 /**
@@ -10,7 +9,7 @@ use system\web\Language;
  *
  * @package controllers
  */
-class PaymentController extends Controller
+class PaymentController extends AbstractController
 {
 
     /**

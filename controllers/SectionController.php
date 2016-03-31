@@ -4,7 +4,6 @@ namespace controllers;
 
 use models\GridModel;
 use models\SectionModel;
-use system\web\Controller;
 use system\web\Json;
 use system\web\Language;
 
@@ -15,7 +14,7 @@ use system\web\Language;
  *
  * @method SectionModel getModel($width = [], $allowEmpty = false)
  */
-class SectionController extends Controller
+class SectionController extends AbstractController
 {
 
     /**

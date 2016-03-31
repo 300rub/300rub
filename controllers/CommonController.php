@@ -3,11 +3,10 @@
 namespace controllers;
 
 use system\App;
-use system\web\Controller;
 use models\SectionModel;
 use models\GridModel;
 
-class CommonController extends Controller
+class CommonController extends AbstractController
 {
 
     /**

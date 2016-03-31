@@ -3,7 +3,6 @@
 namespace commands;
 
 use system\base\Logger;
-use system\console\Command;
 use MatthiasMullie\Minify\CSS;
 use MatthiasMullie\Minify\JS;
 
@@ -12,7 +11,7 @@ use MatthiasMullie\Minify\JS;
  *
  * @package commands
  */
-class CompressStaticCommand extends Command
+class CompressStaticCommand extends AbstractCommand
 {
 
 	/**
@@ -58,7 +57,7 @@ class CompressStaticCommand extends Command
 		// Compressing
 		foreach ($map as $type => $files) {
 			$objectCss = new CSS();
-			$objectJs = new CSS();
+			$objectJs = new JS();
 			$outputCssFile = "{$cssFolder}/{$type}.min.css";
 			$outputJsFile = "{$cssFolder}/{$type}.min.js";
 

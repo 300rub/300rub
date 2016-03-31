@@ -5,7 +5,6 @@ namespace commands;
 use system\App;
 use system\base\Exception;
 use system\base\Logger;
-use system\console\Command;
 use system\db\Db;
 use system\db\repository_tables\Migrations;
 use system\db\repository_tables\Sites;
@@ -15,7 +14,7 @@ use system\db\repository_tables\Sites;
  *
  * @package commands
  */
-class MigrateCommand extends Command
+class MigrateCommand extends AbstractCommand
 {
 
 	/**

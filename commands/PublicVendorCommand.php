@@ -3,14 +3,13 @@
 namespace commands;
 
 use system\base\Logger;
-use system\console\Command;
 
 /**
  * Static public class
  *
  * @package commands
  */
-class PublicVendorCommand extends Command
+class PublicVendorCommand extends AbstractCommand
 {
 
 	/**
