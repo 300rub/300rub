@@ -332,19 +332,27 @@ class MigrateCommand extends AbstractCommand
 					 */
 					$migrationFullName = "\\migrations\\{$migrationName}";
 					$migration = new $migrationFullName;
-					if (!$migration->up()) {
+					if (!$migration->isSkip) {
+						if (!$migration->up()) {
+							Logger::log(
+								"Unable to apply migration \"{$migrationName}\" for DB \"" . $site["db_name"] . "\"",
+								Logger::LEVEL_ERROR,
+								"console.migrate"
+							);
+							return false;
+						}
 						Logger::log(
-							"Unable to apply migration \"{$migrationName}\" for DB \"" . $site["db_name"] . "\"",
-							Logger::LEVEL_ERROR,
+							"Migration \"{$migrationName}\" was applied successfully",
+							Logger::LEVEL_INFO,
 							"console.migrate"
 						);
-						return false;
+					} else {
+						Logger::log(
+							"Migration \"{$migrationName}\" was skipped successfully",
+							Logger::LEVEL_INFO,
+							"console.migrate"
+						);
 					}
-					Logger::log(
-						"Migration \"{$migrationName}\" was applied successfully",
-						Logger::LEVEL_INFO,
-						"console.migrate"
-					);
 				}
 
 				if (App::console()->config->isDebug && $this->isTestData) {

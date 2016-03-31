@@ -14,6 +14,13 @@ abstract class AbstractMigration
 {
 
 	/**
+	 * Flag. If it is true - it will be skipped in common applying
+	 *
+	 * @var bool
+	 */
+	public $isSkip = false;
+
+	/**
 	 * Applies migration
 	 *
 	 * @return bool

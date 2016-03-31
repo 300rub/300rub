@@ -14,6 +14,13 @@ use components\Language;
 class M_160301_000000_sites extends AbstractMigration {
 
 	/**
+	 * Flag. If it is true - it will be skipped in common applying
+	 *
+	 * @var bool
+	 */
+	public $isSkip = true;
+
+	/**
 	 * Applies migration
 	 *
 	 * @return bool
