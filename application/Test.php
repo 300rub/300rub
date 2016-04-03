@@ -7,7 +7,7 @@ namespace application;
  *
  * @package application
  */
-class Test
+class Test extends AbstractApplication
 {
 
     /**
