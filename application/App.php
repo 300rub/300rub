@@ -32,6 +32,13 @@ class App
 	private static $_web = null;
 
 	/**
+	 * Test application
+	 *
+	 * @var Test
+	 */
+	private static $_test = null;
+
+	/**
 	 * Gets application for working with console
 	 *
 	 * @param array $config Config settings
@@ -61,6 +68,22 @@ class App
 		}
 
 		return self::$_web;
+	}
+
+	/**
+	 * Gets application for working with tests
+	 *
+	 * @param array $config Config settings
+	 *
+	 * @return Test
+	 */
+	public static function test($config = [])
+	{
+		if (!self::$_test) {
+			self::$_test = new Test($config);
+		}
+
+		return self::$_test;
 	}
 
 	/**
@@ -94,13 +117,14 @@ class App
 			return false;
 		}
 
-		include(__DIR__ . DIRECTORY_SEPARATOR .
-			str_replace("\\", DIRECTORY_SEPARATOR, $className) .
-			".php");
+		$filePath = __DIR__ . "/../" . str_replace("\\", "/", $className) . ".php";
+		if (file_exists($filePath)) {
+			include ($filePath);
+		}
 		self::$classMap[] = $className;
 
 		return true;
 	}
 }
 
-spl_autoload_register(['system\App','autoload']);
+spl_autoload_register(['application\App','autoload']);
