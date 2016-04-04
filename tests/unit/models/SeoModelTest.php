@@ -5,21 +5,38 @@ namespace tests\unit\models;
 use models\SeoModel;
 
 /**
- * Файл класса SeoModelTest.
+ * Tests for model SeoModelTest.
  *
- * Тест для модели SeoModelTest
- *
- * @package tests.unit.models
+ * @package tests\unit\models
  */
 class SeoModelTest extends AbstractModelTest
 {
+
+	/**
+	 * Model object
+	 *
+	 * @return SeoModel
+	 */
+	protected function getModel()
+	{
+		return new SeoModel;
+	}
+
+	/**
+	 * Data provider for CRUD test
+	 *
+	 * @return array
+	 */
+	public function dataProviderForCRUD()
+	{
+		return [];
+	}
 
 	/**
 	 * Find by URL
 	 */
 	public function testFindByUrl()
 	{
-		//$this->assertEquals(1, SeoModel::model()->byUrl("texts")->find()->id);
-		$this->assertEquals(1, 1);
+		$this->assertEquals(1, SeoModel::model()->byUrl("texts")->find()->id);
 	}
 }

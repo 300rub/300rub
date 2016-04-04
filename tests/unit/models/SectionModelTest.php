@@ -5,68 +5,38 @@ namespace tests\unit\models;
 use models\SectionModel;
 
 /**
- * Тест для модели SectionModel
+ * Tests for model SectionModel
  *
- * @package tests.unit.models
+ * @package tests\unit\models
  */
 class SectionModelTest extends AbstractModelTest
 {
+
+	/**
+	 * Model object
+	 *
+	 * @return SectionModel
+	 */
+	protected function getModel()
+	{
+		return new SectionModel;
+	}
+
+	/**
+	 * Data provider for CRUD test
+	 *
+	 * @return array
+	 */
+	public function dataProviderForCRUD()
+	{
+		return [];
+	}
 
 	/**
 	 * Find by URL
 	 */
 	public function testFindByUrl()
 	{
-		//$this->assertEquals(1, SectionModel::model()->byUrl("texts")->find()->id);
-		$this->assertEquals(1, 1);
-	}
-
-	/**
-	 * CRUD
-	 *
-	 * @param array $createData
-	 * @param array $createExpected
-	 * @param array $createErrors
-	 * @param array $updateData
-	 * @param array $updateExpected
-	 * @param array $updateErrors
-	 *
-	 * @dataProvider dataProviderForCRUD
-	 */
-	public function estCRUD($createData, $createExpected, $createErrors, $updateData, $updateExpected, $updateErrors)
-	{
-		$model = new SectionModel;
-		$model->setAttributes($createData);
-		$this->assertEquals(true, $model->save());
-	}
-
-	public function dataProviderForCRUD()
-	{
-		return [
-			[
-				[
-					"t.seo_id"          => 1,
-					"t.language"        => 1,
-					"t.width"           => 980,
-					"t.is_main"         => 1,
-					"t.design_block_id" => 9
-				],
-				[
-					"t.seo_id"          => 1,
-					"t.language"        => 1,
-					"t.width"           => 980,
-					"t.is_main"         => 1,
-					"t.design_block_id" => 9
-				],
-				[],
-				[
-					"t.width"  => 980,
-				],
-				[
-					"t.width"  => 980,
-				],
-				[],
-			]
-		];
+		$this->assertEquals(1, SectionModel::model()->byUrl("texts")->find()->id);
 	}
 }

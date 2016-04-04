@@ -581,4 +581,14 @@ abstract class AbstractModel
 
 		return $relations[$relation][0];
 	}
+
+	/**
+	 * Gets relation keys
+	 *
+	 * @return string[]
+	 */
+	public function getRelationKeys()
+	{
+		return array_keys($this->relations);
+	}
 }
