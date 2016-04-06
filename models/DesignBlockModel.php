@@ -276,29 +276,7 @@ class DesignBlockModel extends AbstractModel
 	 */
 	public function getRules()
 	{
-		return [
-			"margin_top"                 => [],
-			"margin_right"               => [],
-			"margin_bottom"              => [],
-			"margin_left"                => [],
-			"padding_top"                => [],
-			"padding_right"              => [],
-			"padding_bottom"             => [],
-			"padding_left"               => [],
-			"background_color_from"      => [],
-			"background_color_to"        => [],
-			"gradient_direction"         => [],
-			"border_top_width"           => [],
-			"border_top_left_radius"     => [],
-			"border_right_width"         => [],
-			"border_top_right_radius"    => [],
-			"border_bottom_width"        => [],
-			"border_bottom_right_radius" => [],
-			"border_left_width"          => [],
-			"border_bottom_left_radius"  => [],
-			"border_color"               => [],
-			"border_style"               => [],
-		];
+		return [];
 	}
 
 	/**
@@ -313,77 +291,58 @@ class DesignBlockModel extends AbstractModel
 	}
 
 	/**
-	 * Runs before validation
+	 * Runs before save
 	 *
-	 * @return void
+	 * @return bool
 	 */
-	protected function beforeValidate()
+	protected function beforeVSave()
 	{
-		parent::beforeValidate();
+		$this->margin_top = intval($this->margin_top);
+		$this->margin_right = intval($this->margin_right);
+		$this->margin_bottom = intval($this->margin_bottom);
+		$this->margin_left = intval($this->margin_left);
 
-		if (!$this->margin_top) {
-			$this->margin_top = 0;
-		}
-		if (!$this->margin_right) {
-			$this->margin_right = 0;
-		}
-		if (!$this->margin_bottom) {
-			$this->margin_bottom = 0;
-		}
-		if (!$this->margin_left) {
-			$this->margin_left = 0;
-		}
-		if (!$this->padding_top) {
-			$this->padding_top = 0;
-		}
-		if (!$this->padding_right) {
-			$this->padding_right = 0;
-		}
-		if (!$this->padding_bottom) {
-			$this->padding_bottom = 0;
-		}
-		if (!$this->padding_left) {
-			$this->padding_left = 0;
-		}
-		if (!$this->background_color_from) {
+		$this->padding_top = intval($this->padding_top);
+		$this->padding_right = intval($this->padding_right);
+		$this->padding_bottom = intval($this->padding_bottom);
+		$this->padding_left = intval($this->padding_left);
+
+		if (!$this->_isColor($this->background_color_from)) {
 			$this->background_color_from = "";
 		}
-		if (!$this->background_color_to) {
+		if (!$this->_isColor($this->background_color_to)) {
 			$this->background_color_to = "";
 		}
-		if (!$this->gradient_direction) {
-			$this->gradient_direction = 0;
-		}
-		if (!$this->border_top_width) {
-			$this->border_top_width = 0;
-		}
-		if (!$this->border_top_left_radius) {
-			$this->border_top_left_radius = 0;
-		}
-		if (!$this->border_right_width) {
-			$this->border_right_width = 0;
-		}
-		if (!$this->border_top_right_radius) {
-			$this->border_top_right_radius = 0;
-		}
-		if (!$this->border_bottom_width) {
-			$this->border_bottom_width = 0;
-		}
-		if (!$this->border_bottom_right_radius) {
-			$this->border_bottom_right_radius = 0;
-		}
-		if (!$this->border_left_width) {
-			$this->border_left_width = 0;
-		}
-		if (!$this->border_bottom_left_radius) {
-			$this->border_bottom_left_radius = 0;
-		}
-		if (!$this->border_color) {
+		$this->gradient_direction = intval($this->gradient_direction);
+
+		$this->border_top_width = intval($this->border_top_width);
+		$this->border_right_width = intval($this->border_right_width);
+		$this->border_bottom_width = intval($this->border_bottom_width);
+		$this->border_left_width = intval($this->border_left_width);
+
+		$this->border_top_left_radius = intval($this->border_top_left_radius);
+		$this->border_top_right_radius = intval($this->border_top_right_radius);
+		$this->border_bottom_right_radius = intval($this->border_bottom_right_radius);
+		$this->border_bottom_left_radius = intval($this->border_bottom_left_radius);
+
+		if (!$this->_isColor($this->border_color)) {
 			$this->border_color = "";
 		}
-		if (!$this->border_style) {
-			$this->border_style = 0;
-		}
+		$this->border_style = intval($this->border_style);
+
+		return parent::beforeSave();
+	}
+
+	/**
+	 * Checks is it correct color value
+	 *
+	 * @param string $value Color value
+	 *
+	 * @return bool
+	 */
+	private function _isColor($value)
+	{
+		return boolval(preg_match('(.*?)(rgb|rgba)\((\d+),\s*(\d+),\s*(\d+)(?:,\s*(\d+(?:\.\d+)?))?\)/i', $value));
 	}
 
 	/**

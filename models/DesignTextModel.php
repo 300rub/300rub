@@ -345,18 +345,7 @@ class DesignTextModel extends AbstractModel
 	 */
 	public function getRules()
 	{
-		return [
-			"size"           => [],
-			"family"         => [],
-			"color"          => [],
-			"is_italic"      => [],
-			"is_bold"        => [],
-			"align"          => [],
-			"decoration"     => [],
-			"transform"      => [],
-			"letter_spacing" => [],
-			"line_height"    => [],
-		];
+		return [];
 	}
 
 	/**
@@ -381,44 +370,43 @@ class DesignTextModel extends AbstractModel
 	}
 
 	/**
-	 * Runs before validation
+	 * Runs before saving
 	 *
-	 * @return void
+	 * @return bool
 	 */
-	protected function beforeValidate()
+	protected function beforeSave()
 	{
-		parent::beforeValidate();
+		$this->size = intval($this->size);
+		$this->family = intval($this->family);
+		$this->is_italic = intval($this->is_italic);
+		$this->is_bold = intval($this->is_bold);
+		$this->align = intval($this->align);
+		$this->decoration = intval($this->decoration);
+		$this->transform = intval($this->transform);
+		$this->letter_spacing = intval($this->letter_spacing);
 
-		if (!$this->size) {
-			$this->size = 0;
-		}
-		if (!$this->family) {
-			$this->family = 0;
-		}
-		if (!$this->color) {
+		if (!$this->_isColor($this->color)) {
 			$this->color = "";
 		}
-		if (!$this->is_italic) {
-			$this->is_italic = 0;
-		}
-		if (!$this->is_bold) {
-			$this->is_bold = 0;
-		}
-		if (!$this->align) {
-			$this->align = 0;
-		}
-		if (!$this->decoration) {
-			$this->decoration = 0;
-		}
-		if (!$this->transform) {
-			$this->transform = 0;
-		}
-		if (!$this->letter_spacing) {
-			$this->letter_spacing = 0;
-		}
+
+		$this->line_height = intval($this->line_height);
 		if (!$this->line_height) {
 			$this->line_height = self::DEFAULT_LINE_HEIGHT;
 		}
+
+		parent::beforeSave();
+	}
+
+	/**
+	 * Checks is it correct color value
+	 *
+	 * @param string $value Color value
+	 *
+	 * @return bool
+	 */
+	private function _isColor($value)
+	{
+		return boolval(preg_match('(.*?)(rgb|rgba)\((\d+),\s*(\d+),\s*(\d+)(?:,\s*(\d+(?:\.\d+)?))?\)/i', $value));
 	}
 
 	/**
