@@ -7,6 +7,7 @@ use components\ErrorHandler;
 use components\Exception;
 use components\Language;
 use controllers\CommonController;
+use controllers\AbstractController;
 use models\UserModel;
 
 /**
@@ -67,9 +68,9 @@ class Web extends AbstractApplication
 		if (!empty($_SESSION["__u"])) {
 			$this->user = $_SESSION["__u"];
 		} else if (!empty($_COOKIE["__lp"])) {
-			$explode = explode("|p", $_COOKIE["__lp"], 2);
-			$model = UserModel::model()->byLogin($explode[0])->find();
-			if ($model->password === $explode[1]) {
+			list($login, $password) = explode("|p", $_COOKIE["__lp"], 2);
+			$model = UserModel::model()->findByLogin($login);
+			if ($model !== null && $model->password === $password) {
 				$_SESSION["__u"] = $model;
 				$this->user = $model;
 			}
@@ -164,7 +165,7 @@ class Web extends AbstractApplication
 			throw new Exception("Incorrect post data", ErrorHandler::STATUS_NOT_FOUND);
 		}
 
-		$controllerParams = explode(".", $input->action);
+		$controllerParams = explode(AbstractController::ACTION_SEPARATOR, $input->action);
 		if (count($controllerParams) !== 2) {
 			throw new Exception("Incorrect \"action\" parameter", ErrorHandler::STATUS_NOT_FOUND);
 		}

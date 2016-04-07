@@ -92,7 +92,6 @@
 		_getData: function () {
 			return JSON.stringify({
 				action: this.action,
-				token: c.token,
 				fields: this.fields,
 				language: c.language
 			});

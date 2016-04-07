@@ -16,18 +16,16 @@ abstract class AbstractController
 {
 
 	/**
+	 * Action separator
+	 */
+	const ACTION_SEPARATOR = ".";
+
+	/**
 	 * Data from AJAX
 	 *
 	 * @var array
 	 */
 	public $data = [];
-
-	/**
-	 * Model ID
-	 *
-	 * @var int
-	 */
-	protected $id = 0;
 
 	/**
 	 * Layout
@@ -202,23 +200,30 @@ abstract class AbstractController
 			throw new Exception("Model not found", ErrorHandler::STATUS_NOT_FOUND);
 		}
 
+		$className = "\\models\\{$modelName}";
+		if (!class_exists($className)) {
+			throw new Exception("Class \"$className\" doesn't exists");
+		}
+
 		/**
 		 * @var AbstractModel $model
 		 */
-		$model = new $modelName;
-		if (!$model) {
-			throw new Exception("Model not found", ErrorHandler::STATUS_NOT_FOUND);
+		$model = new $className;
+
+		$id = 0;
+		if (!empty($this->data["id"])) {
+			$id = intval($this->data["id"]);
 		}
 
-		if (!$this->id && !$allowEmpty) {
+		if (!$id && !$allowEmpty) {
 			throw new Exception("Incorrect ID", ErrorHandler::STATUS_NOT_FOUND);
 		}
 
-		if (!$this->id) {
+		if (!$id) {
 			return $model;
 		}
 
-		$model = $model->byId($this->id)->with($width)->find();
+		$model = $model->byId($id)->with($width)->find();
 		if (!$model) {
 			throw new Exception("Model not found", ErrorHandler::STATUS_NOT_FOUND);
 		}
