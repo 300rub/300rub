@@ -2,6 +2,9 @@
 
 namespace tests\unit\controllers;
 
+use components\Language;
+use models\AbstractModel;
+use models\UserModel;
 use tests\unit\AbstractUnitTest;
 
 /**
@@ -20,7 +23,50 @@ abstract class UserControllerTest extends AbstractUnitTest
     public function dataProviderForAjaxRequest()
     {
         return [
+            $this->_dataProviderForActionWindow()
+        ];
+    }
 
+    /**
+     * Data provider for testAjaxRequest. Tests actionWindow
+     *
+     * @return array
+     */
+    private function _dataProviderForActionWindow()
+    {
+        $model = new UserModel();
+        
+        return [
+            "user.window",
+            Language::LANGUAGE_EN_ALIAS,
+            [
+                "id" => 0
+            ],
+            [
+                "title"       => Language::t("user", "windowTitle"),
+                "action"      => "user.login",
+                "buttonLabel" => Language::t("user", "windowButton"),
+                "forms" => [
+                    [
+                        "name"  => "t.login",
+                        "rules" => $model->getRulesForField("login"),
+                        "type"  => AbstractModel::FORM_TYPE_FIELD,
+                        "value" => ""
+                    ],
+                    [
+                        "name"  => "t.password",
+                        "rules" => $model->getRulesForField("password"),
+                        "type"  => AbstractModel::FORM_TYPE_FIELD,
+                        "value" => ""
+                    ],
+                    [
+                        "name"  => "t.is_remember",
+                        "rules" => [],
+                        "type"  => AbstractModel::FORM_TYPE_CHECKBOX,
+                        "value" => false
+                    ]
+                ]
+            ]
         ];
     }
 }

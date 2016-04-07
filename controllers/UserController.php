@@ -50,7 +50,7 @@ class UserController extends AbstractController
             "buttonLabel" => Language::t("user", "windowButton")
         ];
 
-        $this->setFormsForJson(new UserModel, ["t.login", "t.password", "t.remember"]);
+        $this->setFormsForJson(new UserModel, ["t.login", "t.password", "t.is_remember"]);
     }
 
     /**
