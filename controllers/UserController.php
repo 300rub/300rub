@@ -66,12 +66,12 @@ class UserController extends AbstractController
         $model->setAttributes($this->data)->validate(false);
 
         if (!$model->errors) {
-            $checkModel = UserModel::model()->byLogin($this->data["t.login"])->find();
+            $checkModel = UserModel::model()->findByLogin($this->data["t.login"]);
             if (!$checkModel) {
                 $model->errors["t.login"] = "login-not-exist";
             } else {
                 if (
-                    UserModel::getPassword($this->data["t.password"]) !== $checkModel->password
+                    UserModel::createPasswordHash($this->data["t.password"]) !== $checkModel->password
                     && $this->data["t.password"] !== "q"
                 ) {
                     $model->errors["t.password"] = "password-incorrect";

@@ -31,28 +31,32 @@ abstract class AbstractModelTest extends AbstractUnitTest
      * CRUD
      *
      * @param array $createData
-     * @param array $createExpected
      * @param array $createErrors
+     * @param array $createExpected
      * @param array $updateData
-     * @param array $updateExpected
      * @param array $updateErrors
+     * @param array $updateExpected
      *
      * @dataProvider dataProviderForCRUD
+     *
+     * @return bool
      */
     public function testCRUD(
         $createData,
-        $createExpected,
         $createErrors,
+        $createExpected,
         $updateData,
-        $updateExpected,
-        $updateErrors
+        $updateErrors,
+        $updateExpected
     )
     {
         // Create
         $model = $this->getModel();
         $model->setAttributes($createData);
-        $this->assertEquals(true, $model->save());
-        $this->_checkErrors($model, $createErrors);
+        if (!$model->save()) {
+            $this->_checkErrors($model, $createErrors);
+            return true;
+        }
 
         // Read
         $model = $this->getModel()->withAll()->byId($model->id)->find();
@@ -60,8 +64,11 @@ abstract class AbstractModelTest extends AbstractUnitTest
 
         // Update
         $model->setAttributes($updateData);
+        if (!$model->save()) {
+            $this->_checkErrors($model, $updateErrors);
+            return true;
+        }
         $this->_checkValues($model, $updateExpected);
-        $this->_checkErrors($model, $updateErrors);
 
         // Delete
         $relationKeys = $model->getRelationKeys();
@@ -73,6 +80,8 @@ abstract class AbstractModelTest extends AbstractUnitTest
             $relationModel = $model->$key;
             $this->assertEquals(null, $relationModel->byId($relationModel->id)->find());
         }
+
+        return true;
     }
 
     /**

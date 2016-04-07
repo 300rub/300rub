@@ -18,6 +18,11 @@ class UserModel extends AbstractModel
 	const SALT = "saltForUser";
 
 	/**
+	 * Length of password
+	 */
+	const PASSWORD_HASH_LENGTH = 40;
+
+	/**
 	 * Login
 	 *
 	 * @var string
@@ -67,8 +72,8 @@ class UserModel extends AbstractModel
 	public function getRules()
 	{
 		return [
-			"login"    => ["required"],
-			"password" => ["required"],
+			"login"    => ["required", "min" => 3, "latinDigitUnderscoreHyphen"],
+			"password" => ["required", "min" => 3],
 		];
 	}
 
@@ -90,27 +95,28 @@ class UserModel extends AbstractModel
 	 */
 	protected function beforeValidate()
 	{
-		$this->login = strip_tags($this->login);
-		$this->password = strip_tags($this->password);
+		$this->login = trim($this->login);
+		$this->password = trim($this->password);
 	}
 
 	/**
-	 * Add login condition to SQL request
+	 * Finds model by login
 	 *
 	 * @param string $login Login
 	 *
-	 * @return UserModel
+	 * @return UserModel|null
 	 */
-	public function byLogin($login)
+	public function findByLogin($login)
 	{
+		$login = trim($login);
 		if (!$login) {
-			return $this;
+			return null;
 		}
 
 		$this->db->addCondition("t.login = :login");
 		$this->db->params["login"] = $login;
 
-		return $this;
+		return $this->find();
 	}
 
 	/**
@@ -120,8 +126,8 @@ class UserModel extends AbstractModel
 	 */
 	protected function beforeSave()
 	{
-		if (mb_strlen($this->password, "UTF-8") != 40) {
-			$this->password = self::getPassword($this->password);
+		if (mb_strlen($this->password, "UTF-8") != self::PASSWORD_HASH_LENGTH) {
+			$this->password = self::createPasswordHash($this->password);
 		}
 
 		return parent::beforeSave();
@@ -134,7 +140,7 @@ class UserModel extends AbstractModel
 	 *
 	 * @return string
 	 */
-	public static function getPassword($password)
+	public static function createPasswordHash($password)
 	{
 		return sha1(md5($password) . self::SALT);
 	}

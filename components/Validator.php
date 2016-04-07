@@ -97,8 +97,14 @@ class Validator
 				case "max":
 					$this->_max($item["field"], $item["value"]);
 					break;
+				case "min":
+					$this->_min($item["field"], $item["value"]);
+					break;
 				case "url":
 					$this->_url($item["field"]);
+					break;
+				case "latinDigitUnderscoreHyphen":
+					$this->_latinDigitUnderscoreHyphen($item["field"]);
 					break;
 				default:
 					break;
@@ -147,17 +153,32 @@ class Validator
 	}
 
 	/**
-	 * Verifies max string
+	 * Verifies string length for mac value
 	 *
-	 * @param string $field Fields name
+	 * @param string $field Field's name
 	 * @param int    $max   Max value
 	 *
 	 * @return void
 	 */
 	private function _max($field, $max)
 	{
-		if (!array_key_exists($field, $this->_errors) && strlen($this->_model->$field) > $max) {
+		if (!array_key_exists($field, $this->_errors) && mb_strlen($this->_model->$field) > $max) {
 			$this->_addError($field, "max");
+		}
+	}
+
+	/**
+	 * Verifies string length for min value
+	 *
+	 * @param string $field Field's name
+	 * @param int    $min   Min value
+	 *
+	 * @return void
+	 */
+	private function _min($field, $min)
+	{
+		if (!array_key_exists($field, $this->_errors) && mb_strlen($this->_model->$field) < $min) {
+			$this->_addError($field, "min");
 		}
 	}
 
@@ -180,6 +201,24 @@ class Validator
 	}
 
 	/**
+	 * Verifies regex: latin, digit, underscore, hyphen
+	 *
+	 * @param string $field Field name
+	 *
+	 * @return void
+	 */
+	private function _latinDigitUnderscoreHyphen($field)
+	{
+		if (
+			!array_key_exists($field, $this->_errors)
+			&& $this->_model->$field
+			&& !preg_match("/^[0-9a-z-_]+$/i", $this->_model->$field)
+		) {
+			$this->_addError($field, "latinDigitUnderscoreHyphen");
+		}
+	}
+
+	/**
 	 * Gets all error messages
 	 *
 	 * @return array
@@ -187,12 +226,14 @@ class Validator
 	public static function getErrorMessages()
 	{
 		return [
-			"required"           => Language::t("validation", "required"),
-			"max"                => Language::t("validation", "max"),
-			"url"                => Language::t("validation", "url"),
-			"system"             => Language::t("validation", "system"),
-			"login-not-exist"    => Language::t("validation", "loginNotExist"),
-			"password-incorrect" => Language::t("validation", "passwordIncorrect"),
+			"required"                   => Language::t("validation", "required"),
+			"max"                        => Language::t("validation", "max"),
+			"min"                        => Language::t("validation", "min"),
+			"url"                        => Language::t("validation", "url"),
+			"system"                     => Language::t("validation", "system"),
+			"login-not-exist"            => Language::t("validation", "loginNotExist"),
+			"password-incorrect"         => Language::t("validation", "passwordIncorrect"),
+			"latinDigitUnderscoreHyphen" => Language::t("validation", "latinDigitUnderscoreHyphen"),
 		];
 	}
 }
