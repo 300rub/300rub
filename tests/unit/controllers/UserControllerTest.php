@@ -35,7 +35,7 @@ abstract class UserControllerTest extends AbstractUnitTest
     private function _dataProviderForActionWindow()
     {
         $model = new UserModel();
-        
+
         return [
             "user.window",
             Language::LANGUAGE_EN_ALIAS,
