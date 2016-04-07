@@ -22,9 +22,9 @@ abstract class UserControllerTest extends AbstractUnitTest
      */
     public function dataProviderForAjaxRequest()
     {
-        return [
+        return array_merge(
             $this->_dataProviderForActionWindow()
-        ];
+        );
     }
 
     /**
@@ -37,33 +37,33 @@ abstract class UserControllerTest extends AbstractUnitTest
         $model = new UserModel();
 
         return [
-            "user.window",
-            Language::LANGUAGE_EN_ALIAS,
             [
-                "id" => 0
-            ],
-            [
-                "title"       => Language::t("user", "windowTitle"),
-                "action"      => "user.login",
-                "buttonLabel" => Language::t("user", "windowButton"),
-                "forms" => [
-                    [
-                        "name"  => "t.login",
-                        "rules" => $model->getRulesForField("login"),
-                        "type"  => AbstractModel::FORM_TYPE_FIELD,
-                        "value" => ""
-                    ],
-                    [
-                        "name"  => "t.password",
-                        "rules" => $model->getRulesForField("password"),
-                        "type"  => AbstractModel::FORM_TYPE_FIELD,
-                        "value" => ""
-                    ],
-                    [
-                        "name"  => "t.is_remember",
-                        "rules" => [],
-                        "type"  => AbstractModel::FORM_TYPE_CHECKBOX,
-                        "value" => false
+                "user.window",
+                Language::LANGUAGE_EN_ALIAS,
+                [],
+                [
+                    "title"       => Language::t("user", "windowTitle"),
+                    "action"      => "user.login",
+                    "buttonLabel" => Language::t("user", "windowButton"),
+                    "forms"       => [
+                        [
+                            "name"  => "t.login",
+                            "rules" => $model->getRulesForField("login"),
+                            "type"  => AbstractModel::FORM_TYPE_FIELD,
+                            "value" => ""
+                        ],
+                        [
+                            "name"  => "t.password",
+                            "rules" => $model->getRulesForField("password"),
+                            "type"  => AbstractModel::FORM_TYPE_FIELD,
+                            "value" => ""
+                        ],
+                        [
+                            "name"  => "t.is_remember",
+                            "rules" => $model->getRulesForField("is_remember"),
+                            "type"  => AbstractModel::FORM_TYPE_CHECKBOX,
+                            "value" => false
+                        ]
                     ]
                 ]
             ]

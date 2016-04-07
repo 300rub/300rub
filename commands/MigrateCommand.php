@@ -356,47 +356,22 @@ class MigrateCommand extends AbstractCommand
 				}
 
 				if (App::console()->config->isDebug && $this->isTestData) {
-					$files = array_diff(scandir(__DIR__ . "/../fixtures"), ['..', '.']);
-					foreach ($files as $file) {
-						$tableName = str_replace(".php", "", $file);
-						$records = require(__DIR__ . "/../fixtures/" . $file);
-
-						foreach ($records as $id => $record) {
-							$columns = ["id"];
-							$values = [$id];
-							$substitutions = ["?"];
-
-							foreach ($record as $field => $value) {
-								$columns[] = $field;
-								$substitutions[] = "?";
-								$values[] = $value;
-							}
-
-							$query =
-								"INSERT INTO " .
-								$tableName .
-								" (" .
-								implode(",", $columns) .
-								") VALUES (" .
-								implode(",", $substitutions) .
-								")";
-							if (!Db::execute($query, $values)) {
-								Logger::log(
-									"Unable to insert test information in migration for DB \"" .
-									$site["db_name"] .
-									"\"",
-									Logger::LEVEL_ERROR,
-									"console.migrate"
-								);
-								return false;
-							}
-						}
+					if (self::loadFixtures()) {
+						Logger::log(
+							"Test information for migration was for DB \"" . $site["db_name"] . "\" successfully inserted",
+							Logger::LEVEL_INFO,
+							"console.migrate"
+						);
+					} else {
+						Logger::log(
+							"Unable to insert test information in migration for DB \"" .
+							$site["db_name"] .
+							"\"",
+							Logger::LEVEL_ERROR,
+							"console.migrate"
+						);
+						return false;
 					}
-					Logger::log(
-						"Test information for migration was for DB \"" . $site["db_name"] . "\" successfully inserted",
-						Logger::LEVEL_INFO,
-						"console.migrate"
-					);
 				}
 			}
 		} catch (Exception $e) {
@@ -452,6 +427,58 @@ class MigrateCommand extends AbstractCommand
 		}
 
 		Db::commitTransaction();
+		return true;
+	}
+
+	/**
+	 * Loads fixtures
+	 *
+	 * @param string $table
+	 *
+	 * @return bool
+	 */
+	public static function loadFixtures($table = null)
+	{
+		$files = array_diff(scandir(__DIR__ . "/../fixtures"), ['..', '.']);
+		foreach ($files as $file) {
+			$tableName = str_replace(".php", "", $file);
+
+			if ($table !== null && $table !== $tableName) {
+				continue;
+			}
+
+			$records = require(__DIR__ . "/../fixtures/" . $file);
+
+			if (!Db::execute("TRUNCATE TABLE `{$tableName}`")) {
+				Logger::log("Unable to truncate table \"{$tableName}\"", Logger::LEVEL_ERROR, "console.migrate");
+				return false;
+			}
+
+			foreach ($records as $id => $record) {
+				$columns = ["id"];
+				$values = [$id];
+				$substitutions = ["?"];
+
+				foreach ($record as $field => $value) {
+					$columns[] = $field;
+					$substitutions[] = "?";
+					$values[] = $value;
+				}
+
+				$query =
+					"INSERT INTO " .
+					$tableName .
+					" (" .
+					implode(",", $columns) .
+					") VALUES (" .
+					implode(",", $substitutions) .
+					")";
+				if (!Db::execute($query, $values)) {
+					return false;
+				}
+			}
+		}
+
 		return true;
 	}
 }
