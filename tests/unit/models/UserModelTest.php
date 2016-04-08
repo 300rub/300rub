@@ -112,11 +112,11 @@ class UserModelTest extends AbstractModelTest
 					"t.password" => UserModel::createPasswordHash("password!£$%^&*()"),
 				],
 				[],
+				[],
 				[
-					"t.login"    => "required",
-					"t.password" => "required",
+					"t.login"    => "login",
+					"t.password" => UserModel::createPasswordHash("password!£$%^&*()"),
 				],
-				[]
 			],
 			// Insert: normal. Update: empty values
 			[

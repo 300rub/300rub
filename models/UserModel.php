@@ -126,7 +126,7 @@ class UserModel extends AbstractModel
 	 */
 	protected function beforeSave()
 	{
-		if (mb_strlen($this->password, "UTF-8") != self::PASSWORD_HASH_LENGTH) {
+		if (mb_strlen($this->password, "UTF-8") !== self::PASSWORD_HASH_LENGTH) {
 			$this->password = self::createPasswordHash($this->password);
 		}
 

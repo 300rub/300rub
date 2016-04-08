@@ -189,8 +189,6 @@ class SectionModel extends AbstractModel
 	/**
 	 * Runs before save
 	 *
-	 * @throws Exception
-	 *
 	 * @return bool
 	 */
 	protected function beforeSave()
@@ -202,12 +200,18 @@ class SectionModel extends AbstractModel
 			$this->is_main = 1;
 		}
 
-		if (!$this->design_block_id) {
-			$designBlockModel = new DesignBlockModel();
-			if (!$designBlockModel->save()) {
-				throw new Exception("Failed to create a design");
+		$this->design_block_id = intval($this->design_block_id);
+
+		$this->design_block_id = intval($this->design_block_id);
+		if (!$this->designBlockModel instanceof DesignBlockModel) {
+			if ($this->design_block_id === 0) {
+				$this->designBlockModel = new DesignBlockModel();
+			} else {
+				$this->designBlockModel = DesignBlockModel::model()->byId($this->design_block_id)->find();
+				if ($this->designBlockModel === null) {
+					$this->designBlockModel = new DesignBlockModel();
+				}
 			}
-			$this->design_block_id = $designBlockModel->id;
 		}
 
 		return parent::beforeSave();
@@ -265,70 +269,77 @@ class SectionModel extends AbstractModel
 	{
 		Db::startTransaction();
 
-		$seoId = $this->seoModel->duplicate(false);
-		if (!$seoId) {
-			Db::rollbackTransaction();
-			return 0;
-		}
+		try {
+			$modelForCopy = $this->withAll()->byId($this->id)->find();
 
-		$designBlockModel = clone $this->designBlockModel;
-		$designBlockModel->id = null;
-		if (!$designBlockModel->save(false)) {
-			Db::rollbackTransaction();
-			return 0;
-		}
-
-		$model = clone $this;
-		$model->id = null;
-		$model->seoModel = null;
-		$model->designBlockModel = null;
-		$model->seo_id = $seoId;
-		$model->design_block_id = $designBlockModel->id;
-		$model->is_main = 0;
-		if (!$model->save(false)) {
-			Db::rollbackTransaction();
-			return 0;
-		}
-
-		$gridLines = GridLineModel::model()->bySectionId($this->id)->withAll()->findAll();
-		foreach ($gridLines as $gridLine) {
-			$outsideDesignModel = clone $gridLine->outsideDesignModel;
-			$outsideDesignModel->id = null;
-			if (!$outsideDesignModel->save(false)) {
+			$seoId = $modelForCopy->seoModel->duplicate(false);
+			if (!$seoId) {
 				Db::rollbackTransaction();
 				return 0;
 			}
-			$insideDesignModel = clone $gridLine->insideDesignModel;
-			$insideDesignModel->id = null;
-			if (!$insideDesignModel->save(false)) {
+
+			$designBlockModel = clone $modelForCopy->designBlockModel;
+			$designBlockModel->id = null;
+			if (!$designBlockModel->save(false)) {
 				Db::rollbackTransaction();
 				return 0;
 			}
-			$line = clone $gridLine;
-			$line->id = null;
-			$line->section_id = $model->id;
-			$line->outsideDesignModel = null;
-			$line->insideDesignModel = null;
-			$line->outside_design_id = $outsideDesignModel->id;
-			$line->inside_design_id = $insideDesignModel->id;
-			if (!$line->save(false)) {
+
+			$model = clone $modelForCopy;
+			$model->id = null;
+			$model->seoModel = null;
+			$model->designBlockModel = null;
+			$model->seo_id = $seoId;
+			$model->design_block_id = $designBlockModel->id;
+			$model->is_main = 0;
+			if (!$model->save(false)) {
 				Db::rollbackTransaction();
 				return 0;
 			}
-			$grids = GridModel::model()->byLineId($gridLine->id)->findAll();
-			foreach ($grids as $grid) {
-				$newGrid = clone $grid;
-				$newGrid->id = null;
-				$newGrid->grid_line_id = $line->id;
-				if (!$newGrid->save(false)) {
+
+			$gridLines = GridLineModel::model()->bySectionId($modelForCopy->id)->withAll()->findAll();
+			foreach ($gridLines as $gridLine) {
+				$outsideDesignModel = clone $gridLine->outsideDesignModel;
+				$outsideDesignModel->id = null;
+				if (!$outsideDesignModel->save(false)) {
 					Db::rollbackTransaction();
 					return 0;
 				}
+				$insideDesignModel = clone $gridLine->insideDesignModel;
+				$insideDesignModel->id = null;
+				if (!$insideDesignModel->save(false)) {
+					Db::rollbackTransaction();
+					return 0;
+				}
+				$line = clone $gridLine;
+				$line->id = null;
+				$line->section_id = $model->id;
+				$line->outsideDesignModel = null;
+				$line->insideDesignModel = null;
+				$line->outside_design_id = $outsideDesignModel->id;
+				$line->inside_design_id = $insideDesignModel->id;
+				if (!$line->save(false)) {
+					Db::rollbackTransaction();
+					return 0;
+				}
+				$grids = GridModel::model()->byLineId($gridLine->id)->findAll();
+				foreach ($grids as $grid) {
+					$newGrid = clone $grid;
+					$newGrid->id = null;
+					$newGrid->grid_line_id = $line->id;
+					if (!$newGrid->save(false)) {
+						Db::rollbackTransaction();
+						return 0;
+					}
+				}
 			}
-		}
 
-		Db::commitTransaction();
-		return intval($model->id);
+			Db::commitTransaction();
+			return intval($model->id);
+		} catch (Exception $e) {
+			Db::rollbackTransaction();
+			return 0;
+		}
 	}
 
 	/**

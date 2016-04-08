@@ -69,6 +69,13 @@ abstract class AbstractModel
 	protected $relations = [];
 
 	/**
+	 * Fields for duplicate
+	 *
+	 * @var string[]
+	 */
+	public $fieldsForDuplicate = [];
+
+	/**
 	 * Gets table name
 	 *
 	 * @return string
@@ -167,7 +174,7 @@ abstract class AbstractModel
 	/**
 	 * Adds select some relations table to SQL request
 	 *
-	 * @param array $relations Relations
+	 * @param array|string $relations Relations
 	 *
 	 * @return AbstractModel
 	 */
@@ -454,7 +461,7 @@ abstract class AbstractModel
 	protected function beforeSave()
 	{
 		foreach ($this->relations as $relation => $options) {
-			if ($this->$relation) {
+			if ($this->$relation instanceof $options[0]) {
 				$field = $options[1];
 				if (!$this->$relation->save(false)) {
 					return false;
@@ -590,5 +597,15 @@ abstract class AbstractModel
 	public function getRelationKeys()
 	{
 		return array_keys($this->relations);
+	}
+
+	/**
+	 * Gets relations
+	 *
+	 * @return array
+	 */
+	public function getRelations()
+	{
+		return $this->relations;
 	}
 }

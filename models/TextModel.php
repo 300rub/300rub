@@ -2,6 +2,8 @@
 
 namespace models;
 
+use components\Db;
+use components\Exception;
 use components\Language;
 
 /**
@@ -11,6 +13,9 @@ use components\Language;
  *
  * @method TextModel[] findAll
  * @method TextModel ordered
+ * @method TextModel byId($id)
+ * @method TextModel find
+ * @method TextModel withAll
  */
 class TextModel extends AbstractModel
 {
@@ -133,6 +138,19 @@ class TextModel extends AbstractModel
 	];
 
 	/**
+	 * Fields for duplicate
+	 *
+	 * @var string[]
+	 */
+	public $fieldsForDuplicate = [
+		"name",
+		"language",
+		"type",
+		"is_editor",
+		"text"
+	];
+
+	/**
 	 * Gets table name
 	 *
 	 * @return string
@@ -150,12 +168,7 @@ class TextModel extends AbstractModel
 	public function getRules()
 	{
 		return [
-			"is_editor"       => [],
-			"type"            => [],
-			"text"            => [],
-			"design_text_id"  => [],
-			"design_block_id" => [],
-			"name"            => ["required"],
+			"name" => ["required"],
 		];
 	}
 
@@ -230,5 +243,111 @@ class TextModel extends AbstractModel
 		}
 
 		return self::$typeTagList[self::TYPE_DIV];
+	}
+
+	/**
+	 * Runs before save
+	 *
+	 * @return bool
+	 */
+	protected function beforeSave()
+	{
+		$this->language = intval($this->language);
+		if (
+			$this->language === 0
+			|| !array_key_exists($this->language, Language::$aliasList)
+		) {
+			$this->language = Language::$activeId;
+		}
+
+		$this->type = intval($this->type);
+		if (!array_key_exists($this->type, self::$typeTagList)) {
+			$this->type = self::TYPE_DIV;
+		}
+
+		$this->is_editor = intval(boolval($this->is_editor));
+
+		$this->design_text_id = intval($this->design_text_id);
+		if (!$this->designTextModel instanceof DesignTextModel) {
+			if ($this->design_text_id === 0) {
+				$this->designTextModel = new DesignTextModel();
+			} else {
+				$this->designTextModel = DesignTextModel::model()->byId($this->design_text_id)->find();
+				if ($this->designTextModel === null) {
+					$this->designTextModel = new DesignTextModel();
+				}
+			}
+		}
+
+		$this->design_block_id = intval($this->design_block_id);
+		if (!$this->designBlockModel instanceof DesignBlockModel) {
+			if ($this->design_block_id === 0) {
+				$this->designBlockModel = new DesignBlockModel();
+			} else {
+				$this->designBlockModel = DesignBlockModel::model()->byId($this->design_block_id)->find();
+				if ($this->designBlockModel === null) {
+					$this->designBlockModel = new DesignBlockModel();
+				}
+			}
+		}
+
+		return parent::beforeSave();
+	}
+
+	/**
+	 * Runs before validation
+	 *
+	 * @return void
+	 */
+	protected function beforeValidate()
+	{
+		$this->name = strip_tags($this->name);
+	}
+
+	/**
+	 * Duplicates section
+	 * If success returns ID of new section
+	 *
+	 * @return int
+	 */
+	public function duplicate()
+	{
+		Db::startTransaction();
+
+		try {
+			$modelForCopy = $this->withAll()->byId($this->id)->find();
+
+			$designTextModel = clone $modelForCopy->designTextModel;
+			$designTextModel->id = null;
+			if (!$designTextModel->save(false)) {
+				Db::rollbackTransaction();
+				return 0;
+			}
+
+			$designBlockModel = clone $modelForCopy->designBlockModel;
+			$designBlockModel->id = null;
+			if (!$designBlockModel->save(false)) {
+				Db::rollbackTransaction();
+				return 0;
+			}
+
+			$model = clone $modelForCopy;
+			$model->id = null;
+			$model->designTextModel = $designTextModel;
+			$model->designBlockModel = $designBlockModel;
+			$model->design_text_id = $designTextModel->id;
+			$model->design_block_id = $designBlockModel->id;
+
+			if (!$model->save(false)) {
+				Db::rollbackTransaction();
+				return 0;
+			}
+
+			Db::commitTransaction();
+			return intval($model->id);
+		} catch (Exception $e) {
+			Db::rollbackTransaction();
+			return 0;
+		}
 	}
 }

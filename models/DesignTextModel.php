@@ -339,6 +339,24 @@ class DesignTextModel extends AbstractModel
 	];
 
 	/**
+	 * Fields for duplicate
+	 *
+	 * @var string[]
+	 */
+	public $fieldsForDuplicate = [
+		"size",
+		"family",
+		"color",
+		"is_bold",
+		"is_italic",
+		"align",
+		"decoration",
+		"transform",
+		"letter_spacing",
+		"line_height"
+	];
+
+	/**
 	 * Validation rules
 	 *
 	 * @return array
