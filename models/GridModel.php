@@ -322,7 +322,7 @@ class GridModel extends AbstractModel
 			/**
 			 * @var AbstractModel|TextModel $model
 			 */
-			$modelName = "\\models\\" . ucfirst($typeList[$grid->content_id]["class"]) . "Model";
+			$modelName = "\\models\\" . $typeList[$grid->content_type]["model"];
 			$model = new $modelName;
 			$model = $model->byId($grid->content_id)->find();
 			$list[intval($grid->gridLineModel->sort)]["id"] = $grid->gridLineModel->id;

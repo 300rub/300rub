@@ -129,7 +129,7 @@
 			this.$window.find(".j-header").text(data.title).css("display", "block");
 			this.$window.find(".j-footer").css("display", "block");
 			this.$submit.on("click", $.proxy(this._submit, this));
-
+			
 			this[this.handler]();
 		},
 

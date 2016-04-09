@@ -6,7 +6,7 @@
 	 *
 	 * @param {String}  [action]  controller.action
 	 * @param {String}  [handler] Panel handler
-	 * @param {Integer} [id]      ID
+	 * @param {int}     [id]      ID
 	 *
 	 * @constructor
      */
@@ -160,7 +160,7 @@
 	 *
 	 * @param {String}  [action]  controller.action
 	 * @param {String}  [handler] Panel handler
-	 * @param {Integer} [id]      ID
+	 * @param {int}     [id]      ID
 	 *
 	 * @returns {Window.Core.Panel}
      */

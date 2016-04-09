@@ -17,7 +17,7 @@
 	 */
 	c.Panel.prototype._setList =  function() {
 		var $clone, designContent, designHandler, settingsContent, settingsHandler;
-		var $itemTemplate = $templates.find(".j-panel-list-item").clone();
+		var $itemTemplate = c.$templates.find(".j-panel-list-item").clone();
 		var itemContent = this.data.item.content;
 		var itemHandler = this.data.item.handler;
 		var id = 0;
@@ -34,7 +34,7 @@
 			settingsHandler = this.data.design.handler;
 		}
 
-		$.each(this.data.list.items, $.proxy(function (i, item) {
+		$.each(this.data.list, $.proxy(function (i, item) {
 			$clone = $itemTemplate.clone();
 
 			if (item.icon !== undefined) {
@@ -54,25 +54,57 @@
 			if (item.id !== undefined) {
 				id = item.id;
 			}
-			$clone.on("click", $.proxy(this._onItemClick(itemContent, itemHandler, id), this));
+			$clone.on(
+				"click",
+				{
+					isParent: this.data.isParent,
+					content: itemContent,
+					handler: itemHandler,
+					id: id
+				},
+				this._onItemClick
+			);
 
 			if (this.data.design !== undefined) {
 				$clone
 					.find(".j-design")
-					.on("click", $.proxy(this._onDesignClick(designContent, designHandler, id), this));
+					.on(
+						"click",
+						{
+							content: designContent,
+							handler: designHandler,
+							id: id
+						},
+						this._onDesignClick
+					);
 			}
 
 			if (this.data.settings !== undefined) {
 				$clone
 					.find(".j-settings")
-					.on("click", $.proxy(this._onSettingsClick(settingsContent, settingsHandler, id), this));
+					.on(
+						"click",
+						{
+							content: settingsContent,
+							handler: settingsHandler,
+							id: id
+						},
+						this._onSettingsClick
+					);
 			}
 
 			if (this.data.add !== undefined) {
 				$clone
 					.find(".j-footer .j-add")
 					.text(this.data.add.label)
-					.on("click", $.proxy(this._onAddClick(this.data.add.content, this.data.add.handler), this));
+					.on(
+						"click",
+						{
+							content: this.data.add.content,
+							handler: this.data.add.handler
+						},
+						this._onAddClick
+					);
 			}
 
 			$clone.appendTo(this.$container);
@@ -84,17 +116,15 @@
 	/**
 	 * Panel item click event
 	 *
-	 * @var {String} [content] Content
-	 * @var {String} [handler] Handler
-	 * @var {int}    [id]      ID
+	 * @var {Object} [event]
 	 *
 	 * @private
 	 */
-	c.Panel.prototype._onItemClick = function(content, handler, id) {
-		if (this.data.isParent !== undefined) {
-			$.panel(content, handler, id);
+	c.Panel.prototype._onItemClick = function(event) {
+		if (event.data.isParent !== undefined) {
+			$.panel(event.data.content, event.data.handler, event.data.id);
 		} else {
-			$.window(content, handler, id);
+			$.window(event.data.content, event.data.handler, event.data.id);
 		}
 
 		return false;
@@ -103,41 +133,36 @@
 	/**
 	 * Panel item design click event
 	 *
-	 * @var {String} [content] Content
-	 * @var {String} [handler] Handler
-	 * @var {int}    [id]      ID
+	 * @var {Object} [event]
 	 *
 	 * @private
 	 */
-	c.Panel.prototype._onDesignClick = function(content, handler, id) {
-		$.panel(content, handler, id);
+	c.Panel.prototype._onDesignClick = function(event) {
+		$.panel(event.data.content, event.data.handler, event.data.id);
 		return false;
 	};
 
 	/**
 	 * Panel item settings click event
 	 *
-	 * @var {String} [content] Content
-	 * @var {String} [handler] Handler
-	 * @var {int}    [id]      ID
+	 * @var {Object} [event]
 	 *
 	 * @private
 	 */
-	c.Panel.prototype._onSettingsClick = function(content, handler, id) {
-		$.panel(content, handler, id);
+	c.Panel.prototype._onSettingsClick = function(event) {
+		$.panel(event.data.content, event.data.handler, event.data.id);
 		return false;
 	};
 
 	/**
 	 * Panel add click event
 	 *
-	 * @var {String} [content] Content
-	 * @var {String} [handler] Handler
+	 * @var {Object} [event]
 	 *
 	 * @private
 	 */
-	c.Panel.prototype._onAddClick = function(content, handler) {
-		$.panel(content, handler);
+	c.Panel.prototype._onAddClick = function(event) {
+		$.panel(event.data.content, event.data.handler);
 		return false;
 	};
 }(window.jQuery, window.Core);

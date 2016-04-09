@@ -12,7 +12,7 @@ use components\Language;
 			</div>
 		</div>
 		<div class="l-footer j-footer j-hide">
-			<a class="j-submit">
+			<a class="j-submit l-submit" href="#">
 				<span class="j-label"><?= Language::t("common", "save") ?></span>
 				<div class="j-loader j-hide">
 					Loading

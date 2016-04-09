@@ -57,10 +57,6 @@ class SectionController extends AbstractController
 
         $this->json = [
             "handler"     => "list",
-            "back"        => [
-                "content" => "block.panelList",
-                "handler" => "list"
-            ],
             "title"       => Language::t("section", "sections"),
             "description" => Language::t("section", "panelDescription"),
             "list"        => $list,

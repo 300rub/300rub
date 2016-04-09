@@ -87,7 +87,7 @@ $staticMap = require(__DIR__ . "/../../config/static_map.php");
 		<a
 			href="#"
 			data-action="section.panelList"
-			data-handler="section"
+			data-handler="list"
 			><span><?= Language::t("section", "sections") ?></span></a>
 
 		<a
