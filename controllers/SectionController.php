@@ -63,7 +63,7 @@ class SectionController extends AbstractController
             "icon"        => "section-list-item",
             "item"        => [
                 "content" => "section.window",
-                "handler" => "section.saveWindow"
+                "handler" => "section"
             ],
             "design"      => [
                 "content" => "section.design",

@@ -55,6 +55,8 @@
     /**
      * Sets line template
      *
+     * @returns {c.Window}
+     *
      * @private
      */
     c.Window.prototype._sectionSetLineTemplate = function () {
@@ -69,6 +71,8 @@
                 .attr("disabled", item.isDisabled === true)
                 .appendTo($select);
         });
+
+        return this;
     };
 
     /**
@@ -103,7 +107,7 @@
     /**
      * Adds line
      *
-     * @param {Integer} [id] Line ID
+     * @param {int} [id] Line ID
      *
      * @private
      */
@@ -120,20 +124,21 @@
         }, this));
 
         var blockLine, blockName, blockId, blockType;
+        var t = this;
         $line.find(".j-select-block").on("change", function () {
             blockLine = parseInt($line.find(".j-header .j-title span").text());
             blockName = $(this).val();
             blockId = parseInt($(this).find(':selected').data('id'));
             blockType = parseInt($(this).find(':selected').data('type'));
             if (blockId > 0 && blockType > 0) {
-                this._sectionAddWidget(blockLine, blockId, blockType, 0, 0, 3, blockName, true);
+                t._sectionAddWidget(blockLine, blockId, blockType, 0, 0, 3, blockName, true);
             }
             $(this).val(0);
         });
 
         $line.find('.j-grid-stack').gridstack({
-            cell_height: 30,
-            vertical_margin: 10,
+            cellHeight: 30,
+            verticalMargin: 10,
             resizable: {
                 minHeight: 30,
                 maxHeight: 30,
@@ -147,12 +152,12 @@
     /**
      * Adds widget
      *
-     * @param {Integer} [line]           Line number
-     * @param {Integer} [id]             Line id
-     * @param {Integer} [type]           Type (for design)
-     * @param {Integer} [x]              Left
-     * @param {Integer} [y]              Top
-     * @param {Integer} [width]          Width
+     * @param {int}     [line]           Line number
+     * @param {int}     [id]             Line id
+     * @param {int}     [type]           Type (for design)
+     * @param {int}     [x]              Left
+     * @param {int}     [y]              Top
+     * @param {int}     [width]          Width
      * @param {String}  [name]           Label
      * @param {boolean} [isAutoPosition] Auto position
      *
@@ -160,13 +165,14 @@
      */
     c.Window.prototype._sectionAddWidget = function (line, id, type, x, y, width, name, isAutoPosition) {
         var grid =
-            this.$_sectionContainer.find('.j-window-section-line:nth-child(' + line + ').grid-stack').data('gridstack');
+            this.$_sectionContainer.find('.j-window-section-line:nth-child(' + line + ') .j-grid-stack').data('gridstack');
         var $gridStackItem = c.$templates.find(".j-window-section-grid-stack-item").clone();
 
         $gridStackItem
             .attr("data-id", id)
             .attr("data-type", type);
-        grid.add_widget($gridStackItem, x, y, width, 1, isAutoPosition);
+        console.log(grid);
+        grid.addWidget($gridStackItem, x, y, width, 1, isAutoPosition);
 
         $gridStackItem.find(".j-remove").on("click", function () {
             grid.remove_widget($gridStackItem);
@@ -185,9 +191,9 @@
     c.Window.prototype._sectionParseGrid = function (grid) {
         $.each(grid, $.proxy(function (lineNumber, data) {
             this._sectionAddLine(data.id);
-            $.each(data.grids, function (i, item) {
+            $.each(data.grids, $.proxy(function (i, item) {
                 this._sectionAddWidget(lineNumber, item.id, item.type, item.x, item.y, item.width, item.name, false);
-            });
+            }, this));
         }, this));
     };
 
