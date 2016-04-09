@@ -3,6 +3,7 @@
 namespace models;
 
 use components\Db;
+use components\Exception;
 use components\Validator;
 
 /**
@@ -17,6 +18,11 @@ abstract class AbstractModel
 	 * Default separator
 	 */
 	const DEFAULT_SEPARATOR = ".";
+
+	/**
+	 * Default SQL separator
+	 */
+	const DEFAULT_SQL_SEPARATOR = "__";
 
 	/**
 	 * Object name
@@ -164,8 +170,9 @@ abstract class AbstractModel
 	 */
 	public function withAll()
 	{
-		foreach ($this->relations as $key => $value) {
-			$this->db->with[] = $key;
+		$relationKeys = $this->getRelationKeys();
+		foreach ($relationKeys as $relation) {
+			$this->db->with[] = $relation;
 		}
 
 		return $this;
@@ -209,7 +216,7 @@ abstract class AbstractModel
 		 * @var AbstractModel $model
 		 */
 		$model = new $this;
-		$model->setAttributes($result, "__")->afterFind();
+		$model->setAttributes($result, self::DEFAULT_SQL_SEPARATOR)->afterFind();
 
 		return $model;
 	}
@@ -242,7 +249,7 @@ abstract class AbstractModel
 			 * @var AbstractModel $model
 			 */
 			$model = new $this;
-			$model->setAttributes($values, "__")->afterFind();
+			$model->setAttributes($values, self::DEFAULT_SQL_SEPARATOR)->afterFind();
 			if ($model) {
 				$list[] = $model;
 			}
@@ -280,7 +287,7 @@ abstract class AbstractModel
 
 		$relations = $this->relations;
 		foreach ($attributes as $key => $fields) {
-			if ($key == "t") {
+			if ($key === self::OBJECT_NAME) {
 				foreach ($fields as $name => $value) {
 					if (property_exists($this, $name)) {
 						$this->$name = $value;
@@ -353,41 +360,48 @@ abstract class AbstractModel
 			Db::startTransaction();
 		}
 
-		if ($this->beforeSave() === false) {
-			if ($useTransaction) {
-				Db::rollbackTransaction();
-			}
-			return false;
-		}
-
-		if ($this->id) {
-			if (!Db::update($this)) {
+		try {
+			if ($this->beforeSave() === false) {
 				if ($useTransaction) {
 					Db::rollbackTransaction();
 				}
 				return false;
 			}
-		} else {
-			$this->id = Db::insert($this);
-			if (!$this->id) {
+
+			if ($this->id) {
+				if (!Db::update($this)) {
+					if ($useTransaction) {
+						Db::rollbackTransaction();
+					}
+					return false;
+				}
+			} else {
+				$this->id = Db::insert($this);
+				if (!$this->id) {
+					if ($useTransaction) {
+						Db::rollbackTransaction();
+					}
+					return false;
+				}
+			}
+
+			if ($this->afterSave() === false) {
 				if ($useTransaction) {
 					Db::rollbackTransaction();
 				}
 				return false;
 			}
-		}
 
-		if ($this->afterSave() === false) {
+			if ($useTransaction) {
+				Db::commitTransaction();
+			}
+			return true;
+		} catch (Exception $e) {
 			if ($useTransaction) {
 				Db::rollbackTransaction();
 			}
 			return false;
 		}
-
-		if ($useTransaction) {
-			Db::commitTransaction();
-		}
-		return true;
 	}
 
 	/**

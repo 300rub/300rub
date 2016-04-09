@@ -168,7 +168,12 @@ class TextModel extends AbstractModel
 	public function getRules()
 	{
 		return [
-			"name" => ["required"],
+			"is_editor"       => [],
+			"type"            => [],
+			"text"            => [],
+			"design_text_id"  => [],
+			"design_block_id" => [],
+			"name"            => ["required"],
 		];
 	}
 
@@ -246,11 +251,9 @@ class TextModel extends AbstractModel
 	}
 
 	/**
-	 * Runs before save
-	 *
-	 * @return bool
+	 * Sets values
 	 */
-	protected function beforeSave()
+	private function _setValues()
 	{
 		$this->language = intval($this->language);
 		if (
@@ -265,7 +268,29 @@ class TextModel extends AbstractModel
 			$this->type = self::TYPE_DIV;
 		}
 
-		$this->is_editor = intval(boolval($this->is_editor));
+		$this->is_editor = intval(boolval(intval($this->is_editor)));
+	}
+
+	/**
+	 * Runs after finding model
+	 *
+	 * @return AbstractModel
+	 */
+	protected function afterFind()
+	{
+		parent::afterFind();
+
+		$this->_setValues();
+	}
+
+	/**
+	 * Runs before save
+	 *
+	 * @return bool
+	 */
+	protected function beforeSave()
+	{
+		$this->_setValues();
 
 		$this->design_text_id = intval($this->design_text_id);
 		if (!$this->designTextModel instanceof DesignTextModel) {

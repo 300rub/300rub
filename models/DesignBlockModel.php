@@ -305,7 +305,29 @@ class DesignBlockModel extends AbstractModel
 	 */
 	public function getRules()
 	{
-		return [];
+		return [
+			"margin_top"                 => [],
+			"margin_right"               => [],
+			"margin_bottom"              => [],
+			"margin_left"                => [],
+			"padding_top"                => [],
+			"padding_right"              => [],
+			"padding_bottom"             => [],
+			"padding_left"               => [],
+			"background_color_from"      => [],
+			"background_color_to"        => [],
+			"gradient_direction"         => [],
+			"border_top_width"           => [],
+			"border_top_left_radius"     => [],
+			"border_right_width"         => [],
+			"border_top_right_radius"    => [],
+			"border_bottom_width"        => [],
+			"border_bottom_right_radius" => [],
+			"border_left_width"          => [],
+			"border_bottom_left_radius"  => [],
+			"border_color"               => [],
+			"border_style"               => [],
+		];
 	}
 
 	/**
@@ -324,7 +346,7 @@ class DesignBlockModel extends AbstractModel
 	 *
 	 * @return bool
 	 */
-	protected function beforeVSave()
+	protected function beforeSave()
 	{
 		$this->margin_top = intval($this->margin_top);
 		$this->margin_right = intval($this->margin_right);

@@ -363,7 +363,18 @@ class DesignTextModel extends AbstractModel
 	 */
 	public function getRules()
 	{
-		return [];
+		return [
+			"size"           => [],
+			"family"         => [],
+			"color"          => [],
+			"is_italic"      => [],
+			"is_bold"        => [],
+			"align"          => [],
+			"decoration"     => [],
+			"transform"      => [],
+			"letter_spacing" => [],
+			"line_height"    => [],
+		];
 	}
 
 	/**

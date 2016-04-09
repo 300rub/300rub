@@ -62,7 +62,7 @@ abstract class AbstractModelTest extends AbstractUnitTest
         $model = $this->getModel()->withAll()->byId($model->id)->find();
         $this->_checkValues($model, $createExpected);
         foreach ($model->getRelations() as $relation => $options) {
-            $this->assertInstanceOf($options[0], $this->$relation);
+            $this->assertInstanceOf($options[0], $model->$relation);
         }
 
         // Update
@@ -120,8 +120,9 @@ abstract class AbstractModelTest extends AbstractUnitTest
     private function _checkErrors(AbstractModel $model, $expected)
     {
         $this->assertEquals(count($expected), count($model->errors));
-        foreach ($expected as $error) {
-            $this->assertEquals(true, array_key_exists($error, $model->errors));
+        foreach ($expected as $field => $error) {
+            $this->assertTrue(array_key_exists($field, $model->errors));
+            $this->assertEquals($error, $model->errors[$field]);
         }
     }
 

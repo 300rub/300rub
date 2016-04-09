@@ -1,6 +1,7 @@
 <?php
 
 namespace application;
+use components\Language;
 
 /**
  * Class Test
@@ -17,6 +18,6 @@ class Test extends AbstractApplication
      */
     public function run()
     {
-
+        Language::$activeId = Language::LANGUAGE_EN_ID;
     }
 }
