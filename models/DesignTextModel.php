@@ -587,7 +587,10 @@ class DesignTextModel extends AbstractModel
 	 */
 	public function getFontFamilyClass()
 	{
-		if (array_key_exists($this->family, self::$familyList)) {
+		if (
+			$this->family !== self::FAMILY_MYRAD
+			&& array_key_exists($this->family, self::$familyList)
+		) {
 			return self::$familyList[$this->family]["class"];
 		}
 
