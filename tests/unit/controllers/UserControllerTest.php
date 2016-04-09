@@ -5,14 +5,13 @@ namespace tests\unit\controllers;
 use components\Language;
 use models\AbstractModel;
 use models\UserModel;
-use tests\unit\AbstractUnitTest;
 
 /**
  * Class UserControllerTest
  *
  * @package tests\unit\controllers
  */
-abstract class UserControllerTest extends AbstractUnitTest
+class UserControllerTest extends AbstractControllerTest
 {
 
     /**

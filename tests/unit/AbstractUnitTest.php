@@ -2,7 +2,6 @@
 
 namespace tests\unit;
 
-use commands\MigrateCommand;
 use PHPUnit_Framework_TestCase;
 
 /**

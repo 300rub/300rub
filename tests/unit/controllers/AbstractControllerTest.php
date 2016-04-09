@@ -14,6 +14,13 @@ abstract class AbstractControllerTest extends AbstractUnitTest
 {
 
     /**
+     * Data provider for testAjaxRequest
+     *
+     * @return array
+     */
+    abstract public function dataProviderForAjaxRequest();
+
+    /**
      * Tests AJAX request
      *
      * @param string $action
