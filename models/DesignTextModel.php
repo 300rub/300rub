@@ -399,11 +399,33 @@ class DesignTextModel extends AbstractModel
 	}
 
 	/**
+	 * Runs after finding model
+	 *
+	 * @return AbstractModel
+	 */
+	protected function afterFind()
+	{
+		parent::afterFind();
+
+		$this->_setValues();
+	}
+
+	/**
 	 * Runs before saving
 	 *
 	 * @return bool
 	 */
 	protected function beforeSave()
+	{
+		$this->_setValues();
+
+		parent::beforeSave();
+	}
+
+	/**
+	 * Sets values
+	 */
+	private function _setValues()
 	{
 		$this->size = intval($this->size);
 		$this->family = intval($this->family);
@@ -422,8 +444,6 @@ class DesignTextModel extends AbstractModel
 		if (!$this->line_height) {
 			$this->line_height = self::DEFAULT_LINE_HEIGHT;
 		}
-
-		parent::beforeSave();
 	}
 
 	/**

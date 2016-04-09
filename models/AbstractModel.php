@@ -228,6 +228,12 @@ abstract class AbstractModel
 	 */
 	protected function afterFind()
 	{
+		$relationKeys = $this->getRelationKeys();
+		foreach ($relationKeys as $relation) {
+			if ($this->$relation instanceof AbstractModel) {
+				$this->$relation->afterFind();
+			}
+		}
 	}
 
 	/**
