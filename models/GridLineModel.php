@@ -86,10 +86,10 @@ class GridLineModel extends AbstractModel
 	public function getRules()
 	{
 		return [
-			"section_id"        => ["required"],
-			"sort"              => ["required"],
-			"outside_design_id" => ["required"],
-			"inside_design_id"  => ["required"],
+			"section_id"        => [],
+			"sort"              => [],
+			"outside_design_id" => [],
+			"inside_design_id"  => [],
 		];
 	}
 

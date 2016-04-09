@@ -29,7 +29,20 @@ class SectionModelTest extends AbstractModelTest
 	 */
 	public function dataProviderForCRUD()
 	{
-		return [];
+		return [
+			// Insert: empty fields
+			[
+				[],
+				[
+					"seoModel.name" => "required",
+					"seoModel.url"  => "required",
+				],
+				[],
+				[],
+				[],
+				[]
+			],
+		];
 	}
 
 	/**

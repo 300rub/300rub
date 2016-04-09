@@ -104,10 +104,10 @@ class SectionModel extends AbstractModel
 	{
 		return [
 			"seo_id"          => [],
-			"language"        => ["required"],
+			"language"        => [],
 			"width"           => [],
 			"is_main"         => [],
-			"design_block_id" => ["required"],
+			"design_block_id" => [],
 		];
 	}
 

@@ -1,6 +1,7 @@
 <?php
 
 namespace application;
+use commands\MigrateCommand;
 use components\Language;
 
 /**
@@ -19,5 +20,14 @@ class Test extends AbstractApplication
     public function run()
     {
         Language::$activeId = Language::LANGUAGE_EN_ID;
+        MigrateCommand::loadFixtures();
+    }
+
+    /**
+     * Destructor
+     */
+    public function __destruct()
+    {
+        MigrateCommand::loadFixtures();
     }
 }

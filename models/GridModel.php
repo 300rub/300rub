@@ -105,12 +105,12 @@ class GridModel extends AbstractModel
 	public function getRules()
 	{
 		return [
-			"grid_line_id" => ["required"],
+			"grid_line_id" => [],
 			"x"            => [],
 			"y"            => [],
-			"width"        => ["required"],
-			"content_type" => ["required"],
-			"content_id"   => ["required"],
+			"width"        => [],
+			"content_type" => [],
+			"content_id"   => [],
 		];
 	}
 

@@ -29,7 +29,20 @@ class SeoModelTest extends AbstractModelTest
 	 */
 	public function dataProviderForCRUD()
 	{
-		return [];
+		return [
+			// Insert: empty fields
+			[
+				[],
+				[
+					"t.name" => "required",
+					"t.url"  => "required",
+				],
+				[],
+				[],
+				[],
+				[]
+			],
+		];
 	}
 
 	/**

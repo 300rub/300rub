@@ -439,6 +439,8 @@ class MigrateCommand extends AbstractCommand
 	 */
 	public static function loadFixtures($table = null)
 	{
+		Logger::log("Updating fixtures...", Logger::LEVEL_INFO, "console.migrate");
+
 		$files = array_diff(scandir(__DIR__ . "/../fixtures"), ['..', '.']);
 		foreach ($files as $file) {
 			$tableName = str_replace(".php", "", $file);
@@ -474,10 +476,17 @@ class MigrateCommand extends AbstractCommand
 					implode(",", $substitutions) .
 					")";
 				if (!Db::execute($query, $values)) {
+					Logger::log(
+						"Unable to load fixtures for table \"{$tableName}\"",
+						Logger::LEVEL_ERROR,
+						"console.migrate"
+					);
 					return false;
 				}
 			}
 		}
+
+		Logger::log("OK", Logger::LEVEL_INFO, "console.migrate");
 
 		return true;
 	}

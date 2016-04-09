@@ -12,20 +12,5 @@ use PHPUnit_Framework_TestCase;
  */
 abstract class AbstractUnitTest extends PHPUnit_Framework_TestCase
 {
-
-    /**
-     * Called before the first test of the test case class is run
-     */
-    public static function setUpBeforeClass()
-    {
-        MigrateCommand::loadFixtures();
-    }
-
-    /**
-     * Called after the last test of the test case class is run
-     */
-    public static function tearDownAfterClass()
-    {
-        MigrateCommand::loadFixtures();
-    }
+    
 }
