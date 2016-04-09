@@ -42,12 +42,12 @@
      */
     c.Window.prototype._sectionSetContainer = function () {
         this.$_sectionContainer = c.$templates.find(".j-window-section-container").clone()
-            .appendTo(this.$container)
-            .sortable({
-                stop: $.proxy(function () {
-                    this._sectionResetLineNumbers();
-                }, this)
-            });
+            .appendTo(this.$container);
+            // .sortable({
+            //     stop: $.proxy(function () {
+            //         this._sectionResetLineNumbers();
+            //     }, this)
+            // });
 
         return this;
     };
@@ -82,7 +82,7 @@
      */
     c.Window.prototype._sectionResetLineNumbers = function () {
         this.$_sectionContainer.find(".j-window-section-line").each(function (id) {
-            $(this).find(".title span").text(id + 1);
+            $(this).find(".j-title span").text(id + 1);
         });
     };
 
@@ -112,21 +112,21 @@
      * @private
      */
     c.Window.prototype._sectionAddLine = function (id) {
+        var t = this;
         var $line = this.$_sectionLineTemplate.clone()
             .attr("data-id", id)
             .css("display", "block")
             .appendTo(this.$_sectionContainer);
 
-        $line.find(".j-remove").on("click", $.proxy(function () {
+        $line.find(".j-remove").on("click", function () {
             $line.remove();
-            this._sectionResetLineNumbers();
+            t._sectionResetLineNumbers();
             return false;
-        }, this));
+        });
 
         var blockLine, blockName, blockId, blockType;
-        var t = this;
         $line.find(".j-select-block").on("change", function () {
-            blockLine = parseInt($line.find(".j-header .j-title span").text());
+            blockLine = parseInt($(this).closest(".j-window-section-line").find(".j-header .j-title span").text());
             blockName = $(this).val();
             blockId = parseInt($(this).find(':selected').data('id'));
             blockType = parseInt($(this).find(':selected').data('type'));
@@ -171,11 +171,10 @@
         $gridStackItem
             .attr("data-id", id)
             .attr("data-type", type);
-        console.log(grid);
         grid.addWidget($gridStackItem, x, y, width, 1, isAutoPosition);
 
         $gridStackItem.find(".j-remove").on("click", function () {
-            grid.remove_widget($gridStackItem);
+            grid.removeWidget($gridStackItem);
         });
 
         $gridStackItem.find(".j-content").text(name);
