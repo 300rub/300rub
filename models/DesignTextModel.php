@@ -455,7 +455,7 @@ class DesignTextModel extends AbstractModel
 	 */
 	private function _isColor($value)
 	{
-		return boolval(preg_match('(.*?)(rgb|rgba)\((\d+),\s*(\d+),\s*(\d+)(?:,\s*(\d+(?:\.\d+)?))?\)/i', $value));
+		return boolval(preg_match('/(.*?)(rgb|rgba)\((\d+),\s*(\d+),\s*(\d+)(?:,\s*(\d+(?:\.\d+)?))?\)/i', $value));
 	}
 
 	/**
@@ -560,10 +560,10 @@ class DesignTextModel extends AbstractModel
 	public function getTextDecoration()
 	{
 		if (array_key_exists($this->decoration, self::$textDecorationList)) {
-			return self::$textDecorationList[$this->decoration]["value"];
+			return self::$textDecorationList[$this->decoration];
 		}
 
-		return "";
+		return self::$textDecorationList[self::TEXT_DECORATION_NONE];
 	}
 
 	/**
@@ -574,10 +574,10 @@ class DesignTextModel extends AbstractModel
 	public function getTextTransform()
 	{
 		if (array_key_exists($this->transform, self::$textTransformList)) {
-			return self::$textTransformList[$this->transform]["value"];
+			return self::$textTransformList[$this->transform];
 		}
 
-		return "";
+		return self::$textTransformList[self::TEXT_TRANSFORM_NONE];
 	}
 
 	/**

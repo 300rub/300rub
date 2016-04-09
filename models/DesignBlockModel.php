@@ -393,7 +393,7 @@ class DesignBlockModel extends AbstractModel
 	 */
 	private function _isColor($value)
 	{
-		return boolval(preg_match('(.*?)(rgb|rgba)\((\d+),\s*(\d+),\s*(\d+)(?:,\s*(\d+(?:\.\d+)?))?\)/i', $value));
+		return boolval(preg_match('/(.*?)(rgb|rgba)\((\d+),\s*(\d+),\s*(\d+)(?:,\s*(\d+(?:\.\d+)?))?\)/i', $value));
 	}
 
 	/**
