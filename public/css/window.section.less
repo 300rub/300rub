@@ -29,26 +29,35 @@
     }
   }
 
-  .l-grid-stack {
+  .grid-stack {
     min-height: 50px;
   }
 
-  .l-grid-stack-item {
-    border-style: solid;
-    border-width: 0 1px 0 10px;
-    background: #f5f5f5;
+  .l-item {
     line-height: 30px;
     padding: 0 20px;
     border-color: #ccc;
+    cursor: move;
 
-    .l-remove {
-      position: absolute;
-      right: 10px;
-      top: 0;
-      text-decoration: none;
-      z-index: 10;
-      background: #f00;
-      width: 20px;
+    .l-content {
+      border-style: solid;
+      border-width: 0 1px 0 10px;
+      background: #f5f5f5;
+
+      .l-remove {
+        position: absolute;
+        left: 7px;
+        top: 7px;
+        text-decoration: none;
+        z-index: 10;
+        background: #f00;
+        width: 16px;
+        height: 16px;
+      }
+
+      .l-label {
+        padding-left: 30px;
+      }
     }
   }
 }

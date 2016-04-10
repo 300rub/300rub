@@ -42,12 +42,12 @@
      */
     c.Window.prototype._sectionSetContainer = function () {
         this.$_sectionContainer = c.$templates.find(".j-window-section-container").clone()
-            .appendTo(this.$container);
-            // .sortable({
-            //     stop: $.proxy(function () {
-            //         this._sectionResetLineNumbers();
-            //     }, this)
-            // });
+            .appendTo(this.$container)
+            .sortable({
+                stop: $.proxy(function () {
+                    this._sectionResetLineNumbers();
+                }, this)
+            });
 
         return this;
     };
@@ -141,8 +141,8 @@
             verticalMargin: 10,
             resizable: {
                 minHeight: 30,
-                maxHeight: 30,
-                handles: "e, w"
+                maxHeight: 30
+               // handles: "e, w"
             }
         });
 
@@ -175,9 +175,10 @@
 
         $gridStackItem.find(".j-remove").on("click", function () {
             grid.removeWidget($gridStackItem);
+            return false;
         });
 
-        $gridStackItem.find(".j-content").text(name);
+        $gridStackItem.find(".j-content .j-label").text(name);
     };
 
     /**

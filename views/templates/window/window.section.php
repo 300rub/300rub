@@ -17,12 +17,14 @@ use components\Language;
         </div>
         <a href="#" class="j-remove l-remove"><?= Language::t("common", "delete"); ?></a>
     </div>
-    <div class="j-grid-stack l-grid-stack"></div>
+    <div class="j-grid-stack l-grid-stack grid-stack"></div>
 </div>
 
 <button class="j-window-section-add-line"><?= Language::t("section", "addLine"); ?></button>
 
-<div class="j-window-section-grid-stack-item l-grid-stack-item">
-    <a href="#" class="j-remove l-remove">x</a>
-    <div class="j-content"></div>
+<div class="j-window-section-grid-stack-item l-item grid-stack-item">
+    <div class="j-content l-content grid-stack-item-content">
+        <a href="#" class="j-remove l-remove"></a>
+        <div class="j-label l-label"></div>
+    </div>
 </div>
