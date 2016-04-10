@@ -163,4 +163,38 @@ class GridLineModel extends AbstractModel
 
 		return parent::beforeDelete();
 	}
+
+	/**
+	 * Runs before save
+	 *
+	 * @return bool
+	 */
+	protected function beforeSave()
+	{
+		$this->outside_design_id = intval($this->outside_design_id);
+		if (!$this->outsideDesignModel instanceof DesignBlockModel) {
+			if ($this->outside_design_id === 0) {
+				$this->outsideDesignModel = new DesignBlockModel();
+			} else {
+				$this->outsideDesignModel = DesignBlockModel::model()->byId($this->outside_design_id)->find();
+				if ($this->outsideDesignModel === null) {
+					$this->outsideDesignModel = new DesignBlockModel();
+				}
+			}
+		}
+
+		$this->inside_design_id = intval($this->inside_design_id);
+		if (!$this->insideDesignModel instanceof DesignBlockModel) {
+			if ($this->inside_design_id === 0) {
+				$this->insideDesignModel = new DesignBlockModel();
+			} else {
+				$this->insideDesignModel = DesignBlockModel::model()->byId($this->inside_design_id)->find();
+				if ($this->insideDesignModel === null) {
+					$this->insideDesignModel = new DesignBlockModel();
+				}
+			}
+		}
+
+		return parent::beforeSave();
+	}
 }

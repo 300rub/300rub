@@ -351,6 +351,11 @@ class GridModel extends AbstractModel
 	{
 		Db::startTransaction();
 		$oldGrids = $this->bySectionId($sectionId)->findAll();
+		$gridLines = GridLineModel::model()->bySectionId($sectionId)->findAll();
+		$oldGridLines = [];
+		foreach ($gridLines as $gridLine) {
+			$oldGridLines[$gridLine->id] = $gridLine;
+		}
 
 		$lineNumber = 1;
 		foreach ($data as $content) {
@@ -365,22 +370,14 @@ class GridModel extends AbstractModel
 					Db::rollbackTransaction();
 					return false;
 				}
+
+				if (array_key_exists($content["id"], $oldGridLines)) {
+					unset($oldGridLines[$content["id"]]);
+				}
 			} else {
-				$outsideDesignModel = new DesignBlockModel();
-				if (!$outsideDesignModel->save(false)) {
-					Db::rollbackTransaction();
-					return false;
-				}
-				$insideDesignModel = new DesignBlockModel();
-				if (!$insideDesignModel->save(false)) {
-					Db::rollbackTransaction();
-					return false;
-				}
 				$gridLineModel = new GridLineModel();
 				$gridLineModel->section_id = $sectionId;
 				$gridLineModel->sort = $lineNumber;
-				$gridLineModel->outside_design_id = $outsideDesignModel->id;
-				$gridLineModel->inside_design_id = $insideDesignModel->id;
 				if (!$gridLineModel->save(false)) {
 					Db::rollbackTransaction();
 					return false;
@@ -409,6 +406,10 @@ class GridModel extends AbstractModel
 				Db::rollbackTransaction();
 				return false;
 			}
+		}
+
+		foreach ($oldGridLines as $oldGridLine) {
+			$oldGridLine->delete(false);
 		}
 
 		Db::commitTransaction();
