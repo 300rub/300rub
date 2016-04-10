@@ -208,14 +208,14 @@
         var data = [];
         var items;
         var $line;
-        this.$_sectionContainer.find(".j-window-section-line").$.proxy(each(function (i, line) {
+        this.$_sectionContainer.find(".j-window-section-line").each($.proxy(function (i, line) {
             $line = $(line);
             items = [];
             $line.find(".j-grid-stack .j-window-section-grid-stack-item:visible").each(function () {
-                var node = $line.data('_gridstack_node');
+                var node = $(this).data('_gridstack_node');
                 var item = {
-                    id: $line.data("id"),
-                    type: $line.data("type"),
+                    id: $(this).data("id"),
+                    type: $(this).data("type"),
                     x: node.x,
                     y: node.y,
                     width: node.width
@@ -227,7 +227,10 @@
 
         $.ajaxJson(
             this.data.action,
-            {data: data},
+            {
+                grid: data,
+                id: this.id
+            },
             $.proxy(this._sectionOnSubmitBeforeSend, this),
             $.proxy(this._sectionOnSubmitSuccess, this),
             $.proxy(this.onError, this)

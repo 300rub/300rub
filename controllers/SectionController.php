@@ -183,7 +183,7 @@ class SectionController extends AbstractController
 
         $this->json = [
             "title"  => $model->seoModel->name,
-            "action" => "section.saveGrid",
+            "action" => "section.saveWindow",
             "id"     => intval($model->id),
             "blocks" => GridModel::model()->getAllBlocksForGridWindow(),
             "grid"   => GridModel::model()->getAllGridsForGridWindow($model->id)
@@ -198,7 +198,7 @@ class SectionController extends AbstractController
         $this->json = [
             "result" => GridModel::model()->updateGridForSection(
                 $this->getModel()->id,
-                $this->data
+                $this->data["grid"]
             )
         ];
     }

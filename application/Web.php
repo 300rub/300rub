@@ -189,7 +189,7 @@ class Web extends AbstractApplication
 		}
 
 		Language::setIdByAlias($input->language);
-		$controller->data = (array)$input->fields;
+		$controller->data = json_decode(json_encode($input->fields), true);
 		$controller->$methodName();
 
 		$this->_time = number_format(microtime(true) - $this->_startTime, 3);
