@@ -246,6 +246,22 @@ class SectionModel extends AbstractModel
 			}
 		}
 
+		$seoModel = $this->seoModel;
+		if ($seoModel === null) {
+			$seoModel = SeoModel::model()->byId($this->seo_id)->find();
+		}
+		if ($seoModel instanceof SeoModel) {
+			$seoModel->delete(false);
+		}
+
+		$designBlockModel = $this->designBlockModel;
+		if ($designBlockModel === null) {
+			$designBlockModel = DesignBlockModel::model()->byId($this->design_block_id)->find();
+		}
+		if ($designBlockModel instanceof DesignBlockModel) {
+			$designBlockModel->delete(false);
+		}
+
 		if ($this->is_main) {
 			$model = self::model()->exceptId($this->id)->find();
 			if ($model) {

@@ -161,6 +161,22 @@ class GridLineModel extends AbstractModel
 			}
 		}
 
+		$outsideDesignModel = $this->outsideDesignModel;
+		if ($outsideDesignModel === null) {
+			$outsideDesignModel = DesignBlockModel::model()->byId($this->outside_design_id)->find();
+		}
+		if ($outsideDesignModel instanceof DesignBlockModel) {
+			$outsideDesignModel->delete(false);
+		}
+
+		$insideDesignModel = $this->insideDesignModel;
+		if ($insideDesignModel === null) {
+			$insideDesignModel = DesignBlockModel::model()->byId($this->inside_design_id)->find();
+		}
+		if ($insideDesignModel instanceof DesignBlockModel) {
+			$insideDesignModel->delete(false);
+		}
+
 		return parent::beforeDelete();
 	}
 

@@ -380,4 +380,30 @@ class TextModel extends AbstractModel
 			return 0;
 		}
 	}
+
+	/**
+	 * Runs before delete
+	 *
+	 * @return bool
+	 */
+	protected function beforeDelete()
+	{
+		$designTextModel = $this->designTextModel;
+		if ($designTextModel === null) {
+			$designTextModel = DesignTextModel::model()->byId($this->design_text_id)->find();
+		}
+		if ($designTextModel instanceof DesignTextModel) {
+			$designTextModel->delete(false);
+		}
+
+		$designBlockModel = $this->designBlockModel;
+		if ($designBlockModel === null) {
+			$designBlockModel = DesignBlockModel::model()->byId($this->design_block_id)->find();
+		}
+		if ($designBlockModel instanceof DesignBlockModel) {
+			$designBlockModel->delete(false);
+		}
+
+		return parent::beforeDelete();
+	}
 }

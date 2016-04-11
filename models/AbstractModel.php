@@ -510,21 +510,6 @@ abstract class AbstractModel
 	 */
 	protected function beforeDelete()
 	{
-		foreach ($this->relations as $relation => $options) {
-			$relation = $this->$relation;
-			if ($relation === null) {
-				/**
-				 * @var AbstractModel $relation
-				 */
-				$relation = new $options[0];
-				$relation->byId($this->$options[1])->find();
-			}
-
-			if ($relation instanceof $options[0] && !$this->$relation->delete(false)) {
-				return false;
-			}
-		}
-		
 		return true;
 	}
 
