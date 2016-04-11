@@ -11,6 +11,21 @@ class DesignTextModel extends AbstractModel
 {
 
 	/**
+	 * Min size value
+	 */
+	const MIN_SIZE_VALUE = 4;
+
+	/**
+	 * Min letter spacing value
+	 */
+	const MIN_LETTER_SPACING_VALUE = -10;
+
+	/**
+	 * Min line height value
+	 */
+	const MIN_LINE_HEIGHT_VALUE = 10;
+
+	/**
 	 * Value for replace
 	 */
 	const REPLACE_VALUE = "__";
@@ -428,21 +443,58 @@ class DesignTextModel extends AbstractModel
 	private function _setValues()
 	{
 		$this->size = intval($this->size);
+		if ($this->size < self::MIN_SIZE_VALUE) {
+			$this->size = 0;
+		}
+
 		$this->family = intval($this->family);
+		if (!array_key_exists($this->family, self::$familyList)) {
+			$this->family = self::FAMILY_MYRAD;
+		}
+
 		$this->is_italic = intval($this->is_italic);
+		if ($this->is_italic >= 1) {
+			$this->is_italic = 1;
+		} else {
+			$this->is_italic = 0;
+		}
+
 		$this->is_bold = intval($this->is_bold);
+		if ($this->is_bold >= 1) {
+			$this->is_bold = 1;
+		} else {
+			$this->is_bold = 0;
+		}
+
 		$this->align = intval($this->align);
+		if (!array_key_exists($this->align, self::$textAlignList)) {
+			$this->align = self::TEXT_ALIGN_LEFT;
+		}
+
 		$this->decoration = intval($this->decoration);
+		if (!array_key_exists($this->decoration, self::$textDecorationList)) {
+			$this->decoration = self::TEXT_DECORATION_NONE;
+		}
+
 		$this->transform = intval($this->transform);
+		if (!array_key_exists($this->transform, self::$textTransformList)) {
+			$this->transform = self::TEXT_TRANSFORM_NONE;
+		}
+
 		$this->letter_spacing = intval($this->letter_spacing);
+		if ($this->letter_spacing < self::MIN_LETTER_SPACING_VALUE) {
+			$this->letter_spacing = self::MIN_LETTER_SPACING_VALUE;
+		}
 
 		if (!$this->_isColor($this->color)) {
 			$this->color = "";
 		}
 
 		$this->line_height = intval($this->line_height);
-		if (!$this->line_height) {
+		if ($this->line_height === 0) {
 			$this->line_height = self::DEFAULT_LINE_HEIGHT;
+		} else if ($this->line_height < self::MIN_LINE_HEIGHT_VALUE) {
+			$this->line_height = self::MIN_LINE_HEIGHT_VALUE;
 		}
 	}
 
@@ -477,21 +529,21 @@ class DesignTextModel extends AbstractModel
 					"name"     => sprintf($name, "size"),
 					"value"    => $this->size,
 					"type"     => "font-size",
-					"minValue" => 4,
+					"minValue" => self::MIN_SIZE_VALUE,
 					"measure"  => "px"
 				],
                 [
                     "name"     => sprintf($name, "letter_spacing"),
                     "value"    => $this->letter_spacing,
                     "type"     => "letter-spacing",
-                    "minValue" => -10,
+                    "minValue" => self::MIN_LETTER_SPACING_VALUE,
                     "measure"  => "px"
                 ],
                 [
                     "name"     => sprintf($name, "line_height"),
                     "value"    => $this->line_height,
                     "type"     => "line-height",
-                    "minValue" => 10,
+                    "minValue" => self::MIN_LINE_HEIGHT_VALUE,
                     "measure"  => "%"
                 ]
 			],

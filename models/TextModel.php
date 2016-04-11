@@ -268,7 +268,12 @@ class TextModel extends AbstractModel
 			$this->type = self::TYPE_DIV;
 		}
 
-		$this->is_editor = intval(boolval(intval($this->is_editor)));
+		$this->is_editor = intval($this->is_editor);
+		if ($this->is_editor >= 1) {
+			$this->is_editor = 1;
+		} else {
+			$this->is_editor = 0;
+		}
 	}
 
 	/**
