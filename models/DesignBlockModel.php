@@ -11,6 +11,26 @@ class DesignBlockModel extends AbstractModel
 {
 
 	/**
+	 * Min margin value
+	 */
+	const MIN_MARGIN_VALUE = -300;
+
+	/**
+	 * Min padding value
+	 */
+	const MIN_PADDING_VALUE = 0;
+
+	/**
+	 * Min border width value
+	 */
+	const MIN_BORDER_WIDTH_VALUE = 0;
+
+	/**
+	 * Min border radius value
+	 */
+	const MIN_BORDER_RADIUS_VALUE = 0;
+
+	/**
 	 * Gradient direction. Horizontal
 	 */
 	const GRADIENT_DIRECTION_HORIZONTAL = 0;
@@ -342,21 +362,67 @@ class DesignBlockModel extends AbstractModel
 	}
 
 	/**
+	 * Runs after finding model
+	 *
+	 * @return AbstractModel
+	 */
+	protected function afterFind()
+	{
+		parent::afterFind();
+
+		$this->_setValues();
+	}
+
+	/**
 	 * Runs before save
 	 *
 	 * @return bool
 	 */
 	protected function beforeSave()
 	{
+		$this->_setValues();
+
+		return parent::beforeSave();
+	}
+
+	/**
+	 * Sets values
+	 */
+	private function _setValues()
+	{
 		$this->margin_top = intval($this->margin_top);
+		if ($this->margin_top < self::MIN_MARGIN_VALUE) {
+			$this->margin_top = self::MIN_MARGIN_VALUE;
+		}
 		$this->margin_right = intval($this->margin_right);
+		if ($this->margin_right < self::MIN_MARGIN_VALUE) {
+			$this->margin_right = self::MIN_MARGIN_VALUE;
+		}
 		$this->margin_bottom = intval($this->margin_bottom);
+		if ($this->margin_bottom < self::MIN_MARGIN_VALUE) {
+			$this->margin_bottom = self::MIN_MARGIN_VALUE;
+		}
 		$this->margin_left = intval($this->margin_left);
+		if ($this->margin_left < self::MIN_MARGIN_VALUE) {
+			$this->margin_left = self::MIN_MARGIN_VALUE;
+		}
 
 		$this->padding_top = intval($this->padding_top);
+		if ($this->padding_top < self::MIN_PADDING_VALUE) {
+			$this->padding_top = self::MIN_PADDING_VALUE;
+		}
 		$this->padding_right = intval($this->padding_right);
+		if ($this->padding_right < self::MIN_PADDING_VALUE) {
+			$this->padding_right = self::MIN_PADDING_VALUE;
+		}
 		$this->padding_bottom = intval($this->padding_bottom);
+		if ($this->padding_bottom < self::MIN_PADDING_VALUE) {
+			$this->padding_bottom = self::MIN_PADDING_VALUE;
+		}
 		$this->padding_left = intval($this->padding_left);
+		if ($this->padding_left < self::MIN_PADDING_VALUE) {
+			$this->padding_left = self::MIN_PADDING_VALUE;
+		}
 
 		if (!$this->_isColor($this->background_color_from)) {
 			$this->background_color_from = "";
@@ -365,23 +431,51 @@ class DesignBlockModel extends AbstractModel
 			$this->background_color_to = "";
 		}
 		$this->gradient_direction = intval($this->gradient_direction);
+		if (!array_key_exists($this->gradient_direction, self::$gradientDirectionList)) {
+			$this->gradient_direction = self::GRADIENT_DIRECTION_HORIZONTAL;
+		}
 
 		$this->border_top_width = intval($this->border_top_width);
+		if ($this->border_top_width < self::MIN_BORDER_WIDTH_VALUE) {
+			$this->border_top_width = self::MIN_BORDER_WIDTH_VALUE;
+		}
 		$this->border_right_width = intval($this->border_right_width);
+		if ($this->border_right_width < self::MIN_BORDER_WIDTH_VALUE) {
+			$this->border_right_width = self::MIN_BORDER_WIDTH_VALUE;
+		}
 		$this->border_bottom_width = intval($this->border_bottom_width);
+		if ($this->border_bottom_width < self::MIN_BORDER_WIDTH_VALUE) {
+			$this->border_bottom_width = self::MIN_BORDER_WIDTH_VALUE;
+		}
 		$this->border_left_width = intval($this->border_left_width);
+		if ($this->border_left_width < self::MIN_BORDER_WIDTH_VALUE) {
+			$this->border_left_width = self::MIN_BORDER_WIDTH_VALUE;
+		}
 
 		$this->border_top_left_radius = intval($this->border_top_left_radius);
+		if ($this->border_top_left_radius < self::MIN_BORDER_RADIUS_VALUE) {
+			$this->border_top_left_radius = self::MIN_BORDER_RADIUS_VALUE;
+		}
 		$this->border_top_right_radius = intval($this->border_top_right_radius);
+		if ($this->border_top_right_radius < self::MIN_BORDER_RADIUS_VALUE) {
+			$this->border_top_right_radius = self::MIN_BORDER_RADIUS_VALUE;
+		}
 		$this->border_bottom_right_radius = intval($this->border_bottom_right_radius);
+		if ($this->border_bottom_right_radius < self::MIN_BORDER_RADIUS_VALUE) {
+			$this->border_bottom_right_radius = self::MIN_BORDER_RADIUS_VALUE;
+		}
 		$this->border_bottom_left_radius = intval($this->border_bottom_left_radius);
+		if ($this->border_bottom_left_radius < self::MIN_BORDER_RADIUS_VALUE) {
+			$this->border_bottom_left_radius = self::MIN_BORDER_RADIUS_VALUE;
+		}
 
 		if (!$this->_isColor($this->border_color)) {
 			$this->border_color = "";
 		}
 		$this->border_style = intval($this->border_style);
-
-		return parent::beforeSave();
+		if (!array_key_exists($this->border_style, self::$borderStyleList)) {
+			$this->border_style = self::BORDER_STYLE_NONE;
+		}
 	}
 
 	/**

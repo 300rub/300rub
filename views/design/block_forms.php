@@ -8,7 +8,7 @@ use models\DesignBlockModel;
 		<div class="j-title"><?= Language::t("design", "margin") ?></div>
 		<div
 			class="j-margin-container"
-			data-min="-300"
+			data-min="<?= DesignBlockModel::MIN_MARGIN_VALUE ?>"
 			data-result="j-result"
 			>
 			<div class="j-top-left">
@@ -38,7 +38,7 @@ use models\DesignBlockModel;
 		<div><?= Language::t("design", "padding") ?></div>
 		<div
 			class="j-padding-container"
-			data-min="0"
+			data-min="<?= DesignBlockModel::MIN_PADDING_VALUE ?>"
 			data-result="j-container"
 			>
 			<div class="j-top-left">
@@ -68,7 +68,7 @@ use models\DesignBlockModel;
 		<div><?= Language::t("design", "borderRadius") ?></div>
 		<div
 			class="j-border-radius-container"
-			data-min="0"
+			data-min="<?= DesignBlockModel::MIN_BORDER_RADIUS_VALUE ?>"
 			data-result="j-result"
 			>
 			<div class="j-top-left">
@@ -98,7 +98,7 @@ use models\DesignBlockModel;
 		<div><?= Language::t("design", "border") ?></div>
 		<div
 			class="j-border-container"
-			data-min="0"
+			data-min="<?= DesignBlockModel::MIN_BORDER_WIDTH_VALUE ?>"
 			data-result="j-result"
 			>
 			<div class="j-top-left">
