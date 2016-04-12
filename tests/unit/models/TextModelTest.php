@@ -36,11 +36,7 @@ class TextModelTest extends AbstractModelTest
                 [],
                 [
                     "t.name" => "required",
-                ],
-                [],
-                [],
-                [],
-                []
+                ]
             ],
             // Insert: empty values
             [
@@ -55,11 +51,7 @@ class TextModelTest extends AbstractModelTest
                 ],
                 [
                     "t.name" => "required",
-                ],
-                [],
-                [],
-                [],
-                []
+                ]
             ],
             // Insert: only name. Update: empty fields
             [

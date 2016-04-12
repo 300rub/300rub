@@ -36,18 +36,20 @@ abstract class AbstractModelTest extends AbstractUnitTest
      * @param array $updateData
      * @param array $updateErrors
      * @param array $updateExpected
+     * @param array $skipRelationsForDelete
      *
      * @dataProvider dataProviderForCRUD
      *
      * @return bool
      */
     public function testCRUD(
-        $createData,
-        $createErrors,
-        $createExpected,
-        $updateData,
-        $updateErrors,
-        $updateExpected
+        array $createData,
+        array $createErrors,
+        array $createExpected = [],
+        array $updateData = [],
+        array $updateErrors = [],
+        array $updateExpected = [],
+        array $skipRelationsForDelete = []
     )
     {
         // Create
@@ -77,6 +79,10 @@ abstract class AbstractModelTest extends AbstractUnitTest
         $relationKeys = $model->getRelationKeys();
         $this->assertEquals(true, $model->delete());
         foreach ($relationKeys as $key) {
+            if (in_array($key, $skipRelationsForDelete)) {
+                continue;    
+            }
+            
             /**
              * @var AbstractModel $relationModel
              */

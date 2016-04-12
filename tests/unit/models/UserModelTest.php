@@ -36,11 +36,7 @@ class UserModelTest extends AbstractModelTest
 				[
 					"t.login"    => "required",
 					"t.password" => "required",
-				],
-				[],
-				[],
-				[],
-				[]
+				]
 			],
 			// Insert: empty values
 			[
@@ -51,11 +47,7 @@ class UserModelTest extends AbstractModelTest
 				[
 					"t.login"    => "required",
 					"t.password" => "required",
-				],
-				[],
-				[],
-				[],
-				[]
+				]
 			],
 			// Insert: small values
 			[
@@ -66,11 +58,7 @@ class UserModelTest extends AbstractModelTest
 				[
 					"t.login"    => "min",
 					"t.password" => "min",
-				],
-				[],
-				[],
-				[],
-				[]
+				]
 			],
 			// Insert: login with space
 			[
@@ -80,11 +68,7 @@ class UserModelTest extends AbstractModelTest
 				],
 				[
 					"t.login"    => "latinDigitUnderscoreHyphen"
-				],
-				[],
-				[],
-				[],
-				[]
+				]
 			],
 			// Insert: login with symbols
 			[
@@ -94,11 +78,7 @@ class UserModelTest extends AbstractModelTest
 				],
 				[
 					"t.login"    => "latinDigitUnderscoreHyphen"
-				],
-				[],
-				[],
-				[],
-				[]
+				]
 			],
 			// Insert: normal. Update: empty fields
 			[
@@ -136,8 +116,7 @@ class UserModelTest extends AbstractModelTest
 				[
 					"t.login"    => "required",
 					"t.password" => "required",
-				],
-				[]
+				]
 			],
 			// Insert: normal. Update: small values
 			[
@@ -157,8 +136,7 @@ class UserModelTest extends AbstractModelTest
 				[
 					"t.login"    => "min",
 					"t.password" => "min",
-				],
-				[]
+				]
 			],
 			// Insert: normal. Update: login with spaces
 			[
@@ -177,8 +155,7 @@ class UserModelTest extends AbstractModelTest
 				],
 				[
 					"t.login"    => "latinDigitUnderscoreHyphen",
-				],
-				[]
+				]
 			],
 			// Insert: normal. Update: login symbols
 			[
@@ -197,8 +174,7 @@ class UserModelTest extends AbstractModelTest
 				],
 				[
 					"t.login"    => "latinDigitUnderscoreHyphen",
-				],
-				[]
+				]
 			],
 			// Insert: normal. Update: normal
 			[

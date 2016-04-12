@@ -574,12 +574,41 @@ class GridModel extends AbstractModel
 		if ($this->grid_line_id === 0 || GridLineModel::model()->byId($this->grid_line_id)->find() === null) {
 			return false;
 		}
+		
+		if ($this->content_type === 0 || $this->content_id === 0) {
+			return false;
+		}
+		$typeList = self::getTypesList();
+		if (!array_key_exists($this->content_type, $typeList)) {
+			return false;
+		}
+		$className = "\\models\\" . $typeList[$this->content_type]["model"];
+		$model = new $className;
+		if (
+			!$model instanceof AbstractModel
+			|| !$model->byId($this->content_id)->find()
+		) {
+			return false;
+		}
+		
+		if ($this->x < 0) {
+			$this->x = 0;
+		} else if ($this->x >= self::GRID_SIZE) {
+			$this->x = self::GRID_SIZE - 1;
+		}
+
+		if ($this->y < 0) {
+			$this->y = 0;
+		}
 
 		if ($this->width <= 0) {
 			$this->width = self::DEFAULT_WIDTH;
 		}
 		if ($this->width >= self::GRID_SIZE) {
 			$this->width = self::GRID_SIZE;
+		}
+		if ($this->width + $this->x > self::GRID_SIZE) {
+			$this->width = self::GRID_SIZE - $this->x;
 		}
 
 		return parent::beforeSave();

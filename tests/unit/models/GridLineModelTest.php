@@ -33,10 +33,6 @@ class GridLineModelTest extends AbstractModelTest
             // Insert: empty fields
             [
                 [],
-                [],
-                [],
-                [],
-                [],
                 []
             ],
             // Insert: empty values
@@ -47,10 +43,6 @@ class GridLineModelTest extends AbstractModelTest
                     "t.outside_design_id" => "",
                     "t.inside_design_id"  => "",
                 ],
-                [],
-                [],
-                [],
-                [],
                 []
             ],
             // Insert: correct values. Update: correct values.
