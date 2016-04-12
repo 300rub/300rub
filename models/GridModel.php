@@ -25,6 +25,11 @@ class GridModel extends AbstractModel
 	const GRID_SIZE = 12;
 
 	/**
+	 * Default width
+	 */
+	const DEFAULT_WIDTH = 3;
+
+	/**
 	 * Content types. Text
 	 */
 	const TYPE_TEXT = 1;
@@ -401,13 +406,15 @@ class GridModel extends AbstractModel
 		}
 
 		foreach ($oldGrids as $grid) {
-			$grid->gridLineModel = null;
 			if (!$grid->delete(false)) {
 				Db::rollbackTransaction();
 				return false;
 			}
 		}
 
+		/**
+		 * @var \models\GridLineModel[] $oldGridLines
+		 */
 		foreach ($oldGridLines as $oldGridLine) {
 			$oldGridLine->delete(false);
 		}
@@ -531,19 +538,50 @@ class GridModel extends AbstractModel
 	}
 
 	/**
-	 * Runs before validation
+	 * Runs after finding model
 	 *
-	 * @return void
+	 * @return AbstractModel
 	 */
-	protected function beforeValidate()
+	protected function afterFind()
 	{
-		parent::beforeValidate();
+		parent::afterFind();
 
+		$this->_setValues();
+	}
+
+	/**
+	 * Sets values
+	 */
+	private function _setValues()
+	{
 		$this->grid_line_id = intval($this->grid_line_id);
 		$this->content_type = intval($this->content_type);
 		$this->content_id = intval($this->content_id);
 		$this->x = intval($this->x);
 		$this->y = intval($this->y);
 		$this->width = intval($this->width);
+	}
+
+	/**
+	 * Runs before save
+	 *
+	 * @return bool
+	 */
+	protected function beforeSave()
+	{
+		$this->_setValues();
+
+		if ($this->grid_line_id === 0 || GridLineModel::model()->byId($this->grid_line_id)->find() === null) {
+			return false;
+		}
+
+		if ($this->width <= 0) {
+			$this->width = self::DEFAULT_WIDTH;
+		}
+		if ($this->width >= self::GRID_SIZE) {
+			$this->width = self::GRID_SIZE;
+		}
+
+		return parent::beforeSave();
 	}
 }

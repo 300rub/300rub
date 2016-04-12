@@ -133,21 +133,6 @@ class GridLineModel extends AbstractModel
 	}
 
 	/**
-	 * Runs before validation
-	 *
-	 * @return void
-	 */
-	protected function beforeValidate()
-	{
-		parent::beforeValidate();
-
-		$this->section_id = intval($this->section_id);
-		$this->sort = intval($this->sort);
-		$this->outside_design_id = intval($this->outside_design_id);
-		$this->inside_design_id = intval($this->inside_design_id);
-	}
-
-	/**
 	 * Runs before deleting
 	 *
 	 * @return bool
@@ -181,13 +166,41 @@ class GridLineModel extends AbstractModel
 	}
 
 	/**
+	 * Runs after finding model
+	 *
+	 * @return AbstractModel
+	 */
+	protected function afterFind()
+	{
+		parent::afterFind();
+
+		$this->_setValues();
+	}
+
+	/**
+	 * Sets values
+	 */
+	private function _setValues()
+	{
+		$this->section_id = intval($this->section_id);
+		$this->sort = intval($this->sort);
+		$this->outside_design_id = intval($this->outside_design_id);
+		$this->inside_design_id = intval($this->inside_design_id);
+	}
+
+	/**
 	 * Runs before save
 	 *
 	 * @return bool
 	 */
 	protected function beforeSave()
 	{
-		$this->outside_design_id = intval($this->outside_design_id);
+		$this->_setValues();
+
+		if ($this->section_id === 0 || SectionModel::model()->byId($this->section_id)->find() === null) {
+			return false;
+		}
+
 		if (!$this->outsideDesignModel instanceof DesignBlockModel) {
 			if ($this->outside_design_id === 0) {
 				$this->outsideDesignModel = new DesignBlockModel();
@@ -199,7 +212,6 @@ class GridLineModel extends AbstractModel
 			}
 		}
 
-		$this->inside_design_id = intval($this->inside_design_id);
 		if (!$this->insideDesignModel instanceof DesignBlockModel) {
 			if ($this->inside_design_id === 0) {
 				$this->insideDesignModel = new DesignBlockModel();

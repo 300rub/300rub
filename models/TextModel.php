@@ -274,6 +274,9 @@ class TextModel extends AbstractModel
 		} else {
 			$this->is_editor = 0;
 		}
+
+		$this->design_text_id = intval($this->design_text_id);
+		$this->design_block_id = intval($this->design_block_id);
 	}
 
 	/**
@@ -297,7 +300,6 @@ class TextModel extends AbstractModel
 	{
 		$this->_setValues();
 
-		$this->design_text_id = intval($this->design_text_id);
 		if (!$this->designTextModel instanceof DesignTextModel) {
 			if ($this->design_text_id === 0) {
 				$this->designTextModel = new DesignTextModel();
@@ -309,7 +311,6 @@ class TextModel extends AbstractModel
 			}
 		}
 
-		$this->design_block_id = intval($this->design_block_id);
 		if (!$this->designBlockModel instanceof DesignBlockModel) {
 			if ($this->design_block_id === 0) {
 				$this->designBlockModel = new DesignBlockModel();
