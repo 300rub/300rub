@@ -114,7 +114,7 @@ class SeoModelTest extends AbstractModelTest
                 [],
                 [
                     "t.name"        => "seo name",
-                    "t.url"         => "seo-ur",
+                    "t.url"         => "seo-url",
                     "t.title"       => "seo title",
                     "t.keywords"    => "seo keywords",
                     "t.description" => "seo description",

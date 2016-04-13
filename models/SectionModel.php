@@ -357,7 +357,7 @@ class SectionModel extends AbstractModel
 			if ($useTransaction === true) {
 				Db::commitTransaction();
 			}
-			return $model->id;
+			return $model;
 		} catch (Exception $e) {
 			if ($useTransaction === true) {
 				Db::rollbackTransaction();
