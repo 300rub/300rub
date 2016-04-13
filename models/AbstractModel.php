@@ -75,13 +75,6 @@ abstract class AbstractModel
 	protected $relations = [];
 
 	/**
-	 * Fields for duplicate
-	 *
-	 * @var string[]
-	 */
-	public $fieldsForDuplicate = [];
-
-	/**
 	 * Gets table name
 	 *
 	 * @return string
@@ -462,16 +455,6 @@ abstract class AbstractModel
 			Db::commitTransaction();
 		}
 		return true;
-	}
-
-	/**
-	 * Duplicates model
-	 *
-	 * @return null
-	 */
-	public function duplicate()
-	{
-		return null;
 	}
 
 	/**
