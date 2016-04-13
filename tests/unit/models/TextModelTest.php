@@ -209,7 +209,7 @@ class TextModelTest extends AbstractModelTest
         $this->assertEquals($modelForCopy->is_editor, $modelCopy->is_editor);
         $this->assertEquals($modelForCopy->type, $modelCopy->type);
         $this->assertEquals($modelForCopy->text, $modelCopy->text);
-        $this->assertEquals($modelForCopy->name, $modelCopy->name);
+        $this->assertEquals(Language::t("common", "copy") . " {$modelForCopy->name}", $modelCopy->name);
         $this->assertNotEquals($modelForCopy->design_text_id, $modelCopy->design_text_id);
         $this->assertNotEquals($modelForCopy->design_block_id, $modelCopy->design_block_id);
 

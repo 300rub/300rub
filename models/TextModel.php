@@ -369,6 +369,7 @@ class TextModel extends AbstractModel
 			}
 
 			$model = clone $this;
+			$model->name = Language::t("common", "copy") . " {$this->name}";
 			$model->id = 0;
 			$model->designTextModel = $designTextModel;
 			$model->design_text_id = $designTextModel->id;

@@ -3,6 +3,8 @@
 namespace tests\unit\models;
 
 use components\Language;
+use models\GridLineModel;
+use models\GridModel;
 use models\SectionModel;
 
 /**
@@ -139,5 +141,59 @@ class SectionModelTest extends AbstractModelTest
 	public function testFindByUrl()
 	{
 		$this->assertEquals(1, SectionModel::model()->byUrl("texts")->find()->id);
+	}
+
+	/**
+	 * Duplicate test
+	 */
+	public function testDuplicate()
+	{
+		$idForCopy = 1;
+		$model = $this->getModel()->byId($idForCopy)->find();
+		$this->assertNotNull($model);
+
+		$modelAfterDuplicate = $model->duplicate();
+		$this->assertNotNull($modelAfterDuplicate);
+
+		$modelForCopy = $this->getModel()->withAll()->byId($idForCopy)->find();
+		$modelCopy = $this->getModel()->withAll()->byId($modelAfterDuplicate->id)->find();
+
+		$this->assertNotEquals($modelForCopy->id, $modelCopy->id);
+		$this->assertNotEquals($modelForCopy->seo_id, $modelCopy->seo_id);
+		$this->assertEquals(0, $modelCopy->is_main);
+		$this->assertNotEquals($modelForCopy->design_block_id, $modelCopy->design_block_id);
+		$this->assertEquals($modelForCopy->language, $modelCopy->language);
+		$this->assertEquals($modelForCopy->width, $modelCopy->width);
+
+		foreach ($modelForCopy->designBlockModel->getFieldNames() as $field) {
+			$this->assertEquals($modelForCopy->designBlockModel->$field, $modelCopy->designBlockModel->$field);
+		}
+
+		$gridLinesForCopy = GridLineModel::model()->bySectionId($modelForCopy->id)->withAll()->findAll();
+		$gridLinesCopy = GridLineModel::model()->bySectionId($modelCopy->id)->withAll()->findAll();
+		$this->assertEquals(count($gridLinesForCopy), count($gridLinesCopy));
+
+		foreach ($gridLinesForCopy as $key => $gridLineForCopy) {
+			$this->assertArrayHasKey($key, $gridLinesCopy);
+			$gridLineCopy = $gridLinesCopy[$key];
+			$this->assertEquals($gridLineForCopy->sort, $gridLineCopy->sort);
+
+			$gridsForCopy = GridModel::model()->byLineId($gridLineForCopy->id)->findAll();
+			$gridsCopy = GridModel::model()->byLineId($gridLineCopy->id)->findAll();
+			$this->assertEquals(count($gridsForCopy), count($gridsCopy));
+
+			foreach ($gridsForCopy as $keyGrid => $gridForCopy) {
+				$this->assertArrayHasKey($keyGrid, $gridsCopy);
+				$gridCopy = $gridsCopy[$key];
+				$this->assertNotEquals($gridForCopy->grid_line_id, $gridCopy->grid_line_id);
+				$this->assertEquals($gridForCopy->x, $gridCopy->x);
+				$this->assertEquals($gridForCopy->y, $gridCopy->y);
+				$this->assertEquals($gridForCopy->width, $gridCopy->width);
+				$this->assertEquals($gridForCopy->content_type, $gridCopy->content_type);
+				$this->assertEquals($gridForCopy->content_id, $gridCopy->content_id);
+			}
+		}
+
+		$this->assertTrue($modelCopy->delete());
 	}
 }
