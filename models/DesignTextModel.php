@@ -1,6 +1,7 @@
 <?php
 
 namespace models;
+use components\Db;
 
 /**
  * Model for working with table "design_texts"
@@ -354,24 +355,6 @@ class DesignTextModel extends AbstractModel
 	];
 
 	/**
-	 * Fields for duplicate
-	 *
-	 * @var string[]
-	 */
-	public $fieldsForDuplicate = [
-		"size",
-		"family",
-		"color",
-		"is_bold",
-		"is_italic",
-		"align",
-		"decoration",
-		"transform",
-		"letter_spacing",
-		"line_height"
-	];
-
-	/**
 	 * Validation rules
 	 *
 	 * @return array
@@ -647,5 +630,34 @@ class DesignTextModel extends AbstractModel
 		}
 
 		return "";
+	}
+
+	/**
+	 * Duplicates model
+	 *
+	 * @param bool $useTransaction Is transaction needs to be used
+	 *
+	 * @return DesignTextModel|null
+	 */
+	public function duplicate($useTransaction = false)
+	{
+		if ($useTransaction === true) {
+			Db::startTransaction();
+		}
+
+		$model = clone $this;
+		$model->id = 0;
+
+		if (!$model->save($useTransaction)) {
+			if ($useTransaction === true) {
+				Db::rollbackTransaction();
+			}
+			return null;
+		}
+
+		if ($useTransaction === true) {
+			Db::commitTransaction();
+		}
+		return $model;
 	}
 }

@@ -613,4 +613,34 @@ class GridModel extends AbstractModel
 
 		return parent::beforeSave();
 	}
+
+	/**
+	 * Duplicates model
+	 *
+	 * @param int  $gridLineId     Line's ID
+	 * @param bool $useTransaction Is transaction needs to be used
+	 *
+	 * @return GridModel|null
+	 */
+	public function duplicate($gridLineId, $useTransaction = false)
+	{
+		if ($useTransaction === true) {
+			Db::startTransaction();
+		}
+
+		$model = clone $this;
+		$model->id = 0;
+		$model->grid_line_id = $gridLineId;
+		if (!$model->save($useTransaction)) {
+			if ($useTransaction === true) {
+				Db::rollbackTransaction();
+			}
+			return null;
+		}
+
+		if ($useTransaction === true) {
+			Db::commitTransaction();
+		}
+		return $model;
+	}
 }

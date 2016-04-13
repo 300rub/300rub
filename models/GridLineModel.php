@@ -1,6 +1,7 @@
 <?php
 
 namespace models;
+use components\Db;
 
 /**
  * Model for working with table "grid_lines"
@@ -66,6 +67,15 @@ class GridLineModel extends AbstractModel
 	protected $relations = [
 		"outsideDesignModel" => ['models\DesignBlockModel', "outside_design_id"],
 		"insideDesignModel" => ['models\DesignBlockModel', "inside_design_id"]
+	];
+
+	/**
+	 * Fields for duplicate
+	 *
+	 * @var string[]
+	 */
+	public $fieldsForDuplicate = [
+		"sort"
 	];
 
 	/**
@@ -224,5 +234,65 @@ class GridLineModel extends AbstractModel
 		}
 
 		return parent::beforeSave();
+	}
+
+	/**
+	 * Duplicates model
+	 *
+	 * @param int  $sectionId      Section's ID
+	 * @param bool $useTransaction Is transaction needs to be used
+	 *
+	 * @return GridLineModel|null
+	 */
+	public function duplicate($sectionId, $useTransaction = false)
+	{
+		if ($useTransaction === true) {
+			Db::startTransaction();
+		}
+
+		$outsideDesignModel = $this->outsideDesignModel->duplicate();
+		if ($outsideDesignModel === null) {
+			if ($useTransaction === true) {
+				Db::rollbackTransaction();
+			}
+			return null;
+		}
+
+		$insideDesignModel = $this->insideDesignModel->duplicate();
+		if ($insideDesignModel === null) {
+			if ($useTransaction === true) {
+				Db::rollbackTransaction();
+			}
+			return null;
+		}
+
+		$model = new GridLineModel();
+		$model->section_id = $sectionId;
+		$model->sort = $this->sort;
+		$model->outsideDesignModel = $outsideDesignModel;
+		$model->outside_design_id = $outsideDesignModel->id;
+		$model->insideDesignModel = $insideDesignModel;
+		$model->inside_design_id = $insideDesignModel->id;
+		if (!$model->save($useTransaction)) {
+			if ($useTransaction === true) {
+				Db::rollbackTransaction();
+			}
+			return null;
+		}
+
+		$grids = GridModel::model()->byLineId($this->id)->findAll();
+		foreach ($grids as $grid) {
+			if ($grid->duplicate($model->id, $useTransaction) === null) {
+				if ($useTransaction === true) {
+					Db::rollbackTransaction();
+				}
+				return null;
+			}
+		}
+
+		if ($useTransaction === true) {
+			Db::commitTransaction();
+		}
+		return $model;
 	}
 }

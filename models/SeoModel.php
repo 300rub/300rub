@@ -2,6 +2,7 @@
 
 namespace models;
 
+use components\Db;
 use components\Language;
 
 /**
@@ -91,18 +92,17 @@ class SeoModel extends AbstractModel
 	 */
 	protected function beforeValidate()
 	{
-		$this->name = strip_tags($this->name);
-		$this->url = strip_tags($this->url);
-		$this->title = strip_tags($this->title);
-		$this->keywords = strip_tags($this->keywords);
-		$this->description = strip_tags($this->description);
+		$this->name = trim(strip_tags($this->name));
+		$this->url = trim(strip_tags($this->url));
+		$this->title = trim(strip_tags($this->title));
+		$this->keywords = trim(strip_tags($this->keywords));
+		$this->description = trim(strip_tags($this->description));
 
 		if ($this->name && !$this->url) {
 			$this->url = $this->name;
 		}
 		$this->url = Language::translit($this->url);
-		$this->url = str_replace("_", "-", $this->url);
-		$this->url = str_replace(" ", "-", $this->url);
+		$this->url = str_replace(["_", " "], "-", $this->url);
 		$this->url = strtolower($this->url);
 		$this->url = preg_replace('~[^-a-z0-9]+~u', '', $this->url);
 		$this->url = trim($this->url, "-");
@@ -130,22 +130,33 @@ class SeoModel extends AbstractModel
 	/**
 	 * Duplicates SEO
 	 *
-	 * @param bool $useTransaction Is transaction used
+	 * @param bool $useTransaction Is transaction needs to be used
 	 *
-	 * @return int
+	 * @return SeoModel|null
 	 */
-	public function duplicate($useTransaction = true)
+	public function duplicate($useTransaction = false)
 	{
-		$seoModel = clone $this;
-		$seoModel->id = null;
-		$seoModel->name = Language::t("common", "copy") . " {$seoModel->name}";
-		$seoModel->url .= "-copy" . rand(1000, 100000);
-		$seoModel->title = "";
-		$seoModel->keywords = "";
-		$seoModel->description = "";
+		if ($useTransaction === true) {
+			Db::startTransaction();
+		}
 
-		$seoModel->save($useTransaction);
+		$model = new SeoModel();
+		$model->name = Language::t("common", "copy") . " {$this->name}";
+		$model->url = "{$this->url}-copy" . rand(1000, 100000);
+		$model->title = "";
+		$model->keywords = "";
+		$model->description = "";
 
-		return intval($seoModel->id);
+		if (!$model->save($useTransaction)) {
+			if ($useTransaction === true) {
+				Db::rollbackTransaction();
+			}
+			return null;
+		}
+
+		if ($useTransaction === true) {
+			Db::commitTransaction();
+		}
+		return $model;
 	}
 }

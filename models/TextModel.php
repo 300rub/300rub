@@ -339,46 +339,57 @@ class TextModel extends AbstractModel
 	 * Duplicates section
 	 * If success returns ID of new section
 	 *
-	 * @return int
+	 * @param bool $useTransaction Is transaction needs to be used
+	 *
+	 * @return TextModel|null
 	 */
-	public function duplicate()
+	public function duplicate($useTransaction = true)
 	{
-		Db::startTransaction();
+		if ($useTransaction === true) {
+			Db::startTransaction();
+		}
 
 		try {
 			$modelForCopy = $this->withAll()->byId($this->id)->find();
 
-			$designTextModel = clone $modelForCopy->designTextModel;
-			$designTextModel->id = null;
-			if (!$designTextModel->save(false)) {
-				Db::rollbackTransaction();
-				return 0;
+			$designTextModel = $modelForCopy->designTextModel->duplicate();
+			if ($designTextModel === null) {
+				if ($useTransaction === true) {
+					Db::rollbackTransaction();
+				}
+				return null;
 			}
 
-			$designBlockModel = clone $modelForCopy->designBlockModel;
-			$designBlockModel->id = null;
-			if (!$designBlockModel->save(false)) {
-				Db::rollbackTransaction();
-				return 0;
+			$designBlockModel = $modelForCopy->designBlockModel->duplicate();
+			if ($designBlockModel === null) {
+				if ($useTransaction === true) {
+					Db::rollbackTransaction();
+				}
+				return null;
 			}
 
-			$model = clone $modelForCopy;
-			$model->id = null;
+			$model = clone $this;
+			$model->id = 0;
 			$model->designTextModel = $designTextModel;
-			$model->designBlockModel = $designBlockModel;
 			$model->design_text_id = $designTextModel->id;
+			$model->designBlockModel = $designBlockModel;
 			$model->design_block_id = $designBlockModel->id;
-
 			if (!$model->save(false)) {
-				Db::rollbackTransaction();
-				return 0;
+				if ($useTransaction === true) {
+					Db::rollbackTransaction();
+				}
+				return null;
 			}
 
-			Db::commitTransaction();
-			return intval($model->id);
+			if ($useTransaction === true) {
+				Db::commitTransaction();
+			}
+			return $model->id;
 		} catch (Exception $e) {
-			Db::rollbackTransaction();
-			return 0;
+			if ($useTransaction === true) {
+				Db::rollbackTransaction();
+			}
+			return null;
 		}
 	}
 

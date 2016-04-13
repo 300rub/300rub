@@ -170,39 +170,21 @@ class SectionModel extends AbstractModel
 	}
 
 	/**
-	 * Runs before validation
-	 *
-	 * @return void
-	 */
-	protected function beforeValidate()
-	{
-		$this->seo_id = intval($this->seo_id);
-		$this->language = intval($this->language);
-		$this->width = intval($this->width);
-		$this->is_main = intval($this->is_main);
-
-		if (!$this->width) {
-			$this->width = self::DEFAULT_WIDTH;
-		}
-	}
-
-	/**
 	 * Runs before save
 	 *
 	 * @return bool
 	 */
 	protected function beforeSave()
 	{
-		if ($this->is_main && !$this->updateForAll(["is_main" => 0])) {
+		$this->_setValues();
+
+		if ($this->is_main === 1 && !$this->updateForAll(["is_main" => 0])) {
 			return false;
 		}
 		if (!$this->is_main && !$this->selectMain()->find()) {
 			$this->is_main = 1;
 		}
 
-		$this->design_block_id = intval($this->design_block_id);
-
-		$this->design_block_id = intval($this->design_block_id);
 		if (!$this->designBlockModel instanceof DesignBlockModel) {
 			if ($this->design_block_id === 0) {
 				$this->designBlockModel = new DesignBlockModel();
@@ -218,15 +200,54 @@ class SectionModel extends AbstractModel
 	}
 
 	/**
+	 * Sets values
+	 */
+	private function _setValues()
+	{
+		$this->seo_id = intval($this->seo_id);
+
+		$this->language = intval($this->language);
+		if (!array_key_exists($this->language, Language::$aliasList)) {
+			$this->language = Language::$activeId;
+		}
+
+		$this->width = intval($this->width);
+		if ($this->width <= 0) {
+			$this->width = 0;
+		} {
+			$this->width = self::DEFAULT_WIDTH;
+		}
+
+		$this->is_main = intval($this->is_main);
+		if ($this->is_main < 0) {
+			$this->is_main = 0;
+		} else if ($this->is_main > 1) {
+			$this->is_main = 1;
+		}
+
+		$this->design_block_id = intval($this->design_block_id);
+	}
+
+	/**
+	 * Runs after finding model
+	 *
+	 * @return void
+	 */
+	protected function afterFind()
+	{
+		parent::afterFind();
+
+		$this->_setValues();
+	}
+
+	/**
 	 * Gets width
 	 *
 	 * @return string
 	 */
 	public function getWidth()
 	{
-		if ($this->width == 0) {
-			return self::DEFAULT_WIDTH . "px";
-		} else if ($this->width <= 100) {
+		if ($this->width <= 100) {
 			return "{$this->width}%";
 		}
 		return "{$this->width}px";
@@ -279,82 +300,69 @@ class SectionModel extends AbstractModel
 	 * Duplicates section
 	 * If success returns ID of new section
 	 *
-	 * @return int
+	 * @param bool $useTransaction Is transaction needs to be used
+	 *
+	 * @return SectionModel|null
 	 */
-	public function duplicate()
+	public function duplicate($useTransaction = true)
 	{
-		Db::startTransaction();
+		if ($useTransaction === true) {
+			Db::startTransaction();
+		}
 
 		try {
 			$modelForCopy = $this->withAll()->byId($this->id)->find();
 
-			$seoId = $modelForCopy->seoModel->duplicate(false);
-			if (!$seoId) {
-				Db::rollbackTransaction();
-				return 0;
+			$seoModel = $modelForCopy->seoModel->duplicate(false);
+			if ($seoModel === null) {
+				if ($useTransaction === true) {
+					Db::rollbackTransaction();
+				}
+				return null;
 			}
 
-			$designBlockModel = clone $modelForCopy->designBlockModel;
-			$designBlockModel->id = null;
-			if (!$designBlockModel->save(false)) {
-				Db::rollbackTransaction();
-				return 0;
+			$designBlockModel = $modelForCopy->designBlockModel->duplicate();
+			if ($designBlockModel === null) {
+				if ($useTransaction === true) {
+					Db::rollbackTransaction();
+				}
+				return null;
 			}
 
-			$model = clone $modelForCopy;
-			$model->id = null;
-			$model->seoModel = null;
-			$model->designBlockModel = null;
-			$model->seo_id = $seoId;
-			$model->design_block_id = $designBlockModel->id;
+			$model = new SectionModel();
+			$model->seoModel = $seoModel;
+			$model->seo_id = $seoModel->id;
+			$model->language = $modelForCopy->language;
+			$model->width = $modelForCopy->width;
 			$model->is_main = 0;
+			$model->designBlockModel = $designBlockModel;
+			$model->design_block_id = $designBlockModel->id;
 			if (!$model->save(false)) {
-				Db::rollbackTransaction();
-				return 0;
+				if ($useTransaction === true) {
+					Db::rollbackTransaction();
+				}
+				return null;
 			}
 
 			$gridLines = GridLineModel::model()->bySectionId($modelForCopy->id)->withAll()->findAll();
 			foreach ($gridLines as $gridLine) {
-				$outsideDesignModel = clone $gridLine->outsideDesignModel;
-				$outsideDesignModel->id = null;
-				if (!$outsideDesignModel->save(false)) {
-					Db::rollbackTransaction();
-					return 0;
-				}
-				$insideDesignModel = clone $gridLine->insideDesignModel;
-				$insideDesignModel->id = null;
-				if (!$insideDesignModel->save(false)) {
-					Db::rollbackTransaction();
-					return 0;
-				}
-				$line = clone $gridLine;
-				$line->id = null;
-				$line->section_id = $model->id;
-				$line->outsideDesignModel = null;
-				$line->insideDesignModel = null;
-				$line->outside_design_id = $outsideDesignModel->id;
-				$line->inside_design_id = $insideDesignModel->id;
-				if (!$line->save(false)) {
-					Db::rollbackTransaction();
-					return 0;
-				}
-				$grids = GridModel::model()->byLineId($gridLine->id)->findAll();
-				foreach ($grids as $grid) {
-					$newGrid = clone $grid;
-					$newGrid->id = null;
-					$newGrid->grid_line_id = $line->id;
-					if (!$newGrid->save(false)) {
+				if ($gridLine->duplicate($model->id) === null) {
+					if ($useTransaction === true) {
 						Db::rollbackTransaction();
-						return 0;
 					}
+					return null;
 				}
 			}
 
-			Db::commitTransaction();
-			return intval($model->id);
+			if ($useTransaction === true) {
+				Db::commitTransaction();
+			}
+			return $model->id;
 		} catch (Exception $e) {
-			Db::rollbackTransaction();
-			return 0;
+			if ($useTransaction === true) {
+				Db::rollbackTransaction();
+			}
+			return null;
 		}
 	}
 
@@ -444,27 +452,5 @@ class SectionModel extends AbstractModel
 
 		Db::commitTransaction();
 		return true;
-	}
-
-	/**
-	 * Runs after finding model
-	 *
-	 * @return void
-	 */
-	protected function afterFind()
-	{
-		parent::afterFind();
-
-		if (!$this->seoModel) {
-			$this->seoModel = new SeoModel();
-		}
-
-		if (!$this->language) {
-			$this->language = Language::$activeId;
-		}
-
-		if (!$this->width) {
-			$this->width = self::DEFAULT_WIDTH;
-		}
 	}
 }
