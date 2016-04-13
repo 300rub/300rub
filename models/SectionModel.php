@@ -213,8 +213,6 @@ class SectionModel extends AbstractModel
 
 		$this->width = intval($this->width);
 		if ($this->width <= 0) {
-			$this->width = 0;
-		} {
 			$this->width = self::DEFAULT_WIDTH;
 		}
 

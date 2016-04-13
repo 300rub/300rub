@@ -78,6 +78,7 @@ class SectionModelTest extends AbstractModelTest
 				],
 				[
 					"seoModel.name"        => "   seo name 2   ",
+					"seoModel.url"         => "   ",
 					"seoModel.title"       => "   seo title 2  ",
 					"seoModel.keywords"    => "  seo keywords 2  ",
 					"seoModel.description" => "  seo description 2   ",
