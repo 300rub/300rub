@@ -103,7 +103,17 @@ abstract class AbstractModel
 		$this->db = new Db;
 		$this->db->tableName = $this->getTableName();
 		$this->db->relations = $this->relations;
-		$this->db->fields = array_keys($this->getRules());
+		$this->db->fields = $this->getFieldNames();
+	}
+
+	/**
+	 * Gets field names
+	 *
+	 * @return string[]
+	 */
+	public function getFieldNames()
+	{
+		return array_keys($this->getRules());
 	}
 
 	/**
@@ -457,11 +467,11 @@ abstract class AbstractModel
 	/**
 	 * Duplicates model
 	 *
-	 * @return int
+	 * @return null
 	 */
 	public function duplicate()
 	{
-		return 0;
+		return null;
 	}
 
 	/**

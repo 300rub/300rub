@@ -195,6 +195,32 @@ class TextModelTest extends AbstractModelTest
      */
     public function testDuplicate()
     {
-        $this->duplicateTesting();
+        $idForCopy = 1;
+        $model = $this->getModel()->byId($idForCopy)->find();
+        $this->assertNotNull($model);
+
+        $modelAfterDuplicate = $model->duplicate();
+        $this->assertNotNull($modelAfterDuplicate);
+
+        $modelForCopy = $this->getModel()->withAll()->byId($idForCopy)->find();
+        $modelCopy = $this->getModel()->withAll()->byId($modelAfterDuplicate->id)->find();
+
+        $this->assertNotEquals($modelForCopy->id, $modelCopy->id);
+        $this->assertEquals($modelForCopy->is_editor, $modelCopy->is_editor);
+        $this->assertEquals($modelForCopy->type, $modelCopy->type);
+        $this->assertEquals($modelForCopy->text, $modelCopy->text);
+        $this->assertEquals($modelForCopy->name, $modelCopy->name);
+        $this->assertNotEquals($modelForCopy->design_text_id, $modelCopy->design_text_id);
+        $this->assertNotEquals($modelForCopy->design_block_id, $modelCopy->design_block_id);
+
+        foreach ($modelForCopy->designTextModel->getFieldNames() as $field) {
+            $this->assertEquals($modelForCopy->designTextModel->$field, $modelCopy->designTextModel->$field);
+        }
+
+        foreach ($modelForCopy->designBlockModel->getFieldNames() as $field) {
+            $this->assertEquals($modelForCopy->designBlockModel->$field, $modelCopy->designBlockModel->$field);
+        }
+
+        $this->assertTrue($modelCopy->delete());
     }
 }

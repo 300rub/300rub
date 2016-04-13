@@ -131,40 +131,4 @@ abstract class AbstractModelTest extends AbstractUnitTest
             $this->assertEquals($error, $model->errors[$field]);
         }
     }
-
-    /**
-     * Duplicate test
-     */
-    protected function duplicateTesting()
-    {
-        $idForCopy = 1;
-        $model = $this->getModel()->byId($idForCopy)->find();
-        $this->assertNotNull($model);
-
-        $copyId = $model->duplicate();
-        $modelForCopy = $this->getModel()->withAll()->byId($idForCopy)->find();
-        $modelCopy = $this->getModel()->withAll()->byId($copyId)->find();
-
-        $this->assertNotEquals($modelForCopy->id, $modelCopy->id);
-        foreach ($modelForCopy->fieldsForDuplicate as $field) {
-            $this->assertEquals($modelForCopy->$field, $modelForCopy->$field);
-        }
-
-        // Comparing relations
-        foreach ($modelForCopy->getRelationKeys() as $relation) {
-            /**
-             * @var \models\AbstractModel $relationForCopy
-             * @var \models\AbstractModel $relationCopy
-             */
-            $relationForCopy = $modelForCopy->$relation;
-            $relationCopy = $modelCopy->$relation;
-
-            $this->assertNotEquals($relationForCopy->id, $relationCopy->id);
-            foreach ($relationForCopy->fieldsForDuplicate as $field) {
-                $this->assertEquals($relationForCopy->$field, $relationCopy->$field);
-            }
-        }
-
-        $this->assertTrue($modelCopy->delete());
-    }
 }
