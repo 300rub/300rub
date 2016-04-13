@@ -155,8 +155,8 @@ return [
         "padding_right"              => 30,
         "padding_bottom"             => 20,
         "padding_left"               => 10,
-        "background_color_from"      => "#ffffff",
-        "background_color_to"        => "#dddddd",
+        "background_color_from"      => "rgba(200,200,200,0.7)",
+        "background_color_to"        => "rgba(240,240,240,0.7)",
         "gradient_direction"         => 0,
         "border_top_left_radius"     => 10,
         "border_top_right_radius"    => 20,
@@ -167,7 +167,7 @@ return [
         "border_bottom_width"        => 2,
         "border_left_width"          => 2,
         "border_style"               => 1,
-        "border_color"               => "#cccccc",
+        "border_color"               => "rgb(65,65,65)",
     ],
     // texts_8
     8 => [
