@@ -11,7 +11,7 @@
 		$.form(this.data.forms, $container);
 
 		$container.find(".j-seoModel__name").on("keyup", function () {
-			$container.find(".j-seoModel__url").val($(this).val().transliteration());
+			$container.find(".j-seoModel__url").val($(this).transliteration());
 		});
 
 		this.settingsInit();

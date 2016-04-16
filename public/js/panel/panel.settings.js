@@ -5,9 +5,9 @@
 	 * Panel settings handler
 	 */
 	c.Panel.prototype.settingsInit = function() {
-		this.$_settingsDuplicate = c.$templates.find(".j-panel-settings-duplicate");
-		this.$_settingsDelete = c.$templates.find(".j-panel-settings-delete");
-		this.$_settingsSubmit = c.$templates.find(".j-panel-settings-submit");
+		this.$_settingsDuplicate = c.$templates.find(".j-panel-settings-duplicate").clone();
+		this.$_settingsDelete = c.$templates.find(".j-panel-settings-delete").clone();
+		this.$_settingsSubmit = c.$templates.find(".j-panel-settings-submit").clone();
 
 		this._setSettingsDuplicate()._setSettingsDelete()._setSettingsSubmit();
 	};
@@ -192,7 +192,7 @@
 	c.Panel.prototype._onSettingsSubmit = function() {
 		$.ajaxJson(
 			this.data.submit.action,
-			this.$panel.find(".j-panel-form").serializeObject(),
+			$.extend({}, this.$panel.find(".j-panel-form").serializeObject(), {id: this.id}),
 			$.proxy(this._onSettingsSubmitBefore, this),
 			$.proxy(this._onSettingsSubmitSuccess, this),
 			$.proxy(this.onError, this)

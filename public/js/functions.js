@@ -142,9 +142,15 @@
 			"_": "-"
 		};
 
+		var valuesString = "";
+		var val;
+		for (val in values) {
+			valuesString += val;
+		}
+
 		return this.val()
 			.replace(
-			new RegExp("[" + r + "]", "g"),
+				new RegExp("[" + valuesString + "]", "g"),
 				function (symbol) {
 					return symbol in values ? values[symbol] : "";
 				}
