@@ -17,8 +17,8 @@
 	};
 
 	/**
-	  * Help prototype
-	  */
+	 * Help prototype
+	 */
 	c.Help.prototype = {
 		/**
 		 * Constructor
