@@ -59,6 +59,7 @@ abstract class AbstractModelTest extends AbstractUnitTest
             $this->_checkErrors($model, $createErrors);
             return true;
         }
+        $this->_checkErrors($model, $createErrors);
 
         // Read
         $model = $this->getModel()->withAll()->byId($model->id)->find();
@@ -73,6 +74,7 @@ abstract class AbstractModelTest extends AbstractUnitTest
             $this->_checkErrors($model, $updateErrors);
             return true;
         }
+        $this->_checkErrors($model, $updateErrors);
         $this->_checkValues($model, $updateExpected);
 
         // Delete

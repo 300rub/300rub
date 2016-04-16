@@ -72,7 +72,7 @@ class Validator
 		foreach ($this->_model->getRules() as $field => $types) {
 			foreach ($types as $key => $value) {
 				$this->_mapForVerification[] = [
-					"method" => $value,
+					"method" => is_string($key) ? $key : $value,
 					"field"  => $field,
 					"value"  => $value
 				];
@@ -134,7 +134,11 @@ class Validator
 	 */
 	private function _addError($field, $value)
 	{
-		$this->_errors[$this->_objectName . AbstractModel::DEFAULT_SEPARATOR . $field] = $value;
+		$fieldsName = $this->_objectName . AbstractModel::DEFAULT_SEPARATOR . $field;
+		if (!array_key_exists($fieldsName, $this->_errors)) {
+			$this->_errors[$fieldsName] = $value;
+		}
+
 		return $this;
 	}
 

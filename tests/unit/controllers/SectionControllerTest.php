@@ -21,7 +21,8 @@ class SectionControllerTest extends AbstractControllerTest
     {
         return array_merge(
             $this->_dataProviderForActionPanelList(),
-            $this->_dataProviderForActionSettings()
+            $this->_dataProviderForActionSettings(),
+            $this->_dataProviderForActionSaveSettings()
         );
     }
 
@@ -204,6 +205,81 @@ class SectionControllerTest extends AbstractControllerTest
                 ],
                 [
                     "error" => "Model not found"
+                ]
+            ]
+        ];
+    }
+
+    /**
+     * Data provider for testAjaxRequest. Tests actionSaveSettings
+     *
+     * @return array
+     */
+    private function _dataProviderForActionSaveSettings()
+    {
+        return [
+            // With empty fields
+            [
+                "section.saveSettings",
+                Language::LANGUAGE_EN_ALIAS,
+                [],
+                [
+                    "errors" => [
+                        "seoModel.name" => "required",
+                        "seoModel.url"  => "required"
+                    ]
+                ]
+            ],
+            // With empty name
+            [
+                "section.saveSettings",
+                Language::LANGUAGE_EN_ALIAS,
+                [
+                    "seoModel.url" => "url"
+                ],
+                [
+                    "errors" => [
+                        "seoModel.name" => "required",
+                    ]
+                ]
+            ],
+            // With long strings
+            [
+                "section.saveSettings",
+                Language::LANGUAGE_EN_ALIAS,
+                [
+                    "seoModel.name"        => "string with length more than 255 symbols,
+						string with length more than 255 symbols, string with length more than 255 symbols,
+						string with length more than 255 symbols, string with length more than 255 symbols,
+						string with length more than 255 symbols, string with length more than 255 symbols,
+						string with length more than 255 symbols, string with length more than 255 symbols",
+                    "seoModel.url"         => "string with length more than 255 symbols,
+						string with length more than 255 symbols, string with length more than 255 symbols,
+						string with length more than 255 symbols, string with length more than 255 symbols,
+						string with length more than 255 symbols, string with length more than 255 symbols,
+						string with length more than 255 symbols, string with length more than 255 symbols",
+                    "seoModel.title"       => "string with length more than 100 symbols,
+						string with length more than 100 symbols, string with length more than 100 symbols,
+						string with length more than 100 symbols",
+                    "seoModel.keywords"    => "string with length more than 255 symbols,
+						string with length more than 255 symbols, string with length more than 255 symbols,
+						string with length more than 255 symbols, string with length more than 255 symbols,
+						string with length more than 255 symbols, string with length more than 255 symbols,
+						string with length more than 255 symbols, string with length more than 255 symbols",
+                    "seoModel.description" => "string with length more than 255 symbols,
+						string with length more than 255 symbols, string with length more than 255 symbols,
+						string with length more than 255 symbols, string with length more than 255 symbols,
+						string with length more than 255 symbols, string with length more than 255 symbols,
+						string with length more than 255 symbols, string with length more than 255 symbols",
+                ],
+                [
+                    "errors" => [
+                        "seoModel.name"        => "max",
+                        "seoModel.url"         => "max",
+                        "seoModel.title"       => "max",
+                        "seoModel.keywords"    => "max",
+                        "seoModel.description" => "max",
+                    ]
                 ]
             ]
         ];

@@ -133,6 +133,62 @@ class SectionModelTest extends AbstractModelTest
 					"t.width"              => SectionModel::DEFAULT_WIDTH
 				]
 			],
+			// Insert: long values. Update: correct values.
+			[
+				[
+					"seoModel.name"        => "string with length more than 255 symbols,
+						string with length more than 255 symbols, string with length more than 255 symbols,
+						string with length more than 255 symbols, string with length more than 255 symbols,
+						string with length more than 255 symbols, string with length more than 255 symbols,
+						string with length more than 255 symbols, string with length more than 255 symbols",
+					"seoModel.url"         => "string with length more than 255 symbols,
+						string with length more than 255 symbols, string with length more than 255 symbols,
+						string with length more than 255 symbols, string with length more than 255 symbols,
+						string with length more than 255 symbols, string with length more than 255 symbols,
+						string with length more than 255 symbols, string with length more than 255 symbols",
+					"seoModel.title"       => "string with length more than 100 symbols,
+						string with length more than 100 symbols, string with length more than 100 symbols,
+						string with length more than 100 symbols",
+					"seoModel.keywords"    => "string with length more than 255 symbols,
+						string with length more than 255 symbols, string with length more than 255 symbols,
+						string with length more than 255 symbols, string with length more than 255 symbols,
+						string with length more than 255 symbols, string with length more than 255 symbols,
+						string with length more than 255 symbols, string with length more than 255 symbols",
+					"seoModel.description" => "string with length more than 255 symbols,
+						string with length more than 255 symbols, string with length more than 255 symbols,
+						string with length more than 255 symbols, string with length more than 255 symbols,
+						string with length more than 255 symbols, string with length more than 255 symbols,
+						string with length more than 255 symbols, string with length more than 255 symbols",
+					"t.language"           => Language::LANGUAGE_EN_ID,
+					"t.width"              => 1024
+				],
+				[
+					"seoModel.name"        => "max",
+					"seoModel.url"         => "max",
+					"seoModel.title"       => "max",
+					"seoModel.keywords"    => "max",
+					"seoModel.description" => "max",
+				],
+				[],
+				[
+					"seoModel.name"        => "   seo name 2   ",
+					"seoModel.url"         => "   ",
+					"seoModel.title"       => "   seo title 2  ",
+					"seoModel.keywords"    => "  seo keywords 2  ",
+					"seoModel.description" => "  seo description 2   ",
+					"t.width"              => SectionModel::DEFAULT_WIDTH
+				],
+				[],
+				[
+					"seoModel.name"        => "seo name 2",
+					"seoModel.url"         => "seo-name-2",
+					"seoModel.title"       => "seo title 2",
+					"seoModel.keywords"    => "seo keywords 2",
+					"seoModel.description" => "seo description 2",
+					"t.language"           => Language::LANGUAGE_EN_ID,
+					"t.width"              => SectionModel::DEFAULT_WIDTH
+				]
+			],
 		];
 	}
 

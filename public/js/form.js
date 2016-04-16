@@ -70,7 +70,6 @@
 		_checkbox: function (params) {
 			this.$container.find(params.name.nameToClass())
 				.attr("name", params.name)
-				.attr("data-rules", params.rules)
 				.attr("checked", parseInt(params.value) === 1);
 		},
 
@@ -84,7 +83,6 @@
 		_select: function (params) {
 			this.$container.find(params.name.nameToClass())
 				.attr("name", params.name)
-				.attr("data-rules", params.rules)
 				.val(params.value)
 				.change();
 		}
