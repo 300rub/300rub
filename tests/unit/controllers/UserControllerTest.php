@@ -22,7 +22,8 @@ class UserControllerTest extends AbstractControllerTest
     public function dataProviderForAjaxRequest()
     {
         return array_merge(
-            $this->_dataProviderForActionWindow()
+            $this->_dataProviderForActionWindow(),
+            $this->_dataProviderForActionLogin()
         );
     }
 
@@ -36,7 +37,6 @@ class UserControllerTest extends AbstractControllerTest
         $model = new UserModel();
         
         return [
-            // actionWindow
             [
                 "user.window",
                 Language::LANGUAGE_EN_ALIAS,
@@ -67,7 +67,18 @@ class UserControllerTest extends AbstractControllerTest
                     ]
                 ]
             ],
-            // actionWindow with empty all fields
+        ];
+    }
+
+    /**
+     * Data provider for testAjaxRequest. Tests actionLogin
+     *
+     * @return array
+     */
+    private function _dataProviderForActionLogin()
+    {
+       return [
+            // with empty all fields
             [
                 "user.login",
                 Language::LANGUAGE_EN_ALIAS,
@@ -76,7 +87,7 @@ class UserControllerTest extends AbstractControllerTest
                     "error" => "Incorrect URL"
                 ]
             ],
-            // actionWindow with empty password
+            // with empty password
             [
                 "user.login",
                 Language::LANGUAGE_EN_ALIAS,
@@ -87,7 +98,7 @@ class UserControllerTest extends AbstractControllerTest
                     "error" => "Incorrect URL"
                 ]
             ],
-            // actionWindow with empty login
+            // with empty login
             [
                 "user.login",
                 Language::LANGUAGE_EN_ALIAS,
@@ -98,7 +109,7 @@ class UserControllerTest extends AbstractControllerTest
                     "error" => "Incorrect URL"
                 ]
             ],
-            // actionWindow with empty values
+            // with empty values
             [
                 "user.login",
                 Language::LANGUAGE_EN_ALIAS,
@@ -113,7 +124,7 @@ class UserControllerTest extends AbstractControllerTest
                     ]
                 ]
             ],
-            // actionWindow with non nonexistent login
+            // with non nonexistent login
             [
                 "user.login",
                 Language::LANGUAGE_EN_ALIAS,
@@ -127,7 +138,7 @@ class UserControllerTest extends AbstractControllerTest
                     ]
                 ]
             ],
-            // actionWindow with non nonexistent password
+            // with non nonexistent password
             [
                 "user.login",
                 Language::LANGUAGE_EN_ALIAS,
@@ -141,7 +152,7 @@ class UserControllerTest extends AbstractControllerTest
                     ]
                 ]
             ],
-            // actionWindow with correct values
+            // with correct values
             [
                 "user.login",
                 Language::LANGUAGE_EN_ALIAS,
