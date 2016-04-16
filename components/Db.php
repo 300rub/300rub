@@ -87,17 +87,18 @@ class Db
 	/**
 	 * Sets PDO
 	 *
+	 * @param string $host     DB Host
 	 * @param string $user     DB User
 	 * @param string $password DB Password
 	 * @param string $dbName   DB name
 	 *
 	 * @return bool
 	 */
-	public static function setPdo($user, $password, $dbName)
+	public static function setPdo($host, $user, $password, $dbName)
 	{
 		try {
 			self::$_pdo = new PDO(
-				"mysql:host=localhost;dbname={$dbName};charset=UTF8",
+				"mysql:host={$host};dbname={$dbName};charset=UTF8",
 				$user,
 				$password,
 				[

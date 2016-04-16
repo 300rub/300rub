@@ -17,5 +17,11 @@ return [
 	"email"   => [
 		"adress" => "moyregion@inbox.ru",
 	],
-	"language" => "ru"
+	"language" => "ru",
+	"helpDb"      => [
+		"host"     => "localhost",
+		"user"     => "root",
+		"password" => "",
+		"name"     => "help",
+	],
 ];

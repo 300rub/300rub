@@ -202,7 +202,7 @@ class MigrateCommand extends AbstractCommand
 	private function _createDumps()
 	{
 		foreach ($this->_sites as $site) {
-			if (!Db::setPdo($site["db_user"], $site["db_password"], $site["db_name"])) {
+			if (!Db::setPdo($site["db_host"], $site["db_user"], $site["db_password"], $site["db_name"])) {
 				Logger::log(
 					"Unable to connect with DB \"" . $site["db_name"] . "\"",
 					Logger::LEVEL_ERROR,
@@ -285,7 +285,7 @@ class MigrateCommand extends AbstractCommand
 
 		try {
 			foreach ($this->_sites as $site) {
-				if (!Db::setPdo($site["db_user"], $site["db_password"], $site["db_name"])) {
+				if (!Db::setPdo($site["db_host"], $site["db_user"], $site["db_password"], $site["db_name"])) {
 					Logger::log(
 						"Unable to connect with DB \"" . $site["db_name"] . "\"",
 						Logger::LEVEL_ERROR,
@@ -381,6 +381,7 @@ class MigrateCommand extends AbstractCommand
 		if (App::console()->config->isDebug) {
 			if (
 			!Db::setPdo(
+				App::console()->config->db->host,
 				App::console()->config->db->user,
 				App::console()->config->db->password,
 				App::console()->config->db->name
@@ -407,6 +408,7 @@ class MigrateCommand extends AbstractCommand
 	{
 		if (
 		!Db::setPdo(
+			App::console()->config->db->host,
 			App::console()->config->db->user,
 			App::console()->config->db->password,
 			App::console()->config->db->name

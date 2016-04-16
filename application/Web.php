@@ -101,7 +101,7 @@ class Web extends AbstractApplication
 			throw new Exception("Unable to determine the site");
 		}
 
-		if (!Db::setPdo($site["db_user"], $site["db_password"], $site["db_name"])) {
+		if (!Db::setPdo($site["db_host"], $site["db_user"], $site["db_password"], $site["db_name"])) {
 			throw new Exception("Unable to connect to database");
 		}
 

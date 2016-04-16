@@ -89,7 +89,7 @@ abstract class AbstractApplication
 	 */
 	private function _checkDbConnection()
 	{
-		if (!Db::setPdo($this->config->db->user, $this->config->db->password, $this->config->db->name)) {
+		if (!Db::setPdo($this->config->db->host, $this->config->db->user, $this->config->db->password, $this->config->db->name)) {
 			throw new Exception("Unable to connect to database");
 		}
 
