@@ -47,7 +47,8 @@ class UserController extends AbstractController
         $this->json = [
             "title"       => Language::t("user", "windowTitle"),
             "action"      => "user.login",
-            "buttonLabel" => Language::t("user", "windowButton")
+            "handler"     => "login",
+            "buttonLabel" => Language::t("user", "loginButton")
         ];
 
         $this->setFormsForJson(new UserModel, ["t.login", "t.password", "t.is_remember"]);

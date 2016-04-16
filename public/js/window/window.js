@@ -127,6 +127,10 @@
 
 			this.$window.find(".j-header").text(data.title).css("display", "block");
 			this.$window.find(".j-footer").css("display", "block");
+
+			if (this.data.buttonLabel !== undefined) {
+				this.$submit.find(".j-label").text(this.data.buttonLabel);
+			}
 			this.$submit.on("click", $.proxy(this._submit, this));
 			
 			this[this.data.handler]();

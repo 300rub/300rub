@@ -29,7 +29,7 @@
 		init: function () {
 			this
 				._setTemplates()
-				._setAjaxWrapper()
+				._setAjaxWrapper();
 			$("#login-button").on("click", this._onLoginButtonClick);
 		},
 
@@ -65,7 +65,7 @@
          * @private
          */
 		_onLoginButtonClick: function () {
-			$.window("user.window", "login");
+			$.window("user.window");
 			return false;
 		}
 	};

@@ -44,7 +44,8 @@ class UserControllerTest extends AbstractControllerTest
                 [
                     "title"       => Language::t("user", "windowTitle"),
                     "action"      => "user.login",
-                    "buttonLabel" => Language::t("user", "windowButton"),
+                    "handler"     => "login",
+                    "buttonLabel" => "Login",
                     "forms"       => [
                         [
                             "name"  => "t.login",
