@@ -246,4 +246,22 @@ abstract class AbstractController
 	{
 		$this->json = ["result" => $this->getModel("*")->duplicate()];
 	}
+
+	/**
+	 * Sets checkbox value for data
+	 * 
+	 * @param string $value Field name
+	 * 
+	 * @return AbstractController
+	 */
+	protected function setCheckboxValue($value)
+	{
+		if (!isset($this->data[$value])) {
+			$this->data[$value] = 0;
+		} else {
+			$this->data[$value] = 1;
+		}
+
+		return $this;
+	}
 }

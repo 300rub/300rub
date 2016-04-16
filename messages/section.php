@@ -11,6 +11,10 @@ return [
         Language::LANGUAGE_EN_ID => "Width",
         Language::LANGUAGE_RU_ID => "",
     ],
+    "main"                => [
+        Language::LANGUAGE_EN_ID => "Main",
+        Language::LANGUAGE_RU_ID => "",
+    ],
     "keywords"            => [
         Language::LANGUAGE_EN_ID => "Keywords",
         Language::LANGUAGE_RU_ID => "",

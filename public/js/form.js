@@ -61,20 +61,6 @@
 		},
 
 		/**
-		 * Sets textarea
-		 *
-		 * @param {Object} [params] Params
-		 *
-		 * @private
-		 */
-		_textArea: function (params) {
-			this.$container.find(params.name.nameToClass())
-				.attr("name", params.name)
-				.attr("data-rules", params.rules)
-				.text(params.value);
-		},
-
-		/**
 		 * Sets checkbox
 		 *
 		 * @param {Object} [params] Params

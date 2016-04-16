@@ -65,16 +65,9 @@ class SectionController extends AbstractController
                 "content" => "section.window",
                 "handler" => "section"
             ],
-            "design"      => [
-                "content" => "section.design",
-            ],
-            "settings"    => [
-                "content" => "section.settings",
-            ],
-            "add"         => [
-                "label"   => Language::t("common", "add"),
-                "content" => "section.settings",
-            ]
+            "design"      => "section.design",
+            "settings"    => "section.settings",
+            "add"         => "section.settings",
         ];
     }
 
@@ -134,6 +127,7 @@ class SectionController extends AbstractController
      */
     public function actionSaveSettings()
     {
+        $this->setCheckboxValue("t.is_main");
         $model = $this->getModel(["seoModel"], true);
         $model->setAttributes($this->data)->save();
 

@@ -589,7 +589,7 @@ abstract class AbstractModel
 		}
 
 		$relations = $this->relations;
-		if (array_key_exists($relation, $relations)) {
+		if (!array_key_exists($relation, $relations)) {
 			return null;
 		}
 

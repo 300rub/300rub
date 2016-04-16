@@ -16,7 +16,7 @@
 	 * @private
 	 */
 	c.Panel.prototype._setList =  function() {
-		var $clone, designContent, designHandler, settingsContent, settingsHandler;
+		var $clone;
 		var $itemTemplate = c.$templates.find(".j-panel-list-item").clone();
 		var itemContent = this.data.item.content;
 		var itemHandler = this.data.item.handler;
@@ -24,14 +24,24 @@
 
 		if (this.data.design !== undefined) {
 			$itemTemplate.find(".j-design").css("display", "block");
-			designContent = this.data.design.content;
-			designHandler = this.data.design.handler;
 		}
 
 		if (this.data.settings !== undefined) {
 			$itemTemplate.find(".j-settings").css("display", "block");
-			settingsContent = this.data.settings.content;
-			settingsHandler = this.data.design.handler;
+		}
+
+		if (this.data.add !== undefined) {
+			var $add = c.$templates.find(".j-panel-list-add").clone();
+			$add.on(
+				"click",
+				{
+					content: this.data.add,
+					id: 0
+				},
+				this._onSettingsClick
+			);
+			$add.text(this.data.add.label)
+			$add.appendTo(this.$panel.find(".j-footer"));
 		}
 
 		$.each(this.data.list, $.proxy(function (i, item) {
@@ -71,7 +81,7 @@
 					.on(
 						"click",
 						{
-							content: designContent,
+							content: this.data.design,
 							id: id
 						},
 						this._onDesignClick
@@ -84,7 +94,7 @@
 					.on(
 						"click",
 						{
-							content: settingsContent,
+							content: this.data.settings,
 							id: id
 						},
 						this._onSettingsClick

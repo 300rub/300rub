@@ -86,6 +86,16 @@ class SectionModel extends AbstractModel
 	];
 
 	/**
+	 * Form types
+	 *
+	 * @var array
+	 */
+	protected $formTypes = [
+		"width"   => self::FORM_TYPE_FIELD,
+		"is_main" => self::FORM_TYPE_CHECKBOX
+	];
+
+	/**
 	 * Gets table name
 	 *
 	 * @return string
