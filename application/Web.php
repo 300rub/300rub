@@ -190,7 +190,12 @@ class Web extends AbstractApplication
 
 		Language::setIdByAlias($input->language);
 		$controller->data = json_decode(json_encode($input->fields), true);
-		$controller->$methodName();
+		try {
+			$controller->$methodName();
+		} catch (Exception $e) {
+			http_response_code(500);
+			$controller->json = ["error" => $e->getMessage()];
+		}
 
 		$this->_time = number_format(microtime(true) - $this->_startTime, 3);
 

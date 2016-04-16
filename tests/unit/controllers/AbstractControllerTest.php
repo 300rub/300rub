@@ -2,6 +2,7 @@
 
 namespace tests\unit\controllers;
 
+use components\Exception;
 use components\Language;
 use tests\unit\AbstractUnitTest;
 
@@ -42,7 +43,12 @@ abstract class AbstractControllerTest extends AbstractUnitTest
         $methodName = "action" . ucfirst($actionName);
         Language::setIdByAlias($languageAlias);
         $controller->data = $fields;
-        $controller->$methodName();
+
+        try {
+            $controller->$methodName();
+        } catch (Exception $e) {
+            $controller->json = ["error" => $e->getMessage()];
+        }
 
         $this->_checkJson($expected, $controller->json);
     }

@@ -58,7 +58,7 @@ class UserController extends AbstractController
      */
     public function actionLogin()
     {
-        if (!$this->data || !isset($this->data["t.login"]) || !isset($this->data["t.password"])) {
+        if ($this->data || !isset($this->data["t.login"]) || !isset($this->data["t.password"])) {
             throw new Exception("Incorrect URL", ErrorHandler::STATUS_NOT_FOUND);
         }
 

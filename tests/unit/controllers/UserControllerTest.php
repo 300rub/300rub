@@ -36,6 +36,7 @@ class UserControllerTest extends AbstractControllerTest
         $model = new UserModel();
         
         return [
+            // actionWindow
             [
                 "user.window",
                 Language::LANGUAGE_EN_ALIAS,
@@ -65,6 +66,13 @@ class UserControllerTest extends AbstractControllerTest
                         ]
                     ]
                 ]
+            ],
+            // actionWindow with empty fields
+            [
+                "user.login",
+                Language::LANGUAGE_EN_ALIAS,
+                [],
+                []
             ]
         ];
     }
