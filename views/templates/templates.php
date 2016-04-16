@@ -7,6 +7,7 @@ require("window/window.php");
 require("window/window.login.php");
 
 if (App::web()->user !== null) {
+    require("help.php");
     require("window/window.section.php");
     require("window/window.text.php");
     require("panel/panel.php");
