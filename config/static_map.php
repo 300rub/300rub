@@ -36,6 +36,7 @@ return [
             "admin.js",
             "panel/panel.js",
             "panel/panel.list.js",
+            "panel/panel.list.section.js",
             "panel/panel.payment.js",
             "panel/panel.settings.js",
             "panel/panel.settings.section.js",

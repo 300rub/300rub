@@ -93,7 +93,7 @@
 		this.$_settingsDuplicate.find(".j-loader").addClass("j-hide");
 
 		if (parseInt(data.id) !== 0) {
-			$.panel(this.data.duplicate.content, this.handler, data.id);
+			$.panel(this.data.duplicate.content, data.id);
 		} else {
 			// error
 		}
@@ -166,7 +166,7 @@
 			if (parseInt(this.id) === c.sectionId || c.sectionId === 0) {
 				location.href = "/" + c.language + "/";
 			} else {
-				$.panel(this.data.delete.content, this.data.delete.handler);
+				$.panel(this.data.delete.content);
 			}
 		} else {
 			// error
@@ -223,7 +223,7 @@
 		this.$_settingsSubmit.find(".j-loader").addClass("j-hide");
 
 		if (!data.errors) {
-			$.panel(this.data.submit.content, this.data.submit.handler);
+			$.panel(this.data.submit.content);
 		} else {
 			// error
 		}

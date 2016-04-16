@@ -57,7 +57,9 @@ class HelpModel extends AbstractModel
 	 */
 	public function getRules()
 	{
-		return [];
+		return [
+			"content" => []
+		];
 	}
 
 	/**

@@ -4,16 +4,13 @@
 	/**
 	 * Object for working with Panel
 	 *
-	 * @param {String}  [action]  controller.action
-	 * @param {String}  [handler] Panel handler
-	 * @param {int}     [id]      ID
+	 * @param {String} [action] controller.action
+	 * @param {int}    [id]     ID
 	 *
 	 * @constructor
      */
-	c.Panel = function (action, handler, id) {
+	c.Panel = function (action, id) {
 		this.action = action;
-		this.handler = handler;
-
 		this.id = 0;
 		if (id !== undefined) {
 			this.id = parseInt(id);
@@ -114,7 +111,7 @@
 			this.$panel.find(".j-header").css("display", "block");
 			this.$panel.find(".j-footer").css("display", "block");
 
-			this[this.handler]();
+			this[this.data.handler]();
 		},
 
 		/**
@@ -129,7 +126,7 @@
 				this.$panel.find(".j-back")
 					.css("display", "block")
 					.on("click", $.proxy(function() {
-						$.panel(this.data.back.content, this.data.back.handler);
+						$.panel(this.data.back.content);
 						return false;
 					}, this));
 			}
@@ -158,14 +155,13 @@
 	/**
 	 * Adds Panel to jquery
 	 *
-	 * @param {String}  [action]  controller.action
-	 * @param {String}  [handler] Panel handler
-	 * @param {int}     [id]      ID
+	 * @param {String} [action] controller.action
+	 * @param {int}    [id]     ID
 	 *
 	 * @returns {Window.Core.Panel}
      */
-	$.panel = function (action, handler, id) {
-		return new c.Panel(action, handler, id);
+	$.panel = function (action, id) {
+		return new c.Panel(action, id);
 	};
 
 	/**

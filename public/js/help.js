@@ -13,7 +13,7 @@
 		this.category = category;
 		this.name = name;
 
-		this.init();
+		return this.get();
 	};
 
 	/**
@@ -49,9 +49,23 @@
 		$_overlay: null,
 
 		/**
+		 * Gets DOM-element of help button
+		 *
+		 * @returns {Object}
+         */
+		get: function() {
+			var $object = c.$templates.find(".j-help-button").clone();
+			$object.on("click", $.proxy(this._open, this));
+
+			return $object;
+		},
+
+		/**
 		 * Initialization
+		 * 
+		 * @returns {Boolean}
 		 */
-		init: function () {
+		_open: function () {
 			this.$_overlay = c.$templates.find(".j-help-overlay").clone().appendTo(c.$ajaxWrapper);
 			this.$_help = c.$templates.find(".j-help").clone().appendTo(c.$ajaxWrapper);
 			this.$_container = this.$_help.find(".j-container");
@@ -70,6 +84,8 @@
 				$.proxy(this._onLoadSuccess, this),
 				$.proxy(this._onError, this)
 			);
+
+			return false;
 		},
 
 		/**
@@ -79,7 +95,7 @@
 		 *
 		 * @private
 		 */
-		close: function () {
+		_close: function () {
 			this.$_help.remove();
 			this.$_overlay.remove();
 

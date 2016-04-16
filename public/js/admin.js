@@ -39,7 +39,7 @@
          * @private
          */
 		_onPanelButtonClick: function () {
-			$.panel($(this).data("action"), $(this).data("handler"));
+			$.panel($(this).data("action"));
 			return false;
 		},
 

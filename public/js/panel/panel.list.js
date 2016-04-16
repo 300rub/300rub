@@ -72,7 +72,6 @@
 						"click",
 						{
 							content: designContent,
-							handler: designHandler,
 							id: id
 						},
 						this._onDesignClick
@@ -86,7 +85,6 @@
 						"click",
 						{
 							content: settingsContent,
-							handler: settingsHandler,
 							id: id
 						},
 						this._onSettingsClick
@@ -101,7 +99,6 @@
 						"click",
 						{
 							content: this.data.add.content,
-							handler: this.data.add.handler
 						},
 						this._onAddClick
 					);
@@ -122,7 +119,7 @@
 	 */
 	c.Panel.prototype._onItemClick = function(event) {
 		if (event.data.isParent !== undefined) {
-			$.panel(event.data.content, event.data.handler, event.data.id);
+			$.panel(event.data.content, event.data.id);
 		} else {
 			$.window(event.data.content, event.data.handler, event.data.id);
 		}
@@ -138,7 +135,7 @@
 	 * @private
 	 */
 	c.Panel.prototype._onDesignClick = function(event) {
-		$.panel(event.data.content, event.data.handler, event.data.id);
+		$.panel(event.data.content, event.data.id);
 		return false;
 	};
 
@@ -150,7 +147,7 @@
 	 * @private
 	 */
 	c.Panel.prototype._onSettingsClick = function(event) {
-		$.panel(event.data.content, event.data.handler, event.data.id);
+		$.panel(event.data.content, event.data.id);
 		return false;
 	};
 
@@ -162,7 +159,7 @@
 	 * @private
 	 */
 	c.Panel.prototype._onAddClick = function(event) {
-		$.panel(event.data.content, event.data.handler);
+		$.panel(event.data.content);
 		return false;
 	};
 }(window.jQuery, window.Core);

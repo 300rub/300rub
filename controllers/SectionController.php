@@ -56,7 +56,7 @@ class SectionController extends AbstractController
         }
 
         $this->json = [
-            "handler"     => "list",
+            "handler"     => "listSection",
             "title"       => Language::t("section", "sections"),
             "description" => Language::t("section", "panelDescription"),
             "list"        => $list,
@@ -67,16 +67,13 @@ class SectionController extends AbstractController
             ],
             "design"      => [
                 "content" => "section.design",
-                "handler" => "section.saveDesign"
             ],
             "settings"    => [
                 "content" => "section.settings",
-                "handler" => "section.saveSettings"
             ],
             "add"         => [
                 "label"   => Language::t("common", "add"),
                 "content" => "section.settings",
-                "handler" => "section.saveSettings"
             ]
         ];
     }
@@ -92,7 +89,6 @@ class SectionController extends AbstractController
             "handler"     => "settingsSection",
             "back"        => [
                 "content" => "section.panelList",
-                "handler" => "list"
             ],
             "title"       => Language::t("common", "settings"),
             "description" => Language::t("section", "settingsDescription"),
