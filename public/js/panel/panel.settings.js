@@ -222,10 +222,10 @@
 		this.$_settingsSubmit.find(".j-label").removeClass("j-hide");
 		this.$_settingsSubmit.find(".j-loader").addClass("j-hide");
 
-		if (data.errors !== undefined || data.errors.count === 0) {
+		if ($.type(data.errors) === "array" && data.errors.length === 0) {
 			$.panel(this.data.submit.content);
 		} else {
-			// error
+			$.validator(this.$panel.find(".j-panel-form")).showErrors(data.errors);
 		}
 	};
 
