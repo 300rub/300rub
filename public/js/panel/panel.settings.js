@@ -179,6 +179,7 @@
 	 * @private
      */
 	c.Panel.prototype._setSettingsSubmit = function() {
+		this.$_settingsSubmit.find(".j-label").text(this.data.submit.label);
 		this.$_settingsSubmit
 			.on("click", $.proxy(this._onSettingsSubmit, this))
 			.appendTo(this.$panel.find(".j-footer"));

@@ -127,7 +127,7 @@
 				this.$panel.find(".j-back")
 					.css("display", "block")
 					.on("click", $.proxy(function() {
-						$.panel(this.data.back.content);
+						$.panel(this.data.back);
 						return false;
 					}, this));
 			}

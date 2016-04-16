@@ -77,17 +77,14 @@ class SectionController extends AbstractController
 
         $this->json = [
             "handler"     => "settingsSection",
-            "back"        => [
-                "content" => "section.panelList",
-            ],
+            "back"        => "section.panelList",
             "title"       => Language::t("common", "settings"),
             "description" => Language::t("section", "settingsDescription"),
             "id"          => intval($model->id),
             "submit"      => [
-                "label"   => Language::t("common", "save"),
+                "label"   => Language::t("common", $model->id ? "save" : "add"),
                 "content" => "section.panelList",
                 "action"  => "section.saveSettings",
-                "handler" => "list",
             ]
         ];
 

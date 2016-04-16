@@ -20,7 +20,8 @@ class SectionControllerTest extends AbstractControllerTest
     public function dataProviderForAjaxRequest()
     {
         return array_merge(
-            $this->_dataProviderForActionPanelList()
+            $this->_dataProviderForActionPanelList(),
+            $this->_dataProviderForActionSettings()
         );
     }
 
@@ -38,8 +39,8 @@ class SectionControllerTest extends AbstractControllerTest
                 [],
                 [
                     "handler"     => "listSection",
-                    "title"       => Language::t("section", "sections"),
-                    "description" => Language::t("section", "panelDescription"),
+                    "title"       => "Sections",
+                    "description" => "You can add/update/delete sections here",
                     "list"        => [
                         [
                             "label" => "Texts",
@@ -52,6 +53,79 @@ class SectionControllerTest extends AbstractControllerTest
                     "design"      => "section.design",
                     "settings"    => "section.settings",
                     "add"         => "section.settings",
+                ]
+            ]
+        ];
+    }
+
+    /**
+     * Data provider for testAjaxRequest. Tests actionSettings
+     *
+     * @return array
+     */
+    private function _dataProviderForActionSettings()
+    {
+        return [
+            // Add section forms
+            [
+                "section.settings",
+                Language::LANGUAGE_EN_ALIAS,
+                [],
+                [
+                    "handler"     => "settingsSection",
+                    "back"        => "section.panelList",
+                    "title"       => "Settings",
+                    "description" => "You can edit section's name and SEO",
+                    "id"          => 0,
+                    "submit"      => [
+                        "label"   => "Add",
+                        "content" => "section.panelList",
+                        "action"  => "section.saveSettings",
+                    ],
+                    "forms" => [
+                        [
+                            "name"  => "seoModel.name",
+                            "rules" => ["required", "max" => 255],
+                            "type"  => "field",
+                            "value" => ""
+                        ],
+                        [
+                            "name"  => "seoModel.url",
+                            "rules" => ["required", "url", "max" => 255],
+                            "type"  => "field",
+                            "value" => ""
+                        ],
+                        [
+                            "name"  => "t.width",
+                            "rules" => [],
+                            "type"  => "field",
+                            "value" => 0
+                        ],
+                        [
+                            "name"  => "seoModel.title",
+                            "rules" => ["max" => 100],
+                            "type"  => "field",
+                            "value" => ""
+                        ],
+                        [
+                            "name"  => "seoModel.keywords",
+                            "rules" => ["max" => 255],
+                            "type"  => "field",
+                            "value" => ""
+                        ],
+                        [
+                            "name"  => "seoModel.description",
+                            "rules" => ["max" => 255],
+                            "type"  => "field",
+                            "value" => ""
+                        ],
+                        [
+                            "name"  => "t.is_main",
+                            "rules" => [],
+                            "type"  => "checkbox",
+                            "value" => false
+                        ]
+                    ]
                 ]
             ]
         ];
