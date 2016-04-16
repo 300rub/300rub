@@ -67,12 +67,92 @@ class UserControllerTest extends AbstractControllerTest
                     ]
                 ]
             ],
-            // actionWindow with empty fields
+            // actionWindow with empty all fields
             [
                 "user.login",
                 Language::LANGUAGE_EN_ALIAS,
                 [],
-                []
+                [
+                    "error" => "Incorrect URL"
+                ]
+            ],
+            // actionWindow with empty password
+            [
+                "user.login",
+                Language::LANGUAGE_EN_ALIAS,
+                [
+                    "t.login" => ""
+                ],
+                [
+                    "error" => "Incorrect URL"
+                ]
+            ],
+            // actionWindow with empty login
+            [
+                "user.login",
+                Language::LANGUAGE_EN_ALIAS,
+                [
+                    "t.password" => ""
+                ],
+                [
+                    "error" => "Incorrect URL"
+                ]
+            ],
+            // actionWindow with empty values
+            [
+                "user.login",
+                Language::LANGUAGE_EN_ALIAS,
+                [
+                    "t.login"    => "",
+                    "t.password" => ""
+                ],
+                [
+                    "errors" => [
+                        "t.login"    => "required",
+                        "t.password" => "required"
+                    ]
+                ]
+            ],
+            // actionWindow with non nonexistent login
+            [
+                "user.login",
+                Language::LANGUAGE_EN_ALIAS,
+                [
+                    "t.login"    => "nonexistent_login",
+                    "t.password" => "nonexistent_password"
+                ],
+                [
+                    "errors" => [
+                        "t.login" => "login-not-exist"
+                    ]
+                ]
+            ],
+            // actionWindow with non nonexistent password
+            [
+                "user.login",
+                Language::LANGUAGE_EN_ALIAS,
+                [
+                    "t.login"    => "login",
+                    "t.password" => "nonexistent_password"
+                ],
+                [
+                    "errors" => [
+                        "t.password" => "password-incorrect"
+                    ]
+                ]
+            ],
+            // actionWindow with correct values
+            [
+                "user.login",
+                Language::LANGUAGE_EN_ALIAS,
+                [
+                    "t.login"    => "login",
+                    "t.password" => "password"
+                ],
+                [
+                    "errors" => [],
+                    "reload" => true
+                ]
             ]
         ];
     }
