@@ -191,7 +191,7 @@ class SectionModel extends AbstractModel
 		if ($this->is_main === 1 && !$this->updateForAll(["is_main" => 0])) {
 			return false;
 		}
-		if (!$this->is_main && !$this->selectMain()->find()) {
+		if ($this->is_main === 0 && !$this->selectMain()->exceptId($this->id)->find()) {
 			$this->is_main = 1;
 		}
 

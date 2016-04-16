@@ -169,11 +169,12 @@ class SectionController extends AbstractController
         $model = $this->getModel(["seoModel"]);
 
         $this->json = [
-            "title"  => $model->seoModel->name,
-            "action" => "section.saveWindow",
-            "id"     => intval($model->id),
-            "blocks" => GridModel::model()->getAllBlocksForGridWindow(),
-            "grid"   => GridModel::model()->getAllGridsForGridWindow($model->id)
+            "title"   => $model->seoModel->name,
+            "handler" => "section",
+            "action"  => "section.saveWindow",
+            "id"      => intval($model->id),
+            "blocks"  => GridModel::model()->getAllBlocksForGridWindow(),
+            "grid"    => GridModel::model()->getAllGridsForGridWindow($model->id)
         ];
     }
 

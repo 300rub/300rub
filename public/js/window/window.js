@@ -4,19 +4,18 @@
 	/**
 	 * Object for working with Window
 	 *
-	 * @param {String}  [action]  controller.action
-	 * @param {String}  [handler] Panel handler
-	 * @param {Integer} [id]      ID
+	 * @param {String} [action] controller.action
+	 * @param {int}    [id]     ID
 	 *
 	 * @constructor
 	 */
-	c.Window = function (action, handler, id) {
+	c.Window = function (action, id) {
 		this.action = action;
-		this.handler = handler;
 
-		this.id = 0;
 		if (id !== undefined) {
 			this.id = parseInt(id);
+		} else {
+			this.id = 0;
 		}
 
 		this.init();
@@ -130,7 +129,7 @@
 			this.$window.find(".j-footer").css("display", "block");
 			this.$submit.on("click", $.proxy(this._submit, this));
 			
-			this[this.handler]();
+			this[this.data.handler]();
 		},
 
 		/**
@@ -213,14 +212,13 @@
 	/**
 	 * Adds Window to jquery
 	 *
-	 * @param {String}  [action]  controller.action
-	 * @param {String}  [handler] Window handler
-	 * @param {Integer} [id]      ID
+	 * @param {String} [action] controller.action
+	 * @param {int}    [id]     ID
 	 *
 	 * @returns {Window.Core.Window}
 	 */
-	$.window = function (action, handler, id) {
-		return new c.Window(action, handler, id);
+	$.window = function (action, id) {
+		return new c.Window(action, id);
 	};
 
 	/**
