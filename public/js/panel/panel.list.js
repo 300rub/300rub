@@ -30,7 +30,7 @@
 
 		if (this.data.settings !== undefined) {
 			$itemTemplate.find(".j-settings").css("display", "block");
-			settingsContent = this.data.design.content;
+			settingsContent = this.data.settings.content;
 			settingsHandler = this.data.design.handler;
 		}
 

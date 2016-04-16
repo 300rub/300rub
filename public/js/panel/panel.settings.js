@@ -5,9 +5,9 @@
 	 * Panel settings handler
 	 */
 	c.Panel.prototype.settingsInit = function() {
-		this.$_settingsDuplicate = this.$panel.find(".j-panel-settings-duplicate");
-		this.$_settingsDelete = this.$panel.find(".j-panel-settings-delete");
-		this.$_settingsSubmit = this.$panel.find(".j-panel-settings-submit");
+		this.$_settingsDuplicate = c.$templates.find(".j-panel-settings-duplicate");
+		this.$_settingsDelete = c.$templates.find(".j-panel-settings-delete");
+		this.$_settingsSubmit = c.$templates.find(".j-panel-settings-submit");
 
 		this._setSettingsDuplicate()._setSettingsDelete()._setSettingsSubmit();
 	};
@@ -181,7 +181,7 @@
 	c.Panel.prototype._setSettingsSubmit = function() {
 		this.$_settingsSubmit
 			.on("click", $.proxy(this._onSettingsSubmit, this))
-			.appendTo(this.$panel.find(".j-header"));
+			.appendTo(this.$panel.find(".j-footer"));
 	};
 
 	/**
@@ -222,7 +222,7 @@
 		this.$_settingsSubmit.find(".j-label").removeClass("j-hide");
 		this.$_settingsSubmit.find(".j-loader").addClass("j-hide");
 
-		if (!data.errors) {
+		if (data.errors !== undefined || data.errors.count === 0) {
 			$.panel(this.data.submit.content);
 		} else {
 			// error

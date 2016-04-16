@@ -11,9 +11,10 @@
      */
 	c.Panel = function (action, id) {
 		this.action = action;
-		this.id = 0;
 		if (id !== undefined) {
 			this.id = parseInt(id);
+		} else {
+			this.id = 0;
 		}
 
 		this.init();
