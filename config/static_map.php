@@ -43,6 +43,7 @@ return [
             "window/window.section.js",
             "window/window.text.js",
             "design.js",
+            "help.js",
         ]
     ]
 ];

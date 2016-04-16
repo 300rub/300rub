@@ -5,6 +5,7 @@ use application\App;
 use components\Db;
 use components\ErrorHandler;
 use components\Exception;
+use components\Language;
 use models\HelpModel;
 
 /**
@@ -40,11 +41,7 @@ class HelpController extends AbstractController
      */
     public function actionLoad()
     {
-        if (
-            empty($this->data["language"])
-            || empty($this->data["category"])
-            || empty($this->data["name"])
-        ) {
+        if (empty($this->data["category"]) || empty($this->data["name"])) {
             throw new Exception("Incorrect URL", ErrorHandler::STATUS_NOT_FOUND);
         }
 
@@ -53,7 +50,7 @@ class HelpController extends AbstractController
             throw new Exception("Unable to connect to \"help\" database");
         }
 
-        $language = $this->data["language"];
+        $language = Language::getActiveAlias();
         $category = $this->data["category"];
         $name = $this->data["name"];
         $model = HelpModel::model()->setParams($language, $category, $name)->find();
