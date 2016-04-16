@@ -121,7 +121,8 @@ class UserControllerTest extends AbstractControllerTest
                     "errors" => [
                         "t.login"    => "required",
                         "t.password" => "required"
-                    ]
+                    ],
+                    "reload" => true
                 ]
             ],
             // with non nonexistent login
@@ -135,7 +136,8 @@ class UserControllerTest extends AbstractControllerTest
                 [
                     "errors" => [
                         "t.login" => "login-not-exist"
-                    ]
+                    ],
+                    "reload" => true
                 ]
             ],
             // with non nonexistent password
@@ -149,7 +151,8 @@ class UserControllerTest extends AbstractControllerTest
                 [
                     "errors" => [
                         "t.password" => "password-incorrect"
-                    ]
+                    ],
+                    "reload" => true
                 ]
             ],
             // with correct values

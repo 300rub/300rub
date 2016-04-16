@@ -43,7 +43,8 @@ class SectionControllerTest extends AbstractControllerTest
                     "list"        => [
                         [
                             "label" => "Texts",
-                            "id"    => 1
+                            "id"    => 1,
+                            "icon"  => "main"
                         ]
                     ],
                     "icon"        => "section-list-item",

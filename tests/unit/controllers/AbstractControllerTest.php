@@ -61,6 +61,10 @@ abstract class AbstractControllerTest extends AbstractUnitTest
      */
     private function _checkJson(array $expected, array $json)
     {
+        foreach (array_keys($json) as $key) {
+            $this->assertArrayHasKey($key, $expected);
+        }
+
         foreach ($expected as $key => $value) {
             $this->assertArrayHasKey($key, $json);
 
