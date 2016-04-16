@@ -48,20 +48,10 @@ class SectionControllerTest extends AbstractControllerTest
                         ]
                     ],
                     "icon"        => "section-list-item",
-                    "item"        => [
-                        "content" => "section.window",
-                        "handler" => "section"
-                    ],
-                    "design"      => [
-                        "content" => "section.design",
-                    ],
-                    "settings"    => [
-                        "content" => "section.settings",
-                    ],
-                    "add"         => [
-                        "label"   => Language::t("common", "add"),
-                        "content" => "section.settings",
-                    ]
+                    "item"        => "section.window",
+                    "design"      => "section.design",
+                    "settings"    => "section.settings",
+                    "add"         => "section.settings",
                 ]
             ]
         ];

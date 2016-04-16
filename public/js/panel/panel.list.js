@@ -18,8 +18,7 @@
 	c.Panel.prototype._setList =  function() {
 		var $clone;
 		var $itemTemplate = c.$templates.find(".j-panel-list-item").clone();
-		var itemContent = this.data.item.content;
-		var itemHandler = this.data.item.handler;
+		var itemContent = this.data.item;
 		var id = 0;
 
 		if (this.data.design !== undefined) {
@@ -58,9 +57,6 @@
 			if (item.content !== undefined) {
 				itemContent = item.content;
 			}
-			if (item.handler !== undefined) {
-				itemHandler = item.handler;
-			}
 			if (item.id !== undefined) {
 				id = item.id;
 			}
@@ -69,7 +65,6 @@
 				{
 					isParent: this.data.isParent,
 					content: itemContent,
-					handler: itemHandler,
 					id: id
 				},
 				this._onItemClick
@@ -131,7 +126,7 @@
 		if (event.data.isParent !== undefined) {
 			$.panel(event.data.content, event.data.id);
 		} else {
-			$.window(event.data.content, event.data.handler, event.data.id);
+			$.window(event.data.content, event.data.id);
 		}
 
 		return false;
