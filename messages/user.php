@@ -19,4 +19,8 @@ return [
         Language::LANGUAGE_EN_ID => "Password",
         Language::LANGUAGE_RU_ID => "",
     ],
+    "remember"     => [
+        Language::LANGUAGE_EN_ID => "remember",
+        Language::LANGUAGE_RU_ID => "",
+    ],
 ];

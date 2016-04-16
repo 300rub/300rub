@@ -76,7 +76,7 @@ class UserController extends AbstractController
                 ) {
                     $model->errors["t.password"] = "password-incorrect";
                 } else {
-                    if (!empty($post["t.remember"])) {
+                    if (!empty($post["t.is_remember"])) {
                         setcookie("__lp", "{$model->login}|p{$checkModel->password}", 0x6FFFFFFF);
                         $_SESSION["__u"] = $checkModel;
                     } else {

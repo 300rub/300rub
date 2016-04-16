@@ -12,4 +12,10 @@ use components\Language;
 			<input class="j-t__password j-validate" type="password"/>
 		</label>
 	</div>
+	<div>
+		<label>
+			<input class="j-t__is_remember" type="checkbox"/>
+			<?= Language::t("user", "remember") ?>
+		</label>
+	</div>
 </div>
