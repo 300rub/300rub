@@ -128,7 +128,7 @@ use models\DesignBlockModel;
 
 			<div>
 				<?php foreach (DesignBlockModel::$borderStyleList as $key => $value) { ?>
-					<div class="j-radio-container">
+					<div class="j-radio-container l-radio-container">
 						<input
 							class="j-hide j-border-style"
 							type="radio"
@@ -158,7 +158,7 @@ use models\DesignBlockModel;
 
 		<div>
 			<?php foreach (DesignBlockModel::$gradientDirectionList as $key => $value) { ?>
-				<div class="j-radio-container">
+				<div class="j-radio-container l-radio-container">
 					<input
 						class="j-hide j-gradient-direction"
 						type="radio"

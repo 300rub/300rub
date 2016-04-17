@@ -93,6 +93,23 @@
       }
     }
   }
+
+  .l-radio-container {
+    display: inline-block;
+
+    label {
+      height: 32px;
+      display: inline-block;
+      cursor: pointer;
+      text-align: center;
+      line-height: 32px;
+      border: 1px solid black;
+    }
+
+    input:checked + label {
+      background: gray;
+    }
+  }
 }
 
 .ui-colorpicker, .ui-dialog.ui-colorpicker {
