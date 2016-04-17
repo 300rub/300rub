@@ -14,7 +14,7 @@
         this.id = id;
         this.type = type;
         this.values = values;
-        return this.get();
+        this.init();
     };
 
     /**
@@ -58,10 +58,8 @@
 
         /**
          * Initialization
-         *
-         * @returns {Object}
          */
-        get: function () {
+        init: function () {
             this.$_editor = c.$templates.find(".j-design-editor-" + this.type).clone().attr("data-id", this.id);
             this.$_object = $(".j-design-" + this.type + "-" + this.id);
             this._style = this.$_object.attr("style");
@@ -111,7 +109,14 @@
                     this._setAngles(options);
                 }, this));
             }
+        },
 
+        /**
+         * Gets editor
+         *
+         * @returns {Object}
+         */
+        getEditor: function() {
             return this.$_editor;
         },
 

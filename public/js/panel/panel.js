@@ -60,7 +60,7 @@
 
 			this.$panel = c.$templates.find(".j-panel").clone().appendTo(c.$ajaxWrapper);
 			this.$container = this.$panel.find(".j-container");
-			this.$panel.find(".j-close").on("click", $.proxy(this._close, this));
+			this.$panel.find(".j-close").on("click", $.proxy(this.close, this));
 
 			$.ajaxJson(
 				this.action,
@@ -94,7 +94,7 @@
 		 *
          * @private
          */
-		_close: function() {
+		close: function() {
 			this.$panel.remove();
 			return false;
 		},
@@ -120,7 +120,7 @@
 
 			this.data = data;
 
-			this._setBack();
+			this.setBack();
 			this.$panel.find(".j-title").text(this.data.title);
 			this.$panel.find(".j-description").text(this.data.description);
 			this.$panel.find(".j-header").css("display", "block");
@@ -141,7 +141,7 @@
 		 *
          * @private
          */
-		_setBack: function() {
+		setBack: function() {
 			if (this.data.back !== undefined) {
 				this.$panel.find(".j-back")
 					.css("display", "block")

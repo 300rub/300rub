@@ -35,7 +35,7 @@ return [
             "lib/tinymce/tinymce.jquery.min.js",
             "admin.js",
             "panel/panel.js",
-            "panel/panel.design.section.js",
+            "panel/panel.design.js",
             "panel/panel.list.js",
             "panel/panel.list.section.js",
             "panel/panel.payment.js",
