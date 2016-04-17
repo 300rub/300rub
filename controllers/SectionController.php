@@ -185,11 +185,11 @@ class SectionController extends AbstractController
             "description" => Language::t("section", "designDescription"),
             "action"      => "section.saveDesign",
             "id"          => intval($model->id),
-            "design"      => $design,
             "submit"      => [
                 "content" => "section.panelList",
                 "action"  => "section.saveDesign",
-            ]
+            ],
+            "design"      => $design
         ];
     }
 

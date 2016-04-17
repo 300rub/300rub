@@ -355,6 +355,10 @@ class SectionControllerTest extends AbstractControllerTest
                     "description" => "You can configure section's design",
                     "action"      => "section.saveDesign",
                     "id"          => 1,
+                    "submit"      => [
+                        "content" => "section.panelList",
+                        "action"  => "section.saveDesign",
+                    ],
                     "design"      => [
                         [
                             "title" => "Background",
