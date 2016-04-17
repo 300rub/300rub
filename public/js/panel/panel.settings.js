@@ -7,7 +7,7 @@
 	c.Panel.prototype.settingsInit = function() {
 		this.$_settingsDuplicate = c.$templates.find(".j-panel-settings-duplicate").clone();
 		this.$_settingsDelete = c.$templates.find(".j-panel-settings-delete").clone();
-		this.$_settingsSubmit = c.$templates.find(".j-panel-settings-submit").clone();
+		this.$_settingsSubmit = c.$templates.find(".j-panel-submit").clone();
 
 		this._setSettingsDuplicate()._setSettingsDelete()._setSettingsSubmit();
 	};

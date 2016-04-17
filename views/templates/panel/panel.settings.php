@@ -18,10 +18,3 @@ use components\Language;
         loading
     </div>
 </a>
-
-<button class="j-panel-settings-submit">
-    <span class="j-label"><?= Language::t("common", "save") ?></span>
-    <div class="j-loader j-hide">
-        loading
-    </div>
-</button>
