@@ -4,7 +4,7 @@
     /**
      * Object for working with design
      *
-     * @param {Integer} [id]     Design ID
+     * @param {int}     [id]     Design ID
      * @param {String}  [type]   Design type
      * @param {Object}  [values] Data
      *
@@ -460,7 +460,7 @@
          *
          * @param {Object}  $obj
          * @param {Object}  $result
-         * @param {Integer} min
+         * @param {int}     min
          * @param {Object}  $join
          * @param {Object}  $obj2
          * @param {Object}  $obj3
@@ -469,7 +469,7 @@
          * @private
          */
         _setAngleSpinner: function ($obj, $result, min, $join, $obj2, $obj3, $obj4) {
-            t = this;
+            var t = this;
 
             $obj.spinner({
                 min: min,
@@ -514,7 +514,7 @@
     /**
      * Adds Design to jQuery
      *
-     * @param {Integer} [id]     Design ID
+     * @param {int}     [id]     Design ID
      * @param {String}  [type]   Design type
      * @param {Object}  [values] Data
      */

@@ -281,7 +281,34 @@ class SectionControllerTest extends AbstractControllerTest
                         "seoModel.description" => "max",
                     ]
                 ]
-            ]
+            ],
+            // With correct minimal data
+            [
+                "section.saveSettings",
+                Language::LANGUAGE_EN_ALIAS,
+                [
+                    "seoModel.name" => "section name"
+                ],
+                [
+                    "errors" => []
+                ]
+            ],
+            // With correct all data
+            [
+                "section.saveSettings",
+                Language::LANGUAGE_EN_ALIAS,
+                [
+                    "seoModel.name"        => "section name",
+                    "seoModel.url"         => "section name",
+                    "seoModel.title"       => "section name",
+                    "seoModel.keywords"    => "section name",
+                    "seoModel.description" => "section name",
+                    "t.width"              => 1024,
+                ],
+                [
+                    "errors" => []
+                ]
+            ],
         ];
     }
 }
