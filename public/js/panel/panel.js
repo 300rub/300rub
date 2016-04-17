@@ -74,6 +74,20 @@
 		},
 
 		/**
+		 * Sets container's max-height
+		 *
+		 * @private
+         */
+		_setHeight: function() {
+			this.$container.css("max-height", $.proxy(function () {
+				return $(window).outerHeight()
+					- 40
+					- this.$panel.find(".j-header").outerHeight()
+					- this.$panel.find(".j-footer").outerHeight();
+			}, this));
+		},
+
+		/**
 		 * Close panel click event
 		 *
 		 * @returns {Boolean}
@@ -111,6 +125,11 @@
 			this.$panel.find(".j-description").text(this.data.description);
 			this.$panel.find(".j-header").css("display", "block");
 			this.$panel.find(".j-footer").css("display", "block");
+
+			this._setHeight();
+			$(window).resize($.proxy(function () {
+				this._setHeight();
+			}, this));
 
 			this[this.data.handler]();
 		},
