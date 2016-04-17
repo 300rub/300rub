@@ -282,7 +282,7 @@
                     colorFormat: 'RGBA',
                     buttonColorize: true,
                     showOn: 'both',
-                    buttonImage: '/images/color_picker_btn.png',
+                    buttonImage: '/images/color.png',
                     buttonImageOnly: true,
                     position: {
                         my: 'center',
@@ -354,7 +354,7 @@
                 colorFormat: 'RGBA',
                 buttonColorize: true,
                 showOn: 'both',
-                buttonImage: '/images/color_picker_btn.png',
+                buttonImage: '/images/color.png',
                 buttonImageOnly: true,
                 position: {
                     my: 'center',
@@ -379,7 +379,7 @@
                 colorFormat: 'RGBA',
                 buttonColorize: true,
                 showOn: 'both',
-                //buttonImage: '/img/common/color_picker_btn.png',
+                buttonImage: '/images/color.png',
                 buttonImageOnly: true,
                 position: {
                     my: 'center',
