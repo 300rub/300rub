@@ -14,7 +14,7 @@
         this.id = id;
         this.type = type;
         this.values = values;
-        this.init();
+        return this.get();
     };
 
     /**
@@ -58,8 +58,10 @@
 
         /**
          * Initialization
+         *
+         * @returns {Object}
          */
-        init: function () {
+        get: function () {
             this.$_editor = c.$templates.find(".j-design-editor-" + this.type).clone().attr("data-id", this.id);
             this.$_object = $(".j-design-" + this.type + "-" + this.id);
             this._style = this.$_object.attr("style");
@@ -109,6 +111,8 @@
                     this._setAngles(options);
                 }, this));
             }
+
+            return this.$_editor;
         },
 
         /**
@@ -134,7 +138,7 @@
             var id, t = this;
             this.$_editor.find(".j-" + options.type)
                 .each(function () {
-                    id = $.uniqueId();
+                    id = t._getUniqueId();
                     $(this)
                         .attr("name", options.name)
                         .attr("id", id)
@@ -144,6 +148,17 @@
                 .on("change", function () {
                     t.$_object.css(options.type, $(this).data("value"));
                 });
+        },
+
+        /**
+         * Gets uniqueId
+         *
+         * @returns {number}
+         *
+         * @private
+         */
+        _getUniqueId: function() {
+            return Math.random()*16|0;
         },
 
         /**
@@ -160,7 +175,7 @@
          */
         _setCheckbox: function (options) {
             var t = this;
-            var id = $.uniqueId();
+            var id = t._getUniqueId();
 
             var $container = this.$_editor.find(".j-" + options.type + "-container");
             var $checkbox = $container.find(".j-checkbox")
@@ -226,7 +241,7 @@
          */
         _setSpinner: function (options) {
             var t = this;
-            var id = $.uniqueId();
+            var id = t._getUniqueId();
             var $container = this.$_editor.find(".j-" + options.type + "-container");
 
             $container.find("label").attr('for', id);
@@ -307,7 +322,7 @@
 
             this.$_editor.find(".j-gradient-direction")
                 .each(function () {
-                    id = $.uniqueId();
+                    id = t._getUniqueId();
                     $(this)
                         .attr("name", options.gradientName)
                         .attr("id", id)

@@ -97,7 +97,7 @@ use models\DesignBlockModel;
 	<div>
 		<div><?= Language::t("design", "border") ?></div>
 		<div
-			class="j-border-container"
+			class="j-border-width-container"
 			data-min="<?= DesignBlockModel::MIN_BORDER_WIDTH_VALUE ?>"
 			data-result="j-result"
 			>

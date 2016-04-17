@@ -375,58 +375,6 @@ class SectionModel extends AbstractModel
 	}
 
 	/**
-	 * Gets design forms
-	 *
-	 * @return array
-	 */
-	public function getDesignForms()
-	{
-		$list = [];
-
-		$list[] = [
-			"title" => Language::t("section", "background"),
-			"forms" => [
-				[
-					"id"     => $this->designBlockModel->id,
-					"type"   => "block",
-					"values" => $this->designBlockModel->getValues("designBlockModel[t.%s]")
-				]
-			]
-		];
-
-		$lines = GridLineModel::model()
-			->ordered()
-			->bySectionId($this->id)
-			->with(["outsideDesignModel", "insideDesignModel"])
-			->findAll();
-		foreach ($lines as $line) {
-			$lineTitle = Language::t("section", "line") . " {$line->sort}";
-			$list[] = [
-				"title" => $lineTitle,
-				"forms" => [
-					[
-						"id"     => $line->outsideDesignModel->id,
-						"type"   => "block",
-						"values" => $line->outsideDesignModel->getValues("lines[{$line->id}][outsideDesignModel.%s]"),
-					]
-				]
-			];
-			$list[] = [
-				"title" => "{$lineTitle} " . Language::t("section", "container"),
-				"forms" => [
-					[
-						"id"     => $line->insideDesignModel->id,
-						"type"   => "block",
-						"values" => $line->insideDesignModel->getValues("lines[{$line->id}][insideDesignModel.%s]"),
-					]
-				]
-			];
-		}
-
-		return $list;
-	}
-
-	/**
 	 * Saves design
 	 *
 	 * @param array $data Data

@@ -3,6 +3,7 @@
 namespace controllers;
 
 use components\Language;
+use models\GridLineModel;
 use models\GridModel;
 use models\SectionModel;
 
@@ -136,13 +137,55 @@ class SectionController extends AbstractController
     {
         $model = $this->getModel(["designBlockModel"]);
 
+        $design = [];
+        $design[] = [
+            "title" => Language::t("section", "background"),
+            "forms" => [
+                [
+                    "id"     => $model->designBlockModel->id,
+                    "type"   => "block",
+                    "values" => $model->designBlockModel->getValues("designBlockModel[t.%s]")
+                ]
+            ]
+        ];
+
+        $lines = GridLineModel::model()
+            ->ordered()
+            ->bySectionId($model->id)
+            ->with(["outsideDesignModel", "insideDesignModel"])
+            ->findAll();
+        foreach ($lines as $line) {
+            $lineTitle = Language::t("section", "line") . " {$line->sort}";
+            $design[] = [
+                "title" => $lineTitle,
+                "forms" => [
+                    [
+                        "id"     => $line->outsideDesignModel->id,
+                        "type"   => "block",
+                        "values" => $line->outsideDesignModel->getValues("lines[{$line->id}][outsideDesignModel.%s]"),
+                    ]
+                ]
+            ];
+            $design[] = [
+                "title" => "{$lineTitle} " . Language::t("section", "container"),
+                "forms" => [
+                    [
+                        "id"     => $line->insideDesignModel->id,
+                        "type"   => "block",
+                        "values" => $line->insideDesignModel->getValues("lines[{$line->id}][insideDesignModel.%s]"),
+                    ]
+                ]
+            ];
+        }
+
         $this->json = [
-            "back"        => "section/panelList",
+            "back"        => "section.panelList",
             "title"       => Language::t("common", "design"),
+            "handler"     => "designSection",
             "description" => Language::t("section", "designDescription"),
             "action"      => "section.saveDesign",
             "id"          => intval($model->id),
-            "design"      => $model->getDesignForms()
+            "design"      => $design
         ];
     }
 
