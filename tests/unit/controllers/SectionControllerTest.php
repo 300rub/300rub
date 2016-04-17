@@ -22,7 +22,8 @@ class SectionControllerTest extends AbstractControllerTest
         return array_merge(
             $this->_dataProviderForActionPanelList(),
             $this->_dataProviderForActionSettings(),
-            $this->_dataProviderForActionSaveSettings()
+            $this->_dataProviderForActionSaveSettings(),
+            $this->_dataProviderForActionDesign()
         );
     }
 
@@ -309,6 +310,412 @@ class SectionControllerTest extends AbstractControllerTest
                     "errors" => []
                 ]
             ],
+        ];
+    }
+
+    /**
+     * Data provider for testAjaxRequest. Tests actionDesign
+     *
+     * @return array
+     */
+    private function _dataProviderForActionDesign()
+    {
+        return [
+            // Empty data
+            [
+                "section.design",
+                Language::LANGUAGE_EN_ALIAS,
+                [],
+                [
+                    "error" => "Incorrect ID"
+                ]
+            ],
+            // Incorrect data
+            [
+                "section.design",
+                Language::LANGUAGE_EN_ALIAS,
+                [
+                    "id" => 9999
+                ],
+                [
+                    "error" => "Model not found"
+                ]
+            ],
+            // For section with ID = 1
+            [
+                "section.design",
+                Language::LANGUAGE_EN_ALIAS,
+                [
+                    "id" => 1
+                ],
+                [
+                    "back"        => "section.panelList",
+                    "title"       => "Design",
+                    "handler"     => "design",
+                    "description" => "You can configure section's design",
+                    "action"      => "section.saveDesign",
+                    "id"          => 1,
+                    "design"      => [
+                        [
+                            "title" => "Background",
+                            "forms" => [
+                                [
+                                    "id" => "9",
+                                    "type" => "block",
+                                    "values" => [
+                                        "angles" => [
+                                            [
+                                                "type" => "margin",
+                                                "values" => [
+                                                    [
+                                                        "name" => "designBlockModel[t.margin_top]",
+                                                        "value" => 0
+                                                    ],
+                                                    [
+                                                        "name" => "designBlockModel[t.margin_right]",
+                                                        "value" => 0
+                                                    ],
+                                                    [
+                                                        "name" => "designBlockModel[t.margin_bottom]",
+                                                        "value" => 0
+                                                    ],
+                                                    [
+                                                        "name" => "designBlockModel[t.margin_left]",
+                                                        "value" => 0
+                                                    ]
+                                                ]
+                                            ],
+                                            [
+                                                "type" => "padding",
+                                                "values" => [
+                                                    [
+                                                        "name" => "designBlockModel[t.padding_top]",
+                                                        "value" => 0
+                                                    ],
+                                                    [
+                                                        "name" => "designBlockModel[t.padding_right]",
+                                                        "value" => 0
+                                                    ],
+                                                    [
+                                                        "name" => "designBlockModel[t.padding_bottom]",
+                                                        "value" => 0
+                                                    ],
+                                                    [
+                                                        "name" => "designBlockModel[t.padding_left]",
+                                                        "value" => 0
+                                                    ]
+                                                ]
+                                            ],
+                                            [
+                                                "type" => "border-width",
+                                                "values" => [
+                                                    [
+                                                        "name" => "designBlockModel[t.border_top_width]",
+                                                        "value" => 0
+                                                    ],
+                                                    [
+                                                        "name" => "designBlockModel[t.border_right_width]",
+                                                        "value" => 0
+                                                    ],
+                                                    [
+                                                        "name" => "designBlockModel[t.border_bottom_width]",
+                                                        "value" => 0
+                                                    ],
+                                                    [
+                                                        "name" => "designBlockModel[t.border_left_width]",
+                                                        "value" => 0
+                                                    ]
+                                                ]
+                                            ],
+                                            [
+                                                "type" => "border-radius",
+                                                "values" => [
+                                                    [
+                                                        "name" => "designBlockModel[t.border_top_left_radius]",
+                                                        "value" => 0
+                                                    ],
+                                                    [
+                                                        "name" => "designBlockModel[t.border_top_right_radius]",
+                                                        "value" => 0
+                                                    ],
+                                                    [
+                                                        "name" => "designBlockModel[t.border_bottom_right_radius]",
+                                                        "value" => 0
+                                                    ],
+                                                    [
+                                                        "name" => "designBlockModel[t.border_bottom_left_radius]",
+                                                        "value" => 0
+                                                    ]
+                                                ]
+                                            ]
+                                        ],
+                                        "backgroundColor" => [
+                                            "fromName" => "designBlockModel[t.background_color_from]",
+                                            "fromValue" => "",
+                                            "toName" => "designBlockModel[t.background_color_to]",
+                                            "toValue" => "",
+                                            "gradientName" => "designBlockModel[t.gradient_direction]",
+                                            "gradientValue" => 0
+                                        ],
+                                        "colors" => [
+                                            [
+                                                "type" => "border-color",
+                                                "name" => "designBlockModel[t.border_color]",
+                                                "value" => ""
+                                            ]
+                                        ],
+                                        "radios" => [
+                                            [
+                                                "type" => "border-style",
+                                                "name" => "designBlockModel[t.border_style]",
+                                                "value" => 0
+                                            ]
+                                        ]
+                                    ]
+                                ]
+                            ]
+                        ],
+                        [
+                            "title" => "Line 1",
+                            "forms" => [
+                                [
+                                    "id" => "10",
+                                    "type" => "block",
+                                    "values" => [
+                                        "angles" => [
+                                            [
+                                                "type" => "margin",
+                                                "values" => [
+                                                    [
+                                                        "name" => "lines[1][outsideDesignModel.margin_top]",
+                                                        "value" => 0
+                                                    ],
+                                                    [
+                                                        "name" => "lines[1][outsideDesignModel.margin_right]",
+                                                        "value" => 0
+                                                    ],
+                                                    [
+                                                        "name" => "lines[1][outsideDesignModel.margin_bottom]",
+                                                        "value" => 0
+                                                    ],
+                                                    [
+                                                        "name" => "lines[1][outsideDesignModel.margin_left]",
+                                                        "value" => 0
+                                                    ]
+                                                ]
+                                            ],
+                                            [
+                                                "type" => "padding",
+                                                "values" => [
+                                                    [
+                                                        "name" => "lines[1][outsideDesignModel.padding_top]",
+                                                        "value" => 0
+                                                    ],
+                                                    [
+                                                        "name" => "lines[1][outsideDesignModel.padding_right]",
+                                                        "value" => 0
+                                                    ],
+                                                    [
+                                                        "name" => "lines[1][outsideDesignModel.padding_bottom]",
+                                                        "value" => 0
+                                                    ],
+                                                    [
+                                                        "name" => "lines[1][outsideDesignModel.padding_left]",
+                                                        "value" => 0
+                                                    ]
+                                                ]
+                                            ],
+                                            [
+                                                "type" => "border-width",
+                                                "values" => [
+                                                    [
+                                                        "name" => "lines[1][outsideDesignModel.border_top_width]",
+                                                        "value" => 0
+                                                    ],
+                                                    [
+                                                        "name" => "lines[1][outsideDesignModel.border_right_width]",
+                                                        "value" => 0
+                                                    ],
+                                                    [
+                                                        "name" => "lines[1][outsideDesignModel.border_bottom_width]",
+                                                        "value" => 0
+                                                    ],
+                                                    [
+                                                        "name" => "lines[1][outsideDesignModel.border_left_width]",
+                                                        "value" => 0
+                                                    ]
+                                                ]
+                                            ],
+                                            [
+                                                "type" => "border-radius",
+                                                "values" => [
+                                                    [
+                                                        "name" => "lines[1][outsideDesignModel.border_top_left_radius]",
+                                                        "value" => 0
+                                                    ],
+                                                    [
+                                                        "name" => "lines[1][outsideDesignModel.border_top_right_radius]",
+                                                        "value" => 0
+                                                    ],
+                                                    [
+                                                        "name" => "lines[1][outsideDesignModel.border_bottom_right_radius]",
+                                                        "value" => 0
+                                                    ],
+                                                    [
+                                                        "name" => "lines[1][outsideDesignModel.border_bottom_left_radius]",
+                                                        "value" => 0
+                                                    ]
+                                                ]
+                                            ]
+                                        ],
+                                        "backgroundColor" => [
+                                            "fromName" => "lines[1][outsideDesignModel.background_color_from]",
+                                            "fromValue" => "",
+                                            "toName" => "lines[1][outsideDesignModel.background_color_to]",
+                                            "toValue" => "",
+                                            "gradientName" => "lines[1][outsideDesignModel.gradient_direction]",
+                                            "gradientValue" => 0
+                                        ],
+                                        "colors" => [
+                                            [
+                                                "type" => "border-color",
+                                                "name" => "lines[1][outsideDesignModel.border_color]",
+                                                "value" => ""
+                                            ]
+                                        ],
+                                        "radios" => [
+                                            [
+                                                "type" => "border-style",
+                                                "name" => "lines[1][outsideDesignModel.border_style]",
+                                                "value" => 0
+                                            ]
+                                        ]
+                                    ]
+                                ]
+                            ]
+                        ],
+                        [
+                            "title" => "Line 1 Container",
+                            "forms" => [
+                                [
+                                    "id" => "11",
+                                    "type" => "block",
+                                    "values" => [
+                                        "angles" => [
+                                            [
+                                                "type" => "margin",
+                                                "values" => [
+                                                    [
+                                                        "name" => "lines[1][insideDesignModel.margin_top]",
+                                                        "value" => 0
+                                                    ],
+                                                    [
+                                                        "name" => "lines[1][insideDesignModel.margin_right]",
+                                                        "value" => 0
+                                                    ],
+                                                    [
+                                                        "name" => "lines[1][insideDesignModel.margin_bottom]",
+                                                        "value" => 0
+                                                    ],
+                                                    [
+                                                        "name" => "lines[1][insideDesignModel.margin_left]",
+                                                        "value" => 0
+                                                    ]
+                                                ]
+                                            ],
+                                            [
+                                                "type" => "padding",
+                                                "values" => [
+                                                    [
+                                                        "name" => "lines[1][insideDesignModel.padding_top]",
+                                                        "value" => 0
+                                                    ],
+                                                    [
+                                                        "name" => "lines[1][insideDesignModel.padding_right]",
+                                                        "value" => 0
+                                                    ],
+                                                    [
+                                                        "name" => "lines[1][insideDesignModel.padding_bottom]",
+                                                        "value" => 0
+                                                    ],
+                                                    [
+                                                        "name" => "lines[1][insideDesignModel.padding_left]",
+                                                        "value" => 0
+                                                    ]
+                                                ]
+                                            ],
+                                            [
+                                                "type" => "border-width",
+                                                "values" => [
+                                                    [
+                                                        "name" => "lines[1][insideDesignModel.border_top_width]",
+                                                        "value" => 0
+                                                    ],
+                                                    [
+                                                        "name" => "lines[1][insideDesignModel.border_right_width]",
+                                                        "value" => 0
+                                                    ],
+                                                    [
+                                                        "name" => "lines[1][insideDesignModel.border_bottom_width]",
+                                                        "value" => 0
+                                                    ],
+                                                    [
+                                                        "name" => "lines[1][insideDesignModel.border_left_width]",
+                                                        "value" => 0
+                                                    ]
+                                                ]
+                                            ],
+                                            [
+                                                "type" => "border-radius",
+                                                "values" => [
+                                                    [
+                                                        "name" => "lines[1][insideDesignModel.border_top_left_radius]",
+                                                        "value" => 0
+                                                    ],
+                                                    [
+                                                        "name" => "lines[1][insideDesignModel.border_top_right_radius]",
+                                                        "value" => 0
+                                                    ],
+                                                    [
+                                                        "name" => "lines[1][insideDesignModel.border_bottom_right_radius]",
+                                                        "value" => 0
+                                                    ],
+                                                    [
+                                                        "name" => "lines[1][insideDesignModel.border_bottom_left_radius]",
+                                                        "value" => 0
+                                                    ]
+                                                ]
+                                            ]
+                                        ],
+                                        "backgroundColor" => [
+                                            "fromName" => "lines[1][insideDesignModel.background_color_from]",
+                                            "fromValue" => "",
+                                            "toName" => "lines[1][insideDesignModel.background_color_to]",
+                                            "toValue" => "",
+                                            "gradientName" => "lines[1][insideDesignModel.gradient_direction]",
+                                            "gradientValue" => 0
+                                        ],
+                                        "colors" => [
+                                            [
+                                                "type" => "border-color",
+                                                "name" => "lines[1][insideDesignModel.border_color]",
+                                                "value" => ""
+                                            ]
+                                        ],
+                                        "radios" => [
+                                            [
+                                                "type" => "border-style",
+                                                "name" => "lines[1][insideDesignModel.border_style]",
+                                                "value" => 0
+                                            ]
+                                        ]
+                                    ]
+                                ]
+                            ]
+                        ],
+                    ]
+                ]
+            ]
         ];
     }
 }
