@@ -15,6 +15,6 @@ if (App::web()->user !== null) {
     require("panel/panel.settings.php");
     require("panel/panel.settings.section.php");
     require("panel/panel.settings.text.php");
-    require(__DIR__ . "/../design/block_forms.php");
-    require(__DIR__ . "/../design/text_forms.php");
+    require("design/block_forms.php");
+    require("design/text_forms.php");
 }

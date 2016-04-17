@@ -11,20 +11,20 @@
 <?php if (!empty($structure["lines"])) { ?>
 	<div
 		class="l-section-container j-section-<?= $model->id ?> j-design-block-<?= $model->designBlockModel->id ?>"
-		style="<?php $this->renderPartial("/design/block_style", ["model" => $model->designBlockModel]); ?>"
+		style="<?php $this->renderPartial("/templates/design/block_style", ["model" => $model->designBlockModel]); ?>"
 		>
 		<?php foreach ($structure["lines"] as $lineNumber => $data) { ?>
 			<div
 				class="l-line-container j-line-<?= $lineNumber ?> j-design-block-<?= $data["line"]->outsideDesignModel->id ?>"
 				style="<?php $this->renderPartial(
-					"/design/block_style",
+					"/templates/design/block_style",
 					["model" => $data["line"]->outsideDesignModel]
 				); ?>"
 				>
 				<div
 					class="l-container j-design-block-<?= $data["line"]->insideDesignModel->id ?>"
 					style="width: <?= $structure["width"] ?>; <?php
-					$this->renderPartial("/design/block_style", ["model" => $data["line"]->insideDesignModel]); ?>"
+					$this->renderPartial("/templates/design/block_style", ["model" => $data["line"]->insideDesignModel]); ?>"
 					>
 					<div class="l-row">
 						<?php foreach ($data["grids"] as $gridContainer) { ?>
