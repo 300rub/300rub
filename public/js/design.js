@@ -158,7 +158,7 @@
          * @private
          */
         _getUniqueId: function() {
-            return Math.random()*16|0;
+            return Math.random()*1000000|1;
         },
 
         /**
@@ -282,7 +282,7 @@
                     colorFormat: 'RGBA',
                     buttonColorize: true,
                     showOn: 'both',
-                    //buttonImage: '/img/common/color_picker_btn.png',
+                    buttonImage: '/images/color_picker_btn.png',
                     buttonImageOnly: true,
                     position: {
                         my: 'center',
@@ -354,7 +354,7 @@
                 colorFormat: 'RGBA',
                 buttonColorize: true,
                 showOn: 'both',
-                //buttonImage: '/img/common/color_picker_btn.png',
+                buttonImage: '/images/color_picker_btn.png',
                 buttonImageOnly: true,
                 position: {
                     my: 'center',

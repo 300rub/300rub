@@ -12,7 +12,7 @@ RewriteBase /
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 
-RewriteRule ^((?!css|js|img|favicon|robots).*)$ index.php [L]
+RewriteRule ^((?!css|js|images|favicon|robots).*)$ index.php [L]
 RewriteRule ^css(.*)$ public/css$1 [L]
 RewriteRule ^js(.*)$ public/js$1 [L]
-RewriteRule ^img(.*)$ public/img$1 [L]
+RewriteRule ^images(.*)$ public/images$1 [L]
