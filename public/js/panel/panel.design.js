@@ -156,13 +156,47 @@
 	c.Panel.prototype._onDesignSubmit = function() {
 		$.ajaxJson(
 			this.data.submit.action,
-			$.extend({}, this.$panel.find(".j-panel-form").serializeObject(), {id: this.id}),
+			$.extend(
+				{},
+				this._getDesignParsedFields(this.$panel.find(".j-panel-form").serializeObject()),
+				{id: this.id}
+			),
 			$.proxy(this._onDesignSubmitBefore, this),
 			$.proxy(this._onDesignSubmitSuccess, this),
 			$.proxy(this.onError, this)
 		);
 
 		return false;
+	};
+
+	/**
+	 * Gets parsed fields
+	 *
+	 * @param {Object} data Flatten fields
+	 *
+	 * @returns {Object}
+	 *
+     * @private
+     */
+	c.Panel.prototype._getDesignParsedFields = function(data) {
+		if (Object(data) !== data || $.isArray(data)) {
+			return data;
+		}
+
+		var result = {}, cur, prop, parts, idx, p;
+		for (p in data) {
+			cur = result;
+			prop = "";
+			parts = p.split("__");
+			for (var i = 0; i < parts.length; i++) {
+				idx = !isNaN(parseInt(parts[i]));
+				cur = cur[prop] || (cur[prop] = (idx ? [] : {}));
+				prop = parts[i];
+			}
+			cur[prop] = data[p];
+		}
+
+		return result[""];
 	};
 
 	/**

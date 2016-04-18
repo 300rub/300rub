@@ -144,7 +144,7 @@ class SectionController extends AbstractController
                 [
                     "id"     => $model->designBlockModel->id,
                     "type"   => "block",
-                    "values" => $model->designBlockModel->getValues("designBlockModel[t.%s]")
+                    "values" => $model->designBlockModel->getValues("designBlockModel__t.%s")
                 ]
             ]
         ];
@@ -162,7 +162,7 @@ class SectionController extends AbstractController
                     [
                         "id"     => $line->outsideDesignModel->id,
                         "type"   => "block",
-                        "values" => $line->outsideDesignModel->getValues("lines[{$line->id}][outsideDesignModel.%s]"),
+                        "values" => $line->outsideDesignModel->getValues("lines__{$line->id}__outsideDesignModel.%s"),
                     ]
                 ]
             ];
@@ -172,7 +172,7 @@ class SectionController extends AbstractController
                     [
                         "id"     => $line->insideDesignModel->id,
                         "type"   => "block",
-                        "values" => $line->insideDesignModel->getValues("lines[{$line->id}][insideDesignModel.%s]"),
+                        "values" => $line->insideDesignModel->getValues("lines__{$line->id}__insideDesignModel.%s"),
                     ]
                 ]
             ];
