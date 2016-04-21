@@ -23,7 +23,8 @@ class SectionControllerTest extends AbstractControllerTest
             $this->_dataProviderForActionPanelList(),
             $this->_dataProviderForActionSettings(),
             $this->_dataProviderForActionSaveSettings(),
-            $this->_dataProviderForActionDesign()
+            $this->_dataProviderForActionDesign(),
+            $this->_dataProviderForActionSaveDesign()
         );
     }
 
@@ -720,6 +721,109 @@ class SectionControllerTest extends AbstractControllerTest
                     ]
                 ]
             ]
+        ];
+    }
+
+    /**
+     * Data provider for testAjaxRequest. Tests actionSaveDesign
+     *
+     * @return array
+     */
+    private function _dataProviderForActionSaveDesign()
+    {
+        return [
+            // Empty data
+            [
+                "section.saveDesign",
+                Language::LANGUAGE_EN_ALIAS,
+                [],
+                [
+                    "error" => ""
+                ]
+            ],
+            // Empty fields
+            [
+                "section.saveDesign",
+                Language::LANGUAGE_EN_ALIAS,
+                [
+                    "designBlockModel" => [
+                        "t.margin_top"                 => "",
+                        "t.margin_right"               => "",
+                        "t.margin_bottom"              => "",
+                        "t.margin_left"                => "",
+                        "t.padding_top"                => "",
+                        "t.padding_right"              => "",
+                        "t.padding_bottom"             => "",
+                        "t.padding_left"               => "",
+                        "t.background_color_from"      => "",
+                        "t.background_color_to"        => "",
+                        "t.gradient_direction"         => "",
+                        "t.border_top_width"           => "",
+                        "t.border_top_left_radius"     => "",
+                        "t.border_right_width"         => "",
+                        "t.border_top_right_radius"    => "",
+                        "t.border_bottom_width"        => "",
+                        "t.border_bottom_right_radius" => "",
+                        "t.border_left_width"          => "",
+                        "t.border_bottom_left_radius"  => "",
+                        "t.border_color"               => "",
+                        "t.border_style"               => "",
+                    ],
+                    "lines" => [
+                        1 => [
+                            // outside
+                            "outsideDesignModel.margin_top"                 => "",
+                            "outsideDesignModel.margin_right"               => "",
+                            "outsideDesignModel.margin_bottom"              => "",
+                            "outsideDesignModel.margin_left"                => "",
+                            "outsideDesignModel.padding_top"                => "",
+                            "outsideDesignModel.padding_right"              => "",
+                            "outsideDesignModel.padding_bottom"             => "",
+                            "outsideDesignModel.padding_left"               => "",
+                            "outsideDesignModel.background_color_from"      => "",
+                            "outsideDesignModel.background_color_to"        => "",
+                            "outsideDesignModel.gradient_direction"         => "",
+                            "outsideDesignModel.border_top_width"           => "",
+                            "outsideDesignModel.border_top_left_radius"     => "",
+                            "outsideDesignModel.border_right_width"         => "",
+                            "outsideDesignModel.border_top_right_radius"    => "",
+                            "outsideDesignModel.border_bottom_width"        => "",
+                            "outsideDesignModel.border_bottom_right_radius" => "",
+                            "outsideDesignModel.border_left_width"          => "",
+                            "outsideDesignModel.border_bottom_left_radius"  => "",
+                            "outsideDesignModel.border_color"               => "",
+                            "outsideDesignModel.border_style"               => "",
+                            // inside
+                            "insideDesignModel.margin_top"                 => "",
+                            "insideDesignModel.margin_right"               => "",
+                            "insideDesignModel.margin_bottom"              => "",
+                            "insideDesignModel.margin_left"                => "",
+                            "insideDesignModel.padding_top"                => "",
+                            "insideDesignModel.padding_right"              => "",
+                            "insideDesignModel.padding_bottom"             => "",
+                            "insideDesignModel.padding_left"               => "",
+                            "insideDesignModel.background_color_from"      => "",
+                            "insideDesignModel.background_color_to"        => "",
+                            "insideDesignModel.gradient_direction"         => "",
+                            "insideDesignModel.border_top_width"           => "",
+                            "insideDesignModel.border_top_left_radius"     => "",
+                            "insideDesignModel.border_right_width"         => "",
+                            "insideDesignModel.border_top_right_radius"    => "",
+                            "insideDesignModel.border_bottom_width"        => "",
+                            "insideDesignModel.border_bottom_right_radius" => "",
+                            "insideDesignModel.border_left_width"          => "",
+                            "insideDesignModel.border_bottom_left_radius"  => "",
+                            "insideDesignModel.border_color"               => "",
+                            "insideDesignModel.border_style"               => "",
+                        ]
+                    ]
+                ],
+                [
+                    "result"  => true,
+                    "content" => "section/panelList",
+                ]
+            ],
+
         ];
     }
 }

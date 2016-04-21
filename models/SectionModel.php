@@ -383,6 +383,8 @@ class SectionModel extends AbstractModel
 	 */
 	public function saveDesign($data)
 	{
+		if (!isset($data["designBlockModel"]))
+
 		Db::startTransaction();
 		$this->designBlockModel->setAttributes($data["designBlockModel"]);
 		if (!$this->designBlockModel->save(false)) {
