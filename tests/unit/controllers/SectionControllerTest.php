@@ -738,7 +738,7 @@ class SectionControllerTest extends AbstractControllerTest
                 Language::LANGUAGE_EN_ALIAS,
                 [],
                 [
-                    "error" => ""
+                    "error" => "Incorrect ID"
                 ]
             ],
             // Empty fields
@@ -746,6 +746,7 @@ class SectionControllerTest extends AbstractControllerTest
                 "section.saveDesign",
                 Language::LANGUAGE_EN_ALIAS,
                 [
+                    "id" => 1,
                     "designBlockModel" => [
                         "t.margin_top"                 => "",
                         "t.margin_right"               => "",
@@ -823,7 +824,172 @@ class SectionControllerTest extends AbstractControllerTest
                     "content" => "section/panelList",
                 ]
             ],
-
+            // Correct values
+            [
+                "section.saveDesign",
+                Language::LANGUAGE_EN_ALIAS,
+                [
+                    "id" => 1,
+                    "designBlockModel" => [
+                        "t.margin_top"                 => 10,
+                        "t.margin_right"               => 20,
+                        "t.margin_bottom"              => 30,
+                        "t.margin_left"                => 40,
+                        "t.padding_top"                => 50,
+                        "t.padding_right"              => 40,
+                        "t.padding_bottom"             => 30,
+                        "t.padding_left"               => 20,
+                        "t.background_color_from"      => 10,
+                        "t.background_color_to"        => "rgba(255,255,255,0.5)",
+                        "t.gradient_direction"         => 1,
+                        "t.border_top_width"           => 10,
+                        "t.border_top_left_radius"     => 5,
+                        "t.border_right_width"         => 44,
+                        "t.border_top_right_radius"    => 23,
+                        "t.border_bottom_width"        => 6,
+                        "t.border_bottom_right_radius" => 4,
+                        "t.border_left_width"          => 7,
+                        "t.border_bottom_left_radius"  => 12,
+                        "t.border_color"               => "",
+                        "t.border_style"               => "",
+                    ],
+                    "lines" => [
+                        1 => [
+                            // outside
+                            "outsideDesignModel.margin_top"                 => 10,
+                            "outsideDesignModel.margin_right"               => 10,
+                            "outsideDesignModel.margin_bottom"              => 10,
+                            "outsideDesignModel.margin_left"                => 10,
+                            "outsideDesignModel.padding_top"                => 10,
+                            "outsideDesignModel.padding_right"              => 10,
+                            "outsideDesignModel.padding_bottom"             => 10,
+                            "outsideDesignModel.padding_left"               => 10,
+                            "outsideDesignModel.background_color_from"      => "rgba(255,255,255,0.5)",
+                            "outsideDesignModel.background_color_to"        => "rgba(0,255,255,0.5)",
+                            "outsideDesignModel.gradient_direction"         => 1,
+                            "outsideDesignModel.border_top_width"           => 20,
+                            "outsideDesignModel.border_top_left_radius"     => 20,
+                            "outsideDesignModel.border_right_width"         => 20,
+                            "outsideDesignModel.border_top_right_radius"    => 20,
+                            "outsideDesignModel.border_bottom_width"        => 20,
+                            "outsideDesignModel.border_bottom_right_radius" => 20,
+                            "outsideDesignModel.border_left_width"          => 20,
+                            "outsideDesignModel.border_bottom_left_radius"  => 20,
+                            "outsideDesignModel.border_color"               => 20,
+                            "outsideDesignModel.border_style"               => 20,
+                            // inside
+                            "insideDesignModel.margin_top"                 => 30,
+                            "insideDesignModel.margin_right"               => 30,
+                            "insideDesignModel.margin_bottom"              => 30,
+                            "insideDesignModel.margin_left"                => 30,
+                            "insideDesignModel.padding_top"                => 30,
+                            "insideDesignModel.padding_right"              => 30,
+                            "insideDesignModel.padding_bottom"             => 30,
+                            "insideDesignModel.padding_left"               => 30,
+                            "insideDesignModel.background_color_from"      => "",
+                            "insideDesignModel.background_color_to"        => "",
+                            "insideDesignModel.gradient_direction"         => 0,
+                            "insideDesignModel.border_top_width"           => 10,
+                            "insideDesignModel.border_top_left_radius"     => 10,
+                            "insideDesignModel.border_right_width"         => 10,
+                            "insideDesignModel.border_top_right_radius"    => 10,
+                            "insideDesignModel.border_bottom_width"        => 10,
+                            "insideDesignModel.border_bottom_right_radius" => 10,
+                            "insideDesignModel.border_left_width"          => 10,
+                            "insideDesignModel.border_bottom_left_radius"  => 10,
+                            "insideDesignModel.border_color"               => "",
+                            "insideDesignModel.border_style"               => "",
+                        ]
+                    ]
+                ],
+                [
+                    "result"  => true,
+                    "content" => "section/panelList",
+                ]
+            ],
+            // Incorrect values
+            [
+                "section.saveDesign",
+                Language::LANGUAGE_EN_ALIAS,
+                [
+                    "id" => 1,
+                    "designBlockModel" => [
+                        "t.margin_top"                 => "incorrect",
+                        "t.margin_right"               => "incorrect",
+                        "t.margin_bottom"              => "incorrect",
+                        "t.margin_left"                => "incorrect",
+                        "t.padding_top"                => "incorrect",
+                        "t.padding_right"              => "incorrect",
+                        "t.padding_bottom"             => "incorrect",
+                        "t.padding_left"               => "incorrect",
+                        "t.background_color_from"      => "incorrect",
+                        "t.background_color_to"        => "incorrect",
+                        "t.gradient_direction"         => "incorrect",
+                        "t.border_top_width"           => "incorrect",
+                        "t.border_top_left_radius"     => "incorrect",
+                        "t.border_right_width"         => "incorrect",
+                        "t.border_top_right_radius"    => "incorrect",
+                        "t.border_bottom_width"        => "incorrect",
+                        "t.border_bottom_right_radius" => "incorrect",
+                        "t.border_left_width"          => "incorrect",
+                        "t.border_bottom_left_radius"  => "incorrect",
+                        "t.border_color"               => "incorrect",
+                        "t.border_style"               => "incorrect",
+                    ],
+                    "lines" => [
+                        1 => [
+                            // outside
+                            "outsideDesignModel.margin_top"                 => "incorrect",
+                            "outsideDesignModel.margin_right"               => "incorrect",
+                            "outsideDesignModel.margin_bottom"              => "incorrect",
+                            "outsideDesignModel.margin_left"                => "incorrect",
+                            "outsideDesignModel.padding_top"                => "incorrect",
+                            "outsideDesignModel.padding_right"              => "incorrect",
+                            "outsideDesignModel.padding_bottom"             => "incorrect",
+                            "outsideDesignModel.padding_left"               => "incorrect",
+                            "outsideDesignModel.background_color_from"      => "incorrect",
+                            "outsideDesignModel.background_color_to"        => "incorrect",
+                            "outsideDesignModel.gradient_direction"         => "incorrect",
+                            "outsideDesignModel.border_top_width"           => "incorrect",
+                            "outsideDesignModel.border_top_left_radius"     => "incorrect",
+                            "outsideDesignModel.border_right_width"         => "incorrect",
+                            "outsideDesignModel.border_top_right_radius"    => "incorrect",
+                            "outsideDesignModel.border_bottom_width"        => "incorrect",
+                            "outsideDesignModel.border_bottom_right_radius" => "incorrect",
+                            "outsideDesignModel.border_left_width"          => "incorrect",
+                            "outsideDesignModel.border_bottom_left_radius"  => "incorrect",
+                            "outsideDesignModel.border_color"               => "incorrect",
+                            "outsideDesignModel.border_style"               => "incorrect",
+                            // inside
+                            "insideDesignModel.margin_top"                 => "incorrect",
+                            "insideDesignModel.margin_right"               => "incorrect",
+                            "insideDesignModel.margin_bottom"              => "incorrect",
+                            "insideDesignModel.margin_left"                => "incorrect",
+                            "insideDesignModel.padding_top"                => "incorrect",
+                            "insideDesignModel.padding_right"              => "incorrect",
+                            "insideDesignModel.padding_bottom"             => "incorrect",
+                            "insideDesignModel.padding_left"               => "incorrect",
+                            "insideDesignModel.background_color_from"      => "incorrect",
+                            "insideDesignModel.background_color_to"        => "incorrect",
+                            "insideDesignModel.gradient_direction"         => "incorrect",
+                            "insideDesignModel.border_top_width"           => "incorrect",
+                            "insideDesignModel.border_top_left_radius"     => "incorrect",
+                            "insideDesignModel.border_right_width"         => "incorrect",
+                            "insideDesignModel.border_top_right_radius"    => "incorrect",
+                            "insideDesignModel.border_bottom_width"        => "incorrect",
+                            "insideDesignModel.border_bottom_right_radius" => "incorrect",
+                            "insideDesignModel.border_left_width"          => "incorrect",
+                            "insideDesignModel.border_bottom_left_radius"  => "incorrect",
+                            "insideDesignModel.border_color"               => "incorrect",
+                            "insideDesignModel.border_style"               => "incorrect",
+                        ]
+                    ]
+                ],
+                [
+                    "result"  => true,
+                    "content" => "section/panelList",
+                ]
+            ],
         ];
     }
 }
