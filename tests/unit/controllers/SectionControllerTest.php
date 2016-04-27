@@ -3,6 +3,7 @@
 namespace tests\unit\controllers;
 
 use components\Language;
+use models\GridModel;
 
 /**
  * Class SectionControllerTest
@@ -24,7 +25,8 @@ class SectionControllerTest extends AbstractControllerTest
             $this->_dataProviderForActionSettings(),
             $this->_dataProviderForActionSaveSettings(),
             $this->_dataProviderForActionDesign(),
-            $this->_dataProviderForActionSaveDesign()
+            $this->_dataProviderForActionSaveDesign(),
+            $this->_dataProviderForActionWindow()
         );
     }
 
@@ -990,6 +992,189 @@ class SectionControllerTest extends AbstractControllerTest
                     "content" => "section/panelList",
                 ]
             ],
+        ];
+    }
+
+    /**
+     * Data provider for testAjaxRequest. Tests actionWindow
+     *
+     * @return array
+     */
+    private function _dataProviderForActionWindow()
+    {
+        return [
+            // Empty request
+            [
+                "section.settings",
+                Language::LANGUAGE_EN_ALIAS,
+                [],
+                [
+                    "error" => "Incorrect ID"
+                ]
+            ],
+            // Incorrect ID
+            [
+                "section.settings",
+                Language::LANGUAGE_EN_ALIAS,
+                [
+                    "id" => "sdfsdfs"
+                ],
+                [
+                    "error" => "Incorrect ID"
+                ]
+            ],
+            // Nonexistent ID
+            [
+                "section.settings",
+                Language::LANGUAGE_EN_ALIAS,
+                [
+                    "id" => 9999
+                ],
+                [
+                    "error" => "Model not found"
+                ]
+            ],
+            // Correct
+            [
+                "section.window",
+                Language::LANGUAGE_EN_ALIAS,
+                [
+                    "id" => 1
+                ],
+                [
+                    "action"  => "section.saveWindow",
+                    "blocks"  => [
+                        [
+                            "name"       => "Text",
+                            "isDisabled" => true,
+                            "type"       => 0,
+                            "id"         => 0,
+                        ],
+                        [
+                            "name"       => "Default. Without styles",
+                            "isDisabled" => false,
+                            "type"       => GridModel::TYPE_TEXT,
+                            "id"         => 1,
+                        ],
+                        [
+                            "name"       => "First level title. Without styles",
+                            "isDisabled" => false,
+                            "type"       => GridModel::TYPE_TEXT,
+                            "id"         => 2,
+                        ],
+                        [
+                            "name"       => "Second level title. Without styles",
+                            "isDisabled" => false,
+                            "type"       => GridModel::TYPE_TEXT,
+                            "id"         => 3,
+                        ],
+                        [
+                            "name"       => "Third level title. Without styles",
+                            "isDisabled" => false,
+                            "type"       => GridModel::TYPE_TEXT,
+                            "id"         => 4,
+                        ],
+                        [
+                            "name"       => "Address. Without styles",
+                            "isDisabled" => false,
+                            "type"       => GridModel::TYPE_TEXT,
+                            "id"         => 5,
+                        ],
+                        [
+                            "name"       => "Important text. Without styles",
+                            "isDisabled" => false,
+                            "type"       => GridModel::TYPE_TEXT,
+                            "id"         => 6,
+                        ],
+                        [
+                            "name"       => "Default. With design",
+                            "isDisabled" => false,
+                            "type"       => GridModel::TYPE_TEXT,
+                            "id"         => 7,
+                        ],
+                        [
+                            "name"       => "Default. With editor",
+                            "isDisabled" => false,
+                            "type"       => GridModel::TYPE_TEXT,
+                            "id"         => 8,
+                        ]
+                    ],
+                    "grid"    => [
+                        1 => [
+                            "id" => 1,
+                            "grids" => [
+                                [
+                                    "id"    => 1,
+                                    "x"     => 3,
+                                    "y"     => 0,
+                                    "width" => 9,
+                                    "type"  => GridModel::TYPE_TEXT,
+                                    "name"  => "Default. Without styles",
+                                ],
+                                [
+                                    "id"    => 2,
+                                    "x"     => 3,
+                                    "y"     => 1,
+                                    "width" => 9,
+                                    "type"  => GridModel::TYPE_TEXT,
+                                    "name"  => "First level title. Without styles",
+                                ],
+                                [
+                                    "id"    => 3,
+                                    "x"     => 3,
+                                    "y"     => 2,
+                                    "width" => 9,
+                                    "type"  => GridModel::TYPE_TEXT,
+                                    "name"  => "Second level title. Without styles",
+                                ],
+                                [
+                                    "id"    => 4,
+                                    "x"     => 3,
+                                    "y"     => 3,
+                                    "width" => 9,
+                                    "type"  => GridModel::TYPE_TEXT,
+                                    "name"  => "Third level title. Without styles",
+                                ],
+                                [
+                                    "id"    => 5,
+                                    "x"     => 3,
+                                    "y"     => 4,
+                                    "width" => 9,
+                                    "type"  => GridModel::TYPE_TEXT,
+                                    "name"  => "Address. Without styles",
+                                ],
+                                [
+                                    "id"    => 6,
+                                    "x"     => 3,
+                                    "y"     => 5,
+                                    "width" => 9,
+                                    "type"  => GridModel::TYPE_TEXT,
+                                    "name"  => "Important text. Without styles",
+                                ],
+                                [
+                                    "id"    => 7,
+                                    "x"     => 3,
+                                    "y"     => 6,
+                                    "width" => 9,
+                                    "type"  => GridModel::TYPE_TEXT,
+                                    "name"  => "Default. With design",
+                                ],
+                                [
+                                    "id"    => 8,
+                                    "x"     => 3,
+                                    "y"     => 7,
+                                    "width" => 9,
+                                    "type"  => GridModel::TYPE_TEXT,
+                                    "name"  => "Default. With editor",
+                                ]
+                            ]
+                        ]
+                    ],
+                    "handler" => "section",
+                    "id"      => 1,
+                    "title"   => "Texts page"
+                ]
+            ]
         ];
     }
 }

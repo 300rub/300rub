@@ -215,7 +215,7 @@ abstract class AbstractController
 			$id = intval($this->data["id"]);
 		}
 
-		if (!$id && !$allowEmpty) {
+		if ($id === 0 && !$allowEmpty) {
 			throw new Exception("Incorrect ID", ErrorHandler::STATUS_NOT_FOUND);
 		}
 

@@ -16,7 +16,7 @@ return [
         "content_type" => 1,
         "content_id"   => 2,
         "x"            => 3,
-        "y"            => 0,
+        "y"            => 1,
         "width"        => 9,
     ],
     // Texts page. texts_3
@@ -25,7 +25,7 @@ return [
         "content_type" => 1,
         "content_id"   => 3,
         "x"            => 3,
-        "y"            => 0,
+        "y"            => 2,
         "width"        => 9,
     ],
     // Texts page. texts_4
@@ -34,7 +34,7 @@ return [
         "content_type" => 1,
         "content_id"   => 4,
         "x"            => 3,
-        "y"            => 0,
+        "y"            => 3,
         "width"        => 9,
     ],
     // Texts page. texts_5
@@ -43,7 +43,7 @@ return [
         "content_type" => 1,
         "content_id"   => 5,
         "x"            => 3,
-        "y"            => 0,
+        "y"            => 4,
         "width"        => 9,
     ],
     // Texts page. texts_6
@@ -52,7 +52,7 @@ return [
         "content_type" => 1,
         "content_id"   => 6,
         "x"            => 3,
-        "y"            => 0,
+        "y"            => 5,
         "width"        => 9,
     ],
     // Texts page. texts_7
@@ -61,7 +61,7 @@ return [
         "content_type" => 1,
         "content_id"   => 7,
         "x"            => 3,
-        "y"            => 0,
+        "y"            => 6,
         "width"        => 9,
     ],
     // Texts page. texts_8
@@ -70,7 +70,7 @@ return [
         "content_type" => 1,
         "content_id"   => 8,
         "x"            => 3,
-        "y"            => 0,
+        "y"            => 7,
         "width"        => 9,
     ],
 ];
