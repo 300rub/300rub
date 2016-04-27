@@ -364,7 +364,7 @@ class GridModel extends AbstractModel
 
 		$lineNumber = 1;
 		foreach ($data as $content) {
-			if ($content["id"]) {
+			if (!empty($content["id"])) {
 				$gridLineModel = GridLineModel::model()->byId($content["id"])->find();
 				if (!$gridLineModel) {
 					Db::rollbackTransaction();
@@ -388,6 +388,12 @@ class GridModel extends AbstractModel
 					return false;
 				}
 			}
+
+			if (isset($content["items"]) && !is_array($content["items"])) {
+				Db::rollbackTransaction();
+				return false;
+			}
+
 			foreach ($content["items"] as $item) {
 				$model = new self;
 				$model->grid_line_id = $gridLineModel->id;

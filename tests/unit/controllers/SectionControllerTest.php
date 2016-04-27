@@ -26,7 +26,8 @@ class SectionControllerTest extends AbstractControllerTest
             $this->_dataProviderForActionSaveSettings(),
             $this->_dataProviderForActionDesign(),
             $this->_dataProviderForActionSaveDesign(),
-            $this->_dataProviderForActionWindow()
+            $this->_dataProviderForActionWindow(),
+            $this->_dataProviderForActionSaveWindow()
         );
     }
 
@@ -1005,7 +1006,7 @@ class SectionControllerTest extends AbstractControllerTest
         return [
             // Empty request
             [
-                "section.settings",
+                "section.window",
                 Language::LANGUAGE_EN_ALIAS,
                 [],
                 [
@@ -1014,7 +1015,7 @@ class SectionControllerTest extends AbstractControllerTest
             ],
             // Incorrect ID
             [
-                "section.settings",
+                "section.window",
                 Language::LANGUAGE_EN_ALIAS,
                 [
                     "id" => "sdfsdfs"
@@ -1025,7 +1026,7 @@ class SectionControllerTest extends AbstractControllerTest
             ],
             // Nonexistent ID
             [
-                "section.settings",
+                "section.window",
                 Language::LANGUAGE_EN_ALIAS,
                 [
                     "id" => 9999
@@ -1175,6 +1176,102 @@ class SectionControllerTest extends AbstractControllerTest
                     "title"   => "Texts page"
                 ]
             ]
+        ];
+    }
+
+    /**
+     * Data provider for testAjaxRequest. Tests actionSaveWindow
+     *
+     * @return array
+     */
+    private function _dataProviderForActionSaveWindow()
+    {
+        return [
+            // Empty data
+            [
+                "section.saveWindow",
+                Language::LANGUAGE_EN_ALIAS,
+                [],
+                [
+                    "error" => "Incorrect ID"
+                ]
+            ],
+            // Correct with different types of values
+            [
+                "section.saveWindow",
+                Language::LANGUAGE_EN_ALIAS,
+                [
+                    "id" => "1",
+                    "grid" => [
+                        [
+                            "id" => 1,
+                            "items" => [
+                                [
+                                    "x"     => 0,
+                                    "y"     => 0,
+                                    "width" => 12,
+                                    "type"  => GridModel::TYPE_TEXT,
+                                    "id"    => 1
+                                ],
+                                [
+                                    "x"     => 3,
+                                    "y"     => 2,
+                                    "width" => 2,
+                                    "type"  => GridModel::TYPE_TEXT,
+                                    "id"    => 2
+                                ],
+                                [
+                                    "x"     => 0,
+                                    "y"     => 0,
+                                    "width" => 0,
+                                    "type"  => GridModel::TYPE_TEXT,
+                                    "id"    => 3
+                                ],
+                                [
+                                    "x"     => "",
+                                    "y"     => "",
+                                    "width" => "",
+                                    "type"  => GridModel::TYPE_TEXT,
+                                    "id"    => 4
+                                ],
+                                [
+                                    "x"     => "incorrect",
+                                    "y"     => "incorrect",
+                                    "width" => "incorrect",
+                                    "type"  => GridModel::TYPE_TEXT,
+                                    "id"    => 5
+                                ]
+                            ]
+                        ],
+                        [
+                            "id" => 0,
+                            "items" => [
+                                [
+                                    "x"     => 0,
+                                    "y"     => 0,
+                                    "width" => 12,
+                                    "type"  => GridModel::TYPE_TEXT,
+                                    "id"    => 6
+                                ]
+                            ]
+                        ],
+                        [
+                            "items" => [
+                                [
+                                    "x"     => 0,
+                                    "y"     => 0,
+                                    "width" => 12,
+                                    "type"  => GridModel::TYPE_TEXT,
+                                    "id"    => 7
+                                ]
+                            ]
+                        ]
+                    ]
+                ],
+                [
+                    "error" => "Incorrect ID"
+                ]
+            ],
         ];
     }
 }
