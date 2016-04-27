@@ -41,12 +41,12 @@ class BlockController extends AbstractController
             [
                 "label"   => Language::t("text", "text"),
                 "content" => "text.panelList",
-                "icon"    => "text"
+                "icon"    => "text-list-group"
             ]
         ];
 
         $this->json = [
-            "handler"     => "list",
+            "handler"     => "listBlock",
             "title"       => Language::t("block", "blocks"),
             "description" => Language::t("block", "selectCategory"),
             "list"        => $list,
