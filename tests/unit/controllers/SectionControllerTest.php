@@ -1269,7 +1269,7 @@ class SectionControllerTest extends AbstractControllerTest
                     ]
                 ],
                 [
-                    "error" => "Incorrect ID"
+                    //
                 ]
             ],
         ];
