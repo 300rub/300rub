@@ -2,7 +2,6 @@
 
 namespace models;
 
-use components\Db;
 use components\Language;
 
 /**
@@ -130,16 +129,10 @@ class SeoModel extends AbstractModel
 	/**
 	 * Duplicates SEO
 	 *
-	 * @param bool $useTransaction Is transaction needs to be used
-	 *
 	 * @return SeoModel|null
 	 */
-	public function duplicate($useTransaction = false)
+	public function duplicate()
 	{
-		if ($useTransaction === true) {
-			Db::startTransaction();
-		}
-
 		$model = new SeoModel();
 		$model->name = Language::t("common", "copy") . " {$this->name}";
 		$model->url = "{$this->url}-copy" . rand(1000, 100000);
@@ -147,16 +140,10 @@ class SeoModel extends AbstractModel
 		$model->keywords = "";
 		$model->description = "";
 
-		if (!$model->save($useTransaction)) {
-			if ($useTransaction === true) {
-				Db::rollbackTransaction();
-			}
+		if (!$model->save()) {
 			return null;
 		}
-
-		if ($useTransaction === true) {
-			Db::commitTransaction();
-		}
+		
 		return $model;
 	}
 }

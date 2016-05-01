@@ -355,60 +355,32 @@ abstract class AbstractModel
 	/**
 	 * Saves model in DB
 	 *
-	 * @param bool $useTransaction Is transaction used
-	 *
 	 * @return bool
 	 */
-	public final function save($useTransaction = true)
+	public final function save()
 	{
 		if (!$this->validate()) {
 			return false;
 		}
 
-		if ($useTransaction) {
-			Db::startTransaction();
-		}
-
 		try {
 			if ($this->beforeSave() === false) {
-				if ($useTransaction) {
-					Db::rollbackTransaction();
-				}
 				return false;
 			}
 
 			if ($this->id) {
 				if (!Db::update($this)) {
-					if ($useTransaction) {
-						Db::rollbackTransaction();
-					}
 					return false;
 				}
 			} else {
 				$this->id = Db::insert($this);
 				if (!$this->id) {
-					if ($useTransaction) {
-						Db::rollbackTransaction();
-					}
 					return false;
 				}
 			}
-
-			if ($this->afterSave() === false) {
-				if ($useTransaction) {
-					Db::rollbackTransaction();
-				}
-				return false;
-			}
-
-			if ($useTransaction) {
-				Db::commitTransaction();
-			}
-			return true;
+			
+			return $this->afterSave();
 		} catch (Exception $e) {
-			if ($useTransaction) {
-				Db::rollbackTransaction();
-			}
 			return false;
 		}
 	}
@@ -416,44 +388,19 @@ abstract class AbstractModel
 	/**
 	 * Deletes model from DB
 	 *
-	 * @param bool $useTransaction Is transaction used
-	 *
 	 * @return bool
 	 */
-	public final function delete($useTransaction = true)
+	public final function delete()
 	{
-		if (!$this->id) {
+		if (
+			!$this->id
+			|| $this->beforeDelete() === false
+			|| !Db::delete($this)
+			|| $this->afterDelete() === false
+		) {
 			return false;
 		}
-
-		if ($useTransaction) {
-			Db::startTransaction();
-		}
-
-		if ($this->beforeDelete() === false) {
-			if ($useTransaction) {
-				Db::rollbackTransaction();
-			}
-			return false;
-		}
-
-		if (!Db::delete($this)) {
-			if ($useTransaction) {
-				Db::rollbackTransaction();
-			}
-			return false;
-		}
-
-		if ($this->afterDelete() === false) {
-			if ($useTransaction) {
-				Db::rollbackTransaction();
-			}
-			return false;
-		}
-
-		if ($useTransaction) {
-			Db::commitTransaction();
-		}
+		
 		return true;
 	}
 
@@ -476,7 +423,7 @@ abstract class AbstractModel
 		foreach ($this->relations as $relation => $options) {
 			if ($this->$relation instanceof $options[0]) {
 				$field = $options[1];
-				if (!$this->$relation->save(false)) {
+				if (!$this->$relation->save()) {
 					return false;
 				}
 				$this->$field = $this->$relation->id;

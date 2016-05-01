@@ -2,7 +2,6 @@
 
 namespace models;
 
-use components\Db;
 use components\Exception;
 use components\Language;
 
@@ -339,32 +338,20 @@ class TextModel extends AbstractModel
 	 * Duplicates section
 	 * If success returns ID of new section
 	 *
-	 * @param bool $useTransaction Is transaction needs to be used
-	 *
 	 * @return TextModel|null
 	 */
-	public function duplicate($useTransaction = true)
+	public function duplicate()
 	{
-		if ($useTransaction === true) {
-			Db::startTransaction();
-		}
-
 		try {
 			$modelForCopy = $this->withAll()->byId($this->id)->find();
 
 			$designTextModel = $modelForCopy->designTextModel->duplicate();
 			if ($designTextModel === null) {
-				if ($useTransaction === true) {
-					Db::rollbackTransaction();
-				}
 				return null;
 			}
 
 			$designBlockModel = $modelForCopy->designBlockModel->duplicate();
 			if ($designBlockModel === null) {
-				if ($useTransaction === true) {
-					Db::rollbackTransaction();
-				}
 				return null;
 			}
 
@@ -375,21 +362,12 @@ class TextModel extends AbstractModel
 			$model->design_text_id = $designTextModel->id;
 			$model->designBlockModel = $designBlockModel;
 			$model->design_block_id = $designBlockModel->id;
-			if (!$model->save(false)) {
-				if ($useTransaction === true) {
-					Db::rollbackTransaction();
-				}
+			if (!$model->save()) {
 				return null;
 			}
-
-			if ($useTransaction === true) {
-				Db::commitTransaction();
-			}
+			
 			return $model;
 		} catch (Exception $e) {
-			if ($useTransaction === true) {
-				Db::rollbackTransaction();
-			}
 			return null;
 		}
 	}
@@ -406,7 +384,7 @@ class TextModel extends AbstractModel
 			$designTextModel = DesignTextModel::model()->byId($this->design_text_id)->find();
 		}
 		if ($designTextModel instanceof DesignTextModel) {
-			$designTextModel->delete(false);
+			$designTextModel->delete();
 		}
 
 		$designBlockModel = $this->designBlockModel;
@@ -414,7 +392,7 @@ class TextModel extends AbstractModel
 			$designBlockModel = DesignBlockModel::model()->byId($this->design_block_id)->find();
 		}
 		if ($designBlockModel instanceof DesignBlockModel) {
-			$designBlockModel->delete(false);
+			$designBlockModel->delete();
 		}
 
 		return parent::beforeDelete();

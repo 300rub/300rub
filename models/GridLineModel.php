@@ -1,7 +1,6 @@
 <?php
 
 namespace models;
-use components\Db;
 
 /**
  * Model for working with table "grid_lines"
@@ -151,7 +150,7 @@ class GridLineModel extends AbstractModel
 	{
 		$gridModels = GridModel::model()->byLineId($this->id)->findAll();
 		foreach ($gridModels as $gridModel) {
-			if (!$gridModel->delete(false)) {
+			if (!$gridModel->delete()) {
 				return false;
 			}
 		}
@@ -161,7 +160,7 @@ class GridLineModel extends AbstractModel
 			$outsideDesignModel = DesignBlockModel::model()->byId($this->outside_design_id)->find();
 		}
 		if ($outsideDesignModel instanceof DesignBlockModel) {
-			$outsideDesignModel->delete(false);
+			$outsideDesignModel->delete();
 		}
 
 		$insideDesignModel = $this->insideDesignModel;
@@ -169,7 +168,7 @@ class GridLineModel extends AbstractModel
 			$insideDesignModel = DesignBlockModel::model()->byId($this->inside_design_id)->find();
 		}
 		if ($insideDesignModel instanceof DesignBlockModel) {
-			$insideDesignModel->delete(false);
+			$insideDesignModel->delete();
 		}
 
 		return parent::beforeDelete();
@@ -239,30 +238,19 @@ class GridLineModel extends AbstractModel
 	/**
 	 * Duplicates model
 	 *
-	 * @param int  $sectionId      Section's ID
-	 * @param bool $useTransaction Is transaction needs to be used
+	 * @param int  $sectionId  Section's ID
 	 *
 	 * @return GridLineModel|null
 	 */
-	public function duplicate($sectionId, $useTransaction = false)
+	public function duplicate($sectionId)
 	{
-		if ($useTransaction === true) {
-			Db::startTransaction();
-		}
-
 		$outsideDesignModel = $this->outsideDesignModel->duplicate();
 		if ($outsideDesignModel === null) {
-			if ($useTransaction === true) {
-				Db::rollbackTransaction();
-			}
 			return null;
 		}
 
 		$insideDesignModel = $this->insideDesignModel->duplicate();
 		if ($insideDesignModel === null) {
-			if ($useTransaction === true) {
-				Db::rollbackTransaction();
-			}
 			return null;
 		}
 
@@ -273,26 +261,17 @@ class GridLineModel extends AbstractModel
 		$model->outside_design_id = $outsideDesignModel->id;
 		$model->insideDesignModel = $insideDesignModel;
 		$model->inside_design_id = $insideDesignModel->id;
-		if (!$model->save($useTransaction)) {
-			if ($useTransaction === true) {
-				Db::rollbackTransaction();
-			}
+		if (!$model->save()) {
 			return null;
 		}
 
 		$grids = GridModel::model()->byLineId($this->id)->findAll();
 		foreach ($grids as $grid) {
-			if ($grid->duplicate($model->id, $useTransaction) === null) {
-				if ($useTransaction === true) {
-					Db::rollbackTransaction();
-				}
+			if ($grid->duplicate($model->id) === null) {
 				return null;
 			}
 		}
-
-		if ($useTransaction === true) {
-			Db::commitTransaction();
-		}
+		
 		return $model;
 	}
 }

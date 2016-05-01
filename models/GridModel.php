@@ -2,7 +2,6 @@
 
 namespace models;
 
-use components\Db;
 use components\ErrorHandler;
 use components\Exception;
 use components\Language;
@@ -354,7 +353,6 @@ class GridModel extends AbstractModel
 	 */
 	public function updateGridForSection($sectionId, $data)
 	{
-		Db::startTransaction();
 		$oldGrids = $this->bySectionId($sectionId)->findAll();
 		$gridLines = GridLineModel::model()->bySectionId($sectionId)->findAll();
 		$oldGridLines = [];
@@ -367,12 +365,10 @@ class GridModel extends AbstractModel
 			if (!empty($content["id"])) {
 				$gridLineModel = GridLineModel::model()->byId($content["id"])->find();
 				if (!$gridLineModel) {
-					Db::rollbackTransaction();
 					return false;
 				}
 				$gridLineModel->sort = $lineNumber;
-				if (!$gridLineModel->save(false)) {
-					Db::rollbackTransaction();
+				if (!$gridLineModel->save()) {
 					return false;
 				}
 
@@ -383,14 +379,12 @@ class GridModel extends AbstractModel
 				$gridLineModel = new GridLineModel();
 				$gridLineModel->section_id = $sectionId;
 				$gridLineModel->sort = $lineNumber;
-				if (!$gridLineModel->save(false)) {
-					Db::rollbackTransaction();
+				if (!$gridLineModel->save()) {
 					return false;
 				}
 			}
 
 			if (isset($content["items"]) && !is_array($content["items"])) {
-				Db::rollbackTransaction();
 				return false;
 			}
 
@@ -402,8 +396,7 @@ class GridModel extends AbstractModel
 				$model->width = $item["width"];
 				$model->content_type = $item["type"];
 				$model->content_id = $item["id"];
-				if (!$model->save(false)) {
-					Db::rollbackTransaction();
+				if (!$model->save()) {
 					return false;
 				}
 			}
@@ -412,8 +405,7 @@ class GridModel extends AbstractModel
 		}
 
 		foreach ($oldGrids as $grid) {
-			if (!$grid->delete(false)) {
-				Db::rollbackTransaction();
+			if (!$grid->delete()) {
 				return false;
 			}
 		}
@@ -422,10 +414,9 @@ class GridModel extends AbstractModel
 		 * @var \models\GridLineModel[] $oldGridLines
 		 */
 		foreach ($oldGridLines as $oldGridLine) {
-			$oldGridLine->delete(false);
+			$oldGridLine->delete();
 		}
-
-		Db::commitTransaction();
+		
 		return true;
 	}
 
@@ -623,30 +614,19 @@ class GridModel extends AbstractModel
 	/**
 	 * Duplicates model
 	 *
-	 * @param int  $gridLineId     Line's ID
-	 * @param bool $useTransaction Is transaction needs to be used
+	 * @param int  $gridLineId  Line's ID
 	 *
 	 * @return GridModel|null
 	 */
-	public function duplicate($gridLineId, $useTransaction = false)
+	public function duplicate($gridLineId)
 	{
-		if ($useTransaction === true) {
-			Db::startTransaction();
-		}
-
 		$model = clone $this;
 		$model->id = 0;
 		$model->grid_line_id = $gridLineId;
-		if (!$model->save($useTransaction)) {
-			if ($useTransaction === true) {
-				Db::rollbackTransaction();
-			}
+		if (!$model->save()) {
 			return null;
 		}
-
-		if ($useTransaction === true) {
-			Db::commitTransaction();
-		}
+		
 		return $model;
 	}
 }

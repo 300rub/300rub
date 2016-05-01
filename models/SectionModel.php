@@ -2,7 +2,6 @@
 
 namespace models;
 
-use components\Db;
 use components\Exception;
 use components\Language;
 
@@ -270,7 +269,7 @@ class SectionModel extends AbstractModel
 	{
 		$gridLineModels = GridLineModel::model()->bySectionId($this->id)->withAll()->findAll();
 		foreach ($gridLineModels as $gridLineModel) {
-			if (!$gridLineModel->delete(false)) {
+			if (!$gridLineModel->delete()) {
 				return false;
 			}
 		}
@@ -280,7 +279,7 @@ class SectionModel extends AbstractModel
 			$seoModel = SeoModel::model()->byId($this->seo_id)->find();
 		}
 		if ($seoModel instanceof SeoModel) {
-			$seoModel->delete(false);
+			$seoModel->delete();
 		}
 
 		$designBlockModel = $this->designBlockModel;
@@ -288,14 +287,14 @@ class SectionModel extends AbstractModel
 			$designBlockModel = DesignBlockModel::model()->byId($this->design_block_id)->find();
 		}
 		if ($designBlockModel instanceof DesignBlockModel) {
-			$designBlockModel->delete(false);
+			$designBlockModel->delete();
 		}
 
 		if ($this->is_main) {
 			$model = self::model()->exceptId($this->id)->find();
 			if ($model) {
 				$model->is_main = 1;
-				if (!$model->save(false)) {
+				if (!$model->save()) {
 					return false;
 				}
 			}
@@ -308,32 +307,20 @@ class SectionModel extends AbstractModel
 	 * Duplicates section
 	 * If success returns ID of new section
 	 *
-	 * @param bool $useTransaction Is transaction needs to be used
-	 *
 	 * @return SectionModel|null
 	 */
-	public function duplicate($useTransaction = true)
+	public function duplicate()
 	{
-		if ($useTransaction === true) {
-			Db::startTransaction();
-		}
-
 		try {
 			$modelForCopy = $this->withAll()->byId($this->id)->find();
 
 			$seoModel = $modelForCopy->seoModel->duplicate(false);
 			if ($seoModel === null) {
-				if ($useTransaction === true) {
-					Db::rollbackTransaction();
-				}
 				return null;
 			}
 
 			$designBlockModel = $modelForCopy->designBlockModel->duplicate();
 			if ($designBlockModel === null) {
-				if ($useTransaction === true) {
-					Db::rollbackTransaction();
-				}
 				return null;
 			}
 
@@ -345,31 +332,19 @@ class SectionModel extends AbstractModel
 			$model->is_main = 0;
 			$model->designBlockModel = $designBlockModel;
 			$model->design_block_id = $designBlockModel->id;
-			if (!$model->save(false)) {
-				if ($useTransaction === true) {
-					Db::rollbackTransaction();
-				}
+			if (!$model->save()) {
 				return null;
 			}
 
 			$gridLines = GridLineModel::model()->bySectionId($modelForCopy->id)->withAll()->findAll();
 			foreach ($gridLines as $gridLine) {
 				if ($gridLine->duplicate($model->id) === null) {
-					if ($useTransaction === true) {
-						Db::rollbackTransaction();
-					}
 					return null;
 				}
 			}
 
-			if ($useTransaction === true) {
-				Db::commitTransaction();
-			}
 			return $model;
 		} catch (Exception $e) {
-			if ($useTransaction === true) {
-				Db::rollbackTransaction();
-			}
 			return null;
 		}
 	}
@@ -385,10 +360,8 @@ class SectionModel extends AbstractModel
 	{
 		if (!isset($data["designBlockModel"]))
 
-		Db::startTransaction();
 		$this->designBlockModel->setAttributes($data["designBlockModel"]);
-		if (!$this->designBlockModel->save(false)) {
-			Db::rollbackTransaction();
+		if (!$this->designBlockModel->save()) {
 			return false;
 		}
 
@@ -398,17 +371,14 @@ class SectionModel extends AbstractModel
 				->byId($id)
 				->find();
 			if (!$gridLineModel) {
-				Db::rollbackTransaction();
 				return false;
 			}
 			$gridLineModel->setAttributes($values);
-			if (!$gridLineModel->save(false)) {
-				Db::rollbackTransaction();
+			if (!$gridLineModel->save()) {
 				return false;
 			}
 		}
 
-		Db::commitTransaction();
 		return true;
 	}
 }

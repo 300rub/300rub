@@ -1,7 +1,6 @@
 <?php
 
 namespace models;
-use components\Db;
 
 /**
  * Model for working with table "design_blocks"
@@ -614,28 +613,15 @@ class DesignBlockModel extends AbstractModel
 	/**
 	 * Duplicates model
 	 *
-	 * @param bool $useTransaction Is transaction needs to be used
-	 *
 	 * @return DesignBlockModel|null
 	 */
-	public function duplicate($useTransaction = false)
+	public function duplicate()
 	{
-		if ($useTransaction === true) {
-			Db::startTransaction();
-		}
-
 		$model = clone $this;
 		$model->id = 0;
 
-		if (!$model->save($useTransaction)) {
-			if ($useTransaction === true) {
-				Db::rollbackTransaction();
-			}
+		if (!$model->save()) {
 			return null;
-		}
-
-		if ($useTransaction === true) {
-			Db::commitTransaction();
 		}
 		return $model;
 	}
