@@ -39,7 +39,7 @@ class BlockController extends AbstractController
     {
         $list = [
             [
-                "label"   => Language::t("text", "text"),
+                "label"   => Language::t("text", "texts"),
                 "content" => "text.panelList",
                 "icon"    => "text-list-group"
             ]

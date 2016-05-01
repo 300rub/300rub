@@ -1052,40 +1052,10 @@ class SectionControllerTest extends AbstractControllerTest
                             "id"         => 0,
                         ],
                         [
-                            "name"       => "Default. Without styles",
-                            "isDisabled" => false,
-                            "type"       => GridModel::TYPE_TEXT,
-                            "id"         => 1,
-                        ],
-                        [
-                            "name"       => "First level title. Without styles",
-                            "isDisabled" => false,
-                            "type"       => GridModel::TYPE_TEXT,
-                            "id"         => 2,
-                        ],
-                        [
-                            "name"       => "Second level title. Without styles",
-                            "isDisabled" => false,
-                            "type"       => GridModel::TYPE_TEXT,
-                            "id"         => 3,
-                        ],
-                        [
-                            "name"       => "Third level title. Without styles",
-                            "isDisabled" => false,
-                            "type"       => GridModel::TYPE_TEXT,
-                            "id"         => 4,
-                        ],
-                        [
                             "name"       => "Address. Without styles",
                             "isDisabled" => false,
                             "type"       => GridModel::TYPE_TEXT,
                             "id"         => 5,
-                        ],
-                        [
-                            "name"       => "Important text. Without styles",
-                            "isDisabled" => false,
-                            "type"       => GridModel::TYPE_TEXT,
-                            "id"         => 6,
                         ],
                         [
                             "name"       => "Default. With design",
@@ -1098,6 +1068,36 @@ class SectionControllerTest extends AbstractControllerTest
                             "isDisabled" => false,
                             "type"       => GridModel::TYPE_TEXT,
                             "id"         => 8,
+                        ],
+                        [
+                            "name"       => "Default. Without styles",
+                            "isDisabled" => false,
+                            "type"       => GridModel::TYPE_TEXT,
+                            "id"         => 1,
+                        ],
+                        [
+                            "name"       => "First level title. Without styles",
+                            "isDisabled" => false,
+                            "type"       => GridModel::TYPE_TEXT,
+                            "id"         => 2,
+                        ],
+                        [
+                            "name"       => "Important text. Without styles",
+                            "isDisabled" => false,
+                            "type"       => GridModel::TYPE_TEXT,
+                            "id"         => 6,
+                        ],
+                        [
+                            "name"       => "Second level title. Without styles",
+                            "isDisabled" => false,
+                            "type"       => GridModel::TYPE_TEXT,
+                            "id"         => 3,
+                        ],
+                        [
+                            "name"       => "Third level title. Without styles",
+                            "isDisabled" => false,
+                            "type"       => GridModel::TYPE_TEXT,
+                            "id"         => 4,
                         ]
                     ],
                     "grid"    => [
@@ -1173,7 +1173,7 @@ class SectionControllerTest extends AbstractControllerTest
                     ],
                     "handler" => "section",
                     "id"      => 1,
-                    "title"   => "Texts page"
+                    "title"   => "Texts"
                 ]
             ]
         ];
@@ -1269,7 +1269,7 @@ class SectionControllerTest extends AbstractControllerTest
                     ]
                 ],
                 [
-                    //
+                    "result" => true
                 ]
             ],
         ];
