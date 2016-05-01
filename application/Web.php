@@ -142,65 +142,85 @@ class Web extends AbstractApplication
 	 */
 	private function _runAjax()
 	{
-		if (
-			empty($_SERVER['HTTP_X_REQUESTED_WITH'])
-			|| strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) !== 'xmlhttprequest'
-		) {
-			throw new Exception("This is not ajax request", ErrorHandler::STATUS_NOT_FOUND);
-		}
+		$useTransaction = false;
 
-		$this->isAjax = true;
-
-		if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-			throw new Exception("REQUEST_METHOD is not POST", ErrorHandler::STATUS_NOT_FOUND);
-		}
-
-		$input = json_decode(file_get_contents('php://input'));
-
-		if (
-			empty($input->action)
-			|| empty($input->language)
-			|| !isset($input->fields)
-		) {
-			throw new Exception("Incorrect post data", ErrorHandler::STATUS_NOT_FOUND);
-		}
-
-		$controllerParams = explode(AbstractController::ACTION_SEPARATOR, $input->action);
-		if (count($controllerParams) !== 2) {
-			throw new Exception("Incorrect \"action\" parameter", ErrorHandler::STATUS_NOT_FOUND);
-		}
-
-		$className = "\\controllers\\" . ucfirst($controllerParams[0]) . "Controller";
-		if (!class_exists($className)) {
-			throw new Exception("Class \"$className\" doesn't exists");
-		}
-
-		/**
-		 * @var \controllers\AbstractController $controller
-		 */
-		$controller = new $className;
-		$methodName = "action" . ucfirst($controllerParams[1]);
-		if (!method_exists($controller, $methodName)) {
-			throw new Exception("Class \"{$className} {$methodName}\" doesn't exists");
-		}
-
-		if (!$controller->hasAccess($methodName)) {
-			throw new Exception("Access denied", ErrorHandler::STATUS_ACCESS_DENIED);
-		}
-
-		Language::setIdByAlias($input->language);
-		$controller->data = json_decode(json_encode($input->fields), true);
 		try {
+			if (
+				empty($_SERVER['HTTP_X_REQUESTED_WITH'])
+				|| strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) !== 'xmlhttprequest'
+			) {
+				throw new Exception("This is not ajax request", ErrorHandler::STATUS_NOT_FOUND);
+			}
+
+			$this->isAjax = true;
+
+			if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+				throw new Exception("REQUEST_METHOD is not POST", ErrorHandler::STATUS_NOT_FOUND);
+			}
+
+			$input = json_decode(file_get_contents('php://input'));
+
+			if (
+				empty($input->action)
+				|| empty($input->language)
+				|| !isset($input->fields)
+			) {
+				throw new Exception("Incorrect post data", ErrorHandler::STATUS_NOT_FOUND);
+			}
+
+			$controllerParams = explode(AbstractController::ACTION_SEPARATOR, $input->action);
+			if (count($controllerParams) !== 2) {
+				throw new Exception("Incorrect \"action\" parameter", ErrorHandler::STATUS_NOT_FOUND);
+			}
+
+			$className = "\\controllers\\" . ucfirst($controllerParams[0]) . "Controller";
+			if (!class_exists($className)) {
+				throw new Exception("Class \"$className\" doesn't exists");
+			}
+
+			/**
+			 * @var \controllers\AbstractController $controller
+			 */
+			$controller = new $className;
+			$methodName = "action" . ucfirst($controllerParams[1]);
+			if (!method_exists($controller, $methodName)) {
+				throw new Exception("Class \"{$className} {$methodName}\" doesn't exists");
+			}
+
+			if (!$controller->hasAccess($methodName)) {
+				throw new Exception("Access denied", ErrorHandler::STATUS_ACCESS_DENIED);
+			}
+
+			Language::setIdByAlias($input->language);
+			$controller->data = json_decode(json_encode($input->fields), true);
+
+			if (
+				(isset($controller->data["id"]) && count($controller->data) > 1)
+				|| (!isset($controller->data["id"]) && count($controller->data) > 0)
+			) {
+				$useTransaction = true;
+				Db::startTransaction();
+			}
+
 			$controller->$methodName();
+			$json = $controller->json;
+
+			if ($useTransaction === true) {
+				Db::commitTransaction();
+			}
 		} catch (Exception $e) {
-			http_response_code(500);
-			$controller->json = ["error" => $e->getMessage()];
+			if ($useTransaction === true) {
+				Db::rollbackTransaction();
+			}
+
+			http_response_code($e->statusCode);
+			$json = ["error" => $e->getMessage()];
 		}
 
 		$this->_time = number_format(microtime(true) - $this->_startTime, 3);
 
 		header('Content-Type: application/json');
-		echo json_encode($controller->json);
+		echo json_encode($json);
 	}
 
 	/**
