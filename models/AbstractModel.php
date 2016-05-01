@@ -562,4 +562,14 @@ abstract class AbstractModel
 	{
 		return $this->relations;
 	}
+
+	/**
+	 * Duplicates model
+	 * 
+	 * @return AbstractModel|null
+	 */
+	public function duplicate()
+	{
+		return null;
+	}
 }

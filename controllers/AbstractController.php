@@ -264,4 +264,19 @@ abstract class AbstractController
 
 		return $this;
 	}
+
+	/**
+	 * Compresses HTML
+	 *
+	 * @param string $code
+	 *
+	 * @return string
+	 */
+	protected function compressHtml($code)
+	{
+		for ($i = 10; $i > 1; $i--) {
+			$code = str_replace(str_repeat(" ", $i), " ", $code);
+		}
+		return trim(str_replace("\n", "", $code));
+	}
 }

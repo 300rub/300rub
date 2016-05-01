@@ -20,14 +20,14 @@ class TextControllerTest extends AbstractControllerTest
     public function dataProviderForAjaxRequest()
     {
         return array_merge(
-            $this->_dataProviderForActionContent(),
-            $this->_dataProviderForActionPanelList(),
-            $this->_dataProviderForActionSettings(),
-            $this->_dataProviderForActionSaveSettings(),
-            $this->_dataProviderForActionDesign(),
-            $this->_dataProviderForActionSaveDesign(),
-            $this->_dataProviderForActionWindow(),
-            $this->_dataProviderForActionSaveWindow()
+            $this->_dataProviderForActionContent()
+//            $this->_dataProviderForActionPanelList(),
+//            $this->_dataProviderForActionSettings(),
+//            $this->_dataProviderForActionSaveSettings(),
+//            $this->_dataProviderForActionDesign(),
+//            $this->_dataProviderForActionSaveDesign(),
+//            $this->_dataProviderForActionWindow(),
+//            $this->_dataProviderForActionSaveWindow()
         );
     }
 
@@ -46,7 +46,9 @@ class TextControllerTest extends AbstractControllerTest
                     "id" => 1
                 ],
                 [
-                    //
+                    "content" =>
+                        '<div class="design-text-1 design-block-1"style="font-weight: normal; line-height: 140%;">' .
+                        'Default. Without styles. The quick brown fox jumps over the lazy dog 0123456789.</div>'
                 ]
             ]
         ];

@@ -41,7 +41,9 @@ class TextController extends AbstractController
     public function actionContent()
     {
         $this->json = [
-            "content" => $this->renderPartial("content.text", ["model" => $this->getModel("*")], true)
+            "content" => $this->compressHtml(
+                $this->renderPartial("content.text", ["model" => $this->getModel("*")], true)
+            )
         ];
     }
 
