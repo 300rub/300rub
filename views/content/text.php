@@ -9,7 +9,7 @@
     class="design-text-<?= $model->designTextModel->id ?> design-block-<?= $model->designBlockModel->id
 ?><?= ($model->designTextModel->getFontFamilyClass() && !$model->is_editor) ? " " .
     $model->designTextModel->getFontFamilyClass() : "" ?>"
-style="<?php
+ style="<?php
 if (!$model->is_editor) {
     $this->renderPartial("/templates/design/text_style", ["model" => $model->designTextModel]);
 }

@@ -21,7 +21,7 @@ class TextControllerTest extends AbstractControllerTest
     {
         return array_merge(
             $this->_dataProviderForActionContent()
-//            $this->_dataProviderForActionPanelList(),
+//            $this->_dataProviderForActionPanelList()
 //            $this->_dataProviderForActionSettings(),
 //            $this->_dataProviderForActionSaveSettings(),
 //            $this->_dataProviderForActionDesign(),
@@ -47,7 +47,7 @@ class TextControllerTest extends AbstractControllerTest
                 ],
                 [
                     "content" =>
-                        '<div class="design-text-1 design-block-1"style="font-weight: normal; line-height: 140%;">' .
+                        '<div class="design-text-1 design-block-1" style="font-weight: normal; line-height: 140%;">' .
                         'Default. Without styles. The quick brown fox jumps over the lazy dog 0123456789.</div>'
                 ]
             ]
@@ -67,7 +67,19 @@ class TextControllerTest extends AbstractControllerTest
                 Language::LANGUAGE_EN_ALIAS,
                 [],
                 [
-                    //
+                    "back"        => "block.panelList",
+                    "content"     => "text.window",
+                    "description" => "Just select any block for working with text",
+                    "design"      => "text.design",
+                    "icon"        => "text",
+                    "list"        => [
+                        [
+                            "label" => "",
+                            "id" => 2
+                        ]
+                    ],
+                    "settings"    => "text.settings",
+                    "title"       => "Text",
                 ]
             ]
         ];
