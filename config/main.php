@@ -24,4 +24,14 @@ return [
 		"password" => "",
 		"name"     => "help",
 	],
+	"ssh" => [
+		"fileServer001" => [
+			"host"           => "",
+			"port"           => 22,
+			"username"       => "",
+			"publicKeyPath"  => "",
+			"privateKeyPath" => "",
+			"passPhrase"     => ""
+		]
+	]
 ];
