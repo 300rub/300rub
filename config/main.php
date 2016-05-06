@@ -25,13 +25,16 @@ return [
 		"name"     => "help",
 	],
 	"ssh" => [
-		"fileServer001" => [
-			"host"           => "",
-			"port"           => 22,
-			"username"       => "",
-			"publicKeyPath"  => "",
-			"privateKeyPath" => "",
-			"passPhrase"     => ""
+		"active" => "fileServer001",
+		"list" => [
+			"fileServer001" => [
+				"host"           => "",
+				"port"           => 22,
+				"username"       => "",
+				"publicKeyPath"  => "",
+				"privateKeyPath" => "",
+				"passPhrase"     => ""
+			]
 		]
 	]
 ];

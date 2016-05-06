@@ -38,6 +38,7 @@ class M_160301_000000_sites extends AbstractMigration {
 				"db_name"     => "string",
 				"language"    => "integer",
 				"email"       => "string",
+				"ssh"         => "string",
 			],
 			"ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci"
 		);

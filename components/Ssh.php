@@ -35,11 +35,13 @@ class Ssh
      */
     public function __construct($sshConnectionName)
     {
-        if (!App::web()->config->isDebug) {
-            $this
-                ->_setParams($sshConnectionName)
-                ->_setConnection();
+        if (!$sshConnectionName) {
+            $sshConnectionName = App::web()->config->ssh->active;
         }
+
+        $this
+            ->_setParams($sshConnectionName)
+            ->_setConnection();
     }
 
     /**
@@ -53,12 +55,12 @@ class Ssh
      */
     private function _setParams($sshConnectionName)
     {
-        if (empty(App::web()->config->ssh->$sshConnectionName)) {
+        if (empty(App::web()->config->ssh->list->$sshConnectionName)) {
             Logger::log("Unable to find params for server {$sshConnectionName}", Logger::LEVEL_ERROR, "ssh.params.set");
             throw new Exception("Unable to find params for server");
         }
 
-        $this->_params = App::web()->config->ssh->$sshConnectionName;
+        $this->_params = App::web()->config->ssh->list->$sshConnectionName;
 
         return $this;
     }

@@ -101,6 +101,10 @@ class Web extends AbstractApplication
 			throw new Exception("Unable to determine the site");
 		}
 
+		if ($site["ssh"] && array_key_exists($site["ssh"], App::web()->config->ssh->list)) {
+			App::web()->config->ssh->active = $site["ssh"];
+		}
+
 		if (!Db::setPdo($site["db_host"], $site["db_user"], $site["db_password"], $site["db_name"])) {
 			throw new Exception("Unable to connect to database");
 		}
