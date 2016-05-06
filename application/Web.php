@@ -101,6 +101,8 @@ class Web extends AbstractApplication
 			throw new Exception("Unable to determine the site");
 		}
 
+		App::web()->config->siteId = $site["id"];
+
 		if ($site["ssh"] && array_key_exists($site["ssh"], App::web()->config->ssh->list)) {
 			App::web()->config->ssh->active = $site["ssh"];
 		}

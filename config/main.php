@@ -36,5 +36,6 @@ return [
 				"passPhrase"     => ""
 			]
 		]
-	]
+	],
+	"siteId" => 0
 ];
