@@ -26,9 +26,9 @@ class TextControllerTest extends AbstractControllerTest
             $this->_dataProviderForActionSettings(),
             $this->_dataProviderForActionSaveSettings(),
             $this->_dataProviderForActionDesign(),
-            $this->_dataProviderForActionSaveDesign()
-//            $this->_dataProviderForActionWindow(),
-//            $this->_dataProviderForActionSaveWindow()
+            $this->_dataProviderForActionSaveDesign(),
+            $this->_dataProviderForActionWindow(),
+            $this->_dataProviderForActionSaveWindow()
         );
     }
 
@@ -73,7 +73,7 @@ class TextControllerTest extends AbstractControllerTest
                     "description" => "Just select any block for working with text",
                     "design"      => "text.design",
                     "icon"        => "text",
-                    "list" => [
+                    "list"        => [
                         [
                             "label" => "Address. Without styles",
                             "id"    => 5,
@@ -134,16 +134,12 @@ class TextControllerTest extends AbstractControllerTest
                     "description" => "You can configure text's settings",
                     "action"      => "section.saveSettings",
                     "id"          => 0,
-                    "update"      => [
-                        "selector" => ".text-",
-                        "content"  => "text.content"
-                    ],
                     "submit"      => [
                         "label"   => "Add",
                         "content" => "text.panelList",
                         "action"  => "text.saveSettings",
                     ],
-                    "forms" => [
+                    "forms"       => [
                         [
                             "name"  => "t.name",
                             "rules" => ["required", "max" => 255],
@@ -180,7 +176,7 @@ class TextControllerTest extends AbstractControllerTest
                     "action"      => "section.saveSettings",
                     "id"          => 1,
                     "update"      => [
-                        "selector" => ".text-",
+                        "selector" => ".text-1",
                         "content"  => "text.content"
                     ],
                     "submit"      => [
@@ -188,7 +184,7 @@ class TextControllerTest extends AbstractControllerTest
                         "content" => "text.panelList",
                         "action"  => "text.saveSettings",
                     ],
-                    "forms" => [
+                    "forms"       => [
                         [
                             "name"  => "t.name",
                             "rules" => ["required", "max" => 255],
@@ -328,15 +324,15 @@ class TextControllerTest extends AbstractControllerTest
                         "title" => "Text",
                         "forms" => [
                             [
-                                "id" => "1",
-                                "type" => "text",
+                                "id"     => "1",
+                                "type"   => "text",
                                 "values" => [
                                     [
-                                        "fontFamily"     => [
+                                        "fontFamily" => [
                                             "name"  => "designTextModel.family",
                                             "value" => 0
                                         ],
-                                        "spinners" => [
+                                        "spinners"   => [
                                             [
                                                 "name"     => "designTextModel.size",
                                                 "value"    => 0,
@@ -359,7 +355,7 @@ class TextControllerTest extends AbstractControllerTest
                                                 "measure"  => "%"
                                             ]
                                         ],
-                                        "colors"           => [
+                                        "colors"     => [
                                             [
                                                 "type"  => "color",
                                                 "name"  => "designTextModel.color",
@@ -382,7 +378,7 @@ class TextControllerTest extends AbstractControllerTest
                                                 "unChecked" => "normal"
                                             ]
                                         ],
-                                        "radios"           => [
+                                        "radios"     => [
                                             [
                                                 "type"  => "text-align",
                                                 "name"  => "designTextModel.align",
@@ -403,114 +399,114 @@ class TextControllerTest extends AbstractControllerTest
                                 ]
                             ],
                             [
-                                "id" => "1",
-                                "type" => "block",
+                                "id"     => "1",
+                                "type"   => "block",
                                 "values" => [
-                                    "angles" => [
+                                    "angles"          => [
                                         [
-                                            "type" => "margin",
+                                            "type"   => "margin",
                                             "values" => [
                                                 [
-                                                    "name" => "designBlockModel.margin_top",
+                                                    "name"  => "designBlockModel.margin_top",
                                                     "value" => 0
                                                 ],
                                                 [
-                                                    "name" => "designBlockModel.margin_right",
+                                                    "name"  => "designBlockModel.margin_right",
                                                     "value" => 0
                                                 ],
                                                 [
-                                                    "name" => "designBlockModel.margin_bottom",
+                                                    "name"  => "designBlockModel.margin_bottom",
                                                     "value" => 0
                                                 ],
                                                 [
-                                                    "name" => "designBlockModel.margin_left",
+                                                    "name"  => "designBlockModel.margin_left",
                                                     "value" => 0
                                                 ]
                                             ]
                                         ],
                                         [
-                                            "type" => "padding",
+                                            "type"   => "padding",
                                             "values" => [
                                                 [
-                                                    "name" => "designBlockModel.padding_top",
+                                                    "name"  => "designBlockModel.padding_top",
                                                     "value" => 0
                                                 ],
                                                 [
-                                                    "name" => "designBlockModel.padding_right",
+                                                    "name"  => "designBlockModel.padding_right",
                                                     "value" => 0
                                                 ],
                                                 [
-                                                    "name" => "designBlockModel.padding_bottom",
+                                                    "name"  => "designBlockModel.padding_bottom",
                                                     "value" => 0
                                                 ],
                                                 [
-                                                    "name" => "designBlockModel.padding_left",
+                                                    "name"  => "designBlockModel.padding_left",
                                                     "value" => 0
                                                 ]
                                             ]
                                         ],
                                         [
-                                            "type" => "border-width",
+                                            "type"   => "border-width",
                                             "values" => [
                                                 [
-                                                    "name" => "designBlockModel.border_top_width",
+                                                    "name"  => "designBlockModel.border_top_width",
                                                     "value" => 0
                                                 ],
                                                 [
-                                                    "name" => "designBlockModel.border_right_width",
+                                                    "name"  => "designBlockModel.border_right_width",
                                                     "value" => 0
                                                 ],
                                                 [
-                                                    "name" => "designBlockModel.border_bottom_width",
+                                                    "name"  => "designBlockModel.border_bottom_width",
                                                     "value" => 0
                                                 ],
                                                 [
-                                                    "name" => "designBlockModel.border_left_width",
+                                                    "name"  => "designBlockModel.border_left_width",
                                                     "value" => 0
                                                 ]
                                             ]
                                         ],
                                         [
-                                            "type" => "border-radius",
+                                            "type"   => "border-radius",
                                             "values" => [
                                                 [
-                                                    "name" => "designBlockModel.border_top_left_radius",
+                                                    "name"  => "designBlockModel.border_top_left_radius",
                                                     "value" => 0
                                                 ],
                                                 [
-                                                    "name" => "designBlockModel.border_top_right_radius",
+                                                    "name"  => "designBlockModel.border_top_right_radius",
                                                     "value" => 0
                                                 ],
                                                 [
-                                                    "name" => "designBlockModel.border_bottom_right_radius",
+                                                    "name"  => "designBlockModel.border_bottom_right_radius",
                                                     "value" => 0
                                                 ],
                                                 [
-                                                    "name" => "designBlockModel.border_bottom_left_radius",
+                                                    "name"  => "designBlockModel.border_bottom_left_radius",
                                                     "value" => 0
                                                 ]
                                             ]
                                         ]
                                     ],
                                     "backgroundColor" => [
-                                        "fromName" => "designBlockModel.background_color_from",
-                                        "fromValue" => "",
-                                        "toName" => "designBlockModel.background_color_to",
-                                        "toValue" => "",
-                                        "gradientName" => "designBlockModel.gradient_direction",
+                                        "fromName"      => "designBlockModel.background_color_from",
+                                        "fromValue"     => "",
+                                        "toName"        => "designBlockModel.background_color_to",
+                                        "toValue"       => "",
+                                        "gradientName"  => "designBlockModel.gradient_direction",
                                         "gradientValue" => 0
                                     ],
-                                    "colors" => [
+                                    "colors"          => [
                                         [
-                                            "type" => "border-color",
-                                            "name" => "designBlockModel.border_color",
+                                            "type"  => "border-color",
+                                            "name"  => "designBlockModel.border_color",
                                             "value" => ""
                                         ]
                                     ],
-                                    "radios" => [
+                                    "radios"          => [
                                         [
-                                            "type" => "border-style",
-                                            "name" => "designBlockModel.border_style",
+                                            "type"  => "border-style",
+                                            "name"  => "designBlockModel.border_style",
                                             "value" => 0
                                         ]
                                     ]
@@ -545,18 +541,18 @@ class TextControllerTest extends AbstractControllerTest
                 "text.saveDesign",
                 Language::LANGUAGE_EN_ALIAS,
                 [
-                    "id" => 1,
+                    "id"                                          => 1,
                     // Text
-                    "designTextModel.size"           => "",
-                    "designTextModel.family"         => "",
-                    "designTextModel.color"          => "",
-                    "designTextModel.is_italic"      => "",
-                    "designTextModel.is_bold"        => "",
-                    "designTextModel.align"          => "",
-                    "designTextModel.decoration"     => "",
-                    "designTextModel.transform"      => "",
-                    "designTextModel.letter_spacing" => "",
-                    "designTextModel.line_height"    => "",
+                    "designTextModel.size"                        => "",
+                    "designTextModel.family"                      => "",
+                    "designTextModel.color"                       => "",
+                    "designTextModel.is_italic"                   => "",
+                    "designTextModel.is_bold"                     => "",
+                    "designTextModel.align"                       => "",
+                    "designTextModel.decoration"                  => "",
+                    "designTextModel.transform"                   => "",
+                    "designTextModel.letter_spacing"              => "",
+                    "designTextModel.line_height"                 => "",
                     // Block
                     "designBlockModel.margin_top"                 => "",
                     "designBlockModel.margin_right"               => "",
@@ -590,18 +586,18 @@ class TextControllerTest extends AbstractControllerTest
                 "text.saveDesign",
                 Language::LANGUAGE_EN_ALIAS,
                 [
-                    "id" => 1,
+                    "id"                                          => 1,
                     // Text
-                    "designTextModel.size"           => 20,
-                    "designTextModel.family"         => 3,
-                    "designTextModel.color"          => "rgba(255,255,255,0.5)",
-                    "designTextModel.is_italic"      => 1,
-                    "designTextModel.is_bold"        => 1,
-                    "designTextModel.align"          => 2,
-                    "designTextModel.decoration"     => 1,
-                    "designTextModel.transform"      => 1,
-                    "designTextModel.letter_spacing" => 20,
-                    "designTextModel.line_height"    => 200,
+                    "designTextModel.size"                        => 20,
+                    "designTextModel.family"                      => 3,
+                    "designTextModel.color"                       => "rgba(255,255,255,0.5)",
+                    "designTextModel.is_italic"                   => 1,
+                    "designTextModel.is_bold"                     => 1,
+                    "designTextModel.align"                       => 2,
+                    "designTextModel.decoration"                  => 1,
+                    "designTextModel.transform"                   => 1,
+                    "designTextModel.letter_spacing"              => 20,
+                    "designTextModel.line_height"                 => 200,
                     // Block
                     "designBlockModel.margin_top"                 => 10,
                     "designBlockModel.margin_right"               => 10,
@@ -635,18 +631,18 @@ class TextControllerTest extends AbstractControllerTest
                 "text.saveDesign",
                 Language::LANGUAGE_EN_ALIAS,
                 [
-                    "id" => 1,
+                    "id"                                          => 1,
                     // Text
-                    "designTextModel.size"           => "incorrect",
-                    "designTextModel.family"         => "incorrect",
-                    "designTextModel.color"          => "incorrect",
-                    "designTextModel.is_italic"      => "incorrect",
-                    "designTextModel.is_bold"        => "incorrect",
-                    "designTextModel.align"          => "incorrect",
-                    "designTextModel.decoration"     => "incorrect",
-                    "designTextModel.transform"      => "incorrect",
-                    "designTextModel.letter_spacing" => "incorrect",
-                    "designTextModel.line_height"    => "incorrect",
+                    "designTextModel.size"                        => "incorrect",
+                    "designTextModel.family"                      => "incorrect",
+                    "designTextModel.color"                       => "incorrect",
+                    "designTextModel.is_italic"                   => "incorrect",
+                    "designTextModel.is_bold"                     => "incorrect",
+                    "designTextModel.align"                       => "incorrect",
+                    "designTextModel.decoration"                  => "incorrect",
+                    "designTextModel.transform"                   => "incorrect",
+                    "designTextModel.letter_spacing"              => "incorrect",
+                    "designTextModel.line_height"                 => "incorrect",
                     // Block
                     "designBlockModel.margin_top"                 => "incorrect",
                     "designBlockModel.margin_right"               => "incorrect",
@@ -700,7 +696,7 @@ class TextControllerTest extends AbstractControllerTest
                 "text.window",
                 Language::LANGUAGE_EN_ALIAS,
                 [
-                    "id" => "sdfsdfs"
+                    "id" => "incorrect"
                 ],
                 [
                     "error" => "Incorrect ID"
@@ -725,7 +721,20 @@ class TextControllerTest extends AbstractControllerTest
                     "id" => 1
                 ],
                 [
-                    //
+                    "title"    => "Default. Without styles",
+                    "action"   => "text.saveWindow",
+                    "id"       => 1,
+                    "selector" => ".text-1",
+                    "isEditor" => false,
+                    "forms"    => [
+                        [
+                            "name"  => "t.text",
+                            "rules" => [],
+                            "type"  => "field",
+                            "value" =>
+                                "Default. Without styles. The quick brown fox jumps over the lazy dog 0123456789.",
+                        ]
+                    ]
                 ]
             ]
         ];
@@ -753,11 +762,11 @@ class TextControllerTest extends AbstractControllerTest
                 "text.saveWindow",
                 Language::LANGUAGE_EN_ALIAS,
                 [
-                    "id" => "1",
-                   //
+                    "id"     => "1",
+                    "t.text" => "new text example"
                 ],
                 [
-                   //
+                    "errors" => [],
                 ]
             ],
         ];

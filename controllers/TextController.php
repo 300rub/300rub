@@ -87,17 +87,20 @@ class TextController extends AbstractController
             "title"       => Language::t("common", "settings"),
             "description" => Language::t("text", "settingsDescription"),
             "action"      => "section.saveSettings",
-            "id"          => intval($model->id),
-            "update"      => [
-                "selector" => ".text-",
-                "content"  => "text.content"
-            ],
+            "id"          => $model->id,
             "submit"      => [
                 "label"   => Language::t("common", $model->id ? "save" : "add"),
                 "content" => "text.panelList",
                 "action"  => "text.saveSettings",
             ]
         ];
+
+        if ($model->id) {
+            $this->json["update"] = [
+                "selector" => ".text-{$model->id}",
+                "content"  => "text.content"
+            ];
+        }
 
         $this->setFormsForJson($model, ["t.name", "t.type", "t.is_editor"]);
     }
@@ -178,13 +181,11 @@ class TextController extends AbstractController
         $model = $this->getModel();
 
         $this->json = [
-            "title"  => $model->name,
-            "action" => "section.saveWindow",
-            "id"     => intval($model->id),
-            "update" => [
-                "selector" => ".text-",
-                "content"  => "text.content",
-            ],
+            "title"    => $model->name,
+            "action"   => "text.saveWindow",
+            "handler"  => "text",
+            "id"       => $model->id,
+            "selector" => ".text-{$model->id}",
             "isEditor" => boolval($model->is_editor)
         ];
 
