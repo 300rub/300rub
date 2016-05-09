@@ -314,7 +314,7 @@ class SectionModel extends AbstractModel
 		try {
 			$modelForCopy = $this->withAll()->byId($this->id)->find();
 
-			$seoModel = $modelForCopy->seoModel->duplicate(false);
+			$seoModel = $modelForCopy->seoModel->duplicate();
 			if ($seoModel === null) {
 				return null;
 			}

@@ -127,6 +127,17 @@ class TextModel extends AbstractModel
 	];
 
 	/**
+	 * Form types
+	 *
+	 * @var array
+	 */
+	protected $formTypes = [
+		"name"      => self::FORM_TYPE_FIELD,
+		"is_editor" => self::FORM_TYPE_CHECKBOX,
+		"type"      => self::FORM_TYPE_SELECT
+	];
+
+	/**
 	 * Relations
 	 *
 	 * @var array
@@ -172,7 +183,7 @@ class TextModel extends AbstractModel
 			"text"            => [],
 			"design_text_id"  => [],
 			"design_block_id" => [],
-			"name"            => ["required"],
+			"name"            => ["required", "max" => 255],
 		];
 	}
 
@@ -185,37 +196,6 @@ class TextModel extends AbstractModel
 	{
 		$className = __CLASS__;
 		return new $className;
-	}
-
-	/**
-	 * Gets design forms
-	 *
-	 * @return array
-	 */
-	public function getDesignForms()
-	{
-		$list = [];
-		$forms = [];
-
-		if (!$this->is_editor) {
-			$forms[] = [
-				"id"     => $this->designTextModel->id,
-				"type"   => "text",
-				"values" => $this->designTextModel->getValues("designTextModel.%s"),
-			];
-		}
-		$forms[] = [
-			"id"     => $this->designBlockModel->id,
-			"type"   => "block",
-			"values" => $this->designBlockModel->getValues("designBlockModel.%s"),
-		];
-
-		$list[] = [
-			"title" => Language::t("text", "text"),
-			"forms" => $forms
-		];
-
-		return $list;
 	}
 
 	/**

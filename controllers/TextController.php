@@ -82,6 +82,7 @@ class TextController extends AbstractController
         $model = $this->getModel([], true);
 
         $this->json = [
+            "handler"     => "settingsText",
             "back"        => "text/panelList",
             "title"       => Language::t("common", "settings"),
             "description" => Language::t("text", "settingsDescription"),
@@ -90,6 +91,11 @@ class TextController extends AbstractController
             "update"      => [
                 "selector" => ".text-",
                 "content"  => "text.content"
+            ],
+            "submit"      => [
+                "label"   => Language::t("common", $model->id ? "save" : "add"),
+                "content" => "text.panelList",
+                "action"  => "text.saveSettings",
             ]
         ];
 
@@ -101,12 +107,12 @@ class TextController extends AbstractController
      */
     public function actionSaveSettings()
     {
+        $this->setCheckboxValue("t.is_editor");
         $model = $this->getModel([], true);
         $model->setAttributes($this->data)->save();
 
         $this->json = [
-            "errors"  => $model->errors,
-            "content" => "text.panelList",
+            "errors" => $model->errors,
         ];
     }
 
@@ -117,13 +123,36 @@ class TextController extends AbstractController
     {
         $model = $this->getModel("*");
 
+        $design = [];
+        $forms = [];
+        if (!$model->is_editor) {
+            $forms[] = [
+                "id"     => $model->designTextModel->id,
+                "type"   => "text",
+                "values" => $model->designTextModel->getValues("designTextModel.%s"),
+            ];
+        }
+        $forms[] = [
+            "id"     => $model->designBlockModel->id,
+            "type"   => "block",
+            "values" => $model->designBlockModel->getValues("designBlockModel.%s"),
+        ];
+        $design[] = [
+            "title" => Language::t("text", "text"),
+            "forms" => $forms
+        ];
+
         $this->json = [
+            "handler"     => "design",
             "back"        => "text.panelList",
             "title"       => Language::t("common", "design"),
             "description" => Language::t("text", "designDescription"),
-            "action"      => "section.saveDesign",
             "id"          => intval($model->id),
-            "design"      => $model->getDesignForms()
+            "design"      => $design,
+            "submit"      => [
+                "content" => "text.panelList",
+                "action"  => "text.saveDesign",
+            ],
         ];
     }
 

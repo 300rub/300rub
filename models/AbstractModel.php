@@ -40,6 +40,11 @@ abstract class AbstractModel
 	const FORM_TYPE_CHECKBOX = "checkbox";
 
 	/**
+	 * Form type select
+	 */
+	const FORM_TYPE_SELECT = "select";
+
+	/**
 	 * ID
 	 *
 	 * @var integer

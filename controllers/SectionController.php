@@ -183,7 +183,6 @@ class SectionController extends AbstractController
             "title"       => Language::t("common", "design"),
             "handler"     => "design",
             "description" => Language::t("section", "designDescription"),
-            "action"      => "section.saveDesign",
             "id"          => intval($model->id),
             "submit"      => [
                 "content" => "section.panelList",
