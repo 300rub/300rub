@@ -25,8 +25,8 @@ class TextControllerTest extends AbstractControllerTest
             $this->_dataProviderForActionPanelList(),
             $this->_dataProviderForActionSettings(),
             $this->_dataProviderForActionSaveSettings(),
-            $this->_dataProviderForActionDesign()
-//            $this->_dataProviderForActionSaveDesign(),
+            $this->_dataProviderForActionDesign(),
+            $this->_dataProviderForActionSaveDesign()
 //            $this->_dataProviderForActionWindow(),
 //            $this->_dataProviderForActionSaveWindow()
         );
@@ -546,10 +546,43 @@ class TextControllerTest extends AbstractControllerTest
                 Language::LANGUAGE_EN_ALIAS,
                 [
                     "id" => 1,
-                    //
+                    // Text
+                    "designTextModel.size"           => "",
+                    "designTextModel.family"         => "",
+                    "designTextModel.color"          => "",
+                    "designTextModel.is_italic"      => "",
+                    "designTextModel.is_bold"        => "",
+                    "designTextModel.align"          => "",
+                    "designTextModel.decoration"     => "",
+                    "designTextModel.transform"      => "",
+                    "designTextModel.letter_spacing" => "",
+                    "designTextModel.line_height"    => "",
+                    // Block
+                    "designBlockModel.margin_top"                 => "",
+                    "designBlockModel.margin_right"               => "",
+                    "designBlockModel.margin_bottom"              => "",
+                    "designBlockModel.margin_left"                => "",
+                    "designBlockModel.padding_top"                => "",
+                    "designBlockModel.padding_right"              => "",
+                    "designBlockModel.padding_bottom"             => "",
+                    "designBlockModel.padding_left"               => "",
+                    "designBlockModel.background_color_from"      => "",
+                    "designBlockModel.background_color_to"        => "",
+                    "designBlockModel.gradient_direction"         => "",
+                    "designBlockModel.border_top_width"           => "",
+                    "designBlockModel.border_top_left_radius"     => "",
+                    "designBlockModel.border_right_width"         => "",
+                    "designBlockModel.border_top_right_radius"    => "",
+                    "designBlockModel.border_bottom_width"        => "",
+                    "designBlockModel.border_bottom_right_radius" => "",
+                    "designBlockModel.border_left_width"          => "",
+                    "designBlockModel.border_bottom_left_radius"  => "",
+                    "designBlockModel.border_color"               => "",
+                    "designBlockModel.border_style"               => "",
                 ],
                 [
-                    //
+                    "result"  => true,
+                    "content" => "text.panelList",
                 ]
             ],
             // Correct values
@@ -558,10 +591,43 @@ class TextControllerTest extends AbstractControllerTest
                 Language::LANGUAGE_EN_ALIAS,
                 [
                     "id" => 1,
-                    //
+                    // Text
+                    "designTextModel.size"           => 20,
+                    "designTextModel.family"         => 3,
+                    "designTextModel.color"          => "rgba(255,255,255,0.5)",
+                    "designTextModel.is_italic"      => 1,
+                    "designTextModel.is_bold"        => 1,
+                    "designTextModel.align"          => 2,
+                    "designTextModel.decoration"     => 1,
+                    "designTextModel.transform"      => 1,
+                    "designTextModel.letter_spacing" => 20,
+                    "designTextModel.line_height"    => 200,
+                    // Block
+                    "designBlockModel.margin_top"                 => 10,
+                    "designBlockModel.margin_right"               => 10,
+                    "designBlockModel.margin_bottom"              => 10,
+                    "designBlockModel.margin_left"                => 10,
+                    "designBlockModel.padding_top"                => 10,
+                    "designBlockModel.padding_right"              => 10,
+                    "designBlockModel.padding_bottom"             => 10,
+                    "designBlockModel.padding_left"               => 10,
+                    "designBlockModel.background_color_from"      => "rgba(255,255,255,0.5)",
+                    "designBlockModel.background_color_to"        => "rgba(0,255,255,0.5)",
+                    "designBlockModel.gradient_direction"         => 1,
+                    "designBlockModel.border_top_width"           => 20,
+                    "designBlockModel.border_top_left_radius"     => 20,
+                    "designBlockModel.border_right_width"         => 20,
+                    "designBlockModel.border_top_right_radius"    => 20,
+                    "designBlockModel.border_bottom_width"        => 20,
+                    "designBlockModel.border_bottom_right_radius" => 20,
+                    "designBlockModel.border_left_width"          => 20,
+                    "designBlockModel.border_bottom_left_radius"  => 20,
+                    "designBlockModel.border_color"               => 20,
+                    "designBlockModel.border_style"               => 20,
                 ],
                 [
-                    //
+                    "result"  => true,
+                    "content" => "text.panelList",
                 ]
             ],
             // Incorrect values
@@ -570,10 +636,43 @@ class TextControllerTest extends AbstractControllerTest
                 Language::LANGUAGE_EN_ALIAS,
                 [
                     "id" => 1,
-                    //
+                    // Text
+                    "designTextModel.size"           => "incorrect",
+                    "designTextModel.family"         => "incorrect",
+                    "designTextModel.color"          => "incorrect",
+                    "designTextModel.is_italic"      => "incorrect",
+                    "designTextModel.is_bold"        => "incorrect",
+                    "designTextModel.align"          => "incorrect",
+                    "designTextModel.decoration"     => "incorrect",
+                    "designTextModel.transform"      => "incorrect",
+                    "designTextModel.letter_spacing" => "incorrect",
+                    "designTextModel.line_height"    => "incorrect",
+                    // Block
+                    "designBlockModel.margin_top"                 => "incorrect",
+                    "designBlockModel.margin_right"               => "incorrect",
+                    "designBlockModel.margin_bottom"              => "incorrect",
+                    "designBlockModel.margin_left"                => "incorrect",
+                    "designBlockModel.padding_top"                => "incorrect",
+                    "designBlockModel.padding_right"              => "incorrect",
+                    "designBlockModel.padding_bottom"             => "incorrect",
+                    "designBlockModel.padding_left"               => "incorrect",
+                    "designBlockModel.background_color_from"      => "incorrect",
+                    "designBlockModel.background_color_to"        => "incorrect",
+                    "designBlockModel.gradient_direction"         => "incorrect",
+                    "designBlockModel.border_top_width"           => "incorrect",
+                    "designBlockModel.border_top_left_radius"     => "incorrect",
+                    "designBlockModel.border_right_width"         => "incorrect",
+                    "designBlockModel.border_top_right_radius"    => "incorrect",
+                    "designBlockModel.border_bottom_width"        => "incorrect",
+                    "designBlockModel.border_bottom_right_radius" => "incorrect",
+                    "designBlockModel.border_left_width"          => "incorrect",
+                    "designBlockModel.border_bottom_left_radius"  => "incorrect",
+                    "designBlockModel.border_color"               => "incorrect",
+                    "designBlockModel.border_style"               => "incorrect",
                 ],
                 [
-                    //
+                    "result"  => true,
+                    "content" => "text.panelList",
                 ]
             ],
         ];

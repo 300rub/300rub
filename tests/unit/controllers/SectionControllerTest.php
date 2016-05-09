@@ -824,7 +824,7 @@ class SectionControllerTest extends AbstractControllerTest
                 ],
                 [
                     "result"  => true,
-                    "content" => "section/panelList",
+                    "content" => "section.panelList",
                 ]
             ],
             // Correct values

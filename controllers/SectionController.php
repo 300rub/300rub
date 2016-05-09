@@ -199,7 +199,7 @@ class SectionController extends AbstractController
     {
         $this->json = [
             "result"  => $this->getModel(["designBlockModel"])->saveDesign($this->data),
-            "content" => "section/panelList",
+            "content" => "section.panelList",
         ];
     }
 
