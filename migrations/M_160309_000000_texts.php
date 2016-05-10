@@ -35,6 +35,14 @@ class M_160309_000000_texts extends AbstractMigration
 			return false;
 		}
 
+		if (!$this->createIndex("texts_design_text_id", "texts", "design_text_id")) {
+			return false;
+		}
+
+		if (!$this->createIndex("texts_design_block_id", "texts", "design_block_id")) {
+			return false;
+		}
+
 		return true;
 	}
 }
