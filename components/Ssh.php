@@ -33,7 +33,7 @@ class Ssh
      *
      * @param string $sshConnectionName Name of SSH connection
      */
-    public function __construct($sshConnectionName)
+    public function __construct($sshConnectionName = null)
     {
         if (!$sshConnectionName) {
             $sshConnectionName = App::web()->config->ssh->active;
@@ -118,7 +118,12 @@ class Ssh
      */
     public function sendFile($localFilePath, $remoteFilePath)
     {
-        return ssh2_scp_send($this->_connection, $localFilePath, $remoteFilePath, 0777);
+        return ssh2_scp_send(
+            $this->_connection,
+            $localFilePath,
+            $this->_params->uploadFolder . "/" . $remoteFilePath,
+            0777
+        );
     }
 
     /**
@@ -130,7 +135,7 @@ class Ssh
      */
     public function deleteFile($filePath)
     {
-        return ssh2_sftp_unlink(ssh2_sftp($this->_connection), $filePath);
+        return ssh2_sftp_unlink(ssh2_sftp($this->_connection), $this->_params->uploadFolder . "/" . $filePath);
     }
 
     /**
@@ -142,7 +147,7 @@ class Ssh
      */
     public function createDir($dirPath)
     {
-        return ssh2_sftp_mkdir(ssh2_sftp($this->_connection), $dirPath, 0777);
+        return ssh2_sftp_mkdir(ssh2_sftp($this->_connection), $this->_params->uploadFolder . "/" . $dirPath, 0777);
     }
 
     /**
@@ -154,6 +159,6 @@ class Ssh
      */
     public function deleteDir($dirPath)
     {
-        return ssh2_sftp_rmdir(ssh2_sftp($this->_connection), $dirPath);
+        return ssh2_sftp_rmdir(ssh2_sftp($this->_connection), $this->_params->uploadFolder . "/" . $dirPath);
     }
 }

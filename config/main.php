@@ -33,7 +33,8 @@ return [
 				"username"       => "",
 				"publicKeyPath"  => "",
 				"privateKeyPath" => "",
-				"passPhrase"     => ""
+				"passPhrase"     => "",
+				"uploadFolder"   => "/var/www/upload"
 			]
 		]
 	],
