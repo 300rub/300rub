@@ -74,6 +74,11 @@ class File
         }
     }
 
+    /**
+     * Sends file to remote server
+     *
+     * @throws Exception
+     */
     public function send()
     {
         $fileUploadPath = $this->_getFullFilePath();
@@ -82,9 +87,15 @@ class File
             throw new Exception("File doesn't exist");
         }
 
-        $ssh = new Ssh();
-        if ($ssh->sendFile($fileUploadPath, $this->_getFilePath())) {
-            throw new Exception("Unable to send file to remote server");
+        if (!App::web()->config->isDebug) {
+            $ssh = new Ssh();
+            if ($ssh->sendFile($fileUploadPath, $this->_getFilePath())) {
+                throw new Exception("Unable to send file to remote server");
+            }
+
+            if (unlink($fileUploadPath) === false) {
+                throw new Exception("Unable to delete file from upload folder");
+            }
         }
     }
 
