@@ -151,7 +151,7 @@ class Validator
 	 */
 	private function _required($field)
 	{
-		if (!array_key_exists($field, $this->_errors) && !$this->_model->$field) {
+		if ($this->_model->$field === "") {
 			$this->_addError($field, "required");
 		}
 	}
@@ -166,7 +166,7 @@ class Validator
 	 */
 	private function _max($field, $max)
 	{
-		if (!array_key_exists($field, $this->_errors) && mb_strlen($this->_model->$field) > $max) {
+		if (mb_strlen($this->_model->$field) > $max) {
 			$this->_addError($field, "max");
 		}
 	}
@@ -181,7 +181,7 @@ class Validator
 	 */
 	private function _min($field, $min)
 	{
-		if (!array_key_exists($field, $this->_errors) && mb_strlen($this->_model->$field) < $min) {
+		if (mb_strlen($this->_model->$field) < $min) {
 			$this->_addError($field, "min");
 		}
 	}
@@ -196,8 +196,7 @@ class Validator
 	private function _url($field)
 	{
 		if (
-			!array_key_exists($field, $this->_errors)
-			&& $this->_model->$field
+			$this->_model->$field
 			&& !preg_match("/^[0-9a-z-]+$/i", $this->_model->$field)
 		) {
 			$this->_addError($field, "url");
@@ -214,8 +213,7 @@ class Validator
 	private function _latinDigitUnderscoreHyphen($field)
 	{
 		if (
-			!array_key_exists($field, $this->_errors)
-			&& $this->_model->$field
+			$this->_model->$field
 			&& !preg_match("/^[0-9a-z-_]+$/i", $this->_model->$field)
 		) {
 			$this->_addError($field, "latinDigitUnderscoreHyphen");

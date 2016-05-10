@@ -56,7 +56,7 @@
 		_field: function (params) {
 			this.$container.find(params.name.nameToClass())
 				.attr("name", params.name)
-				.attr("data-rules", params.rules)
+				.attr("data-rules", params.rules.join(","))
 				.val(params.value);
 		},
 

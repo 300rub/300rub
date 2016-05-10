@@ -41,7 +41,7 @@
 
 			this.$container.find(".j-validate").each($.proxy(function (i, field) {
 				$field = $(field);
-				$.each($field.data("rules").split(", "), $.proxy(function (i, rule) {
+				$.each($field.data("rules").split(","), $.proxy(function (i, rule) {
 					split = rule.split("-");
 					methodName = "_" + split[0];
 					if (this[methodName] !== undefined) {
@@ -102,6 +102,56 @@
 		_max: function ($field, max) {
 			if ($.trim($field.val()).length > parseInt(max)) {
 				this._addError($field.attr("name"), "max");
+			}
+		},
+
+		/**
+		 * Checks for min value
+		 *
+		 * @param {Object}  [$field] Field
+		 * @param {Integer} [min]    Min value
+		 *
+		 * @private
+		 */
+		_min: function ($field, min) {
+			if ($.trim($field.val()).length < parseInt(min)) {
+				this._addError($field.attr("name"), "min");
+			}
+		},
+
+		/**
+		 * Verifies URL
+		 *
+		 * @param {Object} [$field] Field
+		 *
+		 * @private
+		 */
+		_url: function ($field) {
+			if (
+				$.trim($field.val()).length !== 0
+			) {
+				var pattern = new RegExp("/^[0-9a-z-]+$/i");
+				if (!pattern.test($field.val())) {
+					this._addError($field.attr("name"), "url");
+				}
+			}
+		},
+
+		/**
+		 * Verifies regex: latin, digit, underscore, hyphen
+		 *
+		 * @param {Object} [$field] Field
+		 *
+		 * @private
+		 */
+		_latinDigitUnderscoreHyphen: function ($field) {
+			if (
+				$.trim($field.val()).length !== 0
+			) {
+				var pattern = new RegExp("/^[0-9a-z-_]+$/i");
+				if (!pattern.test($field.val())) {
+					this._addError($field.attr("name"), "latinDigitUnderscoreHyphen");
+				}
 			}
 		},
 
