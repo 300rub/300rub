@@ -5,43 +5,51 @@
   height: 100%;
   z-index: 500;
   background: black;
-  opacity: 0.05;
+  opacity: 0.10;
   position: fixed;
 }
 
 .l-window {
-  top: 15px;
+  bottom: 50px;
   left: 50%;
   z-index: 1000;
   position: fixed;
-  background: white;
-  width: 980px;
-  overflow: hidden;
-  margin-left: -490px;
-  padding: 56px 0 65px 0;
+  width: 800px;
+  margin-left: -400px;
+
+  .l-window-container {
+    position: relative;
+    padding: 20px 0 65px 0;
+    background: white;
+    z-index: 2;
+  }
 
   .l-header {
-    top: 0;
+    top: -31px;
     left: 0;
     right: 0;
-    line-height: 46px;
-    padding-top: 10px;
-    padding-left: 24px;
-    height: 56px;
     position: absolute;
-    border-bottom: 1px solid black;
     z-index: 5;
+    font-weight: 300;
+    font-size: 36px;
+    padding: 0 22px 3px 22px;
+    border-bottom: 1px solid @grayColor;
   }
 
   .l-close {
-    top: 0;
-    right: 0;
+    top: -52px;
+    right: -47px;
     position: absolute;
-    display: block;
-    background: black no-repeat center center;
-    width: 56px;
-    height: 56px;
+    display: inline-block;
+    font-size: 45px;
     z-index: 10;
+    text-decoration: none;
+    color: white;
+    padding: 8px;
+
+    &:hover {
+      color: @blueColor;
+    }
   }
 
   .l-container {
@@ -54,15 +62,88 @@
     bottom: 0;
     left: 0;
     right: 0;
-    height: 65px;
+    height: 66px;
     position: absolute;
-    border-top: 1px solid black;
+    border-top: 1px solid @grayColor;
 
     .l-submit {
       position: absolute;
-      right: 20px;
+      right: 0;
       top: 50%;
-      margin-top: -7px;
+      margin-top: -25px;
+      text-decoration: none;
+      display: inline-block;
+      line-height: 50px;
+      color: #555;
+      background: @grayColor;
+      font-size: 18px;
+      padding: 0 25px;
+    }
+    .l-submit:hover {
+      color: white;
+      background: @blueColor;
+    }
+  }
+
+  .l-cloud {
+    z-index: -1;
+    .l-full-size;
+
+    .l-cloud-top, .l-cloud-sides {
+      .l-full-size;
+    }
+
+    .l-cloud-top:before, .l-cloud-top:after {
+      content: '';
+      position: absolute;
+      background: white;
+      z-index: -1;
+      top: 0;
+      .l-rounded;
+    }
+
+    .l-cloud-top:before {
+      width: 33%;
+      height: 200px;
+      margin-top: -100px;
+      left: 0;
+    }
+
+    .l-cloud-top:after {
+      width: 76%;
+      height: 300px;
+      margin-top: -150px;
+      right: 0;
+    }
+
+    .l-cloud-sides:before, .l-cloud-sides:after {
+      content: '';
+      position: absolute;
+      background: white;
+      z-index: -1;
+      top: 0;
+      height: 100%;
+      width: 300px;
+      .l-rounded;
+    }
+
+    .l-cloud-sides:before {
+      left: -150px;
+    }
+
+    .l-cloud-sides:after {
+      right: -150px;
+    }
+
+    .l-cloud-bottom {
+      width: 120%;
+      position: absolute;
+      bottom: -10px;
+      background: #000;
+      .l-box-shadow(0 0 25px 8px rgba(0, 0, 0, 0.3));
+      .l-rounded;
+      margin-left: -10%;
+      z-index: -2;
     }
   }
 }

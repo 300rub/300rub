@@ -6,7 +6,9 @@ return [
         "less" => [
             "common.less",
         ],
-        "css" => [],
+        "css" => [
+            "lib/fa/css/font-awesome.min.css",
+        ],
         "js" => [
             "lib/jquery.min.js",
             "core.js",
