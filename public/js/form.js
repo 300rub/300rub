@@ -56,8 +56,30 @@
 		_field: function (params) {
 			this.$container.find(params.name.nameToClass())
 				.attr("name", params.name)
-				.attr("data-rules", params.rules.join(","))
+				.attr("data-rules", this._getRulesAsString(params.rules))
 				.val(params.value);
+		},
+
+		/**
+		 * Gets rules as array
+		 *
+		 * @param {string} rules
+		 *
+		 * @returns {string}
+		 *
+         * @private
+         */
+		_getRulesAsString: function(rules) {
+			var list = [];
+			$.each(rules, function(key, value) {
+				if ($.isNumeric(key)) {
+					list.push(value);
+				} else {
+					list.push(key + "-" + value);
+				}
+			});
+
+			return list.join(",");
 		},
 
 		/**

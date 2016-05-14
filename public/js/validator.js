@@ -130,7 +130,7 @@
 			if (
 				$.trim($field.val()).length !== 0
 			) {
-				var pattern = new RegExp("/^[0-9a-z-]+$/i");
+				var pattern = new RegExp("^[0-9a-z-]+$");
 				if (!pattern.test($field.val())) {
 					this._addError($field.attr("name"), "url");
 				}
@@ -148,7 +148,7 @@
 			if (
 				$.trim($field.val()).length !== 0
 			) {
-				var pattern = new RegExp("/^[0-9a-z-_]+$/i");
+				var pattern = new RegExp("^[0-9a-z-_]+$");
 				if (!pattern.test($field.val())) {
 					this._addError($field.attr("name"), "latinDigitUnderscoreHyphen");
 				}

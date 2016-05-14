@@ -181,12 +181,12 @@
          * @private
          */
 		_onSubmitBefore: function () {
-			this.$submit.find(".j-icon").addClass("j-hide");
-			this.$submit.find(".j-loader").removeClass("j-hide");
-
 			if ($.validator(this.$window.find(".j-window-form")).validate() === false) {
 				return false;
 			}
+
+			this.$submit.find(".j-icon").addClass("j-hide");
+			this.$submit.find(".j-loader").removeClass("j-hide");
 		},
 
 		/**
@@ -201,7 +201,6 @@
 			this.$submit.find(".j-loader").addClass("j-hide");
 
 			if (!$.isEmptyObject(data.errors)) {
-				console.log(data.errors);
 				$.validator(this.$window.find(".j-window-form")).showErrors(data.errors);
 				return false;
 			}
