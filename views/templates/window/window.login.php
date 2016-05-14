@@ -2,24 +2,32 @@
 use components\Language;
 ?>
 <div class="j-window-login-container">
-	<div>
-		<label><?= Language::t("user", "login") ?>
-			<input class="j-t__login j-validate l-form" type="text"/>
-		</label>
-	</div>
-	<div>
-		<label><?= Language::t("user", "password") ?>
-			<input class="j-t__password j-validate l-form" type="password"/>
-		</label>
-	</div>
-	<div class="l-checkbox-container">
-		<label>
-			<input class="j-t__is_remember" type="checkbox"/>
-			<span>
-				<i class="fa fa-square-o"></i>
-				<i class="fa fa-check-square-o"></i>
+	<div class="l-form-container">
+		<label class="l-label-container">
+			<span class="l-label"><?= Language::t("user", "login") ?></span>
+			<span class="l-body">
+				<input class="j-t__login j-validate l-form-middle" type="text"/>
 			</span>
-			<?= Language::t("user", "remember") ?>
+		</label>
+	</div>
+	<div class="l-form-container">
+		<label class="l-label-container">
+			<span class="l-label"><?= Language::t("user", "password") ?></span>
+			<span class="l-body">
+				<input class="j-t__password j-validate l-form-middle" type="password"/>
+			</span>
+		</label>
+	</div>
+	<div class="l-checkbox-container l-form-container">
+		<label class="l-label-container">
+			<span class="l-body">
+				<input class="j-t__is_remember l-checkbox" type="checkbox"/>
+				<span class="l-icons">
+					<i class="fa fa-square-o"></i>
+					<i class="fa fa-check-square-o"></i>
+				</span>
+				<?= Language::t("user", "remember") ?>
+			</span>
 		</label>
 	</div>
 </div>
