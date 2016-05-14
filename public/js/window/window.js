@@ -128,8 +128,9 @@
 			this.$window.find(".j-header").text(data.title).css("display", "block");
 			this.$window.find(".j-footer").css("display", "block");
 
-			if (this.data.buttonLabel !== undefined) {
-				this.$submit.find(".j-label").text(this.data.buttonLabel);
+			if (this.data.button !== undefined) {
+				this.$submit.find(".j-label").text(this.data.button.label);
+				this.$submit.find(".j-icon").addClass(this.data.button.icon);
 			}
 			this.$submit.on("click", $.proxy(this._submit, this));
 			
@@ -180,7 +181,7 @@
          * @private
          */
 		_onSubmitBefore: function () {
-			this.$submit.find(".j-label").addClass("j-hide");
+			this.$submit.find(".j-icon").addClass("j-hide");
 			this.$submit.find(".j-loader").removeClass("j-hide");
 
 			if ($.validator(this.$window.find(".j-window-form")).validate() === false) {
@@ -196,7 +197,7 @@
 		 * @private
 		 */
 		_onSubmitSuccess: function (data) {
-			this.$submit.find(".j-label").removeClass("j-hide");
+			this.$submit.find(".j-icon").removeClass("j-hide");
 			this.$submit.find(".j-loader").addClass("j-hide");
 
 			if (!$.isEmptyObject(data.errors)) {

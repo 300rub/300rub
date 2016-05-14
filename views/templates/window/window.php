@@ -15,11 +15,10 @@ use components\Language;
 			<div class="l-footer j-footer j-hide">
 				<a class="j-submit l-submit hvr-ripple-out" href="#">
 					<span class="j-label"><?= Language::t("common", "save") ?></span>
-					<i class="fa fa-lock"></i>
-					<i class="fa fa-refresh fa-spin fa-fw"></i>
-					<div class="j-loader j-hide">
-						Loading
-					</div>
+					<span class="l-icons">
+						<i class="j-icon fa"></i>
+						<i class="j-loader j-hide fa fa-refresh fa-spin fa-fw"></i>
+					</span>
 				</a>
 			</div>
 		</form>
