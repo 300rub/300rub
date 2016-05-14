@@ -86,17 +86,20 @@
       color: #555;
       background: @grayColor;
       font-size: 18px;
-      padding: 0 25px;
+      padding: 0 25px 0 28px;
+      .transition-duration;
+      .transition-property("background, color");
+
+      &:hover {
+        color: white;
+        background: @blueColor;
+      }
 
       .l-icons {
         display: inline-block;
         width: 20px;
         text-align: center;
       }
-    }
-    .l-submit:hover {
-      color: white;
-      background: @blueColor;
     }
   }
 

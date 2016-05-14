@@ -10,6 +10,8 @@ namespace migrations;
 class M_160317_000000_images extends AbstractMigration
 {
 
+    public $isSkip = true;
+
     /**
      * Applies migration
      *
