@@ -1,27 +1,33 @@
 .l-panel {
-	border: 1px solid black;
-	bottom: 35px;
-	right: 20px;
+	border: 3px solid @blueColor;
+	border-right-width: 0;
+	.l-rounded(15px 0 0 15px);
+	bottom: 50px;
+	right: 0;
 	z-index: 90;
 	position: fixed;
 	background: white;
-	width: 330px;
+	width: 350px;
 	overflow: hidden;
+	padding-right: 20px;
 
 	.l-close {
 		position: absolute;
-		right: 0;
-		top: 0;
-		width: 20px;
-		height: 20px;
-		background: black;
+		right: 10px;
+		top: 5px;
 		z-index: 1;
+		color: @grayColor;
+		font-size: 24px;
+
+		&:hover {
+			color: @blueColor;
+		}
 	}
 
 	.l-header {
 		position: relative;
 		min-height: 20px;
-		border-bottom: 1px solid black;
+		border-bottom: 1px solid @borderColor;
 
 		.l-back {
 			width: 20px;
@@ -45,31 +51,37 @@
 		.l-panel-list-item {
 			cursor: pointer;
 			position: relative;
+			border-bottom: 1px solid @borderColor;
+			padding: 7px 50px 7px 10px;
 
-			.l-design {
-				width: 16px;
-				height: 16px;
-				background: black;
+			&:last-child {
+				border-bottom-width: 0;
+			}
+
+			.l-design, .l-settings {
 				position: absolute;
 				top: 50%;
+				color: @grayColor;
+
+				&:hover {
+					color: @blueColor;
+				}
+			}
+
+			.l-design {
 				margin-top: -8px;
-				right: 24px;
+				right: 32px;
 			}
 
 			.l-settings {
-				width: 16px;
-				height: 16px;
-				background: black;
-				position: absolute;
-				top: 50%;
 				margin-top: -8px;
-				right: 4px;
+				right: 8px;
 			}
 		}
 	}
 
 	.l-footer {
-		border-top: 1px solid black;
+		border-top: 1px solid @borderColor;
 		height: 40px;
 	}
 }

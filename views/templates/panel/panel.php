@@ -2,7 +2,7 @@
 use components\Language;
 ?>
 <div class="j-panel l-panel">
-	<a href="#" class="j-close l-close"></a>
+	<a href="#" class="j-close l-close fa fa-close"></a>
 	<div class="j-header l-header j-hide">
 		<a href="#" class="j-back l-back j-hide">←</a>
 		<div class="j-title l-title"></div>

@@ -1,3 +1,5 @@
+@import "variables.less";
+@import "webkit.less";
 @import "panel.less";
 @import "design.less";
 @import "window.section.less";
@@ -5,6 +7,29 @@
 
 #panel-buttons {
 	position: fixed;
-	bottom: 10px;
+	bottom: 0;
 	right: 20px;
+
+	.l-panel-button {
+		background: @grayColor;
+		border: 2px solid @blueColor;
+		border-bottom-width: 0;
+		line-height: 36px;
+		padding: 0 20px;
+		display: inline-block;
+		color: @textColor;
+		margin: 0 2px;
+		.l-rounded(10px 10px 0 0);
+		.transition-duration;
+		.transition-property("background, color");
+
+		&:hover {
+			background: @blueColor;
+			color: white;
+		}
+
+		.fa {
+			margin-left: 5px;
+		}
+	}
 }

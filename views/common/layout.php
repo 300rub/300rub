@@ -84,20 +84,20 @@ $staticMap = require(__DIR__ . "/../../config/static_map.php");
 	<a href="#" id="login-button">Вход</a>
 <?php } else { ?>
 	<div id="panel-buttons">
-		<a
-			href="#"
-			data-action="section.panelList"
-			><span><?= Language::t("section", "sections") ?></span></a>
+		<a href="#" data-action="section.panelList" class="l-panel-button">
+			<span><?= Language::t("section", "sections") ?></span>
+			<i class="fa fa-files-o"></i>
+		</a>
 
-		<a
-			href="#"
-			data-action="block.panelList"
-			><span><?= Language::t("block", "blocks") ?></span></a>
+		<a href="#" data-action="block.panelList" class="l-panel-button">
+			<span><?= Language::t("block", "blocks") ?></span>
+			<i class="fa fa-th-large"></i>
+		</a>
 
-		<a
-			href="#"
-			data-action="payment.panel"
-		><span><?= Language::t("payment", "payment") ?></span></a>
+		<a href="#" data-action="payment.panel" class="l-panel-button">
+			<span><?= Language::t("payment", "payment") ?></span>
+			<i class="fa fa-money"></i>
+		</a>
 	</div>
 	<a href="#" id="logout-button">Logout</a>
 <?php } ?>

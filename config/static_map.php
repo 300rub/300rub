@@ -4,6 +4,7 @@
 return [
     "common" => [
         "less" => [
+            "effects.less",
             "common.less",
         ],
         "css" => [
