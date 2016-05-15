@@ -216,7 +216,11 @@ class SectionController extends AbstractController
             "grid"    => GridModel::model()->getAllGridsForGridWindow($model->id),
             "handler" => "section",
             "id"      => intval($model->id),
-            "title"   => $model->seoModel->name
+            "title"   => $model->seoModel->name,
+            "button"  => [
+                "label" => Language::t("common", "save"),
+                "icon" => "fa-cloud"
+            ]
         ];
     }
 

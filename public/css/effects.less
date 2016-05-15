@@ -1,5 +1,10 @@
 @import "webkit.less";
 
+.l-effect-fade {
+  .transition-duration;
+  .transition-property("background, color");
+}
+
 .l-effect-bounce {
   .transition-duration;
   .transition-property(transform);
@@ -9,5 +14,46 @@
     transform: scale(1.5);
     -webkit-transition-timing-function: cubic-bezier(0.47, 2.02, 0.31, -0.36);
     transition-timing-function: cubic-bezier(0.47, 2.02, 0.31, -0.36);
+  }
+}
+
+@-webkit-keyframes l-effect-up-up {
+  0%,
+  50%,
+  100% {
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+  }
+
+  25%,
+  75% {
+    -webkit-transform: translateY(-6px);
+    transform: translateY(-6px);
+  }
+}
+
+@keyframes l-effect-up-up {
+  0%,
+  50%,
+  100% {
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+  }
+
+  25%,
+  75% {
+    -webkit-transform: translateY(-6px);
+    transform: translateY(-6px);
+  }
+}
+
+.l-effect-up-up {
+  &:hover {
+    -webkit-animation-name: l-effect-up-up;
+    animation-name: l-effect-up-up;
+    -webkit-animation-duration: 0.75s;
+    animation-duration: 0.75s;
+    -webkit-animation-timing-function: ease-out;
+    animation-timing-function: ease-out;
   }
 }

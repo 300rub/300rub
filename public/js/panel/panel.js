@@ -144,7 +144,7 @@
 		setBack: function() {
 			if (this.data.back !== undefined) {
 				this.$panel.find(".j-back")
-					.css("display", "block")
+					.removeClass("j-hide")
 					.on("click", $.proxy(function() {
 						$.panel(this.data.back);
 						return false;

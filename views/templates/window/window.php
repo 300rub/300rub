@@ -13,7 +13,7 @@ use components\Language;
 				</div>
 			</div>
 			<div class="l-footer j-footer j-hide">
-				<a class="j-submit l-submit hvr-ripple-out" href="#">
+				<a class="j-submit l-submit l-effect-fade" href="#">
 					<span class="j-label"><?= Language::t("common", "save") ?></span>
 					<span class="l-icons">
 						<i class="j-icon fa"></i>

@@ -9,4 +9,7 @@ use components\Language;
     <a href="#" class="j-settings l-settings j-hide fa fa-cog l-effect-bounce"><span></span></a>
 </div>
 
-<a href="#" class="j-panel-list-add"><?= Language::t("common", "add") ?></a>
+<a href="#" class="j-panel-list-add l-list-add l-effect-fade">
+    <?= Language::t("common", "add") ?>
+    <i class="fa fa-plus"></i>
+</a>

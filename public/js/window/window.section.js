@@ -245,7 +245,7 @@
      * @private
      */
     c.Window.prototype._sectionOnSubmitBeforeSend = function () {
-        this.$submit.find(".j-label").addClass("j-hide");
+        this.$submit.find(".j-icon").addClass("j-hide");
         this.$submit.find(".j-loader").removeClass("j-hide");
     };
 
@@ -257,6 +257,9 @@
      * @private
      */
     c.Window.prototype._sectionOnSubmitSuccess = function (data) {
+        this.$submit.find(".j-icon").removeClass("j-hide");
+        this.$submit.find(".j-loader").addClass("j-hide");
+
         if (data !== false) {
             if (parseInt(this.id) === c.sectionId || c.sectionId === 0) {
                 location.reload();

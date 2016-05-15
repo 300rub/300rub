@@ -129,8 +129,12 @@
 			this.$window.find(".j-footer").css("display", "block");
 
 			if (this.data.button !== undefined) {
-				this.$submit.find(".j-label").text(this.data.button.label);
-				this.$submit.find(".j-icon").addClass(this.data.button.icon);
+				if (this.data.button.label !== undefined) {
+					this.$submit.find(".j-label").text(this.data.button.label);
+				}
+				if (this.data.button.icon !== undefined) {
+					this.$submit.find(".j-icon").addClass(this.data.button.icon);
+				}
 			}
 			this.$submit.on("click", $.proxy(this._submit, this));
 			
