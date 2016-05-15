@@ -149,7 +149,7 @@ class Web extends AbstractApplication
 	private function _runAjax()
 	{
 		$useTransaction = false;
-sleep(1);
+
 		try {
 			if (
 				empty($_SERVER['HTTP_X_REQUESTED_WITH'])
