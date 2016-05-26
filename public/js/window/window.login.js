@@ -12,6 +12,9 @@
 
         $container.find(".j-t__login").focus();
 
+        $container.find(".j-t__login").val("login");
+        $container.find(".j-t__password").val("password");
+
         var t = this;
         $container.keypress(function (e) {
             var key = e.which;
