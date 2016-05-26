@@ -10,8 +10,6 @@ namespace migrations;
 class M_160317_000000_images extends AbstractMigration
 {
 
-    public $isSkip = true;
-
     /**
      * Applies migration
      *
@@ -40,7 +38,6 @@ class M_160317_000000_images extends AbstractMigration
                 "language"              => "integer",
                 "design_block_id"       => "integer",
                 "design_image_block_id" => "integer",
-                "is_keep_original"      => "boolean",
             ],
             "ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci"
         );
@@ -95,8 +92,9 @@ class M_160317_000000_images extends AbstractMigration
             "image_instances",
             [
                 "id"             => "pk",
-                "file"           => "string",
+                "file_name"      => "string",
                 "image_album_id" => "integer",
+                "is_cover"       => "boolean",
                 "sort"           => "integer",
                 "alt"            => "string",
                 "x1"             => "integer",

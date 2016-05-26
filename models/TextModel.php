@@ -148,19 +148,6 @@ class TextModel extends AbstractModel
 	];
 
 	/**
-	 * Fields for duplicate
-	 *
-	 * @var string[]
-	 */
-	public $fieldsForDuplicate = [
-		"name",
-		"language",
-		"type",
-		"is_editor",
-		"text"
-	];
-
-	/**
 	 * Gets table name
 	 *
 	 * @return string
@@ -178,12 +165,13 @@ class TextModel extends AbstractModel
 	public function getRules()
 	{
 		return [
+			"name"            => ["required", "max" => 255],
+			"language"        => [],
 			"is_editor"       => [],
 			"type"            => [],
 			"text"            => [],
 			"design_text_id"  => [],
 			"design_block_id" => [],
-			"name"            => ["required", "max" => 255],
 		];
 	}
 
@@ -261,7 +249,7 @@ class TextModel extends AbstractModel
 	/**
 	 * Runs after finding model
 	 *
-	 * @return AbstractModel
+	 * @return TextModel
 	 */
 	protected function afterFind()
 	{
@@ -311,12 +299,12 @@ class TextModel extends AbstractModel
 	 */
 	protected function beforeValidate()
 	{
-		$this->name = strip_tags($this->name);
+		$this->name = trim(strip_tags($this->name));
 	}
 
 	/**
-	 * Duplicates section
-	 * If success returns ID of new section
+	 * Duplicates text
+	 * If success returns ID of new text
 	 *
 	 * @return TextModel|null
 	 */
@@ -338,6 +326,7 @@ class TextModel extends AbstractModel
 			$model = clone $this;
 			$model->name = Language::t("common", "copy") . " {$this->name}";
 			$model->id = 0;
+			$model->text = "";
 			$model->designTextModel = $designTextModel;
 			$model->design_text_id = $designTextModel->id;
 			$model->designBlockModel = $designBlockModel;

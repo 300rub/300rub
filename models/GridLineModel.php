@@ -69,15 +69,6 @@ class GridLineModel extends AbstractModel
 	];
 
 	/**
-	 * Fields for duplicate
-	 *
-	 * @var string[]
-	 */
-	public $fieldsForDuplicate = [
-		"sort"
-	];
-
-	/**
 	 * Gets table name
 	 *
 	 * @return string
