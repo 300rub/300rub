@@ -15,6 +15,10 @@ return [
         Language::LANGUAGE_EN_ID => "Login",
         Language::LANGUAGE_RU_ID => "",
     ],
+    "logout"        => [
+        Language::LANGUAGE_EN_ID => "Logout",
+        Language::LANGUAGE_RU_ID => "",
+    ],
     "password"     => [
         Language::LANGUAGE_EN_ID => "Password",
         Language::LANGUAGE_RU_ID => "",

@@ -83,23 +83,44 @@ $staticMap = require(__DIR__ . "/../../config/static_map.php");
 <?php if (App::web()->user === null) { ?>
 	<a href="#" id="login-button">Вход</a>
 <?php } else { ?>
-	<div id="panel-buttons">
-		<a href="#" data-action="section.panelList" class="l-panel-button">
-			<span><?= Language::t("section", "sections") ?></span>
-			<i class="fa fa-files-o"></i>
-		</a>
+	<div id="admin-bottom-container">
+		<div class="l-left">
+			<a class="j-logout-button l-button">
+				<i class="fa fa-sign-out"></i>
+				<span><?= Language::t("user", "logout") ?></span>
+			</a>
+			<a class="l-button">
+				<i class="fa fa-info"></i>
+				<span><?= Language::t("common", "about") ?></span>
+			</a>
+			<a class="l-button">
+				<i class="fa fa-question"></i>
+				<span><?= Language::t("common", "help") ?></span>
+			</a>
+		</div>
+		
+		<div class="l-right">
+			<a data-action="section.panelList" class="j-panel-open l-button">
+				<i class="fa fa-files-o"></i>
+				<span><?= Language::t("section", "sections") ?></span>
+			</a>
 
-		<a href="#" data-action="block.panelList" class="l-panel-button">
-			<span><?= Language::t("block", "blocks") ?></span>
-			<i class="fa fa-th-large"></i>
-		</a>
+			<a data-action="block.panelList" class="j-panel-open l-button">
+				<i class="fa fa-th-large"></i>
+				<span><?= Language::t("block", "blocks") ?></span>
+			</a>
 
-		<a href="#" data-action="payment.panel" class="l-panel-button">
-			<span><?= Language::t("payment", "payment") ?></span>
-			<i class="fa fa-money"></i>
-		</a>
+			<a data-action="payment.panel" class="j-panel-open l-button">
+				<i class="fa fa-cog"></i>
+				<span><?= Language::t("settings", "settings") ?></span>
+			</a>
+
+			<a data-action="payment.panel" class="j-panel-open l-button">
+				<i class="fa fa-rub"></i>
+				<span><?= Language::t("payment", "payment") ?></span>
+			</a>
+		</div>
 	</div>
-	<a href="#" id="logout-button">Logout</a>
 <?php } ?>
 
 <div id="ajax-wrapper"></div>

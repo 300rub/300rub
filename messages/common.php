@@ -43,4 +43,12 @@ return [
         Language::LANGUAGE_EN_ID => "Copy",
         Language::LANGUAGE_RU_ID => "",
     ],
+    "about" => [
+        Language::LANGUAGE_EN_ID => "About",
+        Language::LANGUAGE_RU_ID => "",
+    ],
+    "help" => [
+        Language::LANGUAGE_EN_ID => "Help",
+        Language::LANGUAGE_RU_ID => "",
+    ]
 ];

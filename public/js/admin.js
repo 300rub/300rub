@@ -28,7 +28,7 @@
 		 */
 		init: function () {
 			$("#logout-button").on("click", $.proxy(this._onLogoutButtonClick, this));
-			$("#panel-buttons").find("a").on("click", this._onPanelButtonClick);
+			$("#admin-bottom-container").find(".j-panel-open").on("click", this._onPanelButtonClick);
 		},
 
 		/**

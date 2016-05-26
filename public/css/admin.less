@@ -5,31 +5,47 @@
 @import "window.section.less";
 @import "help.less";
 
-#panel-buttons {
+#wrapper {
+	padding-bottom: 44px;
+}
+
+#admin-bottom-container {
 	position: fixed;
 	bottom: 0;
-	right: 30px;
+	left: 0;
+	width: 100%;
+	height: 44px;
+	background: #333;
 
-	.l-panel-button {
-		background: @lightGrayColor;
-		border: 2px solid @blueColor;
-		border-bottom-width: 0;
-		line-height: 36px;
-		padding: 0 20px;
+	.l-right {
+		position: absolute;
+		bottom: 0;
+		right: 20px;
+	}
+
+	.l-left {
+		position: absolute;
+		bottom: 0;
+		left: 20px;
+	}
+
+	.l-button {
+		line-height: 44px;
+		padding: 0 5px;
+		margin: 0 20px;
+		cursor: pointer;
+
 		display: inline-block;
-		color: @mediumDarkGrayColor;
-		margin: 0 2px;
-		.l-rounded(10px 10px 0 0);
+		color: white;
 		.transition-duration;
-		.transition-property("background, color");
+		.transition-property(opacity);
 
 		&:hover {
-			background: @blueColor;
-			color: white;
+			opacity: .65;
 		}
 
 		.fa {
-			margin-left: 5px;
+			margin-right: 5px;
 		}
 	}
 }
