@@ -2,18 +2,31 @@
 @import "webkit.less";
 
 .l-panel {
-	border: 3px solid @blueColor;
-	border-right-width: 0;
-	.l-rounded(15px 0 0 15px);
-	bottom: 50px;
-	right: 0;
+	border: 1px solid #d6d6d6;
+	bottom: 48px;
+	right: 44px;
 	z-index: 90;
 	position: fixed;
 	background: white;
-	width: 350px;
-	overflow: hidden;
-	padding-right: 35px;
+	width: 320px;
 	min-height: 55px;
+
+	/*Yesterday was a hot and sultry day, wasn't it?
+	And probably you were working hard yesterday, because I cann't imagine how to work in this stuffiness.
+	Thanks again for my haircut and beard, it's wonderful!
+You are very cool and professional hairdresser!*/
+
+	&:after {
+		position: absolute;
+		content: "";
+		bottom: -11px;
+		left: 20px;
+		width: 0;
+		height: 0;
+		border-left: 12px solid transparent;
+		border-right: 12px solid transparent;
+		border-top: 12px solid #fff;
+	}
 
 	.l-close {
 		position: absolute;
@@ -31,7 +44,6 @@
 	.l-header {
 		position: relative;
 		min-height: 20px;
-		border-bottom: 1px solid @mediumGrayColor;
 		padding: 10px;
 
 		.l-back {
@@ -59,6 +71,7 @@
 
 	.l-container {
 		min-height: 32px;
+		padding: 0 20px;
 		overflow: auto;
 
 		.l-loader {
@@ -109,7 +122,6 @@
 	}
 
 	.l-footer {
-		border-top: 1px solid @mediumGrayColor;
 		height: 50px;
 		position: relative;
 
