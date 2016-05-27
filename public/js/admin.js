@@ -24,12 +24,24 @@
 		constructor: c.AjaxJson,
 
 		/**
+		 * DOM-element of admin bottom container
+		 *
+		 * @type {Object}
+		 */
+		$adminBottomContainer: null,
+
+		/**
+		 * CSS class of active panel container
+		 */
+		activePanelContainer: "",
+
+		/**
 		 * Initialisation
 		 */
 		init: function () {
-			c.$adminBottomContainer = $("#admin-bottom-container");
+			this.$adminBottomContainer = $("#admin-bottom-container");
 			$("#logout-button").on("click", $.proxy(this._onLogoutButtonClick, this));
-			c.$adminBottomContainer.find(".j-panel-open").on("click", this._onPanelButtonClick);
+			this.$adminBottomContainer.find(".j-panel-open").on("click", this._onPanelButtonClick);
 		},
 
 		/**
@@ -40,7 +52,8 @@
          * @private
          */
 		_onPanelButtonClick: function () {
-			c.$adminBottomContainer.find(".j-panel-open").removeClass("j-panel-open-active");
+			c.admin.$adminBottomContainer.find(".j-panel-open").removeClass("j-panel-open-active");
+			c.admin.activePanelContainer = $(this).data("container");
 			$(this).addClass("j-panel-open-active");
 			$.panel($(this).data("action"));
 			return false;
@@ -109,6 +122,6 @@
 	$.admin.Constructor = c.Admin;
 
 	$(document).ready(function() {
-		$.admin();
+		c.admin = $.admin();
 	});
 }(window.jQuery, window.Core);

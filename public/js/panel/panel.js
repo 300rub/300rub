@@ -58,9 +58,18 @@
 		init: function () {
 			c.$ajaxWrapper.find(".j-panel").remove();
 
-			this.$panel = c.$templates.find(".j-panel").clone().appendTo(c.$ajaxWrapper);
+			this.$panel = c.$templates
+				.find(".j-panel")
+				.clone()
+				.addClass(c.admin.activePanelContainer)
+				.appendTo(c.$ajaxWrapper);
+
 			this.$container = this.$panel.find(".j-container");
 			this.$panel.find(".j-close").on("click", $.proxy(this.close, this));
+
+			setTimeout($.proxy(function () {
+				this.$panel.addClass("j-opacity");
+			}, this), 100);
 
 			$.ajaxJson(
 				this.action,
@@ -96,7 +105,8 @@
          */
 		close: function() {
 			this.$panel.remove();
-			c.$adminBottomContainer.find(".j-panel-open").removeClass("j-panel-open-active");
+			c.admin.$adminBottomContainer.find(".j-panel-open").removeClass("j-panel-open-active");
+			c.admin.activePanelContainer = "";
 			return false;
 		},
 

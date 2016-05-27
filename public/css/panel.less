@@ -10,6 +10,13 @@
 	background: white;
 	width: 320px;
 	min-height: 55px;
+	opacity: 0;
+	.transition-duration;
+	.transition-property(opacity);
+
+	&:hover {
+		opacity: 1;
+	}
 
 	&:before {
 		position: absolute;
@@ -152,5 +159,27 @@
 				background: @blueColor;
 			}
 		}
+	}
+}
+
+.l-panel-payment {
+	right: 348px;
+}
+
+.l-panel-settings {
+	right: 214px;
+}
+
+.l-panel-sections {
+	right: 83px;
+}
+
+.l-panel-blocks {
+	&:before {
+		margin-left: 53px;
+	}
+
+	&:after {
+		margin-left: 54px;
 	}
 }

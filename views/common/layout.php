@@ -100,22 +100,38 @@ $staticMap = require(__DIR__ . "/../../config/static_map.php");
 		</div>
 		
 		<div class="l-right">
-			<a data-action="payment.panel" class="j-panel-open l-button">
+			<a 
+				data-action="payment.panel" 
+				data-container="l-panel-payment" 
+				class="j-panel-open l-button"
+			>
 				<i class="fa fa-rub"></i>
 				<span><?= Language::t("payment", "payment") ?></span>
 			</a>
 
-			<a data-action="payment.panel" class="j-panel-open l-button">
+			<a 
+				data-action="payment.panel"
+				data-container="l-panel-settings"
+				class="j-panel-open l-button"
+			>
 				<i class="fa fa-cog"></i>
 				<span><?= Language::t("settings", "settings") ?></span>
 			</a>
 			
-			<a data-action="section.panelList" class="j-panel-open l-button">
+			<a 
+				data-action="section.panelList"
+				data-container="l-panel-sections"
+				class="j-panel-open l-button"
+			>
 				<i class="fa fa-files-o"></i>
 				<span><?= Language::t("section", "sections") ?></span>
 			</a>
 
-			<a data-action="block.panelList" class="j-panel-open l-button">
+			<a 
+				data-action="block.panelList"
+				data-container="l-panel-blocks"
+				class="j-panel-open l-button"
+			>
 				<i class="fa fa-th-large"></i>
 				<span><?= Language::t("block", "blocks") ?></span>
 			</a>
