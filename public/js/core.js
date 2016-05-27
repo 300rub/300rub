@@ -22,6 +22,13 @@
 		$ajaxWrapper: null,
 
 		/**
+		 * DOM-element of admin bottom container
+		 *
+		 * @type {Object}
+		 */
+		$adminBottomContainer: null,
+
+		/**
 		 * Language alias
 		 *
 		 * @type {String}

@@ -96,6 +96,7 @@
          */
 		close: function() {
 			this.$panel.remove();
+			c.$adminBottomContainer.find(".j-panel-open").removeClass("j-panel-open-active");
 			return false;
 		},
 

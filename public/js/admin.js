@@ -27,8 +27,9 @@
 		 * Initialisation
 		 */
 		init: function () {
+			c.$adminBottomContainer = $("#admin-bottom-container");
 			$("#logout-button").on("click", $.proxy(this._onLogoutButtonClick, this));
-			$("#admin-bottom-container").find(".j-panel-open").on("click", this._onPanelButtonClick);
+			c.$adminBottomContainer.find(".j-panel-open").on("click", this._onPanelButtonClick);
 		},
 
 		/**
@@ -39,6 +40,8 @@
          * @private
          */
 		_onPanelButtonClick: function () {
+			c.$adminBottomContainer.find(".j-panel-open").removeClass("j-panel-open-active");
+			$(this).addClass("j-panel-open-active");
 			$.panel($(this).data("action"));
 			return false;
 		},
