@@ -61,11 +61,14 @@ class SectionController extends AbstractController
             "title"       => Language::t("section", "sections"),
             "description" => Language::t("section", "panelDescription"),
             "list"        => $list,
-            "icon"        => "section-list-item",
             "item"        => "section.window",
             "design"      => "section.design",
             "settings"    => "section.settings",
-            "add"         => "section.settings",
+            "add"         => [
+                "label"  => Language::t("section", "addSections"),
+                "action" => "section.settings",
+            ]
+
         ];
     }
 

@@ -10,6 +10,6 @@ use components\Language;
 </div>
 
 <a class="j-panel-list-add l-list-add">
-    <?= Language::t("common", "add") ?>
+    <span class="j-label"><?= Language::t("common", "add") ?></span>
     <i class="fa fa-plus"></i>
 </a>

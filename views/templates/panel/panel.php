@@ -16,9 +16,9 @@ use components\Language;
 	</form>
 </div>
 
-<button class="j-panel-submit">
+<a class="j-panel-submit l-panel-submit">
 	<span class="j-label"><?= Language::t("common", "save") ?></span>
 	<div class="j-loader j-hide">
 		loading
 	</div>
-</button>
+</a>

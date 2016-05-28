@@ -5,3 +5,40 @@
 	width: 100%;
 	height: 100%;
 }
+
+.l-submit-button {
+	display: inline-block;
+	color: #fff;
+	.l-rounded(4px);
+	.l-gradient-vertical(#42a1ec, #0070c9);
+
+	&:hover {
+		.l-gradient-vertical(#51a9ee, #147bcd);
+	}
+
+	&:active {
+		.l-gradient-vertical(#3d94d9, #0067b9);
+	}
+}
+
+.l-scroll {
+	&::-webkit-scrollbar {
+		-webkit-appearance: none;
+		width: 8px;
+		height: 8px;
+	}
+
+	&::-webkit-scrollbar-thumb {
+		.l-rounded(4px);
+		background-color: #81cdff;
+	}
+
+	&::-webkit-scrollbar-thumb:hover {
+		background-color: #35aeff;
+	}
+
+	&::-webkit-scrollbar-track-piece {
+		.l-rounded(4px);
+		background-color: #f0f0f0;
+	}
+}

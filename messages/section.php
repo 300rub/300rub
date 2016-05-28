@@ -59,4 +59,8 @@ return [
         Language::LANGUAGE_EN_ID => "Add line",
         Language::LANGUAGE_RU_ID => "",
     ],
+    "addSections" => [
+        Language::LANGUAGE_EN_ID => "Add new section",
+        Language::LANGUAGE_RU_ID => "",
+    ],
 ];

@@ -9,7 +9,6 @@ use components\Language;
     </div>
 </a>
 <a
-    href="#"
     class="j-panel-settings-delete"
     data-confirm="<?= Language::t("section", "deleteConfirmation") ?>"
 >

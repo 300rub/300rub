@@ -61,17 +61,16 @@
 	.l-header {
 		position: relative;
 		min-height: 20px;
-		padding: 20px 0 15px 0;
-		margin: 0 20px;
+		padding: 20px 20px 15px 20px;
 		border-bottom: 1px solid #e3e3e3;
 
 		.l-back {
-			color: @lightGrayColor;
-			font-size: 22px;
+			color: #ccc;
+			font-size: 18px;
 			padding-right: 7px;
 
 			&:hover {
-				color: @blueColor;
+				color: #ff0000;
 			}
 		}
 
@@ -92,6 +91,7 @@
 		min-height: 32px;
 		padding: 0 20px;
 		overflow: auto;
+		.l-scroll;
 
 		.l-loader {
 			position: absolute;
@@ -103,14 +103,14 @@
 		.l-panel-list-item {
 			position: relative;
 			border-bottom: 1px solid #e3e3e3;
-			overflow: hidden;
 			line-height: 18px;
 
 			.l-label {
-				padding: 13px 64px 12px 13px;
+				padding: 13px 70px 13px 0;
 				display: block;
 				.l-transition-property(color);
 				color: #008ace;
+				font-size: 14px;
 
 				&:hover {
 					color: #cc0000;
@@ -125,9 +125,11 @@
 				position: absolute;
 				top: 50%;
 				color: #008ace;
-				width: 32px;
+				width: 28px;
 				text-align: center;
-				line-height: 32px;
+				line-height: 28px;
+				font-size: 16px;
+				margin-top: -14px;
 
 				&:hover {
 					color: #cc0000;
@@ -135,13 +137,11 @@
 			}
 
 			.l-design {
-				margin-top: -16px;
-				right: 32px;
+				right: 22px;
 			}
 
 			.l-settings {
-				margin-top: -16px;
-				right: 0;
+				right: -6px;
 			}
 		}
 	}
@@ -150,28 +150,21 @@
 		height: 54px;
 		position: relative;
 		border-top: 1px solid #e3e3e3;
-		margin: 0 20px;
+		padding: 0 20px;
 
-		.l-list-add {
+		.l-list-add, .l-panel-submit {
 			position: absolute;
-			right: 0;
+			right: 20px;
 			top: 50%;
-			margin-top: -17px;
-			display: inline-block;
-			border-color: #07c;
-			color: #fff;
-			line-height: 34px;
+			margin-top: -16px;
+			font-size: 14px;
+			line-height: 32px;
 			padding: 0 15px;
-			.l-rounded(4px);
-			.l-gradient-vertical(#42a1ec, #0070c9);
+			.l-submit-button;
+		}
 
-			&:hover {
-				.l-gradient-vertical(#51a9ee, #147bcd);
-			}
-
-			&:active {
-				.l-gradient-vertical(#3d94d9, #0067b9);
-			}
+		.fa {
+			margin-left: 2px;
 		}
 	}
 }

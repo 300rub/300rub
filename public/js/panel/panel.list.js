@@ -34,12 +34,12 @@
 			$add.on(
 				"click",
 				{
-					content: this.data.add,
+					content: this.data.add.action,
 					id: 0
 				},
 				this._onSettingsClick
 			);
-			$add.text(this.data.add.label)
+			$add.find(".j-label").text(this.data.add.label);
 			$add.appendTo(this.$panel.find(".j-footer"));
 		}
 
