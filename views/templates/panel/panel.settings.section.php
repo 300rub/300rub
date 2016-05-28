@@ -17,8 +17,9 @@ use components\Language;
     </div>
     <div class="l-form-group">
         <label>
-            <span class="l-label"><?= Language::t("section", "width") ?></span>
-            <input class="j-t__width j-validate l-form" type="text"/>
+            <span class="l-label-inline"><?= Language::t("section", "width") ?></span>
+            <input class="j-t__width j-validate l-form-small" type="text"/>
+            <span class="l-suffix j-width-suffix">px</span>
         </label>
     </div>
     <div class="l-form-group l-checkbox-container">
@@ -43,7 +44,7 @@ use components\Language;
     <div class="l-form-group">
         <label>
             <span class="l-label"><?= Language::t("section", "keywords") ?></span>
-            <input class="j-seoModel__keywords j-validate l-form" type="text"/>
+            <textarea class="j-seoModel__keywords j-validate l-form"></textarea>
         </label>
     </div>
     <div class="l-form-group">

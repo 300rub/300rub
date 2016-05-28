@@ -44,7 +44,7 @@ class SectionModel extends AbstractModel
 	 *
 	 * @var int
 	 */
-	public $width = 0;
+	public $width = self::DEFAULT_WIDTH;
 
 	/**
 	 * Is this section main
@@ -58,7 +58,7 @@ class SectionModel extends AbstractModel
 	 *
 	 * @var int
 	 */
-	public $design_block_id;
+	public $design_block_id = 0;
 
 	/**
 	 * Seo model
