@@ -34,24 +34,31 @@ use components\Language;
 			</span>
         </label>
     </div>
-    
-    <div class="l-form-group">
-        <label>
-            <span class="l-label"><?= Language::t("common", "title") ?></span>
-            <input class="j-seoModel__title j-validate l-form" type="text"/>
-        </label>
-    </div>
-    <div class="l-form-group">
-        <label>
-            <span class="l-label"><?= Language::t("section", "keywords") ?></span>
-            <textarea class="j-seoModel__keywords j-validate l-form"></textarea>
-        </label>
-    </div>
-    <div class="l-form-group">
-        <label>
-            <span class="l-label"><?= Language::t("section", "description") ?></span>
-            <textarea class="j-seoModel__description j-validate l-form"></textarea>
-        </label>
+
+    <a class="l-form-seo-title">
+        <?= Language::t("common", "seo") ?>
+        <i class="fa fa-chevron-down"></i>
+        <i class="fa fa-chevron-up"></i>
+    </a>
+    <div class="l-form-seo-container">
+        <div class="l-form-group">
+            <label>
+                <span class="l-label"><?= Language::t("common", "title") ?></span>
+                <input class="j-seoModel__title j-validate l-form" type="text"/>
+            </label>
+        </div>
+        <div class="l-form-group">
+            <label>
+                <span class="l-label"><?= Language::t("section", "keywords") ?></span>
+                <textarea class="j-seoModel__keywords j-validate l-form"></textarea>
+            </label>
+        </div>
+        <div class="l-form-group">
+            <label>
+                <span class="l-label"><?= Language::t("section", "description") ?></span>
+                <textarea class="j-seoModel__description j-validate l-form"></textarea>
+            </label>
+        </div>
     </div>
     <input type="hidden" class="j-t__id" />
 </div>
