@@ -11,8 +11,7 @@
 	width: 320px;
 	min-height: 55px;
 	opacity: 0;
-	.transition-duration;
-	.transition-property(opacity);
+	.l-transition-property(opacity);
 
 	&:hover {
 		opacity: 1;
@@ -51,18 +50,20 @@
 		right: 10px;
 		top: 5px;
 		z-index: 1;
-		color: @lightGrayColor;
+		color: #ccc;
 		font-size: 24px;
 
 		&:hover {
-			color: @blueColor;
+			color: #cc0000;
 		}
 	}
 
 	.l-header {
 		position: relative;
 		min-height: 20px;
-		padding: 10px;
+		padding: 20px 0 15px 0;
+		margin: 0 20px;
+		border-bottom: 1px solid #e3e3e3;
 
 		.l-back {
 			color: @lightGrayColor;
@@ -83,7 +84,7 @@
 
 		.l-description {
 			font-size: 14px;
-			padding: 5px;
+			color: #999;
 		}
 	}
 
@@ -100,14 +101,20 @@
 		}
 
 		.l-panel-list-item {
-			cursor: pointer;
 			position: relative;
-			border-bottom: 1px solid @mediumGrayColor;
-			padding: 7px 50px 7px 10px;
+			border-bottom: 1px solid #e3e3e3;
 			overflow: hidden;
+			line-height: 18px;
 
-			&:hover {
-				box-shadow: inset 0 0 7px 0 rgba(0, 0, 0, 0.2);
+			.l-label {
+				padding: 13px 64px 12px 13px;
+				display: block;
+				.l-transition-property(color);
+				color: #008ace;
+
+				&:hover {
+					color: #cc0000;
+				}
 			}
 
 			&:last-child {
@@ -117,13 +124,13 @@
 			.l-design, .l-settings {
 				position: absolute;
 				top: 50%;
-				color: @lightGrayColor;
+				color: #008ace;
 				width: 32px;
 				text-align: center;
 				line-height: 32px;
 
 				&:hover {
-					color: @blueColor;
+					color: #cc0000;
 				}
 			}
 
@@ -140,23 +147,30 @@
 	}
 
 	.l-footer {
-		height: 50px;
+		height: 54px;
 		position: relative;
+		border-top: 1px solid #e3e3e3;
+		margin: 0 20px;
 
 		.l-list-add {
 			position: absolute;
 			right: 0;
 			top: 50%;
-			margin-top: -16px;
+			margin-top: -17px;
 			display: inline-block;
-			background: @lightGrayColor;
-			color: @mediumDarkGrayColor;
-			line-height: 32px;
-			padding: 0 16px;
+			border-color: #07c;
+			color: #fff;
+			line-height: 34px;
+			padding: 0 15px;
+			.l-rounded(4px);
+			.l-gradient-vertical(#42a1ec, #0070c9);
 
 			&:hover {
-				color: white;
-				background: @blueColor;
+				.l-gradient-vertical(#51a9ee, #147bcd);
+			}
+
+			&:active {
+				.l-gradient-vertical(#3d94d9, #0067b9);
 			}
 		}
 	}
