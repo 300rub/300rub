@@ -18,28 +18,43 @@
 			$(this).val($(this).transliteration());
 		});
 
-		var width;
-		var $widthSuffix = $container.find(".j-width-suffix");
+		var t = this;
 		var $widthField = $container.find(".j-t__width");
+		var $widthSuffix = $container.find(".j-width-suffix");
+		t.settingsSectionSetWidth($widthField, $widthSuffix, $widthField.val());
 		$widthField.on("keyup", function () {
-			width = parseInt($(this).val()) || "";
-			
-			if (width < 0) {
-				width = 0;
-			} else if (width > 2500) {
-				width = 2500;
-			}
-
-			if (width <= 100) {
-				$widthSuffix.text("%");
-			} else {
-				$widthSuffix.text("px");
-			}
-
-			$(this).val(width);
+			t.settingsSectionSetWidth($widthField, $widthSuffix, $(this).val());
 		});
 
 		this.settingsInit();
 	};
 
+	/**
+	 * Sets width
+	 *
+	 * @param {Object} [$widthField]
+	 * @param {Object} [$widthSuffix]
+	 * @param {int}    [width]
+	 *
+	 * @returns {c.Panel}
+     */
+	c.Panel.prototype.settingsSectionSetWidth = function($widthField, $widthSuffix, width) {
+		width = parseInt($widthField.val()) || 0;
+
+		if (width < 0) {
+			width = 0;
+		} else if (width > 2500) {
+			width = 2500;
+		}
+
+		if (width <= 100) {
+			$widthSuffix.text("%");
+		} else {
+			$widthSuffix.text("px");
+		}
+
+		$widthField.val(width === 0 ? "" : width);
+
+		return this;
+	};
 }(window.jQuery, window.Core);
