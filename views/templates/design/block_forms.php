@@ -146,7 +146,7 @@ use models\DesignBlockModel;
 	<div class="l-line">
 		<div><?= Language::t("design", "fill") ?></div>
 		<div>
-			<a href="#" class="j-background-clear"><?= Language::t("design", "clear") ?></a>
+			<a class="j-background-clear"><?= Language::t("design", "clear") ?></a>
 			<div>
 				<input type="hidden" class="j-background-from">
 			</div>

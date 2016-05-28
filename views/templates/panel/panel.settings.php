@@ -2,7 +2,7 @@
 use components\Language;
 ?>
 
-<a href="#" class="j-panel-settings-duplicate">
+<a class="j-panel-settings-duplicate">
     <span class="j-label"><?= Language::t("common", "duplicate") ?></span>
     <div class="j-loader j-hide">
         loading

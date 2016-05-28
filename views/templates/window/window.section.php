@@ -15,7 +15,7 @@ use components\Language;
                 </select>
             </label>
         </div>
-        <a href="#" class="j-remove l-remove"><?= Language::t("common", "delete"); ?></a>
+        <a class="j-remove l-remove"><?= Language::t("common", "delete"); ?></a>
     </div>
     <div class="j-grid-stack l-grid-stack grid-stack"></div>
 </div>
@@ -24,7 +24,7 @@ use components\Language;
 
 <div class="j-window-section-grid-stack-item l-item grid-stack-item">
     <div class="j-content l-content grid-stack-item-content">
-        <a href="#" class="j-remove l-remove"></a>
+        <a class="j-remove l-remove"></a>
         <div class="j-label l-label"></div>
     </div>
 </div>

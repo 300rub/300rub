@@ -4,7 +4,7 @@ use components\Language;
 <div class="l-window j-window">
 	<div class="l-window-container">
 		<form class="j-window-form" method="post">
-			<a href="#" class="l-close j-close fa fa-times"></a>
+			<a class="l-close j-close fa fa-times"></a>
 	
 			<div class="l-header j-header j-hide"></div>
 			<div class="l-container j-container">

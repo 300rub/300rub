@@ -2,7 +2,7 @@
 use components\Language;
 ?>
 <div class="l-help j-help">
-    <a href="#" class="l-close j-close"></a>
+    <a class="l-close j-close"></a>
     
     <div class="l-container j-container">
         <div class="j-loader j-hide">
@@ -14,4 +14,4 @@ use components\Language;
 
 <div class="l-help-overlay j-help-overlay"></div>
 
-<a href="#" class="j-help-button l-help-button fa fa-question l-effect-up-up"></a>
+<a class="j-help-button l-help-button fa fa-question l-effect-up-up"></a>
