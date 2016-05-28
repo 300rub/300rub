@@ -56,7 +56,11 @@
 		 * Initialization
 		 */
 		init: function () {
-			c.$ajaxWrapper.find(".j-panel").remove();
+			var $oldPanels = c.$ajaxWrapper.find(".j-panel");
+			$oldPanels.removeClass("j-opacity");
+			setTimeout($.proxy(function () {
+				$oldPanels.remove();
+			}, this), 300);
 
 			this.$panel = c.$templates
 				.find(".j-panel")
@@ -104,7 +108,11 @@
          * @private
          */
 		close: function() {
-			this.$panel.remove();
+			this.$panel.removeClass("j-opacity");
+			setTimeout($.proxy(function () {
+				this.$panel.remove();
+			}, this), 300);
+
 			c.admin.$adminBottomContainer.find(".j-panel-open").removeClass("j-panel-open-active");
 			c.admin.activePanelContainer = "";
 			return false;
