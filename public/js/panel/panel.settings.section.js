@@ -26,6 +26,31 @@
 			t.settingsSectionSetWidth($widthField, $widthSuffix, $(this).val());
 		});
 
+		var $seoTitle = $container.find(".j-form-seo-title");
+		var $seoContainer = $container.find(".j-form-seo-container");
+		if (
+			$seoContainer.find(".j-seoModel__title").val() === ""
+			&& $seoContainer.find(".j-seoModel__keywords").val() === ""
+			&& $seoContainer.find(".j-seoModel__description").val() === ""
+		) {
+			$seoContainer.addClass("j-hide");
+			$seoTitle.find(".j-up").removeClass("j-hide");
+		} else {
+			$seoTitle.find(".j-down").removeClass("j-hide");
+		}
+
+		$seoTitle.on("click", function() {
+			if ($seoContainer.hasClass("j-hide")) {
+				$seoTitle.find(".j-up").addClass("j-hide");
+				$seoTitle.find(".j-down").removeClass("j-hide");
+				$seoContainer.removeClass("j-hide");
+			} else {
+				$seoTitle.find(".j-up").removeClass("j-hide");
+				$seoTitle.find(".j-down").addClass("j-hide");
+				$seoContainer.addClass("j-hide");
+			}
+		});
+
 		this.settingsInit();
 	};
 

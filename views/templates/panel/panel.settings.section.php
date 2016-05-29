@@ -35,12 +35,12 @@ use components\Language;
         </label>
     </div>
 
-    <a class="l-form-seo-title">
+    <a class="l-form-seo-title j-form-seo-title">
         <?= Language::t("common", "seo") ?>
-        <i class="fa fa-chevron-down"></i>
-        <i class="fa fa-chevron-up"></i>
+        <i class="fa fa-chevron-down j-down j-hide"></i>
+        <i class="fa fa-chevron-up j-up j-hide"></i>
     </a>
-    <div class="l-form-seo-container">
+    <div class="j-form-seo-container">
         <div class="l-form-group">
             <label>
                 <span class="l-label"><?= Language::t("common", "title") ?></span>
