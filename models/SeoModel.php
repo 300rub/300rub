@@ -146,4 +146,11 @@ class SeoModel extends AbstractModel
 		
 		return $model;
 	}
+
+	/**
+	 * Sets values
+	 */
+	protected function setValues()
+	{
+	}
 }

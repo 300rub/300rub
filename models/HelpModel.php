@@ -95,4 +95,11 @@ class HelpModel extends AbstractModel
 
 		return $this;
 	}
+
+	/**
+	 * Sets values
+	 */
+	protected function setValues()
+	{
+	}
 }

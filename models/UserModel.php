@@ -144,4 +144,11 @@ class UserModel extends AbstractModel
 	{
 		return sha1(md5($password) . self::SALT);
 	}
+
+	/**
+	 * Sets values
+	 */
+	protected function setValues()
+	{
+	}
 }

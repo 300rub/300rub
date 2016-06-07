@@ -185,8 +185,6 @@ class SectionModel extends AbstractModel
 	 */
 	protected function beforeSave()
 	{
-		$this->_setValues();
-
 		if ($this->is_main === 1 && !$this->updateForAll(["is_main" => 0])) {
 			return false;
 		}
@@ -211,7 +209,7 @@ class SectionModel extends AbstractModel
 	/**
 	 * Sets values
 	 */
-	private function _setValues()
+	protected function setValues()
 	{
 		$this->seo_id = intval($this->seo_id);
 
@@ -233,18 +231,6 @@ class SectionModel extends AbstractModel
 		}
 
 		$this->design_block_id = intval($this->design_block_id);
-	}
-
-	/**
-	 * Runs after finding model
-	 *
-	 * @return void
-	 */
-	protected function afterFind()
-	{
-		parent::afterFind();
-
-		$this->_setValues();
 	}
 
 	/**

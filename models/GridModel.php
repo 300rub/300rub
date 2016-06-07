@@ -535,21 +535,9 @@ class GridModel extends AbstractModel
 	}
 
 	/**
-	 * Runs after finding model
-	 *
-	 * @return AbstractModel
-	 */
-	protected function afterFind()
-	{
-		parent::afterFind();
-
-		$this->_setValues();
-	}
-
-	/**
 	 * Sets values
 	 */
-	private function _setValues()
+	protected function setValues()
 	{
 		$this->grid_line_id = intval($this->grid_line_id);
 		$this->content_type = intval($this->content_type);
@@ -566,8 +554,6 @@ class GridModel extends AbstractModel
 	 */
 	protected function beforeSave()
 	{
-		$this->_setValues();
-
 		if ($this->grid_line_id === 0 || GridLineModel::model()->byId($this->grid_line_id)->find() === null) {
 			return false;
 		}

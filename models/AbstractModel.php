@@ -94,6 +94,11 @@ abstract class AbstractModel
 	abstract public function getRules();
 
 	/**
+	 * Sets values
+	 */
+	abstract protected function setValues();
+
+	/**
 	 * Constructor
 	 */
 	public function __construct()
@@ -236,6 +241,8 @@ abstract class AbstractModel
 	 */
 	protected function afterFind()
 	{
+		$this->setValues();
+
 		$relationKeys = $this->getRelationKeys();
 		foreach ($relationKeys as $relation) {
 			if ($this->$relation instanceof AbstractModel) {
@@ -425,6 +432,8 @@ abstract class AbstractModel
 	 */
 	protected function beforeSave()
 	{
+		$this->setValues();
+
 		foreach ($this->relations as $relation => $options) {
 			if ($this->$relation instanceof $options[0]) {
 				$field = $options[1];

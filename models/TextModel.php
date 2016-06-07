@@ -220,7 +220,7 @@ class TextModel extends AbstractModel
 	/**
 	 * Sets values
 	 */
-	private function _setValues()
+	protected function setValues()
 	{
 		$this->language = intval($this->language);
 		if (
@@ -235,27 +235,9 @@ class TextModel extends AbstractModel
 			$this->type = self::TYPE_DIV;
 		}
 
-		$this->is_editor = intval($this->is_editor);
-		if ($this->is_editor >= 1) {
-			$this->is_editor = 1;
-		} else {
-			$this->is_editor = 0;
-		}
-
+		$this->is_editor = boolval($this->is_editor);
 		$this->design_text_id = intval($this->design_text_id);
 		$this->design_block_id = intval($this->design_block_id);
-	}
-
-	/**
-	 * Runs after finding model
-	 *
-	 * @return TextModel
-	 */
-	protected function afterFind()
-	{
-		parent::afterFind();
-
-		$this->_setValues();
 	}
 
 	/**
@@ -265,7 +247,12 @@ class TextModel extends AbstractModel
 	 */
 	protected function beforeSave()
 	{
-		$this->_setValues();
+		$this->is_editor = intval($this->is_editor);
+		if ($this->is_editor >= 1) {
+			$this->is_editor = 1;
+		} else {
+			$this->is_editor = 0;
+		}
 
 		if (!$this->designTextModel instanceof DesignTextModel) {
 			if ($this->design_text_id === 0) {

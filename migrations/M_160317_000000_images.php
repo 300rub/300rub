@@ -97,17 +97,29 @@ class M_160317_000000_images extends AbstractMigration
                 "is_cover"       => "boolean",
                 "sort"           => "integer",
                 "alt"            => "string",
+                "width"          => "integer",
+                "height"         => "integer",
                 "x1"             => "integer",
                 "y1"             => "integer",
                 "x2"             => "integer",
                 "y2"             => "integer",
+                "x1_thumb"       => "integer",
+                "y1_thumb"       => "integer",
+                "x2_thumb"       => "integer",
+                "y2_thumb"       => "integer",
             ],
             "ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci"
         );
         if (!$result) {
             return false;
         }
-        if (!$this->createIndex("image_albums_image_id", "image_albums", "image_id")) {
+        if (!$this->createIndex("image_instances_image_album_id", "image_instances", "image_album_id")) {
+            return false;
+        }
+        if (!$this->createIndex("image_instances_is_cover", "image_instances", "is_cover")) {
+            return false;
+        }
+        if (!$this->createIndex("image_instances_sort", "image_instances", "sort")) {
             return false;
         }
 

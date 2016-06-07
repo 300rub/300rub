@@ -166,21 +166,9 @@ class GridLineModel extends AbstractModel
 	}
 
 	/**
-	 * Runs after finding model
-	 *
-	 * @return AbstractModel
-	 */
-	protected function afterFind()
-	{
-		parent::afterFind();
-
-		$this->_setValues();
-	}
-
-	/**
 	 * Sets values
 	 */
-	private function _setValues()
+	protected function setValues()
 	{
 		$this->section_id = intval($this->section_id);
 		$this->sort = intval($this->sort);
@@ -195,8 +183,6 @@ class GridLineModel extends AbstractModel
 	 */
 	protected function beforeSave()
 	{
-		$this->_setValues();
-
 		if ($this->section_id === 0 || SectionModel::model()->byId($this->section_id)->find() === null) {
 			return false;
 		}

@@ -19,6 +19,11 @@ class ImageInstanceModel extends AbstractModel
 {
 
 	/**
+	 * Min image size in pixels
+	 */
+	const MIN_SIZE = 32;
+
+	/**
 	 * The name of file
 	 *
 	 * @var string
@@ -54,11 +59,74 @@ class ImageInstanceModel extends AbstractModel
 	public $alt;
 
 	/**
-	 * Sort order
+	 * Width of source image
+	 *
+	 * @var integer
+	 */
+	public $width;
+
+	/**
+	 * Height of source image
+	 *
+	 * @var integer
+	 */
+	public $height;
+
+	/**
+	 * Coordinates. x1
 	 *
 	 * @var integer
 	 */
 	public $x1;
+
+	/**
+	 * Coordinates. y1
+	 *
+	 * @var integer
+	 */
+	public $y1;
+
+	/**
+	 * Coordinates. x2
+	 *
+	 * @var integer
+	 */
+	public $x2;
+
+	/**
+	 * Coordinates. y2
+	 *
+	 * @var integer
+	 */
+	public $y2;
+
+	/**
+	 * Thumb coordinates. x1
+	 *
+	 * @var integer
+	 */
+	public $x1_thumb;
+
+	/**
+	 * Thumb coordinates. y1
+	 *
+	 * @var integer
+	 */
+	public $y1_thumb;
+
+	/**
+	 * Thumb coordinates. x2
+	 *
+	 * @var integer
+	 */
+	public $x2_thumb;
+
+	/**
+	 * Thumb coordinates. y2
+	 *
+	 * @var integer
+	 */
+	public $y2_thumb;
 
 	/**
 	 * Form types
@@ -66,17 +134,7 @@ class ImageInstanceModel extends AbstractModel
 	 * @var array
 	 */
 	protected $formTypes = [
-		"name" => self::FORM_TYPE_FIELD,
-	];
-
-	/**
-	 * Relations
-	 *
-	 * @var array
-	 */
-	protected $relations = [
-		"designBlockModel"      => ['models\DesignBlockModel', "design_block_id"],
-		"designImageBlockModel" => ['models\DesignBlockModel', "design_image_block_id"]
+		"alt" => self::FORM_TYPE_FIELD,
 	];
 
 	/**
@@ -86,7 +144,7 @@ class ImageInstanceModel extends AbstractModel
 	 */
 	public function getTableName()
 	{
-		return "images";
+		return "image_instances";
 	}
 
 	/**
@@ -97,18 +155,28 @@ class ImageInstanceModel extends AbstractModel
 	public function getRules()
 	{
 		return [
-			"name"                  => ["required", "max" => 255],
-			"language"              => [],
-			"design_block_id"       => [],
-			"design_image_block_id" => [],
-
+			"file_name"      => [],
+			"image_album_id" => [],
+			"is_cover"       => [],
+			"sort"           => [],
+			"alt"            => [],
+			"width"          => [],
+			"height"         => [],
+			"x1"             => [],
+			"y1"             => [],
+			"x2"             => [],
+			"y2"             => [],
+			"x1_thumb"       => [],
+			"y1_thumb"       => [],
+			"x2_thumb"       => [],
+			"y2_thumb"       => [],
 		];
 	}
 
 	/**
 	 * Gets model object
 	 *
-	 * @return ImageModel
+	 * @return ImageInstanceModel
 	 */
 	public static function model()
 	{
@@ -119,30 +187,21 @@ class ImageInstanceModel extends AbstractModel
 	/**
 	 * Sets values
 	 */
-	private function _setValues()
+	protected function setValues()
 	{
-		$this->language = intval($this->language);
-		if (
-			$this->language === 0
-			|| !array_key_exists($this->language, Language::$aliasList)
-		) {
-			$this->language = Language::$activeId;
-		}
-
-		$this->design_block_id = intval($this->design_block_id);
-		$this->design_image_block_id = intval($this->design_image_block_id);
-	}
-
-	/**
-	 * Runs after finding model
-	 *
-	 * @return ImageModel
-	 */
-	protected function afterFind()
-	{
-		parent::afterFind();
-
-		$this->_setValues();
+		$this->image_album_id = intval($this->image_album_id);
+		$this->is_cover = boolval($this->is_cover);
+		$this->sort = intval($this->sort);
+		$this->width = intval($this->width);
+		$this->height = intval($this->height);
+		$this->x1 = intval($this->x1);
+		$this->y1 = intval($this->y1);
+		$this->x2 = intval($this->x2);
+		$this->y2 = intval($this->y2);
+		$this->x1_thumb = intval($this->x1_thumb);
+		$this->y1_thumb = intval($this->y1_thumb);
+		$this->x2_thumb = intval($this->x2_thumb);
+		$this->y2_thumb = intval($this->y2_thumb);
 	}
 
 	/**
@@ -152,8 +211,6 @@ class ImageInstanceModel extends AbstractModel
 	 */
 	protected function beforeSave()
 	{
-		$this->_setValues();
-
 		if (!$this->designBlockModel instanceof DesignBlockModel) {
 			if ($this->design_block_id === 0) {
 				$this->designBlockModel = new DesignBlockModel();

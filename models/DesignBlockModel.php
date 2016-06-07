@@ -333,33 +333,9 @@ class DesignBlockModel extends AbstractModel
 	}
 
 	/**
-	 * Runs after finding model
-	 *
-	 * @return AbstractModel
-	 */
-	protected function afterFind()
-	{
-		parent::afterFind();
-
-		$this->_setValues();
-	}
-
-	/**
-	 * Runs before save
-	 *
-	 * @return bool
-	 */
-	protected function beforeSave()
-	{
-		$this->_setValues();
-
-		return parent::beforeSave();
-	}
-
-	/**
 	 * Sets values
 	 */
-	private function _setValues()
+	protected function setValues()
 	{
 		$this->margin_top = intval($this->margin_top);
 		if ($this->margin_top < self::MIN_MARGIN_VALUE) {

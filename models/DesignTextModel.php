@@ -396,33 +396,9 @@ class DesignTextModel extends AbstractModel
 	}
 
 	/**
-	 * Runs after finding model
-	 *
-	 * @return AbstractModel
-	 */
-	protected function afterFind()
-	{
-		parent::afterFind();
-
-		$this->_setValues();
-	}
-
-	/**
-	 * Runs before saving
-	 *
-	 * @return bool
-	 */
-	protected function beforeSave()
-	{
-		$this->_setValues();
-
-		parent::beforeSave();
-	}
-
-	/**
 	 * Sets values
 	 */
-	private function _setValues()
+	protected function setValues()
 	{
 		$this->size = intval($this->size);
 		if ($this->size < self::MIN_SIZE_VALUE) {
