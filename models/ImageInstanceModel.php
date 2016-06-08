@@ -32,6 +32,11 @@ class ImageInstanceModel extends AbstractModel
 	const THUMB_PREFIX = "thumb_";
 
 	/**
+	 * File name length
+	 */
+	const FILE_NAME_LENGTH = 16;
+
+	/**
 	 * The name of file
 	 *
 	 * @var string
@@ -135,6 +140,13 @@ class ImageInstanceModel extends AbstractModel
 	 * @var integer
 	 */
 	public $y2_thumb;
+
+	/**
+	 * Format of file
+	 *
+	 * @var string
+	 */
+	private $_format;
 
 	/**
 	 * Form types
@@ -286,7 +298,24 @@ class ImageInstanceModel extends AbstractModel
 			$this->y2_thumb = $this->height;
 		}
 
+		if (!$this->id) {
+			$this->file_name = $this->_generateFileName();
+		}
+
+		if (!$this->file_name) {
+			return false;
+		}
+
 		return parent::beforeSave();
+	}
+
+	private function _generateFileName()
+	{
+		if (!$this->_format) {
+			return null;
+		}
+
+		return substr(md5(time()), 0, self::FILE_NAME_LENGTH) . "." . $this->_format;
 	}
 
 	/**
