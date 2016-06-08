@@ -119,7 +119,7 @@ class ImageModel extends AbstractModel
 	/**
 	 * Sets values
 	 */
-	private function _setValues()
+	protected function setValues()
 	{
 		$this->language = intval($this->language);
 		if (
@@ -134,26 +134,12 @@ class ImageModel extends AbstractModel
 	}
 
 	/**
-	 * Runs after finding model
-	 *
-	 * @return ImageModel
-	 */
-	protected function afterFind()
-	{
-		parent::afterFind();
-
-		$this->_setValues();
-	}
-
-	/**
 	 * Runs before save
 	 *
 	 * @return bool
 	 */
 	protected function beforeSave()
 	{
-		$this->_setValues();
-
 		if (!$this->designBlockModel instanceof DesignBlockModel) {
 			if ($this->design_block_id === 0) {
 				$this->designBlockModel = new DesignBlockModel();
@@ -241,12 +227,21 @@ class ImageModel extends AbstractModel
 			}
 		}
 
+		$imageInstances = ImageInstanceModel::model()->byAlbumId()->findAll();
+		foreach ($imageInstances as $imageInstance) {
+			if (!$imageInstance->delete()) {
+				return false;
+			}
+		}
+
 		$designBlockModel = $this->designBlockModel;
 		if ($designBlockModel === null) {
 			$designBlockModel = DesignBlockModel::model()->byId($this->design_block_id)->find();
 		}
 		if ($designBlockModel instanceof DesignBlockModel) {
-			$designBlockModel->delete();
+			if (!$designBlockModel->delete()) {
+				return false;
+			}
 		}
 
 		$designImageBlockModel = $this->designImageBlockModel;
@@ -254,7 +249,9 @@ class ImageModel extends AbstractModel
 			$designImageBlockModel = DesignBlockModel::model()->byId($this->design_image_block_id)->find();
 		}
 		if ($designImageBlockModel instanceof DesignBlockModel) {
-			$designImageBlockModel->delete();
+			if (!$designImageBlockModel->delete()) {
+				return false;
+			}
 		}
 
 		return parent::beforeDelete();

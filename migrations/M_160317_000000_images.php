@@ -77,6 +77,9 @@ class M_160317_000000_images extends AbstractMigration
         if (!$this->createIndex("image_albums_image_id", "image_albums", "image_id")) {
             return false;
         }
+        if (!$this->createIndex("image_albums_sort", "image_albums", "sort")) {
+            return false;
+        }
 
         return true;
     }

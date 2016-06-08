@@ -1,6 +1,7 @@
 <?php
 
 namespace models;
+use components\File;
 
 /**
  * Model for working with table "image_instances"
@@ -19,6 +20,16 @@ class ImageInstanceModel extends AbstractModel
 	 * Min size in px
 	 */
 	const MIN_SIZE = 32;
+
+	/**
+	 * View prefix
+	 */
+	const VIEW_PREFIX = "view_";
+
+	/**
+	 * Thumb prefix
+	 */
+	const THUMB_PREFIX = "thumb_";
 
 	/**
 	 * The name of file
@@ -286,5 +297,38 @@ class ImageInstanceModel extends AbstractModel
 	protected function beforeValidate()
 	{
 		$this->alt = trim(strip_tags($this->alt));
+	}
+
+	/**
+	 * Runs before deleting
+	 *
+	 * @return bool
+	 */
+	protected function beforeDelete()
+	{
+		$file = new File($this->file_name);
+		$fileView = new File(self::VIEW_PREFIX . $this->file_name);
+		$fileThumb = new File(self::THUMB_PREFIX . $this->file_name);
+
+		$file->delete();
+		$fileView->delete();
+		$fileThumb->delete();
+
+		return parent::beforeDelete();
+	}
+
+	/**
+	 * Add condition for select by image ID
+	 *
+	 * @param integer $imageAlbumId ImageAlbum ID
+	 *
+	 * @return ImageInstanceModel
+	 */
+	public function byAlbumId($imageAlbumId = 0)
+	{
+		$this->db->addCondition("t.image_album_id = :imageAlbumId");
+		$this->db->params["imageAlbumId"] = $imageAlbumId;
+
+		return $this;
 	}
 }

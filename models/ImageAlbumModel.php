@@ -83,22 +83,10 @@ class ImageAlbumModel extends AbstractModel
 	/**
 	 * Sets values
 	 */
-	private function _setValues()
+	protected function setValues()
 	{
 		$this->image_id = intval($this->image_id);
 		$this->sort = intval($this->sort);
-	}
-
-	/**
-	 * Runs after finding model
-	 *
-	 * @return ImageAlbumModel
-	 */
-	protected function afterFind()
-	{
-		parent::afterFind();
-
-		$this->_setValues();
 	}
 
 	/**
@@ -108,14 +96,15 @@ class ImageAlbumModel extends AbstractModel
 	 */
 	protected function beforeSave()
 	{
-		$this->_setValues();
-
-		if ($this->image_id === 0) {
+		if (
+			$this->image_id === 0
+			|| ImageModel::model()->byId($this->image_id)->find() === null
+		) {
 			return false;
 		}
 
-		if (ImageModel::model()->byId($this->image_id)->find() === null) {
-			return false;
+		if ($this->sort < 0) {
+			$this->sort = 0;
 		}
 
 		return parent::beforeSave();
@@ -153,7 +142,12 @@ class ImageAlbumModel extends AbstractModel
 	 */
 	protected function beforeDelete()
 	{
-		// @TODO delete instances
+		$imageInstances = ImageInstanceModel::model()->byAlbumId($this->id)->findAll();
+		foreach ($imageInstances as $imageInstance) {
+			if (!$imageInstance->delete()) {
+				return false;
+			}
+		}
 
 		return parent::beforeDelete();
 	}
