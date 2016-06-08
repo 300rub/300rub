@@ -2,9 +2,6 @@
 
 namespace models;
 
-use components\Exception;
-use components\Language;
-
 /**
  * Model for working with table "image_instances"
  *
@@ -19,7 +16,7 @@ class ImageInstanceModel extends AbstractModel
 {
 
 	/**
-	 * Min image size in pixels
+	 * Min size in px
 	 */
 	const MIN_SIZE = 32;
 
@@ -211,26 +208,71 @@ class ImageInstanceModel extends AbstractModel
 	 */
 	protected function beforeSave()
 	{
-		if (!$this->designBlockModel instanceof DesignBlockModel) {
-			if ($this->design_block_id === 0) {
-				$this->designBlockModel = new DesignBlockModel();
-			} else {
-				$this->designBlockModel = DesignBlockModel::model()->byId($this->design_block_id)->find();
-				if ($this->designBlockModel === null) {
-					$this->designBlockModel = new DesignBlockModel();
-				}
-			}
+		if (
+			$this->image_album_id <= 0
+			|| ImageAlbumModel::model()->byId($this->image_album_id)->find() !== null
+		) {
+			$this->image_album_id = 0;
 		}
 
-		if (!$this->designImageBlockModel instanceof DesignBlockModel) {
-			if ($this->design_image_block_id === 0) {
-				$this->designImageBlockModel = new DesignBlockModel();
-			} else {
-				$this->designImageBlockModel = DesignBlockModel::model()->byId($this->design_image_block_id)->find();
-				if ($this->designImageBlockModel === null) {
-					$this->designImageBlockModel = new DesignBlockModel();
-				}
-			}
+		$this->is_cover = intval($this->is_cover);
+		if ($this->is_cover >= 1) {
+			$this->is_cover = 1;
+		} else {
+			$this->is_cover = 0;
+		}
+
+		if ($this->sort < 0) {
+			$this->sort = 0;
+		}
+
+		if ($this->width < self::MIN_SIZE) {
+			$this->width = self::MIN_SIZE;
+		}
+		if ($this->height < self::MIN_SIZE) {
+			$this->height = self::MIN_SIZE;
+		}
+
+		if ($this->x1 < 0) {
+			$this->x1 = 0;
+		} elseif ($this->x1 > $this->width - self::MIN_SIZE) {
+			$this->x1 = $this->width - self::MIN_SIZE;
+		}
+		if ($this->y1 < 0) {
+			$this->y1 = 0;
+		} elseif ($this->y1 > $this->height - self::MIN_SIZE) {
+			$this->y1 = $this->height - self::MIN_SIZE;
+		}
+		if ($this->x2 < $this->x1 + self::MIN_SIZE) {
+			$this->x2 = $this->x1 + self::MIN_SIZE;
+		} elseif ($this->x2 > $this->width) {
+			$this->x2 = $this->width;
+		}
+		if ($this->y2 < $this->y1 + self::MIN_SIZE) {
+			$this->y2 = $this->y1 + self::MIN_SIZE;
+		} elseif ($this->y2 > $this->height) {
+			$this->y2 = $this->height;
+		}
+
+		if ($this->x1_thumb < 0) {
+			$this->x1_thumb = 0;
+		} elseif ($this->x1_thumb > $this->width - self::MIN_SIZE) {
+			$this->x1_thumb = $this->width - self::MIN_SIZE;
+		}
+		if ($this->y1_thumb < 0) {
+			$this->y1_thumb = 0;
+		} elseif ($this->y1_thumb > $this->height - self::MIN_SIZE) {
+			$this->y1_thumb = $this->height - self::MIN_SIZE;
+		}
+		if ($this->x2_thumb < $this->x1_thumb + self::MIN_SIZE) {
+			$this->x2_thumb = $this->x1_thumb + self::MIN_SIZE;
+		} elseif ($this->x2_thumb > $this->width) {
+			$this->x2_thumb = $this->width;
+		}
+		if ($this->y2_thumb < $this->y1_thumb + self::MIN_SIZE) {
+			$this->y2_thumb = $this->y1_thumb + self::MIN_SIZE;
+		} elseif ($this->y2_thumb > $this->height) {
+			$this->y2_thumb = $this->height;
 		}
 
 		return parent::beforeSave();
@@ -243,77 +285,6 @@ class ImageInstanceModel extends AbstractModel
 	 */
 	protected function beforeValidate()
 	{
-		$this->name = trim(strip_tags($this->name));
-	}
-
-	/**
-	 * Duplicates image
-	 * If success returns ID of new image
-	 *
-	 * @return ImageModel|null
-	 */
-	public function duplicate()
-	{
-		try {
-			$modelForCopy = $this->withAll()->byId($this->id)->find();
-
-			$designBlockModel = $modelForCopy->designBlockModel->duplicate();
-			if ($designBlockModel === null) {
-				return null;
-			}
-
-			$designImageBlockModel = $modelForCopy->designImageBlockModel->duplicate();
-			if ($designImageBlockModel === null) {
-				return null;
-			}
-
-			$model = clone $this;
-			$model->id = 0;
-			$model->name = Language::t("common", "copy") . " {$this->name}";
-			$model->designBlockModel = $designBlockModel;
-			$model->design_block_id = $designBlockModel->id;
-			$model->designImageBlockModel = $designImageBlockModel;
-			$model->design_image_block_id = $designImageBlockModel->id;
-			if (!$model->save()) {
-				return null;
-			}
-			
-			return $model;
-		} catch (Exception $e) {
-			return null;
-		}
-	}
-
-	/**
-	 * Runs before delete
-	 *
-	 * @return bool
-	 */
-	protected function beforeDelete()
-	{
-		$imageAlbums = ImageAlbumModel::model()->byImageId($this->id)->findAll();
-		foreach ($imageAlbums as $imageAlbum) {
-			if (!$imageAlbum->delete()) {
-				return false;
-			}
-		}
-
-		$designBlockModel = $this->designBlockModel;
-		if ($designBlockModel === null) {
-			$designBlockModel = DesignBlockModel::model()->byId($this->design_block_id)->find();
-		}
-		if ($designBlockModel instanceof DesignBlockModel) {
-			$designBlockModel->delete();
-		}
-
-		$designImageBlockModel = $this->designImageBlockModel;
-		if ($designImageBlockModel === null) {
-			$designImageBlockModel = DesignBlockModel::model()->byId($this->design_image_block_id)->find();
-		}
-		if ($designImageBlockModel instanceof DesignBlockModel) {
-			$designImageBlockModel->delete();
-		}
-
-		return parent::beforeDelete();
+		$this->alt = trim(strip_tags($this->alt));
 	}
 }
