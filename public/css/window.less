@@ -1,4 +1,5 @@
 @import "variables.less";
+@import "webkit.less";
 
 .l-overlay {
   top: 0;
@@ -7,8 +8,9 @@
   height: 100%;
   z-index: 190;
   background: black;
-  opacity: 0.2;
+  opacity: 0;
   position: fixed;
+  .l-transition-property(opacity);
 }
 
 .l-window {
@@ -19,6 +21,8 @@
   width: 800px;
   margin-left: -400px;
   background: white;
+  opacity: 0;
+  .l-transition-property(opacity);
 
   .l-close {
     top: 0;

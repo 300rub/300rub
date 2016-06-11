@@ -79,6 +79,14 @@
 			this.$window.find(".j-close").on("click", $.proxy(this.close, this));
 			this.$overlay.on("click", $.proxy(this.close, this));
 
+			setTimeout($.proxy(function () {
+				this.$window.addClass("j-opacity");
+			}, this), 100);
+
+			setTimeout($.proxy(function () {
+				this.$overlay.addClass("j-opacity-20");
+			}, this), 100);
+
 			$.ajaxJson(
 				this.action,
 				{
@@ -98,8 +106,17 @@
 		 * @private
 		 */
 		close: function () {
-			this.$window.remove();
-			this.$overlay.remove();
+			this.$window.removeClass("j-opacity");
+			setTimeout($.proxy(function () {
+				this.$window.remove();
+			}, this), 300);
+
+			this.$overlay.removeClass("j-opacity-20");
+			setTimeout($.proxy(function () {
+				this.$overlay.remove();
+			}, this), 300);
+
+
 
 			return false;
 		},
