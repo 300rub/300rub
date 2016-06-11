@@ -3,7 +3,7 @@
 @import "helpers.less";
 
 .l-panel {
-	border: 1px solid #ccc;
+	border: 1px solid @borderColor;
 	bottom: 48px;
 	right: 10px;
 	z-index: 90;
@@ -24,7 +24,7 @@
 		margin-left: -7px;
 		border-left: 13px solid transparent;
 		border-right: 13px solid transparent;
-		border-top: 13px solid #ccc;
+		border-top: 13px solid @borderColor;
 		z-index: 1;
 	}
 
@@ -38,7 +38,7 @@
 		margin-left: -6px;
 		border-left: 12px solid transparent;
 		border-right: 12px solid transparent;
-		border-top: 12px solid #fff;
+		border-top: 12px solid white;
 		z-index: 2;
 	}
 
@@ -47,11 +47,11 @@
 		right: 10px;
 		top: 5px;
 		z-index: 1;
-		color: #ccc;
+		color: @linkGrayColor;
 		font-size: 24px;
 
 		&:hover {
-			color: #cc0000;
+			color: @linkRedHoverColor;
 		}
 	}
 
@@ -62,12 +62,12 @@
 		border-bottom: 1px solid #ccc;
 
 		.l-back {
-			color: #ccc;
+			color: @linkGrayColor;
 			font-size: 18px;
 			padding-right: 7px;
 
 			&:hover {
-				color: #ff0000;
+				color: @linkRedHoverColor;
 			}
 		}
 
@@ -80,7 +80,7 @@
 
 		.l-description {
 			font-size: 14px;
-			color: #999;
+			color: @textDescriptionColor;
 		}
 	}
 
@@ -90,7 +90,7 @@
 		.l-scroll;
 
 		.l-error {
-			color: #ff0000;
+			color: @textErrorColor;
 			font-size: 12px;
 			margin: 5px 0;
 
@@ -125,18 +125,18 @@
 			.l-label {
 				padding: 13px 70px 13px 20px;
 				display: block;
-				color: #008ace;
+				color: @linkBlueColor;
 				font-size: 14px;
 
 				&:hover {
-					color: #cc0000;
+					color: @linkRedHoverColor;
 				}
 			}
 
 			.l-design, .l-settings {
 				position: absolute;
 				top: 50%;
-				color: #008ace;
+				color: @linkBlueColor;
 				width: 28px;
 				text-align: center;
 				line-height: 28px;
@@ -144,7 +144,7 @@
 				margin-top: -14px;
 
 				&:hover {
-					color: #cc0000;
+					color: @linkRedHoverColor;
 				}
 			}
 
@@ -161,7 +161,7 @@
 	.l-footer {
 		height: 54px;
 		position: relative;
-		border-top: 1px solid #ccc;
+		border-top: 1px solid @borderColor;
 		padding: 0 20px;
 
 		.l-list-add, .l-panel-submit {
