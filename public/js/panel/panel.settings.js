@@ -208,6 +208,10 @@
 	 * @private
 	 */
 	c.Panel.prototype._onSettingsSubmitBefore = function () {
+		if ($.validator(this.$panel.find(".j-panel-form")).validate() === false) {
+			return false;
+		}
+
 		this.$_settingsSubmit.find(".j-icon").addClass("j-hide");
 		this.$_settingsSubmit.find(".j-loader").removeClass("j-hide");
 	};
