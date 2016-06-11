@@ -2,7 +2,7 @@
 use components\Language;
 ?>
 
-<div class="j-panel-settings-section-container">
+<div class="l-panel-form-container j-panel-settings-section-container">
     <div class="l-form-group">
         <label>
             <span class="l-label"><?= Language::t("common", "name") ?></span>

@@ -4,7 +4,7 @@ use components\Language;
 <div class="j-panel l-panel">
 	<a class="j-close l-close fa fa-close"></a>
 	<div class="j-header l-header j-hide">
-		<a class="j-back l-back j-hide fa fa-mail-reply"></a>
+		<a class="j-back l-back j-hide fa fa-chevron-left"></a>
 		<span class="j-title l-title"></span>
 		<div class="j-description l-description"></div>
 	</div>
