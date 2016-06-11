@@ -23,11 +23,6 @@ use components\Language;
 			</div>
 		</form>
 	</div>
-	<div class="l-cloud">
-		<div class="l-cloud-top"></div>
-		<div class="l-cloud-sides"></div>
-		<div class="l-cloud-bottom"></div>
-	</div>
 </div>
 
 <div class="l-overlay j-overlay"></div>
