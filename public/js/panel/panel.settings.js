@@ -208,7 +208,7 @@
 	 * @private
 	 */
 	c.Panel.prototype._onSettingsSubmitBefore = function () {
-		this.$_settingsSubmit.find(".j-label").addClass("j-hide");
+		this.$_settingsSubmit.find(".j-icon").addClass("j-hide");
 		this.$_settingsSubmit.find(".j-loader").removeClass("j-hide");
 	};
 
@@ -220,7 +220,7 @@
 	 * @private
 	 */
 	c.Panel.prototype._onSettingsSubmitSuccess = function (data) {
-		this.$_settingsSubmit.find(".j-label").removeClass("j-hide");
+		this.$_settingsSubmit.find(".j-icon").removeClass("j-hide");
 		this.$_settingsSubmit.find(".j-loader").addClass("j-hide");
 
 		if ($.type(data.errors) === "array" && data.errors.length === 0) {

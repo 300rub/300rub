@@ -11,5 +11,5 @@ use components\Language;
 
 <a class="j-panel-list-add l-list-add">
     <span class="j-label"><?= Language::t("common", "add") ?></span>
-    <i class="fa fa-plus"></i>
+    <i class="l-icon fa fa-plus"></i>
 </a>

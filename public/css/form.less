@@ -1,24 +1,25 @@
 @import "variables.less";
 @import "webkit.less";
+@import "fonts.less";
 
 .l-form {
   display: inline-block;
   width: 100%;
   padding: 3px 15px 0 15px;
   font-size: 15px;
-  color: #333;
+  color: @textColor;
   background-color: white;
-  border: 1px solid #d6d6d6;
+  border: 1px solid @borderColor;
   line-height: 24px;
   .l-rounded(4px);
   .l-font-family-myrad;
 
   &:hover {
-    border-color: #aaa;
+    border-color: @borderHoverColor;
   }
 
   &:focus {
-    border-color: #08c;
+    border-color: @borderFocusColor;
     .l-box-shadow(0 0 0 3px rgba(0, 136, 204, .3));
   }
 }
@@ -58,17 +59,17 @@
       font-size: 20px;
       width: 20px;
       display: inline-block;
-      color: #d6d6d6;
+      color: @borderColor;
 
       .fa-check-square-o {
         display: none;
-        color: #008ace;
+        color: @borderFocusColor;
       }
     }
 
     &:hover {
       .l-icons {
-        color: #aaa;
+        color: @borderHoverColor;
       }
     }
 
@@ -117,14 +118,14 @@
   display: block;
   background: white;
   font-size: 16px;
-  border-bottom: 1px dashed #e0b2e0;
-  color: #008ace;
+  border-bottom: 1px dashed @borderColor;
+  color: @linkBlueColor;
   margin-top: 15px;
   margin-bottom: 10px;
 
   &:hover {
-    border-bottom-color: #f0b2b2;
-    color: #ff0000;
+    border-bottom-color: @borderHoverColor;
+    color: @linkRedHoverColor;
   }
 
   .fa {
