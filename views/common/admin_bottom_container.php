@@ -3,15 +3,15 @@ use components\Language;
 ?>
 <div id="admin-bottom-container">
     <div class="l-left">
-        <a class="j-logout-button l-button">
+        <a class="j-admin-bottom-button j-logout-button l-button">
             <i class="l-icon fa fa-sign-out"></i>
             <span><?= Language::t("user", "logout") ?></span>
         </a>
-        <a class="l-button">
+        <a class="j-admin-bottom-button l-button">
             <i class="l-icon fa fa-info"></i>
             <span><?= Language::t("common", "about") ?></span>
         </a>
-        <a class="l-button">
+        <a class="j-admin-bottom-button l-button">
             <i class="l-icon fa fa-question"></i>
             <span><?= Language::t("common", "help") ?></span>
         </a>
@@ -21,7 +21,7 @@ use components\Language;
         <a
             data-action="payment.panel"
             data-container="l-panel-payment"
-            class="j-panel-open l-button"
+            class="j-admin-bottom-button j-panel-open l-button"
         >
             <i class="l-icon fa fa-rub"></i>
             <span><?= Language::t("payment", "payment") ?></span>
@@ -30,7 +30,7 @@ use components\Language;
         <a
             data-action="payment.panel"
             data-container="l-panel-settings"
-            class="j-panel-open l-button"
+            class="j-admin-bottom-button j-panel-open l-button"
         >
             <i class="l-icon fa fa-cog"></i>
             <span><?= Language::t("settings", "settings") ?></span>
@@ -39,7 +39,7 @@ use components\Language;
         <a
             data-action="section.panelList"
             data-container="l-panel-sections"
-            class="j-panel-open l-button"
+            class="j-admin-bottom-button j-panel-open l-button"
         >
             <i class="l-icon fa fa-files-o"></i>
             <span><?= Language::t("section", "sections") ?></span>
@@ -48,7 +48,7 @@ use components\Language;
         <a
             data-action="block.panelList"
             data-container="l-panel-blocks"
-            class="j-panel-open l-button"
+            class="j-admin-bottom-button j-panel-open l-button"
         >
             <i class="l-icon fa fa-th-large"></i>
             <span><?= Language::t("block", "blocks") ?></span>

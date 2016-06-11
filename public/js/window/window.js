@@ -68,6 +68,13 @@
 		data: {},
 
 		/**
+		 * DOM-element of admin bottom container
+		 *
+		 * @type {Object}
+		 */
+		$adminBottomContainer: null,
+
+		/**
 		 * Initialization
 		 */
 		init: function () {
@@ -75,6 +82,7 @@
 			this.$window = c.$templates.find(".j-window").clone().appendTo(c.$ajaxWrapper);
 			this.$container = this.$window.find(".j-container");
 			this.$submit = this.$window.find(".j-submit");
+			this.$adminBottomContainer = $("#admin-bottom-container");
 
 			this.$window.find(".j-close").on("click", $.proxy(this.close, this));
 			this.$overlay.on("click", $.proxy(this.close, this));
@@ -85,6 +93,10 @@
 
 			setTimeout($.proxy(function () {
 				this.$overlay.addClass("j-opacity-20");
+			}, this), 100);
+
+			setTimeout($.proxy(function () {
+				this.$adminBottomContainer.find(".j-admin-bottom-button").addClass("j-opacity-0");
 			}, this), 100);
 
 			$.ajaxJson(
@@ -116,7 +128,7 @@
 				this.$overlay.remove();
 			}, this), 300);
 
-
+			this.$adminBottomContainer.find(".j-admin-bottom-button").removeClass("j-opacity-0");
 
 			return false;
 		},
