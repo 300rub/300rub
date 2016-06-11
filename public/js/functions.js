@@ -155,7 +155,8 @@
 					return symbol in values ? values[symbol] : "";
 				}
 			)
-			.replace(/[^a-zA-Z0-9_-]/g, "");
+			.replace(/[^a-zA-Z0-9_-]/g, "")
+			.toLowerCase();
 	};
 
 }(window.jQuery);
