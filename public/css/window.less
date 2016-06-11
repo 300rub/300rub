@@ -1,3 +1,5 @@
+@import "variables.less";
+
 .l-overlay {
   top: 0;
   left: 0;
@@ -33,7 +35,7 @@
     font-weight: 300;
     font-size: 36px;
     padding: 0 22px 8px 47px;
-    border-bottom: 1px solid @lightGrayColor;
+    border-bottom: 1px solid @borderColor;
   }
 
   .l-close {
@@ -48,7 +50,7 @@
     padding: 8px;
 
     &:hover {
-      color: @blueColor;
+
     }
   }
 
@@ -63,7 +65,7 @@
       top: 50%;
       margin-left: -30px;
       margin-top: -55px;
-      color: @lightGrayColor;
+      color: @borderColor;
     }
   }
 
@@ -73,7 +75,7 @@
     right: 0;
     height: 66px;
     position: absolute;
-    border-top: 1px solid @lightGrayColor;
+    border-top: 1px solid @borderColor;
 
     .l-submit {
       position: absolute;
@@ -82,14 +84,14 @@
       margin-top: -25px;
       display: inline-block;
       line-height: 50px;
-      color: @mediumDarkGrayColor;
-      background: @lightGrayColor;
+      color: @textColor;
+      background: @borderColor;
       font-size: 18px;
       padding: 0 25px 0 28px;
 
       &:hover {
         color: white;
-        background: @blueColor;
+
       }
 
       .l-icons {

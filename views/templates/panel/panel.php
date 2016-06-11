@@ -10,7 +10,7 @@ use components\Language;
 	</div>
 	<form class="j-panel-form" action="" method="post">
 		<div class="j-container l-container">
-			<i class="j-loader l-loader j-hide fa fa-spinner fa-pulse fa-2x fa-fw"></i>
+			<i class="j-loader l-loader j-hide fa fa-circle-o-notch fa-spin fa-fw"></i>
 		</div>
 		<div class="j-footer l-footer j-hide"></div>
 	</form>

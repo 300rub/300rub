@@ -148,7 +148,7 @@ class Web extends AbstractApplication
 	 */
 	private function _runAjax()
 	{
-		//sleep(2);
+		sleep(2);
 
 		$useTransaction = false;
 

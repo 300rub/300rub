@@ -14,4 +14,4 @@ use components\Language;
 
 <div class="l-help-overlay j-help-overlay"></div>
 
-<a class="j-help-button l-help-button fa fa-question l-effect-up-up"></a>
+<a class="j-help-button l-help-button fa fa-question l-effect-bounce"></a>

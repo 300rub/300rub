@@ -1,8 +1,9 @@
 @import "variables.less";
 @import "webkit.less";
+@import "helpers.less";
 
 .l-panel {
-	border: 1px solid #d6d6d6;
+	border: 1px solid #ccc;
 	bottom: 48px;
 	right: 10px;
 	z-index: 90;
@@ -23,7 +24,7 @@
 		margin-left: -7px;
 		border-left: 13px solid transparent;
 		border-right: 13px solid transparent;
-		border-top: 13px solid #d6d6d6;
+		border-top: 13px solid #ccc;
 		z-index: 1;
 	}
 
@@ -58,7 +59,7 @@
 		position: relative;
 		min-height: 20px;
 		padding: 20px 20px 15px 20px;
-		border-bottom: 1px solid #e3e3e3;
+		border-bottom: 1px solid #ccc;
 
 		.l-back {
 			color: #ccc;
@@ -85,7 +86,6 @@
 
 	.l-container {
 		min-height: 32px;
-		padding: 0 20px;
 		overflow: auto;
 		.l-scroll;
 
@@ -101,30 +101,36 @@
 
 		.l-loader {
 			position: absolute;
-			left: 10px;
-			top: 10px;
-			color: @lightGrayColor;
+			left: 50%;
+			top: 50%;
+			margin-left: -14px;
+			margin-top: -14px;
+			color: #ccc;
+			font-size: 30px;
 		}
 
 		.l-panel-list-item {
 			position: relative;
-			border-bottom: 1px solid #e3e3e3;
+			border-bottom: 1px solid #ccc;
 			line-height: 18px;
 
+			&:hover {
+				background: rgba(0, 0, 0, .05);
+			}
+
+			&:last-child {
+				border-bottom-width: 0;
+			}
+
 			.l-label {
-				padding: 13px 70px 13px 0;
+				padding: 13px 70px 13px 20px;
 				display: block;
-				.l-transition-property(color);
 				color: #008ace;
 				font-size: 14px;
 
 				&:hover {
 					color: #cc0000;
 				}
-			}
-
-			&:last-child {
-				border-bottom-width: 0;
 			}
 
 			.l-design, .l-settings {
@@ -143,11 +149,11 @@
 			}
 
 			.l-design {
-				right: 22px;
+				right: 42px;
 			}
 
 			.l-settings {
-				right: -6px;
+				right: 14px;
 			}
 		}
 	}
@@ -155,7 +161,7 @@
 	.l-footer {
 		height: 54px;
 		position: relative;
-		border-top: 1px solid #e3e3e3;
+		border-top: 1px solid #ccc;
 		padding: 0 20px;
 
 		.l-list-add, .l-panel-submit {

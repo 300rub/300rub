@@ -18,16 +18,17 @@
 	height: 44px;
 	background: rgba(0,0,0,0.8);
 
-	.l-right {
+	.l-right, .l-left {
 		position: absolute;
 		bottom: 0;
-		right: 20px;
 	}
 
 	.l-left {
-		position: absolute;
-		bottom: 0;
 		left: 20px;
+	}
+
+	.l-right {
+		right: 20px;
 	}
 
 	.l-button {
@@ -45,7 +46,7 @@
 			opacity: .65;
 		}
 
-		.fa {
+		.l-icon {
 			margin-right: 5px;
 		}
 	}
@@ -53,13 +54,13 @@
 
 .l-help-button {
 	font-size: 24px;
-	color: #ccc;
+	color: @grayLinkColor;
 	display: inline-block;
 	padding: 8px;
 	margin: -8px 0;
 	line-height: 14px;
 
 	&:hover {
-		color: #cc0000;
+		color: @redLinkHoverColor;
 	}
 }
