@@ -222,7 +222,7 @@ class SectionController extends AbstractController
             "title"   => $model->seoModel->name,
             "button"  => [
                 "label" => Language::t("common", "save"),
-                "icon" => "fa-cloud"
+                "icon" => "fa-check"
             ]
         ];
     }

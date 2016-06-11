@@ -18,40 +18,31 @@
   position: fixed;
   width: 800px;
   margin-left: -400px;
+  background: white;
 
-  .l-window-container {
-    position: relative;
-    padding: 25px 0 65px 0;
-    background: white;
-    z-index: 2;
+  .l-close {
+    top: 0;
+    right: 5px;
+    position: absolute;
+    display: inline-block;
+    font-size: 24px;
+    z-index: 10;
+    text-decoration: none;
+    color: @linkGrayColor;
+    padding: 6px 8px;
+
+    &:hover {
+      color: @linkRedHoverColor;
+    }
   }
 
   .l-header {
-    top: -31px;
-    left: 0;
-    right: 0;
-    position: absolute;
-    z-index: 5;
+    position: relative;
     font-weight: 300;
-    font-size: 36px;
-    padding: 0 22px 8px 47px;
+    line-height: 30px;
+    font-size: 26px;
+    padding: 5px 30px 0 20px;
     border-bottom: 1px solid @borderColor;
-  }
-
-  .l-close {
-    top: -52px;
-    right: -47px;
-    position: absolute;
-    display: inline-block;
-    font-size: 45px;
-    z-index: 10;
-    text-decoration: none;
-    color: white;
-    padding: 8px;
-
-    &:hover {
-
-    }
   }
 
   .l-container {
@@ -67,32 +58,32 @@
       margin-top: -55px;
       color: @borderColor;
     }
+
+    .l-loader {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      margin-left: -16px;
+      margin-top: -16px;
+      color: @loaderColor;
+      font-size: 34px;
+    }
   }
 
   .l-footer {
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 66px;
-    position: absolute;
+    position: relative;
+    height: 58px;
     border-top: 1px solid @borderColor;
 
     .l-submit {
       position: absolute;
-      right: 0;
+      right: 20px;
       top: 50%;
-      margin-top: -25px;
-      display: inline-block;
-      line-height: 50px;
-      color: @textColor;
-      background: @borderColor;
-      font-size: 18px;
-      padding: 0 25px 0 28px;
-
-      &:hover {
-        color: white;
-
-      }
+      margin-top: -18px;
+      font-size: 16px;
+      line-height: 36px;
+      padding: 0 15px;
+      .l-submit-button;
 
       .l-icons {
         display: inline-block;
