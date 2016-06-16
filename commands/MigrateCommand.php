@@ -443,6 +443,15 @@ class MigrateCommand extends AbstractCommand
 	{
 		Logger::log("Updating fixtures...", Logger::LEVEL_INFO, "console.migrate");
 
+		$siteId = App::console()->config->siteId;
+		$uploadFilesFolder = __DIR__ . "/../public/upload/{$siteId}";
+		exec("rm -r {$uploadFilesFolder}");
+		$copyFilesFolder = __DIR__ . "/../fixtures/files";
+		if (!file_exists(__DIR__ . "/../public/upload")) {
+			mkdir(__DIR__ . "/../public/upload", 0777);
+		}
+		exec("cp -r {$copyFilesFolder} {$uploadFilesFolder}");
+
 		$files = array_diff(scandir(__DIR__ . "/../fixtures"), ['..', '.']);
 		foreach ($files as $file) {
 			$tableName = str_replace(".php", "", $file);
