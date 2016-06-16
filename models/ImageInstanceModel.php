@@ -114,32 +114,46 @@ class ImageInstanceModel extends AbstractModel
 	public $y2;
 
 	/**
+	 * Thumb width of source image
+	 *
+	 * @var integer
+	 */
+	public $thumb_width;
+
+	/**
+	 * Thumb height of source image
+	 *
+	 * @var integer
+	 */
+	public $thumb_height;
+
+	/**
 	 * Thumb coordinates. x1
 	 *
 	 * @var integer
 	 */
-	public $x1_thumb;
+	public $thumb_x1;
 
 	/**
 	 * Thumb coordinates. y1
 	 *
 	 * @var integer
 	 */
-	public $y1_thumb;
+	public $thumb_y1;
 
 	/**
 	 * Thumb coordinates. x2
 	 *
 	 * @var integer
 	 */
-	public $x2_thumb;
+	public $thumb_x2;
 
 	/**
 	 * Thumb coordinates. y2
 	 *
 	 * @var integer
 	 */
-	public $y2_thumb;
+	public $thumb_y2;
 
 	/**
 	 * Format of file
@@ -186,10 +200,12 @@ class ImageInstanceModel extends AbstractModel
 			"y1"             => [],
 			"x2"             => [],
 			"y2"             => [],
-			"x1_thumb"       => [],
-			"y1_thumb"       => [],
-			"x2_thumb"       => [],
-			"y2_thumb"       => [],
+			"thumb_width"    => [],
+			"thumb_height"   => [],
+			"thumb_x1"       => [],
+			"thumb_y1"       => [],
+			"thumb_x2"       => [],
+			"thumb_y2"       => [],
 		];
 	}
 
@@ -218,10 +234,12 @@ class ImageInstanceModel extends AbstractModel
 		$this->y1 = intval($this->y1);
 		$this->x2 = intval($this->x2);
 		$this->y2 = intval($this->y2);
-		$this->x1_thumb = intval($this->x1_thumb);
-		$this->y1_thumb = intval($this->y1_thumb);
-		$this->x2_thumb = intval($this->x2_thumb);
-		$this->y2_thumb = intval($this->y2_thumb);
+		$this->thumb_width = intval($this->thumb_width);
+		$this->thumb_height = intval($this->thumb_height);
+		$this->thumb_x1 = intval($this->thumb_x1);
+		$this->thumb_y1 = intval($this->thumb_y1);
+		$this->thumb_x2 = intval($this->thumb_x2);
+		$this->thumb_y2 = intval($this->thumb_y2);
 	}
 
 	/**
@@ -256,6 +274,13 @@ class ImageInstanceModel extends AbstractModel
 			$this->height = self::MIN_SIZE;
 		}
 
+		if ($this->thumb_width < self::MIN_SIZE) {
+			$this->thumb_width = self::MIN_SIZE;
+		}
+		if ($this->thumb_height < self::MIN_SIZE) {
+			$this->thumb_height = self::MIN_SIZE;
+		}
+
 		if ($this->x1 < 0) {
 			$this->x1 = 0;
 		} elseif ($this->x1 > $this->width - self::MIN_SIZE) {
@@ -277,25 +302,25 @@ class ImageInstanceModel extends AbstractModel
 			$this->y2 = $this->height;
 		}
 
-		if ($this->x1_thumb < 0) {
-			$this->x1_thumb = 0;
-		} elseif ($this->x1_thumb > $this->width - self::MIN_SIZE) {
-			$this->x1_thumb = $this->width - self::MIN_SIZE;
+		if ($this->thumb_x1 < 0) {
+			$this->thumb_x1 = 0;
+		} elseif ($this->thumb_x1 > $this->thumb_width - self::MIN_SIZE) {
+			$this->thumb_x1 = $this->thumb_width - self::MIN_SIZE;
 		}
-		if ($this->y1_thumb < 0) {
-			$this->y1_thumb = 0;
-		} elseif ($this->y1_thumb > $this->height - self::MIN_SIZE) {
-			$this->y1_thumb = $this->height - self::MIN_SIZE;
+		if ($this->thumb_y1 < 0) {
+			$this->thumb_y1 = 0;
+		} elseif ($this->thumb_y1 > $this->thumb_height - self::MIN_SIZE) {
+			$this->thumb_y1 = $this->thumb_height - self::MIN_SIZE;
 		}
-		if ($this->x2_thumb < $this->x1_thumb + self::MIN_SIZE) {
-			$this->x2_thumb = $this->x1_thumb + self::MIN_SIZE;
-		} elseif ($this->x2_thumb > $this->width) {
-			$this->x2_thumb = $this->width;
+		if ($this->thumb_x2 < $this->thumb_x1 + self::MIN_SIZE) {
+			$this->thumb_x2 = $this->thumb_x1 + self::MIN_SIZE;
+		} elseif ($this->thumb_x2 > $this->thumb_width) {
+			$this->thumb_x2 = $this->thumb_width;
 		}
-		if ($this->y2_thumb < $this->y1_thumb + self::MIN_SIZE) {
-			$this->y2_thumb = $this->y1_thumb + self::MIN_SIZE;
-		} elseif ($this->y2_thumb > $this->height) {
-			$this->y2_thumb = $this->height;
+		if ($this->thumb_y2 < $this->thumb_y1 + self::MIN_SIZE) {
+			$this->thumb_y2 = $this->thumb_y1 + self::MIN_SIZE;
+		} elseif ($this->thumb_y2 > $this->thumb_height) {
+			$this->thumb_y2 = $this->thumb_height;
 		}
 
 		if (!$this->id) {

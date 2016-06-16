@@ -61,6 +61,48 @@ class ImageModel extends AbstractModel
 	public $designImageBlockModel;
 
 	/**
+	 * Crop type
+	 *
+	 * @var integer
+	 */
+	public $crop_type;
+
+	/**
+	 * Crop width
+	 *
+	 * @var integer
+	 */
+	public $crop_width;
+
+	/**
+	 * Crop height
+	 *
+	 * @var integer
+	 */
+	public $crop_height;
+
+	/**
+	 * Crop crop x proportion
+	 *
+	 * @var integer
+	 */
+	public $crop_x;
+
+	/**
+	 * Crop crop y proportion
+	 *
+	 * @var integer
+	 */
+	public $crop_y;
+
+	/**
+	 * Is use albums
+	 *
+	 * @var boolean
+	 */
+	public $use_albums;
+
+	/**
 	 * Form types
 	 *
 	 * @var array
@@ -101,7 +143,12 @@ class ImageModel extends AbstractModel
 			"language"              => [],
 			"design_block_id"       => [],
 			"design_image_block_id" => [],
-
+			"crop_type"             => [],
+			"crop_width"            => [],
+			"crop_height"           => [],
+			"crop_x"                => [],
+			"crop_y"                => [],
+			"use_albums"            => [],
 		];
 	}
 
@@ -131,6 +178,14 @@ class ImageModel extends AbstractModel
 
 		$this->design_block_id = intval($this->design_block_id);
 		$this->design_image_block_id = intval($this->design_image_block_id);
+
+		$this->crop_type = intval($this->crop_type);
+		$this->crop_width = intval($this->crop_width);
+		$this->crop_height = intval($this->crop_height);
+		$this->crop_x = intval($this->crop_x);
+		$this->crop_y = intval($this->crop_y);
+
+		$this->use_albums = boolval($this->use_albums);
 	}
 
 	/**
@@ -160,6 +215,13 @@ class ImageModel extends AbstractModel
 					$this->designImageBlockModel = new DesignBlockModel();
 				}
 			}
+		}
+
+		$this->use_albums = intval($this->use_albums);
+		if ($this->use_albums >= 1) {
+			$this->use_albums = 1;
+		} else {
+			$this->use_albums = 0;
 		}
 
 		return parent::beforeSave();

@@ -452,7 +452,7 @@ class MigrateCommand extends AbstractCommand
 		}
 		exec("cp -r {$copyFilesFolder} {$uploadFilesFolder}");
 
-		$files = array_diff(scandir(__DIR__ . "/../fixtures"), ['..', '.']);
+		$files = array_diff(scandir(__DIR__ . "/../fixtures"), ["..", ".", "files"]);
 		foreach ($files as $file) {
 			$tableName = str_replace(".php", "", $file);
 

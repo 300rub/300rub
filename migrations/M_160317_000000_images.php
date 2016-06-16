@@ -38,6 +38,12 @@ class M_160317_000000_images extends AbstractMigration
                 "language"              => "integer",
                 "design_block_id"       => "integer",
                 "design_image_block_id" => "integer",
+                "crop_type"             => "integer",
+                "crop_width"            => "integer",
+                "crop_height"           => "integer",
+                "crop_x"                => "integer",
+                "crop_y"                => "integer",
+                "use_albums"            => "boolean",
             ],
             "ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci"
         );
@@ -106,10 +112,12 @@ class M_160317_000000_images extends AbstractMigration
                 "y1"             => "integer",
                 "x2"             => "integer",
                 "y2"             => "integer",
-                "x1_thumb"       => "integer",
-                "y1_thumb"       => "integer",
-                "x2_thumb"       => "integer",
-                "y2_thumb"       => "integer",
+                "thumb_width"    => "integer",
+                "thumb_height"   => "integer",
+                "thumb_x1"       => "integer",
+                "thumb_y1"       => "integer",
+                "thumb_x2"       => "integer",
+                "thumb_y2"       => "integer",
             ],
             "ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci"
         );
