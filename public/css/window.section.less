@@ -1,18 +1,23 @@
+@import "variables.less";
+
 .l-window-section-line {
   padding-bottom: 10px;
   margin-bottom: 10px;
-  border: 1px solid black;
+  border: 1px solid @borderColor;
+  background: white;
 
   .l-section-line-header {
-    background: #ccc;
+    background: white;
     margin-bottom: 10px;
     padding: 0 10px;
     position: relative;
+    border-bottom: 1px solid @borderColor;
     cursor: move;
 
     .l-title {
       font-size: 14px;
       line-height: 22px;
+      font-weight: bold;
 
       select {
         margin-left: 20px;
@@ -25,39 +30,54 @@
       right: 0;
       top: 0;
       line-height: 22px;
-      padding: 0 15px;
+      padding: 0 7px;
+      font-size: 16px;
+      color: @linkGrayColor;
+
+      &:hover {
+        color: @linkRedHoverColor;
+      }
     }
   }
 
-  .grid-stack {
+  .l-grid-stack {
     min-height: 50px;
   }
 
   .l-item {
     line-height: 30px;
     padding: 0 20px;
-    border-color: #ccc;
     cursor: move;
 
     .l-content {
-      border-style: solid;
-      border-width: 0 1px 0 10px;
-      background: #f5f5f5;
+      border: 1px solid @borderColor;
+      background: white;
+      overflow: hidden;
+      font-size: 14px;
 
       .l-remove {
         position: absolute;
-        left: 7px;
-        top: 7px;
+        left: 8px;
+        top: 5px;
         text-decoration: none;
         z-index: 10;
-        background: #f00;
         width: 16px;
         height: 16px;
+        font-size: 16px;
+        color: @linkGrayColor;
+
+        &:hover {
+          color: @linkRedHoverColor;
+        }
       }
 
       .l-label {
         padding-left: 30px;
       }
+    }
+
+    .ui-resizable-handle {
+      display: block !important;
     }
   }
 }

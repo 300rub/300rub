@@ -15,16 +15,19 @@ use components\Language;
                 </select>
             </label>
         </div>
-        <a class="j-remove l-remove"><?= Language::t("common", "delete"); ?></a>
+        <a class="j-remove l-remove fa fa-close"></a>
     </div>
     <div class="j-grid-stack l-grid-stack grid-stack"></div>
 </div>
 
-<button class="j-window-section-add-line"><?= Language::t("section", "addLine"); ?></button>
+<a class="j-window-section-add-line l-button">
+    <?= Language::t("section", "addLine"); ?>
+    <i class="fa fa-plus l-icon"></i>
+</a>
 
 <div class="j-window-section-grid-stack-item l-item grid-stack-item">
     <div class="j-content l-content grid-stack-item-content">
-        <a class="j-remove l-remove"></a>
+        <a class="j-remove l-remove fa fa-close"></a>
         <div class="j-label l-label"></div>
     </div>
 </div>

@@ -1,3 +1,6 @@
+@import "webkit.less";
+@import "effects.less";
+
 .l-full-size {
 	position: absolute;
 	top: 0;
@@ -9,6 +12,7 @@
 .l-submit-button {
 	display: inline-block;
 	color: #fff;
+	padding: 0 15px;
 	.l-rounded(4px);
 	.l-gradient-vertical(#42a1ec, #0070c9);
 
@@ -18,6 +22,32 @@
 
 	&:active {
 		.l-gradient-vertical(#3d94d9, #0067b9);
+	}
+}
+
+.l-event-button {
+	display: inline-block;
+	color: #0070c9;
+	border: 2px solid #0070c9;
+	padding: 0 15px;
+	.l-rounded(4px);
+	.l-effect-fade;
+
+	&:hover {
+		background: #147bcd;
+		color: white;
+		border-color: #147bcd;
+	}
+
+	&:active {
+		background: #0067b9;
+		border-color: #0067b9;
+	}
+
+	.l-icon {
+		margin-left: 2px;
+		vertical-align: middle;
+		margin-top: -2px;
 	}
 }
 

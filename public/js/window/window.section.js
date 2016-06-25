@@ -31,6 +31,22 @@
         }
 
         this.$submit.off().on("click", $.proxy(this._sectionSubmit, this));
+
+        this._sectionSetHeight();
+        $(window).resize($.proxy(function () {
+            this._sectionSetHeight();
+        }, this));
+    };
+
+    /**
+     * Sets container's height
+     *
+     * @private
+     */
+    c.Window.prototype._sectionSetHeight = function() {
+        this.$container.css("max-height", $.proxy(function () {
+            return $(window).outerHeight() - 148;
+        }, this));
     };
 
     /**

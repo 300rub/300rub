@@ -1,5 +1,6 @@
 @import "variables.less";
 @import "webkit.less";
+@import "helpers.less";
 
 .l-overlay {
   top: 0;
@@ -26,14 +27,14 @@
 
   .l-close {
     top: 0;
-    right: 5px;
+    right: 0;
     position: absolute;
     display: inline-block;
     font-size: 24px;
     z-index: 10;
     text-decoration: none;
     color: @linkGrayColor;
-    padding: 6px 8px;
+    padding: 11px 17px;
 
     &:hover {
       color: @linkRedHoverColor;
@@ -43,7 +44,7 @@
   .l-header {
     position: relative;
     font-weight: 300;
-    line-height: 30px;
+    line-height: 40px;
     font-size: 26px;
     padding: 5px 30px 0 20px;
     border-bottom: 1px solid @borderColor;
@@ -86,7 +87,6 @@
       margin-top: -18px;
       font-size: 16px;
       line-height: 36px;
-      padding: 0 15px;
       .l-submit-button;
 
       .l-icons {
@@ -94,6 +94,16 @@
         width: 20px;
         text-align: center;
       }
+    }
+
+    .l-button {
+      position: relative;
+      float: left;
+      margin-top: 10px;
+      font-size: 16px;
+      line-height: 34px;
+      margin-left: 20px;
+      .l-event-button;
     }
   }
 }

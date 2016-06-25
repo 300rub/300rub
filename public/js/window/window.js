@@ -111,6 +111,17 @@
 		},
 
 		/**
+		 * Sets container's max-height
+		 *
+		 * @private
+		 */
+		_setHeight: function() {
+			this.$container.css("max-height", $.proxy(function () {
+				return $(window).outerHeight() - 148;
+			}, this));
+		},
+
+		/**
 		 * Close window click event
 		 *
 		 * @returns {Boolean}
@@ -168,6 +179,11 @@
 			this.$submit.on("click", $.proxy(this._submit, this));
 			
 			this[this.data.handler]();
+
+			this._setHeight();
+			$(window).resize($.proxy(function () {
+				this._setHeight();
+			}, this));
 		},
 
 		/**
