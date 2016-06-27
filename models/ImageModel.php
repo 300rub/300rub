@@ -18,6 +18,16 @@ use components\Language;
 class ImageModel extends AbstractModel
 {
 
+	const CROP_TYPE_TOP_LEFT = 1;
+	const CROP_TYPE_TOP_CENTER = 2;
+	const CROP_TYPE_TOP_RIGHT = 3;
+	const CROP_TYPE_MIDDLE_LEFT = 4;
+	const CROP_TYPE_MIDDLE_CENTER = 5;
+	const CROP_TYPE_MIDDLE_RIGHT = 6;
+	const CROP_TYPE_BOTTOM_LEFT = 7;
+	const CROP_TYPE_BOTTOM_CENTER = 8;
+	const CROP_TYPE_BOTTOM_RIGHT = 9;
+
 	/**
 	 * Block's name
 	 *
