@@ -376,4 +376,304 @@ return [
         "thumb_x2"       => 400,
         "thumb_y2"       => 300
     ],
+    /**
+     * 0000000000000016.jpg 800x600
+     * view_0000000000000016.jpg 600x600 {@see ImageModel::CROP_TYPE_TOP_LEFT}
+     * thumb_0000000000000016.jpg 400x300
+     * thumb_view_0000000000000016.jpg 300x300 {@see ImageModel::CROP_TYPE_TOP_LEFT}
+     */
+    16 => [
+        "file_name"      => "0000000000000016",
+        "image_album_id" => 6,
+        "is_cover"       => 0,
+        "sort"           => 1,
+        "alt"            => "FancyBox album 1, image 1",
+        "width"          => 800,
+        "height"         => 600,
+        "x1"             => 0,
+        "y1"             => 0,
+        "x2"             => 600,
+        "y2"             => 600,
+        "thumb_width"    => 400,
+        "thumb_height"   => 300,
+        "thumb_x1"       => 0,
+        "thumb_y1"       => 0,
+        "thumb_x2"       => 300,
+        "thumb_y2"       => 300
+    ],
+    /**
+     * 0000000000000017.jpg 800x600
+     * view_0000000000000017.jpg 600x600 {@see ImageModel::CROP_TYPE_TOP_LEFT}
+     * thumb_0000000000000017.jpg 400x300
+     * thumb_view_0000000000000017.jpg 300x300 {@see ImageModel::CROP_TYPE_TOP_LEFT}
+     */
+    17 => [
+        "file_name"      => "0000000000000017",
+        "image_album_id" => 6,
+        "is_cover"       => 0,
+        "sort"           => 2,
+        "alt"            => "FancyBox album 1, image 2",
+        "width"          => 800,
+        "height"         => 600,
+        "x1"             => 0,
+        "y1"             => 0,
+        "x2"             => 600,
+        "y2"             => 600,
+        "thumb_width"    => 400,
+        "thumb_height"   => 300,
+        "thumb_x1"       => 0,
+        "thumb_y1"       => 0,
+        "thumb_x2"       => 300,
+        "thumb_y2"       => 300
+    ],
+    /**
+     * 0000000000000018.jpg 800x600
+     * view_0000000000000018.jpg 600x600 {@see ImageModel::CROP_TYPE_TOP_LEFT}
+     * thumb_0000000000000018.jpg 400x300
+     * thumb_view_0000000000000018.jpg 300x300 {@see ImageModel::CROP_TYPE_TOP_LEFT}
+     */
+    18 => [
+        "file_name"      => "0000000000000018",
+        "image_album_id" => 6,
+        "is_cover"       => 0,
+        "sort"           => 3,
+        "alt"            => "FancyBox album 1, image 3",
+        "width"          => 800,
+        "height"         => 600,
+        "x1"             => 0,
+        "y1"             => 0,
+        "x2"             => 600,
+        "y2"             => 600,
+        "thumb_width"    => 400,
+        "thumb_height"   => 300,
+        "thumb_x1"       => 0,
+        "thumb_y1"       => 0,
+        "thumb_x2"       => 300,
+        "thumb_y2"       => 300
+    ],
+    /**
+     * 0000000000000019.jpg 800x600
+     * view_0000000000000019.jpg 600x600 {@see ImageModel::CROP_TYPE_TOP_LEFT}
+     * thumb_0000000000000019.jpg 400x300
+     * thumb_view_0000000000000019.jpg 300x300 {@see ImageModel::CROP_TYPE_TOP_LEFT}
+     */
+    19 => [
+        "file_name"      => "0000000000000019",
+        "image_album_id" => 7,
+        "is_cover"       => 0,
+        "sort"           => 1,
+        "alt"            => "FancyBox album 2, image 1",
+        "width"          => 800,
+        "height"         => 600,
+        "x1"             => 0,
+        "y1"             => 0,
+        "x2"             => 600,
+        "y2"             => 600,
+        "thumb_width"    => 400,
+        "thumb_height"   => 300,
+        "thumb_x1"       => 0,
+        "thumb_y1"       => 0,
+        "thumb_x2"       => 300,
+        "thumb_y2"       => 300
+    ],
+    /**
+     * 0000000000000020.jpg 800x600
+     * view_0000000000000020.jpg 600x600 {@see ImageModel::CROP_TYPE_TOP_LEFT}
+     * thumb_0000000000000020.jpg 400x300
+     * thumb_view_0000000000000020.jpg 300x300 {@see ImageModel::CROP_TYPE_TOP_LEFT}
+     */
+    20 => [
+        "file_name"      => "0000000000000020",
+        "image_album_id" => 7,
+        "is_cover"       => 1,
+        "sort"           => 2,
+        "alt"            => "FancyBox album 2, image 2",
+        "width"          => 800,
+        "height"         => 600,
+        "x1"             => 0,
+        "y1"             => 0,
+        "x2"             => 600,
+        "y2"             => 600,
+        "thumb_width"    => 400,
+        "thumb_height"   => 300,
+        "thumb_x1"       => 0,
+        "thumb_y1"       => 0,
+        "thumb_x2"       => 300,
+        "thumb_y2"       => 300
+    ],
+    /**
+     * 0000000000000021.jpg 800x600
+     * view_0000000000000021.jpg 600x600 {@see ImageModel::CROP_TYPE_TOP_LEFT}
+     * thumb_0000000000000021.jpg 400x300
+     * thumb_view_0000000000000021.jpg 300x300 {@see ImageModel::CROP_TYPE_TOP_LEFT}
+     */
+    21 => [
+        "file_name"      => "0000000000000021",
+        "image_album_id" => 7,
+        "is_cover"       => 0,
+        "sort"           => 3,
+        "alt"            => "FancyBox album 2, image 3",
+        "width"          => 800,
+        "height"         => 600,
+        "x1"             => 0,
+        "y1"             => 0,
+        "x2"             => 600,
+        "y2"             => 600,
+        "thumb_width"    => 400,
+        "thumb_height"   => 300,
+        "thumb_x1"       => 0,
+        "thumb_y1"       => 0,
+        "thumb_x2"       => 300,
+        "thumb_y2"       => 300
+    ],
+    /**
+     * 0000000000000022.jpg 1024x768
+     * view_0000000000000022.jpg 980x200 {@see ImageModel::CROP_TYPE_TOP_RIGHT}
+     * thumb_0000000000000022.jpg 400x300
+     * thumb_view_0000000000000022.jpg 400x300
+     */
+    22 => [
+        "file_name"      => "0000000000000022",
+        "image_album_id" => 8,
+        "is_cover"       => 0,
+        "sort"           => 1,
+        "alt"            => "Slider album 1, image 1",
+        "width"          => 1024,
+        "height"         => 768,
+        "x1"             => 44,
+        "y1"             => 0,
+        "x2"             => 1024,
+        "y2"             => 200,
+        "thumb_width"    => 400,
+        "thumb_height"   => 300,
+        "thumb_x1"       => 0,
+        "thumb_y1"       => 0,
+        "thumb_x2"       => 400,
+        "thumb_y2"       => 300
+    ],
+    /**
+     * 0000000000000023.jpg 1024x768
+     * view_0000000000000023.jpg 980x200 {@see ImageModel::CROP_TYPE_TOP_RIGHT}
+     * thumb_0000000000000023.jpg 400x300
+     * thumb_view_0000000000000023.jpg 400x300
+     */
+    23 => [
+        "file_name"      => "0000000000000023",
+        "image_album_id" => 8,
+        "is_cover"       => 0,
+        "sort"           => 2,
+        "alt"            => "Slider album 1, image 2",
+        "width"          => 1024,
+        "height"         => 768,
+        "x1"             => 44,
+        "y1"             => 0,
+        "x2"             => 1024,
+        "y2"             => 200,
+        "thumb_width"    => 400,
+        "thumb_height"   => 300,
+        "thumb_x1"       => 0,
+        "thumb_y1"       => 0,
+        "thumb_x2"       => 400,
+        "thumb_y2"       => 300
+    ],
+    /**
+     * 0000000000000024.jpg 1024x768
+     * view_0000000000000024.jpg 980x200 {@see ImageModel::CROP_TYPE_TOP_RIGHT}
+     * thumb_0000000000000024.jpg 400x300
+     * thumb_view_0000000000000024.jpg 400x300
+     */
+    24 => [
+        "file_name"      => "0000000000000024",
+        "image_album_id" => 8,
+        "is_cover"       => 0,
+        "sort"           => 3,
+        "alt"            => "Slider album 1, image 3",
+        "width"          => 1024,
+        "height"         => 768,
+        "x1"             => 44,
+        "y1"             => 0,
+        "x2"             => 1024,
+        "y2"             => 200,
+        "thumb_width"    => 400,
+        "thumb_height"   => 300,
+        "thumb_x1"       => 0,
+        "thumb_y1"       => 0,
+        "thumb_x2"       => 400,
+        "thumb_y2"       => 300
+    ],
+    /**
+     * 0000000000000025.jpg 1024x768
+     * view_0000000000000025.jpg 980x200 {@see ImageModel::CROP_TYPE_TOP_RIGHT}
+     * thumb_0000000000000025.jpg 400x300
+     * thumb_view_0000000000000025.jpg 400x300
+     */
+    25 => [
+        "file_name"      => "0000000000000025",
+        "image_album_id" => 9,
+        "is_cover"       => 0,
+        "sort"           => 1,
+        "alt"            => "Slider album 2, image 1",
+        "width"          => 1024,
+        "height"         => 768,
+        "x1"             => 44,
+        "y1"             => 0,
+        "x2"             => 1024,
+        "y2"             => 200,
+        "thumb_width"    => 400,
+        "thumb_height"   => 300,
+        "thumb_x1"       => 0,
+        "thumb_y1"       => 0,
+        "thumb_x2"       => 400,
+        "thumb_y2"       => 300
+    ],
+    /**
+     * 0000000000000026.jpg 1024x768
+     * view_0000000000000026.jpg 980x200 {@see ImageModel::CROP_TYPE_TOP_RIGHT}
+     * thumb_0000000000000026.jpg 400x300
+     * thumb_view_0000000000000026.jpg 400x300
+     */
+    26 => [
+        "file_name"      => "0000000000000026",
+        "image_album_id" => 9,
+        "is_cover"       => 1,
+        "sort"           => 2,
+        "alt"            => "Slider album 2, image 2",
+        "width"          => 1024,
+        "height"         => 768,
+        "x1"             => 44,
+        "y1"             => 0,
+        "x2"             => 1024,
+        "y2"             => 200,
+        "thumb_width"    => 400,
+        "thumb_height"   => 300,
+        "thumb_x1"       => 0,
+        "thumb_y1"       => 0,
+        "thumb_x2"       => 400,
+        "thumb_y2"       => 300
+    ],
+    /**
+     * 0000000000000027.jpg 1024x768
+     * view_0000000000000027.jpg 980x200 {@see ImageModel::CROP_TYPE_TOP_RIGHT}
+     * thumb_0000000000000027.jpg 400x300
+     * thumb_view_0000000000000027.jpg 400x300
+     */
+    27 => [
+        "file_name"      => "0000000000000027",
+        "image_album_id" => 9,
+        "is_cover"       => 0,
+        "sort"           => 3,
+        "alt"            => "Slider album 2, image 3",
+        "width"          => 1024,
+        "height"         => 768,
+        "x1"             => 44,
+        "y1"             => 0,
+        "x2"             => 1024,
+        "y2"             => 200,
+        "thumb_width"    => 400,
+        "thumb_height"   => 300,
+        "thumb_x1"       => 0,
+        "thumb_y1"       => 0,
+        "thumb_x2"       => 400,
+        "thumb_y2"       => 300
+    ],
 ];
