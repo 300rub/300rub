@@ -8,7 +8,9 @@
 		"vanderlee/colorpicker": "1.1.6",
 		"less/less": "2.5.1",
 		"matthiasmullie/minify": "1.3.34",
-		"FortAwesome/Font-Awesome": "v4.6.3"
+		"FortAwesome/Font-Awesome": "v4.6.3",
+		"idangerous/Plugins": "dev-master",
+		"fancyapps/fancyBox": "v2.1.5"
 	},
 	"require-dev": {
 		"phpunit/phpunit": "4.8.*",
@@ -83,6 +85,30 @@
 				"source": {
 					"type": "git",
 					"url": "https://github.com/FortAwesome/Font-Awesome",
+					"reference": "master"
+				}
+			}
+		},
+		{
+			"type": "package",
+			"package": {
+				"name": "idangerous/Plugins",
+				"version": "dev-master",
+				"source": {
+					"type": "git",
+					"url": "https://github.com/idangerous/Plugins.git",
+					"reference": "master"
+				}
+			}
+		},
+		{
+			"type": "package",
+			"package": {
+				"name": "fancyapps/fancyBox",
+				"version": "v2.1.5",
+				"source": {
+					"type": "git",
+					"url": "https://github.com/fancyapps/fancyBox",
 					"reference": "master"
 				}
 			}
