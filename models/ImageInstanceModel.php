@@ -22,6 +22,11 @@ class ImageInstanceModel extends AbstractModel
 	const MIN_SIZE = 32;
 
 	/**
+	 * Max size in px
+	 */
+	const MAX_SIZE = 2000;
+
+	/**
 	 * View prefix
 	 */
 	const VIEW_PREFIX = "view_";

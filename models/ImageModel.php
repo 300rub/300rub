@@ -18,14 +18,49 @@ use components\Language;
 class ImageModel extends AbstractModel
 {
 
+	/**
+	 * Crop type. Top Left
+	 */
 	const CROP_TYPE_TOP_LEFT = 1;
+
+	/**
+	 * Crop type. Top Center
+	 */
 	const CROP_TYPE_TOP_CENTER = 2;
+
+	/**
+	 * Crop type. Top Right
+	 */
 	const CROP_TYPE_TOP_RIGHT = 3;
+
+	/**
+	 * Crop type. Middle Left
+	 */
 	const CROP_TYPE_MIDDLE_LEFT = 4;
+
+	/**
+	 * Crop type. Middle Center
+	 */
 	const CROP_TYPE_MIDDLE_CENTER = 5;
+
+	/**
+	 * Crop type. Middle Right
+	 */
 	const CROP_TYPE_MIDDLE_RIGHT = 6;
+
+	/**
+	 * Crop type. Bottom Left
+	 */
 	const CROP_TYPE_BOTTOM_LEFT = 7;
+
+	/**
+	 * Crop type. Bottom Center
+	 */
 	const CROP_TYPE_BOTTOM_CENTER = 8;
+
+	/**
+	 * Crop type. Bottom Right
+	 */
 	const CROP_TYPE_BOTTOM_RIGHT = 9;
 
 	/**
@@ -234,6 +269,42 @@ class ImageModel extends AbstractModel
 			$this->use_albums = 0;
 		}
 
+		$cropTypeList = $this->getCropTypeList();
+		if (!array_key_exists($this->crop_type, $cropTypeList)) {
+			$this->crop_type = 0;
+		}
+
+		if ($this->crop_type !== 0) {
+			if ($this->crop_width < 0) {
+				$this->crop_width = 0;
+			} elseif ($this->crop_width > ImageInstanceModel::MAX_SIZE) {
+				$this->crop_width = ImageInstanceModel::MAX_SIZE;
+			}
+
+			if ($this->crop_height < 0) {
+				$this->crop_height = 0;
+			} elseif ($this->crop_height > ImageInstanceModel::MAX_SIZE) {
+				$this->crop_height = ImageInstanceModel::MAX_SIZE;
+			}
+
+			if ($this->crop_width === 0 && $this->crop_height === 0) {
+				if ($this->crop_x < 0) {
+					$this->crop_x = 0;
+				}
+				if ($this->crop_y < 0) {
+					$this->crop_y = 0;
+				}
+			} else {
+				$this->crop_x = 0;
+				$this->crop_y = 0;
+			}
+		} else {
+			$this->crop_width = 0;
+			$this->crop_height = 0;
+			$this->crop_x = 0;
+			$this->crop_y = 0;
+		}
+
 		return parent::beforeSave();
 	}
 
@@ -327,5 +398,25 @@ class ImageModel extends AbstractModel
 		}
 
 		return parent::beforeDelete();
+	}
+
+	/**
+	 * Gets crop type list
+	 *
+	 * @return array
+	 */
+	public function getCropTypeList()
+	{
+		return [
+			self::CROP_TYPE_TOP_LEFT      => "",
+			self::CROP_TYPE_TOP_CENTER    => "",
+			self::CROP_TYPE_TOP_RIGHT     => "",
+			self::CROP_TYPE_MIDDLE_LEFT   => "",
+			self::CROP_TYPE_MIDDLE_CENTER => "",
+			self::CROP_TYPE_MIDDLE_RIGHT  => "",
+			self::CROP_TYPE_BOTTOM_LEFT   => "",
+			self::CROP_TYPE_BOTTOM_CENTER => "",
+			self::CROP_TYPE_BOTTOM_RIGHT  => ""
+		];
 	}
 }
