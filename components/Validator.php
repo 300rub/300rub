@@ -97,6 +97,9 @@ class Validator
 				case "max":
 					$this->_max($item["field"], $item["value"]);
 					break;
+				case "relation":
+					$this->_relation($item["field"], $item["value"]);
+					break;
 				case "min":
 					$this->_min($item["field"], $item["value"]);
 					break;
@@ -157,7 +160,7 @@ class Validator
 	}
 
 	/**
-	 * Verifies string length for mac value
+	 * Verifies string length for max value
 	 *
 	 * @param string $field Field's name
 	 * @param int    $max   Max value
@@ -168,6 +171,29 @@ class Validator
 	{
 		if (mb_strlen($this->_model->$field) > $max) {
 			$this->_addError($field, "max");
+		}
+	}
+
+	/**
+	 * Verifies relation
+	 *
+	 * @param string $field             Field's name
+	 * @param string $relationClassName Relation Class Name
+	 *
+	 * @return void
+	 */
+	private function _relation($field, $relationClassName)
+	{
+		if ($this->_model->$field === 0) {
+			$this->_addError($field, "relation");
+		} else {
+			/**
+			 * @var \models\AbstractModel $model;
+			 */
+			$model = new $relationClassName;
+			if ($model->byId($this->_model->$field)->find() === null) {
+				$this->_addError($field, "relation");
+			}
 		}
 	}
 

@@ -64,7 +64,7 @@ class ImageAlbumModel extends AbstractModel
 	{
 		return [
 			"name"     => ["required", "max" => 255],
-			"image_id" => [],
+			"image_id" => ["relation" => "\\models\\ImageModel"],
 			"sort"     => [],
 		];
 	}
@@ -96,13 +96,6 @@ class ImageAlbumModel extends AbstractModel
 	 */
 	protected function beforeSave()
 	{
-		if (
-			$this->image_id === 0
-			|| ImageModel::model()->byId($this->image_id)->find() === null
-		) {
-			return false;
-		}
-
 		if ($this->sort < 0) {
 			$this->sort = 0;
 		}
