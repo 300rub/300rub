@@ -105,7 +105,7 @@ class M_160317_000000_images extends AbstractMigration
                 "image_album_id" => "integer",
                 "is_cover"       => "boolean",
                 "sort"           => "integer",
-                "alt"            => "string",
+                "alt"            => "text",
                 "width"          => "integer",
                 "height"         => "integer",
                 "x1"             => "integer",

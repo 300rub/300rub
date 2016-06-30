@@ -27,6 +27,11 @@ class ImageInstanceModel extends AbstractModel
 	const MAX_SIZE = 2000;
 
 	/**
+	 * Max thumb size in px
+	 */
+	const MAX_THUMB_SIZE = 400;
+
+	/**
 	 * View prefix
 	 */
 	const VIEW_PREFIX = "view_";
@@ -195,7 +200,7 @@ class ImageInstanceModel extends AbstractModel
 	{
 		return [
 			"file_name"      => [],
-			"image_album_id" => [],
+			"image_album_id" => ["relation" => "\\models\\ImageAlbumModel"],
 			"is_cover"       => [],
 			"sort"           => [],
 			"alt"            => [],
@@ -254,13 +259,6 @@ class ImageInstanceModel extends AbstractModel
 	 */
 	protected function beforeSave()
 	{
-		if (
-			$this->image_album_id <= 0
-			|| ImageAlbumModel::model()->byId($this->image_album_id)->find() !== null
-		) {
-			$this->image_album_id = 0;
-		}
-
 		$this->is_cover = intval($this->is_cover);
 		if ($this->is_cover >= 1) {
 			$this->is_cover = 1;
@@ -274,16 +272,24 @@ class ImageInstanceModel extends AbstractModel
 
 		if ($this->width < self::MIN_SIZE) {
 			$this->width = self::MIN_SIZE;
+		} elseif ($this->width > self::MAX_SIZE) {
+			$this->width = self::MAX_SIZE;
 		}
 		if ($this->height < self::MIN_SIZE) {
 			$this->height = self::MIN_SIZE;
+		} elseif ($this->height > self::MAX_SIZE) {
+			$this->height = self::MAX_SIZE;
 		}
 
 		if ($this->thumb_width < self::MIN_SIZE) {
 			$this->thumb_width = self::MIN_SIZE;
+		} elseif ($this->thumb_width > self::MAX_THUMB_SIZE) {
+			$this->thumb_width = self::MAX_THUMB_SIZE;
 		}
 		if ($this->thumb_height < self::MIN_SIZE) {
 			$this->thumb_height = self::MIN_SIZE;
+		} elseif ($this->thumb_height > self::MAX_THUMB_SIZE) {
+			$this->thumb_height = self::MAX_THUMB_SIZE;
 		}
 
 		if ($this->x1 < 0) {
@@ -339,6 +345,11 @@ class ImageInstanceModel extends AbstractModel
 		return parent::beforeSave();
 	}
 
+	/**
+	 * Generates File name
+	 *
+	 * @return null|string
+	 */
 	private function _generateFileName()
 	{
 		if (!$this->_format) {
