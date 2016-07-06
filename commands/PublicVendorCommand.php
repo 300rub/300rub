@@ -25,6 +25,10 @@ class PublicVendorCommand extends AbstractCommand
 		$staticDir = __DIR__ . "/../public";
 		$map = require(__DIR__ . "/../config/vendor_map.php");
 
+		if (!file_exists($vendorsDir)) {
+			mkdir($vendorsDir, 0777);
+		}
+
 		foreach ($map as $folder => $list) {
 			foreach ($list as $key => $value) {
 				$dir = "{$staticDir}/{$folder}/lib";

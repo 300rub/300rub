@@ -170,6 +170,10 @@ class MigrateCommand extends AbstractCommand
 			}
 
 			$this->_dumpSites[] = $site;
+			$backupsFolder = __DIR__ . "/../backups";
+			if (!file_exists($backupsFolder)) {
+				mkdir($backupsFolder, 0777);
+			}
 
 			exec(
 				"mysqldump -u " .
@@ -179,8 +183,8 @@ class MigrateCommand extends AbstractCommand
 				"' " .
 				$site["db_name"] .
 				" | gzip -c > " .
-				__DIR__ .
-				"/../backups/" .
+				$backupsFolder .
+				"/" .
 				$site["db_name"] .
 				".sql.gz"
 			);
