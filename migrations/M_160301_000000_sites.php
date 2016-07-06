@@ -2,7 +2,7 @@
 
 namespace migrations;
 
-use application\App;
+use applications\App;
 use components\Db;
 use components\Language;
 

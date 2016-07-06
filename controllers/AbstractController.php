@@ -2,7 +2,7 @@
 
 namespace controllers;
 
-use application\App;
+use applications\App;
 use components\ErrorHandler;
 use components\Exception;
 use models\AbstractModel;

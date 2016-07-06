@@ -2,7 +2,7 @@
 
 namespace components;
 
-use application\App;
+use applications\App;
 use controllers\CommonController;
 
 /**

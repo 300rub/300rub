@@ -2,7 +2,7 @@
 
 namespace commands;
 
-use application\App;
+use applications\App;
 use components\Db;
 use components\exceptions\MigrationException;
 use migrations\M_160301_000000_sites;
@@ -71,7 +71,7 @@ class MigrateCommand extends AbstractCommand
 				->_updateVersions();
 		} catch (Exception $e) {
 			App::console()->output($e->getMessage(), true);
-			App::console()->output("DB rollback was started");
+			App::console()->output("DB rollback has been started");
 
 			try {
 				$this->_rollbackDumps();
@@ -375,6 +375,8 @@ class MigrateCommand extends AbstractCommand
 	 */
 	public static function loadFixtures($table = null)
 	{
+		App::console()->output("Fixtures loading  has been started");
+
 		$siteId = App::console()->config->siteId;
 
 		// Files
@@ -437,5 +439,7 @@ class MigrateCommand extends AbstractCommand
 				}
 			}
 		}
+
+		App::console()->output("All fixtures have been successfully loaded");
 	}
 }

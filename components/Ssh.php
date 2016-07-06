@@ -2,7 +2,7 @@
 
 namespace components;
 
-use application\App;
+use applications\App;
 
 /**
  * Class for working with Ssh connection

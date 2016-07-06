@@ -2,7 +2,7 @@
 
 namespace commands;
 
-use components\Logger;
+use components\exceptions\FileException;
 
 /**
  * Static public class
@@ -17,7 +17,7 @@ class PublicVendorCommand extends AbstractCommand
 	 *
 	 * @param string[] $args command arguments
 	 *
-	 * @return bool
+	 * @throws FileException
 	 */
 	public function run($args = [])
 	{
@@ -29,8 +29,7 @@ class PublicVendorCommand extends AbstractCommand
 			foreach ($list as $key => $value) {
 				$dir = "{$staticDir}/{$folder}/lib";
 				if (!file_exists($dir) && !mkdir($dir, 0777)) {
-					Logger::log("НUnable to create folder {$dir}", Logger::LEVEL_ERROR, "console.publicStatic");
-					return false;
+					throw new FileException("Unable to create the folder: {folder}", ["folder" => $dir]);
 				}
 
 				$explode = explode("/", $key);
@@ -39,12 +38,7 @@ class PublicVendorCommand extends AbstractCommand
 					for ($i = 0; $i < count($explode) - 1; $i++) {
 						$newDir .= "/" . $explode[$i];
 						if (!file_exists($newDir) && !mkdir($newDir, 0777)) {
-							Logger::log(
-								"Unable to create folder {$newDir}",
-								Logger::LEVEL_ERROR,
-								"console.publicStatic"
-							);
-							return false;
+							throw new FileException("Unable to create the folder: {folder}", ["folder" => $newDir]);
 						}
 					}
 					$key = $explode[count($explode) - 1];
@@ -56,18 +50,10 @@ class PublicVendorCommand extends AbstractCommand
 					if (file_exists($file)) {
 						copy($file, "{$dir}/{$key}");
 					} else {
-						Logger::log(
-							"File {$vendorsDir}/{$value} not found",
-							Logger::LEVEL_ERROR,
-							"console.publicStatic"
-						);
-						return false;
+						throw new FileException("File: {file} not found", ["file" => "{$vendorsDir}/{$value}"]);
 					}
 				}
 			}
 		}
-
-		Logger::log("Static files were successfully published", Logger::LEVEL_INFO, "console.publicStatic");
-		return true;
 	}
 }

@@ -2,7 +2,7 @@
 
 namespace commands;
 
-use components\Logger;
+use components\exceptions\FileException;
 use MatthiasMullie\Minify\CSS;
 use MatthiasMullie\Minify\JS;
 
@@ -19,15 +19,12 @@ class CompressStaticCommand extends AbstractCommand
 	 *
 	 * @param string[] $args command arguments
 	 *
-	 * @return bool
+	 * @throws FileException
 	 */
 	public function run($args = [])
 	{
 		$publicVendorCommand = new PublicVendorCommand();
-		if (!$publicVendorCommand->run($args)) {
-			Logger::log("Unable to public vendor static", Logger::LEVEL_ERROR, "console.compressStatic");
-			return false;
-		}
+		$publicVendorCommand->run($args);
 
 		$map = require(__DIR__ . "/../config/static_map.php");
 		$cssFolder = __DIR__ . "/../public/css";
@@ -43,11 +40,7 @@ class CompressStaticCommand extends AbstractCommand
 				exec("lessc {$cssFolder}/$file {$output}");
 
 				if (!file_exists($output)) {
-					Logger::log(
-						"Unable to create CSS file \"{$output}\" with lessc",
-						Logger::LEVEL_ERROR,
-						"console.compressStatic");
-					return false;
+					throw new FileException("Unable to create CSS file: {file} with lessc", ["file" => $output]);
 				}
 
 				$map[$type]["css"][] = $cssFileName;
@@ -64,12 +57,7 @@ class CompressStaticCommand extends AbstractCommand
 			foreach ($files["css"] as $file) {
 				$filePath = "{$cssFolder}/{$file}";
 				if (!file_exists($filePath)) {
-					Logger::log(
-						"Unable to open CSS file \"{$filePath}\"",
-						Logger::LEVEL_ERROR,
-						"console.compressStatic"
-					);
-					return false;
+					throw new FileException("Unable to open CSS file: {file}", ["file" => $filePath]);
 				}
 
 				$objectCss->add($filePath);
@@ -78,12 +66,7 @@ class CompressStaticCommand extends AbstractCommand
 			foreach ($files["js"] as $file) {
 				$filePath = "{$jsFolder}/{$file}";
 				if (!file_exists($filePath)) {
-					Logger::log(
-						"Unable to open JS file \"{$filePath}\"",
-						Logger::LEVEL_ERROR,
-						"console.compressStatic"
-					);
-					return false;
+					throw new FileException("Unable to open JS file: {file}", ["file" => $filePath]);
 				}
 
 				$objectJs->add($filePath);
@@ -91,26 +74,13 @@ class CompressStaticCommand extends AbstractCommand
 
 			$objectCss->minify($outputCssFile);
 			if (!file_exists($outputCssFile)) {
-				Logger::log(
-					"Unable to create CSS output file \"{$outputCssFile}\"",
-					Logger::LEVEL_ERROR,
-					"console.compressStatic"
-				);
-				return false;
+				throw new FileException("Unable to create CSS output file: {file}", ["file" => $outputCssFile]);
 			}
 
 			$objectJs->minify($outputJsFile);
 			if (!file_exists($outputJsFile)) {
-				Logger::log(
-					"Unable to create JS output file \"{$outputJsFile}\"",
-					Logger::LEVEL_ERROR,
-					"console.compressStatic"
-				);
-				return false;
+				throw new FileException("Unable to create JS output file: {file}", ["file" => $outputJsFile]);
 			}
 		}
-
-		Logger::log("Static files were successfully compressed", Logger::LEVEL_INFO, "console.compressStatic");
-		return true;
 	}
 }

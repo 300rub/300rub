@@ -1,6 +1,6 @@
 <?php
 
-namespace application;
+namespace applications;
 
 /**
  * Class for running application
@@ -127,4 +127,4 @@ class App
 	}
 }
 
-spl_autoload_register(['application\App','autoload']);
+spl_autoload_register(['applications\App','autoload']);

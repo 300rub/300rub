@@ -2,7 +2,7 @@
 
 namespace controllers;
 
-use application\App;
+use applications\App;
 use models\SectionModel;
 use models\GridModel;
 

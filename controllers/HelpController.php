@@ -1,7 +1,7 @@
 <?php
 
 namespace controllers;
-use application\App;
+use applications\App;
 use components\Db;
 use components\ErrorHandler;
 use components\Exception;

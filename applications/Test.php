@@ -1,6 +1,6 @@
 <?php
 
-namespace application;
+namespace applications;
 use commands\MigrateCommand;
 use components\Language;
 
@@ -14,8 +14,6 @@ class Test extends AbstractApplication
 
     /**
      * Runs application
-     *
-     * @return void
      */
     public function run()
     {

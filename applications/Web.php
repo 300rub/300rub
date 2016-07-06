@@ -1,6 +1,6 @@
 <?php
 
-namespace application;
+namespace applications;
 
 use components\Db;
 use components\ErrorHandler;
