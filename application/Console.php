@@ -2,8 +2,7 @@
 
 namespace application;
 
-use components\Exception;
-use components\Logger;
+use Exception;
 
 /**
  * Class for working with console
@@ -43,33 +42,34 @@ class Console extends AbstractApplication
 	 * Runs command
 	 *
 	 * @throws Exception
-	 *
-	 * @return void
 	 */
 	public function run()
 	{
-		$startTime = microtime(true);
+		try {
+			$startTime = microtime(true);
 
-		$this->_setCommandList();
-		if (!$this->_parseCommand()) {
-			$this->help();
+			$this->_setCommandList();
+			if (!$this->_parseCommand()) {
+				$this->help();
+				exit();
+			}
+
+			$className = "\\commands\\" . ucfirst($this->_command) . self::COMMAND_ENDING;
+			$this->output("The command \"{$this->_command}\" has been started");
+
+			/**
+			 * @var \commands\AbstractCommand $class;
+			 */
+			$class = new $className;
+			$class->run($this->_args);
+
+			$time = number_format(microtime(true) - $startTime, 3);
+			App::console()->output(
+				"The command \"{$this->_command}\" has been finished successfully with time: {$time}"
+			);
+		} catch (Exception $e) {
+			$this->output($e->getMessage(), true);
 		}
-
-		$className = "\\commands\\" . ucfirst($this->_command) . self::COMMAND_ENDING;
-		Logger::log("Выполняется команда \"{$this->_command}\"...", Logger::LEVEL_INFO, "console.run");
-
-		/**
-		 * @var \commands\AbstractCommand $class;
-		 */
-		$class = new $className;
-		if ($class->run($this->_args)) {
-			Logger::log("Команда успешно выполнена!", Logger::LEVEL_INFO, "console.run");
-		} else {
-			Logger::log("Ошибка при выполнении команды.", Logger::LEVEL_ERROR, "console.run");
-		}
-
-		$time = number_format(microtime(true) - $startTime, 3);
-		Logger::log("Время выполнения скрипта: {$time} сек.", Logger::LEVEL_INFO, "console.run");
 	}
 
 	/**
@@ -129,17 +129,33 @@ class Console extends AbstractApplication
 
 	/**
 	 * Help
-	 *
-	 * @return void
 	 */
 	protected function help()
 	{
-		echo "Доступные команды:";
-		foreach ($this->_commandList as $command) {
-			echo "\n   {$command}";
-		}
-		echo "\n";
+		$output = "\e[0;32mAvailable commands: \e[0m";
 
-		exit();
+		foreach ($this->_commandList as $command) {
+			$output .= "\n  - {$command}";
+		}
+
+		exec("echo -e \"\n{$output}\n\"");
+	}
+
+	/**
+	 * Console output
+	 *
+	 * @param string $message
+	 * @param bool   $isError
+	 */
+	public function output($message, $isError = false) {
+		$output = "\e[0;33m" . date("Y-m-d H:i:s", time());
+		if ($isError === false) {
+			$output .= " \e[0;32m[success] ";
+		} else {
+			$output .= " \e[1;31m[error] ";
+		}
+		$output .= "\e[0m" . $message;
+
+		exec("echo -e \"\n{$output}\"");
 	}
 }

@@ -70,8 +70,12 @@ class MigrateCommand extends AbstractCommand
 				->_applyMigration()
 				->_updateVersions();
 		} catch (Exception $e) {
+			App::console()->output($e->getMessage(), true);
+			App::console()->output("DB rollback was started");
+
 			try {
 				$this->_rollbackDumps();
+				App::console()->output("All DBs were reverted successfully");
 			} catch (Exception $e) {
 				throw $e;
 			}
