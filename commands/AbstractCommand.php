@@ -14,8 +14,6 @@ abstract class AbstractCommand
 	 * Runs command
 	 *
 	 * @param string[] $args Arguments
-	 *
-	 * @return bool
 	 */
 	abstract public function run($args);
 }

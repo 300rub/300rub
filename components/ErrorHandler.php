@@ -14,13 +14,6 @@ class ErrorHandler
 {
 
 	/**
-	 * Trace level
-	 *
-	 * @var int
-	 */
-	const TRACE_LEVEL = 5;
-
-	/**
 	 * Default error status code
 	 */
 	const DEFAULT_STATUS_CODE = 500;

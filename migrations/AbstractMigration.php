@@ -3,7 +3,7 @@
 namespace migrations;
 
 use components\Db;
-use components\Logger;
+use components\exceptions\MigrationException;
 
 /**
  * Abstract class for working with migrations
@@ -12,6 +12,11 @@ use components\Logger;
  */
 abstract class AbstractMigration
 {
+
+	/**
+	 * Default options for table
+	 */
+	const TABLE_DEFAULT_OPTIONS = "ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci";
 
 	/**
 	 * Flag. If it is true - it will be skipped in common applying
@@ -63,22 +68,22 @@ abstract class AbstractMigration
 	 * @param array  $columns Columns
 	 * @param string $options Options
 	 *
-	 * @return bool
+	 * @throws MigrationException
+	 *
+	 * @return AbstractMigration
 	 */
-	public function createTable($table, $columns, $options = null)
+	public function createTable($table, $columns, $options = self::TABLE_DEFAULT_OPTIONS)
 	{
 		$cols = [];
 		foreach ($columns as $name => $type) {
 			$cols[] = "`{$name}`" . ' ' . $this->getColumnType($type);
 		}
 
-		if (Db::execute("\nCREATE TABLE " . $table . " (\n" . implode(",\n", $cols) . "\n)" . $options)) {
-			Logger::log("Таблица \"{$table}\" успешно создана", Logger::LEVEL_INFO, "console.migrations.table");
-			return true;
+		if (!Db::execute("\nCREATE TABLE " . $table . " (\n" . implode(",\n", $cols) . "\n)" . $options)) {
+			throw new MigrationException("Unable to create the table {table}", ["table" => $table]);
 		}
 
-		Logger::log("Не удалось создать таблицу \"{$table}\"", Logger::LEVEL_INFO, "console.migrations.table");
-		return false;
+		return $this;
 	}
 
 	/**
@@ -89,30 +94,28 @@ abstract class AbstractMigration
 	 * @param string $column Column
 	 * @param bool   $unique Is unique index
 	 *
-	 * @return bool
+	 * @throws MigrationException
+	 *
+	 * @return AbstractMigration
 	 */
 	public function createIndex($name, $table, $column, $unique = false)
 	{
 		if (
-			Db::execute(
-				($unique ? 'CREATE UNIQUE INDEX ' : 'CREATE INDEX ')
+			!Db::execute(
+				($unique ? "CREATE" . " UNIQUE INDEX " : "CREATE" . " INDEX ")
 				. $name . ' ON '
 				. $table . ' (' . $column . ')'
 			)
 		) {
-			Logger::log(
-				"Индекс \"{$name}\" для таблицы \"{$table}\" успешно создан",
-				Logger::LEVEL_INFO,
-				"console.migrations.table"
+			throw new MigrationException(
+				"Unable to create the index {index} for table {table}",
+				[
+					"index" => $name,
+					"table" => $table
+				]
 			);
-			return true;
 		}
 
-		Logger::log(
-			"Не удалось создать индекс \"{$name}\" для таблицы \"{$table}\"",
-			Logger::LEVEL_INFO,
-			"console.migrations.index"
-		);
-		return false;
+		return $this;
 	}
 }

@@ -4,10 +4,10 @@ namespace commands;
 
 use application\App;
 use components\Db;
-use components\Exception;
-use components\Logger;
+use components\exceptions\MigrationException;
 use migrations\M_160301_000000_sites;
 use migrations\M_160302_000000_migrations;
+use Exception;
 
 /**
  * Applies migrations
@@ -51,120 +51,71 @@ class MigrateCommand extends AbstractCommand
 	 *
 	 * @param string[] $args command arguments
 	 *
-	 * @return bool
+	 * @throws Exception
 	 */
 	public function run($args = [])
 	{
-		if (!$this->_checkCommonTables()) {
-			Logger::log("Basic tables are not found", Logger::LEVEL_ERROR, "console.migrate");
-			return false;
+		try {
+			$this
+				->_checkCommonTables()
+				->_setNewMigrations()
+				->_setSites()
+				->_createDumps();
+		} catch (Exception $e) {
+			throw $e;
 		}
 
-		Logger::log("Start to run migrations", Logger::LEVEL_INFO, "console.build");
-
-		if (App::console()->config->isDebug) {
-			Logger::log("Cleaning database will be before performing", Logger::LEVEL_INFO, "console.migrate");
-			if ($this->isTestData) {
-				Logger::log("Inserting test data will be ", Logger::LEVEL_INFO, "console.migrate");
+		try {
+			$this
+				->_applyMigration()
+				->_updateVersions();
+		} catch (Exception $e) {
+			try {
+				$this->_rollbackDumps();
+			} catch (Exception $e) {
+				throw $e;
 			}
 		}
-
-		if (!$this->_setNewMigrations()) {
-			Logger::log("Unable to determine migrations", Logger::LEVEL_ERROR, "console.migrate");
-			return false;
-		}
-
-		if (!$this->_setSites()) {
-			Logger::log("Unable to determine sites", Logger::LEVEL_ERROR, "console.migrate");
-			return false;
-		}
-
-		if (!$this->_createDumps()) {
-			Logger::log("Unable to create backup dumps", Logger::LEVEL_ERROR, "console.migrate");
-			return false;
-		}
-
-		if (!$this->_applyMigration() || !$this->_updateVersions()) {
-			Logger::log("Failed to apply migrations", Logger::LEVEL_ERROR, "console.migrate");
-
-			if ($this->_rollbackDumps()) {
-				Logger::log("All databases were successfully rollback", Logger::LEVEL_INFO, "console.migrate");
-			} else {
-				Logger::log("Unable to rollback databases!!!", Logger::LEVEL_ERROR, "console.migrate");
-			}
-
-			return false;
-		}
-
-		Logger::log("All migration successfully applied", Logger::LEVEL_INFO, "console.migrate");
-		return true;
 	}
 
 	/**
 	 * Checks the existence of the main tables
 	 *
-	 * @return bool
+	 * @return MigrateCommand
 	 */
 	private function _checkCommonTables()
 	{
 		if (!Db::isTableExists("sites")) {
-			try {
-				$migration = new M_160301_000000_sites;
-				if (!$migration->up()) {
-					return false;
-				}
-				if (App::console()->config->isDebug && !$migration->insertData()) {
-					return false;
-				}
-			} catch (Exception $e) {
-				Logger::log(
-					"Unable to create table \"sites\"" . App::console()->config->db->name,
-					Logger::LEVEL_ERROR,
-					"console.migrate"
-				);
-				return false;
+			$migration = new M_160301_000000_sites;
+			$migration->up();
+			if (App::console()->config->isDebug) {
+				$migration->insertData();
 			}
 		}
 
 		if (!Db::isTableExists("migrations")) {
-			try {
-				$migration = new M_160302_000000_migrations;
-				if (!$migration->up()) {
-					return false;
-				}
-			} catch (Exception $e) {
-				Logger::log(
-					"Unable to create table \"migrations\" " . App::console()->config->db->name,
-					Logger::LEVEL_ERROR,
-					"console.migrate"
-				);
-				return false;
-			}
+			$migration = new M_160302_000000_migrations;
+			$migration->up();
 		}
 
-		return true;
+		return $this;
 	}
 
 	/**
 	 * Sets the list of non-applied migrations
 	 *
-	 * @return bool
+	 * @return MigrateCommand
 	 */
 	private function _setNewMigrations()
 	{
 		$versions = [];
-		$rows = Db::fetchAll("SELECT * FROM `migrations`");
+		$rows = Db::fetchAll("SELECT * " . "FROM `migrations`");
 		foreach ($rows as $row) {
 			$versions[] = $row["version"];
 		}
 
-		$handle = opendir(__DIR__ . "/../migrations");
-		if (!$handle) {
-			Logger::log("Unable to open folder with migrations", Logger::LEVEL_ERROR, "console.migrate");
-			return false;
-		}
-
-		while (false !== ($file = readdir($handle))) {
+		$migrations = opendir(__DIR__ . "/../migrations");
+		while (false !== ($file = readdir($migrations))) {
 			if (strpos($file, "M_") !== false) {
 				$version = str_replace(".php", "", $file);
 				if (App::console()->config->isDebug || !in_array($version, $versions)) {
@@ -173,42 +124,45 @@ class MigrateCommand extends AbstractCommand
 			}
 		}
 
-		return true;
+		return $this;
 	}
 
 	/**
 	 * Sets sites
 	 *
-	 * @return bool
+	 * @return MigrateCommand
 	 */
 	private function _setSites()
 	{
-		$rows = Db::fetchAll("SELECT * FROM `sites`");
+		$rows = Db::fetchAll("SELECT * " . "FROM `sites`");
 		foreach ($rows as $row) {
-			if (!App::console()->config->isDebug) {
-				$row["db_name"] = $row["db_name"];
-			}
 			$this->_sites[] = $row;
 		}
 
-		return true;
+		return $this;
 	}
 
 	/**
 	 * Makes backup dumps for all DB
 	 *
-	 * @return bool
+	 * @throws MigrationException
+	 *
+	 * @return MigrateCommand
 	 */
 	private function _createDumps()
 	{
 		foreach ($this->_sites as $site) {
 			if (!Db::setPdo($site["db_host"], $site["db_user"], $site["db_password"], $site["db_name"])) {
-				Logger::log(
-					"Unable to connect with DB \"" . $site["db_name"] . "\"",
-					Logger::LEVEL_ERROR,
-					"console.migrate"
+				throw new MigrationException(
+					"Unable to set PDO for creating dump
+					with host: {host}, user: {user}, password: {password}, name: {name}",
+					[
+						"host"     => $site["db_host"],
+						"user"     => $site["db_user"],
+						"password" => $site["db_password"],
+						"name"     => $site["db_name"],
+					]
 				);
-				return false;
 			}
 
 			$this->_dumpSites[] = $site;
@@ -228,25 +182,27 @@ class MigrateCommand extends AbstractCommand
 			);
 		}
 
-		return true;
+		return $this;
 	}
 
 	/**
 	 * Restores all DB from backups
 	 *
-	 * @return bool
+	 * @return MigrateCommand
+	 *
+	 * @throws MigrationException
 	 */
 	private function _rollbackDumps()
 	{
 		foreach ($this->_dumpSites as $site) {
 			$file = __DIR__ . "/../backups/" . $site["db_name"] . ".sql.gz";
 			if (!file_exists($file)) {
-				Logger::log(
-					"Unable to find the dump file of DB \"" . $site["db_name"] . "\"",
-					Logger::LEVEL_ERROR,
-					"console.migrate"
+				throw new MigrationException(
+					"Unable to find the dump file for DB: {db}",
+					[
+						"db" => $site["db_name"]
+					]
 				);
-				return false;
 			}
 
 			exec(
@@ -261,175 +217,149 @@ class MigrateCommand extends AbstractCommand
 			);
 		}
 
-		return true;
+		return $this;
+	}
+
+	/**
+	 * Clear DB
+	 *
+	 * @param array $site
+	 *
+	 * @return MigrateCommand
+	 *
+	 * @throws MigrationException
+	 */
+	private function _clearDb(array $site)
+	{
+		$tables = [];
+
+		$rows = Db::fetchAll("SHOW TABLES FROM " . $site["db_name"]);
+		foreach ($rows as $row) {
+			foreach ($row as $key => $value) {
+				$tables[] = $value;
+			}
+		}
+
+		foreach ($tables as $table) {
+			if (
+				$table !== "migrations"
+				&& $table !== "sites"
+				&& !Db::execute("DROP" . " TABLE `{$table}`")
+			) {
+				throw new MigrationException(
+					"Unable to delete table: {table} from DB: {db}",
+					[
+						"table" => $table,
+						"db"    => $site["db_name"]
+					]
+				);
+			}
+		}
+
+		return $this;
 	}
 
 	/**
 	 * Applies the migrations
 	 *
-	 * @return bool
+	 * @throws MigrationException
+	 *
+	 * @return MigrateCommand
 	 */
 	private function _applyMigration()
 	{
-		if (!$this->_migrations) {
-			Logger::log("There are not non-applied migrations", Logger::LEVEL_INFO, "console.migrate");
-			return true;
-		}
-
-		if (!$this->_sites) {
-			Logger::log("Sites are not found", Logger::LEVEL_INFO, "console.migrate");
-			return true;
+		if (!$this->_migrations || !$this->_sites) {
+			return $this;
 		}
 
 		sort($this->_migrations);
+		foreach ($this->_sites as $site) {
+			if (!Db::setPdo($site["db_host"], $site["db_user"], $site["db_password"], $site["db_name"])) {
+				throw new MigrationException(
+					"Unable to connect with DB for applying migrations
+					with host: {host}, user: {user}, password: {password}, name: {name}",
+					[
+						"host"     => $site["db_host"],
+						"user"     => $site["db_user"],
+						"password" => $site["db_password"],
+						"name"     => $site["db_name"],
+					]
+				);
+			}
 
-		try {
-			foreach ($this->_sites as $site) {
-				if (!Db::setPdo($site["db_host"], $site["db_user"], $site["db_password"], $site["db_name"])) {
-					Logger::log(
-						"Unable to connect with DB \"" . $site["db_name"] . "\"",
-						Logger::LEVEL_ERROR,
-						"console.migrate"
-					);
-					return false;
-				}
+			if (App::console()->config->isDebug) {
+				$this->_clearDb($site);
+			}
 
-				if (App::console()->config->isDebug) {
-					$tables = [];
-
-					$rows = Db::fetchAll("SHOW TABLES FROM " . $site["db_name"]);
-					foreach ($rows as $row) {
-						foreach ($row as $key => $value) {
-							$tables[] = $value;
-						}
-					}
-
-					foreach ($tables as $table) {
-						if (
-							$table !== "migrations"
-							&& $table !== "sites"
-							&& !Db::execute("DROP TABLE `{$table}`")
-						) {
-							Logger::log(
-								"Unable to delete table {$table} from DB " . $site["db_name"],
-								Logger::LEVEL_ERROR,
-								"console.migrate"
-							);
-							return false;
-						}
-					}
-
-					Logger::log(
-						"DB \"" . $site["db_name"] . "\" was successfully cleaned",
-						Logger::LEVEL_INFO,
-						"console.migrate"
-					);
-				}
-
-				foreach ($this->_migrations as $migrationName) {
-					/**
-					 * @var \migrations\AbstractMigration $migration
-					 */
-					$migrationFullName = "\\migrations\\{$migrationName}";
-					$migration = new $migrationFullName;
-					if (!$migration->isSkip) {
-						if (!$migration->up()) {
-							Logger::log(
-								"Unable to apply migration \"{$migrationName}\" for DB \"" . $site["db_name"] . "\"",
-								Logger::LEVEL_ERROR,
-								"console.migrate"
-							);
-							return false;
-						}
-						Logger::log(
-							"Migration \"{$migrationName}\" was applied successfully",
-							Logger::LEVEL_INFO,
-							"console.migrate"
-						);
-					} else {
-						Logger::log(
-							"Migration \"{$migrationName}\" was skipped successfully",
-							Logger::LEVEL_INFO,
-							"console.migrate"
-						);
-					}
-				}
-
-				if (App::console()->config->isDebug && $this->isTestData) {
-					if (self::loadFixtures()) {
-						Logger::log(
-							"Test information for migration was for DB \"" . $site["db_name"] . "\" successfully inserted",
-							Logger::LEVEL_INFO,
-							"console.migrate"
-						);
-					} else {
-						Logger::log(
-							"Unable to insert test information in migration for DB \"" .
-							$site["db_name"] .
-							"\"",
-							Logger::LEVEL_ERROR,
-							"console.migrate"
-						);
-						return false;
-					}
+			foreach ($this->_migrations as $migrationName) {
+				/**
+				 * @var \migrations\AbstractMigration $migration
+				 */
+				$migrationFullName = "\\migrations\\{$migrationName}";
+				$migration = new $migrationFullName;
+				if (!$migration->isSkip) {
+					$migration->up();
 				}
 			}
-		} catch (Exception $e) {
-			return false;
+
+			if (App::console()->config->isDebug && $this->isTestData) {
+				self::loadFixtures();
+			}
 		}
 
-		if (App::console()->config->isDebug) {
-			if (
+		return $this;
+	}
+
+	/**
+	 * Version's update
+	 *
+	 * @return MigrateCommand
+	 *
+	 * @throws MigrationException
+	 */
+	private function _updateVersions()
+	{
+		if (
 			!Db::setPdo(
 				App::console()->config->db->host,
 				App::console()->config->db->user,
 				App::console()->config->db->password,
 				App::console()->config->db->name
 			)
-			) {
-				return false;
-			}
-
-			if (!Db::execute("TRUNCATE TABLE `migrations`")) {
-				Logger::log("Unable to truncate table \"migrations\"", Logger::LEVEL_ERROR, "console.migrate");
-				return false;
-			}
-		}
-
-		return true;
-	}
-
-	/**
-	 * Version's update
-	 *
-	 * @return bool
-	 */
-	private function _updateVersions()
-	{
-		if (
-		!Db::setPdo(
-			App::console()->config->db->host,
-			App::console()->config->db->user,
-			App::console()->config->db->password,
-			App::console()->config->db->name
-		)
 		) {
-			Logger::log("Unable to connect with the main DB", Logger::LEVEL_ERROR, "console.migrate");
-			return false;
+			throw new MigrationException(
+				"Unable to connect with DB for updating versions
+					with host: {host}, user: {user}, password: {password}, name: {name}",
+				[
+					"host"     => App::console()->config->db->host,
+					"user"     => App::console()->config->db->user,
+					"password" => App::console()->config->db->password,
+					"name"     => App::console()->config->db->name,
+				]
+			);
 		}
 
-		Db::startTransaction();
-		foreach ($this->_migrations as $migration) {
-			if (!Db::execute("INSERT INTO `migrations` (version) VALUES(?)", [$migration])) {
-				Db::rollbackTransaction();
+		try {
+			Db::startTransaction();
 
-				Logger::log("Unable to update version of migrations", Logger::LEVEL_ERROR, "console.migrate");
-				return false;
+			foreach ($this->_migrations as $migration) {
+				if (!Db::execute("INSERT" . " INTO `migrations` (version) VALUES(?)", [$migration])) {
+					throw new MigrationException(
+						"UUnable to update version with migration: {migration}",
+						[
+							"migration" => $migration,
+						]
+					);
+				}
 			}
+
+		} catch (MigrationException $e) {
+			Db::rollbackTransaction();
 		}
 
 		Db::commitTransaction();
-		return true;
+
+		return $this;
 	}
 
 	/**
@@ -437,13 +367,13 @@ class MigrateCommand extends AbstractCommand
 	 *
 	 * @param string $table
 	 *
-	 * @return bool
+	 * @throws MigrationException
 	 */
 	public static function loadFixtures($table = null)
 	{
-		Logger::log("Updating fixtures...", Logger::LEVEL_INFO, "console.migrate");
-
 		$siteId = App::console()->config->siteId;
+
+		// Files
 		$uploadFilesFolder = __DIR__ . "/../public/upload/{$siteId}";
 		exec("rm -r {$uploadFilesFolder}");
 		$copyFilesFolder = __DIR__ . "/../fixtures/files";
@@ -451,7 +381,9 @@ class MigrateCommand extends AbstractCommand
 			mkdir(__DIR__ . "/../public/upload", 0777);
 		}
 		exec("cp -r {$copyFilesFolder} {$uploadFilesFolder}");
+		chmod($uploadFilesFolder, 0777);
 
+		// DB
 		$files = array_diff(scandir(__DIR__ . "/../fixtures"), ["..", ".", "files"]);
 		foreach ($files as $file) {
 			$tableName = str_replace(".php", "", $file);
@@ -463,8 +395,12 @@ class MigrateCommand extends AbstractCommand
 			$records = require(__DIR__ . "/../fixtures/" . $file);
 
 			if (!Db::execute("TRUNCATE TABLE `{$tableName}`")) {
-				Logger::log("Unable to truncate table \"{$tableName}\"", Logger::LEVEL_ERROR, "console.migrate");
-				return false;
+				throw new MigrationException(
+					"Unable to truncate table: {table} while loading fixtures",
+					[
+						"table" => $tableName
+					]
+				);
 			}
 
 			foreach ($records as $id => $record) {
@@ -479,7 +415,8 @@ class MigrateCommand extends AbstractCommand
 				}
 
 				$query =
-					"INSERT INTO " .
+					"INSERT" .
+					" INTO " .
 					$tableName .
 					" (" .
 					implode(",", $columns) .
@@ -487,18 +424,14 @@ class MigrateCommand extends AbstractCommand
 					implode(",", $substitutions) .
 					")";
 				if (!Db::execute($query, $values)) {
-					Logger::log(
-						"Unable to load fixtures for table \"{$tableName}\"",
-						Logger::LEVEL_ERROR,
-						"console.migrate"
+					throw new MigrationException(
+						"Unable to load fixtures for table: {table}",
+						[
+							"table" => $tableName
+						]
 					);
-					return false;
 				}
 			}
 		}
-
-		Logger::log("OK", Logger::LEVEL_INFO, "console.migrate");
-
-		return true;
 	}
 }

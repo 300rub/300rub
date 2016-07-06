@@ -12,12 +12,10 @@ class M_160315_000000_design_blocks extends AbstractMigration
 
 	/**
 	 * Applies migration
-	 *
-	 * @return bool
 	 */
 	public function up()
 	{
-		$result = $this->createTable(
+		$this->createTable(
 			"design_blocks",
 			[
 				"id"                         => "pk",
@@ -42,13 +40,7 @@ class M_160315_000000_design_blocks extends AbstractMigration
 				"border_left_width"          => "integer",
 				"border_style"               => "integer",
 				"border_color"               => "string",
-			],
-			"ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci"
+			]
 		);
-		if (!$result) {
-			return false;
-		}
-
-		return true;
 	}
 }
