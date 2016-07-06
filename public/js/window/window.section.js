@@ -32,6 +32,8 @@
 
         this.$submit.off().on("click", $.proxy(this._sectionSubmit, this));
 
+        this.$window.css("width", "100%");
+        this.$window.css("margin-left", "-50%");
         this._sectionSetHeight();
         $(window).resize($.proxy(function () {
             this._sectionSetHeight();
@@ -44,7 +46,7 @@
      * @private
      */
     c.Window.prototype._sectionSetHeight = function() {
-        this.$container.css("max-height", $.proxy(function () {
+        this.$container.css("height", $.proxy(function () {
             return $(window).outerHeight() - 148;
         }, this));
     };
@@ -114,6 +116,7 @@
             .appendTo(this.$window.find(".j-footer"))
             .on("click", $.proxy(function () {
                 this._sectionAddLine(0);
+                this.$container.scrollTop(99999);
                 return false;
             }, this));
 
