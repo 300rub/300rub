@@ -36,8 +36,6 @@ class BuildCommand extends AbstractCommand
      * Runs the command
      *
      * @param string[] $args command arguments
-     *
-     * @return bool
      */
     public function run($args)
     {
@@ -60,7 +58,6 @@ class BuildCommand extends AbstractCommand
         }
 
         Logger::log("Build completed successfully", Logger::LEVEL_INFO, "console.build");
-        return true;
     }
 
     /**
