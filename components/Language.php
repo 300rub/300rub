@@ -2,6 +2,8 @@
 
 namespace components;
 
+use components\exceptions\CommonException;
+
 /**
  * Class contains lib of static functions for working with language
  *
@@ -52,9 +54,7 @@ class Language
 	 *
 	 * @param string $name Language alias
 	 *
-	 * @throws Exception
-	 *
-	 * @return void
+	 * @throws CommonException
 	 */
 	public static function setIdByAlias($name)
 	{
@@ -62,7 +62,12 @@ class Language
 		if ($id) {
 			self::$activeId = $id;
 		} else {
-			throw new Exception("Language doesn't exists ({$name})");
+			throw new CommonException(
+				"Unable to find language with name: {name}",
+				[
+					"name" => $name
+				]
+			);
 		}
 	}
 

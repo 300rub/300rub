@@ -61,36 +61,4 @@ class CommonController extends AbstractController
             }
         }
     }
-
-    /**
-     * Displays error page
-     *
-     * @param string $message    Message
-     * @param int    $statusCode Status
-     * @param string $trace      Trace
-     */
-    public function actionError($message, $statusCode = 500, $trace = "")
-    {
-        header("HTTP/1.0 {$statusCode}");
-
-        if (App::web()->isAjax) {
-            header('Content-Type: application/json');
-            echo json_encode([
-                "statusCode" => $statusCode,
-                "message"    => $message,
-                "trace"      => $trace
-            ]);
-        } else {
-            $this->renderPartial(
-                "common.error",
-                [
-                    "statusCode" => $statusCode,
-                    "message"    => str_replace("\n", "<br />", $message),
-                    "trace"      => str_replace("\n", "<br />", $trace)
-                ]
-            );
-        }
-
-        exit();
-    }
 }

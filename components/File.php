@@ -1,7 +1,9 @@
 <?php
 
 namespace components;
+
 use applications\App;
+use components\exceptions\FileException;
 
 /**
  * Class for working with files
@@ -35,16 +37,26 @@ class File
      *
      * @return string
      *
-     * @throws Exception
+     * @throws FileException
      */
     public function upload($name)
     {
         if (empty($_FILES[$name]['tmp_name'])) {
-            throw new Exception("File was not found in tmp");
+            throw new FileException(
+                "File with name: {name} was not found in tmp",
+                [
+                    "name" => $name
+                ]
+            );
         }
 
         if (!move_uploaded_file($_FILES[$name]['tmp_name'], $this->_getFullFilePath())) {
-            throw new Exception("File was not moved to upload folder");
+            throw new FileException(
+                "File with name: {name} was not moved to upload folder",
+                [
+                    "name" => $name
+                ]
+            );
         }
 
         return $this->_getFullFilePath();
@@ -53,7 +65,7 @@ class File
     /**
      * Deletes file
      *
-     * @throws Exception
+     * @throws FileException
      */
     public function delete()
     {
@@ -63,38 +75,49 @@ class File
             file_exists($fileUploadPath)
             && unlink($fileUploadPath) === false
         ) {
-            throw new Exception("Unable to delete file from upload folder");
+            throw new FileException(
+                "Unable to delete file with path: {path} from upload folder",
+                [
+                    "path" => $fileUploadPath
+                ]
+            );
         }
 
         if (!App::web()->config->isDebug) {
             $ssh = new Ssh();
-            if ($ssh->deleteFile($this->_getFilePath())) {
-                throw new Exception("Unable to delete file from remote server");
-            }
+            $ssh->deleteFile($this->_getFilePath());
         }
     }
 
     /**
      * Sends file to remote server
      *
-     * @throws Exception
+     * @throws FileException
      */
     public function send()
     {
         $fileUploadPath = $this->_getFullFilePath();
 
         if (!file_exists($fileUploadPath)) {
-            throw new Exception("File doesn't exist");
+            throw new FileException(
+                "File with path: {path} doesn't exist",
+                [
+                    "path" => $fileUploadPath
+                ]
+            );
         }
 
         if (!App::web()->config->isDebug) {
             $ssh = new Ssh();
-            if ($ssh->sendFile($fileUploadPath, $this->_getFilePath())) {
-                throw new Exception("Unable to send file to remote server");
-            }
+            $ssh->sendFile($fileUploadPath, $this->_getFilePath());
 
             if (unlink($fileUploadPath) === false) {
-                throw new Exception("Unable to delete file from upload folder");
+                throw new FileException(
+                    "Unable to delete file with path: {path} from upload folder",
+                    [
+                        "path" => $fileUploadPath
+                    ]
+                );
             }
         }
     }
