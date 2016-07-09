@@ -472,7 +472,7 @@ abstract class AbstractModel
 	 *
 	 * @param array $params Field => value
 	 * 
-	 * @throws DbException
+	 * @throws
 	 */
 	protected final function updateForAll(array $params)
 	{
@@ -573,5 +573,18 @@ abstract class AbstractModel
 	public function getRelations()
 	{
 		return $this->relations;
+	}
+
+	/**
+	 * Duplicates model
+	 *
+	 * @return AbstractModel
+	 */
+	public function duplicate()
+	{
+		$model = clone $this;
+		$model->id = null;
+		
+		return $model;
 	}
 }

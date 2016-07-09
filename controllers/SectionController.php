@@ -201,10 +201,6 @@ class SectionController extends AbstractController
     public function actionSaveDesign()
     {
         $this->getModel(["designBlockModel"])->saveDesign($this->data);
-        
-        $this->json = [
-            "result" => "true",
-        ];
     }
 
     /**
@@ -237,9 +233,5 @@ class SectionController extends AbstractController
             $this->getModel()->id,
             $this->data["grid"]
         );
-        
-        $this->json = [
-            "result" => true
-        ];
     }
 }

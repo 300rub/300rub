@@ -3,8 +3,7 @@
 namespace controllers;
 
 use applications\App;
-use components\ErrorHandler;
-use components\Exception;
+use components\exceptions\ModelException;
 use models\AbstractModel;
 
 /**
@@ -144,8 +143,6 @@ abstract class AbstractController
 	 * @param AbstractModel $model  Model
 	 * @param string[]      $fields Fields
 	 *
-	 * @throws Exception
-	 *
 	 * @return AbstractController
 	 */
 	protected function setFormsForJson($model, $fields)
@@ -191,18 +188,18 @@ abstract class AbstractController
 	 *
 	 * @return AbstractModel
 	 *
-	 * @throws Exception
+	 * @throws ModelException
 	 */
 	protected function getModel($width = [], $allowEmpty = false)
 	{
-		$modelName = $this->getModelName();
-		if (!$modelName) {
-			throw new Exception("Model not found", ErrorHandler::STATUS_NOT_FOUND);
-		}
-
-		$className = "\\models\\{$modelName}";
+		$className = "\\models\\" . $this->getModelName();
 		if (!class_exists($className)) {
-			throw new Exception("Class \"$className\" doesn't exists");
+			throw new ModelException(
+				"Unable to find class: {class}",
+				[
+					"class" => $className
+				]
+			);
 		}
 
 		/**
@@ -216,7 +213,7 @@ abstract class AbstractController
 		}
 
 		if ($id === 0 && !$allowEmpty) {
-			throw new Exception("Incorrect ID", ErrorHandler::STATUS_NOT_FOUND);
+			throw new ModelException("ID can not be null");
 		}
 
 		if (!$id) {
@@ -225,7 +222,13 @@ abstract class AbstractController
 
 		$model = $model->byId($id)->with($width)->find();
 		if (!$model) {
-			throw new Exception("Model not found", ErrorHandler::STATUS_NOT_FOUND);
+			throw new ModelException(
+				"Unable to find model for class: {class} by ID = {id}",
+				[
+					"class" => $className,
+					"id"    => $id
+				]
+			);
 		}
 
 		return $model;

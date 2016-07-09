@@ -164,13 +164,7 @@ class TextController extends AbstractController
      */
     public function actionSaveDesign()
     {
-        $model = $this->getModel("*");
-        $model->setAttributes($this->data)->save();
-
-        $this->json = [
-            "errors"  => $model->errors,
-            "content" => "text.panelList",
-        ];
+        $this->getModel("*")->setAttributes($this->data)->save();
     }
 
     /**
@@ -197,11 +191,6 @@ class TextController extends AbstractController
      */
     public function actionSaveWindow()
     {
-        $model = $this->getModel();
-        $model->setAttributes($this->data)->save();
-
-        $this->json = [
-            "errors" => $model->errors,
-        ];
+        $this->getModel()->setAttributes($this->data)->save();
     }
 }

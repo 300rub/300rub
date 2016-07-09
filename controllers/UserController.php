@@ -2,9 +2,8 @@
 
 namespace controllers;
 
+use components\exceptions\ContentException;
 use models\UserModel;
-use components\ErrorHandler;
-use components\Exception;
 use components\Language;
 
 /**
@@ -63,7 +62,7 @@ class UserController extends AbstractController
     public function actionLogin()
     {
         if (!$this->data || !isset($this->data["t.login"]) || !isset($this->data["t.password"])) {
-            throw new Exception("Incorrect URL", ErrorHandler::STATUS_NOT_FOUND);
+            throw new ContentException("Unable to find login or password in content");
         }
 
         $model = new UserModel;
