@@ -3,6 +3,7 @@
 namespace components;
 
 use applications\App;
+use components\exceptions\SshException;
 
 /**
  * Class for working with Ssh connection
@@ -51,13 +52,17 @@ class Ssh
      *
      * @return Ssh
      *
-     * @throws Exception
+     * @throws SshException
      */
     private function _setParams($sshConnectionName)
     {
         if (empty(App::web()->config->ssh->list->$sshConnectionName)) {
-            Logger::log("Unable to find params for server {$sshConnectionName}", Logger::LEVEL_ERROR, "ssh.params.set");
-            throw new Exception("Unable to find params for server");
+            throw new SshException(
+                "Unable to find parameters for the server: {sshConnectionName}",
+                [
+                    "sshConnectionName" => $sshConnectionName
+                ]
+            );
         }
 
         $this->_params = App::web()->config->ssh->list->$sshConnectionName;
@@ -70,18 +75,19 @@ class Ssh
      *
      * @return Ssh
      *
-     * @throws Exception
+     * @throws SshException
      */
     private function _setConnection()
     {
         $this->_connection = ssh2_connect($this->_params->host, $this->_params->port, ['hostkey'=>'ssh-rsa']);
         if (!$this->_connection) {
-            Logger::log(
-                "SSH connection failed. Host: {$this->_params->host}; Port: {$this->_params->port}",
-                Logger::LEVEL_ERROR,
-                "ssh.params.set"
+            throw new SshException(
+                "SSH connection failed. Host: {host}; Port: {port}",
+                [
+                    "host" => $this->_params->host,
+                    "port" => $this->_params->port
+                ]
             );
-            throw new Exception("SSH connection failed");
         }
 
         if (
@@ -93,16 +99,19 @@ class Ssh
                 $this->_params->passPhrase
             )
         ) {
-            Logger::log(
-                "SSH connection failed. " .
-                "Username: $this->_params->username}; " .
-                "PublicKeyPath: $this->_params->publicKeyPath}; " .
-                "PrivateKeyPath: $this->_params->privateKeyPath}; " .
-                "PassPhrase: {$this->_params->passPhrase}",
-                Logger::LEVEL_ERROR,
-                "ssh.connection.set"
+            throw new SshException(
+                "Unable to connect to server with parameters:" .
+                "Username: {username}; " .
+                "PublicKeyPath: {publicKeyPath}; " .
+                "PrivateKeyPath: {privateKeyPath}; " .
+                "PassPhrase: {passPhrase}",
+                [
+                    "username"       => $this->_params->username,
+                    "publicKeyPath"  => $this->_params->publicKeyPath,
+                    "privateKeyPath" => $this->_params->privateKeyPath,
+                    "passPhrase"     => $this->_params->passPhrase
+                ]
             );
-            throw new Exception("Unable to connect to server");
         }
 
         return $this;
@@ -114,16 +123,28 @@ class Ssh
      * @param string $localFilePath
      * @param string $remoteFilePath
      *
-     * @return bool
+     * @throws SshException
      */
     public function sendFile($localFilePath, $remoteFilePath)
     {
-        return ssh2_scp_send(
+        $remotePath = $this->_params->uploadFolder . "/" . $remoteFilePath;
+        
+        $result = ssh2_scp_send(
             $this->_connection,
             $localFilePath,
-            $this->_params->uploadFolder . "/" . $remoteFilePath,
+            $remotePath,
             0777
         );
+        
+        if (!$result) {
+            throw new SshException(
+                "Unable to send the file with localFilePath: {localFilePath} and remotePath: {remotePath}",
+                [
+                    "localFilePath" => $localFilePath,
+                    "remotePath"    => $remotePath,
+                ]
+            );
+        }
     }
 
     /**
@@ -131,11 +152,22 @@ class Ssh
      *
      * @param string $filePath
      *
-     * @return bool
+     * @throws SshException
      */
     public function deleteFile($filePath)
     {
-        return ssh2_sftp_unlink(ssh2_sftp($this->_connection), $this->_params->uploadFolder . "/" . $filePath);
+        $path = $this->_params->uploadFolder . "/" . $filePath;
+        
+        $result = ssh2_sftp_unlink(ssh2_sftp($this->_connection), $path);
+        
+        if (!$result) {
+            throw new SshException(
+                "Unable to delete the file with path: {path}",
+                [
+                    "path" => $path
+                ]
+            );
+        }
     }
 
     /**
@@ -143,11 +175,22 @@ class Ssh
      *
      * @param string $dirPath
      *
-     * @return bool
+     * @throws SshException
      */
     public function createDir($dirPath)
     {
-        return ssh2_sftp_mkdir(ssh2_sftp($this->_connection), $this->_params->uploadFolder . "/" . $dirPath, 0777);
+        $path = $this->_params->uploadFolder . "/" . $dirPath;
+        
+        $result = ssh2_sftp_mkdir(ssh2_sftp($this->_connection), $path, 0777);
+
+        if (!$result) {
+            throw new SshException(
+                "Unable to create the directory with path: {path}",
+                [
+                    "path" => $path
+                ]
+            );
+        }
     }
 
     /**
@@ -155,10 +198,21 @@ class Ssh
      *
      * @param string $dirPath
      *
-     * @return bool
+     * @throws SshException
      */
     public function deleteDir($dirPath)
     {
-        return ssh2_sftp_rmdir(ssh2_sftp($this->_connection), $this->_params->uploadFolder . "/" . $dirPath);
+        $path = $this->_params->uploadFolder . "/" . $dirPath;
+        
+        $result = ssh2_sftp_rmdir(ssh2_sftp($this->_connection), $path);
+
+        if (!$result) {
+            throw new SshException(
+                "Unable to delete the directory with path: {path}",
+                [
+                    "path" => $path
+                ]
+            );
+        }
     }
 }
