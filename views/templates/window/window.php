@@ -23,3 +23,4 @@ use components\Language;
 </div>
 
 <div class="l-overlay j-overlay"></div>
+<div class="l-window-bottom-line j-window-bottom-line"></div>

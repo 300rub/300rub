@@ -61,6 +61,13 @@
 		$overlay: null,
 
 		/**
+		 * DOM-element of bottom line
+		 *
+		 * @type {Object}
+		 */
+		$bottomLine: null,
+
+		/**
 		 * Data from AJAX request
 		 *
 		 * @type {Object}
@@ -79,6 +86,7 @@
 		 */
 		init: function () {
 			this.$overlay = c.$templates.find(".j-overlay").clone().appendTo(c.$ajaxWrapper);
+			this.$bottomLine = c.$templates.find(".j-window-bottom-line").clone().appendTo(c.$ajaxWrapper);
 			this.$window = c.$templates.find(".j-window").clone().appendTo(c.$ajaxWrapper);
 			this.$container = this.$window.find(".j-container");
 			this.$submit = this.$window.find(".j-submit");
@@ -96,7 +104,7 @@
 			}, this), 100);
 
 			setTimeout($.proxy(function () {
-				this.$adminBottomContainer.find(".j-admin-bottom-button").addClass("j-opacity-0");
+				this.$bottomLine.addClass("j-opacity");
 			}, this), 100);
 
 			$.ajaxJson(
@@ -139,7 +147,10 @@
 				this.$overlay.remove();
 			}, this), 300);
 
-			this.$adminBottomContainer.find(".j-admin-bottom-button").removeClass("j-opacity-0");
+			this.$bottomLine.removeClass("j-opacity");
+			setTimeout($.proxy(function () {
+				this.$bottomLine.remove();
+			}, this), 300);
 
 			return false;
 		},
