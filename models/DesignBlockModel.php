@@ -1,6 +1,7 @@
 <?php
 
 namespace models;
+use components\exceptions\ModelException;
 
 /**
  * Model for working with table "design_blocks"
@@ -589,7 +590,9 @@ class DesignBlockModel extends AbstractModel
 	/**
 	 * Duplicates model
 	 *
-	 * @return DesignBlockModel|null
+	 * @return DesignBlockModel
+	 * 
+	 * @throws ModelException
 	 */
 	public function duplicate()
 	{
@@ -597,7 +600,16 @@ class DesignBlockModel extends AbstractModel
 		$model->id = 0;
 
 		if (!$model->save()) {
-			return null;
+			$fields = "";
+			foreach ($model->getFieldNames() as $fieldName) {
+				$fields .= " {$fieldName}: " . $model->$fieldName;
+			}
+			throw new ModelException(
+				"Unable to duplicate DesignBlockModel with fields: {fields}",
+				[
+					"fields" => $fields
+				]
+			);
 		}
 		return $model;
 	}

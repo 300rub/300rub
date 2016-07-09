@@ -232,11 +232,13 @@ class SectionController extends AbstractController
      */
     public function actionSaveWindow()
     {
+        GridModel::model()->updateGridForSection(
+            $this->getModel()->id,
+            $this->data["grid"]
+        );
+        
         $this->json = [
-            "result" => GridModel::model()->updateGridForSection(
-                $this->getModel()->id,
-                $this->data["grid"]
-            )
+            "result" => true
         ];
     }
 }

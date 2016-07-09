@@ -2,8 +2,8 @@
 
 namespace models;
 
-use components\ErrorHandler;
-use components\Exception;
+use components\exceptions\ContentException;
+use components\exceptions\ModelException;
 use components\Language;
 
 /**
@@ -349,7 +349,8 @@ class GridModel extends AbstractModel
 	 * @param int   $sectionId Section ID
 	 * @param array $data      Structure data
 	 *
-	 * @return bool
+	 * @throws ContentException
+	 * @throws ModelException
 	 */
 	public function updateGridForSection($sectionId, $data)
 	{
@@ -365,11 +366,17 @@ class GridModel extends AbstractModel
 			if (!empty($content["id"])) {
 				$gridLineModel = GridLineModel::model()->byId($content["id"])->find();
 				if (!$gridLineModel) {
-					return false;
+					throw new ContentException(
+						"Unable to find GridLineModel with ID = {id}",
+						[
+							"id" => $content["id"]
+						]
+					);
 				}
+
 				$gridLineModel->sort = $lineNumber;
 				if (!$gridLineModel->save()) {
-					return false;
+					throw new ModelException("Unable to save GridLineModel");
 				}
 
 				if (array_key_exists($content["id"], $oldGridLines)) {
@@ -380,12 +387,12 @@ class GridModel extends AbstractModel
 				$gridLineModel->section_id = $sectionId;
 				$gridLineModel->sort = $lineNumber;
 				if (!$gridLineModel->save()) {
-					return false;
+					throw new ModelException("Unable to save GridLineModel");
 				}
 			}
 
 			if (isset($content["items"]) && !is_array($content["items"])) {
-				return false;
+				throw new ContentException("Unable to find items from content or items are not array");
 			}
 
 			foreach ($content["items"] as $item) {
@@ -397,7 +404,7 @@ class GridModel extends AbstractModel
 				$model->content_type = $item["type"];
 				$model->content_id = $item["id"];
 				if (!$model->save()) {
-					return false;
+					throw new ModelException("Unable to save GridModel");
 				}
 			}
 
@@ -406,7 +413,12 @@ class GridModel extends AbstractModel
 
 		foreach ($oldGrids as $grid) {
 			if (!$grid->delete()) {
-				return false;
+				throw new ModelException(
+					"Unable to delete GridModel with ID = {id}",
+					[
+						"id" => $grid->id
+					]
+				);
 			}
 		}
 
@@ -414,10 +426,15 @@ class GridModel extends AbstractModel
 		 * @var \models\GridLineModel[] $oldGridLines
 		 */
 		foreach ($oldGridLines as $oldGridLine) {
-			$oldGridLine->delete();
+			if (!$oldGridLine->delete()) {
+				throw new ModelException(
+					"Unable to delete old GridLineModel with ID = {id}",
+					[
+						"id" => $oldGridLine->id
+					]
+				);
+			}
 		}
-		
-		return true;
 	}
 
 	/**
@@ -443,14 +460,19 @@ class GridModel extends AbstractModel
 	 *
 	 * @return AbstractModel
 	 *
-	 * @throws Exception
+	 * @throws ModelException
 	 */
 	public function getContentModel()
 	{
 		$typeList = self::getTypesList();
 
 		if (!array_key_exists($this->content_type, $typeList)) {
-			throw new Exception("Model not found", ErrorHandler::STATUS_NOT_FOUND);
+			throw new ModelException(
+				"Unable to find content model. Type is undefined: {type}",
+				[
+					"type" => $this->content_type
+				]
+			);
 		}
 
 		/**
@@ -461,7 +483,13 @@ class GridModel extends AbstractModel
 		$model = $model->byId($this->content_id)->withAll()->find();
 
 		if (!$model) {
-			throw new Exception("Model not found", ErrorHandler::STATUS_NOT_FOUND);
+			throw new ModelException(
+				"Unable to find content model {modelName} by ID {id}",
+				[
+					"modelName" => $modelName,
+					"id"        => $this->content_id
+				]
+			);
 		}
 
 		return $model;
@@ -472,14 +500,19 @@ class GridModel extends AbstractModel
 	 *
 	 * @return string
 	 *
-	 * @throws Exception
+	 * @throws ModelException
 	 */
 	public function getContentView()
 	{
 		$typeList = self::getTypesList();
 
 		if (!array_key_exists($this->content_type, $typeList)) {
-			throw new Exception("Type of model not found", ErrorHandler::STATUS_NOT_FOUND);
+			throw new ModelException(
+				"Unable to find content model. Type is undefined: {type}",
+				[
+					"type" => $this->content_type
+				]
+			);
 		}
 
 		return 'content.' . $typeList[$this->content_type]["view"];
@@ -490,14 +523,19 @@ class GridModel extends AbstractModel
 	 *
 	 * @return string
 	 *
-	 * @throws Exception
+	 * @throws ModelException
 	 */
 	public function getBlockClass()
 	{
 		$typeList = self::getTypesList();
 
 		if (!array_key_exists($this->content_type, $typeList)) {
-			throw new Exception("Type of model not found", ErrorHandler::STATUS_NOT_FOUND);
+			throw new ModelException(
+				"Unable to find content model. Type is undefined: {type}",
+				[
+					"type" => $this->content_type
+				]
+			);
 		}
 
 		return $typeList[$this->content_type]["selector"] . $this->content_id;
@@ -550,28 +588,46 @@ class GridModel extends AbstractModel
 	/**
 	 * Runs before save
 	 *
-	 * @return bool
+	 * @throws ModelException
 	 */
 	protected function beforeSave()
 	{
 		if ($this->grid_line_id === 0 || GridLineModel::model()->byId($this->grid_line_id)->find() === null) {
-			return false;
+			throw new ModelException(
+				"Unable to find GridLineModel with ID = {id}", 
+				[
+					"id" => $this->grid_line_id
+				]
+			);
 		}
 		
 		if ($this->content_type === 0 || $this->content_id === 0) {
-			return false;
+			throw new ModelException("Unable to save GridModel because content_type or content_id is null");
 		}
+		
 		$typeList = self::getTypesList();
 		if (!array_key_exists($this->content_type, $typeList)) {
-			return false;
+			throw new ModelException(
+				"Unable to find content model. Type is undefined: {type}",
+				[
+					"type" => $this->content_type
+				]
+			);
 		}
+		
 		$className = "\\models\\" . $typeList[$this->content_type]["model"];
 		$model = new $className;
 		if (
 			!$model instanceof AbstractModel
 			|| !$model->byId($this->content_id)->find()
 		) {
-			return false;
+			throw new ModelException(
+				"Unable to find model: {className} with ID = {id}",
+				[
+					"className" => $className,
+					"id"        => $this->content_id
+				]
+			);
 		}
 		
 		if ($this->x < 0) {
@@ -594,7 +650,7 @@ class GridModel extends AbstractModel
 			$this->width = self::GRID_SIZE - $this->x;
 		}
 
-		return parent::beforeSave();
+		parent::beforeSave();
 	}
 
 	/**
@@ -602,7 +658,9 @@ class GridModel extends AbstractModel
 	 *
 	 * @param int  $gridLineId  Line's ID
 	 *
-	 * @return GridModel|null
+	 * @return GridModel
+	 * 
+	 * @throws ModelException
 	 */
 	public function duplicate($gridLineId)
 	{
@@ -610,7 +668,16 @@ class GridModel extends AbstractModel
 		$model->id = 0;
 		$model->grid_line_id = $gridLineId;
 		if (!$model->save()) {
-			return null;
+			$fields = "";
+			foreach ($model->getFieldNames() as $fieldName) {
+				$fields .= " {$fieldName}: " . $model->$fieldName;
+			}
+			throw new ModelException(
+				"Unable to duplicate GridModel with fields: {fields}",
+				[
+					"fields" => $fields
+				]
+			);
 		}
 		
 		return $model;

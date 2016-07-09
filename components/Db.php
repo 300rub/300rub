@@ -2,6 +2,7 @@
 
 namespace components;
 
+use components\exceptions\DbException;
 use models\AbstractModel;
 use PDO;
 use PDOException;
@@ -294,6 +295,8 @@ class Db
 	 *
 	 * @param AbstractModel $model
 	 *
+	 * @throws DbException
+	 * 
 	 * @return int
 	 */
 	public static function insert($model)
@@ -308,16 +311,27 @@ class Db
 			$values[] = $model->$field;
 		}
 
+		$tableName = $model->getTableName();
+		$insertColumns = implode(",", $columns);
+		$insertValues = implode(",", $substitutions);
+
 		$query =
-			"INSERT INTO " .
-			$model->getTableName() .
+			"INSERT" . " INTO " .
+			$tableName .
 			" (" .
-			implode(",", $columns) .
+			$insertColumns .
 			") VALUES (" .
-			implode(",", $substitutions) .
+			$insertValues .
 			")";
 		if (!self::execute($query, $values)) {
-			return 0;
+			throw new DbException(
+				"Unable to insert the record to the table: {table} with columns: {columns} and values: {values}",
+				[
+					"table"   => $tableName,
+					"columns" => $insertColumns,
+					"values"  => $insertValues
+				]
+			);
 		}
 
 		return self::$_pdo->lastInsertId();
@@ -328,7 +342,7 @@ class Db
 	 *
 	 * @param AbstractModel $model
 	 *
-	 * @return bool
+	 * @throws DbException
 	 */
 	public static function update($model)
 	{
@@ -341,10 +355,21 @@ class Db
 		}
 
 		$values[] = $model->id;
+		$tableName = $model->getTableName();
+		$set = implode(",", $sets);
 
-		$query = "UPDATE " . $model->getTableName() . " SET " . implode(",", $sets) . " WHERE id = ?";
+		$query = "UPDATE " . $tableName . " SET " . $set . " WHERE id = ?";
 
-		return self::execute($query, $values);
+		if (!self::execute($query, $values)) {
+			throw new DbException(
+				"Unable to update the record from the table: {table} with set: {set} and values: {values}",
+				[
+					"table"  => $tableName,
+					"set"    => $set,
+					"values" => $values
+				]
+			);
+		}
 	}
 
 	/**
@@ -352,11 +377,21 @@ class Db
 	 *
 	 * @param AbstractModel $model
 	 *
-	 * @return bool
+	 * @throws DbException
 	 */
 	public static function delete($model)
 	{
-		return self::execute("DELETE FROM " . $model->getTableName() . " WHERE id = ?", [$model->id]);
+		$tableName = $model->getTableName();
+		
+		if (!self::execute("DELETE" . " FROM " . $tableName . " WHERE id = ?", [$model->id])) {
+			throw new DbException(
+				"Unable to delete the record from the table: {table} with ID: {id}",
+				[
+					"table" => $tableName,
+					"id"    => $model->id
+				]
+			);
+		}
 	}
 
 	/**
@@ -369,7 +404,7 @@ class Db
 	public static function isTableExists($table)
 	{
 		try {
-			$result = self::$_pdo->query("SELECT 1 FROM {$table} LIMIT 1");
+			$result = self::$_pdo->query("SELECT" . " 1 FROM {$table} LIMIT 1");
 		} catch (PDOException $e) {
 			return false;
 		}

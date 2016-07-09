@@ -3,8 +3,10 @@
 namespace models;
 
 use components\Db;
-use components\Exception;
+use components\exceptions\DbException;
+use components\exceptions\ModelException;
 use components\Validator;
+use \Exception;
 
 /**
  * Abstract class for working with models
@@ -376,25 +378,20 @@ abstract class AbstractModel
 		}
 
 		try {
-			if ($this->beforeSave() === false) {
-				return false;
-			}
+			$this->beforeSave();
 
 			if ($this->id) {
-				if (!Db::update($this)) {
-					return false;
-				}
+				Db::update($this);
 			} else {
 				$this->id = Db::insert($this);
-				if (!$this->id) {
-					return false;
-				}
 			}
 			
-			return $this->afterSave();
+			$this->afterSave();
 		} catch (Exception $e) {
 			return false;
 		}
+
+		return true;
 	}
 
 	/**
@@ -404,22 +401,23 @@ abstract class AbstractModel
 	 */
 	public final function delete()
 	{
-		if (
-			!$this->id
-			|| $this->beforeDelete() === false
-			|| !Db::delete($this)
-			|| $this->afterDelete() === false
-		) {
+		try {
+			if (!$this->id) {
+				throw new ModelException("Unable to delete the record with null ID");
+			}
+
+			$this->beforeDelete();
+			Db::delete($this);
+			$this->afterDelete();
+		} catch (Exception $e) {
 			return false;
 		}
-		
+
 		return true;
 	}
 
 	/**
 	 * Runs before validation
-	 *
-	 * @return void
 	 */
 	protected function beforeValidate()
 	{
@@ -427,8 +425,6 @@ abstract class AbstractModel
 
 	/**
 	 * Runs before saving
-	 *
-	 * @return bool
 	 */
 	protected function beforeSave()
 	{
@@ -438,58 +434,48 @@ abstract class AbstractModel
 			if ($this->$relation instanceof $options[0]) {
 				$field = $options[1];
 				if (!$this->$relation->save()) {
-					return false;
+					throw new ModelException(
+						"Unable to save relation: {relation}", 
+						[
+							"relation" => $relation
+						]
+					);
 				}
 				$this->$field = $this->$relation->id;
 			}
 		}
-
-		return true;
 	}
 
 	/**
 	 * Runs after saving
-	 *
-	 * @return bool
 	 */
 	protected function afterSave()
 	{
-		return true;
 	}
 
 	/**
 	 * Runs before deleting
-	 *
-	 * @return bool
 	 */
 	protected function beforeDelete()
 	{
-		return true;
 	}
 
 	/**
 	 * Runs after deleting
-	 *
-	 * @return bool
 	 */
 	protected function afterDelete()
 	{
-		return true;
 	}
 
 	/**
 	 * Updates value for all fields
 	 *
 	 * @param array $params Field => value
-	 *
-	 * @return bool
+	 * 
+	 * @throws DbException
 	 */
-	protected final function updateForAll($params)
+	protected final function updateForAll(array $params)
 	{
-		if (!is_array($params)) {
-			return false;
-		}
-
 		$sets = [];
 		$values = [];
 
@@ -498,9 +484,21 @@ abstract class AbstractModel
 			$values[] = $value;
 		}
 
-		$query = "UPDATE " . $this->getTableName() . " SET " . implode(",", $sets);
+		$tableName = $this->getTableName();
+		$set = implode(",", $sets);
+		
+		$query = "UPDATE " . $tableName . " SET " . $set;
 
-		return Db::execute($query, $values);
+		if (!Db::execute($query, $values)) {
+			throw new DbException(
+				"Unable to update all records from the table: {table} with set: {set} and values: {values}",
+				[
+					"table"  => $tableName,
+					"set"    => $set,
+					"values" => $values
+				]
+			);
+		}
 	}
 
 	/**

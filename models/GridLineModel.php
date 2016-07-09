@@ -1,6 +1,7 @@
 <?php
 
 namespace models;
+use components\exceptions\ModelException;
 
 /**
  * Model for working with table "grid_lines"
@@ -134,15 +135,20 @@ class GridLineModel extends AbstractModel
 
 	/**
 	 * Runs before deleting
-	 *
-	 * @return bool
+	 * 
+	 * @throws ModelException
 	 */
 	protected function beforeDelete()
 	{
 		$gridModels = GridModel::model()->byLineId($this->id)->findAll();
 		foreach ($gridModels as $gridModel) {
 			if (!$gridModel->delete()) {
-				return false;
+				throw new ModelException(
+					"Unable to delete gridModel with ID = {id}",
+					[
+						"id" => $gridModel->id
+					]
+				);
 			}
 		}
 
@@ -162,7 +168,7 @@ class GridLineModel extends AbstractModel
 			$insideDesignModel->delete();
 		}
 
-		return parent::beforeDelete();
+		parent::beforeDelete();
 	}
 
 	/**
@@ -179,12 +185,17 @@ class GridLineModel extends AbstractModel
 	/**
 	 * Runs before save
 	 *
-	 * @return bool
+	 * @throws ModelException
 	 */
 	protected function beforeSave()
 	{
 		if ($this->section_id === 0 || SectionModel::model()->byId($this->section_id)->find() === null) {
-			return false;
+			throw new ModelException(
+				"Unable to find section by ID = {id}",
+				[
+					"id" => $this->section_id
+				]
+			);
 		}
 
 		if (!$this->outsideDesignModel instanceof DesignBlockModel) {
@@ -209,7 +220,7 @@ class GridLineModel extends AbstractModel
 			}
 		}
 
-		return parent::beforeSave();
+		parent::beforeSave();
 	}
 
 	/**
@@ -217,19 +228,14 @@ class GridLineModel extends AbstractModel
 	 *
 	 * @param int  $sectionId  Section's ID
 	 *
-	 * @return GridLineModel|null
+	 * @return GridLineModel
+	 * 
+	 * @throws ModelException
 	 */
 	public function duplicate($sectionId)
 	{
 		$outsideDesignModel = $this->outsideDesignModel->duplicate();
-		if ($outsideDesignModel === null) {
-			return null;
-		}
-
 		$insideDesignModel = $this->insideDesignModel->duplicate();
-		if ($insideDesignModel === null) {
-			return null;
-		}
 
 		$model = new GridLineModel();
 		$model->section_id = $sectionId;
@@ -239,14 +245,21 @@ class GridLineModel extends AbstractModel
 		$model->insideDesignModel = $insideDesignModel;
 		$model->inside_design_id = $insideDesignModel->id;
 		if (!$model->save()) {
-			return null;
+			$fields = "";
+			foreach ($model->getFieldNames() as $fieldName) {
+				$fields .= " {$fieldName}: " . $model->$fieldName;
+			}
+			throw new ModelException(
+				"Unable to duplicate GridLineModel with fields: {fields}",
+				[
+					"fields" => $fields
+				]
+			);
 		}
 
 		$grids = GridModel::model()->byLineId($this->id)->findAll();
 		foreach ($grids as $grid) {
-			if ($grid->duplicate($model->id) === null) {
-				return null;
-			}
+			$grid->duplicate($model->id);
 		}
 		
 		return $model;
