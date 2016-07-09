@@ -1,6 +1,7 @@
 <?php
 
 namespace applications;
+
 use commands\MigrateCommand;
 use components\Language;
 

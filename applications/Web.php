@@ -3,8 +3,6 @@
 namespace applications;
 
 use components\Db;
-use components\ErrorHandler;
-use components\Exception;
 use components\Language;
 use controllers\CommonController;
 use controllers\AbstractController;
