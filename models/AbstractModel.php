@@ -574,17 +574,4 @@ abstract class AbstractModel
 	{
 		return $this->relations;
 	}
-
-	/**
-	 * Duplicates model
-	 *
-	 * @return AbstractModel
-	 */
-	public function duplicate()
-	{
-		$model = clone $this;
-		$model->id = null;
-		
-		return $model;
-	}
 }
