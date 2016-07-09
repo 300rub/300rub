@@ -2,6 +2,7 @@
 
 namespace models;
 
+use components\exceptions\ModelException;
 use components\Language;
 
 /**
@@ -129,7 +130,9 @@ class SeoModel extends AbstractModel
 	/**
 	 * Duplicates SEO
 	 *
-	 * @return SeoModel|null
+	 * @return SeoModel
+	 * 
+	 * @throws ModelException
 	 */
 	public function duplicate()
 	{
@@ -141,7 +144,16 @@ class SeoModel extends AbstractModel
 		$model->description = "";
 
 		if (!$model->save()) {
-			return null;
+			$fields = "";
+			foreach ($model->getFieldNames() as $fieldName) {
+				$fields .= " {$fieldName}: " . $model->$fieldName;
+			}
+			throw new ModelException(
+				"Unable to duplicate SeoModel with fields: {fields}",
+				[
+					"fields" => $fields
+				]
+			);
 		}
 		
 		return $model;

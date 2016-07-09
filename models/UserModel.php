@@ -121,8 +121,6 @@ class UserModel extends AbstractModel
 
 	/**
 	 * Runs before saving
-	 *
-	 * @return bool
 	 */
 	protected function beforeSave()
 	{
@@ -130,7 +128,7 @@ class UserModel extends AbstractModel
 			$this->password = self::createPasswordHash($this->password);
 		}
 
-		return parent::beforeSave();
+		parent::beforeSave();
 	}
 
 	/**

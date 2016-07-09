@@ -2,6 +2,8 @@
 
 namespace models;
 
+use components\exceptions\ModelException;
+
 /**
  * Model for working with table "image_albums"
  *
@@ -100,7 +102,7 @@ class ImageAlbumModel extends AbstractModel
 			$this->sort = 0;
 		}
 
-		return parent::beforeSave();
+		parent::beforeSave();
 	}
 
 	/**
@@ -130,18 +132,21 @@ class ImageAlbumModel extends AbstractModel
 
 	/**
 	 * Runs before delete
-	 *
-	 * @return bool
 	 */
 	protected function beforeDelete()
 	{
 		$imageInstances = ImageInstanceModel::model()->byAlbumId($this->id)->findAll();
 		foreach ($imageInstances as $imageInstance) {
 			if (!$imageInstance->delete()) {
-				return false;
+				throw new ModelException(
+					"Unable to delete ImageInstance with ID = {id}",
+					[
+						"id" => $imageInstance->id
+					]
+				);
 			}
 		}
 
-		return parent::beforeDelete();
+		parent::beforeDelete();
 	}
 }

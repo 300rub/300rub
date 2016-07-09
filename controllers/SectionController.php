@@ -200,9 +200,10 @@ class SectionController extends AbstractController
      */
     public function actionSaveDesign()
     {
+        $this->getModel(["designBlockModel"])->saveDesign($this->data);
+        
         $this->json = [
-            "result"  => $this->getModel(["designBlockModel"])->saveDesign($this->data),
-            "content" => "section.panelList",
+            "result" => "true",
         ];
     }
 

@@ -1,6 +1,8 @@
 <?php
 
 namespace models;
+
+use components\exceptions\ModelException;
 use components\File;
 
 /**
@@ -254,8 +256,6 @@ class ImageInstanceModel extends AbstractModel
 
 	/**
 	 * Runs before save
-	 *
-	 * @return bool
 	 */
 	protected function beforeSave()
 	{
@@ -339,10 +339,10 @@ class ImageInstanceModel extends AbstractModel
 		}
 
 		if (!$this->file_name) {
-			return false;
+			throw new ModelException("Unable to save ImageInstanceModel because file_name is null");
 		}
 
-		return parent::beforeSave();
+		parent::beforeSave();
 	}
 
 	/**
@@ -371,8 +371,6 @@ class ImageInstanceModel extends AbstractModel
 
 	/**
 	 * Runs before deleting
-	 *
-	 * @return bool
 	 */
 	protected function beforeDelete()
 	{
@@ -384,7 +382,7 @@ class ImageInstanceModel extends AbstractModel
 		$fileView->delete();
 		$fileThumb->delete();
 
-		return parent::beforeDelete();
+		parent::beforeDelete();
 	}
 
 	/**

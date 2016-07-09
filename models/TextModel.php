@@ -2,7 +2,7 @@
 
 namespace models;
 
-use components\Exception;
+use components\exceptions\ModelException;
 use components\Language;
 
 /**
@@ -242,8 +242,6 @@ class TextModel extends AbstractModel
 
 	/**
 	 * Runs before save
-	 *
-	 * @return bool
 	 */
 	protected function beforeSave()
 	{
@@ -276,7 +274,7 @@ class TextModel extends AbstractModel
 			}
 		}
 
-		return parent::beforeSave();
+		parent::beforeSave();
 	}
 
 	/**
@@ -293,45 +291,45 @@ class TextModel extends AbstractModel
 	 * Duplicates text
 	 * If success returns ID of new text
 	 *
-	 * @return TextModel|null
+	 * @return TextModel
+	 * 
+	 * @throws ModelException
 	 */
 	public function duplicate()
 	{
-		try {
-			$modelForCopy = $this->withAll()->byId($this->id)->find();
+		$modelForCopy = $this->withAll()->byId($this->id)->find();
 
-			$designTextModel = $modelForCopy->designTextModel->duplicate();
-			if ($designTextModel === null) {
-				return null;
-			}
+		$designTextModel = $modelForCopy->designTextModel->duplicate();
+		$designBlockModel = $modelForCopy->designBlockModel->duplicate();
 
-			$designBlockModel = $modelForCopy->designBlockModel->duplicate();
-			if ($designBlockModel === null) {
-				return null;
+		$model = clone $this;
+		$model->name = Language::t("common", "copy") . " {$this->name}";
+		$model->id = 0;
+		$model->text = "";
+		$model->designTextModel = $designTextModel;
+		$model->design_text_id = $designTextModel->id;
+		$model->designBlockModel = $designBlockModel;
+		$model->design_block_id = $designBlockModel->id;
+		if (!$model->save()) {
+			$fields = "";
+			foreach ($model->getFieldNames() as $fieldName) {
+				$fields .= " {$fieldName}: " . $model->$fieldName;
 			}
-
-			$model = clone $this;
-			$model->name = Language::t("common", "copy") . " {$this->name}";
-			$model->id = 0;
-			$model->text = "";
-			$model->designTextModel = $designTextModel;
-			$model->design_text_id = $designTextModel->id;
-			$model->designBlockModel = $designBlockModel;
-			$model->design_block_id = $designBlockModel->id;
-			if (!$model->save()) {
-				return null;
-			}
-			
-			return $model;
-		} catch (Exception $e) {
-			return null;
+			throw new ModelException(
+				"Unable to duplicate TextModel with fields: {fields}",
+				[
+					"fields" => $fields
+				]
+			);
 		}
+		
+		return $model;
 	}
 
 	/**
 	 * Runs before delete
 	 *
-	 * @return bool
+	 * @throws ModelException
 	 */
 	protected function beforeDelete()
 	{
@@ -340,7 +338,14 @@ class TextModel extends AbstractModel
 			$designTextModel = DesignTextModel::model()->byId($this->design_text_id)->find();
 		}
 		if ($designTextModel instanceof DesignTextModel) {
-			$designTextModel->delete();
+			if (!$designTextModel->delete()) {
+				throw new ModelException(
+					"Unable to delete DesignTextModel model with ID = {id}",
+					[
+						"id" => $designTextModel->id
+					]
+				);
+			}
 		}
 
 		$designBlockModel = $this->designBlockModel;
@@ -348,9 +353,16 @@ class TextModel extends AbstractModel
 			$designBlockModel = DesignBlockModel::model()->byId($this->design_block_id)->find();
 		}
 		if ($designBlockModel instanceof DesignBlockModel) {
-			$designBlockModel->delete();
+			if (!$designBlockModel->delete()) {
+				throw new ModelException(
+					"Unable to delete DesignBlockModel model with ID = {id}",
+					[
+						"id" => $designBlockModel->id
+					]
+				);
+			}
 		}
 
-		return parent::beforeDelete();
+		parent::beforeDelete();
 	}
 }

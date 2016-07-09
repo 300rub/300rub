@@ -2,7 +2,7 @@
 
 namespace models;
 
-use components\Exception;
+use components\exceptions\ModelException;
 use components\Language;
 
 /**
@@ -235,8 +235,6 @@ class ImageModel extends AbstractModel
 
 	/**
 	 * Runs before save
-	 *
-	 * @return bool
 	 */
 	protected function beforeSave()
 	{
@@ -305,7 +303,7 @@ class ImageModel extends AbstractModel
 			$this->crop_y = 0;
 		}
 
-		return parent::beforeSave();
+		parent::beforeSave();
 	}
 
 	/**
@@ -322,58 +320,68 @@ class ImageModel extends AbstractModel
 	 * Duplicates image
 	 * If success returns ID of new image
 	 *
-	 * @return ImageModel|null
+	 * @return ImageModel
+	 * 
+	 * @throws ModelException
 	 */
 	public function duplicate()
 	{
-		try {
-			$modelForCopy = $this->withAll()->byId($this->id)->find();
+		$modelForCopy = $this->withAll()->byId($this->id)->find();
 
-			$designBlockModel = $modelForCopy->designBlockModel->duplicate();
-			if ($designBlockModel === null) {
-				return null;
-			}
+		$designBlockModel = $modelForCopy->designBlockModel->duplicate();
+		$designImageBlockModel = $modelForCopy->designImageBlockModel->duplicate();
 
-			$designImageBlockModel = $modelForCopy->designImageBlockModel->duplicate();
-			if ($designImageBlockModel === null) {
-				return null;
+		$model = clone $this;
+		$model->id = 0;
+		$model->name = Language::t("common", "copy") . " {$this->name}";
+		$model->designBlockModel = $designBlockModel;
+		$model->design_block_id = $designBlockModel->id;
+		$model->designImageBlockModel = $designImageBlockModel;
+		$model->design_image_block_id = $designImageBlockModel->id;
+		if (!$model->save()) {
+			$fields = "";
+			foreach ($model->getFieldNames() as $fieldName) {
+				$fields .= " {$fieldName}: " . $model->$fieldName;
 			}
-
-			$model = clone $this;
-			$model->id = 0;
-			$model->name = Language::t("common", "copy") . " {$this->name}";
-			$model->designBlockModel = $designBlockModel;
-			$model->design_block_id = $designBlockModel->id;
-			$model->designImageBlockModel = $designImageBlockModel;
-			$model->design_image_block_id = $designImageBlockModel->id;
-			if (!$model->save()) {
-				return null;
-			}
-			
-			return $model;
-		} catch (Exception $e) {
-			return null;
+			throw new ModelException(
+				"Unable to duplicate ImageModel with fields: {fields}",
+				[
+					"fields" => $fields
+				]
+			);
 		}
+		
+		return $model;
 	}
 
 	/**
 	 * Runs before delete
-	 *
-	 * @return bool
+	 * 
+	 * @throws ModelException
 	 */
 	protected function beforeDelete()
 	{
 		$imageAlbums = ImageAlbumModel::model()->byImageId($this->id)->findAll();
 		foreach ($imageAlbums as $imageAlbum) {
 			if (!$imageAlbum->delete()) {
-				return false;
+				throw new ModelException(
+					"Unable to delete ImageAlbumModel model with ID = {id}",
+					[
+						"id" => $imageAlbum->id
+					]
+				);
 			}
 		}
 
 		$imageInstances = ImageInstanceModel::model()->byAlbumId()->findAll();
 		foreach ($imageInstances as $imageInstance) {
 			if (!$imageInstance->delete()) {
-				return false;
+				throw new ModelException(
+					"Unable to delete ImageInstanceModel model with ID = {id}",
+					[
+						"id" => $imageInstance->id
+					]
+				);
 			}
 		}
 
@@ -383,7 +391,12 @@ class ImageModel extends AbstractModel
 		}
 		if ($designBlockModel instanceof DesignBlockModel) {
 			if (!$designBlockModel->delete()) {
-				return false;
+				throw new ModelException(
+					"Unable to delete DesignBlockModel model with ID = {id}",
+					[
+						"id" => $designBlockModel->id
+					]
+				);
 			}
 		}
 
@@ -393,11 +406,16 @@ class ImageModel extends AbstractModel
 		}
 		if ($designImageBlockModel instanceof DesignBlockModel) {
 			if (!$designImageBlockModel->delete()) {
-				return false;
+				throw new ModelException(
+					"Unable to delete DesignBlockModel model with ID = {id}",
+					[
+						"id" => $designImageBlockModel->id
+					]
+				);
 			}
 		}
 
-		return parent::beforeDelete();
+		parent::beforeDelete();
 	}
 
 	/**

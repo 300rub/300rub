@@ -2,7 +2,8 @@
 
 namespace models;
 
-use components\Exception;
+use components\exceptions\ContentException;
+use components\exceptions\ModelException;
 use components\Language;
 
 /**
@@ -180,13 +181,11 @@ class SectionModel extends AbstractModel
 
 	/**
 	 * Runs before save
-	 *
-	 * @return bool
 	 */
 	protected function beforeSave()
 	{
-		if ($this->is_main === 1 && !$this->updateForAll(["is_main" => 0])) {
-			return false;
+		if ($this->is_main === 1) {
+			$this->updateForAll(["is_main" => 0]);
 		}
 		if ($this->is_main === 0 && !$this->selectMain()->exceptId($this->id)->find()) {
 			$this->is_main = 1;
@@ -203,7 +202,7 @@ class SectionModel extends AbstractModel
 			}
 		}
 
-		return parent::beforeSave();
+		parent::beforeSave();
 	}
 
 	/**
@@ -249,14 +248,19 @@ class SectionModel extends AbstractModel
 	/**
 	 * Runs before delete
 	 *
-	 * @return bool
+	 * @throws ModelException
 	 */
 	protected function beforeDelete()
 	{
 		$gridLineModels = GridLineModel::model()->bySectionId($this->id)->withAll()->findAll();
 		foreach ($gridLineModels as $gridLineModel) {
 			if (!$gridLineModel->delete()) {
-				return false;
+				throw new ModelException(
+					"Unable to delete GridLineModel model with ID = {id}",
+					[
+						"id" => $gridLineModel->id
+					]
+				);
 			}
 		}
 
@@ -265,7 +269,14 @@ class SectionModel extends AbstractModel
 			$seoModel = SeoModel::model()->byId($this->seo_id)->find();
 		}
 		if ($seoModel instanceof SeoModel) {
-			$seoModel->delete();
+			if (!$seoModel->delete()) {
+				throw new ModelException(
+					"Unable to delete SeoModel model with ID = {id}",
+					[
+						"id" => $seoModel->id
+					]
+				);
+			}
 		}
 
 		$designBlockModel = $this->designBlockModel;
@@ -273,7 +284,14 @@ class SectionModel extends AbstractModel
 			$designBlockModel = DesignBlockModel::model()->byId($this->design_block_id)->find();
 		}
 		if ($designBlockModel instanceof DesignBlockModel) {
-			$designBlockModel->delete();
+			if (!$designBlockModel->delete()) {
+				throw new ModelException(
+					"Unable to delete DesignBlockModel model with ID = {id}",
+					[
+						"id" => $designBlockModel->id
+					]
+				);
+			}
 		}
 
 		if ($this->is_main) {
@@ -281,74 +299,80 @@ class SectionModel extends AbstractModel
 			if ($model) {
 				$model->is_main = 1;
 				if (!$model->save()) {
-					return false;
+					throw new ModelException(
+						"Unable to update section for is_main = 1 for ID = {id}",
+						[
+							"id" => $model->id
+						]
+					);
 				}
 			}
 		}
 
-		return parent::beforeDelete();
+		parent::beforeDelete();
 	}
 
 	/**
 	 * Duplicates section
 	 * If success returns ID of new section
 	 *
-	 * @return SectionModel|null
+	 * @return SectionModel
+	 * 
+	 * @throws ModelException
 	 */
 	public function duplicate()
 	{
-		try {
-			$modelForCopy = $this->withAll()->byId($this->id)->find();
+		$modelForCopy = $this->withAll()->byId($this->id)->find();
 
-			$seoModel = $modelForCopy->seoModel->duplicate();
-			if ($seoModel === null) {
-				return null;
+		$seoModel = $modelForCopy->seoModel->duplicate();
+		$designBlockModel = $modelForCopy->designBlockModel->duplicate();
+
+		$model = new SectionModel();
+		$model->seoModel = $seoModel;
+		$model->seo_id = $seoModel->id;
+		$model->language = $modelForCopy->language;
+		$model->width = $modelForCopy->width;
+		$model->is_main = 0;
+		$model->designBlockModel = $designBlockModel;
+		$model->design_block_id = $designBlockModel->id;
+		if (!$model->save()) {
+			$fields = "";
+			foreach ($model->getFieldNames() as $fieldName) {
+				$fields .= " {$fieldName}: " . $model->$fieldName;
 			}
-
-			$designBlockModel = $modelForCopy->designBlockModel->duplicate();
-			if ($designBlockModel === null) {
-				return null;
-			}
-
-			$model = new SectionModel();
-			$model->seoModel = $seoModel;
-			$model->seo_id = $seoModel->id;
-			$model->language = $modelForCopy->language;
-			$model->width = $modelForCopy->width;
-			$model->is_main = 0;
-			$model->designBlockModel = $designBlockModel;
-			$model->design_block_id = $designBlockModel->id;
-			if (!$model->save()) {
-				return null;
-			}
-
-			$gridLines = GridLineModel::model()->bySectionId($modelForCopy->id)->withAll()->findAll();
-			foreach ($gridLines as $gridLine) {
-				if ($gridLine->duplicate($model->id) === null) {
-					return null;
-				}
-			}
-
-			return $model;
-		} catch (Exception $e) {
-			return null;
+			throw new ModelException(
+				"Unable to duplicate SectionModel with fields: {fields}",
+				[
+					"fields" => $fields
+				]
+			);
 		}
+
+		$gridLines = GridLineModel::model()->bySectionId($modelForCopy->id)->withAll()->findAll();
+		foreach ($gridLines as $gridLine) {
+			$gridLine->duplicate($model->id);
+		}
+
+		return $model;
 	}
 
 	/**
 	 * Saves design
 	 *
 	 * @param array $data Data
-	 *
-	 * @return bool
+	 * 
+	 * @throws ContentException
+	 * @throws ModelException
 	 */
 	public function saveDesign($data)
 	{
-		if (!isset($data["designBlockModel"]))
+		if (!isset($data["designBlockModel"])) {
+			throw new ContentException("Unable to find designBlockModel in content");
+		}
 
 		$this->designBlockModel->setAttributes($data["designBlockModel"]);
 		if (!$this->designBlockModel->save()) {
-			return false;
+			throw new ModelException("Unable to save DesignBlockModel");
 		}
 
 		foreach ($data["lines"] as $id => $values) {
@@ -357,14 +381,22 @@ class SectionModel extends AbstractModel
 				->byId($id)
 				->find();
 			if (!$gridLineModel) {
-				return false;
+				throw new ModelException(
+					"Unable to find GridLineModel by ID = {id}",
+					[
+						"id" => $id
+					]
+				);
 			}
 			$gridLineModel->setAttributes($values);
 			if (!$gridLineModel->save()) {
-				return false;
+				throw new ModelException(
+					"Unable to save GridLineModel with ID = {id}",
+					[
+						"id" => $gridLineModel->id
+					]
+				);
 			}
 		}
-
-		return true;
 	}
 }
