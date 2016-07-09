@@ -61,4 +61,25 @@ class CommonController extends AbstractController
             }
         }
     }
+
+    /**
+     * Displays error page
+     *
+     * @param string $message    Message
+     * @param int    $statusCode Status
+     */
+    public function actionError($message, $statusCode)
+    {
+        header("HTTP/1.0 {$statusCode}");
+        
+        $this->renderPartial(
+            "common.error",
+            [
+                "statusCode" => $statusCode,
+                "message"    => str_replace("\n", "<br />", $message)
+            ]
+        );
+
+        exit();
+    }
 }

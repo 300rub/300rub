@@ -3,10 +3,15 @@
 namespace applications;
 
 use components\Db;
+use components\exceptions\AccessException;
+use components\exceptions\CommonException;
+use components\exceptions\ContentException;
+use components\exceptions\DbException;
 use components\Language;
 use controllers\CommonController;
 use controllers\AbstractController;
 use models\UserModel;
+use Exception;
 
 /**
  * Class for working with WEB application
@@ -22,13 +27,6 @@ class Web extends AbstractApplication
 	 * @var int
 	 */
 	private $_startTime = 0;
-
-	/**
-	 * Time of script executing
-	 *
-	 * @var float
-	 */
-	private $_time = 0;
 
 	/**
 	 * User's model
@@ -51,9 +49,21 @@ class Web extends AbstractApplication
 	 */
 	public function run()
 	{
-		session_start();
-		$this->_startTime = microtime(true);
-		$this->_setSite()->_setUser()->_runController();
+		try {
+			session_start();
+			$this->_startTime = microtime(true);
+			$this->_setSite()->_setUser()->_runController();
+		} catch (Exception $e) {
+			$controller = new CommonController();
+			
+			if ($this->config->isDebug) {
+				$message = $e->getMessage();
+			} else {
+				$message = Language::t("common", "error");
+			}
+			
+			$controller->actionError($message, $e->getCode());
+		}
 	}
 
 	/**
@@ -80,7 +90,8 @@ class Web extends AbstractApplication
 	/**
 	 * Sets site
 	 *
-	 * @throws Exception
+	 * @throws CommonException
+	 * @throws DbException
 	 *
 	 * @return Web
 	 */
@@ -91,12 +102,17 @@ class Web extends AbstractApplication
 			$host = substr($host, 4);
 		}
 		if (!$host) {
-			throw new Exception("Unable to determine the address of the site");
+			throw new CommonException("Unable to determine the host of the site");
 		}
 
-		$site = Db::fetch("SELECT * FROM sites WHERE host = ?", [$host]);
+		$site = Db::fetch("SELECT" . " * FROM sites WHERE host = ?", [$host]);
 		if (!$site) {
-			throw new Exception("Unable to determine the site");
+			throw new CommonException(
+				"Unable to find the site with the host: {host}",
+				[
+					"host" => $host
+				]
+			);
 		}
 
 		App::web()->config->siteId = $site["id"];
@@ -106,7 +122,12 @@ class Web extends AbstractApplication
 		}
 
 		if (!Db::setPdo($site["db_host"], $site["db_user"], $site["db_password"], $site["db_name"])) {
-			throw new Exception("Unable to connect to database");
+			throw new DbException(
+				"Unable to connect to database for host: {host}",
+				[
+					"host" => $host
+				]
+			);
 		}
 
 		Language::$activeId = $site["language"];
@@ -139,10 +160,6 @@ class Web extends AbstractApplication
 
 	/**
 	 * Runs ajax
-	 *
-	 * @throws Exception
-	 *
-	 * @return void
 	 */
 	private function _runAjax()
 	{
@@ -155,13 +172,13 @@ class Web extends AbstractApplication
 				empty($_SERVER['HTTP_X_REQUESTED_WITH'])
 				|| strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) !== 'xmlhttprequest'
 			) {
-				throw new Exception("This is not ajax request", ErrorHandler::STATUS_NOT_FOUND);
+				throw new ContentException("Only AJAX request is allowed");
 			}
 
 			$this->isAjax = true;
 
 			if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-				throw new Exception("REQUEST_METHOD is not POST", ErrorHandler::STATUS_NOT_FOUND);
+				throw new ContentException("Only POST method is allowed");
 			}
 
 			$input = json_decode(file_get_contents('php://input'));
@@ -171,17 +188,22 @@ class Web extends AbstractApplication
 				|| empty($input->language)
 				|| !isset($input->fields)
 			) {
-				throw new Exception("Incorrect post data", ErrorHandler::STATUS_NOT_FOUND);
+				throw new ContentException("Incorrect post data");
 			}
 
 			$controllerParams = explode(AbstractController::ACTION_SEPARATOR, $input->action);
 			if (count($controllerParams) !== 2) {
-				throw new Exception("Incorrect \"action\" parameter", ErrorHandler::STATUS_NOT_FOUND);
+				throw new ContentException("Incorrect \"action\" parameter");
 			}
 
 			$className = "\\controllers\\" . ucfirst($controllerParams[0]) . "Controller";
 			if (!class_exists($className)) {
-				throw new Exception("Class \"$className\" doesn't exists");
+				throw new CommonException(
+					"Class: {className} doesn't exists",
+					[
+						"className" => $className
+					]
+				);
 			}
 
 			/**
@@ -190,11 +212,22 @@ class Web extends AbstractApplication
 			$controller = new $className;
 			$methodName = "action" . ucfirst($controllerParams[1]);
 			if (!method_exists($controller, $methodName)) {
-				throw new Exception("Class \"{$className} {$methodName}\" doesn't exists");
+				throw new CommonException(
+					"Method: {methodName} doesn't exist in class: {className}",
+					[
+						"methodName" => $methodName,
+						"className"  => $className
+					]
+				);
 			}
 
 			if (!$controller->hasAccess($methodName)) {
-				throw new Exception("Access denied", ErrorHandler::STATUS_ACCESS_DENIED);
+				throw new AccessException(
+					"Access denied for the method {methodName}",
+					[
+						"methodName" => $methodName
+					]
+				);
 			}
 
 			Language::setIdByAlias($input->language);
@@ -219,11 +252,19 @@ class Web extends AbstractApplication
 				Db::rollbackTransaction();
 			}
 
-			http_response_code($e->statusCode);
-			$json = ["error" => $e->getMessage()];
-		}
+			if ($this->config->isDebug) {
+				$message = $e->getMessage();
+			} else {
+				$message = Language::t("common", "error");
+			}
 
-		$this->_time = number_format(microtime(true) - $this->_startTime, 3);
+			http_response_code($e->getCode());
+			$json = [
+				"error" => $message
+			];
+		}
+		
+		$json["time"] = number_format(microtime(true) - $this->_startTime, 3);
 
 		header('Content-Type: application/json');
 		echo json_encode($json);
@@ -242,7 +283,5 @@ class Web extends AbstractApplication
 			Language::setIdByAlias($params[0]);
 		}
 		(new CommonController)->actionStructure(!empty($params[1]) ? $params[1] : null);
-
-		$this->_time = number_format(microtime(true) - $this->_startTime, 3);
 	}
 }

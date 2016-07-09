@@ -54,5 +54,9 @@ return [
     "seo" => [
         Language::LANGUAGE_EN_ID => "SEO",
         Language::LANGUAGE_RU_ID => "",
-    ]
+    ],
+    "error" => [
+        Language::LANGUAGE_EN_ID => "Error!!!",
+        Language::LANGUAGE_RU_ID => "",
+    ],
 ];
