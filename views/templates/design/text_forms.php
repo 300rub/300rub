@@ -23,13 +23,13 @@ use models\DesignTextModel;
 		</div>
 
 		<div class="j-font-weight-container">
-			<input type="checkbox" class="j-hide j-checkbox" title="font-weight" />
+			<input type="checkbox" class="d-hide j-checkbox" title="font-weight" />
 			<label><strong>B</strong></label>
 			<input type="hidden" class="j-value">
 		</div>
 
 		<div class="j-font-style-container">
-			<input type="checkbox" class="j-hide j-checkbox" title="font-style" />
+			<input type="checkbox" class="d-hide j-checkbox" title="font-style" />
 			<label><i>I</i></label>
 			<input type="hidden" class="j-value">
 		</div>
@@ -42,7 +42,7 @@ use models\DesignTextModel;
 			<?php foreach (DesignTextModel::$textAlignList as $key => $value) { ?>
 				<div class="j-radio-container">
 					<input
-						class="j-hide j-text-align"
+						class="d-hide j-text-align"
 						type="radio"
 						value="<?= $key ?>"
 						data-value="<?= $value ?>"
@@ -57,7 +57,7 @@ use models\DesignTextModel;
 			<?php foreach (DesignTextModel::$textTransformList as $key => $value) { ?>
 				<div class="j-radio-container">
 					<input
-						class="j-hide j-text-transform"
+						class="d-hide j-text-transform"
 						type="radio"
 						value="<?= $key ?>"
 						data-value="<?= $value ?>"
@@ -72,7 +72,7 @@ use models\DesignTextModel;
 			<?php foreach (DesignTextModel::$textDecorationList as $key => $value) { ?>
 				<div class="j-radio-container">
 					<input
-						class="j-hide j-text-decoration"
+						class="d-hide j-text-decoration"
 						type="radio"
 						value="<?= $key ?>"
 						data-value="<?= $value ?>"

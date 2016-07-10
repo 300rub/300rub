@@ -52,9 +52,9 @@
          * @private
          */
 		_onPanelButtonClick: function () {
-			c.admin.$adminBottomContainer.find(".j-panel-open").removeClass("j-panel-open-active");
+			c.admin.$adminBottomContainer.find(".j-panel-open").removeClass("d-panel-open-active");
 			c.admin.activePanelContainer = $(this).data("container");
-			$(this).addClass("j-panel-open-active");
+			$(this).addClass("d-panel-open-active");
 			$.panel({
 				action: $(this).data("action")
 			});

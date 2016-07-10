@@ -33,21 +33,21 @@
 			&& $seoContainer.find(".j-seoModel__keywords").val() === ""
 			&& $seoContainer.find(".j-seoModel__description").val() === ""
 		) {
-			$seoContainer.addClass("j-hide");
-			$seoTitle.find(".j-up").removeClass("j-hide");
+			$seoContainer.addClass("d-hide");
+			$seoTitle.find(".j-up").removeClass("d-hide");
 		} else {
-			$seoTitle.find(".j-down").removeClass("j-hide");
+			$seoTitle.find(".j-down").removeClass("d-hide");
 		}
 
 		$seoTitle.on("click", function() {
-			if ($seoContainer.hasClass("j-hide")) {
-				$seoTitle.find(".j-up").addClass("j-hide");
-				$seoTitle.find(".j-down").removeClass("j-hide");
-				$seoContainer.removeClass("j-hide");
+			if ($seoContainer.hasClass("d-hide")) {
+				$seoTitle.find(".j-up").addClass("d-hide");
+				$seoTitle.find(".j-down").removeClass("d-hide");
+				$seoContainer.removeClass("d-hide");
 			} else {
-				$seoTitle.find(".j-up").removeClass("j-hide");
-				$seoTitle.find(".j-down").addClass("j-hide");
-				$seoContainer.addClass("j-hide");
+				$seoTitle.find(".j-up").removeClass("d-hide");
+				$seoTitle.find(".j-down").addClass("d-hide");
+				$seoContainer.addClass("d-hide");
 			}
 		});
 

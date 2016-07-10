@@ -4,7 +4,7 @@ use components\Language;
 
 <a class="j-panel-settings-duplicate">
     <span class="j-label"><?= Language::t("common", "duplicate") ?></span>
-    <div class="j-loader j-hide">
+    <div class="j-loader d-hide">
         loading
     </div>
 </a>
@@ -13,7 +13,7 @@ use components\Language;
     data-confirm="<?= Language::t("section", "deleteConfirmation") ?>"
 >
     <span class="j-label"><?= Language::t("common", "delete") ?></span>
-    <div class="j-loader j-hide">
+    <div class="j-loader d-hide">
         loading
     </div>
 </a>

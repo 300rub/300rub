@@ -209,8 +209,8 @@
 	 * @private
 	 */
 	c.Panel.prototype._onDesignSubmitBefore = function () {
-		this.$_designSubmit.find(".j-label").addClass("j-hide");
-		this.$_designSubmit.find(".j-loader").removeClass("j-hide");
+		this.$_designSubmit.find(".j-label").addClass("d-hide");
+		this.$_designSubmit.find(".j-loader").removeClass("d-hide");
 	};
 
 	/**
@@ -221,8 +221,8 @@
 	 * @private
 	 */
 	c.Panel.prototype._onDesignSubmitSuccess = function (data) {
-		this.$_designSubmit.find(".j-label").removeClass("j-hide");
-		this.$_designSubmit.find(".j-loader").addClass("j-hide");
+		this.$_designSubmit.find(".j-label").removeClass("d-hide");
+		this.$_designSubmit.find(".j-loader").addClass("d-hide");
 
 		$.panel({
 			action: this.data.submit.content

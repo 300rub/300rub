@@ -37,8 +37,8 @@ use components\Language;
 
     <a class="l-form-seo-title j-form-seo-title">
         <?= Language::t("common", "seo") ?>
-        <i class="fa fa-chevron-down j-down j-hide"></i>
-        <i class="fa fa-chevron-up j-up j-hide"></i>
+        <i class="fa fa-chevron-down j-down d-hide"></i>
+        <i class="fa fa-chevron-up j-up d-hide"></i>
     </a>
     <div class="j-form-seo-container">
         <div class="l-form-group">

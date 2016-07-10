@@ -100,11 +100,11 @@
 			this.$overlay.on("click", $.proxy(this.close, this));
 
 			setTimeout($.proxy(function () {
-				this.$window.addClass("j-opacity");
+				this.$window.addClass("d-opacity");
 			}, this), 100);
 
 			setTimeout($.proxy(function () {
-				this.$overlay.addClass("j-opacity-20");
+				this.$overlay.addClass("d-opacity-20");
 			}, this), 100);
 
 			$.ajaxJson(
@@ -137,12 +137,12 @@
 		 * @private
 		 */
 		close: function () {
-			this.$window.removeClass("j-opacity");
+			this.$window.removeClass("d-opacity");
 			setTimeout($.proxy(function () {
 				this.$window.remove();
 			}, this), 300);
 
-			this.$overlay.removeClass("j-opacity-20");
+			this.$overlay.removeClass("d-opacity-20");
 			setTimeout($.proxy(function () {
 				this.$overlay.remove();
 			}, this), 300);
@@ -156,7 +156,7 @@
 		 * @private
 		 */
 		_onLoadBefore: function () {
-			this.$container.find(".j-loader").removeClass("j-hide");
+			this.$container.find(".j-loader").removeClass("d-hide");
 		},
 
 		/**
@@ -167,12 +167,12 @@
 		 * @private
 		 */
 		_onLoadSuccess: function (data) {
-			this.$container.find(".j-loader").addClass("j-hide");
+			this.$container.find(".j-loader").addClass("d-hide");
 
 			this.data = data;
 
-			this.$window.find(".j-header").text(data.title).removeClass("j-hide");
-			this.$window.find(".j-footer").removeClass("j-hide");
+			this.$window.find(".j-header").text(data.title).removeClass("d-hide");
+			this.$window.find(".j-footer").removeClass("d-hide");
 
 			if (this.data.button !== undefined) {
 				if (this.data.button.label !== undefined) {
@@ -210,8 +210,8 @@
 				$errorTemplate.text($.parseJSON(jqXHR.responseText).error);
 			}
 			
-			this.$window.find(".j-header").addClass("j-hide");
-			this.$window.find(".j-footer").addClass("j-hide");
+			this.$window.find(".j-header").addClass("d-hide");
+			this.$window.find(".j-footer").addClass("d-hide");
 			this.$container.html("");
 			$errorTemplate.appendTo(this.$container);
 		},
@@ -247,8 +247,8 @@
 				return false;
 			}
 
-			this.$submit.find(".j-icon").addClass("j-hide");
-			this.$submit.find(".j-loader").removeClass("j-hide");
+			this.$submit.find(".j-icon").addClass("d-hide");
+			this.$submit.find(".j-loader").removeClass("d-hide");
 		},
 
 		/**
@@ -259,8 +259,8 @@
 		 * @private
 		 */
 		_onSubmitSuccess: function (data) {
-			this.$submit.find(".j-icon").removeClass("j-hide");
-			this.$submit.find(".j-loader").addClass("j-hide");
+			this.$submit.find(".j-icon").removeClass("d-hide");
+			this.$submit.find(".j-loader").addClass("d-hide");
 
 			if (!$.isEmptyObject(data.errors)) {
 				$.validator(this.$window.find(".j-window-form")).showErrors(data.errors);

@@ -77,8 +77,8 @@
 	 * @private
 	 */
 	c.Panel.prototype._onSettingsDuplicateBefore = function () {
-		this.$_settingsDuplicate.find(".j-label").addClass("j-hide");
-		this.$_settingsDuplicate.find(".j-loader").removeClass("j-hide");
+		this.$_settingsDuplicate.find(".j-label").addClass("d-hide");
+		this.$_settingsDuplicate.find(".j-loader").removeClass("d-hide");
 	};
 
 	/**
@@ -89,8 +89,8 @@
 	 * @private
 	 */
 	c.Panel.prototype._onSettingsDuplicateSuccess = function (data) {
-		this.$_settingsDuplicate.find(".j-label").removeClass("j-hide");
-		this.$_settingsDuplicate.find(".j-loader").addClass("j-hide");
+		this.$_settingsDuplicate.find(".j-label").removeClass("d-hide");
+		this.$_settingsDuplicate.find(".j-loader").addClass("d-hide");
 
 		if (parseInt(data.id) !== 0) {
 			$.panel({
@@ -150,8 +150,8 @@
 	 * @private
 	 */
 	c.Panel.prototype._onSettingsDeleteBefore = function () {
-		this.$_settingsDelete.find(".j-label").addClass("j-hide");
-		this.$_settingsDelete.find(".j-loader").removeClass("j-hide");
+		this.$_settingsDelete.find(".j-label").addClass("d-hide");
+		this.$_settingsDelete.find(".j-loader").removeClass("d-hide");
 	};
 
 	/**
@@ -162,8 +162,8 @@
 	 * @private
 	 */
 	c.Panel.prototype._onSettingsDeleteSuccess = function (data) {
-		this.$_settingsDelete.find(".j-label").removeClass("j-hide");
-		this.$_settingsDelete.find(".j-loader").addClass("j-hide");
+		this.$_settingsDelete.find(".j-label").removeClass("d-hide");
+		this.$_settingsDelete.find(".j-loader").addClass("d-hide");
 
 		if (parseInt(data.result) === true) {
 			if (parseInt(this.id) === c.sectionId || c.sectionId === 0) {
@@ -217,8 +217,8 @@
 			return false;
 		}
 
-		this.$_settingsSubmit.find(".j-icon").addClass("j-hide");
-		this.$_settingsSubmit.find(".j-loader").removeClass("j-hide");
+		this.$_settingsSubmit.find(".j-icon").addClass("d-hide");
+		this.$_settingsSubmit.find(".j-loader").removeClass("d-hide");
 	};
 
 	/**
@@ -229,8 +229,8 @@
 	 * @private
 	 */
 	c.Panel.prototype._onSettingsSubmitSuccess = function (data) {
-		this.$_settingsSubmit.find(".j-icon").removeClass("j-hide");
-		this.$_settingsSubmit.find(".j-loader").addClass("j-hide");
+		this.$_settingsSubmit.find(".j-icon").removeClass("d-hide");
+		this.$_settingsSubmit.find(".j-loader").addClass("d-hide");
 
 		if ($.type(data.errors) === "array" && data.errors.length === 0) {
 			$.panel({

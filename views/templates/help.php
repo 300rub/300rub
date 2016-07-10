@@ -5,7 +5,7 @@ use components\Language;
     <a class="l-close j-close"></a>
     
     <div class="l-container j-container">
-        <div class="j-loader j-hide">
+        <div class="j-loader d-hide">
             Loading
         </div>
         <div class="j-content"></div>

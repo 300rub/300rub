@@ -61,7 +61,7 @@
 		 */
 		init: function () {
 			var $oldPanels = c.$ajaxWrapper.find(".j-panel");
-			$oldPanels.removeClass("j-opacity");
+			$oldPanels.removeClass("d-opacity");
 			setTimeout($.proxy(function () {
 				$oldPanels.remove();
 			}, this), 300);
@@ -76,7 +76,7 @@
 			this.$panel.find(".j-close").on("click", $.proxy(this.close, this));
 
 			setTimeout($.proxy(function () {
-				this.$panel.addClass("j-opacity");
+				this.$panel.addClass("d-opacity");
 			}, this), 100);
 
 			$.ajaxJson(
@@ -112,12 +112,12 @@
          * @private
          */
 		close: function() {
-			this.$panel.removeClass("j-opacity");
+			this.$panel.removeClass("d-opacity");
 			setTimeout($.proxy(function () {
 				this.$panel.remove();
 			}, this), 300);
 
-			c.admin.$adminBottomContainer.find(".j-panel-open").removeClass("j-panel-open-active");
+			c.admin.$adminBottomContainer.find(".j-panel-open").removeClass("d-panel-open-active");
 			c.admin.activePanelContainer = "";
 			return false;
 		},
@@ -128,7 +128,7 @@
 		 * @private
 		 */
 		_onLoadBefore: function () {
-			this.$container.find(".j-loader").removeClass("j-hide");
+			this.$container.find(".j-loader").removeClass("d-hide");
 		},
 
 		/**
@@ -139,15 +139,15 @@
          * @private
          */
 		_onLoadSuccess: function (data) {
-			this.$container.find(".j-loader").addClass("j-hide");
+			this.$container.find(".j-loader").addClass("d-hide");
 
 			this.data = data;
 
 			this.setBack();
 			this.$panel.find(".j-title").text(this.data.title);
 			this.$panel.find(".j-description").text(this.data.description);
-			this.$panel.find(".j-header").removeClass("j-hide");
-			this.$panel.find(".j-footer").removeClass("j-hide");
+			this.$panel.find(".j-header").removeClass("d-hide");
+			this.$panel.find(".j-footer").removeClass("d-hide");
 			
 			this[this.data.handler]();
 
@@ -167,7 +167,7 @@
 		setBack: function() {
 			if (this.data.back !== undefined) {
 				this.$panel.find(".j-back")
-					.removeClass("j-hide")
+					.removeClass("d-hide")
 					.on("click", $.proxy(function() {
 						$.panel({
 							action: this.data.back
@@ -197,8 +197,8 @@
 				$errorTemplate.text($.parseJSON(jqXHR.responseText).error);
 			}
 
-			this.$panel.find(".j-header").addClass("j-hide");
-			this.$panel.find(".j-footer").addClass("j-hide");
+			this.$panel.find(".j-header").addClass("d-hide");
+			this.$panel.find(".j-footer").addClass("d-hide");
 			this.$container.html("");
 			$errorTemplate.appendTo(this.$container);
 		}

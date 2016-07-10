@@ -4,7 +4,7 @@ use components\Language;
 
 <div class="j-window-section-container"></div>
 
-<div class="j-window-section-line l-window-section-line j-hide">
+<div class="j-window-section-line l-window-section-line d-hide">
     <div class="j-header l-section-line-header">
         <div class="j-title l-title">
             <label><?= Language::t("section", "line"); ?> <span></span>

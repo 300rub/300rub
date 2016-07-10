@@ -108,7 +108,7 @@
 		 * @private
 		 */
 		_onLoadBefore: function () {
-			this.$_container.find(".j-loader").removeClass("j-hide");
+			this.$_container.find(".j-loader").removeClass("d-hide");
 		},
 
 		/**
@@ -119,7 +119,7 @@
 		 * @private
 		 */
 		_onLoadSuccess: function (data) {
-			this.$_container.find(".j-loader").addClass("j-hide");
+			this.$_container.find(".j-loader").addClass("d-hide");
 			this.$_container.find(".j-content").html(data);
 		},
 
@@ -133,7 +133,7 @@
 		 * @private
 		 */
 		_onError: function (jqXHR, textStatus, errorThrown) {
-			this.$_container.find(".j-loader").addClass("j-hide");
+			this.$_container.find(".j-loader").addClass("d-hide");
 		}
 	};
 
