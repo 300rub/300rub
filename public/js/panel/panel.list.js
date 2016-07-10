@@ -103,7 +103,7 @@
 					.on(
 						"click",
 						{
-							content: this.data.add.content,
+							content: this.data.add.content
 						},
 						this._onAddClick
 					);
