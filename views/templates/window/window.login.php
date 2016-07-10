@@ -6,7 +6,7 @@ use components\Language;
 		<label class="l-label-container">
 			<span class="l-label"><?= Language::t("user", "login") ?></span>
 			<span class="l-body">
-				<input class="j-t__login j-validate l-form-middle" type="text"/>
+				<input class="j-t__login j-validate l-form" type="text"/>
 			</span>
 		</label>
 	</div>
@@ -14,7 +14,7 @@ use components\Language;
 		<label class="l-label-container">
 			<span class="l-label"><?= Language::t("user", "password") ?></span>
 			<span class="l-body">
-				<input class="j-t__password j-validate l-form-middle" type="password"/>
+				<input class="j-t__password j-validate l-form" type="password"/>
 			</span>
 		</label>
 	</div>

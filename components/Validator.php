@@ -258,7 +258,6 @@ class Validator
 			"max"                        => Language::t("validation", "max"),
 			"min"                        => Language::t("validation", "min"),
 			"url"                        => Language::t("validation", "url"),
-			"system"                     => Language::t("validation", "system"),
 			"login-not-exist"            => Language::t("validation", "loginNotExist"),
 			"password-incorrect"         => Language::t("validation", "passwordIncorrect"),
 			"latinDigitUnderscoreHyphen" => Language::t("validation", "latinDigitUnderscoreHyphen"),

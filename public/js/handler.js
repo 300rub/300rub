@@ -66,7 +66,8 @@
          */
 		_onLoginButtonClick: function () {
 			$.window({
-				action: "user.window"
+				action: "user.window",
+				cssClass: "l-window-login"
 			});
 			return false;
 		}

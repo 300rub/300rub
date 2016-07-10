@@ -134,10 +134,6 @@
 		 */
 		_onError: function (jqXHR, textStatus, errorThrown) {
 			this.$_container.find(".j-loader").addClass("j-hide");
-			alert("error");
-			console.log(jqXHR);
-			console.log(textStatus);
-			console.log(errorThrown);
 		}
 	};
 

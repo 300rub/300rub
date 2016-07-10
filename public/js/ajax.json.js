@@ -67,10 +67,9 @@
 		 * @private
 		 */
 		_onError: function (jqXHR, textStatus, errorThrown) {
-			if (jqXHR.responseJSON !== undefined && jqXHR.responseJSON.message !== undefined) {
-				alert(jqXHR.responseJSON.message);
+			if ($.type(this.onError) === "function") {
+				this.onError(jqXHR, textStatus, errorThrown);
 			}
-			this.onError(jqXHR, textStatus, errorThrown);
 		},
 
 		/**

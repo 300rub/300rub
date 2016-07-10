@@ -8,3 +8,4 @@ use components\Validator;
 		<?= $value ?>
 	</div>
 <?php } ?>
+<div class="j-system-error l-system-error"></div>

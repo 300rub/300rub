@@ -48,7 +48,10 @@ abstract class AbstractException extends Exception
 			$message = str_replace('{' . $key . '}', (string) $value, $message);
 		}
 
-		if (isset($_SERVER['REQUEST_URI'])) {
+		if (
+			empty($_SERVER['HTTP_X_REQUESTED_WITH'])
+			&& isset($_SERVER['REQUEST_URI'])
+		) {
 			$message .= "\nREQUEST_URI = " . $_SERVER['REQUEST_URI'];
 		}
 

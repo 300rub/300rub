@@ -3,7 +3,7 @@ use components\Language;
 ?>
 <div id="admin-bottom-container">
     <div class="l-left">
-        <a class="j-admin-bottom-button j-logout-button l-button">
+        <a id="logout-button" class="j-admin-bottom-button j-logout-button l-button">
             <i class="l-icon fa fa-sign-out"></i>
             <span><?= Language::t("user", "logout") ?></span>
         </a>

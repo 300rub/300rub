@@ -11,7 +11,7 @@
 	c.Window = function (options) {
 		options = $.extend({}, options);
 
-		this.action = null;
+		this.action = "";
 		if (options.action !== undefined) {
 			this.action = options.action;
 		}
@@ -19,6 +19,11 @@
 		this.id = 0;
 		if (options.id !== undefined) {
 			this.id = parseInt(options.id);
+		}
+
+		this.cssClass = "";
+		if (options.cssClass !== undefined) {
+			this.cssClass = options.cssClass;
 		}
 
 		this.init();
@@ -64,13 +69,6 @@
 		$overlay: null,
 
 		/**
-		 * DOM-element of bottom line
-		 *
-		 * @type {Object}
-		 */
-		$bottomLine: null,
-
-		/**
 		 * Data from AJAX request
 		 *
 		 * @type {Object}
@@ -89,8 +87,11 @@
 		 */
 		init: function () {
 			this.$overlay = c.$templates.find(".j-overlay").clone().appendTo(c.$ajaxWrapper);
-			this.$bottomLine = c.$templates.find(".j-window-bottom-line").clone().appendTo(c.$ajaxWrapper);
-			this.$window = c.$templates.find(".j-window").clone().appendTo(c.$ajaxWrapper);
+			this.$window = c.$templates
+				.find(".j-window")
+				.clone()
+				.addClass(this.cssClass)
+				.appendTo(c.$ajaxWrapper);
 			this.$container = this.$window.find(".j-container");
 			this.$submit = this.$window.find(".j-submit");
 			this.$adminBottomContainer = $("#admin-bottom-container");
@@ -104,10 +105,6 @@
 
 			setTimeout($.proxy(function () {
 				this.$overlay.addClass("j-opacity-20");
-			}, this), 100);
-
-			setTimeout($.proxy(function () {
-				this.$bottomLine.addClass("j-opacity");
 			}, this), 100);
 
 			$.ajaxJson(
@@ -150,11 +147,6 @@
 				this.$overlay.remove();
 			}, this), 300);
 
-			this.$bottomLine.removeClass("j-opacity");
-			setTimeout($.proxy(function () {
-				this.$bottomLine.remove();
-			}, this), 300);
-
 			return false;
 		},
 
@@ -179,8 +171,8 @@
 
 			this.data = data;
 
-			this.$window.find(".j-header").text(data.title).css("display", "block");
-			this.$window.find(".j-footer").css("display", "block");
+			this.$window.find(".j-header").text(data.title).removeClass("j-hide");
+			this.$window.find(".j-footer").removeClass("j-hide");
 
 			if (this.data.button !== undefined) {
 				if (this.data.button.label !== undefined) {
@@ -210,11 +202,18 @@
 		 * @private
 		 */
 		onError: function (jqXHR, textStatus, errorThrown) {
-			this.$container.find(".j-loader").addClass("j-hide");
-			alert("error");
-			console.log(jqXHR);
-			console.log(textStatus);
-			console.log(errorThrown);
+			if ($.type(jqXHR) === "object" && jqXHR.responseText !== undefined) {
+				this.$window.find(".j-header").addClass("j-hide");
+				this.$window.find(".j-footer").addClass("j-hide");
+				this.$container.html("");
+				c.$templates
+					.find(".j-system-error")
+					.clone()
+					.text($.parseJSON(jqXHR.responseText).error)
+					.appendTo(this.$container);
+			} else {
+				this.$container.find(".j-loader").addClass("j-hide");
+			}
 		},
 
 		/**
