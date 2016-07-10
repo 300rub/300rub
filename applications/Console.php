@@ -135,10 +135,12 @@ class Console extends AbstractApplication
 		$output = "\e[0;32mAvailable commands: \e[0m";
 
 		foreach ($this->_commandList as $command) {
-			$output .= "\n  - {$command}";
+			if ($command !== "abstract") {
+				$output .= "\n  - {$command}";
+			}
 		}
 
-		exec("echo -e \"\n{$output}\n\"");
+		echo "\n{$output}\n";
 	}
 
 	/**
