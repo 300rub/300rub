@@ -202,18 +202,18 @@
 		 * @private
 		 */
 		onError: function (jqXHR, textStatus, errorThrown) {
+			var $errorTemplate = c.$templates
+				.find(".j-system-error")
+				.clone();
+
 			if ($.type(jqXHR) === "object" && jqXHR.responseText !== undefined) {
-				this.$window.find(".j-header").addClass("j-hide");
-				this.$window.find(".j-footer").addClass("j-hide");
-				this.$container.html("");
-				c.$templates
-					.find(".j-system-error")
-					.clone()
-					.text($.parseJSON(jqXHR.responseText).error)
-					.appendTo(this.$container);
-			} else {
-				this.$container.find(".j-loader").addClass("j-hide");
+				$errorTemplate.text($.parseJSON(jqXHR.responseText).error);
 			}
+			
+			this.$window.find(".j-header").addClass("j-hide");
+			this.$window.find(".j-footer").addClass("j-hide");
+			this.$container.html("");
+			$errorTemplate.appendTo(this.$container);
 		},
 
 		/**

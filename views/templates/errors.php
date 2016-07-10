@@ -1,5 +1,6 @@
 <?php
 use components\Validator;
+use components\Language;
 ?>
 
 <?php foreach (Validator::getErrorMessages() as $key => $value) { ?>
@@ -8,4 +9,4 @@ use components\Validator;
 		<?= $value ?>
 	</div>
 <?php } ?>
-<div class="j-system-error l-system-error"></div>
+<div class="j-system-error l-system-error"><?= Language::t("common", "error") ?></div>

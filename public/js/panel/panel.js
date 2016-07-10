@@ -146,8 +146,8 @@
 			this.setBack();
 			this.$panel.find(".j-title").text(this.data.title);
 			this.$panel.find(".j-description").text(this.data.description);
-			this.$panel.find(".j-header").css("display", "block");
-			this.$panel.find(".j-footer").css("display", "block");
+			this.$panel.find(".j-header").removeClass("j-hide");
+			this.$panel.find(".j-footer").removeClass("j-hide");
 			
 			this[this.data.handler]();
 
@@ -189,7 +189,18 @@
 		 * @private
 		 */
 		onError: function (jqXHR, textStatus, errorThrown) {
-			this.$container.find(".j-loader").addClass("j-hide");
+			var $errorTemplate = c.$templates
+				.find(".j-system-error")
+				.clone();
+
+			if ($.type(jqXHR) === "object" && jqXHR.responseText !== undefined) {
+				$errorTemplate.text($.parseJSON(jqXHR.responseText).error);
+			}
+
+			this.$panel.find(".j-header").addClass("j-hide");
+			this.$panel.find(".j-footer").addClass("j-hide");
+			this.$container.html("");
+			$errorTemplate.appendTo(this.$container);
 		}
 	};
 
