@@ -6,5 +6,5 @@ use applications\App;
 $config = require(__DIR__ . "/../config/main.php");
 
 // Runs a command
-require(__DIR__ . "/../application/App.php");
+require(__DIR__ . "/../applications/App.php");
 App::test($config)->run();

@@ -41,7 +41,7 @@ class ErrorHandler
 	 */
 	private function _setExceptionHandler()
 	{
-		set_exception_handler([$this, 'handleException']);
+		//set_exception_handler([$this, 'handleException']);
 		set_error_handler([$this, 'handleError'], error_reporting());
 
 		return $this;

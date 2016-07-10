@@ -65,10 +65,10 @@ class Console extends AbstractApplication
 
 			$time = number_format(microtime(true) - $startTime, 3);
 			App::console()->output(
-				"The command \"{$this->_command}\" has been finished successfully with time: {$time}"
+				"The command \"{$this->_command}\" has been finished successfully with time: {$time}\n"
 			);
 		} catch (Exception $e) {
-			$this->output($e->getMessage(), true);
+			$this->output($e->getMessage() . "\n", true);
 		}
 	}
 
@@ -156,6 +156,6 @@ class Console extends AbstractApplication
 		}
 		$output .= "\e[0m" . $message;
 
-		exec("echo -e \"\n{$output}\"");
+		echo "\n{$output}";
 	}
 }
