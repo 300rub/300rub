@@ -1,68 +1,40 @@
 @import "variables.less";
 
-.l-window-section-line {
-  padding-bottom: 10px;
-  margin-bottom: 10px;
-  border: 1px solid @borderColor;
-  background: white;
+.l-window-section {
+  width: 100%;
+  margin-left: -50%;
 
-  .l-section-line-header {
-    background: white;
+  .l-window-section-line {
+    padding-bottom: 10px;
     margin-bottom: 10px;
-    padding: 0 10px;
-    position: relative;
-    border-bottom: 1px solid @borderColor;
-    cursor: move;
+    border: 1px solid @borderColor;
+    background: white;
 
-    .l-title {
-      font-size: 14px;
-      line-height: 22px;
-      font-weight: bold;
-
-      select {
-        margin-left: 20px;
-        font-size: 12px;
-      }
-    }
-
-    .l-remove {
-      position: absolute;
-      right: 0;
-      top: 0;
-      line-height: 22px;
-      padding: 0 7px;
-      font-size: 16px;
-      color: @linkGrayColor;
-
-      &:hover {
-        color: @linkRedHoverColor;
-      }
-    }
-  }
-
-  .l-grid-stack {
-    min-height: 50px;
-  }
-
-  .l-item {
-    line-height: 30px;
-    padding: 0 20px;
-    cursor: move;
-
-    .l-content {
-      border: 1px solid @borderColor;
+    .l-section-line-header {
       background: white;
-      overflow: hidden;
-      font-size: 14px;
+      margin-bottom: 10px;
+      padding: 0 10px;
+      position: relative;
+      border-bottom: 1px solid @borderColor;
+      cursor: move;
+
+      .l-title {
+        font-size: 14px;
+        line-height: 22px;
+        font-weight: bold;
+
+        select {
+          margin-left: 20px;
+          font-size: 12px;
+        }
+      }
 
       .l-remove {
         position: absolute;
-        left: 8px;
-        top: 5px;
-        text-decoration: none;
-        z-index: 10;
-        width: 16px;
-        height: 16px;
+        right: 0;
+        top: 0;
+        line-height: 22px;
+        padding: 0 7px;
         font-size: 16px;
         color: @linkGrayColor;
 
@@ -70,14 +42,47 @@
           color: @linkRedHoverColor;
         }
       }
-
-      .l-label {
-        padding-left: 30px;
-      }
     }
 
-    .ui-resizable-handle {
-      display: block !important;
+    .l-grid-stack {
+      min-height: 50px;
+    }
+
+    .l-item {
+      line-height: 30px;
+      padding: 0 20px;
+      cursor: move;
+
+      .l-content {
+        border: 1px solid @borderColor;
+        background: white;
+        overflow: hidden;
+        font-size: 14px;
+
+        .l-remove {
+          position: absolute;
+          left: 8px;
+          top: 5px;
+          text-decoration: none;
+          z-index: 10;
+          width: 16px;
+          height: 16px;
+          font-size: 16px;
+          color: @linkGrayColor;
+
+          &:hover {
+            color: @linkRedHoverColor;
+          }
+        }
+
+        .l-label {
+          padding-left: 30px;
+        }
+      }
+
+      .ui-resizable-handle {
+        display: block !important;
+      }
     }
   }
 }

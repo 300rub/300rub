@@ -31,9 +31,7 @@
         }
 
         this.$submit.off().on("click", $.proxy(this._sectionSubmit, this));
-
-        this.$window.css("width", "100%");
-        this.$window.css("margin-left", "-50%");
+        
         this._sectionSetHeight();
         $(window).resize($.proxy(function () {
             this._sectionSetHeight();

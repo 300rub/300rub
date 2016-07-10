@@ -65,7 +65,8 @@
 				{
 					isParent: this.data.isParent,
 					content: itemContent,
-					id: id
+					id: id,
+					windowCssClass: this.data.windowCssClass
 				},
 				this._onItemClick
 			);
@@ -131,7 +132,8 @@
 		} else {
 			$.window({
 				action: event.data.content,
-				id: event.data.id
+				id: event.data.id,
+				cssClass:  event.data.windowCssClass
 			});
 		}
 

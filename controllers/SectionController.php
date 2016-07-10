@@ -57,14 +57,15 @@ class SectionController extends AbstractController
         }
 
         $this->json = [
-            "handler"     => "listSection",
-            "title"       => Language::t("section", "sections"),
-            "description" => Language::t("section", "panelDescription"),
-            "list"        => $list,
-            "item"        => "section.window",
-            "design"      => "section.design",
-            "settings"    => "section.settings",
-            "add"         => [
+            "handler"        => "listSection",
+            "title"          => Language::t("section", "sections"),
+            "description"    => Language::t("section", "panelDescription"),
+            "list"           => $list,
+            "item"           => "section.window",
+            "design"         => "section.design",
+            "settings"       => "section.settings",
+            "windowCssClass" => "l-window-section",
+            "add"            => [
                 "label"  => Language::t("section", "addSections"),
                 "action" => "section.settings",
             ]
