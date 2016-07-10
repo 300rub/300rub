@@ -101,10 +101,9 @@
 
 			setTimeout($.proxy(function () {
 				this.$window.addClass("d-opacity");
-			}, this), 100);
-
-			setTimeout($.proxy(function () {
 				this.$overlay.addClass("d-opacity-20");
+				this.$adminBottomContainer.find(".j-admin-bottom-button").addClass("d-opacity-0");
+				c.$ajaxWrapper.find(".j-panel").addClass("d-opacity-0");
 			}, this), 100);
 
 			$.ajaxJson(
@@ -138,12 +137,12 @@
 		 */
 		close: function () {
 			this.$window.removeClass("d-opacity");
+			this.$overlay.removeClass("d-opacity-20");
+			this.$adminBottomContainer.find(".j-admin-bottom-button").removeClass("d-opacity-0");
+			c.$ajaxWrapper.find(".j-panel").removeClass("d-opacity-0");
+
 			setTimeout($.proxy(function () {
 				this.$window.remove();
-			}, this), 300);
-
-			this.$overlay.removeClass("d-opacity-20");
-			setTimeout($.proxy(function () {
 				this.$overlay.remove();
 			}, this), 300);
 
