@@ -1,4 +1,5 @@
 @import "variables.less";
+@import "helpers.less";
 
 .l-window-section {
   width: 100%;
@@ -82,6 +83,15 @@
 
       .ui-resizable-handle {
         display: block !important;
+        .l-rotate(90deg);
+        cursor: e-resize;
+        position: absolute;
+        right: 12px;
+        top: 50%;
+        width: 28px;
+        height: 28px;
+        margin-top: -14px;
+        background-color: white;
       }
     }
   }

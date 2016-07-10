@@ -39,3 +39,11 @@
   background: linear-gradient(to bottom, @from 0%, @to 100%);
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='@from', endColorstr='@to', GradientType=0);
 }
+
+.l-rotate (@value: 0deg) {
+  -webkit-transform: rotate(@value);
+  -moz-transform: rotate(@value);
+  -ms-transform: rotate(@value);
+  -o-transform: rotate(@value);
+  transform: rotate(@value);
+}

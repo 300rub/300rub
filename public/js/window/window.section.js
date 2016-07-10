@@ -31,7 +31,7 @@
         }
 
         this.$submit.off().on("click", $.proxy(this._sectionSubmit, this));
-        
+
         this._sectionSetHeight();
         $(window).resize($.proxy(function () {
             this._sectionSetHeight();
