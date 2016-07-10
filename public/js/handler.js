@@ -65,7 +65,9 @@
          * @private
          */
 		_onLoginButtonClick: function () {
-			$.window("user.window");
+			$.window({
+				action: "user.window"
+			});
 			return false;
 		}
 	};

@@ -4,18 +4,21 @@
 	/**
 	 * Object for working with Window
 	 *
-	 * @param {String} [action] controller.action
-	 * @param {int}    [id]     ID
+	 * @param {Object} [options] Options: action, id...
 	 *
 	 * @constructor
 	 */
-	c.Window = function (action, id) {
-		this.action = action;
+	c.Window = function (options) {
+		options = $.extend({}, options);
 
-		if (id !== undefined) {
-			this.id = parseInt(id);
-		} else {
-			this.id = 0;
+		this.action = null;
+		if (options.action !== undefined) {
+			this.action = options.action;
+		}
+
+		this.id = 0;
+		if (options.id !== undefined) {
+			this.id = parseInt(options.id);
 		}
 
 		this.init();
@@ -276,13 +279,12 @@
 	/**
 	 * Adds Window to jquery
 	 *
-	 * @param {String} [action] controller.action
-	 * @param {int}    [id]     ID
+	 * @param {Object} [options] Options: action, id...
 	 *
 	 * @returns {Window.Core.Window}
 	 */
-	$.window = function (action, id) {
-		return new c.Window(action, id);
+	$.window = function (options) {
+		return new c.Window(options);
 	};
 
 	/**

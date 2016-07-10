@@ -129,7 +129,10 @@
 				id: event.data.id
 			});
 		} else {
-			$.window(event.data.content, event.data.id);
+			$.window({
+				action: event.data.content,
+				id: event.data.id
+			});
 		}
 
 		return false;
