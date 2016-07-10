@@ -82,8 +82,10 @@
 			$.each(this._designInstances, function(i, item) {
 				item.design.reset();
 			});
-
-			$.panel(this.data.back);
+			
+			$.panel({
+				action: this.data.back
+			});
 
 			return false;
 		}, this));
@@ -125,7 +127,9 @@
 				item.design.reset();
 			});
 
-			$.panel($(this).data("action"));
+			$.panel({
+				action: $(this).data("action")
+			});
 
 			return false;
 		});
@@ -220,6 +224,8 @@
 		this.$_designSubmit.find(".j-label").removeClass("j-hide");
 		this.$_designSubmit.find(".j-loader").addClass("j-hide");
 
-		$.panel(this.data.submit.content);
+		$.panel({
+			action: this.data.submit.content
+		});
 	};
 }(window.jQuery, window.Core);

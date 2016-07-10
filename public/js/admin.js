@@ -55,7 +55,9 @@
 			c.admin.$adminBottomContainer.find(".j-panel-open").removeClass("j-panel-open-active");
 			c.admin.activePanelContainer = $(this).data("container");
 			$(this).addClass("j-panel-open-active");
-			$.panel($(this).data("action"));
+			$.panel({
+				action: $(this).data("action")
+			});
 			return false;
 		},
 

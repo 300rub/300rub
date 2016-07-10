@@ -93,7 +93,10 @@
 		this.$_settingsDuplicate.find(".j-loader").addClass("j-hide");
 
 		if (parseInt(data.id) !== 0) {
-			$.panel(this.data.duplicate.content, data.id);
+			$.panel({
+				action: this.data.duplicate.content,
+				id: data.id
+			});
 		} else {
 			// error
 		}
@@ -166,7 +169,9 @@
 			if (parseInt(this.id) === c.sectionId || c.sectionId === 0) {
 				location.href = "/" + c.language + "/";
 			} else {
-				$.panel(this.data.delete.content);
+				$.panel({
+					action: this.data.delete.content
+				});
 			}
 		} else {
 			// error
@@ -228,7 +233,9 @@
 		this.$_settingsSubmit.find(".j-loader").addClass("j-hide");
 
 		if ($.type(data.errors) === "array" && data.errors.length === 0) {
-			$.panel(this.data.submit.content);
+			$.panel({
+				action: this.data.submit.content
+			});
 		} else {
 			$.validator(this.$panel.find(".j-panel-form")).showErrors(data.errors);
 		}

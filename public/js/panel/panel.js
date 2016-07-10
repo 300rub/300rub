@@ -4,17 +4,21 @@
 	/**
 	 * Object for working with Panel
 	 *
-	 * @param {String} [action] controller.action
-	 * @param {int}    [id]     ID
+	 * @param {Object} [options] Options: action, id...
 	 *
 	 * @constructor
      */
-	c.Panel = function (action, id) {
-		this.action = action;
-		if (id !== undefined) {
-			this.id = parseInt(id);
-		} else {
-			this.id = 0;
+	c.Panel = function (options) {
+		options = $.extend({}, options);
+
+		this.action = null;
+		if (options.action !== undefined) {
+			this.action = options.action;
+		}
+
+		this.id = 0;
+		if (options.id !== undefined) {
+			this.id = parseInt(options.id);
 		}
 
 		this.init();
@@ -165,7 +169,9 @@
 				this.$panel.find(".j-back")
 					.removeClass("j-hide")
 					.on("click", $.proxy(function() {
-						$.panel(this.data.back);
+						$.panel({
+							action: this.data.back
+						});
 						return false;
 					}, this));
 			}
@@ -194,13 +200,12 @@
 	/**
 	 * Adds Panel to jquery
 	 *
-	 * @param {String} [action] controller.action
-	 * @param {int}    [id]     ID
+	 * @param {Object} [options] Options: action, id...
 	 *
 	 * @returns {Window.Core.Panel}
      */
-	$.panel = function (action, id) {
-		return new c.Panel(action, id);
+	$.panel = function (options) {
+		return new c.Panel(options);
 	};
 
 	/**
