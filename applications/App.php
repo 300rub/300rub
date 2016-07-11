@@ -101,6 +101,10 @@ class App
 			return self::$_console;
 		}
 
+		if (self::$_test) {
+			return self::$_test;
+		}
+
 		return null;
 	}
 

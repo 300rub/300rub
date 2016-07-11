@@ -92,7 +92,7 @@ class MigrateCommand extends AbstractCommand
 		if (!Db::isTableExists("sites")) {
 			$migration = new M_160301_000000_sites;
 			$migration->up();
-			if (App::console()->config->isDebug) {
+			if (App::getApplication()->config->isDebug) {
 				$migration->insertData();
 			}
 		}
@@ -122,7 +122,7 @@ class MigrateCommand extends AbstractCommand
 		while (false !== ($file = readdir($migrations))) {
 			if (strpos($file, "M_") !== false) {
 				$version = str_replace(".php", "", $file);
-				if (App::console()->config->isDebug || !in_array($version, $versions)) {
+				if (App::getApplication()->config->isDebug || !in_array($version, $versions)) {
 					$this->_migrations[] = $version;
 				}
 			}
@@ -295,7 +295,7 @@ class MigrateCommand extends AbstractCommand
 				);
 			}
 
-			if (App::console()->config->isDebug) {
+			if (App::getApplication()->config->isDebug) {
 				$this->_clearDb($site);
 			}
 
@@ -310,7 +310,7 @@ class MigrateCommand extends AbstractCommand
 				}
 			}
 
-			if (App::console()->config->isDebug && $this->isTestData) {
+			if (App::getApplication()->config->isDebug && $this->isTestData) {
 				self::loadFixtures();
 			}
 		}
@@ -329,20 +329,20 @@ class MigrateCommand extends AbstractCommand
 	{
 		if (
 			!Db::setPdo(
-				App::console()->config->db->host,
-				App::console()->config->db->user,
-				App::console()->config->db->password,
-				App::console()->config->db->name
+				App::getApplication()->config->db->host,
+				App::getApplication()->config->db->user,
+				App::getApplication()->config->db->password,
+				App::getApplication()->config->db->name
 			)
 		) {
 			throw new MigrationException(
 				"Unable to connect with DB for updating versions
 					with host: {host}, user: {user}, password: {password}, name: {name}",
 				[
-					"host"     => App::console()->config->db->host,
-					"user"     => App::console()->config->db->user,
-					"password" => App::console()->config->db->password,
-					"name"     => App::console()->config->db->name,
+					"host"     => App::getApplication()->config->db->host,
+					"user"     => App::getApplication()->config->db->user,
+					"password" => App::getApplication()->config->db->password,
+					"name"     => App::getApplication()->config->db->name,
 				]
 			);
 		}
@@ -381,7 +381,7 @@ class MigrateCommand extends AbstractCommand
 	{
 		App::console()->output("Fixtures loading  has been started");
 
-		$siteId = App::console()->config->siteId;
+		$siteId = App::getApplication()->config->siteId;
 
 		// Files
 		$uploadFilesFolder = __DIR__ . "/../public/upload/{$siteId}";
