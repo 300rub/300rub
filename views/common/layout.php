@@ -81,7 +81,7 @@ $staticMap = require(__DIR__ . "/../../config/static_map.php");
 </div>
 
 <?php if (App::web()->user === null) { ?>
-	<a id="login-button">Вход</a>
+	<a id="login-button" title="<?= Language::t("user", "login") ?>"></a>
 <?php } else { ?>
 	<?php require("admin_bottom_container.php"); ?>
 <?php } ?>
