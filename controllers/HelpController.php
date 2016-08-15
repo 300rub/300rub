@@ -68,6 +68,8 @@ class HelpController extends AbstractController
             );
         }
 
-        $this->json = $model->content;
+        $this->json = [
+            "content" => $model->content
+        ];
     }
 }

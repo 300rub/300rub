@@ -7,6 +7,9 @@ use components\Language;
             <i class="l-icon fa fa-sign-out"></i>
             <span><?= Language::t("user", "logout") ?></span>
         </a>
+        <?php
+        /*
+        ?>
         <a class="j-admin-bottom-button l-button">
             <i class="l-icon fa fa-info"></i>
             <span><?= Language::t("common", "about") ?></span>
@@ -15,9 +18,14 @@ use components\Language;
             <i class="l-icon fa fa-question"></i>
             <span><?= Language::t("common", "help") ?></span>
         </a>
+        */
+        ?>
     </div>
 
     <div class="l-right">
+        <?php
+        /*
+        ?>
         <a
             data-action="payment.panel"
             data-container="l-panel-payment"
@@ -35,6 +43,8 @@ use components\Language;
             <i class="l-icon fa fa-cog"></i>
             <span><?= Language::t("settings", "settings") ?></span>
         </a>
+        */
+        ?>
 
         <a
             data-action="section.panelList"

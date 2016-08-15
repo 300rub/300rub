@@ -233,10 +233,7 @@ class Web extends AbstractApplication
 			Language::setIdByAlias($input->language);
 			$controller->data = json_decode(json_encode($input->fields), true);
 
-			if (
-				(isset($controller->data["id"]) && count($controller->data) > 1)
-				|| (!isset($controller->data["id"]) && count($controller->data) > 0)
-			) {
+			if (isset($controller->data["id"]) && count($controller->data) > 1) {
 				$useTransaction = true;
 				Db::startTransaction();
 			}
@@ -263,8 +260,10 @@ class Web extends AbstractApplication
 				"error" => $message
 			];
 		}
-		
-		$json["time"] = number_format(microtime(true) - $this->_startTime, 3);
+
+		if ($this->config->isDebug) {
+			$json["time"] = number_format(microtime(true) - $this->_startTime, 3);
+		}
 
 		header('Content-Type: application/json');
 		echo json_encode($json);

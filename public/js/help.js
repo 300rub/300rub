@@ -76,7 +76,6 @@
 			$.ajaxJson(
 				"help.load",
 				{
-					id: this.id,
 					category: this.category,
 					name: this.name
 				},
@@ -120,7 +119,7 @@
 		 */
 		_onLoadSuccess: function (data) {
 			this.$_container.find(".j-loader").addClass("d-hide");
-			this.$_container.find(".j-content").html(data);
+			this.$_container.find(".j-content").html(data.content);
 		},
 
 		/**
