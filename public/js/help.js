@@ -73,6 +73,11 @@
 			this.$_help.find(".j-close").on("click", $.proxy(this._close, this));
 			this.$_overlay.on("click", $.proxy(this._close, this));
 
+			setTimeout($.proxy(function () {
+				this.$_help.addClass("d-opacity");
+				this.$_overlay.addClass("d-opacity-20");
+			}, this), 100);
+
 			$.ajaxJson(
 				"help.load",
 				{
@@ -95,8 +100,13 @@
 		 * @private
 		 */
 		_close: function () {
-			this.$_help.remove();
-			this.$_overlay.remove();
+			this.$_help.removeClass("d-opacity");
+			this.$_overlay.removeClass("d-opacity-20");
+
+			setTimeout($.proxy(function () {
+				this.$_help.remove();
+				this.$_overlay.remove();
+			}, this), 300);
 
 			return false;
 		},
@@ -120,7 +130,24 @@
 		_onLoadSuccess: function (data) {
 			this.$_container.find(".j-loader").addClass("d-hide");
 			this.$_container.find(".j-content").html(data.content);
+
+			this._setHeight();
+			$(window).resize($.proxy(function () {
+				this._setHeight();
+			}, this));
 		},
+
+		/**
+		 * Sets container's max-height
+		 *
+		 * @private
+		 */
+		_setHeight: function() {
+			this.$_container.css("max-height", $.proxy(function () {
+				return $(window).outerHeight() - 115;
+			}, this));
+		},
+
 
 		/**
 		 * AJAX error callback function

@@ -5,12 +5,13 @@
   height: 100%;
   z-index: 290;
   background: black;
-  opacity: 0.05;
+  opacity: 0;
   position: fixed;
+  .l-transition-property(opacity);
 }
 
 .l-help {
-  top: 15px;
+  bottom: 44px;
   left: 50%;
   z-index: 300;
   position: fixed;
@@ -18,22 +19,41 @@
   width: 640px;
   overflow: hidden;
   margin-left: -320px;
-  padding: 56px 0 65px 0;
+  padding: 46px 0 25px 0;
+  opacity: 0;
+  font-size: 14px;
+  .l-transition-property(opacity);
 
   .l-close {
     top: 0;
     right: 0;
     position: absolute;
-    display: block;
-    background: black no-repeat center center;
-    width: 56px;
-    height: 56px;
+    display: inline-block;
+    font-size: 24px;
     z-index: 10;
+    text-decoration: none;
+    color: @linkGrayColor;
+    padding: 11px 17px;
+
+    &:hover {
+      color: @linkRedHoverColor;
+    }
   }
 
   .l-container {
-    min-height: 20px;
+    min-height: 60px;
     overflow: auto;
-    padding: 10px 25px;
+    padding: 0 25px;
+    .l-scroll;
+
+    .l-loader {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      margin-left: -16px;
+      margin-top: -16px;
+      color: @loaderColor;
+      font-size: 34px;
+    }
   }
 }

@@ -2,12 +2,10 @@
 use components\Language;
 ?>
 <div class="l-help j-help">
-    <a class="l-close j-close"></a>
+    <a class="l-close j-close fa fa-times"></a>
     
     <div class="l-container j-container">
-        <div class="j-loader d-hide">
-            Loading
-        </div>
+        <i class="j-loader l-loader d-hide fa fa-circle-o-notch fa-spin fa-fw"></i>
         <div class="j-content"></div>
     </div>
 </div>
