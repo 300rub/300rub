@@ -7,8 +7,10 @@ use components\Language;
 <div class="j-window-section-line l-window-section-line d-hide">
     <div class="j-header l-section-line-header">
         <div class="j-title l-title">
-            <label><?= Language::t("section", "line"); ?> <span></span>
-                <select class="j-select-block">
+            <a class="fa fa-chevron-up j-line-up l-line-up"></a>
+            <a class="fa fa-chevron-up j-line-down l-line-down"></a>
+            <label><?= Language::t("section", "line"); ?> <span class="j-line-number"></span>
+                <select class="j-select-block l-select-block">
                     <option value="0" data-id="0" data-type="0">
                         <?php echo Language::t("section", "addBlock"); ?>
                     </option>

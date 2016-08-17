@@ -57,14 +57,7 @@
      * @private
      */
     c.Window.prototype._sectionSetContainer = function () {
-        this.$_sectionContainer = c.$templates.find(".j-window-section-container").clone()
-            .appendTo(this.$container)
-            .sortable({
-                stop: $.proxy(function () {
-                    this._sectionResetLineNumbers();
-                }, this)
-            });
-
+        this.$_sectionContainer = c.$templates.find(".j-window-section-container").clone().appendTo(this.$container);
         return this;
     };
 
@@ -98,7 +91,7 @@
      */
     c.Window.prototype._sectionResetLineNumbers = function () {
         this.$_sectionContainer.find(".j-window-section-line").each(function (id) {
-            $(this).find(".j-title span").text(id + 1);
+            $(this).find(".j-title .j-line-number").text(id + 1);
         });
     };
 
@@ -143,7 +136,12 @@
 
         var blockLine, blockName, blockId, blockType;
         $line.find(".j-select-block").on("change", function () {
-            blockLine = parseInt($(this).closest(".j-window-section-line").find(".j-header .j-title span").text());
+            blockLine = parseInt(
+                $(this)
+                    .closest(".j-window-section-line")
+                    .find(".j-header .j-title .j-line-number")
+                    .text()
+            );
             blockName = $(this).val();
             blockId = parseInt($(this).find(':selected').data('id'));
             blockType = parseInt($(this).find(':selected').data('type'));
@@ -159,11 +157,21 @@
             resizable: {
                 minHeight: 30,
                 maxHeight: 30
-               // handles: "e, w"
             }
         });
 
-        this._sectionResetLineNumbers();
+        $line.find(".j-line-up").on("click", function () {
+            $line.insertBefore($line.prev());
+            t._sectionResetLineNumbers();
+            return false;
+        });
+        $line.find(".j-line-down").on("click", function () {
+            $line.insertAfter($line.next());
+            t._sectionResetLineNumbers();
+            return false;
+        });
+
+        t._sectionResetLineNumbers();
     };
 
     /**

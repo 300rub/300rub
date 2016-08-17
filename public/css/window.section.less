@@ -24,7 +24,7 @@
         line-height: 22px;
         font-weight: bold;
 
-        select {
+        .l-select-block {
           margin-left: 20px;
           font-size: 12px;
         }
@@ -92,6 +92,26 @@
         height: 28px;
         margin-top: -14px;
         background-color: white;
+      }
+    }
+
+    &::first-child {
+      .l-section-line-header {
+        .l-title {
+          .l-line-up {
+            display: none;
+          }
+        }
+      }
+    }
+
+    &::last-child {
+      .l-section-line-header {
+        .l-title {
+          .l-line-down {
+            display: none;
+          }
+        }
       }
     }
   }
