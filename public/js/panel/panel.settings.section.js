@@ -28,23 +28,26 @@
 	 * @returns {c.Panel}
      */
 	c.Panel.prototype._settingsSectionSetNameAndUrl = function($container) {
-		$container.find(".j-seoModel__name").on("keyup", function () {
-			$container.find(".j-seoModel__url").val($(this).transliteration());
+		var $name = $container.find(".j-seoModel__name");
+		var $url = $container.find(".j-seoModel__url");
+		var urlVal;
+		var $urlExampleValue = $container.find(".j-url-example .j-url-value");
+
+		$name.on("keyup", function () {
+			$url.val($(this).transliteration());
 		});
 
-		var seoVal;
-		var $urlExampleValue = $container.find(".j-url-example .j-url-value");
-		$container.find(".j-seoModel__url").on("keyup", function (event) {
+		$url.on("keyup", function (event) {
 			if ($.isServiceEventKeyCode(event)) {
 				return false;
 			}
 
-			seoVal = $(this).transliteration();
-			if ($(this).val() !== seoVal) {
-				$(this).val(seoVal);
+			urlVal = $(this).transliteration();
+			if ($(this).val() !== urlVal) {
+				$(this).val(urlVal);
 			}
 
-			$urlExampleValue.text(seoVal);
+			$urlExampleValue.text(urlVal);
 		});
 
 		return this;
