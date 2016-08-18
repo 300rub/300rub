@@ -1,5 +1,6 @@
 <?php
 use components\Language;
+use applications\App;
 ?>
 
 <div class="l-panel-form-container j-panel-settings-section-container">
@@ -14,6 +15,9 @@ use components\Language;
             <span class="l-label">URL</span>
             <input class="j-seoModel__url j-validate l-form" type="text"/>
         </label>
+        <div class="j-url-example">
+            www.<?= App::web()->host ?>/<?= Language::getActiveAlias() ?>/<span class="j-url-value"></span>
+        </div>
     </div>
     <div class="l-form-group">
         <label>

@@ -10,11 +10,30 @@
 
 		$.form(this.data.forms, $container);
 
+		this
+			._settingsSectionSetNameAndUrl($container)
+			._settingsSectionSetWidthEvent()
+			._settingsSectionSetSeo($container);
+
+		this.settingsInit();
+	};
+
+	/**
+	 * Sets name and url
+	 *
+	 * @param {Object} $container
+	 *
+	 * @private
+	 *
+	 * @returns {c.Panel}
+     */
+	c.Panel.prototype._settingsSectionSetNameAndUrl = function($container) {
 		$container.find(".j-seoModel__name").on("keyup", function () {
 			$container.find(".j-seoModel__url").val($(this).transliteration());
 		});
 
 		var seoVal;
+		var $urlExampleValue = $container.find(".j-url-example .j-url-value");
 		$container.find(".j-seoModel__url").on("keyup", function (event) {
 			if ($.isServiceEventKeyCode(event)) {
 				return false;
@@ -24,36 +43,11 @@
 			if ($(this).val() !== seoVal) {
 				$(this).val(seoVal);
 			}
+
+			$urlExampleValue.text(seoVal);
 		});
 
-		this._settingsSectionSetWidthEvent();
-
-		var $seoTitle = $container.find(".j-form-seo-title");
-		var $seoContainer = $container.find(".j-form-seo-container");
-		if (
-			$seoContainer.find(".j-seoModel__title").val() === ""
-			&& $seoContainer.find(".j-seoModel__keywords").val() === ""
-			&& $seoContainer.find(".j-seoModel__description").val() === ""
-		) {
-			$seoContainer.addClass("d-hide");
-			$seoTitle.find(".j-up").removeClass("d-hide");
-		} else {
-			$seoTitle.find(".j-down").removeClass("d-hide");
-		}
-
-		$seoTitle.on("click", function() {
-			if ($seoContainer.hasClass("d-hide")) {
-				$seoTitle.find(".j-up").addClass("d-hide");
-				$seoTitle.find(".j-down").removeClass("d-hide");
-				$seoContainer.removeClass("d-hide");
-			} else {
-				$seoTitle.find(".j-up").removeClass("d-hide");
-				$seoTitle.find(".j-down").addClass("d-hide");
-				$seoContainer.addClass("d-hide");
-			}
-		});
-
-		this.settingsInit();
+		return this;
 	};
 
 	/**
@@ -112,6 +106,44 @@
 		} else {
 			$widthSuffix.text("px");
 		}
+
+		return this;
+	};
+
+	/**
+	 * Sets Seo block
+	 *
+	 * @param $container
+	 *
+	 * @private
+	 *
+	 * @returns {c.Panel}
+	 */
+	c.Panel.prototype._settingsSectionSetSeo = function($container) {
+		var $seoTitle = $container.find(".j-form-seo-title");
+		var $seoContainer = $container.find(".j-form-seo-container");
+		if (
+			$seoContainer.find(".j-seoModel__title").val() === ""
+			&& $seoContainer.find(".j-seoModel__keywords").val() === ""
+			&& $seoContainer.find(".j-seoModel__description").val() === ""
+		) {
+			$seoContainer.addClass("d-hide");
+			$seoTitle.find(".j-up").removeClass("d-hide");
+		} else {
+			$seoTitle.find(".j-down").removeClass("d-hide");
+		}
+
+		$seoTitle.on("click", function() {
+			if ($seoContainer.hasClass("d-hide")) {
+				$seoTitle.find(".j-up").addClass("d-hide");
+				$seoTitle.find(".j-down").removeClass("d-hide");
+				$seoContainer.removeClass("d-hide");
+			} else {
+				$seoTitle.find(".j-up").removeClass("d-hide");
+				$seoTitle.find(".j-down").addClass("d-hide");
+				$seoContainer.addClass("d-hide");
+			}
+		});
 
 		return this;
 	};

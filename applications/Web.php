@@ -43,6 +43,13 @@ class Web extends AbstractApplication
 	public $isAjax = false;
 
 	/**
+	 * Active host
+	 *
+	 * @var string
+	 */
+	public $host = "";
+
+	/**
 	 * Runs application
 	 *
 	 * @return void
@@ -115,6 +122,7 @@ class Web extends AbstractApplication
 			);
 		}
 
+		$this->host = $host;
 		App::web()->config->siteId = $site["id"];
 
 		if ($site["ssh"] && array_key_exists($site["ssh"], App::web()->config->ssh->list)) {
