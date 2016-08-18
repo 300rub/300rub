@@ -18,13 +18,7 @@
 			$(this).val($(this).transliteration());
 		});
 
-		var t = this;
-		var $widthField = $container.find(".j-t__width");
-		var $widthSuffix = $container.find(".j-width-suffix");
-		t.settingsSectionSetWidth($widthField, $widthSuffix, $widthField.val());
-		$widthField.on("keyup", function () {
-			t.settingsSectionSetWidth($widthField, $widthSuffix, $(this).val());
-		});
+		this._settingsSectionSetWidthEvent();
 
 		var $seoTitle = $container.find(".j-form-seo-title");
 		var $seoContainer = $container.find(".j-form-seo-container");
@@ -55,21 +49,62 @@
 	};
 
 	/**
+	 * Sets event on width field
+	 *
+	 * @returns {c.Panel}
+	 *
+	 * @private
+     */
+	c.Panel.prototype._settingsSectionSetWidthEvent = function() {
+		var t = this;
+		var $widthField = $container.find(".j-t__width");
+		var $widthSuffix = $container.find(".j-width-suffix");
+		t._settingsSectionSetWidth($widthField, $widthSuffix, $widthField.val());
+
+		$widthField.on("keyup", function () {
+			if (
+				event.keyCode == 46
+				|| event.keyCode == 8
+				|| event.keyCode == 9
+				|| event.keyCode == 27
+				|| (event.keyCode == 65 && event.ctrlKey === true)
+				|| (event.keyCode >= 35 && event.keyCode <= 39)
+			) {
+				return false;
+			}
+			else {
+				if (
+					(event.keyCode < 48 || event.keyCode > 57)
+					&& (event.keyCode < 96 || event.keyCode > 105 )
+				) {
+					event.preventDefault();
+				} else {
+					t._settingsSectionSetWidth($widthField, $widthSuffix, $(this).val());
+				}
+			}
+		});
+
+		return this;
+	};
+
+	/**
 	 * Sets width
 	 *
 	 * @param {Object} [$widthField]
 	 * @param {Object} [$widthSuffix]
 	 * @param {int}    [width]
 	 *
+	 * @private
+	 *
 	 * @returns {c.Panel}
      */
-	c.Panel.prototype.settingsSectionSetWidth = function($widthField, $widthSuffix, width) {
+	c.Panel.prototype._settingsSectionSetWidth = function($widthField, $widthSuffix, width) {
 		width = parseInt($widthField.val()) || 0;
 
 		if (width < 0) {
-			width = 0;
+			$widthField.val("");
 		} else if (width > 2500) {
-			width = 2500;
+			$widthField.val(2500);
 		}
 
 		if (width <= 100) {
@@ -77,8 +112,6 @@
 		} else {
 			$widthSuffix.text("px");
 		}
-
-		$widthField.val(width === 0 ? "" : width);
 
 		return this;
 	};
