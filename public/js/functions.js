@@ -159,4 +159,20 @@
 			.toLowerCase();
 	};
 
+	/**
+	 * Checks Service Event Key Code
+	 *
+	 * @returns {boolean}
+	 */
+	$.isServiceEventKeyCode = function(event) {
+		return (
+			event.keyCode == 46
+			|| event.keyCode == 8
+			|| event.keyCode == 9
+			|| event.keyCode == 27
+			|| (event.keyCode == 65 && event.ctrlKey === true)
+			|| (event.keyCode >= 35 && event.keyCode <= 39)
+		);
+	}
+
 }(window.jQuery);

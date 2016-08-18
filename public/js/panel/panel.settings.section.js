@@ -14,8 +14,16 @@
 			$container.find(".j-seoModel__url").val($(this).transliteration());
 		});
 
-		$container.find(".j-seoModel__url").on("keyup", function () {
-			$(this).val($(this).transliteration());
+		var seoVal;
+		$container.find(".j-seoModel__url").on("keyup", function (event) {
+			if ($.isServiceEventKeyCode(event)) {
+				return false;
+			}
+
+			seoVal = $(this).transliteration();
+			if ($(this).val() !== seoVal) {
+				$(this).val(seoVal);
+			}
 		});
 
 		this._settingsSectionSetWidthEvent();
@@ -61,26 +69,18 @@
 		var $widthSuffix = $container.find(".j-width-suffix");
 		t._settingsSectionSetWidth($widthField, $widthSuffix, $widthField.val());
 
-		$widthField.on("keyup", function () {
-			if (
-				event.keyCode == 46
-				|| event.keyCode == 8
-				|| event.keyCode == 9
-				|| event.keyCode == 27
-				|| (event.keyCode == 65 && event.ctrlKey === true)
-				|| (event.keyCode >= 35 && event.keyCode <= 39)
-			) {
+		$widthField.on("keyup", function (event) {
+			if ($.isServiceEventKeyCode(event)) {
 				return false;
 			}
-			else {
-				if (
-					(event.keyCode < 48 || event.keyCode > 57)
-					&& (event.keyCode < 96 || event.keyCode > 105 )
-				) {
-					event.preventDefault();
-				} else {
-					t._settingsSectionSetWidth($widthField, $widthSuffix, $(this).val());
-				}
+
+			if (
+				(event.keyCode < 48 || event.keyCode > 57)
+				&& (event.keyCode < 96 || event.keyCode > 105 )
+			) {
+				event.preventDefault();
+			} else {
+				t._settingsSectionSetWidth($widthField, $widthSuffix, $(this).val());
 			}
 		});
 
