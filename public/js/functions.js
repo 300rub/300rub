@@ -166,7 +166,7 @@
 	 */
 	$.isServiceEventKeyCode = function(event) {
 		var keyCode = event.keyCode;
-		
+
 		return (
 			keyCode == 46
 			|| keyCode == 8
