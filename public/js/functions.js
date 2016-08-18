@@ -165,13 +165,20 @@
 	 * @returns {boolean}
 	 */
 	$.isServiceEventKeyCode = function(event) {
+		var keyCode = event.keyCode;
+		
 		return (
-			event.keyCode == 46
-			|| event.keyCode == 8
-			|| event.keyCode == 9
-			|| event.keyCode == 27
-			|| (event.keyCode == 65 && event.ctrlKey === true)
-			|| (event.keyCode >= 35 && event.keyCode <= 39)
+			keyCode == 46
+			|| keyCode == 8
+			|| keyCode == 9
+			|| keyCode == 27
+			|| (keyCode == 65 && event.ctrlKey === true)
+			|| (keyCode == 65 && event.ctrlKey)
+			|| (keyCode == 67 && event.ctrlKey)
+			|| (keyCode == 86 && event.ctrlKey)
+			|| (keyCode == 88 && event.ctrlKey)
+			|| (keyCode == 90 && event.ctrlKey)
+			|| (keyCode >= 35 && keyCode <= 39)
 		);
 	}
 
