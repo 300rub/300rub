@@ -4,16 +4,16 @@ use components\Language;
 
 <a class="j-panel-settings-duplicate">
     <span class="j-label"><?= Language::t("common", "duplicate") ?></span>
-    <div class="j-loader d-hide">
-        loading
-    </div>
+	<span class="l-icons">
+		<i class="j-icon fa fa-files-o"></i>
+		<i class="j-loader d-hide fa fa-refresh fa-spin fa-fw"></i>
+	</span>
 </a>
-<a
-    class="j-panel-settings-delete"
-    data-confirm="<?= Language::t("section", "deleteConfirmation") ?>"
->
+
+<a class="j-panel-settings-duplicate">
     <span class="j-label"><?= Language::t("common", "delete") ?></span>
-    <div class="j-loader d-hide">
-        loading
-    </div>
+	<span class="l-icons">
+		<i class="j-icon fa fa-times"></i>
+		<i class="j-loader d-hide fa fa-refresh fa-spin fa-fw"></i>
+	</span>
 </a>
