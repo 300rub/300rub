@@ -31,7 +31,6 @@
 		var $name = $container.find(".j-seoModel__name");
 		var $url = $container.find(".j-seoModel__url");
 		var urlVal;
-		var $urlExampleValue = $container.find(".j-url-example .j-url-value");
 
 		$name.on("keyup", function () {
 			$url.val($(this).transliteration());
@@ -46,8 +45,6 @@
 			if ($(this).val() !== urlVal) {
 				$(this).val(urlVal);
 			}
-
-			$urlExampleValue.text(urlVal);
 		});
 
 		return this;
