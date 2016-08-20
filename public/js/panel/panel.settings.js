@@ -92,10 +92,10 @@
 		this.$_settingsDuplicate.find(".j-icon").removeClass("d-hide");
 		this.$_settingsDuplicate.find(".j-loader").addClass("d-hide");
 
-		if (parseInt(data.id) !== 0) {
+		if (parseInt(data.result) !== 0) {
 			$.panel({
 				action: this.data.duplicate.content,
-				id: data.id
+				id: data.result
 			});
 		} else {
 			// error

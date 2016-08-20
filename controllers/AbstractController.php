@@ -3,6 +3,7 @@
 namespace controllers;
 
 use applications\App;
+use components\exceptions\ContentException;
 use components\exceptions\ModelException;
 use models\AbstractModel;
 
@@ -247,7 +248,12 @@ abstract class AbstractController
 	 */
 	public function actionDuplicate()
 	{
-		$this->json = ["result" => $this->getModel("*")->duplicate()];
+		$model = $this->getModel("*")->duplicate();
+		if (!$model instanceof AbstractModel) {
+			throw new ContentException("Incorrect duplicate data");
+		}
+
+		$this->json = ["result" => $model->id];
 	}
 
 	/**

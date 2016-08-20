@@ -12,6 +12,8 @@ use \Exception;
  * Abstract class for working with models
  *
  * @package models
+ * 
+ * @method AbstractModel duplicate
  */
 abstract class AbstractModel
 {
