@@ -61,6 +61,7 @@
 		min-height: 20px;
 		padding: 20px 20px 15px 20px;
 		border-bottom: 1px solid #ccc;
+		overflow: hidden;
 
 		.l-back {
 			color: @linkGrayColor;
@@ -82,6 +83,34 @@
 		.l-description {
 			font-size: 14px;
 			color: @textDescriptionColor;
+		}
+
+		.l-panel-settings-duplicate, .l-panel-settings-delete {
+			color: @linkBlueColor;
+
+			.l-icons {
+				display: inline-block;
+				width: 20px;
+				text-align: center;
+				color: @linkGrayColor;
+			}
+
+			&:hover {
+				color: @linkRedHoverColor;
+				.l-icons {
+					color: @linkRedHoverColor;
+				}
+			}
+		}
+
+		.l-panel-settings-duplicate {
+			margin-top: 15px;
+			float: left;
+		}
+
+		.l-panel-settings-delete {
+			margin-top: 15px;
+			float: right;
 		}
 	}
 

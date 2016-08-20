@@ -77,7 +77,7 @@
 	 * @private
 	 */
 	c.Panel.prototype._onSettingsDuplicateBefore = function () {
-		this.$_settingsDuplicate.find(".j-label").addClass("d-hide");
+		this.$_settingsDuplicate.find(".j-icon").addClass("d-hide");
 		this.$_settingsDuplicate.find(".j-loader").removeClass("d-hide");
 	};
 
@@ -89,7 +89,7 @@
 	 * @private
 	 */
 	c.Panel.prototype._onSettingsDuplicateSuccess = function (data) {
-		this.$_settingsDuplicate.find(".j-label").removeClass("d-hide");
+		this.$_settingsDuplicate.find(".j-icon").removeClass("d-hide");
 		this.$_settingsDuplicate.find(".j-loader").addClass("d-hide");
 
 		if (parseInt(data.id) !== 0) {
@@ -150,7 +150,7 @@
 	 * @private
 	 */
 	c.Panel.prototype._onSettingsDeleteBefore = function () {
-		this.$_settingsDelete.find(".j-label").addClass("d-hide");
+		this.$_settingsDelete.find(".j-icon").addClass("d-hide");
 		this.$_settingsDelete.find(".j-loader").removeClass("d-hide");
 	};
 
@@ -162,7 +162,7 @@
 	 * @private
 	 */
 	c.Panel.prototype._onSettingsDeleteSuccess = function (data) {
-		this.$_settingsDelete.find(".j-label").removeClass("d-hide");
+		this.$_settingsDelete.find(".j-icon").removeClass("d-hide");
 		this.$_settingsDelete.find(".j-loader").addClass("d-hide");
 
 		if (parseInt(data.result) === true) {

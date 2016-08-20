@@ -51,7 +51,7 @@ use components\Language;
             data-container="l-panel-sections"
             class="j-admin-bottom-button j-panel-open l-button"
         >
-            <i class="l-icon fa fa-files-o"></i>
+            <i class="l-icon fa fa-clone"></i>
             <span><?= Language::t("section", "sections") ?></span>
         </a>
 
