@@ -38,7 +38,7 @@
 
 		$url.on("keyup", function (event) {
 			if ($.isServiceEventKeyCode(event)) {
-				return false;
+				return true;
 			}
 
 			urlVal = $(this).transliteration();
@@ -65,9 +65,9 @@
 		var $widthSuffix = $container.find(".j-width-suffix");
 		t._settingsSectionSetWidth($widthField, $widthSuffix, $widthField.val());
 
-		$widthField.on("keyup", function (event) {
+		$widthField.on("keydown", function (event) {
 			if ($.isServiceEventKeyCode(event)) {
-				return false;
+				return true;
 			}
 
 			if (
@@ -75,9 +75,11 @@
 				&& (event.keyCode < 96 || event.keyCode > 105 )
 			) {
 				event.preventDefault();
-			} else {
-				t._settingsSectionSetWidth($widthField, $widthSuffix, $(this).val());
 			}
+		});
+
+		$widthField.on("keyup", function () {
+			t._settingsSectionSetWidth($widthField, $widthSuffix, $(this).val());
 		});
 
 		return this;
