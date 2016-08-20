@@ -12,7 +12,7 @@
 
 		this
 			._settingsSectionSetNameAndUrl($container)
-			._settingsSectionSetWidthEvent()
+			._settingsSectionSetWidthEvent($container)
 			._settingsSectionSetSeo($container);
 
 		this.settingsInit();
@@ -56,11 +56,13 @@
 	/**
 	 * Sets event on width field
 	 *
+	 * @param {Object} $container
+	 *
 	 * @returns {c.Panel}
 	 *
 	 * @private
      */
-	c.Panel.prototype._settingsSectionSetWidthEvent = function() {
+	c.Panel.prototype._settingsSectionSetWidthEvent = function($container) {
 		var t = this;
 		var $widthField = $container.find(".j-t__width");
 		var $widthSuffix = $container.find(".j-width-suffix");

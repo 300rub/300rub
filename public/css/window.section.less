@@ -17,12 +17,23 @@
       padding: 0 10px;
       position: relative;
       border-bottom: 1px solid @borderColor;
-      cursor: move;
 
       .l-title {
         font-size: 14px;
         line-height: 22px;
         font-weight: bold;
+
+        .l-line-up, .l-line-down {
+          color: @linkGrayColor;
+
+          &:hover {
+            color: @linkRedHoverColor;
+          }
+        }
+
+        .l-line-down {
+          margin-right: 7px;
+        }
 
         .l-select-block {
           margin-left: 20px;
@@ -95,7 +106,7 @@
       }
     }
 
-    &::first-child {
+    &:first-child {
       .l-section-line-header {
         .l-title {
           .l-line-up {
@@ -105,11 +116,14 @@
       }
     }
 
-    &::last-child {
+    &:last-child {
       .l-section-line-header {
         .l-title {
           .l-line-down {
             display: none;
+          }
+          .l-line-up {
+            margin-right: 7px;
           }
         }
       }
