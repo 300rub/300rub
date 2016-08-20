@@ -165,7 +165,7 @@
 		this.$_settingsDelete.find(".j-icon").removeClass("d-hide");
 		this.$_settingsDelete.find(".j-loader").addClass("d-hide");
 
-		if (parseInt(data.result) === true) {
+		if (!!data.result === true) {
 			if (parseInt(this.id) === c.sectionId || c.sectionId === 0) {
 				location.href = "/" + c.language + "/";
 			} else {
