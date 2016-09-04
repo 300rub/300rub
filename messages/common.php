@@ -59,4 +59,8 @@ return [
         Language::LANGUAGE_EN_ID => "Error!!!",
         Language::LANGUAGE_RU_ID => "",
     ],
+    "cancel" => [
+        Language::LANGUAGE_EN_ID => "Cancel",
+        Language::LANGUAGE_RU_ID => "",
+    ],
 ];

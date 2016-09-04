@@ -47,7 +47,7 @@
 		position: absolute;
 		right: 10px;
 		top: 5px;
-		z-index: 1;
+		z-index: 20;
 		color: @linkGrayColor;
 		font-size: 24px;
 
@@ -111,6 +111,51 @@
 		.l-panel-settings-delete {
 			margin-top: 15px;
 			float: right;
+		}
+
+		.l-delete-confirmation {
+			position: absolute;
+			background: white;
+			z-index: 10;
+			left: 0;
+			top: 0;
+			right: 0;
+			bottom: 0;
+
+			.l-buttons {
+				right: 15px;
+				bottom: 15px;
+				position: absolute;
+				text-align: right;
+
+				.l-cancel, .l-delete {
+					display: inline-block;
+					border: 1px solid @linkGrayColor;
+					padding: 4px 10px;
+					margin-left: 10px;
+					color: @textDescriptionColor;
+					.l-effect-fade;
+
+					.l-icon {
+						margin-right: 3px;
+					}
+
+					&:hover {
+						color: @textColor;
+						background: @linkGrayColor;
+					}
+				}
+
+				.l-delete {
+					border-color: @linkRedHoverColor;
+					color: @linkRedHoverColor;
+
+					&:hover {
+						background: @linkRedHoverColor;
+						color: white;
+					}
+				}
+			}
 		}
 	}
 
