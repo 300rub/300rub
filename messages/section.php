@@ -3,10 +3,6 @@
 use components\Language;
 
 return [
-    "deleteConfirmation"  => [
-        Language::LANGUAGE_EN_ID => "Are you sure that you want to delete the section?",
-        Language::LANGUAGE_RU_ID => "Вы действительно хотите удалить раздел?",
-    ],
     "width"               => [
         Language::LANGUAGE_EN_ID => "Width",
         Language::LANGUAGE_RU_ID => "",

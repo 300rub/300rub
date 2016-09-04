@@ -102,7 +102,6 @@ class SectionController extends AbstractController
             $this->json["delete"] = [
                 "action"  => "section.delete",
                 "content" => "section.panelList",
-                "confirm" => Language::t("section", "deleteConfirmation"),
             ];
         }
 

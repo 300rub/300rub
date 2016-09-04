@@ -2,17 +2,6 @@
 	"use strict";
 
 	/**
-	 * Panel settings handler
-	 */
-	c.Panel.prototype.settingsInit = function() {
-		this.$_settingsDuplicate = c.$templates.find(".j-panel-settings-duplicate").clone();
-		this.$_settingsDelete = c.$templates.find(".j-panel-settings-delete").clone();
-		this.$_settingsSubmit = c.$templates.find(".j-panel-submit").clone();
-
-		this._setSettingsDuplicate()._setSettingsDelete()._setSettingsSubmit();
-	};
-
-	/**
 	 * DOM-element of duplicate button
 	 *
 	 * @type {Object}
@@ -27,11 +16,31 @@
 	c.Panel.prototype.$_settingsDelete = null;
 
 	/**
+	 * DOM-element of delete confirmation
+	 *
+	 * @type {Object}
+	 */
+	c.Panel.prototype.$_settingsDeleteConfirmation = null;
+
+	/**
 	 * DOM-element of submit
 	 *
 	 * @type {Object}
-     */
+	 */
 	c.Panel.prototype.$_settingsSubmit = null;
+
+	/**
+	 * Panel settings handler
+	 */
+	c.Panel.prototype.settingsInit = function() {
+		this.$_settingsDuplicate = c.$templates.find(".j-panel-settings-duplicate").clone();
+		this.$_settingsDelete = c.$templates.find(".j-panel-settings-delete").clone();
+		this.$_settingsDeleteConfirmation =
+			c.$templates.find(".j-panel-settings-delete-confirmation").clone();
+		this.$_settingsSubmit = c.$templates.find(".j-panel-submit").clone();
+
+		this._setSettingsDuplicate()._setSettingsDelete()._setSettingsSubmit();
+	};
 
 	/**
 	 * Sets duplicate
@@ -127,19 +136,26 @@
 	 * @private
 	 */
 	c.Panel.prototype._onSettingsDelete = function() {
-		if (confirm(this.data.delete.confirm) !== true) {
-			return false;
-		}
+		var $deleteConfirmation = this.$_settingsDeleteConfirmation.clone();
+		$deleteConfirmation.appendTo(this.$panel.find(".j-header"));
 
-		$.ajaxJson(
-			this.data.delete.action,
-			{
-				id: this.data.id
-			},
-			$.proxy(this._onSettingsDeleteBefore, this),
-			$.proxy(this._onSettingsDeleteSuccess, this),
-			$.proxy(this.onError, this)
-		);
+		$deleteConfirmation.find(".j-cancel").on("click", function() {
+			$deleteConfirmation.remove();
+		});
+
+		$deleteConfirmation.find(".j-delete").on("click", $.proxy(function() {
+			$deleteConfirmation.remove();
+
+			$.ajaxJson(
+				this.data.delete.action,
+				{
+					id: this.data.id
+				},
+				$.proxy(this._onSettingsDeleteBefore, this),
+				$.proxy(this._onSettingsDeleteSuccess, this),
+				$.proxy(this.onError, this)
+			);
+		}, this));
 
 		return false;
 	};

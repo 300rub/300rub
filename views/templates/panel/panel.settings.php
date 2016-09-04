@@ -17,3 +17,17 @@ use components\Language;
 	</span>
     <span class="j-label"><?= Language::t("common", "delete") ?></span>
 </a>
+
+<div class="j-panel-settings-delete-confirmation l-delete-confirmation">
+	<div class="l-text"><?= Language::t("common", "deleteConfirmation") ?></div>
+	<div class="l-buttons">
+		<a class="l-delete j-delete">
+			<i class="l-icon fa fa-trash-o"></i>
+			<?= Language::t("common", "delete") ?>
+		</a>
+		<a class="l-cancel j-cancel">
+			<i class="l-icon fa fa-ban"></i>
+			<?= Language::t("common", "cancel") ?>
+		</a>
+	</div>
+</div>

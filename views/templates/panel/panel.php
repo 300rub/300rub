@@ -4,19 +4,6 @@ use components\Language;
 <div class="j-panel l-panel">
 	<a class="j-close l-close fa fa-close"></a>
 	<div class="j-header l-header d-hide">
-		<div class="l-delete-confirmation">
-			<div class="l-buttons">
-				<a class="l-delete">
-					<i class="l-icon fa fa-trash-o"></i>
-					<?= Language::t("common", "delete") ?>
-				</a>
-				<a class="l-cancel">
-					<i class="l-icon fa fa-ban"></i>
-					<?= Language::t("common", "cancel") ?>
-				</a>
-			</div>
-		</div>
-
 		<a class="j-back l-back d-hide fa fa-chevron-left"></a>
 		<span class="j-title l-title"></span>
 		<div class="j-description l-description"></div>

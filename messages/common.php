@@ -63,4 +63,8 @@ return [
         Language::LANGUAGE_EN_ID => "Cancel",
         Language::LANGUAGE_RU_ID => "",
     ],
+    "deleteConfirmation" => [
+        Language::LANGUAGE_EN_ID => "Do you really want to delete?",
+        Language::LANGUAGE_RU_ID => "",
+    ],
 ];
