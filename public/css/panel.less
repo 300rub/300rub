@@ -153,13 +153,24 @@
 			}
 
 			.l-label {
-				padding: 13px 70px 13px 20px;
+				padding: 13px 70px 13px 14px;
 				display: block;
 				color: @linkBlueColor;
 				font-size: 14px;
 
+				.l-icon {
+					color: @linkGrayColor;
+
+					width: 24px;
+					text-align: center;
+				}
+
 				&:hover {
 					color: @linkRedHoverColor;
+
+					.l-icon {
+						color: @linkRedHoverColor;
+					}
 				}
 			}
 

@@ -8,6 +8,19 @@
 		var $container = c.$templates.find(".j-panel-settings-section-container").clone();
 		$container.appendTo(this.$container);
 
+		$.each(this.data.forms, function(i, item) {
+			switch (item.name) {
+				case "t.is_main":
+					if (parseInt(item.value) === 1) {
+						$container.find(".j-is-main-container").addClass("d-hide");
+					}
+
+					break;
+				default:
+					break;
+			}
+		});
+
 		$.form(this.data.forms, $container);
 
 		this

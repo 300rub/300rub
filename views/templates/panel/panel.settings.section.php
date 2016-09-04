@@ -26,7 +26,7 @@ use applications\App;
             <span class="l-suffix j-width-suffix">px</span>
         </label>
     </div>
-    <div class="l-form-group l-checkbox-container">
+    <div class="l-form-group l-checkbox-container j-is-main-container">
         <label class="l-label-container">
 			<span class="l-body">
                 <input class="j-t__is_main l-checkbox" type="checkbox"/>

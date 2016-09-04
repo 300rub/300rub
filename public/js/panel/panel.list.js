@@ -47,12 +47,12 @@
 			$clone = $itemTemplate.clone();
 
 			if (item.icon !== undefined) {
-				$clone.find(".j-icon").css("display", "block").addClass("l-icon-" + item.icon);
+				$clone.find(".j-label .j-icon").addClass(item.icon);
 			} else if (this.data.icon !== undefined) {
-				$clone.find(".j-icon").css("display", "block").addClass("l-icon-" + this.data.icon);
+				$clone.find(".j-label .j-icon").addClass(this.data.icon);
 			}
 
-			$clone.find(".j-label").text(item.label);
+			$clone.find(".j-label .j-text").text(item.label);
 
 			if (item.content !== undefined) {
 				itemContent = item.content;

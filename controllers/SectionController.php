@@ -51,7 +51,7 @@ class SectionController extends AbstractController
                 "id"    => $model->id
             ];
             if ($model->is_main) {
-                $item["icon"] = "main";
+                $item["icon"] = "fa-home";
             }
             $list[] = $item;
         }
@@ -62,6 +62,7 @@ class SectionController extends AbstractController
             "description"    => Language::t("section", "panelDescription"),
             "list"           => $list,
             "item"           => "section.window",
+            "icon"           => "fa-angle-right",
             "design"         => "section.design",
             "settings"       => "section.settings",
             "windowCssClass" => "l-window-section",
@@ -109,6 +110,7 @@ class SectionController extends AbstractController
             "seoModel.name",
             "seoModel.url",
             "t.width",
+            "t.is_main",
             "seoModel.title",
             "seoModel.keywords",
             "seoModel.description"
