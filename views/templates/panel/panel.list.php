@@ -15,3 +15,16 @@ use components\Language;
     <i class="l-icon fa fa-plus"></i>
     <span class="j-label"><?= Language::t("common", "add") ?></span>
 </a>
+
+<div class="j-panel-list-display-block-container">
+    <?= Language::t("block", "displayBlock") ?>
+    <a>
+        <i class="fa fa-globe"></i>
+        <?= Language::t("block", "all") ?>
+    </a>
+    |
+    <a>
+        <i class="fa fa-file-text-o"></i>
+        <?= Language::t("block", "fromPage") ?>
+    </a>
+</div>
