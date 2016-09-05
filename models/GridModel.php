@@ -310,6 +310,21 @@ class GridModel extends AbstractModel
 	}
 
 	/**
+	 * Adds type to SQL request
+	 *
+	 * @param int $type Type
+	 *
+	 * @return GridModel
+	 */
+	public function byType($type)
+	{
+		$this->db->addCondition("t.content_type = :type");
+		$this->db->params["type"] = $type;
+
+		return $this;
+	}
+
+	/**
 	 * Gets all grids for sections structure window
 	 *
 	 * @param int $sectionId Section ID

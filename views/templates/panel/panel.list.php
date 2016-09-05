@@ -16,15 +16,23 @@ use components\Language;
     <span class="j-label"><?= Language::t("common", "add") ?></span>
 </a>
 
-<div class="j-panel-list-display-block-container">
-    <?= Language::t("block", "displayBlock") ?>
-    <a>
-        <i class="fa fa-globe"></i>
+<div class="j-panel-list-display-block-container l-panel-list-display-block-container">
+    <span class="l-text"><?= Language::t("block", "displayBlock") ?></span>
+    <a class="j-link-all l-link d-hide">
+        <i class="l-icon fa fa-globe"></i>
         <?= Language::t("block", "all") ?>
     </a>
-    |
-    <a>
-        <i class="fa fa-file-text-o"></i>
+    <span class="j-label-all l-label d-hide">
+        <i class="l-icon fa fa-globe"></i>
+        <?= Language::t("block", "all") ?>
+    </span>
+    <span class="l-separator">|</span>
+    <a class="j-link-page l-link d-hide">
+        <i class="l-icon fa fa-file-text-o"></i>
         <?= Language::t("block", "fromPage") ?>
     </a>
+    <span class="j-label-page l-label d-hide">
+        <i class="l-icon fa fa-globe"></i>
+        <?= Language::t("block", "all") ?>
+    </span>
 </div>

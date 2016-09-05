@@ -5,7 +5,42 @@
 	 * Panel list handler
 	 */
 	c.Panel.prototype.list = function() {
-		this._setList();
+		this
+			._setListDisplayBlock()
+			._setList();
+	};
+
+	/**
+	 * Sets display block container
+	 *
+	 * @returns {c.Panel}
+	 *
+	 * @private
+     */
+	c.Panel.prototype._setListDisplayBlock = function() {
+		var $container = c.$templates.find(".j-panel-list-display-block-container").clone();
+
+		$container.find(".j-link-all").on("click", $.proxy(function() {
+			$.panel({
+				action: this.action,
+				id: this.id,
+				isDisplayFromPage: true
+			});
+
+			return false;
+		}, this));
+
+		$container.find(".j-link-page").on("click", $.proxy(function() {
+			$.panel({
+				action: this.action,
+				id: this.id,
+				isDisplayFromPage: false
+			});
+
+			return false;
+		}, this));
+
+		return this;
 	};
 
 	/**

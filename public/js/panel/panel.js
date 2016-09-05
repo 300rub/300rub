@@ -21,6 +21,11 @@
 			this.id = parseInt(options.id);
 		}
 
+		this.isDisplayFromPage = false;
+		if (options.isDisplayFromPage !== undefined) {
+			this.isDisplayFromPage = !!options.isDisplayFromPage;
+		}
+
 		this.init();
 	};
 
@@ -82,7 +87,9 @@
 			$.ajaxJson(
 				this.action,
 				{
-					id: this.id
+					id: this.id,
+					sectionId: c.sectionId,
+					isDisplayFromPage: this.isDisplayFromPage
 				},
 				$.proxy(this._onLoadBefore, this),
 				$.proxy(this._onLoadSuccess, this),

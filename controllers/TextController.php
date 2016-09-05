@@ -3,6 +3,7 @@
 namespace controllers;
 
 use components\Language;
+use models\GridModel;
 use models\TextModel;
 
 /**
@@ -53,7 +54,10 @@ class TextController extends AbstractController
     public function actionPanelList()
     {
         $list = [];
-        $models = TextModel::model()->ordered()->findAll();
+        $models = $this->filterList(
+            TextModel::model()->ordered()->findAll(),
+            GridModel::TYPE_TEXT
+        );
 
         foreach ($models as $model) {
             $items[] = [

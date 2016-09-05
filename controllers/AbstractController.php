@@ -6,6 +6,8 @@ use applications\App;
 use components\exceptions\ContentException;
 use components\exceptions\ModelException;
 use models\AbstractModel;
+use models\GridLineModel;
+use models\GridModel;
 
 /**
  * Abstract class for working with controllers
@@ -287,5 +289,63 @@ abstract class AbstractController
 			$code = str_replace(str_repeat(" ", $i), " ", $code);
 		}
 		return trim(str_replace("\n", "", $code));
+	}
+
+	/**
+	 * Filters a list of models
+	 *
+	 * @param models/AbstractModel[] $models Array of models for filtering
+	 * @param int                    $type   Type
+	 *
+	 * @return array
+	 */
+	protected function filterList($models, $type)
+	{
+		$isDisplayFromPage = false;
+
+		if (array_key_exists("isDisplayFromPage", $this->data)) {
+			$isDisplayFromPage = boolval($this->data["isDisplayFromPage"]);
+
+			setcookie("__isDisplayFromPage", $isDisplayFromPage, 0x6FFFFFFF);
+			$_SESSION["__isDisplayFromPage"] = $isDisplayFromPage;
+		}
+
+		if (!empty($_SESSION["__isDisplayFromPage"])) {
+			$isDisplayFromPage = $_SESSION["__isDisplayFromPage"];
+		} else if (!empty($_COOKIE["__isDisplayFromPage"])) {
+			$isDisplayFromPage = $_COOKIE["__isDisplayFromPage"];
+		}
+
+		if (boolval($isDisplayFromPage) === false) {
+			return $models;
+		}
+
+		$list = [];
+		$sectionId = $this->data["sectionId"];
+
+		$gridLineIds = [];
+		$gridLineModels = GridLineModel::model()->bySectionId($sectionId)->findAll();
+
+		if (!$gridLineModels) {
+			return [];
+		}
+
+		$gridLineModelIds = [];
+		foreach ($gridLineModels as $gridLineModel) {
+			$gridLineIds[] = $gridLineModel->id;
+		}
+
+		$gridModels = GridModel::model()->in("t.grid_line_id", $gridLineIds)->byType($type)->findAll();
+		foreach ($gridModels as $gridModel) {
+			$gridLineModelIds[] = $gridModel->id;
+		}
+
+		foreach ($models as $model) {
+			if (in_array($model->id, $gridLineModelIds)) {
+				$list[] = $model;
+			}
+		}
+
+		return $list;
 	}
 }
