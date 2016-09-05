@@ -11,11 +11,11 @@ use components\Language;
 			</div>
 			<div class="l-footer j-footer d-hide">
 				<a class="j-submit l-submit l-effect-fade" href="#">
-					<span class="j-label"><?= Language::t("common", "save") ?></span>
 					<span class="l-icons">
 						<i class="j-icon fa"></i>
 						<i class="j-loader d-hide fa fa-refresh fa-spin fa-fw"></i>
 					</span>
+					<span class="j-label"><?= Language::t("common", "save") ?></span>
 				</a>
 			</div>
 		</form>

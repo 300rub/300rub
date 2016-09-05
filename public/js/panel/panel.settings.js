@@ -144,8 +144,6 @@
 		});
 
 		$deleteConfirmation.find(".j-delete").on("click", $.proxy(function() {
-			$deleteConfirmation.remove();
-
 			$.ajaxJson(
 				this.data.delete.action,
 				{
@@ -166,8 +164,8 @@
 	 * @private
 	 */
 	c.Panel.prototype._onSettingsDeleteBefore = function () {
-		this.$_settingsDelete.find(".j-icon").addClass("d-hide");
-		this.$_settingsDelete.find(".j-loader").removeClass("d-hide");
+		this.$_settingsDeleteConfirmation.find(".j-icon").addClass("d-hide");
+		this.$_settingsDeleteConfirmation.find(".j-loader").removeClass("d-hide");
 	};
 
 	/**
@@ -178,19 +176,12 @@
 	 * @private
 	 */
 	c.Panel.prototype._onSettingsDeleteSuccess = function (data) {
-		this.$_settingsDelete.find(".j-icon").removeClass("d-hide");
-		this.$_settingsDelete.find(".j-loader").addClass("d-hide");
+		this.$_settingsDeleteConfirmation.find(".j-icon").removeClass("d-hide");
+		this.$_settingsDeleteConfirmation.find(".j-loader").addClass("d-hide");
 
-		if (!!data.result === true) {
-			if (parseInt(this.id) === c.sectionId || c.sectionId === 0) {
-				location.href = "/" + c.language + "/";
-			} else {
-				$.panel({
-					action: this.data.delete.content
-				});
-			}
-		} else {
-			// error
+		var methodName = this.data.handler + "OnDelete";
+		if ($.type(this[methodName]) === "function") {
+			this.methodName(data);
 		}
 	};
 

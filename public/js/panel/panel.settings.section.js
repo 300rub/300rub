@@ -164,4 +164,23 @@
 
 		return this;
 	};
+
+	/**
+	 * Event after deleting
+	 *
+	 * @param {Object} [data]
+     */
+	c.Panel.prototype.settingsSectionOnDelete = function(data) {
+		if (!!data.result === true) {
+			if (parseInt(this.id) === c.sectionId || c.sectionId === 0) {
+				location.href = "/" + c.language + "/";
+			} else {
+				$.panel({
+					action: this.data.delete.content
+				});
+			}
+		} else {
+			// error
+		}
+	};
 }(window.jQuery, window.Core);

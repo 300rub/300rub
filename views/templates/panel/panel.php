@@ -17,9 +17,9 @@ use components\Language;
 </div>
 
 <a class="j-panel-submit l-panel-submit">
-	<span class="j-label"><?= Language::t("common", "save") ?></span>
 	<span class="l-icons">
 		<i class="j-icon fa fa-check"></i>
 		<i class="j-loader d-hide fa fa-refresh fa-spin fa-fw"></i>
 	</span>
+	<span class="j-label"><?= Language::t("common", "save") ?></span>
 </a>
