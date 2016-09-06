@@ -67,14 +67,15 @@ class TextController extends AbstractController
         }
 
         $this->json = [
-            "back"        => "block.panelList",
-            "content"     => "text.window",
-            "description" => Language::t("text", "panelDescription"),
-            "design"      => "text.design",
-            "icon"        => "text",
-            "list"        => $list,
-            "settings"    => "text.settings",
-            "title"       => Language::t("text", "texts"),
+            "back"              => "block.panelList",
+            "content"           => "text.window",
+            "description"       => Language::t("text", "panelDescription"),
+            "design"            => "text.design",
+            "icon"              => "text",
+            "list"              => $list,
+            "settings"          => "text.settings",
+            "title"             => Language::t("text", "texts"),
+            "isDisplayFromPage" => $this->isDisplayFromPage()
         ];
     }
 

@@ -18,27 +18,41 @@
 	 * @private
      */
 	c.Panel.prototype._setListDisplayBlock = function() {
+		if (this.data.isDisplayFromPage === undefined) {
+			return this;
+		}
+
 		var $container = c.$templates.find(".j-panel-list-display-block-container").clone();
 
-		$container.find(".j-link-all").on("click", $.proxy(function() {
-			$.panel({
-				action: this.action,
-				id: this.id,
-				isDisplayFromPage: true
-			});
+		if (!!this.data.isDisplayFromPage === true) {
+			$container.find(".j-link-all")
+				.removeClass("d-hide")
+				.on("click", $.proxy(function() {
+					$.panel({
+						action: this.action,
+						id: this.id,
+						isDisplayFromPage: true
+					});
 
-			return false;
-		}, this));
+					return false;
+				}, this));
+			$container.find(".j-label-page").removeClass("d-hide");
+		} else {
+			$container.find(".j-link-page")
+				.removeClass("d-hide")
+				.on("click", $.proxy(function() {
+					$.panel({
+						action: this.action,
+						id: this.id,
+						isDisplayFromPage: false
+					});
 
-		$container.find(".j-link-page").on("click", $.proxy(function() {
-			$.panel({
-				action: this.action,
-				id: this.id,
-				isDisplayFromPage: false
-			});
+					return false;
+				}, this));
+			$container.find(".j-label-all").removeClass("d-hide");
+		}
 
-			return false;
-		}, this));
+		$container.appendTo(this.$panel.find(".j-header"));
 
 		return this;
 	};

@@ -292,6 +292,24 @@ abstract class AbstractController
 	}
 
 	/**
+	 * Returns a flag of displaying from the page
+	 *
+	 * @return bool
+	 */
+	protected function isDisplayFromPage()
+	{
+		$isDisplayFromPage = false;
+
+		if (!empty($_SESSION["__isDisplayFromPage"])) {
+			$isDisplayFromPage = $_SESSION["__isDisplayFromPage"];
+		} else if (!empty($_COOKIE["__isDisplayFromPage"])) {
+			$isDisplayFromPage = $_COOKIE["__isDisplayFromPage"];
+		}
+
+		return boolval($isDisplayFromPage);
+	}
+
+	/**
 	 * Filters a list of models
 	 *
 	 * @param models/AbstractModel[] $models Array of models for filtering
@@ -301,22 +319,16 @@ abstract class AbstractController
 	 */
 	protected function filterList($models, $type)
 	{
-		$isDisplayFromPage = false;
-
 		if (array_key_exists("isDisplayFromPage", $this->data)) {
 			$isDisplayFromPage = boolval($this->data["isDisplayFromPage"]);
 
 			setcookie("__isDisplayFromPage", $isDisplayFromPage, 0x6FFFFFFF);
 			$_SESSION["__isDisplayFromPage"] = $isDisplayFromPage;
+		} else {
+			$isDisplayFromPage = $this->isDisplayFromPage();
 		}
 
-		if (!empty($_SESSION["__isDisplayFromPage"])) {
-			$isDisplayFromPage = $_SESSION["__isDisplayFromPage"];
-		} else if (!empty($_COOKIE["__isDisplayFromPage"])) {
-			$isDisplayFromPage = $_COOKIE["__isDisplayFromPage"];
-		}
-
-		if (boolval($isDisplayFromPage) === false) {
+		if ($isDisplayFromPage === false) {
 			return $models;
 		}
 
