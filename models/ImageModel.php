@@ -267,8 +267,7 @@ class ImageModel extends AbstractModel
 	protected function setValues()
 	{
 		$this->language = intval($this->language);
-		if (
-			$this->language === 0
+		if ($this->language === 0
 			|| !array_key_exists($this->language, Language::$aliasList)
 		) {
 			$this->language = Language::$activeId;

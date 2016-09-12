@@ -1,6 +1,7 @@
 <?php
 
 namespace models;
+
 use components\exceptions\ModelException;
 
 /**
