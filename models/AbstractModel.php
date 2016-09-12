@@ -576,4 +576,70 @@ abstract class AbstractModel
 	{
 		return $this->relations;
 	}
+
+	/**
+	 * Gets tiny int value
+	 *
+	 * @param bool|int $value Value
+	 *
+	 * @return int
+	 */
+	protected function getTinyIntVal($value)
+	{
+		return intval($value) >= 1 ? 1 : 0;
+	}
+
+	/**
+	 * Gets int val
+	 *
+	 * @param int $value  Value
+	 * @param int $maxVal Max value
+	 * @param int $minVal Min value
+	 *
+	 * @return int
+	 */
+	protected function getIntVal($value, $maxVal = 99999, $minVal = 0)
+	{
+		$value = intval($value);
+
+		if ($value < $minVal) {
+			$value = $minVal;
+		} elseif ($value > $maxVal) {
+			$value = $maxVal;
+		}
+
+		return $value;
+	}
+
+	/**
+	 * Gets relation model
+	 *
+	 * @param AbstractModel|null $model     Object
+	 * @param int                $id        ID
+	 * @param string             $className Class name of instance
+	 *
+	 * @return AbstractModel
+	 */
+	protected function getRelationModel($model, $id, $className)
+	{
+		if ($model instanceof $className) {
+			return $model;
+		}
+
+		/**
+		 * @var AbstractModel $class
+		 */
+		$class = new $className;
+
+		if ($id === 0) {
+			$model = $class;
+		} else {
+			$model = $class->byId($id)->find();
+			if ($model === null) {
+				$model = $class;
+			}
+		}
+
+		return $model;
+	}
 }

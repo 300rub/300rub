@@ -66,11 +66,12 @@ class M_160317_000000_images extends AbstractMigration
                     "design_image_zoom_id"   => "integer",
                     "design_image_simple_id" => "integer",
                     "use_crop"               => "boolean",
+                    "is_auto_crop"           => "boolean",
+                    "crop_type"              => "integer",
                     "crop_width"             => "integer",
                     "crop_height"            => "integer",
                     "crop_x"                 => "integer",
                     "crop_y"                 => "integer",
-                    "auto_crop"              => "integer",
                     "use_albums"             => "boolean",
                 ]
             )

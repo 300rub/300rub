@@ -64,6 +64,11 @@ class ImageModel extends AbstractModel
 	const CROP_TYPE_BOTTOM_RIGHT = 9;
 
 	/**
+	 * Default crop type
+	 */
+	const DEFAULT_CROP_TYPE = self::CROP_TYPE_MIDDLE_CENTER;
+
+	/**
 	 * Block's name
 	 *
 	 * @var string
@@ -85,13 +90,6 @@ class ImageModel extends AbstractModel
 	public $design_block_id;
 
 	/**
-	 * ID of design image block
-	 *
-	 * @var integer
-	 */
-	public $design_image_block_id;
-
-	/**
 	 * Design block model
 	 *
 	 * @var DesignBlockModel
@@ -99,11 +97,60 @@ class ImageModel extends AbstractModel
 	public $designBlockModel;
 
 	/**
-	 * Design image block model
+	 * ID of design image slider
+	 *
+	 * @var integer
+	 */
+	public $design_image_slider_id;
+
+	/**
+	 * Design image slider model
+	 *
+	 * @var DesignImageSliderModel
+	 */
+	public $designImageSliderModel;
+
+	/**
+	 * ID of design image slider
+	 *
+	 * @var integer
+	 */
+	public $design_image_zoom_id;
+
+	/**
+	 * Design image zoom model
+	 *
+	 * @var DesignImageZoomModel
+	 */
+	public $designImageZoomModel;
+
+	/**
+	 * ID of design image simple
+	 *
+	 * @var integer
+	 */
+	public $design_image_simple_id;
+
+	/**
+	 * Design image simple model
 	 *
 	 * @var DesignBlockModel
 	 */
-	public $designImageBlockModel;
+	public $designImageSimpleModel;
+
+	/**
+	 * Flag of using cropping
+	 *
+	 * @var bool
+	 */
+	public $use_crop;
+
+	/**
+	 * Flag of auto cropping
+	 *
+	 * @var bool
+	 */
+	public $is_auto_crop;
 
 	/**
 	 * Crop type
@@ -162,8 +209,10 @@ class ImageModel extends AbstractModel
 	 * @var array
 	 */
 	protected $relations = [
-		"designBlockModel"      => ['models\DesignBlockModel', "design_block_id"],
-		"designImageBlockModel" => ['models\DesignBlockModel', "design_image_block_id"]
+		"designBlockModel"       => ['models\DesignBlockModel', "design_block_id"],
+		"designImageSliderModel" => ['models\DesignImageSliderModel', "design_image_slider_id"],
+		"designImageZoomModel"   => ['models\DesignImageZoomModel', "design_image_zoom_id"],
+		"designImageSimpleModel" => ['models\DesignBlockModel', "design_image_slider_id"]
 	];
 
 	/**
@@ -184,16 +233,20 @@ class ImageModel extends AbstractModel
 	public function getRules()
 	{
 		return [
-			"name"                  => ["required", "max" => 255],
-			"language"              => [],
-			"design_block_id"       => [],
-			"design_image_block_id" => [],
-			"crop_type"             => [],
-			"crop_width"            => [],
-			"crop_height"           => [],
-			"crop_x"                => [],
-			"crop_y"                => [],
-			"use_albums"            => [],
+			"name"                   => ["required", "max" => 255],
+			"language"               => [],
+			"design_block_id"        => [],
+			"design_image_slider_id" => [],
+			"design_image_zoom_id"   => [],
+			"design_image_simple_id" => [],
+			"use_crop"               => [],
+			"is_auto_crop"           => [],
+			"crop_type"              => [],
+			"crop_width"             => [],
+			"crop_height"            => [],
+			"crop_x"                 => [],
+			"crop_y"                 => [],
+			"use_albums"             => [],
 		];
 	}
 
@@ -222,8 +275,12 @@ class ImageModel extends AbstractModel
 		}
 
 		$this->design_block_id = intval($this->design_block_id);
-		$this->design_image_block_id = intval($this->design_image_block_id);
+		$this->design_image_slider_id = intval($this->design_image_slider_id);
+		$this->design_image_zoom_id = intval($this->design_image_zoom_id);
+		$this->design_image_simple_id = intval($this->design_image_simple_id);
 
+		$this->use_crop = boolval($this->use_crop);
+		$this->is_auto_crop = boolval($this->is_auto_crop);
 		$this->crop_type = intval($this->crop_type);
 		$this->crop_width = intval($this->crop_width);
 		$this->crop_height = intval($this->crop_height);
@@ -238,70 +295,46 @@ class ImageModel extends AbstractModel
 	 */
 	protected function beforeSave()
 	{
-		if (!$this->designBlockModel instanceof DesignBlockModel) {
-			if ($this->design_block_id === 0) {
-				$this->designBlockModel = new DesignBlockModel();
-			} else {
-				$this->designBlockModel = DesignBlockModel::model()->byId($this->design_block_id)->find();
-				if ($this->designBlockModel === null) {
-					$this->designBlockModel = new DesignBlockModel();
-				}
-			}
-		}
+		$this->designBlockModel = $this->getRelationModel(
+			$this->designBlockModel,
+			$this->design_block_id,
+			"DesignBlockModel"
+		);
 
-		if (!$this->designImageBlockModel instanceof DesignBlockModel) {
-			if ($this->design_image_block_id === 0) {
-				$this->designImageBlockModel = new DesignBlockModel();
-			} else {
-				$this->designImageBlockModel = DesignBlockModel::model()->byId($this->design_image_block_id)->find();
-				if ($this->designImageBlockModel === null) {
-					$this->designImageBlockModel = new DesignBlockModel();
-				}
-			}
-		}
+		$this->designImageSliderModel = $this->getRelationModel(
+			$this->designImageSliderModel,
+			$this->design_image_slider_id,
+			"DesignImageSliderModel"
+		);
 
-		$this->use_albums = intval($this->use_albums);
-		if ($this->use_albums >= 1) {
-			$this->use_albums = 1;
-		} else {
-			$this->use_albums = 0;
-		}
+		$this->designImageZoomModel = $this->getRelationModel(
+			$this->designImageZoomModel,
+			$this->design_image_zoom_id,
+			"DesignImageZoomModel"
+		);
 
-		$cropTypeList = $this->getCropTypeList();
-		if (!array_key_exists($this->crop_type, $cropTypeList)) {
-			$this->crop_type = 0;
-		}
+		$this->designImageSimpleModel = $this->getRelationModel(
+			$this->designImageSimpleModel,
+			$this->design_image_simple_id,
+			"DesignBlockModel"
+		);
 
-		if ($this->crop_type !== 0) {
-			if ($this->crop_width < 0) {
-				$this->crop_width = 0;
-			} elseif ($this->crop_width > ImageInstanceModel::MAX_SIZE) {
-				$this->crop_width = ImageInstanceModel::MAX_SIZE;
+		$this->use_crop = $this->getTinyIntVal($this->use_crop);
+		$this->is_auto_crop = $this->getTinyIntVal($this->is_auto_crop);
+
+		if ($this->use_crop === 1) {
+			$cropTypeList = $this->getCropTypeList();
+			if (!array_key_exists($this->crop_type, $cropTypeList)) {
+				$this->crop_type = self::DEFAULT_CROP_TYPE;
 			}
 
-			if ($this->crop_height < 0) {
-				$this->crop_height = 0;
-			} elseif ($this->crop_height > ImageInstanceModel::MAX_SIZE) {
-				$this->crop_height = ImageInstanceModel::MAX_SIZE;
-			}
-
-			if ($this->crop_width === 0 && $this->crop_height === 0) {
-				if ($this->crop_x < 0) {
-					$this->crop_x = 0;
-				}
-				if ($this->crop_y < 0) {
-					$this->crop_y = 0;
-				}
-			} else {
-				$this->crop_x = 0;
-				$this->crop_y = 0;
-			}
-		} else {
-			$this->crop_width = 0;
-			$this->crop_height = 0;
-			$this->crop_x = 0;
-			$this->crop_y = 0;
+			$this->crop_width = $this->getIntVal($this->crop_width, ImageInstanceModel::MAX_SIZE);
+			$this->crop_height = $this->getIntVal($this->crop_height, ImageInstanceModel::MAX_SIZE);
+			$this->crop_x = $this->getIntVal($this->crop_x);
+			$this->crop_y = $this->getIntVal($this->crop_y);
 		}
+
+		$this->use_albums = $this->getTinyIntVal($this->use_albums);
 
 		parent::beforeSave();
 	}
