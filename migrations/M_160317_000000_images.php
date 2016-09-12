@@ -22,9 +22,7 @@ class M_160317_000000_images extends AbstractMigration
                     "id"                    => "pk",
                     "design_block_id"       => "integer",
                     "is_scroll"             => "boolean",
-                    "has_thumbs"            => "boolean",
                     "thumbs_alignment"      => "integer",
-                    "has_description"       => "boolean",
                     "description_alignment" => "integer",
                     "effect"                => "integer",
                 ]

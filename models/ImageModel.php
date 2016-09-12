@@ -360,16 +360,13 @@ class ImageModel extends AbstractModel
 	{
 		$modelForCopy = $this->withAll()->byId($this->id)->find();
 
-		$designBlockModel = $modelForCopy->designBlockModel->duplicate();
-		$designImageBlockModel = $modelForCopy->designImageBlockModel->duplicate();
-
 		$model = clone $this;
 		$model->id = 0;
 		$model->name = Language::t("common", "copy") . " {$this->name}";
-		$model->designBlockModel = $designBlockModel;
-		$model->design_block_id = $designBlockModel->id;
-		$model->designImageBlockModel = $designImageBlockModel;
-		$model->design_image_block_id = $designImageBlockModel->id;
+		$model->designBlockModel = $modelForCopy->designBlockModel->duplicate();
+		$model->designImageSimpleModel = $modelForCopy->designImageSimpleModel->duplicate();
+		$model->designImageSliderModel = $modelForCopy->designImageSliderModel->duplicate();
+		$model->designImageZoomModel = $modelForCopy->designImageZoomModel->duplicate();
 		if (!$model->save()) {
 			$fields = "";
 			foreach ($model->getFieldNames() as $fieldName) {
@@ -405,47 +402,11 @@ class ImageModel extends AbstractModel
 			}
 		}
 
-		$imageInstances = ImageInstanceModel::model()->byAlbumId()->findAll();
-		foreach ($imageInstances as $imageInstance) {
-			if (!$imageInstance->delete()) {
-				throw new ModelException(
-					"Unable to delete ImageInstanceModel model with ID = {id}",
-					[
-						"id" => $imageInstance->id
-					]
-				);
-			}
-		}
-
-		$designBlockModel = $this->designBlockModel;
-		if ($designBlockModel === null) {
-			$designBlockModel = DesignBlockModel::model()->byId($this->design_block_id)->find();
-		}
-		if ($designBlockModel instanceof DesignBlockModel) {
-			if (!$designBlockModel->delete()) {
-				throw new ModelException(
-					"Unable to delete DesignBlockModel model with ID = {id}",
-					[
-						"id" => $designBlockModel->id
-					]
-				);
-			}
-		}
-
-		$designImageBlockModel = $this->designImageBlockModel;
-		if ($designImageBlockModel === null) {
-			$designImageBlockModel = DesignBlockModel::model()->byId($this->design_image_block_id)->find();
-		}
-		if ($designImageBlockModel instanceof DesignBlockModel) {
-			if (!$designImageBlockModel->delete()) {
-				throw new ModelException(
-					"Unable to delete DesignBlockModel model with ID = {id}",
-					[
-						"id" => $designImageBlockModel->id
-					]
-				);
-			}
-		}
+		$this
+			->deleteRelation($this->designBlockModel, $this->design_block_id, "DesignBlockModel")
+			->deleteRelation($this->designImageZoomModel, $this->design_image_zoom_id, "DesignImageZoomModel")
+			->deleteRelation($this->designImageSliderModel, $this->design_image_slider_id, "DesignImageSliderModel")
+			->deleteRelation($this->designImageSimpleModel, $this->design_image_simple_id, "DesignBlockModel");
 
 		parent::beforeDelete();
 	}

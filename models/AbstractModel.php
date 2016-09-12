@@ -642,4 +642,39 @@ abstract class AbstractModel
 
 		return $model;
 	}
+
+	/**
+	 * Deletes relation
+	 *
+	 * @param AbstractModel $model     Model object
+	 * @param int           $id        ID
+	 * @param string        $className Class Name
+	 *
+	 * @throws ModelException
+	 *
+	 * @return AbstractModel
+	 */
+	protected function deleteRelation($model, $id, $className)
+	{
+		if ($model === null) {
+			/**
+			 * @var AbstractModel $class
+			 */
+			$class = new $className;
+
+			$model = $class->byId($id)->find();
+		}
+
+		if (!$model instanceof $className ||!$model->delete()) {
+			throw new ModelException(
+				"Unable to delete {className} model with ID = {id}",
+				[
+					"className" => $className,
+					"id"        => $id
+				]
+			);
+		}
+
+		return $this;
+	}
 }
