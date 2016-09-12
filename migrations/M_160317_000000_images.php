@@ -3,7 +3,7 @@
 namespace migrations;
 
 /**
- * Creates images table
+ * Creates image tables
  *
  * @package migrations
  */
@@ -17,23 +17,67 @@ class M_160317_000000_images extends AbstractMigration
     {
         $this
             ->createTable(
-                "images",
+                "design_image_zooms",
                 [
                     "id"                    => "pk",
-                    "name"                  => "string",
-                    "language"              => "integer",
                     "design_block_id"       => "integer",
-                    "design_image_block_id" => "integer",
-                    "crop_type"             => "integer",
-                    "crop_width"            => "integer",
-                    "crop_height"           => "integer",
-                    "crop_x"                => "integer",
-                    "crop_y"                => "integer",
-                    "use_albums"            => "boolean",
+                    "is_scroll"             => "boolean",
+                    "has_thumbs"            => "boolean",
+                    "thumbs_alignment"      => "integer",
+                    "has_description"       => "boolean",
+                    "description_alignment" => "integer",
+                    "effect"                => "integer",
+                ]
+            )
+            ->createIndex("design_image_zooms_design_block_id", "design_image_zooms", "design_block_id")
+            ->createTable(
+                "design_image_sliders",
+                [
+                    "id"                          => "pk",
+                    "design_block_id"             => "integer",
+                    "effect"                      => "integer",
+                    "is_auto_play"                => "boolean",
+                    "play_speed"                  => "integer",
+                    "navigation_design_block_id"  => "integer",
+                    "navigation_alignment"        => "integer",
+                    "description_design_block_id" => "integer",
+                    "description_alignment"       => "integer",
+                ]
+            )
+            ->createIndex("design_image_sliders_design_block_id", "design_image_sliders", "design_block_id")
+            ->createIndex(
+                "design_image_sliders_navigation_design_block_id",
+                "design_image_sliders",
+                "navigation_design_block_id"
+            )
+            ->createIndex(
+                "design_image_sliders_description_design_block_id",
+                "design_image_sliders",
+                "description_design_block_id"
+            )
+            ->createTable(
+                "images",
+                [
+                    "id"                     => "pk",
+                    "name"                   => "string",
+                    "language"               => "integer",
+                    "design_block_id"        => "integer",
+                    "design_image_slider_id" => "integer",
+                    "design_image_zoom_id"   => "integer",
+                    "design_image_simple_id" => "integer",
+                    "use_crop"               => "boolean",
+                    "crop_width"             => "integer",
+                    "crop_height"            => "integer",
+                    "crop_x"                 => "integer",
+                    "crop_y"                 => "integer",
+                    "auto_crop"              => "integer",
+                    "use_albums"             => "boolean",
                 ]
             )
             ->createIndex("images_design_block_id", "images", "design_block_id")
-            ->createIndex("images_design_image_block_id", "images", "design_image_block_id")
+            ->createIndex("images_design_image_slider_id", "images", "design_image_slider_id")
+            ->createIndex("images_design_image_zoom_id", "images", "design_image_zoom_id")
+            ->createIndex("images_design_image_simple_id", "images", "design_image_simple_id")
             ->createTable(
                 "image_albums",
                 [
@@ -49,10 +93,10 @@ class M_160317_000000_images extends AbstractMigration
                 "image_instances",
                 [
                     "id"             => "pk",
-                    "file_name"      => "string",
                     "image_album_id" => "integer",
                     "is_cover"       => "boolean",
                     "sort"           => "integer",
+                    "file_name"      => "string",
                     "alt"            => "text",
                     "width"          => "integer",
                     "height"         => "integer",
