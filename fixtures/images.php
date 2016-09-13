@@ -20,7 +20,7 @@ return [
         "use_albums"             => 0,
     ],
     2 => [
-        "name"                   => "Fancy box",
+        "name"                   => "Zoom",
         "language"               => Language::LANGUAGE_EN_ID,
         "design_block_id"        => 18,
         "design_image_simple_id" => 19,
@@ -65,7 +65,7 @@ return [
         "use_albums"             => 1,
     ],
     5 => [
-        "name"                   => "Fancy box with albums",
+        "name"                   => "Zoom with albums",
         "language"               => Language::LANGUAGE_EN_ID,
         "design_block_id"        => 36,
         "design_image_simple_id" => 37,

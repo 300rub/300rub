@@ -13,6 +13,11 @@ class DesignImageSliderModel extends AbstractModel
 {
 
     /**
+     * Navigation alignment. None
+     */
+    const NAVIGATION_ALIGNMENT_NONE = 0;
+
+    /**
      * Navigation alignment. Top Left
      */
     const NAVIGATION_ALIGNMENT_TOP_LEFT = 1;
@@ -61,6 +66,11 @@ class DesignImageSliderModel extends AbstractModel
      * Default Navigation alignment
      */
     const DEFAULT_NAVIGATION_ALIGNMENT = self::NAVIGATION_ALIGNMENT_BOTTOM_CENTER;
+
+    /**
+     * Description alignment. None
+     */
+    const DESCRIPTION_ALIGNMENT_NONE = 0;
 
     /**
      * Description alignment. Top
@@ -369,6 +379,7 @@ class DesignImageSliderModel extends AbstractModel
     public function getNavigationAlignmentList()
     {
         return [
+            self::NAVIGATION_ALIGNMENT_NONE          => "",
             self::NAVIGATION_ALIGNMENT_TOP_LEFT      => "",
             self::NAVIGATION_ALIGNMENT_TOP_CENTER    => "",
             self::NAVIGATION_ALIGNMENT_TOP_RIGHT     => "",
@@ -389,6 +400,7 @@ class DesignImageSliderModel extends AbstractModel
     public function getDescriptionAlignmentList()
     {
         return [
+            self::DESCRIPTION_ALIGNMENT_NONE   => "",
             self::DESCRIPTION_ALIGNMENT_TOP    => "",
             self::DESCRIPTION_ALIGNMENT_LEFT   => "",
             self::DESCRIPTION_ALIGNMENT_RIGHT  => "",

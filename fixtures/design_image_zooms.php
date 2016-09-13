@@ -1,5 +1,7 @@
 <?php
 
+use models\DesignImageZoomModel;
+
 return [
     // image_1
     1 => [
@@ -9,7 +11,7 @@ return [
         "description_alignment" => 0,
         "effect"                => 0,
     ],
-    // image_2
+    // image_2 active
     2 => [
         "design_block_id"       => 20,
         "is_scroll"             => 0,
@@ -33,13 +35,13 @@ return [
         "description_alignment" => 0,
         "effect"                => 0,
     ],
-    // image_5
+    // image_5 active
     5 => [
         "design_block_id"       => 38,
-        "is_scroll"             => 0,
-        "thumbs_alignment"      => 0,
-        "description_alignment" => 0,
-        "effect"                => 0,
+        "is_scroll"             => 1,
+        "thumbs_alignment"      => DesignImageZoomModel::THUMBS_ALIGNMENT_BOTTOM,
+        "description_alignment" => DesignImageZoomModel::DESCRIPTION_ALIGNMENT_BOTTOM,
+        "effect"                => 1,
     ],
     // image_6
     6 => [
