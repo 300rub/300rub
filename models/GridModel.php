@@ -34,6 +34,11 @@ class GridModel extends AbstractModel
 	const TYPE_TEXT = 1;
 
 	/**
+	 * Content types. Image
+	 */
+	const TYPE_IMAGE = 2;
+
+	/**
 	 * Grid line's ID
 	 *
 	 * @var int

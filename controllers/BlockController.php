@@ -41,7 +41,12 @@ class BlockController extends AbstractController
             [
                 "label"   => Language::t("text", "texts"),
                 "content" => "text.panelList",
-                "icon"    => "text-list-group"
+                "icon"    => "fa-font"
+            ],
+            [
+                "label"   => Language::t("image", "images"),
+                "content" => "image.panelList",
+                "icon"    => "fa-picture-o"
             ]
         ];
 

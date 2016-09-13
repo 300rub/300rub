@@ -71,7 +71,7 @@ class TextController extends AbstractController
             "content"           => "text.window",
             "description"       => Language::t("text", "panelDescription"),
             "design"            => "text.design",
-            "icon"              => "text",
+            "icon"              => "fa-font",
             "list"              => $list,
             "settings"          => "text.settings",
             "title"             => Language::t("text", "texts"),
