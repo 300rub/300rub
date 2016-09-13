@@ -19,54 +19,59 @@ class ImageModel extends AbstractModel
 {
 
 	/**
+	 * Crop type. None
+	 */
+	const AUTO_CROP_TYPE_NONE = 0;
+	
+	/**
 	 * Crop type. Top Left
 	 */
-	const CROP_TYPE_TOP_LEFT = 1;
+	const AUTO_CROP_TYPE_TOP_LEFT = 1;
 
 	/**
 	 * Crop type. Top Center
 	 */
-	const CROP_TYPE_TOP_CENTER = 2;
+	const AUTO_CROP_TYPE_TOP_CENTER = 2;
 
 	/**
 	 * Crop type. Top Right
 	 */
-	const CROP_TYPE_TOP_RIGHT = 3;
+	const AUTO_CROP_TYPE_TOP_RIGHT = 3;
 
 	/**
 	 * Crop type. Middle Left
 	 */
-	const CROP_TYPE_MIDDLE_LEFT = 4;
+	const AUTO_CROP_TYPE_MIDDLE_LEFT = 4;
 
 	/**
 	 * Crop type. Middle Center
 	 */
-	const CROP_TYPE_MIDDLE_CENTER = 5;
+	const AUTO_CROP_TYPE_MIDDLE_CENTER = 5;
 
 	/**
 	 * Crop type. Middle Right
 	 */
-	const CROP_TYPE_MIDDLE_RIGHT = 6;
+	const AUTO_CROP_TYPE_MIDDLE_RIGHT = 6;
 
 	/**
 	 * Crop type. Bottom Left
 	 */
-	const CROP_TYPE_BOTTOM_LEFT = 7;
+	const AUTO_CROP_TYPE_BOTTOM_LEFT = 7;
 
 	/**
 	 * Crop type. Bottom Center
 	 */
-	const CROP_TYPE_BOTTOM_CENTER = 8;
+	const AUTO_CROP_TYPE_BOTTOM_CENTER = 8;
 
 	/**
 	 * Crop type. Bottom Right
 	 */
-	const CROP_TYPE_BOTTOM_RIGHT = 9;
+	const AUTO_CROP_TYPE_BOTTOM_RIGHT = 9;
 
 	/**
 	 * Default crop type
 	 */
-	const DEFAULT_CROP_TYPE = self::CROP_TYPE_MIDDLE_CENTER;
+	const DEFAULT_AUTO_CROP_TYPE = self::AUTO_CROP_TYPE_MIDDLE_CENTER;
 
 	/**
 	 * Block's name
@@ -146,18 +151,11 @@ class ImageModel extends AbstractModel
 	public $use_crop;
 
 	/**
-	 * Flag of auto cropping
-	 *
-	 * @var bool
-	 */
-	public $is_auto_crop;
-
-	/**
 	 * Crop type
 	 *
 	 * @var integer
 	 */
-	public $crop_type;
+	public $auto_crop_type;
 
 	/**
 	 * Crop width
@@ -240,8 +238,7 @@ class ImageModel extends AbstractModel
 			"design_image_zoom_id"   => [],
 			"design_image_simple_id" => [],
 			"use_crop"               => [],
-			"is_auto_crop"           => [],
-			"crop_type"              => [],
+			"auto_crop_type"              => [],
 			"crop_width"             => [],
 			"crop_height"            => [],
 			"crop_x"                 => [],
@@ -279,8 +276,7 @@ class ImageModel extends AbstractModel
 		$this->design_image_simple_id = intval($this->design_image_simple_id);
 
 		$this->use_crop = boolval($this->use_crop);
-		$this->is_auto_crop = boolval($this->is_auto_crop);
-		$this->crop_type = intval($this->crop_type);
+		$this->auto_crop_type = intval($this->auto_crop_type);
 		$this->crop_width = intval($this->crop_width);
 		$this->crop_height = intval($this->crop_height);
 		$this->crop_x = intval($this->crop_x);
@@ -319,12 +315,11 @@ class ImageModel extends AbstractModel
 		);
 
 		$this->use_crop = $this->getTinyIntVal($this->use_crop);
-		$this->is_auto_crop = $this->getTinyIntVal($this->is_auto_crop);
 
 		if ($this->use_crop === 1) {
-			$cropTypeList = $this->getCropTypeList();
-			if (!array_key_exists($this->crop_type, $cropTypeList)) {
-				$this->crop_type = self::DEFAULT_CROP_TYPE;
+			$autoCropTypeList = $this->getAutoCropTypeList();
+			if (!array_key_exists($this->auto_crop_type, $autoCropTypeList)) {
+				$this->auto_crop_type = self::DEFAULT_AUTO_CROP_TYPE;
 			}
 
 			$this->crop_width = $this->getIntVal($this->crop_width, ImageInstanceModel::MAX_SIZE);
@@ -416,18 +411,19 @@ class ImageModel extends AbstractModel
 	 *
 	 * @return array
 	 */
-	public function getCropTypeList()
+	public function getAutoCropTypeList()
 	{
 		return [
-			self::CROP_TYPE_TOP_LEFT      => "",
-			self::CROP_TYPE_TOP_CENTER    => "",
-			self::CROP_TYPE_TOP_RIGHT     => "",
-			self::CROP_TYPE_MIDDLE_LEFT   => "",
-			self::CROP_TYPE_MIDDLE_CENTER => "",
-			self::CROP_TYPE_MIDDLE_RIGHT  => "",
-			self::CROP_TYPE_BOTTOM_LEFT   => "",
-			self::CROP_TYPE_BOTTOM_CENTER => "",
-			self::CROP_TYPE_BOTTOM_RIGHT  => ""
+			self::AUTO_CROP_TYPE_NONE          => "",
+			self::AUTO_CROP_TYPE_TOP_LEFT      => "",
+			self::AUTO_CROP_TYPE_TOP_CENTER    => "",
+			self::AUTO_CROP_TYPE_TOP_RIGHT     => "",
+			self::AUTO_CROP_TYPE_MIDDLE_LEFT   => "",
+			self::AUTO_CROP_TYPE_MIDDLE_CENTER => "",
+			self::AUTO_CROP_TYPE_MIDDLE_RIGHT  => "",
+			self::AUTO_CROP_TYPE_BOTTOM_LEFT   => "",
+			self::AUTO_CROP_TYPE_BOTTOM_CENTER => "",
+			self::AUTO_CROP_TYPE_BOTTOM_RIGHT  => ""
 		];
 	}
 }
