@@ -126,20 +126,6 @@ class ImageInstanceModel extends AbstractModel
 	public $y2;
 
 	/**
-	 * Thumb width of source image
-	 *
-	 * @var integer
-	 */
-	public $thumb_width;
-
-	/**
-	 * Thumb height of source image
-	 *
-	 * @var integer
-	 */
-	public $thumb_height;
-
-	/**
 	 * Thumb coordinates. x1
 	 *
 	 * @var integer
@@ -212,8 +198,6 @@ class ImageInstanceModel extends AbstractModel
 			"y1"             => [],
 			"x2"             => [],
 			"y2"             => [],
-			"thumb_width"    => [],
-			"thumb_height"   => [],
 			"thumb_x1"       => [],
 			"thumb_y1"       => [],
 			"thumb_x2"       => [],
@@ -246,8 +230,6 @@ class ImageInstanceModel extends AbstractModel
 		$this->y1 = intval($this->y1);
 		$this->x2 = intval($this->x2);
 		$this->y2 = intval($this->y2);
-		$this->thumb_width = intval($this->thumb_width);
-		$this->thumb_height = intval($this->thumb_height);
 		$this->thumb_x1 = intval($this->thumb_x1);
 		$this->thumb_y1 = intval($this->thumb_y1);
 		$this->thumb_x2 = intval($this->thumb_x2);
@@ -281,17 +263,6 @@ class ImageInstanceModel extends AbstractModel
 			$this->height = self::MAX_SIZE;
 		}
 
-		if ($this->thumb_width < self::MIN_SIZE) {
-			$this->thumb_width = self::MIN_SIZE;
-		} elseif ($this->thumb_width > self::MAX_THUMB_SIZE) {
-			$this->thumb_width = self::MAX_THUMB_SIZE;
-		}
-		if ($this->thumb_height < self::MIN_SIZE) {
-			$this->thumb_height = self::MIN_SIZE;
-		} elseif ($this->thumb_height > self::MAX_THUMB_SIZE) {
-			$this->thumb_height = self::MAX_THUMB_SIZE;
-		}
-
 		if ($this->x1 < 0) {
 			$this->x1 = 0;
 		} elseif ($this->x1 > $this->width - self::MIN_SIZE) {
@@ -313,25 +284,33 @@ class ImageInstanceModel extends AbstractModel
 			$this->y2 = $this->height;
 		}
 
+		$maxThumbWidth = self::MAX_THUMB_SIZE;
+		if ($maxThumbWidth > $this->width) {
+			$maxThumbWidth = $this->width;
+		}
+		$maxThumbHeight = self::MAX_THUMB_SIZE;
+		if ($maxThumbHeight > $this->height) {
+			$maxThumbHeight = $this->height;
+		}
 		if ($this->thumb_x1 < 0) {
 			$this->thumb_x1 = 0;
-		} elseif ($this->thumb_x1 > $this->thumb_width - self::MIN_SIZE) {
-			$this->thumb_x1 = $this->thumb_width - self::MIN_SIZE;
+		} elseif ($this->thumb_x1 > $maxThumbWidth - self::MIN_SIZE) {
+			$this->thumb_x1 = $maxThumbWidth - self::MIN_SIZE;
 		}
 		if ($this->thumb_y1 < 0) {
 			$this->thumb_y1 = 0;
-		} elseif ($this->thumb_y1 > $this->thumb_height - self::MIN_SIZE) {
-			$this->thumb_y1 = $this->thumb_height - self::MIN_SIZE;
+		} elseif ($this->thumb_y1 > $maxThumbHeight - self::MIN_SIZE) {
+			$this->thumb_y1 = $maxThumbHeight - self::MIN_SIZE;
 		}
 		if ($this->thumb_x2 < $this->thumb_x1 + self::MIN_SIZE) {
 			$this->thumb_x2 = $this->thumb_x1 + self::MIN_SIZE;
-		} elseif ($this->thumb_x2 > $this->thumb_width) {
-			$this->thumb_x2 = $this->thumb_width;
+		} elseif ($this->thumb_x2 > $maxThumbWidth) {
+			$this->thumb_x2 = $maxThumbWidth;
 		}
 		if ($this->thumb_y2 < $this->thumb_y1 + self::MIN_SIZE) {
 			$this->thumb_y2 = $this->thumb_y1 + self::MIN_SIZE;
-		} elseif ($this->thumb_y2 > $this->thumb_height) {
-			$this->thumb_y2 = $this->thumb_height;
+		} elseif ($this->thumb_y2 > $maxThumbHeight) {
+			$this->thumb_y2 = $maxThumbHeight;
 		}
 
 		if (!$this->id) {

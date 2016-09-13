@@ -69,6 +69,11 @@ class M_160317_000000_images extends AbstractMigration
                     "crop_height"            => "integer",
                     "crop_x"                 => "integer",
                     "crop_y"                 => "integer",
+                    "thumb_auto_crop_type"   => "integer",
+                    "thumb_crop_width"       => "integer",
+                    "thumb_crop_height"      => "integer",
+                    "thumb_crop_x"           => "integer",
+                    "thumb_crop_y"           => "integer",
                     "use_albums"             => "boolean",
                 ]
             )
@@ -102,8 +107,6 @@ class M_160317_000000_images extends AbstractMigration
                     "y1"             => "integer",
                     "x2"             => "integer",
                     "y2"             => "integer",
-                    "thumb_width"    => "integer",
-                    "thumb_height"   => "integer",
                     "thumb_x1"       => "integer",
                     "thumb_y1"       => "integer",
                     "thumb_x2"       => "integer",
