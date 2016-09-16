@@ -74,6 +74,26 @@ class ImageModel extends AbstractModel
     const DEFAULT_AUTO_CROP_TYPE = self::AUTO_CROP_TYPE_MIDDLE_CENTER;
 
     /**
+     * Type. Zoom
+     */
+    const TYPE_ZOOM = 0;
+
+    /**
+     * Type. Slider
+     */
+    const TYPE_SLIDER = 1;
+
+    /**
+     * Type. Simple
+     */
+    const TYPE_SIMPLE = 2;
+
+    /**
+     * Default type
+     */
+    const DEFAULT_TYPE = self::TYPE_ZOOM;
+
+    /**
      * Block's name
      *
      * @var string
@@ -142,6 +162,13 @@ class ImageModel extends AbstractModel
      * @var DesignBlockModel
      */
     public $designImageSimpleModel;
+
+    /**
+     * Type
+     *
+     * @var int
+     */
+    public $type;
 
     /**
      * Flag of using cropping
@@ -272,6 +299,7 @@ class ImageModel extends AbstractModel
             "design_image_slider_id" => [],
             "design_image_zoom_id"   => [],
             "design_image_simple_id" => [],
+            "type"                   => [],
             "use_crop"               => [],
             "auto_crop_type"         => [],
             "crop_width"             => [],
@@ -314,6 +342,7 @@ class ImageModel extends AbstractModel
         $this->design_image_slider_id = intval($this->design_image_slider_id);
         $this->design_image_zoom_id = intval($this->design_image_zoom_id);
         $this->design_image_simple_id = intval($this->design_image_simple_id);
+        $this->type = intval($this->type);
 
         $this->use_crop = boolval($this->use_crop);
         $this->auto_crop_type = intval($this->auto_crop_type);
@@ -358,6 +387,11 @@ class ImageModel extends AbstractModel
             $this->design_image_simple_id,
             "DesignBlockModel"
         );
+
+        $typeList = self::getTypeList();
+        if (!array_key_exists($this->type, $typeList)) {
+            $this->type = self::DEFAULT_TYPE;
+        }
 
         $this->use_crop = $this->getTinyIntVal($this->use_crop);
 
@@ -477,6 +511,20 @@ class ImageModel extends AbstractModel
             self::AUTO_CROP_TYPE_BOTTOM_LEFT   => "",
             self::AUTO_CROP_TYPE_BOTTOM_CENTER => "",
             self::AUTO_CROP_TYPE_BOTTOM_RIGHT  => ""
+        ];
+    }
+
+    /**
+     * Gets type list
+     *
+     * @return array
+     */
+    public static function getTypeList()
+    {
+        return [
+            self::TYPE_ZOOM   => "",
+            self::TYPE_SLIDER => "",
+            self::TYPE_SIMPLE => ""
         ];
     }
 }

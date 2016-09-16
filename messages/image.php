@@ -15,4 +15,12 @@ return [
         Language::LANGUAGE_EN_ID => "Just select any block for working with images",
         Language::LANGUAGE_RU_ID => "",
     ],
+    "type" => [
+        Language::LANGUAGE_EN_ID => "Type",
+        Language::LANGUAGE_RU_ID => "",
+    ],
+    "useAlbums" => [
+        Language::LANGUAGE_EN_ID => "Use albums",
+        Language::LANGUAGE_RU_ID => "",
+    ],
 ];
