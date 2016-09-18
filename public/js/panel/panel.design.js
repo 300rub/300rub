@@ -42,6 +42,8 @@
 	 * @private
      */
 	c.Panel.prototype._setDesignInstances = function() {
+		this._designInstances = [];
+
 		$.each(this.data.design, $.proxy(function(i, block) {
 			$.each(block.forms, $.proxy(function(j, form) {
 				this._designInstances.push({

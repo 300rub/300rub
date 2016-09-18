@@ -12,20 +12,24 @@ use models\DesignBlockModel;
 			data-result="j-result"
 			>
 			<div class="j-top-left l-angel-item l-top-left">
-				<input class="l-value" type="text" data-css="margin-top" title="margin-top">px
+				<input class="l-value" type="text" data-css="margin-top" title="margin-top">
+				<div class="l-type">px</div>
 			</div>
 			<div class="j-bottom-left l-angel-item l-bottom-left">
-				<input class="l-value" type="text" data-css="margin-left" title="margin-left">px
+				<input class="l-value" type="text" data-css="margin-left" title="margin-left">
+				<div class="l-type">px</div>
 			</div>
 			<div class="j-top-right l-angel-item l-top-right">
-				<input class="l-value" type="text" data-css="margin-right" title="margin-right">px
+				<input class="l-value" type="text" data-css="margin-right" title="margin-right">
+				<div class="l-type">px</div>
 			</div>
 			<div class="j-bottom-right l-angel-item l-bottom-right">
-				<input class="l-value" type="text" data-css="margin-bottom" title="margin-bottom">px
+				<input class="l-value" type="text" data-css="margin-bottom" title="margin-bottom">
+				<div class="l-type">px</div>
 			</div>
 
 			<div class="j-result-wrapper l-result-wrapper">
-				<div class="j-container l-result-container">
+				<div class="j-result-container l-result-container">
 					<div class="j-result l-result"></div>
 				</div>
 			</div>
@@ -44,16 +48,20 @@ use models\DesignBlockModel;
 			data-result="j-container"
 			>
 			<div class="j-top-left l-angel-item l-top-left">
-				<input class="l-value" type="text" data-css="padding-top" title="padding-top">px
+				<input class="l-value" type="text" data-css="padding-top" title="padding-top">
+				<div class="l-type">px</div>
 			</div>
 			<div class="j-bottom-left l-angel-item l-bottom-left">
-				<input class="l-value" type="text" data-css="padding-left" title="padding-left">px
+				<input class="l-value" type="text" data-css="padding-left" title="padding-left">
+				<div class="l-type">px</div>
 			</div>
 			<div class="j-top-right l-angel-item l-top-right">
-				<input class="l-value" type="text" data-css="padding-right" title="padding-right">px
+				<input class="l-value" type="text" data-css="padding-right" title="padding-right">
+				<div class="l-type">px</div>
 			</div>
 			<div class="j-bottom-right l-angel-item l-bottom-right">
-				<input class="l-value" type="text" data-css="padding-bottom" title="padding-bottom">px
+				<input class="l-value" type="text" data-css="padding-bottom" title="padding-bottom">
+				<div class="l-type">px</div>
 			</div>
 
 			<div class="j-result-wrapper l-result-wrapper">
@@ -76,16 +84,40 @@ use models\DesignBlockModel;
 			data-result="j-result"
 			>
 			<div class="j-top-left l-angel-item l-top-left">
-				<input class="l-value" type="text" data-css="border-top-left-radius" title="border-top-left-radius">px
+				<input
+					class="l-value"
+					type="text"
+					data-css="border-top-left-radius"
+					title="border-top-left-radius"
+				>
+				<div class="l-type">px</div>
 			</div>
 			<div class="j-bottom-left l-angel-item l-bottom-left">
-				<input class="l-value" type="text" data-css="border-bottom-left-radius" title="border-bottom-left-radius">px
+				<input
+					class="l-value"
+					type="text"
+					data-css="border-bottom-left-radius"
+					title="border-bottom-left-radius"
+				>
+				<div class="l-type">px</div>
 			</div>
 			<div class="j-top-right l-angel-item l-top-right">
-				<input class="l-value" type="text" data-css="border-top-right-radius" title="border-top-right-radius">px
+				<input
+					class="l-value"
+					type="text"
+					data-css="border-top-right-radius"
+					title="border-top-right-radius"
+				>
+				<div class="l-type">px</div>
 			</div>
 			<div class="j-bottom-right l-angel-item l-bottom-right">
-				<input class="l-value" type="text" data-css="border-bottom-right-radius" title="border-bottom-right-radius">px
+				<input
+					class="l-value"
+					type="text"
+					data-css="border-bottom-right-radius"
+					title="border-bottom-right-radius"
+				>
+				<div class="l-type">px</div>
 			</div>
 
 			<div class="j-result-wrapper l-result-wrapper">
@@ -108,16 +140,20 @@ use models\DesignBlockModel;
 			data-result="j-result"
 			>
 			<div class="j-top-left l-angel-item l-top-left">
-				<input class="l-value" type="text" data-css="border-top-width" title="border-top-width">px
+				<input class="l-value" type="text" data-css="border-top-width" title="border-top-width">
+				<div class="l-type">px</div>
 			</div>
 			<div class="j-bottom-left l-angel-item l-bottom-left">
-				<input class="l-value" type="text" data-css="border-left-width" title="border-left-width">px
+				<input class="l-value" type="text" data-css="border-left-width" title="border-left-width">
+				<div class="l-type">px</div>
 			</div>
 			<div class="j-top-right l-angel-item l-top-right">
-				<input class="l-value" type="text" data-css="border-right-width" title="border-right-width">px
+				<input class="l-value" type="text" data-css="border-right-width" title="border-right-width">
+				<div class="l-type">px</div>
 			</div>
 			<div class="j-bottom-right l-angel-item l-bottom-right">
-				<input class="l-value" type="text" data-css="border-bottom-width" title="border-bottom-width">px
+				<input class="l-value" type="text" data-css="border-bottom-width" title="border-bottom-width">
+				<div class="l-type">px</div>
 			</div>
 
 			<div class="j-result-wrapper l-result-wrapper">

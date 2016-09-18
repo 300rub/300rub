@@ -60,7 +60,8 @@
          * Initialization
          */
         init: function () {
-            this.$_editor = c.$templates.find(".j-design-editor-" + this.type).clone().attr("data-id", this.id);
+            this.$_editor = c.$templates.find(".j-design-editor-" + this.type).clone();
+            this.$_editor.attr("data-id", this.id);
             this.$_object = $(".j-design-" + this.type + "-" + this.id);
             this._style = this.$_object.attr("style");
             this._class = this.$_object.attr("class");
@@ -440,11 +441,16 @@
             $bottomRight.forceNumericOnly();
             $bottomLeft.forceNumericOnly();
 
+            var topLeftVal = parseInt($topLeft.val());
+            var topRightVal = parseInt($topRight.val());
+            var bottomRightVal = parseInt($bottomRight.val());
+            var bottomLeftVal = parseInt($bottomLeft.val());
+
             $result
-                .css($topLeft.data("css"), $topLeft.val() + "px")
-                .css($topRight.data("css"), $topRight.val() + "px")
-                .css($bottomRight.data("css"), $bottomRight.val() + "px")
-                .css($bottomLeft.data("css"), $bottomLeft.val() + "px");
+                .css($topLeft.data("css"), (topLeftVal < 40 ? topLeftVal : 40) + "px")
+                .css($topRight.data("css"), (topRightVal < 40 ? topRightVal : 40) + "px")
+                .css($bottomRight.data("css"), (bottomRightVal < 40 ? bottomRightVal : 40) + "px")
+                .css($bottomLeft.data("css"),(bottomLeftVal < 40 ? bottomLeftVal : 40) + "px");
 
             if (
                 $topLeft.val() === $topRight.val()
@@ -454,18 +460,18 @@
             }
             $join.on("change", function () {
                 if ($(this).is(':checked')) {
-                    var value = $topLeft.val();
+                    var value = parseInt($topLeft.val());
                     t.$_object.css($topLeft.data("css"), value + "px");
-                    $result.css($topLeft.data("css"), value + "px");
+                    $result.css($topLeft.data("css"), (value < 40 ? value : 40) + "px");
                     $topRight.val(value);
                     t.$_object.css($topRight.data("css"), value + "px");
-                    $result.css($topRight.data("css"), value + "px");
+                    $result.css($topRight.data("css"), (value < 40 ? value : 40) + "px");
                     $bottomRight.val(value);
                     t.$_object.css($bottomRight.data("css"), value + "px");
-                    $result.css($bottomRight.data("css"), value + "px");
+                    $result.css($bottomRight.data("css"), (value < 40 ? value : 40) + "px");
                     $bottomLeft.val(value);
                     t.$_object.css($bottomLeft.data("css"), value + "px");
-                    $result.css($bottomLeft.data("css"), value + "px");
+                    $result.css($bottomLeft.data("css"), (value < 40 ? value : 40) + "px");
                 }
             });
 
@@ -494,8 +500,8 @@
             $obj.spinner({
                 min: min,
                 icons: {
-                    down: "fa fa-chevron-down",
-                    up: "fa fa-chevron-up"
+                    down: "l-down fa fa-chevron-down",
+                    up: "l-up fa fa-chevron-up"
                 },
                 create: function() {
                     $(this).closest(".ui-spinner").find(".ui-spinner-button .ui-icon").text("");
@@ -534,7 +540,7 @@
          */
         _setAngleSpinnerValue: function ($obj, $result, value) {
             this.$_object.css($obj.data("css"), value + "px");
-            $result.css($obj.data("css"), value + "px");
+            $result.css($obj.data("css"), (value < 40 ? value : 40) + "px");
         }
     };
 

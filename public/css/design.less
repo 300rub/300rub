@@ -9,11 +9,68 @@
   .l-angles-container {
     position: relative;
 
+    .l-angel-item {
+      position: absolute;
+      width: 55px;
+
+      .l-value {
+        .l-form;
+        padding: 3px 25px 0 5px;
+      }
+
+      .l-up, .l-down {
+        position: absolute;
+        height: 14px;
+        right: 5px;
+        z-index: 2;
+        color: @linkBlueColor;
+
+        &:hover {
+          color: @linkRedHoverColor;
+        }
+      }
+
+      .l-up {
+        top: -1px;
+      }
+
+      .l-down {
+        bottom: 0;
+      }
+
+      .l-type {
+        position: absolute;
+        top: 5px;
+        right: -20px;
+      }
+    }
+
+    .l-top-left {
+      left: 15px;
+      top: 2px;
+    }
+
+    .l-top-right {
+      right: 35px;
+      top: 2px;
+    }
+
+    .l-bottom-left {
+      left: 15px;
+      top: 35px;
+    }
+
+    .l-bottom-right {
+      right: 35px;
+      top: 35px;
+    }
+
     .l-result-wrapper {
       min-height: 60px;
 
       .l-result-container {
-        width: 100px;
+        width: 90px;
+        min-height: 30px;
         margin: 0 auto 10px auto;
         overflow: hidden;
 
@@ -22,37 +79,6 @@
           height: 60px;
         }
       }
-    }
-
-    .l-angel-item {
-      position: absolute;
-
-      .l-value {
-        .l-form;
-
-        padding: 3px 5px 0 5px;
-        width: 40px;
-      }
-    }
-
-    .l-top-left {
-      left: 10px;
-      top: 2px;
-    }
-
-    .l-top-right {
-      right: 10px;
-      top: 2px;
-    }
-
-    .l-bottom-left {
-      left: 10px;
-      top: 52px;
-    }
-
-    .l-bottom-right {
-      right: 10px;
-      top: 52px;
     }
   }
 
@@ -72,6 +98,7 @@
     .l-result-container {
       border: 1px solid black;
       background: grey;
+      overflow: hidden;
 
       .l-result {
         border: 2px solid black;
