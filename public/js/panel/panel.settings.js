@@ -136,14 +136,15 @@
 	 * @private
 	 */
 	c.Panel.prototype._onSettingsDelete = function() {
-		var $deleteConfirmation = this.$_settingsDeleteConfirmation.clone();
-		$deleteConfirmation.appendTo(this.$panel.find(".j-header"));
+		this.$_settingsDeleteConfirmation.appendTo(this.$panel.find(".j-header"));
 
-		$deleteConfirmation.find(".j-cancel").on("click", function() {
-			$deleteConfirmation.remove();
-		});
+		this.$_settingsDeleteConfirmation.find(".j-cancel").on("click", $.proxy(function() {
+			this.$_settingsDeleteConfirmation.remove();
+			this.$_settingsDeleteConfirmation =
+				c.$templates.find(".j-panel-settings-delete-confirmation").clone();
+		}, this));
 
-		$deleteConfirmation.find(".j-delete").on("click", $.proxy(function() {
+		this.$_settingsDeleteConfirmation.find(".j-delete").on("click", $.proxy(function() {
 			$.ajaxJson(
 				this.data.delete.action,
 				{
@@ -181,7 +182,7 @@
 
 		var methodName = this.data.handler + "OnDelete";
 		if ($.type(this[methodName]) === "function") {
-			this.methodName(data);
+			this[methodName](data);
 		}
 	};
 

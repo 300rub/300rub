@@ -70,7 +70,6 @@ class SectionController extends AbstractController
                 "label"  => Language::t("section", "addSections"),
                 "action" => "section.settings",
             ]
-
         ];
     }
 
