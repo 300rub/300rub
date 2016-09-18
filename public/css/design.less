@@ -84,24 +84,23 @@
 
   .l-margin-container {
     .l-result-container {
-      border: 1px solid black;
+      border: 1px solid @borderColor;
 
       .l-result {
-        border: 2px solid black;
+        border: 2px solid @borderFocusColor;
         height: 58px;
-        background: grey;
+        background: white;
       }
     }
   }
 
   .l-padding-container {
     .l-result-container {
-      border: 1px solid black;
-      background: grey;
+      border: 2px solid @borderFocusColor;
       overflow: hidden;
 
       .l-result {
-        border: 2px solid black;
+        border: 1px solid @borderColor;
         height: 58px;
       }
     }
@@ -110,7 +109,7 @@
   .l-border-radius-container {
     .l-result-container {
       .l-result {
-        border: 2px solid black;
+        border: 2px solid @borderFocusColor;
         height: 58px;
       }
     }
@@ -119,8 +118,7 @@
   .l-border-width-container {
     .l-result-container {
       .l-result {
-        background: grey;
-        border: 0 solid black;
+        border: 0 solid @borderFocusColor;
       }
     }
   }
