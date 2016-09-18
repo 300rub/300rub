@@ -493,6 +493,13 @@
 
             $obj.spinner({
                 min: min,
+                icons: {
+                    down: "fa fa-chevron-down",
+                    up: "fa fa-chevron-up"
+                },
+                create: function() {
+                    $(this).closest(".ui-spinner").find(".ui-spinner-button .ui-icon").text("");
+                },
                 spin: function (event, ui) {
                     t._setAngleSpinnerValue($obj, $result, ui.value);
                     if ($join.is(':checked')) {
