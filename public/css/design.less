@@ -3,11 +3,31 @@
 
 .l-design-editor {
   .l-line {
-    margin: 15px 0;
+    border: 1px solid @borderColor;
+    margin: 20px 5px;
+    .l-rounded(5px);
+
+    .l-title {
+      font-size: 16px;
+      font-weight: 300;
+      margin: -10px 0 5px 0;
+      text-align: center;
+
+      .l-text {
+        background: white;
+        display: inline-block;
+        padding: 0 5px;
+      }
+    }
   }
 
   .l-angles-container {
     position: relative;
+    padding: 0 0 4px 8px;
+
+    .l-join-container {
+      margin-top: 15px;
+    }
 
     .l-angel-item {
       position: absolute;
@@ -46,22 +66,22 @@
     }
 
     .l-top-left {
-      left: 15px;
+      left: 8px;
       top: 2px;
     }
 
     .l-top-right {
-      right: 35px;
+      right: 28px;
       top: 2px;
     }
 
     .l-bottom-left {
-      left: 15px;
+      left: 8px;
       top: 35px;
     }
 
     .l-bottom-right {
-      right: 35px;
+      right: 28px;
       top: 35px;
     }
 
@@ -144,4 +164,10 @@
 .ui-colorpicker, .ui-dialog.ui-colorpicker {
   background: white;
   width: 640px;
+}
+
+.ui-colorpicker {
+  font-size: 14px;
+  border: 1px solid #ccc;
+  padding: 10px;
 }

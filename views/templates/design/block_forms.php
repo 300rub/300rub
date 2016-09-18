@@ -5,7 +5,11 @@ use models\DesignBlockModel;
 
 <div class="j-design-editor-block l-design-editor">
 	<div class="l-line">
-		<div class="j-title"><?= Language::t("design", "margin") ?></div>
+		<div class="l-title">
+			<span class="l-text">
+				<?= Language::t("design", "margin") ?>
+			</span>
+		</div>
 		<div
 			class="j-margin-container l-angles-container l-margin-container"
 			data-min="<?= DesignBlockModel::MIN_MARGIN_VALUE ?>"
@@ -34,14 +38,27 @@ use models\DesignBlockModel;
 				</div>
 			</div>
 
-			<label class="j-join-label">
-				<input class="j-join-value" type="checkbox"><?= Language::t("design", "combine") ?>
-			</label>
+			<div class="l-checkbox-container l-join-container">
+				<label class="l-label-container j-join-label">
+					<span class="l-body">
+						<input class="j-join-value l-checkbox" type="checkbox"/>
+						<span class="l-icons">
+							<i class="fa fa-square-o"></i>
+							<i class="fa fa-check-square-o"></i>
+						</span>
+						<span class="l-label-text"><?= Language::t("design", "combine") ?></span>
+					</span>
+				</label>
+			</div>
 		</div>
 	</div>
 
 	<div class="l-line">
-		<div><?= Language::t("design", "padding") ?></div>
+		<div class="l-title">
+			<span class="l-text">
+				<?= Language::t("design", "padding") ?>
+			</span>
+		</div>
 		<div
 			class="j-padding-container l-angles-container l-padding-container"
 			data-min="<?= DesignBlockModel::MIN_PADDING_VALUE ?>"
@@ -70,14 +87,27 @@ use models\DesignBlockModel;
 				</div>
 			</div>
 
-			<label class="j-join-label">
-				<input class="j-join-value" type="checkbox"><?= Language::t("design", "combine") ?>
-			</label>
+			<div class="l-checkbox-container l-join-container">
+				<label class="l-label-container j-join-label">
+					<span class="l-body">
+						<input class="j-join-value l-checkbox" type="checkbox"/>
+						<span class="l-icons">
+							<i class="fa fa-square-o"></i>
+							<i class="fa fa-check-square-o"></i>
+						</span>
+						<span class="l-label-text"><?= Language::t("design", "combine") ?></span>
+					</span>
+				</label>
+			</div>
 		</div>
 	</div>
 
 	<div class="l-line">
-		<div><?= Language::t("design", "borderRadius") ?></div>
+		<div class="l-title">
+			<span class="l-text">
+				<?= Language::t("design", "borderRadius") ?>
+			</span>
+		</div>
 		<div
 			class="j-border-radius-container l-angles-container l-border-radius-container"
 			data-min="<?= DesignBlockModel::MIN_BORDER_RADIUS_VALUE ?>"
@@ -126,14 +156,27 @@ use models\DesignBlockModel;
 				</div>
 			</div>
 
-			<label class="j-join-label">
-				<input class="j-join-value" type="checkbox"><?= Language::t("design", "combine") ?>
-			</label>
+			<div class="l-checkbox-container l-join-container">
+				<label class="l-label-container j-join-label">
+					<span class="l-body">
+						<input class="j-join-value l-checkbox" type="checkbox"/>
+						<span class="l-icons">
+							<i class="fa fa-square-o"></i>
+							<i class="fa fa-check-square-o"></i>
+						</span>
+						<span class="l-label-text"><?= Language::t("design", "combine") ?></span>
+					</span>
+				</label>
+			</div>
 		</div>
 	</div>
 
 	<div class="l-line">
-		<div><?= Language::t("design", "border") ?></div>
+		<div class="l-title">
+			<span class="l-text">
+				<?= Language::t("design", "border") ?>
+			</span>
+		</div>
 		<div
 			class="j-border-width-container l-angles-container l-border-width-container"
 			data-min="<?= DesignBlockModel::MIN_BORDER_WIDTH_VALUE ?>"
@@ -162,12 +205,21 @@ use models\DesignBlockModel;
 				</div>
 			</div>
 
-			<label class="j-join-label">
-				<input class="j-join-value" type="checkbox"><?= Language::t("design", "combine") ?>
-			</label>
+			<div class="l-checkbox-container l-join-container">
+				<label class="l-label-container j-join-label">
+					<span class="l-body">
+						<input class="j-join-value l-checkbox" type="checkbox"/>
+						<span class="l-icons">
+							<i class="fa fa-square-o"></i>
+							<i class="fa fa-check-square-o"></i>
+						</span>
+						<span class="l-label-text"><?= Language::t("design", "combine") ?></span>
+					</span>
+				</label>
+			</div>
 
 			<div>
-				<input type="hidden" class="j-border-color">
+				Color: <input type="hidden" class="j-border-color">
 			</div>
 
 			<div>
@@ -188,7 +240,11 @@ use models\DesignBlockModel;
 	</div>
 
 	<div class="l-line">
-		<div><?= Language::t("design", "fill") ?></div>
+		<div class="l-title">
+			<span class="l-text">
+				<?= Language::t("design", "fill") ?>
+			</span>
+		</div>
 		<div>
 			<a class="j-background-clear"><?= Language::t("design", "clear") ?></a>
 			<div>
