@@ -21,7 +21,7 @@
 			this.id = parseInt(options.id);
 		}
 
-		this.isDisplayFromPage = false;
+		this.isDisplayFromPage = null;
 		if (options.isDisplayFromPage !== undefined) {
 			this.isDisplayFromPage = !!options.isDisplayFromPage;
 		}
@@ -84,13 +84,17 @@
 				this.$panel.addClass("d-opacity");
 			}, this), 100);
 
+			var data = {
+				id: this.id,
+				sectionId: c.sectionId,
+			};
+			if (this.isDisplayFromPage !== null) {
+				data.isDisplayFromPage = this.isDisplayFromPage;
+			}
+
 			$.ajaxJson(
 				this.action,
-				{
-					id: this.id,
-					sectionId: c.sectionId,
-					isDisplayFromPage: this.isDisplayFromPage
-				},
+				data,
 				$.proxy(this._onLoadBefore, this),
 				$.proxy(this._onLoadSuccess, this),
 				$.proxy(this.onError, this)

@@ -33,6 +33,6 @@ use components\Language;
     </a>
     <span class="j-label-page l-label d-hide">
         <i class="l-icon fa fa-globe"></i>
-        <?= Language::t("block", "all") ?>
+        <?= Language::t("block", "fromPage") ?>
     </span>
 </div>

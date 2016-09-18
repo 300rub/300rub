@@ -31,7 +31,7 @@
 					$.panel({
 						action: this.action,
 						id: this.id,
-						isDisplayFromPage: true
+						isDisplayFromPage: false
 					});
 
 					return false;
@@ -44,7 +44,7 @@
 					$.panel({
 						action: this.action,
 						id: this.id,
-						isDisplayFromPage: false
+						isDisplayFromPage: true
 					});
 
 					return false;

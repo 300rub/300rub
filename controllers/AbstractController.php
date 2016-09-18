@@ -300,13 +300,34 @@ abstract class AbstractController
 	{
 		$isDisplayFromPage = false;
 
-		if (!empty($_SESSION["__isDisplayFromPage"])) {
+		if (isset($_SESSION["__isDisplayFromPage"])) {
 			$isDisplayFromPage = $_SESSION["__isDisplayFromPage"];
-		} else if (!empty($_COOKIE["__isDisplayFromPage"])) {
+		} else if (isset($_COOKIE["__isDisplayFromPage"])) {
 			$isDisplayFromPage = $_COOKIE["__isDisplayFromPage"];
 		}
 
 		return boolval($isDisplayFromPage);
+	}
+
+	/**
+	 * Sets the flag of displaying from the page
+	 * 
+	 * @return AbstractController
+	 */
+	protected function setIsDisplayFromPage()
+	{
+		if (array_key_exists("isDisplayFromPage", $this->data)) {
+			if ($this->data["isDisplayFromPage"] === true) {
+				$isDisplayFromPage = true;
+			} else {
+				$isDisplayFromPage = false;
+			}
+
+			setcookie("__isDisplayFromPage", $isDisplayFromPage, 0x6FFFFFFF);
+			$_SESSION["__isDisplayFromPage"] = $isDisplayFromPage;
+		}
+		
+		return $this;
 	}
 
 	/**
@@ -319,14 +340,7 @@ abstract class AbstractController
 	 */
 	protected function filterList($models, $type)
 	{
-		if (array_key_exists("isDisplayFromPage", $this->data)) {
-			$isDisplayFromPage = boolval($this->data["isDisplayFromPage"]);
-
-			setcookie("__isDisplayFromPage", $isDisplayFromPage, 0x6FFFFFFF);
-			$_SESSION["__isDisplayFromPage"] = $isDisplayFromPage;
-		} else {
-			$isDisplayFromPage = $this->isDisplayFromPage();
-		}
+		$isDisplayFromPage = $this->setIsDisplayFromPage()->isDisplayFromPage();
 
 		if ($isDisplayFromPage === false) {
 			return $models;
@@ -342,18 +356,18 @@ abstract class AbstractController
 			return [];
 		}
 
-		$gridLineModelIds = [];
+		$gridLineContentIds = [];
 		foreach ($gridLineModels as $gridLineModel) {
 			$gridLineIds[] = $gridLineModel->id;
 		}
 
 		$gridModels = GridModel::model()->in("t.grid_line_id", $gridLineIds)->byType($type)->findAll();
 		foreach ($gridModels as $gridModel) {
-			$gridLineModelIds[] = $gridModel->id;
+			$gridLineContentIds[] = $gridModel->content_id;
 		}
 
 		foreach ($models as $model) {
-			if (in_array($model->id, $gridLineModelIds)) {
+			if (in_array($model->id, $gridLineContentIds)) {
 				$list[] = $model;
 			}
 		}

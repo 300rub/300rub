@@ -3,6 +3,9 @@
 namespace controllers;
 
 use components\Language;
+use models\GridModel;
+use models\ImageModel;
+use models\TextModel;
 
 /**
  * Block's controller
@@ -37,25 +40,54 @@ class BlockController extends AbstractController
      */
     public function actionPanelList()
     {
-        $list = [
-            [
+        $list = [];
+
+        $this->setIsDisplayFromPage();
+        $isDisplayFromPage = $this->isDisplayFromPage();
+        if ($isDisplayFromPage === true) {
+            $models = $this->filterList(
+                TextModel::model()->findAll(),
+                GridModel::TYPE_TEXT
+            );
+            if (count($models) > 0) {
+                $list[] = [
+                    "label"   => Language::t("text", "texts"),
+                    "content" => "text.panelList",
+                    "icon"    => "fa-font"
+                ];
+            }
+
+//            $models = $this->filterList(
+//                ImageModel::model()->findAll(),
+//                GridModel::TYPE_IMAGE
+//            );
+//            if (count($models) > 0) {
+//                $list[] = [
+//                    "label"   => Language::t("image", "images"),
+//                    "content" => "image.panelList",
+//                    "icon"    => "fa-picture-o"
+//                ];
+//            }
+        } else {
+            $list[] = [
                 "label"   => Language::t("text", "texts"),
                 "content" => "text.panelList",
                 "icon"    => "fa-font"
-            ],
-            [
+            ];
+            $list[] = [
                 "label"   => Language::t("image", "images"),
                 "content" => "image.panelList",
                 "icon"    => "fa-picture-o"
-            ]
-        ];
+            ];
+        }
 
         $this->json = [
-            "handler"     => "listBlock",
-            "title"       => Language::t("block", "blocks"),
-            "description" => Language::t("block", "selectCategory"),
-            "list"        => $list,
-            "isParent"    => true
+            "handler"           => "listBlock",
+            "title"             => Language::t("block", "blocks"),
+            "description"       => Language::t("block", "selectCategory"),
+            "list"              => $list,
+            "isParent"          => true,
+            "isDisplayFromPage" => $isDisplayFromPage
         ];
     }
 }
