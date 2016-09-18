@@ -11,12 +11,8 @@ return [
         Language::LANGUAGE_EN_ID => "Please select any category",
         Language::LANGUAGE_RU_ID => "",
     ],
-    "displayBlock" => [
-        Language::LANGUAGE_EN_ID => "Display blocks:",
-        Language::LANGUAGE_RU_ID => "",
-    ],
     "all" => [
-        Language::LANGUAGE_EN_ID => "all",
+        Language::LANGUAGE_EN_ID => "all blocks",
         Language::LANGUAGE_RU_ID => "",
     ],
     "fromPage" => [

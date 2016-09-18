@@ -178,7 +178,8 @@
 			margin-top: 15px;
 
 			.l-separator {
-				margin: 0 10px;
+				margin: 0 5px;
+				color: @textDescriptionColor;
 			}
 
 			.l-link, .l-label {
@@ -200,6 +201,10 @@
 
 				&:hover {
 					color: @linkRedHoverColor;
+
+					.l-icon {
+						color: @linkRedHoverColor;
+					}
 				}
 			}
 		}

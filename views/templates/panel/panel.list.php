@@ -17,7 +17,6 @@ use components\Language;
 </a>
 
 <div class="j-panel-list-display-block-container l-panel-list-display-block-container">
-    <span class="l-text"><?= Language::t("block", "displayBlock") ?></span>
     <a class="j-link-all l-link d-hide">
         <i class="l-icon fa fa-globe"></i>
         <?= Language::t("block", "all") ?>
