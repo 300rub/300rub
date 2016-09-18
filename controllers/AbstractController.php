@@ -347,28 +347,13 @@ abstract class AbstractController
 		}
 
 		$list = [];
-		$sectionId = $this->data["sectionId"];
-
-		$gridLineIds = [];
-		$gridLineModels = GridLineModel::model()->bySectionId($sectionId)->findAll();
-
-		if (!$gridLineModels) {
-			return [];
-		}
-
-		$gridLineContentIds = [];
-		foreach ($gridLineModels as $gridLineModel) {
-			$gridLineIds[] = $gridLineModel->id;
-		}
-
-		$gridModels = GridModel::model()->in("t.grid_line_id", $gridLineIds)->byType($type)->findAll();
-		foreach ($gridModels as $gridModel) {
-			$gridLineContentIds[] = $gridModel->content_id;
-		}
+		$gridModels = GridModel::model()->bySectionId($this->data["sectionId"])->findAll();
 
 		foreach ($models as $model) {
-			if (in_array($model->id, $gridLineContentIds)) {
-				$list[] = $model;
+			foreach ($gridModels as $gridModel) {
+				if ($gridModel->content_id === $model->id && $gridModel->content_type === $type) {
+					$list[] = $model;
+				}
 			}
 		}
 

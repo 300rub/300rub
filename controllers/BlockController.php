@@ -44,36 +44,39 @@ class BlockController extends AbstractController
 
         $this->setIsDisplayFromPage();
         $isDisplayFromPage = $this->isDisplayFromPage();
-        if ($isDisplayFromPage === true) {
-            $models = $this->filterList(
-                TextModel::model()->findAll(),
-                GridModel::TYPE_TEXT
-            );
-            if (count($models) > 0) {
-                $list[] = [
-                    "label"   => Language::t("text", "texts"),
-                    "content" => "text.panelList",
-                    "icon"    => "fa-font"
-                ];
-            }
 
-//            $models = $this->filterList(
-//                ImageModel::model()->findAll(),
-//                GridModel::TYPE_IMAGE
-//            );
-//            if (count($models) > 0) {
-//                $list[] = [
-//                    "label"   => Language::t("image", "images"),
-//                    "content" => "image.panelList",
-//                    "icon"    => "fa-picture-o"
-//                ];
-//            }
+        $hasText = false;
+        $hasImage = false;
+        if ($isDisplayFromPage === true) {
+            $gridModels = GridModel::model()->bySectionId($this->data["sectionId"])->findAll();
+            foreach ($gridModels as $gridModel) {
+                switch ($gridModel->content_type) {
+                    case GridModel::TYPE_TEXT:
+                        $hasText = true;
+                        break;
+                    case GridModel::TYPE_IMAGE:
+                        $hasImage = true;
+                        break;
+                    default:
+                        break;
+                }
+                if ($gridModel->content_type === GridModel::TYPE_TEXT) {
+                    $hasText = true;
+                }
+            }
         } else {
+            $hasText = true;
+            $hasImage = true;
+        }
+
+        if ($hasText === true) {
             $list[] = [
                 "label"   => Language::t("text", "texts"),
                 "content" => "text.panelList",
                 "icon"    => "fa-font"
             ];
+        }
+        if ($hasImage === true) {
             $list[] = [
                 "label"   => Language::t("image", "images"),
                 "content" => "image.panelList",
