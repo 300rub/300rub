@@ -50,7 +50,7 @@ class BlockController extends AbstractController
         if ($isDisplayFromPage === true) {
             $gridModels = GridModel::model()->bySectionId($this->data["sectionId"])->findAll();
             foreach ($gridModels as $gridModel) {
-                switch ($gridModel->content_type) {
+                switch ($gridModel->contentType) {
                     case GridModel::TYPE_TEXT:
                         $hasText = true;
                         break;
@@ -60,7 +60,7 @@ class BlockController extends AbstractController
                     default:
                         break;
                 }
-                if ($gridModel->content_type === GridModel::TYPE_TEXT) {
+                if ($gridModel->contentType === GridModel::TYPE_TEXT) {
                     $hasText = true;
                 }
             }

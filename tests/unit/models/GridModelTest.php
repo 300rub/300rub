@@ -38,33 +38,33 @@ class GridModelTest extends AbstractModelTest
 			// Insert: empty values
 			[
 				[
-					"t.grid_line_id" => "",
+					"t.gridLineId" => "",
 					"t.x"            => "",
 					"t.y"            => "",
 					"t.width"        => "",
-					"t.content_type" => "",
-					"t.content_id"   => "",
+					"t.contentType" => "",
+					"t.contentId"   => "",
 				],
 				[]
 			],
 			// Insert: correct values. Update: correct values.
 			[
 				[
-					"t.grid_line_id" => 1,
+					"t.gridLineId" => 1,
 					"t.x"            => 0,
 					"t.y"            => 0,
 					"t.width"        => 12,
-					"t.content_type" => 1,
-					"t.content_id"   => 1,
+					"t.contentType" => 1,
+					"t.contentId"   => 1,
 				],
 				[],
 				[
-					"t.grid_line_id" => 1,
+					"t.gridLineId" => 1,
 					"t.x"            => 0,
 					"t.y"            => 0,
 					"t.width"        => 12,
-					"t.content_type" => 1,
-					"t.content_id"   => 1,
+					"t.contentType" => 1,
+					"t.contentId"   => 1,
 				],
 				[
 					"t.x"            => 6,
@@ -73,12 +73,12 @@ class GridModelTest extends AbstractModelTest
 				],
 				[],
 				[
-					"t.grid_line_id" => 1,
+					"t.gridLineId" => 1,
 					"t.x"            => 6,
 					"t.y"            => 1,
 					"t.width"        => 6,
-					"t.content_type" => 1,
-					"t.content_id"   => 1,
+					"t.contentType" => 1,
+					"t.contentId"   => 1,
 				],
 				[
 					"gridLineModel"
@@ -87,29 +87,29 @@ class GridModelTest extends AbstractModelTest
 			// Insert: incorrect values. Update: incorrect correct values.
 			[
 				[
-					"t.grid_line_id" => 1,
+					"t.gridLineId" => 1,
 					"t.x"            => 13,
 					"t.y"            => -10,
 					"t.width"        => 5,
-					"t.content_type" => 1,
-					"t.content_id"   => 1,
+					"t.contentType" => 1,
+					"t.contentId"   => 1,
 				],
 				[],
 				[
-					"t.grid_line_id" => 1,
+					"t.gridLineId" => 1,
 					"t.x"            => 11,
 					"t.y"            => 0,
 					"t.width"        => 1,
-					"t.content_type" => 1,
-					"t.content_id"   => 1,
+					"t.contentType" => 1,
+					"t.contentId"   => 1,
 				],
 				[
-					"t.grid_line_id" => "incorrect type",
+					"t.gridLineId" => "incorrect type",
 					"t.x"            => "incorrect type",
 					"t.y"            => "incorrect type",
 					"t.width"        => "incorrect type",
-					"t.content_type" => "incorrect type",
-					"t.content_id"   => "incorrect type",
+					"t.contentType" => "incorrect type",
+					"t.contentId"   => "incorrect type",
 				],
 				[]
 			],

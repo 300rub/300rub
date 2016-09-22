@@ -351,7 +351,7 @@ abstract class AbstractController
 
 		foreach ($models as $model) {
 			foreach ($gridModels as $gridModel) {
-				if ($gridModel->content_id === $model->id && $gridModel->content_type === $type) {
+				if ($gridModel->contentId === $model->id && $gridModel->contentType === $type) {
 					$list[] = $model;
 				}
 			}

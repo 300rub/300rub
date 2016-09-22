@@ -5,7 +5,7 @@ namespace models;
 use components\exceptions\ModelException;
 
 /**
- * Model for working with table "grid_lines"
+ * Model for working with table "gridLines"
  *
  * @package models
  *
@@ -23,7 +23,7 @@ class GridLineModel extends AbstractModel
 	 *
 	 * @var int
 	 */
-	public $section_id;
+	public $sectionId;
 
 	/**
 	 * Sort number
@@ -37,14 +37,14 @@ class GridLineModel extends AbstractModel
 	 *
 	 * @var int
 	 */
-	public $outside_design_id;
+	public $outsideDesignId;
 
 	/**
 	 * ID of DesignBlockModel for container block
 	 *
 	 * @var int
 	 */
-	public $inside_design_id;
+	public $insideDesignId;
 
 	/**
 	 * DesignBlockModel for line block
@@ -66,8 +66,8 @@ class GridLineModel extends AbstractModel
 	 * @var array
 	 */
 	protected $relations = [
-		"outsideDesignModel" => ['models\DesignBlockModel', "outside_design_id"],
-		"insideDesignModel" => ['models\DesignBlockModel', "inside_design_id"]
+		"outsideDesignModel" => ['models\DesignBlockModel', "outsideDesignId"],
+		"insideDesignModel" => ['models\DesignBlockModel', "insideDesignId"]
 	];
 
 	/**
@@ -77,7 +77,7 @@ class GridLineModel extends AbstractModel
 	 */
 	public function getTableName()
 	{
-		return "grid_lines";
+		return "gridLines";
 	}
 
 	/**
@@ -88,10 +88,10 @@ class GridLineModel extends AbstractModel
 	public function getRules()
 	{
 		return [
-			"section_id"        => [],
+			"sectionId"        => [],
 			"sort"              => [],
-			"outside_design_id" => [],
-			"inside_design_id"  => [],
+			"outsideDesignId" => [],
+			"insideDesignId"  => [],
 		];
 	}
 
@@ -116,8 +116,8 @@ class GridLineModel extends AbstractModel
 	public function bySectionId($sectionId = null)
 	{
 		if ($sectionId) {
-			$this->db->addCondition("t.section_id = :section_id");
-			$this->db->params["section_id"] = $sectionId;
+			$this->db->addCondition("t.sectionId = :sectionId");
+			$this->db->params["sectionId"] = $sectionId;
 		}
 
 		return $this;
@@ -155,7 +155,7 @@ class GridLineModel extends AbstractModel
 
 		$outsideDesignModel = $this->outsideDesignModel;
 		if ($outsideDesignModel === null) {
-			$outsideDesignModel = DesignBlockModel::model()->byId($this->outside_design_id)->find();
+			$outsideDesignModel = DesignBlockModel::model()->byId($this->outsideDesignId)->find();
 		}
 		if ($outsideDesignModel instanceof DesignBlockModel) {
 			$outsideDesignModel->delete();
@@ -163,7 +163,7 @@ class GridLineModel extends AbstractModel
 
 		$insideDesignModel = $this->insideDesignModel;
 		if ($insideDesignModel === null) {
-			$insideDesignModel = DesignBlockModel::model()->byId($this->inside_design_id)->find();
+			$insideDesignModel = DesignBlockModel::model()->byId($this->insideDesignId)->find();
 		}
 		if ($insideDesignModel instanceof DesignBlockModel) {
 			$insideDesignModel->delete();
@@ -177,10 +177,10 @@ class GridLineModel extends AbstractModel
 	 */
 	protected function setValues()
 	{
-		$this->section_id = intval($this->section_id);
+		$this->sectionId = intval($this->sectionId);
 		$this->sort = intval($this->sort);
-		$this->outside_design_id = intval($this->outside_design_id);
-		$this->inside_design_id = intval($this->inside_design_id);
+		$this->outsideDesignId = intval($this->outsideDesignId);
+		$this->insideDesignId = intval($this->insideDesignId);
 	}
 
 	/**
@@ -190,20 +190,20 @@ class GridLineModel extends AbstractModel
 	 */
 	protected function beforeSave()
 	{
-		if ($this->section_id === 0 || SectionModel::model()->byId($this->section_id)->find() === null) {
+		if ($this->sectionId === 0 || SectionModel::model()->byId($this->sectionId)->find() === null) {
 			throw new ModelException(
 				"Unable to find section by ID = {id}",
 				[
-					"id" => $this->section_id
+					"id" => $this->sectionId
 				]
 			);
 		}
 
 		if (!$this->outsideDesignModel instanceof DesignBlockModel) {
-			if ($this->outside_design_id === 0) {
+			if ($this->outsideDesignId === 0) {
 				$this->outsideDesignModel = new DesignBlockModel();
 			} else {
-				$this->outsideDesignModel = DesignBlockModel::model()->byId($this->outside_design_id)->find();
+				$this->outsideDesignModel = DesignBlockModel::model()->byId($this->outsideDesignId)->find();
 				if ($this->outsideDesignModel === null) {
 					$this->outsideDesignModel = new DesignBlockModel();
 				}
@@ -211,10 +211,10 @@ class GridLineModel extends AbstractModel
 		}
 
 		if (!$this->insideDesignModel instanceof DesignBlockModel) {
-			if ($this->inside_design_id === 0) {
+			if ($this->insideDesignId === 0) {
 				$this->insideDesignModel = new DesignBlockModel();
 			} else {
-				$this->insideDesignModel = DesignBlockModel::model()->byId($this->inside_design_id)->find();
+				$this->insideDesignModel = DesignBlockModel::model()->byId($this->insideDesignId)->find();
 				if ($this->insideDesignModel === null) {
 					$this->insideDesignModel = new DesignBlockModel();
 				}
@@ -239,12 +239,12 @@ class GridLineModel extends AbstractModel
 		$insideDesignModel = $this->insideDesignModel->duplicate();
 
 		$model = new GridLineModel();
-		$model->section_id = $sectionId;
+		$model->sectionId = $sectionId;
 		$model->sort = $this->sort;
 		$model->outsideDesignModel = $outsideDesignModel;
-		$model->outside_design_id = $outsideDesignModel->id;
+		$model->outsideDesignId = $outsideDesignModel->id;
 		$model->insideDesignModel = $insideDesignModel;
-		$model->inside_design_id = $insideDesignModel->id;
+		$model->insideDesignId = $insideDesignModel->id;
 		if (!$model->save()) {
 			$fields = "";
 			foreach ($model->getFieldNames() as $fieldName) {

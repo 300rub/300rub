@@ -38,24 +38,24 @@ class GridLineModelTest extends AbstractModelTest
             // Insert: empty values
             [
                 [
-                    "t.section_id"        => "",
+                    "t.sectionId"        => "",
                     "t.sort"              => "",
-                    "t.outside_design_id" => "",
-                    "t.inside_design_id"  => "",
+                    "t.outsideDesignId" => "",
+                    "t.insideDesignId"  => "",
                 ],
                 []
             ],
             // Insert: correct values. Update: correct values.
             [
                 [
-                    "t.section_id"        => 1,
+                    "t.sectionId"        => 1,
                     "t.sort"              => 0,
-                    "t.outside_design_id" => "",
-                    "t.inside_design_id"  => "",
+                    "t.outsideDesignId" => "",
+                    "t.insideDesignId"  => "",
                 ],
                 [],
                 [
-                    "t.section_id" => 1,
+                    "t.sectionId" => 1,
                     "t.sort"       => 0,
                 ],
                 [
@@ -63,21 +63,21 @@ class GridLineModelTest extends AbstractModelTest
                 ],
                 [],
                 [
-                    "t.section_id" => 1,
+                    "t.sectionId" => 1,
                     "t.sort"       => 2,
                 ]
             ],
             // Insert: incorrect values. Update: incorrect correct values.
             [
                 [
-                    "t.section_id"        => 1,
+                    "t.sectionId"        => 1,
                     "t.sort"              => "incorrect value",
-                    "t.outside_design_id" => "incorrect value",
-                    "t.inside_design_id"  => "incorrect value",
+                    "t.outsideDesignId" => "incorrect value",
+                    "t.insideDesignId"  => "incorrect value",
                 ],
                 [],
                 [
-                    "t.section_id" => 1,
+                    "t.sectionId" => 1,
                     "t.sort"       => 0,
                 ],
                 [
@@ -85,7 +85,7 @@ class GridLineModelTest extends AbstractModelTest
                 ],
                 [],
                 [
-                    "t.section_id" => 1,
+                    "t.sectionId" => 1,
                     "t.sort"       => 0,
                 ]
             ],
