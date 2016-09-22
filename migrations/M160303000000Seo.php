@@ -7,7 +7,7 @@ namespace migrations;
  *
  * @package migrations
  */
-class M_160303_000000_seo extends AbstractMigration
+class M160303000000Seo extends AbstractMigration
 {
 
 	/**

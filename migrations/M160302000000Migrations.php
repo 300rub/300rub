@@ -7,7 +7,7 @@ namespace migrations;
  *
  * @package migrations
  */
-class M_160302_000000_migrations extends AbstractMigration {
+class M160302000000Migrations extends AbstractMigration {
 
 	/**
 	 * Flag. If it is true - it will be skipped in common applying

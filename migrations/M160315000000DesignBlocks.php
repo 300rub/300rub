@@ -7,7 +7,7 @@ namespace migrations;
  *
  * @package migrations
  */
-class M_160315_000000_designBlocks extends AbstractMigration
+class M160315000000DesignBlocks extends AbstractMigration
 {
 
 	/**

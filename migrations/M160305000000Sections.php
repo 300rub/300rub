@@ -7,7 +7,7 @@ namespace migrations;
  *
  * @package migrations
  */
-class M_160305_000000_sections extends AbstractMigration
+class M160305000000Sections extends AbstractMigration
 {
 
 	/**

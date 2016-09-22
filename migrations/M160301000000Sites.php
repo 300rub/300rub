@@ -11,7 +11,7 @@ use components\Language;
  *
  * @package migrations
  */
-class M_160301_000000_sites extends AbstractMigration {
+class M160301000000Sites extends AbstractMigration {
 
 	/**
 	 * Flag. If it is true - it will be skipped in common applying

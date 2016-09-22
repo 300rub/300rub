@@ -5,8 +5,8 @@ namespace commands;
 use applications\App;
 use components\Db;
 use components\exceptions\MigrationException;
-use migrations\M_160301_000000_sites;
-use migrations\M_160302_000000_migrations;
+use migrations\M160301000000Sites;
+use migrations\M160302000000Migrations;
 use Exception;
 
 /**
@@ -90,7 +90,7 @@ class MigrateCommand extends AbstractCommand
 	private function _checkCommonTables()
 	{
 		if (!Db::isTableExists("sites")) {
-			$migration = new M_160301_000000_sites;
+			$migration = new M160301000000Sites;
 			$migration->up();
 			if (App::getApplication()->config->isDebug) {
 				$migration->insertData();
@@ -98,7 +98,7 @@ class MigrateCommand extends AbstractCommand
 		}
 
 		if (!Db::isTableExists("migrations")) {
-			$migration = new M_160302_000000_migrations;
+			$migration = new M160302000000Migrations;
 			$migration->up();
 		}
 

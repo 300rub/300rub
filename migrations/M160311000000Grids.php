@@ -7,7 +7,7 @@ namespace migrations;
  *
  * @package migrations
  */
-class M_160311_000000_grids extends AbstractMigration
+class M160311000000Grids extends AbstractMigration
 {
 
 	/**
