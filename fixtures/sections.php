@@ -1,11 +1,17 @@
 <?php
 
+use components\Language;
+
 return [
     1 => [
-        "seoId"          => 1,
-        "language"        => 1,
-        "width"           => 980,
-        "isMain"         => 1,
-        "designBlockId" => 9
+        "seoModel" => [
+            "name"        => "Texts",
+            "url"         => "texts",
+            "title"       => "Texts page",
+            "keywords"    => "text, texts, blocks",
+            "description" => "Page for testing text blocks",
+        ],
+        "language" => Language::LANGUAGE_EN_ID,
+        "isMain"   => true,
     ]
 ];
