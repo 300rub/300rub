@@ -24,11 +24,6 @@ abstract class AbstractModel
 	const DEFAULT_SEPARATOR = ".";
 
 	/**
-	 * Default SQL separator
-	 */
-	const DEFAULT_SQL_SEPARATOR = "__";
-
-	/**
 	 * Object name
 	 */
 	const OBJECT_NAME = "t";
@@ -233,7 +228,7 @@ abstract class AbstractModel
 		 * @var AbstractModel $model
 		 */
 		$model = new $this;
-		$model->setAttributes($result, self::DEFAULT_SQL_SEPARATOR)->afterFind();
+		$model->setAttributes($this->_parseAttributes($result))->afterFind();
 
 		return $model;
 	}
@@ -274,7 +269,7 @@ abstract class AbstractModel
 			 * @var AbstractModel $model
 			 */
 			$model = new $this;
-			$model->setAttributes($values, self::DEFAULT_SQL_SEPARATOR)->afterFind();
+			$model->setAttributes($this->_parseAttributes($values))->afterFind();
 			if ($model) {
 				$list[] = $model;
 			}
@@ -284,52 +279,67 @@ abstract class AbstractModel
 	}
 
 	/**
+	 * Parses attributes from sql response
+	 *
+	 * @param array $values
+	 *
+	 * @return array
+	 */
+	protected function _parseAttributes(array $values)
+	{
+		$attributes = [];
+
+		foreach ($values as $key => $val) {
+			list($k, $v) = explode(self::DEFAULT_SEPARATOR, $key);
+
+			if ($k === self::OBJECT_NAME) {
+				$attributes[$v] = $val;
+			} else {
+				if (!isset($attributes[$k])) {
+					$attributes[$k] = [];
+				}
+				$attributes[$k][$v] = $val;
+			}
+		}
+
+		return $attributes;
+	}
+
+	/**
 	 * Sets model's attributes
 	 *
-	 * @param array  $values    attribute values
-	 * @param string $separator separator
+	 * @param array $values attribute values
 	 *
 	 * @return AbstractModel
 	 */
-	public final function setAttributes($values, $separator = self::DEFAULT_SEPARATOR)
+	public final function setAttributes($values)
 	{
 		if (!is_array($values)) {
 			return $this;
 		}
 
-		$attributes = [];
-
-		foreach ($values as $key => $val) {
-			$explode = explode($separator, $key, 2);
-			if (!empty($explode[1])) {
-				$attributes[$explode[0]][$explode[1]] = $val;
+		foreach ($values as $name => $value) {
+			if (!property_exists($this, $name)) {
+				continue;
 			}
-		}
 
-		if (!$attributes) {
-			return $this;
-		}
-
-		$relations = $this->relations;
-		foreach ($attributes as $key => $fields) {
-			if ($key === self::OBJECT_NAME) {
-				foreach ($fields as $name => $value) {
-					if (property_exists($this, $name)) {
-						$this->$name = $value;
-					}
-				}
-			} else if (property_exists($this, $key)) {
-				if ($this->$key) {
-					$model = $this->$key;
+			if (is_array($value)) {
+				if ($this->$name) {
+					$model = $this->$name;
 				} else {
-					$model = new $relations[$key][0];
+					$relation = $this->relations[$name][0];
+					$model = new $relation;
 				}
-				foreach ($fields as $name => $value) {
-					if (property_exists($model, $name)) {
-						$model->$name = $value;
+
+				foreach ($value as $key => $val) {
+					if (property_exists($model, $key)) {
+						$model->$key = $val;
 					}
 				}
-				$this->$key = $model;
+
+				$this->$name = $model;
+			} else  {
+				$this->$name = $value;
 			}
 		}
 
