@@ -27,6 +27,6 @@ class M_160303_000000_seo extends AbstractMigration
 					"description" => "string",
 				]
 			)
-			->createIndex("seo_url", "seo", "url");
+			->createIndex("seoUrl", "seo", "url");
 	}
 }
