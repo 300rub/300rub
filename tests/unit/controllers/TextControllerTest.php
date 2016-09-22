@@ -153,7 +153,7 @@ class TextControllerTest extends AbstractControllerTest
                             "value" => 0
                         ],
                         [
-                            "name"  => "t.is_editor",
+                            "name"  => "t.isEditor",
                             "rules" => [],
                             "type"  => "checkbox",
                             "value" => 0
@@ -198,7 +198,7 @@ class TextControllerTest extends AbstractControllerTest
                             "value" => 0
                         ],
                         [
-                            "name"  => "t.is_editor",
+                            "name"  => "t.isEditor",
                             "rules" => [],
                             "type"  => "checkbox",
                             "value" => 0
@@ -269,7 +269,7 @@ class TextControllerTest extends AbstractControllerTest
                 Language::LANGUAGE_EN_ALIAS,
                 [
                     "t.name"      => "New text block",
-                    "t.is_editor" => 1,
+                    "t.isEditor" => 1,
                     "t.type"      => 2
                 ],
                 [

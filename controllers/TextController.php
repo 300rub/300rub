@@ -107,7 +107,7 @@ class TextController extends AbstractController
             ];
         }
 
-        $this->setFormsForJson($model, ["t.name", "t.type", "t.is_editor"]);
+        $this->setFormsForJson($model, ["t.name", "t.type", "t.isEditor"]);
     }
 
     /**
@@ -115,7 +115,7 @@ class TextController extends AbstractController
      */
     public function actionSaveSettings()
     {
-        $this->setCheckboxValue("t.is_editor");
+        $this->setCheckboxValue("t.isEditor");
         $model = $this->getModel([], true);
         $model->setAttributes($this->data)->save();
 
@@ -133,7 +133,7 @@ class TextController extends AbstractController
 
         $design = [];
         $forms = [];
-        if (!$model->is_editor) {
+        if (!$model->isEditor) {
             $forms[] = [
                 "id"     => $model->designTextModel->id,
                 "type"   => "text",
@@ -185,7 +185,7 @@ class TextController extends AbstractController
             "handler"  => "text",
             "id"       => $model->id,
             "selector" => ".text-{$model->id}",
-            "isEditor" => boolval($model->is_editor)
+            "isEditor" => boolval($model->isEditor)
         ];
 
         $this->setFormsForJson($model, ["t.text"]);

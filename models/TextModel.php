@@ -68,7 +68,7 @@ class TextModel extends AbstractModel
 	 *
 	 * @var boolean
 	 */
-	public $is_editor = false;
+	public $isEditor = false;
 
 	/**
 	 * Text type
@@ -133,7 +133,7 @@ class TextModel extends AbstractModel
 	 */
 	protected $formTypes = [
 		"name"      => self::FORM_TYPE_FIELD,
-		"is_editor" => self::FORM_TYPE_CHECKBOX,
+		"isEditor" => self::FORM_TYPE_CHECKBOX,
 		"type"      => self::FORM_TYPE_SELECT
 	];
 
@@ -167,7 +167,7 @@ class TextModel extends AbstractModel
 		return [
 			"name"            => ["required", "max" => 255],
 			"language"        => [],
-			"is_editor"       => [],
+			"isEditor"       => [],
 			"type"            => [],
 			"text"            => [],
 			"design_text_id"  => [],
@@ -235,7 +235,7 @@ class TextModel extends AbstractModel
 			$this->type = self::TYPE_DIV;
 		}
 
-		$this->is_editor = boolval($this->is_editor);
+		$this->isEditor = boolval($this->isEditor);
 		$this->design_text_id = intval($this->design_text_id);
 		$this->designBlockId = intval($this->designBlockId);
 	}
@@ -245,11 +245,11 @@ class TextModel extends AbstractModel
 	 */
 	protected function beforeSave()
 	{
-		$this->is_editor = intval($this->is_editor);
-		if ($this->is_editor >= 1) {
-			$this->is_editor = 1;
+		$this->isEditor = intval($this->isEditor);
+		if ($this->isEditor >= 1) {
+			$this->isEditor = 1;
 		} else {
-			$this->is_editor = 0;
+			$this->isEditor = 0;
 		}
 
 		if (!$this->designTextModel instanceof DesignTextModel) {

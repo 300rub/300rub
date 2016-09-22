@@ -23,7 +23,7 @@ class M_160309_000000_texts extends AbstractMigration
 					"name"            => "string",
 					"language"        => "integer",
 					"type"            => "integer",
-					"is_editor"       => "boolean",
+					"isEditor"       => "boolean",
 					"text"            => "text",
 					"design_text_id"  => "integer",
 					"designBlockId" => "integer",

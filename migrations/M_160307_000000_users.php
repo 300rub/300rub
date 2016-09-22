@@ -24,6 +24,6 @@ class M_160307_000000_users extends AbstractMigration
 					"password" => "char(40) not null",
 				]
 			)
-			->createIndex("users_login", "users", "login");
+			->createIndex("usersLogin", "users", "login");
 	}
 }

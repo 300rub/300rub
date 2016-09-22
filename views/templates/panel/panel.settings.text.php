@@ -17,8 +17,8 @@ use models\TextModel;
         </select>
     </div>
     <div>
-        <input id="panel-settings-text-t-is_editor" class="j-t__is_editor" type="checkbox"/>
-        <label for="panel-settings-text-t-is_editor"><?= Language::t("text", "isEditor") ?></label>
+        <input id="panel-settings-text-t-isEditor" class="j-t__isEditor" type="checkbox"/>
+        <label for="panel-settings-text-t-isEditor"><?= Language::t("text", "isEditor") ?></label>
     </div>
     <input type="hidden" class="j-t__id" />
 </div>

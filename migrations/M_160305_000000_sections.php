@@ -27,9 +27,9 @@ class M_160305_000000_sections extends AbstractMigration
 					"designBlockId" => "integer"
 				]
 			)
-			->createIndex("sections_seoId", "sections", "seoId")
-			->createIndex("sections_language", "sections", "language")
-			->createIndex("sections_isMain", "sections", "isMain")
-			->createIndex("sections_designBlockId", "sections", "designBlockId");
+			->createIndex("sectionsSeoId", "sections", "seoId")
+			->createIndex("sectionsLanguage", "sections", "language")
+			->createIndex("sectionsIsMain", "sections", "isMain")
+			->createIndex("sectionsDesignBlockId", "sections", "designBlockId");
 	}
 }

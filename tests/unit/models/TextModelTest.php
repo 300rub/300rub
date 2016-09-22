@@ -44,7 +44,7 @@ class TextModelTest extends AbstractModelTest
                     "t.name"            => "",
                     "t.language"        => "",
                     "t.type"            => "",
-                    "t.is_editor"       => "",
+                    "t.isEditor"       => "",
                     "t.text"            => "",
                     "t.design_text_id"  => "",
                     "t.designBlockId" => "",
@@ -63,7 +63,7 @@ class TextModelTest extends AbstractModelTest
                     "t.name"      => "Text test name",
                     "t.language"  => Language::$activeId,
                     "t.type"      => TextModel::TYPE_DIV,
-                    "t.is_editor" => 0,
+                    "t.isEditor" => 0,
                     "t.text"      => ""
                 ],
                 [],
@@ -72,7 +72,7 @@ class TextModelTest extends AbstractModelTest
                     "t.name"      => "Text test name",
                     "t.language"  => Language::$activeId,
                     "t.type"      => TextModel::TYPE_DIV,
-                    "t.is_editor" => 0,
+                    "t.isEditor" => 0,
                     "t.text"      => ""
                 ],
             ],
@@ -99,7 +99,7 @@ class TextModelTest extends AbstractModelTest
                     "t.name"            => "Text test name",
                     "t.language"        => "incorrect language",
                     "t.type"            => "incorrect type",
-                    "t.is_editor"       => "incorrect editor",
+                    "t.isEditor"       => "incorrect editor",
                     "t.design_text_id"  => "incorrect design text",
                     "t.designBlockId" => "incorrect design block",
                 ],
@@ -108,13 +108,13 @@ class TextModelTest extends AbstractModelTest
                     "t.name"      => "Text test name",
                     "t.language"  => Language::$activeId,
                     "t.type"      => TextModel::TYPE_DIV,
-                    "t.is_editor" => 0,
+                    "t.isEditor" => 0,
                     "t.text"      => ""
                 ],
                 [
                     "t.language"        => 99,
                     "t.type"            => 144,
-                    "t.is_editor"       => 34,
+                    "t.isEditor"       => 34,
                     "t.design_text_id"  => 1111,
                     "t.designBlockId" => 3224,
                 ],
@@ -122,7 +122,7 @@ class TextModelTest extends AbstractModelTest
                 [
                     "t.language"  => Language::$activeId,
                     "t.type"      => TextModel::TYPE_DIV,
-                    "t.is_editor" => 1,
+                    "t.isEditor" => 1,
                 ]
             ],
             // Insert and update with correct parameters
@@ -131,7 +131,7 @@ class TextModelTest extends AbstractModelTest
                     "t.name"      => "Text test name",
                     "t.language"  => Language::LANGUAGE_EN_ID,
                     "t.type"      => TextModel::TYPE_H1,
-                    "t.is_editor" => 1,
+                    "t.isEditor" => 1,
                     "t.text"      => "<b>Text</b>",
                 ],
                 [],
@@ -139,13 +139,13 @@ class TextModelTest extends AbstractModelTest
                     "t.name"      => "Text test name",
                     "t.language"  => Language::LANGUAGE_EN_ID,
                     "t.type"      => TextModel::TYPE_H1,
-                    "t.is_editor" => 1,
+                    "t.isEditor" => 1,
                     "t.text"      => "<b>Text</b>",
                 ],
                 [
                     "t.language"  => Language::LANGUAGE_RU_ID,
                     "t.type"      => TextModel::TYPE_H3,
-                    "t.is_editor" => 0,
+                    "t.isEditor" => 0,
                     "t.text"      => "<i>New text</i>",
                 ],
                 [],
@@ -153,7 +153,7 @@ class TextModelTest extends AbstractModelTest
                     "t.name"      => "Text test name",
                     "t.language"  => Language::LANGUAGE_RU_ID,
                     "t.type"      => TextModel::TYPE_H3,
-                    "t.is_editor" => 0,
+                    "t.isEditor" => 0,
                     "t.text"      => "<i>New text</i>",
                 ]
             ],
@@ -206,7 +206,7 @@ class TextModelTest extends AbstractModelTest
         $modelCopy = $this->getModel()->withAll()->byId($modelAfterDuplicate->id)->find();
 
         $this->assertNotEquals($modelForCopy->id, $modelCopy->id);
-        $this->assertEquals($modelForCopy->is_editor, $modelCopy->is_editor);
+        $this->assertEquals($modelForCopy->isEditor, $modelCopy->isEditor);
         $this->assertEquals($modelForCopy->type, $modelCopy->type);
         $this->assertEquals($modelForCopy->text, $modelCopy->text);
         $this->assertEquals(Language::t("common", "copy") . " {$modelForCopy->name}", $modelCopy->name);
