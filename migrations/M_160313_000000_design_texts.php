@@ -3,11 +3,11 @@
 namespace migrations;
 
 /**
- * Creates design_texts table
+ * Creates designTexts table
  *
  * @package migrations
  */
-class M_160313_000000_design_texts extends AbstractMigration
+class M_160313_000000_designTexts extends AbstractMigration
 {
 
 	/**
@@ -16,19 +16,19 @@ class M_160313_000000_design_texts extends AbstractMigration
 	public function up()
 	{
 		$this->createTable(
-			"design_texts",
+			"designTexts",
 			[
 				"id"             => "pk",
 				"size"           => "integer",
 				"family"         => "integer",
 				"color"          => "string",
-				"is_italic"      => "boolean",
-				"is_bold"        => "boolean",
+				"isItalic"      => "boolean",
+				"isBold"        => "boolean",
 				"align"          => "integer",
 				"decoration"     => "integer",
 				"transform"      => "integer",
-				"letter_spacing" => "integer",
-				"line_height"    => "integer",
+				"letterSpacing" => "integer",
+				"lineHeight"    => "integer",
 			]
 		);
 	}

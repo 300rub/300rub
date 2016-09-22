@@ -162,28 +162,28 @@ class TextModelTest extends AbstractModelTest
                 [
                     "t.name"                      => "Text test name",
                     "designTextModel.size"        => 20,
-                    "designTextModel.is_italic"   => 1,
-                    "designTextModel.is_bold"     => 1,
+                    "designTextModel.isItalic"   => 1,
+                    "designTextModel.isBold"     => 1,
                     "designBlockModel.margin_top" => 10
                 ],
                 [],
                 [
                     "designTextModel.size"        => 20,
-                    "designTextModel.is_italic"   => 1,
-                    "designTextModel.is_bold"     => 1,
+                    "designTextModel.isItalic"   => 1,
+                    "designTextModel.isBold"     => 1,
                     "designBlockModel.margin_top" => 10
                 ],
                 [
                     "designTextModel.size"        => 30,
-                    "designTextModel.is_italic"   => 0,
-                    "designTextModel.is_bold"     => 0,
+                    "designTextModel.isItalic"   => 0,
+                    "designTextModel.isBold"     => 0,
                     "designBlockModel.margin_top" => 20
                 ],
                 [],
                 [
                     "designTextModel.size"        => 30,
-                    "designTextModel.is_italic"   => 0,
-                    "designTextModel.is_bold"     => 0,
+                    "designTextModel.isItalic"   => 0,
+                    "designTextModel.isBold"     => 0,
                     "designBlockModel.margin_top" => 20
                 ]
             ],

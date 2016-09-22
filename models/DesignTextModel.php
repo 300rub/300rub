@@ -5,7 +5,7 @@ namespace models;
 use components\exceptions\ModelException;
 
 /**
- * Model for working with table "design_texts"
+ * Model for working with table "designTexts"
  *
  * @package models
  */
@@ -203,14 +203,14 @@ class DesignTextModel extends AbstractModel
 	 *
 	 * @var bool
 	 */
-	public $is_italic;
+	public $isItalic;
 
 	/**
 	 * Is font-weight: bold;
 	 *
 	 * @var int
 	 */
-	public $is_bold;
+	public $isBold;
 
 	/**
 	 * Align type
@@ -238,14 +238,14 @@ class DesignTextModel extends AbstractModel
 	 *
 	 * @var int
 	 */
-	public $letter_spacing;
+	public $letterSpacing;
 
 	/**
 	 * CSS line-height in %
 	 *
 	 * @var int
 	 */
-	public $line_height;
+	public $lineHeight;
 
 	/**
 	 * List of font family types
@@ -366,13 +366,13 @@ class DesignTextModel extends AbstractModel
 			"size"           => [],
 			"family"         => [],
 			"color"          => [],
-			"is_italic"      => [],
-			"is_bold"        => [],
+			"isItalic"      => [],
+			"isBold"        => [],
 			"align"          => [],
 			"decoration"     => [],
 			"transform"      => [],
-			"letter_spacing" => [],
-			"line_height"    => [],
+			"letterSpacing" => [],
+			"lineHeight"    => [],
 		];
 	}
 
@@ -383,7 +383,7 @@ class DesignTextModel extends AbstractModel
 	 */
 	public function getTableName()
 	{
-		return "design_texts";
+		return "designTexts";
 	}
 
 	/**
@@ -412,18 +412,18 @@ class DesignTextModel extends AbstractModel
 			$this->family = self::FAMILY_MYRAD;
 		}
 
-		$this->is_italic = intval($this->is_italic);
-		if ($this->is_italic >= 1) {
-			$this->is_italic = 1;
+		$this->isItalic = intval($this->isItalic);
+		if ($this->isItalic >= 1) {
+			$this->isItalic = 1;
 		} else {
-			$this->is_italic = 0;
+			$this->isItalic = 0;
 		}
 
-		$this->is_bold = intval($this->is_bold);
-		if ($this->is_bold >= 1) {
-			$this->is_bold = 1;
+		$this->isBold = intval($this->isBold);
+		if ($this->isBold >= 1) {
+			$this->isBold = 1;
 		} else {
-			$this->is_bold = 0;
+			$this->isBold = 0;
 		}
 
 		$this->align = intval($this->align);
@@ -441,20 +441,20 @@ class DesignTextModel extends AbstractModel
 			$this->transform = self::TEXT_TRANSFORM_NONE;
 		}
 
-		$this->letter_spacing = intval($this->letter_spacing);
-		if ($this->letter_spacing < self::MIN_LETTER_SPACING_VALUE) {
-			$this->letter_spacing = self::MIN_LETTER_SPACING_VALUE;
+		$this->letterSpacing = intval($this->letterSpacing);
+		if ($this->letterSpacing < self::MIN_LETTER_SPACING_VALUE) {
+			$this->letterSpacing = self::MIN_LETTER_SPACING_VALUE;
 		}
 
 		if (!$this->_isColor($this->color)) {
 			$this->color = "";
 		}
 
-		$this->line_height = intval($this->line_height);
-		if ($this->line_height === 0) {
-			$this->line_height = self::DEFAULT_LINE_HEIGHT;
-		} else if ($this->line_height < self::MIN_LINE_HEIGHT_VALUE) {
-			$this->line_height = self::MIN_LINE_HEIGHT_VALUE;
+		$this->lineHeight = intval($this->lineHeight);
+		if ($this->lineHeight === 0) {
+			$this->lineHeight = self::DEFAULT_LINE_HEIGHT;
+		} else if ($this->lineHeight < self::MIN_LINE_HEIGHT_VALUE) {
+			$this->lineHeight = self::MIN_LINE_HEIGHT_VALUE;
 		}
 	}
 
@@ -493,15 +493,15 @@ class DesignTextModel extends AbstractModel
 					"measure"  => "px"
 				],
                 [
-                    "name"     => sprintf($name, "letter_spacing"),
-                    "value"    => $this->letter_spacing,
+                    "name"     => sprintf($name, "letterSpacing"),
+                    "value"    => $this->letterSpacing,
                     "type"     => "letter-spacing",
                     "minValue" => self::MIN_LETTER_SPACING_VALUE,
                     "measure"  => "px"
                 ],
                 [
-                    "name"     => sprintf($name, "line_height"),
-                    "value"    => $this->line_height,
+                    "name"     => sprintf($name, "lineHeight"),
+                    "value"    => $this->lineHeight,
                     "type"     => "line-height",
                     "minValue" => self::MIN_LINE_HEIGHT_VALUE,
                     "measure"  => "%"
@@ -516,15 +516,15 @@ class DesignTextModel extends AbstractModel
             ],
 			"checkboxes" => [
 				[
-					"name"      => sprintf($name, "is_italic"),
-					"value"     => $this->is_italic,
+					"name"      => sprintf($name, "isItalic"),
+					"value"     => $this->isItalic,
 					"type"      => "font-style",
 					"checked"   => "italic",
 					"unChecked" => "normal"
 				],
 				[
-					"name"      => sprintf($name, "is_bold"),
-					"value"     => $this->is_bold,
+					"name"      => sprintf($name, "isBold"),
+					"value"     => $this->isBold,
 					"type"      => "font-weight",
 					"checked"   => "bold",
 					"unChecked" => "normal"
