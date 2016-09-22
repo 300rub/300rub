@@ -20,14 +20,14 @@ class M_160305_000000_sections extends AbstractMigration
 				"sections",
 				[
 					"id"              => "pk",
-					"seo_id"          => "integer",
+					"seoId"          => "integer",
 					"language"        => "integer",
 					"width"           => "integer",
 					"is_main"         => "boolean",
 					"design_block_id" => "integer"
 				]
 			)
-			->createIndex("sections_seo_id", "sections", "seo_id")
+			->createIndex("sections_seoId", "sections", "seoId")
 			->createIndex("sections_language", "sections", "language")
 			->createIndex("sections_is_main", "sections", "is_main")
 			->createIndex("sections_design_block_id", "sections", "design_block_id");

@@ -31,7 +31,7 @@ class SectionModel extends AbstractModel
 	 *
 	 * @var int
 	 */
-	public $seo_id = 0;
+	public $seoId = 0;
 
 	/**
 	 * ID of language
@@ -81,7 +81,7 @@ class SectionModel extends AbstractModel
 	 * @var array
 	 */
 	protected $relations = [
-		"seoModel"         => ['models\SeoModel', "seo_id"],
+		"seoModel"         => ['models\SeoModel', "seoId"],
 		"designBlockModel" => ['models\DesignBlockModel', "design_block_id"]
 	];
 
@@ -113,7 +113,7 @@ class SectionModel extends AbstractModel
 	public function getRules()
 	{
 		return [
-			"seo_id"          => [],
+			"seoId"          => [],
 			"language"        => [],
 			"width"           => [],
 			"is_main"         => [],
@@ -210,7 +210,7 @@ class SectionModel extends AbstractModel
 	 */
 	protected function setValues()
 	{
-		$this->seo_id = intval($this->seo_id);
+		$this->seoId = intval($this->seoId);
 
 		$this->language = intval($this->language);
 		if (!array_key_exists($this->language, Language::$aliasList)) {
@@ -266,7 +266,7 @@ class SectionModel extends AbstractModel
 
 		$seoModel = $this->seoModel;
 		if ($seoModel === null) {
-			$seoModel = SeoModel::model()->byId($this->seo_id)->find();
+			$seoModel = SeoModel::model()->byId($this->seoId)->find();
 		}
 		if ($seoModel instanceof SeoModel) {
 			if (!$seoModel->delete()) {
@@ -329,7 +329,7 @@ class SectionModel extends AbstractModel
 
 		$model = new SectionModel();
 		$model->seoModel = $seoModel;
-		$model->seo_id = $seoModel->id;
+		$model->seoId = $seoModel->id;
 		$model->language = $modelForCopy->language;
 		$model->width = $modelForCopy->width;
 		$model->is_main = 0;

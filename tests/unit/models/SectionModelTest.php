@@ -44,7 +44,7 @@ class SectionModelTest extends AbstractModelTest
 			// Insert: empty values
 			[
 				[
-					"t.seo_id"          => "",
+					"t.seoId"          => "",
 					"t.language"        => "",
 					"t.width"           => "",
 					"t.is_main"         => "",
@@ -216,7 +216,7 @@ class SectionModelTest extends AbstractModelTest
 		$modelCopy = $this->getModel()->withAll()->byId($modelAfterDuplicate->id)->find();
 
 		$this->assertNotEquals($modelForCopy->id, $modelCopy->id);
-		$this->assertNotEquals($modelForCopy->seo_id, $modelCopy->seo_id);
+		$this->assertNotEquals($modelForCopy->seoId, $modelCopy->seoId);
 		$this->assertEquals(0, $modelCopy->is_main);
 		$this->assertNotEquals($modelForCopy->design_block_id, $modelCopy->design_block_id);
 		$this->assertEquals($modelForCopy->language, $modelCopy->language);
