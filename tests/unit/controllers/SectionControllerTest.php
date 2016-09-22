@@ -384,11 +384,11 @@ class SectionControllerTest extends AbstractControllerTest
                                                         "value" => 0
                                                     ],
                                                     [
-                                                        "name" => "designBlockModel__t.margin_bottom",
+                                                        "name" => "designBlockModel__t.marginBottom",
                                                         "value" => 0
                                                     ],
                                                     [
-                                                        "name" => "designBlockModel__t.margin_left",
+                                                        "name" => "designBlockModel__t.marginLeft",
                                                         "value" => 0
                                                     ]
                                                 ]
@@ -397,19 +397,19 @@ class SectionControllerTest extends AbstractControllerTest
                                                 "type" => "padding",
                                                 "values" => [
                                                     [
-                                                        "name" => "designBlockModel__t.padding_top",
+                                                        "name" => "designBlockModel__t.paddingTop",
                                                         "value" => 0
                                                     ],
                                                     [
-                                                        "name" => "designBlockModel__t.padding_right",
+                                                        "name" => "designBlockModel__t.paddingRight",
                                                         "value" => 0
                                                     ],
                                                     [
-                                                        "name" => "designBlockModel__t.padding_bottom",
+                                                        "name" => "designBlockModel__t.paddingBottom",
                                                         "value" => 0
                                                     ],
                                                     [
-                                                        "name" => "designBlockModel__t.padding_left",
+                                                        "name" => "designBlockModel__t.paddingLeft",
                                                         "value" => 0
                                                     ]
                                                 ]
@@ -418,19 +418,19 @@ class SectionControllerTest extends AbstractControllerTest
                                                 "type" => "border-width",
                                                 "values" => [
                                                     [
-                                                        "name" => "designBlockModel__t.border_top_width",
+                                                        "name" => "designBlockModel__t.borderTopWidth",
                                                         "value" => 0
                                                     ],
                                                     [
-                                                        "name" => "designBlockModel__t.border_right_width",
+                                                        "name" => "designBlockModel__t.borderRightWidth",
                                                         "value" => 0
                                                     ],
                                                     [
-                                                        "name" => "designBlockModel__t.border_bottom_width",
+                                                        "name" => "designBlockModel__t.borderBottomWidth",
                                                         "value" => 0
                                                     ],
                                                     [
-                                                        "name" => "designBlockModel__t.border_left_width",
+                                                        "name" => "designBlockModel__t.borderLeftWidth",
                                                         "value" => 0
                                                     ]
                                                 ]
@@ -439,43 +439,43 @@ class SectionControllerTest extends AbstractControllerTest
                                                 "type" => "border-radius",
                                                 "values" => [
                                                     [
-                                                        "name" => "designBlockModel__t.border_top_left_radius",
+                                                        "name" => "designBlockModel__t.borderTopLeftRadius",
                                                         "value" => 0
                                                     ],
                                                     [
-                                                        "name" => "designBlockModel__t.border_top_right_radius",
+                                                        "name" => "designBlockModel__t.borderTopRightRadius",
                                                         "value" => 0
                                                     ],
                                                     [
-                                                        "name" => "designBlockModel__t.border_bottom_right_radius",
+                                                        "name" => "designBlockModel__t.borderBottomRightRadius",
                                                         "value" => 0
                                                     ],
                                                     [
-                                                        "name" => "designBlockModel__t.border_bottom_left_radius",
+                                                        "name" => "designBlockModel__t.borderBottomLeftRadius",
                                                         "value" => 0
                                                     ]
                                                 ]
                                             ]
                                         ],
                                         "backgroundColor" => [
-                                            "fromName" => "designBlockModel__t.background_color_from",
+                                            "fromName" => "designBlockModel__t.backgroundColorFrom",
                                             "fromValue" => "",
-                                            "toName" => "designBlockModel__t.background_color_to",
+                                            "toName" => "designBlockModel__t.backgroundColorTo",
                                             "toValue" => "",
-                                            "gradientName" => "designBlockModel__t.gradient_direction",
+                                            "gradientName" => "designBlockModel__t.gradientDirection",
                                             "gradientValue" => 0
                                         ],
                                         "colors" => [
                                             [
                                                 "type" => "border-color",
-                                                "name" => "designBlockModel__t.border_color",
+                                                "name" => "designBlockModel__t.borderColor",
                                                 "value" => ""
                                             ]
                                         ],
                                         "radios" => [
                                             [
                                                 "type" => "border-style",
-                                                "name" => "designBlockModel__t.border_style",
+                                                "name" => "designBlockModel__t.borderStyle",
                                                 "value" => 0
                                             ]
                                         ]
@@ -503,11 +503,11 @@ class SectionControllerTest extends AbstractControllerTest
                                                         "value" => 0
                                                     ],
                                                     [
-                                                        "name" => "lines__1__outsideDesignModel.margin_bottom",
+                                                        "name" => "lines__1__outsideDesignModel.marginBottom",
                                                         "value" => 0
                                                     ],
                                                     [
-                                                        "name" => "lines__1__outsideDesignModel.margin_left",
+                                                        "name" => "lines__1__outsideDesignModel.marginLeft",
                                                         "value" => 0
                                                     ]
                                                 ]
@@ -516,19 +516,19 @@ class SectionControllerTest extends AbstractControllerTest
                                                 "type" => "padding",
                                                 "values" => [
                                                     [
-                                                        "name" => "lines__1__outsideDesignModel.padding_top",
+                                                        "name" => "lines__1__outsideDesignModel.paddingTop",
                                                         "value" => 0
                                                     ],
                                                     [
-                                                        "name" => "lines__1__outsideDesignModel.padding_right",
+                                                        "name" => "lines__1__outsideDesignModel.paddingRight",
                                                         "value" => 0
                                                     ],
                                                     [
-                                                        "name" => "lines__1__outsideDesignModel.padding_bottom",
+                                                        "name" => "lines__1__outsideDesignModel.paddingBottom",
                                                         "value" => 0
                                                     ],
                                                     [
-                                                        "name" => "lines__1__outsideDesignModel.padding_left",
+                                                        "name" => "lines__1__outsideDesignModel.paddingLeft",
                                                         "value" => 0
                                                     ]
                                                 ]
@@ -537,19 +537,19 @@ class SectionControllerTest extends AbstractControllerTest
                                                 "type" => "border-width",
                                                 "values" => [
                                                     [
-                                                        "name" => "lines__1__outsideDesignModel.border_top_width",
+                                                        "name" => "lines__1__outsideDesignModel.borderTopWidth",
                                                         "value" => 0
                                                     ],
                                                     [
-                                                        "name" => "lines__1__outsideDesignModel.border_right_width",
+                                                        "name" => "lines__1__outsideDesignModel.borderRightWidth",
                                                         "value" => 0
                                                     ],
                                                     [
-                                                        "name" => "lines__1__outsideDesignModel.border_bottom_width",
+                                                        "name" => "lines__1__outsideDesignModel.borderBottomWidth",
                                                         "value" => 0
                                                     ],
                                                     [
-                                                        "name" => "lines__1__outsideDesignModel.border_left_width",
+                                                        "name" => "lines__1__outsideDesignModel.borderLeftWidth",
                                                         "value" => 0
                                                     ]
                                                 ]
@@ -558,43 +558,43 @@ class SectionControllerTest extends AbstractControllerTest
                                                 "type" => "border-radius",
                                                 "values" => [
                                                     [
-                                                        "name" => "lines__1__outsideDesignModel.border_top_left_radius",
+                                                        "name" => "lines__1__outsideDesignModel.borderTopLeftRadius",
                                                         "value" => 0
                                                     ],
                                                     [
-                                                        "name" => "lines__1__outsideDesignModel.border_top_right_radius",
+                                                        "name" => "lines__1__outsideDesignModel.borderTopRightRadius",
                                                         "value" => 0
                                                     ],
                                                     [
-                                                        "name" => "lines__1__outsideDesignModel.border_bottom_right_radius",
+                                                        "name" => "lines__1__outsideDesignModel.borderBottomRightRadius",
                                                         "value" => 0
                                                     ],
                                                     [
-                                                        "name" => "lines__1__outsideDesignModel.border_bottom_left_radius",
+                                                        "name" => "lines__1__outsideDesignModel.borderBottomLeftRadius",
                                                         "value" => 0
                                                     ]
                                                 ]
                                             ]
                                         ],
                                         "backgroundColor" => [
-                                            "fromName" => "lines__1__outsideDesignModel.background_color_from",
+                                            "fromName" => "lines__1__outsideDesignModel.backgroundColorFrom",
                                             "fromValue" => "",
-                                            "toName" => "lines__1__outsideDesignModel.background_color_to",
+                                            "toName" => "lines__1__outsideDesignModel.backgroundColorTo",
                                             "toValue" => "",
-                                            "gradientName" => "lines__1__outsideDesignModel.gradient_direction",
+                                            "gradientName" => "lines__1__outsideDesignModel.gradientDirection",
                                             "gradientValue" => 0
                                         ],
                                         "colors" => [
                                             [
                                                 "type" => "border-color",
-                                                "name" => "lines__1__outsideDesignModel.border_color",
+                                                "name" => "lines__1__outsideDesignModel.borderColor",
                                                 "value" => ""
                                             ]
                                         ],
                                         "radios" => [
                                             [
                                                 "type" => "border-style",
-                                                "name" => "lines__1__outsideDesignModel.border_style",
+                                                "name" => "lines__1__outsideDesignModel.borderStyle",
                                                 "value" => 0
                                             ]
                                         ]
@@ -622,11 +622,11 @@ class SectionControllerTest extends AbstractControllerTest
                                                         "value" => 0
                                                     ],
                                                     [
-                                                        "name" => "lines__1__insideDesignModel.margin_bottom",
+                                                        "name" => "lines__1__insideDesignModel.marginBottom",
                                                         "value" => 0
                                                     ],
                                                     [
-                                                        "name" => "lines__1__insideDesignModel.margin_left",
+                                                        "name" => "lines__1__insideDesignModel.marginLeft",
                                                         "value" => 0
                                                     ]
                                                 ]
@@ -635,19 +635,19 @@ class SectionControllerTest extends AbstractControllerTest
                                                 "type" => "padding",
                                                 "values" => [
                                                     [
-                                                        "name" => "lines__1__insideDesignModel.padding_top",
+                                                        "name" => "lines__1__insideDesignModel.paddingTop",
                                                         "value" => 0
                                                     ],
                                                     [
-                                                        "name" => "lines__1__insideDesignModel.padding_right",
+                                                        "name" => "lines__1__insideDesignModel.paddingRight",
                                                         "value" => 0
                                                     ],
                                                     [
-                                                        "name" => "lines__1__insideDesignModel.padding_bottom",
+                                                        "name" => "lines__1__insideDesignModel.paddingBottom",
                                                         "value" => 0
                                                     ],
                                                     [
-                                                        "name" => "lines__1__insideDesignModel.padding_left",
+                                                        "name" => "lines__1__insideDesignModel.paddingLeft",
                                                         "value" => 0
                                                     ]
                                                 ]
@@ -656,19 +656,19 @@ class SectionControllerTest extends AbstractControllerTest
                                                 "type" => "border-width",
                                                 "values" => [
                                                     [
-                                                        "name" => "lines__1__insideDesignModel.border_top_width",
+                                                        "name" => "lines__1__insideDesignModel.borderTopWidth",
                                                         "value" => 0
                                                     ],
                                                     [
-                                                        "name" => "lines__1__insideDesignModel.border_right_width",
+                                                        "name" => "lines__1__insideDesignModel.borderRightWidth",
                                                         "value" => 0
                                                     ],
                                                     [
-                                                        "name" => "lines__1__insideDesignModel.border_bottom_width",
+                                                        "name" => "lines__1__insideDesignModel.borderBottomWidth",
                                                         "value" => 0
                                                     ],
                                                     [
-                                                        "name" => "lines__1__insideDesignModel.border_left_width",
+                                                        "name" => "lines__1__insideDesignModel.borderLeftWidth",
                                                         "value" => 0
                                                     ]
                                                 ]
@@ -677,43 +677,43 @@ class SectionControllerTest extends AbstractControllerTest
                                                 "type" => "border-radius",
                                                 "values" => [
                                                     [
-                                                        "name" => "lines__1__insideDesignModel.border_top_left_radius",
+                                                        "name" => "lines__1__insideDesignModel.borderTopLeftRadius",
                                                         "value" => 0
                                                     ],
                                                     [
-                                                        "name" => "lines__1__insideDesignModel.border_top_right_radius",
+                                                        "name" => "lines__1__insideDesignModel.borderTopRightRadius",
                                                         "value" => 0
                                                     ],
                                                     [
-                                                        "name" => "lines__1__insideDesignModel.border_bottom_right_radius",
+                                                        "name" => "lines__1__insideDesignModel.borderBottomRightRadius",
                                                         "value" => 0
                                                     ],
                                                     [
-                                                        "name" => "lines__1__insideDesignModel.border_bottom_left_radius",
+                                                        "name" => "lines__1__insideDesignModel.borderBottomLeftRadius",
                                                         "value" => 0
                                                     ]
                                                 ]
                                             ]
                                         ],
                                         "backgroundColor" => [
-                                            "fromName" => "lines__1__insideDesignModel.background_color_from",
+                                            "fromName" => "lines__1__insideDesignModel.backgroundColorFrom",
                                             "fromValue" => "",
-                                            "toName" => "lines__1__insideDesignModel.background_color_to",
+                                            "toName" => "lines__1__insideDesignModel.backgroundColorTo",
                                             "toValue" => "",
-                                            "gradientName" => "lines__1__insideDesignModel.gradient_direction",
+                                            "gradientName" => "lines__1__insideDesignModel.gradientDirection",
                                             "gradientValue" => 0
                                         ],
                                         "colors" => [
                                             [
                                                 "type" => "border-color",
-                                                "name" => "lines__1__insideDesignModel.border_color",
+                                                "name" => "lines__1__insideDesignModel.borderColor",
                                                 "value" => ""
                                             ]
                                         ],
                                         "radios" => [
                                             [
                                                 "type" => "border-style",
-                                                "name" => "lines__1__insideDesignModel.border_style",
+                                                "name" => "lines__1__insideDesignModel.borderStyle",
                                                 "value" => 0
                                             ]
                                         ]
@@ -753,72 +753,72 @@ class SectionControllerTest extends AbstractControllerTest
                     "designBlockModel" => [
                         "t.marginTop"                 => "",
                         "t.marginRight"               => "",
-                        "t.margin_bottom"              => "",
-                        "t.margin_left"                => "",
-                        "t.padding_top"                => "",
-                        "t.padding_right"              => "",
-                        "t.padding_bottom"             => "",
-                        "t.padding_left"               => "",
-                        "t.background_color_from"      => "",
-                        "t.background_color_to"        => "",
-                        "t.gradient_direction"         => "",
-                        "t.border_top_width"           => "",
-                        "t.border_top_left_radius"     => "",
-                        "t.border_right_width"         => "",
-                        "t.border_top_right_radius"    => "",
-                        "t.border_bottom_width"        => "",
-                        "t.border_bottom_right_radius" => "",
-                        "t.border_left_width"          => "",
-                        "t.border_bottom_left_radius"  => "",
-                        "t.border_color"               => "",
-                        "t.border_style"               => "",
+                        "t.marginBottom"              => "",
+                        "t.marginLeft"                => "",
+                        "t.paddingTop"                => "",
+                        "t.paddingRight"              => "",
+                        "t.paddingBottom"             => "",
+                        "t.paddingLeft"               => "",
+                        "t.backgroundColorFrom"      => "",
+                        "t.backgroundColorTo"        => "",
+                        "t.gradientDirection"         => "",
+                        "t.borderTopWidth"           => "",
+                        "t.borderTopLeftRadius"     => "",
+                        "t.borderRightWidth"         => "",
+                        "t.borderTopRightRadius"    => "",
+                        "t.borderBottomWidth"        => "",
+                        "t.borderBottomRightRadius" => "",
+                        "t.borderLeftWidth"          => "",
+                        "t.borderBottomLeftRadius"  => "",
+                        "t.borderColor"               => "",
+                        "t.borderStyle"               => "",
                     ],
                     "lines" => [
                         1 => [
                             // outside
                             "outsideDesignModel.marginTop"                 => "",
                             "outsideDesignModel.marginRight"               => "",
-                            "outsideDesignModel.margin_bottom"              => "",
-                            "outsideDesignModel.margin_left"                => "",
-                            "outsideDesignModel.padding_top"                => "",
-                            "outsideDesignModel.padding_right"              => "",
-                            "outsideDesignModel.padding_bottom"             => "",
-                            "outsideDesignModel.padding_left"               => "",
-                            "outsideDesignModel.background_color_from"      => "",
-                            "outsideDesignModel.background_color_to"        => "",
-                            "outsideDesignModel.gradient_direction"         => "",
-                            "outsideDesignModel.border_top_width"           => "",
-                            "outsideDesignModel.border_top_left_radius"     => "",
-                            "outsideDesignModel.border_right_width"         => "",
-                            "outsideDesignModel.border_top_right_radius"    => "",
-                            "outsideDesignModel.border_bottom_width"        => "",
-                            "outsideDesignModel.border_bottom_right_radius" => "",
-                            "outsideDesignModel.border_left_width"          => "",
-                            "outsideDesignModel.border_bottom_left_radius"  => "",
-                            "outsideDesignModel.border_color"               => "",
-                            "outsideDesignModel.border_style"               => "",
+                            "outsideDesignModel.marginBottom"              => "",
+                            "outsideDesignModel.marginLeft"                => "",
+                            "outsideDesignModel.paddingTop"                => "",
+                            "outsideDesignModel.paddingRight"              => "",
+                            "outsideDesignModel.paddingBottom"             => "",
+                            "outsideDesignModel.paddingLeft"               => "",
+                            "outsideDesignModel.backgroundColorFrom"      => "",
+                            "outsideDesignModel.backgroundColorTo"        => "",
+                            "outsideDesignModel.gradientDirection"         => "",
+                            "outsideDesignModel.borderTopWidth"           => "",
+                            "outsideDesignModel.borderTopLeftRadius"     => "",
+                            "outsideDesignModel.borderRightWidth"         => "",
+                            "outsideDesignModel.borderTopRightRadius"    => "",
+                            "outsideDesignModel.borderBottomWidth"        => "",
+                            "outsideDesignModel.borderBottomRightRadius" => "",
+                            "outsideDesignModel.borderLeftWidth"          => "",
+                            "outsideDesignModel.borderBottomLeftRadius"  => "",
+                            "outsideDesignModel.borderColor"               => "",
+                            "outsideDesignModel.borderStyle"               => "",
                             // inside
                             "insideDesignModel.marginTop"                 => "",
                             "insideDesignModel.marginRight"               => "",
-                            "insideDesignModel.margin_bottom"              => "",
-                            "insideDesignModel.margin_left"                => "",
-                            "insideDesignModel.padding_top"                => "",
-                            "insideDesignModel.padding_right"              => "",
-                            "insideDesignModel.padding_bottom"             => "",
-                            "insideDesignModel.padding_left"               => "",
-                            "insideDesignModel.background_color_from"      => "",
-                            "insideDesignModel.background_color_to"        => "",
-                            "insideDesignModel.gradient_direction"         => "",
-                            "insideDesignModel.border_top_width"           => "",
-                            "insideDesignModel.border_top_left_radius"     => "",
-                            "insideDesignModel.border_right_width"         => "",
-                            "insideDesignModel.border_top_right_radius"    => "",
-                            "insideDesignModel.border_bottom_width"        => "",
-                            "insideDesignModel.border_bottom_right_radius" => "",
-                            "insideDesignModel.border_left_width"          => "",
-                            "insideDesignModel.border_bottom_left_radius"  => "",
-                            "insideDesignModel.border_color"               => "",
-                            "insideDesignModel.border_style"               => "",
+                            "insideDesignModel.marginBottom"              => "",
+                            "insideDesignModel.marginLeft"                => "",
+                            "insideDesignModel.paddingTop"                => "",
+                            "insideDesignModel.paddingRight"              => "",
+                            "insideDesignModel.paddingBottom"             => "",
+                            "insideDesignModel.paddingLeft"               => "",
+                            "insideDesignModel.backgroundColorFrom"      => "",
+                            "insideDesignModel.backgroundColorTo"        => "",
+                            "insideDesignModel.gradientDirection"         => "",
+                            "insideDesignModel.borderTopWidth"           => "",
+                            "insideDesignModel.borderTopLeftRadius"     => "",
+                            "insideDesignModel.borderRightWidth"         => "",
+                            "insideDesignModel.borderTopRightRadius"    => "",
+                            "insideDesignModel.borderBottomWidth"        => "",
+                            "insideDesignModel.borderBottomRightRadius" => "",
+                            "insideDesignModel.borderLeftWidth"          => "",
+                            "insideDesignModel.borderBottomLeftRadius"  => "",
+                            "insideDesignModel.borderColor"               => "",
+                            "insideDesignModel.borderStyle"               => "",
                         ]
                     ]
                 ],
@@ -836,72 +836,72 @@ class SectionControllerTest extends AbstractControllerTest
                     "designBlockModel" => [
                         "t.marginTop"                 => 10,
                         "t.marginRight"               => 20,
-                        "t.margin_bottom"              => 30,
-                        "t.margin_left"                => 40,
-                        "t.padding_top"                => 50,
-                        "t.padding_right"              => 40,
-                        "t.padding_bottom"             => 30,
-                        "t.padding_left"               => 20,
-                        "t.background_color_from"      => 10,
-                        "t.background_color_to"        => "rgba(255,255,255,0.5)",
-                        "t.gradient_direction"         => 1,
-                        "t.border_top_width"           => 10,
-                        "t.border_top_left_radius"     => 5,
-                        "t.border_right_width"         => 44,
-                        "t.border_top_right_radius"    => 23,
-                        "t.border_bottom_width"        => 6,
-                        "t.border_bottom_right_radius" => 4,
-                        "t.border_left_width"          => 7,
-                        "t.border_bottom_left_radius"  => 12,
-                        "t.border_color"               => "",
-                        "t.border_style"               => "",
+                        "t.marginBottom"              => 30,
+                        "t.marginLeft"                => 40,
+                        "t.paddingTop"                => 50,
+                        "t.paddingRight"              => 40,
+                        "t.paddingBottom"             => 30,
+                        "t.paddingLeft"               => 20,
+                        "t.backgroundColorFrom"      => 10,
+                        "t.backgroundColorTo"        => "rgba(255,255,255,0.5)",
+                        "t.gradientDirection"         => 1,
+                        "t.borderTopWidth"           => 10,
+                        "t.borderTopLeftRadius"     => 5,
+                        "t.borderRightWidth"         => 44,
+                        "t.borderTopRightRadius"    => 23,
+                        "t.borderBottomWidth"        => 6,
+                        "t.borderBottomRightRadius" => 4,
+                        "t.borderLeftWidth"          => 7,
+                        "t.borderBottomLeftRadius"  => 12,
+                        "t.borderColor"               => "",
+                        "t.borderStyle"               => "",
                     ],
                     "lines" => [
                         1 => [
                             // outside
                             "outsideDesignModel.marginTop"                 => 10,
                             "outsideDesignModel.marginRight"               => 10,
-                            "outsideDesignModel.margin_bottom"              => 10,
-                            "outsideDesignModel.margin_left"                => 10,
-                            "outsideDesignModel.padding_top"                => 10,
-                            "outsideDesignModel.padding_right"              => 10,
-                            "outsideDesignModel.padding_bottom"             => 10,
-                            "outsideDesignModel.padding_left"               => 10,
-                            "outsideDesignModel.background_color_from"      => "rgba(255,255,255,0.5)",
-                            "outsideDesignModel.background_color_to"        => "rgba(0,255,255,0.5)",
-                            "outsideDesignModel.gradient_direction"         => 1,
-                            "outsideDesignModel.border_top_width"           => 20,
-                            "outsideDesignModel.border_top_left_radius"     => 20,
-                            "outsideDesignModel.border_right_width"         => 20,
-                            "outsideDesignModel.border_top_right_radius"    => 20,
-                            "outsideDesignModel.border_bottom_width"        => 20,
-                            "outsideDesignModel.border_bottom_right_radius" => 20,
-                            "outsideDesignModel.border_left_width"          => 20,
-                            "outsideDesignModel.border_bottom_left_radius"  => 20,
-                            "outsideDesignModel.border_color"               => 20,
-                            "outsideDesignModel.border_style"               => 20,
+                            "outsideDesignModel.marginBottom"              => 10,
+                            "outsideDesignModel.marginLeft"                => 10,
+                            "outsideDesignModel.paddingTop"                => 10,
+                            "outsideDesignModel.paddingRight"              => 10,
+                            "outsideDesignModel.paddingBottom"             => 10,
+                            "outsideDesignModel.paddingLeft"               => 10,
+                            "outsideDesignModel.backgroundColorFrom"      => "rgba(255,255,255,0.5)",
+                            "outsideDesignModel.backgroundColorTo"        => "rgba(0,255,255,0.5)",
+                            "outsideDesignModel.gradientDirection"         => 1,
+                            "outsideDesignModel.borderTopWidth"           => 20,
+                            "outsideDesignModel.borderTopLeftRadius"     => 20,
+                            "outsideDesignModel.borderRightWidth"         => 20,
+                            "outsideDesignModel.borderTopRightRadius"    => 20,
+                            "outsideDesignModel.borderBottomWidth"        => 20,
+                            "outsideDesignModel.borderBottomRightRadius" => 20,
+                            "outsideDesignModel.borderLeftWidth"          => 20,
+                            "outsideDesignModel.borderBottomLeftRadius"  => 20,
+                            "outsideDesignModel.borderColor"               => 20,
+                            "outsideDesignModel.borderStyle"               => 20,
                             // inside
                             "insideDesignModel.marginTop"                 => 30,
                             "insideDesignModel.marginRight"               => 30,
-                            "insideDesignModel.margin_bottom"              => 30,
-                            "insideDesignModel.margin_left"                => 30,
-                            "insideDesignModel.padding_top"                => 30,
-                            "insideDesignModel.padding_right"              => 30,
-                            "insideDesignModel.padding_bottom"             => 30,
-                            "insideDesignModel.padding_left"               => 30,
-                            "insideDesignModel.background_color_from"      => "",
-                            "insideDesignModel.background_color_to"        => "",
-                            "insideDesignModel.gradient_direction"         => 0,
-                            "insideDesignModel.border_top_width"           => 10,
-                            "insideDesignModel.border_top_left_radius"     => 10,
-                            "insideDesignModel.border_right_width"         => 10,
-                            "insideDesignModel.border_top_right_radius"    => 10,
-                            "insideDesignModel.border_bottom_width"        => 10,
-                            "insideDesignModel.border_bottom_right_radius" => 10,
-                            "insideDesignModel.border_left_width"          => 10,
-                            "insideDesignModel.border_bottom_left_radius"  => 10,
-                            "insideDesignModel.border_color"               => "",
-                            "insideDesignModel.border_style"               => "",
+                            "insideDesignModel.marginBottom"              => 30,
+                            "insideDesignModel.marginLeft"                => 30,
+                            "insideDesignModel.paddingTop"                => 30,
+                            "insideDesignModel.paddingRight"              => 30,
+                            "insideDesignModel.paddingBottom"             => 30,
+                            "insideDesignModel.paddingLeft"               => 30,
+                            "insideDesignModel.backgroundColorFrom"      => "",
+                            "insideDesignModel.backgroundColorTo"        => "",
+                            "insideDesignModel.gradientDirection"         => 0,
+                            "insideDesignModel.borderTopWidth"           => 10,
+                            "insideDesignModel.borderTopLeftRadius"     => 10,
+                            "insideDesignModel.borderRightWidth"         => 10,
+                            "insideDesignModel.borderTopRightRadius"    => 10,
+                            "insideDesignModel.borderBottomWidth"        => 10,
+                            "insideDesignModel.borderBottomRightRadius" => 10,
+                            "insideDesignModel.borderLeftWidth"          => 10,
+                            "insideDesignModel.borderBottomLeftRadius"  => 10,
+                            "insideDesignModel.borderColor"               => "",
+                            "insideDesignModel.borderStyle"               => "",
                         ]
                     ]
                 ],
@@ -919,72 +919,72 @@ class SectionControllerTest extends AbstractControllerTest
                     "designBlockModel" => [
                         "t.marginTop"                 => "incorrect",
                         "t.marginRight"               => "incorrect",
-                        "t.margin_bottom"              => "incorrect",
-                        "t.margin_left"                => "incorrect",
-                        "t.padding_top"                => "incorrect",
-                        "t.padding_right"              => "incorrect",
-                        "t.padding_bottom"             => "incorrect",
-                        "t.padding_left"               => "incorrect",
-                        "t.background_color_from"      => "incorrect",
-                        "t.background_color_to"        => "incorrect",
-                        "t.gradient_direction"         => "incorrect",
-                        "t.border_top_width"           => "incorrect",
-                        "t.border_top_left_radius"     => "incorrect",
-                        "t.border_right_width"         => "incorrect",
-                        "t.border_top_right_radius"    => "incorrect",
-                        "t.border_bottom_width"        => "incorrect",
-                        "t.border_bottom_right_radius" => "incorrect",
-                        "t.border_left_width"          => "incorrect",
-                        "t.border_bottom_left_radius"  => "incorrect",
-                        "t.border_color"               => "incorrect",
-                        "t.border_style"               => "incorrect",
+                        "t.marginBottom"              => "incorrect",
+                        "t.marginLeft"                => "incorrect",
+                        "t.paddingTop"                => "incorrect",
+                        "t.paddingRight"              => "incorrect",
+                        "t.paddingBottom"             => "incorrect",
+                        "t.paddingLeft"               => "incorrect",
+                        "t.backgroundColorFrom"      => "incorrect",
+                        "t.backgroundColorTo"        => "incorrect",
+                        "t.gradientDirection"         => "incorrect",
+                        "t.borderTopWidth"           => "incorrect",
+                        "t.borderTopLeftRadius"     => "incorrect",
+                        "t.borderRightWidth"         => "incorrect",
+                        "t.borderTopRightRadius"    => "incorrect",
+                        "t.borderBottomWidth"        => "incorrect",
+                        "t.borderBottomRightRadius" => "incorrect",
+                        "t.borderLeftWidth"          => "incorrect",
+                        "t.borderBottomLeftRadius"  => "incorrect",
+                        "t.borderColor"               => "incorrect",
+                        "t.borderStyle"               => "incorrect",
                     ],
                     "lines" => [
                         1 => [
                             // outside
                             "outsideDesignModel.marginTop"                 => "incorrect",
                             "outsideDesignModel.marginRight"               => "incorrect",
-                            "outsideDesignModel.margin_bottom"              => "incorrect",
-                            "outsideDesignModel.margin_left"                => "incorrect",
-                            "outsideDesignModel.padding_top"                => "incorrect",
-                            "outsideDesignModel.padding_right"              => "incorrect",
-                            "outsideDesignModel.padding_bottom"             => "incorrect",
-                            "outsideDesignModel.padding_left"               => "incorrect",
-                            "outsideDesignModel.background_color_from"      => "incorrect",
-                            "outsideDesignModel.background_color_to"        => "incorrect",
-                            "outsideDesignModel.gradient_direction"         => "incorrect",
-                            "outsideDesignModel.border_top_width"           => "incorrect",
-                            "outsideDesignModel.border_top_left_radius"     => "incorrect",
-                            "outsideDesignModel.border_right_width"         => "incorrect",
-                            "outsideDesignModel.border_top_right_radius"    => "incorrect",
-                            "outsideDesignModel.border_bottom_width"        => "incorrect",
-                            "outsideDesignModel.border_bottom_right_radius" => "incorrect",
-                            "outsideDesignModel.border_left_width"          => "incorrect",
-                            "outsideDesignModel.border_bottom_left_radius"  => "incorrect",
-                            "outsideDesignModel.border_color"               => "incorrect",
-                            "outsideDesignModel.border_style"               => "incorrect",
+                            "outsideDesignModel.marginBottom"              => "incorrect",
+                            "outsideDesignModel.marginLeft"                => "incorrect",
+                            "outsideDesignModel.paddingTop"                => "incorrect",
+                            "outsideDesignModel.paddingRight"              => "incorrect",
+                            "outsideDesignModel.paddingBottom"             => "incorrect",
+                            "outsideDesignModel.paddingLeft"               => "incorrect",
+                            "outsideDesignModel.backgroundColorFrom"      => "incorrect",
+                            "outsideDesignModel.backgroundColorTo"        => "incorrect",
+                            "outsideDesignModel.gradientDirection"         => "incorrect",
+                            "outsideDesignModel.borderTopWidth"           => "incorrect",
+                            "outsideDesignModel.borderTopLeftRadius"     => "incorrect",
+                            "outsideDesignModel.borderRightWidth"         => "incorrect",
+                            "outsideDesignModel.borderTopRightRadius"    => "incorrect",
+                            "outsideDesignModel.borderBottomWidth"        => "incorrect",
+                            "outsideDesignModel.borderBottomRightRadius" => "incorrect",
+                            "outsideDesignModel.borderLeftWidth"          => "incorrect",
+                            "outsideDesignModel.borderBottomLeftRadius"  => "incorrect",
+                            "outsideDesignModel.borderColor"               => "incorrect",
+                            "outsideDesignModel.borderStyle"               => "incorrect",
                             // inside
                             "insideDesignModel.marginTop"                 => "incorrect",
                             "insideDesignModel.marginRight"               => "incorrect",
-                            "insideDesignModel.margin_bottom"              => "incorrect",
-                            "insideDesignModel.margin_left"                => "incorrect",
-                            "insideDesignModel.padding_top"                => "incorrect",
-                            "insideDesignModel.padding_right"              => "incorrect",
-                            "insideDesignModel.padding_bottom"             => "incorrect",
-                            "insideDesignModel.padding_left"               => "incorrect",
-                            "insideDesignModel.background_color_from"      => "incorrect",
-                            "insideDesignModel.background_color_to"        => "incorrect",
-                            "insideDesignModel.gradient_direction"         => "incorrect",
-                            "insideDesignModel.border_top_width"           => "incorrect",
-                            "insideDesignModel.border_top_left_radius"     => "incorrect",
-                            "insideDesignModel.border_right_width"         => "incorrect",
-                            "insideDesignModel.border_top_right_radius"    => "incorrect",
-                            "insideDesignModel.border_bottom_width"        => "incorrect",
-                            "insideDesignModel.border_bottom_right_radius" => "incorrect",
-                            "insideDesignModel.border_left_width"          => "incorrect",
-                            "insideDesignModel.border_bottom_left_radius"  => "incorrect",
-                            "insideDesignModel.border_color"               => "incorrect",
-                            "insideDesignModel.border_style"               => "incorrect",
+                            "insideDesignModel.marginBottom"              => "incorrect",
+                            "insideDesignModel.marginLeft"                => "incorrect",
+                            "insideDesignModel.paddingTop"                => "incorrect",
+                            "insideDesignModel.paddingRight"              => "incorrect",
+                            "insideDesignModel.paddingBottom"             => "incorrect",
+                            "insideDesignModel.paddingLeft"               => "incorrect",
+                            "insideDesignModel.backgroundColorFrom"      => "incorrect",
+                            "insideDesignModel.backgroundColorTo"        => "incorrect",
+                            "insideDesignModel.gradientDirection"         => "incorrect",
+                            "insideDesignModel.borderTopWidth"           => "incorrect",
+                            "insideDesignModel.borderTopLeftRadius"     => "incorrect",
+                            "insideDesignModel.borderRightWidth"         => "incorrect",
+                            "insideDesignModel.borderTopRightRadius"    => "incorrect",
+                            "insideDesignModel.borderBottomWidth"        => "incorrect",
+                            "insideDesignModel.borderBottomRightRadius" => "incorrect",
+                            "insideDesignModel.borderLeftWidth"          => "incorrect",
+                            "insideDesignModel.borderBottomLeftRadius"  => "incorrect",
+                            "insideDesignModel.borderColor"               => "incorrect",
+                            "insideDesignModel.borderStyle"               => "incorrect",
                         ]
                     ]
                 ],

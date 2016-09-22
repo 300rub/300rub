@@ -4,47 +4,47 @@
  */
 ?>
 <?php
-if ($model->marginTop || $model->marginRight || $model->margin_bottom || $model->margin_left) {
-	echo " margin: {$model->marginTop}px {$model->marginRight}px {$model->margin_bottom}px {$model->margin_left}px;";
+if ($model->marginTop || $model->marginRight || $model->marginBottom || $model->marginLeft) {
+	echo " margin: {$model->marginTop}px {$model->marginRight}px {$model->marginBottom}px {$model->marginLeft}px;";
 }
 
-if ($model->padding_top || $model->padding_right || $model->padding_bottom || $model->padding_left) {
-	echo " padding: {$model->padding_top}px {$model->padding_right}px {$model->padding_bottom}px {$model->padding_left}px;";
+if ($model->paddingTop || $model->paddingRight || $model->paddingBottom || $model->paddingLeft) {
+	echo " padding: {$model->paddingTop}px {$model->paddingRight}px {$model->paddingBottom}px {$model->paddingLeft}px;";
 }
 
-if ($model->background_color_from && !$model->background_color_to) {
-	echo " background-color: {$model->background_color_from};";
-} elseif ($model->background_color_to && !$model->background_color_from) {
-	echo " background-color: {$model->background_color_to};";
-} elseif ($model->background_color_from && $model->background_color_to) {
+if ($model->backgroundColorFrom && !$model->backgroundColorTo) {
+	echo " background-color: {$model->backgroundColorFrom};";
+} elseif ($model->backgroundColorTo && !$model->backgroundColorFrom) {
+	echo " background-color: {$model->backgroundColorTo};";
+} elseif ($model->backgroundColorFrom && $model->backgroundColorTo) {
 	$gradientDirection = $model->getGradientDirection();
 	echo "
-	background: {$model->background_color_from};
-	background: -moz-linear-gradient({$gradientDirection["mozLinear"]}, {$model->background_color_from} 0%, {$model->background_color_to} 100%);
-	background: -webkit-gradient({$gradientDirection["webkit"]}, color-stop(0%, {$model->background_color_from}), color-stop(100%, {$model->background_color_to}));
-	background: -webkit-linear-gradient({$gradientDirection["webkitLinear"]}, {$model->background_color_from} 0%, {$model->background_color_to} 100%);
-	background: -o-linear-gradient({$gradientDirection["oLinear"]}, {$model->background_color_from} 0%, {$model->background_color_to} 100%);
-	background: -ms-linear-gradient({$gradientDirection["msLinear"]}, {$model->background_color_from} 0%, {$model->background_color_to} 100%);
-	background: linear-gradient({$gradientDirection["linear"]}, {$model->background_color_from} 0%, {$model->background_color_to} 100%);
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='{$model->background_color_from}', endColorstr='{$model->background_color_to}',GradientType={$gradientDirection["ie"]});
+	background: {$model->backgroundColorFrom};
+	background: -moz-linear-gradient({$gradientDirection["mozLinear"]}, {$model->backgroundColorFrom} 0%, {$model->backgroundColorTo} 100%);
+	background: -webkit-gradient({$gradientDirection["webkit"]}, color-stop(0%, {$model->backgroundColorFrom}), color-stop(100%, {$model->backgroundColorTo}));
+	background: -webkit-linear-gradient({$gradientDirection["webkitLinear"]}, {$model->backgroundColorFrom} 0%, {$model->backgroundColorTo} 100%);
+	background: -o-linear-gradient({$gradientDirection["oLinear"]}, {$model->backgroundColorFrom} 0%, {$model->backgroundColorTo} 100%);
+	background: -ms-linear-gradient({$gradientDirection["msLinear"]}, {$model->backgroundColorFrom} 0%, {$model->backgroundColorTo} 100%);
+	background: linear-gradient({$gradientDirection["linear"]}, {$model->backgroundColorFrom} 0%, {$model->backgroundColorTo} 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='{$model->backgroundColorFrom}', endColorstr='{$model->backgroundColorTo}',GradientType={$gradientDirection["ie"]});
 	";
 }
 
 $borderTop = "";
-if ($model->border_top_width && $model->border_style) {
-	$borderTop = "{$model->border_top_width}px " . $model->getBorderStyle() . " $model->border_color";
+if ($model->borderTopWidth && $model->borderStyle) {
+	$borderTop = "{$model->borderTopWidth}px " . $model->getBorderStyle() . " $model->borderColor";
 }
 $borderRight = "";
-if ($model->border_right_width && $model->border_style) {
-	$borderRight = "{$model->border_right_width}px " . $model->getBorderStyle() . " $model->border_color";
+if ($model->borderRightWidth && $model->borderStyle) {
+	$borderRight = "{$model->borderRightWidth}px " . $model->getBorderStyle() . " $model->borderColor";
 }
 $borderBottom = "";
-if ($model->border_bottom_width && $model->border_style) {
-	$borderBottom = "{$model->border_bottom_width}px " . $model->getBorderStyle() . " $model->border_color";
+if ($model->borderBottomWidth && $model->borderStyle) {
+	$borderBottom = "{$model->borderBottomWidth}px " . $model->getBorderStyle() . " $model->borderColor";
 }
 $borderLeft = "";
-if ($model->border_left_width && $model->border_style) {
-	$borderLeft = "{$model->border_left_width}px " . $model->getBorderStyle() . " $model->border_color";
+if ($model->borderLeftWidth && $model->borderStyle) {
+	$borderLeft = "{$model->borderLeftWidth}px " . $model->getBorderStyle() . " $model->borderColor";
 }
 if ($borderTop && $borderTop === $borderRight && $borderTop === $borderBottom && $borderTop === $borderLeft) {
 	echo " border: {$borderTop};";
@@ -64,43 +64,43 @@ if ($borderTop && $borderTop === $borderRight && $borderTop === $borderBottom &&
 }
 
 if (
-	$model->border_top_left_radius
-	&& $model->border_top_left_radius == $model->border_top_right_radius
-	&& $model->border_top_left_radius == $model->border_bottom_right_radius
-	&& $model->border_top_left_radius == $model->border_bottom_left_radius
+	$model->borderTopLeftRadius
+	&& $model->borderTopLeftRadius == $model->borderTopRightRadius
+	&& $model->borderTopLeftRadius == $model->borderBottomRightRadius
+	&& $model->borderTopLeftRadius == $model->borderBottomLeftRadius
 ) {
 	echo "
-	-webkit-border-radius: {$model->border_top_left_radius}px;
-	-moz-border-radius: {$model->border_top_left_radius}px;
-	border-radius: {$model->border_top_left_radius}px;
+	-webkit-border-radius: {$model->borderTopLeftRadius}px;
+	-moz-border-radius: {$model->borderTopLeftRadius}px;
+	border-radius: {$model->borderTopLeftRadius}px;
 	";
 } else {
-	if ($model->border_top_left_radius) {
+	if ($model->borderTopLeftRadius) {
 		echo "
-			-webkit-border-top-left-radius: {$model->border_top_left_radius}px;
-			-moz-border-radius-topleft: {$model->border_top_left_radius}px;
-			border-top-left-radius: {$model->border_top_left_radius}px;
+			-webkit-border-top-left-radius: {$model->borderTopLeftRadius}px;
+			-moz-border-radius-topleft: {$model->borderTopLeftRadius}px;
+			border-top-left-radius: {$model->borderTopLeftRadius}px;
 		";
 	}
-	if ($model->border_top_right_radius) {
+	if ($model->borderTopRightRadius) {
 		echo "
-			-webkit-border-top-right-radius: {$model->border_top_right_radius}px;
-			-moz-border-radius-topright: {$model->border_top_right_radius}px;
-			border-top-right-radius: {$model->border_top_right_radius}px;
+			-webkit-border-top-right-radius: {$model->borderTopRightRadius}px;
+			-moz-border-radius-topright: {$model->borderTopRightRadius}px;
+			border-top-right-radius: {$model->borderTopRightRadius}px;
 		";
 	}
-	if ($model->border_bottom_right_radius) {
+	if ($model->borderBottomRightRadius) {
 		echo "
-			-webkit-border-bottom-right-radius: {$model->border_bottom_right_radius}px;
-			-moz-border-radius-bottomright: {$model->border_bottom_right_radius}px;
-			border-bottom-right-radius: {$model->border_bottom_right_radius}px;
+			-webkit-border-bottom-right-radius: {$model->borderBottomRightRadius}px;
+			-moz-border-radius-bottomright: {$model->borderBottomRightRadius}px;
+			border-bottom-right-radius: {$model->borderBottomRightRadius}px;
 		";
 	}
-	if ($model->border_bottom_left_radius) {
+	if ($model->borderBottomLeftRadius) {
 		echo "
-			-webkit-border-bottom-left-radius: {$model->border_bottom_left_radius}px;
-			-moz-border-radius-bottomleft: {$model->border_bottom_left_radius}px;
-			border-bottom-left-radius: {$model->border_bottom_left_radius}px;
+			-webkit-border-bottom-left-radius: {$model->borderBottomLeftRadius}px;
+			-moz-border-radius-bottomleft: {$model->borderBottomLeftRadius}px;
+			border-bottom-left-radius: {$model->borderBottomLeftRadius}px;
 		";
 	}
 }

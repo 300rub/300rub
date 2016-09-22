@@ -415,11 +415,11 @@ class TextControllerTest extends AbstractControllerTest
                                                     "value" => 0
                                                 ],
                                                 [
-                                                    "name"  => "designBlockModel.margin_bottom",
+                                                    "name"  => "designBlockModel.marginBottom",
                                                     "value" => 0
                                                 ],
                                                 [
-                                                    "name"  => "designBlockModel.margin_left",
+                                                    "name"  => "designBlockModel.marginLeft",
                                                     "value" => 0
                                                 ]
                                             ]
@@ -428,19 +428,19 @@ class TextControllerTest extends AbstractControllerTest
                                             "type"   => "padding",
                                             "values" => [
                                                 [
-                                                    "name"  => "designBlockModel.padding_top",
+                                                    "name"  => "designBlockModel.paddingTop",
                                                     "value" => 0
                                                 ],
                                                 [
-                                                    "name"  => "designBlockModel.padding_right",
+                                                    "name"  => "designBlockModel.paddingRight",
                                                     "value" => 0
                                                 ],
                                                 [
-                                                    "name"  => "designBlockModel.padding_bottom",
+                                                    "name"  => "designBlockModel.paddingBottom",
                                                     "value" => 0
                                                 ],
                                                 [
-                                                    "name"  => "designBlockModel.padding_left",
+                                                    "name"  => "designBlockModel.paddingLeft",
                                                     "value" => 0
                                                 ]
                                             ]
@@ -449,19 +449,19 @@ class TextControllerTest extends AbstractControllerTest
                                             "type"   => "border-width",
                                             "values" => [
                                                 [
-                                                    "name"  => "designBlockModel.border_top_width",
+                                                    "name"  => "designBlockModel.borderTopWidth",
                                                     "value" => 0
                                                 ],
                                                 [
-                                                    "name"  => "designBlockModel.border_right_width",
+                                                    "name"  => "designBlockModel.borderRightWidth",
                                                     "value" => 0
                                                 ],
                                                 [
-                                                    "name"  => "designBlockModel.border_bottom_width",
+                                                    "name"  => "designBlockModel.borderBottomWidth",
                                                     "value" => 0
                                                 ],
                                                 [
-                                                    "name"  => "designBlockModel.border_left_width",
+                                                    "name"  => "designBlockModel.borderLeftWidth",
                                                     "value" => 0
                                                 ]
                                             ]
@@ -470,43 +470,43 @@ class TextControllerTest extends AbstractControllerTest
                                             "type"   => "border-radius",
                                             "values" => [
                                                 [
-                                                    "name"  => "designBlockModel.border_top_left_radius",
+                                                    "name"  => "designBlockModel.borderTopLeftRadius",
                                                     "value" => 0
                                                 ],
                                                 [
-                                                    "name"  => "designBlockModel.border_top_right_radius",
+                                                    "name"  => "designBlockModel.borderTopRightRadius",
                                                     "value" => 0
                                                 ],
                                                 [
-                                                    "name"  => "designBlockModel.border_bottom_right_radius",
+                                                    "name"  => "designBlockModel.borderBottomRightRadius",
                                                     "value" => 0
                                                 ],
                                                 [
-                                                    "name"  => "designBlockModel.border_bottom_left_radius",
+                                                    "name"  => "designBlockModel.borderBottomLeftRadius",
                                                     "value" => 0
                                                 ]
                                             ]
                                         ]
                                     ],
                                     "backgroundColor" => [
-                                        "fromName"      => "designBlockModel.background_color_from",
+                                        "fromName"      => "designBlockModel.backgroundColorFrom",
                                         "fromValue"     => "",
-                                        "toName"        => "designBlockModel.background_color_to",
+                                        "toName"        => "designBlockModel.backgroundColorTo",
                                         "toValue"       => "",
-                                        "gradientName"  => "designBlockModel.gradient_direction",
+                                        "gradientName"  => "designBlockModel.gradientDirection",
                                         "gradientValue" => 0
                                     ],
                                     "colors"          => [
                                         [
                                             "type"  => "border-color",
-                                            "name"  => "designBlockModel.border_color",
+                                            "name"  => "designBlockModel.borderColor",
                                             "value" => ""
                                         ]
                                     ],
                                     "radios"          => [
                                         [
                                             "type"  => "border-style",
-                                            "name"  => "designBlockModel.border_style",
+                                            "name"  => "designBlockModel.borderStyle",
                                             "value" => 0
                                         ]
                                     ]
@@ -556,25 +556,25 @@ class TextControllerTest extends AbstractControllerTest
                     // Block
                     "designBlockModel.marginTop"                 => "",
                     "designBlockModel.marginRight"               => "",
-                    "designBlockModel.margin_bottom"              => "",
-                    "designBlockModel.margin_left"                => "",
-                    "designBlockModel.padding_top"                => "",
-                    "designBlockModel.padding_right"              => "",
-                    "designBlockModel.padding_bottom"             => "",
-                    "designBlockModel.padding_left"               => "",
-                    "designBlockModel.background_color_from"      => "",
-                    "designBlockModel.background_color_to"        => "",
-                    "designBlockModel.gradient_direction"         => "",
-                    "designBlockModel.border_top_width"           => "",
-                    "designBlockModel.border_top_left_radius"     => "",
-                    "designBlockModel.border_right_width"         => "",
-                    "designBlockModel.border_top_right_radius"    => "",
-                    "designBlockModel.border_bottom_width"        => "",
-                    "designBlockModel.border_bottom_right_radius" => "",
-                    "designBlockModel.border_left_width"          => "",
-                    "designBlockModel.border_bottom_left_radius"  => "",
-                    "designBlockModel.border_color"               => "",
-                    "designBlockModel.border_style"               => "",
+                    "designBlockModel.marginBottom"              => "",
+                    "designBlockModel.marginLeft"                => "",
+                    "designBlockModel.paddingTop"                => "",
+                    "designBlockModel.paddingRight"              => "",
+                    "designBlockModel.paddingBottom"             => "",
+                    "designBlockModel.paddingLeft"               => "",
+                    "designBlockModel.backgroundColorFrom"      => "",
+                    "designBlockModel.backgroundColorTo"        => "",
+                    "designBlockModel.gradientDirection"         => "",
+                    "designBlockModel.borderTopWidth"           => "",
+                    "designBlockModel.borderTopLeftRadius"     => "",
+                    "designBlockModel.borderRightWidth"         => "",
+                    "designBlockModel.borderTopRightRadius"    => "",
+                    "designBlockModel.borderBottomWidth"        => "",
+                    "designBlockModel.borderBottomRightRadius" => "",
+                    "designBlockModel.borderLeftWidth"          => "",
+                    "designBlockModel.borderBottomLeftRadius"  => "",
+                    "designBlockModel.borderColor"               => "",
+                    "designBlockModel.borderStyle"               => "",
                 ],
                 [
                     "result"  => true,
@@ -601,25 +601,25 @@ class TextControllerTest extends AbstractControllerTest
                     // Block
                     "designBlockModel.marginTop"                 => 10,
                     "designBlockModel.marginRight"               => 10,
-                    "designBlockModel.margin_bottom"              => 10,
-                    "designBlockModel.margin_left"                => 10,
-                    "designBlockModel.padding_top"                => 10,
-                    "designBlockModel.padding_right"              => 10,
-                    "designBlockModel.padding_bottom"             => 10,
-                    "designBlockModel.padding_left"               => 10,
-                    "designBlockModel.background_color_from"      => "rgba(255,255,255,0.5)",
-                    "designBlockModel.background_color_to"        => "rgba(0,255,255,0.5)",
-                    "designBlockModel.gradient_direction"         => 1,
-                    "designBlockModel.border_top_width"           => 20,
-                    "designBlockModel.border_top_left_radius"     => 20,
-                    "designBlockModel.border_right_width"         => 20,
-                    "designBlockModel.border_top_right_radius"    => 20,
-                    "designBlockModel.border_bottom_width"        => 20,
-                    "designBlockModel.border_bottom_right_radius" => 20,
-                    "designBlockModel.border_left_width"          => 20,
-                    "designBlockModel.border_bottom_left_radius"  => 20,
-                    "designBlockModel.border_color"               => 20,
-                    "designBlockModel.border_style"               => 20,
+                    "designBlockModel.marginBottom"              => 10,
+                    "designBlockModel.marginLeft"                => 10,
+                    "designBlockModel.paddingTop"                => 10,
+                    "designBlockModel.paddingRight"              => 10,
+                    "designBlockModel.paddingBottom"             => 10,
+                    "designBlockModel.paddingLeft"               => 10,
+                    "designBlockModel.backgroundColorFrom"      => "rgba(255,255,255,0.5)",
+                    "designBlockModel.backgroundColorTo"        => "rgba(0,255,255,0.5)",
+                    "designBlockModel.gradientDirection"         => 1,
+                    "designBlockModel.borderTopWidth"           => 20,
+                    "designBlockModel.borderTopLeftRadius"     => 20,
+                    "designBlockModel.borderRightWidth"         => 20,
+                    "designBlockModel.borderTopRightRadius"    => 20,
+                    "designBlockModel.borderBottomWidth"        => 20,
+                    "designBlockModel.borderBottomRightRadius" => 20,
+                    "designBlockModel.borderLeftWidth"          => 20,
+                    "designBlockModel.borderBottomLeftRadius"  => 20,
+                    "designBlockModel.borderColor"               => 20,
+                    "designBlockModel.borderStyle"               => 20,
                 ],
                 [
                     "result"  => true,
@@ -646,25 +646,25 @@ class TextControllerTest extends AbstractControllerTest
                     // Block
                     "designBlockModel.marginTop"                 => "incorrect",
                     "designBlockModel.marginRight"               => "incorrect",
-                    "designBlockModel.margin_bottom"              => "incorrect",
-                    "designBlockModel.margin_left"                => "incorrect",
-                    "designBlockModel.padding_top"                => "incorrect",
-                    "designBlockModel.padding_right"              => "incorrect",
-                    "designBlockModel.padding_bottom"             => "incorrect",
-                    "designBlockModel.padding_left"               => "incorrect",
-                    "designBlockModel.background_color_from"      => "incorrect",
-                    "designBlockModel.background_color_to"        => "incorrect",
-                    "designBlockModel.gradient_direction"         => "incorrect",
-                    "designBlockModel.border_top_width"           => "incorrect",
-                    "designBlockModel.border_top_left_radius"     => "incorrect",
-                    "designBlockModel.border_right_width"         => "incorrect",
-                    "designBlockModel.border_top_right_radius"    => "incorrect",
-                    "designBlockModel.border_bottom_width"        => "incorrect",
-                    "designBlockModel.border_bottom_right_radius" => "incorrect",
-                    "designBlockModel.border_left_width"          => "incorrect",
-                    "designBlockModel.border_bottom_left_radius"  => "incorrect",
-                    "designBlockModel.border_color"               => "incorrect",
-                    "designBlockModel.border_style"               => "incorrect",
+                    "designBlockModel.marginBottom"              => "incorrect",
+                    "designBlockModel.marginLeft"                => "incorrect",
+                    "designBlockModel.paddingTop"                => "incorrect",
+                    "designBlockModel.paddingRight"              => "incorrect",
+                    "designBlockModel.paddingBottom"             => "incorrect",
+                    "designBlockModel.paddingLeft"               => "incorrect",
+                    "designBlockModel.backgroundColorFrom"      => "incorrect",
+                    "designBlockModel.backgroundColorTo"        => "incorrect",
+                    "designBlockModel.gradientDirection"         => "incorrect",
+                    "designBlockModel.borderTopWidth"           => "incorrect",
+                    "designBlockModel.borderTopLeftRadius"     => "incorrect",
+                    "designBlockModel.borderRightWidth"         => "incorrect",
+                    "designBlockModel.borderTopRightRadius"    => "incorrect",
+                    "designBlockModel.borderBottomWidth"        => "incorrect",
+                    "designBlockModel.borderBottomRightRadius" => "incorrect",
+                    "designBlockModel.borderLeftWidth"          => "incorrect",
+                    "designBlockModel.borderBottomLeftRadius"  => "incorrect",
+                    "designBlockModel.borderColor"               => "incorrect",
+                    "designBlockModel.borderStyle"               => "incorrect",
                 ],
                 [
                     "result"  => true,

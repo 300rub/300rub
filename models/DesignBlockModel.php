@@ -91,42 +91,42 @@ class DesignBlockModel extends AbstractModel
 	 *
 	 * @var int
 	 */
-	public $margin_bottom;
+	public $marginBottom;
 
 	/**
 	 * CSS margin-left in px
 	 *
 	 * @var int
 	 */
-	public $margin_left;
+	public $marginLeft;
 
 	/**
 	 * CSS padding-top in px
 	 *
 	 * @var int
 	 */
-	public $padding_top;
+	public $paddingTop;
 
 	/**
 	 * CSS padding-right in px
 	 *
 	 * @var int
 	 */
-	public $padding_right;
+	public $paddingRight;
 
 	/**
 	 * CSS padding-bottom in px
 	 *
 	 * @var int
 	 */
-	public $padding_bottom;
+	public $paddingBottom;
 
 	/**
 	 * CSS padding-left in px
 	 *
 	 * @var int
 	 */
-	public $padding_left;
+	public $paddingLeft;
 
 	/**
 	 * CSS background-color (from)
@@ -134,7 +134,7 @@ class DesignBlockModel extends AbstractModel
 	 *
 	 * @var string
 	 */
-	public $background_color_from;
+	public $backgroundColorFrom;
 
 	/**
 	 * CSS background-color (to)
@@ -142,84 +142,84 @@ class DesignBlockModel extends AbstractModel
 	 *
 	 * @var string
 	 */
-	public $background_color_to;
+	public $backgroundColorTo;
 
 	/**
 	 * Gradient direction
 	 *
 	 * @var int
 	 */
-	public $gradient_direction;
+	public $gradientDirection;
 
 	/**
 	 * CSS border-top-width in px
 	 *
 	 * @var int
 	 */
-	public $border_top_width;
+	public $borderTopWidth;
 
 	/**
 	 * CSS border-top-left-radius in px
 	 *
 	 * @var int
 	 */
-	public $border_top_left_radius;
+	public $borderTopLeftRadius;
 
 	/**
 	 * CSS border-right-width in px
 	 *
 	 * @var int
 	 */
-	public $border_right_width;
+	public $borderRightWidth;
 
 	/**
 	 * CSS border-top-right-radius in px
 	 *
 	 * @var int
 	 */
-	public $border_top_right_radius;
+	public $borderTopRightRadius;
 
 	/**
 	 * CSS border-bottom-width in px
 	 *
 	 * @var int
 	 */
-	public $border_bottom_width;
+	public $borderBottomWidth;
 
 	/**
 	 * CSS border-bottom-right-radius in px
 	 *
 	 * @var int
 	 */
-	public $border_bottom_right_radius;
+	public $borderBottomRightRadius;
 
 	/**
 	 * CSS border-left-width in px
 	 *
 	 * @var int
 	 */
-	public $border_left_width;
+	public $borderLeftWidth;
 
 	/**
 	 * CSS border-bottom-left-radius in px
 	 *
 	 * @var int
 	 */
-	public $border_bottom_left_radius;
+	public $borderBottomLeftRadius;
 
 	/**
 	 * CSS border-color
 	 *
 	 * @var string
 	 */
-	public $border_color;
+	public $borderColor;
 
 	/**
 	 * Border style
 	 *
 	 * @var int
 	 */
-	public $border_style;
+	public $borderStyle;
 
 	/**
 	 * List of gradient directions options
@@ -301,25 +301,25 @@ class DesignBlockModel extends AbstractModel
 		return [
 			"marginTop"                 => [],
 			"marginRight"               => [],
-			"margin_bottom"              => [],
-			"margin_left"                => [],
-			"padding_top"                => [],
-			"padding_right"              => [],
-			"padding_bottom"             => [],
-			"padding_left"               => [],
-			"background_color_from"      => [],
-			"background_color_to"        => [],
-			"gradient_direction"         => [],
-			"border_top_width"           => [],
-			"border_top_left_radius"     => [],
-			"border_right_width"         => [],
-			"border_top_right_radius"    => [],
-			"border_bottom_width"        => [],
-			"border_bottom_right_radius" => [],
-			"border_left_width"          => [],
-			"border_bottom_left_radius"  => [],
-			"border_color"               => [],
-			"border_style"               => [],
+			"marginBottom"              => [],
+			"marginLeft"                => [],
+			"paddingTop"                => [],
+			"paddingRight"              => [],
+			"paddingBottom"             => [],
+			"paddingLeft"               => [],
+			"backgroundColorFrom"      => [],
+			"backgroundColorTo"        => [],
+			"gradientDirection"         => [],
+			"borderTopWidth"           => [],
+			"borderTopLeftRadius"     => [],
+			"borderRightWidth"         => [],
+			"borderTopRightRadius"    => [],
+			"borderBottomWidth"        => [],
+			"borderBottomRightRadius" => [],
+			"borderLeftWidth"          => [],
+			"borderBottomLeftRadius"  => [],
+			"borderColor"               => [],
+			"borderStyle"               => [],
 		];
 	}
 
@@ -347,83 +347,83 @@ class DesignBlockModel extends AbstractModel
 		if ($this->marginRight < self::MIN_MARGIN_VALUE) {
 			$this->marginRight = self::MIN_MARGIN_VALUE;
 		}
-		$this->margin_bottom = intval($this->margin_bottom);
-		if ($this->margin_bottom < self::MIN_MARGIN_VALUE) {
-			$this->margin_bottom = self::MIN_MARGIN_VALUE;
+		$this->marginBottom = intval($this->marginBottom);
+		if ($this->marginBottom < self::MIN_MARGIN_VALUE) {
+			$this->marginBottom = self::MIN_MARGIN_VALUE;
 		}
-		$this->margin_left = intval($this->margin_left);
-		if ($this->margin_left < self::MIN_MARGIN_VALUE) {
-			$this->margin_left = self::MIN_MARGIN_VALUE;
-		}
-
-		$this->padding_top = intval($this->padding_top);
-		if ($this->padding_top < self::MIN_PADDING_VALUE) {
-			$this->padding_top = self::MIN_PADDING_VALUE;
-		}
-		$this->padding_right = intval($this->padding_right);
-		if ($this->padding_right < self::MIN_PADDING_VALUE) {
-			$this->padding_right = self::MIN_PADDING_VALUE;
-		}
-		$this->padding_bottom = intval($this->padding_bottom);
-		if ($this->padding_bottom < self::MIN_PADDING_VALUE) {
-			$this->padding_bottom = self::MIN_PADDING_VALUE;
-		}
-		$this->padding_left = intval($this->padding_left);
-		if ($this->padding_left < self::MIN_PADDING_VALUE) {
-			$this->padding_left = self::MIN_PADDING_VALUE;
+		$this->marginLeft = intval($this->marginLeft);
+		if ($this->marginLeft < self::MIN_MARGIN_VALUE) {
+			$this->marginLeft = self::MIN_MARGIN_VALUE;
 		}
 
-		if (!$this->_isColor($this->background_color_from)) {
-			$this->background_color_from = "";
+		$this->paddingTop = intval($this->paddingTop);
+		if ($this->paddingTop < self::MIN_PADDING_VALUE) {
+			$this->paddingTop = self::MIN_PADDING_VALUE;
 		}
-		if (!$this->_isColor($this->background_color_to)) {
-			$this->background_color_to = "";
+		$this->paddingRight = intval($this->paddingRight);
+		if ($this->paddingRight < self::MIN_PADDING_VALUE) {
+			$this->paddingRight = self::MIN_PADDING_VALUE;
 		}
-		$this->gradient_direction = intval($this->gradient_direction);
-		if (!array_key_exists($this->gradient_direction, self::$gradientDirectionList)) {
-			$this->gradient_direction = self::GRADIENT_DIRECTION_HORIZONTAL;
+		$this->paddingBottom = intval($this->paddingBottom);
+		if ($this->paddingBottom < self::MIN_PADDING_VALUE) {
+			$this->paddingBottom = self::MIN_PADDING_VALUE;
 		}
-
-		$this->border_top_width = intval($this->border_top_width);
-		if ($this->border_top_width < self::MIN_BORDER_WIDTH_VALUE) {
-			$this->border_top_width = self::MIN_BORDER_WIDTH_VALUE;
-		}
-		$this->border_right_width = intval($this->border_right_width);
-		if ($this->border_right_width < self::MIN_BORDER_WIDTH_VALUE) {
-			$this->border_right_width = self::MIN_BORDER_WIDTH_VALUE;
-		}
-		$this->border_bottom_width = intval($this->border_bottom_width);
-		if ($this->border_bottom_width < self::MIN_BORDER_WIDTH_VALUE) {
-			$this->border_bottom_width = self::MIN_BORDER_WIDTH_VALUE;
-		}
-		$this->border_left_width = intval($this->border_left_width);
-		if ($this->border_left_width < self::MIN_BORDER_WIDTH_VALUE) {
-			$this->border_left_width = self::MIN_BORDER_WIDTH_VALUE;
+		$this->paddingLeft = intval($this->paddingLeft);
+		if ($this->paddingLeft < self::MIN_PADDING_VALUE) {
+			$this->paddingLeft = self::MIN_PADDING_VALUE;
 		}
 
-		$this->border_top_left_radius = intval($this->border_top_left_radius);
-		if ($this->border_top_left_radius < self::MIN_BORDER_RADIUS_VALUE) {
-			$this->border_top_left_radius = self::MIN_BORDER_RADIUS_VALUE;
+		if (!$this->_isColor($this->backgroundColorFrom)) {
+			$this->backgroundColorFrom = "";
 		}
-		$this->border_top_right_radius = intval($this->border_top_right_radius);
-		if ($this->border_top_right_radius < self::MIN_BORDER_RADIUS_VALUE) {
-			$this->border_top_right_radius = self::MIN_BORDER_RADIUS_VALUE;
+		if (!$this->_isColor($this->backgroundColorTo)) {
+			$this->backgroundColorTo = "";
 		}
-		$this->border_bottom_right_radius = intval($this->border_bottom_right_radius);
-		if ($this->border_bottom_right_radius < self::MIN_BORDER_RADIUS_VALUE) {
-			$this->border_bottom_right_radius = self::MIN_BORDER_RADIUS_VALUE;
-		}
-		$this->border_bottom_left_radius = intval($this->border_bottom_left_radius);
-		if ($this->border_bottom_left_radius < self::MIN_BORDER_RADIUS_VALUE) {
-			$this->border_bottom_left_radius = self::MIN_BORDER_RADIUS_VALUE;
+		$this->gradientDirection = intval($this->gradientDirection);
+		if (!array_key_exists($this->gradientDirection, self::$gradientDirectionList)) {
+			$this->gradientDirection = self::GRADIENT_DIRECTION_HORIZONTAL;
 		}
 
-		if (!$this->_isColor($this->border_color)) {
-			$this->border_color = "";
+		$this->borderTopWidth = intval($this->borderTopWidth);
+		if ($this->borderTopWidth < self::MIN_BORDER_WIDTH_VALUE) {
+			$this->borderTopWidth = self::MIN_BORDER_WIDTH_VALUE;
 		}
-		$this->border_style = intval($this->border_style);
-		if (!array_key_exists($this->border_style, self::$borderStyleList)) {
-			$this->border_style = self::BORDER_STYLE_NONE;
+		$this->borderRightWidth = intval($this->borderRightWidth);
+		if ($this->borderRightWidth < self::MIN_BORDER_WIDTH_VALUE) {
+			$this->borderRightWidth = self::MIN_BORDER_WIDTH_VALUE;
+		}
+		$this->borderBottomWidth = intval($this->borderBottomWidth);
+		if ($this->borderBottomWidth < self::MIN_BORDER_WIDTH_VALUE) {
+			$this->borderBottomWidth = self::MIN_BORDER_WIDTH_VALUE;
+		}
+		$this->borderLeftWidth = intval($this->borderLeftWidth);
+		if ($this->borderLeftWidth < self::MIN_BORDER_WIDTH_VALUE) {
+			$this->borderLeftWidth = self::MIN_BORDER_WIDTH_VALUE;
+		}
+
+		$this->borderTopLeftRadius = intval($this->borderTopLeftRadius);
+		if ($this->borderTopLeftRadius < self::MIN_BORDER_RADIUS_VALUE) {
+			$this->borderTopLeftRadius = self::MIN_BORDER_RADIUS_VALUE;
+		}
+		$this->borderTopRightRadius = intval($this->borderTopRightRadius);
+		if ($this->borderTopRightRadius < self::MIN_BORDER_RADIUS_VALUE) {
+			$this->borderTopRightRadius = self::MIN_BORDER_RADIUS_VALUE;
+		}
+		$this->borderBottomRightRadius = intval($this->borderBottomRightRadius);
+		if ($this->borderBottomRightRadius < self::MIN_BORDER_RADIUS_VALUE) {
+			$this->borderBottomRightRadius = self::MIN_BORDER_RADIUS_VALUE;
+		}
+		$this->borderBottomLeftRadius = intval($this->borderBottomLeftRadius);
+		if ($this->borderBottomLeftRadius < self::MIN_BORDER_RADIUS_VALUE) {
+			$this->borderBottomLeftRadius = self::MIN_BORDER_RADIUS_VALUE;
+		}
+
+		if (!$this->_isColor($this->borderColor)) {
+			$this->borderColor = "";
+		}
+		$this->borderStyle = intval($this->borderStyle);
+		if (!array_key_exists($this->borderStyle, self::$borderStyleList)) {
+			$this->borderStyle = self::BORDER_STYLE_NONE;
 		}
 	}
 
@@ -462,12 +462,12 @@ class DesignBlockModel extends AbstractModel
 							"value" => $this->marginRight
 						],
 						[
-							"name"  => sprintf($name, "margin_bottom"),
-							"value" => $this->margin_bottom
+							"name"  => sprintf($name, "marginBottom"),
+							"value" => $this->marginBottom
 						],
 						[
-							"name"  => sprintf($name, "margin_left"),
-							"value" => $this->margin_left
+							"name"  => sprintf($name, "marginLeft"),
+							"value" => $this->marginLeft
 						]
 					]
 				],
@@ -475,20 +475,20 @@ class DesignBlockModel extends AbstractModel
 					"type"   => "padding",
 					"values" => [
 						[
-							"name"  => sprintf($name, "padding_top"),
-							"value" => $this->padding_top
+							"name"  => sprintf($name, "paddingTop"),
+							"value" => $this->paddingTop
 						],
 						[
-							"name"  => sprintf($name, "padding_right"),
-							"value" => $this->padding_right
+							"name"  => sprintf($name, "paddingRight"),
+							"value" => $this->paddingRight
 						],
 						[
-							"name"  => sprintf($name, "padding_bottom"),
-							"value" => $this->padding_bottom
+							"name"  => sprintf($name, "paddingBottom"),
+							"value" => $this->paddingBottom
 						],
 						[
-							"name"  => sprintf($name, "padding_left"),
-							"value" => $this->padding_left
+							"name"  => sprintf($name, "paddingLeft"),
+							"value" => $this->paddingLeft
 						]
 					]
 				],
@@ -496,20 +496,20 @@ class DesignBlockModel extends AbstractModel
 					"type"   => "border-width",
 					"values" => [
 						[
-							"name"  => sprintf($name, "border_top_width"),
-							"value" => $this->border_top_width
+							"name"  => sprintf($name, "borderTopWidth"),
+							"value" => $this->borderTopWidth
 						],
 						[
-							"name"  => sprintf($name, "border_right_width"),
-							"value" => $this->border_right_width
+							"name"  => sprintf($name, "borderRightWidth"),
+							"value" => $this->borderRightWidth
 						],
 						[
-							"name"  => sprintf($name, "border_bottom_width"),
-							"value" => $this->border_bottom_width
+							"name"  => sprintf($name, "borderBottomWidth"),
+							"value" => $this->borderBottomWidth
 						],
 						[
-							"name"  => sprintf($name, "border_left_width"),
-							"value" => $this->border_left_width
+							"name"  => sprintf($name, "borderLeftWidth"),
+							"value" => $this->borderLeftWidth
 						]
 					]
 				],
@@ -517,44 +517,44 @@ class DesignBlockModel extends AbstractModel
 					"type"   => "border-radius",
 					"values" => [
 						[
-							"name"  => sprintf($name, "border_top_left_radius"),
-							"value" => $this->border_top_left_radius
+							"name"  => sprintf($name, "borderTopLeftRadius"),
+							"value" => $this->borderTopLeftRadius
 						],
 						[
-							"name"  => sprintf($name, "border_top_right_radius"),
-							"value" => $this->border_top_right_radius
+							"name"  => sprintf($name, "borderTopRightRadius"),
+							"value" => $this->borderTopRightRadius
 						],
 						[
-							"name"  => sprintf($name, "border_bottom_right_radius"),
-							"value" => $this->border_bottom_right_radius
+							"name"  => sprintf($name, "borderBottomRightRadius"),
+							"value" => $this->borderBottomRightRadius
 						],
 						[
-							"name"  => sprintf($name, "border_bottom_left_radius"),
-							"value" => $this->border_bottom_left_radius
+							"name"  => sprintf($name, "borderBottomLeftRadius"),
+							"value" => $this->borderBottomLeftRadius
 						]
 					]
 				],
 			],
 			"backgroundColor" => [
-				"fromName"      => sprintf($name, "background_color_from"),
-				"fromValue"     => $this->background_color_from,
-				"toName"        => sprintf($name, "background_color_to"),
-				"toValue"       => $this->background_color_to,
-				"gradientName"  => sprintf($name, "gradient_direction"),
-				"gradientValue" => $this->gradient_direction
+				"fromName"      => sprintf($name, "backgroundColorFrom"),
+				"fromValue"     => $this->backgroundColorFrom,
+				"toName"        => sprintf($name, "backgroundColorTo"),
+				"toValue"       => $this->backgroundColorTo,
+				"gradientName"  => sprintf($name, "gradientDirection"),
+				"gradientValue" => $this->gradientDirection
 			],
 			"colors"           => [
 				[
 					"type"  => "border-color",
-					"name"  => sprintf($name, "border_color"),
-					"value" => $this->border_color
+					"name"  => sprintf($name, "borderColor"),
+					"value" => $this->borderColor
 				]
 			],
 			"radios"           => [
 				[
 					"type"  => "border-style",
-					"name"  => sprintf($name, "border_style"),
-					"value" => $this->border_style
+					"name"  => sprintf($name, "borderStyle"),
+					"value" => $this->borderStyle
 				]
 			]
 		];
@@ -567,8 +567,8 @@ class DesignBlockModel extends AbstractModel
 	 */
 	public function getGradientDirection()
 	{
-		if (array_key_exists($this->gradient_direction, self::$gradientDirectionList)) {
-			return self::$gradientDirectionList[$this->gradient_direction];
+		if (array_key_exists($this->gradientDirection, self::$gradientDirectionList)) {
+			return self::$gradientDirectionList[$this->gradientDirection];
 		}
 
 		return self::$gradientDirectionList[self::GRADIENT_DIRECTION_HORIZONTAL];
@@ -581,8 +581,8 @@ class DesignBlockModel extends AbstractModel
 	 */
 	public function getBorderStyle()
 	{
-		if (array_key_exists($this->border_style, self::$borderStyleList)) {
-			return self::$borderStyleList[$this->border_style];
+		if (array_key_exists($this->borderStyle, self::$borderStyleList)) {
+			return self::$borderStyleList[$this->borderStyle];
 		}
 
 		return self::$borderStyleList[self::BORDER_STYLE_NONE];
