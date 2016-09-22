@@ -3,11 +3,11 @@
 namespace migrations;
 
 /**
- * Creates design_blocks table
+ * Creates designBlocks table
  *
  * @package migrations
  */
-class M_160315_000000_design_blocks extends AbstractMigration
+class M_160315_000000_designBlocks extends AbstractMigration
 {
 
 	/**
@@ -16,11 +16,11 @@ class M_160315_000000_design_blocks extends AbstractMigration
 	public function up()
 	{
 		$this->createTable(
-			"design_blocks",
+			"designBlocks",
 			[
 				"id"                         => "pk",
-				"margin_top"                 => "integer",
-				"margin_right"               => "integer",
+				"marginTop"                 => "integer",
+				"marginRight"               => "integer",
 				"margin_bottom"              => "integer",
 				"margin_left"                => "integer",
 				"padding_top"                => "integer",

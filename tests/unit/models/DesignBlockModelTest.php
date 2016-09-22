@@ -35,8 +35,8 @@ class DesignBlockModelTest extends AbstractModelTest
 				[],
 				[],
 				[
-					"t.margin_top"                 => 0,
-					"t.margin_right"               => 0,
+					"t.marginTop"                 => 0,
+					"t.marginRight"               => 0,
 					"t.margin_bottom"              => 0,
 					"t.margin_left"                => 0,
 					"t.padding_top"                => 0,
@@ -60,8 +60,8 @@ class DesignBlockModelTest extends AbstractModelTest
 				[],
 				[],
 				[
-					"t.margin_top"                 => 0,
-					"t.margin_right"               => 0,
+					"t.marginTop"                 => 0,
+					"t.marginRight"               => 0,
 					"t.margin_bottom"              => 0,
 					"t.margin_left"                => 0,
 					"t.padding_top"                => 0,
@@ -86,8 +86,8 @@ class DesignBlockModelTest extends AbstractModelTest
 			// Insert: empty values. Update: empty values.
 			[
 				[
-					"t.margin_top"                 => "",
-					"t.margin_right"               => "",
+					"t.marginTop"                 => "",
+					"t.marginRight"               => "",
 					"t.margin_bottom"              => "",
 					"t.margin_left"                => "",
 					"t.padding_top"                => "",
@@ -110,8 +110,8 @@ class DesignBlockModelTest extends AbstractModelTest
 				],
 				[],
 				[
-					"t.margin_top"                 => 0,
-					"t.margin_right"               => 0,
+					"t.marginTop"                 => 0,
+					"t.marginRight"               => 0,
 					"t.margin_bottom"              => 0,
 					"t.margin_left"                => 0,
 					"t.padding_top"                => 0,
@@ -133,8 +133,8 @@ class DesignBlockModelTest extends AbstractModelTest
 					"t.border_style"               => 0,
 				],
 				[
-					"t.margin_top"                 => "",
-					"t.margin_right"               => "",
+					"t.marginTop"                 => "",
+					"t.marginRight"               => "",
 					"t.margin_bottom"              => "",
 					"t.margin_left"                => "",
 					"t.padding_top"                => "",
@@ -157,8 +157,8 @@ class DesignBlockModelTest extends AbstractModelTest
 				],
 				[],
 				[
-					"t.margin_top"                 => 0,
-					"t.margin_right"               => 0,
+					"t.marginTop"                 => 0,
+					"t.marginRight"               => 0,
 					"t.margin_bottom"              => 0,
 					"t.margin_left"                => 0,
 					"t.padding_top"                => 0,
@@ -183,8 +183,8 @@ class DesignBlockModelTest extends AbstractModelTest
 			// Insert: correct values. Update: correct values.
 			[
 				[
-					"t.margin_top"                 => 10,
-					"t.margin_right"               => 20,
+					"t.marginTop"                 => 10,
+					"t.marginRight"               => 20,
 					"t.margin_bottom"              => 30,
 					"t.margin_left"                => 40,
 					"t.padding_top"                => 15,
@@ -207,8 +207,8 @@ class DesignBlockModelTest extends AbstractModelTest
 				],
 				[],
 				[
-					"t.margin_top"                 => 10,
-					"t.margin_right"               => 20,
+					"t.marginTop"                 => 10,
+					"t.marginRight"               => 20,
 					"t.margin_bottom"              => 30,
 					"t.margin_left"                => 40,
 					"t.padding_top"                => 15,
@@ -230,8 +230,8 @@ class DesignBlockModelTest extends AbstractModelTest
 					"t.border_style"               => DesignBlockModel::BORDER_STYLE_SOLID,
 				],
 				[
-					"t.margin_top"                 => "5",
-					"t.margin_right"               => "6",
+					"t.marginTop"                 => "5",
+					"t.marginRight"               => "6",
 					"t.margin_bottom"              => "7",
 					"t.margin_left"                => "8",
 					"t.padding_top"                => "9",
@@ -254,8 +254,8 @@ class DesignBlockModelTest extends AbstractModelTest
 				],
 				[],
 				[
-					"t.margin_top"                 => 5,
-					"t.margin_right"               => 6,
+					"t.marginTop"                 => 5,
+					"t.marginRight"               => 6,
 					"t.margin_bottom"              => 7,
 					"t.margin_left"                => 8,
 					"t.padding_top"                => 9,
@@ -280,8 +280,8 @@ class DesignBlockModelTest extends AbstractModelTest
 			// Insert: values with incorrect type. Update: values with incorrect type
 			[
 				[
-					"t.margin_top"                 => "incorrect type",
-					"t.margin_right"               => "incorrect type",
+					"t.marginTop"                 => "incorrect type",
+					"t.marginRight"               => "incorrect type",
 					"t.margin_bottom"              => "incorrect type",
 					"t.margin_left"                => "incorrect type",
 					"t.padding_top"                => "incorrect type",
@@ -304,8 +304,8 @@ class DesignBlockModelTest extends AbstractModelTest
 				],
 				[],
 				[
-					"t.margin_top"                 => 0,
-					"t.margin_right"               => 0,
+					"t.marginTop"                 => 0,
+					"t.marginRight"               => 0,
 					"t.margin_bottom"              => 0,
 					"t.margin_left"                => 0,
 					"t.padding_top"                => 0,
@@ -327,8 +327,8 @@ class DesignBlockModelTest extends AbstractModelTest
 					"t.border_style"               => 0,
 				],
 				[
-					"t.margin_top"                 => "incorrect type",
-					"t.margin_right"               => "incorrect type",
+					"t.marginTop"                 => "incorrect type",
+					"t.marginRight"               => "incorrect type",
 					"t.margin_bottom"              => "incorrect type",
 					"t.margin_left"                => "incorrect type",
 					"t.padding_top"                => "incorrect type",
@@ -351,8 +351,8 @@ class DesignBlockModelTest extends AbstractModelTest
 				],
 				[],
 				[
-					"t.margin_top"                 => 0,
-					"t.margin_right"               => 0,
+					"t.marginTop"                 => 0,
+					"t.marginRight"               => 0,
 					"t.margin_bottom"              => 0,
 					"t.margin_left"                => 0,
 					"t.padding_top"                => 0,
@@ -377,8 +377,8 @@ class DesignBlockModelTest extends AbstractModelTest
 			// Insert: values with incorrect values. Update: values with incorrect values
 			[
 				[
-					"t.margin_top"                 => DesignBlockModel::MIN_MARGIN_VALUE - 1,
-					"t.margin_right"               => DesignBlockModel::MIN_MARGIN_VALUE - 1,
+					"t.marginTop"                 => DesignBlockModel::MIN_MARGIN_VALUE - 1,
+					"t.marginRight"               => DesignBlockModel::MIN_MARGIN_VALUE - 1,
 					"t.margin_bottom"              => DesignBlockModel::MIN_MARGIN_VALUE - 1,
 					"t.margin_left"                => DesignBlockModel::MIN_MARGIN_VALUE - 1,
 					"t.padding_top"                => DesignBlockModel::MIN_PADDING_VALUE - 1,
@@ -401,8 +401,8 @@ class DesignBlockModelTest extends AbstractModelTest
 				],
 				[],
 				[
-					"t.margin_top"                 => DesignBlockModel::MIN_MARGIN_VALUE,
-					"t.margin_right"               => DesignBlockModel::MIN_MARGIN_VALUE,
+					"t.marginTop"                 => DesignBlockModel::MIN_MARGIN_VALUE,
+					"t.marginRight"               => DesignBlockModel::MIN_MARGIN_VALUE,
 					"t.margin_bottom"              => DesignBlockModel::MIN_MARGIN_VALUE,
 					"t.margin_left"                => DesignBlockModel::MIN_MARGIN_VALUE,
 					"t.padding_top"                => DesignBlockModel::MIN_PADDING_VALUE,
@@ -424,8 +424,8 @@ class DesignBlockModelTest extends AbstractModelTest
 					"t.border_style"               => DesignBlockModel::BORDER_STYLE_NONE,
 				],
 				[
-					"t.margin_top"                 => DesignBlockModel::MIN_MARGIN_VALUE - 1,
-					"t.margin_right"               => DesignBlockModel::MIN_MARGIN_VALUE - 1,
+					"t.marginTop"                 => DesignBlockModel::MIN_MARGIN_VALUE - 1,
+					"t.marginRight"               => DesignBlockModel::MIN_MARGIN_VALUE - 1,
 					"t.margin_bottom"              => DesignBlockModel::MIN_MARGIN_VALUE - 1,
 					"t.margin_left"                => DesignBlockModel::MIN_MARGIN_VALUE - 1,
 					"t.padding_top"                => DesignBlockModel::MIN_PADDING_VALUE - 1,
@@ -448,8 +448,8 @@ class DesignBlockModelTest extends AbstractModelTest
 				],
 				[],
 				[
-					"t.margin_top"                 => DesignBlockModel::MIN_MARGIN_VALUE,
-					"t.margin_right"               => DesignBlockModel::MIN_MARGIN_VALUE,
+					"t.marginTop"                 => DesignBlockModel::MIN_MARGIN_VALUE,
+					"t.marginRight"               => DesignBlockModel::MIN_MARGIN_VALUE,
 					"t.margin_bottom"              => DesignBlockModel::MIN_MARGIN_VALUE,
 					"t.margin_left"                => DesignBlockModel::MIN_MARGIN_VALUE,
 					"t.padding_top"                => DesignBlockModel::MIN_PADDING_VALUE,

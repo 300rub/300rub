@@ -4,8 +4,8 @@ return [
 
     // texts_7
     7 => [
-        "margin_top"                 => 10,
-        "margin_right"               => 20,
+        "marginTop"                 => 10,
+        "marginRight"               => 20,
         "margin_bottom"              => 30,
         "margin_left"                => 40,
         "padding_top"                => 40,

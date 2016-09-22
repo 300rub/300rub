@@ -4,8 +4,8 @@
  */
 ?>
 <?php
-if ($model->margin_top || $model->margin_right || $model->margin_bottom || $model->margin_left) {
-	echo " margin: {$model->margin_top}px {$model->margin_right}px {$model->margin_bottom}px {$model->margin_left}px;";
+if ($model->marginTop || $model->marginRight || $model->margin_bottom || $model->margin_left) {
+	echo " margin: {$model->marginTop}px {$model->marginRight}px {$model->margin_bottom}px {$model->margin_left}px;";
 }
 
 if ($model->padding_top || $model->padding_right || $model->padding_bottom || $model->padding_left) {

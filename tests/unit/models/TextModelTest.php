@@ -164,27 +164,27 @@ class TextModelTest extends AbstractModelTest
                     "designTextModel.size"        => 20,
                     "designTextModel.isItalic"   => 1,
                     "designTextModel.isBold"     => 1,
-                    "designBlockModel.margin_top" => 10
+                    "designBlockModel.marginTop" => 10
                 ],
                 [],
                 [
                     "designTextModel.size"        => 20,
                     "designTextModel.isItalic"   => 1,
                     "designTextModel.isBold"     => 1,
-                    "designBlockModel.margin_top" => 10
+                    "designBlockModel.marginTop" => 10
                 ],
                 [
                     "designTextModel.size"        => 30,
                     "designTextModel.isItalic"   => 0,
                     "designTextModel.isBold"     => 0,
-                    "designBlockModel.margin_top" => 20
+                    "designBlockModel.marginTop" => 20
                 ],
                 [],
                 [
                     "designTextModel.size"        => 30,
                     "designTextModel.isItalic"   => 0,
                     "designTextModel.isBold"     => 0,
-                    "designBlockModel.margin_top" => 20
+                    "designBlockModel.marginTop" => 20
                 ]
             ],
         ];

@@ -5,7 +5,7 @@ namespace models;
 use components\exceptions\ModelException;
 
 /**
- * Model for working with table "design_blocks"
+ * Model for working with table "designBlocks"
  *
  * @package models
  */
@@ -77,14 +77,14 @@ class DesignBlockModel extends AbstractModel
 	 *
 	 * @var int
 	 */
-	public $margin_top;
+	public $marginTop;
 
 	/**
 	 * CSS margin-right in px
 	 *
 	 * @var int
 	 */
-	public $margin_right;
+	public $marginRight;
 
 	/**
 	 * CSS margin-bottom in px
@@ -288,7 +288,7 @@ class DesignBlockModel extends AbstractModel
 	 */
 	public function getTableName()
 	{
-		return "design_blocks";
+		return "designBlocks";
 	}
 
 	/**
@@ -299,8 +299,8 @@ class DesignBlockModel extends AbstractModel
 	public function getRules()
 	{
 		return [
-			"margin_top"                 => [],
-			"margin_right"               => [],
+			"marginTop"                 => [],
+			"marginRight"               => [],
 			"margin_bottom"              => [],
 			"margin_left"                => [],
 			"padding_top"                => [],
@@ -339,13 +339,13 @@ class DesignBlockModel extends AbstractModel
 	 */
 	protected function setValues()
 	{
-		$this->margin_top = intval($this->margin_top);
-		if ($this->margin_top < self::MIN_MARGIN_VALUE) {
-			$this->margin_top = self::MIN_MARGIN_VALUE;
+		$this->marginTop = intval($this->marginTop);
+		if ($this->marginTop < self::MIN_MARGIN_VALUE) {
+			$this->marginTop = self::MIN_MARGIN_VALUE;
 		}
-		$this->margin_right = intval($this->margin_right);
-		if ($this->margin_right < self::MIN_MARGIN_VALUE) {
-			$this->margin_right = self::MIN_MARGIN_VALUE;
+		$this->marginRight = intval($this->marginRight);
+		if ($this->marginRight < self::MIN_MARGIN_VALUE) {
+			$this->marginRight = self::MIN_MARGIN_VALUE;
 		}
 		$this->margin_bottom = intval($this->margin_bottom);
 		if ($this->margin_bottom < self::MIN_MARGIN_VALUE) {
@@ -454,12 +454,12 @@ class DesignBlockModel extends AbstractModel
 					"type"   => "margin",
 					"values" => [
 						[
-							"name"  => sprintf($name, "margin_top"),
-							"value" => $this->margin_top
+							"name"  => sprintf($name, "marginTop"),
+							"value" => $this->marginTop
 						],
 						[
-							"name"  => sprintf($name, "margin_right"),
-							"value" => $this->margin_right
+							"name"  => sprintf($name, "marginRight"),
+							"value" => $this->marginRight
 						],
 						[
 							"name"  => sprintf($name, "margin_bottom"),

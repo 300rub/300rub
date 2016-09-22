@@ -376,11 +376,11 @@ class SectionControllerTest extends AbstractControllerTest
                                                 "type" => "margin",
                                                 "values" => [
                                                     [
-                                                        "name" => "designBlockModel__t.margin_top",
+                                                        "name" => "designBlockModel__t.marginTop",
                                                         "value" => 0
                                                     ],
                                                     [
-                                                        "name" => "designBlockModel__t.margin_right",
+                                                        "name" => "designBlockModel__t.marginRight",
                                                         "value" => 0
                                                     ],
                                                     [
@@ -495,11 +495,11 @@ class SectionControllerTest extends AbstractControllerTest
                                                 "type" => "margin",
                                                 "values" => [
                                                     [
-                                                        "name" => "lines__1__outsideDesignModel.margin_top",
+                                                        "name" => "lines__1__outsideDesignModel.marginTop",
                                                         "value" => 0
                                                     ],
                                                     [
-                                                        "name" => "lines__1__outsideDesignModel.margin_right",
+                                                        "name" => "lines__1__outsideDesignModel.marginRight",
                                                         "value" => 0
                                                     ],
                                                     [
@@ -614,11 +614,11 @@ class SectionControllerTest extends AbstractControllerTest
                                                 "type" => "margin",
                                                 "values" => [
                                                     [
-                                                        "name" => "lines__1__insideDesignModel.margin_top",
+                                                        "name" => "lines__1__insideDesignModel.marginTop",
                                                         "value" => 0
                                                     ],
                                                     [
-                                                        "name" => "lines__1__insideDesignModel.margin_right",
+                                                        "name" => "lines__1__insideDesignModel.marginRight",
                                                         "value" => 0
                                                     ],
                                                     [
@@ -751,8 +751,8 @@ class SectionControllerTest extends AbstractControllerTest
                 [
                     "id" => 1,
                     "designBlockModel" => [
-                        "t.margin_top"                 => "",
-                        "t.margin_right"               => "",
+                        "t.marginTop"                 => "",
+                        "t.marginRight"               => "",
                         "t.margin_bottom"              => "",
                         "t.margin_left"                => "",
                         "t.padding_top"                => "",
@@ -776,8 +776,8 @@ class SectionControllerTest extends AbstractControllerTest
                     "lines" => [
                         1 => [
                             // outside
-                            "outsideDesignModel.margin_top"                 => "",
-                            "outsideDesignModel.margin_right"               => "",
+                            "outsideDesignModel.marginTop"                 => "",
+                            "outsideDesignModel.marginRight"               => "",
                             "outsideDesignModel.margin_bottom"              => "",
                             "outsideDesignModel.margin_left"                => "",
                             "outsideDesignModel.padding_top"                => "",
@@ -798,8 +798,8 @@ class SectionControllerTest extends AbstractControllerTest
                             "outsideDesignModel.border_color"               => "",
                             "outsideDesignModel.border_style"               => "",
                             // inside
-                            "insideDesignModel.margin_top"                 => "",
-                            "insideDesignModel.margin_right"               => "",
+                            "insideDesignModel.marginTop"                 => "",
+                            "insideDesignModel.marginRight"               => "",
                             "insideDesignModel.margin_bottom"              => "",
                             "insideDesignModel.margin_left"                => "",
                             "insideDesignModel.padding_top"                => "",
@@ -834,8 +834,8 @@ class SectionControllerTest extends AbstractControllerTest
                 [
                     "id" => 1,
                     "designBlockModel" => [
-                        "t.margin_top"                 => 10,
-                        "t.margin_right"               => 20,
+                        "t.marginTop"                 => 10,
+                        "t.marginRight"               => 20,
                         "t.margin_bottom"              => 30,
                         "t.margin_left"                => 40,
                         "t.padding_top"                => 50,
@@ -859,8 +859,8 @@ class SectionControllerTest extends AbstractControllerTest
                     "lines" => [
                         1 => [
                             // outside
-                            "outsideDesignModel.margin_top"                 => 10,
-                            "outsideDesignModel.margin_right"               => 10,
+                            "outsideDesignModel.marginTop"                 => 10,
+                            "outsideDesignModel.marginRight"               => 10,
                             "outsideDesignModel.margin_bottom"              => 10,
                             "outsideDesignModel.margin_left"                => 10,
                             "outsideDesignModel.padding_top"                => 10,
@@ -881,8 +881,8 @@ class SectionControllerTest extends AbstractControllerTest
                             "outsideDesignModel.border_color"               => 20,
                             "outsideDesignModel.border_style"               => 20,
                             // inside
-                            "insideDesignModel.margin_top"                 => 30,
-                            "insideDesignModel.margin_right"               => 30,
+                            "insideDesignModel.marginTop"                 => 30,
+                            "insideDesignModel.marginRight"               => 30,
                             "insideDesignModel.margin_bottom"              => 30,
                             "insideDesignModel.margin_left"                => 30,
                             "insideDesignModel.padding_top"                => 30,
@@ -917,8 +917,8 @@ class SectionControllerTest extends AbstractControllerTest
                 [
                     "id" => 1,
                     "designBlockModel" => [
-                        "t.margin_top"                 => "incorrect",
-                        "t.margin_right"               => "incorrect",
+                        "t.marginTop"                 => "incorrect",
+                        "t.marginRight"               => "incorrect",
                         "t.margin_bottom"              => "incorrect",
                         "t.margin_left"                => "incorrect",
                         "t.padding_top"                => "incorrect",
@@ -942,8 +942,8 @@ class SectionControllerTest extends AbstractControllerTest
                     "lines" => [
                         1 => [
                             // outside
-                            "outsideDesignModel.margin_top"                 => "incorrect",
-                            "outsideDesignModel.margin_right"               => "incorrect",
+                            "outsideDesignModel.marginTop"                 => "incorrect",
+                            "outsideDesignModel.marginRight"               => "incorrect",
                             "outsideDesignModel.margin_bottom"              => "incorrect",
                             "outsideDesignModel.margin_left"                => "incorrect",
                             "outsideDesignModel.padding_top"                => "incorrect",
@@ -964,8 +964,8 @@ class SectionControllerTest extends AbstractControllerTest
                             "outsideDesignModel.border_color"               => "incorrect",
                             "outsideDesignModel.border_style"               => "incorrect",
                             // inside
-                            "insideDesignModel.margin_top"                 => "incorrect",
-                            "insideDesignModel.margin_right"               => "incorrect",
+                            "insideDesignModel.marginTop"                 => "incorrect",
+                            "insideDesignModel.marginRight"               => "incorrect",
                             "insideDesignModel.margin_bottom"              => "incorrect",
                             "insideDesignModel.margin_left"                => "incorrect",
                             "insideDesignModel.padding_top"                => "incorrect",

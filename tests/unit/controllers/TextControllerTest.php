@@ -407,11 +407,11 @@ class TextControllerTest extends AbstractControllerTest
                                             "type"   => "margin",
                                             "values" => [
                                                 [
-                                                    "name"  => "designBlockModel.margin_top",
+                                                    "name"  => "designBlockModel.marginTop",
                                                     "value" => 0
                                                 ],
                                                 [
-                                                    "name"  => "designBlockModel.margin_right",
+                                                    "name"  => "designBlockModel.marginRight",
                                                     "value" => 0
                                                 ],
                                                 [
@@ -554,8 +554,8 @@ class TextControllerTest extends AbstractControllerTest
                     "designTextModel.letterSpacing"              => "",
                     "designTextModel.lineHeight"                 => "",
                     // Block
-                    "designBlockModel.margin_top"                 => "",
-                    "designBlockModel.margin_right"               => "",
+                    "designBlockModel.marginTop"                 => "",
+                    "designBlockModel.marginRight"               => "",
                     "designBlockModel.margin_bottom"              => "",
                     "designBlockModel.margin_left"                => "",
                     "designBlockModel.padding_top"                => "",
@@ -599,8 +599,8 @@ class TextControllerTest extends AbstractControllerTest
                     "designTextModel.letterSpacing"              => 20,
                     "designTextModel.lineHeight"                 => 200,
                     // Block
-                    "designBlockModel.margin_top"                 => 10,
-                    "designBlockModel.margin_right"               => 10,
+                    "designBlockModel.marginTop"                 => 10,
+                    "designBlockModel.marginRight"               => 10,
                     "designBlockModel.margin_bottom"              => 10,
                     "designBlockModel.margin_left"                => 10,
                     "designBlockModel.padding_top"                => 10,
@@ -644,8 +644,8 @@ class TextControllerTest extends AbstractControllerTest
                     "designTextModel.letterSpacing"              => "incorrect",
                     "designTextModel.lineHeight"                 => "incorrect",
                     // Block
-                    "designBlockModel.margin_top"                 => "incorrect",
-                    "designBlockModel.margin_right"               => "incorrect",
+                    "designBlockModel.marginTop"                 => "incorrect",
+                    "designBlockModel.marginRight"               => "incorrect",
                     "designBlockModel.margin_bottom"              => "incorrect",
                     "designBlockModel.margin_left"                => "incorrect",
                     "designBlockModel.padding_top"                => "incorrect",
