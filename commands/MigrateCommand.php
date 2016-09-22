@@ -8,6 +8,7 @@ use components\exceptions\MigrationException;
 use migrations\M160301000000Sites;
 use migrations\M160302000000Migrations;
 use Exception;
+use models\AbstractModel;
 
 /**
  * Applies migrations
@@ -373,11 +374,9 @@ class MigrateCommand extends AbstractCommand
 	/**
 	 * Loads fixtures
 	 *
-	 * @param string $table
-	 *
 	 * @throws MigrationException
 	 */
-	public static function loadFixtures($table = null)
+	public static function loadFixtures()
 	{
 		App::console()->output("Fixtures loading  has been started");
 
@@ -395,52 +394,34 @@ class MigrateCommand extends AbstractCommand
 
 		// DB
 		$files = array_diff(scandir(__DIR__ . "/../fixtures"), ["..", ".", "files"]);
-		foreach ($files as $file) {
-			$tableName = str_replace(".php", "", $file);
 
-			if ($table !== null && $table !== $tableName) {
-				continue;
-			}
-
-			$records = require(__DIR__ . "/../fixtures/" . $file);
-
-			if (!Db::execute("TRUNCATE TABLE `{$tableName}`")) {
-				throw new MigrationException(
-					"Unable to truncate table: {table} while loading fixtures",
-					[
-						"table" => $tableName
-					]
-				);
-			}
-
-			foreach ($records as $id => $record) {
-				$columns = ["id"];
-				$values = [$id];
-				$substitutions = ["?"];
-
-				foreach ($record as $field => $value) {
-					$columns[] = $field;
-					$substitutions[] = "?";
-					$values[] = $value;
-				}
-
-				$query =
-					"INSERT" .
-					" INTO " .
-					$tableName .
-					" (" .
-					implode(",", $columns) .
-					") VALUES (" .
-					implode(",", $substitutions) .
-					")";
-				if (!Db::execute($query, $values)) {
+		$rows = Db::fetchAll("SHOW TABLES FROM " . App::getApplication()->config->db->dbName);
+		foreach ($rows as $row) {
+			foreach ($row as $key => $tableName) {
+				if (!Db::execute("TRUNCATE TABLE `{$tableName}`")) {
 					throw new MigrationException(
-						"Unable to load fixtures for table: {table}",
+						"Unable to truncate table: {table} while loading fixtures",
 						[
 							"table" => $tableName
 						]
 					);
 				}
+			}
+		}
+
+		foreach ($files as $file) {
+			$modelName = "\\models\\" . ucfirst(str_replace(".php", "", $file)) . "Model";
+
+			/**
+			 * @var AbstractModel $model
+			 */
+			$model = new $modelName;
+
+			$records = require(__DIR__ . "/../fixtures/" . $file);
+
+			foreach ($records as $id => $record) {
+				$model->setAttributes($record);
+				$model->save();
 			}
 		}
 
