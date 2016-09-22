@@ -126,7 +126,7 @@ class SectionControllerTest extends AbstractControllerTest
                             "value" => ""
                         ],
                         [
-                            "name"  => "t.is_main",
+                            "name"  => "t.isMain",
                             "rules" => [],
                             "type"  => "checkbox",
                             "value" => false

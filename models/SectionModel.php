@@ -52,7 +52,7 @@ class SectionModel extends AbstractModel
 	 *
 	 * @var bool
 	 */
-	public $is_main = false;
+	public $isMain = false;
 
 	/**
 	 * ID of DesignBlockModel
@@ -92,7 +92,7 @@ class SectionModel extends AbstractModel
 	 */
 	protected $formTypes = [
 		"width"   => self::FORM_TYPE_FIELD,
-		"is_main" => self::FORM_TYPE_CHECKBOX
+		"isMain" => self::FORM_TYPE_CHECKBOX
 	];
 
 	/**
@@ -116,7 +116,7 @@ class SectionModel extends AbstractModel
 			"seoId"          => [],
 			"language"        => [],
 			"width"           => [],
-			"is_main"         => [],
+			"isMain"         => [],
 			"design_block_id" => [],
 		];
 	}
@@ -156,13 +156,13 @@ class SectionModel extends AbstractModel
 	}
 
 	/**
-	 * Adds is_main condition in SQL request
+	 * Adds isMain condition in SQL request
 	 *
 	 * @return SectionModel
 	 */
 	public function selectMain()
 	{
-		$this->db->addCondition("t.is_main = 1");
+		$this->db->addCondition("t.isMain = 1");
 		return $this;
 	}
 
@@ -184,11 +184,11 @@ class SectionModel extends AbstractModel
 	 */
 	protected function beforeSave()
 	{
-		if ($this->is_main === 1) {
-			$this->updateForAll(["is_main" => 0]);
+		if ($this->isMain === 1) {
+			$this->updateForAll(["isMain" => 0]);
 		}
-		if ($this->is_main === 0 && !$this->selectMain()->exceptId($this->id)->find()) {
-			$this->is_main = 1;
+		if ($this->isMain === 0 && !$this->selectMain()->exceptId($this->id)->find()) {
+			$this->isMain = 1;
 		}
 
 		if (!$this->designBlockModel instanceof DesignBlockModel) {
@@ -222,11 +222,11 @@ class SectionModel extends AbstractModel
 			$this->width = self::DEFAULT_WIDTH;
 		}
 
-		$this->is_main = intval($this->is_main);
-		if ($this->is_main < 0) {
-			$this->is_main = 0;
-		} else if ($this->is_main > 1) {
-			$this->is_main = 1;
+		$this->isMain = intval($this->isMain);
+		if ($this->isMain < 0) {
+			$this->isMain = 0;
+		} else if ($this->isMain > 1) {
+			$this->isMain = 1;
 		}
 
 		$this->design_block_id = intval($this->design_block_id);
@@ -294,13 +294,13 @@ class SectionModel extends AbstractModel
 			}
 		}
 
-		if ($this->is_main) {
+		if ($this->isMain) {
 			$model = self::model()->exceptId($this->id)->find();
 			if ($model) {
-				$model->is_main = 1;
+				$model->isMain = 1;
 				if (!$model->save()) {
 					throw new ModelException(
-						"Unable to update section for is_main = 1 for ID = {id}",
+						"Unable to update section for isMain = 1 for ID = {id}",
 						[
 							"id" => $model->id
 						]
@@ -332,7 +332,7 @@ class SectionModel extends AbstractModel
 		$model->seoId = $seoModel->id;
 		$model->language = $modelForCopy->language;
 		$model->width = $modelForCopy->width;
-		$model->is_main = 0;
+		$model->isMain = 0;
 		$model->designBlockModel = $designBlockModel;
 		$model->design_block_id = $designBlockModel->id;
 		if (!$model->save()) {

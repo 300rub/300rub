@@ -23,7 +23,7 @@ use applications\App;
     <div class="l-form-group l-checkbox-container j-is-main-container">
         <label class="l-label-container">
 			<span class="l-body">
-                <input class="j-t__is_main l-checkbox" type="checkbox"/>
+                <input class="j-t__isMain l-checkbox" type="checkbox"/>
 				<span class="l-icons">
 					<i class="fa fa-square-o"></i>
 					<i class="fa fa-check-square-o"></i>

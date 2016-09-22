@@ -47,7 +47,7 @@ class SectionModelTest extends AbstractModelTest
 					"t.seoId"          => "",
 					"t.language"        => "",
 					"t.width"           => "",
-					"t.is_main"         => "",
+					"t.isMain"         => "",
 					"t.design_block_id" => "",
 				],
 				[
@@ -217,7 +217,7 @@ class SectionModelTest extends AbstractModelTest
 
 		$this->assertNotEquals($modelForCopy->id, $modelCopy->id);
 		$this->assertNotEquals($modelForCopy->seoId, $modelCopy->seoId);
-		$this->assertEquals(0, $modelCopy->is_main);
+		$this->assertEquals(0, $modelCopy->isMain);
 		$this->assertNotEquals($modelForCopy->design_block_id, $modelCopy->design_block_id);
 		$this->assertEquals($modelForCopy->language, $modelCopy->language);
 		$this->assertEquals($modelForCopy->width, $modelCopy->width);

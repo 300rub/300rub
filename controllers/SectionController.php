@@ -50,7 +50,7 @@ class SectionController extends AbstractController
                 "label" => $model->seoModel->name,
                 "id"    => $model->id
             ];
-            if ($model->is_main) {
+            if ($model->isMain) {
                 $item["icon"] = "fa-home";
             }
             $list[] = $item;
@@ -108,13 +108,13 @@ class SectionController extends AbstractController
             "seoModel.name",
             "seoModel.url",
             "t.width",
-            "t.is_main",
+            "t.isMain",
             "seoModel.title",
             "seoModel.keywords",
             "seoModel.description"
         ];
-        if (!$model->is_main) {
-            $forms[] = "t.is_main";
+        if (!$model->isMain) {
+            $forms[] = "t.isMain";
         }
 
         $this->setFormsForJson($model, $forms);
@@ -125,7 +125,7 @@ class SectionController extends AbstractController
      */
     public function actionSaveSettings()
     {
-        $this->setCheckboxValue("t.is_main");
+        $this->setCheckboxValue("t.isMain");
         $model = $this->getModel(["seoModel"], true);
         $model->setAttributes($this->data)->save();
 

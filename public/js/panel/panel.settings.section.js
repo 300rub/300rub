@@ -10,7 +10,7 @@
 
 		$.each(this.data.forms, function(i, item) {
 			switch (item.name) {
-				case "t.is_main":
+				case "t.isMain":
 					if (parseInt(item.value) === 1) {
 						$container.find(".j-is-main-container").addClass("d-hide");
 					}
