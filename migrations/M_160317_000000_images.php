@@ -23,12 +23,12 @@ class M_160317_000000_images extends AbstractMigration
                     "alignment"             => "integer",
                     "designBlockId"       => "integer",
                     "image_designBlockId" => "integer",
-                    "design_text_id"        => "integer",
+                    "designTextId"        => "integer",
                 ]
             )
             ->createIndex("design_image_simples_designBlockId", "design_image_simples", "designBlockId")
             ->createIndex("design_image_simples_design_image_block_id", "design_image_simples", "design_image_block_id")
-            ->createIndex("design_image_simples_design_text_id", "design_image_simples", "design_text_id")
+            ->createIndex("design_image_simples_designTextId", "design_image_simples", "designTextId")
             ->createTable(
                 "design_image_zooms",
                 [

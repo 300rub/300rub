@@ -72,7 +72,7 @@ class DesignImageSimpleModel extends AbstractModel
      *
      * @var integer
      */
-    public $design_text_id;
+    public $designTextId;
 
     /**
      * Design text model
@@ -89,7 +89,7 @@ class DesignImageSimpleModel extends AbstractModel
     protected $relations = [
         "designBlockModel"      => ['models\DesignBlockModel', "designBlockId"],
         "imageDesignBlockModel" => ['models\DesignBlockModel', "image_designBlockId"],
-        "designTextModel"       => ['models\DesignBlockModel', "design_text_id"],
+        "designTextModel"       => ['models\DesignBlockModel', "designTextId"],
     ];
 
     /**
@@ -113,7 +113,7 @@ class DesignImageSimpleModel extends AbstractModel
             "alignment"             => [],
             "designBlockId"       => [],
             "image_designBlockId" => [],
-            "design_text_id"        => [],
+            "designTextId"        => [],
         ];
     }
 
@@ -136,7 +136,7 @@ class DesignImageSimpleModel extends AbstractModel
         $this->alignment = intval($this->alignment);
         $this->designBlockId = intval($this->designBlockId);
         $this->image_designBlockId = intval($this->image_designBlockId);
-        $this->design_text_id = intval($this->design_text_id);
+        $this->designTextId = intval($this->designTextId);
     }
 
     /**
@@ -160,7 +160,7 @@ class DesignImageSimpleModel extends AbstractModel
 
         $this->designTextModel = $this->getRelationModel(
             $this->designTextModel,
-            $this->design_text_id,
+            $this->designTextId,
             "DesignTextModel"
         );
 
@@ -179,7 +179,7 @@ class DesignImageSimpleModel extends AbstractModel
     {
         $this->deleteRelation($this->designBlockModel, $this->designBlockId, "DesignBlockModel");
         $this->deleteRelation($this->imageDesignBlockModel, $this->image_designBlockId, "DesignBlockModel");
-        $this->deleteRelation($this->designTextModel, $this->design_text_id, "DesignTextModel");
+        $this->deleteRelation($this->designTextModel, $this->designTextId, "DesignTextModel");
 
         parent::beforeDelete();
     }

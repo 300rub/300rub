@@ -89,7 +89,7 @@ class TextModel extends AbstractModel
 	 *
 	 * @var int
 	 */
-	public $design_text_id;
+	public $designTextId;
 
 	/**
 	 * ID of DesignTextModel
@@ -143,7 +143,7 @@ class TextModel extends AbstractModel
 	 * @var array
 	 */
 	protected $relations = [
-		"designTextModel"  => ['models\DesignTextModel', "design_text_id"],
+		"designTextModel"  => ['models\DesignTextModel', "designTextId"],
 		"designBlockModel" => ['models\DesignBlockModel', "designBlockId"]
 	];
 
@@ -170,7 +170,7 @@ class TextModel extends AbstractModel
 			"isEditor"       => [],
 			"type"            => [],
 			"text"            => [],
-			"design_text_id"  => [],
+			"designTextId"  => [],
 			"designBlockId" => [],
 		];
 	}
@@ -236,7 +236,7 @@ class TextModel extends AbstractModel
 		}
 
 		$this->isEditor = boolval($this->isEditor);
-		$this->design_text_id = intval($this->design_text_id);
+		$this->designTextId = intval($this->designTextId);
 		$this->designBlockId = intval($this->designBlockId);
 	}
 
@@ -253,10 +253,10 @@ class TextModel extends AbstractModel
 		}
 
 		if (!$this->designTextModel instanceof DesignTextModel) {
-			if ($this->design_text_id === 0) {
+			if ($this->designTextId === 0) {
 				$this->designTextModel = new DesignTextModel();
 			} else {
-				$this->designTextModel = DesignTextModel::model()->byId($this->design_text_id)->find();
+				$this->designTextModel = DesignTextModel::model()->byId($this->designTextId)->find();
 				if ($this->designTextModel === null) {
 					$this->designTextModel = new DesignTextModel();
 				}
@@ -307,7 +307,7 @@ class TextModel extends AbstractModel
 		$model->id = 0;
 		$model->text = "";
 		$model->designTextModel = $designTextModel;
-		$model->design_text_id = $designTextModel->id;
+		$model->designTextId = $designTextModel->id;
 		$model->designBlockModel = $designBlockModel;
 		$model->designBlockId = $designBlockModel->id;
 		if (!$model->save()) {
@@ -335,7 +335,7 @@ class TextModel extends AbstractModel
 	{
 		$designTextModel = $this->designTextModel;
 		if ($designTextModel === null) {
-			$designTextModel = DesignTextModel::model()->byId($this->design_text_id)->find();
+			$designTextModel = DesignTextModel::model()->byId($this->designTextId)->find();
 		}
 		if ($designTextModel instanceof DesignTextModel) {
 			if (!$designTextModel->delete()) {

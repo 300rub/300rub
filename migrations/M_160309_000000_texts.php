@@ -25,11 +25,11 @@ class M_160309_000000_texts extends AbstractMigration
 					"type"            => "integer",
 					"isEditor"       => "boolean",
 					"text"            => "text",
-					"design_text_id"  => "integer",
+					"designTextId"  => "integer",
 					"designBlockId" => "integer",
 				]
 			)
-			->createIndex("texts_design_text_id", "texts", "design_text_id")
-			->createIndex("texts_designBlockId", "texts", "designBlockId");
+			->createIndex("textsDesignTextId", "texts", "designTextId")
+			->createIndex("textsDesignBlockId", "texts", "designBlockId");
 	}
 }
