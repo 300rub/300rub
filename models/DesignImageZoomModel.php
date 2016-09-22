@@ -5,7 +5,7 @@ namespace models;
 use components\exceptions\ModelException;
 
 /**
- * Model for working with table "design_image_zooms"
+ * Model for working with table "designImageZooms"
  *
  * @package models
  */
@@ -86,21 +86,21 @@ class DesignImageZoomModel extends AbstractModel
      *
      * @var bool
      */
-    public $is_scroll;
+    public $isScroll;
 
     /**
      * Thumbs alignment
      *
      * @var int
      */
-    public $thumbs_alignment;
+    public $thumbsAlignment;
 
     /**
      * Description alignment
      *
      * @var int
      */
-    public $description_alignment;
+    public $descriptionAlignment;
 
     /**
      * Effect
@@ -125,7 +125,7 @@ class DesignImageZoomModel extends AbstractModel
      */
     public function getTableName()
     {
-        return "design_image_zooms";
+        return "designImageZooms";
     }
 
     /**
@@ -137,9 +137,9 @@ class DesignImageZoomModel extends AbstractModel
     {
         return [
             "designBlockId"       => [],
-            "is_scroll"             => [],
-            "thumbs_alignment"      => [],
-            "description_alignment" => [],
+            "isScroll"             => [],
+            "thumbsAlignment"      => [],
+            "descriptionAlignment" => [],
             "effect"                => [],
         ];
     }
@@ -161,9 +161,9 @@ class DesignImageZoomModel extends AbstractModel
     protected function setValues()
     {
         $this->designBlockId = intval($this->designBlockId);
-        $this->is_scroll = boolval($this->is_scroll);
-        $this->thumbs_alignment = intval($this->thumbs_alignment);
-        $this->description_alignment = intval($this->description_alignment);
+        $this->isScroll = boolval($this->isScroll);
+        $this->thumbsAlignment = intval($this->thumbsAlignment);
+        $this->descriptionAlignment = intval($this->descriptionAlignment);
         $this->effect = intval($this->effect);
     }
 
@@ -178,16 +178,16 @@ class DesignImageZoomModel extends AbstractModel
             "DesignBlockModel"
         );
 
-        $this->is_scroll = $this->getTinyIntVal($this->is_scroll);
+        $this->isScroll = $this->getTinyIntVal($this->isScroll);
 
         $getDescriptionAlignmentList = $this->getDescriptionAlignmentList();
-        if (!array_key_exists($this->description_alignment, $getDescriptionAlignmentList)) {
-            $this->description_alignment = self::DEFAULT_DESCRIPTION_ALIGNMENT;
+        if (!array_key_exists($this->descriptionAlignment, $getDescriptionAlignmentList)) {
+            $this->descriptionAlignment = self::DEFAULT_DESCRIPTION_ALIGNMENT;
         }
 
         $thumbsAlignmentList = $this->getThumbsAlignmentList();
-        if (!array_key_exists($this->thumbs_alignment, $thumbsAlignmentList)) {
-            $this->thumbs_alignment = self::DEFAULT_THUMBS_ALIGNMENT;
+        if (!array_key_exists($this->thumbsAlignment, $thumbsAlignmentList)) {
+            $this->thumbsAlignment = self::DEFAULT_THUMBS_ALIGNMENT;
         }
 
         $effectList = $this->getEffectList();
@@ -220,16 +220,16 @@ class DesignImageZoomModel extends AbstractModel
         return [
             "imageZoom" => [
                 "isScroll"             => [
-                    "name"  => sprintf($name, "is_scroll"),
-                    "value" => $this->is_scroll,
+                    "name"  => sprintf($name, "isScroll"),
+                    "value" => $this->isScroll,
                 ],
                 "thumbsAlignment"      => [
-                    "name"  => sprintf($name, "thumbs_alignment"),
-                    "value" => $this->thumbs_alignment,
+                    "name"  => sprintf($name, "thumbsAlignment"),
+                    "value" => $this->thumbsAlignment,
                 ],
                 "descriptionAlignment" => [
-                    "name"  => sprintf($name, "description_alignment"),
-                    "value" => $this->description_alignment,
+                    "name"  => sprintf($name, "descriptionAlignment"),
+                    "value" => $this->descriptionAlignment,
                 ],
                 "effect"               => [
                     "name"  => sprintf($name, "effect"),

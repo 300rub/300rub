@@ -17,32 +17,32 @@ class M_160317_000000_images extends AbstractMigration
     {
         $this
             ->createTable(
-                "design_image_simples",
+                "designImageSimples",
                 [
                     "id"                    => "pk",
                     "alignment"             => "integer",
                     "designBlockId"       => "integer",
-                    "image_designBlockId" => "integer",
+                    "imageDesignBlockId" => "integer",
                     "designTextId"        => "integer",
                 ]
             )
-            ->createIndex("design_image_simples_designBlockId", "design_image_simples", "designBlockId")
-            ->createIndex("design_image_simples_design_image_block_id", "design_image_simples", "design_image_block_id")
-            ->createIndex("design_image_simples_designTextId", "design_image_simples", "designTextId")
+            ->createIndex("designImageSimplesDesignBlockId", "designImageSimples", "designBlockId")
+            ->createIndex("designImageSimplesImageDesignBlockId", "designImageSimples", "imageDesignBlockId")
+            ->createIndex("designImageSimplesDesignTextId", "designImageSimples", "designTextId")
             ->createTable(
-                "design_image_zooms",
+                "designImageZooms",
                 [
                     "id"                    => "pk",
                     "designBlockId"       => "integer",
-                    "is_scroll"             => "boolean",
-                    "thumbs_alignment"      => "integer",
-                    "description_alignment" => "integer",
+                    "isScroll"             => "boolean",
+                    "thumbsAlignment"      => "integer",
+                    "descriptionAlignment" => "integer",
                     "effect"                => "integer",
                 ]
             )
-            ->createIndex("design_image_zooms_designBlockId", "design_image_zooms", "designBlockId")
+            ->createIndex("designImageZoomsDesignBlockId", "designImageZooms", "designBlockId")
             ->createTable(
-                "design_image_sliders",
+                "designImageSliders",
                 [
                     "id"                          => "pk",
                     "designBlockId"             => "integer",
@@ -52,18 +52,18 @@ class M_160317_000000_images extends AbstractMigration
                     "navigation_designBlockId"  => "integer",
                     "navigation_alignment"        => "integer",
                     "description_designBlockId" => "integer",
-                    "description_alignment"       => "integer",
+                    "descriptionAlignment"       => "integer",
                 ]
             )
-            ->createIndex("design_image_sliders_designBlockId", "design_image_sliders", "designBlockId")
+            ->createIndex("designImageSliders_designBlockId", "designImageSliders", "designBlockId")
             ->createIndex(
-                "design_image_sliders_navigation_designBlockId",
-                "design_image_sliders",
+                "designImageSliders_navigation_designBlockId",
+                "designImageSliders",
                 "navigation_designBlockId"
             )
             ->createIndex(
-                "design_image_sliders_description_designBlockId",
-                "design_image_sliders",
+                "designImageSliders_description_designBlockId",
+                "designImageSliders",
                 "description_designBlockId"
             )
             ->createTable(

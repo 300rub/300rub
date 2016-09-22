@@ -5,7 +5,7 @@ namespace models;
 use components\exceptions\ModelException;
 
 /**
- * Model for working with table "design_image_sliders"
+ * Model for working with table "designImageSliders"
  *
  * @package models
  */
@@ -177,7 +177,7 @@ class DesignImageSliderModel extends AbstractModel
      *
      * @var int
      */
-    public $description_alignment;
+    public $descriptionAlignment;
 
     /**
      * Relations
@@ -197,7 +197,7 @@ class DesignImageSliderModel extends AbstractModel
      */
     public function getTableName()
     {
-        return "design_image_sliders";
+        return "designImageSliders";
     }
 
     /**
@@ -215,7 +215,7 @@ class DesignImageSliderModel extends AbstractModel
             "navigation_designBlockId"  => [],
             "navigation_alignment"        => [],
             "description_designBlockId" => [],
-            "description_alignment"       => [],
+            "descriptionAlignment"       => [],
         ];
     }
 
@@ -242,7 +242,7 @@ class DesignImageSliderModel extends AbstractModel
         $this->navigation_designBlockId = intval($this->navigation_designBlockId);
         $this->navigation_alignment = intval($this->navigation_alignment);
         $this->description_designBlockId = intval($this->description_designBlockId);
-        $this->description_alignment = intval($this->description_alignment);
+        $this->descriptionAlignment = intval($this->descriptionAlignment);
     }
 
     /**
@@ -281,8 +281,8 @@ class DesignImageSliderModel extends AbstractModel
         }
 
         $getDescriptionAlignmentList = $this->getDescriptionAlignmentList();
-        if (!array_key_exists($this->description_alignment, $getDescriptionAlignmentList)) {
-            $this->description_alignment = self::DEFAULT_DESCRIPTION_ALIGNMENT;
+        if (!array_key_exists($this->descriptionAlignment, $getDescriptionAlignmentList)) {
+            $this->descriptionAlignment = self::DEFAULT_DESCRIPTION_ALIGNMENT;
         }
 
         parent::beforeSave();
@@ -315,9 +315,9 @@ class DesignImageSliderModel extends AbstractModel
                     "name"  => sprintf($name, "navigation_alignment"),
                     "value" => $this->navigation_alignment,
                 ],
-                "description_alignment" => [
-                    "name"  => sprintf($name, "description_alignment"),
-                    "value" => $this->description_alignment,
+                "descriptionAlignment" => [
+                    "name"  => sprintf($name, "descriptionAlignment"),
+                    "value" => $this->descriptionAlignment,
                 ]
             ]
         ];
