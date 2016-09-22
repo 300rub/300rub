@@ -156,7 +156,7 @@ class MigrateCommand extends AbstractCommand
 	private function _createDumps()
 	{
 		foreach ($this->_sites as $site) {
-			if (!Db::setPdo($site["dbHost"], $site["dbUser"], $site["dbPassword"], $site["db_name"])) {
+			if (!Db::setPdo($site["dbHost"], $site["dbUser"], $site["dbPassword"], $site["dbName"])) {
 				throw new MigrationException(
 					"Unable to set PDO for creating dump
 					with host: {host}, user: {user}, password: {password}, name: {name}",
@@ -164,7 +164,7 @@ class MigrateCommand extends AbstractCommand
 						"host"     => $site["dbHost"],
 						"user"     => $site["dbUser"],
 						"password" => $site["dbPassword"],
-						"name"     => $site["db_name"],
+						"name"     => $site["dbName"],
 					]
 				);
 			}
@@ -181,11 +181,11 @@ class MigrateCommand extends AbstractCommand
 				" -h localhost -p'" .
 				$site["dbPassword"] .
 				"' " .
-				$site["db_name"] .
+				$site["dbName"] .
 				" | gzip -c > " .
 				$backupsFolder .
 				"/" .
-				$site["db_name"] .
+				$site["dbName"] .
 				".sql.gz"
 			);
 		}
@@ -203,12 +203,12 @@ class MigrateCommand extends AbstractCommand
 	private function _rollbackDumps()
 	{
 		foreach ($this->_dumpSites as $site) {
-			$file = __DIR__ . "/../backups/" . $site["db_name"] . ".sql.gz";
+			$file = __DIR__ . "/../backups/" . $site["dbName"] . ".sql.gz";
 			if (!file_exists($file)) {
 				throw new MigrationException(
 					"Unable to find the dump file for DB: {db}",
 					[
-						"db" => $site["db_name"]
+						"db" => $site["dbName"]
 					]
 				);
 			}
@@ -221,7 +221,7 @@ class MigrateCommand extends AbstractCommand
 				" -h localhost -p'" .
 				$site["dbPassword"] .
 				"' " .
-				$site["db_name"]
+				$site["dbName"]
 			);
 		}
 
@@ -241,7 +241,7 @@ class MigrateCommand extends AbstractCommand
 	{
 		$tables = [];
 
-		$rows = Db::fetchAll("SHOW TABLES FROM " . $site["db_name"]);
+		$rows = Db::fetchAll("SHOW TABLES FROM " . $site["dbName"]);
 		foreach ($rows as $row) {
 			foreach ($row as $key => $value) {
 				$tables[] = $value;
@@ -258,7 +258,7 @@ class MigrateCommand extends AbstractCommand
 					"Unable to delete table: {table} from DB: {db}",
 					[
 						"table" => $table,
-						"db"    => $site["db_name"]
+						"db"    => $site["dbName"]
 					]
 				);
 			}
@@ -282,7 +282,7 @@ class MigrateCommand extends AbstractCommand
 
 		sort($this->_migrations);
 		foreach ($this->_sites as $site) {
-			if (!Db::setPdo($site["dbHost"], $site["dbUser"], $site["dbPassword"], $site["db_name"])) {
+			if (!Db::setPdo($site["dbHost"], $site["dbUser"], $site["dbPassword"], $site["dbName"])) {
 				throw new MigrationException(
 					"Unable to connect with DB for applying migrations
 					with host: {host}, user: {user}, password: {password}, name: {name}",
@@ -290,7 +290,7 @@ class MigrateCommand extends AbstractCommand
 						"host"     => $site["dbHost"],
 						"user"     => $site["dbUser"],
 						"password" => $site["dbPassword"],
-						"name"     => $site["db_name"],
+						"name"     => $site["dbName"],
 					]
 				);
 			}
