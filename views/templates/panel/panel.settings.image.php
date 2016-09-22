@@ -36,7 +36,7 @@ use models\ImageModel;
 
                     <span class="l-switch-container">
                         <label class="l-label-container">
-                            <input class="j-t__use_crop l-switch" type="checkbox"/>
+                            <input class="j-t__useCrop l-switch" type="checkbox"/>
                             <span class="l-content">
                                 <span class="l-icons">
                                     <i class="fa fa-square-o l-not-checked"></i>

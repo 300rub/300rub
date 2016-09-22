@@ -126,7 +126,7 @@ class ImageModel extends AbstractModel
      *
      * @var integer
      */
-    public $design_image_slider_id;
+    public $designImageSliderId;
 
     /**
      * Design image slider model
@@ -140,7 +140,7 @@ class ImageModel extends AbstractModel
      *
      * @var integer
      */
-    public $design_image_zoom_id;
+    public $designImageZoomId;
 
     /**
      * Design image zoom model
@@ -154,7 +154,7 @@ class ImageModel extends AbstractModel
      *
      * @var integer
      */
-    public $design_image_simple_id;
+    public $designImageSimpleId;
 
     /**
      * Design image simple model
@@ -175,7 +175,7 @@ class ImageModel extends AbstractModel
      *
      * @var bool
      */
-    public $use_crop;
+    public $useCrop;
 
     /**
      * Crop type
@@ -256,9 +256,9 @@ class ImageModel extends AbstractModel
      */
     protected $relations = [
         "designBlockModel"       => ['models\DesignBlockModel', "designBlockId"],
-        "designImageSliderModel" => ['models\DesignImageSliderModel', "design_image_slider_id"],
-        "designImageZoomModel"   => ['models\DesignImageZoomModel', "design_image_zoom_id"],
-        "designImageSimpleModel" => ['models\DesignBlockModel', "design_image_slider_id"]
+        "designImageSliderModel" => ['models\DesignImageSliderModel', "designImageSliderId"],
+        "designImageZoomModel"   => ['models\DesignImageZoomModel', "designImageZoomId"],
+        "designImageSimpleModel" => ['models\DesignBlockModel', "designImageSliderId"]
     ];
 
     /**
@@ -282,11 +282,11 @@ class ImageModel extends AbstractModel
             "name"                   => ["required", "max" => 255],
             "language"               => [],
             "designBlockId"        => [],
-            "design_image_slider_id" => [],
-            "design_image_zoom_id"   => [],
-            "design_image_simple_id" => [],
+            "designImageSliderId" => [],
+            "designImageZoomId"   => [],
+            "designImageSimpleId" => [],
             "type"                   => [],
-            "use_crop"               => [],
+            "useCrop"               => [],
             "auto_crop_type"         => [],
             "crop_width"             => [],
             "crop_height"            => [],
@@ -323,12 +323,12 @@ class ImageModel extends AbstractModel
         }
 
         $this->designBlockId = intval($this->designBlockId);
-        $this->design_image_slider_id = intval($this->design_image_slider_id);
-        $this->design_image_zoom_id = intval($this->design_image_zoom_id);
-        $this->design_image_simple_id = intval($this->design_image_simple_id);
+        $this->designImageSliderId = intval($this->designImageSliderId);
+        $this->designImageZoomId = intval($this->designImageZoomId);
+        $this->designImageSimpleId = intval($this->designImageSimpleId);
         $this->type = intval($this->type);
 
-        $this->use_crop = boolval($this->use_crop);
+        $this->useCrop = boolval($this->useCrop);
         $this->auto_crop_type = intval($this->auto_crop_type);
         $this->crop_width = intval($this->crop_width);
         $this->crop_height = intval($this->crop_height);
@@ -354,19 +354,19 @@ class ImageModel extends AbstractModel
 
         $this->designImageSliderModel = $this->getRelationModel(
             $this->designImageSliderModel,
-            $this->design_image_slider_id,
+            $this->designImageSliderId,
             "DesignImageSliderModel"
         );
 
         $this->designImageZoomModel = $this->getRelationModel(
             $this->designImageZoomModel,
-            $this->design_image_zoom_id,
+            $this->designImageZoomId,
             "DesignImageZoomModel"
         );
 
         $this->designImageSimpleModel = $this->getRelationModel(
             $this->designImageSimpleModel,
-            $this->design_image_simple_id,
+            $this->designImageSimpleId,
             "DesignBlockModel"
         );
 
@@ -375,9 +375,9 @@ class ImageModel extends AbstractModel
             $this->type = self::DEFAULT_TYPE;
         }
 
-        $this->use_crop = $this->getTinyIntVal($this->use_crop);
+        $this->useCrop = $this->getTinyIntVal($this->useCrop);
 
-        if ($this->use_crop === 1) {
+        if ($this->useCrop === 1) {
             $autoCropTypeList = $this->getAutoCropTypeList();
 
             if (!array_key_exists($this->auto_crop_type, $autoCropTypeList)) {
@@ -466,9 +466,9 @@ class ImageModel extends AbstractModel
 
         $this
             ->deleteRelation($this->designBlockModel, $this->designBlockId, "DesignBlockModel")
-            ->deleteRelation($this->designImageZoomModel, $this->design_image_zoom_id, "DesignImageZoomModel")
-            ->deleteRelation($this->designImageSliderModel, $this->design_image_slider_id, "DesignImageSliderModel")
-            ->deleteRelation($this->designImageSimpleModel, $this->design_image_simple_id, "DesignBlockModel");
+            ->deleteRelation($this->designImageZoomModel, $this->designImageZoomId, "DesignImageZoomModel")
+            ->deleteRelation($this->designImageSliderModel, $this->designImageSliderId, "DesignImageSliderModel")
+            ->deleteRelation($this->designImageSimpleModel, $this->designImageSimpleId, "DesignBlockModel");
 
         parent::beforeDelete();
     }

@@ -128,21 +128,21 @@ class DesignImageSliderModel extends AbstractModel
      *
      * @var bool
      */
-    public $is_auto_play;
+    public $isAutoPlay;
 
     /**
      * Play speed in seconds
      *
      * @var int
      */
-    public $play_speed;
+    public $playSpeed;
 
     /**
      * ID of navigation design block
      *
      * @var int
      */
-    public $navigation_designBlockId;
+    public $navigationDesignBlockId;
 
     /**
      * Navigation design block model
@@ -156,14 +156,14 @@ class DesignImageSliderModel extends AbstractModel
      *
      * @var int
      */
-    public $navigation_alignment;
+    public $navigationAlignment;
 
     /**
      * ID of description design block
      *
      * @var int
      */
-    public $description_designBlockId;
+    public $descriptionDesignBlockId;
 
     /**
      * Description design block model
@@ -186,8 +186,8 @@ class DesignImageSliderModel extends AbstractModel
      */
     protected $relations = [
         "designBlockModel"            => ['models\DesignBlockModel', "designBlockId"],
-        "navigationDesignBlockModel"  => ['models\DesignBlockModel', "navigation_designBlockId"],
-        "descriptionDesignBlockModel" => ['models\DesignBlockModel', "description_designBlockId"],
+        "navigationDesignBlockModel"  => ['models\DesignBlockModel', "navigationDesignBlockId"],
+        "descriptionDesignBlockModel" => ['models\DesignBlockModel', "descriptionDesignBlockId"],
     ];
 
     /**
@@ -210,11 +210,11 @@ class DesignImageSliderModel extends AbstractModel
         return [
             "designBlockId"             => [],
             "effect"                      => [],
-            "is_auto_play"                => [],
-            "play_speed"                  => [],
-            "navigation_designBlockId"  => [],
-            "navigation_alignment"        => [],
-            "description_designBlockId" => [],
+            "isAutoPlay"                => [],
+            "playSpeed"                  => [],
+            "navigationDesignBlockId"  => [],
+            "navigationAlignment"        => [],
+            "descriptionDesignBlockId" => [],
             "descriptionAlignment"       => [],
         ];
     }
@@ -237,11 +237,11 @@ class DesignImageSliderModel extends AbstractModel
     {
         $this->designBlockId = intval($this->designBlockId);
         $this->effect = intval($this->effect);
-        $this->is_auto_play = boolval($this->is_auto_play);
-        $this->play_speed = intval($this->play_speed);
-        $this->navigation_designBlockId = intval($this->navigation_designBlockId);
-        $this->navigation_alignment = intval($this->navigation_alignment);
-        $this->description_designBlockId = intval($this->description_designBlockId);
+        $this->isAutoPlay = boolval($this->isAutoPlay);
+        $this->playSpeed = intval($this->playSpeed);
+        $this->navigationDesignBlockId = intval($this->navigationDesignBlockId);
+        $this->navigationAlignment = intval($this->navigationAlignment);
+        $this->descriptionDesignBlockId = intval($this->descriptionDesignBlockId);
         $this->descriptionAlignment = intval($this->descriptionAlignment);
     }
 
@@ -258,13 +258,13 @@ class DesignImageSliderModel extends AbstractModel
 
         $this->navigationDesignBlockModel = $this->getRelationModel(
             $this->navigationDesignBlockModel,
-            $this->navigation_designBlockId,
+            $this->navigationDesignBlockId,
             "DesignBlockModel"
         );
 
         $this->descriptionDesignBlockModel = $this->getRelationModel(
             $this->descriptionDesignBlockModel,
-            $this->description_designBlockId,
+            $this->descriptionDesignBlockId,
             "DesignBlockModel"
         );
 
@@ -273,11 +273,11 @@ class DesignImageSliderModel extends AbstractModel
             $this->effect = self::DEFAULT_EFFECT;
         }
 
-        $this->is_auto_play = $this->getTinyIntVal($this->is_auto_play);
+        $this->isAutoPlay = $this->getTinyIntVal($this->isAutoPlay);
 
         $navigationAlignmentList = $this->getNavigationAlignmentList();
-        if (!array_key_exists($this->navigation_alignment, $navigationAlignmentList)) {
-            $this->navigation_alignment = self::DEFAULT_NAVIGATION_ALIGNMENT;
+        if (!array_key_exists($this->navigationAlignment, $navigationAlignmentList)) {
+            $this->navigationAlignment = self::DEFAULT_NAVIGATION_ALIGNMENT;
         }
 
         $getDescriptionAlignmentList = $this->getDescriptionAlignmentList();
@@ -304,16 +304,16 @@ class DesignImageSliderModel extends AbstractModel
                     "value" => $this->effect,
                 ],
                 "isAutoPlay"            => [
-                    "name"  => sprintf($name, "is_auto_play"),
-                    "value" => $this->is_auto_play,
+                    "name"  => sprintf($name, "isAutoPlay"),
+                    "value" => $this->isAutoPlay,
                 ],
                 "playSpeed"             => [
-                    "name"  => sprintf($name, "play_speed"),
-                    "value" => $this->play_speed,
+                    "name"  => sprintf($name, "playSpeed"),
+                    "value" => $this->playSpeed,
                 ],
                 "navigationAlignment"   => [
-                    "name"  => sprintf($name, "navigation_alignment"),
-                    "value" => $this->navigation_alignment,
+                    "name"  => sprintf($name, "navigationAlignment"),
+                    "value" => $this->navigationAlignment,
                 ],
                 "descriptionAlignment" => [
                     "name"  => sprintf($name, "descriptionAlignment"),
@@ -330,10 +330,10 @@ class DesignImageSliderModel extends AbstractModel
     {
         $this
             ->deleteRelation($this->designBlockModel, $this->designBlockId, "DesignBlockModel")
-            ->deleteRelation($this->navigationDesignBlockModel, $this->navigation_designBlockId, "DesignBlockModel")
+            ->deleteRelation($this->navigationDesignBlockModel, $this->navigationDesignBlockId, "DesignBlockModel")
             ->deleteRelation(
                 $this->descriptionDesignBlockModel,
-                $this->description_designBlockId,
+                $this->descriptionDesignBlockId,
                 "DesignBlockModel"
             );
 

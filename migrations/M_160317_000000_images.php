@@ -47,24 +47,24 @@ class M_160317_000000_images extends AbstractMigration
                     "id"                          => "pk",
                     "designBlockId"             => "integer",
                     "effect"                      => "integer",
-                    "is_auto_play"                => "boolean",
-                    "play_speed"                  => "integer",
-                    "navigation_designBlockId"  => "integer",
-                    "navigation_alignment"        => "integer",
-                    "description_designBlockId" => "integer",
+                    "isAutoPlay"                => "boolean",
+                    "playSpeed"                  => "integer",
+                    "navigationDesignBlockId"  => "integer",
+                    "navigationAlignment"        => "integer",
+                    "descriptionDesignBlockId" => "integer",
                     "descriptionAlignment"       => "integer",
                 ]
             )
-            ->createIndex("designImageSliders_designBlockId", "designImageSliders", "designBlockId")
+            ->createIndex("designImageSlidersDesignBlockId", "designImageSliders", "designBlockId")
             ->createIndex(
-                "designImageSliders_navigation_designBlockId",
+                "designImageSlidersNavigationDesignBlockId",
                 "designImageSliders",
-                "navigation_designBlockId"
+                "navigationDesignBlockId"
             )
             ->createIndex(
-                "designImageSliders_description_designBlockId",
+                "designImageSlidersDescriptionDesignBlockId",
                 "designImageSliders",
-                "description_designBlockId"
+                "descriptionDesignBlockId"
             )
             ->createTable(
                 "images",
@@ -73,11 +73,11 @@ class M_160317_000000_images extends AbstractMigration
                     "name"                   => "string",
                     "language"               => "integer",
                     "designBlockId"        => "integer",
-                    "design_image_slider_id" => "integer",
-                    "design_image_zoom_id"   => "integer",
-                    "design_image_simple_id" => "integer",
+                    "designImageSliderId" => "integer",
+                    "designImageZoomId"   => "integer",
+                    "designImageSimpleId" => "integer",
                     "type"                   => "integer",
-                    "use_crop"               => "boolean",
+                    "useCrop"               => "boolean",
                     "auto_crop_type"         => "integer",
                     "crop_width"             => "integer",
                     "crop_height"            => "integer",
@@ -90,9 +90,9 @@ class M_160317_000000_images extends AbstractMigration
                 ]
             )
             ->createIndex("images_designBlockId", "images", "designBlockId")
-            ->createIndex("images_design_image_slider_id", "images", "design_image_slider_id")
-            ->createIndex("images_design_image_zoom_id", "images", "design_image_zoom_id")
-            ->createIndex("images_design_image_simple_id", "images", "design_image_simple_id")
+            ->createIndex("images_designImageSliderId", "images", "designImageSliderId")
+            ->createIndex("images_designImageZoomId", "images", "designImageZoomId")
+            ->createIndex("images_designImageSimpleId", "images", "designImageSimpleId")
             ->createTable(
                 "image_albums",
                 [
