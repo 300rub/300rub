@@ -19,11 +19,11 @@ class M_160317_000000_images extends AbstractMigration
             ->createTable(
                 "designImageSimples",
                 [
-                    "id"                    => "pk",
-                    "alignment"             => "integer",
-                    "designBlockId"       => "integer",
+                    "id"                 => "pk",
+                    "alignment"          => "integer",
+                    "designBlockId"      => "integer",
                     "imageDesignBlockId" => "integer",
-                    "designTextId"        => "integer",
+                    "designTextId"       => "integer",
                 ]
             )
             ->createIndex("designImageSimplesDesignBlockId", "designImageSimples", "designBlockId")
@@ -32,27 +32,27 @@ class M_160317_000000_images extends AbstractMigration
             ->createTable(
                 "designImageZooms",
                 [
-                    "id"                    => "pk",
-                    "designBlockId"       => "integer",
+                    "id"                   => "pk",
+                    "designBlockId"        => "integer",
                     "isScroll"             => "boolean",
                     "thumbsAlignment"      => "integer",
                     "descriptionAlignment" => "integer",
-                    "effect"                => "integer",
+                    "effect"               => "integer",
                 ]
             )
             ->createIndex("designImageZoomsDesignBlockId", "designImageZooms", "designBlockId")
             ->createTable(
                 "designImageSliders",
                 [
-                    "id"                          => "pk",
-                    "designBlockId"             => "integer",
-                    "effect"                      => "integer",
-                    "isAutoPlay"                => "boolean",
-                    "playSpeed"                  => "integer",
+                    "id"                       => "pk",
+                    "designBlockId"            => "integer",
+                    "effect"                   => "integer",
+                    "isAutoPlay"               => "boolean",
+                    "playSpeed"                => "integer",
                     "navigationDesignBlockId"  => "integer",
-                    "navigationAlignment"        => "integer",
+                    "navigationAlignment"      => "integer",
                     "descriptionDesignBlockId" => "integer",
-                    "descriptionAlignment"       => "integer",
+                    "descriptionAlignment"     => "integer",
                 ]
             )
             ->createIndex("designImageSlidersDesignBlockId", "designImageSliders", "designBlockId")
@@ -69,64 +69,63 @@ class M_160317_000000_images extends AbstractMigration
             ->createTable(
                 "images",
                 [
-                    "id"                     => "pk",
-                    "name"                   => "string",
-                    "language"               => "integer",
-                    "designBlockId"        => "integer",
+                    "id"                  => "pk",
+                    "name"                => "string",
+                    "language"            => "integer",
+                    "designBlockId"       => "integer",
                     "designImageSliderId" => "integer",
                     "designImageZoomId"   => "integer",
                     "designImageSimpleId" => "integer",
-                    "type"                   => "integer",
-                    "useCrop"               => "boolean",
-                    "auto_crop_type"         => "integer",
-                    "crop_width"             => "integer",
-                    "crop_height"            => "integer",
-                    "crop_x"                 => "integer",
-                    "crop_y"                 => "integer",
-                    "thumb_auto_crop_type"   => "integer",
-                    "thumb_crop_width"       => "integer",
-                    "thumb_crop_height"      => "integer",
-                    "use_albums"             => "boolean",
+                    "type"                => "integer",
+                    "autoCropType"        => "integer",
+                    "cropWidth"           => "integer",
+                    "cropHeight"          => "integer",
+                    "cropX"               => "integer",
+                    "cropY"               => "integer",
+                    "thumbAutoCropType"   => "integer",
+                    "thumbCropWidth"      => "integer",
+                    "thumbCropHeight"     => "integer",
+                    "useAlbums"           => "boolean",
                 ]
             )
-            ->createIndex("images_designBlockId", "images", "designBlockId")
-            ->createIndex("images_designImageSliderId", "images", "designImageSliderId")
-            ->createIndex("images_designImageZoomId", "images", "designImageZoomId")
-            ->createIndex("images_designImageSimpleId", "images", "designImageSimpleId")
+            ->createIndex("imagesDesignBlockId", "images", "designBlockId")
+            ->createIndex("imagesDesignImageSliderId", "images", "designImageSliderId")
+            ->createIndex("imagesDesignImageZoomId", "images", "designImageZoomId")
+            ->createIndex("imagesDesignImageSimpleId", "images", "designImageSimpleId")
             ->createTable(
-                "image_albums",
+                "imageAlbums",
                 [
-                    "id"       => "pk",
-                    "name"     => "string",
-                    "image_id" => "integer",
-                    "sort"     => "integer",
+                    "id"      => "pk",
+                    "name"    => "string",
+                    "imageId" => "integer",
+                    "sort"    => "integer",
                 ]
             )
-            ->createIndex("image_albums_image_id", "image_albums", "image_id")
-            ->createIndex("image_albums_sort", "image_albums", "sort")
+            ->createIndex("imageAlbumsImageId", "imageAlbums", "imageId")
+            ->createIndex("imageAlbumsSort", "imageAlbums", "sort")
             ->createTable(
-                "image_instances",
+                "imageInstances",
                 [
-                    "id"             => "pk",
-                    "image_album_id" => "integer",
-                    "is_cover"       => "boolean",
-                    "sort"           => "integer",
-                    "file_name"      => "string",
-                    "alt"            => "text",
-                    "width"          => "integer",
-                    "height"         => "integer",
-                    "x1"             => "integer",
-                    "y1"             => "integer",
-                    "x2"             => "integer",
-                    "y2"             => "integer",
-                    "thumb_x1"       => "integer",
-                    "thumb_y1"       => "integer",
-                    "thumb_x2"       => "integer",
-                    "thumb_y2"       => "integer",
+                    "id"           => "pk",
+                    "imageAlbumId" => "integer",
+                    "isCover"      => "boolean",
+                    "sort"         => "integer",
+                    "fileName"     => "string",
+                    "alt"          => "text",
+                    "width"        => "integer",
+                    "height"       => "integer",
+                    "x1"           => "integer",
+                    "y1"           => "integer",
+                    "x2"           => "integer",
+                    "y2"           => "integer",
+                    "thumbX1"      => "integer",
+                    "thumbY1"      => "integer",
+                    "thumbX2"      => "integer",
+                    "thumbY2"      => "integer",
                 ]
             )
-            ->createIndex("image_instances_image_album_id", "image_instances", "image_album_id")
-            ->createIndex("image_instances_is_cover", "image_instances", "is_cover")
-            ->createIndex("image_instances_sort", "image_instances", "sort");
+            ->createIndex("imageInstancesImageAlbumId", "imageInstances", "imageAlbumId")
+            ->createIndex("imageInstancesIsCover", "imageInstances", "isCover")
+            ->createIndex("imageInstancesSort", "imageInstances", "sort");
     }
 }

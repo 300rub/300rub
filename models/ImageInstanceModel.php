@@ -6,7 +6,7 @@ use components\exceptions\ModelException;
 use components\File;
 
 /**
- * Model for working with table "image_instances"
+ * Model for working with table "imageInstances"
  *
  * @package models
  *
@@ -53,21 +53,21 @@ class ImageInstanceModel extends AbstractModel
 	 *
 	 * @var string
 	 */
-	public $file_name;
+	public $fileName;
 
 	/**
 	 * ID of image album
 	 *
 	 * @var integer
 	 */
-	public $image_album_id;
+	public $imageAlbumId;
 
 	/**
 	 * Flag. Is albums cover
 	 *
 	 * @var boolean
 	 */
-	public $is_cover;
+	public $isCover;
 
 	/**
 	 * Sort order
@@ -130,28 +130,28 @@ class ImageInstanceModel extends AbstractModel
 	 *
 	 * @var integer
 	 */
-	public $thumb_x1;
+	public $thumbX1;
 
 	/**
 	 * Thumb coordinates. y1
 	 *
 	 * @var integer
 	 */
-	public $thumb_y1;
+	public $thumbY1;
 
 	/**
 	 * Thumb coordinates. x2
 	 *
 	 * @var integer
 	 */
-	public $thumb_x2;
+	public $thumbX2;
 
 	/**
 	 * Thumb coordinates. y2
 	 *
 	 * @var integer
 	 */
-	public $thumb_y2;
+	public $thumbY2;
 
 	/**
 	 * Format of file
@@ -176,7 +176,7 @@ class ImageInstanceModel extends AbstractModel
 	 */
 	public function getTableName()
 	{
-		return "image_instances";
+		return "imageInstances";
 	}
 
 	/**
@@ -187,9 +187,9 @@ class ImageInstanceModel extends AbstractModel
 	public function getRules()
 	{
 		return [
-			"file_name"      => [],
-			"image_album_id" => ["relation" => "\\models\\ImageAlbumModel"],
-			"is_cover"       => [],
+			"fileName"      => [],
+			"imageAlbumId" => ["relation" => "\\models\\ImageAlbumModel"],
+			"isCover"       => [],
 			"sort"           => [],
 			"alt"            => [],
 			"width"          => [],
@@ -198,10 +198,10 @@ class ImageInstanceModel extends AbstractModel
 			"y1"             => [],
 			"x2"             => [],
 			"y2"             => [],
-			"thumb_x1"       => [],
-			"thumb_y1"       => [],
-			"thumb_x2"       => [],
-			"thumb_y2"       => [],
+			"thumbX1"       => [],
+			"thumbY1"       => [],
+			"thumbX2"       => [],
+			"thumbY2"       => [],
 		];
 	}
 
@@ -221,8 +221,8 @@ class ImageInstanceModel extends AbstractModel
 	 */
 	protected function setValues()
 	{
-		$this->image_album_id = intval($this->image_album_id);
-		$this->is_cover = boolval($this->is_cover);
+		$this->imageAlbumId = intval($this->imageAlbumId);
+		$this->isCover = boolval($this->isCover);
 		$this->sort = intval($this->sort);
 		$this->width = intval($this->width);
 		$this->height = intval($this->height);
@@ -230,10 +230,10 @@ class ImageInstanceModel extends AbstractModel
 		$this->y1 = intval($this->y1);
 		$this->x2 = intval($this->x2);
 		$this->y2 = intval($this->y2);
-		$this->thumb_x1 = intval($this->thumb_x1);
-		$this->thumb_y1 = intval($this->thumb_y1);
-		$this->thumb_x2 = intval($this->thumb_x2);
-		$this->thumb_y2 = intval($this->thumb_y2);
+		$this->thumbX1 = intval($this->thumbX1);
+		$this->thumbY1 = intval($this->thumbY1);
+		$this->thumbX2 = intval($this->thumbX2);
+		$this->thumbY2 = intval($this->thumbY2);
 	}
 
 	/**
@@ -241,11 +241,11 @@ class ImageInstanceModel extends AbstractModel
 	 */
 	protected function beforeSave()
 	{
-		$this->is_cover = intval($this->is_cover);
-		if ($this->is_cover >= 1) {
-			$this->is_cover = 1;
+		$this->isCover = intval($this->isCover);
+		if ($this->isCover >= 1) {
+			$this->isCover = 1;
 		} else {
-			$this->is_cover = 0;
+			$this->isCover = 0;
 		}
 
 		if ($this->sort < 0) {
@@ -292,33 +292,33 @@ class ImageInstanceModel extends AbstractModel
 		if ($maxThumbHeight > $this->height) {
 			$maxThumbHeight = $this->height;
 		}
-		if ($this->thumb_x1 < 0) {
-			$this->thumb_x1 = 0;
-		} elseif ($this->thumb_x1 > $maxThumbWidth - self::MIN_SIZE) {
-			$this->thumb_x1 = $maxThumbWidth - self::MIN_SIZE;
+		if ($this->thumbX1 < 0) {
+			$this->thumbX1 = 0;
+		} elseif ($this->thumbX1 > $maxThumbWidth - self::MIN_SIZE) {
+			$this->thumbX1 = $maxThumbWidth - self::MIN_SIZE;
 		}
-		if ($this->thumb_y1 < 0) {
-			$this->thumb_y1 = 0;
-		} elseif ($this->thumb_y1 > $maxThumbHeight - self::MIN_SIZE) {
-			$this->thumb_y1 = $maxThumbHeight - self::MIN_SIZE;
+		if ($this->thumbY1 < 0) {
+			$this->thumbY1 = 0;
+		} elseif ($this->thumbY1 > $maxThumbHeight - self::MIN_SIZE) {
+			$this->thumbY1 = $maxThumbHeight - self::MIN_SIZE;
 		}
-		if ($this->thumb_x2 < $this->thumb_x1 + self::MIN_SIZE) {
-			$this->thumb_x2 = $this->thumb_x1 + self::MIN_SIZE;
-		} elseif ($this->thumb_x2 > $maxThumbWidth) {
-			$this->thumb_x2 = $maxThumbWidth;
+		if ($this->thumbX2 < $this->thumbX1 + self::MIN_SIZE) {
+			$this->thumbX2 = $this->thumbX1 + self::MIN_SIZE;
+		} elseif ($this->thumbX2 > $maxThumbWidth) {
+			$this->thumbX2 = $maxThumbWidth;
 		}
-		if ($this->thumb_y2 < $this->thumb_y1 + self::MIN_SIZE) {
-			$this->thumb_y2 = $this->thumb_y1 + self::MIN_SIZE;
-		} elseif ($this->thumb_y2 > $maxThumbHeight) {
-			$this->thumb_y2 = $maxThumbHeight;
+		if ($this->thumbY2 < $this->thumbY1 + self::MIN_SIZE) {
+			$this->thumbY2 = $this->thumbY1 + self::MIN_SIZE;
+		} elseif ($this->thumbY2 > $maxThumbHeight) {
+			$this->thumbY2 = $maxThumbHeight;
 		}
 
 		if (!$this->id) {
-			$this->file_name = $this->_generateFileName();
+			$this->fileName = $this->_generateFileName();
 		}
 
-		if (!$this->file_name) {
-			throw new ModelException("Unable to save ImageInstanceModel because file_name is null");
+		if (!$this->fileName) {
+			throw new ModelException("Unable to save ImageInstanceModel because fileName is null");
 		}
 
 		parent::beforeSave();
@@ -353,9 +353,9 @@ class ImageInstanceModel extends AbstractModel
 	 */
 	protected function beforeDelete()
 	{
-		$file = new File($this->file_name);
-		$fileView = new File(self::VIEW_PREFIX . $this->file_name);
-		$fileThumb = new File(self::THUMB_PREFIX . $this->file_name);
+		$file = new File($this->fileName);
+		$fileView = new File(self::VIEW_PREFIX . $this->fileName);
+		$fileThumb = new File(self::THUMB_PREFIX . $this->fileName);
 
 		$file->delete();
 		$fileView->delete();
@@ -373,7 +373,7 @@ class ImageInstanceModel extends AbstractModel
 	 */
 	public function byAlbumId($imageAlbumId = 0)
 	{
-		$this->db->addCondition("t.image_album_id = :imageAlbumId");
+		$this->db->addCondition("t.imageAlbumId = :imageAlbumId");
 		$this->db->params["imageAlbumId"] = $imageAlbumId;
 
 		return $this;

@@ -41,7 +41,7 @@ class ImageAlbumModelTest extends AbstractModelTest
             [
                 [
                     "t.name"     => "",
-                    "t.image_id" => [],
+                    "t.imageId" => [],
                     "t.sort"     => [],
                 ],
                 [
@@ -52,24 +52,24 @@ class ImageAlbumModelTest extends AbstractModelTest
             [
                 [
                     "t.name"     => "image album name",
-                    "t.image_id" => 1,
+                    "t.imageId" => 1,
                     "t.sort"     => 1,
                 ],
                 [],
                 [
                     "t.name"     => "image album name",
-                    "t.image_id" => 1,
+                    "t.imageId" => 1,
                     "t.sort"     => 1,
                 ],
                 [
                     "t.name"     => "image album new name",
-                    "t.image_id" => 2,
+                    "t.imageId" => 2,
                     "t.sort"     => 200,
                 ],
                 [],
                 [
                     "t.name"     => "image album new name",
-                    "t.image_id" => 2,
+                    "t.imageId" => 2,
                     "t.sort"     => 200,
                 ],
             ],
@@ -85,22 +85,22 @@ class ImageAlbumModelTest extends AbstractModelTest
                     "t.name" => "max",
                 ]
             ],
-            // Incorrect image_id
+            // Incorrect imageId
             [
                 [
                     "t.name"     => "image album name",
-                    "t.image_id" => "incorrect",
+                    "t.imageId" => "incorrect",
                     "t.sort"     => "incorrect",
                 ],
                 [
-                    "t.image_id" => "relation",
+                    "t.imageId" => "relation",
                 ]
             ],
             // Incorrect sort
             [
                 [
                     "t.name"     => "image album name",
-                    "t.image_id" => 1,
+                    "t.imageId" => 1,
                     "t.sort"     => "incorrect",
                 ],
                 [],

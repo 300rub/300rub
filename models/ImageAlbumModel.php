@@ -5,7 +5,7 @@ namespace models;
 use components\exceptions\ModelException;
 
 /**
- * Model for working with table "image_albums"
+ * Model for working with table "imageAlbums"
  *
  * @package models
  *
@@ -29,7 +29,7 @@ class ImageAlbumModel extends AbstractModel
 	 *
 	 * @var integer
 	 */
-	public $image_id;
+	public $imageId;
 
 	/**
 	 * Sort order
@@ -66,7 +66,7 @@ class ImageAlbumModel extends AbstractModel
 	{
 		return [
 			"name"     => ["required", "max" => 255],
-			"image_id" => ["relation" => "\\models\\ImageModel"],
+			"imageId" => ["relation" => "\\models\\ImageModel"],
 			"sort"     => [],
 		];
 	}
@@ -87,7 +87,7 @@ class ImageAlbumModel extends AbstractModel
 	 */
 	protected function setValues()
 	{
-		$this->image_id = intval($this->image_id);
+		$this->imageId = intval($this->imageId);
 		$this->sort = intval($this->sort);
 	}
 
@@ -124,7 +124,7 @@ class ImageAlbumModel extends AbstractModel
 	 */
 	public function byImageId($imageId)
 	{
-		$this->db->addCondition("t.image_id = :imageId");
+		$this->db->addCondition("t.imageId = :imageId");
 		$this->db->params["imageId"] = $imageId;
 
 		return $this;

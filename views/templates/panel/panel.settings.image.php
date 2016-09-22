@@ -12,7 +12,7 @@ use models\ImageModel;
 
     <div class="l-form-group l-switch-container">
         <label class="l-label-container">
-            <input class="j-t__use_albums l-checkbox" type="checkbox"/>
+            <input class="j-t__useAlbums l-checkbox" type="checkbox"/>
             <span class="l-content">
                 <span class="l-icons">
                     <i class="fa fa-square-o l-not-checked"></i>
@@ -59,10 +59,10 @@ use models\ImageModel;
                                                 <span class="l-data">
 
                                                     <span class="l-form-group">
-                                                        <input class="j-t__crop_width l-form-small" type="text"/>
+                                                        <input class="j-t__cropWidth l-form-small" type="text"/>
                                                         <span class="l-suffix j-width-suffix">px</span>
                                                         <span class="l-separator">X</span>
-                                                        <input class="j-t__crop_height l-form-small" type="text"/>
+                                                        <input class="j-t__cropHeight l-form-small" type="text"/>
                                                         <span class="l-suffix j-width-suffix">px</span>
                                                     </span>
 
@@ -83,9 +83,9 @@ use models\ImageModel;
                                                 <span class="l-data">
 
                                                     <span class="l-form-group">
-                                                        <input class="j-t__crop_x l-form-small" type="text"/>
+                                                        <input class="j-t__cropX l-form-small" type="text"/>
                                                         <span class="l-separator">X</span>
-                                                        <input class="j-t__crop_y l-form-small" type="text"/>
+                                                        <input class="j-t__cropY l-form-small" type="text"/>
                                                     </span>
 
                                                 </span>
@@ -96,15 +96,15 @@ use models\ImageModel;
                                     <span class="l-title"><?= Language::t("image", "thumbs") ?></span>
 
                                     <span class="l-form-group">
-                                        <input class="j-t__thumb_crop_width l-form-small" type="text"/>
+                                        <input class="j-t__thumbCropWidth l-form-small" type="text"/>
                                         <span class="l-suffix j-width-suffix">px</span>
                                         <span class="l-separator">X</span>
-                                        <input class="j-t__thumb_crop_height l-form-small" type="text"/>
+                                        <input class="j-t__thumbCropHeight l-form-small" type="text"/>
                                         <span class="l-suffix j-width-suffix">px</span>
                                     </span>
 
                                     <label class="l-label-container">
-                                        <input class="j-t__use_albums l-checkbox" type="checkbox"/>
+                                        <input class="j-t__useAlbums l-checkbox" type="checkbox"/>
                                         <span class="l-content">
                                             <span class="l-icons">
                                                 <i class="fa fa-square-o l-not-checked"></i>

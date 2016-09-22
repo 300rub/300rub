@@ -175,63 +175,63 @@ class ImageModel extends AbstractModel
      *
      * @var integer
      */
-    public $auto_crop_type;
+    public $autoCropType;
 
     /**
      * Crop width
      *
      * @var integer
      */
-    public $crop_width;
+    public $cropWidth;
 
     /**
      * Crop height
      *
      * @var integer
      */
-    public $crop_height;
+    public $cropHeight;
 
     /**
      * Crop crop x proportion
      *
      * @var integer
      */
-    public $crop_x;
+    public $cropX;
 
     /**
      * Crop crop y proportion
      *
      * @var integer
      */
-    public $crop_y;
+    public $cropY;
 
     /**
      * Crop type for thumbs
      *
      * @var integer
      */
-    public $thumb_auto_crop_type;
+    public $thumbAutoCropType;
 
     /**
      * Crop crop x proportion for thumbs
      *
      * @var integer
      */
-    public $thumb_crop_x;
+    public $thumb_cropX;
 
     /**
      * Crop crop y proportion for thumbs
      *
      * @var integer
      */
-    public $thumb_crop_y;
+    public $thumb_cropY;
 
     /**
      * Is use albums
      *
      * @var boolean
      */
-    public $use_albums;
+    public $useAlbums;
 
     /**
      * Form types
@@ -279,15 +279,15 @@ class ImageModel extends AbstractModel
             "designImageZoomId"   => [],
             "designImageSimpleId" => [],
             "type"                   => [],
-            "auto_crop_type"         => [],
-            "crop_width"             => [],
-            "crop_height"            => [],
-            "crop_x"                 => [],
-            "crop_y"                 => [],
-            "thumb_auto_crop_type"   => [],
-            "thumb_crop_x"           => [],
-            "thumb_crop_y"           => [],
-            "use_albums"             => [],
+            "autoCropType"         => [],
+            "cropWidth"             => [],
+            "cropHeight"            => [],
+            "cropX"                 => [],
+            "cropY"                 => [],
+            "thumbAutoCropType"   => [],
+            "thumb_cropX"           => [],
+            "thumb_cropY"           => [],
+            "useAlbums"             => [],
         ];
     }
 
@@ -320,16 +320,16 @@ class ImageModel extends AbstractModel
         $this->designImageSimpleId = intval($this->designImageSimpleId);
         $this->type = intval($this->type);
 
-        $this->auto_crop_type = intval($this->auto_crop_type);
-        $this->crop_width = intval($this->crop_width);
-        $this->crop_height = intval($this->crop_height);
-        $this->crop_x = intval($this->crop_x);
-        $this->crop_y = intval($this->crop_y);
-        $this->thumb_auto_crop_type = intval($this->auto_crop_type);
-        $this->thumb_crop_x = intval($this->crop_x);
-        $this->thumb_crop_y = intval($this->crop_y);
+        $this->autoCropType = intval($this->autoCropType);
+        $this->cropWidth = intval($this->cropWidth);
+        $this->cropHeight = intval($this->cropHeight);
+        $this->cropX = intval($this->cropX);
+        $this->cropY = intval($this->cropY);
+        $this->thumbAutoCropType = intval($this->autoCropType);
+        $this->thumb_cropX = intval($this->cropX);
+        $this->thumb_cropY = intval($this->cropY);
 
-        $this->use_albums = boolval($this->use_albums);
+        $this->useAlbums = boolval($this->useAlbums);
     }
 
     /**
@@ -368,21 +368,21 @@ class ImageModel extends AbstractModel
 
         $autoCropTypeList = $this->getAutoCropTypeList();
 
-        if (!array_key_exists($this->auto_crop_type, $autoCropTypeList)) {
-            $this->auto_crop_type = self::DEFAULT_AUTO_CROP_TYPE;
+        if (!array_key_exists($this->autoCropType, $autoCropTypeList)) {
+            $this->autoCropType = self::DEFAULT_AUTO_CROP_TYPE;
         }
-        $this->crop_width = $this->getIntVal($this->crop_width, ImageInstanceModel::MAX_SIZE);
-        $this->crop_height = $this->getIntVal($this->crop_height, ImageInstanceModel::MAX_SIZE);
-        $this->crop_x = $this->getIntVal($this->crop_x);
-        $this->crop_y = $this->getIntVal($this->crop_y);
+        $this->cropWidth = $this->getIntVal($this->cropWidth, ImageInstanceModel::MAX_SIZE);
+        $this->cropHeight = $this->getIntVal($this->cropHeight, ImageInstanceModel::MAX_SIZE);
+        $this->cropX = $this->getIntVal($this->cropX);
+        $this->cropY = $this->getIntVal($this->cropY);
 
-        if (!array_key_exists($this->thumb_auto_crop_type, $autoCropTypeList)) {
-            $this->thumb_auto_crop_type = self::DEFAULT_AUTO_CROP_TYPE;
+        if (!array_key_exists($this->thumbAutoCropType, $autoCropTypeList)) {
+            $this->thumbAutoCropType = self::DEFAULT_AUTO_CROP_TYPE;
         }
-        $this->thumb_crop_x = $this->getIntVal($this->thumb_crop_x);
-        $this->thumb_crop_y = $this->getIntVal($this->thumb_crop_y);
+        $this->thumb_cropX = $this->getIntVal($this->thumb_cropX);
+        $this->thumb_cropY = $this->getIntVal($this->thumb_cropY);
 
-        $this->use_albums = $this->getTinyIntVal($this->use_albums);
+        $this->useAlbums = $this->getTinyIntVal($this->useAlbums);
 
         parent::beforeSave();
     }
