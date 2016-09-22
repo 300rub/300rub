@@ -107,7 +107,7 @@ class TextController extends AbstractController
             ];
         }
 
-        $this->setFormsForJson($model, ["t.name", "t.type", "t.isEditor"]);
+        $this->setFormsForJson($model, ["name", "type", "isEditor"]);
     }
 
     /**
@@ -188,7 +188,7 @@ class TextController extends AbstractController
             "isEditor" => boolval($model->isEditor)
         ];
 
-        $this->setFormsForJson($model, ["t.text"]);
+        $this->setFormsForJson($model, ["text"]);
     }
 
     /**
