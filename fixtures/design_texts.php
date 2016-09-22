@@ -1,84 +1,7 @@
 <?php
 
 return [
-    // texts_1
-    1 => [
-        "size"           => 0,
-        "family"         => 0,
-        "color"          => "",
-        "is_italic"      => 0,
-        "is_bold"        => 0,
-        "align"          => 0,
-        "decoration"     => 0,
-        "transform"      => 0,
-        "letter_spacing" => 0,
-        "line_height"    => 0,
-    ],
-    // texts_2
-    2 => [
-        "size"           => 0,
-        "family"         => 0,
-        "color"          => "",
-        "is_italic"      => 0,
-        "is_bold"        => 0,
-        "align"          => 0,
-        "decoration"     => 0,
-        "transform"      => 0,
-        "letter_spacing" => 0,
-        "line_height"    => 0,
-    ],
-    // texts_3
-    3 => [
-        "size"           => 0,
-        "family"         => 0,
-        "color"          => "",
-        "is_italic"      => 0,
-        "is_bold"        => 0,
-        "align"          => 0,
-        "decoration"     => 0,
-        "transform"      => 0,
-        "letter_spacing" => 0,
-        "line_height"    => 0,
-    ],
-    // texts_4
-    4 => [
-        "size"           => 0,
-        "family"         => 0,
-        "color"          => "",
-        "is_italic"      => 0,
-        "is_bold"        => 0,
-        "align"          => 0,
-        "decoration"     => 0,
-        "transform"      => 0,
-        "letter_spacing" => 0,
-        "line_height"    => 0,
-    ],
-    // texts_5
-    5 => [
-        "size"           => 0,
-        "family"         => 0,
-        "color"          => "",
-        "is_italic"      => 0,
-        "is_bold"        => 0,
-        "align"          => 0,
-        "decoration"     => 0,
-        "transform"      => 0,
-        "letter_spacing" => 0,
-        "line_height"    => 0,
-    ],
-    // texts_6
-    6 => [
-        "size"           => 0,
-        "family"         => 0,
-        "color"          => "",
-        "is_italic"      => 0,
-        "is_bold"        => 0,
-        "align"          => 0,
-        "decoration"     => 0,
-        "transform"      => 0,
-        "letter_spacing" => 0,
-        "line_height"    => 0,
-    ],
+
     // texts_7
     7 => [
         "size"           => 25,
@@ -89,19 +12,6 @@ return [
         "align"          => 1,
         "decoration"     => 1,
         "transform"      => 1,
-        "letter_spacing" => 0,
-        "line_height"    => 0,
-    ],
-    // texts_8
-    8 => [
-        "size"           => 0,
-        "family"         => 0,
-        "color"          => "",
-        "is_italic"      => 0,
-        "is_bold"        => 0,
-        "align"          => 0,
-        "decoration"     => 0,
-        "transform"      => 0,
         "letter_spacing" => 0,
         "line_height"    => 0,
     ],

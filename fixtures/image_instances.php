@@ -4,7 +4,7 @@ return [
     /**
      * 0000000000000001.jpg 640x480
      * view_0000000000000001.jpg 640x480
-     * thumb_0000000000000001.jpg 400x300
+     * thumb_0000000000000001.jpg 300x225
      */
     1 => [
         "file_name"      => "0000000000000001",
@@ -26,7 +26,7 @@ return [
     /**
      * 0000000000000002.jpg 640x480
      * view_0000000000000002.jpg 640x480
-     * thumb_0000000000000002.jpg 400x300
+     * thumb_0000000000000002.jpg 300x225
      */
     2 => [
         "file_name"      => "0000000000000002",
@@ -48,7 +48,7 @@ return [
     /**
      * 0000000000000003.jpg 640x480
      * view_0000000000000003.jpg 640x480
-     * thumb_0000000000000003.jpg 400x300
+     * thumb_0000000000000003.jpg 300x225
      */
     3 => [
         "file_name"      => "0000000000000003",
@@ -70,7 +70,7 @@ return [
     /**
      * 0000000000000004.jpg 800x600
      * view_0000000000000004.jpg 640x480
-     * thumb_0000000000000004.jpg 200x150
+     * thumb_0000000000000004.jpg 300x225
      *
      * @see ImageModel::CROP_TYPE_TOP_CENTER
      */
@@ -86,15 +86,15 @@ return [
         "y1"             => 0,
         "x2"             => 720,
         "y2"             => 480,
-        "thumb_x1"       => 100,
+        "thumb_x1"       => 0,
         "thumb_y1"       => 0,
         "thumb_x2"       => 300,
-        "thumb_y2"       => 150
+        "thumb_y2"       => 225
     ],
     /**
      * 0000000000000005.jpg 800x600
      * view_0000000000000005.jpg 640x480
-     * thumb_0000000000000005.jpg 200x150
+     * thumb_0000000000000005.jpg 300x225
      *
      * @see ImageModel::CROP_TYPE_TOP_CENTER
      */
@@ -110,15 +110,15 @@ return [
         "y1"             => 0,
         "x2"             => 720,
         "y2"             => 480,
-        "thumb_x1"       => 100,
+        "thumb_x1"       => 0,
         "thumb_y1"       => 0,
         "thumb_x2"       => 300,
-        "thumb_y2"       => 150
+        "thumb_y2"       => 225
     ],
     /**
      * 0000000000000006.jpg 800x600
      * view_0000000000000006.jpg 640x480
-     * thumb_0000000000000006.jpg 200x150
+     * thumb_0000000000000006.jpg 300x225
      *
      * @see ImageModel::CROP_TYPE_TOP_CENTER
      */
@@ -134,15 +134,15 @@ return [
         "y1"             => 0,
         "x2"             => 720,
         "y2"             => 480,
-        "thumb_x1"       => 100,
+        "thumb_x1"       => 0,
         "thumb_y1"       => 0,
         "thumb_x2"       => 300,
-        "thumb_y2"       => 150
+        "thumb_y2"       => 225
     ],
     /**
      * 0000000000000007.jpg 1024x768
      * view_0000000000000007.jpg 980x200
-     * thumb_0000000000000007.jpg 400x300
+     * thumb_0000000000000007.jpg 300x225
      *
      * @see ImageModel::CROP_TYPE_MIDDLE_CENTER
      */
@@ -166,7 +166,7 @@ return [
     /**
      * 0000000000000008.jpg 1024x768
      * view_0000000000000008.jpg 980x200
-     * thumb_0000000000000008.jpg 400x300
+     * thumb_0000000000000008.jpg 300x225
      *
      * @see ImageModel::CROP_TYPE_MIDDLE_CENTER
      */
@@ -190,7 +190,7 @@ return [
     /**
      * 0000000000000009.jpg 1024x768
      * view_0000000000000009.jpg 980x200
-     * thumb_0000000000000009.jpg 400x300
+     * thumb_0000000000000009.jpg 300x225
      *
      * @see ImageModel::CROP_TYPE_MIDDLE_CENTER
      */
@@ -214,7 +214,7 @@ return [
     /**
      * 0000000000000010.jpg 800x600
      * view_0000000000000010.jpg 800x400
-     * thumb_0000000000000010.jpg 400x300
+     * thumb_0000000000000010.jpg 300x225
      *
      * @see ImageModel::CROP_TYPE_BOTTOM_CENTER
      */
@@ -238,7 +238,7 @@ return [
     /**
      * 0000000000000011.jpg 800x600
      * view_0000000000000011.jpg 800x400
-     * thumb_0000000000000011.jpg 400x300
+     * thumb_0000000000000011.jpg 300x225
      *
      * @see ImageModel::CROP_TYPE_BOTTOM_CENTER
      */
@@ -262,7 +262,7 @@ return [
     /**
      * 0000000000000012.jpg 800x600
      * view_0000000000000012.jpg 800x400
-     * thumb_0000000000000012.jpg 400x300
+     * thumb_0000000000000012.jpg 300x225
      *
      * @see ImageModel::CROP_TYPE_BOTTOM_CENTER
      */
@@ -286,7 +286,7 @@ return [
     /**
      * 0000000000000013.jpg 800x600
      * view_0000000000000013.jpg 800x400
-     * thumb_0000000000000013.jpg 400x300
+     * thumb_0000000000000013.jpg 300x225
      *
      * @see ImageModel::CROP_TYPE_BOTTOM_CENTER
      */
@@ -310,7 +310,7 @@ return [
     /**
      * 0000000000000014.jpg 800x600
      * view_0000000000000014.jpg 800x400
-     * thumb_0000000000000014.jpg 400x300
+     * thumb_0000000000000014.jpg 300x225
      *
      * @see ImageModel::CROP_TYPE_BOTTOM_CENTER
      */
@@ -334,7 +334,7 @@ return [
     /**
      * 0000000000000015.jpg 800x600
      * view_0000000000000015.jpg 800x400
-     * thumb_0000000000000015.jpg 400x300
+     * thumb_0000000000000015.jpg 300x225
      *
      * @see ImageModel::CROP_TYPE_BOTTOM_CENTER
      */
@@ -502,7 +502,7 @@ return [
     /**
      * 0000000000000022.jpg 1024x768
      * view_0000000000000022.jpg 980x200
-     * thumb_0000000000000022.jpg 400x300
+     * thumb_0000000000000022.jpg 300x225
      *
      * @see ImageModel::CROP_TYPE_TOP_RIGHT
      */
@@ -526,7 +526,7 @@ return [
     /**
      * 0000000000000023.jpg 1024x768
      * view_0000000000000023.jpg 980x200
-     * thumb_0000000000000023.jpg 400x300
+     * thumb_0000000000000023.jpg 300x225
      *
      * @see ImageModel::CROP_TYPE_TOP_RIGHT
      */
@@ -550,7 +550,7 @@ return [
     /**
      * 0000000000000024.jpg 1024x768
      * view_0000000000000024.jpg 980x200
-     * thumb_0000000000000024.jpg 400x300
+     * thumb_0000000000000024.jpg 300x225
      *
      * @see ImageModel::CROP_TYPE_TOP_RIGHT
      */
@@ -574,7 +574,7 @@ return [
     /**
      * 0000000000000025.jpg 1024x768
      * view_0000000000000025.jpg 980x200
-     * thumb_0000000000000025.jpg 400x300
+     * thumb_0000000000000025.jpg 300x225
      *
      * @see ImageModel::CROP_TYPE_TOP_RIGHT
      */
@@ -598,7 +598,7 @@ return [
     /**
      * 0000000000000026.jpg 1024x768
      * view_0000000000000026.jpg 980x200
-     * thumb_0000000000000026.jpg 400x300
+     * thumb_0000000000000026.jpg 300x225
      *
      * @see ImageModel::CROP_TYPE_TOP_RIGHT
      */
@@ -622,7 +622,7 @@ return [
     /**
      * 0000000000000027.jpg 1024x768
      * view_0000000000000027.jpg 980x200
-     * thumb_0000000000000027.jpg 400x300
+     * thumb_0000000000000027.jpg 300x225
      *
      * @see ImageModel::CROP_TYPE_TOP_RIGHT
      */

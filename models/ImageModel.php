@@ -220,20 +220,6 @@ class ImageModel extends AbstractModel
     public $thumb_auto_crop_type;
 
     /**
-     * Crop width for thumbs
-     *
-     * @var integer
-     */
-    public $thumb_crop_width;
-
-    /**
-     * Crop height for thumbs
-     *
-     * @var integer
-     */
-    public $thumb_crop_height;
-
-    /**
      * Crop crop x proportion for thumbs
      *
      * @var integer
@@ -307,8 +293,6 @@ class ImageModel extends AbstractModel
             "crop_x"                 => [],
             "crop_y"                 => [],
             "thumb_auto_crop_type"   => [],
-            "thumb_crop_width"       => [],
-            "thumb_crop_height"      => [],
             "thumb_crop_x"           => [],
             "thumb_crop_y"           => [],
             "use_albums"             => [],
@@ -351,8 +335,6 @@ class ImageModel extends AbstractModel
         $this->crop_x = intval($this->crop_x);
         $this->crop_y = intval($this->crop_y);
         $this->thumb_auto_crop_type = intval($this->auto_crop_type);
-        $this->thumb_crop_width = intval($this->crop_width);
-        $this->thumb_crop_height = intval($this->crop_height);
         $this->thumb_crop_x = intval($this->crop_x);
         $this->thumb_crop_y = intval($this->crop_y);
 
@@ -409,8 +391,6 @@ class ImageModel extends AbstractModel
             if (!array_key_exists($this->thumb_auto_crop_type, $autoCropTypeList)) {
                 $this->thumb_auto_crop_type = self::DEFAULT_AUTO_CROP_TYPE;
             }
-            $this->thumb_crop_width = $this->getIntVal($this->thumb_crop_width, ImageInstanceModel::MAX_THUMB_SIZE);
-            $this->thumb_crop_height = $this->getIntVal($this->thumb_crop_height, ImageInstanceModel::MAX_THUMB_SIZE);
             $this->thumb_crop_x = $this->getIntVal($this->thumb_crop_x);
             $this->thumb_crop_y = $this->getIntVal($this->thumb_crop_y);
         }

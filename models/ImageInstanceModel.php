@@ -31,7 +31,7 @@ class ImageInstanceModel extends AbstractModel
 	/**
 	 * Max thumb size in px
 	 */
-	const MAX_THUMB_SIZE = 400;
+	const MAX_THUMB_SIZE = 300;
 
 	/**
 	 * View prefix

@@ -17,6 +17,19 @@ class M_160317_000000_images extends AbstractMigration
     {
         $this
             ->createTable(
+                "design_image_simples",
+                [
+                    "id"                    => "pk",
+                    "alignment"             => "integer",
+                    "design_block_id"       => "integer",
+                    "image_design_block_id" => "integer",
+                    "design_text_id"        => "integer",
+                ]
+            )
+            ->createIndex("design_image_simples_design_block_id", "design_image_simples", "design_block_id")
+            ->createIndex("design_image_simples_design_image_block_id", "design_image_simples", "design_image_block_id")
+            ->createIndex("design_image_simples_design_text_id", "design_image_simples", "design_text_id")
+            ->createTable(
                 "design_image_zooms",
                 [
                     "id"                    => "pk",
@@ -73,8 +86,6 @@ class M_160317_000000_images extends AbstractMigration
                     "thumb_auto_crop_type"   => "integer",
                     "thumb_crop_width"       => "integer",
                     "thumb_crop_height"      => "integer",
-                    "thumb_crop_x"           => "integer",
-                    "thumb_crop_y"           => "integer",
                     "use_albums"             => "boolean",
                 ]
             )

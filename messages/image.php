@@ -23,4 +23,28 @@ return [
         Language::LANGUAGE_EN_ID => "Use albums",
         Language::LANGUAGE_RU_ID => "",
     ],
+    "useCrop" => [
+        Language::LANGUAGE_EN_ID => "Use crop",
+        Language::LANGUAGE_RU_ID => "",
+    ],
+    "zoom" => [
+        Language::LANGUAGE_EN_ID => "Zoom",
+        Language::LANGUAGE_RU_ID => "",
+    ],
+    "exactSize" => [
+        Language::LANGUAGE_EN_ID => "Exact size",
+        Language::LANGUAGE_RU_ID => "",
+    ],
+    "proportions" => [
+        Language::LANGUAGE_EN_ID => "Proportions",
+        Language::LANGUAGE_RU_ID => "",
+    ],
+    "bigImages" => [
+        Language::LANGUAGE_EN_ID => "Big images",
+        Language::LANGUAGE_RU_ID => "",
+    ],
+    "thumbs" => [
+        Language::LANGUAGE_EN_ID => "Thumbs",
+        Language::LANGUAGE_RU_ID => "",
+    ]
 ];
