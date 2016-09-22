@@ -47,7 +47,7 @@ class TextModelTest extends AbstractModelTest
                     "t.is_editor"       => "",
                     "t.text"            => "",
                     "t.design_text_id"  => "",
-                    "t.design_block_id" => "",
+                    "t.designBlockId" => "",
                 ],
                 [
                     "t.name" => "required",
@@ -101,7 +101,7 @@ class TextModelTest extends AbstractModelTest
                     "t.type"            => "incorrect type",
                     "t.is_editor"       => "incorrect editor",
                     "t.design_text_id"  => "incorrect design text",
-                    "t.design_block_id" => "incorrect design block",
+                    "t.designBlockId" => "incorrect design block",
                 ],
                 [],
                 [
@@ -116,7 +116,7 @@ class TextModelTest extends AbstractModelTest
                     "t.type"            => 144,
                     "t.is_editor"       => 34,
                     "t.design_text_id"  => 1111,
-                    "t.design_block_id" => 3224,
+                    "t.designBlockId" => 3224,
                 ],
                 [],
                 [
@@ -211,7 +211,7 @@ class TextModelTest extends AbstractModelTest
         $this->assertEquals($modelForCopy->text, $modelCopy->text);
         $this->assertEquals(Language::t("common", "copy") . " {$modelForCopy->name}", $modelCopy->name);
         $this->assertNotEquals($modelForCopy->design_text_id, $modelCopy->design_text_id);
-        $this->assertNotEquals($modelForCopy->design_block_id, $modelCopy->design_block_id);
+        $this->assertNotEquals($modelForCopy->designBlockId, $modelCopy->designBlockId);
 
         foreach ($modelForCopy->designTextModel->getFieldNames() as $field) {
             $this->assertEquals($modelForCopy->designTextModel->$field, $modelCopy->designTextModel->$field);

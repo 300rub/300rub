@@ -44,7 +44,7 @@ class ImageModelTest extends AbstractModelTest
                 [
                     "t.name"                  => "",
                     "t.language"              => "",
-                    "t.design_block_id"       => "",
+                    "t.designBlockId"       => "",
                     "t.design_image_block_id" => "",
                     "t.crop_type"             => "",
                     "t.crop_width"            => "",

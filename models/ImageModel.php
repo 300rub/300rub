@@ -112,7 +112,7 @@ class ImageModel extends AbstractModel
      *
      * @var integer
      */
-    public $design_block_id;
+    public $designBlockId;
 
     /**
      * Design block model
@@ -255,7 +255,7 @@ class ImageModel extends AbstractModel
      * @var array
      */
     protected $relations = [
-        "designBlockModel"       => ['models\DesignBlockModel', "design_block_id"],
+        "designBlockModel"       => ['models\DesignBlockModel', "designBlockId"],
         "designImageSliderModel" => ['models\DesignImageSliderModel', "design_image_slider_id"],
         "designImageZoomModel"   => ['models\DesignImageZoomModel', "design_image_zoom_id"],
         "designImageSimpleModel" => ['models\DesignBlockModel', "design_image_slider_id"]
@@ -281,7 +281,7 @@ class ImageModel extends AbstractModel
         return [
             "name"                   => ["required", "max" => 255],
             "language"               => [],
-            "design_block_id"        => [],
+            "designBlockId"        => [],
             "design_image_slider_id" => [],
             "design_image_zoom_id"   => [],
             "design_image_simple_id" => [],
@@ -322,7 +322,7 @@ class ImageModel extends AbstractModel
             $this->language = Language::$activeId;
         }
 
-        $this->design_block_id = intval($this->design_block_id);
+        $this->designBlockId = intval($this->designBlockId);
         $this->design_image_slider_id = intval($this->design_image_slider_id);
         $this->design_image_zoom_id = intval($this->design_image_zoom_id);
         $this->design_image_simple_id = intval($this->design_image_simple_id);
@@ -348,7 +348,7 @@ class ImageModel extends AbstractModel
     {
         $this->designBlockModel = $this->getRelationModel(
             $this->designBlockModel,
-            $this->design_block_id,
+            $this->designBlockId,
             "DesignBlockModel"
         );
 
@@ -465,7 +465,7 @@ class ImageModel extends AbstractModel
         }
 
         $this
-            ->deleteRelation($this->designBlockModel, $this->design_block_id, "DesignBlockModel")
+            ->deleteRelation($this->designBlockModel, $this->designBlockId, "DesignBlockModel")
             ->deleteRelation($this->designImageZoomModel, $this->design_image_zoom_id, "DesignImageZoomModel")
             ->deleteRelation($this->designImageSliderModel, $this->design_image_slider_id, "DesignImageSliderModel")
             ->deleteRelation($this->designImageSimpleModel, $this->design_image_simple_id, "DesignBlockModel");

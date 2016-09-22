@@ -21,50 +21,50 @@ class M_160317_000000_images extends AbstractMigration
                 [
                     "id"                    => "pk",
                     "alignment"             => "integer",
-                    "design_block_id"       => "integer",
-                    "image_design_block_id" => "integer",
+                    "designBlockId"       => "integer",
+                    "image_designBlockId" => "integer",
                     "design_text_id"        => "integer",
                 ]
             )
-            ->createIndex("design_image_simples_design_block_id", "design_image_simples", "design_block_id")
+            ->createIndex("design_image_simples_designBlockId", "design_image_simples", "designBlockId")
             ->createIndex("design_image_simples_design_image_block_id", "design_image_simples", "design_image_block_id")
             ->createIndex("design_image_simples_design_text_id", "design_image_simples", "design_text_id")
             ->createTable(
                 "design_image_zooms",
                 [
                     "id"                    => "pk",
-                    "design_block_id"       => "integer",
+                    "designBlockId"       => "integer",
                     "is_scroll"             => "boolean",
                     "thumbs_alignment"      => "integer",
                     "description_alignment" => "integer",
                     "effect"                => "integer",
                 ]
             )
-            ->createIndex("design_image_zooms_design_block_id", "design_image_zooms", "design_block_id")
+            ->createIndex("design_image_zooms_designBlockId", "design_image_zooms", "designBlockId")
             ->createTable(
                 "design_image_sliders",
                 [
                     "id"                          => "pk",
-                    "design_block_id"             => "integer",
+                    "designBlockId"             => "integer",
                     "effect"                      => "integer",
                     "is_auto_play"                => "boolean",
                     "play_speed"                  => "integer",
-                    "navigation_design_block_id"  => "integer",
+                    "navigation_designBlockId"  => "integer",
                     "navigation_alignment"        => "integer",
-                    "description_design_block_id" => "integer",
+                    "description_designBlockId" => "integer",
                     "description_alignment"       => "integer",
                 ]
             )
-            ->createIndex("design_image_sliders_design_block_id", "design_image_sliders", "design_block_id")
+            ->createIndex("design_image_sliders_designBlockId", "design_image_sliders", "designBlockId")
             ->createIndex(
-                "design_image_sliders_navigation_design_block_id",
+                "design_image_sliders_navigation_designBlockId",
                 "design_image_sliders",
-                "navigation_design_block_id"
+                "navigation_designBlockId"
             )
             ->createIndex(
-                "design_image_sliders_description_design_block_id",
+                "design_image_sliders_description_designBlockId",
                 "design_image_sliders",
-                "description_design_block_id"
+                "description_designBlockId"
             )
             ->createTable(
                 "images",
@@ -72,7 +72,7 @@ class M_160317_000000_images extends AbstractMigration
                     "id"                     => "pk",
                     "name"                   => "string",
                     "language"               => "integer",
-                    "design_block_id"        => "integer",
+                    "designBlockId"        => "integer",
                     "design_image_slider_id" => "integer",
                     "design_image_zoom_id"   => "integer",
                     "design_image_simple_id" => "integer",
@@ -89,7 +89,7 @@ class M_160317_000000_images extends AbstractMigration
                     "use_albums"             => "boolean",
                 ]
             )
-            ->createIndex("images_design_block_id", "images", "design_block_id")
+            ->createIndex("images_designBlockId", "images", "designBlockId")
             ->createIndex("images_design_image_slider_id", "images", "design_image_slider_id")
             ->createIndex("images_design_image_zoom_id", "images", "design_image_zoom_id")
             ->createIndex("images_design_image_simple_id", "images", "design_image_simple_id")

@@ -72,7 +72,7 @@ class DesignImageZoomModel extends AbstractModel
      *
      * @var integer
      */
-    public $design_block_id;
+    public $designBlockId;
 
     /**
      * Design block model
@@ -115,7 +115,7 @@ class DesignImageZoomModel extends AbstractModel
      * @var array
      */
     protected $relations = [
-        "designBlockModel" => ['models\DesignBlockModel', "design_block_id"],
+        "designBlockModel" => ['models\DesignBlockModel', "designBlockId"],
     ];
 
     /**
@@ -136,7 +136,7 @@ class DesignImageZoomModel extends AbstractModel
     public function getRules()
     {
         return [
-            "design_block_id"       => [],
+            "designBlockId"       => [],
             "is_scroll"             => [],
             "thumbs_alignment"      => [],
             "description_alignment" => [],
@@ -160,7 +160,7 @@ class DesignImageZoomModel extends AbstractModel
      */
     protected function setValues()
     {
-        $this->design_block_id = intval($this->design_block_id);
+        $this->designBlockId = intval($this->designBlockId);
         $this->is_scroll = boolval($this->is_scroll);
         $this->thumbs_alignment = intval($this->thumbs_alignment);
         $this->description_alignment = intval($this->description_alignment);
@@ -174,7 +174,7 @@ class DesignImageZoomModel extends AbstractModel
     {
         $this->designBlockModel = $this->getRelationModel(
             $this->designBlockModel,
-            $this->design_block_id,
+            $this->designBlockId,
             "DesignBlockModel"
         );
 
@@ -203,7 +203,7 @@ class DesignImageZoomModel extends AbstractModel
      */
     protected function beforeDelete()
     {
-        $this->deleteRelation($this->designBlockModel, $this->design_block_id, "DesignBlockModel");
+        $this->deleteRelation($this->designBlockModel, $this->designBlockId, "DesignBlockModel");
 
         parent::beforeDelete();
     }

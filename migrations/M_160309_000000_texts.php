@@ -26,10 +26,10 @@ class M_160309_000000_texts extends AbstractMigration
 					"is_editor"       => "boolean",
 					"text"            => "text",
 					"design_text_id"  => "integer",
-					"design_block_id" => "integer",
+					"designBlockId" => "integer",
 				]
 			)
 			->createIndex("texts_design_text_id", "texts", "design_text_id")
-			->createIndex("texts_design_block_id", "texts", "design_block_id");
+			->createIndex("texts_designBlockId", "texts", "designBlockId");
 	}
 }

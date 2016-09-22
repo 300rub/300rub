@@ -44,7 +44,7 @@ class DesignImageSimpleModel extends AbstractModel
      *
      * @var integer
      */
-    public $design_block_id;
+    public $designBlockId;
 
     /**
      * Design block model
@@ -58,7 +58,7 @@ class DesignImageSimpleModel extends AbstractModel
      *
      * @var integer
      */
-    public $image_design_block_id;
+    public $image_designBlockId;
 
     /**
      * Design image block model
@@ -87,8 +87,8 @@ class DesignImageSimpleModel extends AbstractModel
      * @var array
      */
     protected $relations = [
-        "designBlockModel"      => ['models\DesignBlockModel', "design_block_id"],
-        "imageDesignBlockModel" => ['models\DesignBlockModel', "image_design_block_id"],
+        "designBlockModel"      => ['models\DesignBlockModel', "designBlockId"],
+        "imageDesignBlockModel" => ['models\DesignBlockModel', "image_designBlockId"],
         "designTextModel"       => ['models\DesignBlockModel', "design_text_id"],
     ];
 
@@ -111,8 +111,8 @@ class DesignImageSimpleModel extends AbstractModel
     {
         return [
             "alignment"             => [],
-            "design_block_id"       => [],
-            "image_design_block_id" => [],
+            "designBlockId"       => [],
+            "image_designBlockId" => [],
             "design_text_id"        => [],
         ];
     }
@@ -134,8 +134,8 @@ class DesignImageSimpleModel extends AbstractModel
     protected function setValues()
     {
         $this->alignment = intval($this->alignment);
-        $this->design_block_id = intval($this->design_block_id);
-        $this->image_design_block_id = intval($this->image_design_block_id);
+        $this->designBlockId = intval($this->designBlockId);
+        $this->image_designBlockId = intval($this->image_designBlockId);
         $this->design_text_id = intval($this->design_text_id);
     }
 
@@ -148,13 +148,13 @@ class DesignImageSimpleModel extends AbstractModel
 
         $this->designBlockModel = $this->getRelationModel(
             $this->designBlockModel,
-            $this->design_block_id,
+            $this->designBlockId,
             "DesignBlockModel"
         );
 
         $this->imageDesignBlockModel = $this->getRelationModel(
             $this->imageDesignBlockModel,
-            $this->image_design_block_id,
+            $this->image_designBlockId,
             "DesignBlockModel"
         );
 
@@ -177,8 +177,8 @@ class DesignImageSimpleModel extends AbstractModel
      */
     protected function beforeDelete()
     {
-        $this->deleteRelation($this->designBlockModel, $this->design_block_id, "DesignBlockModel");
-        $this->deleteRelation($this->imageDesignBlockModel, $this->image_design_block_id, "DesignBlockModel");
+        $this->deleteRelation($this->designBlockModel, $this->designBlockId, "DesignBlockModel");
+        $this->deleteRelation($this->imageDesignBlockModel, $this->image_designBlockId, "DesignBlockModel");
         $this->deleteRelation($this->designTextModel, $this->design_text_id, "DesignTextModel");
 
         parent::beforeDelete();

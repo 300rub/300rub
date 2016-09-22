@@ -59,7 +59,7 @@ class SectionModel extends AbstractModel
 	 *
 	 * @var int
 	 */
-	public $design_block_id = 0;
+	public $designBlockId = 0;
 
 	/**
 	 * Seo model
@@ -82,7 +82,7 @@ class SectionModel extends AbstractModel
 	 */
 	protected $relations = [
 		"seoModel"         => ['models\SeoModel', "seoId"],
-		"designBlockModel" => ['models\DesignBlockModel', "design_block_id"]
+		"designBlockModel" => ['models\DesignBlockModel', "designBlockId"]
 	];
 
 	/**
@@ -117,7 +117,7 @@ class SectionModel extends AbstractModel
 			"language"        => [],
 			"width"           => [],
 			"isMain"         => [],
-			"design_block_id" => [],
+			"designBlockId" => [],
 		];
 	}
 
@@ -192,10 +192,10 @@ class SectionModel extends AbstractModel
 		}
 
 		if (!$this->designBlockModel instanceof DesignBlockModel) {
-			if ($this->design_block_id === 0) {
+			if ($this->designBlockId === 0) {
 				$this->designBlockModel = new DesignBlockModel();
 			} else {
-				$this->designBlockModel = DesignBlockModel::model()->byId($this->design_block_id)->find();
+				$this->designBlockModel = DesignBlockModel::model()->byId($this->designBlockId)->find();
 				if ($this->designBlockModel === null) {
 					$this->designBlockModel = new DesignBlockModel();
 				}
@@ -229,7 +229,7 @@ class SectionModel extends AbstractModel
 			$this->isMain = 1;
 		}
 
-		$this->design_block_id = intval($this->design_block_id);
+		$this->designBlockId = intval($this->designBlockId);
 	}
 
 	/**
@@ -281,7 +281,7 @@ class SectionModel extends AbstractModel
 
 		$designBlockModel = $this->designBlockModel;
 		if ($designBlockModel === null) {
-			$designBlockModel = DesignBlockModel::model()->byId($this->design_block_id)->find();
+			$designBlockModel = DesignBlockModel::model()->byId($this->designBlockId)->find();
 		}
 		if ($designBlockModel instanceof DesignBlockModel) {
 			if (!$designBlockModel->delete()) {
@@ -334,7 +334,7 @@ class SectionModel extends AbstractModel
 		$model->width = $modelForCopy->width;
 		$model->isMain = 0;
 		$model->designBlockModel = $designBlockModel;
-		$model->design_block_id = $designBlockModel->id;
+		$model->designBlockId = $designBlockModel->id;
 		if (!$model->save()) {
 			$fields = "";
 			foreach ($model->getFieldNames() as $fieldName) {

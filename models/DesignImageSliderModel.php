@@ -107,7 +107,7 @@ class DesignImageSliderModel extends AbstractModel
      *
      * @var integer
      */
-    public $design_block_id;
+    public $designBlockId;
 
     /**
      * Design block model
@@ -142,7 +142,7 @@ class DesignImageSliderModel extends AbstractModel
      *
      * @var int
      */
-    public $navigation_design_block_id;
+    public $navigation_designBlockId;
 
     /**
      * Navigation design block model
@@ -163,7 +163,7 @@ class DesignImageSliderModel extends AbstractModel
      *
      * @var int
      */
-    public $description_design_block_id;
+    public $description_designBlockId;
 
     /**
      * Description design block model
@@ -185,9 +185,9 @@ class DesignImageSliderModel extends AbstractModel
      * @var array
      */
     protected $relations = [
-        "designBlockModel"            => ['models\DesignBlockModel', "design_block_id"],
-        "navigationDesignBlockModel"  => ['models\DesignBlockModel', "navigation_design_block_id"],
-        "descriptionDesignBlockModel" => ['models\DesignBlockModel', "description_design_block_id"],
+        "designBlockModel"            => ['models\DesignBlockModel', "designBlockId"],
+        "navigationDesignBlockModel"  => ['models\DesignBlockModel', "navigation_designBlockId"],
+        "descriptionDesignBlockModel" => ['models\DesignBlockModel', "description_designBlockId"],
     ];
 
     /**
@@ -208,13 +208,13 @@ class DesignImageSliderModel extends AbstractModel
     public function getRules()
     {
         return [
-            "design_block_id"             => [],
+            "designBlockId"             => [],
             "effect"                      => [],
             "is_auto_play"                => [],
             "play_speed"                  => [],
-            "navigation_design_block_id"  => [],
+            "navigation_designBlockId"  => [],
             "navigation_alignment"        => [],
-            "description_design_block_id" => [],
+            "description_designBlockId" => [],
             "description_alignment"       => [],
         ];
     }
@@ -235,13 +235,13 @@ class DesignImageSliderModel extends AbstractModel
      */
     protected function setValues()
     {
-        $this->design_block_id = intval($this->design_block_id);
+        $this->designBlockId = intval($this->designBlockId);
         $this->effect = intval($this->effect);
         $this->is_auto_play = boolval($this->is_auto_play);
         $this->play_speed = intval($this->play_speed);
-        $this->navigation_design_block_id = intval($this->navigation_design_block_id);
+        $this->navigation_designBlockId = intval($this->navigation_designBlockId);
         $this->navigation_alignment = intval($this->navigation_alignment);
-        $this->description_design_block_id = intval($this->description_design_block_id);
+        $this->description_designBlockId = intval($this->description_designBlockId);
         $this->description_alignment = intval($this->description_alignment);
     }
 
@@ -252,19 +252,19 @@ class DesignImageSliderModel extends AbstractModel
     {
         $this->designBlockModel = $this->getRelationModel(
             $this->designBlockModel,
-            $this->design_block_id,
+            $this->designBlockId,
             "DesignBlockModel"
         );
 
         $this->navigationDesignBlockModel = $this->getRelationModel(
             $this->navigationDesignBlockModel,
-            $this->navigation_design_block_id,
+            $this->navigation_designBlockId,
             "DesignBlockModel"
         );
 
         $this->descriptionDesignBlockModel = $this->getRelationModel(
             $this->descriptionDesignBlockModel,
-            $this->description_design_block_id,
+            $this->description_designBlockId,
             "DesignBlockModel"
         );
 
@@ -329,11 +329,11 @@ class DesignImageSliderModel extends AbstractModel
     protected function beforeDelete()
     {
         $this
-            ->deleteRelation($this->designBlockModel, $this->design_block_id, "DesignBlockModel")
-            ->deleteRelation($this->navigationDesignBlockModel, $this->navigation_design_block_id, "DesignBlockModel")
+            ->deleteRelation($this->designBlockModel, $this->designBlockId, "DesignBlockModel")
+            ->deleteRelation($this->navigationDesignBlockModel, $this->navigation_designBlockId, "DesignBlockModel")
             ->deleteRelation(
                 $this->descriptionDesignBlockModel,
-                $this->description_design_block_id,
+                $this->description_designBlockId,
                 "DesignBlockModel"
             );
 
