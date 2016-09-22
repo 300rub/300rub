@@ -156,13 +156,13 @@ class MigrateCommand extends AbstractCommand
 	private function _createDumps()
 	{
 		foreach ($this->_sites as $site) {
-			if (!Db::setPdo($site["db_host"], $site["db_user"], $site["db_password"], $site["db_name"])) {
+			if (!Db::setPdo($site["dbHost"], $site["dbUser"], $site["db_password"], $site["db_name"])) {
 				throw new MigrationException(
 					"Unable to set PDO for creating dump
 					with host: {host}, user: {user}, password: {password}, name: {name}",
 					[
-						"host"     => $site["db_host"],
-						"user"     => $site["db_user"],
+						"host"     => $site["dbHost"],
+						"user"     => $site["dbUser"],
 						"password" => $site["db_password"],
 						"name"     => $site["db_name"],
 					]
@@ -177,7 +177,7 @@ class MigrateCommand extends AbstractCommand
 
 			exec(
 				"mysqldump -u " .
-				$site["db_user"] .
+				$site["dbUser"] .
 				" -h localhost -p'" .
 				$site["db_password"] .
 				"' " .
@@ -217,7 +217,7 @@ class MigrateCommand extends AbstractCommand
 				"gunzip < " .
 				$file .
 				" | mysql -u " .
-				$site["db_user"] .
+				$site["dbUser"] .
 				" -h localhost -p'" .
 				$site["db_password"] .
 				"' " .
@@ -282,13 +282,13 @@ class MigrateCommand extends AbstractCommand
 
 		sort($this->_migrations);
 		foreach ($this->_sites as $site) {
-			if (!Db::setPdo($site["db_host"], $site["db_user"], $site["db_password"], $site["db_name"])) {
+			if (!Db::setPdo($site["dbHost"], $site["dbUser"], $site["db_password"], $site["db_name"])) {
 				throw new MigrationException(
 					"Unable to connect with DB for applying migrations
 					with host: {host}, user: {user}, password: {password}, name: {name}",
 					[
-						"host"     => $site["db_host"],
-						"user"     => $site["db_user"],
+						"host"     => $site["dbHost"],
+						"user"     => $site["dbUser"],
 						"password" => $site["db_password"],
 						"name"     => $site["db_name"],
 					]

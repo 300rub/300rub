@@ -31,8 +31,8 @@ class M_160301_000000_sites extends AbstractMigration {
 				[
 					"id"          => "pk",
 					"host"        => "string",
-					"db_host"     => "string",
-					"db_user"     => "string",
+					"dbHost"     => "string",
+					"dbUser"     => "string",
 					"db_password" => "string",
 					"db_name"     => "string",
 					"language"    => "integer",
@@ -52,7 +52,7 @@ class M_160301_000000_sites extends AbstractMigration {
 
 		Db::execute(
 			"INSERT " .
-			"INTO sites (host, db_host, db_user, db_password, db_name, language, email) " .
+			"INTO sites (host, dbHost, dbUser, db_password, db_name, language, email) " .
 			"VALUES ('?', '?', '?', '?', '?', '?', '?')",
 			[
 				$config->host,
