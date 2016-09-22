@@ -150,37 +150,51 @@ abstract class AbstractController
 	 */
 	protected function setFormsForJson($model, $fields)
 	{
-		$forms = [];
-
-		foreach ($fields as $field) {
-			list($objectName, $field) = explode(AbstractModel::DEFAULT_SEPARATOR, $field, 2);
-
-			$m = null;
-			if ($objectName === AbstractModel::OBJECT_NAME) {
-				$m = $model;
-			} else if (property_exists($model, $objectName)) {
-				$m = $model->$objectName;
-				if (!$m) {
-					$className = $model->getRelationClass($objectName);
-					$m = new $className;
-				}
-			}
-
-			if ($m && property_exists($m, $field)) {
-				$forms[] = [
-					"name"  => $objectName . AbstractModel::DEFAULT_SEPARATOR . $field,
-					"rules" => $m->getRulesForField($field),
-					"type"  => $m->getFormType($field),
-					"value" => $m->$field
-				];
-			}
-		}
+		$forms = $this->_getForms($model, $fields);
 
 		if ($forms) {
 			$this->json["forms"] = $forms;
 		}
 
 		return $this;
+	}
+
+	/**
+	 * Gets forms
+	 *
+	 * @param AbstractModel $model
+	 * @param array         $fields
+	 *
+	 * @return array
+	 */
+	private function _getForms(AbstractModel $model, array $fields)
+	{
+		$forms = [];
+
+		foreach ($fields as $key => $value) {
+			if (is_array($value)) {
+				/**
+				 * @var AbstractModel $model
+				 */
+				$model = $model->$key;
+				if (!$model instanceof AbstractModel) {
+					$relationId = $model->getRelationKey($key);
+					$relationClassName = $model->getRelationClass($key);
+					$model = new $relationClassName;
+					$model = $model->byId($relationId)->find();
+				}
+
+				$forms[$key] = $this->_getForms($model, $value);
+			} else {
+				$forms[$value] = [
+					"rules" => $model->getRulesForField($value),
+					"type"  => $model->getFormType($value),
+					"value" => $model->$value
+				];;
+			}
+		}
+
+		return $forms;
 	}
 
 	/**

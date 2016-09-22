@@ -60,8 +60,8 @@ class UserControllerTest extends AbstractControllerTest
                             "value" => ""
                         ],
                         [
-                            "name"  => "t.is_remember",
-                            "rules" => $model->getRulesForField("is_remember"),
+                            "name"  => "t.isRemember",
+                            "rules" => $model->getRulesForField("isRemember"),
                             "type"  => AbstractModel::FORM_TYPE_CHECKBOX,
                             "value" => false
                         ]

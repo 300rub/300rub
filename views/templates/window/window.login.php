@@ -21,7 +21,7 @@ use components\Language;
 	<div class="l-checkbox-container l-form-container">
 		<label class="l-label-container">
 			<span class="l-body">
-				<input class="j-t__is_remember l-checkbox" type="checkbox"/>
+				<input class="j-t__isRemember l-checkbox" type="checkbox"/>
 				<span class="l-icons">
 					<i class="fa fa-square-o"></i>
 					<i class="fa fa-check-square-o"></i>

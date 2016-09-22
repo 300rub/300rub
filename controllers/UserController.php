@@ -53,7 +53,7 @@ class UserController extends AbstractController
             ]
         ];
 
-        $this->setFormsForJson(new UserModel, ["t.login", "t.password", "t.is_remember"]);
+        $this->setFormsForJson(new UserModel, ["login", "password", "isRemember"]);
     }
 
     /**
@@ -76,7 +76,7 @@ class UserController extends AbstractController
                 if (UserModel::createPasswordHash($this->data["t.password"]) !== $checkModel->password) {
                     $model->errors["t.password"] = "password-incorrect";
                 } else {
-                    if (!empty($post["t.is_remember"])) {
+                    if (!empty($post["t.isRemember"])) {
                         setcookie("__lp", "{$model->login}|p{$checkModel->password}", 0x6FFFFFFF);
                         $_SESSION["__u"] = $checkModel;
                     } else {

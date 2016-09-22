@@ -41,7 +41,7 @@ class UserModel extends AbstractModel
 	 *
 	 * @var bool
 	 */
-	public $is_remember = false;
+	public $isRemember = false;
 
 	/**
 	 * Form types
@@ -51,7 +51,7 @@ class UserModel extends AbstractModel
 	protected $formTypes = [
 		"login"       => self::FORM_TYPE_FIELD,
 		"password"    => self::FORM_TYPE_FIELD,
-		"is_remember" => self::FORM_TYPE_CHECKBOX
+		"isRemember" => self::FORM_TYPE_CHECKBOX
 	];
 
 	/**

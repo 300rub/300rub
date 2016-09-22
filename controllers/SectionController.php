@@ -105,16 +105,17 @@ class SectionController extends AbstractController
         }
 
         $forms = [
-            "seoModel.name",
-            "seoModel.url",
-            "t.width",
-            "t.isMain",
-            "seoModel.title",
-            "seoModel.keywords",
-            "seoModel.description"
+            "seoModel" => [
+                "name",
+                "url",
+                "title",
+                "keywords",
+                "description",
+            ],
+            "width",
         ];
         if (!$model->isMain) {
-            $forms[] = "t.isMain";
+            $forms[] = "isMain";
         }
 
         $this->setFormsForJson($model, $forms);

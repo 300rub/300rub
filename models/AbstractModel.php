@@ -568,6 +568,27 @@ abstract class AbstractModel
 	}
 
 	/**
+	 * Gets relation key
+	 *
+	 * @param string $relation Relation name
+	 *
+	 * @return string
+	 */
+	public function getRelationKey($relation)
+	{
+		if (!property_exists($this, $relation)) {
+			return null;
+		}
+
+		$relations = $this->relations;
+		if (!array_key_exists($relation, $relations)) {
+			return null;
+		}
+
+		return $relations[$relation][1];
+	}
+
+	/**
 	 * Gets relation keys
 	 *
 	 * @return string[]
