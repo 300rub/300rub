@@ -52,16 +52,17 @@ class M160301000000Sites extends AbstractMigration {
 
 		Db::execute(
 			"INSERT " .
-			"INTO sites (host, dbHost, dbUser, dbPassword, dbName, language, email) " .
-			"VALUES ('?', '?', '?', '?', '?', '?', '?')",
+			"INTO sites (host, dbHost, dbUser, dbPassword, dbName, language, email, ssh) " .
+			"VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
 			[
 				$config->host,
-				$config->host,
+				$config->db->host,
 				$config->db->user,
 				$config->db->password,
 				$config->db->name,
-				array_search($config->language, Language::$aliasList),
-				$config->email->adress
+				$config->language,
+				$config->email->address,
+				$config->ssh->active
 			]
 		);
 	}

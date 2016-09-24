@@ -16,6 +16,11 @@ class Db
 {
 
 	/**
+	 * Separator
+	 */
+	const SEPARATOR = "__";
+
+	/**
 	 * Table name
 	 *
 	 * @var string
@@ -125,9 +130,9 @@ class Db
 		$join = [];
 		$select = [];
 
-		$select[] = "t.id AS t__id";
+		$select[] = "t.id AS t" . self::SEPARATOR . "id";
 		foreach ($this->fields as $field) {
-			$select[] = "t.{$field} AS t__{$field}";
+			$select[] = "t.{$field} AS t" . self::SEPARATOR . "{$field}";
 		}
 
 		foreach ($this->with as $with) {
@@ -136,9 +141,9 @@ class Db
 			 * @var AbstractModel $class
 			 */
 			$class = new $relation[0];
-			$select[] = $with . ".id AS {$with}__id";
+			$select[] = $with . ".id AS {$with}" . self::SEPARATOR . "id";
 			foreach (array_keys($class->getRules()) as $field) {
-				$select[] = $with . ".{$field} AS {$with}__{$field}";
+				$select[] = $with . ".{$field} AS {$with}" . self::SEPARATOR . "{$field}";
 			}
 
 			$join[] =

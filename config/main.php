@@ -12,7 +12,7 @@ return [
 		"name"     => "project",
 	],
 	"email"   => [
-		"adress" => "moyregion@inbox.ru",
+		"address" => "donvasilion@gmail.com",
 	],
 	"helpDb"      => [
 		"host"     => "localhost",

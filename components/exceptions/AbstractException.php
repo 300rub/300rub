@@ -85,7 +85,9 @@ abstract class AbstractException extends Exception
 		}
 
 		$logFile = $logFolder . "/" . $this->getLogName();
-		chmod($logFile, 0777);
+		if (file_exists($logFile)) {
+			chmod($logFile, 0777);
+		}
 
 		$file = @fopen($logFile, "a");
 		@flock($file, LOCK_EX);

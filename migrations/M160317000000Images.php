@@ -83,8 +83,8 @@ class M160317000000Images extends AbstractMigration
                     "cropX"               => "integer",
                     "cropY"               => "integer",
                     "thumbAutoCropType"   => "integer",
-                    "thumbCropWidth"      => "integer",
-                    "thumbCropHeight"     => "integer",
+                    "thumbCropX"          => "integer",
+                    "thumbCropY"          => "integer",
                     "useAlbums"           => "boolean",
                 ]
             )

@@ -48,6 +48,16 @@ class MigrateCommand extends AbstractCommand
 	private $_dumpSites = [];
 
 	/**
+	 * Not truncate table list
+	 *
+	 * @var array
+	 */
+	private static $_notTruncateTableList = [
+		"sites",
+		"migrations"
+	];
+
+	/**
 	 * Runs the command
 	 *
 	 * @param string[] $args command arguments
@@ -58,6 +68,7 @@ class MigrateCommand extends AbstractCommand
 	{
 		try {
 			$this
+				->_clearDb()
 				->_checkCommonTables()
 				->_setNewMigrations()
 				->_setSites()
@@ -121,7 +132,7 @@ class MigrateCommand extends AbstractCommand
 
 		$migrations = opendir(__DIR__ . "/../migrations");
 		while (false !== ($file = readdir($migrations))) {
-			if (strpos($file, "M_") !== false) {
+			if (strpos($file, "M") === 0) {
 				$version = str_replace(".php", "", $file);
 				if (App::getApplication()->config->isDebug || !in_array($version, $versions)) {
 					$this->_migrations[] = $version;
@@ -232,17 +243,35 @@ class MigrateCommand extends AbstractCommand
 	/**
 	 * Clear DB
 	 *
-	 * @param array $site
-	 *
 	 * @return MigrateCommand
 	 *
 	 * @throws MigrationException
 	 */
-	private function _clearDb(array $site)
+	private function _clearDb()
 	{
+		$config = App::getApplication()->config;
+
+		if (!$config->isDebug) {
+			return $this;
+		}
+
+		$db = $config->db;
+		if (!Db::setPdo($db->host, $db->user, $db->password, $db->name)) {
+			throw new MigrationException(
+				"Unable to connect with DB for applying migrations
+					with host: {host}, user: {user}, password: {password}, name: {name}",
+				[
+					"host"     => $db->host,
+					"user"     => $db->user,
+					"password" => $db->password,
+					"name"     => $db->name,
+				]
+			);
+		}
+
 		$tables = [];
 
-		$rows = Db::fetchAll("SHOW TABLES FROM " . $site["dbName"]);
+		$rows = Db::fetchAll("SHOW TABLES FROM " . $db->name);
 		foreach ($rows as $row) {
 			foreach ($row as $key => $value) {
 				$tables[] = $value;
@@ -250,16 +279,12 @@ class MigrateCommand extends AbstractCommand
 		}
 
 		foreach ($tables as $table) {
-			if (
-				$table !== "migrations"
-				&& $table !== "sites"
-				&& !Db::execute("DROP" . " TABLE `{$table}`")
-			) {
+			if (!Db::execute("DROP" . " TABLE `{$table}`")) {
 				throw new MigrationException(
 					"Unable to delete table: {table} from DB: {db}",
 					[
 						"table" => $table,
-						"db"    => $site["dbName"]
+						"db"    => $db->name
 					]
 				);
 			}
@@ -294,10 +319,6 @@ class MigrateCommand extends AbstractCommand
 						"name"     => $site["dbName"],
 					]
 				);
-			}
-
-			if (App::getApplication()->config->isDebug) {
-				$this->_clearDb($site);
 			}
 
 			foreach ($this->_migrations as $migrationName) {
@@ -361,7 +382,6 @@ class MigrateCommand extends AbstractCommand
 					);
 				}
 			}
-
 		} catch (MigrationException $e) {
 			Db::rollbackTransaction();
 		}
@@ -395,9 +415,13 @@ class MigrateCommand extends AbstractCommand
 		// DB
 		$files = array_diff(scandir(__DIR__ . "/../fixtures"), ["..", ".", "files"]);
 
-		$rows = Db::fetchAll("SHOW TABLES FROM " . App::getApplication()->config->db->dbName);
+		$rows = Db::fetchAll("SHOW TABLES FROM " . App::getApplication()->config->db->name);
 		foreach ($rows as $row) {
 			foreach ($row as $key => $tableName) {
+				if (in_array($tableName, self::$_notTruncateTableList)) {
+					continue;
+				}
+
 				if (!Db::execute("TRUNCATE TABLE `{$tableName}`")) {
 					throw new MigrationException(
 						"Unable to truncate table: {table} while loading fixtures",

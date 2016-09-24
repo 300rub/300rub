@@ -217,14 +217,14 @@ class ImageModel extends AbstractModel
      *
      * @var integer
      */
-    public $thumb_cropX;
+    public $thumbCropX;
 
     /**
      * Crop crop y proportion for thumbs
      *
      * @var integer
      */
-    public $thumb_cropY;
+    public $thumbCropY;
 
     /**
      * Is use albums
@@ -285,8 +285,8 @@ class ImageModel extends AbstractModel
             "cropX"                 => [],
             "cropY"                 => [],
             "thumbAutoCropType"   => [],
-            "thumb_cropX"           => [],
-            "thumb_cropY"           => [],
+            "thumbCropX"           => [],
+            "thumbCropY"           => [],
             "useAlbums"             => [],
         ];
     }
@@ -326,8 +326,8 @@ class ImageModel extends AbstractModel
         $this->cropX = intval($this->cropX);
         $this->cropY = intval($this->cropY);
         $this->thumbAutoCropType = intval($this->autoCropType);
-        $this->thumb_cropX = intval($this->cropX);
-        $this->thumb_cropY = intval($this->cropY);
+        $this->thumbCropX = intval($this->cropX);
+        $this->thumbCropY = intval($this->cropY);
 
         $this->useAlbums = boolval($this->useAlbums);
     }
@@ -379,8 +379,8 @@ class ImageModel extends AbstractModel
         if (!array_key_exists($this->thumbAutoCropType, $autoCropTypeList)) {
             $this->thumbAutoCropType = self::DEFAULT_AUTO_CROP_TYPE;
         }
-        $this->thumb_cropX = $this->getIntVal($this->thumb_cropX);
-        $this->thumb_cropY = $this->getIntVal($this->thumb_cropY);
+        $this->thumbCropX = $this->getIntVal($this->thumbCropX);
+        $this->thumbCropY = $this->getIntVal($this->thumbCropY);
 
         $this->useAlbums = $this->getTinyIntVal($this->useAlbums);
 

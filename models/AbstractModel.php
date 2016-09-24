@@ -285,12 +285,12 @@ abstract class AbstractModel
 	 *
 	 * @return array
 	 */
-	protected function _parseAttributes(array $values)
+	private function _parseAttributes(array $values)
 	{
 		$attributes = [];
-
+		
 		foreach ($values as $key => $val) {
-			list($k, $v) = explode(self::DEFAULT_SEPARATOR, $key);
+			list($k, $v) = explode(Db::SEPARATOR, $key);
 
 			if ($k === self::OBJECT_NAME) {
 				$attributes[$v] = $val;
@@ -381,7 +381,7 @@ abstract class AbstractModel
 	/**
 	 * Saves model in DB
 	 *
-	 * @return bool
+	 * @throws ModelException
 	 */
 	public final function save()
 	{
@@ -400,10 +400,19 @@ abstract class AbstractModel
 			
 			$this->afterSave();
 		} catch (Exception $e) {
-			return false;
+			$fields = "";
+			foreach ($this->getFieldNames() as $fieldName) {
+				$fields .= " {$fieldName}: " . $this->$fieldName;
+			}
+			throw $e;
+			throw new ModelException(
+				"Unable to save the model {class} with fields: {fields}",
+				[
+					"class" => get_class($this),
+					"fields" => $fields
+				]
+			);
 		}
-
-		return true;
 	}
 
 	/**
@@ -653,6 +662,8 @@ abstract class AbstractModel
 	 */
 	protected function getRelationModel($model, $id, $className)
 	{
+		$className = "\\models\\{$className}";
+
 		if ($model instanceof $className) {
 			return $model;
 		}

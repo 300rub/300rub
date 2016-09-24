@@ -54,7 +54,7 @@ class ImageAlbumModel extends AbstractModel
 	 */
 	public function getTableName()
 	{
-		return "images";
+		return "imageAlbums";
 	}
 
 	/**

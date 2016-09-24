@@ -20,8 +20,8 @@ return [
         "cropWidth"         => 640,
         "cropHeight"        => 480,
         "thumbAutoCropType" => ImageModel::AUTO_CROP_TYPE_TOP_CENTER,
-        "thumb_cropX"       => 4,
-        "thumb_cropY"       => 3,
+        "thumbCropX"       => 4,
+        "thumbCropY"       => 3,
     ],
     3 => [
         "name"         => "Slider",
@@ -56,8 +56,8 @@ return [
         "autoCropType"         => ImageModel::AUTO_CROP_TYPE_TOP_LEFT,
         "cropX"                => 1,
         "cropY"                => 1,
-        "thumb_cropX"          => 1,
-        "thumb_cropY"          => 1,
+        "thumbCropX"          => 1,
+        "thumbCropY"          => 1,
         "useAlbums"            => true,
     ],
     6 => [
