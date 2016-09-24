@@ -7,8 +7,8 @@ return [
 	"language" => 1,
 	"db"      => [
 		"host"     => "localhost",
-		"user"     => "root",
-		"password" => "",
+		"user"     => "mike",
+		"password" => "password",
 		"name"     => "project",
 	],
 	"email"   => [
