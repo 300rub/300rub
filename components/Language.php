@@ -37,7 +37,7 @@ class Language
 	 *
 	 * @var int
 	 */
-	public static $activeId = 0;
+	public static $activeId = self::LANGUAGE_EN_ID;
 
 	/**
 	 * List of languages

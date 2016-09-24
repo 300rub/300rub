@@ -612,7 +612,9 @@ class GridModel extends AbstractModel
 	 */
 	protected function beforeSave()
 	{
-		if ($this->gridLineId === 0 || GridLineModel::model()->byId($this->gridLineId)->find() === null) {
+		if ($this->checkParentBeforeSave === true
+			&& ($this->gridLineId === 0 || GridLineModel::model()->byId($this->gridLineId)->find() === null)
+		) {
 			throw new ModelException(
 				"Unable to find GridLineModel with ID = {id}", 
 				[
@@ -637,9 +639,9 @@ class GridModel extends AbstractModel
 		
 		$className = "\\models\\" . $typeList[$this->contentType]["model"];
 		$model = new $className;
-		if (
-			!$model instanceof AbstractModel
-			|| !$model->byId($this->contentId)->find()
+		if ($this->checkParentBeforeSave === true
+			&& (!$model instanceof AbstractModel
+			|| !$model->byId($this->contentId)->find())
 		) {
 			throw new ModelException(
 				"Unable to find model: {className} with ID = {id}",

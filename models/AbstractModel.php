@@ -65,6 +65,13 @@ abstract class AbstractModel
 	public $errors = [];
 
 	/**
+	 * Flag for checking parent before saving
+	 *
+	 * @var bool
+	 */
+	public $checkParentBeforeSave = true;
+
+	/**
 	 * Form types
 	 *
 	 * @var array
@@ -399,16 +406,18 @@ abstract class AbstractModel
 			}
 			
 			$this->afterSave();
+			
+			return true;
 		} catch (Exception $e) {
 			$fields = "";
 			foreach ($this->getFieldNames() as $fieldName) {
 				$fields .= " {$fieldName}: " . $this->$fieldName;
 			}
-			throw $e;
 			throw new ModelException(
-				"Unable to save the model {class} with fields: {fields}",
+				"{e}. Unable to save the model {class} with fields: {fields}",
 				[
-					"class" => get_class($this),
+					"e"      => $e->getMessage(),
+					"class"  => get_class($this),
 					"fields" => $fields
 				]
 			);

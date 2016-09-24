@@ -190,7 +190,9 @@ class GridLineModel extends AbstractModel
 	 */
 	protected function beforeSave()
 	{
-		if ($this->sectionId === 0 || SectionModel::model()->byId($this->sectionId)->find() === null) {
+		if ($this->checkParentBeforeSave === true
+			&& ($this->sectionId === 0 || SectionModel::model()->byId($this->sectionId)->find() === null)
+		) {
 			throw new ModelException(
 				"Unable to find section by ID = {id}",
 				[

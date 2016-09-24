@@ -434,16 +434,17 @@ class MigrateCommand extends AbstractCommand
 		}
 
 		foreach ($files as $file) {
-			$modelName = "\\models\\" . ucfirst(str_replace(".php", "", $file)) . "Model";
-
-			/**
-			 * @var AbstractModel $model
-			 */
-			$model = new $modelName;
-
 			$records = require(__DIR__ . "/../fixtures/" . $file);
 
 			foreach ($records as $id => $record) {
+				$modelName = "\\models\\" . ucfirst(str_replace(".php", "", $file)) . "Model";
+
+				/**
+				 * @var AbstractModel $model
+				 */
+				$model = new $modelName;
+				$model->checkParentBeforeSave = false;
+
 				$model->setAttributes($record);
 				$model->save();
 			}

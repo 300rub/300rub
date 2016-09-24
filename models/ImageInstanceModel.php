@@ -158,7 +158,7 @@ class ImageInstanceModel extends AbstractModel
 	 *
 	 * @var string
 	 */
-	private $_format;
+	private $_format = "jpg";
 
 	/**
 	 * Form types
