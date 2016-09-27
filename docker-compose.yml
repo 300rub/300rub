@@ -1,0 +1,18 @@
+apache:
+    image: ci/apache
+    ports:
+        - "3000:80"
+    links:
+        - php
+    volumes:
+        - ".:/var/www"
+    tty: true
+
+php:
+    image: ci/php7
+    ports:
+        - "7306:3606" # MySQL
+    volumes:
+        - ".:/var/www"
+    tty: true
+    command: php
