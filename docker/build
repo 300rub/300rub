@@ -1,0 +1,12 @@
+#!/bin/bash
+
+trap "exit" INT
+
+for image in `find images/*/* -type d`
+do
+    docker build --build-arg http_proxy=http://172.17.0.1:3128 --build-arg https_proxy=http://172.17.0.1:3128 ./$image
+    ID=$(docker images -q | awk '{print $1; exit}')
+    set -- "$image"
+    IFS="/"; declare -a Array=($*)
+    docker tag $ID ${Array[1]}:${Array[2]}
+done
