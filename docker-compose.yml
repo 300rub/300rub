@@ -1,18 +1,12 @@
-apache:
-    image: ci/apache
+nginx:
+    build: .
     ports:
-        - "3000:80"
+        - "80:80"
     links:
-        - php
-    volumes:
-        - ".:/var/www"
-    tty: true
-
-php:
-    image: ci/php7
+        - fpm
+fpm:
+    image: php:fpm
     ports:
-        - "7306:3606" # MySQL
+        - "1306:1306" # MySQL
     volumes:
-        - ".:/var/www"
-    tty: true
-    command: php
+        - ".:/usr/share/nginx/html"
