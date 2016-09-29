@@ -1,12 +1,5 @@
-nginx:
-    build: .
-    ports:
-        - "80:80"
-    links:
-        - fpm
-fpm:
-    image: php:fpm
-    ports:
-        - "1306:1306" # MySQL
+phpfpm:
+    image: a:a
     volumes:
-        - ".:/usr/share/nginx/html"
+        - ".:/var/www"
+    command: php-fpm

@@ -1,5 +1,5 @@
 <?php
-
+echo 222; exit();
 use applications\App;
 
 // Config file path
