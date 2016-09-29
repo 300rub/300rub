@@ -8,6 +8,18 @@ nginx:
         - ".:/var/www"
 phpfpm:
     image: php-fpm:7.0
+    net: "bridge"
+    ports:
+        - "3310:3306" # MySQL
     volumes:
         - ".:/var/www"
     command: php-fpm
+
+db:
+    image:  mysql:5.7
+    privileged: true
+    net: "container:phpfpm"
+    environment:
+        MYSQL_ROOT_PASSWORD: root
+        MYSQL_SQL_TO_RUN: 'GRANT ALL ON *.* TO root@"%" IDENTIFIED BY "root";'
+        MYSQL_DATABASE: "project"

@@ -3,12 +3,12 @@
 // Main settings
 return [
 	"isDebug" => true,
-	"host"    => "project.dev",
+	"host"    => "localhost",
 	"language" => 1,
 	"db"      => [
-		"host"     => "localhost",
-		"user"     => "mike",
-		"password" => "password",
+		"host"     => "127.0.0.1",
+		"user"     => "root",
+		"password" => "root",
 		"name"     => "project",
 	],
 	"email"   => [

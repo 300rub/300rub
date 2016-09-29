@@ -105,9 +105,11 @@ class Web extends AbstractApplication
 	private function _setSite()
 	{
 		$host = $_SERVER['HTTP_HOST'];
+
 		if (substr($host, 0, 4) == "www.") {
 			$host = substr($host, 4);
 		}
+
 		if (!$host) {
 			throw new CommonException("Unable to determine the host of the site");
 		}
