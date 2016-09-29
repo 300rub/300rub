@@ -1,5 +1,13 @@
+nginx:
+    image: nginx:1.11.4
+    ports:
+        - "80:80"
+    links:
+        - phpfpm
+    volumes:
+        - ".:/var/www"
 phpfpm:
-    image: a:a
+    image: php-fpm:7.0
     volumes:
         - ".:/var/www"
     command: php-fpm
