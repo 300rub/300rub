@@ -6,5 +6,6 @@ for image in `find images/*/* -type d`
 do
     set -- "$image"
     IFS="/"; declare -a Array=($*)
-    docker build --build-arg http_proxy=http://172.17.0.1:3128 --build-arg https_proxy=http://172.17.0.1:3128 -t ${Array[1]}:${Array[2]} ./${Array[0]}/${Array[1]}/${Array[2]}
+    # docker build --build-arg http_proxy=http://172.17.0.1:3128 --build-arg https_proxy=http://172.17.0.1:3128 -t ${Array[1]}:${Array[2]} ./${Array[0]}/${Array[1]}/${Array[2]}
+    docker build -t ${Array[1]}:${Array[2]} ./${Array[0]}/${Array[1]}/${Array[2]}
 done
