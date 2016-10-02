@@ -1,4 +1,4 @@
-<project name="testS" default="prepare">
+<project name="testS" default="build-docker-images">
 
     <target name="prepare">
 

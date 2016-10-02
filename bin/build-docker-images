@@ -5,6 +5,7 @@ baseDir=$(dirname "$0")
 
 for imagePath in `find $baseDir/docker-images/*/* -type d`
 do
+    echo $imagePath
     IFS='/' read -r -a array <<< "$imagePath"
     arrayLen=${#array[@]}
     imageName=${array[$arrayLen-2]}:${array[$arrayLen-1]}

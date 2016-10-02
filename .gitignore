@@ -1,5 +1,5 @@
 .idea
-logs
+logs/*.log
 backups
 vendors
 composer.lock
