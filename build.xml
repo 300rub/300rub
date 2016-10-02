@@ -1,6 +1,8 @@
-<project name="testS" default="build-docker-images">
+<project name="testS" default="composer">
 
-    <target name="prepare">
-
+    <target name="composer">
+        <exec executable="/bin/bash">
+            <arg value="bin/composer"/>
+        </exec>
     </target>
 </project>
