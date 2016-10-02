@@ -1,8 +1,20 @@
-<project name="testS" default="composer">
+<project name="testS" default="default">
 
-    <target name="composer">
+    <target name="clear-logs">
+        <echo>Removing all log files</echo>
+        <delete>
+            <fileset dir="logs" includes="**/*.log"/>
+        </delete>
+    </target>
+
+    <target name="composer" depends="clear-logs">
+        <echo>Composer updating</echo>
         <exec executable="/bin/bash">
             <arg value="bin/composer"/>
         </exec>
     </target>
+
+    <target name="default" depends="composer">
+    </target>
+
 </project>
