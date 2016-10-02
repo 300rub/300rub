@@ -1,0 +1,6 @@
+<project name="testS" default="prepare">
+
+    <target name="prepare">
+
+    </target>
+</project>

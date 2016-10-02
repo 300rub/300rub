@@ -1,17 +1,13 @@
 #!/bin/bash
 
 trap "exit" INT
+baseDir=$(dirname "$0")
 
-for image in `find docker-images/*/* -type d`
+for imagePath in `find $baseDir/docker-images/*/* -type d`
 do
-    set -- "$image"
-    IFS="/"; declare -a Array=($*)
-    # docker build --build-arg http_proxy=http://172.17.0.1:3128 --build-arg https_proxy=http://172.17.0.1:3128 -t ${Array[1]}:${Array[2]} ./${Array[0]}/${Array[1]}/${Array[2]}
-    docker build -t ${Array[1]}:${Array[2]} ./${Array[0]}/${Array[1]}/${Array[2]}
+    IFS='/' read -r -a array <<< "$imagePath"
+    arrayLen=${#array[@]}
+    imageName=${array[$arrayLen-2]}:${array[$arrayLen-1]}
+    # docker build --build-arg http_proxy=http://172.17.0.1:3128 --build-arg https_proxy=http://172.17.0.1:3128 -t $imageName $imagePath
+    docker build -t $imageName $imagePath
 done
-
-# https://300rub:mypasS77@github.com/300rub/300rub.git
-# git remote set-url origin https://300rub:mypasS77@github.com/300rub/300rub.git
-
-BASEDIR=$(dirname "$0")
-echo "$BASEDIR"
