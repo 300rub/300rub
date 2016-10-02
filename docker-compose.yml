@@ -10,7 +10,7 @@ phpfpm:
     image: php-fpm:7.0
     net: "bridge"
     ports:
-        - "3310:3306" # MySQL
+        - "7777:3306" # MySQL
     volumes:
         - ".:/var/www"
     command: php-fpm

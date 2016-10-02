@@ -14,7 +14,14 @@
         </exec>
     </target>
 
-    <target name="default" depends="composer">
+    <target name="clear-db" depends="composer">
+        <echo>DB clear</echo>
+        <exec executable="/bin/bash">
+            <arg value="./bin/clear-db"/>
+        </exec>
+    </target>
+
+    <target name="default" depends="clear-db">
     </target>
 
 </project>
