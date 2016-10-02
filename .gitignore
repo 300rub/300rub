@@ -1,7 +1,7 @@
 .idea
 logs/*.log
 backups
-vendors
+vendor
 composer.lock
 public/css/lib
 public/js/lib
