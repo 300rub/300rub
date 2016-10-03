@@ -1,4 +1,4 @@
-<project name="testS" default="default">
+<project name="testS" default="build">
 
     <target name="clear-logs">
         <echo>Removing all log files</echo>
@@ -7,21 +7,26 @@
         </delete>
     </target>
 
-    <target name="composer" depends="clear-logs">
-        <echo>Composer updating</echo>
-        <exec executable="/bin/bash">
-            <arg value="bin/composer"/>
+    <target name="composer">
+        <echo>Vendors updating</echo>
+        <exec executable="php" failonerror="true">
+            <arg value='composer.phar' />
+            <arg value='install' />
+        </exec>
+        <exec executable="php" failonerror="true">
+            <arg value='composer.phar' />
+            <arg value='update' />
         </exec>
     </target>
 
-    <target name="clear-db" depends="composer">
+    <target name="clear-db">
         <echo>DB clear</echo>
-        <exec executable="/bin/bash">
-            <arg value="./bin/clear-db"/>
+        <exec executable="php" failonerror="true">
+            <arg value='bin/clear-db' />
         </exec>
     </target>
 
-    <target name="default" depends="clear-db">
+    <target name="build" depends="clear-logs, clear-db">
     </target>
 
 </project>

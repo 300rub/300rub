@@ -1,6 +1,0 @@
-#!/bin/bash
-
-trap "exit" INT
-
-php composer.phar install
-php composer.phar update
