@@ -221,7 +221,7 @@ class ImageInstanceModel extends AbstractModel
 	 */
 	protected function setValues()
 	{
-		$this->imageAlbumId = intval($this->imageAlbumId);
+		$this->imageAlbumId = (int) $this->imageAlbumId;
 		$this->isCover = boolval($this->isCover);
 		$this->sort = intval($this->sort);
 		$this->width = intval($this->width);
@@ -241,12 +241,7 @@ class ImageInstanceModel extends AbstractModel
 	 */
 	protected function beforeSave()
 	{
-		$this->isCover = intval($this->isCover);
-		if ($this->isCover >= 1) {
-			$this->isCover = 1;
-		} else {
-			$this->isCover = 0;
-		}
+		$this->isCover = $this->getTinyIntVal($this->isCover);
 
 		if ($this->sort < 0) {
 			$this->sort = 0;

@@ -20,13 +20,27 @@
     </target>
 
     <target name="clear-db">
-        <echo>DB clear</echo>
         <exec executable="php" failonerror="true">
-            <arg value='bin/clear-db' />
+            <arg value='bin/php' />
+            <arg value='clearDb' />
         </exec>
     </target>
 
-    <target name="build" depends="clear-logs, clear-db">
+    <target name="public-vendor">
+        <exec executable="php" failonerror="true">
+            <arg value='bin/php' />
+            <arg value='publicVendor' />
+        </exec>
+    </target>
+
+    <target name="migrate">
+        <exec executable="php" failonerror="true">
+            <arg value='bin/php' />
+            <arg value='migrate' />
+        </exec>
+    </target>
+
+    <target name="build" depends="clear-logs, clear-db, public-vendor, migrate">
     </target>
 
 </project>

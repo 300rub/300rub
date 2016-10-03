@@ -375,10 +375,13 @@ abstract class AbstractModel
 				}
 				$validator = new Validator($this->$relation, $relation);
 				$this->errors = array_merge($this->errors, $validator->validate());
-			} else if (!$this->$options[1]) {
-				$this->$relation = new $options[0];
-				$validator = new Validator($this->$relation, $relation);
-				$this->errors = array_merge($this->errors, $validator->validate());
+			} else if (!empty($options[1])) {
+				$field = $options[1];
+				if (!$this->$field) {
+					$this->$relation = new $options[0];
+					$validator = new Validator($this->$relation, $relation);
+					$this->errors = array_merge($this->errors, $validator->validate());
+				}
 			}
 		}
 
@@ -397,6 +400,7 @@ abstract class AbstractModel
 		}
 
 		try {
+			$this->setValues();
 			$this->beforeSave();
 
 			if ($this->id) {
@@ -458,8 +462,6 @@ abstract class AbstractModel
 	 */
 	protected function beforeSave()
 	{
-		$this->setValues();
-
 		foreach ($this->relations as $relation => $options) {
 			if ($this->$relation instanceof $options[0]) {
 				$field = $options[1];
@@ -635,7 +637,12 @@ abstract class AbstractModel
 	 */
 	protected function getTinyIntVal($value)
 	{
-		return intval($value) >= 1 ? 1 : 0;
+		$value = intval($value, 0);
+		if ($value >= 1) {
+			return 1;
+		} else {
+			return 0;
+		}
 	}
 
 	/**

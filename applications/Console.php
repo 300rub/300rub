@@ -2,6 +2,7 @@
 
 namespace applications;
 
+use components\exceptions\CommonException;
 use Exception;
 
 /**
@@ -18,33 +19,6 @@ class Console extends AbstractApplication
 	const COMMAND_ENDING = "Command";
 
 	/**
-	 * Current command
-	 *
-	 * @var string
-	 */
-	private $_command = "";
-
-	/**
-	 * List of command arguments
-	 *
-	 * @var string[]
-	 */
-	private $_args = [];
-
-    /**
-     * Sets command
-     *
-     * @param string $command
-     *
-     * @return Console
-     */
-    public function setCommand($command)
-    {
-        $this->_command = $command;
-        return $this;
-    }
-
-	/**
 	 * Runs command
 	 *
 	 * @throws Exception
@@ -54,18 +28,27 @@ class Console extends AbstractApplication
 		try {
 			$startTime = microtime(true);
 
-			$className = "\\commands\\" . ucfirst($this->_command) . self::COMMAND_ENDING;
-			$this->output("The command \"{$this->_command}\" has been started");
+			$args = $_SERVER['argv'];
+			if (empty($args[1])) {
+				throw new CommonException("Incorrect command");
+			}
+
+			$command = ucfirst($args[1]);
+			array_shift($args);
+			array_shift($args);
+
+			$className = "\\commands\\" . $command. self::COMMAND_ENDING;
+			$this->output("The command \"{$command}\" has been started");
 
 			/**
 			 * @var \commands\AbstractCommand $class;
 			 */
 			$class = new $className;
-			$class->run($this->_args);
+			$class->run($args);
 
 			$time = number_format(microtime(true) - $startTime, 3);
 			App::console()->output(
-				"The command \"{$this->_command}\" has been finished successfully with time: {$time}\n"
+				"The command \"{$command}\" has been finished successfully with time: {$time}\n"
 			);
 		} catch (Exception $e) {
 			$this->output($e->getMessage() . "\n", true);

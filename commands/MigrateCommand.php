@@ -444,7 +444,6 @@ class MigrateCommand extends AbstractCommand
 				 */
 				$model = new $modelName;
 				$model->checkParentBeforeSave = false;
-
 				$model->setAttributes($record);
 				$model->save();
 			}
