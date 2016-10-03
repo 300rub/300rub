@@ -1,8 +1,6 @@
 #!/usr/bin/env php
 <?php
 
-sleep(20);
-
 use applications\App;
 
 // Config file path
