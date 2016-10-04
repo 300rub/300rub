@@ -1,5 +1,5 @@
 <?php
-use components\Language;
+use testS\components\Language;
 use testS\applications\App;
 ?>
 

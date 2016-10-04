@@ -1,7 +1,7 @@
 <?php
 
 use testS\applications\App;
-use components\Language;
+use testS\components\Language;
 
 /**
  * @var \controllers\SectionController $this

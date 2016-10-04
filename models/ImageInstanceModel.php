@@ -2,8 +2,8 @@
 
 namespace models;
 
-use components\exceptions\ModelException;
-use components\File;
+use testS\components\exceptions\ModelException;
+use testS\components\File;
 
 /**
  * Model for working with table "imageInstances"

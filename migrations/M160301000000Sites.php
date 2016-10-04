@@ -3,8 +3,8 @@
 namespace migrations;
 
 use testS\applications\App;
-use components\Db;
-use components\Language;
+use testS\components\Db;
+use testS\components\Language;
 
 /**
  * Creates table for storing information about all sites

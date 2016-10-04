@@ -2,8 +2,8 @@
 
 namespace models;
 
-use components\exceptions\ModelException;
-use components\Language;
+use testS\components\exceptions\ModelException;
+use testS\components\Language;
 
 /**
  * Model for working with table "texts"

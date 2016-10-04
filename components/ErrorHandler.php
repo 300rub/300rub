@@ -1,8 +1,8 @@
 <?php
 
-namespace components;
+namespace testS\components;
 
-use components\exceptions\CommonException;
+use testS\components\exceptions\CommonException;
 use Exception;
 
 /**

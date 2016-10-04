@@ -1,6 +1,6 @@
 <?php
 
-namespace components\exceptions;
+namespace testS\components\exceptions;
 
 /**
  * FileException class file

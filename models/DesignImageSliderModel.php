@@ -2,7 +2,7 @@
 
 namespace models;
 
-use components\exceptions\ModelException;
+use testS\components\exceptions\ModelException;
 
 /**
  * Model for working with table "designImageSliders"

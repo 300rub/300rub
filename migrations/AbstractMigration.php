@@ -2,8 +2,8 @@
 
 namespace migrations;
 
-use components\Db;
-use components\exceptions\MigrationException;
+use testS\components\Db;
+use testS\components\exceptions\MigrationException;
 
 /**
  * Abstract class for working with migrations

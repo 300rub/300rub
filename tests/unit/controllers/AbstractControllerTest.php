@@ -2,8 +2,8 @@
 
 namespace tests\unit\controllers;
 
-use components\Exception;
-use components\Language;
+use testS\components\Exception;
+use testS\components\Language;
 use tests\unit\AbstractUnitTest;
 
 /**

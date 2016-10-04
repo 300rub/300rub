@@ -1,8 +1,8 @@
 <?php
 
-namespace components;
+namespace testS\components;
 
-use components\exceptions\DbException;
+use testS\components\exceptions\DbException;
 use models\AbstractModel;
 use PDO;
 use PDOException;

@@ -1,5 +1,5 @@
 <?php
-use components\Language;
+use testS\components\Language;
 ?>
 <div class="j-window-text-container">
 	<div>

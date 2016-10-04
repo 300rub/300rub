@@ -2,10 +2,10 @@
 
 namespace models;
 
-use components\Db;
-use components\exceptions\DbException;
-use components\exceptions\ModelException;
-use components\Validator;
+use testS\components\Db;
+use testS\components\exceptions\DbException;
+use testS\components\exceptions\ModelException;
+use testS\components\Validator;
 use \Exception;
 
 /**

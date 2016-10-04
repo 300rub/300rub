@@ -1,5 +1,5 @@
 <?php
-use components\Language;
+use testS\components\Language;
 ?>
 <div class="l-window j-window">
 	<div class="l-window-container">

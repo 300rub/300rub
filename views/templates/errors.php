@@ -1,6 +1,6 @@
 <?php
-use components\Validator;
-use components\Language;
+use testS\components\Validator;
+use testS\components\Language;
 ?>
 
 <?php foreach (Validator::getErrorMessages() as $key => $value) { ?>

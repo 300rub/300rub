@@ -1,7 +1,7 @@
 <?php
 
 use models\ImageModel;
-use components\Language;
+use testS\components\Language;
 use models\DesignImageSimpleModel;
 use models\DesignImageZoomModel;
 use models\DesignImageSliderModel;

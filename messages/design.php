@@ -1,6 +1,6 @@
 <?php
 
-use components\Language;
+use testS\components\Language;
 
 return [
     "margin"       => [

@@ -1,6 +1,6 @@
 <?php
 
-namespace components;
+namespace testS\components;
 
 use models\AbstractModel;
 

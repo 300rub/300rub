@@ -2,7 +2,7 @@
 
 namespace testS\commands;
 
-use components\exceptions\FileException;
+use testS\components\exceptions\FileException;
 
 /**
  * Static public class

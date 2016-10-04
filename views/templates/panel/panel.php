@@ -1,5 +1,5 @@
 <?php 
-use components\Language;
+use testS\components\Language;
 ?>
 <div class="j-panel l-panel">
 	<a class="j-close l-close fa fa-close"></a>

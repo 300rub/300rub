@@ -2,9 +2,9 @@
 
 namespace controllers;
 
-use components\exceptions\ContentException;
+use testS\components\exceptions\ContentException;
 use models\UserModel;
-use components\Language;
+use testS\components\Language;
 
 /**
  * Users's controller

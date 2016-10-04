@@ -3,10 +3,10 @@
 namespace controllers;
 
 use testS\applications\App;
-use components\Db;
-use components\exceptions\ContentException;
-use components\exceptions\DbException;
-use components\Language;
+use testS\components\Db;
+use testS\components\exceptions\ContentException;
+use testS\components\exceptions\DbException;
+use testS\components\Language;
 use models\HelpModel;
 
 /**

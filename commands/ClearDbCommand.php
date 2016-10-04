@@ -3,8 +3,8 @@
 namespace testS\commands;
 
 use testS\applications\App;
-use components\Db;
-use components\exceptions\MigrationException;
+use testS\components\Db;
+use testS\components\exceptions\MigrationException;
 use Exception;
 
 /**

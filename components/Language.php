@@ -1,8 +1,8 @@
 <?php
 
-namespace components;
+namespace testS\components;
 
-use components\exceptions\CommonException;
+use testS\components\exceptions\CommonException;
 
 /**
  * Class contains lib of static functions for working with language

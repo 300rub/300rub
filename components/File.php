@@ -1,9 +1,9 @@
 <?php
 
-namespace components;
+namespace testS\components;
 
 use testS\applications\App;
-use components\exceptions\FileException;
+use testS\components\exceptions\FileException;
 
 /**
  * Class for working with files

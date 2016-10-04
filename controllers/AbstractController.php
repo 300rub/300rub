@@ -3,8 +3,8 @@
 namespace controllers;
 
 use testS\applications\App;
-use components\exceptions\ContentException;
-use components\exceptions\ModelException;
+use testS\components\exceptions\ContentException;
+use testS\components\exceptions\ModelException;
 use models\AbstractModel;
 use models\GridLineModel;
 use models\GridModel;

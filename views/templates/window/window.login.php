@@ -1,5 +1,5 @@
 <?php
-use components\Language;
+use testS\components\Language;
 ?>
 <div class="j-window-login-container">
 	<div class="l-form-container">

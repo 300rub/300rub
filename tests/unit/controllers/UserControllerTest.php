@@ -2,7 +2,7 @@
 
 namespace tests\unit\controllers;
 
-use components\Language;
+use testS\components\Language;
 use models\AbstractModel;
 use models\UserModel;
 

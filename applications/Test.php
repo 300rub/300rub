@@ -3,7 +3,7 @@
 namespace testS\applications;
 
 use testS\commands\MigrateCommand;
-use components\Language;
+use testS\components\Language;
 
 /**
  * Class Test

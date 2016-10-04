@@ -2,12 +2,12 @@
 
 namespace testS\applications;
 
-use components\Db;
-use components\exceptions\AccessException;
-use components\exceptions\CommonException;
-use components\exceptions\ContentException;
-use components\exceptions\DbException;
-use components\Language;
+use testS\components\Db;
+use testS\components\exceptions\AccessException;
+use testS\components\exceptions\CommonException;
+use testS\components\exceptions\ContentException;
+use testS\components\exceptions\DbException;
+use testS\components\Language;
 use controllers\CommonController;
 use controllers\AbstractController;
 use models\UserModel;

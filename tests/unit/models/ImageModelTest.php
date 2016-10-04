@@ -4,7 +4,7 @@ namespace tests\unit\models;
 
 use models\ImageInstanceModel;
 use models\ImageModel;
-use components\Language;
+use testS\components\Language;
 
 /**
  * Tests for model ImageModel

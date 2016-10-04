@@ -1,9 +1,9 @@
 <?php
 
-namespace components;
+namespace testS\components;
 
 use testS\applications\App;
-use components\exceptions\SshException;
+use testS\components\exceptions\SshException;
 
 /**
  * Class for working with Ssh connection

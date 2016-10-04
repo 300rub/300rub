@@ -2,7 +2,7 @@
 
 namespace controllers;
 
-use components\Language;
+use testS\components\Language;
 
 /**
  * Payment's controller

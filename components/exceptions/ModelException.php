@@ -1,6 +1,6 @@
 <?php
 
-namespace components\exceptions;
+namespace testS\components\exceptions;
 
 /**
  * ModelException class file

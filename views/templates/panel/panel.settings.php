@@ -1,5 +1,5 @@
 <?php
-use components\Language;
+use testS\components\Language;
 ?>
 
 <a class="j-panel-settings-duplicate l-panel-settings-duplicate">

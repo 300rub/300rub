@@ -1,5 +1,5 @@
 <?php 
-use components\Language;
+use testS\components\Language;
 ?>
 <div id="admin-bottom-container">
     <div class="l-left">

@@ -1,5 +1,5 @@
 <?php
-use components\Language;
+use testS\components\Language;
 ?>
 
 <div class="j-panel-list-item l-panel-list-item">

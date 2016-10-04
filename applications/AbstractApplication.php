@@ -2,9 +2,9 @@
 
 namespace testS\applications;
 
-use components\Db;
-use components\ErrorHandler;
-use components\exceptions\DbException;
+use testS\components\Db;
+use testS\components\ErrorHandler;
+use testS\components\exceptions\DbException;
 
 /**
  * Abstract class for work with application

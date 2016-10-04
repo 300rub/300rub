@@ -1,5 +1,5 @@
 <?php
-use components\Language;
+use testS\components\Language;
 ?>
 <div class="l-help j-help">
     <a class="l-close j-close fa fa-times"></a>
