@@ -1,6 +1,6 @@
 <?php
 
-namespace applications;
+namespace testS\applications;
 
 use components\exceptions\CommonException;
 use Exception;

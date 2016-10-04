@@ -1,6 +1,6 @@
 <?php
 
-namespace commands;
+namespace testS\commands;
 
 /**
  * Abstract command class

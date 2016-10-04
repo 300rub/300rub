@@ -1,8 +1,8 @@
 <?php
 
-namespace applications;
+namespace testS\applications;
 
-use commands\MigrateCommand;
+use testS\commands\MigrateCommand;
 use components\Language;
 
 /**

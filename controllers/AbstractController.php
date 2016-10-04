@@ -2,7 +2,7 @@
 
 namespace controllers;
 
-use applications\App;
+use testS\applications\App;
 use components\exceptions\ContentException;
 use components\exceptions\ModelException;
 use models\AbstractModel;

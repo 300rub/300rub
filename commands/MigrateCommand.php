@@ -1,8 +1,8 @@
 <?php
 
-namespace commands;
+namespace testS\commands;
 
-use applications\App;
+use testS\applications\App;
 use components\Db;
 use components\exceptions\MigrationException;
 use migrations\M160301000000Sites;

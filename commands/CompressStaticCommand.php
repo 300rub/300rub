@@ -1,6 +1,6 @@
 <?php
 
-namespace commands;
+namespace testS\commands;
 
 use components\exceptions\FileException;
 use MatthiasMullie\Minify\CSS;

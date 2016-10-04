@@ -1,6 +1,6 @@
 <?php
 
-use applications\App;
+use testS\applications\App;
 
 // Config file path
 $config = require(__DIR__ . "/../config/main.php");

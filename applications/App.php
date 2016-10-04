@@ -1,6 +1,6 @@
 <?php
 
-namespace applications;
+namespace testS\applications;
 
 /**
  * Class for running application

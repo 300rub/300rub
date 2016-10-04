@@ -2,7 +2,7 @@
 
 namespace components;
 
-use applications\App;
+use testS\applications\App;
 use components\exceptions\SshException;
 
 /**

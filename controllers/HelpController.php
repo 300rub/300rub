@@ -2,7 +2,7 @@
 
 namespace controllers;
 
-use applications\App;
+use testS\applications\App;
 use components\Db;
 use components\exceptions\ContentException;
 use components\exceptions\DbException;

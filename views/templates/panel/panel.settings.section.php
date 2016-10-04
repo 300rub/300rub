@@ -1,6 +1,6 @@
 <?php
 use components\Language;
-use applications\App;
+use testS\applications\App;
 ?>
 
 <div class="l-panel-form-container j-panel-settings-section-container">

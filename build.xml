@@ -9,32 +9,32 @@
 
     <target name="composer">
         <echo>Vendors updating</echo>
-        <exec executable="php" failonerror="true">
+        <exec executable="php">
             <arg value='composer.phar' />
             <arg value='install' />
         </exec>
-        <exec executable="php" failonerror="true">
+        <exec executable="php">
             <arg value='composer.phar' />
             <arg value='update' />
         </exec>
     </target>
 
     <target name="clear-db">
-        <exec executable="php" failonerror="true">
+        <exec executable="php">
             <arg value='bin/php' />
             <arg value='clearDb' />
         </exec>
     </target>
 
     <target name="public-vendor">
-        <exec executable="php" failonerror="true">
+        <exec executable="php">
             <arg value='bin/php' />
             <arg value='publicVendor' />
         </exec>
     </target>
 
     <target name="migrate">
-        <exec executable="php" failonerror="true">
+        <exec executable="php">
             <arg value='bin/php' />
             <arg value='migrate' />
         </exec>
