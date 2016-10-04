@@ -68,7 +68,6 @@ class MigrateCommand extends AbstractCommand
 	{
 		try {
 			$this
-				->_clearDb()
 				->_checkCommonTables()
 				->_setNewMigrations()
 				->_setSites();
@@ -193,59 +192,6 @@ class MigrateCommand extends AbstractCommand
 	}
 
 	/**
-	 * Clear DB
-	 *
-	 * @return MigrateCommand
-	 *
-	 * @throws MigrationException
-	 */
-	private function _clearDb()
-	{
-		$config = App::getApplication()->config;
-
-		if (!$config->isDebug) {
-			return $this;
-		}
-
-		$db = $config->db;
-		if (!Db::setPdo($db->host, $db->user, $db->password, $db->name)) {
-			throw new MigrationException(
-				"Unable to connect with DB for applying migrations
-					with host: {host}, user: {user}, password: {password}, name: {name}",
-				[
-					"host"     => $db->host,
-					"user"     => $db->user,
-					"password" => $db->password,
-					"name"     => $db->name,
-				]
-			);
-		}
-
-		$tables = [];
-
-		$rows = Db::fetchAll("SHOW TABLES FROM " . $db->name);
-		foreach ($rows as $row) {
-			foreach ($row as $key => $value) {
-				$tables[] = $value;
-			}
-		}
-
-		foreach ($tables as $table) {
-			if (!Db::execute("DROP" . " TABLE `{$table}`")) {
-				throw new MigrationException(
-					"Unable to delete table: {table} from DB: {db}",
-					[
-						"table" => $table,
-						"db"    => $db->name
-					]
-				);
-			}
-		}
-
-		return $this;
-	}
-
-	/**
 	 * Applies the migrations
 	 *
 	 * @throws MigrationException
@@ -283,10 +229,6 @@ class MigrateCommand extends AbstractCommand
 					$migration->up();
 				}
 			}
-
-			if (App::getApplication()->config->isDebug && $this->isTestData) {
-				self::loadFixtures();
-			}
 		}
 
 		return $this;
@@ -302,12 +244,12 @@ class MigrateCommand extends AbstractCommand
 	private function _updateVersions()
 	{
 		if (
-			!Db::setPdo(
-				App::getApplication()->config->db->host,
-				App::getApplication()->config->db->user,
-				App::getApplication()->config->db->password,
-				App::getApplication()->config->db->name
-			)
+		!Db::setPdo(
+			App::getApplication()->config->db->host,
+			App::getApplication()->config->db->user,
+			App::getApplication()->config->db->password,
+			App::getApplication()->config->db->name
+		)
 		) {
 			throw new MigrationException(
 				"Unable to connect with DB for updating versions
@@ -341,66 +283,5 @@ class MigrateCommand extends AbstractCommand
 		Db::commitTransaction();
 
 		return $this;
-	}
-
-	/**
-	 * Loads fixtures
-	 *
-	 * @throws MigrationException
-	 */
-	public static function loadFixtures()
-	{
-		App::console()->output("Fixtures loading  has been started");
-
-		$siteId = App::getApplication()->config->siteId;
-
-		// Files
-		$uploadFilesFolder = __DIR__ . "/../public/upload/{$siteId}";
-		exec("rm -r {$uploadFilesFolder}");
-		$copyFilesFolder = __DIR__ . "/../fixtures/files";
-		if (!file_exists(__DIR__ . "/../public/upload")) {
-			mkdir(__DIR__ . "/../public/upload", 0777);
-		}
-		exec("cp -r {$copyFilesFolder} {$uploadFilesFolder}");
-		chmod($uploadFilesFolder, 0777);
-
-		// DB
-		$files = array_diff(scandir(__DIR__ . "/../fixtures"), ["..", ".", "files"]);
-
-		$rows = Db::fetchAll("SHOW TABLES FROM " . App::getApplication()->config->db->name);
-		foreach ($rows as $row) {
-			foreach ($row as $key => $tableName) {
-				if (in_array($tableName, self::$_notTruncateTableList)) {
-					continue;
-				}
-
-				if (!Db::execute("TRUNCATE TABLE `{$tableName}`")) {
-					throw new MigrationException(
-						"Unable to truncate table: {table} while loading fixtures",
-						[
-							"table" => $tableName
-						]
-					);
-				}
-			}
-		}
-
-		foreach ($files as $file) {
-			$records = require(__DIR__ . "/../fixtures/" . $file);
-
-			foreach ($records as $id => $record) {
-				$modelName = "\\testS\\models\\" . ucfirst(str_replace(".php", "", $file)) . "Model";
-
-				/**
-				 * @var AbstractModel $model
-				 */
-				$model = new $modelName;
-				$model->checkParentBeforeSave = false;
-				$model->setAttributes($record);
-				$model->save();
-			}
-		}
-
-		App::console()->output("All fixtures have been successfully loaded");
 	}
 }

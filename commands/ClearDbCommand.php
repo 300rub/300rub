@@ -5,7 +5,7 @@ namespace testS\commands;
 use testS\applications\App;
 
 /**
- * Applies migrations
+ * Clear DB command
  *
  * @package testS\commands
  */

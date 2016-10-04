@@ -47,12 +47,19 @@
         </exec>
     </target>
 
+    <target name="load-fixtures">
+        <exec executable="php">
+            <arg value='bin/php' />
+            <arg value='loadFixtures' />
+        </exec>
+    </target>
+
     <target name="prepare" depends="clear-logs">
         <delete dir="backups" />
         <mkdir dir="backups" />
     </target>
 
-    <target name="build" depends="prepare, migrate, create-sql-dumps">
+    <target name="build" depends="prepare, migrate, load-fixtures, create-sql-dumps">
     </target>
 
 </project>
