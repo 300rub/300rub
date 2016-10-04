@@ -3,6 +3,10 @@
 namespace testS\commands;
 
 use testS\applications\App;
+use testS\components\Db;
+use testS\components\exceptions\MigrationException;
+use testS\migrations\M160301000000Sites;
+use testS\migrations\M160302000000Migrations;
 
 /**
  * Clear DB command
@@ -48,5 +52,25 @@ class ClearDbCommand extends AbstractCommand
 				$db->name
 			)
 		);
+
+		if (!Db::setPdo($db->host, $db->user, $db->password, $db->name)) {
+			throw new MigrationException(
+				"Unable to set PDO for creating dump
+					with host: {host}, user: {user}, password: {password}, name: {name}",
+				[
+					"host"     => $db->host,
+					"user"     => $db->user,
+					"password" => $db->password,
+					"name"     => $db->name,
+				]
+			);
+		}
+
+		$migration = new M160301000000Sites();
+		$migration->up();
+		$migration->insertData();
+
+		$migration = new M160302000000Migrations();
+		$migration->up();
 	}
 }

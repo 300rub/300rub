@@ -54,12 +54,19 @@
         </exec>
     </target>
 
+    <target name="rollback-sql-dumps">
+        <exec executable="php">
+            <arg value='bin/php' />
+            <arg value='rollbackSqlDumps' />
+        </exec>
+    </target>
+
     <target name="prepare" depends="clear-logs">
         <delete dir="backups" />
         <mkdir dir="backups" />
     </target>
 
-    <target name="build" depends="prepare, migrate, load-fixtures, create-sql-dumps">
+    <target name="build" depends="prepare, clear-db, migrate, load-fixtures">
     </target>
 
 </project>

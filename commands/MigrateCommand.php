@@ -5,10 +5,7 @@ namespace testS\commands;
 use testS\applications\App;
 use testS\components\Db;
 use testS\components\exceptions\MigrationException;
-use testS\migrations\M160301000000Sites;
-use testS\migrations\M160302000000Migrations;
 use Exception;
-use testS\models\AbstractModel;
 
 /**
  * Applies migrations
@@ -41,23 +38,6 @@ class MigrateCommand extends AbstractCommand
 	private $_sites = [];
 
 	/**
-	 * Sites witch were backup
-	 *
-	 * @var array
-	 */
-	private $_dumpSites = [];
-
-	/**
-	 * Not truncate table list
-	 *
-	 * @var array
-	 */
-	private static $_notTruncateTableList = [
-		"sites",
-		"migrations"
-	];
-
-	/**
 	 * Runs the command
 	 *
 	 * @param string[] $args command arguments
@@ -68,7 +48,6 @@ class MigrateCommand extends AbstractCommand
 	{
 		try {
 			$this
-				->_checkCommonTables()
 				->_setNewMigrations()
 				->_setSites();
 		} catch (Exception $e) {
@@ -81,38 +60,14 @@ class MigrateCommand extends AbstractCommand
 				->_updateVersions();
 		} catch (Exception $e) {
 			App::console()->output($e->getMessage(), true);
-			App::console()->output("DB rollback has been started");
 
 			try {
-				$this->_rollbackDumps();
-				App::console()->output("All DBs were reverted successfully");
+				App::console()->output("DB rollback has been started");
+				// rollback
 			} catch (Exception $e) {
 				throw $e;
 			}
 		}
-	}
-
-	/**
-	 * Checks the existence of the main tables
-	 *
-	 * @return MigrateCommand
-	 */
-	private function _checkCommonTables()
-	{
-		if (!Db::isTableExists("sites")) {
-			$migration = new M160301000000Sites;
-			$migration->up();
-			if (App::getApplication()->config->isDebug) {
-				$migration->insertData();
-			}
-		}
-
-		if (!Db::isTableExists("migrations")) {
-			$migration = new M160302000000Migrations;
-			$migration->up();
-		}
-
-		return $this;
 	}
 
 	/**
@@ -151,41 +106,6 @@ class MigrateCommand extends AbstractCommand
 		$rows = Db::fetchAll("SELECT * " . "FROM `sites`");
 		foreach ($rows as $row) {
 			$this->_sites[] = $row;
-		}
-
-		return $this;
-	}
-
-	/**
-	 * Restores all DB from backups
-	 *
-	 * @return MigrateCommand
-	 *
-	 * @throws MigrationException
-	 */
-	private function _rollbackDumps()
-	{
-		foreach ($this->_dumpSites as $site) {
-			$file = __DIR__ . "/../backups/" . $site["dbName"] . ".sql.gz";
-			if (!file_exists($file)) {
-				throw new MigrationException(
-					"Unable to find the dump file for DB: {db}",
-					[
-						"db" => $site["dbName"]
-					]
-				);
-			}
-
-			exec(
-				"gunzip < " .
-				$file .
-				" | mysql -u " .
-				$site["dbUser"] .
-				" -h localhost -p'" .
-				$site["dbPassword"] .
-				"' " .
-				$site["dbName"]
-			);
 		}
 
 		return $this;
