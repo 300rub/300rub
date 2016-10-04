@@ -9,7 +9,7 @@ use testS\models\TextModel;
 /**
  * Text's controller
  *
- * @package controllers
+ * @package testS\controllers
  *
  * @method TextModel getModel($width = [], $allowEmpty = false)
  */

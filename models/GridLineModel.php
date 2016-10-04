@@ -7,7 +7,7 @@ use testS\components\exceptions\ModelException;
 /**
  * Model for working with table "gridLines"
  *
- * @package models
+ * @package testS\models
  *
  * @method GridLineModel   with($array)
  * @method GridLineModel[] findAll()

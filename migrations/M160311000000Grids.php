@@ -5,7 +5,7 @@ namespace testS\migrations;
 /**
  * Creates gridLines & grids tables
  *
- * @package migrations
+ * @package testS\migrations
  */
 class M160311000000Grids extends AbstractMigration
 {

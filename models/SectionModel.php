@@ -9,7 +9,7 @@ use testS\components\Language;
 /**
  * Model for working with table "sections"
  *
- * @package models
+ * @package testS\models
  *
  * @method SectionModel   byId($id)
  * @method SectionModel   find()

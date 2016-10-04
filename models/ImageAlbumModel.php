@@ -7,7 +7,7 @@ use testS\components\exceptions\ModelException;
 /**
  * Model for working with table "imageAlbums"
  *
- * @package models
+ * @package testS\models
  *
  * @method ImageAlbumModel[] findAll
  * @method ImageAlbumModel   byId($id)

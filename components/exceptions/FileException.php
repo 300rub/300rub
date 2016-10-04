@@ -5,7 +5,7 @@ namespace testS\components\exceptions;
 /**
  * FileException class file
  *
- * @package components
+ * @package testS\components
  */
 class FileException extends AbstractException
 {

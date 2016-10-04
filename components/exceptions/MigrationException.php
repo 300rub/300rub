@@ -5,7 +5,7 @@ namespace testS\components\exceptions;
 /**
  * MigrationException class file
  *
- * @package components
+ * @package testS\components
  */
 class MigrationException extends AbstractException
 {

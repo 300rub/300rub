@@ -9,7 +9,7 @@ use testS\components\Language;
 /**
  * Model for working with table "grids"
  *
- * @package models
+ * @package testS\models
  *
  * @method GridModel[] findAll()
  * @method GridModel   in($field, $values)

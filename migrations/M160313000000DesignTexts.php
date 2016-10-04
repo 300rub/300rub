@@ -5,7 +5,7 @@ namespace testS\migrations;
 /**
  * Creates designTexts table
  *
- * @package migrations
+ * @package testS\migrations
  */
 class M160313000000DesignTexts extends AbstractMigration
 {

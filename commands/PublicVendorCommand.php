@@ -7,7 +7,7 @@ use testS\components\exceptions\FileException;
 /**
  * Static public class
  *
- * @package commands
+ * @package testS\commands
  */
 class PublicVendorCommand extends AbstractCommand
 {

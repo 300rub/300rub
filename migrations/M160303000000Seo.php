@@ -5,7 +5,7 @@ namespace testS\migrations;
 /**
  * Creates seo table
  *
- * @package migrations
+ * @package testS\migrations
  */
 class M160303000000Seo extends AbstractMigration
 {

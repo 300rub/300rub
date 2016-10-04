@@ -7,7 +7,7 @@ use testS\components\Language;
 /**
  * Payment's controller
  *
- * @package controllers
+ * @package testS\controllers
  */
 class PaymentController extends AbstractController
 {

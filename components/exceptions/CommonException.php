@@ -5,7 +5,7 @@ namespace testS\components\exceptions;
 /**
  * CommonException class file
  *
- * @package components
+ * @package testS\components
  */
 class CommonException extends AbstractException
 {

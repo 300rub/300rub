@@ -13,7 +13,7 @@ use testS\models\AbstractModel;
 /**
  * Applies migrations
  *
- * @package commands
+ * @package testS\commands
  */
 class MigrateCommand extends AbstractCommand
 {

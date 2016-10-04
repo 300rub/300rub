@@ -10,7 +10,7 @@ use testS\models\TextModel;
 /**
  * Block's controller
  *
- * @package controllers
+ * @package testS\controllers
  */
 class BlockController extends AbstractController
 {

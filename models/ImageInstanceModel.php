@@ -8,7 +8,7 @@ use testS\components\File;
 /**
  * Model for working with table "imageInstances"
  *
- * @package models
+ * @package testS\models
  *
  * @method ImageModel[] findAll
  * @method ImageModel   byId($id)

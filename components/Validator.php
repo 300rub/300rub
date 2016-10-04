@@ -7,7 +7,7 @@ use testS\models\AbstractModel;
 /**
  * Class for validation model's fields
  *
- * @package components
+ * @package testS\components
  */
 class Validator
 {

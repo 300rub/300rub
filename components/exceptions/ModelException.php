@@ -5,7 +5,7 @@ namespace testS\components\exceptions;
 /**
  * ModelException class file
  *
- * @package components
+ * @package testS\components
  */
 class ModelException extends AbstractException
 {

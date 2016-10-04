@@ -5,7 +5,7 @@ namespace testS\applications;
 /**
  * Class for running application
  *
- * @package application
+ * @package testS\application
  */
 class App
 {

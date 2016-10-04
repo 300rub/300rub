@@ -5,7 +5,7 @@ namespace testS\migrations;
 /**
  * Creates sections table
  *
- * @package migrations
+ * @package testS\migrations
  */
 class M160305000000Sections extends AbstractMigration
 {

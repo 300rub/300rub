@@ -5,7 +5,7 @@ namespace testS\migrations;
 /**
  * Creates table for storing list of migrations
  *
- * @package migrations
+ * @package testS\migrations
  */
 class M160302000000Migrations extends AbstractMigration {
 

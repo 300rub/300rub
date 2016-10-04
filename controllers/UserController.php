@@ -9,7 +9,7 @@ use testS\components\Language;
 /**
  * Users's controller
  *
- * @package controllers
+ * @package testS\controllers
  */
 class UserController extends AbstractController
 {

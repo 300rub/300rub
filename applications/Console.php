@@ -8,7 +8,7 @@ use Exception;
 /**
  * Class for working with console
  *
- * @package application
+ * @package testS\application
  */
 class Console extends AbstractApplication
 {

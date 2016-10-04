@@ -12,7 +12,7 @@ use testS\models\GridModel;
 /**
  * Abstract class for working with controllers
  *
- * @package controllers
+ * @package testS\controllers
  */
 abstract class AbstractController
 {

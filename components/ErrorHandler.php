@@ -8,7 +8,7 @@ use Exception;
 /**
  * Class for handling errors
  *
- * @package components
+ * @package testS\components
  */
 class ErrorHandler
 {

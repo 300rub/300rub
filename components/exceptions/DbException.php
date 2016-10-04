@@ -3,7 +3,7 @@
 namespace testS\components\exceptions;
 
 /**
- * @package components
+ * @package testS\components
  */
 class DbException extends AbstractException
 {

@@ -8,7 +8,7 @@ use testS\components\Language;
 /**
  * Model for working with table "seo"
  *
- * @package models
+ * @package testS\models
  */
 class SeoModel extends AbstractModel
 {

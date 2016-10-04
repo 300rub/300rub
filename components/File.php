@@ -8,7 +8,7 @@ use testS\components\exceptions\FileException;
 /**
  * Class for working with files
  *
- * @package components
+ * @package testS\components
  */
 class File
 {

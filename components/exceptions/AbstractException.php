@@ -7,7 +7,7 @@ use Exception;
 /**
  * Exception class file
  *
- * @package components
+ * @package testS\components
  */
 abstract class AbstractException extends Exception
 {

@@ -5,7 +5,7 @@ namespace testS\migrations;
 /**
  * Creates users table
  *
- * @package migrations
+ * @package testS\migrations
  */
 class M160307000000Users extends AbstractMigration
 {

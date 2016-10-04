@@ -5,7 +5,7 @@ namespace testS\components\exceptions;
 /**
  * ContentException class file
  *
- * @package components
+ * @package testS\components
  */
 class ContentException extends AbstractException
 {

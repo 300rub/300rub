@@ -12,7 +12,7 @@ use testS\models\HelpModel;
 /**
  * Help controller
  *
- * @package controllers
+ * @package testS\controllers
  */
 class HelpController extends AbstractController
 {

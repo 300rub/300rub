@@ -7,7 +7,7 @@ use testS\applications\App;
 /**
  * Applies migrations
  *
- * @package commands
+ * @package testS\commands
  */
 class ClearDbCommand extends AbstractCommand
 {

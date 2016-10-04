@@ -5,7 +5,7 @@ namespace testS\commands;
 /**
  * Abstract command class
  *
- * @package commands
+ * @package testS\commands
  */
 abstract class AbstractCommand
 {

@@ -10,7 +10,7 @@ use testS\components\exceptions\SshException;
  *
  * @link http://php.net/manual/ru/ref.ssh2.php
  *
- * @package components
+ * @package testS\components
  */
 class Ssh
 {

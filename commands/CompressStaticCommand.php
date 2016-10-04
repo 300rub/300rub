@@ -9,7 +9,7 @@ use MatthiasMullie\Minify\JS;
 /**
  * Class for working with compress static
  *
- * @package commands
+ * @package testS\commands
  */
 class CompressStaticCommand extends AbstractCommand
 {

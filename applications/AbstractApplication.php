@@ -9,7 +9,7 @@ use testS\components\exceptions\DbException;
 /**
  * Abstract class for work with application
  *
- * @package application
+ * @package testS\application
  */
 abstract class AbstractApplication
 {

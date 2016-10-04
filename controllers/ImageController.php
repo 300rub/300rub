@@ -9,7 +9,7 @@ use testS\models\GridModel;
 /**
  * Image's controller
  *
- * @package controllers
+ * @package testS\controllers
  *
  * @method ImageModel getModel($width = [], $allowEmpty = false)
  */

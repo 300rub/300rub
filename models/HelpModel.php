@@ -5,7 +5,7 @@ namespace testS\models;
 /**
  * Model for working with table "help"
  *
- * @package models
+ * @package testS\models
  * 
  * @method HelpModel find
  */

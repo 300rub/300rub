@@ -8,7 +8,7 @@ use testS\components\Language;
 /**
  * Model for working with table "images"
  *
- * @package models
+ * @package testS\models
  *
  * @method ImageModel[] findAll
  * @method ImageModel   byId($id)

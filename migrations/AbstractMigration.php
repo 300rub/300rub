@@ -8,7 +8,7 @@ use testS\components\exceptions\MigrationException;
 /**
  * Abstract class for working with migrations
  *
- * @package migrations
+ * @package testS\migrations
  */
 abstract class AbstractMigration
 {

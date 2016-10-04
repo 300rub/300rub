@@ -10,7 +10,7 @@ use PDOException;
 /**
  * Class for working with DB
  *
- * @package components
+ * @package testS\components
  */
 class Db
 {

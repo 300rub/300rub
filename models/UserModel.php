@@ -5,7 +5,7 @@ namespace testS\models;
 /**
  * Model for working with table "users"
  *
- * @package models
+ * @package testS\models
  *
  * @method UserModel find()
  */

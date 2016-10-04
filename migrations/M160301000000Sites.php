@@ -8,7 +8,7 @@ use testS\components\Db;
 /**
  * Creates table for storing information about all sites
  *
- * @package migrations
+ * @package testS\migrations
  */
 class M160301000000Sites extends AbstractMigration {
 

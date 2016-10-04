@@ -16,7 +16,7 @@ use Exception;
 /**
  * Class for working with WEB application
  *
- * @package application
+ * @package testS\application
  */
 class Web extends AbstractApplication
 {

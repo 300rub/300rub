@@ -5,7 +5,7 @@ namespace testS\migrations;
 /**
  * Creates image tables
  *
- * @package migrations
+ * @package testS\migrations
  */
 class M160317000000Images extends AbstractMigration
 {

@@ -7,7 +7,7 @@ use testS\components\exceptions\ModelException;
 /**
  * Model for working with table "designTexts"
  *
- * @package models
+ * @package testS\models
  */
 class DesignTextModel extends AbstractModel
 {

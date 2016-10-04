@@ -8,7 +8,7 @@ use testS\components\exceptions\MigrationException;
 /**
  * Create dumps command
  *
- * @package commands
+ * @package testS\commands
  */
 class CreateSqlDumpsCommand extends AbstractCommand
 {

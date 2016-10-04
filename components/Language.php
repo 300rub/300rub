@@ -7,7 +7,7 @@ use testS\components\exceptions\CommonException;
 /**
  * Class contains lib of static functions for working with language
  *
- * @package components
+ * @package testS\components
  */
 class Language
 {

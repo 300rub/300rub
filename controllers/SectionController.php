@@ -10,7 +10,7 @@ use testS\models\SectionModel;
 /**
  * Section's controller
  *
- * @package controllers
+ * @package testS\controllers
  *
  * @method SectionModel getModel($width = [], $allowEmpty = false)
  */

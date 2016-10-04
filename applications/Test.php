@@ -8,7 +8,7 @@ use testS\components\Language;
 /**
  * Class Test
  *
- * @package application
+ * @package testS\application
  */
 class Test extends AbstractApplication
 {

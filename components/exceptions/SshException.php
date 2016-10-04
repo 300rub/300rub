@@ -5,7 +5,7 @@ namespace testS\components\exceptions;
 /**
  * SshException class file
  *
- * @package components
+ * @package testS\components
  */
 class SshException extends AbstractException
 {

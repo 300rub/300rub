@@ -7,7 +7,7 @@ use testS\components\exceptions\ModelException;
 /**
  * Model for working with table "designImageSliders"
  *
- * @package models
+ * @package testS\models
  */
 class DesignImageSliderModel extends AbstractModel
 {

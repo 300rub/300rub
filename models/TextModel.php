@@ -8,7 +8,7 @@ use testS\components\Language;
 /**
  * Model for working with table "texts"
  *
- * @package models
+ * @package testS\models
  *
  * @method TextModel[] findAll
  * @method TextModel ordered

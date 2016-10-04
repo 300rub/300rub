@@ -11,7 +11,7 @@ use \Exception;
 /**
  * Abstract class for working with models
  *
- * @package models
+ * @package testS\models
  * 
  * @method AbstractModel duplicate
  */

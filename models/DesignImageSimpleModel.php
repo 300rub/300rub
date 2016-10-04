@@ -7,7 +7,7 @@ use testS\components\exceptions\ModelException;
 /**
  * Model for working with table "designImageSimples"
  *
- * @package models
+ * @package testS\models
  */
 class DesignImageSimpleModel extends AbstractModel
 {
