@@ -1,6 +1,6 @@
 <?php
 
-namespace controllers;
+namespace testS\controllers;
 
 use testS\components\Language;
 

@@ -8,8 +8,8 @@ use testS\components\exceptions\CommonException;
 use testS\components\exceptions\ContentException;
 use testS\components\exceptions\DbException;
 use testS\components\Language;
-use controllers\CommonController;
-use controllers\AbstractController;
+use testS\controllers\CommonController;
+use testS\controllers\AbstractController;
 use models\UserModel;
 use Exception;
 
