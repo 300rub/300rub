@@ -33,7 +33,7 @@ class DesignTextModel extends AbstractModel
 	const REPLACE_VALUE = "__";
 
 	/**
-	 * Default line-heght value
+	 * Default line-height value
 	 */
 	const DEFAULT_LINE_HEIGHT = 140;
 

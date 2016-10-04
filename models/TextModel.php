@@ -40,9 +40,9 @@ class TextModel extends AbstractModel
 	const TYPE_H3 = 3;
 
 	/**
-	 * Type. <adress>
+	 * Type. <address>
 	 */
-	const TYPE_ADRESS = 4;
+	const TYPE_ADDRESS = 4;
 
 	/**
 	 * Type. <mark>
@@ -122,7 +122,7 @@ class TextModel extends AbstractModel
 		self::TYPE_H1     => "h1",
 		self::TYPE_H2     => "h2",
 		self::TYPE_H3     => "h3",
-		self::TYPE_ADRESS => "adress",
+		self::TYPE_ADDRESS => "adress",
 		self::TYPE_MARK   => "mark",
 	];
 
@@ -198,7 +198,7 @@ class TextModel extends AbstractModel
 			self::TYPE_H1     => Language::t("text", "typeH1"),
 			self::TYPE_H2     => Language::t("text", "typeH2"),
 			self::TYPE_H3     => Language::t("text", "typeH3"),
-			self::TYPE_ADRESS => Language::t("text", "typeAddress"),
+			self::TYPE_ADDRESS => Language::t("text", "typeAddress"),
 			self::TYPE_MARK   => Language::t("text", "typeImportant"),
 		];
 	}

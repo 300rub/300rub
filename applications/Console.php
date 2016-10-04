@@ -41,7 +41,7 @@ class Console extends AbstractApplication
 			$this->output("The command \"{$command}\" has been started");
 
 			/**
-			 * @var \commands\AbstractCommand $class;
+			 * @var \testS\commands\AbstractCommand $class;
 			 */
 			$class = new $className;
 			$class->run($args);

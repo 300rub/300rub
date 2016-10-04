@@ -323,7 +323,7 @@ class MigrateCommand extends AbstractCommand
 
 			foreach ($this->_migrations as $migrationName) {
 				/**
-				 * @var \migrations\AbstractMigration $migration
+				 * @var \testS\migrations\AbstractMigration $migration
 				 */
 				$migrationFullName = "\\migrations\\{$migrationName}";
 				$migration = new $migrationFullName;

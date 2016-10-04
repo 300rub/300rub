@@ -443,7 +443,7 @@ class GridModel extends AbstractModel
 		}
 
 		/**
-		 * @var \models\GridLineModel[] $oldGridLines
+		 * @var \testS\models\GridLineModel[] $oldGridLines
 		 */
 		foreach ($oldGridLines as $oldGridLine) {
 			if (!$oldGridLine->delete()) {

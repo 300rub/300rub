@@ -188,7 +188,7 @@ class Validator
 			$this->_addError($field, "relation");
 		} else {
 			/**
-			 * @var \models\AbstractModel $model;
+			 * @var \testS\models\AbstractModel $model;
 			 */
 			$model = new $relationClassName;
 			if ($model->byId($this->_model->$field)->find() === null) {

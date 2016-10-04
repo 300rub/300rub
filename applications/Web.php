@@ -217,7 +217,7 @@ class Web extends AbstractApplication
 			}
 
 			/**
-			 * @var \controllers\AbstractController $controller
+			 * @var \testS\controllers\AbstractController $controller
 			 */
 			$controller = new $className;
 			$methodName = "action" . ucfirst($controllerParams[1]);
