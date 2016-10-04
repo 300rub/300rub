@@ -1,5 +1,5 @@
 <?php
-use models\DesignTextModel;
+use testS\models\DesignTextModel;
 ?>
 
 <div class="j-design-editor-text">

@@ -3,9 +3,9 @@
 namespace tests\unit\models;
 
 use testS\components\Language;
-use models\GridLineModel;
-use models\GridModel;
-use models\SectionModel;
+use testS\models\GridLineModel;
+use testS\models\GridModel;
+use testS\models\SectionModel;
 
 /**
  * Tests for model SectionModel

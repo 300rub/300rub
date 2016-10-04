@@ -3,7 +3,7 @@
 namespace testS\components;
 
 use testS\components\exceptions\DbException;
-use models\AbstractModel;
+use testS\models\AbstractModel;
 use PDO;
 use PDOException;
 

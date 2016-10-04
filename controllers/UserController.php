@@ -3,7 +3,7 @@
 namespace testS\controllers;
 
 use testS\components\exceptions\ContentException;
-use models\UserModel;
+use testS\models\UserModel;
 use testS\components\Language;
 
 /**

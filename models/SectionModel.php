@@ -1,6 +1,6 @@
 <?php
 
-namespace models;
+namespace testS\models;
 
 use testS\components\exceptions\ContentException;
 use testS\components\exceptions\ModelException;

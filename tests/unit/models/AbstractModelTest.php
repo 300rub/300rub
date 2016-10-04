@@ -2,7 +2,7 @@
 
 namespace tests\unit\models;
 
-use models\AbstractModel;
+use testS\models\AbstractModel;
 use tests\unit\AbstractUnitTest;
 
 /**

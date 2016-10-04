@@ -3,7 +3,7 @@
 namespace tests\unit\controllers;
 
 use testS\components\Language;
-use models\GridModel;
+use testS\models\GridModel;
 
 /**
  * Class SectionControllerTest

@@ -5,9 +5,9 @@ namespace testS\controllers;
 use testS\applications\App;
 use testS\components\exceptions\ContentException;
 use testS\components\exceptions\ModelException;
-use models\AbstractModel;
-use models\GridLineModel;
-use models\GridModel;
+use testS\models\AbstractModel;
+use testS\models\GridLineModel;
+use testS\models\GridModel;
 
 /**
  * Abstract class for working with controllers

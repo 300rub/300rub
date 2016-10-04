@@ -1,6 +1,6 @@
 <?php
 
-namespace migrations;
+namespace testS\migrations;
 
 /**
  * Creates image tables

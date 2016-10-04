@@ -2,7 +2,7 @@
 
 namespace tests\unit\models;
 
-use models\DesignTextModel;
+use testS\models\DesignTextModel;
 
 /**
  * Tests for model DesignTextModel

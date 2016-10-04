@@ -1,6 +1,6 @@
 <?php
 
-use models\GridModel;
+use testS\models\GridModel;
 
 return [
     // Texts page. texts_1

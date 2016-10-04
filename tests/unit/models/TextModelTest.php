@@ -3,7 +3,7 @@
 namespace tests\unit\models;
 
 use testS\components\Language;
-use models\TextModel;
+use testS\models\TextModel;
 
 /**
  * Tests for model TextModel

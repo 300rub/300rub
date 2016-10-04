@@ -1,6 +1,6 @@
 <?php
 
-namespace migrations;
+namespace testS\migrations;
 
 use testS\applications\App;
 use testS\components\Db;

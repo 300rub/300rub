@@ -2,7 +2,7 @@
 
 namespace tests\unit\models;
 
-use models\GridModel;
+use testS\models\GridModel;
 
 /**
  * Tests for model GridModel

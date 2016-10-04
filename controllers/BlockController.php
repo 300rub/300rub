@@ -3,9 +3,9 @@
 namespace testS\controllers;
 
 use testS\components\Language;
-use models\GridModel;
-use models\ImageModel;
-use models\TextModel;
+use testS\models\GridModel;
+use testS\models\ImageModel;
+use testS\models\TextModel;
 
 /**
  * Block's controller

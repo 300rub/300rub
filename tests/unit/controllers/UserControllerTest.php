@@ -3,8 +3,8 @@
 namespace tests\unit\controllers;
 
 use testS\components\Language;
-use models\AbstractModel;
-use models\UserModel;
+use testS\models\AbstractModel;
+use testS\models\UserModel;
 
 /**
  * Class UserControllerTest

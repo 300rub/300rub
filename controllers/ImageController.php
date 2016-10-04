@@ -3,8 +3,8 @@
 namespace testS\controllers;
 
 use testS\components\Language;
-use models\ImageModel;
-use models\GridModel;
+use testS\models\ImageModel;
+use testS\models\GridModel;
 
 /**
  * Image's controller

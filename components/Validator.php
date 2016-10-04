@@ -2,7 +2,7 @@
 
 namespace testS\components;
 
-use models\AbstractModel;
+use testS\models\AbstractModel;
 
 /**
  * Class for validation model's fields

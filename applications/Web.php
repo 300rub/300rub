@@ -10,7 +10,7 @@ use testS\components\exceptions\DbException;
 use testS\components\Language;
 use testS\controllers\CommonController;
 use testS\controllers\AbstractController;
-use models\UserModel;
+use testS\models\UserModel;
 use Exception;
 
 /**

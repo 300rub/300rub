@@ -7,7 +7,7 @@ use testS\components\Db;
 use testS\components\exceptions\ContentException;
 use testS\components\exceptions\DbException;
 use testS\components\Language;
-use models\HelpModel;
+use testS\models\HelpModel;
 
 /**
  * Help controller

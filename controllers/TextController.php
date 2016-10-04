@@ -3,8 +3,8 @@
 namespace testS\controllers;
 
 use testS\components\Language;
-use models\GridModel;
-use models\TextModel;
+use testS\models\GridModel;
+use testS\models\TextModel;
 
 /**
  * Text's controller

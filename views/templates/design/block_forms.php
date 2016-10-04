@@ -1,6 +1,6 @@
 <?php
 use testS\components\Language;
-use models\DesignBlockModel;
+use testS\models\DesignBlockModel;
 ?>
 
 <div class="j-design-editor-block l-design-editor">

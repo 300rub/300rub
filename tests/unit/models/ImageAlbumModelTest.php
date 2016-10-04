@@ -2,7 +2,7 @@
 
 namespace tests\unit\models;
 
-use models\ImageAlbumModel;
+use testS\models\ImageAlbumModel;
 
 /**
  * Tests for model ImageAlbumModel

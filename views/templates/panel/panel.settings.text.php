@@ -1,6 +1,6 @@
 <?php
 use testS\components\Language;
-use models\TextModel;
+use testS\models\TextModel;
 ?>
 
 <div class="j-panel-settings-text-container">

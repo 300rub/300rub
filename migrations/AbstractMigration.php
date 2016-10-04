@@ -1,6 +1,6 @@
 <?php
 
-namespace migrations;
+namespace testS\migrations;
 
 use testS\components\Db;
 use testS\components\exceptions\MigrationException;

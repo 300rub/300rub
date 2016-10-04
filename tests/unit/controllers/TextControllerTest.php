@@ -3,7 +3,7 @@
 namespace tests\unit\controllers;
 
 use testS\components\Language;
-use models\DesignTextModel;
+use testS\models\DesignTextModel;
 
 /**
  * Class SectionControllerTest

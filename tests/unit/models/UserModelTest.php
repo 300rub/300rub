@@ -2,7 +2,7 @@
 
 namespace tests\unit\models;
 
-use models\UserModel;
+use testS\models\UserModel;
 
 /**
  * Tests for model SeoModel

@@ -1,6 +1,6 @@
 <?php
 
-namespace models;
+namespace testS\models;
 
 use testS\components\Db;
 use testS\components\exceptions\DbException;

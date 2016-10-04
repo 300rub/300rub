@@ -1,7 +1,7 @@
 <?php
 
 use testS\components\Language;
-use models\TextModel;
+use testS\models\TextModel;
 
 return [
     1 => [

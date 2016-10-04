@@ -1,6 +1,6 @@
 <?php
 
-namespace models;
+namespace testS\models;
 
 /**
  * Model for working with table "users"

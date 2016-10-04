@@ -5,10 +5,10 @@ namespace testS\commands;
 use testS\applications\App;
 use testS\components\Db;
 use testS\components\exceptions\MigrationException;
-use migrations\M160301000000Sites;
-use migrations\M160302000000Migrations;
+use testS\migrations\M160301000000Sites;
+use testS\migrations\M160302000000Migrations;
 use Exception;
-use models\AbstractModel;
+use testS\models\AbstractModel;
 
 /**
  * Applies migrations

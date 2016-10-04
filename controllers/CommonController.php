@@ -3,8 +3,8 @@
 namespace testS\controllers;
 
 use testS\applications\App;
-use models\SectionModel;
-use models\GridModel;
+use testS\models\SectionModel;
+use testS\models\GridModel;
 
 class CommonController extends AbstractController
 {

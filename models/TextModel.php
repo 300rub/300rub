@@ -1,6 +1,6 @@
 <?php
 
-namespace models;
+namespace testS\models;
 
 use testS\components\exceptions\ModelException;
 use testS\components\Language;

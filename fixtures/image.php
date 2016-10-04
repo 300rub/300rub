@@ -1,10 +1,10 @@
 <?php
 
-use models\ImageModel;
+use testS\models\ImageModel;
 use testS\components\Language;
-use models\DesignImageSimpleModel;
-use models\DesignImageZoomModel;
-use models\DesignImageSliderModel;
+use testS\models\DesignImageSimpleModel;
+use testS\models\DesignImageZoomModel;
+use testS\models\DesignImageSliderModel;
 
 return [
     1 => [

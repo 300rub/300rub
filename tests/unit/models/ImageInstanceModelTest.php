@@ -2,8 +2,8 @@
 
 namespace tests\unit\models;
 
-use models\ImageInstanceModel;
-use models\ImageModel;
+use testS\models\ImageInstanceModel;
+use testS\models\ImageModel;
 
 /**
  * Tests for model ImageModel

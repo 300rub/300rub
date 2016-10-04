@@ -1,6 +1,6 @@
 <?php
 use testS\components\Language;
-use models\ImageModel;
+use testS\models\ImageModel;
 
 ?>
 
