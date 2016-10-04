@@ -14,7 +14,7 @@ while ! nc -z localhost 7777; do
     sleep 1
 done
 
-mysql -u root -proot -h 127.0.0.1 -P 7777 -e "CREATE DATABASE project"
-mysql -u root -proot -h 127.0.0.1 -P 7777 -e "GRANT ALL PRIVILEGES ON project.* TO 'root'@'127.0.0.1' IDENTIFIED BY 'root'"
+mysql -u root -proot -h 127.0.0.1 -P 7777 -e "CREATE DATABASE testS"
+mysql -u root -proot -h 127.0.0.1 -P 7777 -e "GRANT ALL PRIVILEGES ON testS.* TO 'root'@'127.0.0.1' IDENTIFIED BY 'root'"
 
 docker exec -it tests_phpfpm_1 ant

@@ -33,6 +33,13 @@
         </exec>
     </target>
 
+    <target name="create-sql-dumps">
+        <exec executable="php">
+            <arg value='bin/php' />
+            <arg value='createSqlDumps' />
+        </exec>
+    </target>
+
     <target name="migrate">
         <exec executable="php">
             <arg value='bin/php' />
@@ -40,7 +47,12 @@
         </exec>
     </target>
 
-    <target name="build" depends="clear-logs, clear-db, public-vendor, migrate">
+    <target name="prepare" depends="clear-logs">
+        <delete dir="backups" />
+        <mkdir dir="backups" />
+    </target>
+
+    <target name="build" depends="prepare, migrate, create-sql-dumps">
     </target>
 
 </project>

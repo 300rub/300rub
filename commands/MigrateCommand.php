@@ -71,8 +71,7 @@ class MigrateCommand extends AbstractCommand
 				->_clearDb()
 				->_checkCommonTables()
 				->_setNewMigrations()
-				->_setSites()
-				->_createDumps();
+				->_setSites();
 		} catch (Exception $e) {
 			throw $e;
 		}
@@ -153,53 +152,6 @@ class MigrateCommand extends AbstractCommand
 		$rows = Db::fetchAll("SELECT * " . "FROM `sites`");
 		foreach ($rows as $row) {
 			$this->_sites[] = $row;
-		}
-
-		return $this;
-	}
-
-	/**
-	 * Makes backup dumps for all DB
-	 *
-	 * @throws MigrationException
-	 *
-	 * @return MigrateCommand
-	 */
-	private function _createDumps()
-	{
-		foreach ($this->_sites as $site) {
-			if (!Db::setPdo($site["dbHost"], $site["dbUser"], $site["dbPassword"], $site["dbName"])) {
-				throw new MigrationException(
-					"Unable to set PDO for creating dump
-					with host: {host}, user: {user}, password: {password}, name: {name}",
-					[
-						"host"     => $site["dbHost"],
-						"user"     => $site["dbUser"],
-						"password" => $site["dbPassword"],
-						"name"     => $site["dbName"],
-					]
-				);
-			}
-
-			$this->_dumpSites[] = $site;
-			$backupsFolder = __DIR__ . "/../backups";
-			if (!file_exists($backupsFolder)) {
-				mkdir($backupsFolder, 0777);
-			}
-
-			exec(
-				"mysqldump -u " .
-				$site["dbUser"] .
-				" -h localhost -p'" .
-				$site["dbPassword"] .
-				"' " .
-				$site["dbName"] .
-				" | gzip -c > " .
-				$backupsFolder .
-				"/" .
-				$site["dbName"] .
-				".sql.gz"
-			);
 		}
 
 		return $this;
