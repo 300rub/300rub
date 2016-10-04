@@ -81,8 +81,8 @@ class SectionModel extends AbstractModel
 	 * @var array
 	 */
 	protected $relations = [
-		"seoModel"         => ['models\SeoModel', "seoId"],
-		"designBlockModel" => ['models\DesignBlockModel', "designBlockId"]
+		"seoModel"         => ['testS\models\SeoModel', "seoId"],
+		"designBlockModel" => ['testS\models\DesignBlockModel', "designBlockId"]
 	];
 
 	/**

@@ -30,7 +30,7 @@ return [
     5 => [
         "name"     => "Address. Without styles",
         "language" => Language::LANGUAGE_EN_ID,
-        "type"     => TextModel::TYPE_ADRESS,
+        "type"     => TextModel::TYPE_ADDRESS,
         "text"     => "Address. Without styles. The quick brown fox jumps over the lazy dog 0123456789.",
     ],
     6 => [

@@ -37,7 +37,7 @@ class Console extends AbstractApplication
 			array_shift($args);
 			array_shift($args);
 
-			$className = "\\commands\\" . $command. self::COMMAND_ENDING;
+			$className = "\\testS\\commands\\" . $command. self::COMMAND_ENDING;
 			$this->output("The command \"{$command}\" has been started");
 
 			/**

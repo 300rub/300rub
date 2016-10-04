@@ -115,7 +115,7 @@ class DesignImageZoomModel extends AbstractModel
      * @var array
      */
     protected $relations = [
-        "designBlockModel" => ['models\DesignBlockModel', "designBlockId"],
+        "designBlockModel" => ['testS\models\DesignBlockModel', "designBlockId"],
     ];
 
     /**

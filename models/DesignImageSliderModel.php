@@ -185,9 +185,9 @@ class DesignImageSliderModel extends AbstractModel
      * @var array
      */
     protected $relations = [
-        "designBlockModel"            => ['models\DesignBlockModel', "designBlockId"],
-        "navigationDesignBlockModel"  => ['models\DesignBlockModel', "navigationDesignBlockId"],
-        "descriptionDesignBlockModel" => ['models\DesignBlockModel', "descriptionDesignBlockId"],
+        "designBlockModel"            => ['testS\models\DesignBlockModel', "designBlockId"],
+        "navigationDesignBlockModel"  => ['testS\models\DesignBlockModel', "navigationDesignBlockId"],
+        "descriptionDesignBlockModel" => ['testS\models\DesignBlockModel', "descriptionDesignBlockId"],
     ];
 
     /**

@@ -66,7 +66,7 @@ class ImageAlbumModel extends AbstractModel
 	{
 		return [
 			"name"     => ["required", "max" => 255],
-			"imageId" => ["relation" => "\\models\\ImageModel"],
+			"imageId" => ["relation" => "\\testS\\models\\ImageModel"],
 			"sort"     => [],
 		];
 	}

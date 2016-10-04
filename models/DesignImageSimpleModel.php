@@ -87,9 +87,9 @@ class DesignImageSimpleModel extends AbstractModel
      * @var array
      */
     protected $relations = [
-        "designBlockModel"      => ['models\DesignBlockModel', "designBlockId"],
-        "imageDesignBlockModel" => ['models\DesignBlockModel', "imageDesignBlockId"],
-        "designTextModel"       => ['models\DesignBlockModel', "designTextId"],
+        "designBlockModel"      => ['testS\models\DesignBlockModel', "designBlockId"],
+        "imageDesignBlockModel" => ['testS\models\DesignBlockModel', "imageDesignBlockId"],
+        "designTextModel"       => ['testS\models\DesignBlockModel', "designTextId"],
     ];
 
     /**

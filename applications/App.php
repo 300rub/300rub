@@ -117,13 +117,13 @@ class App
 	 */
 	public static function autoload($className)
 	{
-		if (array_key_exists($className, self::$classMap)) {
+		if (in_array($className, self::$classMap)) {
 			return false;
 		}
 
-		$filePath = __DIR__ . "/../" . str_replace("\\", "/", $className) . ".php";
+		$filePath = __DIR__ . "/../" . str_replace("\\", "/", str_replace("testS\\", "", $className))  . ".php";
 		if (file_exists($filePath)) {
-			include ($filePath);
+			include_once($filePath);
 		}
 		self::$classMap[] = $className;
 
@@ -131,4 +131,4 @@ class App
 	}
 }
 
-spl_autoload_register(['applications\App','autoload']);
+spl_autoload_register(['testS\applications\App','autoload']);

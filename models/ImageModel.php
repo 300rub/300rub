@@ -248,10 +248,10 @@ class ImageModel extends AbstractModel
      * @var array
      */
     protected $relations = [
-        "designBlockModel"       => ['models\DesignBlockModel', "designBlockId"],
-        "designImageSliderModel" => ['models\DesignImageSliderModel', "designImageSliderId"],
-        "designImageZoomModel"   => ['models\DesignImageZoomModel', "designImageZoomId"],
-        "designImageSimpleModel" => ['models\DesignBlockModel', "designImageSliderId"]
+        "designBlockModel"       => ['testS\models\DesignBlockModel', "designBlockId"],
+        "designImageSliderModel" => ['testS\models\DesignImageSliderModel', "designImageSliderId"],
+        "designImageZoomModel"   => ['testS\models\DesignImageZoomModel', "designImageZoomId"],
+        "designImageSimpleModel" => ['testS\models\DesignBlockModel', "designImageSliderId"]
     ];
 
     /**

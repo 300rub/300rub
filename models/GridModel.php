@@ -93,7 +93,7 @@ class GridModel extends AbstractModel
 	 * @var array
 	 */
 	protected $relations = [
-		"gridLineModel" => ['models\GridLineModel', "gridLineId"]
+		"gridLineModel" => ['testS\models\GridLineModel', "gridLineId"]
 	];
 
 	/**
@@ -498,7 +498,7 @@ class GridModel extends AbstractModel
 		/**
 		 * @var AbstractModel $model
 		 */
-		$modelName = '\\models\\' . $typeList[$this->contentType]["model"];
+		$modelName = '\\testS\\models\\' . $typeList[$this->contentType]["model"];
 		$model = new $modelName;
 		$model = $model->byId($this->contentId)->withAll()->find();
 
@@ -637,7 +637,7 @@ class GridModel extends AbstractModel
 			);
 		}
 		
-		$className = "\\models\\" . $typeList[$this->contentType]["model"];
+		$className = "\\testS\\models\\" . $typeList[$this->contentType]["model"];
 		$model = new $className;
 		if ($this->checkParentBeforeSave === true
 			&& (!$model instanceof AbstractModel

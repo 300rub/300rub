@@ -325,7 +325,7 @@ class MigrateCommand extends AbstractCommand
 				/**
 				 * @var \testS\migrations\AbstractMigration $migration
 				 */
-				$migrationFullName = "\\migrations\\{$migrationName}";
+				$migrationFullName = "\\testS\\migrations\\{$migrationName}";
 				$migration = new $migrationFullName;
 				if (!$migration->isSkip) {
 					$migration->up();
@@ -437,7 +437,7 @@ class MigrateCommand extends AbstractCommand
 			$records = require(__DIR__ . "/../fixtures/" . $file);
 
 			foreach ($records as $id => $record) {
-				$modelName = "\\models\\" . ucfirst(str_replace(".php", "", $file)) . "Model";
+				$modelName = "\\testS\\models\\" . ucfirst(str_replace(".php", "", $file)) . "Model";
 
 				/**
 				 * @var AbstractModel $model

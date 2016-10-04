@@ -4,7 +4,6 @@ namespace testS\migrations;
 
 use testS\applications\App;
 use testS\components\Db;
-use testS\components\Language;
 
 /**
  * Creates table for storing information about all sites

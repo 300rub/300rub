@@ -66,8 +66,8 @@ class GridLineModel extends AbstractModel
 	 * @var array
 	 */
 	protected $relations = [
-		"outsideDesignModel" => ['models\DesignBlockModel', "outsideDesignId"],
-		"insideDesignModel" => ['models\DesignBlockModel', "insideDesignId"]
+		"outsideDesignModel" => ['testS\models\DesignBlockModel', "outsideDesignId"],
+		"insideDesignModel"  => ['testS\models\DesignBlockModel', "insideDesignId"]
 	];
 
 	/**

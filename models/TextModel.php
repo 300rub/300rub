@@ -143,8 +143,8 @@ class TextModel extends AbstractModel
 	 * @var array
 	 */
 	protected $relations = [
-		"designTextModel"  => ['models\DesignTextModel', "designTextId"],
-		"designBlockModel" => ['models\DesignBlockModel', "designBlockId"]
+		"designTextModel"  => ['testS\models\DesignTextModel', "designTextId"],
+		"designBlockModel" => ['testS\models\DesignBlockModel', "designBlockId"]
 	];
 
 	/**

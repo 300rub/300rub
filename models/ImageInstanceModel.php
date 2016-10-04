@@ -188,7 +188,7 @@ class ImageInstanceModel extends AbstractModel
 	{
 		return [
 			"fileName"      => [],
-			"imageAlbumId" => ["relation" => "\\models\\ImageAlbumModel"],
+			"imageAlbumId" => ["relation" => "\\testS\\models\\ImageAlbumModel"],
 			"isCover"       => [],
 			"sort"           => [],
 			"alt"            => [],

@@ -678,7 +678,7 @@ abstract class AbstractModel
 	 */
 	protected function getRelationModel($model, $id, $className)
 	{
-		$className = "\\models\\{$className}";
+		$className = "\\testS\\models\\{$className}";
 
 		if ($model instanceof $className) {
 			return $model;
