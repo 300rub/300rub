@@ -91,9 +91,9 @@ abstract class AbstractApplication
 	{
 		if (
 			!Db::setPdo(
-				$this->config->db->host, 
-				$this->config->db->user, 
-				$this->config->db->password, 
+				$this->config->db->host,
+				$this->config->db->user,
+				$this->config->db->password,
 				$this->config->db->name
 			)
 		) {

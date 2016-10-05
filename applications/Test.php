@@ -2,7 +2,8 @@
 
 namespace testS\applications;
 
-use testS\commands\MigrateCommand;
+use testS\commands\CreateSqlDumpsCommand;
+use testS\commands\RollbackSqlDumpsCommand;
 use testS\components\Language;
 
 /**
@@ -19,14 +20,5 @@ class Test extends AbstractApplication
     public function run()
     {
         Language::$activeId = Language::LANGUAGE_EN_ID;
-        MigrateCommand::loadFixtures();
-    }
-
-    /**
-     * Destructor
-     */
-    public function __destruct()
-    {
-        MigrateCommand::loadFixtures();
     }
 }

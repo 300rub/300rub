@@ -16,66 +16,61 @@ class MigrateCommand extends AbstractCommand
 {
 
 	/**
-	 * Is necessary to insert test information
-	 * Works only in debug mode
-	 *
-	 * @var bool
-	 */
-	public $isTestData = true;
-
-	/**
 	 * New migrations
 	 *
 	 * @var string[]
 	 */
-	private $_migrations = [];
+	private static $_migrations = [];
 
 	/**
 	 * All sites
 	 *
 	 * @var array
 	 */
-	private $_sites = [];
+	private static $_sites = [];
 
 	/**
 	 * Runs the command
 	 *
 	 * @param string[] $args command arguments
-	 *
-	 * @throws Exception
 	 */
 	public function run($args = [])
 	{
+		self::migrate();
+	}
+
+	/**
+	 * Migrate
+	 *
+	 * @throws Exception
+	 */
+	public static function migrate()
+	{
 		try {
-			$this
-				->_setNewMigrations()
-				->_setSites();
+			self::_setNewMigrations();
+			self::_setSites();
 		} catch (Exception $e) {
 			throw $e;
 		}
 
 		try {
-			$this
-				->_applyMigration()
-				->_updateVersions();
+			self::_applyMigration();
+			self::_updateVersions();
 		} catch (Exception $e) {
-			App::console()->output($e->getMessage(), true);
+			//App::console()->output($e->getMessage(), true);
 
-			try {
-				App::console()->output("DB rollback has been started");
-				// rollback
-			} catch (Exception $e) {
-				throw $e;
-			}
+			//			try {
+			//				App::console()->output("DB rollback has been started");
+			//			} catch (Exception $e) {
+			//				throw $e;
+			//			}
 		}
 	}
 
 	/**
 	 * Sets the list of non-applied migrations
-	 *
-	 * @return MigrateCommand
 	 */
-	private function _setNewMigrations()
+	private static function _setNewMigrations()
 	{
 		$versions = [];
 		$rows = Db::fetchAll("SELECT * " . "FROM `migrations`");
@@ -88,27 +83,18 @@ class MigrateCommand extends AbstractCommand
 			if (strpos($file, "M") === 0) {
 				$version = str_replace(".php", "", $file);
 				if (App::getApplication()->config->isDebug || !in_array($version, $versions)) {
-					$this->_migrations[] = $version;
+					self::$_migrations[] = $version;
 				}
 			}
 		}
-
-		return $this;
 	}
 
 	/**
 	 * Sets sites
-	 *
-	 * @return MigrateCommand
 	 */
-	private function _setSites()
+	private static function _setSites()
 	{
-		$rows = Db::fetchAll("SELECT * " . "FROM `sites`");
-		foreach ($rows as $row) {
-			$this->_sites[] = $row;
-		}
-
-		return $this;
+		self::$_sites = Db::fetchAll("SELECT * " . "FROM `sites`");
 	}
 
 	/**
@@ -116,16 +102,16 @@ class MigrateCommand extends AbstractCommand
 	 *
 	 * @throws MigrationException
 	 *
-	 * @return MigrateCommand
+	 * @return bool
 	 */
-	private function _applyMigration()
+	private static function _applyMigration()
 	{
-		if (!$this->_migrations || !$this->_sites) {
-			return $this;
+		if (!self::$_migrations || !self::$_sites) {
+			return false;
 		}
 
-		sort($this->_migrations);
-		foreach ($this->_sites as $site) {
+		sort(self::$_migrations);
+		foreach (self::$_sites as $site) {
 			if (!Db::setPdo($site["dbHost"], $site["dbUser"], $site["dbPassword"], $site["dbName"])) {
 				throw new MigrationException(
 					"Unable to connect with DB for applying migrations
@@ -139,7 +125,7 @@ class MigrateCommand extends AbstractCommand
 				);
 			}
 
-			foreach ($this->_migrations as $migrationName) {
+			foreach (self::$_migrations as $migrationName) {
 				/**
 				 * @var \testS\migrations\AbstractMigration $migration
 				 */
@@ -151,17 +137,15 @@ class MigrateCommand extends AbstractCommand
 			}
 		}
 
-		return $this;
+		return true;
 	}
 
 	/**
 	 * Version's update
 	 *
-	 * @return MigrateCommand
-	 *
 	 * @throws MigrationException
 	 */
-	private function _updateVersions()
+	private static function _updateVersions()
 	{
 		if (
 		!Db::setPdo(
@@ -186,7 +170,7 @@ class MigrateCommand extends AbstractCommand
 		try {
 			Db::startTransaction();
 
-			foreach ($this->_migrations as $migration) {
+			foreach (self::$_migrations as $migration) {
 				if (!Db::execute("INSERT" . " INTO `migrations` (version) VALUES(?)", [$migration])) {
 					throw new MigrationException(
 						"UUnable to update version with migration: {migration}",
@@ -201,7 +185,5 @@ class MigrateCommand extends AbstractCommand
 		}
 
 		Db::commitTransaction();
-
-		return $this;
 	}
 }

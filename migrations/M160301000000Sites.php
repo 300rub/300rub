@@ -47,7 +47,7 @@ class M160301000000Sites extends AbstractMigration {
 	 */
 	public function insertData()
 	{
-		$config = App::console()->config;
+		$config = App::getApplication()->config;
 
 		Db::execute(
 			"INSERT " .
