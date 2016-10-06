@@ -1,9 +1,9 @@
 <?php
 
-namespace tests\unit\models;
+namespace testS\tests\unit\models;
 
 use testS\models\AbstractModel;
-use tests\unit\AbstractUnitTest;
+use testS\tests\unit\AbstractUnitTest;
 
 /**
  * Class AbstractModelTest
@@ -106,11 +106,10 @@ abstract class AbstractModelTest extends AbstractUnitTest
     private function _checkValues(AbstractModel $model, $expected)
     {
         foreach ($expected as $key => $value) {
-            list($objectName, $field) = explode(AbstractModel::DEFAULT_SEPARATOR, $key);
-            if ($objectName === AbstractModel::OBJECT_NAME) {
-                $this->assertEquals($value, $model->$field);
+            if (is_array($key)) {
+                $this->_checkValues($model->$key, $value);
             } else {
-                $this->assertEquals($value, $model->$objectName->$field);
+                $this->assertEquals($value, $model->$key);
             }
         }
 
