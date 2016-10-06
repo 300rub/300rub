@@ -1,13 +1,13 @@
 <?php
 
-namespace tests\unit\models;
+namespace testS\tests\unit\models;
 
 use testS\models\SeoModel;
 
 /**
- * Tests for model SeoModelTest.
+ * Tests for model SeoModelTes
  *
- * @package tests\unit\models
+ * @package testS\tests\unit\models
  */
 class SeoModelTest extends AbstractModelTest
 {
@@ -34,102 +34,102 @@ class SeoModelTest extends AbstractModelTest
             [
                 [],
                 [
-                    "t.name" => "required",
-                    "t.url"  => "required",
+                    "name" => "required",
+                    "url"  => "required",
                 ]
             ],
             // Insert: empty values
             [
                 [
-                    "t.name"        => "",
-                    "t.url"         => "",
-                    "t.title"       => "",
-                    "t.keywords"    => "",
-                    "t.description" => "",
+                    "name"        => "",
+                    "url"         => "",
+                    "title"       => "",
+                    "keywords"    => "",
+                    "description" => "",
                 ],
                 [
-                    "t.name" => "required",
-                    "t.url"  => "required",
+                    "name" => "required",
+                    "url"  => "required",
                 ]
             ],
             // Insert: correct values. Update: with more than max values.
             [
                 [
-                    "t.name"        => "name",
-                    "t.url"         => "url",
-                    "t.title"       => "title",
-                    "t.keywords"    => "keywords",
-                    "t.description" => "description",
+                    "name"        => "name",
+                    "url"         => "url",
+                    "title"       => "title",
+                    "keywords"    => "keywords",
+                    "description" => "description",
                 ],
                 [],
                 [
-                    "t.name"        => "name",
-                    "t.url"         => "url",
-                    "t.title"       => "title",
-                    "t.keywords"    => "keywords",
-                    "t.description" => "description",
+                    "name"        => "name",
+                    "url"         => "url",
+                    "title"       => "title",
+                    "keywords"    => "keywords",
+                    "description" => "description",
                 ],
                 [
-                    "t.name"        => "string with length more than 255 symbols,
+                    "name"        => "string with length more than 255 symbols,
 						string with length more than 255 symbols, string with length more than 255 symbols,
 						string with length more than 255 symbols, string with length more than 255 symbols,
 						string with length more than 255 symbols, string with length more than 255 symbols,
 						string with length more than 255 symbols, string with length more than 255 symbols",
-                    "t.url"         => "string with length more than 255 symbols,
+                    "url"         => "string with length more than 255 symbols,
 						string with length more than 255 symbols, string with length more than 255 symbols,
 						string with length more than 255 symbols, string with length more than 255 symbols,
 						string with length more than 255 symbols, string with length more than 255 symbols,
 						string with length more than 255 symbols, string with length more than 255 symbols",
-                    "t.title"       => "string with length more than 100 symbols,
+                    "title"       => "string with length more than 100 symbols,
 						string with length more than 100 symbols, string with length more than 100 symbols,
 						string with length more than 100 symbols",
-                    "t.keywords"    => "string with length more than 255 symbols,
+                    "keywords"    => "string with length more than 255 symbols,
 						string with length more than 255 symbols, string with length more than 255 symbols,
 						string with length more than 255 symbols, string with length more than 255 symbols,
 						string with length more than 255 symbols, string with length more than 255 symbols,
 						string with length more than 255 symbols, string with length more than 255 symbols",
-                    "t.description" => "string with length more than 255 symbols,
+                    "description" => "string with length more than 255 symbols,
 						string with length more than 255 symbols, string with length more than 255 symbols,
 						string with length more than 255 symbols, string with length more than 255 symbols,
 						string with length more than 255 symbols, string with length more than 255 symbols,
 						string with length more than 255 symbols, string with length more than 255 symbols",
                 ],
                 [
-                    "t.name"        => "max",
-                    "t.url"         => "max",
-                    "t.title"       => "max",
-                    "t.keywords"    => "max",
-                    "t.description" => "max",
+                    "name"        => "max",
+                    "url"         => "max",
+                    "title"       => "max",
+                    "keywords"    => "max",
+                    "description" => "max",
                 ],
             ],
             // Insert: incorrect values. Update: incorrect correct values.
             [
                 [
-                    "t.name"        => " <b>seo name<b>",
-                    "t.url"         => "<i>seo-url<i> &^ &^) &^£&",
-                    "t.title"       => "<div>seo title</div>",
-                    "t.keywords"    => "<div>seo keywords<div>",
-                    "t.description" => "<div>seo description<div>",
+                    "name"        => " <b>seo name<b>",
+                    "url"         => "<i>seo-url<i> &^ &^) &^£&",
+                    "title"       => "<div>seo title</div>",
+                    "keywords"    => "<div>seo keywords<div>",
+                    "description" => "<div>seo description<div>",
                 ],
                 [],
                 [
-                    "t.name"        => "seo name",
-                    "t.url"         => "seo-url",
-                    "t.title"       => "seo title",
-                    "t.keywords"    => "seo keywords",
-                    "t.description" => "seo description",
+                    "name"        => "seo name",
+                    "url"         => "seo-url",
+                    "title"       => "seo title",
+                    "keywords"    => "seo keywords",
+                    "description" => "seo description",
                 ],
                 [
-                    "t.name" => " <b>seo name! <b>",
-                    "t.url"  => "",
+                    "name" => " <b>seo name! <b>",
+                    "url"  => "",
                 ],
                 [],
                 [
-                    "t.name"        => "seo name!",
-                    "t.url"         => "seo-name",
-                    "t.title"       => "seo title",
-                    "t.keywords"    => "seo keywords",
-                    "t.description" => "seo description",
+                    "name"        => "seo name!",
+                    "url"         => "seo-name",
+                    "title"       => "seo title",
+                    "keywords"    => "seo keywords",
+                    "description" => "seo description",
                 ]
             ],
         ];

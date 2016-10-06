@@ -18,35 +18,35 @@ class SeoModel extends AbstractModel
 	 *
 	 * @var string
 	 */
-	public $name = "";
+	public $name;
 
 	/**
 	 * URL alias
 	 *
 	 * @var string
 	 */
-	public $url = "";
+	public $url;
 
 	/**
 	 * SEO title
 	 *
 	 * @var string
 	 */
-	public $title = "";
+	public $title;
 
 	/**
 	 * SEO keywords
 	 *
 	 * @var string
 	 */
-	public $keywords = "";
+	public $keywords;
 
 	/**
 	 * SEO description
 	 *
 	 * @var string
 	 */
-	public $description = "";
+	public $description;
 
 	/**
 	 * Gets table name
@@ -117,10 +117,6 @@ class SeoModel extends AbstractModel
 	 */
 	public function byUrl($url)
 	{
-		if (!$url) {
-			return $this;
-		}
-
 		$this->db->addCondition("t.url = :url");
 		$this->db->params["url"] = $url;
 
@@ -143,18 +139,7 @@ class SeoModel extends AbstractModel
 		$model->keywords = "";
 		$model->description = "";
 
-		if (!$model->save()) {
-			$fields = "";
-			foreach ($model->getFieldNames() as $fieldName) {
-				$fields .= " {$fieldName}: " . $model->$fieldName;
-			}
-			throw new ModelException(
-				"Unable to duplicate SeoModel with fields: {fields}",
-				[
-					"fields" => $fields
-				]
-			);
-		}
+		$model->save();
 		
 		return $model;
 	}

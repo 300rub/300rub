@@ -133,7 +133,8 @@ abstract class AbstractModelTest extends AbstractUnitTest
     {
         $this->assertEquals(count($expected), count($model->errors));
         foreach ($expected as $field => $error) {
-            $this->assertTrue(array_key_exists($field, $model->errors));
+            $errorList = implode(",", array_keys($model->errors));
+            $this->assertTrue(array_key_exists($field, $model->errors), "Unable to find the error \"{$field}\" in error list: \"{$errorList}\" ");
             $this->assertEquals($error, $model->errors[$field]);
         }
     }

@@ -27,13 +27,6 @@ class Validator
 	private $_errors = [];
 
 	/**
-	 * Object name
-	 *
-	 * @var string
-	 */
-	private $_objectName = "";
-
-	/**
 	 * Map for verification
 	 *
 	 * @var array
@@ -43,13 +36,11 @@ class Validator
 	/**
 	 * Constructor
 	 *
-	 * @param AbstractModel  $model      Model
-	 * @param string         $objectName Object name
+	 * @param AbstractModel  $model Model
 	 */
-	public function __construct($model, $objectName = AbstractModel::OBJECT_NAME)
+	public function __construct($model)
 	{
 		$this->_model = $model;
-		$this->_objectName = $objectName;
 	}
 
 	/**
@@ -137,7 +128,7 @@ class Validator
 	 */
 	private function _addError($field, $value)
 	{
-		$fieldsName = $this->_objectName . AbstractModel::DEFAULT_SEPARATOR . $field;
+		$fieldsName = $field;
 		if (!array_key_exists($fieldsName, $this->_errors)) {
 			$this->_errors[$fieldsName] = $value;
 		}
