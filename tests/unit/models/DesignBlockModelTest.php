@@ -7,7 +7,7 @@ use testS\models\DesignBlockModel;
 /**
  * Tests for model DesignTextModel
  *
- * @package tests\unit\models
+ * @package testS\tests\unit\models
  */
 class DesignBlockModelTest extends AbstractModelTest
 {

@@ -8,7 +8,7 @@ use testS\tests\unit\AbstractUnitTest;
 /**
  * Class AbstractModelTest
  *
- * @package tests\unit\models
+ * @package testS\tests\unit\models
  */
 abstract class AbstractModelTest extends AbstractUnitTest
 {

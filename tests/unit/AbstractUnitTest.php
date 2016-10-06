@@ -7,7 +7,7 @@ use PHPUnit_Framework_TestCase;
 /**
  * Class AbstractUnitTest
  *
- * @package tests\unit
+ * @package testS\tests\unit
  */
 abstract class AbstractUnitTest extends PHPUnit_Framework_TestCase
 {
