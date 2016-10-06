@@ -61,7 +61,7 @@ use testS\models\DesignBlockModel;
 		</div>
 		<div
 			class="j-padding-container l-angles-container l-padding-container"
-			data-min="<?= DesignBlockModel::MIN_PADDING_VALUE ?>"
+			data-min="0"
 			data-result="j-container"
 			>
 			<div class="j-top-left l-angel-item l-top-left">
@@ -110,7 +110,7 @@ use testS\models\DesignBlockModel;
 		</div>
 		<div
 			class="j-border-radius-container l-angles-container l-border-radius-container"
-			data-min="<?= DesignBlockModel::MIN_BORDER_RADIUS_VALUE ?>"
+			data-min="0"
 			data-result="j-result"
 			>
 			<div class="j-top-left l-angel-item l-top-left">
@@ -179,7 +179,7 @@ use testS\models\DesignBlockModel;
 		</div>
 		<div
 			class="j-border-width-container l-angles-container l-border-width-container"
-			data-min="<?= DesignBlockModel::MIN_BORDER_WIDTH_VALUE ?>"
+			data-min="0"
 			data-result="j-result"
 			>
 			<div class="j-top-left l-angel-item l-top-left">

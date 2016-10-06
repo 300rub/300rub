@@ -19,6 +19,11 @@ abstract class AbstractModel
 {
 
 	/**
+	 * Int max value
+	 */
+	const INT_MAX_VAL = 99999;
+
+	/**
 	 * Default separator
 	 */
 	const DEFAULT_SEPARATOR = ".";
@@ -654,7 +659,7 @@ abstract class AbstractModel
 	 *
 	 * @return int
 	 */
-	protected function getIntVal($value, $maxVal = 99999, $minVal = 0)
+	protected function getIntVal($value, $maxVal = self::INT_MAX_VAL, $minVal = 0)
 	{
 		$value = intval($value);
 
