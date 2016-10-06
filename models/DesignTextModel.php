@@ -118,6 +118,11 @@ class DesignTextModel extends AbstractModel
 	const FAMILY_MS_SERIF = 15;
 
 	/**
+	 * Default family
+	 */
+	const DEFAULT_FAMILY = self::FAMILY_MYRAD;
+
+	/**
 	 * Text align type. Left
 	 */
 	const TEXT_ALIGN_LEFT = 0;
@@ -138,6 +143,11 @@ class DesignTextModel extends AbstractModel
 	const TEXT_ALIGN_JUSTIFY = 3;
 
 	/**
+	 * Default text align
+	 */
+	const DEFAULT_TEXT_ALIGN = self::TEXT_ALIGN_LEFT;
+
+	/**
 	 * Text decoration type. None
 	 */
 	const TEXT_DECORATION_NONE = 0;
@@ -151,6 +161,11 @@ class DesignTextModel extends AbstractModel
 	 * Text decoration type. Line through
 	 */
 	const TEXT_DECORATION_LINE_THROUGH = 2;
+
+	/**
+	 * Default text decoration
+	 */
+	const DEFAULT_TEXT_DECORATION = self::TEXT_DECORATION_NONE;
 
 	/**
 	 * Text decoration type. Overline
@@ -176,6 +191,11 @@ class DesignTextModel extends AbstractModel
 	 * Text transform type. Capitalize
 	 */
 	const TEXT_TRANSFORM_CAPITALIZE = 3;
+
+	/**
+	 * Default text transform
+	 */
+	const DEFAULT_TEXT_TRANSFORM = self::TEXT_TRANSFORM_NONE;
 
 	/**
 	 * CSS font-size in px
@@ -398,56 +418,36 @@ class DesignTextModel extends AbstractModel
 	}
 
 	/**
-	 * Sets values
+	 * Runs before saving
 	 */
-	protected function setValues()
+	protected function beforeSave()
 	{
-		$this->size = intval($this->size);
-		if ($this->size < self::MIN_SIZE_VALUE) {
-			$this->size = 0;
-		}
+		parent::beforeSave();
+
+		$this->size = $this->getIntVal($this->size, self::INT_MAX_VAL, self::MIN_SIZE_VALUE);
+		$this->letterSpacing = $this->getIntVal($this->letterSpacing, self::INT_MAX_VAL, self::MIN_LETTER_SPACING_VALUE);
+
+		$this->isItalic = $this->getTinyIntVal($this->isItalic);
+		$this->isBold = $this->getTinyIntVal($this->isBold);
 
 		$this->family = intval($this->family);
 		if (!array_key_exists($this->family, self::$familyList)) {
-			$this->family = self::FAMILY_MYRAD;
-		}
-
-		$this->isItalic = intval($this->isItalic);
-		if ($this->isItalic >= 1) {
-			$this->isItalic = 1;
-		} else {
-			$this->isItalic = 0;
-		}
-
-		$this->isBold = intval($this->isBold);
-		if ($this->isBold >= 1) {
-			$this->isBold = 1;
-		} else {
-			$this->isBold = 0;
+			$this->family = self::DEFAULT_FAMILY;
 		}
 
 		$this->align = intval($this->align);
 		if (!array_key_exists($this->align, self::$textAlignList)) {
-			$this->align = self::TEXT_ALIGN_LEFT;
+			$this->align = self::DEFAULT_TEXT_ALIGN;
 		}
 
 		$this->decoration = intval($this->decoration);
 		if (!array_key_exists($this->decoration, self::$textDecorationList)) {
-			$this->decoration = self::TEXT_DECORATION_NONE;
+			$this->decoration = self::DEFAULT_TEXT_DECORATION;
 		}
 
 		$this->transform = intval($this->transform);
 		if (!array_key_exists($this->transform, self::$textTransformList)) {
-			$this->transform = self::TEXT_TRANSFORM_NONE;
-		}
-
-		$this->letterSpacing = intval($this->letterSpacing);
-		if ($this->letterSpacing < self::MIN_LETTER_SPACING_VALUE) {
-			$this->letterSpacing = self::MIN_LETTER_SPACING_VALUE;
-		}
-
-		if (!$this->_isColor($this->color)) {
-			$this->color = "";
+			$this->transform = self::DEFAULT_TEXT_TRANSFORM;
 		}
 
 		$this->lineHeight = intval($this->lineHeight);
@@ -455,6 +455,27 @@ class DesignTextModel extends AbstractModel
 			$this->lineHeight = self::DEFAULT_LINE_HEIGHT;
 		} else if ($this->lineHeight < self::MIN_LINE_HEIGHT_VALUE) {
 			$this->lineHeight = self::MIN_LINE_HEIGHT_VALUE;
+		}
+	}
+
+	/**
+	 * Sets values
+	 */
+	protected function setValues()
+	{
+		$this->size = intval($this->size);
+		$this->family = intval($this->family);
+		$this->letterSpacing = intval($this->letterSpacing);
+		$this->align = intval($this->align);
+		$this->decoration = intval($this->decoration);
+		$this->transform = intval($this->transform);
+		$this->lineHeight = intval($this->lineHeight);
+
+		$this->isItalic = boolval($this->isItalic);
+		$this->isBold = boolval($this->isBold);
+
+		if (!$this->_isColor($this->color)) {
+			$this->color = "";
 		}
 	}
 

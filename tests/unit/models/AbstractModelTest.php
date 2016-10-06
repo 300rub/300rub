@@ -109,7 +109,12 @@ abstract class AbstractModelTest extends AbstractUnitTest
             if (is_array($key)) {
                 $this->_checkValues($model->$key, $value);
             } else {
-                $this->assertEquals($value, $model->$key);
+                $v = $model->$key;
+                $this->assertEquals(
+                    $value,
+                    $v,
+                    "For field \"{$key}\""
+                );
             }
         }
 
