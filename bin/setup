@@ -7,12 +7,7 @@ docker-compose ${DOCKER_COMPOSER_FILES} rm -f
 docker-compose ${DOCKER_COMPOSER_FILES} build
 docker-compose ${DOCKER_COMPOSER_FILES} up -d
 
-sleep 2
-
-while ! nc -z localhost 7777; do
-    echo "Waiting until DB is fully running..."
-    sleep 1
-done
+sleep 5
 
 mysql -u root -proot -h 127.0.0.1 -P 7777 -e "CREATE DATABASE testS"
 mysql -u root -proot -h 127.0.0.1 -P 7777 -e "GRANT ALL PRIVILEGES ON testS.* TO 'root'@'127.0.0.1' IDENTIFIED BY 'root'"
