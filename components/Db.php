@@ -445,11 +445,16 @@ class Db
      */
     public function insert()
     {
+        $values = [];
+        foreach ($this->getFields() as $field) {
+            $values[] = sprintf(":%s", $field);
+        }
+
         $query = sprintf(
             "INSERT" . " INTO %s (%s) VALUES (%s)",
             $this->getTable(),
             implode(",", $this->getFields()),
-            implode(",", array_fill(0, count($this->getFields()), "?"))
+            implode(",", $values)
         );
         
         self::execute($query, $this->getParameters());
@@ -466,7 +471,7 @@ class Db
     {
         $sets = [];
         foreach ($this->getFields() as $field) {
-            $sets[] = sprintf("%s=?", $field);
+            $sets[] = sprintf("%s=:%s", $field, $field);
         }
 
         $query = sprintf(

@@ -31,6 +31,13 @@ abstract class AbstractModel
     private $_db;
 
     /**
+     * Errors
+     *
+     * @var array
+     */
+    private $_errors;
+
+    /**
      * Gets table name
      *
      * @return string
@@ -43,6 +50,14 @@ abstract class AbstractModel
      * @return array
      */
     abstract protected function getFields();
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->getDb()->setTable($this->getTableName());
+    }
 
     /**
      * Gets DB object
