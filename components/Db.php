@@ -29,11 +29,11 @@ class Db
 	private $_select = "";
 
     /**
-     * From
+     * Table
      *
      * @var string
      */
-    private $_from = "";
+    private $_table = "";
 
     /**
      * Where
@@ -66,9 +66,16 @@ class Db
     /**
      * Parameters
      * 
-     * @var array
+     * @var string[]
      */
     private $_parameters = [];
+
+    /**
+     * Fields
+     *
+     * @var string[]
+     */
+    private $_fields = [];
 
     /**
      * Sets PDO
@@ -116,26 +123,26 @@ class Db
     }
 
     /**
-     * Sets from
+     * Sets table
      *
-     * @param string $from
+     * @param string $table
      *
      * @return Db
      */
-    public function setFrom($from)
+    public function setTable($table)
     {
-        $this->_from = $from;
+        $this->_table = $table;
         return $this;
     }
 
     /**
-     * Gets from
+     * Gets table
      *
      * @return string
      */
-    public function getFrom()
+    public function getTable()
     {
-        return $this->_from;
+        return $this->_table;
     }
 
     /**
@@ -233,7 +240,7 @@ class Db
     /**
      * Sets parameters
      * 
-     * @param $parameters
+     * @param string[] $parameters
      * 
      * @return Db
      */
@@ -246,11 +253,34 @@ class Db
     /**
      * Gets parameters
      * 
-     * @return array
+     * @return string[]
      */
     public function getParameters()
     {
         return $this->_parameters;
+    }
+
+    /**
+     * Sets fields
+     *
+     * @param string[] $fields
+     *
+     * @return Db
+     */
+    public function setFields($fields)
+    {
+        $this->_fields = $fields;
+        return $this;
+    }
+
+    /**
+     * Gets fields
+     *
+     * @return string[]
+     */
+    public function getFields()
+    {
+        return $this->_fields;
     }
 
     /**
@@ -260,7 +290,7 @@ class Db
      */
     private function _getQuery()
     {
-        $query = sprintf("SELECT" . " %s FROM %s", $this->getSelect(), $this->getFrom());
+        $query = sprintf("SELECT" . " %s FROM %s", $this->getSelect(), $this->getTable());
         
         if ($this->getWhere()) {
             $query .= sprintf(" WHERE %s", $this->getWhere());
@@ -279,6 +309,33 @@ class Db
         }
         
         return $query;
+    }
+
+    /**
+     * Executes query
+     *
+     * @param string $statement
+     * @param array  $parameters
+     *
+     * @return PDOStatement
+     *
+     * @throws DbException
+     */
+    public static function execute($statement, $parameters = [])
+    {
+        $sth = self::$_pdo->prepare($statement);
+        $result = $sth->execute($parameters);
+
+        if ($result === false) {
+            throw new DbException(
+                sprintf(
+                    "Unable to execute sql query. Error info: %s",
+                    implode(" ,", $sth->errorInfo())
+                )
+            );
+        }
+
+        return $sth;
     }
 
     /**
@@ -308,6 +365,57 @@ class Db
     }
 
     /**
+     * Starts transaction
+     *
+     * @throws DbException
+     */
+    public static function startTransaction()
+    {
+        if (self::$_pdo->beginTransaction() === false) {
+            throw new DbException(
+                sprintf(
+                    "Unable to start transaction. Error info: %s",
+                    implode(" ,", self::$_pdo->errorInfo())
+                )
+            );
+        }
+    }
+
+    /**
+     * Applies transaction
+     *
+     * @throws DbException
+     */
+    public static function commitTransaction()
+    {
+        if (self::$_pdo->commit() === false) {
+            throw new DbException(
+                sprintf(
+                    "Unable to commit transaction. Error info: %s",
+                    implode(" ,", self::$_pdo->errorInfo())
+                )
+            );
+        }
+    }
+
+    /**
+     * Rollbacks transaction
+     *
+     * @throws DbException
+     */
+    public static function rollbackTransaction()
+    {
+        if (self::$_pdo->rollBack() === false) {
+            throw new DbException(
+                sprintf(
+                    "Unable to rollback transaction. Error info: %s",
+                    implode(" ,", self::$_pdo->errorInfo())
+                )
+            );
+        }
+    }
+
+    /**
      * Finds ine record
      *
      * @return array
@@ -328,35 +436,62 @@ class Db
     }
 
     /**
-     * Executes query
+     * Inserts record to DB
+     * If success - returns new ID
      *
-     * @param string $statement
-     * @param array  $parameters
+     * @throws DbException
      *
-     * @return PDOStatement
+     * @return int
+     */
+    public function insert()
+    {
+        $query = sprintf(
+            "INSERT" . " INTO %s (%s) VALUES (%s)",
+            $this->getTable(),
+            implode(",", $this->getFields()),
+            implode(",", array_fill(0, count($this->getFields()), "?"))
+        );
+        
+        self::execute($query, $this->getParameters());
+
+        return self::$_pdo->lastInsertId();
+    }
+
+    /**
+     * Updates record
      *
      * @throws DbException
      */
-    public static function execute($statement, $parameters = [])
+    public function update()
     {
-        $sth = self::$_pdo->prepare($statement);
-        $result = $sth->execute($parameters);
-
-        if ($result === false) {
-            $errorInfo = [];
-            foreach ($sth->errorInfo() as $error) {
-                $errorInfo[] = $error;
-            }
-
-            throw new DbException(
-                sprintf(
-                    "Error code: %s. Error info: %s",
-                    $sth->errorCode(),
-                    implode(" ,", $errorInfo)
-                )
-            );
+        $sets = [];
+        foreach ($this->getFields() as $field) {
+            $sets[] = sprintf("%s=?", $field);
         }
-        
-        return $sth;
+
+        $query = sprintf(
+            "UPDATE" . " %s SET %s WHERE %s",
+            $this->getTable(),
+            implode(",", $sets),
+            $this->getWhere()
+        );
+
+        self::execute($query, $this->getParameters());
+    }
+
+    /**
+     * Deletes record
+     *
+     * @throws DbException
+     */
+    public function delete()
+    {
+        $query = sprintf(
+            "DELETE" . " FROM %s WHERE %s",
+            $this->getTable(),
+            $this->getWhere()
+        );
+
+        self::execute($query, $this->getParameters());
     }
 }
