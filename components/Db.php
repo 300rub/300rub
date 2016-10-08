@@ -3,6 +3,8 @@
 namespace testS\components;
 
 use PDO;
+use PDOStatement;
+use testS\components\exceptions\DbException;
 
 /**
  * Class for working with DB
@@ -41,11 +43,11 @@ class Db
     private $_where = "";
 
     /**
-     * Left Join
+     * Join
      *
      * @var string
      */
-    private $_leftJoin = "";
+    private $_join = "";
 
     /**
      * Order
@@ -60,6 +62,13 @@ class Db
      * @var string
      */
     private $_limit = "";
+
+    /**
+     * Parameters
+     * 
+     * @var array
+     */
+    private $_parameters = [];
 
     /**
      * Sets PDO
@@ -153,26 +162,26 @@ class Db
     }
 
     /**
-     * Sets left join
+     * Sets join
      *
-     * @param string $leftJoin
+     * @param string $join
      *
      * @return Db
      */
-    public function setLeftJoin($leftJoin)
+    public function setJoin($join)
     {
-        $this->_leftJoin = $leftJoin;
+        $this->_join = $join;
         return $this;
     }
 
     /**
-     * Gets left join
+     * Gets join
      *
      * @return string
      */
-    public function getLeftJoin()
+    public function getJoin()
     {
-        return $this->_leftJoin;
+        return $this->_join;
     }
 
     /**
@@ -221,5 +230,133 @@ class Db
         return $this->_limit;
     }
 
+    /**
+     * Sets parameters
+     * 
+     * @param $parameters
+     * 
+     * @return Db
+     */
+    public function setParameters($parameters)
+    {
+        $this->_parameters = $parameters;
+        return $this;
+    }
 
+    /**
+     * Gets parameters
+     * 
+     * @return array
+     */
+    public function getParameters()
+    {
+        return $this->_parameters;
+    }
+
+    /**
+     * Gets query
+     * 
+     * @return string
+     */
+    private function _getQuery()
+    {
+        $query = sprintf("SELECT" . " %s FROM %s", $this->getSelect(), $this->getFrom());
+        
+        if ($this->getWhere()) {
+            $query .= sprintf(" WHERE %s", $this->getWhere());
+        }
+        
+        if ($this->getJoin()) {
+            $query .= sprintf(" %s", $this->getJoin());
+        }
+
+        if ($this->getOrder()) {
+            $query .= sprintf(" ORDER BY %s", $this->getOrder());
+        }
+
+        if ($this->getLimit()) {
+            $query .= sprintf(" LIMIT %s", $this->getLimit());
+        }
+        
+        return $query;
+    }
+
+    /**
+     * Fetches one record
+     *
+     * @param string $statement
+     * @param array  $parameters
+     *
+     * @return array
+     */
+    public static function fetch($statement, $parameters = [])
+    {
+        return self::execute($statement, $parameters)->fetch();
+    }
+
+    /**
+     * Fetches many record
+     *
+     * @param string $statement
+     * @param array  $parameters
+     *
+     * @return array
+     */
+    public static function fetchAll($statement, $parameters = [])
+    {
+        return self::execute($statement, $parameters)->fetchAll();
+    }
+
+    /**
+     * Finds ine record
+     *
+     * @return array
+     */
+    public function find()
+    {
+        return self::fetch($this->_getQuery(), $this->getParameters());
+    }
+
+    /**
+     * Finds many records
+     *
+     * @return array
+     */
+    public function findAll()
+    {
+        return self::fetchAll($this->_getQuery(), $this->getParameters());
+    }
+
+    /**
+     * Executes query
+     *
+     * @param string $statement
+     * @param array  $parameters
+     *
+     * @return PDOStatement
+     *
+     * @throws DbException
+     */
+    public static function execute($statement, $parameters = [])
+    {
+        $sth = self::$_pdo->prepare($statement);
+        $result = $sth->execute($parameters);
+
+        if ($result === false) {
+            $errorInfo = [];
+            foreach ($sth->errorInfo() as $error) {
+                $errorInfo[] = $error;
+            }
+
+            throw new DbException(
+                sprintf(
+                    "Error code: %s. Error info: %s",
+                    $sth->errorCode(),
+                    implode(" ,", $errorInfo)
+                )
+            );
+        }
+        
+        return $sth;
+    }
 }
