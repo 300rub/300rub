@@ -28,7 +28,7 @@ abstract class AbstractModel
 
 
     const FIELD_VALIDATION = "validation";
-    const FIELD_BEFORE_VALIDATION = "beforeValidation";
+    const FIELD_SET = "set";
     const FIELD_SKIP_DUPLICATION = "skipDuplication";
     const FIELD_CHANGE_ON_DUPLICATE = "changeOnDuplicate";
 

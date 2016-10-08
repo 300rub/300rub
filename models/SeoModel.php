@@ -45,27 +45,27 @@ class SeoModel extends AbstractModel
         return [
             "name" => [
                 self::FIELD_VALIDATION          => ["required", "max" => 255],
-                self::FIELD_BEFORE_VALIDATION   => ["clearStripTags"],
+                self::FIELD_SET                 => ["clearStripTags"],
                 self::FIELD_CHANGE_ON_DUPLICATE => "getCopyName"
             ],
             "url" => [
                 self::FIELD_VALIDATION          => ["required", "url", "max" => 255],
-                self::FIELD_BEFORE_VALIDATION   => ["clearStripTags", "parseUrl"],
+                self::FIELD_SET                 => ["clearStripTags", "parseUrl"],
                 self::FIELD_CHANGE_ON_DUPLICATE => "getCopyUrl"
             ],
             "title" => [
                 self::FIELD_VALIDATION        => ["max" => 100],
-                self::FIELD_BEFORE_VALIDATION => ["clearStripTags"],
+                self::FIELD_SET               => ["clearStripTags"],
                 self::FIELD_SKIP_DUPLICATION  => true,
             ],
             "keywords" => [
                 self::FIELD_VALIDATION        => ["max" => 255],
-                self::FIELD_BEFORE_VALIDATION => ["clearStripTags"],
+                self::FIELD_SET               => ["clearStripTags"],
                 self::FIELD_SKIP_DUPLICATION  => true,
             ],
             "description" => [
                 self::FIELD_VALIDATION        => ["max" => 255],
-                self::FIELD_BEFORE_VALIDATION => ["clearStripTags"],
+                self::FIELD_SET               => ["clearStripTags"],
                 self::FIELD_SKIP_DUPLICATION  => true,
             ],
         ];
