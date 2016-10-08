@@ -3,11 +3,7 @@
 namespace testS\models;
 
 use testS\components\Db;
-use testS\components\exceptions\DbException;
-use testS\components\exceptions\ModelException;
 use testS\components\Language;
-use testS\components\Validator;
-use \Exception;
 
 /**
  * Abstract class for working with models
@@ -20,17 +16,19 @@ abstract class AbstractModel
 {
 
     /**
-     * DB object
-     *
-     * @var Db
+     * Keys for fields
      */
-    protected $db;
-
-
     const FIELD_VALIDATION = "validation";
     const FIELD_SET = "set";
     const FIELD_SKIP_DUPLICATION = "skipDuplication";
     const FIELD_CHANGE_ON_DUPLICATE = "changeOnDuplicate";
+
+    /**
+     * DB object
+     *
+     * @var Db
+     */
+    private $_db;
 
     /**
      * Gets table name
@@ -46,6 +44,27 @@ abstract class AbstractModel
      */
     abstract protected function getFields();
 
+    /**
+     * Gets DB object
+     *
+     * @return Db
+     */
+    protected function getDb()
+    {
+        if (!$this->_db instanceof Db) {
+            $this->_db = new Db();
+        }
+
+        return $this->_db;
+    }
+
+    /**
+     * Clears strip tags
+     *
+     * @param string $value
+     *
+     * @return string
+     */
     protected function clearStripTags($value)
     {
         return trim(strip_tags($value));
