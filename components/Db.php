@@ -159,6 +159,32 @@ class Db
     }
 
     /**
+     * Add WHERE condition
+     *
+     * @param string $where
+     * @param string $operator
+     *
+     * @return Db
+     */
+    public function addWhere($where, $operator = "AND")
+    {
+        if (!$this->getWhere()) {
+            $this->setWhere(
+                sprintf(
+                    "(%s) %s %s",
+                    $this->getWhere(),
+                    $operator,
+                    $where
+                )
+            );
+        } else {
+            $this->setWhere($where);
+        }
+
+        return $this;
+    }
+
+    /**
      * Gets where
      *
      * @return string
@@ -247,6 +273,31 @@ class Db
     public function setParameters($parameters)
     {
         $this->_parameters = $parameters;
+        return $this;
+    }
+
+    /**
+     * Adds parameter
+     *
+     * @param $key
+     * @param $value
+     *
+     * @return Db
+     *
+     * @throws DbException
+     */
+    public function addParameter($key, $value) {
+        if (array_key_exists($key, $this->_parameters)) {
+            $this->_parameters[$key] = $value;
+        } else {
+            throw new DbException(
+                "Unable to add new parameter {key} because this parameter is already exists.",
+                [
+                    "key" => $key
+                ]
+            );
+        }
+
         return $this;
     }
 
@@ -471,7 +522,7 @@ class Db
     {
         $sets = [];
         foreach ($this->getFields() as $field) {
-            $sets[] = sprintf("%s=:%s", $field, $field);
+            $sets[] = sprintf("%s = :%s", $field, $field);
         }
 
         $query = sprintf(

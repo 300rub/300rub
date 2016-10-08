@@ -96,4 +96,68 @@ abstract class AbstractModel
     {
         return Language::t("common", "copy") . " " . $value;
     }
+
+    /**
+     * Adds ID condition to SQL request
+     *
+     * @param int $id ID
+     *
+     * @return AbstractModel
+     */
+    public function byId($id)
+    {
+        $this->getDb()->addWhere("t.id = :id");
+        $this->getDb()->addParameter("id", $id);
+
+        return $this;
+    }
+
+    /**
+     * Adds except ID condition to SQL request
+     *
+     * @param int $id ID
+     *
+     * @return AbstractModel
+     */
+    public function exceptId($id)
+    {
+        $this->getDb()->addWhere("t.id != :id");
+        $this->getDb()->addParameter("id", $id);
+
+        return $this;
+    }
+
+    /**
+     * Adds in condition to SQL request
+     *
+     * @param string $field  Field name
+     * @param array  $values Values
+     *
+     * @return AbstractModel
+     */
+    public function in($field, $values)
+    {
+        $this->getDb()->addWhere(
+            sprintf(
+                "%s IN (%s)",
+                $field,
+                implode(",", $values)
+            )
+        );
+
+        return $this;
+    }
+
+    /**
+     * Adds ORDER BY to SQL request
+     *
+     * @param string $value
+     *
+     * @return AbstractModel
+     */
+    public function ordered($value = "name")
+    {
+        $this->getDb()->setOrder($value);
+        return $this;
+    }
 }
