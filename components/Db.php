@@ -15,6 +15,11 @@ class Db
 {
 
     /**
+     * Separator
+     */
+    const SEPARATOR = ".";
+
+    /**
      * PDO model
      *
      * @var PDO

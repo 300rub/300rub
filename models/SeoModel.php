@@ -36,11 +36,11 @@ class SeoModel extends AbstractModel
     }
 
     /**
-     * Gets fields
+     * Gets fields info
      *
      * @return array
      */
-    protected function getFields()
+    protected function getFieldsInfo()
     {
         return [
             "name" => [
@@ -101,8 +101,8 @@ class SeoModel extends AbstractModel
      */
     public function byUrl($url)
     {
-        $this->db->addCondition("url = :url");
-        $this->db->params["url"] = $url;
+        $this->getDb()->addWhere("url = :url");
+        $this->getDb()->addParameter("url", $url);
 
         return $this;
     }

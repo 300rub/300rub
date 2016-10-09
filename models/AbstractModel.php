@@ -45,11 +45,11 @@ abstract class AbstractModel
     abstract public function getTableName();
 
     /**
-     * Gets fields
+     * Gets fields info
      *
      * @return array
      */
-    abstract protected function getFields();
+    abstract protected function getFieldsInfo();
 
     /**
      * Constructor
@@ -158,6 +158,114 @@ abstract class AbstractModel
     public function ordered($value = "name")
     {
         $this->getDb()->setOrder($value);
+        return $this;
+    }
+
+    /**
+     * Model search in DB
+     *
+     * @return null|AbstractModel
+     */
+    public function find()
+    {
+        $result = $this->getDb()->find();
+        if (!$result) {
+            return null;
+        }
+
+        /**
+         * @var AbstractModel $model
+         */
+        $model = new $this;
+        $model->setFields($this->_parseDbResponse($result));
+
+        return $model;
+    }
+
+    /**
+     * Models search in DB
+     *
+     * @return null|AbstractModel[]
+     */
+    public function findAll()
+    {
+        $results = $this->getDb()->findAll();
+        if (!$results) {
+            return [];
+        }
+
+        $list = [];
+        foreach ($results as $result) {
+            /**
+             * @var AbstractModel $model
+             */
+            $model = new $this;
+            $model->setFields($this->_parseDbResponse($result));
+            if ($model) {
+                $list[] = $model;
+            }
+        }
+
+        return $list;
+    }
+
+    /**
+     * Parses DB response
+     *
+     * @param array $response
+     *
+     * @return array
+     */
+    private function _parseDbResponse(array $response)
+    {
+        $fields = [];
+
+        foreach ($response as $key => $value) {
+            if (stripos($key, Db::SEPARATOR) !== false) {
+                list($relationModelKey, $relationKey) = explode(Db::SEPARATOR, $key, 2);
+                if (!isset($fields[$relationModelKey])) {
+                    $fields[$relationModelKey] = [];
+                }
+                $fields[$relationModelKey][$relationKey] = $value;
+            } else {
+                $fields[$key] = $value;
+            }
+        }
+
+        return $fields;
+    }
+
+    /**
+     * Sets fields
+     *
+     * @param array $fields
+     *
+     * @return AbstractModel
+     */
+    public function setFields(array $fields)
+    {
+        $info = $this->getFieldsInfo();
+
+        foreach ($fields as $field => $value) {
+            if (!array_key_exists($field, $info)) {
+                continue;
+            }
+
+            if (is_array($field)) {
+
+            } else {
+                if (array_key_exists(self::FIELD_SET, $info[$field])) {
+                    foreach ($info[$field][self::FIELD_SET] as $method) {
+                        if (method_exists($this, $method)) {
+                            $value = $this->$method($value);
+                        }
+                    }
+                }
+
+                $this->$field = $value;
+            }
+        }
+
         return $this;
     }
 }

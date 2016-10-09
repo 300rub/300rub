@@ -131,14 +131,7 @@ class Web extends AbstractApplication
 			App::web()->config->ssh->active = $site["ssh"];
 		}
 
-		if (!Db::setPdo($site["dbHost"], $site["dbUser"], $site["dbPassword"], $site["dbName"])) {
-			throw new DbException(
-				"Unable to connect to database for host: {host}",
-				[
-					"host" => $host
-				]
-			);
-		}
+		Db::setPdo($site["dbHost"], $site["dbUser"], $site["dbPassword"], $site["dbName"]);
 
 		Language::$activeId = $site["language"];
 
