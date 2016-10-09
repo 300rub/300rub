@@ -3,7 +3,9 @@
 namespace testS\models;
 
 use testS\components\Db;
+use testS\components\exceptions\ModelException;
 use testS\components\Language;
+use testS\components\Validator;
 
 /**
  * Abstract class for working with models
@@ -22,6 +24,13 @@ abstract class AbstractModel
     const FIELD_SET = "set";
     const FIELD_SKIP_DUPLICATION = "skipDuplication";
     const FIELD_CHANGE_ON_DUPLICATE = "changeOnDuplicate";
+
+    /**
+     * ID
+     *
+     * @var integer
+     */
+    public $id = 0;
 
     /**
      * DB object
@@ -267,5 +276,83 @@ abstract class AbstractModel
         }
 
         return $this;
+    }
+
+    /**
+     * Deletes model from DB
+     *
+     * @param string $where
+     * @param $parameters
+     *
+     * @throws ModelException
+     */
+    public final function delete($where = null, $parameters = null)
+    {
+        if ($where === null) {
+            if (!$this->id) {
+                throw new ModelException("Unable to delete the record with null ID");
+            }
+
+            $this->getDb()->setWhere("id = :id");
+            $this->getDb()->addParameter("id", $this->id);
+        } else {
+            $this->getDb()->setWhere($where);
+
+            if ($parameters !== null) {
+                $this->getDb()->setParameters($parameters);
+            }
+        }
+
+        $this->beforeDelete();
+        $this->getDb()->delete();
+        $this->afterDelete();
+    }
+
+    /**
+     * Runs before deleting
+     */
+    protected function beforeDelete()
+    {
+    }
+
+    /**
+     * Runs after deleting
+     */
+    protected function afterDelete()
+    {
+    }
+
+    /**
+     * Validates model's fields
+     *
+     * @param bool $isBeforeValidate Is run beforeValidate method
+     *
+     * @return bool
+     */
+    public final function validate()
+    {
+        $validator = new Validator($this);
+        $validator->validate();
+
+
+
+        foreach ($this->relations as $relation => $options) {
+            if ($this->$relation) {
+                if ($isBeforeValidate) {
+                    $this->$relation->beforeValidate();
+                }
+                $validator = new Validator($this->$relation, $relation);
+                $this->errors = array_merge($this->errors, $validator->validate());
+            } else if (!empty($options[1])) {
+                $field = $options[1];
+                if (!$this->$field) {
+                    $this->$relation = new $options[0];
+                    $validator = new Validator($this->$relation, $relation);
+                    $this->errors = array_merge($this->errors, $validator->validate());
+                }
+            }
+        }
+
+        return !$this->errors;
     }
 }

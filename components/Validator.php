@@ -13,13 +13,6 @@ class Validator
 {
 
 	/**
-	 * Model
-	 *
-	 * @var AbstractModel
-	 */
-	private $_model = null;
-
-	/**
 	 * Errors
 	 *
 	 * @var array
