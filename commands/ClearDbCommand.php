@@ -53,18 +53,7 @@ class ClearDbCommand extends AbstractCommand
 			)
 		);
 
-		if (!Db::setPdo($db->host, $db->user, $db->password, $db->name)) {
-			throw new MigrationException(
-				"Unable to set PDO for creating dump
-					with host: {host}, user: {user}, password: {password}, name: {name}",
-				[
-					"host"     => $db->host,
-					"user"     => $db->user,
-					"password" => $db->password,
-					"name"     => $db->name,
-				]
-			);
-		}
+		Db::setPdo($db->host, $db->user, $db->password, $db->name);
 
 		$migration = new M160301000000Sites();
 		$migration->up();

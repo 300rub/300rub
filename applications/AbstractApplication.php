@@ -89,24 +89,12 @@ abstract class AbstractApplication
 	 */
 	private function _checkDbConnection()
 	{
-		if (
-			!Db::setPdo(
-				$this->config->db->host,
-				$this->config->db->user,
-				$this->config->db->password,
-				$this->config->db->name
-			)
-		) {
-			throw new DbException(
-				"Unable to connect to database with host: {host}, user: {user}, password: {password}, name: {name}",
-				[
-					"host"     => $this->config->db->host,
-					"user"     => $this->config->db->user,
-					"password" => $this->config->db->password,
-					"name"     => $this->config->db->name
-				]
-			);
-		}
+		Db::setPdo(
+			$this->config->db->host,
+			$this->config->db->user,
+			$this->config->db->password,
+			$this->config->db->name
+		);
 
 		return $this;
 	}

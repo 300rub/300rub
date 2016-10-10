@@ -31,18 +31,7 @@ class RollbackSqlDumpsCommand extends AbstractCommand
 		$sites = Db::fetchAll("SELECT * " . "FROM `sites`");
 
 		foreach ($sites as $site) {
-			if (!Db::setPdo($site["dbHost"], $site["dbUser"], $site["dbPassword"], $site["dbName"])) {
-				throw new MigrationException(
-					"Unable to set PDO for creating dump
-					with host: {host}, user: {user}, password: {password}, name: {name}",
-					[
-						"host"     => $site["dbHost"],
-						"user"     => $site["dbUser"],
-						"password" => $site["dbPassword"],
-						"name"     => $site["dbName"],
-					]
-				);
-			}
+			Db::setPdo($site["dbHost"], $site["dbUser"], $site["dbPassword"], $site["dbName"]);
 
 			$file = __DIR__ . "/../backups/" . $site["dbName"] . ".sql.gz";
 			if (!file_exists($file)) {
