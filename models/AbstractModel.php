@@ -85,6 +85,16 @@ abstract class AbstractModel
     }
 
     /**
+     * Sets Db
+     */
+    protected function setDb()
+    {
+        $this->getDb()->setTable($this->getTableName());
+
+        return $this;
+    }
+
+    /**
      * Gets errors
      *
      * @return array
@@ -113,16 +123,6 @@ abstract class AbstractModel
         } else {
             $this->_errors[$field] = $errors;
         }
-
-        return $this;
-    }
-
-    /**
-     * Sets Db
-     */
-    protected function setDb()
-    {
-        $this->getDb()->setTable($this->getTableName());
 
         return $this;
     }
@@ -174,7 +174,7 @@ abstract class AbstractModel
      */
     public function byId($id)
     {
-        $this->getDb()->addWhere(sprintf("%s%sid = :id", $this->getTableName(), Db::SEPARATOR));
+        $this->getDb()->addWhere(sprintf("%s.id = :id", $this->getTableName()));
         $this->getDb()->addParameter("id", $id);
 
         return $this;
@@ -189,7 +189,7 @@ abstract class AbstractModel
      */
     public function exceptId($id)
     {
-        $this->getDb()->addWhere(sprintf("%s%sid != :id", $this->getTableName(), Db::SEPARATOR));
+        $this->getDb()->addWhere(sprintf("%s.id != :id", $this->getTableName()));
         $this->getDb()->addParameter("id", $id);
 
         return $this;
@@ -429,7 +429,6 @@ abstract class AbstractModel
         }
 
         try {
-            $this->setDb();
             $this->beforeSave();
             $this->_setDbRequestDataBeforeSave();
 
@@ -481,6 +480,9 @@ abstract class AbstractModel
      */
     private function _setDbRequestDataBeforeSave()
     {
+        $fields = [];
+        $parameters = [];
+
         foreach ($this->getFieldsInfo() as $field => $info) {
             $value = $this->$field;
 
@@ -491,9 +493,12 @@ abstract class AbstractModel
                 }
             }
 
-            $this->getDb()->addField($field)->addParameter($field, $value);
-            $this->getDb()->addSelect($this->getTableName() . Db::SEPARATOR . $field);
+            $parameters[$field] = $value;
+            $fields[] = $field;
         }
+
+        $this->getDb()->setFields($fields);
+        $this->getDb()->setParameters($parameters);
 
         return $this;
     }
@@ -505,9 +510,13 @@ abstract class AbstractModel
      */
     private function _setDbRequestDataBeforeFind()
     {
+        $select = [];
+
         foreach ($this->getFieldsInfo() as $field => $info) {
-            $this->getDb()->addSelect($this->getTableName() . Db::SEPARATOR . $field);
+            $select[] = $this->getTableName() . Db::SEPARATOR . $field;
         }
+
+        $this->getDb()->setSelect($select);
 
         return $this;
     }
