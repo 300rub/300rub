@@ -2,8 +2,6 @@
 
 namespace testS\components;
 
-use testS\models\AbstractModel;
-
 /**
  * Class for validation model's fields
  *
@@ -13,6 +11,20 @@ class Validator
 {
 
 	/**
+	 * Value
+	 *
+	 * @var string
+	 */
+	private $_value;
+
+	/**
+	 * Rules
+	 *
+	 * @var array
+	 */
+	private $_rules = [];
+
+	/**
 	 * Errors
 	 *
 	 * @var array
@@ -20,78 +32,48 @@ class Validator
 	private $_errors = [];
 
 	/**
-	 * Map for verification
-	 *
-	 * @var array
-	 */
-	private $_mapForVerification = [];
-
-	/**
 	 * Constructor
 	 *
-	 * @param AbstractModel  $model Model
+	 * @param string $value
+	 * @param array  $rules
 	 */
-	public function __construct($model)
+	public function __construct($value, $rules)
 	{
-		$this->_model = $model;
+		$this->_value = $value;
+		$this->_rules = $rules;
 	}
 
 	/**
 	 * Validation
 	 *
-	 * @return array
+	 * @return Validator
 	 */
 	public function validate()
 	{
-		return $this->_setMap()->_parseMap()->_getErrors();
-	}
-
-	/**
-	 * Sets map
-	 *
-	 * @return Validator
-	 */
-	private function _setMap()
-	{
-		foreach ($this->_model->getRules() as $field => $types) {
-			foreach ($types as $key => $value) {
-				$this->_mapForVerification[] = [
-					"method" => is_string($key) ? $key : $value,
-					"field"  => $field,
-					"value"  => $value
-				];
-			}
+		$rulesMap = [];
+		foreach ($this->_rules as $key => $value) {
+			$rulesMap = [
+				"method" => is_string($key) ? $key : $value,
+				"value"  => $value
+			];
 		}
 
-		return $this;
-	}
-
-	/**
-	 * Parses map
-	 *
-	 * @return Validator
-	 */
-	private function _parseMap()
-	{
-		foreach ($this->_mapForVerification as $item) {
+		foreach ($this->$rulesMap as $item) {
 			switch ($item["method"]) {
 				case "required":
-					$this->_required($item["field"]);
+					$this->_required();
 					break;
 				case "max":
-					$this->_max($item["field"], $item["value"]);
-					break;
-				case "relation":
-					$this->_relation($item["field"], $item["value"]);
+					$this->_max($item["value"]);
 					break;
 				case "min":
-					$this->_min($item["field"], $item["value"]);
+					$this->_min($item["value"]);
 					break;
 				case "url":
-					$this->_url($item["field"]);
+					$this->_url();
 					break;
 				case "latinDigitUnderscoreHyphen":
-					$this->_latinDigitUnderscoreHyphen($item["field"]);
+					$this->_latinDigitUnderscoreHyphen();
 					break;
 				default:
 					break;
@@ -106,7 +88,7 @@ class Validator
 	 *
 	 * @return array
 	 */
-	private function _getErrors()
+	public function getErrors()
 	{
 		return $this->_errors;
 	}
@@ -114,16 +96,14 @@ class Validator
 	/**
 	 * Adds error
 	 *
-	 * @param string $field Field
 	 * @param string $value Value
 	 *
 	 * @return Validator
 	 */
-	private function _addError($field, $value)
+	private function _addError($value)
 	{
-		$fieldsName = $field;
-		if (!array_key_exists($fieldsName, $this->_errors)) {
-			$this->_errors[$fieldsName] = $value;
+		if (!in_array($value, $this->_errors)) {
+			$this->_errors[] = $value;
 		}
 
 		return $this;
@@ -132,101 +112,64 @@ class Validator
 	/**
 	 * Verifies required
 	 *
-	 * @param string $field Field name
-	 *
 	 * @return void
 	 */
-	private function _required($field)
+	private function _required()
 	{
-		if ($this->_model->$field === "") {
-			$this->_addError($field, "required");
+		if (!$this->_value) {
+			$this->_addError("required");
 		}
 	}
 
 	/**
 	 * Verifies string length for max value
 	 *
-	 * @param string $field Field's name
-	 * @param int    $max   Max value
+	 * @param int  $max   Max value
 	 *
 	 * @return void
 	 */
-	private function _max($field, $max)
+	private function _max($max)
 	{
-		if (mb_strlen($this->_model->$field) > $max) {
-			$this->_addError($field, "max");
-		}
-	}
-
-	/**
-	 * Verifies relation
-	 *
-	 * @param string $field             Field's name
-	 * @param string $relationClassName Relation Class Name
-	 *
-	 * @return void
-	 */
-	private function _relation($field, $relationClassName)
-	{
-		if ($this->_model->$field === 0) {
-			$this->_addError($field, "relation");
-		} else {
-			/**
-			 * @var \testS\models\AbstractModel $model;
-			 */
-			$model = new $relationClassName;
-			if ($model->byId($this->_model->$field)->find() === null) {
-				$this->_addError($field, "relation");
-			}
+		if (mb_strlen($this->_value) > $max) {
+			$this->_addError("max");
 		}
 	}
 
 	/**
 	 * Verifies string length for min value
 	 *
-	 * @param string $field Field's name
-	 * @param int    $min   Min value
+	 * @param int $min Min value
 	 *
 	 * @return void
 	 */
-	private function _min($field, $min)
+	private function _min($min)
 	{
-		if (mb_strlen($this->_model->$field) < $min) {
-			$this->_addError($field, "min");
+		if (mb_strlen($this->_value) < $min) {
+			$this->_addError("min");
 		}
 	}
 
 	/**
 	 * Verifies URL
 	 *
-	 * @param string $field Field name
-	 *
 	 * @return void
 	 */
-	private function _url($field)
+	private function _url()
 	{
-		if (
-			$this->_model->$field
-			&& !preg_match("/^[0-9a-z-]+$/i", $this->_model->$field)
-		) {
-			$this->_addError($field, "url");
+		if (!$this->_value || !preg_match("/^[0-9a-z-]+$/i", $this->_value)) {
+			$this->_addError("url");
 		}
 	}
 
 	/**
 	 * Verifies regex: latin, digit, underscore, hyphen
 	 *
-	 * @param string $field Field name
-	 *
 	 * @return void
 	 */
-	private function _latinDigitUnderscoreHyphen($field)
+	private function _latinDigitUnderscoreHyphen()
 	{
-		if (
-			$this->_model->$field
-			&& !preg_match("/^[0-9a-z-_]+$/i", $this->_model->$field)
-		) {
-			$this->_addError($field, "latinDigitUnderscoreHyphen");
+		if ($this->_value && !preg_match("/^[0-9a-z-_]+$/i", $this->_value)) {
+			$this->_addError("latinDigitUnderscoreHyphen");
 		}
 	}
 

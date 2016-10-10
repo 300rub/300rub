@@ -69,6 +69,39 @@ abstract class AbstractModel
     }
 
     /**
+     * Gets errors
+     *
+     * @return array
+     */
+    public function getErrors()
+    {
+        return $this->_errors;
+    }
+
+    /**
+     * Adds errors
+     *
+     * @param string $field
+     * @param array  $errors
+     *
+     * @return AbstractModel
+     */
+    public function addErrors($field, array $errors)
+    {
+        if (count($errors) === 0) {
+            return $this;
+        }
+
+        if (array_key_exists($field, $this->_errors)) {
+            $this->_errors[$field] = array_merge($this->_errors[$field], $errors);
+        } else {
+            $this->_errors[$field] = $errors;
+        }
+
+        return $this;
+    }
+
+    /**
      * Gets DB object
      *
      * @return Db
@@ -325,34 +358,16 @@ abstract class AbstractModel
     /**
      * Validates model's fields
      *
-     * @param bool $isBeforeValidate Is run beforeValidate method
-     *
      * @return bool
      */
     public final function validate()
     {
-        $validator = new Validator($this);
-        $validator->validate();
-
-
-
-        foreach ($this->relations as $relation => $options) {
-            if ($this->$relation) {
-                if ($isBeforeValidate) {
-                    $this->$relation->beforeValidate();
-                }
-                $validator = new Validator($this->$relation, $relation);
-                $this->errors = array_merge($this->errors, $validator->validate());
-            } else if (!empty($options[1])) {
-                $field = $options[1];
-                if (!$this->$field) {
-                    $this->$relation = new $options[0];
-                    $validator = new Validator($this->$relation, $relation);
-                    $this->errors = array_merge($this->errors, $validator->validate());
-                }
+        $info = $this->getFieldsInfo();
+        foreach ($info as $field => $data) {
+            if (array_key_exists(self::FIELD_VALIDATION, $data)) {
+                $validator = new Validator($this->$field, $data[self::FIELD_VALIDATION]);
+                $this->addErrors($field, $validator->validate()->getErrors());
             }
         }
-
-        return !$this->errors;
     }
 }
