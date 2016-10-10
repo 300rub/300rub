@@ -46,7 +46,7 @@ class SeoModel extends AbstractModel
             "name" => [
                 self::FIELD_VALIDATION          => ["required", "max" => 255],
                 self::FIELD_SET                 => ["clearStripTags"],
-                self::FIELD_CHANGE_ON_DUPLICATE => "getCopyName"
+                self::FIELD_CHANGE_ON_DUPLICATE => "getCopyName",
             ],
             "url" => [
                 self::FIELD_VALIDATION          => ["required", "url", "max" => 255],

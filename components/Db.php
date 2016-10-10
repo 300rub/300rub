@@ -71,7 +71,7 @@ class Db
     /**
      * Parameters
      * 
-     * @var string[]
+     * @var array
      */
     private $_parameters = [];
 
@@ -271,7 +271,7 @@ class Db
     /**
      * Sets parameters
      * 
-     * @param string[] $parameters
+     * @param array $parameters
      * 
      * @return Db
      */
@@ -309,7 +309,7 @@ class Db
     /**
      * Gets parameters
      * 
-     * @return string[]
+     * @return array
      */
     public function getParameters()
     {
@@ -326,6 +326,23 @@ class Db
     public function setFields($fields)
     {
         $this->_fields = $fields;
+        return $this;
+    }
+
+    /**
+     * Adds field
+     *
+     * @param $field
+     *
+     * @return Db
+     *
+     * @throws DbException
+     */
+    public function addField($field) {
+        if (!in_array($field, $this->_fields)) {
+            $this->_fields[] = $field;
+        }
+
         return $this;
     }
 

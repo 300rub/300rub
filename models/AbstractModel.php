@@ -6,6 +6,7 @@ use testS\components\Db;
 use testS\components\exceptions\ModelException;
 use testS\components\Language;
 use testS\components\Validator;
+use Exception;
 
 /**
  * Abstract class for working with models
@@ -24,6 +25,7 @@ abstract class AbstractModel
     const FIELD_SET = "set";
     const FIELD_SKIP_DUPLICATION = "skipDuplication";
     const FIELD_CHANGE_ON_DUPLICATE = "changeOnDuplicate";
+    const FIELD_TYPE = "type";
 
     /**
      * ID
@@ -304,6 +306,13 @@ abstract class AbstractModel
                     }
                 }
 
+                if (array_key_exists(self::FIELD_TYPE, $info[$field])) {
+                    $method = sprintf("set%s", ucfirst($info[$field][self::FIELD_TYPE]));
+                    if (method_exists($this, $method)) {
+                        $value = $this->$method($value);
+                    }
+                }
+
                 $this->$field = $value;
             }
         }
@@ -315,11 +324,11 @@ abstract class AbstractModel
      * Deletes model from DB
      *
      * @param string $where
-     * @param $parameters
+     * @param array  $parameters
      *
      * @throws ModelException
      */
-    public final function delete($where = null, $parameters = null)
+    public final function delete($where = null, array $parameters = [])
     {
         if ($where === null) {
             if (!$this->id) {
@@ -331,7 +340,7 @@ abstract class AbstractModel
         } else {
             $this->getDb()->setWhere($where);
 
-            if ($parameters !== null) {
+            if (count($parameters) > 0) {
                 $this->getDb()->setParameters($parameters);
             }
         }
@@ -358,16 +367,115 @@ abstract class AbstractModel
     /**
      * Validates model's fields
      *
-     * @return bool
+     * @return AbstractModel
      */
     public final function validate()
     {
-        $info = $this->getFieldsInfo();
-        foreach ($info as $field => $data) {
-            if (array_key_exists(self::FIELD_VALIDATION, $data)) {
-                $validator = new Validator($this->$field, $data[self::FIELD_VALIDATION]);
+        foreach ($this->getFieldsInfo() as $field => $info) {
+            if (array_key_exists(self::FIELD_VALIDATION, $info)) {
+                $validator = new Validator($this->$field, $info[self::FIELD_VALIDATION]);
                 $this->addErrors($field, $validator->validate()->getErrors());
             }
         }
+
+        return $this;
+    }
+
+    /**
+     * Saves model in DB
+     *
+     * @param string $where
+     * @param array  $parameters
+     *
+     * @throws ModelException
+     *
+     * @return AbstractModel
+     */
+    public final function save($where = null, array $parameters = [])
+    {
+        if (count($this->validate()->getErrors()) > 0) {
+            return $this;
+        }
+
+        try {
+            $this->beforeSave();
+            $this->_setDbRequestDataBeforeSave();
+
+            if ($this->id) {
+                if ($where === null) {
+                    $this->getDb()->setWhere("id = :id");
+                    $this->getDb()->addParameter("id", $this->id);
+                } else {
+                    $this->getDb()->setWhere($where);
+
+                    if (count($parameters) > 0) {
+                        foreach ($parameters as $parameterKey => $parameterValue) {
+                            $this->getDb()->addParameter($parameterKey, $parameterValue);
+                        }
+                    }
+                }
+
+                $this->getDb()->update();
+            } else {
+                $this->getDb()->insert();
+            }
+
+            $this->afterSave();
+
+            return true;
+        } catch (Exception $e) {
+            $fields = [];
+            foreach ($this->getFieldsInfo() as $field => $info) {
+                if (!is_object($this->$field)) {
+                    $fields[] = sprintf("%s: %s", $field, $this->$field);
+                }
+
+            }
+            throw new ModelException(
+                "{e}. Unable to save the model {class} with the fields: {fields}",
+                [
+                    "e"      => $e->getMessage(),
+                    "class"  => get_class($this),
+                    "fields" => implode(", ", $fields)
+                ]
+            );
+        }
+    }
+
+    /**
+     * Sets Db request data before saving
+     *
+     * @return AbstractModel
+     */
+    private function _setDbRequestDataBeforeSave()
+    {
+        foreach ($this->getFieldsInfo() as $field => $info) {
+            $value = $this->$field;
+
+            if (array_key_exists(self::FIELD_TYPE, $info[$field])) {
+                $method = sprintf("set%sForDb", ucfirst($info[$field][self::FIELD_TYPE]));
+                if (method_exists($this, $method)) {
+                    $value = $this->$method($value);
+                }
+            }
+
+            $this->getDb()->addField($field)->addParameter($field, $value);
+        }
+
+        return $this;
+    }
+
+    /**
+     * Runs before saving
+     */
+    protected function beforeSave()
+    {
+    }
+
+    /**
+     * Runs after saving
+     */
+    protected function afterSave()
+    {
     }
 }
