@@ -2,6 +2,7 @@
 
 namespace testS\models;
 
+use testS\components\Db;
 use testS\components\Language;
 
 /**
@@ -101,7 +102,7 @@ class SeoModel extends AbstractModel
      */
     public function byUrl($url)
     {
-        $this->getDb()->addWhere("url = :url");
+        $this->getDb()->addWhere(sprintf("%s%surl = :url", $this->getTableName(), Db::SEPARATOR));
         $this->getDb()->addParameter("url", $url);
 
         return $this;

@@ -9,7 +9,7 @@ use testS\models\DesignTextModel;
  *
  * @package testS\tests\unit\models
  */
-class DesignTextModelTest extends AbstractModelTest
+abstract class DesignTextModelTest extends AbstractModelTest
 {
 
     /**

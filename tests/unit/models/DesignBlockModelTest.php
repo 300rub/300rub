@@ -9,7 +9,7 @@ use testS\models\DesignBlockModel;
  *
  * @package testS\tests\unit\models
  */
-class DesignBlockModelTest extends AbstractModelTest
+abstract class DesignBlockModelTest extends AbstractModelTest
 {
 
     /**

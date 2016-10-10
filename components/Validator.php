@@ -52,13 +52,13 @@ class Validator
 	{
 		$rulesMap = [];
 		foreach ($this->_rules as $key => $value) {
-			$rulesMap = [
+			$rulesMap[] = [
 				"method" => is_string($key) ? $key : $value,
 				"value"  => $value
 			];
 		}
 
-		foreach ($this->$rulesMap as $item) {
+		foreach ($rulesMap as $item) {
 			switch ($item["method"]) {
 				case "required":
 					$this->_required();

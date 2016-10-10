@@ -29,9 +29,9 @@ class Db
     /**
      * Select
      *
-     * @var string
+     * @var array
      */
-	private $_select = "";
+	private $_select = [];
 
     /**
      * Table
@@ -107,20 +107,36 @@ class Db
     /**
      * Sets select
      *
-     * @param string $select
+     * @param array $select
      *
      * @return Db
      */
-    public function setSelect($select)
+    public function setSelect(array $select)
     {
         $this->_select = $select;
         return $this;
     }
 
     /**
+     * Sets select
+     *
+     * @param string $select
+     *
+     * @return Db
+     */
+    public function addSelect($select)
+    {
+        if (!in_array($select, $this->_select)) {
+            $this->_select[] = $select;
+        }
+
+        return $this;
+    }
+
+    /**
      * Gets select
      *
-     * @return string
+     * @return array
      */
     public function getSelect()
     {
@@ -173,7 +189,7 @@ class Db
      */
     public function addWhere($where, $operator = "AND")
     {
-        if (!$this->getWhere()) {
+        if ($this->getWhere()) {
             $this->setWhere(
                 sprintf(
                     "(%s) %s %s",
@@ -275,7 +291,7 @@ class Db
      * 
      * @return Db
      */
-    public function setParameters($parameters)
+    public function setParameters(array $parameters)
     {
         $this->_parameters = $parameters;
         return $this;
@@ -292,7 +308,7 @@ class Db
      * @throws DbException
      */
     public function addParameter($key, $value) {
-        if (array_key_exists($key, $this->_parameters)) {
+        if (!array_key_exists($key, $this->_parameters)) {
             $this->_parameters[$key] = $value;
         } else {
             throw new DbException(
@@ -363,7 +379,7 @@ class Db
      */
     private function _getQuery()
     {
-        $query = sprintf("SELECT" . " %s FROM %s", $this->getSelect(), $this->getTable());
+        $query = sprintf("SELECT" . " %s FROM %s", implode(",", $this->getSelect()), $this->getTable());
         
         if ($this->getWhere()) {
             $query .= sprintf(" WHERE %s", $this->getWhere());

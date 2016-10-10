@@ -46,7 +46,7 @@ abstract class AbstractModel
      *
      * @var array
      */
-    private $_errors;
+    private $_errors = [];
 
     /**
      * Gets table name
@@ -67,7 +67,21 @@ abstract class AbstractModel
      */
     public function __construct()
     {
-        $this->getDb()->setTable($this->getTableName());
+        $this->_createFields()->setDb();
+    }
+
+    /**
+     * Creates fields
+     *
+     * @return AbstractModel
+     */
+    private function _createFields()
+    {
+        foreach (array_keys($this->getFieldsInfo()) as $field) {
+            $this->$field = null;
+        }
+
+        return $this;
     }
 
     /**
@@ -99,6 +113,16 @@ abstract class AbstractModel
         } else {
             $this->_errors[$field] = $errors;
         }
+
+        return $this;
+    }
+
+    /**
+     * Sets Db
+     */
+    protected function setDb()
+    {
+        $this->getDb()->setTable($this->getTableName());
 
         return $this;
     }
@@ -150,7 +174,7 @@ abstract class AbstractModel
      */
     public function byId($id)
     {
-        $this->getDb()->addWhere("t.id = :id");
+        $this->getDb()->addWhere(sprintf("%s%sid = :id", $this->getTableName(), Db::SEPARATOR));
         $this->getDb()->addParameter("id", $id);
 
         return $this;
@@ -165,7 +189,7 @@ abstract class AbstractModel
      */
     public function exceptId($id)
     {
-        $this->getDb()->addWhere("t.id != :id");
+        $this->getDb()->addWhere(sprintf("%s%sid != :id", $this->getTableName(), Db::SEPARATOR));
         $this->getDb()->addParameter("id", $id);
 
         return $this;
@@ -212,7 +236,7 @@ abstract class AbstractModel
      */
     public function find()
     {
-        $result = $this->getDb()->find();
+        $result = $this->_setDbRequestDataBeforeFind()->getDb()->find();
         if (!$result) {
             return null;
         }
@@ -233,7 +257,7 @@ abstract class AbstractModel
      */
     public function findAll()
     {
-        $results = $this->getDb()->findAll();
+        $results = $this->_setDbRequestDataBeforeFind()->getDb()->findAll();
         if (!$results) {
             return [];
         }
@@ -298,22 +322,24 @@ abstract class AbstractModel
             if (is_array($field)) {
 
             } else {
-                if (array_key_exists(self::FIELD_SET, $info[$field])) {
-                    foreach ($info[$field][self::FIELD_SET] as $method) {
-                        if (method_exists($this, $method)) {
-                            $value = $this->$method($value);
-                        }
-                    }
-                }
-
-                if (array_key_exists(self::FIELD_TYPE, $info[$field])) {
-                    $method = sprintf("set%s", ucfirst($info[$field][self::FIELD_TYPE]));
-                    if (method_exists($this, $method)) {
-                        $value = $this->$method($value);
-                    }
-                }
-
                 $this->$field = $value;
+            }
+        }
+
+        foreach ($info as $field => $parameters) {
+            if (array_key_exists(self::FIELD_SET, $parameters)) {
+                foreach ($parameters[self::FIELD_SET] as $method) {
+                    if (method_exists($this, $method)) {
+                        $this->$field = $this->$method($this->$field);
+                    }
+                }
+            }
+
+            if (array_key_exists(self::FIELD_TYPE, $parameters)) {
+                $method = sprintf("set%s", ucfirst($parameters[self::FIELD_TYPE]));
+                if (method_exists($this, $method)) {
+                    $this->$field = $this->$method($this->$field);
+                }
             }
         }
 
@@ -336,7 +362,7 @@ abstract class AbstractModel
             }
 
             $this->getDb()->setWhere("id = :id");
-            $this->getDb()->addParameter("id", $this->id);
+            $this->getDb()->setParameters(["id" => $this->id]);
         } else {
             $this->getDb()->setWhere($where);
 
@@ -373,7 +399,12 @@ abstract class AbstractModel
     {
         foreach ($this->getFieldsInfo() as $field => $info) {
             if (array_key_exists(self::FIELD_VALIDATION, $info)) {
-                $validator = new Validator($this->$field, $info[self::FIELD_VALIDATION]);
+                if (property_exists($this, $field)) {
+                    $value = $this->$field;
+                } else {
+                    $value = null;
+                }
+                $validator = new Validator($value, $info[self::FIELD_VALIDATION]);
                 $this->addErrors($field, $validator->validate()->getErrors());
             }
         }
@@ -398,6 +429,7 @@ abstract class AbstractModel
         }
 
         try {
+            $this->setDb();
             $this->beforeSave();
             $this->_setDbRequestDataBeforeSave();
 
@@ -417,7 +449,7 @@ abstract class AbstractModel
 
                 $this->getDb()->update();
             } else {
-                $this->getDb()->insert();
+                $this->id = $this->getDb()->insert();
             }
 
             $this->afterSave();
@@ -452,14 +484,29 @@ abstract class AbstractModel
         foreach ($this->getFieldsInfo() as $field => $info) {
             $value = $this->$field;
 
-            if (array_key_exists(self::FIELD_TYPE, $info[$field])) {
-                $method = sprintf("set%sForDb", ucfirst($info[$field][self::FIELD_TYPE]));
+            if (array_key_exists(self::FIELD_TYPE, $info)) {
+                $method = sprintf("set%sForDb", ucfirst($info[self::FIELD_TYPE]));
                 if (method_exists($this, $method)) {
                     $value = $this->$method($value);
                 }
             }
 
             $this->getDb()->addField($field)->addParameter($field, $value);
+            $this->getDb()->addSelect($this->getTableName() . Db::SEPARATOR . $field);
+        }
+
+        return $this;
+    }
+
+    /**
+     * Sets Db request data before find
+     *
+     * @return AbstractModel
+     */
+    private function _setDbRequestDataBeforeFind()
+    {
+        foreach ($this->getFieldsInfo() as $field => $info) {
+            $this->getDb()->addSelect($this->getTableName() . Db::SEPARATOR . $field);
         }
 
         return $this;
@@ -477,5 +524,13 @@ abstract class AbstractModel
      */
     protected function afterSave()
     {
+    }
+
+    /**
+     * @return AbstractModel
+     */
+    public function withAll()
+    {
+        return $this;
     }
 }

@@ -112,18 +112,7 @@ class MigrateCommand extends AbstractCommand
 
 		sort(self::$_migrations);
 		foreach (self::$_sites as $site) {
-			if (!Db::setPdo($site["dbHost"], $site["dbUser"], $site["dbPassword"], $site["dbName"])) {
-				throw new MigrationException(
-					"Unable to connect with DB for applying migrations
-					with host: {host}, user: {user}, password: {password}, name: {name}",
-					[
-						"host"     => $site["dbHost"],
-						"user"     => $site["dbUser"],
-						"password" => $site["dbPassword"],
-						"name"     => $site["dbName"],
-					]
-				);
-			}
+			Db::setPdo($site["dbHost"], $site["dbUser"], $site["dbPassword"], $site["dbName"]);
 
 			foreach (self::$_migrations as $migrationName) {
 				/**
@@ -147,25 +136,12 @@ class MigrateCommand extends AbstractCommand
 	 */
 	private static function _updateVersions()
 	{
-		if (
-		!Db::setPdo(
+		Db::setPdo(
 			App::getApplication()->config->db->host,
 			App::getApplication()->config->db->user,
 			App::getApplication()->config->db->password,
 			App::getApplication()->config->db->name
-		)
-		) {
-			throw new MigrationException(
-				"Unable to connect with DB for updating versions
-					with host: {host}, user: {user}, password: {password}, name: {name}",
-				[
-					"host"     => App::getApplication()->config->db->host,
-					"user"     => App::getApplication()->config->db->user,
-					"password" => App::getApplication()->config->db->password,
-					"name"     => App::getApplication()->config->db->name,
-				]
-			);
-		}
+		);
 
 		try {
 			Db::startTransaction();
