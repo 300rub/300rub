@@ -471,7 +471,7 @@ abstract class DesignBlockModelTest extends AbstractModelTest
                     "paddingLeft"             => 0,
                     "backgroundColorFrom"     => "",
                     "backgroundColorTo"       => "",
-                    "gradientDirection"       => DesignBlockModel::DEFAULT_GRADIENT_DIRECTION,
+                    "gradientDirection"       => DesignBlockModel::GRADIENT_DIRECTION_HORIZONTAL,
                     "borderTopWidth"          => 0,
                     "borderTopLeftRadius"     => 0,
                     "borderRightWidth"        => 0,

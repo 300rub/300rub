@@ -26,6 +26,8 @@ abstract class AbstractModel
     const FIELD_SKIP_DUPLICATION = "skipDuplication";
     const FIELD_CHANGE_ON_DUPLICATE = "changeOnDuplicate";
     const FIELD_TYPE = "type";
+    const FIELD_TYPE_STRING = "string";
+    const FIELD_TYPE_INT = "int";
 
     /**
      * ID
@@ -327,16 +329,8 @@ abstract class AbstractModel
         }
 
         foreach ($info as $field => $parameters) {
-            if (array_key_exists(self::FIELD_SET, $parameters)) {
-                foreach ($parameters[self::FIELD_SET] as $method) {
-                    if (method_exists($this, $method)) {
-                        $this->$field = $this->$method($this->$field);
-                    }
-                }
-            }
-
             if (array_key_exists(self::FIELD_TYPE, $parameters)) {
-                $method = sprintf("set%s", ucfirst($parameters[self::FIELD_TYPE]));
+                $method = sprintf("get%s", ucfirst($parameters[self::FIELD_TYPE]));
                 if (method_exists($this, $method)) {
                     $this->$field = $this->$method($this->$field);
                 }
@@ -424,13 +418,14 @@ abstract class AbstractModel
      */
     public final function save($where = null, array $parameters = [])
     {
+        $this->_setFieldsAndDbRequestDataBeforeSave();
+
         if (count($this->validate()->getErrors()) > 0) {
             return $this;
         }
 
         try {
             $this->beforeSave();
-            $this->_setDbRequestDataBeforeSave();
 
             if ($this->id) {
                 if ($where === null) {
@@ -453,7 +448,7 @@ abstract class AbstractModel
 
             $this->afterSave();
 
-            return true;
+            return $this;
         } catch (Exception $e) {
             $fields = [];
             foreach ($this->getFieldsInfo() as $field => $info) {
@@ -474,26 +469,40 @@ abstract class AbstractModel
     }
 
     /**
-     * Sets Db request data before saving
+     * Sets fields and Db request data before saving
      *
      * @return AbstractModel
      */
-    private function _setDbRequestDataBeforeSave()
+    private function _setFieldsAndDbRequestDataBeforeSave()
     {
         $fields = [];
         $parameters = [];
 
         foreach ($this->getFieldsInfo() as $field => $info) {
-            $value = $this->$field;
-
             if (array_key_exists(self::FIELD_TYPE, $info)) {
-                $method = sprintf("set%sForDb", ucfirst($info[self::FIELD_TYPE]));
+                $method = sprintf("get%sForDb", ucfirst($info[self::FIELD_TYPE]));
                 if (method_exists($this, $method)) {
-                    $value = $this->$method($value);
+                    $this->$field = $this->$method($this->$field);
                 }
             }
 
-            $parameters[$field] = $value;
+            if (array_key_exists(self::FIELD_SET, $info)) {
+                foreach ($info[self::FIELD_SET] as $key => $val) {
+                    if (is_string($key)) {
+                        $method = $key;
+                        if (method_exists($this, $method)) {
+                            $this->$field = $this->$method($this->$field, $val);
+                        }
+                    } else {
+                        $method = $val;
+                        if (method_exists($this, $method)) {
+                            $this->$field = $this->$method($this->$field);
+                        }
+                    }
+                }
+            }
+
+            $parameters[$field] = $this->$field;
             $fields[] = $field;
         }
 
@@ -536,10 +545,76 @@ abstract class AbstractModel
     }
 
     /**
+     * With all relations
+     *
      * @return AbstractModel
      */
     public function withAll()
     {
         return $this;
+    }
+
+    /**
+     * Gets string type
+     *
+     * @param mixed|string $value
+     *
+     * @return string
+     */
+    protected function getString($value)
+    {
+        return (string) $value;
+    }
+
+    /**
+     * Gets string type for DB
+     *
+     * @param mixed|string $value
+     *
+     * @return string
+     */
+    protected function getStringForDb($value)
+    {
+        return $this->getString($value);
+    }
+
+    /**
+     * Gets string type
+     *
+     * @param mixed|string $value
+     *
+     * @return string
+     */
+    protected function getInt($value)
+    {
+        return (int) $value;
+    }
+
+    /**
+     * Gets string type for DB
+     *
+     * @param mixed|string $value
+     *
+     * @return string
+     */
+    protected function getIntForDb($value)
+    {
+        return $this->getInt($value);
+    }
+
+    /**
+     * Parses color
+     *
+     * @param string $value Color value
+     *
+     * @return string
+     */
+    protected function parseColor($value)
+    {
+        if (preg_match('/(.*?)(rgb|rgba)\((\d+),\s*(\d+),\s*(\d+)(?:,\s*(\d+(?:\.\d+)?))?\)/i', $value)) {
+            return $value;
+        }
+
+        return "";
     }
 }
