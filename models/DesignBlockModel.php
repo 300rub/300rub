@@ -5,27 +5,27 @@ namespace testS\models;
 /**
  * Model for working with table "designBlocks"
  *
- * @property int $marginTop
- * @property int $marginRight
- * @property int $marginBottom
- * @property int $marginLeft
- * @property int $paddingTop
- * @property int $paddingRight
- * @property int $paddingBottom
- * @property int $paddingLeft
+ * @property int    $marginTop
+ * @property int    $marginRight
+ * @property int    $marginBottom
+ * @property int    $marginLeft
+ * @property int    $paddingTop
+ * @property int    $paddingRight
+ * @property int    $paddingBottom
+ * @property int    $paddingLeft
  * @property string $backgroundColorFrom
  * @property string $backgroundColorTo
- * @property int $gradientDirection
- * @property int $borderTopWidth
- * @property int $borderRightWidth
- * @property int $borderBottomWidth
- * @property int $borderLeftWidth
- * @property int $borderTopLeftRadius
- * @property int $borderTopRightRadius
- * @property int $borderBottomRightRadius
- * @property int $borderBottomLeftRadius
+ * @property int    $gradientDirection
+ * @property int    $borderTopWidth
+ * @property int    $borderRightWidth
+ * @property int    $borderBottomWidth
+ * @property int    $borderLeftWidth
+ * @property int    $borderTopLeftRadius
+ * @property int    $borderTopRightRadius
+ * @property int    $borderBottomRightRadius
+ * @property int    $borderBottomLeftRadius
  * @property string $borderColor
- * @property int $borderStyle
+ * @property int    $borderStyle
  *
  * @package testS\models
  */
@@ -129,15 +129,19 @@ class DesignBlockModel extends AbstractModel
             ],
             "paddingTop"              => [
                 self::FIELD_TYPE => self::FIELD_TYPE_INT,
+                self::FIELD_SET  => ["setMin" => 0],
             ],
             "paddingRight"            => [
                 self::FIELD_TYPE => self::FIELD_TYPE_INT,
+                self::FIELD_SET  => ["setMin" => 0],
             ],
             "paddingBottom"           => [
                 self::FIELD_TYPE => self::FIELD_TYPE_INT,
+                self::FIELD_SET  => ["setMin" => 0],
             ],
             "paddingLeft"             => [
                 self::FIELD_TYPE => self::FIELD_TYPE_INT,
+                self::FIELD_SET  => ["setMin" => 0],
             ],
             "backgroundColorFrom"     => [
                 self::FIELD_TYPE => self::FIELD_TYPE_STRING,
@@ -153,27 +157,35 @@ class DesignBlockModel extends AbstractModel
             ],
             "borderTopWidth"          => [
                 self::FIELD_TYPE => self::FIELD_TYPE_INT,
+                self::FIELD_SET  => ["setMin" => 0],
             ],
             "borderRightWidth"        => [
                 self::FIELD_TYPE => self::FIELD_TYPE_INT,
+                self::FIELD_SET  => ["setMin" => 0],
             ],
             "borderBottomWidth"       => [
                 self::FIELD_TYPE => self::FIELD_TYPE_INT,
+                self::FIELD_SET  => ["setMin" => 0],
             ],
             "borderLeftWidth"         => [
                 self::FIELD_TYPE => self::FIELD_TYPE_INT,
+                self::FIELD_SET  => ["setMin" => 0],
             ],
             "borderTopLeftRadius"     => [
                 self::FIELD_TYPE => self::FIELD_TYPE_INT,
+                self::FIELD_SET  => ["setMin" => 0],
             ],
             "borderTopRightRadius"    => [
                 self::FIELD_TYPE => self::FIELD_TYPE_INT,
+                self::FIELD_SET  => ["setMin" => 0],
             ],
             "borderBottomRightRadius" => [
                 self::FIELD_TYPE => self::FIELD_TYPE_INT,
+                self::FIELD_SET  => ["setMin" => 0],
             ],
             "borderBottomLeftRadius"  => [
                 self::FIELD_TYPE => self::FIELD_TYPE_INT,
+                self::FIELD_SET  => ["setMin" => 0],
             ],
             "borderColor"             => [
                 self::FIELD_TYPE => self::FIELD_TYPE_STRING,

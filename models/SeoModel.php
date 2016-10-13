@@ -43,35 +43,35 @@ class SeoModel extends AbstractModel
     protected function getFieldsInfo()
     {
         return [
-            "name" => [
+            "name"        => [
                 self::FIELD_TYPE                => self::FIELD_TYPE_STRING,
                 self::FIELD_VALIDATION          => ["required", "max" => 255],
                 self::FIELD_SET                 => ["clearStripTags"],
                 self::FIELD_CHANGE_ON_DUPLICATE => "getCopyName",
             ],
-            "url" => [
+            "url"         => [
                 self::FIELD_TYPE                => self::FIELD_TYPE_STRING,
                 self::FIELD_VALIDATION          => ["required", "url", "max" => 255],
                 self::FIELD_SET                 => ["clearStripTags", "parseUrl"],
                 self::FIELD_CHANGE_ON_DUPLICATE => "getCopyUrl"
             ],
-            "title" => [
-                self::FIELD_TYPE              => self::FIELD_TYPE_STRING,
-                self::FIELD_VALIDATION        => ["max" => 100],
-                self::FIELD_SET               => ["clearStripTags"],
-                self::FIELD_SKIP_DUPLICATION  => true,
+            "title"       => [
+                self::FIELD_TYPE             => self::FIELD_TYPE_STRING,
+                self::FIELD_VALIDATION       => ["max" => 100],
+                self::FIELD_SET              => ["clearStripTags"],
+                self::FIELD_SKIP_DUPLICATION => true,
             ],
-            "keywords" => [
-                self::FIELD_TYPE              => self::FIELD_TYPE_STRING,
-                self::FIELD_VALIDATION        => ["max" => 255],
-                self::FIELD_SET               => ["clearStripTags"],
-                self::FIELD_SKIP_DUPLICATION  => true,
+            "keywords"    => [
+                self::FIELD_TYPE             => self::FIELD_TYPE_STRING,
+                self::FIELD_VALIDATION       => ["max" => 255],
+                self::FIELD_SET              => ["clearStripTags"],
+                self::FIELD_SKIP_DUPLICATION => true,
             ],
             "description" => [
-                self::FIELD_TYPE              => self::FIELD_TYPE_STRING,
-                self::FIELD_VALIDATION        => ["max" => 255],
-                self::FIELD_SET               => ["clearStripTags"],
-                self::FIELD_SKIP_DUPLICATION  => true,
+                self::FIELD_TYPE             => self::FIELD_TYPE_STRING,
+                self::FIELD_VALIDATION       => ["max" => 255],
+                self::FIELD_SET              => ["clearStripTags"],
+                self::FIELD_SKIP_DUPLICATION => true,
             ],
         ];
     }

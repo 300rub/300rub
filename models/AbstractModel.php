@@ -617,4 +617,21 @@ abstract class AbstractModel
 
         return "";
     }
+
+    /**
+     * Sets min value
+     *
+     * @param int $value
+     * @param int $min
+     *
+     * @return int
+     */
+    protected function setMin($value, $min)
+    {
+        if ($value < $min) {
+            $value = $min;
+        }
+
+        return $value;
+    }
 }

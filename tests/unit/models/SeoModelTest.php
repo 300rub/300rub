@@ -29,16 +29,40 @@ class SeoModelTest extends AbstractModelTest
      */
     public function dataProviderForCRUD()
     {
+        return array_merge(
+            $this->_dataProviderForCRUDNull(),
+            $this->_dataProviderForCRUDEmpty(),
+            $this->_dataProviderForCRUDCorrect(),
+            $this->_dataProviderForCRUDIncorrect()
+        );
+    }
+
+    /**
+     * Insert: null data.
+     *
+     * @return array
+     */
+    private function _dataProviderForCRUDNull()
+    {
         return [
-            // Insert: empty fields
             [
                 [],
                 [
                     "name" => ["required"],
                     "url"  => ["required", "url"],
                 ]
-            ],
-            // Insert: empty values
+            ]
+        ];
+    }
+
+    /**
+     * Insert: empty data.
+     *
+     * @return array
+     */
+    private function _dataProviderForCRUDEmpty()
+    {
+        return [
             [
                 [
                     "name"        => "",
@@ -51,8 +75,19 @@ class SeoModelTest extends AbstractModelTest
                     "name" => ["required"],
                     "url"  => ["required", "url"],
                 ]
-            ],
-            // Insert: correct values. Update: with more than max values.
+            ]
+        ];
+    }
+
+    /**
+     * Insert: correct values.
+     * Update: with more than max values.
+     *
+     * @return array
+     */
+    private function _dataProviderForCRUDCorrect()
+    {
+        return [
             [
                 [
                     "name"        => "name",
@@ -102,7 +137,18 @@ class SeoModelTest extends AbstractModelTest
                     "description" => ["max"],
                 ],
             ],
-            // Insert: incorrect values. Update: incorrect correct values.
+        ];
+    }
+
+    /**
+     * Insert: incorrect values.
+     * Update: incorrect correct values.
+     *
+     * @return array
+     */
+    private function _dataProviderForCRUDIncorrect()
+    {
+        return [
             [
                 [
                     "name"        => " <b>seo name<b>",
