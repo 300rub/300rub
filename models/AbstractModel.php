@@ -69,31 +69,25 @@ abstract class AbstractModel
      */
     public function __construct()
     {
-        $this->_createFields()->setDb();
-    }
-
-    /**
-     * Creates fields
-     *
-     * @return AbstractModel
-     */
-    private function _createFields()
-    {
         foreach (array_keys($this->getFieldsInfo()) as $field) {
             $this->$field = null;
         }
 
-        return $this;
+        $this->getDb()->setTable($this->getTableName());
     }
 
     /**
-     * Sets Db
+     * Gets DB object
+     *
+     * @return Db
      */
-    protected function setDb()
+    protected function getDb()
     {
-        $this->getDb()->setTable($this->getTableName());
+        if (!$this->_db instanceof Db) {
+            $this->_db = new Db();
+        }
 
-        return $this;
+        return $this->_db;
     }
 
     /**
@@ -127,44 +121,6 @@ abstract class AbstractModel
         }
 
         return $this;
-    }
-
-    /**
-     * Gets DB object
-     *
-     * @return Db
-     */
-    protected function getDb()
-    {
-        if (!$this->_db instanceof Db) {
-            $this->_db = new Db();
-        }
-
-        return $this->_db;
-    }
-
-    /**
-     * Clears strip tags
-     *
-     * @param string $value
-     *
-     * @return string
-     */
-    protected function clearStripTags($value)
-    {
-        return trim(strip_tags($value));
-    }
-
-    /**
-     * Gets copy name
-     *
-     * @param string $value
-     *
-     * @return string
-     */
-    protected function getCopyName($value)
-    {
-        return Language::t("common", "copy") . " " . $value;
     }
 
     /**
@@ -228,6 +184,24 @@ abstract class AbstractModel
     public function ordered($value = "name")
     {
         $this->getDb()->setOrder($value);
+        return $this;
+    }
+
+    /**
+     * Sets Db request data before find
+     *
+     * @return AbstractModel
+     */
+    private function _setDbRequestDataBeforeFind()
+    {
+        $select = [];
+
+        foreach ($this->getFieldsInfo() as $field => $info) {
+            $select[] = $this->getTableName() . Db::SEPARATOR . $field;
+        }
+
+        $this->getDb()->setSelect($select);
+
         return $this;
     }
 
@@ -335,6 +309,22 @@ abstract class AbstractModel
                     $this->$field = $this->$method($this->$field);
                 }
             }
+
+            if (array_key_exists(self::FIELD_SET, $parameters)) {
+                foreach ($parameters[self::FIELD_SET] as $key => $value) {
+                    if (is_string($key)) {
+                        $method = $key;
+                        if (method_exists($this, $method)) {
+                            $this->$field = $this->$method($this->$field, $value);
+                        }
+                    } else {
+                        $method = $value;
+                        if (method_exists($this, $method)) {
+                            $this->$field = $this->$method($this->$field);
+                        }
+                    }
+                }
+            }
         }
 
         return $this;
@@ -418,13 +408,12 @@ abstract class AbstractModel
      */
     public final function save($where = null, array $parameters = [])
     {
-        $this->_setFieldsAndDbRequestDataBeforeSave();
-
         if (count($this->validate()->getErrors()) > 0) {
             return $this;
         }
 
         try {
+            $this->_setFieldsAndDbRequestDataBeforeSave();
             $this->beforeSave();
 
             if ($this->id) {
@@ -486,46 +475,12 @@ abstract class AbstractModel
                 }
             }
 
-            if (array_key_exists(self::FIELD_SET, $info)) {
-                foreach ($info[self::FIELD_SET] as $key => $val) {
-                    if (is_string($key)) {
-                        $method = $key;
-                        if (method_exists($this, $method)) {
-                            $this->$field = $this->$method($this->$field, $val);
-                        }
-                    } else {
-                        $method = $val;
-                        if (method_exists($this, $method)) {
-                            $this->$field = $this->$method($this->$field);
-                        }
-                    }
-                }
-            }
-
             $parameters[$field] = $this->$field;
             $fields[] = $field;
         }
 
         $this->getDb()->setFields($fields);
         $this->getDb()->setParameters($parameters);
-
-        return $this;
-    }
-
-    /**
-     * Sets Db request data before find
-     *
-     * @return AbstractModel
-     */
-    private function _setDbRequestDataBeforeFind()
-    {
-        $select = [];
-
-        foreach ($this->getFieldsInfo() as $field => $info) {
-            $select[] = $this->getTableName() . Db::SEPARATOR . $field;
-        }
-
-        $this->getDb()->setSelect($select);
 
         return $this;
     }
@@ -567,18 +522,6 @@ abstract class AbstractModel
     }
 
     /**
-     * Gets string type for DB
-     *
-     * @param mixed|string $value
-     *
-     * @return string
-     */
-    protected function getStringForDb($value)
-    {
-        return $this->getString($value);
-    }
-
-    /**
      * Gets string type
      *
      * @param mixed|string $value
@@ -588,18 +531,6 @@ abstract class AbstractModel
     protected function getInt($value)
     {
         return (int) $value;
-    }
-
-    /**
-     * Gets string type for DB
-     *
-     * @param mixed|string $value
-     *
-     * @return string
-     */
-    protected function getIntForDb($value)
-    {
-        return $this->getInt($value);
     }
 
     /**
@@ -633,5 +564,29 @@ abstract class AbstractModel
         }
 
         return $value;
+    }
+
+    /**
+     * Gets copy name
+     *
+     * @param string $value
+     *
+     * @return string
+     */
+    protected function getCopyName($value)
+    {
+        return Language::t("common", "copy") . " " . $value;
+    }
+
+    /**
+     * Clears strip tags
+     *
+     * @param string $value
+     *
+     * @return string
+     */
+    protected function clearStripTags($value)
+    {
+        return trim(strip_tags($value));
     }
 }
