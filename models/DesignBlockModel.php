@@ -43,12 +43,78 @@ class DesignBlockModel extends AbstractModel
     const BORDER_STYLE_DASHED = 3;
 
     /**
-     * Angles
+     * Values
+     *
+     * @var array
      */
-    const ANGLE_TOP_LEFT = "topLeft";
-    const ANGLE_TOP_RIGHT = "topRight";
-    const ANGLE_BOTTOM_LEFT = "bottomLeft";
-    const ANGLE_BOTTOM_RIGHT = "bottomRight";
+    private $_values = [];
+
+    /**
+     * Values availability
+     *
+     * @var array
+     */
+    private $_valuesAvailability = [];
+
+    /**
+     * List of gradient directions options
+     *
+     * @var array
+     */
+    public static $gradientDirectionList = [
+        self::GRADIENT_DIRECTION_HORIZONTAL => [
+            "mozLinear"    => "left",
+            "webkit"       => "linear, left top, right top",
+            "webkitLinear" => "left",
+            "oLinear"      => "left",
+            "msLinear"     => "left",
+            "linear"       => "to right",
+            "ie"           => 1,
+            "label"        => "→"
+        ],
+        self::GRADIENT_DIRECTION_VERTICAL   => [
+            "mozLinear"    => "top",
+            "webkit"       => "linear, left top, left bottom",
+            "webkitLinear" => "top",
+            "oLinear"      => "top",
+            "msLinear"     => "top",
+            "linear"       => "to bottom",
+            "ie"           => 0,
+            "label"        => "↓"
+        ],
+        self::GRADIENT_DIRECTION_135DEG     => [
+            "mozLinear"    => "-45deg",
+            "webkit"       => "linear, left top, right bottom",
+            "webkitLinear" => "-45deg",
+            "oLinear"      => "-45deg",
+            "msLinear"     => "-45deg",
+            "linear"       => "135deg",
+            "ie"           => 1,
+            "label"        => "↘"
+        ],
+        self::GRADIENT_DIRECTION_45DEG      => [
+            "mozLinear"    => "45deg",
+            "webkit"       => "linear, left bottom, right top",
+            "webkitLinear" => "45deg",
+            "oLinear"      => "45deg",
+            "msLinear"     => "45deg",
+            "linear"       => "45deg",
+            "ie"           => 1,
+            "label"        => "↗"
+        ],
+    ];
+
+    /**
+     * List of border styles
+     *
+     * @var array
+     */
+    public static $borderStyleList = [
+        self::BORDER_STYLE_NONE   => "none",
+        self::BORDER_STYLE_SOLID  => "solid",
+        self::BORDER_STYLE_DOTTED => "dotted",
+        self::BORDER_STYLE_DASHED => "dashed",
+    ];
 
     /**
      * Gets model object
@@ -167,64 +233,26 @@ class DesignBlockModel extends AbstractModel
     }
 
     /**
-     * List of gradient directions options
-     *
-     * @var array
+     * Executes after finding
      */
-    public static $gradientDirectionList = [
-        self::GRADIENT_DIRECTION_HORIZONTAL => [
-            "mozLinear"    => "left",
-            "webkit"       => "linear, left top, right top",
-            "webkitLinear" => "left",
-            "oLinear"      => "left",
-            "msLinear"     => "left",
-            "linear"       => "to right",
-            "ie"           => 1,
-            "label"        => "→"
-        ],
-        self::GRADIENT_DIRECTION_VERTICAL   => [
-            "mozLinear"    => "top",
-            "webkit"       => "linear, left top, left bottom",
-            "webkitLinear" => "top",
-            "oLinear"      => "top",
-            "msLinear"     => "top",
-            "linear"       => "to bottom",
-            "ie"           => 0,
-            "label"        => "↓"
-        ],
-        self::GRADIENT_DIRECTION_135DEG     => [
-            "mozLinear"    => "-45deg",
-            "webkit"       => "linear, left top, right bottom",
-            "webkitLinear" => "-45deg",
-            "oLinear"      => "-45deg",
-            "msLinear"     => "-45deg",
-            "linear"       => "135deg",
-            "ie"           => 1,
-            "label"        => "↘"
-        ],
-        self::GRADIENT_DIRECTION_45DEG      => [
-            "mozLinear"    => "45deg",
-            "webkit"       => "linear, left bottom, right top",
-            "webkitLinear" => "45deg",
-            "oLinear"      => "45deg",
-            "msLinear"     => "45deg",
-            "linear"       => "45deg",
-            "ie"           => 1,
-            "label"        => "↗"
-        ],
-    ];
+    protected function afterFind()
+    {
+        $this->_setDefaultValuesAvailability();
+    }
 
     /**
-     * List of border styles
+     * Sets default values availability
      *
-     * @var array
+     * @return DesignBlockModel
      */
-    public static $borderStyleList = [
-        self::BORDER_STYLE_NONE   => "none",
-        self::BORDER_STYLE_SOLID  => "solid",
-        self::BORDER_STYLE_DOTTED => "dotted",
-        self::BORDER_STYLE_DASHED => "dashed",
-    ];
+    private function _setDefaultValuesAvailability()
+    {
+        foreach (array_keys($this->getFieldsInfo()) as $field) {
+            $this->_valuesAvailability[$field] = true;
+        }
+
+        return $this;
+    }
 
     /**
      * Sets gradient direction
@@ -259,35 +287,6 @@ class DesignBlockModel extends AbstractModel
     }
 
     /**
-     * Values availability
-     *
-     * @var array
-     */
-    private $_valuesAvailability = [
-        "marginTop"               => true,
-        "marginRight"             => true,
-        "marginBottom"            => true,
-        "marginLeft"              => true,
-        "paddingTop"              => true,
-        "paddingRight"            => true,
-        "paddingBottom"           => true,
-        "paddingLeft"             => true,
-        "backgroundColorFrom"     => true,
-        "backgroundColorTo"       => true,
-        "gradientDirection"       => true,
-        "borderTopWidth"          => true,
-        "borderRightWidth"        => true,
-        "borderBottomWidth"       => true,
-        "borderLeftWidth"         => true,
-        "borderTopLeftRadius"     => true,
-        "borderTopRightRadius"    => true,
-        "borderBottomRightRadius" => true,
-        "borderBottomLeftRadius"  => true,
-        "borderColor"             => true,
-        "borderStyle"             => true,
-    ];
-
-    /**
      * Excepts values
      *
      * @param array $values
@@ -306,51 +305,43 @@ class DesignBlockModel extends AbstractModel
     }
 
     /**
-     * Gets margin values
+     * Sets value
      *
+     * @param string $group
+     * @param string $type
+     * @param string $field
      * @param string $name
-     * @param array  $fields
      *
-     * @return array
+     * @return DesignBlockModel
      */
-    private function _getAngleValues($name, array $fields)
+    private function _setValue($group, $type, $field, $name)
     {
-        $values = [];
-
-        $topLeft = $fields[0];
-        $topRight = $fields[1];
-        $bottomLeft = $fields[2];
-        $bottomRight = $fields[3];
-
-        if ($this->_valuesAvailability[$topLeft] === true) {
-            $values[self::ANGLE_TOP_LEFT] = [
-                "name"  => sprintf($name, $topLeft),
-                "value" => $this->$topLeft
-            ];
+        if (!array_key_exists($field, $this->_valuesAvailability)) {
+            return $this;
         }
 
-        if ($this->_valuesAvailability[$topRight] === true) {
-            $values[self::ANGLE_TOP_RIGHT] = [
-                "name"  => sprintf($name, $topRight),
-                "value" => $this->$topRight
-            ];
+        if (!property_exists($this, $field)) {
+            return $this;
         }
 
-        if ($this->_valuesAvailability[$bottomLeft] === true) {
-            $values[self::ANGLE_BOTTOM_RIGHT] = [
-                "name"  => sprintf($name, $bottomLeft),
-                "value" => $this->$bottomLeft
-            ];
+        if ($this->_valuesAvailability[$field] === false) {
+            return $this;
         }
 
-        if ($this->_valuesAvailability[$bottomRight] === true) {
-            $values[self::ANGLE_BOTTOM_LEFT] = [
-                "name"  => sprintf($name, $bottomRight),
-                "value" => $this->$bottomRight
-            ];
+        if (!array_key_exists($group, $this->_values)) {
+            $this->_values[$group] = [];
         }
 
-        return $values;
+        if (!array_key_exists($type, $this->_values[$group])) {
+            $this->_values[$group][$type] = [];
+        }
+
+        $this->_values[$group][$type][$field] = [
+            "name"  => sprintf($name, $field),
+            "value" => $this->$field
+        ];
+
+        return $this;
     }
 
     /**
@@ -362,80 +353,30 @@ class DesignBlockModel extends AbstractModel
      */
     public function getValues($name)
     {
-        return [
-            "angles"          => [
-                [
-                    "type"   => "margin",
-                    "values" => $this->_getAngleValues(
-                        $name,
-                        [
-                            "marginLeft",
-                            "marginRight",
-                            "marginBottom",
-                            "marginLeft"
-                        ]
-                    )
-                ],
-                [
-                    "type"   => "padding",
-                    "values" => $this->_getAngleValues(
-                        $name,
-                        [
-                            "paddingTop",
-                            "paddingRight",
-                            "paddingBottom",
-                            "paddingLeft"
-                        ]
-                    )
-                ],
-                [
-                    "type"   => "border-width",
-                    "values" => $this->_getAngleValues(
-                        $name,
-                        [
-                            "borderTopWidth",
-                            "borderRightWidth",
-                            "borderBottomWidth",
-                            "borderLeftWidth"
-                        ]
-                    )
-                ],
-                [
-                    "type"   => "border-radius",
-                    "values" => $this->_getAngleValues(
-                        $name,
-                        [
-                            "borderTopLeftRadius",
-                            "borderTopRightRadius",
-                            "borderBottomRightRadius",
-                            "borderBottomLeftRadius"
-                        ]
-                    )
-                ],
-            ],
-            "backgroundColor" => [
-                "fromName"      => sprintf($name, "backgroundColorFrom"),
-                "fromValue"     => $this->backgroundColorFrom,
-                "toName"        => sprintf($name, "backgroundColorTo"),
-                "toValue"       => $this->backgroundColorTo,
-                "gradientName"  => sprintf($name, "gradientDirection"),
-                "gradientValue" => $this->gradientDirection
-            ],
-            "colors"          => [
-                [
-                    "type"  => "border-color",
-                    "name"  => sprintf($name, "borderColor"),
-                    "value" => $this->borderColor
-                ]
-            ],
-            "radios"          => [
-                [
-                    "type"  => "border-style",
-                    "name"  => sprintf($name, "borderStyle"),
-                    "value" => $this->borderStyle
-                ]
-            ]
-        ];
+        $this
+            ->_setValue("angles", "margin", "marginTop", $name)
+            ->_setValue("angles", "margin", "marginRight", $name)
+            ->_setValue("angles", "margin", "marginBottom", $name)
+            ->_setValue("angles", "margin", "marginLeft", $name)
+            ->_setValue("angles", "padding", "paddingTop", $name)
+            ->_setValue("angles", "padding", "paddingRight", $name)
+            ->_setValue("angles", "padding", "paddingBottom", $name)
+            ->_setValue("angles", "padding", "paddingLeft", $name)
+            ->_setValue("angles", "border-width", "borderTopWidth", $name)
+            ->_setValue("angles", "border-width", "borderRightWidth", $name)
+            ->_setValue("angles", "border-width", "borderBottomWidth", $name)
+            ->_setValue("angles", "border-width", "borderLeftWidth", $name)
+            ->_setValue("angles", "border-radius", "borderTopLeftRadius", $name)
+            ->_setValue("angles", "border-radius", "borderTopRightRadius", $name)
+            ->_setValue("angles", "border-radius", "borderBottomRightRadius", $name)
+            ->_setValue("angles", "border-radius", "borderBottomLeftRadius", $name)
+            ->_setValue("background", "background", "backgroundColorFrom", $name)
+            ->_setValue("background", "background", "backgroundColorTo", $name)
+            ->_setValue("background", "background", "gradientDirection", $name)
+            ->_setValue("colors", "border-color", "borderColor", $name)
+            ->_setValue("radios", "border-style", "borderStyle", $name);
+
+        return $this->_values;
     }
 
     /**

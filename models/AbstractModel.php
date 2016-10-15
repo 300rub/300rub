@@ -222,8 +222,16 @@ abstract class AbstractModel
          */
         $model = new $this;
         $model->setFields($this->_parseDbResponse($result));
+        $model->afterFind();
 
         return $model;
+    }
+
+    /**
+     * Executes after finding
+     */
+    protected function afterFind()
+    {
     }
 
     /**
@@ -245,9 +253,8 @@ abstract class AbstractModel
              */
             $model = new $this;
             $model->setFields($this->_parseDbResponse($result));
-            if ($model) {
-                $list[] = $model;
-            }
+            $model->afterFind();
+            $list[] = $model;
         }
 
         return $list;
