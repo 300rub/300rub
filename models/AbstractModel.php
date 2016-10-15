@@ -610,4 +610,22 @@ abstract class AbstractModel
     {
         return trim(strip_tags($value));
     }
+
+    /**
+     * Sets language
+     *
+     * @param int $value
+     *
+     * @return int
+     */
+    protected function setLanguage($value)
+    {
+        if ($value === 0
+            || !array_key_exists($value, Language::$aliasList)
+        ) {
+            $value = Language::$activeId;
+        }
+
+        return $value;
+    }
 }

@@ -8,81 +8,94 @@ use testS\components\Language;
 /**
  * Model for working with table "texts"
  *
- * @package testS\models
+ * @property int $type
  *
  * @method TextModel[] findAll
  * @method TextModel ordered
  * @method TextModel byId($id)
  * @method TextModel find
  * @method TextModel withAll
+ *
+ * @package testS\models
  */
 class TextModel extends AbstractModel
 {
 
 	/**
-	 * Type. <div>
+	 * Types
 	 */
 	const TYPE_DIV = 0;
-
-	/**
-	 * Type. <h1>
-	 */
 	const TYPE_H1 = 1;
-
-	/**
-	 * Type. <h2>
-	 */
 	const TYPE_H2 = 2;
-
-	/**
-	 * Type. <h3>
-	 */
 	const TYPE_H3 = 3;
-
-	/**
-	 * Type. <address>
-	 */
 	const TYPE_ADDRESS = 4;
-
-	/**
-	 * Type. <mark>
-	 */
 	const TYPE_MARK = 5;
 
-	/**
-	 * Block's name
-	 *
-	 * @var string
-	 */
-	public $name;
+    /**
+     * List of tag type values
+     *
+     * @var array
+     */
+    public static $typeTagList = [
+        self::TYPE_DIV     => "div",
+        self::TYPE_H1      => "h1",
+        self::TYPE_H2      => "h2",
+        self::TYPE_H3      => "h3",
+        self::TYPE_ADDRESS => "adress",
+        self::TYPE_MARK    => "mark",
+    ];
 
-	/**
-	 * Language ID
-	 *
-	 * @var integer
-	 */
-	public $language;
+    /**
+     * Gets model object
+     *
+     * @return TextModel
+     */
+    public static function model()
+    {
+        $className = __CLASS__;
+        return new $className;
+    }
 
-	/**
-	 * Is editor used
-	 *
-	 * @var boolean
-	 */
-	public $isEditor = false;
+    /**
+     * Gets table name
+     *
+     * @return string
+     */
+    public function getTableName()
+    {
+        return "texts";
+    }
 
-	/**
-	 * Text type
-	 *
-	 * @var int
-	 */
-	public $type = 0;
-
-	/**
-	 * Text
-	 *
-	 * @var string
-	 */
-	public $text = "";
+    /**
+     * Gets fields info
+     *
+     * @return array
+     */
+    protected function getFieldsInfo()
+    {
+        return [
+            "name"        => [
+                self::FIELD_TYPE                => self::FIELD_TYPE_STRING,
+                self::FIELD_VALIDATION          => ["required", "max" => 255],
+                self::FIELD_SET                 => ["clearStripTags"],
+                self::FIELD_CHANGE_ON_DUPLICATE => "getCopyName",
+            ],
+            "language"        => [
+                self::FIELD_TYPE                => self::FIELD_TYPE_INT,
+                self::FIELD_SET                 => ["setLanguage"],
+            ],
+            "isEditor"        => [
+                self::FIELD_TYPE                => self::FIELD_TYPE_BOOL,
+            ],
+            "type"        => [
+                self::FIELD_TYPE                => self::FIELD_TYPE_INT,
+                self::FIELD_SET                 => ["setType"],
+            ],
+            "text"        => [
+                self::FIELD_TYPE                => self::FIELD_TYPE_STRING,
+            ],
+        ];
+    }
 
 	/**
 	 * ID of DesignTextModel
@@ -113,31 +126,6 @@ class TextModel extends AbstractModel
 	public $designBlockModel;
 
 	/**
-	 * List of tag type values
-	 *
-	 * @var array
-	 */
-	public static $typeTagList = [
-		self::TYPE_DIV    => "div",
-		self::TYPE_H1     => "h1",
-		self::TYPE_H2     => "h2",
-		self::TYPE_H3     => "h3",
-		self::TYPE_ADDRESS => "adress",
-		self::TYPE_MARK   => "mark",
-	];
-
-	/**
-	 * Form types
-	 *
-	 * @var array
-	 */
-	protected $formTypes = [
-		"name"      => self::FORM_TYPE_FIELD,
-		"isEditor" => self::FORM_TYPE_CHECKBOX,
-		"type"      => self::FORM_TYPE_SELECT
-	];
-
-	/**
 	 * Relations
 	 *
 	 * @var array
@@ -148,45 +136,6 @@ class TextModel extends AbstractModel
 	];
 
 	/**
-	 * Gets table name
-	 *
-	 * @return string
-	 */
-	public function getTableName()
-	{
-		return "texts";
-	}
-
-	/**
-	 * Validation rules
-	 *
-	 * @return array
-	 */
-	public function getRules()
-	{
-		return [
-			"name"            => ["required", "max" => 255],
-			"language"        => [],
-			"isEditor"       => [],
-			"type"            => [],
-			"text"            => [],
-			"designTextId"  => [],
-			"designBlockId" => [],
-		];
-	}
-
-	/**
-	 * Gets model object
-	 *
-	 * @return TextModel
-	 */
-	public static function model()
-	{
-		$className = __CLASS__;
-		return new $className;
-	}
-
-	/**
 	 * Gets type list
 	 *
 	 * @return array
@@ -194,12 +143,12 @@ class TextModel extends AbstractModel
 	public static function getTypeList()
 	{
 		return [
-			self::TYPE_DIV    => Language::t("text", "typeDefault"),
-			self::TYPE_H1     => Language::t("text", "typeH1"),
-			self::TYPE_H2     => Language::t("text", "typeH2"),
-			self::TYPE_H3     => Language::t("text", "typeH3"),
+			self::TYPE_DIV     => Language::t("text", "typeDefault"),
+			self::TYPE_H1      => Language::t("text", "typeH1"),
+			self::TYPE_H2      => Language::t("text", "typeH2"),
+			self::TYPE_H3      => Language::t("text", "typeH3"),
 			self::TYPE_ADDRESS => Language::t("text", "typeAddress"),
-			self::TYPE_MARK   => Language::t("text", "typeImportant"),
+			self::TYPE_MARK    => Language::t("text", "typeImportant"),
 		];
 	}
 
@@ -217,25 +166,27 @@ class TextModel extends AbstractModel
 		return self::$typeTagList[self::TYPE_DIV];
 	}
 
+    /**
+     * Sets type
+     *
+     * @param int $value
+     *
+     * @return int
+     */
+    protected function setType($value)
+    {
+        if (!array_key_exists($value, self::$typeTagList)) {
+            $value = self::TYPE_DIV;
+        }
+
+        return $value;
+    }
+
 	/**
 	 * Sets values
 	 */
 	protected function setValues()
 	{
-		$this->language = intval($this->language);
-		if (
-			$this->language === 0
-			|| !array_key_exists($this->language, Language::$aliasList)
-		) {
-			$this->language = Language::$activeId;
-		}
-
-		$this->type = intval($this->type);
-		if (!array_key_exists($this->type, self::$typeTagList)) {
-			$this->type = self::TYPE_DIV;
-		}
-
-		$this->isEditor = boolval($this->isEditor);
 		$this->designTextId = intval($this->designTextId);
 		$this->designBlockId = intval($this->designBlockId);
 	}
@@ -245,13 +196,6 @@ class TextModel extends AbstractModel
 	 */
 	protected function beforeSave()
 	{
-		$this->isEditor = intval($this->isEditor);
-		if ($this->isEditor >= 1) {
-			$this->isEditor = 1;
-		} else {
-			$this->isEditor = 0;
-		}
-
 		if (!$this->designTextModel instanceof DesignTextModel) {
 			if ($this->designTextId === 0) {
 				$this->designTextModel = new DesignTextModel();
@@ -275,55 +219,6 @@ class TextModel extends AbstractModel
 		}
 
 		parent::beforeSave();
-	}
-
-	/**
-	 * Runs before validation
-	 *
-	 * @return void
-	 */
-	protected function beforeValidate()
-	{
-		$this->name = trim(strip_tags($this->name));
-	}
-
-	/**
-	 * Duplicates text
-	 * If success returns ID of new text
-	 *
-	 * @return TextModel
-	 * 
-	 * @throws ModelException
-	 */
-	public function duplicate()
-	{
-		$modelForCopy = $this->withAll()->byId($this->id)->find();
-
-		$designTextModel = $modelForCopy->designTextModel->duplicate();
-		$designBlockModel = $modelForCopy->designBlockModel->duplicate();
-
-		$model = clone $this;
-		$model->name = Language::t("common", "copy") . " {$this->name}";
-		$model->id = 0;
-		$model->text = "";
-		$model->designTextModel = $designTextModel;
-		$model->designTextId = $designTextModel->id;
-		$model->designBlockModel = $designBlockModel;
-		$model->designBlockId = $designBlockModel->id;
-		if (!$model->save()) {
-			$fields = "";
-			foreach ($model->getFieldNames() as $fieldName) {
-				$fields .= " {$fieldName}: " . $model->$fieldName;
-			}
-			throw new ModelException(
-				"Unable to duplicate TextModel with fields: {fields}",
-				[
-					"fields" => $fields
-				]
-			);
-		}
-		
-		return $model;
 	}
 
 	/**
