@@ -542,6 +542,35 @@ abstract class AbstractModel
     }
 
     /**
+     * Gets bool type
+     *
+     * @param mixed|string $value
+     *
+     * @return string
+     */
+    protected function getBool($value)
+    {
+        return (bool) $value;
+    }
+
+    /**
+     * Gets bool type
+     *
+     * @param mixed|string $value
+     *
+     * @return string
+     */
+    protected function getBoolForDb($value)
+    {
+        $value = (int) $value;
+        if ($value >= 1) {
+            return 1;
+        }
+
+        return 0;
+    }
+
+    /**
      * Sets min value
      *
      * @param int $value
