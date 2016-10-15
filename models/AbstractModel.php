@@ -28,6 +28,7 @@ abstract class AbstractModel
     const FIELD_TYPE = "type";
     const FIELD_TYPE_STRING = "string";
     const FIELD_TYPE_INT = "int";
+    const FIELD_TYPE_BOOL = "bool";
 
     /**
      * ID
@@ -538,22 +539,6 @@ abstract class AbstractModel
     protected function getInt($value)
     {
         return (int) $value;
-    }
-
-    /**
-     * Parses color
-     *
-     * @param string $value Color value
-     *
-     * @return string
-     */
-    protected function parseColor($value)
-    {
-        if (preg_match('/(.*?)(rgb|rgba)\((\d+),\s*(\d+),\s*(\d+)(?:,\s*(\d+(?:\.\d+)?))?\)/i', $value)) {
-            return $value;
-        }
-
-        return "";
     }
 
     /**

@@ -2,14 +2,17 @@
 
 namespace testS\models;
 
-use testS\components\exceptions\ModelException;
-
 /**
  * Model for working with table "designTexts"
  *
+ * @property int $align
+ * @property int $decoration
+ * @property int $transform
+ * @property int $family
+ *
  * @package testS\models
  */
-class DesignTextModel extends AbstractModel
+class DesignTextModel extends AbstractDesignModel
 {
 
     /**
@@ -217,251 +220,124 @@ class DesignTextModel extends AbstractModel
                 self::FIELD_TYPE => self::FIELD_TYPE_INT,
                 self::FIELD_SET  => ["setMin" => self::MIN_SIZE_VALUE],
             ],
-            "marginRight"             => [
+            "family"             => [
                 self::FIELD_TYPE => self::FIELD_TYPE_INT,
-                self::FIELD_SET  => ["setMin" => self::MIN_MARGIN_VALUE],
+                self::FIELD_SET  => ["setFamily"],
             ],
-            "marginBottom"            => [
-                self::FIELD_TYPE => self::FIELD_TYPE_INT,
-                self::FIELD_SET  => ["setMin" => self::MIN_MARGIN_VALUE],
-            ],
-            "marginLeft"              => [
-                self::FIELD_TYPE => self::FIELD_TYPE_INT,
-                self::FIELD_SET  => ["setMin" => self::MIN_MARGIN_VALUE],
-            ],
-            "paddingTop"              => [
-                self::FIELD_TYPE => self::FIELD_TYPE_INT,
-                self::FIELD_SET  => ["setMin" => 0],
-            ],
-            "paddingRight"            => [
-                self::FIELD_TYPE => self::FIELD_TYPE_INT,
-                self::FIELD_SET  => ["setMin" => 0],
-            ],
-            "paddingBottom"           => [
-                self::FIELD_TYPE => self::FIELD_TYPE_INT,
-                self::FIELD_SET  => ["setMin" => 0],
-            ],
-            "paddingLeft"             => [
-                self::FIELD_TYPE => self::FIELD_TYPE_INT,
-                self::FIELD_SET  => ["setMin" => 0],
-            ],
-            "backgroundColorFrom"     => [
+            "color"     => [
                 self::FIELD_TYPE => self::FIELD_TYPE_STRING,
                 self::FIELD_SET  => ["parseColor"],
             ],
-            "backgroundColorTo"       => [
-                self::FIELD_TYPE => self::FIELD_TYPE_STRING,
-                self::FIELD_SET  => ["parseColor"],
+            "isItalic"       => [
+                self::FIELD_TYPE => self::FIELD_TYPE_BOOL,
             ],
-            "gradientDirection"       => [
+            "isBold"       => [
+                self::FIELD_TYPE => self::FIELD_TYPE_BOOL,
+            ],
+            "align"             => [
                 self::FIELD_TYPE => self::FIELD_TYPE_INT,
-                self::FIELD_SET  => ["setGradientDirection"],
+                self::FIELD_SET  => ["setAlign"],
             ],
-            "borderTopWidth"          => [
+            "decoration"             => [
                 self::FIELD_TYPE => self::FIELD_TYPE_INT,
-                self::FIELD_SET  => ["setMin" => 0],
+                self::FIELD_SET  => ["setDecoration"],
             ],
-            "borderRightWidth"        => [
+            "transform"             => [
                 self::FIELD_TYPE => self::FIELD_TYPE_INT,
-                self::FIELD_SET  => ["setMin" => 0],
+                self::FIELD_SET  => ["setTransform"],
             ],
-            "borderBottomWidth"       => [
+            "letterSpacing"               => [
                 self::FIELD_TYPE => self::FIELD_TYPE_INT,
-                self::FIELD_SET  => ["setMin" => 0],
+                self::FIELD_SET  => ["setMin" => self::MIN_LETTER_SPACING_VALUE],
             ],
-            "borderLeftWidth"         => [
+            "lineHeight"             => [
                 self::FIELD_TYPE => self::FIELD_TYPE_INT,
-                self::FIELD_SET  => ["setMin" => 0],
-            ],
-            "borderTopLeftRadius"     => [
-                self::FIELD_TYPE => self::FIELD_TYPE_INT,
-                self::FIELD_SET  => ["setMin" => 0],
-            ],
-            "borderTopRightRadius"    => [
-                self::FIELD_TYPE => self::FIELD_TYPE_INT,
-                self::FIELD_SET  => ["setMin" => 0],
-            ],
-            "borderBottomRightRadius" => [
-                self::FIELD_TYPE => self::FIELD_TYPE_INT,
-                self::FIELD_SET  => ["setMin" => 0],
-            ],
-            "borderBottomLeftRadius"  => [
-                self::FIELD_TYPE => self::FIELD_TYPE_INT,
-                self::FIELD_SET  => ["setMin" => 0],
-            ],
-            "borderColor"             => [
-                self::FIELD_TYPE => self::FIELD_TYPE_STRING,
-                self::FIELD_SET  => ["parseColor"],
-            ],
-            "borderStyle"             => [
-                self::FIELD_TYPE => self::FIELD_TYPE_INT,
-                self::FIELD_SET  => ["setBorderStyle"],
+                self::FIELD_SET  => ["setLineHeight"],
             ],
         ];
     }
 
+    /**
+     * Sets font-family
+     *
+     * @param int $value
+     *
+     * @return int
+     */
+	protected function setFamily($value)
+    {
+        if (!array_key_exists($value, self::$familyList)) {
+            $value = self::FAMILY_MYRAD;
+        }
 
+        return $value;
+    }
 
-	/**
-	 * Font family
-	 *
-	 * @var int
-	 */
-	public $family;
+    /**
+     * Sets text-align
+     *
+     * @param int $value
+     *
+     * @return int
+     */
+    protected function setAlign($value)
+    {
+        if (!array_key_exists($value, self::$textAlignList)) {
+            $value = self::TEXT_ALIGN_LEFT;
+        }
 
-	/**
-	 * CSS color
-	 *
-	 * @var string
-	 */
-	public $color;
+        return $value;
+    }
 
-	/**
-	 * Is font-style: italic
-	 *
-	 * @var bool
-	 */
-	public $isItalic;
+    /**
+     * Sets text-decoration
+     *
+     * @param int $value
+     *
+     * @return int
+     */
+    protected function setDecoration($value)
+    {
+        if (!array_key_exists($value, self::$textDecorationList)) {
+            $value = self::TEXT_DECORATION_NONE;
+        }
 
-	/**
-	 * Is font-weight: bold;
-	 *
-	 * @var int
-	 */
-	public $isBold;
+        return $value;
+    }
 
-	/**
-	 * Align type
-	 *
-	 * @var int
-	 */
-	public $align;
+    /**
+     * Sets text-transform
+     *
+     * @param int $value
+     *
+     * @return int
+     */
+    protected function setTransform($value)
+    {
+        if (!array_key_exists($value, self::$textTransformList)) {
+            $value = self::TEXT_TRANSFORM_NONE;
+        }
 
-	/**
-	 * Text decoration type
-	 *
-	 * @var int
-	 */
-	public $decoration;
+        return $value;
+    }
 
-	/**
-	 * Text transform type
-	 *
-	 * @var int
-	 */
-	public $transform;
+    /**
+     * Sets line-height
+     *
+     * @param int $value
+     *
+     * @return int
+     */
+    protected function setLineHeight($value)
+    {
+        if ($value === 0) {
+            $value = self::DEFAULT_LINE_HEIGHT;
+        } else if ($value < self::MIN_LINE_HEIGHT_VALUE) {
+            $value = self::MIN_LINE_HEIGHT_VALUE;
+        }
 
-	/**
-	 * CSS letter-spacing in px
-	 *
-	 * @var int
-	 */
-	public $letterSpacing;
-
-	/**
-	 * CSS line-height in %
-	 *
-	 * @var int
-	 */
-	public $lineHeight;
-
-
-
-	/**
-	 * Validation rules
-	 *
-	 * @return array
-	 */
-	public function getRules()
-	{
-		return [
-			"size"           => [],
-			"family"         => [],
-			"color"          => [],
-			"isItalic"      => [],
-			"isBold"        => [],
-			"align"          => [],
-			"decoration"     => [],
-			"transform"      => [],
-			"letterSpacing" => [],
-			"lineHeight"    => [],
-		];
-	}
-
-
-	/**
-	 * Runs before saving
-	 */
-	protected function beforeSave()
-	{
-		parent::beforeSave();
-
-		$this->size = $this->getIntVal($this->size, self::INT_MAX_VAL, self::MIN_SIZE_VALUE);
-		$this->letterSpacing = $this->getIntVal($this->letterSpacing, self::INT_MAX_VAL, self::MIN_LETTER_SPACING_VALUE);
-
-		$this->isItalic = $this->getTinyIntVal($this->isItalic);
-		$this->isBold = $this->getTinyIntVal($this->isBold);
-
-		$this->family = intval($this->family);
-		if (!array_key_exists($this->family, self::$familyList)) {
-			$this->family = self::FAMILY_MYRAD;
-		}
-
-		$this->align = intval($this->align);
-		if (!array_key_exists($this->align, self::$textAlignList)) {
-			$this->align = self::TEXT_ALIGN_LEFT;
-		}
-
-		$this->decoration = intval($this->decoration);
-		if (!array_key_exists($this->decoration, self::$textDecorationList)) {
-			$this->decoration = self::TEXT_DECORATION_NONE;
-		}
-
-		$this->transform = intval($this->transform);
-		if (!array_key_exists($this->transform, self::$textTransformList)) {
-			$this->transform = self::TEXT_TRANSFORM_NONE;
-		}
-
-		$this->lineHeight = intval($this->lineHeight);
-		if ($this->lineHeight === 0) {
-			$this->lineHeight = self::DEFAULT_LINE_HEIGHT;
-		} else if ($this->lineHeight < self::MIN_LINE_HEIGHT_VALUE) {
-			$this->lineHeight = self::MIN_LINE_HEIGHT_VALUE;
-		}
-	}
-
-	/**
-	 * Sets values
-	 */
-	protected function setValues()
-	{
-		$this->size = intval($this->size);
-		$this->family = intval($this->family);
-		$this->letterSpacing = intval($this->letterSpacing);
-		$this->align = intval($this->align);
-		$this->decoration = intval($this->decoration);
-		$this->transform = intval($this->transform);
-		$this->lineHeight = intval($this->lineHeight);
-
-		$this->isItalic = boolval($this->isItalic);
-		$this->isBold = boolval($this->isBold);
-
-		if (!$this->_isColor($this->color)) {
-			$this->color = "";
-		}
-	}
-
-	/**
-	 * Checks is it correct color value
-	 *
-	 * @param string $value Color value
-	 *
-	 * @return bool
-	 */
-	private function _isColor($value)
-	{
-		return boolval(preg_match('/(.*?)(rgb|rgba)\((\d+),\s*(\d+),\s*(\d+)(?:,\s*(\d+(?:\.\d+)?))?\)/i', $value));
-	}
+        return $value;
+    }
 
 	/**
 	 * Gets values for object
@@ -472,75 +348,20 @@ class DesignTextModel extends AbstractModel
 	 */
 	public function getValues($name)
 	{
-		return [
-			"fontFamily"     => [
-				"name"  => sprintf($name, "family"),
-				"value" => $this->family
-			],
-			"spinners" => [
-				[
-					"name"     => sprintf($name, "size"),
-					"value"    => $this->size,
-					"type"     => "font-size",
-					"minValue" => self::MIN_SIZE_VALUE,
-					"measure"  => "px"
-				],
-                [
-                    "name"     => sprintf($name, "letterSpacing"),
-                    "value"    => $this->letterSpacing,
-                    "type"     => "letter-spacing",
-                    "minValue" => self::MIN_LETTER_SPACING_VALUE,
-                    "measure"  => "px"
-                ],
-                [
-                    "name"     => sprintf($name, "lineHeight"),
-                    "value"    => $this->lineHeight,
-                    "type"     => "line-height",
-                    "minValue" => self::MIN_LINE_HEIGHT_VALUE,
-                    "measure"  => "%"
-                ]
-			],
-            "colors"           => [
-                [
-                    "type"  => "color",
-                    "name"  => sprintf($name, "color"),
-                    "value" => $this->color
-                ]
-            ],
-			"checkboxes" => [
-				[
-					"name"      => sprintf($name, "isItalic"),
-					"value"     => $this->isItalic,
-					"type"      => "font-style",
-					"checked"   => "italic",
-					"unChecked" => "normal"
-				],
-				[
-					"name"      => sprintf($name, "isBold"),
-					"value"     => $this->isBold,
-					"type"      => "font-weight",
-					"checked"   => "bold",
-					"unChecked" => "normal"
-				]
-			],
-            "radios"           => [
-                [
-                    "type"  => "text-align",
-                    "name"  => sprintf($name, "align"),
-                    "value" => $this->align
-                ],
-                [
-                    "type"  => "text-decoration",
-                    "name"  => sprintf($name, "decoration"),
-                    "value" => $this->decoration
-                ],
-                [
-                    "type"  => "text-transform",
-                    "name"  => sprintf($name, "transform"),
-                    "value" => $this->transform
-                ]
-            ]
-		];
+        $this
+            ->setDesignValue("fontFamily", "font-family", "family", $name)
+            ->setDesignValue("spinners", "font-size", "size", $name)
+            ->setDesignValue("spinners", "letter-spacing", "letterSpacing", $name)
+            ->setDesignValue("spinners", "line-height", "lineHeight", $name)
+            ->setDesignValue("colors", "color", "color", $name)
+            ->setDesignValue("checkboxes", "font-style", "isItalic", $name)
+            ->setDesignValue("checkboxes", "font-weight", "isBold", $name)
+            ->setDesignValue("radios", "text-align", "align", $name)
+            ->setDesignValue("radios", "text-decoration", "decoration", $name)
+            ->setDesignValue("radios", "text-transform", "transform", $name)
+        ;
+
+        return $this->designValues;
 	}
 
 	/**
@@ -592,41 +413,12 @@ class DesignTextModel extends AbstractModel
 	 */
 	public function getFontFamilyClass()
 	{
-		if (
-			$this->family !== self::FAMILY_MYRAD
+		if ($this->family !== self::FAMILY_MYRAD
 			&& array_key_exists($this->family, self::$familyList)
 		) {
 			return self::$familyList[$this->family]["class"];
 		}
 
 		return "";
-	}
-
-	/**
-	 * Duplicates model
-	 *
-	 * @return DesignTextModel
-	 * 
-	 * @throws ModelException
-	 */
-	public function duplicate()
-	{
-		$model = clone $this;
-		$model->id = 0;
-
-		if (!$model->save()) {
-			$fields = "";
-			foreach ($model->getFieldNames() as $fieldName) {
-				$fields .= " {$fieldName}: " . $model->$fieldName;
-			}
-			throw new ModelException(
-				"Unable to duplicate DesignTextModel with fields: {fields}",
-				[
-					"fields" => $fields
-				]
-			);
-		}
-		
-		return $model;
 	}
 }

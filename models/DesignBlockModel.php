@@ -10,7 +10,7 @@ namespace testS\models;
  *
  * @package testS\models
  */
-class DesignBlockModel extends AbstractModel
+class DesignBlockModel extends AbstractDesignModel
 {
 
     /**
@@ -38,20 +38,6 @@ class DesignBlockModel extends AbstractModel
     const BORDER_STYLE_SOLID = 1;
     const BORDER_STYLE_DOTTED = 2;
     const BORDER_STYLE_DASHED = 3;
-
-    /**
-     * Values
-     *
-     * @var array
-     */
-    private $_values = [];
-
-    /**
-     * Values availability
-     *
-     * @var array
-     */
-    private $_valuesAvailability = [];
 
     /**
      * List of gradient directions options
@@ -230,28 +216,6 @@ class DesignBlockModel extends AbstractModel
     }
 
     /**
-     * Executes after finding
-     */
-    protected function afterFind()
-    {
-        $this->_setDefaultValuesAvailability();
-    }
-
-    /**
-     * Sets default values availability
-     *
-     * @return DesignBlockModel
-     */
-    private function _setDefaultValuesAvailability()
-    {
-        foreach (array_keys($this->getFieldsInfo()) as $field) {
-            $this->_valuesAvailability[$field] = true;
-        }
-
-        return $this;
-    }
-
-    /**
      * Sets gradient direction
      *
      * @param int $value
@@ -284,64 +248,6 @@ class DesignBlockModel extends AbstractModel
     }
 
     /**
-     * Excepts values
-     *
-     * @param array $values
-     *
-     * @return DesignBlockModel
-     */
-    public function exceptValues(array $values)
-    {
-        foreach ($values as $value) {
-            if (array_key_exists($value, $this->_valuesAvailability)) {
-                $this->_valuesAvailability[$value] = false;
-            }
-        }
-
-        return $this;
-    }
-
-    /**
-     * Sets value
-     *
-     * @param string $group
-     * @param string $type
-     * @param string $field
-     * @param string $name
-     *
-     * @return DesignBlockModel
-     */
-    private function _setValue($group, $type, $field, $name)
-    {
-        if (!array_key_exists($field, $this->_valuesAvailability)) {
-            return $this;
-        }
-
-        if (!property_exists($this, $field)) {
-            return $this;
-        }
-
-        if ($this->_valuesAvailability[$field] === false) {
-            return $this;
-        }
-
-        if (!array_key_exists($group, $this->_values)) {
-            $this->_values[$group] = [];
-        }
-
-        if (!array_key_exists($type, $this->_values[$group])) {
-            $this->_values[$group][$type] = [];
-        }
-
-        $this->_values[$group][$type][$field] = [
-            "name"  => sprintf($name, $field),
-            "value" => $this->$field
-        ];
-
-        return $this;
-    }
-
-    /**
      * Gets values for object
      *
      * @param string $name Name of object
@@ -351,29 +257,29 @@ class DesignBlockModel extends AbstractModel
     public function getValues($name)
     {
         $this
-            ->_setValue("angles", "margin", "marginTop", $name)
-            ->_setValue("angles", "margin", "marginRight", $name)
-            ->_setValue("angles", "margin", "marginBottom", $name)
-            ->_setValue("angles", "margin", "marginLeft", $name)
-            ->_setValue("angles", "padding", "paddingTop", $name)
-            ->_setValue("angles", "padding", "paddingRight", $name)
-            ->_setValue("angles", "padding", "paddingBottom", $name)
-            ->_setValue("angles", "padding", "paddingLeft", $name)
-            ->_setValue("angles", "border-width", "borderTopWidth", $name)
-            ->_setValue("angles", "border-width", "borderRightWidth", $name)
-            ->_setValue("angles", "border-width", "borderBottomWidth", $name)
-            ->_setValue("angles", "border-width", "borderLeftWidth", $name)
-            ->_setValue("angles", "border-radius", "borderTopLeftRadius", $name)
-            ->_setValue("angles", "border-radius", "borderTopRightRadius", $name)
-            ->_setValue("angles", "border-radius", "borderBottomRightRadius", $name)
-            ->_setValue("angles", "border-radius", "borderBottomLeftRadius", $name)
-            ->_setValue("background", "background", "backgroundColorFrom", $name)
-            ->_setValue("background", "background", "backgroundColorTo", $name)
-            ->_setValue("background", "background", "gradientDirection", $name)
-            ->_setValue("colors", "border-color", "borderColor", $name)
-            ->_setValue("radios", "border-style", "borderStyle", $name);
+            ->setDesignValue("angles", "margin", "marginTop", $name)
+            ->setDesignValue("angles", "margin", "marginRight", $name)
+            ->setDesignValue("angles", "margin", "marginBottom", $name)
+            ->setDesignValue("angles", "margin", "marginLeft", $name)
+            ->setDesignValue("angles", "padding", "paddingTop", $name)
+            ->setDesignValue("angles", "padding", "paddingRight", $name)
+            ->setDesignValue("angles", "padding", "paddingBottom", $name)
+            ->setDesignValue("angles", "padding", "paddingLeft", $name)
+            ->setDesignValue("angles", "border-width", "borderTopWidth", $name)
+            ->setDesignValue("angles", "border-width", "borderRightWidth", $name)
+            ->setDesignValue("angles", "border-width", "borderBottomWidth", $name)
+            ->setDesignValue("angles", "border-width", "borderLeftWidth", $name)
+            ->setDesignValue("angles", "border-radius", "borderTopLeftRadius", $name)
+            ->setDesignValue("angles", "border-radius", "borderTopRightRadius", $name)
+            ->setDesignValue("angles", "border-radius", "borderBottomRightRadius", $name)
+            ->setDesignValue("angles", "border-radius", "borderBottomLeftRadius", $name)
+            ->setDesignValue("background", "background", "backgroundColorFrom", $name)
+            ->setDesignValue("background", "background", "backgroundColorTo", $name)
+            ->setDesignValue("background", "background", "gradientDirection", $name)
+            ->setDesignValue("colors", "border-color", "borderColor", $name)
+            ->setDesignValue("radios", "border-style", "borderStyle", $name);
 
-        return $this->_values;
+        return $this->designValues;
     }
 
     /**
