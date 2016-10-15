@@ -5,11 +5,8 @@ namespace testS\models;
 /**
  * Model for working with table "designBlocks"
  *
- * @property string $backgroundColorFrom
- * @property string $backgroundColorTo
- * @property int    $gradientDirection
- * @property string $borderColor
- * @property int    $borderStyle
+ * @property int $gradientDirection
+ * @property int $borderStyle
  *
  * @package testS\models
  */
