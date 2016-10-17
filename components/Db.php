@@ -228,6 +228,23 @@ class Db
         return $this;
     }
 
+    public function addJoin($table, $field, $type = "INNER")
+    {
+        $this->setJoin(
+            sprintf(
+                "%s %s JOIN %s ON %s.id = %s.%s",
+                $this->getJoin(),
+                $type,
+                $table,
+                $table,
+                $this->getTable(),
+                $field
+            )
+        );
+
+        return $this;
+    }
+
     /**
      * Gets join
      *
@@ -235,7 +252,7 @@ class Db
      */
     public function getJoin()
     {
-        return $this->_join;
+        return trim($this->_join);
     }
 
     /**
@@ -380,13 +397,13 @@ class Db
     private function _getQuery()
     {
         $query = sprintf("SELECT" . " %s FROM %s", implode(",", $this->getSelect()), $this->getTable());
-        
-        if ($this->getWhere()) {
-            $query .= sprintf(" WHERE %s", $this->getWhere());
-        }
-        
+
         if ($this->getJoin()) {
             $query .= sprintf(" %s", $this->getJoin());
+        }
+
+        if ($this->getWhere()) {
+            $query .= sprintf(" WHERE %s", $this->getWhere());
         }
 
         if ($this->getOrder()) {

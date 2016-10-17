@@ -58,6 +58,13 @@ abstract class AbstractModel
     private $_errors = [];
 
     /**
+     * List of relations
+     *
+     * @var string
+     */
+    private $_with = [];
+
+    /**
      * Gets table name
      *
      * @return string
@@ -76,8 +83,13 @@ abstract class AbstractModel
      */
     public function __construct()
     {
-        foreach (array_keys($this->getFieldsInfo()) as $field) {
+        foreach ($this->getFieldsInfo() as $field => $info) {
             $this->$field = null;
+
+            if (array_key_exists(self::FIELD_RELATION, $info)) {
+                $f = $info[self::FIELD_RELATION][self::FIELD_RELATION_NAME];
+                $this->$f = null;
+            }
         }
 
         $this->getDb()->setTable($this->getTableName());
@@ -207,6 +219,25 @@ abstract class AbstractModel
 
         foreach ($this->getFieldsInfo() as $field => $info) {
             $select[] = $this->getTableName() . Db::SEPARATOR . $field;
+        }
+
+        /**
+         * @var AbstractModel $relationModel
+         */
+        foreach ($this->getFieldsInfo() as $f => $parameters) {
+            if (!array_key_exists(self::FIELD_RELATION, $parameters)) {
+                continue;
+            }
+
+            $relation = $parameters[self::FIELD_RELATION];
+            if (in_array($relation[self::FIELD_RELATION_NAME], $this->_with)) {
+                $relationModel = "\\testS\\models\\" . $relation[self::FIELD_RELATION_MODEL];
+                $relationModel = new $relationModel;
+                $this->getDb()->addJoin($relationModel->getTableName(), $f, "LEFT");
+                foreach ($relationModel->getFieldsInfo() as $field => $info) {
+                    $select[] = $relationModel->getTableName() . Db::SEPARATOR . $field;
+                }
+            }
         }
 
         $this->getDb()->setSelect($select);
@@ -606,6 +637,16 @@ abstract class AbstractModel
      */
     public function withAll()
     {
+        $this->_with = [];
+
+        foreach ($this->getFieldsInfo() as $field => $parameters) {
+            if (!array_key_exists(self::FIELD_RELATION, $parameters)) {
+                continue;
+            }
+
+            $this->_with[] = $parameters[self::FIELD_RELATION][self::FIELD_RELATION_NAME];
+        }
+
         return $this;
     }
 
