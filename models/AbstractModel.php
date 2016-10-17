@@ -201,7 +201,9 @@ abstract class AbstractModel
      */
     private function _setDbRequestDataBeforeFind()
     {
-        $select = [];
+        $select = [
+            $this->getTableName() . Db::SEPARATOR . "id"
+        ];
 
         foreach ($this->getFieldsInfo() as $field => $info) {
             $select[] = $this->getTableName() . Db::SEPARATOR . $field;
@@ -303,6 +305,10 @@ abstract class AbstractModel
     public function setFields(array $fields)
     {
         $info = $this->getFieldsInfo();
+
+        if (!empty($fields["id"])) {
+            $this->id = (int) $fields["id"];
+        }
 
         foreach ($fields as $field => $value) {
             if (!array_key_exists($field, $info)) {
@@ -423,6 +429,8 @@ abstract class AbstractModel
                 } else {
                     $relationModel = $this->$relationName;
                 }
+
+
 
                 $relationModel->delete();
             }

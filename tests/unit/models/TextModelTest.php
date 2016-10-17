@@ -33,8 +33,11 @@ class TextModelTest extends AbstractModelTest
         return array_merge(
             $this->_dataProviderForCRUDNull(),
             $this->_dataProviderForCRUDEmpty(),
-            $this->_dataProviderForCRUDNameOnly()
-//            $this->_dataProviderForCRUDIncorrect()
+            $this->_dataProviderForCRUDNameOnly(),
+            $this->_dataProviderForCRUDNameHtml(),
+            $this->_dataProviderForCRUDNameIncorrect(),
+            $this->_dataProviderForCRUDNameCorrect(),
+            $this->_dataProviderForCRUDNameWithRelations()
         );
     }
 
@@ -65,11 +68,11 @@ class TextModelTest extends AbstractModelTest
         return [
             [
                 [
-                    "name"            => "",
-                    "language"        => "",
-                    "type"            => "",
-                    "isEditor"       => "",
-                    "text"            => "",
+                    "name"          => "",
+                    "language"      => "",
+                    "type"          => "",
+                    "isEditor"      => "",
+                    "text"          => "",
                     "designTextId"  => "",
                     "designBlockId" => "",
                 ],
@@ -95,34 +98,34 @@ class TextModelTest extends AbstractModelTest
                 ],
                 [],
                 [
-                    "name"      => "Text test name",
-                    "language"  => Language::$activeId,
-                    "type"      => TextModel::TYPE_DIV,
+                    "name"     => "Text test name",
+                    "language" => Language::$activeId,
+                    "type"     => TextModel::TYPE_DIV,
                     "isEditor" => 0,
-                    "text"      => ""
+                    "text"     => ""
                 ],
                 [],
                 [],
                 [
-                    "name"      => "Text test name",
-                    "language"  => Language::$activeId,
-                    "type"      => TextModel::TYPE_DIV,
+                    "name"     => "Text test name",
+                    "language" => Language::$activeId,
+                    "type"     => TextModel::TYPE_DIV,
                     "isEditor" => 0,
-                    "text"      => ""
+                    "text"     => ""
                 ],
             ]
         ];
     }
 
     /**
-     * Data provider for CRUD test
+     * Insert: only name with HTML tags.
+     * Update: empty name
      *
      * @return array
      */
-    public function adataProviderForCRUD()
+    private function _dataProviderForCRUDNameHtml()
     {
         return [
-            // Insert: only name with HTML tags. Update: empty name
             [
                 [
                     "name" => "<b>Text</b> <i>test</i> <div>name</div>",
@@ -138,101 +141,140 @@ class TextModelTest extends AbstractModelTest
                     "name" => "required",
                 ],
                 [],
-            ],
-            // Insert: incorrect format parameters. Update with incorrect values
+            ]
+        ];
+    }
+
+    /**
+     * Insert: incorrect format parameters.
+     * Update with incorrect values
+     *
+     * @return array
+     */
+    private function _dataProviderForCRUDNameIncorrect()
+    {
+        return [
             [
                 [
-                    "name"            => "Text test name",
-                    "language"        => "incorrect language",
-                    "type"            => "incorrect type",
-                    "isEditor"       => "incorrect editor",
+                    "name"          => "Text test name",
+                    "language"      => "incorrect language",
+                    "type"          => "incorrect type",
+                    "isEditor"      => "incorrect editor",
                     "designTextId"  => "incorrect design text",
                     "designBlockId" => "incorrect design block",
                 ],
                 [],
                 [
-                    "name"      => "Text test name",
-                    "language"  => Language::$activeId,
-                    "type"      => TextModel::TYPE_DIV,
+                    "name"     => "Text test name",
+                    "language" => Language::$activeId,
+                    "type"     => TextModel::TYPE_DIV,
                     "isEditor" => 0,
-                    "text"      => ""
+                    "text"     => ""
                 ],
                 [
-                    "language"        => 99,
-                    "type"            => 144,
-                    "isEditor"       => 34,
+                    "language"      => 99,
+                    "type"          => 144,
+                    "isEditor"      => 34,
                     "designTextId"  => 1111,
                     "designBlockId" => 3224,
                 ],
                 [],
                 [
-                    "language"  => Language::$activeId,
-                    "type"      => TextModel::TYPE_DIV,
+                    "language" => Language::$activeId,
+                    "type"     => TextModel::TYPE_DIV,
                     "isEditor" => 1,
                 ]
-            ],
-            // Insert and update with correct parameters
+            ]
+        ];
+    }
+
+    /**
+     * Insert and update with correct parameters
+     *
+     * @return array
+     */
+    private function _dataProviderForCRUDNameCorrect()
+    {
+        return [
             [
                 [
-                    "name"      => "Text test name",
-                    "language"  => Language::LANGUAGE_EN_ID,
-                    "type"      => TextModel::TYPE_H1,
+                    "name"     => "Text test name",
+                    "language" => Language::LANGUAGE_EN_ID,
+                    "type"     => TextModel::TYPE_H1,
                     "isEditor" => 1,
-                    "text"      => "<b>Text</b>",
+                    "text"     => "<b>Text</b>",
                 ],
                 [],
                 [
-                    "name"      => "Text test name",
-                    "language"  => Language::LANGUAGE_EN_ID,
-                    "type"      => TextModel::TYPE_H1,
+                    "name"     => "Text test name",
+                    "language" => Language::LANGUAGE_EN_ID,
+                    "type"     => TextModel::TYPE_H1,
                     "isEditor" => 1,
-                    "text"      => "<b>Text</b>",
+                    "text"     => "<b>Text</b>",
                 ],
                 [
-                    "language"  => Language::LANGUAGE_RU_ID,
-                    "type"      => TextModel::TYPE_H3,
+                    "language" => Language::LANGUAGE_RU_ID,
+                    "type"     => TextModel::TYPE_H3,
                     "isEditor" => 0,
-                    "text"      => "<i>New text</i>",
+                    "text"     => "<i>New text</i>",
                 ],
                 [],
                 [
-                    "name"      => "Text test name",
-                    "language"  => Language::LANGUAGE_RU_ID,
-                    "type"      => TextModel::TYPE_H3,
+                    "name"     => "Text test name",
+                    "language" => Language::LANGUAGE_RU_ID,
+                    "type"     => TextModel::TYPE_H3,
                     "isEditor" => 0,
-                    "text"      => "<i>New text</i>",
+                    "text"     => "<i>New text</i>",
                 ]
-            ],
-            // Insert and update with design parameters
+            ]
+        ];
+    }
+
+    /**
+     * Insert and update with design parameters
+     *
+     * @return array
+     */
+    private function _dataProviderForCRUDNameWithRelations()
+    {
+        return [
             [
                 [
-                    "name"                      => "Text test name",
-                    "designTextModel.size"        => 20,
-                    "designTextModel.isItalic"   => 1,
-                    "designTextModel.isBold"     => 1,
-                    "designBlockModel.marginTop" => 10
+                    "name"            => "Text test name",
+                    "designTextModel" => [
+                        "size"      => 20,
+                        "isItalic"  => true,
+                        "isBold"    => true,
+                        "marginTop" => 10
+                    ]
                 ],
                 [],
                 [
-                    "designTextModel.size"        => 20,
-                    "designTextModel.isItalic"   => 1,
-                    "designTextModel.isBold"     => 1,
-                    "designBlockModel.marginTop" => 10
+                    "designTextModel" => [
+                        "size"      => 20,
+                        "isItalic"  => true,
+                        "isBold"    => true,
+                        "marginTop" => 10
+                    ]
                 ],
                 [
-                    "designTextModel.size"        => 30,
-                    "designTextModel.isItalic"   => 0,
-                    "designTextModel.isBold"     => 0,
-                    "designBlockModel.marginTop" => 20
+                    "designTextModel" => [
+                        "size"      => 30,
+                        "isItalic"  => false,
+                        "isBold"    => false,
+                        "marginTop" => 20
+                    ]
                 ],
                 [],
                 [
-                    "designTextModel.size"        => 30,
-                    "designTextModel.isItalic"   => 0,
-                    "designTextModel.isBold"     => 0,
-                    "designBlockModel.marginTop" => 20
+                    "designTextModel" => [
+                        "size"      => 30,
+                        "isItalic"  => false,
+                        "isBold"    => false,
+                        "marginTop" => 20
+                    ]
                 ]
-            ],
+            ]
         ];
     }
 
@@ -243,32 +285,32 @@ class TextModelTest extends AbstractModelTest
     {
         $this->markTestSkipped();
 
-        $idForCopy = 1;
-        $model = $this->getModel()->byId($idForCopy)->find();
-        $this->assertNotNull($model);
-
-        $modelAfterDuplicate = $model->duplicate();
-        $this->assertNotNull($modelAfterDuplicate);
-
-        $modelForCopy = $this->getModel()->withAll()->byId($idForCopy)->find();
-        $modelCopy = $this->getModel()->withAll()->byId($modelAfterDuplicate->id)->find();
-
-        $this->assertNotEquals($modelForCopy->id, $modelCopy->id);
-        $this->assertEquals($modelForCopy->isEditor, $modelCopy->isEditor);
-        $this->assertEquals($modelForCopy->type, $modelCopy->type);
-        $this->assertEquals($modelForCopy->text, $modelCopy->text);
-        $this->assertEquals(Language::t("common", "copy") . " {$modelForCopy->name}", $modelCopy->name);
-        $this->assertNotEquals($modelForCopy->designTextId, $modelCopy->designTextId);
-        $this->assertNotEquals($modelForCopy->designBlockId, $modelCopy->designBlockId);
-
-        foreach ($modelForCopy->designTextModel->getFieldNames() as $field) {
-            $this->assertEquals($modelForCopy->designTextModel->$field, $modelCopy->designTextModel->$field);
-        }
-
-        foreach ($modelForCopy->designBlockModel->getFieldNames() as $field) {
-            $this->assertEquals($modelForCopy->designBlockModel->$field, $modelCopy->designBlockModel->$field);
-        }
-
-        $this->assertTrue($modelCopy->delete());
+        //        $idForCopy = 1;
+        //        $model = $this->getModel()->byId($idForCopy)->find();
+        //        $this->assertNotNull($model);
+        //
+        //        $modelAfterDuplicate = $model->duplicate();
+        //        $this->assertNotNull($modelAfterDuplicate);
+        //
+        //        $modelForCopy = $this->getModel()->withAll()->byId($idForCopy)->find();
+        //        $modelCopy = $this->getModel()->withAll()->byId($modelAfterDuplicate->id)->find();
+        //
+        //        $this->assertNotEquals($modelForCopy->id, $modelCopy->id);
+        //        $this->assertEquals($modelForCopy->isEditor, $modelCopy->isEditor);
+        //        $this->assertEquals($modelForCopy->type, $modelCopy->type);
+        //        $this->assertEquals($modelForCopy->text, $modelCopy->text);
+        //        $this->assertEquals(Language::t("common", "copy") . " {$modelForCopy->name}", $modelCopy->name);
+        //        $this->assertNotEquals($modelForCopy->designTextId, $modelCopy->designTextId);
+        //        $this->assertNotEquals($modelForCopy->designBlockId, $modelCopy->designBlockId);
+        //
+        //        foreach ($modelForCopy->designTextModel->getFieldNames() as $field) {
+        //            $this->assertEquals($modelForCopy->designTextModel->$field, $modelCopy->designTextModel->$field);
+        //        }
+        //
+        //        foreach ($modelForCopy->designBlockModel->getFieldNames() as $field) {
+        //            $this->assertEquals($modelForCopy->designBlockModel->$field, $modelCopy->designBlockModel->$field);
+        //        }
+        //
+        //        $this->assertTrue($modelCopy->delete());
     }
 }
