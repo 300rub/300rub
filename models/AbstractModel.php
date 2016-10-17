@@ -339,6 +339,8 @@ abstract class AbstractModel
             }
 
             if (array_key_exists(self::FIELD_RELATION, $parameters)) {
+                $this->$field = $this->getInt($this->$field);
+
                 $relationInfo = $parameters[self::FIELD_RELATION];
                 $relationName = $relationInfo[self::FIELD_RELATION_NAME];
 
@@ -559,15 +561,21 @@ abstract class AbstractModel
                 || !$this->$relationName->id
             ) {
                 $relationModel = new $relationModelName;
-                $relationModel = $relationModel->byId($this->$field)->find();
-                if (!$relationModel instanceof $relationModelName) {
-                    throw new ModelException(
-                        "Unable to find relation with name: {name} by id: {id}",
-                        [
-                            "name" => $relationName,
-                            "id"   => $this->$field
-                        ]
-                    );
+
+                if ($this->$field === 0) {
+                    $relationModel->save();
+                    $this->$field = $relationModel->id;
+                } else {
+                    $relationModel = $relationModel->byId($this->$field)->find();
+                    if (!$relationModel instanceof $relationModelName) {
+                        throw new ModelException(
+                            "Unable to find relation with name: {name} by id: {id}",
+                            [
+                                "name" => $relationName,
+                                "id"   => $this->$field
+                            ]
+                        );
+                    }
                 }
             } else {
                 $relationModel = $this->$relationName;
@@ -606,7 +614,19 @@ abstract class AbstractModel
     }
 
     /**
-     * Gets string type
+     * Gets string type for DB
+     *
+     * @param mixed|string $value
+     *
+     * @return string
+     */
+    protected function getStringForDb($value)
+    {
+        return $this->getString($value);
+    }
+
+    /**
+     * Gets int type
      *
      * @param mixed|string $value
      *
@@ -615,6 +635,18 @@ abstract class AbstractModel
     protected function getInt($value)
     {
         return (int) $value;
+    }
+
+    /**
+     * Gets int type for DB
+     *
+     * @param mixed|string $value
+     *
+     * @return string
+     */
+    protected function getIntForDb($value)
+    {
+        return $this->getInt($value);
     }
 
     /**
