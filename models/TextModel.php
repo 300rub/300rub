@@ -94,46 +94,22 @@ class TextModel extends AbstractModel
             "text"        => [
                 self::FIELD_TYPE                => self::FIELD_TYPE_STRING,
             ],
+			"designTextId" => [
+				self::FIELD_RELATION => [
+					self::FIELD_RELATION_MODEL => "DesignTextModel",
+					self::FIELD_RELATION_NAME  => "designTextModel",
+					self::FIELD_RELATION_TYPE  => self::FIELD_RELATION_TYPE_BELONGS_TO
+				]
+			],
+			"designBlockId" => [
+				self::FIELD_RELATION => [
+					self::FIELD_RELATION_MODEL => "DesignBlockModel",
+					self::FIELD_RELATION_NAME  => "designBlockModel",
+					self::FIELD_RELATION_TYPE  => self::FIELD_RELATION_TYPE_BELONGS_TO
+				]
+			]
         ];
     }
-
-	/**
-	 * ID of DesignTextModel
-	 *
-	 * @var int
-	 */
-	public $designTextId;
-
-	/**
-	 * ID of DesignTextModel
-	 *
-	 * @var int
-	 */
-	public $designBlockId;
-
-	/**
-	 * Design text model
-	 *
-	 * @var DesignTextModel
-	 */
-	public $designTextModel;
-
-	/**
-	 * Design block model
-	 *
-	 * @var DesignBlockModel
-	 */
-	public $designBlockModel;
-
-	/**
-	 * Relations
-	 *
-	 * @var array
-	 */
-	protected $relations = [
-		"designTextModel"  => ['testS\models\DesignTextModel', "designTextId"],
-		"designBlockModel" => ['testS\models\DesignBlockModel', "designBlockId"]
-	];
 
 	/**
 	 * Gets type list
@@ -181,15 +157,6 @@ class TextModel extends AbstractModel
 
         return $value;
     }
-
-	/**
-	 * Sets values
-	 */
-	protected function setValues()
-	{
-		$this->designTextId = intval($this->designTextId);
-		$this->designBlockId = intval($this->designBlockId);
-	}
 
 	/**
 	 * Runs before save

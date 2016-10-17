@@ -25,10 +25,16 @@ abstract class AbstractModel
     const FIELD_SET = "set";
     const FIELD_SKIP_DUPLICATION = "skipDuplication";
     const FIELD_CHANGE_ON_DUPLICATE = "changeOnDuplicate";
+    const FIELD_RELATION = "relation";
     const FIELD_TYPE = "type";
     const FIELD_TYPE_STRING = "string";
     const FIELD_TYPE_INT = "int";
     const FIELD_TYPE_BOOL = "bool";
+    const FIELD_RELATION_MODEL = "model";
+    const FIELD_RELATION_TYPE = "type";
+    const FIELD_RELATION_TYPE_BELONGS_TO = "belongs_to";
+    const FIELD_RELATION_TYPE_HAS_ONE = "has_one";
+    const FIELD_RELATION_NAME = "relationName";
 
     /**
      * ID
