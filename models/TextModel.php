@@ -2,7 +2,6 @@
 
 namespace testS\models;
 
-use testS\components\exceptions\ModelException;
 use testS\components\Language;
 
 /**
@@ -21,15 +20,15 @@ use testS\components\Language;
 class TextModel extends AbstractModel
 {
 
-	/**
-	 * Types
-	 */
-	const TYPE_DIV = 0;
-	const TYPE_H1 = 1;
-	const TYPE_H2 = 2;
-	const TYPE_H3 = 3;
-	const TYPE_ADDRESS = 4;
-	const TYPE_MARK = 5;
+    /**
+     * Types
+     */
+    const TYPE_DIV = 0;
+    const TYPE_H1 = 1;
+    const TYPE_H2 = 2;
+    const TYPE_H3 = 3;
+    const TYPE_ADDRESS = 4;
+    const TYPE_MARK = 5;
 
     /**
      * List of tag type values
@@ -74,73 +73,73 @@ class TextModel extends AbstractModel
     protected function getFieldsInfo()
     {
         return [
-            "name"        => [
+            "name"          => [
                 self::FIELD_TYPE                => self::FIELD_TYPE_STRING,
                 self::FIELD_VALIDATION          => ["required", "max" => 255],
                 self::FIELD_SET                 => ["clearStripTags"],
                 self::FIELD_CHANGE_ON_DUPLICATE => "getCopyName",
             ],
-            "language"        => [
-                self::FIELD_TYPE                => self::FIELD_TYPE_INT,
-                self::FIELD_SET                 => ["setLanguage"],
+            "language"      => [
+                self::FIELD_TYPE => self::FIELD_TYPE_INT,
+                self::FIELD_SET  => ["setLanguage"],
             ],
-            "isEditor"        => [
-                self::FIELD_TYPE                => self::FIELD_TYPE_BOOL,
+            "isEditor"      => [
+                self::FIELD_TYPE => self::FIELD_TYPE_BOOL,
             ],
-            "type"        => [
-                self::FIELD_TYPE                => self::FIELD_TYPE_INT,
-                self::FIELD_SET                 => ["setType"],
+            "type"          => [
+                self::FIELD_TYPE => self::FIELD_TYPE_INT,
+                self::FIELD_SET  => ["setType"],
             ],
-            "text"        => [
-                self::FIELD_TYPE                => self::FIELD_TYPE_STRING,
+            "text"          => [
+                self::FIELD_TYPE => self::FIELD_TYPE_STRING,
             ],
-			"designTextId" => [
-				self::FIELD_RELATION => [
-					self::FIELD_RELATION_MODEL => "DesignTextModel",
-					self::FIELD_RELATION_NAME  => "designTextModel",
-					self::FIELD_RELATION_TYPE  => self::FIELD_RELATION_TYPE_BELONGS_TO
-				]
-			],
-			"designBlockId" => [
-				self::FIELD_RELATION => [
-					self::FIELD_RELATION_MODEL => "DesignBlockModel",
-					self::FIELD_RELATION_NAME  => "designBlockModel",
-					self::FIELD_RELATION_TYPE  => self::FIELD_RELATION_TYPE_BELONGS_TO
-				]
-			]
+            "designTextId"  => [
+                self::FIELD_RELATION => [
+                    self::FIELD_RELATION_MODEL => "DesignTextModel",
+                    self::FIELD_RELATION_NAME  => "designTextModel",
+                    self::FIELD_RELATION_TYPE  => self::FIELD_RELATION_TYPE_BELONGS_TO
+                ]
+            ],
+            "designBlockId" => [
+                self::FIELD_RELATION => [
+                    self::FIELD_RELATION_MODEL => "DesignBlockModel",
+                    self::FIELD_RELATION_NAME  => "designBlockModel",
+                    self::FIELD_RELATION_TYPE  => self::FIELD_RELATION_TYPE_BELONGS_TO
+                ]
+            ]
         ];
     }
 
-	/**
-	 * Gets type list
-	 *
-	 * @return array
-	 */
-	public static function getTypeList()
-	{
-		return [
-			self::TYPE_DIV     => Language::t("text", "typeDefault"),
-			self::TYPE_H1      => Language::t("text", "typeH1"),
-			self::TYPE_H2      => Language::t("text", "typeH2"),
-			self::TYPE_H3      => Language::t("text", "typeH3"),
-			self::TYPE_ADDRESS => Language::t("text", "typeAddress"),
-			self::TYPE_MARK    => Language::t("text", "typeImportant"),
-		];
-	}
+    /**
+     * Gets type list
+     *
+     * @return array
+     */
+    public static function getTypeList()
+    {
+        return [
+            self::TYPE_DIV     => Language::t("text", "typeDefault"),
+            self::TYPE_H1      => Language::t("text", "typeH1"),
+            self::TYPE_H2      => Language::t("text", "typeH2"),
+            self::TYPE_H3      => Language::t("text", "typeH3"),
+            self::TYPE_ADDRESS => Language::t("text", "typeAddress"),
+            self::TYPE_MARK    => Language::t("text", "typeImportant"),
+        ];
+    }
 
-	/**
-	 * Gets tag name
-	 *
-	 * @return string
-	 */
-	public function getTag()
-	{
-		if (array_key_exists($this->type, self::$typeTagList)) {
-			return self::$typeTagList[$this->type];
-		}
+    /**
+     * Gets tag name
+     *
+     * @return string
+     */
+    public function getTag()
+    {
+        if (array_key_exists($this->type, self::$typeTagList)) {
+            return self::$typeTagList[$this->type];
+        }
 
-		return self::$typeTagList[self::TYPE_DIV];
-	}
+        return self::$typeTagList[self::TYPE_DIV];
+    }
 
     /**
      * Sets type
@@ -157,74 +156,4 @@ class TextModel extends AbstractModel
 
         return $value;
     }
-
-	/**
-	 * Runs before save
-	 */
-	protected function beforeSave()
-	{
-		if (!$this->designTextModel instanceof DesignTextModel) {
-			if ($this->designTextId === 0) {
-				$this->designTextModel = new DesignTextModel();
-			} else {
-				$this->designTextModel = DesignTextModel::model()->byId($this->designTextId)->find();
-				if ($this->designTextModel === null) {
-					$this->designTextModel = new DesignTextModel();
-				}
-			}
-		}
-
-		if (!$this->designBlockModel instanceof DesignBlockModel) {
-			if ($this->designBlockId === 0) {
-				$this->designBlockModel = new DesignBlockModel();
-			} else {
-				$this->designBlockModel = DesignBlockModel::model()->byId($this->designBlockId)->find();
-				if ($this->designBlockModel === null) {
-					$this->designBlockModel = new DesignBlockModel();
-				}
-			}
-		}
-
-		parent::beforeSave();
-	}
-
-	/**
-	 * Runs before delete
-	 *
-	 * @throws ModelException
-	 */
-	protected function beforeDelete()
-	{
-		$designTextModel = $this->designTextModel;
-		if ($designTextModel === null) {
-			$designTextModel = DesignTextModel::model()->byId($this->designTextId)->find();
-		}
-		if ($designTextModel instanceof DesignTextModel) {
-			if (!$designTextModel->delete()) {
-				throw new ModelException(
-					"Unable to delete DesignTextModel model with ID = {id}",
-					[
-						"id" => $designTextModel->id
-					]
-				);
-			}
-		}
-
-		$designBlockModel = $this->designBlockModel;
-		if ($designBlockModel === null) {
-			$designBlockModel = DesignBlockModel::model()->byId($this->designBlockId)->find();
-		}
-		if ($designBlockModel instanceof DesignBlockModel) {
-			if (!$designBlockModel->delete()) {
-				throw new ModelException(
-					"Unable to delete DesignBlockModel model with ID = {id}",
-					[
-						"id" => $designBlockModel->id
-					]
-				);
-			}
-		}
-
-		parent::beforeDelete();
-	}
 }

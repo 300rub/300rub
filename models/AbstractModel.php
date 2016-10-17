@@ -309,9 +309,7 @@ abstract class AbstractModel
                 continue;
             }
 
-            if (is_array($field)) {
-
-            } else {
+            if (property_exists($this, $field)) {
                 $this->$field = $value;
             }
         }
@@ -337,6 +335,22 @@ abstract class AbstractModel
                             $this->$field = $this->$method($this->$field);
                         }
                     }
+                }
+            }
+
+            if (array_key_exists(self::FIELD_RELATION, $parameters)) {
+                $relationInfo = $parameters[self::FIELD_RELATION];
+                $relationName = $relationInfo[self::FIELD_RELATION_NAME];
+
+                if (array_key_exists($relationName, $fields)) {
+                    $relationModelName = "\\testS\\models\\" . $relationInfo[self::FIELD_RELATION_MODEL];
+                    if (!property_exists($this, $relationName)
+                        || !$this->$relationName instanceof $relationModelName
+                    ) {
+                        $this->$relationName = new $relationModelName;
+                    }
+
+                    $this->$relationName->setFields($fields[$relationName]);
                 }
             }
         }
@@ -386,6 +400,31 @@ abstract class AbstractModel
      */
     protected function afterDelete()
     {
+        foreach ($this->getFieldsInfo() as $field => $parameters) {
+            if (!array_key_exists(self::FIELD_RELATION, $parameters)) {
+                continue;
+            }
+
+            /**
+             * @var AbstractModel $relationModel
+             */
+            $relationInfo = $parameters[self::FIELD_RELATION];
+            if ($relationInfo[self::FIELD_RELATION_TYPE] === self::FIELD_RELATION_TYPE_BELONGS_TO) {
+                $relationName = $relationInfo[self::FIELD_RELATION_NAME];
+                $relationModelName = "\\testS\\models\\" . $relationInfo[self::FIELD_RELATION_MODEL];
+                if (!property_exists($this, $relationName)
+                    || !$this->$relationName instanceof $relationModelName
+                    || !$this->$relationName->id
+                ) {
+                    $relationModel = new $relationModelName;
+                    $relationModel = $relationModel->byId($this->$field)->find();
+                } else {
+                    $relationModel = $this->$relationName;
+                }
+
+                $relationModel->delete();
+            }
+        }
     }
 
     /**
@@ -504,6 +543,37 @@ abstract class AbstractModel
      */
     protected function beforeSave()
     {
+        foreach ($this->getFieldsInfo() as $field => $parameters) {
+            if (!array_key_exists(self::FIELD_RELATION, $parameters)) {
+                continue;
+            }
+
+            /**
+             * @var AbstractModel $relationModel
+             */
+            $relationInfo = $parameters[self::FIELD_RELATION];
+            $relationName = $relationInfo[self::FIELD_RELATION_NAME];
+            $relationModelName = "\\testS\\models\\" . $relationInfo[self::FIELD_RELATION_MODEL];
+            if (!property_exists($this, $relationName)
+                || !$this->$relationName instanceof $relationModelName
+                || !$this->$relationName->id
+            ) {
+                $relationModel = new $relationModelName;
+                $relationModel = $relationModel->byId($this->$field)->find();
+                if (!$relationModel instanceof $relationModelName) {
+                    throw new ModelException(
+                        "Unable to find relation with name: {name} by id: {id}",
+                        [
+                            "name" => $relationName,
+                            "id"   => $this->$field
+                        ]
+                    );
+                }
+            } else {
+                $relationModel = $this->$relationName;
+                $relationModel->save();
+            }
+        }
     }
 
     /**
