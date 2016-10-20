@@ -37,7 +37,7 @@ class TextModelTest extends AbstractModelTest
             $this->_dataProviderForCRUDNameHtml(),
             $this->_dataProviderForCRUDNameIncorrect(),
             $this->_dataProviderForCRUDNameCorrect(),
-            $this->_dataProviderForCRUDNameWithRelations()
+           $this->_dataProviderForCRUDNameWithRelations()
         );
     }
 
@@ -138,7 +138,7 @@ class TextModelTest extends AbstractModelTest
                     "name" => "",
                 ],
                 [
-                    "name" => "required",
+                    "name" => ["required"],
                 ],
                 [],
             ]
@@ -168,7 +168,7 @@ class TextModelTest extends AbstractModelTest
                     "name"     => "Text test name",
                     "language" => Language::$activeId,
                     "type"     => TextModel::TYPE_DIV,
-                    "isEditor" => 0,
+                    "isEditor" => true,
                     "text"     => ""
                 ],
                 [
@@ -182,7 +182,7 @@ class TextModelTest extends AbstractModelTest
                 [
                     "language" => Language::$activeId,
                     "type"     => TextModel::TYPE_DIV,
-                    "isEditor" => 1,
+                    "isEditor" => true,
                 ]
             ]
         ];
@@ -244,8 +244,7 @@ class TextModelTest extends AbstractModelTest
                     "designTextModel" => [
                         "size"      => 20,
                         "isItalic"  => true,
-                        "isBold"    => true,
-                        "marginTop" => 10
+                        "isBold"    => true
                     ]
                 ],
                 [],
@@ -253,16 +252,14 @@ class TextModelTest extends AbstractModelTest
                     "designTextModel" => [
                         "size"      => 20,
                         "isItalic"  => true,
-                        "isBold"    => true,
-                        "marginTop" => 10
+                        "isBold"    => true
                     ]
                 ],
                 [
                     "designTextModel" => [
                         "size"      => 30,
                         "isItalic"  => false,
-                        "isBold"    => false,
-                        "marginTop" => 20
+                        "isBold"    => false
                     ]
                 ],
                 [],
@@ -270,8 +267,7 @@ class TextModelTest extends AbstractModelTest
                     "designTextModel" => [
                         "size"      => 30,
                         "isItalic"  => false,
-                        "isBold"    => false,
-                        "marginTop" => 20
+                        "isBold"    => false
                     ]
                 ]
             ]

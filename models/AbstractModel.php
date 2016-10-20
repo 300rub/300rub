@@ -266,6 +266,10 @@ abstract class AbstractModel
             );
         }
 
+        if ($this->_withRelations === false) {
+            return $this;
+        }
+
         /**
          * @var AbstractModel $relationModel
          */
@@ -323,11 +327,10 @@ abstract class AbstractModel
     public function find()
     {
         $result = $this->setDbRequestDataBeforeFind()->getDb()->find();
+
         if (!$result) {
             return null;
         }
-
-        var_dump($result);
 
         /**
          * @var AbstractModel $model
@@ -572,8 +575,8 @@ abstract class AbstractModel
         }
 
         try {
-            $this->_setFieldsAndDbRequestDataBeforeSave();
             $this->beforeSave();
+            $this->_setFieldsAndDbRequestDataBeforeSave();
 
             if ($this->id) {
                 if ($where === null) {
@@ -649,26 +652,17 @@ abstract class AbstractModel
      */
     protected function beforeSave()
     {
-        foreach ($this->getFieldsInfo() as $field => $parameters) {
-            if (!array_key_exists(self::FIELD_RELATION, $parameters)) {
-                continue;
-            }
-
+        foreach ($this->getRelationsFieldsInfo() as $field => $relationInfo) {
             /**
              * @var AbstractModel $relationModel
              */
-            $relationInfo = $parameters[self::FIELD_RELATION];
             $relationName = $relationInfo[self::FIELD_RELATION_NAME];
             $relationModelName = "\\testS\\models\\" . $relationInfo[self::FIELD_RELATION_MODEL];
-            if (!$this->$relationName instanceof $relationModelName
-                || !$this->$relationName->id
-            ) {
+
+            if (!$this->$relationName instanceof $relationModelName) {
                 $relationModel = new $relationModelName;
 
-                if ($this->$field === 0) {
-                    $relationModel->save();
-                    $this->$field = $relationModel->id;
-                } else {
+                if ($this->$field !== 0) {
                     $relationModel = $relationModel->byId($this->$field)->find();
                     if (!$relationModel instanceof $relationModelName) {
                         throw new ModelException(
@@ -682,8 +676,10 @@ abstract class AbstractModel
                 }
             } else {
                 $relationModel = $this->$relationName;
-                $relationModel->save();
             }
+
+            $relationModel->save();
+            $this->$field = $relationModel->id;
         }
     }
 

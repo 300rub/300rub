@@ -62,7 +62,8 @@ abstract class AbstractModelTest extends AbstractUnitTest
         }
 
         // Read
-        $model = $this->getModel()->withRelations()->byId($model->id)->find();
+        $model = $this->getModel()->byId($model->id)->withRelations()->find();
+        //$model = $this->getModel()->byId($model->id)->find();
         $this->_checkValues($model, $createExpected);
 //        foreach ($model->getRelations() as $relation => $options) {
 //            $this->assertInstanceOf($options[0], $model->$relation);
@@ -109,13 +110,12 @@ abstract class AbstractModelTest extends AbstractUnitTest
     private function _checkValues(AbstractModel $model, $expected)
     {
         foreach ($expected as $key => $value) {
-            if (is_array($key)) {
+            if (is_array($value)) {
                 $this->_checkValues($model->$key, $value);
             } else {
-                $v = $model->$key;
                 $this->assertEquals(
                     $value,
-                    $v,
+                    $model->$key,
                     "For field \"{$key}\""
                 );
             }

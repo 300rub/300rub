@@ -421,8 +421,6 @@ class Db
         if ($this->getLimit()) {
             $query .= sprintf(" LIMIT %s", $this->getLimit());
         }
-
-        var_dump($query);
         
         return $query;
     }
