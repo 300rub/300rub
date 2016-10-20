@@ -17,7 +17,7 @@ class Db
     /**
      * Separator
      */
-    const SEPARATOR = ".";
+    const SEPARATOR = "_";
 
     /**
      * PDO model
@@ -50,9 +50,9 @@ class Db
     /**
      * Join
      *
-     * @var string
+     * @var string[]
      */
-    private $_join = "";
+    private $_join = [];
 
     /**
      * Order
@@ -105,29 +105,33 @@ class Db
     }
 
     /**
-     * Sets select
-     *
-     * @param array $select
+     * Resets select
      *
      * @return Db
      */
-    public function setSelect(array $select)
+    public function resetSelect()
     {
-        $this->_select = $select;
+        $this->_select = [];
         return $this;
     }
 
     /**
      * Sets select
      *
+     * @param string $table
      * @param string $select
+     * @param bool   $isAs
      *
      * @return Db
      */
-    public function addSelect($select)
+    public function addSelect($table, $select, $isAs = false)
     {
         if (!in_array($select, $this->_select)) {
-            $this->_select[] = $select;
+            if ($isAs === false) {
+                $this->_select[] = sprintf("%s.%s", $table, $select);
+            } else {
+                $this->_select[] = sprintf("%s.%s AS %s%s%s", $table, $select, $table, self::SEPARATOR, $select);
+            }
         }
 
         return $this;
@@ -218,29 +222,29 @@ class Db
     /**
      * Sets join
      *
-     * @param string $join
-     *
      * @return Db
      */
-    public function setJoin($join)
+    public function resetJoin()
     {
-        $this->_join = $join;
+        $this->_join = [];
         return $this;
     }
 
-    public function addJoin($table, $field, $type = "INNER")
+    public function addJoin($joinTableName, $joinAsName, $tableField, $tableName, $type = "INNER")
     {
-        $this->setJoin(
-            sprintf(
-                "%s %s JOIN %s ON %s.id = %s.%s",
-                $this->getJoin(),
-                $type,
-                $table,
-                $table,
-                $this->getTable(),
-                $field
-            )
+        $join = sprintf(
+            "%s JOIN %s AS %s ON %s.id = %s.%s",
+            $type,
+            $joinTableName,
+            $joinAsName,
+            $joinAsName,
+            $tableName,
+            $tableField
         );
+
+        if (!in_array($join, $this->_join)) {
+            $this->_join[] = $join;
+        }
 
         return $this;
     }
@@ -252,7 +256,7 @@ class Db
      */
     public function getJoin()
     {
-        return trim($this->_join);
+        return implode(" ", $this->_join);
     }
 
     /**
@@ -396,7 +400,11 @@ class Db
      */
     private function _getQuery()
     {
-        $query = sprintf("SELECT" . " %s FROM %s", implode(",", $this->getSelect()), $this->getTable());
+        $query = sprintf(
+            "SELECT" . " %s FROM %s",
+            implode(",", $this->getSelect()),
+            $this->getTable()
+        );
 
         if ($this->getJoin()) {
             $query .= sprintf(" %s", $this->getJoin());
@@ -413,6 +421,8 @@ class Db
         if ($this->getLimit()) {
             $query .= sprintf(" LIMIT %s", $this->getLimit());
         }
+
+        var_dump($query);
         
         return $query;
     }

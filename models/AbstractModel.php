@@ -58,11 +58,11 @@ abstract class AbstractModel
     private $_errors = [];
 
     /**
-     * List of relations
+     * Flag of selecting relations
      *
-     * @var string
+     * @var string[]
      */
-    private $_with = [];
+    private $_withRelations = false;
 
     /**
      * Gets table name
@@ -80,8 +80,26 @@ abstract class AbstractModel
 
     /**
      * Constructor
+     *
+     * @param Db $db
      */
-    public function __construct()
+    public function __construct($db = null)
+    {
+        $this->_createNullFields();
+
+        if ($db !== null) {
+            $this->setDb($db);
+        } else {
+            $this->getDb()->setTable($this->getTableName());
+        }
+    }
+
+    /**
+     * Creates null fields
+     *
+     * @return AbstractModel
+     */
+    private function _createNullFields()
     {
         foreach ($this->getFieldsInfo() as $field => $info) {
             $this->$field = null;
@@ -92,7 +110,7 @@ abstract class AbstractModel
             }
         }
 
-        $this->getDb()->setTable($this->getTableName());
+        return $this;
     }
 
     /**
@@ -107,6 +125,19 @@ abstract class AbstractModel
         }
 
         return $this->_db;
+    }
+
+    /**
+     * Sets Db
+     *
+     * @param Db $db
+     *
+     * @return AbstractModel
+     */
+    protected function setDb(Db $db)
+    {
+        $this->_db = $db;
+        return $this;
     }
 
     /**
@@ -209,40 +240,79 @@ abstract class AbstractModel
     /**
      * Sets Db request data before find
      *
+     * @param string $changedTableName
+     *
      * @return AbstractModel
      */
-    private function _setDbRequestDataBeforeFind()
+    public function setDbRequestDataBeforeFind($changedTableName = "")
     {
-        $select = [
-            $this->getTableName() . Db::SEPARATOR . "id"
-        ];
+        $isRelation = true;
+        if ($changedTableName === "") {
+            $changedTableName = $this->getTableName();
+            $isRelation = false;
+        }
 
-        foreach ($this->getFieldsInfo() as $field => $info) {
-            $select[] = $this->getTableName() . Db::SEPARATOR . $field;
+        $this->getDb()->addSelect(
+            $changedTableName,
+            "id",
+            $isRelation
+        );
+
+        foreach (array_keys($this->getFieldsInfo()) as $field) {
+            $this->getDb()->addSelect(
+                $changedTableName,
+                $field,
+                $isRelation
+            );
         }
 
         /**
          * @var AbstractModel $relationModel
          */
-        foreach ($this->getFieldsInfo() as $f => $parameters) {
-            if (!array_key_exists(self::FIELD_RELATION, $parameters)) {
+        foreach ($this->getRelationsFieldsInfo() as $field => $parameters) {
+            if ($parameters[self::FIELD_RELATION_TYPE] !== self::FIELD_RELATION_TYPE_BELONGS_TO) {
                 continue;
             }
 
-            $relation = $parameters[self::FIELD_RELATION];
-            if (in_array($relation[self::FIELD_RELATION_NAME], $this->_with)) {
-                $relationModel = "\\testS\\models\\" . $relation[self::FIELD_RELATION_MODEL];
-                $relationModel = new $relationModel;
-                $this->getDb()->addJoin($relationModel->getTableName(), $f, "LEFT");
-                foreach ($relationModel->getFieldsInfo() as $field => $info) {
-                    $select[] = $relationModel->getTableName() . Db::SEPARATOR . $field;
-                }
+            $relationName = $parameters[self::FIELD_RELATION_NAME];
+            $relationModel = "\\testS\\models\\" . $parameters[self::FIELD_RELATION_MODEL];
+            $relationModel = new $relationModel($this->getDb());
+
+            if ($isRelation === true) {
+                $joinAsName = $changedTableName . Db::SEPARATOR . $relationName;
+            } else {
+                $joinAsName = $relationName;
+            }
+
+            $this->getDb()->addJoin(
+                $relationModel->getTableName(),
+                $joinAsName,
+                $field,
+                $changedTableName
+            );
+
+            $relationModel->setDbRequestDataBeforeFind($joinAsName);
+        }
+
+        return $this;
+    }
+
+    /**
+     * Gets relation fields info
+     *
+     * @return array
+     */
+    protected function getRelationsFieldsInfo()
+    {
+        $info = [];
+
+        foreach ($this->getFieldsInfo() as $field => $parameters) {
+            if (array_key_exists(self::FIELD_RELATION, $parameters)) {
+                $info[$field] = $parameters[self::FIELD_RELATION];
             }
         }
 
-        $this->getDb()->setSelect($select);
-
-        return $this;
+        return $info;
     }
 
     /**
@@ -252,10 +322,12 @@ abstract class AbstractModel
      */
     public function find()
     {
-        $result = $this->_setDbRequestDataBeforeFind()->getDb()->find();
+        $result = $this->setDbRequestDataBeforeFind()->getDb()->find();
         if (!$result) {
             return null;
         }
+
+        var_dump($result);
 
         /**
          * @var AbstractModel $model
@@ -281,7 +353,7 @@ abstract class AbstractModel
      */
     public function findAll()
     {
-        $results = $this->_setDbRequestDataBeforeFind()->getDb()->findAll();
+        $results = $this->setDbRequestDataBeforeFind()->getDb()->findAll();
         if (!$results) {
             return [];
         }
@@ -311,15 +383,16 @@ abstract class AbstractModel
     {
         $fields = [];
 
-        foreach ($response as $key => $value) {
-            if (stripos($key, Db::SEPARATOR) !== false) {
-                list($relationModelKey, $relationKey) = explode(Db::SEPARATOR, $key, 2);
-                if (!isset($fields[$relationModelKey])) {
-                    $fields[$relationModelKey] = [];
+        foreach ($response as $field => $value) {
+            if (strripos($field, Db::SEPARATOR)) {
+                list($table, $field) = explode(Db::SEPARATOR, $field, 2);
+
+                if (!isset($fields[$table])) {
+                    $fields[$table] = [];
                 }
-                $fields[$relationModelKey][$relationKey] = $value;
+                $fields[$table][$field] = $value;
             } else {
-                $fields[$key] = $value;
+                $fields[$field] = $value;
             }
         }
 
@@ -383,9 +456,7 @@ abstract class AbstractModel
 
                 if (array_key_exists($relationName, $fields)) {
                     $relationModelName = "\\testS\\models\\" . $relationInfo[self::FIELD_RELATION_MODEL];
-                    if (!property_exists($this, $relationName)
-                        || !$this->$relationName instanceof $relationModelName
-                    ) {
+                    if (!$this->$relationName instanceof $relationModelName) {
                         $this->$relationName = new $relationModelName;
                     }
 
@@ -451,8 +522,7 @@ abstract class AbstractModel
             if ($relationInfo[self::FIELD_RELATION_TYPE] === self::FIELD_RELATION_TYPE_BELONGS_TO) {
                 $relationName = $relationInfo[self::FIELD_RELATION_NAME];
                 $relationModelName = "\\testS\\models\\" . $relationInfo[self::FIELD_RELATION_MODEL];
-                if (!property_exists($this, $relationName)
-                    || !$this->$relationName instanceof $relationModelName
+                if (!$this->$relationName instanceof $relationModelName
                     || !$this->$relationName->id
                 ) {
                     $relationModel = new $relationModelName;
@@ -477,12 +547,7 @@ abstract class AbstractModel
     {
         foreach ($this->getFieldsInfo() as $field => $info) {
             if (array_key_exists(self::FIELD_VALIDATION, $info)) {
-                if (property_exists($this, $field)) {
-                    $value = $this->$field;
-                } else {
-                    $value = null;
-                }
-                $validator = new Validator($value, $info[self::FIELD_VALIDATION]);
+                $validator = new Validator($this->$field, $info[self::FIELD_VALIDATION]);
                 $this->addErrors($field, $validator->validate()->getErrors());
             }
         }
@@ -595,8 +660,7 @@ abstract class AbstractModel
             $relationInfo = $parameters[self::FIELD_RELATION];
             $relationName = $relationInfo[self::FIELD_RELATION_NAME];
             $relationModelName = "\\testS\\models\\" . $relationInfo[self::FIELD_RELATION_MODEL];
-            if (!property_exists($this, $relationName)
-                || !$this->$relationName instanceof $relationModelName
+            if (!$this->$relationName instanceof $relationModelName
                 || !$this->$relationName->id
             ) {
                 $relationModel = new $relationModelName;
@@ -635,18 +699,9 @@ abstract class AbstractModel
      *
      * @return AbstractModel
      */
-    public function withAll()
+    public function withRelations()
     {
-        $this->_with = [];
-
-        foreach ($this->getFieldsInfo() as $field => $parameters) {
-            if (!array_key_exists(self::FIELD_RELATION, $parameters)) {
-                continue;
-            }
-
-            $this->_with[] = $parameters[self::FIELD_RELATION][self::FIELD_RELATION_NAME];
-        }
-
+        $this->_withRelations = true;
         return $this;
     }
 

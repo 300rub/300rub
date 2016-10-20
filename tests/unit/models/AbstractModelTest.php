@@ -62,7 +62,7 @@ abstract class AbstractModelTest extends AbstractUnitTest
         }
 
         // Read
-        $model = $this->getModel()->withAll()->byId($model->id)->find();
+        $model = $this->getModel()->withRelations()->byId($model->id)->find();
         $this->_checkValues($model, $createExpected);
 //        foreach ($model->getRelations() as $relation => $options) {
 //            $this->assertInstanceOf($options[0], $model->$relation);
