@@ -273,40 +273,4 @@ class TextModelTest extends AbstractModelTest
             ]
         ];
     }
-
-    /**
-     * Duplicate test
-     */
-    public function testDuplicate()
-    {
-        $this->markTestSkipped();
-
-        //        $idForCopy = 1;
-        //        $model = $this->getModel()->byId($idForCopy)->find();
-        //        $this->assertNotNull($model);
-        //
-        //        $modelAfterDuplicate = $model->duplicate();
-        //        $this->assertNotNull($modelAfterDuplicate);
-        //
-        //        $modelForCopy = $this->getModel()->withAll()->byId($idForCopy)->find();
-        //        $modelCopy = $this->getModel()->withAll()->byId($modelAfterDuplicate->id)->find();
-        //
-        //        $this->assertNotEquals($modelForCopy->id, $modelCopy->id);
-        //        $this->assertEquals($modelForCopy->isEditor, $modelCopy->isEditor);
-        //        $this->assertEquals($modelForCopy->type, $modelCopy->type);
-        //        $this->assertEquals($modelForCopy->text, $modelCopy->text);
-        //        $this->assertEquals(Language::t("common", "copy") . " {$modelForCopy->name}", $modelCopy->name);
-        //        $this->assertNotEquals($modelForCopy->designTextId, $modelCopy->designTextId);
-        //        $this->assertNotEquals($modelForCopy->designBlockId, $modelCopy->designBlockId);
-        //
-        //        foreach ($modelForCopy->designTextModel->getFieldNames() as $field) {
-        //            $this->assertEquals($modelForCopy->designTextModel->$field, $modelCopy->designTextModel->$field);
-        //        }
-        //
-        //        foreach ($modelForCopy->designBlockModel->getFieldNames() as $field) {
-        //            $this->assertEquals($modelForCopy->designBlockModel->$field, $modelCopy->designBlockModel->$field);
-        //        }
-        //
-        //        $this->assertTrue($modelCopy->delete());
-    }
 }
