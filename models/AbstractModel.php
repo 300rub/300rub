@@ -306,7 +306,7 @@ abstract class AbstractModel
      *
      * @return array
      */
-    protected function getRelationsFieldsInfo()
+    public function getRelationsFieldsInfo()
     {
         $info = [];
 

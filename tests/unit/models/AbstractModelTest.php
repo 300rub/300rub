@@ -36,7 +36,6 @@ abstract class AbstractModelTest extends AbstractUnitTest
      * @param array $updateData
      * @param array $updateErrors
      * @param array $updateExpected
-     * @param array $skipRelationsForDelete
      *
      * @dataProvider dataProviderForCRUD
      *
@@ -48,8 +47,7 @@ abstract class AbstractModelTest extends AbstractUnitTest
         array $createExpected = [],
         array $updateData = [],
         array $updateErrors = [],
-        array $updateExpected = [],
-        array $skipRelationsForDelete = []
+        array $updateExpected = []
     )
     {
         // Create
@@ -63,11 +61,15 @@ abstract class AbstractModelTest extends AbstractUnitTest
 
         // Read
         $model = $this->getModel()->byId($model->id)->withRelations()->find();
-        //$model = $this->getModel()->byId($model->id)->find();
         $this->_checkValues($model, $createExpected);
-//        foreach ($model->getRelations() as $relation => $options) {
-//            $this->assertInstanceOf($options[0], $model->$relation);
-//        }
+        foreach ($model->getRelationsFieldsInfo() as $relationsFieldInfo) {
+            $relationModelName = "\\testS\\models\\" . $relationsFieldInfo[AbstractModel::FIELD_RELATION_MODEL];
+            $relationFieldName = $relationsFieldInfo[AbstractModel::FIELD_RELATION_NAME];
+            $relationType = $relationsFieldInfo[AbstractModel::FIELD_RELATION_TYPE];
+            if ($relationType === AbstractModel::FIELD_RELATION_TYPE_BELONGS_TO) {
+                $this->assertInstanceOf($relationModelName, $model->$relationFieldName);
+            }
+        }
 
         // Update
         $model->setFields($updateData);
@@ -81,20 +83,19 @@ abstract class AbstractModelTest extends AbstractUnitTest
         $this->_checkValues($model, $updateExpected);
 
         // Delete
-//       $relationKeys = $model->getRelationKeys();
-//        $this->assertEquals(true, $model->delete());
         $model->delete();
-//        foreach ($relationKeys as $key) {
-//            if (in_array($key, $skipRelationsForDelete)) {
-//                continue;
-//            }
-//
-//            /**
-//             * @var AbstractModel $relationModel
-//             */
-//            $relationModel = $model->$key;
-//            $this->assertEquals(null, $relationModel->byId($relationModel->id)->find());
-//        }
+        $this->assertNull($this->getModel()->byId($model->id)->find());
+        /**
+         * @var AbstractModel $relationModel
+         */
+        foreach ($model->getRelationsFieldsInfo() as $field => $relationsFieldInfo) {
+            $relationModelName = "\\testS\\models\\" . $relationsFieldInfo[AbstractModel::FIELD_RELATION_MODEL];
+            $relationModel = new $relationModelName;
+            $relationType = $relationsFieldInfo[AbstractModel::FIELD_RELATION_TYPE];
+            if ($relationType === AbstractModel::FIELD_RELATION_TYPE_BELONGS_TO) {
+                $this->assertNull($relationModel->byId($model->$field)->find());
+            }
+        }
 
         return true;
     }
@@ -129,8 +130,6 @@ abstract class AbstractModelTest extends AbstractUnitTest
      *
      * @param AbstractModel $model
      * @param array         $expected
-     *
-     * @return AbstractModelTest
      */
     private function _checkErrors(AbstractModel $model, $expected)
     {
