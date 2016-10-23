@@ -1,6 +1,6 @@
 <?php
 
-namespace tests\unit\models;
+namespace testS\tests\unit\models;
 
 use testS\components\Language;
 use testS\models\GridLineModel;
@@ -197,49 +197,7 @@ class SectionModelTest extends AbstractModelTest
 	 */
 	public function testFindByUrl()
 	{
+	    $this->markTestSkipped();
 		$this->assertEquals(1, SectionModel::model()->byUrl("texts")->find()->id);
-	}
-
-	/**
-	 * Duplicate test
-	 */
-	public function testDuplicate()
-	{
-		$idForCopy = 1;
-		$model = $this->getModel()->byId($idForCopy)->find();
-		$this->assertNotNull($model);
-
-		$modelAfterDuplicate = $model->duplicate();
-		$this->assertNotNull($modelAfterDuplicate);
-
-		$modelForCopy = $this->getModel()->withAll()->byId($idForCopy)->find();
-		$modelCopy = $this->getModel()->withAll()->byId($modelAfterDuplicate->id)->find();
-
-		$this->assertNotEquals($modelForCopy->id, $modelCopy->id);
-		$this->assertNotEquals($modelForCopy->seoId, $modelCopy->seoId);
-		$this->assertEquals(0, $modelCopy->isMain);
-		$this->assertNotEquals($modelForCopy->designBlockId, $modelCopy->designBlockId);
-		$this->assertEquals($modelForCopy->language, $modelCopy->language);
-		$this->assertEquals($modelForCopy->width, $modelCopy->width);
-
-		foreach ($modelForCopy->designBlockModel->getFieldNames() as $field) {
-			$this->assertEquals($modelForCopy->designBlockModel->$field, $modelCopy->designBlockModel->$field);
-		}
-
-		$gridLinesForCopy = GridLineModel::model()->bySectionId($modelForCopy->id)->withAll()->findAll();
-		$gridLinesCopy = GridLineModel::model()->bySectionId($modelCopy->id)->withAll()->findAll();
-		$this->assertEquals(count($gridLinesForCopy), count($gridLinesCopy));
-
-		$gridCountForCopy = 0;
-		$gridCountCopy = 0;
-		foreach ($gridLinesForCopy as $gridLineForCopy) {
-			$gridCountForCopy += count(GridModel::model()->byLineId($gridLineForCopy->id)->findAll());
-		}
-		foreach ($gridLinesCopy as $gridLineCopy) {
-			$gridCountCopy += count(GridModel::model()->byLineId($gridLineCopy->id)->findAll());
-		}
-		$this->assertEquals($gridCountForCopy, $gridCountCopy);
-
-		$this->assertTrue($modelCopy->delete());
 	}
 }
