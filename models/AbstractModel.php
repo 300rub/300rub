@@ -35,6 +35,7 @@ abstract class AbstractModel
     const FIELD_RELATION_TYPE_BELONGS_TO = "belongs_to";
     const FIELD_RELATION_TYPE_HAS_ONE = "has_one";
     const FIELD_RELATION_NAME = "relationName";
+    const FIELD_BEFORE_SAVE = "beforeSave";
 
     /**
      * ID
@@ -652,6 +653,24 @@ abstract class AbstractModel
      */
     protected function beforeSave()
     {
+        foreach ($this->getFieldsInfo() as $field => $parameters) {
+           if (array_key_exists(self::FIELD_BEFORE_SAVE, $parameters)) {
+                foreach ($parameters[self::FIELD_BEFORE_SAVE] as $key => $value) {
+                    if (is_string($key)) {
+                        $method = $key;
+                        if (method_exists($this, $method)) {
+                            $this->$field = $this->$method($this->$field, $value);
+                        }
+                    } else {
+                        $method = $value;
+                        if (method_exists($this, $method)) {
+                            $this->$field = $this->$method($this->$field);
+                        }
+                    }
+                }
+            }
+        }
+
         foreach ($this->getRelationsFieldsInfo() as $field => $relationInfo) {
             /**
              * @var AbstractModel $relationModel
