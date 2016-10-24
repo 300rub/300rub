@@ -729,7 +729,7 @@ abstract class AbstractModel
      */
     protected function getString($value)
     {
-        return (string) $value;
+        return trim((string) $value);
     }
 
     /**
