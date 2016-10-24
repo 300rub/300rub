@@ -612,21 +612,10 @@ class GridModel extends AbstractModel
 	 */
 	protected function beforeSave()
 	{
-		if ($this->checkParentBeforeSave === true
-			&& ($this->gridLineId === 0 || GridLineModel::model()->byId($this->gridLineId)->find() === null)
-		) {
-			throw new ModelException(
-				"Unable to find GridLineModel with ID = {id}", 
-				[
-					"id" => $this->gridLineId
-				]
-			);
-		}
-		
 		if ($this->contentType === 0 || $this->contentId === 0) {
 			throw new ModelException("Unable to save GridModel because contentType or contentId is null");
 		}
-		
+
 		$typeList = self::getTypesList();
 		if (!array_key_exists($this->contentType, $typeList)) {
 			throw new ModelException(
@@ -652,11 +641,7 @@ class GridModel extends AbstractModel
 			);
 		}
 		
-		if ($this->x < 0) {
-			$this->x = 0;
-		} else if ($this->x >= self::GRID_SIZE) {
-			$this->x = self::GRID_SIZE - 1;
-		}
+
 
 		if ($this->y < 0) {
 			$this->y = 0;
@@ -676,32 +661,18 @@ class GridModel extends AbstractModel
 	}
 
 	/**
-	 * Duplicates model
+	 * Sets max X value
 	 *
-	 * @param int  $gridLineId  Line's ID
+	 * @param int $value
 	 *
-	 * @return GridModel
-	 * 
-	 * @throws ModelException
+	 * @return int
 	 */
-	public function duplicate($gridLineId)
+	protected function setMaxX($value)
 	{
-		$model = clone $this;
-		$model->id = 0;
-		$model->gridLineId = $gridLineId;
-		if (!$model->save()) {
-			$fields = "";
-			foreach ($model->getFieldNames() as $fieldName) {
-				$fields .= " {$fieldName}: " . $model->$fieldName;
-			}
-			throw new ModelException(
-				"Unable to duplicate GridModel with fields: {fields}",
-				[
-					"fields" => $fields
-				]
-			);
+		if ($value >= self::GRID_SIZE) {
+			$value = self::GRID_SIZE - 1;
 		}
-		
-		return $model;
+
+		return $value;
 	}
 }
