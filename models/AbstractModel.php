@@ -519,26 +519,27 @@ abstract class AbstractModel
                 continue;
             }
 
+            $relationInfo = $parameters[self::FIELD_RELATION];
+            if ($relationInfo[self::FIELD_RELATION_TYPE] !== self::FIELD_RELATION_TYPE_BELONGS_TO) {
+                continue;
+            }
+
+            $relationName = $relationInfo[self::FIELD_RELATION_NAME];
+            $relationModelName = "\\testS\\models\\" . $relationInfo[self::FIELD_RELATION_MODEL];
+
             /**
              * @var AbstractModel $relationModel
              */
-            $relationInfo = $parameters[self::FIELD_RELATION];
-            if ($relationInfo[self::FIELD_RELATION_TYPE] === self::FIELD_RELATION_TYPE_BELONGS_TO) {
-                $relationName = $relationInfo[self::FIELD_RELATION_NAME];
-                $relationModelName = "\\testS\\models\\" . $relationInfo[self::FIELD_RELATION_MODEL];
-                if (!$this->$relationName instanceof $relationModelName
-                    || !$this->$relationName->id
-                ) {
-                    $relationModel = new $relationModelName;
-                    $relationModel = $relationModel->byId($this->$field)->find();
-                } else {
-                    $relationModel = $this->$relationName;
-                }
-
-
-
-                $relationModel->delete();
+            if (!$this->$relationName instanceof $relationModelName
+                || !$this->$relationName->id
+            ) {
+                $relationModel = new $relationModelName;
+                $relationModel = $relationModel->byId($this->$field)->find();
+            } else {
+                $relationModel = $this->$relationName;
             }
+
+            $relationModel->delete();
         }
     }
 
@@ -649,12 +650,14 @@ abstract class AbstractModel
     }
 
     /**
-     * Runs before saving
+     * Sets fields before save
+     *
+     * @return AbstractModel
      */
-    protected function beforeSave()
+    private function _setFieldsBeforeSave()
     {
         foreach ($this->getFieldsInfo() as $field => $parameters) {
-           if (array_key_exists(self::FIELD_BEFORE_SAVE, $parameters)) {
+            if (array_key_exists(self::FIELD_BEFORE_SAVE, $parameters)) {
                 foreach ($parameters[self::FIELD_BEFORE_SAVE] as $key => $value) {
                     if (is_string($key)) {
                         $method = $key;
@@ -671,7 +674,23 @@ abstract class AbstractModel
             }
         }
 
+        return $this;
+    }
+
+    /**
+     * Sets relation fields before save
+     *
+     * @return AbstractModel
+     *
+     * @throws ModelException
+     */
+    private function _setRelationsBeforeSave()
+    {
         foreach ($this->getRelationsFieldsInfo() as $field => $relationInfo) {
+            if ($relationInfo[self::FIELD_RELATION_TYPE] !== self::FIELD_RELATION_TYPE_BELONGS_TO) {
+                continue;
+            }
+
             /**
              * @var AbstractModel $relationModel
              */
@@ -700,6 +719,18 @@ abstract class AbstractModel
             $relationModel->save();
             $this->$field = $relationModel->id;
         }
+
+        return $this;
+    }
+
+    /**
+     * Runs before saving
+     */
+    protected function beforeSave()
+    {
+        $this
+            ->_setFieldsBeforeSave()
+            ->_setRelationsBeforeSave();
     }
 
     /**
