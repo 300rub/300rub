@@ -7,11 +7,13 @@ namespace testS\models;
  *
  * @package testS\models
  *
- * @method GridLineModel   with($array)
+ * @property int $sort
+ * @property int $sectionId
+ *
  * @method GridLineModel[] findAll()
  * @method GridLineModel   byId($id)
- * @method GridLineModel   withAll()
  * @method GridLineModel   find()
+ * @method GridLineModel   withRelations()
  */
 class GridLineModel extends AbstractModel
 {

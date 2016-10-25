@@ -7,7 +7,8 @@ use testS\components\Language;
 /**
  * Model for working with table "texts"
  *
- * @property int $type
+ * @property int    $type
+ * @property string $name
  *
  * @method TextModel[] findAll
  * @method TextModel ordered

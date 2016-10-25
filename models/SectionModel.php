@@ -16,6 +16,7 @@ use testS\components\Language;
  * @method SectionModel   exceptId($id)
  *
  * @property bool $isMain
+ * @property int  $width
  */
 class SectionModel extends AbstractModel
 {
@@ -184,5 +185,19 @@ class SectionModel extends AbstractModel
 		}
 
 		parent::afterDelete();
+	}
+
+	/**
+	 * Gets width
+	 *
+	 * @return string
+	 */
+	public function getWidth()
+	{
+		if ($this->width <= 100) {
+			return sprintf("%s%", $this->width);
+		}
+
+		return sprintf("%spx", $this->width);
 	}
 }
