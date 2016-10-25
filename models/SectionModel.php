@@ -120,18 +120,6 @@ class SectionModel extends AbstractModel
 		return $this;
 	}
 
-	/**
-	 * Adds sort by seo.url in SQL request
-	 *
-	 * @return SectionModel
-	 */
-	public function ordered()
-	{
-        $this->withRelations();
-        $this->getDb()->setOrder("seoModel.url");
-        return $this;
-    }
-
     /**
      * Sets isMain
      *

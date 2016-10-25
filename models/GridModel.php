@@ -140,7 +140,7 @@ class GridModel extends AbstractModel
         $gridLineModels = GridLineModel::model()
             ->withRelations()
             ->bySectionId($section->id)
-            ->ordered()
+            ->ordered("sort")
             ->findAll();
 
         if (!$gridLineModels) {

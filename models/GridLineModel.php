@@ -14,6 +14,7 @@ namespace testS\models;
  * @method GridLineModel   byId($id)
  * @method GridLineModel   find()
  * @method GridLineModel   withRelations()
+ * @method GridLineModel   ordered($value)
  */
 class GridLineModel extends AbstractModel
 {
@@ -89,17 +90,6 @@ class GridLineModel extends AbstractModel
                 ->addParameter("sectionId", $sectionId);
         }
 
-        return $this;
-    }
-
-    /**
-     * Adds order by sort to SQL request
-     *
-     * @return GridLineModel
-     */
-    public function ordered()
-    {
-        $this->getDb()->setOrder("sort");
         return $this;
     }
 }
