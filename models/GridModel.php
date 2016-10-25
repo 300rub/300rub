@@ -22,6 +22,7 @@ use testS\components\Language;
  * @method GridModel[] findAll()
  * @method GridModel   in($field, $values)
  * @method GridModel   with($array)
+ * @method GridModel   ordered($value)
  */
 class GridModel extends AbstractModel
 {
@@ -104,17 +105,6 @@ class GridModel extends AbstractModel
     }
 
     /**
-     * Adds order by y & x to SQL request
-     *
-     * @return GridModel
-     */
-    public function ordered()
-    {
-        $this->getDb()->setOrder("y, x");
-        return $this;
-    }
-
-    /**
      * Adds order by line & y & x to SQL request
      *
      * @return GridModel
@@ -150,7 +140,7 @@ class GridModel extends AbstractModel
         foreach ($gridLineModels as $gridLineModel) {
             $gridLineIds[] = $gridLineModel->id;
         }
-        $gridModels = GridModel::model()->in("t.gridLineId", $gridLineIds)->ordered()->findAll();
+        $gridModels = GridModel::model()->in("t.gridLineId", $gridLineIds)->ordered("y, x")->findAll();
         $lines = [];
 
         foreach ($gridLineModels as $gridLineModel) {
