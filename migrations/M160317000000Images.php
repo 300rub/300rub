@@ -34,7 +34,7 @@ class M160317000000Images extends AbstractMigration
                 [
                     "id"                   => "pk",
                     "designBlockId"        => "integer",
-                    "isScroll"             => "boolean",
+                    "hasScroll"            => "boolean",
                     "thumbsAlignment"      => "integer",
                     "descriptionAlignment" => "integer",
                     "effect"               => "integer",
@@ -47,7 +47,7 @@ class M160317000000Images extends AbstractMigration
                     "id"                       => "pk",
                     "designBlockId"            => "integer",
                     "effect"                   => "integer",
-                    "isAutoPlay"               => "boolean",
+                    "hasAutoPlay"              => "boolean",
                     "playSpeed"                => "integer",
                     "navigationDesignBlockId"  => "integer",
                     "navigationAlignment"      => "integer",
