@@ -578,7 +578,6 @@ abstract class AbstractModel
 
         try {
             $this->beforeSave();
-            $this->_setFieldsAndDbRequestDataBeforeSave();
 
             if ($this->id) {
                 if ($where === null) {
@@ -730,7 +729,8 @@ abstract class AbstractModel
     {
         $this
             ->_setFieldsBeforeSave()
-            ->_setRelationsBeforeSave();
+            ->_setRelationsBeforeSave()
+            ->_setFieldsAndDbRequestDataBeforeSave();
     }
 
     /**
