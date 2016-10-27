@@ -3,7 +3,6 @@
 namespace testS\models;
 
 use testS\components\exceptions\ModelException;
-use testS\components\Language;
 
 /**
  * Model for working with table "images"
@@ -107,15 +106,19 @@ class ImageModel extends AbstractModel
             ],
             "type"                => [
                 self::FIELD_TYPE => self::FIELD_TYPE_INT,
+                self::FIELD_SET  => ["setType"],
             ],
             "autoCropType"        => [
                 self::FIELD_TYPE => self::FIELD_TYPE_INT,
+                self::FIELD_SET  => ["setAutoCropType"],
             ],
             "cropWidth"           => [
                 self::FIELD_TYPE => self::FIELD_TYPE_INT,
+                self::FIELD_SET  => ["setMax" => ImageInstanceModel::MAX_SIZE],
             ],
             "cropHeight"          => [
                 self::FIELD_TYPE => self::FIELD_TYPE_INT,
+                self::FIELD_SET  => ["setMax" => ImageInstanceModel::MAX_SIZE],
             ],
             "cropX"               => [
                 self::FIELD_TYPE => self::FIELD_TYPE_INT,
@@ -125,6 +128,7 @@ class ImageModel extends AbstractModel
             ],
             "thumbAutoCropType"   => [
                 self::FIELD_TYPE => self::FIELD_TYPE_INT,
+                self::FIELD_SET  => ["setAutoCropType"],
             ],
             "thumbCropX"          => [
                 self::FIELD_TYPE => self::FIELD_TYPE_INT,
@@ -139,133 +143,35 @@ class ImageModel extends AbstractModel
     }
 
     /**
-     * Sets values
+     * Sets Type
+     *
+     * @param int $value
+     *
+     * @return int
      */
-    protected function setValues()
+    protected function setType($value)
     {
-        $this->language = intval($this->language);
-        if ($this->language === 0
-            || !array_key_exists($this->language, Language::$aliasList)
-        ) {
-            $this->language = Language::$activeId;
+        if (!array_key_exists($value, self::getTypeList())) {
+            $value = self::TYPE_ZOOM;
         }
 
-        $this->designBlockId = intval($this->designBlockId);
-        $this->designImageSliderId = intval($this->designImageSliderId);
-        $this->designImageZoomId = intval($this->designImageZoomId);
-        $this->designImageSimpleId = intval($this->designImageSimpleId);
-        $this->type = intval($this->type);
-
-        $this->autoCropType = intval($this->autoCropType);
-        $this->cropWidth = intval($this->cropWidth);
-        $this->cropHeight = intval($this->cropHeight);
-        $this->cropX = intval($this->cropX);
-        $this->cropY = intval($this->cropY);
-        $this->thumbAutoCropType = intval($this->autoCropType);
-        $this->thumbCropX = intval($this->cropX);
-        $this->thumbCropY = intval($this->cropY);
-
-        $this->useAlbums = boolval($this->useAlbums);
+        return $value;
     }
 
     /**
-     * Runs before save
-     */
-    protected function beforeSave()
-    {
-        $this->designBlockModel = $this->getRelationModel(
-            $this->designBlockModel,
-            $this->designBlockId,
-            "DesignBlockModel"
-        );
-
-        $this->designImageSliderModel = $this->getRelationModel(
-            $this->designImageSliderModel,
-            $this->designImageSliderId,
-            "DesignImageSliderModel"
-        );
-
-        $this->designImageZoomModel = $this->getRelationModel(
-            $this->designImageZoomModel,
-            $this->designImageZoomId,
-            "DesignImageZoomModel"
-        );
-
-        $this->designImageSimpleModel = $this->getRelationModel(
-            $this->designImageSimpleModel,
-            $this->designImageSimpleId,
-            "DesignBlockModel"
-        );
-
-        $typeList = self::getTypeList();
-        if (!array_key_exists($this->type, $typeList)) {
-            $this->type = self::TYPE_ZOOM;
-        }
-
-        $autoCropTypeList = $this->getAutoCropTypeList();
-
-        if (!array_key_exists($this->autoCropType, $autoCropTypeList)) {
-            $this->autoCropType = self::AUTO_CROP_TYPE_MIDDLE_CENTER;
-        }
-        $this->cropWidth = $this->getIntVal($this->cropWidth, ImageInstanceModel::MAX_SIZE);
-        $this->cropHeight = $this->getIntVal($this->cropHeight, ImageInstanceModel::MAX_SIZE);
-        $this->cropX = $this->getIntVal($this->cropX);
-        $this->cropY = $this->getIntVal($this->cropY);
-
-        if (!array_key_exists($this->thumbAutoCropType, $autoCropTypeList)) {
-            $this->thumbAutoCropType = self::AUTO_CROP_TYPE_MIDDLE_CENTER;
-        }
-        $this->thumbCropX = $this->getIntVal($this->thumbCropX);
-        $this->thumbCropY = $this->getIntVal($this->thumbCropY);
-
-        $this->useAlbums = $this->getTinyIntVal($this->useAlbums);
-
-        parent::beforeSave();
-    }
-
-    /**
-     * Runs before validation
+     * Sets Auto Crop Type
      *
-     * @return void
-     */
-    protected function beforeValidate()
-    {
-        $this->name = trim(strip_tags($this->name));
-    }
-
-    /**
-     * Duplicates image
-     * If success returns ID of new image
+     * @param int $value
      *
-     * @return ImageModel
-     *
-     * @throws ModelException
+     * @return int
      */
-    public function duplicate()
+    protected function setAutoCropType($value)
     {
-        $modelForCopy = $this->withAll()->byId($this->id)->find();
-
-        $model = clone $this;
-        $model->id = 0;
-        $model->name = Language::t("common", "copy") . " {$this->name}";
-        $model->designBlockModel = $modelForCopy->designBlockModel->duplicate();
-        $model->designImageSimpleModel = $modelForCopy->designImageSimpleModel->duplicate();
-        $model->designImageSliderModel = $modelForCopy->designImageSliderModel->duplicate();
-        $model->designImageZoomModel = $modelForCopy->designImageZoomModel->duplicate();
-        if (!$model->save()) {
-            $fields = "";
-            foreach ($model->getFieldNames() as $fieldName) {
-                $fields .= " {$fieldName}: " . $model->$fieldName;
-            }
-            throw new ModelException(
-                "Unable to duplicate ImageModel with fields: {fields}",
-                [
-                    "fields" => $fields
-                ]
-            );
+        if (!array_key_exists($value, self::getAutoCropTypeList())) {
+            $value = self::AUTO_CROP_TYPE_MIDDLE_CENTER;
         }
 
-        return $model;
+        return $value;
     }
 
     /**
@@ -275,23 +181,7 @@ class ImageModel extends AbstractModel
      */
     protected function beforeDelete()
     {
-        $imageAlbums = ImageAlbumModel::model()->byImageId($this->id)->findAll();
-        foreach ($imageAlbums as $imageAlbum) {
-            if (!$imageAlbum->delete()) {
-                throw new ModelException(
-                    "Unable to delete ImageAlbumModel model with ID = {id}",
-                    [
-                        "id" => $imageAlbum->id
-                    ]
-                );
-            }
-        }
-
-        $this
-            ->deleteRelation($this->designBlockModel, $this->designBlockId, "DesignBlockModel")
-            ->deleteRelation($this->designImageZoomModel, $this->designImageZoomId, "DesignImageZoomModel")
-            ->deleteRelation($this->designImageSliderModel, $this->designImageSliderId, "DesignImageSliderModel")
-            ->deleteRelation($this->designImageSimpleModel, $this->designImageSimpleId, "DesignBlockModel");
+        // delete images ()
 
         parent::beforeDelete();
     }
@@ -301,7 +191,7 @@ class ImageModel extends AbstractModel
      *
      * @return array
      */
-    public function getAutoCropTypeList()
+    public static function getAutoCropTypeList()
     {
         return [
             self::AUTO_CROP_TYPE_NONE          => "",
