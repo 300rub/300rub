@@ -101,19 +101,19 @@ class DesignImageZoomModel extends AbstractDesignModel
             ],
             "thumbsAlignment"      => [
                 self::FIELD_TYPE => self::FIELD_TYPE_INT,
-                self::FIELD_SET  => [
+                self::FIELD_VALUE  => [
                     "arrayKey" => [self::getThumbsAlignmentList(), self::THUMBS_ALIGNMENT_NONE]
                 ],
             ],
             "descriptionAlignment" => [
                 self::FIELD_TYPE => self::FIELD_TYPE_INT,
-                self::FIELD_SET  => [
+                self::FIELD_VALUE  => [
                     "arrayKey" => [self::getDescriptionAlignmentList(), self::DESCRIPTION_ALIGNMENT_NONE]
                 ],
             ],
             "effect"               => [
                 self::FIELD_TYPE => self::FIELD_TYPE_INT,
-                self::FIELD_SET  => [
+                self::FIELD_VALUE  => [
                     "arrayKey" => [self::getEffectList(), self::EFFECT_NONE]
                 ],
             ],

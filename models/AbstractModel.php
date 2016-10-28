@@ -4,9 +4,9 @@ namespace testS\models;
 
 use testS\components\Db;
 use testS\components\exceptions\ModelException;
-use testS\components\Language;
 use testS\components\Validator;
 use Exception;
+use testS\components\ValueGenerator;
 
 /**
  * Abstract class for working with models
@@ -22,7 +22,7 @@ abstract class AbstractModel
      * Keys for fields
      */
     const FIELD_VALIDATION = "validation";
-    const FIELD_SET = "set";
+    const FIELD_VALUE = "value";
     const FIELD_SKIP_DUPLICATION = "skipDuplication";
     const FIELD_CHANGE_ON_DUPLICATE = "changeOnDuplicate";
     const FIELD_RELATION = "relation";
@@ -89,7 +89,7 @@ abstract class AbstractModel
         $this->_createNullFields();
 
         if ($db !== null) {
-            $this->setDb($db);
+            $this->_setDb($db);
         } else {
             $this->getDb()->setTable($this->getTableName());
         }
@@ -122,7 +122,7 @@ abstract class AbstractModel
     protected function getDb()
     {
         if (!$this->_db instanceof Db) {
-            $this->_db = new Db();
+            $this->_setDb(new Db());
         }
 
         return $this->_db;
@@ -135,7 +135,7 @@ abstract class AbstractModel
      *
      * @return AbstractModel
      */
-    protected function setDb(Db $db)
+    private function _setDb(Db $db)
     {
         $this->_db = $db;
         return $this;
@@ -239,66 +239,13 @@ abstract class AbstractModel
     }
 
     /**
-     * Sets Db request data before find
-     *
-     * @param string $changedTableName
+     * With all relations
      *
      * @return AbstractModel
      */
-    public function setDbRequestDataBeforeFind($changedTableName = "")
+    public function withRelations()
     {
-        $isRelation = true;
-        if ($changedTableName === "") {
-            $changedTableName = $this->getTableName();
-            $isRelation = false;
-        }
-
-        $this->getDb()->addSelect(
-            $changedTableName,
-            "id",
-            $isRelation
-        );
-
-        foreach (array_keys($this->getFieldsInfo()) as $field) {
-            $this->getDb()->addSelect(
-                $changedTableName,
-                $field,
-                $isRelation
-            );
-        }
-
-        if ($this->_withRelations === false) {
-            return $this;
-        }
-
-        /**
-         * @var AbstractModel $relationModel
-         */
-        foreach ($this->getRelationsFieldsInfo() as $field => $parameters) {
-            if ($parameters[self::FIELD_RELATION_TYPE] !== self::FIELD_RELATION_TYPE_BELONGS_TO) {
-                continue;
-            }
-
-            $relationName = $parameters[self::FIELD_RELATION_NAME];
-            $relationModel = "\\testS\\models\\" . $parameters[self::FIELD_RELATION_MODEL];
-            $relationModel = new $relationModel($this->getDb());
-
-            if ($isRelation === true) {
-                $joinAsName = $changedTableName . Db::SEPARATOR . $relationName;
-            } else {
-                $joinAsName = $relationName;
-            }
-
-            $this->getDb()->addJoin(
-                $relationModel->getTableName(),
-                $joinAsName,
-                $field,
-                $changedTableName
-            );
-
-            $relationModel->setDbRequestDataBeforeFind($joinAsName);
-        }
-
+        $this->_withRelations = true;
         return $this;
     }
 
@@ -318,6 +265,81 @@ abstract class AbstractModel
         }
 
         return $info;
+    }
+
+    /**
+     * Sets Db request data before find
+     *
+     * @param string $changedTableName
+     *
+     * @return AbstractModel
+     */
+    public function setDbRequestDataBeforeFind($changedTableName = "")
+    {
+        $isAs = true;
+        if ($changedTableName === "") {
+            $changedTableName = $this->getTableName();
+            $isAs = false;
+        }
+
+        $this->getDb()->addSelect(
+            $changedTableName,
+            "id",
+            $isAs
+        );
+
+        foreach (array_keys($this->getFieldsInfo()) as $field) {
+            $this->getDb()->addSelect(
+                $changedTableName,
+                $field,
+                $isAs
+            );
+        }
+
+        if ($this->_withRelations === false) {
+            return $this;
+        }
+
+        $this->_setDbRequestRelationsDataBeforeFind($changedTableName, $isAs);
+
+        return $this;
+    }
+
+    /**
+     * Sets Db relations request data before find
+     *
+     * @param string $changedTableName
+     * @param bool   $isAs
+     */
+    private function _setDbRequestRelationsDataBeforeFind($changedTableName, $isAs)
+    {
+        /**
+         * @var AbstractModel $relationModel
+         */
+        foreach ($this->getRelationsFieldsInfo() as $field => $parameters) {
+            if ($parameters[self::FIELD_RELATION_TYPE] !== self::FIELD_RELATION_TYPE_BELONGS_TO) {
+                continue;
+            }
+
+            $relationName = $parameters[self::FIELD_RELATION_NAME];
+            $relationModel = "\\testS\\models\\" . $parameters[self::FIELD_RELATION_MODEL];
+            $relationModel = new $relationModel($this->getDb());
+
+            if ($isAs === true) {
+                $joinAsName = $changedTableName . Db::SEPARATOR . $relationName;
+            } else {
+                $joinAsName = $relationName;
+            }
+
+            $this->getDb()->addJoin(
+                $relationModel->getTableName(),
+                $joinAsName,
+                $field,
+                $changedTableName
+            );
+
+            $relationModel->setDbRequestDataBeforeFind($joinAsName);
+        }
     }
 
     /**
@@ -344,13 +366,6 @@ abstract class AbstractModel
     }
 
     /**
-     * Executes after finding
-     */
-    protected function afterFind()
-    {
-    }
-
-    /**
      * Models search in DB
      *
      * @return null|AbstractModel[]
@@ -374,6 +389,13 @@ abstract class AbstractModel
         }
 
         return $list;
+    }
+
+    /**
+     * Executes after finding
+     */
+    protected function afterFind()
+    {
     }
 
     /**
@@ -429,28 +451,9 @@ abstract class AbstractModel
         }
 
         foreach ($info as $field => $parameters) {
-            if (array_key_exists(self::FIELD_TYPE, $parameters)) {
-                $method = sprintf("get%s", ucfirst($parameters[self::FIELD_TYPE]));
-                if (method_exists($this, $method)) {
-                    $this->$field = $this->$method($this->$field);
-                }
-            }
-
-            if (array_key_exists(self::FIELD_SET, $parameters)) {
-                foreach ($parameters[self::FIELD_SET] as $key => $value) {
-                    if (is_string($key)) {
-                        $method = $key;
-                        if (method_exists($this, $method)) {
-                            $this->$field = $this->$method($this->$field, $value);
-                        }
-                    } else {
-                        $method = $value;
-                        if (method_exists($this, $method)) {
-                            $this->$field = $this->$method($this->$field);
-                        }
-                    }
-                }
-            }
+            $this
+                ->_setFieldTypes($field, $parameters)
+                ->_setFieldValues($field, $parameters);
 
             if (array_key_exists(self::FIELD_RELATION, $parameters)) {
                 $this->$field = $this->getInt($this->$field);
@@ -465,6 +468,59 @@ abstract class AbstractModel
                     }
 
                     $this->$relationName->setFields($fields[$relationName]);
+                }
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * Sets field types
+     *
+     * @param string $field
+     * @param array  $parameters
+     *
+     * @return AbstractModel
+     */
+    private function _setFieldTypes($field, array $parameters)
+    {
+        if (!array_key_exists(self::FIELD_TYPE, $parameters)) {
+            return $this;
+        }
+
+        $method = sprintf("get%s", ucfirst($parameters[self::FIELD_TYPE]));
+        if (method_exists($this, $method)) {
+            $this->$field = $this->$method($this->$field);
+        }
+
+        return $this;
+    }
+
+    /**
+     * Sets field values
+     *
+     * @param string $field
+     * @param array  $parameters
+     *
+     * @return AbstractModel
+     */
+    private function _setFieldValues($field, array $parameters)
+    {
+        if (!array_key_exists(self::FIELD_VALUE, $parameters)) {
+            return $this;
+        }
+
+        foreach ($parameters[self::FIELD_VALUE] as $key => $value) {
+            if (is_string($key)) {
+                $method = $key;
+                if (method_exists('ValueGenerator', $method)) {
+                    $this->$field = ValueGenerator::$method($this->$field, $value);
+                }
+            } else {
+                $method = $value;
+                if (method_exists('ValueGenerator', $method)) {
+                    $this->$field = ValueGenerator::$method($this->$field);
                 }
             }
         }
@@ -580,44 +636,93 @@ abstract class AbstractModel
             $this->beforeSave();
 
             if ($this->id) {
-                if ($where === null) {
-                    $this->getDb()->setWhere("id = :id");
-                    $this->getDb()->addParameter("id", $this->id);
-                } else {
-                    $this->getDb()->setWhere($where);
-
-                    if (count($parameters) > 0) {
-                        foreach ($parameters as $parameterKey => $parameterValue) {
-                            $this->getDb()->addParameter($parameterKey, $parameterValue);
-                        }
-                    }
-                }
-
-                $this->getDb()->update();
+                $this->_update($where, $parameters);
             } else {
-                $this->id = $this->getDb()->insert();
+                $this->_create();
             }
 
             $this->afterSave();
-
-            return $this;
         } catch (Exception $e) {
-            $fields = [];
-            foreach ($this->getFieldsInfo() as $field => $info) {
-                if (!is_object($this->$field)) {
-                    $fields[] = sprintf("%s: %s", $field, $this->$field);
-                }
-
-            }
-            throw new ModelException(
-                "{e}. Unable to save the model {class} with the fields: {fields}",
-                [
-                    "e"      => $e->getMessage(),
-                    "class"  => get_class($this),
-                    "fields" => implode(", ", $fields)
-                ]
-            );
+            $this->_onSaveFailure($e);
         }
+
+        return $this;
+    }
+
+    /**
+     * Runs before saving
+     */
+    protected function beforeSave()
+    {
+        $this
+            ->_setFieldsBeforeSave()
+            ->_setRelationsBeforeSave()
+            ->_setFieldsAndDbRequestDataBeforeSave();
+    }
+
+    /**
+     * Runs after saving
+     */
+    protected function afterSave()
+    {
+    }
+
+    /**
+     * Creates a new record in DB
+     */
+    private function _create()
+    {
+        $this->id = $this->getDb()->insert();
+    }
+
+    /**
+     * Updates the record in DB
+     *
+     * @param string $where
+     * @param array  $parameters
+     */
+    private function _update($where, array $parameters)
+    {
+        if ($where === null) {
+            $this->getDb()->setWhere("id = :id");
+            $this->getDb()->addParameter("id", $this->id);
+        } else {
+            $this->getDb()->setWhere($where);
+
+            if (count($parameters) > 0) {
+                foreach ($parameters as $parameterKey => $parameterValue) {
+                    $this->getDb()->addParameter($parameterKey, $parameterValue);
+                }
+            }
+        }
+
+        $this->getDb()->update();
+    }
+
+    /**
+     * On save failure
+     *
+     * @param Exception $e
+     *
+     * @throws ModelException
+     */
+    private function _onSaveFailure(Exception $e)
+    {
+        $fields = [];
+        foreach ($this->getFieldsInfo() as $field => $info) {
+            if (!is_object($this->$field)) {
+                $fields[] = sprintf("%s: %s", $field, $this->$field);
+            }
+
+        }
+        throw new ModelException(
+            "{e}. Unable to save the model {class} with the fields: {fields}",
+            [
+                "e"      => $e->getMessage(),
+                "class"  => get_class($this),
+                "fields" => implode(", ", $fields)
+            ]
+        );
     }
 
     /**
@@ -656,18 +761,20 @@ abstract class AbstractModel
     private function _setFieldsBeforeSave()
     {
         foreach ($this->getFieldsInfo() as $field => $parameters) {
-            if (array_key_exists(self::FIELD_BEFORE_SAVE, $parameters)) {
-                foreach ($parameters[self::FIELD_BEFORE_SAVE] as $key => $value) {
-                    if (is_string($key)) {
-                        $method = $key;
-                        if (method_exists($this, $method)) {
-                            $this->$field = $this->$method($this->$field, $value);
-                        }
-                    } else {
-                        $method = $value;
-                        if (method_exists($this, $method)) {
-                            $this->$field = $this->$method($this->$field);
-                        }
+            if (!array_key_exists(self::FIELD_BEFORE_SAVE, $parameters)) {
+                continue;
+            }
+
+            foreach ($parameters[self::FIELD_BEFORE_SAVE] as $key => $value) {
+                if (is_string($key)) {
+                    $method = $key;
+                    if (method_exists($this, $method)) {
+                        $this->$field = $this->$method($this->$field, $value);
+                    }
+                } else {
+                    $method = $value;
+                    if (method_exists($this, $method)) {
+                        $this->$field = $this->$method($this->$field);
                     }
                 }
             }
@@ -719,35 +826,6 @@ abstract class AbstractModel
             $this->$field = $relationModel->id;
         }
 
-        return $this;
-    }
-
-    /**
-     * Runs before saving
-     */
-    protected function beforeSave()
-    {
-        $this
-            ->_setFieldsBeforeSave()
-            ->_setRelationsBeforeSave()
-            ->_setFieldsAndDbRequestDataBeforeSave();
-    }
-
-    /**
-     * Runs after saving
-     */
-    protected function afterSave()
-    {
-    }
-
-    /**
-     * With all relations
-     *
-     * @return AbstractModel
-     */
-    public function withRelations()
-    {
-        $this->_withRelations = true;
         return $this;
     }
 

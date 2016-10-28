@@ -36,7 +36,7 @@ class ImageAlbumModel extends AbstractModel
             "name"    => [
                 self::FIELD_TYPE       => self::FIELD_TYPE_STRING,
                 self::FIELD_VALIDATION => ["required", "max" => 255],
-                self::FIELD_SET        => ["clearStripTags"],
+                self::FIELD_VALUE        => ["clearStripTags"],
             ],
             "sort"    => [
                 self::FIELD_TYPE => self::FIELD_TYPE_INT,

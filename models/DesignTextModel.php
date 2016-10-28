@@ -207,19 +207,19 @@ class DesignTextModel extends AbstractDesignModel
         return [
             "size"               => [
                 self::FIELD_TYPE => self::FIELD_TYPE_INT,
-                self::FIELD_SET  => [
+                self::FIELD_VALUE  => [
                     "min" => self::MIN_SIZE_VALUE
                 ],
             ],
             "family"             => [
                 self::FIELD_TYPE => self::FIELD_TYPE_INT,
-                self::FIELD_SET  => [
+                self::FIELD_VALUE  => [
                     "arrayKey" => [self::$familyList, self::FAMILY_MYRAD]
                 ],
             ],
             "color"     => [
                 self::FIELD_TYPE => self::FIELD_TYPE_STRING,
-                self::FIELD_SET  => ["color"],
+                self::FIELD_VALUE  => ["color"],
             ],
             "isItalic"       => [
                 self::FIELD_TYPE => self::FIELD_TYPE_BOOL,
@@ -229,30 +229,30 @@ class DesignTextModel extends AbstractDesignModel
             ],
             "align"             => [
                 self::FIELD_TYPE => self::FIELD_TYPE_INT,
-                self::FIELD_SET  => [
+                self::FIELD_VALUE  => [
                     "arrayKey" => [self::$textAlignList, self::TEXT_ALIGN_LEFT]
                 ],
             ],
             "decoration"             => [
                 self::FIELD_TYPE => self::FIELD_TYPE_INT,
-                self::FIELD_SET  => [
+                self::FIELD_VALUE  => [
                     "arrayKey" => [self::$textDecorationList, self::TEXT_DECORATION_NONE]
                 ],
             ],
             "transform"             => [
                 self::FIELD_TYPE => self::FIELD_TYPE_INT,
-                self::FIELD_SET  => [
+                self::FIELD_VALUE  => [
                     "arrayKey" => [self::$textTransformList, self::TEXT_TRANSFORM_NONE]
                 ],
-                self::FIELD_SET  => ["setTransform"],
+                self::FIELD_VALUE  => ["setTransform"],
             ],
             "letterSpacing"               => [
                 self::FIELD_TYPE => self::FIELD_TYPE_INT,
-                self::FIELD_SET  => ["min" => self::MIN_LETTER_SPACING_VALUE],
+                self::FIELD_VALUE  => ["min" => self::MIN_LETTER_SPACING_VALUE],
             ],
             "lineHeight"             => [
                 self::FIELD_TYPE => self::FIELD_TYPE_INT,
-                self::FIELD_SET  => [
+                self::FIELD_VALUE  => [
                     "minThen" => [self::MIN_LINE_HEIGHT_VALUE, self::DEFAULT_LINE_HEIGHT],
                 ],
             ],

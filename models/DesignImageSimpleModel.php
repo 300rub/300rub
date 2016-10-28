@@ -51,7 +51,7 @@ class DesignImageSimpleModel extends AbstractDesignModel
         return [
             "alignment"          => [
                 self::FIELD_TYPE => self::FIELD_TYPE_INT,
-                self::FIELD_SET  => [
+                self::FIELD_VALUE  => [
                     "arrayKey" => [self::getAlignmentList(), self::ALIGNMENT_LEFT]
                 ],
             ],
