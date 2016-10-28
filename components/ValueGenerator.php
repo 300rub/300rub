@@ -11,17 +11,78 @@ class ValueGenerator
 {
 
     /**
+     * Gets value by operator
+     *
+     * @param int $value1
+     * @param int $value2
+     * @param string $operator
+     * @param int $defaultValue
+     *
+     * @return float|int
+     */
+    private static function _getValueByOperator($value1, $value2, $operator, $defaultValue = 0)
+    {
+        switch ($operator) {
+            case "-":
+                return $value1 - $value2;
+            case "+":
+                return $value1 + $value2;
+            case "*":
+                return $value1 * $value2;
+            case "/":
+                return $value1 / $value2;
+            default:
+                return $defaultValue;
+        }
+    }
+
+    /**
      * Min value
      *
-     * @param int $value
-     * @param int $min
+     * @param int       $value
+     * @param int|array $min
      *
      * @return int
      */
     public static function min($value, $min)
     {
+        if (is_array($min)) {
+            $operator = "+";
+            if (!empty($min[2])) {
+                $operator = $min[2];
+            }
+
+            $min = self::_getValueByOperator($min[0], $min[1], $operator, -99999);
+        }
+
         if ($value < $min) {
             $value = $min;
+        }
+
+        return $value;
+    }
+
+    /**
+     * Max value
+     *
+     * @param int       $value
+     * @param int|array $max
+     *
+     * @return int
+     */
+    public static function max($value, $max)
+    {
+        if (is_array($max)) {
+            $operator = "-";
+            if (!empty($max[2])) {
+                $operator = $max[2];
+            }
+
+            $max = self::_getValueByOperator($max[0], $max[1], $operator, 99999);
+        }
+
+        if ($value > $max) {
+            $value = $max;
         }
 
         return $value;

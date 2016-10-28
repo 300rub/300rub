@@ -20,17 +20,6 @@ class GridLineModel extends AbstractModel
 {
 
     /**
-     * Gets model object
-     *
-     * @return GridLineModel
-     */
-    public static function model()
-    {
-        $className = __CLASS__;
-        return new $className;
-    }
-
-    /**
      * Gets table name
      *
      * @return string
@@ -48,15 +37,15 @@ class GridLineModel extends AbstractModel
     protected function getFieldsInfo()
     {
         return [
+            "sort"            => [
+                self::FIELD_TYPE => self::FIELD_TYPE_INT,
+            ],
             "sectionId"       => [
                 self::FIELD_RELATION => [
                     self::FIELD_RELATION_MODEL => "SectionModel",
                     self::FIELD_RELATION_NAME  => "sectionModel",
                     self::FIELD_RELATION_TYPE  => self::FIELD_RELATION_TYPE_HAS_ONE
                 ]
-            ],
-            "sort"            => [
-                self::FIELD_TYPE => self::FIELD_TYPE_INT,
             ],
             "outsideDesignId" => [
                 self::FIELD_RELATION => [

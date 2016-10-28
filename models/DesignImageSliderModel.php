@@ -39,14 +39,50 @@ class DesignImageSliderModel extends AbstractDesignModel
     const EFFECT_NONE = 0;
 
     /**
-     * Gets model object
+     * Gets description alignment list
      *
-     * @return DesignImageSliderModel
+     * @return array
      */
-    public static function model()
+    public static function getDescriptionAlignmentList()
     {
-        $className = __CLASS__;
-        return new $className;
+        return [
+            self::DESCRIPTION_ALIGNMENT_NONE   => "",
+            self::DESCRIPTION_ALIGNMENT_TOP    => "",
+            self::DESCRIPTION_ALIGNMENT_LEFT   => "",
+            self::DESCRIPTION_ALIGNMENT_RIGHT  => "",
+            self::DESCRIPTION_ALIGNMENT_BOTTOM => ""
+        ];
+    }
+
+    /**
+     * Gets navigation alignment list
+     *
+     * @return array
+     */
+    public static function getNavigationAlignmentList()
+    {
+        return [
+            self::NAVIGATION_ALIGNMENT_NONE          => "",
+            self::NAVIGATION_ALIGNMENT_TOP_LEFT      => "",
+            self::NAVIGATION_ALIGNMENT_TOP_CENTER    => "",
+            self::NAVIGATION_ALIGNMENT_TOP_RIGHT     => "",
+            self::NAVIGATION_ALIGNMENT_MIDDLE_LEFT   => "",
+            self::NAVIGATION_ALIGNMENT_MIDDLE_CENTER => "",
+            self::NAVIGATION_ALIGNMENT_MIDDLE_RIGHT  => "",
+            self::NAVIGATION_ALIGNMENT_BOTTOM_LEFT   => "",
+            self::NAVIGATION_ALIGNMENT_BOTTOM_CENTER => "",
+            self::NAVIGATION_ALIGNMENT_BOTTOM_RIGHT  => ""
+        ];
+    }
+
+    /**
+     * Gets a list of effects
+     *
+     * @return array
+     */
+    public static function getEffectList()
+    {
+        return [];
     }
 
     /**
@@ -76,13 +112,27 @@ class DesignImageSliderModel extends AbstractDesignModel
             ],
             "effect"                   => [
                 self::FIELD_TYPE => self::FIELD_TYPE_INT,
-                self::FIELD_SET  => ["setEffect"]
+                self::FIELD_SET  => [
+                    "arrayKey" => [self::getEffectList(), self::EFFECT_NONE]
+                ],
             ],
             "hasAutoPlay"              => [
                 self::FIELD_TYPE => self::FIELD_TYPE_BOOL,
             ],
             "playSpeed"                => [
                 self::FIELD_TYPE => self::FIELD_TYPE_INT,
+            ],
+            "navigationAlignment"      => [
+                self::FIELD_TYPE => self::FIELD_TYPE_INT,
+                self::FIELD_SET  => [
+                    "arrayKey" => [self::getNavigationAlignmentList(), self::NAVIGATION_ALIGNMENT_BOTTOM_CENTER]
+                ],
+            ],
+            "descriptionAlignment"     => [
+                self::FIELD_TYPE => self::FIELD_TYPE_INT,
+                self::FIELD_SET  => [
+                    "arrayKey" => [self::getDescriptionAlignmentList(), self::DESCRIPTION_ALIGNMENT_LEFT]
+                ],
             ],
             "navigationDesignBlockId"  => [
                 self::FIELD_RELATION => [
@@ -91,10 +141,6 @@ class DesignImageSliderModel extends AbstractDesignModel
                     self::FIELD_RELATION_TYPE  => self::FIELD_RELATION_TYPE_BELONGS_TO
                 ]
             ],
-            "navigationAlignment"      => [
-                self::FIELD_TYPE => self::FIELD_TYPE_INT,
-                self::FIELD_SET  => ["setNavigationAlignment"]
-            ],
             "descriptionDesignBlockId" => [
                 self::FIELD_RELATION => [
                     self::FIELD_RELATION_MODEL => "DesignBlockModel",
@@ -102,59 +148,7 @@ class DesignImageSliderModel extends AbstractDesignModel
                     self::FIELD_RELATION_TYPE  => self::FIELD_RELATION_TYPE_BELONGS_TO
                 ]
             ],
-            "descriptionAlignment"     => [
-                self::FIELD_TYPE => self::FIELD_TYPE_INT,
-                self::FIELD_SET  => ["setDescriptionAlignment"]
-            ],
         ];
-    }
-
-    /**
-     * Sets Effect
-     *
-     * @param int $value
-     *
-     * @return int
-     */
-    protected function setEffect($value)
-    {
-        if (!array_key_exists($value, $this->getEffectList())) {
-            $value = self::EFFECT_NONE;
-        }
-
-        return $value;
-    }
-
-    /**
-     * Sets Navigation Alignment value
-     *
-     * @param int $value
-     *
-     * @return int
-     */
-    protected function setNavigationAlignment($value)
-    {
-        if (!array_key_exists($value, $this->getNavigationAlignmentList())) {
-            $value = self::NAVIGATION_ALIGNMENT_BOTTOM_CENTER;
-        }
-
-        return $value;
-    }
-
-    /**
-     * Sets Description Alignment value
-     *
-     * @param int $value
-     *
-     * @return int
-     */
-    protected function setDescriptionAlignment($value)
-    {
-        if (!array_key_exists($value, $this->getDescriptionAlignmentList())) {
-            $value = self::DESCRIPTION_ALIGNMENT_LEFT;
-        }
-
-        return $value;
     }
 
     /**
@@ -174,52 +168,5 @@ class DesignImageSliderModel extends AbstractDesignModel
             ->setDesignValue("imageSlider", "descriptionAlignment", "descriptionAlignment", $name);
 
         return $this->designValues;
-    }
-
-    /**
-     * Gets navigation alignment list
-     *
-     * @return array
-     */
-    public function getNavigationAlignmentList()
-    {
-        return [
-            self::NAVIGATION_ALIGNMENT_NONE          => "",
-            self::NAVIGATION_ALIGNMENT_TOP_LEFT      => "",
-            self::NAVIGATION_ALIGNMENT_TOP_CENTER    => "",
-            self::NAVIGATION_ALIGNMENT_TOP_RIGHT     => "",
-            self::NAVIGATION_ALIGNMENT_MIDDLE_LEFT   => "",
-            self::NAVIGATION_ALIGNMENT_MIDDLE_CENTER => "",
-            self::NAVIGATION_ALIGNMENT_MIDDLE_RIGHT  => "",
-            self::NAVIGATION_ALIGNMENT_BOTTOM_LEFT   => "",
-            self::NAVIGATION_ALIGNMENT_BOTTOM_CENTER => "",
-            self::NAVIGATION_ALIGNMENT_BOTTOM_RIGHT  => ""
-        ];
-    }
-
-    /**
-     * Gets description alignment list
-     *
-     * @return array
-     */
-    public function getDescriptionAlignmentList()
-    {
-        return [
-            self::DESCRIPTION_ALIGNMENT_NONE   => "",
-            self::DESCRIPTION_ALIGNMENT_TOP    => "",
-            self::DESCRIPTION_ALIGNMENT_LEFT   => "",
-            self::DESCRIPTION_ALIGNMENT_RIGHT  => "",
-            self::DESCRIPTION_ALIGNMENT_BOTTOM => ""
-        ];
-    }
-
-    /**
-     * Gets a list of effects
-     *
-     * @return array
-     */
-    public function getEffectList()
-    {
-        return [];
     }
 }

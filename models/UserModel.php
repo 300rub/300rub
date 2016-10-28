@@ -30,17 +30,6 @@ class UserModel extends AbstractModel
     public $isRemember = false;
 
     /**
-     * Gets model object
-     *
-     * @return UserModel
-     */
-    public static function model()
-    {
-        $className = __CLASS__;
-        return new $className;
-    }
-
-    /**
      * Gets table name
      *
      * @return string

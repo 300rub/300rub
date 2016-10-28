@@ -96,203 +96,81 @@ class ImageInstanceModel extends AbstractModel
             ],
             "alt"          => [
                 self::FIELD_TYPE => self::FIELD_TYPE_STRING,
-                self::FIELD_SET  => ["clearStripTags"],
+                self::FIELD_SET  => [
+                    "clearStripTags"
+                ],
             ],
             "width"        => [
                 self::FIELD_TYPE => self::FIELD_TYPE_INT,
-                self::FIELD_SET  => ["min" => self::MIN_SIZE, "setMax" => self::MAX_SIZE],
+                self::FIELD_SET  => [
+                    "min" => self::MIN_SIZE,
+                    "setMax" => self::MAX_SIZE
+                ],
             ],
             "height"       => [
                 self::FIELD_TYPE => self::FIELD_TYPE_INT,
-                self::FIELD_SET  => ["min" => self::MIN_SIZE, "setMax" => self::MAX_SIZE],
+                self::FIELD_SET  => [
+                    "min" => self::MIN_SIZE,
+                    "setMax" => self::MAX_SIZE
+                ],
             ],
             "x1"           => [
                 self::FIELD_TYPE => self::FIELD_TYPE_INT,
-                self::FIELD_SET  => ["min" => 0, "setX1"],
+                self::FIELD_SET  => [
+                    "min" => 0,
+                    "max" => ["{width}", self::MIN_SIZE, "-"]
+                ],
             ],
             "y1"           => [
                 self::FIELD_TYPE => self::FIELD_TYPE_INT,
-                self::FIELD_SET  => ["min" => 0, "setY1"],
+                self::FIELD_SET  => [
+                    "min" => 0,
+                    "max" => ["{height}", self::MIN_SIZE, "-"]
+                ],
             ],
             "x2"           => [
                 self::FIELD_TYPE => self::FIELD_TYPE_INT,
-                self::FIELD_SET  => ["min" => 0, "setX2"],
+                self::FIELD_SET  => [
+                    "min" => ["{x1}", self::MIN_SIZE, "+"],
+                    "max" => "{width}"
+                ],
             ],
             "y2"           => [
                 self::FIELD_TYPE => self::FIELD_TYPE_INT,
-                self::FIELD_SET  => ["min" => 0, "setY2"],
+                self::FIELD_SET  => [
+                    "min" => ["{y1}", self::MIN_SIZE, "+"],
+                    "max" => "{height}"
+                ]
             ],
             "thumbX1"      => [
                 self::FIELD_TYPE => self::FIELD_TYPE_INT,
+                self::FIELD_SET  => [
+                    "min" => 0,
+                    "max" => self::MAX_THUMB_SIZE - self::MIN_SIZE
+                ]
             ],
             "thumbY1"      => [
                 self::FIELD_TYPE => self::FIELD_TYPE_INT,
+                self::FIELD_SET  => [
+                    "min" => 0,
+                    "max" => self::MAX_THUMB_SIZE - self::MIN_SIZE
+                ]
             ],
             "thumbX2"      => [
                 self::FIELD_TYPE => self::FIELD_TYPE_INT,
+                self::FIELD_SET  => [
+                    "min" => ["{thumbX1}", self::MIN_SIZE, "+"],
+                    "max" => self::MAX_THUMB_SIZE
+                ]
             ],
             "thumbY2"      => [
                 self::FIELD_TYPE => self::FIELD_TYPE_INT,
+                self::FIELD_SET  => [
+                    "min" => ["{thumbY1}", self::MIN_SIZE, "+"],
+                    "max" => self::MAX_THUMB_SIZE
+                ]
             ],
         ];
-    }
-
-    /**
-     * Sets x1
-     *
-     * @param int $value
-     *
-     * @return int
-     */
-    protected function setX1($value)
-    {
-        if ($value > $this->width - self::MIN_SIZE) {
-            $value = $this->width - self::MIN_SIZE;
-        }
-
-        return $value;
-    }
-
-    /**
-     * Sets y1
-     *
-     * @param int $value
-     *
-     * @return int
-     */
-    protected function setY1($value)
-    {
-        if ($value > $this->height - self::MIN_SIZE) {
-            $value = $this->height - self::MIN_SIZE;
-        }
-
-        return $value;
-    }
-
-    /**
-     * Sets x2
-     *
-     * @param int $value
-     *
-     * @return int
-     */
-    protected function setX2($value)
-    {
-        if ($value < $this->x1 + self::MIN_SIZE) {
-            $value = $this->x1 + self::MIN_SIZE;
-        } elseif ($value > $this->width) {
-            $value = $this->width;
-        }
-
-        return $value;
-    }
-
-    /**
-     * Sets y2
-     *
-     * @param int $value
-     *
-     * @return int
-     */
-    protected function setY2($value)
-    {
-        if ($value < $this->y1 + self::MIN_SIZE) {
-            $value = $this->y1 + self::MIN_SIZE;
-        } elseif ($value > $this->height) {
-            $value = $this->height;
-        }
-
-        return $value;
-    }
-
-    /**
-     * Sets thumbX1
-     *
-     * @param int $value
-     *
-     * @return int
-     */
-    protected function setThumbX1($value)
-    {
-        $maxThumbWidth = self::MAX_THUMB_SIZE;
-        if ($maxThumbWidth > $this->width) {
-            $maxThumbWidth = $this->width;
-        }
-
-        if ($value > $maxThumbWidth - self::MIN_SIZE) {
-            $value = $maxThumbWidth - self::MIN_SIZE;
-        }
-
-        return $value;
-    }
-
-    /**
-     * Sets thumbY1
-     *
-     * @param int $value
-     *
-     * @return int
-     */
-    protected function setThumbY1($value)
-    {
-        $maxThumbHeight = self::MAX_THUMB_SIZE;
-        if ($maxThumbHeight > $this->height) {
-            $maxThumbHeight = $this->height;
-        }
-
-        if ($value < 0) {
-            $value = 0;
-        } elseif ($value > $maxThumbHeight - self::MIN_SIZE) {
-            $value = $maxThumbHeight - self::MIN_SIZE;
-        }
-
-        return $value;
-    }
-
-    /**
-     * Sets thumbX2
-     *
-     * @param int $value
-     *
-     * @return int
-     */
-    protected function setThumbX2($value)
-    {
-        $maxThumbWidth = self::MAX_THUMB_SIZE;
-        if ($maxThumbWidth > $this->width) {
-            $maxThumbWidth = $this->width;
-        }
-
-        if ($value < $this->thumbX1 + self::MIN_SIZE) {
-            $value = $this->thumbX1 + self::MIN_SIZE;
-        } elseif ($value > $maxThumbWidth) {
-            $value = $maxThumbWidth;
-        }
-
-        return $value;
-    }
-
-    /**
-     * Sets thumbY2
-     *
-     * @param int $value
-     *
-     * @return int
-     */
-    protected function setThumbY2($value)
-    {
-        $maxThumbHeight = self::MAX_THUMB_SIZE;
-        if ($maxThumbHeight > $this->height) {
-            $maxThumbHeight = $this->height;
-        }
-
-        if ($value < $this->thumbY1 + self::MIN_SIZE) {
-            $value = $this->thumbY1 + self::MIN_SIZE;
-        } elseif ($value > $maxThumbHeight) {
-            $value = $maxThumbHeight;
-        }
-
-        return $value;
     }
 
     /**

@@ -48,17 +48,6 @@ class GridModel extends AbstractModel
     const TYPE_IMAGE = 2;
 
     /**
-     * Gets model object
-     *
-     * @return GridModel
-     */
-    public static function model()
-    {
-        $className = __CLASS__;
-        return new $className;
-    }
-
-    /**
      * Gets table name
      *
      * @return string
@@ -76,13 +65,6 @@ class GridModel extends AbstractModel
     protected function getFieldsInfo()
     {
         return [
-            "gridLineId"  => [
-                self::FIELD_RELATION => [
-                    self::FIELD_RELATION_MODEL => "GridLineModel",
-                    self::FIELD_RELATION_NAME  => "gridLineModel",
-                    self::FIELD_RELATION_TYPE  => self::FIELD_RELATION_TYPE_HAS_ONE
-                ]
-            ],
             "x"           => [
                 self::FIELD_TYPE => self::FIELD_TYPE_INT,
                 self::FIELD_SET  => ["max" => self::GRID_SIZE - 1, "min" => 0]
@@ -93,13 +75,23 @@ class GridModel extends AbstractModel
             ],
             "width"       => [
                 self::FIELD_TYPE => self::FIELD_TYPE_INT,
-                self::FIELD_SET  => ["setWidth"]
+                self::FIELD_SET  => [
+                    "minThen" => [0, self::DEFAULT_WIDTH],
+                    "max"     => [self::GRID_SIZE, "{x}", "-"]
+                ],
             ],
             "contentType" => [
                 self::FIELD_TYPE => self::FIELD_TYPE_INT,
             ],
             "contentId"   => [
                 self::FIELD_TYPE => self::FIELD_TYPE_INT,
+            ],
+            "gridLineId"  => [
+                self::FIELD_RELATION => [
+                    self::FIELD_RELATION_MODEL => "GridLineModel",
+                    self::FIELD_RELATION_NAME  => "gridLineModel",
+                    self::FIELD_RELATION_TYPE  => self::FIELD_RELATION_TYPE_HAS_ONE
+                ]
             ],
         ];
     }
@@ -127,7 +119,7 @@ class GridModel extends AbstractModel
         $structure["width"] = $section->getWidth();
 
         $gridLineIds = [];
-        $gridLineModels = GridLineModel::model()
+        $gridLineModels = (new GridLineModel)
             ->withRelations()
             ->bySectionId($section->id)
             ->ordered("sort")
@@ -140,7 +132,7 @@ class GridModel extends AbstractModel
         foreach ($gridLineModels as $gridLineModel) {
             $gridLineIds[] = $gridLineModel->id;
         }
-        $gridModels = GridModel::model()->in("t.gridLineId", $gridLineIds)->ordered("y, x")->findAll();
+        $gridModels = (new GridModel)->in("t.gridLineId", $gridLineIds)->ordered("y, x")->findAll();
         $lines = [];
 
         foreach ($gridLineModels as $gridLineModel) {
@@ -334,7 +326,7 @@ class GridModel extends AbstractModel
     public function updateGridForSection($sectionId, $data)
     {
         $oldGrids = $this->bySectionId($sectionId)->findAll();
-        $gridLines = GridLineModel::model()->bySectionId($sectionId)->findAll();
+        $gridLines = (new GridLineModel)->bySectionId($sectionId)->findAll();
         $oldGridLines = [];
         foreach ($gridLines as $gridLine) {
             $oldGridLines[$gridLine->id] = $gridLine;
@@ -343,7 +335,7 @@ class GridModel extends AbstractModel
         $lineNumber = 1;
         foreach ($data as $content) {
             if (!empty($content["id"])) {
-                $gridLineModel = GridLineModel::model()->byId($content["id"])->find();
+                $gridLineModel = (new GridLineModel)->byId($content["id"])->find();
                 if (!$gridLineModel) {
                     throw new ContentException(
                         "Unable to find GridLineModel with ID = {id}",
@@ -516,7 +508,7 @@ class GridModel extends AbstractModel
         $list = [];
         $typeList = self::getTypesList();
 
-        $models = TextModel::model()->ordered()->findAll();
+        $models = (new TextModel)->ordered()->findAll();
         if ($models) {
             $list[] = [
                 "name"       => $typeList[self::TYPE_TEXT]["name"],
@@ -573,27 +565,5 @@ class GridModel extends AbstractModel
         }
 
         parent::beforeSave();
-    }
-
-    /**
-     * Sets width
-     *
-     * @param int $value
-     *
-     * @return int
-     */
-    protected function setWidth($value)
-    {
-        if ($value <= 0) {
-            $value = self::DEFAULT_WIDTH;
-        }
-        if ($value >= self::GRID_SIZE) {
-            $value = self::GRID_SIZE;
-        }
-        if ($value + $this->x > self::GRID_SIZE) {
-            $value = self::GRID_SIZE - $this->x;
-        }
-
-        return $value;
     }
 }

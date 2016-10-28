@@ -100,17 +100,6 @@ class DesignBlockModel extends AbstractDesignModel
     ];
 
     /**
-     * Gets model object
-     *
-     * @return DesignBlockModel
-     */
-    public static function model()
-    {
-        $className = __CLASS__;
-        return new $className;
-    }
-
-    /**
      * Gets table name
      *
      * @return string
@@ -170,7 +159,9 @@ class DesignBlockModel extends AbstractDesignModel
             ],
             "gradientDirection"       => [
                 self::FIELD_TYPE => self::FIELD_TYPE_INT,
-                self::FIELD_SET  => ["setGradientDirection"],
+                self::FIELD_SET  => [
+                    "arrayKey" => [self::$gradientDirectionList, self::GRADIENT_DIRECTION_HORIZONTAL]
+                ],
             ],
             "borderTopWidth"          => [
                 self::FIELD_TYPE => self::FIELD_TYPE_INT,
@@ -210,41 +201,11 @@ class DesignBlockModel extends AbstractDesignModel
             ],
             "borderStyle"             => [
                 self::FIELD_TYPE => self::FIELD_TYPE_INT,
-                self::FIELD_SET  => ["setBorderStyle"],
+                self::FIELD_SET  => [
+                    "arrayKey" => [self::$borderStyleList, self::BORDER_STYLE_NONE]
+                ],
             ],
         ];
-    }
-
-    /**
-     * Sets gradient direction
-     *
-     * @param int $value
-     *
-     * @return int
-     */
-    protected function setGradientDirection($value)
-    {
-        if (!array_key_exists($value, self::$gradientDirectionList)) {
-            $value = self::GRADIENT_DIRECTION_HORIZONTAL;
-        }
-
-        return $value;
-    }
-
-    /**
-     * Sets border style
-     *
-     * @param int $value
-     *
-     * @return int
-     */
-    protected function setBorderStyle($value)
-    {
-        if (!array_key_exists($value, self::$borderStyleList)) {
-            $value = self::BORDER_STYLE_NONE;
-        }
-
-        return $value;
     }
 
     /**

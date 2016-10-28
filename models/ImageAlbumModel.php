@@ -16,17 +16,6 @@ class ImageAlbumModel extends AbstractModel
 {
 
     /**
-     * Gets model object
-     *
-     * @return ImageAlbumModel
-     */
-    public static function model()
-    {
-        $className = __CLASS__;
-        return new $className;
-    }
-
-    /**
      * Gets table name
      *
      * @return string
@@ -49,15 +38,15 @@ class ImageAlbumModel extends AbstractModel
                 self::FIELD_VALIDATION => ["required", "max" => 255],
                 self::FIELD_SET        => ["clearStripTags"],
             ],
+            "sort"    => [
+                self::FIELD_TYPE => self::FIELD_TYPE_INT,
+            ],
             "imageId" => [
                 self::FIELD_RELATION => [
                     self::FIELD_RELATION_MODEL => "ImageModel",
                     self::FIELD_RELATION_NAME  => "imageModel",
                     self::FIELD_RELATION_TYPE  => self::FIELD_RELATION_TYPE_HAS_ONE
                 ]
-            ],
-            "sort"    => [
-                self::FIELD_TYPE => self::FIELD_TYPE_INT,
             ],
         ];
     }

@@ -188,17 +188,6 @@ class DesignTextModel extends AbstractDesignModel
     ];
 
     /**
-     * Gets model object
-     *
-     * @return DesignTextModel
-     */
-    public static function model()
-    {
-        $className = __CLASS__;
-        return new $className;
-    }
-
-    /**
      * Gets table name
      *
      * @return string
@@ -218,11 +207,15 @@ class DesignTextModel extends AbstractDesignModel
         return [
             "size"               => [
                 self::FIELD_TYPE => self::FIELD_TYPE_INT,
-                self::FIELD_SET  => ["min" => self::MIN_SIZE_VALUE],
+                self::FIELD_SET  => [
+                    "min" => self::MIN_SIZE_VALUE
+                ],
             ],
             "family"             => [
                 self::FIELD_TYPE => self::FIELD_TYPE_INT,
-                self::FIELD_SET  => ["setFamily"],
+                self::FIELD_SET  => [
+                    "arrayKey" => [self::$familyList, self::FAMILY_MYRAD]
+                ],
             ],
             "color"     => [
                 self::FIELD_TYPE => self::FIELD_TYPE_STRING,
@@ -236,14 +229,21 @@ class DesignTextModel extends AbstractDesignModel
             ],
             "align"             => [
                 self::FIELD_TYPE => self::FIELD_TYPE_INT,
-                self::FIELD_SET  => ["setAlign"],
+                self::FIELD_SET  => [
+                    "arrayKey" => [self::$textAlignList, self::TEXT_ALIGN_LEFT]
+                ],
             ],
             "decoration"             => [
                 self::FIELD_TYPE => self::FIELD_TYPE_INT,
-                self::FIELD_SET  => ["setDecoration"],
+                self::FIELD_SET  => [
+                    "arrayKey" => [self::$textDecorationList, self::TEXT_DECORATION_NONE]
+                ],
             ],
             "transform"             => [
                 self::FIELD_TYPE => self::FIELD_TYPE_INT,
+                self::FIELD_SET  => [
+                    "arrayKey" => [self::$textTransformList, self::TEXT_TRANSFORM_NONE]
+                ],
                 self::FIELD_SET  => ["setTransform"],
             ],
             "letterSpacing"               => [
@@ -252,91 +252,11 @@ class DesignTextModel extends AbstractDesignModel
             ],
             "lineHeight"             => [
                 self::FIELD_TYPE => self::FIELD_TYPE_INT,
-                self::FIELD_SET  => ["setLineHeight"],
+                self::FIELD_SET  => [
+                    "minThen" => [self::MIN_LINE_HEIGHT_VALUE, self::DEFAULT_LINE_HEIGHT],
+                ],
             ],
         ];
-    }
-
-    /**
-     * Sets font-family
-     *
-     * @param int $value
-     *
-     * @return int
-     */
-	protected function setFamily($value)
-    {
-        if (!array_key_exists($value, self::$familyList)) {
-            $value = self::FAMILY_MYRAD;
-        }
-
-        return $value;
-    }
-
-    /**
-     * Sets text-align
-     *
-     * @param int $value
-     *
-     * @return int
-     */
-    protected function setAlign($value)
-    {
-        if (!array_key_exists($value, self::$textAlignList)) {
-            $value = self::TEXT_ALIGN_LEFT;
-        }
-
-        return $value;
-    }
-
-    /**
-     * Sets text-decoration
-     *
-     * @param int $value
-     *
-     * @return int
-     */
-    protected function setDecoration($value)
-    {
-        if (!array_key_exists($value, self::$textDecorationList)) {
-            $value = self::TEXT_DECORATION_NONE;
-        }
-
-        return $value;
-    }
-
-    /**
-     * Sets text-transform
-     *
-     * @param int $value
-     *
-     * @return int
-     */
-    protected function setTransform($value)
-    {
-        if (!array_key_exists($value, self::$textTransformList)) {
-            $value = self::TEXT_TRANSFORM_NONE;
-        }
-
-        return $value;
-    }
-
-    /**
-     * Sets line-height
-     *
-     * @param int $value
-     *
-     * @return int
-     */
-    protected function setLineHeight($value)
-    {
-        if ($value === 0) {
-            $value = self::DEFAULT_LINE_HEIGHT;
-        } else if ($value < self::MIN_LINE_HEIGHT_VALUE) {
-            $value = self::MIN_LINE_HEIGHT_VALUE;
-        }
-
-        return $value;
     }
 
 	/**

@@ -32,14 +32,43 @@ class DesignImageZoomModel extends AbstractDesignModel
     const EFFECT_NONE = 0;
 
     /**
-     * Gets model object
+     * Gets description alignment list
      *
-     * @return DesignImageZoomModel
+     * @return array
      */
-    public static function model()
+    public static function getDescriptionAlignmentList()
     {
-        $className = __CLASS__;
-        return new $className;
+        return [
+            self::DESCRIPTION_ALIGNMENT_NONE   => "",
+            self::DESCRIPTION_ALIGNMENT_TOP    => "",
+            self::DESCRIPTION_ALIGNMENT_BOTTOM => ""
+        ];
+    }
+
+    /**
+     * Gets thumbs alignment list
+     *
+     * @return array
+     */
+    public static function getThumbsAlignmentList()
+    {
+        return [
+            self::THUMBS_ALIGNMENT_NONE   => "",
+            self::THUMBS_ALIGNMENT_TOP    => "",
+            self::THUMBS_ALIGNMENT_LEFT   => "",
+            self::THUMBS_ALIGNMENT_RIGHT  => "",
+            self::THUMBS_ALIGNMENT_BOTTOM => ""
+        ];
+    }
+
+    /**
+     * Gets a list of effects
+     *
+     * @return array
+     */
+    public static function getEffectList()
+    {
+        return [];
     }
 
     /**
@@ -72,65 +101,23 @@ class DesignImageZoomModel extends AbstractDesignModel
             ],
             "thumbsAlignment"      => [
                 self::FIELD_TYPE => self::FIELD_TYPE_INT,
-                self::FIELD_SET  => ["setThumbsAlignment"]
+                self::FIELD_SET  => [
+                    "arrayKey" => [self::getThumbsAlignmentList(), self::THUMBS_ALIGNMENT_NONE]
+                ],
             ],
             "descriptionAlignment" => [
                 self::FIELD_TYPE => self::FIELD_TYPE_INT,
-                self::FIELD_SET  => ["setDescriptionAlignment"]
+                self::FIELD_SET  => [
+                    "arrayKey" => [self::getDescriptionAlignmentList(), self::DESCRIPTION_ALIGNMENT_NONE]
+                ],
             ],
             "effect"               => [
                 self::FIELD_TYPE => self::FIELD_TYPE_INT,
-                self::FIELD_SET  => ["setEffect"]
+                self::FIELD_SET  => [
+                    "arrayKey" => [self::getEffectList(), self::EFFECT_NONE]
+                ],
             ],
         ];
-    }
-
-    /**
-     * Sets Description Alignment value
-     *
-     * @param int $value
-     *
-     * @return int
-     */
-    protected function setDescriptionAlignment($value)
-    {
-        if (!array_key_exists($value, $this->getDescriptionAlignmentList())) {
-            $value = self::DESCRIPTION_ALIGNMENT_NONE;
-        }
-
-        return $value;
-    }
-
-    /**
-     * Sets Thumbs Alignment value
-     *
-     * @param int $value
-     *
-     * @return int
-     */
-    protected function setThumbsAlignment($value)
-    {
-        if (!array_key_exists($value, $this->getThumbsAlignmentList())) {
-            $value = self::THUMBS_ALIGNMENT_NONE;
-        }
-
-        return $value;
-    }
-
-    /**
-     * Sets Effect
-     *
-     * @param int $value
-     *
-     * @return int
-     */
-    protected function setEffect($value)
-    {
-        if (!array_key_exists($value, $this->getEffectList())) {
-            $value = self::EFFECT_NONE;
-        }
-
-        return $value;
     }
 
     /**
@@ -149,45 +136,5 @@ class DesignImageZoomModel extends AbstractDesignModel
             ->setDesignValue("imageZoom", "effect", "effect", $name);
 
         return $this->designValues;
-    }
-
-    /**
-     * Gets description alignment list
-     *
-     * @return array
-     */
-    public function getDescriptionAlignmentList()
-    {
-        return [
-            self::DESCRIPTION_ALIGNMENT_NONE   => "",
-            self::DESCRIPTION_ALIGNMENT_TOP    => "",
-            self::DESCRIPTION_ALIGNMENT_BOTTOM => ""
-        ];
-    }
-
-    /**
-     * Gets thumbs alignment list
-     *
-     * @return array
-     */
-    public function getThumbsAlignmentList()
-    {
-        return [
-            self::THUMBS_ALIGNMENT_NONE   => "",
-            self::THUMBS_ALIGNMENT_TOP    => "",
-            self::THUMBS_ALIGNMENT_LEFT   => "",
-            self::THUMBS_ALIGNMENT_RIGHT  => "",
-            self::THUMBS_ALIGNMENT_BOTTOM => ""
-        ];
-    }
-
-    /**
-     * Gets a list of effects
-     *
-     * @return array
-     */
-    public function getEffectList()
-    {
-        return [];
     }
 }

@@ -18,14 +18,17 @@ class DesignImageSimpleModel extends AbstractDesignModel
     const ALIGNMENT_RIGHT = 2;
 
     /**
-     * Gets model object
+     * Gets alignment list
      *
-     * @return DesignImageSimpleModel
+     * @return array
      */
-    public static function model()
+    public static function getAlignmentList()
     {
-        $className = __CLASS__;
-        return new $className;
+        return [
+            self::ALIGNMENT_LEFT   => "",
+            self::ALIGNMENT_CENTER => "",
+            self::ALIGNMENT_RIGHT  => ""
+        ];
     }
 
     /**
@@ -46,25 +49,27 @@ class DesignImageSimpleModel extends AbstractDesignModel
     protected function getFieldsInfo()
     {
         return [
-            "alignment"      => [
+            "alignment"          => [
                 self::FIELD_TYPE => self::FIELD_TYPE_INT,
-                self::FIELD_SET  => ["setAlignment"]
+                self::FIELD_SET  => [
+                    "arrayKey" => [self::getAlignmentList(), self::ALIGNMENT_LEFT]
+                ],
             ],
-            "designBlockId"        => [
+            "designBlockId"      => [
                 self::FIELD_RELATION => [
                     self::FIELD_RELATION_MODEL => "DesignBlockModel",
                     self::FIELD_RELATION_NAME  => "designBlockModel",
                     self::FIELD_RELATION_TYPE  => self::FIELD_RELATION_TYPE_BELONGS_TO
                 ]
             ],
-            "imageDesignBlockId"        => [
+            "imageDesignBlockId" => [
                 self::FIELD_RELATION => [
                     self::FIELD_RELATION_MODEL => "DesignBlockModel",
                     self::FIELD_RELATION_NAME  => "imageDesignBlockModel",
                     self::FIELD_RELATION_TYPE  => self::FIELD_RELATION_TYPE_BELONGS_TO
                 ]
             ],
-            "designTextId"        => [
+            "designTextId"       => [
                 self::FIELD_RELATION => [
                     self::FIELD_RELATION_MODEL => "DesignBlockModel",
                     self::FIELD_RELATION_NAME  => "designTextModel",
@@ -72,22 +77,6 @@ class DesignImageSimpleModel extends AbstractDesignModel
                 ]
             ]
         ];
-    }
-
-    /**
-     * Sets Alignment value
-     *
-     * @param int $value
-     *
-     * @return int
-     */
-    protected function setAlignment($value)
-    {
-        if (!array_key_exists($value, $this->getAlignmentList())) {
-            $value = self::ALIGNMENT_LEFT;
-        }
-
-        return $value;
     }
 
     /**
@@ -103,19 +92,5 @@ class DesignImageSimpleModel extends AbstractDesignModel
             ->setDesignValue("imageSimple", "alignment", "alignment", $name);
 
         return $this->designValues;
-    }
-
-    /**
-     * Gets alignment list
-     *
-     * @return array
-     */
-    public function getAlignmentList()
-    {
-        return [
-            self::ALIGNMENT_LEFT   => "",
-            self::ALIGNMENT_CENTER  => "",
-            self::ALIGNMENT_RIGHT => ""
-        ];
     }
 }
