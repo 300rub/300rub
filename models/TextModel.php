@@ -7,6 +7,8 @@ use testS\components\Language;
 /**
  * Model for working with table "texts"
  *
+ * @property string $name
+ *
  * @method TextModel[] findAll
  * @method TextModel   ordered
  * @method TextModel   byId($id)
@@ -79,12 +81,12 @@ class TextModel extends AbstractModel
             "name"          => [
                 self::FIELD_TYPE                => self::FIELD_TYPE_STRING,
                 self::FIELD_VALIDATION          => ["required", "max" => 255],
-                self::FIELD_SET                 => ["clearStripTags"],
+                self::FIELD_VALUE               => ["clearStripTags"],
                 self::FIELD_CHANGE_ON_DUPLICATE => "getCopyName",
             ],
             "language"      => [
-                self::FIELD_TYPE => self::FIELD_TYPE_INT,
-                self::FIELD_SET  => [
+                self::FIELD_TYPE  => self::FIELD_TYPE_INT,
+                self::FIELD_VALUE => [
                     "arrayKey" => [Language::$aliasList, Language::$activeId]
                 ],
             ],
@@ -92,8 +94,8 @@ class TextModel extends AbstractModel
                 self::FIELD_TYPE => self::FIELD_TYPE_BOOL,
             ],
             "type"          => [
-                self::FIELD_TYPE => self::FIELD_TYPE_INT,
-                self::FIELD_SET  => ["arrayKey" => [self::$typeTagList, self::TYPE_DIV]],
+                self::FIELD_TYPE  => self::FIELD_TYPE_INT,
+                self::FIELD_VALUE => ["arrayKey" => [self::$typeTagList, self::TYPE_DIV]],
             ],
             "text"          => [
                 self::FIELD_TYPE => self::FIELD_TYPE_STRING,

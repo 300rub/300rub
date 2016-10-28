@@ -111,8 +111,8 @@ class DesignImageSliderModel extends AbstractDesignModel
                 ]
             ],
             "effect"                   => [
-                self::FIELD_TYPE => self::FIELD_TYPE_INT,
-                self::FIELD_VALUE  => [
+                self::FIELD_TYPE  => self::FIELD_TYPE_INT,
+                self::FIELD_VALUE => [
                     "arrayKey" => [self::getEffectList(), self::EFFECT_NONE]
                 ],
             ],
@@ -123,14 +123,14 @@ class DesignImageSliderModel extends AbstractDesignModel
                 self::FIELD_TYPE => self::FIELD_TYPE_INT,
             ],
             "navigationAlignment"      => [
-                self::FIELD_TYPE => self::FIELD_TYPE_INT,
-                self::FIELD_VALUE  => [
+                self::FIELD_TYPE  => self::FIELD_TYPE_INT,
+                self::FIELD_VALUE => [
                     "arrayKey" => [self::getNavigationAlignmentList(), self::NAVIGATION_ALIGNMENT_BOTTOM_CENTER]
                 ],
             ],
             "descriptionAlignment"     => [
-                self::FIELD_TYPE => self::FIELD_TYPE_INT,
-                self::FIELD_VALUE  => [
+                self::FIELD_TYPE  => self::FIELD_TYPE_INT,
+                self::FIELD_VALUE => [
                     "arrayKey" => [self::getDescriptionAlignmentList(), self::DESCRIPTION_ALIGNMENT_LEFT]
                 ],
             ],

@@ -205,69 +205,69 @@ class DesignTextModel extends AbstractDesignModel
     protected function getFieldsInfo()
     {
         return [
-            "size"               => [
-                self::FIELD_TYPE => self::FIELD_TYPE_INT,
-                self::FIELD_VALUE  => [
+            "size"          => [
+                self::FIELD_TYPE  => self::FIELD_TYPE_INT,
+                self::FIELD_VALUE => [
                     "min" => self::MIN_SIZE_VALUE
                 ],
             ],
-            "family"             => [
-                self::FIELD_TYPE => self::FIELD_TYPE_INT,
-                self::FIELD_VALUE  => [
+            "family"        => [
+                self::FIELD_TYPE  => self::FIELD_TYPE_INT,
+                self::FIELD_VALUE => [
                     "arrayKey" => [self::$familyList, self::FAMILY_MYRAD]
                 ],
             ],
-            "color"     => [
-                self::FIELD_TYPE => self::FIELD_TYPE_STRING,
-                self::FIELD_VALUE  => ["color"],
+            "color"         => [
+                self::FIELD_TYPE  => self::FIELD_TYPE_STRING,
+                self::FIELD_VALUE => ["color"],
             ],
-            "isItalic"       => [
+            "isItalic"      => [
                 self::FIELD_TYPE => self::FIELD_TYPE_BOOL,
             ],
-            "isBold"       => [
+            "isBold"        => [
                 self::FIELD_TYPE => self::FIELD_TYPE_BOOL,
             ],
-            "align"             => [
-                self::FIELD_TYPE => self::FIELD_TYPE_INT,
-                self::FIELD_VALUE  => [
+            "align"         => [
+                self::FIELD_TYPE  => self::FIELD_TYPE_INT,
+                self::FIELD_VALUE => [
                     "arrayKey" => [self::$textAlignList, self::TEXT_ALIGN_LEFT]
                 ],
             ],
-            "decoration"             => [
-                self::FIELD_TYPE => self::FIELD_TYPE_INT,
-                self::FIELD_VALUE  => [
+            "decoration"    => [
+                self::FIELD_TYPE  => self::FIELD_TYPE_INT,
+                self::FIELD_VALUE => [
                     "arrayKey" => [self::$textDecorationList, self::TEXT_DECORATION_NONE]
                 ],
             ],
-            "transform"             => [
-                self::FIELD_TYPE => self::FIELD_TYPE_INT,
-                self::FIELD_VALUE  => [
+            "transform"     => [
+                self::FIELD_TYPE  => self::FIELD_TYPE_INT,
+                self::FIELD_VALUE => [
                     "arrayKey" => [self::$textTransformList, self::TEXT_TRANSFORM_NONE]
                 ],
-                self::FIELD_VALUE  => ["setTransform"],
+                self::FIELD_VALUE => ["setTransform"],
             ],
-            "letterSpacing"               => [
-                self::FIELD_TYPE => self::FIELD_TYPE_INT,
-                self::FIELD_VALUE  => ["min" => self::MIN_LETTER_SPACING_VALUE],
+            "letterSpacing" => [
+                self::FIELD_TYPE  => self::FIELD_TYPE_INT,
+                self::FIELD_VALUE => ["min" => self::MIN_LETTER_SPACING_VALUE],
             ],
-            "lineHeight"             => [
-                self::FIELD_TYPE => self::FIELD_TYPE_INT,
-                self::FIELD_VALUE  => [
+            "lineHeight"    => [
+                self::FIELD_TYPE  => self::FIELD_TYPE_INT,
+                self::FIELD_VALUE => [
                     "minThen" => [self::MIN_LINE_HEIGHT_VALUE, self::DEFAULT_LINE_HEIGHT],
                 ],
             ],
         ];
     }
 
-	/**
-	 * Gets values for object
-	 *
-	 * @param string $name Object name
-	 *
-	 * @return array
-	 */
-	public function getValues($name)
-	{
+    /**
+     * Gets values for object
+     *
+     * @param string $name Object name
+     *
+     * @return array
+     */
+    public function getValues($name)
+    {
         $this
             ->setDesignValue("fontFamily", "font-family", "family", $name)
             ->setDesignValue("spinners", "font-size", "size", $name)
@@ -278,67 +278,66 @@ class DesignTextModel extends AbstractDesignModel
             ->setDesignValue("checkboxes", "font-weight", "isBold", $name)
             ->setDesignValue("radios", "text-align", "align", $name)
             ->setDesignValue("radios", "text-decoration", "decoration", $name)
-            ->setDesignValue("radios", "text-transform", "transform", $name)
-        ;
+            ->setDesignValue("radios", "text-transform", "transform", $name);
 
         return $this->designValues;
-	}
+    }
 
-	/**
-	 * Gets CSS text-align value
-	 *
-	 * @return string
-	 */
-	public function getTextAlign()
-	{
-		if (array_key_exists($this->align, self::$textAlignList)) {
-			return self::$textAlignList[$this->align];
-		}
+    /**
+     * Gets CSS text-align value
+     *
+     * @return string
+     */
+    public function getTextAlign()
+    {
+        if (array_key_exists($this->align, self::$textAlignList)) {
+            return self::$textAlignList[$this->align];
+        }
 
-		return "";
-	}
+        return "";
+    }
 
-	/**
-	 * Gets CSS text-decoration value
-	 *
-	 * @return string
-	 */
-	public function getTextDecoration()
-	{
-		if (array_key_exists($this->decoration, self::$textDecorationList)) {
-			return self::$textDecorationList[$this->decoration];
-		}
+    /**
+     * Gets CSS text-decoration value
+     *
+     * @return string
+     */
+    public function getTextDecoration()
+    {
+        if (array_key_exists($this->decoration, self::$textDecorationList)) {
+            return self::$textDecorationList[$this->decoration];
+        }
 
-		return self::$textDecorationList[self::TEXT_DECORATION_NONE];
-	}
+        return self::$textDecorationList[self::TEXT_DECORATION_NONE];
+    }
 
-	/**
-	 * Gets CSS text-transform value
-	 *
-	 * @return string
-	 */
-	public function getTextTransform()
-	{
-		if (array_key_exists($this->transform, self::$textTransformList)) {
-			return self::$textTransformList[$this->transform];
-		}
+    /**
+     * Gets CSS text-transform value
+     *
+     * @return string
+     */
+    public function getTextTransform()
+    {
+        if (array_key_exists($this->transform, self::$textTransformList)) {
+            return self::$textTransformList[$this->transform];
+        }
 
-		return self::$textTransformList[self::TEXT_TRANSFORM_NONE];
-	}
+        return self::$textTransformList[self::TEXT_TRANSFORM_NONE];
+    }
 
-	/**
-	 * Gets CSS font-family value
-	 *
-	 * @return string
-	 */
-	public function getFontFamilyClass()
-	{
-		if ($this->family !== self::FAMILY_MYRAD
-			&& array_key_exists($this->family, self::$familyList)
-		) {
-			return self::$familyList[$this->family]["class"];
-		}
+    /**
+     * Gets CSS font-family value
+     *
+     * @return string
+     */
+    public function getFontFamilyClass()
+    {
+        if ($this->family !== self::FAMILY_MYRAD
+            && array_key_exists($this->family, self::$familyList)
+        ) {
+            return self::$familyList[$this->family]["class"];
+        }
 
-		return "";
-	}
+        return "";
+    }
 }

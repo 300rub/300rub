@@ -7,7 +7,7 @@ namespace testS\models;
  *
  * @package testS\models
  */
-abstract class AbstractDesignModel extends AbstractModel 
+abstract class AbstractDesignModel extends AbstractModel
 {
 
     /**
@@ -30,7 +30,7 @@ abstract class AbstractDesignModel extends AbstractModel
     protected function afterFind()
     {
         $this->setDefaultValuesAvailability();
-        
+
         parent::afterFind();
     }
 
@@ -47,7 +47,7 @@ abstract class AbstractDesignModel extends AbstractModel
 
         return $this;
     }
-    
+
     /**
      * Excepts values
      *

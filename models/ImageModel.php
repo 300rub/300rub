@@ -93,31 +93,31 @@ class ImageModel extends AbstractModel
             "name"                => [
                 self::FIELD_TYPE       => self::FIELD_TYPE_STRING,
                 self::FIELD_VALIDATION => ["required", "max" => 255],
-                self::FIELD_VALUE        => ["clearStripTags"],
+                self::FIELD_VALUE      => ["clearStripTags"],
             ],
             "language"            => [
-                self::FIELD_TYPE => self::FIELD_TYPE_INT,
-                self::FIELD_VALUE  => ["setLanguage"],
+                self::FIELD_TYPE  => self::FIELD_TYPE_INT,
+                self::FIELD_VALUE => ["setLanguage"],
             ],
             "type"                => [
-                self::FIELD_TYPE => self::FIELD_TYPE_INT,
-                self::FIELD_VALUE  => [
+                self::FIELD_TYPE  => self::FIELD_TYPE_INT,
+                self::FIELD_VALUE => [
                     "arrayKey" => [self::getTypeList(), self::TYPE_ZOOM]
                 ],
             ],
             "autoCropType"        => [
-                self::FIELD_TYPE => self::FIELD_TYPE_INT,
-                self::FIELD_VALUE  => [
+                self::FIELD_TYPE  => self::FIELD_TYPE_INT,
+                self::FIELD_VALUE => [
                     "arrayKey" => [self::getAutoCropTypeList(), self::AUTO_CROP_TYPE_MIDDLE_CENTER]
                 ],
             ],
             "cropWidth"           => [
-                self::FIELD_TYPE => self::FIELD_TYPE_INT,
-                self::FIELD_VALUE  => ["setMax" => ImageInstanceModel::MAX_SIZE],
+                self::FIELD_TYPE  => self::FIELD_TYPE_INT,
+                self::FIELD_VALUE => ["setMax" => ImageInstanceModel::MAX_SIZE],
             ],
             "cropHeight"          => [
-                self::FIELD_TYPE => self::FIELD_TYPE_INT,
-                self::FIELD_VALUE  => ["setMax" => ImageInstanceModel::MAX_SIZE],
+                self::FIELD_TYPE  => self::FIELD_TYPE_INT,
+                self::FIELD_VALUE => ["setMax" => ImageInstanceModel::MAX_SIZE],
             ],
             "cropX"               => [
                 self::FIELD_TYPE => self::FIELD_TYPE_INT,
@@ -126,8 +126,8 @@ class ImageModel extends AbstractModel
                 self::FIELD_TYPE => self::FIELD_TYPE_INT,
             ],
             "thumbAutoCropType"   => [
-                self::FIELD_TYPE => self::FIELD_TYPE_INT,
-                self::FIELD_VALUE  => ["setAutoCropType"],
+                self::FIELD_TYPE  => self::FIELD_TYPE_INT,
+                self::FIELD_VALUE => ["setAutoCropType"],
             ],
             "thumbCropX"          => [
                 self::FIELD_TYPE => self::FIELD_TYPE_INT,

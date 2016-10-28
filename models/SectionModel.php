@@ -45,14 +45,14 @@ class SectionModel extends AbstractModel
     {
         return [
             "language"      => [
-                self::FIELD_TYPE => self::FIELD_TYPE_INT,
-                self::FIELD_VALUE  => [
+                self::FIELD_TYPE  => self::FIELD_TYPE_INT,
+                self::FIELD_VALUE => [
                     "arrayKey" => [Language::$aliasList, Language::$activeId]
                 ],
             ],
             "width"         => [
-                self::FIELD_TYPE => self::FIELD_TYPE_INT,
-                self::FIELD_VALUE  => ["minThen" => [0, self::DEFAULT_WIDTH]],
+                self::FIELD_TYPE  => self::FIELD_TYPE_INT,
+                self::FIELD_VALUE => ["minThen" => [0, self::DEFAULT_WIDTH]],
             ],
             "isMain"        => [
                 self::FIELD_TYPE        => self::FIELD_TYPE_BOOL,

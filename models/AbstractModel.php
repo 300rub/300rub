@@ -12,7 +12,7 @@ use testS\components\ValueGenerator;
  * Abstract class for working with models
  *
  * @package testS\models
- * 
+ *
  * @method AbstractModel duplicate
  */
 abstract class AbstractModel
@@ -437,7 +437,7 @@ abstract class AbstractModel
         $info = $this->getFieldsInfo();
 
         if (!empty($fields["id"])) {
-            $this->id = (int) $fields["id"];
+            $this->id = (int)$fields["id"];
         }
 
         foreach ($fields as $field => $value) {
@@ -838,7 +838,7 @@ abstract class AbstractModel
      */
     protected function getString($value)
     {
-        return trim((string) $value);
+        return trim((string)$value);
     }
 
     /**
@@ -862,7 +862,7 @@ abstract class AbstractModel
      */
     protected function getInt($value)
     {
-        return (int) $value;
+        return (int)$value;
     }
 
     /**
@@ -886,7 +886,7 @@ abstract class AbstractModel
      */
     protected function getBool($value)
     {
-        return (bool) $value;
+        return (bool)$value;
     }
 
     /**
@@ -898,7 +898,7 @@ abstract class AbstractModel
      */
     protected function getBoolForDb($value)
     {
-        $value = (int) $value;
+        $value = (int)$value;
         if ($value >= 1) {
             return 1;
         }

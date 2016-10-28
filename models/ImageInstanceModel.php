@@ -78,8 +78,8 @@ class ImageInstanceModel extends AbstractModel
     {
         return [
             "fileName"     => [
-                self::FIELD_TYPE => self::FIELD_TYPE_STRING,
-                self::FIELD_VALUE  => ["setFileName"],
+                self::FIELD_TYPE  => self::FIELD_TYPE_STRING,
+                self::FIELD_VALUE => ["setFileName"],
             ],
             "imageAlbumId" => [
                 self::FIELD_RELATION => [
@@ -95,77 +95,77 @@ class ImageInstanceModel extends AbstractModel
                 self::FIELD_TYPE => self::FIELD_TYPE_INT,
             ],
             "alt"          => [
-                self::FIELD_TYPE => self::FIELD_TYPE_STRING,
-                self::FIELD_VALUE  => [
+                self::FIELD_TYPE  => self::FIELD_TYPE_STRING,
+                self::FIELD_VALUE => [
                     "clearStripTags"
                 ],
             ],
             "width"        => [
-                self::FIELD_TYPE => self::FIELD_TYPE_INT,
-                self::FIELD_VALUE  => [
-                    "min" => self::MIN_SIZE,
+                self::FIELD_TYPE  => self::FIELD_TYPE_INT,
+                self::FIELD_VALUE => [
+                    "min"    => self::MIN_SIZE,
                     "setMax" => self::MAX_SIZE
                 ],
             ],
             "height"       => [
-                self::FIELD_TYPE => self::FIELD_TYPE_INT,
-                self::FIELD_VALUE  => [
-                    "min" => self::MIN_SIZE,
+                self::FIELD_TYPE  => self::FIELD_TYPE_INT,
+                self::FIELD_VALUE => [
+                    "min"    => self::MIN_SIZE,
                     "setMax" => self::MAX_SIZE
                 ],
             ],
             "x1"           => [
-                self::FIELD_TYPE => self::FIELD_TYPE_INT,
-                self::FIELD_VALUE  => [
+                self::FIELD_TYPE  => self::FIELD_TYPE_INT,
+                self::FIELD_VALUE => [
                     "min" => 0,
                     "max" => ["{width}", self::MIN_SIZE, "-"]
                 ],
             ],
             "y1"           => [
-                self::FIELD_TYPE => self::FIELD_TYPE_INT,
-                self::FIELD_VALUE  => [
+                self::FIELD_TYPE  => self::FIELD_TYPE_INT,
+                self::FIELD_VALUE => [
                     "min" => 0,
                     "max" => ["{height}", self::MIN_SIZE, "-"]
                 ],
             ],
             "x2"           => [
-                self::FIELD_TYPE => self::FIELD_TYPE_INT,
-                self::FIELD_VALUE  => [
+                self::FIELD_TYPE  => self::FIELD_TYPE_INT,
+                self::FIELD_VALUE => [
                     "min" => ["{x1}", self::MIN_SIZE, "+"],
                     "max" => "{width}"
                 ],
             ],
             "y2"           => [
-                self::FIELD_TYPE => self::FIELD_TYPE_INT,
-                self::FIELD_VALUE  => [
+                self::FIELD_TYPE  => self::FIELD_TYPE_INT,
+                self::FIELD_VALUE => [
                     "min" => ["{y1}", self::MIN_SIZE, "+"],
                     "max" => "{height}"
                 ]
             ],
             "thumbX1"      => [
-                self::FIELD_TYPE => self::FIELD_TYPE_INT,
-                self::FIELD_VALUE  => [
+                self::FIELD_TYPE  => self::FIELD_TYPE_INT,
+                self::FIELD_VALUE => [
                     "min" => 0,
                     "max" => self::MAX_THUMB_SIZE - self::MIN_SIZE
                 ]
             ],
             "thumbY1"      => [
-                self::FIELD_TYPE => self::FIELD_TYPE_INT,
-                self::FIELD_VALUE  => [
+                self::FIELD_TYPE  => self::FIELD_TYPE_INT,
+                self::FIELD_VALUE => [
                     "min" => 0,
                     "max" => self::MAX_THUMB_SIZE - self::MIN_SIZE
                 ]
             ],
             "thumbX2"      => [
-                self::FIELD_TYPE => self::FIELD_TYPE_INT,
-                self::FIELD_VALUE  => [
+                self::FIELD_TYPE  => self::FIELD_TYPE_INT,
+                self::FIELD_VALUE => [
                     "min" => ["{thumbX1}", self::MIN_SIZE, "+"],
                     "max" => self::MAX_THUMB_SIZE
                 ]
             ],
             "thumbY2"      => [
-                self::FIELD_TYPE => self::FIELD_TYPE_INT,
-                self::FIELD_VALUE  => [
+                self::FIELD_TYPE  => self::FIELD_TYPE_INT,
+                self::FIELD_VALUE => [
                     "min" => ["{thumbY1}", self::MIN_SIZE, "+"],
                     "max" => self::MAX_THUMB_SIZE
                 ]

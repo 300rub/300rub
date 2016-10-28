@@ -118,90 +118,90 @@ class DesignBlockModel extends AbstractDesignModel
     {
         return [
             "marginTop"               => [
-                self::FIELD_TYPE => self::FIELD_TYPE_INT,
-                self::FIELD_SET  => ["min" => self::MIN_MARGIN_VALUE],
+                self::FIELD_TYPE  => self::FIELD_TYPE_INT,
+                self::FIELD_VALUE => ["min" => self::MIN_MARGIN_VALUE],
             ],
             "marginRight"             => [
-                self::FIELD_TYPE => self::FIELD_TYPE_INT,
-                self::FIELD_SET  => ["min" => self::MIN_MARGIN_VALUE],
+                self::FIELD_TYPE  => self::FIELD_TYPE_INT,
+                self::FIELD_VALUE => ["min" => self::MIN_MARGIN_VALUE],
             ],
             "marginBottom"            => [
-                self::FIELD_TYPE => self::FIELD_TYPE_INT,
-                self::FIELD_SET  => ["min" => self::MIN_MARGIN_VALUE],
+                self::FIELD_TYPE  => self::FIELD_TYPE_INT,
+                self::FIELD_VALUE => ["min" => self::MIN_MARGIN_VALUE],
             ],
             "marginLeft"              => [
-                self::FIELD_TYPE => self::FIELD_TYPE_INT,
-                self::FIELD_SET  => ["min" => self::MIN_MARGIN_VALUE],
+                self::FIELD_TYPE  => self::FIELD_TYPE_INT,
+                self::FIELD_VALUE => ["min" => self::MIN_MARGIN_VALUE],
             ],
             "paddingTop"              => [
-                self::FIELD_TYPE => self::FIELD_TYPE_INT,
-                self::FIELD_SET  => ["min" => 0],
+                self::FIELD_TYPE  => self::FIELD_TYPE_INT,
+                self::FIELD_VALUE => ["min" => 0],
             ],
             "paddingRight"            => [
-                self::FIELD_TYPE => self::FIELD_TYPE_INT,
-                self::FIELD_SET  => ["min" => 0],
+                self::FIELD_TYPE  => self::FIELD_TYPE_INT,
+                self::FIELD_VALUE => ["min" => 0],
             ],
             "paddingBottom"           => [
-                self::FIELD_TYPE => self::FIELD_TYPE_INT,
-                self::FIELD_SET  => ["min" => 0],
+                self::FIELD_TYPE  => self::FIELD_TYPE_INT,
+                self::FIELD_VALUE => ["min" => 0],
             ],
             "paddingLeft"             => [
-                self::FIELD_TYPE => self::FIELD_TYPE_INT,
-                self::FIELD_SET  => ["min" => 0],
+                self::FIELD_TYPE  => self::FIELD_TYPE_INT,
+                self::FIELD_VALUE => ["min" => 0],
             ],
             "backgroundColorFrom"     => [
-                self::FIELD_TYPE => self::FIELD_TYPE_STRING,
-                self::FIELD_SET  => ["color"],
+                self::FIELD_TYPE  => self::FIELD_TYPE_STRING,
+                self::FIELD_VALUE => ["color"],
             ],
             "backgroundColorTo"       => [
-                self::FIELD_TYPE => self::FIELD_TYPE_STRING,
-                self::FIELD_SET  => ["color"],
+                self::FIELD_TYPE  => self::FIELD_TYPE_STRING,
+                self::FIELD_VALUE => ["color"],
             ],
             "gradientDirection"       => [
-                self::FIELD_TYPE => self::FIELD_TYPE_INT,
-                self::FIELD_SET  => [
+                self::FIELD_TYPE  => self::FIELD_TYPE_INT,
+                self::FIELD_VALUE => [
                     "arrayKey" => [self::$gradientDirectionList, self::GRADIENT_DIRECTION_HORIZONTAL]
                 ],
             ],
             "borderTopWidth"          => [
-                self::FIELD_TYPE => self::FIELD_TYPE_INT,
-                self::FIELD_SET  => ["min" => 0],
+                self::FIELD_TYPE  => self::FIELD_TYPE_INT,
+                self::FIELD_VALUE => ["min" => 0],
             ],
             "borderRightWidth"        => [
-                self::FIELD_TYPE => self::FIELD_TYPE_INT,
-                self::FIELD_SET  => ["min" => 0],
+                self::FIELD_TYPE  => self::FIELD_TYPE_INT,
+                self::FIELD_VALUE => ["min" => 0],
             ],
             "borderBottomWidth"       => [
-                self::FIELD_TYPE => self::FIELD_TYPE_INT,
-                self::FIELD_SET  => ["min" => 0],
+                self::FIELD_TYPE  => self::FIELD_TYPE_INT,
+                self::FIELD_VALUE => ["min" => 0],
             ],
             "borderLeftWidth"         => [
-                self::FIELD_TYPE => self::FIELD_TYPE_INT,
-                self::FIELD_SET  => ["min" => 0],
+                self::FIELD_TYPE  => self::FIELD_TYPE_INT,
+                self::FIELD_VALUE => ["min" => 0],
             ],
             "borderTopLeftRadius"     => [
-                self::FIELD_TYPE => self::FIELD_TYPE_INT,
-                self::FIELD_SET  => ["min" => 0],
+                self::FIELD_TYPE  => self::FIELD_TYPE_INT,
+                self::FIELD_VALUE => ["min" => 0],
             ],
             "borderTopRightRadius"    => [
-                self::FIELD_TYPE => self::FIELD_TYPE_INT,
-                self::FIELD_SET  => ["min" => 0],
+                self::FIELD_TYPE  => self::FIELD_TYPE_INT,
+                self::FIELD_VALUE => ["min" => 0],
             ],
             "borderBottomRightRadius" => [
-                self::FIELD_TYPE => self::FIELD_TYPE_INT,
-                self::FIELD_SET  => ["min" => 0],
+                self::FIELD_TYPE  => self::FIELD_TYPE_INT,
+                self::FIELD_VALUE => ["min" => 0],
             ],
             "borderBottomLeftRadius"  => [
-                self::FIELD_TYPE => self::FIELD_TYPE_INT,
-                self::FIELD_SET  => ["min" => 0],
+                self::FIELD_TYPE  => self::FIELD_TYPE_INT,
+                self::FIELD_VALUE => ["min" => 0],
             ],
             "borderColor"             => [
-                self::FIELD_TYPE => self::FIELD_TYPE_STRING,
-                self::FIELD_SET  => ["color"],
+                self::FIELD_TYPE  => self::FIELD_TYPE_STRING,
+                self::FIELD_VALUE => ["color"],
             ],
             "borderStyle"             => [
-                self::FIELD_TYPE => self::FIELD_TYPE_INT,
-                self::FIELD_SET  => [
+                self::FIELD_TYPE  => self::FIELD_TYPE_INT,
+                self::FIELD_VALUE => [
                     "arrayKey" => [self::$borderStyleList, self::BORDER_STYLE_NONE]
                 ],
             ],
