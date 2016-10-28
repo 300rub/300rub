@@ -10,59 +10,60 @@ use testS\components\Db;
  *
  * @package testS\migrations
  */
-class M160301000000Sites extends AbstractMigration {
+class M160301000000Sites extends AbstractMigration
+{
 
-	/**
-	 * Flag. If it is true - it will be skipped in common applying
-	 *
-	 * @var bool
-	 */
-	public $isSkip = true;
+    /**
+     * Flag. If it is true - it will be skipped in common applying
+     *
+     * @var bool
+     */
+    public $isSkip = true;
 
-	/**
-	 * Applies migration
-	 */
-	public function up()
-	{
-		$this
-			->createTable(
-				"sites",
-				[
-					"id"          => "pk",
-					"host"        => "string",
-					"dbHost"     => "string",
-					"dbUser"     => "string",
-					"dbPassword" => "string",
-					"dbName"     => "string",
-					"language"    => "integer",
-					"email"       => "string",
-					"ssh"         => "string",
-				]
-			)
-			->createIndex("sites_host", "sites", "host");
-	}
+    /**
+     * Applies migration
+     */
+    public function up()
+    {
+        $this
+            ->createTable(
+                "sites",
+                [
+                    "id"         => "pk",
+                    "host"       => "string",
+                    "dbHost"     => "string",
+                    "dbUser"     => "string",
+                    "dbPassword" => "string",
+                    "dbName"     => "string",
+                    "language"   => "integer",
+                    "email"      => "string",
+                    "ssh"        => "string",
+                ]
+            )
+            ->createIndex("sites", "host");
+    }
 
-	/**
-	 * Inserts test data
-	 */
-	public function insertData()
-	{
-		$config = App::getApplication()->config;
+    /**
+     * Inserts test data
+     */
+    public function insertData()
+    {
+        $config = App::getApplication()->config;
 
-		Db::execute(
-			"INSERT " .
-			"INTO sites (host, dbHost, dbUser, dbPassword, dbName, language, email, ssh) " .
-			"VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
-			[
-				$config->host,
-				$config->db->host,
-				$config->db->user,
-				$config->db->password,
-				$config->db->name,
-				$config->language,
-				$config->email->address,
-				$config->ssh->active
-			]
-		);
-	}
+        Db::execute(
+            "INSERT " .
+            "INTO sites (host, dbHost, dbUser, dbPassword, dbName, language, email, ssh) " .
+            "VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
+            [
+                $config->host,
+                $config->db->host,
+                $config->db->user,
+                $config->db->password,
+                $config->db->name,
+                $config->language,
+                $config->email->address,
+                $config->ssh->active
+            ]
+        );
+    }
 }

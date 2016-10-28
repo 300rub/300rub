@@ -26,9 +26,9 @@ class M160317000000Images extends AbstractMigration
                     "designTextId"       => "integer",
                 ]
             )
-            ->createIndex("designImageSimplesDesignBlockId", "designImageSimples", "designBlockId")
-            ->createIndex("designImageSimplesImageDesignBlockId", "designImageSimples", "imageDesignBlockId")
-            ->createIndex("designImageSimplesDesignTextId", "designImageSimples", "designTextId")
+            ->createForeignKey("designImageSimples", "designBlockId", "designBlocks")
+            ->createForeignKey("designImageSimples", "imageDesignBlockId", "designBlocks")
+            ->createForeignKey("designImageSimples", "designTextId", "designTexts")
             ->createTable(
                 "designImageZooms",
                 [
@@ -40,7 +40,7 @@ class M160317000000Images extends AbstractMigration
                     "effect"               => "integer",
                 ]
             )
-            ->createIndex("designImageZoomsDesignBlockId", "designImageZooms", "designBlockId")
+            ->createForeignKey("designImageZooms", "designBlockId", "designBlocks")
             ->createTable(
                 "designImageSliders",
                 [
@@ -55,17 +55,9 @@ class M160317000000Images extends AbstractMigration
                     "descriptionAlignment"     => "integer",
                 ]
             )
-            ->createIndex("designImageSlidersDesignBlockId", "designImageSliders", "designBlockId")
-            ->createIndex(
-                "designImageSlidersNavigationDesignBlockId",
-                "designImageSliders",
-                "navigationDesignBlockId"
-            )
-            ->createIndex(
-                "designImageSlidersDescriptionDesignBlockId",
-                "designImageSliders",
-                "descriptionDesignBlockId"
-            )
+            ->createForeignKey("designImageSliders", "designBlockId", "designBlocks")
+            ->createForeignKey("designImageSliders", "navigationDesignBlockId", "designBlocks")
+            ->createForeignKey("designImageSliders", "descriptionDesignBlockId", "designBlocks")
             ->createTable(
                 "images",
                 [
@@ -88,10 +80,10 @@ class M160317000000Images extends AbstractMigration
                     "useAlbums"           => "boolean",
                 ]
             )
-            ->createIndex("imagesDesignBlockId", "images", "designBlockId")
-            ->createIndex("imagesDesignImageSliderId", "images", "designImageSliderId")
-            ->createIndex("imagesDesignImageZoomId", "images", "designImageZoomId")
-            ->createIndex("imagesDesignImageSimpleId", "images", "designImageSimpleId")
+            ->createForeignKey("images", "designBlockId", "designBlocks")
+            ->createForeignKey("images", "designImageSliderId", "designBlocks")
+            ->createForeignKey("images", "designImageZoomId", "designBlocks")
+            ->createForeignKey("images", "designImageSimpleId", "designBlocks")
             ->createTable(
                 "imageAlbums",
                 [
@@ -101,8 +93,8 @@ class M160317000000Images extends AbstractMigration
                     "sort"    => "integer",
                 ]
             )
-            ->createIndex("imageAlbumsImageId", "imageAlbums", "imageId")
-            ->createIndex("imageAlbumsSort", "imageAlbums", "sort")
+            ->createForeignKey("imageAlbums", "imageId", "images", self::FK_CASCADE, self::FK_CASCADE)
+            ->createIndex("imageAlbums", "sort")
             ->createTable(
                 "imageInstances",
                 [
@@ -124,8 +116,8 @@ class M160317000000Images extends AbstractMigration
                     "thumbY2"      => "integer",
                 ]
             )
-            ->createIndex("imageInstancesImageAlbumId", "imageInstances", "imageAlbumId")
-            ->createIndex("imageInstancesIsCover", "imageInstances", "isCover")
-            ->createIndex("imageInstancesSort", "imageInstances", "sort");
+            ->createForeignKey("imageInstances", "imageAlbumId", "imageAlbums", self::FK_CASCADE, self::FK_CASCADE)
+            ->createIndex("imageInstances", "isCover")
+            ->createIndex("imageInstances", "sort");
     }
 }

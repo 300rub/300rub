@@ -10,26 +10,26 @@ namespace testS\migrations;
 class M160309000000Texts extends AbstractMigration
 {
 
-	/**
-	 * Applies migration
-	 */
-	public function up()
-	{
-		$this
-			->createTable(
-				"texts",
-				[
-					"id"              => "pk",
-					"name"            => "string",
-					"language"        => "integer",
-					"type"            => "integer",
-					"isEditor"       => "boolean",
-					"text"            => "text",
-					"designTextId"  => "integer",
-					"designBlockId" => "integer",
-				]
-			)
-			->createIndex("textsDesignTextId", "texts", "designTextId")
-			->createIndex("textsDesignBlockId", "texts", "designBlockId");
-	}
+    /**
+     * Applies migration
+     */
+    public function up()
+    {
+        $this
+            ->createTable(
+                "texts",
+                [
+                    "id"            => "pk",
+                    "name"          => "string",
+                    "language"      => "integer",
+                    "type"          => "integer",
+                    "isEditor"      => "boolean",
+                    "text"          => "text",
+                    "designTextId"  => "integer",
+                    "designBlockId" => "integer",
+                ]
+            )
+            ->createForeignKey("texts", "designTextId", "designTexts")
+            ->createForeignKey("texts", "designBlockId", "designBlocks");
+    }
 }
