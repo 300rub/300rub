@@ -218,7 +218,7 @@ class DesignTextModel extends AbstractDesignModel
         return [
             "size"               => [
                 self::FIELD_TYPE => self::FIELD_TYPE_INT,
-                self::FIELD_SET  => ["setMin" => self::MIN_SIZE_VALUE],
+                self::FIELD_SET  => ["min" => self::MIN_SIZE_VALUE],
             ],
             "family"             => [
                 self::FIELD_TYPE => self::FIELD_TYPE_INT,
@@ -226,7 +226,7 @@ class DesignTextModel extends AbstractDesignModel
             ],
             "color"     => [
                 self::FIELD_TYPE => self::FIELD_TYPE_STRING,
-                self::FIELD_SET  => ["parseColor"],
+                self::FIELD_SET  => ["color"],
             ],
             "isItalic"       => [
                 self::FIELD_TYPE => self::FIELD_TYPE_BOOL,
@@ -248,7 +248,7 @@ class DesignTextModel extends AbstractDesignModel
             ],
             "letterSpacing"               => [
                 self::FIELD_TYPE => self::FIELD_TYPE_INT,
-                self::FIELD_SET  => ["setMin" => self::MIN_LETTER_SPACING_VALUE],
+                self::FIELD_SET  => ["min" => self::MIN_LETTER_SPACING_VALUE],
             ],
             "lineHeight"             => [
                 self::FIELD_TYPE => self::FIELD_TYPE_INT,

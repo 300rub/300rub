@@ -105,20 +105,4 @@ abstract class AbstractDesignModel extends AbstractModel
 
         return $this;
     }
-
-    /**
-     * Parses color
-     *
-     * @param string $value Color value
-     *
-     * @return string
-     */
-    protected function parseColor($value)
-    {
-        if (preg_match('/(.*?)(rgb|rgba)\((\d+),\s*(\d+),\s*(\d+)(?:,\s*(\d+(?:\.\d+)?))?\)/i', $value)) {
-            return $value;
-        }
-
-        return "";
-    }
 }

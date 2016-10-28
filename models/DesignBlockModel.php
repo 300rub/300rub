@@ -130,43 +130,43 @@ class DesignBlockModel extends AbstractDesignModel
         return [
             "marginTop"               => [
                 self::FIELD_TYPE => self::FIELD_TYPE_INT,
-                self::FIELD_SET  => ["setMin" => self::MIN_MARGIN_VALUE],
+                self::FIELD_SET  => ["min" => self::MIN_MARGIN_VALUE],
             ],
             "marginRight"             => [
                 self::FIELD_TYPE => self::FIELD_TYPE_INT,
-                self::FIELD_SET  => ["setMin" => self::MIN_MARGIN_VALUE],
+                self::FIELD_SET  => ["min" => self::MIN_MARGIN_VALUE],
             ],
             "marginBottom"            => [
                 self::FIELD_TYPE => self::FIELD_TYPE_INT,
-                self::FIELD_SET  => ["setMin" => self::MIN_MARGIN_VALUE],
+                self::FIELD_SET  => ["min" => self::MIN_MARGIN_VALUE],
             ],
             "marginLeft"              => [
                 self::FIELD_TYPE => self::FIELD_TYPE_INT,
-                self::FIELD_SET  => ["setMin" => self::MIN_MARGIN_VALUE],
+                self::FIELD_SET  => ["min" => self::MIN_MARGIN_VALUE],
             ],
             "paddingTop"              => [
                 self::FIELD_TYPE => self::FIELD_TYPE_INT,
-                self::FIELD_SET  => ["setMin" => 0],
+                self::FIELD_SET  => ["min" => 0],
             ],
             "paddingRight"            => [
                 self::FIELD_TYPE => self::FIELD_TYPE_INT,
-                self::FIELD_SET  => ["setMin" => 0],
+                self::FIELD_SET  => ["min" => 0],
             ],
             "paddingBottom"           => [
                 self::FIELD_TYPE => self::FIELD_TYPE_INT,
-                self::FIELD_SET  => ["setMin" => 0],
+                self::FIELD_SET  => ["min" => 0],
             ],
             "paddingLeft"             => [
                 self::FIELD_TYPE => self::FIELD_TYPE_INT,
-                self::FIELD_SET  => ["setMin" => 0],
+                self::FIELD_SET  => ["min" => 0],
             ],
             "backgroundColorFrom"     => [
                 self::FIELD_TYPE => self::FIELD_TYPE_STRING,
-                self::FIELD_SET  => ["parseColor"],
+                self::FIELD_SET  => ["color"],
             ],
             "backgroundColorTo"       => [
                 self::FIELD_TYPE => self::FIELD_TYPE_STRING,
-                self::FIELD_SET  => ["parseColor"],
+                self::FIELD_SET  => ["color"],
             ],
             "gradientDirection"       => [
                 self::FIELD_TYPE => self::FIELD_TYPE_INT,
@@ -174,39 +174,39 @@ class DesignBlockModel extends AbstractDesignModel
             ],
             "borderTopWidth"          => [
                 self::FIELD_TYPE => self::FIELD_TYPE_INT,
-                self::FIELD_SET  => ["setMin" => 0],
+                self::FIELD_SET  => ["min" => 0],
             ],
             "borderRightWidth"        => [
                 self::FIELD_TYPE => self::FIELD_TYPE_INT,
-                self::FIELD_SET  => ["setMin" => 0],
+                self::FIELD_SET  => ["min" => 0],
             ],
             "borderBottomWidth"       => [
                 self::FIELD_TYPE => self::FIELD_TYPE_INT,
-                self::FIELD_SET  => ["setMin" => 0],
+                self::FIELD_SET  => ["min" => 0],
             ],
             "borderLeftWidth"         => [
                 self::FIELD_TYPE => self::FIELD_TYPE_INT,
-                self::FIELD_SET  => ["setMin" => 0],
+                self::FIELD_SET  => ["min" => 0],
             ],
             "borderTopLeftRadius"     => [
                 self::FIELD_TYPE => self::FIELD_TYPE_INT,
-                self::FIELD_SET  => ["setMin" => 0],
+                self::FIELD_SET  => ["min" => 0],
             ],
             "borderTopRightRadius"    => [
                 self::FIELD_TYPE => self::FIELD_TYPE_INT,
-                self::FIELD_SET  => ["setMin" => 0],
+                self::FIELD_SET  => ["min" => 0],
             ],
             "borderBottomRightRadius" => [
                 self::FIELD_TYPE => self::FIELD_TYPE_INT,
-                self::FIELD_SET  => ["setMin" => 0],
+                self::FIELD_SET  => ["min" => 0],
             ],
             "borderBottomLeftRadius"  => [
                 self::FIELD_TYPE => self::FIELD_TYPE_INT,
-                self::FIELD_SET  => ["setMin" => 0],
+                self::FIELD_SET  => ["min" => 0],
             ],
             "borderColor"             => [
                 self::FIELD_TYPE => self::FIELD_TYPE_STRING,
-                self::FIELD_SET  => ["parseColor"],
+                self::FIELD_SET  => ["color"],
             ],
             "borderStyle"             => [
                 self::FIELD_TYPE => self::FIELD_TYPE_INT,

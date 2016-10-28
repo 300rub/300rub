@@ -60,17 +60,6 @@ class ImageInstanceModel extends AbstractModel
     private $_format = "jpg";
 
     /**
-     * Gets model object
-     *
-     * @return ImageInstanceModel
-     */
-    public static function model()
-    {
-        $className = __CLASS__;
-        return new $className;
-    }
-
-    /**
      * Gets table name
      *
      * @return string
@@ -111,27 +100,27 @@ class ImageInstanceModel extends AbstractModel
             ],
             "width"        => [
                 self::FIELD_TYPE => self::FIELD_TYPE_INT,
-                self::FIELD_SET  => ["setMin" => self::MIN_SIZE, "setMax" => self::MAX_SIZE],
+                self::FIELD_SET  => ["min" => self::MIN_SIZE, "setMax" => self::MAX_SIZE],
             ],
             "height"       => [
                 self::FIELD_TYPE => self::FIELD_TYPE_INT,
-                self::FIELD_SET  => ["setMin" => self::MIN_SIZE, "setMax" => self::MAX_SIZE],
+                self::FIELD_SET  => ["min" => self::MIN_SIZE, "setMax" => self::MAX_SIZE],
             ],
             "x1"           => [
                 self::FIELD_TYPE => self::FIELD_TYPE_INT,
-                self::FIELD_SET  => ["setMin" => 0, "setX1"],
+                self::FIELD_SET  => ["min" => 0, "setX1"],
             ],
             "y1"           => [
                 self::FIELD_TYPE => self::FIELD_TYPE_INT,
-                self::FIELD_SET  => ["setMin" => 0, "setY1"],
+                self::FIELD_SET  => ["min" => 0, "setY1"],
             ],
             "x2"           => [
                 self::FIELD_TYPE => self::FIELD_TYPE_INT,
-                self::FIELD_SET  => ["setMin" => 0, "setX2"],
+                self::FIELD_SET  => ["min" => 0, "setX2"],
             ],
             "y2"           => [
                 self::FIELD_TYPE => self::FIELD_TYPE_INT,
-                self::FIELD_SET  => ["setMin" => 0, "setY2"],
+                self::FIELD_SET  => ["min" => 0, "setY2"],
             ],
             "thumbX1"      => [
                 self::FIELD_TYPE => self::FIELD_TYPE_INT,

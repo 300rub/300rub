@@ -7,14 +7,10 @@ use testS\components\Language;
 /**
  * Model for working with table "texts"
  *
- * @property int    $type
- * @property string $name
- *
  * @method TextModel[] findAll
- * @method TextModel ordered
- * @method TextModel byId($id)
- * @method TextModel find
- * @method TextModel withAll
+ * @method TextModel   ordered
+ * @method TextModel   byId($id)
+ * @method TextModel   find
  *
  * @package testS\models
  */
@@ -41,19 +37,25 @@ class TextModel extends AbstractModel
         self::TYPE_H1      => "h1",
         self::TYPE_H2      => "h2",
         self::TYPE_H3      => "h3",
-        self::TYPE_ADDRESS => "adress",
+        self::TYPE_ADDRESS => "address",
         self::TYPE_MARK    => "mark",
     ];
 
     /**
-     * Gets model object
+     * Gets type list
      *
-     * @return TextModel
+     * @return array
      */
-    public static function model()
+    public static function getTypeList()
     {
-        $className = __CLASS__;
-        return new $className;
+        return [
+            self::TYPE_DIV     => Language::t("text", "typeDefault"),
+            self::TYPE_H1      => Language::t("text", "typeH1"),
+            self::TYPE_H2      => Language::t("text", "typeH2"),
+            self::TYPE_H3      => Language::t("text", "typeH3"),
+            self::TYPE_ADDRESS => Language::t("text", "typeAddress"),
+            self::TYPE_MARK    => Language::t("text", "typeImportant"),
+        ];
     }
 
     /**
@@ -82,14 +84,16 @@ class TextModel extends AbstractModel
             ],
             "language"      => [
                 self::FIELD_TYPE => self::FIELD_TYPE_INT,
-                self::FIELD_SET  => ["setLanguage"],
+                self::FIELD_SET  => [
+                    "arrayKey" => [Language::$aliasList, Language::$activeId]
+                ],
             ],
             "isEditor"      => [
                 self::FIELD_TYPE => self::FIELD_TYPE_BOOL,
             ],
             "type"          => [
                 self::FIELD_TYPE => self::FIELD_TYPE_INT,
-                self::FIELD_SET  => ["setType"],
+                self::FIELD_SET  => ["arrayKey" => [self::$typeTagList, self::TYPE_DIV]],
             ],
             "text"          => [
                 self::FIELD_TYPE => self::FIELD_TYPE_STRING,
@@ -109,52 +113,5 @@ class TextModel extends AbstractModel
                 ]
             ]
         ];
-    }
-
-    /**
-     * Gets type list
-     *
-     * @return array
-     */
-    public static function getTypeList()
-    {
-        return [
-            self::TYPE_DIV     => Language::t("text", "typeDefault"),
-            self::TYPE_H1      => Language::t("text", "typeH1"),
-            self::TYPE_H2      => Language::t("text", "typeH2"),
-            self::TYPE_H3      => Language::t("text", "typeH3"),
-            self::TYPE_ADDRESS => Language::t("text", "typeAddress"),
-            self::TYPE_MARK    => Language::t("text", "typeImportant"),
-        ];
-    }
-
-    /**
-     * Gets tag name
-     *
-     * @return string
-     */
-    public function getTag()
-    {
-        if (array_key_exists($this->type, self::$typeTagList)) {
-            return self::$typeTagList[$this->type];
-        }
-
-        return self::$typeTagList[self::TYPE_DIV];
-    }
-
-    /**
-     * Sets type
-     *
-     * @param int $value
-     *
-     * @return int
-     */
-    protected function setType($value)
-    {
-        if (!array_key_exists($value, self::$typeTagList)) {
-            $value = self::TYPE_DIV;
-        }
-
-        return $value;
     }
 }

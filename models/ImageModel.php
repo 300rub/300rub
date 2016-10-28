@@ -12,7 +12,6 @@ use testS\components\exceptions\ModelException;
  * @method ImageModel[] findAll
  * @method ImageModel   byId($id)
  * @method ImageModel   find
- * @method ImageModel   withAll
  */
 class ImageModel extends AbstractModel
 {
@@ -37,154 +36,6 @@ class ImageModel extends AbstractModel
     const TYPE_ZOOM = 0;
     const TYPE_SLIDER = 1;
     const TYPE_SIMPLE = 2;
-
-    /**
-     * Gets model object
-     *
-     * @return ImageModel
-     */
-    public static function model()
-    {
-        $className = __CLASS__;
-        return new $className;
-    }
-
-    /**
-     * Gets table name
-     *
-     * @return string
-     */
-    public function getTableName()
-    {
-        return "images";
-    }
-
-    /**
-     * Gets fields info
-     *
-     * @return array
-     */
-    protected function getFieldsInfo()
-    {
-        return [
-            "name"                => [
-                self::FIELD_TYPE       => self::FIELD_TYPE_STRING,
-                self::FIELD_VALIDATION => ["required", "max" => 255],
-                self::FIELD_SET        => ["clearStripTags"],
-            ],
-            "language"            => [
-                self::FIELD_TYPE => self::FIELD_TYPE_INT,
-                self::FIELD_SET  => ["setLanguage"],
-            ],
-            "designBlockId"       => [
-                self::FIELD_RELATION => [
-                    self::FIELD_RELATION_MODEL => "DesignBlockModel",
-                    self::FIELD_RELATION_NAME  => "designBlockModel",
-                    self::FIELD_RELATION_TYPE  => self::FIELD_RELATION_TYPE_BELONGS_TO
-                ]
-            ],
-            "designImageSliderId" => [
-                self::FIELD_RELATION => [
-                    self::FIELD_RELATION_MODEL => "DesignBlockModel",
-                    self::FIELD_RELATION_NAME  => "designImageSliderModel",
-                    self::FIELD_RELATION_TYPE  => self::FIELD_RELATION_TYPE_BELONGS_TO
-                ]
-            ],
-            "designImageZoomId"   => [
-                self::FIELD_RELATION => [
-                    self::FIELD_RELATION_MODEL => "DesignBlockModel",
-                    self::FIELD_RELATION_NAME  => "designImageZoomModel",
-                    self::FIELD_RELATION_TYPE  => self::FIELD_RELATION_TYPE_BELONGS_TO
-                ]
-            ],
-            "designImageSimpleId" => [
-                self::FIELD_RELATION => [
-                    self::FIELD_RELATION_MODEL => "DesignBlockModel",
-                    self::FIELD_RELATION_NAME  => "designImageSimpleModel",
-                    self::FIELD_RELATION_TYPE  => self::FIELD_RELATION_TYPE_BELONGS_TO
-                ]
-            ],
-            "type"                => [
-                self::FIELD_TYPE => self::FIELD_TYPE_INT,
-                self::FIELD_SET  => ["setType"],
-            ],
-            "autoCropType"        => [
-                self::FIELD_TYPE => self::FIELD_TYPE_INT,
-                self::FIELD_SET  => ["setAutoCropType"],
-            ],
-            "cropWidth"           => [
-                self::FIELD_TYPE => self::FIELD_TYPE_INT,
-                self::FIELD_SET  => ["setMax" => ImageInstanceModel::MAX_SIZE],
-            ],
-            "cropHeight"          => [
-                self::FIELD_TYPE => self::FIELD_TYPE_INT,
-                self::FIELD_SET  => ["setMax" => ImageInstanceModel::MAX_SIZE],
-            ],
-            "cropX"               => [
-                self::FIELD_TYPE => self::FIELD_TYPE_INT,
-            ],
-            "cropY"               => [
-                self::FIELD_TYPE => self::FIELD_TYPE_INT,
-            ],
-            "thumbAutoCropType"   => [
-                self::FIELD_TYPE => self::FIELD_TYPE_INT,
-                self::FIELD_SET  => ["setAutoCropType"],
-            ],
-            "thumbCropX"          => [
-                self::FIELD_TYPE => self::FIELD_TYPE_INT,
-            ],
-            "thumbCropY"          => [
-                self::FIELD_TYPE => self::FIELD_TYPE_INT,
-            ],
-            "useAlbums"           => [
-                self::FIELD_TYPE => self::FIELD_TYPE_BOOL
-            ],
-        ];
-    }
-
-    /**
-     * Sets Type
-     *
-     * @param int $value
-     *
-     * @return int
-     */
-    protected function setType($value)
-    {
-        if (!array_key_exists($value, self::getTypeList())) {
-            $value = self::TYPE_ZOOM;
-        }
-
-        return $value;
-    }
-
-    /**
-     * Sets Auto Crop Type
-     *
-     * @param int $value
-     *
-     * @return int
-     */
-    protected function setAutoCropType($value)
-    {
-        if (!array_key_exists($value, self::getAutoCropTypeList())) {
-            $value = self::AUTO_CROP_TYPE_MIDDLE_CENTER;
-        }
-
-        return $value;
-    }
-
-    /**
-     * Runs before delete
-     *
-     * @throws ModelException
-     */
-    protected function beforeDelete()
-    {
-        // delete images ()
-
-        parent::beforeDelete();
-    }
 
     /**
      * Gets crop type list
@@ -219,5 +70,114 @@ class ImageModel extends AbstractModel
             self::TYPE_SLIDER => "",
             self::TYPE_SIMPLE => ""
         ];
+    }
+
+    /**
+     * Gets table name
+     *
+     * @return string
+     */
+    public function getTableName()
+    {
+        return "images";
+    }
+
+    /**
+     * Gets fields info
+     *
+     * @return array
+     */
+    protected function getFieldsInfo()
+    {
+        return [
+            "name"                => [
+                self::FIELD_TYPE       => self::FIELD_TYPE_STRING,
+                self::FIELD_VALIDATION => ["required", "max" => 255],
+                self::FIELD_SET        => ["clearStripTags"],
+            ],
+            "language"            => [
+                self::FIELD_TYPE => self::FIELD_TYPE_INT,
+                self::FIELD_SET  => ["setLanguage"],
+            ],
+            "type"                => [
+                self::FIELD_TYPE => self::FIELD_TYPE_INT,
+                self::FIELD_SET  => [
+                    "arrayKey" => [self::getTypeList(), self::TYPE_ZOOM]
+                ],
+            ],
+            "autoCropType"        => [
+                self::FIELD_TYPE => self::FIELD_TYPE_INT,
+                self::FIELD_SET  => [
+                    "arrayKey" => [self::getAutoCropTypeList(), self::AUTO_CROP_TYPE_MIDDLE_CENTER]
+                ],
+            ],
+            "cropWidth"           => [
+                self::FIELD_TYPE => self::FIELD_TYPE_INT,
+                self::FIELD_SET  => ["setMax" => ImageInstanceModel::MAX_SIZE],
+            ],
+            "cropHeight"          => [
+                self::FIELD_TYPE => self::FIELD_TYPE_INT,
+                self::FIELD_SET  => ["setMax" => ImageInstanceModel::MAX_SIZE],
+            ],
+            "cropX"               => [
+                self::FIELD_TYPE => self::FIELD_TYPE_INT,
+            ],
+            "cropY"               => [
+                self::FIELD_TYPE => self::FIELD_TYPE_INT,
+            ],
+            "thumbAutoCropType"   => [
+                self::FIELD_TYPE => self::FIELD_TYPE_INT,
+                self::FIELD_SET  => ["setAutoCropType"],
+            ],
+            "thumbCropX"          => [
+                self::FIELD_TYPE => self::FIELD_TYPE_INT,
+            ],
+            "thumbCropY"          => [
+                self::FIELD_TYPE => self::FIELD_TYPE_INT,
+            ],
+            "useAlbums"           => [
+                self::FIELD_TYPE => self::FIELD_TYPE_BOOL
+            ],
+            "designBlockId"       => [
+                self::FIELD_RELATION => [
+                    self::FIELD_RELATION_MODEL => "DesignBlockModel",
+                    self::FIELD_RELATION_NAME  => "designBlockModel",
+                    self::FIELD_RELATION_TYPE  => self::FIELD_RELATION_TYPE_BELONGS_TO
+                ]
+            ],
+            "designImageSliderId" => [
+                self::FIELD_RELATION => [
+                    self::FIELD_RELATION_MODEL => "DesignBlockModel",
+                    self::FIELD_RELATION_NAME  => "designImageSliderModel",
+                    self::FIELD_RELATION_TYPE  => self::FIELD_RELATION_TYPE_BELONGS_TO
+                ]
+            ],
+            "designImageZoomId"   => [
+                self::FIELD_RELATION => [
+                    self::FIELD_RELATION_MODEL => "DesignBlockModel",
+                    self::FIELD_RELATION_NAME  => "designImageZoomModel",
+                    self::FIELD_RELATION_TYPE  => self::FIELD_RELATION_TYPE_BELONGS_TO
+                ]
+            ],
+            "designImageSimpleId" => [
+                self::FIELD_RELATION => [
+                    self::FIELD_RELATION_MODEL => "DesignBlockModel",
+                    self::FIELD_RELATION_NAME  => "designImageSimpleModel",
+                    self::FIELD_RELATION_TYPE  => self::FIELD_RELATION_TYPE_BELONGS_TO
+                ]
+            ],
+        ];
+    }
+
+    /**
+     * Runs before delete
+     *
+     * @throws ModelException
+     */
+    protected function beforeDelete()
+    {
+        // delete images ()
+
+        parent::beforeDelete();
     }
 }
