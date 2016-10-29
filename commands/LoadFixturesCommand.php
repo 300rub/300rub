@@ -13,6 +13,22 @@ use testS\models\AbstractModel;
 class LoadFixturesCommand extends AbstractCommand
 {
 
+    /**
+     * Order of fixtures loading
+     *
+     * @var string[]
+     */
+    private static $fixtureOrder = [
+        "user",
+        "text",
+        "image",
+        "imageAlbum",
+        "imageInstance",
+        "section",
+        "gridLine",
+        "grid"
+    ];
+
 	/**
 	 * Runs the command
 	 *
@@ -43,18 +59,22 @@ class LoadFixturesCommand extends AbstractCommand
 		// DB
 		$files = array_diff(scandir(__DIR__ . "/../fixtures"), ["..", ".", "files"]);
 
-		foreach ($files as $file) {
-			$records = require(__DIR__ . "/../fixtures/" . $file);
+		foreach (self::$fixtureOrder as $fixture) {
+		    $filePath = __DIR__ . "/../fixtures/{$fixture}.php";
+            if (!file_exists($filePath)) {
+                continue;
+            }
+
+			$records = require($filePath);
 
 			foreach ($records as $id => $record) {
-				$modelName = "\\testS\\models\\" . ucfirst(str_replace(".php", "", $file)) . "Model";
+				$modelName = "\\testS\\models\\" . ucfirst($fixture) . "Model";
 
 				/**
 				 * @var AbstractModel $model
 				 */
 				$model = new $modelName;
-				$model->checkParentBeforeSave = false;
-				$model->setAttributes($record);
+				$model->setFields($record);
 				$model->save();
 			}
 		}

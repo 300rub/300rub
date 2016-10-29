@@ -107,7 +107,7 @@ abstract class AbstractMigration
     {
         try {
             Db::execute(
-                printf(
+                sprintf(
                     "ALTER" . " TABLE %s ADD INDEX %s_%s (%s)",
                     $table,
                     $table,
@@ -153,9 +153,11 @@ abstract class AbstractMigration
         try {
             Db::execute(
                 sprintf(
-                    "ALTER" . " TABLE %s ADD FOREIGN KEY (%s_%s_fk) REFERENCES %s(id) ON UPDATE %s ON DELETE %s",
+                    "ALTER" . " TABLE %s ADD CONSTRAINT %s_%s_fk FOREIGN KEY (%s) " .
+                    "REFERENCES %s(id) ON UPDATE %s ON DELETE %s",
                     $table,
                     $table,
+                    $column,
                     $column,
                     $reference,
                     $onUpdate,
