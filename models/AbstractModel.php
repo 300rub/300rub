@@ -513,15 +513,9 @@ abstract class AbstractModel
 
         foreach ($parameters[self::FIELD_VALUE] as $key => $value) {
             if (is_string($key)) {
-                $method = $key;
-                if (method_exists('ValueGenerator', $method)) {
-                    $this->$field = ValueGenerator::$method($this->$field, $value);
-                }
+                $this->$field = ValueGenerator::$key($this->$field, $value);
             } else {
-                $method = $value;
-                if (method_exists('ValueGenerator', $method)) {
-                    $this->$field = ValueGenerator::$method($this->$field);
-                }
+                $this->$field = ValueGenerator::$value($this->$field);
             }
         }
 

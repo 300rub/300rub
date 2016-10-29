@@ -2,6 +2,7 @@
 
 namespace testS\tests\unit\models;
 
+use testS\components\exceptions\ModelException;
 use testS\models\AbstractModel;
 use testS\tests\unit\AbstractUnitTest;
 
@@ -12,6 +13,11 @@ use testS\tests\unit\AbstractUnitTest;
  */
 abstract class AbstractModelTest extends AbstractUnitTest
 {
+
+    /**
+     * Exception
+     */
+    const MODEL_EXCEPTION = "ModelException";
 
     /**
      * Model object
@@ -31,56 +37,51 @@ abstract class AbstractModelTest extends AbstractUnitTest
      * CRUD
      *
      * @param array $createData
-     * @param array $createErrors
-     * @param array $createExpected
+     * @param mixed $createExpected
      * @param array $updateData
-     * @param array $updateErrors
-     * @param array $updateExpected
+     * @param mixed $updateExpected
      *
      * @dataProvider dataProviderForCRUD
      *
      * @return bool
      */
-    public function testCRUD(
-        array $createData,
-        array $createErrors,
-        array $createExpected = [],
-        array $updateData = [],
-        array $updateErrors = [],
-        array $updateExpected = []
-    )
+    public function testCRUD(array $createData, $createExpected, array $updateData = [], $updateExpected = null)
     {
         // Create
-        $model = $this->getModel();
-        $model->setFields($createData);
-        $model->save();
-        if (count($model->getErrors()) > 0) {
-            $this->_checkErrors($model, $createErrors);
+        try {
+            $model = $this->getModel();
+            $model->setFields($createData);
+            $model->save();
+
+            if (count($model->getErrors()) > 0) {
+                $this->_checkErrors($model, $createExpected);
+                return true;
+            }
+        } catch (ModelException $e) {
+            $this->assertEquals(self::MODEL_EXCEPTION, $createExpected);
             return true;
         }
 
-        // Read
-        $model = $this->getModel()->byId($model->id)->withRelations()->find();
-        $this->_checkValues($model, $createExpected);
-        foreach ($model->getRelationsFieldsInfo() as $relationsFieldInfo) {
-            $relationModelName = "\\testS\\models\\" . $relationsFieldInfo[AbstractModel::FIELD_RELATION_MODEL];
-            $relationFieldName = $relationsFieldInfo[AbstractModel::FIELD_RELATION_NAME];
-            $relationType = $relationsFieldInfo[AbstractModel::FIELD_RELATION_TYPE];
-            if ($relationType === AbstractModel::FIELD_RELATION_TYPE_BELONGS_TO) {
-                $this->assertInstanceOf($relationModelName, $model->$relationFieldName);
-            }
-        }
+        // Read created
+        $this->_read($model->id, $createExpected);
 
         // Update
-        $model->setFields($updateData);
-        $model->save();
-        if (count($model->getErrors()) > 0) {
-            $this->_checkErrors($model, $updateErrors);
+        try {
+            $model->setFields($updateData);
+            $model->save();
+            if (count($model->getErrors()) > 0) {
+                $this->_checkErrors($model, $updateExpected);
+                return true;
+            }
+
+            $this->_checkValues($model, $updateExpected);
+        } catch (ModelException $e) {
+            $this->assertEquals(self::MODEL_EXCEPTION, $updateExpected);
             return true;
         }
 
-        $this->_checkErrors($model, $updateErrors);
-        $this->_checkValues($model, $updateExpected);
+        // Read updated
+        $this->_read($model->id, $updateExpected);
 
         // Delete
         $model->delete();
@@ -98,6 +99,26 @@ abstract class AbstractModelTest extends AbstractUnitTest
         }
 
         return true;
+    }
+
+    /**
+     * Reads a record by ID and verifies values
+     *
+     * @param int   $id
+     * @param array $expected
+     */
+    private function _read($id, array $expected)
+    {
+        $model = $this->getModel()->byId($id)->withRelations()->find();
+        $this->_checkValues($model, $expected);
+        foreach ($model->getRelationsFieldsInfo() as $relationsFieldInfo) {
+            $relationModelName = "\\testS\\models\\" . $relationsFieldInfo[AbstractModel::FIELD_RELATION_MODEL];
+            $relationFieldName = $relationsFieldInfo[AbstractModel::FIELD_RELATION_NAME];
+            $relationType = $relationsFieldInfo[AbstractModel::FIELD_RELATION_TYPE];
+            if ($relationType === AbstractModel::FIELD_RELATION_TYPE_BELONGS_TO) {
+                $this->assertInstanceOf($relationModelName, $model->$relationFieldName);
+            }
+        }
     }
 
     /**
