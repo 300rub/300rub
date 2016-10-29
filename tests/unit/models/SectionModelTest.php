@@ -197,7 +197,6 @@ class SectionModelTest extends AbstractModelTest
 	 */
 	public function testFindByUrl()
 	{
-	    $this->markTestSkipped();
-		$this->assertEquals(1, SectionModel::model()->byUrl("texts")->find()->id);
+		$this->assertEquals(1, (new SectionModel)->byUrl("texts")->find()->id);
 	}
 }

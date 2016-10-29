@@ -186,7 +186,6 @@ class SeoModelTest extends AbstractModelTest
      */
     public function testFindByUrl()
     {
-        $this->markTestSkipped("Fixtures");
-        $this->assertEquals(1, SeoModel::model()->byUrl("texts")->find()->id);
+        $this->assertEquals(1, (new SeoModel)->byUrl("texts")->find()->id);
     }
 }

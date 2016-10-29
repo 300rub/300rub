@@ -372,7 +372,6 @@ class UserModelTest extends AbstractModelTest
 	 */
 	public function testFindByLogin($login, $notNull)
 	{
-		$this->markTestSkipped();
 		$model = $this->getModel()->findByLogin($login);
 		$this->assertEquals($notNull, !is_null($model));
 	}
