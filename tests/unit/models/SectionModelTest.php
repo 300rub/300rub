@@ -3,8 +3,6 @@
 namespace testS\tests\unit\models;
 
 use testS\components\Language;
-use testS\models\GridLineModel;
-use testS\models\GridModel;
 use testS\models\SectionModel;
 
 /**
@@ -25,172 +23,170 @@ class SectionModelTest extends AbstractModelTest
 		return new SectionModel;
 	}
 
-	/**
-	 * Data provider for CRUD test
-	 *
-	 * @return array
-	 */
-	public function dataProviderForCRUD()
-	{
-		return [
-			// Insert: empty fields
-			[
-				[],
-				[
-					"seoModel.name" => "required",
-					"seoModel.url"  => "required",
-				]
-			],
-			// Insert: empty values
-			[
-				[
-					"t.seoId"          => "",
-					"t.language"        => "",
-					"t.width"           => "",
-					"t.isMain"         => "",
-					"t.designBlockId" => "",
-				],
-				[
-					"seoModel.name" => "required",
-					"seoModel.url"  => "required",
-				]
-			],
-			// Insert: correct values. Update: correct values.
-			[
-				[
-					"seoModel.name"        => "seo name",
-					"seoModel.url"         => "seo-url",
-					"seoModel.title"       => "seo title",
-					"seoModel.keywords"    => "seo keywords",
-					"seoModel.description" => "seo description",
-					"t.language"           => Language::LANGUAGE_EN_ID,
-					"t.width"              => 1024
-				],
-				[],
-				[
-					"seoModel.name"        => "seo name",
-					"seoModel.url"         => "seo-url",
-					"seoModel.title"       => "seo title",
-					"seoModel.keywords"    => "seo keywords",
-					"seoModel.description" => "seo description",
-					"t.language"           => Language::LANGUAGE_EN_ID,
-					"t.width"              => 1024
-				],
-				[
-					"seoModel.name"        => "   seo name 2   ",
-					"seoModel.url"         => "   ",
-					"seoModel.title"       => "   seo title 2  ",
-					"seoModel.keywords"    => "  seo keywords 2  ",
-					"seoModel.description" => "  seo description 2   ",
-					"t.width"              => SectionModel::DEFAULT_WIDTH
-				],
-				[],
-				[
-					"seoModel.name"        => "seo name 2",
-					"seoModel.url"         => "seo-name-2",
-					"seoModel.title"       => "seo title 2",
-					"seoModel.keywords"    => "seo keywords 2",
-					"seoModel.description" => "seo description 2",
-					"t.language"           => Language::LANGUAGE_EN_ID,
-					"t.width"              => SectionModel::DEFAULT_WIDTH
-				]
-			],
-			// Insert: incorrect values. Update: incorrect correct values.
-			[
-				[
-					"seoModel.name"        => " <b>seo name<b>",
-					"seoModel.url"         => "<i>seo-url<i> &^ &^) &^£&",
-					"seoModel.title"       => "<div>seo title</div>",
-					"seoModel.keywords"    => "<div>seo keywords<div>",
-					"seoModel.description" => "<div>seo description<div>",
-					"t.language"           => 99,
-					"t.width"              => -100
-				],
-				[],
-				[
-					"seoModel.name"        => "seo name",
-					"seoModel.url"         => "seo-url",
-					"seoModel.title"       => "seo title",
-					"seoModel.keywords"    => "seo keywords",
-					"seoModel.description" => "seo description",
-					"t.language"           => Language::$activeId,
-					"t.width"              => SectionModel::DEFAULT_WIDTH
-				],
-				[
-					"seoModel.name"        => " <b>seo name! <b>",
-					"seoModel.url"         => "",
-					"t.language"           => "incorrect language",
-					"t.width"              => "incorrect width"
-				],
-				[],
-				[
-					"seoModel.name"        => "seo name!",
-					"seoModel.url"         => "seo-name",
-					"seoModel.title"       => "seo title",
-					"seoModel.keywords"    => "seo keywords",
-					"seoModel.description" => "seo description",
-					"t.language"           => Language::$activeId,
-					"t.width"              => SectionModel::DEFAULT_WIDTH
-				]
-			],
-			// Insert: long values. Update: correct values.
-			[
-				[
-					"seoModel.name"        => "string with length more than 255 symbols,
-						string with length more than 255 symbols, string with length more than 255 symbols,
-						string with length more than 255 symbols, string with length more than 255 symbols,
-						string with length more than 255 symbols, string with length more than 255 symbols,
-						string with length more than 255 symbols, string with length more than 255 symbols",
-					"seoModel.url"         => "string with length more than 255 symbols,
-						string with length more than 255 symbols, string with length more than 255 symbols,
-						string with length more than 255 symbols, string with length more than 255 symbols,
-						string with length more than 255 symbols, string with length more than 255 symbols,
-						string with length more than 255 symbols, string with length more than 255 symbols",
-					"seoModel.title"       => "string with length more than 100 symbols,
-						string with length more than 100 symbols, string with length more than 100 symbols,
-						string with length more than 100 symbols",
-					"seoModel.keywords"    => "string with length more than 255 symbols,
-						string with length more than 255 symbols, string with length more than 255 symbols,
-						string with length more than 255 symbols, string with length more than 255 symbols,
-						string with length more than 255 symbols, string with length more than 255 symbols,
-						string with length more than 255 symbols, string with length more than 255 symbols",
-					"seoModel.description" => "string with length more than 255 symbols,
-						string with length more than 255 symbols, string with length more than 255 symbols,
-						string with length more than 255 symbols, string with length more than 255 symbols,
-						string with length more than 255 symbols, string with length more than 255 symbols,
-						string with length more than 255 symbols, string with length more than 255 symbols",
-					"t.language"           => Language::LANGUAGE_EN_ID,
-					"t.width"              => 1024
-				],
-				[
-					"seoModel.name"        => "max",
-					"seoModel.url"         => "max",
-					"seoModel.title"       => "max",
-					"seoModel.keywords"    => "max",
-					"seoModel.description" => "max",
-				],
-				[],
-				[
-					"seoModel.name"        => "   seo name 2   ",
-					"seoModel.url"         => "   ",
-					"seoModel.title"       => "   seo title 2  ",
-					"seoModel.keywords"    => "  seo keywords 2  ",
-					"seoModel.description" => "  seo description 2   ",
-					"t.width"              => SectionModel::DEFAULT_WIDTH
-				],
-				[],
-				[
-					"seoModel.name"        => "seo name 2",
-					"seoModel.url"         => "seo-name-2",
-					"seoModel.title"       => "seo title 2",
-					"seoModel.keywords"    => "seo keywords 2",
-					"seoModel.description" => "seo description 2",
-					"t.language"           => Language::LANGUAGE_EN_ID,
-					"t.width"              => SectionModel::DEFAULT_WIDTH
-				]
-			],
-		];
-	}
+    /**
+     * Data provider for CRUD test
+     *
+     * @return array
+     */
+    public function dataProviderForCRUD()
+    {
+        return [
+            $this->_dataProviderForCRUDNull(),
+            $this->_dataProviderForCRUDEmpty(),
+            $this->_dataProviderForCRUDCorrect(),
+            $this->_dataProviderForCRUDIncorrect()
+        ];
+    }
+
+    /**
+     * Insert: null data.
+     *
+     * @return array
+     */
+    private function _dataProviderForCRUDNull()
+    {
+        return [
+            [],
+            [
+                "seoModel" => [
+                    "name" => ["required"],
+                    "url"  => ["required", "url"],
+                ]
+            ]
+        ];
+    }
+
+    /**
+     * Insert: empty data.
+     *
+     * @return array
+     */
+    private function _dataProviderForCRUDEmpty()
+    {
+        return [
+            [
+                "seoId"         => "",
+                "language"      => "",
+                "width"         => "",
+                "isMain"        => "",
+                "designBlockId" => "",
+            ],
+            [
+                "seoModel" => [
+                    "name" => ["required"],
+                    "url"  => ["required", "url"],
+                ]
+            ]
+        ];
+    }
+
+    /**
+     * Insert: correct values.
+     * Update: correct values.
+     *
+     * @return array
+     */
+    private function _dataProviderForCRUDCorrect()
+    {
+        return [
+            [
+                "seoModel" => [
+                    "name"        => "seo name",
+                    "url"         => "seo-url",
+                    "title"       => "seo title",
+                    "keywords"    => "seo keywords",
+                    "description" => "description"
+                ],
+                "language" => Language::LANGUAGE_EN_ID,
+                "width"    => 1024
+            ],
+            [
+                "seoModel" => [
+                    "name"        => "seo name",
+                    "url"         => "seo-url",
+                    "title"       => "seo title",
+                    "keywords"    => "seo keywords",
+                    "description" => "description"
+                ],
+                "language" => Language::LANGUAGE_EN_ID,
+                "width"    => 1024
+            ],
+            [
+                "seoModel" => [
+                    "name"        => "   seo name 2   ",
+                    "url"         => "   ",
+                    "title"       => "   seo title 2  ",
+                    "keywords"    => "  seo keywords 2  ",
+                    "description" => "  seo description 2   ",
+                ],
+                "width"              => SectionModel::DEFAULT_WIDTH
+            ],
+            [
+                "seoModel" => [
+                    "name"        => "seo name 2",
+                    "url"         => "seo-name-2",
+                    "title"       => "seo title 2",
+                    "keywords"    => "seo keywords 2",
+                    "description" => "seo description 2",
+                ],
+                "language"           => Language::LANGUAGE_EN_ID,
+                "width"              => SectionModel::DEFAULT_WIDTH
+            ]
+        ];
+    }
+
+    /**
+     * Insert: incorrect values.
+     * Update: incorrect values.
+     *
+     * @return array
+     */
+    private function _dataProviderForCRUDIncorrect()
+    {
+        return [
+            [
+                "seoModel" => [
+                    "name"        => " <b>seo name<b>",
+                    "url"         => "<i>seo-url<i> &^ &^) &^£&",
+                    "title"       => "<div>seo title</div>",
+                    "keywords"    => "<div>seo keywords<div>",
+                    "description" => "<div>seo description<div>",
+                ],
+                "language"           => 99,
+                "width"              => -100
+            ],
+            [
+                "seoModel" => [
+                    "name"        => "seo name",
+                    "url"         => "seo-url",
+                    "title"       => "seo title",
+                    "keywords"    => "seo keywords",
+                    "description" => "seo description",
+                ],
+                "language"           => Language::$activeId,
+                "width"              => SectionModel::DEFAULT_WIDTH
+            ],
+            [
+                "seoModel" => [
+                    "name"        => " <b>seo name! <b>",
+                    "url"         => "",
+                ],
+                "language"           => "incorrect language",
+                "width"              => "incorrect width"
+            ],
+            [
+                "seoModel" => [
+                    "name"        => "seo name!",
+                    "url"         => "seo-name",
+                    "title"       => "seo title",
+                    "keywords"    => "seo keywords",
+                    "description" => "seo description",
+                ],
+                "language"           => Language::$activeId,
+                "width"              => SectionModel::DEFAULT_WIDTH
+            ]
+        ];
+    }
 
 	/**
 	 * Find by URL

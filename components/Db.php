@@ -329,17 +329,7 @@ class Db
      * @throws DbException
      */
     public function addParameter($key, $value) {
-        if (!array_key_exists($key, $this->_parameters)) {
-            $this->_parameters[$key] = $value;
-        } else {
-            throw new DbException(
-                "Unable to add new parameter {key} because this parameter is already exists.",
-                [
-                    "key" => $key
-                ]
-            );
-        }
-
+        $this->_parameters[$key] = $value;
         return $this;
     }
 

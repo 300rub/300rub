@@ -646,6 +646,9 @@ abstract class AbstractModel
 
         try {
             $this->beforeSave();
+            if (count($this->getErrors()) > 0) {
+                return $this;
+            }
 
             if ($this->id) {
                 $this->_update($where, $parameters);
@@ -835,6 +838,9 @@ abstract class AbstractModel
             }
 
             $relationModel->save();
+            if (count($relationModel->getErrors()) > 0) {
+                $this->addErrors($relationName, $relationModel->getErrors());
+            }
             $this->$field = $relationModel->id;
         }
 

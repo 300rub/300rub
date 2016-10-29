@@ -126,7 +126,6 @@ class SectionModel extends AbstractModel
                 ->addParameter("isMain", 0)
                 ->setWhere("id > 0")
                 ->update();
-            $this->getDb()->update();
         } elseif (!$this->selectMain()->exceptId($this->id)->find()) {
             $value = true;
         }

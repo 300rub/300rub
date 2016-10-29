@@ -58,12 +58,12 @@ abstract class AbstractModelTest extends AbstractUnitTest
                 return true;
             }
         } catch (ModelException $e) {
-            $this->assertEquals(self::MODEL_EXCEPTION, $createExpected);
+            $this->assertEquals(self::MODEL_EXCEPTION, $createExpected, $e->getMessage());
             return true;
         }
 
         // Read created
-        $this->_read($model->id, $createExpected);
+        $model = $this->_read($model->id, $createExpected);
 
         // Update
         try {
@@ -76,12 +76,12 @@ abstract class AbstractModelTest extends AbstractUnitTest
 
             $this->_checkValues($model, $updateExpected);
         } catch (ModelException $e) {
-            $this->assertEquals(self::MODEL_EXCEPTION, $updateExpected);
+            $this->assertEquals(self::MODEL_EXCEPTION, $updateExpected, $e->getMessage());
             return true;
         }
 
         // Read updated
-        $this->_read($model->id, $updateExpected);
+        $model = $this->_read($model->id, $updateExpected);
 
         // Delete
         $model->delete();
@@ -106,6 +106,8 @@ abstract class AbstractModelTest extends AbstractUnitTest
      *
      * @param int   $id
      * @param array $expected
+     *
+     * @return AbstractModel
      */
     private function _read($id, array $expected)
     {
@@ -119,6 +121,8 @@ abstract class AbstractModelTest extends AbstractUnitTest
                 $this->assertInstanceOf($relationModelName, $model->$relationFieldName);
             }
         }
+
+        return $model;
     }
 
     /**

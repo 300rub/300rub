@@ -113,7 +113,7 @@ class GridModelTest extends AbstractModelTest
 
     /**
      * Insert: incorrect values.
-     * Update: incorrect correct values.
+     * Update: incorrect values.
      *
      * @return array
      */
