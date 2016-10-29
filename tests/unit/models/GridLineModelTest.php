@@ -29,12 +29,12 @@ class GridLineModelTest extends AbstractModelTest
      */
     public function dataProviderForCRUD()
     {
-        return array_merge(
+        return [
             $this->_dataProviderForCRUDNull(),
             $this->_dataProviderForCRUDEmpty(),
             $this->_dataProviderForCRUDCorrect(),
             $this->_dataProviderForCRUDIncorrect()
-        );
+        ];
     }
 
     /**
@@ -45,10 +45,8 @@ class GridLineModelTest extends AbstractModelTest
     private function _dataProviderForCRUDNull()
     {
         return [
-            [
-                [],
-                []
-            ]
+            [],
+            self::MODEL_EXCEPTION
         ];
     }
 
@@ -61,14 +59,12 @@ class GridLineModelTest extends AbstractModelTest
     {
         return [
             [
-                [
-                    "sectionId"       => "",
-                    "sort"            => "",
-                    "outsideDesignId" => "",
-                    "insideDesignId"  => "",
-                ],
-                []
-            ]
+                "sectionId"       => "",
+                "sort"            => "",
+                "outsideDesignId" => "",
+                "insideDesignId"  => "",
+            ],
+            self::MODEL_EXCEPTION
         ];
     }
 
@@ -82,26 +78,22 @@ class GridLineModelTest extends AbstractModelTest
     {
         return [
             [
-                [
-                    "sectionId"       => 1,
-                    "sort"            => 0,
-                    "outsideDesignId" => "",
-                    "insideDesignId"  => "",
-                ],
-                [],
-                [
-                    "sectionId" => 1,
-                    "sort"      => 0,
-                ],
-                [
-                    "sort" => 2,
-                ],
-                [],
-                [
-                    "sectionId" => 1,
-                    "sort"      => 2,
-                ]
+                "sectionId"       => 1,
+                "sort"            => 0,
+                "outsideDesignId" => "",
+                "insideDesignId"  => "",
             ],
+            [
+                "sectionId" => 1,
+                "sort"      => 0,
+            ],
+            [
+                "sort" => 2,
+            ],
+            [
+                "sectionId" => 1,
+                "sort"      => 2,
+            ]
         ];
     }
 
@@ -115,26 +107,22 @@ class GridLineModelTest extends AbstractModelTest
     {
         return [
             [
-                [
-                    "sectionId"       => 1,
-                    "sort"            => "incorrect value",
-                    "outsideDesignId" => "incorrect value",
-                    "insideDesignId"  => "incorrect value",
-                ],
-                [],
-                [
-                    "sectionId" => 1,
-                    "sort"      => 0,
-                ],
-                [
-                    "sort" => "incorrect value",
-                ],
-                [],
-                [
-                    "sectionId" => 1,
-                    "sort"      => 0,
-                ]
+                "sectionId"       => 1,
+                "sort"            => "incorrect value",
+                "outsideDesignId" => "incorrect value",
+                "insideDesignId"  => "incorrect value",
             ],
+            [
+                "sectionId" => 1,
+                "sort"      => 0,
+            ],
+            [
+                "sort" => "incorrect value",
+            ],
+            [
+                "sectionId" => 1,
+                "sort"      => 0,
+            ]
         ];
     }
 }
