@@ -29,7 +29,7 @@ class UserModelTest extends AbstractModelTest
 	 */
 	public function dataProviderForCRUD()
 	{
-		return array_merge(
+		return [
 			$this->_dataProviderForCRUDNull(),
 			$this->_dataProviderForCRUDEmpty(),
 			$this->_dataProviderForCRUDSmall(),
@@ -42,7 +42,7 @@ class UserModelTest extends AbstractModelTest
 			$this->_dataProviderForCRUDUpdateLoginWithSymbols(),
 			$this->_dataProviderForCRUDUpdateLoginWithNormal(),
 			$this->_dataProviderForCRUDUpdateLoginWithSpaces()
-		);
+		];
 	}
 
 	/**
@@ -53,13 +53,11 @@ class UserModelTest extends AbstractModelTest
 	private function _dataProviderForCRUDNull()
 	{
 		return [
-			[
-				[],
-				[
-					"login"    => ["required", "min"],
-					"password" => ["required", "min"],
-				]
-			]
+            [],
+            [
+                "login"    => ["required", "min"],
+                "password" => ["required", "min"],
+            ]
 		];
 	}
 
@@ -71,16 +69,14 @@ class UserModelTest extends AbstractModelTest
 	private function _dataProviderForCRUDEmpty()
 	{
 		return [
-			[
-				[
-					"login"    => "",
-					"password" => "",
-				],
-				[
-					"login"    => ["required", "min"],
-					"password" => ["required", "min"],
-				]
-			],
+            [
+                "login"    => "",
+                "password" => "",
+            ],
+            [
+                "login"    => ["required", "min"],
+                "password" => ["required", "min"],
+            ]
 		];
 	}
 
@@ -92,16 +88,14 @@ class UserModelTest extends AbstractModelTest
 	private function _dataProviderForCRUDSmall()
 	{
 		return [
-			[
-				[
-					"login"    => "a",
-					"password" => "b",
-				],
-				[
-					"login"    => ["min"],
-					"password" => ["min"],
-				]
-			]
+            [
+                "login"    => "a",
+                "password" => "b",
+            ],
+            [
+                "login"    => ["min"],
+                "password" => ["min"],
+            ]
 		];
 	}
 
@@ -113,15 +107,13 @@ class UserModelTest extends AbstractModelTest
 	private function _dataProviderForCRUDLoginWithSpace()
 	{
 		return [
-			[
-				[
-					"login"    => "login name",
-					"password" => "password",
-				],
-				[
-					"login"    => ["latinDigitUnderscoreHyphen"]
-				]
-			]
+            [
+                "login"    => "login name",
+                "password" => "password",
+            ],
+            [
+                "login"    => ["latinDigitUnderscoreHyphen"]
+            ]
 		];
 	}
 
@@ -133,15 +125,13 @@ class UserModelTest extends AbstractModelTest
 	private function _dataProviderForCRUDLoginWithSymbols()
 	{
 		return [
-			[
-				[
-					"login"    => "login!",
-					"password" => "password",
-				],
-				[
-					"login"    => ["latinDigitUnderscoreHyphen"]
-				]
-			]
+            [
+                "login"    => "login!",
+                "password" => "password",
+            ],
+            [
+                "login"    => ["latinDigitUnderscoreHyphen"]
+            ]
 		];
 	}
 
@@ -154,23 +144,21 @@ class UserModelTest extends AbstractModelTest
 	private function _dataProviderForCRUDUpdateNull()
 	{
 		return [
-			[
-				[
-					"login"    => "login",
-					"password" => "password!£$%^&*()",
-				],
-				[],
-				[
-					"login"    => "login",
-					"password" => UserModel::createPasswordHash("password!£$%^&*()"),
-				],
-				[],
-				[],
-				[
-					"login"    => "login",
-					"password" => UserModel::createPasswordHash("password!£$%^&*()"),
-				],
-			],
+            [
+                "login"    => "login",
+                "password" => "password!£$%^&*()",
+            ],
+            [],
+            [
+                "login"    => "login",
+                "password" => UserModel::createPasswordHash("password!£$%^&*()"),
+            ],
+            [],
+            [],
+            [
+                "login"    => "login",
+                "password" => UserModel::createPasswordHash("password!£$%^&*()"),
+            ]
 		];
 	}
 
@@ -183,25 +171,22 @@ class UserModelTest extends AbstractModelTest
 	private function _dataProviderForCRUDUpdateEmpty()
 	{
 		return [
-			[
-				[
-					"login"    => "login",
-					"password" => "password",
-				],
-				[],
-				[
-					"login"    => "login",
-					"password" => UserModel::createPasswordHash("password"),
-				],
-				[
-					"login"    => "",
-					"password" => "",
-				],
-				[
-					"login"    => ["required", "min"],
-					"password" => ["required", "min"],
-				]
-			],
+            [
+                "login"    => "login",
+                "password" => "password",
+            ],
+            [
+                "login"    => "login",
+                "password" => UserModel::createPasswordHash("password"),
+            ],
+            [
+                "login"    => "",
+                "password" => "",
+            ],
+            [
+                "login"    => ["required", "min"],
+                "password" => ["required", "min"],
+            ]
 		];
 	}
 
@@ -214,25 +199,22 @@ class UserModelTest extends AbstractModelTest
 	private function _dataProviderForCRUDUpdateSmall()
 	{
 		return [
-			[
-				[
-					"login"    => "login",
-					"password" => "password",
-				],
-				[],
-				[
-					"login"    => "login",
-					"password" => UserModel::createPasswordHash("password"),
-				],
-				[
-					"login"    => "l",
-					"password" => "p",
-				],
-				[
-					"login"    => ["min"],
-					"password" => ["min"],
-				]
-			]
+            [
+                "login"    => "login",
+                "password" => "password",
+            ],
+            [
+                "login"    => "login",
+                "password" => UserModel::createPasswordHash("password"),
+            ],
+            [
+                "login"    => "l",
+                "password" => "p",
+            ],
+            [
+                "login"    => ["min"],
+                "password" => ["min"],
+            ]
 		];
 	}
 
@@ -245,24 +227,21 @@ class UserModelTest extends AbstractModelTest
 	private function _dataProviderForCRUDUpdateLoginWithSpace()
 	{
 		return [
-			[
-				[
-					"login"    => "login",
-					"password" => "password",
-				],
-				[],
-				[
-					"login"    => "login",
-					"password" => UserModel::createPasswordHash("password"),
-				],
-				[
-					"login"    => "new login name",
-					"password" => "password",
-				],
-				[
-					"login"    => ["latinDigitUnderscoreHyphen"],
-				]
-			],
+            [
+                "login"    => "login",
+                "password" => "password",
+            ],
+            [
+                "login"    => "login",
+                "password" => UserModel::createPasswordHash("password"),
+            ],
+            [
+                "login"    => "new login name",
+                "password" => "password",
+            ],
+            [
+                "login"    => ["latinDigitUnderscoreHyphen"],
+            ]
 		];
 	}
 
@@ -275,24 +254,21 @@ class UserModelTest extends AbstractModelTest
 	private function _dataProviderForCRUDUpdateLoginWithSymbols()
 	{
 		return [
-			[
-				[
-					"login"    => "login",
-					"password" => "password",
-				],
-				[],
-				[
-					"login"    => "login",
-					"password" => UserModel::createPasswordHash("password"),
-				],
-				[
-					"login"    => "newLogin$",
-					"password" => "password",
-				],
-				[
-					"login"    => ["latinDigitUnderscoreHyphen"],
-				]
-			],
+            [
+                "login"    => "login",
+                "password" => "password",
+            ],
+            [
+                "login"    => "login",
+                "password" => UserModel::createPasswordHash("password"),
+            ],
+            [
+                "login"    => "newLogin$",
+                "password" => "password",
+            ],
+            [
+                "login"    => ["latinDigitUnderscoreHyphen"],
+            ]
 		];
 	}
 
@@ -305,26 +281,22 @@ class UserModelTest extends AbstractModelTest
 	private function _dataProviderForCRUDUpdateLoginWithNormal()
 	{
 		return [
-			[
-				[
-					"login"    => "login_4",
-					"password" => "password",
-				],
-				[],
-				[
-					"login"    => "login_4",
-					"password" => UserModel::createPasswordHash("password"),
-				],
-				[
-					"login"    => "newLogin-5",
-					"password" => "newPassword",
-				],
-				[],
-				[
-					"login"    => "newLogin-5",
-					"password" => UserModel::createPasswordHash("newPassword"),
-				]
-			],
+            [
+                "login"    => "login_4",
+                "password" => "password",
+            ],
+            [
+                "login"    => "login_4",
+                "password" => UserModel::createPasswordHash("password"),
+            ],
+            [
+                "login"    => "newLogin-5",
+                "password" => "newPassword",
+            ],
+            [
+                "login"    => "newLogin-5",
+                "password" => UserModel::createPasswordHash("newPassword"),
+            ]
 		];
 	}
 
@@ -337,26 +309,22 @@ class UserModelTest extends AbstractModelTest
 	private function _dataProviderForCRUDUpdateLoginWithSpaces()
 	{
 		return [
-			[
-				[
-					"login"    => "   login_4-s   ",
-					"password" => "     password ",
-				],
-				[],
-				[
-					"login"    => "login_4-s",
-					"password" => UserModel::createPasswordHash("password"),
-				],
-				[
-					"login"    => " new_3-Login ",
-					"password" => " pas  sword!£ $%^&*()QQs  ",
-				],
-				[],
-				[
-					"login"    => "new_3-Login",
-					"password" => UserModel::createPasswordHash("pas  sword!£ $%^&*()QQs"),
-				]
-			],
+            [
+                "login"    => "   login_4-s   ",
+                "password" => "     password ",
+            ],
+            [
+                "login"    => "login_4-s",
+                "password" => UserModel::createPasswordHash("password"),
+            ],
+            [
+                "login"    => " new_3-Login ",
+                "password" => " pas  sword!£ $%^&*()QQs  ",
+            ],
+            [
+                "login"    => "new_3-Login",
+                "password" => UserModel::createPasswordHash("pas  sword!£ $%^&*()QQs"),
+            ]
 		];
 	}
 
@@ -367,8 +335,6 @@ class UserModelTest extends AbstractModelTest
 	 * @param bool   $notNull
 	 *
 	 * @dataProvider dataProviderForFindByLogin
-	 *
-	 * @return bool
 	 */
 	public function testFindByLogin($login, $notNull)
 	{
