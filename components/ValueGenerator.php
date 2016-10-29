@@ -100,7 +100,7 @@ class ValueGenerator
         $min = $parameters[0];
         $defaultValue = $parameters[1];
 
-        if ($value <= $min) {
+        if ($value < $min) {
            return $defaultValue;
         }
 

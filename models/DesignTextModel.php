@@ -214,12 +214,16 @@ class DesignTextModel extends AbstractDesignModel
             "family"        => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
-                    "arrayKey" => [self::$familyList, self::FAMILY_MYRAD]
+                    "arrayKey" => [
+                        self::$familyList, self::FAMILY_MYRAD
+                    ]
                 ],
             ],
             "color"         => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_STRING,
-                self::FIELD_VALUE => ["color"],
+                self::FIELD_VALUE => [
+                    "color"
+                ],
             ],
             "isItalic"      => [
                 self::FIELD_TYPE => self::FIELD_TYPE_BOOL,
@@ -244,11 +248,12 @@ class DesignTextModel extends AbstractDesignModel
                 self::FIELD_VALUE => [
                     "arrayKey" => [self::$textTransformList, self::TEXT_TRANSFORM_NONE]
                 ],
-                self::FIELD_VALUE => ["setTransform"],
             ],
             "letterSpacing" => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
-                self::FIELD_VALUE => ["min" => self::MIN_LETTER_SPACING_VALUE],
+                self::FIELD_VALUE => [
+                    "min" => self::MIN_LETTER_SPACING_VALUE
+                ],
             ],
             "lineHeight"    => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
