@@ -513,6 +513,24 @@ abstract class AbstractModel
 
         foreach ($parameters[self::FIELD_VALUE] as $key => $value) {
             if (is_string($key)) {
+                if (is_string($value)) {
+                    if (stripos($value, "{") === 0) {
+                        $value = str_replace(["{", "}"], "", $value);
+                        $value = $this->$value;
+                    }
+                }
+
+                if (is_array($value)) {
+                    foreach ($value as &$val) {
+                        if (is_string($val)) {
+                            if (stripos($val, "{") === 0) {
+                                $val = str_replace(["{", "}"], "", $val);
+                                $val = $this->$val;
+                            }
+                        }
+                    }
+                }
+
                 $this->$field = ValueGenerator::$key($this->$field, $value);
             } else {
                 $this->$field = ValueGenerator::$value($this->$field);
