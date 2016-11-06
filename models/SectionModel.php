@@ -44,6 +44,9 @@ class SectionModel extends AbstractModel
     protected function getFieldsInfo()
     {
         return [
+            "designBlockId" => [
+                self::FIELD_RELATION => ["DesignBlockModel", "designBlockModel"]
+            ],
             "language"      => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
@@ -59,18 +62,7 @@ class SectionModel extends AbstractModel
                 self::FIELD_BEFORE_SAVE => ["setIsMain"]
             ],
             "seoId"         => [
-                self::FIELD_RELATION => [
-                    self::FIELD_RELATION_MODEL => "SeoModel",
-                    self::FIELD_RELATION_NAME  => "seoModel",
-                    self::FIELD_RELATION_TYPE  => self::FIELD_RELATION_TYPE_BELONGS_TO
-                ]
-            ],
-            "designBlockId" => [
-                self::FIELD_RELATION => [
-                    self::FIELD_RELATION_MODEL => "DesignBlockModel",
-                    self::FIELD_RELATION_NAME  => "designBlockModel",
-                    self::FIELD_RELATION_TYPE  => self::FIELD_RELATION_TYPE_BELONGS_TO
-                ]
+                self::FIELD_RELATION => ["SeoModel", "seoModel"]
             ]
         ];
     }

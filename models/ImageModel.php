@@ -91,6 +91,18 @@ class ImageModel extends AbstractModel
     protected function getFieldsInfo()
     {
         return [
+            "designBlockId"       => [
+                self::FIELD_RELATION => ["DesignBlockModel", "designBlockModel"]
+            ],
+            "designImageSliderId" => [
+                self::FIELD_RELATION => ["DesignBlockModel", "designImageSliderModel"]
+            ],
+            "designImageZoomId"   => [
+                self::FIELD_RELATION => ["DesignBlockModel", "designImageZoomModel"]
+            ],
+            "designImageSimpleId" => [
+                self::FIELD_RELATION => ["DesignBlockModel", "designImageSimpleModel"]
+            ],
             "name"                => [
                 self::FIELD_TYPE       => self::FIELD_TYPE_STRING,
                 self::FIELD_VALIDATION => ["required", "max" => 255],
@@ -142,34 +154,6 @@ class ImageModel extends AbstractModel
             ],
             "useAlbums"           => [
                 self::FIELD_TYPE => self::FIELD_TYPE_BOOL
-            ],
-            "designBlockId"       => [
-                self::FIELD_RELATION => [
-                    self::FIELD_RELATION_MODEL => "DesignBlockModel",
-                    self::FIELD_RELATION_NAME  => "designBlockModel",
-                    self::FIELD_RELATION_TYPE  => self::FIELD_RELATION_TYPE_BELONGS_TO
-                ]
-            ],
-            "designImageSliderId" => [
-                self::FIELD_RELATION => [
-                    self::FIELD_RELATION_MODEL => "DesignBlockModel",
-                    self::FIELD_RELATION_NAME  => "designImageSliderModel",
-                    self::FIELD_RELATION_TYPE  => self::FIELD_RELATION_TYPE_BELONGS_TO
-                ]
-            ],
-            "designImageZoomId"   => [
-                self::FIELD_RELATION => [
-                    self::FIELD_RELATION_MODEL => "DesignBlockModel",
-                    self::FIELD_RELATION_NAME  => "designImageZoomModel",
-                    self::FIELD_RELATION_TYPE  => self::FIELD_RELATION_TYPE_BELONGS_TO
-                ]
-            ],
-            "designImageSimpleId" => [
-                self::FIELD_RELATION => [
-                    self::FIELD_RELATION_MODEL => "DesignBlockModel",
-                    self::FIELD_RELATION_NAME  => "designImageSimpleModel",
-                    self::FIELD_RELATION_TYPE  => self::FIELD_RELATION_TYPE_BELONGS_TO
-                ]
             ],
         ];
     }

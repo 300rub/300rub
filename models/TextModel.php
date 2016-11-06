@@ -78,6 +78,12 @@ class TextModel extends AbstractModel
     protected function getFieldsInfo()
     {
         return [
+            "designTextId"  => [
+                self::FIELD_RELATION => ["DesignTextModel", "designTextModel"]
+            ],
+            "designBlockId" => [
+                self::FIELD_RELATION => ["DesignBlockModel", "designBlockModel"]
+            ],
             "name"          => [
                 self::FIELD_TYPE                => self::FIELD_TYPE_STRING,
                 self::FIELD_VALIDATION          => ["required", "max" => 255],
@@ -99,20 +105,6 @@ class TextModel extends AbstractModel
             ],
             "text"          => [
                 self::FIELD_TYPE => self::FIELD_TYPE_STRING,
-            ],
-            "designTextId"  => [
-                self::FIELD_RELATION => [
-                    self::FIELD_RELATION_MODEL => "DesignTextModel",
-                    self::FIELD_RELATION_NAME  => "designTextModel",
-                    self::FIELD_RELATION_TYPE  => self::FIELD_RELATION_TYPE_BELONGS_TO
-                ]
-            ],
-            "designBlockId" => [
-                self::FIELD_RELATION => [
-                    self::FIELD_RELATION_MODEL => "DesignBlockModel",
-                    self::FIELD_RELATION_NAME  => "designBlockModel",
-                    self::FIELD_RELATION_TYPE  => self::FIELD_RELATION_TYPE_BELONGS_TO
-                ]
             ]
         ];
     }

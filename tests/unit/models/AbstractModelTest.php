@@ -90,12 +90,9 @@ abstract class AbstractModelTest extends AbstractUnitTest
          * @var AbstractModel $relationModel
          */
         foreach ($model->getRelationsFieldsInfo() as $field => $relationsFieldInfo) {
-            $relationModelName = "\\testS\\models\\" . $relationsFieldInfo[AbstractModel::FIELD_RELATION_MODEL];
+            $relationModelName = "\\testS\\models\\" . $relationsFieldInfo[0];
             $relationModel = new $relationModelName;
-            $relationType = $relationsFieldInfo[AbstractModel::FIELD_RELATION_TYPE];
-            if ($relationType === AbstractModel::FIELD_RELATION_TYPE_BELONGS_TO) {
-                $this->assertNull($relationModel->byId($model->$field)->find());
-            }
+            $this->assertNull($relationModel->byId($model->$field)->find());
         }
 
         return true;
@@ -114,12 +111,9 @@ abstract class AbstractModelTest extends AbstractUnitTest
         $model = $this->getModel()->byId($id)->withRelations()->find();
         $this->_checkValues($model, $expected);
         foreach ($model->getRelationsFieldsInfo() as $relationsFieldInfo) {
-            $relationModelName = "\\testS\\models\\" . $relationsFieldInfo[AbstractModel::FIELD_RELATION_MODEL];
-            $relationFieldName = $relationsFieldInfo[AbstractModel::FIELD_RELATION_NAME];
-            $relationType = $relationsFieldInfo[AbstractModel::FIELD_RELATION_TYPE];
-            if ($relationType === AbstractModel::FIELD_RELATION_TYPE_BELONGS_TO) {
-                $this->assertInstanceOf($relationModelName, $model->$relationFieldName);
-            }
+            $relationModelName = "\\testS\\models\\" . $relationsFieldInfo[0];
+            $relationFieldName = $relationsFieldInfo[1];
+            $this->assertInstanceOf($relationModelName, $model->$relationFieldName);
         }
 
         return $model;
@@ -161,7 +155,10 @@ abstract class AbstractModelTest extends AbstractUnitTest
         $this->assertEquals(count($expected), count($model->getErrors()));
         foreach ($expected as $field => $errors) {
             $errorList = implode(",", array_keys($model->getErrors()));
-            $this->assertTrue(array_key_exists($field, $model->getErrors()), "Unable to find the error \"{$field}\" in error list: \"{$errorList}\" ");
+            $this->assertTrue(
+                array_key_exists($field, $model->getErrors()),
+                "Unable to find the error \"{$field}\" in error list: \"{$errorList}\""
+            );
             $this->assertEquals($errors, $model->getErrors()[$field]);
         }
     }

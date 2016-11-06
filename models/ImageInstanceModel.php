@@ -82,11 +82,7 @@ class ImageInstanceModel extends AbstractModel
                 self::FIELD_BEFORE_SAVE => ["setFileName"],
             ],
             "imageAlbumId" => [
-                self::FIELD_RELATION => [
-                    self::FIELD_RELATION_MODEL => "ImageAlbumModel",
-                    self::FIELD_RELATION_NAME  => "imageAlbumModel",
-                    self::FIELD_RELATION_TYPE  => self::FIELD_RELATION_TYPE_HAS_ONE
-                ]
+                self::FIELD_TYPE => self::FIELD_TYPE_INT,
             ],
             "isCover"      => [
                 self::FIELD_TYPE => self::FIELD_TYPE_BOOL,

@@ -87,11 +87,7 @@ class GridModel extends AbstractModel
                 self::FIELD_TYPE => self::FIELD_TYPE_INT,
             ],
             "gridLineId"  => [
-                self::FIELD_RELATION => [
-                    self::FIELD_RELATION_MODEL => "GridLineModel",
-                    self::FIELD_RELATION_NAME  => "gridLineModel",
-                    self::FIELD_RELATION_TYPE  => self::FIELD_RELATION_TYPE_HAS_ONE
-                ]
+                self::FIELD_TYPE => self::FIELD_TYPE_INT,
             ],
         ];
     }

@@ -42,11 +42,7 @@ class ImageAlbumModel extends AbstractModel
                 self::FIELD_TYPE => self::FIELD_TYPE_INT,
             ],
             "imageId" => [
-                self::FIELD_RELATION => [
-                    self::FIELD_RELATION_MODEL => "ImageModel",
-                    self::FIELD_RELATION_NAME  => "imageModel",
-                    self::FIELD_RELATION_TYPE  => self::FIELD_RELATION_TYPE_HAS_ONE
-                ]
+                self::FIELD_TYPE => self::FIELD_TYPE_INT,
             ],
         ];
     }

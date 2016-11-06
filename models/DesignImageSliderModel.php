@@ -104,11 +104,13 @@ class DesignImageSliderModel extends AbstractDesignModel
     {
         return [
             "designBlockId"            => [
-                self::FIELD_RELATION => [
-                    self::FIELD_RELATION_MODEL => "DesignBlockModel",
-                    self::FIELD_RELATION_NAME  => "designBlockModel",
-                    self::FIELD_RELATION_TYPE  => self::FIELD_RELATION_TYPE_BELONGS_TO
-                ]
+                self::FIELD_RELATION => ["DesignBlockModel", "designBlockModel"]
+            ],
+            "navigationDesignBlockId"  => [
+                self::FIELD_RELATION => ["DesignBlockModel", "navigationDesignBlockModel"]
+            ],
+            "descriptionDesignBlockId" => [
+                self::FIELD_RELATION => ["DesignBlockModel", "descriptionDesignBlockModel"]
             ],
             "effect"                   => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
@@ -133,21 +135,7 @@ class DesignImageSliderModel extends AbstractDesignModel
                 self::FIELD_VALUE => [
                     "arrayKey" => [self::getDescriptionAlignmentList(), self::DESCRIPTION_ALIGNMENT_LEFT]
                 ],
-            ],
-            "navigationDesignBlockId"  => [
-                self::FIELD_RELATION => [
-                    self::FIELD_RELATION_MODEL => "DesignBlockModel",
-                    self::FIELD_RELATION_NAME  => "navigationDesignBlockModel",
-                    self::FIELD_RELATION_TYPE  => self::FIELD_RELATION_TYPE_BELONGS_TO
-                ]
-            ],
-            "descriptionDesignBlockId" => [
-                self::FIELD_RELATION => [
-                    self::FIELD_RELATION_MODEL => "DesignBlockModel",
-                    self::FIELD_RELATION_NAME  => "descriptionDesignBlockModel",
-                    self::FIELD_RELATION_TYPE  => self::FIELD_RELATION_TYPE_BELONGS_TO
-                ]
-            ],
+            ]
         ];
     }
 

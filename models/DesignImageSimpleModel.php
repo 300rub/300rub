@@ -49,32 +49,20 @@ class DesignImageSimpleModel extends AbstractDesignModel
     protected function getFieldsInfo()
     {
         return [
+            "designBlockId"      => [
+                self::FIELD_RELATION => ["DesignBlockModel", "designBlockModel"]
+            ],
+            "imageDesignBlockId" => [
+                self::FIELD_RELATION => ["DesignBlockModel", "imageDesignBlockModel"]
+            ],
+            "designTextId"       => [
+                self::FIELD_RELATION => ["DesignBlockModel", "designTextModel"]
+            ],
             "alignment"          => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
                     "arrayKey" => [self::getAlignmentList(), self::ALIGNMENT_LEFT]
                 ],
-            ],
-            "designBlockId"      => [
-                self::FIELD_RELATION => [
-                    self::FIELD_RELATION_MODEL => "DesignBlockModel",
-                    self::FIELD_RELATION_NAME  => "designBlockModel",
-                    self::FIELD_RELATION_TYPE  => self::FIELD_RELATION_TYPE_BELONGS_TO
-                ]
-            ],
-            "imageDesignBlockId" => [
-                self::FIELD_RELATION => [
-                    self::FIELD_RELATION_MODEL => "DesignBlockModel",
-                    self::FIELD_RELATION_NAME  => "imageDesignBlockModel",
-                    self::FIELD_RELATION_TYPE  => self::FIELD_RELATION_TYPE_BELONGS_TO
-                ]
-            ],
-            "designTextId"       => [
-                self::FIELD_RELATION => [
-                    self::FIELD_RELATION_MODEL => "DesignBlockModel",
-                    self::FIELD_RELATION_NAME  => "designTextModel",
-                    self::FIELD_RELATION_TYPE  => self::FIELD_RELATION_TYPE_BELONGS_TO
-                ]
             ]
         ];
     }
@@ -88,9 +76,7 @@ class DesignImageSimpleModel extends AbstractDesignModel
      */
     public function getValues($name)
     {
-        $this
-            ->setDesignValue("imageSimple", "alignment", "alignment", $name);
-
+        $this->setDesignValue("imageSimple", "alignment", "alignment", $name);
         return $this->designValues;
     }
 }

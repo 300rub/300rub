@@ -30,11 +30,6 @@ abstract class AbstractModel
     const FIELD_TYPE_STRING = "string";
     const FIELD_TYPE_INT = "int";
     const FIELD_TYPE_BOOL = "bool";
-    const FIELD_RELATION_MODEL = "model";
-    const FIELD_RELATION_TYPE = "type";
-    const FIELD_RELATION_TYPE_BELONGS_TO = "belongs_to";
-    const FIELD_RELATION_TYPE_HAS_ONE = "has_one";
-    const FIELD_RELATION_NAME = "relationName";
     const FIELD_BEFORE_SAVE = "beforeSave";
 
     /**
@@ -106,7 +101,7 @@ abstract class AbstractModel
             $this->$field = null;
 
             if (array_key_exists(self::FIELD_RELATION, $info)) {
-                $f = $info[self::FIELD_RELATION][self::FIELD_RELATION_NAME];
+                $f = $info[self::FIELD_RELATION][1];
                 $this->$f = null;
             }
         }
@@ -317,12 +312,8 @@ abstract class AbstractModel
          * @var AbstractModel $relationModel
          */
         foreach ($this->getRelationsFieldsInfo() as $field => $parameters) {
-            if ($parameters[self::FIELD_RELATION_TYPE] !== self::FIELD_RELATION_TYPE_BELONGS_TO) {
-                continue;
-            }
-
-            $relationName = $parameters[self::FIELD_RELATION_NAME];
-            $relationModel = "\\testS\\models\\" . $parameters[self::FIELD_RELATION_MODEL];
+            $relationName = $parameters[1];
+            $relationModel = "\\testS\\models\\" . $parameters[0];
             $relationModel = new $relationModel($this->getDb());
 
             if ($isAs === true) {
@@ -459,10 +450,10 @@ abstract class AbstractModel
                 $this->$field = $this->getInt($this->$field);
 
                 $relationInfo = $parameters[self::FIELD_RELATION];
-                $relationName = $relationInfo[self::FIELD_RELATION_NAME];
+                $relationName = $relationInfo[1];
 
                 if (array_key_exists($relationName, $fields)) {
-                    $relationModelName = "\\testS\\models\\" . $relationInfo[self::FIELD_RELATION_MODEL];
+                    $relationModelName = "\\testS\\models\\" . $relationInfo[0];
                     if (!$this->$relationName instanceof $relationModelName) {
                         $this->$relationName = new $relationModelName;
                     }
@@ -588,12 +579,8 @@ abstract class AbstractModel
             }
 
             $relationInfo = $parameters[self::FIELD_RELATION];
-            if ($relationInfo[self::FIELD_RELATION_TYPE] !== self::FIELD_RELATION_TYPE_BELONGS_TO) {
-                continue;
-            }
-
-            $relationName = $relationInfo[self::FIELD_RELATION_NAME];
-            $relationModelName = "\\testS\\models\\" . $relationInfo[self::FIELD_RELATION_MODEL];
+            $relationName = $relationInfo[1];
+            $relationModelName = "\\testS\\models\\" . $relationInfo[0];
 
             /**
              * @var AbstractModel $relationModel
@@ -808,15 +795,11 @@ abstract class AbstractModel
     private function _setRelationsBeforeSave()
     {
         foreach ($this->getRelationsFieldsInfo() as $field => $relationInfo) {
-            if ($relationInfo[self::FIELD_RELATION_TYPE] !== self::FIELD_RELATION_TYPE_BELONGS_TO) {
-                continue;
-            }
-
             /**
              * @var AbstractModel $relationModel
              */
-            $relationName = $relationInfo[self::FIELD_RELATION_NAME];
-            $relationModelName = "\\testS\\models\\" . $relationInfo[self::FIELD_RELATION_MODEL];
+            $relationName = $relationInfo[1];
+            $relationModelName = "\\testS\\models\\" . $relationInfo[0];
 
             if (!$this->$relationName instanceof $relationModelName) {
                 $relationModel = new $relationModelName;
