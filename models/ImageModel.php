@@ -3,6 +3,7 @@
 namespace testS\models;
 
 use testS\components\exceptions\ModelException;
+use testS\components\Language;
 
 /**
  * Model for working with table "images"
@@ -97,7 +98,9 @@ class ImageModel extends AbstractModel
             ],
             "language"            => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
-                self::FIELD_VALUE => ["setLanguage"],
+                self::FIELD_VALUE => [
+                    "arrayKey" => [Language::$aliasList, Language::$activeId]
+                ],
             ],
             "type"                => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
@@ -113,11 +116,11 @@ class ImageModel extends AbstractModel
             ],
             "cropWidth"           => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
-                self::FIELD_VALUE => ["setMax" => ImageInstanceModel::MAX_SIZE],
+                self::FIELD_VALUE => ["max" => ImageInstanceModel::MAX_SIZE],
             ],
             "cropHeight"          => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
-                self::FIELD_VALUE => ["setMax" => ImageInstanceModel::MAX_SIZE],
+                self::FIELD_VALUE => ["max" => ImageInstanceModel::MAX_SIZE],
             ],
             "cropX"               => [
                 self::FIELD_TYPE => self::FIELD_TYPE_INT,
@@ -127,7 +130,9 @@ class ImageModel extends AbstractModel
             ],
             "thumbAutoCropType"   => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
-                self::FIELD_VALUE => ["setAutoCropType"],
+                self::FIELD_VALUE => [
+                    "arrayKey" => [self::getAutoCropTypeList(), self::AUTO_CROP_TYPE_MIDDLE_CENTER]
+                ],
             ],
             "thumbCropX"          => [
                 self::FIELD_TYPE => self::FIELD_TYPE_INT,

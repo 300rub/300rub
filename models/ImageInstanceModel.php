@@ -79,7 +79,7 @@ class ImageInstanceModel extends AbstractModel
         return [
             "fileName"     => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_STRING,
-                self::FIELD_VALUE => ["setFileName"],
+                self::FIELD_BEFORE_SAVE => ["setFileName"],
             ],
             "imageAlbumId" => [
                 self::FIELD_RELATION => [
@@ -104,14 +104,14 @@ class ImageInstanceModel extends AbstractModel
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
                     "min"    => self::MIN_SIZE,
-                    "setMax" => self::MAX_SIZE
+                    "max" => self::MAX_SIZE
                 ],
             ],
             "height"       => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
                     "min"    => self::MIN_SIZE,
-                    "setMax" => self::MAX_SIZE
+                    "max" => self::MAX_SIZE
                 ],
             ],
             "x1"           => [
