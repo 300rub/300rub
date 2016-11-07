@@ -172,9 +172,34 @@ class SeoModelTest extends AbstractModelTest
 
     /**
      * Find by URL
+     *
+     * @param string   $url
+     * @param int|null $id
+     *
+     * @dataProvider dataProviderForTestFindByUrl
      */
-    public function testFindByUrl()
+    public function testFindByUrl($url, $id)
     {
-        $this->assertEquals(1, (new SeoModel)->byUrl("texts")->find()->id);
+        $model = (new SeoModel)->byUrl($url)->find();
+
+        if ($id === null) {
+            $this->assertNull($model);
+        } else {
+            $this->assertEquals($id, $model->id);
+        }
+    }
+
+    /**
+     * Data provider for testFindByUrl
+     *
+     * @return array
+     */
+    public function dataProviderForTestFindByUrl()
+    {
+        return [
+            ["texts", 1],
+            ["", null],
+            ["not-exists", null]
+        ];
     }
 }

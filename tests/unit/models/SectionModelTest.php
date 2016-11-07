@@ -13,15 +13,15 @@ use testS\models\SectionModel;
 class SectionModelTest extends AbstractModelTest
 {
 
-	/**
-	 * Model object
-	 *
-	 * @return SectionModel
-	 */
-	protected function getModel()
-	{
-		return new SectionModel;
-	}
+    /**
+     * Model object
+     *
+     * @return SectionModel
+     */
+    protected function getModel()
+    {
+        return new SectionModel;
+    }
 
     /**
      * Data provider for CRUD test
@@ -119,7 +119,7 @@ class SectionModelTest extends AbstractModelTest
                     "keywords"    => "  seo keywords 2  ",
                     "description" => "  seo description 2   ",
                 ],
-                "width"              => SectionModel::DEFAULT_WIDTH
+                "width"    => SectionModel::DEFAULT_WIDTH
             ],
             [
                 "seoModel" => [
@@ -129,8 +129,8 @@ class SectionModelTest extends AbstractModelTest
                     "keywords"    => "seo keywords 2",
                     "description" => "seo description 2",
                 ],
-                "language"           => Language::LANGUAGE_EN_ID,
-                "width"              => SectionModel::DEFAULT_WIDTH
+                "language" => Language::LANGUAGE_EN_ID,
+                "width"    => SectionModel::DEFAULT_WIDTH
             ]
         ];
     }
@@ -152,8 +152,8 @@ class SectionModelTest extends AbstractModelTest
                     "keywords"    => "<div>seo keywords<div>",
                     "description" => "<div>seo description<div>",
                 ],
-                "language"           => 99,
-                "width"              => -100
+                "language" => 99,
+                "width"    => -100
             ],
             [
                 "seoModel" => [
@@ -163,16 +163,16 @@ class SectionModelTest extends AbstractModelTest
                     "keywords"    => "seo keywords",
                     "description" => "seo description",
                 ],
-                "language"           => Language::$activeId,
-                "width"              => SectionModel::DEFAULT_WIDTH
+                "language" => Language::$activeId,
+                "width"    => SectionModel::DEFAULT_WIDTH
             ],
             [
                 "seoModel" => [
-                    "name"        => " <b>seo name! <b>",
-                    "url"         => "",
+                    "name" => " <b>seo name! <b>",
+                    "url"  => "",
                 ],
-                "language"           => "incorrect language",
-                "width"              => "incorrect width"
+                "language" => "incorrect language",
+                "width"    => "incorrect width"
             ],
             [
                 "seoModel" => [
@@ -182,17 +182,42 @@ class SectionModelTest extends AbstractModelTest
                     "keywords"    => "seo keywords",
                     "description" => "seo description",
                 ],
-                "language"           => Language::$activeId,
-                "width"              => SectionModel::DEFAULT_WIDTH
+                "language" => Language::$activeId,
+                "width"    => SectionModel::DEFAULT_WIDTH
             ]
         ];
     }
 
-	/**
-	 * Find by URL
-	 */
-	public function testFindByUrl()
-	{
-		$this->assertEquals(1, (new SectionModel)->byUrl("texts")->find()->id);
-	}
+    /**
+     * Find by URL
+     *
+     * @param string   $url
+     * @param int|null $id
+     *
+     * @dataProvider dataProviderForTestFindByUrl
+     */
+    public function testFindByUrl($url, $id)
+    {
+        $model = (new SectionModel)->byUrl($url)->find();
+
+        if ($id === null) {
+            $this->assertNull($model);
+        } else {
+            $this->assertEquals($id, $model->id);
+        }
+    }
+
+    /**
+     * Data provider for testFindByUrl
+     *
+     * @return array
+     */
+    public function dataProviderForTestFindByUrl()
+    {
+        return [
+            ["texts", 1],
+            ["", 1],
+            ["not-exists", null]
+        ];
+    }
 }
