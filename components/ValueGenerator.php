@@ -176,7 +176,7 @@ class ValueGenerator
      */
     public static function copyUrl($value)
     {
-        return $value . "-copy" . rand(1000, 100000);
+        return $value . "-copy";
     }
 
     /**

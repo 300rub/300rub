@@ -202,7 +202,7 @@ class DesignTextModel extends AbstractDesignModel
      *
      * @return array
      */
-    protected function getFieldsInfo()
+    public function getFieldsInfo()
     {
         return [
             "size"          => [

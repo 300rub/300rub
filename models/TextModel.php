@@ -75,7 +75,7 @@ class TextModel extends AbstractModel
      *
      * @return array
      */
-    protected function getFieldsInfo()
+    public function getFieldsInfo()
     {
         return [
             "designTextId"  => [
@@ -88,7 +88,7 @@ class TextModel extends AbstractModel
                 self::FIELD_TYPE                => self::FIELD_TYPE_STRING,
                 self::FIELD_VALIDATION          => ["required", "max" => 255],
                 self::FIELD_VALUE               => ["clearStripTags"],
-                self::FIELD_CHANGE_ON_DUPLICATE => "getCopyName",
+                self::FIELD_CHANGE_ON_DUPLICATE => ["copyName"],
             ],
             "language"      => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,

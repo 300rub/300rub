@@ -3,6 +3,7 @@
 namespace testS\tests\unit\models;
 
 use testS\components\exceptions\ModelException;
+use testS\components\ValueGenerator;
 use testS\models\AbstractModel;
 use testS\tests\unit\AbstractUnitTest;
 
@@ -95,7 +96,73 @@ abstract class AbstractModelTest extends AbstractUnitTest
             $this->assertNull($relationModel->byId($model->$field)->find());
         }
 
+        // Duplicate
+        $duplicateModel = $model->duplicate();
+        $this->_compareTwoModelsAfterDuplicate($model, $duplicateModel);
+        $duplicateModel->delete();
+
         return true;
+    }
+
+    /**
+     * Checks two models
+     *
+     * @param AbstractModel $model
+     * @param AbstractModel $duplicateModel
+     */
+    private function _compareTwoModelsAfterDuplicate($model, $duplicateModel)
+    {
+        $this->assertNotEquals($model->id, $duplicateModel->id);
+
+        foreach ($model->getFieldsInfo() as $field => $info) {
+            if (array_key_exists(AbstractModel::FIELD_RELATION, $info)) {
+                $relationName = $info[AbstractModel::FIELD_RELATION][1];
+                $this->_compareTwoModelsAfterDuplicate($model->$relationName, $duplicateModel->$relationName);
+                continue;
+            }
+
+            if (array_key_exists(AbstractModel::FIELD_SKIP_DUPLICATION, $info)) {
+                $this->assertFalse(!!$duplicateModel->$field);
+                continue;
+            }
+
+            if (!array_key_exists(AbstractModel::FIELD_CHANGE_ON_DUPLICATE, $info)) {
+                $this->assertEquals($model->$field, $duplicateModel->$field);
+                continue;
+            }
+
+            foreach ($info[AbstractModel::FIELD_CHANGE_ON_DUPLICATE] as $key => $value) {
+                if (is_string($key)) {
+                    if (is_string($value)) {
+                        if (stripos($value, "{") === 0) {
+                            $value = str_replace(["{", "}"], "", $value);
+                            $value = $model->$value;
+                        }
+                    }
+
+                    if (is_array($value)) {
+                        foreach ($value as &$val) {
+                            if (is_string($val)) {
+                                if (stripos($val, "{") === 0) {
+                                    $val = str_replace(["{", "}"], "", $val);
+                                    $val = $model->$val;
+                                }
+                            }
+                        }
+                    }
+
+                    $this->assertEquals(
+                        ValueGenerator::$key($model->$field, $value),
+                        $duplicateModel->$field
+                    );
+                } else {
+                    $this->assertEquals(
+                        ValueGenerator::$value($model->$field),
+                        $duplicateModel->$field
+                    );
+                }
+            }
+        }
     }
 
     /**

@@ -34,7 +34,7 @@ class GridLineModel extends AbstractModel
      *
      * @return array
      */
-    protected function getFieldsInfo()
+    public function getFieldsInfo()
     {
         return [
             "outsideDesignId" => [

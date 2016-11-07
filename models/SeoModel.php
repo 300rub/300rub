@@ -25,20 +25,20 @@ class SeoModel extends AbstractModel
      *
      * @return array
      */
-    protected function getFieldsInfo()
+    public function getFieldsInfo()
     {
         return [
             "name"        => [
                 self::FIELD_TYPE                => self::FIELD_TYPE_STRING,
                 self::FIELD_VALIDATION          => ["required", "max" => 255],
                 self::FIELD_VALUE               => ["clearStripTags"],
-                self::FIELD_CHANGE_ON_DUPLICATE => "copyName",
+                self::FIELD_CHANGE_ON_DUPLICATE => ["copyName"],
             ],
             "url"         => [
                 self::FIELD_TYPE                => self::FIELD_TYPE_STRING,
                 self::FIELD_VALIDATION          => ["required", "url", "max" => 255],
                 self::FIELD_VALUE               => ["clearStripTags", "url" => "{name}"],
-                self::FIELD_CHANGE_ON_DUPLICATE => "copyUrl"
+                self::FIELD_CHANGE_ON_DUPLICATE => ["copyUrl"]
             ],
             "title"       => [
                 self::FIELD_TYPE             => self::FIELD_TYPE_STRING,

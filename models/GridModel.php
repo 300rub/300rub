@@ -62,7 +62,7 @@ class GridModel extends AbstractModel
      *
      * @return array
      */
-    protected function getFieldsInfo()
+    public function getFieldsInfo()
     {
         return [
             "x"           => [

@@ -12,8 +12,6 @@ use testS\components\ValueGenerator;
  * Abstract class for working with models
  *
  * @package testS\models
- *
- * @method AbstractModel duplicate
  */
 abstract class AbstractModel
 {
@@ -72,7 +70,7 @@ abstract class AbstractModel
      *
      * @return array
      */
-    abstract protected function getFieldsInfo();
+    abstract public function getFieldsInfo();
 
     /**
      * Constructor
@@ -828,6 +826,68 @@ abstract class AbstractModel
         }
 
         return $this;
+    }
+
+    /**
+     * Duplicates the model
+     *
+     * @return AbstractModel
+     */
+    public function duplicate()
+    {
+        /**
+         * @var AbstractModel $duplicateModel
+         */
+        $duplicateModel = new $this;
+
+        foreach ($this->getFieldsInfo() as $field => $info) {
+            if (array_key_exists(self::FIELD_RELATION, $info)) {
+                $relationName = $info[self::FIELD_RELATION][1];
+                $duplicateRelationModel = $this->$relationName->duplicate();
+                $duplicateModel->$relationName = $duplicateRelationModel;
+                $duplicateModel->$field = $duplicateRelationModel->id;
+                continue;
+            }
+
+            if (array_key_exists(self::FIELD_SKIP_DUPLICATION, $info)) {
+                $duplicateModel->$field = null;
+                continue;
+            }
+
+            $duplicateModel->$field = $this->$field;
+
+            if (array_key_exists(self::FIELD_CHANGE_ON_DUPLICATE, $info)) {
+                foreach ($info[self::FIELD_CHANGE_ON_DUPLICATE] as $key => $value) {
+                    if (is_string($key)) {
+                        if (is_string($value)) {
+                            if (stripos($value, "{") === 0) {
+                                $value = str_replace(["{", "}"], "", $value);
+                                $value = $this->$value;
+                            }
+                        }
+
+                        if (is_array($value)) {
+                            foreach ($value as &$val) {
+                                if (is_string($val)) {
+                                    if (stripos($val, "{") === 0) {
+                                        $val = str_replace(["{", "}"], "", $val);
+                                        $val = $this->$val;
+                                    }
+                                }
+                            }
+                        }
+
+                        $duplicateModel->$field = ValueGenerator::$key($duplicateModel->$field, $value);
+                    } else {
+                        $duplicateModel->$field = ValueGenerator::$value($duplicateModel->$field);
+                    }
+                }
+            }
+        }
+
+        $duplicateModel->save();
+
+        return $duplicateModel;
     }
 
     /**

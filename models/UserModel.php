@@ -44,7 +44,7 @@ class UserModel extends AbstractModel
      *
      * @return array
      */
-    protected function getFieldsInfo()
+    public function getFieldsInfo()
     {
         return [
             "login"    => [

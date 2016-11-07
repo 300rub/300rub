@@ -88,7 +88,7 @@ class ImageModel extends AbstractModel
      *
      * @return array
      */
-    protected function getFieldsInfo()
+    public function getFieldsInfo()
     {
         return [
             "designBlockId"       => [

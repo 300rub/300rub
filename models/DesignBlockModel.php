@@ -114,7 +114,7 @@ class DesignBlockModel extends AbstractDesignModel
      *
      * @return array
      */
-    protected function getFieldsInfo()
+    public function getFieldsInfo()
     {
         return [
             "marginTop"               => [
