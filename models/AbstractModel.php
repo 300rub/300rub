@@ -487,20 +487,16 @@ abstract class AbstractModel
     }
 
     /**
-     * Sets field values
+     * Generates field value
      *
-     * @param string $field
-     * @param array  $parameters
+     * @param string $fieldValue
+     * @param array  $generateInfo
      *
-     * @return AbstractModel
+     * @return mixed
      */
-    private function _setFieldValues($field, array $parameters)
+    private function _generateFieldValue($fieldValue, array $generateInfo)
     {
-        if (!array_key_exists(self::FIELD_VALUE, $parameters)) {
-            return $this;
-        }
-
-        foreach ($parameters[self::FIELD_VALUE] as $key => $value) {
+        foreach ($generateInfo as $key => $value) {
             if (is_string($key)) {
                 if (is_string($value)) {
                     if (stripos($value, "{") === 0) {
@@ -520,11 +516,30 @@ abstract class AbstractModel
                     }
                 }
 
-                $this->$field = ValueGenerator::$key($this->$field, $value);
+                $fieldValue = ValueGenerator::$key($fieldValue, $value);
             } else {
-                $this->$field = ValueGenerator::$value($this->$field);
+                $fieldValue = ValueGenerator::$value($fieldValue);
             }
         }
+
+        return $fieldValue;
+    }
+
+    /**
+     * Sets field values
+     *
+     * @param string $field
+     * @param array  $parameters
+     *
+     * @return AbstractModel
+     */
+    private function _setFieldValues($field, array $parameters)
+    {
+        if (!array_key_exists(self::FIELD_VALUE, $parameters)) {
+            return $this;
+        }
+
+        $this->$field = $this->_generateFieldValue($this->$field, $parameters[self::FIELD_VALUE]);
 
         return $this;
     }
@@ -857,31 +872,10 @@ abstract class AbstractModel
             $duplicateModel->$field = $this->$field;
 
             if (array_key_exists(self::FIELD_CHANGE_ON_DUPLICATE, $info)) {
-                foreach ($info[self::FIELD_CHANGE_ON_DUPLICATE] as $key => $value) {
-                    if (is_string($key)) {
-                        if (is_string($value)) {
-                            if (stripos($value, "{") === 0) {
-                                $value = str_replace(["{", "}"], "", $value);
-                                $value = $this->$value;
-                            }
-                        }
-
-                        if (is_array($value)) {
-                            foreach ($value as &$val) {
-                                if (is_string($val)) {
-                                    if (stripos($val, "{") === 0) {
-                                        $val = str_replace(["{", "}"], "", $val);
-                                        $val = $this->$val;
-                                    }
-                                }
-                            }
-                        }
-
-                        $duplicateModel->$field = ValueGenerator::$key($duplicateModel->$field, $value);
-                    } else {
-                        $duplicateModel->$field = ValueGenerator::$value($duplicateModel->$field);
-                    }
-                }
+                $duplicateModel->$field = $this->_generateFieldValue(
+                    $duplicateModel->$field,
+                    $info[self::FIELD_CHANGE_ON_DUPLICATE]
+                );
             }
         }
 
