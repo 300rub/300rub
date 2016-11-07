@@ -86,9 +86,16 @@ class TextModel extends AbstractModel
             ],
             "name"          => [
                 self::FIELD_TYPE                => self::FIELD_TYPE_STRING,
-                self::FIELD_VALIDATION          => ["required", "max" => 255],
-                self::FIELD_VALUE               => ["clearStripTags"],
-                self::FIELD_CHANGE_ON_DUPLICATE => ["copyName"],
+                self::FIELD_VALIDATION          => [
+                    "required",
+                    "max" => 255
+                ],
+                self::FIELD_VALUE               => [
+                    "clearStripTags"
+                ],
+                self::FIELD_CHANGE_ON_DUPLICATE => [
+                    "copyName"
+                ],
             ],
             "language"      => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
@@ -101,7 +108,9 @@ class TextModel extends AbstractModel
             ],
             "type"          => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
-                self::FIELD_VALUE => ["arrayKey" => [self::$typeTagList, self::TYPE_DIV]],
+                self::FIELD_VALUE => [
+                    "arrayKey" => [self::$typeTagList, self::TYPE_DIV]
+                ],
             ],
             "text"          => [
                 self::FIELD_TYPE => self::FIELD_TYPE_STRING,

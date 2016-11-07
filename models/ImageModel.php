@@ -2,7 +2,6 @@
 
 namespace testS\models;
 
-use testS\components\exceptions\ModelException;
 use testS\components\Language;
 
 /**
@@ -105,8 +104,13 @@ class ImageModel extends AbstractModel
             ],
             "name"                => [
                 self::FIELD_TYPE       => self::FIELD_TYPE_STRING,
-                self::FIELD_VALIDATION => ["required", "max" => 255],
-                self::FIELD_VALUE      => ["clearStripTags"],
+                self::FIELD_VALIDATION => [
+                    "required",
+                    "max" => 255
+                ],
+                self::FIELD_VALUE      => [
+                    "clearStripTags"
+                ],
             ],
             "language"            => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
@@ -128,11 +132,15 @@ class ImageModel extends AbstractModel
             ],
             "cropWidth"           => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
-                self::FIELD_VALUE => ["max" => ImageInstanceModel::MAX_SIZE],
+                self::FIELD_VALUE => [
+                    "max" => ImageInstanceModel::MAX_SIZE
+                ],
             ],
             "cropHeight"          => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
-                self::FIELD_VALUE => ["max" => ImageInstanceModel::MAX_SIZE],
+                self::FIELD_VALUE => [
+                    "max" => ImageInstanceModel::MAX_SIZE
+                ],
             ],
             "cropX"               => [
                 self::FIELD_TYPE => self::FIELD_TYPE_INT,
@@ -156,17 +164,5 @@ class ImageModel extends AbstractModel
                 self::FIELD_TYPE => self::FIELD_TYPE_BOOL
             ],
         ];
-    }
-
-    /**
-     * Runs before delete
-     *
-     * @throws ModelException
-     */
-    protected function beforeDelete()
-    {
-        // delete images ()
-
-        parent::beforeDelete();
     }
 }

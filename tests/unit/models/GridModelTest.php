@@ -33,7 +33,9 @@ class GridModelTest extends AbstractModelTest
             $this->_dataProviderForCRUDNull(),
             $this->_dataProviderForCRUDEmpty(),
             $this->_dataProviderForCRUDCorrect(),
-            $this->_dataProviderForCRUDIncorrect()
+            $this->_dataProviderForCRUDIncorrect(),
+            $this->_dataProviderForCRUDIncorrectContent(),
+            $this->_dataProviderForCRUDIncorrectContent2()
         ];
     }
 
@@ -143,6 +145,66 @@ class GridModelTest extends AbstractModelTest
                 "width"       => "incorrect type",
                 "contentType" => "incorrect type",
                 "contentId"   => "incorrect type",
+            ],
+            self::MODEL_EXCEPTION
+        ];
+    }
+
+    /**
+     * Insert: incorrect contentType.
+     * Update: incorrect contentId.
+     *
+     * @return array
+     */
+    private function _dataProviderForCRUDIncorrectContent()
+    {
+        return [
+            [
+                "gridLineId"  => 1,
+                "x"           => 0,
+                "y"           => 0,
+                "width"       => 3,
+                "contentType" => 0,
+                "contentId"   => 1,
+            ],
+            self::MODEL_EXCEPTION,
+            [
+                "gridLineId"  => 1,
+                "x"           => 0,
+                "y"           => 0,
+                "width"       => 3,
+                "contentType" => 1,
+                "contentId"   => 0,
+            ],
+            self::MODEL_EXCEPTION
+        ];
+    }
+
+    /**
+     * Insert: incorrect contentType.
+     * Update: incorrect contentId.
+     *
+     * @return array
+     */
+    private function _dataProviderForCRUDIncorrectContent2()
+    {
+        return [
+            [
+                "gridLineId"  => 1,
+                "x"           => 0,
+                "y"           => 0,
+                "width"       => 3,
+                "contentType" => 9999,
+                "contentId"   => 1,
+            ],
+            self::MODEL_EXCEPTION,
+            [
+                "gridLineId"  => 1,
+                "x"           => 0,
+                "y"           => 0,
+                "width"       => 3,
+                "contentType" => 1,
+                "contentId"   => 9999,
             ],
             self::MODEL_EXCEPTION
         ];

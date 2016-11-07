@@ -35,8 +35,13 @@ class ImageAlbumModel extends AbstractModel
         return [
             "name"    => [
                 self::FIELD_TYPE       => self::FIELD_TYPE_STRING,
-                self::FIELD_VALIDATION => ["required", "max" => 255],
-                self::FIELD_VALUE      => ["clearStripTags"],
+                self::FIELD_VALIDATION => [
+                    "required",
+                    "max" => 255
+                ],
+                self::FIELD_VALUE      => [
+                    "clearStripTags"
+                ],
             ],
             "sort"    => [
                 self::FIELD_TYPE => self::FIELD_TYPE_INT,
@@ -45,21 +50,5 @@ class ImageAlbumModel extends AbstractModel
                 self::FIELD_TYPE => self::FIELD_TYPE_INT,
             ],
         ];
-    }
-
-    /**
-     * Add condition for select by image ID
-     *
-     * @param integer $imageId Image ID
-     *
-     * @return ImageAlbumModel
-     */
-    public function byImageId($imageId)
-    {
-        $this->getDb()
-            ->addWhere("imageId = :imageId")
-            ->addParameter("imageId", $imageId);
-
-        return $this;
     }
 }

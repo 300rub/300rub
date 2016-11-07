@@ -6,15 +6,6 @@ namespace testS\models;
  * Model for working with table "gridLines"
  *
  * @package testS\models
- *
- * @property int $sort
- * @property int $sectionId
- *
- * @method GridLineModel[] findAll()
- * @method GridLineModel   byId($id)
- * @method GridLineModel   find()
- * @method GridLineModel   withRelations()
- * @method GridLineModel   ordered($value)
  */
 class GridLineModel extends AbstractModel
 {
@@ -50,23 +41,5 @@ class GridLineModel extends AbstractModel
                 self::FIELD_TYPE => self::FIELD_TYPE_INT,
             ]
         ];
-    }
-
-    /**
-     * Adds section ID to SQL request
-     *
-     * @param int $sectionId Section ID
-     *
-     * @return GridLineModel
-     */
-    public function bySectionId($sectionId = null)
-    {
-        if ($sectionId) {
-            $this->getDb()
-                ->addWhere("sectionId = :sectionId")
-                ->addParameter("sectionId", $sectionId);
-        }
-
-        return $this;
     }
 }

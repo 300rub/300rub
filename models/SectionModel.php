@@ -55,11 +55,14 @@ class SectionModel extends AbstractModel
             ],
             "width"         => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
-                self::FIELD_VALUE => ["minThen" => [0, self::DEFAULT_WIDTH]],
+                self::FIELD_VALUE => [
+                    "minThen" => [0, self::DEFAULT_WIDTH]],
             ],
             "isMain"        => [
                 self::FIELD_TYPE        => self::FIELD_TYPE_BOOL,
-                self::FIELD_BEFORE_SAVE => ["setIsMain"]
+                self::FIELD_BEFORE_SAVE => [
+                    "setIsMain"
+                ]
             ],
             "seoId"         => [
                 self::FIELD_RELATION => ["SeoModel", "seoModel"]
@@ -140,19 +143,5 @@ class SectionModel extends AbstractModel
         }
 
         parent::afterDelete();
-    }
-
-    /**
-     * Gets width
-     *
-     * @return string
-     */
-    public function getWidth()
-    {
-        if ($this->width <= 100) {
-            return sprintf("%s%", $this->width);
-        }
-
-        return sprintf("%spx", $this->width);
     }
 }

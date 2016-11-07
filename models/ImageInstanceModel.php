@@ -5,17 +5,9 @@ namespace testS\models;
 /**
  * Model for working with table "imageInstances"
  *
- * @property int $width
- * @property int $height
- * @property int $x1
- * @property int $y1
- * @property int $thumbX1
- * @property int $thumbY1
- *
- * @method ImageModel[] findAll
- * @method ImageModel   byId($id)
- * @method ImageModel   find
- * @method ImageModel   withAll
+ * @method ImageInstanceModel[] findAll
+ * @method ImageInstanceModel   byId($id)
+ * @method ImageInstanceModel   find
  *
  * @package testS\models
  */
@@ -78,8 +70,10 @@ class ImageInstanceModel extends AbstractModel
     {
         return [
             "fileName"     => [
-                self::FIELD_TYPE  => self::FIELD_TYPE_STRING,
-                self::FIELD_BEFORE_SAVE => ["setFileName"],
+                self::FIELD_TYPE        => self::FIELD_TYPE_STRING,
+                self::FIELD_BEFORE_SAVE => [
+                    "setFileName"
+                ],
             ],
             "imageAlbumId" => [
                 self::FIELD_TYPE => self::FIELD_TYPE_INT,
@@ -99,14 +93,14 @@ class ImageInstanceModel extends AbstractModel
             "width"        => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
-                    "min"    => self::MIN_SIZE,
+                    "min" => self::MIN_SIZE,
                     "max" => self::MAX_SIZE
                 ],
             ],
             "height"       => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
-                    "min"    => self::MIN_SIZE,
+                    "min" => self::MIN_SIZE,
                     "max" => self::MAX_SIZE
                 ],
             ],
@@ -183,37 +177,5 @@ class ImageInstanceModel extends AbstractModel
         }
 
         return $value;
-    }
-
-    /**
-     * Runs before deleting
-     */
-    protected function beforeDelete()
-    {
-        //		$file = new File($this->fileName);
-        //		$fileView = new File(self::VIEW_PREFIX . $this->fileName);
-        //		$fileThumb = new File(self::THUMB_PREFIX . $this->fileName);
-        //
-        //		$file->delete();
-        //		$fileView->delete();
-        //		$fileThumb->delete();
-
-        parent::beforeDelete();
-    }
-
-    /**
-     * Add condition for select by image ID
-     *
-     * @param integer $imageAlbumId ImageAlbum ID
-     *
-     * @return ImageInstanceModel
-     */
-    public function byAlbumId($imageAlbumId = 0)
-    {
-        $this->getDb()
-            ->addWhere("imageAlbumId = :imageAlbumId")
-            ->addParameter("imageAlbumId", $imageAlbumId);
-
-        return $this;
     }
 }

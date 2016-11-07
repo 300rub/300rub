@@ -49,12 +49,21 @@ class UserModel extends AbstractModel
         return [
             "login"    => [
                 self::FIELD_TYPE       => self::FIELD_TYPE_STRING,
-                self::FIELD_VALIDATION => ["required", "min" => 3, "latinDigitUnderscoreHyphen"],
+                self::FIELD_VALIDATION => [
+                    "required",
+                    "min" => 3,
+                    "latinDigitUnderscoreHyphen"
+                ],
             ],
             "password" => [
                 self::FIELD_TYPE        => self::FIELD_TYPE_STRING,
-                self::FIELD_VALIDATION  => ["required", "min" => 3],
-                self::FIELD_BEFORE_SAVE => ["setPassword"]
+                self::FIELD_VALIDATION  => [
+                    "required",
+                    "min" => 3
+                ],
+                self::FIELD_BEFORE_SAVE => [
+                    "setPassword"
+                ]
             ],
         ];
     }

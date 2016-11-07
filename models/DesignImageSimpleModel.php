@@ -76,7 +76,9 @@ class DesignImageSimpleModel extends AbstractDesignModel
      */
     public function getValues($name)
     {
-        $this->setDesignValue("imageSimple", "alignment", "alignment", $name);
+        $this
+            ->setDesignValue("imageSimple", "alignment", "alignment", $name);
+
         return $this->designValues;
     }
 }

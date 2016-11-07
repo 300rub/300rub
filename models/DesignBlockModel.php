@@ -5,9 +5,6 @@ namespace testS\models;
 /**
  * Model for working with table "designBlocks"
  *
- * @property int $gradientDirection
- * @property int $borderStyle
- *
  * @package testS\models
  */
 class DesignBlockModel extends AbstractDesignModel
@@ -119,43 +116,63 @@ class DesignBlockModel extends AbstractDesignModel
         return [
             "marginTop"               => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
-                self::FIELD_VALUE => ["min" => self::MIN_MARGIN_VALUE],
+                self::FIELD_VALUE => [
+                    "min" => self::MIN_MARGIN_VALUE
+                ],
             ],
             "marginRight"             => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
-                self::FIELD_VALUE => ["min" => self::MIN_MARGIN_VALUE],
+                self::FIELD_VALUE => [
+                    "min" => self::MIN_MARGIN_VALUE
+                ],
             ],
             "marginBottom"            => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
-                self::FIELD_VALUE => ["min" => self::MIN_MARGIN_VALUE],
+                self::FIELD_VALUE => [
+                    "min" => self::MIN_MARGIN_VALUE
+                ],
             ],
             "marginLeft"              => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
-                self::FIELD_VALUE => ["min" => self::MIN_MARGIN_VALUE],
+                self::FIELD_VALUE => [
+                    "min" => self::MIN_MARGIN_VALUE
+                ],
             ],
             "paddingTop"              => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
-                self::FIELD_VALUE => ["min" => 0],
+                self::FIELD_VALUE => [
+                    "min" => 0
+                ],
             ],
             "paddingRight"            => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
-                self::FIELD_VALUE => ["min" => 0],
+                self::FIELD_VALUE => [
+                    "min" => 0
+                ],
             ],
             "paddingBottom"           => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
-                self::FIELD_VALUE => ["min" => 0],
+                self::FIELD_VALUE => [
+                    "min" => 0
+                ],
             ],
             "paddingLeft"             => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
-                self::FIELD_VALUE => ["min" => 0],
+                self::FIELD_VALUE => [
+                    "min" => 0
+                ],
             ],
             "backgroundColorFrom"     => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_STRING,
-                self::FIELD_VALUE => ["color"],
+                self::FIELD_VALUE => [
+                    "color"
+                ],
             ],
             "backgroundColorTo"       => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_STRING,
-                self::FIELD_VALUE => ["color"],
+                self::FIELD_VALUE => [
+                    "color"
+                ],
             ],
             "gradientDirection"       => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
@@ -165,39 +182,57 @@ class DesignBlockModel extends AbstractDesignModel
             ],
             "borderTopWidth"          => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
-                self::FIELD_VALUE => ["min" => 0],
+                self::FIELD_VALUE => [
+                    "min" => 0
+                ],
             ],
             "borderRightWidth"        => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
-                self::FIELD_VALUE => ["min" => 0],
+                self::FIELD_VALUE => [
+                    "min" => 0
+                ],
             ],
             "borderBottomWidth"       => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
-                self::FIELD_VALUE => ["min" => 0],
+                self::FIELD_VALUE => [
+                    "min" => 0
+                ],
             ],
             "borderLeftWidth"         => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
-                self::FIELD_VALUE => ["min" => 0],
+                self::FIELD_VALUE => [
+                    "min" => 0
+                ],
             ],
             "borderTopLeftRadius"     => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
-                self::FIELD_VALUE => ["min" => 0],
+                self::FIELD_VALUE => [
+                    "min" => 0
+                ],
             ],
             "borderTopRightRadius"    => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
-                self::FIELD_VALUE => ["min" => 0],
+                self::FIELD_VALUE => [
+                    "min" => 0
+                ],
             ],
             "borderBottomRightRadius" => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
-                self::FIELD_VALUE => ["min" => 0],
+                self::FIELD_VALUE => [
+                    "min" => 0
+                ],
             ],
             "borderBottomLeftRadius"  => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
-                self::FIELD_VALUE => ["min" => 0],
+                self::FIELD_VALUE => [
+                    "min" => 0
+                ],
             ],
             "borderColor"             => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_STRING,
-                self::FIELD_VALUE => ["color"],
+                self::FIELD_VALUE => [
+                    "color"
+                ],
             ],
             "borderStyle"             => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
@@ -241,33 +276,5 @@ class DesignBlockModel extends AbstractDesignModel
             ->setDesignValue("radios", "border-style", "borderStyle", $name);
 
         return $this->designValues;
-    }
-
-    /**
-     * Gets gradient direction
-     *
-     * @return array
-     */
-    public function getGradientDirection()
-    {
-        if (array_key_exists($this->gradientDirection, self::$gradientDirectionList)) {
-            return self::$gradientDirectionList[$this->gradientDirection];
-        }
-
-        return self::$gradientDirectionList[self::GRADIENT_DIRECTION_HORIZONTAL];
-    }
-
-    /**
-     * Gets border style
-     *
-     * @return string
-     */
-    public function getBorderStyle()
-    {
-        if (array_key_exists($this->borderStyle, self::$borderStyleList)) {
-            return self::$borderStyleList[$this->borderStyle];
-        }
-
-        return self::$borderStyleList[self::BORDER_STYLE_NONE];
     }
 }
