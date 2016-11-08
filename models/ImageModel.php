@@ -133,20 +133,28 @@ class ImageModel extends AbstractModel
             "cropWidth"           => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
-                    "max" => ImageInstanceModel::MAX_SIZE
+                    "max" => ImageInstanceModel::MAX_SIZE,
+                    "min" => 0
                 ],
             ],
             "cropHeight"          => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
-                    "max" => ImageInstanceModel::MAX_SIZE
+                    "max" => ImageInstanceModel::MAX_SIZE,
+                    "min" => 0
                 ],
             ],
             "cropX"               => [
                 self::FIELD_TYPE => self::FIELD_TYPE_INT,
+                self::FIELD_VALUE => [
+                    "min" => 0
+                ],
             ],
             "cropY"               => [
                 self::FIELD_TYPE => self::FIELD_TYPE_INT,
+                self::FIELD_VALUE => [
+                    "min" => 0
+                ],
             ],
             "thumbAutoCropType"   => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
@@ -156,9 +164,15 @@ class ImageModel extends AbstractModel
             ],
             "thumbCropX"          => [
                 self::FIELD_TYPE => self::FIELD_TYPE_INT,
+                self::FIELD_VALUE => [
+                    "min" => 0
+                ],
             ],
             "thumbCropY"          => [
                 self::FIELD_TYPE => self::FIELD_TYPE_INT,
+                self::FIELD_VALUE => [
+                    "min" => 0
+                ],
             ],
             "useAlbums"           => [
                 self::FIELD_TYPE => self::FIELD_TYPE_BOOL

@@ -33,6 +33,12 @@ class ImageAlbumModel extends AbstractModel
     public function getFieldsInfo()
     {
         return [
+            "imageId" => [
+                self::FIELD_TYPE => self::FIELD_TYPE_INT,
+                self::FIELD_VALUE => [
+                    "min" => 0
+                ],
+            ],
             "name"    => [
                 self::FIELD_TYPE       => self::FIELD_TYPE_STRING,
                 self::FIELD_VALIDATION => [
@@ -44,9 +50,6 @@ class ImageAlbumModel extends AbstractModel
                 ],
             ],
             "sort"    => [
-                self::FIELD_TYPE => self::FIELD_TYPE_INT,
-            ],
-            "imageId" => [
                 self::FIELD_TYPE => self::FIELD_TYPE_INT,
             ],
         ];
