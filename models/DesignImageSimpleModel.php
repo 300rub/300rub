@@ -56,7 +56,7 @@ class DesignImageSimpleModel extends AbstractDesignModel
                 self::FIELD_RELATION => ["DesignBlockModel", "imageDesignBlockModel"]
             ],
             "designTextId"       => [
-                self::FIELD_RELATION => ["DesignBlockModel", "designTextModel"]
+                self::FIELD_RELATION => ["DesignTextModel", "designTextModel"]
             ],
             "alignment"          => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
