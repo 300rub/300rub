@@ -200,57 +200,100 @@ class DesignTextModel extends AbstractDesignModel
     public function getFieldsInfo()
     {
         return [
-            "size"          => [
+            "size"               => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
                     "min" => self::MIN_SIZE_VALUE
                 ],
             ],
-            "family"        => [
+            "sizeHover"          => [
+                self::FIELD_TYPE  => self::FIELD_TYPE_INT,
+                self::FIELD_VALUE => [
+                    "min" => self::MIN_SIZE_VALUE
+                ],
+            ],
+            "family"             => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
                     "arrayKey" => [
-                        self::$familyList, self::FAMILY_MYRAD
+                        self::$familyList,
+                        self::FAMILY_MYRAD
                     ]
                 ],
             ],
-            "color"         => [
+            "color"              => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_STRING,
                 self::FIELD_VALUE => [
                     "color"
                 ],
             ],
-            "isItalic"      => [
+            "colorHover"         => [
+                self::FIELD_TYPE  => self::FIELD_TYPE_STRING,
+                self::FIELD_VALUE => [
+                    "color"
+                ],
+            ],
+            "isItalic"           => [
                 self::FIELD_TYPE => self::FIELD_TYPE_BOOL,
             ],
-            "isBold"        => [
+            "isItalicHover"      => [
                 self::FIELD_TYPE => self::FIELD_TYPE_BOOL,
             ],
-            "align"         => [
+            "isBold"             => [
+                self::FIELD_TYPE => self::FIELD_TYPE_BOOL,
+            ],
+            "isBoldHover"        => [
+                self::FIELD_TYPE => self::FIELD_TYPE_BOOL,
+            ],
+            "align"              => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
                     "arrayKey" => [self::$textAlignList, self::TEXT_ALIGN_LEFT]
                 ],
             ],
-            "decoration"    => [
+            "decoration"         => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
                     "arrayKey" => [self::$textDecorationList, self::TEXT_DECORATION_NONE]
                 ],
             ],
-            "transform"     => [
+            "decorationHover"    => [
+                self::FIELD_TYPE  => self::FIELD_TYPE_INT,
+                self::FIELD_VALUE => [
+                    "arrayKey" => [self::$textDecorationList, self::TEXT_DECORATION_NONE]
+                ],
+            ],
+            "transform"          => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
                     "arrayKey" => [self::$textTransformList, self::TEXT_TRANSFORM_NONE]
                 ],
             ],
-            "letterSpacing" => [
+            "transformHover"     => [
+                self::FIELD_TYPE  => self::FIELD_TYPE_INT,
+                self::FIELD_VALUE => [
+                    "arrayKey" => [self::$textTransformList, self::TEXT_TRANSFORM_NONE]
+                ],
+            ],
+            "letterSpacing"      => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
                     "min" => self::MIN_LETTER_SPACING_VALUE
                 ],
             ],
-            "lineHeight"    => [
+            "letterSpacingHover" => [
+                self::FIELD_TYPE  => self::FIELD_TYPE_INT,
+                self::FIELD_VALUE => [
+                    "min" => self::MIN_LETTER_SPACING_VALUE
+                ],
+            ],
+            "lineHeight"         => [
+                self::FIELD_TYPE  => self::FIELD_TYPE_INT,
+                self::FIELD_VALUE => [
+                    "minThen" => [self::MIN_LINE_HEIGHT_VALUE, self::DEFAULT_LINE_HEIGHT],
+                ],
+            ],
+            "lineHeightHover"    => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
                     "minThen" => [self::MIN_LINE_HEIGHT_VALUE, self::DEFAULT_LINE_HEIGHT],
