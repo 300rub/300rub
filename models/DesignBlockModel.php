@@ -114,133 +114,275 @@ class DesignBlockModel extends AbstractDesignModel
     public function getFieldsInfo()
     {
         return [
-            "marginTop"               => [
+            "marginTop"                => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
                     "min" => self::MIN_MARGIN_VALUE
                 ],
             ],
-            "marginRight"             => [
+            "marginTopHover"           => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
                     "min" => self::MIN_MARGIN_VALUE
                 ],
             ],
-            "marginBottom"            => [
+            "marginRight"              => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
                     "min" => self::MIN_MARGIN_VALUE
                 ],
             ],
-            "marginLeft"              => [
+            "marginRightHover"         => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
                     "min" => self::MIN_MARGIN_VALUE
                 ],
             ],
-            "paddingTop"              => [
+            "marginBottom"             => [
+                self::FIELD_TYPE  => self::FIELD_TYPE_INT,
+                self::FIELD_VALUE => [
+                    "min" => self::MIN_MARGIN_VALUE
+                ],
+            ],
+            "marginBottomHover"        => [
+                self::FIELD_TYPE  => self::FIELD_TYPE_INT,
+                self::FIELD_VALUE => [
+                    "min" => self::MIN_MARGIN_VALUE
+                ],
+            ],
+            "marginLeft"               => [
+                self::FIELD_TYPE  => self::FIELD_TYPE_INT,
+                self::FIELD_VALUE => [
+                    "min" => self::MIN_MARGIN_VALUE
+                ],
+            ],
+            "marginLeftHover"          => [
+                self::FIELD_TYPE  => self::FIELD_TYPE_INT,
+                self::FIELD_VALUE => [
+                    "min" => self::MIN_MARGIN_VALUE
+                ],
+            ],
+            "hasMarginAnimation"       => [
+                self::FIELD_TYPE => self::FIELD_TYPE_BOOL,
+            ],
+            "paddingTop"               => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
                     "min" => 0
                 ],
             ],
-            "paddingRight"            => [
+            "paddingTopHover"          => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
                     "min" => 0
                 ],
             ],
-            "paddingBottom"           => [
+            "paddingRight"             => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
                     "min" => 0
                 ],
             ],
-            "paddingLeft"             => [
+            "paddingRightHover"        => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
                     "min" => 0
                 ],
             ],
-            "backgroundColorFrom"     => [
+            "paddingBottom"            => [
+                self::FIELD_TYPE  => self::FIELD_TYPE_INT,
+                self::FIELD_VALUE => [
+                    "min" => 0
+                ],
+            ],
+            "paddingBottomHover"       => [
+                self::FIELD_TYPE  => self::FIELD_TYPE_INT,
+                self::FIELD_VALUE => [
+                    "min" => 0
+                ],
+            ],
+            "paddingLeft"              => [
+                self::FIELD_TYPE  => self::FIELD_TYPE_INT,
+                self::FIELD_VALUE => [
+                    "min" => 0
+                ],
+            ],
+            "paddingLeftHover"         => [
+                self::FIELD_TYPE  => self::FIELD_TYPE_INT,
+                self::FIELD_VALUE => [
+                    "min" => 0
+                ],
+            ],
+            "hasPaddingAnimation"      => [
+                self::FIELD_TYPE => self::FIELD_TYPE_BOOL,
+            ],
+            "backgroundColorFrom"      => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_STRING,
                 self::FIELD_VALUE => [
                     "color"
                 ],
             ],
-            "backgroundColorTo"       => [
+            "backgroundColorFromHover" => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_STRING,
                 self::FIELD_VALUE => [
                     "color"
                 ],
             ],
-            "gradientDirection"       => [
+            "backgroundColorTo"        => [
+                self::FIELD_TYPE  => self::FIELD_TYPE_STRING,
+                self::FIELD_VALUE => [
+                    "color"
+                ],
+            ],
+            "backgroundColorToHover"   => [
+                self::FIELD_TYPE  => self::FIELD_TYPE_STRING,
+                self::FIELD_VALUE => [
+                    "color"
+                ],
+            ],
+            "gradientDirection"        => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
                     "arrayKey" => [self::$gradientDirectionList, self::GRADIENT_DIRECTION_HORIZONTAL]
                 ],
             ],
-            "borderTopWidth"          => [
+            "gradientDirectionHover"   => [
+                self::FIELD_TYPE  => self::FIELD_TYPE_INT,
+                self::FIELD_VALUE => [
+                    "arrayKey" => [self::$gradientDirectionList, self::GRADIENT_DIRECTION_HORIZONTAL]
+                ],
+            ],
+            "hasBackgroundAnimation"   => [
+                self::FIELD_TYPE => self::FIELD_TYPE_BOOL,
+            ],
+
+            "borderTopLeftRadius"          => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
                     "min" => 0
                 ],
             ],
-            "borderRightWidth"        => [
+            "borderTopLeftRadiusHover"     => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
                     "min" => 0
                 ],
             ],
-            "borderBottomWidth"       => [
+            "borderTopRightRadius"         => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
                     "min" => 0
                 ],
             ],
-            "borderLeftWidth"         => [
+            "borderTopRightRadiusHover"    => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
                     "min" => 0
                 ],
             ],
-            "borderTopLeftRadius"     => [
+            "borderBottomRightRadius"      => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
                     "min" => 0
                 ],
             ],
-            "borderTopRightRadius"    => [
+            "borderBottomRightRadiusHover" => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
                     "min" => 0
                 ],
             ],
-            "borderBottomRightRadius" => [
+            "borderBottomLeftRadius"       => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
                     "min" => 0
                 ],
             ],
-            "borderBottomLeftRadius"  => [
+            "borderBottomLeftRadiusHover"  => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
                     "min" => 0
                 ],
             ],
-            "borderColor"             => [
+            "hasBorderRadiusAnimation"     => [
+                self::FIELD_TYPE => self::FIELD_TYPE_BOOL,
+            ],
+            "borderTopWidth"               => [
+                self::FIELD_TYPE  => self::FIELD_TYPE_INT,
+                self::FIELD_VALUE => [
+                    "min" => 0
+                ],
+            ],
+            "borderTopWidthHover"          => [
+                self::FIELD_TYPE  => self::FIELD_TYPE_INT,
+                self::FIELD_VALUE => [
+                    "min" => 0
+                ],
+            ],
+            "borderRightWidth"             => [
+                self::FIELD_TYPE  => self::FIELD_TYPE_INT,
+                self::FIELD_VALUE => [
+                    "min" => 0
+                ],
+            ],
+            "borderRightWidthHover"        => [
+                self::FIELD_TYPE  => self::FIELD_TYPE_INT,
+                self::FIELD_VALUE => [
+                    "min" => 0
+                ],
+            ],
+            "borderBottomWidth"            => [
+                self::FIELD_TYPE  => self::FIELD_TYPE_INT,
+                self::FIELD_VALUE => [
+                    "min" => 0
+                ],
+            ],
+            "borderBottomWidthHover"       => [
+                self::FIELD_TYPE  => self::FIELD_TYPE_INT,
+                self::FIELD_VALUE => [
+                    "min" => 0
+                ],
+            ],
+            "borderLeftWidth"              => [
+                self::FIELD_TYPE  => self::FIELD_TYPE_INT,
+                self::FIELD_VALUE => [
+                    "min" => 0
+                ],
+            ],
+            "borderLeftWidthHover"         => [
+                self::FIELD_TYPE  => self::FIELD_TYPE_INT,
+                self::FIELD_VALUE => [
+                    "min" => 0
+                ],
+            ],
+            "borderColor"                  => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_STRING,
                 self::FIELD_VALUE => [
                     "color"
                 ],
             ],
-            "borderStyle"             => [
+            "borderColorHover"             => [
+                self::FIELD_TYPE  => self::FIELD_TYPE_STRING,
+                self::FIELD_VALUE => [
+                    "color"
+                ],
+            ],
+            "borderStyle"                  => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
                     "arrayKey" => [self::$borderStyleList, self::BORDER_STYLE_NONE]
                 ],
             ],
-            "width"         => [
+            "borderStyleHover"             => [
+                self::FIELD_TYPE  => self::FIELD_TYPE_INT,
+                self::FIELD_VALUE => [
+                    "arrayKey" => [self::$borderStyleList, self::BORDER_STYLE_NONE]
+                ],
+            ],
+            "hasBorderAnimation"           => [
+                self::FIELD_TYPE => self::FIELD_TYPE_BOOL,
+            ],
+            "width"                        => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
                     "min" => 0
