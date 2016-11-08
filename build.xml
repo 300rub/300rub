@@ -61,9 +61,7 @@
         </exec>
     </target>
 
-    <target name="phpunit">
-        <antcall target="create-sql-dumps" />
-
+    <target name="phpunit" depends="create-sql-dumps">
         <exec executable="php" failonerror="false">
             <arg value='vendor/phpunit/phpunit/phpunit' />
             <arg value='--bootstrap=tests/bootstrap.php' />
