@@ -19,27 +19,27 @@ class M160311000000Grids extends AbstractMigration
             ->createTable(
                 "gridLines",
                 [
-                    "id"              => "pk",
-                    "sectionId"       => "integer",
-                    "sort"            => "integer",
-                    "outsideDesignId" => "integer",
-                    "insideDesignId"  => "integer"
+                    "id"              => self::TYPE_PK,
+                    "sectionId"       => self::TYPE_INT,
+                    "outsideDesignId" => self::TYPE_INT,
+                    "insideDesignId"  => self::TYPE_INT,
+                    "sort"            => self::TYPE_SMALLINT,
                 ]
             )
             ->createForeignKey("gridLines", "sectionId", "sections", self::FK_CASCADE, self::FK_CASCADE)
-            ->createIndex("gridLines", "sort")
             ->createForeignKey("gridLines", "outsideDesignId", "designBlocks")
             ->createForeignKey("gridLines", "insideDesignId", "designBlocks")
+            ->createIndex("gridLines", "sort")
             ->createTable(
                 "grids",
                 [
-                    "id"          => "pk",
-                    "gridLineId"  => "integer",
-                    "contentType" => "integer",
-                    "contentId"   => "integer",
-                    "x"           => "integer",
-                    "y"           => "integer",
-                    "width"       => "integer"
+                    "id"          => self::TYPE_PK,
+                    "gridLineId"  => self::TYPE_INT,
+                    "contentType" => self::TYPE_INT,
+                    "contentId"   => self::TYPE_INT,
+                    "x"           => self::TYPE_TINYINT,
+                    "y"           => self::TYPE_TINYINT,
+                    "width"       => self::TYPE_TINYINT,
                 ]
             )
             ->createForeignKey("grids", "gridLineId", "gridLines", self::FK_CASCADE, self::FK_CASCADE);

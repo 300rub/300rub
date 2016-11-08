@@ -19,14 +19,14 @@ class M160309000000Texts extends AbstractMigration
             ->createTable(
                 "texts",
                 [
-                    "id"            => "pk",
-                    "name"          => "string",
-                    "language"      => "integer",
-                    "type"          => "integer",
-                    "isEditor"      => "boolean",
-                    "text"          => "text",
-                    "designTextId"  => "integer",
-                    "designBlockId" => "integer",
+                    "id"            => self::TYPE_PK,
+                    "designTextId"  => self::TYPE_INT,
+                    "designBlockId" => self::TYPE_INT,
+                    "name"          => self::TYPE_STRING,
+                    "language"      => self::TYPE_TINYINT,
+                    "type"          => self::TYPE_TINYINT,
+                    "isEditor"      => self::TYPE_BOOL,
+                    "text"          => self::TYPE_TEXT,
                 ]
             )
             ->createForeignKey("texts", "designTextId", "designTexts")

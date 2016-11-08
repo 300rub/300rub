@@ -25,8 +25,8 @@ class M160302000000Migrations extends AbstractMigration
         $this->createTable(
             "migrations",
             [
-                "id"      => "pk",
-                "version" => "string",
+                "id"      => self::TYPE_PK,
+                "version" => self::TYPE_STRING_100,
             ]
         );
     }

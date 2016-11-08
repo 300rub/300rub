@@ -19,12 +19,12 @@ class M160303000000Seo extends AbstractMigration
             ->createTable(
                 "seo",
                 [
-                    "id"          => "pk",
-                    "name"        => "string",
-                    "url"         => "string",
-                    "title"       => "varchar(100) NOT NULL",
-                    "keywords"    => "string",
-                    "description" => "string",
+                    "id"          => self::TYPE_PK,
+                    "name"        => self::TYPE_STRING,
+                    "url"         => self::TYPE_STRING,
+                    "title"       => self::TYPE_STRING_100,
+                    "keywords"    => self::TYPE_STRING,
+                    "description" => self::TYPE_STRING,
                 ]
             )
             ->createIndex("seo", "name")

@@ -26,6 +26,21 @@ abstract class AbstractMigration
     const FK_CASCADE = "CASCADE";
 
     /**
+     * Column types
+     */
+    const TYPE_PK = "INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY";
+    const TYPE_STRING = 'VARCHAR(255) NOT NULL';
+    const TYPE_STRING_100 = 'VARCHAR(100) NOT NULL';
+    const TYPE_STRING_50 = 'VARCHAR(50) NOT NULL';
+    const TYPE_STRING_25 = 'VARCHAR(25) NOT NULL';
+    const TYPE_CHAR_40 = 'CHAR(40) NOT NULL';
+    const TYPE_INT = 'INT(11) NOT NULL';
+    const TYPE_TINYINT = 'TINYINT(2) NOT NULL';
+    const TYPE_SMALLINT = 'SMALLINT(5) NOT NULL';
+    const TYPE_BOOL = 'TINYINT(1) NOT NULL';
+    const TYPE_TEXT = 'TEXT NOT NULL';
+
+    /**
      * Flag. If it is true - it will be skipped in common applying
      *
      * @var bool
@@ -38,35 +53,6 @@ abstract class AbstractMigration
      * @return bool
      */
     abstract public function up();
-
-    /**
-     * List of types
-     *
-     * @var array
-     */
-    private $_columnTypes = [
-        'pk'      => 'int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY',
-        'string'  => 'varchar(255) NOT NULL',
-        'integer' => 'int(11) NOT NULL',
-        'boolean' => 'tinyint(1) NOT NULL',
-        'text'    => 'text NOT NULL',
-    ];
-
-    /**
-     * Gets field type
-     *
-     * @param string $type Type
-     *
-     * @return string
-     */
-    public function getColumnType($type)
-    {
-        if (array_key_exists($type, $this->_columnTypes)) {
-            return $this->_columnTypes[$type];
-        }
-
-        return $type;
-    }
 
     /**
      * Creates table
@@ -83,7 +69,7 @@ abstract class AbstractMigration
     {
         $cols = [];
         foreach ($columns as $name => $type) {
-            $cols[] = "`{$name}`" . ' ' . $this->getColumnType($type);
+            $cols[] = "`{$name}`" . ' ' . $type;
         }
 
         if (!Db::execute("\nCREATE TABLE " . $table . " (\n" . implode(",\n", $cols) . "\n)" . $options)) {

@@ -29,15 +29,15 @@ class M160301000000Sites extends AbstractMigration
             ->createTable(
                 "sites",
                 [
-                    "id"         => "pk",
-                    "host"       => "string",
-                    "dbHost"     => "string",
-                    "dbUser"     => "string",
-                    "dbPassword" => "string",
-                    "dbName"     => "string",
-                    "language"   => "integer",
-                    "email"      => "string",
-                    "ssh"        => "string",
+                    "id"         => self::TYPE_PK,
+                    "host"       => self::TYPE_STRING,
+                    "dbHost"     => self::TYPE_STRING,
+                    "dbUser"     => self::TYPE_STRING,
+                    "dbPassword" => self::TYPE_STRING,
+                    "dbName"     => self::TYPE_STRING,
+                    "language"   => self::TYPE_TINYINT,
+                    "email"      => self::TYPE_STRING,
+                    "ssh"        => self::TYPE_STRING,
                 ]
             )
             ->createIndex("sites", "host");

@@ -19,12 +19,12 @@ class M160305000000Sections extends AbstractMigration
             ->createTable(
                 "sections",
                 [
-                    "id"            => "pk",
-                    "seoId"         => "integer",
-                    "language"      => "integer",
-                    "width"         => "integer",
-                    "isMain"        => "boolean",
-                    "designBlockId" => "integer"
+                    "id"            => self::TYPE_PK,
+                    "seoId"         => self::TYPE_INT,
+                    "designBlockId" => self::TYPE_INT,
+                    "language"      => self::TYPE_TINYINT,
+                    "width"         => self::TYPE_SMALLINT,
+                    "isMain"        => self::TYPE_BOOL,
                 ]
             )
             ->createForeignKey("sections", "seoId", "seo")

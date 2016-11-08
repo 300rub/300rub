@@ -18,17 +18,17 @@ class M160307000010DesignTexts extends AbstractMigration
         $this->createTable(
             "designTexts",
             [
-                "id"            => "pk",
-                "size"          => "integer",
-                "family"        => "integer",
-                "color"         => "string",
-                "isItalic"      => "boolean",
-                "isBold"        => "boolean",
-                "align"         => "integer",
-                "decoration"    => "integer",
-                "transform"     => "integer",
-                "letterSpacing" => "integer",
-                "lineHeight"    => "integer",
+                "id"            => self::TYPE_PK,
+                "size"          => self::TYPE_SMALLINT,
+                "family"        => self::TYPE_TINYINT,
+                "color"         => self::TYPE_STRING_25,
+                "isItalic"      => self::TYPE_BOOL,
+                "isBold"        => self::TYPE_BOOL,
+                "align"         => self::TYPE_TINYINT,
+                "decoration"    => self::TYPE_TINYINT,
+                "transform"     => self::TYPE_TINYINT,
+                "letterSpacing" => self::TYPE_SMALLINT,
+                "lineHeight"    => self::TYPE_SMALLINT,
             ]
         );
     }
