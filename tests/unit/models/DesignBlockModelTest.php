@@ -70,6 +70,7 @@ class DesignBlockModelTest extends AbstractModelTest
                 "borderBottomLeftRadius"  => 0,
                 "borderColor"             => "",
                 "borderStyle"             => 0,
+                "width"                   => 0,
             ],
             [],
             [
@@ -94,6 +95,7 @@ class DesignBlockModelTest extends AbstractModelTest
                 "borderBottomLeftRadius"  => 0,
                 "borderColor"             => "",
                 "borderStyle"             => 0,
+                "width"                   => 0,
             ]
         ];
     }
@@ -129,6 +131,7 @@ class DesignBlockModelTest extends AbstractModelTest
                 "borderBottomLeftRadius"  => "",
                 "borderColor"             => "",
                 "borderStyle"             => "",
+                "width"                   => "",
             ],
             [
                 "marginTop"               => 0,
@@ -152,6 +155,7 @@ class DesignBlockModelTest extends AbstractModelTest
                 "borderBottomLeftRadius"  => 0,
                 "borderColor"             => "",
                 "borderStyle"             => 0,
+                "width"                   => 0,
             ],
             [
                 "marginTop"               => "",
@@ -175,6 +179,7 @@ class DesignBlockModelTest extends AbstractModelTest
                 "borderBottomLeftRadius"  => "",
                 "borderColor"             => "",
                 "borderStyle"             => "",
+                "width"                   => "",
             ],
             [
                 "marginTop"               => 0,
@@ -198,6 +203,7 @@ class DesignBlockModelTest extends AbstractModelTest
                 "borderBottomLeftRadius"  => 0,
                 "borderColor"             => "",
                 "borderStyle"             => 0,
+                "width"                   => 0,
             ]
         ];
     }
@@ -233,6 +239,7 @@ class DesignBlockModelTest extends AbstractModelTest
                 "borderBottomLeftRadius"  => 20,
                 "borderColor"             => "rgba(0,255,255,0.5)",
                 "borderStyle"             => DesignBlockModel::BORDER_STYLE_SOLID,
+                "width"                   => 1024,
             ],
             [
                 "marginTop"               => 10,
@@ -256,6 +263,7 @@ class DesignBlockModelTest extends AbstractModelTest
                 "borderBottomLeftRadius"  => 20,
                 "borderColor"             => "rgba(0,255,255,0.5)",
                 "borderStyle"             => DesignBlockModel::BORDER_STYLE_SOLID,
+                "width"                   => 1024,
             ],
             [
                 "marginTop"               => "5",
@@ -279,6 +287,7 @@ class DesignBlockModelTest extends AbstractModelTest
                 "borderBottomLeftRadius"  => "10",
                 "borderColor"             => "rgb(0,255,0)",
                 "borderStyle"             => DesignBlockModel::BORDER_STYLE_DOTTED,
+                "width"                   => 980,
             ],
             [
                 "marginTop"               => 5,
@@ -302,6 +311,7 @@ class DesignBlockModelTest extends AbstractModelTest
                 "borderBottomLeftRadius"  => 10,
                 "borderColor"             => "rgb(0,255,0)",
                 "borderStyle"             => DesignBlockModel::BORDER_STYLE_DOTTED,
+                "width"                   => 980,
             ]
         ];
     }
@@ -337,6 +347,7 @@ class DesignBlockModelTest extends AbstractModelTest
                 "borderBottomLeftRadius"  => "incorrect type",
                 "borderColor"             => "0,255,255,0.5",
                 "borderStyle"             => "incorrect type",
+                "width"                   => "incorrect type",
             ],
             [
                 "marginTop"               => 0,
@@ -360,6 +371,7 @@ class DesignBlockModelTest extends AbstractModelTest
                 "borderBottomLeftRadius"  => 0,
                 "borderColor"             => "",
                 "borderStyle"             => 0,
+                "width"                   => 0,
             ],
             [
                 "marginTop"               => "incorrect type",
@@ -383,6 +395,7 @@ class DesignBlockModelTest extends AbstractModelTest
                 "borderBottomLeftRadius"  => "incorrect type",
                 "borderColor"             => "#cccccc",
                 "borderStyle"             => "incorrect type",
+                "width"                   => "incorrect type",
             ],
             [
                 "marginTop"               => 0,
@@ -406,6 +419,7 @@ class DesignBlockModelTest extends AbstractModelTest
                 "borderBottomLeftRadius"  => 0,
                 "borderColor"             => "",
                 "borderStyle"             => 0,
+                "width"                   => 0,
             ]
         ];
     }
@@ -441,6 +455,7 @@ class DesignBlockModelTest extends AbstractModelTest
                 "borderBottomLeftRadius"  => - 1,
                 "borderColor"             => "0,255,255",
                 "borderStyle"             => 99,
+                "width"                   => -10,
             ],
             [
                 "marginTop"               => DesignBlockModel::MIN_MARGIN_VALUE,
@@ -464,6 +479,7 @@ class DesignBlockModelTest extends AbstractModelTest
                 "borderBottomLeftRadius"  => 0,
                 "borderColor"             => "",
                 "borderStyle"             => DesignBlockModel::BORDER_STYLE_NONE,
+                "width"                   => 0,
             ],
             [
                 "marginTop"               => DesignBlockModel::MIN_MARGIN_VALUE - 1,
@@ -487,6 +503,7 @@ class DesignBlockModelTest extends AbstractModelTest
                 "borderBottomLeftRadius"  => -1,
                 "borderColor"             => "#cccccc",
                 "borderStyle"             => 111,
+                "width"                   => -1,
             ],
             [
                 "marginTop"               => DesignBlockModel::MIN_MARGIN_VALUE,
@@ -510,6 +527,7 @@ class DesignBlockModelTest extends AbstractModelTest
                 "borderBottomLeftRadius"  => 0,
                 "borderColor"             => "",
                 "borderStyle"             => DesignBlockModel::BORDER_STYLE_NONE,
+                "width"                   => 0,
             ]
         ];
     }

@@ -16,7 +16,6 @@ use testS\components\Language;
  * @method SectionModel   exceptId($id)
  *
  * @property bool $isMain
- * @property int  $width
  */
 class SectionModel extends AbstractModel
 {
@@ -52,11 +51,6 @@ class SectionModel extends AbstractModel
                 self::FIELD_VALUE => [
                     "arrayKey" => [Language::$aliasList, Language::$activeId]
                 ],
-            ],
-            "width"         => [
-                self::FIELD_TYPE  => self::FIELD_TYPE_INT,
-                self::FIELD_VALUE => [
-                    "minThen" => [0, self::DEFAULT_WIDTH]],
             ],
             "isMain"        => [
                 self::FIELD_TYPE        => self::FIELD_TYPE_BOOL,

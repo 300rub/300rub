@@ -240,6 +240,12 @@ class DesignBlockModel extends AbstractDesignModel
                     "arrayKey" => [self::$borderStyleList, self::BORDER_STYLE_NONE]
                 ],
             ],
+            "width"         => [
+                self::FIELD_TYPE  => self::FIELD_TYPE_INT,
+                self::FIELD_VALUE => [
+                    "min" => 0
+                ],
+            ],
         ];
     }
 
@@ -273,7 +279,8 @@ class DesignBlockModel extends AbstractDesignModel
             ->setDesignValue("background", "background", "backgroundColorTo", $name)
             ->setDesignValue("background", "background", "gradientDirection", $name)
             ->setDesignValue("colors", "border-color", "borderColor", $name)
-            ->setDesignValue("radios", "border-style", "borderStyle", $name);
+            ->setDesignValue("radios", "border-style", "borderStyle", $name)
+            ->setDesignValue("width", "width", "width", $name);
 
         return $this->designValues;
     }

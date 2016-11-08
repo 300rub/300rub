@@ -7,7 +7,7 @@ namespace testS\migrations;
  *
  * @package testS\migrations
  */
-class M160307000010DesignTexts extends AbstractMigration
+class M160302000020DesignTexts extends AbstractMigration
 {
 
     /**

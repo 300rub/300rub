@@ -7,7 +7,7 @@ namespace testS\migrations;
  *
  * @package testS\migrations
  */
-class M160307000020DesignBlocks extends AbstractMigration
+class M160302000010DesignBlocks extends AbstractMigration
 {
 
     /**
@@ -39,7 +39,8 @@ class M160307000020DesignBlocks extends AbstractMigration
                 "borderBottomWidth"       => self::TYPE_SMALLINT_UNSIGNED,
                 "borderLeftWidth"         => self::TYPE_SMALLINT_UNSIGNED,
                 "borderStyle"             => self::TYPE_TINYINT_UNSIGNED,
-                "borderColor"             => self::TYPE_STRING_25
+                "borderColor"             => self::TYPE_STRING_25,
+                "width"                   => self::TYPE_SMALLINT_UNSIGNED,
             ]
         );
     }

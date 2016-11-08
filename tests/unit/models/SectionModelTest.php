@@ -98,7 +98,9 @@ class SectionModelTest extends AbstractModelTest
                     "description" => "description"
                 ],
                 "language" => Language::LANGUAGE_EN_ID,
-                "width"    => 1024
+                "designBlockModel" => [
+                    "width"    => 1024
+                ]
             ],
             [
                 "seoModel" => [
@@ -109,7 +111,9 @@ class SectionModelTest extends AbstractModelTest
                     "description" => "description"
                 ],
                 "language" => Language::LANGUAGE_EN_ID,
-                "width"    => 1024
+                "designBlockModel" => [
+                    "width"    => 1024
+                ]
             ],
             [
                 "seoModel" => [
@@ -119,7 +123,9 @@ class SectionModelTest extends AbstractModelTest
                     "keywords"    => "  seo keywords 2  ",
                     "description" => "  seo description 2   ",
                 ],
-                "width"    => SectionModel::DEFAULT_WIDTH
+                "designBlockModel" => [
+                    "width"    => SectionModel::DEFAULT_WIDTH
+                ]
             ],
             [
                 "seoModel" => [
@@ -130,7 +136,9 @@ class SectionModelTest extends AbstractModelTest
                     "description" => "seo description 2",
                 ],
                 "language" => Language::LANGUAGE_EN_ID,
-                "width"    => SectionModel::DEFAULT_WIDTH
+                "designBlockModel" => [
+                    "width"    => SectionModel::DEFAULT_WIDTH
+                ]
             ]
         ];
     }
@@ -152,8 +160,7 @@ class SectionModelTest extends AbstractModelTest
                     "keywords"    => "<div>seo keywords<div>",
                     "description" => "<div>seo description<div>",
                 ],
-                "language" => 99,
-                "width"    => -100
+                "language" => 99
             ],
             [
                 "seoModel" => [
@@ -163,8 +170,7 @@ class SectionModelTest extends AbstractModelTest
                     "keywords"    => "seo keywords",
                     "description" => "seo description",
                 ],
-                "language" => Language::$activeId,
-                "width"    => SectionModel::DEFAULT_WIDTH
+                "language" => Language::$activeId
             ],
             [
                 "seoModel" => [
@@ -172,7 +178,6 @@ class SectionModelTest extends AbstractModelTest
                     "url"  => "",
                 ],
                 "language" => "incorrect language",
-                "width"    => "incorrect width"
             ],
             [
                 "seoModel" => [
@@ -182,8 +187,7 @@ class SectionModelTest extends AbstractModelTest
                     "keywords"    => "seo keywords",
                     "description" => "seo description",
                 ],
-                "language" => Language::$activeId,
-                "width"    => SectionModel::DEFAULT_WIDTH
+                "language" => Language::$activeId
             ]
         ];
     }
