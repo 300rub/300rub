@@ -20,10 +20,10 @@ class M160317000000Images extends AbstractMigration
                 "designImageSimples",
                 [
                     "id"                 => self::TYPE_PK,
-                    "designBlockId"      => self::TYPE_INT,
-                    "imageDesignBlockId" => self::TYPE_INT,
-                    "designTextId"       => self::TYPE_INT,
-                    "alignment"          => self::TYPE_TINYINT,
+                    "designBlockId"      => self::TYPE_FK,
+                    "imageDesignBlockId" => self::TYPE_FK,
+                    "designTextId"       => self::TYPE_FK,
+                    "alignment"          => self::TYPE_TINYINT_UNSIGNED,
                 ]
             )
             ->createForeignKey("designImageSimples", "designBlockId", "designBlocks")
@@ -33,11 +33,11 @@ class M160317000000Images extends AbstractMigration
                 "designImageZooms",
                 [
                     "id"                   => self::TYPE_PK,
-                    "designBlockId"        => self::TYPE_INT,
+                    "designBlockId"        => self::TYPE_FK,
                     "hasScroll"            => self::TYPE_BOOL,
-                    "thumbsAlignment"      => self::TYPE_TINYINT,
-                    "descriptionAlignment" => self::TYPE_TINYINT,
-                    "effect"               => self::TYPE_SMALLINT,
+                    "thumbsAlignment"      => self::TYPE_TINYINT_UNSIGNED,
+                    "descriptionAlignment" => self::TYPE_TINYINT_UNSIGNED,
+                    "effect"               => self::TYPE_TINYINT_UNSIGNED,
                 ]
             )
             ->createForeignKey("designImageZooms", "designBlockId", "designBlocks")
@@ -45,14 +45,14 @@ class M160317000000Images extends AbstractMigration
                 "designImageSliders",
                 [
                     "id"                       => self::TYPE_PK,
-                    "designBlockId"            => self::TYPE_INT,
-                    "navigationDesignBlockId"  => self::TYPE_INT,
-                    "descriptionDesignBlockId" => self::TYPE_INT,
-                    "effect"                   => self::TYPE_SMALLINT,
+                    "designBlockId"            => self::TYPE_FK,
+                    "navigationDesignBlockId"  => self::TYPE_FK,
+                    "descriptionDesignBlockId" => self::TYPE_FK,
+                    "effect"                   => self::TYPE_TINYINT_UNSIGNED,
                     "hasAutoPlay"              => self::TYPE_BOOL,
-                    "playSpeed"                => self::TYPE_TINYINT,
-                    "navigationAlignment"      => self::TYPE_TINYINT,
-                    "descriptionAlignment"     => self::TYPE_TINYINT,
+                    "playSpeed"                => self::TYPE_TINYINT_UNSIGNED,
+                    "navigationAlignment"      => self::TYPE_TINYINT_UNSIGNED,
+                    "descriptionAlignment"     => self::TYPE_TINYINT_UNSIGNED,
                 ]
             )
             ->createForeignKey("designImageSliders", "designBlockId", "designBlocks")
@@ -62,21 +62,21 @@ class M160317000000Images extends AbstractMigration
                 "images",
                 [
                     "id"                  => self::TYPE_PK,
-                    "designBlockId"       => self::TYPE_INT,
-                    "designImageSliderId" => self::TYPE_INT,
-                    "designImageZoomId"   => self::TYPE_INT,
-                    "designImageSimpleId" => self::TYPE_INT,
+                    "designBlockId"       => self::TYPE_FK,
+                    "designImageSliderId" => self::TYPE_FK,
+                    "designImageZoomId"   => self::TYPE_FK,
+                    "designImageSimpleId" => self::TYPE_FK,
                     "name"                => self::TYPE_STRING,
-                    "language"            => self::TYPE_TINYINT,
-                    "type"                => self::TYPE_TINYINT,
-                    "autoCropType"        => self::TYPE_TINYINT,
-                    "cropWidth"           => self::TYPE_SMALLINT,
-                    "cropHeight"          => self::TYPE_SMALLINT,
-                    "cropX"               => self::TYPE_INT,
-                    "cropY"               => self::TYPE_INT,
-                    "thumbAutoCropType"   => self::TYPE_TINYINT,
-                    "thumbCropX"          => self::TYPE_SMALLINT,
-                    "thumbCropY"          => self::TYPE_SMALLINT,
+                    "language"            => self::TYPE_TINYINT_UNSIGNED,
+                    "type"                => self::TYPE_TINYINT_UNSIGNED,
+                    "autoCropType"        => self::TYPE_TINYINT_UNSIGNED,
+                    "cropWidth"           => self::TYPE_SMALLINT_UNSIGNED,
+                    "cropHeight"          => self::TYPE_SMALLINT_UNSIGNED,
+                    "cropX"               => self::TYPE_INT_UNSIGNED,
+                    "cropY"               => self::TYPE_INT_UNSIGNED,
+                    "thumbAutoCropType"   => self::TYPE_TINYINT_UNSIGNED,
+                    "thumbCropX"          => self::TYPE_SMALLINT_UNSIGNED,
+                    "thumbCropY"          => self::TYPE_SMALLINT_UNSIGNED,
                     "useAlbums"           => self::TYPE_BOOL,
                 ]
             )
@@ -88,7 +88,7 @@ class M160317000000Images extends AbstractMigration
                 "imageAlbums",
                 [
                     "id"      => self::TYPE_PK,
-                    "imageId" => self::TYPE_INT,
+                    "imageId" => self::TYPE_FK,
                     "name"    => self::TYPE_STRING,
                     "sort"    => self::TYPE_SMALLINT,
                 ]
@@ -99,21 +99,21 @@ class M160317000000Images extends AbstractMigration
                 "imageInstances",
                 [
                     "id"           => self::TYPE_PK,
-                    "imageAlbumId" => self::TYPE_INT,
+                    "imageAlbumId" => self::TYPE_FK,
                     "isCover"      => self::TYPE_BOOL,
                     "sort"         => self::TYPE_SMALLINT,
                     "fileName"     => self::TYPE_STRING_25,
                     "alt"          => self::TYPE_TEXT,
-                    "width"        => self::TYPE_SMALLINT,
-                    "height"       => self::TYPE_SMALLINT,
-                    "x1"           => self::TYPE_SMALLINT,
-                    "y1"           => self::TYPE_SMALLINT,
-                    "x2"           => self::TYPE_SMALLINT,
-                    "y2"           => self::TYPE_SMALLINT,
-                    "thumbX1"      => self::TYPE_SMALLINT,
-                    "thumbY1"      => self::TYPE_SMALLINT,
-                    "thumbX2"      => self::TYPE_SMALLINT,
-                    "thumbY2"      => self::TYPE_SMALLINT,
+                    "width"        => self::TYPE_SMALLINT_UNSIGNED,
+                    "height"       => self::TYPE_SMALLINT_UNSIGNED,
+                    "x1"           => self::TYPE_SMALLINT_UNSIGNED,
+                    "y1"           => self::TYPE_SMALLINT_UNSIGNED,
+                    "x2"           => self::TYPE_SMALLINT_UNSIGNED,
+                    "y2"           => self::TYPE_SMALLINT_UNSIGNED,
+                    "thumbX1"      => self::TYPE_SMALLINT_UNSIGNED,
+                    "thumbY1"      => self::TYPE_SMALLINT_UNSIGNED,
+                    "thumbX2"      => self::TYPE_SMALLINT_UNSIGNED,
+                    "thumbY2"      => self::TYPE_SMALLINT_UNSIGNED,
                 ]
             )
             ->createForeignKey("imageInstances", "imageAlbumId", "imageAlbums", self::FK_CASCADE, self::FK_CASCADE)

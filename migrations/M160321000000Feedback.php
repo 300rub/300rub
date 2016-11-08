@@ -21,7 +21,7 @@ class M160321000000Feedback extends AbstractMigration
                 [
                     "id"       => "pk",
                     "host"     => self::TYPE_STRING,
-                    "port"     => self::TYPE_SMALLINT,
+                    "port"     => self::TYPE_SMALLINT_UNSIGNED,
                     "type"     => self::TYPE_STRING,
                     "user"     => self::TYPE_STRING,
                     "password" => self::TYPE_STRING,

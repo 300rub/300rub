@@ -35,7 +35,7 @@ class M160301000000Sites extends AbstractMigration
                     "dbUser"     => self::TYPE_STRING,
                     "dbPassword" => self::TYPE_STRING,
                     "dbName"     => self::TYPE_STRING,
-                    "language"   => self::TYPE_TINYINT,
+                    "language"   => self::TYPE_TINYINT_UNSIGNED,
                     "email"      => self::TYPE_STRING,
                     "ssh"        => self::TYPE_STRING,
                 ]

@@ -20,9 +20,9 @@ class M160311000000Grids extends AbstractMigration
                 "gridLines",
                 [
                     "id"              => self::TYPE_PK,
-                    "sectionId"       => self::TYPE_INT,
-                    "outsideDesignId" => self::TYPE_INT,
-                    "insideDesignId"  => self::TYPE_INT,
+                    "sectionId"       => self::TYPE_FK,
+                    "outsideDesignId" => self::TYPE_FK,
+                    "insideDesignId"  => self::TYPE_FK,
                     "sort"            => self::TYPE_SMALLINT,
                 ]
             )
@@ -34,12 +34,12 @@ class M160311000000Grids extends AbstractMigration
                 "grids",
                 [
                     "id"          => self::TYPE_PK,
-                    "gridLineId"  => self::TYPE_INT,
-                    "contentType" => self::TYPE_INT,
-                    "contentId"   => self::TYPE_INT,
-                    "x"           => self::TYPE_TINYINT,
-                    "y"           => self::TYPE_TINYINT,
-                    "width"       => self::TYPE_TINYINT,
+                    "gridLineId"  => self::TYPE_FK,
+                    "contentType" => self::TYPE_INT_UNSIGNED,
+                    "contentId"   => self::TYPE_INT_UNSIGNED,
+                    "x"           => self::TYPE_TINYINT_UNSIGNED,
+                    "y"           => self::TYPE_TINYINT_UNSIGNED,
+                    "width"       => self::TYPE_TINYINT_UNSIGNED,
                 ]
             )
             ->createForeignKey("grids", "gridLineId", "gridLines", self::FK_CASCADE, self::FK_CASCADE);

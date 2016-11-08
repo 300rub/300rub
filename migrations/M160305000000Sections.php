@@ -20,10 +20,10 @@ class M160305000000Sections extends AbstractMigration
                 "sections",
                 [
                     "id"            => self::TYPE_PK,
-                    "seoId"         => self::TYPE_INT,
-                    "designBlockId" => self::TYPE_INT,
-                    "language"      => self::TYPE_TINYINT,
-                    "width"         => self::TYPE_SMALLINT,
+                    "seoId"         => self::TYPE_FK,
+                    "designBlockId" => self::TYPE_FK,
+                    "language"      => self::TYPE_TINYINT_UNSIGNED,
+                    "width"         => self::TYPE_SMALLINT_UNSIGNED,
                     "isMain"        => self::TYPE_BOOL,
                 ]
             )
