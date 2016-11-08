@@ -123,6 +123,9 @@ class DesignImageSliderModel extends AbstractDesignModel
             ],
             "playSpeed"                => [
                 self::FIELD_TYPE => self::FIELD_TYPE_INT,
+                self::FIELD_VALUE => [
+                    "min" => 0
+                ],
             ],
             "navigationAlignment"      => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
