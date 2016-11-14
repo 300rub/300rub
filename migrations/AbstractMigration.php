@@ -30,6 +30,7 @@ abstract class AbstractMigration
      */
     const TYPE_PK = "INT(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY NOT NULL";
     const TYPE_FK = "INT(11) UNSIGNED NOT NULL";
+    const TYPE_FK_NULL = "INT(11) UNSIGNED NULL";
     const TYPE_STRING = 'VARCHAR(255) NOT NULL';
     const TYPE_STRING_100 = 'VARCHAR(100) NOT NULL';
     const TYPE_STRING_50 = 'VARCHAR(50) NOT NULL';

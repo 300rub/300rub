@@ -66,8 +66,6 @@ class M160317000000Images extends AbstractMigration
                     "designImageSliderId" => self::TYPE_FK,
                     "designImageZoomId"   => self::TYPE_FK,
                     "designImageSimpleId" => self::TYPE_FK,
-                    "name"                => self::TYPE_STRING,
-                    "language"            => self::TYPE_TINYINT_UNSIGNED,
                     "type"                => self::TYPE_TINYINT_UNSIGNED,
                     "autoCropType"        => self::TYPE_TINYINT_UNSIGNED,
                     "cropWidth"           => self::TYPE_SMALLINT_UNSIGNED,
