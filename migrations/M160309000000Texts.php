@@ -24,10 +24,19 @@ class M160309000000Texts extends AbstractMigration
                     "designBlockId" => self::TYPE_FK,
                     "type"          => self::TYPE_TINYINT_UNSIGNED,
                     "isEditor"      => self::TYPE_BOOL,
-                    "text"          => self::TYPE_TEXT,
                 ]
             )
             ->createForeignKey("texts", "designTextId", "designTexts")
-            ->createForeignKey("texts", "designBlockId", "designBlocks");
+            ->createForeignKey("texts", "designBlockId", "designBlocks")
+            ->createTable(
+                "textInstances",
+                [
+                    "id"            => self::TYPE_PK,
+                    "textId"  => self::TYPE_FK,
+                    "text"          => self::TYPE_TEXT,
+                ]
+            )
+            ->createForeignKey("textInstances", "textId", "texts", self::FK_CASCADE, self::FK_CASCADE)
+        ;
     }
 }

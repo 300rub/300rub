@@ -24,6 +24,7 @@ abstract class AbstractMigration
      */
     const FK_RESTRICT = "RESTRICT";
     const FK_CASCADE = "CASCADE";
+    const FK_NULL = "SET NULL";
 
     /**
      * Column types
@@ -44,6 +45,7 @@ abstract class AbstractMigration
     const TYPE_SMALLINT_UNSIGNED = 'SMALLINT UNSIGNED NOT NULL';
     const TYPE_BOOL = 'TINYINT(1) UNSIGNED NOT NULL';
     const TYPE_TEXT = 'TEXT NOT NULL';
+    const TYPE_DATETIME = "DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP";
 
     /**
      * Flag. If it is true - it will be skipped in common applying

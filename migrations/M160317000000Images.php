@@ -83,7 +83,7 @@ class M160317000000Images extends AbstractMigration
             ->createForeignKey("images", "designImageZoomId", "designBlocks")
             ->createForeignKey("images", "designImageSimpleId", "designBlocks")
             ->createTable(
-                "imageAlbums",
+                "imageGroups",
                 [
                     "id"      => self::TYPE_PK,
                     "imageId" => self::TYPE_FK,
@@ -91,8 +91,8 @@ class M160317000000Images extends AbstractMigration
                     "sort"    => self::TYPE_SMALLINT,
                 ]
             )
-            ->createForeignKey("imageAlbums", "imageId", "images", self::FK_CASCADE, self::FK_CASCADE)
-            ->createIndex("imageAlbums", "sort")
+            ->createForeignKey("imageGroups", "imageId", "images", self::FK_CASCADE, self::FK_CASCADE)
+            ->createIndex("imageGroups", "sort")
             ->createTable(
                 "imageInstances",
                 [
@@ -114,7 +114,7 @@ class M160317000000Images extends AbstractMigration
                     "thumbY2"      => self::TYPE_SMALLINT_UNSIGNED,
                 ]
             )
-            ->createForeignKey("imageInstances", "imageAlbumId", "imageAlbums", self::FK_CASCADE, self::FK_CASCADE)
+            ->createForeignKey("imageInstances", "imageAlbumId", "imageGroups", self::FK_CASCADE, self::FK_CASCADE)
             ->createIndex("imageInstances", "isCover")
             ->createIndex("imageInstances", "sort");
     }
