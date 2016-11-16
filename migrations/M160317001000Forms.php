@@ -17,29 +17,41 @@ class M160317001000Forms extends AbstractMigration
     {
         $this
             ->createTable(
-                "forms",
+                "designForms",
                 [
-                    "id"                  => self::TYPE_PK,
-                    "designBlockId"       => self::TYPE_FK,
-                    "lineDesignBlockId"   => self::TYPE_FK,
-                    "labelDesignBlockId"  => self::TYPE_FK,
-                    "labelDesignTextId"   => self::TYPE_FK,
-                    "formDesignBlockId"   => self::TYPE_FK,
-                    "formDesignTextId"    => self::TYPE_FK,
-                    "submitDesignBlockId" => self::TYPE_FK,
-                    "submitDesignTextId"  => self::TYPE_FK,
-                    "buttonAlignment"     => self::TYPE_TINYINT_UNSIGNED,
-                    "hasLabel"            => self::TYPE_BOOL,
+                    "id"                     => self::TYPE_PK,
+                    "designBlockId"          => self::TYPE_FK,
+                    "lineDesignBlockId"      => self::TYPE_FK,
+                    "labelDesignBlockId"     => self::TYPE_FK,
+                    "labelDesignTextId"      => self::TYPE_FK,
+                    "formDesignBlockId"      => self::TYPE_FK,
+                    "formDesignTextId"       => self::TYPE_FK,
+                    "submitDesignBlockId"    => self::TYPE_FK,
+                    "submitDesignTextId"     => self::TYPE_FK,
+                    "submitIconDesignTextId" => self::TYPE_FK,
+                    "submitIcon"             => self::TYPE_STRING_50,
+                    "submitIconPosition"     => self::TYPE_TINYINT_UNSIGNED,
+                    "submitAlignment"        => self::TYPE_TINYINT_UNSIGNED,
                 ]
             )
-            ->createForeignKey("forms", "designBlockId", "designBlocks")
-            ->createForeignKey("forms", "lineDesignBlockId", "designBlocks")
-            ->createForeignKey("forms", "labelDesignBlockId", "designBlocks")
-            ->createForeignKey("forms", "labelDesignTextId", "designTexts")
-            ->createForeignKey("forms", "formDesignBlockId", "designBlocks")
-            ->createForeignKey("forms", "formDesignTextId", "designTexts")
-            ->createForeignKey("forms", "submitDesignBlockId", "designBlocks")
-            ->createForeignKey("forms", "submitDesignTextId", "designTexts")
+            ->createForeignKey("designForms", "designBlockId", "designBlocks")
+            ->createForeignKey("designForms", "lineDesignBlockId", "designBlocks")
+            ->createForeignKey("designForms", "labelDesignBlockId", "designBlocks")
+            ->createForeignKey("designForms", "labelDesignTextId", "designTexts")
+            ->createForeignKey("designForms", "formDesignBlockId", "designBlocks")
+            ->createForeignKey("designForms", "formDesignTextId", "designTexts")
+            ->createForeignKey("designForms", "submitDesignBlockId", "designBlocks")
+            ->createForeignKey("designForms", "submitDesignTextId", "designTexts")
+            ->createForeignKey("designForms", "submitIconDesignTextId", "designTexts")
+            ->createTable(
+                "forms",
+                [
+                    "id"           => self::TYPE_PK,
+                    "designFormId" => self::TYPE_FK,
+                    "hasLabel"     => self::TYPE_BOOL,
+                ]
+            )
+            ->createForeignKey("forms", "designFormId", "designForms")
             ->createTable(
                 "formElements",
                 [
