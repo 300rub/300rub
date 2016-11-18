@@ -49,6 +49,7 @@ class M160317001000Forms extends AbstractMigration
                     "id"           => self::TYPE_PK,
                     "designFormId" => self::TYPE_FK,
                     "hasLabel"     => self::TYPE_BOOL,
+                    "successText"  => self::TYPE_STRING,
                 ]
             )
             ->createForeignKey("forms", "designFormId", "designForms")

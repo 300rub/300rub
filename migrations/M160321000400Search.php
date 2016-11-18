@@ -20,7 +20,7 @@ class M160321000400Search extends AbstractMigration
                 "designSearch",
                 [
                     "id"                          => self::TYPE_PK,
-                    "designBlockId"        => self::TYPE_FK,
+                    "designBlockId"               => self::TYPE_FK,
                     "titleDesignBlockId"          => self::TYPE_FK,
                     "titleDesignTextId"           => self::TYPE_FK,
                     "descriptionDesignBlockId"    => self::TYPE_FK,

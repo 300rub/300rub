@@ -21,6 +21,7 @@ class M160321000100Records extends AbstractMigration
                 [
                     "id"                                   => self::TYPE_PK,
                     "shortCardDesignBlockId"               => self::TYPE_FK,
+                    "shortCardInstanceDesignBlockId"       => self::TYPE_FK,
                     "shortCardTitleDesignBlockId"          => self::TYPE_FK,
                     "shortCardTitleDesignTextId"           => self::TYPE_FK,
                     "shortCardDateDesignTextId"            => self::TYPE_FK,
