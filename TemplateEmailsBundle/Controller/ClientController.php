@@ -112,10 +112,30 @@ class ClientController extends AbstractController
      */
     public function fillPlaceholdersAction(Request $request, $email, $id)
     {
-        $placeholders = $this->getClientService()->getPlaceholdersByVersionId($id);
+        $errors = [];
+        $placeholders = [];
 
-        if ($request->isMethod('POST')) {
+        try {
+            if ($request->isMethod('POST')) {
+                $placeholders = $this->getClientService()->getPlaceholderWithValues(
+                    $request->request->get("placeholders", []),
+                    $id
+                );
 
+                foreach ($placeholders as $placeholder) {
+                    if ($placeholder->getError()) {
+                        $errors[] = $placeholder->getError();
+                    }
+                }
+
+                if (count($errors) === 0) {
+
+                }
+            } else {
+                $placeholders = $this->getClientService()->getPlaceholdersByVersionId($id);
+            }
+        } catch (\Exception $e) {
+            $errors[] = $e->getMessage();
         }
 
         return $this->render(
@@ -123,7 +143,8 @@ class ClientController extends AbstractController
             [
                 'email'        => $email,
                 'id'           => $id,
-                'placeholders' => $placeholders
+                'placeholders' => $placeholders,
+                'errors'       => $errors
             ]
         );
     }

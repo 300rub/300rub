@@ -47,4 +47,42 @@ class ClientService extends AbstractService
             ->getQuery()
             ->getResult();
     }
+
+    /**
+     * Gets placeholders with values
+     *
+     * @param array $placeholderValues
+     * @param int   $versionId
+     *
+     * @return \EE\Applications\TemplateEmailsBundle\Entity\Placeholder[]
+     */
+    public function getPlaceholderWithValues(array $placeholderValues, $versionId)
+    {
+        $placeholders = $this->getPlaceholdersByVersionId($versionId);
+
+        foreach ($placeholders as &$placeholder) {
+            if (!array_key_exists($placeholder->getId(), $placeholderValues)) {
+                $placeholder->setError(
+                    sprintf("The '%s' field should not be empty", $placeholder->getLabel())
+                );
+                continue;
+            }
+
+            $value = $placeholderValues[$placeholder->getId()];
+            $result = preg_match(
+                sprintf("/%s/i", $placeholder->getValidation()->getRegEx()),
+                $value
+            );
+            if (!$result) {
+                $placeholder->setError(
+                    sprintf("The '%s' field is incorrect", $placeholder->getLabel())
+                );
+                continue;
+            }
+
+            $placeholder->setValue($value);
+        }
+
+        return $placeholders;
+    }
 }

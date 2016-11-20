@@ -175,6 +175,20 @@ class Placeholder
     private $sort;
 
     /**
+     * Value
+     *
+     * @var string
+     */
+    private $value;
+
+    /**
+     * Error
+     *
+     * @var bool
+     */
+    private $error;
+
+    /**
      * Sets id
      *
      * @param int $id
@@ -379,5 +393,51 @@ class Placeholder
     public function getSort()
     {
         return $this->sort;
+    }
+
+    /**
+     * Sets Value
+     *
+     * @param string $value
+     *
+     * @return Placeholder
+     */
+    public function setValue($value)
+    {
+        $this->value = $value;
+        return $this;
+    }
+
+    /**
+     * Gets Value
+     *
+     * @return string
+     */
+    public function getValue()
+    {
+        return $this->value;
+    }
+
+    /**
+     * Sets error
+     *
+     * @param bool $error
+     *
+     * @return Placeholder
+     */
+    public function setError($error)
+    {
+        $this->error = $error;
+        return $this;
+    }
+
+    /**
+     * Gets error
+     *
+     * @return bool
+     */
+    public function getError()
+    {
+        return $this->error;
     }
 }
