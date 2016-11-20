@@ -1,0 +1,29 @@
+parameters:
+    # Service classes
+    ee_applications_template_emails_service_abstract.class: EE\Applications\TemplateEmailsBundle\Service\AbstractService
+    ee_applications_template_emails_service_client.class: EE\Applications\TemplateEmailsBundle\Service\ClientService
+    ee_applications_template_emails_service_email.class: EE\Applications\TemplateEmailsBundle\Service\EmailService
+
+    # Email message defaults
+    ee_applications_template_emails_service_email.default_fromName: "EE"
+    ee_applications_template_emails_service_email.default_fromEmail: "no-reply@ee.co.uk"
+services:
+    ee_applications_template_emails_service_abstract:
+        class: %ee_applications_template_emails_service_abstract.class%
+        abstract: true
+        calls:
+            - [setLogger, [@logger]]
+            - [setContainer, [@service_container]]
+            - [setEntityManager, [@doctrine.orm.templateEmails_entity_manager]]
+        tags:
+          - { name: monolog.logger, channel: template_emails }
+
+    ee_applications_template_emails_service_client:
+        class: %ee_applications_template_emails_service_client.class%
+        parent: ee_applications_template_emails_service_abstract
+        
+    ee_applications_template_emails_service_email:
+        class: %ee_applications_template_emails_service_email.class%
+        parent: ee_applications_template_emails_service_abstract
+        calls:
+            - [setDefaults, [%ee_applications_template_emails_email_default%]]

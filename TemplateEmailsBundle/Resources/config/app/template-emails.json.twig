@@ -1,0 +1,65 @@
+{
+    "integrationType": "full",
+    "title": "Template Emails",
+    "description": "An application that allows you to create dynamic e-mail messages to send our customers",
+    "auditName": "template-emails",
+    "uriBase": "{{ HOST }}\/applications\/template-emails\/",
+    "integrationParameters": {{ INTEGRATION_PARAMETERS|json_encode()|raw }},
+    "enabled": true,
+    "handle": "template-emails",
+    "documents": {
+        "index": {
+            "enabled": true,
+            "title": "Template Emails",
+            "icon": "icon-envelope",
+            "operations": {
+                "index": true
+            }
+        }
+    },
+    "audit": {
+        "name": "template-emails",
+        "fields": {
+            "email": {
+                "type": "email",
+                "label": "Customer e-mail",
+                "extended": true
+            },
+            "templateId": {
+                "type": "string",
+                "label": "Template ID",
+                "extended": true
+            },
+            "title": {
+                "type": "string",
+                "label": "Template Title",
+                "extended": true
+            }
+        }
+    },
+    "contextKeys": {
+        "user.*": {
+            "read": true,
+            "write": false
+        },
+        "customer.customerDetails.*": {
+            "read": true,
+            "write": false
+        }
+    },
+    "operations": [
+        "View Application",
+        "Send Email"
+    ],
+    "operationGroups": {
+        "View Template Emails": {
+            "operations": [
+                "View Application",
+                "Send Email"
+            ],
+            "toolkitGroups": [
+                "Toolkit Full Access"
+            ]
+        }
+    }
+}
