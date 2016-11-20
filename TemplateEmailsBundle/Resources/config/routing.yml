@@ -13,3 +13,11 @@ ee_applications_template_emails_client_fill_placeholders:
 ee_applications_template_emails_client_preview:
     path:     /{email}/{id}/preview
     defaults: { _controller: EEApplicationsTemplateEmailsBundle:Client:preview }
+
+ee_applications_template_emails_client_preview_iframe:
+    path:     /preview-iframe/{id}
+    defaults: { _controller: EEApplicationsTemplateEmailsBundle:Client:previewIframe }
+
+ee_applications_template_emails_client_send:
+    path:     /{email}/{id}/send
+    defaults: { _controller: EEApplicationsTemplateEmailsBundle:Client:send }

@@ -86,6 +86,18 @@ abstract class AbstractService extends ContainerAware implements LoggerAwareInte
     }
 
     /**
+     * Gets PlaceholderValue Repository
+     *
+     * @return \Doctrine\ORM\EntityRepository
+     */
+    protected function getPlaceholderValueRepository()
+    {
+        return $this->entityManager->getRepository(
+            'EEApplicationsTemplateEmailsBundle:PlaceholderValue'
+        );
+    }
+
+    /**
      * Gets Template Repository
      *
      * @return \Doctrine\ORM\EntityRepository

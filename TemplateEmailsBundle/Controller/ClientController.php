@@ -128,6 +128,8 @@ class ClientController extends AbstractController
                 }
 
                 if (count($errors) === 0) {
+                    $this->getClientService()->savePlaceholderValues($placeholders, $id);
+
                     return $this->redirect(
                         $this->generateUrl(
                             "ee_applications_template_emails_client_preview",
@@ -135,7 +137,7 @@ class ClientController extends AbstractController
                                 "email" => $email,
                                 "id"    => $id
                             ]
-                        ) . "?" . http_build_query(["placeholders" => $placeholderValues])
+                        )
                     );
                 }
             } else {
@@ -157,26 +159,39 @@ class ClientController extends AbstractController
     }
 
     /**
-     * Fill Placeholders Action
+     * Preview Action
      *
-     * @param Request $request
      * @param string  $email
      * @param int     $id
      *
      * @return Response
      */
-    public function previewAction(Request $request, $email, $id)
+    public function previewAction($email, $id)
     {
-        $placeholders = $request->request->get("placeholders", []);
         $version = $this->getClientService()->getVersionById($id);
 
         return $this->render(
             'EEApplicationsTemplateEmailsBundle:Client:preview.html.twig',
             [
                 'email'        => $email,
-                'version'      => $version,
-                'placeholders' => $placeholders
+                'version'      => $version
             ]
         );
+    }
+
+    /**
+     * Preview Iframe Action
+     *
+     * @param int $id
+     */
+    public function previewIframeAction($id)
+    {
+        try {
+            $body = $this->getClientService()->getPopulatedVersionBody($id);
+        } catch (\Exception $e) {
+            $body = $e->getMessage();
+        }
+
+        echo $body;
     }
 }

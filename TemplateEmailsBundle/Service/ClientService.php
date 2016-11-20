@@ -1,6 +1,10 @@
 <?php
 
 namespace EE\Applications\TemplateEmailsBundle\Service;
+use EE\Applications\TemplateEmailsBundle\Entity\Placeholder;
+use EE\Applications\TemplateEmailsBundle\Entity\PlaceholderValue;
+use EE\Applications\TemplateEmailsBundle\Entity\PlaceholderValueGroup;
+use EE\Applications\TemplateEmailsBundle\Entity\Version;
 
 /**
  * Class ClientService
@@ -89,17 +93,22 @@ class ClientService extends AbstractService
     /**
      * Gets populated HTML
      *
-     * @param array $placeholderValues
-     * @param int   $versionId
+     * @param int $versionId
      *
      * @return string
      */
-    public function getPopulatedVersionBody(array $placeholderValues, $versionId)
+    public function getPopulatedVersionBody($versionId)
     {
         $version = $this->getVersionById($versionId);
+        $placeholderValues = $this->getPlaceholderValues($versionId);
+
+        $placeholderValuesList = [];
+        foreach ($placeholderValues as $placeholderValue) {
+            $placeholderValuesList[$placeholderValue->getId()] = $placeholderValue->getValue();
+        }
 
         $placeholders = $this->getPlaceholderWithValues(
-            $placeholderValues,
+            $placeholderValuesList,
             $version->getId()
         );
 
@@ -135,5 +144,50 @@ class ClientService extends AbstractService
         }
 
         return $body;
+    }
+
+    /**
+     * Saves placeholder values
+     *
+     * @param Placeholder[] $placeholders
+     * @param int           $versionId
+     */
+    public function savePlaceholderValues(array $placeholders, $versionId)
+    {
+        $version = $this->getVersionById($versionId);
+
+        $placeholderValueGroup = new PlaceholderValueGroup();
+        $placeholderValueGroup->setVersion($version);
+        $this->getEntityManager()->persist($placeholderValueGroup);
+        $this->getEntityManager()->flush();
+
+        foreach ($placeholders as $placeholder) {
+            $placeholderValue = new PlaceholderValue();
+            $placeholderValue->setPlaceholderValueGroup($placeholderValueGroup);
+            $placeholderValue->setPlaceholder($placeholder);
+            $placeholderValue->setValue($placeholder->getValue());
+            $this->getEntityManager()->persist($placeholderValueGroup);
+        }
+        $this->getEntityManager()->flush();
+    }
+
+    /**
+     * Gets placeholder values
+     *
+     * @param $versionId
+     *
+     * @return \EE\Applications\TemplateEmailsBundle\Entity\PlaceholderValue[]
+     */
+    public function getPlaceholderValues($versionId)
+    {
+        return $this
+            ->getPlaceholderValueRepository()
+            ->createQueryBuilder('pv')
+            ->leftJoin('v.placeholderValueGroup', 'pvg')
+            ->leftJoin('v.placeholder', 'p')
+            ->where('pvg.versionId = :versionId')
+            ->setParameter('versionId', $versionId)
+            ->getQuery()
+            ->getResult();
     }
 }

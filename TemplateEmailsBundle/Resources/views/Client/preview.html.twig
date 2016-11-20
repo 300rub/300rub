@@ -11,9 +11,51 @@
                 <h3>Preview</h3>
             </div>
         </div>
+
         <div class="row-fluid">
             <div class="span12">
+                <iframe
+                    src="{{
+                        path(
+                            'ee_applications_template_emails_client_preview_iframe',
+                            {
+                                'id': version.getId()
+                            }
+                        )
+                    }}"
+                    width="800"
+                    height="600"
+                    align="left"
+                ></iframe>
+            </div>
+        </div>
 
+        <div class="row-fluid">
+            <div class="span12">
+                <a
+                    href="{{
+                        path(
+                            'ee_applications_template_emails_client_fill_placeholders',
+                            {
+                                'email': email,
+                                'id': version.getId()
+                            }
+                        )
+                    }}"
+                    class="btn"
+                >Back</a>
+                <a
+                    href="{{
+                        path(
+                            'ee_applications_template_emails_client_send',
+                            {
+                                'email': email,
+                                'id': version.getId()
+                            }
+                        )
+                    }}"
+                    class="btn"
+                >Send</a>
             </div>
         </div>
     </div>
