@@ -112,6 +112,8 @@ class ClientController extends AbstractController
      */
     public function fillPlaceholdersAction(Request $request, $email, $id)
     {
+        $version = $this->getClientService()->getVersionById($id);
+
         $errors = [];
         $placeholders = [];
 
@@ -148,10 +150,10 @@ class ClientController extends AbstractController
         }
 
         return $this->render(
-            'EEApplicationsTemplateEmailsBundle:Client:selectTemplate.html.twig',
+            'EEApplicationsTemplateEmailsBundle:Client:fillPlaceholders.html.twig',
             [
                 'email'        => $email,
-                'id'           => $id,
+                'version'      => $version,
                 'placeholders' => $placeholders,
                 'errors'       => $errors
             ]
