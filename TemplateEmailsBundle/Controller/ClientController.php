@@ -116,11 +116,10 @@ class ClientController extends AbstractController
         $placeholders = [];
 
         try {
-            if ($request->isMethod('POST')) {
-                $placeholders = $this->getClientService()->getPlaceholderWithValues(
-                    $request->request->get("placeholders", []),
-                    $id
-                );
+            $placeholderValues = $request->request->get("placeholders", []);
+
+            if (count($placeholderValues) > 0) {
+                $placeholders = $this->getClientService()->getPlaceholderWithValues($placeholderValues, $id);
 
                 foreach ($placeholders as $placeholder) {
                     if ($placeholder->getError()) {
@@ -129,7 +128,15 @@ class ClientController extends AbstractController
                 }
 
                 if (count($errors) === 0) {
-
+                    return $this->redirect(
+                        $this->generateUrl(
+                            "ee_applications_template_emails_client_preview",
+                            [
+                                "email" => $email,
+                                "id"    => $id
+                            ]
+                        ) . "?" . http_build_query(["placeholders" => $placeholderValues])
+                    );
                 }
             } else {
                 $placeholders = $this->getClientService()->getPlaceholdersByVersionId($id);
@@ -145,6 +152,30 @@ class ClientController extends AbstractController
                 'id'           => $id,
                 'placeholders' => $placeholders,
                 'errors'       => $errors
+            ]
+        );
+    }
+
+    /**
+     * Fill Placeholders Action
+     *
+     * @param Request $request
+     * @param string  $email
+     * @param int     $id
+     *
+     * @return Response
+     */
+    public function previewAction(Request $request, $email, $id)
+    {
+        $placeholders = $request->request->get("placeholders", []);
+        $version = $this->getClientService()->getVersionById($id);
+
+        return $this->render(
+            'EEApplicationsTemplateEmailsBundle:Client:preview.html.twig',
+            [
+                'email'        => $email,
+                'version'      => $version,
+                'placeholders' => $placeholders
             ]
         );
     }

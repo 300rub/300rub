@@ -7,6 +7,7 @@
         <div class="row-fluid">
             <div class="span6">
                 <h1>Template Emails</h1>
+                <h2>{{ email }}</h2>
                 <h3>Please fill the placeholders below</h3>
             </div>
         </div>
@@ -25,7 +26,7 @@
             <div class="span12">
                 <form
                     class="form-horizontal"
-                    method="post"
+                    method="get"
                     action="{{
                         path(
                             'ee_applications_template_emails_client_fill_placeholders',

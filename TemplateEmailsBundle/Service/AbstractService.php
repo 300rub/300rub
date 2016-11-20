@@ -176,6 +176,18 @@ abstract class AbstractService extends ContainerAware implements LoggerAwareInte
     }
 
     /**
+     * Gets version by ID
+     *
+     * @param int $id
+     *
+     * @return \EE\Applications\TemplateEmailsBundle\Entity\Version
+     */
+    public function getVersionById($id)
+    {
+        return $this->getVersionRepository()->findOneBy(['id' => $id]);
+    }
+
+    /**
      * Gets all validations
      *
      * @return \EE\Applications\TemplateEmailsBundle\Entity\Validation[]

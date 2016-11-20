@@ -70,7 +70,7 @@ class ClientService extends AbstractService
 
             $value = $placeholderValues[$placeholder->getId()];
             $result = preg_match(
-                sprintf("/%s/i", $placeholder->getValidation()->getRegEx()),
+                sprintf("/%s/", $placeholder->getValidation()->getRegEx()),
                 $value
             );
             if (!$result) {
@@ -84,5 +84,56 @@ class ClientService extends AbstractService
         }
 
         return $placeholders;
+    }
+
+    /**
+     * Gets populated HTML
+     *
+     * @param array $placeholderValues
+     * @param int   $versionId
+     *
+     * @return string
+     */
+    public function getPopulatedVersionBody(array $placeholderValues, $versionId)
+    {
+        $version = $this->getVersionById($versionId);
+
+        $placeholders = $this->getPlaceholderWithValues(
+            $placeholderValues,
+            $version->getId()
+        );
+
+        $search = [];
+        $replace = [];
+        foreach ($placeholders as $placeholder) {
+            if ($placeholder->getError()) {
+                throw new \RuntimeException($placeholder->getError());
+            }
+
+            $search[] = sprintf("{{ %s }}", $placeholder->getKey());
+            $replace[] = $placeholder->getValue();
+        }
+
+        $body = str_replace($search, $replace, $version->getBody());
+        $result = preg_match(
+            "/(\[\[\s)([a-zA-Z0-9_-]+)(\s\]\])/",
+            $body,
+            $matches
+        );
+        if ($result) {
+            $this->getLogger()->error(
+                "Unable to populate the template's version with ID = {id}, " .
+                "placeholders = {placeholders}, matches = {matches}",
+                [
+                    'id' => $version->getId(),
+                    'placeholders' => $placeholderValues,
+                    'matches' => $matches
+                ]
+            );
+
+            throw new \RuntimeException("Unable to populate the template");
+        }
+
+        return $body;
     }
 }
