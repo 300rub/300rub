@@ -77,7 +77,6 @@ class ClientController extends AbstractController
     {
         $form = $this->createForm(
             new SelectVersionType(
-                $email,
                 $this->getClientService()->getActiveVersionKeyValueList()
             )
         );
@@ -87,8 +86,8 @@ class ClientController extends AbstractController
             return $this->redirect($this->generateUrl(
                 'ee_applications_template_emails_client_fill_placeholders',
                 [
-                    'email' => $form->get('email')->getData(),
-                    'id'    => $form->get('id')->getData()
+                    'email' => $email,
+                    'id' => $form->get('id')->getData()
                 ]
             ));
         }
@@ -96,7 +95,8 @@ class ClientController extends AbstractController
         return $this->render(
             'EEApplicationsTemplateEmailsBundle:Client:selectTemplate.html.twig',
             [
-                'form' => $form->createView()
+                'form'  => $form->createView(),
+                'email' => $email
             ]
         );
     }

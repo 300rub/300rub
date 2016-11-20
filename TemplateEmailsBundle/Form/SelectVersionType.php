@@ -16,13 +16,6 @@ class SelectVersionType extends AbstractType
 {
 
     /**
-     * Email
-     *
-     * @var string
-     */
-    private $email;
-
-    /**
      * Template list
      *
      * @var array
@@ -32,12 +25,10 @@ class SelectVersionType extends AbstractType
     /**
      * Constructor
      *
-     * @param string $email
      * @param array  $templateList
      */
-    public function __construct($email, array $templateList)
+    public function __construct(array $templateList)
     {
-        $this->email = $email;
         $this->templateList = $templateList;
     }
 
@@ -59,12 +50,6 @@ class SelectVersionType extends AbstractType
                 'error_bubbling'  => true,
                 'empty_value'     => 'Please select a template'
             ])
-            ->add('email', 'hidden', array(
-                'data' => $this->email,
-                'constraints'     => [
-                    new NotBlank(), new Email()
-                ],
-            ))
             ->add('next', 'submit', [
                 'label' => 'Next',
                 'attr'  => [
