@@ -7,5 +7,5 @@ ee_applications_template_emails_client_select_template:
     defaults: { _controller: EEApplicationsTemplateEmailsBundle:Client:selectTemplate }
 
 ee_applications_template_emails_client_fill_placeholders:
-    path:     /{email}/version/{id}
+    path:     /{email}/{id}/placeholders
     defaults: { _controller: EEApplicationsTemplateEmailsBundle:Client:fillPlaceholders }

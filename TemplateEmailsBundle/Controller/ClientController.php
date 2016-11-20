@@ -100,4 +100,31 @@ class ClientController extends AbstractController
             ]
         );
     }
+
+    /**
+     * Fill Placeholders Action
+     *
+     * @param Request $request
+     * @param string  $email
+     * @param int     $id
+     *
+     * @return Response
+     */
+    public function fillPlaceholdersAction(Request $request, $email, $id)
+    {
+        $placeholders = $this->getClientService()->getPlaceholdersByVersionId($id);
+
+        if ($request->isMethod('POST')) {
+
+        }
+
+        return $this->render(
+            'EEApplicationsTemplateEmailsBundle:Client:selectTemplate.html.twig',
+            [
+                'email'        => $email,
+                'id'           => $id,
+                'placeholders' => $placeholders
+            ]
+        );
+    }
 }

@@ -130,10 +130,14 @@ abstract class AbstractService extends ContainerAware implements LoggerAwareInte
      */
     public function getPlaceholdersByVersionId($versionId)
     {
-        return $this->getPlaceholderRepository()->findBy(
-            ['versionId' => $versionId],
-            ['sort' => 'ASC']
-        );
+        return $this->getPlaceholderRepository()
+            ->createQueryBuilder('p')
+            ->leftJoin('p.validation', 'v')
+            ->where('p.versionId = :versionId')
+            ->setParameter('versionId', $versionId)
+            ->orderBy('p.sort', 'ASC')
+            ->getQuery()
+            ->getResult();
     }
 
     /**
