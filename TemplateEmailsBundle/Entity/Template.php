@@ -55,16 +55,6 @@ class Template
     private $isActive;
 
     /**
-     * Gets id
-     *
-     * @return int
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
      * Sets id
      *
      * @param int $id
@@ -75,6 +65,16 @@ class Template
     {
         $this->id = $id;
         return $this;
+    }
+
+    /**
+     * Gets id
+     *
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
     }
 
     /**

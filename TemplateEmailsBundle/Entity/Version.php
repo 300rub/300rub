@@ -5,6 +5,7 @@ namespace EE\Applications\TemplateEmailsBundle\Entity;
 use Swagger\Annotations as SWG;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation\SerializedName;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Version entity
@@ -220,6 +221,19 @@ class Version
     private $fromEmail;
 
     /**
+     * Sets id
+     *
+     * @param int $id
+     *
+     * @return Version
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+        return $this;
+    }
+
+    /**
      * Gets id
      *
      * @return int
@@ -230,15 +244,232 @@ class Version
     }
 
     /**
-     * Sets id
+     * Sets Template ID
      *
-     * @param int $id
+     * @param int $templateId
+     *
+     * @return Version
+     */
+    public function setTemplateId($templateId)
+    {
+        $this->templateId = $templateId;
+        return $this;
+    }
+
+    /**
+     * Gets Template ID
+     *
+     * @return int
+     */
+    public function getTemplateId()
+    {
+        return $this->templateId;
+    }
+
+    /**
+     * Sets Template
+     *
+     * @param Template $template
+     *
+     * @return Version
+     */
+    public function setTemplate(Template $template)
+    {
+        $this->template = $template;
+        return $this;
+    }
+
+    /**
+     * Gets Template
      *
      * @return Template
      */
-    public function setId($id)
+    public function getTemplate()
     {
-        $this->id = $id;
+        return $this->template;
+    }
+
+    /**
+     * Sets date created
+     *
+     * @param \DateTime $datetime
+     *
+     * @return Version
+     */
+    public function setCreatedDate(\DateTime $datetime)
+    {
+        $this->createdDate = $datetime;
         return $this;
+    }
+
+    /**
+     * Gets date created
+     *
+     * @return \DateTime
+     */
+    public function getCreatedDate()
+    {
+        return $this->createdDate;
+    }
+
+    /**
+     * Sets Created User
+     *
+     * @param string $createdUser
+     *
+     * @return Version
+     */
+    public function setCreatedUser($createdUser)
+    {
+        $this->createdUser = $createdUser;
+        return $this;
+    }
+
+    /**
+     * Gets Created User
+     *
+     * @return string
+     */
+    public function getCreatedUser()
+    {
+        return $this->createdUser;
+    }
+
+    /**
+     * Sets Message body
+     *
+     * @param string $body
+     *
+     * @return Version
+     */
+    public function setBody($body)
+    {
+        $this->body = $body;
+        return $this;
+    }
+
+    /**
+     * Gets Message body
+     *
+     * @return string
+     */
+    public function getBody()
+    {
+        return $this->body;
+    }
+
+    /**
+     * Sets Message subject
+     *
+     * @param string $subject
+     *
+     * @return Version
+     */
+    public function setSubject($subject)
+    {
+        $this->subject = $subject;
+        return $this;
+    }
+
+    /**
+     * Gets Message subject
+     *
+     * @return string
+     */
+    public function getSubject()
+    {
+        return $this->subject;
+    }
+
+    /**
+     * Sets Template name
+     *
+     * @param string $name
+     *
+     * @return Version
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+        return $this;
+    }
+
+    /**
+     * Gets Template name
+     *
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * Sets Template description
+     *
+     * @param string $description
+     *
+     * @return Version
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+        return $this;
+    }
+
+    /**
+     * Gets Template description
+     *
+     * @return string
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
+
+    /**
+     * Sets From Name
+     *
+     * @param string $fromName
+     *
+     * @return Version
+     */
+    public function setFromName($fromName)
+    {
+        $this->fromName = $fromName;
+        return $this;
+    }
+
+    /**
+     * Gets From Name
+     *
+     * @return string
+     */
+    public function getFromName()
+    {
+        return $this->fromName;
+    }
+
+    /**
+     * Sets From Email
+     *
+     * @param string $fromEmail
+     *
+     * @return Version
+     */
+    public function setFromEmail($fromEmail)
+    {
+        $this->fromEmail = $fromEmail;
+        return $this;
+    }
+
+    /**
+     * Gets From Email
+     *
+     * @return string
+     */
+    public function getFromEmail()
+    {
+        return $this->fromEmail;
     }
 }
