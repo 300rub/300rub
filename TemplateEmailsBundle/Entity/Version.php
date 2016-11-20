@@ -58,7 +58,7 @@ class Version
     private $templateId;
 
     /**
-     * Owning template
+     * Template
      *
      * @var Template
      *

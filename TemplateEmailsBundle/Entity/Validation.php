@@ -5,6 +5,7 @@ namespace EE\Applications\TemplateEmailsBundle\Entity;
 use Swagger\Annotations as SWG;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation\SerializedName;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Validation entity
