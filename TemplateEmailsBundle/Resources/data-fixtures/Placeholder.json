@@ -1,0 +1,106 @@
+{
+    "1": {
+        "versionId": 1,
+        "validationId": 1,
+        "key": "name",
+        "label": "Name",
+        "formPlaceholder": "Alice",
+        "sort": 10
+    },
+    "2": {
+        "versionId": 1,
+        "validationId": 2,
+        "key": "account_number",
+        "label": "Account number",
+        "formPlaceholder": "12345678",
+        "sort": 20
+    },
+    "3": {
+        "versionId": 1,
+        "validationId": 3,
+        "key": "mobile_number",
+        "label": "Mobile number",
+        "formPlaceholder": "07973100100",
+        "sort": 30
+    },
+    "4": {
+        "versionId": 1,
+        "validationId": 4,
+        "key": "date_of_disconnection_request",
+        "label": "Date of disconnection request",
+        "formPlaceholder": "01 / 01 / 2000",
+        "sort": 40
+    },
+    "5": {
+        "versionId": 1,
+        "validationId": 4,
+        "key": "date_of_disconnection",
+        "label": "Date of disconnection",
+        "formPlaceholder": "01 / 01 / 2000",
+        "sort": 50
+    },
+    "6": {
+        "versionId": 1,
+        "validationId": 5,
+        "key": "remaining_contract_charge",
+        "label": "Remaining contract charge, £",
+        "formPlaceholder": "77.50",
+        "sort": 60
+    },
+    "7": {
+        "versionId": 2,
+        "validationId": 1,
+        "key": "name",
+        "label": "Name",
+        "formPlaceholder": "Alice",
+        "sort": 10
+    },
+    "8": {
+        "versionId": 1,
+        "validationId": 2,
+        "key": "account_number",
+        "label": "Account number",
+        "formPlaceholder": "12345678",
+        "sort": 20
+    },
+    "9": {
+        "versionId": 1,
+        "validationId": 3,
+        "key": "mobile_number",
+        "label": "Mobile number",
+        "formPlaceholder": "07973100100",
+        "sort": 30
+    },
+    "10": {
+        "versionId": 1,
+        "validationId": 1,
+        "key": "pac",
+        "label": "PAC",
+        "formPlaceholder": "111AAA222BBB",
+        "sort": 40
+    },
+    "11": {
+        "versionId": 1,
+        "validationId": 4,
+        "key": "date_of_pac_request",
+        "label": "Date of PAC request",
+        "formPlaceholder": "01 / 01 / 2000",
+        "sort": 50
+    },
+    "12": {
+        "versionId": 1,
+        "validationId": 4,
+        "key": "pac_expiry_date",
+        "label": "PAC Expiry Date",
+        "formPlaceholder": "01 / 01 / 2000",
+        "sort": 60
+    },
+    "13": {
+        "versionId": 1,
+        "validationId": 5,
+        "key": "remaining_contract_charge",
+        "label": "Remaining contract charge, £",
+        "formPlaceholder": "33.50",
+        "sort": 70
+    },
+}
