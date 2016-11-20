@@ -190,7 +190,6 @@ class Version
      *   description="From name"
      * )
      *
-     * @Assert\NotBlank(message = "The 'From name' field should not be empty")
      * @Assert\Length(max=50, maxMessage="Maximum length of the 'From name' is 50 characters")
      *
      * @SerializedName("fromName")

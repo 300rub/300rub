@@ -1,0 +1,43 @@
+{% extends "EEApplicationsAbstractBundle::layout.html.twig" %}
+{% form_theme form with ['EEApplicationsAbstractBundle:Form:bootstrap-override.html.twig'] %}
+
+{% block content %}
+
+    <div class="container-fluid">
+        <div class="row-fluid">
+            <div class="span6">
+                <h1>Template Emails</h1>
+                <h2>{{ email }}</h2>
+            </div>
+        </div>
+
+        <div class="row-fluid">
+            {% if errorMessage is not empty %}
+                <div class="span12 alert alert-error">
+                    {{ errorMessage }}
+                </div>
+            {% endif %}
+
+            {% if successMessage is not empty %}
+                <div class="span12 alert alert-success">
+                    {{ successMessage }}
+                </div>
+            {% endif %}
+        </div>
+
+        <div class="row-fluid">
+            <div class="span12 ">
+                <a
+                    href="{{
+                        path(
+                            'ee_applications_template_emails_client_select_template',
+                            {'email': email}
+                        )
+                    }}"
+                    class="btn"
+                >Home</a>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

@@ -74,6 +74,16 @@ abstract class AbstractService extends ContainerAware implements LoggerAwareInte
     }
 
     /**
+     * Gets EmailService
+     *
+     * @return \EE\Applications\TemplateEmailsBundle\Service\EmailService
+     */
+    protected function getEmailService()
+    {
+        return $this->container->get('ee_applications_template_emails_service_email');
+    }
+
+    /**
      * Gets Placeholder Repository
      *
      * @return \Doctrine\ORM\EntityRepository

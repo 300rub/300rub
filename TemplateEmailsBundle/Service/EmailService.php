@@ -91,7 +91,7 @@ class EmailService extends AbstractService
      *
      * @return EmailService
      */
-    public function setSenderName($fromName)
+    public function setFromName($fromName)
     {
         $this->fromName = $fromName;
         return $this;
@@ -169,6 +169,8 @@ class EmailService extends AbstractService
             $this->getLogger()->debug("Email has been successfully sent. " . $debugText, $debugData);
         } else {
             $this->getLogger()->error("Unable to save email. " . $debugText, $debugData);
+
+            throw new \RuntimeException("An error occurred while sending email");
         }
 
         return $result;

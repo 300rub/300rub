@@ -194,4 +194,20 @@ class ClientController extends AbstractController
 
         echo $body;
     }
+
+    /**
+     * Send action
+     *
+     * @param string $email
+     * @param int    $id
+     *
+     * @return Response
+     */
+    public function sendAction($email, $id)
+    {
+        return $this->render(
+            'EEApplicationsTemplateEmailsBundle:Client:sendResult.html.twig',
+            $this->getClientService()->sendEmail($email, $id)
+        );
+    }
 }
