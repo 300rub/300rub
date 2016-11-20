@@ -26,4 +26,5 @@ services:
         class: %ee_applications_template_emails_service_email.class%
         parent: ee_applications_template_emails_service_abstract
         calls:
-            - [setDefaults, [%ee_applications_template_emails_email_default%]]
+            - [setFromName, [%ee_applications_template_emails_service_email.default_fromName%]]
+            - [setFromEmail, [%ee_applications_template_emails_service_email.default_fromEmail%]]

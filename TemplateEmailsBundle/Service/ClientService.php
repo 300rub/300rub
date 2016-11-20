@@ -4,7 +4,6 @@ namespace EE\Applications\TemplateEmailsBundle\Service;
 use EE\Applications\TemplateEmailsBundle\Entity\Placeholder;
 use EE\Applications\TemplateEmailsBundle\Entity\PlaceholderValue;
 use EE\Applications\TemplateEmailsBundle\Entity\PlaceholderValueGroup;
-use EE\Applications\TemplateEmailsBundle\Entity\Version;
 
 /**
  * Class ClientService
