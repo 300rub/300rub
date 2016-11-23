@@ -46,6 +46,7 @@ abstract class AbstractMigration
     const TYPE_BOOL = 'TINYINT(1) UNSIGNED NOT NULL';
     const TYPE_TEXT = 'TEXT NOT NULL';
     const TYPE_DATETIME = "DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP";
+    const TYPE_FLOAT = 'FLOAT NOT NULL';
 
     /**
      * Flag. If it is true - it will be skipped in common applying
