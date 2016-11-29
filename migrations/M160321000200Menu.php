@@ -45,10 +45,12 @@ class M160321000200Menu extends AbstractMigration
             ->createTable(
                 "menu",
                 [
-                    "id"   => self::TYPE_PK,
-                    "type" => self::TYPE_TINYINT_UNSIGNED,
+                    "id"           => self::TYPE_PK,
+                    "designMenuId" => self::TYPE_FK,
+                    "type"         => self::TYPE_TINYINT_UNSIGNED,
                 ]
             )
+            ->createForeignKey("menu", "designMenuId", "designMenu")
             ->createTable(
                 "menuInstances",
                 [

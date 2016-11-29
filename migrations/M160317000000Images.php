@@ -79,9 +79,9 @@ class M160317000000Images extends AbstractMigration
                 ]
             )
             ->createForeignKey("images", "designBlockId", "designBlocks")
-            ->createForeignKey("images", "designImageSliderId", "designBlocks")
-            ->createForeignKey("images", "designImageZoomId", "designBlocks")
-            ->createForeignKey("images", "designImageSimpleId", "designBlocks")
+            ->createForeignKey("images", "designImageSliderId", "designImageSliders")
+            ->createForeignKey("images", "designImageZoomId", "designImageZooms")
+            ->createForeignKey("images", "designImageSimpleId", "designImageSimples")
             ->createTable(
                 "imageGroups",
                 [

@@ -7,7 +7,7 @@ namespace testS\migrations;
  *
  * @package testS\migrations
  */
-class M160321000300SiteMap extends AbstractMigration
+class M160321000300SiteMaps extends AbstractMigration
 {
 
     /**
@@ -17,7 +17,7 @@ class M160321000300SiteMap extends AbstractMigration
     {
         $this
             ->createTable(
-                "siteMap",
+                "siteMaps",
                 [
                     "id"                => self::TYPE_PK,
                     "designBlockId"     => self::TYPE_FK,
@@ -26,8 +26,8 @@ class M160321000300SiteMap extends AbstractMigration
                     "style"             => self::TYPE_TINYINT_UNSIGNED
                 ]
             )
-            ->createForeignKey("siteMap", "designBlockId", "designBlocks")
-            ->createForeignKey("siteMap", "itemDesignBlockId", "designBlocks")
-            ->createForeignKey("siteMap", "itemDesignTextId", "designTexts");
+            ->createForeignKey("siteMaps", "designBlockId", "designBlocks")
+            ->createForeignKey("siteMaps", "itemDesignBlockId", "designBlocks")
+            ->createForeignKey("siteMaps", "itemDesignTextId", "designTexts");
     }
 }
