@@ -124,6 +124,43 @@ abstract class AbstractMigration
     }
 
     /**
+     * Creates unique index
+     *
+     * @param string $table   Table name
+     * @param string $name    Name
+     * @param string $columns Columns
+     *
+     * @throws MigrationException
+     *
+     * @return AbstractMigration
+     */
+    public function createUniqueIndex($table, $name, $columns)
+    {
+        try {
+            Db::execute(
+                sprintf(
+                    "ALTER" . " TABLE %s ADD UNIQUE INDEX %s (%s)",
+                    $table,
+                    $name,
+                    $columns
+                )
+            );
+        } catch (Exception $e) {
+            throw new MigrationException(
+                "Exception: {e}. Unable to create index with name {name} for columns {columns} for table {table}",
+                [
+                    "e"       => $e->getMessage(),
+                    "name"    => $name,
+                    "columns" => $columns,
+                    "table"   => $table
+                ]
+            );
+        }
+
+        return $this;
+    }
+
+    /**
      * Creates Foreign key
      *
      * @param string $table
