@@ -45,31 +45,23 @@ class M160321000550Tabs extends AbstractMigration
             ->createTable(
                 "tabGroups",
                 [
-                    "id" => self::TYPE_PK,
+                    "id"    => self::TYPE_PK,
+                    "tabId" => self::TYPE_FK,
                 ]
             )
+            ->createForeignKey("tabGroups", "tabId", "tabs")
             ->createTable(
                 "tabInstances",
                 [
-                    "id"    => self::TYPE_PK,
-                    "tabId" => self::TYPE_FK,
-                    "sort"  => self::TYPE_SMALLINT,
-                    "label" => self::TYPE_STRING,
-                ]
-            )
-            ->createForeignKey("tabInstances", "tabId", "tabs")
-            ->createIndex("tabInstances", "sort")
-            ->createTable(
-                "tabValues",
-                [
                     "id"             => self::TYPE_PK,
                     "tabGroupId"     => self::TYPE_FK,
-                    "tabInstanceId"  => self::TYPE_FK,
                     "textInstanceId" => self::TYPE_FK,
+                    "sort"           => self::TYPE_SMALLINT,
+                    "label"          => self::TYPE_STRING,
                 ]
             )
-            ->createForeignKey("tabValues", "tabGroupId", "tabGroups")
-            ->createForeignKey("tabValues", "tabInstanceId", "tabInstances")
-            ->createForeignKey("tabValues", "textInstanceId", "textInstances");
+            ->createForeignKey("tabInstances", "tabGroupId", "tabGroups")
+            ->createForeignKey("tabInstances", "textInstanceId", "textInstances")
+            ->createIndex("tabInstances", "sort");
     }
 }

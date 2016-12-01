@@ -39,6 +39,7 @@ class M160321000100Records extends AbstractMigration
                 ]
             )
             ->createForeignKey("designRecords", "shortCardDesignBlockId", "designBlocks")
+            ->createForeignKey("designRecords", "shortCardInstanceDesignBlockId", "designBlocks")
             ->createForeignKey("designRecords", "shortCardTitleDesignBlockId", "designBlocks")
             ->createForeignKey("designRecords", "shortCardTitleDesignTextId", "designTexts")
             ->createForeignKey("designRecords", "shortCardDateDesignTextId", "designTexts")
@@ -73,6 +74,46 @@ class M160321000100Records extends AbstractMigration
             ->createForeignKey("records", "descriptionTextId", "texts")
             ->createForeignKey("records", "textTextId", "texts")
             ->createForeignKey("records", "designRecordsId", "designRecords")
+            ->createTable(
+                "designRecordClones",
+                [
+                    "id"                       => self::TYPE_PK,
+                    "designBlockId"            => self::TYPE_FK,
+                    "instanceDesignBlockId"    => self::TYPE_FK,
+                    "titleDesignBlockId"       => self::TYPE_FK,
+                    "titleDesignTextId"        => self::TYPE_FK,
+                    "dateDesignTextId"         => self::TYPE_FK,
+                    "descriptionDesignBlockId" => self::TYPE_FK,
+                    "descriptionDesignTextId"  => self::TYPE_FK,
+                    "viewType"                 => self::TYPE_TINYINT_UNSIGNED,
+                ]
+            )
+            ->createForeignKey("designRecordClones", "designBlockId", "designBlocks")
+            ->createForeignKey("designRecordClones", "instanceDesignBlockId", "designBlocks")
+            ->createForeignKey("designRecordClones", "titleDesignBlockId", "designBlocks")
+            ->createForeignKey("designRecordClones", "titleDesignTextId", "designTexts")
+            ->createForeignKey("designRecordClones", "dateDesignTextId", "designTexts")
+            ->createForeignKey("designRecordClones", "descriptionDesignBlockId", "designBlocks")
+            ->createForeignKey("designRecordClones", "descriptionDesignTextId", "designTexts")
+            ->createTable(
+                "recordClones",
+                [
+                    "id"                  => self::TYPE_PK,
+                    "recordId"            => self::TYPE_FK,
+                    "coverImagesId"       => self::TYPE_FK,
+                    "descriptionTextId"   => self::TYPE_FK,
+                    "designRecordCloneId" => self::TYPE_FK,
+                    "hasCover"            => self::TYPE_BOOL,
+                    "hasCoverZoom"        => self::TYPE_BOOL,
+                    "hasDescription"      => self::TYPE_BOOL,
+                    "dateType"            => self::TYPE_SMALLINT_UNSIGNED,
+                    "maxCount"            => self::TYPE_SMALLINT_UNSIGNED,
+                ]
+            )
+            ->createForeignKey("recordClones", "recordId", "records")
+            ->createForeignKey("recordClones", "coverImagesId", "images")
+            ->createForeignKey("recordClones", "descriptionTextId", "texts")
+            ->createForeignKey("recordClones", "designRecordCloneId", "designRecordClones")
             ->createTable(
                 "recordInstances",
                 [

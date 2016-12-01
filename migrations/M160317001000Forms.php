@@ -54,7 +54,7 @@ class M160317001000Forms extends AbstractMigration
             )
             ->createForeignKey("forms", "designFormId", "designForms")
             ->createTable(
-                "formElements",
+                "formInstances",
                 [
                     "id"             => self::TYPE_PK,
                     "formId"         => self::TYPE_FK,
@@ -65,19 +65,19 @@ class M160317001000Forms extends AbstractMigration
                     "type"           => self::TYPE_INT_UNSIGNED,
                 ]
             )
-            ->createForeignKey("formElements", "formId", "forms", self::FK_CASCADE, self::FK_CASCADE)
-            ->createIndex("formElements", "sort")
+            ->createForeignKey("formInstances", "formId", "forms", self::FK_CASCADE, self::FK_CASCADE)
+            ->createIndex("formInstances", "sort")
             ->createTable(
-                "formValues",
+                "formListValues",
                 [
                     "id"            => self::TYPE_PK,
-                    "formElementId" => self::TYPE_FK,
+                    "formInstanceId" => self::TYPE_FK,
                     "sort"          => self::TYPE_SMALLINT,
                     "value"         => self::TYPE_STRING,
                     "isChecked"     => self::TYPE_BOOL,
                 ]
             )
-            ->createForeignKey("formValues", "formElementId", "formElements", self::FK_CASCADE, self::FK_CASCADE)
-            ->createIndex("formValues", "sort");
+            ->createForeignKey("formListValues", "formInstanceId", "formInstances", self::FK_CASCADE, self::FK_CASCADE)
+            ->createIndex("formListValues", "sort");
     }
 }

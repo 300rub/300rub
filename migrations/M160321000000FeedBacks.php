@@ -31,6 +31,6 @@ class M160321000000FeedBacks extends AbstractMigration
                 ]
             )
             ->createForeignKey("feedBacks", "formId", "forms")
-            ->createForeignKey("feedBacks", "subjectFormElementId", "formElements");
+            ->createForeignKey("feedBacks", "subjectFormElementId", "formInstances");
     }
 }
