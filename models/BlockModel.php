@@ -6,12 +6,12 @@ use testS\components\exceptions\ModelException;
 use testS\components\Language;
 
 /**
- * Model for working with table "grids"
+ * Model for working with table "blocks"
  *
  * @package testS\models
  *
- * @property int           $contentType
- * @property int           $contentId
+ * @property int $contentType
+ * @property int $contentId
  *
  * @method BlockModel[] findAll()
  * @method BlockModel   ordered($value)
@@ -28,6 +28,16 @@ class BlockModel extends AbstractModel
      * Content types. Image
      */
     const TYPE_IMAGE = 2;
+
+    /**
+     * Type list
+     *
+     * @var array
+     */
+    public static $typeList = [
+        self::TYPE_TEXT  => "TextModel",
+        self::TYPE_IMAGE => "ImageModel"
+    ];
 
     /**
      * Gets table name
@@ -47,7 +57,7 @@ class BlockModel extends AbstractModel
     public function getFieldsInfo()
     {
         return [
-            "name"          => [
+            "name"        => [
                 self::FIELD_TYPE                => self::FIELD_TYPE_STRING,
                 self::FIELD_VALIDATION          => [
                     "required",
@@ -60,7 +70,7 @@ class BlockModel extends AbstractModel
                     "copyName"
                 ],
             ],
-            "language"      => [
+            "language"    => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
                     "arrayKey" => [Language::$aliasList, Language::$activeId]
@@ -72,24 +82,6 @@ class BlockModel extends AbstractModel
             "contentId"   => [
                 self::FIELD_TYPE => self::FIELD_TYPE_INT,
             ],
-        ];
-    }
-
-    /**
-     * Gets content types list
-     *
-     * @return array
-     */
-    public static function getTypesList()
-    {
-        return [
-            self::TYPE_TEXT => [
-                "name"     => Language::t("text", "text"),
-                "model"    => "TextModel",
-                "view"     => "text",
-                "selector" => "j-text-",
-                "with"     => ["designTextModel"]
-            ]
         ];
     }
 
@@ -108,8 +100,7 @@ class BlockModel extends AbstractModel
             throw new ModelException("Unable to save BlockModel because contentId is null");
         }
 
-        $typeList = self::getTypesList();
-        if (!array_key_exists($this->contentType, $typeList)) {
+        if (!array_key_exists($this->contentType, self::$typeList)) {
             throw new ModelException(
                 "Unable to find content model. Type is undefined: {type}",
                 [
@@ -118,7 +109,7 @@ class BlockModel extends AbstractModel
             );
         }
 
-        $className = "\\testS\\models\\" . $typeList[$this->contentType]["model"];
+        $className = "\\testS\\models\\" . self::$typeList[$this->contentType]["model"];
         $model = new $className;
         if (!$model instanceof AbstractModel
             || !$model->byId($this->contentId)->find() instanceof AbstractModel
