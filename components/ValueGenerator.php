@@ -11,6 +11,13 @@ class ValueGenerator
 {
 
     /**
+     * Types
+     */
+    const TYPE_CLEAR_STRIP_TAGS = "clearStripTags";
+    const TYPE_COPY_NAME = "copyName";
+    const TYPE_ARRAY_KEY = "arrayKey";
+
+    /**
      * Gets value by operator
      *
      * @param int $value1

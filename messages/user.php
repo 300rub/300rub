@@ -31,4 +31,8 @@ return [
         Language::LANGUAGE_EN_ID => "Login",
         Language::LANGUAGE_RU_ID => "",
     ],
+    "fullAccess" => [
+        Language::LANGUAGE_EN_ID => "Full access",
+        Language::LANGUAGE_RU_ID => "",
+    ],
 ];

@@ -43,6 +43,9 @@ class SectionModel extends AbstractModel
     public function getFieldsInfo()
     {
         return [
+            "seoId"         => [
+                self::FIELD_RELATION => ["SeoModel", "seoModel"]
+            ],
             "designBlockId" => [
                 self::FIELD_RELATION => ["DesignBlockModel", "designBlockModel"]
             ],
@@ -57,9 +60,6 @@ class SectionModel extends AbstractModel
                 self::FIELD_BEFORE_SAVE => [
                     "setIsMain"
                 ]
-            ],
-            "seoId"         => [
-                self::FIELD_RELATION => ["SeoModel", "seoModel"]
             ]
         ];
     }

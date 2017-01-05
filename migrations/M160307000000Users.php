@@ -20,7 +20,7 @@ class M160307000000Users extends AbstractMigration
                 "users",
                 [
                     "id"       => self::TYPE_PK,
-                    "user"     => self::TYPE_STRING_50,
+                    "login"    => self::TYPE_STRING_50,
                     "password" => self::TYPE_CHAR_40,
                     "type"     => self::TYPE_TINYINT_UNSIGNED,
                     "name"     => self::TYPE_STRING_100,

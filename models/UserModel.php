@@ -2,6 +2,8 @@
 
 namespace testS\models;
 
+use testS\components\Language;
+
 /**
  * Model for working with table "users"
  *
@@ -18,6 +20,11 @@ class UserModel extends AbstractModel
     const SALT = "saltForUser";
 
     /**
+     * Types
+     */
+    const TYPE_FULL_ACCESS = 1;
+
+    /**
      * Length of password
      */
     const PASSWORD_HASH_LENGTH = 40;
@@ -28,6 +35,18 @@ class UserModel extends AbstractModel
      * @var bool
      */
     public $isRemember = false;
+
+    /**
+     * Gets a list of types
+     *
+     * @return array
+     */
+    public static function getTypeList()
+    {
+        return [
+            self::TYPE_FULL_ACCESS => Language::t("user", "fullAccess")
+        ];
+    }
 
     /**
      * Gets table name
@@ -52,6 +71,7 @@ class UserModel extends AbstractModel
                 self::FIELD_VALIDATION => [
                     "required",
                     "min" => 3,
+                    "max" => 50,
                     "latinDigitUnderscoreHyphen"
                 ],
             ],
@@ -64,6 +84,27 @@ class UserModel extends AbstractModel
                 self::FIELD_BEFORE_SAVE => [
                     "setPassword"
                 ]
+            ],
+            "type"     => [
+                self::FIELD_TYPE  => self::FIELD_TYPE_INT,
+                self::FIELD_VALUE => [
+                    "arrayKey" => [self::getTypeList(), self::TYPE_FULL_ACCESS]
+                ]
+            ],
+            "name"     => [
+                self::FIELD_TYPE       => self::FIELD_TYPE_STRING,
+                self::FIELD_VALIDATION => [
+                    "required",
+                    "min" => 1,
+                    "max" => 100
+                ],
+            ],
+            "email"    => [
+                self::FIELD_TYPE       => self::FIELD_TYPE_STRING,
+                self::FIELD_VALIDATION => [
+                    "required",
+                    "email"
+                ],
             ],
         ];
     }

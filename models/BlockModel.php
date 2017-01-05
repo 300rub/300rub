@@ -4,6 +4,8 @@ namespace testS\models;
 
 use testS\components\exceptions\ModelException;
 use testS\components\Language;
+use testS\components\Validator;
+use testS\components\ValueGenerator;
 
 /**
  * Model for working with table "blocks"
@@ -60,20 +62,20 @@ class BlockModel extends AbstractModel
             "name"        => [
                 self::FIELD_TYPE                => self::FIELD_TYPE_STRING,
                 self::FIELD_VALIDATION          => [
-                    "required",
-                    "max" => 255
+                    Validator::TYPE_REQUIRED,
+                    Validator::TYPE_MAX_LENGTH => 255
                 ],
                 self::FIELD_VALUE               => [
-                    "clearStripTags"
+                    ValueGenerator::TYPE_CLEAR_STRIP_TAGS
                 ],
                 self::FIELD_CHANGE_ON_DUPLICATE => [
-                    "copyName"
+                    ValueGenerator::TYPE_COPY_NAME
                 ],
             ],
             "language"    => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
-                    "arrayKey" => [Language::$aliasList, Language::$activeId]
+                    ValueGenerator::TYPE_ARRAY_KEY => [Language::$aliasList, Language::$activeId]
                 ],
             ],
             "contentType" => [

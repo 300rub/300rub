@@ -11,6 +11,12 @@ class Validator
 {
 
 	/**
+	 * Types
+	 */
+	const TYPE_REQUIRED = "required";
+	const TYPE_MAX_LENGTH = "maxLength";
+
+	/**
 	 * Value
 	 *
 	 * @var string
@@ -60,11 +66,11 @@ class Validator
 
 		foreach ($rulesMap as $item) {
 			switch ($item["method"]) {
-				case "required":
-					$this->_required();
+				case self::TYPE_REQUIRED:
+					$this->_checkRequired();
 					break;
-				case "max":
-					$this->_max($item["value"]);
+				case self::TYPE_MAX_LENGTH:
+					$this->_checkMaxLength($item["value"]);
 					break;
 				case "min":
 					$this->_min($item["value"]);
@@ -74,6 +80,9 @@ class Validator
 					break;
 				case "latinDigitUnderscoreHyphen":
 					$this->_latinDigitUnderscoreHyphen();
+					break;
+				case "email":
+					$this->_email();
 					break;
 				default:
 					break;
@@ -114,7 +123,7 @@ class Validator
 	 *
 	 * @return void
 	 */
-	private function _required()
+	private function _checkRequired()
 	{
 		if (!$this->_value) {
 			$this->_addError("required");
@@ -128,7 +137,7 @@ class Validator
 	 *
 	 * @return void
 	 */
-	private function _max($max)
+	private function _checkMaxLength($max)
 	{
 		if (mb_strlen($this->_value) > $max) {
 			$this->_addError("max");
@@ -170,6 +179,18 @@ class Validator
 	{
 		if ($this->_value && !preg_match("/^[0-9a-z-_]+$/i", $this->_value)) {
 			$this->_addError("latinDigitUnderscoreHyphen");
+		}
+	}
+
+	/**
+	 * Verifies Email
+	 *
+	 * @return void
+	 */
+	private function _email()
+	{
+		if (!filter_var($this->_value, FILTER_VALIDATE_EMAIL)) {
+			$this->_addError("email");
 		}
 	}
 
