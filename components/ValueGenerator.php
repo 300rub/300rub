@@ -1,6 +1,7 @@
 <?php
 
 namespace testS\components;
+use testS\components\exceptions\ModelException;
 
 /**
  * Class for generation values
@@ -137,14 +138,29 @@ class ValueGenerator
      * @param array $parameters
      *
      * @return int|string
+     *
+     * @throws ModelException
      */
     public static function arrayKey($value, array $parameters)
     {
         $list = $parameters[0];
-        $defaultValue = $parameters[1];
+        $defaultValue = null;
+        if (isset($parameters[1])) {
+            $defaultValue = $parameters[1];
+        }
 
         if (!array_key_exists($value, $list)) {
-            return $defaultValue;
+            if (array_key_exists($defaultValue, $list)) {
+                return $defaultValue;
+            } else {
+                throw new ModelException(
+                    "Unable to find value: {value} from array keys: {keys}",
+                    [
+                        "value" => $value,
+                        "keys" => implode(", ", array_keys($list))
+                    ]
+                );
+            }
         }
 
         return $value;

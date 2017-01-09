@@ -44,10 +44,10 @@ class SectionModel extends AbstractModel
     {
         return [
             "seoId"         => [
-                self::FIELD_RELATION => ["SeoModel", "seoModel"]
+                self::FIELD_RELATION => ["SeoModel"]
             ],
             "designBlockId" => [
-                self::FIELD_RELATION => ["DesignBlockModel", "designBlockModel"]
+                self::FIELD_RELATION => ["DesignBlockModel"]
             ],
             "language"      => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,

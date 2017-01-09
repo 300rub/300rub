@@ -79,52 +79,43 @@ class BlockModel extends AbstractModel
                 ],
             ],
             "contentType" => [
-                self::FIELD_TYPE => self::FIELD_TYPE_INT,
+                self::FIELD_TYPE  => self::FIELD_TYPE_INT,
+                self::FIELD_VALUE => [
+                    ValueGenerator::TYPE_ARRAY_KEY => [self::$typeList]
+                ],
             ],
             "contentId"   => [
-                self::FIELD_TYPE => self::FIELD_TYPE_INT,
+                self::FIELD_TYPE        => self::FIELD_TYPE_INT,
+                self::FIELD_BEFORE_SAVE => "checkContentId"
             ],
         ];
     }
 
     /**
-     * Runs before save
+     * Checks content ID
+     *
+     * @param int $value
      *
      * @throws ModelException
      */
-    protected function beforeSave()
+    protected function checkContentId($value)
     {
-        if ($this->contentType === 0) {
-            throw new ModelException("Unable to save BlockModel because contentType is null");
-        }
-
-        if ($this->contentId === 0) {
+        if ($value === 0) {
             throw new ModelException("Unable to save BlockModel because contentId is null");
         }
 
-        if (!array_key_exists($this->contentType, self::$typeList)) {
-            throw new ModelException(
-                "Unable to find content model. Type is undefined: {type}",
-                [
-                    "type" => $this->contentType
-                ]
-            );
-        }
-
-        $className = "\\testS\\models\\" . self::$typeList[$this->contentType]["model"];
+        $className = "\\testS\\models\\" . self::$typeList[$this->contentType];
         $model = new $className;
         if (!$model instanceof AbstractModel
-            || !$model->byId($this->contentId)->find() instanceof AbstractModel
+            || !$model->byId($value)->find() instanceof AbstractModel
         ) {
             throw new ModelException(
                 "Unable to find model: {className} with ID = {id}",
                 [
                     "className" => $className,
-                    "id"        => $this->contentId
+                    "id"        => $value
                 ]
             );
         }
-
-        parent::beforeSave();
     }
 }

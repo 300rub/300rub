@@ -15,6 +15,8 @@ class Validator
 	 */
 	const TYPE_REQUIRED = "required";
 	const TYPE_MAX_LENGTH = "maxLength";
+	const TYPE_MIN_LENGTH = "minLength";
+	const TYPE_IP = "ip";
 
 	/**
 	 * Value
@@ -83,6 +85,9 @@ class Validator
 					break;
 				case "email":
 					$this->_email();
+					break;
+				case self::TYPE_IP:
+					$this->_checkIp();
 					break;
 				default:
 					break;
@@ -191,6 +196,18 @@ class Validator
 	{
 		if (!filter_var($this->_value, FILTER_VALIDATE_EMAIL)) {
 			$this->_addError("email");
+		}
+	}
+
+	/**
+	 * Verifies IP
+	 *
+	 * @return void
+	 */
+	private function _checkIp()
+	{
+		if (!filter_var($this->_value, FILTER_VALIDATE_IP)) {
+			$this->_addError(self::TYPE_IP);
 		}
 	}
 
