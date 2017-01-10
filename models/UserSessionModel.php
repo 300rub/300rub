@@ -31,7 +31,7 @@ class UserSessionsModel extends AbstractModel
     {
         return [
             "userId"   => [
-                self::FIELD_RELATION => ["UserModel"]
+                self::FIELD_RELATION_TO_PARENT => "UserModel"
             ],
             "token"    => [
                 self::FIELD_TYPE => self::FIELD_TYPE_STRING,

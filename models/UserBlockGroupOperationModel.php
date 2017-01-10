@@ -31,7 +31,7 @@ class UserBlockGroupOperationModel extends AbstractModel
     {
         return [
             "userBlockGroupId"   => [
-                self::FIELD_RELATION => ["UserBlockGroupModel"]
+                self::FIELD_RELATION_TO_PARENT => "UserBlockGroupModel"
             ],
             "operation"   => [
                 self::FIELD_TYPE => self::FIELD_TYPE_STRING,

@@ -69,14 +69,14 @@ class ImageInstanceModel extends AbstractModel
     public function getFieldsInfo()
     {
         return [
+            "imageAlbumId" => [
+                self::FIELD_RELATION_TO_PARENT => "ImageAlbumModel",
+            ],
             "fileName"     => [
                 self::FIELD_TYPE        => self::FIELD_TYPE_STRING,
                 self::FIELD_BEFORE_SAVE => [
                     "setFileName"
                 ],
-            ],
-            "imageAlbumId" => [
-                self::FIELD_TYPE => self::FIELD_TYPE_INT,
             ],
             "isCover"      => [
                 self::FIELD_TYPE => self::FIELD_TYPE_BOOL,

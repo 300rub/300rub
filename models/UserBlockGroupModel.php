@@ -2,7 +2,6 @@
 
 namespace testS\models;
 
-use testS\components\exceptions\ModelException;
 use testS\components\ValueGenerator;
 
 /**
@@ -32,8 +31,7 @@ class UserBlockGroupModel extends AbstractModel
     {
         return [
             "userId"   => [
-                self::FIELD_TYPE => self::FIELD_TYPE_INT,
-                self::FIELD_BEFORE_SAVE => "checkUserId"
+                self::FIELD_RELATION_TO_PARENT => "UserModel"
             ],
             "blockType"   => [
                 self::FIELD_TYPE => self::FIELD_TYPE_INT,
@@ -42,32 +40,5 @@ class UserBlockGroupModel extends AbstractModel
                 ],
             ],
         ];
-    }
-
-    /**
-     * Checks user ID
-     *
-     * @param int $value
-     *
-     * @throws ModelException
-     */
-    protected function checkUserId($value)
-    {
-        if ($value === 0) {
-            throw new ModelException("Unable to save UserBlockGroupModel because userId is null");
-        }
-
-        $className = "\\testS\\models\\UserModel";
-        $model = new $className;
-        if (!$model instanceof AbstractModel
-            || !$model->byId($value)->find() instanceof UserModel
-        ) {
-            throw new ModelException(
-                "Unable to find model: UserBlockGroupModel with ID = {id}",
-                [
-                    "id" => $value
-                ]
-            );
-        }
     }
 }

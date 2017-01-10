@@ -29,10 +29,10 @@ class UserSectionModel extends AbstractModel
     {
         return [
             "userId"   => [
-                self::FIELD_RELATION => ["UserModel"]
+                self::FIELD_RELATION_TO_PARENT => "UserModel"
             ],
             "sectionId"   => [
-                self::FIELD_RELATION => ["SectionModel"]
+                self::FIELD_RELATION_TO_PARENT => "SectionModel"
             ],
         ];
     }

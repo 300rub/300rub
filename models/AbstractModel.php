@@ -24,6 +24,7 @@ abstract class AbstractModel
     const FIELD_SKIP_DUPLICATION = "skipDuplication";
     const FIELD_CHANGE_ON_DUPLICATE = "changeOnDuplicate";
     const FIELD_RELATION = "relation";
+    const FIELD_RELATION_TO_PARENT = "relationToParent";
     const FIELD_TYPE = "type";
     const FIELD_TYPE_STRING = "string";
     const FIELD_TYPE_INT = "int";
@@ -689,7 +690,64 @@ abstract class AbstractModel
         $this
             ->_setFieldsBeforeSave()
             ->_setRelationsBeforeSave()
+            ->checkParentsBeforeSave()
             ->_setFieldsAndDbRequestDataBeforeSave();
+    }
+
+    /**
+     * Checks parents before save
+     *
+     * @return AbstractModel
+     */
+    protected function checkParentsBeforeSave()
+    {
+        foreach ($this->getFieldsInfo() as $field => $info) {
+            if (!array_key_exists(self::FIELD_RELATION_TO_PARENT, $info)) {
+                continue;
+            }
+
+            $this->checkParentBeforeSave($field, $this->$field, $info[self::FIELD_RELATION_TO_PARENT]);
+        }
+
+        return $this;
+    }
+
+    /**
+     * Checks parent before save
+     *
+     * @param string $field
+     * @param int    $value
+     * @param string $parentModelName
+     *
+     * @throws ModelException
+     */
+    protected function checkParentBeforeSave($field, $value, $parentModelName)
+    {
+        $value = (int) $value;
+
+        if ($value <= 0) {
+            throw new ModelException(
+                "Unable to save {className} because {field} is null",
+                [
+                    "className" => get_class($this),
+                    "field"     => $field
+                ]
+            );
+        }
+
+        $className = "\\testS\\models\\" . $parentModelName;
+        $model = new $className;
+        if (!$model instanceof AbstractModel
+            || !$model->byId($value)->find() instanceof AbstractModel
+        ) {
+            throw new ModelException(
+                "Unable to find model: {model} with ID = {id}",
+                [
+                    "model" => $parentModelName,
+                    "id"    => $value
+                ]
+            );
+        }
     }
 
     /**

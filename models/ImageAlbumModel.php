@@ -34,10 +34,7 @@ class ImageAlbumModel extends AbstractModel
     {
         return [
             "imageId" => [
-                self::FIELD_TYPE => self::FIELD_TYPE_INT,
-                self::FIELD_VALUE => [
-                    "min" => 0
-                ],
+                self::FIELD_RELATION_TO_PARENT => "ImageModel",
             ],
             "name"    => [
                 self::FIELD_TYPE       => self::FIELD_TYPE_STRING,
