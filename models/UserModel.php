@@ -3,6 +3,7 @@
 namespace testS\models;
 
 use testS\components\Language;
+use testS\components\Validator;
 
 /**
  * Model for working with table "users"
@@ -69,17 +70,18 @@ class UserModel extends AbstractModel
             "login"    => [
                 self::FIELD_TYPE       => self::FIELD_TYPE_STRING,
                 self::FIELD_VALIDATION => [
-                    "required",
-                    "min" => 3,
-                    "max" => 50,
-                    "latinDigitUnderscoreHyphen"
+                    Validator::TYPE_REQUIRED,
+                    Validator::TYPE_MIN_LENGTH => 3,
+                    Validator::TYPE_MAX_LENGTH => 50,
+                    Validator::TYPE_LATIN_DIGIT_UNDERSCORE_HYPHEN
                 ],
             ],
             "password" => [
                 self::FIELD_TYPE        => self::FIELD_TYPE_STRING,
                 self::FIELD_VALIDATION  => [
-                    "required",
-                    "min" => 3
+                    Validator::TYPE_REQUIRED,
+                    Validator::TYPE_MIN_LENGTH => 3,
+                    Validator::TYPE_MAX_LENGTH => 40,
                 ],
                 self::FIELD_BEFORE_SAVE => [
                     "setPassword"
@@ -94,16 +96,15 @@ class UserModel extends AbstractModel
             "name"     => [
                 self::FIELD_TYPE       => self::FIELD_TYPE_STRING,
                 self::FIELD_VALIDATION => [
-                    "required",
-                    "min" => 1,
-                    "max" => 100
+                    Validator::TYPE_REQUIRED,
+                    Validator::TYPE_MAX_LENGTH => 100,
                 ],
             ],
             "email"    => [
                 self::FIELD_TYPE       => self::FIELD_TYPE_STRING,
                 self::FIELD_VALIDATION => [
-                    "required",
-                    "email"
+                    Validator::TYPE_REQUIRED,
+                    Validator::TYPE_EMAIL,
                 ],
             ],
         ];

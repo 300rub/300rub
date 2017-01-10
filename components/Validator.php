@@ -17,6 +17,8 @@ class Validator
 	const TYPE_MAX_LENGTH = "maxLength";
 	const TYPE_MIN_LENGTH = "minLength";
 	const TYPE_IP = "ip";
+	const TYPE_LATIN_DIGIT_UNDERSCORE_HYPHEN = "latinDigitUnderscoreHyphen";
+	const TYPE_EMAIL = "email";
 
 	/**
 	 * Value
@@ -80,11 +82,11 @@ class Validator
 				case "url":
 					$this->_url();
 					break;
-				case "latinDigitUnderscoreHyphen":
-					$this->_latinDigitUnderscoreHyphen();
+				case self::TYPE_LATIN_DIGIT_UNDERSCORE_HYPHEN:
+					$this->_checkLatinDigitUnderscoreHyphen();
 					break;
-				case "email":
-					$this->_email();
+				case self::TYPE_EMAIL:
+					$this->_checkEmail();
 					break;
 				case self::TYPE_IP:
 					$this->_checkIp();
@@ -180,7 +182,7 @@ class Validator
 	 *
 	 * @return void
 	 */
-	private function _latinDigitUnderscoreHyphen()
+	private function _checkLatinDigitUnderscoreHyphen()
 	{
 		if ($this->_value && !preg_match("/^[0-9a-z-_]+$/i", $this->_value)) {
 			$this->_addError("latinDigitUnderscoreHyphen");
@@ -192,7 +194,7 @@ class Validator
 	 *
 	 * @return void
 	 */
-	private function _email()
+	private function _checkEmail()
 	{
 		if (!filter_var($this->_value, FILTER_VALIDATE_EMAIL)) {
 			$this->_addError("email");
