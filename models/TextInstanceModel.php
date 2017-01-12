@@ -33,7 +33,7 @@ class TextInstanceModel extends AbstractModel
     {
         return [
             "textId"  => [
-                self::FIELD_RELATION => ["TextModel"]
+                self::FIELD_RELATION => "TextModel"
             ],
             "text"          => [
                 self::FIELD_TYPE => self::FIELD_TYPE_STRING,

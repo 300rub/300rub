@@ -106,13 +106,13 @@ class DesignImageSliderModel extends AbstractModel
     {
         return [
             "containerDesignBlockId"            => [
-                self::FIELD_RELATION => ["DesignBlockModel"]
+                self::FIELD_RELATION => "DesignBlockModel"
             ],
             "navigationDesignBlockId"  => [
-                self::FIELD_RELATION => ["DesignBlockModel"]
+                self::FIELD_RELATION => "DesignBlockModel"
             ],
             "descriptionDesignBlockId" => [
-                self::FIELD_RELATION => ["DesignBlockModel"]
+                self::FIELD_RELATION => "DesignBlockModel"
             ],
             "effect"                   => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,

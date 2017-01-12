@@ -100,11 +100,7 @@ abstract class AbstractModel
             $this->$field = null;
 
             if (array_key_exists(self::FIELD_RELATION, $info)) {
-                if (isset($info[self::FIELD_RELATION][1])) {
-                    $f = $info[self::FIELD_RELATION][1];
-                } else {
-                    $f = lcfirst($info[self::FIELD_RELATION][0]);
-                }
+                $f = substr($field, 0, -2) . "Model";
                 $this->$f = null;
             }
         }
@@ -258,10 +254,6 @@ abstract class AbstractModel
 
         foreach ($this->getFieldsInfo() as $field => $parameters) {
             if (array_key_exists(self::FIELD_RELATION, $parameters)) {
-                if (!isset($parameters[self::FIELD_RELATION][1])) {
-                    $parameters[self::FIELD_RELATION][1] = lcfirst($parameters[self::FIELD_RELATION][0]);
-                }
-
                 $info[$field] = $parameters[self::FIELD_RELATION];
             }
         }
@@ -456,16 +448,11 @@ abstract class AbstractModel
             if (array_key_exists(self::FIELD_RELATION, $parameters)) {
                 $this->$field = $this->getInt($this->$field);
 
-                $relationInfo = $parameters[self::FIELD_RELATION];
-
-                if (isset($relationInfo[1])) {
-                    $relationName = $relationInfo[1];
-                } else {
-                    $relationName = lcfirst($relationInfo[0]);
-                }
+                $relationModel = $parameters[self::FIELD_RELATION];
+                $relationName = substr($field, 0, -2) . "Model";
 
                 if (array_key_exists($relationName, $fields)) {
-                    $relationModelName = "\\testS\\models\\" . $relationInfo[0];
+                    $relationModelName = "\\testS\\models\\" . $relationModel;
                     if (!$this->$relationName instanceof $relationModelName) {
                         $this->$relationName = new $relationModelName;
                     }
@@ -605,13 +592,9 @@ abstract class AbstractModel
                 continue;
             }
 
-            $relationInfo = $parameters[self::FIELD_RELATION];
-            if (isset($relationInfo[1])) {
-                $relationName = $relationInfo[1];
-            } else {
-                $relationName = lcfirst($relationInfo[1]);
-            }
-            $relationModelName = "\\testS\\models\\" . $relationInfo[0];
+            $relationModel = $parameters[self::FIELD_RELATION];
+            $relationName = substr($field, 0, -2) . "Model";
+            $relationModelName = "\\testS\\models\\" . $relationModel;
 
             /**
              * @var AbstractModel $relationModel
@@ -932,11 +915,7 @@ abstract class AbstractModel
 
         foreach ($this->getFieldsInfo() as $field => $info) {
             if (array_key_exists(self::FIELD_RELATION, $info)) {
-                if (isset($info[self::FIELD_RELATION][1])) {
-                    $relationName = $info[self::FIELD_RELATION][1];
-                } else {
-                    $relationName = lcfirst($info[self::FIELD_RELATION][0]);
-                }
+                $relationName = substr($field, 0, -2) . "Model";
                 $duplicateRelationModel = $this->$relationName->duplicate();
                 $duplicateModel->$relationName = $duplicateRelationModel;
                 $duplicateModel->$field = $duplicateRelationModel->id;

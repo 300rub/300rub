@@ -52,13 +52,13 @@ class DesignImageSimpleModel extends AbstractModel
     {
         return [
             "containerDesignBlockId"      => [
-                self::FIELD_RELATION => ["DesignBlockModel", "containerDesignBlockModel"]
+                self::FIELD_RELATION => "DesignBlockModel"
             ],
             "imageDesignBlockId" => [
-                self::FIELD_RELATION => ["DesignBlockModel", "imageDesignBlockModel"]
+                self::FIELD_RELATION => "DesignBlockModel"
             ],
             "designTextId"       => [
-                self::FIELD_RELATION => ["DesignTextModel"]
+                self::FIELD_RELATION => "DesignTextModel"
             ],
             "alignment"          => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,

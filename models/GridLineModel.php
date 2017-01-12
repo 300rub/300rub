@@ -32,10 +32,10 @@ class GridLineModel extends AbstractModel
                 self::FIELD_RELATION_TO_PARENT => "SectionModel",
             ],
             "outsideDesignId" => [
-                self::FIELD_RELATION => ["DesignBlockModel"]
+                self::FIELD_RELATION => "DesignBlockModel"
             ],
             "insideDesignId"  => [
-                self::FIELD_RELATION => ["DesignBlockModel"]
+                self::FIELD_RELATION => "DesignBlockModel"
             ],
             "sort"            => [
                 self::FIELD_TYPE => self::FIELD_TYPE_INT,

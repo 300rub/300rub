@@ -116,7 +116,7 @@ abstract class AbstractModelTest extends AbstractUnitTest
 
         foreach ($model->getFieldsInfo() as $field => $info) {
             if (array_key_exists(AbstractModel::FIELD_RELATION, $info)) {
-                $relationName = $info[AbstractModel::FIELD_RELATION][1];
+                $relationName = substr($field, 0, -2) . "Model";
                 $this->_compareTwoModelsAfterDuplicate($model->$relationName, $duplicateModel->$relationName);
                 continue;
             }

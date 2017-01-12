@@ -87,16 +87,16 @@ class ImageModel extends AbstractModel
     {
         return [
             "designBlockId"       => [
-                self::FIELD_RELATION => ["DesignBlockModel", "designBlockModel"]
+                self::FIELD_RELATION => "DesignBlockModel"
             ],
             "designImageSliderId" => [
-                self::FIELD_RELATION => ["DesignBlockModel", "designImageSliderModel"]
+                self::FIELD_RELATION => "DesignImageSliderModel"
             ],
             "designImageZoomId"   => [
-                self::FIELD_RELATION => ["DesignBlockModel", "designImageZoomModel"]
+                self::FIELD_RELATION => "DesignImageZoomModel"
             ],
             "designImageSimpleId" => [
-                self::FIELD_RELATION => ["DesignBlockModel", "designImageSimpleModel"]
+                self::FIELD_RELATION => "DesignImageSimpleModel"
             ],
             "name"                => [
                 self::FIELD_TYPE       => self::FIELD_TYPE_STRING,

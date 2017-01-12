@@ -67,10 +67,10 @@ class TextModel extends AbstractModel
     {
         return [
             "designTextId"  => [
-                self::FIELD_RELATION => ["DesignTextModel"]
+                self::FIELD_RELATION => "DesignTextModel"
             ],
             "designBlockId" => [
-                self::FIELD_RELATION => ["DesignBlockModel"]
+                self::FIELD_RELATION => "DesignBlockModel"
             ],
             "type"          => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,

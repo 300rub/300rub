@@ -92,7 +92,7 @@ class DesignImageZoomModel extends AbstractModel
     {
         return [
             "designBlockId"        => [
-                self::FIELD_RELATION => ["DesignBlockModel"]
+                self::FIELD_RELATION => "DesignBlockModel"
             ],
             "hasScroll"            => [
                 self::FIELD_TYPE => self::FIELD_TYPE_BOOL,

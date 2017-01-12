@@ -41,7 +41,7 @@ class GridModel extends AbstractModel
     {
         return [
             "blockId"    => [
-                self::FIELD_RELATION => ["BlockModel"]
+                self::FIELD_RELATION => "BlockModel"
             ],
             "gridLineId" => [
                 self::FIELD_TYPE => self::FIELD_TYPE_INT,
