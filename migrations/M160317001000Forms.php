@@ -20,7 +20,7 @@ class M160317001000Forms extends AbstractMigration
                 "designForms",
                 [
                     "id"                     => self::TYPE_PK,
-                    "designBlockId"          => self::TYPE_FK,
+                    "containerDesignBlockId" => self::TYPE_FK,
                     "lineDesignBlockId"      => self::TYPE_FK,
                     "labelDesignBlockId"     => self::TYPE_FK,
                     "labelDesignTextId"      => self::TYPE_FK,
@@ -34,7 +34,7 @@ class M160317001000Forms extends AbstractMigration
                     "submitAlignment"        => self::TYPE_TINYINT_UNSIGNED,
                 ]
             )
-            ->createForeignKey("designForms", "designBlockId", "designBlocks")
+            ->createForeignKey("designForms", "containerDesignBlockId", "designBlocks")
             ->createForeignKey("designForms", "lineDesignBlockId", "designBlocks")
             ->createForeignKey("designForms", "labelDesignBlockId", "designBlocks")
             ->createForeignKey("designForms", "labelDesignTextId", "designTexts")
@@ -70,11 +70,11 @@ class M160317001000Forms extends AbstractMigration
             ->createTable(
                 "formListValues",
                 [
-                    "id"            => self::TYPE_PK,
+                    "id"             => self::TYPE_PK,
                     "formInstanceId" => self::TYPE_FK,
-                    "sort"          => self::TYPE_SMALLINT,
-                    "value"         => self::TYPE_STRING,
-                    "isChecked"     => self::TYPE_BOOL,
+                    "sort"           => self::TYPE_SMALLINT,
+                    "value"          => self::TYPE_STRING,
+                    "isChecked"      => self::TYPE_BOOL,
                 ]
             )
             ->createForeignKey("formListValues", "formInstanceId", "formInstances", self::FK_CASCADE, self::FK_CASCADE)
