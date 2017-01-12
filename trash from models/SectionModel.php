@@ -50,7 +50,7 @@
 //    $this->withRelations();
 //
 //    $this->getDb()->addWhere(sprintf("%s.language = :language", $this->getTableName()));
-//    $this->getDb()->addParameter("language", Language::$activeId);
+//    $this->getDb()->addParameter("language", Language::getActiveId());
 //
 //    if ($url) {
 //        $this->getDb()->addWhere("seoModel.url = :url");

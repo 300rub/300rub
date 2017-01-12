@@ -133,7 +133,7 @@ class Web extends AbstractApplication
 
 		Db::setPdo($site["dbHost"], $site["dbUser"], $site["dbPassword"], $site["dbName"]);
 
-		Language::$activeId = $site["language"];
+		Language::setActiveId($site["language"]);
 
 		return $this;
 	}

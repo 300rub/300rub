@@ -49,6 +49,16 @@ class Language
 		self::LANGUAGE_RU_ID => self::LANGUAGE_RU_ALIAS,
 	];
 
+	public static function getActiveId()
+	{
+		return self::$_activeId;
+	}
+
+	public static function setActiveId($id)
+	{
+		self::$_activeId = $id;
+	}
+
 	/**
 	 * Sets ID by alias
 	 *
@@ -60,7 +70,7 @@ class Language
 	{
 		$id = array_search($name, self::$aliasList);
 		if ($id) {
-			self::$activeId = $id;
+			self::setActiveId($id);
 		} else {
 			throw new CommonException(
 				"Unable to find language with name: {name}",
@@ -78,8 +88,8 @@ class Language
 	 */
 	public static function getActiveAlias()
 	{
-		if (in_array(self::$activeId, self::$aliasList)) {
-			return self::$aliasList[self::$activeId];
+		if (in_array(self::getActiveId(), self::$aliasList)) {
+			return self::$aliasList[self::getActiveId()];
 		}
 
 		return self::$aliasList[self::LANGUAGE_EN_ID];
@@ -97,7 +107,7 @@ class Language
 	{
 		$messages = require(__DIR__ . "/../messages/{$category}.php");
 		if (array_key_exists($key, $messages)) {
-			return $messages[$key][self::$activeId];
+			return $messages[$key][self::getActiveId()];
 		}
 
 		return "";

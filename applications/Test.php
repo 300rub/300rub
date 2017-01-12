@@ -19,6 +19,6 @@ class Test extends AbstractApplication
      */
     public function run()
     {
-        Language::$activeId = Language::LANGUAGE_EN_ID;
+        Language::setActiveId(Language::LANGUAGE_EN_ID);
     }
 }

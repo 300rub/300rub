@@ -88,7 +88,7 @@ class ImageModelTest extends AbstractModelTest
             ],
             [
                 "name"                => "name",
-                "language"            => Language::$activeId,
+                "language"            => Language::getActiveId(),
                 "type"                => ImageModel::TYPE_ZOOM,
                 "autoCropType"        => ImageModel::AUTO_CROP_TYPE_NONE,
                 "cropWidth"           => 0,
@@ -221,7 +221,7 @@ class ImageModelTest extends AbstractModelTest
             ],
             [
                 "name"                => "incorrect",
-                "language"            => Language::$activeId,
+                "language"            => Language::getActiveId(),
                 "type"                => ImageModel::TYPE_ZOOM,
                 "autoCropType"        => ImageModel::AUTO_CROP_TYPE_NONE,
                 "cropWidth"           => 0,
@@ -253,7 +253,7 @@ class ImageModelTest extends AbstractModelTest
             ],
             [
                 "name"                => "incorrect",
-                "language"            => Language::$activeId,
+                "language"            => Language::getActiveId(),
                 "type"                => ImageModel::TYPE_ZOOM,
                 "autoCropType"        => ImageModel::AUTO_CROP_TYPE_NONE,
                 "cropWidth"           => 0,
@@ -293,7 +293,7 @@ class ImageModelTest extends AbstractModelTest
             ],
             [
                 "name"                => "inco",
-                "language"            => Language::$activeId,
+                "language"            => Language::getActiveId(),
                 "type"                => ImageModel::TYPE_ZOOM,
                 "autoCropType"        => ImageModel::AUTO_CROP_TYPE_MIDDLE_CENTER,
                 "cropWidth"           => 0,
@@ -321,7 +321,7 @@ class ImageModelTest extends AbstractModelTest
             ],
             [
                 "name"                => "incoasa",
-                "language"            => Language::$activeId,
+                "language"            => Language::getActiveId(),
                 "type"                => ImageModel::TYPE_ZOOM,
                 "autoCropType"        => ImageModel::AUTO_CROP_TYPE_MIDDLE_CENTER,
                 "cropWidth"           => 0,

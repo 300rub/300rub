@@ -93,7 +93,7 @@ class TextModelTest extends AbstractModelTest
             ],
             [
                 "name"     => "Text test name",
-                "language" => Language::$activeId,
+                "language" => Language::getActiveId(),
                 "type"     => TextModel::TYPE_DIV,
                 "isEditor" => 0,
                 "text"     => ""
@@ -101,7 +101,7 @@ class TextModelTest extends AbstractModelTest
             [],
             [
                 "name"     => "Text test name",
-                "language" => Language::$activeId,
+                "language" => Language::getActiveId(),
                 "type"     => TextModel::TYPE_DIV,
                 "isEditor" => 0,
                 "text"     => ""
@@ -152,7 +152,7 @@ class TextModelTest extends AbstractModelTest
             ],
             [
                 "name"     => "Text test name",
-                "language" => Language::$activeId,
+                "language" => Language::getActiveId(),
                 "type"     => TextModel::TYPE_DIV,
                 "isEditor" => true,
                 "text"     => ""
@@ -165,7 +165,7 @@ class TextModelTest extends AbstractModelTest
                 "designBlockId" => 3224,
             ],
             [
-                "language" => Language::$activeId,
+                "language" => Language::getActiveId(),
                 "type"     => TextModel::TYPE_DIV,
                 "isEditor" => true,
             ]

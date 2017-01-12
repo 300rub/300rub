@@ -170,7 +170,7 @@ class SectionModelTest extends AbstractModelTest
                     "keywords"    => "seo keywords",
                     "description" => "seo description",
                 ],
-                "language" => Language::$activeId
+                "language" => Language::getActiveId()
             ],
             [
                 "seoModel" => [
@@ -187,7 +187,7 @@ class SectionModelTest extends AbstractModelTest
                     "keywords"    => "seo keywords",
                     "description" => "seo description",
                 ],
-                "language" => Language::$activeId
+                "language" => Language::getActiveId()
             ]
         ];
     }

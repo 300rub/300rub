@@ -93,7 +93,7 @@ class TextModel extends AbstractModel
             "language"      => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
-                    "arrayKey" => [Language::$aliasList, Language::$activeId]
+                    "arrayKey" => [Language::$aliasList, Language::getActiveId()]
                 ],
             ],
             "isEditor"      => [
