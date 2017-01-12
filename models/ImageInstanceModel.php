@@ -2,6 +2,8 @@
 
 namespace testS\models;
 
+use testS\components\ValueGenerator;
+
 /**
  * Model for working with table "imageInstances"
  *
@@ -41,13 +43,6 @@ class ImageInstanceModel extends AbstractModel
     const FILE_NAME_LENGTH = 16;
 
     /**
-     * Format of file
-     *
-     * @var string
-     */
-    private $_format = "jpg";
-
-    /**
      * Gets table name
      *
      * @return string
@@ -66,13 +61,10 @@ class ImageInstanceModel extends AbstractModel
     {
         return [
             "imageAlbumId" => [
-                self::FIELD_RELATION_TO_PARENT => "ImageAlbumModel",
+                self::FIELD_RELATION_TO_PARENT => "ImageGroupModel",
             ],
             "fileName"     => [
-                self::FIELD_TYPE        => self::FIELD_TYPE_STRING,
-                self::FIELD_BEFORE_SAVE => [
-                    "setFileName"
-                ],
+                self::FIELD_TYPE => self::FIELD_TYPE_STRING,
             ],
             "isCover"      => [
                 self::FIELD_TYPE => self::FIELD_TYPE_BOOL,
@@ -83,95 +75,79 @@ class ImageInstanceModel extends AbstractModel
             "alt"          => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_STRING,
                 self::FIELD_VALUE => [
-                    "clearStripTags"
+                    ValueGenerator::TYPE_CLEAR_STRIP_TAGS
                 ],
             ],
             "width"        => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
-                    "min" => self::MIN_SIZE,
-                    "max" => self::MAX_SIZE
+                    ValueGenerator::TYPE_MIN => self::MIN_SIZE,
+                    ValueGenerator::TYPE_MAX => self::MAX_SIZE
                 ],
             ],
             "height"       => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
-                    "min" => self::MIN_SIZE,
-                    "max" => self::MAX_SIZE
+                    ValueGenerator::TYPE_MIN => self::MIN_SIZE,
+                    ValueGenerator::TYPE_MAX => self::MAX_SIZE
                 ],
             ],
             "x1"           => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
-                    "min" => 0,
-                    "max" => ["{width}", self::MIN_SIZE, "-"]
+                    ValueGenerator::TYPE_MIN => 0,
+                    ValueGenerator::TYPE_MAX => ["{width}", self::MIN_SIZE, "-"]
                 ],
             ],
             "y1"           => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
-                    "min" => 0,
-                    "max" => ["{height}", self::MIN_SIZE, "-"]
+                    ValueGenerator::TYPE_MIN => 0,
+                    ValueGenerator::TYPE_MAX => ["{height}", self::MIN_SIZE, "-"]
                 ],
             ],
             "x2"           => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
-                    "min" => ["{x1}", self::MIN_SIZE, "+"],
-                    "max" => "{width}"
+                    ValueGenerator::TYPE_MIN => ["{x1}", self::MIN_SIZE, "+"],
+                    ValueGenerator::TYPE_MAX => "{width}"
                 ],
             ],
             "y2"           => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
-                    "min" => ["{y1}", self::MIN_SIZE, "+"],
-                    "max" => "{height}"
+                    ValueGenerator::TYPE_MIN => ["{y1}", self::MIN_SIZE, "+"],
+                    ValueGenerator::TYPE_MAX => "{height}"
                 ]
             ],
             "thumbX1"      => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
-                    "min" => 0,
-                    "max" => self::MAX_THUMB_SIZE - self::MIN_SIZE
+                    ValueGenerator::TYPE_MIN => 0,
+                    ValueGenerator::TYPE_MAX => self::MAX_THUMB_SIZE - self::MIN_SIZE
                 ]
             ],
             "thumbY1"      => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
-                    "min" => 0,
-                    "max" => self::MAX_THUMB_SIZE - self::MIN_SIZE
+                    ValueGenerator::TYPE_MIN => 0,
+                    ValueGenerator::TYPE_MAX => self::MAX_THUMB_SIZE - self::MIN_SIZE
                 ]
             ],
             "thumbX2"      => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
-                    "min" => ["{thumbX1}", self::MIN_SIZE, "+"],
-                    "max" => self::MAX_THUMB_SIZE
+                    ValueGenerator::TYPE_MIN => ["{thumbX1}", self::MIN_SIZE, "+"],
+                    ValueGenerator::TYPE_MAX => self::MAX_THUMB_SIZE
                 ]
             ],
             "thumbY2"      => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
-                    "min" => ["{thumbY1}", self::MIN_SIZE, "+"],
-                    "max" => self::MAX_THUMB_SIZE
+                    ValueGenerator::TYPE_MIN => ["{thumbY1}", self::MIN_SIZE, "+"],
+                    ValueGenerator::TYPE_MAX => self::MAX_THUMB_SIZE
                 ]
             ],
         ];
-    }
-
-    /**
-     * Sets file name
-     *
-     * @param string $value
-     *
-     * @return string
-     */
-    protected function setFileName($value)
-    {
-        if (!$this->id && $this->_format) {
-            return substr(md5(time()), 0, self::FILE_NAME_LENGTH) . "." . $this->_format;
-        }
-
-        return $value;
     }
 }

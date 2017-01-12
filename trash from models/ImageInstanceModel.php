@@ -1,6 +1,33 @@
 <?php
 //
 
+///**
+// * Format of file
+// *
+// * @var string
+// */
+//private $_format = "jpg";
+
+//self::FIELD_BEFORE_SAVE => [
+//    "setFileName"
+//],
+
+///**
+// * Sets file name
+// *
+// * @param string $value
+// *
+// * @return string
+// */
+//protected function setFileName($value)
+//{
+//    if (!$this->id && $this->_format) {
+//        return substr(md5(time()), 0, self::FILE_NAME_LENGTH) . "." . $this->_format;
+//    }
+//
+//    return $value;
+//}
+
 //
 ///**
 // * Runs before deleting

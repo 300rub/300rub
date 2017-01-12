@@ -3,6 +3,8 @@
 namespace testS\models;
 
 use testS\components\Language;
+use testS\components\Validator;
+use testS\components\ValueGenerator;
 
 /**
  * Model for working with table "images"
@@ -101,73 +103,79 @@ class ImageModel extends AbstractModel
             "name"                => [
                 self::FIELD_TYPE       => self::FIELD_TYPE_STRING,
                 self::FIELD_VALIDATION => [
-                    "required",
-                    "max" => 255
+                    Validator::TYPE_REQUIRED,
+                    Validator::TYPE_MAX_LENGTH => 255
                 ],
                 self::FIELD_VALUE      => [
-                    "clearStripTags"
+                    ValueGenerator::TYPE_CLEAR_STRIP_TAGS
                 ],
             ],
             "language"            => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
-                    "arrayKey" => [Language::$aliasList, Language::getActiveId()]
+                    ValueGenerator::TYPE_ARRAY_KEY => [Language::$aliasList, Language::getActiveId()]
                 ],
             ],
             "type"                => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
-                    "arrayKey" => [self::getTypeList(), self::TYPE_ZOOM]
+                    ValueGenerator::TYPE_ARRAY_KEY => [self::getTypeList(), self::TYPE_ZOOM]
                 ],
             ],
             "autoCropType"        => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
-                    "arrayKey" => [self::getAutoCropTypeList(), self::AUTO_CROP_TYPE_MIDDLE_CENTER]
+                    ValueGenerator::TYPE_ARRAY_KEY => [
+                        self::getAutoCropTypeList(),
+                        self::AUTO_CROP_TYPE_MIDDLE_CENTER
+                    ]
                 ],
             ],
             "cropWidth"           => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
-                    "max" => ImageInstanceModel::MAX_SIZE,
-                    "min" => 0
+                    ValueGenerator::TYPE_MIN => 0,
+                    ValueGenerator::TYPE_MAX => ImageInstanceModel::MAX_SIZE
                 ],
             ],
             "cropHeight"          => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
-                    "max" => ImageInstanceModel::MAX_SIZE,
-                    "min" => 0
+                    ValueGenerator::TYPE_MIN => 0,
+                    ValueGenerator::TYPE_MAX => ImageInstanceModel::MAX_SIZE
                 ],
             ],
             "cropX"               => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
-                    "min" => 0
+                    ValueGenerator::TYPE_MIN => 0,
                 ],
             ],
             "cropY"               => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
-                    "min" => 0
+                    ValueGenerator::TYPE_MIN => 0,
                 ],
             ],
             "thumbAutoCropType"   => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
-                    "arrayKey" => [self::getAutoCropTypeList(), self::AUTO_CROP_TYPE_MIDDLE_CENTER]
+                    ValueGenerator::TYPE_ARRAY_KEY => [
+                        self::getAutoCropTypeList(),
+                        self::AUTO_CROP_TYPE_MIDDLE_CENTER
+                    ]
                 ],
             ],
             "thumbCropX"          => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
-                    "min" => 0
+                    ValueGenerator::TYPE_MIN => 0,
                 ],
             ],
             "thumbCropY"          => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
-                    "min" => 0
+                    ValueGenerator::TYPE_MIN => 0,
                 ],
             ],
             "useAlbums"           => [

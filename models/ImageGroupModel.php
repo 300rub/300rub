@@ -2,12 +2,15 @@
 
 namespace testS\models;
 
+use testS\components\Validator;
+use testS\components\ValueGenerator;
+
 /**
- * Model for working with table "imageAlbums"
+ * Model for working with table "imageGroups"
  *
  * @package testS\models
  */
-class ImageAlbumModel extends AbstractModel
+class ImageGroupModel extends AbstractModel
 {
 
     /**
@@ -17,7 +20,7 @@ class ImageAlbumModel extends AbstractModel
      */
     public function getTableName()
     {
-        return "imageAlbums";
+        return "imageGroups";
     }
 
     /**
@@ -34,11 +37,11 @@ class ImageAlbumModel extends AbstractModel
             "name"    => [
                 self::FIELD_TYPE       => self::FIELD_TYPE_STRING,
                 self::FIELD_VALIDATION => [
-                    "required",
-                    "max" => 255
+                    Validator::TYPE_REQUIRED,
+                    Validator::TYPE_MAX_LENGTH => 255
                 ],
                 self::FIELD_VALUE      => [
-                    "clearStripTags"
+                    ValueGenerator::TYPE_CLEAR_STRIP_TAGS
                 ],
             ],
             "sort"    => [
