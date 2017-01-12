@@ -4,6 +4,7 @@ namespace testS\models;
 
 use testS\components\Language;
 use testS\components\Validator;
+use testS\components\ValueGenerator;
 
 /**
  * Model for working with table "users"
@@ -12,11 +13,6 @@ use testS\components\Validator;
  */
 class UserModel extends AbstractModel
 {
-
-    /**
-     * Salt
-     */
-    const SALT = "saltForUser";
 
     /**
      * Types
@@ -75,20 +71,17 @@ class UserModel extends AbstractModel
                 ],
             ],
             "password" => [
-                self::FIELD_TYPE        => self::FIELD_TYPE_STRING,
-                self::FIELD_VALIDATION  => [
+                self::FIELD_TYPE       => self::FIELD_TYPE_STRING,
+                self::FIELD_VALIDATION => [
                     Validator::TYPE_REQUIRED,
                     Validator::TYPE_MIN_LENGTH => 3,
                     Validator::TYPE_MAX_LENGTH => 40,
-                ],
-                self::FIELD_BEFORE_SAVE => [
-                    "setPassword"
                 ]
             ],
             "type"     => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
-                    "arrayKey" => [self::getTypeList(), self::TYPE_FULL_ACCESS]
+                    ValueGenerator::TYPE_ARRAY_KEY => [self::getTypeList(), self::TYPE_FULL_ACCESS]
                 ]
             ],
             "name"     => [
@@ -106,33 +99,5 @@ class UserModel extends AbstractModel
                 ],
             ],
         ];
-    }
-
-    /**
-     * Sets password
-     *
-     * @param string $value
-     *
-     * @return string
-     */
-    protected function setPassword($value)
-    {
-        if (mb_strlen($value, "UTF-8") !== self::PASSWORD_HASH_LENGTH) {
-            $value = self::createPasswordHash($value);
-        }
-
-        return $value;
-    }
-
-    /**
-     * Gets password hash
-     *
-     * @param string $password Password
-     *
-     * @return string
-     */
-    public static function createPasswordHash($password)
-    {
-        return sha1(md5($password) . self::SALT);
     }
 }

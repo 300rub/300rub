@@ -27,7 +27,7 @@ class M160307000000Users extends AbstractMigration
                     "email"    => self::TYPE_STRING_100,
                 ]
             )
-            ->createIndex("users", "user")
+            ->createIndex("users", "login")
             ->createTable(
                 "userSessions",
                 [
