@@ -14,6 +14,7 @@ class Validator
 	 * Types
 	 */
 	const TYPE_REQUIRED = "required";
+	const TYPE_URL = "url";
 	const TYPE_MAX_LENGTH = "maxLength";
 	const TYPE_MIN_LENGTH = "minLength";
 	const TYPE_IP = "ip";
@@ -79,8 +80,8 @@ class Validator
 				case "min":
 					$this->_min($item["value"]);
 					break;
-				case "url":
-					$this->_url();
+				case self::TYPE_URL:
+					$this->_checkUrl();
 					break;
 				case self::TYPE_LATIN_DIGIT_UNDERSCORE_HYPHEN:
 					$this->_checkLatinDigitUnderscoreHyphen();
@@ -170,7 +171,7 @@ class Validator
 	 *
 	 * @return void
 	 */
-	private function _url()
+	private function _checkUrl()
 	{
 		if (!$this->_value || !preg_match("/^[0-9a-z-]+$/i", $this->_value)) {
 			$this->_addError("url");

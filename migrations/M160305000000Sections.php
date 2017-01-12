@@ -28,7 +28,6 @@ class M160305000000Sections extends AbstractMigration
             )
             ->createForeignKey("sections", "seoId", "seo")
             ->createForeignKey("sections", "designBlockId", "designBlocks")
-            ->createIndex("sections", "language")
-            ->createIndex("sections", "isMain");
+            ->createIndex("sections", "language,isMain", "sections_language_isMain");
     }
 }

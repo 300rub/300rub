@@ -2,6 +2,9 @@
 
 namespace testS\models;
 
+use testS\components\Validator;
+use testS\components\ValueGenerator;
+
 /**
  * Model for working with table "seo"
  *
@@ -31,58 +34,58 @@ class SeoModel extends AbstractModel
             "name"        => [
                 self::FIELD_TYPE                => self::FIELD_TYPE_STRING,
                 self::FIELD_VALIDATION          => [
-                    "required",
-                    "max" => 255
+                    Validator::TYPE_REQUIRED,
+                    Validator::TYPE_MAX_LENGTH => 255
                 ],
                 self::FIELD_VALUE               => [
-                    "clearStripTags"
+                    ValueGenerator::TYPE_CLEAR_STRIP_TAGS
                 ],
                 self::FIELD_CHANGE_ON_DUPLICATE => [
-                    "copyName"
+                    ValueGenerator::TYPE_COPY_NAME
                 ],
             ],
             "url"         => [
                 self::FIELD_TYPE                => self::FIELD_TYPE_STRING,
                 self::FIELD_VALIDATION          => [
-                    "required",
-                    "url",
-                    "max" => 255
+                    Validator::TYPE_REQUIRED,
+                    Validator::TYPE_URL,
+                    Validator::TYPE_MAX_LENGTH => 255
                 ],
                 self::FIELD_VALUE               => [
-                    "clearStripTags",
-                    "url" => "{name}"
+                    ValueGenerator::TYPE_CLEAR_STRIP_TAGS,
+                    ValueGenerator::TYPE_URL => "{name}"
                 ],
                 self::FIELD_CHANGE_ON_DUPLICATE => [
-                    "copyUrl"
+                    ValueGenerator::TYPE_COPY_URL
                 ]
             ],
             "title"       => [
                 self::FIELD_TYPE             => self::FIELD_TYPE_STRING,
                 self::FIELD_VALIDATION       => [
-                    "max" => 100
+                    Validator::TYPE_MAX_LENGTH => 100
                 ],
                 self::FIELD_VALUE            => [
-                    "clearStripTags"
+                    ValueGenerator::TYPE_CLEAR_STRIP_TAGS,
                 ],
                 self::FIELD_SKIP_DUPLICATION => true,
             ],
             "keywords"    => [
                 self::FIELD_TYPE             => self::FIELD_TYPE_STRING,
                 self::FIELD_VALIDATION       => [
-                    "max" => 255
+                    Validator::TYPE_MAX_LENGTH => 255
                 ],
                 self::FIELD_VALUE            => [
-                    "clearStripTags"
+                    ValueGenerator::TYPE_CLEAR_STRIP_TAGS,
                 ],
                 self::FIELD_SKIP_DUPLICATION => true,
             ],
             "description" => [
                 self::FIELD_TYPE             => self::FIELD_TYPE_STRING,
                 self::FIELD_VALIDATION       => [
-                    "max" => 255
+                    Validator::TYPE_MAX_LENGTH => 255
                 ],
                 self::FIELD_VALUE            => [
-                    "clearStripTags"
+                    ValueGenerator::TYPE_CLEAR_STRIP_TAGS,
                 ],
                 self::FIELD_SKIP_DUPLICATION => true,
             ],

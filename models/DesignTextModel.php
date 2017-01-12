@@ -2,6 +2,8 @@
 
 namespace testS\models;
 
+use testS\components\ValueGenerator;
+
 /**
  * Model for working with table "designTexts"
  *
@@ -203,34 +205,31 @@ class DesignTextModel extends AbstractModel
             "size"               => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
-                    "min" => self::MIN_SIZE_VALUE
+                    ValueGenerator::TYPE_MIN => self::MIN_SIZE_VALUE
                 ],
             ],
             "sizeHover"          => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
-                    "min" => self::MIN_SIZE_VALUE
+                    ValueGenerator::TYPE_MIN => self::MIN_SIZE_VALUE
                 ],
             ],
             "family"             => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
-                    "arrayKey" => [
-                        self::$familyList,
-                        self::FAMILY_MYRAD
-                    ]
+                    ValueGenerator::TYPE_ARRAY_KEY => [self::$familyList, self::FAMILY_MYRAD]
                 ],
             ],
-            "color"              => [
+            ValueGenerator::TYPE_COLOR              => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_STRING,
                 self::FIELD_VALUE => [
-                    "color"
+                    ValueGenerator::TYPE_COLOR
                 ],
             ],
             "colorHover"         => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_STRING,
                 self::FIELD_VALUE => [
-                    "color"
+                    ValueGenerator::TYPE_COLOR
                 ],
             ],
             "isItalic"           => [
@@ -248,55 +247,55 @@ class DesignTextModel extends AbstractModel
             "align"              => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
-                    "arrayKey" => [self::$textAlignList, self::TEXT_ALIGN_LEFT]
+                    ValueGenerator::TYPE_ARRAY_KEY => [self::$textAlignList, self::TEXT_ALIGN_LEFT]
                 ],
             ],
             "decoration"         => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
-                    "arrayKey" => [self::$textDecorationList, self::TEXT_DECORATION_NONE]
+                    ValueGenerator::TYPE_ARRAY_KEY => [self::$textDecorationList, self::TEXT_DECORATION_NONE]
                 ],
             ],
             "decorationHover"    => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
-                    "arrayKey" => [self::$textDecorationList, self::TEXT_DECORATION_NONE]
+                    ValueGenerator::TYPE_ARRAY_KEY => [self::$textDecorationList, self::TEXT_DECORATION_NONE]
                 ],
             ],
             "transform"          => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
-                    "arrayKey" => [self::$textTransformList, self::TEXT_TRANSFORM_NONE]
+                    ValueGenerator::TYPE_ARRAY_KEY => [self::$textTransformList, self::TEXT_TRANSFORM_NONE]
                 ],
             ],
             "transformHover"     => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
-                    "arrayKey" => [self::$textTransformList, self::TEXT_TRANSFORM_NONE]
+                    ValueGenerator::TYPE_ARRAY_KEY => [self::$textTransformList, self::TEXT_TRANSFORM_NONE]
                 ],
             ],
             "letterSpacing"      => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
-                    "min" => self::MIN_LETTER_SPACING_VALUE
+                    ValueGenerator::TYPE_MIN => self::MIN_LETTER_SPACING_VALUE
                 ],
             ],
             "letterSpacingHover" => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
-                    "min" => self::MIN_LETTER_SPACING_VALUE
+                    ValueGenerator::TYPE_MIN => self::MIN_LETTER_SPACING_VALUE
                 ],
             ],
             "lineHeight"         => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
-                    "minThen" => [self::MIN_LINE_HEIGHT_VALUE, self::DEFAULT_LINE_HEIGHT],
+                    ValueGenerator::TYPE_MIN_THEN => [self::MIN_LINE_HEIGHT_VALUE, self::DEFAULT_LINE_HEIGHT],
                 ],
             ],
             "lineHeightHover"    => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
-                    "minThen" => [self::MIN_LINE_HEIGHT_VALUE, self::DEFAULT_LINE_HEIGHT],
+                    ValueGenerator::TYPE_MIN_THEN => [self::MIN_LINE_HEIGHT_VALUE, self::DEFAULT_LINE_HEIGHT],
                 ],
             ],
         ];

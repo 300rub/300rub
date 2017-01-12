@@ -16,10 +16,13 @@ class ValueGenerator
      * Types
      */
     const TYPE_MIN = "min";
+    const TYPE_MIN_THEN = "minThen";
     const TYPE_COLOR = "color";
     const TYPE_CLEAR_STRIP_TAGS = "clearStripTags";
     const TYPE_COPY_NAME = "copyName";
+    const TYPE_COPY_URL = "copyUrl";
     const TYPE_ARRAY_KEY = "arrayKey";
+    const TYPE_URL = "url";
 
     /**
      * Gets value by operator
