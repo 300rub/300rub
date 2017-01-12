@@ -30,12 +30,12 @@ class UserSectionOperationModel extends AbstractModel
     public function getFieldsInfo()
     {
         return [
-            "userSectionsId"   => [
+            "userSectionsId" => [
                 self::FIELD_RELATION_TO_PARENT => "UserSectionModel"
             ],
-            "operation"   => [
-                self::FIELD_TYPE => self::FIELD_TYPE_STRING,
-                self::FIELD_VALIDATION  => [
+            "operation"      => [
+                self::FIELD_TYPE       => self::FIELD_TYPE_STRING,
+                self::FIELD_VALIDATION => [
                     Validator::TYPE_REQUIRED,
                     Validator::TYPE_MAX_LENGTH => 50
                 ],

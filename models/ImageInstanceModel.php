@@ -5,10 +5,6 @@ namespace testS\models;
 /**
  * Model for working with table "imageInstances"
  *
- * @method ImageInstanceModel[] findAll
- * @method ImageInstanceModel   byId($id)
- * @method ImageInstanceModel   find
- *
  * @package testS\models
  */
 class ImageInstanceModel extends AbstractModel

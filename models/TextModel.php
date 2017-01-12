@@ -7,13 +7,6 @@ use testS\components\Language;
 /**
  * Model for working with table "texts"
  *
- * @property string $name
- *
- * @method TextModel[] findAll
- * @method TextModel   ordered
- * @method TextModel   byId($id)
- * @method TextModel   find
- *
  * @package testS\models
  */
 class TextModel extends AbstractModel

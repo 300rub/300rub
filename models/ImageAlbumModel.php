@@ -6,11 +6,6 @@ namespace testS\models;
  * Model for working with table "imageAlbums"
  *
  * @package testS\models
- *
- * @method ImageAlbumModel[] findAll
- * @method ImageAlbumModel   byId($id)
- * @method ImageAlbumModel   find
- * @method ImageAlbumModel   withAll
  */
 class ImageAlbumModel extends AbstractModel
 {

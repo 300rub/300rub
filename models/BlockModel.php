@@ -13,10 +13,6 @@ use testS\components\ValueGenerator;
  * @package testS\models
  *
  * @property int $contentType
- * @property int $contentId
- *
- * @method BlockModel[] findAll()
- * @method BlockModel   ordered($value)
  */
 class BlockModel extends AbstractModel
 {

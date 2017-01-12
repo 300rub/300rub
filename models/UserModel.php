@@ -9,8 +9,6 @@ use testS\components\Validator;
  * Model for working with table "users"
  *
  * @package testS\models
- *
- * @method UserModel find()
  */
 class UserModel extends AbstractModel
 {
@@ -108,27 +106,6 @@ class UserModel extends AbstractModel
                 ],
             ],
         ];
-    }
-
-    /**
-     * Finds model by login
-     *
-     * @param string $login Login
-     *
-     * @return UserModel|null
-     */
-    public function findByLogin($login)
-    {
-        $login = trim($login);
-        if (!$login) {
-            return null;
-        }
-
-        $this->getDb()
-            ->addWhere("login = :login")
-            ->addParameter("login", $login);
-
-        return $this->find();
     }
 
     /**

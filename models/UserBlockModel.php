@@ -28,10 +28,10 @@ class UserBlockModel extends AbstractModel
     public function getFieldsInfo()
     {
         return [
-            "userId"   => [
+            "userId"  => [
                 self::FIELD_RELATION_TO_PARENT => "UserModel"
             ],
-            "blockId"   => [
+            "blockId" => [
                 self::FIELD_RELATION_TO_PARENT => "BlockModel"
             ],
         ];

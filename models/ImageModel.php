@@ -8,10 +8,6 @@ use testS\components\Language;
  * Model for working with table "images"
  *
  * @package testS\models
- *
- * @method ImageModel[] findAll
- * @method ImageModel   byId($id)
- * @method ImageModel   find
  */
 class ImageModel extends AbstractModel
 {
@@ -145,13 +141,13 @@ class ImageModel extends AbstractModel
                 ],
             ],
             "cropX"               => [
-                self::FIELD_TYPE => self::FIELD_TYPE_INT,
+                self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
                     "min" => 0
                 ],
             ],
             "cropY"               => [
-                self::FIELD_TYPE => self::FIELD_TYPE_INT,
+                self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
                     "min" => 0
                 ],
@@ -163,13 +159,13 @@ class ImageModel extends AbstractModel
                 ],
             ],
             "thumbCropX"          => [
-                self::FIELD_TYPE => self::FIELD_TYPE_INT,
+                self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
                     "min" => 0
                 ],
             ],
             "thumbCropY"          => [
-                self::FIELD_TYPE => self::FIELD_TYPE_INT,
+                self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
                     "min" => 0
                 ],

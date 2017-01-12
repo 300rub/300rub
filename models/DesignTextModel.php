@@ -7,7 +7,7 @@ namespace testS\models;
  *
  * @package testS\models
  */
-class DesignTextModel extends AbstractDesignModel
+class DesignTextModel extends AbstractModel
 {
 
     /**
@@ -300,29 +300,5 @@ class DesignTextModel extends AbstractDesignModel
                 ],
             ],
         ];
-    }
-
-    /**
-     * Gets values for object
-     *
-     * @param string $name Object name
-     *
-     * @return array
-     */
-    public function getValues($name)
-    {
-        $this
-            ->setDesignValue("fontFamily", "font-family", "family", $name)
-            ->setDesignValue("spinners", "font-size", "size", $name)
-            ->setDesignValue("spinners", "letter-spacing", "letterSpacing", $name)
-            ->setDesignValue("spinners", "line-height", "lineHeight", $name)
-            ->setDesignValue("colors", "color", "color", $name)
-            ->setDesignValue("checkboxes", "font-style", "isItalic", $name)
-            ->setDesignValue("checkboxes", "font-weight", "isBold", $name)
-            ->setDesignValue("radios", "text-align", "align", $name)
-            ->setDesignValue("radios", "text-decoration", "decoration", $name)
-            ->setDesignValue("radios", "text-transform", "transform", $name);
-
-        return $this->designValues;
     }
 }

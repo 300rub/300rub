@@ -34,8 +34,8 @@ class UserSessionsModel extends AbstractModel
                 self::FIELD_RELATION_TO_PARENT => "UserModel"
             ],
             "token"    => [
-                self::FIELD_TYPE => self::FIELD_TYPE_STRING,
-                self::FIELD_VALIDATION  => [
+                self::FIELD_TYPE       => self::FIELD_TYPE_STRING,
+                self::FIELD_VALIDATION => [
                     Validator::TYPE_REQUIRED,
                     Validator::TYPE_MAX_LENGTH => 40,
                     Validator::TYPE_MIN_LENGTH => 40
@@ -45,8 +45,8 @@ class UserSessionsModel extends AbstractModel
                 self::FIELD_TYPE => self::FIELD_TYPE_BOOL,
             ],
             "ip"       => [
-                self::FIELD_TYPE => self::FIELD_TYPE_STRING,
-                self::FIELD_VALIDATION          => [
+                self::FIELD_TYPE       => self::FIELD_TYPE_STRING,
+                self::FIELD_VALIDATION => [
                     Validator::TYPE_REQUIRED,
                     Validator::TYPE_IP
                 ],

@@ -6,14 +6,6 @@ namespace testS\models;
  * Model for working with table "grids"
  *
  * @package testS\models
- *
- * @property int           $contentType
- * @property int           $contentId
- *
- * @method GridModel[] findAll()
- * @method GridModel   in($field, $values)
- * @method GridModel   with($array)
- * @method GridModel   ordered($value)
  */
 class GridModel extends AbstractModel
 {
@@ -46,26 +38,26 @@ class GridModel extends AbstractModel
     public function getFieldsInfo()
     {
         return [
-            "blockId"       => [
+            "blockId"    => [
                 self::FIELD_RELATION => ["BlockModel", "blockModel"]
             ],
-            "gridLineId"  => [
+            "gridLineId" => [
                 self::FIELD_TYPE => self::FIELD_TYPE_INT,
             ],
-            "x"           => [
+            "x"          => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
                     "max" => self::GRID_SIZE - 1,
                     "min" => 0
                 ]
             ],
-            "y"           => [
+            "y"          => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
                     "min" => 0
                 ]
             ],
-            "width"       => [
+            "width"      => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
                     "minThen" => [0, self::DEFAULT_WIDTH],

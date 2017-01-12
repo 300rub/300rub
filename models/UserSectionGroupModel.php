@@ -30,7 +30,7 @@ class UserSectionGroupModel extends AbstractModel
     public function getFieldsInfo()
     {
         return [
-            "userId"   => [
+            "userId" => [
                 self::FIELD_RELATION_TO_PARENT => "UserModel"
             ],
         ];

@@ -7,7 +7,7 @@ namespace testS\models;
  *
  * @package testS\models
  */
-class DesignImageSimpleModel extends AbstractDesignModel
+class DesignImageSimpleModel extends AbstractModel
 {
 
     /**
@@ -65,20 +65,5 @@ class DesignImageSimpleModel extends AbstractDesignModel
                 ],
             ]
         ];
-    }
-
-    /**
-     * Gets values for object
-     *
-     * @param string $name Object name
-     *
-     * @return array
-     */
-    public function getValues($name)
-    {
-        $this
-            ->setDesignValue("imageSimple", "alignment", "alignment", $name);
-
-        return $this->designValues;
     }
 }

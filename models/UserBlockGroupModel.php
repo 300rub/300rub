@@ -30,11 +30,11 @@ class UserBlockGroupModel extends AbstractModel
     public function getFieldsInfo()
     {
         return [
-            "userId"   => [
+            "userId"    => [
                 self::FIELD_RELATION_TO_PARENT => "UserModel"
             ],
-            "blockType"   => [
-                self::FIELD_TYPE => self::FIELD_TYPE_INT,
+            "blockType" => [
+                self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
                     ValueGenerator::TYPE_ARRAY_KEY => [BlockModel::$typeList]
                 ],

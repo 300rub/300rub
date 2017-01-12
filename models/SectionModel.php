@@ -10,11 +10,6 @@ use testS\components\Language;
  *
  * @package testS\models
  *
- * @method SectionModel   byId($id)
- * @method SectionModel   find()
- * @method SectionModel[] findAll
- * @method SectionModel   exceptId($id)
- *
  * @property bool $isMain
  */
 class SectionModel extends AbstractModel
@@ -62,30 +57,6 @@ class SectionModel extends AbstractModel
                 ]
             ]
         ];
-    }
-
-    /**
-     * Adds url & language condition in SQL request
-     *
-     * @param string $url url раздела
-     *
-     * @return SectionModel
-     */
-    public function byUrl($url = "")
-    {
-        $this->withRelations();
-
-        $this->getDb()->addWhere(sprintf("%s.language = :language", $this->getTableName()));
-        $this->getDb()->addParameter("language", Language::$activeId);
-
-        if ($url) {
-            $this->getDb()->addWhere("seoModel.url = :url");
-            $this->getDb()->addParameter("url", $url);
-        } else {
-            $this->selectMain();
-        }
-
-        return $this;
     }
 
     /**
