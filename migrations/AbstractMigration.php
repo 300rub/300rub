@@ -92,20 +92,20 @@ abstract class AbstractMigration
      *
      * @param string $table  Table name
      * @param string $column Column
+     * @param string $index
      *
      * @throws MigrationException
      *
      * @return AbstractMigration
      */
-    public function createIndex($table, $column)
+    public function createIndex($table, $column, $index = null)
     {
         try {
             Db::execute(
                 sprintf(
-                    "ALTER" . " TABLE %s ADD INDEX %s_%s (%s)",
+                    "ALTER" . " TABLE %s ADD INDEX %s (%s)",
                     $table,
-                    $table,
-                    $column,
+                    $index === null ? "{$table}_{$column}" : $index,
                     $column
                 )
             );

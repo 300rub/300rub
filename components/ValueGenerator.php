@@ -1,6 +1,7 @@
 <?php
 
 namespace testS\components;
+
 use testS\components\exceptions\ModelException;
 
 /**
@@ -14,6 +15,8 @@ class ValueGenerator
     /**
      * Types
      */
+    const TYPE_MIN = "min";
+    const TYPE_COLOR = "color";
     const TYPE_CLEAR_STRIP_TAGS = "clearStripTags";
     const TYPE_COPY_NAME = "copyName";
     const TYPE_ARRAY_KEY = "arrayKey";

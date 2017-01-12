@@ -26,8 +26,7 @@ class M160302000005Blocks extends AbstractMigration
                     "contentId"   => self::TYPE_FK
                 ]
             )
-            ->createIndex("blocks", "language")
-            ->createIndex("blocks", "contentType")
-            ->createIndex("blocks", "contentId");
+            ->createIndex("blocks", "language,contentType", "blocks_language_contentType")
+            ->createUniqueIndex("blocks", "blocks_language_contentType_contentId", "language,contentType,contentId");
     }
 }
