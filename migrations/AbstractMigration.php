@@ -124,6 +124,40 @@ abstract class AbstractMigration
     }
 
     /**
+     * Creates FULLTEXT index
+     *
+     * @param string $table  Table name
+     * @param string $column Column
+     *
+     * @throws MigrationException
+     *
+     * @return AbstractMigration
+     */
+    public function createFullTextIndex($table, $column)
+    {
+        try {
+            Db::execute(
+                sprintf(
+                    "ALTER" . " TABLE %s ADD FULLTEXT(%s)",
+                    $table,
+                    $column
+                )
+            );
+        } catch (Exception $e) {
+            throw new MigrationException(
+                "Exception: {e}. Unable to create FULLTEXT index for column {column} for table {table}",
+                [
+                    "e"      => $e->getMessage(),
+                    "column" => $column,
+                    "table"  => $table
+                ]
+            );
+        }
+
+        return $this;
+    }
+
+    /**
      * Creates unique index
      *
      * @param string $table   Table name

@@ -42,13 +42,5 @@ return [
     "typeH3"              => [
         Language::LANGUAGE_EN_ID => "Third level title",
         Language::LANGUAGE_RU_ID => "Заголовок 3 уровня",
-    ],
-    "typeAddress"         => [
-        Language::LANGUAGE_EN_ID => "Address",
-        Language::LANGUAGE_RU_ID => "Адрес",
-    ],
-    "typeImportant"       => [
-        Language::LANGUAGE_EN_ID => "Important text",
-        Language::LANGUAGE_RU_ID => "Важный текст",
     ]
 ];
