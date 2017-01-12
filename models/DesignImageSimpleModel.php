@@ -2,8 +2,10 @@
 
 namespace testS\models;
 
+use testS\components\ValueGenerator;
+
 /**
- * Model for working with table "designImageSimples"
+ * Model for working with table "designImageSimple"
  *
  * @package testS\models
  */
@@ -38,7 +40,7 @@ class DesignImageSimpleModel extends AbstractModel
      */
     public function getTableName()
     {
-        return "designImageSimples";
+        return "designImageSimple";
     }
 
     /**
@@ -49,19 +51,19 @@ class DesignImageSimpleModel extends AbstractModel
     public function getFieldsInfo()
     {
         return [
-            "designBlockId"      => [
-                self::FIELD_RELATION => ["DesignBlockModel", "designBlockModel"]
+            "containerDesignBlockId"      => [
+                self::FIELD_RELATION => ["DesignBlockModel", "containerDesignBlockModel"]
             ],
             "imageDesignBlockId" => [
                 self::FIELD_RELATION => ["DesignBlockModel", "imageDesignBlockModel"]
             ],
             "designTextId"       => [
-                self::FIELD_RELATION => ["DesignTextModel", "designTextModel"]
+                self::FIELD_RELATION => ["DesignTextModel"]
             ],
             "alignment"          => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
-                    "arrayKey" => [self::getAlignmentList(), self::ALIGNMENT_LEFT]
+                    ValueGenerator::TYPE_ARRAY_KEY => [self::getAlignmentList(), self::ALIGNMENT_LEFT]
                 ],
             ]
         ];

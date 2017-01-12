@@ -2,6 +2,8 @@
 
 namespace testS\models;
 
+use testS\components\ValueGenerator;
+
 /**
  * Model for working with table "designImageZooms"
  *
@@ -90,7 +92,7 @@ class DesignImageZoomModel extends AbstractModel
     {
         return [
             "designBlockId"        => [
-                self::FIELD_RELATION => ["DesignBlockModel", "designBlockModel"]
+                self::FIELD_RELATION => ["DesignBlockModel"]
             ],
             "hasScroll"            => [
                 self::FIELD_TYPE => self::FIELD_TYPE_BOOL,
@@ -98,19 +100,25 @@ class DesignImageZoomModel extends AbstractModel
             "thumbsAlignment"      => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
-                    "arrayKey" => [self::getThumbsAlignmentList(), self::THUMBS_ALIGNMENT_NONE]
+                    ValueGenerator::TYPE_ARRAY_KEY => [
+                        self::getThumbsAlignmentList(),
+                        self::THUMBS_ALIGNMENT_NONE
+                    ]
                 ],
             ],
             "descriptionAlignment" => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
-                    "arrayKey" => [self::getDescriptionAlignmentList(), self::DESCRIPTION_ALIGNMENT_NONE]
+                    ValueGenerator::TYPE_ARRAY_KEY => [
+                        self::getDescriptionAlignmentList(),
+                        self::DESCRIPTION_ALIGNMENT_NONE
+                    ]
                 ],
             ],
             "effect"               => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
-                    "arrayKey" => [self::getEffectList(), self::EFFECT_NONE]
+                    ValueGenerator::TYPE_ARRAY_KEY => [self::getEffectList(), self::EFFECT_NONE]
                 ],
             ],
         ];

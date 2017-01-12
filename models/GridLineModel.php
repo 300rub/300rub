@@ -28,18 +28,18 @@ class GridLineModel extends AbstractModel
     public function getFieldsInfo()
     {
         return [
+            "sectionId"       => [
+                self::FIELD_RELATION_TO_PARENT => "SectionModel",
+            ],
             "outsideDesignId" => [
-                self::FIELD_RELATION => ["DesignBlockModel", "outsideDesignModel"]
+                self::FIELD_RELATION => ["DesignBlockModel"]
             ],
             "insideDesignId"  => [
-                self::FIELD_RELATION => ["DesignBlockModel", "insideDesignModel"]
+                self::FIELD_RELATION => ["DesignBlockModel"]
             ],
             "sort"            => [
                 self::FIELD_TYPE => self::FIELD_TYPE_INT,
             ],
-            "sectionId"       => [
-                self::FIELD_TYPE => self::FIELD_TYPE_INT,
-            ]
         ];
     }
 }

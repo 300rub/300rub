@@ -16,6 +16,7 @@ class ValueGenerator
      * Types
      */
     const TYPE_MIN = "min";
+    const TYPE_MAX = "max";
     const TYPE_MIN_THEN = "minThen";
     const TYPE_COLOR = "color";
     const TYPE_CLEAR_STRIP_TAGS = "clearStripTags";

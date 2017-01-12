@@ -2,6 +2,8 @@
 
 namespace testS\models;
 
+use testS\components\ValueGenerator;
+
 /**
  * Model for working with table "designImageSliders"
  *
@@ -103,19 +105,19 @@ class DesignImageSliderModel extends AbstractModel
     public function getFieldsInfo()
     {
         return [
-            "designBlockId"            => [
-                self::FIELD_RELATION => ["DesignBlockModel", "designBlockModel"]
+            "containerDesignBlockId"            => [
+                self::FIELD_RELATION => ["DesignBlockModel"]
             ],
             "navigationDesignBlockId"  => [
-                self::FIELD_RELATION => ["DesignBlockModel", "navigationDesignBlockModel"]
+                self::FIELD_RELATION => ["DesignBlockModel"]
             ],
             "descriptionDesignBlockId" => [
-                self::FIELD_RELATION => ["DesignBlockModel", "descriptionDesignBlockModel"]
+                self::FIELD_RELATION => ["DesignBlockModel"]
             ],
             "effect"                   => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
-                    "arrayKey" => [self::getEffectList(), self::EFFECT_NONE]
+                    ValueGenerator::TYPE_ARRAY_KEY => [self::getEffectList(), self::EFFECT_NONE]
                 ],
             ],
             "hasAutoPlay"              => [
@@ -124,19 +126,25 @@ class DesignImageSliderModel extends AbstractModel
             "playSpeed"                => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
-                    "min" => 0
+                    ValueGenerator::TYPE_MIN => 0
                 ],
             ],
             "navigationAlignment"      => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
-                    "arrayKey" => [self::getNavigationAlignmentList(), self::NAVIGATION_ALIGNMENT_BOTTOM_CENTER]
+                    ValueGenerator::TYPE_ARRAY_KEY => [
+                        self::getNavigationAlignmentList(),
+                        self::NAVIGATION_ALIGNMENT_BOTTOM_CENTER
+                    ]
                 ],
             ],
             "descriptionAlignment"     => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
-                    "arrayKey" => [self::getDescriptionAlignmentList(), self::DESCRIPTION_ALIGNMENT_LEFT]
+                    ValueGenerator::TYPE_ARRAY_KEY => [
+                        self::getDescriptionAlignmentList(),
+                        self::DESCRIPTION_ALIGNMENT_LEFT
+                    ]
                 ],
             ]
         ];

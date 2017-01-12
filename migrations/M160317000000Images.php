@@ -17,18 +17,18 @@ class M160317000000Images extends AbstractMigration
     {
         $this
             ->createTable(
-                "designImageSimples",
+                "designImageSimple",
                 [
-                    "id"                 => self::TYPE_PK,
-                    "designBlockId"      => self::TYPE_FK,
-                    "imageDesignBlockId" => self::TYPE_FK,
-                    "designTextId"       => self::TYPE_FK,
-                    "alignment"          => self::TYPE_TINYINT_UNSIGNED,
+                    "id"                     => self::TYPE_PK,
+                    "containerDesignBlockId" => self::TYPE_FK,
+                    "imageDesignBlockId"     => self::TYPE_FK,
+                    "designTextId"           => self::TYPE_FK,
+                    "alignment"              => self::TYPE_TINYINT_UNSIGNED,
                 ]
             )
-            ->createForeignKey("designImageSimples", "designBlockId", "designBlocks")
-            ->createForeignKey("designImageSimples", "imageDesignBlockId", "designBlocks")
-            ->createForeignKey("designImageSimples", "designTextId", "designTexts")
+            ->createForeignKey("designImageSimple", "containerDesignBlockId", "designBlocks")
+            ->createForeignKey("designImageSimple", "imageDesignBlockId", "designBlocks")
+            ->createForeignKey("designImageSimple", "designTextId", "designTexts")
             ->createTable(
                 "designImageZooms",
                 [
@@ -45,7 +45,7 @@ class M160317000000Images extends AbstractMigration
                 "designImageSliders",
                 [
                     "id"                       => self::TYPE_PK,
-                    "designBlockId"            => self::TYPE_FK,
+                    "containerDesignBlockId"   => self::TYPE_FK,
                     "navigationDesignBlockId"  => self::TYPE_FK,
                     "descriptionDesignBlockId" => self::TYPE_FK,
                     "effect"                   => self::TYPE_TINYINT_UNSIGNED,
@@ -55,7 +55,7 @@ class M160317000000Images extends AbstractMigration
                     "descriptionAlignment"     => self::TYPE_TINYINT_UNSIGNED,
                 ]
             )
-            ->createForeignKey("designImageSliders", "designBlockId", "designBlocks")
+            ->createForeignKey("designImageSliders", "containerDesignBlockId", "designBlocks")
             ->createForeignKey("designImageSliders", "navigationDesignBlockId", "designBlocks")
             ->createForeignKey("designImageSliders", "descriptionDesignBlockId", "designBlocks")
             ->createTable(
@@ -81,7 +81,7 @@ class M160317000000Images extends AbstractMigration
             ->createForeignKey("images", "designBlockId", "designBlocks")
             ->createForeignKey("images", "designImageSliderId", "designImageSliders")
             ->createForeignKey("images", "designImageZoomId", "designImageZooms")
-            ->createForeignKey("images", "designImageSimpleId", "designImageSimples")
+            ->createForeignKey("images", "designImageSimpleId", "designImageSimple")
             ->createTable(
                 "imageGroups",
                 [
