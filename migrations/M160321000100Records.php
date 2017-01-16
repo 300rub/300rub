@@ -20,7 +20,7 @@ class M160321000100Records extends AbstractMigration
                 "designRecords",
                 [
                     "id"                                   => self::TYPE_PK,
-                    "shortCardDesignBlockId"               => self::TYPE_FK,
+                    "shortCardContainerDesignBlockId"      => self::TYPE_FK,
                     "shortCardInstanceDesignBlockId"       => self::TYPE_FK,
                     "shortCardTitleDesignBlockId"          => self::TYPE_FK,
                     "shortCardTitleDesignTextId"           => self::TYPE_FK,
@@ -38,7 +38,7 @@ class M160321000100Records extends AbstractMigration
                     "fullCardDatePosition"                 => self::TYPE_TINYINT_UNSIGNED,
                 ]
             )
-            ->createForeignKey("designRecords", "shortCardDesignBlockId", "designBlocks")
+            ->createForeignKey("designRecords", "shortCardContainerDesignBlockId", "designBlocks")
             ->createForeignKey("designRecords", "shortCardInstanceDesignBlockId", "designBlocks")
             ->createForeignKey("designRecords", "shortCardTitleDesignBlockId", "designBlocks")
             ->createForeignKey("designRecords", "shortCardTitleDesignTextId", "designTexts")
@@ -64,9 +64,9 @@ class M160321000100Records extends AbstractMigration
                     "hasImages"         => self::TYPE_BOOL,
                     "hasCoverZoom"      => self::TYPE_BOOL,
                     "hasDescription"    => self::TYPE_BOOL,
+                    "hasAutoload"       => self::TYPE_BOOL,
                     "shortCardDateType" => self::TYPE_SMALLINT_UNSIGNED,
                     "fullCardDateType"  => self::TYPE_SMALLINT_UNSIGNED,
-                    "hasAutoload"       => self::TYPE_BOOL,
                 ]
             )
             ->createForeignKey("records", "coverImagesId", "images")
@@ -78,7 +78,7 @@ class M160321000100Records extends AbstractMigration
                 "designRecordClones",
                 [
                     "id"                       => self::TYPE_PK,
-                    "designBlockId"            => self::TYPE_FK,
+                    "containerDesignBlockId"   => self::TYPE_FK,
                     "instanceDesignBlockId"    => self::TYPE_FK,
                     "titleDesignBlockId"       => self::TYPE_FK,
                     "titleDesignTextId"        => self::TYPE_FK,
@@ -88,7 +88,7 @@ class M160321000100Records extends AbstractMigration
                     "viewType"                 => self::TYPE_TINYINT_UNSIGNED,
                 ]
             )
-            ->createForeignKey("designRecordClones", "designBlockId", "designBlocks")
+            ->createForeignKey("designRecordClones", "containerDesignBlockId", "designBlocks")
             ->createForeignKey("designRecordClones", "instanceDesignBlockId", "designBlocks")
             ->createForeignKey("designRecordClones", "titleDesignBlockId", "designBlocks")
             ->createForeignKey("designRecordClones", "titleDesignTextId", "designTexts")
@@ -122,8 +122,8 @@ class M160321000100Records extends AbstractMigration
                     "seoId"                     => self::TYPE_FK,
                     "textTextInstanceId"        => self::TYPE_FK,
                     "descriptionTextInstanceId" => self::TYPE_FK,
-                    "imageGroupId"              => self::TYPE_FK_NULL,
-                    "coverImageInstanceId"      => self::TYPE_FK_NULL,
+                    "imageGroupId"              => self::TYPE_FK,
+                    "coverImageInstanceId"      => self::TYPE_FK,
                     "date"                      => self::TYPE_DATETIME,
                     "sort"                      => self::TYPE_SMALLINT,
                 ]
@@ -132,13 +132,7 @@ class M160321000100Records extends AbstractMigration
             ->createForeignKey("recordInstances", "seoId", "seo")
             ->createForeignKey("recordInstances", "textTextInstanceId", "textInstances")
             ->createForeignKey("recordInstances", "descriptionTextInstanceId", "textInstances")
-            ->createForeignKey("recordInstances", "imageGroupId", "imageGroups", self::FK_CASCADE, self::FK_NULL)
-            ->createForeignKey(
-                "recordInstances",
-                "coverImageInstanceId",
-                "imageInstances",
-                self::FK_CASCADE,
-                self::FK_NULL
-            );
+            ->createForeignKey("recordInstances", "imageGroupId", "imageGroups")
+            ->createForeignKey("recordInstances", "coverImageInstanceId", "imageInstances");
     }
 }
