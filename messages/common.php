@@ -67,4 +67,20 @@ return [
         Language::LANGUAGE_EN_ID => "Do you really want to delete?",
         Language::LANGUAGE_RU_ID => "",
     ],
+    "none" => [
+        Language::LANGUAGE_EN_ID => "None",
+        Language::LANGUAGE_RU_ID => "",
+    ],
+    "left" => [
+        Language::LANGUAGE_EN_ID => "Left",
+        Language::LANGUAGE_RU_ID => "",
+    ],
+    "center" => [
+        Language::LANGUAGE_EN_ID => "Center",
+        Language::LANGUAGE_RU_ID => "",
+    ],
+    "right" => [
+        Language::LANGUAGE_EN_ID => "Right",
+        Language::LANGUAGE_RU_ID => "",
+    ],
 ];
