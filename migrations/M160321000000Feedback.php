@@ -7,7 +7,7 @@ namespace testS\migrations;
  *
  * @package testS\migrations
  */
-class M160321000000FeedBacks extends AbstractMigration
+class M160321000000Feedback extends AbstractMigration
 {
 
     /**
@@ -17,20 +17,20 @@ class M160321000000FeedBacks extends AbstractMigration
     {
         $this
             ->createTable(
-                "feedBacks",
+                "feedback",
                 [
                     "id"                   => self::TYPE_PK,
                     "formId"               => self::TYPE_FK,
-                    "subjectFormElementId" => self::TYPE_FK_NULL,
+                    "subjectFormInstanceId" => self::TYPE_FK,
                     "subjectText"          => self::TYPE_STRING,
                     "host"                 => self::TYPE_STRING,
                     "port"                 => self::TYPE_SMALLINT_UNSIGNED,
-                    "type"                 => self::TYPE_STRING,
+                    "type"                 => self::TYPE_STRING_25,
                     "user"                 => self::TYPE_STRING,
                     "password"             => self::TYPE_STRING,
                 ]
             )
-            ->createForeignKey("feedBacks", "formId", "forms")
-            ->createForeignKey("feedBacks", "subjectFormElementId", "formInstances");
+            ->createForeignKey("feedback", "formId", "forms")
+            ->createForeignKey("feedback", "subjectFormElementId", "formInstances");
     }
 }
