@@ -5,29 +5,27 @@ namespace testS\models;
 use testS\components\ValueGenerator;
 
 /**
- * Model for working with table "menu"
+ * Model for working with table "siteMaps"
  *
  * @package testS\models
  */
-class MenuModel extends AbstractModel
+class SiteMapModel extends AbstractModel
 {
 
     /**
-     * Types
+     * Styles
      */
-    const TYPE_VERTICAL = 0;
-    const TYPE_HORIZONTAL = 1;
+    const STYLE_COMMON = 0;
 
     /**
      * Gets a list of types
      *
      * @return array
      */
-    public static function getTypeList()
+    public static function getStyleList()
     {
         return [
-            self::TYPE_VERTICAL   => "",
-            self::TYPE_HORIZONTAL => "",
+            self::STYLE_COMMON => "",
         ];
     }
 
@@ -38,7 +36,7 @@ class MenuModel extends AbstractModel
      */
     public function getTableName()
     {
-        return "menu";
+        return "siteMaps";
     }
 
     /**
@@ -49,15 +47,21 @@ class MenuModel extends AbstractModel
     public function getFieldsInfo()
     {
         return [
-            "designMenuId"       => [
-                self::FIELD_RELATION => "DesignMenuModel"
+            "containerDesignBlockId" => [
+                self::FIELD_RELATION => "DesignBlockModel"
             ],
-            "type"       => [
+            "itemDesignBlockId"      => [
+                self::FIELD_RELATION => "DesignBlockModel"
+            ],
+            "itemDesignTextId"       => [
+                self::FIELD_RELATION => "DesignTextModel"
+            ],
+            "style"                  => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
                     ValueGenerator::TYPE_ARRAY_KEY => [
-                        self::getTypeList(),
-                        self::TYPE_VERTICAL
+                        self::getStyleList(),
+                        self::STYLE_COMMON
                     ]
                 ],
             ],

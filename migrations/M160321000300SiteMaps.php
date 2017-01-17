@@ -19,14 +19,14 @@ class M160321000300SiteMaps extends AbstractMigration
             ->createTable(
                 "siteMaps",
                 [
-                    "id"                => self::TYPE_PK,
-                    "designBlockId"     => self::TYPE_FK,
-                    "itemDesignBlockId" => self::TYPE_FK,
-                    "itemDesignTextId"  => self::TYPE_FK,
-                    "style"             => self::TYPE_TINYINT_UNSIGNED
+                    "id"                     => self::TYPE_PK,
+                    "containerDesignBlockId" => self::TYPE_FK,
+                    "itemDesignBlockId"      => self::TYPE_FK,
+                    "itemDesignTextId"       => self::TYPE_FK,
+                    "style"                  => self::TYPE_TINYINT_UNSIGNED
                 ]
             )
-            ->createForeignKey("siteMaps", "designBlockId", "designBlocks")
+            ->createForeignKey("siteMaps", "containerDesignBlockId", "designBlocks")
             ->createForeignKey("siteMaps", "itemDesignBlockId", "designBlocks")
             ->createForeignKey("siteMaps", "itemDesignTextId", "designTexts");
     }

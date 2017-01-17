@@ -20,7 +20,7 @@ class M160321000400Search extends AbstractMigration
                 "designSearch",
                 [
                     "id"                          => self::TYPE_PK,
-                    "designBlockId"               => self::TYPE_FK,
+                    "containerDesignBlockId"      => self::TYPE_FK,
                     "titleDesignBlockId"          => self::TYPE_FK,
                     "titleDesignTextId"           => self::TYPE_FK,
                     "descriptionDesignBlockId"    => self::TYPE_FK,
@@ -30,7 +30,7 @@ class M160321000400Search extends AbstractMigration
                     "paginationItemDesignTextId"  => self::TYPE_FK,
                 ]
             )
-            ->createForeignKey("designSearch", "designBlockId", "designBlocks")
+            ->createForeignKey("designSearch", "containerDesignBlockId", "designBlocks")
             ->createForeignKey("designSearch", "titleDesignBlockId", "designBlocks")
             ->createForeignKey("designSearch", "titleDesignTextId", "designTexts")
             ->createForeignKey("designSearch", "descriptionDesignBlockId", "designBlocks")
@@ -63,6 +63,6 @@ class M160321000400Search extends AbstractMigration
                     "ref"        => self::TYPE_STRING,
                 ]
             )
-            ->createForeignKey("searchQueries", "searchId", "search");
+            ->createForeignKey("searchQueries", "searchId", "search", self::FK_CASCADE, self::FK_CASCADE);
     }
 }
