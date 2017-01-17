@@ -20,28 +20,22 @@ class M160321000200Menu extends AbstractMigration
                 "designMenu",
                 [
                     "id"                       => self::TYPE_PK,
-                    "designBlockId"            => self::TYPE_FK,
+                    "containerDesignBlockId"   => self::TYPE_FK,
                     "firstLevelDesignBlockId"  => self::TYPE_FK,
                     "firstLevelDesignTextId"   => self::TYPE_FK,
-                    "secondLevelDesignBlockId" => self::TYPE_FK_NULL,
-                    "secondLevelDesignTextId"  => self::TYPE_FK_NULL,
-                    "lastLevelDesignBlockId"   => self::TYPE_FK_NULL,
-                    "lastLevelDesignTextId"    => self::TYPE_FK_NULL,
+                    "secondLevelDesignBlockId" => self::TYPE_FK,
+                    "secondLevelDesignTextId"  => self::TYPE_FK,
+                    "lastLevelDesignBlockId"   => self::TYPE_FK,
+                    "lastLevelDesignTextId"    => self::TYPE_FK,
                 ]
             )
-            ->createForeignKey("designMenu", "designBlockId", "designBlocks")
+            ->createForeignKey("designMenu", "containerDesignBlockId", "designBlocks")
             ->createForeignKey("designMenu", "firstLevelDesignBlockId", "designBlocks")
             ->createForeignKey("designMenu", "firstLevelDesignTextId", "designTexts")
-            ->createForeignKey(
-                "designMenu",
-                "secondLevelDesignBlockId",
-                "designBlocks",
-                self::FK_CASCADE,
-                self::FK_NULL
-            )
-            ->createForeignKey("designMenu", "secondLevelDesignTextId", "designTexts", self::FK_CASCADE, self::FK_NULL)
-            ->createForeignKey("designMenu", "lastLevelDesignBlockId", "designBlocks", self::FK_CASCADE, self::FK_NULL)
-            ->createForeignKey("designMenu", "lastLevelDesignTextId", "designTexts", self::FK_CASCADE, self::FK_NULL)
+            ->createForeignKey("designMenu", "secondLevelDesignBlockId", "designBlocks")
+            ->createForeignKey("designMenu", "secondLevelDesignTextId", "designTexts")
+            ->createForeignKey("designMenu", "lastLevelDesignBlockId", "designBlocks")
+            ->createForeignKey("designMenu", "lastLevelDesignTextId", "designTexts")
             ->createTable(
                 "menu",
                 [
@@ -56,7 +50,7 @@ class M160321000200Menu extends AbstractMigration
                 [
                     "id"        => self::TYPE_PK,
                     "menuId"    => self::TYPE_FK,
-                    "parentId"  => self::TYPE_FK,
+                    "parentId"  => self::TYPE_FK_NULL,
                     "sectionId" => self::TYPE_FK,
                     "icon"      => self::TYPE_STRING_50,
                     "subName"   => self::TYPE_STRING
