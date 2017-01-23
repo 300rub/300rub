@@ -19,25 +19,25 @@ class M160321000500Fields extends AbstractMigration
             ->createTable(
                 "designFields",
                 [
-                    "id"                          => self::TYPE_PK,
-                    "shortCardDesignBlockId"      => self::TYPE_FK,
-                    "shortCardLabelDesignBlockId" => self::TYPE_FK,
-                    "shortCardLabelDesignTextId"  => self::TYPE_FK,
-                    "shortCardValueDesignBlockId" => self::TYPE_FK,
-                    "shortCardValueDesignTextId"  => self::TYPE_FK,
-                    "fullCardDesignBlockId"       => self::TYPE_FK,
-                    "fullCardLabelDesignBlockId"  => self::TYPE_FK,
-                    "fullCardLabelDesignTextId"   => self::TYPE_FK,
-                    "fullCardValueDesignBlockId"  => self::TYPE_FK,
-                    "fullCardValueDesignTextId"   => self::TYPE_FK,
+                    "id"                              => self::TYPE_PK,
+                    "shortCardContainerDesignBlockId" => self::TYPE_FK,
+                    "shortCardLabelDesignBlockId"     => self::TYPE_FK,
+                    "shortCardLabelDesignTextId"      => self::TYPE_FK,
+                    "shortCardValueDesignBlockId"     => self::TYPE_FK,
+                    "shortCardValueDesignTextId"      => self::TYPE_FK,
+                    "fullCardContainerDesignBlockId"  => self::TYPE_FK,
+                    "fullCardLabelDesignBlockId"      => self::TYPE_FK,
+                    "fullCardLabelDesignTextId"       => self::TYPE_FK,
+                    "fullCardValueDesignBlockId"      => self::TYPE_FK,
+                    "fullCardValueDesignTextId"       => self::TYPE_FK,
                 ]
             )
-            ->createForeignKey("designFields", "shortCardDesignBlockId", "designBlocks")
+            ->createForeignKey("designFields", "shortCardContainerDesignBlockId", "designBlocks")
             ->createForeignKey("designFields", "shortCardLabelDesignBlockId", "designBlocks")
             ->createForeignKey("designFields", "shortCardLabelDesignTextId", "designTexts")
             ->createForeignKey("designFields", "shortCardValueDesignBlockId", "designBlocks")
             ->createForeignKey("designFields", "shortCardValueDesignTextId", "designTexts")
-            ->createForeignKey("designFields", "fullCardDesignBlockId", "designBlocks")
+            ->createForeignKey("designFields", "fullCardContainerDesignBlockId", "designBlocks")
             ->createForeignKey("designFields", "fullCardLabelDesignBlockId", "designBlocks")
             ->createForeignKey("designFields", "fullCardLabelDesignTextId", "designTexts")
             ->createForeignKey("designFields", "fullCardValueDesignBlockId", "designBlocks")
@@ -51,20 +51,20 @@ class M160321000500Fields extends AbstractMigration
             )
             ->createForeignKey("fields", "designFieldId", "designFields")
             ->createTable(
-                "fieldInstances",
+                "fieldTemplates",
                 [
-                    "id"             => self::TYPE_PK,
-                    "fieldsId"       => self::TYPE_FK,
-                    "sort"           => self::TYPE_SMALLINT,
-                    "label"          => self::TYPE_STRING,
-                    "type"           => self::TYPE_TINYINT_UNSIGNED,
-                    "validationType" => self::TYPE_TINYINT_UNSIGNED,
-                    "isHideForShort" => self::TYPE_BOOL,
-                    "isShowEmpty"    => self::TYPE_BOOL,
+                    "id"                 => self::TYPE_PK,
+                    "fieldId"            => self::TYPE_FK,
+                    "sort"               => self::TYPE_SMALLINT,
+                    "label"              => self::TYPE_STRING,
+                    "type"               => self::TYPE_TINYINT_UNSIGNED,
+                    "validationType"     => self::TYPE_TINYINT_UNSIGNED,
+                    "isHideForShortCard" => self::TYPE_BOOL,
+                    "isShowEmpty"        => self::TYPE_BOOL,
                 ]
             )
-            ->createForeignKey("fieldInstances", "fieldsId", "fields")
-            ->createIndex("fieldInstances", "sort")
+            ->createForeignKey("fieldTemplates", "fieldId", "fields", self::FK_CASCADE, self::FK_CASCADE)
+            ->createIndex("fieldTemplates", "sort")
             ->createTable(
                 "fieldGroups",
                 [
@@ -72,28 +72,40 @@ class M160321000500Fields extends AbstractMigration
                 ]
             )
             ->createTable(
-                "fieldValues",
+                "fieldInstances",
                 [
                     "id"              => self::TYPE_PK,
                     "fieldGroupId"    => self::TYPE_FK,
-                    "fieldInstanceId" => self::TYPE_FK,
+                    "fieldTemplateId" => self::TYPE_FK,
                     "value"           => self::TYPE_STRING,
                 ]
             )
-            ->createForeignKey("fieldValues", "fieldGroupId", "fieldGroups")
-            ->createForeignKey("fieldValues", "fieldInstanceId", "fieldInstances")
-            ->createIndex("fieldValues", "value")
+            ->createForeignKey("fieldInstances", "fieldGroupId", "fieldGroups", self::FK_CASCADE, self::FK_CASCADE)
+            ->createForeignKey(
+                "fieldInstances",
+                "fieldTemplateId",
+                "fieldInstances",
+                self::FK_CASCADE,
+                self::FK_CASCADE
+            )
+            ->createIndex("fieldInstances", "value")
             ->createTable(
                 "fieldListValues",
                 [
                     "id"              => self::TYPE_PK,
-                    "fieldInstanceId" => self::TYPE_FK,
+                    "fieldTemplateId" => self::TYPE_FK,
                     "value"           => self::TYPE_STRING,
                     "sort"            => self::TYPE_SMALLINT,
                     "isChecked"       => self::TYPE_BOOL,
                 ]
             )
-            ->createForeignKey("fieldListValues", "fieldInstanceId", "fieldInstances")
+            ->createForeignKey(
+                "fieldListValues",
+                "fieldTemplateId",
+                "fieldTemplates",
+                self::FK_CASCADE,
+                self::FK_CASCADE
+            )
             ->createIndex("fieldListValues", "sort");
     }
 }
