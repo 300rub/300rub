@@ -68,9 +68,11 @@ class M160321000500Fields extends AbstractMigration
             ->createTable(
                 "fieldGroups",
                 [
-                    "id" => self::TYPE_PK,
+                    "id"      => self::TYPE_PK,
+                    "fieldId" => self::TYPE_FK,
                 ]
             )
+            ->createForeignKey("fieldGroups", "fieldId", "fields")
             ->createTable(
                 "fieldInstances",
                 [

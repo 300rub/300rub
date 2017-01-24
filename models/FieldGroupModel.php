@@ -27,6 +27,10 @@ class FieldGroupModel extends AbstractModel
      */
     public function getFieldsInfo()
     {
-        return [];
+        return [
+            "fieldId" => [
+                self::FIELD_RELATION => "FieldModel",
+            ],
+        ];
     }
 }
