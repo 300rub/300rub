@@ -19,14 +19,14 @@ class M160321000550Tabs extends AbstractMigration
             ->createTable(
                 "designTabs",
                 [
-                    "id"                   => self::TYPE_PK,
-                    "designBlockId"        => self::TYPE_FK,
-                    "tabDesignBlockId"     => self::TYPE_FK,
-                    "tabDesignTextId"      => self::TYPE_FK,
-                    "contentDesignBlockId" => self::TYPE_FK,
+                    "id"                     => self::TYPE_PK,
+                    "containerDesignBlockId" => self::TYPE_FK,
+                    "tabDesignBlockId"       => self::TYPE_FK,
+                    "tabDesignTextId"        => self::TYPE_FK,
+                    "contentDesignBlockId"   => self::TYPE_FK,
                 ]
             )
-            ->createForeignKey("designTabs", "designBlockId", "designBlocks")
+            ->createForeignKey("designTabs", "containerDesignBlockId", "designBlocks")
             ->createForeignKey("designTabs", "tabDesignBlockId", "designBlocks")
             ->createForeignKey("designTabs", "tabDesignTextId", "designTexts")
             ->createForeignKey("designTabs", "contentDesignBlockId", "designBlocks")
