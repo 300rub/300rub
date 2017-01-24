@@ -20,7 +20,7 @@ class M160321000700Catalogs extends AbstractMigration
                 "designCatalogs",
                 [
                     "id"                                   => self::TYPE_PK,
-                    "shortCardDesignBlockId"               => self::TYPE_FK,
+                    "shortCardContainerDesignBlockId"      => self::TYPE_FK,
                     "shortCardInstanceDesignBlockId"       => self::TYPE_FK,
                     "shortCardTitleDesignBlockId"          => self::TYPE_FK,
                     "shortCardTitleDesignTextId"           => self::TYPE_FK,
@@ -34,6 +34,7 @@ class M160321000700Catalogs extends AbstractMigration
                     "shortCardPaginationDesignBlockId"     => self::TYPE_FK,
                     "shortCardPaginationItemDesignBlockId" => self::TYPE_FK,
                     "shortCardPaginationItemDesignTextId"  => self::TYPE_FK,
+                    "fullCardContainerDesignBlockId"       => self::TYPE_FK,
                     "fullCardTitleDesignBlockId"           => self::TYPE_FK,
                     "fullCardTitleDesignTextId"            => self::TYPE_FK,
                     "fullCardDateDesignTextId"             => self::TYPE_FK,
@@ -44,10 +45,11 @@ class M160321000700Catalogs extends AbstractMigration
                     "fullCardBinButtonDesignBlockId"       => self::TYPE_FK,
                     "fullCardBinButtonDesignTextId"        => self::TYPE_FK,
                     "shortCardViewType"                    => self::TYPE_TINYINT_UNSIGNED,
+                    "fullCardImagesPosition"               => self::TYPE_TINYINT_UNSIGNED,
                     "fullCardDatePosition"                 => self::TYPE_TINYINT_UNSIGNED,
                 ]
             )
-            ->createForeignKey("designCatalogs", "shortCardDesignBlockId", "designBlocks")
+            ->createForeignKey("designCatalogs", "shortCardContainerDesignBlockId", "designBlocks")
             ->createForeignKey("designCatalogs", "shortCardInstanceDesignBlockId", "designBlocks")
             ->createForeignKey("designCatalogs", "shortCardTitleDesignBlockId", "designBlocks")
             ->createForeignKey("designCatalogs", "shortCardTitleDesignTextId", "designTexts")
@@ -61,6 +63,7 @@ class M160321000700Catalogs extends AbstractMigration
             ->createForeignKey("designCatalogs", "shortCardPaginationDesignBlockId", "designBlocks")
             ->createForeignKey("designCatalogs", "shortCardPaginationItemDesignBlockId", "designBlocks")
             ->createForeignKey("designCatalogs", "shortCardPaginationItemDesignTextId", "designTexts")
+            ->createForeignKey("designCatalogs", "fullCardContainerDesignBlockId", "designBlocks")
             ->createForeignKey("designCatalogs", "fullCardTitleDesignBlockId", "designBlocks")
             ->createForeignKey("designCatalogs", "fullCardTitleDesignTextId", "designTexts")
             ->createForeignKey("designCatalogs", "fullCardDateDesignTextId", "designTexts")
@@ -139,6 +142,11 @@ class M160321000700Catalogs extends AbstractMigration
             )
             ->createForeignKey("catalogInstanceLinks", "catalogInstanceId", "catalogInstances")
             ->createForeignKey("catalogInstanceLinks", "linkCatalogInstanceId", "catalogInstances")
+            ->createUniqueIndex(
+                "catalogInstanceLinks",
+                "catalogInstanceLinks_catalogInstanceId_linkCatalogInstanceId",
+                "catalogInstanceId,linkCatalogInstanceId"
+            )
             ->createTable(
                 "catalogBins",
                 [

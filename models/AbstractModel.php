@@ -28,6 +28,7 @@ abstract class AbstractModel
     const FIELD_TYPE = "type";
     const FIELD_TYPE_STRING = "string";
     const FIELD_TYPE_INT = "int";
+    const FIELD_TYPE_FLOAT = "float";
     const FIELD_TYPE_BOOL = "bool";
     const FIELD_BEFORE_SAVE = "beforeSave";
 
