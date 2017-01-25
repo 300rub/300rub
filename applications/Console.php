@@ -52,6 +52,7 @@ class Console extends AbstractApplication
 			);
 		} catch (Exception $e) {
 			$this->output($e->getMessage() . "\n", true);
+			throw $e;
 		}
 	}
 
