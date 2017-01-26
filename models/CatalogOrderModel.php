@@ -37,14 +37,8 @@ class CatalogOrderModel extends AbstractModel
             "formId"       => [
                 self::FIELD_RELATION => "FormModel"
             ],
-            "count"        => [
-                self::FIELD_TYPE  => self::FIELD_TYPE_INT,
-                self::FIELD_VALUE => [
-                    ValueGenerator::TYPE_MIN => 0
-                ],
-            ],
             "email"        => [
-                self::FIELD_TYPE       => self::FIELD_TYPE_INT,
+                self::FIELD_TYPE       => self::FIELD_TYPE_STRING,
                 self::FIELD_VALIDATION => [
                     Validator::TYPE_EMAIL
                 ],

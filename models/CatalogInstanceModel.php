@@ -67,7 +67,7 @@ class CatalogInstanceModel extends AbstractModel
                 self::FIELD_TYPE => self::FIELD_TYPE_FLOAT
             ],
             "date"          => [
-                self::FIELD_TYPE => self::FIELD_TYPE_STRING
+                self::FIELD_TYPE => self::FIELD_TYPE_DATETIME
             ],
         ];
     }

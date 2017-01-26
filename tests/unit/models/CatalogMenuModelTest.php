@@ -3,11 +3,11 @@
 namespace testS\tests\unit\models;
 
 /**
- * Tests for the model DesignBlockModel
+ * Tests for the model CatalogMenuModel
  *
  * @package testS\tests\unit\models
  */
-class DesignBlockModelTest extends AbstractModelTest
+class CatalogMenuModelTest extends AbstractModelTest
 {
 
     /**
@@ -17,6 +17,6 @@ class DesignBlockModelTest extends AbstractModelTest
      */
     protected function getModelName()
     {
-        return "DesignBlockModel";
+        return "CatalogMenuModel";
     }
 }

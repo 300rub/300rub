@@ -27,6 +27,7 @@ abstract class AbstractModel
     const FIELD_RELATION_TO_PARENT = "relationToParent";
     const FIELD_TYPE = "type";
     const FIELD_TYPE_STRING = "string";
+    const FIELD_TYPE_DATETIME = "datetime";
     const FIELD_TYPE_INT = "int";
     const FIELD_TYPE_FLOAT = "float";
     const FIELD_TYPE_BOOL = "bool";
