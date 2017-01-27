@@ -101,7 +101,7 @@ class M160321000700Catalogs extends AbstractMigration
                 "catalogMenu",
                 [
                     "id"        => self::TYPE_PK,
-                    "parentId"  => self::TYPE_FK,
+                    "parentId"  => self::TYPE_FK_NULL,
                     "seoId"     => self::TYPE_FK,
                     "catalogId" => self::TYPE_FK,
                     "icon"      => self::TYPE_STRING_50,

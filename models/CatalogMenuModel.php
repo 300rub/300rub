@@ -32,7 +32,8 @@ class CatalogMenuModel extends AbstractModel
     {
         return [
             "parentId"            => [
-                self::FIELD_RELATION_TO_PARENT => "CatalogMenuModel"
+                self::FIELD_RELATION_TO_PARENT => "CatalogMenuModel",
+                self::FIELD_ALLOW_NULL => true,
             ],
             "seoId"              => [
                 self::FIELD_RELATION => "SeoModel"
