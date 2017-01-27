@@ -100,22 +100,6 @@ class ImageModel extends AbstractModel
             "designImageSimpleId" => [
                 self::FIELD_RELATION => "DesignImageSimpleModel"
             ],
-            "name"                => [
-                self::FIELD_TYPE       => self::FIELD_TYPE_STRING,
-                self::FIELD_VALIDATION => [
-                    Validator::TYPE_REQUIRED,
-                    Validator::TYPE_MAX_LENGTH => 255
-                ],
-                self::FIELD_VALUE      => [
-                    ValueGenerator::TYPE_CLEAR_STRIP_TAGS
-                ],
-            ],
-            "language"            => [
-                self::FIELD_TYPE  => self::FIELD_TYPE_INT,
-                self::FIELD_VALUE => [
-                    ValueGenerator::TYPE_ARRAY_KEY => [Language::$aliasList, Language::getActiveId()]
-                ],
-            ],
             "type"                => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [

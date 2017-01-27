@@ -64,30 +64,38 @@ abstract class AbstractModelTest extends AbstractUnitTest
             $this->assertEquals("NO", $describeRow["Null"]);
 
             if (array_key_exists(AbstractModel::FIELD_TYPE, $modelInfo)) {
-                $type = null;
+                $types = [];
                 switch ($modelInfo[AbstractModel::FIELD_TYPE]) {
                     case AbstractModel::FIELD_TYPE_BOOL:
-                        $type = "tinyint(1) unsigned";
+                        $types = ["tinyint(1) unsigned"];
                         break;
                     case AbstractModel::FIELD_TYPE_INT:
-                        $type = "int";
+                        $types = ["int"];
                         break;
                     case AbstractModel::FIELD_TYPE_STRING:
-                        $type = "varchar";
+                        $types = ["varchar", "text"];
                         break;
                     default:
                         break;
                 }
 
-                if ($type !== null) {
+                if (count($types) > 0) {
+                    $isCorrect = false;
+                    foreach ($types as $type) {
+                        if (stripos($describeRow["Type"], $type) !== false) {
+                            $isCorrect = true;
+                            break;
+                        }
+                    }
+
                     $this->assertTrue(
-                        stripos($describeRow["Type"], $type) !== false,
+                        $isCorrect,
                         sprintf(
                             "Incorrect type [%s] for field [%s] from table [%s]. Must be [%s]",
                             $describeRow["Type"],
                             $describeRow["Field"],
                             $model->getTableName(),
-                            $type
+                            implode("/", $types)
                         )
                     );
                 }
