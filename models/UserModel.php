@@ -74,7 +74,7 @@ class UserModel extends AbstractModel
                 self::FIELD_TYPE       => self::FIELD_TYPE_STRING,
                 self::FIELD_VALIDATION => [
                     Validator::TYPE_REQUIRED,
-                    Validator::TYPE_MIN_LENGTH => 3,
+                    Validator::TYPE_MIN_LENGTH => 40,
                     Validator::TYPE_MAX_LENGTH => 40,
                 ]
             ],

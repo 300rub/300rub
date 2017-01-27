@@ -3,6 +3,7 @@
 namespace testS\tests\unit\models;
 
 use testS\components\Db;
+use testS\components\Validator;
 use testS\models\AbstractModel;
 use testS\tests\unit\AbstractUnitTest;
 
@@ -95,6 +96,39 @@ abstract class AbstractModelTest extends AbstractUnitTest
                         break;
                     case AbstractModel::FIELD_TYPE_STRING:
                         $types = ["char", "varchar", "text"];
+                        if (array_key_exists(AbstractModel::FIELD_VALIDATION, $modelInfo)) {
+                            if (array_key_exists(
+                                    Validator::TYPE_MAX_LENGTH,
+                                    $modelInfo[AbstractModel::FIELD_VALIDATION]
+                                )
+                                &&
+                                array_key_exists(
+                                    Validator::TYPE_MIN_LENGTH,
+                                    $modelInfo[AbstractModel::FIELD_VALIDATION]
+                                )
+                                &&
+                                $modelInfo[AbstractModel::FIELD_VALIDATION][Validator::TYPE_MAX_LENGTH] ===
+                                $modelInfo[AbstractModel::FIELD_VALIDATION][Validator::TYPE_MIN_LENGTH]
+                            ) {
+                                $types = [
+                                    sprintf(
+                                        "char(%s)",
+                                        $modelInfo[AbstractModel::FIELD_VALIDATION][Validator::TYPE_MAX_LENGTH]
+                                    )
+                                ];
+                            } elseif (array_key_exists(
+                                Validator::TYPE_MAX_LENGTH,
+                                $modelInfo[AbstractModel::FIELD_VALIDATION]
+                            )
+                            ) {
+                                $types = [
+                                    sprintf(
+                                        "varchar(%s)",
+                                        $modelInfo[AbstractModel::FIELD_VALIDATION][Validator::TYPE_MAX_LENGTH]
+                                    )
+                                ];
+                            }
+                        }
                         break;
                     default:
                         break;
