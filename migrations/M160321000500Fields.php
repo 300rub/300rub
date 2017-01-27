@@ -86,7 +86,7 @@ class M160321000500Fields extends AbstractMigration
             ->createForeignKey(
                 "fieldInstances",
                 "fieldTemplateId",
-                "fieldInstances",
+                "fieldTemplates",
                 self::FK_CASCADE,
                 self::FK_CASCADE
             )
