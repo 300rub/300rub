@@ -9,7 +9,7 @@ use testS\components\Validator;
  *
  * @package testS\models
  */
-class UserSessionsModel extends AbstractModel
+class UserSessionModel extends AbstractModel
 {
 
     /**
@@ -61,7 +61,7 @@ class UserSessionsModel extends AbstractModel
                 self::FIELD_TYPE => self::FIELD_TYPE_STRING,
             ],
             "date"     => [
-                self::FIELD_TYPE => self::FIELD_TYPE_STRING,
+                self::FIELD_TYPE => self::FIELD_TYPE_DATETIME,
             ],
         ];
     }

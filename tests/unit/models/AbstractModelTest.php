@@ -94,7 +94,7 @@ abstract class AbstractModelTest extends AbstractUnitTest
                         $types = ["int"];
                         break;
                     case AbstractModel::FIELD_TYPE_STRING:
-                        $types = ["varchar", "text"];
+                        $types = ["char", "varchar", "text"];
                         break;
                     default:
                         break;
