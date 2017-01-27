@@ -65,8 +65,8 @@ class M160321000100Records extends AbstractMigration
                     "hasCoverZoom"      => self::TYPE_BOOL,
                     "hasDescription"    => self::TYPE_BOOL,
                     "hasAutoload"       => self::TYPE_BOOL,
-                    "shortCardDateType" => self::TYPE_SMALLINT_UNSIGNED,
-                    "fullCardDateType"  => self::TYPE_SMALLINT_UNSIGNED,
+                    "shortCardDateType" => self::TYPE_TINYINT_UNSIGNED,
+                    "fullCardDateType"  => self::TYPE_TINYINT_UNSIGNED,
                 ]
             )
             ->createForeignKey("records", "coverImagesId", "images")
@@ -106,8 +106,8 @@ class M160321000100Records extends AbstractMigration
                     "hasCover"            => self::TYPE_BOOL,
                     "hasCoverZoom"        => self::TYPE_BOOL,
                     "hasDescription"      => self::TYPE_BOOL,
-                    "dateType"            => self::TYPE_SMALLINT_UNSIGNED,
-                    "maxCount"            => self::TYPE_SMALLINT_UNSIGNED,
+                    "dateType"            => self::TYPE_TINYINT_UNSIGNED,
+                    "maxCount"            => self::TYPE_TINYINT_UNSIGNED,
                 ]
             )
             ->createForeignKey("recordClones", "recordId", "records")

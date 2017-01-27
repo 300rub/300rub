@@ -4,6 +4,7 @@ namespace testS\tests\unit\models;
 
 use testS\components\Db;
 use testS\components\Validator;
+use testS\components\ValueGenerator;
 use testS\models\AbstractModel;
 use testS\tests\unit\AbstractUnitTest;
 
@@ -93,6 +94,14 @@ abstract class AbstractModelTest extends AbstractUnitTest
                         break;
                     case AbstractModel::FIELD_TYPE_INT:
                         $types = ["int"];
+                        if (array_key_exists(AbstractModel::FIELD_VALUE, $modelInfo)) {
+                            if (array_key_exists(
+                                ValueGenerator::TYPE_ARRAY_KEY,
+                                $modelInfo[AbstractModel::FIELD_VALUE]
+                            )) {
+                                $types = ["tinyint(3) unsigned"];
+                            }
+                        }
                         break;
                     case AbstractModel::FIELD_TYPE_STRING:
                         $types = ["char", "varchar", "text"];
