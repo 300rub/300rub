@@ -61,7 +61,28 @@ abstract class AbstractModelTest extends AbstractUnitTest
             );
 
             $describeRow = $describeInfoList[$describeKey];
-            $this->assertEquals("NO", $describeRow["Null"]);
+
+            if (array_key_exists(AbstractModel::FIELD_ALLOW_NULL, $modelInfo)) {
+                $this->assertEquals(
+                    "YES",
+                    $describeRow["Null"],
+                    sprintf(
+                        "The value of column [%s] from table [%s] can be NULL",
+                        $modelField,
+                        $model->getTableName()
+                    )
+                );
+            } else {
+                $this->assertEquals(
+                    "NO",
+                    $describeRow["Null"],
+                    sprintf(
+                        "The value of column [%s] from table [%s] can not be NULL",
+                        $modelField,
+                        $model->getTableName()
+                    )
+                );
+            }
 
             if (array_key_exists(AbstractModel::FIELD_TYPE, $modelInfo)) {
                 $types = [];

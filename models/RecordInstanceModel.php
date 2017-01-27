@@ -64,7 +64,7 @@ class RecordInstanceModel extends AbstractModel
                 self::FIELD_RELATION => "ImageInstanceModel"
             ],
             "date"                      => [
-                self::FIELD_TYPE => self::FIELD_TYPE_STRING
+                self::FIELD_TYPE => self::FIELD_TYPE_DATETIME
             ],
             "sort"                      => [
                 self::FIELD_TYPE => self::FIELD_TYPE_INT

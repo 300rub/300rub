@@ -32,6 +32,7 @@ abstract class AbstractModel
     const FIELD_TYPE_FLOAT = "float";
     const FIELD_TYPE_BOOL = "bool";
     const FIELD_BEFORE_SAVE = "beforeSave";
+    const FIELD_ALLOW_NULL = "allowNull";
 
     /**
      * ID

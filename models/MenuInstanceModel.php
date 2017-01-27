@@ -35,7 +35,8 @@ class MenuInstanceModel extends AbstractModel
                 self::FIELD_RELATION_TO_PARENT => "MenuModel"
             ],
             "parentId"  => [
-                self::FIELD_RELATION_TO_PARENT => "MenuInstanceModel"
+                self::FIELD_RELATION_TO_PARENT => "MenuInstanceModel",
+                self::FIELD_ALLOW_NULL => true
             ],
             "sectionId" => [
                 self::FIELD_RELATION => "SectionModel"

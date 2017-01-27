@@ -45,7 +45,7 @@ class SearchQueryModel extends AbstractModel
                 ],
             ],
             "date"       => [
-                self::FIELD_TYPE => self::FIELD_TYPE_STRING,
+                self::FIELD_TYPE => self::FIELD_TYPE_DATETIME,
             ],
             "ip"         => [
                 self::FIELD_TYPE       => self::FIELD_TYPE_STRING,
