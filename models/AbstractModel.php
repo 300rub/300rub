@@ -2,6 +2,7 @@
 
 namespace testS\models;
 use testS\components\Db;
+use testS\components\exceptions\ModelException;
 
 /**
  * Abstract class for working with models
@@ -163,8 +164,49 @@ abstract class AbstractModel
         return $this;
     }
 
-    public function get()
+    /**
+     * Gets one or more fields
+     *
+     * @param string|string[] $param
+     *
+     * @return mixed
+     *
+     * @throws ModelException
+     */
+    public function get($param = null)
     {
-        return $this->fields;
+        if ($param === null) {
+            return $this->fields;
+        }
+
+        if (is_array($param)) {
+            $list = [];
+            foreach ($param as $field) {
+                if (!array_key_exists($field, $this->fields)) {
+                    throw new ModelException(
+                        "Unable to find field {field} for model {model}",
+                        [
+                            "field" => $field,
+                            "model" => get_class($this)
+                        ]
+                    );
+                }
+
+                $list[$field] = $this->fields[$field];
+            }
+
+            return $list;
+        }
+
+        if (!array_key_exists($param, $this->fields)) {
+            throw new ModelException(
+                "Unable to find field {field} for model {model}",
+                [
+                    "field" => $param,
+                    "model" => get_class($this)
+                ]
+            );
+        }
+        return $this->fields[$param];
     }
 }
