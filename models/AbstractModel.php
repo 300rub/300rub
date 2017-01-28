@@ -1,6 +1,7 @@
 <?php
 
 namespace testS\models;
+
 use testS\components\Db;
 use testS\components\exceptions\ModelException;
 
@@ -35,7 +36,7 @@ abstract class AbstractModel
      *
      * @var array
      */
-    protected $fields = [
+    private $_fields = [
         "id" => null
     ];
 
@@ -93,11 +94,11 @@ abstract class AbstractModel
     private function _createNullFields()
     {
         foreach ($this->getFieldsInfo() as $field => $info) {
-            $this->fields[$field] = null;
+            $this->_fields[$field] = null;
 
             if (array_key_exists(self::FIELD_RELATION, $info)) {
                 $relationField = substr($field, 0, -2) . "Model";
-                $this->fields[$relationField] = null;
+                $this->_fields[$relationField] = null;
             }
         }
 
@@ -164,6 +165,23 @@ abstract class AbstractModel
         return $this;
     }
 
+    public function set(array $fields)
+    {
+        $info = $this->getFieldsInfo();
+
+        foreach ($fields as $field => $value) {
+            if (!array_key_exists($field, $info)) {
+                continue;
+            }
+
+            $fieldInfo = $info[$field];
+
+            if (array_key_exists(self::FIELD_TYPE, $fieldInfo)) {
+
+            }
+        }
+    }
+
     /**
      * Gets one or more fields
      *
@@ -176,13 +194,13 @@ abstract class AbstractModel
     public function get($param = null)
     {
         if ($param === null) {
-            return $this->fields;
+            return $this->_fields;
         }
 
         if (is_array($param)) {
             $list = [];
             foreach ($param as $field) {
-                if (!array_key_exists($field, $this->fields)) {
+                if (!array_key_exists($field, $this->_fields)) {
                     throw new ModelException(
                         "Unable to find field {field} for model {model}",
                         [
@@ -192,13 +210,13 @@ abstract class AbstractModel
                     );
                 }
 
-                $list[$field] = $this->fields[$field];
+                $list[$field] = $this->_fields[$field];
             }
 
             return $list;
         }
 
-        if (!array_key_exists($param, $this->fields)) {
+        if (!array_key_exists($param, $this->_fields)) {
             throw new ModelException(
                 "Unable to find field {field} for model {model}",
                 [
@@ -207,6 +225,6 @@ abstract class AbstractModel
                 ]
             );
         }
-        return $this->fields[$param];
+        return $this->_fields[$param];
     }
 }

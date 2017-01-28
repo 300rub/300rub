@@ -26,29 +26,17 @@ class ValueGenerator
     const TYPE_URL = "url";
 
     /**
-     * Gets value by operator
+     * Generates a value
      *
-     * @param int $value1
-     * @param int $value2
-     * @param string $operator
-     * @param int $defaultValue
+     * @param string $type
+     * @param mixed  $value
+     * @param mixed  $param
      *
-     * @return float|int
+     * @return mixed
      */
-    private static function _getValueByOperator($value1, $value2, $operator, $defaultValue = 0)
+    public static function generate($type, $value, $param)
     {
-        switch ($operator) {
-            case "-":
-                return $value1 - $value2;
-            case "+":
-                return $value1 + $value2;
-            case "*":
-                return $value1 * $value2;
-            case "/":
-                return $value1 / $value2;
-            default:
-                return $defaultValue;
-        }
+
     }
 
     /**
@@ -229,5 +217,31 @@ class ValueGenerator
         $value = trim($value, "-");
 
         return $value;
+    }
+
+    /**
+     * Gets value by operator
+     *
+     * @param int $value1
+     * @param int $value2
+     * @param string $operator
+     * @param int $defaultValue
+     *
+     * @return float|int
+     */
+    private static function _getValueByOperator($value1, $value2, $operator, $defaultValue = 0)
+    {
+        switch ($operator) {
+            case "-":
+                return $value1 - $value2;
+            case "+":
+                return $value1 + $value2;
+            case "*":
+                return $value1 * $value2;
+            case "/":
+                return $value1 / $value2;
+            default:
+                return $defaultValue;
+        }
     }
 }

@@ -24,6 +24,6 @@ class DesignImageSimpleModelTest extends AbstractModelTest
 
     public function testA()
     {
-       // var_dump($this->getNewModel()->get());
+        var_dump($this->getNewModel()->get("containerDesignBlockId"));
     }
 }
