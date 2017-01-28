@@ -56,13 +56,13 @@ class CatalogBinModel extends AbstractModel
             "count"             => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
-                    ValueGenerator::TYPE_MIN => 0
+                    ValueGenerator::MIN => 0
                 ],
             ],
             "status"            => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
-                    ValueGenerator::TYPE_ARRAY_KEY => [
+                    ValueGenerator::ARRAY_KEY => [
                         self::getStatusList(),
                         self::STATUS_ADDED
                     ]

@@ -77,19 +77,19 @@ class FieldTemplateModel extends AbstractModel
                     Validator::TYPE_MAX_LENGTH => 255,
                 ],
                 self::FIELD_VALUE      => [
-                    ValueGenerator::TYPE_CLEAR_STRIP_TAGS
+                    ValueGenerator::CLEAR_STRIP_TAGS
                 ],
             ],
             "type"               => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
-                    ValueGenerator::TYPE_ARRAY_KEY => [self::getTypeList(), self::TYPE_TEXT_FIELD],
+                    ValueGenerator::ARRAY_KEY => [self::getTypeList(), self::TYPE_TEXT_FIELD],
                 ],
             ],
             "validationType"     => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
-                    ValueGenerator::TYPE_ARRAY_KEY => [self::getValidationTypeList(), self::VALIDATION_FREE_TEXT],
+                    ValueGenerator::ARRAY_KEY => [self::getValidationTypeList(), self::VALIDATION_FREE_TEXT],
                 ],
             ],
             "isHideForShortCard" => [

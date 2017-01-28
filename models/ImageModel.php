@@ -103,13 +103,13 @@ class ImageModel extends AbstractModel
             "type"                => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
-                    ValueGenerator::TYPE_ARRAY_KEY => [self::getTypeList(), self::TYPE_ZOOM]
+                    ValueGenerator::ARRAY_KEY => [self::getTypeList(), self::TYPE_ZOOM]
                 ],
             ],
             "autoCropType"        => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
-                    ValueGenerator::TYPE_ARRAY_KEY => [
+                    ValueGenerator::ARRAY_KEY => [
                         self::getAutoCropTypeList(),
                         self::AUTO_CROP_TYPE_MIDDLE_CENTER
                     ]
@@ -118,33 +118,33 @@ class ImageModel extends AbstractModel
             "cropWidth"           => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
-                    ValueGenerator::TYPE_MIN => 0,
-                    ValueGenerator::TYPE_MAX => ImageInstanceModel::MAX_SIZE
+                    ValueGenerator::MIN => 0,
+                    ValueGenerator::MAX => ImageInstanceModel::MAX_SIZE
                 ],
             ],
             "cropHeight"          => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
-                    ValueGenerator::TYPE_MIN => 0,
-                    ValueGenerator::TYPE_MAX => ImageInstanceModel::MAX_SIZE
+                    ValueGenerator::MIN => 0,
+                    ValueGenerator::MAX => ImageInstanceModel::MAX_SIZE
                 ],
             ],
             "cropX"               => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
-                    ValueGenerator::TYPE_MIN => 0,
+                    ValueGenerator::MIN => 0,
                 ],
             ],
             "cropY"               => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
-                    ValueGenerator::TYPE_MIN => 0,
+                    ValueGenerator::MIN => 0,
                 ],
             ],
             "thumbAutoCropType"   => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
-                    ValueGenerator::TYPE_ARRAY_KEY => [
+                    ValueGenerator::ARRAY_KEY => [
                         self::getAutoCropTypeList(),
                         self::AUTO_CROP_TYPE_MIDDLE_CENTER
                     ]
@@ -153,13 +153,13 @@ class ImageModel extends AbstractModel
             "thumbCropX"          => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
-                    ValueGenerator::TYPE_MIN => 0,
+                    ValueGenerator::MIN => 0,
                 ],
             ],
             "thumbCropY"          => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
-                    ValueGenerator::TYPE_MIN => 0,
+                    ValueGenerator::MIN => 0,
                 ],
             ],
             "useAlbums"           => [

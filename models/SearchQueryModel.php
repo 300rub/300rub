@@ -41,7 +41,7 @@ class SearchQueryModel extends AbstractModel
                     Validator::TYPE_MAX_LENGTH => 255
                 ],
                 self::FIELD_VALUE      => [
-                    ValueGenerator::TYPE_CLEAR_STRIP_TAGS
+                    ValueGenerator::CLEAR_STRIP_TAGS
                 ],
             ],
             "date"       => [

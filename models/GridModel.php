@@ -49,21 +49,21 @@ class GridModel extends AbstractModel
             "x"          => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
-                    ValueGenerator::TYPE_MIN => 0,
-                    ValueGenerator::TYPE_MAX => self::GRID_SIZE - 1
+                    ValueGenerator::MIN => 0,
+                    ValueGenerator::MAX => self::GRID_SIZE - 1
                 ]
             ],
             "y"          => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
-                    ValueGenerator::TYPE_MIN => 0
+                    ValueGenerator::MIN => 0
                 ]
             ],
             "width"      => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
-                    ValueGenerator::TYPE_MIN_THEN => [0, self::DEFAULT_WIDTH],
-                    ValueGenerator::TYPE_MAX      => [self::GRID_SIZE, "{x}", "-"]
+                    ValueGenerator::MIN_THEN => [0, self::DEFAULT_WIDTH],
+                    ValueGenerator::MAX      => [self::GRID_SIZE, "{x}", "-"]
                 ],
             ],
         ];

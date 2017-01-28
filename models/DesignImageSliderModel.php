@@ -117,7 +117,7 @@ class DesignImageSliderModel extends AbstractModel
             "effect"                   => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
-                    ValueGenerator::TYPE_ARRAY_KEY => [self::getEffectList(), self::EFFECT_NONE]
+                    ValueGenerator::ARRAY_KEY => [self::getEffectList(), self::EFFECT_NONE]
                 ],
             ],
             "hasAutoPlay"              => [
@@ -126,13 +126,13 @@ class DesignImageSliderModel extends AbstractModel
             "playSpeed"                => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
-                    ValueGenerator::TYPE_MIN => 0
+                    ValueGenerator::MIN => 0
                 ],
             ],
             "navigationAlignment"      => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
-                    ValueGenerator::TYPE_ARRAY_KEY => [
+                    ValueGenerator::ARRAY_KEY => [
                         self::getNavigationAlignmentList(),
                         self::NAVIGATION_ALIGNMENT_BOTTOM_CENTER
                     ]
@@ -141,7 +141,7 @@ class DesignImageSliderModel extends AbstractModel
             "descriptionAlignment"     => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
-                    ValueGenerator::TYPE_ARRAY_KEY => [
+                    ValueGenerator::ARRAY_KEY => [
                         self::getDescriptionAlignmentList(),
                         self::DESCRIPTION_ALIGNMENT_LEFT
                     ]

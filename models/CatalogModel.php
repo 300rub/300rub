@@ -75,7 +75,7 @@ class CatalogModel extends AbstractModel
             "shortCardDateType"  => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
-                    ValueGenerator::TYPE_ARRAY_KEY => [
+                    ValueGenerator::ARRAY_KEY => [
                         self::getDateTypeList(),
                         self::DATE_TYPE_COMMON
                     ]
@@ -84,7 +84,7 @@ class CatalogModel extends AbstractModel
             "fullCardDateType"   => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
-                    ValueGenerator::TYPE_ARRAY_KEY => [
+                    ValueGenerator::ARRAY_KEY => [
                         self::getDateTypeList(),
                         self::DATE_TYPE_COMMON
                     ]
@@ -99,7 +99,7 @@ class CatalogModel extends AbstractModel
                     Validator::TYPE_MAX_LENGTH => 255,
                 ],
                 self::FIELD_VALUE      => [
-                    ValueGenerator::TYPE_CLEAR_STRIP_TAGS
+                    ValueGenerator::CLEAR_STRIP_TAGS
                 ],
             ],
             "hasBin"             => [

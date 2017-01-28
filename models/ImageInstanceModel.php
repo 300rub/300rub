@@ -75,77 +75,77 @@ class ImageInstanceModel extends AbstractModel
             "alt"          => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_STRING,
                 self::FIELD_VALUE => [
-                    ValueGenerator::TYPE_CLEAR_STRIP_TAGS
+                    ValueGenerator::CLEAR_STRIP_TAGS
                 ],
             ],
             "width"        => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
-                    ValueGenerator::TYPE_MIN => self::MIN_SIZE,
-                    ValueGenerator::TYPE_MAX => self::MAX_SIZE
+                    ValueGenerator::MIN => self::MIN_SIZE,
+                    ValueGenerator::MAX => self::MAX_SIZE
                 ],
             ],
             "height"       => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
-                    ValueGenerator::TYPE_MIN => self::MIN_SIZE,
-                    ValueGenerator::TYPE_MAX => self::MAX_SIZE
+                    ValueGenerator::MIN => self::MIN_SIZE,
+                    ValueGenerator::MAX => self::MAX_SIZE
                 ],
             ],
             "x1"           => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
-                    ValueGenerator::TYPE_MIN => 0,
-                    ValueGenerator::TYPE_MAX => ["{width}", self::MIN_SIZE, "-"]
+                    ValueGenerator::MIN => 0,
+                    ValueGenerator::MAX => ["{width}", self::MIN_SIZE, "-"]
                 ],
             ],
             "y1"           => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
-                    ValueGenerator::TYPE_MIN => 0,
-                    ValueGenerator::TYPE_MAX => ["{height}", self::MIN_SIZE, "-"]
+                    ValueGenerator::MIN => 0,
+                    ValueGenerator::MAX => ["{height}", self::MIN_SIZE, "-"]
                 ],
             ],
             "x2"           => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
-                    ValueGenerator::TYPE_MIN => ["{x1}", self::MIN_SIZE, "+"],
-                    ValueGenerator::TYPE_MAX => "{width}"
+                    ValueGenerator::MIN => ["{x1}", self::MIN_SIZE, "+"],
+                    ValueGenerator::MAX => "{width}"
                 ],
             ],
             "y2"           => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
-                    ValueGenerator::TYPE_MIN => ["{y1}", self::MIN_SIZE, "+"],
-                    ValueGenerator::TYPE_MAX => "{height}"
+                    ValueGenerator::MIN => ["{y1}", self::MIN_SIZE, "+"],
+                    ValueGenerator::MAX => "{height}"
                 ]
             ],
             "thumbX1"      => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
-                    ValueGenerator::TYPE_MIN => 0,
-                    ValueGenerator::TYPE_MAX => self::MAX_THUMB_SIZE - self::MIN_SIZE
+                    ValueGenerator::MIN => 0,
+                    ValueGenerator::MAX => self::MAX_THUMB_SIZE - self::MIN_SIZE
                 ]
             ],
             "thumbY1"      => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
-                    ValueGenerator::TYPE_MIN => 0,
-                    ValueGenerator::TYPE_MAX => self::MAX_THUMB_SIZE - self::MIN_SIZE
+                    ValueGenerator::MIN => 0,
+                    ValueGenerator::MAX => self::MAX_THUMB_SIZE - self::MIN_SIZE
                 ]
             ],
             "thumbX2"      => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
-                    ValueGenerator::TYPE_MIN => ["{thumbX1}", self::MIN_SIZE, "+"],
-                    ValueGenerator::TYPE_MAX => self::MAX_THUMB_SIZE
+                    ValueGenerator::MIN => ["{thumbX1}", self::MIN_SIZE, "+"],
+                    ValueGenerator::MAX => self::MAX_THUMB_SIZE
                 ]
             ],
             "thumbY2"      => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
-                    ValueGenerator::TYPE_MIN => ["{thumbY1}", self::MIN_SIZE, "+"],
-                    ValueGenerator::TYPE_MAX => self::MAX_THUMB_SIZE
+                    ValueGenerator::MIN => ["{thumbY1}", self::MIN_SIZE, "+"],
+                    ValueGenerator::MAX => self::MAX_THUMB_SIZE
                 ]
             ],
         ];

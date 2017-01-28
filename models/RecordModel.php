@@ -82,7 +82,7 @@ class RecordModel extends AbstractModel
             "shortCardDateType"                => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
-                    ValueGenerator::TYPE_ARRAY_KEY => [
+                    ValueGenerator::ARRAY_KEY => [
                         self::getDateTypeList(),
                         self::DATE_TYPE_COMMON
                     ]
@@ -91,7 +91,7 @@ class RecordModel extends AbstractModel
             "fullCardDateType"                => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
-                    ValueGenerator::TYPE_ARRAY_KEY => [
+                    ValueGenerator::ARRAY_KEY => [
                         self::getDateTypeList(),
                         self::DATE_TYPE_COMMON
                     ]

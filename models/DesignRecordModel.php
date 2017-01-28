@@ -123,7 +123,7 @@ class DesignRecordModel extends AbstractModel
             "shortCardViewType"                    => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
-                    ValueGenerator::TYPE_ARRAY_KEY => [
+                    ValueGenerator::ARRAY_KEY => [
                         self::getShortCardViewTypeList(),
                         self::SHORT_CART_VIEW_TYPE_LIST
                     ]
@@ -132,7 +132,7 @@ class DesignRecordModel extends AbstractModel
             "fullCardImagesPosition"               => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
-                    ValueGenerator::TYPE_ARRAY_KEY => [
+                    ValueGenerator::ARRAY_KEY => [
                         self::getFullCardImagesPositionList(),
                         self::FULL_CART_IMAGE_POSITION_LEFT
                     ]
@@ -141,7 +141,7 @@ class DesignRecordModel extends AbstractModel
             "fullCardDatePosition"          => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
-                    ValueGenerator::TYPE_ARRAY_KEY => [
+                    ValueGenerator::ARRAY_KEY => [
                         self::getFullCardImagesPositionList(),
                         self::FULL_CART_DATE_POSITION_LEFT
                     ]

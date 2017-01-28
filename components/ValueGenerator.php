@@ -15,15 +15,15 @@ class ValueGenerator
     /**
      * Types
      */
-    const TYPE_MIN = "min";
-    const TYPE_MAX = "max";
-    const TYPE_MIN_THEN = "minThen";
-    const TYPE_COLOR = "color";
-    const TYPE_CLEAR_STRIP_TAGS = "clearStripTags";
-    const TYPE_COPY_NAME = "copyName";
-    const TYPE_COPY_URL = "copyUrl";
-    const TYPE_ARRAY_KEY = "arrayKey";
-    const TYPE_URL = "url";
+    const MIN = "min";
+    const MAX = "max";
+    const MIN_THEN = "minThen";
+    const COLOR = "color";
+    const CLEAR_STRIP_TAGS = "clearStripTags";
+    const COPY_NAME = "copyName";
+    const COPY_URL = "copyUrl";
+    const ARRAY_KEY = "arrayKey";
+    const URL = "url";
 
     /**
      * Generates a value

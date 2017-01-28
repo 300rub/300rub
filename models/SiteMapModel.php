@@ -59,7 +59,7 @@ class SiteMapModel extends AbstractModel
             "style"                  => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
-                    ValueGenerator::TYPE_ARRAY_KEY => [
+                    ValueGenerator::ARRAY_KEY => [
                         self::getStyleList(),
                         self::STYLE_COMMON
                     ]

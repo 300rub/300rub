@@ -100,7 +100,7 @@ class DesignImageZoomModel extends AbstractModel
             "thumbsAlignment"      => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
-                    ValueGenerator::TYPE_ARRAY_KEY => [
+                    ValueGenerator::ARRAY_KEY => [
                         self::getThumbsAlignmentList(),
                         self::THUMBS_ALIGNMENT_NONE
                     ]
@@ -109,7 +109,7 @@ class DesignImageZoomModel extends AbstractModel
             "descriptionAlignment" => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
-                    ValueGenerator::TYPE_ARRAY_KEY => [
+                    ValueGenerator::ARRAY_KEY => [
                         self::getDescriptionAlignmentList(),
                         self::DESCRIPTION_ALIGNMENT_NONE
                     ]
@@ -118,7 +118,7 @@ class DesignImageZoomModel extends AbstractModel
             "effect"               => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
-                    ValueGenerator::TYPE_ARRAY_KEY => [self::getEffectList(), self::EFFECT_NONE]
+                    ValueGenerator::ARRAY_KEY => [self::getEffectList(), self::EFFECT_NONE]
                 ],
             ],
         ];

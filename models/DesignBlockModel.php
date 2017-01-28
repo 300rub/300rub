@@ -119,49 +119,49 @@ class DesignBlockModel extends AbstractModel
             "marginTop"                => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
-                    ValueGenerator::TYPE_MIN => self::MIN_MARGIN_VALUE
+                    ValueGenerator::MIN => self::MIN_MARGIN_VALUE
                 ],
             ],
             "marginTopHover"           => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
-                    ValueGenerator::TYPE_MIN => self::MIN_MARGIN_VALUE
+                    ValueGenerator::MIN => self::MIN_MARGIN_VALUE
                 ],
             ],
             "marginRight"              => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
-                    ValueGenerator::TYPE_MIN => self::MIN_MARGIN_VALUE
+                    ValueGenerator::MIN => self::MIN_MARGIN_VALUE
                 ],
             ],
             "marginRightHover"         => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
-                    ValueGenerator::TYPE_MIN => self::MIN_MARGIN_VALUE
+                    ValueGenerator::MIN => self::MIN_MARGIN_VALUE
                 ],
             ],
             "marginBottom"             => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
-                    ValueGenerator::TYPE_MIN => self::MIN_MARGIN_VALUE
+                    ValueGenerator::MIN => self::MIN_MARGIN_VALUE
                 ],
             ],
             "marginBottomHover"        => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
-                    ValueGenerator::TYPE_MIN => self::MIN_MARGIN_VALUE
+                    ValueGenerator::MIN => self::MIN_MARGIN_VALUE
                 ],
             ],
             "marginLeft"               => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
-                    ValueGenerator::TYPE_MIN => self::MIN_MARGIN_VALUE
+                    ValueGenerator::MIN => self::MIN_MARGIN_VALUE
                 ],
             ],
             "marginLeftHover"          => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
-                    ValueGenerator::TYPE_MIN => self::MIN_MARGIN_VALUE
+                    ValueGenerator::MIN => self::MIN_MARGIN_VALUE
                 ],
             ],
             "hasMarginAnimation"       => [
@@ -170,49 +170,49 @@ class DesignBlockModel extends AbstractModel
             "paddingTop"               => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
-                    ValueGenerator::TYPE_MIN => 0
+                    ValueGenerator::MIN => 0
                 ],
             ],
             "paddingTopHover"          => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
-                    ValueGenerator::TYPE_MIN => 0
+                    ValueGenerator::MIN => 0
                 ],
             ],
             "paddingRight"             => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
-                    ValueGenerator::TYPE_MIN => 0
+                    ValueGenerator::MIN => 0
                 ],
             ],
             "paddingRightHover"        => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
-                    ValueGenerator::TYPE_MIN => 0
+                    ValueGenerator::MIN => 0
                 ],
             ],
             "paddingBottom"            => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
-                    ValueGenerator::TYPE_MIN => 0
+                    ValueGenerator::MIN => 0
                 ],
             ],
             "paddingBottomHover"       => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
-                    ValueGenerator::TYPE_MIN => 0
+                    ValueGenerator::MIN => 0
                 ],
             ],
             "paddingLeft"              => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
-                    ValueGenerator::TYPE_MIN => 0
+                    ValueGenerator::MIN => 0
                 ],
             ],
             "paddingLeftHover"         => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
-                    ValueGenerator::TYPE_MIN => 0
+                    ValueGenerator::MIN => 0
                 ],
             ],
             "hasPaddingAnimation"      => [
@@ -221,31 +221,31 @@ class DesignBlockModel extends AbstractModel
             "backgroundColorFrom"      => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_STRING,
                 self::FIELD_VALUE => [
-                    ValueGenerator::TYPE_COLOR
+                    ValueGenerator::COLOR
                 ],
             ],
             "backgroundColorFromHover" => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_STRING,
                 self::FIELD_VALUE => [
-                    ValueGenerator::TYPE_COLOR
+                    ValueGenerator::COLOR
                 ],
             ],
             "backgroundColorTo"        => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_STRING,
                 self::FIELD_VALUE => [
-                    ValueGenerator::TYPE_COLOR
+                    ValueGenerator::COLOR
                 ],
             ],
             "backgroundColorToHover"   => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_STRING,
                 self::FIELD_VALUE => [
-                    ValueGenerator::TYPE_COLOR
+                    ValueGenerator::COLOR
                 ],
             ],
             "gradientDirection"        => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
-                    ValueGenerator::TYPE_ARRAY_KEY => [
+                    ValueGenerator::ARRAY_KEY => [
                         self::$gradientDirectionList,
                         self::GRADIENT_DIRECTION_HORIZONTAL
                     ]
@@ -254,7 +254,7 @@ class DesignBlockModel extends AbstractModel
             "gradientDirectionHover"   => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
-                    ValueGenerator::TYPE_ARRAY_KEY => [
+                    ValueGenerator::ARRAY_KEY => [
                         self::$gradientDirectionList,
                         self::GRADIENT_DIRECTION_HORIZONTAL
                     ]
@@ -267,49 +267,49 @@ class DesignBlockModel extends AbstractModel
             "borderTopLeftRadius"          => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
-                    ValueGenerator::TYPE_MIN => 0
+                    ValueGenerator::MIN => 0
                 ],
             ],
             "borderTopLeftRadiusHover"     => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
-                    ValueGenerator::TYPE_MIN => 0
+                    ValueGenerator::MIN => 0
                 ],
             ],
             "borderTopRightRadius"         => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
-                    ValueGenerator::TYPE_MIN => 0
+                    ValueGenerator::MIN => 0
                 ],
             ],
             "borderTopRightRadiusHover"    => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
-                    ValueGenerator::TYPE_MIN => 0
+                    ValueGenerator::MIN => 0
                 ],
             ],
             "borderBottomRightRadius"      => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
-                    ValueGenerator::TYPE_MIN => 0
+                    ValueGenerator::MIN => 0
                 ],
             ],
             "borderBottomRightRadiusHover" => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
-                    ValueGenerator::TYPE_MIN => 0
+                    ValueGenerator::MIN => 0
                 ],
             ],
             "borderBottomLeftRadius"       => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
-                    ValueGenerator::TYPE_MIN => 0
+                    ValueGenerator::MIN => 0
                 ],
             ],
             "borderBottomLeftRadiusHover"  => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
-                    ValueGenerator::TYPE_MIN => 0
+                    ValueGenerator::MIN => 0
                 ],
             ],
             "hasBorderRadiusAnimation"     => [
@@ -318,73 +318,73 @@ class DesignBlockModel extends AbstractModel
             "borderTopWidth"               => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
-                    ValueGenerator::TYPE_MIN => 0
+                    ValueGenerator::MIN => 0
                 ],
             ],
             "borderTopWidthHover"          => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
-                    ValueGenerator::TYPE_MIN => 0
+                    ValueGenerator::MIN => 0
                 ],
             ],
             "borderRightWidth"             => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
-                    ValueGenerator::TYPE_MIN => 0
+                    ValueGenerator::MIN => 0
                 ],
             ],
             "borderRightWidthHover"        => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
-                    ValueGenerator::TYPE_MIN => 0
+                    ValueGenerator::MIN => 0
                 ],
             ],
             "borderBottomWidth"            => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
-                    ValueGenerator::TYPE_MIN => 0
+                    ValueGenerator::MIN => 0
                 ],
             ],
             "borderBottomWidthHover"       => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
-                    ValueGenerator::TYPE_MIN => 0
+                    ValueGenerator::MIN => 0
                 ],
             ],
             "borderLeftWidth"              => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
-                    ValueGenerator::TYPE_MIN => 0
+                    ValueGenerator::MIN => 0
                 ],
             ],
             "borderLeftWidthHover"         => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
-                    ValueGenerator::TYPE_MIN => 0
+                    ValueGenerator::MIN => 0
                 ],
             ],
             "borderColor"                  => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_STRING,
                 self::FIELD_VALUE => [
-                    ValueGenerator::TYPE_COLOR
+                    ValueGenerator::COLOR
                 ],
             ],
             "borderColorHover"             => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_STRING,
                 self::FIELD_VALUE => [
-                    ValueGenerator::TYPE_COLOR
+                    ValueGenerator::COLOR
                 ],
             ],
             "borderStyle"                  => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
-                    ValueGenerator::TYPE_ARRAY_KEY => [self::$borderStyleList, self::BORDER_STYLE_NONE]
+                    ValueGenerator::ARRAY_KEY => [self::$borderStyleList, self::BORDER_STYLE_NONE]
                 ],
             ],
             "borderStyleHover"             => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
-                    ValueGenerator::TYPE_ARRAY_KEY => [self::$borderStyleList, self::BORDER_STYLE_NONE]
+                    ValueGenerator::ARRAY_KEY => [self::$borderStyleList, self::BORDER_STYLE_NONE]
                 ],
             ],
             "hasBorderAnimation"           => [
@@ -393,7 +393,7 @@ class DesignBlockModel extends AbstractModel
             "width"                        => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
-                    ValueGenerator::TYPE_MIN => 0
+                    ValueGenerator::MIN => 0
                 ],
             ],
         ];

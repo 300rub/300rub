@@ -78,7 +78,7 @@ class FormInstanceModel extends AbstractModel
                     Validator::TYPE_MAX_LENGTH => 255
                 ],
                 self::FIELD_VALUE      => [
-                    ValueGenerator::TYPE_CLEAR_STRIP_TAGS
+                    ValueGenerator::CLEAR_STRIP_TAGS
                 ],
             ],
             "isRequired"     => [
@@ -87,7 +87,7 @@ class FormInstanceModel extends AbstractModel
             "validationType" => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
-                    ValueGenerator::TYPE_ARRAY_KEY => [
+                    ValueGenerator::ARRAY_KEY => [
                         self::getValidationTypeList(),
                         self::VALIDATION_TYPE_FREE_TEXT
                     ]
@@ -96,7 +96,7 @@ class FormInstanceModel extends AbstractModel
             "type"           => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
-                    ValueGenerator::TYPE_ARRAY_KEY => [
+                    ValueGenerator::ARRAY_KEY => [
                         self::getTypeList(),
                         self::TYPE_TEXT_FIELD
                     ]

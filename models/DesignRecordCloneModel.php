@@ -71,7 +71,7 @@ class DesignRecordCloneModel extends AbstractModel
             "viewType"                 => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
-                    ValueGenerator::TYPE_ARRAY_KEY => [
+                    ValueGenerator::ARRAY_KEY => [
                         self::getViewTypeList(),
                         self::VIEW_TYPE_LIST
                     ]

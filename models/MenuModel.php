@@ -55,7 +55,7 @@ class MenuModel extends AbstractModel
             "type"       => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
-                    ValueGenerator::TYPE_ARRAY_KEY => [
+                    ValueGenerator::ARRAY_KEY => [
                         self::getTypeList(),
                         self::TYPE_VERTICAL
                     ]

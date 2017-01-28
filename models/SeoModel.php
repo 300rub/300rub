@@ -38,10 +38,10 @@ class SeoModel extends AbstractModel
                     Validator::TYPE_MAX_LENGTH => 255
                 ],
                 self::FIELD_VALUE               => [
-                    ValueGenerator::TYPE_CLEAR_STRIP_TAGS
+                    ValueGenerator::CLEAR_STRIP_TAGS
                 ],
                 self::FIELD_CHANGE_ON_DUPLICATE => [
-                    ValueGenerator::TYPE_COPY_NAME
+                    ValueGenerator::COPY_NAME
                 ],
             ],
             "url"         => [
@@ -52,11 +52,11 @@ class SeoModel extends AbstractModel
                     Validator::TYPE_MAX_LENGTH => 255
                 ],
                 self::FIELD_VALUE               => [
-                    ValueGenerator::TYPE_CLEAR_STRIP_TAGS,
-                    ValueGenerator::TYPE_URL => "{name}"
+                    ValueGenerator::CLEAR_STRIP_TAGS,
+                    ValueGenerator::URL => "{name}"
                 ],
                 self::FIELD_CHANGE_ON_DUPLICATE => [
-                    ValueGenerator::TYPE_COPY_URL
+                    ValueGenerator::COPY_URL
                 ]
             ],
             "title"       => [
@@ -65,7 +65,7 @@ class SeoModel extends AbstractModel
                     Validator::TYPE_MAX_LENGTH => 100
                 ],
                 self::FIELD_VALUE            => [
-                    ValueGenerator::TYPE_CLEAR_STRIP_TAGS,
+                    ValueGenerator::CLEAR_STRIP_TAGS,
                 ],
                 self::FIELD_SKIP_DUPLICATION => true,
             ],
@@ -75,7 +75,7 @@ class SeoModel extends AbstractModel
                     Validator::TYPE_MAX_LENGTH => 255
                 ],
                 self::FIELD_VALUE            => [
-                    ValueGenerator::TYPE_CLEAR_STRIP_TAGS,
+                    ValueGenerator::CLEAR_STRIP_TAGS,
                 ],
                 self::FIELD_SKIP_DUPLICATION => true,
             ],
@@ -85,7 +85,7 @@ class SeoModel extends AbstractModel
                     Validator::TYPE_MAX_LENGTH => 255
                 ],
                 self::FIELD_VALUE            => [
-                    ValueGenerator::TYPE_CLEAR_STRIP_TAGS,
+                    ValueGenerator::CLEAR_STRIP_TAGS,
                 ],
                 self::FIELD_SKIP_DUPLICATION => true,
             ],

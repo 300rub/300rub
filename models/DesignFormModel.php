@@ -110,7 +110,7 @@ class DesignFormModel extends AbstractModel
             "submitIconPosition"       => [
                 self::FIELD_TYPE => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
-                    ValueGenerator::TYPE_ARRAY_KEY => [
+                    ValueGenerator::ARRAY_KEY => [
                         self::getSubmitIconPositionList(),
                         self::SUBMIT_ICON_POSITION_NONE
                     ]
@@ -119,7 +119,7 @@ class DesignFormModel extends AbstractModel
             "submitAlignment"       => [
                 self::FIELD_TYPE => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
-                    ValueGenerator::TYPE_ARRAY_KEY => [
+                    ValueGenerator::ARRAY_KEY => [
                         self::getSubmitAlignmentList(),
                         self::SUBMIT_ALIGNMENT_RIGHT
                     ]

@@ -62,22 +62,22 @@ class BlockModel extends AbstractModel
                     Validator::TYPE_MAX_LENGTH => 255
                 ],
                 self::FIELD_VALUE               => [
-                    ValueGenerator::TYPE_CLEAR_STRIP_TAGS
+                    ValueGenerator::CLEAR_STRIP_TAGS
                 ],
                 self::FIELD_CHANGE_ON_DUPLICATE => [
-                    ValueGenerator::TYPE_COPY_NAME
+                    ValueGenerator::COPY_NAME
                 ],
             ],
             "language"    => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
-                    ValueGenerator::TYPE_ARRAY_KEY => [Language::$aliasList, Language::getActiveId()]
+                    ValueGenerator::ARRAY_KEY => [Language::$aliasList, Language::getActiveId()]
                 ],
             ],
             "contentType" => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
-                    ValueGenerator::TYPE_ARRAY_KEY => [self::$typeList]
+                    ValueGenerator::ARRAY_KEY => [self::$typeList]
                 ],
             ],
             "contentId"   => [

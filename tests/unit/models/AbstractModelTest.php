@@ -168,7 +168,7 @@ abstract class AbstractModelTest extends AbstractUnitTest
                 $types = ["int"];
                 if (array_key_exists(AbstractModel::FIELD_VALUE, $modelInfo)) {
                     if (array_key_exists(
-                        ValueGenerator::TYPE_ARRAY_KEY,
+                        ValueGenerator::ARRAY_KEY,
                         $modelInfo[AbstractModel::FIELD_VALUE]
                     )) {
                         $types = ["tinyint(3) unsigned"];
