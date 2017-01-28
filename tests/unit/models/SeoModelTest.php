@@ -2,6 +2,8 @@
 
 namespace testS\tests\unit\models;
 
+use testS\models\SeoModel;
+
 /**
  * Tests for the model SeoModel
  *
@@ -13,10 +15,10 @@ class SeoModelTest extends AbstractModelTest
     /**
      * Gets model name
      *
-     * @return string
+     * @return SeoModel
      */
-    protected function getModelName()
+    protected function getNewModel()
     {
-        return "SeoModel";
+        return new SeoModel();
     }
 }

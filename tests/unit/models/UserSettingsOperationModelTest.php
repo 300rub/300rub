@@ -2,6 +2,8 @@
 
 namespace testS\tests\unit\models;
 
+use testS\models\UserSettingsOperationModel;
+
 /**
  * Tests for the model UserSettingsOperationModel
  *
@@ -13,10 +15,10 @@ class UserSettingsOperationModelTest extends AbstractModelTest
     /**
      * Gets model name
      *
-     * @return string
+     * @return UserSettingsOperationModel
      */
-    protected function getModelName()
+    protected function getNewModel()
     {
-        return "UserSettingsOperationModel";
+        return new UserSettingsOperationModel();
     }
 }

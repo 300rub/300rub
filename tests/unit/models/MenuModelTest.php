@@ -2,6 +2,8 @@
 
 namespace testS\tests\unit\models;
 
+use testS\models\MenuModel;
+
 /**
  * Tests for the model MenuModel
  *
@@ -15,8 +17,8 @@ class MenuModelTest extends AbstractModelTest
      *
      * @return string
      */
-    protected function getModelName()
+    protected function getNewModel()
     {
-        return "MenuModel";
+        return new MenuModel();
     }
 }

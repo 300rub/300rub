@@ -19,32 +19,28 @@ abstract class AbstractModelTest extends AbstractUnitTest
     /**
      * Model object
      *
-     * @return string
+     * @return AbstractModel
      */
-    abstract protected function getModelName();
+    abstract protected function getNewModel();
 
     /**
      * DB Table structure test
      */
     public function testTableStructure()
     {
-        $modelName = sprintf("\\testS\\models\\%s", $this->getModelName());
-
-        /**
-         * @var AbstractModel $model
-         */
-        $model = new $modelName;
+        $model = $this->getNewModel();
         $describeInfoList = Db::fetchAll(sprintf("DESCRIBE %s", $model->getTableName()));
-//        foreach ($describeInfoList as $describeInfo) {
-//            $this->assertTrue(
-//                property_exists($model, $describeInfo["Field"]),
-//                sprintf(
-//                    "Unable to find property [%s] for model [%s]",
-//                    $describeInfo["Field"],
-//                    $this->getModelName()
-//                )
-//            );
-//        }
+        $fields = $model->get();
+        foreach ($describeInfoList as $describeInfo) {
+            $this->assertTrue(
+                array_key_exists($describeInfo["Field"], $fields),
+                sprintf(
+                    "Unable to find property [%s] for model [%s]",
+                    $describeInfo["Field"],
+                    get_class($model)
+                )
+            );
+        }
 
         $modelInfoList = $model->getFieldsInfo();
         foreach ($modelInfoList as $modelField => $modelInfo) {

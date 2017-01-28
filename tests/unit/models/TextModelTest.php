@@ -2,6 +2,8 @@
 
 namespace testS\tests\unit\models;
 
+use testS\models\TextModel;
+
 /**
  * Tests for the model TextModel
  *
@@ -13,10 +15,10 @@ class TextModelTest extends AbstractModelTest
     /**
      * Gets model name
      *
-     * @return string
+     * @return TextModel
      */
-    protected function getModelName()
+    protected function getNewModel()
     {
-        return "TextModel";
+        return new TextModel();
     }
 }

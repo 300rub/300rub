@@ -2,6 +2,8 @@
 
 namespace testS\tests\unit\models;
 
+use testS\models\FeedbackModel;
+
 /**
  * Tests for the model FeedbackModel
  *
@@ -13,10 +15,10 @@ class FeedbackModelTest extends AbstractModelTest
     /**
      * Gets model name
      *
-     * @return string
+     * @return FeedbackModel
      */
-    protected function getModelName()
+    protected function getNewModel()
     {
-        return "FeedbackModel";
+        return new FeedbackModel();
     }
 }

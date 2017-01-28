@@ -2,6 +2,8 @@
 
 namespace testS\tests\unit\models;
 
+use testS\models\BlockModel;
+
 /**
  * Tests for the model BlockModel
  *
@@ -13,10 +15,10 @@ class BlockModelTest extends AbstractModelTest
     /**
      * Gets model name
      *
-     * @return string
+     * @return BlockModel
      */
-    protected function getModelName()
+    protected function getNewModel()
     {
-        return "BlockModel";
+        return new BlockModel();
     }
 }

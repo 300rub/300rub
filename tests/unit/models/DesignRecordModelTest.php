@@ -2,6 +2,8 @@
 
 namespace testS\tests\unit\models;
 
+use testS\models\DesignRecordModel;
+
 /**
  * Tests for the model DesignRecordModel
  *
@@ -13,10 +15,10 @@ class DesignRecordModelTest extends AbstractModelTest
     /**
      * Gets model name
      *
-     * @return string
+     * @return DesignRecordModel
      */
-    protected function getModelName()
+    protected function getNewModel()
     {
-        return "DesignRecordModel";
+        return new DesignRecordModel();
     }
 }

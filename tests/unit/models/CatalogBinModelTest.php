@@ -2,6 +2,8 @@
 
 namespace testS\tests\unit\models;
 
+use testS\models\CatalogBinModel;
+
 /**
  * Tests for the model CatalogBinModel
  *
@@ -13,10 +15,10 @@ class CatalogBinModelTest extends AbstractModelTest
     /**
      * Gets model name
      *
-     * @return string
+     * @return CatalogBinModel
      */
-    protected function getModelName()
+    protected function getNewModel()
     {
-        return "CatalogBinModel";
+        return new CatalogBinModel();
     }
 }

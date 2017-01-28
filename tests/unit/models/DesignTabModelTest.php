@@ -2,6 +2,8 @@
 
 namespace testS\tests\unit\models;
 
+use testS\models\DesignTabModel;
+
 /**
  * Tests for the model DesignTabModel
  *
@@ -13,10 +15,10 @@ class DesignTabModelTest extends AbstractModelTest
     /**
      * Gets model name
      *
-     * @return string
+     * @return DesignTabModel
      */
-    protected function getModelName()
+    protected function getNewModel()
     {
-        return "DesignTabModel";
+        return new DesignTabModel();
     }
 }

@@ -2,6 +2,8 @@
 
 namespace testS\tests\unit\models;
 
+use testS\models\DesignTextModel;
+
 /**
  * Tests for the model DesignTextModel
  *
@@ -15,8 +17,8 @@ class DesignTextModelTest extends AbstractModelTest
      *
      * @return string
      */
-    protected function getModelName()
+    protected function getNewModel()
     {
-        return "DesignTextModel";
+        return new DesignTextModel();
     }
 }

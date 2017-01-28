@@ -2,6 +2,8 @@
 
 namespace testS\tests\unit\models;
 
+use testS\models\SettingModel;
+
 /**
  * Tests for the model SettingModel
  *
@@ -13,10 +15,10 @@ class SettingModelTest extends AbstractModelTest
     /**
      * Gets model name
      *
-     * @return string
+     * @return SettingModel
      */
-    protected function getModelName()
+    protected function getNewModel()
     {
-        return "SettingModel";
+        return new SettingModel();
     }
 }

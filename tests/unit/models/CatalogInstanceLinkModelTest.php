@@ -2,6 +2,8 @@
 
 namespace testS\tests\unit\models;
 
+use testS\models\CatalogInstanceLinkModel;
+
 /**
  * Tests for the model CatalogInstanceLinkModel
  *
@@ -13,10 +15,10 @@ class CatalogInstanceLinkModelTest extends AbstractModelTest
     /**
      * Gets model name
      *
-     * @return string
+     * @return CatalogInstanceLinkModel
      */
-    protected function getModelName()
+    protected function getNewModel()
     {
-        return "CatalogInstanceLinkModel";
+        return new CatalogInstanceLinkModel();
     }
 }

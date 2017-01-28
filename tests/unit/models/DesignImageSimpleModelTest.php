@@ -2,6 +2,8 @@
 
 namespace testS\tests\unit\models;
 
+use testS\models\DesignImageSimpleModel;
+
 /**
  * Tests for the model DesignImageSimpleModel
  *
@@ -13,10 +15,15 @@ class DesignImageSimpleModelTest extends AbstractModelTest
     /**
      * Gets model name
      *
-     * @return string
+     * @return DesignImageSimpleModel
      */
-    protected function getModelName()
+    protected function getNewModel()
     {
-        return "DesignImageSimpleModel";
+        return new DesignImageSimpleModel();
+    }
+
+    public function testA()
+    {
+       // var_dump($this->getNewModel()->get());
     }
 }

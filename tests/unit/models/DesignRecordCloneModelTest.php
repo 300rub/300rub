@@ -2,6 +2,8 @@
 
 namespace testS\tests\unit\models;
 
+use testS\models\DesignRecordCloneModel;
+
 /**
  * Tests for the model DesignRecordCloneModel
  *
@@ -15,8 +17,8 @@ class DesignRecordCloneModelTest extends AbstractModelTest
      *
      * @return string
      */
-    protected function getModelName()
+    protected function getNewModel()
     {
-        return "DesignRecordCloneModel";
+        return new DesignRecordCloneModel();
     }
 }

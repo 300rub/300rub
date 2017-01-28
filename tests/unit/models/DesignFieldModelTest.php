@@ -2,6 +2,8 @@
 
 namespace testS\tests\unit\models;
 
+use testS\models\DesignFieldModel;
+
 /**
  * Tests for the model DesignFieldModel
  *
@@ -13,10 +15,10 @@ class DesignFieldModelTest extends AbstractModelTest
     /**
      * Gets model name
      *
-     * @return string
+     * @return DesignFieldModel
      */
-    protected function getModelName()
+    protected function getNewModel()
     {
-        return "DesignFieldModel";
+        return new DesignFieldModel();
     }
 }

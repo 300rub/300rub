@@ -2,6 +2,8 @@
 
 namespace testS\tests\unit\models;
 
+use testS\models\RecordModel;
+
 /**
  * Tests for the model RecordModel
  *
@@ -13,10 +15,10 @@ class RecordModelTest extends AbstractModelTest
     /**
      * Gets model name
      *
-     * @return string
+     * @return RecordModel
      */
-    protected function getModelName()
+    protected function getNewModel()
     {
-        return "RecordModel";
+        return new RecordModel();
     }
 }

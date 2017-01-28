@@ -2,6 +2,8 @@
 
 namespace testS\tests\unit\models;
 
+use testS\models\DesignImageSliderModel;
+
 /**
  * Tests for the model DesignImageSliderModel
  *
@@ -13,10 +15,10 @@ class DesignImageSliderModelTest extends AbstractModelTest
     /**
      * Gets model name
      *
-     * @return string
+     * @return DesignImageSliderModel
      */
-    protected function getModelName()
+    protected function getNewModel()
     {
-        return "DesignImageSliderModel";
+        return new DesignImageSliderModel();
     }
 }

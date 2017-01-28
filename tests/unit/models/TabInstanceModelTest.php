@@ -2,6 +2,8 @@
 
 namespace testS\tests\unit\models;
 
+use testS\models\TabInstanceModel;
+
 /**
  * Tests for the model TabInstanceModel
  *
@@ -13,10 +15,10 @@ class TabInstanceModelTest extends AbstractModelTest
     /**
      * Gets model name
      *
-     * @return string
+     * @return TabInstanceModel
      */
-    protected function getModelName()
+    protected function getNewModel()
     {
-        return "TabInstanceModel";
+        return new TabInstanceModel();
     }
 }

@@ -2,6 +2,8 @@
 
 namespace testS\tests\unit\models;
 
+use testS\models\FieldGroupModel;
+
 /**
  * Tests for the model FieldGroupModel
  *
@@ -13,10 +15,10 @@ class FieldGroupModelTest extends AbstractModelTest
     /**
      * Gets model name
      *
-     * @return string
+     * @return FieldGroupModel
      */
-    protected function getModelName()
+    protected function getNewModel()
     {
-        return "FieldGroupModel";
+        return new FieldGroupModel();
     }
 }

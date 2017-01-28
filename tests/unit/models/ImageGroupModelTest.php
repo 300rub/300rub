@@ -2,6 +2,8 @@
 
 namespace testS\tests\unit\models;
 
+use testS\models\ImageGroupModel;
+
 /**
  * Tests for the model ImageGroupModel
  *
@@ -13,10 +15,10 @@ class ImageGroupModelTest extends AbstractModelTest
     /**
      * Gets model name
      *
-     * @return string
+     * @return ImageGroupModel
      */
-    protected function getModelName()
+    protected function getNewModel()
     {
-        return "ImageGroupModel";
+        return new ImageGroupModel();
     }
 }

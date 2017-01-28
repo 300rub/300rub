@@ -2,6 +2,8 @@
 
 namespace testS\tests\unit\models;
 
+use testS\models\GridLineModel;
+
 /**
  * Tests for the model GridLineModel
  *
@@ -13,10 +15,10 @@ class GridLineModelTest extends AbstractModelTest
     /**
      * Gets model name
      *
-     * @return string
+     * @return GridLineModel
      */
-    protected function getModelName()
+    protected function getNewModel()
     {
-        return "GridLineModel";
+        return new GridLineModel();
     }
 }

@@ -2,6 +2,8 @@
 
 namespace testS\tests\unit\models;
 
+use testS\models\DesignBlockModel;
+
 /**
  * Tests for the model DesignBlockModel
  *
@@ -13,10 +15,10 @@ class DesignBlockModelTest extends AbstractModelTest
     /**
      * Gets model name
      *
-     * @return string
+     * @return DesignBlockModel
      */
-    protected function getModelName()
+    protected function getNewModel()
     {
-        return "DesignBlockModel";
+        return new DesignBlockModel();
     }
 }

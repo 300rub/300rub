@@ -2,6 +2,8 @@
 
 namespace testS\tests\unit\models;
 
+use testS\models\SiteMapModel;
+
 /**
  * Tests for the model SiteMapModel
  *
@@ -13,10 +15,10 @@ class SiteMapModelTest extends AbstractModelTest
     /**
      * Gets model name
      *
-     * @return string
+     * @return SiteMapModel
      */
-    protected function getModelName()
+    protected function getNewModel()
     {
-        return "SiteMapModel";
+        return new SiteMapModel();
     }
 }

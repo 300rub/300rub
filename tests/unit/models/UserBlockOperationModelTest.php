@@ -2,6 +2,8 @@
 
 namespace testS\tests\unit\models;
 
+use testS\models\UserBlockOperationModel;
+
 /**
  * Tests for the model UserBlockOperationModel
  *
@@ -13,10 +15,10 @@ class UserBlockOperationModelTest extends AbstractModelTest
     /**
      * Gets model name
      *
-     * @return string
+     * @return UserBlockOperationModel
      */
-    protected function getModelName()
+    protected function getNewModel()
     {
-        return "UserBlockOperationModel";
+        return new UserBlockOperationModel();
     }
 }

@@ -2,6 +2,8 @@
 
 namespace testS\tests\unit\models;
 
+use testS\models\SearchModel;
+
 /**
  * Tests for the model SearchModel
  *
@@ -13,10 +15,10 @@ class SearchModelTest extends AbstractModelTest
     /**
      * Gets model name
      *
-     * @return string
+     * @return SearchModel
      */
-    protected function getModelName()
+    protected function getNewModel()
     {
-        return "SearchModel";
+        return new SearchModel();
     }
 }

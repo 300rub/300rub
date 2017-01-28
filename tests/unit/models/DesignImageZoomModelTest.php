@@ -2,6 +2,8 @@
 
 namespace testS\tests\unit\models;
 
+use testS\models\DesignImageZoomModel;
+
 /**
  * Tests for the model DesignImageZoomModel
  *
@@ -13,10 +15,10 @@ class DesignImageZoomModelTest extends AbstractModelTest
     /**
      * Gets model name
      *
-     * @return string
+     * @return DesignImageZoomModel
      */
-    protected function getModelName()
+    protected function getNewModel()
     {
-        return "DesignImageZoomModel";
+        return new DesignImageZoomModel();
     }
 }

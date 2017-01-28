@@ -2,6 +2,8 @@
 
 namespace testS\tests\unit\models;
 
+use testS\models\CatalogMenuModel;
+
 /**
  * Tests for the model CatalogMenuModel
  *
@@ -13,10 +15,10 @@ class CatalogMenuModelTest extends AbstractModelTest
     /**
      * Gets model name
      *
-     * @return string
+     * @return CatalogMenuModel
      */
-    protected function getModelName()
+    protected function getNewModel()
     {
-        return "CatalogMenuModel";
+        return new CatalogMenuModel();
     }
 }

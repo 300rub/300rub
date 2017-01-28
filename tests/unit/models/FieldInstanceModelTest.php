@@ -2,6 +2,8 @@
 
 namespace testS\tests\unit\models;
 
+use testS\models\FieldInstanceModel;
+
 /**
  * Tests for the model FieldInstanceModel
  *
@@ -13,10 +15,10 @@ class FieldInstanceModelTest extends AbstractModelTest
     /**
      * Gets model name
      *
-     * @return string
+     * @return FieldInstanceModel
      */
-    protected function getModelName()
+    protected function getNewModel()
     {
-        return "FieldInstanceModel";
+        return new FieldInstanceModel();
     }
 }

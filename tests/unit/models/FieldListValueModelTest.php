@@ -2,6 +2,8 @@
 
 namespace testS\tests\unit\models;
 
+use testS\models\FieldListValueModel;
+
 /**
  * Tests for the model FieldListValueModel
  *
@@ -13,10 +15,10 @@ class FieldListValueModelTest extends AbstractModelTest
     /**
      * Gets model name
      *
-     * @return string
+     * @return FieldListValueModel
      */
-    protected function getModelName()
+    protected function getNewModel()
     {
-        return "FieldListValueModel";
+        return new FieldListValueModel();
     }
 }

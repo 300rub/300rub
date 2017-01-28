@@ -2,6 +2,8 @@
 
 namespace testS\tests\unit\models;
 
+use testS\models\UserSectionGroupModel;
+
 /**
  * Tests for the model UserSectionGroupModel
  *
@@ -13,10 +15,10 @@ class UserSectionGroupModelTest extends AbstractModelTest
     /**
      * Gets model name
      *
-     * @return string
+     * @return UserSectionGroupModel
      */
-    protected function getModelName()
+    protected function getNewModel()
     {
-        return "UserSectionGroupModel";
+        return new UserSectionGroupModel();
     }
 }

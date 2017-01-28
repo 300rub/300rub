@@ -2,6 +2,8 @@
 
 namespace testS\tests\unit\models;
 
+use testS\models\FormModel;
+
 /**
  * Tests for the model FormModel
  *
@@ -13,10 +15,10 @@ class FormModelTest extends AbstractModelTest
     /**
      * Gets model name
      *
-     * @return string
+     * @return FormModel
      */
-    protected function getModelName()
+    protected function getNewModel()
     {
-        return "FormModel";
+        return new FormModel();
     }
 }

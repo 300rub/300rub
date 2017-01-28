@@ -2,6 +2,8 @@
 
 namespace testS\tests\unit\models;
 
+use testS\models\DesignMenuModel;
+
 /**
  * Tests for the model DesignMenuModel
  *
@@ -13,10 +15,10 @@ class DesignMenuModelTest extends AbstractModelTest
     /**
      * Gets model name
      *
-     * @return string
+     * @return DesignMenuModel
      */
-    protected function getModelName()
+    protected function getNewModel()
     {
-        return "DesignMenuModel";
+        return new DesignMenuModel();
     }
 }
