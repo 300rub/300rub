@@ -34,9 +34,30 @@ class ValueGenerator
      *
      * @return mixed
      */
-    public static function generate($type, $value, $param)
+    public static function generate($type, $value, $param = null)
     {
-
+        switch ($type) {
+            case self::MIN:
+                return self::_generateMin($value, $param);
+            case self::MAX:
+                return self::_generateMax($value, $param);
+            case self::MIN_THEN:
+                return self::_generateMinThen($value, $param);
+            case self::COLOR:
+                return self::_generateColor($value);
+            case self::CLEAR_STRIP_TAGS:
+                return self::_generateWithClearStripTags($value);
+            case self::COPY_NAME:
+                return self::_generateNameCopy($value);
+            case self::COPY_URL:
+                return self::_generateUrlCopy($value);
+            case self::ARRAY_KEY:
+                return self::_generateArrayKey($value, $param);
+            case self::URL:
+                return self::_generateUrl($value, $param);
+            default:
+                return $value;
+        }
     }
 
     /**
@@ -47,7 +68,7 @@ class ValueGenerator
      *
      * @return int
      */
-    public static function min($value, $min)
+    private static function _generateMin($value, $min)
     {
         if (is_array($min)) {
             $operator = "+";
@@ -73,7 +94,7 @@ class ValueGenerator
      *
      * @return int
      */
-    public static function max($value, $max)
+    private static function _generateMax($value, $max)
     {
         if (is_array($max)) {
             $operator = "-";
@@ -99,7 +120,7 @@ class ValueGenerator
      *
      * @return int
      */
-    public static function minThen($value, array $parameters) {
+    private static function _generateMinThen($value, array $parameters) {
         $min = $parameters[0];
         $defaultValue = $parameters[1];
 
@@ -117,13 +138,49 @@ class ValueGenerator
      *
      * @return string
      */
-    public static function color($value)
+    private static function _generateColor($value)
     {
         if (preg_match('/(.*?)(rgb|rgba)\((\d+),\s*(\d+),\s*(\d+)(?:,\s*(\d+(?:\.\d+)?))?\)/i', $value)) {
             return $value;
         }
 
         return "";
+    }
+
+    /**
+     * Clears strip tags
+     *
+     * @param string $value
+     *
+     * @return string
+     */
+    private static function _generateWithClearStripTags($value)
+    {
+        return trim(strip_tags($value));
+    }
+
+    /**
+     * Copy name
+     *
+     * @param string $value
+     *
+     * @return string
+     */
+    private static function _generateNameCopy($value)
+    {
+        return Language::t("common", "copy") . " " . $value;
+    }
+
+    /**
+     * Copy URL
+     *
+     * @param string $value
+     *
+     * @return string
+     */
+    private static function _generateUrlCopy($value)
+    {
+        return $value . "-copy";
     }
 
     /**
@@ -136,7 +193,7 @@ class ValueGenerator
      *
      * @throws ModelException
      */
-    public static function arrayKey($value, array $parameters)
+    private static function _generateArrayKey($value, array $parameters)
     {
         $list = $parameters[0];
         $defaultValue = null;
@@ -162,42 +219,6 @@ class ValueGenerator
     }
 
     /**
-     * Clears strip tags
-     *
-     * @param string $value
-     *
-     * @return string
-     */
-    public static function clearStripTags($value)
-    {
-        return trim(strip_tags($value));
-    }
-
-    /**
-     * Copy name
-     *
-     * @param string $value
-     *
-     * @return string
-     */
-    public static function copyName($value)
-    {
-        return Language::t("common", "copy") . " " . $value;
-    }
-
-    /**
-     * Copy URL
-     *
-     * @param string $value
-     *
-     * @return string
-     */
-    public static function copyUrl($value)
-    {
-        return $value . "-copy";
-    }
-
-    /**
      * URL
      *
      * @param string $value
@@ -205,7 +226,7 @@ class ValueGenerator
      *
      * @return string
      */
-    public static function url($value, $name)
+    private static function _generateUrl($value, $name)
     {
         if ($name !== "" && $value === "") {
             $value = $name;
