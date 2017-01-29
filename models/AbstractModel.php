@@ -202,7 +202,7 @@ abstract class AbstractModel
                 } elseif (array_key_exists($relationIdField, $this->_fields)
                     && $this->_fields[$relationIdField]
                 ) {
-                    //$relationModel =
+                    //TODO
                 }
 
                 $relationModel->set($value);
@@ -234,6 +234,43 @@ abstract class AbstractModel
                         break;
                     default:
                         break;
+                }
+            }
+
+            if (array_key_exists(self::FIELD_VALUE, $fieldInfo)) {
+                foreach ($fieldInfo[self::FIELD_VALUE] as $valueGeneratorKey => $valueGeneratorValue) {
+                    if (!is_string($valueGeneratorKey)) {
+                        $this->_fields[$field] = ValueGenerator::generate(
+                            $valueGeneratorKey,
+                            $this->get($field),
+                            $valueGeneratorValue
+                        );
+                        continue;
+                    }
+
+                    if (is_string($valueGeneratorValue)
+                        && stripos($valueGeneratorValue, "{") === 0
+                    ) {
+                        $valueGeneratorValue = $this->get(
+                            str_replace(["{", "}"], "", $valueGeneratorValue)
+                        );
+                    } elseif (is_array($valueGeneratorValue)) {
+                        foreach ($valueGeneratorValue as &$valueGeneratorVal) {
+                            if (is_string($valueGeneratorVal)
+                                && stripos($valueGeneratorVal, "{") === 0
+                            ) {
+                                $valueGeneratorVal = $this->get(
+                                    str_replace(["{", "}"], "", $valueGeneratorVal)
+                                );
+                            }
+                        }
+                    }
+
+                    $this->_fields[$field] = ValueGenerator::generate(
+                        $valueGeneratorKey,
+                        $this->get($field),
+                        $valueGeneratorValue
+                    );
                 }
             }
 
