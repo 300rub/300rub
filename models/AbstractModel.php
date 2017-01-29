@@ -166,16 +166,60 @@ abstract class AbstractModel
         return $this;
     }
 
+    /**
+     * Sets field values
+     *
+     * @param array $fields
+     *
+     * @return AbstractModel
+     */
     public function set(array $fields)
     {
         $info = $this->getFieldsInfo();
 
         foreach ($fields as $field => $value) {
+            if (!array_key_exists($field, $this->_fields)) {
+                continue;
+            }
+
+            if (is_array($value)) {
+                $relationIdField = substr($field, 0, -5) . "Id";
+                if (!array_key_exists($relationIdField, $info)
+                    || !array_key_exists(self::FIELD_RELATION, $info[$relationIdField])
+                ) {
+                    continue;
+                }
+
+                /**
+                 * @var AbstractModel $relationModel
+                 */
+                $relationModelName = "\\testS\\models\\" . $info[$relationIdField][self::FIELD_RELATION];
+                $relationModel = new $relationModelName;
+                if (array_key_exists($field, $this->_fields)
+                    && $this->_fields[$field] instanceof $relationModelName
+                ) {
+                    $relationModel = $this->_fields[$field];
+                } elseif (array_key_exists($relationIdField, $this->_fields)
+                    && $this->_fields[$relationIdField]
+                ) {
+                    //$relationModel =
+                }
+
+                $relationModel->set($value);
+                $this->_fields[$field] = $relationModel;
+                $this->_fields[$relationIdField] = $relationModel->get("id");
+            }
+
             if (!array_key_exists($field, $info)) {
                 continue;
             }
 
             $fieldInfo = $info[$field];
+
+            if (array_key_exists(self::FIELD_RELATION_TO_PARENT, $fieldInfo)) {
+                $this->_fields[$field] = ValueGenerator::generate(ValueGenerator::INT, $value);
+                continue;
+            }
 
             if (array_key_exists(self::FIELD_TYPE, $fieldInfo)) {
                 switch ($fieldInfo[self::FIELD_TYPE]) {
@@ -192,7 +236,13 @@ abstract class AbstractModel
                         break;
                 }
             }
+
+            if (array_key_exists(self::FIELD_ALLOW_NULL, $fieldInfo) && !$value) {
+                $this->_fields[$field] = null;
+            }
         }
+
+        return $this;
     }
 
     /**
@@ -215,7 +265,7 @@ abstract class AbstractModel
             foreach ($param as $field) {
                 if (!array_key_exists($field, $this->_fields)) {
                     throw new ModelException(
-                        "Unable to find field {field} for model {model}",
+                        "Unable to find the field {field} from the model {model}",
                         [
                             "field" => $field,
                             "model" => get_class($this)
