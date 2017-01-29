@@ -24,6 +24,10 @@ class ValueGenerator
     const COPY_URL = "copyUrl";
     const ARRAY_KEY = "arrayKey";
     const URL = "url";
+    const STRING = "string";
+    const INT = "int";
+    const BOOL = "bool";
+    const BOOL_INT = "boolInt";
 
     /**
      * Generates a value
@@ -55,6 +59,14 @@ class ValueGenerator
                 return self::_generateArrayKey($value, $param);
             case self::URL:
                 return self::_generateUrl($value, $param);
+            case self::STRING:
+                return self::_generateString($value);
+            case self::INT:
+                return self::_generateInt($value);
+            case self::BOOL:
+                return self::_generateBool($value);
+            case self::BOOL_INT:
+                return self::_generateBoolInt($value);
             default:
                 return $value;
         }
@@ -238,6 +250,67 @@ class ValueGenerator
         $value = trim($value, "-");
 
         return $value;
+    }
+
+    /**
+     * String type
+     *
+     * @param mixed|string $value
+     *
+     * @return string
+     */
+    private static function _generateString($value)
+    {
+        return trim((string) $value);
+    }
+
+    /**
+     * Generates int type
+     *
+     * @param mixed|string $value
+     *
+     * @return string
+     */
+    private static function _generateInt($value)
+    {
+        return (int) $value;
+    }
+
+    /**
+     * Generates bool type
+     *
+     * @param mixed|string $value
+     *
+     * @return string
+     */
+    private function _generateBool($value)
+    {
+        return (bool) $value;
+    }
+
+    /**
+     * Generates 1 or 0
+     *
+     * @param mixed|string $value
+     *
+     * @return string
+     */
+    private function _generateBoolInt($value)
+    {
+        if ($value === true) {
+            return 1;
+        }
+
+        if ($value === false) {
+            return 0;
+        }
+
+        $value = (int) $value;
+        if ($value >= 1) {
+            return 1;
+        }
+
+        return 0;
     }
 
     /**
