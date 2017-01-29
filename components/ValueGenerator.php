@@ -285,7 +285,23 @@ class ValueGenerator
      */
     private function _generateBool($value)
     {
-        return (bool) $value;
+        if (is_bool($value)) {
+            return $value;
+        }
+
+        if (is_int($value)) {
+            if ($value > 0) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+        if (is_string($value) && strtolower($value) === "true") {
+            return true;
+        }
+
+        return false;
     }
 
     /**

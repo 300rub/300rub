@@ -4,6 +4,7 @@ namespace testS\models;
 
 use testS\components\Db;
 use testS\components\exceptions\ModelException;
+use testS\components\ValueGenerator;
 
 /**
  * Abstract class for working with models
@@ -177,7 +178,19 @@ abstract class AbstractModel
             $fieldInfo = $info[$field];
 
             if (array_key_exists(self::FIELD_TYPE, $fieldInfo)) {
-
+                switch ($fieldInfo[self::FIELD_TYPE]) {
+                    case self::FIELD_TYPE_STRING:
+                        $this->_fields[$field] = ValueGenerator::generate(ValueGenerator::STRING, $value);
+                        break;
+                    case self::FIELD_TYPE_INT:
+                        $this->_fields[$field] = ValueGenerator::generate(ValueGenerator::INT, $value);
+                        break;
+                    case self::FIELD_TYPE_BOOL:
+                        $this->_fields[$field] = ValueGenerator::generate(ValueGenerator::BOOL, $value);
+                        break;
+                    default:
+                        break;
+                }
             }
         }
     }

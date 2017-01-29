@@ -324,28 +324,6 @@
 //    }
 //
 //    /**
-//     * Sets field types
-//     *
-//     * @param string $field
-//     * @param array  $parameters
-//     *
-//     * @return AbstractModel
-//     */
-//    private function _setFieldTypes($field, array $parameters)
-//    {
-//        if (!array_key_exists(self::FIELD_TYPE, $parameters)) {
-//            return $this;
-//        }
-//
-//        $method = sprintf("get%s", ucfirst($parameters[self::FIELD_TYPE]));
-//        if (method_exists($this, $method)) {
-//            $this->$field = $this->$method($this->$field);
-//        }
-//
-//        return $this;
-//    }
-//
-//    /**
 //     * Generates field value
 //     *
 //     * @param string $fieldValue
