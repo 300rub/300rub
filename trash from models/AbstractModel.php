@@ -7,20 +7,7 @@
 //
 //
 //
-//    /**
-//     * Adds ID condition to SQL request
-//     *
-//     * @param int $id ID
-//     *
-//     * @return AbstractModel
-//     */
-//    public function byId($id)
-//    {
-//        $this->getDb()->addWhere(sprintf("%s.id = :id", $this->getTableName()));
-//        $this->getDb()->addParameter("id", $id);
-//
-//        return $this;
-//    }
+
 //
 //    /**
 //     * Adds except ID condition to SQL request
@@ -199,70 +186,13 @@
 //        }
 //    }
 //
-//    /**
-//     * Runs after saving
-//     */
-//    protected function afterSave()
-//    {
-//    }
+
 //
-//    /**
-//     * Creates a new record in DB
-//     */
-//    private function _create()
-//    {
-//        $this->id = $this->getDb()->insert();
-//    }
+
 //
-//    /**
-//     * Updates the record in DB
-//     *
-//     * @param string $where
-//     * @param array  $parameters
-//     */
-//    private function _update($where, array $parameters)
-//    {
-//        if ($where === null) {
-//            $this->getDb()->setWhere("id = :id");
-//            $this->getDb()->addParameter("id", $this->id);
-//        } else {
-//            $this->getDb()->setWhere($where);
+
 //
-//            if (count($parameters) > 0) {
-//                foreach ($parameters as $parameterKey => $parameterValue) {
-//                    $this->getDb()->addParameter($parameterKey, $parameterValue);
-//                }
-//            }
-//        }
-//
-//        $this->getDb()->update();
-//    }
-//
-//    /**
-//     * On save failure
-//     *
-//     * @param Exception $e
-//     *
-//     * @throws ModelException
-//     */
-//    private function _onSaveFailure(Exception $e)
-//    {
-//        $fields = [];
-//        foreach ($this->getFieldsInfo() as $field => $info) {
-//            if (!is_object($this->$field)) {
-//                $fields[] = sprintf("%s: %s", $field, $this->$field);
-//            }
-//
-//        }
-//        throw new ModelException(
-//            "{e}. Unable to save the model {class} with the fields: {fields}",
-//            [
-//                "e"      => $e->getMessage(),
-//                "class"  => get_class($this),
-//                "fields" => implode(", ", $fields)
-//            ]
-//        );
-//    }
+
 //
 //
 //    /**

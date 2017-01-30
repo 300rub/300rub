@@ -6,6 +6,7 @@ use testS\components\Db;
 use testS\components\exceptions\ModelException;
 use testS\components\Validator;
 use testS\components\ValueGenerator;
+use Exception;
 
 /**
  * Abstract class for working with models
@@ -551,6 +552,21 @@ abstract class AbstractModel
     }
 
     /**
+     * Adds ID condition to SQL request
+     *
+     * @param int $id ID
+     *
+     * @return AbstractModel
+     */
+    public function byId($id)
+    {
+        $this->getDb()->addWhere(sprintf("%s.id = :id", Db::DEFAULT_ALIAS));
+        $this->getDb()->addParameter("id", $id);
+
+        return $this;
+    }
+
+    /**
      * Saves model in DB
      *
      * @param string $where
@@ -572,6 +588,8 @@ abstract class AbstractModel
                 return $this;
             }
 
+            $this->_setFieldsForDbBeforeSave();
+
             if ($this->get(self::PK_FIELD)) {
                 $this->_update($where, $parameters);
             } else {
@@ -584,6 +602,106 @@ abstract class AbstractModel
         }
 
         return $this;
+    }
+
+    /**
+     * Creates a new record in DB
+     */
+    private function _create()
+    {
+        $this->_fields[self::PK_FIELD] = $this->getDb()->insert();
+    }
+
+    /**
+     * Updates the record in DB
+     *
+     * @param string $where
+     * @param array  $parameters
+     */
+    private function _update($where, array $parameters)
+    {
+        $db = $this->getDb();
+
+        if ($where === null) {
+            $db
+                ->setWhere("id = :id")
+                ->addParameter("id", $this->get(self::PK_FIELD));
+        } else {
+            $db->setWhere($where);
+
+            if (count($parameters) > 0) {
+                foreach ($parameters as $parameterKey => $parameterValue) {
+                    $db->addParameter($parameterKey, $parameterValue);
+                }
+            }
+        }
+
+        $this->getDb()->update();
+    }
+
+    /**
+     * Sets fields for DB
+     *
+     * @return AbstractModel
+     */
+    private function _setFieldsForDbBeforeSave()
+    {
+        $info = $this->getFieldsInfo();
+        $db = $this->getDb();
+
+        foreach ($info as $field => $fieldInfo) {
+            $db->addField($field);
+
+            if (!array_key_exists(self::FIELD_TYPE, $fieldInfo)) {
+                $db->addParameter($field, $this->get($field));
+                continue;
+            }
+
+            switch ($fieldInfo[self::FIELD_TYPE]) {
+                case self::FIELD_TYPE_BOOL:
+                    $db->addParameter($field, ValueGenerator::generate(ValueGenerator::BOOL_INT, $this->get($field)));
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * Runs after saving
+     */
+    protected function afterSave()
+    {
+    }
+
+    /**
+     * On save failure
+     *
+     * @param Exception $e
+     *
+     * @throws ModelException
+     */
+    private function _onSaveFailure(Exception $e)
+    {
+        $info = $this->getFieldsInfo();
+        $fields = [];
+
+        foreach ($info as $field => $fieldInfo) {
+            if (!is_object($this->get($field))) {
+                $fields[] = sprintf("%s: %s", $field, $this->get($field));
+            }
+
+        }
+        throw new ModelException(
+            "{e}. Unable to save the model {class} with the fields: {fields}",
+            [
+                "e"      => $e->getMessage(),
+                "class"  => get_class($this),
+                "fields" => implode(", ", $fields)
+            ]
+        );
     }
 
     /**

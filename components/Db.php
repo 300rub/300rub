@@ -169,7 +169,7 @@ class Db
      */
     public function getTable()
     {
-        return sprintf("%s AS %s", $this->_table, self::DEFAULT_ALIAS);
+        return $this->_table;
     }
 
     /**
@@ -404,9 +404,10 @@ class Db
     private function _getQuery()
     {
         $query = sprintf(
-            "SELECT" . " %s FROM %s",
+            "SELECT" . " %s FROM %s AS %s",
             implode(",", $this->getSelect()),
-            $this->getTable()
+            $this->getTable(),
+            self::DEFAULT_ALIAS
         );
 
         if (count($this->getJoin()) > 0) {
