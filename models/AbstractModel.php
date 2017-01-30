@@ -61,6 +61,13 @@ abstract class AbstractModel
     private $_errors = [];
 
     /**
+     * Flag of selecting relations
+     *
+     * @var string[]
+     */
+    private $_withRelations = false;
+
+    /**
      * Gets table name
      *
      * @return string
@@ -74,22 +81,12 @@ abstract class AbstractModel
      */
     abstract public function getFieldsInfo();
 
-
-
     /**
      * Constructor
-     *
-     * @param Db $db
      */
-    public function __construct($db = null)
+    public function __construct()
     {
         $this->_createNullFields();
-
-        if ($db !== null) {
-            $this->_setDb($db);
-        } else {
-            $this->getDb()->setTable($this->getTableName());
-        }
     }
 
     /**
@@ -116,10 +113,10 @@ abstract class AbstractModel
      *
      * @return Db
      */
-    protected function getDb()
+    protected final function getDb()
     {
         if (!$this->_db instanceof Db) {
-            $this->_setDb(new Db());
+            $this->setDb(new Db(), true);
         }
 
         return $this->_db;
@@ -128,13 +125,19 @@ abstract class AbstractModel
     /**
      * Sets Db
      *
-     * @param Db $db
+     * @param Db   $db
+     * @param bool $isSetTable
      *
      * @return AbstractModel
      */
-    private function _setDb(Db $db)
+    protected final function setDb(Db $db, $isSetTable = false)
     {
         $this->_db = $db;
+
+        if ($isSetTable === true) {
+            $this->_db->setTable($this->getTableName());
+        }
+
         return $this;
     }
 
@@ -143,7 +146,7 @@ abstract class AbstractModel
      *
      * @return array
      */
-    public function getErrors()
+    public final function getErrors()
     {
         return $this->_errors;
     }
@@ -156,7 +159,7 @@ abstract class AbstractModel
      *
      * @return AbstractModel
      */
-    public function addErrors($field, array $errors)
+    private function _addErrors($field, array $errors)
     {
         if (count($errors) === 0) {
             return $this;
@@ -178,7 +181,7 @@ abstract class AbstractModel
      *
      * @return AbstractModel
      */
-    public function set(array $fields)
+    public final function set(array $fields)
     {
         return $this
             ->_setRelations($fields)
@@ -390,7 +393,7 @@ abstract class AbstractModel
      *
      * @throws ModelException
      */
-    public function get($param = null)
+    public final function get($param = null)
     {
         if ($param === null) {
             return $this->_fields;
@@ -425,5 +428,85 @@ abstract class AbstractModel
             );
         }
         return $this->_fields[$param];
+    }
+
+    public final function find()
+    {
+        $this->setDbBeforeFind();
+        var_dump($this->getDb()->getJoin());
+        return null;
+    }
+
+    /**
+     * Sets DB before find
+     *
+     * @param string $alias
+     *
+     * @return AbstractModel
+     */
+    public final function setDbBeforeFind($alias = Db::DEFAULT_ALIAS)
+    {
+        $info = $this->getFieldsInfo();
+        $db = $this->getDb();
+
+        foreach ($info as $field => $value) {
+            $db->addSelect($field, $alias);
+
+            if ($this->_withRelations === true
+                && array_key_exists(self::FIELD_RELATION, $info[$field])
+            ) {
+                $relationModel = $this->_getRelationModelByFieldName($field);
+                if (!$relationModel instanceof AbstractModel) {
+                    continue;
+                }
+
+                $relationField = substr($field, 0, -2) . "Model";
+                $relationModel->setDb($this->getDb());
+                $relationAlias = $alias . Db::SEPARATOR . $relationField;
+                $relationModel->setDbBeforeFind($relationAlias);
+
+                $db->addJoin($relationModel->getTableName(), $relationAlias, $alias, $field);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * Gets relation model
+     *
+     * @param string $fieldName
+     *
+     * @return AbstractModel
+     */
+    private function _getRelationModelByFieldName($fieldName)
+    {
+        $info = $this->getFieldsInfo();
+        if (!array_key_exists($fieldName, $info)
+            || !array_key_exists(self::FIELD_RELATION, $info[$fieldName])
+        ) {
+            return null;
+        }
+
+        $relationField = substr($fieldName, 0, -2) . "Model";
+        $relationModelName = "\\testS\\models\\" . $info[$fieldName][self::FIELD_RELATION];
+        if ($this->get($relationField) instanceof $relationModelName) {
+            return $this->get($relationField);
+        }
+
+        return new $relationModelName;
+    }
+
+    /**
+     * With all relations
+     *
+     * @param bool $withRelations
+     *
+     * @return AbstractModel
+     */
+    public final function withRelations($withRelations = true)
+    {
+        $this->_withRelations = $withRelations;
+        return $this;
     }
 }

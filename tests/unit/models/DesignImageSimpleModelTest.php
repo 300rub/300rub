@@ -24,14 +24,7 @@ class DesignImageSimpleModelTest extends AbstractModelTest
 
     public function testA()
     {
-//        $model = $this->getNewModel();
-//        $model->set([
-//            "alignment" => "2",
-//            "containerDesignBlockModel" => [
-//                "marginRight" => 100
-//            ]
-//        ]);
-//
-//        var_dump($model->get());
+        $model = $this->getNewModel();
+        $model->withRelations()->find();
     }
 }

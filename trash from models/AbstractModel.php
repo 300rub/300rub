@@ -3,28 +3,9 @@
 //
 
 //
-//    /**
-//     * Flag of selecting relations
-//     *
-//     * @var string[]
-//     */
-//    private $_withRelations = false;
-//
-
-
-
-
 
 //
-
 //
-
-//
-
-//
-
-//
-
 //
 //    /**
 //     * Adds ID condition to SQL request
@@ -90,34 +71,7 @@
 //        return $this;
 //    }
 //
-//    /**
-//     * With all relations
-//     *
-//     * @return AbstractModel
-//     */
-//    public function withRelations()
-//    {
-//        $this->_withRelations = true;
-//        return $this;
-//    }
-//
-//    /**
-//     * Gets relation fields info
-//     *
-//     * @return array
-//     */
-//    public function getRelationsFieldsInfo()
-//    {
-//        $info = [];
-//
-//        foreach ($this->getFieldsInfo() as $field => $parameters) {
-//            if (array_key_exists(self::FIELD_RELATION, $parameters)) {
-//                $info[$field] = $parameters[self::FIELD_RELATION];
-//            }
-//        }
-//
-//        return $info;
-//    }
+
 //
 //    /**
 //     * Sets Db request data before find

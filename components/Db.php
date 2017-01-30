@@ -20,6 +20,11 @@ class Db
     const SEPARATOR = "_";
 
     /**
+     * Default alias
+     */
+    const DEFAULT_ALIAS = "t";
+
+    /**
      * PDO model
      *
      * @var PDO
@@ -118,20 +123,17 @@ class Db
     /**
      * Sets select
      *
-     * @param string $table
-     * @param string $select
-     * @param bool   $isAs
+     * @param string $field
+     * @param string $alias
      *
      * @return Db
      */
-    public function addSelect($table, $select, $isAs = false)
+    public function addSelect($field, $alias = self::DEFAULT_ALIAS)
     {
-        if (!in_array($select, $this->_select)) {
-            if ($isAs === false) {
-                $this->_select[] = sprintf("%s.%s", $table, $select);
-            } else {
-                $this->_select[] = sprintf("%s.%s AS %s%s%s", $table, $select, $table, self::SEPARATOR, $select);
-            }
+        $selectItem = sprintf("%s.%s AS %s_%s", $alias, $field, $alias, $field);
+
+        if (!in_array($selectItem, $this->_select)) {
+            $this->_select[] = $selectItem;
         }
 
         return $this;
@@ -230,15 +232,26 @@ class Db
         return $this;
     }
 
-    public function addJoin($joinTableName, $joinAsName, $tableField, $tableName, $type = "INNER")
+    /**
+     * Adds join condition
+     *
+     * @param string $joinTableName
+     * @param string $joinAlias
+     * @param string $tableAlias
+     * @param string $tableField
+     * @param string $type
+     *
+     * @return Db
+     */
+    public function addJoin($joinTableName, $joinAlias, $tableAlias, $tableField, $type = "INNER")
     {
         $join = sprintf(
             "%s JOIN %s AS %s ON %s.id = %s.%s",
             $type,
             $joinTableName,
-            $joinAsName,
-            $joinAsName,
-            $tableName,
+            $joinAlias,
+            $joinAlias,
+            $tableAlias,
             $tableField
         );
 
@@ -252,11 +265,11 @@ class Db
     /**
      * Gets join
      *
-     * @return string
+     * @return string[]
      */
     public function getJoin()
     {
-        return implode(" ", $this->_join);
+        return $this->_join;
     }
 
     /**
@@ -396,8 +409,8 @@ class Db
             $this->getTable()
         );
 
-        if ($this->getJoin()) {
-            $query .= sprintf(" %s", $this->getJoin());
+        if (count($this->getJoin()) > 0) {
+            $query .= sprintf(" %s", implode(" ", $this->getJoin()));
         }
 
         if ($this->getWhere()) {
