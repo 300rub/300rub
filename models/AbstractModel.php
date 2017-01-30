@@ -175,108 +175,200 @@ abstract class AbstractModel
      */
     public function set(array $fields)
     {
+        return $this
+            ->_setRelations($fields)
+            ->_setRelationsToParent($fields)
+            ->_setTypes($fields)
+            ->_setValues($fields)
+            ->_setNulls($fields);
+    }
+
+    /**
+     * Sets relations
+     *
+     * @param array $fields
+     *
+     * @return AbstractModel
+     */
+    private function _setRelations(array $fields)
+    {
         $info = $this->getFieldsInfo();
 
         foreach ($fields as $field => $value) {
-            if (!array_key_exists($field, $this->_fields)) {
+            $relationIdField = substr($field, 0, -5) . "Id";
+            if (!array_key_exists($field, $this->_fields)
+                || !is_array($value)
+                || !array_key_exists($relationIdField, $info)
+                || !array_key_exists(self::FIELD_RELATION, $info[$relationIdField])
+            ) {
                 continue;
             }
 
-            if (is_array($value)) {
-                $relationIdField = substr($field, 0, -5) . "Id";
-                if (!array_key_exists($relationIdField, $info)
-                    || !array_key_exists(self::FIELD_RELATION, $info[$relationIdField])
-                ) {
-                    continue;
-                }
-
-                /**
-                 * @var AbstractModel $relationModel
-                 */
-                $relationModelName = "\\testS\\models\\" . $info[$relationIdField][self::FIELD_RELATION];
-                $relationModel = new $relationModelName;
-                if (array_key_exists($field, $this->_fields)
-                    && $this->_fields[$field] instanceof $relationModelName
-                ) {
-                    $relationModel = $this->_fields[$field];
-                } elseif (array_key_exists($relationIdField, $this->_fields)
-                    && $this->_fields[$relationIdField]
-                ) {
-                    //TODO
-                }
-
-                $relationModel->set($value);
-                $this->_fields[$field] = $relationModel;
-                $this->_fields[$relationIdField] = $relationModel->get("id");
+            /**
+             * @var AbstractModel $relationModel
+             */
+            $relationModelName = "\\testS\\models\\" . $info[$relationIdField][self::FIELD_RELATION];
+            $relationModel = new $relationModelName;
+            if (array_key_exists($field, $this->_fields)
+                && $this->_fields[$field] instanceof $relationModelName
+            ) {
+                $relationModel = $this->_fields[$field];
+            } elseif (array_key_exists($relationIdField, $this->_fields)
+                && $this->_fields[$relationIdField]
+            ) {
+                //TODO
             }
 
-            if (!array_key_exists($field, $info)) {
+            $relationModel->set($value);
+            $this->_fields[$field] = $relationModel;
+            $this->_fields[$relationIdField] = $relationModel->get("id");
+        }
+
+        return $this;
+    }
+
+    /**
+     * Sets relations to parent
+     *
+     * @param array $fields
+     *
+     * @return AbstractModel
+     */
+    private function _setRelationsToParent(array $fields)
+    {
+        $info = $this->getFieldsInfo();
+
+        foreach ($fields as $field => $value) {
+            if (!array_key_exists($field, $this->_fields)
+                || !array_key_exists($field, $info)
+                || !array_key_exists(self::FIELD_RELATION_TO_PARENT, $info[$field])
+            ) {
                 continue;
             }
 
-            $fieldInfo = $info[$field];
+            $this->_fields[$field] = ValueGenerator::generate(ValueGenerator::INT, $value);
+        }
 
-            if (array_key_exists(self::FIELD_RELATION_TO_PARENT, $fieldInfo)) {
-                $this->_fields[$field] = ValueGenerator::generate(ValueGenerator::INT, $value);
+        return $this;
+    }
+
+    /**
+     * Sets types
+     *
+     * @param array $fields
+     *
+     * @return AbstractModel
+     */
+    private function _setTypes(array $fields)
+    {
+        $info = $this->getFieldsInfo();
+
+        foreach ($fields as $field => $value) {
+            if (!array_key_exists($field, $this->_fields)
+                || !array_key_exists($field, $info)
+                || !array_key_exists(self::FIELD_TYPE, $info[$field])
+            ) {
                 continue;
             }
 
-            if (array_key_exists(self::FIELD_TYPE, $fieldInfo)) {
-                switch ($fieldInfo[self::FIELD_TYPE]) {
-                    case self::FIELD_TYPE_STRING:
-                        $this->_fields[$field] = ValueGenerator::generate(ValueGenerator::STRING, $value);
-                        break;
-                    case self::FIELD_TYPE_INT:
-                        $this->_fields[$field] = ValueGenerator::generate(ValueGenerator::INT, $value);
-                        break;
-                    case self::FIELD_TYPE_BOOL:
-                        $this->_fields[$field] = ValueGenerator::generate(ValueGenerator::BOOL, $value);
-                        break;
-                    default:
-                        break;
-                }
+            switch ($info[$field][self::FIELD_TYPE]) {
+                case self::FIELD_TYPE_STRING:
+                    $this->_fields[$field] = ValueGenerator::generate(ValueGenerator::STRING, $value);
+                    break;
+                case self::FIELD_TYPE_INT:
+                    $this->_fields[$field] = ValueGenerator::generate(ValueGenerator::INT, $value);
+                    break;
+                case self::FIELD_TYPE_BOOL:
+                    $this->_fields[$field] = ValueGenerator::generate(ValueGenerator::BOOL, $value);
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * Sets values
+     *
+     * @param array $fields
+     *
+     * @return AbstractModel
+     */
+    private function _setValues(array $fields)
+    {
+        $info = $this->getFieldsInfo();
+
+        foreach ($fields as $field => $value) {
+            if (!array_key_exists($field, $this->_fields)
+                || !array_key_exists($field, $info)
+                || !array_key_exists(self::FIELD_VALUE, $info[$field])
+            ) {
+                continue;
             }
 
-            if (array_key_exists(self::FIELD_VALUE, $fieldInfo)) {
-                foreach ($fieldInfo[self::FIELD_VALUE] as $valueGeneratorKey => $valueGeneratorValue) {
-                    if (!is_string($valueGeneratorKey)) {
-                        $this->_fields[$field] = ValueGenerator::generate(
-                            $valueGeneratorKey,
-                            $this->get($field),
-                            $valueGeneratorValue
-                        );
-                        continue;
-                    }
-
-                    if (is_string($valueGeneratorValue)
-                        && stripos($valueGeneratorValue, "{") === 0
-                    ) {
-                        $valueGeneratorValue = $this->get(
-                            str_replace(["{", "}"], "", $valueGeneratorValue)
-                        );
-                    } elseif (is_array($valueGeneratorValue)) {
-                        foreach ($valueGeneratorValue as &$valueGeneratorVal) {
-                            if (is_string($valueGeneratorVal)
-                                && stripos($valueGeneratorVal, "{") === 0
-                            ) {
-                                $valueGeneratorVal = $this->get(
-                                    str_replace(["{", "}"], "", $valueGeneratorVal)
-                                );
-                            }
-                        }
-                    }
-
+            foreach ($info[$field][self::FIELD_VALUE] as $valueGeneratorKey => $valueGeneratorValue) {
+                if (!is_string($valueGeneratorKey)) {
                     $this->_fields[$field] = ValueGenerator::generate(
                         $valueGeneratorKey,
                         $this->get($field),
                         $valueGeneratorValue
                     );
+                    continue;
                 }
+
+                if (is_string($valueGeneratorValue)
+                    && stripos($valueGeneratorValue, "{") === 0
+                ) {
+                    $valueGeneratorValue = $this->get(
+                        str_replace(["{", "}"], "", $valueGeneratorValue)
+                    );
+                } elseif (is_array($valueGeneratorValue)) {
+                    foreach ($valueGeneratorValue as &$valueGeneratorVal) {
+                        if (is_string($valueGeneratorVal)
+                            && stripos($valueGeneratorVal, "{") === 0
+                        ) {
+                            $valueGeneratorVal = $this->get(
+                                str_replace(["{", "}"], "", $valueGeneratorVal)
+                            );
+                        }
+                    }
+                }
+
+                $this->_fields[$field] = ValueGenerator::generate(
+                    $valueGeneratorKey,
+                    $this->get($field),
+                    $valueGeneratorValue
+                );
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * Sets null values
+     *
+     * @param array $fields
+     *
+     * @return AbstractModel
+     */
+    private function _setNulls(array $fields)
+    {
+        $info = $this->getFieldsInfo();
+
+        foreach ($fields as $field => $value) {
+            if (!array_key_exists($field, $this->_fields)
+                || !array_key_exists($field, $info)
+                || !array_key_exists(self::FIELD_ALLOW_NULL, $info[$field])
+                || $info[$field][self::FIELD_ALLOW_NULL] !== true
+                || $value
+            ) {
+                continue;
             }
 
-            if (array_key_exists(self::FIELD_ALLOW_NULL, $fieldInfo) && !$value) {
-                $this->_fields[$field] = null;
-            }
+            $this->_fields[$field] = null;
         }
 
         return $this;
