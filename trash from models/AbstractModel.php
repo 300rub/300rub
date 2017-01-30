@@ -92,32 +92,7 @@
 //    {
 //    }
 //
-//    /**
-//     * Parses DB response
-//     *
-//     * @param array $response
-//     *
-//     * @return array
-//     */
-//    private function _parseDbResponse(array $response)
-//    {
-//        $fields = [];
-//
-//        foreach ($response as $field => $value) {
-//            if (strripos($field, Db::SEPARATOR)) {
-//                list($table, $field) = explode(Db::SEPARATOR, $field, 2);
-//
-//                if (!isset($fields[$table])) {
-//                    $fields[$table] = [];
-//                }
-//                $fields[$table][$field] = $value;
-//            } else {
-//                $fields[$field] = $value;
-//            }
-//        }
-//
-//        return $fields;
-//    }
+
 //
 //    /**
 //     * Deletes model from DB
