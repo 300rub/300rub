@@ -33,12 +33,17 @@ abstract class AbstractModel
     const FIELD_ALLOW_NULL = "allowNull";
 
     /**
+     * PK fields name
+     */
+    const PK_FIELD = "id";
+
+    /**
      * Model fields
      *
      * @var array
      */
     private $_fields = [
-        "id" => null
+        self::PK_FIELD => null
     ];
 
     /**
@@ -264,6 +269,8 @@ abstract class AbstractModel
         $info = $this->getFieldsInfo();
 
         foreach ($fields as $field => $value) {
+            var_dump($field, $value);
+
             if (!array_key_exists($field, $this->_fields)
                 || !array_key_exists($field, $info)
                 || !array_key_exists(self::FIELD_TYPE, $info[$field])
@@ -363,7 +370,7 @@ abstract class AbstractModel
                 || !array_key_exists($field, $info)
                 || !array_key_exists(self::FIELD_ALLOW_NULL, $info[$field])
                 || $info[$field][self::FIELD_ALLOW_NULL] !== true
-                || $value
+                || $this->get($field)
             ) {
                 continue;
             }
