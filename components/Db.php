@@ -169,7 +169,7 @@ class Db
      */
     public function getTable()
     {
-        return $this->_table;
+        return sprintf("%s AS %s", $this->_table, self::DEFAULT_ALIAS);
     }
 
     /**
