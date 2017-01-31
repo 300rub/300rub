@@ -64,7 +64,7 @@ abstract class AbstractModelTest extends AbstractUnitTest
             $describeRow = $describeInfoList[$describeKey];
 
             if (array_key_exists(AbstractModel::FIELD_ALLOW_NULL, $modelInfo)) {
-                $this->assertEquals(
+                $this->assertSame(
                     "YES",
                     $describeRow["Null"],
                     sprintf(
@@ -74,7 +74,7 @@ abstract class AbstractModelTest extends AbstractUnitTest
                     )
                 );
             } else {
-                $this->assertEquals(
+                $this->assertSame(
                     "NO",
                     $describeRow["Null"],
                     sprintf(

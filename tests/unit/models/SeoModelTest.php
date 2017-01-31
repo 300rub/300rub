@@ -21,11 +21,4 @@ class SeoModelTest extends AbstractModelTest
     {
         return new SeoModel();
     }
-
-    public function testA()
-    {
-        $model = $this->getNewModel();
-        $model->save();
-        var_dump($model->getErrors());
-    }
 }

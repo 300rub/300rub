@@ -186,6 +186,17 @@ class Db
     }
 
     /**
+     * Clears where
+     *
+     * @return Db
+     */
+    private function _clearWhere()
+    {
+        $this->_where = "";
+        return $this;
+    }
+
+    /**
      * Add WHERE condition
      *
      * @param string $where
@@ -319,15 +330,13 @@ class Db
     }
 
     /**
-     * Sets parameters
-     * 
-     * @param array $parameters
+     * Clears parameters
      * 
      * @return Db
      */
-    public function setParameters(array $parameters)
+    private function _clearParameters()
     {
-        $this->_parameters = $parameters;
+        $this->_parameters = [];
         return $this;
     }
 
@@ -357,15 +366,13 @@ class Db
     }
 
     /**
-     * Sets fields
-     *
-     * @param string[] $fields
+     * Clears fields
      *
      * @return Db
      */
-    public function setFields($fields)
+    private function _clearFields()
     {
-        $this->_fields = $fields;
+        $this->_fields = [];
         return $this;
     }
 
@@ -616,5 +623,10 @@ class Db
         );
 
         self::execute($query, $this->getParameters());
+    }
+
+    public function reset()
+    {
+        $this->_clearFields()->_clearParameters()->_clearWhere();
     }
 }

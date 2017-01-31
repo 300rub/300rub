@@ -1,29 +1,6 @@
 <?php
 
 //
-
-//
-
-//
-//
-//
-
-//
-//    /**
-//     * Adds except ID condition to SQL request
-//     *
-//     * @param int $id ID
-//     *
-//     * @return AbstractModel
-//     */
-//    public function exceptId($id)
-//    {
-//        $this->getDb()->addWhere(sprintf("%s.id != :id", $this->getTableName()));
-//        $this->getDb()->addParameter("id", $id);
-//
-//        return $this;
-//    }
-//
 //    /**
 //     * Adds in condition to SQL request
 //     *
@@ -59,86 +36,6 @@
 //    }
 //
 //
-
-//
-
-//
-
-//
-//    /**
-//     * Deletes model from DB
-//     *
-//     * @param string $where
-//     * @param array  $parameters
-//     *
-//     * @throws ModelException
-//     */
-//    public final function delete($where = null, array $parameters = [])
-//    {
-//        if ($where === null) {
-//            if (!$this->id) {
-//                throw new ModelException("Unable to delete the record with null ID");
-//            }
-//
-//            $this->getDb()->setWhere("id = :id");
-//            $this->getDb()->setParameters(["id" => $this->id]);
-//        } else {
-//            $this->getDb()->setWhere($where);
-//
-//            if (count($parameters) > 0) {
-//                $this->getDb()->setParameters($parameters);
-//            }
-//        }
-//
-//        $this->beforeDelete();
-//        $this->getDb()->delete();
-//        $this->afterDelete();
-//    }
-//
-//    /**
-//     * Runs before deleting
-//     */
-//    protected function beforeDelete()
-//    {
-//    }
-//
-//    /**
-//     * Runs after deleting
-//     */
-//    protected function afterDelete()
-//    {
-//        foreach ($this->getFieldsInfo() as $field => $parameters) {
-//            if (!array_key_exists(self::FIELD_RELATION, $parameters)) {
-//                continue;
-//            }
-//
-//            $relationModel = $parameters[self::FIELD_RELATION];
-//            $relationName = substr($field, 0, -2) . "Model";
-//            $relationModelName = "\\testS\\models\\" . $relationModel;
-//
-//            /**
-//             * @var AbstractModel $relationModel
-//             */
-//            if (!$this->$relationName instanceof $relationModelName
-//                || !$this->$relationName->id
-//            ) {
-//                $relationModel = new $relationModelName;
-//                $relationModel = $relationModel->byId($this->$field)->find();
-//            } else {
-//                $relationModel = $this->$relationName;
-//            }
-//
-//            $relationModel->delete();
-//        }
-//    }
-//
-
-//
-
-//
-
-//
-
 //
 //
 //    /**
@@ -182,4 +79,3 @@
 //        return $duplicateModel;
 //    }
 //
-

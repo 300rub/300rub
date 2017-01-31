@@ -144,6 +144,17 @@ abstract class AbstractModel
     }
 
     /**
+     * Clears errors
+     *
+     * @return AbstractModel
+     */
+    private function _clearErrors()
+    {
+        $this->_errors = [];
+        return $this;
+    }
+
+    /**
      * Gets errors
      *
      * @return array
@@ -186,11 +197,28 @@ abstract class AbstractModel
     public final function set(array $fields)
     {
         return $this
+            ->_setId($fields)
             ->_setRelations($fields)
             ->_setRelationsToParent($fields)
             ->_setTypes($fields)
             ->_setValues($fields)
             ->_setNulls($fields);
+    }
+
+    /**
+     * Sets ID
+     *
+     * @param array $fields
+     *
+     * @return AbstractModel
+     */
+    private function _setId(array $fields)
+    {
+        if (array_key_exists(self::PK_FIELD, $fields)) {
+            $this->_fields[self::PK_FIELD] = (int) $fields[self::PK_FIELD];
+        }
+
+        return $this;
     }
 
     /**
@@ -443,11 +471,12 @@ abstract class AbstractModel
     /**
      * Model search in DB
      *
-     * @return null|AbstractModel
+     * @return AbstractModel|null
      */
     public final function find()
     {
         $result = $this->setDbBeforeFind()->getDb()->find();
+        $this->getDb()->reset();
 
         if (!$result) {
             return null;
@@ -471,6 +500,8 @@ abstract class AbstractModel
     public function findAll()
     {
         $results = $this->setDbBeforeFind()->getDb()->findAll();
+        $this->getDb()->reset();
+
         if (!$results) {
             return [];
         }
@@ -545,6 +576,8 @@ abstract class AbstractModel
         $info = $this->getFieldsInfo();
         $db = $this->getDb();
 
+        $db->addSelect(self::PK_FIELD, $alias);
+
         foreach ($info as $field => $value) {
             $db->addSelect($field, $alias);
 
@@ -584,10 +617,13 @@ abstract class AbstractModel
      * Gets relation model
      *
      * @param string $fieldName
+     * @param bool   $isFind
      *
      * @return AbstractModel
+     *
+     * @throws ModelException
      */
-    private function _getRelationModelByFieldName($fieldName)
+    private function _getRelationModelByFieldName($fieldName, $isFind = false)
     {
         $info = $this->getFieldsInfo();
         if (!array_key_exists($fieldName, $info)
@@ -600,6 +636,23 @@ abstract class AbstractModel
         $relationModelName = "\\testS\\models\\" . $info[$fieldName][self::FIELD_RELATION];
         if ($this->get($relationField) instanceof $relationModelName) {
             return $this->get($relationField);
+        }
+
+        if ($isFind === true) {
+            /**
+             * @var AbstractModel $model;
+             */
+            $model = new $relationModelName;
+            $model->byId($this->get($fieldName))->find();
+            if ($model === null) {
+                throw new ModelException(
+                    "Unable to find model: {model} by ID: {id}",
+                    [
+                        "model" => $relationModelName,
+                        "id"    => $this->get($fieldName)
+                    ]
+                );
+            }
         }
 
         return new $relationModelName;
@@ -628,7 +681,22 @@ abstract class AbstractModel
     public function byId($id)
     {
         $this->getDb()->addWhere(sprintf("%s.id = :id", Db::DEFAULT_ALIAS));
-        $this->getDb()->addParameter("id", $id);
+        $this->getDb()->addParameter("id", (int) $id);
+
+        return $this;
+    }
+
+    /**
+     * Adds except ID condition to SQL request
+     *
+     * @param int $id ID
+     *
+     * @return AbstractModel
+     */
+    public function exceptId($id)
+    {
+        $this->getDb()->addWhere(sprintf("%s.id != :id", Db::DEFAULT_ALIAS));
+        $this->getDb()->addParameter("id", (int) $id);
 
         return $this;
     }
@@ -645,6 +713,7 @@ abstract class AbstractModel
      */
     public final function save($where = null, array $parameters = [])
     {
+        $this->_clearErrors();
         if (count($this->validate()->getErrors()) > 0) {
             return $this;
         }
@@ -663,6 +732,8 @@ abstract class AbstractModel
                 $this->_create();
             }
 
+            $this->getDb()->reset();
+
             $this->afterSave();
         } catch (Exception $e) {
             $this->_onSaveFailure($e);
@@ -676,7 +747,7 @@ abstract class AbstractModel
      */
     private function _create()
     {
-        $this->_fields[self::PK_FIELD] = $this->getDb()->insert();
+        $this->set([self::PK_FIELD => (int) $this->getDb()->insert()]);
     }
 
     /**
@@ -931,5 +1002,62 @@ abstract class AbstractModel
         }
 
         return $this;
+    }
+
+    /**
+     * Deletes model from DB
+     *
+     * @param string $where
+     * @param array  $parameters
+     *
+     * @throws ModelException
+     */
+    public final function delete($where = null, array $parameters = [])
+    {
+        if ($where === null) {
+            if (!$this->get(self::PK_FIELD)) {
+                throw new ModelException("Unable to delete the record with null ID");
+            }
+
+            $this->getDb()->setWhere("id = :id");
+            $this->getDb()->addParameter("id", (int) $this->get(self::PK_FIELD));
+        } else {
+            $this->getDb()->setWhere($where);
+
+            if (count($parameters) > 0) {
+                foreach ($parameters as $key => $value) {
+                    $this->getDb()->addParameter($key, $value);
+                }
+            }
+        }
+
+        $this->beforeDelete();
+        $this->getDb()->delete();
+        $this->getDb()->reset();
+        $this->afterDelete();
+    }
+
+    /**
+     * Runs before deleting
+     */
+    protected function beforeDelete()
+    {
+    }
+
+    /**
+     * Runs after deleting
+     */
+    protected function afterDelete()
+    {
+        $info = $this->getFieldsInfo();
+
+        foreach ($info as $field => $parameters) {
+            if (!array_key_exists(self::FIELD_RELATION, $parameters)) {
+                continue;
+            }
+
+            $relationModel = $this->_getRelationModelByFieldName($field, true);
+            $relationModel->delete();
+        }
     }
 }
