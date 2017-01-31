@@ -59,38 +59,9 @@
 //    }
 //
 //
-//    /**
-//     * Models search in DB
-//     *
-//     * @return null|AbstractModel[]
-//     */
-//    public function findAll()
-//    {
-//        $results = $this->setDbRequestDataBeforeFind()->getDb()->findAll();
-//        if (!$results) {
-//            return [];
-//        }
+
 //
-//        $list = [];
-//        foreach ($results as $result) {
-//            /**
-//             * @var AbstractModel $model
-//             */
-//            $model = new $this;
-//            $model->setFields($this->_parseDbResponse($result));
-//            $model->afterFind();
-//            $list[] = $model;
-//        }
-//
-//        return $list;
-//    }
-//
-//    /**
-//     * Executes after finding
-//     */
-//    protected function afterFind()
-//    {
-//    }
+
 //
 
 //

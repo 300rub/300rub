@@ -21,4 +21,9 @@ class SeoModelTest extends AbstractModelTest
     {
         return new SeoModel();
     }
+
+    public function testA()
+    {
+        
+    }
 }

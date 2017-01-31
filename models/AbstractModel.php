@@ -285,8 +285,6 @@ abstract class AbstractModel
         $info = $this->getFieldsInfo();
 
         foreach ($fields as $field => $value) {
-            var_dump($field, $value);
-
             if (!array_key_exists($field, $this->_fields)
                 || !array_key_exists($field, $info)
                 || !array_key_exists(self::FIELD_TYPE, $info[$field])
@@ -334,9 +332,8 @@ abstract class AbstractModel
             foreach ($info[$field][self::FIELD_VALUE] as $valueGeneratorKey => $valueGeneratorValue) {
                 if (!is_string($valueGeneratorKey)) {
                     $this->_fields[$field] = ValueGenerator::generate(
-                        $valueGeneratorKey,
-                        $this->get($field),
-                        $valueGeneratorValue
+                        $valueGeneratorValue,
+                        $this->get($field)
                     );
                     continue;
                 }
@@ -467,6 +464,32 @@ abstract class AbstractModel
     }
 
     /**
+     * Models search in DB
+     *
+     * @return null|AbstractModel[]
+     */
+    public function findAll()
+    {
+        $results = $this->setDbBeforeFind()->getDb()->findAll();
+        if (!$results) {
+            return [];
+        }
+
+        $list = [];
+        foreach ($results as $result) {
+            /**
+             * @var AbstractModel $model
+             */
+            $model = new $this;
+            $model->set($this->_parseDbResponse($result));
+            $model->afterFind();
+            $list[] = $model;
+        }
+
+        return $list;
+    }
+
+    /**
      * Parses DB response
      *
      * @param array $response
@@ -475,34 +498,39 @@ abstract class AbstractModel
      */
     private function _parseDbResponse(array $response)
     {
-//        $fields = [];
-//
-//        foreach ($response as $field => $value) {
-//            if (strripos($field, Db::SEPARATOR)) {
-//                list($alias, $fieldName) = explode(Db::SEPARATOR, $field, 2);
-//
-//                if (strripos($fieldName, Db::SEPARATOR)) {
-//
-//                }
-//            }
-//        }
+        $helpList = [];
+        $list = [];
 
-//        $fields = [];
-//
-//        foreach ($response as $field => $value) {
-//            if (strripos($field, Db::SEPARATOR)) {
-//                list($table, $field) = explode(Db::SEPARATOR, $field, 2);
-//
-//                if (!isset($fields[$table])) {
-//                    $fields[$table] = [];
-//                }
-//                $fields[$table][$field] = $value;
-//            } else {
-//                $fields[$field] = $value;
-//            }
-//        }
+        foreach ($response as $fullFieldName => $value) {
+            if (strripos($fullFieldName, Db::SEPARATOR)) {
+                list($alias, $field) = explode(Db::SEPARATOR, $fullFieldName, 2);
+                if (!array_key_exists($alias, $helpList)) {
+                    $helpList[$alias] = [];
+                }
+                $helpList[$alias][$field] = $value;
+            } else {
+                $list[$fullFieldName] = $value;
+            }
+        }
 
-        return $fields;
+        foreach ($helpList as $key => $response) {
+            if ($key === Db::DEFAULT_ALIAS) {
+                foreach ($response as $k => $value) {
+                    $list[$k] = $value;
+                }
+            } else {
+                $list[$key] = $this->_parseDbResponse($response);
+            }
+        }
+
+        return $list;
+    }
+
+    /**
+     * Executes after finding
+     */
+    protected function afterFind()
+    {
     }
 
     /**
@@ -700,7 +728,11 @@ abstract class AbstractModel
                 case self::FIELD_TYPE_BOOL:
                     $db->addParameter($field, ValueGenerator::generate(ValueGenerator::BOOL_INT, $this->get($field)));
                     break;
+                case self::FIELD_TYPE_STRING:
+                    $db->addParameter($field, ValueGenerator::generate(ValueGenerator::STRING, $this->get($field)));
+                    break;
                 default:
+                    $db->addParameter($field, $this->get($field));
                     break;
             }
         }
