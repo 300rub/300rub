@@ -88,23 +88,54 @@ abstract class AbstractModel
      */
     public function __construct()
     {
-        $this->_createNullFields();
+        $this->_setDefaultValues();
     }
 
     /**
-     * Creates null fields
+     * Sets default values
      *
      * @return AbstractModel
      */
-    private function _createNullFields()
+    private function _setDefaultValues()
     {
         foreach ($this->getFieldsInfo() as $field => $info) {
-            $this->_fields[$field] = null;
+            if (array_key_exists(self::FIELD_ALLOW_NULL, $info)) {
+                $this->_fields[$field] = null;
+                continue;
+            }
+
+            if (array_key_exists(self::FIELD_TYPE, $info)) {
+                switch ($info[self::FIELD_TYPE]) {
+                    case self::FIELD_TYPE_INT:
+                        $this->_fields[$field] = 0;
+                        break;
+                    case self::FIELD_TYPE_STRING:
+                        $this->_fields[$field] = "";
+                        break;
+                    case self::FIELD_TYPE_BOOL:
+                        $this->_fields[$field] = false;
+                        break;
+                    default:
+                        $this->_fields[$field] = null;
+                        break;
+                }
+
+                continue;
+            }
 
             if (array_key_exists(self::FIELD_RELATION, $info)) {
                 $relationField = $this->_getRelationName($field);
                 $this->_fields[$relationField] = null;
+                $this->_fields[$field] = 0;
+                continue;
             }
+
+            if (array_key_exists(self::FIELD_RELATION_TO_PARENT, $info)) {
+                $this->_fields[$field] = 0;
+                continue;
+            }
+
+            $this->_fields[$field] = null;
         }
 
         return $this;
@@ -349,15 +380,12 @@ abstract class AbstractModel
     {
         $info = $this->getFieldsInfo();
 
-        foreach ($fields as $field => $value) {
-            if (!array_key_exists($field, $this->_fields)
-                || !array_key_exists($field, $info)
-                || !array_key_exists(self::FIELD_VALUE, $info[$field])
-            ) {
+        foreach ($info as $field => $fieldInfo) {
+            if (!array_key_exists(self::FIELD_VALUE, $fieldInfo)) {
                 continue;
             }
 
-            foreach ($info[$field][self::FIELD_VALUE] as $valueGeneratorKey => $valueGeneratorValue) {
+            foreach ($fieldInfo[self::FIELD_VALUE] as $valueGeneratorKey => $valueGeneratorValue) {
                 if (!is_string($valueGeneratorKey)) {
                     $this->_fields[$field] = ValueGenerator::generate(
                         $valueGeneratorValue,
