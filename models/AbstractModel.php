@@ -232,7 +232,7 @@ abstract class AbstractModel
             ->_setRelations($fields)
             ->_setRelationsToParent($fields)
             ->_setTypes($fields)
-            ->_setValues($fields)
+            ->_setValues()
             ->_setNulls($fields);
     }
 
@@ -372,11 +372,9 @@ abstract class AbstractModel
     /**
      * Sets values
      *
-     * @param array $fields
-     *
      * @return AbstractModel
      */
-    private function _setValues(array $fields)
+    private function _setValues()
     {
         $info = $this->getFieldsInfo();
 
@@ -494,6 +492,16 @@ abstract class AbstractModel
             );
         }
         return $this->_fields[$param];
+    }
+
+    /**
+     * Gets ID
+     *
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->get(self::PK_FIELD);
     }
 
     /**

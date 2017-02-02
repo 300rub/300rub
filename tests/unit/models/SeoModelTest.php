@@ -25,12 +25,19 @@ class SeoModelTest extends AbstractModelTest
     /**
      * @param array $createData
      * @param array $createExpected
+     * @param array $updateData
+     * @param array $updateExpected
      *
      * @dataProvider dataProviderXRUD
      *
      * @return true
      */
-    public function testCRUD(array $createData = [], $createExpected = [])
+    public function testCRUD(
+        array $createData = [],
+        array $createExpected = [],
+        array $updateData = [],
+        array $updateExpected = []
+    )
     {
         $model = $this->getNewModel()->set($createData)->save();
 
@@ -39,6 +46,16 @@ class SeoModelTest extends AbstractModelTest
             $this->_checkCRUDExpected($createExpected, $errors, true);
             return true;
         }
+
+        $this->_checkCRUDExpected($createExpected, $model->get());
+
+        $model = $this->getNewModel()->byId($model->getId())->find();
+        $this->assertInstanceOf("\\testS\\models\\AbstractModel", $model);
+        $model = $this->getNewModel()->byId($model->getId())->find();
+        $this->_checkCRUDExpected($createExpected, $model->get());
+
+        $model->set($updateData)->save();
+        $this->_checkCRUDExpected($updateExpected, $model->get());
 
         return true;
     }
@@ -51,7 +68,7 @@ class SeoModelTest extends AbstractModelTest
                     $key,
                     $actual,
                     sprintf(
-                        "Unable to find key [%s] in array with keys [%s]",
+                        "Unable to find key [%s] in actual array with keys [%s]",
                         $key,
                         implode(", ", array_keys($actual))
                     )
@@ -60,7 +77,7 @@ class SeoModelTest extends AbstractModelTest
                 $this->assertTrue(
                     in_array($expectedValue, $actual),
                     sprintf(
-                        "Unable to find value [%s] in array with values [%s]",
+                        "Unable to find value [%s] in actual array with values [%s]",
                         $expectedValue,
                         implode(", ", $actual)
                     )
@@ -76,11 +93,61 @@ class SeoModelTest extends AbstractModelTest
                     )
                 );
 
-                $this->_checkCRUDExpected($expectedValue, $actual[$key]);
+                $this->_checkCRUDExpected($expectedValue, $actual[$key], $isFullSame);
                 continue;
             }
 
-            $this->assertSame($expectedValue, $actual[$key]);
+            $this->assertSame(
+                $expectedValue,
+                $actual[$key],
+                sprintf("Values with key [%s] are not the same", $key)
+            );
+        }
+
+        if ($isFullSame === false) {
+            return $this;
+        }
+
+        foreach ($actual as $key => $actualValue) {
+            if (is_string($key)) {
+                $this->assertArrayHasKey(
+                    $key,
+                    $expected,
+                    sprintf(
+                        "Unable to find key [%s] in expected array with keys [%s]",
+                        $key,
+                        implode(", ", array_keys($expected))
+                    )
+                );
+            } else {
+                $this->assertTrue(
+                    in_array($actualValue, $expected),
+                    sprintf(
+                        "Unable to find value [%s] in expected array with values [%s]",
+                        $actualValue,
+                        implode(", ", $expected)
+                    )
+                );
+            }
+
+            if (is_array($actualValue)) {
+                $this->assertTrue(
+                    is_array($expected[$key]),
+                    sprintf(
+                        "Expected data with key [%s] is not an array. Array expected.",
+                        $key
+                    )
+                );
+
+                $this->_checkCRUDExpected($actualValue, $expected[$key], $isFullSame);
+                continue;
+            }
+
+            $this->assertSame(
+                $actualValue,
+                $expected[$key],
+                sprintf("Values with key [%s] are not the same", $key)
+            );
         }
 
         return $this;
@@ -90,8 +157,8 @@ class SeoModelTest extends AbstractModelTest
     {
         return array_merge(
             $this->getDataProviderCRUDEmpty()
-//            $this->getDataProviderCRUDCorrect(),
-//            $this->getDataProviderCRUDIncorrect()
+        //            $this->getDataProviderCRUDCorrect(),
+        //            $this->getDataProviderCRUDIncorrect()
         );
     }
 
@@ -102,7 +169,7 @@ class SeoModelTest extends AbstractModelTest
                 [],
                 [
                     "name" => ["required"],
-                    "url"  => ["require", "url"]
+                    "url"  => ["required", "url"]
                 ]
             ],
             "empty2" => [
@@ -117,7 +184,7 @@ class SeoModelTest extends AbstractModelTest
             ],
             "empty3" => [
                 [
-                    "url"  => "Not empty 2",
+                    "url" => "Not empty",
                 ],
                 [
                     "name" => ["required"]
@@ -125,11 +192,43 @@ class SeoModelTest extends AbstractModelTest
             ],
             "empty4" => [
                 [
-                    "name" => "Not empty 3"
+                    "name" => "Not empty"
                 ],
                 [
-                    "a" => "b"
+                    "name"        => "Not empty",
+                    "url"         => "not-empty",
+                    "title"       => "",
+                    "keywords"    => "",
+                    "description" => "",
                 ]
+            ],
+            "empty5" => [
+                [
+                    "name"        => "     Not empty        ",
+                    "url"         => "     Not empty     url     ",
+                    "title"       => "         ",
+                    "keywords"    => "          ",
+                    "description" => "          "
+                ],
+                [
+                    "name"        => "Not empty",
+                    "url"         => "not-empty-----url",
+                    "title"       => "",
+                    "keywords"    => "",
+                    "description" => "",
+                ],
+                [
+                    "name"     => " Not empty 2 ",
+                    "url"      => "",
+                    "keywords" => "keywords",
+                ],
+                [
+                    "name"        => "Not empty 2",
+                    "url"         => "not-empty-2",
+                    "title"       => "",
+                    "keywords"    => "keywords",
+                    "description" => ""
+                ],
             ]
         ];
     }
