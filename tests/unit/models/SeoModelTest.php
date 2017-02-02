@@ -24,6 +24,8 @@ class SeoModelTest extends AbstractModelTest
     }
 
     /**
+     * Test CRUD
+     *
      * @param array        $createData
      * @param array|string $createExpected
      * @param array        $updateData
@@ -43,23 +45,23 @@ class SeoModelTest extends AbstractModelTest
         $model = $this->getNewModel()->set($createData)->save();
         $errors = $model->getErrors();
         if (count($errors) > 0) {
-            $this->_checkCRUDExpected($createExpected, $errors, true);
+            $this->_compareCRUDExpectedAndActual($createExpected, $errors, true);
             return true;
         }
-        $this->_checkCRUDExpected($createExpected, $model->get());
+        $this->_compareCRUDExpectedAndActual($createExpected, $model->get());
 
         $model = $this->getNewModel()->byId($model->getId())->find();
         $this->assertInstanceOf("\\testS\\models\\AbstractModel", $model);
         $model = $this->getNewModel()->byId($model->getId())->find();
-        $this->_checkCRUDExpected($createExpected, $model->get());
+        $this->_compareCRUDExpectedAndActual($createExpected, $model->get());
 
         $model->set($updateData)->save();
         $errors = $model->getErrors();
         if (count($errors) > 0) {
-            $this->_checkCRUDExpected($updateExpected, $errors, true);
+            $this->_compareCRUDExpectedAndActual($updateExpected, $errors, true);
             return true;
         }
-        $this->_checkCRUDExpected($updateExpected, $model->get());
+        $this->_compareCRUDExpectedAndActual($updateExpected, $model->get());
 
         $model->delete();
         $model = $this->getNewModel()->byId($model->getId())->find();
@@ -68,7 +70,16 @@ class SeoModelTest extends AbstractModelTest
         return true;
     }
 
-    private function _checkCRUDExpected(array $expected, array $actual, $isFullSame = false)
+    /**
+     * Compares CRUD expected and actual
+     *
+     * @param array $expected
+     * @param array $actual
+     * @param bool  $isFullSame
+     *
+     * @return AbstractModelTest
+     */
+    private function _compareCRUDExpectedAndActual(array $expected, array $actual, $isFullSame = false)
     {
         foreach ($expected as $key => $expectedValue) {
             if (is_string($key)) {
@@ -101,7 +112,7 @@ class SeoModelTest extends AbstractModelTest
                     )
                 );
 
-                $this->_checkCRUDExpected($expectedValue, $actual[$key], $isFullSame);
+                $this->_compareCRUDExpectedAndActual($expectedValue, $actual[$key], $isFullSame);
                 continue;
             }
 
@@ -147,7 +158,7 @@ class SeoModelTest extends AbstractModelTest
                     )
                 );
 
-                $this->_checkCRUDExpected($actualValue, $expected[$key], $isFullSame);
+                $this->_compareCRUDExpectedAndActual($actualValue, $expected[$key], $isFullSame);
                 continue;
             }
 
@@ -161,6 +172,11 @@ class SeoModelTest extends AbstractModelTest
         return $this;
     }
 
+    /**
+     * Data provider for CRUD
+     *
+     * @return array
+     */
     public function dataProviderXRUD()
     {
         return array_merge(
@@ -463,26 +479,11 @@ class SeoModelTest extends AbstractModelTest
             ],
             "incorrect6" => [
                 [
-                    "name"        => "Long string more than 255 symbols. Long string more than 255 symbols.
-                    Long string more than 255 symbols. Long string more than 255 symbols.
-                    Long string more than 255 symbols. Long string more than 255 symbols.
-                    Long string more than 255 symbols. Long string more than 255 symbols.",
-                    "url"         => "Long string more than 255 symbols. Long string more than 255 symbols.
-                    Long string more than 255 symbols. Long string more than 255 symbols.
-                    Long string more than 255 symbols. Long string more than 255 symbols.
-                    Long string more than 255 symbols. Long string more than 255 symbols.",
-                    "title"       => "Long string more than 255 symbols. Long string more than 255 symbols.
-                    Long string more than 255 symbols. Long string more than 255 symbols.
-                    Long string more than 255 symbols. Long string more than 255 symbols.
-                    Long string more than 255 symbols. Long string more than 255 symbols.",
-                    "keywords"    => "Long string more than 255 symbols. Long string more than 255 symbols.
-                    Long string more than 255 symbols. Long string more than 255 symbols.
-                    Long string more than 255 symbols. Long string more than 255 symbols.
-                    Long string more than 255 symbols. Long string more than 255 symbols.",
-                    "description" => "Long string more than 255 symbols. Long string more than 255 symbols.
-                    Long string more than 255 symbols. Long string more than 255 symbols.
-                    Long string more than 255 symbols. Long string more than 255 symbols.
-                    Long string more than 255 symbols. Long string more than 255 symbols.",
+                    "name"        => $this->generateStringWithLength(256),
+                    "url"         => $this->generateStringWithLength(256),
+                    "title"       => $this->generateStringWithLength(256),
+                    "keywords"    => $this->generateStringWithLength(256),
+                    "description" => $this->generateStringWithLength(256),
                 ],
                 [
                     "name"        => ["max"],
@@ -490,6 +491,22 @@ class SeoModelTest extends AbstractModelTest
                     "title"       => ["max"],
                     "keywords"    => ["max"],
                     "description" => ["max"],
+                ]
+            ],
+            "incorrect7" => [
+                [
+                    "name"        => $this->getStringWithTags("Name"),
+                    "url"         => $this->getStringWithTags("url 1"),
+                    "title"       => $this->getStringWithTags(" Title "),
+                    "keywords"    => $this->getStringWithTags(" keywords, keywords "),
+                    "description" => $this->getStringWithTags(" description "),
+                ],
+                [
+                    "name"        => "Name",
+                    "url"         => "url-1",
+                    "title"       => "Title",
+                    "keywords"    => "keywords, keywords",
+                    "description" => "description",
                 ]
             ],
         ];

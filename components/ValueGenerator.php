@@ -168,6 +168,7 @@ class ValueGenerator
      */
     private static function _generateWithClearStripTags($value)
     {
+        $value = preg_replace('/<script\b[^>]*>(.*?)<\/script>/is', "", $value);
         return trim(strip_tags($value));
     }
 
