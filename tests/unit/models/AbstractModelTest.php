@@ -24,6 +24,34 @@ abstract class AbstractModelTest extends AbstractUnitTest
     abstract protected function getNewModel();
 
     /**
+     * Data provider for CRUD. Empty values
+     *
+     * @return array
+     */
+    abstract protected function getDataProviderCRUDEmpty();
+
+    /**
+     * Data provider for CRUD. Correct values
+     *
+     * @return array
+     */
+    abstract protected function getDataProviderCRUDCorrect();
+
+    /**
+     * Data provider for CRUD. Incorrect values
+     *
+     * @return array
+     */
+    abstract protected function getDataProviderCRUDIncorrect();
+
+    /**
+     * Data provider for CRUD. Duplicate
+     *
+     * @return array
+     */
+    abstract public function getDataProviderDuplicate();
+
+    /**
      * DB Table structure test
      */
     public function testTableStructure()
@@ -233,6 +261,213 @@ abstract class AbstractModelTest extends AbstractUnitTest
                     $model->getTableName(),
                     implode("/", $types)
                 )
+            );
+        }
+
+        return $this;
+    }
+
+    /**
+     * Test CRUD
+     *
+     * @param array $createData
+     * @param array $createExpected
+     * @param array $updateData
+     * @param array $updateExpected
+     *
+     * @dataProvider dataProviderXRUD
+     *
+     * @return true
+     */
+    public function testCRUD(
+        array $createData = [],
+        array $createExpected = [],
+        array $updateData = [],
+        array $updateExpected = []
+    )
+    {
+        // Create
+        $model = $this->getNewModel()->set($createData)->save();
+        $errors = $model->getErrors();
+        if (count($errors) > 0) {
+            $this->_compareExpectedAndActual($createExpected, $errors, true);
+            return true;
+        }
+        $this->_compareExpectedAndActual($createExpected, $model->get());
+
+        // Read created
+        $model = $this->getNewModel()->byId($model->getId())->find();
+        $this->assertInstanceOf("\\testS\\models\\AbstractModel", $model);
+        $this->_compareExpectedAndActual($createExpected, $model->get());
+
+        // Update
+        $model->set($updateData)->save();
+        $errors = $model->getErrors();
+        if (count($errors) > 0) {
+            $this->_compareExpectedAndActual($updateExpected, $errors, true);
+            return true;
+        }
+        $this->_compareExpectedAndActual($updateExpected, $model->get());
+
+        // Read updated
+        $model = $this->getNewModel()->byId($model->getId())->find();
+        $this->assertInstanceOf("\\testS\\models\\AbstractModel", $model);
+        $this->_compareExpectedAndActual($updateExpected, $model->get());
+
+        // Delete
+        $model->delete();
+        $model = $this->getNewModel()->byId($model->getId())->find();
+        $this->assertNull($model);
+
+        return true;
+    }
+
+    /**
+     * Data provider for CRUD
+     *
+     * @return array
+     */
+    public function dataProviderXRUD()
+    {
+        return array_merge(
+            $this->getDataProviderCRUDEmpty(),
+            $this->getDataProviderCRUDCorrect(),
+            $this->getDataProviderCRUDIncorrect()
+        );
+    }
+
+    /**
+     * Test Duplicate
+     *
+     * @param array $createData
+     * @param array $duplicateExpected
+     *
+     * @dataProvider getDataProviderDuplicate
+     *
+     * @return true
+     */
+    public function testDuplicate(
+        array $createData = [],
+        array $duplicateExpected = []
+    )
+    {
+        // Create and get model
+        $model = $this->getNewModel()->set($createData)->save();
+        $model = $this->getNewModel()->byId($model->getId())->find();
+
+        // Duplicate
+        $duplicatedModel = $model->duplicate();
+
+        // Compare
+        $this->_compareExpectedAndActual($duplicateExpected, $duplicatedModel->get());
+        $this->assertNotSame($model->getId(), $duplicatedModel->getId());
+
+        // Read duplicated from DB
+        $duplicatedModel = $this->getNewModel()->byId($duplicatedModel->getId())->find();
+        $this->assertInstanceOf("\\testS\\models\\AbstractModel", $duplicatedModel);
+        $this->_compareExpectedAndActual($duplicateExpected, $duplicatedModel->get());
+
+        // Remove
+        $model->delete();
+        $duplicatedModel->delete();
+    }
+
+    /**
+     * Compares expected and actual
+     *
+     * @param array $expected
+     * @param array $actual
+     * @param bool  $isFullSame
+     *
+     * @return AbstractModelTest
+     */
+    private function _compareExpectedAndActual(array $expected, array $actual, $isFullSame = false)
+    {
+        foreach ($expected as $key => $expectedValue) {
+            if (is_string($key)) {
+                $this->assertArrayHasKey(
+                    $key,
+                    $actual,
+                    sprintf(
+                        "Unable to find key [%s] in actual array with keys [%s]",
+                        $key,
+                        implode(", ", array_keys($actual))
+                    )
+                );
+            } else {
+                $this->assertTrue(
+                    in_array($expectedValue, $actual),
+                    sprintf(
+                        "Unable to find value [%s] in actual array with values [%s]",
+                        $expectedValue,
+                        implode(", ", $actual)
+                    )
+                );
+            }
+
+            if (is_array($expectedValue)) {
+                $this->assertTrue(
+                    is_array($actual[$key]),
+                    sprintf(
+                        "Actual data with key [%s] is not an array. Array expected.",
+                        $key
+                    )
+                );
+
+                $this->_compareExpectedAndActual($expectedValue, $actual[$key], $isFullSame);
+                continue;
+            }
+
+            $this->assertSame(
+                $expectedValue,
+                $actual[$key],
+                sprintf("Values with key [%s] are not the same", $key)
+            );
+        }
+
+        if ($isFullSame === false) {
+            return $this;
+        }
+
+        foreach ($actual as $key => $actualValue) {
+            if (is_string($key)) {
+                $this->assertArrayHasKey(
+                    $key,
+                    $expected,
+                    sprintf(
+                        "Unable to find key [%s] in expected array with keys [%s]",
+                        $key,
+                        implode(", ", array_keys($expected))
+                    )
+                );
+            } else {
+                $this->assertTrue(
+                    in_array($actualValue, $expected),
+                    sprintf(
+                        "Unable to find value [%s] in expected array with values [%s]",
+                        $actualValue,
+                        implode(", ", $expected)
+                    )
+                );
+            }
+
+            if (is_array($actualValue)) {
+                $this->assertTrue(
+                    is_array($expected[$key]),
+                    sprintf(
+                        "Expected data with key [%s] is not an array. Array expected.",
+                        $key
+                    )
+                );
+
+                $this->_compareExpectedAndActual($actualValue, $expected[$key], $isFullSame);
+                continue;
+            }
+
+            $this->assertSame(
+                $actualValue,
+                $expected[$key],
+                sprintf("Values with key [%s] are not the same", $key)
             );
         }
 

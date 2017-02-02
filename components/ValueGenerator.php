@@ -181,7 +181,7 @@ class ValueGenerator
      */
     private static function _generateNameCopy($value)
     {
-        return Language::t("common", "copy") . " " . $value;
+        return sprintf("%s (%s)", $value, Language::t("common", "copy"));
     }
 
     /**

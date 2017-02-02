@@ -505,7 +505,7 @@ abstract class AbstractModel
      */
     public function getId()
     {
-        return $this->get(self::PK_FIELD);
+        return (int) $this->get(self::PK_FIELD);
     }
 
     /**
@@ -766,7 +766,7 @@ abstract class AbstractModel
 
             $this->_setFieldsForDbBeforeSave();
 
-            if ($this->get(self::PK_FIELD)) {
+            if ($this->getId()) {
                 $this->_update($where, $parameters);
             } else {
                 $this->_create();
@@ -803,7 +803,7 @@ abstract class AbstractModel
         if ($where === null) {
             $db
                 ->setWhere("id = :id")
-                ->addParameter("id", $this->get(self::PK_FIELD));
+                ->addParameter("id", $this->getId());
         } else {
             $db->setWhere($where);
 
@@ -992,7 +992,7 @@ abstract class AbstractModel
                 $this->_addErrors($relationName, $relationModel->getErrors());
             }
 
-            $this->set([$field => $relationModel->get(self::PK_FIELD)]);
+            $this->set([$field => $relationModel->getId()]);
         }
 
         return $this;
@@ -1055,12 +1055,12 @@ abstract class AbstractModel
     public final function delete($where = null, array $parameters = [])
     {
         if ($where === null) {
-            if (!$this->get(self::PK_FIELD)) {
+            if (!$this->getId()) {
                 throw new ModelException("Unable to delete the record with null ID");
             }
 
             $this->getDb()->setWhere("id = :id");
-            $this->getDb()->addParameter("id", (int) $this->get(self::PK_FIELD));
+            $this->getDb()->addParameter("id", (int) $this->getId());
         } else {
             $this->getDb()->setWhere($where);
 
@@ -1099,5 +1099,82 @@ abstract class AbstractModel
             $relationModel = $this->_getRelationModelByFieldName($field, true);
             $relationModel->delete();
         }
+    }
+
+    /**
+     * Duplicates the model
+     *
+     * @return AbstractModel
+     */
+    public function duplicate()
+    {
+        /**
+         * @var AbstractModel $duplicateModel
+         */
+        $duplicateModel = new $this;
+
+        foreach ($this->getFieldsInfo() as $field => $info) {
+            if (array_key_exists(self::FIELD_SKIP_DUPLICATION, $info)) {
+                $duplicateModel->_fields[$field] = null;
+                continue;
+            }
+
+            if (array_key_exists(self::FIELD_RELATION, $info)) {
+                $relationName = $this->_getRelationName($field);
+                $relationModel = $this->_getRelationModelByFieldName($field, true);
+                if (!$relationModel instanceof AbstractModel) {
+                    continue;
+                }
+                $duplicateRelationModel = $relationModel->duplicate();
+                $duplicateModel->_fields[$relationName] = $duplicateRelationModel;
+                $duplicateModel->_fields[$field] = $duplicateRelationModel->getId();
+                continue;
+            }
+
+            $duplicateModel->_fields[$field] = $this->get($field);
+
+            if (!array_key_exists(self::FIELD_CHANGE_ON_DUPLICATE, $info)) {
+                continue;
+            }
+
+            foreach ($info[self::FIELD_CHANGE_ON_DUPLICATE] as $valueGeneratorKey => $valueGeneratorValue) {
+                if (!is_string($valueGeneratorKey)) {
+                    $duplicateModel->_fields[$field] = ValueGenerator::generate(
+                        $valueGeneratorValue,
+                        $duplicateModel->get($field)
+                    );
+                    continue;
+                }
+
+
+                if (is_string($valueGeneratorValue)
+                    && stripos($valueGeneratorValue, "{") === 0
+                ) {
+                    $valueGeneratorValue = $duplicateModel->get(
+                        str_replace(["{", "}"], "", $valueGeneratorValue)
+                    );
+                } elseif (is_array($valueGeneratorValue)) {
+                    foreach ($valueGeneratorValue as &$valueGeneratorVal) {
+                        if (is_string($valueGeneratorVal)
+                            && stripos($valueGeneratorVal, "{") === 0
+                        ) {
+                            $valueGeneratorVal = $duplicateModel->get(
+                                str_replace(["{", "}"], "", $valueGeneratorVal)
+                            );
+                        }
+                    }
+                }
+
+                $duplicateModel->_fields[$field] = ValueGenerator::generate(
+                    $valueGeneratorKey,
+                    $duplicateModel->get($field),
+                    $valueGeneratorValue
+                );
+            }
+        }
+
+        $duplicateModel->save();
+
+        return $duplicateModel;
     }
 }
