@@ -40,13 +40,11 @@ class SeoModelTest extends AbstractModelTest
     )
     {
         $model = $this->getNewModel()->set($createData)->save();
-
         $errors = $model->getErrors();
         if (count($errors) > 0) {
             $this->_checkCRUDExpected($createExpected, $errors, true);
             return true;
         }
-
         $this->_checkCRUDExpected($createExpected, $model->get());
 
         $model = $this->getNewModel()->byId($model->getId())->find();
@@ -55,7 +53,16 @@ class SeoModelTest extends AbstractModelTest
         $this->_checkCRUDExpected($createExpected, $model->get());
 
         $model->set($updateData)->save();
+        $errors = $model->getErrors();
+        if (count($errors) > 0) {
+            $this->_checkCRUDExpected($updateExpected, $errors, true);
+            return true;
+        }
         $this->_checkCRUDExpected($updateExpected, $model->get());
+
+        $model->delete();
+        $model = $this->getNewModel()->byId($model->getId())->find();
+        $this->assertNull($model);
 
         return true;
     }
@@ -229,6 +236,23 @@ class SeoModelTest extends AbstractModelTest
                     "keywords"    => "keywords",
                     "description" => ""
                 ],
+            ],
+            "empty6" => [
+                [
+                    "name" => "Not empty",
+                ],
+                [
+                    "name" => "Not empty",
+                    "url"  => "not-empty",
+                ],
+                [
+                    "name" => "",
+                    "url"  => "",
+                ],
+                [
+                    "name" => ["required"],
+                    "url"  => ["required", "url"]
+                ]
             ]
         ];
     }
