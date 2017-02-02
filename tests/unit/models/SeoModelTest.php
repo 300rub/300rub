@@ -163,12 +163,17 @@ class SeoModelTest extends AbstractModelTest
     public function dataProviderXRUD()
     {
         return array_merge(
-            $this->getDataProviderCRUDEmpty()
-        //            $this->getDataProviderCRUDCorrect(),
+            $this->getDataProviderCRUDEmpty(),
+            $this->getDataProviderCRUDCorrect()
         //            $this->getDataProviderCRUDIncorrect()
         );
     }
 
+    /**
+     * Data provider for CRUD. Empty values
+     *
+     * @return array
+     */
     protected function getDataProviderCRUDEmpty()
     {
         return [
@@ -257,13 +262,105 @@ class SeoModelTest extends AbstractModelTest
         ];
     }
 
+    /**
+     * Data provider for CRUD. Correct values
+     *
+     * @return array
+     */
     protected function getDataProviderCRUDCorrect()
     {
         return [
-            []
+            "correct1" => [
+                [
+                    "name"        => "Name 1",
+                    "url"         => "url-1",
+                    "title"       => "",
+                    "keywords"    => "",
+                    "description" => ""
+                ],
+                [
+                    "name"        => "Name 1",
+                    "url"         => "url-1",
+                    "title"       => "",
+                    "keywords"    => "",
+                    "description" => ""
+                ],
+                [
+                    "name"        => "Name 2",
+                    "url"         => "url-2",
+                    "title"       => "title",
+                    "keywords"    => "keywords",
+                    "description" => "description"
+                ],
+                [
+                    "name"        => "Name 2",
+                    "url"         => "url-2",
+                    "title"       => "title",
+                    "keywords"    => "keywords",
+                    "description" => "description"
+                ],
+            ],
+            "correct2" => [
+                [
+                    "name" => "Name 1",
+                ],
+                [
+                    "name"        => "Name 1",
+                    "url"         => "name-1",
+                    "title"       => "",
+                    "keywords"    => "",
+                    "description" => ""
+                ],
+                [
+                    "name"     => "Name 2",
+                    "keywords" => "keywords",
+                ],
+                [
+                    "name"        => "Name 2",
+                    "url"         => "name-1",
+                    "title"       => "",
+                    "keywords"    => "keywords",
+                    "description" => ""
+                ],
+            ],
+            "correct3" => [
+                [
+                    "name"        => "Name",
+                    "url"         => "url",
+                    "title"       => "title",
+                    "keywords"    => "keywords",
+                    "description" => "description"
+                ],
+                [
+                    "name"        => "Name",
+                    "url"         => "url",
+                    "title"       => "title",
+                    "keywords"    => "keywords",
+                    "description" => "description"
+                ],
+                [
+                    "name"        => "Name 2",
+                    "url"         => "url-2",
+                    "title"       => "",
+                    "keywords"    => "",
+                    "description" => ""
+                ],
+                [
+                    "name"        => "Name 2",
+                    "url"         => "url-2",
+                    "title"       => "",
+                    "keywords"    => "",
+                    "description" => ""
+                ],
+            ]
         ];
     }
 
+    /**
+     * Data provider for CRUD. Incorrect values
+     *
+     * @return array
+     */
     protected function getDataProviderCRUDIncorrect()
     {
         return [
