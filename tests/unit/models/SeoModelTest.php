@@ -3,6 +3,7 @@
 namespace testS\tests\unit\models;
 
 use testS\models\SeoModel;
+use stdClass;
 
 /**
  * Tests for the model SeoModel
@@ -23,10 +24,10 @@ class SeoModelTest extends AbstractModelTest
     }
 
     /**
-     * @param array $createData
-     * @param array $createExpected
-     * @param array $updateData
-     * @param array $updateExpected
+     * @param array        $createData
+     * @param array|string $createExpected
+     * @param array        $updateData
+     * @param array|string $updateExpected
      *
      * @dataProvider dataProviderXRUD
      *
@@ -34,9 +35,9 @@ class SeoModelTest extends AbstractModelTest
      */
     public function testCRUD(
         array $createData = [],
-        array $createExpected = [],
+        $createExpected = [],
         array $updateData = [],
-        array $updateExpected = []
+        $updateExpected = []
     )
     {
         $model = $this->getNewModel()->set($createData)->save();
@@ -164,8 +165,8 @@ class SeoModelTest extends AbstractModelTest
     {
         return array_merge(
             $this->getDataProviderCRUDEmpty(),
-            $this->getDataProviderCRUDCorrect()
-        //            $this->getDataProviderCRUDIncorrect()
+            $this->getDataProviderCRUDCorrect(),
+            $this->getDataProviderCRUDIncorrect()
         );
     }
 
@@ -364,7 +365,133 @@ class SeoModelTest extends AbstractModelTest
     protected function getDataProviderCRUDIncorrect()
     {
         return [
-            []
+            "incorrect1" => [
+                [
+                    "name"        => 1,
+                    "url"         => 2,
+                    "title"       => 3,
+                    "keywords"    => 4,
+                    "description" => 5
+                ],
+                [
+                    "name"        => "1",
+                    "url"         => "2",
+                    "title"       => "3",
+                    "keywords"    => "4",
+                    "description" => "5"
+                ],
+                [
+                    "name"        => 1.5,
+                    "url"         => 2.5,
+                    "title"       => 3.5,
+                    "keywords"    => 4.5,
+                    "description" => 5.5
+                ],
+                [
+                    "name"        => "1.5",
+                    "url"         => "25",
+                    "title"       => "3.5",
+                    "keywords"    => "4.5",
+                    "description" => "5.5"
+                ],
+            ],
+            "incorrect2" => [
+                [
+                    "name"        => true,
+                    "url"         => true,
+                    "title"       => true,
+                    "keywords"    => true,
+                    "description" => true
+                ],
+                [
+                    "name"        => "1",
+                    "url"         => "1",
+                    "title"       => "1",
+                    "keywords"    => "1",
+                    "description" => "1"
+                ],
+                [
+                    "name"        => false,
+                    "url"         => false,
+                    "title"       => false,
+                    "keywords"    => false,
+                    "description" => false
+                ],
+                [
+                    "name" => ["required"],
+                    "url"  => ["required", "url"]
+                ]
+            ],
+            "incorrect3" => [
+                [
+                    "name"        => [],
+                    "url"         => [],
+                    "title"       => [],
+                    "keywords"    => [],
+                    "description" => []
+                ],
+                [
+                    "name" => ["required"],
+                    "url"  => ["required", "url"]
+                ]
+            ],
+            "incorrect4" => [
+                [
+                    "name"        => ["name" => "name", "value"],
+                    "url"         => ["name" => "name", "value"],
+                    "title"       => ["name" => "name", "value"],
+                    "keywords"    => ["name" => "name", "value"],
+                    "description" => ["name" => "name", "value"],
+                ],
+                [
+                    "name" => ["required"],
+                    "url"  => ["required", "url"]
+                ]
+            ],
+            "incorrect5" => [
+                [
+                    "name"        => new stdClass(),
+                    "url"         => new stdClass(),
+                    "title"       => new stdClass(),
+                    "keywords"    => new stdClass(),
+                    "description" => new stdClass(),
+                ],
+                [
+                    "name" => ["required"],
+                    "url"  => ["required", "url"]
+                ]
+            ],
+            "incorrect6" => [
+                [
+                    "name"        => "Long string more than 255 symbols. Long string more than 255 symbols.
+                    Long string more than 255 symbols. Long string more than 255 symbols.
+                    Long string more than 255 symbols. Long string more than 255 symbols.
+                    Long string more than 255 symbols. Long string more than 255 symbols.",
+                    "url"         => "Long string more than 255 symbols. Long string more than 255 symbols.
+                    Long string more than 255 symbols. Long string more than 255 symbols.
+                    Long string more than 255 symbols. Long string more than 255 symbols.
+                    Long string more than 255 symbols. Long string more than 255 symbols.",
+                    "title"       => "Long string more than 255 symbols. Long string more than 255 symbols.
+                    Long string more than 255 symbols. Long string more than 255 symbols.
+                    Long string more than 255 symbols. Long string more than 255 symbols.
+                    Long string more than 255 symbols. Long string more than 255 symbols.",
+                    "keywords"    => "Long string more than 255 symbols. Long string more than 255 symbols.
+                    Long string more than 255 symbols. Long string more than 255 symbols.
+                    Long string more than 255 symbols. Long string more than 255 symbols.
+                    Long string more than 255 symbols. Long string more than 255 symbols.",
+                    "description" => "Long string more than 255 symbols. Long string more than 255 symbols.
+                    Long string more than 255 symbols. Long string more than 255 symbols.
+                    Long string more than 255 symbols. Long string more than 255 symbols.
+                    Long string more than 255 symbols. Long string more than 255 symbols.",
+                ],
+                [
+                    "name"        => ["max"],
+                    "url"         => ["max"],
+                    "title"       => ["max"],
+                    "keywords"    => ["max"],
+                    "description" => ["max"],
+                ]
+            ],
         ];
     }
 }

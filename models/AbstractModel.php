@@ -351,6 +351,10 @@ abstract class AbstractModel
                 continue;
             }
 
+            if (is_array($value) || is_object($value)) {
+                $value = null;
+            }
+
             switch ($info[$field][self::FIELD_TYPE]) {
                 case self::FIELD_TYPE_STRING:
                     $this->_fields[$field] = ValueGenerator::generate(ValueGenerator::STRING, $value);
