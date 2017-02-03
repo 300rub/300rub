@@ -298,10 +298,11 @@ class ValueGenerator
             }
         }
 
-        if (is_string($value)
-            && (strtolower($value) === "true" || $value === "1")
-        ) {
-            return true;
+        if (is_string($value)) {
+            $value = trim(strtolower($value));
+            if ($value === "true" || $value === "1") {
+                return true;
+            }
         }
 
         return false;
