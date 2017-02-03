@@ -298,7 +298,9 @@ class ValueGenerator
             }
         }
 
-        if (is_string($value) && strtolower($value) === "true") {
+        if (is_string($value)
+            && (strtolower($value) === "true" || $value === "1")
+        ) {
             return true;
         }
 
