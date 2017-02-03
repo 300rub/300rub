@@ -110,7 +110,7 @@ class M160321000700Catalogs extends AbstractMigration
             )
             ->createForeignKey("catalogMenu", "parentId", "catalogMenu", self::FK_CASCADE, self::FK_CASCADE)
             ->createForeignKey("catalogMenu", "seoId", "seo")
-            ->createForeignKey("catalogMenu", "catalogId", "catalogs")
+            ->createForeignKey("catalogMenu", "catalogId", "catalogs", self::FK_CASCADE, self::FK_CASCADE)
             ->createTable(
                 "catalogInstances",
                 [
@@ -128,7 +128,7 @@ class M160321000700Catalogs extends AbstractMigration
             ->createForeignKey("catalogInstances", "seoId", "seo")
             ->createForeignKey("catalogInstances", "tabGroupId", "tabGroups")
             ->createForeignKey("catalogInstances", "imageGroupId", "imageGroups")
-            ->createForeignKey("catalogInstances", "catalogMenuId", "catalogMenu")
+            ->createForeignKey("catalogInstances", "catalogMenuId", "catalogMenu", self::FK_CASCADE, self::FK_CASCADE)
             ->createForeignKey("catalogInstances", "fieldGroupId", "fieldGroups")
             ->createIndex("catalogInstances", "price")
             ->createIndex("catalogInstances", "date")
@@ -140,8 +140,20 @@ class M160321000700Catalogs extends AbstractMigration
                     "linkCatalogInstanceId" => self::TYPE_FK,
                 ]
             )
-            ->createForeignKey("catalogInstanceLinks", "catalogInstanceId", "catalogInstances")
-            ->createForeignKey("catalogInstanceLinks", "linkCatalogInstanceId", "catalogInstances")
+            ->createForeignKey(
+                "catalogInstanceLinks",
+                "catalogInstanceId",
+                "catalogInstances",
+                self::FK_CASCADE,
+                self::FK_CASCADE
+            )
+            ->createForeignKey(
+                "catalogInstanceLinks",
+                "linkCatalogInstanceId",
+                "catalogInstances",
+                self::FK_CASCADE,
+                self::FK_CASCADE
+            )
             ->createUniqueIndex(
                 "catalogInstanceLinks",
                 "catalogInstanceLinks_catalogInstanceId_linkCatalogInstanceId",
@@ -157,8 +169,14 @@ class M160321000700Catalogs extends AbstractMigration
                     "status"            => self::TYPE_TINYINT_UNSIGNED,
                 ]
             )
-            ->createForeignKey("catalogBins", "catalogId", "catalogs")
-            ->createForeignKey("catalogBins", "catalogInstanceId", "catalogInstances")
+            ->createForeignKey("catalogBins", "catalogId", "catalogs", self::FK_CASCADE, self::FK_CASCADE)
+            ->createForeignKey(
+                "catalogBins",
+                "catalogInstanceId",
+                "catalogInstances",
+                self::FK_CASCADE,
+                self::FK_CASCADE
+            )
             ->createIndex("catalogBins", "status")
             ->createTable(
                 "catalogOrders",
@@ -169,7 +187,7 @@ class M160321000700Catalogs extends AbstractMigration
                     "email"        => self::TYPE_STRING_100,
                 ]
             )
-            ->createForeignKey("catalogOrders", "catalogBinId", "catalogBins")
-            ->createForeignKey("catalogOrders", "formId", "forms");
+            ->createForeignKey("catalogOrders", "catalogBinId", "catalogBins", self::FK_CASCADE, self::FK_CASCADE)
+            ->createForeignKey("catalogOrders", "formId", "forms", self::FK_CASCADE, self::FK_CASCADE);
     }
 }

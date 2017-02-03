@@ -55,7 +55,7 @@ class CatalogInstanceModel extends AbstractModel
                 self::FIELD_RELATION => "ImageGroupModel"
             ],
             "catalogMenuId" => [
-                self::FIELD_RELATION => "CatalogMenuModel"
+                self::FIELD_RELATION_TO_PARENT => "CatalogMenuModel"
             ],
             "fieldGroupId"  => [
                 self::FIELD_RELATION => "FieldGroupModel"

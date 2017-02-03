@@ -48,10 +48,10 @@ class CatalogBinModel extends AbstractModel
     {
         return [
             "catalogId"         => [
-                self::FIELD_RELATION => "CatalogModel"
+                self::FIELD_RELATION_TO_PARENT => "CatalogModel"
             ],
             "catalogInstanceId" => [
-                self::FIELD_RELATION => "CatalogInstanceModel"
+                self::FIELD_RELATION_TO_PARENT => "CatalogInstanceModel"
             ],
             "count"             => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,

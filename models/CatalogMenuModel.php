@@ -39,7 +39,7 @@ class CatalogMenuModel extends AbstractModel
                 self::FIELD_RELATION => "SeoModel"
             ],
             "catalogId"            => [
-                self::FIELD_RELATION => "CatalogModel"
+                self::FIELD_RELATION_TO_PARENT => "CatalogModel"
             ],
             "icon"     => [
                 self::FIELD_TYPE       => self::FIELD_TYPE_STRING,

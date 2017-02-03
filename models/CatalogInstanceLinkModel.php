@@ -29,10 +29,10 @@ class CatalogInstanceLinkModel extends AbstractModel
     {
         return [
             "catalogInstanceId"     => [
-                self::FIELD_RELATION => "CatalogInstanceModel"
+                self::FIELD_RELATION_TO_PARENT => "CatalogInstanceModel"
             ],
             "linkCatalogInstanceId" => [
-                self::FIELD_RELATION => "CatalogInstanceModel"
+                self::FIELD_RELATION_TO_PARENT => "CatalogInstanceModel"
             ],
         ];
     }

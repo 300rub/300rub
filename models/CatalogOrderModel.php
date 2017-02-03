@@ -32,10 +32,10 @@ class CatalogOrderModel extends AbstractModel
     {
         return [
             "catalogBinId" => [
-                self::FIELD_RELATION => "CatalogBinModel"
+                self::FIELD_RELATION_TO_PARENT => "CatalogBinModel"
             ],
             "formId"       => [
-                self::FIELD_RELATION => "FormModel"
+                self::FIELD_RELATION_TO_PARENT => "FormModel"
             ],
             "email"        => [
                 self::FIELD_TYPE       => self::FIELD_TYPE_STRING,
