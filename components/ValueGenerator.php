@@ -2,7 +2,7 @@
 
 namespace testS\components;
 
-use testS\components\exceptions\ModelException;
+use testS\components\exceptions\ContentException;
 
 /**
  * Class for generation values
@@ -204,7 +204,7 @@ class ValueGenerator
      *
      * @return int|string
      *
-     * @throws ModelException
+     * @throws ContentException
      */
     private static function _generateArrayKey($value, array $parameters)
     {
@@ -218,7 +218,7 @@ class ValueGenerator
             if (array_key_exists($defaultValue, $list)) {
                 return $defaultValue;
             } else {
-                throw new ModelException(
+                throw new ContentException(
                     "Unable to find value: {value} from array keys: {keys}",
                     [
                         "value" => $value,
@@ -284,7 +284,7 @@ class ValueGenerator
      *
      * @return string
      */
-    private function _generateBool($value)
+    private static function _generateBool($value)
     {
         if (is_bool($value)) {
             return $value;
@@ -312,7 +312,7 @@ class ValueGenerator
      *
      * @return string
      */
-    private function _generateBoolInt($value)
+    private static function _generateBoolInt($value)
     {
         if ($value === true) {
             return 1;

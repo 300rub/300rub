@@ -22,6 +22,8 @@ class BlockModelTest extends AbstractModelTest
         return new BlockModel();
     }
 
+    const CONTENT_EXCEPTION = "\\testS\\components\\exceptions\\ContentException";
+
     /**
      * Data provider for CRUD. Empty values
      *

@@ -112,7 +112,17 @@ class SeoModelTest extends AbstractModelTest
                     "name" => ["required"],
                     "url"  => ["required", "url"]
                 ]
-            ]
+            ],
+            "empty7" => [
+                [
+                    "name" => null,
+                    "url"  => null,
+                ],
+                [
+                    "name" => ["required"],
+                    "url"  => ["required", "url"]
+                ]
+            ],
         ];
     }
 

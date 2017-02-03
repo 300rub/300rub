@@ -270,10 +270,12 @@ abstract class AbstractModelTest extends AbstractUnitTest
     /**
      * Test CRUD
      *
-     * @param array $createData
-     * @param array $createExpected
-     * @param array $updateData
-     * @param array $updateExpected
+     * @param array  $createData
+     * @param array  $createExpected
+     * @param array  $updateData
+     * @param array  $updateExpected
+     * @param string $expectedCreateException
+     * @param string $expectedUpdateException
      *
      * @dataProvider dataProviderXRUD
      *
@@ -283,10 +285,15 @@ abstract class AbstractModelTest extends AbstractUnitTest
         array $createData = [],
         array $createExpected = [],
         array $updateData = [],
-        array $updateExpected = []
+        array $updateExpected = [],
+        $expectedCreateException = null,
+        $expectedUpdateException = null
     )
     {
         // Create
+        if ($expectedCreateException !== null) {
+            $this->expectException($expectedCreateException);
+        }
         $model = $this->getNewModel()->set($createData)->save();
         $errors = $model->getErrors();
         if (count($errors) > 0) {
@@ -301,6 +308,9 @@ abstract class AbstractModelTest extends AbstractUnitTest
         $this->_compareExpectedAndActual($createExpected, $model->get());
 
         // Update
+        if ($expectedUpdateException !== null) {
+            $this->expectException($expectedUpdateException);
+        }
         $model->set($updateData)->save();
         $errors = $model->getErrors();
         if (count($errors) > 0) {
