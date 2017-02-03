@@ -28,11 +28,6 @@ class DesignTextModel extends AbstractModel
     const MIN_LINE_HEIGHT_VALUE = 10;
 
     /**
-     * Default line-height value
-     */
-    const DEFAULT_LINE_HEIGHT = 140;
-
-    /**
      * Font family types
      */
     const FAMILY_MYRAD = 0;
@@ -205,13 +200,13 @@ class DesignTextModel extends AbstractModel
             "size"               => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
-                    ValueGenerator::MIN => self::MIN_SIZE_VALUE
+                    ValueGenerator::MIN_THEN => [self::MIN_SIZE_VALUE, 0],
                 ],
             ],
             "sizeHover"          => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
-                    ValueGenerator::MIN => self::MIN_SIZE_VALUE
+                    ValueGenerator::MIN_THEN => [self::MIN_SIZE_VALUE, 0],
                 ],
             ],
             "family"             => [
@@ -289,13 +284,13 @@ class DesignTextModel extends AbstractModel
             "lineHeight"         => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
-                    ValueGenerator::MIN_THEN => [self::MIN_LINE_HEIGHT_VALUE, self::DEFAULT_LINE_HEIGHT],
+                    ValueGenerator::MIN_THEN => [self::MIN_LINE_HEIGHT_VALUE, 0],
                 ],
             ],
             "lineHeightHover"    => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
-                    ValueGenerator::MIN_THEN => [self::MIN_LINE_HEIGHT_VALUE, self::DEFAULT_LINE_HEIGHT],
+                    ValueGenerator::MIN_THEN => [self::MIN_LINE_HEIGHT_VALUE, 0],
                 ],
             ],
         ];
