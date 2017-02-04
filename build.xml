@@ -21,42 +21,42 @@
 
     <target name="clear-db">
         <exec executable="php" failonerror="true">
-            <arg value='bin/php' />
+            <arg value='bin/run-php-command' />
             <arg value='clearDb' />
         </exec>
     </target>
 
     <target name="public-vendor">
         <exec executable="php" failonerror="true">
-            <arg value='bin/php' />
+            <arg value='bin/run-php-command' />
             <arg value='publicVendor' />
         </exec>
     </target>
 
     <target name="create-sql-dumps">
         <exec executable="php" failonerror="true">
-            <arg value='bin/php' />
+            <arg value='bin/run-php-command' />
             <arg value='createSqlDumps' />
         </exec>
     </target>
 
     <target name="migrate">
         <exec executable="php" failonerror="true">
-            <arg value='bin/php' />
+            <arg value='bin/run-php-command' />
             <arg value='migrate' />
         </exec>
     </target>
 
     <target name="load-fixtures">
         <exec executable="php" failonerror="true">
-            <arg value='bin/php' />
+            <arg value='bin/run-php-command' />
             <arg value='loadFixtures' />
         </exec>
     </target>
 
     <target name="rollback-sql-dumps">
         <exec executable="php" failonerror="true">
-            <arg value='bin/php' />
+            <arg value='bin/run-php-command' />
             <arg value='rollbackSqlDumps' />
         </exec>
     </target>
