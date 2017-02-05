@@ -31,7 +31,7 @@ class ClearDbCommand extends AbstractCommand
 	 */
 	public static function clear()
 	{
-		$db = App::getApplication()->config->db;
+		$db = App::getInstance()->getConfig()->db;
 
 		exec(
 			sprintf(

@@ -44,7 +44,7 @@ class LoadFixturesCommand extends AbstractCommand
 	 */
 	public static function load()
 	{
-		$siteId = App::getApplication()->config->siteId;
+		$siteId = App::getInstance()->getConfig()->siteId;
 
 		// Files
 		$uploadFilesFolder = __DIR__ . "/../public/upload/{$siteId}";

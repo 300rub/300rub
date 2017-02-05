@@ -37,7 +37,7 @@ class Ssh
     public function __construct($sshConnectionName = null)
     {
         if (!$sshConnectionName) {
-            $sshConnectionName = App::web()->config->ssh->active;
+            $sshConnectionName = App::web()->getConfig()->ssh->active;
         }
 
         $this
@@ -56,7 +56,7 @@ class Ssh
      */
     private function _setParams($sshConnectionName)
     {
-        if (empty(App::web()->config->ssh->list->$sshConnectionName)) {
+        if (empty(App::web()->getConfig()->ssh->list->$sshConnectionName)) {
             throw new SshException(
                 "Unable to find parameters for the server: {sshConnectionName}",
                 [
@@ -65,7 +65,7 @@ class Ssh
             );
         }
 
-        $this->_params = App::web()->config->ssh->list->$sshConnectionName;
+        $this->_params = App::web()->getConfig()->ssh->list->$sshConnectionName;
 
         return $this;
     }

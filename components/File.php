@@ -83,7 +83,7 @@ class File
             );
         }
 
-        if (!App::web()->config->isDebug) {
+        if (!App::web()->getConfig()->isDebug) {
             $ssh = new Ssh();
             $ssh->deleteFile($this->_getFilePath());
         }
@@ -107,7 +107,7 @@ class File
             );
         }
 
-        if (!App::web()->config->isDebug) {
+        if (!App::web()->getConfig()->isDebug) {
             $ssh = new Ssh();
             $ssh->sendFile($fileUploadPath, $this->_getFilePath());
 
@@ -129,7 +129,7 @@ class File
      */
     private function _getFilePath()
     {
-        return App::web()->config->siteId . "/" . $this->_name;
+        return App::web()->getConfig()->siteId . "/" . $this->_name;
     }
 
     /**

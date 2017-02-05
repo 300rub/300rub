@@ -19,7 +19,7 @@ abstract class AbstractApplication
 	 *
 	 * @var object
 	 */
-	public $config = null;
+	private $_config = null;
 
 	/**
 	 * Runs application
@@ -37,10 +37,20 @@ abstract class AbstractApplication
 	{
 		$this
 			->_setErrorHandler()
-			->_parseConfig($config)
+			->_setConfig($config)
 			->_activateVendorAutoload()
-			->_checkDbConnection();
+			->_setDbConnection();
 	}
+
+    /**
+     * Gets config
+     *
+     * @return object
+     */
+	public function getConfig()
+    {
+        return $this->_config;
+    }
 
 	/**
 	 * Sets Error Handler
@@ -61,9 +71,9 @@ abstract class AbstractApplication
 	 *
 	 * @return AbstractApplication
 	 */
-	private function _parseConfig($config)
+	private function _setConfig($config)
 	{
-		$this->config = json_decode(json_encode($config));
+		$this->_config = json_decode(json_encode($config));
 
 		return $this;
 	}
@@ -81,19 +91,19 @@ abstract class AbstractApplication
 	}
 
 	/**
-	 * Checks connection with DB
+	 * Sets connection with DB
 	 *
 	 * @return AbstractApplication
 	 *
 	 * @throws DbException
 	 */
-	private function _checkDbConnection()
+	private function _setDbConnection()
 	{
 		Db::setPdo(
-			$this->config->db->host,
-			$this->config->db->user,
-			$this->config->db->password,
-			$this->config->db->name
+			$this->getConfig()->db->host,
+			$this->getConfig()->db->user,
+			$this->getConfig()->db->password,
+			$this->getConfig()->db->name
 		);
 
 		return $this;

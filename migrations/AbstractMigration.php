@@ -36,6 +36,7 @@ abstract class AbstractMigration
     const TYPE_STRING_100 = 'VARCHAR(100) NOT NULL';
     const TYPE_STRING_50 = 'VARCHAR(50) NOT NULL';
     const TYPE_STRING_25 = 'VARCHAR(25) NOT NULL';
+    const TYPE_CHAR_32 = 'CHAR(32) NOT NULL';
     const TYPE_CHAR_40 = 'CHAR(40) NOT NULL';
     const TYPE_INT = 'INT NOT NULL';
     const TYPE_INT_UNSIGNED = 'INT UNSIGNED NOT NULL';

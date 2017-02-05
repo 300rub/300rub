@@ -91,7 +91,7 @@ class App
 	 *
 	 * @return AbstractApplication
 	 */
-	public static function getApplication()
+	public static function getInstance()
 	{
 		if (self::$_web) {
 			return self::$_web;

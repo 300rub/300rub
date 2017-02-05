@@ -33,12 +33,12 @@ class UserSessionModel extends AbstractModel
             "userId"   => [
                 self::FIELD_RELATION_TO_PARENT => "UserModel"
             ],
-            "token"    => [
+            "sid"    => [
                 self::FIELD_TYPE       => self::FIELD_TYPE_STRING,
                 self::FIELD_VALIDATION => [
                     Validator::TYPE_REQUIRED,
-                    Validator::TYPE_MAX_LENGTH => 40,
-                    Validator::TYPE_MIN_LENGTH => 40
+                    Validator::TYPE_MAX_LENGTH => 32,
+                    Validator::TYPE_MIN_LENGTH => 32
                 ],
             ],
             "isActive" => [

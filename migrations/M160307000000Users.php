@@ -33,7 +33,7 @@ class M160307000000Users extends AbstractMigration
                 [
                     "id"       => self::TYPE_PK,
                     "userId"   => self::TYPE_FK,
-                    "token"    => self::TYPE_CHAR_40,
+                    "sid"      => self::TYPE_CHAR_32,
                     "isActive" => self::TYPE_BOOL,
                     "ip"       => self::TYPE_STRING_25,
                     "host"     => self::TYPE_STRING_100,
@@ -44,7 +44,7 @@ class M160307000000Users extends AbstractMigration
             )
             ->createForeignKey("userSessions", "userId", "users", self::FK_CASCADE, self::FK_CASCADE)
             ->createIndex("userSessions", "isActive")
-            ->createUniqueIndex("userSessions", "userSessions_token_isActive", "token,isActive")
+            ->createUniqueIndex("userSessions", "userSessions_sid_isActive", "sid,isActive")
             ->createTable(
                 "userBlocks",
                 [
