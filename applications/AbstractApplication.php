@@ -5,6 +5,7 @@ namespace testS\applications;
 use testS\components\Db;
 use testS\components\ErrorHandler;
 use testS\components\exceptions\DbException;
+use testS\components\User;
 
 /**
  * Abstract class for work with application
@@ -20,6 +21,13 @@ abstract class AbstractApplication
 	 * @var object
 	 */
 	private $_config = null;
+
+    /**
+     * User in session
+     *
+     * @var User
+     */
+    private $_user = null;
 
 	/**
 	 * Runs application
@@ -39,7 +47,8 @@ abstract class AbstractApplication
 			->_setErrorHandler()
 			->_setConfig($config)
 			->_activateVendorAutoload()
-			->_setDbConnection();
+			->_setDbConnection()
+            ->_setUser();
 	}
 
     /**
@@ -108,4 +117,29 @@ abstract class AbstractApplication
 
 		return $this;
 	}
+
+    /**
+     * Sets User
+     *
+     * @return AbstractApplication
+     */
+	private function _setUser()
+    {
+        // @TODO set session ID, session start set user
+        //session_id("aaa");
+        //session_start();
+        // $_SESSION["aa"] = "bb";
+
+        return $this;
+    }
+
+    /**
+     * Gets user
+     *
+     * @return User
+     */
+    public function getUser()
+    {
+        return $this->_user;
+    }
 }
