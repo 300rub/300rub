@@ -1,25 +1,5 @@
 <?php
-//
-//namespace testS\applications;
-//
-//use testS\components\Db;
-//use testS\components\exceptions\AccessException;
-//use testS\components\exceptions\CommonException;
-//use testS\components\exceptions\ContentException;
-//use testS\components\exceptions\DbException;
-//use testS\components\Language;
-//use testS\controllers\CommonController;
-//use testS\controllers\AbstractController;
-//use testS\models\UserModel;
-//use Exception;
-//
-///**
-// * Class for working with WEB application
-// *
-// * @package testS\application
-// */
-//class Web extends AbstractApplication
-//{
+
 //
 //	/**
 //	 * Script start time
