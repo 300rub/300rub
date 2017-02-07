@@ -15,10 +15,21 @@ abstract class AbstractControllerTest extends AbstractUnitTest
     protected function sendRequest()
     {
         $host = trim(shell_exec("/sbin/ip route|awk '/default/ { print $3 }'"));
-        $curl = curl_init(); curl_setopt($curl, CURLOPT_URL, $host);
+
+        $curl = curl_init();
+        curl_setopt($curl, CURLOPT_URL, $host . "/aaa/aa");
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-        $result = curl_exec($curl);
-        var_dump($result);
+        curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "PUT");
+
+        $body = curl_exec($curl);
+        $info = curl_getinfo($curl);
+        $code = $info["http_code"];
+        $type = $info["content_type"];
+
+        var_dump($code);
+        var_dump($type);
+        var_dump($body);
+
         exit();
     }
 }
