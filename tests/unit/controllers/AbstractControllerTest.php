@@ -21,6 +21,17 @@ abstract class AbstractControllerTest extends AbstractUnitTest
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "PUT");
 
+
+        $data = [
+            "sid" => "aaa"
+        ];
+        $dataString = json_encode($data);
+        curl_setopt($curl, CURLOPT_POSTFIELDS, $dataString);
+        curl_setopt($curl, CURLOPT_HTTPHEADER, array(
+                'Content-Type: application/json',
+                'Content-Length: ' . strlen($dataString))
+        );
+
         $body = curl_exec($curl);
         $info = curl_getinfo($curl);
         $code = $info["http_code"];
