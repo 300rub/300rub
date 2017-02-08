@@ -24,8 +24,13 @@ db:
         MYSQL_ROOT_PASSWORD: root
         MYSQL_SQL_TO_RUN: 'GRANT ALL ON *.* TO root@"%" IDENTIFIED BY "root";'
         MYSQL_DATABASE: "project"
+
 ant:
     image: ant:1.9.4
     volumes:
         - ".:/var/www"
     tty: true
+
+memcached:
+    image: memcached:latest
+    net: "container:phpfpm"

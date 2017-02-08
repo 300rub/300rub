@@ -151,58 +151,18 @@
 //		$useTransaction = false;
 //
 //		try {
-//			if (
-//				empty($_SERVER['HTTP_X_REQUESTED_WITH'])
-//				|| strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) !== 'xmlhttprequest'
-//			) {
-//				throw new ContentException("Only AJAX request is allowed");
-//			}
-//
-//			$this->isAjax = true;
-//
-//			if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-//				throw new ContentException("Only POST method is allowed");
-//			}
-//
-//			$input = json_decode(file_get_contents('php://input'));
-//
-//			if (
-//				empty($input->action)
-//				|| empty($input->language)
-//				|| !isset($input->fields)
-//			) {
-//				throw new ContentException("Incorrect post data");
-//			}
-//
 //			$controllerParams = explode(AbstractController::ACTION_SEPARATOR, $input->action);
 //			if (count($controllerParams) !== 2) {
 //				throw new ContentException("Incorrect \"action\" parameter");
 //			}
 //
-//			$className = "\\controllers\\" . ucfirst($controllerParams[0]) . "Controller";
-//			if (!class_exists($className)) {
-//				throw new CommonException(
-//					"Class: {className} doesn't exists",
-//					[
-//						"className" => $className
-//					]
-//				);
-//			}
+//
+
 //
 //			/**
 //			 * @var \testS\controllers\AbstractController $controller
 //			 */
-//			$controller = new $className;
-//			$methodName = "action" . ucfirst($controllerParams[1]);
-//			if (!method_exists($controller, $methodName)) {
-//				throw new CommonException(
-//					"Method: {methodName} doesn't exist in class: {className}",
-//					[
-//						"methodName" => $methodName,
-//						"className"  => $className
-//					]
-//				);
-//			}
+
 //
 //			if (!$controller->hasAccess($methodName)) {
 //				throw new AccessException(

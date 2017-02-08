@@ -5,6 +5,7 @@ namespace testS\applications;
 use testS\components\Db;
 use testS\components\ErrorHandler;
 use testS\components\exceptions\DbException;
+use testS\components\Memcached;
 use testS\components\User;
 
 /**
@@ -30,6 +31,13 @@ abstract class AbstractApplication
     private $_user = null;
 
 	/**
+	 * Memcached
+	 *
+	 * @var Memcached
+	 */
+	private $_memcached = null;
+
+	/**
 	 * Runs application
 	 *
 	 * @return void
@@ -48,7 +56,8 @@ abstract class AbstractApplication
 			->_setConfig($config)
 			->_activateVendorAutoload()
 			->_setDbConnection()
-            ->_setUser();
+            ->_setUser()
+            ->_setMemcached();
 	}
 
     /**
@@ -133,13 +142,35 @@ abstract class AbstractApplication
         return $this;
     }
 
-    /**
-     * Gets user
-     *
-     * @return User
-     */
-    public function getUser()
-    {
-        return $this->_user;
-    }
+	/**
+	 * Gets user
+	 *
+	 * @return User
+	 */
+	public function getUser()
+	{
+		return $this->_user;
+	}
+
+	/**
+	 * Sets Memcached
+	 *
+	 * @return AbstractApplication
+	 */
+	private function _setMemcached()
+	{
+		$this->_memcached = new Memcached($this->getConfig()->memcached->host, $this->getConfig()->memcached->port);
+
+		return $this;
+	}
+
+	/**
+	 * Gets Memcached
+	 *
+	 * @return Memcached
+	 */
+	public function getMemcached()
+	{
+		return $this->_memcached;
+	}
 }

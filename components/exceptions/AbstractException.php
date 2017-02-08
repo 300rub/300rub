@@ -45,7 +45,7 @@ abstract class AbstractException extends Exception
 			if (is_array($value)) {
 				$value = json_encode($value);
 			}
-			$message = str_replace('{' . $key . '}', (string) $value, $message);
+			$message = str_replace('{' . $key . '}', "[" . (string) $value . "]", $message);
 		}
 
 		if (

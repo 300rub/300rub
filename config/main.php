@@ -34,5 +34,9 @@ return [
 			]
 		]
 	],
-	"siteId" => 0
+	"siteId" => 0,
+	"memcached" => [
+		"host" => "localhost",
+		"port" => 11211
+	]
 ];
