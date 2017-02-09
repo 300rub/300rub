@@ -33,7 +33,7 @@ class UserSessionModel extends AbstractModel
             "userId"   => [
                 self::FIELD_RELATION_TO_PARENT => "UserModel"
             ],
-            "sid"    => [
+            "token"    => [
                 self::FIELD_TYPE       => self::FIELD_TYPE_STRING,
                 self::FIELD_VALIDATION => [
                     Validator::TYPE_REQUIRED,
@@ -50,12 +50,6 @@ class UserSessionModel extends AbstractModel
                     Validator::TYPE_REQUIRED,
                     Validator::TYPE_IP
                 ],
-            ],
-            "host"     => [
-                self::FIELD_TYPE => self::FIELD_TYPE_STRING,
-            ],
-            "port"     => [
-                self::FIELD_TYPE => self::FIELD_TYPE_INT,
             ],
             "ua"       => [
                 self::FIELD_TYPE => self::FIELD_TYPE_STRING,

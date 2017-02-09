@@ -4,6 +4,8 @@ namespace testS\controllers;
 
 use testS\components\exceptions\BadRequestException;
 use testS\models\UserModel;
+use DateTime;
+use testS\models\UserSessionModel;
 
 /**
  * UserController
@@ -14,7 +16,7 @@ class UserController extends AbstractController
 {
 
 
-    public function getToken()
+    public function addSession()
     {
         $data = $this->getData();
 
@@ -34,7 +36,37 @@ class UserController extends AbstractController
         }
 
         $userModel = (new UserModel())->byLogin($data["user"])->find();
+        if (!$userModel instanceof UserModel) {
+            return [
+                "result" => false
+            ];
+        }
 
-        return ["user" => $userModel];
+        if ($userModel->get("password") !== sha1($data["password"])) {
+            return [
+                "result" => false
+            ];
+        }
+
+        $token = md5(microtime() . rand(1, 1000));
+        $ip = $_SERVER['REMOTE_ADDR'];
+        $ua = $_SERVER['HTTP_USER_AGENT'];
+        $date = new DateTime();
+        $userSessionModel = new UserSessionModel();
+        $userSessionModel->set([
+            "userId" => $userModel->getId(),
+            "token" => $token,
+            "ip" => $_SERVER['REMOTE_ADDR'],
+            "ua" => $ua,
+            "date" => $date->format("Y-m-d H:i:s")
+        ]);
+
+        return [
+            "token" => $token,
+            "id" => $ip,
+            "ua" => $ua,
+            "date" => $date->format("Y-m-d H:i:s"),
+            "model" => $userSessionModel->get()
+        ];
     }
 }

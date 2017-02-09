@@ -16,6 +16,11 @@ class UserModel extends AbstractModel
 {
 
     /**
+     * Password salt
+     */
+    const PASSWORD_SALT = "(^_^)";
+
+    /**
      * Types
      */
     const TYPE_FULL_ACCESS = 1;

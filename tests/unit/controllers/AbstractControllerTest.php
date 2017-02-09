@@ -107,6 +107,6 @@ abstract class AbstractControllerTest extends AbstractUnitTest
         $info = curl_getinfo($curl);
         $this->_statusCode = $info["http_code"];
 
-        return json_decode($body);
+        return json_decode($body, true);
     }
 }
