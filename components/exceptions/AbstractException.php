@@ -12,82 +12,70 @@ use Exception;
 abstract class AbstractException extends Exception
 {
 
-	/**
-	 * Trace level
-	 *
-	 * @var integer
-	 */
-	const TRACE_LEVEL = 10;
+    /**
+     * Get error code
+     *
+     * @return integer
+     */
+    abstract protected function getErrorCode();
 
-	/**
-	 * Get error code
-	 *
-	 * @return integer
-	 */
-	abstract protected function getErrorCode();
+    /**
+     * Get log name
+     *
+     * @return string
+     */
+    abstract protected function getLogName();
 
-	/**
-	 * Get log name
-	 *
-	 * @return string
-	 */
-	abstract protected function getLogName();
+    /**
+     * AbstractException constructor.
+     *
+     * @param string $message
+     * @param array  $parameters
+     */
+    public function __construct($message, array $parameters = [])
+    {
+        foreach ($parameters as $key => $value) {
+            if (is_array($value)) {
+                $value = json_encode($value);
+            }
+            $message = str_replace('{' . $key . '}', "[" . (string)$value . "]", $message);
+        }
 
-	/**
-	 * AbstractException constructor.
-	 *
-	 * @param string $message
-	 * @param array  $parameters
-	 */
-	public function __construct($message, array $parameters = [])
-	{
-		foreach ($parameters as $key => $value) {
-			if (is_array($value)) {
-				$value = json_encode($value);
-			}
-			$message = str_replace('{' . $key . '}', "[" . (string) $value . "]", $message);
-		}
+        if (
+            empty($_SERVER['HTTP_X_REQUESTED_WITH'])
+            && isset($_SERVER['REQUEST_URI'])
+        ) {
+            $message .= "\nREQUEST_URI = " . $_SERVER['REQUEST_URI'];
+        }
 
-		if (
-			empty($_SERVER['HTTP_X_REQUESTED_WITH'])
-			&& isset($_SERVER['REQUEST_URI'])
-		) {
-			$message .= "\nREQUEST_URI = " . $_SERVER['REQUEST_URI'];
-		}
+        $this->_writeLog($message);
 
-		$message .= "\nTrace:";
-		$traces = debug_backtrace();
-		$count = 0;
-		foreach ($traces as $trace) {
-			if (!empty($trace['file']) && !empty($trace['line'])) {
-				$message .= "\nFile: " . $trace['file'] . '. Line: ' . $trace['line'];
-				if (++$count >= self::TRACE_LEVEL) {
-					break;
-				}
-			}
-		}
+        parent::__construct($message, $this->getErrorCode());
+    }
 
-		$this->_writeLog($message);
+    /**
+     * Write log
+     *
+     * @param string $message
+     */
+    private function _writeLog($message)
+    {
+        $logMessage = sprintf(
+            "[%s] %s\nFile: %s\nLine: %s\nTrace:\n%s\n\n",
+            date("Y-m-d H:i:s", time()),
+            $message,
+            $this->getFile(),
+            $this->getLine(),
+            $this->getTraceAsString()
+        );
 
-		parent::__construct($message, $this->getErrorCode());
-	}
+        $logFolder = __DIR__ . "/../../logs";
+        $logFile = $logFolder . "/" . $this->getLogName();
 
-	/**
-	 * Write log
-	 *
-	 * @param string $message
-	 */
-	private function _writeLog($message)
-	{
-		$logMessage = "\n\n[" . date("Y-m-d H:i:s", time()) . "] " . $message;
-
-		$logFolder = __DIR__ . "/../../logs";
-		$logFile = $logFolder . "/" . $this->getLogName();
-
-		$file = @fopen($logFile, "a");
-		@flock($file, LOCK_EX);
-		@fwrite($file, $logMessage);
-		@flock($file, LOCK_UN);
-		@fclose($file);
-	}
+        $file = @fopen($logFile, "a");
+        @flock($file, LOCK_EX);
+        @fwrite($file, $logMessage);
+        @flock($file, LOCK_UN);
+        @fclose($file);
+    }
 }

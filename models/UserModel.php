@@ -2,6 +2,7 @@
 
 namespace testS\models;
 
+use testS\components\Db;
 use testS\components\Language;
 use testS\components\Validator;
 use testS\components\ValueGenerator;
@@ -99,5 +100,20 @@ class UserModel extends AbstractModel
                 ],
             ],
         ];
+    }
+
+    /**
+     * Adds login condition to SQL request
+     *
+     * @param string $login
+     *
+     * @return UserModel
+     */
+    public function byLogin($login)
+    {
+        $this->getDb()->addWhere(sprintf("%s.login = :login", Db::DEFAULT_ALIAS));
+        $this->getDb()->addParameter("login", $login);
+
+        return $this;
     }
 }
