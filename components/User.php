@@ -11,6 +11,11 @@ class User
 {
 
     /**
+     * User Life Time
+     */
+    const USER_LIFE_TIME = 1800;
+
+    /**
      * Session ID
      *
      * @var string

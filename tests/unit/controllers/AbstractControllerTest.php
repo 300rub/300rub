@@ -16,11 +16,6 @@ abstract class AbstractControllerTest extends AbstractUnitTest
     {
         $host = trim(shell_exec("/sbin/ip route|awk '/default/ { print $3 }'"));
 
-        $curl = curl_init();
-        curl_setopt($curl, CURLOPT_URL, $host . "/api/");
-        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "GET");
-
         $data = [
             "token"      => "guest",
             "controller" => "text",
@@ -29,6 +24,11 @@ abstract class AbstractControllerTest extends AbstractUnitTest
             "data"       => []
         ];
         $dataString = json_encode($data);
+
+        $curl = curl_init();
+        curl_setopt($curl, CURLOPT_URL, $host . "/api/");
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "GET");
         curl_setopt($curl, CURLOPT_POSTFIELDS, $dataString);
         curl_setopt(
             $curl,
@@ -40,16 +40,15 @@ abstract class AbstractControllerTest extends AbstractUnitTest
                 "User-Agent: Mozilla/5.0 (Windows NT 6.1; rv:2.0.1) Gecko/20100101 Firefox/4.0.1",
             ]
         );
-
         $body = curl_exec($curl);
         $info = curl_getinfo($curl);
+
         $code = $info["http_code"];
         $type = $info["content_type"];
 
         var_dump($code);
         var_dump($type);
         var_dump($body);
-
 
         exit();
     }

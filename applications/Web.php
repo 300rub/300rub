@@ -6,6 +6,7 @@ use testS\components\Db;
 use testS\components\exceptions\BadRequestException;
 use Exception;
 use testS\components\exceptions\ContentException;
+use testS\components\User;
 
 /**
  * Class for working with WEB application
@@ -143,6 +144,8 @@ class Web extends AbstractApplication
             );
         }
 
+        $this->_setUserByToken($input->token);
+
         $output = $controller->$controllerMethodName();
         if (!$output) {
             throw new ContentException(
@@ -158,5 +161,25 @@ class Web extends AbstractApplication
         }
 
         return json_encode($output);
+    }
+
+    /**
+     * Sets User
+     *
+     * @param string $token
+     *
+     * @return Web
+     */
+    private function _setUserByToken($token)
+    {
+        $user = $this->getMemcached()->get($token);
+        if ($user instanceof User) {
+            $this->user = $user;
+            $this->getMemcached()->set($token, $user, User::USER_LIFE_TIME);
+        }  else {
+            $this->user = null;
+        }
+
+        return $this;
     }
 }

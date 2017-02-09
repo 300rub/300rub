@@ -28,7 +28,7 @@ abstract class AbstractApplication
      *
      * @var User
      */
-    private $_user = null;
+    protected $user = null;
 
 	/**
 	 * Memcached
@@ -56,7 +56,6 @@ abstract class AbstractApplication
 			->_setConfig($config)
 			->_activateVendorAutoload()
 			->_setDbConnection()
-            ->_setUser()
             ->_setMemcached();
 	}
 
@@ -127,31 +126,6 @@ abstract class AbstractApplication
 		return $this;
 	}
 
-    /**
-     * Sets User
-     *
-     * @return AbstractApplication
-     */
-	private function _setUser()
-    {
-        // @TODO set session ID, session start set user
-        //session_id("aaa");
-        //session_start();
-        // $_SESSION["aa"] = "bb";
-
-        return $this;
-    }
-
-	/**
-	 * Gets user
-	 *
-	 * @return User
-	 */
-	public function getUser()
-	{
-		return $this->_user;
-	}
-
 	/**
 	 * Sets Memcached
 	 *
@@ -160,7 +134,6 @@ abstract class AbstractApplication
 	private function _setMemcached()
 	{
 		$this->_memcached = new Memcached($this->getConfig()->memcached->host, $this->getConfig()->memcached->port);
-
 		return $this;
 	}
 
@@ -173,4 +146,15 @@ abstract class AbstractApplication
 	{
 		return $this->_memcached;
 	}
+
+	/**
+	 * Gets user
+	 *
+	 * @return User
+	 */
+	public function getUser()
+	{
+		return $this->user;
+	}
+
 }

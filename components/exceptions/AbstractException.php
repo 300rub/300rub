@@ -17,7 +17,7 @@ abstract class AbstractException extends Exception
 	 *
 	 * @var integer
 	 */
-	const TRACE_LEVEL = 5;
+	const TRACE_LEVEL = 10;
 
 	/**
 	 * Get error code
@@ -55,6 +55,18 @@ abstract class AbstractException extends Exception
 			$message .= "\nREQUEST_URI = " . $_SERVER['REQUEST_URI'];
 		}
 
+		$message .= "\nTrace:";
+		$traces = debug_backtrace();
+		$count = 0;
+		foreach ($traces as $trace) {
+			if (!empty($trace['file']) && !empty($trace['line'])) {
+				$message .= "\nFile: " . $trace['file'] . '. Line: ' . $trace['line'];
+				if (++$count >= self::TRACE_LEVEL) {
+					break;
+				}
+			}
+		}
+
 		$this->_writeLog($message);
 
 		parent::__construct($message, $this->getErrorCode());
@@ -67,27 +79,10 @@ abstract class AbstractException extends Exception
 	 */
 	private function _writeLog($message)
 	{
-		$logMessage = "[" . date("Y-m-d H:i:s", time()) . "] " . $message . "\nTrace:";
-		$traces = debug_backtrace();
-		$count = 0;
-		foreach ($traces as $trace) {
-			if (!empty($trace['file']) && !empty($trace['line'])) {
-				$logMessage .= "\nFile: " . $trace['file'] . '. Line: ' . $trace['line'];
-				if (++$count >= self::TRACE_LEVEL) {
-					break;
-				}
-			}
-		}
+		$logMessage = "\n\n[" . date("Y-m-d H:i:s", time()) . "] " . $message;
 
 		$logFolder = __DIR__ . "/../../logs";
-		if (!file_exists($logFolder)) {
-			mkdir($logFolder, 0777);
-		}
-
 		$logFile = $logFolder . "/" . $this->getLogName();
-		if (file_exists($logFile)) {
-			chmod($logFile, 0777);
-		}
 
 		$file = @fopen($logFile, "a");
 		@flock($file, LOCK_EX);
