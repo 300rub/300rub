@@ -102,6 +102,7 @@ abstract class AbstractControllerTest extends AbstractUnitTest
                 "User-Agent: " . $ua,
             ]
         );
+        curl_setopt($curl, CURLOPT_COOKIE, session_name() . '=' . session_id() . 111);
 
         $body = curl_exec($curl);
         $info = curl_getinfo($curl);

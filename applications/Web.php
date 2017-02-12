@@ -44,6 +44,8 @@ class Web extends AbstractApplication
      */
     public function run()
     {
+        session_start();
+
         $isAjax = false;
         if (trim($_SERVER["REQUEST_URI"], "/") === self::API_URL) {
             $isAjax = true;
