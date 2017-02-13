@@ -71,4 +71,29 @@ class Memcached
     {
         return $this->_memcached->get($key);
     }
+
+    /**
+     * Deletes value from the cache
+     *
+     * @param string $key
+     *
+     * @return Memcached
+     *
+     * @throws MemcacheException
+     */
+    public function delete($key)
+    {
+        $result = $this->_memcached->delete($key);
+
+        if ($result === false) {
+            throw new MemcacheException(
+                "Unable to delete from memcache with key: {key}",
+                [
+                    "key" => $key,
+                ]
+            );
+        }
+
+        return $this;
+    }
 }

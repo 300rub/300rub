@@ -2,6 +2,7 @@
 
 namespace testS\controllers;
 
+use testS\applications\App;
 use testS\components\exceptions\BadRequestException;
 use testS\models\UserModel;
 use DateTime;
@@ -40,7 +41,8 @@ class UserController extends AbstractController
             return [
                 "sessionId" => session_id(),
                 "sessionName" => session_name(),
-                "result" => false
+                "result" => false,
+                "user" => App::web()->getUser()
             ];
         }
 

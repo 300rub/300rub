@@ -2,6 +2,7 @@
 
 namespace testS\models;
 
+use testS\components\Db;
 use testS\components\Validator;
 
 /**
@@ -41,9 +42,6 @@ class UserSessionModel extends AbstractModel
                     Validator::TYPE_MIN_LENGTH => 32
                 ],
             ],
-            "isActive" => [
-                self::FIELD_TYPE => self::FIELD_TYPE_BOOL,
-            ],
             "ip"       => [
                 self::FIELD_TYPE       => self::FIELD_TYPE_STRING,
                 self::FIELD_VALIDATION => [
@@ -54,9 +52,24 @@ class UserSessionModel extends AbstractModel
             "ua"       => [
                 self::FIELD_TYPE => self::FIELD_TYPE_STRING,
             ],
-            "date"     => [
+            "lastActivity"     => [
                 self::FIELD_TYPE => self::FIELD_TYPE_DATETIME,
             ],
         ];
+    }
+
+    /**
+     * Finds by token
+     *
+     * @param string $token
+     *
+     * @return UserSessionModel
+     */
+    public function byToken($token)
+    {
+        $this->getDb()->addWhere(sprintf("%s.token = :token", Db::DEFAULT_ALIAS));
+        $this->getDb()->addParameter("token", $token);
+
+        return $this;
     }
 }

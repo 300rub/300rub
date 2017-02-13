@@ -8,6 +8,7 @@ use Exception;
 use testS\components\exceptions\ContentException;
 use testS\components\User;
 use testS\controllers\AbstractController;
+use testS\models\UserSessionModel;
 
 /**
  * Class for working with WEB application
@@ -38,20 +39,28 @@ class Web extends AbstractApplication
     private $_useTransaction = false;
 
     /**
+     * User in session
+     *
+     * @var User
+     */
+    private $_user = null;
+
+    /**
      * Runs application
      *
      * @return void
      */
     public function run()
     {
-        session_start();
-
         $isAjax = false;
         if (trim($_SERVER["REQUEST_URI"], "/") === self::API_URL) {
             $isAjax = true;
         }
 
         try {
+            session_start();
+            $this->_setUser();
+
             if ($isAjax === true) {
                 header('Content-Type: application/json');
                 $output = $this->_getAjaxOutput();
@@ -184,8 +193,6 @@ class Web extends AbstractApplication
             );
         }
 
-        $this->_setUserByToken($input["token"]);
-
         $output = $controller->$controllerMethodName();
         if (empty($output)) {
             throw new ContentException(
@@ -206,20 +213,67 @@ class Web extends AbstractApplication
     /**
      * Sets User
      *
-     * @param string $token
-     *
      * @return Web
      */
-    private function _setUserByToken($token)
+    private function _setUser()
     {
-        $user = $this->getMemcached()->get($token);
-        if ($user instanceof User) {
-            $this->user = $user;
-            $this->getMemcached()->set($token, $user, User::USER_LIFE_TIME);
-        }  else {
-            $this->user = null;
+        $this->_user = null;
+
+        $token = $this->_getToken();
+        if (!$token) {
+            return $this;
         }
 
+        $user = $this->getMemcached()->get($token);
+        if ($user instanceof User) {
+            $this->_user = $user;
+            return $this;
+        }
+
+        $userSessionModel = (new UserSessionModel())->byToken($token)->find();
+        if (!$userSessionModel instanceof UserSessionModel) {
+            return $this;
+        }
+
+        $userId = $userSessionModel->get("userId");
+        $this->_user = new User();
+        // @TODO Set Operations
+
         return $this;
+    }
+
+    /**
+     * Gets token
+     *
+     * @return string|null
+     */
+    private function _getToken()
+    {
+        if (!empty($_SESSION["token"])) {
+            return $_SESSION["token"];
+        }
+
+        if (!empty($_COOKIE["token"])) {
+            $_SESSION["token"] = $_COOKIE["token"];
+            return $_COOKIE["token"];
+        }
+
+        $input = json_decode(file_get_contents('php://input'), true);
+        if (!empty($input["token"])) {
+            $_SESSION["token"] = $input["token"];
+            return $input["token"];
+        }
+
+        return null;
+    }
+
+    /**
+     * Gets user
+     *
+     * @return User
+     */
+    public function getUser()
+    {
+        return $this->_user;
     }
 }

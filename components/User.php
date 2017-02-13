@@ -16,13 +16,6 @@ class User
     const USER_LIFE_TIME = 1800;
 
     /**
-     * Session ID
-     *
-     * @var string
-     */
-	private $sid = "";
-
-    /**
      * Operations
      *
      * @var array
@@ -56,23 +49,6 @@ class User
      * @var string
      */
     private $email = "";
-
-    /**
-     * Admin flag
-     *
-     * @var bool
-     */
-    private $isAdmin = false;
-
-    /**
-     * Gets Session ID
-     *
-     * @return string
-     */
-    public function getSid()
-    {
-        return $this->sid;
-    }
 
     // @TODO constructor & get & set methods
 }

@@ -34,15 +34,13 @@ class M160307000000Users extends AbstractMigration
                     "id"       => self::TYPE_PK,
                     "userId"   => self::TYPE_FK,
                     "token"    => self::TYPE_CHAR_32,
-                    "isActive" => self::TYPE_BOOL,
                     "ip"       => self::TYPE_STRING_25,
                     "ua"       => self::TYPE_STRING,
-                    "date"     => self::TYPE_DATETIME,
+                    "lastActivity"     => self::TYPE_DATETIME,
                 ]
             )
             ->createForeignKey("userSessions", "userId", "users", self::FK_CASCADE, self::FK_CASCADE)
-            ->createIndex("userSessions", "isActive")
-            ->createUniqueIndex("userSessions", "userSessions_token_isActive", "token,isActive")
+            ->createUniqueIndex("userSessions", "userSessions_token", "token")
             ->createTable(
                 "userBlocks",
                 [

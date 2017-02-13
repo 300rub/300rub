@@ -19,9 +19,9 @@ abstract class AbstractControllerTest extends AbstractUnitTest
     const UA_MOZILLA_50 = "User-Agent: Mozilla/5.0 (Windows NT 6.1; rv:2.0.1) Gecko/20100101 Firefox/4.0.1";
 
     /**
-     * Default token
+     * Tokens
      */
-    const DEFAULT_TOKEN = "defaultToken";
+    const TOKEN_FULL_ADMIN = "2ac61765c2c128f53f550c5ccbf2115b";
 
     /**
      * Response code
@@ -58,7 +58,7 @@ abstract class AbstractControllerTest extends AbstractUnitTest
         $action,
         array $data = [],
         $method = "GET",
-        $token = self::DEFAULT_TOKEN,
+        $token = self::TOKEN_FULL_ADMIN,
         $language = Language::LANGUAGE_EN_ID,
         $ua = self::UA_MOZILLA_50
     )
@@ -102,7 +102,7 @@ abstract class AbstractControllerTest extends AbstractUnitTest
                 "User-Agent: " . $ua,
             ]
         );
-        curl_setopt($curl, CURLOPT_COOKIE, session_name() . '=' . session_id() . 111);
+        curl_setopt($curl, CURLOPT_COOKIE, sprintf("%s=%s", session_name(), "testSessionId"));
 
         $body = curl_exec($curl);
         $info = curl_getinfo($curl);

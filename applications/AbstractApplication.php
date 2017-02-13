@@ -6,7 +6,6 @@ use testS\components\Db;
 use testS\components\ErrorHandler;
 use testS\components\exceptions\DbException;
 use testS\components\Memcached;
-use testS\components\User;
 
 /**
  * Abstract class for work with application
@@ -22,13 +21,6 @@ abstract class AbstractApplication
 	 * @var object
 	 */
 	private $_config = null;
-
-    /**
-     * User in session
-     *
-     * @var User
-     */
-    protected $user = null;
 
 	/**
 	 * Memcached
@@ -146,15 +138,4 @@ abstract class AbstractApplication
 	{
 		return $this->_memcached;
 	}
-
-	/**
-	 * Gets user
-	 *
-	 * @return User
-	 */
-	public function getUser()
-	{
-		return $this->user;
-	}
-
 }
