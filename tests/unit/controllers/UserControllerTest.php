@@ -2,8 +2,6 @@
 
 namespace testS\tests\unit\controllers;
 
-use testS\applications\App;
-use testS\components\User;
 use testS\models\UserModel;
 
 /**

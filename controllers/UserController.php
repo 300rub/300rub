@@ -55,19 +55,20 @@ class UserController extends AbstractController
             ];
         }
 
-        // @TODO Create UserSession
         $token = md5(session_id());
+        // @TODO saving $userSessionModel
         $date = new DateTime();
         $userSessionModel = new UserSessionModel();
-        $userSessionModel->set(
-            [
-                "userId" => $userModel->getId(),
-                "token"  => $token,
-                "ip"     => $_SERVER['REMOTE_ADDR'],
-                "ua"     => $_SERVER['HTTP_USER_AGENT'],
-                "date"   => $date->format("Y-m-d H:i:s")
-            ]
-        );
+//        $userSessionModel->set(
+//            [
+//                "userId" => $userModel->getId(),
+//                "token"  => $token,
+//                "ip"     => $_SERVER['REMOTE_ADDR'],
+//                "ua"     => $_SERVER['HTTP_USER_AGENT'],
+//                "lastActivity"   => $date->format("Y-m-d H:i:s") // DateTime Save
+//            ]
+//        );
+        $userSessionModel->save();
 
         App::web()->setUser($token, $userModel);
 
