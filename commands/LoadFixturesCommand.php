@@ -19,14 +19,7 @@ class LoadFixturesCommand extends AbstractCommand
      * @var string[]
      */
     private static $fixtureOrder = [
-        "user",
-        "text",
-        "image",
-        "imageAlbum",
-        "imageInstance",
-        "section",
-        "gridLine",
-        "grid"
+        "user"
     ];
 
 	/**
@@ -47,18 +40,16 @@ class LoadFixturesCommand extends AbstractCommand
 		$siteId = App::getInstance()->getConfig()->siteId;
 
 		// Files
-		$uploadFilesFolder = __DIR__ . "/../public/upload/{$siteId}";
-		exec("rm -r {$uploadFilesFolder}");
-		$copyFilesFolder = __DIR__ . "/../fixtures/files";
-		if (!file_exists(__DIR__ . "/../public/upload")) {
-			mkdir(__DIR__ . "/../public/upload", 0777);
-		}
-		exec("cp -r {$copyFilesFolder} {$uploadFilesFolder}");
-		chmod($uploadFilesFolder, 0777);
+//		$uploadFilesFolder = __DIR__ . "/../public/upload/{$siteId}";
+//		exec("rm -r {$uploadFilesFolder}");
+//		$copyFilesFolder = __DIR__ . "/../fixtures/files";
+//		if (!file_exists(__DIR__ . "/../public/upload")) {
+//			mkdir(__DIR__ . "/../public/upload", 0777);
+//		}
+//		exec("cp -r {$copyFilesFolder} {$uploadFilesFolder}");
+//		chmod($uploadFilesFolder, 0777);
 
 		// DB
-		$files = array_diff(scandir(__DIR__ . "/../fixtures"), ["..", ".", "files"]);
-
 		foreach (self::$fixtureOrder as $fixture) {
 		    $filePath = __DIR__ . "/../fixtures/{$fixture}.php";
             if (!file_exists($filePath)) {
@@ -66,7 +57,6 @@ class LoadFixturesCommand extends AbstractCommand
             }
 
 			$records = require($filePath);
-
 			foreach ($records as $id => $record) {
 				$modelName = "\\testS\\models\\" . ucfirst($fixture) . "Model";
 
@@ -74,7 +64,7 @@ class LoadFixturesCommand extends AbstractCommand
 				 * @var AbstractModel $model
 				 */
 				$model = new $modelName;
-				$model->setFields($record);
+				$model->set($record);
 				$model->save();
 			}
 		}

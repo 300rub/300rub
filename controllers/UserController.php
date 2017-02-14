@@ -39,10 +39,10 @@ class UserController extends AbstractController
         $userModel = (new UserModel())->byLogin($data["user"])->find();
         if (!$userModel instanceof UserModel) {
             return [
-                "sessionId" => session_id(),
+                "sessionId"   => session_id(),
                 "sessionName" => session_name(),
-                "result" => false,
-                "user" => App::web()->getUser()
+                "result"      => false,
+                "user"        => App::web()->getUser()
             ];
         }
 

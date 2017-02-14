@@ -24,7 +24,7 @@ class UserControllerTest extends AbstractControllerTest
             "session",
             [
                 "user"       => "user",
-                "password"   => md5(1 . UserModel::PASSWORD_SALT), // 962855cf2bf384da94ef94d98482a0dd6d6c6374
+                "password"   => md5("pass" . UserModel::PASSWORD_SALT), // 962855cf2bf384da94ef94d98482a0dd6d6c6374
                 "isRemember" => true,
             ],
             "PUT",
