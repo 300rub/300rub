@@ -16,9 +16,6 @@ class UserControllerTest extends AbstractControllerTest
 
     public function testGetToken()
     {
-        App::getInstance()->getMemcached()->set(self::TOKEN_FULL_ADMIN, new User());
-        //App::getInstance()->getMemcached()->delete(self::TOKEN_FULL_ADMIN);
-
         $response = $this->getResponse(
             "user",
             "session",

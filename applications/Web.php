@@ -8,6 +8,7 @@ use Exception;
 use testS\components\exceptions\ContentException;
 use testS\components\User;
 use testS\controllers\AbstractController;
+use testS\models\UserModel;
 use testS\models\UserSessionModel;
 
 /**
@@ -59,7 +60,7 @@ class Web extends AbstractApplication
 
         try {
             session_start();
-            $this->_setUser();
+            $this->_initialUserSet();
 
             if ($isAjax === true) {
                 header('Content-Type: application/json');
@@ -211,38 +212,6 @@ class Web extends AbstractApplication
     }
 
     /**
-     * Sets User
-     *
-     * @return Web
-     */
-    private function _setUser()
-    {
-        $this->_user = null;
-
-        $token = $this->_getToken();
-        if (!$token) {
-            return $this;
-        }
-
-        $user = $this->getMemcached()->get($token);
-        if ($user instanceof User) {
-            $this->_user = $user;
-            return $this;
-        }
-
-        $userSessionModel = (new UserSessionModel())->byToken($token)->find();
-        if (!$userSessionModel instanceof UserSessionModel) {
-            return $this;
-        }
-
-        $userId = $userSessionModel->get("userId");
-        $this->_user = new User();
-        // @TODO Set Operations
-
-        return $this;
-    }
-
-    /**
      * Gets token
      *
      * @return string|null
@@ -261,10 +230,42 @@ class Web extends AbstractApplication
         $input = json_decode(file_get_contents('php://input'), true);
         if (!empty($input["token"])) {
             $_SESSION["token"] = $input["token"];
+            $_COOKIE["token"] = $input["token"];
             return $input["token"];
         }
 
         return null;
+    }
+
+    /**
+     * Initial user set
+     *
+     * @return Web
+     */
+    private function _initialUserSet()
+    {
+        $token = $this->_getToken();
+        if (!$token) {
+            return $this;
+        }
+
+        $user = $this->getMemcached()->get($token);
+        if ($user instanceof User) {
+            $this->_user = $user;
+            return $this;
+        }
+
+        $userSessionModel = (new UserSessionModel())->byToken($token)->find();
+        if (!$userSessionModel instanceof UserSessionModel) {
+            return $this;
+        }
+
+        $userModel = (new UserModel())->byId($userSessionModel->get("userId"))->find();
+        if (!$userModel instanceof UserModel) {
+            return $this;
+        }
+
+        return $this->setUser($token, $userModel);
     }
 
     /**
@@ -274,6 +275,27 @@ class Web extends AbstractApplication
      */
     public function getUser()
     {
-        return $this->_user;
+        if ($this->_user instanceof User) {
+            return $this->_user;
+        }
+
+        return $this->_initialUserSet()->_user;
+    }
+
+    /**
+     * Sets User
+     *
+     * @param string    $token
+     * @param UserModel $userModel
+     *
+     * @return Web
+     */
+    public function setUser($token, UserModel $userModel)
+    {
+        $this->_user = new User($token, $userModel);
+
+        $this->getMemcached()->set($token, $this->_user);
+
+        return $this;
     }
 }

@@ -121,4 +121,15 @@ class UserModel extends AbstractModel
 
         return $this;
     }
+
+    /**
+     * Gets operations by user ID
+     *
+     * @return array
+     */
+    public function getOperations()
+    {
+        // TODO
+        return [];
+    }
 }

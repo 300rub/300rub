@@ -2,10 +2,10 @@
 
 namespace testS\controllers;
 
+use DateTime;
 use testS\applications\App;
 use testS\components\exceptions\BadRequestException;
 use testS\models\UserModel;
-use DateTime;
 use testS\models\UserSessionModel;
 
 /**
@@ -16,7 +16,13 @@ use testS\models\UserSessionModel;
 class UserController extends AbstractController
 {
 
-
+    /**
+     * Adds user session. Sets User
+     *
+     * @return array
+     *
+     * @throws BadRequestException
+     */
     public function addSession()
     {
         $data = $this->getData();
@@ -39,10 +45,7 @@ class UserController extends AbstractController
         $userModel = (new UserModel())->byLogin($data["user"])->find();
         if (!$userModel instanceof UserModel) {
             return [
-                "sessionId"   => session_id(),
-                "sessionName" => session_name(),
-                "result"      => false,
-                "user"        => App::web()->getUser()
+                "result" => false,
             ];
         }
 
@@ -52,25 +55,27 @@ class UserController extends AbstractController
             ];
         }
 
-        $token = md5(microtime() . rand(1, 1000));
-        $ip = $_SERVER['REMOTE_ADDR'];
-        $ua = $_SERVER['HTTP_USER_AGENT'];
+        // @TODO Create UserSession
+        $token = md5(session_id());
         $date = new DateTime();
         $userSessionModel = new UserSessionModel();
-        $userSessionModel->set([
-            "userId" => $userModel->getId(),
-            "token" => $token,
-            "ip" => $_SERVER['REMOTE_ADDR'],
-            "ua" => $ua,
-            "date" => $date->format("Y-m-d H:i:s")
-        ]);
+        $userSessionModel->set(
+            [
+                "userId" => $userModel->getId(),
+                "token"  => $token,
+                "ip"     => $_SERVER['REMOTE_ADDR'],
+                "ua"     => $_SERVER['HTTP_USER_AGENT'],
+                "date"   => $date->format("Y-m-d H:i:s")
+            ]
+        );
+
+        App::web()->setUser($token, $userModel);
 
         return [
-            "token" => $token,
-            "id" => $ip,
-            "ua" => $ua,
-            "date" => $date->format("Y-m-d H:i:s"),
-            "model" => $userSessionModel->get()
+            "result" => true,
+            "token" => App::web()->getUser()->getToken(),
+            "operations" => App::web()->getUser()->getOperations(),
+            "email" => App::web()->getUser()->getEmail(),
         ];
     }
 }
