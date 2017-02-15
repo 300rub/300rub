@@ -3,11 +3,11 @@
 namespace testS\tests\unit\controllers;
 
 /**
- * Tests for the controller TextController
+ * Tests for the controller ImageController
  *
  * @package testS\tests\unit\models
  */
-class TextControllerTest extends AbstractControllerTest
+class ImageControllerTest extends AbstractControllerTest
 {
 
     public function testGetHtml()
@@ -51,6 +51,46 @@ class TextControllerTest extends AbstractControllerTest
     }
 
     public function testUpdateContent()
+    {
+        $this->markTestSkipped();
+    }
+
+    public function testGetImage()
+    {
+        $this->markTestSkipped();
+    }
+
+    public function testAddImage()
+    {
+        $this->markTestSkipped();
+    }
+
+    public function testUpdateImage()
+    {
+        $this->markTestSkipped();
+    }
+
+    public function testDeleteImage()
+    {
+        $this->markTestSkipped();
+    }
+
+    public function testGetAlbum()
+    {
+        $this->markTestSkipped();
+    }
+
+    public function testAddAlbum()
+    {
+        $this->markTestSkipped();
+    }
+
+    public function testUpdateAlbum()
+    {
+        $this->markTestSkipped();
+    }
+
+    public function testDeleteAlbum()
     {
         $this->markTestSkipped();
     }

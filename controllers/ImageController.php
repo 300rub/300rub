@@ -3,11 +3,11 @@
 namespace testS\controllers;
 
 /**
- * TextController
+ * ImageController
  *
  * @package testS\controllers
  */
-class TextController extends AbstractController
+class ImageController extends AbstractController
 {
 
     /**
@@ -17,7 +17,7 @@ class TextController extends AbstractController
     {
         // TODO
     }
-    
+
     /**
      * Gets a list of blocks
      */
@@ -78,6 +78,70 @@ class TextController extends AbstractController
      * Updates block's content
      */
     public function updateContent()
+    {
+        // TODO
+    }
+
+    /**
+     * Gets image
+     */
+    public function getImage()
+    {
+        // TODO
+    }
+
+    /**
+     * Add image
+     */
+    public function addImage()
+    {
+        // TODO
+    }
+
+    /**
+     * Update image
+     */
+    public function updateImage()
+    {
+        // TODO
+    }
+
+    /**
+     * Delete image
+     */
+    public function deleteImage()
+    {
+        // TODO
+    }
+
+    /**
+     * Gets album
+     */
+    public function getAlbum()
+    {
+        // TODO
+    }
+
+    /**
+     * Add album
+     */
+    public function addAlbum()
+    {
+        // TODO
+    }
+
+    /**
+     * Update album
+     */
+    public function updateAlbum()
+    {
+        // TODO
+    }
+
+    /**
+     * Delete album
+     */
+    public function deleteAlbum()
     {
         // TODO
     }
