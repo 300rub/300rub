@@ -39,4 +39,14 @@ abstract class AbstractController
         $this->_data = $data;
         return $this;
     }
+
+    /**
+     * Checks operation
+     *
+     * @param string $operation
+     */
+    protected function checkOperation($operation)
+    {
+        // @TODO
+    }
 }

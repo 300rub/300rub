@@ -1,4 +1,57 @@
 <?php
+
+
+
+
+//$data = $this->getData();
+//
+//if (empty($data["user"])
+//    || empty($data["password"])
+//    || !isset($data["isRemember"])
+//    || !is_string($data["user"])
+//    || !is_string($data["password"])
+//    || !is_bool($data["isRemember"])
+//) {
+//    throw new BadRequestException(
+//        "Incorrect request for user authorization. Data: {data}",
+//        [
+//            "data" => json_encode($data)
+//        ]
+//    );
+//}
+//
+//$userModel = (new UserModel())->byLogin($data["user"])->find();
+//if (!$userModel instanceof UserModel) {
+//    return [
+//        "result" => false,
+//    ];
+//}
+//
+//if ($userModel->get("password") !== sha1($data["password"])) {
+//    return [
+//        "result" => false
+//    ];
+//}
+//
+//$token = md5(session_id());
+//
+//$date = new DateTime();
+//$userSessionModel = new UserSessionModel();
+//
+//// @TODO saving $userSessionModel
+////        $userSessionModel->set(
+////            [
+////                "userId" => $userModel->getId(),
+////                "token"  => $token,
+////                "ip"     => $_SERVER['REMOTE_ADDR'],
+////                "ua"     => $_SERVER['HTTP_USER_AGENT'],
+////                "lastActivity"   => $date->format("Y-m-d H:i:s") // DateTime Save
+////            ]
+////        );
+//// $userSessionModel->save();
+//
+//App::web()->setUser($token, $userModel);
+
 //
 //namespace testS\controllers;
 //
