@@ -5,7 +5,7 @@ namespace testS\tests\unit\controllers;
 /**
  * Tests for the controller FeedbackController
  *
- * @package testS\tests\unit\models
+ * @package testS\tests\unit\controllers
  */
 class FeedbackControllerTest extends AbstractControllerTest
 {

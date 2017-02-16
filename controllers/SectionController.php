@@ -15,7 +15,7 @@ class SectionController extends AbstractController
      */
     public function getSections()
     {
-        // TODO
+        // @TODO
     }
 
     /**
@@ -23,7 +23,7 @@ class SectionController extends AbstractController
      */
     public function addSection()
     {
-        // TODO
+        // @TODO
     }
 
     /**
@@ -31,7 +31,7 @@ class SectionController extends AbstractController
      */
     public function updateSection()
     {
-        // TODO
+        // @TODO
     }
 
     /**
@@ -39,7 +39,7 @@ class SectionController extends AbstractController
      */
     public function deleteSection()
     {
-        // TODO
+        // @TODO
     }
 
     /**
@@ -47,7 +47,7 @@ class SectionController extends AbstractController
      */
     public function getDesign()
     {
-        // TODO
+        // @TODO
     }
 
     /**
@@ -55,7 +55,7 @@ class SectionController extends AbstractController
      */
     public function updateDesign()
     {
-        // TODO
+        // @TODO
     }
 
     /**
@@ -63,7 +63,7 @@ class SectionController extends AbstractController
      */
     public function getStructure()
     {
-        // TODO
+        // @TODO
     }
 
     /**
@@ -71,6 +71,6 @@ class SectionController extends AbstractController
      */
     public function updateStructure()
     {
-        // TODO
+        // @TODO
     }
 }

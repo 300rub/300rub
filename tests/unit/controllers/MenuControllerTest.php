@@ -3,11 +3,11 @@
 namespace testS\tests\unit\controllers;
 
 /**
- * Tests for the controller TextController
+ * Tests for the controller MenuController
  *
  * @package testS\tests\unit\controllers
  */
-class TextControllerTest extends AbstractControllerTest
+class MenuControllerTest extends AbstractControllerTest
 {
 
     public function testGetHtml()

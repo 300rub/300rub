@@ -3,11 +3,11 @@
 namespace testS\controllers;
 
 /**
- * ImageController
+ * CatalogController
  *
  * @package testS\controllers
  */
-class ImageController extends AbstractController
+class CatalogController extends AbstractController
 {
 
     /**
@@ -17,7 +17,7 @@ class ImageController extends AbstractController
     {
         // @TODO
     }
-
+    
     /**
      * Gets a list of blocks
      */
@@ -83,65 +83,89 @@ class ImageController extends AbstractController
     }
 
     /**
-     * Gets image
+     * Adds menu
      */
-    public function getImage()
+    public function addMenu()
     {
         // @TODO
     }
 
     /**
-     * Add image
+     * Gets menu
      */
-    public function addImage()
+    public function getMenu()
     {
         // @TODO
     }
 
     /**
-     * Update image
+     * Updates menu
      */
-    public function updateImage()
+    public function updateMenu()
     {
         // @TODO
     }
 
     /**
-     * Delete image
+     * Deletes menu
      */
-    public function deleteImage()
+    public function deleteMenu()
     {
         // @TODO
     }
 
     /**
-     * Gets album
+     * Adds instance
      */
-    public function getAlbum()
+    public function addInstance()
     {
         // @TODO
     }
 
     /**
-     * Add album
+     * Gets instance
      */
-    public function addAlbum()
+    public function getInstance()
     {
         // @TODO
     }
 
     /**
-     * Update album
+     * Updates instance
      */
-    public function updateAlbum()
+    public function updateInstance()
     {
         // @TODO
     }
 
     /**
-     * Delete album
+     * Deletes instance
      */
-    public function deleteAlbum()
+    public function deleteInstance()
+    {
+        // @TODO
+    }
+
+    /**
+     * Adds bin instance
+     */
+    public function addBinInstance()
+    {
+        // @TODO
+    }
+
+    /**
+     * Updates bin instance
+     */
+    public function updateBinInstance()
+    {
+        // @TODO
+    }
+
+    /**
+     * Deletes bin instance
+     */
+    public function deleteBinInstance()
     {
         // @TODO
     }

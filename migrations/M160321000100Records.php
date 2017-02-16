@@ -133,6 +133,8 @@ class M160321000100Records extends AbstractMigration
             ->createForeignKey("recordInstances", "textTextInstanceId", "textInstances")
             ->createForeignKey("recordInstances", "descriptionTextInstanceId", "textInstances")
             ->createForeignKey("recordInstances", "imageGroupId", "imageGroups")
-            ->createForeignKey("recordInstances", "coverImageInstanceId", "imageInstances");
+            ->createForeignKey("recordInstances", "coverImageInstanceId", "imageInstances")
+            ->createIndex("recordInstances", "date")
+            ->createIndex("recordInstances", "sort");
     }
 }

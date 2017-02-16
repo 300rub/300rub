@@ -5,7 +5,7 @@ namespace testS\tests\unit\controllers;
 /**
  * Tests for the controller BlockController
  *
- * @package testS\tests\unit\models
+ * @package testS\tests\unit\controllers
  */
 class BlockControllerTest extends AbstractControllerTest
 {

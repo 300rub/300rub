@@ -3,11 +3,11 @@
 namespace testS\tests\unit\controllers;
 
 /**
- * Tests for the controller ImageController
+ * Tests for the controller CatalogController
  *
  * @package testS\tests\unit\controllers
  */
-class ImageControllerTest extends AbstractControllerTest
+class CatalogControllerTest extends AbstractControllerTest
 {
 
     public function testGetHtml()
@@ -55,42 +55,57 @@ class ImageControllerTest extends AbstractControllerTest
         $this->markTestSkipped();
     }
 
-    public function testGetImage()
+    public function testAddMenu()
     {
         $this->markTestSkipped();
     }
 
-    public function testAddImage()
+    public function testGetMenu()
     {
         $this->markTestSkipped();
     }
 
-    public function testUpdateImage()
+    public function testUpdateMenu()
     {
         $this->markTestSkipped();
     }
 
-    public function testDeleteImage()
+    public function testDeleteMenu()
     {
         $this->markTestSkipped();
     }
 
-    public function testGetAlbum()
+    public function testAddInstance()
     {
         $this->markTestSkipped();
     }
 
-    public function testAddAlbum()
+    public function testGetInstance()
     {
         $this->markTestSkipped();
     }
 
-    public function testUpdateAlbum()
+    public function testUpdateInstance()
     {
         $this->markTestSkipped();
     }
 
-    public function testDeleteAlbum()
+    public function testDeleteInstance()
+    {
+        $this->markTestSkipped();
+    }
+
+    public function testAddBinInstance()
+    {
+        $this->markTestSkipped();
+    }
+
+    public function testUpdateBinInstance()
+    {
+        $this->markTestSkipped();
+    }
+
+    public function testDeleteBinInstance()
     {
         $this->markTestSkipped();
     }

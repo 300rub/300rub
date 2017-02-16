@@ -3,11 +3,11 @@
 namespace testS\controllers;
 
 /**
- * ImageController
+ * RecordController
  *
  * @package testS\controllers
  */
-class ImageController extends AbstractController
+class RecordController extends AbstractController
 {
 
     /**
@@ -17,7 +17,7 @@ class ImageController extends AbstractController
     {
         // @TODO
     }
-
+    
     /**
      * Gets a list of blocks
      */
@@ -83,65 +83,33 @@ class ImageController extends AbstractController
     }
 
     /**
-     * Gets image
+     * Adds a record
      */
-    public function getImage()
+    public function addRecord()
     {
         // @TODO
     }
 
     /**
-     * Add image
+     * Gets a record
      */
-    public function addImage()
+    public function getRecord()
     {
         // @TODO
     }
 
     /**
-     * Update image
+     * Updates a record
      */
-    public function updateImage()
+    public function updateRecord()
     {
         // @TODO
     }
 
     /**
-     * Delete image
+     * Deletes a record
      */
-    public function deleteImage()
-    {
-        // @TODO
-    }
-
-    /**
-     * Gets album
-     */
-    public function getAlbum()
-    {
-        // @TODO
-    }
-
-    /**
-     * Add album
-     */
-    public function addAlbum()
-    {
-        // @TODO
-    }
-
-    /**
-     * Update album
-     */
-    public function updateAlbum()
-    {
-        // @TODO
-    }
-
-    /**
-     * Delete album
-     */
-    public function deleteAlbum()
+    public function deleteRecord()
     {
         // @TODO
     }

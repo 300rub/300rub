@@ -5,7 +5,7 @@ namespace testS\tests\unit\controllers;
 /**
  * Tests for the controller SectionController
  *
- * @package testS\tests\unit\models
+ * @package testS\tests\unit\controllers
  */
 class SectionControllerTest extends AbstractControllerTest
 {

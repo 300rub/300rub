@@ -3,11 +3,11 @@
 namespace testS\tests\unit\controllers;
 
 /**
- * Tests for the controller TextController
+ * Tests for the controller RecordController
  *
  * @package testS\tests\unit\controllers
  */
-class TextControllerTest extends AbstractControllerTest
+class RecordControllerTest extends AbstractControllerTest
 {
 
     public function testGetHtml()
@@ -51,6 +51,26 @@ class TextControllerTest extends AbstractControllerTest
     }
 
     public function testUpdateContent()
+    {
+        $this->markTestSkipped();
+    }
+
+    public function testAddRecord()
+    {
+        $this->markTestSkipped();
+    }
+
+    public function testGetRecord()
+    {
+        $this->markTestSkipped();
+    }
+
+    public function testUpdateRecord()
+    {
+        $this->markTestSkipped();
+    }
+
+    public function testDeleteRecord()
     {
         $this->markTestSkipped();
     }

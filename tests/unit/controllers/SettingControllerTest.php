@@ -3,29 +3,44 @@
 namespace testS\tests\unit\controllers;
 
 /**
- * Tests for the controller UserController
+ * Tests for the controller SettingController
  *
  * @package testS\tests\unit\controllers
  */
-class UserControllerTest extends AbstractControllerTest
+class SettingControllerTest extends AbstractControllerTest
 {
 
-    public function testAddSession()
+    public function testGetSettings()
     {
         $this->markTestSkipped();
     }
 
-    public function testDeleteSession()
+    public function testGetSeo()
     {
         $this->markTestSkipped();
     }
 
-    public function testDeleteSessions()
+    public function testUpdateSeo()
     {
         $this->markTestSkipped();
     }
 
-    public function testAddUser()
+    public function testGetIcon()
+    {
+        $this->markTestSkipped();
+    }
+
+    public function testUpdateIcon()
+    {
+        $this->markTestSkipped();
+    }
+
+    public function testGetUsers()
+    {
+        $this->markTestSkipped();
+    }
+
+    public function testGetAddUser()
     {
         $this->markTestSkipped();
     }

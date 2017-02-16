@@ -15,6 +15,6 @@ class BlockController extends AbstractController
      */
     public function getBlocks()
     {
-        // TODO
+        // @TODO
     }
 }
