@@ -23,7 +23,9 @@ class UserModel extends AbstractModel
     /**
      * Types
      */
-    const TYPE_FULL_ACCESS = 1;
+    const TYPE_OWNER = 1;
+    const TYPE_ADMINISTRATOR = 2;
+    const TYPE_USER = 3;
 
     /**
      * Length of password
@@ -45,7 +47,9 @@ class UserModel extends AbstractModel
     public static function getTypeList()
     {
         return [
-            self::TYPE_FULL_ACCESS => Language::t("user", "fullAccess")
+            self::TYPE_OWNER         => "",
+            self::TYPE_ADMINISTRATOR => "",
+            self::TYPE_USER          => "",
         ];
     }
 
@@ -87,7 +91,7 @@ class UserModel extends AbstractModel
             "type"     => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
-                    ValueGenerator::ARRAY_KEY => [self::getTypeList(), self::TYPE_FULL_ACCESS]
+                    ValueGenerator::ARRAY_KEY => [self::getTypeList(), self::TYPE_USER]
                 ]
             ],
             "name"     => [

@@ -21,7 +21,14 @@ abstract class AbstractControllerTest extends AbstractUnitTest
     /**
      * Tokens
      */
-    const TOKEN_FULL_ADMIN = "2ac61765c2c128f53f550c5ccbf2115b";
+    const TOKEN_USER = "user8765c2c128f53f550c5ccbf2115b";
+    const TOKEN_ADMIN = "admin765c2c128f53f550c5ccbf2115b";
+    const TOKEN_OWNER = "owner765c2c128f53f550c5ccbf2115b";
+
+    /**
+     * Session IDs
+     */
+    const SESSION_ID_DEFAULT = "session1c2c128f53f550c5ccbf2115b";
 
     /**
      * Response code
@@ -29,6 +36,13 @@ abstract class AbstractControllerTest extends AbstractUnitTest
      * @var int
      */
     private $_statusCode = 0;
+
+    /**
+     * Request body
+     *
+     * @var array
+     */
+    private $_body;
 
     /**
      * Gets status code
@@ -41,6 +55,16 @@ abstract class AbstractControllerTest extends AbstractUnitTest
     }
 
     /**
+     * Gets body
+     *
+     * @return array
+     */
+    protected function getBody()
+    {
+        return $this->_body;
+    }
+
+    /**
      * Gets response
      *
      * @param string $controller
@@ -48,17 +72,19 @@ abstract class AbstractControllerTest extends AbstractUnitTest
      * @param array  $data
      * @param string $method
      * @param string $token
+     * @param string $sessionId
      * @param int    $language
      * @param string $ua
      *
-     * @return mixed
+     * @return AbstractControllerTest
      */
-    protected function getResponse(
+    protected function sendRequest(
         $controller,
         $action,
         array $data = [],
         $method = "GET",
-        $token = self::TOKEN_FULL_ADMIN,
+        $token = self::TOKEN_USER,
+        $sessionId = self::SESSION_ID_DEFAULT,
         $language = Language::LANGUAGE_EN_ID,
         $ua = self::UA_MOZILLA_50
     )
@@ -102,12 +128,15 @@ abstract class AbstractControllerTest extends AbstractUnitTest
                 "User-Agent: " . $ua,
             ]
         );
-        curl_setopt($curl, CURLOPT_COOKIE, sprintf("%s=%s", session_name(), "testSessionId"));
+        if ($sessionId !== null) {
+            curl_setopt($curl, CURLOPT_COOKIE, sprintf("%s=%s", session_name(), $sessionId));
+        }
 
         $body = curl_exec($curl);
         $info = curl_getinfo($curl);
         $this->_statusCode = $info["http_code"];
+        $this->_body = json_decode($body, true);
 
-        return json_decode($body, true);
+        return $this;
     }
 }

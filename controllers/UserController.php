@@ -2,6 +2,9 @@
 
 namespace testS\controllers;
 
+use testS\components\exceptions\BadRequestException;
+use testS\models\UserModel;
+
 /**
  * UserController
  *
@@ -15,7 +18,40 @@ class UserController extends AbstractController
      */
     public function addSession()
     {
-        // @TODO
+        $data = $this->getData();
+
+        if (empty($data["user"])
+            || empty($data["password"])
+            || !isset($data["isRemember"])
+            || !is_string($data["user"])
+            || !is_string($data["password"])
+            || !is_bool($data["isRemember"])
+            || strlen($data["password"]) !== 32
+        ) {
+            throw new BadRequestException(
+                "Incorrect request for user authorization. Data: {data}",
+                [
+                    "data" => json_encode($data)
+                ]
+            );
+        }
+
+        $userModel = (new UserModel())->byLogin($data["user"])->find();
+        if (!$userModel instanceof UserModel) {
+            return [
+                "result" => false,
+            ];
+        }
+
+        if ($userModel->get("password") !== sha1($data["password"])) {
+            return [
+                "result" => false
+            ];
+        }
+
+        $token = md5(session_id());
+
+        return ["type" => $token];
     }
 
     /**

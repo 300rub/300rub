@@ -153,8 +153,7 @@ class Web extends AbstractApplication
         }
 
         $input = json_decode(file_get_contents('php://input'), true);
-        if (empty($input["token"])
-            || empty($input["controller"])
+        if (empty($input["controller"])
             || empty($input["action"])
             || empty($input["language"])
             || !isset($input["data"])
