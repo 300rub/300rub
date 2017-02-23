@@ -559,7 +559,7 @@ abstract class AbstractModel
      *
      * @return AbstractModel|null
      */
-    public final function find()
+    public function find()
     {
         $result = $this->setDbBeforeFind()->getDb()->find();
         $this->getDb()->reset();

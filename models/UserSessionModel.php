@@ -9,6 +9,8 @@ use testS\components\Validator;
  * Model for working with table "userSessions"
  *
  * @package testS\models
+ *
+ * @method UserSessionModel find()
  */
 class UserSessionModel extends AbstractModel
 {
