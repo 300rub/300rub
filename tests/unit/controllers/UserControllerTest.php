@@ -2,7 +2,9 @@
 
 namespace testS\tests\unit\controllers;
 
+use testS\applications\App;
 use testS\models\UserModel;
+use testS\models\UserSessionModel;
 
 /**
  * Tests for the controller UserController
@@ -17,35 +19,59 @@ class UserControllerTest extends AbstractControllerTest
      *
      * @param array $data
      * @param int   $expectedCode
-     * @param array $expectedBody
+     * @param bool  $isSuccess
      *
      * @dataProvider dataProviderForTestAddSSession
      *
      * @return bool
      */
-    public function testAddSession($data, $expectedCode = 200, $expectedBody = null)
+    public function testAddSession($data, $expectedCode = 200, $isSuccess = false)
     {
+        // Send request
         $this->sendRequest("user", "session", $data, "PUT", null, null);
 
+        // Check status code
         $this->assertSame($expectedCode, $this->getStatusCode());
-
         if ($expectedCode !== 200) {
             return true;
         }
 
-        if ($expectedBody !== null) {
-            $this->compareExpectedAndActual($expectedBody, $this->getBody(), true);
+        $actualBody = $this->getBody();
+
+        // Check error response
+        if ($isSuccess === false) {
+            $expectedBody = [
+                "result" => false
+            ];
+            $this->compareExpectedAndActual($expectedBody, $actualBody, true);
+            return true;
         }
 
-        /**
-         * @TODO
-         * - Проверить куки что там есть ид сессии и токен
-         * - Сравнить ид сессии и токен (мд5)
-         * - Тест с куками и без
-         * - Чтение записи из таблицы сессий
-         * - Чтение из мемкэша
-         * - Ручное удаление кэша, кук и записи в БД
-         */
+        // Getting record by token from response
+        $this->assertTrue(count($actualBody) === 1);
+        $token = $actualBody["token"];
+        $userSessionModel = (new UserSessionModel)->byToken($token)->find();
+        $this->assertInstanceOf("testS\\models\\UserSessionModel", $userSessionModel);
+
+        // Make sure that logged User stores in memcache
+        $memcached = App::getInstance()->getMemcached();
+        $user = $memcached->get($token);
+        $this->assertInstanceOf("testS\\components\\User", $user);
+
+        // Check cookies
+        $sessionIdFromCookie = $this->getSessionIdFromCookie();
+        $this->assertSame(md5($sessionIdFromCookie), $token);
+        $tokenFromCookie = $this->getTokenFromCookie();
+        if ($data["isRemember"] === true) {
+            $this->assertSame($tokenFromCookie, $token);
+        } else {
+            $this->assertNull($tokenFromCookie);
+        }
+
+        // Remove
+        $userSessionModel->delete();
+        $memcached->delete($token);
+        $this->removeCookie();
 
         return true;
     }
@@ -107,10 +133,6 @@ class UserControllerTest extends AbstractControllerTest
                     "user"       => "incorrect",
                     "password"   => md5("pass" . UserModel::PASSWORD_SALT),
                     "isRemember" => false,
-                ],
-                200,
-                [
-                    "result" => false
                 ]
             ],
             "incorrectPassword"       => [
@@ -118,10 +140,6 @@ class UserControllerTest extends AbstractControllerTest
                     "user"       => "user",
                     "password"   => md5("incorrect" . UserModel::PASSWORD_SALT),
                     "isRemember" => false,
-                ],
-                200,
-                [
-                    "result" => false
                 ]
             ],
             "user"                    => [
@@ -129,9 +147,25 @@ class UserControllerTest extends AbstractControllerTest
                     "user"       => "user",
                     "password"   => md5("pass" . UserModel::PASSWORD_SALT),
                     "isRemember" => false,
-                ]
+                ],
+                200,
+                true
+            ],
+            "admin"                   => [
+                "data" => [
+                    "user"       => "admin",
+                    "password"   => md5("pass" . UserModel::PASSWORD_SALT),
+                    "isRemember" => true,
+                ],
+                200,
+                true
             ],
         ];
+    }
+
+    public function testGetsSessions()
+    {
+        $this->markTestSkipped();
     }
 
     public function testDeleteSessions()

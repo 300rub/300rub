@@ -233,7 +233,35 @@ class UserSessionModelTest extends AbstractModelTest
                     "ua"           => "",
                     "lastActivity" => date("Y-m-d H:i:s")
                 ]
-            ]
+            ],
+            "incorrect8" => [
+                [
+                    "userId"       => "  1   ",
+                    "token"        => "   {$token2}  ",
+                    "ip"           => "    127.0.0.1    ",
+                    "ua"           => self::UA_FIREFOX_4_0_1,
+                    "lastActivity" => "   2015-01-01 10:11:12   "
+                ],
+                [
+                    "userId"       => 1,
+                    "token"        => $token2,
+                    "ip"           => "127.0.0.1",
+                    "ua"           => self::UA_FIREFOX_4_0_1,
+                    "lastActivity" => date("Y-m-d H:i:s")
+                ],
+                [
+                    "userId"       => "  incorrect ",
+                    "token"        => "   token  ",
+                    "ip"           => "    127.0.0.2    ",
+                ],
+                [
+                    "userId"       => 1,
+                    "token"        => $token2,
+                    "ip"           => "127.0.0.2",
+                    "ua"           => self::UA_FIREFOX_4_0_1,
+                    "lastActivity" => date("Y-m-d H:i:s")
+                ]
+            ],
         ];
     }
 

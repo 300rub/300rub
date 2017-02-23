@@ -19,6 +19,11 @@ abstract class AbstractControllerTest extends AbstractUnitTest
     const SESSION_ID_DEFAULT = "session1c2c128f53f550c5ccbf2115b";
 
     /**
+     * Cookie path
+     */
+    const COOKIE_PATH = "/tmp/cookie";
+
+    /**
      * Response code
      *
      * @var int
@@ -120,11 +125,72 @@ abstract class AbstractControllerTest extends AbstractUnitTest
             curl_setopt($curl, CURLOPT_COOKIE, sprintf("%s=%s", session_name(), $sessionId));
         }
 
+        curl_setopt($curl, CURLOPT_COOKIESESSION, true);
+        curl_setopt($curl, CURLOPT_COOKIEJAR, self::COOKIE_PATH);
+        curl_setopt($curl, CURLOPT_COOKIEFILE, self::COOKIE_PATH);
+
         $body = curl_exec($curl);
         $info = curl_getinfo($curl);
+
         $this->_statusCode = $info["http_code"];
         $this->_body = json_decode($body, true);
 
         return $this;
+    }
+
+    /**
+     * Removes cookie
+     */
+    protected function removeCookie()
+    {
+        if (file_exists(self::COOKIE_PATH)) {
+            unlink(self::COOKIE_PATH);
+        }
+    }
+
+    /**
+     * Gets SessionId from cookies
+     *
+     * @return string|null
+     */
+    protected function getSessionIdFromCookie()
+    {
+        if (!file_exists(self::COOKIE_PATH)) {
+            return null;
+        }
+
+        $cookieFile = fopen(self::COOKIE_PATH, "r");
+        $cookieContent = fread($cookieFile, filesize(self::COOKIE_PATH));
+        fclose($cookieFile);
+
+        preg_match('/' . session_name() . '	([a-z0-9]+)/', $cookieContent, $matches, PREG_OFFSET_CAPTURE);
+        if (empty($matches[1][0])) {
+            return null;
+        }
+
+        return $matches[1][0];
+    }
+
+    /**
+     * Gets token from cookies
+     *
+     * @return string|null
+     */
+    protected function getTokenFromCookie()
+    {
+        if (!file_exists(self::COOKIE_PATH)) {
+            return null;
+        }
+
+        $cookieFile = fopen(self::COOKIE_PATH, "r");
+        $cookieContent = fread($cookieFile, filesize(self::COOKIE_PATH));
+        fclose($cookieFile);
+
+        preg_match('/token	([a-z0-9]+)/', $cookieContent, $matches, PREG_OFFSET_CAPTURE);
+        if (empty($matches[1][0])) {
+            return null;
+        }
+
+        return $matches[1][0];
     }
 }

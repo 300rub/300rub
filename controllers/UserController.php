@@ -2,8 +2,10 @@
 
 namespace testS\controllers;
 
+use testS\applications\App;
 use testS\components\exceptions\BadRequestException;
 use testS\models\UserModel;
+use testS\models\UserSessionModel;
 
 /**
  * UserController
@@ -51,13 +53,43 @@ class UserController extends AbstractController
 
         $token = md5(session_id());
 
-        return ["type" => $token];
+        $userSessionModel = (new UserSessionModel())->byToken($token)->find();
+        if ($userSessionModel instanceof UserSessionModel) {
+            return ["token" => $token];
+        } else {
+            $userSessionModel = new UserSessionModel();
+            $userSessionModel->set(
+                [
+                    "userId" => $userModel->getId(),
+                    "token"  => $token,
+                    "ip"     => $_SERVER['REMOTE_ADDR'],
+                    "ua"     => $_SERVER['HTTP_USER_AGENT'],
+                ]
+            );
+            $userSessionModel->save();
+        }
+
+        App::web()->setUser($token, $userModel);
+
+        if ($data["isRemember"] === true) {
+            setcookie("token", $token);
+        }
+
+        return ["token" => $token];
     }
 
     /**
      * Removes user session
      */
     public function deleteSession()
+    {
+        // @TODO
+    }
+
+    /**
+     * Gets all user sessions
+     */
+    public function getSessions()
     {
         // @TODO
     }
