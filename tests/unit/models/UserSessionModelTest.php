@@ -29,8 +29,54 @@ class UserSessionModelTest extends AbstractModelTest
      */
     protected function getDataProviderCRUDEmpty()
     {
-        $this->markTestSkipped();
-        return [];
+        return [
+            "empty1" => [
+                [],
+                [
+                    "token" => ["required", "min"],
+                    "ip"    => ["required", "ip"]
+                ]
+            ],
+            "empty2" => [
+                [
+                    "userId"       => "",
+                    "token"        => "",
+                    "ip"           => "",
+                    "ua"           => "",
+                    "lastActivity" => ""
+                ],
+                [
+                    "token" => ["required", "min"],
+                    "ip"    => ["required", "ip"]
+                ]
+            ],
+            "empty3" => [
+                [
+                    "token" => self::TOKEN_USER,
+                ],
+                [
+                    "ip" => ["required", "ip"]
+                ]
+            ],
+            "empty4" => [
+                [
+                    "ip" => "127.0.0.1",
+                ],
+                [
+                    "token" => ["required", "min"],
+                ]
+            ],
+            "empty5" => [
+                [
+                    "token" => self::TOKEN_USER,
+                    "ip"    => "127.0.0.1",
+                ],
+                [],
+                [],
+                [],
+                self::EXCEPTION_MODEL
+            ]
+        ];
     }
 
     /**
@@ -40,8 +86,36 @@ class UserSessionModelTest extends AbstractModelTest
      */
     protected function getDataProviderCRUDCorrect()
     {
-        $this->markTestSkipped();
-        return [];
+        $token = $this->generateStringWithLength(32);
+
+        return [
+            "correct1" => [
+                [
+                    "userId" => 1,
+                    "token"  => $token,
+                    "ip"     => "127.0.0.1",
+                    "ua"     => self::UA_FIREFOX_4_0_1,
+                ],
+                [
+                    "userId"       => 1,
+                    "token"        => $token,
+                    "ip"           => "127.0.0.1",
+                    "ua"           => self::UA_FIREFOX_4_0_1,
+                    "lastActivity" => date("Y-m-d H:i:s")
+                ],
+                [
+                    "ip" => "127.0.0.2",
+                    "ua" => self::UA_CHROME_53_0,
+                ],
+                [
+                    "userId"       => 1,
+                    "token"        => $token,
+                    "ip"           => "127.0.0.2",
+                    "ua"           => self::UA_CHROME_53_0,
+                    "lastActivity" => date("Y-m-d H:i:s")
+                ],
+            ],
+        ];
     }
 
     /**
@@ -51,18 +125,139 @@ class UserSessionModelTest extends AbstractModelTest
      */
     protected function getDataProviderCRUDIncorrect()
     {
-        $this->markTestSkipped();
-        return [];
+        $token1 = $this->generateStringWithLength(32);
+        $token2 = $this->generateStringWithLength(32);
+        $token3 = $this->generateStringWithLength(32);
+
+        return [
+            // Duplicated token
+            "incorrect1" => [
+                [
+                    "userId" => 1,
+                    "token"  => "c4ca4238a0b923820dcc509a6f75849b",
+                    "ip"     => "127.0.0.1",
+                    "ua"     => self::UA_FIREFOX_4_0_1,
+                ],
+                [],
+                [],
+                [],
+                self::EXCEPTION_MODEL
+            ],
+            // User doesn't exist
+            "incorrect2" => [
+                [
+                    "userId" => 999,
+                    "token"  => $token1,
+                    "ip"     => "127.0.0.1",
+                    "ua"     => self::UA_FIREFOX_4_0_1,
+                ],
+                [],
+                [],
+                [],
+                self::EXCEPTION_MODEL
+            ],
+            // Incorrect updating
+            "incorrect3" => [
+                [
+                    "userId"       => "1",
+                    "token"        => $token2,
+                    "ip"           => "127.0.0.1",
+                    "ua"           => self::UA_FIREFOX_4_0_1,
+                    "lastActivity" => "2015-01-01 10:11:12"
+                ],
+                [
+                    "userId"       => 1,
+                    "token"        => $token2,
+                    "ip"           => "127.0.0.1",
+                    "ua"           => self::UA_FIREFOX_4_0_1,
+                    "lastActivity" => date("Y-m-d H:i:s")
+                ],
+                [
+                    "userId"       => 2,
+                    "token"        => $token3,
+                    "lastActivity" => "2016-01-01 10:12:11"
+                ],
+                [
+                    "userId"       => 1,
+                    "token"        => $token2,
+                    "lastActivity" => date("Y-m-d H:i:s")
+                ],
+            ],
+            // Incorrect small token
+            "incorrect4" => [
+                [
+                    "userId" => 1,
+                    "token"  => "smalltoken",
+                    "ip"     => "127.0.0.1",
+                ],
+                [
+                    "token" => ["min"]
+                ]
+            ],
+            // Incorrect big token
+            "incorrect5" => [
+                [
+                    "userId" => 1,
+                    "token"  => "big_token_big_token_big_token_big_token_big_token_big_token_",
+                    "ip"     => "127.0.0.1",
+                ],
+                [
+                    "token" => ["max"]
+                ]
+            ],
+            // Incorrect ip
+            "incorrect6" => [
+                [
+                    "userId"       => "1",
+                    "token"        => $token3,
+                    "ip"           => "127.0.1",
+                    "ua"           => self::UA_FIREFOX_4_0_1,
+                    "lastActivity" => "2015-01-01 10:11:12"
+                ],
+                [
+                    "ip" => ["ip"]
+                ]
+            ],
+            "incorrect7" => [
+                [
+                    "userId"       => "1",
+                    "token"        => $token3,
+                    "ip"           => "127.0.0.1",
+                    "ua"           => new \stdClass(),
+                    "lastActivity" => ["value" => "123"]
+                ],
+                [
+                    "userId"       => 1,
+                    "token"        => $token3,
+                    "ip"           => "127.0.0.1",
+                    "ua"           => "",
+                    "lastActivity" => date("Y-m-d H:i:s")
+                ]
+            ]
+        ];
     }
 
     /**
      * Data provider for CRUD. Duplicate
      *
+     * Unable to duplicate. Token must be unique
+     *
      * @return array
      */
     public function getDataProviderDuplicate()
     {
-        $this->markTestSkipped();
-        return [];
+        return [
+            "duplicate1" => [
+                [
+                    "userId"       => 1,
+                    "token"        => $this->generateStringWithLength(32),
+                    "ip"           => "127.0.0.1",
+                    "ua"           => self::UA_FIREFOX_4_0_1,
+                    "lastActivity" => date("Y-m-d H:i:s")
+                ],
+                [],
+                self::EXCEPTION_MODEL
+            ],
+        ];
     }
 }

@@ -31,29 +31,32 @@ class UserSessionModel extends AbstractModel
     public function getFieldsInfo()
     {
         return [
-            "userId"   => [
-                self::FIELD_RELATION_TO_PARENT => "UserModel"
+            "userId"       => [
+                self::FIELD_RELATION_TO_PARENT   => "UserModel",
+                self::FIELD_NOT_CHANGE_ON_UPDATE => true
             ],
-            "token"    => [
-                self::FIELD_TYPE       => self::FIELD_TYPE_STRING,
-                self::FIELD_VALIDATION => [
+            "token"        => [
+                self::FIELD_TYPE                 => self::FIELD_TYPE_STRING,
+                self::FIELD_VALIDATION           => [
                     Validator::TYPE_REQUIRED,
                     Validator::TYPE_MAX_LENGTH => 32,
                     Validator::TYPE_MIN_LENGTH => 32
                 ],
+                self::FIELD_NOT_CHANGE_ON_UPDATE => true
             ],
-            "ip"       => [
+            "ip"           => [
                 self::FIELD_TYPE       => self::FIELD_TYPE_STRING,
                 self::FIELD_VALIDATION => [
                     Validator::TYPE_REQUIRED,
                     Validator::TYPE_IP
                 ],
             ],
-            "ua"       => [
+            "ua"           => [
                 self::FIELD_TYPE => self::FIELD_TYPE_STRING,
             ],
-            "lastActivity"     => [
-                self::FIELD_TYPE => self::FIELD_TYPE_DATETIME,
+            "lastActivity" => [
+                self::FIELD_TYPE              => self::FIELD_TYPE_DATETIME,
+                self::FIELD_CURRENT_DATE_TIME => true
             ],
         ];
     }

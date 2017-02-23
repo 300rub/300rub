@@ -3,6 +3,7 @@
 namespace testS\components;
 
 use testS\components\exceptions\ContentException;
+use DateTime;
 
 /**
  * Class for generation values
@@ -28,6 +29,8 @@ class ValueGenerator
     const INT = "int";
     const BOOL = "bool";
     const BOOL_INT = "boolInt";
+    const DATETIME = "datetime";
+    const DATETIME_AS_STRING = "datetimeAsString";
 
     /**
      * Generates a value
@@ -67,6 +70,10 @@ class ValueGenerator
                 return self::_generateBool($value);
             case self::BOOL_INT:
                 return self::_generateBoolInt($value);
+            case self::DATETIME:
+                return self::_generateDateTime($value);
+            case self::DATETIME_AS_STRING:
+                return self::_generateDateTimeAsString($value);
             default:
                 return $value;
         }
@@ -331,6 +338,40 @@ class ValueGenerator
         }
 
         return 0;
+    }
+
+    /**
+     * Generates DateTime
+     *
+     * @param mixed|string $value
+     *
+     * @return DateTime
+     */
+    private static function _generateDateTime($value)
+    {
+        try {
+            $dateTime = new DateTime($value);
+        } catch (\Exception $e) {
+            $dateTime = new DateTime();
+        }
+
+        return $dateTime;
+    }
+
+    /**
+     * Generates DateTime as string
+     *
+     * @param mixed|DateTime $value
+     *
+     * @return DateTime
+     */
+    private static function _generateDateTimeAsString($value)
+    {
+        if ($value instanceof DateTime) {
+            return $value->format("Y-m-d H:i:s");
+        }
+
+        return date("Y-m-d H:i:s", time());
     }
 
     /**

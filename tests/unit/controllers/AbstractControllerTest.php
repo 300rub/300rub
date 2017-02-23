@@ -14,18 +14,6 @@ abstract class AbstractControllerTest extends AbstractUnitTest
 {
 
     /**
-     * User agents
-     */
-    const UA_MOZILLA_50 = "User-Agent: Mozilla/5.0 (Windows NT 6.1; rv:2.0.1) Gecko/20100101 Firefox/4.0.1";
-
-    /**
-     * Tokens
-     */
-    const TOKEN_USER = "user8765c2c128f53f550c5ccbf2115b";
-    const TOKEN_ADMIN = "admin765c2c128f53f550c5ccbf2115b";
-    const TOKEN_OWNER = "owner765c2c128f53f550c5ccbf2115b";
-
-    /**
      * Session IDs
      */
     const SESSION_ID_DEFAULT = "session1c2c128f53f550c5ccbf2115b";
@@ -86,7 +74,7 @@ abstract class AbstractControllerTest extends AbstractUnitTest
         $token = self::TOKEN_USER,
         $sessionId = self::SESSION_ID_DEFAULT,
         $language = Language::LANGUAGE_EN_ID,
-        $ua = self::UA_MOZILLA_50
+        $ua = self::UA_FIREFOX_4_0_1
     )
     {
         $host = trim(shell_exec("/sbin/ip route|awk '/default/ { print $3 }'"));

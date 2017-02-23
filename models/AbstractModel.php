@@ -7,6 +7,7 @@ use testS\components\exceptions\ModelException;
 use testS\components\Validator;
 use testS\components\ValueGenerator;
 use Exception;
+use DateTime;
 
 /**
  * Abstract class for working with models
@@ -33,6 +34,8 @@ abstract class AbstractModel
     const FIELD_TYPE_BOOL = "bool";
     const FIELD_BEFORE_SAVE = "beforeSave";
     const FIELD_ALLOW_NULL = "allowNull";
+    const FIELD_NOT_CHANGE_ON_UPDATE = "notChangeOnUpdate";
+    const FIELD_CURRENT_DATE_TIME = "currentDateTime";
 
     /**
      * PK fields name
@@ -114,6 +117,9 @@ abstract class AbstractModel
                         break;
                     case self::FIELD_TYPE_BOOL:
                         $this->_fields[$field] = false;
+                        break;
+                    case self::FIELD_TYPE_DATETIME:
+                        $this->_fields[$field] = new DateTime();
                         break;
                     default:
                         $this->_fields[$field] = null;
@@ -228,12 +234,12 @@ abstract class AbstractModel
     public final function set(array $fields)
     {
         return $this
-            ->_setId($fields)
             ->_setRelations($fields)
             ->_setRelationsToParent($fields)
             ->_setTypes($fields)
             ->_setValues()
-            ->_setNulls($fields);
+            ->_setNulls($fields)
+            ->_setId($fields);
     }
 
     /**
@@ -250,6 +256,16 @@ abstract class AbstractModel
         }
 
         return $this;
+    }
+
+    /**
+     * Flag is new model
+     *
+     * @return bool
+     */
+    private function _isNew()
+    {
+        return $this->getId() === 0;
     }
 
     /**
@@ -271,6 +287,12 @@ abstract class AbstractModel
                 || !is_array($value)
                 || !array_key_exists($relationIdField, $info)
                 || !array_key_exists(self::FIELD_RELATION, $info[$relationIdField])
+            ) {
+                continue;
+            }
+
+            if (!$this->_isNew()
+                && array_key_exists(self::FIELD_NOT_CHANGE_ON_UPDATE, $info[$relationIdField])
             ) {
                 continue;
             }
@@ -326,6 +348,12 @@ abstract class AbstractModel
                 continue;
             }
 
+            if (!$this->_isNew()
+                && array_key_exists(self::FIELD_NOT_CHANGE_ON_UPDATE, $info[$field])
+            ) {
+                continue;
+            }
+
             $this->_fields[$field] = ValueGenerator::generate(ValueGenerator::INT, $value);
         }
 
@@ -351,6 +379,12 @@ abstract class AbstractModel
                 continue;
             }
 
+            if (!$this->_isNew()
+                && array_key_exists(self::FIELD_NOT_CHANGE_ON_UPDATE, $info[$field])
+            ) {
+                continue;
+            }
+
             if (is_array($value) || is_object($value)) {
                 $value = null;
             }
@@ -364,6 +398,12 @@ abstract class AbstractModel
                     break;
                 case self::FIELD_TYPE_BOOL:
                     $this->_fields[$field] = ValueGenerator::generate(ValueGenerator::BOOL, $value);
+                    break;
+                case self::FIELD_TYPE_DATETIME:
+                    if (array_key_exists(self::FIELD_CURRENT_DATE_TIME, $info[$field])) {
+                        $value = "now";
+                    }
+                    $this->_fields[$field] = ValueGenerator::generate(ValueGenerator::DATETIME, $value);
                     break;
                 default:
                     break;
@@ -384,6 +424,12 @@ abstract class AbstractModel
 
         foreach ($info as $field => $fieldInfo) {
             if (!array_key_exists(self::FIELD_VALUE, $fieldInfo)) {
+                continue;
+            }
+
+            if (!$this->_isNew()
+                && array_key_exists(self::FIELD_NOT_CHANGE_ON_UPDATE, $info[$field])
+            ) {
                 continue;
             }
 
@@ -841,6 +887,12 @@ abstract class AbstractModel
                     break;
                 case self::FIELD_TYPE_STRING:
                     $db->addParameter($field, ValueGenerator::generate(ValueGenerator::STRING, $this->get($field)));
+                    break;
+                case self::FIELD_TYPE_DATETIME:
+                    $db->addParameter(
+                        $field,
+                        ValueGenerator::generate(ValueGenerator::DATETIME_AS_STRING, $this->get($field))
+                    );
                     break;
                 default:
                     $db->addParameter($field, $this->get($field));

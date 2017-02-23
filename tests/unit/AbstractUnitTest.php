@@ -3,6 +3,7 @@
 namespace testS\tests\unit;
 
 use PHPUnit_Framework_TestCase;
+use DateTime;
 
 /**
  * Class AbstractUnitTest
@@ -11,6 +12,25 @@ use PHPUnit_Framework_TestCase;
  */
 abstract class AbstractUnitTest extends PHPUnit_Framework_TestCase
 {
+
+    /**
+     * User agents
+     */
+    const UA_FIREFOX_4_0_1 = "User-Agent: Mozilla/5.0 (Windows NT 6.1; rv:2.0.1) Gecko/20100101 Firefox/4.0.1";
+    const UA_CHROME_53_0 = "User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) " .
+        "Chrome/53.0.2785.92 Safari/537.36";
+
+    /**
+     * Tokens
+     */
+    const TOKEN_USER = "user8765c2c128f53f550c5ccbf2115b";
+    const TOKEN_ADMIN = "admin765c2c128f53f550c5ccbf2115b";
+    const TOKEN_OWNER = "owner765c2c128f53f550c5ccbf2115b";
+
+    /**
+     * Exceptions
+     */
+    const EXCEPTION_MODEL = "testS\\components\\exceptions\\ModelException";
 
     /**
      * Compares expected and actual
@@ -55,6 +75,25 @@ abstract class AbstractUnitTest extends PHPUnit_Framework_TestCase
                 );
 
                 $this->compareExpectedAndActual($expectedValue, $actual[$key], $isFullSame);
+                continue;
+            }
+
+            /**
+             * @var DateTime $dateTime
+             */
+            if ($actual[$key] instanceof DateTime) {
+                $dateTime = $actual[$key];
+                $expectedDateTime = new DateTime($expectedValue);
+                $this->assertTrue(
+                    $dateTime->getTimestamp() % $expectedDateTime->getTimestamp() < 5,
+                    sprintf(
+                        "Values with key [%s] are not the same. Expected: [%s], actual: [%s]",
+                        $key,
+                        $expectedDateTime->format("Y-m-d H:i:s"),
+                        $dateTime->format("Y-m-d H:i:s")
+                    )
+                );
+
                 continue;
             }
 

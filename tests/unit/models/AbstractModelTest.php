@@ -349,8 +349,9 @@ abstract class AbstractModelTest extends AbstractUnitTest
     /**
      * Test Duplicate
      *
-     * @param array $createData
-     * @param array $duplicateExpected
+     * @param array  $createData
+     * @param array  $duplicateExpected
+     * @param string $expectedException
      *
      * @dataProvider getDataProviderDuplicate
      *
@@ -358,9 +359,13 @@ abstract class AbstractModelTest extends AbstractUnitTest
      */
     public function testDuplicate(
         array $createData = [],
-        array $duplicateExpected = []
-    )
-    {
+        array $duplicateExpected = [],
+        $expectedException = null
+    ) {
+        if ($expectedException !== null) {
+            $this->expectException($expectedException);
+        }
+
         // Create and get model
         $model = $this->getNewModel()->set($createData)->save();
         $model = $this->getNewModel()->byId($model->getId())->find();

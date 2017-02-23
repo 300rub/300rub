@@ -74,11 +74,11 @@ class Validator
 				case self::TYPE_REQUIRED:
 					$this->_checkRequired();
 					break;
+				case self::TYPE_MIN_LENGTH:
+					$this->_checkMinLength($item["value"]);
+					break;
 				case self::TYPE_MAX_LENGTH:
 					$this->_checkMaxLength($item["value"]);
-					break;
-				case "min":
-					$this->_min($item["value"]);
 					break;
 				case self::TYPE_URL:
 					$this->_checkUrl();
@@ -159,7 +159,7 @@ class Validator
 	 *
 	 * @return void
 	 */
-	private function _min($min)
+	private function _checkMinLength($min)
 	{
 		if (mb_strlen($this->_value) < $min) {
 			$this->_addError("min");
