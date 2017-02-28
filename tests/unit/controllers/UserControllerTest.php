@@ -267,6 +267,88 @@ class UserControllerTest extends AbstractControllerTest
     }
 
     /**
+     * Test for deleteSession method with token data
+     *
+     * @param string $userType
+     * @param string $tokenToCreate
+     * @param string $tokenToDelete
+     * @param bool   $isRemoved
+     * @param bool   $hasError
+     *
+     * @dataProvider dataProviderForTestDeleteSessionByToken
+     */
+    public function testDeleteSessionByToken($userType, $tokenToCreate, $tokenToDelete, $isRemoved, $hasError)
+    {
+        $this->setUser($userType);
+
+        // Create test session to delete
+        $newUserSessionModel = new UserSessionModel();
+        $newUserSessionModel->set(
+            [
+                "userId" => 1,
+                "token"  => $tokenToCreate,
+                "ip"     => "127.0.0.7",
+                "ua"     => ""
+            ]
+        );
+        $newUserSessionModel->save();
+
+        $allUserSessionModelsBeforeDelete = (new UserSessionModel())->findAll();
+
+        // Delete latest session
+        $this->sendRequest("user", "session", ["token" => $tokenToDelete], "DELETE");
+
+        $allUserSessionModelsAfterDelete = (new UserSessionModel())->findAll();
+
+        if ($isRemoved === true) {
+            $this->assertSame(count($allUserSessionModelsBeforeDelete) - 1, count($allUserSessionModelsAfterDelete));
+            $expectedBody = [
+                "result" => true
+            ];
+            $this->assertSame($expectedBody, $this->getBody());
+        } else {
+            $this->assertSame(count($allUserSessionModelsBeforeDelete), count($allUserSessionModelsAfterDelete));
+            $this->assertTrue(array_key_exists("error", $this->getBody()) === $hasError);
+
+            $newUserSessionModel->delete();
+        }
+    }
+
+    /**
+     * Data provider for testDeleteSessionByToken
+     *
+     * @return array
+     */
+    public function dataProviderForTestDeleteSessionByToken()
+    {
+        $token = $this->generateStringWithLength(32);
+
+        return [
+            "ownerSuccess" => [
+                self::TYPE_OWNER,
+                $token,
+                $token,
+                true,
+                false
+            ],
+            "tokenNotExist" => [
+                self::TYPE_OWNER,
+                $token,
+                $this->generateStringWithLength(32),
+                false,
+                false
+            ],
+            "anotherUserToken" => [
+                self::TYPE_OWNER,
+                $token,
+                self::TOKEN_ADMIN,
+                false,
+                true
+            ],
+        ];
+    }
+
+    /**
      * Test for getSessions method
      */
     public function testGetsSessions()
@@ -274,12 +356,14 @@ class UserControllerTest extends AbstractControllerTest
         // Add new session for user 1
         $newToken = $this->generateStringWithLength(32);
         $newUserSessionModel = new UserSessionModel();
-        $newUserSessionModel->set([
-            "userId" => 1,
-            "token"  => $newToken,
-            "ip"     => "127.0.0.7",
-            "ua"     => "",
-        ]);
+        $newUserSessionModel->set(
+            [
+                "userId" => 1,
+                "token"  => $newToken,
+                "ip"     => "127.0.0.7",
+                "ua"     => "",
+            ]
+        );
         $newUserSessionModel->save();
 
         // Send request
@@ -304,25 +388,25 @@ class UserControllerTest extends AbstractControllerTest
             switch ($result["token"]) {
                 case self::TOKEN_OWNER:
                     $expectedResult = [
-                        "ip"           => "127.0.0.1",
-                        "token"        => self::TOKEN_OWNER,
-                        "platform"     => "Windows",
-                        "browser"      => "Firefox",
-                        "version"      => "4.0.1",
-                        "isCurrent"    => true,
-                        "isOnline"     => true
+                        "ip"        => "127.0.0.1",
+                        "token"     => self::TOKEN_OWNER,
+                        "platform"  => "Windows",
+                        "browser"   => "Firefox",
+                        "version"   => "4.0.1",
+                        "isCurrent" => true,
+                        "isOnline"  => true
                     ];
                     $this->compareExpectedAndActual($expectedResult, $result);
                     break;
                 case $newToken:
                     $expectedResult = [
-                        "ip"           => "127.0.0.7",
-                        "token"        => $newToken,
-                        "platform"     => null,
-                        "browser"      => null,
-                        "version"      => null,
-                        "isCurrent"    => false,
-                        "isOnline"     => true
+                        "ip"        => "127.0.0.7",
+                        "token"     => $newToken,
+                        "platform"  => null,
+                        "browser"   => null,
+                        "version"   => null,
+                        "isCurrent" => false,
+                        "isOnline"  => true
                     ];
                     $this->compareExpectedAndActual($expectedResult, $result);
             }

@@ -3,6 +3,7 @@
 namespace testS\controllers;
 
 use testS\applications\App;
+use testS\components\exceptions\AccessException;
 use testS\components\exceptions\BadRequestException;
 use testS\models\UserModel;
 use testS\models\UserSessionModel;
@@ -93,10 +94,49 @@ class UserController extends AbstractController
             ];
         }
 
-        App::web()->getMemcached()->delete($user->getToken());
+        $data = $this->getData();
+        if (!array_key_exists("token", $data)) {
+            App::web()->getMemcached()->delete($user->getToken());
 
-        $userSessionModel = (new UserSessionModel())->byToken($user->getToken())->find();
+            $userSessionModel = (new UserSessionModel())->byToken($user->getToken())->find();
+            if ($userSessionModel instanceof UserSessionModel) {
+                $userSessionModel->delete();
+            }
+
+            return [
+                "result" => true
+            ];
+        }
+
+        $token = $data["token"];
+
+        if (!is_string($token)
+            || strlen($token) !== 32
+        ) {
+            throw new BadRequestException(
+                "Incorrect token: {token} to delete UserSession",
+                [
+                    "token" => $token
+                ]
+            );
+        }
+
+        $userSessionModel = (new UserSessionModel())->byToken($token)->find();
         if ($userSessionModel instanceof UserSessionModel) {
+            if ($userSessionModel->get("userId") !== $user->getId()) {
+                throw new AccessException(
+                    "Unable to delete UserSession " .
+                    "with token: {token}, ID: {id}, userId: {userId} by user with ID: {currentUserId}",
+                    [
+                        "token"         => $token,
+                        "id"            => $userSessionModel->getId(),
+                        "userId"        => $userSessionModel->get("userId"),
+                        "currentUserId" => $user->getId(),
+                    ]
+                );
+            }
+
+            App::web()->getMemcached()->delete($token);
             $userSessionModel->delete();
         }
 
