@@ -98,6 +98,9 @@ class UserController extends AbstractController
         if (!array_key_exists("token", $data)) {
             App::web()->getMemcached()->delete($user->getToken());
 
+            unset($_COOKIE['token']);
+            setcookie('token', '', time() - 3600);
+
             $userSessionModel = (new UserSessionModel())->byToken($user->getToken())->find();
             if ($userSessionModel instanceof UserSessionModel) {
                 $userSessionModel->delete();
