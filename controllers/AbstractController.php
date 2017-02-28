@@ -2,6 +2,10 @@
 
 namespace testS\controllers;
 
+use testS\applications\App;
+use testS\components\exceptions\AccessException;
+use testS\components\User;
+
 /**
  * Abstract class for working with controllers
  *
@@ -48,5 +52,21 @@ abstract class AbstractController
     protected function checkOperation($operation)
     {
         // @TODO
+    }
+
+    /**
+     * Checks User
+     *
+     * @throws AccessException
+     *
+     * @return AbstractController
+     */
+    protected function checkUser()
+    {
+        if (!App::web()->getUser() instanceof User) {
+            throw new AccessException("Unable to get User");
+        }
+
+        return $this;
     }
 }

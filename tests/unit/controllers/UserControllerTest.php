@@ -266,9 +266,70 @@ class UserControllerTest extends AbstractControllerTest
         ];
     }
 
+    /**
+     * Test for getSessions method
+     */
     public function testGetsSessions()
     {
-        $this->markTestSkipped();
+        // Add new session for user 1
+        $newToken = $this->generateStringWithLength(32);
+        $newUserSessionModel = new UserSessionModel();
+        $newUserSessionModel->set([
+            "userId" => 1,
+            "token"  => $newToken,
+            "ip"     => "127.0.0.7",
+            "ua"     => "",
+        ]);
+        $newUserSessionModel->save();
+
+        // Send request
+        $this->sendRequest("user", "sessions");
+        $actualBody = $this->getBody();
+
+        // Make sure that records for User 1 only returned
+        $allUserSessionModels = (new UserSessionModel())->findAll();
+        $this->assertTrue(count($allUserSessionModels) - count($actualBody["result"]) > 0);
+        $returnedTokens = [];
+        foreach ($actualBody["result"] as $result) {
+            $returnedTokens[] = $result["token"];
+        }
+        foreach ($allUserSessionModels as $userSessionModel) {
+            if ($userSessionModel->get("userId") === 1) {
+                $this->assertTrue(in_array($userSessionModel->get("token"), $returnedTokens));
+            }
+        }
+
+        // Check response content
+        foreach ($actualBody["result"] as $result) {
+            switch ($result["token"]) {
+                case self::TOKEN_OWNER:
+                    $expectedResult = [
+                        "ip"           => "127.0.0.1",
+                        "token"        => self::TOKEN_OWNER,
+                        "platform"     => "Windows",
+                        "browser"      => "Firefox",
+                        "version"      => "4.0.1",
+                        "isCurrent"    => true,
+                        "isOnline"     => true
+                    ];
+                    $this->compareExpectedAndActual($expectedResult, $result);
+                    break;
+                case $newToken:
+                    $expectedResult = [
+                        "ip"           => "127.0.0.7",
+                        "token"        => $newToken,
+                        "platform"     => null,
+                        "browser"      => null,
+                        "version"      => null,
+                        "isCurrent"    => false,
+                        "isOnline"     => true
+                    ];
+                    $this->compareExpectedAndActual($expectedResult, $result);
+            }
+        }
+
+        // Remove test session
+        $newUserSessionModel->delete();
     }
 
     public function testDeleteSessions()

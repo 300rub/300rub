@@ -110,7 +110,29 @@ class UserController extends AbstractController
      */
     public function getSessions()
     {
-        // @TODO
+        $this->checkUser();
+
+        $userSessionModels = (new UserSessionModel())
+            ->byUserId(App::web()->getUser()->getId())
+            ->ordered()
+            ->findAll();
+
+        $list = [];
+        foreach ($userSessionModels as $userSessionModel) {
+            $parsedUserAgent = parse_user_agent($userSessionModel->get("ua"));
+            $list[] = [
+                "ip"           => $userSessionModel->get("ip"),
+                "token"        => $userSessionModel->get("token"),
+                "lastActivity" => $userSessionModel->getFormattedLastActivity(),
+                "platform"     => $parsedUserAgent["platform"],
+                "browser"      => $parsedUserAgent["browser"],
+                "version"      => $parsedUserAgent["version"],
+                "isCurrent"    => $userSessionModel->get("token") === App::web()->getUser()->getToken(),
+                "isOnline"     => $userSessionModel->isOnline()
+            ];
+        }
+
+        return ["result" => $list];
     }
 
     /**

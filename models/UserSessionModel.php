@@ -4,16 +4,23 @@ namespace testS\models;
 
 use testS\components\Db;
 use testS\components\Validator;
+use DateTime;
 
 /**
  * Model for working with table "userSessions"
  *
  * @package testS\models
  *
- * @method UserSessionModel find()
+ * @method UserSessionModel   find()
+ * @method UserSessionModel[] findAll()
  */
 class UserSessionModel extends AbstractModel
 {
+
+    /**
+     * Online value in seconds (10 min)
+     */
+    const ONLINE_VALUE = 600;
 
     /**
      * Gets table name
@@ -76,5 +83,67 @@ class UserSessionModel extends AbstractModel
         $this->getDb()->addParameter("token", $token);
 
         return $this;
+    }
+
+    /**
+     * Finds by user ID
+     *
+     * @param int $userId
+     *
+     * @return UserSessionModel
+     */
+    public function byUserId($userId)
+    {
+        $this->getDb()->addWhere(sprintf("%s.userId = :userId", Db::DEFAULT_ALIAS));
+        $this->getDb()->addParameter("userId", $userId);
+
+        return $this;
+    }
+
+    /**
+     * Adds ORDER BY to SQL request
+     *
+     * @return UserSessionModel
+     */
+    public function ordered()
+    {
+        $this->getDb()->setOrder(sprintf("%s.lastActivity DESC", Db::DEFAULT_ALIAS));
+        return $this;
+    }
+
+    /**
+     * Gets formatted last Activity
+     *
+     * @return string
+     */
+    public function getFormattedLastActivity()
+    {
+        /**
+         * @var DateTime $lastActivity
+         */
+        $lastActivity = $this->get("lastActivity");
+        if (!$lastActivity instanceof DateTime) {
+            return "";
+        }
+
+        return $lastActivity->format("d/m/Y H:i");
+    }
+
+    /**
+     * Flag is online
+     *
+     * @return bool
+     */
+    public function isOnline()
+    {
+        /**
+         * @var DateTime $lastActivity
+         */
+        $lastActivity = $this->get("lastActivity");
+        if (!$lastActivity instanceof DateTime) {
+            return false;
+        }
+
+        return time() - $lastActivity->getTimestamp() < self::ONLINE_VALUE;
     }
 }
