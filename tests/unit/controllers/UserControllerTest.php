@@ -27,8 +27,10 @@ class UserControllerTest extends AbstractControllerTest
      */
     public function testAddSession($data, $expectedCode = 200, $isSuccess = false)
     {
+        $this->setUser(null);
+
         // Send request
-        $this->sendRequest("user", "session", $data, "PUT", null, null);
+        $this->sendRequest("user", "session", $data, "PUT");
 
         // Check status code
         $this->assertSame($expectedCode, $this->getStatusCode());
@@ -159,6 +161,107 @@ class UserControllerTest extends AbstractControllerTest
                 ],
                 200,
                 true
+            ],
+        ];
+    }
+
+    /**
+     * Test for deleteSession method
+     *
+     * @param string $userType
+     * @param string $token
+     * @param string $sessionId
+     * @param bool   $isRemoved
+     *
+     * @dataProvider dataProviderForTestDeleteSession
+     */
+    public function testDeleteSession($userType, $token = "", $sessionId = "", $isRemoved = true)
+    {
+        $memcached = App::getInstance()->getMemcached();
+
+        // Set user
+        $this->setUser($userType, $token, $sessionId);
+
+        // Getting session before delete
+        $sessionBeforeDelete = (new UserSessionModel())->byToken($this->getUserToken())->find();
+
+        if ($isRemoved === true) {
+            $this->assertInstanceOf("\\testS\\models\\UserSessionModel", $sessionBeforeDelete);
+        } else {
+            $this->assertNull($sessionBeforeDelete);
+        }
+
+        // Getting all sessions
+        $sessionsCountBeforeLogOut = count((new UserSessionModel())->findAll());
+
+        // Send request
+        $this->sendRequest("user", "session", [], "DELETE");
+
+        // Check sessions in DB and Memcached
+        $sessionsCountAfterLogOut = count((new UserSessionModel())->findAll());
+        if ($isRemoved === true) {
+            $this->assertSame($sessionsCountBeforeLogOut - 1, $sessionsCountAfterLogOut);
+
+            $sessionAfterDelete = (new UserSessionModel())->byToken($this->getUserToken())->find();
+            $this->assertNull($sessionAfterDelete);
+
+            // Check memcached
+            $memcachedResult = $memcached->get($sessionBeforeDelete->get("token"));
+            $this->assertFalse($memcachedResult);
+        } else {
+            $this->assertSame($sessionsCountBeforeLogOut, $sessionsCountAfterLogOut);
+        }
+
+        // Check body
+        $actualBody = $this->getBody();
+        $expectedBody = [
+            "result" => true
+        ];
+        $this->assertSame($expectedBody, $actualBody);
+
+        // Rollback session
+        if ($isRemoved === true) {
+            $sessionBeforeDelete->clearId()->save();
+        }
+    }
+
+    /**
+     * Data provider for testDeleteSession
+     *
+     * @return array
+     */
+    public function dataProviderForTestDeleteSession()
+    {
+        return [
+            "guest"    => [
+                null,
+                "",
+                "",
+                false
+            ],
+            "owner"    => [
+                self::TYPE_OWNER,
+                "",
+                "",
+                true
+            ],
+            "admin"    => [
+                self::TYPE_ADMIN,
+                "",
+                "",
+                true
+            ],
+            "user"     => [
+                self::TYPE_USER,
+                "",
+                "",
+                true
+            ],
+            "badToken" => [
+                null,
+                "incorrect",
+                null,
+                false
             ],
         ];
     }

@@ -225,6 +225,17 @@ abstract class AbstractModel
     }
 
     /**
+     * Clears ID
+     *
+     * @return AbstractModel
+     */
+    public function clearId()
+    {
+        $this->_fields[self::PK_FIELD] = 0;
+        return $this;
+    }
+
+    /**
      * Sets field values
      *
      * @param array $fields

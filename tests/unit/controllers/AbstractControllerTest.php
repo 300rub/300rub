@@ -14,14 +14,30 @@ abstract class AbstractControllerTest extends AbstractUnitTest
 {
 
     /**
-     * Session IDs
-     */
-    const SESSION_ID_DEFAULT = "session1c2c128f53f550c5ccbf2115b";
-
-    /**
      * Cookie path
      */
     const COOKIE_PATH = "/tmp/cookie";
+
+    /**
+     * User types
+     */
+    const TYPE_OWNER = "owner";
+    const TYPE_ADMIN = "admin";
+    const TYPE_USER  = "user";
+
+    /**
+     * User session ID
+     *
+     * @var string
+     */
+    private $_userSessionId = self::SESSION_ID_OWNER;
+
+    /**
+     * User token
+     *
+     * @var string
+     */
+    private $_userToken = self::TOKEN_OWNER;
 
     /**
      * Response code
@@ -36,6 +52,16 @@ abstract class AbstractControllerTest extends AbstractUnitTest
      * @var array
      */
     private $_body;
+
+    /**
+     * Gets user token
+     *
+     * @return string
+     */
+    protected function getUserToken()
+    {
+        return $this->_userToken;
+    }
 
     /**
      * Gets status code
@@ -58,14 +84,53 @@ abstract class AbstractControllerTest extends AbstractUnitTest
     }
 
     /**
+     * Sets User
+     *
+     * @param string $type
+     * @param string $token
+     * @param string $sessionId
+     *
+     * @return AbstractControllerTest
+     */
+    protected function setUser($type = self::TYPE_OWNER, $token = "", $sessionId = "")
+    {
+        switch ($type) {
+            case self::TYPE_OWNER:
+                $this->_userSessionId = self::SESSION_ID_OWNER;
+                $this->_userToken = self::TOKEN_OWNER;
+                break;
+            case self::TYPE_ADMIN:
+                $this->_userSessionId = self::SESSION_ID_ADMIN;
+                $this->_userToken = self::TOKEN_ADMIN;
+                break;
+            case self::TYPE_USER:
+                $this->_userSessionId = self::SESSION_ID_USER;
+                $this->_userToken = self::TOKEN_USER;
+                break;
+            default:
+                $this->_userSessionId = null;
+                $this->_userToken = null;
+                break;
+        }
+
+        if ($token !== "") {
+            $this->_userToken = $token;
+        }
+
+        if ($sessionId !== "") {
+            $this->_userSessionId = $sessionId;
+        }
+
+        return $this;
+    }
+
+    /**
      * Gets response
      *
      * @param string $controller
      * @param string $action
      * @param array  $data
      * @param string $method
-     * @param string $token
-     * @param string $sessionId
      * @param int    $language
      * @param string $ua
      *
@@ -76,8 +141,6 @@ abstract class AbstractControllerTest extends AbstractUnitTest
         $action,
         array $data = [],
         $method = "GET",
-        $token = self::TOKEN_USER,
-        $sessionId = self::SESSION_ID_DEFAULT,
         $language = Language::LANGUAGE_EN_ID,
         $ua = self::UA_FIREFOX_4_0_1
     )
@@ -86,7 +149,7 @@ abstract class AbstractControllerTest extends AbstractUnitTest
 
         $dataJson = json_encode(
             [
-                "token"      => $token,
+                "token"      => $this->getUserToken(),
                 "controller" => $controller,
                 "action"     => $action,
                 "language"   => $language,
@@ -103,7 +166,7 @@ abstract class AbstractControllerTest extends AbstractUnitTest
             CURLOPT_POSTFIELDS,
             json_encode(
                 [
-                    "token"      => $token,
+                    "token"      => $this->getUserToken(),
                     "controller" => $controller,
                     "action"     => $action,
                     "language"   => $language,
@@ -121,8 +184,8 @@ abstract class AbstractControllerTest extends AbstractUnitTest
                 "User-Agent: " . $ua,
             ]
         );
-        if ($sessionId !== null) {
-            curl_setopt($curl, CURLOPT_COOKIE, sprintf("%s=%s", session_name(), $sessionId));
+        if ($this->_userSessionId !== null) {
+            curl_setopt($curl, CURLOPT_COOKIE, sprintf("%s=%s", session_name(), $this->_userSessionId));
         }
 
         curl_setopt($curl, CURLOPT_COOKIESESSION, true);

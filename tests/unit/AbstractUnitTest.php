@@ -4,6 +4,7 @@ namespace testS\tests\unit;
 
 use PHPUnit_Framework_TestCase;
 use DateTime;
+use testS\commands\RollbackSqlDumpsCommand;
 
 /**
  * Class AbstractUnitTest
@@ -23,9 +24,16 @@ abstract class AbstractUnitTest extends PHPUnit_Framework_TestCase
     /**
      * Tokens
      */
-    const TOKEN_USER = "user8765c2c128f53f550c5ccbf2115b";
-    const TOKEN_ADMIN = "admin765c2c128f53f550c5ccbf2115b";
-    const TOKEN_OWNER = "owner765c2c128f53f550c5ccbf2115b";
+    const TOKEN_OWNER = "c4ca4238a0b923820dcc509a6f75849b";
+    const TOKEN_ADMIN = "c81e728d9d4c2f636f067f89cc14862c";
+    const TOKEN_USER = "eccbc87e4b5ce2fe28308fd9f2a7baf3";
+
+    /**
+     * Session IDs
+     */
+    const SESSION_ID_OWNER = "a87ff679a2f3e71d9181a67b7542122c";
+    const SESSION_ID_ADMIN = "e4da3b7fbbce2345d7772b0674a318d5";
+    const SESSION_ID_USER = "1679091c5a880faf6fb5e6087eb1b2dc";
 
     /**
      * Exceptions
@@ -150,6 +158,17 @@ abstract class AbstractUnitTest extends PHPUnit_Framework_TestCase
             );
         }
 
+        return $this;
+    }
+
+    /**
+     * Resets DB
+     *
+     * @return AbstractUnitTest
+     */
+    protected function resetDb()
+    {
+        RollbackSqlDumpsCommand::rollbackDumps();
         return $this;
     }
 }

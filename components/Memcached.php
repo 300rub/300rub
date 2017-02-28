@@ -83,6 +83,10 @@ class Memcached
      */
     public function delete($key)
     {
+        if ($this->get($key) === false) {
+            return $this;
+        }
+
         $result = $this->_memcached->delete($key);
 
         if ($result === false) {

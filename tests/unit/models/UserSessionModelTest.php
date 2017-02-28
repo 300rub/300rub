@@ -293,17 +293,17 @@ class UserSessionModelTest extends AbstractModelTest
      * Test find by token
      *
      * @param string   $token
-     * @param int|null $expectedId
+     * @param int|null $expectedUserId
      *
      * @dataProvider dataProviderForTestByToken
      */
-    public function testByToken($token, $expectedId)
+    public function testByToken($token, $expectedUserId)
     {
         $model = $this->getNewModel()->byToken($token)->find();
-        if ($expectedId === null) {
+        if ($expectedUserId === null) {
             $this->assertNull($model);
         } else {
-            $this->assertSame($expectedId, $model->getId());
+            $this->assertSame($expectedUserId, $model->get("userId"));
         }
     }
 

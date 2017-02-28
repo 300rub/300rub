@@ -6,6 +6,7 @@ use testS\applications\App;
 use testS\components\exceptions\BadRequestException;
 use testS\models\UserModel;
 use testS\models\UserSessionModel;
+use testS\components\User;
 
 /**
  * UserController
@@ -80,10 +81,28 @@ class UserController extends AbstractController
 
     /**
      * Removes user session
+     *
+     * Removes DB record and Memcache
      */
     public function deleteSession()
     {
-        // @TODO
+        $user = App::web()->getUser();
+        if (!$user instanceof User) {
+            return [
+                "result" => true
+            ];
+        }
+
+        App::web()->getMemcached()->delete($user->getToken());
+
+        $userSessionModel = (new UserSessionModel())->byToken($user->getToken())->find();
+        if ($userSessionModel instanceof UserSessionModel) {
+            $userSessionModel->delete();
+        }
+
+        return [
+            "result" => true
+        ];
     }
 
     /**
