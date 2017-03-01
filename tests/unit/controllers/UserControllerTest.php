@@ -3,6 +3,7 @@
 namespace testS\tests\unit\controllers;
 
 use testS\applications\App;
+use testS\components\User;
 use testS\models\UserModel;
 use testS\models\UserSessionModel;
 
@@ -269,7 +270,6 @@ class UserControllerTest extends AbstractControllerTest
     /**
      * Test for deleteSession method with token data
      *
-     * @param string $userType
      * @param string $tokenToCreate
      * @param string $tokenToDelete
      * @param bool   $isRemoved
@@ -277,10 +277,8 @@ class UserControllerTest extends AbstractControllerTest
      *
      * @dataProvider dataProviderForTestDeleteSessionByToken
      */
-    public function testDeleteSessionByToken($userType, $tokenToCreate, $tokenToDelete, $isRemoved, $hasError)
+    public function testDeleteSessionByToken($tokenToCreate, $tokenToDelete, $isRemoved, $hasError)
     {
-        $this->setUser($userType);
-
         // Create test session to delete
         $newUserSessionModel = new UserSessionModel();
         $newUserSessionModel->set(
@@ -324,22 +322,19 @@ class UserControllerTest extends AbstractControllerTest
         $token = $this->generateStringWithLength(32);
 
         return [
-            "ownerSuccess" => [
-                self::TYPE_OWNER,
+            "ownerSuccess"     => [
                 $token,
                 $token,
                 true,
                 false
             ],
-            "tokenNotExist" => [
-                self::TYPE_OWNER,
+            "tokenNotExist"    => [
                 $token,
                 $this->generateStringWithLength(32),
                 false,
                 false
             ],
             "anotherUserToken" => [
-                self::TYPE_OWNER,
                 $token,
                 self::TOKEN_ADMIN,
                 false,
@@ -416,9 +411,56 @@ class UserControllerTest extends AbstractControllerTest
         $newUserSessionModel->delete();
     }
 
+    /**
+     * Test for deleteSessions method
+     */
     public function testDeleteSessions()
     {
-        $this->markTestSkipped();
+        $memcached = App::getInstance()->getMemcached();
+
+        /**
+         * @var UserModel $userModel
+         */
+        $userModel = (new UserModel)->byId(1)->find();
+
+        // Add 2 sessions for Owner
+        $newToken1 = $this->generateStringWithLength(32);
+        $newUserSessionModel1 = new UserSessionModel();
+        $newUserSessionModel1->set(
+            [
+                "userId" => 1,
+                "token"  => $newToken1,
+                "ip"     => "127.0.0.1",
+                "ua"     => "",
+            ]
+        );
+        $newUserSessionModel1->save();
+        $memcached->set($newToken1, new User($newToken1, $userModel));
+        $newToken2 = $this->generateStringWithLength(32);
+        $newUserSessionModel2 = new UserSessionModel();
+        $newUserSessionModel2->set(
+            [
+                "userId" => 1,
+                "token"  => $newToken2,
+                "ip"     => "127.0.0.2",
+                "ua"     => "",
+            ]
+        );
+        $newUserSessionModel2->save();
+        $memcached->set($newToken2, new User($newToken1, $userModel));
+
+        // Make sure that count of owner sessions >= 3
+        $this->assertTrue(3 <= (new UserSessionModel())->byUserId(1)->getCount());
+
+        // Delete sessions
+        $this->sendRequest("user", "sessions", [], "DELETE");
+
+        // Make sure that count of owner sessions is 1
+        $this->assertSame(1, (new UserSessionModel())->byUserId(1)->getCount());
+        $this->assertNull((new UserSessionModel())->byToken($newToken1)->find());
+        $this->assertNull((new UserSessionModel())->byToken($newToken2)->find());
+        $this->assertFalse($memcached->get($newToken1));
+        $this->assertFalse($memcached->get($newToken2));
     }
 
     public function testAddUser()

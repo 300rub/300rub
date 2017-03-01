@@ -18,7 +18,13 @@ class UserController extends AbstractController
 {
 
     /**
-     * Adds user session. Sets User
+     * Adds user session. Sets User / Login
+     *
+     * Creates new record in DB, memcached record, cookie record
+     *
+     * @return array "result" => false for incorrect username or password, "token" in case of success
+     *
+     * @throws BadRequestException
      */
     public function addSession()
     {
@@ -81,9 +87,17 @@ class UserController extends AbstractController
     }
 
     /**
-     * Removes user session
+     * Removes user session / Logout
      *
      * Removes DB record and Memcache
+     *
+     * 1. If there is $data["token"] - remove session by token
+     * 2. If $data is empty - remove current session (logout)
+     *
+     * @return array "result" => true
+     *
+     * @throws BadRequestException
+     * @throws AccessException
      */
     public function deleteSession()
     {
@@ -98,8 +112,8 @@ class UserController extends AbstractController
         if (!array_key_exists("token", $data)) {
             App::web()->getMemcached()->delete($user->getToken());
 
-            unset($_COOKIE['token']);
-            setcookie('token', '', time() - 3600);
+//            unset($_COOKIE['token']);
+//            setcookie('token', '', time() - 3600);
 
             $userSessionModel = (new UserSessionModel())->byToken($user->getToken())->find();
             if ($userSessionModel instanceof UserSessionModel) {
@@ -150,6 +164,8 @@ class UserController extends AbstractController
 
     /**
      * Gets all user sessions
+     *
+     * @returns array "result" => a list of sessions for current user
      */
     public function getSessions()
     {
@@ -179,11 +195,29 @@ class UserController extends AbstractController
     }
 
     /**
-     * Deletes all user sessions
+     * Deletes all user sessions except current
+     *
+     * Removed DR record and memcached record
+     *
+     * @return array "result" => true
      */
     public function deleteSessions()
     {
-        // @TODO
+        $this->checkUser();
+
+        $userSessionModels = (new UserSessionModel())
+            ->byUserId(App::web()->getUser()->getId())
+            ->exceptToken(App::web()->getUser()->getToken())
+            ->findAll();
+
+        foreach ($userSessionModels as $userSessionModel) {
+            App::web()->getMemcached()->delete($userSessionModel->get("token"));
+            $userSessionModel->delete();
+        }
+
+        return [
+            "result" => true
+        ];
     }
 
     /**

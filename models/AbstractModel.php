@@ -618,6 +618,19 @@ abstract class AbstractModel
     }
 
     /**
+     * Count of records
+     *
+     * @return int
+     */
+    public function getCount()
+    {
+        $results = $this->setDbBeforeFind()->getDb()->findAll();
+        $this->getDb()->reset();
+
+        return count($results);
+    }
+
+    /**
      * Parses DB response
      *
      * @param array $response

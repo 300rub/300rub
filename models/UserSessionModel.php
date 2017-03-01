@@ -86,6 +86,21 @@ class UserSessionModel extends AbstractModel
     }
 
     /**
+     * Finds except token
+     *
+     * @param string $token
+     *
+     * @return UserSessionModel
+     */
+    public function exceptToken($token)
+    {
+        $this->getDb()->addWhere(sprintf("%s.token != :token", Db::DEFAULT_ALIAS));
+        $this->getDb()->addParameter("token", $token);
+
+        return $this;
+    }
+
+    /**
      * Finds by user ID
      *
      * @param int $userId
