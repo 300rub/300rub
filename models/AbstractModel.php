@@ -292,6 +292,7 @@ abstract class AbstractModel
     {
         $info = $this->getFieldsInfo();
 
+        // Sets from model arrays
         foreach ($fields as $field => $value) {
             $relationIdField = substr($field, 0, -5) . "Id";
             if (!array_key_exists($field, $this->_fields)
@@ -334,7 +335,36 @@ abstract class AbstractModel
 
             $relationModel->set($value);
             $this->_fields[$field] = $relationModel;
-            $this->_fields[$relationIdField] = $relationModel->get("id");
+            $this->_fields[$relationIdField] = $relationModel->getId();
+        }
+
+        // Sets relation IDs
+        foreach ($fields as $field => $value) {
+            if (!array_key_exists($field, $info)
+                || !array_key_exists(self::FIELD_RELATION, $info[$field])
+                || (int) $this->_fields[$field] !== 0
+            ) {
+                continue;
+            }
+
+            /**
+             * @var AbstractModel $relationModel
+             */
+            $relationModelName = "\\testS\\models\\" . $info[$field][self::FIELD_RELATION];
+            $relationModel = new $relationModelName;
+            $relationModel = $relationModel->byId($value)->find();
+            if (!$relationModel instanceof $relationModelName) {
+                throw new ModelException(
+                    "Unable to get model {model} by ID: {id}",
+                    [
+                        "model" => $relationModelName,
+                        "id"    => $value
+                    ]
+                );
+            }
+
+            $this->_fields[$field] = $value;
+            $this->_fields[$this->_getRelationName($field)] = $relationModel;
         }
 
         return $this;
@@ -701,7 +731,12 @@ abstract class AbstractModel
 
                 $relationField = $this->_getRelationName($field);
                 $relationModel->setDb($this->getDb());
-                $relationAlias = $alias . Db::SEPARATOR . $relationField;
+
+                if ($alias === Db::DEFAULT_ALIAS) {
+                    $relationAlias = $relationField;
+                } else {
+                    $relationAlias = $alias . Db::SEPARATOR . $relationField;
+                }
                 $relationModel->setDbBeforeFind($relationAlias);
 
                 $db->addJoin($relationModel->getTableName(), $relationAlias, $alias, $field);
@@ -748,24 +783,26 @@ abstract class AbstractModel
             return $this->get($relationField);
         }
 
-        if ($isFind === true) {
-            /**
-             * @var AbstractModel $model;
-             */
-            $model = new $relationModelName;
-            $model->byId($this->get($fieldName))->find();
-            if ($model === null) {
-                throw new ModelException(
-                    "Unable to find model: {model} by ID: {id}",
-                    [
-                        "model" => $relationModelName,
-                        "id"    => $this->get($fieldName)
-                    ]
-                );
-            }
+        if ($isFind === false) {
+            return new $relationModelName;
         }
 
-        return new $relationModelName;
+        /**
+         * @var AbstractModel $model;
+         */
+        $model = new $relationModelName;
+        $model->byId($this->get($fieldName))->find();
+        if ($model === null) {
+            throw new ModelException(
+                "Unable to find model: {model} by ID: {id}",
+                [
+                    "model" => $relationModelName,
+                    "id"    => $this->get($fieldName)
+                ]
+            );
+        }
+
+        return $model;
     }
 
     /**
@@ -947,9 +984,17 @@ abstract class AbstractModel
         $fields = [];
 
         foreach ($info as $field => $fieldInfo) {
-            if (!is_object($this->get($field))) {
-                $fields[] = sprintf("%s: %s", $field, $this->get($field));
+            $value = $this->get($field);
+
+            if (is_object($value)) {
+                continue;
             }
+
+            if (is_bool($value)) {
+                $value = (int) $value;
+            }
+
+            $fields[] = sprintf("%s: %s", $field, $value);
 
         }
         throw new ModelException(
@@ -1049,6 +1094,7 @@ abstract class AbstractModel
 
                 if ($this->get($field) !== 0) {
                     $relationModel = $relationModel->byId($this->get($field))->find();
+
                     if (!$relationModel instanceof $relationModelName) {
                         throw new ModelException(
                             "Unable to find relation with name: {name} by id: {id}",
@@ -1058,6 +1104,7 @@ abstract class AbstractModel
                             ]
                         );
                     }
+
                 }
             } else {
                 $relationModel = $this->get($relationName);
@@ -1068,7 +1115,8 @@ abstract class AbstractModel
                 $this->_addErrors($relationName, $relationModel->getErrors());
             }
 
-            $this->set([$field => $relationModel->getId()]);
+            $this->_fields[$field] = $relationModel->getId();
+            $this->_fields[$relationName] = $relationModel;
         }
 
         return $this;

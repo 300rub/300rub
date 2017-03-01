@@ -29,8 +29,21 @@ class TextModelTest extends AbstractModelTest
      */
     protected function getDataProviderCRUDEmpty()
     {
-        $this->markTestSkipped();
-        return [];
+        return [
+            "empty1" => [
+                [],
+                [
+                    "designTextModel"  => [
+                        "size" => 0
+                    ],
+                    "designBlockModel" => [
+                        "marginTop" => 0
+                    ],
+                    "type"             => 0,
+                    "hasEditor"        => false
+                ]
+            ],
+        ];
     }
 
     /**
@@ -40,7 +53,6 @@ class TextModelTest extends AbstractModelTest
      */
     protected function getDataProviderCRUDCorrect()
     {
-        $this->markTestSkipped();
         return [];
     }
 
@@ -51,7 +63,6 @@ class TextModelTest extends AbstractModelTest
      */
     protected function getDataProviderCRUDIncorrect()
     {
-        $this->markTestSkipped();
         return [];
     }
 

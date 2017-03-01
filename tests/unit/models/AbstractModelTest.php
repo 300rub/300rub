@@ -303,7 +303,7 @@ abstract class AbstractModelTest extends AbstractUnitTest
         $this->compareExpectedAndActual($createExpected, $model->get());
 
         // Read created
-        $model = $this->getNewModel()->byId($model->getId())->find();
+        $model = $this->getNewModel()->byId($model->getId())->withRelations()->find();
         $this->assertInstanceOf("\\testS\\models\\AbstractModel", $model);
         $this->compareExpectedAndActual($createExpected, $model->get());
 
@@ -320,7 +320,7 @@ abstract class AbstractModelTest extends AbstractUnitTest
         $this->compareExpectedAndActual($updateExpected, $model->get());
 
         // Read updated
-        $model = $this->getNewModel()->byId($model->getId())->find();
+        $model = $this->getNewModel()->byId($model->getId())->withRelations()->find();
         $this->assertInstanceOf("\\testS\\models\\AbstractModel", $model);
         $this->compareExpectedAndActual($updateExpected, $model->get());
 

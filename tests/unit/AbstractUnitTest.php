@@ -5,6 +5,7 @@ namespace testS\tests\unit;
 use PHPUnit_Framework_TestCase;
 use DateTime;
 use testS\commands\RollbackSqlDumpsCommand;
+use testS\models\AbstractModel;
 
 /**
  * Class AbstractUnitTest
@@ -74,15 +75,24 @@ abstract class AbstractUnitTest extends PHPUnit_Framework_TestCase
             }
 
             if (is_array($expectedValue)) {
+                /**
+                 * @var AbstractModel|array $actualValue
+                 */
+                $actualValue = $actual[$key];
+                if ($actualValue instanceof AbstractModel) {
+                    $actualValue = $actualValue->get();
+                }
+
                 $this->assertTrue(
-                    is_array($actual[$key]),
+                    is_array($actualValue),
                     sprintf(
                         "Actual data with key [%s] is not an array. Array expected.",
                         $key
                     )
                 );
 
-                $this->compareExpectedAndActual($expectedValue, $actual[$key], $isFullSame);
+
+                $this->compareExpectedAndActual($expectedValue, $actualValue, $isFullSame);
                 continue;
             }
 
