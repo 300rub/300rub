@@ -284,8 +284,8 @@ abstract class AbstractModelTest extends AbstractUnitTest
     public function testCRUD(
         array $createData = [],
         array $createExpected = [],
-        array $updateData = [],
-        array $updateExpected = [],
+        array $updateData = null,
+        array $updateExpected = null,
         $expectedCreateException = null,
         $expectedUpdateException = null
     )
@@ -308,21 +308,23 @@ abstract class AbstractModelTest extends AbstractUnitTest
         $this->compareExpectedAndActual($createExpected, $model->get());
 
         // Update
-        if ($expectedUpdateException !== null) {
-            $this->expectException($expectedUpdateException);
-        }
-        $model->set($updateData)->save();
-        $errors = $model->getErrors();
-        if (count($errors) > 0) {
-            $this->compareExpectedAndActual($updateExpected, $errors, true);
-            return true;
-        }
-        $this->compareExpectedAndActual($updateExpected, $model->get());
+        if ($updateData !== null) {
+            if ($expectedUpdateException !== null) {
+                $this->expectException($expectedUpdateException);
+            }
+            $model->set($updateData)->save();
+            $errors = $model->getErrors();
+            if (count($errors) > 0) {
+                $this->compareExpectedAndActual($updateExpected, $errors, true);
+                return true;
+            }
+            $this->compareExpectedAndActual($updateExpected, $model->get());
 
-        // Read updated
-        $model = $this->getNewModel()->byId($model->getId())->withRelations()->find();
-        $this->assertInstanceOf("\\testS\\models\\AbstractModel", $model);
-        $this->compareExpectedAndActual($updateExpected, $model->get());
+            // Read updated
+            $model = $this->getNewModel()->byId($model->getId())->withRelations()->find();
+            $this->assertInstanceOf("\\testS\\models\\AbstractModel", $model);
+            $this->compareExpectedAndActual($updateExpected, $model->get());
+        }
 
         // Delete
         $model->delete();
@@ -368,7 +370,7 @@ abstract class AbstractModelTest extends AbstractUnitTest
 
         // Create and get model
         $model = $this->getNewModel()->set($createData)->save();
-        $model = $this->getNewModel()->byId($model->getId())->find();
+        $model = $this->getNewModel()->byId($model->getId())->withRelations()->find();
 
         // Duplicate
         $duplicatedModel = $model->duplicate();
@@ -378,9 +380,21 @@ abstract class AbstractModelTest extends AbstractUnitTest
         $this->assertNotSame($model->getId(), $duplicatedModel->getId());
 
         // Read duplicated from DB
-        $duplicatedModel = $this->getNewModel()->byId($duplicatedModel->getId())->find();
+        $duplicatedModel = $this->getNewModel()->byId($duplicatedModel->getId())->withRelations()->find();
         $this->assertInstanceOf("\\testS\\models\\AbstractModel", $duplicatedModel);
         $this->compareExpectedAndActual($duplicateExpected, $duplicatedModel->get());
+
+        // Compare relation IDs
+        $info = $model->getFieldsInfo();
+        foreach ($info as $field => $value) {
+            if (array_key_exists(AbstractModel::FIELD_RELATION, $info[$field])) {
+                $this->assertNotSame($model->get($field), $duplicatedModel->get($field));
+            }
+
+            if (array_key_exists(AbstractModel::FIELD_RELATION_TO_PARENT, $info[$field])) {
+                $this->assertSame($model->get($field), $duplicatedModel->get($field));
+            }
+        }
 
         // Remove
         $model->delete();

@@ -294,7 +294,7 @@ abstract class AbstractModel
 
         // Sets from model arrays
         foreach ($fields as $field => $value) {
-            $relationIdField = substr($field, 0, -5) . "Id";
+            $relationIdField = $this->_getRelationIdFields($field);
             if (!array_key_exists($field, $this->_fields)
                 || !is_array($value)
                 || !array_key_exists($relationIdField, $info)
@@ -309,31 +309,9 @@ abstract class AbstractModel
                 continue;
             }
 
-            /**
-             * @var AbstractModel $relationModel
-             */
-            $relationModelName = "\\testS\\models\\" . $info[$relationIdField][self::FIELD_RELATION];
-            $relationModel = new $relationModelName;
-            if (array_key_exists($field, $this->_fields)
-                && $this->get($field) instanceof $relationModelName
-            ) {
-                $relationModel = $this->_fields[$field];
-            } elseif (array_key_exists($relationIdField, $this->_fields)
-                && $this->get($relationIdField)
-            ) {
-                $relationModel = $relationModel->byId($this->get($relationIdField))->find();
-                if (!$relationModel instanceof $relationModelName) {
-                    throw new ModelException(
-                        "Unable to get model {model} by ID: {id}",
-                        [
-                            "model" => $relationModelName,
-                            "id"    => $this->get($relationIdField)
-                        ]
-                    );
-                }
-            }
-
+            $relationModel = $this->_getRelationModelByFieldName($relationIdField, !$this->_isNew());
             $relationModel->set($value);
+
             $this->_fields[$field] = $relationModel;
             $this->_fields[$relationIdField] = $relationModel->getId();
         }
@@ -342,29 +320,15 @@ abstract class AbstractModel
         foreach ($fields as $field => $value) {
             if (!array_key_exists($field, $info)
                 || !array_key_exists(self::FIELD_RELATION, $info[$field])
-                || (int) $this->_fields[$field] !== 0
+                || (int) $this->_fields[$field] === 0
             ) {
                 continue;
             }
 
-            /**
-             * @var AbstractModel $relationModel
-             */
-            $relationModelName = "\\testS\\models\\" . $info[$field][self::FIELD_RELATION];
-            $relationModel = new $relationModelName;
-            $relationModel = $relationModel->byId($value)->find();
-            if (!$relationModel instanceof $relationModelName) {
-                throw new ModelException(
-                    "Unable to get model {model} by ID: {id}",
-                    [
-                        "model" => $relationModelName,
-                        "id"    => $value
-                    ]
-                );
-            }
-
-            $this->_fields[$field] = $value;
-            $this->_fields[$this->_getRelationName($field)] = $relationModel;
+            $this->_fields[$field] = (int) $value;
+            $this->_fields[$this->_getRelationName($field)] = $this->_getRelationModelByFieldName(
+                $field, !$this->_isNew()
+            );;
         }
 
         return $this;
@@ -582,6 +546,7 @@ abstract class AbstractModel
                 ]
             );
         }
+
         return $this->_fields[$param];
     }
 
@@ -759,6 +724,18 @@ abstract class AbstractModel
     }
 
     /**
+     * Gets relation Id field
+     *
+     * @param string $relationName
+     *
+     * @return string
+     */
+    private function _getRelationIdFields($relationName)
+    {
+        return substr($relationName, 0, -5) . "Id";
+    }
+
+    /**
      * Gets relation model
      *
      * @param string $fieldName
@@ -777,7 +754,7 @@ abstract class AbstractModel
             return null;
         }
 
-        $relationField = substr($fieldName, 0, -2) . "Model";
+        $relationField = $this->_getRelationName($fieldName);
         $relationModelName = "\\testS\\models\\" . $info[$fieldName][self::FIELD_RELATION];
         if ($this->get($relationField) instanceof $relationModelName) {
             return $this->get($relationField);
