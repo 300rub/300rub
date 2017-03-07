@@ -21,6 +21,7 @@ class LoadFixturesCommand extends AbstractCommand
     private static $fixtureOrder = [
         "user",
         "userSession",
+        "text",
     ];
 
 	/**
