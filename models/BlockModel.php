@@ -11,8 +11,6 @@ use testS\components\ValueGenerator;
  * Model for working with table "blocks"
  *
  * @package testS\models
- *
- * @property int $contentType
  */
 class BlockModel extends AbstractModel
 {
@@ -69,49 +67,93 @@ class BlockModel extends AbstractModel
                 ],
             ],
             "language"    => [
-                self::FIELD_TYPE  => self::FIELD_TYPE_INT,
-                self::FIELD_VALUE => [
+                self::FIELD_TYPE                 => self::FIELD_TYPE_INT,
+                self::FIELD_VALUE                => [
                     ValueGenerator::ARRAY_KEY => [Language::$aliasList, Language::getActiveId()]
                 ],
+                self::FIELD_NOT_CHANGE_ON_UPDATE => true,
             ],
             "contentType" => [
-                self::FIELD_TYPE  => self::FIELD_TYPE_INT,
-                self::FIELD_VALUE => [
+                self::FIELD_TYPE                 => self::FIELD_TYPE_INT,
+                self::FIELD_VALUE                => [
                     ValueGenerator::ARRAY_KEY => [self::$typeList]
                 ],
+                self::FIELD_NOT_CHANGE_ON_UPDATE => true,
             ],
             "contentId"   => [
-                self::FIELD_TYPE        => self::FIELD_TYPE_INT,
-                self::FIELD_BEFORE_SAVE => "checkContentId"
+                self::FIELD_TYPE                 => self::FIELD_TYPE_INT,
+                self::FIELD_BEFORE_SAVE          => ["setContentIdBeforeSave"],
+                self::FIELD_BEFORE_DUPLICATE     => ["setContentIdBeforeDuplicate"],
+                self::FIELD_NOT_CHANGE_ON_UPDATE => true,
             ],
         ];
     }
 
     /**
-     * Checks content ID
+     * Sets and checks content ID
      *
      * @param int $value
      *
      * @throws ModelException
+     *
+     * @return int
      */
-    protected function checkContentId($value)
+    protected function setContentIdBeforeSave($value)
     {
+        $value = (int) $value;
+
         if ($value === 0) {
             throw new ModelException("Unable to save BlockModel because contentId is null");
         }
 
-        $className = "\\testS\\models\\" . self::$typeList[$this->contentType];
+        $this->getModelByTypeAndId($this->get("contentType"), $value);
+
+        return $value;
+    }
+
+    /**
+     * Sets contentId before duplicate
+     *
+     * @param int $value
+     *
+     * @return int
+     *
+     * @throws ModelException
+     */
+    protected function setContentIdBeforeDuplicate($value)
+    {
+        return $this
+            ->getModelByTypeAndId($this->get("contentType"), $value)
+            ->duplicate()
+            ->getId();
+    }
+
+    /**
+     * Gets model by contentType and contentId
+     *
+     * @param int $type
+     * @param int $id
+     *
+     * @return AbstractModel
+     *
+     * @throws ModelException
+     */
+    public function getModelByTypeAndId($type, $id)
+    {
+        $className = "\\testS\\models\\" . self::$typeList[$type];
         $model = new $className;
         if (!$model instanceof AbstractModel
-            || !$model->byId($value)->find() instanceof AbstractModel
+            || !$model->byId($id)->find() instanceof AbstractModel
         ) {
             throw new ModelException(
                 "Unable to find model: {className} with ID = {id}",
                 [
                     "className" => $className,
-                    "id"        => $value
+                    "id"        => $id
                 ]
             );
         }
+
+        return $model;
     }
 }

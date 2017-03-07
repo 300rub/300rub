@@ -29,8 +29,54 @@ class BlockModelTest extends AbstractModelTest
      */
     protected function getDataProviderCRUDEmpty()
     {
-        $this->markTestSkipped();
-        return [];
+        return [
+            "empty1" => [
+                [],
+                [],
+                null,
+                null,
+                self::EXCEPTION_CONTENT
+            ],
+            "empty2" => [
+                [
+                    "name"        => "",
+                    "language"    => "",
+                    "contentType" => "",
+                    "contentId"   => "",
+                ],
+                [],
+                null,
+                null,
+                self::EXCEPTION_CONTENT
+            ],
+            "empty3" => [
+                [
+                    "contentType" => 1,
+                ],
+                [
+                    "name" => ["required"]
+                ],
+            ],
+            "empty4" => [
+                [
+                    "name"        => "Name",
+                    "contentType" => 1,
+                ],
+                [],
+                null,
+                null,
+                self::EXCEPTION_MODEL
+            ],
+            "empty5" => [
+                [
+                    "contentType" => 0,
+                ],
+                [],
+                null,
+                null,
+                self::EXCEPTION_CONTENT
+            ],
+        ];
     }
 
     /**
@@ -40,8 +86,54 @@ class BlockModelTest extends AbstractModelTest
      */
     protected function getDataProviderCRUDCorrect()
     {
-        $this->markTestSkipped();
-        return [];
+        return [
+            "correct1" => [
+                [
+                    "name"        => "Block name",
+                    "language"    => 1,
+                    "contentType" => 1,
+                    "contentId"   => 1,
+                ],
+                [
+                    "name"        => "Block name",
+                    "language"    => 1,
+                    "contentType" => 1,
+                    "contentId"   => 1,
+                ],
+                [
+                    "name" => "New Block name",
+                ],
+                [
+                    "name"        => "New Block name",
+                    "language"    => 1,
+                    "contentType" => 1,
+                    "contentId"   => 1,
+                ]
+            ],
+            "correct2" => [
+                [
+                    "name"        => "New name",
+                    "language"    => 1,
+                    "contentType" => 1,
+                    "contentId"   => 2,
+                ],
+                [
+                    "name"        => "New name",
+                    "language"    => 1,
+                    "contentType" => 1,
+                    "contentId"   => 2,
+                ],
+                [
+                    "name" => "Updated name",
+                ],
+                [
+                    "name"        => "Updated name",
+                    "language"    => 1,
+                    "contentType" => 1,
+                    "contentId"   => 2,
+                ]
+            ],
+        ];
     }
 
     /**
@@ -51,18 +143,105 @@ class BlockModelTest extends AbstractModelTest
      */
     protected function getDataProviderCRUDIncorrect()
     {
-        $this->markTestSkipped();
-        return [];
-    }
-
-    /**
-     * Data provider for CRUD. Duplicate
-     *
-     * @return array
-     */
-    public function getDataProviderDuplicate()
-    {
-        $this->markTestSkipped();
-        return [];
+        return [
+            "incorrect1" => [
+                [
+                    "name"        => "    Block name   ",
+                    "language"    => "  1 ",
+                    "contentType" => "  1  ",
+                    "contentId"   => "  1  ",
+                ],
+                [
+                    "name"        => "Block name",
+                    "language"    => 1,
+                    "contentType" => 1,
+                    "contentId"   => 1,
+                ],
+                [
+                    "name"        => "   New name   ",
+                    "language"    => 2,
+                    "contentType" => 2,
+                    "contentId"   => 2,
+                ],
+                [
+                    "name"        => "New name",
+                    "language"    => 1,
+                    "contentType" => 1,
+                    "contentId"   => 1,
+                ]
+            ],
+            "incorrect2" => [
+                [
+                    "name"        => $this->generateStringWithLength("256"),
+                    "language"    => 1,
+                    "contentType" => 1,
+                    "contentId"   => 1,
+                ],
+                [
+                    "name" => ["max"]
+                ]
+            ],
+            "incorrect3" => [
+                [
+                    "name"        => "Name",
+                    "language"    => 999,
+                    "contentType" => 1,
+                    "contentId"   => 1,
+                ],
+                [
+                    "name"        => "Name",
+                    "language"    => 1,
+                    "contentType" => 1,
+                    "contentId"   => 1,
+                ]
+            ],
+            "incorrect4" => [
+                [
+                    "name"        => "Name",
+                    "language"    => 1,
+                    "contentType" => 999,
+                    "contentId"   => 1,
+                ],
+                [],
+                null,
+                null,
+                self::EXCEPTION_CONTENT
+            ],
+            "incorrect5" => [
+                [
+                    "name"        => "Name",
+                    "language"    => 1,
+                    "contentType" => 1,
+                    "contentId"   => 999,
+                ],
+                [],
+                null,
+                null,
+                self::EXCEPTION_MODEL
+            ],
+            "incorrect6" => [
+                [
+                    "name"        => "<b>  Block name   </b>",
+                    "language"    => "  1 a",
+                    "contentType" => "  1  d",
+                    "contentId"   => "  1  f",
+                ],
+                [
+                    "name"        => "Block name",
+                    "language"    => 1,
+                    "contentType" => 1,
+                    "contentId"   => 1,
+                ],
+                [
+                    "name"        => "<strong>New name   ",
+                ],
+                [
+                    "name"        => "New name",
+                    "language"    => 1,
+                    "contentType" => 1,
+                    "contentId"   => 1,
+                ]
+            ],
+        ];
     }
 }

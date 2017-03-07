@@ -33,6 +33,7 @@ abstract class AbstractModel
     const FIELD_TYPE_FLOAT = "float";
     const FIELD_TYPE_BOOL = "bool";
     const FIELD_BEFORE_SAVE = "beforeSave";
+    const FIELD_BEFORE_DUPLICATE = "beforeDuplicate";
     const FIELD_ALLOW_NULL = "allowNull";
     const FIELD_NOT_CHANGE_ON_UPDATE = "notChangeOnUpdate";
     const FIELD_CURRENT_DATE_TIME = "currentDateTime";
@@ -1233,6 +1234,22 @@ abstract class AbstractModel
             }
 
             $duplicateModel->_fields[$field] = $this->get($field);
+
+            if (array_key_exists(self::FIELD_BEFORE_DUPLICATE, $info)) {
+                foreach ($info[self::FIELD_BEFORE_DUPLICATE] as $key => $value) {
+                    if (is_string($key)) {
+                        $method = $key;
+                        if (method_exists($this, $method)) {
+                            $duplicateModel->set([$field => $this->$method($this->get($field), $value)]);
+                        }
+                    } else {
+                        $method = $value;
+                        if (method_exists($this, $method)) {
+                            $duplicateModel->set([$field => $this->$method($this->get($field))]);
+                        }
+                    }
+                }
+            }
 
             if (!array_key_exists(self::FIELD_CHANGE_ON_DUPLICATE, $info)) {
                 continue;
