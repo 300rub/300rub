@@ -60,7 +60,7 @@ class DesignImageSimpleModelTest extends AbstractModelTest
      *
      * @return array
      */
-    public function getDataProviderDuplicate()
+    public function testDuplicate()
     {
         $this->markTestSkipped();
         return [];

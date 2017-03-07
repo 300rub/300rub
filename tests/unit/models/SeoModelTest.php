@@ -360,41 +360,38 @@ class SeoModelTest extends AbstractModelTest
     }
 
     /**
-     * Data provider for CRUD. Duplicate
-     *
-     * @return array
+     * Test duplicate
      */
-    public function getDataProviderDuplicate()
+    public function testDuplicate()
     {
-        return [
-            "duplicate1" => [
-                [
-                    "name"        => "Name",
-                    "url"         => "url",
-                    "title"       => "title",
-                    "keywords"    => "keywords",
-                    "description" => "description",
-                ],
-                [
-                    "name"        => "Name (Copy)",
-                    "url"         => "url-copy",
-                    "title"       => "",
-                    "keywords"    => "",
-                    "description" => "",
-                ]
+        $this->duplicate(
+            [
+                "name"        => "Name",
+                "url"         => "url",
+                "title"       => "title",
+                "keywords"    => "keywords",
+                "description" => "description",
             ],
-            "duplicate2" => [
-                [
-                    "name" => "Name",
-                ],
-                [
-                    "name"        => "Name (Copy)",
-                    "url"         => "name-copy",
-                    "title"       => "",
-                    "keywords"    => "",
-                    "description" => "",
-                ]
+            [
+                "name"        => "Name (Copy)",
+                "url"         => "url-copy",
+                "title"       => "",
+                "keywords"    => "",
+                "description" => "",
+            ]
+        );
+
+        $this->duplicate(
+            [
+                "name" => "Name",
             ],
-        ];
+            [
+                "name"        => "Name (Copy)",
+                "url"         => "name-copy",
+                "title"       => "",
+                "keywords"    => "",
+                "description" => "",
+            ]
+        );
     }
 }

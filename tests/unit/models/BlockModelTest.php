@@ -3,6 +3,7 @@
 namespace testS\tests\unit\models;
 
 use testS\models\BlockModel;
+use testS\models\TextModel;
 
 /**
  * Tests for the model BlockModel
@@ -86,19 +87,22 @@ class BlockModelTest extends AbstractModelTest
      */
     protected function getDataProviderCRUDCorrect()
     {
+        $textModel1 = (new TextModel())->save();
+        $textModel2 = (new TextModel())->save();
+
         return [
             "correct1" => [
                 [
                     "name"        => "Block name",
                     "language"    => 1,
                     "contentType" => 1,
-                    "contentId"   => 1,
+                    "contentId"   => $textModel1->getId(),
                 ],
                 [
                     "name"        => "Block name",
                     "language"    => 1,
                     "contentType" => 1,
-                    "contentId"   => 1,
+                    "contentId"   => $textModel1->getId(),
                 ],
                 [
                     "name" => "New Block name",
@@ -107,7 +111,7 @@ class BlockModelTest extends AbstractModelTest
                     "name"        => "New Block name",
                     "language"    => 1,
                     "contentType" => 1,
-                    "contentId"   => 1,
+                    "contentId"   => $textModel1->getId(),
                 ]
             ],
             "correct2" => [
@@ -115,13 +119,13 @@ class BlockModelTest extends AbstractModelTest
                     "name"        => "New name",
                     "language"    => 1,
                     "contentType" => 1,
-                    "contentId"   => 2,
+                    "contentId"   => $textModel2->getId(),
                 ],
                 [
                     "name"        => "New name",
                     "language"    => 1,
                     "contentType" => 1,
-                    "contentId"   => 2,
+                    "contentId"   => $textModel2->getId(),
                 ],
                 [
                     "name" => "Updated name",
@@ -130,7 +134,7 @@ class BlockModelTest extends AbstractModelTest
                     "name"        => "Updated name",
                     "language"    => 1,
                     "contentType" => 1,
-                    "contentId"   => 2,
+                    "contentId"   => $textModel2->getId(),
                 ]
             ],
         ];
@@ -143,31 +147,34 @@ class BlockModelTest extends AbstractModelTest
      */
     protected function getDataProviderCRUDIncorrect()
     {
+        $textModel1 = (new TextModel())->save();
+        $textModel2 = (new TextModel())->save();
+        $textModel3 = (new TextModel())->save();
+
         return [
             "incorrect1" => [
                 [
                     "name"        => "    Block name   ",
                     "language"    => "  1 ",
                     "contentType" => "  1  ",
-                    "contentId"   => "  1  ",
+                    "contentId"   => "  " . $textModel1->getId() . "  ",
                 ],
                 [
                     "name"        => "Block name",
                     "language"    => 1,
                     "contentType" => 1,
-                    "contentId"   => 1,
+                    "contentId"   => $textModel1->getId(),
                 ],
                 [
                     "name"        => "   New name   ",
                     "language"    => 2,
                     "contentType" => 2,
-                    "contentId"   => 2,
                 ],
                 [
                     "name"        => "New name",
                     "language"    => 1,
                     "contentType" => 1,
-                    "contentId"   => 1,
+                    "contentId"   => $textModel1->getId(),
                 ]
             ],
             "incorrect2" => [
@@ -186,13 +193,13 @@ class BlockModelTest extends AbstractModelTest
                     "name"        => "Name",
                     "language"    => 999,
                     "contentType" => 1,
-                    "contentId"   => 1,
+                    "contentId"   => $textModel2->getId(),
                 ],
                 [
                     "name"        => "Name",
                     "language"    => 1,
                     "contentType" => 1,
-                    "contentId"   => 1,
+                    "contentId"   => $textModel2->getId(),
                 ]
             ],
             "incorrect4" => [
@@ -224,24 +231,48 @@ class BlockModelTest extends AbstractModelTest
                     "name"        => "<b>  Block name   </b>",
                     "language"    => "  1 a",
                     "contentType" => "  1  d",
-                    "contentId"   => "  1  f",
+                    "contentId"   => "  " . $textModel3->getId() . " f",
                 ],
                 [
                     "name"        => "Block name",
                     "language"    => 1,
                     "contentType" => 1,
-                    "contentId"   => 1,
+                    "contentId"   => $textModel3->getId(),
                 ],
                 [
-                    "name"        => "<strong>New name   ",
+                    "name" => "<strong>New name   ",
                 ],
                 [
                     "name"        => "New name",
                     "language"    => 1,
                     "contentType" => 1,
-                    "contentId"   => 1,
+                    "contentId"   => $textModel3->getId(),
                 ]
             ],
         ];
+    }
+
+    /**
+     * Test duplicate
+     */
+    public function testDuplicate()
+    {
+        $modelForCopy = $this->getNewModel()->byId(1)->find();
+        $duplicatedModel = $modelForCopy->duplicate();
+
+        $this->assertNotSame($modelForCopy->getId(), $duplicatedModel->getId());
+        $this->assertSame($modelForCopy->get("name") . " (Copy)", $duplicatedModel->get("name"));
+        $this->assertSame($modelForCopy->get("language"), $duplicatedModel->get("language"));
+        $this->assertSame($modelForCopy->get("contentType"), $duplicatedModel->get("contentType"));
+        $this->assertNotSame($modelForCopy->get("contentId"), $duplicatedModel->get("contentId"));
+
+        $contentModelForCopy = $modelForCopy->getContentModel();
+        $duplicatedContentModel = $duplicatedModel->getContentModel();
+        $this->assertNotSame($contentModelForCopy->getId(), $duplicatedContentModel->getId());
+
+        $duplicatedModel->delete();
+        $this->assertNull(
+            $duplicatedContentModel->byId($duplicatedContentModel->getId())->find()
+        );
     }
 }

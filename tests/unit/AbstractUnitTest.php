@@ -40,6 +40,7 @@ abstract class AbstractUnitTest extends PHPUnit_Framework_TestCase
      * Exceptions
      */
     const EXCEPTION_MODEL = "testS\\components\\exceptions\\ModelException";
+    const EXCEPTION_CONTENT = "testS\\components\\exceptions\\ContentException";
 
     /**
      * Compares expected and actual

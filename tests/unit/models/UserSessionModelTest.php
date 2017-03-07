@@ -269,24 +269,20 @@ class UserSessionModelTest extends AbstractModelTest
      * Data provider for CRUD. Duplicate
      *
      * Unable to duplicate. Token must be unique
-     *
-     * @return array
      */
-    public function getDataProviderDuplicate()
+    public function testDuplicate()
     {
-        return [
-            "duplicate1" => [
-                [
-                    "userId"       => 1,
-                    "token"        => $this->generateStringWithLength(32),
-                    "ip"           => "127.0.0.1",
-                    "ua"           => self::UA_FIREFOX_4_0_1,
-                    "lastActivity" => date("Y-m-d H:i:s")
-                ],
-                [],
-                self::EXCEPTION_MODEL
+        $this->duplicate(
+            [
+                "userId"       => 1,
+                "token"        => $this->generateStringWithLength(32),
+                "ip"           => "127.0.0.1",
+                "ua"           => self::UA_FIREFOX_4_0_1,
+                "lastActivity" => date("Y-m-d H:i:s")
             ],
-        ];
+            [],
+            self::EXCEPTION_MODEL
+        );
     }
 
     /**

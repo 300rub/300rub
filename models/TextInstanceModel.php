@@ -2,9 +2,7 @@
 
 namespace testS\models;
 
-use testS\components\Language;
-use testS\components\Validator;
-use testS\components\ValueGenerator;
+use testS\components\Db;
 
 /**
  * Model for working with table "textInstances"
@@ -40,5 +38,20 @@ class TextInstanceModel extends AbstractModel
                 self::FIELD_TYPE => self::FIELD_TYPE_STRING
             ]
         ];
+    }
+
+    /**
+     * Finds by text ID
+     *
+     * @param int $textId
+     *
+     * @return TextInstanceModel
+     */
+    public function byTextId($textId)
+    {
+        $this->getDb()->addWhere(sprintf("%s.textId = :textId", Db::DEFAULT_ALIAS));
+        $this->getDb()->addParameter("textId", $textId);
+
+        return $this;
     }
 }

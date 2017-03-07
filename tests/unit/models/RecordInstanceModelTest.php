@@ -60,7 +60,7 @@ class RecordInstanceModelTest extends AbstractModelTest
      *
      * @return array
      */
-    public function getDataProviderDuplicate()
+    public function testDuplicate()
     {
         $this->markTestSkipped();
         return [];

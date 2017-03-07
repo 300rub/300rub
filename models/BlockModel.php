@@ -11,6 +11,11 @@ use testS\components\ValueGenerator;
  * Model for working with table "blocks"
  *
  * @package testS\models
+ *
+ * @method BlockModel byId($id)
+ * @method BlockModel withRelations()
+ * @method BlockModel find()
+ * @method BlockModel duplicate()
  */
 class BlockModel extends AbstractModel
 {
@@ -100,13 +105,13 @@ class BlockModel extends AbstractModel
      */
     protected function setContentIdBeforeSave($value)
     {
-        $value = (int) $value;
+        $value = (int)$value;
 
         if ($value === 0) {
             throw new ModelException("Unable to save BlockModel because contentId is null");
         }
 
-        $this->getModelByTypeAndId($this->get("contentType"), $value);
+        $this->getContentModel();
 
         return $value;
     }
@@ -123,7 +128,7 @@ class BlockModel extends AbstractModel
     protected function setContentIdBeforeDuplicate($value)
     {
         return $this
-            ->getModelByTypeAndId($this->get("contentType"), $value)
+            ->getContentModel($value)
             ->duplicate()
             ->getId();
     }
@@ -131,29 +136,54 @@ class BlockModel extends AbstractModel
     /**
      * Gets model by contentType and contentId
      *
-     * @param int $type
-     * @param int $id
+     * @param int $value
      *
      * @return AbstractModel
      *
      * @throws ModelException
      */
-    public function getModelByTypeAndId($type, $id)
+    public function getContentModel($value = null)
     {
-        $className = "\\testS\\models\\" . self::$typeList[$type];
+        $className = "\\testS\\models\\" . self::$typeList[$this->get("contentType")];
+
+        /**
+         * @var AbstractModel $model
+         */
         $model = new $className;
-        if (!$model instanceof AbstractModel
-            || !$model->byId($id)->find() instanceof AbstractModel
-        ) {
+        if (!$model instanceof AbstractModel) {
+            throw new ModelException(
+                "Unable to find model: {className} with contentType = {contentType}",
+                [
+                    "className"   => $className,
+                    "contentType" => $this->get("contentType")
+                ]
+            );
+        }
+
+        if ($value === null) {
+            $value = $this->get("contentId");
+        }
+        $model = $model->byId($value)->withRelations()->find();
+        if (!$model instanceof AbstractModel) {
             throw new ModelException(
                 "Unable to find model: {className} with ID = {id}",
                 [
                     "className" => $className,
-                    "id"        => $id
+                    "id"        => $value
                 ]
             );
         }
 
         return $model;
+    }
+
+    /**
+     * Runs after deleting
+     */
+    protected function afterDelete()
+    {
+        parent::afterDelete();
+
+        $this->getContentModel()->delete();
     }
 }

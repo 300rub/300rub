@@ -22,6 +22,8 @@ class LoadFixturesCommand extends AbstractCommand
         "user",
         "userSession",
         "text",
+        "textInstance",
+        "block",
     ];
 
 	/**

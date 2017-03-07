@@ -83,4 +83,22 @@ class TextModel extends AbstractModel
             ],
         ];
     }
+
+    /**
+     * After duplicate
+     *
+     * @param TextModel $oldModel
+     */
+    protected function afterDuplicate($oldModel)
+    {
+        $textInstanceModels = (new TextInstanceModel())->byTextId($oldModel->getId())->findAll();
+        foreach ($textInstanceModels as $textInstanceModel) {
+            $newTextInstanceModel = new TextInstanceModel();
+            $newTextInstanceModel->set([
+                "textId" => $this->getId(),
+                "text"   => $textInstanceModel->get("text")
+            ]);
+            $newTextInstanceModel->save();
+        }
+    }
 }

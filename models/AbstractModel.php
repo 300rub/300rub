@@ -790,7 +790,7 @@ abstract class AbstractModel
      *
      * @return AbstractModel
      */
-    public final function withRelations($withRelations = true)
+    public function withRelations($withRelations = true)
     {
         $this->_withRelations = $withRelations;
         return $this;
@@ -1158,6 +1158,7 @@ abstract class AbstractModel
     {
         if ($where === null) {
             if (!$this->getId()) {
+                var_dump($this);
                 throw new ModelException("Unable to delete the record with null ID");
             }
 
@@ -1240,12 +1241,20 @@ abstract class AbstractModel
                     if (is_string($key)) {
                         $method = $key;
                         if (method_exists($this, $method)) {
-                            $duplicateModel->set([$field => $this->$method($this->get($field), $value)]);
+                            $duplicateModel->set(
+                                [
+                                    $field => $duplicateModel->$method($duplicateModel->get($field), $value)
+                                ]
+                            );
                         }
                     } else {
                         $method = $value;
                         if (method_exists($this, $method)) {
-                            $duplicateModel->set([$field => $this->$method($this->get($field))]);
+                            $duplicateModel->set(
+                                [
+                                    $field => $duplicateModel->$method($duplicateModel->get($field))
+                                ]
+                            );
                         }
                     }
                 }
@@ -1292,7 +1301,17 @@ abstract class AbstractModel
         }
 
         $duplicateModel->save();
+        $duplicateModel->afterDuplicate($this);
 
         return $duplicateModel;
+    }
+
+    /**
+     * After duplicate
+     *
+     * @param AbstractModel $oldModel
+     */
+    protected function afterDuplicate($oldModel)
+    {
     }
 }

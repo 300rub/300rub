@@ -2,6 +2,7 @@
 
 namespace testS\tests\unit\models;
 
+use testS\models\TextInstanceModel;
 use testS\models\TextModel;
 
 /**
@@ -377,51 +378,37 @@ class TextModelTest extends AbstractModelTest
     }
 
     /**
-     * Data provider for CRUD. Duplicate
-     *
-     * @return array
+     * Test duplicate
      */
-    public function getDataProviderDuplicate()
+    public function testDuplicate()
     {
-        return [
-            "duplicate1" => [
-                [
-                    "type"      => 1,
-                    "hasEditor" => false
-                ],
-                [
-                    "designTextModel"  => [
-                        "size" => 0
-                    ],
-                    "designBlockModel" => [
-                        "marginTop" => 0
-                    ],
-                    "type"             => 1,
-                    "hasEditor"        => false
-                ],
-            ],
-            "duplicate2" => [
-                [
-                    "designTextModel"  => [
-                        "size" => 100
-                    ],
-                    "designBlockModel" => [
-                        "marginTop" => 2
-                    ],
-                    "type"             => 0,
-                    "hasEditor"        => true
-                ],
-                [
-                    "designTextModel"  => [
-                        "size" => 100
-                    ],
-                    "designBlockModel" => [
-                        "marginTop" => 2
-                    ],
-                    "type"             => 0,
-                    "hasEditor"        => true
-                ]
-            ],
-        ];
+        $modelForCopy = $this->getNewModel()->byId(1)->find();
+        $duplicatedModel = $modelForCopy->duplicate();
+
+        $this->assertNotSame($modelForCopy->getId(), $duplicatedModel->getId());
+        $this->assertNotSame($modelForCopy->get("designTextId"), $duplicatedModel->get("designTextId"));
+        $this->assertNotSame($modelForCopy->get("designBlockId"), $duplicatedModel->get("designBlockId"));
+        $this->assertSame($modelForCopy->get("type"), $duplicatedModel->get("type"));
+        $this->assertSame($modelForCopy->get("hasEditor"), $duplicatedModel->get("hasEditor"));
+
+        $modelInstancesForCopy = (new TextInstanceModel)->byTextId($modelForCopy->getId())->findAll();
+        $duplicatedTextInstances = (new TextInstanceModel)->byTextId($duplicatedModel->getId())->findAll();
+        $this->assertSame(count($modelInstancesForCopy), count($duplicatedTextInstances));
+
+        foreach ($modelInstancesForCopy as $key => $modelInstanceForCopy) {
+            $this->assertSame($modelForCopy->getId(), $modelInstanceForCopy->get("textId"));
+
+            $duplicatedTextInstance = $duplicatedTextInstances[$key];
+            $this->assertSame($duplicatedModel->getId(), $duplicatedTextInstance->get("textId"));
+
+            $this->assertSame($modelInstanceForCopy->get("text"), $duplicatedTextInstance->get("text"));
+        }
+
+        $duplicatedModel->delete();
+        foreach ($duplicatedTextInstances as $duplicatedTextInstance) {
+            $this->assertNull(
+                (new TextInstanceModel)->byId($duplicatedTextInstance->getId())->find()
+            );
+        }
     }
 }

@@ -45,11 +45,9 @@ abstract class AbstractModelTest extends AbstractUnitTest
     abstract protected function getDataProviderCRUDIncorrect();
 
     /**
-     * Data provider for CRUD. Duplicate
-     *
-     * @return array
+     * Test duplicate
      */
-    abstract public function getDataProviderDuplicate();
+    abstract public function testDuplicate();
 
     /**
      * DB Table structure test
@@ -355,11 +353,9 @@ abstract class AbstractModelTest extends AbstractUnitTest
      * @param array  $duplicateExpected
      * @param string $expectedException
      *
-     * @dataProvider getDataProviderDuplicate
-     *
      * @return true
      */
-    public function testDuplicate(
+    protected function duplicate(
         array $createData = [],
         array $duplicateExpected = [],
         $expectedException = null

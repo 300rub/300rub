@@ -198,33 +198,30 @@ class TextInstanceModelTest extends AbstractModelTest
     }
 
     /**
-     * Data provider for CRUD. Duplicate
-     *
-     * @return array
+     * Test duplicate
      */
-    public function getDataProviderDuplicate()
+    public function testDuplicate()
     {
-        return [
-            "duplicate1" => [
-                [
-                    "textId" => 1,
-                    "text"   => "Some text"
-                ],
-                [
-                    "textId" => 1,
-                    "text"   => "Some text"
-                ]
+        $this->duplicate(
+            [
+                "textId" => 1,
+                "text"   => "Some text"
             ],
-            "duplicate2" => [
-                [
-                    "textId" => 2,
-                    "text"   => "<p>Some <b>text</b></p>"
-                ],
-                [
-                    "textId" => 2,
-                    "text"   => "<p>Some <b>text</b></p>"
-                ]
+            [
+                "textId" => 1,
+                "text"   => "Some text"
+            ]
+        );
+
+        $this->duplicate(
+            [
+                "textId" => 2,
+                "text"   => "<p>Some <b>text</b></p>"
             ],
-        ];
+            [
+                "textId" => 2,
+                "text"   => "<p>Some <b>text</b></p>"
+            ]
+        );
     }
 }
