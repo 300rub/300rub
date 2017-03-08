@@ -334,7 +334,10 @@ class TextModelTest extends AbstractModelTest
                     ],
                     "type"             => 0,
                     "hasEditor"        => false
-                ]
+                ],
+                null,
+                null,
+                self::EXCEPTION_MODEL
             ],
             "incorrect5" => [
                 [
