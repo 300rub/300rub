@@ -321,15 +321,12 @@ abstract class AbstractModel
         foreach ($fields as $field => $value) {
             if (!array_key_exists($field, $info)
                 || !array_key_exists(self::FIELD_RELATION, $info[$field])
-                || (int) $this->_fields[$field] === 0
+                || (int) $value === 0
             ) {
                 continue;
             }
 
             $this->_fields[$field] = (int) $value;
-            $this->_fields[$this->_getRelationName($field)] = $this->_getRelationModelByFieldName(
-                $field, !$this->_isNew()
-            );;
         }
 
         return $this;

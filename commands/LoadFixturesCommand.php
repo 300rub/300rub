@@ -24,6 +24,9 @@ class LoadFixturesCommand extends AbstractCommand
         "text",
         "textInstance",
         "block",
+        "section",
+        "gridLine",
+        "grid",
     ];
 
 	/**
@@ -55,9 +58,6 @@ class LoadFixturesCommand extends AbstractCommand
 		// DB
 		foreach (self::$fixtureOrder as $fixture) {
 		    $filePath = __DIR__ . "/../fixtures/{$fixture}.php";
-            if (!file_exists($filePath)) {
-                continue;
-            }
 
 			$records = require($filePath);
 			foreach ($records as $id => $record) {
