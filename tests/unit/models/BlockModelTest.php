@@ -275,4 +275,53 @@ class BlockModelTest extends AbstractModelTest
             $duplicatedContentModel->byId($duplicatedContentModel->getId())->find()
         );
     }
+
+    /**
+     * Test for unique language - contentType - contentId
+     */
+    public function testUnique()
+    {
+        $blockModel = $this->getNewModel()->byId(1)->find();
+        $this->assertNotNull($blockModel);
+
+        $this->expectException(self::EXCEPTION_MODEL);
+
+        $newModel = $this->getNewModel();
+        $newModel->set([
+            "name"        => "New name",
+            "language"    => $blockModel->get("language"),
+            "contentType" => $blockModel->get("contentType"),
+            "contentId"   => $blockModel->get("contentId")
+        ]);
+        $newModel->save();
+    }
+
+    /**
+     * Test for getting blocks by contentType
+     *
+     * @param int  $contentType
+     * @param bool $hasResults
+     *
+     * @dataProvider dataProviderForTestFindByContentType
+     */
+    public function testFindByContentType($contentType, $hasResults)
+    {
+        $blockModels = $this->getNewModel()->byContentType($contentType)->findAll();
+        $this->assertSame($hasResults, count($blockModels) > 0);
+    }
+
+    /**
+     * Data provider for testFindByContentType
+     *
+     * @return array
+     */
+    public function dataProviderForTestFindByContentType()
+    {
+        return [
+            [1, true],
+            [999, false],
+            [0, false],
+            [-10, false],
+        ];
+    }
 }

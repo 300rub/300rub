@@ -5,6 +5,7 @@ namespace testS\components;
 use PDO;
 use PDOStatement;
 use testS\components\exceptions\DbException;
+use testS\models\AbstractModel;
 
 /**
  * Class for working with DB
@@ -23,6 +24,11 @@ class Db
      * Default alias
      */
     const DEFAULT_ALIAS = "t";
+
+    /**
+     * Join types
+     */
+    const JOIN_TYPE_INNER = "INNER";
 
     /**
      * PDO model
@@ -251,17 +257,25 @@ class Db
      * @param string $tableAlias
      * @param string $tableField
      * @param string $type
+     * @param string $joinField
      *
      * @return Db
      */
-    public function addJoin($joinTableName, $joinAlias, $tableAlias, $tableField, $type = "INNER")
-    {
+    public function addJoin(
+        $joinTableName,
+        $joinAlias,
+        $tableAlias,
+        $tableField,
+        $type = self::JOIN_TYPE_INNER,
+        $joinField = AbstractModel::PK_FIELD
+    ) {
         $join = sprintf(
-            "%s JOIN %s AS %s ON %s.id = %s.%s",
+            "%s JOIN %s AS %s ON %s.%s = %s.%s",
             $type,
             $joinTableName,
             $joinAlias,
             $joinAlias,
+            $joinField,
             $tableAlias,
             $tableField
         );

@@ -2,6 +2,8 @@
 
 namespace testS\controllers;
 
+use testS\models\BlockModel;
+
 /**
  * TextController
  *
@@ -17,13 +19,36 @@ class TextController extends AbstractController
     {
         // @TODO
     }
-    
+
     /**
      * Gets a list of blocks
      */
     public function getBlocks()
     {
-        // @TODO
+        $language = $this->getLanguageFromRequest();
+
+        $blockModels = (new BlockModel())
+            ->byContentType(BlockModel::TYPE_TEXT)
+            ->byLanguage($language);
+
+        $isDisplayBlocksFromPage = $this->getIsDisplayBlocksFromPage();
+        if ($isDisplayBlocksFromPage === true) {
+            $sectionId = $this->getSectionIdFromRequest();
+            $blockModels->bySectionId($sectionId);
+        }
+
+        $blockModels = $blockModels->findAll();
+
+        $list = [];
+        foreach ($blockModels as $blockModel) {
+            $list[] = [
+                "blockId"   => $blockModel->getId(),
+                "blockName" => $blockModel->get("name"),
+                "contentId" => $blockModel->get("contentId"),
+            ];
+        }
+
+        return $list;
     }
 
     /**

@@ -2,6 +2,7 @@
 
 namespace testS\models;
 
+use testS\components\Db;
 use testS\components\exceptions\ModelException;
 use testS\components\Language;
 use testS\components\Validator;
@@ -15,6 +16,7 @@ use testS\components\ValueGenerator;
  * @method BlockModel byId($id)
  * @method BlockModel withRelations()
  * @method BlockModel find()
+ * @method BlockModel[] findAll()
  * @method BlockModel duplicate()
  */
 class BlockModel extends AbstractModel
@@ -185,5 +187,66 @@ class BlockModel extends AbstractModel
         parent::afterDelete();
 
         $this->getContentModel()->delete();
+    }
+
+    /**
+     * Finds by contentType
+     *
+     * @param int $contentType
+     *
+     * @return BlockModel
+     */
+    public function byContentType($contentType)
+    {
+        $this->getDb()->addWhere(sprintf("%s.contentType = :contentType", Db::DEFAULT_ALIAS));
+        $this->getDb()->addParameter("contentType", $contentType);
+
+        return $this;
+    }
+
+    /**
+     * Finds by sectionId
+     *
+     * @param int $sectionId
+     *
+     * @return BlockModel
+     */
+    public function bySectionId($sectionId)
+    {
+        $this->getDb()->addJoin(
+            "grids",
+            "grids",
+            Db::DEFAULT_ALIAS,
+            self::PK_FIELD,
+            Db::JOIN_TYPE_INNER,
+            "blockId"
+        );
+
+        $this->getDb()->addJoin(
+            "gridLines",
+            "gridLines",
+            "grids",
+            "gridLineId"
+        );
+
+        $this->getDb()->addWhere(sprintf("%s.sectionId = :sectionId", "gridLines"));
+        $this->getDb()->addParameter("sectionId", $sectionId);
+
+        return $this;
+    }
+
+    /**
+     * Finds by language
+     *
+     * @param int $language
+     *
+     * @return BlockModel
+     */
+    public function byLanguage($language)
+    {
+        $this->getDb()->addWhere(sprintf("%s.language = :language", Db::DEFAULT_ALIAS));
+        $this->getDb()->addParameter("language", $language);
+
+        return $this;
     }
 }

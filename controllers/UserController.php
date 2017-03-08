@@ -32,7 +32,7 @@ class UserController extends AbstractController
 
         if (empty($data["user"])
             || empty($data["password"])
-            || !isset($data["isRemember"])
+            || !array_key_exists("isRemember", $data)
             || !is_string($data["user"])
             || !is_string($data["password"])
             || !is_bool($data["isRemember"])
