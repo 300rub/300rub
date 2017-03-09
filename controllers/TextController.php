@@ -42,14 +42,45 @@ class TextController extends AbstractController
         $list = [];
         foreach ($blockModels as $blockModel) {
             $list[] = [
-                "blockId"   => $blockModel->getId(),
-                "blockName" => $blockModel->get("name"),
-                "contentId" => $blockModel->get("contentId"),
+                "blockName"       => $blockModel->get("name"),
+                "contentId"       => $blockModel->get("contentId"),
+                "canUpdate"       => $this->hasOperation(),
+                "canUpdateDesign" => $this->hasOperation(),
             ];
         }
 
-        return $list;
+        return [
+            "title"        => "",
+            "description"  => "",
+            "list"         => $list,
+            "back"         => [
+                "controller" => "",
+                "action"     => ""
+            ],
+            "update"       => [
+                "controller" => "",
+                "action"     => ""
+            ],
+            "updateDesign" => [
+                "controller" => "",
+                "action"     => ""
+            ],
+            "canAdd"       => $this->hasOperation(),
+        ];
     }
+
+//    protected function getBlocksResponse(
+//        $title,
+//        $description,
+//        $updateController,
+//        $updateAction,
+//        $updateDesignController,
+//        $updateDesignAction,
+//        $canAdd,
+//
+//    ) {
+//
+//    }
 
     /**
      * Adds block

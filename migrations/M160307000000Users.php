@@ -31,12 +31,12 @@ class M160307000000Users extends AbstractMigration
             ->createTable(
                 "userSessions",
                 [
-                    "id"       => self::TYPE_PK,
-                    "userId"   => self::TYPE_FK,
-                    "token"    => self::TYPE_CHAR_32,
-                    "ip"       => self::TYPE_STRING_25,
-                    "ua"       => self::TYPE_STRING,
-                    "lastActivity"     => self::TYPE_DATETIME,
+                    "id"           => self::TYPE_PK,
+                    "userId"       => self::TYPE_FK,
+                    "token"        => self::TYPE_CHAR_32,
+                    "ip"           => self::TYPE_STRING_25,
+                    "ua"           => self::TYPE_STRING,
+                    "lastActivity" => self::TYPE_DATETIME,
                 ]
             )
             ->createForeignKey("userSessions", "userId", "users", self::FK_CASCADE, self::FK_CASCADE)
@@ -110,28 +110,14 @@ class M160307000000Users extends AbstractMigration
                 self::FK_CASCADE
             )
             ->createTable(
-                "userSectionGroups",
-                [
-                    "id"     => self::TYPE_PK,
-                    "userId" => self::TYPE_FK,
-                ]
-            )
-            ->createForeignKey("userSectionGroups", "userId", "users", self::FK_CASCADE, self::FK_CASCADE)
-            ->createTable(
                 "userSectionGroupOperations",
                 [
-                    "id"                 => self::TYPE_PK,
-                    "userSectionGroupId" => self::TYPE_FK,
-                    "operation"          => self::TYPE_STRING_50,
+                    "id"        => self::TYPE_PK,
+                    "userId"    => self::TYPE_FK,
+                    "operation" => self::TYPE_STRING_50,
                 ]
             )
-            ->createForeignKey(
-                "userSectionGroupOperations",
-                "userSectionGroupId",
-                "userSectionGroups",
-                self::FK_CASCADE,
-                self::FK_CASCADE
-            )
+            ->createForeignKey("userSectionGroupOperations", "userId", "users", self::FK_CASCADE, self::FK_CASCADE)
             ->createTable(
                 "userSettingsOperations",
                 [

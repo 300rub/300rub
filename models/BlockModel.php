@@ -213,6 +213,11 @@ class BlockModel extends AbstractModel
      */
     public function bySectionId($sectionId)
     {
+        $sectionId = (int) $sectionId;
+        if ($sectionId === 0) {
+            return $this;
+        }
+
         $this->getDb()->addJoin(
             "grids",
             "grids",

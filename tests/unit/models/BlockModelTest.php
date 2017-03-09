@@ -324,4 +324,76 @@ class BlockModelTest extends AbstractModelTest
             [-10, false],
         ];
     }
+
+    /**
+     * Test for getting blocks
+     *
+     * @param int $contentType
+     * @param int $language
+     * @param int $sectionId
+     * @param bool $hasResult
+     *
+     * @dataProvider dataProviderForTestGetBlocks
+     */
+    public function testGetBlocks($contentType, $language, $sectionId = null, $hasResult = true)
+    {
+        $blockModels = $this->getNewModel()
+            ->byContentType($contentType)
+            ->byLanguage($language);
+
+        if ($sectionId !== null) {
+            $blockModels->bySectionId($sectionId);
+        }
+
+        $blockModels = $blockModels->findAll();
+
+        $this->assertSame($hasResult, count($blockModels) > 0);
+    }
+
+    /**
+     * Data provider for testGetBlocks
+     *
+     * @return array
+     */
+    public function dataProviderForTestGetBlocks()
+    {
+        return [
+            [
+                1,
+                1,
+                null,
+                true
+            ],
+            [
+                1,
+                1,
+                0,
+                true
+            ],
+            [
+                1,
+                1,
+                1,
+                true
+            ],
+            [
+                1,
+                1,
+                999,
+                false
+            ],
+            [
+                999,
+                1,
+                null,
+                false
+            ],
+            [
+                1,
+                999,
+                null,
+                false
+            ],
+        ];
+    }
 }

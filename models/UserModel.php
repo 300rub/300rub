@@ -133,7 +133,10 @@ class UserModel extends AbstractModel
      */
     public function getOperations()
     {
-        // TODO
+        $sectionGroupOperations = (new UserSectionGroupOperationModel())->byUserId($this->getId())->findAll();
+
+        // @TODO
+
         return [];
     }
 }

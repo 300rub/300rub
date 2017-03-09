@@ -2,6 +2,7 @@
 
 namespace testS\models;
 
+use testS\components\Db;
 use testS\components\Validator;
 
 /**
@@ -30,8 +31,8 @@ class UserSectionGroupOperationModel extends AbstractModel
     public function getFieldsInfo()
     {
         return [
-            "userSectionGroupId" => [
-                self::FIELD_RELATION_TO_PARENT => "UserSectionGroupModel"
+            "userId" => [
+                self::FIELD_RELATION_TO_PARENT => "UserModel"
             ],
             "operation"          => [
                 self::FIELD_TYPE       => self::FIELD_TYPE_STRING,
@@ -41,5 +42,20 @@ class UserSectionGroupOperationModel extends AbstractModel
                 ],
             ],
         ];
+    }
+
+    /**
+     * Adds userId condition to SQL request
+     *
+     * @param int $userId
+     *
+     * @return UserSectionGroupOperationModel
+     */
+    public function byUserId($userId)
+    {
+        $this->getDb()->addWhere(sprintf("%s.userId = :userId", Db::DEFAULT_ALIAS));
+        $this->getDb()->addParameter("userId", $userId);
+
+        return $this;
     }
 }

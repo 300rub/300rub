@@ -55,11 +55,56 @@ abstract class AbstractController
     /**
      * Checks operation
      *
+     * @param string $type
+     * @param int    $blockType (just null for sections or settings)
+     * @param int    $id
      * @param string $operation
+     *
+     * @throws AccessException
      */
-    protected function checkOperation($operation)
+    protected function checkOperation($type, $blockType, $id, $operation)
     {
-        // @TODO
+        if ($this->hasOperation($type, $blockType, $id, $operation) === false) {
+            throw new AccessException(
+                "User: {userName}, ID: {userId} doesn't have operation. Type: {type}, ID: {id}, operation: {operation}",
+                [
+                    "userName"  => App::web()->getUser()->getName(),
+                    "userId"    => App::web()->getUser()->getId(),
+                    "type"      => $type,
+                    "id"        => $id,
+                    "operation" => $operation,
+                ]
+            );
+        }
+    }
+
+    /**
+     * Has operation
+     *
+     * @param string $type
+     * @param int    $blockType (just null for sections or settings)
+     * @param int    $id
+     * @param string $operation
+     *
+     * @return true
+     */
+    protected function hasOperation($type, $blockType, $id, $operation)
+    {
+        if (
+            $type !== self::OPERATION_TYPE_SECTIONS
+            && $type !== self::OPERATION_TYPE_BLOCKS
+            && $type !== self::OPERATION_TYPE_SETTINGS
+        ) {
+            return false;
+        }
+
+        if ($type === self::OPERATION_TYPE_BLOCKS
+            && $blockType === null
+        ) {
+            return false;
+        }
+
+        return true;
     }
 
     /**
