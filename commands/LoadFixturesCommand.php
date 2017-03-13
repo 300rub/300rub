@@ -27,6 +27,7 @@ class LoadFixturesCommand extends AbstractCommand
         "section",
         "gridLine",
         "grid",
+		"userSection",
     ];
 
 	/**
