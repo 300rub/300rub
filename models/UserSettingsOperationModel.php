@@ -2,7 +2,8 @@
 
 namespace testS\models;
 
-use testS\components\Validator;
+use testS\components\Operation;
+use testS\components\ValueGenerator;
 
 /**
  * Model for working with table "userSettingsOperations"
@@ -31,14 +32,16 @@ class UserSettingsOperationModel extends AbstractModel
     {
         return [
             "userId"    => [
-                self::FIELD_RELATION_TO_PARENT => "UserModel"
+                self::FIELD_RELATION_TO_PARENT   => "UserModel",
+                self::FIELD_SKIP_DUPLICATION     => true,
+                self::FIELD_NOT_CHANGE_ON_UPDATE => true,
             ],
             "operation" => [
-                self::FIELD_TYPE       => self::FIELD_TYPE_STRING,
-                self::FIELD_VALIDATION => [
-                    Validator::TYPE_REQUIRED,
-                    Validator::TYPE_MAX_LENGTH => 50
+                self::FIELD_TYPE                 => self::FIELD_TYPE_STRING,
+                self::FIELD_VALUE                => [
+                    ValueGenerator::ARRAY_KEY => [Operation::$settingOperations]
                 ],
+                self::FIELD_NOT_CHANGE_ON_UPDATE => true,
             ],
         ];
     }

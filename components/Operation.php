@@ -27,6 +27,12 @@ class Operation
     const SECTION_DUPLICATE = "SECTION_DUPLICATE";
 
     /**
+     * Setting operations
+     */
+    const SETTING_SEO = "SETTING_SEO";
+    const SETTING_ICON = "SETTING_ICON";
+
+    /**
      * Section operations
      *
      * @var array
@@ -40,7 +46,7 @@ class Operation
     ];
 
     /**
-     * Section operations
+     * Block text operations
      */
     const TEXT_ADD = "TEXT_ADD";
     const TEXT_UPDATE = "TEXT_UPDATE";
@@ -58,5 +64,15 @@ class Operation
         self::SECTION_UPDATE        => "",
         self::SECTION_DESIGN_UPDATE => "",
         self::SECTION_DELETE        => "",
+    ];
+
+    /**
+     * Settings operations
+     *
+     * @var array
+     */
+    public static $settingOperations = [
+        self::SETTING_SEO  => "",
+        self::SETTING_ICON => "",
     ];
 }
