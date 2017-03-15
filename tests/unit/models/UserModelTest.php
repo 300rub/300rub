@@ -2,7 +2,14 @@
 
 namespace testS\tests\unit\models;
 
+use testS\components\Operation;
+use testS\models\BlockModel;
+use testS\models\UserBlockGroupOperationModel;
+use testS\models\UserBlockOperationModel;
 use testS\models\UserModel;
+use testS\models\UserSectionGroupOperationModel;
+use testS\models\UserSectionOperationModel;
+use testS\models\UserSettingsOperationModel;
 
 /**
  * Tests for the model UserModel
@@ -223,5 +230,168 @@ class UserModelTest extends AbstractModelTest
                 "email"    => ["required", "email"],
             ]
         );
+    }
+
+    /**
+     * Test for method getOperations()
+     */
+    public function testGetOperations()
+    {
+        $userModel = $this->getNewModel()->byId(4)->find();
+
+        // Empty user (ID = 0)
+        $expectedOperations = [];
+        $actualOperations = $this->getNewModel()->getOperations();
+        $this->assertSame($expectedOperations, $actualOperations);
+
+        // There are no operations
+        $expectedOperations = [];
+        $actualOperations = $userModel->getOperations();
+        $this->assertSame($expectedOperations, $actualOperations);
+
+        // Add one setting operation
+        $userSettingsOperationModel = new UserSettingsOperationModel();
+        $userSettingsOperationModel->set(
+            [
+                "userId"    => $userModel->getId(),
+                "operation" => Operation::SETTING_SEO
+            ]
+        );
+        $userSettingsOperationModel->save();
+        $expectedOperations = [
+            Operation::TYPE_SETTINGS => [
+                Operation::SETTING_SEO
+            ]
+        ];
+        $actualOperations = $userModel->getOperations();
+        $this->assertSame($expectedOperations, $actualOperations);
+
+        // Add one operation for all sections
+        $userSectionGroupOperationModel = new UserSectionGroupOperationModel();
+        $userSectionGroupOperationModel->set(
+            [
+                "userId"    => $userModel->getId(),
+                "operation" => Operation::SECTION_ADD
+            ]
+        );
+        $userSectionGroupOperationModel->save();
+        $expectedOperations = [
+            Operation::TYPE_SECTIONS => [
+                Operation::ALL => [
+                    Operation::SECTION_ADD
+                ]
+            ],
+            Operation::TYPE_SETTINGS => [
+                Operation::SETTING_SEO
+            ]
+        ];
+        $actualOperations = $userModel->getOperations();
+        $this->assertSame($expectedOperations, $actualOperations);
+
+        // Add one operation for sections with ID = 1
+        $userSectionOperationModel = new UserSectionOperationModel();
+        $userSectionOperationModel->set(
+            [
+                "userId"    => $userModel->getId(),
+                "sectionId" => 1,
+                "operation" => Operation::SECTION_UPDATE
+            ]
+        );
+        $userSectionOperationModel->save();
+        $expectedOperations = [
+            Operation::TYPE_SECTIONS => [
+                Operation::ALL => [
+                    Operation::SECTION_ADD
+                ],
+                1              => [
+                    Operation::SECTION_UPDATE
+                ]
+            ],
+            Operation::TYPE_SETTINGS => [
+                Operation::SETTING_SEO
+            ]
+        ];
+        $actualOperations = $userModel->getOperations();
+        $this->assertSame($expectedOperations, $actualOperations);
+
+        // Add one operation for all text blocks
+        $userBlockGroupOperationModel = new UserBlockGroupOperationModel();
+        $userBlockGroupOperationModel->set(
+            [
+                "userId"    => $userModel->getId(),
+                "blockType" => BlockModel::TYPE_TEXT,
+                "operation" => Operation::TEXT_ADD
+            ]
+        );
+        $userBlockGroupOperationModel->save();
+        $expectedOperations = [
+            Operation::TYPE_BLOCKS   => [
+                BlockModel::TYPE_TEXT => [
+                    Operation::ALL => [
+                        Operation::TEXT_ADD
+                    ]
+                ]
+            ],
+            Operation::TYPE_SECTIONS => [
+                Operation::ALL => [
+                    Operation::SECTION_ADD
+                ],
+                1              => [
+                    Operation::SECTION_UPDATE
+                ]
+            ],
+            Operation::TYPE_SETTINGS => [
+                Operation::SETTING_SEO
+            ]
+        ];
+        $actualOperations = $userModel->getOperations();
+        $this->assertSame($expectedOperations, $actualOperations);
+
+        // Add one operation for text blocks with ID = 1
+        $userBlockOperationModel = new UserBlockOperationModel();
+        $userBlockOperationModel->set(
+            [
+                "userId"    => $userModel->getId(),
+                "blockId"   => 1,
+                "blockType" => BlockModel::TYPE_TEXT,
+                "operation" => Operation::TEXT_UPDATE
+            ]
+        );
+        $userBlockOperationModel->save();
+        $expectedOperations = [
+            Operation::TYPE_BLOCKS   => [
+                BlockModel::TYPE_TEXT => [
+                    Operation::ALL => [
+                        Operation::TEXT_ADD
+                    ],
+                    1              => [
+                        Operation::TEXT_UPDATE
+                    ]
+                ]
+            ],
+            Operation::TYPE_SECTIONS => [
+                Operation::ALL => [
+                    Operation::SECTION_ADD
+                ],
+                1              => [
+                    Operation::SECTION_UPDATE
+                ]
+            ],
+            Operation::TYPE_SETTINGS => [
+                Operation::SETTING_SEO
+            ]
+        ];
+        $actualOperations = $userModel->getOperations();
+        $this->assertSame($expectedOperations, $actualOperations);
+
+        // Delete all
+        $userSettingsOperationModel->delete();
+        $userSectionGroupOperationModel->delete();
+        $userSectionOperationModel->delete();
+        $userBlockGroupOperationModel->delete();
+        $userBlockOperationModel->delete();
+        $expectedOperations = [];
+        $actualOperations = $userModel->getOperations();
+        $this->assertSame($expectedOperations, $actualOperations);
     }
 }

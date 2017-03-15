@@ -4,7 +4,6 @@ namespace testS\models;
 
 use testS\components\Db;
 use testS\components\Operation;
-use testS\components\Validator;
 use testS\components\ValueGenerator;
 
 /**
@@ -74,7 +73,7 @@ class UserBlockGroupOperationModel extends AbstractModel
      *
      * @param int $userId
      *
-     * @return UserSectionGroupOperationModel
+     * @return UserBlockGroupOperationModel
      */
     public function byUserId($userId)
     {

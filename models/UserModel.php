@@ -10,6 +10,9 @@ use testS\components\Validator;
  * Model for working with table "users"
  *
  * @package testS\models
+ *
+ * @method UserModel byId($id)
+ * @method UserModel find()
  */
 class UserModel extends AbstractModel
 {
@@ -165,6 +168,10 @@ class UserModel extends AbstractModel
      */
     public function getOperations()
     {
+        if ($this->getId() === 0) {
+            return [];
+        }
+
         $operations = [
             Operation::TYPE_BLOCKS   => [],
             Operation::TYPE_SECTIONS => [],
@@ -207,10 +214,10 @@ class UserModel extends AbstractModel
             if (!array_key_exists($blockType, $operations[Operation::TYPE_BLOCKS])) {
                 $operations[Operation::TYPE_BLOCKS][$blockType] = [];
             }
-            if (!array_key_exists($blockOperation->getId(), $operations[Operation::TYPE_BLOCKS][$blockType])) {
-                $operations[Operation::TYPE_BLOCKS][$blockType][$blockOperation->getId()] = [];
+            if (!array_key_exists($blockOperation->get("blockId"), $operations[Operation::TYPE_BLOCKS][$blockType])) {
+                $operations[Operation::TYPE_BLOCKS][$blockType][$blockOperation->get("blockId")] = [];
             }
-            $operations[Operation::TYPE_BLOCKS][$blockType][$blockOperation->getId()][] =
+            $operations[Operation::TYPE_BLOCKS][$blockType][$blockOperation->get("blockId")][] =
                 $blockOperation->get("operation");
         }
 

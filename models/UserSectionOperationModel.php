@@ -57,7 +57,7 @@ class UserSectionOperationModel extends AbstractModel
      *
      * @param int $userId
      *
-     * @return UserSectionGroupOperationModel
+     * @return UserSectionOperationModel
      */
     public function byUserId($userId)
     {

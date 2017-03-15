@@ -21,5 +21,11 @@ return [
         "password" => sha1(md5("pass" . UserModel::PASSWORD_SALT)),
         "name"     => "User",
         "email"    => "user@email.com",
+    ],
+    4 => [
+        "login"    => "test-operation",
+        "password" => sha1(md5("pass" . UserModel::PASSWORD_SALT)),
+        "name"     => "User",
+        "email"    => "test-operation@email.com",
     ]
 ];
