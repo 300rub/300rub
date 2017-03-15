@@ -21,13 +21,14 @@ class M160307000000Users extends AbstractMigration
                 [
                     "id"       => self::TYPE_PK,
                     "login"    => self::TYPE_STRING_50,
+                    "isOwner"  => self::TYPE_BOOL,
                     "password" => self::TYPE_CHAR_40,
-                    "type"     => self::TYPE_TINYINT_UNSIGNED,
                     "name"     => self::TYPE_STRING_100,
                     "email"    => self::TYPE_STRING_100,
                 ]
             )
             ->createIndex("users", "login")
+            ->createIndex("users", "isOwner")
             ->createTable(
                 "userSessions",
                 [
@@ -44,11 +45,11 @@ class M160307000000Users extends AbstractMigration
             ->createTable(
                 "userBlockOperations",
                 [
-                    "id"          => self::TYPE_PK,
-                    "userId"  => self::TYPE_FK,
-                    "blockId" => self::TYPE_FK,
+                    "id"        => self::TYPE_PK,
+                    "userId"    => self::TYPE_FK,
+                    "blockId"   => self::TYPE_FK,
                     "blockType" => self::TYPE_TINYINT_UNSIGNED,
-                    "operation"   => self::TYPE_STRING_50,
+                    "operation" => self::TYPE_STRING_50,
                 ]
             )
             ->createForeignKey("userBlockOperations", "userId", "users", self::FK_CASCADE, self::FK_CASCADE)

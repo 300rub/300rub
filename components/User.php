@@ -20,13 +20,6 @@ class User
     private $_token;
 
     /**
-     * Type
-     *
-     * @var int
-     */
-    private $_type;
-
-    /**
      * Operations
      *
      * @var array
@@ -70,7 +63,6 @@ class User
     public function __construct($token, UserModel $userModel)
     {
         $this->_token = $token;
-        $this->_type = $userModel->get("type");
         $this->_operations = $userModel->getOperations();
         $this->_id = $userModel->getId();
         $this->_login = $userModel->get("login");
@@ -86,16 +78,6 @@ class User
     public function getToken()
     {
         return $this->_token;
-    }
-
-    /**
-     * Gets type
-     *
-     * @return string
-     */
-    public function getType()
-    {
-        return $this->_type;
     }
 
     /**

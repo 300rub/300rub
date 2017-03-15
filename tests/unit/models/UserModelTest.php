@@ -29,8 +29,58 @@ class UserModelTest extends AbstractModelTest
      */
     protected function getDataProviderCRUDEmpty()
     {
-        $this->markTestSkipped();
-        return [];
+        return [
+            "empty1" => [
+                [],
+                [
+                    "login"    => ["required", "min"],
+                    "password" => ["required", "min"],
+                    "name"     => ["required"],
+                    "email"    => ["required", "email"],
+                ],
+            ],
+            "empty2" => [
+                [
+                    "login"    => "",
+                    "password" => "",
+                    "isOwner"  => "",
+                    "name"     => "",
+                    "email"    => "",
+                ],
+                [
+                    "login"    => ["required", "min"],
+                    "password" => ["required", "min"],
+                    "name"     => ["required"],
+                    "email"    => ["required", "email"],
+                ],
+            ],
+            "empty3" => [
+                [
+                    "login"    => $this->generateStringWithLength(10),
+                    "password" => $this->generateStringWithLength(40),
+                    "name"     => $this->generateStringWithLength(10),
+                    "email"    => "",
+                ],
+                [
+                    "email" => ["required", "email"],
+                ],
+            ],
+            "empty4" => [
+                [
+                    "login"    => null,
+                    "password" => null,
+                    "isOwner"  => null,
+                    "name"     => null,
+                    "email"    => null,
+                ],
+                [
+                    "login"    => ["required", "min"],
+                    "password" => ["required", "min"],
+                    "name"     => ["required"],
+                    "email"    => ["required", "email"],
+                ],
+            ],
+        ];
     }
 
     /**
@@ -40,8 +90,39 @@ class UserModelTest extends AbstractModelTest
      */
     protected function getDataProviderCRUDCorrect()
     {
-        $this->markTestSkipped();
-        return [];
+        $password1 = $this->generateStringWithLength(40);
+        $password2 = $this->generateStringWithLength(40);
+
+        return [
+            "correct1" => [
+                [
+                    "login"    => "login1",
+                    "password" => $password1,
+                    "name"     => "Name",
+                    "email"    => "email@email.com",
+                ],
+                [
+                    "login"    => "login1",
+                    "password" => $password1,
+                    "isOwner"  => false,
+                    "name"     => "Name",
+                    "email"    => "email@email.com",
+                ],
+                [
+                    "login"    => "login2",
+                    "password" => $password2,
+                    "name"     => "Name 2",
+                    "email"    => "email2@email.com",
+                ],
+                [
+                    "login"    => "login2",
+                    "password" => $password2,
+                    "isOwner"  => false,
+                    "name"     => "Name 2",
+                    "email"    => "email2@email.com",
+                ],
+            ]
+        ];
     }
 
     /**
@@ -51,7 +132,6 @@ class UserModelTest extends AbstractModelTest
      */
     protected function getDataProviderCRUDIncorrect()
     {
-        $this->markTestSkipped();
         return [];
     }
 

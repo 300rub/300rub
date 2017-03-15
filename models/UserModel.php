@@ -3,9 +3,7 @@
 namespace testS\models;
 
 use testS\components\Db;
-use testS\components\Language;
 use testS\components\Validator;
-use testS\components\ValueGenerator;
 
 /**
  * Model for working with table "users"
@@ -21,13 +19,6 @@ class UserModel extends AbstractModel
     const PASSWORD_SALT = "(^_^)";
 
     /**
-     * Types
-     */
-    const TYPE_OWNER = 1;
-    const TYPE_ADMINISTRATOR = 2;
-    const TYPE_USER = 3;
-
-    /**
      * Length of password
      */
     const PASSWORD_HASH_LENGTH = 40;
@@ -38,20 +29,6 @@ class UserModel extends AbstractModel
      * @var bool
      */
     public $isRemember = false;
-
-    /**
-     * Gets a list of types
-     *
-     * @return array
-     */
-    public static function getTypeList()
-    {
-        return [
-            self::TYPE_OWNER         => "",
-            self::TYPE_ADMINISTRATOR => "",
-            self::TYPE_USER          => "",
-        ];
-    }
 
     /**
      * Gets table name
@@ -88,11 +65,10 @@ class UserModel extends AbstractModel
                     Validator::TYPE_MAX_LENGTH => 40,
                 ]
             ],
-            "type"     => [
-                self::FIELD_TYPE  => self::FIELD_TYPE_INT,
-                self::FIELD_VALUE => [
-                    ValueGenerator::ARRAY_KEY => [self::getTypeList(), self::TYPE_USER]
-                ]
+            "isOwner" => [
+                self::FIELD_TYPE => self::FIELD_TYPE_BOOL,
+                self::FIELD_NOT_CHANGE_ON_UPDATE => true,
+                self::FIELD_BEFORE_SAVE => ["setIsOwner"],
             ],
             "name"     => [
                 self::FIELD_TYPE       => self::FIELD_TYPE_STRING,
@@ -112,6 +88,22 @@ class UserModel extends AbstractModel
     }
 
     /**
+     * Sets is owner
+     *
+     * @param bool $value
+     *
+     * @return bool
+     */
+    protected function setIsOwner($value)
+    {
+        if ($value === true) {
+            return $this->owner()->find() === null;
+        }
+
+        return false;
+    }
+
+    /**
      * Adds login condition to SQL request
      *
      * @param string $login
@@ -122,6 +114,19 @@ class UserModel extends AbstractModel
     {
         $this->getDb()->addWhere(sprintf("%s.login = :login", Db::DEFAULT_ALIAS));
         $this->getDb()->addParameter("login", $login);
+
+        return $this;
+    }
+
+    /**
+     * Adds owner condition to SQL request
+     *
+     * @return UserModel
+     */
+    public function owner()
+    {
+        $this->getDb()->addWhere(sprintf("%s.isOwner = :isOwner", Db::DEFAULT_ALIAS));
+        $this->getDb()->addParameter("isOwner", 1);
 
         return $this;
     }

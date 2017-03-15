@@ -294,7 +294,15 @@ class UserBlockOperationModelTest extends AbstractModelTest
      */
     public function testDuplicate()
     {
-        $this->markTestSkipped();
-        return [];
+        $this->duplicate(
+            [
+                "userId"    => 1,
+                "blockId"   => 1,
+                "blockType" => BlockModel::TYPE_TEXT,
+                "operation" => Operation::TEXT_ADD,
+            ],
+            [],
+            self::EXCEPTION_MODEL
+        );
     }
 }
