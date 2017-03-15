@@ -31,8 +31,13 @@ class UserSectionOperationModel extends AbstractModel
     public function getFieldsInfo()
     {
         return [
-            "userSectionsId" => [
-                self::FIELD_RELATION_TO_PARENT   => "UserSectionModel",
+            "userId" => [
+                self::FIELD_RELATION_TO_PARENT   => "UserModel",
+                self::FIELD_SKIP_DUPLICATION     => true,
+                self::FIELD_NOT_CHANGE_ON_UPDATE => true,
+            ],
+            "sectionId" => [
+                self::FIELD_RELATION_TO_PARENT => "SectionModel",
                 self::FIELD_SKIP_DUPLICATION     => true,
                 self::FIELD_NOT_CHANGE_ON_UPDATE => true,
             ],

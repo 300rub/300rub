@@ -40,8 +40,9 @@ class UserSectionOperationModelTest extends AbstractModelTest
             ],
             "empty2" => [
                 [
-                    "userSectionsId" => "",
-                    "operation"      => "",
+                    "userId"    => "",
+                    "sectionId" => "",
+                    "operation" => "",
                 ],
                 [],
                 null,
@@ -50,8 +51,9 @@ class UserSectionOperationModelTest extends AbstractModelTest
             ],
             "empty3" => [
                 [
-                    "userSectionsId" => null,
-                    "operation"      => null,
+                    "userId"    => null,
+                    "sectionId" => null,
+                    "operation" => null,
                 ],
                 [],
                 null,
@@ -60,7 +62,7 @@ class UserSectionOperationModelTest extends AbstractModelTest
             ],
             "empty4" => [
                 [
-                    "userSectionsId" => 1,
+                    "userId" => 1,
                 ],
                 [],
                 null,
@@ -78,8 +80,38 @@ class UserSectionOperationModelTest extends AbstractModelTest
             ],
             "empty6" => [
                 [
-                    "userSectionsId" => 0,
-                    "operation"      => Operation::SECTION_ADD,
+                    "userId"    => 0,
+                    "operation" => Operation::SECTION_ADD,
+                ],
+                [],
+                null,
+                null,
+                self::EXCEPTION_MODEL
+            ],
+            "empty7" => [
+                [
+                    "userId"    => 1,
+                    "operation" => Operation::SECTION_ADD,
+                ],
+                [],
+                null,
+                null,
+                self::EXCEPTION_MODEL
+            ],
+            "empty8" => [
+                [
+                    "userId"    => 1,
+                    "sectionId" => 1,
+                ],
+                [],
+                null,
+                null,
+                self::EXCEPTION_CONTENT
+            ],
+            "empty9" => [
+                [
+                    "sectionId" => 1,
+                    "operation" => Operation::SECTION_ADD,
                 ],
                 [],
                 null,
@@ -99,22 +131,26 @@ class UserSectionOperationModelTest extends AbstractModelTest
         return [
             "correct1" => [
                 [
-                    "userSectionsId" => 1,
-                    "operation"      => Operation::SECTION_ADD,
+                    "userId"    => 1,
+                    "sectionId" => 1,
+                    "operation" => Operation::SECTION_ADD,
                 ],
                 [
-                    "userSectionsId" => 1,
-                    "operation"      => Operation::SECTION_ADD,
+                    "userId"    => 1,
+                    "sectionId" => 1,
+                    "operation" => Operation::SECTION_ADD,
                 ],
             ],
             "correct2" => [
                 [
-                    "userSectionsId" => 2,
-                    "operation"      => Operation::SECTION_UPDATE,
+                    "userId"    => 2,
+                    "sectionId" => 1,
+                    "operation" => Operation::SECTION_UPDATE,
                 ],
                 [
-                    "userSectionsId" => 2,
-                    "operation"      => Operation::SECTION_UPDATE,
+                    "userId"    => 2,
+                    "sectionId" => 1,
+                    "operation" => Operation::SECTION_UPDATE,
                 ],
             ],
         ];
@@ -130,31 +166,58 @@ class UserSectionOperationModelTest extends AbstractModelTest
         return [
             "incorrect1" => [
                 [
-                    "userSectionsId" => "  1  ",
-                    "operation"      => Operation::SECTION_ADD,
+                    "userId"    => "  1  ",
+                    "sectionId" => "  1  ",
+                    "operation" => Operation::SECTION_ADD,
                 ],
                 [
-                    "userSectionsId" => 1,
-                    "operation"      => Operation::SECTION_ADD,
+                    "userId"    => 1,
+                    "sectionId" => 1,
+                    "operation" => Operation::SECTION_ADD,
                 ],
                 [
-                    "userSectionsId" => 2,
-                    "operation"      => Operation::SECTION_UPDATE,
+                    "userId"    => 2,
+                    "sectionId" => 2,
+                    "operation" => Operation::SECTION_UPDATE,
                 ],
                 [
-                    "userSectionsId" => 1,
-                    "operation"      => Operation::SECTION_ADD,
+                    "userId"    => 1,
+                    "sectionId" => 1,
+                    "operation" => Operation::SECTION_ADD,
                 ],
             ],
             "incorrect2" => [
                 [
-                    "userSectionsId" => 1,
-                    "operation"      => "incorrect",
+                    "userId"    => 1,
+                    "sectionId" => 1,
+                    "operation" => "incorrect",
                 ],
                 [],
                 null,
                 null,
                 self::EXCEPTION_CONTENT
+            ],
+            "incorrect3" => [
+                [
+                    "userId"    => 999,
+                    "sectionId" => 1,
+                    "operation" => Operation::SECTION_ADD,
+                ],
+                [],
+                null,
+                null,
+                self::EXCEPTION_MODEL
+            ],
+            "incorrect4" => [
+                [
+                    "userId"    => 1,
+                    "sectionId" => 999,
+                    "operation" => Operation::SECTION_ADD,
+                ],
+                [],
+                null,
+                null,
+                self::EXCEPTION_MODEL
             ],
         ];
     }
@@ -166,8 +229,9 @@ class UserSectionOperationModelTest extends AbstractModelTest
     {
         $this->duplicate(
             [
-                "userSectionsId" => 1,
-                "operation"      => Operation::SECTION_ADD,
+                "userId"    => 1,
+                "sectionId" => 1,
+                "operation" => Operation::SECTION_ADD,
             ],
             [],
             self::EXCEPTION_MODEL

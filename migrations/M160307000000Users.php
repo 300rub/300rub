@@ -65,30 +65,16 @@ class M160307000000Users extends AbstractMigration
             )
             ->createForeignKey("userBlockGroupOperations", "userId", "users", self::FK_CASCADE, self::FK_CASCADE)
             ->createTable(
-                "userSections",
-                [
-                    "id"        => self::TYPE_PK,
-                    "userId"    => self::TYPE_FK,
-                    "sectionId" => self::TYPE_FK,
-                ]
-            )
-            ->createForeignKey("userSections", "userId", "users", self::FK_CASCADE, self::FK_CASCADE)
-            ->createForeignKey("userSections", "sectionId", "sections", self::FK_CASCADE, self::FK_CASCADE)
-            ->createTable(
                 "userSectionOperations",
                 [
                     "id"             => self::TYPE_PK,
-                    "userSectionsId" => self::TYPE_FK,
+                    "userId"    => self::TYPE_FK,
+                    "sectionId" => self::TYPE_FK,
                     "operation"      => self::TYPE_STRING_50,
                 ]
             )
-            ->createForeignKey(
-                "userSectionOperations",
-                "userSectionsId",
-                "userSections",
-                self::FK_CASCADE,
-                self::FK_CASCADE
-            )
+            ->createForeignKey("userSectionOperations", "userId", "users", self::FK_CASCADE, self::FK_CASCADE)
+            ->createForeignKey("userSectionOperations", "sectionId", "sections", self::FK_CASCADE, self::FK_CASCADE)
             ->createTable(
                 "userSectionGroupOperations",
                 [
