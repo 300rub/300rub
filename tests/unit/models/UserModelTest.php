@@ -181,7 +181,7 @@ class UserModelTest extends AbstractModelTest
                     "login" => ["latinDigitUnderscoreHyphen"],
                 ],
             ],
-            "correct1"   => [
+            "incorrect5" => [
                 [
                     "login"    => "login1",
                     "password" => $this->generateStringWithLength(40),
@@ -209,7 +209,19 @@ class UserModelTest extends AbstractModelTest
      */
     public function testDuplicate()
     {
-        $this->markTestSkipped();
-        return [];
+        $this->duplicate(
+            [
+                "login"    => "login1",
+                "password" => $this->generateStringWithLength(40),
+                "name"     => "Name",
+                "email"    => "email@email.com",
+            ],
+            [
+                "login"    => ["required", "min"],
+                "password" => ["required", "min"],
+                "name"     => ["required"],
+                "email"    => ["required", "email"],
+            ]
+        );
     }
 }

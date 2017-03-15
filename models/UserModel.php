@@ -57,6 +57,7 @@ class UserModel extends AbstractModel
                     Validator::TYPE_LATIN_DIGIT_UNDERSCORE_HYPHEN
                 ],
                 self::FIELD_BEFORE_SAVE => ["setLogin"],
+                self::FIELD_SKIP_DUPLICATION => true,
             ],
             "password" => [
                 self::FIELD_TYPE       => self::FIELD_TYPE_STRING,
@@ -64,7 +65,8 @@ class UserModel extends AbstractModel
                     Validator::TYPE_REQUIRED,
                     Validator::TYPE_MIN_LENGTH => 40,
                     Validator::TYPE_MAX_LENGTH => 40,
-                ]
+                ],
+                self::FIELD_SKIP_DUPLICATION => true,
             ],
             "isOwner" => [
                 self::FIELD_TYPE => self::FIELD_TYPE_BOOL,
@@ -77,6 +79,7 @@ class UserModel extends AbstractModel
                     Validator::TYPE_REQUIRED,
                     Validator::TYPE_MAX_LENGTH => 100,
                 ],
+                self::FIELD_SKIP_DUPLICATION => true,
             ],
             "email"    => [
                 self::FIELD_TYPE       => self::FIELD_TYPE_STRING,
@@ -84,6 +87,7 @@ class UserModel extends AbstractModel
                     Validator::TYPE_REQUIRED,
                     Validator::TYPE_EMAIL,
                 ],
+                self::FIELD_SKIP_DUPLICATION => true,
             ],
         ];
     }

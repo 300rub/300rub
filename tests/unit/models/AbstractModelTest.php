@@ -370,6 +370,12 @@ abstract class AbstractModelTest extends AbstractUnitTest
 
         // Duplicate
         $duplicatedModel = $model->duplicate();
+        $errors = $duplicatedModel->getErrors();
+        if (count($errors) > 0) {
+            $this->compareExpectedAndActual($duplicateExpected, $errors, true);
+            $model->delete();
+            return true;
+        }
 
         // Compare
         $this->compareExpectedAndActual($duplicateExpected, $duplicatedModel->get());
