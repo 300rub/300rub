@@ -2,8 +2,8 @@
 
 namespace testS\models;
 
+use testS\components\Db;
 use testS\components\Operation;
-use testS\components\Validator;
 use testS\components\ValueGenerator;
 
 /**
@@ -71,5 +71,20 @@ class UserBlockOperationModel extends AbstractModel
             $value,
             [Operation::getOperationsByContentType($this->get("blockType"))]
         );
+    }
+
+    /**
+     * Adds userId condition to SQL request
+     *
+     * @param int $userId
+     *
+     * @return UserBlockOperationModel
+     */
+    public function byUserId($userId)
+    {
+        $this->getDb()->addWhere(sprintf("%s.userId = :userId", Db::DEFAULT_ALIAS));
+        $this->getDb()->addParameter("userId", $userId);
+
+        return $this;
     }
 }

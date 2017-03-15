@@ -2,6 +2,7 @@
 
 namespace testS\models;
 
+use testS\components\Db;
 use testS\components\Operation;
 use testS\components\ValueGenerator;
 
@@ -49,5 +50,20 @@ class UserSectionOperationModel extends AbstractModel
                 self::FIELD_NOT_CHANGE_ON_UPDATE => true,
             ],
         ];
+    }
+
+    /**
+     * Adds userId condition to SQL request
+     *
+     * @param int $userId
+     *
+     * @return UserSectionGroupOperationModel
+     */
+    public function byUserId($userId)
+    {
+        $this->getDb()->addWhere(sprintf("%s.userId = :userId", Db::DEFAULT_ALIAS));
+        $this->getDb()->addParameter("userId", $userId);
+
+        return $this;
     }
 }

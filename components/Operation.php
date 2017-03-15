@@ -19,6 +19,11 @@ class Operation
     const TYPE_SETTINGS = "SETTINGS";
 
     /**
+     * All
+     */
+    const ALL = "ALL";
+
+    /**
      * Section operations
      */
     const SECTION_ADD = "SECTION_ADD";
