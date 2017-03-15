@@ -210,7 +210,7 @@ abstract class AbstractModel
      *
      * @return AbstractModel
      */
-    private function _addErrors($field, array $errors)
+    protected function addErrors($field, array $errors)
     {
         if (count($errors) === 0) {
             return $this;
@@ -275,7 +275,7 @@ abstract class AbstractModel
      *
      * @return bool
      */
-    private function _isNew()
+    protected function isNew()
     {
         return $this->getId() === 0;
     }
@@ -304,13 +304,13 @@ abstract class AbstractModel
                 continue;
             }
 
-            if (!$this->_isNew()
+            if (!$this->isNew()
                 && array_key_exists(self::FIELD_NOT_CHANGE_ON_UPDATE, $info[$relationIdField])
             ) {
                 continue;
             }
 
-            $relationModel = $this->_getRelationModelByFieldName($relationIdField, !$this->_isNew());
+            $relationModel = $this->_getRelationModelByFieldName($relationIdField, !$this->isNew());
             $relationModel->set($value);
 
             $this->_fields[$field] = $relationModel;
@@ -351,7 +351,7 @@ abstract class AbstractModel
                 continue;
             }
 
-            if (!$this->_isNew()
+            if (!$this->isNew()
                 && array_key_exists(self::FIELD_NOT_CHANGE_ON_UPDATE, $info[$field])
             ) {
                 continue;
@@ -382,7 +382,7 @@ abstract class AbstractModel
                 continue;
             }
 
-            if (!$this->_isNew()
+            if (!$this->isNew()
                 && array_key_exists(self::FIELD_NOT_CHANGE_ON_UPDATE, $info[$field])
             ) {
                 continue;
@@ -430,7 +430,7 @@ abstract class AbstractModel
                 continue;
             }
 
-            if (!$this->_isNew()
+            if (!$this->isNew()
                 && array_key_exists(self::FIELD_NOT_CHANGE_ON_UPDATE, $info[$field])
             ) {
                 continue;
@@ -994,7 +994,7 @@ abstract class AbstractModel
         foreach ($info as $field => $fieldInfo) {
             if (array_key_exists(self::FIELD_VALIDATION, $fieldInfo)) {
                 $validator = new Validator($this->get($field), $fieldInfo[self::FIELD_VALIDATION]);
-                $this->_addErrors($field, $validator->validate()->getErrors());
+                $this->addErrors($field, $validator->validate()->getErrors());
             }
         }
 
@@ -1087,7 +1087,7 @@ abstract class AbstractModel
 
             $relationModel->save();
             if (count($relationModel->getErrors()) > 0) {
-                $this->_addErrors($relationName, $relationModel->getErrors());
+                $this->addErrors($relationName, $relationModel->getErrors());
             }
 
             $this->_fields[$field] = $relationModel->getId();

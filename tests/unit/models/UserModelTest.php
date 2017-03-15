@@ -132,7 +132,74 @@ class UserModelTest extends AbstractModelTest
      */
     protected function getDataProviderCRUDIncorrect()
     {
-        return [];
+        return [
+            "incorrect1" => [
+                [
+                    "login"    => "a",
+                    "password" => "b",
+                    "name"     => "Name",
+                    "email"    => "email@email.com",
+                ],
+                [
+                    "login"    => ["min"],
+                    "password" => ["min"],
+                ],
+            ],
+            "incorrect2" => [
+                [
+                    "login"    => $this->generateStringWithLength(51),
+                    "password" => $this->generateStringWithLength(41),
+                    "name"     => $this->generateStringWithLength(101),
+                    "email"    => "email",
+                ],
+                [
+                    "login"    => ["max"],
+                    "password" => ["max"],
+                    "name"     => ["max"],
+                    "email"    => ["email"],
+                ],
+            ],
+            "incorrect3" => [
+                [
+                    "login"    => "owner",
+                    "password" => $this->generateStringWithLength(40),
+                    "name"     => "Name",
+                    "email"    => "email@email.com",
+                ],
+                [
+                    "login" => ["unique"],
+                ],
+            ],
+            "incorrect4" => [
+                [
+                    "login"    => "login 3",
+                    "password" => $this->generateStringWithLength(40),
+                    "name"     => "Name",
+                    "email"    => "email@email.com",
+                ],
+                [
+                    "login" => ["latinDigitUnderscoreHyphen"],
+                ],
+            ],
+            "correct1"   => [
+                [
+                    "login"    => "login1",
+                    "password" => $this->generateStringWithLength(40),
+                    "name"     => "Name",
+                    "isOwner"  => true,
+                    "email"    => "email@email.com",
+                ],
+                [
+                    "isOwner" => false,
+                ],
+                [
+                    "isOwner" => true,
+                ],
+                [
+                    "isOwner" => false,
+                ],
+            ]
+        ];
     }
 
     /**

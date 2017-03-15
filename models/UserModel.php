@@ -56,6 +56,7 @@ class UserModel extends AbstractModel
                     Validator::TYPE_MAX_LENGTH => 50,
                     Validator::TYPE_LATIN_DIGIT_UNDERSCORE_HYPHEN
                 ],
+                self::FIELD_BEFORE_SAVE => ["setLogin"],
             ],
             "password" => [
                 self::FIELD_TYPE       => self::FIELD_TYPE_STRING,
@@ -101,6 +102,27 @@ class UserModel extends AbstractModel
         }
 
         return false;
+    }
+
+    /**
+     * Sets login
+     *
+     * @param bool $value
+     *
+     * @return bool
+     */
+    protected function setLogin($value)
+    {
+        if (!$this->isNew()) {
+            return $value;
+        }
+
+        $model = $this->byLogin($value)->find();
+        if ($model !== null) {
+            $this->addErrors("login", [Validator::TYPE_UNIQUE]);
+        }
+
+        return $value;
     }
 
     /**
