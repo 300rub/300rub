@@ -2,6 +2,7 @@
 
 namespace testS\tests\unit\models;
 
+use testS\models\BlockModel;
 use testS\models\UserBlockGroupModel;
 
 /**
@@ -29,8 +30,63 @@ class UserBlockGroupModelTest extends AbstractModelTest
      */
     protected function getDataProviderCRUDEmpty()
     {
-        $this->markTestSkipped();
-        return [];
+        return [
+            "empty1" => [
+                [],
+                [],
+                null,
+                null,
+                self::EXCEPTION_CONTENT
+            ],
+            "empty2" => [
+                [
+                    "userId"    => "",
+                    "blockType" => "",
+                ],
+                [],
+                null,
+                null,
+                self::EXCEPTION_CONTENT
+            ],
+            "empty3" => [
+                [
+                    "userId"    => null,
+                    "blockType" => null,
+                ],
+                [],
+                null,
+                null,
+                self::EXCEPTION_CONTENT
+            ],
+            "empty4" => [
+                [
+                    "userId" => 1,
+                ],
+                [],
+                null,
+                null,
+                self::EXCEPTION_CONTENT
+            ],
+            "empty5" => [
+                [
+                    "blockType" => BlockModel::TYPE_TEXT,
+                ],
+                [],
+                null,
+                null,
+                self::EXCEPTION_MODEL
+            ],
+            "empty6" => [
+                [
+                    "userId"    => 0,
+                    "blockType" => BlockModel::TYPE_TEXT,
+                ],
+                [],
+                null,
+                null,
+                self::EXCEPTION_MODEL
+            ],
+        ];
     }
 
     /**
@@ -40,8 +96,28 @@ class UserBlockGroupModelTest extends AbstractModelTest
      */
     protected function getDataProviderCRUDCorrect()
     {
-        $this->markTestSkipped();
-        return [];
+        return [
+            "correct1" => [
+                [
+                    "userId"    => 1,
+                    "blockType" => BlockModel::TYPE_TEXT,
+                ],
+                [
+                    "userId"    => 1,
+                    "blockType" => BlockModel::TYPE_TEXT,
+                ],
+            ],
+            "correct2" => [
+                [
+                    "userId"    => 2,
+                    "blockType" => BlockModel::TYPE_IMAGE,
+                ],
+                [
+                    "userId"    => 2,
+                    "blockType" => BlockModel::TYPE_IMAGE,
+                ],
+            ],
+        ];
     }
 
     /**
@@ -51,8 +127,36 @@ class UserBlockGroupModelTest extends AbstractModelTest
      */
     protected function getDataProviderCRUDIncorrect()
     {
-        $this->markTestSkipped();
-        return [];
+        return [
+            "incorrect1" => [
+                [
+                    "userId"    => "  1  ",
+                    "blockType" => BlockModel::TYPE_TEXT,
+                ],
+                [
+                    "userId"    => 1,
+                    "blockType" => BlockModel::TYPE_TEXT,
+                ],
+                [
+                    "userId"    => 2,
+                    "blockType" => BlockModel::TYPE_IMAGE,
+                ],
+                [
+                    "userId"    => 1,
+                    "blockType" => BlockModel::TYPE_TEXT,
+                ],
+            ],
+            "incorrect2" => [
+                [
+                    "userId"    => 1,
+                    "blockType" => 999,
+                ],
+                [],
+                null,
+                null,
+                self::EXCEPTION_CONTENT
+            ],
+        ];
     }
 
     /**
@@ -62,7 +166,13 @@ class UserBlockGroupModelTest extends AbstractModelTest
      */
     public function testDuplicate()
     {
-        $this->markTestSkipped();
-        return [];
+        $this->duplicate(
+            [
+                "userId"    => 1,
+                "blockType" => BlockModel::TYPE_TEXT,
+            ],
+            [],
+            self::EXCEPTION_MODEL
+        );
     }
 }

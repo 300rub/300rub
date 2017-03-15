@@ -31,13 +31,16 @@ class UserBlockGroupModel extends AbstractModel
     {
         return [
             "userId"    => [
-                self::FIELD_RELATION_TO_PARENT => "UserModel"
+                self::FIELD_RELATION_TO_PARENT => "UserModel",
+                self::FIELD_SKIP_DUPLICATION     => true,
+                self::FIELD_NOT_CHANGE_ON_UPDATE => true,
             ],
             "blockType" => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
                     ValueGenerator::ARRAY_KEY => [BlockModel::$typeList]
                 ],
+                self::FIELD_NOT_CHANGE_ON_UPDATE => true,
             ],
         ];
     }

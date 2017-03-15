@@ -2,6 +2,7 @@
 
 namespace testS\tests\unit\models;
 
+use testS\components\Operation;
 use testS\models\UserSectionGroupOperationModel;
 
 /**
@@ -29,8 +30,63 @@ class UserSectionGroupOperationModelTest extends AbstractModelTest
      */
     protected function getDataProviderCRUDEmpty()
     {
-        $this->markTestSkipped();
-        return [];
+        return [
+            "empty1" => [
+                [],
+                [],
+                null,
+                null,
+                self::EXCEPTION_CONTENT
+            ],
+            "empty2" => [
+                [
+                    "userId"    => "",
+                    "operation" => "",
+                ],
+                [],
+                null,
+                null,
+                self::EXCEPTION_CONTENT
+            ],
+            "empty3" => [
+                [
+                    "userId"    => null,
+                    "operation" => null,
+                ],
+                [],
+                null,
+                null,
+                self::EXCEPTION_CONTENT
+            ],
+            "empty4" => [
+                [
+                    "userId" => 1,
+                ],
+                [],
+                null,
+                null,
+                self::EXCEPTION_CONTENT
+            ],
+            "empty5" => [
+                [
+                    "operation" => Operation::SECTION_ADD,
+                ],
+                [],
+                null,
+                null,
+                self::EXCEPTION_MODEL
+            ],
+            "empty6" => [
+                [
+                    "userId"    => 0,
+                    "operation" => Operation::SECTION_ADD,
+                ],
+                [],
+                null,
+                null,
+                self::EXCEPTION_MODEL
+            ],
+        ];
     }
 
     /**
@@ -40,8 +96,28 @@ class UserSectionGroupOperationModelTest extends AbstractModelTest
      */
     protected function getDataProviderCRUDCorrect()
     {
-        $this->markTestSkipped();
-        return [];
+        return [
+            "correct1" => [
+                [
+                    "userId"    => 1,
+                    "operation" => Operation::SECTION_ADD,
+                ],
+                [
+                    "userId"    => 1,
+                    "operation" => Operation::SECTION_ADD,
+                ],
+            ],
+            "correct2" => [
+                [
+                    "userId"    => 2,
+                    "operation" => Operation::SECTION_UPDATE,
+                ],
+                [
+                    "userId"    => 2,
+                    "operation" => Operation::SECTION_UPDATE,
+                ],
+            ],
+        ];
     }
 
     /**
@@ -51,18 +127,50 @@ class UserSectionGroupOperationModelTest extends AbstractModelTest
      */
     protected function getDataProviderCRUDIncorrect()
     {
-        $this->markTestSkipped();
-        return [];
+        return [
+            "incorrect1" => [
+                [
+                    "userId"    => "  1  ",
+                    "operation" => Operation::SECTION_ADD,
+                ],
+                [
+                    "userId"    => 1,
+                    "operation" => Operation::SECTION_ADD,
+                ],
+                [
+                    "userId"    => 2,
+                    "operation" => Operation::SECTION_UPDATE,
+                ],
+                [
+                    "userId"    => 1,
+                    "operation" => Operation::SECTION_ADD,
+                ],
+            ],
+            "incorrect2" => [
+                [
+                    "userId"    => 1,
+                    "operation" => "incorrect",
+                ],
+                [],
+                null,
+                null,
+                self::EXCEPTION_CONTENT
+            ],
+        ];
     }
 
     /**
-     * Data provider for CRUD. Duplicate
-     *
-     * @return array
+     * Test Duplicate
      */
     public function testDuplicate()
     {
-        $this->markTestSkipped();
-        return [];
+        $this->duplicate(
+            [
+                "userId"    => 1,
+                "operation" => Operation::SECTION_ADD,
+            ],
+            [],
+            self::EXCEPTION_MODEL
+        );
     }
 }

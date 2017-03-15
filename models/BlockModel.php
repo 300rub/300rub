@@ -23,13 +23,9 @@ class BlockModel extends AbstractModel
 {
 
     /**
-     * Content types. Text
+     * Content types
      */
     const TYPE_TEXT = 1;
-
-    /**
-     * Content types. Image
-     */
     const TYPE_IMAGE = 2;
 
     /**
