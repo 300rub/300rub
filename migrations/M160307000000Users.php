@@ -42,48 +42,27 @@ class M160307000000Users extends AbstractMigration
             ->createForeignKey("userSessions", "userId", "users", self::FK_CASCADE, self::FK_CASCADE)
             ->createUniqueIndex("userSessions", "userSessions_token", "token")
             ->createTable(
-                "userBlocks",
-                [
-                    "id"      => self::TYPE_PK,
-                    "userId"  => self::TYPE_FK,
-                    "blockId" => self::TYPE_FK,
-                ]
-            )
-            ->createForeignKey("userBlocks", "userId", "users", self::FK_CASCADE, self::FK_CASCADE)
-            ->createForeignKey("userBlocks", "blockId", "blocks", self::FK_CASCADE, self::FK_CASCADE)
-            ->createTable(
                 "userBlockOperations",
                 [
                     "id"          => self::TYPE_PK,
-                    "userBlockId" => self::TYPE_FK,
+                    "userId"  => self::TYPE_FK,
+                    "blockId" => self::TYPE_FK,
+                    "blockType" => self::TYPE_TINYINT_UNSIGNED,
                     "operation"   => self::TYPE_STRING_50,
                 ]
             )
-            ->createForeignKey("userBlockOperations", "userBlockId", "userBlocks", self::FK_CASCADE, self::FK_CASCADE)
+            ->createForeignKey("userBlockOperations", "userId", "users", self::FK_CASCADE, self::FK_CASCADE)
+            ->createForeignKey("userBlockOperations", "blockId", "blocks", self::FK_CASCADE, self::FK_CASCADE)
             ->createTable(
-                "userBlockGroups",
+                "userBlockGroupOperations",
                 [
                     "id"        => self::TYPE_PK,
                     "userId"    => self::TYPE_FK,
                     "blockType" => self::TYPE_TINYINT_UNSIGNED,
+                    "operation" => self::TYPE_STRING_50,
                 ]
             )
-            ->createForeignKey("userBlockGroups", "userId", "users", self::FK_CASCADE, self::FK_CASCADE)
-            ->createTable(
-                "userBlockGroupOperations",
-                [
-                    "id"               => self::TYPE_PK,
-                    "userBlockGroupId" => self::TYPE_FK,
-                    "operation"        => self::TYPE_STRING_50,
-                ]
-            )
-            ->createForeignKey(
-                "userBlockGroupOperations",
-                "userBlockGroupId",
-                "userBlockGroups",
-                self::FK_CASCADE,
-                self::FK_CASCADE
-            )
+            ->createForeignKey("userBlockGroupOperations", "userId", "users", self::FK_CASCADE, self::FK_CASCADE)
             ->createTable(
                 "userSections",
                 [

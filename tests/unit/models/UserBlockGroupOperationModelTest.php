@@ -2,6 +2,8 @@
 
 namespace testS\tests\unit\models;
 
+use testS\components\Operation;
+use testS\models\BlockModel;
 use testS\models\UserBlockGroupOperationModel;
 
 /**
@@ -29,8 +31,95 @@ class UserBlockGroupOperationModelTest extends AbstractModelTest
      */
     protected function getDataProviderCRUDEmpty()
     {
-        $this->markTestSkipped();
-        return [];
+        return [
+            "empty1" => [
+                [],
+                [],
+                null,
+                null,
+                self::EXCEPTION_CONTENT
+            ],
+            "empty2" => [
+                [
+                    "userId"    => "",
+                    "blockType" => "",
+                    "operation" => "",
+                ],
+                [],
+                null,
+                null,
+                self::EXCEPTION_CONTENT
+            ],
+            "empty3" => [
+                [
+                    "userId"    => null,
+                    "blockType" => null,
+                    "operation" => null,
+                ],
+                [],
+                null,
+                null,
+                self::EXCEPTION_CONTENT
+            ],
+            "empty4" => [
+                [
+                    "userId" => 1,
+                ],
+                [],
+                null,
+                null,
+                self::EXCEPTION_CONTENT
+            ],
+            "empty5" => [
+                [
+                    "operation" => Operation::TEXT_ADD,
+                ],
+                [],
+                null,
+                null,
+                self::EXCEPTION_CONTENT
+            ],
+            "empty6" => [
+                [
+                    "userId"    => 0,
+                    "operation" => Operation::TEXT_ADD,
+                ],
+                [],
+                null,
+                null,
+                self::EXCEPTION_CONTENT
+            ],
+            "empty7" => [
+                [
+                    "userId"    => 1,
+                    "blockType" => BlockModel::TYPE_TEXT,
+                ],
+                [],
+                null,
+                null,
+                self::EXCEPTION_MODEL
+            ],
+            "empty8" => [
+                [
+                    "userId"    => 1,
+                    "operation" => Operation::TEXT_ADD,
+                ],
+                [],
+                null,
+                null,
+                self::EXCEPTION_CONTENT
+            ],
+            "empty9" => [
+                [
+                    "blockType" => BlockModel::TYPE_TEXT,
+                    "operation" => Operation::TEXT_ADD,
+                ],
+                [],
+                null,
+                null,
+                self::EXCEPTION_MODEL
+            ],
+        ];
     }
 
     /**
@@ -40,8 +129,32 @@ class UserBlockGroupOperationModelTest extends AbstractModelTest
      */
     protected function getDataProviderCRUDCorrect()
     {
-        $this->markTestSkipped();
-        return [];
+        return [
+            "correct1" => [
+                [
+                    "userId"    => 1,
+                    "blockType" => BlockModel::TYPE_TEXT,
+                    "operation" => Operation::TEXT_ADD,
+                ],
+                [
+                    "userId"    => 1,
+                    "blockType" => BlockModel::TYPE_TEXT,
+                    "operation" => Operation::TEXT_ADD,
+                ],
+            ],
+            "correct2" => [
+                [
+                    "userId"    => 2,
+                    "blockType" => BlockModel::TYPE_TEXT,
+                    "operation" => Operation::TEXT_UPDATE,
+                ],
+                [
+                    "userId"    => 2,
+                    "blockType" => BlockModel::TYPE_TEXT,
+                    "operation" => Operation::TEXT_UPDATE,
+                ],
+            ],
+        ];
     }
 
     /**
@@ -51,8 +164,41 @@ class UserBlockGroupOperationModelTest extends AbstractModelTest
      */
     protected function getDataProviderCRUDIncorrect()
     {
-        $this->markTestSkipped();
-        return [];
+        return [
+            "incorrect1" => [
+                [
+                    "userId"    => "  1  ",
+                    "blockType" => BlockModel::TYPE_TEXT,
+                    "operation" => Operation::TEXT_ADD,
+                ],
+                [
+                    "userId"    => 1,
+                    "blockType" => BlockModel::TYPE_TEXT,
+                    "operation" => Operation::TEXT_ADD,
+                ],
+                [
+                    "userId"    => 2,
+                    "blockType" => BlockModel::TYPE_IMAGE,
+                    "operation" => Operation::TEXT_UPDATE,
+                ],
+                [
+                    "userId"    => 1,
+                    "blockType" => BlockModel::TYPE_TEXT,
+                    "operation" => Operation::TEXT_ADD,
+                ],
+            ],
+            "incorrect2" => [
+                [
+                    "userId"    => 1,
+                    "blockType" => BlockModel::TYPE_TEXT,
+                    "operation" => "incorrect",
+                ],
+                [],
+                null,
+                null,
+                self::EXCEPTION_MODEL
+            ],
+        ];
     }
 
     /**
@@ -62,7 +208,14 @@ class UserBlockGroupOperationModelTest extends AbstractModelTest
      */
     public function testDuplicate()
     {
-        $this->markTestSkipped();
-        return [];
+        $this->duplicate(
+            [
+                "userId"    => 1,
+                "blockType" => BlockModel::TYPE_TEXT,
+                "operation" => Operation::TEXT_ADD,
+            ],
+            [],
+            self::EXCEPTION_MODEL
+        );
     }
 }

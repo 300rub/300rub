@@ -1,6 +1,7 @@
 <?php
 
 namespace testS\components;
+use testS\models\BlockModel;
 
 /**
  * Class for work with user from session
@@ -60,10 +61,11 @@ class Operation
      * @var array
      */
     public static $blockTextOperations = [
-        self::SECTION_ADD           => "",
-        self::SECTION_UPDATE        => "",
-        self::SECTION_DESIGN_UPDATE => "",
-        self::SECTION_DELETE        => "",
+        self::TEXT_ADD           => "",
+        self::TEXT_UPDATE        => "",
+        self::TEXT_DESIGN_UPDATE => "",
+        self::TEXT_DELETE        => "",
+        self::TEXT_DUPLICATE     => "",
     ];
 
     /**
@@ -75,4 +77,21 @@ class Operation
         self::SETTING_SEO  => "",
         self::SETTING_ICON => "",
     ];
+
+    /**
+     * Gets a list of content operations by content type
+     *
+     * @param int $contentType
+     *
+     * @return array
+     */
+    public static function getOperationsByContentType($contentType)
+    {
+        switch ($contentType) {
+            case BlockModel::TYPE_TEXT:
+                return self::$blockTextOperations;
+            default:
+                return [];
+        }
+    }
 }
