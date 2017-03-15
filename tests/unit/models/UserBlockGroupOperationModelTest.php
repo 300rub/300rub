@@ -190,6 +190,17 @@ class UserBlockGroupOperationModelTest extends AbstractModelTest
             "incorrect2" => [
                 [
                     "userId"    => 1,
+                    "blockType" => BlockModel::TYPE_IMAGE,
+                    "operation" => Operation::TEXT_ADD,
+                ],
+                [],
+                null,
+                null,
+                self::EXCEPTION_MODEL
+            ],
+            "incorrect3" => [
+                [
+                    "userId"    => 1,
                     "blockType" => BlockModel::TYPE_TEXT,
                     "operation" => "incorrect",
                 ],
@@ -197,6 +208,17 @@ class UserBlockGroupOperationModelTest extends AbstractModelTest
                 null,
                 null,
                 self::EXCEPTION_MODEL
+            ],
+            "incorrect4" => [
+                [
+                    "userId"    => 1,
+                    "blockType" => "incorrect",
+                    "operation" => Operation::TEXT_ADD,
+                ],
+                [],
+                null,
+                null,
+                self::EXCEPTION_CONTENT
             ],
         ];
     }

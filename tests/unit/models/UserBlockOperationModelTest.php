@@ -182,7 +182,36 @@ class UserBlockOperationModelTest extends AbstractModelTest
      */
     protected function getDataProviderCRUDCorrect()
     {
-        return [];
+        return [
+            "correct1" => [
+                [
+                    "userId"    => 1,
+                    "blockId"   => 1,
+                    "blockType" => BlockModel::TYPE_TEXT,
+                    "operation" => Operation::TEXT_ADD,
+                ],
+                [
+                    "userId"    => 1,
+                    "blockId"   => 1,
+                    "blockType" => BlockModel::TYPE_TEXT,
+                    "operation" => Operation::TEXT_ADD,
+                ],
+            ],
+            "correct2" => [
+                [
+                    "userId"    => 2,
+                    "blockId"   => 2,
+                    "blockType" => BlockModel::TYPE_TEXT,
+                    "operation" => Operation::TEXT_UPDATE,
+                ],
+                [
+                    "userId"    => 2,
+                    "blockId"   => 2,
+                    "blockType" => BlockModel::TYPE_TEXT,
+                    "operation" => Operation::TEXT_UPDATE,
+                ],
+            ],
+        ];
     }
 
     /**
@@ -192,7 +221,70 @@ class UserBlockOperationModelTest extends AbstractModelTest
      */
     protected function getDataProviderCRUDIncorrect()
     {
-        return [];
+        return [
+            "incorrect1" => [
+                [
+                    "userId"    => "  1  ",
+                    "blockId"    => "  1  ",
+                    "blockType" => BlockModel::TYPE_TEXT,
+                    "operation" => Operation::TEXT_ADD,
+                ],
+                [
+                    "userId"    => 1,
+                    "blockId"    => 1,
+                    "blockType" => BlockModel::TYPE_TEXT,
+                    "operation" => Operation::TEXT_ADD,
+                ],
+                [
+                    "userId"    => 2,
+                    "blockId"    => 2,
+                    "blockType" => BlockModel::TYPE_IMAGE,
+                    "operation" => Operation::TEXT_UPDATE,
+                ],
+                [
+                    "userId"    => 1,
+                    "blockId"    => 1,
+                    "blockType" => BlockModel::TYPE_TEXT,
+                    "operation" => Operation::TEXT_ADD,
+                ],
+            ],
+            "incorrect2" => [
+                [
+                    "userId"    => 1,
+                    "blockId"    => 1,
+                    "blockType" => BlockModel::TYPE_TEXT,
+                    "operation" => "incorrect",
+                ],
+                [],
+                null,
+                null,
+                self::EXCEPTION_MODEL
+            ],
+            "incorrect3" => [
+                [
+                    "userId"    => 1,
+                    "blockId"    => 1,
+                    "blockType" => BlockModel::TYPE_IMAGE,
+                    "operation" => Operation::TEXT_ADD,
+                ],
+                [],
+                null,
+                null,
+                self::EXCEPTION_MODEL
+            ],
+            "incorrect4" => [
+                [
+                    "userId"    => 1,
+                    "blockId"    => 1,
+                    "blockType" => "incorrect",
+                    "operation" => Operation::TEXT_ADD,
+                ],
+                [],
+                null,
+                null,
+                self::EXCEPTION_CONTENT
+            ],
+        ];
     }
 
     /**
