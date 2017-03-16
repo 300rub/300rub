@@ -2,6 +2,8 @@
 
 namespace testS\controllers;
 
+use testS\components\Language;
+use testS\components\Operation;
 use testS\models\BlockModel;
 
 /**
@@ -41,46 +43,75 @@ class TextController extends AbstractController
 
         $list = [];
         foreach ($blockModels as $blockModel) {
+            $canUpdateSettings = $this->hasBlockOperation(
+                BlockModel::TYPE_TEXT,
+                $blockModel->get("contentId"),
+                Operation::TEXT_UPDATE_SETTINGS
+            );
+            $canUpdateDesign = $this->hasBlockOperation(
+                BlockModel::TYPE_TEXT,
+                $blockModel->get("contentId"),
+                Operation::TEXT_UPDATE_DESIGN
+            );
+            $canUpdateContent = $this->hasBlockOperation(
+                BlockModel::TYPE_TEXT,
+                $blockModel->get("contentId"),
+                Operation::TEXT_UPDATE_CONTENT
+            );
+
+            if ($canUpdateSettings === false
+                && $canUpdateDesign === false
+                && $canUpdateContent === false
+            ) {
+                continue;
+            }
+
             $list[] = [
-                "blockName"       => $blockModel->get("name"),
-                "contentId"       => $blockModel->get("contentId"),
-                "canUpdate"       => $this->hasOperation(),
-                "canUpdateDesign" => $this->hasOperation(),
+                "blockName"         => $blockModel->get("name"),
+                "contentId"         => $blockModel->get("contentId"),
+                "canUpdateSettings" => $canUpdateSettings,
+                "canUpdateDesign"   => $canUpdateDesign,
+                "canUpdateContent"  => $canUpdateContent
             ];
         }
 
+        $canAdd = $this->hasBlockOperation(
+            BlockModel::TYPE_TEXT,
+            Operation::ALL,
+            Operation::TEXT_UPDATE_SETTINGS
+        );
+
         return [
-            "title"        => "",
-            "description"  => "",
+            "title"        => Language::t("text", "texts"),
+            "description"  => Language::t("text", "panelDescription"),
             "list"         => $list,
             "back"         => [
-                "controller" => "",
-                "action"     => ""
+                "controller" => "block",
+                "action"     => "blocks"
             ],
             "update"       => [
-                "controller" => "",
-                "action"     => ""
+                "controller" => "text",
+                "action"     => "block"
             ],
             "updateDesign" => [
-                "controller" => "",
-                "action"     => ""
+                "controller" => "text",
+                "action"     => "design"
             ],
-            "canAdd"       => $this->hasOperation(),
+            "content"      => [
+                "controller" => "text",
+                "action"     => "content"
+            ],
+            "canAdd"       => $canAdd,
         ];
     }
 
-//    protected function getBlocksResponse(
-//        $title,
-//        $description,
-//        $updateController,
-//        $updateAction,
-//        $updateDesignController,
-//        $updateDesignAction,
-//        $canAdd,
-//
-//    ) {
-//
-//    }
+    /**
+     * Gets block
+     */
+    public function getBlock()
+    {
+        // @TODO
+    }
 
     /**
      * Adds block

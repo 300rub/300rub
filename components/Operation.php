@@ -1,6 +1,7 @@
 <?php
 
 namespace testS\components;
+
 use testS\models\BlockModel;
 
 /**
@@ -55,8 +56,9 @@ class Operation
      * Block text operations
      */
     const TEXT_ADD = "TEXT_ADD";
-    const TEXT_UPDATE = "TEXT_UPDATE";
-    const TEXT_DESIGN_UPDATE = "TEXT_DESIGN_UPDATE";
+    const TEXT_UPDATE_SETTINGS = "TEXT_UPDATE_SETTINGS";
+    const TEXT_UPDATE_DESIGN = "TEXT_UPDATE_DESIGN";
+    const TEXT_UPDATE_CONTENT = "TEXT_UPDATE_CONTENT";
     const TEXT_DELETE = "TEXT_DELETE";
     const TEXT_DUPLICATE = "TEXT_DUPLICATE";
 
@@ -66,11 +68,12 @@ class Operation
      * @var array
      */
     public static $blockTextOperations = [
-        self::TEXT_ADD           => "",
-        self::TEXT_UPDATE        => "",
-        self::TEXT_DESIGN_UPDATE => "",
-        self::TEXT_DELETE        => "",
-        self::TEXT_DUPLICATE     => "",
+        self::TEXT_ADD             => "",
+        self::TEXT_UPDATE_SETTINGS => "",
+        self::TEXT_UPDATE_DESIGN   => "",
+        self::TEXT_UPDATE_CONTENT  => "",
+        self::TEXT_DELETE          => "",
+        self::TEXT_DUPLICATE       => "",
     ];
 
     /**

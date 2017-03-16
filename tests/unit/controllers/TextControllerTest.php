@@ -20,6 +20,11 @@ class TextControllerTest extends AbstractControllerTest
         $this->markTestSkipped();
     }
 
+    public function testGetBlock()
+    {
+        $this->markTestSkipped();
+    }
+
     public function testAddBlock()
     {
         $this->markTestSkipped();

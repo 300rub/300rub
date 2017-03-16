@@ -202,13 +202,13 @@ class UserBlockOperationModelTest extends AbstractModelTest
                     "userId"    => 2,
                     "blockId"   => 2,
                     "blockType" => BlockModel::TYPE_TEXT,
-                    "operation" => Operation::TEXT_UPDATE,
+                    "operation" => Operation::TEXT_UPDATE_SETTINGS,
                 ],
                 [
                     "userId"    => 2,
                     "blockId"   => 2,
                     "blockType" => BlockModel::TYPE_TEXT,
-                    "operation" => Operation::TEXT_UPDATE,
+                    "operation" => Operation::TEXT_UPDATE_SETTINGS,
                 ],
             ],
         ];
@@ -239,7 +239,7 @@ class UserBlockOperationModelTest extends AbstractModelTest
                     "userId"    => 2,
                     "blockId"    => 2,
                     "blockType" => BlockModel::TYPE_IMAGE,
-                    "operation" => Operation::TEXT_UPDATE,
+                    "operation" => Operation::TEXT_UPDATE_SETTINGS,
                 ],
                 [
                     "userId"    => 1,

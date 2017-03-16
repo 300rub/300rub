@@ -354,7 +354,7 @@ class UserModelTest extends AbstractModelTest
                 "userId"    => $userModel->getId(),
                 "blockId"   => 1,
                 "blockType" => BlockModel::TYPE_TEXT,
-                "operation" => Operation::TEXT_UPDATE
+                "operation" => Operation::TEXT_UPDATE_SETTINGS
             ]
         );
         $userBlockOperationModel->save();
@@ -365,7 +365,7 @@ class UserModelTest extends AbstractModelTest
                         Operation::TEXT_ADD
                     ],
                     1              => [
-                        Operation::TEXT_UPDATE
+                        Operation::TEXT_UPDATE_SETTINGS
                     ]
                 ]
             ],

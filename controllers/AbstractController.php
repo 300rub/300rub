@@ -6,6 +6,7 @@ use testS\applications\App;
 use testS\components\exceptions\AccessException;
 use testS\components\exceptions\BadRequestException;
 use testS\components\Language;
+use testS\components\Operation;
 use testS\components\User;
 use testS\components\ValueGenerator;
 
@@ -79,32 +80,66 @@ abstract class AbstractController
     }
 
     /**
-     * Has operation
+     * If has section operation
      *
-     * @param string $type
-     * @param int    $blockType (just null for sections or settings)
-     * @param int    $id
-     * @param string $operation
+     * @param int|string $key
+     * @param string     $operation
      *
-     * @return true
+     * @return bool
      */
-    protected function hasOperation($type, $blockType, $id, $operation)
+    protected function hasSectionOperation($key, $operation)
     {
-        if (
-            $type !== self::OPERATION_TYPE_SECTIONS
-            && $type !== self::OPERATION_TYPE_BLOCKS
-            && $type !== self::OPERATION_TYPE_SETTINGS
+        $operations = App::web()->getUser()->getOperations();
+        if (!array_key_exists(Operation::TYPE_SECTIONS, $operations)) {
+            return false;
+        }
+
+        if (array_key_exists(Operation::ALL, $operations[Operation::TYPE_SECTIONS])
+            && in_array($operation, $operations[Operation::TYPE_SECTIONS][Operation::ALL])
+        ) {
+            return true;
+        }
+
+        if (array_key_exists($key, $operations[Operation::TYPE_SECTIONS])
+            && in_array($operation, $operations[Operation::TYPE_SECTIONS][$key])
+        ) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * If has block operation
+     *
+     * @param int        $type
+     * @param int|string $key
+     * @param string     $operation
+     *
+     * @return bool
+     */
+    protected function hasBlockOperation($type, $key, $operation)
+    {
+        $operations = App::web()->getUser()->getOperations();
+        if (!array_key_exists(Operation::TYPE_BLOCKS, $operations)
+            || !array_key_exists($type, $operations[Operation::TYPE_BLOCKS])
         ) {
             return false;
         }
 
-        if ($type === self::OPERATION_TYPE_BLOCKS
-            && $blockType === null
+        if (array_key_exists(Operation::ALL, $operations[Operation::TYPE_BLOCKS][$type])
+            && in_array($operation, $operations[Operation::TYPE_BLOCKS][$type][Operation::ALL])
         ) {
-            return false;
+            return true;
         }
 
-        return true;
+        if (array_key_exists($key, $operations[Operation::TYPE_BLOCKS][$type])
+            && in_array($operation, $operations[Operation::TYPE_BLOCKS][$type][$key])
+        ) {
+            return true;
+        }
+
+        return false;
     }
 
     /**
