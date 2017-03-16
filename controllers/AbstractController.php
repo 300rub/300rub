@@ -8,7 +8,6 @@ use testS\components\exceptions\BadRequestException;
 use testS\components\Language;
 use testS\components\Operation;
 use testS\components\User;
-use testS\components\ValueGenerator;
 
 /**
  * Abstract class for working with controllers
@@ -19,9 +18,9 @@ abstract class AbstractController
 {
 
     /**
-     * Display blocks from page variable name
+     * Display blocks from section variable name
      */
-    const IS_DISPLAY_BLOCKS_FROM_PAGE = "isDisplayBlocksFromPage";
+    const DISPLAY_BLOCKS_FROM_SECTION = "displayBlocksFromSection";
 
     /**
      * Request data
@@ -85,6 +84,20 @@ abstract class AbstractController
     }
 
     /**
+     * Gets user flag is owner
+     *
+     * @return bool
+     */
+    protected function getUserIsOwner()
+    {
+        $user = App::web()->getUser();
+        if (!$user instanceof User) {
+            return false;
+        }
+        return App::web()->getUser()->getIsOwner();
+    }
+
+    /**
      * If has section operation
      *
      * @param int|string $key
@@ -94,6 +107,10 @@ abstract class AbstractController
      */
     protected function hasSectionOperation($key, $operation)
     {
+        if ($this->getUserIsOwner() === true) {
+            return true;
+        }
+
         $operations = $this->getUserOperations();
         if (!array_key_exists(Operation::TYPE_SECTIONS, $operations)) {
             return false;
@@ -125,6 +142,10 @@ abstract class AbstractController
      */
     protected function hasBlockOperation($type, $key, $operation)
     {
+        if ($this->getUserIsOwner() === true) {
+            return true;
+        }
+
         $operations = $this->getUserOperations();
         if (!array_key_exists(Operation::TYPE_BLOCKS, $operations)
             || !array_key_exists($type, $operations[Operation::TYPE_BLOCKS])
@@ -148,72 +169,31 @@ abstract class AbstractController
     }
 
     /**
-     * Gets flag isDisplayBlocksFromPage
-     *
-     * @return bool
-     */
-    protected function getIsDisplayBlocksFromPage()
-    {
-        $data = $this->getData();
-        if (array_key_exists(self::IS_DISPLAY_BLOCKS_FROM_PAGE, $data)) {
-            $value = ValueGenerator::generate(
-                ValueGenerator::BOOL,
-                $data[self::IS_DISPLAY_BLOCKS_FROM_PAGE]
-            );
-            $_SESSION[self::IS_DISPLAY_BLOCKS_FROM_PAGE] = $value;
-            setcookie(self::IS_DISPLAY_BLOCKS_FROM_PAGE, $value);
-            return $value;
-        }
-
-        if (!empty($_SESSION[self::IS_DISPLAY_BLOCKS_FROM_PAGE])) {
-            return ValueGenerator::generate(
-                ValueGenerator::BOOL,
-                $_SESSION[self::IS_DISPLAY_BLOCKS_FROM_PAGE]
-            );
-        }
-
-        if (!empty($_COOKIE[self::IS_DISPLAY_BLOCKS_FROM_PAGE])) {
-            $value = ValueGenerator::generate(
-                ValueGenerator::BOOL,
-                $_COOKIE[self::IS_DISPLAY_BLOCKS_FROM_PAGE]
-            );
-            $_SESSION[self::IS_DISPLAY_BLOCKS_FROM_PAGE] = $value;
-            return $value;
-        }
-
-        return false;
-    }
-
-    /**
-     * Gets sectionId from Request
+     * Gets displayBlocksFromPage
      *
      * @return int
-     *
-     * @throws BadRequestException
      */
-    protected function getSectionIdFromRequest()
+    protected function getDisplayBlocksFromSection()
     {
         $data = $this->getData();
-        if (!array_key_exists("sectionId", $data)) {
-            throw new BadRequestException(
-                "Incorrect request for getting blocks from page. Unable to find [sectionId] in request.",
-                [
-                    "data" => json_encode($data)
-                ]
-            );
+        if (array_key_exists(self::DISPLAY_BLOCKS_FROM_SECTION, $data)) {
+            $value = (int) $data[self::DISPLAY_BLOCKS_FROM_SECTION];
+            $_SESSION[self::DISPLAY_BLOCKS_FROM_SECTION] = $value;
+            setcookie(self::DISPLAY_BLOCKS_FROM_SECTION, $value);
+            return $value;
         }
 
-        $sectionId = (int) $data["sectionId"];
-        if ($sectionId <= 0) {
-            throw new BadRequestException(
-                "Incorrect request for getting blocks from. [sectionId] is incorrect.",
-                [
-                    "data" => json_encode($data)
-                ]
-            );
+        if (!empty($_SESSION[self::DISPLAY_BLOCKS_FROM_SECTION])) {
+            return (int) $_SESSION[self::DISPLAY_BLOCKS_FROM_SECTION];
         }
 
-        return $sectionId;
+        if (!empty($_COOKIE[self::DISPLAY_BLOCKS_FROM_SECTION])) {
+            $value = (int) $_COOKIE[self::DISPLAY_BLOCKS_FROM_SECTION];
+            $_SESSION[self::DISPLAY_BLOCKS_FROM_SECTION] = $value;
+            return $value;
+        }
+
+        return 0;
     }
 
     /**

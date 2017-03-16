@@ -210,7 +210,7 @@ class BlockModel extends AbstractModel
     public function bySectionId($sectionId)
     {
         $sectionId = (int) $sectionId;
-        if ($sectionId === 0) {
+        if ($sectionId <= 0) {
             return $this;
         }
 

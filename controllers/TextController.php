@@ -31,15 +31,9 @@ class TextController extends AbstractController
 
         $blockModels = (new BlockModel())
             ->byContentType(BlockModel::TYPE_TEXT)
-            ->byLanguage(Language::getActiveId());
-
-        $isDisplayBlocksFromPage = $this->getIsDisplayBlocksFromPage();
-        if ($isDisplayBlocksFromPage === true) {
-            $sectionId = $this->getSectionIdFromRequest();
-            $blockModels->bySectionId($sectionId);
-        }
-
-        $blockModels = $blockModels->findAll();
+            ->byLanguage(Language::getActiveId())
+            ->bySectionId($this->getDisplayBlocksFromSection())
+            ->findAll();
 
         $list = [];
         foreach ($blockModels as $blockModel) {
@@ -82,26 +76,26 @@ class TextController extends AbstractController
         );
 
         return [
-            "title"        => Language::t("text", "texts"),
-            "description"  => Language::t("text", "panelDescription"),
-            "list"         => $list,
-            "back"         => [
+            "title"       => Language::t("text", "texts"),
+            "description" => Language::t("text", "panelDescription"),
+            "list"        => $list,
+            "back"        => [
                 "controller" => "block",
                 "action"     => "blocks"
             ],
-            "update"       => [
+            "settings"    => [
                 "controller" => "text",
                 "action"     => "block"
             ],
-            "updateDesign" => [
+            "design"      => [
                 "controller" => "text",
                 "action"     => "design"
             ],
-            "content"      => [
+            "content"     => [
                 "controller" => "text",
                 "action"     => "content"
             ],
-            "canAdd"       => $canAdd,
+            "canAdd"      => $canAdd,
         ];
     }
 

@@ -23,7 +23,7 @@ abstract class AbstractControllerTest extends AbstractUnitTest
      */
     const TYPE_OWNER = "owner";
     const TYPE_ADMIN = "admin";
-    const TYPE_USER  = "user";
+    const TYPE_USER = "user";
 
     /**
      * User session ID
@@ -147,14 +147,13 @@ abstract class AbstractControllerTest extends AbstractUnitTest
     {
         $host = trim(shell_exec("/sbin/ip route|awk '/default/ { print $3 }'"));
 
-        $dataJson =
-            [
-                "token"      => $this->getUserToken(),
-                "controller" => $controller,
-                "action"     => $action,
-                "language"   => $language,
-                "data"       => $data
-            ];
+        $dataJson = [
+            "token"      => $this->getUserToken(),
+            "controller" => $controller,
+            "action"     => $action,
+            "language"   => $language,
+            "data"       => $data
+        ];
 
         $curl = curl_init();
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);

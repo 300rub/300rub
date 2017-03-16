@@ -55,6 +55,13 @@ class User
     private $_email = "";
 
     /**
+     * Flag is owner
+     *
+     * @var bool
+     */
+    private $_isOwner = "";
+
+    /**
      * User constructor.
      *
      * @param string    $token
@@ -68,6 +75,7 @@ class User
         $this->_login = $userModel->get("login");
         $this->_name = $userModel->get("name");
         $this->_email = $userModel->get("email");
+        $this->_isOwner = $userModel->get("isOwner");
     }
 
     /**
@@ -128,5 +136,15 @@ class User
     public function getEmail()
     {
         return $this->_email;
+    }
+
+    /**
+     * Gets is owner
+     *
+     * @return bool
+     */
+    public function getIsOwner()
+    {
+        return $this->_isOwner;
     }
 }
