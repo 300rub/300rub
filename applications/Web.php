@@ -250,7 +250,13 @@ class Web extends AbstractApplication
             return $_COOKIE["token"];
         }
 
-        $input = json_decode(file_get_contents('php://input'), true);
+        $method = strtoupper($_SERVER['REQUEST_METHOD']);
+        if ($method === self::METHOD_GET) {
+            $input = $_GET;
+        } else {
+            $input = json_decode(file_get_contents('php://input'), true);
+        }
+
         if (!empty($input["token"])) {
             $_SESSION["token"] = $input["token"];
             $_COOKIE["token"] = $input["token"];

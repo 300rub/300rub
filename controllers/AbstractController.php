@@ -63,7 +63,7 @@ abstract class AbstractController
     {
         $user = App::web()->getUser();
         if (!$user instanceof User) {
-            throw new AccessException("User os null");
+            throw new AccessException("User is null");
         }
 
         return $this;

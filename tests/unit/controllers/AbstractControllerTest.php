@@ -24,6 +24,7 @@ abstract class AbstractControllerTest extends AbstractUnitTest
     const TYPE_OWNER = "owner";
     const TYPE_ADMIN = "admin";
     const TYPE_USER = "user";
+    const TYPE_NO_OPERATIONS_USER = "user";
 
     /**
      * User session ID
@@ -106,6 +107,10 @@ abstract class AbstractControllerTest extends AbstractUnitTest
             case self::TYPE_USER:
                 $this->_userSessionId = self::SESSION_ID_USER;
                 $this->_userToken = self::TOKEN_USER;
+                break;
+            case self::TYPE_NO_OPERATIONS_USER:
+                $this->_userSessionId = self::SESSION_NO_OPERATION_USER;
+                $this->_userToken = self::TOKEN_NO_OPERATION_USER;
                 break;
             default:
                 $this->_userSessionId = null;

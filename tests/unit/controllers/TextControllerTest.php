@@ -58,7 +58,6 @@ class TextControllerTest extends AbstractControllerTest
         $this->setUser();
         $this->sendRequest("text", "blocks", ["displayBlocksFromSection" => 0]);
         $body = $this->getBody();
-
         $this->assertTrue(strlen($body["title"]) > 0);
         $this->assertTrue(strlen($body["description"]) > 0);
         $this->assertTrue(count($body["list"]) > 0);
@@ -128,6 +127,13 @@ class TextControllerTest extends AbstractControllerTest
      */
     private function _testGetBlocksUserWithoutOperations()
     {
+        $this->setUser(self::TYPE_NO_OPERATIONS_USER);
+        $this->sendRequest("text", "blocks", ["displayBlocksFromSection" => 0]);
+        $body = $this->getBody();
+
+        $this->assertTrue(count($body["list"]) === 0);
+        $this->assertFalse($body["canAdd"]);
+
         return $this;
     }
 

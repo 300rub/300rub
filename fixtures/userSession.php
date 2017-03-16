@@ -24,4 +24,11 @@ return [
         "ua"           => "User-Agent: Mozilla/5.0 (Windows NT 6.1; rv:2.0.1) Gecko/20100101 Firefox/4.0.1",
         "lastActivity" => "2017-01-03 10:10:10"
     ],
+    4 => [
+        "userId"       => 4,
+        "token"        => "a87ff679a2f3e71d9181a67b7542122c",
+        "ip"           => "127.0.0.4",
+        "ua"           => "User-Agent: Mozilla/5.0 (Windows NT 6.1; rv:2.0.1) Gecko/20100101 Firefox/4.0.1",
+        "lastActivity" => "2017-01-03 10:10:10"
+    ]
 ];
