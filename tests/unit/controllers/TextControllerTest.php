@@ -17,7 +17,9 @@ class TextControllerTest extends AbstractControllerTest
 
     public function testGetBlocks()
     {
-        $this->markTestSkipped();
+        // Send request
+        $this->sendRequest("text", "blocks");
+        //var_dump($this->getBody());
     }
 
     public function testGetBlock()

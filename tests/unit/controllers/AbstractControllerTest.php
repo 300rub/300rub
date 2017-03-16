@@ -147,43 +147,44 @@ abstract class AbstractControllerTest extends AbstractUnitTest
     {
         $host = trim(shell_exec("/sbin/ip route|awk '/default/ { print $3 }'"));
 
-        $dataJson = json_encode(
+        $dataJson =
             [
                 "token"      => $this->getUserToken(),
                 "controller" => $controller,
                 "action"     => $action,
                 "language"   => $language,
                 "data"       => $data
-            ]
-        );
+            ];
 
         $curl = curl_init();
-        curl_setopt($curl, CURLOPT_URL, $host . "/api/");
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($curl, CURLOPT_CUSTOMREQUEST, $method);
-        curl_setopt(
-            $curl,
-            CURLOPT_POSTFIELDS,
-            json_encode(
+
+        if ($method === "GET") {
+            $query = http_build_query($dataJson);
+            curl_setopt($curl, CURLOPT_URL, $host . "/api/?" . $query);
+            curl_setopt(
+                $curl,
+                CURLOPT_HTTPHEADER,
                 [
-                    "token"      => $this->getUserToken(),
-                    "controller" => $controller,
-                    "action"     => $action,
-                    "language"   => $language,
-                    "data"       => $data
+                    "User-Agent: " . $ua,
                 ]
-            )
-        );
-        curl_setopt(
-            $curl,
-            CURLOPT_HTTPHEADER,
-            [
-                'Content-Type: application/json',
-                'Content-Length: ' . strlen($dataJson),
-                "X-Requested-With: XMLHttpRequest",
-                "User-Agent: " . $ua,
-            ]
-        );
+            );
+        } else {
+            curl_setopt($curl, CURLOPT_URL, $host . "/api/");
+            curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode($dataJson));
+            curl_setopt(
+                $curl,
+                CURLOPT_HTTPHEADER,
+                [
+                    'Content-Type: application/json',
+                    'Content-Length: ' . strlen(json_encode($dataJson)),
+                    "X-Requested-With: XMLHttpRequest",
+                    "User-Agent: " . $ua,
+                ]
+            );
+        }
+
         if ($this->_userSessionId !== null) {
             curl_setopt($curl, CURLOPT_COOKIE, sprintf("%s=%s", session_name(), $this->_userSessionId));
         }

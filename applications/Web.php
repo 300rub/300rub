@@ -6,6 +6,7 @@ use testS\components\Db;
 use testS\components\exceptions\BadRequestException;
 use Exception;
 use testS\components\exceptions\ContentException;
+use testS\components\Language;
 use testS\components\User;
 use testS\controllers\AbstractController;
 use testS\models\UserModel;
@@ -54,7 +55,7 @@ class Web extends AbstractApplication
     public function run()
     {
         $isAjax = false;
-        if (trim($_SERVER["REQUEST_URI"], "/") === self::API_URL) {
+        if (strpos(trim($_SERVER["REQUEST_URI"], "/"), self::API_URL) === 0) {
             $isAjax = true;
         }
 
@@ -146,25 +147,48 @@ class Web extends AbstractApplication
             Db::startTransaction();
         }
 
-        if (!array_key_exists("HTTP_X_REQUESTED_WITH", $_SERVER)
-            || strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) !== "xmlhttprequest"
+        if ($this->getConfig()->isDebug === false
+            && (
+                !array_key_exists("HTTP_X_REQUESTED_WITH", $_SERVER)
+                || strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) !== "xmlhttprequest"
+            )
         ) {
             throw new BadRequestException("Only AJAX request is allowed");
         }
 
-        $input = json_decode(file_get_contents('php://input'), true);
+        if ($method === self::METHOD_GET) {
+            $input = $_GET;
+        } else {
+            $input = json_decode(file_get_contents('php://input'), true);
+        }
+
         if (empty($input["controller"])
             || empty($input["action"])
             || empty($input["language"])
-            || !isset($input["data"])
-            || !is_array($input["data"])
         ) {
             throw new BadRequestException(
-                "Incorrect post data. Input: {input}",
+                "Incorrect input data. Input: {input}",
                 [
                     "input" => json_encode($input)
                 ]
             );
+        }
+
+        $language = (int) $input["language"];
+        if (!array_key_exists($language, Language::$aliasList)) {
+            throw new BadRequestException(
+                "Incorrect request. [language] is incorrect.",
+                [
+                    "input" => json_encode($input)
+                ]
+            );
+        }
+        Language::setActiveId($language);
+
+        if (!isset($input["data"])
+            || !is_array($input["data"])
+        ) {
+            $input["data"] = [];
         }
 
         $controllerClassName = sprintf("\\testS\\controllers\\%sController", ucfirst($input["controller"]));

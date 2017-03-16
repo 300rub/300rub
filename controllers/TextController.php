@@ -27,11 +27,11 @@ class TextController extends AbstractController
      */
     public function getBlocks()
     {
-        $language = $this->getLanguageFromRequest();
+        $this->checkUser();
 
         $blockModels = (new BlockModel())
             ->byContentType(BlockModel::TYPE_TEXT)
-            ->byLanguage($language);
+            ->byLanguage(Language::getActiveId());
 
         $isDisplayBlocksFromPage = $this->getIsDisplayBlocksFromPage();
         if ($isDisplayBlocksFromPage === true) {

@@ -54,29 +54,34 @@ abstract class AbstractController
     }
 
     /**
-     * Checks operation
+     * Checks user
      *
-     * @param string $type
-     * @param int    $blockType (just null for sections or settings)
-     * @param int    $id
-     * @param string $operation
+     * @return AbstractController
      *
      * @throws AccessException
      */
-    protected function checkOperation($type, $blockType, $id, $operation)
+    protected function checkUser()
     {
-        if ($this->hasOperation($type, $blockType, $id, $operation) === false) {
-            throw new AccessException(
-                "User: {userName}, ID: {userId} doesn't have operation. Type: {type}, ID: {id}, operation: {operation}",
-                [
-                    "userName"  => App::web()->getUser()->getName(),
-                    "userId"    => App::web()->getUser()->getId(),
-                    "type"      => $type,
-                    "id"        => $id,
-                    "operation" => $operation,
-                ]
-            );
+        $user = App::web()->getUser();
+        if (!$user instanceof User) {
+            throw new AccessException("User os null");
         }
+
+        return $this;
+    }
+
+    /**
+     * Gets user operations
+     *
+     * @return array
+     */
+    protected function getUserOperations()
+    {
+        $user = App::web()->getUser();
+        if (!$user instanceof User) {
+            return [];
+        }
+        return App::web()->getUser()->getOperations();
     }
 
     /**
@@ -89,7 +94,7 @@ abstract class AbstractController
      */
     protected function hasSectionOperation($key, $operation)
     {
-        $operations = App::web()->getUser()->getOperations();
+        $operations = $this->getUserOperations();
         if (!array_key_exists(Operation::TYPE_SECTIONS, $operations)) {
             return false;
         }
@@ -120,7 +125,7 @@ abstract class AbstractController
      */
     protected function hasBlockOperation($type, $key, $operation)
     {
-        $operations = App::web()->getUser()->getOperations();
+        $operations = $this->getUserOperations();
         if (!array_key_exists(Operation::TYPE_BLOCKS, $operations)
             || !array_key_exists($type, $operations[Operation::TYPE_BLOCKS])
         ) {
@@ -140,22 +145,6 @@ abstract class AbstractController
         }
 
         return false;
-    }
-
-    /**
-     * Checks User
-     *
-     * @throws AccessException
-     *
-     * @return AbstractController
-     */
-    protected function checkUser()
-    {
-        if (!App::web()->getUser() instanceof User) {
-            throw new AccessException("Unable to get User");
-        }
-
-        return $this;
     }
 
     /**
