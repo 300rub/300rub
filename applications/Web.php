@@ -9,6 +9,7 @@ use testS\components\exceptions\ContentException;
 use testS\components\Language;
 use testS\components\User;
 use testS\controllers\AbstractController;
+use testS\controllers\PageController;
 use testS\models\UserModel;
 use testS\models\UserSessionModel;
 
@@ -32,6 +33,11 @@ class Web extends AbstractApplication
      * API url
      */
     const API_URL = "api";
+
+    /**
+     * Login url
+     */
+    const LOGIN_URL = "login";
 
     /**
      * Flag of using transaction
@@ -67,7 +73,12 @@ class Web extends AbstractApplication
                 header('Content-Type: application/json');
                 $output = $this->_getAjaxOutput();
             } else {
-                $output = "not ajax";
+                $controller = new PageController();
+                if (strpos(trim($_SERVER["REQUEST_URI"], "/"), self::LOGIN_URL) === 0) {
+                    $output = $controller->getLoginPage();
+                } else {
+                    $output = 2;
+                }
             }
         } catch (Exception $e) {
             if ($this->_useTransaction === true) {

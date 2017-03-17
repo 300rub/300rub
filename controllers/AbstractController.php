@@ -4,8 +4,6 @@ namespace testS\controllers;
 
 use testS\applications\App;
 use testS\components\exceptions\AccessException;
-use testS\components\exceptions\BadRequestException;
-use testS\components\Language;
 use testS\components\Operation;
 use testS\components\User;
 
@@ -194,37 +192,5 @@ abstract class AbstractController
         }
 
         return 0;
-    }
-
-    /**
-     * Gets language from Request
-     *
-     * @return int
-     *
-     * @throws BadRequestException
-     */
-    protected function getLanguageFromRequest()
-    {
-        $data = $this->getData();
-        if (!array_key_exists("language", $data)) {
-            throw new BadRequestException(
-                "Incorrect request. Unable to find [language] in request.",
-                [
-                    "data" => json_encode($data)
-                ]
-            );
-        }
-
-        $language = (int) $data["language"];
-        if (!array_key_exists($language, Language::$aliasList)) {
-            throw new BadRequestException(
-                "Incorrect request. [language] is incorrect.",
-                [
-                    "data" => json_encode($data)
-                ]
-            );
-        }
-
-        return $language;
     }
 }
