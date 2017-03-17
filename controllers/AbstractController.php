@@ -193,4 +193,34 @@ abstract class AbstractController
 
         return 0;
     }
+
+    /**
+     * Gets content from view
+     *
+     * @param string $viewFile View file
+     * @param array  $data     Data
+     *
+     * @return string
+     */
+	protected function getContentFromTemplate($viewFile, $data = [])
+	{
+		$path = $this->_getViewsRootDir() . $viewFile . ".php";
+
+		extract($data, EXTR_OVERWRITE);
+
+		ob_start();
+		ob_implicit_flush(false);
+		require($path);
+		return ob_get_clean();
+	}
+
+    /**
+     * Gets path to views root dir
+     *
+     * @return string
+     */
+	private function _getViewsRootDir()
+	{
+		return __DIR__ . "/../views/";
+	}
 }

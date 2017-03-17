@@ -9,12 +9,35 @@ namespace testS\controllers;
  */
 class PageController extends AbstractController
 {
-    
+
+    /**
+     * Static map for DEV login
+     *
+     * @var array
+     */
+    private static $_loginDevStaticMap = [
+        "css" => [
+
+        ],
+        "js" => [
+
+        ],
+        "less" => [
+            "login"
+        ]
+    ];
+
+    /**
+     * Gets login page
+     *
+     * @return string
+     */
     public function getLoginPage()
     {
-        ob_start();
-		ob_implicit_flush(false);
-        require(__DIR__ . "/../views/login.php");
-		return ob_get_clean();
+        $data = self::$_loginDevStaticMap;
+
+        $data["content"] = $this->getContentFromTemplate("page/login");
+
+        return $this->getContentFromTemplate("page/layout", $data);
     }
 }
