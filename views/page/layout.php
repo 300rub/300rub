@@ -5,8 +5,7 @@
     <title>Site</title>
     <meta name="keywords" content=""/>
     <meta name="description" content=""/>
-
-    <?php if (isset($css)) { foreach ($css as $fileName) { ?>
+   <?php if (isset($css)) { foreach ($css as $fileName) { ?>
         <link rel="stylesheet" type="text/css" href="/css/<?= $fileName ?>.css" />
     <?php } } ?>
 
