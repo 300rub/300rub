@@ -20,7 +20,9 @@ class PageController extends AbstractController
             "fonts/OpenSans/font"
         ],
         "js" => [
-
+            "lib/jquery.min",
+            "TestS",
+            "Login",
         ],
         "less" => [
             "login"
