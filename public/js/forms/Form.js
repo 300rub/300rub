@@ -50,6 +50,9 @@
                 case "checkbox":
                     this.setCheckbox();
                     break;
+                case "button":
+                    this.setButton();
+                    break;
                 default:
                     return this;
             }

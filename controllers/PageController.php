@@ -29,6 +29,7 @@ class PageController extends AbstractController
             "forms/Text",
             "forms/Password",
             "forms/Checkbox",
+            "forms/Button",
         ],
         "less" => [
             "login"

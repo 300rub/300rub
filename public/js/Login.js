@@ -41,6 +41,13 @@
                 name: "isRemember",
                 appendTo: $login
             });
+
+            var button = new TestS.Form({
+                type: "button",
+                icon: "fa-arrow-right",
+                class: "button",
+                appendTo: $whiteContainer
+            });
         }
     };
 

@@ -25,6 +25,7 @@ body {
     .border-radius (6px);
     background: white;
     overflow: hidden;
+    position: relative;
 
     .user, .password {
       display: block;
@@ -36,11 +37,11 @@ body {
       line-height: 18px;
       border: 1px solid @grayBorderColor;
       position: relative;
-      z-index: 10;
+      z-index: 20;
 
       &:focus {
         border-color: @blueBorderColor;
-        z-index: 20;
+        z-index: 30;
       }
     }
 
@@ -56,5 +57,20 @@ body {
 
   .form-checkbox {
     margin-top: 10px;
+  }
+
+  .button {
+    position: absolute;
+    right: 8px;
+    bottom: 8px;
+    font-size: 18px;
+    width: 26px;
+    height: 26px;
+    text-align: center;
+    background: none;
+    color: @grayBorderColor;
+    border: 1px solid @grayBorderColor;
+    .border-radius(50%);
+    padding-left: 2px;
   }
 }
