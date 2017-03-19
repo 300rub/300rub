@@ -17,7 +17,10 @@
      */
     TestS.Login.prototype = {
         init: function () {
-            console.log(134);
+            var $login = new TestS.Form.Text({
+                name: "login",
+                appendTo: $("body")
+            });
         }
     };
 

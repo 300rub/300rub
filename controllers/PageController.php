@@ -23,6 +23,8 @@ class PageController extends AbstractController
             "lib/jquery.min",
             "TestS",
             "Login",
+            "forms/Form",
+            "forms/Text",
         ],
         "less" => [
             "login"
