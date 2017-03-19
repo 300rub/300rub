@@ -6,7 +6,7 @@
      */
     TestS.Form.prototype.setCheckbox = function () {
         var $labelContainer = $("<label/>")
-            .addClass("checkbox-label-container");
+            .addClass("form-checkbox");
 
         var $inputCheckbox = $("<input/>")
             .attr("type", "checkbox")
@@ -24,8 +24,8 @@
             .addClass("fa-check-square-o");
 
         var $labelText = $("<span/>")
-            .addClass("label-text")
-            .text(123);
+            .addClass("label")
+            .text("Remember me");
 
         $labelContainer.append($inputCheckbox);
         $labelContainer.append($iconsContainer);

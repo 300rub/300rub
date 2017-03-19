@@ -18,7 +18,8 @@ class PageController extends AbstractController
      */
     private static $_loginDevStaticMap = [
         "css" => [
-            "fonts/OpenSans/font"
+            "fonts/OpenSans/font",
+            "lib/fa/css/font-awesome.min",
         ],
         "js" => [
             "lib/jquery.min",

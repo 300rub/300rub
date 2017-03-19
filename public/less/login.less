@@ -1,8 +1,10 @@
 @import "webkit";
 @import "default";
+@import "form";
+@import "variables";
 
 body {
-  background: #EDEDED;
+  background: @grayBackground;
 }
 
 #login {
@@ -29,16 +31,15 @@ body {
       width: 328px;
       height: 42px;
       background: transparent;
-      color: #333;
       font-size: 16px;
       padding: 10px 12px;
       line-height: 18px;
-      border: 1px solid #bbb;
+      border: 1px solid @grayBorderColor;
       position: relative;
       z-index: 10;
 
       &:focus {
-        border-color: #1780fb;
+        border-color: @blueBorderColor;
         z-index: 20;
       }
     }
@@ -51,5 +52,9 @@ body {
       .border-radius (0 0 6px 6px);
       margin-top: -1px;
     }
+  }
+
+  .form-checkbox {
+    margin-top: 10px;
   }
 }

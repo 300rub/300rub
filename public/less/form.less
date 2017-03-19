@@ -1,0 +1,38 @@
+.form-checkbox {
+  display: inline-block;
+
+  .icons {
+    font-size: 17px;
+    width: 24px;
+    display: inline-block;
+    vertical-align: top;
+
+    .fa-square-o {
+      display: inline-block;
+    }
+
+    .fa-check-square-o {
+      display: none;
+      margin-left: 2px;
+    }
+  }
+
+  .label {
+    font-size: 14px;
+  }
+
+  .checkbox {
+    display: none;
+
+    &:checked + .icons {
+      .fa-square-o {
+        display: none;
+      }
+
+      .fa-check-square-o {
+        display: inline-block;
+        color: #1780fb;
+      }
+    }
+  }
+}
