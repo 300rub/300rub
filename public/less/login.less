@@ -68,9 +68,22 @@ body {
     height: 26px;
     text-align: center;
     background: none;
-    color: @grayBorderColor;
-    border: 1px solid @grayBorderColor;
+    color: @defaultTextColor;
+    border: 1px solid @defaultTextColor;
     .border-radius(50%);
     padding-left: 2px;
+    z-index: 40;
+    cursor: pointer;
+
+    &:hover {
+      color: @blueBorderColor;
+      border-color: @blueBorderColor;
+    }
+  }
+
+  .button.disabled {
+    color: @grayBorderColor;
+    border-color: @grayBorderColor;
+    z-index: 10;
   }
 }
