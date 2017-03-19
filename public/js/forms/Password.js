@@ -4,10 +4,10 @@
     /**
      * Text form
      */
-    TestS.Form.prototype.setText = function () {
+    TestS.Form.prototype.setPassword = function () {
         this.$_instance = $("<input />");
         this.$_instance
-            .attr("type", "text")
+            .attr("type", "password")
             .addClass("form-instance");
     };
 }(window.jQuery, window.TestS);

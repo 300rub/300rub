@@ -1,4 +1,55 @@
+@import "webkit";
+@import "default";
+
 body {
   background: #EDEDED;
-  font-family: 'Open Sans', sans-serif;
+}
+
+#login {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  margin-left: -164px;
+  margin-top: -150px;
+  text-align: center;
+
+  h1 {
+    font-weight: 300;
+    font-size: 40px;
+    margin: 12px 0;
+  }
+
+  .white-container {
+    .border-radius (6px);
+    background: white;
+    overflow: hidden;
+
+    .user, .password {
+      display: block;
+      width: 328px;
+      height: 42px;
+      background: transparent;
+      color: #333;
+      font-size: 16px;
+      padding: 10px 12px;
+      line-height: 18px;
+      border: 1px solid #bbb;
+      position: relative;
+      z-index: 10;
+
+      &:focus {
+        border-color: #1780fb;
+        z-index: 20;
+      }
+    }
+
+    .user {
+      .border-radius (6px 6px 0 0);
+    }
+
+    .password {
+      .border-radius (0 0 6px 6px);
+      margin-top: -1px;
+    }
+  }
 }

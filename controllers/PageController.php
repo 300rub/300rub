@@ -1,6 +1,7 @@
 <?php
 
 namespace testS\controllers;
+use testS\components\Language;
 
 /**
  * PageController
@@ -25,6 +26,8 @@ class PageController extends AbstractController
             "Login",
             "forms/Form",
             "forms/Text",
+            "forms/Password",
+            "forms/Checkbox",
         ],
         "less" => [
             "login"
@@ -40,7 +43,9 @@ class PageController extends AbstractController
     {
         $data = self::$_loginDevStaticMap;
 
-        $data["content"] = $this->getContentFromTemplate("page/login");
+        $data["content"] = $this->getContentFromTemplate("page/login", [
+            "h1" => Language::t("user", "loginH1")
+        ]);
 
         return $this->getContentFromTemplate("page/layout", $data);
     }
