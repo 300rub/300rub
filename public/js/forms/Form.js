@@ -61,6 +61,7 @@
                 ._setName()
                 ._setPlaceholder()
                 ._setClass()
+                ._setOnBlur()
                 ._appendTo();
         },
 
@@ -85,7 +86,12 @@
                 return this;
             }
 
-            this.$_instance.attr("name", this._options.name);
+            if (this.$_instance.hasClass("form-instance")) {
+                this.$_instance.attr("name", this._options.name);
+                return this;
+            }
+
+            this.$_instance.find(".form-instance").attr("name", this._options.name);
             return this;
         },
 
@@ -122,6 +128,27 @@
         },
 
         /**
+         * Sets on blur event
+         *
+         * @returns {TestS.Form}
+         *
+         * @private
+         */
+        _setOnBlur: function() {
+            if (this._options.validation === undefined) {
+                return this;
+            }
+
+            this.$_instance.on("blur", $.proxy(function() {
+                var validator = new TestS.Validator(this.getValue(), this._options.validation);
+                var errors = validator.getErrors();
+                console.log(errors);
+            }, this));
+
+            return this;
+        },
+
+        /**
          * Appends to
          *
          * @returns {TestS.Form}
@@ -135,6 +162,15 @@
 
             this.$_instance.appendTo(this._options.appendTo);
             return this;
+        },
+
+        /**
+         * Gets value
+         *
+         * @returns {mixed}
+         */
+        getValue: function() {
+            return this.$_instance.val();
         }
     };
 }(window.jQuery, window.TestS);

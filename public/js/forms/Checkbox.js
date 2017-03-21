@@ -10,6 +10,7 @@
 
         var $inputCheckbox = $("<input/>")
             .attr("type", "checkbox")
+            .addClass("form-instance")
             .addClass("checkbox");
 
         var $iconsContainer = $("<span/>")

@@ -25,6 +25,7 @@ class PageController extends AbstractController
             "lib/jquery.min",
             "TestS",
             "Login",
+            "Validator",
             "forms/Form",
             "forms/Text",
             "forms/Password",
