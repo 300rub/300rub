@@ -59,11 +59,16 @@
                 name: "password",
                 class: "password",
                 placeholder: "Password",
+                validation: {
+                    required: true,
+                    min: 3,
+                    max: 50
+                },
                 appendTo: $whiteContainer
             });
             this.$_passwordInstance = password.getInstance();
 
-            var checkbox = new TestS.Form({
+            new TestS.Form({
                 type: "checkbox",
                 name: "isRemember",
                 appendTo: $login
@@ -86,7 +91,7 @@
         /**
          * Displays button by Webkit Auto Fill:
          *
-         * @returns {TestS.Form}
+         * @returns {TestS.Login}
          *
          * @private
          */
@@ -102,7 +107,7 @@
 
                 i++;
 
-                if (i >= 20) {
+                if (i >= 500) {
                     clearInterval(interval);
                 }
             }, this), 10);
