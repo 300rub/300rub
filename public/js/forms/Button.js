@@ -4,19 +4,19 @@
     /**
      * Text form
      */
-    TestS.Form.prototype.setButton = function () {
-        this.$_instance = $("<button />");
-        this.$_instance.addClass("form-instance");
+    TestS.Form.prototype.setButtonForm = function () {
+        this.$_form = $("<button />");
+        this.$_form.addClass("form-instance");
 
         var html = "";
-        if (this._options.icon !== undefined) {
-            html += '<i class="fa ' + this._options.icon + '"></i>';
+        if (this.options.icon !== undefined) {
+            html += '<i class="fa ' + this.options.icon + '"></i>';
         }
 
-        if (this._options.value !== undefined) {
-            html += html + " " + this._options.value;
+        if (this.options.value !== undefined) {
+            html += html + " " + this.options.value;
         }
 
-        this.$_instance.html(html);
+        this.$_form.html(html);
     };
 }(window.jQuery, window.TestS);

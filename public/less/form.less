@@ -1,3 +1,26 @@
+@import "variables";
+
+.form-container {
+  .error-container {
+    display: none;
+    color: @redTextColor;
+    font-size: 12px;
+    text-align: left;
+    padding: 5px 10px;
+  }
+}
+
+.form-container.error {
+  .error-container {
+    display: block;
+  }
+
+  .form-instance {
+    border-color: @redBorderColor !important;
+  }
+}
+
+
 .form-checkbox {
   display: inline-block;
 

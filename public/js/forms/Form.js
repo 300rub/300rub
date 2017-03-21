@@ -11,7 +11,7 @@
      * @returns {Object}
      */
     TestS.Form = function (options) {
-        this._options = $.extend({}, options);
+        this.options = $.extend({}, options);
         this.init();
     };
 
@@ -27,31 +27,31 @@
          *
          * @var {Object}
          */
-        _options: {},
+        options: {},
 
         /**
-         * Instance
+         * Form Instance
          *
          * @var {Object}
          */
-        $_instance: null,
+        $_form: null,
 
         /**
          * Init
          */
         init: function () {
-            switch (this._options.type) {
+            switch (this.options.type) {
                 case "text":
-                    this.setText();
+                    this.setTextForm();
                     break;
                 case "password":
-                    this.setPassword();
+                    this.setPasswordForm();
                     break;
                 case "checkbox":
-                    this.setCheckbox();
+                    this.setCheckboxForm();
                     break;
                 case "button":
-                    this.setButton();
+                    this.setButtonForm();
                     break;
                 default:
                     return this;
@@ -71,7 +71,7 @@
          * @returns {Object}
          */
         getInstance: function () {
-            return this.$_instance;
+            return this.$_form;
         },
 
         /**
@@ -82,16 +82,11 @@
          * @private
          */
         _setName: function() {
-            if (this._options.name === undefined) {
+            if (this.options.name === undefined) {
                 return this;
             }
 
-            if (this.$_instance.hasClass("form-instance")) {
-                this.$_instance.attr("name", this._options.name);
-                return this;
-            }
-
-            this.$_instance.find(".form-instance").attr("name", this._options.name);
+            this.$_form.find(".form-instance").attr("name", this.options.name);
             return this;
         },
 
@@ -103,11 +98,11 @@
          * @private
          */
         _setPlaceholder: function() {
-            if (this._options.placeholder === undefined) {
+            if (this.options.placeholder === undefined) {
                 return this;
             }
 
-            this.$_instance.attr("placeholder", this._options.placeholder);
+            this.$_form.attr("placeholder", this.options.placeholder);
             return this;
         },
 
@@ -119,11 +114,11 @@
          * @private
          */
         _setClass: function() {
-            if (this._options.class === undefined) {
+            if (this.options.class === undefined) {
                 return this;
             }
 
-            this.$_instance.addClass(this._options.class);
+            this.$_form.addClass(this.options.class);
             return this;
         },
 
@@ -135,12 +130,12 @@
          * @private
          */
         _setOnBlur: function() {
-            if (this._options.validation === undefined) {
+            if (this.options.validation === undefined) {
                 return this;
             }
 
-            this.$_instance.on("blur", $.proxy(function() {
-                var validator = new TestS.Validator(this.getValue(), this._options.validation);
+            this.$_form.on("blur", $.proxy(function() {
+                var validator = new TestS.Validator(this.getValue(), this.options.validation);
                 var errors = validator.getErrors();
                 console.log(errors);
             }, this));
@@ -156,11 +151,11 @@
          * @private
          */
         _appendTo: function() {
-            if (this._options.appendTo === undefined) {
+            if (this.options.appendTo === undefined) {
                 return this;
             }
 
-            this.$_instance.appendTo(this._options.appendTo);
+            this.$_form.appendTo(this.options.appendTo);
             return this;
         },
 
@@ -170,7 +165,7 @@
          * @returns {mixed}
          */
         getValue: function() {
-            return this.$_instance.val();
+            return this.$_form.val();
         }
     };
 }(window.jQuery, window.TestS);

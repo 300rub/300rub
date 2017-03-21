@@ -4,7 +4,7 @@
     /**
      * Checkbox form
      */
-    TestS.Form.prototype.setCheckbox = function () {
+    TestS.Form.prototype.setCheckboxForm = function () {
         var $labelContainer = $("<label/>")
             .addClass("form-checkbox");
 
@@ -34,6 +34,6 @@
         $iconsContainer.append($unchecked);
         $iconsContainer.append($checked);
 
-        this.$_instance = $labelContainer;
+        this.$_form = $labelContainer;
     };
 }(window.jQuery, window.TestS);

@@ -28,34 +28,40 @@ body {
     position: relative;
 
     .user, .password {
-      display: block;
-      width: 328px;
-      height: 42px;
-      background: transparent;
-      font-size: 16px;
-      padding: 10px 12px;
-      line-height: 18px;
-      border: 1px solid @grayBorderColor;
-      position: relative;
-      z-index: 20;
+      .form-instance {
+        display: block;
+        width: 328px;
+        height: 42px;
+        background: transparent;
+        font-size: 16px;
+        padding: 10px 12px;
+        line-height: 18px;
+        border: 1px solid @grayBorderColor;
+        position: relative;
+        z-index: 20;
 
-      &:focus {
-        border-color: @blueBorderColor;
-        z-index: 30;
-      }
+        &:focus {
+          border-color: @blueBorderColor;
+          z-index: 30;
+        }
 
-      &:-webkit-autofill {
-        background-color: black !important;
+        &:-webkit-autofill {
+          background-color: black !important;
+        }
       }
     }
 
     .user {
-      .border-radius (6px 6px 0 0);
+      .form-instance {
+        .border-radius (6px 6px 0 0);
+      }
     }
 
     .password {
-      .border-radius (0 0 6px 6px);
-      margin-top: -1px;
+      .form-instance {
+        .border-radius (0 0 6px 6px);
+        margin-top: -1px;
+      }
     }
   }
 
