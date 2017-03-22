@@ -4,14 +4,14 @@
     /**
      * Gets text form
      *
-     * @param {Object} [options]
+     * @param {Object} [_options]
      *
      * @type {Object}
      *
      * @returns {Object}
      */
-    TestS.Form = function (options) {
-        this.options = $.extend({}, options);
+    TestS.Form = function (_options) {
+        this._options = $.extend({}, _options);
         this.init();
     };
 
@@ -23,11 +23,11 @@
     TestS.Form.prototype = {
 
         /**
-         * Options
+         * _options
          *
          * @var {Object}
          */
-        options: {},
+        _options: {},
 
         /**
          * Form Instance
@@ -40,18 +40,18 @@
          * Init
          */
         init: function () {
-            switch (this.options.type) {
+            switch (this._options.type) {
                 case "text":
-                    this.setTextForm();
+                    this._setTextForm();
                     break;
                 case "password":
-                    this.setPasswordForm();
+                    this._setPasswordForm();
                     break;
                 case "checkbox":
-                    this.setCheckboxForm();
+                    this._setCheckboxForm();
                     break;
                 case "button":
-                    this.setButtonForm();
+                    this._setButtonForm();
                     break;
                 default:
                     return this;
@@ -63,6 +63,55 @@
                 ._setClass()
                 ._setOnBlur()
                 ._appendTo();
+        },
+
+        /**
+         * Sets text form
+         *
+         * @private
+         */
+        _setTextForm: function () {
+            if (this._options.label !== undefined) {
+                this.$_form = TestS.Template.get("form-container-text-label");
+            } else {
+                this.$_form = TestS.Template.get("form-container-text");
+            }
+        },
+
+        /**
+         * Sets password form
+         *
+         * @private
+         */
+        _setPasswordForm: function () {
+            this.$_form = TestS.Template.get("form-container-password");
+        },
+
+        /**
+         * Sets checkbox form
+         *
+         * @private
+         */
+        _setCheckboxForm: function () {
+            this.$_form = TestS.Template.get("form-container-checkbox");
+            if (this._options.label !== undefined) {
+                this.$_form.find(".label-text").text(this._options.label);
+            }
+        },
+
+        /**
+         * Sets button form
+         *
+         * @private
+         */
+        _setButtonForm: function() {
+            this.$_form = TestS.Template.get("form-container-button");
+            if (this._options.icon !== undefined) {
+                this.$_form.find("button i").addClass(this._options.icon);
+            }
+            if (this._options.label !== undefined) {
+                this.$_form.find("button span").text(this._options.label);
+            }
         },
 
         /**
@@ -82,11 +131,11 @@
          * @private
          */
         _setName: function() {
-            if (this.options.name === undefined) {
+            if (this._options.name === undefined) {
                 return this;
             }
 
-            this.$_form.find(".form-instance").attr("name", this.options.name);
+            this.$_form.find(".form-instance").attr("name", this._options.name);
             return this;
         },
 
@@ -98,11 +147,11 @@
          * @private
          */
         _setPlaceholder: function() {
-            if (this.options.placeholder === undefined) {
+            if (this._options.placeholder === undefined) {
                 return this;
             }
 
-            this.$_form.find(".form-instance").attr("placeholder", this.options.placeholder);
+            this.$_form.find(".form-instance").attr("placeholder", this._options.placeholder);
             return this;
         },
 
@@ -114,11 +163,11 @@
          * @private
          */
         _setClass: function() {
-            if (this.options.class === undefined) {
+            if (this._options.class === undefined) {
                 return this;
             }
 
-            this.$_form.addClass(this.options.class);
+            this.$_form.addClass(this._options.class);
             return this;
         },
 
@@ -130,12 +179,12 @@
          * @private
          */
         _setOnBlur: function() {
-            if (this.options.validation === undefined) {
+            if (this._options.validation === undefined) {
                 return this;
             }
 
             this.$_form.on("blur", $.proxy(function() {
-                var validator = new TestS.Validator(this.getValue(), this.options.validation);
+                var validator = new TestS.Validator(this.getValue(), this._options.validation);
                 var errors = validator.getErrors();
                 console.log(errors);
             }, this));
@@ -151,11 +200,11 @@
          * @private
          */
         _appendTo: function() {
-            if (this.options.appendTo === undefined) {
+            if (this._options.appendTo === undefined) {
                 return this;
             }
 
-            this.$_form.appendTo(this.options.appendTo);
+            this.$_form.appendTo(this._options.appendTo);
             return this;
         },
 
