@@ -26,6 +26,7 @@ class PageController extends AbstractController
             "TestS",
             "Login",
             "Validator",
+            "Template",
             "forms/Form",
             "forms/Text",
             "forms/Password",

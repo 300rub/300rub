@@ -6,7 +6,9 @@
 
 <div id="login">
     <h1><?= $h1 ?></h1>
-    <div class="white-container">
+    <div class="white-container"></div>
+</div>
 
-    </div>
+<div id="templates">
+    <?php include(__DIR__ . "/../templates/forms/forms.php"); ?>
 </div>

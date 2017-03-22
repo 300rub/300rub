@@ -102,7 +102,7 @@
                 return this;
             }
 
-            this.$_form.attr("placeholder", this.options.placeholder);
+            this.$_form.find(".form-instance").attr("placeholder", this.options.placeholder);
             return this;
         },
 
