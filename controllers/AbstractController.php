@@ -51,6 +51,17 @@ abstract class AbstractController
     }
 
     /**
+     * Flag is user
+     *
+     * @return bool
+     */
+    protected function isUser()
+    {
+        $user = App::web()->getUser();
+        return $user instanceof User;
+    }
+
+    /**
      * Checks user
      *
      * @return AbstractController
@@ -59,8 +70,7 @@ abstract class AbstractController
      */
     protected function checkUser()
     {
-        $user = App::web()->getUser();
-        if (!$user instanceof User) {
+        if (!$this->isUser()) {
             throw new AccessException("User is null");
         }
 

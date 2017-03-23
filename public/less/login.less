@@ -1,99 +1,21 @@
-@import "webkit";
-@import "default";
-@import "form";
-@import "variables";
-
-body {
-  background: @grayBackground;
-}
-
-#login {
+#login-button {
   position: fixed;
-  left: 50%;
-  top: 50%;
-  margin-left: -164px;
-  margin-top: -150px;
-  text-align: center;
+  z-index: 1000;
+  right: 0;
+  bottom: 0;
+  border: 0;
+  background: #eee;
+  border-radius: 32px 0 0 0;
+  display: block;
+  width: 36px;
+  height: 36px;
+  cursor: pointer;
+  font-size: 18px;
+  opacity: 0;
+  text-align: right;
+  padding: 5px 5px 0 0;
 
-  h1 {
-    font-weight: 300;
-    font-size: 40px;
-    margin: 12px 0;
-  }
-
-  .white-container {
-    .border-radius (6px);
-    background: white;
-    overflow: hidden;
-    position: relative;
-
-    .user, .password {
-      .form-instance {
-        display: block;
-        width: 328px;
-        height: 42px;
-        background: transparent;
-        font-size: 16px;
-        padding: 10px 12px;
-        line-height: 18px;
-        border: 1px solid @grayBorderColor;
-        position: relative;
-        z-index: 20;
-
-        &:focus {
-          border-color: @blueBorderColor;
-          z-index: 30;
-        }
-
-        &:-webkit-autofill {
-          background-color: black !important;
-        }
-      }
-    }
-
-    .user {
-      .form-instance {
-        .border-radius (6px 6px 0 0);
-      }
-    }
-
-    .password {
-      .form-instance {
-        .border-radius (0 0 6px 6px);
-        margin-top: -1px;
-      }
-    }
-  }
-
-  .form-checkbox {
-    margin-top: 10px;
-  }
-
-  .button {
-    position: absolute;
-    right: 8px;
-    bottom: 8px;
-    font-size: 18px;
-    width: 26px;
-    height: 26px;
-    text-align: center;
-    background: none;
-    color: @defaultTextColor;
-    border: 1px solid @defaultTextColor;
-    .border-radius(50%);
-    padding-left: 2px;
-    z-index: 40;
-    cursor: pointer;
-
-    &:hover {
-      color: @blueBorderColor;
-      border-color: @blueBorderColor;
-    }
-  }
-
-  .button.disabled {
-    color: @grayBorderColor;
-    border-color: @grayBorderColor;
-    z-index: 10;
+  &:hover {
+    opacity: 1;
   }
 }

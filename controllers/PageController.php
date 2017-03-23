@@ -12,11 +12,11 @@ class PageController extends AbstractController
 {
 
     /**
-     * Static map for DEV login
+     * Static map for DEV
      *
      * @var array
      */
-    private static $_loginDevStaticMap = [
+    private static $_pageDevStaticMap = [
         "css" => [
             "fonts/OpenSans/font",
             "lib/fa/css/font-awesome.min",
@@ -24,12 +24,12 @@ class PageController extends AbstractController
         "js" => [
             "lib/jquery.min",
             "TestS",
-            "Login",
             "Validator",
             "Template",
             "Form",
         ],
         "less" => [
+            "window",
             "login"
         ]
     ];
@@ -41,11 +41,17 @@ class PageController extends AbstractController
      */
     public function getLoginPage()
     {
-        $data = self::$_loginDevStaticMap;
+        $data = self::$_pageDevStaticMap;
 
-        $data["content"] = $this->getContentFromTemplate("page/login", [
-            "h1" => Language::t("user", "loginH1")
-        ]);
+        $content = "";
+        if ($this->isUser()) {
+
+        } else {
+            $data["js"][] = "Login";
+            $content .= $this->getContentFromTemplate("page/login");
+        }
+
+        $data["content"] = $content;
 
         return $this->getContentFromTemplate("page/layout", $data);
     }
