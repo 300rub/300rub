@@ -35,11 +35,6 @@ class Web extends AbstractApplication
     const API_URL = "api";
 
     /**
-     * Login url
-     */
-    const LOGIN_URL = "login";
-
-    /**
      * Flag of using transaction
      *
      * @var bool
@@ -73,12 +68,7 @@ class Web extends AbstractApplication
                 header('Content-Type: application/json');
                 $output = $this->_getAjaxOutput();
             } else {
-                $controller = new PageController();
-                if (strpos(trim($_SERVER["REQUEST_URI"], "/"), self::LOGIN_URL) === 0) {
-                    $output = $controller->getLoginPage();
-                } else {
-                    $output = 2;
-                }
+                $output = (new PageController())->getPage();
             }
         } catch (Exception $e) {
             if ($this->_useTransaction === true) {

@@ -1,7 +1,8 @@
 <?php
 
 namespace testS\controllers;
-use testS\components\Language;
+
+use testS\models\SeoModel;
 
 /**
  * PageController
@@ -12,11 +13,11 @@ class PageController extends AbstractController
 {
 
     /**
-     * Static map for DEV
+     * Common Dev Static Map
      *
      * @var array
      */
-    private static $_pageDevStaticMap = [
+    private static $_commonDevStaticMap = [
         "css" => [
             "fonts/OpenSans/font",
             "lib/fa/css/font-awesome.min",
@@ -29,9 +30,60 @@ class PageController extends AbstractController
             "Form",
         ],
         "less" => [
-            "window",
+            "window"
+        ]
+    ];
+
+    /**
+     * Guest Dev Static Map
+     *
+     * @var array
+     */
+    private static $_guestDevStaticMap = [
+        "js" => [
+            "Login"
+        ],
+        "less" => [
             "login"
         ]
+    ];
+
+    /**
+     * User Dev Static Map
+     *
+     * @var array
+     */
+    private static $_userDevStaticMap = [
+
+    ];
+
+    /**
+     * Common templates map
+     *
+     * @var array
+     */
+    private static $_commonTemplatesMap = [
+        "forms/text",
+        "forms/password",
+        "forms/checkbox",
+    ];
+
+    /**
+     * Guest templates map
+     *
+     * @var array
+     */
+    private static $_guestTemplatesMap = [
+
+    ];
+
+    /**
+     * User templates map
+     *
+     * @var array
+     */
+    private static $_userTemplatesMap = [
+
     ];
 
     /**
@@ -39,20 +91,63 @@ class PageController extends AbstractController
      *
      * @return string
      */
-    public function getLoginPage()
+    public function getPage()
     {
-        $data = self::$_pageDevStaticMap;
+        $content = $this->_getCommonContent();
 
-        $content = "";
         if ($this->isUser()) {
+            $layoutData = array_merge_recursive(self::$_commonDevStaticMap, self::$_userDevStaticMap);
+            $templatesMap = array_merge(self::$_commonTemplatesMap, self::$_userTemplatesMap);
 
+            $content .= $this->_getUserContent();
         } else {
-            $data["js"][] = "Login";
-            $content .= $this->getContentFromTemplate("page/login");
+            $layoutData = array_merge_recursive(self::$_commonDevStaticMap, self::$_guestDevStaticMap);
+            $templatesMap = array_merge(self::$_commonTemplatesMap, self::$_guestTemplatesMap);
+
+            $content .= $this->_getGuestContent();
         }
 
-        $data["content"] = $content;
+        $content .= $this->getContentFromTemplate("templates/templates", ["templates" => array_unique($templatesMap)]);
 
-        return $this->getContentFromTemplate("page/layout", $data);
+        $layoutData["content"] = $content;
+        $layoutData["title"] = SeoModel::getTitle();
+        $layoutData["keywords"] = SeoModel::getKeywords();
+        $layoutData["description"] = SeoModel::getDescription();
+
+        return $this->getContentFromTemplate("page/layout", $layoutData);
+    }
+
+    /**
+     * Gets common content
+     *
+     * @return string
+     */
+    private function _getCommonContent()
+    {
+        SeoModel::setTitle("title");
+        SeoModel::setKeywords("keywords");
+        SeoModel::setDescription("description");
+
+        return "";
+    }
+
+    /**
+     * Gets content for guest only
+     *
+     * @return string
+     */
+    private function _getGuestContent()
+    {
+        return $this->getContentFromTemplate("page/loginButton");
+    }
+
+    /**
+     * Gets content for user only
+     *
+     * @return string
+     */
+    private function _getUserContent()
+    {
+        return $this->getContentFromTemplate("page/userButtons");
     }
 }

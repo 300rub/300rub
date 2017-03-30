@@ -2,9 +2,9 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Site</title>
-    <meta name="keywords" content=""/>
-    <meta name="description" content=""/>
+    <title><?= $title ?></title>
+    <meta name="keywords" content="<?= $keywords ?>"/>
+    <meta name="description" content="<?= $description ?>"/>
    <?php if (isset($css)) { foreach ($css as $fileName) { ?>
         <link rel="stylesheet" type="text/css" href="/css/<?= $fileName ?>.css" />
     <?php } } ?>

@@ -14,6 +14,87 @@ class SeoModel extends AbstractModel
 {
 
     /**
+     * Page title
+     *
+     * @var string
+     */
+    private static $_title;
+
+    /**
+     * Page keywords
+     *
+     * @var string
+     */
+    private static $_keywords;
+
+    /**
+     * Page description
+     *
+     * @var string
+     */
+    private static $_description;
+
+    /**
+     * Sets page title
+     *
+     * @param string $title
+     */
+    public static function setTitle($title)
+    {
+        self::$_title = $title;
+    }
+
+    /**
+     * Gets page title
+     *
+     * @return string
+     */
+    public static function getTitle()
+    {
+        return self::$_title;
+    }
+
+    /**
+     * Sets page keywords
+     *
+     * @param string $keywords
+     */
+    public static function setKeywords($keywords)
+    {
+        self::$_keywords = $keywords;
+    }
+
+    /**
+     * Gets page keywords
+     *
+     * @return string
+     */
+    public static function getKeywords()
+    {
+        return self::$_keywords;
+    }
+
+    /**
+     * Sets page description
+     *
+     * @param string $description
+     */
+    public static function setDescription($description)
+    {
+        self::$_description = $description;
+    }
+
+    /**
+     * Gets page description
+     *
+     * @return string
+     */
+    public static function getDescription()
+    {
+        return self::$_description;
+    }
+
+    /**
      * Gets table name
      *
      * @return string
