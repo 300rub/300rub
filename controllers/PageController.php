@@ -2,6 +2,7 @@
 
 namespace testS\controllers;
 
+use testS\components\Operation;
 use testS\models\SeoModel;
 
 /**
@@ -18,11 +19,11 @@ class PageController extends AbstractController
      * @var array
      */
     private static $_commonDevStaticMap = [
-        "css" => [
+        "css"  => [
             "fonts/OpenSans/font",
             "lib/fa/css/font-awesome.min",
         ],
-        "js" => [
+        "js"   => [
             "lib/jquery.min",
             "TestS",
             "Validator",
@@ -40,7 +41,7 @@ class PageController extends AbstractController
      * @var array
      */
     private static $_guestDevStaticMap = [
-        "js" => [
+        "js"   => [
             "Login"
         ],
         "less" => [
@@ -148,6 +149,37 @@ class PageController extends AbstractController
      */
     private function _getUserContent()
     {
-        return $this->getContentFromTemplate("page/userButtons");
+        $isDisplaySections = false;
+        $isDisplayBlocks = false;
+        $isDisplaySettings = false;
+
+        if ($this->getUserIsOwner() === true) {
+            $isDisplaySections = true;
+            $isDisplayBlocks = true;
+            $isDisplaySettings = true;
+        } else {
+            $operations = $this->getUserOperations();
+
+            if (array_key_exists(Operation::TYPE_SECTIONS, $operations)) {
+                $isDisplaySections = true;
+            }
+
+            if (array_key_exists(Operation::TYPE_BLOCKS, $operations)) {
+                $isDisplayBlocks = true;
+            }
+
+            if (array_key_exists(Operation::TYPE_SETTINGS, $operations)) {
+                $isDisplaySettings = true;
+            }
+        }
+
+        return $this->getContentFromTemplate(
+            "page/userButtons",
+            [
+                "isDisplaySections" => $isDisplaySections,
+                "isDisplayBlocks"   => $isDisplayBlocks,
+                "isDisplaySettings" => $isDisplaySettings,
+            ]
+        );
     }
 }

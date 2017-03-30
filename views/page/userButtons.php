@@ -74,19 +74,33 @@
     }
 </style>
 
+<?php
+/**
+ * @var bool $isDisplayBlocks
+ * @var bool $isDisplaySections
+ * @var bool $isDisplaySettings
+ */
+?>
+
 <div id="admin-buttons">
-    <a>
-        <span>Blocks</span>
-        <i class="fa fa-th-large"></i>
-    </a>
-    <a>
-        <span>Sections</span>
-        <i class="fa fa-file-o"></i>
-    </a>
-    <a>
-        <span>Settings</span>
-        <i class="fa fa-wrench"></i>
-    </a>
+    <?php if ($isDisplayBlocks === true) { ?>
+        <a>
+            <span>Blocks</span>
+            <i class="fa fa-th-large"></i>
+        </a>
+    <?php } ?>
+    <?php if ($isDisplaySections === true) { ?>
+        <a>
+            <span>Sections</span>
+            <i class="fa fa-file-o"></i>
+        </a>
+    <?php } ?>
+    <?php if ($isDisplaySettings === true) { ?>
+        <a>
+            <span>Settings</span>
+            <i class="fa fa-wrench"></i>
+        </a>
+    <?php } ?>
     <a>
         <span>Help</span>
         <i class="fa fa-question"></i>
