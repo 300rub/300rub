@@ -16,6 +16,92 @@ class UserControllerTest extends AbstractControllerTest
 {
 
     /**
+     * Test for getting login forms
+     *
+     * @param string $userType
+     * @param array  $expectedData
+     * @param bool   $isError
+     *
+     * @dataProvider dataProviderForTestGetLoginForms
+     */
+    public function testGetLoginForms($userType, $expectedData, $isError = false)
+    {
+        $this->setUser($userType);
+
+        // Send request
+        $this->sendRequest("user", "loginForms");
+
+        $actualBody = $this->getBody();
+
+        if ($isError) {
+            $this->assertArrayHasKey("error", $actualBody);
+        } else {
+            $this->compareExpectedAndActual($expectedData, $actualBody, true);
+        }
+    }
+
+    /**
+     * Data provider for testGetLoginForms
+     *
+     * @return array
+     */
+    public function dataProviderForTestGetLoginForms()
+    {
+        return [
+            [
+                self::TYPE_OWNER,
+                [],
+                true
+            ],
+            [
+                self::TYPE_USER,
+                [],
+                true
+            ],
+            [
+                null,
+                [
+                    "title" => "Login",
+                    "forms" => [
+                        "login"    => [
+                            "name"       => "login",
+                            "type"       => "text",
+                            "label"      => "User",
+                            "validation" => [
+                                "required"                   => "required",
+                                "minLength"                  => 3,
+                                "maxLength"                  => 50,
+                                "latinDigitUnderscoreHyphen" => "latinDigitUnderscoreHyphen"
+                            ]
+                        ],
+                        "password" => [
+                            "name"       => "password",
+                            "type"       => "password",
+                            "label"      => "Password",
+                            "validation" => [
+                                "required"  => "required",
+                                "minLength" => 3,
+                                "maxLength" => 40,
+                            ]
+                        ],
+                        "label"    => [
+                            "name"  => "isRemember",
+                            "type"  => "checkbox",
+                            "label" => "Remember me",
+                        ],
+                        "button"   => [
+                            "type"       => "button",
+                            "label"      => "Go",
+                            "controller" => "user",
+                            "action"     => "session"
+                        ]
+                    ]
+                ]
+            ],
+        ];
+    }
+
+    /**
      * Test for adding session
      *
      * @param array $data
@@ -68,7 +154,9 @@ class UserControllerTest extends AbstractControllerTest
         if ($data["isRemember"] === true) {
             $this->assertSame($tokenFromCookie, $token);
         } else {
-            $this->assertNull($tokenFromCookie);
+            if ($tokenFromCookie !== "deleted") {
+                $this->assertNull($tokenFromCookie);
+            }
         }
 
         // Remove

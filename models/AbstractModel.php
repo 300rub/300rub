@@ -991,14 +991,55 @@ abstract class AbstractModel
     {
         $info = $this->getFieldsInfo();
 
-        foreach ($info as $field => $fieldInfo) {
-            if (array_key_exists(self::FIELD_VALIDATION, $fieldInfo)) {
-                $validator = new Validator($this->get($field), $fieldInfo[self::FIELD_VALIDATION]);
-                $this->addErrors($field, $validator->validate()->getErrors());
+        foreach (array_keys($info) as $field) {
+            $rules = $this->getValidationRulesForField($field);
+            if (count($rules) === 0) {
+                continue;
             }
+
+            $validator = new Validator($this->get($field), $rules);
+            $this->addErrors($field, $validator->validate()->getErrors());
         }
 
         return $this;
+    }
+
+    /**
+     * Gets validation rules for field
+     *
+     * @param string $field
+     *
+     * @return array
+     *
+     * @throws ModelException
+     */
+    public final function getValidationRulesForField($field)
+    {
+        $info = $this->getFieldsInfo();
+        if (!array_key_exists($field, $info)) {
+            throw new ModelException(
+                "Unable to find field: {field} for model: {model}",
+                [
+                    "field" => $field,
+                    "model" => get_class($this)
+                ]
+            );
+        }
+
+        if (!array_key_exists(self::FIELD_VALIDATION, $info[$field])) {
+            return [];
+        }
+
+        $rules = [];
+        foreach ($info[$field][self::FIELD_VALIDATION] as $key => $value) {
+            if (!is_string($key)) {
+                $key = $value;
+            }
+
+            $rules[$key] = $value;
+        }
+
+        return $rules;
     }
 
     /**

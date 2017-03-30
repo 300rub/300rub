@@ -21,6 +21,14 @@ abstract class AbstractController
     const DISPLAY_BLOCKS_FROM_SECTION = "displayBlocksFromSection";
 
     /**
+     * Form types
+     */
+    const FORM_TYPE_TEXT = "text";
+    const FORM_TYPE_PASSWORD = "password";
+    const FORM_TYPE_CHECKBOX = "checkbox";
+    const FORM_TYPE_BUTTON = "button";
+
+    /**
      * Request data
      *
      * @var array

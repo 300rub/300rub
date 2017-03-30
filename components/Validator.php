@@ -62,24 +62,16 @@ class Validator
 	 */
 	public function validate()
 	{
-		$rulesMap = [];
 		foreach ($this->_rules as $key => $value) {
-			$rulesMap[] = [
-				"method" => is_string($key) ? $key : $value,
-				"value"  => $value
-			];
-		}
-
-		foreach ($rulesMap as $item) {
-			switch ($item["method"]) {
+			switch ($key) {
 				case self::TYPE_REQUIRED:
 					$this->_checkRequired();
 					break;
 				case self::TYPE_MIN_LENGTH:
-					$this->_checkMinLength($item["value"]);
+					$this->_checkMinLength($value);
 					break;
 				case self::TYPE_MAX_LENGTH:
-					$this->_checkMaxLength($item["value"]);
+					$this->_checkMaxLength($value);
 					break;
 				case self::TYPE_URL:
 					$this->_checkUrl();

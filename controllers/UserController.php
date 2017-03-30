@@ -5,6 +5,7 @@ namespace testS\controllers;
 use testS\applications\App;
 use testS\components\exceptions\AccessException;
 use testS\components\exceptions\BadRequestException;
+use testS\components\Language;
 use testS\models\UserModel;
 use testS\models\UserSessionModel;
 use testS\components\User;
@@ -16,6 +17,54 @@ use testS\components\User;
  */
 class UserController extends AbstractController
 {
+
+    /**
+     * Gets login forms
+     */
+    public function getLoginForms()
+    {
+        if ($this->isUser()) {
+            throw new AccessException(
+                "Unable to get login forms because user is already in context"
+            );
+        }
+
+        $model = new UserModel();
+
+        return [
+            "title" => Language::t("user", "loginTitle"),
+            "forms" => [
+                "login"    => [
+                    "name"       => "login",
+                    "type"       => self::FORM_TYPE_TEXT,
+                    "label"      => Language::t("user", "user"),
+                    "validation" => $model->getValidationRulesForField("login")
+                ],
+                "password" => [
+                    "name"       => "password",
+                    "type"       => self::FORM_TYPE_PASSWORD,
+                    "label"      => Language::t("user", "password"),
+                    "validation" => array_merge(
+                        $model->getValidationRulesForField("password"),
+                        [
+                            "minLength" => 3
+                        ]
+                    )
+                ],
+                "label"    => [
+                    "name"  => "isRemember",
+                    "type"  => self::FORM_TYPE_CHECKBOX,
+                    "label" => Language::t("user", "isRemember"),
+                ],
+                "button"   => [
+                    "type"       => self::FORM_TYPE_BUTTON,
+                    "label"      => Language::t("user", "loginButton"),
+                    "controller" => "user",
+                    "action"     => "session"
+                ]
+            ]
+        ];
+    }
 
     /**
      * Adds user session. Sets User / Login
@@ -112,8 +161,8 @@ class UserController extends AbstractController
         if (!array_key_exists("token", $data)) {
             App::web()->getMemcached()->delete($user->getToken());
 
-//            unset($_COOKIE['token']);
-//            setcookie('token', '', time() - 3600);
+            setcookie('token', '', time() - 3600);
+            unset($_COOKIE['token']);
 
             $userSessionModel = (new UserSessionModel())->byToken($user->getToken())->find();
             if ($userSessionModel instanceof UserSessionModel) {
