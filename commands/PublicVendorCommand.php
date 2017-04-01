@@ -37,6 +37,7 @@ class PublicVendorCommand extends AbstractCommand
         "fa/fonts/fontawesome-webfont.ttf"       => "FortAwesome/Font-Awesome/fonts/fontawesome-webfont.ttf",
         "fa/fonts/fontawesome-webfont.woff"      => "FortAwesome/Font-Awesome/fonts/fontawesome-webfont.woff",
         "fa/fonts/fontawesome-webfont.woff2"     => "FortAwesome/Font-Awesome/fonts/fontawesome-webfont.woff2",
+        "hover-min.css"                          => "IanLunn/Hover/css/hover-min.css",
     ];
 
     /**

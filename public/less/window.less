@@ -1,38 +1,77 @@
-@import "default";
+@import "webkit";
+@import "variables";
+@import "helpers";
 
 .window {
+  left: 50%;
+  top: 50px;
+  background: white;
   position: fixed;
   z-index: 1000;
-  background-color: white;
-  max-height: 70%;
-  top: 50%;
-  left: 50%;
-  right: auto;
-  bottom: auto;
-  transform: translate(-50%, -50%);
-  display: block;
-  width: 300px;
-  overflow-y: auto;
-  overflow-x: hidden;
+  width: 800px;
+  margin-left: -400px;
+  border: 1px solid @blueBorderColor;
+  .border-radius(4px);
 
   .header {
-    position: absolute;
-    top: 0;
-    background: white;
-    left: 0;
-    height: 50px;
-    width: 100%;
-    border: 1px solid #ccc;
+    height: 42px;
+    border-bottom: 1px solid @grayBorderColor;
+
+    .title {
+      padding: 0 25px;
+      line-height: 40px;
+      font-size: 22px;
+      font-weight: 300;
+    }
+
+    .close {
+      .grayRedLink;
+      position: absolute;
+      width: 40px;
+      height: 40px;
+      line-height: 40px;
+      display: block;
+      text-align: center;
+      font-size: 22px;
+      top: 0;
+      right: 0;
+    }
+  }
+
+  .body {
+    padding: 5px 25px;
   }
 
   .footer {
-    position: absolute;
-    bottom: -50px;
-    background: white;
-    left: 0;
-    height: 50px;
-    width: 100%;
-    border: 1px solid #ccc;
+    height: 60px;
+    border-top: 1px solid @grayBorderColor;
+    position: relative;
+    margin: 0 25px;
+
+    .submit {
+      .gradient-vertical(#42a1ec, #0070c9);
+      border: 1px solid #07c;
+      color: white;
+      height: 36px;
+      padding: 0 30px;
+      position: absolute;
+      bottom: 12px;
+      right: 0;
+      .border-radius(4px);
+      font-size: 16px;
+
+      &:hover {
+        .gradient-vertical(#51a9ee, #147bcd);
+      }
+
+      &:focus {
+        box-shadow: 0 0 0 3px rgba(131, 192, 253, 0.5);
+      }
+
+      * {
+        color: white;
+      }
+    }
   }
 }
 
@@ -43,5 +82,5 @@
   top: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.25);
+  background: rgba(0, 0, 0, .2);
 }

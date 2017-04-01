@@ -22,6 +22,7 @@ class PageController extends AbstractController
         "css"  => [
             "fonts/OpenSans/font",
             "lib/fa/css/font-awesome.min",
+            "lib/hover-min",
         ],
         "js"   => [
             "lib/jquery.min",
@@ -31,6 +32,8 @@ class PageController extends AbstractController
             "Form",
         ],
         "less" => [
+            "default",
+            "form",
             "window"
         ]
     ];

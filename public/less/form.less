@@ -1,60 +1,121 @@
 @import "variables";
+@import "webkit";
 
 .form-container {
-  .error-container {
-    display: none;
-    color: @redTextColor;
-    font-size: 12px;
-    text-align: left;
-    padding: 5px 10px;
+  margin: 15px 0;
+
+  label {
+    .label-text {
+      display: block;
+      font-weight: bold;
+      font-size: 14px;
+      padding: 0 4px;
+    }
+
+    .form-instance-container {
+      position: relative;
+      display: block;
+
+      .form-instance {
+        border: 1px solid @grayBorderColor;
+        padding: 2px 24px 4px 10px;
+        line-height: 22px;
+        .border-radius(4px);
+        font-size: 15px;
+        width: 100%;
+
+        &:hover {
+          border-color: @blueBorderColor;
+        }
+
+        &:focus {
+          border-color: @blueBorderColor;
+          box-shadow: 0 0 0 3px rgba(131, 192, 253, 0.5);
+        }
+      }
+
+      i.error {
+        position: absolute;
+        right: 9px;
+        top: 6px;
+        color: @redTextColor;
+        font-size: 16px;
+        display: none;
+      }
+    }
+
+    span.error {
+      color: @redTextColor;
+      font-size: 12px;
+      padding: 0 4px;
+      display: none;
+    }
   }
 }
 
 .form-container.error {
-  .error-container {
-    display: block;
+  label {
+    .form-instance-container {
+      .form-instance {
+        border-color: @redBorderColor;
+      }
+
+      i.error {
+        display: block;
+      }
+    }
   }
 
-  .form-instance {
-    border-color: @redBorderColor !important;
+  span.error {
+    display: block;
   }
 }
 
 
-.form-checkbox {
-  display: inline-block;
-
-  .icons {
-    font-size: 17px;
-    width: 24px;
-    display: inline-block;
-    vertical-align: top;
-
-    .fa-square-o {
+.form-container-checkbox {
+  label {
+    .icons {
+      font-size: 17px;
+      width: 18px;
       display: inline-block;
-    }
+      vertical-align: top;
 
-    .fa-check-square-o {
-      display: none;
-      margin-left: 2px;
-    }
-  }
-
-  .label {
-    font-size: 14px;
-  }
-
-  .checkbox {
-    display: none;
-
-    &:checked + .icons {
       .fa-square-o {
-        display: none;
+        display: inline-block;
+        color: @grayBorderColor;
       }
 
       .fa-check-square-o {
-        display: inline-block;
-        color: #1780fb;
+        display: none;
+        color: @blueBorderColor;
+      }
+    }
+
+    span.label-text {
+      display: inline-block;
+      font-weight: 400;
+      padding-left: 0;
+    }
+
+    .form-instance {
+      display: none;
+
+      &:checked + .icons {
+        .fa-square-o {
+          display: none;
+        }
+
+        .fa-check-square-o {
+          display: inline-block;
+        }
+      }
+    }
+
+    &:hover {
+      .icons {
+        .fa-square-o {
+          color: @blueBorderColor;
+        }
       }
     }
   }
