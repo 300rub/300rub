@@ -4,14 +4,14 @@
     /**
      * Gets text form
      *
-     * @param {Object} [_options]
+     * @param {Object} [options]
      *
      * @type {Object}
      *
      * @returns {Object}
      */
-    TestS.Form = function (_options) {
-        this._options = $.extend({}, _options);
+    TestS.Form = function (options) {
+        this._options = $.extend({}, options);
         this.init();
     };
 

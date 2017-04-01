@@ -1,3 +1,15 @@
+<?php
+/**
+ * @var string $title
+ * @var string $keywords
+ * @var string $description
+ * @var string[] $css
+ * @var string[] $less
+ * @var string[] $js
+ * @var string $content
+ */
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -30,6 +42,8 @@
 <body>
 
 <?php echo $content; ?>
+
+<div id="ajax-wrapper"></div>
 
 </body>
 </html>

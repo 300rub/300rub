@@ -21,7 +21,9 @@
          * Init
          */
         init: function () {
-
+            $("#login-button").on("click", function () {
+                new TestS.Window();
+            });
         }
     };
 

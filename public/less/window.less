@@ -4,7 +4,7 @@
 
 .window {
   left: 50%;
-  top: 50px;
+  top: 25px;
   background: white;
   position: fixed;
   z-index: 1000;
@@ -72,6 +72,43 @@
         color: white;
       }
     }
+  }
+
+  .loader {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    font-size: 50px;
+    margin-top: -24px;
+    margin-left: -24px;
+    color: @blueBorderColor;
+    display: none;
+  }
+}
+
+.window.loading {
+  .header {
+    border-bottom: none;
+
+    .title {
+      display: none;
+    }
+  }
+
+  .body {
+    display: none;
+  }
+
+  .footer {
+    border-top: none;
+
+    * {
+      display: none;
+    }
+  }
+
+  .loader {
+    display: block;
   }
 }
 

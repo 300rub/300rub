@@ -30,6 +30,7 @@ class PageController extends AbstractController
             "Validator",
             "Template",
             "Form",
+            "Window",
         ],
         "less" => [
             "default",
@@ -70,6 +71,7 @@ class PageController extends AbstractController
         "forms/text",
         "forms/password",
         "forms/checkbox",
+        "window/window",
     ];
 
     /**
