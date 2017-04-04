@@ -23,6 +23,13 @@
         $_templates: null,
 
         /**
+         * Flag of having window
+         *
+         * @var {Boolean}
+         */
+        hasWindow: false,
+
+        /**
          * Gets ajax wrapper
          *
          * @returns {Object}

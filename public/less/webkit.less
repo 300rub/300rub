@@ -20,3 +20,15 @@
   background: linear-gradient(to bottom, @from 0%, @to 100%);
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='@from', endColorstr='@to', GradientType=0);
 }
+
+.transition-duration(@transition-duration: .3s) {
+  -webkit-transition-duration: @transition-duration;
+  -moz-transition-duration: @transition-duration;
+  -o-transition-duration: @transition-duration;
+  transition-duration: @transition-duration;
+}
+
+.transition-property(@value) {
+  -webkit-transition-property: @value;
+  transition-property: @value;
+}

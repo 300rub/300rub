@@ -3,6 +3,8 @@
 @import "helpers";
 
 .window {
+  .transition-duration(.15s);
+  .transition-property(opacity);
   left: 50%;
   top: 25px;
   background: white;
@@ -10,8 +12,6 @@
   z-index: 1000;
   width: 800px;
   margin-left: -400px;
-  border: 1px solid @blueBorderColor;
-  .border-radius(4px);
 
   .header {
     height: 42px;
@@ -78,9 +78,9 @@
     position: absolute;
     left: 50%;
     top: 50%;
-    font-size: 50px;
-    margin-top: -24px;
-    margin-left: -24px;
+    font-size: 40px;
+    margin-top: -20px;
+    margin-left: -20px;
     color: @blueBorderColor;
     display: none;
   }
@@ -113,6 +113,8 @@
 }
 
 .window-overlay {
+  .transition-duration(.15s);
+  .transition-property(opacity);
   position: fixed;
   z-index: 990;
   left: 0;
