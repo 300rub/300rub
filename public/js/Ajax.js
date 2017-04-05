@@ -53,11 +53,12 @@
          * @private
          */
         _getData: function () {
-            if ($.type(this._options.data) !== "object") {
-                return {};
-            }
-
-            return this._options.data;
+            return $.extend(
+                {
+                    language: TestS.getLanguage()
+                },
+                this._options.data
+            );
         },
 
         /**

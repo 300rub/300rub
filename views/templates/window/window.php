@@ -6,12 +6,7 @@
 
     <div class="body"></div>
 
-    <div class="footer">
-        <button class="submit">
-            <i class="fa"></i>
-            <span></span>
-        </button>
-    </div>
+    <div class="footer"></div>
 
     <i class="fa fa-circle-o-notch fa-spin loader"></i>
 </div>

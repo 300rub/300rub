@@ -1,4 +1,4 @@
-<div class="form-container form-container-text-label">
+<div class="form-container form-container-text">
     <label>
         <span class="label-text"></span>
         <span class="form-instance-container">

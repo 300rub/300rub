@@ -1,12 +1,13 @@
 <?php
 /**
- * @var string $title
- * @var string $keywords
- * @var string $description
+ * @var string   $title
+ * @var string   $keywords
+ * @var string   $description
  * @var string[] $css
  * @var string[] $less
  * @var string[] $js
- * @var string $content
+ * @var string   $content
+ * @var int      $language
  */
 ?>
 
@@ -38,6 +39,12 @@
             };
         </script>
     <?php } ?>
+
+    <script>
+        window.jQuery(document).ready(function() {
+            window.TestS.setLanguage(<?= $language ?>);
+        });
+    </script>
 </head>
 <body>
 

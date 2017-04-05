@@ -9,48 +9,38 @@
     window.TestS = {
 
         /**
-         * Ajax wrapper
+         * Wrapper
          *
          * @var {Object}
          */
-        $_ajaxWrapper: null,
+        $_wrapper: null,
 
         /**
-         * Templates
+         * Language
          *
-         * @var {Object}
+         * @var {number}
          */
-        $_templates: null,
+        _language: 0,
 
         /**
-         * Flag of having window
+         * Sets language
          *
-         * @var {Boolean}
-         */
-        hasWindow: false,
-
-        /**
-         * Gets ajax wrapper
+         * @param {number} language
          *
-         * @returns {Object}
+         * @returns {TestS}
          */
-        getAjaxWrapper: function () {
-            if (this.$_ajaxWrapper === null) {
-                this.$_ajaxWrapper = $("#ajax-wrapper");
-            }
-            return this.$_ajaxWrapper;
+        setLanguage: function(language) {
+            this._language = language;
+            return this;
         },
 
         /**
-         * Gets templates
+         * Gets language
          *
-         * @returns {Object}
+         * @returns {number}
          */
-        getTemplates: function () {
-            if (this.$_templates === null) {
-                this.$_templates = $("#templates");
-            }
-            return this.$_templates;
+        getLanguage: function() {
+            return this._language;
         },
 
         /**
@@ -60,9 +50,13 @@
          *
          * @returns {TestS}
          */
-        appendToAjaxWrapper: function ($object)
+        append: function ($object)
         {
-            this.getAjaxWrapper().append($object);
+            if (this.$_wrapper === null) {
+                this.$_wrapper = $("#ajax-wrapper");
+            }
+
+            this.$_wrapper.append($object);
             return this;
         }
     }

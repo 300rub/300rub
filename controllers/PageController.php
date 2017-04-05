@@ -2,6 +2,7 @@
 
 namespace testS\controllers;
 
+use testS\components\Language;
 use testS\components\Operation;
 use testS\models\SeoModel;
 
@@ -32,6 +33,7 @@ class PageController extends AbstractController
             "Ajax",
             "Form",
             "Window",
+            "window/Login",
         ],
         "less" => [
             "default",
@@ -72,6 +74,7 @@ class PageController extends AbstractController
         "forms/text",
         "forms/password",
         "forms/checkbox",
+        "forms/button",
         "window/window",
     ];
 
@@ -120,6 +123,7 @@ class PageController extends AbstractController
         $layoutData["title"] = SeoModel::getTitle();
         $layoutData["keywords"] = SeoModel::getKeywords();
         $layoutData["description"] = SeoModel::getDescription();
+        $layoutData["language"] = Language::getActiveId();
 
         return $this->getContentFromTemplate("page/layout", $layoutData);
     }

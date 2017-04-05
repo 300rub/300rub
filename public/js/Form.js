@@ -105,12 +105,17 @@
          * @private
          */
         _setButtonForm: function() {
-            this.$_form = TestS.Template.get("form-container-button");
+            this.$_form = TestS.Template.get("form-button");
+            console.log(this._options);
+
             if (this._options.icon !== undefined) {
-                this.$_form.find("button i").addClass(this._options.icon);
+                this.$_form.find(".icons .icon").addClass(this._options.icon);
+            } else {
+                this.$_form.find(".icons ").remove();
             }
+
             if (this._options.label !== undefined) {
-                this.$_form.find("button span").text(this._options.label);
+                this.$_form.find(".label").text(this._options.label);
             }
         },
 
