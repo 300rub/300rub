@@ -115,7 +115,18 @@
          * @private
          */
         _loadData: function() {
+            new TestS.Ajax({
+                data: {
+                    controller: "user",
+                    action: "loginForms",
+                    language: 1
+                },
+                success: this._onLoadDataSuccess
+            });
+        },
 
+        _onLoadDataSuccess: function(data) {
+            console.log(data);
         }
     };
 }(window.jQuery, window.TestS);

@@ -29,6 +29,7 @@ class PageController extends AbstractController
             "TestS",
             "Validator",
             "Template",
+            "Ajax",
             "Form",
             "Window",
         ],
