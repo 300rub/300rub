@@ -18,7 +18,7 @@
     TestS.Window.Login.prototype = {
 
         /**
-         * @var Window.TestS.Window
+         * @var {Window.TestS.Window}
          */
         _window: null,
 
@@ -31,6 +31,8 @@
                 action: "loginForms",
                 success: $.proxy(this._onLoadDataSuccess, this)
             });
+
+            this._window.getInstance().addClass("window-login");
         },
 
         /**
@@ -53,7 +55,32 @@
                 )
                 .removeLoading();
 
-            //console.log(data);
+            var login = new TestS.Form(
+                $.extend(
+                    {
+                        appendTo: this._window.getBody()
+                    },
+                    data.forms.login
+                )
+            );
+
+            var password = new TestS.Form(
+                $.extend(
+                    {
+                        appendTo: this._window.getBody()
+                    },
+                    data.forms.password
+                )
+            );
+
+            var isRemember = new TestS.Form(
+                $.extend(
+                    {
+                        appendTo: this._window.getBody()
+                    },
+                    data.forms.isRemember
+                )
+            );
         }
     };
 }(window.jQuery, window.TestS);

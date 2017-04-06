@@ -59,6 +59,7 @@
 
             this
                 ._setName()
+                ._setLabel()
                 ._setPlaceholder()
                 ._setClass()
                 ._setOnBlur()
@@ -71,11 +72,7 @@
          * @private
          */
         _setTextForm: function () {
-            if (this._options.label !== undefined) {
-                this.$_form = TestS.Template.get("form-container-text-label");
-            } else {
-                this.$_form = TestS.Template.get("form-container-text");
-            }
+            this.$_form = TestS.Template.get("form-container-text");
         },
 
         /**
@@ -94,9 +91,6 @@
          */
         _setCheckboxForm: function () {
             this.$_form = TestS.Template.get("form-container-checkbox");
-            if (this._options.label !== undefined) {
-                this.$_form.find(".label-text").text(this._options.label);
-            }
         },
 
         /**
@@ -106,16 +100,9 @@
          */
         _setButtonForm: function() {
             this.$_form = TestS.Template.get("form-button");
-            console.log(this._options);
 
             if (this._options.icon !== undefined) {
                 this.$_form.find(".icons .icon").addClass(this._options.icon);
-            } else {
-                this.$_form.find(".icons ").remove();
-            }
-
-            if (this._options.label !== undefined) {
-                this.$_form.find(".label").text(this._options.label);
             }
         },
 
@@ -141,6 +128,22 @@
             }
 
             this.$_form.find(".form-instance").attr("name", this._options.name);
+            return this;
+        },
+
+        /**
+         * Sets label
+         *
+         * @returns {TestS.Form}
+         *
+         * @private
+         */
+        _setLabel: function() {
+            if (this._options.label === undefined) {
+                return this;
+            }
+
+            this.$_form.find(".label-text").text(this._options.label);
             return this;
         },
 
@@ -191,7 +194,6 @@
             this.$_form.on("blur", $.proxy(function() {
                 var validator = new TestS.Validator(this.getValue(), this._options.validation);
                 var errors = validator.getErrors();
-                console.log(errors);
             }, this));
 
             return this;

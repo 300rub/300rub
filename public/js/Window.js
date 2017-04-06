@@ -33,6 +33,13 @@
         $_instance: null,
 
         /**
+         * Window
+         *
+         * @var {Object}
+         */
+        $_body: null,
+
+        /**
          * Overlay
          *
          * @var {Object}
@@ -44,6 +51,7 @@
          */
         init: function () {
             this.$_instance = TestS.Template.get("window");
+            this.$_body = this.$_instance.find(".body");
             this.$_overlay = TestS.Template.get("window-overlay");
             this
                 ._setCloseEvents()
@@ -60,6 +68,15 @@
          */
         getInstance: function() {
             return this.$_instance;
+        },
+
+        /**
+         * Gets body
+         *
+         * @returns {Object}
+         */
+        getBody: function() {
+            return this.$_body;
         },
 
         /**

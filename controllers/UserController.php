@@ -34,13 +34,13 @@ class UserController extends AbstractController
         return [
             "title" => Language::t("user", "loginTitle"),
             "forms" => [
-                "login"    => [
+                "login"      => [
                     "name"       => "login",
                     "type"       => self::FORM_TYPE_TEXT,
                     "label"      => Language::t("user", "user"),
                     "validation" => $model->getValidationRulesForField("login")
                 ],
-                "password" => [
+                "password"   => [
                     "name"       => "password",
                     "type"       => self::FORM_TYPE_PASSWORD,
                     "label"      => Language::t("user", "password"),
@@ -51,12 +51,12 @@ class UserController extends AbstractController
                         ]
                     )
                 ],
-                "label"    => [
+                "isRemember" => [
                     "name"  => "isRemember",
                     "type"  => self::FORM_TYPE_CHECKBOX,
                     "label" => Language::t("user", "isRemember"),
                 ],
-                "button"   => [
+                "button"     => [
                     "type"       => self::FORM_TYPE_BUTTON,
                     "label"      => Language::t("user", "loginButton"),
                     "controller" => "user",
