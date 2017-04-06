@@ -191,9 +191,16 @@
                 return this;
             }
 
-            this.$_form.on("blur", $.proxy(function() {
+            this.$_form.find(".form-instance").on("blur", $.proxy(function() {
                 var validator = new TestS.Validator(this.getValue(), this._options.validation);
                 var errors = validator.getErrors();
+                if (errors.length > 0) {
+                    this.$_form.addClass("error");
+                    this.$_form.find("span.error").text(errors[0]);
+                } else {
+                    this.$_form.removeClass("error");
+                    this.$_form.find("span.error").text("");
+                }
             }, this));
 
             return this;
@@ -221,7 +228,7 @@
          * @returns {mixed}
          */
         getValue: function() {
-            return this.$_form.val();
+            return this.$_form.find(".form-instance").val();
         }
     };
 }(window.jQuery, window.TestS);

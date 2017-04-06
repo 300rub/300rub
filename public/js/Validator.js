@@ -54,10 +54,10 @@
                     case "required":
                         this._checkRequired();
                         break;
-                    case "max":
+                    case "maxLength":
                         this._checkMaxLength(value);
                         break;
-                    case "min":
+                    case "minLength":
                         this._checkMinLength(value);
                         break;
                     case "latinDigitUnderscoreHyphen":
