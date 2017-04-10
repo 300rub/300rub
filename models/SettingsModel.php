@@ -7,7 +7,7 @@ namespace testS\models;
  *
  * @package testS\models
  */
-class SettingModel extends AbstractModel
+class SettingsModel extends AbstractModel
 {
 
     /**
@@ -28,11 +28,11 @@ class SettingModel extends AbstractModel
     public function getFieldsInfo()
     {
         return [
-            "iconImageId" => [
-                self::FIELD_RELATION => "ImageModel"
+            "type" => [
+                self::FIELD_TYPE => self::FIELD_TYPE_INT
             ],
-            "seoId"       => [
-                self::FIELD_RELATION => "SeoModel"
+            "value"       => [
+                self::FIELD_TYPE => self::FIELD_TYPE_STRING
             ],
         ];
     }

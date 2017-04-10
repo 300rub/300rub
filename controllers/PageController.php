@@ -163,7 +163,7 @@ class PageController extends AbstractController
         $isDisplayBlocks = false;
         $isDisplaySettings = false;
 
-        if ($this->getUserIsOwner() === true) {
+        if ($this->isFullAccess() === true) {
             $isDisplaySections = true;
             $isDisplayBlocks = true;
             $isDisplaySettings = true;

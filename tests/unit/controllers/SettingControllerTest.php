@@ -34,29 +34,4 @@ class SettingControllerTest extends AbstractControllerTest
     {
         $this->markTestSkipped();
     }
-
-    public function testGetUsers()
-    {
-        $this->markTestSkipped();
-    }
-
-    public function testGetAddUser()
-    {
-        $this->markTestSkipped();
-    }
-
-    public function testGetUser()
-    {
-        $this->markTestSkipped();
-    }
-
-    public function testUpdateUser()
-    {
-        $this->markTestSkipped();
-    }
-
-    public function testDeleteUser()
-    {
-        $this->markTestSkipped();
-    }
 }

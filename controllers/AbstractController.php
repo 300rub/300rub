@@ -6,6 +6,7 @@ use testS\applications\App;
 use testS\components\exceptions\AccessException;
 use testS\components\Operation;
 use testS\components\User;
+use testS\models\UserModel;
 
 /**
  * Abstract class for working with controllers
@@ -100,17 +101,24 @@ abstract class AbstractController
     }
 
     /**
-     * Gets user flag is owner
+     * Gets user flag is full access
      *
      * @return bool
      */
-    protected function getUserIsOwner()
+    protected function isFullAccess()
     {
         $user = App::web()->getUser();
         if (!$user instanceof User) {
             return false;
         }
-        return App::web()->getUser()->getIsOwner();
+
+        if ($user->getType() === UserModel::TYPE_OWNER
+            || $user->getType() === UserModel::TYPE_ADMIN
+        ) {
+            return true;
+        }
+
+        return false;
     }
 
     /**
@@ -123,7 +131,7 @@ abstract class AbstractController
      */
     protected function hasSectionOperation($key, $operation)
     {
-        if ($this->getUserIsOwner() === true) {
+        if ($this->isFullAccess() === true) {
             return true;
         }
 
@@ -158,7 +166,7 @@ abstract class AbstractController
      */
     protected function hasBlockOperation($type, $key, $operation)
     {
-        if ($this->getUserIsOwner() === true) {
+        if ($this->isFullAccess() === true) {
             return true;
         }
 

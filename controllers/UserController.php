@@ -300,4 +300,12 @@ class UserController extends AbstractController
     {
         // @TODO
     }
+
+    /**
+     * Gets Users
+     */
+    public function getUsers()
+    {
+        // @TODO
+    }
 }

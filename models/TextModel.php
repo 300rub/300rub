@@ -75,7 +75,7 @@ class TextModel extends AbstractModel
             "type"          => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
-                    ValueGenerator::ARRAY_KEY => [self::$typeTagList, self::TYPE_DIV]
+                    ValueGenerator::ARRAY_KEY => [self::getTypeList(), self::TYPE_DIV]
                 ],
             ],
             "hasEditor"     => [

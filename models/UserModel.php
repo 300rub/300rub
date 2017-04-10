@@ -5,6 +5,7 @@ namespace testS\models;
 use testS\components\Db;
 use testS\components\Operation;
 use testS\components\Validator;
+use testS\components\ValueGenerator;
 
 /**
  * Model for working with table "users"
@@ -16,6 +17,14 @@ use testS\components\Validator;
  */
 class UserModel extends AbstractModel
 {
+
+    /**
+     * Types
+     */
+    const TYPE_BLOCKED = 0;
+    const TYPE_OWNER = 1;
+    const TYPE_ADMIN = 2;
+    const TYPE_EDITOR = 3;
 
     /**
      * Password salt
@@ -33,6 +42,21 @@ class UserModel extends AbstractModel
      * @var bool
      */
     public $isRemember = false;
+
+    /**
+     * Gets type list
+     *
+     * @return array
+     */
+    public static function getTypeList()
+    {
+        return [
+            self::TYPE_BLOCKED => "",
+            self::TYPE_OWNER   => "",
+            self::TYPE_ADMIN   => "",
+            self::TYPE_EDITOR  => "",
+        ];
+    }
 
     /**
      * Gets table name
@@ -72,10 +96,12 @@ class UserModel extends AbstractModel
                 ],
                 self::FIELD_SKIP_DUPLICATION => true,
             ],
-            "isOwner"  => [
-                self::FIELD_TYPE                 => self::FIELD_TYPE_BOOL,
-                self::FIELD_NOT_CHANGE_ON_UPDATE => true,
-                self::FIELD_BEFORE_SAVE          => ["setIsOwner"],
+            "type"     => [
+                self::FIELD_TYPE        => self::FIELD_TYPE_INT,
+                self::FIELD_VALUE       => [
+                    ValueGenerator::ARRAY_KEY => [self::getTypeList(), self::TYPE_BLOCKED]
+                ],
+                self::FIELD_BEFORE_SAVE => ["setType"],
             ],
             "name"     => [
                 self::FIELD_TYPE             => self::FIELD_TYPE_STRING,
@@ -99,17 +125,17 @@ class UserModel extends AbstractModel
     /**
      * Sets is owner
      *
-     * @param bool $value
+     * @param int $value
      *
      * @return bool
      */
-    protected function setIsOwner($value)
+    protected function setType($value)
     {
-        if ($value === true) {
-            return $this->owner()->find() === null;
+        if ($value === self::TYPE_OWNER) {
+            return self::TYPE_BLOCKED;
         }
 
-        return false;
+        return $value;
     }
 
     /**
@@ -155,8 +181,8 @@ class UserModel extends AbstractModel
      */
     public function owner()
     {
-        $this->getDb()->addWhere(sprintf("%s.isOwner = :isOwner", Db::DEFAULT_ALIAS));
-        $this->getDb()->addParameter("isOwner", 1);
+        $this->getDb()->addWhere(sprintf("%s.type = :type", Db::DEFAULT_ALIAS));
+        $this->getDb()->addParameter("type", self::TYPE_OWNER);
 
         return $this;
     }

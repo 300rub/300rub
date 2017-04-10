@@ -84,7 +84,7 @@ class UserControllerTest extends AbstractControllerTest
                                 "maxLength" => 40,
                             ]
                         ],
-                        "label"    => [
+                        "isRemember"    => [
                             "name"  => "isRemember",
                             "type"  => "checkbox",
                             "label" => "Remember me",
@@ -567,6 +567,11 @@ class UserControllerTest extends AbstractControllerTest
     }
 
     public function testDeleteUser()
+    {
+        $this->markTestSkipped();
+    }
+
+    public function testGetUsers()
     {
         $this->markTestSkipped();
     }

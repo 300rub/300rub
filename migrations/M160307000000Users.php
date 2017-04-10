@@ -21,14 +21,13 @@ class M160307000000Users extends AbstractMigration
                 [
                     "id"       => self::TYPE_PK,
                     "login"    => self::TYPE_STRING_50,
-                    "isOwner"  => self::TYPE_BOOL,
+                    "type"     => self::TYPE_TINYINT_UNSIGNED,
                     "password" => self::TYPE_CHAR_40,
                     "name"     => self::TYPE_STRING_100,
                     "email"    => self::TYPE_STRING_100,
                 ]
             )
             ->createIndex("users", "login")
-            ->createIndex("users", "isOwner")
             ->createTable(
                 "userSessions",
                 [

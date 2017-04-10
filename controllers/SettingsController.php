@@ -37,29 +37,4 @@ class SettingController extends AbstractController
     {
         // @TODO
     }
-
-    public function getUsers()
-    {
-        // @TODO
-    }
-
-    public function getAddUser()
-    {
-        // @TODO
-    }
-
-    public function getUser()
-    {
-        // @TODO
-    }
-
-    public function updateUser()
-    {
-        // @TODO
-    }
-
-    public function deleteUser()
-    {
-        // @TODO
-    }
 }

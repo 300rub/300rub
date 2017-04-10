@@ -50,7 +50,7 @@ class UserModelTest extends AbstractModelTest
                 [
                     "login"    => "",
                     "password" => "",
-                    "isOwner"  => "",
+                    "type"     => "",
                     "name"     => "",
                     "email"    => "",
                 ],
@@ -76,7 +76,7 @@ class UserModelTest extends AbstractModelTest
                 [
                     "login"    => null,
                     "password" => null,
-                    "isOwner"  => null,
+                    "type"     => null,
                     "name"     => null,
                     "email"    => null,
                 ],
@@ -105,26 +105,28 @@ class UserModelTest extends AbstractModelTest
                 [
                     "login"    => "login1",
                     "password" => $password1,
+                    "type"     => 3,
                     "name"     => "Name",
                     "email"    => "email@email.com",
                 ],
                 [
                     "login"    => "login1",
                     "password" => $password1,
-                    "isOwner"  => false,
+                    "type"     => 3,
                     "name"     => "Name",
                     "email"    => "email@email.com",
                 ],
                 [
                     "login"    => "login2",
                     "password" => $password2,
+                    "type"     => 2,
                     "name"     => "Name 2",
                     "email"    => "email2@email.com",
                 ],
                 [
                     "login"    => "login2",
                     "password" => $password2,
-                    "isOwner"  => false,
+                    "type"     => 2,
                     "name"     => "Name 2",
                     "email"    => "email2@email.com",
                 ],
@@ -193,17 +195,17 @@ class UserModelTest extends AbstractModelTest
                     "login"    => "login1",
                     "password" => $this->generateStringWithLength(40),
                     "name"     => "Name",
-                    "isOwner"  => true,
+                    "type"     => 1,
                     "email"    => "email@email.com",
                 ],
                 [
-                    "isOwner" => false,
+                    "type" => 0,
                 ],
                 [
-                    "isOwner" => true,
+                    "type" => 1,
                 ],
                 [
-                    "isOwner" => false,
+                    "type" => 0,
                 ],
             ]
         ];

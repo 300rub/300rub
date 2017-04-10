@@ -2,24 +2,24 @@
 
 namespace testS\tests\unit\models;
 
-use testS\models\SettingModel;
+use testS\models\SettingsModel;
 
 /**
  * Tests for the model SettingModel
  *
  * @package testS\tests\unit\models
  */
-class SettingModelTest extends AbstractModelTest
+class SettingsModelTest extends AbstractModelTest
 {
 
     /**
      * Gets model name
      *
-     * @return SettingModel
+     * @return SettingsModel
      */
     protected function getNewModel()
     {
-        return new SettingModel();
+        return new SettingsModel();
     }
 
     /**

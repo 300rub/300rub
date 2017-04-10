@@ -55,11 +55,11 @@ class User
     private $_email = "";
 
     /**
-     * Flag is owner
+     * Type
      *
-     * @var bool
+     * @var int
      */
-    private $_isOwner = "";
+    private $_type = "";
 
     /**
      * User constructor.
@@ -75,7 +75,7 @@ class User
         $this->_login = $userModel->get("login");
         $this->_name = $userModel->get("name");
         $this->_email = $userModel->get("email");
-        $this->_isOwner = $userModel->get("isOwner");
+        $this->_type = $userModel->get("type");
     }
 
     /**
@@ -143,8 +143,8 @@ class User
      *
      * @return bool
      */
-    public function getIsOwner()
+    public function getType()
     {
-        return $this->_isOwner;
+        return $this->_type;
     }
 }

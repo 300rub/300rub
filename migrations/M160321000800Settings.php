@@ -19,12 +19,10 @@ class M160321000800Settings extends AbstractMigration
             ->createTable(
                 "settings",
                 [
-                    "id"          => self::TYPE_PK,
-                    "iconImageId" => self::TYPE_FK,
-                    "seoId"       => self::TYPE_FK,
+                    "id"    => self::TYPE_PK,
+                    "type"  => self::TYPE_TINYINT_UNSIGNED,
+                    "value" => self::TYPE_STRING,
                 ]
-            )
-            ->createForeignKey("settings", "iconImageId", "images")
-            ->createForeignKey("settings", "seoId", "seo");
+            );
     }
 }
