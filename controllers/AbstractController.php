@@ -122,6 +122,21 @@ abstract class AbstractController
     }
 
     /**
+     * Gets user flag is blocked
+     *
+     * @return bool
+     */
+    protected function isBlocked()
+    {
+        $user = App::web()->getUser();
+        if (!$user instanceof User) {
+            return true;
+        }
+
+        return $user->getType() === UserModel::TYPE_BLOCKED;
+    }
+
+    /**
      * If has section operation
      *
      * @param int|string $key
@@ -133,6 +148,10 @@ abstract class AbstractController
     {
         if ($this->isFullAccess() === true) {
             return true;
+        }
+
+        if ($this->isBlocked() === true) {
+            return false;
         }
 
         $operations = $this->getUserOperations();
@@ -170,6 +189,10 @@ abstract class AbstractController
             return true;
         }
 
+        if ($this->isBlocked() === true) {
+            return false;
+        }
+
         $operations = $this->getUserOperations();
         if (!array_key_exists(Operation::TYPE_BLOCKS, $operations)
             || !array_key_exists($type, $operations[Operation::TYPE_BLOCKS])
@@ -186,6 +209,31 @@ abstract class AbstractController
         if (array_key_exists($key, $operations[Operation::TYPE_BLOCKS][$type])
             && in_array($operation, $operations[Operation::TYPE_BLOCKS][$type][$key])
         ) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * Has settings operation
+     *
+     * @param string $operation
+     *
+     * @return bool
+     */
+    protected function hasSettingsOperation($operation)
+    {
+        if ($this->isFullAccess() === true) {
+            return true;
+        }
+
+        if ($this->isBlocked() === true) {
+            return false;
+        }
+
+        $operations = $this->getUserOperations();
+        if (array_key_exists($operation, $operations)) {
             return true;
         }
 

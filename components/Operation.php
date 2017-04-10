@@ -38,6 +38,7 @@ class Operation
      */
     const SETTING_SEO = "SETTING_SEO";
     const SETTING_ICON = "SETTING_ICON";
+    const SETTING_USERS = "SETTING_USERS";
 
     /**
      * Section operations
