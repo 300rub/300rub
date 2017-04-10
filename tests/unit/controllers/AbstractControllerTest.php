@@ -261,4 +261,12 @@ abstract class AbstractControllerTest extends AbstractUnitTest
 
         return $matches[1][0];
     }
+
+    /**
+     * Asserts an error in body response
+     */
+    protected function assertError()
+    {
+        $this->assertArrayHasKey("error", $this->getBody());
+    }
 }

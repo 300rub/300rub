@@ -10,7 +10,7 @@ use testS\components\Operation;
  *
  * @package testS\controllers
  */
-class SettingController extends AbstractController
+class SettingsController extends AbstractController
 {
 
     /**
@@ -20,6 +20,8 @@ class SettingController extends AbstractController
      */
     public function getSettings()
     {
+        $this->checkUser();
+
         $list = [];
 
         if ($this->hasSettingsOperation(Operation::SETTING_SEO)) {
@@ -46,7 +48,7 @@ class SettingController extends AbstractController
             ];
         }
 
-        return $list;
+        return ["result" => $list];
     }
 
     public function getSeo()

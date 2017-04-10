@@ -55,7 +55,7 @@ class TextControllerTest extends AbstractControllerTest
      */
     private function _testGetBlocksOwnerAllBlocks()
     {
-        $this->setUser();
+        $this->setUser(self::TYPE_OWNER);
         $this->sendRequest("text", "blocks", ["displayBlocksFromSection" => 0]);
         $body = $this->getBody();
         $this->assertTrue(strlen($body["title"]) > 0);

@@ -83,6 +83,10 @@ abstract class AbstractController
             throw new AccessException("User is null");
         }
 
+        if (App::web()->getUser()->getType() === UserModel::TYPE_BLOCKED) {
+            throw new AccessException("User is blocked");
+        }
+
         return $this;
     }
 
@@ -233,11 +237,12 @@ abstract class AbstractController
         }
 
         $operations = $this->getUserOperations();
-        if (array_key_exists($operation, $operations)) {
-            return true;
+
+        if (!array_key_exists(Operation::TYPE_SETTINGS, $operations)) {
+            return false;
         }
 
-        return false;
+        return in_array($operation, $operations[Operation::TYPE_SETTINGS]);
     }
 
     /**

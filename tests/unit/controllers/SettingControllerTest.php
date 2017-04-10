@@ -10,9 +10,75 @@ namespace testS\tests\unit\controllers;
 class SettingControllerTest extends AbstractControllerTest
 {
 
-    public function testGetSettings()
+    /**
+     * Test for getSettings
+     *
+     * @param string $user
+     * @param array  $expected
+     * @param bool   $hasError
+     *
+     * @dataProvider dataProviderForTestGetSettings
+     */
+    public function testGetSettings($user, $expected, $hasError = false)
     {
-        $this->markTestSkipped();
+        $this->setUser($user);
+        $this->sendRequest("settings", "settings");
+
+        if ($hasError === false) {
+            $this->compareExpectedAndActual($expected, $this->getBody(), true);
+        } else {
+            $this->assertError();
+        }
+    }
+
+    /**
+     * Data provider for testGetSettings
+     *
+     * @return array
+     */
+    public function dataProviderForTestGetSettings()
+    {
+        return [
+            [
+                null,
+                [],
+                true
+            ],
+            [
+                self::TYPE_USER,
+                [
+                    "result" => [
+                        "seo" => [
+                            "name"       => "SEO",
+                            "controller" => "settings",
+                            "action"     => "seo",
+                        ],
+                    ]
+                ]
+            ],
+            [
+                self::TYPE_ADMIN,
+                [
+                    "result" => [
+                        "seo"   => [
+                            "name"       => "SEO",
+                            "controller" => "settings",
+                            "action"     => "seo",
+                        ],
+                        "icon"  => [
+                            "name"       => "Icon",
+                            "controller" => "settings",
+                            "action"     => "icon",
+                        ],
+                        "users" => [
+                            "name"       => "Users",
+                            "controller" => "user",
+                            "action"     => "users",
+                        ],
+                    ]
+                ]
+            ],
+        ];
     }
 
     public function testGetSeo()

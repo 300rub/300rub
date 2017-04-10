@@ -131,7 +131,9 @@ class UserModel extends AbstractModel
      */
     protected function setType($value)
     {
-        if ($value === self::TYPE_OWNER) {
+        if ($value === self::TYPE_OWNER
+            && $this->owner()->exceptId($this->getId())->find() !== null
+        ) {
             return self::TYPE_BLOCKED;
         }
 
