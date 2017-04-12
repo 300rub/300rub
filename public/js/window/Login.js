@@ -43,24 +43,12 @@
          * @private
          */
         _onLoadDataSuccess: function(data) {
-            this._window
-                .setTitle(data.title)
-                .setSubmit(
-                    $.extend(
-                        {
-                            icon: "fa-lock"
-                        },
-                        data.forms.button
-                    )
-                )
-                .removeLoading();
-
-            var login = new TestS.Form(
+            var user = new TestS.Form(
                 $.extend(
                     {
                         appendTo: this._window.getBody()
                     },
-                    data.forms.login
+                    data.forms.user
                 )
             );
 
@@ -81,6 +69,29 @@
                     data.forms.isRemember
                 )
             );
+
+            this._window
+                .setTitle(data.title)
+                .setSubmit(
+                    $.extend(
+                        data.forms.button,
+                        {
+                            icon: "fa-lock",
+                            forms: [user, password, isRemember],
+                            ajax: {
+                                data: {
+                                    controller: data.forms.button.controller,
+                                    action: data.forms.button.action,
+                                    data: {
+                                        user: "asd"
+                                    }
+                                },
+                                type: "PUT"
+                            }
+                        }
+                    )
+                )
+                .removeLoading();
         }
     };
 }(window.jQuery, window.TestS);

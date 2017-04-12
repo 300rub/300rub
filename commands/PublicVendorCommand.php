@@ -68,6 +68,7 @@ class PublicVendorCommand extends AbstractCommand
         "tinymce/plugins/fullscreen/plugin.min.js"   => "tinymce/tinymce/plugins/fullscreen/plugin.min.js",
         "tinymce/plugins/table/plugin.min.js"        => "tinymce/tinymce/plugins/table/plugin.min.js",
         "less.min.js"                                => "less/less/dist/less.min.js",
+        "md5.min.js"                                 => "blueimp/JavaScript-MD5/js/md5.min.js",
     ];
 
 	/**

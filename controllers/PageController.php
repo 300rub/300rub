@@ -27,6 +27,7 @@ class PageController extends AbstractController
         ],
         "js"   => [
             "lib/jquery.min",
+            "lib/md5.min",
             "TestS",
             "Validator",
             "Template",

@@ -13,7 +13,8 @@
 		"fancyapps/fancyBox": "v2.1.5",
 		"fengyuanchen/cropper": "v2.3.2",
 		"donatj/phpuseragentparser": "*",
-		"IanLunn/Hover": "v2.1.1"
+		"IanLunn/Hover": "v2.1.1",
+		"blueimp/JavaScript-MD5": "v2.7.0"
 	},
 	"require-dev": {
 		"phpunit/phpunit": "5.5.*"
@@ -135,6 +136,18 @@
 				"source": {
 					"type": "git",
 					"url": "https://github.com/IanLunn/Hover",
+					"reference": "master"
+				}
+			}
+		},
+		{
+			"type": "package",
+			"package": {
+				"name": "blueimp/JavaScript-MD5",
+				"version": "v2.7.0",
+				"source": {
+					"type": "git",
+					"url": "https://github.com/blueimp/JavaScript-MD5",
 					"reference": "master"
 				}
 			}

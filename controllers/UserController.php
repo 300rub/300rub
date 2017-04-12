@@ -34,8 +34,8 @@ class UserController extends AbstractController
         return [
             "title" => Language::t("user", "loginTitle"),
             "forms" => [
-                "login"      => [
-                    "name"       => "login",
+                "user"      => [
+                    "name"       => "user",
                     "type"       => self::FORM_TYPE_TEXT,
                     "label"      => Language::t("user", "user"),
                     "validation" => $model->getValidationRulesForField("login")

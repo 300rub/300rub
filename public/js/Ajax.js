@@ -53,12 +53,18 @@
          * @private
          */
         _getData: function () {
-            return $.extend(
+            var data = $.extend(
                 {
                     language: TestS.getLanguage()
                 },
                 this._options.data
             );
+
+            if (this._getType() !== "GET") {
+                data = JSON.stringify(data);
+            }
+
+            return data;
         },
 
         /**

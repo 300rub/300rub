@@ -63,8 +63,8 @@ class UserControllerTest extends AbstractControllerTest
                 [
                     "title" => "Login",
                     "forms" => [
-                        "login"    => [
-                            "name"       => "login",
+                        "user"    => [
+                            "name"       => "user",
                             "type"       => "text",
                             "label"      => "User",
                             "validation" => [

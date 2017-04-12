@@ -104,6 +104,32 @@
             if (this._options.icon !== undefined) {
                 this.$_form.find(".icons .icon").addClass(this._options.icon);
             }
+
+            if ($.type(this._options.forms) === "array") {
+                this.$_form.on("click", $.proxy(function() {
+                    var flattenData = {};
+                    var hasError = false;
+                    $.each(this._options.forms, $.proxy(function(i, item) {
+                        item.validate();
+                        if (item.getInstance().hasClass("error")) {
+                            hasError = true;
+                        }
+                        flattenData[item.getName()] = item.getParsedValue();
+                    }, this));
+
+                    // @TODO get data
+                    var data = flattenData;
+
+                    if (hasError === false
+                        && $.type(this._options.ajax) === "object"
+                    ) {
+                        var ajaxData = this._options.ajax;
+                        ajaxData.data.data = data;
+
+                        new TestS.Ajax(ajaxData);
+                    }
+                }, this));
+            }
         },
 
         /**
@@ -129,6 +155,15 @@
 
             this.$_form.find(".form-instance").attr("name", this._options.name);
             return this;
+        },
+
+        /**
+         * Gets the name
+         *
+         * @returns {String}
+         */
+        getName: function() {
+            return this.$_form.find(".form-instance").attr("name");
         },
 
         /**
@@ -180,28 +215,36 @@
         },
 
         /**
-         * Sets on blur event
+         * Sets on blur event (validation)
          *
          * @returns {TestS.Form}
          *
          * @private
          */
         _setOnBlur: function() {
+            this.$_form.find(".form-instance").on("blur", $.proxy(this.validate, this));
+            return this;
+        },
+
+        /**
+         * Validates the form
+         *
+         * @returns {TestS.Form}
+         */
+        validate: function() {
             if (this._options.validation === undefined) {
                 return this;
             }
 
-            this.$_form.find(".form-instance").on("blur", $.proxy(function() {
-                var validator = new TestS.Validator(this.getValue(), this._options.validation);
-                var errors = validator.getErrors();
-                if (errors.length > 0) {
-                    this.$_form.addClass("error");
-                    this.$_form.find("span.error").text(errors[0]);
-                } else {
-                    this.$_form.removeClass("error");
-                    this.$_form.find("span.error").text("");
-                }
-            }, this));
+            var validator = new TestS.Validator(this.getValue(), this._options.validation);
+            var errors = validator.getErrors();
+            if (errors.length > 0) {
+                this.$_form.addClass("error");
+                this.$_form.find("span.error").text(errors[0]);
+            } else {
+                this.$_form.removeClass("error");
+                this.$_form.find("span.error").text("");
+            }
 
             return this;
         },
@@ -229,6 +272,30 @@
          */
         getValue: function() {
             return this.$_form.find(".form-instance").val();
+        },
+
+        /**
+         * Gets parsed value
+         *
+         * @returns {mixed}
+         */
+        getParsedValue: function () {
+            var $formInstance = this.$_form.find(".form-instance");
+            var value;
+
+            switch (this._options.type) {
+                case "password":
+                    value = md5($formInstance.val());
+                    break;
+                case "checkbox":
+                    value = $formInstance.is(':checked');
+                    break;
+                default:
+                    value = $formInstance.val();
+                    break;
+            }
+
+            return value;
         }
     };
 }(window.jQuery, window.TestS);
