@@ -22,10 +22,25 @@
          */
         _window: null,
 
+        /**
+         * User form
+         *
+         * @var {Object}
+         */
         _userForm: null,
 
+        /**
+         * Password form
+         *
+         * @var {Object}
+         */
         _passwordForm: null,
 
+        /**
+         * Is remember form
+         *
+         * @var {Object}
+         */
         _isRememberForm: null,
 
         /**
