@@ -106,13 +106,13 @@ class UserControllerTest extends AbstractControllerTest
      *
      * @param array $data
      * @param int   $expectedCode
-     * @param bool  $isSuccess
+     * @param array $expectedBody
      *
      * @dataProvider dataProviderForTestAddSSession
      *
      * @return bool
      */
-    public function testAddSession($data, $expectedCode = 200, $isSuccess = false)
+    public function testAddSession($data, $expectedCode = 200, $expectedBody = null)
     {
         $this->setUser(null);
 
@@ -128,10 +128,7 @@ class UserControllerTest extends AbstractControllerTest
         $actualBody = $this->getBody();
 
         // Check error response
-        if ($isSuccess === false) {
-            $expectedBody = [
-                "error" => "Incorrect user or password"
-            ];
+        if ($expectedBody !== null) {
             $this->compareExpectedAndActual($expectedBody, $actualBody, true);
             return true;
         }
@@ -224,6 +221,12 @@ class UserControllerTest extends AbstractControllerTest
                     "user"       => "incorrect",
                     "password"   => md5("pass" . UserModel::PASSWORD_SALT),
                     "isRemember" => false,
+                ],
+                200,
+                [
+                    "errors" => [
+                        "user" => "Incorrect user or password"
+                    ]
                 ]
             ],
             "incorrectPassword"       => [
@@ -231,6 +234,12 @@ class UserControllerTest extends AbstractControllerTest
                     "user"       => "user",
                     "password"   => md5("incorrect" . UserModel::PASSWORD_SALT),
                     "isRemember" => false,
+                ],
+                200,
+                [
+                    "errors" => [
+                        "password" => "Incorrect user or password"
+                    ]
                 ]
             ],
             "user"                    => [
@@ -239,8 +248,7 @@ class UserControllerTest extends AbstractControllerTest
                     "password"   => md5("pass" . UserModel::PASSWORD_SALT),
                     "isRemember" => false,
                 ],
-                200,
-                true
+                200
             ],
             "admin"                   => [
                 "data" => [
@@ -248,8 +256,7 @@ class UserControllerTest extends AbstractControllerTest
                     "password"   => md5("pass" . UserModel::PASSWORD_SALT),
                     "isRemember" => true,
                 ],
-                200,
-                true
+                200
             ],
         ];
     }
