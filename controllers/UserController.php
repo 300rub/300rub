@@ -98,39 +98,43 @@ class UserController extends AbstractController
         $userModel = (new UserModel())->byLogin($data["user"])->find();
         if (!$userModel instanceof UserModel) {
             return [
-                "result" => false,
+                "errors" => [
+                    "user" => Language::t("user", "incorrect")
+                ]
             ];
         }
 
         if ($userModel->get("password") !== sha1($data["password"])) {
             return [
-                "result" => false
+                "errors" => [
+                    "password" => Language::t("user", "incorrect")
+                ]
             ];
         }
 
         $token = md5(session_id());
-
-        $userSessionModel = (new UserSessionModel())->byToken($token)->find();
-        if ($userSessionModel instanceof UserSessionModel) {
-            return ["token" => $token];
-        } else {
-            $userSessionModel = new UserSessionModel();
-            $userSessionModel->set(
-                [
-                    "userId" => $userModel->getId(),
-                    "token"  => $token,
-                    "ip"     => $_SERVER['REMOTE_ADDR'],
-                    "ua"     => $_SERVER['HTTP_USER_AGENT'],
-                ]
-            );
-            $userSessionModel->save();
-        }
 
         App::web()->setUser($token, $userModel);
 
         if ($data["isRemember"] === true) {
             setcookie("token", $token);
         }
+
+        $userSessionModel = (new UserSessionModel())->byToken($token)->find();
+        if ($userSessionModel instanceof UserSessionModel) {
+            return ["token" => $token];
+        }
+
+        $userSessionModel = new UserSessionModel();
+        $userSessionModel->set(
+            [
+                "userId" => $userModel->getId(),
+                "token"  => $token,
+                "ip"     => $_SERVER['REMOTE_ADDR'],
+                "ua"     => $_SERVER['HTTP_USER_AGENT'],
+            ]
+        );
+        $userSessionModel->save();
 
         return ["token" => $token];
     }

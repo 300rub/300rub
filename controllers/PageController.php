@@ -34,6 +34,7 @@ class PageController extends AbstractController
             "Ajax",
             "Form",
             "Window",
+            "window/Collection",
             "window/Login",
         ],
         "less" => [

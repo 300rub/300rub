@@ -41,7 +41,8 @@
                 type: this._getType(),
                 beforeSend: this._getBeforeSend(),
                 success: this._getSuccess(),
-                error: this._getError()
+                error: this._getError(),
+                complete: this._getComplete()
             });
         },
 
@@ -162,6 +163,30 @@
          * @private
          */
         _error: function (jqXHR, textStatus, errorThrown) {
+
+        },
+
+        /**
+         * Gets complete function
+         *
+         * @returns {Function}
+         *
+         * @private
+         */
+        _getComplete: function() {
+            if ($.type(this._options.complete) !== "function") {
+                return this._complete;
+            }
+
+            return this._options.complete;
+        },
+
+        /**
+         * Default complete function
+         *
+         * @private
+         */
+        _complete: function() {
 
         }
     };

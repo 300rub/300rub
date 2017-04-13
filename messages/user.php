@@ -23,4 +23,8 @@ return [
         Language::LANGUAGE_EN_ID => "Go",
         Language::LANGUAGE_RU_ID => "",
     ],
+    "incorrect" => [
+        Language::LANGUAGE_EN_ID => "Incorrect user or password",
+        Language::LANGUAGE_RU_ID => "",
+    ],
 ];

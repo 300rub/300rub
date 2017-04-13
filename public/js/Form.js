@@ -122,9 +122,22 @@
 
                     if (hasError === false
                         && $.type(this._options.ajax) === "object"
+                        && !this.$_form.hasClass("disabled")
                     ) {
+                        var $icon = this.$_form.find(".icons .icon");
+                        var $spinner = this.$_form.find(".icons .fa-spin");
+                        this.$_form. addClass("disabled");
+
+                        $icon.addClass("hidden");
+                        $spinner.removeClass("hidden");
+
                         var ajaxData = this._options.ajax;
                         ajaxData.data.data = data;
+                        ajaxData.complete = $.proxy(function() {
+                            $icon.removeClass("hidden");
+                            $spinner.addClass("hidden");
+                            this.$_form. removeClass("disabled");
+                        }, this);
 
                         new TestS.Ajax(ajaxData);
                     }
@@ -239,12 +252,25 @@
             var validator = new TestS.Validator(this.getValue(), this._options.validation);
             var errors = validator.getErrors();
             if (errors.length > 0) {
-                this.$_form.addClass("error");
-                this.$_form.find("span.error").text(errors[0]);
+                this.setError(errors[0]);
             } else {
                 this.$_form.removeClass("error");
                 this.$_form.find("span.error").text("");
             }
+
+            return this;
+        },
+
+        /**
+         * Sets error
+         *
+         * @param {String} error
+         *
+         * @returns {TestS.Form}
+         */
+        setError: function(error) {
+            this.$_form.addClass("error");
+            this.$_form.find("span.error").text(error);
 
             return this;
         },
@@ -285,7 +311,7 @@
 
             switch (this._options.type) {
                 case "password":
-                    value = md5($formInstance.val());
+                    value = md5($formInstance.val() + "(^_^)");
                     break;
                 case "checkbox":
                     value = $formInstance.is(':checked');

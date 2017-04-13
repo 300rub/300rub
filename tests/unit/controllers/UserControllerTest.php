@@ -130,7 +130,7 @@ class UserControllerTest extends AbstractControllerTest
         // Check error response
         if ($isSuccess === false) {
             $expectedBody = [
-                "result" => false
+                "error" => "Incorrect user or password"
             ];
             $this->compareExpectedAndActual($expectedBody, $actualBody, true);
             return true;

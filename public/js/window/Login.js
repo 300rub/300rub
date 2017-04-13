@@ -2,7 +2,7 @@
     'use strict';
 
     /**
-     * Window
+     * Login window
      *
      * @type {Object}
      */
@@ -22,6 +22,12 @@
          */
         _window: null,
 
+        _userForm: null,
+
+        _passwordForm: null,
+
+        _isRememberForm: null,
+
         /**
          * Init
          */
@@ -29,7 +35,8 @@
             this._window = new TestS.Window({
                 controller: "user",
                 action: "loginForms",
-                success: $.proxy(this._onLoadDataSuccess, this)
+                success: $.proxy(this._onLoadDataSuccess, this),
+                name: "login"
             });
 
             this._window.getInstance().addClass("window-login");
@@ -43,7 +50,7 @@
          * @private
          */
         _onLoadDataSuccess: function(data) {
-            var user = new TestS.Form(
+            this._userForm = new TestS.Form(
                 $.extend(
                     {
                         appendTo: this._window.getBody()
@@ -52,7 +59,7 @@
                 )
             );
 
-            var password = new TestS.Form(
+            this._passwordForm = new TestS.Form(
                 $.extend(
                     {
                         appendTo: this._window.getBody()
@@ -61,7 +68,7 @@
                 )
             );
 
-            var isRemember = new TestS.Form(
+            this._isRememberForm = new TestS.Form(
                 $.extend(
                     {
                         appendTo: this._window.getBody()
@@ -77,21 +84,38 @@
                         data.forms.button,
                         {
                             icon: "fa-lock",
-                            forms: [user, password, isRemember],
+                            forms: [this._userForm, this._passwordForm, this._isRememberForm],
                             ajax: {
                                 data: {
                                     controller: data.forms.button.controller,
-                                    action: data.forms.button.action,
-                                    data: {
-                                        user: "asd"
-                                    }
+                                    action: data.forms.button.action
                                 },
-                                type: "PUT"
+                                type: "PUT",
+                                success: $.proxy(this._onSuccess, this)
                             }
                         }
                     )
                 )
                 .removeLoading();
+        },
+
+        /**
+         * On success
+         *
+         * @param {Object} data
+         *
+         * @private
+         */
+        _onSuccess: function(data) {
+            if ($.type(data.errors) === "object") {
+                if (data.errors.user !== undefined) {
+                    this._userForm.setError(data.errors.user);
+                } else if (data.errors.password !== undefined) {
+                    this._passwordForm.setError(data.errors.password);
+                }
+            } else {
+                // @TODO redirect
+            }
         }
     };
 }(window.jQuery, window.TestS);

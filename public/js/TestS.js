@@ -50,8 +50,7 @@
          *
          * @returns {TestS}
          */
-        append: function ($object)
-        {
+        append: function ($object) {
             if (this.$_wrapper === null) {
                 this.$_wrapper = $("#ajax-wrapper");
             }

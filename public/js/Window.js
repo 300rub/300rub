@@ -54,9 +54,29 @@
             this.$_body = this.$_instance.find(".body");
             this.$_overlay = TestS.Template.get("window-overlay");
             this
+                ._setNameAndAddToCollection()
                 ._setCloseEvents()
                 ._addDomElement()
                 ._loadData();
+
+            return this;
+        },
+
+        /**
+         * Sets window name (class) and adds to the collection
+         *
+         * @returns {TestS.Window}
+         *
+         * @private
+         */
+        _setNameAndAddToCollection: function() {
+            if (this._options.name === undefined) {
+                return this;
+            }
+
+            this.getInstance().addClass("window-" + this._options.name);
+
+            TestS.Window.Collection.add(this._options.name, this);
 
             return this;
         },
@@ -114,6 +134,10 @@
             setTimeout($.proxy(function() {
                 this.getInstance().remove();
                 this.getOverlay().remove();
+
+                if (this._options.name !== undefined) {
+                    TestS.Window.Collection.delete(this._options.name);
+                }
             }, this), 350);
         },
 
