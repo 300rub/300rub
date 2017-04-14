@@ -94,7 +94,7 @@
          */
         _checkRequired: function() {
             if ($.trim(this._value) === "") {
-                this._addError("required");
+                this._addError(TestS.Validator.Errors.get("required"));
             }
         },
 
@@ -107,7 +107,7 @@
          */
         _checkMaxLength: function(max) {
             if ($.trim(this._value).length > parseInt(max)) {
-                this._addError("max");
+                this._addError(TestS.Validator.Errors.get("maxLength"));
             }
         },
 
@@ -120,7 +120,7 @@
          */
         _checkMinLength: function(min) {
             if ($.trim(this._value).length < parseInt(min)) {
-                this._addError("min");
+                this._addError(TestS.Validator.Errors.get("minLength"));
             }
         },
 
@@ -132,8 +132,48 @@
         _checkLatinDigitUnderscoreHyphen: function() {
             var pattern = new RegExp("^[0-9a-z-_]+$");
             if (!pattern.test($.trim(this._value))) {
-                this._addError("latinDigitUnderscoreHyphen");
+                this._addError(TestS.Validator.Errors.get("latinDigitUnderscoreHyphen"));
             }
         }
     };
+
+    /**
+     * Errors
+     *
+     * @var {Object}
+     */
+    TestS.Validator.Errors = {
+
+        /**
+         * Errors
+         *
+         * @var {Object}
+         */
+        _errors: {},
+
+        /**
+         * Sets an error
+         *
+         * @param {String} key
+         * @param {String} value
+         */
+        set: function (key, value) {
+            this._errors[key] = value;
+        },
+
+        /**
+         * Gets an error
+         *
+         * @param {String} key
+         *
+         * @returns {String
+         */
+        get: function (key) {
+            if (this._errors[key] === undefined) {
+                return key;
+            }
+
+            return this._errors[key];
+        }
+    }
 }(window.jQuery, window.TestS);

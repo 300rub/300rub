@@ -8,6 +8,7 @@
  * @var string[] $js
  * @var string   $content
  * @var int      $language
+ * @var array    $errorMessages
  */
 ?>
 
@@ -43,6 +44,9 @@
     <script>
         window.jQuery(document).ready(function() {
             window.TestS.setLanguage(<?= $language ?>);
+            <?php foreach ($errorMessages as $key => $value) { ?>
+                TestS.Validator.Errors.set("<?= $key ?>", "<?= $value ?>");
+            <?php } ?>
         });
     </script>
 </head>

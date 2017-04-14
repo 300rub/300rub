@@ -4,6 +4,7 @@ namespace testS\controllers;
 
 use testS\components\Language;
 use testS\components\Operation;
+use testS\components\Validator;
 use testS\models\SeoModel;
 
 /**
@@ -126,6 +127,7 @@ class PageController extends AbstractController
         $layoutData["keywords"] = SeoModel::getKeywords();
         $layoutData["description"] = SeoModel::getDescription();
         $layoutData["language"] = Language::getActiveId();
+        $layoutData["errorMessages"] = Validator::getErrorMessages();
 
         return $this->getContentFromTemplate("page/layout", $layoutData);
     }
