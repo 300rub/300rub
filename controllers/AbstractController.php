@@ -256,7 +256,7 @@ abstract class AbstractController
         if (array_key_exists(self::DISPLAY_BLOCKS_FROM_SECTION, $data)) {
             $value = (int) $data[self::DISPLAY_BLOCKS_FROM_SECTION];
             $_SESSION[self::DISPLAY_BLOCKS_FROM_SECTION] = $value;
-            setcookie(self::DISPLAY_BLOCKS_FROM_SECTION, $value);
+            setcookie(self::DISPLAY_BLOCKS_FROM_SECTION, $value, time() + 86400 * 365 * 10, "/"); // 10 years
             return $value;
         }
 

@@ -129,7 +129,7 @@
                     this._passwordForm.setError(data.errors.password);
                 }
             } else {
-                // @TODO redirect
+                window.location.reload();
             }
         }
     };

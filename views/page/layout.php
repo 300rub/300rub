@@ -48,7 +48,7 @@
 </head>
 <body>
 
-<?php echo $content; ?>
+<?= $content; ?>
 
 <div id="ajax-wrapper"></div>
 

@@ -115,9 +115,9 @@ class UserController extends AbstractController
         $token = md5(session_id());
 
         App::web()->setUser($token, $userModel);
-
+        $_SESSION["token"] = $token;
         if ($data["isRemember"] === true) {
-            setcookie("token", $token);
+            setcookie("token", $token, time() + 86400 * 365 * 10, "/"); // 10 years
         }
 
         $userSessionModel = (new UserSessionModel())->byToken($token)->find();
@@ -165,7 +165,7 @@ class UserController extends AbstractController
         if (!array_key_exists("token", $data)) {
             App::web()->getMemcached()->delete($user->getToken());
 
-            setcookie('token', '', time() - 3600);
+            setcookie('token', '', time() - 3600, "/");
             unset($_COOKIE['token']);
 
             $userSessionModel = (new UserSessionModel())->byToken($user->getToken())->find();
