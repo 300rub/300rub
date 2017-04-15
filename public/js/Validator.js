@@ -101,7 +101,7 @@
         /**
          * Verifies string length for max value
          *
-         * @param {Integer} [max]
+         * @param {int} [max]
          *
          * @private
          */
@@ -114,7 +114,7 @@
         /**
          * Verifies string length for min value
          *
-         * @param {Integer} [min]
+         * @param {int} [min]
          *
          * @private
          */
@@ -166,7 +166,7 @@
          *
          * @param {String} key
          *
-         * @returns {String
+         * @returns {String}
          */
         get: function (key) {
             if (this._errors[key] === undefined) {

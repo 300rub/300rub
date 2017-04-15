@@ -59,7 +59,23 @@
                 ._addDomElement()
                 ._loadData();
 
+            this._setMaxHeight();
+            $(window).resize($.proxy(function () {
+                this._setMaxHeight();
+            }, this));
+
             return this;
+        },
+
+        /**
+         * Sets container's max-height
+         *
+         * @private
+         */
+        _setMaxHeight: function() {
+            this.$_body.css("max-height", $.proxy(function () {
+                return $(window).outerHeight() - 148;
+            }, this));
         },
 
         /**

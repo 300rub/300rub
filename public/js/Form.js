@@ -109,13 +109,25 @@
                 this.$_form.on("click", $.proxy(function() {
                     var flattenData = {};
                     var hasError = false;
+                    var scrollTop = false;
                     $.each(this._options.forms, $.proxy(function(i, item) {
                         item.validate();
                         if (item.getInstance().hasClass("error")) {
                             hasError = true;
+                            if (scrollTop === false) {
+                                scrollTop = item.getInstance().position().top;
+                            }
                         }
                         flattenData[item.getName()] = item.getParsedValue();
                     }, this));
+
+                    if (hasError === true
+                        && scrollTop !== false
+                        && this._options.scrollContainer !== undefined
+                    ) {
+                        var containerPosition = this._options.scrollContainer.find("div:first-child").position().top;
+                        this._options.scrollContainer.scrollTop(scrollTop - containerPosition);
+                    }
 
                     // @TODO get data
                     var data = flattenData;

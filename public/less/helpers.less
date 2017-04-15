@@ -7,3 +7,23 @@
     color: @redLinkColor;
   }
 }
+
+.scroll {
+  &::-webkit-scrollbar {
+    -webkit-appearance: none;
+    width: 8px;
+    height: 8px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: @grayBorderColor;
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background-color: @blueBorderColor;
+  }
+
+  &::-webkit-scrollbar-track-piece {
+    background-color: @grayBackground;
+  }
+}

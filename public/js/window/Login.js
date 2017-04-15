@@ -100,6 +100,7 @@
                         {
                             icon: "fa-lock",
                             forms: [this._userForm, this._passwordForm, this._isRememberForm],
+                            scrollContainer: this._window.getBody(),
                             ajax: {
                                 data: {
                                     controller: data.forms.button.controller,
