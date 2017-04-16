@@ -23,6 +23,13 @@
         _language: 0,
 
         /**
+         * Token
+         *
+         * @var {String}
+         */
+        _token: "",
+
+        /**
          * Sets language
          *
          * @param {number} language
@@ -41,6 +48,27 @@
          */
         getLanguage: function() {
             return this._language;
+        },
+
+        /**
+         * Sets token
+         *
+         * @param {String} token
+         *
+         * @returns {TestS}
+         */
+        setToken: function (token) {
+            this._token = token;
+            return this;
+        },
+
+        /**
+         * Gets token
+         *
+         * @returns {String}
+         */
+        getToken: function () {
+            return this._token;
         },
 
         /**

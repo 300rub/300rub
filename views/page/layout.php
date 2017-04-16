@@ -9,6 +9,7 @@
  * @var string   $content
  * @var int      $language
  * @var array    $errorMessages
+ * @var string   $token
  */
 ?>
 
@@ -40,21 +41,22 @@
             };
         </script>
     <?php } ?>
-
-    <script>
-        window.jQuery(document).ready(function() {
-            window.TestS.setLanguage(<?= $language ?>);
-            <?php foreach ($errorMessages as $key => $value) { ?>
-                TestS.Validator.Errors.set("<?= $key ?>", "<?= $value ?>");
-            <?php } ?>
-        });
-    </script>
 </head>
 <body>
 
 <?= $content; ?>
 
 <div id="ajax-wrapper"></div>
+
+<script>
+    window.jQuery(document).ready(function() {
+        window.TestS.setLanguage(<?= $language ?>);
+        window.TestS.setToken("<?= $token ?>");
+        <?php foreach ($errorMessages as $key => $value) { ?>
+        TestS.Validator.Errors.set("<?= $key ?>", "<?= $value ?>");
+        <?php } ?>
+    });
+</script>
 
 </body>
 </html>

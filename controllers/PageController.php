@@ -2,6 +2,7 @@
 
 namespace testS\controllers;
 
+use testS\applications\App;
 use testS\components\Language;
 use testS\components\Operation;
 use testS\components\Validator;
@@ -109,11 +110,13 @@ class PageController extends AbstractController
         $content = $this->_getCommonContent();
 
         if ($this->isUser()) {
+            $token = App::web()->getUser()->getToken();
             $layoutData = array_merge_recursive(self::$_commonDevStaticMap, self::$_userDevStaticMap);
             $templatesMap = array_merge(self::$_commonTemplatesMap, self::$_userTemplatesMap);
 
             $content .= $this->_getUserContent();
         } else {
+            $token = "";
             $layoutData = array_merge_recursive(self::$_commonDevStaticMap, self::$_guestDevStaticMap);
             $templatesMap = array_merge(self::$_commonTemplatesMap, self::$_guestTemplatesMap);
 
@@ -128,6 +131,7 @@ class PageController extends AbstractController
         $layoutData["description"] = SeoModel::getDescription();
         $layoutData["language"] = Language::getActiveId();
         $layoutData["errorMessages"] = Validator::getErrorMessages();
+        $layoutData["token"] = $token;
 
         return $this->getContentFromTemplate("page/layout", $layoutData);
     }

@@ -36,7 +36,6 @@
                     accepts: "application/json",
                     dataType: "json",
                     global: false,
-                    cache: false,
                     traditional: true,
                     data: this._getData(),
                     type: this._getType(),
@@ -59,7 +58,8 @@
         _getData: function () {
             var data = $.extend(
                 {
-                    language: TestS.getLanguage()
+                    language: TestS.getLanguage(),
+                    token: TestS.getToken()
                 },
                 this._options.data
             );

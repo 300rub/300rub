@@ -112,6 +112,8 @@
                     )
                 )
                 .removeLoading();
+
+            this._userForm.focus();
         },
 
         /**
