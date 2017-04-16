@@ -32,3 +32,19 @@
   -webkit-transition-property: @value;
   transition-property: @value;
 }
+
+.transition (@prop, @time) {
+  -webkit-transition: @prop @time;
+  -moz-transition: @prop @time;
+  -ms-transition: @prop @time;
+  -o-transition: @prop @time;
+  transition: @prop @time;
+}
+
+.transform (@value) {
+  -webkit-transform: @value;
+  -moz-transform: @value;
+  -ms-transform: @value;
+  -o-transform: @value;
+  transform: @value;
+}

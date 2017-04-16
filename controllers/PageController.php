@@ -66,7 +66,12 @@ class PageController extends AbstractController
      * @var array
      */
     private static $_userDevStaticMap = [
-
+        "js" => [
+            "UserButtons"
+        ],
+        "less" => [
+            "userButtons"
+        ]
     ];
 
     /**
@@ -197,6 +202,8 @@ class PageController extends AbstractController
                 "isDisplaySections" => $isDisplaySections,
                 "isDisplayBlocks"   => $isDisplayBlocks,
                 "isDisplaySettings" => $isDisplaySettings,
+                "logoutYes"         => Language::t("user", "logoutYes"),
+                "logoutNo"          => Language::t("user", "logoutNo")
             ]
         );
     }

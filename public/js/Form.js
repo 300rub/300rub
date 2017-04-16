@@ -126,6 +126,8 @@
 
             if (this._options.icon !== undefined) {
                 this.$_form.find(".icons .icon").addClass(this._options.icon);
+            } else {
+                this.$_form.find(".icons").remove();
             }
 
             if ($.type(this._options.forms) === "array") {
@@ -154,22 +156,44 @@
                     ) {
                         var $icon = this.$_form.find(".icons .icon");
                         var $spinner = this.$_form.find(".icons .fa-spin");
-                        this.$_form. addClass("disabled");
+                        this.$_form.addClass("disabled");
 
                         $icon.addClass("hidden");
                         $spinner.removeClass("hidden");
 
-                        var ajaxData = this._options.ajax;
-                        ajaxData.data.data = data;
-                        ajaxData.complete = $.proxy(function() {
+                        var ajax = this._options.ajax;
+                        ajax.data.data = data;
+                        ajax.complete = $.proxy(function() {
                             $icon.removeClass("hidden");
                             $spinner.addClass("hidden");
                             this.$_form. removeClass("disabled");
                         }, this);
 
-                        new TestS.Ajax(ajaxData);
+                        new TestS.Ajax(ajax);
                     }
                 }, this));
+            } else if ($.type(this._options.ajax) === "object"
+                && !this.$_form.hasClass("disabled")
+            ) {
+                var $icon = this.$_form.find(".icons .icon");
+                var $spinner = this.$_form.find(".icons .fa-spin");
+                this.$_form.addClass("disabled");
+
+                $icon.addClass("hidden");
+                $spinner.removeClass("hidden");
+
+                var ajax = this._options.ajax;
+                ajax.complete = $.proxy(function() {
+                    $icon.removeClass("hidden");
+                    $spinner.addClass("hidden");
+                    this.$_form. removeClass("disabled");
+                }, this);
+
+                new TestS.Ajax(ajax);
+            }
+
+            if ($.type(this._options.onClick) === "function") {
+                this.$_form.on("click", this._options.onClick);
             }
         },
 

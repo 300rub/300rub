@@ -53,7 +53,7 @@
         window.TestS.setLanguage(<?= $language ?>);
         window.TestS.setToken("<?= $token ?>");
         <?php foreach ($errorMessages as $key => $value) { ?>
-        TestS.Validator.Errors.set("<?= $key ?>", "<?= $value ?>");
+            TestS.Validator.Errors.set("<?= $key ?>", "<?= $value ?>");
         <?php } ?>
     });
 </script>

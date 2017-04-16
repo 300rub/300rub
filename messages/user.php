@@ -27,4 +27,12 @@ return [
         Language::LANGUAGE_EN_ID => "Incorrect user or password",
         Language::LANGUAGE_RU_ID => "",
     ],
+    "logoutYes" => [
+        Language::LANGUAGE_EN_ID => "Yes",
+        Language::LANGUAGE_RU_ID => "",
+    ],
+    "logoutNo" => [
+        Language::LANGUAGE_EN_ID => "No",
+        Language::LANGUAGE_RU_ID => "",
+    ],
 ];
