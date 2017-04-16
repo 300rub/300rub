@@ -94,6 +94,29 @@
         },
 
         /**
+         * Scrolls container to the forms
+         *
+         * @returns {TestS.Form}
+         */
+        scrollTo: function() {
+            var $scrollContainer = this.getInstance().closest(".scroll-container");
+            var scrollTop = this.getInstance().position().top;
+            var scrollTopContainer = $scrollContainer.find("div:first-child").position().top;
+            $scrollContainer.scrollTop(scrollTop - scrollTopContainer);
+            return this;
+        },
+
+        /**
+         * Does focus on instance
+         *
+         * @returns {TestS.Form}
+         */
+        focus: function() {
+            this.getInstance().find(".form-instance").focus();
+            return this;
+        },
+
+        /**
          * Sets button form
          *
          * @private
@@ -109,25 +132,18 @@
                 this.$_form.on("click", $.proxy(function() {
                     var flattenData = {};
                     var hasError = false;
-                    var scrollTop = false;
+                    var isScrolled = false;
                     $.each(this._options.forms, $.proxy(function(i, item) {
                         item.validate();
                         if (item.getInstance().hasClass("error")) {
                             hasError = true;
-                            if (scrollTop === false) {
-                                scrollTop = item.getInstance().position().top;
+                            if (isScrolled === false) {
+                                isScrolled = true;
+                                item.scrollTo().focus();
                             }
                         }
                         flattenData[item.getName()] = item.getParsedValue();
                     }, this));
-
-                    if (hasError === true
-                        && scrollTop !== false
-                        && this._options.scrollContainer !== undefined
-                    ) {
-                        var containerPosition = this._options.scrollContainer.find("div:first-child").position().top;
-                        this._options.scrollContainer.scrollTop(scrollTop - containerPosition);
-                    }
 
                     // @TODO get data
                     var data = flattenData;
@@ -178,7 +194,7 @@
                 return this;
             }
 
-            this.$_form.find(".form-instance").attr("name", this._options.name);
+            this.getInstance().find(".form-instance").attr("name", this._options.name);
             return this;
         },
 

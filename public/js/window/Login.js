@@ -100,7 +100,6 @@
                         {
                             icon: "fa-lock",
                             forms: [this._userForm, this._passwordForm, this._isRememberForm],
-                            scrollContainer: this._window.getBody(),
                             ajax: {
                                 data: {
                                     controller: data.forms.button.controller,
@@ -125,9 +124,15 @@
         _onSuccess: function(data) {
             if ($.type(data.errors) === "object") {
                 if (data.errors.user !== undefined) {
-                    this._userForm.setError(data.errors.user);
+                    this._userForm
+                        .setError(data.errors.user)
+                        .scrollTo()
+                        .focus();
                 } else if (data.errors.password !== undefined) {
-                    this._passwordForm.setError(data.errors.password);
+                    this._passwordForm
+                        .setError(data.errors.password)
+                        .scrollTo()
+                        .focus();
                 }
             } else {
                 window.location.reload();

@@ -4,7 +4,7 @@
         <a class="close fa fa-remove"></a>
     </div>
 
-    <div class="body"></div>
+    <div class="body scroll-container"></div>
 
     <div class="footer"></div>
 
