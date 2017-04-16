@@ -216,16 +216,6 @@
         /**
          * Adds loading
          *
-         * @returns {TestS.Window}
-         */
-        addLoading: function() {
-            this.getInstance().addClass("loading");
-            return this;
-        },
-
-        /**
-         * Adds loading
-         *
          * @param {Object} [options]
          *
          * @returns {TestS.Window}
@@ -240,6 +230,13 @@
                     options
                 )
             );
+
+            this.getBody().keypress(function(e) {
+                if (e.which == 13) {
+                    submit.getInstance().click();
+                }
+            });
+
             return this;
         }
     };

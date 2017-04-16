@@ -29,21 +29,24 @@
          * Init
          */
         init: function () {
-            $.ajax({
-                url: "/api/",
-                contentType: "application/json",
-                accepts: "application/json",
-                dataType: "json",
-                global: false,
-                cache: false,
-                traditional: true,
-                data: this._getData(),
-                type: this._getType(),
-                beforeSend: this._getBeforeSend(),
-                success: this._getSuccess(),
-                error: this._getError(),
-                complete: this._getComplete()
-            });
+            setTimeout($.proxy(function(){
+                $.ajax({
+                    url: "/api/",
+                    contentType: "application/json",
+                    accepts: "application/json",
+                    dataType: "json",
+                    global: false,
+                    cache: false,
+                    traditional: true,
+                    data: this._getData(),
+                    type: this._getType(),
+                    beforeSend: this._getBeforeSend(),
+                    success: this._getSuccess(),
+                    error: this._getError(),
+                    complete: this._getComplete()
+                });
+            }, this), 1000);
+
         },
 
         /**
