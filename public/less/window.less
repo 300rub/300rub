@@ -16,6 +16,8 @@
   .header {
     height: 42px;
     border-bottom: 1px solid @grayBorderColor;
+    position: relative;
+    z-index: 20;
 
     .title {
       padding: 0 25px;
@@ -42,6 +44,7 @@
     padding: 0 25px;
     overflow-y: auto;
     position: relative;
+    z-index: 10;
   }
 
   .footer {
@@ -51,28 +54,13 @@
     margin: 0 25px;
 
     .submit {
-      .gradient-vertical(#42a1ec, #0070c9);
-      border: 1px solid #07c;
-      color: white;
+      .button;
       height: 36px;
       padding: 0 30px;
       position: absolute;
       bottom: 12px;
       right: 0;
-      .border-radius(4px);
       font-size: 16px;
-
-      &:hover {
-        .gradient-vertical(#51a9ee, #147bcd);
-      }
-
-      &:focus {
-        box-shadow: 0 0 0 3px rgba(131, 192, 253, 0.5);
-      }
-
-      * {
-        color: white;
-      }
     }
   }
 
@@ -84,6 +72,39 @@
     margin-top: -20px;
     margin-left: -20px;
     color: @grayBorderColor;
+    display: none;
+  }
+
+  .ajax-error {
+    display: none;
+  }
+}
+
+.window.error {
+  .header {
+    border-bottom: none;
+    height: 1px;
+
+    .title {
+      display: none;
+    }
+  }
+
+  .ajax-error {
+    display: block;
+    font-size: 12px;
+    padding: 5px 15px 5px 0;
+
+    * {
+      color: @redTextColor;
+    }
+
+    div {
+      margin: 10px 0;
+    }
+  }
+
+  .footer {
     display: none;
   }
 }

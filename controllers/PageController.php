@@ -80,6 +80,7 @@ class PageController extends AbstractController
      * @var array
      */
     private static $_commonTemplatesMap = [
+        "common/ajax-error",
         "forms/text",
         "forms/password",
         "forms/checkbox",
@@ -203,7 +204,8 @@ class PageController extends AbstractController
                 "isDisplayBlocks"   => $isDisplayBlocks,
                 "isDisplaySettings" => $isDisplaySettings,
                 "logoutYes"         => Language::t("user", "logoutYes"),
-                "logoutNo"          => Language::t("user", "logoutNo")
+                "logoutNo"          => Language::t("user", "logoutNo"),
+                "logoutConfirmText" => Language::t("user", "logoutConfirmText")
             ]
         );
     }

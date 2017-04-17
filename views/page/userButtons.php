@@ -5,6 +5,7 @@
  * @var bool   $isDisplaySettings
  * @var string $logoutYes
  * @var string $logoutNo
+ * @var string $logoutConfirmText
  */
 ?>
 
@@ -36,11 +37,10 @@
         <i class="fa fa-sign-out"></i>
     </a>
     <div
-        id="logout-confirmation"
-        class="hidden"
+        class="logout-confirmation hidden"
         data-yes="<?= $logoutYes ?>"
         data-no="<?= $logoutNo ?>"
     >
-        <div>Are you sure to exit?</div>
+        <div><?= $logoutConfirmText ?></div>
     </div>
 </div>

@@ -148,7 +148,7 @@
                     }, this));
 
                     // @TODO get data
-                    var data = flattenData;
+                    var data = $.extend({}, flattenData);
 
                     if (hasError === false
                         && $.type(this._options.ajax) === "object"
@@ -175,21 +175,23 @@
             } else if ($.type(this._options.ajax) === "object"
                 && !this.$_form.hasClass("disabled")
             ) {
-                var $icon = this.$_form.find(".icons .icon");
-                var $spinner = this.$_form.find(".icons .fa-spin");
-                this.$_form.addClass("disabled");
+                this.$_form.on("click", $.proxy(function() {
+                    var $icon = this.$_form.find(".icons .icon");
+                    var $spinner = this.$_form.find(".icons .fa-spin");
+                    this.$_form.addClass("disabled");
 
-                $icon.addClass("hidden");
-                $spinner.removeClass("hidden");
+                    $icon.addClass("hidden");
+                    $spinner.removeClass("hidden");
 
-                var ajax = this._options.ajax;
-                ajax.complete = $.proxy(function() {
-                    $icon.removeClass("hidden");
-                    $spinner.addClass("hidden");
-                    this.$_form. removeClass("disabled");
-                }, this);
+                    var ajax = this._options.ajax;
+                    ajax.complete = $.proxy(function() {
+                        $icon.removeClass("hidden");
+                        $spinner.addClass("hidden");
+                        this.$_form. removeClass("disabled");
+                    }, this);
 
-                new TestS.Ajax(ajax);
+                    new TestS.Ajax(ajax);
+                }, this));
             }
 
             if ($.type(this._options.onClick) === "function") {

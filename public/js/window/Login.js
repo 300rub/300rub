@@ -106,7 +106,8 @@
                                     action: data.forms.button.action
                                 },
                                 type: "PUT",
-                                success: $.proxy(this._onSuccess, this)
+                                success: $.proxy(this._onSuccess, this),
+                                error: $.proxy(this._window.onError, this._window)
                             }
                         }
                     )

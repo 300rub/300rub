@@ -187,8 +187,22 @@
                     controller: this._options.controller,
                     action: this._options.action
                 },
-                success: this._options.success
+                success: this._options.success,
+                error: $.proxy(this.onError, this)
             });
+        },
+
+        /**
+         * On error
+         *
+         * @param {Object} jqXHR
+         */
+        onError: function (jqXHR) {
+            var $errorTemplate = TestS.Ajax.getErrorTemplate(jqXHR);
+            this.getInstance()
+                .removeClass("loading")
+                .addClass("error");
+            this.getBody().html($errorTemplate);
         },
 
         /**

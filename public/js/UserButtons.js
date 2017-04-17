@@ -17,36 +17,63 @@
      */
     TestS.UserButtons.prototype = {
 
+        $_container: null,
+
         /**
          * Init
          */
         init: function () {
-            $("#user-button-logout").on("click", this._onLogoutClick);
+            this.$_container = $("#user-buttons");
+
+            this._setLogout();
+
+
         },
 
-        _onLogoutClick: function () {
-            var $logoutConfirmation = $("#logout-confirmation");
-            $logoutConfirmation.removeClass("hidden");
+        /**
+         * Sets logout events
+         *
+         * @returns {TestS.UserButtons}
+         *
+         * @private
+         */
+        _setLogout: function() {
+            var $logoutConfirmation = this.$_container.find(".logout-confirmation");
 
-            var yes = new TestS.Form({
+            new TestS.Form({
                 type: "button",
-                class: "yes",
+                class: "button",
                 appendTo: $logoutConfirmation,
                 label: $logoutConfirmation.data("yes"),
-                icon: "fa-sign-out"
+                icon: "fa-sign-out",
+                ajax: {
+                    type: "DELETE",
+                    data: {
+                        controller: "user",
+                        action: "session"
+                    },
+                    success: function() {
+                        window.location.reload();
+                    }
+                }
             });
 
-            var no = new TestS.Form({
+            new TestS.Form({
                 type: "button",
-                class: "no",
+                class: "gray-button",
                 appendTo: $logoutConfirmation,
                 label: $logoutConfirmation.data("no"),
                 icon: "fa-ban",
                 onClick: function () {
                     $logoutConfirmation.addClass("hidden");
-                    remove(yes.getInstance());
                 }
             });
+
+            $("#user-button-logout").on("click", function() {
+                $logoutConfirmation.removeClass("hidden");
+            });
+
+            return this;
         }
     };
 

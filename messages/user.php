@@ -35,4 +35,8 @@ return [
         Language::LANGUAGE_EN_ID => "No",
         Language::LANGUAGE_RU_ID => "",
     ],
+    "logoutConfirmText" => [
+        Language::LANGUAGE_EN_ID => "Are you sure to exit?",
+        Language::LANGUAGE_RU_ID => "",
+    ],
 ];
