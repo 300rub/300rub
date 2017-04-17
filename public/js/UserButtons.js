@@ -25,9 +25,24 @@
         init: function () {
             this.$_container = $("#user-buttons");
 
-            this._setLogout();
+            this
+                ._setSettings()
+                ._setLogout();
+        },
 
+        /**
+         * Sets settings
+         *
+         * @returns {TestS.UserButtons}
+         *
+         * @private
+         */
+        _setSettings: function() {
+            $("#user-button-settings").on("click", function () {
 
+            });
+
+            return this;
         },
 
         /**
