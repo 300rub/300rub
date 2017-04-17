@@ -54,6 +54,12 @@
                     },
                     success: function() {
                         window.location.reload();
+                    },
+                    error: function (jqXHR) {
+                        var $errorTemplate = TestS.Ajax.getErrorTemplate(jqXHR);
+                        $logoutConfirmation
+                            .html($errorTemplate)
+                            .addClass("error");
                     }
                 }
             });
