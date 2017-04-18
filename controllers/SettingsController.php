@@ -50,6 +50,6 @@ class SettingsController extends AbstractController
 
     public function updateIcon()
     {
-        // @TODO
+        // @TODO 
     }
 }
