@@ -256,13 +256,13 @@ class UserModelTest extends AbstractModelTest
         $userSettingsOperationModel->set(
             [
                 "userId"    => $userModel->getId(),
-                "operation" => Operation::SETTING_SEO
+                "operation" => Operation::SETTING_ICON
             ]
         );
         $userSettingsOperationModel->save();
         $expectedOperations = [
             Operation::TYPE_SETTINGS => [
-                Operation::SETTING_SEO
+                Operation::SETTING_ICON
             ]
         ];
         $actualOperations = $userModel->getOperations();
@@ -284,7 +284,7 @@ class UserModelTest extends AbstractModelTest
                 ]
             ],
             Operation::TYPE_SETTINGS => [
-                Operation::SETTING_SEO
+                Operation::SETTING_ICON
             ]
         ];
         $actualOperations = $userModel->getOperations();
@@ -310,7 +310,7 @@ class UserModelTest extends AbstractModelTest
                 ]
             ],
             Operation::TYPE_SETTINGS => [
-                Operation::SETTING_SEO
+                Operation::SETTING_ICON
             ]
         ];
         $actualOperations = $userModel->getOperations();
@@ -343,7 +343,7 @@ class UserModelTest extends AbstractModelTest
                 ]
             ],
             Operation::TYPE_SETTINGS => [
-                Operation::SETTING_SEO
+                Operation::SETTING_ICON
             ]
         ];
         $actualOperations = $userModel->getOperations();
@@ -380,7 +380,7 @@ class UserModelTest extends AbstractModelTest
                 ]
             ],
             Operation::TYPE_SETTINGS => [
-                Operation::SETTING_SEO
+                Operation::SETTING_ICON
             ]
         ];
         $actualOperations = $userModel->getOperations();

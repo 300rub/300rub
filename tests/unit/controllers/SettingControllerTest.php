@@ -53,10 +53,10 @@ class SettingControllerTest extends AbstractControllerTest
                 self::TYPE_USER,
                 [
                     "result" => [
-                        "seo" => [
-                            "name"       => "SEO",
+                        "icon"  => [
+                            "name"       => "Icon",
                             "controller" => "settings",
-                            "action"     => "seo",
+                            "action"     => "icon",
                         ],
                     ]
                 ]
@@ -65,11 +65,6 @@ class SettingControllerTest extends AbstractControllerTest
                 self::TYPE_ADMIN,
                 [
                     "result" => [
-                        "seo"   => [
-                            "name"       => "SEO",
-                            "controller" => "settings",
-                            "action"     => "seo",
-                        ],
                         "icon"  => [
                             "name"       => "Icon",
                             "controller" => "settings",
@@ -84,74 +79,6 @@ class SettingControllerTest extends AbstractControllerTest
                 ]
             ],
         ];
-    }
-
-    /**
-     * Test for getSeo
-     *
-     * @param string $user
-     * @param array  $expected
-     * @param bool   $hasError
-     *
-     * @dataProvider dataProviderForTestGetSeo
-     */
-    public function testGetSeo($user, $expected, $hasError = false)
-    {
-        $this->setUser($user);
-        $this->sendRequest("settings", "seo");
-
-        if ($hasError === false) {
-            $this->compareExpectedAndActual($expected, $this->getBody(), true);
-        } else {
-            $this->assertError();
-        }
-    }
-
-    /**
-     * Data provider for testGetSeo
-     *
-     * @return array
-     */
-    public function dataProviderForTestGetSeo()
-    {
-        return [
-            [
-                null,
-                [],
-                true
-            ],
-            [
-                self::TYPE_NO_OPERATIONS_USER,
-                [],
-                true
-            ],
-            [
-                self::TYPE_BLOCKED_USER,
-                [],
-                true
-            ],
-            [
-                self::TYPE_USER,
-                [
-                    "title"       => "Title",
-                    "keywords"    => "Keywords",
-                    "description" => "Description",
-                ]
-            ],
-            [
-                self::TYPE_ADMIN,
-                [
-                    "title"       => "Title",
-                    "keywords"    => "Keywords",
-                    "description" => "Description",
-                ]
-            ]
-        ];
-    }
-
-    public function testUpdateSeo()
-    {
-        $this->markTestSkipped();
     }
 
     public function testGetIcon()

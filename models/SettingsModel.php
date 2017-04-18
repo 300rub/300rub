@@ -13,24 +13,13 @@ class SettingsModel extends AbstractModel
 {
 
     /**
-     * Types
-     */
-    const TYPE_TITLE = "title";
-    const TYPE_KEYWORDS = "keywords";
-    const TYPE_DESCRIPTION = "description";
-
-    /**
      * Gets a list of types
      *
      * @return array
      */
     public static function getTypeList()
     {
-        return [
-            self::TYPE_TITLE       => "",
-            self::TYPE_KEYWORDS    => "",
-            self::TYPE_DESCRIPTION => "",
-        ];
+        return [];
     }
 
     /**

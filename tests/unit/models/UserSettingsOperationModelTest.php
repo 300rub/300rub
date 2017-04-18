@@ -69,7 +69,7 @@ class UserSettingsOperationModelTest extends AbstractModelTest
             ],
             "empty5" => [
                 [
-                    "operation" => Operation::SETTING_SEO,
+                    "operation" => Operation::SETTING_ICON,
                 ],
                 [],
                 null,
@@ -79,7 +79,7 @@ class UserSettingsOperationModelTest extends AbstractModelTest
             "empty6" => [
                 [
                     "userId"    => 0,
-                    "operation" => Operation::SETTING_SEO,
+                    "operation" => Operation::SETTING_ICON,
                 ],
                 [],
                 null,
@@ -100,11 +100,11 @@ class UserSettingsOperationModelTest extends AbstractModelTest
             "correct1" => [
                 [
                     "userId"    => 1,
-                    "operation" => Operation::SETTING_SEO,
+                    "operation" => Operation::SETTING_USERS,
                 ],
                 [
                     "userId"    => 1,
-                    "operation" => Operation::SETTING_SEO,
+                    "operation" => Operation::SETTING_USERS,
                 ],
             ],
             "correct2" => [
@@ -131,11 +131,11 @@ class UserSettingsOperationModelTest extends AbstractModelTest
             "incorrect1" => [
                 [
                     "userId"    => "  1  ",
-                    "operation" => Operation::SETTING_SEO,
+                    "operation" => Operation::SETTING_USERS,
                 ],
                 [
                     "userId"    => 1,
-                    "operation" => Operation::SETTING_SEO,
+                    "operation" => Operation::SETTING_USERS,
                 ],
                 [
                     "userId"    => 2,
@@ -143,7 +143,7 @@ class UserSettingsOperationModelTest extends AbstractModelTest
                 ],
                 [
                     "userId"    => 1,
-                    "operation" => Operation::SETTING_SEO,
+                    "operation" => Operation::SETTING_USERS,
                 ],
             ],
             "incorrect2" => [
@@ -167,7 +167,7 @@ class UserSettingsOperationModelTest extends AbstractModelTest
         $this->duplicate(
             [
                 "userId"    => 1,
-                "operation" => Operation::SETTING_SEO,
+                "operation" => Operation::SETTING_USERS,
             ],
             [],
             self::EXCEPTION_MODEL

@@ -4,7 +4,6 @@ namespace testS\controllers;
 
 use testS\components\Language;
 use testS\components\Operation;
-use testS\models\SettingsModel;
 
 /**
  * SettingController
@@ -25,14 +24,6 @@ class SettingsController extends AbstractController
 
         $list = [];
 
-        if ($this->hasSettingsOperation(Operation::SETTING_SEO)) {
-            $list["seo"] = [
-                "name"       => Language::t("settings", "seo"),
-                "controller" => "settings",
-                "action"     => "seo",
-            ];
-        }
-
         if ($this->hasSettingsOperation(Operation::SETTING_ICON)) {
             $list["icon"] = [
                 "name"       => Language::t("settings", "icon"),
@@ -50,29 +41,6 @@ class SettingsController extends AbstractController
         }
 
         return ["result" => $list];
-    }
-
-    /**
-     * Gets SEO
-     *
-     * @return array
-     */
-    public function getSeo()
-    {
-        $this->checkSettingsOperation(Operation::SETTING_SEO);
-
-        $settingsModel = new SettingsModel();
-
-        return [
-            "title"       => $settingsModel->getSetting(SettingsModel::TYPE_TITLE),
-            "keywords"    => $settingsModel->getSetting(SettingsModel::TYPE_KEYWORDS),
-            "description" => $settingsModel->getSetting(SettingsModel::TYPE_DESCRIPTION),
-        ];
-    }
-
-    public function updateSeo()
-    {
-        // @TODO
     }
 
     public function getIcon()

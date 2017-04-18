@@ -36,7 +36,6 @@ class Operation
     /**
      * Setting operations
      */
-    const SETTING_SEO = "SETTING_SEO";
     const SETTING_ICON = "SETTING_ICON";
     const SETTING_USERS = "SETTING_USERS";
 
@@ -83,8 +82,8 @@ class Operation
      * @var array
      */
     public static $settingOperations = [
-        self::SETTING_SEO  => "",
-        self::SETTING_ICON => "",
+        self::SETTING_ICON  => "",
+        self::SETTING_USERS => "",
     ];
 
     /**
