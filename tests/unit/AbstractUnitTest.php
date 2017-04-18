@@ -29,6 +29,7 @@ abstract class AbstractUnitTest extends PHPUnit_Framework_TestCase
     const TOKEN_ADMIN = "c81e728d9d4c2f636f067f89cc14862c";
     const TOKEN_USER = "eccbc87e4b5ce2fe28308fd9f2a7baf3";
     const TOKEN_NO_OPERATION_USER = "a87ff679a2f3e71d9181a67b7542122c";
+    const TOKEN_BLOCKED_USER = "fkr8eur9a2f3e71d9181a67b7w94mfur";
 
     /**
      * Session IDs
@@ -37,6 +38,7 @@ abstract class AbstractUnitTest extends PHPUnit_Framework_TestCase
     const SESSION_ID_ADMIN = "e4da3b7fbbce2345d7772b0674a318d5";
     const SESSION_ID_USER = "1679091c5a880faf6fb5e6087eb1b2dc";
     const SESSION_NO_OPERATION_USER = "011ecee7d295c066ae68d4396215c3d0";
+    const SESSION_BLOCKED_USER = "krieu457d295c066ae68d4396mkdurn5";
 
     /**
      * Exceptions

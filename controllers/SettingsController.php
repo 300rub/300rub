@@ -4,6 +4,7 @@ namespace testS\controllers;
 
 use testS\components\Language;
 use testS\components\Operation;
+use testS\models\SettingsModel;
 
 /**
  * SettingController
@@ -20,7 +21,7 @@ class SettingsController extends AbstractController
      */
     public function getSettings()
     {
-        $this->checkUser();
+        $this->checkAnySettingsOperation();
 
         $list = [];
 
@@ -51,9 +52,22 @@ class SettingsController extends AbstractController
         return ["result" => $list];
     }
 
+    /**
+     * Gets SEO
+     *
+     * @return array
+     */
     public function getSeo()
     {
-        // @TODO
+        $this->checkSettingsOperation(Operation::SETTING_SEO);
+
+        $settingsModel = new SettingsModel();
+
+        return [
+            "title"       => $settingsModel->getSetting(SettingsModel::TYPE_TITLE),
+            "keywords"    => $settingsModel->getSetting(SettingsModel::TYPE_KEYWORDS),
+            "description" => $settingsModel->getSetting(SettingsModel::TYPE_DESCRIPTION),
+        ];
     }
 
     public function updateSeo()

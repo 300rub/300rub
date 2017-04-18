@@ -45,6 +45,11 @@ class SettingControllerTest extends AbstractControllerTest
                 true
             ],
             [
+                self::TYPE_NO_OPERATIONS_USER,
+                [],
+                true
+            ],
+            [
                 self::TYPE_USER,
                 [
                     "result" => [
@@ -81,9 +86,67 @@ class SettingControllerTest extends AbstractControllerTest
         ];
     }
 
-    public function testGetSeo()
+    /**
+     * Test for getSeo
+     *
+     * @param string $user
+     * @param array  $expected
+     * @param bool   $hasError
+     *
+     * @dataProvider dataProviderForTestGetSeo
+     */
+    public function testGetSeo($user, $expected, $hasError = false)
     {
-        $this->markTestSkipped();
+        $this->setUser($user);
+        $this->sendRequest("settings", "seo");
+
+        if ($hasError === false) {
+            $this->compareExpectedAndActual($expected, $this->getBody(), true);
+        } else {
+            $this->assertError();
+        }
+    }
+
+    /**
+     * Data provider for testGetSeo
+     *
+     * @return array
+     */
+    public function dataProviderForTestGetSeo()
+    {
+        return [
+            [
+                null,
+                [],
+                true
+            ],
+            [
+                self::TYPE_NO_OPERATIONS_USER,
+                [],
+                true
+            ],
+            [
+                self::TYPE_BLOCKED_USER,
+                [],
+                true
+            ],
+            [
+                self::TYPE_USER,
+                [
+                    "title"       => "Title",
+                    "keywords"    => "Keywords",
+                    "description" => "Description",
+                ]
+            ],
+            [
+                self::TYPE_ADMIN,
+                [
+                    "title"       => "Title",
+                    "keywords"    => "Keywords",
+                    "description" => "Description",
+                ]
+            ]
+        ];
     }
 
     public function testUpdateSeo()

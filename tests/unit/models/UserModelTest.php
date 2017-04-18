@@ -40,8 +40,8 @@ class UserModelTest extends AbstractModelTest
             "empty1" => [
                 [],
                 [
-                    "login"    => ["required", "min"],
-                    "password" => ["required", "min"],
+                    "login"    => ["required", "minLength"],
+                    "password" => ["required", "minLength"],
                     "name"     => ["required"],
                     "email"    => ["required", "email"],
                 ],
@@ -55,8 +55,8 @@ class UserModelTest extends AbstractModelTest
                     "email"    => "",
                 ],
                 [
-                    "login"    => ["required", "min"],
-                    "password" => ["required", "min"],
+                    "login"    => ["required", "minLength"],
+                    "password" => ["required", "minLength"],
                     "name"     => ["required"],
                     "email"    => ["required", "email"],
                 ],
@@ -81,8 +81,8 @@ class UserModelTest extends AbstractModelTest
                     "email"    => null,
                 ],
                 [
-                    "login"    => ["required", "min"],
-                    "password" => ["required", "min"],
+                    "login"    => ["required", "minLength"],
+                    "password" => ["required", "minLength"],
                     "name"     => ["required"],
                     "email"    => ["required", "email"],
                 ],
@@ -150,8 +150,8 @@ class UserModelTest extends AbstractModelTest
                     "email"    => "email@email.com",
                 ],
                 [
-                    "login"    => ["min"],
-                    "password" => ["min"],
+                    "login"    => ["minLength"],
+                    "password" => ["minLength"],
                 ],
             ],
             "incorrect2" => [
@@ -162,9 +162,9 @@ class UserModelTest extends AbstractModelTest
                     "email"    => "email",
                 ],
                 [
-                    "login"    => ["max"],
-                    "password" => ["max"],
-                    "name"     => ["max"],
+                    "login"    => ["maxLength"],
+                    "password" => ["maxLength"],
+                    "name"     => ["maxLength"],
                     "email"    => ["email"],
                 ],
             ],
@@ -226,8 +226,8 @@ class UserModelTest extends AbstractModelTest
                 "email"    => "email@email.com",
             ],
             [
-                "login"    => ["required", "min"],
-                "password" => ["required", "min"],
+                "login"    => ["required", "minLength"],
+                "password" => ["required", "minLength"],
                 "name"     => ["required"],
                 "email"    => ["required", "email"],
             ]

@@ -333,11 +333,11 @@ class SeoModelTest extends AbstractModelTest
                     "description" => $this->generateStringWithLength(256),
                 ],
                 [
-                    "name"        => ["max"],
-                    "url"         => ["max"],
-                    "title"       => ["max"],
-                    "keywords"    => ["max"],
-                    "description" => ["max"],
+                    "name"        => ["maxLength"],
+                    "url"         => ["maxLength"],
+                    "title"       => ["maxLength"],
+                    "keywords"    => ["maxLength"],
+                    "description" => ["maxLength"],
                 ]
             ],
             "incorrect7" => [

@@ -185,7 +185,7 @@ class BlockModelTest extends AbstractModelTest
                     "contentId"   => 1,
                 ],
                 [
-                    "name" => ["max"]
+                    "name" => ["maxLength"]
                 ]
             ],
             "incorrect3" => [

@@ -33,7 +33,7 @@ class UserSessionModelTest extends AbstractModelTest
             "empty1" => [
                 [],
                 [
-                    "token" => ["required", "min"],
+                    "token" => ["required", "minLength"],
                     "ip"    => ["required", "ip"]
                 ]
             ],
@@ -46,7 +46,7 @@ class UserSessionModelTest extends AbstractModelTest
                     "lastActivity" => ""
                 ],
                 [
-                    "token" => ["required", "min"],
+                    "token" => ["required", "minLength"],
                     "ip"    => ["required", "ip"]
                 ]
             ],
@@ -63,7 +63,7 @@ class UserSessionModelTest extends AbstractModelTest
                     "ip" => "127.0.0.1",
                 ],
                 [
-                    "token" => ["required", "min"],
+                    "token" => ["required", "minLength"],
                 ]
             ],
             "empty5" => [
@@ -191,7 +191,7 @@ class UserSessionModelTest extends AbstractModelTest
                     "ip"     => "127.0.0.1",
                 ],
                 [
-                    "token" => ["min"]
+                    "token" => ["minLength"]
                 ]
             ],
             // Incorrect big token
@@ -202,7 +202,7 @@ class UserSessionModelTest extends AbstractModelTest
                     "ip"     => "127.0.0.1",
                 ],
                 [
-                    "token" => ["max"]
+                    "token" => ["maxLength"]
                 ]
             ],
             // Incorrect ip

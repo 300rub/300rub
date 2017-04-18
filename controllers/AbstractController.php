@@ -179,6 +179,24 @@ abstract class AbstractController
     }
 
     /**
+     * Has any Section operations
+     *
+     * @return bool
+     */
+    protected function hasAnySectionOperations()
+    {
+        if ($this->isFullAccess() === true) {
+            return true;
+        }
+
+        if ($this->isBlocked() === true) {
+            return false;
+        }
+
+        return array_key_exists(Operation::TYPE_SECTIONS, $this->getUserOperations());
+    }
+
+    /**
      * If has block operation
      *
      * @param int        $type
@@ -220,6 +238,24 @@ abstract class AbstractController
     }
 
     /**
+     * Has any Block operations
+     *
+     * @return bool
+     */
+    protected function hasAnyBlockOperations()
+    {
+        if ($this->isFullAccess() === true) {
+            return true;
+        }
+
+        if ($this->isBlocked() === true) {
+            return false;
+        }
+
+        return array_key_exists(Operation::TYPE_BLOCKS, $this->getUserOperations());
+    }
+
+    /**
      * Has settings operation
      *
      * @param string $operation
@@ -243,6 +279,63 @@ abstract class AbstractController
         }
 
         return in_array($operation, $operations[Operation::TYPE_SETTINGS]);
+    }
+
+    /**
+     * Checks settings operatio
+     *
+     * @param string $operation
+     *
+     * @return AbstractController
+     *
+     * @throws AccessException
+     */
+    protected function checkSettingsOperation($operation)
+    {
+        if (!$this->hasSettingsOperation($operation)) {
+            throw new AccessException(
+                "Access denied for settings operation: {operation}",
+                [
+                    "operation" => $operation
+                ]
+            );
+        }
+
+        return $this;
+    }
+
+    /**
+     * Has any Settings operations
+     *
+     * @return bool
+     */
+    protected function hasAnySettingsOperations()
+    {
+        if ($this->isFullAccess() === true) {
+            return true;
+        }
+
+        if ($this->isBlocked() === true) {
+            return false;
+        }
+
+        return array_key_exists(Operation::TYPE_SETTINGS, $this->getUserOperations());
+    }
+
+    /**
+     * Checks settings operation
+     *
+     * @return AbstractController
+     *
+     * @throws AccessException
+     */
+    protected function checkAnySettingsOperation()
+    {
+        if (!$this->hasAnySettingsOperations()) {
+            throw new AccessException("Access denied for settings");
+        }
+
+        return $this;
     }
 
     /**

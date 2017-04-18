@@ -173,36 +173,12 @@ class PageController extends AbstractController
      */
     private function _getUserContent()
     {
-        $isDisplaySections = false;
-        $isDisplayBlocks = false;
-        $isDisplaySettings = false;
-
-        if ($this->isFullAccess() === true) {
-            $isDisplaySections = true;
-            $isDisplayBlocks = true;
-            $isDisplaySettings = true;
-        } else {
-            $operations = $this->getUserOperations();
-
-            if (array_key_exists(Operation::TYPE_SECTIONS, $operations)) {
-                $isDisplaySections = true;
-            }
-
-            if (array_key_exists(Operation::TYPE_BLOCKS, $operations)) {
-                $isDisplayBlocks = true;
-            }
-
-            if (array_key_exists(Operation::TYPE_SETTINGS, $operations)) {
-                $isDisplaySettings = true;
-            }
-        }
-
         return $this->getContentFromTemplate(
             "page/userButtons",
             [
-                "isDisplaySections" => $isDisplaySections,
-                "isDisplayBlocks"   => $isDisplayBlocks,
-                "isDisplaySettings" => $isDisplaySettings,
+                "isDisplaySections" => $this->hasAnySectionOperations(),
+                "isDisplayBlocks"   => $this->hasAnyBlockOperations(),
+                "isDisplaySettings" => $this->hasAnySettingsOperations(),
                 "logoutYes"         => Language::t("user", "logoutYes"),
                 "logoutNo"          => Language::t("user", "logoutNo"),
                 "logoutConfirmText" => Language::t("user", "logoutConfirmText")
