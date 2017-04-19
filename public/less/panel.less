@@ -1,0 +1,54 @@
+@import "webkit";
+@import "variables";
+
+.panel-dialog {
+  .border-radius(4px);
+  background: #f2f2f2;
+  border: 1px solid #bbb;
+  border-top-width: 0;
+  box-shadow: 0 3px 20px 0 rgba(0, 0, 0, .25);
+
+  .ui-dialog-titlebar {
+    cursor: move;
+    position: relative;
+
+    .ui-dialog-title {
+      line-height: 32px;
+      display: block;
+      padding: 0 35px 0 10px;
+      font-size: 18px;
+      font-weight: 300;
+    }
+
+    .ui-dialog-titlebar-close {
+      border: 0;
+      background: none;
+      width: 32px;
+      height: 32px;
+      position: absolute;
+      top: 0;
+      right: 0;
+
+      .ui-button-text:before {
+        font-family: FontAwesome, sans-serif;
+        content: "\f00d";
+        color: @darkGrayLinkColor;
+        font-size: 22px;
+      }
+
+      &:hover {
+        .ui-button-text:before {
+          color: @redLinkColor;
+        }
+      }
+    }
+  }
+
+  .panel {
+    .description {
+      padding: 5px 10px 10px 10px;
+      font-size: 12px;
+      border-bottom: 1px solid @grayBorderColor;
+    }
+  }
+}

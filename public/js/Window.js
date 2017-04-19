@@ -33,7 +33,7 @@
         $_instance: null,
 
         /**
-         * Window
+         * Body
          *
          * @var {Object}
          */
@@ -246,7 +246,7 @@
             );
 
             this.getBody().keypress(function(e) {
-                if (e.which == 13) {
+                if (e.which === 13) {
                     submit.getInstance().click();
                 }
             });

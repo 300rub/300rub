@@ -4,7 +4,6 @@ namespace testS\controllers;
 
 use testS\applications\App;
 use testS\components\Language;
-use testS\components\Operation;
 use testS\components\Validator;
 use testS\models\SeoModel;
 
@@ -67,10 +66,13 @@ class PageController extends AbstractController
      */
     private static $_userDevStaticMap = [
         "js" => [
+            "lib/jquery-ui.min",
+            "Panel",
             "UserButtons"
         ],
         "less" => [
-            "userButtons"
+            "userButtons",
+            "panel"
         ]
     ];
 
@@ -86,6 +88,7 @@ class PageController extends AbstractController
         "forms/checkbox",
         "forms/button",
         "window/window",
+        "panel/panel",
     ];
 
     /**
