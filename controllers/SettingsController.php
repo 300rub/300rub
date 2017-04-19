@@ -24,7 +24,7 @@ class SettingsController extends AbstractController
 
         $list = [];
 
-        if ($this->hasSettingsOperation(Operation::SETTING_ICON)) {
+        if ($this->hasSettingsOperation(Operation::SETTINGS_ICON)) {
             $list["icon"] = [
                 "name"       => Language::t("settings", "icon"),
                 "controller" => "settings",
@@ -32,7 +32,7 @@ class SettingsController extends AbstractController
             ];
         }
 
-        if ($this->hasSettingsOperation(Operation::SETTING_USERS)) {
+        if ($this->hasSettingsOperation(Operation::SETTINGS_USERS_VIEW)) {
             $list["users"] = [
                 "name"       => Language::t("settings", "users"),
                 "controller" => "user",
@@ -50,6 +50,6 @@ class SettingsController extends AbstractController
 
     public function updateIcon()
     {
-        // @TODO 
+        // @TODO
     }
 }

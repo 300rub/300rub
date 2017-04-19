@@ -117,7 +117,7 @@ abstract class AbstractController
         }
 
         if ($user->getType() === UserModel::TYPE_OWNER
-            || $user->getType() === UserModel::TYPE_ADMIN
+            || $user->getType() === UserModel::TYPE_FULL
         ) {
             return true;
         }

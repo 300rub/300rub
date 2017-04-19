@@ -54,7 +54,7 @@ class UserControllerTest extends AbstractControllerTest
                 true
             ],
             [
-                self::TYPE_USER,
+                self::TYPE_LIMITED,
                 [],
                 true
             ],
@@ -342,13 +342,13 @@ class UserControllerTest extends AbstractControllerTest
                 true
             ],
             "admin"    => [
-                self::TYPE_ADMIN,
+                self::TYPE_FULL,
                 "",
                 "",
                 true
             ],
             "user"     => [
-                self::TYPE_USER,
+                self::TYPE_LIMITED,
                 "",
                 "",
                 true
@@ -431,7 +431,7 @@ class UserControllerTest extends AbstractControllerTest
             ],
             "anotherUserToken" => [
                 $token,
-                self::TOKEN_ADMIN,
+                self::TOKEN_FULL,
                 false,
                 true
             ],
@@ -558,6 +558,60 @@ class UserControllerTest extends AbstractControllerTest
         $this->assertFalse($memcached->get($newToken2));
     }
 
+    /**
+     * Test for getUsers
+     *
+     * @param string $user
+     * @param array  $expected
+     * @param bool   $hasError
+     *
+     * @dataProvider dataProviderForTestGetUsers
+     */
+    public function testGetUsers($user, $expected, $hasError = false)
+    {
+        $this->setUser($user);
+        $this->sendRequest("user", "users");
+
+        if ($hasError === false) {
+            //$this->compareExpectedAndActual($expected, $this->getBody(), true);
+        } else {
+            $this->assertError();
+        }
+    }
+
+    /**
+     * Data provider for testGetUsers
+     *
+     * @return array
+     */
+    public function dataProviderForTestGetUsers()
+    {
+        return [
+            [
+                null,
+                [],
+                true
+            ],
+            [
+                self::TYPE_NO_OPERATIONS_USER,
+                [],
+                true
+            ],
+            [
+                self::TYPE_FULL,
+                [
+                    "list" => [
+                        [
+                            "name"       => "Icon",
+                            "email" => "settings",
+                            "type"     => "icon",
+                        ]
+                    ]
+                ]
+            ],
+        ];
+    }
+
     public function testAddUser()
     {
         $this->markTestSkipped();
@@ -574,11 +628,6 @@ class UserControllerTest extends AbstractControllerTest
     }
 
     public function testDeleteUser()
-    {
-        $this->markTestSkipped();
-    }
-
-    public function testGetUsers()
     {
         $this->markTestSkipped();
     }

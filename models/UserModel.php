@@ -3,6 +3,7 @@
 namespace testS\models;
 
 use testS\components\Db;
+use testS\components\Language;
 use testS\components\Operation;
 use testS\components\Validator;
 use testS\components\ValueGenerator;
@@ -14,6 +15,7 @@ use testS\components\ValueGenerator;
  *
  * @method UserModel byId($id)
  * @method UserModel find()
+ * @method UserModel[] findAll()
  */
 class UserModel extends AbstractModel
 {
@@ -23,8 +25,8 @@ class UserModel extends AbstractModel
      */
     const TYPE_BLOCKED = 0;
     const TYPE_OWNER = 1;
-    const TYPE_ADMIN = 2;
-    const TYPE_EDITOR = 3;
+    const TYPE_FULL = 2;
+    const TYPE_LIMITED = 3;
 
     /**
      * Password salt
@@ -51,10 +53,10 @@ class UserModel extends AbstractModel
     public static function getTypeList()
     {
         return [
-            self::TYPE_BLOCKED => "",
-            self::TYPE_OWNER   => "",
-            self::TYPE_ADMIN   => "",
-            self::TYPE_EDITOR  => "",
+            self::TYPE_OWNER   => Language::t("user", "typeOwner"),
+            self::TYPE_FULL    => Language::t("user", "typeFull"),
+            self::TYPE_LIMITED => Language::t("user", "typeLimited"),
+            self::TYPE_BLOCKED => Language::t("user", "typeBlocked"),
         ];
     }
 
@@ -141,6 +143,21 @@ class UserModel extends AbstractModel
     }
 
     /**
+     * Gets type as string
+     *
+     * @return string
+     */
+    public function getType()
+    {
+        $typeList = self::getTypeList();
+        if (!array_key_exists($this->get("type"), $typeList)) {
+            return null;
+        }
+
+        return $typeList[$this->get("type")];
+    }
+
+    /**
      * Sets login
      *
      * @param bool $value
@@ -185,6 +202,18 @@ class UserModel extends AbstractModel
     {
         $this->getDb()->addWhere(sprintf("%s.type = :type", Db::DEFAULT_ALIAS));
         $this->getDb()->addParameter("type", self::TYPE_OWNER);
+
+        return $this;
+    }
+
+    /**
+     * Adds order by condition to SQL request
+     *
+     * @return UserModel
+     */
+    public function ordered()
+    {
+        $this->getDb()->setOrder(sprintf("%s.name", Db::DEFAULT_ALIAS));
 
         return $this;
     }

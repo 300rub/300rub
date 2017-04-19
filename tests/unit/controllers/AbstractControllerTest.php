@@ -22,8 +22,8 @@ abstract class AbstractControllerTest extends AbstractUnitTest
      * User types
      */
     const TYPE_OWNER = "owner";
-    const TYPE_ADMIN = "admin";
-    const TYPE_USER = "user";
+    const TYPE_FULL = "admin";
+    const TYPE_LIMITED = "user";
     const TYPE_NO_OPERATIONS_USER = "user_no_operation";
     const TYPE_BLOCKED_USER = "blocked_user";
 
@@ -101,13 +101,13 @@ abstract class AbstractControllerTest extends AbstractUnitTest
                 $this->_userSessionId = self::SESSION_ID_OWNER;
                 $this->_userToken = self::TOKEN_OWNER;
                 break;
-            case self::TYPE_ADMIN:
-                $this->_userSessionId = self::SESSION_ID_ADMIN;
-                $this->_userToken = self::TOKEN_ADMIN;
+            case self::TYPE_FULL:
+                $this->_userSessionId = self::SESSION_ID_FULL;
+                $this->_userToken = self::TOKEN_FULL;
                 break;
-            case self::TYPE_USER:
-                $this->_userSessionId = self::SESSION_ID_USER;
-                $this->_userToken = self::TOKEN_USER;
+            case self::TYPE_LIMITED:
+                $this->_userSessionId = self::SESSION_ID_LIMITED;
+                $this->_userToken = self::TOKEN_LIMITED;
                 break;
             case self::TYPE_NO_OPERATIONS_USER:
                 $this->_userSessionId = self::SESSION_NO_OPERATION_USER;

@@ -52,7 +52,7 @@ class UserSessionModelTest extends AbstractModelTest
             ],
             "empty3" => [
                 [
-                    "token" => self::TOKEN_USER,
+                    "token" => self::TOKEN_LIMITED,
                 ],
                 [
                     "ip" => ["required", "ip"]
@@ -68,7 +68,7 @@ class UserSessionModelTest extends AbstractModelTest
             ],
             "empty5" => [
                 [
-                    "token" => self::TOKEN_USER,
+                    "token" => self::TOKEN_LIMITED,
                     "ip"    => "127.0.0.1",
                 ],
                 [],

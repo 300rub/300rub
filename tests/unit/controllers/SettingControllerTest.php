@@ -50,7 +50,7 @@ class SettingControllerTest extends AbstractControllerTest
                 true
             ],
             [
-                self::TYPE_USER,
+                self::TYPE_LIMITED,
                 [
                     "result" => [
                         "icon"  => [
@@ -62,7 +62,7 @@ class SettingControllerTest extends AbstractControllerTest
                 ]
             ],
             [
-                self::TYPE_ADMIN,
+                self::TYPE_FULL,
                 [
                     "result" => [
                         "icon"  => [

@@ -39,4 +39,20 @@ return [
         Language::LANGUAGE_EN_ID => "Are you sure to exit?",
         Language::LANGUAGE_RU_ID => "",
     ],
+    "typeOwner" => [
+        Language::LANGUAGE_EN_ID => "Owner",
+        Language::LANGUAGE_RU_ID => "",
+    ],
+    "typeFull" => [
+        Language::LANGUAGE_EN_ID => "Full",
+        Language::LANGUAGE_RU_ID => "",
+    ],
+    "typeLimited" => [
+        Language::LANGUAGE_EN_ID => "Limited",
+        Language::LANGUAGE_RU_ID => "",
+    ],
+    "typeBlocked" => [
+        Language::LANGUAGE_EN_ID => "Blocked",
+        Language::LANGUAGE_RU_ID => "",
+    ],
 ];

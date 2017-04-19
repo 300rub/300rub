@@ -6,6 +6,7 @@ use testS\applications\App;
 use testS\components\exceptions\AccessException;
 use testS\components\exceptions\BadRequestException;
 use testS\components\Language;
+use testS\components\Operation;
 use testS\models\UserModel;
 use testS\models\UserSessionModel;
 use testS\components\User;
@@ -20,6 +21,10 @@ class UserController extends AbstractController
 
     /**
      * Gets login forms
+     *
+     * @throws AccessException
+     *
+     * @return array
      */
     public function getLoginForms()
     {
@@ -274,6 +279,30 @@ class UserController extends AbstractController
     }
 
     /**
+     * Gets Users
+     *
+     * @return array
+     */
+    public function getUsers()
+    {
+        $this->checkSettingsOperation(Operation::SETTINGS_USERS_VIEW);
+
+        $list = [];
+        $users = (new UserModel())->ordered()->findAll();
+        foreach ($users as $user) {
+            $list[] = [
+                "name"  => $user->get("name"),
+                "email" => $user->get("email"),
+                "type"  => $user->getType(),
+            ];
+        }
+
+        return [
+            "list" => $list
+        ];
+    }
+
+    /**
      * Adds user
      */
     public function addUser()
@@ -301,14 +330,6 @@ class UserController extends AbstractController
      * Deletes user
      */
     public function deleteUser()
-    {
-        // @TODO
-    }
-
-    /**
-     * Gets Users
-     */
-    public function getUsers()
     {
         // @TODO
     }

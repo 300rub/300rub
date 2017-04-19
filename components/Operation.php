@@ -34,10 +34,10 @@ class Operation
     const SECTION_DUPLICATE = "SECTION_DUPLICATE";
 
     /**
-     * Setting operations
+     * Settings operations
      */
-    const SETTING_ICON = "SETTING_ICON";
-    const SETTING_USERS = "SETTING_USERS";
+    const SETTINGS_ICON = "SETTINGS_ICON";
+    const SETTINGS_USERS_VIEW = "SETTINGS_USERS_VIEW";
 
     /**
      * Section operations
@@ -82,8 +82,8 @@ class Operation
      * @var array
      */
     public static $settingOperations = [
-        self::SETTING_ICON  => "",
-        self::SETTING_USERS => "",
+        self::SETTINGS_ICON       => "",
+        self::SETTINGS_USERS_VIEW => "",
     ];
 
     /**
