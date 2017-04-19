@@ -5,6 +5,7 @@ namespace testS\controllers;
 use testS\applications\App;
 use testS\components\exceptions\AccessException;
 use testS\components\exceptions\BadRequestException;
+use testS\components\exceptions\NotFoundException;
 use testS\components\Language;
 use testS\components\Operation;
 use testS\models\UserModel;
@@ -348,10 +349,77 @@ class UserController extends AbstractController
 
     /**
      * Gets user
+     *
+     * @throws BadRequestException
+     * @throws NotFoundException
+     *
+     * @return array
      */
     public function getUser()
     {
-        // @TODO
+        $this->checkUser();
+
+        $data = $this->getData();
+        if (empty($data["id"])) {
+            throw new BadRequestException(
+                "Incorrect request to get user. Data: {data}",
+                [
+                    "data" => json_encode($data)
+                ]
+            );
+        }
+
+        $id = 0;
+        throw new BadRequestException(
+            "Incorrect request to get user. Data: {data}. {id}",
+            [
+                "data" => gettype($data["id"]),
+                "id" => $data["id"]
+            ]
+        );
+
+        $user = App::web()->getUser();
+        if ($user->getId() !== $id) {
+            //$this->checkSettingsOperation(Operation::SETTINGS_USER_UPDATE);
+
+            $userModel = (new UserModel())->byId($id)->find();
+            if ($userModel === null) {
+                throw new NotFoundException(
+                    "Unable to find user with ID: {id}",
+                    [
+                        "id" => $id
+                    ]
+                );
+            }
+
+            $name = $userModel->get("name");
+            $login = $userModel->get("login");
+            $email = $userModel->get("email");
+            $type = $userModel->get("type");
+            $userOperations = $userModel->getOperations();
+            $canChangeOperations = $this->isFullAccess() && !$userModel->isOwner();
+        } else {
+            $name = $user->getName();
+            $login = $user->getLogin();
+            $email = $user->getEmail();
+            $type = $user->getType();
+            $userOperations = $user->getOperations();
+            $canChangeOperations = false;
+        }
+
+        return [
+            "info" => [
+                "name"  => $name,
+                "login" => $login,
+                "email" => $email,
+                "type"  => $type,
+            ],
+            "userOperations" => $userOperations,
+            "allOperations" => [
+                // @TODO
+            ],
+            "canChangeOperations" => $canChangeOperations
+        ];
     }
 
     /**

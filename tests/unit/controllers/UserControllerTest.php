@@ -689,15 +689,19 @@ class UserControllerTest extends AbstractControllerTest
         ];
     }
 
+    public function testGetUser()
+    {
+        $this->setUser(self::TYPE_LIMITED);
+        $this->sendRequest("user", "user", ["id" => true]);
+        var_dump($this->getBody());
+    }
+
     public function testAddUser()
     {
         $this->markTestSkipped();
     }
 
-    public function testGetUser()
-    {
-        $this->markTestSkipped();
-    }
+
 
     public function testUpdateUser()
     {
