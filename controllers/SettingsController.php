@@ -20,23 +20,21 @@ class SettingsController extends AbstractController
      */
     public function getSettings()
     {
-        $this->checkAnySettingsOperation();
+        $this->checkUser();
 
         $list = [];
+
+        $list["users"] = [
+            "name"       => Language::t("settings", "users"),
+            "controller" => "user",
+            "action"     => "users",
+        ];
 
         if ($this->hasSettingsOperation(Operation::SETTINGS_ICON)) {
             $list["icon"] = [
                 "name"       => Language::t("settings", "icon"),
                 "controller" => "settings",
                 "action"     => "icon",
-            ];
-        }
-
-        if ($this->hasSettingsOperation(Operation::SETTINGS_USERS_VIEW)) {
-            $list["users"] = [
-                "name"       => Language::t("settings", "users"),
-                "controller" => "user",
-                "action"     => "users",
             ];
         }
 

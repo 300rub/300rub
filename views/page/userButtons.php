@@ -22,12 +22,10 @@
             <i class="fa fa-file-o"></i>
         </a>
     <?php } ?>
-    <?php if ($isDisplaySettings === true) { ?>
-        <a id="user-button-settings">
-            <span>Settings</span>
-            <i class="fa fa-wrench"></i>
-        </a>
-    <?php } ?>
+    <a id="user-button-settings">
+        <span>Settings</span>
+        <i class="fa fa-wrench"></i>
+    </a>
     <a>
         <span>Help</span>
         <i class="fa fa-question"></i>

@@ -178,7 +178,6 @@ class PageController extends AbstractController
             [
                 "isDisplaySections" => $this->hasAnySectionOperations(),
                 "isDisplayBlocks"   => $this->hasAnyBlockOperations(),
-                "isDisplaySettings" => $this->hasAnySettingsOperations(),
                 "logoutYes"         => Language::t("user", "logoutYes"),
                 "logoutNo"          => Language::t("user", "logoutNo"),
                 "logoutConfirmText" => Language::t("user", "logoutConfirmText")

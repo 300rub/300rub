@@ -55,4 +55,12 @@ return [
         Language::LANGUAGE_EN_ID => "Blocked",
         Language::LANGUAGE_RU_ID => "",
     ],
+    "sessions" => [
+        Language::LANGUAGE_EN_ID => "Sessions",
+        Language::LANGUAGE_RU_ID => "",
+    ],
+    "access" => [
+        Language::LANGUAGE_EN_ID => "Access",
+        Language::LANGUAGE_RU_ID => "",
+    ],
 ];

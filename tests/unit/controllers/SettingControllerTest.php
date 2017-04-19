@@ -46,17 +46,12 @@ class SettingControllerTest extends AbstractControllerTest
             ],
             [
                 self::TYPE_NO_OPERATIONS_USER,
-                [],
-                true
-            ],
-            [
-                self::TYPE_LIMITED,
                 [
                     "result" => [
-                        "icon"  => [
-                            "name"       => "Icon",
-                            "controller" => "settings",
-                            "action"     => "icon",
+                        "users" => [
+                            "name"       => "Users",
+                            "controller" => "user",
+                            "action"     => "users",
                         ],
                     ]
                 ]
@@ -65,15 +60,15 @@ class SettingControllerTest extends AbstractControllerTest
                 self::TYPE_FULL,
                 [
                     "result" => [
-                        "icon"  => [
-                            "name"       => "Icon",
-                            "controller" => "settings",
-                            "action"     => "icon",
-                        ],
                         "users" => [
                             "name"       => "Users",
                             "controller" => "user",
                             "action"     => "users",
+                        ],
+                        "icon"  => [
+                            "name"       => "Icon",
+                            "controller" => "settings",
+                            "action"     => "icon",
                         ],
                     ]
                 ]

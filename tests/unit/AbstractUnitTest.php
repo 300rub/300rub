@@ -69,14 +69,18 @@ abstract class AbstractUnitTest extends PHPUnit_Framework_TestCase
                     )
                 );
             } else {
-                $this->assertTrue(
-                    in_array($expectedValue, $actual),
-                    sprintf(
-                        "Unable to find value [%s] in actual array with values [%s]",
-                        $expectedValue,
-                        implode(", ", $actual)
-                    )
-                );
+                if (is_array($expectedValue)) {
+                    $this->compareExpectedAndActual($expectedValue, $actual[$key]);
+                } else {
+                    $this->assertTrue(
+                        in_array($expectedValue, $actual),
+                        sprintf(
+                            "Unable to find value [%s] in actual array with values [%s]",
+                            $expectedValue,
+                            implode(", ", $actual)
+                        )
+                    );
+                }
             }
 
             if (is_array($expectedValue)) {
@@ -143,14 +147,26 @@ abstract class AbstractUnitTest extends PHPUnit_Framework_TestCase
                     )
                 );
             } else {
-                $this->assertTrue(
-                    in_array($actualValue, $expected),
-                    sprintf(
-                        "Unable to find value [%s] in expected array with values [%s]",
-                        $actualValue,
-                        implode(", ", $expected)
-                    )
-                );
+                if (is_array($actualValue)) {
+                    $this->assertArrayHasKey(
+                        $key,
+                        $expected,
+                        sprintf(
+                            "Unable to find key [%s] in expected array",
+                            $key
+                        )
+                    );
+                    $this->compareExpectedAndActual($actualValue, $expected[$key]);
+                } else {
+                    $this->assertTrue(
+                        in_array($actualValue, $expected),
+                        sprintf(
+                            "Unable to find value [%s] in expected array with values [%s]",
+                            $actualValue,
+                            implode(", ", $expected)
+                        )
+                    );
+                }
             }
 
             if (is_array($actualValue)) {

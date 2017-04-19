@@ -305,40 +305,6 @@ abstract class AbstractController
     }
 
     /**
-     * Has any Settings operations
-     *
-     * @return bool
-     */
-    protected function hasAnySettingsOperations()
-    {
-        if ($this->isFullAccess() === true) {
-            return true;
-        }
-
-        if ($this->isBlocked() === true) {
-            return false;
-        }
-
-        return array_key_exists(Operation::TYPE_SETTINGS, $this->getUserOperations());
-    }
-
-    /**
-     * Checks settings operation
-     *
-     * @return AbstractController
-     *
-     * @throws AccessException
-     */
-    protected function checkAnySettingsOperation()
-    {
-        if (!$this->hasAnySettingsOperations()) {
-            throw new AccessException("Access denied for settings");
-        }
-
-        return $this;
-    }
-
-    /**
      * Gets displayBlocksFromPage
      *
      * @return int

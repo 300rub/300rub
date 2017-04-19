@@ -37,7 +37,12 @@ class Operation
      * Settings operations
      */
     const SETTINGS_ICON = "SETTINGS_ICON";
-    const SETTINGS_USERS_VIEW = "SETTINGS_USERS_VIEW";
+    const SETTINGS_USER_VIEW = "SETTINGS_USER_VIEW";
+    const SETTINGS_USER_UPDATE = "SETTINGS_USER_UPDATE";
+    const SETTINGS_USER_DELETE = "SETTINGS_USER_DELETE";
+    const SETTINGS_USER_VIEW_SESSIONS = "SETTINGS_USER_VIEW_SESSIONS";
+    const SETTINGS_USER_DELETE_SESSIONS = "SETTINGS_USER_DELETE_SESSIONS";
+    const SETTINGS_USER_ADD = "SETTINGS_USER_ADD";
 
     /**
      * Section operations
@@ -82,8 +87,8 @@ class Operation
      * @var array
      */
     public static $settingOperations = [
-        self::SETTINGS_ICON       => "",
-        self::SETTINGS_USERS_VIEW => "",
+        self::SETTINGS_ICON        => "",
+        self::SETTINGS_USER_UPDATE => "",
     ];
 
     /**

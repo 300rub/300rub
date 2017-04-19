@@ -63,7 +63,7 @@ class UserControllerTest extends AbstractControllerTest
                 [
                     "title" => "Login",
                     "forms" => [
-                        "user"    => [
+                        "user"       => [
                             "name"       => "user",
                             "type"       => "text",
                             "label"      => "User",
@@ -74,7 +74,7 @@ class UserControllerTest extends AbstractControllerTest
                                 "latinDigitUnderscoreHyphen" => "latinDigitUnderscoreHyphen"
                             ]
                         ],
-                        "password" => [
+                        "password"   => [
                             "name"       => "password",
                             "type"       => "password",
                             "label"      => "Password",
@@ -84,12 +84,12 @@ class UserControllerTest extends AbstractControllerTest
                                 "maxLength" => 40,
                             ]
                         ],
-                        "isRemember"    => [
+                        "isRemember" => [
                             "name"  => "isRemember",
                             "type"  => "checkbox",
                             "label" => "Remember me",
                         ],
-                        "button"   => [
+                        "button"     => [
                             "type"       => "button",
                             "label"      => "Go",
                             "controller" => "user",
@@ -573,7 +573,7 @@ class UserControllerTest extends AbstractControllerTest
         $this->sendRequest("user", "users");
 
         if ($hasError === false) {
-            //$this->compareExpectedAndActual($expected, $this->getBody(), true);
+            $this->compareExpectedAndActual($expected, $this->getBody(), true);
         } else {
             $this->assertError();
         }
@@ -594,18 +594,95 @@ class UserControllerTest extends AbstractControllerTest
             ],
             [
                 self::TYPE_NO_OPERATIONS_USER,
-                [],
-                true
+                [
+                    "list"   => [
+                        [
+                            "id"               => 4,
+                            "name"             => "User with no operations",
+                            "email"            => "test-operation@email.com",
+                            "access"           => "Limited",
+                            "canUpdate"        => true,
+                            "canDelete"        => true,
+                            "canViewSessions"  => true,
+                            "canDeleteSession" => true,
+                        ]
+                    ],
+                    "canAdd" => false,
+                    "labels" => [
+                        "name"     => "Name",
+                        "access"   => "Access",
+                        "sessions" => "Sessions",
+                        "edit"     => "Edit",
+                        "delete"   => "Delete",
+                        "open"     => "Open",
+                        "add"      => "Add",
+                    ]
+                ]
             ],
             [
                 self::TYPE_FULL,
                 [
-                    "list" => [
+                    "list"   => [
                         [
-                            "name"       => "Icon",
-                            "email" => "settings",
-                            "type"     => "icon",
-                        ]
+                            "id"               => 2,
+                            "name"             => "Admin",
+                            "email"            => "admin@email.com",
+                            "access"           => "Full",
+                            "canUpdate"        => true,
+                            "canDelete"        => true,
+                            "canViewSessions"  => true,
+                            "canDeleteSession" => true,
+                        ],
+                        [
+                            "id"               => 5,
+                            "name"             => "Blocked User",
+                            "email"            => "blocked@email.com",
+                            "access"           => "Blocked",
+                            "canUpdate"        => true,
+                            "canDelete"        => true,
+                            "canViewSessions"  => true,
+                            "canDeleteSession" => true,
+                        ],
+                        [
+                            "id"               => 1,
+                            "name"             => "Owner",
+                            "email"            => "owner@email.com",
+                            "access"           => "Owner",
+                            "canUpdate"        => false,
+                            "canDelete"        => false,
+                            "canViewSessions"  => true,
+                            "canDeleteSession" => false,
+                        ],
+                        [
+                            "id"               => 3,
+                            "name"             => "User",
+                            "email"            => "user@email.com",
+                            "access"           => "Limited",
+                            "canUpdate"        => true,
+                            "canDelete"        => true,
+                            "canViewSessions"  => true,
+                            "canDeleteSession" => true,
+                        ],
+                        [
+                            "id"               => 4,
+                            "name"             => "User with no operations",
+                            "email"            => "test-operation@email.com",
+                            "access"           => "Limited",
+                            "canUpdate"        => true,
+                            "canDelete"        => true,
+                            "canViewSessions"  => true,
+                            "canDeleteSession" => true,
+                        ],
+                    ],
+                    "canAdd" => true,
+                    "labels" => [
+                        "name"     => "Name",
+                        "access"   => "Access",
+                        "sessions" => "Sessions",
+                        "edit"     => "Edit",
+                        "delete"   => "Delete",
+                        "open"     => "Open",
+                        "add"      => "Add",
                     ]
                 ]
             ],

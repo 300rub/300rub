@@ -39,7 +39,7 @@ class UserController extends AbstractController
         return [
             "title" => Language::t("user", "loginTitle"),
             "forms" => [
-                "user"      => [
+                "user"       => [
                     "name"       => "user",
                     "type"       => self::FORM_TYPE_TEXT,
                     "label"      => Language::t("user", "user"),
@@ -285,20 +285,56 @@ class UserController extends AbstractController
      */
     public function getUsers()
     {
-        $this->checkSettingsOperation(Operation::SETTINGS_USERS_VIEW);
+        $this->checkUser();
+        $user = App::web()->getUser();
 
-        $list = [];
-        $users = (new UserModel())->ordered()->findAll();
-        foreach ($users as $user) {
-            $list[] = [
-                "name"  => $user->get("name"),
-                "email" => $user->get("email"),
-                "type"  => $user->getType(),
-            ];
+        $list = [
+            [
+                "id"               => $user->getId(),
+                "name"             => $user->getName(),
+                "email"            => $user->getEmail(),
+                "access"           => (new UserModel())->getType($user->getType()),
+                "canUpdate"        => true,
+                "canDelete"        => true,
+                "canViewSessions"  => true,
+                "canDeleteSession" => true,
+            ]
+        ];
+
+        $canView = $this->hasSettingsOperation(Operation::SETTINGS_USER_VIEW);
+        if ($canView === true) {
+            $canUpdate = $this->hasSettingsOperation(Operation::SETTINGS_USER_UPDATE);
+            $canDelete = $this->hasSettingsOperation(Operation::SETTINGS_USER_DELETE);
+            $canViewSessions = $this->hasSettingsOperation(Operation::SETTINGS_USER_VIEW_SESSIONS);
+            $canDeleteSessions = $this->hasSettingsOperation(Operation::SETTINGS_USER_DELETE_SESSIONS);
+
+            $userModels = (new UserModel())->exceptId($user->getId())->ordered()->findAll();
+            foreach ($userModels as $userModel) {
+                $list[] = [
+                    "id"               => $userModel->getId(),
+                    "name"             => $userModel->get("name"),
+                    "email"            => $userModel->get("email"),
+                    "access"           => $userModel->getType(),
+                    "canUpdate"        => $userModel->isOwner() ? false : $canUpdate,
+                    "canDelete"        => $userModel->isOwner() ? false : $canDelete,
+                    "canViewSessions"  => $canViewSessions,
+                    "canDeleteSession" => $userModel->isOwner() ? false : $canDeleteSessions,
+                ];
+            }
         }
 
         return [
-            "list" => $list
+            "list"   => $list,
+            "canAdd" => $this->hasSettingsOperation(Operation::SETTINGS_USER_ADD),
+            "labels" => [
+                "name"     => Language::t("common", "name"),
+                "access"   => Language::t("user", "access"),
+                "sessions" => Language::t("user", "sessions"),
+                "edit"     => Language::t("common", "edit"),
+                "delete"   => Language::t("common", "delete"),
+                "open"     => Language::t("common", "open"),
+                "add"      => Language::t("common", "add"),
+            ]
         ];
     }
 

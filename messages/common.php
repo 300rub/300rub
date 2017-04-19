@@ -19,6 +19,14 @@ return [
         Language::LANGUAGE_EN_ID => "Save",
         Language::LANGUAGE_RU_ID => "",
     ],
+    "update"      => [
+        Language::LANGUAGE_EN_ID => "Update",
+        Language::LANGUAGE_RU_ID => "",
+    ],
+    "edit"      => [
+        Language::LANGUAGE_EN_ID => "Edit",
+        Language::LANGUAGE_RU_ID => "",
+    ],
     "name"      => [
         Language::LANGUAGE_EN_ID => "Name",
         Language::LANGUAGE_RU_ID => "",
@@ -81,6 +89,10 @@ return [
     ],
     "right" => [
         Language::LANGUAGE_EN_ID => "Right",
+        Language::LANGUAGE_RU_ID => "",
+    ],
+    "open"      => [
+        Language::LANGUAGE_EN_ID => "Open",
         Language::LANGUAGE_RU_ID => "",
     ],
 ];

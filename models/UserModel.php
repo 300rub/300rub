@@ -13,9 +13,10 @@ use testS\components\ValueGenerator;
  *
  * @package testS\models
  *
- * @method UserModel byId($id)
- * @method UserModel find()
+ * @method UserModel   byId($id)
+ * @method UserModel   find()
  * @method UserModel[] findAll()
+ * @method UserModel   exceptId($id)
  */
 class UserModel extends AbstractModel
 {
@@ -145,16 +146,22 @@ class UserModel extends AbstractModel
     /**
      * Gets type as string
      *
+     * @param int $type
+     *
      * @return string
      */
-    public function getType()
+    public function getType($type = null)
     {
+        if ($type === null) {
+            $type = $this->get("type");
+        }
+
         $typeList = self::getTypeList();
-        if (!array_key_exists($this->get("type"), $typeList)) {
+        if (!array_key_exists($type, $typeList)) {
             return null;
         }
 
-        return $typeList[$this->get("type")];
+        return $typeList[$type];
     }
 
     /**
@@ -295,5 +302,15 @@ class UserModel extends AbstractModel
         }
 
         return $operations;
+    }
+
+    /**
+     * Is owner
+     *
+     * @return bool
+     */
+    public function isOwner()
+    {
+        return $this->get("type") === self::TYPE_OWNER;
     }
 }
