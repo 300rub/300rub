@@ -8,6 +8,7 @@ use testS\components\exceptions\BadRequestException;
 use testS\components\exceptions\NotFoundException;
 use testS\components\Language;
 use testS\components\Operation;
+use testS\models\SectionModel;
 use testS\models\UserModel;
 use testS\models\UserSessionModel;
 use testS\components\User;
@@ -369,18 +370,10 @@ class UserController extends AbstractController
             );
         }
 
-        $id = 0;
-        throw new BadRequestException(
-            "Incorrect request to get user. Data: {data}. {id}",
-            [
-                "data" => gettype($data["id"]),
-                "id" => $data["id"]
-            ]
-        );
-
+        $id = (int) $data["id"];
         $user = App::web()->getUser();
         if ($user->getId() !== $id) {
-            //$this->checkSettingsOperation(Operation::SETTINGS_USER_UPDATE);
+            $this->checkSettingsOperation(Operation::SETTINGS_USER_UPDATE);
 
             $userModel = (new UserModel())->byId($id)->find();
             if ($userModel === null) {
@@ -407,17 +400,65 @@ class UserController extends AbstractController
             $canChangeOperations = false;
         }
 
+        $operations = [];
+
+        $operations[Operation::TYPE_SECTIONS] = [
+            "title" => Language::t("section", "sections"),
+            "type"  => "group",
+            "data"  => []
+        ];
+        $operations[Operation::TYPE_SECTIONS]["data"][Operation::ALL] = [
+            "title" => Language::t("operation", "all"),
+            "type"  => "group",
+            "data"  => []
+        ];
+        foreach (Operation::$sectionOperations as $key => $value) {
+            $operations[Operation::TYPE_SECTIONS]["data"][Operation::ALL]["data"][] = [
+                "title" => $value,
+                "name"  => sprintf(
+                    "operations.%s.%s.%s",
+                    Operation::TYPE_SECTIONS,
+                    Operation::ALL,
+                    $key
+                ),
+                "value" => isset($userOperations[Operation::TYPE_SECTIONS][Operation::ALL][$key])
+            ];
+        }
+
+        $sections = (new SectionModel)->withRelations()->findAll();
+        if (count($sections) > 0) {
+            foreach ($sections as $section) {
+                $id = $section->getId();
+
+                $operations[Operation::TYPE_SECTIONS]["data"][$id] = [
+                    "title" => $section->get("seoModel")->get("name"),
+                    "type"  => "group",
+                    "data"  => []
+                ];
+
+                foreach (Operation::$sectionOperations as $key => $value) {
+                    $operations[Operation::TYPE_SECTIONS]["data"][$id]["data"][] = [
+                        "title" => $value,
+                        "name"  => sprintf(
+                            "operations.%s.%s.%s",
+                            Operation::TYPE_SECTIONS,
+                            $id,
+                            $key
+                        ),
+                        "value" => isset($userOperations[Operation::TYPE_SECTIONS][$id][$key])
+                    ];
+                }
+            }
+        }
+
         return [
-            "info" => [
+            "info"                => [
                 "name"  => $name,
                 "login" => $login,
                 "email" => $email,
                 "type"  => $type,
             ],
-            "userOperations" => $userOperations,
-            "allOperations" => [
-                // @TODO
-            ],
+            "operations"          => $operations,
             "canChangeOperations" => $canChangeOperations
         ];
     }

@@ -691,8 +691,8 @@ class UserControllerTest extends AbstractControllerTest
 
     public function testGetUser()
     {
-        $this->setUser(self::TYPE_LIMITED);
-        $this->sendRequest("user", "user", ["id" => true]);
+        $this->setUser(self::TYPE_FULL);
+        $this->sendRequest("user", "user", ["id" => 3]);
         var_dump($this->getBody());
     }
 
