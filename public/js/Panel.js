@@ -74,9 +74,19 @@
                     dialogClass: "panel-dialog",
                     closeText: "",
                     title: "Title 123",
-                    width: 300
+                    width: 300,
+                    show: 150,
+                    hide: 150,
+                    open: $.proxy(function( event, ui ) {
+                        var $dialog = this.getInstance().parent();
+                        var $panelDescription = TestS.Template.get("panel-description");
+                        this.getInstance().parent().find(".ui-dialog-titlebar").append($panelDescription);
+                       // $dialog.removeClass("transparent");
+                    }, this)
                 });
-                this.getInstance().removeClass("transparent");
+
+
+
             }, this), 50);
 
             return this;
