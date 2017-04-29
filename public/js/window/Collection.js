@@ -2,7 +2,7 @@
     'use strict';
 
     /**
-     * Window
+     * Window Collection
      *
      * @type {Object}
      */

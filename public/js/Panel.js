@@ -40,12 +40,22 @@
         $_body: null,
 
         /**
+         * User buttons
+         *
+         * @var {Object}
+         */
+        $_userButtons: null,
+
+        /**
          * Init
          */
         init: function () {
             this.$_instance = TestS.Template.get("panel");
+            this.$_userButtons = $("#user-buttons");
 
-            this._addDomElement();
+            this
+                ._setCloseEvents()
+                ._addDomElement();
 
             return this;
         },
@@ -60,6 +70,38 @@
         },
 
         /**
+         * Close event
+         *
+         * @returns {TestS.Panel}
+         *
+         * @private
+         */
+        _setCloseEvents: function() {
+            this.getInstance().find(".header .close").on("click", $.proxy(this._removePanel, this));
+
+            return this;
+        },
+
+        /**
+         * Removes panel
+         *
+         * @private
+         */
+        _removePanel: function() {
+            this.getInstance().addClass("transparent");
+            this.$_userButtons.removeClass("hidden");
+
+
+            setTimeout($.proxy(function() {
+                this.getInstance().remove();
+            }, this), 300);
+
+            setTimeout($.proxy(function() {
+                this.$_userButtons.removeClass("transparent");
+            }, this), 50);
+        },
+
+        /**
          * Adds element to DOM
          *
          * @returns {TestS.Panel}
@@ -70,26 +112,13 @@
             TestS.append(this.getInstance());
 
             setTimeout($.proxy(function() {
-                this.getInstance().dialog({
-                    dialogClass: "panel-dialog",
-                    closeText: "",
-                    title: "Title 123",
-                    width: 300,
-                    show: 150,
-                    hide: 150,
-                    open: $.proxy(function(event, ui) {
-                        var $dialog = this.getInstance().parent();
-                        var $panelDescription = TestS.Template.get("panel-description");
-                        this.getInstance().parent().find(".ui-dialog-titlebar").append($panelDescription);
-                    }, this),
-                    position: {
-                        my: "right-60 top+10",
-                        at: "right top"
-                    }
-                });
-
-                var position = this.getInstance().dialog("option", "position");
+                this.getInstance().removeClass("transparent");
+                this.$_userButtons.addClass("transparent");
             }, this), 50);
+
+            setTimeout($.proxy(function() {
+                this.$_userButtons.addClass("hidden");
+            }, this), 300);
 
             return this;
         }

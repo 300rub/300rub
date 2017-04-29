@@ -1,53 +1,88 @@
 @import "webkit";
 @import "variables";
+@import "helpers";
 
-.panel-dialog {
+.panel {
   .border-radius(6px);
+  .transition-duration(.15s);
+  .transition-property(opacity);
   background: white;
   border: 1px solid @darkGrayBorderColor;
   box-shadow: 0 5px 15px rgba(0,0,0,.5);
   overflow: hidden;
+  width: 300px;
+  position: fixed;
+  top: 16px;
+  right: 16px;
 
-  .ui-dialog-titlebar {
-    cursor: move;
-    position: relative;
+  .header {
     border-bottom: 1px solid @grayBorderColor;
+    position: relative;
 
-    .ui-dialog-title {
+    .title {
       line-height: 32px;
-      display: block;
       padding: 0 35px 0 10px;
       font-size: 18px;
       font-weight: 300;
       text-align: center;
     }
 
-    .panel-description {
+    .close {
+      .grayRedLink;
+      position: absolute;
+      width: 32px;
+      height: 32px;
+      line-height: 32px;
+      display: block;
+      text-align: center;
+      font-size: 18px;
+      top: 0;
+      right: 0;
+    }
+
+    .description {
       padding: 5px 10px 10px 10px;
       font-size: 12px;
     }
+  }
 
-    .ui-dialog-titlebar-close {
-      width: 32px;
-      height: 32px;
-      position: absolute;
-      top: 0;
-      right: 0;
-      border: 0;
-      background: none;
+  .loader {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    font-size: 30px;
+    margin-top: -15px;
+    margin-left: -15px;
+    color: @grayBorderColor;
+    display: none;
+  }
+}
 
-      .ui-button-text:before {
-        font-family: FontAwesome, sans-serif;
-        content: "\f00d";
-        color: @grayLinkColor;
-        font-size: 14px;
-      }
+.panel.loading {
+  height: 100px;
 
-      &:hover {
-        .ui-button-text:before {
-          color: @redLinkColor;
-        }
-      }
+  .header {
+    border-bottom: none;
+    height: 32px;
+
+    .title {
+      display: none;
     }
+
+    .description {
+      display: none;
+    }
+  }
+
+  .body {
+    display: none;
+  }
+
+  .footer {
+    display: none;
+  }
+
+  .loader {
+    display: block;
   }
 }
