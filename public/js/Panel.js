@@ -77,16 +77,18 @@
                     width: 300,
                     show: 150,
                     hide: 150,
-                    open: $.proxy(function( event, ui ) {
+                    open: $.proxy(function(event, ui) {
                         var $dialog = this.getInstance().parent();
                         var $panelDescription = TestS.Template.get("panel-description");
                         this.getInstance().parent().find(".ui-dialog-titlebar").append($panelDescription);
-                       // $dialog.removeClass("transparent");
-                    }, this)
+                    }, this),
+                    position: {
+                        my: "right-60 top+10",
+                        at: "right top"
+                    }
                 });
 
-
-
+                var position = this.getInstance().dialog("option", "position");
             }, this), 50);
 
             return this;
