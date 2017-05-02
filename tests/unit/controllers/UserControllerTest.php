@@ -693,7 +693,7 @@ class UserControllerTest extends AbstractControllerTest
     {
         $this->setUser(self::TYPE_FULL);
         $this->sendRequest("user", "user", ["id" => 3]);
-        var_dump($this->getBody());
+        //var_dump($this->getBody());
     }
 
     public function testAddUser()

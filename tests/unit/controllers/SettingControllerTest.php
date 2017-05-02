@@ -47,7 +47,9 @@ class SettingControllerTest extends AbstractControllerTest
             [
                 self::TYPE_NO_OPERATIONS_USER,
                 [
-                    "result" => [
+                    "title"       => "Settings",
+                    "description" => "description...",
+                    "list"        => [
                         "users" => [
                             "name"       => "Users",
                             "controller" => "user",
@@ -59,7 +61,9 @@ class SettingControllerTest extends AbstractControllerTest
             [
                 self::TYPE_FULL,
                 [
-                    "result" => [
+                    "title"       => "Settings",
+                    "description" => "description...",
+                    "list"        => [
                         "users" => [
                             "name"       => "Users",
                             "controller" => "user",

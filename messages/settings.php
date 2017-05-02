@@ -7,6 +7,10 @@ return [
         Language::LANGUAGE_EN_ID => "Settings",
         Language::LANGUAGE_RU_ID => "",
     ],
+    "description" => [
+        Language::LANGUAGE_EN_ID => "description...",
+        Language::LANGUAGE_RU_ID => "",
+    ],
     "seo"      => [
         Language::LANGUAGE_EN_ID => "SEO",
         Language::LANGUAGE_RU_ID => "",

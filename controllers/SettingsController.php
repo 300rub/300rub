@@ -38,7 +38,11 @@ class SettingsController extends AbstractController
             ];
         }
 
-        return ["result" => $list];
+        return [
+            "title"       => Language::t("settings", "settings"),
+            "description" => Language::t("settings", "description"),
+            "list"        => $list
+        ];
     }
 
     public function getIcon()

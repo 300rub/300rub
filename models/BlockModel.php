@@ -39,6 +39,15 @@ class BlockModel extends AbstractModel
     ];
 
     /**
+     * Type names
+     *
+     * @var array
+     */
+    public static $typeNames = [
+        self::TYPE_TEXT  => "",
+    ];
+
+    /**
      * Gets table name
      *
      * @return string

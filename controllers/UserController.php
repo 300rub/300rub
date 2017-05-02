@@ -8,7 +8,9 @@ use testS\components\exceptions\BadRequestException;
 use testS\components\exceptions\NotFoundException;
 use testS\components\Language;
 use testS\components\Operation;
+use testS\models\BlockModel;
 use testS\models\SectionModel;
+use testS\models\TextModel;
 use testS\models\UserModel;
 use testS\models\UserSessionModel;
 use testS\components\User;
@@ -341,14 +343,6 @@ class UserController extends AbstractController
     }
 
     /**
-     * Adds user
-     */
-    public function addUser()
-    {
-        // @TODO
-    }
-
-    /**
      * Gets user
      *
      * @throws BadRequestException
@@ -401,55 +395,9 @@ class UserController extends AbstractController
         }
 
         $operations = [];
-
-        $operations[Operation::TYPE_SECTIONS] = [
-            "title" => Language::t("section", "sections"),
-            "type"  => "group",
-            "data"  => []
-        ];
-        $operations[Operation::TYPE_SECTIONS]["data"][Operation::ALL] = [
-            "title" => Language::t("operation", "all"),
-            "type"  => "group",
-            "data"  => []
-        ];
-        foreach (Operation::$sectionOperations as $key => $value) {
-            $operations[Operation::TYPE_SECTIONS]["data"][Operation::ALL]["data"][] = [
-                "title" => $value,
-                "name"  => sprintf(
-                    "operations.%s.%s.%s",
-                    Operation::TYPE_SECTIONS,
-                    Operation::ALL,
-                    $key
-                ),
-                "value" => isset($userOperations[Operation::TYPE_SECTIONS][Operation::ALL][$key])
-            ];
-        }
-
-        $sections = (new SectionModel)->withRelations()->findAll();
-        if (count($sections) > 0) {
-            foreach ($sections as $section) {
-                $id = $section->getId();
-
-                $operations[Operation::TYPE_SECTIONS]["data"][$id] = [
-                    "title" => $section->get("seoModel")->get("name"),
-                    "type"  => "group",
-                    "data"  => []
-                ];
-
-                foreach (Operation::$sectionOperations as $key => $value) {
-                    $operations[Operation::TYPE_SECTIONS]["data"][$id]["data"][] = [
-                        "title" => $value,
-                        "name"  => sprintf(
-                            "operations.%s.%s.%s",
-                            Operation::TYPE_SECTIONS,
-                            $id,
-                            $key
-                        ),
-                        "value" => isset($userOperations[Operation::TYPE_SECTIONS][$id][$key])
-                    ];
-                }
-            }
-        }
+        $operations[Operation::TYPE_SECTIONS] = $this->_getSectionOperations($userOperations);
+        $operations[Operation::TYPE_BLOCKS] = $this->_getBlockOperations($userOperations);
+        $operations[Operation::TYPE_SETTINGS] = $this->_getSettingsOperations($userOperations);
 
         return [
             "info"                => [
@@ -461,6 +409,190 @@ class UserController extends AbstractController
             "operations"          => $operations,
             "canChangeOperations" => $canChangeOperations
         ];
+    }
+
+    /**
+     * Gets section operations
+     *
+     * @param array $userOperations
+     *
+     * @return array
+     */
+    private function _getSectionOperations($userOperations)
+    {
+        $operations = [
+            "title" => Language::t("section", "sections"),
+            "data"  => []
+        ];
+        $operations["data"][Operation::ALL] = [
+            "title" => Language::t("operation", "all"),
+            "data"  => []
+        ];
+        foreach (Operation::$sectionOperations as $key => $value) {
+            $operations["data"][Operation::ALL]["data"][] = [
+                "title" => $value,
+                "name"  => sprintf(
+                    "operations.%s.%s.%s",
+                    Operation::TYPE_SECTIONS,
+                    Operation::ALL,
+                    $key
+                ),
+                "value" => array_key_exists(Operation::TYPE_SECTIONS, $userOperations)
+                    && array_key_exists(Operation::ALL, $userOperations[Operation::TYPE_SECTIONS])
+                    && in_array($key, $userOperations[Operation::TYPE_SECTIONS][Operation::ALL])
+            ];
+        }
+
+        $sections = (new SectionModel)->withRelations()->findAll();
+        if (count($sections) > 0) {
+            foreach ($sections as $section) {
+                $id = $section->getId();
+
+                $operations["data"][$id] = [
+                    "title" => $section->get("seoModel")->get("name"),
+                    "data"  => []
+                ];
+
+                foreach (Operation::$sectionOperations as $key => $value) {
+                    $operations["data"][$id]["data"][] = [
+                        "title" => $value,
+                        "name"  => sprintf(
+                            "operations.%s.%s.%s",
+                            Operation::TYPE_SECTIONS,
+                            $id,
+                            $key
+                        ),
+                        "value" => array_key_exists(Operation::TYPE_SECTIONS, $userOperations)
+                            && array_key_exists($id, $userOperations[Operation::TYPE_SECTIONS])
+                            && in_array($key, $userOperations[Operation::TYPE_SECTIONS][$id])
+                    ];
+                }
+            }
+        }
+
+        return $operations;
+    }
+
+    /**
+     * Gets block operations
+     *
+     * @param array $userOperations
+     *
+     * @return array
+     */
+    private function _getBlockOperations($userOperations)
+    {
+        $operations = [
+            "title" => Language::t("block", "blocks"),
+            "data"  => []
+        ];
+
+        foreach (BlockModel::$typeNames as $blockKey => $title) {
+            switch ($blockKey) {
+                case BlockModel::TYPE_TEXT:
+                    $operationList = Operation::$blockTextOperations;
+                    break;
+                default:
+                    $operationList = [];
+                    break;
+            }
+
+            $operations["data"][$blockKey] = [
+                "title" => $title,
+                "data"  => []
+            ];
+
+            $operations["data"][$blockKey][Operation::ALL] = [
+                "title" => Language::t("operation", "all"),
+                "data"  => []
+            ];
+
+            foreach ($operationList as $key => $value) {
+                $operations["data"][$blockKey][Operation::ALL]["data"][] = [
+                    "title" => $value,
+                    "name"  => sprintf(
+                        "operations.%s.%s.%s.%s",
+                        Operation::TYPE_BLOCKS,
+                        $blockKey,
+                        Operation::ALL,
+                        $key
+                    ),
+                    "value" => array_key_exists(Operation::TYPE_BLOCKS, $userOperations)
+                        && array_key_exists($blockKey, $userOperations[Operation::TYPE_BLOCKS])
+                        && array_key_exists(Operation::ALL, $userOperations[Operation::TYPE_BLOCKS][$blockKey])
+                        && in_array($key, $userOperations[Operation::TYPE_BLOCKS][$blockKey][Operation::ALL])
+                ];
+            }
+
+            $blocks = (new BlockModel())->byContentType($blockKey)->findAll();
+            if (count($blocks) > 0) {
+                foreach ($blocks as $block) {
+                    $id = $block->getId();
+
+                    $operations["data"][$blockKey][$id] = [
+                        "title" => $block->get("name"),
+                        "data"  => []
+                    ];
+
+                    foreach ($operationList as $key => $value) {
+                        $operations["data"][$blockKey][$id]["data"][] = [
+                            "title" => $value,
+                            "name"  => sprintf(
+                                "operations.%s.%s.%s.%s",
+                                Operation::TYPE_BLOCKS,
+                                $blockKey,
+                                $id,
+                                $key
+                            ),
+                            "value" => array_key_exists(Operation::TYPE_BLOCKS, $userOperations)
+                                && array_key_exists($blockKey, $userOperations[Operation::TYPE_BLOCKS])
+                                && array_key_exists($id, $userOperations[Operation::TYPE_BLOCKS][$blockKey])
+                                && in_array($key, $userOperations[Operation::TYPE_BLOCKS][$blockKey][$id])
+                        ];
+                    }
+                }
+            }
+        }
+
+        return $operations;
+    }
+
+    /**
+     * Gets settings operations
+     *
+     * @param array $userOperations
+     *
+     * @return array
+     */
+    private function _getSettingsOperations($userOperations)
+    {
+        $operations = [
+            "title" => Language::t("settings", "settings"),
+            "data"  => []
+        ];
+
+        foreach (Operation::$settingOperations as $key => $value) {
+            $operations["data"]["data"][] = [
+                "title" => $value,
+                "name"  => sprintf(
+                    "operations.%s.%s",
+                    Operation::TYPE_SETTINGS,
+                    $key
+                ),
+                "value" => array_key_exists(Operation::TYPE_SETTINGS, $userOperations)
+                    && in_array($key, $userOperations[Operation::TYPE_SETTINGS])
+            ];
+        }
+
+        return $operations;
+    }
+
+    /**
+     * Adds user
+     */
+    public function addUser()
+    {
+        // @TODO
     }
 
     /**

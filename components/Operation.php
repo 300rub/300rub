@@ -87,8 +87,13 @@ class Operation
      * @var array
      */
     public static $settingOperations = [
-        self::SETTINGS_ICON        => "",
-        self::SETTINGS_USER_UPDATE => "",
+        self::SETTINGS_ICON                 => "",
+        self::SETTINGS_USER_VIEW            => "",
+        self::SETTINGS_USER_UPDATE          => "",
+        self::SETTINGS_USER_DELETE          => "",
+        self::SETTINGS_USER_VIEW_SESSIONS   => "",
+        self::SETTINGS_USER_DELETE_SESSIONS => "",
+        self::SETTINGS_USER_ADD             => ""
     ];
 
     /**
