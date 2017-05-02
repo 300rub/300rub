@@ -41,9 +41,16 @@
          * @private
          */
         _onLoadDataSuccess: function(data) {
-            console.log(data);
+            this._panel
+                .setTitle(data.title)
+                .setDescription(data.description);
 
+            var item;
+            $.each(data.list, $.proxy(function(key, values) {
+                item = TestS.Template.get("panel-list-item");
+                this._panel.getBody().append(item);
 
+            }, this));
 
             this._panel.removeLoading();
         }

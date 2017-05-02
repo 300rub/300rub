@@ -97,6 +97,30 @@
         },
 
         /**
+         * Sets title
+         *
+         * @param {String} title
+         *
+         * @returns {TestS.Panel}
+         */
+        setTitle: function(title) {
+            this.getInstance().find(".header .title").text(title);
+            return this;
+        },
+
+        /**
+         * Sets description
+         *
+         * @param {String} description
+         *
+         * @returns {TestS.Panel}
+         */
+        setDescription: function(description) {
+            this.getInstance().find(".header .description").text(description);
+            return this;
+        },
+
+        /**
          * Close event
          *
          * @returns {TestS.Panel}

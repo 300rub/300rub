@@ -46,6 +46,59 @@
     }
   }
 
+  .body {
+    .panel-list-item {
+      min-height: 32px;
+      border-bottom: 1px solid @grayBorderColor;
+      position: relative;
+
+      .label {
+        display: block;
+        padding: 6px 70px 6px 12px;
+        line-height: 20px;
+        font-size: 14px;
+
+        &:hover {
+          background: @grayBackground;
+        }
+
+        .icon {
+          display: inline-block;
+          width: 20px;
+          font-size: 16px;
+        }
+      }
+
+      .settings, .design {
+        position: absolute;
+        width: 32px;
+        height: 32px;
+        line-height: 32px;
+        text-align: center;
+        color: @darkGrayLinkColor;
+        top: 50%;
+        margin-top: -16px;
+        font-size: 16px;
+
+        &:hover {
+          color: @blueLinkColor;
+        }
+      }
+
+      .settings {
+        right: 0;
+      }
+
+      .design {
+        right: 32px;
+      }
+
+      &:last-child {
+        border-bottom: 0;
+      }
+    }
+  }
+
   .loader {
     position: absolute;
     left: 50%;

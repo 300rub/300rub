@@ -1,10 +1,8 @@
 <div class="panel loading transparent">
     <div class="header">
-        <div class="title">Title 123</div>
+        <div class="title"></div>
         <a class="close fa fa-remove"></a>
-        <div class="description">
-            Bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla
-        </div>
+        <div class="description"></div>
     </div>
 
     <div class="body scroll-container"></div>
@@ -14,10 +12,11 @@
     <i class="fa fa-circle-o-notch fa-spin loader"></i>
 </div>
 
-<a class="panel-list-item">
-    <span class="label">
-        Text
-    </span>
-    <a class="fa fa-remove"></a>
-    <a class="fa fa-arrow-down"></a>
-</a>
+<div class="panel-list-item">
+    <a class="label">
+        <i class="fa fa-font icon"></i>
+        <span class="text">1 s s s s s s s s s s s s s s s s s s s s s s s s s s </span>
+    </a>
+    <a class="fa fa-cog settings"></a>
+    <a class="fa fa-paint-brush design"></a>
+</div>
