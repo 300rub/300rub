@@ -7,11 +7,17 @@
         </div>
     </div>
 
-    <div class="body scroll-container">
-        111
-    </div>
+    <div class="body scroll-container"></div>
 
     <div class="footer"></div>
 
     <i class="fa fa-circle-o-notch fa-spin loader"></i>
 </div>
+
+<a class="panel-list-item">
+    <span class="label">
+        Text
+    </span>
+    <a class="fa fa-remove"></a>
+    <a class="fa fa-arrow-down"></a>
+</a>

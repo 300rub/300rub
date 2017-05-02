@@ -39,7 +39,7 @@
          */
         _setSettings: function() {
             $("#user-button-settings").on("click", function () {
-                new TestS.Panel({});
+                new TestS.Panel.Settings();
             });
 
             return this;

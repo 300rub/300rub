@@ -4,7 +4,7 @@
     /**
      * Panel
      *
-     * @type {TestS.Window}
+     * @type {TestS.Panel}
      */
     TestS.Panel = function (options) {
         this._options = $.extend({}, options);
@@ -26,7 +26,7 @@
         _options: {},
 
         /**
-         * Window
+         * Panel
          *
          * @var {Object}
          */
@@ -51,13 +51,31 @@
          */
         init: function () {
             this.$_instance = TestS.Template.get("panel");
+            this.$_body = this.$_instance.find(".body");
             this.$_userButtons = $("#user-buttons");
 
             this
                 ._setCloseEvents()
-                ._addDomElement();
+                ._addDomElement()
+                ._loadData();
+
+            this._setMaxHeight();
+            $(window).resize($.proxy(function () {
+                this._setMaxHeight();
+            }, this));
 
             return this;
+        },
+
+        /**
+         * Sets container's max-height
+         *
+         * @private
+         */
+        _setMaxHeight: function() {
+            this.$_body.css("max-height", $.proxy(function () {
+                return $(window).outerHeight() - 148;
+            }, this));
         },
 
         /**
@@ -67,6 +85,15 @@
          */
         getInstance: function() {
             return this.$_instance;
+        },
+
+        /**
+         * Gets body
+         *
+         * @returns {Object}
+         */
+        getBody: function() {
+            return this.$_body;
         },
 
         /**
@@ -120,6 +147,32 @@
                 this.$_userButtons.addClass("hidden");
             }, this), 300);
 
+            return this;
+        },
+
+        /**
+         * Loads data
+         *
+         * @private
+         */
+        _loadData: function() {
+            new TestS.Ajax({
+                data: {
+                    controller: this._options.controller,
+                    action: this._options.action
+                },
+                success: this._options.success,
+                error: $.proxy(this.onError, this)
+            });
+        },
+
+        /**
+         * Removes loading
+         *
+         * @returns {TestS.Window}
+         */
+        removeLoading: function() {
+            this.getInstance().removeClass("loading");
             return this;
         }
     };
