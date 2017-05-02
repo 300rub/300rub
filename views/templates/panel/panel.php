@@ -15,7 +15,7 @@
 <div class="panel-list-item">
     <a class="label">
         <i class="fa fa-font icon"></i>
-        <span class="text">1 s s s s s s s s s s s s s s s s s s s s s s s s s s </span>
+        <span class="text"></span>
     </a>
     <a class="fa fa-cog settings"></a>
     <a class="fa fa-paint-brush design"></a>
