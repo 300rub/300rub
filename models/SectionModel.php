@@ -53,4 +53,16 @@ class SectionModel extends AbstractModel
             ]
         ];
     }
+
+    /**
+     * Order by name
+     *
+     * @return SectionModel
+     */
+    public function ordered()
+    {
+        $this->getDb()->setOrder(sprintf("%s.name", "seoModel"));
+
+        return $this;
+    }
 }

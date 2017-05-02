@@ -400,14 +400,12 @@ class UserController extends AbstractController
         $operations[Operation::TYPE_SETTINGS] = $this->_getSettingsOperations($userOperations);
 
         return [
-            "info"                => [
-                "name"  => $name,
-                "login" => $login,
-                "email" => $email,
-                "type"  => $type,
-            ],
+            "name"                => $name,
+            "login"               => $login,
+            "email"               => $email,
+            "type"                => $type,
+            "canChangeOperations" => $canChangeOperations,
             "operations"          => $operations,
-            "canChangeOperations" => $canChangeOperations
         ];
     }
 
@@ -443,7 +441,7 @@ class UserController extends AbstractController
             ];
         }
 
-        $sections = (new SectionModel)->withRelations()->findAll();
+        $sections = (new SectionModel)->ordered()->withRelations()->findAll();
         if (count($sections) > 0) {
             foreach ($sections as $section) {
                 $id = $section->getId();
@@ -502,13 +500,13 @@ class UserController extends AbstractController
                 "data"  => []
             ];
 
-            $operations["data"][$blockKey][Operation::ALL] = [
+            $operations["data"][$blockKey]["data"][Operation::ALL] = [
                 "title" => Language::t("operation", "all"),
                 "data"  => []
             ];
 
             foreach ($operationList as $key => $value) {
-                $operations["data"][$blockKey][Operation::ALL]["data"][] = [
+                $operations["data"][$blockKey]["data"][Operation::ALL]["data"][] = [
                     "title" => $value,
                     "name"  => sprintf(
                         "operations.%s.%s.%s.%s",
@@ -524,18 +522,18 @@ class UserController extends AbstractController
                 ];
             }
 
-            $blocks = (new BlockModel())->byContentType($blockKey)->findAll();
+            $blocks = (new BlockModel())->byContentType($blockKey)->ordered()->findAll();
             if (count($blocks) > 0) {
                 foreach ($blocks as $block) {
                     $id = $block->getId();
 
-                    $operations["data"][$blockKey][$id] = [
+                    $operations["data"][$blockKey]["data"][$id] = [
                         "title" => $block->get("name"),
                         "data"  => []
                     ];
 
                     foreach ($operationList as $key => $value) {
-                        $operations["data"][$blockKey][$id]["data"][] = [
+                        $operations["data"][$blockKey]["data"][$id]["data"][] = [
                             "title" => $value,
                             "name"  => sprintf(
                                 "operations.%s.%s.%s.%s",
@@ -572,7 +570,7 @@ class UserController extends AbstractController
         ];
 
         foreach (Operation::$settingOperations as $key => $value) {
-            $operations["data"]["data"][] = [
+            $operations["data"][] = [
                 "title" => $value,
                 "name"  => sprintf(
                     "operations.%s.%s",

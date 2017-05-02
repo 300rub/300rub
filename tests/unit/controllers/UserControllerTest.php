@@ -3,6 +3,7 @@
 namespace testS\tests\unit\controllers;
 
 use testS\applications\App;
+use testS\components\Operation;
 use testS\components\User;
 use testS\models\UserModel;
 use testS\models\UserSessionModel;
@@ -689,19 +690,204 @@ class UserControllerTest extends AbstractControllerTest
         ];
     }
 
-    public function testGetUser()
+    /**
+     * Test for getUser
+     *
+     * @param string $user
+     * @param int    $id
+     * @param array  $expected
+     * @param bool   $isError
+     *
+     * @dataProvider dataProviderForTestGetUser
+     */
+    public function testGetUser($user, $id, $expected, $isError = false)
     {
-        $this->setUser(self::TYPE_FULL);
-        $this->sendRequest("user", "user", ["id" => 3]);
-        //var_dump($this->getBody());
+        $this->setUser($user);
+        $this->sendRequest("user", "user", ["id" => $id]);
+        $this->compareExpectedAndActual($expected, $this->getBody());
+
+        if ($isError) {
+            $this->assertError();
+        }
+    }
+
+    /**
+     * Data provider for testGetUser
+     *
+     * @return array
+     */
+    public function dataProviderForTestGetUser()
+    {
+        return [
+            [
+                self::TYPE_OWNER,
+                1,
+                [
+                    "name"                => "Owner",
+                    "login"               => "owner",
+                    "email"               => "owner@email.com",
+                    "type"                => UserModel::TYPE_OWNER,
+                    "canChangeOperations" => false,
+                ]
+            ],
+            [
+                self::TYPE_OWNER,
+                2,
+                [
+                    "name"                => "Admin",
+                    "login"               => "admin",
+                    "email"               => "admin@email.com",
+                    "type"                => UserModel::TYPE_FULL,
+                    "canChangeOperations" => true,
+                ]
+            ],
+            [
+                self::TYPE_OWNER,
+                3,
+                [
+                    "name"                => "User",
+                    "login"               => "user",
+                    "email"               => "user@email.com",
+                    "type"                => UserModel::TYPE_LIMITED,
+                    "canChangeOperations" => true,
+                ]
+            ],
+            [
+                self::TYPE_FULL,
+                1,
+                [
+                    "name"                => "Owner",
+                    "login"               => "owner",
+                    "email"               => "owner@email.com",
+                    "type"                => UserModel::TYPE_OWNER,
+                    "canChangeOperations" => false,
+                ]
+            ],
+            [
+                self::TYPE_FULL,
+                2,
+                [
+                    "name"                => "Admin",
+                    "login"               => "admin",
+                    "email"               => "admin@email.com",
+                    "type"                => UserModel::TYPE_FULL,
+                    "canChangeOperations" => false,
+                ]
+            ],
+            [
+                self::TYPE_FULL,
+                3,
+                [
+                    "name"                => "User",
+                    "login"               => "user",
+                    "email"               => "user@email.com",
+                    "type"                => UserModel::TYPE_LIMITED,
+                    "canChangeOperations" => true,
+                    "operations"          => [
+                        Operation::TYPE_SECTIONS => [
+                            "title" => "Sections",
+                            "data"  => [
+                                Operation::ALL => [
+                                    "title" => "All",
+                                    "data"  => [
+                                        [
+                                            "name"  => "operations.SECTIONS.ALL.SECTION_ADD",
+                                            "value" => false
+                                        ]
+                                    ]
+                                ],
+                                1              => [
+                                    "title" => "Text Blocks",
+                                    "data"  => [
+                                        [
+                                            "name"  => "operations.SECTIONS.1.SECTION_ADD",
+                                            "value" => false
+                                        ],
+                                        [
+                                            "name"  => "operations.SECTIONS.1.SECTION_UPDATE",
+                                            "value" => false
+                                        ],
+                                    ]
+                                ],
+                            ]
+                        ],
+                        Operation::TYPE_BLOCKS   => [
+                            "title" => "Blocks",
+                            "data"  => [
+                                1 => [
+                                    "data" => [
+                                        Operation::ALL => [
+                                            "title" => "All",
+                                            "data"  => [
+                                                [
+                                                    "name"  => "operations.BLOCKS.1.ALL.TEXT_ADD",
+                                                    "value" => false
+                                                ],
+                                                [
+                                                    "name"  => "operations.BLOCKS.1.ALL.TEXT_UPDATE_SETTINGS",
+                                                    "value" => false
+                                                ]
+                                            ]
+                                        ],
+                                        1              => [
+                                            "title" => "Simple text",
+                                            "data"  => [
+                                                [
+                                                    "name"  => "operations.BLOCKS.1.1.TEXT_ADD",
+                                                    "value" => false
+                                                ]
+                                            ]
+                                        ],
+                                    ]
+                                ]
+                            ]
+                        ],
+                        Operation::TYPE_SETTINGS => [
+                            "title" => "Settings",
+                            "data"  => [
+                                [
+                                    "name"  => "operations.SETTINGS.SETTINGS_ICON",
+                                    "value" => true
+                                ],
+                                [
+                                    "name"  => "operations.SETTINGS.SETTINGS_USER_VIEW",
+                                    "value" => false
+                                ],
+                            ]
+                        ],
+                    ]
+                ]
+            ],
+            [
+                self::TYPE_LIMITED,
+                1,
+                [],
+                true
+            ],
+            [
+                self::TYPE_LIMITED,
+                2,
+                [],
+                true
+            ],
+            [
+                self::TYPE_LIMITED,
+                3,
+                [
+                    "name"                => "User",
+                    "login"               => "user",
+                    "email"               => "user@email.com",
+                    "type"                => UserModel::TYPE_LIMITED,
+                    "canChangeOperations" => false,
+                ]
+            ]
+        ];
     }
 
     public function testAddUser()
     {
         $this->markTestSkipped();
     }
-
-
 
     public function testUpdateUser()
     {

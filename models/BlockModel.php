@@ -259,4 +259,16 @@ class BlockModel extends AbstractModel
 
         return $this;
     }
+
+    /**
+     * Order by name
+     *
+     * @return BlockModel
+     */
+    public function ordered()
+    {
+        $this->getDb()->setOrder(sprintf("%s.name", Db::DEFAULT_ALIAS));
+
+        return $this;
+    }
 }
