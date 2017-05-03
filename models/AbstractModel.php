@@ -4,6 +4,7 @@ namespace testS\models;
 
 use testS\components\Db;
 use testS\components\exceptions\ModelException;
+use testS\components\Language;
 use testS\components\Validator;
 use testS\components\ValueGenerator;
 use Exception;
@@ -1002,6 +1003,25 @@ abstract class AbstractModel
         }
 
         return $this;
+    }
+
+    /**
+     * Gets parsed errors
+     *
+     * @return array
+     */
+    public function getParsedErrors()
+    {
+        $parsedErrors = [];
+
+        $errors = $this->getErrors();
+        foreach ($errors as $key => $values) {
+            if (count($values) > 0) {
+                $parsedErrors[$key] = Language::t("validation", $values[0]);
+            }
+        }
+
+        return $parsedErrors;
     }
 
     /**

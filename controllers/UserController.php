@@ -8,6 +8,7 @@ use testS\components\exceptions\BadRequestException;
 use testS\components\exceptions\NotFoundException;
 use testS\components\Language;
 use testS\components\Operation;
+use testS\components\Validator;
 use testS\models\BlockModel;
 use testS\models\SectionModel;
 use testS\models\TextModel;
@@ -587,9 +588,60 @@ class UserController extends AbstractController
 
     /**
      * Adds user
+     *
+     * @throws BadRequestException
+     *
+     * @return array
      */
     public function addUser()
     {
+        $this->checkSettingsOperation(Operation::SETTINGS_USER_ADD);
+
+        $data = $this->getData();
+
+        if (empty($data["name"])
+            || empty($data["login"])
+            || !array_key_exists("email", $data)
+            || !array_key_exists("type", $data)
+            || !array_key_exists("password", $data)
+            || !array_key_exists("passwordConfirm", $data)
+            || strlen($data["password"]) !== 32
+            || strlen($data["passwordConfirm"]) !== 32
+        ) {
+            throw new BadRequestException(
+                "Incorrect request to add user. Data: {data}",
+                [
+                    "data" => json_encode($data)
+                ]
+            );
+        }
+
+        $errors = [];
+
+        if ($data["password"] !== $data["passwordConfirm"]) {
+            $errors["password"] = Language::t("user", "passwordsMatch");
+        }
+
+        $userModel = new UserModel();
+        $userModel->set([
+            "login"    => $data["login"],
+            "password" => sha1($data["password"] . UserModel::PASSWORD_SALT),
+            "type"     => $data["type"],
+            "name"     => $data["name"],
+            "email"    => $data["email"],
+        ]);
+
+        $errors = array_merge($errors, $userModel->validate()->getParsedErrors());
+        if (count($errors) > 0) {
+            return [
+                "errors" => $errors
+            ];
+        }
+
+        return [
+            "result" => true
+        ];
+
         // @TODO
     }
 

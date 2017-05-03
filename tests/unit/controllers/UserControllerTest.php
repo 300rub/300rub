@@ -886,7 +886,16 @@ class UserControllerTest extends AbstractControllerTest
 
     public function testAddUser()
     {
-        $this->markTestSkipped();
+        $this->setUser(self::TYPE_FULL);
+        $this->sendRequest("user", "user", [], "PUT");
+        var_dump($this->getBody());
+    }
+
+    public function dataProviderForTestAddUser()
+    {
+        return [
+
+        ];
     }
 
     public function testUpdateUser()

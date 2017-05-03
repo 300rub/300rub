@@ -63,4 +63,8 @@ return [
         Language::LANGUAGE_EN_ID => "Access",
         Language::LANGUAGE_RU_ID => "",
     ],
+    "passwordsMatch" => [
+        Language::LANGUAGE_EN_ID => "Passwords do not match",
+        Language::LANGUAGE_RU_ID => "",
+    ],
 ];
