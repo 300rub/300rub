@@ -53,23 +53,28 @@
       position: relative;
 
       .label {
+        .transition-duration(.15s);
+        .transition-property(background-color);
         display: block;
-        padding: 6px 70px 6px 12px;
+        padding: 6px 70px 6px 6px;
         line-height: 20px;
         font-size: 14px;
 
-        &:hover {
-          background: @grayBackground;
-        }
-
         .icon {
           display: inline-block;
-          width: 20px;
+          width: 32px;
           font-size: 16px;
+          text-align: center;
+        }
+
+        &:hover {
+          background-color: @grayBackground;
         }
       }
 
       .settings, .design {
+        .transition-duration(.15s);
+        .transition-property(font-size);
         position: absolute;
         width: 32px;
         height: 32px;
@@ -82,11 +87,12 @@
 
         &:hover {
           color: @blueLinkColor;
+          font-size: 20px;
         }
       }
 
       .settings {
-        right: 0;
+        right: 4px;
       }
 
       .design {
@@ -95,6 +101,12 @@
 
       &:last-child {
         border-bottom: 0;
+      }
+    }
+
+    .panel-list-item.without-buttons {
+      .label {
+        padding-right: 10px;
       }
     }
   }
@@ -107,6 +119,35 @@
     margin-top: -15px;
     margin-left: -15px;
     color: @grayBorderColor;
+    display: none;
+  }
+}
+
+.panel.error {
+  .header {
+    border-bottom: none;
+    height: 32px;
+
+    .title {
+      display: none;
+    }
+  }
+
+  .ajax-error {
+    display: block;
+    font-size: 12px;
+    padding: 0 12px 12px 12px;
+
+    * {
+      color: @redTextColor;
+    }
+
+    div {
+      margin: 10px 0;
+    }
+  }
+
+  .footer {
     display: none;
   }
 }

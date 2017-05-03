@@ -53,8 +53,6 @@
                 success: $.proxy(this._onLoadDataSuccess, this),
                 name: "login"
             });
-
-            this._window.getInstance().addClass("window-login");
         },
 
         /**

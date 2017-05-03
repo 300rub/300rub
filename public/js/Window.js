@@ -146,6 +146,7 @@
         _removeWindow: function() {
             this.getInstance().addClass("transparent");
             this.getOverlay().addClass("transparent");
+            TestS.getWrapper().find(".panel").removeClass("transparent");
 
             setTimeout($.proxy(function() {
                 this.getInstance().remove();
@@ -172,6 +173,8 @@
                 this.getInstance().removeClass("transparent");
                 this.getOverlay().removeClass("transparent");
             }, this), 50);
+
+            TestS.getWrapper().find(".panel").addClass("transparent");
 
             return this;
         },

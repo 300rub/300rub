@@ -14,7 +14,7 @@
 
 <div class="panel-list-item">
     <a class="label">
-        <i class="fa fa-font icon"></i>
+        <i class="fa icon"></i>
         <span class="text"></span>
     </a>
     <a class="fa fa-cog settings"></a>

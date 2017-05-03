@@ -69,7 +69,8 @@ class PageController extends AbstractController
             "lib/jquery-ui.min",
             "Panel",
             "panel/Settings",
-            "UserButtons"
+            "UserButtons",
+            "window/Users"
         ],
         "less" => [
             "userButtons",

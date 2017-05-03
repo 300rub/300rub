@@ -79,12 +79,21 @@
          * @returns {TestS}
          */
         append: function ($object) {
+            this.getWrapper().append($object);
+            return this;
+        },
+
+        /**
+         * Gets wrapper
+         *
+         * @returns {Object}
+         */
+        getWrapper: function() {
             if (this.$_wrapper === null) {
                 this.$_wrapper = $("#ajax-wrapper");
             }
 
-            this.$_wrapper.append($object);
-            return this;
+            return this.$_wrapper;
         }
     }
 }(window);

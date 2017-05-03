@@ -58,24 +58,26 @@
                 ._setCloseEvents()
                 ._addDomElement()
                 ._loadData();
-
-            this._setMaxHeight();
-            $(window).resize($.proxy(function () {
-                this._setMaxHeight();
-            }, this));
-
-            return this;
         },
 
         /**
          * Sets container's max-height
          *
-         * @private
+         * @return {TestS.Panel}
          */
-        _setMaxHeight: function() {
-            this.$_body.css("max-height", $.proxy(function () {
-                return $(window).outerHeight() - 148;
+        setMaxHeight: function() {
+            var setMaxHeight = $.proxy(function () {
+                this.$_body.css("max-height", $.proxy(function () {
+                    return $(window).outerHeight() - 148;
+                }, this));
+            }, this);
+
+            setMaxHeight();
+            $(window).resize($.proxy(function () {
+                setMaxHeight();
             }, this));
+
+            return this;
         },
 
         /**
@@ -188,6 +190,19 @@
                 success: this._options.success,
                 error: $.proxy(this.onError, this)
             });
+        },
+
+        /**
+         * On error
+         *
+         * @param {Object} jqXHR
+         */
+        onError: function (jqXHR) {
+            var $errorTemplate = TestS.Ajax.getErrorTemplate(jqXHR);
+            this.getInstance()
+                .removeClass("loading")
+                .addClass("error");
+            this.getBody().html($errorTemplate);
         },
 
         /**

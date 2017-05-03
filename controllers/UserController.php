@@ -329,6 +329,7 @@ class UserController extends AbstractController
         }
 
         return [
+            "title"  => "13",
             "list"   => $list,
             "canAdd" => $this->hasSettingsOperation(Operation::SETTINGS_USER_ADD),
             "labels" => [

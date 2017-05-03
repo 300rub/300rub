@@ -46,14 +46,34 @@
                 .setDescription(data.description);
 
             var item;
-            $.each(data.list, $.proxy(function(key, values) {
+            $.each(data.list, $.proxy(function(key, name) {
                 item = TestS.Template.get("panel-list-item");
-                item.find(".label .text").text(values.name);
-                this._panel.getBody().append(item);
 
+                item.addClass("without-buttons");
+                item.find(".settings").remove();
+                item.find(".design").remove();
+                item.find(".text").text(name);
+
+                switch (key) {
+                    case "users":
+                        item.find(".icon").addClass("fa-user");
+                        item.find(".label").on("click", function() {
+                            new TestS.Window.Users();
+                        });
+                        break;
+                    case "icon":
+                        item.find(".icon").addClass("fa-picture-o");
+                        break;
+                    default:
+                        break;
+                }
+
+                this._panel.getBody().append(item);
             }, this));
 
-            this._panel.removeLoading();
+            this._panel
+                .setMaxHeight()
+                .removeLoading();
         }
     };
 }(window.jQuery, window.TestS);

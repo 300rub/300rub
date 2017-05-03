@@ -24,18 +24,10 @@ class SettingsController extends AbstractController
 
         $list = [];
 
-        $list["users"] = [
-            "name"       => Language::t("settings", "users"),
-            "controller" => "user",
-            "action"     => "users",
-        ];
+        $list["users"] = Language::t("settings", "users");
 
         if ($this->hasSettingsOperation(Operation::SETTINGS_ICON)) {
-            $list["icon"] = [
-                "name"       => Language::t("settings", "icon"),
-                "controller" => "settings",
-                "action"     => "icon",
-            ];
+            $list["icon"] = Language::t("settings", "icon");
         }
 
         return [
