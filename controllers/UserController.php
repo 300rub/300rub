@@ -329,7 +329,7 @@ class UserController extends AbstractController
         }
 
         return [
-            "title"  => "13",
+            "title"  => Language::t("user", "users"),
             "list"   => $list,
             "canAdd" => $this->hasSettingsOperation(Operation::SETTINGS_USER_ADD),
             "labels" => [
@@ -600,8 +600,8 @@ class UserController extends AbstractController
 
         $data = $this->getData();
 
-        if (empty($data["name"])
-            || empty($data["login"])
+        if (!array_key_exists("name", $data)
+            || !array_key_exists("login", $data)
             || !array_key_exists("email", $data)
             || !array_key_exists("type", $data)
             || !array_key_exists("password", $data)

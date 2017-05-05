@@ -50,11 +50,7 @@ class SettingControllerTest extends AbstractControllerTest
                     "title"       => "Settings",
                     "description" => "description...",
                     "list"        => [
-                        "users" => [
-                            "name"       => "Users",
-                            "controller" => "user",
-                            "action"     => "users",
-                        ],
+                        "users" => "Users",
                     ]
                 ]
             ],
@@ -64,16 +60,8 @@ class SettingControllerTest extends AbstractControllerTest
                     "title"       => "Settings",
                     "description" => "description...",
                     "list"        => [
-                        "users" => [
-                            "name"       => "Users",
-                            "controller" => "user",
-                            "action"     => "users",
-                        ],
-                        "icon"  => [
-                            "name"       => "Icon",
-                            "controller" => "settings",
-                            "action"     => "icon",
-                        ],
+                        "users" => "Users",
+                        "icon"  => "Icon",
                     ]
                 ]
             ],

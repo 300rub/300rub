@@ -596,6 +596,7 @@ class UserControllerTest extends AbstractControllerTest
             [
                 self::TYPE_NO_OPERATIONS_USER,
                 [
+                    "title" => "Users",
                     "list"   => [
                         [
                             "id"               => 4,
@@ -623,6 +624,7 @@ class UserControllerTest extends AbstractControllerTest
             [
                 self::TYPE_FULL,
                 [
+                    "title" => "Users",
                     "list"   => [
                         [
                             "id"               => 2,
@@ -884,17 +886,144 @@ class UserControllerTest extends AbstractControllerTest
         ];
     }
 
-    public function testAddUser()
+    /**
+     * Test for method addUser
+     *
+     * @param string $user
+     * @param array  $data
+     * @param bool   $hasException
+     *
+     * @dataProvider dataProviderForTestAddUser
+     *
+     * @return bool
+     */
+    public function testAddUser($user, $data, $hasException)
     {
-        $this->setUser(self::TYPE_FULL);
-        $this->sendRequest("user", "user", [], "PUT");
+        $this->setUser($user);
+        $this->sendRequest("user", "user", $data, "PUT");
+
+        if ($hasException === true) {
+            $this->assertError();
+            return true;
+        }
+
         var_dump($this->getBody());
+
+        return true;
     }
 
+    /**
+     * Data provider for testAddUser
+     *
+     * @return array
+     */
     public function dataProviderForTestAddUser()
     {
-        return [
+        $password1 = $this->generateStringWithLength(32);
 
+        return [
+            [
+                self::TYPE_NO_OPERATIONS_USER,
+                [
+                    "name"            => "Name",
+                    "login"           => "newLogin",
+                    "password"        => $password1,
+                    "passwordConfirm" => $password1,
+                    "type"            => 3,
+                    "email"           => "email1@email.com",
+                ],
+                true
+            ],
+            [
+                self::TYPE_BLOCKED_USER,
+                [
+                    "name"            => "Name",
+                    "login"           => "newLogin",
+                    "password"        => $password1,
+                    "passwordConfirm" => $password1,
+                    "type"            => 3,
+                    "email"           => "email1@email.com",
+                ],
+                true
+            ],
+            [
+                self::TYPE_FULL,
+                [
+                    "login"           => "newLogin",
+                    "password"        => $password1,
+                    "passwordConfirm" => $password1,
+                    "type"            => 3,
+                    "email"           => "email1@email.com",
+                ],
+                true
+            ],
+            [
+                self::TYPE_FULL,
+                [
+                    "name"            => "Name",
+                    "password"        => $password1,
+                    "passwordConfirm" => $password1,
+                    "type"            => 3,
+                    "email"           => "email1@email.com",
+                ],
+                true
+            ],
+            [
+                self::TYPE_FULL,
+                [
+                    "name"            => "Name",
+                    "login"           => "newLogin",
+                    "passwordConfirm" => $password1,
+                    "type"            => 3,
+                    "email"           => "email1@email.com",
+                ],
+                true
+            ],
+            [
+                self::TYPE_FULL,
+                [
+                    "name"            => "Name",
+                    "login"           => "newLogin",
+                    "password"        => $password1,
+                    "type"            => 3,
+                    "email"           => "email1@email.com",
+                ],
+                true
+            ],
+            [
+                self::TYPE_FULL,
+                [
+                    "name"            => "Name",
+                    "login"           => "newLogin",
+                    "password"        => $password1,
+                    "passwordConfirm" => $password1,
+                    "email"           => "email1@email.com",
+                ],
+                true
+            ],
+            [
+                self::TYPE_FULL,
+                [
+                    "name"            => "Name",
+                    "login"           => "newLogin",
+                    "password"        => $password1,
+                    "passwordConfirm" => $password1,
+                    "type"            => 3,
+                ],
+                true
+            ],
+            [
+                self::TYPE_FULL,
+                [
+                    "name"            => "Name",
+                    "login"           => "newLogin",
+                    "password"        => $password1,
+                    "passwordConfirm" => $password1,
+                    "type"            => 3,
+                    "email"           => "email1@email.com",
+                ],
+                false
+            ],
         ];
     }
 
