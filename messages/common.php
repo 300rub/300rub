@@ -31,6 +31,10 @@ return [
         Language::LANGUAGE_EN_ID => "Name",
         Language::LANGUAGE_RU_ID => "",
     ],
+    "email"      => [
+        Language::LANGUAGE_EN_ID => "Email",
+        Language::LANGUAGE_RU_ID => "",
+    ],
     "title"     => [
         Language::LANGUAGE_EN_ID => "Title",
         Language::LANGUAGE_RU_ID => "",

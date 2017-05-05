@@ -303,6 +303,7 @@ class UserController extends AbstractController
                 "canDelete"        => true,
                 "canViewSessions"  => true,
                 "canDeleteSession" => true,
+                "isCurrent"        => true,
             ]
         ];
 
@@ -324,6 +325,7 @@ class UserController extends AbstractController
                     "canDelete"        => $userModel->isOwner() ? false : $canDelete,
                     "canViewSessions"  => $canViewSessions,
                     "canDeleteSession" => $userModel->isOwner() ? false : $canDeleteSessions,
+                    "isCurrent"        => false,
                 ];
             }
         }
@@ -334,6 +336,7 @@ class UserController extends AbstractController
             "canAdd" => $this->hasSettingsOperation(Operation::SETTINGS_USER_ADD),
             "labels" => [
                 "name"     => Language::t("common", "name"),
+                "email"    => Language::t("common", "email"),
                 "access"   => Language::t("user", "access"),
                 "sessions" => Language::t("user", "sessions"),
                 "edit"     => Language::t("common", "edit"),

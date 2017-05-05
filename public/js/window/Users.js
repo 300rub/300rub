@@ -44,6 +44,25 @@
         _onLoadDataSuccess: function(data) {
             this._window.getInstance().find(".footer").remove();
 
+            console.log(data);
+            var $table = TestS.Template.get("window-users-table");
+            $table.find(".name-label").text(data.labels.name);
+            $table.find(".email-label").text(data.labels.email);
+            $table.find(".access-label").text(data.labels.access);
+
+            var $trTemplate = $table.find(".tr-template");
+            var $tr;
+            $.each(data.list, function (i, user) {
+                $tr = $trTemplate.clone();
+                $tr.find(".name-value").text(user.name);
+                $tr.find(".email-value").text(user.email);
+                $tr.find(".access-value").text(user.access);
+                $table.append($tr);
+            });
+            $trTemplate.remove();
+
+            this._window.getBody().append($table);
+
             this._window
                 .setTitle(data.title)
                 .removeLoading();

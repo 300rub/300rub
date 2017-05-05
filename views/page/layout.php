@@ -33,13 +33,12 @@
     <?php } } ?>
 
     <?php if (isset($less) && count($less) > 0) { ?>
-        <script src="/js/<?= "lib/less.min.js" ?>"></script>
         <script>
             less = {
-                async: true,
-                env: 'development'
+                logLevel: 0
             };
         </script>
+        <script src="/js/<?= "lib/less.min.js" ?>"></script>
     <?php } ?>
 </head>
 <body>

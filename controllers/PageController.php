@@ -89,8 +89,7 @@ class PageController extends AbstractController
         "forms/password",
         "forms/checkbox",
         "forms/button",
-        "window/window",
-        "panel/panel",
+        "window/window"
     ];
 
     /**
@@ -108,7 +107,8 @@ class PageController extends AbstractController
      * @var array
      */
     private static $_userTemplatesMap = [
-
+        "panel/panel",
+        "window/users"
     ];
 
     /**
