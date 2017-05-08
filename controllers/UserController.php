@@ -611,6 +611,8 @@ class UserController extends AbstractController
             || !array_key_exists("passwordConfirm", $data)
             || strlen($data["password"]) !== 32
             || strlen($data["passwordConfirm"]) !== 32
+            || !array_key_exists("operations", $data)
+            || !is_array($data["operations"])
         ) {
             throw new BadRequestException(
                 "Incorrect request to add user. Data: {data}",
@@ -624,6 +626,9 @@ class UserController extends AbstractController
 
         if ($data["password"] !== $data["passwordConfirm"]) {
             $errors["password"] = Language::t("user", "passwordsMatch");
+            return [
+                "errors" => $errors
+            ];
         }
 
         $userModel = new UserModel();
@@ -634,13 +639,16 @@ class UserController extends AbstractController
             "name"     => $data["name"],
             "email"    => $data["email"],
         ]);
+        $userModel->save();
 
-        $errors = array_merge($errors, $userModel->validate()->getParsedErrors());
+        $errors = array_merge($errors, $userModel->getParsedErrors());
         if (count($errors) > 0) {
             return [
                 "errors" => $errors
             ];
         }
+
+        $userModel->addOperations($data["operations"]);
 
         return [
             "result" => true

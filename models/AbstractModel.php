@@ -38,6 +38,7 @@ abstract class AbstractModel
     const FIELD_ALLOW_NULL = "allowNull";
     const FIELD_NOT_CHANGE_ON_UPDATE = "notChangeOnUpdate";
     const FIELD_CURRENT_DATE_TIME = "currentDateTime";
+    const FIELD_UNIQUE = "unique";
 
     /**
      * PK fields name
@@ -1081,24 +1082,56 @@ abstract class AbstractModel
     private function _setFieldsBeforeSave()
     {
         foreach ($this->getFieldsInfo() as $field => $parameters) {
-            if (!array_key_exists(self::FIELD_BEFORE_SAVE, $parameters)) {
-                continue;
-            }
-
-            foreach ($parameters[self::FIELD_BEFORE_SAVE] as $key => $value) {
-                if (is_string($key)) {
-                    $method = $key;
-                    if (method_exists($this, $method)) {
-                        $this->_fields[$field] = $this->$method($this->get($field), $value);
-                    }
-                } else {
-                    $method = $value;
-                    if (method_exists($this, $method)) {
-                        $this->_fields[$field] = $this->$method($this->get($field));
+            if (array_key_exists(self::FIELD_BEFORE_SAVE, $parameters)) {
+                foreach ($parameters[self::FIELD_BEFORE_SAVE] as $key => $value) {
+                    if (is_string($key)) {
+                        $method = $key;
+                        if (method_exists($this, $method)) {
+                            $this->_fields[$field] = $this->$method($this->get($field), $value);
+                        }
+                    } else {
+                        $method = $value;
+                        if (method_exists($this, $method)) {
+                            $this->_fields[$field] = $this->$method($this->get($field));
+                        }
                     }
                 }
             }
+
+            if (array_key_exists(self::FIELD_UNIQUE, $parameters)) {
+                $model = $this->exceptId($this->getId())->_checkUnique($field)->find();
+                if ($model !== null) {
+                    $this->addErrors($field, [Validator::TYPE_UNIQUE]);
+                }
+            }
         }
+
+        return $this;
+    }
+
+    /**
+     * Adds condition to check unique value
+     *
+     * @param string $field
+     *
+     * @return AbstractModel
+     */
+    private function _checkUnique($field)
+    {
+        $this->getDb()->addWhere(sprintf("%s.%s = :field", Db::DEFAULT_ALIAS, $field));
+        $this->getDb()->addParameter("field", $this->get($field));
+
+        return $this;
+    }
+
+    /**
+     * Adds condition to select latest model
+     *
+     * @return AbstractModel
+     */
+    public function latest()
+    {
+        $this->getDb()->setOrder(sprintf("%s.id DESC", Db::DEFAULT_ALIAS));
 
         return $this;
     }

@@ -17,6 +17,7 @@ use testS\components\ValueGenerator;
  * @method UserModel   find()
  * @method UserModel[] findAll()
  * @method UserModel   exceptId($id)
+ * @method UserModel   latest
  */
 class UserModel extends AbstractModel
 {
@@ -87,8 +88,8 @@ class UserModel extends AbstractModel
                     Validator::TYPE_MAX_LENGTH => 50,
                     Validator::TYPE_LATIN_DIGIT_UNDERSCORE_HYPHEN
                 ],
-                self::FIELD_BEFORE_SAVE      => ["setLogin"],
                 self::FIELD_SKIP_DUPLICATION => true,
+                self::FIELD_UNIQUE           => true
             ],
             "password" => [
                 self::FIELD_TYPE             => self::FIELD_TYPE_STRING,
@@ -121,6 +122,7 @@ class UserModel extends AbstractModel
                     Validator::TYPE_EMAIL,
                 ],
                 self::FIELD_SKIP_DUPLICATION => true,
+                self::FIELD_UNIQUE           => true
             ],
         ];
     }
@@ -162,27 +164,6 @@ class UserModel extends AbstractModel
         }
 
         return $typeList[$type];
-    }
-
-    /**
-     * Sets login
-     *
-     * @param bool $value
-     *
-     * @return bool
-     */
-    protected function setLogin($value)
-    {
-        if (!$this->isNew()) {
-            return $value;
-        }
-
-        $model = $this->byLogin($value)->find();
-        if ($model !== null) {
-            $this->addErrors("login", [Validator::TYPE_UNIQUE]);
-        }
-
-        return $value;
     }
 
     /**
@@ -302,6 +283,104 @@ class UserModel extends AbstractModel
         }
 
         return $operations;
+    }
+
+    /**
+     * Adds operations
+     *
+     * @param array $operations
+     *
+     * @return UserModel
+     */
+    public function addOperations(array $operations)
+    {
+        $this->_addSectionOperations($operations);
+
+        return $this;
+    }
+
+    /**
+     * Adds section operations
+     *
+     * @param $operations
+     *
+     * @return UserModel
+     */
+    private function _addSectionOperations($operations)
+    {
+        if (!array_key_exists(Operation::TYPE_SECTIONS, $operations)) {
+            return $this;
+        }
+
+        foreach ($operations[Operation::TYPE_SECTIONS] as $key => $values) {
+            if ($key === Operation::ALL
+                && is_array($operations[Operation::TYPE_SECTIONS][$key])
+            ) {
+                foreach ($operations[Operation::TYPE_SECTIONS][$key] as $operation) {
+                    if (array_key_exists($operation, Operation::$sectionOperations)) {
+                        $model = new UserSectionGroupOperationModel();
+                        $model->set(
+                            [
+                                "userId"    => $this->getId(),
+                                "operation" => $operation
+                            ]
+                        );
+                        $model->save();
+                    }
+                }
+
+                continue;
+            }
+
+            if ($key !== Operation::ALL
+                && is_array($operations[Operation::TYPE_SECTIONS][$key])
+            ) {
+                foreach ($operations[Operation::TYPE_SECTIONS][$key] as $operation) {
+                    if (array_key_exists($operation, Operation::$sectionOperations)) {
+                        $model = new UserSectionOperationModel();
+                        $model->set(
+                            [
+                                "userId"    => $this->getId(),
+                                "sectionId" => $key,
+                                "operation" => $operation
+                            ]
+                        );
+                        $model->save();
+                    }
+                }
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * Updates operations
+     *
+     * @param array $operations
+     *
+     * @return UserModel
+     */
+    public function updateOperations(array $operations)
+    {
+        $this
+            ->_deleteOperations()
+            ->addOperations($operations);
+
+        // @TODO update memcached
+
+        return $this;
+    }
+
+    /**
+     * Deletes operations
+     *
+     * @return UserModel
+     */
+    private function _deleteOperations()
+    {
+        // @TODO
+        return $this;
     }
 
     /**

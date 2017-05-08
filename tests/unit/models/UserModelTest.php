@@ -173,10 +173,11 @@ class UserModelTest extends AbstractModelTest
                     "login"    => "owner",
                     "password" => $this->generateStringWithLength(40),
                     "name"     => "Name",
-                    "email"    => "email@email.com",
+                    "email"    => "user@email.com",
                 ],
                 [
                     "login" => ["unique"],
+                    "email" => ["unique"],
                 ],
             ],
             "incorrect4" => [
