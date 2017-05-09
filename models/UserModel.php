@@ -496,4 +496,21 @@ class UserModel extends AbstractModel
     {
         return $this->get("type") === self::TYPE_OWNER;
     }
+
+    /**
+     * Gets password hash
+     *
+     * @param string $password
+     * @param bool   $isOriginal
+     *
+     * @return string
+     */
+    public static function getPasswordHash($password, $isOriginal = false)
+    {
+        if ($isOriginal === true) {
+            return sha1(md5($password . self::PASSWORD_SALT));
+        }
+
+        return sha1($password);
+    }
 }

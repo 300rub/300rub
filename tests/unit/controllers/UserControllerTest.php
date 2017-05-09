@@ -1075,29 +1075,11 @@ class UserControllerTest extends AbstractControllerTest
                 false,
                 [
                     "errors" => [
-                        "password" => "Passwords do not match"
+                        "passwordConfirm" => "Passwords do not match"
                     ]
                 ]
             ],
             9 => [
-                self::TYPE_FULL,
-                [
-                    "name"            => "Name",
-                    "login"           => "newLogin",
-                    "password"        => $password1,
-                    "passwordConfirm" => $password2,
-                    "type"            => UserModel::TYPE_LIMITED,
-                    "email"           => "newEmail@email.com",
-                    "operations"      => []
-                ],
-                false,
-                [
-                    "errors" => [
-                        "password" => "Passwords do not match"
-                    ]
-                ]
-            ],
-            10 => [
                 self::TYPE_FULL,
                 [
                     "name"            => "Name",
@@ -1116,7 +1098,7 @@ class UserControllerTest extends AbstractControllerTest
                     ]
                 ]
             ],
-            11 => [
+            10 => [
                 self::TYPE_FULL,
                 [
                     "name"            => "Name",
@@ -1131,7 +1113,7 @@ class UserControllerTest extends AbstractControllerTest
                 null,
                 true
             ],
-            12 => [
+            11 => [
                 self::TYPE_FULL,
                 [
                     "name"            => "Name",
@@ -1206,7 +1188,7 @@ class UserControllerTest extends AbstractControllerTest
                     ],
                 ]
             ],
-            13 => [
+            12 => [
                 self::TYPE_FULL,
                 [
                     "name"            => "Name",
@@ -1218,7 +1200,7 @@ class UserControllerTest extends AbstractControllerTest
                 ],
                 true
             ],
-            14 => [
+            13 => [
                 self::TYPE_FULL,
                 [
                     "name"            => "Name",
@@ -1237,7 +1219,7 @@ class UserControllerTest extends AbstractControllerTest
                 ],
                 true
             ],
-            15 => [
+            14 => [
                 self::TYPE_FULL,
                 [
                     "name"            => "Name",
@@ -1261,9 +1243,262 @@ class UserControllerTest extends AbstractControllerTest
         ];
     }
 
-    public function testUpdateUser()
+    /**
+     * Test for method updateUser
+     *
+     * @param string $user
+     * @param array  $data
+     * @param bool   $hasException
+     * @param array  $expectedErrors
+     * @param bool   $isSuccess
+     * @param array  $expectedOperations
+     *
+     * @dataProvider dataProviderForTestUpdateUser
+     *
+     * @return bool
+     */
+    public function testUpdateUser(
+        $user,
+        $data,
+        $hasException,
+        $expectedErrors = null,
+        $isSuccess = false,
+        $expectedOperations = null
+    ) {
+        $this->setUser($user);
+
+        $model = null;
+        if (array_key_exists("id", $data)
+            && $data["id"] === "new"
+        ) {
+            $model = new UserModel();
+            $model->set([
+                "name"     => "Name",
+                "login"    => "newLogin",
+                "password" => UserModel::getPasswordHash("pass", true),
+                "type"     => UserModel::TYPE_LIMITED,
+                "email"    => "newEmail@email.com",
+            ]);
+            $model->save();
+
+            $data["id"] = $model->getId();
+        }
+
+        $this->sendRequest("user", "user", $data, "POST");
+
+        if ($hasException === true) {
+            if ($model !== null) {
+                $model->delete();
+            }
+
+            $this->assertError();
+            return true;
+        }
+
+        $actual = $this->getBody();
+        var_dump($actual);
+
+
+
+//        if ($isSuccess === true) {
+//            $this->compareExpectedAndActual(
+//                [
+//                    "result" => true,
+//                    "users"  => [
+//                        "title" => "Users"
+//                    ]
+//                ],
+//                $actual
+//            );
+//
+//            $model = (new UserModel())->latest()->find();
+//
+//            if ($expectedOperations !== null) {
+//                $this->compareExpectedAndActual($expectedOperations, $model->getOperations(), true);
+//            }
+//
+//            $model->delete();
+//        } else {
+//            $this->compareExpectedAndActual($expectedErrors, $actual, true);
+//        }
+
+        if ($model !== null) {
+            $model->delete();
+        }
+
+        return true;
+    }
+
+    /**
+     * Data provider for testUpdateUser
+     *
+     * @return array
+     */
+    public function dataProviderForTestUpdateUser()
     {
-        $this->markTestSkipped();
+        $password1 = $this->generateStringWithLength(32);
+        $password2 = $this->generateStringWithLength(32);
+
+        return [
+            0 => [
+                self::TYPE_NO_OPERATIONS_USER,
+                [
+                    "id"               => "new",
+                    "name"             => "Name",
+                    "login"            => "newLogin",
+                    "password"         => $password1,
+                    "passwordConfirm"  => $password1,
+                    "type"             => UserModel::TYPE_LIMITED,
+                    "email"            => "newEmail@email.com",
+                    "isChangePassword" => true,
+                    "operations"       => []
+                ],
+                true
+            ],
+            1 => [
+                self::TYPE_BLOCKED_USER,
+                [
+                    "id"               => "new",
+                    "name"             => "Name",
+                    "login"            => "newLogin",
+                    "password"         => $password1,
+                    "passwordConfirm"  => $password1,
+                    "type"             => UserModel::TYPE_LIMITED,
+                    "email"            => "newEmail@email.com",
+                    "isChangePassword" => true,
+                    "operations"       => []
+                ],
+                true
+            ],
+            2 => [
+                self::TYPE_FULL,
+                [
+                    "id"               => 1,
+                    "name"             => "Name",
+                    "login"            => "newLogin",
+                    "password"         => $password1,
+                    "passwordConfirm"  => $password1,
+                    "type"             => UserModel::TYPE_LIMITED,
+                    "email"            => "newEmail@email.com",
+                    "isChangePassword" => true,
+                    "operations"       => []
+                ],
+                true
+            ],
+            3 => [
+                self::TYPE_FULL,
+                [
+                    "name"             => "Name",
+                    "login"            => "newLogin",
+                    "password"         => $password1,
+                    "passwordConfirm"  => $password1,
+                    "type"             => UserModel::TYPE_LIMITED,
+                    "email"            => "newEmail@email.com",
+                    "isChangePassword" => true,
+                    "operations"       => []
+                ],
+                true
+            ],
+            4 => [
+                self::TYPE_FULL,
+                [
+                    "id"               => "new",
+                    "login"            => "newLogin",
+                    "password"         => $password1,
+                    "passwordConfirm"  => $password1,
+                    "type"             => UserModel::TYPE_LIMITED,
+                    "email"            => "newEmail@email.com",
+                    "isChangePassword" => true,
+                    "operations"       => []
+                ],
+                true
+            ],
+            5 => [
+                self::TYPE_FULL,
+                [
+                    "id"               => "new",
+                    "name"             => "Name",
+                    "password"         => $password1,
+                    "passwordConfirm"  => $password1,
+                    "type"             => UserModel::TYPE_LIMITED,
+                    "email"            => "newEmail@email.com",
+                    "isChangePassword" => true,
+                    "operations"       => []
+                ],
+                true
+            ],
+            6 => [
+                self::TYPE_FULL,
+                [
+                    "id"               => "new",
+                    "name"             => "Name",
+                    "login"            => "newLogin",
+                    "password"         => $password1,
+                    "passwordConfirm"  => $password1,
+                    "email"            => "newEmail@email.com",
+                    "isChangePassword" => true,
+                    "operations"       => []
+                ],
+                true
+            ],
+            7 => [
+                self::TYPE_FULL,
+                [
+                    "id"               => "new",
+                    "name"             => "Name",
+                    "login"            => "newLogin",
+                    "password"         => $password1,
+                    "passwordConfirm"  => $password1,
+                    "type"             => UserModel::TYPE_LIMITED,
+                    "isChangePassword" => true,
+                    "operations"       => []
+                ],
+                true
+            ],
+            8 => [
+                self::TYPE_FULL,
+                [
+                    "id"               => "new",
+                    "name"             => "Name",
+                    "login"            => "newLogin",
+                    "password"         => $password1,
+                    "passwordConfirm"  => $password1,
+                    "type"             => UserModel::TYPE_LIMITED,
+                    "email"            => "newEmail@email.com",
+                    "operations"       => []
+                ],
+                true
+            ],
+            9 => [
+                self::TYPE_FULL,
+                [
+                    "id"               => "new",
+                    "name"             => "Name",
+                    "login"            => "newLogin",
+                    "password"         => $password1,
+                    "passwordConfirm"  => $password1,
+                    "type"             => UserModel::TYPE_LIMITED,
+                    "email"            => "newEmail@email.com",
+                    "isChangePassword" => true,
+                ],
+                true
+            ],
+//            10 => [
+//                self::TYPE_FULL,
+//                [
+//                    "id"               => "new",
+//                    "name"             => "Name",
+//                    "login"            => "newLogin",
+//                    "password"         => $password1,
+//                    "passwordConfirm"  => $password1,
+//                    "type"             => UserModel::TYPE_LIMITED,
+//                    "email"            => "newEmail@email.com",
+//                    "isChangePassword" => true,
+//                    "operations"       => []
+//                ],
+//                true
+//            ],
+        ];
     }
 
     public function testDeleteUser()

@@ -8,10 +8,8 @@ use testS\components\exceptions\BadRequestException;
 use testS\components\exceptions\NotFoundException;
 use testS\components\Language;
 use testS\components\Operation;
-use testS\components\Validator;
 use testS\models\BlockModel;
 use testS\models\SectionModel;
-use testS\models\TextModel;
 use testS\models\UserModel;
 use testS\models\UserSessionModel;
 use testS\components\User;
@@ -602,7 +600,6 @@ class UserController extends AbstractController
         $this->checkSettingsOperation(Operation::SETTINGS_USER_ADD);
 
         $data = $this->getData();
-
         if (!array_key_exists("name", $data)
             || !array_key_exists("login", $data)
             || !array_key_exists("email", $data)
@@ -622,26 +619,25 @@ class UserController extends AbstractController
             );
         }
 
-        $errors = [];
-
         if ($data["password"] !== $data["passwordConfirm"]) {
-            $errors["password"] = Language::t("user", "passwordsMatch");
             return [
-                "errors" => $errors
+                "errors" => [
+                    "passwordConfirm" => Language::t("user", "passwordsMatch")
+                ]
             ];
         }
 
         $userModel = new UserModel();
         $userModel->set([
             "login"    => $data["login"],
-            "password" => sha1($data["password"] . UserModel::PASSWORD_SALT),
+            "password" => UserModel::getPasswordHash($data["password"]),
             "type"     => $data["type"],
             "name"     => $data["name"],
             "email"    => $data["email"],
         ]);
         $userModel->save();
 
-        $errors = array_merge($errors, $userModel->getParsedErrors());
+        $errors = $userModel->getParsedErrors();
         if (count($errors) > 0) {
             return [
                 "errors" => $errors
@@ -658,10 +654,103 @@ class UserController extends AbstractController
 
     /**
      * Updates user
+     *
+     * @throws BadRequestException
+     * @throws NotFoundException
+     * @throws AccessException
+     *
+     * @return array
      */
     public function updateUser()
     {
-        // @TODO
+        $this->checkSettingsOperation(Operation::SETTINGS_USER_UPDATE);
+
+        $data = $this->getData();
+        if (!array_key_exists("id", $data)
+            || !array_key_exists("name", $data)
+            || !array_key_exists("login", $data)
+            || !array_key_exists("email", $data)
+            || !array_key_exists("type", $data)
+            || !array_key_exists("operations", $data)
+            || !is_array($data["operations"])
+            || !array_key_exists("isChangePassword", $data)
+            || !is_bool($data["isChangePassword"])
+        ) {
+            throw new BadRequestException(
+                "Incorrect request to add user. Data: {data}",
+                [
+                    "data" => json_encode($data)
+                ]
+            );
+        }
+
+        $userModel = (new UserModel())->byId($data["id"])->find();
+        if ($userModel === null) {
+            throw new NotFoundException(
+                "Unable to find user by ID: {id}",
+                [
+                    "id" => $data["id"]
+                ]
+            );
+        }
+
+        if ($userModel->isOwner()
+            && App::web()->getUser()->getType() !== UserModel::TYPE_OWNER
+        ) {
+            throw new AccessException(
+                "Unable to update owner"
+            );
+        }
+
+        if ($data["isChangePassword"] === true) {
+            if (!array_key_exists("password", $data)
+                || !array_key_exists("passwordConfirm", $data)
+                || strlen($data["password"]) !== 32
+                || strlen($data["passwordConfirm"]) !== 32
+            ) {
+                throw new BadRequestException(
+                    "Incorrect passwords. Password: {password}, passwordConfirm: {passwordConfirm}",
+                    [
+                        "password"        => $data["password"],
+                        "passwordConfirm" => $data["passwordConfirm"],
+                    ]
+                );
+            }
+
+            if ($data["password"] !== $data["passwordConfirm"]) {
+                return [
+                    "errors" => [
+                        "passwordConfirm" => Language::t("user", "passwordsMatch")
+                    ]
+                ];
+            }
+
+            $userModel->set([
+                "password" => UserModel::getPasswordHash($data["password"])
+            ]);
+        }
+
+        $userModel->set([
+            "login"    => $data["login"],
+            "type"     => $data["type"],
+            "name"     => $data["name"],
+            "email"    => $data["email"],
+        ]);
+        $userModel->save();
+
+        $errors = $userModel->getParsedErrors();
+        if (count($errors) > 0) {
+            return [
+                "errors" => $errors
+            ];
+        }
+
+        $userModel->updateOperations($data["operations"]);
+
+        return [
+            "result" => true,
+            "users"  => $this->getUsers()
+        ];
     }
 
     /**
