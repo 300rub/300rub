@@ -5,6 +5,7 @@ namespace testS\tests\unit\controllers;
 use testS\applications\App;
 use testS\components\Operation;
 use testS\components\User;
+use testS\models\BlockModel;
 use testS\models\UserModel;
 use testS\models\UserSessionModel;
 
@@ -929,15 +930,18 @@ class UserControllerTest extends AbstractControllerTest
         if ($isSuccess === true) {
             $this->compareExpectedAndActual(
                 [
-                    "result" => true
+                    "result" => true,
+                    "users"  => [
+                        "title" => "Users"
+                    ]
                 ],
                 $actual
             );
 
             $model = (new UserModel())->latest()->find();
-            
+
             if ($expectedOperations !== null) {
-                $this->compareExpectedAndActual($expectedOperations, $model->getOperations());
+                $this->compareExpectedAndActual($expectedOperations, $model->getOperations(), true);
             }
 
             $model->delete();
@@ -1146,8 +1150,30 @@ class UserControllerTest extends AbstractControllerTest
                             1 => [
                                 Operation::SECTION_DESIGN_UPDATE,
                                 "incorrect"
-                            ]
-                        ]
+                            ],
+                            "incorrect"
+                        ],
+                        Operation::TYPE_BLOCKS => [
+                            BlockModel::TYPE_TEXT => [
+                                Operation::ALL => [
+                                    Operation::TEXT_ADD,
+                                    Operation::TEXT_DELETE,
+                                    "incorrect"
+                                ],
+                                1 => [
+                                    Operation::TEXT_DUPLICATE,
+                                    "incorrect"
+                                ],
+                                "incorrect"
+                            ],
+                            "incorrect"
+                        ],
+                        Operation::TYPE_SETTINGS => [
+                            Operation::SETTINGS_ICON,
+                            Operation::SETTINGS_USER_VIEW,
+                            "incorrect"
+                        ],
+                        "incorrect"
                     ]
                 ],
                 false,
@@ -1162,7 +1188,22 @@ class UserControllerTest extends AbstractControllerTest
                         1 => [
                             Operation::SECTION_DESIGN_UPDATE
                         ]
-                    ]
+                    ],
+                    Operation::TYPE_BLOCKS => [
+                        BlockModel::TYPE_TEXT => [
+                            Operation::ALL => [
+                                Operation::TEXT_ADD,
+                                Operation::TEXT_DELETE,
+                            ],
+                            1 => [
+                                Operation::TEXT_DUPLICATE
+                            ]
+                        ]
+                    ],
+                    Operation::TYPE_SETTINGS => [
+                        Operation::SETTINGS_ICON,
+                        Operation::SETTINGS_USER_VIEW,
+                    ],
                 ]
             ],
             13 => [
@@ -1174,6 +1215,46 @@ class UserControllerTest extends AbstractControllerTest
                     "passwordConfirm" => $password1,
                     "type"            => UserModel::TYPE_BLOCKED,
                     "email"           => "newEmail@email.com",
+                ],
+                true
+            ],
+            14 => [
+                self::TYPE_FULL,
+                [
+                    "name"            => "Name",
+                    "login"           => "newLogin",
+                    "password"        => $password1,
+                    "passwordConfirm" => $password1,
+                    "type"            => UserModel::TYPE_BLOCKED,
+                    "email"           => "newEmail@email.com",
+                    "operations"      => [
+                        Operation::TYPE_SECTIONS => [
+                            9999 => [
+                                Operation::SECTION_DESIGN_UPDATE,
+                            ],
+                        ],
+                    ]
+                ],
+                true
+            ],
+            15 => [
+                self::TYPE_FULL,
+                [
+                    "name"            => "Name",
+                    "login"           => "newLogin",
+                    "password"        => $password1,
+                    "passwordConfirm" => $password1,
+                    "type"            => UserModel::TYPE_BLOCKED,
+                    "email"           => "newEmail@email.com",
+                    "operations"      => [
+                        Operation::TYPE_BLOCKS => [
+                            BlockModel::TYPE_TEXT => [
+                                9999 => [
+                                    Operation::TEXT_DUPLICATE
+                                ]
+                            ]
+                        ]
+                    ]
                 ],
                 true
             ],

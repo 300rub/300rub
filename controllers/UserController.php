@@ -574,7 +574,7 @@ class UserController extends AbstractController
             "data"  => []
         ];
 
-        foreach (Operation::$settingOperations as $key => $value) {
+        foreach (Operation::$settingsOperations as $key => $value) {
             $operations["data"][] = [
                 "title" => $value,
                 "name"  => sprintf(
@@ -651,10 +651,9 @@ class UserController extends AbstractController
         $userModel->addOperations($data["operations"]);
 
         return [
-            "result" => true
+            "result" => true,
+            "users"  => $this->getUsers()
         ];
-
-        // @TODO
     }
 
     /**

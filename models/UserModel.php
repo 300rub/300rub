@@ -294,7 +294,10 @@ class UserModel extends AbstractModel
      */
     public function addOperations(array $operations)
     {
-        $this->_addSectionOperations($operations);
+        $this
+            ->_addSectionOperations($operations)
+            ->_addBlockOperations($operations)
+            ->_addSettingsOperations($operations);
 
         return $this;
     }
@@ -302,13 +305,15 @@ class UserModel extends AbstractModel
     /**
      * Adds section operations
      *
-     * @param $operations
+     * @param array $operations
      *
      * @return UserModel
      */
-    private function _addSectionOperations($operations)
+    private function _addSectionOperations(array $operations)
     {
-        if (!array_key_exists(Operation::TYPE_SECTIONS, $operations)) {
+        if (!array_key_exists(Operation::TYPE_SECTIONS, $operations)
+            || !is_array($operations[Operation::TYPE_SECTIONS])
+        ) {
             return $this;
         }
 
@@ -348,6 +353,105 @@ class UserModel extends AbstractModel
                         $model->save();
                     }
                 }
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * Adds block operations
+     *
+     * @param array $operations
+     *
+     * @return UserModel
+     */
+    private function _addBlockOperations(array $operations) {
+        if (!array_key_exists(Operation::TYPE_BLOCKS, $operations)
+            || !is_array($operations[Operation::TYPE_BLOCKS])
+        ) {
+            return $this;
+        }
+
+        foreach ($operations[Operation::TYPE_BLOCKS] as $blockType => $blockTypeValues) {
+            if (!array_key_exists($blockType, BlockModel::$typeList)
+                || !is_array($blockTypeValues)
+            ) {
+                continue;
+            }
+
+            $blockOperations = Operation::getOperationsByContentType($blockType);
+
+            foreach ($blockTypeValues as $key => $value) {
+                if ($key === Operation::ALL
+                    && is_array($blockTypeValues[$key])
+                ) {
+                    foreach ($blockTypeValues[$key] as $operation) {
+                        if (array_key_exists($operation, $blockOperations)) {
+                            $model = new UserBlockGroupOperationModel();
+                            $model->set(
+                                [
+                                    "userId"    => $this->getId(),
+                                    "blockType" => $blockType,
+                                    "operation" => $operation
+                                ]
+                            );
+                            $model->save();
+                        }
+                    }
+
+                    continue;
+                }
+
+                if ($key !== Operation::ALL
+                    && is_array($blockTypeValues[$key])
+                ) {
+                    foreach ($blockTypeValues[$key] as $operation) {
+                        if (array_key_exists($operation, $blockOperations)) {
+                            $model = new UserBlockOperationModel();
+                            $model->set(
+                                [
+                                    "userId"    => $this->getId(),
+                                    "blockType" => $blockType,
+                                    "blockId"   => $key,
+                                    "operation" => $operation
+                                ]
+                            );
+                            $model->save();
+                        }
+                    }
+                }
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * Adds settings operations
+     *
+     * @param array $operations
+     *
+     * @return UserModel
+     */
+    private function _addSettingsOperations(array $operations)
+    {
+        if (!array_key_exists(Operation::TYPE_SETTINGS, $operations)
+            || !is_array($operations[Operation::TYPE_SETTINGS])
+        ) {
+            return $this;
+        }
+
+        foreach ($operations[Operation::TYPE_SETTINGS] as $operation) {
+            if (array_key_exists($operation, Operation::$settingsOperations)) {
+                $model = new UserSettingsOperationModel();
+                $model->set(
+                    [
+                        "userId"    => $this->getId(),
+                        "operation" => $operation
+                    ]
+                );
+                $model->save();
             }
         }
 

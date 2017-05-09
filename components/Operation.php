@@ -86,7 +86,7 @@ class Operation
      *
      * @var array
      */
-    public static $settingOperations = [
+    public static $settingsOperations = [
         self::SETTINGS_ICON                 => "",
         self::SETTINGS_USER_VIEW            => "",
         self::SETTINGS_USER_UPDATE          => "",
