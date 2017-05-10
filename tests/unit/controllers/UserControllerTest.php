@@ -597,7 +597,7 @@ class UserControllerTest extends AbstractControllerTest
             [
                 self::TYPE_NO_OPERATIONS_USER,
                 [
-                    "title" => "Users",
+                    "title"  => "Users",
                     "list"   => [
                         [
                             "id"               => 4,
@@ -627,7 +627,7 @@ class UserControllerTest extends AbstractControllerTest
             [
                 self::TYPE_FULL,
                 [
-                    "title" => "Users",
+                    "title"  => "Users",
                     "list"   => [
                         [
                             "id"               => 2,
@@ -916,7 +916,8 @@ class UserControllerTest extends AbstractControllerTest
         $expectedErrors = null,
         $isSuccess = false,
         $expectedOperations = null
-    ) {
+    )
+    {
         $this->setUser($user);
         $this->sendRequest("user", "user", $data, "PUT");
 
@@ -963,7 +964,7 @@ class UserControllerTest extends AbstractControllerTest
         $password2 = $this->generateStringWithLength(32);
 
         return [
-            0 => [
+            0  => [
                 self::TYPE_NO_OPERATIONS_USER,
                 [
                     "name"            => "Name",
@@ -976,7 +977,7 @@ class UserControllerTest extends AbstractControllerTest
                 ],
                 true
             ],
-            1 => [
+            1  => [
                 self::TYPE_BLOCKED_USER,
                 [
                     "name"            => "Name",
@@ -989,7 +990,7 @@ class UserControllerTest extends AbstractControllerTest
                 ],
                 true
             ],
-            2 => [
+            2  => [
                 self::TYPE_FULL,
                 [
                     "login"           => "newLogin",
@@ -1001,7 +1002,7 @@ class UserControllerTest extends AbstractControllerTest
                 ],
                 true
             ],
-            3 => [
+            3  => [
                 self::TYPE_FULL,
                 [
                     "name"            => "Name",
@@ -1013,7 +1014,7 @@ class UserControllerTest extends AbstractControllerTest
                 ],
                 true
             ],
-            4 => [
+            4  => [
                 self::TYPE_FULL,
                 [
                     "name"            => "Name",
@@ -1025,43 +1026,43 @@ class UserControllerTest extends AbstractControllerTest
                 ],
                 true
             ],
-            5 => [
+            5  => [
                 self::TYPE_FULL,
                 [
-                    "name"            => "Name",
-                    "login"           => "newLogin",
-                    "password"        => $password1,
-                    "type"            => UserModel::TYPE_LIMITED,
-                    "email"           => "newEmail@email.com",
-                    "operations"      => []
+                    "name"       => "Name",
+                    "login"      => "newLogin",
+                    "password"   => $password1,
+                    "type"       => UserModel::TYPE_LIMITED,
+                    "email"      => "newEmail@email.com",
+                    "operations" => []
                 ],
                 true
             ],
-            6 => [
-                self::TYPE_FULL,
-                [
-                    "name"            => "Name",
-                    "login"           => "newLogin",
-                    "password"        => $password1,
-                    "passwordConfirm" => $password1,
-                    "email"           => "newEmail@email.com",
-                    "operations"      => []
-                ],
-                true
-            ],
-            7 => [
+            6  => [
                 self::TYPE_FULL,
                 [
                     "name"            => "Name",
                     "login"           => "newLogin",
                     "password"        => $password1,
                     "passwordConfirm" => $password1,
+                    "email"           => "newEmail@email.com",
+                    "operations"      => []
+                ],
+                true
+            ],
+            7  => [
+                self::TYPE_FULL,
+                [
+                    "name"            => "Name",
+                    "login"           => "newLogin",
+                    "password"        => $password1,
+                    "passwordConfirm" => $password1,
                     "type"            => UserModel::TYPE_LIMITED,
                     "operations"      => []
                 ],
                 true
             ],
-            8 => [
+            8  => [
                 self::TYPE_FULL,
                 [
                     "name"            => "Name",
@@ -1079,7 +1080,7 @@ class UserControllerTest extends AbstractControllerTest
                     ]
                 ]
             ],
-            9 => [
+            9  => [
                 self::TYPE_FULL,
                 [
                     "name"            => "Name",
@@ -1129,20 +1130,20 @@ class UserControllerTest extends AbstractControllerTest
                                 Operation::SECTION_UPDATE,
                                 "incorrect"
                             ],
-                            1 => [
+                            1              => [
                                 Operation::SECTION_DESIGN_UPDATE,
                                 "incorrect"
                             ],
                             "incorrect"
                         ],
-                        Operation::TYPE_BLOCKS => [
+                        Operation::TYPE_BLOCKS   => [
                             BlockModel::TYPE_TEXT => [
                                 Operation::ALL => [
                                     Operation::TEXT_ADD,
                                     Operation::TEXT_DELETE,
                                     "incorrect"
                                 ],
-                                1 => [
+                                1              => [
                                     Operation::TEXT_DUPLICATE,
                                     "incorrect"
                                 ],
@@ -1167,17 +1168,17 @@ class UserControllerTest extends AbstractControllerTest
                             Operation::SECTION_ADD,
                             Operation::SECTION_UPDATE
                         ],
-                        1 => [
+                        1              => [
                             Operation::SECTION_DESIGN_UPDATE
                         ]
                     ],
-                    Operation::TYPE_BLOCKS => [
+                    Operation::TYPE_BLOCKS   => [
                         BlockModel::TYPE_TEXT => [
                             Operation::ALL => [
                                 Operation::TEXT_ADD,
                                 Operation::TEXT_DELETE,
                             ],
-                            1 => [
+                            1              => [
                                 Operation::TEXT_DUPLICATE
                             ]
                         ]
@@ -1264,7 +1265,8 @@ class UserControllerTest extends AbstractControllerTest
         $expectedErrors = null,
         $isSuccess = false,
         $expectedOperations = null
-    ) {
+    )
+    {
         $this->setUser($user);
 
         $model = null;
@@ -1272,14 +1274,27 @@ class UserControllerTest extends AbstractControllerTest
             && $data["id"] === "new"
         ) {
             $model = new UserModel();
-            $model->set([
-                "name"     => "Name",
-                "login"    => "newLogin",
-                "password" => UserModel::getPasswordHash("pass", true),
-                "type"     => UserModel::TYPE_LIMITED,
-                "email"    => "newEmail@email.com",
-            ]);
+            $model->set(
+                [
+                    "name"     => "Name",
+                    "login"    => "newLogin",
+                    "password" => UserModel::getPasswordHash("pass", true),
+                    "type"     => UserModel::TYPE_LIMITED,
+                    "email"    => "newEmail@email.com",
+                ]
+            );
             $model->save();
+
+            $model->addOperations(
+                [
+                    Operation::TYPE_SECTIONS => [
+                        Operation::ALL => [
+                            Operation::SECTION_DESIGN_UPDATE,
+                            Operation::SECTION_DUPLICATE,
+                        ],
+                    ],
+                ]
+            );
 
             $data["id"] = $model->getId();
         }
@@ -1296,31 +1311,26 @@ class UserControllerTest extends AbstractControllerTest
         }
 
         $actual = $this->getBody();
-        var_dump($actual);
 
+        if ($isSuccess === true) {
+            $this->compareExpectedAndActual(
+                [
+                    "result" => true,
+                    "users"  => [
+                        "title" => "Users"
+                    ]
+                ],
+                $actual
+            );
 
+            $model = (new UserModel())->byId($model->getId())->find();
 
-//        if ($isSuccess === true) {
-//            $this->compareExpectedAndActual(
-//                [
-//                    "result" => true,
-//                    "users"  => [
-//                        "title" => "Users"
-//                    ]
-//                ],
-//                $actual
-//            );
-//
-//            $model = (new UserModel())->latest()->find();
-//
-//            if ($expectedOperations !== null) {
-//                $this->compareExpectedAndActual($expectedOperations, $model->getOperations(), true);
-//            }
-//
-//            $model->delete();
-//        } else {
-//            $this->compareExpectedAndActual($expectedErrors, $actual, true);
-//        }
+            if ($expectedOperations !== null) {
+                $this->compareExpectedAndActual($expectedOperations, $model->getOperations(), true);
+            }
+        } else {
+            $this->compareExpectedAndActual($expectedErrors, $actual, true);
+        }
 
         if ($model !== null) {
             $model->delete();
@@ -1340,7 +1350,7 @@ class UserControllerTest extends AbstractControllerTest
         $password2 = $this->generateStringWithLength(32);
 
         return [
-            0 => [
+            0  => [
                 self::TYPE_NO_OPERATIONS_USER,
                 [
                     "id"               => "new",
@@ -1355,7 +1365,7 @@ class UserControllerTest extends AbstractControllerTest
                 ],
                 true
             ],
-            1 => [
+            1  => [
                 self::TYPE_BLOCKED_USER,
                 [
                     "id"               => "new",
@@ -1370,7 +1380,7 @@ class UserControllerTest extends AbstractControllerTest
                 ],
                 true
             ],
-            2 => [
+            2  => [
                 self::TYPE_FULL,
                 [
                     "id"               => 1,
@@ -1385,7 +1395,7 @@ class UserControllerTest extends AbstractControllerTest
                 ],
                 true
             ],
-            3 => [
+            3  => [
                 self::TYPE_FULL,
                 [
                     "name"             => "Name",
@@ -1399,7 +1409,7 @@ class UserControllerTest extends AbstractControllerTest
                 ],
                 true
             ],
-            4 => [
+            4  => [
                 self::TYPE_FULL,
                 [
                     "id"               => "new",
@@ -1413,7 +1423,7 @@ class UserControllerTest extends AbstractControllerTest
                 ],
                 true
             ],
-            5 => [
+            5  => [
                 self::TYPE_FULL,
                 [
                     "id"               => "new",
@@ -1427,7 +1437,7 @@ class UserControllerTest extends AbstractControllerTest
                 ],
                 true
             ],
-            6 => [
+            6  => [
                 self::TYPE_FULL,
                 [
                     "id"               => "new",
@@ -1441,7 +1451,7 @@ class UserControllerTest extends AbstractControllerTest
                 ],
                 true
             ],
-            7 => [
+            7  => [
                 self::TYPE_FULL,
                 [
                     "id"               => "new",
@@ -1455,21 +1465,21 @@ class UserControllerTest extends AbstractControllerTest
                 ],
                 true
             ],
-            8 => [
+            8  => [
                 self::TYPE_FULL,
                 [
-                    "id"               => "new",
-                    "name"             => "Name",
-                    "login"            => "newLogin",
-                    "password"         => $password1,
-                    "passwordConfirm"  => $password1,
-                    "type"             => UserModel::TYPE_LIMITED,
-                    "email"            => "newEmail@email.com",
-                    "operations"       => []
+                    "id"              => "new",
+                    "name"            => "Name",
+                    "login"           => "newLogin",
+                    "password"        => $password1,
+                    "passwordConfirm" => $password1,
+                    "type"            => UserModel::TYPE_LIMITED,
+                    "email"           => "newEmail@email.com",
+                    "operations"      => []
                 ],
                 true
             ],
-            9 => [
+            9  => [
                 self::TYPE_FULL,
                 [
                     "id"               => "new",
@@ -1483,21 +1493,152 @@ class UserControllerTest extends AbstractControllerTest
                 ],
                 true
             ],
-//            10 => [
-//                self::TYPE_FULL,
-//                [
-//                    "id"               => "new",
-//                    "name"             => "Name",
-//                    "login"            => "newLogin",
-//                    "password"         => $password1,
-//                    "passwordConfirm"  => $password1,
-//                    "type"             => UserModel::TYPE_LIMITED,
-//                    "email"            => "newEmail@email.com",
-//                    "isChangePassword" => true,
-//                    "operations"       => []
-//                ],
-//                true
-//            ],
+            10 => [
+                self::TYPE_FULL,
+                [
+                    "id"               => "new",
+                    "name"             => "Name",
+                    "login"            => "newLogin",
+                    "password"         => $password1,
+                    "passwordConfirm"  => $password2,
+                    "type"             => UserModel::TYPE_LIMITED,
+                    "email"            => "newEmail@email.com",
+                    "isChangePassword" => true,
+                    "operations"       => []
+                ],
+                false,
+                [
+                    "errors" => [
+                        "passwordConfirm" => "Passwords do not match"
+                    ]
+                ]
+            ],
+            11 => [
+                self::TYPE_FULL,
+                [
+                    "id"               => "new",
+                    "name"             => "Name",
+                    "login"            => "user",
+                    "password"         => $password1,
+                    "passwordConfirm"  => $password1,
+                    "type"             => UserModel::TYPE_LIMITED,
+                    "email"            => "user@email.com",
+                    "isChangePassword" => true,
+                    "operations"       => []
+                ],
+                false,
+                [
+                    "errors" => [
+                        "login" => "The field value must be unique",
+                        "email" => "The field value must be unique",
+                    ]
+                ]
+            ],
+            12 => [
+                self::TYPE_FULL,
+                [
+                    "id"               => "new",
+                    "name"             => "Name",
+                    "login"            => "newLogin",
+                    "type"             => UserModel::TYPE_LIMITED,
+                    "email"            => "newEmail@email.com",
+                    "isChangePassword" => false,
+                    "operations"       => []
+                ],
+                false,
+                [],
+                true,
+            ],
+            13 => [
+                self::TYPE_FULL,
+                [
+                    "id"               => "new",
+                    "name"             => "Name",
+                    "login"            => "newLogin",
+                    "type"             => UserModel::TYPE_LIMITED,
+                    "email"            => "newEmail@email.com",
+                    "isChangePassword" => "incorrect",
+                    "operations"       => []
+                ],
+                true
+            ],
+            14 => [
+                self::TYPE_FULL,
+                [
+                    "id"               => "new",
+                    "name"             => "Name",
+                    "login"            => "newLogin",
+                    "password"         => $password1,
+                    "passwordConfirm"  => $password1,
+                    "type"             => UserModel::TYPE_LIMITED,
+                    "email"            => "newEmail@email.com",
+                    "isChangePassword" => true,
+                    "operations"       => [
+                        Operation::TYPE_SECTIONS => [
+                            Operation::ALL => [
+                                Operation::SECTION_ADD,
+                                Operation::SECTION_UPDATE,
+                                "incorrect"
+                            ],
+                            1              => [
+                                Operation::SECTION_DESIGN_UPDATE,
+                                "incorrect"
+                            ],
+                            "incorrect"
+                        ],
+                        Operation::TYPE_BLOCKS   => [
+                            BlockModel::TYPE_TEXT => [
+                                Operation::ALL => [
+                                    Operation::TEXT_ADD,
+                                    Operation::TEXT_DELETE,
+                                    "incorrect"
+                                ],
+                                1              => [
+                                    Operation::TEXT_DUPLICATE,
+                                    "incorrect"
+                                ],
+                                "incorrect"
+                            ],
+                            "incorrect"
+                        ],
+                        Operation::TYPE_SETTINGS => [
+                            Operation::SETTINGS_ICON,
+                            Operation::SETTINGS_USER_VIEW,
+                            "incorrect"
+                        ],
+                        "incorrect"
+                    ]
+                ],
+                false,
+                [],
+                true,
+                [
+                    Operation::TYPE_SECTIONS => [
+                        Operation::ALL => [
+                            Operation::SECTION_ADD,
+                            Operation::SECTION_UPDATE
+                        ],
+                        1              => [
+                            Operation::SECTION_DESIGN_UPDATE
+                        ]
+                    ],
+                    Operation::TYPE_BLOCKS   => [
+                        BlockModel::TYPE_TEXT => [
+                            Operation::ALL => [
+                                Operation::TEXT_ADD,
+                                Operation::TEXT_DELETE,
+                            ],
+                            1              => [
+                                Operation::TEXT_DUPLICATE
+                            ]
+                        ]
+                    ],
+                    Operation::TYPE_SETTINGS => [
+                        Operation::SETTINGS_ICON,
+                        Operation::SETTINGS_USER_VIEW,
+                    ],
+                ]
+            ],
         ];
     }
 

@@ -367,7 +367,7 @@ class UserController extends AbstractController
             );
         }
 
-        $id = (int) $data["id"];
+        $id = (int)$data["id"];
         $user = App::web()->getUser();
         if ($user->getId() !== $id) {
             $this->checkSettingsOperation(Operation::SETTINGS_USER_UPDATE);
@@ -628,13 +628,15 @@ class UserController extends AbstractController
         }
 
         $userModel = new UserModel();
-        $userModel->set([
-            "login"    => $data["login"],
-            "password" => UserModel::getPasswordHash($data["password"]),
-            "type"     => $data["type"],
-            "name"     => $data["name"],
-            "email"    => $data["email"],
-        ]);
+        $userModel->set(
+            [
+                "login"    => $data["login"],
+                "password" => UserModel::getPasswordHash($data["password"]),
+                "type"     => $data["type"],
+                "name"     => $data["name"],
+                "email"    => $data["email"],
+            ]
+        );
         $userModel->save();
 
         $errors = $userModel->getParsedErrors();
@@ -725,17 +727,21 @@ class UserController extends AbstractController
                 ];
             }
 
-            $userModel->set([
-                "password" => UserModel::getPasswordHash($data["password"])
-            ]);
+            $userModel->set(
+                [
+                    "password" => UserModel::getPasswordHash($data["password"])
+                ]
+            );
         }
 
-        $userModel->set([
-            "login"    => $data["login"],
-            "type"     => $data["type"],
-            "name"     => $data["name"],
-            "email"    => $data["email"],
-        ]);
+        $userModel->set(
+            [
+                "login" => $data["login"],
+                "type"  => $data["type"],
+                "name"  => $data["name"],
+                "email" => $data["email"],
+            ]
+        );
         $userModel->save();
 
         $errors = $userModel->getParsedErrors();

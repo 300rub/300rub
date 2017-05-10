@@ -1249,7 +1249,6 @@ abstract class AbstractModel
     {
         if ($where === null) {
             if (!$this->getId()) {
-                var_dump($this);
                 throw new ModelException("Unable to delete the record with null ID");
             }
 

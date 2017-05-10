@@ -2,6 +2,7 @@
 
 namespace testS\models;
 
+use testS\applications\App;
 use testS\components\Db;
 use testS\components\Language;
 use testS\components\Operation;
@@ -471,7 +472,12 @@ class UserModel extends AbstractModel
             ->_deleteOperations()
             ->addOperations($operations);
 
-        // @TODO update memcached
+        $sessionModels = (new UserSessionModel())->byUserId($this->getId())->findAll();
+        foreach ($sessionModels as $sessionModel) {
+            App::web()->getMemcached()->delete(
+                $sessionModel->get("token")
+            );
+        }
 
         return $this;
     }
@@ -483,7 +489,12 @@ class UserModel extends AbstractModel
      */
     private function _deleteOperations()
     {
-        // @TODO
+        (new UserBlockGroupOperationModel())->delete("userId = :userId", ["userId" => $this->getId()]);
+        (new UserBlockOperationModel())->delete("userId = :userId", ["userId" => $this->getId()]);
+        (new UserSectionGroupOperationModel())->delete("userId = :userId", ["userId" => $this->getId()]);
+        (new UserSectionOperationModel())->delete("userId = :userId", ["userId" => $this->getId()]);
+        (new UserSettingsOperationModel())->delete("userId = :userId", ["userId" => $this->getId()]);
+
         return $this;
     }
 
