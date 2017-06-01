@@ -764,6 +764,36 @@ class UserController extends AbstractController
      */
     public function deleteUser()
     {
-        // @TODO
+        $this->checkSettingsOperation(Operation::SETTINGS_USER_DELETE);
+
+        $data = $this->getData();
+        if (!array_key_exists("id", $data)) {
+            throw new BadRequestException(
+                "Incorrect request to delete user. Data: {data}",
+                [
+                    "data" => json_encode($data)
+                ]
+            );
+        }
+
+        $userModel = (new UserModel())->byId($data["id"])->find();
+        if ($userModel === null) {
+            throw new NotFoundException(
+                "Unable to find user by ID: {id}",
+                [
+                    "id" => $data["id"]
+                ]
+            );
+        }
+
+        if ($userModel->get("type") === UserModel::TYPE_OWNER) {
+            throw new AccessException("Unable to delete owner");
+        }
+
+        $userModel->delete();
+
+        return [
+            "result" => true
+        ];
     }
 }

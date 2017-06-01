@@ -1642,8 +1642,66 @@ class UserControllerTest extends AbstractControllerTest
         ];
     }
 
-    public function testDeleteUser()
+    /**
+     * Test for user deleting
+     *
+     * @param string $user
+     * @param bool   $hasError
+     *
+     * @dataProvider dataProviderForTestDeleteUser
+     */
+    public function testDeleteUser($user, $hasError = false)
     {
-        $this->markTestSkipped();
+        $newUser = new UserModel();
+        $newUser->set(
+            [
+                "login"    => $this->generateStringWithLength(7),
+                "password" => $this->generateStringWithLength(40),
+                "type"     => UserModel::TYPE_FULL,
+                "name"     => $this->generateStringWithLength(10),
+                "email"    => $this->generateStringWithLength(7) . "@email.com",
+            ]
+        );
+        $newUser->save();
+
+        $newUser = (new UserModel())->byId($newUser->getId())->find();
+        $this->assertNotNull($newUser);
+
+        $this->setUser($user);
+        $this->sendRequest("user", "user", ["id" => $newUser->getId()], "DELETE");
+
+        if ($hasError === true) {
+            $newUser->delete();
+            $this->assertError();
+        } else {
+            $this->assertSame(
+                [
+                    "result" => true
+                ],
+                $this->getBody()
+            );
+        }
+
+        $newUser = (new UserModel())->byId($newUser->getId())->find();
+        $this->assertNull($newUser);
+
+        // Unable to remove owner
+        $this->sendRequest("user", "user", ["id" => 1], "DELETE");
+        $this->assertError();
+    }
+
+    /**
+     * Data provider for testDeleteUser
+     *
+     * @return array
+     */
+    public function dataProviderForTestDeleteUser()
+    {
+        return [
+            [self::TYPE_FULL],
+            [self::TYPE_OWNER],
+            [self::TYPE_LIMITED, true],
+            [self::TYPE_BLOCKED_USER, true],
+        ];
     }
 }
