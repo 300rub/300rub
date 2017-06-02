@@ -15,11 +15,13 @@ class DesignCatalogModel extends AbstractModel
      * Short card view types
      */
     const SHORT_CART_VIEW_TYPE_LIST = 0;
+    const SHORT_CART_VIEW_TYPE_GRID = 1;
 
     /**
      * Full card image positions
      */
     const FULL_CART_IMAGE_POSITION_LEFT = 0;
+    const FULL_CART_IMAGE_POSITION_RIGHT = 1;
 
     /**
      * Full card date positions
@@ -34,7 +36,8 @@ class DesignCatalogModel extends AbstractModel
     public static function getShortCardViewTypeList()
     {
         return [
-            self::SHORT_CART_VIEW_TYPE_LIST => ""
+            self::SHORT_CART_VIEW_TYPE_LIST => "",
+            self::SHORT_CART_VIEW_TYPE_GRID => ""
         ];
     }
 
@@ -46,7 +49,8 @@ class DesignCatalogModel extends AbstractModel
     public static function getFullCardImagesPositionList()
     {
         return [
-            self::FULL_CART_IMAGE_POSITION_LEFT => ""
+            self::FULL_CART_IMAGE_POSITION_LEFT  => "",
+            self::FULL_CART_IMAGE_POSITION_RIGHT => ""
         ];
     }
 
