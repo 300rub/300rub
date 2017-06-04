@@ -51,21 +51,61 @@
             $table.find(".access-label").text(data.labels.access);
 
             var $trTemplate = $table.find(".tr-template");
-            var $tr;
-            $.each(data.list, function (i, user) {
+            var $tr, $buttons;
+            $.each(data.list, $.proxy(function (i, user) {
                 $tr = $trTemplate.clone();
                 $tr.find(".name-value").text(user.name);
                 $tr.find(".email-value").text(user.email);
                 $tr.find(".access-value").text(user.access);
+                $buttons = $tr.find(".buttons");
+                $buttons.addClass("align-right");
+
+                new TestS.Form({
+                    type: "button",
+                    class: "gray-button button-small",
+                    icon: "fa-lock",
+                    label: data.labels.sessions,
+                    appendTo: $buttons,
+                    onClick: $.proxy(this._sessionsOnClick)
+                });
+
+                new TestS.Form({
+                    type: "button",
+                    class: "gray-button button-small",
+                    icon: "fa-lock",
+                    label: data.labels.edit,
+                    appendTo: $buttons
+                });
+
+                new TestS.Form({
+                    type: "button",
+                    class: "gray-button button-small",
+                    icon: "fa-lock",
+                    label: data.labels.delete,
+                    appendTo: $buttons
+                });
+
                 $table.append($tr);
-            });
+            }, this));
             $trTemplate.remove();
 
             this._window.getBody().append($table);
 
+            new TestS.Form({
+                type: "button",
+                class: "gray-button button-medium margin-bottom-15",
+                icon: "fa-plus",
+                label: data.labels.add,
+                appendTo: this._window.getBody()
+            });
+
             this._window
                 .setTitle(data.title)
                 .removeLoading();
+        },
+
+        _sessionsOnClick: function () {
+            console.log(123);
         }
     };
 }(window.jQuery, window.TestS);
