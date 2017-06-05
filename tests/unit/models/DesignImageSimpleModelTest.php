@@ -29,8 +29,159 @@ class DesignImageSimpleModelTest extends AbstractModelTest
      */
     protected function getDataProviderCRUDEmpty()
     {
-        $this->markTestSkipped();
-        return [];
+        return [
+            "empty1" => [
+                [],
+                [
+                    "containerDesignBlockModel" => [
+                        "marginTop" => 0
+                    ],
+                    "imageDesignBlockModel"     => [
+                        "marginTop" => 0
+                    ],
+                    "designTextModel"           => [
+                        "size" => 0
+                    ],
+                    "alignment"                 => 0
+                ],
+                [
+                    "containerDesignBlockModel" => "",
+                    "imageDesignBlockModel"     => "",
+                    "designTextModel"           => "",
+                    "alignment"                 => "",
+                ],
+                [
+                    "containerDesignBlockModel" => [
+                        "marginTop" => 0
+                    ],
+                    "imageDesignBlockModel"     => [
+                        "marginTop" => 0
+                    ],
+                    "designTextModel"           => [
+                        "size" => 0
+                    ],
+                    "alignment"                 => 0
+                ],
+            ],
+            "empty2" => [
+                [
+                    "containerDesignBlockModel" => null,
+                    "imageDesignBlockModel"     => null,
+                    "designTextModel"           => null,
+                    "alignment"                 => null,
+                ],
+                [
+                    "containerDesignBlockModel" => [
+                        "marginTop" => 0
+                    ],
+                    "imageDesignBlockModel"     => [
+                        "marginTop" => 0
+                    ],
+                    "designTextModel"           => [
+                        "size" => 0
+                    ],
+                    "alignment"                 => 0
+                ],
+                [
+                    "containerDesignBlockModel" => " ",
+                    "imageDesignBlockModel"     => " ",
+                    "designTextModel"           => " ",
+                    "alignment"                 => " ",
+                ],
+                [
+                    "containerDesignBlockModel" => [
+                        "marginTop" => 0
+                    ],
+                    "imageDesignBlockModel"     => [
+                        "marginTop" => 0
+                    ],
+                    "designTextModel"           => [
+                        "size" => 0
+                    ],
+                    "alignment"                 => 0
+                ],
+            ],
+            "empty3" => [
+                [
+                    "containerDesignBlockId" => " ",
+                    "imageDesignBlockId"     => " ",
+                    "designTextId"           => " ",
+                    "alignment"              => " ",
+                ],
+                [
+                    "containerDesignBlockModel" => [
+                        "marginTop" => 0
+                    ],
+                    "imageDesignBlockModel"     => [
+                        "marginTop" => 0
+                    ],
+                    "designTextModel"           => [
+                        "size" => 0
+                    ],
+                    "alignment"                 => 0
+                ],
+                [
+                    "containerDesignBlockId" => null,
+                    "imageDesignBlockId"     => null,
+                    "designTextId"           => null,
+                    "alignment"              => null,
+                ],
+                [
+                    "containerDesignBlockModel" => [
+                        "marginTop" => 0
+                    ],
+                    "imageDesignBlockModel"     => [
+                        "marginTop" => 0
+                    ],
+                    "designTextModel"           => [
+                        "size" => 0
+                    ],
+                    "alignment"                 => 0
+                ],
+            ],
+            "empty4" => [
+                [
+                    "containerDesignBlockModel" => [
+                        "marginTop" => " "
+                    ],
+                    "imageDesignBlockModel"     => [
+                        "marginTop" => " "
+                    ],
+                    "designTextModel"           => [
+                        "size" => " "
+                    ],
+                ],
+                [
+                    "containerDesignBlockModel" => [
+                        "marginTop" => 0
+                    ],
+                    "imageDesignBlockModel"     => [
+                        "marginTop" => 0
+                    ],
+                    "designTextModel"           => [
+                        "size" => 0
+                    ],
+                    "alignment"                 => 0
+                ],
+                [
+                    "containerDesignBlockModel" => [],
+                    "imageDesignBlockModel"     => [],
+                    "designTextModel"           => [],
+                ],
+                [
+                    "containerDesignBlockModel" => [
+                        "marginTop" => 0
+                    ],
+                    "imageDesignBlockModel"     => [
+                        "marginTop" => 0
+                    ],
+                    "designTextModel"           => [
+                        "size" => 0
+                    ],
+                    "alignment"                 => 0
+                ],
+            ]
+        ];
     }
 
     /**
@@ -40,8 +191,82 @@ class DesignImageSimpleModelTest extends AbstractModelTest
      */
     protected function getDataProviderCRUDCorrect()
     {
-        $this->markTestSkipped();
-        return [];
+        return [
+            "correct1" => [
+                [
+                    "containerDesignBlockModel" => [
+                        "marginTop"                => 10,
+                        "borderBottomWidth"        => 7,
+                        "borderColorHover"         => "rgb(0,255,0)",
+                        "backgroundColorFromHover" => "rgba(255,0,255,0.5)",
+                    ],
+                    "imageDesignBlockModel"     => [
+                        "marginTop"                => 10,
+                        "borderBottomWidth"        => 7,
+                        "borderColorHover"         => "rgb(0,255,0)",
+                        "backgroundColorFromHover" => "rgba(255,0,255,0.5)",
+                    ],
+                    "designTextModel"           => [
+                        "size" => 20
+                    ],
+                    "alignment"                 => 1
+                ],
+                [
+                    "containerDesignBlockModel" => [
+                        "marginTop"                => 10,
+                        "borderBottomWidth"        => 7,
+                        "borderColorHover"         => "rgb(0,255,0)",
+                        "backgroundColorFromHover" => "rgba(255,0,255,0.5)",
+                    ],
+                    "imageDesignBlockModel"     => [
+                        "marginTop"                => 10,
+                        "borderBottomWidth"        => 7,
+                        "borderColorHover"         => "rgb(0,255,0)",
+                        "backgroundColorFromHover" => "rgba(255,0,255,0.5)",
+                    ],
+                    "designTextModel"           => [
+                        "size" => 20
+                    ],
+                    "alignment"                 => 1
+                ],
+                [
+                    "containerDesignBlockModel" => [
+                        "marginTop"                => 5,
+                        "borderBottomWidth"        => 4,
+                        "borderColorHover"         => "rgb(255,0,0)",
+                        "backgroundColorFromHover" => "rgba(0,0,255,0.7)",
+                    ],
+                    "imageDesignBlockModel"     => [
+                        "marginTop"                => 5,
+                        "borderBottomWidth"        => 4,
+                        "borderColorHover"         => "rgb(255,0,0)",
+                        "backgroundColorFromHover" => "rgba(0,0,255,0.7)",
+                    ],
+                    "designTextModel"           => [
+                        "size" => 30
+                    ],
+                    "alignment"                 => 2
+                ],
+                [
+                    "containerDesignBlockModel" => [
+                        "marginTop"                => 5,
+                        "borderBottomWidth"        => 4,
+                        "borderColorHover"         => "rgb(255,0,0)",
+                        "backgroundColorFromHover" => "rgba(0,0,255,0.7)",
+                    ],
+                    "imageDesignBlockModel"     => [
+                        "marginTop"                => 5,
+                        "borderBottomWidth"        => 4,
+                        "borderColorHover"         => "rgb(255,0,0)",
+                        "backgroundColorFromHover" => "rgba(0,0,255,0.7)",
+                    ],
+                    "designTextModel"           => [
+                        "size" => 30
+                    ],
+                    "alignment"                 => 2
+                ],
+            ],
+        ];
     }
 
     /**
@@ -51,8 +276,54 @@ class DesignImageSimpleModelTest extends AbstractModelTest
      */
     protected function getDataProviderCRUDIncorrect()
     {
-        $this->markTestSkipped();
-        return [];
+        return [
+            "incorrect1" => [
+                [
+                    "containerDesignBlockModel" => "incorrect",
+                    "imageDesignBlockModel"     => "incorrect",
+                    "designTextModel"           => "incorrect",
+                    "alignment"                 => "incorrect",
+                ],
+                [
+                    "containerDesignBlockModel" => [
+                        "marginTop" => 0
+                    ],
+                    "imageDesignBlockModel"     => [
+                        "marginTop" => 0
+                    ],
+                    "designTextModel"           => [
+                        "size" => 0
+                    ],
+                    "alignment"                 => 0
+                ],
+                [
+                    "alignment" => 999,
+                ],
+                [
+                    "alignment" => 0,
+                ],
+            ],
+            "incorrect2" => [
+                [
+                    "alignment" => " 1 ",
+                ],
+                [
+                    "alignment" => 1,
+                ],
+                [
+                    "containerDesignBlockModel" => [
+                        "marginTop" => " 500 "
+                    ],
+                    "alignment"                 => true,
+                ],
+                [
+                    "containerDesignBlockModel" => [
+                        "marginTop" => 500
+                    ],
+                    "alignment"                 => 1,
+                ],
+            ]
+        ];
     }
 
     /**
@@ -62,7 +333,43 @@ class DesignImageSimpleModelTest extends AbstractModelTest
      */
     public function testDuplicate()
     {
-        $this->markTestSkipped();
-        return [];
+        $this->duplicate(
+            [
+                "containerDesignBlockModel" => [
+                    "marginTop"                => 10,
+                    "borderBottomWidth"        => 7,
+                    "borderColorHover"         => "rgb(0,255,0)",
+                    "backgroundColorFromHover" => "rgba(255,0,255,0.5)",
+                ],
+                "imageDesignBlockModel"     => [
+                    "marginTop"                => 10,
+                    "borderBottomWidth"        => 7,
+                    "borderColorHover"         => "rgb(0,255,0)",
+                    "backgroundColorFromHover" => "rgba(255,0,255,0.5)",
+                ],
+                "designTextModel"           => [
+                    "size" => 20
+                ],
+                "alignment"                 => 1
+            ],
+            [
+                "containerDesignBlockModel" => [
+                    "marginTop"                => 10,
+                    "borderBottomWidth"        => 7,
+                    "borderColorHover"         => "rgb(0,255,0)",
+                    "backgroundColorFromHover" => "rgba(255,0,255,0.5)",
+                ],
+                "imageDesignBlockModel"     => [
+                    "marginTop"                => 10,
+                    "borderBottomWidth"        => 7,
+                    "borderColorHover"         => "rgb(0,255,0)",
+                    "backgroundColorFromHover" => "rgba(255,0,255,0.5)",
+                ],
+                "designTextModel"           => [
+                    "size" => 20
+                ],
+                "alignment"                 => 1
+            ]
+        );
     }
 }

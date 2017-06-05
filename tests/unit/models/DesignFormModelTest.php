@@ -660,43 +660,43 @@ class DesignFormModelTest extends AbstractModelTest
                 ],
                 [
                     "submitIconPosition" => 999,
-                    "submitAlignment"   => 999
+                    "submitAlignment"    => 999
                 ],
                 [
-                    "submitIconPosition"        => 0,
-                    "submitAlignment"           => 0
+                    "submitIconPosition" => 0,
+                    "submitAlignment"    => 0
                 ],
             ],
             "incorrect2" => [
                 [
-                    "submitIconPosition"      => " 1 ",
-                    "submitAlignment" => "1asdads",
+                    "submitIconPosition" => " 1 ",
+                    "submitAlignment"    => "1asdads",
                 ],
                 [
-                    "submitIconPosition"      => 1,
-                    "submitAlignment" => 1,
+                    "submitIconPosition" => 1,
+                    "submitAlignment"    => 1,
                 ],
                 [
                     "containerDesignBlockModel" => [
                         "marginTop" => " 500 "
                     ],
-                    "submitIconPosition"                  => true,
-                    "submitAlignment"             => false,
+                    "submitIconPosition"        => true,
+                    "submitAlignment"           => false,
                 ],
                 [
                     "containerDesignBlockModel" => [
                         "marginTop" => 500
                     ],
-                    "submitIconPosition"                  => 1,
-                    "submitAlignment"             => 0,
+                    "submitIconPosition"        => 1,
+                    "submitAlignment"           => 0,
                 ],
             ],
             "incorrect3" => [
                 [
-                    "submitIcon"      => $this->generateStringWithLength(51),
+                    "submitIcon" => $this->generateStringWithLength(51),
                 ],
                 [
-                    "submitIcon"      => ["maxLength"],
+                    "submitIcon" => ["maxLength"],
                 ],
             ],
         ];
