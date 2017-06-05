@@ -24,9 +24,9 @@ class DesignFormModel extends AbstractModel
     /**
      * Submit alignments
      */
-    const SUBMIT_ALIGNMENT_LEFT = 0;
-    const SUBMIT_ALIGNMENT_CENTER = 1;
-    const SUBMIT_ALIGNMENT_RIGHT = 2;
+    const SUBMIT_ALIGNMENT_RIGHT = 0;
+    const SUBMIT_ALIGNMENT_LEFT = 1;
+    const SUBMIT_ALIGNMENT_CENTER = 2;
 
     /**
      * Gets a list of submit icon positions

@@ -169,7 +169,6 @@ class UserSessionModelTest extends AbstractModelTest
                     "token"        => $token2,
                     "ip"           => "127.0.0.1",
                     "ua"           => self::UA_FIREFOX_4_0_1,
-                    "lastActivity" => date("Y-m-d H:i:s")
                 ],
                 [
                     "userId"       => 2,
