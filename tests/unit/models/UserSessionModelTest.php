@@ -101,7 +101,6 @@ class UserSessionModelTest extends AbstractModelTest
                     "token"        => $token,
                     "ip"           => "127.0.0.1",
                     "ua"           => self::UA_FIREFOX_4_0_1,
-                    "lastActivity" => date("Y-m-d H:i:s")
                 ],
                 [
                     "ip" => "127.0.0.2",
@@ -112,7 +111,6 @@ class UserSessionModelTest extends AbstractModelTest
                     "token"        => $token,
                     "ip"           => "127.0.0.2",
                     "ua"           => self::UA_CHROME_53_0,
-                    "lastActivity" => date("Y-m-d H:i:s")
                 ],
             ],
         ];
@@ -128,6 +126,7 @@ class UserSessionModelTest extends AbstractModelTest
         $token1 = $this->generateStringWithLength(32);
         $token2 = $this->generateStringWithLength(32);
         $token3 = $this->generateStringWithLength(32);
+        $token4 = $this->generateStringWithLength(32);
 
         return [
             // Duplicated token
@@ -175,12 +174,10 @@ class UserSessionModelTest extends AbstractModelTest
                 [
                     "userId"       => 2,
                     "token"        => $token3,
-                    "lastActivity" => "2016-01-01 10:12:11"
                 ],
                 [
                     "userId"       => 1,
                     "token"        => $token2,
-                    "lastActivity" => date("Y-m-d H:i:s")
                 ],
             ],
             // Incorrect small token
@@ -231,23 +228,21 @@ class UserSessionModelTest extends AbstractModelTest
                     "token"        => $token3,
                     "ip"           => "127.0.0.1",
                     "ua"           => "",
-                    "lastActivity" => date("Y-m-d H:i:s")
                 ]
             ],
             "incorrect8" => [
                 [
                     "userId"       => "  1   ",
-                    "token"        => "   {$token2}  ",
+                    "token"        => "   {$token4}  ",
                     "ip"           => "    127.0.0.1    ",
                     "ua"           => self::UA_FIREFOX_4_0_1,
                     "lastActivity" => "   2015-01-01 10:11:12   "
                 ],
                 [
                     "userId"       => 1,
-                    "token"        => $token2,
+                    "token"        => $token4,
                     "ip"           => "127.0.0.1",
                     "ua"           => self::UA_FIREFOX_4_0_1,
-                    "lastActivity" => date("Y-m-d H:i:s")
                 ],
                 [
                     "userId"       => "  incorrect ",
@@ -256,10 +251,9 @@ class UserSessionModelTest extends AbstractModelTest
                 ],
                 [
                     "userId"       => 1,
-                    "token"        => $token2,
+                    "token"        => $token4,
                     "ip"           => "127.0.0.2",
                     "ua"           => self::UA_FIREFOX_4_0_1,
-                    "lastActivity" => date("Y-m-d H:i:s")
                 ]
             ],
         ];

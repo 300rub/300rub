@@ -401,6 +401,8 @@ abstract class AbstractModelTest extends AbstractUnitTest
         // Remove
         $model->delete();
         $duplicatedModel->delete();
+
+        return true;
     }
 
     /**

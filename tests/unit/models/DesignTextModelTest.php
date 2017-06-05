@@ -435,7 +435,47 @@ class DesignTextModelTest extends AbstractModelTest
      */
     public function testDuplicate()
     {
-        $this->markTestSkipped();
-        return [];
+        $this->duplicate(
+            [
+                "size"               => 20,
+                "family"             => 1,
+                "color"              => "rgb(0,255,0)",
+                "isItalic"           => true,
+                "isBold"             => true,
+                "align"              => 1,
+                "decoration"         => 1,
+                "transform"          => 3,
+                "letterSpacing"      => 10,
+                "lineHeight"         => 150,
+                "sizeHover"          => 20,
+                "colorHover"         => "rgb(0,255,0)",
+                "isItalicHover"      => true,
+                "isBoldHover"        => true,
+                "decorationHover"    => 1,
+                "transformHover"     => 3,
+                "letterSpacingHover" => 10,
+                "lineHeightHover"    => 150,
+            ],
+            [
+                "size"               => 20,
+                "family"             => 1,
+                "color"              => "rgb(0,255,0)",
+                "isItalic"           => true,
+                "isBold"             => true,
+                "align"              => 1,
+                "decoration"         => 1,
+                "transform"          => 3,
+                "letterSpacing"      => 10,
+                "lineHeight"         => 150,
+                "sizeHover"          => 20,
+                "colorHover"         => "rgb(0,255,0)",
+                "isItalicHover"      => true,
+                "isBoldHover"        => true,
+                "decorationHover"    => 1,
+                "transformHover"     => 3,
+                "letterSpacingHover" => 10,
+                "lineHeightHover"    => 150,
+            ]
+        );
     }
 }
