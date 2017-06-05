@@ -84,7 +84,9 @@ class DesignImageSliderModel extends AbstractModel
      */
     public static function getEffectList()
     {
-        return [];
+        return [
+            self::EFFECT_NONE => "",
+        ];
     }
 
     /**
@@ -134,7 +136,7 @@ class DesignImageSliderModel extends AbstractModel
                 self::FIELD_VALUE => [
                     ValueGenerator::ARRAY_KEY => [
                         self::getNavigationAlignmentList(),
-                        self::NAVIGATION_ALIGNMENT_BOTTOM_CENTER
+                        self::NAVIGATION_ALIGNMENT_NONE
                     ]
                 ],
             ],
@@ -143,7 +145,7 @@ class DesignImageSliderModel extends AbstractModel
                 self::FIELD_VALUE => [
                     ValueGenerator::ARRAY_KEY => [
                         self::getDescriptionAlignmentList(),
-                        self::DESCRIPTION_ALIGNMENT_LEFT
+                        self::DESCRIPTION_ALIGNMENT_NONE
                     ]
                 ],
             ]
