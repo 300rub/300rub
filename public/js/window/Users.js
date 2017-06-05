@@ -44,7 +44,6 @@
         _onLoadDataSuccess: function(data) {
             this._window.getInstance().find(".footer").remove();
 
-            console.log(data);
             var $table = TestS.Template.get("window-users-table");
             $table.find(".name-label").text(data.labels.name);
             $table.find(".email-label").text(data.labels.email);
@@ -63,16 +62,20 @@
                 new TestS.Form({
                     type: "button",
                     class: "gray-button button-small",
-                    icon: "fa-lock",
+                    icon: "fa-users",
                     label: data.labels.sessions,
                     appendTo: $buttons,
-                    onClick: $.proxy(this._sessionsOnClick)
+                    onClick: this._sessionsOnClick,
+                    data: {
+                        id: user.id,
+                        window: this._window
+                    }
                 });
 
                 new TestS.Form({
                     type: "button",
                     class: "gray-button button-small",
-                    icon: "fa-lock",
+                    icon: "fa-pencil",
                     label: data.labels.edit,
                     appendTo: $buttons
                 });
@@ -80,7 +83,7 @@
                 new TestS.Form({
                     type: "button",
                     class: "gray-button button-small",
-                    icon: "fa-lock",
+                    icon: "fa-trash-o",
                     label: data.labels.delete,
                     appendTo: $buttons
                 });
@@ -94,7 +97,7 @@
             new TestS.Form({
                 type: "button",
                 class: "gray-button button-medium margin-bottom-15",
-                icon: "fa-plus",
+                icon: "fa-user-plus",
                 label: data.labels.add,
                 appendTo: this._window.getBody()
             });
@@ -104,8 +107,17 @@
                 .removeLoading();
         },
 
-        _sessionsOnClick: function () {
-            console.log(123);
+        /**
+         * Session on click event
+         *
+         * @param {Object} event
+         *
+         * @private
+         */
+        _sessionsOnClick: function (event) {
+            //event.data.id;
+            new TestS.Window.Users.Sessions();
+            event.data.window.remove();
         }
     };
 }(window.jQuery, window.TestS);

@@ -71,4 +71,28 @@ return [
         Language::LANGUAGE_EN_ID => "Passwords do not match",
         Language::LANGUAGE_RU_ID => "",
     ],
+    "token" => [
+        Language::LANGUAGE_EN_ID => "Token",
+        Language::LANGUAGE_RU_ID => "",
+    ],
+    "lastActivity" => [
+        Language::LANGUAGE_EN_ID => "Last activity",
+        Language::LANGUAGE_RU_ID => "",
+    ],
+    "platform" => [
+        Language::LANGUAGE_EN_ID => "Platform",
+        Language::LANGUAGE_RU_ID => "",
+    ],
+    "browser" => [
+        Language::LANGUAGE_EN_ID => "Browser",
+        Language::LANGUAGE_RU_ID => "",
+    ],
+    "online" => [
+        Language::LANGUAGE_EN_ID => "Online",
+        Language::LANGUAGE_RU_ID => "",
+    ],
+    "current" => [
+        Language::LANGUAGE_EN_ID => "Current",
+        Language::LANGUAGE_RU_ID => "",
+    ],
 ];

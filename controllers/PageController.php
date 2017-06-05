@@ -70,7 +70,8 @@ class PageController extends AbstractController
             "Panel",
             "panel/Settings",
             "UserButtons",
-            "window/Users"
+            "window/Users",
+            "window/Users.Sessions",
         ],
         "less" => [
             "userButtons",

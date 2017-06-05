@@ -618,7 +618,6 @@ class UserControllerTest extends AbstractControllerTest
                         "sessions" => "Sessions",
                         "edit"     => "Edit",
                         "delete"   => "Delete",
-                        "open"     => "Open",
                         "add"      => "Add",
                         "email"    => "Email"
                     ]
@@ -692,7 +691,6 @@ class UserControllerTest extends AbstractControllerTest
                         "sessions" => "Sessions",
                         "edit"     => "Edit",
                         "delete"   => "Delete",
-                        "open"     => "Open",
                         "add"      => "Add",
                         "email"    => "Email"
                     ]

@@ -132,18 +132,16 @@
          * @private
          */
         _setCloseEvents: function() {
-            this.getOverlay().on("click",  $.proxy(this._removeWindow, this));
-            this.getInstance().find(".header .close").on("click", $.proxy(this._removeWindow, this));
+            this.getOverlay().on("click",  $.proxy(this.remove, this));
+            this.getInstance().find(".header .close").on("click", $.proxy(this.remove, this));
 
             return this;
         },
 
         /**
          * Removes window and overlay
-         *
-         * @private
          */
-        _removeWindow: function() {
+        remove: function() {
             this.getInstance().addClass("transparent");
             this.getOverlay().addClass("transparent");
             TestS.getWrapper().find(".panel").removeClass("transparent");

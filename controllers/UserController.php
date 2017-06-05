@@ -241,8 +241,8 @@ class UserController extends AbstractController
         foreach ($userSessionModels as $userSessionModel) {
             $parsedUserAgent = parse_user_agent($userSessionModel->get("ua"));
             $list[] = [
+                "id"           => $userSessionModel->getId(),
                 "ip"           => $userSessionModel->get("ip"),
-                "token"        => $userSessionModel->get("token"),
                 "lastActivity" => $userSessionModel->getFormattedLastActivity(),
                 "platform"     => $parsedUserAgent["platform"],
                 "browser"      => $parsedUserAgent["browser"],
@@ -252,7 +252,18 @@ class UserController extends AbstractController
             ];
         }
 
-        return ["result" => $list];
+        return [
+            "title" => Language::t("user", "sessions"),
+            "labels" => [
+                "token" => Language::t("user", "token"),
+                "lastActivity" => Language::t("user", "lastActivity"),
+                "platform" => Language::t("user", "platform"),
+                "browser" => Language::t("user", "browser"),
+                "online" => Language::t("user", "online"),
+                "current" => Language::t("user", "current"),
+            ],
+            "list" => $list
+        ];
     }
 
     /**
@@ -339,7 +350,6 @@ class UserController extends AbstractController
                 "sessions" => Language::t("user", "sessions"),
                 "edit"     => Language::t("common", "edit"),
                 "delete"   => Language::t("common", "delete"),
-                "open"     => Language::t("common", "open"),
                 "add"      => Language::t("common", "add"),
             ]
         ];

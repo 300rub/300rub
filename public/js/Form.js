@@ -195,7 +195,12 @@
             }
 
             if ($.type(this._options.onClick) === "function") {
-                this.$_form.on("click", this._options.onClick);
+                if ($.type(this._options.data) === "object") {
+                    this.$_form.on("click", this._options.data, this._options.onClick);
+                } else {
+                    this.$_form.on("click", this._options.onClick);
+                }
+
             }
         },
 
