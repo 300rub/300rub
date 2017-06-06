@@ -9,7 +9,7 @@
   top: 25px;
   background: white;
   position: fixed;
-  z-index: 1000;
+  z-index: 1010;
   width: 800px;
   margin-left: -400px;
 
@@ -138,10 +138,17 @@
   .transition-duration(.15s);
   .transition-property(opacity);
   position: fixed;
-  z-index: 990;
+  z-index: 1000;
   left: 0;
   top: 0;
   right: 0;
   bottom: 0;
   background: rgba(0, 0, 0, .2);
+}
+
+.window.level-2 {
+  z-index: 1030;
+}
+.window-overlay.level-2 {
+  z-index: 1020;
 }

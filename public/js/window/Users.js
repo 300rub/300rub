@@ -117,7 +117,7 @@
         _sessionsOnClick: function (event) {
             //event.data.id;
             new TestS.Window.Users.Sessions();
-            event.data.window.remove();
+            //event.data.window.remove();
         }
     };
 }(window.jQuery, window.TestS);

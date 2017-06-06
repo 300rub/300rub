@@ -30,7 +30,12 @@
                 controller: "user",
                 action: "sessions",
                 success: $.proxy(this._onLoadDataSuccess, this),
-                name: "users.sessions"
+                name: "users.sessions",
+                level: 2,
+                parent: {
+                    name:"users",
+                    isHide: true
+                }
             });
         },
 
@@ -70,8 +75,6 @@
                 $table.append($tr);
             }, this));
             $trTemplate.remove();
-
-            console.log(data);
 
             this._window.getBody().append($table);
 

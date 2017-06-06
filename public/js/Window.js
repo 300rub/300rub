@@ -94,6 +94,17 @@
 
             TestS.Window.Collection.add(this._options.name, this);
 
+            if ($.type(this._options.parent) === "object"
+                && this._options.parent.name !== undefined
+            ) {
+                var parent =  TestS.Window.Collection.get(this._options.parent.name);
+                if (parent !== null
+                    && this._options.parent.isHide === true
+                ) {
+                    parent.getInstance().addClass("transparent");
+                }
+            }
+
             return this;
         },
 
@@ -138,13 +149,33 @@
             return this;
         },
 
+        reload: function() {
+            this.getInstance().remove();
+            this.getOverlay().remove();
+            this.init();
+        },
+
         /**
          * Removes window and overlay
          */
         remove: function() {
             this.getInstance().addClass("transparent");
             this.getOverlay().addClass("transparent");
-            TestS.getWrapper().find(".panel").removeClass("transparent");
+
+            if ($.type(this._options.parent) === "object"
+                && this._options.parent.name !== undefined
+            ) {
+                var parent =  TestS.Window.Collection.get(this._options.parent.name);
+                if (parent !== null) {
+                    if (this._options.parent.isReloadOnClose === true) {
+                        parent.reload();
+                    } else if (this._options.parent.isHide === true) {
+                        parent.getInstance().removeClass("transparent");
+                    }
+                }
+            } else {
+                TestS.getWrapper().find(".panel").removeClass("transparent");
+            }
 
             setTimeout($.proxy(function() {
                 this.getInstance().remove();
@@ -164,6 +195,11 @@
          * @private
          */
         _addDomElement: function() {
+            if (this._options.level !== undefined) {
+                this.getInstance().addClass("level-" + this._options.level);
+                this.getOverlay().addClass("level-" + this._options.level);
+            }
+
             TestS.append(this.getInstance());
             TestS.append(this.getOverlay());
 
@@ -253,6 +289,64 @@
             });
 
             return this;
+        }
+    };
+
+    /**
+     * Window Collection
+     *
+     * @type {Object}
+     */
+    TestS.Window.Collection = {
+
+        /**
+         * Collection of windows
+         *
+         * @var {Object}
+         */
+        _instances: {},
+
+        /**
+         * Adds window to collection
+         *
+         * @param {String}       name
+         * @param {TestS.Window} window
+         *
+         * @returns {TestS}
+         */
+        add: function(name, window) {
+            this._instances[name] = window;
+            return this;
+        },
+
+        /**
+         * Deletes window from collection
+         *
+         * @param {String} name
+         *
+         * @returns {TestS}
+         */
+        delete: function(name) {
+            if (this._instances[name] !== undefined) {
+                delete(this._instances[name]);
+            }
+
+            return this;
+        },
+
+        /**
+         * Gets window from collection
+         *
+         * @param {String} name
+         *
+         * @returns {TestS.Window}
+         */
+        get: function(name) {
+            if (this._instances[name] === undefined) {
+                return null;
+            }
+
+            return this._instances[name];
         }
     };
 }(window.jQuery, window.TestS);
