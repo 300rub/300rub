@@ -349,14 +349,14 @@ class DesignImageSliderModelTest extends AbstractModelTest
         return [
             "incorrect1" => [
                 [
-                    "containerDesignBlockModel"   => null,
-                    "navigationDesignBlockModel"  => null,
-                    "descriptionDesignBlockModel" => null,
-                    "effect"                      => null,
-                    "hasAutoPlay"                 => null,
-                    "playSpeed"                   => null,
-                    "navigationAlignment"         => null,
-                    "descriptionAlignment"        => null,
+                    "containerDesignBlockModel"   => "incorrect",
+                    "navigationDesignBlockModel"  => "incorrect",
+                    "descriptionDesignBlockModel" => "incorrect",
+                    "effect"                      => "incorrect",
+                    "hasAutoPlay"                 => "incorrect",
+                    "playSpeed"                   => "incorrect",
+                    "navigationAlignment"         => "incorrect",
+                    "descriptionAlignment"        => "incorrect",
                 ],
                 [
                     "containerDesignBlockModel"   => [

@@ -70,7 +70,9 @@ class DesignImageZoomModel extends AbstractModel
      */
     public static function getEffectList()
     {
-        return [];
+        return [
+            self::EFFECT_NONE => ""
+        ];
     }
 
     /**

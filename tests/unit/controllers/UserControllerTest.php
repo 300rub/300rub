@@ -464,24 +464,14 @@ class UserControllerTest extends AbstractControllerTest
 
         // Make sure that records for User 1 only returned
         $allUserSessionModels = (new UserSessionModel())->findAll();
-        $this->assertTrue(count($allUserSessionModels) - count($actualBody["result"]) > 0);
-        $returnedTokens = [];
-        foreach ($actualBody["result"] as $result) {
-            $returnedTokens[] = $result["token"];
-        }
-        foreach ($allUserSessionModels as $userSessionModel) {
-            if ($userSessionModel->get("userId") === 1) {
-                $this->assertTrue(in_array($userSessionModel->get("token"), $returnedTokens));
-            }
-        }
+        $this->assertTrue(count($allUserSessionModels) - count($actualBody["list"]) > 0);
 
         // Check response content
-        foreach ($actualBody["result"] as $result) {
-            switch ($result["token"]) {
-                case self::TOKEN_OWNER:
+        foreach ($actualBody["list"] as $result) {
+            switch ($result["id"]) {
+                case 1:
                     $expectedResult = [
                         "ip"        => "127.0.0.1",
-                        "token"     => self::TOKEN_OWNER,
                         "platform"  => "Windows",
                         "browser"   => "Firefox",
                         "version"   => "4.0.1",
@@ -490,10 +480,9 @@ class UserControllerTest extends AbstractControllerTest
                     ];
                     $this->compareExpectedAndActual($expectedResult, $result);
                     break;
-                case $newToken:
+                case $newUserSessionModel->getId():
                     $expectedResult = [
                         "ip"        => "127.0.0.7",
-                        "token"     => $newToken,
                         "platform"  => null,
                         "browser"   => null,
                         "version"   => null,
