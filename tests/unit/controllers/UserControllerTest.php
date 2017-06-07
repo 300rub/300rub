@@ -459,7 +459,7 @@ class UserControllerTest extends AbstractControllerTest
         $newUserSessionModel->save();
 
         // Send request
-        $this->sendRequest("user", "sessions");
+        $this->sendRequest("user", "sessions", ["id" => 1]);
         $actualBody = $this->getBody();
 
         // Make sure that records for User 1 only returned
@@ -468,8 +468,8 @@ class UserControllerTest extends AbstractControllerTest
 
         // Check response content
         foreach ($actualBody["list"] as $result) {
-            switch ($result["id"]) {
-                case 1:
+            switch ($result["token"]) {
+                case self::TOKEN_OWNER:
                     $expectedResult = [
                         "ip"        => "127.0.0.1",
                         "platform"  => "Windows",
@@ -480,7 +480,7 @@ class UserControllerTest extends AbstractControllerTest
                     ];
                     $this->compareExpectedAndActual($expectedResult, $result);
                     break;
-                case $newUserSessionModel->getId():
+                case $newToken:
                     $expectedResult = [
                         "ip"        => "127.0.0.7",
                         "platform"  => null,
@@ -596,7 +596,6 @@ class UserControllerTest extends AbstractControllerTest
                             "canUpdate"        => true,
                             "canDelete"        => true,
                             "canViewSessions"  => true,
-                            "canDeleteSession" => true,
                             "isCurrent"        => true,
                         ]
                     ],
@@ -625,7 +624,6 @@ class UserControllerTest extends AbstractControllerTest
                             "canUpdate"        => true,
                             "canDelete"        => true,
                             "canViewSessions"  => true,
-                            "canDeleteSession" => true,
                             "isCurrent"        => true,
                         ],
                         [
@@ -636,7 +634,6 @@ class UserControllerTest extends AbstractControllerTest
                             "canUpdate"        => true,
                             "canDelete"        => true,
                             "canViewSessions"  => true,
-                            "canDeleteSession" => true,
                             "isCurrent"        => false,
                         ],
                         [
@@ -647,7 +644,6 @@ class UserControllerTest extends AbstractControllerTest
                             "canUpdate"        => false,
                             "canDelete"        => false,
                             "canViewSessions"  => true,
-                            "canDeleteSession" => false,
                             "isCurrent"        => false,
                         ],
                         [
@@ -658,7 +654,6 @@ class UserControllerTest extends AbstractControllerTest
                             "canUpdate"        => true,
                             "canDelete"        => true,
                             "canViewSessions"  => true,
-                            "canDeleteSession" => true,
                             "isCurrent"        => false,
                         ],
                         [
@@ -669,7 +664,6 @@ class UserControllerTest extends AbstractControllerTest
                             "canUpdate"        => true,
                             "canDelete"        => true,
                             "canViewSessions"  => true,
-                            "canDeleteSession" => true,
                             "isCurrent"        => false,
                         ],
                     ],

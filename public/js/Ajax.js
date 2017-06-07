@@ -64,11 +64,11 @@
                 this._options.data
             );
 
-            if (this._getType() !== "GET") {
-                data = JSON.stringify(data);
+            if (this._getType() === "GET") {
+                return decodeURIComponent($.param(data));
+            } else {
+                return JSON.stringify(data);
             }
-
-            return data;
         },
 
         /**

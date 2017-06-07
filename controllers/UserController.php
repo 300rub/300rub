@@ -227,13 +227,41 @@ class UserController extends AbstractController
      * Gets all user sessions
      *
      * @returns array "result" => a list of sessions for current user
+     *
+     * @throws BadRequestException
+     * @throws NotFoundException
      */
     public function getSessions()
     {
         $this->checkUser();
 
+        $data = $this->getData();
+        if (empty($data["id"])) {
+            throw new BadRequestException(
+                "Incorrect request to get user sessions. Data: {data}",
+                [
+                    "data" => json_encode($data)
+                ]
+            );
+        }
+        $id = (int) $data["id"];
+
+        if ($id !== App::web()->getUser()->getId()) {
+            $this->checkSettingsOperation(Operation::SETTINGS_USER_VIEW_SESSIONS);
+        }
+
+        $user = (new UserModel())->byId($id)->find();
+        if (!$user instanceof UserModel) {
+            throw new NotFoundException(
+                "Unable to find user with ID: {id}",
+                [
+                    "id" => $id
+                ]
+            );
+        }
+
         $userSessionModels = (new UserSessionModel())
-            ->byUserId(App::web()->getUser()->getId())
+            ->byUserId($id)
             ->ordered()
             ->findAll();
 
@@ -241,7 +269,7 @@ class UserController extends AbstractController
         foreach ($userSessionModels as $userSessionModel) {
             $parsedUserAgent = parse_user_agent($userSessionModel->get("ua"));
             $list[] = [
-                "id"           => $userSessionModel->getId(),
+                "token"        => $userSessionModel->get("token"),
                 "ip"           => $userSessionModel->get("ip"),
                 "lastActivity" => $userSessionModel->getFormattedLastActivity(),
                 "platform"     => $parsedUserAgent["platform"],
@@ -250,6 +278,16 @@ class UserController extends AbstractController
                 "isCurrent"    => $userSessionModel->get("token") === App::web()->getUser()->getToken(),
                 "isOnline"     => $userSessionModel->isOnline()
             ];
+        }
+
+        if ($id === App::web()->getUser()->getId()) {
+            $canDelete = true;
+        } else {
+            if ($user->isOwner()) {
+                $canDelete = false;
+            } else {
+                $canDelete = $this->hasSettingsOperation(Operation::SETTINGS_USER_DELETE_SESSIONS);
+            }
         }
 
         return [
@@ -261,8 +299,11 @@ class UserController extends AbstractController
                 "browser" => Language::t("user", "browser"),
                 "online" => Language::t("user", "online"),
                 "current" => Language::t("user", "current"),
+                "delete" => Language::t("common", "delete"),
+                "deleteAllSessions" => Language::t("user", "deleteAllSessions"),
             ],
-            "list" => $list
+            "list" => $list,
+            "canDelete" => $canDelete
         ];
     }
 
@@ -311,7 +352,6 @@ class UserController extends AbstractController
                 "canUpdate"        => true,
                 "canDelete"        => true,
                 "canViewSessions"  => true,
-                "canDeleteSession" => true,
                 "isCurrent"        => true,
             ]
         ];
@@ -321,7 +361,6 @@ class UserController extends AbstractController
             $canUpdate = $this->hasSettingsOperation(Operation::SETTINGS_USER_UPDATE);
             $canDelete = $this->hasSettingsOperation(Operation::SETTINGS_USER_DELETE);
             $canViewSessions = $this->hasSettingsOperation(Operation::SETTINGS_USER_VIEW_SESSIONS);
-            $canDeleteSessions = $this->hasSettingsOperation(Operation::SETTINGS_USER_DELETE_SESSIONS);
 
             $userModels = (new UserModel())->exceptId($user->getId())->ordered()->findAll();
             foreach ($userModels as $userModel) {
@@ -333,7 +372,6 @@ class UserController extends AbstractController
                     "canUpdate"        => $userModel->isOwner() ? false : $canUpdate,
                     "canDelete"        => $userModel->isOwner() ? false : $canDelete,
                     "canViewSessions"  => $canViewSessions,
-                    "canDeleteSession" => $userModel->isOwner() ? false : $canDeleteSessions,
                     "isCurrent"        => false,
                 ];
             }

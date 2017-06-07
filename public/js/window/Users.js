@@ -59,34 +59,39 @@
                 $buttons = $tr.find(".buttons");
                 $buttons.addClass("align-right");
 
-                new TestS.Form({
-                    type: "button",
-                    class: "gray-button button-small",
-                    icon: "fa-users",
-                    label: data.labels.sessions,
-                    appendTo: $buttons,
-                    onClick: this._sessionsOnClick,
-                    data: {
-                        id: user.id,
-                        window: this._window
-                    }
-                });
+                if (user.canViewSessions === true) {
+                    new TestS.Form({
+                        type: "button",
+                        class: "gray-button button-small",
+                        icon: "fa-users",
+                        label: data.labels.sessions,
+                        appendTo: $buttons,
+                        onClick: this._sessionsOnClick,
+                        data: {
+                            id: user.id
+                        }
+                    });
+                }
 
-                new TestS.Form({
-                    type: "button",
-                    class: "gray-button button-small",
-                    icon: "fa-pencil",
-                    label: data.labels.edit,
-                    appendTo: $buttons
-                });
+                if (user.canUpdate === true) {
+                    new TestS.Form({
+                        type: "button",
+                        class: "gray-button button-small",
+                        icon: "fa-pencil",
+                        label: data.labels.edit,
+                        appendTo: $buttons
+                    });
+                }
 
-                new TestS.Form({
-                    type: "button",
-                    class: "gray-button button-small",
-                    icon: "fa-trash-o",
-                    label: data.labels.delete,
-                    appendTo: $buttons
-                });
+                if (user.canDelete === true) {
+                    new TestS.Form({
+                        type: "button",
+                        class: "gray-button button-small",
+                        icon: "fa-trash",
+                        label: data.labels.delete,
+                        appendTo: $buttons
+                    });
+                }
 
                 $table.append($tr);
             }, this));
@@ -115,9 +120,7 @@
          * @private
          */
         _sessionsOnClick: function (event) {
-            //event.data.id;
-            new TestS.Window.Users.Sessions();
-            //event.data.window.remove();
+            new TestS.Window.Users.Sessions({id: event.data.id});
         }
     };
 }(window.jQuery, window.TestS);

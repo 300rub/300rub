@@ -219,11 +219,17 @@
          * @private
          */
         _loadData: function() {
+            var ajaxData = {
+                controller: this._options.controller,
+                action: this._options.action
+            };
+
+            if ($.type(this._options.data) === "object") {
+                ajaxData.data = this._options.data;
+            }
+
             new TestS.Ajax({
-                data: {
-                    controller: this._options.controller,
-                    action: this._options.action
-                },
+                data: ajaxData,
                 success: this._options.success,
                 error: $.proxy(this.onError, this)
             });

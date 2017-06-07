@@ -95,4 +95,8 @@ return [
         Language::LANGUAGE_EN_ID => "Current",
         Language::LANGUAGE_RU_ID => "",
     ],
+    "deleteAllSessions" => [
+        Language::LANGUAGE_EN_ID => "Delete all sessions",
+        Language::LANGUAGE_RU_ID => "",
+    ]
 ];
