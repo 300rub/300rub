@@ -16,6 +16,7 @@ class DesignRecordCloneModel extends AbstractModel
      * View types
      */
     const VIEW_TYPE_LIST = 0;
+    const VIEW_TYPE_GRID = 1;
 
     /**
      * Gets view type list
@@ -25,7 +26,8 @@ class DesignRecordCloneModel extends AbstractModel
     public static function getViewTypeList()
     {
         return [
-            self::VIEW_TYPE_LIST => ""
+            self::VIEW_TYPE_LIST => "",
+            self::VIEW_TYPE_GRID => "",
         ];
     }
 
