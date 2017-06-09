@@ -694,6 +694,8 @@ abstract class AbstractModel
                     continue;
                 }
 
+                $relationModel->withRelations();
+
                 $relationField = $this->_getRelationName($field);
                 $relationModel->setDb($this->getDb());
 
@@ -702,9 +704,10 @@ abstract class AbstractModel
                 } else {
                     $relationAlias = $alias . Db::SEPARATOR . $relationField;
                 }
-                $relationModel->setDbBeforeFind($relationAlias);
 
                 $db->addJoin($relationModel->getTableName(), $relationAlias, $alias, $field);
+
+                $relationModel->setDbBeforeFind($relationAlias);
             }
         }
 

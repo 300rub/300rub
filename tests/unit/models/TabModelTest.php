@@ -29,8 +29,39 @@ class TabModelTest extends AbstractModelTest
      */
     protected function getDataProviderCRUDEmpty()
     {
-        $this->markTestSkipped();
-        return [];
+        return [
+            "empty1" => [
+                [],
+                [
+                    "designTabsModel" => [
+                        "containerDesignBlockModel" => [
+                            "marginTop" => 0
+                        ],
+                        "tabDesignBlockModel"     => [
+                            "marginTop" => 0
+                        ],
+                        "tabDesignTextModel"      => [
+                            "size" => 0
+                        ],
+                        "contentDesignBlockModel"     => [
+                            "marginTop" => 0
+                        ],
+                    ],
+                    "textModel"       => [
+                        "designTextModel"  => [
+                            "size" => 0
+                        ],
+                        "designBlockModel" => [
+                            "marginTop" => 0
+                        ],
+                        "type"          => 0,
+                        "hasEditor"     => false,
+                    ],
+                    "isShowEmpty"     => false,
+                    "isLazyLoad"      => false,
+                ]
+            ]
+        ];
     }
 
     /**
@@ -40,7 +71,6 @@ class TabModelTest extends AbstractModelTest
      */
     protected function getDataProviderCRUDCorrect()
     {
-        $this->markTestSkipped();
         return [];
     }
 
@@ -51,7 +81,6 @@ class TabModelTest extends AbstractModelTest
      */
     protected function getDataProviderCRUDIncorrect()
     {
-        $this->markTestSkipped();
         return [];
     }
 
