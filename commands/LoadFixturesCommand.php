@@ -30,6 +30,8 @@ class LoadFixturesCommand extends AbstractCommand
         "grid",
 		"userSettingsOperation",
 		"tab",
+		"tabGroup",
+		"tabTemplate",
     ];
 
 	/**

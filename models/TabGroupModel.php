@@ -29,7 +29,7 @@ class TabGroupModel extends AbstractModel
     {
         return [
             "tabId" => [
-                self::FIELD_RELATION => "TabModel",
+                self::FIELD_RELATION_TO_PARENT => "TabModel",
             ],
         ];
     }
