@@ -29,8 +29,61 @@ class SettingsModelTest extends AbstractModelTest
      */
     protected function getDataProviderCRUDEmpty()
     {
-        $this->markTestSkipped();
-        return [];
+        return [
+            "empty1" => [
+                [],
+                [],
+                [],
+                [],
+                self::EXCEPTION_CONTENT
+            ],
+            "empty2" => [
+                [
+                    "type"  => "",
+                    "value" => "",
+                ],
+                [],
+                [],
+                [],
+                self::EXCEPTION_CONTENT
+            ],
+            "empty3" => [
+                [
+                    "type"  => null,
+                    "value" => null,
+                ],
+                [],
+                [],
+                [],
+                self::EXCEPTION_CONTENT
+            ],
+            "empty4" => [
+                [
+                    "value" => "111",
+                ],
+                [],
+                [],
+                [],
+                self::EXCEPTION_CONTENT
+            ],
+            "empty5" => [
+                [
+                    "type" => "icon",
+                ],
+                [
+                    "value" => ["required"]
+                ],
+            ],
+            "empty6" => [
+                [
+                    "type"  => "icon",
+                    "value" => "",
+                ],
+                [
+                    "value" => ["required"]
+                ],
+            ],
+        ];
     }
 
     /**
@@ -40,8 +93,25 @@ class SettingsModelTest extends AbstractModelTest
      */
     protected function getDataProviderCRUDCorrect()
     {
-        $this->markTestSkipped();
-        return [];
+        return [
+            "correct1" => [
+                [
+                    "type"  => "icon",
+                    "value" => "file_path.ico"
+                ],
+                [
+                    "type"  => "icon",
+                    "value" => "file_path.ico"
+                ],
+                [
+                    "value" => "new_file_path.ico"
+                ],
+                [
+                    "type"  => "icon",
+                    "value" => "new_file_path.ico"
+                ],
+            ]
+        ];
     }
 
     /**
@@ -51,8 +121,45 @@ class SettingsModelTest extends AbstractModelTest
      */
     protected function getDataProviderCRUDIncorrect()
     {
-        $this->markTestSkipped();
-        return [];
+        return [
+            "incorrect1" => [
+                [
+                    "type"  => "incorrect",
+                    "value" => "value"
+                ],
+                [],
+                [],
+                [],
+                self::EXCEPTION_CONTENT
+            ],
+            "incorrect2" => [
+                [
+                    "type"  => "icon",
+                    "value" => "icon_file_path.ico"
+                ],
+                [
+                    "type"  => "icon",
+                    "value" => "icon_file_path.ico"
+                ],
+                [
+                    "type"  => "appleTouchIcon57",
+                    "value" => "apple_icon_file_path.png"
+                ],
+                [
+                    "type"  => "icon",
+                    "value" => "apple_icon_file_path.png"
+                ]
+            ],
+            "incorrect3" => [
+                [
+                    "type"  => "icon",
+                    "value" => $this->generateStringWithLength(256)
+                ],
+                [
+                    "value" => ["maxLength"]
+                ],
+            ],
+        ];
     }
 
     /**
@@ -62,7 +169,14 @@ class SettingsModelTest extends AbstractModelTest
      */
     public function testDuplicate()
     {
-        $this->markTestSkipped();
-        return [];
+        $this->duplicate(
+            [
+                "type"  => "icon",
+                "value" => "icon_file_path.ico"
+            ],
+            [
+                "value" => ["required"]
+            ]
+        );
     }
 }

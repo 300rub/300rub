@@ -16,6 +16,7 @@ class SiteMapModel extends AbstractModel
      * Styles
      */
     const STYLE_COMMON = 0;
+    const STYLE_ONE = 1;
 
     /**
      * Gets a list of types
@@ -26,6 +27,7 @@ class SiteMapModel extends AbstractModel
     {
         return [
             self::STYLE_COMMON => "",
+            self::STYLE_ONE    => "",
         ];
     }
 

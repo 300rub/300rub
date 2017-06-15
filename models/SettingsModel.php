@@ -2,6 +2,7 @@
 
 namespace testS\models;
 
+use testS\components\Validator;
 use testS\components\ValueGenerator;
 
 /**
@@ -13,13 +14,22 @@ class SettingsModel extends AbstractModel
 {
 
     /**
+     * Types
+     */
+    const ICON = "icon";
+    const APPLE_TOUCH_ICON_57 = "appleTouchIcon57";
+
+    /**
      * Gets a list of types
      *
      * @return array
      */
     public static function getTypeList()
     {
-        return [];
+        return [
+            self::ICON                => "",
+            self::APPLE_TOUCH_ICON_57 => "",
+        ];
     }
 
     /**
@@ -52,9 +62,16 @@ class SettingsModel extends AbstractModel
                 self::FIELD_VALUE => [
                     ValueGenerator::ARRAY_KEY => [self::getTypeList()]
                 ],
+                self::FIELD_NOT_CHANGE_ON_UPDATE => true,
+                self::FIELD_SKIP_DUPLICATION => true,
             ],
             "value"       => [
-                self::FIELD_TYPE => self::FIELD_TYPE_STRING
+                self::FIELD_TYPE => self::FIELD_TYPE_STRING,
+                self::FIELD_VALIDATION => [
+                    Validator::TYPE_REQUIRED,
+                    Validator::TYPE_MAX_LENGTH => 255
+                ],
+                self::FIELD_SKIP_DUPLICATION => true,
             ],
         ];
     }
