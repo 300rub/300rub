@@ -369,7 +369,12 @@ abstract class AbstractModelTest extends AbstractUnitTest
         $model = $this->getNewModel()->byId($model->getId())->withRelations()->find();
 
         // Duplicate
-        $duplicatedModel = $model->duplicate();
+        try {
+            $duplicatedModel = $model->duplicate();
+        } catch (\Exception $e) {
+            $model->delete();
+            throw $e;
+        }
         $errors = $duplicatedModel->getErrors();
         if (count($errors) > 0) {
             $this->compareExpectedAndActual($duplicateExpected, $errors, true);

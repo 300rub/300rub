@@ -2,6 +2,7 @@
 
 namespace testS\models;
 
+use testS\components\Db;
 use testS\components\Language;
 use testS\components\ValueGenerator;
 
@@ -49,8 +50,10 @@ class SectionModel extends AbstractModel
                 ],
             ],
             "isMain"        => [
-                self::FIELD_TYPE => self::FIELD_TYPE_BOOL
-            ]
+                self::FIELD_TYPE             => self::FIELD_TYPE_BOOL,
+                self::FIELD_SKIP_DUPLICATION => true,
+                self::FIELD_BEFORE_SAVE      => ["generateIsMain"]
+            ],
         ];
     }
 
@@ -62,7 +65,43 @@ class SectionModel extends AbstractModel
     public function ordered()
     {
         $this->getDb()->setOrder(sprintf("%s.name", "seoModel"));
+        return $this;
+    }
+
+    /**
+     * Adds isMain = 1 condition to SQL request
+     *
+     * @param int $language
+     *
+     * @return UserModel
+     */
+    public function main($language = null)
+    {
+        if ($language === null) {
+            $language = Language::getActiveId();
+        }
+
+        $this->getDb()->addWhere(sprintf("%s.isMain = :isMain", Db::DEFAULT_ALIAS));
+        $this->getDb()->addWhere(sprintf("%s.language = :language", Db::DEFAULT_ALIAS));
+        $this->getDb()->addParameter("isMain", 1);
+        $this->getDb()->addParameter("language", $language);
 
         return $this;
+    }
+
+    /**
+     * Generates isMain
+     *
+     * @param bool $value
+     *
+     * @return bool
+     */
+    protected function generateIsMain($value)
+    {
+        if ($value !== true) {
+            return false;
+        }
+
+        return $this->main($this->get("language"))->find() === null;
     }
 }

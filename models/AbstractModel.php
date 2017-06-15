@@ -1311,7 +1311,14 @@ abstract class AbstractModel
 
         foreach ($this->getFieldsInfo() as $field => $info) {
             if (array_key_exists(self::FIELD_SKIP_DUPLICATION, $info)) {
-                $duplicateModel->_fields[$field] = null;
+                if (array_key_exists(self::FIELD_RELATION, $info)
+                    || array_key_exists(self::FIELD_RELATION_TO_PARENT, $info)
+                ) {
+                    $duplicateModel->_fields[$field] = null;
+                } else {
+                    $duplicateModel->set([$field => null]);
+                }
+
                 continue;
             }
 

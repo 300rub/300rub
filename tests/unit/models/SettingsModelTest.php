@@ -174,9 +174,8 @@ class SettingsModelTest extends AbstractModelTest
                 "type"  => "icon",
                 "value" => "icon_file_path.ico"
             ],
-            [
-                "value" => ["required"]
-            ]
+            [],
+            self::EXCEPTION_CONTENT
         );
     }
 }
