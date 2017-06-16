@@ -29,8 +29,70 @@ class GridModelTest extends AbstractModelTest
      */
     protected function getDataProviderCRUDEmpty()
     {
-        $this->markTestSkipped();
-        return [];
+        return [
+            "empty1" => [
+                [],
+                [],
+                [],
+                [],
+                self::EXCEPTION_MODEL
+            ],
+            "empty2" => [
+                [
+                    "blockId"    => "",
+                    "gridLineId" => "",
+                    "x"          => "",
+                    "y"          => "",
+                    "width"      => "",
+                ],
+                [],
+                [],
+                [],
+                self::EXCEPTION_MODEL
+            ],
+            "empty3" => [
+                [
+                    "blockId"    => 1,
+                    "gridLineId" => "",
+                    "x"          => "",
+                    "y"          => "",
+                    "width"      => "",
+                ],
+                [],
+                [],
+                [],
+                self::EXCEPTION_MODEL
+            ],
+            "empty4" => [
+                [
+                    "blockId"    => "",
+                    "gridLineId" => 1,
+                    "x"          => "",
+                    "y"          => "",
+                    "width"      => "",
+                ],
+                [],
+                [],
+                [],
+                self::EXCEPTION_MODEL
+            ],
+            "empty5" => [
+                [
+                    "blockId"    => 1,
+                    "gridLineId" => 1,
+                    "x"          => "",
+                    "y"          => "",
+                    "width"      => "",
+                ],
+                [
+                    "blockId"    => 1,
+                    "gridLineId" => 1,
+                    "x"          => 0,
+                    "y"          => 0,
+                    "width"      => 3,
+                ],
+            ]
+        ];
     }
 
     /**
@@ -40,8 +102,24 @@ class GridModelTest extends AbstractModelTest
      */
     protected function getDataProviderCRUDCorrect()
     {
-        $this->markTestSkipped();
-        return [];
+        return [
+            "correct1" => [
+                [
+                    "blockId"    => 1,
+                    "gridLineId" => 1,
+                    "x"          => 4,
+                    "y"          => 1,
+                    "width"      => 6,
+                ],
+                [
+                    "blockId"    => 1,
+                    "gridLineId" => 1,
+                    "x"          => 4,
+                    "y"          => 1,
+                    "width"      => 6,
+                ]
+            ]
+        ];
     }
 
     /**
@@ -51,8 +129,83 @@ class GridModelTest extends AbstractModelTest
      */
     protected function getDataProviderCRUDIncorrect()
     {
-        $this->markTestSkipped();
-        return [];
+        return [
+            "incorrect1" => [
+                [
+                    "blockId"    => "incorrect",
+                    "gridLineId" => "incorrect",
+                    "x"          => "incorrect",
+                    "y"          => "incorrect",
+                    "width"      => "incorrect",
+                ],
+                [],
+                [],
+                [],
+                self::EXCEPTION_MODEL
+            ],
+            "incorrect2" => [
+                [
+                    "blockId"    => " 1",
+                    "gridLineId" => " 1",
+                    "x"          => " 2",
+                    "y"          => " 3",
+                    "width"      => " 4",
+                ],
+                [
+                    "blockId"    => 1,
+                    "gridLineId" => 1,
+                    "x"          => 2,
+                    "y"          => 3,
+                    "width"      => 4,
+                ],
+            ],
+            "incorrect3" => [
+                [
+                    "blockId"    => 1,
+                    "gridLineId" => 1,
+                    "x"          => 13,
+                    "y"          => -5,
+                    "width"      => 19,
+                ],
+                [
+                    "blockId"    => 1,
+                    "gridLineId" => 1,
+                    "x"          => 11,
+                    "y"          => 0,
+                    "width"      => 1,
+                ],
+            ],
+            "incorrect4" => [
+                [
+                    "blockId"    => 1,
+                    "gridLineId" => 1,
+                    "x"          => -4,
+                    "width"      => 0,
+                ],
+                [
+                    "blockId"    => 1,
+                    "gridLineId" => 1,
+                    "x"          => 0,
+                    "y"          => 0,
+                    "width"      => 3,
+                ],
+            ],
+            "incorrect5" => [
+                [
+                    "blockId"    => 1,
+                    "gridLineId" => 1,
+                    "x"          => 10,
+                    "width"      => 0,
+                ],
+                [
+                    "blockId"    => 1,
+                    "gridLineId" => 1,
+                    "x"          => 10,
+                    "y"          => 0,
+                    "width"      => 2,
+                ],
+            ]
+        ];
     }
 
     /**
@@ -62,7 +215,21 @@ class GridModelTest extends AbstractModelTest
      */
     public function testDuplicate()
     {
-        $this->markTestSkipped();
-        return [];
+        $this->duplicate(
+            [
+                "blockId"    => 1,
+                "gridLineId" => 1,
+                "x"          => 4,
+                "y"          => 1,
+                "width"      => 6,
+            ],
+            [
+                "blockId"    => 1,
+                "gridLineId" => 1,
+                "x"          => 4,
+                "y"          => 1,
+                "width"      => 6,
+            ]
+        );
     }
 }

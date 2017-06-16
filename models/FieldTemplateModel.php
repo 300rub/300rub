@@ -17,11 +17,13 @@ class FieldTemplateModel extends AbstractModel
      * Types
      */
     const TYPE_TEXT_FIELD = 0;
+    const TYPE_DROP_DOWN = 1;
 
     /**
      * Validation types
      */
     const VALIDATION_FREE_TEXT = 0;
+    const VALIDATION_NUMBER = 1;
 
     /**
      * Gets a list of types
@@ -31,7 +33,8 @@ class FieldTemplateModel extends AbstractModel
     public static function getTypeList()
     {
         return [
-            self::TYPE_TEXT_FIELD => ""
+            self::TYPE_TEXT_FIELD => "",
+            self::TYPE_DROP_DOWN => "",
         ];
     }
 
@@ -43,7 +46,8 @@ class FieldTemplateModel extends AbstractModel
     public static function getValidationTypeList()
     {
         return [
-            self::VALIDATION_FREE_TEXT => ""
+            self::VALIDATION_FREE_TEXT => "",
+            self::VALIDATION_NUMBER => "",
         ];
     }
 
@@ -74,6 +78,7 @@ class FieldTemplateModel extends AbstractModel
             "label"              => [
                 self::FIELD_TYPE       => self::FIELD_TYPE_STRING,
                 self::FIELD_VALIDATION => [
+                    Validator::TYPE_REQUIRED,
                     Validator::TYPE_MAX_LENGTH => 255,
                 ],
                 self::FIELD_VALUE      => [
