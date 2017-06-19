@@ -92,7 +92,17 @@
                         class: "gray-button button-small",
                         icon: "fa-trash",
                         label: data.labels.delete,
-                        appendTo: $buttons
+                        appendTo: $buttons,
+                        confirm: {
+                            text: "aaaaaaaa",
+                            yes: {
+                                text: "Yess",
+                                icon: "fa-trash"
+                            },
+                            no: {
+                                text: "Nooo"
+                            }
+                        }
                         // onClick: this._sessionsOnClick,
                         // data: {
                         //     id: user.id
