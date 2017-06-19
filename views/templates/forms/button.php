@@ -5,3 +5,10 @@
     </span>
     <span class="label-text"></span>
 </button>
+
+<div class="confirm-window">
+    <div class="text"></div>
+    <div class="buttons"></div>
+</div>
+
+<div class="confirm-overlay"></div>

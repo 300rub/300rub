@@ -186,6 +186,8 @@ class UserController extends AbstractController
             ];
         }
 
+        $this->checkSettingsOperation(Operation::SETTINGS_USER_DELETE_SESSIONS);
+
         $token = $data["token"];
 
         if (!is_string($token)
@@ -199,18 +201,12 @@ class UserController extends AbstractController
             );
         }
 
+        $owner = (new UserModel())->owner()->find();
         $userSessionModel = (new UserSessionModel())->byToken($token)->find();
         if ($userSessionModel instanceof UserSessionModel) {
-            if ($userSessionModel->get("userId") !== $user->getId()) {
+            if ($owner->getId() === $userSessionModel->get("userId")) {
                 throw new AccessException(
-                    "Unable to delete UserSession " .
-                    "with token: {token}, ID: {id}, userId: {userId} by user with ID: {currentUserId}",
-                    [
-                        "token"         => $token,
-                        "id"            => $userSessionModel->getId(),
-                        "userId"        => $userSessionModel->get("userId"),
-                        "currentUserId" => $user->getId(),
-                    ]
+                    "Unable to delete owner's session"
                 );
             }
 

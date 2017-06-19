@@ -94,19 +94,31 @@
                         label: data.labels.delete,
                         appendTo: $buttons,
                         confirm: {
-                            text: "aaaaaaaa",
+                            text: "Are you sure that you want to delete session",
                             yes: {
-                                text: "Yess",
+                                label: "Remove",
                                 icon: "fa-trash"
                             },
-                            no: {
-                                text: "Nooo"
+                            no: "No"
+                        },
+                        ajax: {
+                            data: {
+                                controller: "user",
+                                action: "session",
+                                data: {
+                                    token: session.token
+                                }
+                            },
+                            type: "DELETE",
+                            error: $.proxy(this._window.onError, this._window),
+                            success: function() {
+                                if (session.token === TestS.getToken()) {
+                                    window.location.reload();
+                                } else {
+                                    $tr.remove();
+                                }
                             }
                         }
-                        // onClick: this._sessionsOnClick,
-                        // data: {
-                        //     id: user.id
-                        // }
                     });
                 }
 

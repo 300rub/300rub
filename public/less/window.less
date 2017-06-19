@@ -152,3 +152,39 @@
 .window-overlay.level-2 {
   z-index: 1020;
 }
+
+.confirm-overlay {
+  z-index: 10000;
+  position: fixed;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.confirm-window {
+  z-index: 10010;
+  position: absolute;
+  .border-radius(6px);
+  background: white;
+  border: 1px solid @darkGrayBorderColor;
+  box-shadow: 0 5px 15px rgba(0,0,0,.5);
+  padding: 15px;
+  text-align: center;
+
+  .buttons {
+    white-space: nowrap;
+
+    .icons {
+      width: 22px;
+      text-align: center;
+      display: inline-block;
+      margin: 0 -2px 0 -5px;
+    }
+  }
+
+  .text {
+    font-size: 12px;
+    margin-bottom: 5px;
+  }
+}

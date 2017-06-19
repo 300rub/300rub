@@ -175,34 +175,74 @@
             } else if ($.type(this._options.ajax) === "object"
                 && !this.$_form.hasClass("disabled")
             ) {
-                this.$_form.on("click", $.proxy(function() {
-                    var $icon = this.$_form.find(".icons .icon");
-                    var $spinner = this.$_form.find(".icons .fa-spin");
-                    this.$_form.addClass("disabled");
+                if ($.type(this._options.confirm) === "object") {
+                    var $form = this.$_form;
+                    $form.on("click", $.proxy(function(){
+                        var $confirmWindow = TestS.Template.get("confirm-window");
+                        var $buttons = $confirmWindow.find(".buttons");
+                        var $confirmOverlay = TestS.Template.get("confirm-overlay");
+                        var $text = $confirmWindow.find(".text");
+                        $text.text(this._options.confirm.text);
 
-                    $icon.addClass("hidden");
-                    $spinner.removeClass("hidden");
+                        new TestS.Form({
+                            type: "button",
+                            class: "gray-button button-small",
+                            icon: this._options.confirm.yes.icon,
+                            label: this._options.confirm.yes.label,
+                            appendTo: $buttons,
+                            ajax: this._options.ajax
+                        });
 
-                    var ajax = this._options.ajax;
-                    ajax.complete = $.proxy(function() {
-                        $icon.removeClass("hidden");
-                        $spinner.addClass("hidden");
-                        this.$_form. removeClass("disabled");
-                    }, this);
+                        new TestS.Form({
+                            type: "button",
+                            class: "gray-button button-small",
+                            icon: "fa-ban",
+                            label: this._options.confirm.no,
+                            appendTo: $buttons,
+                            onClick: function () {
+                                $confirmWindow.remove();
+                                $confirmOverlay.remove();
+                            }
+                        });
 
-                    new TestS.Ajax(ajax);
-                }, this));
+                        $form
+                            .after($confirmOverlay)
+                            .after($confirmWindow);
+
+                        $confirmOverlay.on("click", function() {
+                            $confirmWindow.remove();
+                            $confirmOverlay.remove();
+                        });
+
+                        $confirmWindow.css("margin-top", "-" + $confirmWindow.outerHeight() / 2 + "px");
+                        $confirmWindow.css("margin-left", "-" + $confirmWindow.outerWidth() / 2 + "px");
+                    }, this));
+                } else {
+                    this.$_form.on("click", $.proxy(function () {
+                        var $icon = this.$_form.find(".icons .icon");
+                        var $spinner = this.$_form.find(".icons .fa-spin");
+                        this.$_form.addClass("disabled");
+
+                        $icon.addClass("hidden");
+                        $spinner.removeClass("hidden");
+
+                        var ajax = this._options.ajax;
+                        ajax.complete = $.proxy(function () {
+                            $icon.removeClass("hidden");
+                            $spinner.addClass("hidden");
+                            this.$_form.removeClass("disabled");
+                        }, this);
+
+                        new TestS.Ajax(ajax);
+                    }, this));
+                }
             }
 
             if ($.type(this._options.onClick) === "function") {
-                if ($.type("confirm") === "object") {
-                    
+                if ($.type(this._options.data) === "object") {
+                    this.$_form.on("click", this._options.data, this._options.onClick);
                 } else {
-                    if ($.type(this._options.data) === "object") {
-                        this.$_form.on("click", this._options.data, this._options.onClick);
-                    } else {
-                        this.$_form.on("click", this._options.onClick);
-                    }
+                    this.$_form.on("click", this._options.onClick);
                 }
             }
         },

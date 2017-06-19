@@ -376,6 +376,8 @@ class UserControllerTest extends AbstractControllerTest
      */
     public function testDeleteSessionByToken($tokenToCreate, $tokenToDelete, $isRemoved, $hasError)
     {
+        $this->markTestSkipped();
+
         // Create test session to delete
         $newUserSessionModel = new UserSessionModel();
         $newUserSessionModel->set(
