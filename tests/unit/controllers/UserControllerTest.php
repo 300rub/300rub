@@ -264,63 +264,51 @@ class UserControllerTest extends AbstractControllerTest
     }
 
     /**
-     * Test for deleteSession method
+     * Test for deleteSession
      *
-     * @param string $userType
+     * @param string $user
      * @param string $token
-     * @param string $sessionId
-     * @param bool   $isRemoved
+     * @param bool $hasError
+     *
+     * @return bool
      *
      * @dataProvider dataProviderForTestDeleteSession
      */
-    public function testDeleteSession($userType, $token = "", $sessionId = "", $isRemoved = true)
+    public function testDeleteSession($user, $token = null, $hasError = false)
     {
         $memcached = App::getInstance()->getMemcached();
+        $this->setUser($user);
 
-        // Set user
-        $this->setUser($userType, $token, $sessionId);
+        $sessionsCountBeforeDelete = count((new UserSessionModel())->findAll());
 
-        // Getting session before delete
-        $sessionBeforeDelete = (new UserSessionModel())->byToken($this->getUserToken())->find();
-
-        if ($isRemoved === true) {
-            $this->assertInstanceOf("\\testS\\models\\UserSessionModel", $sessionBeforeDelete);
+        if ($token !== null) {
+            $sessionModel = (new UserSessionModel())->byToken($token)->find();
+            $this->sendRequest("user", "session", ["token" => $token], "DELETE");
         } else {
-            $this->assertNull($sessionBeforeDelete);
+            $sessionModel = (new UserSessionModel())->byToken($this->getUserToken())->find();
+            $this->sendRequest("user", "session", [], "DELETE");
         }
 
-        // Getting all sessions
-        $sessionsCountBeforeLogOut = count((new UserSessionModel())->findAll());
+        $sessionsCountAfterDelete = count((new UserSessionModel())->findAll());
 
-        // Send request
-        $this->sendRequest("user", "session", [], "DELETE");
-
-        // Check sessions in DB and Memcached
-        $sessionsCountAfterLogOut = count((new UserSessionModel())->findAll());
-        if ($isRemoved === true) {
-            $this->assertSame($sessionsCountBeforeLogOut - 1, $sessionsCountAfterLogOut);
-
-            $sessionAfterDelete = (new UserSessionModel())->byToken($this->getUserToken())->find();
-            $this->assertNull($sessionAfterDelete);
-
-            // Check memcached
-            $memcachedResult = $memcached->get($sessionBeforeDelete->get("token"));
-            $this->assertFalse($memcachedResult);
+        if ($hasError === true) {
+            $this->assertError();
+            $this->assertSame($sessionsCountBeforeDelete, $sessionsCountAfterDelete);
+            return true;
         } else {
-            $this->assertSame($sessionsCountBeforeLogOut, $sessionsCountAfterLogOut);
+            $this->assertSame($sessionsCountBeforeDelete - 1, $sessionsCountAfterDelete);
+            $sessionModel->clearId()->save();
+
+            $expectedBody = [
+                "result" => true
+            ];
+            $this->assertSame($expectedBody, $this->getBody());
         }
 
-        // Check body
-        $actualBody = $this->getBody();
-        $expectedBody = [
-            "result" => true
-        ];
-        $this->assertSame($expectedBody, $actualBody);
+        $memcachedResult = $memcached->get($sessionModel->get("token"));
+        $this->assertFalse($memcachedResult);
 
-        // Rollback session
-        if ($isRemoved === true) {
-            $sessionBeforeDelete->clearId()->save();
-        }
+        return true;
     }
 
     /**
@@ -331,112 +319,53 @@ class UserControllerTest extends AbstractControllerTest
     public function dataProviderForTestDeleteSession()
     {
         return [
-            "guest"    => [
-                null,
-                "",
-                "",
-                false
-            ],
-            "owner"    => [
+            "ownerDeleteOwner" => [
                 self::TYPE_OWNER,
-                "",
-                "",
-                true
+                "c4ca4238a0b923820dcc509a6f75849b"
             ],
-            "admin"    => [
+            "ownerDeleteHimself" => [
+                self::TYPE_OWNER
+            ],
+            "ownerDeleteAdmin" => [
+                self::TYPE_OWNER,
+                "c81e728d9d4c2f636f067f89cc14862c"
+            ],
+            "ownerDeleteUser" => [
+                self::TYPE_OWNER,
+                "eccbc87e4b5ce2fe28308fd9f2a7baf3"
+            ],
+            "adminDeleteOwner" => [
                 self::TYPE_FULL,
-                "",
-                "",
+                "c4ca4238a0b923820dcc509a6f75849b",
                 true
             ],
-            "user"     => [
+            "adminDeleteHimself" => [
+                self::TYPE_OWNER
+            ],
+            "adminDeleteAdmin" => [
+                self::TYPE_OWNER,
+                "c81e728d9d4c2f636f067f89cc14862c",
+            ],
+            "adminDeleteUser" => [
+                self::TYPE_OWNER,
+                "eccbc87e4b5ce2fe28308fd9f2a7baf3",
+            ],
+            "limitedDeleteOwner" => [
                 self::TYPE_LIMITED,
-                "",
-                "",
+                "c4ca4238a0b923820dcc509a6f75849b",
                 true
             ],
-            "badToken" => [
-                null,
-                "incorrect",
-                null,
-                false
+            "limitedDeleteHimself" => [
+                self::TYPE_LIMITED
             ],
-        ];
-    }
-
-    /**
-     * Test for deleteSession method with token data
-     *
-     * @param string $tokenToCreate
-     * @param string $tokenToDelete
-     * @param bool   $isRemoved
-     * @param bool   $hasError
-     *
-     * @dataProvider dataProviderForTestDeleteSessionByToken
-     */
-    public function testDeleteSessionByToken($tokenToCreate, $tokenToDelete, $isRemoved, $hasError)
-    {
-        $this->markTestSkipped();
-
-        // Create test session to delete
-        $newUserSessionModel = new UserSessionModel();
-        $newUserSessionModel->set(
-            [
-                "userId" => 1,
-                "token"  => $tokenToCreate,
-                "ip"     => "127.0.0.7",
-                "ua"     => ""
-            ]
-        );
-        $newUserSessionModel->save();
-
-        $allUserSessionModelsBeforeDelete = (new UserSessionModel())->findAll();
-
-        // Delete latest session
-        $this->sendRequest("user", "session", ["token" => $tokenToDelete], "DELETE");
-
-        $allUserSessionModelsAfterDelete = (new UserSessionModel())->findAll();
-
-        if ($isRemoved === true) {
-            $this->assertSame(count($allUserSessionModelsBeforeDelete) - 1, count($allUserSessionModelsAfterDelete));
-            $expectedBody = [
-                "result" => true
-            ];
-            $this->assertSame($expectedBody, $this->getBody());
-        } else {
-            $this->assertSame(count($allUserSessionModelsBeforeDelete), count($allUserSessionModelsAfterDelete));
-            $this->assertTrue(array_key_exists("error", $this->getBody()) === $hasError);
-
-            $newUserSessionModel->delete();
-        }
-    }
-
-    /**
-     * Data provider for testDeleteSessionByToken
-     *
-     * @return array
-     */
-    public function dataProviderForTestDeleteSessionByToken()
-    {
-        $token = $this->generateStringWithLength(32);
-
-        return [
-            "ownerSuccess"     => [
-                $token,
-                $token,
-                true,
-                false
+            "limitedDeleteAdmin" => [
+                self::TYPE_LIMITED,
+                "c81e728d9d4c2f636f067f89cc14862c",
+                true
             ],
-            "tokenNotExist"    => [
-                $token,
-                $this->generateStringWithLength(32),
-                false,
-                false
-            ],
-            "anotherUserToken" => [
-                $token,
-                self::TOKEN_FULL,
-                false,
+            "limitedDeleteUser" => [
+                self::TYPE_LIMITED,
+                "eccbc87e4b5ce2fe28308fd9f2a7baf3",
                 true
             ],
         ];

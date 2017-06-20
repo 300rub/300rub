@@ -204,7 +204,9 @@ class UserController extends AbstractController
         $owner = (new UserModel())->owner()->find();
         $userSessionModel = (new UserSessionModel())->byToken($token)->find();
         if ($userSessionModel instanceof UserSessionModel) {
-            if ($owner->getId() === $userSessionModel->get("userId")) {
+            if ($owner->getId() === $userSessionModel->get("userId")
+                && !$user->isOwner()
+            ) {
                 throw new AccessException(
                     "Unable to delete owner's session"
                 );

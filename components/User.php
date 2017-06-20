@@ -147,4 +147,14 @@ class User
     {
         return $this->_type;
     }
+
+    /**
+     * Is owner flag
+     *
+     * @return bool
+     */
+    public function isOwner()
+    {
+        return $this->getType() === UserModel::TYPE_OWNER;
+    }
 }
