@@ -222,6 +222,71 @@ class UserController extends AbstractController
     }
 
     /**
+     * Deletes all user sessions except current
+     *
+     * Removed DR record and memcached record
+     *
+     * @throws BadRequestException
+     * @throws AccessException
+     *
+     * @return array "result" => true
+     */
+    public function deleteSessions()
+    {
+        $this->checkUser();
+        $user = App::web()->getUser();
+
+        $data = $this->getData();
+
+        $id = 0;
+        if (array_key_exists("id", $data)) {
+            $id = (int) $data["id"];
+        }
+
+        if ($id === 0
+            || $id === $user->getId()
+        ) {
+            $userSessionModels = (new UserSessionModel())
+                ->byUserId($id)
+                ->exceptToken($user->getToken())
+                ->findAll();
+        } else {
+            $this->checkSettingsOperation(Operation::SETTINGS_USER_DELETE_SESSIONS);
+
+            $userModel = (new UserModel)->byId($id)->find();
+            if ($userModel === null) {
+                throw new BadRequestException(
+                    "Unable to find UserModel with ID: {id}",
+                    [
+                        "id" => $id
+                    ]
+                );
+            }
+
+            if ($userModel->isOwner()
+                && !$user->isOwner()
+            ) {
+                throw new AccessException(
+                    "Unable to remove sessions for owner"
+                );
+            }
+
+            $userSessionModels = (new UserSessionModel())
+                ->byUserId($id)
+                ->findAll();
+        }
+
+        foreach ($userSessionModels as $userSessionModel) {
+            App::web()->getMemcached()->delete($userSessionModel->get("token"));
+            $userSessionModel->delete();
+        }
+
+        return [
+            "result" => true
+        ];
+    }
+
+    /**
      * Gets all user sessions
      *
      * @returns array "result" => a list of sessions for current user
@@ -290,6 +355,7 @@ class UserController extends AbstractController
 
         return [
             "title" => Language::t("user", "sessions"),
+            "id"    => $id,
             "labels" => [
                 "token" => Language::t("user", "token"),
                 "lastActivity" => Language::t("user", "lastActivity"),
@@ -299,35 +365,19 @@ class UserController extends AbstractController
                 "current" => Language::t("user", "current"),
                 "delete" => Language::t("common", "delete"),
                 "deleteAllSessions" => Language::t("user", "deleteAllSessions"),
+                "deleteConfirm" => [
+                    "text" => Language::t("user", "deleteSessionConfirmText"),
+                    "yes" => Language::t("user", "deleteSessionConfirmYes"),
+                    "no" => Language::t("common", "no"),
+                ],
+                "deleteAllConfirm" => [
+                    "text" => Language::t("user", "deleteAllSessionsConfirmText"),
+                    "yes" => Language::t("user", "deleteAllSessionsConfirmYes"),
+                    "no" => Language::t("common", "no"),
+                ]
             ],
             "list" => $list,
             "canDelete" => $canDelete
-        ];
-    }
-
-    /**
-     * Deletes all user sessions except current
-     *
-     * Removed DR record and memcached record
-     *
-     * @return array "result" => true
-     */
-    public function deleteSessions()
-    {
-        $this->checkUser();
-
-        $userSessionModels = (new UserSessionModel())
-            ->byUserId(App::web()->getUser()->getId())
-            ->exceptToken(App::web()->getUser()->getToken())
-            ->findAll();
-
-        foreach ($userSessionModels as $userSessionModel) {
-            App::web()->getMemcached()->delete($userSessionModel->get("token"));
-            $userSessionModel->delete();
-        }
-
-        return [
-            "result" => true
         ];
     }
 

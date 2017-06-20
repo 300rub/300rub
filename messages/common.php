@@ -99,4 +99,8 @@ return [
         Language::LANGUAGE_EN_ID => "Open",
         Language::LANGUAGE_RU_ID => "",
     ],
+    "no" => [
+        Language::LANGUAGE_EN_ID => "No",
+        Language::LANGUAGE_RU_ID => "",
+    ]
 ];

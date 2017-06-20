@@ -98,5 +98,21 @@ return [
     "deleteAllSessions" => [
         Language::LANGUAGE_EN_ID => "Delete all sessions",
         Language::LANGUAGE_RU_ID => "",
-    ]
+    ],
+    "deleteSessionConfirmText" => [
+        Language::LANGUAGE_EN_ID => "Are you sure to delete the session?",
+        Language::LANGUAGE_RU_ID => "",
+    ],
+    "deleteSessionConfirmYes" => [
+        Language::LANGUAGE_EN_ID => "Yes, delete it",
+        Language::LANGUAGE_RU_ID => "",
+    ],
+    "deleteAllSessionsConfirmText" => [
+        Language::LANGUAGE_EN_ID => "Are you sure to delete all the sessions?",
+        Language::LANGUAGE_RU_ID => "",
+    ],
+    "deleteAllSessionsConfirmYes" => [
+        Language::LANGUAGE_EN_ID => "Yes, delete them",
+        Language::LANGUAGE_RU_ID => "",
+    ],
 ];

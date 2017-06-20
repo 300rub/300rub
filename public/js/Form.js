@@ -190,7 +190,15 @@
                             icon: this._options.confirm.yes.icon,
                             label: this._options.confirm.yes.label,
                             appendTo: $buttons,
-                            ajax: this._options.ajax
+                            ajax: $.extend(
+                                this._options.ajax,
+                                {
+                                    complete: function() {
+                                        $confirmWindow.remove();
+                                        $confirmOverlay.remove();
+                                    }
+                                }
+                            )
                         });
 
                         new TestS.Form({
@@ -205,17 +213,28 @@
                             }
                         });
 
-                        $form
-                            .after($confirmOverlay)
-                            .after($confirmWindow);
+                        TestS.append($confirmOverlay);
+                        TestS.append($confirmWindow);
 
                         $confirmOverlay.on("click", function() {
                             $confirmWindow.remove();
                             $confirmOverlay.remove();
                         });
 
-                        $confirmWindow.css("margin-top", "-" + $confirmWindow.outerHeight() / 2 + "px");
-                        $confirmWindow.css("margin-left", "-" + $confirmWindow.outerWidth() / 2 + "px");
+                        var left = $form.offset().left + $form.outerWidth() / 2 - $confirmWindow.outerWidth() / 2;
+                        if (left < 0) {
+                            left = 0;
+                        }
+
+                        var top = $form.offset().top + $form.outerHeight() / 2 - $confirmWindow.outerHeight() / 2;
+                        if (top < 0) {
+                            top = 0;
+                        }
+
+                        $confirmWindow.css({
+                            "left": left,
+                            "top": top
+                        });
                     }, this));
                 } else {
                     this.$_form.on("click", $.proxy(function () {
@@ -227,11 +246,13 @@
                         $spinner.removeClass("hidden");
 
                         var ajax = this._options.ajax;
-                        ajax.complete = $.proxy(function () {
-                            $icon.removeClass("hidden");
-                            $spinner.addClass("hidden");
-                            this.$_form.removeClass("disabled");
-                        }, this);
+                        if ($.type(ajax.complete) !== "function") {
+                            ajax.complete = $.proxy(function () {
+                                $icon.removeClass("hidden");
+                                $spinner.addClass("hidden");
+                                this.$_form.removeClass("disabled");
+                            }, this);
+                        }
 
                         new TestS.Ajax(ajax);
                     }, this));

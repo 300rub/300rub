@@ -70,6 +70,7 @@
 
             var $trTemplate = $table.find(".tr-template");
             var $tr, $buttons;
+            var canDeleteAll = false;
             $.each(data.list, $.proxy(function (i, session) {
                 $tr = $trTemplate.clone();
                 $tr.find(".browser-value").text(session.browser + " " + session.version);
@@ -86,7 +87,9 @@
                 $buttons = $tr.find(".buttons");
                 $buttons.addClass("align-right");
 
-                if (data.canDelete === true) {
+                if (data.canDelete === true
+                    && session.token !== TestS.getToken()
+                ) {
                     new TestS.Form({
                         type: "button",
                         class: "gray-button button-small",
@@ -94,12 +97,12 @@
                         label: data.labels.delete,
                         appendTo: $buttons,
                         confirm: {
-                            text: "Are you sure that you want to delete session",
+                            text: data.labels.deleteConfirm.text,
                             yes: {
-                                label: "Remove",
+                                label: data.labels.deleteConfirm.yes,
                                 icon: "fa-trash"
                             },
-                            no: "No"
+                            no: data.labels.deleteConfirm.no
                         },
                         ajax: {
                             data: {
@@ -120,6 +123,8 @@
                             }
                         }
                     });
+
+                    canDeleteAll = true;
                 }
 
                 $table.append($tr);
@@ -128,13 +133,33 @@
 
             this._window.getBody().append($table);
 
-            if (data.canDelete === true) {
+            if (canDeleteAll === true) {
                 new TestS.Form({
                     type: "button",
                     class: "gray-button button-medium margin-bottom-15",
                     icon: "fa-trash",
                     label: data.labels.deleteAllSessions,
-                    appendTo: this._window.getBody()
+                    appendTo: this._window.getBody(),
+                    confirm: {
+                        text: data.labels.deleteAllConfirm.text,
+                        yes: {
+                            label: data.labels.deleteAllConfirm.yes,
+                            icon: "fa-trash"
+                        },
+                        no: data.labels.deleteAllConfirm.no
+                    },
+                    ajax: {
+                        data: {
+                            controller: "user",
+                            action: "sessions",
+                            data: {
+                                id: data.id
+                            }
+                        },
+                        type: "DELETE",
+                        error: $.proxy(this._window.onError, this._window),
+                        success: $.proxy(this._window.remove, this._window)
+                    }
                 });
             }
 
