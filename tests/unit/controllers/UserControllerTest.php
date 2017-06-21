@@ -279,7 +279,7 @@ class UserControllerTest extends AbstractControllerTest
         $memcached = App::getInstance()->getMemcached();
         $this->setUser($user);
 
-        $sessionsCountBeforeDelete = count((new UserSessionModel())->findAll());
+        $sessionsCountBeforeDelete = (new UserSessionModel())->getCount();
 
         if ($token !== null) {
             $sessionModel = (new UserSessionModel())->byToken($token)->find();
@@ -289,7 +289,7 @@ class UserControllerTest extends AbstractControllerTest
             $this->sendRequest("user", "session", [], "DELETE");
         }
 
-        $sessionsCountAfterDelete = count((new UserSessionModel())->findAll());
+        $sessionsCountAfterDelete = (new UserSessionModel())->getCount();
 
         if ($hasError === true) {
             $this->assertError();
@@ -365,8 +365,111 @@ class UserControllerTest extends AbstractControllerTest
             ],
             "limitedDeleteUser" => [
                 self::TYPE_LIMITED,
-                "eccbc87e4b5ce2fe28308fd9f2a7baf3",
+                "eccbc87e4b5ce2fe28308fd9f2a7baf3"
+            ],
+        ];
+    }
+
+    /**
+     * Test for method deleteSessions
+     *
+     * @param string $user
+     * @param int $id
+     * @param bool $hasError
+     *
+     * @dataProvider dataProviderForTestDeleteSessions
+     */
+    public function testDeleteSessions($user, $id = null, $hasError = false)
+    {
+        $memcached = App::getInstance()->getMemcached();
+        $this->setUser($user);
+
+        $sessionsToDelete = (new UserSessionModel())->byUserId($id)->findAll();
+        foreach ($sessionsToDelete as $sessionModel) {
+            $this->assertNotNull($sessionModel);
+        }
+
+        if ($id === null) {
+            $this->sendRequest("user", "sessions", [], "DELETE");
+        } else {
+            $this->sendRequest("user", "sessions", ["id" => $id], "DELETE");
+        }
+
+        if ($hasError === true) {
+            $this->assertError();
+
+            foreach ($sessionsToDelete as $sessionModel) {
+                $this->assertNotNull((new UserSessionModel())->byId($sessionModel->getId())->find());
+            }
+        } else {
+            foreach ($sessionsToDelete as $sessionModel) {
+                if ($sessionModel->get("token") === $this->getUserToken()) {
+                    $this->assertNotNull((new UserSessionModel())->byId($sessionModel->getId())->find());
+                } else {
+                    $this->assertNull((new UserSessionModel())->byId($sessionModel->getId())->find());
+                    $memcachedResult = $memcached->get($sessionModel->get("token"));
+                    $this->assertFalse($memcachedResult);
+                    $sessionModel->clearId()->save();
+                }
+            }
+        }
+    }
+
+    /**
+     * Data provider for testDeleteSessions
+     *
+     * @return array
+     */
+    public function dataProviderForTestDeleteSessions()
+    {
+        return [
+            "ownerDeleteOwner" => [
+                self::TYPE_OWNER,
+                1
+            ],
+            "ownerDeleteHimself" => [
+                self::TYPE_OWNER
+            ],
+            "ownerDeleteAdmin" => [
+                self::TYPE_OWNER,
+                2
+            ],
+            "ownerDeleteUser" => [
+                self::TYPE_OWNER,
+                3
+            ],
+            "adminDeleteOwner" => [
+                self::TYPE_FULL,
+                1,
                 true
+            ],
+            "adminDeleteHimself" => [
+                self::TYPE_OWNER
+            ],
+            "adminDeleteAdmin" => [
+                self::TYPE_OWNER,
+                2
+            ],
+            "adminDeleteUser" => [
+                self::TYPE_OWNER,
+                3
+            ],
+            "limitedDeleteOwner" => [
+                self::TYPE_LIMITED,
+                1,
+                true
+            ],
+            "limitedDeleteHimself" => [
+                self::TYPE_LIMITED
+            ],
+            "limitedDeleteAdmin" => [
+                self::TYPE_LIMITED,
+                2,
+                true
+            ],
+            "limitedDeleteUser" => [
+                self::TYPE_LIMITED,
+                3
             ],
         ];
     }
@@ -426,58 +529,6 @@ class UserControllerTest extends AbstractControllerTest
 
         // Remove test session
         $newUserSessionModel->delete();
-    }
-
-    /**
-     * Test for deleteSessions method
-     */
-    public function testDeleteSessions()
-    {
-        $memcached = App::getInstance()->getMemcached();
-
-        /**
-         * @var UserModel $userModel
-         */
-        $userModel = (new UserModel)->byId(1)->find();
-
-        // Add 2 sessions for Owner
-        $newToken1 = $this->generateStringWithLength(32);
-        $newUserSessionModel1 = new UserSessionModel();
-        $newUserSessionModel1->set(
-            [
-                "userId" => 1,
-                "token"  => $newToken1,
-                "ip"     => "127.0.0.1",
-                "ua"     => "",
-            ]
-        );
-        $newUserSessionModel1->save();
-        $memcached->set($newToken1, new User($newToken1, $userModel));
-        $newToken2 = $this->generateStringWithLength(32);
-        $newUserSessionModel2 = new UserSessionModel();
-        $newUserSessionModel2->set(
-            [
-                "userId" => 1,
-                "token"  => $newToken2,
-                "ip"     => "127.0.0.2",
-                "ua"     => "",
-            ]
-        );
-        $newUserSessionModel2->save();
-        $memcached->set($newToken2, new User($newToken1, $userModel));
-
-        // Make sure that count of owner sessions >= 3
-        $this->assertTrue(3 <= (new UserSessionModel())->byUserId(1)->getCount());
-
-        // Delete sessions
-        $this->sendRequest("user", "sessions", [], "DELETE");
-
-        // Make sure that count of owner sessions is 1
-        $this->assertSame(1, (new UserSessionModel())->byUserId(1)->getCount());
-        $this->assertNull((new UserSessionModel())->byToken($newToken1)->find());
-        $this->assertNull((new UserSessionModel())->byToken($newToken2)->find());
-        $this->assertFalse($memcached->get($newToken1));
-        $this->assertFalse($memcached->get($newToken2));
     }
 
     /**

@@ -186,8 +186,6 @@ class UserController extends AbstractController
             ];
         }
 
-        $this->checkSettingsOperation(Operation::SETTINGS_USER_DELETE_SESSIONS);
-
         $token = $data["token"];
 
         if (!is_string($token)
@@ -203,6 +201,11 @@ class UserController extends AbstractController
 
         $owner = (new UserModel())->owner()->find();
         $userSessionModel = (new UserSessionModel())->byToken($token)->find();
+
+        if ($userSessionModel->get("userId") !== $user->getId()) {
+            $this->checkSettingsOperation(Operation::SETTINGS_USER_DELETE_SESSIONS);
+        }
+
         if ($userSessionModel instanceof UserSessionModel) {
             if ($owner->getId() === $userSessionModel->get("userId")
                 && !$user->isOwner()

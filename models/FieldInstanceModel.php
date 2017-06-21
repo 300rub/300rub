@@ -35,7 +35,7 @@ class FieldInstanceModel extends AbstractModel
                 self::FIELD_RELATION_TO_PARENT => "FieldGroupModel",
             ],
             "fieldTemplateId" => [
-                self::FIELD_RELATION => "FieldTemplateModel",
+                self::FIELD_RELATION_TO_PARENT => "FieldTemplateModel",
             ],
             "value"           => [
                 self::FIELD_TYPE       => self::FIELD_TYPE_STRING,

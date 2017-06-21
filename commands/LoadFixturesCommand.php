@@ -33,6 +33,8 @@ class LoadFixturesCommand extends AbstractCommand
 		"tabGroup",
 		"tabTemplate",
 		"field",
+		"fieldTemplate",
+		"fieldGroup",
     ];
 
 	/**
