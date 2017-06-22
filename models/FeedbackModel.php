@@ -49,7 +49,8 @@ class FeedbackModel extends AbstractModel
             "host"                  => [
                 self::FIELD_TYPE       => self::FIELD_TYPE_STRING,
                 self::FIELD_VALIDATION => [
-                    Validator::TYPE_MAX_LENGTH => 255
+                    Validator::TYPE_MAX_LENGTH => 255,
+                    ValueGenerator::CLEAR_STRIP_TAGS
                 ],
             ],
             "port"                  => [
@@ -60,12 +61,18 @@ class FeedbackModel extends AbstractModel
                 self::FIELD_VALIDATION => [
                     Validator::TYPE_MAX_LENGTH => 25
                 ],
+                self::FIELD_VALUE => [
+                    ValueGenerator::CLEAR_STRIP_TAGS
+                ]
             ],
             "user"                  => [
                 self::FIELD_TYPE       => self::FIELD_TYPE_STRING,
                 self::FIELD_VALIDATION => [
-                    Validator::TYPE_MAX_LENGTH => 255
+                    Validator::TYPE_MAX_LENGTH => 255,
                 ],
+                self::FIELD_VALUE => [
+                    ValueGenerator::CLEAR_STRIP_TAGS
+                ]
             ],
             "password"              => [
                 self::FIELD_TYPE       => self::FIELD_TYPE_STRING,

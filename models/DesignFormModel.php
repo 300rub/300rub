@@ -104,7 +104,10 @@ class DesignFormModel extends AbstractModel
             "submitIcon"       => [
                 self::FIELD_TYPE => self::FIELD_TYPE_STRING,
                 self::FIELD_VALIDATION => [
-                    Validator::TYPE_MAX_LENGTH => 50
+                    Validator::TYPE_MAX_LENGTH => 50,
+                ],
+                self::FIELD_VALUE => [
+                    ValueGenerator::CLEAR_STRIP_TAGS
                 ]
             ],
             "submitIconPosition"       => [
