@@ -29,8 +29,36 @@ class FieldListValueModelTest extends AbstractModelTest
      */
     protected function getDataProviderCRUDEmpty()
     {
-        $this->markTestSkipped();
-        return [];
+        return [
+            "empty1" => [
+                [],
+                [
+                    "value" => ["required"]
+                ],
+            ],
+            "empty2" => [
+                [
+                    "fieldTemplateId" => "",
+                    "value"           => "",
+                    "sort"            => "",
+                    "isChecked"       => "",
+                ],
+                [
+                    "value" => ["required"]
+                ],
+            ],
+            "empty3" => [
+                [
+                    "fieldTemplateId" => 1,
+                    "value"           => "",
+                    "sort"            => "",
+                    "isChecked"       => "",
+                ],
+                [
+                    "value" => ["required"]
+                ],
+            ],
+        ];
     }
 
     /**
@@ -40,8 +68,34 @@ class FieldListValueModelTest extends AbstractModelTest
      */
     protected function getDataProviderCRUDCorrect()
     {
-        $this->markTestSkipped();
-        return [];
+        return [
+            "correct1" => [
+                [
+                    "fieldTemplateId" => 1,
+                    "value"           => "Value 1",
+                    "sort"            => 10,
+                    "isChecked"       => true,
+                ],
+                [
+                    "fieldTemplateId" => 1,
+                    "value"           => "Value 1",
+                    "sort"            => 10,
+                    "isChecked"       => true,
+                ],
+                [
+                    "fieldTemplateId" => 2,
+                    "value"           => "Value 2",
+                    "sort"            => 20,
+                    "isChecked"       => false,
+                ],
+                [
+                    "fieldTemplateId" => 2,
+                    "value"           => "Value 2",
+                    "sort"            => 20,
+                    "isChecked"       => false,
+                ]
+            ]
+        ];
     }
 
     /**
@@ -51,8 +105,67 @@ class FieldListValueModelTest extends AbstractModelTest
      */
     protected function getDataProviderCRUDIncorrect()
     {
-        $this->markTestSkipped();
-        return [];
+        return [
+            "incorrect1" => [
+                [
+                    "fieldTemplateId" => "incorrect",
+                    "value"           => 123,
+                    "sort"            => "incorrect",
+                    "isChecked"       => "incorrect",
+                ],
+                [],
+                [],
+                [],
+                self::EXCEPTION_MODEL
+            ],
+            "incorrect2" => [
+                [
+                    "fieldTemplateId" => " 1 ",
+                    "value"           => 123,
+                    "sort"            => "bla",
+                    "isChecked"       => "bla",
+                ],
+                [
+                    "fieldTemplateId" => 1,
+                    "value"           => "123",
+                    "sort"            => 0,
+                    "isChecked"       => false,
+                ],
+                [
+                    "fieldTemplateId" => " 2asd ",
+                    "value"           => 3231,
+                    "sort"            => " 10 7",
+                    "isChecked"       => "55",
+                ],
+                [
+                    "fieldTemplateId" => 2,
+                    "value"           => "3231",
+                    "sort"            => 10,
+                    "isChecked"       => false,
+                ],
+            ],
+            "incorrect3" => [
+                [
+                    "fieldTemplateId" => 1,
+                    "value"           => $this->generateStringWithLength(256),
+                ],
+                [
+                    "value" => ["maxLength"]
+                ]
+            ],
+            "incorrect4" => [
+                [
+                    "fieldTemplateId" => 1,
+                    "value"           => "<b> 123 </b> </"
+                ],
+                [
+                    "fieldTemplateId" => 1,
+                    "value"           => "123",
+                    "sort"            => 0,
+                    "isChecked"       => false,
+                ]
+            ]
+        ];
     }
 
     /**
@@ -62,7 +175,19 @@ class FieldListValueModelTest extends AbstractModelTest
      */
     public function testDuplicate()
     {
-        $this->markTestSkipped();
-        return [];
+        $this->duplicate(
+            [
+                "fieldTemplateId" => 1,
+                "value"           => "Value 1",
+                "sort"            => 10,
+                "isChecked"       => true,
+            ],
+            [
+                "fieldTemplateId" => 1,
+                "value"           => "Value 1",
+                "sort"            => 10,
+                "isChecked"       => true,
+            ]
+        );
     }
 }

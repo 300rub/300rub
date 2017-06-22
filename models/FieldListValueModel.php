@@ -37,6 +37,7 @@ class FieldListValueModel extends AbstractModel
             "value"           => [
                 self::FIELD_TYPE       => self::FIELD_TYPE_STRING,
                 self::FIELD_VALIDATION => [
+                    Validator::TYPE_REQUIRED,
                     Validator::TYPE_MAX_LENGTH => 255,
                 ],
                 self::FIELD_VALUE      => [

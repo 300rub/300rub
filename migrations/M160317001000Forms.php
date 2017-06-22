@@ -61,8 +61,8 @@ class M160317001000Forms extends AbstractMigration
                     "sort"           => self::TYPE_SMALLINT,
                     "label"          => self::TYPE_STRING,
                     "isRequired"     => self::TYPE_BOOL,
-                    "validationType" => self::TYPE_INT_UNSIGNED,
-                    "type"           => self::TYPE_INT_UNSIGNED,
+                    "validationType" => self::TYPE_TINYINT_UNSIGNED,
+                    "type"           => self::TYPE_TINYINT_UNSIGNED,
                 ]
             )
             ->createForeignKey("formInstances", "formId", "forms", self::FK_CASCADE, self::FK_CASCADE)

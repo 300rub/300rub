@@ -18,11 +18,13 @@ class FormInstanceModel extends AbstractModel
      * Validation types
      */
     const VALIDATION_TYPE_FREE_TEXT = 0;
+    const VALIDATION_TYPE_NUMBER = 1;
 
     /**
      * Types
      */
     const TYPE_TEXT_FIELD = 0;
+    const TYPE_DROP_DOWN = 1;
 
     /**
      * Gets a validation type list
@@ -32,7 +34,8 @@ class FormInstanceModel extends AbstractModel
     public static function getValidationTypeList()
     {
         return [
-            self::VALIDATION_TYPE_FREE_TEXT => Language::t("form", "validationTypeFreeText")
+            self::VALIDATION_TYPE_FREE_TEXT => Language::t("form", "validationTypeFreeText"),
+            self::VALIDATION_TYPE_NUMBER => ""
         ];
     }
 
@@ -44,7 +47,8 @@ class FormInstanceModel extends AbstractModel
     public static function getTypeList()
     {
         return [
-            self::TYPE_TEXT_FIELD => Language::t("form", "typeTextField")
+            self::TYPE_TEXT_FIELD => Language::t("form", "typeTextField"),
+            self::TYPE_DROP_DOWN => ""
         ];
     }
 
@@ -67,7 +71,7 @@ class FormInstanceModel extends AbstractModel
     {
         return [
             "formId"         => [
-                self::FIELD_RELATION_TO_PARENT => "FormModel"
+                self::FIELD_RELATION => "FormModel"
             ],
             "sort"           => [
                 self::FIELD_TYPE => self::FIELD_TYPE_INT
@@ -75,6 +79,7 @@ class FormInstanceModel extends AbstractModel
             "label"          => [
                 self::FIELD_TYPE       => self::FIELD_TYPE_STRING,
                 self::FIELD_VALIDATION => [
+                    Validator::TYPE_REQUIRED,
                     Validator::TYPE_MAX_LENGTH => 255
                 ],
                 self::FIELD_VALUE      => [
