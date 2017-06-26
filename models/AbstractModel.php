@@ -1236,6 +1236,12 @@ abstract class AbstractModel
 
             $value = $this->get($field);
 
+            if (array_key_exists(self::FIELD_ALLOW_NULL, $fieldInfo)
+                && $value === null
+            ) {
+                continue;
+            }
+
             if ($value === 0) {
                 throw new ModelException(
                     "Unable to save {className} because {field} is 0",
