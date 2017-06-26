@@ -274,6 +274,7 @@ abstract class AbstractModelTest extends AbstractUnitTest
      * @param array  $updateExpected
      * @param string $expectedCreateException
      * @param string $expectedUpdateException
+     * @param array  $exceptRelations
      *
      * @dataProvider dataProviderXRUD
      *
@@ -285,7 +286,8 @@ abstract class AbstractModelTest extends AbstractUnitTest
         array $updateData = null,
         array $updateExpected = null,
         $expectedCreateException = null,
-        $expectedUpdateException = null
+        $expectedUpdateException = null,
+        $exceptRelations = []
     )
     {
         // Create
@@ -301,7 +303,8 @@ abstract class AbstractModelTest extends AbstractUnitTest
         $this->compareExpectedAndActual($createExpected, $model->get());
 
         // Read created
-        $model = $this->getNewModel()->byId($model->getId())->withRelations()->find();
+        $model =
+            $this->getNewModel()->byId($model->getId())->withRelations()->exceptRelations($exceptRelations)->find();
         $this->assertInstanceOf("\\testS\\models\\AbstractModel", $model);
         $this->compareExpectedAndActual($createExpected, $model->get());
 
@@ -319,7 +322,8 @@ abstract class AbstractModelTest extends AbstractUnitTest
             $this->compareExpectedAndActual($updateExpected, $model->get());
 
             // Read updated
-            $model = $this->getNewModel()->byId($model->getId())->withRelations()->find();
+            $model =
+                $this->getNewModel()->byId($model->getId())->withRelations()->exceptRelations($exceptRelations)->find();
             $this->assertInstanceOf("\\testS\\models\\AbstractModel", $model);
             $this->compareExpectedAndActual($updateExpected, $model->get());
         }
@@ -352,21 +356,27 @@ abstract class AbstractModelTest extends AbstractUnitTest
      * @param array  $createData
      * @param array  $duplicateExpected
      * @param string $expectedException
+     * @param array  $exceptRelations
      *
      * @return true
+     *
+     * @throws \Exception
      */
     protected function duplicate(
         array $createData = [],
         array $duplicateExpected = [],
-        $expectedException = null
-    ) {
+        $expectedException = null,
+        $exceptRelations = []
+    )
+    {
         if ($expectedException !== null) {
             $this->expectException($expectedException);
         }
 
         // Create and get model
         $model = $this->getNewModel()->set($createData)->save();
-        $model = $this->getNewModel()->byId($model->getId())->withRelations()->find();
+        $model =
+            $this->getNewModel()->byId($model->getId())->withRelations()->exceptRelations($exceptRelations)->find();
 
         // Duplicate
         try {
@@ -387,7 +397,12 @@ abstract class AbstractModelTest extends AbstractUnitTest
         $this->assertNotSame($model->getId(), $duplicatedModel->getId());
 
         // Read duplicated from DB
-        $duplicatedModel = $this->getNewModel()->byId($duplicatedModel->getId())->withRelations()->find();
+        $duplicatedModel =
+            $this->getNewModel()
+                ->byId($duplicatedModel->getId())
+                ->withRelations()
+                ->exceptRelations($exceptRelations)
+                ->find();
         $this->assertInstanceOf("\\testS\\models\\AbstractModel", $duplicatedModel);
         $this->compareExpectedAndActual($duplicateExpected, $duplicatedModel->get());
 

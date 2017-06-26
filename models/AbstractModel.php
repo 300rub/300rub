@@ -76,6 +76,13 @@ abstract class AbstractModel
     private $_withRelations = false;
 
     /**
+     * Relations to except
+     *
+     * @var array
+     */
+    private $_exceptRelations = [];
+
+    /**
      * Gets table name
      *
      * @return string
@@ -694,16 +701,20 @@ abstract class AbstractModel
                     continue;
                 }
 
-                $relationModel->withRelations();
-
                 $relationField = $this->_getRelationName($field);
-                $relationModel->setDb($this->getDb());
 
                 if ($alias === Db::DEFAULT_ALIAS) {
                     $relationAlias = $relationField;
                 } else {
                     $relationAlias = $alias . Db::SEPARATOR . $relationField;
                 }
+
+                if (in_array($relationAlias, $this->_exceptRelations)) {
+                    continue;
+                }
+
+                $relationModel->withRelations()->exceptRelations($this->_exceptRelations);
+                $relationModel->setDb($this->getDb());
 
                 $db->addJoin($relationModel->getTableName(), $relationAlias, $alias, $field);
 
@@ -771,7 +782,7 @@ abstract class AbstractModel
          * @var AbstractModel $model;
          */
         $model = new $relationModelName;
-        $model->byId($this->get($fieldName))->find();
+        $model = $model->byId($this->get($fieldName))->find();
         if ($model === null) {
             throw new ModelException(
                 "Unable to find model: {model} by ID: {id}",
@@ -795,6 +806,19 @@ abstract class AbstractModel
     public function withRelations($withRelations = true)
     {
         $this->_withRelations = $withRelations;
+        return $this;
+    }
+
+    /**
+     * Except relations
+     *
+     * @param string[] $aliases
+     *
+     * @return AbstractModel
+     */
+    public function exceptRelations(array $aliases)
+    {
+        $this->_exceptRelations = $aliases;
         return $this;
     }
 

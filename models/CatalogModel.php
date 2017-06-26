@@ -17,6 +17,7 @@ class CatalogModel extends AbstractModel
      * Short date types
      */
     const DATE_TYPE_COMMON = 0;
+    const DATE_TYPE_1 = 1;
 
     /**
      * Gets date type list
@@ -26,7 +27,8 @@ class CatalogModel extends AbstractModel
     public static function getDateTypeList()
     {
         return [
-            self::DATE_TYPE_COMMON => ""
+            self::DATE_TYPE_COMMON => "",
+            self::DATE_TYPE_1 => ""
         ];
     }
 
