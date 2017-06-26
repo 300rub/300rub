@@ -115,4 +115,8 @@ return [
         Language::LANGUAGE_EN_ID => "Yes, delete them",
         Language::LANGUAGE_RU_ID => "",
     ],
+    "deleteUserConfirmText" => [
+        Language::LANGUAGE_EN_ID => "Are you sure to delete the user?",
+        Language::LANGUAGE_RU_ID => "",
+    ],
 ];

@@ -48,15 +48,14 @@
             $table.find(".name-label").text(data.labels.name);
             $table.find(".email-label").text(data.labels.email);
             $table.find(".access-label").text(data.labels.access);
-
             var $trTemplate = $table.find(".tr-template");
-            var $tr, $buttons;
+
             $.each(data.list, $.proxy(function (i, user) {
-                $tr = $trTemplate.clone();
+                var $tr = $trTemplate.clone();
                 $tr.find(".name-value").text(user.name);
                 $tr.find(".email-value").text(user.email);
                 $tr.find(".access-value").text(user.access);
-                $buttons = $tr.find(".buttons");
+                var $buttons = $tr.find(".buttons");
                 $buttons.addClass("align-right");
 
                 if (user.canViewSessions === true) {
@@ -89,7 +88,29 @@
                         class: "gray-button button-small",
                         icon: "fa-trash",
                         label: data.labels.delete,
-                        appendTo: $buttons
+                        appendTo: $buttons,
+                        confirm: {
+                            text: data.labels.deleteUserConfirmText,
+                            yes: {
+                                label: data.labels.delete,
+                                icon: "fa-trash"
+                            },
+                            no: data.labels.no
+                        },
+                        ajax: {
+                            data: {
+                                controller: "user",
+                                action: "user",
+                                data: {
+                                    id: user.id
+                                }
+                            },
+                            type: "DELETE",
+                            error: $.proxy(this._window.onError, this._window),
+                            success: function() {
+                                $tr.remove();
+                            }
+                        }
                     });
                 }
 

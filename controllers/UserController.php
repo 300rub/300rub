@@ -401,7 +401,7 @@ class UserController extends AbstractController
                 "email"            => $user->getEmail(),
                 "access"           => (new UserModel())->getType($user->getType()),
                 "canUpdate"        => true,
-                "canDelete"        => true,
+                "canDelete"        => false,
                 "canViewSessions"  => true,
                 "isCurrent"        => true,
             ]
@@ -440,6 +440,8 @@ class UserController extends AbstractController
                 "edit"     => Language::t("common", "edit"),
                 "delete"   => Language::t("common", "delete"),
                 "add"      => Language::t("common", "add"),
+                "deleteUserConfirmText" => Language::t("user", "deleteUserConfirmText"),
+                "no" => Language::t("common", "no"),
             ]
         ];
     }

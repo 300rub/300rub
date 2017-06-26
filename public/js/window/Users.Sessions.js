@@ -69,10 +69,9 @@
             $table.find(".token-label").text(data.labels.token);
 
             var $trTemplate = $table.find(".tr-template");
-            var $tr, $buttons;
             var canDeleteAll = false;
             $.each(data.list, $.proxy(function (i, session) {
-                $tr = $trTemplate.clone();
+                var $tr = $trTemplate.clone();
                 $tr.find(".browser-value").text(session.browser + " " + session.version);
                 $tr.find(".last-activity-value").text(session.lastActivity);
                 $tr.find(".ip-value").text(session.ip);
@@ -84,7 +83,7 @@
                     $tr.find(".online-value").text("");
                 }
 
-                $buttons = $tr.find(".buttons");
+                var $buttons = $tr.find(".buttons");
                 $buttons.addClass("align-right");
 
                 if (data.canDelete === true
