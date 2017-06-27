@@ -65,7 +65,6 @@ class UserController extends AbstractController
                     "label" => Language::t("user", "isRemember"),
                 ],
                 "button"     => [
-                    "type"       => self::FORM_TYPE_BUTTON,
                     "label"      => Language::t("user", "loginButton"),
                     "controller" => "user",
                     "action"     => "session"
@@ -468,12 +467,14 @@ class UserController extends AbstractController
             );
         }
 
+        $userModel = new UserModel();
+
         $id = (int)$data["id"];
         $user = App::web()->getUser();
         if ($user->getId() !== $id) {
             $this->checkSettingsOperation(Operation::SETTINGS_USER_UPDATE);
 
-            $userModel = (new UserModel())->byId($id)->find();
+            $userModel = $userModel->byId($id)->find();
             if ($userModel === null) {
                 throw new NotFoundException(
                     "Unable to find user with ID: {id}",
@@ -504,12 +505,36 @@ class UserController extends AbstractController
         $operations[Operation::TYPE_SETTINGS] = $this->_getSettingsOperations($userOperations);
 
         return [
-            "name"                => $name,
-            "login"               => $login,
-            "email"               => $email,
+            "title" => "aaaaa",
+            "name"                => [
+                "label" => Language::t("common", "name"),
+                "value" => $name,
+                "name"  => "name",
+                "validation" => $userModel->getValidationRulesForField("name"),
+                "type"       => self::FORM_TYPE_TEXT,
+            ],
+            "login"                => [
+                "label" => Language::t("user", "login"),
+                "value" => $login,
+                "name"  => "login",
+                "validation" => $userModel->getValidationRulesForField("login"),
+                "type"       => self::FORM_TYPE_TEXT,
+            ],
+            "email"                => [
+                "label" => Language::t("common", "email"),
+                "value" => $email,
+                "name"  => "email",
+                "validation" => $userModel->getValidationRulesForField("email"),
+                "type"       => self::FORM_TYPE_TEXT,
+            ],
             "type"                => $type,
             "canChangeOperations" => $canChangeOperations,
             "operations"          => $operations,
+            "button"     => [
+                "label"      => Language::t("user", "loginButton"),
+                "controller" => "user",
+                "action"     => "session"
+            ]
         ];
     }
 

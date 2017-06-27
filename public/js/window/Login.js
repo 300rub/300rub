@@ -92,24 +92,21 @@
 
             this._window
                 .setTitle(data.title)
-                .setSubmit(
-                    $.extend(
-                        data.forms.button,
-                        {
-                            icon: "fa-lock",
-                            forms: [this._userForm, this._passwordForm, this._isRememberForm],
-                            ajax: {
-                                data: {
-                                    controller: data.forms.button.controller,
-                                    action: data.forms.button.action
-                                },
-                                type: "PUT",
-                                success: $.proxy(this._onSuccess, this),
-                                error: $.proxy(this._window.onError, this._window)
-                            }
-                        }
-                    )
-                )
+                .setSubmit({
+                    type: "button",
+                    label: data.forms.button.label,
+                    icon: "fa-lock",
+                    forms: [this._userForm, this._passwordForm, this._isRememberForm],
+                    ajax: {
+                        data: {
+                            controller: data.forms.button.controller,
+                            action: data.forms.button.action
+                        },
+                        type: "PUT",
+                        success: $.proxy(this._onSuccess, this),
+                        error: $.proxy(this._window.onError, this._window)
+                    }
+                })
                 .removeLoading();
 
             this._userForm.focus();

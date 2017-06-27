@@ -73,6 +73,10 @@
          */
         _setTextForm: function () {
             this.$_form = TestS.Template.get("form-container-text");
+
+            if (this._options.value !== undefined) {
+                this.$_form.find(".form-instance").val(this._options.value);
+            }
         },
 
         /**

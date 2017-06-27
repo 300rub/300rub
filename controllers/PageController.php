@@ -71,6 +71,7 @@ class PageController extends AbstractController
             "UserButtons",
             "window/Users",
             "window/Users.Sessions",
+            "window/Users.Form",
         ],
         "less" => [
             "userButtons",

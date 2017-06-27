@@ -102,5 +102,5 @@ return [
     "no" => [
         Language::LANGUAGE_EN_ID => "No",
         Language::LANGUAGE_RU_ID => "",
-    ]
+    ],
 ];

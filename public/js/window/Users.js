@@ -65,9 +65,8 @@
                         icon: "fa-users",
                         label: data.labels.sessions,
                         appendTo: $buttons,
-                        onClick: this._sessionsOnClick,
-                        data: {
-                            id: user.id
+                        onClick: function() {
+                            new TestS.Window.Users.Sessions({id: user.id});
                         }
                     });
                 }
@@ -78,7 +77,10 @@
                         class: "gray-button button-small",
                         icon: "fa-pencil",
                         label: data.labels.edit,
-                        appendTo: $buttons
+                        appendTo: $buttons,
+                        onClick: function() {
+                            new TestS.Window.Users.Form({id: user.id});
+                        }
                     });
                 }
 
@@ -131,17 +133,6 @@
             this._window
                 .setTitle(data.title)
                 .removeLoading();
-        },
-
-        /**
-         * Session on click event
-         *
-         * @param {Object} event
-         *
-         * @private
-         */
-        _sessionsOnClick: function (event) {
-            new TestS.Window.Users.Sessions({id: event.data.id});
         }
     };
 }(window.jQuery, window.TestS);
