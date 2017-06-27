@@ -33,6 +33,7 @@ class ImageGroupModel extends AbstractModel
         return [
             "imageId" => [
                 self::FIELD_RELATION_TO_PARENT => "ImageModel",
+                self::FIELD_NOT_CHANGE_ON_UPDATE => true,
             ],
             "name"    => [
                 self::FIELD_TYPE       => self::FIELD_TYPE_STRING,

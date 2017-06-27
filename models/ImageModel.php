@@ -111,7 +111,7 @@ class ImageModel extends AbstractModel
                 self::FIELD_VALUE => [
                     ValueGenerator::ARRAY_KEY => [
                         self::getAutoCropTypeList(),
-                        self::AUTO_CROP_TYPE_MIDDLE_CENTER
+                        self::AUTO_CROP_TYPE_NONE
                     ]
                 ],
             ],

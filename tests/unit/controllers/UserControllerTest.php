@@ -268,7 +268,7 @@ class UserControllerTest extends AbstractControllerTest
      *
      * @param string $user
      * @param string $token
-     * @param bool $hasError
+     * @param bool   $hasError
      *
      * @return bool
      *
@@ -319,38 +319,38 @@ class UserControllerTest extends AbstractControllerTest
     public function dataProviderForTestDeleteSession()
     {
         return [
-            "ownerDeleteOwner" => [
+            "ownerDeleteOwner"     => [
                 self::TYPE_OWNER,
                 "c4ca4238a0b923820dcc509a6f75849b"
             ],
-            "ownerDeleteHimself" => [
+            "ownerDeleteHimself"   => [
                 self::TYPE_OWNER
             ],
-            "ownerDeleteAdmin" => [
+            "ownerDeleteAdmin"     => [
                 self::TYPE_OWNER,
                 "c81e728d9d4c2f636f067f89cc14862c"
             ],
-            "ownerDeleteUser" => [
+            "ownerDeleteUser"      => [
                 self::TYPE_OWNER,
                 "eccbc87e4b5ce2fe28308fd9f2a7baf3"
             ],
-            "adminDeleteOwner" => [
+            "adminDeleteOwner"     => [
                 self::TYPE_FULL,
                 "c4ca4238a0b923820dcc509a6f75849b",
                 true
             ],
-            "adminDeleteHimself" => [
+            "adminDeleteHimself"   => [
                 self::TYPE_OWNER
             ],
-            "adminDeleteAdmin" => [
+            "adminDeleteAdmin"     => [
                 self::TYPE_OWNER,
                 "c81e728d9d4c2f636f067f89cc14862c",
             ],
-            "adminDeleteUser" => [
+            "adminDeleteUser"      => [
                 self::TYPE_OWNER,
                 "eccbc87e4b5ce2fe28308fd9f2a7baf3",
             ],
-            "limitedDeleteOwner" => [
+            "limitedDeleteOwner"   => [
                 self::TYPE_LIMITED,
                 "c4ca4238a0b923820dcc509a6f75849b",
                 true
@@ -358,12 +358,12 @@ class UserControllerTest extends AbstractControllerTest
             "limitedDeleteHimself" => [
                 self::TYPE_LIMITED
             ],
-            "limitedDeleteAdmin" => [
+            "limitedDeleteAdmin"   => [
                 self::TYPE_LIMITED,
                 "c81e728d9d4c2f636f067f89cc14862c",
                 true
             ],
-            "limitedDeleteUser" => [
+            "limitedDeleteUser"    => [
                 self::TYPE_LIMITED,
                 "eccbc87e4b5ce2fe28308fd9f2a7baf3"
             ],
@@ -374,8 +374,8 @@ class UserControllerTest extends AbstractControllerTest
      * Test for method deleteSessions
      *
      * @param string $user
-     * @param int $id
-     * @param bool $hasError
+     * @param int    $id
+     * @param bool   $hasError
      *
      * @dataProvider dataProviderForTestDeleteSessions
      */
@@ -423,38 +423,38 @@ class UserControllerTest extends AbstractControllerTest
     public function dataProviderForTestDeleteSessions()
     {
         return [
-            "ownerDeleteOwner" => [
+            "ownerDeleteOwner"     => [
                 self::TYPE_OWNER,
                 1
             ],
-            "ownerDeleteHimself" => [
+            "ownerDeleteHimself"   => [
                 self::TYPE_OWNER
             ],
-            "ownerDeleteAdmin" => [
+            "ownerDeleteAdmin"     => [
                 self::TYPE_OWNER,
                 2
             ],
-            "ownerDeleteUser" => [
+            "ownerDeleteUser"      => [
                 self::TYPE_OWNER,
                 3
             ],
-            "adminDeleteOwner" => [
+            "adminDeleteOwner"     => [
                 self::TYPE_FULL,
                 1,
                 true
             ],
-            "adminDeleteHimself" => [
+            "adminDeleteHimself"   => [
                 self::TYPE_OWNER
             ],
-            "adminDeleteAdmin" => [
+            "adminDeleteAdmin"     => [
                 self::TYPE_OWNER,
                 2
             ],
-            "adminDeleteUser" => [
+            "adminDeleteUser"      => [
                 self::TYPE_OWNER,
                 3
             ],
-            "limitedDeleteOwner" => [
+            "limitedDeleteOwner"   => [
                 self::TYPE_LIMITED,
                 1,
                 true
@@ -462,12 +462,12 @@ class UserControllerTest extends AbstractControllerTest
             "limitedDeleteHimself" => [
                 self::TYPE_LIMITED
             ],
-            "limitedDeleteAdmin" => [
+            "limitedDeleteAdmin"   => [
                 self::TYPE_LIMITED,
                 2,
                 true
             ],
-            "limitedDeleteUser" => [
+            "limitedDeleteUser"    => [
                 self::TYPE_LIMITED,
                 3
             ],
@@ -571,25 +571,27 @@ class UserControllerTest extends AbstractControllerTest
                     "title"  => "Users",
                     "list"   => [
                         [
-                            "id"               => 4,
-                            "name"             => "User with no operations",
-                            "email"            => "test-operation@email.com",
-                            "access"           => "Limited",
-                            "canUpdate"        => true,
-                            "canDelete"        => true,
-                            "canViewSessions"  => true,
-                            "isCurrent"        => true,
+                            "id"              => 4,
+                            "name"            => "User with no operations",
+                            "email"           => "test-operation@email.com",
+                            "access"          => "Limited",
+                            "canUpdate"       => true,
+                            "canDelete"       => false,
+                            "canViewSessions" => true,
+                            "isCurrent"       => true,
                         ]
                     ],
                     "canAdd" => false,
                     "labels" => [
-                        "name"     => "Name",
-                        "access"   => "Access",
-                        "sessions" => "Sessions",
-                        "edit"     => "Edit",
-                        "delete"   => "Delete",
-                        "add"      => "Add",
-                        "email"    => "Email"
+                        "name"                  => "Name",
+                        "access"                => "Access",
+                        "sessions"              => "Sessions",
+                        "edit"                  => "Edit",
+                        "delete"                => "Delete",
+                        "add"                   => "Add",
+                        "email"                 => "Email",
+                        "deleteUserConfirmText" => "Are you sure to delete the user?",
+                        "no"                    => "No",
                     ]
                 ]
             ],
@@ -599,65 +601,67 @@ class UserControllerTest extends AbstractControllerTest
                     "title"  => "Users",
                     "list"   => [
                         [
-                            "id"               => 2,
-                            "name"             => "Admin",
-                            "email"            => "admin@email.com",
-                            "access"           => "Full",
-                            "canUpdate"        => true,
-                            "canDelete"        => true,
-                            "canViewSessions"  => true,
-                            "isCurrent"        => true,
+                            "id"              => 2,
+                            "name"            => "Admin",
+                            "email"           => "admin@email.com",
+                            "access"          => "Full",
+                            "canUpdate"       => true,
+                            "canDelete"       => false,
+                            "canViewSessions" => true,
+                            "isCurrent"       => true,
                         ],
                         [
-                            "id"               => 5,
-                            "name"             => "Blocked User",
-                            "email"            => "blocked@email.com",
-                            "access"           => "Blocked",
-                            "canUpdate"        => true,
-                            "canDelete"        => true,
-                            "canViewSessions"  => true,
-                            "isCurrent"        => false,
+                            "id"              => 5,
+                            "name"            => "Blocked User",
+                            "email"           => "blocked@email.com",
+                            "access"          => "Blocked",
+                            "canUpdate"       => true,
+                            "canDelete"       => true,
+                            "canViewSessions" => true,
+                            "isCurrent"       => false,
                         ],
                         [
-                            "id"               => 1,
-                            "name"             => "Owner",
-                            "email"            => "owner@email.com",
-                            "access"           => "Owner",
-                            "canUpdate"        => false,
-                            "canDelete"        => false,
-                            "canViewSessions"  => true,
-                            "isCurrent"        => false,
+                            "id"              => 1,
+                            "name"            => "Owner",
+                            "email"           => "owner@email.com",
+                            "access"          => "Owner",
+                            "canUpdate"       => false,
+                            "canDelete"       => false,
+                            "canViewSessions" => true,
+                            "isCurrent"       => false,
                         ],
                         [
-                            "id"               => 3,
-                            "name"             => "User",
-                            "email"            => "user@email.com",
-                            "access"           => "Limited",
-                            "canUpdate"        => true,
-                            "canDelete"        => true,
-                            "canViewSessions"  => true,
-                            "isCurrent"        => false,
+                            "id"              => 3,
+                            "name"            => "User",
+                            "email"           => "user@email.com",
+                            "access"          => "Limited",
+                            "canUpdate"       => true,
+                            "canDelete"       => true,
+                            "canViewSessions" => true,
+                            "isCurrent"       => false,
                         ],
                         [
-                            "id"               => 4,
-                            "name"             => "User with no operations",
-                            "email"            => "test-operation@email.com",
-                            "access"           => "Limited",
-                            "canUpdate"        => true,
-                            "canDelete"        => true,
-                            "canViewSessions"  => true,
-                            "isCurrent"        => false,
+                            "id"              => 4,
+                            "name"            => "User with no operations",
+                            "email"           => "test-operation@email.com",
+                            "access"          => "Limited",
+                            "canUpdate"       => true,
+                            "canDelete"       => true,
+                            "canViewSessions" => true,
+                            "isCurrent"       => false,
                         ],
                     ],
                     "canAdd" => true,
                     "labels" => [
-                        "name"     => "Name",
-                        "access"   => "Access",
-                        "sessions" => "Sessions",
-                        "edit"     => "Edit",
-                        "delete"   => "Delete",
-                        "add"      => "Add",
-                        "email"    => "Email"
+                        "name"                  => "Name",
+                        "access"                => "Access",
+                        "sessions"              => "Sessions",
+                        "edit"                  => "Edit",
+                        "delete"                => "Delete",
+                        "add"                   => "Add",
+                        "email"                 => "Email",
+                        "deleteUserConfirmText" => "Are you sure to delete the user?",
+                        "no"                    => "No",
                     ]
                 ]
             ],

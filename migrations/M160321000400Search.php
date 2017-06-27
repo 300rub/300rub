@@ -51,16 +51,14 @@ class M160321000400Search extends AbstractMigration
             ->createTable(
                 "searchQueries",
                 [
-                    "id"         => self::TYPE_PK,
-                    "searchId"   => self::TYPE_FK,
-                    "text"       => self::TYPE_STRING,
-                    "date"       => self::TYPE_DATETIME,
-                    "ip"         => self::TYPE_STRING_25,
-                    "ua"         => self::TYPE_STRING,
-                    "port"       => self::TYPE_TINYINT_UNSIGNED,
-                    "connection" => self::TYPE_STRING,
-                    "host"       => self::TYPE_STRING,
-                    "ref"        => self::TYPE_STRING,
+                    "id"       => self::TYPE_PK,
+                    "searchId" => self::TYPE_FK,
+                    "text"     => self::TYPE_STRING,
+                    "date"     => self::TYPE_DATETIME,
+                    "ip"       => self::TYPE_STRING_25,
+                    "ua"       => self::TYPE_STRING,
+                    "uri"      => self::TYPE_STRING,
+                    "ref"      => self::TYPE_STRING,
                 ]
             )
             ->createForeignKey("searchQueries", "searchId", "search", self::FK_CASCADE, self::FK_CASCADE);

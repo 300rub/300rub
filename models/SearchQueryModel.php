@@ -32,7 +32,9 @@ class SearchQueryModel extends AbstractModel
     {
         return [
             "searchId"   => [
-                self::FIELD_RELATION_TO_PARENT => "SearchModel"
+                self::FIELD_RELATION_TO_PARENT => "SearchModel",
+                self::FIELD_NOT_CHANGE_ON_UPDATE => true,
+                self::FIELD_SKIP_DUPLICATION => true,
             ],
             "text"       => [
                 self::FIELD_TYPE       => self::FIELD_TYPE_STRING,
@@ -43,15 +45,21 @@ class SearchQueryModel extends AbstractModel
                 self::FIELD_VALUE      => [
                     ValueGenerator::CLEAR_STRIP_TAGS
                 ],
+                self::FIELD_NOT_CHANGE_ON_UPDATE => true,
+                self::FIELD_SKIP_DUPLICATION => true,
             ],
             "date"       => [
                 self::FIELD_TYPE => self::FIELD_TYPE_DATETIME,
+                self::FIELD_NOT_CHANGE_ON_UPDATE => true,
+                self::FIELD_SKIP_DUPLICATION => true,
             ],
             "ip"         => [
                 self::FIELD_TYPE       => self::FIELD_TYPE_STRING,
                 self::FIELD_VALIDATION => [
                     Validator::TYPE_IP
                 ],
+                self::FIELD_NOT_CHANGE_ON_UPDATE => true,
+                self::FIELD_SKIP_DUPLICATION => true,
             ],
             "ua"         => [
                 self::FIELD_TYPE       => self::FIELD_TYPE_STRING,
@@ -59,23 +67,17 @@ class SearchQueryModel extends AbstractModel
                     Validator::TYPE_REQUIRED,
                     Validator::TYPE_MAX_LENGTH => 255
                 ],
+                self::FIELD_NOT_CHANGE_ON_UPDATE => true,
+                self::FIELD_SKIP_DUPLICATION => true,
             ],
-            "port"       => [
-                self::FIELD_TYPE => self::FIELD_TYPE_INT,
-            ],
-            "connection" => [
+            "uri"       => [
                 self::FIELD_TYPE       => self::FIELD_TYPE_STRING,
                 self::FIELD_VALIDATION => [
                     Validator::TYPE_REQUIRED,
                     Validator::TYPE_MAX_LENGTH => 255
                 ],
-            ],
-            "host"       => [
-                self::FIELD_TYPE       => self::FIELD_TYPE_STRING,
-                self::FIELD_VALIDATION => [
-                    Validator::TYPE_REQUIRED,
-                    Validator::TYPE_MAX_LENGTH => 255
-                ],
+                self::FIELD_NOT_CHANGE_ON_UPDATE => true,
+                self::FIELD_SKIP_DUPLICATION => true,
             ],
             "ref"        => [
                 self::FIELD_TYPE       => self::FIELD_TYPE_STRING,
@@ -83,6 +85,8 @@ class SearchQueryModel extends AbstractModel
                     Validator::TYPE_REQUIRED,
                     Validator::TYPE_MAX_LENGTH => 255
                 ],
+                self::FIELD_NOT_CHANGE_ON_UPDATE => true,
+                self::FIELD_SKIP_DUPLICATION => true,
             ],
         ];
     }

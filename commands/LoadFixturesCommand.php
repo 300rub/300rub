@@ -37,6 +37,8 @@ class LoadFixturesCommand extends AbstractCommand
 		"fieldGroup",
 		"catalog",
 		"catalogMenu",
+		"image",
+		"search",
     ];
 
 	/**
