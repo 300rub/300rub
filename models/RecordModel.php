@@ -18,6 +18,7 @@ class RecordModel extends AbstractModel
      * Short date types
      */
     const DATE_TYPE_COMMON = 0;
+    const DATE_TYPE_1 = 1;
 
     /**
      * Gets date type list
@@ -27,7 +28,8 @@ class RecordModel extends AbstractModel
     public static function getDateTypeList()
     {
         return [
-            self::DATE_TYPE_COMMON => ""
+            self::DATE_TYPE_COMMON => "",
+            self::DATE_TYPE_1      => "",
         ];
     }
 
@@ -49,37 +51,37 @@ class RecordModel extends AbstractModel
     public function getFieldsInfo()
     {
         return [
-            "coverImagesId"       => [
+            "coverImagesId"     => [
                 self::FIELD_RELATION => "ImageModel"
             ],
-            "imagesImagesId" => [
+            "imagesImagesId"    => [
                 self::FIELD_RELATION => "ImageModel"
             ],
-            "descriptionTextId"   => [
+            "descriptionTextId" => [
                 self::FIELD_RELATION => "TextModel"
             ],
-            "textTextId" => [
+            "textTextId"        => [
                 self::FIELD_RELATION => "TextModel"
             ],
-            "designRecordsId" => [
+            "designRecordsId"   => [
                 self::FIELD_RELATION => "DesignRecordModel"
             ],
-            "hasCover"           => [
+            "hasCover"          => [
                 self::FIELD_TYPE => self::FIELD_TYPE_BOOL
             ],
-            "hasImages"           => [
+            "hasImages"         => [
                 self::FIELD_TYPE => self::FIELD_TYPE_BOOL
             ],
-            "hasCoverZoom"           => [
+            "hasCoverZoom"      => [
                 self::FIELD_TYPE => self::FIELD_TYPE_BOOL
             ],
-            "hasDescription"           => [
+            "hasDescription"    => [
                 self::FIELD_TYPE => self::FIELD_TYPE_BOOL
             ],
-            "hasAutoload"           => [
+            "hasAutoload"       => [
                 self::FIELD_TYPE => self::FIELD_TYPE_BOOL
             ],
-            "shortCardDateType"                => [
+            "shortCardDateType" => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
                     ValueGenerator::ARRAY_KEY => [
@@ -88,7 +90,7 @@ class RecordModel extends AbstractModel
                     ]
                 ],
             ],
-            "fullCardDateType"                => [
+            "fullCardDateType"  => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
                     ValueGenerator::ARRAY_KEY => [

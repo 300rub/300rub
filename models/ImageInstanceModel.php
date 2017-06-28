@@ -2,6 +2,7 @@
 
 namespace testS\models;
 
+use testS\components\Validator;
 use testS\components\ValueGenerator;
 
 /**
@@ -11,11 +12,6 @@ use testS\components\ValueGenerator;
  */
 class ImageInstanceModel extends AbstractModel
 {
-
-    /**
-     * Min size in px
-     */
-    const MIN_SIZE = 32;
 
     /**
      * Max size in px
@@ -62,91 +58,113 @@ class ImageInstanceModel extends AbstractModel
         return [
             "imageAlbumId" => [
                 self::FIELD_RELATION_TO_PARENT => "ImageGroupModel",
+                self::FIELD_SKIP_DUPLICATION => true,
             ],
             "fileName"     => [
                 self::FIELD_TYPE => self::FIELD_TYPE_STRING,
+                self::FIELD_VALIDATION => [
+                    Validator::TYPE_REQUIRED,
+                    Validator::TYPE_MAX_LENGTH => 25,
+                ],
+                self::FIELD_VALUE      => [
+                    ValueGenerator::CLEAR_STRIP_TAGS
+                ],
+                self::FIELD_SKIP_DUPLICATION => true,
             ],
             "isCover"      => [
                 self::FIELD_TYPE => self::FIELD_TYPE_BOOL,
+                self::FIELD_SKIP_DUPLICATION => true,
             ],
             "sort"         => [
                 self::FIELD_TYPE => self::FIELD_TYPE_INT,
+                self::FIELD_SKIP_DUPLICATION => true,
             ],
             "alt"          => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_STRING,
                 self::FIELD_VALUE => [
                     ValueGenerator::CLEAR_STRIP_TAGS
                 ],
+                self::FIELD_SKIP_DUPLICATION => true,
             ],
             "width"        => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
-                    ValueGenerator::MIN => self::MIN_SIZE,
+                    ValueGenerator::MIN => 0,
                     ValueGenerator::MAX => self::MAX_SIZE
                 ],
+                self::FIELD_SKIP_DUPLICATION => true,
             ],
             "height"       => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
-                    ValueGenerator::MIN => self::MIN_SIZE,
+                    ValueGenerator::MIN => 0,
                     ValueGenerator::MAX => self::MAX_SIZE
                 ],
+                self::FIELD_SKIP_DUPLICATION => true,
             ],
             "x1"           => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
                     ValueGenerator::MIN => 0,
-                    ValueGenerator::MAX => ["{width}", self::MIN_SIZE, "-"]
+                    ValueGenerator::MAX => self::MAX_SIZE
                 ],
+                self::FIELD_SKIP_DUPLICATION => true,
             ],
             "y1"           => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
                     ValueGenerator::MIN => 0,
-                    ValueGenerator::MAX => ["{height}", self::MIN_SIZE, "-"]
+                    ValueGenerator::MAX => self::MAX_SIZE
                 ],
+                self::FIELD_SKIP_DUPLICATION => true,
             ],
             "x2"           => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
-                    ValueGenerator::MIN => ["{x1}", self::MIN_SIZE, "+"],
-                    ValueGenerator::MAX => "{width}"
+                    ValueGenerator::MIN => 0,
+                    ValueGenerator::MAX => self::MAX_SIZE
                 ],
+                self::FIELD_SKIP_DUPLICATION => true,
             ],
             "y2"           => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
-                    ValueGenerator::MIN => ["{y1}", self::MIN_SIZE, "+"],
-                    ValueGenerator::MAX => "{height}"
-                ]
+                    ValueGenerator::MIN => 0,
+                    ValueGenerator::MAX => self::MAX_SIZE
+                ],
+                self::FIELD_SKIP_DUPLICATION => true,
             ],
             "thumbX1"      => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
                     ValueGenerator::MIN => 0,
-                    ValueGenerator::MAX => self::MAX_THUMB_SIZE - self::MIN_SIZE
-                ]
+                    ValueGenerator::MAX => self::MAX_THUMB_SIZE
+                ],
+                self::FIELD_SKIP_DUPLICATION => true,
             ],
             "thumbY1"      => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
                     ValueGenerator::MIN => 0,
-                    ValueGenerator::MAX => self::MAX_THUMB_SIZE - self::MIN_SIZE
-                ]
+                    ValueGenerator::MAX => self::MAX_THUMB_SIZE
+                ],
+                self::FIELD_SKIP_DUPLICATION => true,
             ],
             "thumbX2"      => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
-                    ValueGenerator::MIN => ["{thumbX1}", self::MIN_SIZE, "+"],
+                    ValueGenerator::MIN => 0,
                     ValueGenerator::MAX => self::MAX_THUMB_SIZE
-                ]
+                ],
+                self::FIELD_SKIP_DUPLICATION => true,
             ],
             "thumbY2"      => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
-                    ValueGenerator::MIN => ["{thumbY1}", self::MIN_SIZE, "+"],
+                    ValueGenerator::MIN => 0,
                     ValueGenerator::MAX => self::MAX_THUMB_SIZE
-                ]
+                ],
+                self::FIELD_SKIP_DUPLICATION => true,
             ],
         ];
     }

@@ -38,7 +38,10 @@ class LoadFixturesCommand extends AbstractCommand
 		"catalog",
 		"catalogMenu",
 		"image",
+		"imageGroup",
 		"search",
+		"menu",
+		"menuInstance",
     ];
 
 	/**

@@ -53,7 +53,8 @@ class M160321000200Menu extends AbstractMigration
                     "parentId"  => self::TYPE_FK_NULL,
                     "sectionId" => self::TYPE_FK,
                     "icon"      => self::TYPE_STRING_50,
-                    "subName"   => self::TYPE_STRING
+                    "subName"   => self::TYPE_STRING,
+                    "sort"      => self::TYPE_SMALLINT,
                 ]
             )
             ->createForeignKey("menuInstances", "menuId", "menu")

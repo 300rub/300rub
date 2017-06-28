@@ -32,14 +32,17 @@ class MenuInstanceModel extends AbstractModel
     {
         return [
             "menuId"    => [
-                self::FIELD_RELATION_TO_PARENT => "MenuModel"
+                self::FIELD_RELATION_TO_PARENT   => "MenuModel",
+                self::FIELD_SKIP_DUPLICATION     => true,
+                self::FIELD_NOT_CHANGE_ON_UPDATE => true
             ],
             "parentId"  => [
                 self::FIELD_RELATION_TO_PARENT => "MenuInstanceModel",
-                self::FIELD_ALLOW_NULL => true
+                self::FIELD_ALLOW_NULL         => true,
+                self::FIELD_SKIP_DUPLICATION   => true,
             ],
             "sectionId" => [
-                self::FIELD_RELATION => "SectionModel"
+                self::FIELD_RELATION_TO_PARENT => "SectionModel"
             ],
             "icon"      => [
                 self::FIELD_TYPE       => self::FIELD_TYPE_STRING,
@@ -58,6 +61,9 @@ class MenuInstanceModel extends AbstractModel
                 self::FIELD_VALUE      => [
                     ValueGenerator::CLEAR_STRIP_TAGS
                 ],
+            ],
+            "sort"      => [
+                self::FIELD_TYPE => self::FIELD_TYPE_INT
             ],
         ];
     }

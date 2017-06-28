@@ -115,6 +115,9 @@ class UserModel extends AbstractModel
                     Validator::TYPE_MAX_LENGTH => 100,
                 ],
                 self::FIELD_SKIP_DUPLICATION => true,
+                self::FIELD_VALUE      => [
+                    ValueGenerator::CLEAR_STRIP_TAGS
+                ],
             ],
             "email"    => [
                 self::FIELD_TYPE             => self::FIELD_TYPE_STRING,
