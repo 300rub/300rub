@@ -28,6 +28,7 @@ abstract class AbstractController
     const FORM_TYPE_PASSWORD = "password";
     const FORM_TYPE_CHECKBOX = "checkbox";
     const FORM_TYPE_BUTTON = "button";
+    const FORM_TYPE_SELECT = "select";
 
     /**
      * Request data

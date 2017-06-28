@@ -67,7 +67,6 @@ class UserControllerTest extends AbstractControllerTest
                     "forms" => [
                         "user"       => [
                             "name"       => "user",
-                            "type"       => "text",
                             "label"      => "User",
                             "validation" => [
                                 "required"                   => "required",
@@ -78,7 +77,6 @@ class UserControllerTest extends AbstractControllerTest
                         ],
                         "password"   => [
                             "name"       => "password",
-                            "type"       => "password",
                             "label"      => "Password",
                             "validation" => [
                                 "required"  => "required",
@@ -88,14 +86,10 @@ class UserControllerTest extends AbstractControllerTest
                         ],
                         "isRemember" => [
                             "name"  => "isRemember",
-                            "type"  => "checkbox",
                             "label" => "Remember me",
                         ],
                         "button"     => [
-                            "type"       => "button",
                             "label"      => "Go",
-                            "controller" => "user",
-                            "action"     => "session"
                         ]
                     ]
                 ]
@@ -682,10 +676,11 @@ class UserControllerTest extends AbstractControllerTest
     {
         $this->setUser($user);
         $this->sendRequest("user", "user", ["id" => $id]);
-        $this->compareExpectedAndActual($expected, $this->getBody());
 
         if ($isError) {
             $this->assertError();
+        } else {
+            $this->compareExpectedAndActual($expected, $this->getBody());
         }
     }
 
@@ -697,168 +692,349 @@ class UserControllerTest extends AbstractControllerTest
     public function dataProviderForTestGetUser()
     {
         return [
-            [
+            "ownerGetOwner" => [
                 self::TYPE_OWNER,
                 1,
                 [
-                    "name"                => "Owner",
-                    "login"               => "owner",
-                    "email"               => "owner@email.com",
-                    "type"                => UserModel::TYPE_OWNER,
-                    "canChangeOperations" => false,
-                ]
-            ],
-            [
-                self::TYPE_OWNER,
-                2,
-                [
-                    "name"                => "Admin",
-                    "login"               => "admin",
-                    "email"               => "admin@email.com",
-                    "type"                => UserModel::TYPE_FULL,
-                    "canChangeOperations" => true,
-                ]
-            ],
-            [
-                self::TYPE_OWNER,
-                3,
-                [
-                    "name"                => "User",
-                    "login"               => "user",
-                    "email"               => "user@email.com",
-                    "type"                => UserModel::TYPE_LIMITED,
-                    "canChangeOperations" => true,
-                ]
-            ],
-            [
-                self::TYPE_FULL,
-                1,
-                [
-                    "name"                => "Owner",
-                    "login"               => "owner",
-                    "email"               => "owner@email.com",
-                    "type"                => UserModel::TYPE_OWNER,
-                    "canChangeOperations" => false,
-                ]
-            ],
-            [
-                self::TYPE_FULL,
-                2,
-                [
-                    "name"                => "Admin",
-                    "login"               => "admin",
-                    "email"               => "admin@email.com",
-                    "type"                => UserModel::TYPE_FULL,
-                    "canChangeOperations" => false,
-                ]
-            ],
-            [
-                self::TYPE_FULL,
-                3,
-                [
-                    "name"                => "User",
-                    "login"               => "user",
-                    "email"               => "user@email.com",
-                    "type"                => UserModel::TYPE_LIMITED,
-                    "canChangeOperations" => true,
-                    "operations"          => [
-                        Operation::TYPE_SECTIONS => [
-                            "title" => "Sections",
-                            "data"  => [
-                                Operation::ALL => [
-                                    "title" => "All",
-                                    "data"  => [
-                                        [
-                                            "name"  => "operations.SECTIONS.ALL.SECTION_ADD",
-                                            "value" => false
-                                        ]
-                                    ]
-                                ],
-                                1              => [
-                                    "title" => "Text Blocks",
-                                    "data"  => [
-                                        [
-                                            "name"  => "operations.SECTIONS.1.SECTION_ADD",
-                                            "value" => false
-                                        ],
-                                        [
-                                            "name"  => "operations.SECTIONS.1.SECTION_UPDATE",
-                                            "value" => false
-                                        ],
-                                    ]
-                                ],
-                            ]
+                    "id"         => 1,
+                    "title"      => "Edit user",
+                    "name"       => [
+                        "label"      => "Name",
+                        "value"      => "Owner",
+                        "name"       => "name",
+                        "validation" => [
+                            "required" => "required",
+                            "maxLength" => 100,
                         ],
-                        Operation::TYPE_BLOCKS   => [
-                            "title" => "Blocks",
-                            "data"  => [
-                                1 => [
-                                    "data" => [
-                                        Operation::ALL => [
-                                            "title" => "All",
-                                            "data"  => [
-                                                [
-                                                    "name"  => "operations.BLOCKS.1.ALL.TEXT_ADD",
-                                                    "value" => false
-                                                ],
-                                                [
-                                                    "name"  => "operations.BLOCKS.1.ALL.TEXT_UPDATE_SETTINGS",
-                                                    "value" => false
-                                                ]
-                                            ]
-                                        ],
-                                        1              => [
-                                            "title" => "Simple text",
-                                            "data"  => [
-                                                [
-                                                    "name"  => "operations.BLOCKS.1.1.TEXT_ADD",
-                                                    "value" => false
-                                                ]
-                                            ]
-                                        ],
-                                    ]
-                                ]
-                            ]
+                    ],
+                    "login"      => [
+                        "label"      => "Login",
+                        "value"      => "owner",
+                        "name"       => "login",
+                        "validation" => [
+                            "required"                   => "required",
+                            "minLength"                  => 3,
+                            "maxLength"                  => 50,
+                            "latinDigitUnderscoreHyphen" => "latinDigitUnderscoreHyphen"
                         ],
-                        Operation::TYPE_SETTINGS => [
-                            "title" => "Settings",
-                            "data"  => [
-                                [
-                                    "name"  => "operations.SETTINGS.SETTINGS_ICON",
-                                    "value" => true
-                                ],
-                                [
-                                    "name"  => "operations.SETTINGS.SETTINGS_USER_VIEW",
-                                    "value" => false
-                                ],
-                            ]
+                    ],
+                    "email"      => [
+                        "label"      => "Email",
+                        "value"      => "owner@email.com",
+                        "name"       => "email",
+                        "validation" => [
+                            "required" => "required",
+                            "email"    => "email",
                         ],
+                    ],
+                    "type"       => [
+                        "label" => "Type",
+                        "value" => UserModel::TYPE_OWNER,
+                        "name"  => "type",
+                        "list"  => UserModel::getTypeList()
+                    ],
+                    "operations" => [
+                        "canChange" => false,
+                        "label"     => "Operations",
+                        "list"      => []
+                    ],
+                    "button"     => [
+                        "label" => "Update",
                     ]
                 ]
             ],
-            [
+            "ownerGetAdmin" => [
+                self::TYPE_OWNER,
+                2,
+                [
+                    "id"         => 2,
+                    "name"       => [
+                        "value"      => "Admin",
+                    ],
+                    "login"      => [
+                        "value"      => "admin",
+                    ],
+                    "email"      => [
+                        "value"      => "admin@email.com",
+                    ],
+                    "type"       => [
+                        "value" => UserModel::TYPE_FULL,
+                    ],
+                    "operations" => [
+                        "canChange" => true,
+                    ],
+                ]
+            ],
+            "ownerGetUser" => [
+                self::TYPE_OWNER,
+                3,
+                [
+                    "id"         => 3,
+                    "name"       => [
+                        "value"      => "User",
+                    ],
+                    "login"      => [
+                        "value"      => "user",
+                    ],
+                    "email"      => [
+                        "value"      => "user@email.com",
+                    ],
+                    "type"       => [
+                        "value" => UserModel::TYPE_LIMITED,
+                    ],
+                    "operations" => [
+                        "canChange" => true,
+                    ],
+                ]
+            ],
+            "adminGetOwner" => [
+                self::TYPE_FULL,
+                1,
+                [],
+                true
+            ],
+            "adminGetAdmin" => [
+                self::TYPE_FULL,
+                2,
+                [
+                    "id"         => 2,
+                    "name"       => [
+                        "value"      => "Admin",
+                    ],
+                    "login"      => [
+                        "value"      => "admin",
+                    ],
+                    "email"      => [
+                        "value"      => "admin@email.com",
+                    ],
+                    "type"       => [
+                        "value" => UserModel::TYPE_FULL,
+                    ],
+                    "operations" => [
+                        "canChange" => false,
+                    ],
+                ]
+            ],
+            "adminGetUser" => [
+                self::TYPE_FULL,
+                3,
+                [
+                    "id"         => 3,
+                    "name"       => [
+                        "value"      => "User",
+                    ],
+                    "login"      => [
+                        "value"      => "user",
+                    ],
+                    "email"      => [
+                        "value"      => "user@email.com",
+                    ],
+                    "type"       => [
+                        "value" => UserModel::TYPE_LIMITED,
+                    ],
+                    "operations" => [
+                        "canChange" => true,
+                        "list" => [
+                            Operation::TYPE_SECTIONS => [
+                                "title" => "Sections",
+                                "data"  => [
+                                    Operation::ALL => [
+                                        "title" => "All",
+                                        "data"  => [
+                                            [
+                                                "name"  => "operations.SECTIONS.ALL.SECTION_ADD",
+                                                "value" => false
+                                            ]
+                                        ]
+                                    ],
+                                    1              => [
+                                        "title" => "Text Blocks",
+                                        "data"  => [
+                                            [
+                                                "name"  => "operations.SECTIONS.1.SECTION_ADD",
+                                                "value" => false
+                                            ],
+                                            [
+                                                "name"  => "operations.SECTIONS.1.SECTION_UPDATE",
+                                                "value" => false
+                                            ],
+                                        ]
+                                    ],
+                                ]
+                            ],
+                            Operation::TYPE_BLOCKS   => [
+                                "title" => "Blocks",
+                                "data"  => [
+                                    1 => [
+                                        "data" => [
+                                            Operation::ALL => [
+                                                "title" => "All",
+                                                "data"  => [
+                                                    [
+                                                        "name"  => "operations.BLOCKS.1.ALL.TEXT_ADD",
+                                                        "value" => false
+                                                    ],
+                                                    [
+                                                        "name"  => "operations.BLOCKS.1.ALL.TEXT_UPDATE_SETTINGS",
+                                                        "value" => false
+                                                    ]
+                                                ]
+                                            ],
+                                            1              => [
+                                                "title" => "Simple text",
+                                                "data"  => [
+                                                    [
+                                                        "name"  => "operations.BLOCKS.1.1.TEXT_ADD",
+                                                        "value" => false
+                                                    ]
+                                                ]
+                                            ],
+                                        ]
+                                    ]
+                                ]
+                            ],
+                            Operation::TYPE_SETTINGS => [
+                                "title" => "Settings",
+                                "data"  => [
+                                    [
+                                        "name"  => "operations.SETTINGS.SETTINGS_ICON",
+                                        "value" => true
+                                    ],
+                                    [
+                                        "name"  => "operations.SETTINGS.SETTINGS_USER_VIEW",
+                                        "value" => false
+                                    ],
+                                ]
+                            ],
+                        ]
+                    ],
+                ]
+            ],
+            "userGetOwner" => [
                 self::TYPE_LIMITED,
                 1,
                 [],
                 true
             ],
-            [
+            "userGetAdmin" => [
                 self::TYPE_LIMITED,
                 2,
                 [],
                 true
             ],
-            [
+            "userGetUser" => [
                 self::TYPE_LIMITED,
                 3,
                 [
-                    "name"                => "User",
-                    "login"               => "user",
-                    "email"               => "user@email.com",
-                    "type"                => UserModel::TYPE_LIMITED,
-                    "canChangeOperations" => false,
+                    "id"         => 3,
+                    "name"       => [
+                        "value"      => "User",
+                    ],
+                    "login"      => [
+                        "value"      => "user",
+                    ],
+                    "email"      => [
+                        "value"      => "user@email.com",
+                    ],
+                    "type"       => [
+                        "value" => UserModel::TYPE_LIMITED,
+                    ],
+                    "operations" => [
+                        "canChange" => false,
+                    ],
                 ]
-            ]
+            ],
+            "ownerAddNewUser" => [
+                self::TYPE_OWNER,
+                null,
+                [
+                    "id"         => 0,
+                    "title"      => "Add user",
+                    "name"       => [
+                        "label"      => "Name",
+                        "value"      => "",
+                        "name"       => "name",
+                        "validation" => [
+                            "required" => "required",
+                            "maxLength" => 100,
+                        ],
+                    ],
+                    "login"      => [
+                        "label"      => "Login",
+                        "value"      => "",
+                        "name"       => "login",
+                        "validation" => [
+                            "required"                   => "required",
+                            "minLength"                  => 3,
+                            "maxLength"                  => 50,
+                            "latinDigitUnderscoreHyphen" => "latinDigitUnderscoreHyphen"
+                        ],
+                    ],
+                    "email"      => [
+                        "label"      => "Email",
+                        "value"      => "",
+                        "name"       => "email",
+                        "validation" => [
+                            "required" => "required",
+                            "email"    => "email",
+                        ],
+                    ],
+                    "type"       => [
+                        "label" => "Type",
+                        "value" => 0,
+                        "name"  => "type",
+                        "list"  => UserModel::getTypeList()
+                    ],
+                    "operations" => [
+                        "canChange" => true,
+                        "label"     => "Operations",
+                    ],
+                    "button"     => [
+                        "label" => "Add",
+                    ]
+                ]
+            ],
+            "adminAddNewUser" => [
+                self::TYPE_FULL,
+                null,
+                [
+                    "id"         => 0,
+                    "title"      => "Add user",
+                    "name"       => [
+                        "value"      => "",
+                    ],
+                    "login"      => [
+                        "value"      => "",
+                    ],
+                    "email"      => [
+                        "value"      => "",
+                    ],
+                    "type"       => [
+                        "value" => 0,
+                    ],
+                    "operations" => [
+                        "canChange" => true,
+                    ],
+                ]
+            ],
+            "userAddNewUser" => [
+                self::TYPE_LIMITED,
+                null,
+                [],
+                true
+            ],
+            "incorrectID1" => [
+                self::TYPE_OWNER,
+                "incorrect",
+                [],
+                true
+            ],
+            "incorrectID2" => [
+                self::TYPE_OWNER,
+                999,
+                [],
+                true
+            ],
         ];
     }
 

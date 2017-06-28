@@ -123,4 +123,20 @@ return [
         Language::LANGUAGE_EN_ID => "Are you sure to delete the user?",
         Language::LANGUAGE_RU_ID => "",
     ],
+    "addUser" => [
+        Language::LANGUAGE_EN_ID => "Add user",
+        Language::LANGUAGE_RU_ID => "",
+    ],
+    "editUser" => [
+        Language::LANGUAGE_EN_ID => "Edit user",
+        Language::LANGUAGE_RU_ID => "",
+    ],
+    "type" => [
+        Language::LANGUAGE_EN_ID => "Type",
+        Language::LANGUAGE_RU_ID => "",
+    ],
+    "operations" => [
+        Language::LANGUAGE_EN_ID => "Operations",
+        Language::LANGUAGE_RU_ID => "",
+    ],
 ];

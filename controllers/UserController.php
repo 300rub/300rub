@@ -44,13 +44,11 @@ class UserController extends AbstractController
             "forms" => [
                 "user"       => [
                     "name"       => "user",
-                    "type"       => self::FORM_TYPE_TEXT,
                     "label"      => Language::t("user", "user"),
                     "validation" => $model->getValidationRulesForField("login")
                 ],
                 "password"   => [
                     "name"       => "password",
-                    "type"       => self::FORM_TYPE_PASSWORD,
                     "label"      => Language::t("user", "password"),
                     "validation" => array_merge(
                         $model->getValidationRulesForField("password"),
@@ -61,13 +59,10 @@ class UserController extends AbstractController
                 ],
                 "isRemember" => [
                     "name"  => "isRemember",
-                    "type"  => self::FORM_TYPE_CHECKBOX,
                     "label" => Language::t("user", "isRemember"),
                 ],
                 "button"     => [
                     "label"      => Language::t("user", "loginButton"),
-                    "controller" => "user",
-                    "action"     => "session"
                 ]
             ]
         ];
@@ -242,7 +237,7 @@ class UserController extends AbstractController
 
         $id = 0;
         if (array_key_exists("id", $data)) {
-            $id = (int) $data["id"];
+            $id = (int)$data["id"];
         }
 
         if ($id === 0
@@ -309,7 +304,7 @@ class UserController extends AbstractController
                 ]
             );
         }
-        $id = (int) $data["id"];
+        $id = (int)$data["id"];
 
         if ($id !== App::web()->getUser()->getId()) {
             $this->checkSettingsOperation(Operation::SETTINGS_USER_VIEW_SESSIONS);
@@ -356,29 +351,29 @@ class UserController extends AbstractController
         }
 
         return [
-            "title" => Language::t("user", "sessions"),
-            "id"    => $id,
-            "labels" => [
-                "token" => Language::t("user", "token"),
-                "lastActivity" => Language::t("user", "lastActivity"),
-                "platform" => Language::t("user", "platform"),
-                "browser" => Language::t("user", "browser"),
-                "online" => Language::t("user", "online"),
-                "current" => Language::t("user", "current"),
-                "delete" => Language::t("common", "delete"),
+            "title"     => Language::t("user", "sessions"),
+            "id"        => $id,
+            "labels"    => [
+                "token"             => Language::t("user", "token"),
+                "lastActivity"      => Language::t("user", "lastActivity"),
+                "platform"          => Language::t("user", "platform"),
+                "browser"           => Language::t("user", "browser"),
+                "online"            => Language::t("user", "online"),
+                "current"           => Language::t("user", "current"),
+                "delete"            => Language::t("common", "delete"),
                 "deleteAllSessions" => Language::t("user", "deleteAllSessions"),
-                "deleteConfirm" => [
+                "deleteConfirm"     => [
                     "text" => Language::t("user", "deleteSessionConfirmText"),
-                    "yes" => Language::t("user", "deleteSessionConfirmYes"),
-                    "no" => Language::t("common", "no"),
+                    "yes"  => Language::t("user", "deleteSessionConfirmYes"),
+                    "no"   => Language::t("common", "no"),
                 ],
-                "deleteAllConfirm" => [
+                "deleteAllConfirm"  => [
                     "text" => Language::t("user", "deleteAllSessionsConfirmText"),
-                    "yes" => Language::t("user", "deleteAllSessionsConfirmYes"),
-                    "no" => Language::t("common", "no"),
+                    "yes"  => Language::t("user", "deleteAllSessionsConfirmYes"),
+                    "no"   => Language::t("common", "no"),
                 ]
             ],
-            "list" => $list,
+            "list"      => $list,
             "canDelete" => $canDelete
         ];
     }
@@ -395,14 +390,14 @@ class UserController extends AbstractController
 
         $list = [
             [
-                "id"               => $user->getId(),
-                "name"             => $user->getName(),
-                "email"            => $user->getEmail(),
-                "access"           => (new UserModel())->getType($user->getType()),
-                "canUpdate"        => true,
-                "canDelete"        => false,
-                "canViewSessions"  => true,
-                "isCurrent"        => true,
+                "id"              => $user->getId(),
+                "name"            => $user->getName(),
+                "email"           => $user->getEmail(),
+                "access"          => (new UserModel())->getType($user->getType()),
+                "canUpdate"       => true,
+                "canDelete"       => false,
+                "canViewSessions" => true,
+                "isCurrent"       => true,
             ]
         ];
 
@@ -415,14 +410,14 @@ class UserController extends AbstractController
             $userModels = (new UserModel())->exceptId($user->getId())->ordered()->findAll();
             foreach ($userModels as $userModel) {
                 $list[] = [
-                    "id"               => $userModel->getId(),
-                    "name"             => $userModel->get("name"),
-                    "email"            => $userModel->get("email"),
-                    "access"           => $userModel->getType(),
-                    "canUpdate"        => $userModel->isOwner() ? false : $canUpdate,
-                    "canDelete"        => $userModel->isOwner() ? false : $canDelete,
-                    "canViewSessions"  => $canViewSessions,
-                    "isCurrent"        => false,
+                    "id"              => $userModel->getId(),
+                    "name"            => $userModel->get("name"),
+                    "email"           => $userModel->get("email"),
+                    "access"          => $userModel->getType(),
+                    "canUpdate"       => $userModel->isOwner() ? false : $canUpdate,
+                    "canDelete"       => $userModel->isOwner() ? false : $canDelete,
+                    "canViewSessions" => $canViewSessions,
+                    "isCurrent"       => false,
                 ];
             }
         }
@@ -432,15 +427,15 @@ class UserController extends AbstractController
             "list"   => $list,
             "canAdd" => $this->hasSettingsOperation(Operation::SETTINGS_USER_ADD),
             "labels" => [
-                "name"     => Language::t("common", "name"),
-                "email"    => Language::t("common", "email"),
-                "access"   => Language::t("user", "access"),
-                "sessions" => Language::t("user", "sessions"),
-                "edit"     => Language::t("common", "edit"),
-                "delete"   => Language::t("common", "delete"),
-                "add"      => Language::t("common", "add"),
+                "name"                  => Language::t("common", "name"),
+                "email"                 => Language::t("common", "email"),
+                "access"                => Language::t("user", "access"),
+                "sessions"              => Language::t("user", "sessions"),
+                "edit"                  => Language::t("common", "edit"),
+                "delete"                => Language::t("common", "delete"),
+                "add"                   => Language::t("common", "add"),
                 "deleteUserConfirmText" => Language::t("user", "deleteUserConfirmText"),
-                "no" => Language::t("common", "no"),
+                "no"                    => Language::t("common", "no"),
             ]
         ];
     }
@@ -450,6 +445,7 @@ class UserController extends AbstractController
      *
      * @throws BadRequestException
      * @throws NotFoundException
+     * @throws AccessException
      *
      * @return array
      */
@@ -458,45 +454,70 @@ class UserController extends AbstractController
         $this->checkUser();
 
         $data = $this->getData();
-        if (empty($data["id"])) {
-            throw new BadRequestException(
-                "Incorrect request to get user. Data: {data}",
-                [
-                    "data" => json_encode($data)
-                ]
-            );
-        }
-
-        $userModel = new UserModel();
-
-        $id = (int)$data["id"];
-        $user = App::web()->getUser();
-        if ($user->getId() !== $id) {
-            $this->checkSettingsOperation(Operation::SETTINGS_USER_UPDATE);
-
-            $userModel = $userModel->byId($id)->find();
-            if ($userModel === null) {
-                throw new NotFoundException(
-                    "Unable to find user with ID: {id}",
+        $id = 0;
+        if (!empty($data["id"])) {
+            $id = (int)$data["id"];
+            if ($id === 0) {
+                throw new BadRequestException(
+                    "Incorrect request to get user. Data: {data}",
                     [
-                        "id" => $id
+                        "data" => json_encode($data)
                     ]
                 );
             }
+        }
 
-            $name = $userModel->get("name");
-            $login = $userModel->get("login");
-            $email = $userModel->get("email");
-            $type = $userModel->get("type");
-            $userOperations = $userModel->getOperations();
-            $canChangeOperations = $this->isFullAccess() && !$userModel->isOwner();
+        $userModel = new UserModel();
+        $userOperations = [];
+        $name = "";
+        $login = "";
+        $email = "";
+        $type = 0;
+
+        if ($id === 0) {
+            $this->checkSettingsOperation(Operation::SETTINGS_USER_ADD);
+            $title = Language::t("user", "addUser");
+            $buttonLabel = Language::t("common", "add");
+            $canChangeOperations = $this->isFullAccess();
         } else {
-            $name = $user->getName();
-            $login = $user->getLogin();
-            $email = $user->getEmail();
-            $type = $user->getType();
-            $userOperations = $user->getOperations();
-            $canChangeOperations = false;
+            $user = App::web()->getUser();
+
+            if ($user->getId() !== $id) {
+                $this->checkSettingsOperation(Operation::SETTINGS_USER_UPDATE);
+
+                $userModel = (new UserModel())->byId($id)->find();
+                if ($userModel === null) {
+                    throw new NotFoundException(
+                        "Unable to find user with ID: {id}",
+                        [
+                            "id" => $id
+                        ]
+                    );
+                }
+
+                if ($userModel->isOwner()) {
+                    throw new AccessException(
+                        "Unable to get owner"
+                    );
+                }
+
+                $name = $userModel->get("name");
+                $login = $userModel->get("login");
+                $email = $userModel->get("email");
+                $type = $userModel->get("type");
+                $userOperations = $userModel->getOperations();
+                $canChangeOperations = $this->isFullAccess() && !$userModel->isOwner();
+            } else {
+                $name = $user->getName();
+                $login = $user->getLogin();
+                $email = $user->getEmail();
+                $type = $user->getType();
+                $userOperations = [];
+                $canChangeOperations = false;
+            }
+
+            $title = Language::t("user", "editUser");
+            $buttonLabel = Language::t("common", "update");
         }
 
         $operations = [];
@@ -505,35 +526,39 @@ class UserController extends AbstractController
         $operations[Operation::TYPE_SETTINGS] = $this->_getSettingsOperations($userOperations);
 
         return [
-            "title" => "aaaaa",
-            "name"                => [
-                "label" => Language::t("common", "name"),
-                "value" => $name,
-                "name"  => "name",
+            "id"         => $id,
+            "title"      => $title,
+            "name"       => [
+                "label"      => Language::t("common", "name"),
+                "value"      => $name,
+                "name"       => "name",
                 "validation" => $userModel->getValidationRulesForField("name"),
-                "type"       => self::FORM_TYPE_TEXT,
             ],
-            "login"                => [
-                "label" => Language::t("user", "login"),
-                "value" => $login,
-                "name"  => "login",
+            "login"      => [
+                "label"      => Language::t("user", "login"),
+                "value"      => $login,
+                "name"       => "login",
                 "validation" => $userModel->getValidationRulesForField("login"),
-                "type"       => self::FORM_TYPE_TEXT,
             ],
-            "email"                => [
-                "label" => Language::t("common", "email"),
-                "value" => $email,
-                "name"  => "email",
+            "email"      => [
+                "label"      => Language::t("common", "email"),
+                "value"      => $email,
+                "name"       => "email",
                 "validation" => $userModel->getValidationRulesForField("email"),
-                "type"       => self::FORM_TYPE_TEXT,
             ],
-            "type"                => $type,
-            "canChangeOperations" => $canChangeOperations,
-            "operations"          => $operations,
+            "type"       => [
+                "label" => Language::t("user", "type"),
+                "value" => $type,
+                "name"  => "type",
+                "list"  => UserModel::getTypeList()
+            ],
+            "operations" => [
+                "canChange" => $canChangeOperations,
+                "label"     => Language::t("user", "operations"),
+                "list"      => $operations
+            ],
             "button"     => [
-                "label"      => Language::t("user", "loginButton"),
-                "controller" => "user",
-                "action"     => "session"
+                "label" => $buttonLabel,
             ]
         ];
     }

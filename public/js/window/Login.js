@@ -66,7 +66,8 @@
             this._userForm = new TestS.Form(
                 $.extend(
                     {
-                        appendTo: this._window.getBody()
+                        appendTo: this._window.getBody(),
+                        type: "text"
                     },
                     data.forms.user
                 )
@@ -75,7 +76,8 @@
             this._passwordForm = new TestS.Form(
                 $.extend(
                     {
-                        appendTo: this._window.getBody()
+                        appendTo: this._window.getBody(),
+                        type: "password"
                     },
                     data.forms.password
                 )
@@ -84,7 +86,8 @@
             this._isRememberForm = new TestS.Form(
                 $.extend(
                     {
-                        appendTo: this._window.getBody()
+                        appendTo: this._window.getBody(),
+                        type: "checkbox"
                     },
                     data.forms.isRemember
                 )
@@ -99,8 +102,8 @@
                     forms: [this._userForm, this._passwordForm, this._isRememberForm],
                     ajax: {
                         data: {
-                            controller: data.forms.button.controller,
-                            action: data.forms.button.action
+                            controller: "user",
+                            action: "session"
                         },
                         type: "PUT",
                         success: $.proxy(this._onSuccess, this),
