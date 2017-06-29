@@ -29,8 +29,47 @@ class CatalogBinModelTest extends AbstractModelTest
      */
     protected function getDataProviderCRUDEmpty()
     {
-        $this->markTestSkipped();
-        return [];
+        return [
+            "empty1" => [
+                [],
+                [
+                    "count" => ["minValue"]
+                ]
+            ],
+            "empty2" => [
+                [
+                    "catalogId"         => "",
+                    "catalogInstanceId" => "",
+                    "count"             => "",
+                    "status"            => "",
+                ],
+                [
+                    "count" => ["minValue"]
+                ]
+            ],
+            "empty3" => [
+                [
+                    "count" => 1
+                ],
+                [],
+                null,
+                null,
+                self::EXCEPTION_MODEL
+            ],
+            "empty4" => [
+                [
+                    "catalogId"         => 1,
+                    "catalogInstanceId" => 1,
+                    "count"             => 1,
+                ],
+                [
+                    "catalogId"         => 1,
+                    "catalogInstanceId" => 1,
+                    "count"             => 1,
+                    "status"            => 0,
+                ]
+            ],
+        ];
     }
 
     /**
@@ -40,8 +79,32 @@ class CatalogBinModelTest extends AbstractModelTest
      */
     protected function getDataProviderCRUDCorrect()
     {
-        $this->markTestSkipped();
-        return [];
+        return [
+            "correct1" => [
+                [
+                    "catalogId"         => 1,
+                    "catalogInstanceId" => 1,
+                    "count"             => 1,
+                    "status"            => 0,
+                ],
+                [
+                    "catalogId"         => 1,
+                    "catalogInstanceId" => 1,
+                    "count"             => 1,
+                    "status"            => 0,
+                ],
+                [
+                    "count"             => 20,
+                    "status"            => 1,
+                ],
+                [
+                    "catalogId"         => 1,
+                    "catalogInstanceId" => 1,
+                    "count"             => 20,
+                    "status"            => 1,
+                ],
+            ]
+        ];
     }
 
     /**
@@ -51,8 +114,56 @@ class CatalogBinModelTest extends AbstractModelTest
      */
     protected function getDataProviderCRUDIncorrect()
     {
-        $this->markTestSkipped();
-        return [];
+        return [
+            "incorrect1" => [
+                [
+                    "catalogId"         => "incorrect1",
+                    "catalogInstanceId" => "incorrect1",
+                    "count"             => "incorrect1",
+                    "status"            => "incorrect1",
+                ],
+                [
+                    "count" => ["minValue"]
+                ]
+            ],
+            "incorrect2" => [
+                [
+                    "catalogId"         => " 1 a ",
+                    "catalogInstanceId" => " 1 a ",
+                    "count"             => " 21 a",
+                    "status"            => " 1 a",
+                ],
+                [
+                    "catalogId"         => 1,
+                    "catalogInstanceId" => 1,
+                    "count"             => 21,
+                    "status"            => 1,
+                ],
+                [
+                    "catalogId"         => 3,
+                    "catalogInstanceId" => 3,
+                    "count"             => true,
+                    "status"            => 999,
+                ],
+                [
+                    "catalogId"         => 1,
+                    "catalogInstanceId" => 1,
+                    "count"             => 1,
+                    "status"            => 0,
+                ],
+            ],
+            "incorrect3" => [
+                [
+                    "catalogId"         => 1,
+                    "catalogInstanceId" => 1,
+                    "count"             => -1,
+                    "status"            => 1,
+                ],
+                [
+                    "count" => ["minValue"]
+                ]
+            ],
+        ];
     }
 
     /**
@@ -62,7 +173,16 @@ class CatalogBinModelTest extends AbstractModelTest
      */
     public function testDuplicate()
     {
-        $this->markTestSkipped();
-        return [];
+        $this->duplicate(
+            [
+                "catalogId"         => 1,
+                "catalogInstanceId" => 1,
+                "count"             => 1,
+                "status"            => 0,
+            ],
+            [
+                "count" => ["minValue"]
+            ]
+        );
     }
 }

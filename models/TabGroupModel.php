@@ -29,7 +29,8 @@ class TabGroupModel extends AbstractModel
     {
         return [
             "tabId" => [
-                self::FIELD_RELATION_TO_PARENT => "TabModel",
+                self::FIELD_RELATION_TO_PARENT   => "TabModel",
+                self::FIELD_NOT_CHANGE_ON_UPDATE => true,
             ],
         ];
     }

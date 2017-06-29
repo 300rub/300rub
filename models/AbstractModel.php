@@ -122,6 +122,9 @@ abstract class AbstractModel
                     case self::FIELD_TYPE_INT:
                         $this->_fields[$field] = 0;
                         break;
+                    case self::FIELD_TYPE_FLOAT:
+                        $this->_fields[$field] = 0.0;
+                        break;
                     case self::FIELD_TYPE_STRING:
                         $this->_fields[$field] = "";
                         break;
@@ -407,6 +410,9 @@ abstract class AbstractModel
                     break;
                 case self::FIELD_TYPE_INT:
                     $this->_fields[$field] = ValueGenerator::generate(ValueGenerator::INT, $value);
+                    break;
+                case self::FIELD_TYPE_FLOAT:
+                    $this->_fields[$field] = ValueGenerator::generate(ValueGenerator::FLOAT, $value);
                     break;
                 case self::FIELD_TYPE_BOOL:
                     $this->_fields[$field] = ValueGenerator::generate(ValueGenerator::BOOL, $value);

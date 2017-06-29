@@ -17,6 +17,7 @@ class Validator
 	const TYPE_URL = "url";
 	const TYPE_MAX_LENGTH = "maxLength";
 	const TYPE_MIN_LENGTH = "minLength";
+	const TYPE_MIN_VALUE = "minValue";
 	const TYPE_IP = "ip";
 	const TYPE_LATIN_DIGIT_UNDERSCORE_HYPHEN = "latinDigitUnderscoreHyphen";
 	const TYPE_EMAIL = "email";
@@ -69,6 +70,9 @@ class Validator
 					break;
 				case self::TYPE_MIN_LENGTH:
 					$this->_checkMinLength($value);
+					break;
+				case self::TYPE_MIN_VALUE:
+					$this->_checkMinValue($value);
 					break;
 				case self::TYPE_MAX_LENGTH:
 					$this->_checkMaxLength($value);
@@ -156,6 +160,20 @@ class Validator
 	{
 		if (mb_strlen($this->_value) < $min) {
 			$this->_addError(self::TYPE_MIN_LENGTH);
+		}
+	}
+
+	/**
+	 * Verifies min value
+	 *
+	 * @param int $min
+	 *
+	 * @return void
+	 */
+	private function _checkMinValue($min)
+	{
+		if ($this->_value < $min) {
+			$this->_addError(self::TYPE_MIN_VALUE);
 		}
 	}
 

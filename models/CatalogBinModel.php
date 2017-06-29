@@ -2,6 +2,7 @@
 
 namespace testS\models;
 
+use testS\components\Validator;
 use testS\components\ValueGenerator;
 
 /**
@@ -16,6 +17,7 @@ class CatalogBinModel extends AbstractModel
      * Statuses
      */
     const STATUS_ADDED = 0;
+    const STATUS_COMPLETED = 1;
 
     /**
      * Gets a status list
@@ -25,7 +27,8 @@ class CatalogBinModel extends AbstractModel
     public static function getStatusList()
     {
         return [
-            self::STATUS_ADDED => ""
+            self::STATUS_ADDED    => "",
+            self::STATUS_COMPLETED => "",
         ];
     }
 
@@ -48,16 +51,21 @@ class CatalogBinModel extends AbstractModel
     {
         return [
             "catalogId"         => [
-                self::FIELD_RELATION_TO_PARENT => "CatalogModel"
+                self::FIELD_RELATION_TO_PARENT => "CatalogModel",
+                self::FIELD_SKIP_DUPLICATION => true,
+                self::FIELD_NOT_CHANGE_ON_UPDATE => true,
             ],
             "catalogInstanceId" => [
-                self::FIELD_RELATION_TO_PARENT => "CatalogInstanceModel"
+                self::FIELD_RELATION_TO_PARENT => "CatalogInstanceModel",
+                self::FIELD_SKIP_DUPLICATION => true,
+                self::FIELD_NOT_CHANGE_ON_UPDATE => true,
             ],
             "count"             => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
-                self::FIELD_VALUE => [
-                    ValueGenerator::MIN => 0
+                self::FIELD_VALIDATION => [
+                    Validator::TYPE_MIN_VALUE => 1
                 ],
+                self::FIELD_SKIP_DUPLICATION => true,
             ],
             "status"            => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
@@ -67,6 +75,7 @@ class CatalogBinModel extends AbstractModel
                         self::STATUS_ADDED
                     ]
                 ],
+                self::FIELD_SKIP_DUPLICATION => true,
             ],
         ];
     }

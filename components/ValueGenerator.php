@@ -27,6 +27,7 @@ class ValueGenerator
     const URL = "url";
     const STRING = "string";
     const INT = "int";
+    const FLOAT = "float";
     const BOOL = "bool";
     const BOOL_INT = "boolInt";
     const DATETIME = "datetime";
@@ -66,6 +67,8 @@ class ValueGenerator
                 return self::_generateString($value);
             case self::INT:
                 return self::_generateInt($value);
+            case self::FLOAT:
+                return self::_generateFloat($value);
             case self::BOOL:
                 return self::_generateBool($value);
             case self::BOOL_INT:
@@ -282,6 +285,18 @@ class ValueGenerator
     private static function _generateInt($value)
     {
         return (int) $value;
+    }
+
+    /**
+     * Generates float type
+     *
+     * @param mixed|string $value
+     *
+     * @return string
+     */
+    private static function _generateFloat($value)
+    {
+        return (float) $value;
     }
 
     /**

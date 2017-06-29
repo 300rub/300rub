@@ -29,7 +29,8 @@ class FieldGroupModel extends AbstractModel
     {
         return [
             "fieldId" => [
-                self::FIELD_RELATION_TO_PARENT => "FieldModel",
+                self::FIELD_RELATION_TO_PARENT   => "FieldModel",
+                self::FIELD_NOT_CHANGE_ON_UPDATE => true,
             ],
         ];
     }
