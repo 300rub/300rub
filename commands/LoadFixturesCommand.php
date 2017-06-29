@@ -42,6 +42,7 @@ class LoadFixturesCommand extends AbstractCommand
 		"search",
 		"menu",
 		"menuInstance",
+		"record",
     ];
 
 	/**
