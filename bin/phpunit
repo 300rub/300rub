@@ -1,3 +1,25 @@
 #!/bin/bash
 
-docker exec -it tests_phpfpm_1 ant phpunit
+test=${1##*/}
+
+if [[ $test == *"ControllerTest"* ]]; then
+  docker exec -it tests_phpfpm_1 ant phpunit -Dpath="tests/unit/controllers/${test}.php"
+  exit 1
+fi
+
+if [[ $test == *"ModelTest"* ]]; then
+  docker exec -it tests_phpfpm_1 ant phpunit -Dpath="tests/unit/models/${test}.php"
+  exit 1
+fi
+
+if [[ $test == *"controllers"* ]]; then
+  docker exec -it tests_phpfpm_1 ant phpunit -Dpath="tests/unit/controllers"
+  exit 1
+fi
+
+if [[ $test == *"models"* ]]; then
+  docker exec -it tests_phpfpm_1 ant phpunit -Dpath="tests/unit/models"
+  exit 1
+fi
+
+docker exec -it tests_phpfpm_1 ant phpunit -Dpath="tests/unit"

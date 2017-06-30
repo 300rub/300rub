@@ -61,11 +61,11 @@
         </exec>
     </target>
 
-    <target name="phpunit" depends="create-sql-dumps">
+    <target name="phpunit" depends="create-sql-dumps, clear-db, migrate, load-fixtures">
         <exec executable="php" failonerror="false">
             <arg value='vendor/phpunit/phpunit/phpunit' />
             <arg value='--bootstrap=tests/bootstrap.php' />
-            <arg value='tests' />
+            <arg value='${path}' />
         </exec>
 
         <antcall target="rollback-sql-dumps" />
