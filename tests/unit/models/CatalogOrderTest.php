@@ -29,8 +29,33 @@ class CatalogOrderModelTest extends AbstractModelTest
      */
     protected function getDataProviderCRUDEmpty()
     {
-        $this->markTestSkipped();
-        return [];
+        return [
+            "empty1" => [
+                [],
+                [
+                    "email" => ["email"]
+                ],
+            ],
+            "empty2" => [
+                [
+                    "catalogBinId" => "",
+                    "formId"       => "",
+                    "email"        => "",
+                ],
+                [
+                    "email" => ["email"]
+                ],
+            ],
+            "empty3" => [
+                [
+                    "email" => "email@email.com",
+                ],
+                [],
+                null,
+                null,
+                self::EXCEPTION_MODEL
+            ]
+        ];
     }
 
     /**
@@ -40,8 +65,28 @@ class CatalogOrderModelTest extends AbstractModelTest
      */
     protected function getDataProviderCRUDCorrect()
     {
-        $this->markTestSkipped();
-        return [];
+        return [
+            "correct1" => [
+                [
+                    "catalogBinId" => 1,
+                    "formId"       => 1,
+                    "email"        => "email@email.com",
+                ],
+                [
+                    "catalogBinId" => 1,
+                    "formId"       => 1,
+                    "email"        => "email@email.com",
+                ],
+                [
+                    "email" => "email2@email.com",
+                ],
+                [
+                    "catalogBinId" => 1,
+                    "formId"       => 1,
+                    "email"        => "email2@email.com",
+                ],
+            ]
+        ];
     }
 
     /**
@@ -51,8 +96,51 @@ class CatalogOrderModelTest extends AbstractModelTest
      */
     protected function getDataProviderCRUDIncorrect()
     {
-        $this->markTestSkipped();
-        return [];
+        return [
+            "incorrect1" => [
+                [
+                    "catalogBinId" => "incorrect",
+                    "formId"       => "incorrect",
+                    "email"        => "incorrect",
+                ],
+                [
+                    "email" => ["email"]
+                ],
+            ],
+            "incorrect2" => [
+                [
+                    "catalogBinId" => " 1 s",
+                    "formId"       => " 1 s",
+                    "email"        => "   email@email.com   ",
+                ],
+                [
+                    "catalogBinId" => 1,
+                    "formId"       => 1,
+                    "email"        => "email@email.com",
+                ],
+                [
+                    "catalogBinId" => 3,
+                    "formId"       => 3,
+                    "email"        => "email2@email.com",
+                ],
+                [
+                    "catalogBinId" => 1,
+                    "formId"       => 1,
+                    "email"        => "email2@email.com",
+                ],
+            ],
+            "incorrect3" => [
+                [
+                    "catalogBinId" => 999,
+                    "formId"       => 999,
+                    "email"        => "email2@email.com",
+                ],
+                [],
+                null,
+                null,
+                self::EXCEPTION_MODEL
+            ],
+        ];
     }
 
     /**
@@ -62,7 +150,15 @@ class CatalogOrderModelTest extends AbstractModelTest
      */
     public function testDuplicate()
     {
-        $this->markTestSkipped();
-        return [];
+        $this->duplicate(
+            [
+                "catalogBinId" => 1,
+                "formId"       => 1,
+                "email"        => "email@email.com",
+            ],
+            [
+                "email" => ["email"]
+            ]
+        );
     }
 }

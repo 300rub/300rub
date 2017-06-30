@@ -44,6 +44,7 @@ class LoadFixturesCommand extends AbstractCommand
 		"menuInstance",
 		"record",
 		"catalogInstance",
+		"catalogBin",
     ];
 
 	/**
