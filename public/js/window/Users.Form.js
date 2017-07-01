@@ -122,18 +122,78 @@
                 )
             );
 
-            this._type = new TestS.Form(
-                $.extend(
-                    {
-                        appendTo: textFormsContainer,
-                        type: "select",
-                        onChange: function() {
-                            console.log($(this).val());
-                        }
-                    },
-                    data.type
-                )
-            );
+            if (data.operations.canChange === true) {
+                this._type = new TestS.Form(
+                    $.extend(
+                        {
+                            appendTo: textFormsContainer,
+                            type: "select",
+                            onChange: function () {
+                                console.log($(this).val());
+                            }
+                        },
+                        data.type
+                    )
+                );
+
+                var $operationsContainer = $container.find(".operations-container");
+
+                $.each(data.operations.list, function(groupKey, groupObject) {
+                    $("<h3/>").text(groupObject.title).appendTo($operationsContainer);
+
+                    switch (groupKey) {
+                        case "SECTIONS":
+                            $("<h4/>").text(groupObject.data.ALL.title).appendTo($operationsContainer);
+                            $.each(groupObject.data.ALL.data, function(allKey, allObject) {
+                                new TestS.Form(
+                                    $.extend(
+                                        {
+                                            appendTo: $operationsContainer,
+                                            type: "checkbox"
+                                        },
+                                        allObject
+                                    )
+                                );
+                            });
+
+                            $.each(groupObject.data, function(groupObjectDataKey, groupObjectDataObject) {
+                                if (groupObjectDataKey === "ALL") {
+                                    return true;
+                                }
+
+                                $("<h4/>").text(groupObjectDataObject.title).appendTo($operationsContainer);
+                                $.each(groupObjectDataObject.data, function(groupObjectDataObjectDataKey, groupObjectDataObjectDataObject) {
+                                    new TestS.Form(
+                                        $.extend(
+                                            {
+                                                appendTo: $operationsContainer,
+                                                type: "checkbox"
+                                            },
+                                            groupObjectDataObjectDataObject
+                                        )
+                                    );
+                                });
+                            });
+
+                            break;
+                        case "SETTINGS":
+                            $.each(groupObject.data, function(checkboxKey, checkboxObject) {
+                                new TestS.Form(
+                                    $.extend(
+                                        {
+                                            appendTo: $operationsContainer,
+                                            type: "checkbox"
+                                        },
+                                        checkboxObject
+                                    )
+                                );
+                            });
+                            break;
+                        default:
+                            break;
+                    }
+                });
+            }
 
             this._window
                 .setTitle(data.title)

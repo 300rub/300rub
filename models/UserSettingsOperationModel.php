@@ -40,7 +40,7 @@ class UserSettingsOperationModel extends AbstractModel
             "operation" => [
                 self::FIELD_TYPE                 => self::FIELD_TYPE_STRING,
                 self::FIELD_VALUE                => [
-                    ValueGenerator::ARRAY_KEY => [Operation::$settingsOperations]
+                    ValueGenerator::ARRAY_KEY => [Operation::getSettingsOperations()]
                 ],
                 self::FIELD_NOT_CHANGE_ON_UPDATE => true,
             ],

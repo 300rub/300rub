@@ -333,7 +333,7 @@ class UserModel extends AbstractModel
                 && is_array($operations[Operation::TYPE_SECTIONS][$key])
             ) {
                 foreach ($operations[Operation::TYPE_SECTIONS][$key] as $operation) {
-                    if (array_key_exists($operation, Operation::$sectionOperations)) {
+                    if (array_key_exists($operation, Operation::getSectionOperations())) {
                         $model = new UserSectionGroupOperationModel();
                         $model->set(
                             [
@@ -352,7 +352,7 @@ class UserModel extends AbstractModel
                 && is_array($operations[Operation::TYPE_SECTIONS][$key])
             ) {
                 foreach ($operations[Operation::TYPE_SECTIONS][$key] as $operation) {
-                    if (array_key_exists($operation, Operation::$sectionOperations)) {
+                    if (array_key_exists($operation, Operation::getSectionOperations())) {
                         $model = new UserSectionOperationModel();
                         $model->set(
                             [
@@ -454,7 +454,7 @@ class UserModel extends AbstractModel
         }
 
         foreach ($operations[Operation::TYPE_SETTINGS] as $operation) {
-            if (array_key_exists($operation, Operation::$settingsOperations)) {
+            if (array_key_exists($operation, Operation::getSettingsOperations())) {
                 $model = new UserSettingsOperationModel();
                 $model->set(
                     [

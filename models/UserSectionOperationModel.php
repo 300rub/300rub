@@ -45,7 +45,7 @@ class UserSectionOperationModel extends AbstractModel
             "operation"      => [
                 self::FIELD_TYPE                 => self::FIELD_TYPE_STRING,
                 self::FIELD_VALUE                => [
-                    ValueGenerator::ARRAY_KEY => [Operation::$sectionOperations]
+                    ValueGenerator::ARRAY_KEY => [Operation::getSectionOperations()]
                 ],
                 self::FIELD_NOT_CHANGE_ON_UPDATE => true,
             ],

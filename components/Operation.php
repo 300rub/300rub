@@ -45,17 +45,20 @@ class Operation
     const SETTINGS_USER_ADD = "SETTINGS_USER_ADD";
 
     /**
-     * Section operations
+     * Gets section operations
      *
-     * @var array
+     * @return array
      */
-    public static $sectionOperations = [
-        self::SECTION_ADD           => "",
-        self::SECTION_UPDATE        => "",
-        self::SECTION_DESIGN_UPDATE => "",
-        self::SECTION_DELETE        => "",
-        self::SECTION_DUPLICATE     => "",
-    ];
+    public static function getSectionOperations()
+    {
+        return [
+            self::SECTION_ADD           => Language::t("operation", "sectionAdd"),
+            self::SECTION_UPDATE        => Language::t("operation", "sectionEdit"),
+            self::SECTION_DESIGN_UPDATE => Language::t("operation", "sectionEditDesign"),
+            self::SECTION_DELETE        => Language::t("operation", "sectionDelete"),
+            self::SECTION_DUPLICATE     => Language::t("operation", "sectionDuplicate"),
+        ];
+    }
 
     /**
      * Block text operations
@@ -82,19 +85,22 @@ class Operation
     ];
 
     /**
-     * Settings operations
+     * Gets settings operations
      *
-     * @var array
+     * @return array
      */
-    public static $settingsOperations = [
-        self::SETTINGS_ICON                 => "",
-        self::SETTINGS_USER_VIEW            => "",
-        self::SETTINGS_USER_UPDATE          => "",
-        self::SETTINGS_USER_DELETE          => "",
-        self::SETTINGS_USER_VIEW_SESSIONS   => "",
-        self::SETTINGS_USER_DELETE_SESSIONS => "",
-        self::SETTINGS_USER_ADD             => ""
-    ];
+    public static function getSettingsOperations()
+    {
+        return [
+            self::SETTINGS_ICON                 => Language::t("operation", "settingsChangeIcon"),
+            self::SETTINGS_USER_VIEW            => Language::t("operation", "settingsViewUsers"),
+            self::SETTINGS_USER_UPDATE          => Language::t("operation", "settingsEditUsers"),
+            self::SETTINGS_USER_DELETE          => Language::t("operation", "settingsDeleteUsers"),
+            self::SETTINGS_USER_VIEW_SESSIONS   => Language::t("operation", "settingsViewUserSessions"),
+            self::SETTINGS_USER_DELETE_SESSIONS => Language::t("operation", "settingsDeleteUserSessions"),
+            self::SETTINGS_USER_ADD             => Language::t("operation", "settingsAddUsers"),
+        ];
+    }
 
     /**
      * Gets a list of content operations by content type

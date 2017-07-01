@@ -132,6 +132,10 @@
          */
         _setCheckboxForm: function () {
             this.$_form = TestS.Template.get("form-container-checkbox");
+
+            if (this._options.value === true) {
+                this.$_form.find(".form-instance").attr("checked", "checked");
+            }
         },
 
         /**

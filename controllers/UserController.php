@@ -581,9 +581,9 @@ class UserController extends AbstractController
             "title" => Language::t("operation", "all"),
             "data"  => []
         ];
-        foreach (Operation::$sectionOperations as $key => $value) {
+        foreach (Operation::getSectionOperations() as $key => $value) {
             $operations["data"][Operation::ALL]["data"][] = [
-                "title" => $value,
+                "label" => $value,
                 "name"  => sprintf(
                     "operations.%s.%s.%s",
                     Operation::TYPE_SECTIONS,
@@ -606,9 +606,9 @@ class UserController extends AbstractController
                     "data"  => []
                 ];
 
-                foreach (Operation::$sectionOperations as $key => $value) {
+                foreach (Operation::getSectionOperations() as $key => $value) {
                     $operations["data"][$id]["data"][] = [
-                        "title" => $value,
+                        "label" => $value,
                         "name"  => sprintf(
                             "operations.%s.%s.%s",
                             Operation::TYPE_SECTIONS,
@@ -724,9 +724,9 @@ class UserController extends AbstractController
             "data"  => []
         ];
 
-        foreach (Operation::$settingsOperations as $key => $value) {
+        foreach (Operation::getSettingsOperations() as $key => $value) {
             $operations["data"][] = [
-                "title" => $value,
+                "label" => $value,
                 "name"  => sprintf(
                     "operations.%s.%s",
                     Operation::TYPE_SETTINGS,
