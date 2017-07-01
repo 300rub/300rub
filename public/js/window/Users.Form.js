@@ -52,6 +52,13 @@
         _email: null,
 
         /**
+         * Type
+         *
+         * @var {Object}
+         */
+        _type: null,
+
+        /**
          * Init
          */
         init: function () {
@@ -62,7 +69,7 @@
                     id: this._options.id
                 },
                 success: $.proxy(this._onLoadDataSuccess, this),
-                name: "users.form",
+                name: "users-form",
                 level: 2,
                 parent: {
                     name:"users",
@@ -81,10 +88,15 @@
         _onLoadDataSuccess: function(data) {
             console.log(data);
 
+            var $container = TestS.Template.get("users-form-container");
+            var textFormsContainer = $container.find(".text-forms-container");
+            this._window.getBody().append($container);
+
             this._name = new TestS.Form(
                 $.extend(
                     {
-                        appendTo: this._window.getBody()
+                        appendTo: textFormsContainer,
+                        type: "text"
                     },
                     data.name
                 )
@@ -93,7 +105,8 @@
             this._login = new TestS.Form(
                 $.extend(
                     {
-                        appendTo: this._window.getBody()
+                        appendTo: textFormsContainer,
+                        type: "text"
                     },
                     data.login
                 )
@@ -102,9 +115,23 @@
             this._email = new TestS.Form(
                 $.extend(
                     {
-                        appendTo: this._window.getBody()
+                        appendTo: textFormsContainer,
+                        type: "text"
                     },
                     data.email
+                )
+            );
+
+            this._type = new TestS.Form(
+                $.extend(
+                    {
+                        appendTo: textFormsContainer,
+                        type: "select",
+                        onChange: function() {
+                            console.log($(this).val());
+                        }
+                    },
+                    data.type
                 )
             );
 
@@ -120,9 +147,9 @@
                             controller: data.button.controller,
                             action: data.button.action
                         },
-                        type: "PUT"
+                        type: "PUT",
                         // success: $.proxy(this._onSuccess, this),
-                        // error: $.proxy(this._window.onError, this._window)
+                        error: $.proxy(this._window.onError, this._window)
                     }
                 })
                 .removeLoading();

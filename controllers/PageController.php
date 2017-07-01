@@ -90,6 +90,7 @@ class PageController extends AbstractController
         "forms/password",
         "forms/checkbox",
         "forms/button",
+        "forms/select",
         "window/window"
     ];
 

@@ -51,16 +51,23 @@ class UserModel extends AbstractModel
     /**
      * Gets type list
      *
+     * @param bool $exceptOwner
+     *
      * @return array
      */
-    public static function getTypeList()
+    public static function getTypeList($exceptOwner = false)
     {
-        return [
-            self::TYPE_OWNER   => Language::t("user", "typeOwner"),
+        $list = [
             self::TYPE_FULL    => Language::t("user", "typeFull"),
             self::TYPE_LIMITED => Language::t("user", "typeLimited"),
             self::TYPE_BLOCKED => Language::t("user", "typeBlocked"),
         ];
+
+        if ($exceptOwner === false) {
+            $list[self::TYPE_OWNER] = Language::t("user", "typeOwner");
+        }
+
+        return $list;
     }
 
     /**

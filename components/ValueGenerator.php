@@ -32,6 +32,7 @@ class ValueGenerator
     const BOOL_INT = "boolInt";
     const DATETIME = "datetime";
     const DATETIME_AS_STRING = "datetimeAsString";
+    const ORDERED_ARRAY = "orderedArray";
 
     /**
      * Generates a value
@@ -77,6 +78,8 @@ class ValueGenerator
                 return self::_generateDateTime($value);
             case self::DATETIME_AS_STRING:
                 return self::_generateDateTimeAsString($value);
+            case self::ORDERED_ARRAY:
+                return self::_generateOrderedKeyValueArrayForJson($value);
             default:
                 return $value;
         }
@@ -413,5 +416,26 @@ class ValueGenerator
             default:
                 return $defaultValue;
         }
+    }
+
+    /**
+     * Generates ordered key value array for json
+     *
+     * @param array $array
+     *
+     * @return array
+     */
+    private static function _generateOrderedKeyValueArrayForJson(array $array) {
+        asort($array);
+        $list = [];
+
+        foreach ($array as $key => $value) {
+            $list[] = [
+                "key"   => $key,
+                "value" => $value
+            ];
+        }
+
+        return $list;
     }
 }

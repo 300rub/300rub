@@ -8,6 +8,7 @@ use testS\components\exceptions\BadRequestException;
 use testS\components\exceptions\NotFoundException;
 use testS\components\Language;
 use testS\components\Operation;
+use testS\components\ValueGenerator;
 use testS\models\BlockModel;
 use testS\models\SectionModel;
 use testS\models\UserModel;
@@ -550,7 +551,7 @@ class UserController extends AbstractController
                 "label" => Language::t("user", "type"),
                 "value" => $type,
                 "name"  => "type",
-                "list"  => UserModel::getTypeList()
+                "list"  => ValueGenerator::generate(ValueGenerator::ORDERED_ARRAY, UserModel::getTypeList(true))
             ],
             "operations" => [
                 "canChange" => $canChangeOperations,

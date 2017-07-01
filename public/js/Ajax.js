@@ -44,7 +44,7 @@
                     error: this._getError(),
                     complete: this._getComplete()
                 });
-            }, this), 1000);
+            }, this), 300);
 
         },
 

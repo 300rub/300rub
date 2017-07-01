@@ -50,6 +50,9 @@
                 case "checkbox":
                     this._setCheckboxForm();
                     break;
+                case "select":
+                    this._setSelectForm();
+                    break;
                 case "button":
                     this._setButtonForm();
                     break;
@@ -64,6 +67,40 @@
                 ._setClass()
                 ._setOnBlur()
                 ._appendTo();
+        },
+
+        /**
+         * Sets select form
+         *
+         * @private
+         */
+        _setSelectForm: function () {
+            this.$_form = TestS.Template.get("form-container-select");
+
+            var $instance = this.$_form.find(".form-instance");
+            var $optionTemplate = this.$_form.find(".option-template");
+
+            if ($.type(this._options.list) === "array") {
+                $.each(this._options.list, function(i, object) {
+                    $optionTemplate.clone()
+                        .attr("value", object.key)
+                        .text(object.value)
+                        .appendTo($instance);
+                });
+            }
+            $optionTemplate.remove();
+
+            if (this._options.value !== undefined) {
+                $instance.val(this._options.value);
+            }
+
+            if ($.type(this._options.onChange) === "function") {
+                if ($.type(this._options.data) === "object") {
+                    $instance.on("change", this._options.data, this._options.onChange);
+                } else {
+                    $instance.on("change", this._options.onChange);
+                }
+            }
         },
 
         /**

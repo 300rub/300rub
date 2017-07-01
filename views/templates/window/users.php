@@ -33,3 +33,10 @@
         <td class="buttons"></td>
     </tr>
 </table>
+
+<div class="users-form-container">
+    <div class="text-forms-container"></div>
+    <div class="operations-container">
+
+    </div>
+</div>
