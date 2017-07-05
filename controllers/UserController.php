@@ -643,7 +643,7 @@ class UserController extends AbstractController
         foreach (BlockModel::$typeNames as $blockKey => $title) {
             switch ($blockKey) {
                 case BlockModel::TYPE_TEXT:
-                    $operationList = Operation::$blockTextOperations;
+                    $operationList = Operation::getBlockTextOperations();
                     break;
                 default:
                     $operationList = [];

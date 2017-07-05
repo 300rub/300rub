@@ -35,24 +35,28 @@ return [
         Language::LANGUAGE_EN_ID => "Delete user sessions",
         Language::LANGUAGE_RU_ID => "",
     ],
-    "sectionAdd" => [
+    "add" => [
         Language::LANGUAGE_EN_ID => "Add",
         Language::LANGUAGE_RU_ID => "",
     ],
-    "sectionEdit" => [
+    "edit" => [
         Language::LANGUAGE_EN_ID => "Edit",
         Language::LANGUAGE_RU_ID => "",
     ],
-    "sectionDelete" => [
+    "delete" => [
         Language::LANGUAGE_EN_ID => "Delete",
         Language::LANGUAGE_RU_ID => "",
     ],
-    "sectionDuplicate" => [
+    "duplicate" => [
         Language::LANGUAGE_EN_ID => "Duplicate",
         Language::LANGUAGE_RU_ID => "",
     ],
-    "sectionEditDesign" => [
+    "editDesign" => [
         Language::LANGUAGE_EN_ID => "Edit design",
+        Language::LANGUAGE_RU_ID => "",
+    ],
+    "editSettings" => [
+        Language::LANGUAGE_EN_ID => "Edit settings",
         Language::LANGUAGE_RU_ID => "",
     ],
 ];

@@ -731,7 +731,20 @@ class UserControllerTest extends AbstractControllerTest
                         "label" => "Type",
                         "value" => UserModel::TYPE_OWNER,
                         "name"  => "type",
-                        "list"  => UserModel::getTypeList()
+                        "list"  => [
+                            [
+                                "key"   => 0,
+                                "value" => "Blocked"
+                            ],
+                            [
+                                "key"   => 2,
+                                "value" => "Full"
+                            ],
+                            [
+                                "key"   => 3,
+                                "value" => "Limited"
+                            ]
+                        ]
                     ],
                     "operations" => [
                         "canChange" => false,
@@ -872,11 +885,11 @@ class UserControllerTest extends AbstractControllerTest
                                                 "data"  => [
                                                     [
                                                         "name"  => "operations.BLOCKS.1.ALL.TEXT_ADD",
-                                                        "value" => false
+                                                        "value" => true
                                                     ],
                                                     [
                                                         "name"  => "operations.BLOCKS.1.ALL.TEXT_UPDATE_SETTINGS",
-                                                        "value" => false
+                                                        "value" => true
                                                     ]
                                                 ]
                                             ],
@@ -983,7 +996,20 @@ class UserControllerTest extends AbstractControllerTest
                         "label" => "Type",
                         "value" => 0,
                         "name"  => "type",
-                        "list"  => UserModel::getTypeList()
+                        "list"  => [
+                            [
+                                "key"   => 0,
+                                "value" => "Blocked"
+                            ],
+                            [
+                                "key"   => 2,
+                                "value" => "Full"
+                            ],
+                            [
+                                "key"   => 3,
+                                "value" => "Limited"
+                            ]
+                        ]
                     ],
                     "operations" => [
                         "canChange" => true,

@@ -34,17 +34,6 @@ class Operation
     const SECTION_DUPLICATE = "SECTION_DUPLICATE";
 
     /**
-     * Settings operations
-     */
-    const SETTINGS_ICON = "SETTINGS_ICON";
-    const SETTINGS_USER_VIEW = "SETTINGS_USER_VIEW";
-    const SETTINGS_USER_UPDATE = "SETTINGS_USER_UPDATE";
-    const SETTINGS_USER_DELETE = "SETTINGS_USER_DELETE";
-    const SETTINGS_USER_VIEW_SESSIONS = "SETTINGS_USER_VIEW_SESSIONS";
-    const SETTINGS_USER_DELETE_SESSIONS = "SETTINGS_USER_DELETE_SESSIONS";
-    const SETTINGS_USER_ADD = "SETTINGS_USER_ADD";
-
-    /**
      * Gets section operations
      *
      * @return array
@@ -52,11 +41,11 @@ class Operation
     public static function getSectionOperations()
     {
         return [
-            self::SECTION_ADD           => Language::t("operation", "sectionAdd"),
-            self::SECTION_UPDATE        => Language::t("operation", "sectionEdit"),
-            self::SECTION_DESIGN_UPDATE => Language::t("operation", "sectionEditDesign"),
-            self::SECTION_DELETE        => Language::t("operation", "sectionDelete"),
-            self::SECTION_DUPLICATE     => Language::t("operation", "sectionDuplicate"),
+            self::SECTION_ADD           => Language::t("operation", "add"),
+            self::SECTION_UPDATE        => Language::t("operation", "edit"),
+            self::SECTION_DESIGN_UPDATE => Language::t("operation", "editDesign"),
+            self::SECTION_DELETE        => Language::t("operation", "delete"),
+            self::SECTION_DUPLICATE     => Language::t("operation", "duplicate"),
         ];
     }
 
@@ -71,18 +60,32 @@ class Operation
     const TEXT_DUPLICATE = "TEXT_DUPLICATE";
 
     /**
-     * Block text operations
+     * Gets block text operations
      *
-     * @var array
+     * @return array
      */
-    public static $blockTextOperations = [
-        self::TEXT_ADD             => "",
-        self::TEXT_UPDATE_SETTINGS => "",
-        self::TEXT_UPDATE_DESIGN   => "",
-        self::TEXT_UPDATE_CONTENT  => "",
-        self::TEXT_DELETE          => "",
-        self::TEXT_DUPLICATE       => "",
-    ];
+    public static function getBlockTextOperations()
+    {
+        return [
+            self::TEXT_ADD             => Language::t("operation", "add"),
+            self::TEXT_UPDATE_SETTINGS => Language::t("operation", "editSettings"),
+            self::TEXT_UPDATE_DESIGN   => Language::t("operation", "editDesign"),
+            self::TEXT_UPDATE_CONTENT  => Language::t("operation", "edit"),
+            self::TEXT_DELETE          => Language::t("operation", "delete"),
+            self::TEXT_DUPLICATE       => Language::t("operation", "duplicate"),
+        ];
+    }
+
+    /**
+     * Settings operations
+     */
+    const SETTINGS_ICON = "SETTINGS_ICON";
+    const SETTINGS_USER_VIEW = "SETTINGS_USER_VIEW";
+    const SETTINGS_USER_UPDATE = "SETTINGS_USER_UPDATE";
+    const SETTINGS_USER_DELETE = "SETTINGS_USER_DELETE";
+    const SETTINGS_USER_VIEW_SESSIONS = "SETTINGS_USER_VIEW_SESSIONS";
+    const SETTINGS_USER_DELETE_SESSIONS = "SETTINGS_USER_DELETE_SESSIONS";
+    const SETTINGS_USER_ADD = "SETTINGS_USER_ADD";
 
     /**
      * Gets settings operations
@@ -113,7 +116,7 @@ class Operation
     {
         switch ($contentType) {
             case BlockModel::TYPE_TEXT:
-                return self::$blockTextOperations;
+                return self::getBlockTextOperations();
             default:
                 return [];
         }

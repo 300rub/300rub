@@ -2,6 +2,9 @@
 
 namespace testS\tests\unit\controllers;
 
+use testS\applications\App;
+use testS\models\UserSessionModel;
+
 /**
  * Tests for the controller TextController
  *
@@ -17,50 +20,42 @@ class TextControllerTest extends AbstractControllerTest
 
     /**
      * Test for getBlocks
+     *
+     * @param string $user
+     * @param int    $displayBlocksFromSection
+     * @param bool   $hasError
+     * @param bool   $hasResult
+     * @param bool   $canAdd
+     * @param bool   $canUpdateDesign
+     * @param bool   $catUpdateContent
+     * @param bool   $canUpdateSettings
+     *
+     * @return bool
+     *
+     * @dataProvider dataProviderForTestGetBlocks
      */
-    public function testGetBlocks()
+    public function testGetBlocks(
+        $user,
+        $displayBlocksFromSection,
+        $hasError,
+        $hasResult = null,
+        $canAdd = null,
+        $canUpdateDesign = null,
+        $catUpdateContent = null,
+        $canUpdateSettings = null
+    )
     {
-        $this
-            ->_testGetBlocksNoUser()
-            ->_testGetBlocksOwnerAllBlocks()
-            ->_testGetBlocksOwnerSection1()
-            ->_testGetBlocksOwnerSection999()
-            ->_testGetBlocksUserWithoutOperations()
-            ->_testGetBlocksAddOperations()
-            ->_testGetBlocksRemoveOperations();
-    }
-
-    /**
-     * Test for getBlocks
-     *
-     * No user
-     *
-     * @return TextControllerTest
-     */
-    private function _testGetBlocksNoUser()
-    {
-        $this->setUser(null);
-        $this->sendRequest("text", "blocks");
-        $this->assertArrayHasKey("error", $this->getBody());
-
-        return $this;
-    }
-
-    /**
-     * Test for getBlocks
-     *
-     * Owner all blocks
-     *
-     * @return TextControllerTest
-     */
-    private function _testGetBlocksOwnerAllBlocks()
-    {
-        $this->setUser(self::TYPE_OWNER);
-        $this->sendRequest("text", "blocks", ["displayBlocksFromSection" => 0]);
+        $this->setUser($user);
+        $this->sendRequest("text", "blocks", ["displayBlocksFromSection" => $displayBlocksFromSection]);
         $body = $this->getBody();
+
+        if ($hasError === true) {
+            $this->assertArrayHasKey("error", $body);
+            return true;
+        }
+
         $this->assertTrue(strlen($body["title"]) > 0);
         $this->assertTrue(strlen($body["description"]) > 0);
-        $this->assertTrue(count($body["list"]) > 0);
         $this->assertSame("block", $body["back"]["controller"]);
         $this->assertSame("blocks", $body["back"]["action"]);
         $this->assertSame("text", $body["settings"]["controller"]);
@@ -69,96 +64,168 @@ class TextControllerTest extends AbstractControllerTest
         $this->assertSame("design", $body["design"]["action"]);
         $this->assertSame("text", $body["content"]["controller"]);
         $this->assertSame("content", $body["content"]["action"]);
-        $this->assertTrue($body["canAdd"]);
+
+        $this->assertSame($canAdd, $body["canAdd"]);
+
+        if ($hasResult === false) {
+            $this->assertSame(0, count($body["list"]));
+            return true;
+        } else {
+            $this->assertTrue(count($body["list"]) > 0);
+        }
 
         foreach ($body["list"] as $item) {
             $this->assertTrue(strlen($item["blockName"]) > 0);
             $this->assertTrue($item["contentId"] > 0);
-            $this->assertTrue($item["canUpdateSettings"]);
-            $this->assertTrue($item["canUpdateDesign"]);
-            $this->assertTrue($item["canUpdateContent"]);
+            $this->assertSame($canUpdateSettings, $item["canUpdateSettings"]);
+            $this->assertSame($canUpdateDesign, $item["canUpdateDesign"]);
+            $this->assertSame($catUpdateContent, $item["canUpdateContent"]);
         }
 
-        return $this;
+        return true;
     }
 
     /**
-     * Test for getBlocks
+     * Data provider for testGetBlocks
      *
-     * Owner section 1
-     *
-     * @return TextControllerTest
+     * @return array
      */
-    private function _testGetBlocksOwnerSection1()
+    public function dataProviderForTestGetBlocks()
     {
-        $this->setUser();
-        $this->sendRequest("text", "blocks", ["displayBlocksFromSection" => 1]);
-        $body = $this->getBody();
-
-        $this->assertTrue(count($body["list"]) > 0);
-
-        return $this;
-    }
-
-    /**
-     * Test for getBlocks
-     *
-     * Owner section 999
-     *
-     * @return TextControllerTest
-     */
-    private function _testGetBlocksOwnerSection999()
-    {
-        $this->setUser();
-        $this->sendRequest("text", "blocks", ["displayBlocksFromSection" => 999]);
-        $body = $this->getBody();
-
-        $this->assertTrue(count($body["list"]) === 0);
-
-        return $this;
-    }
-
-    /**
-     * Test for getBlocks
-     *
-     * User without operations
-     *
-     * @return TextControllerTest
-     */
-    private function _testGetBlocksUserWithoutOperations()
-    {
-        $this->setUser(self::TYPE_NO_OPERATIONS_USER);
-        $this->sendRequest("text", "blocks", ["displayBlocksFromSection" => 0]);
-        $body = $this->getBody();
-
-        $this->assertTrue(count($body["list"]) === 0);
-        $this->assertFalse($body["canAdd"]);
-
-        return $this;
-    }
-
-    /**
-     * Test for getBlocks
-     *
-     * Add operations and check
-     *
-     * @return TextControllerTest
-     */
-    private function _testGetBlocksAddOperations()
-    {
-        return $this;
-    }
-
-    /**
-     * Test for getBlocks
-     *
-     * Remove user operations
-     *
-     * @return TextControllerTest
-     */
-    private function _testGetBlocksRemoveOperations()
-    {
-        return $this;
+        return [
+            "guestViewAll"                   => [
+                "user"                     => null,
+                "displayBlocksFromSection" => 0,
+                "hasError"                 => true
+            ],
+            "guestViewFromPage"              => [
+                "user"                     => null,
+                "displayBlocksFromSection" => 1,
+                "hasError"                 => true
+            ],
+            "guestViewFromNonexistentPage"   => [
+                "user"                     => null,
+                "displayBlocksFromSection" => 9999,
+                "hasError"                 => true
+            ],
+            "ownerViewAll"                   => [
+                "user"                     => self::TYPE_OWNER,
+                "displayBlocksFromSection" => 0,
+                "hasError"                 => false,
+                "hasResult"                => true,
+                "canAdd"                   => true,
+                "canUpdateDesign"          => true,
+                "catUpdateContent"         => true,
+                "canUpdateSettings"        => true,
+            ],
+            "ownerViewFromPage"              => [
+                "user"                     => self::TYPE_OWNER,
+                "displayBlocksFromSection" => 1,
+                "hasError"                 => false,
+                "hasResult"                => true,
+                "canAdd"                   => true,
+                "canUpdateDesign"          => true,
+                "catUpdateContent"         => true,
+                "canUpdateSettings"        => true,
+            ],
+            "ownerViewFromNonexistentPage"   => [
+                "user"                     => self::TYPE_OWNER,
+                "displayBlocksFromSection" => 9999,
+                "hasError"                 => false,
+                "hasResult"                => false,
+                "canAdd"                   => true,
+            ],
+            "adminViewAll"                   => [
+                "user"                     => self::TYPE_FULL,
+                "displayBlocksFromSection" => 0,
+                "hasError"                 => false,
+                "hasResult"                => true,
+                "canAdd"                   => true,
+                "canUpdateDesign"          => true,
+                "catUpdateContent"         => true,
+                "canUpdateSettings"        => true,
+            ],
+            "adminViewFromPage"              => [
+                "user"                     => self::TYPE_FULL,
+                "displayBlocksFromSection" => 1,
+                "hasError"                 => false,
+                "hasResult"                => true,
+                "canAdd"                   => true,
+                "canUpdateDesign"          => true,
+                "catUpdateContent"         => true,
+                "canUpdateSettings"        => true,
+            ],
+            "adminViewFromNonexistentPage"   => [
+                "user"                     => self::TYPE_FULL,
+                "displayBlocksFromSection" => 9999,
+                "hasError"                 => false,
+                "hasResult"                => false,
+                "canAdd"                   => true,
+            ],
+            "noOperationViewAll"             => [
+                "user"                     => self::TYPE_NO_OPERATIONS_USER,
+                "displayBlocksFromSection" => 0,
+                "hasError"                 => false,
+                "hasResult"                => false,
+                "canAdd"                   => false,
+            ],
+            "noOperationFromPage"            => [
+                "user"                     => self::TYPE_NO_OPERATIONS_USER,
+                "displayBlocksFromSection" => 1,
+                "hasError"                 => false,
+                "hasResult"                => false,
+                "canAdd"                   => false,
+            ],
+            "noOperationFromNonexistentPage" => [
+                "user"                     => self::TYPE_NO_OPERATIONS_USER,
+                "displayBlocksFromSection" => 9999,
+                "hasError"                 => false,
+                "hasResult"                => false,
+                "canAdd"                   => false,
+            ],
+            "blockedViewAll"                 => [
+                "user"                     => self::TYPE_BLOCKED_USER,
+                "displayBlocksFromSection" => 0,
+                "hasError"                 => true
+            ],
+            "blockedViewFromPage"            => [
+                "user"                     => self::TYPE_BLOCKED_USER,
+                "displayBlocksFromSection" => 1,
+                "hasError"                 => true
+            ],
+            "blockedViewFromNonexistentPage" => [
+                "user"                     => self::TYPE_BLOCKED_USER,
+                "displayBlocksFromSection" => 9999,
+                "hasError"                 => true
+            ],
+            "limitedViewAll"                 => [
+                "user"                     => self::TYPE_LIMITED,
+                "displayBlocksFromSection" => 0,
+                "hasError"                 => false,
+                "hasResult"                => true,
+                "canAdd"                   => true,
+                "canUpdateDesign"          => true,
+                "catUpdateContent"         => true,
+                "canUpdateSettings"        => true,
+            ],
+            "limitedViewFromPage"            => [
+                "user"                     => self::TYPE_LIMITED,
+                "displayBlocksFromSection" => 1,
+                "hasError"                 => false,
+                "hasResult"                => true,
+                "canAdd"                   => true,
+                "canUpdateDesign"          => true,
+                "catUpdateContent"         => true,
+                "canUpdateSettings"        => true,
+            ],
+            "limitedViewFromNonexistentPage" => [
+                "user"                     => self::TYPE_LIMITED,
+                "displayBlocksFromSection" => 9999,
+                "hasError"                 => false,
+                "hasResult"                => false,
+                "canAdd"                   => true,
+            ],
+        ];
     }
 
     public function testGetBlock()
