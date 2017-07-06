@@ -2,9 +2,6 @@
 
 namespace testS\tests\unit\controllers;
 
-use testS\applications\App;
-use testS\models\UserSessionModel;
-
 /**
  * Tests for the controller TextController
  *
@@ -228,9 +225,230 @@ class TextControllerTest extends AbstractControllerTest
         ];
     }
 
-    public function testGetBlock()
+    /**
+     * Test for getBlock method
+     *
+     * @param string $user
+     * @param int    $id
+     * @param  bool  $hasError
+     * @param string $title
+     * @param string $name
+     * @param int    $type
+     * @param bool   $hasEditor
+     *
+     * @return bool
+     *
+     * @dataProvider dataProviderForTestGetBlock
+     */
+    public function testGetBlock($user, $id, $hasError, $title = null, $name = null, $type = null, $hasEditor = null)
     {
-        $this->markTestSkipped();
+        $this->setUser($user);
+        $this->sendRequest("text", "block", ["id" => $id]);
+        $body = $this->getBody();
+
+        if ($hasError === true) {
+            $this->assertArrayHasKey("error", $body);
+            return true;
+        }
+
+        $expected = [
+            "id"    => $id,
+            "title" => $title,
+            "back"  => [
+                "controller" => "text",
+                "action"     => "blocks"
+            ],
+            "forms" => [
+                "name"      => [
+                    "name"       => "name",
+                    "label"      => "Name",
+                    "validation" => [],
+                    "value"      => $name,
+                ],
+                "type"      => [
+                    "label" => "Type",
+                    "value" => $type,
+                    "name"  => "type",
+                    "list"  => []
+                ],
+                "hasEditor" => [
+                    "name"  => "hasEditor",
+                    "label" => "Has editor",
+                    "value" => $hasEditor,
+                ],
+            ]
+        ];
+
+        $this->compareExpectedAndActual($expected, $body);
+
+        return true;
+    }
+
+    /**
+     * Data provider for testGetBlock
+     *
+     * @return array
+     */
+    public function dataProviderForTestGetBlock()
+    {
+        return [
+            "ownerAdd"            => [
+                "user"      => self::TYPE_OWNER,
+                "id"        => 0,
+                "hasError"  => false,
+                "title"     => "Add text",
+                "name"      => "",
+                "type"      => 0,
+                "hasEditor" => false
+            ],
+            "ownerEdit1"          => [
+                "user"      => self::TYPE_OWNER,
+                "id"        => 1,
+                "hasError"  => false,
+                "title"     => "Edit text",
+                "name"      => "Simple text",
+                "type"      => 0,
+                "hasEditor" => false
+            ],
+            "ownerEdit2"          => [
+                "user"      => self::TYPE_OWNER,
+                "id"        => 2,
+                "hasError"  => false,
+                "title"     => "Edit text",
+                "name"      => "Text with editor",
+                "type"      => 0,
+                "hasEditor" => true
+            ],
+            "ownerEdit9999"       => [
+                "user"     => self::TYPE_OWNER,
+                "id"       => 9999,
+                "hasError" => true
+            ],
+            "adminAdd"            => [
+                "user"      => self::TYPE_FULL,
+                "id"        => 0,
+                "hasError"  => false,
+                "title"     => "Add text",
+                "name"      => "",
+                "type"      => 0,
+                "hasEditor" => false
+            ],
+            "adminEdit1"          => [
+                "user"      => self::TYPE_FULL,
+                "id"        => 1,
+                "hasError"  => false,
+                "title"     => "Edit text",
+                "name"      => "Simple text",
+                "type"      => 0,
+                "hasEditor" => false
+            ],
+            "adminEdit2"          => [
+                "user"      => self::TYPE_FULL,
+                "id"        => 2,
+                "hasError"  => false,
+                "title"     => "Edit text",
+                "name"      => "Text with editor",
+                "type"      => 0,
+                "hasEditor" => true
+            ],
+            "adminEdit9999"       => [
+                "user"     => self::TYPE_FULL,
+                "id"       => 9999,
+                "hasError" => true
+            ],
+            "guestAdd"            => [
+                "user"     => null,
+                "id"       => 0,
+                "hasError" => true
+            ],
+            "guestEdit1"          => [
+                "user"     => null,
+                "id"       => 1,
+                "hasError" => true,
+            ],
+            "guestEdit2"          => [
+                "user"     => null,
+                "id"       => 2,
+                "hasError" => true,
+            ],
+            "guestEdit9999"       => [
+                "user"     => null,
+                "id"       => 9999,
+                "hasError" => true
+            ],
+            "blockedAdd"          => [
+                "user"     => self::TYPE_BLOCKED_USER,
+                "id"       => 0,
+                "hasError" => true
+            ],
+            "blockedEdit1"        => [
+                "user"     => self::TYPE_BLOCKED_USER,
+                "id"       => 1,
+                "hasError" => true,
+            ],
+            "blockedEdit2"        => [
+                "user"     => self::TYPE_BLOCKED_USER,
+                "id"       => 2,
+                "hasError" => true,
+            ],
+            "blockedEdit9999"     => [
+                "user"     => self::TYPE_BLOCKED_USER,
+                "id"       => 9999,
+                "hasError" => true
+            ],
+            "noOperationAdd"      => [
+                "user"     => self::TYPE_NO_OPERATIONS_USER,
+                "id"       => 0,
+                "hasError" => true
+            ],
+            "noOperationEdit1"    => [
+                "user"     => self::TYPE_NO_OPERATIONS_USER,
+                "id"       => 1,
+                "hasError" => true,
+            ],
+            "noOperationEdit2"    => [
+                "user"     => self::TYPE_NO_OPERATIONS_USER,
+                "id"       => 2,
+                "hasError" => true,
+            ],
+            "noOperationEdit9999" => [
+                "user"     => self::TYPE_NO_OPERATIONS_USER,
+                "id"       => 9999,
+                "hasError" => true
+            ],
+            "userAdd"            => [
+                "user"      => self::TYPE_LIMITED,
+                "id"        => 0,
+                "hasError"  => false,
+                "title"     => "Add text",
+                "name"      => "",
+                "type"      => 0,
+                "hasEditor" => false
+            ],
+            "userEdit1"          => [
+                "user"      => self::TYPE_LIMITED,
+                "id"        => 1,
+                "hasError"  => false,
+                "title"     => "Edit text",
+                "name"      => "Simple text",
+                "type"      => 0,
+                "hasEditor" => false
+            ],
+            "userEdit2"          => [
+                "user"      => self::TYPE_LIMITED,
+                "id"        => 2,
+                "hasError"  => false,
+                "title"     => "Edit text",
+                "name"      => "Text with editor",
+                "type"      => 0,
+                "hasEditor" => true
+            ],
+            "userEdit9999"       => [
+                "user"     => self::TYPE_LIMITED,
+                "id"       => 9999,
+                "hasError" => true
+            ],
+        ];
     }
 
     public function testAddBlock()

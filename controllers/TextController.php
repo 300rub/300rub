@@ -189,6 +189,9 @@ class TextController extends AbstractController
                     "label" => Language::t("text", "hasEditor"),
                     "value" => $hasEditor,
                 ],
+                "button"    => [
+                    "label" => Language::t("common", $textModel->getId() === 0 ? "add" : "update"),
+                ]
             ]
         ];
     }
