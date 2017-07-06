@@ -581,7 +581,10 @@ class UserController extends AbstractController
             "title" => Language::t("operation", "all"),
             "data"  => []
         ];
-        foreach (Operation::getSectionOperations() as $key => $value) {
+
+        $operationList = Operation::getSectionOperations(true);
+        asort($operationList);
+        foreach ($operationList as $key => $value) {
             $operations["data"][Operation::ALL]["data"][] = [
                 "label" => $value,
                 "name"  => sprintf(
@@ -606,7 +609,9 @@ class UserController extends AbstractController
                     "data"  => []
                 ];
 
-                foreach (Operation::getSectionOperations() as $key => $value) {
+                $operationList = Operation::getSectionOperations();
+                asort($operationList);
+                foreach ($operationList as $key => $value) {
                     $operations["data"][$id]["data"][] = [
                         "label" => $value,
                         "name"  => sprintf(
@@ -641,15 +646,6 @@ class UserController extends AbstractController
         ];
 
         foreach (BlockModel::$typeNames as $blockKey => $title) {
-            switch ($blockKey) {
-                case BlockModel::TYPE_TEXT:
-                    $operationList = Operation::getBlockTextOperations();
-                    break;
-                default:
-                    $operationList = [];
-                    break;
-            }
-
             $operations["data"][$blockKey] = [
                 "title" => $title,
                 "data"  => []
@@ -659,6 +655,17 @@ class UserController extends AbstractController
                 "title" => Language::t("operation", "all"),
                 "data"  => []
             ];
+
+            switch ($blockKey) {
+                case BlockModel::TYPE_TEXT:
+                    $operationList = Operation::getBlockTextOperations(true);
+                    break;
+                default:
+                    $operationList = [];
+                    break;
+            }
+
+            asort($operationList);
 
             foreach ($operationList as $key => $value) {
                 $operations["data"][$blockKey]["data"][Operation::ALL]["data"][] = [
@@ -679,6 +686,17 @@ class UserController extends AbstractController
 
             $blocks = (new BlockModel())->byContentType($blockKey)->ordered()->findAll();
             if (count($blocks) > 0) {
+                switch ($blockKey) {
+                    case BlockModel::TYPE_TEXT:
+                        $operationList = Operation::getBlockTextOperations();
+                        break;
+                    default:
+                        $operationList = [];
+                        break;
+                }
+
+                asort($operationList);
+
                 foreach ($blocks as $block) {
                     $id = $block->getId();
 
@@ -724,7 +742,9 @@ class UserController extends AbstractController
             "data"  => []
         ];
 
-        foreach (Operation::getSettingsOperations() as $key => $value) {
+        $operationList = Operation::getSettingsOperations();
+        asort($operationList);
+        foreach ($operationList as $key => $value) {
             $operations["data"][] = [
                 "label" => $value,
                 "name"  => sprintf(

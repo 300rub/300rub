@@ -864,11 +864,11 @@ class UserControllerTest extends AbstractControllerTest
                                         "title" => "Text Blocks",
                                         "data"  => [
                                             [
-                                                "name"  => "operations.SECTIONS.1.SECTION_ADD",
+                                                "name"  => "operations.SECTIONS.1.SECTION_DELETE",
                                                 "value" => false
                                             ],
                                             [
-                                                "name"  => "operations.SECTIONS.1.SECTION_UPDATE",
+                                                "name"  => "operations.SECTIONS.1.SECTION_DUPLICATE",
                                                 "value" => false
                                             ],
                                         ]
@@ -888,8 +888,8 @@ class UserControllerTest extends AbstractControllerTest
                                                         "value" => true
                                                     ],
                                                     [
-                                                        "name"  => "operations.BLOCKS.1.ALL.TEXT_UPDATE_SETTINGS",
-                                                        "value" => true
+                                                        "name"  => "operations.BLOCKS.1.ALL.TEXT_DELETE",
+                                                        "value" => false
                                                     ]
                                                 ]
                                             ],
@@ -897,7 +897,7 @@ class UserControllerTest extends AbstractControllerTest
                                                 "title" => "Simple text",
                                                 "data"  => [
                                                     [
-                                                        "name"  => "operations.BLOCKS.1.1.TEXT_ADD",
+                                                        "name"  => "operations.BLOCKS.1.1.TEXT_DELETE",
                                                         "value" => false
                                                     ]
                                                 ]
@@ -910,12 +910,12 @@ class UserControllerTest extends AbstractControllerTest
                                 "title" => "Settings",
                                 "data"  => [
                                     [
-                                        "name"  => "operations.SETTINGS.SETTINGS_ICON",
-                                        "value" => true
+                                        "name"  => "operations.SETTINGS.SETTINGS_USER_ADD",
+                                        "value" => false
                                     ],
                                     [
-                                        "name"  => "operations.SETTINGS.SETTINGS_USER_VIEW",
-                                        "value" => false
+                                        "name"  => "operations.SETTINGS.SETTINGS_ICON",
+                                        "value" => true
                                     ],
                                 ]
                             ],

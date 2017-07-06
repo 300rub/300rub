@@ -64,7 +64,7 @@ class UserBlockGroupOperationModel extends AbstractModel
         return ValueGenerator::generate(
             ValueGenerator::ARRAY_KEY,
             $value,
-            [Operation::getOperationsByContentType($this->get("blockType"))]
+            [Operation::getOperationsByContentType($this->get("blockType"), true)]
         );
     }
 

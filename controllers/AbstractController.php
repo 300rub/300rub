@@ -283,7 +283,7 @@ abstract class AbstractController
     }
 
     /**
-     * Checks settings operatio
+     * Checks settings operation
      *
      * @param string $operation
      *
@@ -298,6 +298,33 @@ abstract class AbstractController
                 "Access denied for settings operation: {operation}",
                 [
                     "operation" => $operation
+                ]
+            );
+        }
+
+        return $this;
+    }
+
+    /**
+     * Checks block operation
+     *
+     * @param int        $type
+     * @param int|string $key
+     * @param string     $operation
+     *
+     * @return AbstractController
+     *
+     * @throws AccessException
+     */
+    protected function checkBlockOperation($type, $key, $operation)
+    {
+        if (!$this->hasBlockOperation($type, $key, $operation)) {
+            throw new AccessException(
+                "Access denied for block operation: {operation}, type: {type}, key: {key}",
+                [
+                    "operation" => $operation,
+                    "type"      => $type,
+                    "key"       => $key,
                 ]
             );
         }

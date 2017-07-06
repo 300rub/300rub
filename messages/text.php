@@ -3,8 +3,8 @@
 use testS\components\Language;
 
 return [
-    "isEditor"            => [
-        Language::LANGUAGE_EN_ID => "Is editor",
+    "hasEditor"            => [
+        Language::LANGUAGE_EN_ID => "Has editor",
         Language::LANGUAGE_RU_ID => "",
     ],
     "text"                => [
@@ -42,5 +42,21 @@ return [
     "typeH3"              => [
         Language::LANGUAGE_EN_ID => "Third level title",
         Language::LANGUAGE_RU_ID => "Заголовок 3 уровня",
-    ]
+    ],
+    "editBlockDescription"    => [
+        Language::LANGUAGE_EN_ID => "Edit block description...",
+        Language::LANGUAGE_RU_ID => "",
+    ],
+    "addBlockDescription"    => [
+        Language::LANGUAGE_EN_ID => "Add block description...",
+        Language::LANGUAGE_RU_ID => "",
+    ],
+    "editBlockTitle"    => [
+        Language::LANGUAGE_EN_ID => "Edit text",
+        Language::LANGUAGE_RU_ID => "",
+    ],
+    "addBlockTitle"    => [
+        Language::LANGUAGE_EN_ID => "Add text",
+        Language::LANGUAGE_RU_ID => "",
+    ],
 ];

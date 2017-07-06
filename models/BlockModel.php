@@ -210,6 +210,21 @@ class BlockModel extends AbstractModel
     }
 
     /**
+     * Finds by contentId
+     *
+     * @param int $contentId
+     *
+     * @return BlockModel
+     */
+    public function byContentId($contentId)
+    {
+        $this->getDb()->addWhere(sprintf("%s.contentId = :contentId", Db::DEFAULT_ALIAS));
+        $this->getDb()->addParameter("contentId", $contentId);
+
+        return $this;
+    }
+
+    /**
      * Finds by sectionId
      *
      * @param int $sectionId

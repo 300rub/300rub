@@ -36,17 +36,24 @@ class Operation
     /**
      * Gets section operations
      *
+     * @param bool $isAll
+     *
      * @return array
      */
-    public static function getSectionOperations()
+    public static function getSectionOperations($isAll = false)
     {
-        return [
-            self::SECTION_ADD           => Language::t("operation", "add"),
+        $list = [
             self::SECTION_UPDATE        => Language::t("operation", "edit"),
             self::SECTION_DESIGN_UPDATE => Language::t("operation", "editDesign"),
             self::SECTION_DELETE        => Language::t("operation", "delete"),
             self::SECTION_DUPLICATE     => Language::t("operation", "duplicate"),
         ];
+
+        if ($isAll === true) {
+            $list[self::SECTION_ADD] = Language::t("operation", "add");
+        }
+
+        return $list;
     }
 
     /**
@@ -62,18 +69,25 @@ class Operation
     /**
      * Gets block text operations
      *
+     * @param bool $isAll
+     *
      * @return array
      */
-    public static function getBlockTextOperations()
+    public static function getBlockTextOperations($isAll = false)
     {
-        return [
-            self::TEXT_ADD             => Language::t("operation", "add"),
+        $list = [
             self::TEXT_UPDATE_SETTINGS => Language::t("operation", "editSettings"),
             self::TEXT_UPDATE_DESIGN   => Language::t("operation", "editDesign"),
             self::TEXT_UPDATE_CONTENT  => Language::t("operation", "edit"),
             self::TEXT_DELETE          => Language::t("operation", "delete"),
             self::TEXT_DUPLICATE       => Language::t("operation", "duplicate"),
         ];
+
+        if ($isAll === true) {
+            $list[self::TEXT_ADD] = Language::t("operation", "add");
+        }
+
+        return $list;
     }
 
     /**
@@ -108,15 +122,16 @@ class Operation
     /**
      * Gets a list of content operations by content type
      *
-     * @param int $contentType
+     * @param int  $contentType
+     * @param bool $isAll
      *
      * @return array
      */
-    public static function getOperationsByContentType($contentType)
+    public static function getOperationsByContentType($contentType, $isAll = false)
     {
         switch ($contentType) {
             case BlockModel::TYPE_TEXT:
-                return self::getBlockTextOperations();
+                return self::getBlockTextOperations($isAll);
             default:
                 return [];
         }

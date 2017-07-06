@@ -71,7 +71,7 @@ class UserSectionOperationModelTest extends AbstractModelTest
             ],
             "empty5" => [
                 [
-                    "operation" => Operation::SECTION_ADD
+                    "operation" => Operation::SECTION_DUPLICATE
                 ],
                 [],
                 null,
@@ -81,7 +81,7 @@ class UserSectionOperationModelTest extends AbstractModelTest
             "empty6" => [
                 [
                     "userId"    => 0,
-                    "operation" => Operation::SECTION_ADD,
+                    "operation" => Operation::SECTION_DUPLICATE,
                 ],
                 [],
                 null,
@@ -91,7 +91,7 @@ class UserSectionOperationModelTest extends AbstractModelTest
             "empty7" => [
                 [
                     "userId"    => 1,
-                    "operation" => Operation::SECTION_ADD,
+                    "operation" => Operation::SECTION_DUPLICATE,
                 ],
                 [],
                 null,
@@ -111,7 +111,7 @@ class UserSectionOperationModelTest extends AbstractModelTest
             "empty9" => [
                 [
                     "sectionId" => 1,
-                    "operation" => Operation::SECTION_ADD,
+                    "operation" => Operation::SECTION_DUPLICATE,
                 ],
                 [],
                 null,
@@ -133,12 +133,12 @@ class UserSectionOperationModelTest extends AbstractModelTest
                 [
                     "userId"    => 1,
                     "sectionId" => 1,
-                    "operation" => Operation::SECTION_ADD,
+                    "operation" => Operation::SECTION_DUPLICATE,
                 ],
                 [
                     "userId"    => 1,
                     "sectionId" => 1,
-                    "operation" => Operation::SECTION_ADD,
+                    "operation" => Operation::SECTION_DUPLICATE,
                 ],
             ],
             "correct2" => [
@@ -168,22 +168,22 @@ class UserSectionOperationModelTest extends AbstractModelTest
                 [
                     "userId"    => "  1  ",
                     "sectionId" => "  1  ",
-                    "operation" => Operation::SECTION_ADD,
-                ],
-                [
-                    "userId"    => 1,
-                    "sectionId" => 1,
-                    "operation" => Operation::SECTION_ADD,
-                ],
-                [
-                    "userId"    => 2,
-                    "sectionId" => 2,
                     "operation" => Operation::SECTION_UPDATE,
                 ],
                 [
                     "userId"    => 1,
                     "sectionId" => 1,
-                    "operation" => Operation::SECTION_ADD,
+                    "operation" => Operation::SECTION_UPDATE,
+                ],
+                [
+                    "userId"    => 2,
+                    "sectionId" => 2,
+                    "operation" => Operation::SECTION_DESIGN_UPDATE,
+                ],
+                [
+                    "userId"    => 1,
+                    "sectionId" => 1,
+                    "operation" => Operation::SECTION_UPDATE,
                 ],
             ],
             "incorrect2" => [
@@ -201,7 +201,7 @@ class UserSectionOperationModelTest extends AbstractModelTest
                 [
                     "userId"    => 999,
                     "sectionId" => 1,
-                    "operation" => Operation::SECTION_ADD,
+                    "operation" => Operation::SECTION_UPDATE,
                 ],
                 [],
                 null,
@@ -212,7 +212,7 @@ class UserSectionOperationModelTest extends AbstractModelTest
                 [
                     "userId"    => 1,
                     "sectionId" => 999,
-                    "operation" => Operation::SECTION_ADD,
+                    "operation" => Operation::SECTION_UPDATE,
                 ],
                 [],
                 null,
@@ -231,7 +231,7 @@ class UserSectionOperationModelTest extends AbstractModelTest
             [
                 "userId"    => 1,
                 "sectionId" => 1,
-                "operation" => Operation::SECTION_ADD,
+                "operation" => Operation::SECTION_UPDATE,
             ],
             [],
             self::EXCEPTION_MODEL

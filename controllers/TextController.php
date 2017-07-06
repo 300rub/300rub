@@ -2,9 +2,12 @@
 
 namespace testS\controllers;
 
+use testS\components\exceptions\NotFoundException;
 use testS\components\Language;
 use testS\components\Operation;
+use testS\components\ValueGenerator;
 use testS\models\BlockModel;
+use testS\models\TextModel;
 
 /**
  * TextController
@@ -101,10 +104,93 @@ class TextController extends AbstractController
 
     /**
      * Gets block
+     *
+     * @return array
+     *
+     * @throws NotFoundException
      */
     public function getBlock()
     {
-        // @TODO
+        $id = 0;
+        $name = "";
+        $type = TextModel::TYPE_DIV;
+        $hasEditor = false;
+
+        $data = $this->getData();
+        if (array_key_exists("id", $data)) {
+            $id = (int)$data["id"];
+        }
+
+        if ($id === 0) {
+            $this->checkBlockOperation(BlockModel::TYPE_TEXT, Operation::ALL, Operation::TEXT_ADD);
+
+            $textModel = new TextModel();
+            $blockModel = new BlockModel();
+        } else {
+            $this->checkBlockOperation(BlockModel::TYPE_TEXT, $id, Operation::TEXT_UPDATE_SETTINGS);
+
+            $textModel = (new TextModel())->byId($id)->find();
+            if ($textModel === null) {
+                throw new NotFoundException(
+                    "Unable to find TextModel with ID: {id}",
+                    [
+                        "id" => $id
+                    ]
+                );
+            }
+
+            $blockModel = (new BlockModel())
+                ->byContentType(BlockModel::TYPE_TEXT)
+                ->byContentId($textModel->getId())
+                ->find();
+            if ($blockModel === null) {
+                throw new NotFoundException(
+                    "Unable to find text BlockModel with content ID: {id}",
+                    [
+                        "id" => $textModel->getId()
+                    ]
+                );
+            }
+
+            $name = $blockModel->get("name");
+            $type = $textModel->get("type");
+            $hasEditor = $textModel->get("hasEditor");
+        }
+
+        return [
+            "id"          => $textModel->getId(),
+            "title"       => Language::t(
+                "text",
+                $textModel->getId() === 0 ? "addBlockTitle" : "editBlockTitle"
+            ),
+            "description" => Language::t(
+                "text",
+                $textModel->getId() === 0 ? "addBlockDescription" : "editBlockDescription"
+            ),
+            "back"        => [
+                "controller" => "text",
+                "action"     => "blocks"
+            ],
+            "forms"       => [
+                "name"      => [
+                    "name"       => "name",
+                    "label"      => Language::t("common", "name"),
+                    "validation" => $blockModel->getValidationRulesForField("name"),
+                    "value"      => $name,
+                ],
+                "type"      => [
+                    "label" => Language::t("common", "type"),
+                    "value" => $type,
+                    "name"  => "type",
+                    "list"  => ValueGenerator::generate(ValueGenerator::ORDERED_ARRAY, TextModel::getTypeList())
+                ],
+                "hasEditor" => [
+                    "name"  => "hasEditor",
+                    "label" => Language::t("text", "hasEditor"),
+                    "value" => $hasEditor,
+                ],
+            ]
+        ];
     }
 
     /**

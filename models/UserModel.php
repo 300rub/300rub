@@ -333,7 +333,7 @@ class UserModel extends AbstractModel
                 && is_array($operations[Operation::TYPE_SECTIONS][$key])
             ) {
                 foreach ($operations[Operation::TYPE_SECTIONS][$key] as $operation) {
-                    if (array_key_exists($operation, Operation::getSectionOperations())) {
+                    if (array_key_exists($operation, Operation::getSectionOperations(true))) {
                         $model = new UserSectionGroupOperationModel();
                         $model->set(
                             [
@@ -391,14 +391,16 @@ class UserModel extends AbstractModel
                 continue;
             }
 
+            $blockAllOperations = Operation::getOperationsByContentType($blockType, true);
             $blockOperations = Operation::getOperationsByContentType($blockType);
+
 
             foreach ($blockTypeValues as $key => $value) {
                 if ($key === Operation::ALL
                     && is_array($blockTypeValues[$key])
                 ) {
                     foreach ($blockTypeValues[$key] as $operation) {
-                        if (array_key_exists($operation, $blockOperations)) {
+                        if (array_key_exists($operation, $blockAllOperations)) {
                             $model = new UserBlockGroupOperationModel();
                             $model->set(
                                 [

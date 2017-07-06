@@ -22,18 +22,6 @@ class TextModel extends AbstractModel
     const TYPE_H3 = 3;
 
     /**
-     * List of tag type values
-     *
-     * @var array
-     */
-    public static $typeTagList = [
-        self::TYPE_DIV => "div",
-        self::TYPE_H1  => "h1",
-        self::TYPE_H2  => "h2",
-        self::TYPE_H3  => "h3",
-    ];
-
-    /**
      * Gets type list
      *
      * @return array
