@@ -16,6 +16,7 @@ use testS\components\ValueGenerator;
  * @method BlockModel byId($id)
  * @method BlockModel withRelations()
  * @method BlockModel find()
+ * @method BlockModel latest()
  * @method BlockModel[] findAll()
  * @method BlockModel duplicate()
  */

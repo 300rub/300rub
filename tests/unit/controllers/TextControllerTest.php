@@ -507,11 +507,17 @@ class TextControllerTest extends AbstractControllerTest
 
         $this->compareExpectedAndActual($expected, $body);
 
+        $blockTextModel = (new BlockModel())->latest()->find();
+        $textModel = $blockTextModel->getContentModel();
+        $this->assertSame($data["name"], $blockTextModel->get("name"));
+        $this->assertSame($data["type"], $textModel->get("type"));
+        $this->assertSame($data["hasEditor"], $textModel->get("hasEditor"));
+
         $this->assertSame($textModelCountBefore, $textModelCountAfter - 1);
         $this->assertSame($textInstanceModelCountBefore, $textInstanceModelCountAfter - 1);
         $this->assertSame($blockModelCountBefore, $blockModelCountAfter - 1);
 
-        (new BlockModel())->latest()->find()->delete();
+        $blockTextModel->delete();
 
         return true;
     }
@@ -543,16 +549,6 @@ class TextControllerTest extends AbstractControllerTest
                 ],
                 "hasError"            => false,
                 "hasValidationErrors" => true,
-            ],
-            "fullIncorrectType"       => [
-                "user"                => self::TYPE_FULL,
-                "data"                => [
-                    "name"      => "Block name",
-                    "type"      => 999,
-                    "hasEditor" => false,
-                ],
-                "hasError"            => false,
-                "hasValidationErrors" => false,
             ],
             "fullIncorrectHasEditor"  => [
                 "user"     => self::TYPE_FULL,
@@ -610,9 +606,158 @@ class TextControllerTest extends AbstractControllerTest
         ];
     }
 
-    public function testUpdateBlock()
+    /**
+     * Test for updateUser method
+     *
+     * @param string $user
+     * @param array  $data
+     * @param bool   $hasError
+     * @param bool   $hasValidationErrors
+     *
+     * @return bool
+     *
+     * @dataProvider dataProviderForTestUpdateBlock
+     */
+    public function testUpdateBlock($user, $data, $hasError = false, $hasValidationErrors = false)
     {
-        $this->markTestSkipped();
+        $textModel = new TextModel();
+        $textModel->set(
+            [
+                "type"      => 0,
+                "hasEditor" => 0,
+            ]
+        );
+        $textModel->save();
+
+        $blockModel = new BlockModel();
+        $blockModel->set(
+            [
+                "name"        => "name",
+                "language"    => 1,
+                "contentType" => BlockModel::TYPE_TEXT,
+                "contentId"   => $textModel->getId(),
+            ]
+        );
+        $blockModel->save();
+
+        $data["id"] = $textModel->getId();
+
+        $this->setUser($user);
+        $this->sendRequest("text", "block", $data, "POST");
+        $body = $this->getBody();
+
+        if ($hasError === true) {
+            $this->assertError();
+            $blockModel->delete();
+            return true;
+        }
+
+        if ($hasValidationErrors === true) {
+            $this->assertErrors();
+            $blockModel->delete();
+            return true;
+        }
+
+        $expected = [
+            "result" => true
+        ];
+
+        $this->compareExpectedAndActual($expected, $body);
+
+        $textModel = (new TextModel())->byId($textModel->getId())->find();
+        $blockModel = (new BlockModel())->byId($blockModel->getId())->find();
+
+        $this->assertSame($data["name"], $blockModel->get("name"));
+        $this->assertSame($data["type"], $textModel->get("type"));
+        $this->assertSame($data["hasEditor"], $textModel->get("hasEditor"));
+
+        $blockModel->delete();
+
+        return true;
+    }
+
+    /**
+     * Data provider for testUpdateBlock
+     *
+     * @return array
+     */
+    public function dataProviderForTestUpdateBlock()
+    {
+        return [
+            "fullCorrect"             => [
+                "user"                => self::TYPE_FULL,
+                "data"                => [
+                    "name"      => "Block name",
+                    "type"      => 0,
+                    "hasEditor" => true,
+                ],
+                "hasError"            => false,
+                "hasValidationErrors" => false,
+            ],
+            "fullEmptyName"           => [
+                "user"                => self::TYPE_FULL,
+                "data"                => [
+                    "name"      => "",
+                    "type"      => 0,
+                    "hasEditor" => false,
+                ],
+                "hasError"            => false,
+                "hasValidationErrors" => true,
+            ],
+            "fullIncorrectHasEditor"  => [
+                "user"     => self::TYPE_FULL,
+                "data"     => [
+                    "name"      => "Block name",
+                    "type"      => 1,
+                    "hasEditor" => 999,
+                ],
+                "hasError" => true,
+            ],
+            "fullIncorrectParameters" => [
+                "user"     => self::TYPE_FULL,
+                "data"     => [
+                    "name" => "Block name",
+                ],
+                "hasError" => true,
+            ],
+            "guest"                   => [
+                "user"     => null,
+                "data"     => [
+                    "name"      => "Block name",
+                    "type"      => 0,
+                    "hasEditor" => false,
+                ],
+                "hasError" => true,
+            ],
+            "blocked"                 => [
+                "user"     => self::TYPE_BLOCKED_USER,
+                "data"     => [
+                    "name"      => "Block name",
+                    "type"      => 0,
+                    "hasEditor" => false,
+                ],
+                "hasError" => true,
+            ],
+            "noOperationUser"         => [
+                "user"     => self::TYPE_NO_OPERATIONS_USER,
+                "data"     => [
+                    "name"      => "Block name",
+                    "type"      => 0,
+                    "hasEditor" => false,
+                ],
+                "hasError" => true,
+            ],
+            "userCorrect"             => [
+                "user"                => self::TYPE_LIMITED,
+                "data"                => [
+                    "name"      => "Block name",
+                    "type"      => 0,
+                    "hasEditor" => false,
+                ],
+                "hasError"            => false,
+                "hasValidationErrors" => false,
+            ],
+        ];
     }
 
     public function testDeleteBlock()
