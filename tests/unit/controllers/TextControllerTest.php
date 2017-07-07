@@ -2,6 +2,10 @@
 
 namespace testS\tests\unit\controllers;
 
+use testS\models\BlockModel;
+use testS\models\TextInstanceModel;
+use testS\models\TextModel;
+
 /**
  * Tests for the controller TextController
  *
@@ -416,7 +420,7 @@ class TextControllerTest extends AbstractControllerTest
                 "id"       => 9999,
                 "hasError" => true
             ],
-            "userAdd"            => [
+            "userAdd"             => [
                 "user"      => self::TYPE_LIMITED,
                 "id"        => 0,
                 "hasError"  => false,
@@ -425,7 +429,7 @@ class TextControllerTest extends AbstractControllerTest
                 "type"      => 0,
                 "hasEditor" => false
             ],
-            "userEdit1"          => [
+            "userEdit1"           => [
                 "user"      => self::TYPE_LIMITED,
                 "id"        => 1,
                 "hasError"  => false,
@@ -434,7 +438,7 @@ class TextControllerTest extends AbstractControllerTest
                 "type"      => 0,
                 "hasEditor" => false
             ],
-            "userEdit2"          => [
+            "userEdit2"           => [
                 "user"      => self::TYPE_LIMITED,
                 "id"        => 2,
                 "hasError"  => false,
@@ -443,7 +447,7 @@ class TextControllerTest extends AbstractControllerTest
                 "type"      => 0,
                 "hasEditor" => true
             ],
-            "userEdit9999"       => [
+            "userEdit9999"        => [
                 "user"     => self::TYPE_LIMITED,
                 "id"       => 9999,
                 "hasError" => true
@@ -451,9 +455,159 @@ class TextControllerTest extends AbstractControllerTest
         ];
     }
 
-    public function testAddBlock()
+    /**
+     * Test for addUser method
+     *
+     * @param string $user
+     * @param array  $data
+     * @param bool   $hasError
+     * @param bool   $hasValidationErrors
+     *
+     * @return bool
+     *
+     * @dataProvider dataProviderForTestAddBlock
+     */
+    public function testAddBlock($user, $data, $hasError = false, $hasValidationErrors = false)
     {
-        $this->markTestSkipped();
+        $textModelCountBefore = (new TextModel())->getCount();
+        $textInstanceModelCountBefore = (new TextInstanceModel())->getCount();
+        $blockModelCountBefore = (new BlockModel())->getCount();
+
+        $this->setUser($user);
+        $this->sendRequest("text", "block", $data, "PUT");
+        $body = $this->getBody();
+
+        $textModelCountAfter = (new TextModel())->getCount();
+        $textInstanceModelCountAfter = (new TextInstanceModel())->getCount();
+        $blockModelCountAfter = (new BlockModel())->getCount();
+
+        if ($hasError === true) {
+            $this->assertError();
+
+            $this->assertSame($textModelCountBefore, $textModelCountAfter);
+            $this->assertSame($textInstanceModelCountBefore, $textInstanceModelCountAfter);
+            $this->assertSame($blockModelCountBefore, $blockModelCountAfter);
+
+            return true;
+        }
+
+        if ($hasValidationErrors === true) {
+            $this->assertErrors();
+
+            $this->assertSame($textModelCountBefore, $textModelCountAfter);
+            $this->assertSame($textInstanceModelCountBefore, $textInstanceModelCountAfter);
+            $this->assertSame($blockModelCountBefore, $blockModelCountAfter);
+
+            return true;
+        }
+
+        $expected = [
+            "result" => true
+        ];
+
+        $this->compareExpectedAndActual($expected, $body);
+
+        $this->assertSame($textModelCountBefore, $textModelCountAfter - 1);
+        $this->assertSame($textInstanceModelCountBefore, $textInstanceModelCountAfter - 1);
+        $this->assertSame($blockModelCountBefore, $blockModelCountAfter - 1);
+
+        (new BlockModel())->latest()->find()->delete();
+
+        return true;
+    }
+
+    /**
+     * Data provider for testAddBlock
+     *
+     * @return array
+     */
+    public function dataProviderForTestAddBlock()
+    {
+        return [
+            "fullCorrect"             => [
+                "user"                => self::TYPE_FULL,
+                "data"                => [
+                    "name"      => "Block name",
+                    "type"      => 0,
+                    "hasEditor" => false,
+                ],
+                "hasError"            => false,
+                "hasValidationErrors" => false,
+            ],
+            "fullEmptyName"           => [
+                "user"                => self::TYPE_FULL,
+                "data"                => [
+                    "name"      => "",
+                    "type"      => 0,
+                    "hasEditor" => false,
+                ],
+                "hasError"            => false,
+                "hasValidationErrors" => true,
+            ],
+            "fullIncorrectType"       => [
+                "user"                => self::TYPE_FULL,
+                "data"                => [
+                    "name"      => "Block name",
+                    "type"      => 999,
+                    "hasEditor" => false,
+                ],
+                "hasError"            => false,
+                "hasValidationErrors" => false,
+            ],
+            "fullIncorrectHasEditor"  => [
+                "user"     => self::TYPE_FULL,
+                "data"     => [
+                    "name"      => "Block name",
+                    "type"      => 1,
+                    "hasEditor" => 999,
+                ],
+                "hasError" => true,
+            ],
+            "fullIncorrectParameters" => [
+                "user"     => self::TYPE_FULL,
+                "data"     => [
+                    "name" => "Block name",
+                ],
+                "hasError" => true,
+            ],
+            "guest"                   => [
+                "user"     => null,
+                "data"     => [
+                    "name"      => "Block name",
+                    "type"      => 0,
+                    "hasEditor" => false,
+                ],
+                "hasError" => true,
+            ],
+            "blocked"                 => [
+                "user"     => self::TYPE_BLOCKED_USER,
+                "data"     => [
+                    "name"      => "Block name",
+                    "type"      => 0,
+                    "hasEditor" => false,
+                ],
+                "hasError" => true,
+            ],
+            "noOperationUser"         => [
+                "user"     => self::TYPE_NO_OPERATIONS_USER,
+                "data"     => [
+                    "name"      => "Block name",
+                    "type"      => 0,
+                    "hasEditor" => false,
+                ],
+                "hasError" => true,
+            ],
+            "userCorrect"             => [
+                "user"                => self::TYPE_LIMITED,
+                "data"                => [
+                    "name"      => "Block name",
+                    "type"      => 0,
+                    "hasEditor" => false,
+                ],
+                "hasError"            => false,
+                "hasValidationErrors" => false,
+            ],
+        ];
     }
 
     public function testUpdateBlock()

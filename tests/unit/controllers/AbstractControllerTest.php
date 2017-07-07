@@ -274,4 +274,12 @@ abstract class AbstractControllerTest extends AbstractUnitTest
     {
         $this->assertArrayHasKey("error", $this->getBody());
     }
+
+    /**
+     * Asserts an errors in body response
+     */
+    protected function assertErrors()
+    {
+        $this->assertArrayHasKey("errors", $this->getBody());
+    }
 }

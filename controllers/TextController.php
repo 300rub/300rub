@@ -2,11 +2,14 @@
 
 namespace testS\controllers;
 
+use testS\components\exceptions\BadRequestException;
+use testS\components\exceptions\ModelException;
 use testS\components\exceptions\NotFoundException;
 use testS\components\Language;
 use testS\components\Operation;
 use testS\components\ValueGenerator;
 use testS\models\BlockModel;
+use testS\models\TextInstanceModel;
 use testS\models\TextModel;
 
 /**
@@ -198,10 +201,70 @@ class TextController extends AbstractController
 
     /**
      * Adds block
+     *
+     * @return array
+     *
+     * @throws BadRequestException
      */
     public function addBlock()
     {
-        // @TODO
+        $this->checkBlockOperation(BlockModel::TYPE_TEXT, Operation::ALL, Operation::TEXT_ADD);
+
+        $data = $this->getData();
+        if (!array_key_exists("name", $data)
+            || !array_key_exists("type", $data)
+            || !array_key_exists("hasEditor", $data)
+            || !is_int($data["type"])
+            || !is_bool($data["hasEditor"])
+        ) {
+            throw new BadRequestException(
+                "Incorrect request to add text block. Data: {data}",
+                [
+                    "data" => json_encode($data)
+                ]
+            );
+        }
+
+        $textModel = new TextModel();
+        $textModel->set(
+            [
+                "type"      => $data["type"],
+                "hasEditor" => $data["hasEditor"],
+            ]
+        );
+        $textModel->save();
+
+        $textInstanceModel = new TextInstanceModel();
+        $textInstanceModel->set(
+            [
+                "textId" => $textModel->getId()
+            ]
+        );
+        $textInstanceModel->save();
+
+        $blockModel = new BlockModel();
+        $blockModel->set(
+            [
+                "name"        => $data["name"],
+                "language"    => Language::getActiveId(),
+                "contentType" => BlockModel::TYPE_TEXT,
+                "contentId"   => $textModel->getId(),
+            ]
+        );
+        $blockModel->save();
+
+        $errors = $blockModel->getParsedErrors();
+        if (count($errors) > 0) {
+            $this->removeSavedData();
+
+            return [
+                "errors" => $errors
+            ];
+        }
+
+        return [
+            "result" => true
+        ];
     }
 
     /**

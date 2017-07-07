@@ -7,6 +7,7 @@ use testS\components\exceptions\AccessException;
 use testS\components\Operation;
 use testS\components\User;
 use testS\models\UserModel;
+use testS\components\Db;
 
 /**
  * Abstract class for working with controllers
@@ -389,4 +390,13 @@ abstract class AbstractController
 	{
 		return __DIR__ . "/../views/";
 	}
+
+    /**
+     * Removes saved data
+     */
+    protected function removeSavedData()
+    {
+        Db::rollbackTransaction();
+        Db::startTransaction();
+    }
 }
