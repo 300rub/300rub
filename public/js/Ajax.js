@@ -4,7 +4,7 @@
     /**
      * Ajax
      *
-     * @type {Object}
+     * @param {Object} options
      */
     TestS.Ajax = function (options) {
         this._options = $.extend({}, options);
@@ -19,7 +19,7 @@
     TestS.Ajax.prototype = {
 
         /**
-         * _options
+         * Options
          *
          * @var {Object}
          */

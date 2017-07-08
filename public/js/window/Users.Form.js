@@ -138,6 +138,9 @@
 
                 var $operationsContainer = $container.find(".operations-container");
 
+
+                $operationsContainer.append(TestS.Accordion.getElement("title", $("<div/>").text("aaaaaaa")));
+
                 $.each(data.operations.list, function(groupKey, groupObject) {
                     $("<h3/>").text(groupObject.title).appendTo($operationsContainer);
 

@@ -65,7 +65,7 @@ class PageController extends AbstractController
      */
     private static $_userDevStaticMap = [
         "js" => [
-            "lib/jquery-ui.min",
+            "Accordion",
             "Panel",
             "panel/Settings",
             "UserButtons",
@@ -86,6 +86,7 @@ class PageController extends AbstractController
      */
     private static $_commonTemplatesMap = [
         "common/ajax-error",
+        "common/accordion",
         "forms/text",
         "forms/password",
         "forms/checkbox",
