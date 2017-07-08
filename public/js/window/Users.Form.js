@@ -138,53 +138,52 @@
 
                 var $operationsContainer = $container.find(".operations-container");
 
-
-                $operationsContainer.append(TestS.Accordion.getElement("title", $("<div/>").text("aaaaaaa")));
-
                 $.each(data.operations.list, function(groupKey, groupObject) {
-                    $("<h3/>").text(groupObject.title).appendTo($operationsContainer);
+                    var $accordionGroupContainer = TestS.Template.get("accordion-container");
+                    $accordionGroupContainer.find(".accordion-title").text(groupObject.title);
+                    var $accordionGroupBody = $accordionGroupContainer.find(".accordion-body");
 
                     switch (groupKey) {
-                        case "SECTIONS":
-                            $("<h4/>").text(groupObject.data.ALL.title).appendTo($operationsContainer);
-                            $.each(groupObject.data.ALL.data, function(allKey, allObject) {
-                                new TestS.Form(
-                                    $.extend(
-                                        {
-                                            appendTo: $operationsContainer,
-                                            type: "checkbox"
-                                        },
-                                        allObject
-                                    )
-                                );
-                            });
-
-                            $.each(groupObject.data, function(groupObjectDataKey, groupObjectDataObject) {
-                                if (groupObjectDataKey === "ALL") {
-                                    return true;
-                                }
-
-                                $("<h4/>").text(groupObjectDataObject.title).appendTo($operationsContainer);
-                                $.each(groupObjectDataObject.data, function(groupObjectDataObjectDataKey, groupObjectDataObjectDataObject) {
-                                    new TestS.Form(
-                                        $.extend(
-                                            {
-                                                appendTo: $operationsContainer,
-                                                type: "checkbox"
-                                            },
-                                            groupObjectDataObjectDataObject
-                                        )
-                                    );
-                                });
-                            });
-
-                            break;
+                        // case "SECTIONS":
+                        //     $("<h4/>").text(groupObject.data.ALL.title).appendTo($operationsContainer);
+                        //     $.each(groupObject.data.ALL.data, function(allKey, allObject) {
+                        //         new TestS.Form(
+                        //             $.extend(
+                        //                 {
+                        //                     appendTo: $operationsContainer,
+                        //                     type: "checkbox"
+                        //                 },
+                        //                 allObject
+                        //             )
+                        //         );
+                        //     });
+                        //
+                        //     $.each(groupObject.data, function(groupObjectDataKey, groupObjectDataObject) {
+                        //         if (groupObjectDataKey === "ALL") {
+                        //             return true;
+                        //         }
+                        //
+                        //         $("<h4/>").text(groupObjectDataObject.title).appendTo($operationsContainer);
+                        //         $.each(groupObjectDataObject.data, function(groupObjectDataObjectDataKey, groupObjectDataObjectDataObject) {
+                        //             new TestS.Form(
+                        //                 $.extend(
+                        //                     {
+                        //                         appendTo: $operationsContainer,
+                        //                         type: "checkbox"
+                        //                     },
+                        //                     groupObjectDataObjectDataObject
+                        //                 )
+                        //             );
+                        //         });
+                        //     });
+                        //
+                        //     break;
                         case "SETTINGS":
                             $.each(groupObject.data, function(checkboxKey, checkboxObject) {
                                 new TestS.Form(
                                     $.extend(
                                         {
-                                            appendTo: $operationsContainer,
+                                            appendTo: $accordionGroupBody,
                                             type: "checkbox"
                                         },
                                         checkboxObject
@@ -195,6 +194,8 @@
                         default:
                             break;
                     }
+
+                    $operationsContainer.append($accordionGroupContainer);
                 });
             }
 
