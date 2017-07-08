@@ -93,11 +93,38 @@
   .accordion-title {
     display: block;
     line-height: 30px;
-    padding: 0 10px;
+    padding: 0 15px 0 12px;
     background: @grayBackground;
+
+    .fa {
+      margin-right: 5px;
+      .transition-duration(.15s);
+      .transition-property(transform);
+    }
+
+    &:hover {
+      .text {
+        text-decoration: underline;
+      }
+    }
   }
 
   .accordion-body {
+    padding: 0 0 0 15px;
+    display: none;
 
+    .form-container {
+      margin: 4px 0;
+    }
+  }
+}
+
+.accordion-container.opened > .accordion-body {
+  display: block;
+}
+
+.accordion-container.opened > .accordion-title {
+  .fa {
+    .transform(rotate(90deg));
   }
 }

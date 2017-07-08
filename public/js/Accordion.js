@@ -4,57 +4,109 @@
     /**
      * Accordion
      */
-    TestS.Accordion = {
+    TestS.Accordion = function($container) {
+        $container.find(".accordion-container:first-child").addClass("opened");
+
+        $container.find(".accordion-title").off().on("click", function () {
+            var $accordionContainer = $(this).parent();
+            if ($accordionContainer.hasClass("opened")) {
+                $accordionContainer.removeClass("opened");
+            } else {
+                $accordionContainer.parent().find(".accordion-container").removeClass("opened");
+                $accordionContainer.addClass("opened");
+            }
+        });
+    };
+
+    /**
+     * Accordion element
+     *
+     * @param {String} title
+     *
+     * @type {Object}
+     */
+    TestS.Accordion.Element = function (title) {
+        this._title = title;
+        this.init();
+    };
+
+    /**
+     * Prototype
+     *
+     * @type {Object}
+     */
+    TestS.Accordion.Element.prototype = {
+
+        /**
+         * Title
+         *
+         * @var {String}
+         */
+        _title: "",
+
+        /**
+         * Container
+         *
+         * @var {Object}
+         */
+        $_container: null,
+
+        /**
+         * Body
+         *
+         * @var {Object}
+         */
+        $_body: null,
 
         /**
          * Init
-         *
-         * @param {Object} $container
          */
-        set: function ($container) {
-            this.$_container.find(".accordion-container:first-child").addClass("opened");
-
-            this._setClickEvent($container);
+        init: function () {
+            this.$_container = TestS.Template.get("accordion-container");
+            this.$_container.find(".accordion-title .text").text(this._title);
+            this.$_body = this.$_container.find(".accordion-body");
         },
 
         /**
-         * Sets click event
+         * Adds object to the body
          *
-         * @param {Object} $container
+         * @param {Object} $object
          *
-         * @return {TestS.Accordion}
-         *
-         * @private
+         * @return {TestS.Accordion.Element}
          */
-        _setClickEvent: function ($container) {
-            $container.find(".accordion-title").off().on("click", function () {
-                var $accordionContainer = $(this).parent();
-                if ($accordionContainer.hasClass("opened")) {
-                    $accordionContainer.removeClass("opened");
-                } else {
-                    $accordionContainer.parent().find(".accordion-container").removeClass("opened");
-                    $accordionContainer.addClass("opened");
-                }
-            });
-
+        add: function ($object) {
+            this.$_body.append($object);
             return this;
         },
 
         /**
-         * Gets element
+         * Gets body
          *
-         * @param {String} title
-         * @param {Object} $body
-         *
-         * @returns {Object}
+         * @return {Object}
          */
-        getElement: function (title, $body) {
-            var $element = TestS.Template.get("accordion-container");
+        getBody: function () {
+            return this.$_body;
+        },
 
-            $element.find(".accordion-title").text(title);
-            $element.find(".accordion-body").append($body);
+        /**
+         * Gets container
+         *
+         * @return {Object}
+         */
+        get: function () {
+            return this.$_container;
+        },
 
-            return $element;
+        /**
+         * Appends container to the object
+         *
+         * @param {Object} $object
+         *
+         * @return {TestS.Accordion.Element}
+         */
+        appendTo: function ($object) {
+            this.$_container.appendTo($object);
+            return this;
         }
     };
 }(window.jQuery, window.TestS);

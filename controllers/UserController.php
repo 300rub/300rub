@@ -555,7 +555,7 @@ class UserController extends AbstractController
             ],
             "operations" => [
                 "canChange" => $canChangeOperations,
-                "label"     => Language::t("user", "operations"),
+                "title"     => Language::t("user", "operations"),
                 "list"      => $operations
             ],
             "button"     => [
@@ -645,7 +645,7 @@ class UserController extends AbstractController
             "data"  => []
         ];
 
-        foreach (BlockModel::$typeNames as $blockKey => $title) {
+        foreach (BlockModel::getTypeNames() as $blockKey => $title) {
             $operations["data"][$blockKey] = [
                 "title" => $title,
                 "data"  => []
@@ -669,7 +669,7 @@ class UserController extends AbstractController
 
             foreach ($operationList as $key => $value) {
                 $operations["data"][$blockKey]["data"][Operation::ALL]["data"][] = [
-                    "title" => $value,
+                    "label" => $value,
                     "name"  => sprintf(
                         "operations.%s.%s.%s.%s",
                         Operation::TYPE_BLOCKS,
@@ -707,7 +707,7 @@ class UserController extends AbstractController
 
                     foreach ($operationList as $key => $value) {
                         $operations["data"][$blockKey]["data"][$id]["data"][] = [
-                            "title" => $value,
+                            "label" => $value,
                             "name"  => sprintf(
                                 "operations.%s.%s.%s.%s",
                                 Operation::TYPE_BLOCKS,

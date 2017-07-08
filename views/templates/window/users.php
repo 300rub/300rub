@@ -37,6 +37,6 @@
 <div class="users-form-container">
     <div class="text-forms-container"></div>
     <div class="operations-container">
-
+        <div class="group-title"></div>
     </div>
 </div>

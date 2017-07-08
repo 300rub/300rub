@@ -86,8 +86,6 @@
          * @private
          */
         _onLoadDataSuccess: function(data) {
-            console.log(data);
-
             var $container = TestS.Template.get("users-form-container");
             var textFormsContainer = $container.find(".text-forms-container");
             this._window.getBody().append($container);
@@ -138,52 +136,102 @@
 
                 var $operationsContainer = $container.find(".operations-container");
 
+                $operationsContainer.find(".group-title").text(data.operations.title);
+
                 $.each(data.operations.list, function(groupKey, groupObject) {
-                    var $accordionGroupContainer = TestS.Template.get("accordion-container");
-                    $accordionGroupContainer.find(".accordion-title").text(groupObject.title);
-                    var $accordionGroupBody = $accordionGroupContainer.find(".accordion-body");
+                    var categoryAccordionElement = new TestS.Accordion.Element(groupObject.title);
 
                     switch (groupKey) {
-                        // case "SECTIONS":
-                        //     $("<h4/>").text(groupObject.data.ALL.title).appendTo($operationsContainer);
-                        //     $.each(groupObject.data.ALL.data, function(allKey, allObject) {
-                        //         new TestS.Form(
-                        //             $.extend(
-                        //                 {
-                        //                     appendTo: $operationsContainer,
-                        //                     type: "checkbox"
-                        //                 },
-                        //                 allObject
-                        //             )
-                        //         );
-                        //     });
-                        //
-                        //     $.each(groupObject.data, function(groupObjectDataKey, groupObjectDataObject) {
-                        //         if (groupObjectDataKey === "ALL") {
-                        //             return true;
-                        //         }
-                        //
-                        //         $("<h4/>").text(groupObjectDataObject.title).appendTo($operationsContainer);
-                        //         $.each(groupObjectDataObject.data, function(groupObjectDataObjectDataKey, groupObjectDataObjectDataObject) {
-                        //             new TestS.Form(
-                        //                 $.extend(
-                        //                     {
-                        //                         appendTo: $operationsContainer,
-                        //                         type: "checkbox"
-                        //                     },
-                        //                     groupObjectDataObjectDataObject
-                        //                 )
-                        //             );
-                        //         });
-                        //     });
-                        //
-                        //     break;
+                        case "SECTIONS":
+                            var sectionsAllAccordionElement = new TestS.Accordion.Element(groupObject.data.ALL.title);
+
+                            $.each(groupObject.data.ALL.data, function(allKey, allObject) {
+                                new TestS.Form(
+                                    $.extend(
+                                        {
+                                            appendTo: sectionsAllAccordionElement.getBody(),
+                                            type: "checkbox"
+                                        },
+                                        allObject
+                                    )
+                                );
+                            });
+
+                            categoryAccordionElement.add(sectionsAllAccordionElement.get());
+
+                            $.each(groupObject.data, function(groupObjectDataKey, groupObjectDataObject) {
+                                if (groupObjectDataKey === "ALL") {
+                                    return true;
+                                }
+
+                                var sectionAccordionElement = new TestS.Accordion.Element(groupObjectDataObject.title);
+
+                                $.each(groupObjectDataObject.data, function(groupObjectDataObjectDataKey, groupObjectDataObjectDataObject) {
+                                    new TestS.Form(
+                                        $.extend(
+                                            {
+                                                appendTo: sectionAccordionElement.getBody(),
+                                                type: "checkbox"
+                                            },
+                                            groupObjectDataObjectDataObject
+                                        )
+                                    );
+                                });
+
+                                categoryAccordionElement.add(sectionAccordionElement.get());
+                            });
+
+                            break;
+                        case "BLOCKS":
+                            $.each(groupObject.data, function(groupObjectDataKey, groupObjectDataObject) {
+                                var blockTypeAccordionElement = new TestS.Accordion.Element(groupObjectDataObject.title);
+                                var blockAllAccordionElement = new TestS.Accordion.Element(groupObjectDataObject.data.ALL.title);
+
+                                $.each(groupObjectDataObject.data.ALL.data, function(allKey, allObject) {
+                                    new TestS.Form(
+                                        $.extend(
+                                            {
+                                                appendTo: blockAllAccordionElement.getBody(),
+                                                type: "checkbox"
+                                            },
+                                            allObject
+                                        )
+                                    );
+                                });
+                                blockTypeAccordionElement.add(blockAllAccordionElement.get());
+
+                                $.each(groupObjectDataObject.data, function(groupObjectDataObjectDataKey, groupObjectDataObjectDataObject) {
+                                    if (groupObjectDataObjectDataKey === "ALL") {
+                                        return true;
+                                    }
+
+                                    var blockAccordionElement = new TestS.Accordion.Element(groupObjectDataObjectDataObject.title);
+
+                                    $.each(groupObjectDataObjectDataObject.data, function(key, object) {
+                                        new TestS.Form(
+                                            $.extend(
+                                                {
+                                                    appendTo: blockAccordionElement.getBody(),
+                                                    type: "checkbox"
+                                                },
+                                                object
+                                            )
+                                        );
+                                    });
+
+                                    blockTypeAccordionElement.add(blockAccordionElement.get());
+                                });
+
+                                categoryAccordionElement.add(blockTypeAccordionElement.get());
+                            });
+
+                            break;
                         case "SETTINGS":
                             $.each(groupObject.data, function(checkboxKey, checkboxObject) {
                                 new TestS.Form(
                                     $.extend(
                                         {
-                                            appendTo: $accordionGroupBody,
+                                            appendTo: categoryAccordionElement.getBody(),
                                             type: "checkbox"
                                         },
                                         checkboxObject
@@ -195,8 +243,10 @@
                             break;
                     }
 
-                    $operationsContainer.append($accordionGroupContainer);
+                    categoryAccordionElement.appendTo($operationsContainer)
                 });
+
+                TestS.Accordion($operationsContainer);
             }
 
             this._window
