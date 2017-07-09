@@ -208,8 +208,7 @@
                         flattenData[item.getName()] = item.getParsedValue();
                     }, this));
 
-                    // @TODO get data
-                    var data = $.extend({}, flattenData);
+                    var data = this._parseFormData($.extend({}, flattenData));
 
                     if (hasError === false
                         && $.type(this._options.ajax) === "object"
@@ -327,6 +326,41 @@
                     this.$_form.on("click", this._options.onClick);
                 }
             }
+        },
+
+        /**
+         * Parses form data
+         *
+         * @param {Object} data
+         *
+         * @return {Object}
+         *
+         * @private
+         */
+        _parseFormData: function(data) {
+            var helpObject = {};
+            var object = {};
+            var t = this;
+
+            $.each(data, function (fullFieldName, value) {
+                if (fullFieldName.indexOf(".") !== -1) {
+                    var arr = fullFieldName.split(".");
+                    var alias = arr.shift();
+                    var field = arr.join(".");
+                    if (helpObject[alias] === undefined) {
+                        helpObject[alias] = {};
+                    }
+                    helpObject[alias][field] = value;
+                } else {
+                    object[fullFieldName] = value;
+                }
+            });
+
+            $.each(helpObject, function (key, value) {
+                object[key] = t._parseFormData(value);
+            });
+
+            return object;
         },
 
         /**

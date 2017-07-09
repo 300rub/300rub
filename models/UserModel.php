@@ -332,13 +332,15 @@ class UserModel extends AbstractModel
             if ($key === Operation::ALL
                 && is_array($operations[Operation::TYPE_SECTIONS][$key])
             ) {
-                foreach ($operations[Operation::TYPE_SECTIONS][$key] as $operation) {
-                    if (array_key_exists($operation, Operation::getSectionOperations(true))) {
+                foreach ($operations[Operation::TYPE_SECTIONS][$key] as $operationKey => $operationValue) {
+                    if (array_key_exists($operationKey, Operation::getSectionOperations(true))
+                        && $operationValue === true
+                    ) {
                         $model = new UserSectionGroupOperationModel();
                         $model->set(
                             [
                                 "userId"    => $this->getId(),
-                                "operation" => $operation
+                                "operation" => $operationKey
                             ]
                         );
                         $model->save();
@@ -351,14 +353,16 @@ class UserModel extends AbstractModel
             if ($key !== Operation::ALL
                 && is_array($operations[Operation::TYPE_SECTIONS][$key])
             ) {
-                foreach ($operations[Operation::TYPE_SECTIONS][$key] as $operation) {
-                    if (array_key_exists($operation, Operation::getSectionOperations())) {
+                foreach ($operations[Operation::TYPE_SECTIONS][$key] as $operationKey => $operationValue) {
+                    if (array_key_exists($operationKey, Operation::getSectionOperations())
+                        && $operationValue === true
+                    ) {
                         $model = new UserSectionOperationModel();
                         $model->set(
                             [
                                 "userId"    => $this->getId(),
                                 "sectionId" => $key,
-                                "operation" => $operation
+                                "operation" => $operationKey
                             ]
                         );
                         $model->save();
@@ -399,14 +403,16 @@ class UserModel extends AbstractModel
                 if ($key === Operation::ALL
                     && is_array($blockTypeValues[$key])
                 ) {
-                    foreach ($blockTypeValues[$key] as $operation) {
-                        if (array_key_exists($operation, $blockAllOperations)) {
+                    foreach ($blockTypeValues[$key] as $operationKey => $operationValue) {
+                        if (array_key_exists($operationKey, $blockAllOperations)
+                            && $operationValue === true
+                        ) {
                             $model = new UserBlockGroupOperationModel();
                             $model->set(
                                 [
                                     "userId"    => $this->getId(),
                                     "blockType" => $blockType,
-                                    "operation" => $operation
+                                    "operation" => $operationKey
                                 ]
                             );
                             $model->save();
@@ -419,15 +425,17 @@ class UserModel extends AbstractModel
                 if ($key !== Operation::ALL
                     && is_array($blockTypeValues[$key])
                 ) {
-                    foreach ($blockTypeValues[$key] as $operation) {
-                        if (array_key_exists($operation, $blockOperations)) {
+                    foreach ($blockTypeValues[$key] as $operationKey => $operationValue) {
+                        if (array_key_exists($operationKey, $blockOperations)
+                            && $operationValue === true
+                        ) {
                             $model = new UserBlockOperationModel();
                             $model->set(
                                 [
                                     "userId"    => $this->getId(),
                                     "blockType" => $blockType,
                                     "blockId"   => $key,
-                                    "operation" => $operation
+                                    "operation" => $operationKey
                                 ]
                             );
                             $model->save();
@@ -455,13 +463,15 @@ class UserModel extends AbstractModel
             return $this;
         }
 
-        foreach ($operations[Operation::TYPE_SETTINGS] as $operation) {
-            if (array_key_exists($operation, Operation::getSettingsOperations())) {
+        foreach ($operations[Operation::TYPE_SETTINGS] as $operationKey => $operationValue) {
+            if (array_key_exists($operationKey, Operation::getSettingsOperations())
+                && $operationValue === true
+            ) {
                 $model = new UserSettingsOperationModel();
                 $model->set(
                     [
                         "userId"    => $this->getId(),
-                        "operation" => $operation
+                        "operation" => $operationKey
                     ]
                 );
                 $model->save();

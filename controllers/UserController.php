@@ -555,12 +555,15 @@ class UserController extends AbstractController
             ],
             "operations" => [
                 "canChange" => $canChangeOperations,
-                "title"     => Language::t("user", "operations"),
                 "list"      => $operations,
                 "limitedId" => UserModel::TYPE_LIMITED,
             ],
             "button"     => [
                 "label" => $buttonLabel,
+            ],
+            "labels" => [
+                "operations"     => Language::t("user", "operations"),
+                "isChangePassword" => Language::t("user", "isChangePassword"),
             ]
         ];
     }

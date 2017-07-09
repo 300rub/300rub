@@ -139,4 +139,8 @@ return [
         Language::LANGUAGE_EN_ID => "Operations",
         Language::LANGUAGE_RU_ID => "",
     ],
+    "isChangePassword" => [
+        Language::LANGUAGE_EN_ID => "Change password",
+        Language::LANGUAGE_RU_ID => "",
+    ]
 ];

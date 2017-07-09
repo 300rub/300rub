@@ -142,6 +142,17 @@
             );
             this._forms.push(this._login);
 
+            if (data.id !== 0) {
+                var isChangePassword = new TestS.Form({
+                    appendTo: $textFormsContainer,
+                    type: "checkbox",
+                    name: "isChangePassword",
+                    value: false,
+                    label: data.labels.isChangePassword
+                });
+                this._forms.push(isChangePassword);
+            }
+
             this._email = new TestS.Form(
                 $.extend(
                     {
@@ -214,7 +225,7 @@
             var t = this;
             this.$_operationsContainer = this.$_container.find(".operations-container");
 
-            this.$_operationsContainer.find(".group-title").text(data.operations.title);
+            this.$_operationsContainer.find(".group-title").text(data.labels.operations);
 
             $.each(data.operations.list, function(groupKey, groupObject) {
                 var categoryAccordionElement = new TestS.Accordion.Element(groupObject.title);
