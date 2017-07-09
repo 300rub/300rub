@@ -556,7 +556,8 @@ class UserController extends AbstractController
             "operations" => [
                 "canChange" => $canChangeOperations,
                 "title"     => Language::t("user", "operations"),
-                "list"      => $operations
+                "list"      => $operations,
+                "limitedId" => UserModel::TYPE_LIMITED,
             ],
             "button"     => [
                 "label" => $buttonLabel,
@@ -775,7 +776,6 @@ class UserController extends AbstractController
         if (!array_key_exists("name", $data)
             || !array_key_exists("login", $data)
             || !array_key_exists("email", $data)
-            || !array_key_exists("type", $data)
             || !array_key_exists("password", $data)
             || !array_key_exists("passwordConfirm", $data)
             || strlen($data["password"]) !== 32
@@ -804,7 +804,7 @@ class UserController extends AbstractController
             [
                 "login"    => $data["login"],
                 "password" => UserModel::getPasswordHash($data["password"]),
-                "type"     => $data["type"],
+                "type"     => isset($data["type"]) ? $data["type"] : 0,
                 "name"     => $data["name"],
                 "email"    => $data["email"],
             ]
@@ -844,14 +844,13 @@ class UserController extends AbstractController
             || !array_key_exists("name", $data)
             || !array_key_exists("login", $data)
             || !array_key_exists("email", $data)
-            || !array_key_exists("type", $data)
             || !array_key_exists("operations", $data)
             || !is_array($data["operations"])
             || !array_key_exists("isChangePassword", $data)
             || !is_bool($data["isChangePassword"])
         ) {
             throw new BadRequestException(
-                "Incorrect request to add user. Data: {data}",
+                "Incorrect request to update user. Data: {data}",
                 [
                     "data" => json_encode($data)
                 ]
@@ -909,7 +908,7 @@ class UserController extends AbstractController
         $userModel->set(
             [
                 "login" => $data["login"],
-                "type"  => $data["type"],
+                "type"  => isset($data["type"]) ? $data["type"] : 0,
                 "name"  => $data["name"],
                 "email" => $data["email"],
             ]

@@ -44,6 +44,9 @@
                 case "text":
                     this._setTextForm();
                     break;
+                case "hidden":
+                    this._setHiddenForm();
+                    break;
                 case "password":
                     this._setPasswordForm();
                     break;
@@ -110,6 +113,19 @@
          */
         _setTextForm: function () {
             this.$_form = TestS.Template.get("form-container-text");
+
+            if (this._options.value !== undefined) {
+                this.$_form.find(".form-instance").val(this._options.value);
+            }
+        },
+
+        /**
+         * Sets hidden form
+         *
+         * @private
+         */
+        _setHiddenForm: function () {
+            this.$_form = TestS.Template.get("form-container-hidden");
 
             if (this._options.value !== undefined) {
                 this.$_form.find(".form-instance").val(this._options.value);

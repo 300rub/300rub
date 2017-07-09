@@ -5,8 +5,6 @@
      * Accordion
      */
     TestS.Accordion = function($container) {
-        $container.find(".accordion-container:first-child").addClass("opened");
-
         $container.find(".accordion-title").off().on("click", function () {
             var $accordionContainer = $(this).parent();
             if ($accordionContainer.hasClass("opened")) {

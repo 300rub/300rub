@@ -87,11 +87,7 @@ class PageController extends AbstractController
     private static $_commonTemplatesMap = [
         "common/ajax-error",
         "common/accordion",
-        "forms/text",
-        "forms/password",
-        "forms/checkbox",
-        "forms/button",
-        "forms/select",
+        "common/forms",
         "window/window"
     ];
 
