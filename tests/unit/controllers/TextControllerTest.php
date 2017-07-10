@@ -77,6 +77,7 @@ class TextControllerTest extends AbstractControllerTest
 
         foreach ($body["list"] as $item) {
             $this->assertTrue(strlen($item["blockName"]) > 0);
+            $this->assertTrue($item["blockId"] > 0);
             $this->assertTrue($item["contentId"] > 0);
             $this->assertSame($canUpdateSettings, $item["canUpdateSettings"]);
             $this->assertSame($canUpdateDesign, $item["canUpdateDesign"]);
@@ -640,7 +641,7 @@ class TextControllerTest extends AbstractControllerTest
         );
         $blockModel->save();
 
-        $data["id"] = $textModel->getId();
+        $data["id"] = $blockModel->getId();
 
         $this->setUser($user);
         $this->sendRequest("text", "block", $data, "POST");
@@ -760,9 +761,124 @@ class TextControllerTest extends AbstractControllerTest
         ];
     }
 
-    public function testDeleteBlock()
+    /**
+     * Test for the method deleteBlock
+     *
+     * @param string $user
+     * @param int    $id
+     * @param bool   $hasError
+     *
+     * @dataProvider dataProviderForTestDeleteBlock
+     */
+    public function testDeleteBlock($user, $id = null, $hasError = false)
     {
-        $this->markTestSkipped();
+        $this->setUser($user);
+
+        $blockModel = null;
+        if ($id === null) {
+            $textModel = new TextModel();
+            $textModel->set(
+                [
+                    "type"      => 0,
+                    "hasEditor" => 0,
+                ]
+            );
+            $textModel->save();
+
+            $blockModel = new BlockModel();
+            $blockModel->set(
+                [
+                    "name"        => "name",
+                    "language"    => 1,
+                    "contentType" => BlockModel::TYPE_TEXT,
+                    "contentId"   => $textModel->getId(),
+                ]
+            );
+            $blockModel->save();
+
+            $requestId = $blockModel->getId();
+        } else {
+            $requestId = $id;
+        }
+
+        $this->sendRequest("text", "block", ["id" => $requestId], "DELETE");
+
+        if ($hasError === true) {
+            $this->assertError();
+
+            if ($id === null) {
+                $blockModel->delete();
+            }
+        } else {
+            $expected = [
+                "result" => true
+            ];
+
+            $this->compareExpectedAndActual($expected, $this->getBody());
+
+            $this->assertNull((new BlockModel())->byId($blockModel->getId())->find());
+        }
+    }
+
+    /**
+     * Data provider for testDeleteBlock
+     *
+     * @return array
+     */
+    public function dataProviderForTestDeleteBlock()
+    {
+        return [
+            "fullCorrect" => [
+                "user"     => self::TYPE_FULL,
+                "id"       => null,
+                "hasError" => false
+            ],
+            "fullIncorrect" => [
+                "user"     => self::TYPE_FULL,
+                "id"       => 9999,
+                "hasError" => true
+            ],
+            "userCorrect" => [
+                "user"     => self::TYPE_LIMITED,
+                "id"       => null,
+                "hasError" => false
+            ],
+            "userIncorrect" => [
+                "user"     => self::TYPE_LIMITED,
+                "id"       => 9999,
+                "hasError" => true
+            ],
+            "blockedCorrect" => [
+                "user"     => self::TYPE_BLOCKED_USER,
+                "id"       => null,
+                "hasError" => true
+            ],
+            "blockedIncorrect" => [
+                "user"     => self::TYPE_LIMITED,
+                "id"       => 9999,
+                "hasError" => true
+            ],
+            "noOperationCorrect" => [
+                "user"     => self::TYPE_NO_OPERATIONS_USER,
+                "id"       => null,
+                "hasError" => true
+            ],
+            "noOperationIncorrect" => [
+                "user"     => self::TYPE_NO_OPERATIONS_USER,
+                "id"       => 9999,
+                "hasError" => true
+            ],
+            "guestCorrect" => [
+                "user"     => null,
+                "id"       => null,
+                "hasError" => true
+            ],
+            "guestIncorrect" => [
+                "user"     => null,
+                "id"       => 9999,
+                "hasError" => true
+            ],
+        ];
     }
 
     public function testGetDesign()

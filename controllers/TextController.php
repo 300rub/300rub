@@ -3,7 +3,6 @@
 namespace testS\controllers;
 
 use testS\components\exceptions\BadRequestException;
-use testS\components\exceptions\ModelException;
 use testS\components\exceptions\NotFoundException;
 use testS\components\Language;
 use testS\components\Operation;
@@ -45,17 +44,17 @@ class TextController extends AbstractController
         foreach ($blockModels as $blockModel) {
             $canUpdateSettings = $this->hasBlockOperation(
                 BlockModel::TYPE_TEXT,
-                $blockModel->get("contentId"),
+                $blockModel->getId(),
                 Operation::TEXT_UPDATE_SETTINGS
             );
             $canUpdateDesign = $this->hasBlockOperation(
                 BlockModel::TYPE_TEXT,
-                $blockModel->get("contentId"),
+                $blockModel->getId(),
                 Operation::TEXT_UPDATE_DESIGN
             );
             $canUpdateContent = $this->hasBlockOperation(
                 BlockModel::TYPE_TEXT,
-                $blockModel->get("contentId"),
+                $blockModel->getId(),
                 Operation::TEXT_UPDATE_CONTENT
             );
 
@@ -68,7 +67,8 @@ class TextController extends AbstractController
 
             $list[] = [
                 "blockName"         => $blockModel->get("name"),
-                "contentId"         => $blockModel->get("contentId"),
+                "blockId"           => $blockModel->getId(),
+                "contentId"         => $blockModel->getId(),
                 "canUpdateSettings" => $canUpdateSettings,
                 "canUpdateDesign"   => $canUpdateDesign,
                 "canUpdateContent"  => $canUpdateContent
@@ -126,34 +126,21 @@ class TextController extends AbstractController
 
         if ($id === 0) {
             $this->checkBlockOperation(BlockModel::TYPE_TEXT, Operation::ALL, Operation::TEXT_ADD);
-
-            $textModel = new TextModel();
             $blockModel = new BlockModel();
         } else {
             $this->checkBlockOperation(BlockModel::TYPE_TEXT, $id, Operation::TEXT_UPDATE_SETTINGS);
 
-            $textModel = (new TextModel())->byId($id)->find();
-            if ($textModel === null) {
+            $blockModel = (new BlockModel())->byId($id)->find();
+            if ($blockModel === null) {
                 throw new NotFoundException(
-                    "Unable to find TextModel with ID: {id}",
+                    "Unable to find text BlockModel with ID: {id}",
                     [
                         "id" => $id
                     ]
                 );
             }
 
-            $blockModel = (new BlockModel())
-                ->byContentType(BlockModel::TYPE_TEXT)
-                ->byContentId($textModel->getId())
-                ->find();
-            if ($blockModel === null) {
-                throw new NotFoundException(
-                    "Unable to find text BlockModel with content ID: {id}",
-                    [
-                        "id" => $textModel->getId()
-                    ]
-                );
-            }
+            $textModel = $blockModel->getContentModel();
 
             $name = $blockModel->get("name");
             $type = $textModel->get("type");
@@ -161,14 +148,14 @@ class TextController extends AbstractController
         }
 
         return [
-            "id"          => $textModel->getId(),
+            "id"          => $id,
             "title"       => Language::t(
                 "text",
-                $textModel->getId() === 0 ? "addBlockTitle" : "editBlockTitle"
+                $id === 0 ? "addBlockTitle" : "editBlockTitle"
             ),
             "description" => Language::t(
                 "text",
-                $textModel->getId() === 0 ? "addBlockDescription" : "editBlockDescription"
+                $id === 0 ? "addBlockDescription" : "editBlockDescription"
             ),
             "back"        => [
                 "controller" => "text",
@@ -193,7 +180,7 @@ class TextController extends AbstractController
                     "value" => $hasEditor,
                 ],
                 "button"    => [
-                    "label" => Language::t("common", $textModel->getId() === 0 ? "add" : "update"),
+                    "label" => Language::t("common", $id === 0 ? "add" : "update"),
                 ]
             ]
         ];
@@ -262,9 +249,7 @@ class TextController extends AbstractController
             ];
         }
 
-        return [
-            "result" => true
-        ];
+        return $this->getSimpleSuccessResult();
     }
 
     /**
@@ -277,8 +262,6 @@ class TextController extends AbstractController
      */
     public function updateBlock()
     {
-        $this->checkBlockOperation(BlockModel::TYPE_TEXT, Operation::ALL, Operation::TEXT_UPDATE_SETTINGS);
-
         $data = $this->getData();
         if (!array_key_exists("id", $data)
             || !array_key_exists("name", $data)
@@ -297,29 +280,19 @@ class TextController extends AbstractController
             );
         }
 
-        $textModel = (new TextModel())->byId($data["id"])->find();
-        if ($textModel === null) {
+        $this->checkBlockOperation(BlockModel::TYPE_TEXT, $data["id"], Operation::TEXT_UPDATE_SETTINGS);
+
+        $blockModel = (new BlockModel())->byId($data["id"])->find();
+        if ($blockModel === null) {
             throw new NotFoundException(
-                "Unable to find TextModel with ID: {id}",
+                "Unable to find text BlockModel by ID: {id}",
                 [
                     "id" => $data["id"]
                 ]
             );
         }
 
-        $blockModel = (new BlockModel())
-            ->byContentType(BlockModel::TYPE_TEXT)
-            ->byContentId($textModel->getId())
-            ->find();
-        if ($blockModel === null) {
-            throw new NotFoundException(
-                "Unable to find text BlockModel with content ID: {id}",
-                [
-                    "id" => $textModel->getId()
-                ]
-            );
-        }
-
+        $textModel = $blockModel->getContentModel();
         $textModel->set(
             [
                 "type"      => $data["type"],
@@ -344,17 +317,57 @@ class TextController extends AbstractController
             ];
         }
 
-        return [
-            "result" => true
-        ];
+        return $this->getSimpleSuccessResult();
     }
 
     /**
      * Deletes block
+     *
+     * @return array
+     *
+     * @throws BadRequestException
+     * @throws NotFoundException
      */
     public function deleteBlock()
     {
-        // @TODO
+        $data = $this->getData();
+        if (!array_key_exists("id", $data)
+            || !is_int($data["id"])
+            || $data["id"] === 0
+        ) {
+            throw new BadRequestException(
+                "Incorrect request to delete text block. Data: {data}",
+                [
+                    "data" => json_encode($data)
+                ]
+            );
+        }
+
+        $this->checkBlockOperation(BlockModel::TYPE_TEXT, $data["id"], Operation::TEXT_DELETE);
+
+        $blockModel = (new BlockModel())->byId($data["id"])->find();
+        if ($blockModel === null) {
+            throw new NotFoundException(
+                "Unable to find text BlockModel by ID: {id}",
+                [
+                    "id" => $data["id"]
+                ]
+            );
+        }
+
+        if ($blockModel->get("contentType") !== BlockModel::TYPE_TEXT) {
+            throw new BadRequestException(
+                "Incorrect text block to delete. ID: {id}. Block type: {type}",
+                [
+                    "id"   => $data["id"],
+                    "type" => $blockModel->get("contentType"),
+                ]
+            );
+        }
+
+        $blockModel->delete();
+
+        return $this->getSimpleSuccessResult();
     }
 
     /**

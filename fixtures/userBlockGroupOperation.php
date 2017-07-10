@@ -24,4 +24,9 @@ return [
         "blockType" => BlockModel::TYPE_TEXT,
         "operation" => Operation::TEXT_UPDATE_SETTINGS,
     ],
+    5 => [
+        "userId"    => 3,
+        "blockType" => BlockModel::TYPE_TEXT,
+        "operation" => Operation::TEXT_DELETE,
+    ],
 ];

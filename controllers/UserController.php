@@ -150,7 +150,7 @@ class UserController extends AbstractController
      * 1. If there is $data["token"] - remove session by token
      * 2. If $data is empty - remove current session (logout)
      *
-     * @return array "result" => true
+     * @return array
      *
      * @throws BadRequestException
      * @throws AccessException
@@ -159,9 +159,7 @@ class UserController extends AbstractController
     {
         $user = App::web()->getUser();
         if (!$user instanceof User) {
-            return [
-                "result" => true
-            ];
+            return $this->getSimpleSuccessResult();
         }
 
         $data = $this->getData();
@@ -176,9 +174,7 @@ class UserController extends AbstractController
                 $userSessionModel->delete();
             }
 
-            return [
-                "result" => true
-            ];
+            return $this->getSimpleSuccessResult();
         }
 
         $token = $data["token"];
@@ -214,9 +210,7 @@ class UserController extends AbstractController
             $userSessionModel->delete();
         }
 
-        return [
-            "result" => true
-        ];
+        return $this->getSimpleSuccessResult();
     }
 
     /**
@@ -227,7 +221,7 @@ class UserController extends AbstractController
      * @throws BadRequestException
      * @throws AccessException
      *
-     * @return array "result" => true
+     * @return array
      */
     public function deleteSessions()
     {
@@ -279,9 +273,7 @@ class UserController extends AbstractController
             $userSessionModel->delete();
         }
 
-        return [
-            "result" => true
-        ];
+        return $this->getSimpleSuccessResult();
     }
 
     /**
@@ -779,12 +771,14 @@ class UserController extends AbstractController
         if (!array_key_exists("name", $data)
             || !array_key_exists("login", $data)
             || !array_key_exists("email", $data)
+            || !array_key_exists("type", $data)
             || !array_key_exists("password", $data)
             || !array_key_exists("passwordConfirm", $data)
             || strlen($data["password"]) !== 32
             || strlen($data["passwordConfirm"]) !== 32
             || !array_key_exists("operations", $data)
             || !is_array($data["operations"])
+            || !is_int($data["type"])
         ) {
             throw new BadRequestException(
                 "Incorrect request to add user. Data: {data}",
@@ -807,7 +801,7 @@ class UserController extends AbstractController
             [
                 "login"    => $data["login"],
                 "password" => UserModel::getPasswordHash($data["password"]),
-                "type"     => isset($data["type"]) ? $data["type"] : 0,
+                "type"     => $data["type"],
                 "name"     => $data["name"],
                 "email"    => $data["email"],
             ]
@@ -848,9 +842,11 @@ class UserController extends AbstractController
             || !array_key_exists("login", $data)
             || !array_key_exists("email", $data)
             || !array_key_exists("operations", $data)
+            || !array_key_exists("type", $data)
             || !is_array($data["operations"])
             || !array_key_exists("isChangePassword", $data)
             || !is_bool($data["isChangePassword"])
+            || !is_int($data["type"])
         ) {
             throw new BadRequestException(
                 "Incorrect request to update user. Data: {data}",
@@ -911,7 +907,7 @@ class UserController extends AbstractController
         $userModel->set(
             [
                 "login" => $data["login"],
-                "type"  => isset($data["type"]) ? $data["type"] : 0,
+                "type"  => $data["type"],
                 "name"  => $data["name"],
                 "email" => $data["email"],
             ]
@@ -966,8 +962,6 @@ class UserController extends AbstractController
 
         $userModel->delete();
 
-        return [
-            "result" => true
-        ];
+        return $this->getSimpleSuccessResult();
     }
 }

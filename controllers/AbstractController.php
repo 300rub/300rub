@@ -39,6 +39,18 @@ abstract class AbstractController
     private $_data = [];
 
     /**
+     * Gets simple success result
+     *
+     * @return array
+     */
+    protected function getSimpleSuccessResult()
+    {
+        return [
+            "result" => true
+        ];
+    }
+
+    /**
      * Gets data
      *
      * @return array

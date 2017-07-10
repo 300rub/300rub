@@ -748,11 +748,15 @@ class UserControllerTest extends AbstractControllerTest
                     ],
                     "operations" => [
                         "canChange" => false,
-                        "label"     => "Operations",
+                        "limitedId" => 3,
                         "list"      => []
                     ],
                     "button"     => [
                         "label" => "Update",
+                    ],
+                    "labels" => [
+                        "operations"       => "Operations",
+                        "isChangePassword" => "Change password"
                     ]
                 ]
             ],
@@ -847,6 +851,7 @@ class UserControllerTest extends AbstractControllerTest
                     ],
                     "operations" => [
                         "canChange" => true,
+                        "limitedId" => 3,
                         "list" => [
                             Operation::TYPE_SECTIONS => [
                                 "title" => "Sections",
@@ -889,7 +894,7 @@ class UserControllerTest extends AbstractControllerTest
                                                     ],
                                                     [
                                                         "name"  => "operations.BLOCKS.1.ALL.TEXT_DELETE",
-                                                        "value" => false
+                                                        "value" => true
                                                     ]
                                                 ]
                                             ],
@@ -921,6 +926,10 @@ class UserControllerTest extends AbstractControllerTest
                             ],
                         ]
                     ],
+                    "labels" => [
+                        "operations"       => "Operations",
+                        "isChangePassword" => "Change password"
+                    ]
                 ]
             ],
             "userGetOwner" => [
@@ -1013,10 +1022,12 @@ class UserControllerTest extends AbstractControllerTest
                     ],
                     "operations" => [
                         "canChange" => true,
-                        "label"     => "Operations",
                     ],
                     "button"     => [
                         "label" => "Add",
+                    ],
+                    "labels" => [
+                        "operations" => "Operations",
                     ]
                 ]
             ],
@@ -1295,37 +1306,37 @@ class UserControllerTest extends AbstractControllerTest
                     "operations"      => [
                         Operation::TYPE_SECTIONS => [
                             Operation::ALL => [
-                                Operation::SECTION_ADD,
-                                Operation::SECTION_UPDATE,
-                                "incorrect"
+                                Operation::SECTION_ADD => true,
+                                Operation::SECTION_UPDATE => true,
+                                "incorrect" => true
                             ],
                             1              => [
-                                Operation::SECTION_DESIGN_UPDATE,
-                                "incorrect"
+                                Operation::SECTION_DESIGN_UPDATE => true,
+                                "incorrect" => true
                             ],
-                            "incorrect"
+                            "incorrect" => true
                         ],
                         Operation::TYPE_BLOCKS   => [
                             BlockModel::TYPE_TEXT => [
                                 Operation::ALL => [
-                                    Operation::TEXT_ADD,
-                                    Operation::TEXT_DELETE,
-                                    "incorrect"
+                                    Operation::TEXT_ADD => true,
+                                    Operation::TEXT_DELETE => true,
+                                    "incorrect" => true
                                 ],
                                 1              => [
-                                    Operation::TEXT_DUPLICATE,
-                                    "incorrect"
+                                    Operation::TEXT_DUPLICATE => true,
+                                    "incorrect" => true
                                 ],
-                                "incorrect"
+                                "incorrect" => true
                             ],
-                            "incorrect"
+                            "incorrect" => true
                         ],
                         Operation::TYPE_SETTINGS => [
-                            Operation::SETTINGS_ICON,
-                            Operation::SETTINGS_USER_VIEW,
-                            "incorrect"
+                            Operation::SETTINGS_ICON => true,
+                            Operation::SETTINGS_USER_VIEW => true,
+                            "incorrect" => true
                         ],
-                        "incorrect"
+                        "incorrect" => true
                     ]
                 ],
                 false,
@@ -1382,7 +1393,7 @@ class UserControllerTest extends AbstractControllerTest
                     "operations"      => [
                         Operation::TYPE_SECTIONS => [
                             9999 => [
-                                Operation::SECTION_DESIGN_UPDATE,
+                                Operation::SECTION_DESIGN_UPDATE => true,
                             ],
                         ],
                     ]
@@ -1402,7 +1413,7 @@ class UserControllerTest extends AbstractControllerTest
                         Operation::TYPE_BLOCKS => [
                             BlockModel::TYPE_TEXT => [
                                 9999 => [
-                                    Operation::TEXT_DUPLICATE
+                                    Operation::TEXT_DUPLICATE => true
                                 ]
                             ]
                         ]
@@ -1745,37 +1756,37 @@ class UserControllerTest extends AbstractControllerTest
                     "operations"       => [
                         Operation::TYPE_SECTIONS => [
                             Operation::ALL => [
-                                Operation::SECTION_ADD,
-                                Operation::SECTION_UPDATE,
-                                "incorrect"
+                                Operation::SECTION_ADD => true,
+                                Operation::SECTION_UPDATE => true,
+                                "incorrect" => true
                             ],
                             1              => [
-                                Operation::SECTION_DESIGN_UPDATE,
-                                "incorrect"
+                                Operation::SECTION_DESIGN_UPDATE => true,
+                                "incorrect" => true
                             ],
-                            "incorrect"
+                            "incorrect" => true
                         ],
                         Operation::TYPE_BLOCKS   => [
                             BlockModel::TYPE_TEXT => [
                                 Operation::ALL => [
-                                    Operation::TEXT_ADD,
-                                    Operation::TEXT_DELETE,
-                                    "incorrect"
+                                    Operation::TEXT_ADD => true,
+                                    Operation::TEXT_DELETE => true,
+                                    "incorrect" => true
                                 ],
                                 1              => [
-                                    Operation::TEXT_DUPLICATE,
-                                    "incorrect"
+                                    Operation::TEXT_DUPLICATE => true,
+                                    "incorrect" => true
                                 ],
-                                "incorrect"
+                                "incorrect" => true
                             ],
-                            "incorrect"
+                            "incorrect" => true
                         ],
                         Operation::TYPE_SETTINGS => [
-                            Operation::SETTINGS_ICON,
-                            Operation::SETTINGS_USER_VIEW,
-                            "incorrect"
+                            Operation::SETTINGS_ICON => true,
+                            Operation::SETTINGS_USER_VIEW => true,
+                            "incorrect" => true
                         ],
-                        "incorrect"
+                        "incorrect" => true
                     ]
                 ],
                 false,
