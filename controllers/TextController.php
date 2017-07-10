@@ -66,9 +66,8 @@ class TextController extends AbstractController
             }
 
             $list[] = [
-                "blockName"         => $blockModel->get("name"),
-                "blockId"           => $blockModel->getId(),
-                "contentId"         => $blockModel->getId(),
+                "name"              => $blockModel->get("name"),
+                "id"                => $blockModel->getId(),
                 "canUpdateSettings" => $canUpdateSettings,
                 "canUpdateDesign"   => $canUpdateDesign,
                 "canUpdateContent"  => $canUpdateContent
@@ -391,7 +390,47 @@ class TextController extends AbstractController
      */
     public function getContent()
     {
-        // @TODO
+        $data = $this->getData();
+        if (!array_key_exists("id", $data)
+            || !is_int($data["id"])
+            || $data["id"] === 0
+        ) {
+            throw new BadRequestException(
+                "Incorrect request to get text block content. Data: {data}",
+                [
+                    "data" => json_encode($data)
+                ]
+            );
+        }
+
+        $this->checkBlockOperation(BlockModel::TYPE_TEXT, $data["id"], Operation::TEXT_UPDATE_CONTENT);
+
+        $blockModel = (new BlockModel())->byId($data["id"])->find();
+        if ($blockModel === null) {
+            throw new NotFoundException(
+                "Unable to find text BlockModel by ID: {id}",
+                [
+                    "id" => $data["id"]
+                ]
+            );
+        }
+
+        $textModel = $blockModel->getContentModel();
+        if (!$textModel instanceof TextModel) {
+            throw new BadRequestException(
+                "Block content model is not a text. ID: {id}. Block type: {type}",
+                [
+                    "id"           => $data["id"],
+                    "contentClass" => get_class($textModel),
+                ]
+            );
+        }
+
+        // TODO
+
+        return [
+
+        ];
     }
 
     /**

@@ -76,9 +76,8 @@ class TextControllerTest extends AbstractControllerTest
         }
 
         foreach ($body["list"] as $item) {
-            $this->assertTrue(strlen($item["blockName"]) > 0);
-            $this->assertTrue($item["blockId"] > 0);
-            $this->assertTrue($item["contentId"] > 0);
+            $this->assertTrue(strlen($item["name"]) > 0);
+            $this->assertTrue($item["id"] > 0);
             $this->assertSame($canUpdateSettings, $item["canUpdateSettings"]);
             $this->assertSame($canUpdateDesign, $item["canUpdateDesign"]);
             $this->assertSame($catUpdateContent, $item["canUpdateContent"]);
