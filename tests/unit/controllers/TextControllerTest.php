@@ -827,37 +827,37 @@ class TextControllerTest extends AbstractControllerTest
     public function dataProviderForTestDeleteBlock()
     {
         return [
-            "fullCorrect" => [
+            "fullCorrect"          => [
                 "user"     => self::TYPE_FULL,
                 "id"       => null,
                 "hasError" => false
             ],
-            "fullIncorrect" => [
+            "fullIncorrect"        => [
                 "user"     => self::TYPE_FULL,
                 "id"       => 9999,
                 "hasError" => true
             ],
-            "userCorrect" => [
+            "userCorrect"          => [
                 "user"     => self::TYPE_LIMITED,
                 "id"       => null,
                 "hasError" => false
             ],
-            "userIncorrect" => [
+            "userIncorrect"        => [
                 "user"     => self::TYPE_LIMITED,
                 "id"       => 9999,
                 "hasError" => true
             ],
-            "blockedCorrect" => [
+            "blockedCorrect"       => [
                 "user"     => self::TYPE_BLOCKED_USER,
                 "id"       => null,
                 "hasError" => true
             ],
-            "blockedIncorrect" => [
+            "blockedIncorrect"     => [
                 "user"     => self::TYPE_LIMITED,
                 "id"       => 9999,
                 "hasError" => true
             ],
-            "noOperationCorrect" => [
+            "noOperationCorrect"   => [
                 "user"     => self::TYPE_NO_OPERATIONS_USER,
                 "id"       => null,
                 "hasError" => true
@@ -867,12 +867,12 @@ class TextControllerTest extends AbstractControllerTest
                 "id"       => 9999,
                 "hasError" => true
             ],
-            "guestCorrect" => [
+            "guestCorrect"         => [
                 "user"     => null,
                 "id"       => null,
                 "hasError" => true
             ],
-            "guestIncorrect" => [
+            "guestIncorrect"       => [
                 "user"     => null,
                 "id"       => 9999,
                 "hasError" => true
@@ -890,13 +890,319 @@ class TextControllerTest extends AbstractControllerTest
         $this->markTestSkipped();
     }
 
-    public function testGetContent()
+    /**
+     * Test for the method getContent
+     *
+     * @param string $user
+     * @param int    $id
+     * @param bool   $hasError
+     * @param string $name
+     * @param int    $type
+     * @param bool   $hasEditor
+     * @param string $value
+     *
+     * @return bool
+     *
+     * @dataProvider dataProviderForTestGetContent
+     */
+    public function testGetContent($user, $id, $hasError, $name = null, $type = null, $hasEditor = null, $value = null)
     {
-        $this->markTestSkipped();
+        $this->setUser($user);
+        $this->sendRequest("text", "content", ["id" => $id]);
+        $body = $this->getBody();
+
+        if ($hasError === true) {
+            $this->assertArrayHasKey("error", $body);
+            return true;
+        }
+
+        $expected = [
+            "id"        => $id,
+            "name"      => $name,
+            "type"      => $type,
+            "hasEditor" => $hasEditor,
+            "text"      => [
+                "name"  => "text",
+                "label" => "Text",
+                "value" => $value,
+            ],
+            "button"    => [
+                "label" => "Update",
+            ]
+        ];
+
+        $this->compareExpectedAndActual($expected, $body);
+
+        return true;
     }
 
-    public function testUpdateContent()
+    /**
+     * Data provider for testGetContent
+     *
+     * @return array
+     */
+    public function dataProviderForTestGetContent()
     {
-        $this->markTestSkipped();
+        return [
+            "admin1"         => [
+                "user"      => self::TYPE_FULL,
+                "id"        => 1,
+                "hasError"  => false,
+                "name"      => "Simple text",
+                "type"      => 0,
+                "hasEditor" => false,
+                "value"     => "Text"
+            ],
+            "admin0"         => [
+                "user"     => self::TYPE_FULL,
+                "id"       => 0,
+                "hasError" => true
+            ],
+            "admin999"       => [
+                "user"     => self::TYPE_FULL,
+                "id"       => 999,
+                "hasError" => true
+            ],
+            "user1"          => [
+                "user"      => self::TYPE_LIMITED,
+                "id"        => 1,
+                "hasError"  => false,
+                "name"      => "Simple text",
+                "type"      => 0,
+                "hasEditor" => false,
+                "value"     => "Text"
+            ],
+            "user0"          => [
+                "user"     => self::TYPE_LIMITED,
+                "id"       => 0,
+                "hasError" => true
+            ],
+            "user999"        => [
+                "user"     => self::TYPE_LIMITED,
+                "id"       => 999,
+                "hasError" => true
+            ],
+            "blocked1"       => [
+                "user"     => self::TYPE_BLOCKED_USER,
+                "id"       => 1,
+                "hasError" => true
+            ],
+            "blocked0"       => [
+                "user"     => self::TYPE_BLOCKED_USER,
+                "id"       => 0,
+                "hasError" => true
+            ],
+            "blocked999"     => [
+                "user"     => self::TYPE_BLOCKED_USER,
+                "id"       => 999,
+                "hasError" => true
+            ],
+            "noOperation1"   => [
+                "user"     => self::TYPE_NO_OPERATIONS_USER,
+                "id"       => 1,
+                "hasError" => true
+            ],
+            "noOperation0"   => [
+                "user"     => self::TYPE_NO_OPERATIONS_USER,
+                "id"       => 0,
+                "hasError" => true
+            ],
+            "noOperation999" => [
+                "user"     => self::TYPE_NO_OPERATIONS_USER,
+                "id"       => 999,
+                "hasError" => true
+            ],
+            "guest1"         => [
+                "user"     => null,
+                "id"       => 1,
+                "hasError" => true
+            ],
+            "guest0"         => [
+                "user"     => null,
+                "id"       => 0,
+                "hasError" => true
+            ],
+            "guest999"       => [
+                "user"     => null,
+                "id"       => 999,
+                "hasError" => true
+            ],
+        ];
+    }
+
+    /**
+     * Test for the method updateContent
+     *
+     * @param string $user
+     * @param int    $id
+     * @param string $text
+     * @param bool   $hasError
+     *
+     * @return bool
+     *
+     * @dataProvider dataProviderForTestUpdateContent
+     */
+    public function testUpdateContent($user, $id, $text, $hasError)
+    {
+        $blockModel = null;
+        if ($id === null) {
+            $textModel = new TextModel();
+            $textModel->set(
+                [
+                    "type"      => 0,
+                    "hasEditor" => 0,
+                ]
+            );
+            $textModel->save();
+
+            $textInstanceModel = new TextInstanceModel();
+            $textInstanceModel->set(
+                [
+                    "textId" => $textModel->getId(),
+                    "text"   => "",
+                ]
+            );
+            $textInstanceModel->save();
+
+            $blockModel = new BlockModel();
+            $blockModel->set(
+                [
+                    "name"        => "name",
+                    "language"    => 1,
+                    "contentType" => BlockModel::TYPE_TEXT,
+                    "contentId"   => $textModel->getId(),
+                ]
+            );
+            $blockModel->save();
+
+            $requestId = $blockModel->getId();
+        } else {
+            $requestId = $id;
+        }
+
+        $data = [
+            "id"   => $requestId,
+            "text" => $text,
+        ];
+
+        $this->setUser($user);
+        $this->sendRequest("text", "content", $data, "POST");
+        $body = $this->getBody();
+
+        if ($hasError === true) {
+            $this->assertError();
+
+            if ($id === null) {
+                $blockModel->delete();
+            }
+            return true;
+        }
+
+        $this->assertArrayHasKey("html", $body);
+        $this->assertTrue($body["result"]);
+
+        $blockModel->delete();
+        return true;
+    }
+
+    /**
+     * Data provider for testUpdateContent
+     *
+     * @return array
+     */
+    public function dataProviderForTestUpdateContent()
+    {
+        return [
+            "adminCorrect"         => [
+                "user"     => self::TYPE_FULL,
+                "id"       => null,
+                "text"     => "test",
+                "hasError" => false
+            ],
+            "adminEmpty"           => [
+                "user"     => self::TYPE_FULL,
+                "id"       => null,
+                "text"     => "",
+                "hasError" => false
+            ],
+            "adminIncorrect"       => [
+                "user"     => self::TYPE_FULL,
+                "id"       => 999,
+                "text"     => "test",
+                "hasError" => true
+            ],
+            "userCorrect"          => [
+                "user"     => self::TYPE_LIMITED,
+                "id"       => null,
+                "text"     => "test",
+                "hasError" => false
+            ],
+            "userEmpty"            => [
+                "user"     => self::TYPE_LIMITED,
+                "id"       => null,
+                "text"     => "",
+                "hasError" => false
+            ],
+            "userIncorrect"        => [
+                "user"     => self::TYPE_LIMITED,
+                "id"       => 999,
+                "text"     => "test",
+                "hasError" => true
+            ],
+            "noOperationCorrect"   => [
+                "user"     => self::TYPE_NO_OPERATIONS_USER,
+                "id"       => null,
+                "text"     => "test",
+                "hasError" => true
+            ],
+            "noOperationEmpty"     => [
+                "user"     => self::TYPE_NO_OPERATIONS_USER,
+                "id"       => null,
+                "text"     => "",
+                "hasError" => true
+            ],
+            "noOperationIncorrect" => [
+                "user"     => self::TYPE_NO_OPERATIONS_USER,
+                "id"       => 999,
+                "text"     => "test",
+                "hasError" => true
+            ],
+            "blockedCorrect"       => [
+                "user"     => self::TYPE_BLOCKED_USER,
+                "id"       => null,
+                "text"     => "test",
+                "hasError" => true
+            ],
+            "blockedEmpty"         => [
+                "user"     => self::TYPE_BLOCKED_USER,
+                "id"       => null,
+                "text"     => "",
+                "hasError" => true
+            ],
+            "blockedIncorrect"     => [
+                "user"     => self::TYPE_BLOCKED_USER,
+                "id"       => 999,
+                "text"     => "test",
+                "hasError" => true
+            ],
+            "guestCorrect"         => [
+                "user"     => null,
+                "id"       => null,
+                "text"     => "test",
+                "hasError" => true
+            ],
+            "guestEmpty"           => [
+                "user"     => null,
+                "id"       => null,
+                "text"     => "",
+                "hasError" => true
+            ],
+            "guestIncorrect"       => [
+                "user"     => null,
+                "id"       => 999,
+                "text"     => "test",
+                "hasError" => true
+            ],
+        ];
     }
 }

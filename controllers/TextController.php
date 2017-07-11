@@ -21,10 +21,15 @@ class TextController extends AbstractController
 
     /**
      * Gets block's HTML
+     *
+     * @param int $id
+     *
+     * @return string
      */
-    public function getHtml()
+    public function getHtml($id = 0)
     {
         // @TODO
+        return "<b>hardcoded{$id}</b>";
     }
 
     /**
@@ -387,14 +392,22 @@ class TextController extends AbstractController
 
     /**
      * Gets block's content
+     *
+     * @return array
+     *
+     * @throws BadRequestException
+     * @throws NotFoundException
      */
     public function getContent()
     {
         $data = $this->getData();
-        if (!array_key_exists("id", $data)
-            || !is_int($data["id"])
-            || $data["id"] === 0
-        ) {
+
+        $id = 0;
+        if (array_key_exists("id", $data)) {
+            $id = (int) $data["id"];
+        }
+
+        if ($id === 0) {
             throw new BadRequestException(
                 "Incorrect request to get text block content. Data: {data}",
                 [
@@ -426,18 +439,99 @@ class TextController extends AbstractController
             );
         }
 
-        // TODO
+        $textInstanceModel = (new TextInstanceModel())->byTextId($textModel->getId())->find();
+        if ($textInstanceModel === null) {
+            throw new NotFoundException(
+                "Unable to find TextInstanceModel by text ID: {id}",
+                [
+                    "id" => $textModel->getId()
+                ]
+            );
+        }
 
         return [
-
+            "id"        => $blockModel->getId(),
+            "name"      => $blockModel->get("name"),
+            "type"      => $textModel->get("type"),
+            "hasEditor" => $textModel->get("hasEditor"),
+            "text"      => [
+                "name"  => "text",
+                "label" => Language::t("text", "text"),
+                "value" => $textInstanceModel->get("text"),
+            ],
+            "button"    => [
+                "label" => Language::t("common", "update"),
+            ]
         ];
     }
 
     /**
      * Updates block's content
+     *
+     * @return array
+     *
+     * @throws BadRequestException
+     * @throws NotFoundException
      */
     public function updateContent()
     {
-        // @TODO
+        $data = $this->getData();
+        if (!array_key_exists("id", $data)
+            || !array_key_exists("text", $data)
+            || !is_int($data["id"])
+            || $data["id"] === 0
+        ) {
+            throw new BadRequestException(
+                "Incorrect request to update content. Data: {data}",
+                [
+                    "data" => json_encode($data)
+                ]
+            );
+        }
+
+        $this->checkBlockOperation(BlockModel::TYPE_TEXT, $data["id"], Operation::TEXT_UPDATE_CONTENT);
+
+        $blockModel = (new BlockModel())->byId($data["id"])->find();
+        if ($blockModel === null) {
+            throw new NotFoundException(
+                "Unable to find text BlockModel by ID: {id}",
+                [
+                    "id" => $data["id"]
+                ]
+            );
+        }
+
+        $textModel = $blockModel->getContentModel();
+        if (!$textModel instanceof TextModel) {
+            throw new BadRequestException(
+                "Block content model is not a text. ID: {id}. Block type: {type}",
+                [
+                    "id"           => $data["id"],
+                    "contentClass" => get_class($textModel),
+                ]
+            );
+        }
+
+        $textInstanceModel = (new TextInstanceModel())->byTextId($textModel->getId())->find();
+        if ($textInstanceModel === null) {
+            throw new NotFoundException(
+                "Unable to find TextInstanceModel by text ID: {id}",
+                [
+                    "id" => $textModel->getId()
+                ]
+            );
+        }
+
+        $textInstanceModel->set(
+            [
+                "text" => $data["text"]
+            ]
+        );
+        $textInstanceModel->save();
+
+        return [
+            "result" => true,
+            "html"   => $this->getHtml($blockModel->getId())
+        ];
     }
 }
