@@ -23,10 +23,6 @@ return [
         Language::LANGUAGE_EN_ID => "You can configure text's settings",
         Language::LANGUAGE_RU_ID => "",
     ],
-    "designDescription"   => [
-        Language::LANGUAGE_EN_ID => "You can configure text's design",
-        Language::LANGUAGE_RU_ID => "",
-    ],
     "typeDefault"         => [
         Language::LANGUAGE_EN_ID => "Default",
         Language::LANGUAGE_RU_ID => "По умолчанию",
@@ -57,6 +53,14 @@ return [
     ],
     "addBlockTitle"    => [
         Language::LANGUAGE_EN_ID => "Add text",
+        Language::LANGUAGE_RU_ID => "",
+    ],
+    "designTitle"    => [
+        Language::LANGUAGE_EN_ID => "Text design",
+        Language::LANGUAGE_RU_ID => "",
+    ],
+    "designDescription"   => [
+        Language::LANGUAGE_EN_ID => "You can configure text's design",
         Language::LANGUAGE_RU_ID => "",
     ],
 ];

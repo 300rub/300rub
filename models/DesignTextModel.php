@@ -13,6 +13,11 @@ class DesignTextModel extends AbstractModel
 {
 
     /**
+     * Type
+     */
+    const TYPE = "text";
+
+    /**
      * Min size value
      */
     const MIN_SIZE_VALUE = 4;

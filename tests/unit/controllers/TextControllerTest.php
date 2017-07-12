@@ -883,6 +883,9 @@ class TextControllerTest extends AbstractControllerTest
     public function testGetDesign()
     {
         $this->markTestSkipped();
+        //$this->sendRequest("text", "design", ["id" => 1]);
+
+        //var_dump($this->getBody());
     }
 
     public function testUpdateDesign()

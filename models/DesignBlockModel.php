@@ -13,6 +13,11 @@ class DesignBlockModel extends AbstractModel
 {
 
     /**
+     * Type
+     */
+    const TYPE = "block";
+
+    /**
      * Min margin value
      */
     const MIN_MARGIN_VALUE = -300;

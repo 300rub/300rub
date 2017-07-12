@@ -520,14 +520,25 @@ abstract class AbstractModel
      * Gets one or more fields
      *
      * @param string|string[] $param
+     * @param string|string[] $except
      *
      * @return mixed
      *
      * @throws ModelException
      */
-    public final function get($param = null)
+    public final function get($param = null, $except = null)
     {
         if ($param === null) {
+            if (is_array($except)) {
+                $list = [];
+                foreach ($this->_fields as $key => $value) {
+                    if (!in_array($key, $except)) {
+                        $list[$key] = $value;
+                    }
+                }
+                return $list;
+            }
+
             return $this->_fields;
         }
 

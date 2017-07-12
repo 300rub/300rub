@@ -8,6 +8,8 @@ use testS\components\Language;
 use testS\components\Operation;
 use testS\components\ValueGenerator;
 use testS\models\BlockModel;
+use testS\models\DesignBlockModel;
+use testS\models\DesignTextModel;
 use testS\models\TextInstanceModel;
 use testS\models\TextModel;
 
@@ -376,10 +378,75 @@ class TextController extends AbstractController
 
     /**
      * Gets block's design
+     *
+     * @return array
+     *
+     * @throws BadRequestException
+     * @throws NotFoundException
      */
     public function getDesign()
     {
-        // @TODO
+        $data = $this->getData();
+
+        $id = 0;
+        if (array_key_exists("id", $data)) {
+            $id = (int)$data["id"];
+        }
+
+        if ($id === 0) {
+            throw new BadRequestException(
+                "Incorrect request to get text block design. Data: {data}",
+                [
+                    "data" => json_encode($data)
+                ]
+            );
+        }
+
+        $this->checkBlockOperation(BlockModel::TYPE_TEXT, $data["id"], Operation::TEXT_UPDATE_DESIGN);
+
+        $blockModel = (new BlockModel())->byId($data["id"])->find();
+        if ($blockModel === null) {
+            throw new NotFoundException(
+                "Unable to find text BlockModel by ID: {id}",
+                [
+                    "id" => $data["id"]
+                ]
+            );
+        }
+
+        $textModel = $blockModel->getContentModel(true);
+        if (!$textModel instanceof TextModel) {
+            throw new BadRequestException(
+                "Block content model is not a text. ID: {id}. Block type: {type}",
+                [
+                    "id"           => $data["id"],
+                    "contentClass" => get_class($textModel),
+                ]
+            );
+        }
+
+        return [
+            "id"          => $blockModel->getId(),
+            "title"       => Language::t("text", "designTitle"),
+            "description" => Language::t("text", "designDescription"),
+            "list"        => [
+                [
+                    "title" => Language::t("text", "designTitle"),
+                    "data"  => [
+                        [
+                            "title" => Language::t("design", "blockDesign"),
+                            "type"  => DesignBlockModel::TYPE,
+                            "data"  => $textModel->get("designBlockModel")->get(null, ["id"])
+                        ],
+                        [
+                            "title" => Language::t("design", "textDesign"),
+                            "type"  => DesignTextModel::TYPE,
+                            "data"  => $textModel->get("designTextModel")->get(null, ["id"])
+                        ],
+                    ]
+                ]
+            ],
+        ];
     }
 
     /**

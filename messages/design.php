@@ -35,4 +35,12 @@ return [
         Language::LANGUAGE_EN_ID => "Gradient direction",
         Language::LANGUAGE_RU_ID => "",
     ],
+    "blockDesign"     => [
+        Language::LANGUAGE_EN_ID => "Block design",
+        Language::LANGUAGE_RU_ID => "",
+    ],
+    "textDesign"     => [
+        Language::LANGUAGE_EN_ID => "Text design",
+        Language::LANGUAGE_RU_ID => "",
+    ],
 ];
