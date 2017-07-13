@@ -43,10 +43,7 @@
                 success: $.proxy(this._onLoadDataSuccess, this),
                 name: "users.sessions",
                 level: 2,
-                parent: {
-                    name:"users",
-                    isHide: true
-                }
+                parent: "users"
             });
         },
 

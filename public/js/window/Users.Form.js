@@ -35,28 +35,35 @@
          *
          * @var {Object}
          */
-        _name: null,
+        _nameForm: null,
 
         /**
          * Login
          *
          * @var {Object}
          */
-        _login: null,
+        _loginForm: null,
 
         /**
          * Email
          *
          * @var {Object}
          */
-        _email: null,
+        _emailForm: null,
 
         /**
-         * Type
+         * Password
          *
          * @var {Object}
          */
-        _type: null,
+        _passwordForm: null,
+
+        /**
+         * Password confirm
+         *
+         * @var {Object}
+         */
+        _passwordConfirmForm: null,
 
         /**
          * Container
@@ -92,10 +99,7 @@
                 success: $.proxy(this._onLoadDataSuccess, this),
                 name: "users-form",
                 level: 2,
-                parent: {
-                    name:"users",
-                    isHide: true
-                }
+                parent: "users"
             });
         },
 
@@ -106,89 +110,12 @@
          *
          * @private
          */
-        _onLoadDataSuccess: function(data) {
+        _onLoadDataSuccess: function (data) {
             this.$_container = TestS.Template.get("users-form-container");
-            var $textFormsContainer = this.$_container.find(".text-forms-container");
+
             this._window.getBody().append(this.$_container);
-            var t = this;
 
-            var idForm = new TestS.Form({
-                appendTo: $textFormsContainer,
-                type: "hidden",
-                name: "id",
-                value: data.id
-            });
-            this._forms.push(idForm);
-
-            this._name = new TestS.Form(
-                $.extend(
-                    {
-                        appendTo: $textFormsContainer,
-                        type: "text"
-                    },
-                    data.name
-                )
-            );
-            this._forms.push(this._name);
-
-            this._login = new TestS.Form(
-                $.extend(
-                    {
-                        appendTo: $textFormsContainer,
-                        type: "text"
-                    },
-                    data.login
-                )
-            );
-            this._forms.push(this._login);
-
-            if (data.id !== 0) {
-                var isChangePassword = new TestS.Form({
-                    appendTo: $textFormsContainer,
-                    type: "checkbox",
-                    name: "isChangePassword",
-                    value: false,
-                    label: data.labels.isChangePassword
-                });
-                this._forms.push(isChangePassword);
-            }
-
-            this._email = new TestS.Form(
-                $.extend(
-                    {
-                        appendTo: $textFormsContainer,
-                        type: "text"
-                    },
-                    data.email
-                )
-            );
-            this._forms.push(this._email);
-
-            if (data.operations.canChange === true) {
-                this._type = new TestS.Form(
-                    $.extend(
-                        {
-                            appendTo: $textFormsContainer,
-                            type: "select",
-                            onChange: function () {
-                                if (parseInt($(this).val()) === data.operations.limitedId) {
-                                    t.$_operationsContainer.removeClass("hidden");
-                                } else {
-                                    t.$_operationsContainer.addClass("hidden");
-                                }
-                            }
-                        },
-                        data.type
-                    )
-                );
-                this._forms.push(this._type);
-
-                this._setOperations(data);
-
-                if (data.operations.limitedId === data.type.value) {
-                    this.$_operationsContainer.removeClass("hidden");
-                }
-            }
+            this._setForms(data);
 
             this._window
                 .setTitle(data.title)
@@ -210,8 +137,133 @@
                 .removeLoading();
         },
 
+        /**
+         * On submit success event
+         *
+         * @param {Object} data
+         *
+         * @private
+         */
         _onSuccess: function (data) {
-            console.log(data);
+            if ($.type(data.errors) === "object") {
+                if (data.errors["name"] !== undefined) {
+                    this._nameForm
+                        .setError(data.errors["name"])
+                        .scrollTo()
+                        .focus();
+                } else if (data.errors["login"] !== undefined) {
+                    this._loginForm
+                        .setError(data.errors["login"])
+                        .scrollTo()
+                        .focus();
+                } else if (data.errors["email"] !== undefined) {
+                    this._emailForm
+                        .setError(data.errors["email"])
+                        .scrollTo()
+                        .focus();
+                } else if (data.errors["passwordConfirm"] !== undefined) {
+                    this._passwordConfirmForm
+                        .setError(data.errors["passwordConfirm"])
+                        .scrollTo()
+                        .focus();
+                }
+            } else {
+                this._window.remove(true);
+            }
+        },
+
+        /**
+         * Sets forms
+         *
+         * @param {Object} data
+         *
+         * @returns {TestS.Window.Users.Form}
+         *
+         * @private
+         */
+        _setForms: function (data) {
+            var $textFormsContainer = this.$_container.find(".text-forms-container");
+            var t = this;
+
+            var idForm = new TestS.Form({
+                appendTo: $textFormsContainer,
+                type: "hidden",
+                name: "id",
+                value: data.id
+            });
+            this._forms.push(idForm);
+
+            this._nameForm = new TestS.Form(
+                $.extend(
+                    {
+                        appendTo: $textFormsContainer,
+                        type: "text"
+                    },
+                    data.name
+                )
+            );
+            this._forms.push(this._nameForm);
+
+            this._loginForm = new TestS.Form(
+                $.extend(
+                    {
+                        appendTo: $textFormsContainer,
+                        type: "text"
+                    },
+                    data.login
+                )
+            );
+            this._forms.push(this._loginForm);
+
+            if (data.id !== 0) {
+                var isChangePassword = new TestS.Form({
+                    appendTo: $textFormsContainer,
+                    type: "checkbox",
+                    name: "isChangePassword",
+                    value: false,
+                    label: data.labels["isChangePassword"]
+                });
+                this._forms.push(isChangePassword);
+            }
+
+            this._emailForm = new TestS.Form(
+                $.extend(
+                    {
+                        appendTo: $textFormsContainer,
+                        type: "text"
+                    },
+                    data.email
+                )
+            );
+            this._forms.push(this._emailForm);
+
+            if (data.operations["canChange"] === true) {
+                var typeForm = new TestS.Form(
+                    $.extend(
+                        {
+                            appendTo: $textFormsContainer,
+                            type: "select",
+                            onChange: function () {
+                                if (parseInt($(this).val()) === data.operations["limitedId"]) {
+                                    t.$_operationsContainer.removeClass("hidden");
+                                } else {
+                                    t.$_operationsContainer.addClass("hidden");
+                                }
+                            }
+                        },
+                        data.type
+                    )
+                );
+                this._forms.push(typeForm);
+
+                this._setOperations(data);
+
+                if (data.operations["limitedId"] === data.type.value) {
+                    this.$_operationsContainer.removeClass("hidden");
+                }
+            }
+
+            return this;
         },
 
         /**
@@ -221,20 +273,20 @@
          *
          * @private
          */
-        _setOperations: function(data) {
+        _setOperations: function (data) {
             var t = this;
             this.$_operationsContainer = this.$_container.find(".operations-container");
 
             this.$_operationsContainer.find(".group-title").text(data.labels.operations);
 
-            $.each(data.operations.list, function(groupKey, groupObject) {
+            $.each(data.operations.list, function (groupKey, groupObject) {
                 var categoryAccordionElement = new TestS.Accordion.Element(groupObject.title);
 
                 switch (groupKey) {
                     case "SECTIONS":
                         var sectionsAllAccordionElement = new TestS.Accordion.Element(groupObject.data.ALL.title);
 
-                        $.each(groupObject.data.ALL.data, function(allKey, allObject) {
+                        $.each(groupObject.data.ALL.data, function (allKey, allObject) {
                             var form = new TestS.Form(
                                 $.extend(
                                     {
@@ -249,36 +301,41 @@
 
                         categoryAccordionElement.add(sectionsAllAccordionElement.get());
 
-                        $.each(groupObject.data, function(groupObjectDataKey, groupObjectDataObject) {
+                        $.each(groupObject.data, function (groupObjectDataKey, groupObjectDataObject) {
                             if (groupObjectDataKey === "ALL") {
                                 return true;
                             }
 
                             var sectionAccordionElement = new TestS.Accordion.Element(groupObjectDataObject.title);
 
-                            $.each(groupObjectDataObject.data, function(groupObjectDataObjectDataKey, groupObjectDataObjectDataObject) {
-                                var form = new TestS.Form(
-                                    $.extend(
-                                        {
-                                            appendTo: sectionAccordionElement.getBody(),
-                                            type: "checkbox"
-                                        },
-                                        groupObjectDataObjectDataObject
-                                    )
-                                );
-                                t._forms.push(form);
-                            });
+                            $.each(
+                                groupObjectDataObject.data,
+                                function (groupObjectDataObjectDataKey, groupObjectDataObjectDataObject) {
+                                    var form = new TestS.Form(
+                                        $.extend(
+                                            {
+                                                appendTo: sectionAccordionElement.getBody(),
+                                                type: "checkbox"
+                                            },
+                                            groupObjectDataObjectDataObject
+                                        )
+                                    );
+                                    t._forms.push(form);
+                                }
+                            );
 
                             categoryAccordionElement.add(sectionAccordionElement.get());
                         });
 
                         break;
                     case "BLOCKS":
-                        $.each(groupObject.data, function(groupObjectDataKey, groupObjectDataObject) {
-                            var blockTypeAccordionElement = new TestS.Accordion.Element(groupObjectDataObject.title);
-                            var blockAllAccordionElement = new TestS.Accordion.Element(groupObjectDataObject.data.ALL.title);
+                        $.each(groupObject.data, function (groupObjectDataKey, groupObjectDataObject) {
+                            var blockTypeAccordionElement
+                                = new TestS.Accordion.Element(groupObjectDataObject.title);
+                            var blockAllAccordionElement
+                                = new TestS.Accordion.Element(groupObjectDataObject.data.ALL.title);
 
-                            $.each(groupObjectDataObject.data.ALL.data, function(allKey, allObject) {
+                            $.each(groupObjectDataObject.data.ALL.data, function (allKey, allObject) {
                                 var form = new TestS.Form(
                                     $.extend(
                                         {
@@ -292,35 +349,39 @@
                             });
                             blockTypeAccordionElement.add(blockAllAccordionElement.get());
 
-                            $.each(groupObjectDataObject.data, function(groupObjectDataObjectDataKey, groupObjectDataObjectDataObject) {
-                                if (groupObjectDataObjectDataKey === "ALL") {
-                                    return true;
+                            $.each(
+                                groupObjectDataObject.data,
+                                function (groupObjectDataObjectDataKey, groupObjectDataObjectDataObject) {
+                                    if (groupObjectDataObjectDataKey === "ALL") {
+                                        return true;
+                                    }
+
+                                    var blockAccordionElement
+                                        = new TestS.Accordion.Element(groupObjectDataObjectDataObject.title);
+
+                                    $.each(groupObjectDataObjectDataObject.data, function (key, object) {
+                                        var form = new TestS.Form(
+                                            $.extend(
+                                                {
+                                                    appendTo: blockAccordionElement.getBody(),
+                                                    type: "checkbox"
+                                                },
+                                                object
+                                            )
+                                        );
+                                        t._forms.push(form);
+                                    });
+
+                                    blockTypeAccordionElement.add(blockAccordionElement.get());
                                 }
-
-                                var blockAccordionElement = new TestS.Accordion.Element(groupObjectDataObjectDataObject.title);
-
-                                $.each(groupObjectDataObjectDataObject.data, function(key, object) {
-                                    var form = new TestS.Form(
-                                        $.extend(
-                                            {
-                                                appendTo: blockAccordionElement.getBody(),
-                                                type: "checkbox"
-                                            },
-                                            object
-                                        )
-                                    );
-                                    t._forms.push(form);
-                                });
-
-                                blockTypeAccordionElement.add(blockAccordionElement.get());
-                            });
+                            );
 
                             categoryAccordionElement.add(blockTypeAccordionElement.get());
                         });
 
                         break;
                     case "SETTINGS":
-                        $.each(groupObject.data, function(checkboxKey, checkboxObject) {
+                        $.each(groupObject.data, function (checkboxKey, checkboxObject) {
                             var form = new TestS.Form(
                                 $.extend(
                                     {

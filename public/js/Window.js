@@ -4,6 +4,8 @@
     /**
      * Window
      *
+     * @param {Object} options
+     *
      * @type {TestS.Window}
      */
     TestS.Window = function (options) {
@@ -94,18 +96,25 @@
 
             TestS.Window.Collection.add(this._options.name, this);
 
-            if ($.type(this._options.parent) === "object"
-                && this._options.parent.name !== undefined
-            ) {
-                var parent =  TestS.Window.Collection.get(this._options.parent.name);
-                if (parent !== null
-                    && this._options.parent.isHide === true
-                ) {
-                    parent.getInstance().addClass("transparent");
-                }
+            var parent =  this.getParent();
+            if (parent !== null) {
+                parent.getInstance().addClass("transparent");
             }
 
             return this;
+        },
+
+        /**
+         * Gets parent
+         *
+         * @returns {TestS.Window}
+         */
+        getParent: function() {
+            if (this._options.parent === undefined) {
+                return null;
+            }
+
+            return TestS.Window.Collection.get(this._options.parent);
         },
 
         /**
@@ -149,29 +158,32 @@
             return this;
         },
 
+        /**
+         * Reloads the window
+         *
+         * @returns {TestS.Window}
+         */
         reload: function() {
             this.getInstance().remove();
             this.getOverlay().remove();
             this.init();
+
+            return this;
         },
 
         /**
          * Removes window and overlay
          */
-        remove: function() {
+        remove: function(isReloadParent) {
             this.getInstance().addClass("transparent");
             this.getOverlay().addClass("transparent");
 
-            if ($.type(this._options.parent) === "object"
-                && this._options.parent.name !== undefined
-            ) {
-                var parent =  TestS.Window.Collection.get(this._options.parent.name);
-                if (parent !== null) {
-                    if (this._options.parent.isReloadOnClose === true) {
-                        parent.reload();
-                    } else if (this._options.parent.isHide === true) {
-                        parent.getInstance().removeClass("transparent");
-                    }
+            var parent = this.getParent();
+            if (parent !== null) {
+                if (isReloadParent === true) {
+                    parent.reload();
+                } else {
+                    parent.getInstance().removeClass("transparent");
                 }
             } else {
                 TestS.getWrapper().find(".panel").removeClass("transparent");

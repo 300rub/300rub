@@ -923,10 +923,7 @@ class UserController extends AbstractController
 
         $userModel->updateOperations($data["operations"]);
 
-        return [
-            "result" => true,
-            "users"  => $this->getUsers()
-        ];
+        return $this->getSimpleSuccessResult();
     }
 
     /**

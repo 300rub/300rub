@@ -127,7 +127,10 @@
                 class: "gray-button button-medium margin-bottom-15",
                 icon: "fa-user-plus",
                 label: data.labels.add,
-                appendTo: this._window.getBody()
+                appendTo: this._window.getBody(),
+                onClick: function() {
+                    new TestS.Window.Users.Form({id: 0});
+                }
             });
 
             this._window
