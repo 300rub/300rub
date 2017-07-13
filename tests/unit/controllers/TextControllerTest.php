@@ -3,6 +3,8 @@
 namespace testS\tests\unit\controllers;
 
 use testS\models\BlockModel;
+use testS\models\DesignBlockModel;
+use testS\models\DesignTextModel;
 use testS\models\TextInstanceModel;
 use testS\models\TextModel;
 
@@ -880,17 +882,316 @@ class TextControllerTest extends AbstractControllerTest
         ];
     }
 
-    public function testGetDesign()
+    /**
+     * Test for get design method
+     *
+     * @param string $user
+     * @param int    $id
+     * @param  bool  $hasError
+     * @param array  $expectedBlockData
+     * @param array  $expectedTextData
+     *
+     * @return bool
+     *
+     * @dataProvider dataProviderForTestGetDesign
+     */
+    public function testGetDesign($user, $id, $hasError, $expectedBlockData = [], $expectedTextData = [])
     {
-        $this->markTestSkipped();
-        //$this->sendRequest("text", "design", ["id" => 1]);
+        $this->setUser($user);
+        $this->sendRequest("text", "design", ["id" => $id]);
+        $body = $this->getBody();
 
-        //var_dump($this->getBody());
+        if ($hasError === true) {
+            $this->assertArrayHasKey("error", $body);
+            return true;
+        }
+
+        $expected = [
+            "id"          => $id,
+            "list"        => [
+                [
+                    "data"  => [
+                        [
+                            "name"  => "designBlockModel",
+                            "type"  => "block",
+                            "data"  => $expectedBlockData
+                        ],
+                        [
+                            "name"  => "designTextModel",
+                            "type"  => "text",
+                            "data"  => $expectedTextData
+                        ],
+                    ]
+                ]
+            ],
+        ];
+
+        $this->compareExpectedAndActual($expected, $body);
+
+        return true;
     }
 
-    public function testUpdateDesign()
+    /**
+     * Data provider for testGetDesign
+     *
+     * @return array
+     */
+    public function dataProviderForTestGetDesign()
     {
-        $this->markTestSkipped();
+        return [
+            "admin1"         => [
+                "user"              => self::TYPE_FULL,
+                "id"                => 1,
+                "hasError"          => false,
+                "expectedBlockData" => [
+                    "marginTop" => 0
+                ],
+                "expectedTextData"  => [
+                    "size" => 0
+                ],
+            ],
+            "admin0"         => [
+                "user"     => self::TYPE_FULL,
+                "id"       => 0,
+                "hasError" => true
+            ],
+            "admin999"       => [
+                "user"     => self::TYPE_FULL,
+                "id"       => 999,
+                "hasError" => true
+            ],
+            "user1"          => [
+                "user"              => self::TYPE_LIMITED,
+                "id"                => 1,
+                "hasError"          => false,
+                "expectedBlockData" => [
+                    "marginBottom" => 0
+                ],
+                "expectedTextData"  => [
+                    "family" => 0
+                ],
+            ],
+            "user0"          => [
+                "user"     => self::TYPE_LIMITED,
+                "id"       => 0,
+                "hasError" => true
+            ],
+            "user999"        => [
+                "user"     => self::TYPE_LIMITED,
+                "id"       => 999,
+                "hasError" => true
+            ],
+            "blocked1"       => [
+                "user"     => self::TYPE_BLOCKED_USER,
+                "id"       => 1,
+                "hasError" => true
+            ],
+            "blocked0"       => [
+                "user"     => self::TYPE_BLOCKED_USER,
+                "id"       => 0,
+                "hasError" => true
+            ],
+            "blocked999"     => [
+                "user"     => self::TYPE_BLOCKED_USER,
+                "id"       => 999,
+                "hasError" => true
+            ],
+            "noOperation1"   => [
+                "user"     => self::TYPE_NO_OPERATIONS_USER,
+                "id"       => 1,
+                "hasError" => true
+            ],
+            "noOperation0"   => [
+                "user"     => self::TYPE_NO_OPERATIONS_USER,
+                "id"       => 0,
+                "hasError" => true
+            ],
+            "noOperation999" => [
+                "user"     => self::TYPE_NO_OPERATIONS_USER,
+                "id"       => 999,
+                "hasError" => true
+            ],
+            "guest1"         => [
+                "user"     => null,
+                "id"       => 1,
+                "hasError" => true
+            ],
+            "guest0"         => [
+                "user"     => null,
+                "id"       => 0,
+                "hasError" => true
+            ],
+            "guest999"       => [
+                "user"     => null,
+                "id"       => 999,
+                "hasError" => true
+            ],
+        ];
+    }
+
+    /**
+     * Test for method updateDesign
+     *
+     * @param string $user
+     * @param int    $id
+     * @param array  $data
+     * @param bool   $hasError
+     *
+     * @return bool
+     *
+     * @dataProvider dataProviderForTestUpdateDesign
+     */
+    public function testUpdateDesign($user, $id, $data, $hasError)
+    {
+        $blockModel = null;
+        if ($id === null) {
+            $textModel = new TextModel();
+            $textModel->set(
+                [
+                    "type"      => 0,
+                    "hasEditor" => 0,
+                ]
+            );
+            $textModel->save();
+
+            $blockModel = new BlockModel();
+            $blockModel->set(
+                [
+                    "name"        => "name",
+                    "language"    => 1,
+                    "contentType" => BlockModel::TYPE_TEXT,
+                    "contentId"   => $textModel->getId(),
+                ]
+            );
+            $blockModel->save();
+
+            $requestId = $blockModel->getId();
+        } else {
+            $requestId = $id;
+        }
+
+        $this->setUser($user);
+        $this->sendRequest("text", "design", array_merge($data, ["id" => $requestId]), "POST");
+        $body = $this->getBody();
+
+        if ($hasError === true) {
+            $this->assertError();
+
+            if ($id === null) {
+                $blockModel->delete();
+            }
+            return true;
+        }
+
+        $this->assertTrue($body["result"]);
+
+        $designBlockModel = (new DesignBlockModel())->latest()->find();
+        $this->compareExpectedAndActual($data["designBlockModel"], $designBlockModel->get());
+
+        $designTextModel = (new DesignTextModel())->latest()->find();
+        $this->compareExpectedAndActual($data["designTextModel"], $designTextModel->get());
+
+        $blockModel->delete();
+        return true;
+    }
+
+    /**
+     * Data provider for testUpdateDesign
+     *
+     * @return array
+     */
+    public function dataProviderForTestUpdateDesign()
+    {
+        return [
+            "adminCorrect" => [
+                "user"     => self::TYPE_FULL,
+                "id"       => null,
+                "data"     => [
+                    "designBlockModel" => [
+                        "marginTop" => 10
+                    ],
+                    "designTextModel"  => [
+                        "size" => 20
+                    ]
+                ],
+                "hasError" => false
+            ],
+            "adminIncorrectId" => [
+                "user"     => self::TYPE_FULL,
+                "id"       => 9999,
+                "data"     => [
+                    "designBlockModel" => [
+                        "marginTop" => 10
+                    ],
+                    "designTextModel"  => [
+                        "size" => 20
+                    ]
+                ],
+                "hasError" => true
+            ],
+            "adminIncorrectData" => [
+                "user"     => self::TYPE_FULL,
+                "id"       => null,
+                "data"     => [
+                    "designBlockModel" => [
+                        "marginTop" => 10
+                    ],
+                ],
+                "hasError" => true
+            ],
+            "userCorrect" => [
+                "user"     => self::TYPE_LIMITED,
+                "id"       => null,
+                "data"     => [
+                    "designBlockModel" => [
+                        "marginTop" => 10
+                    ],
+                    "designTextModel"  => [
+                        "size" => 20
+                    ]
+                ],
+                "hasError" => false
+            ],
+            "noOperationsCorrect" => [
+                "user"     => self::TYPE_NO_OPERATIONS_USER,
+                "id"       => null,
+                "data"     => [
+                    "designBlockModel" => [
+                        "marginTop" => 10
+                    ],
+                    "designTextModel"  => [
+                        "size" => 20
+                    ]
+                ],
+                "hasError" => true
+            ],
+            "blockedCorrect" => [
+                "user"     => self::TYPE_BLOCKED_USER,
+                "id"       => null,
+                "data"     => [
+                    "designBlockModel" => [
+                        "marginTop" => 10
+                    ],
+                    "designTextModel"  => [
+                        "size" => 20
+                    ]
+                ],
+                "hasError" => true
+            ],
+            "guestCorrect" => [
+                "user"     => null,
+                "id"       => null,
+                "data"     => [
+                    "designBlockModel" => [
+                        "marginTop" => 10
+                    ],
+                    "designTextModel"  => [
+                        "size" => 20
+                    ]
+                ],
+                "hasError" => true
+            ],
+        ];
     }
 
     /**
