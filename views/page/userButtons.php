@@ -11,7 +11,7 @@
 
 <div id="user-buttons">
     <?php if ($isDisplayBlocks === true) { ?>
-        <a>
+        <a id="user-button-block">
             <span>Blocks</span>
             <i class="fa fa-th-large"></i>
         </a>

@@ -221,9 +221,45 @@
                     type: "checkbox",
                     name: "isChangePassword",
                     value: false,
-                    label: data.labels["isChangePassword"]
+                    label: data.labels["isChangePassword"],
+                    onChange: function() {
+                        if (this.checked) {
+                            t._passwordForm.getInstance().removeClass("hidden");
+                            t._passwordConfirmForm.getInstance().removeClass("hidden");
+                        } else {
+                            t._passwordForm.getInstance().addClass("hidden");
+                            t._passwordConfirmForm.getInstance().addClass("hidden");
+                        }
+                    }
                 });
                 this._forms.push(isChangePassword);
+            }
+
+            this._passwordForm = new TestS.Form(
+                $.extend(
+                    {
+                        appendTo: $textFormsContainer,
+                        type: "password"
+                    },
+                    data.password
+                )
+            );
+            this._forms.push(this._passwordForm);
+
+            this._passwordConfirmForm = new TestS.Form(
+                $.extend(
+                    {
+                        appendTo: $textFormsContainer,
+                        type: "password"
+                    },
+                    data["passwordConfirm"]
+                )
+            );
+            this._forms.push(this._passwordConfirmForm);
+
+            if (data.id !== 0) {
+                t._passwordForm.getInstance().addClass("hidden");
+                t._passwordConfirmForm.getInstance().addClass("hidden");
             }
 
             this._emailForm = new TestS.Form(

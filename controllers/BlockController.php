@@ -23,13 +23,11 @@ class BlockController extends AbstractController
     {
         $this->checkUser();
 
-        $operations = $this->getUserOperations();
-        $blockOperations = $operations[Operation::TYPE_BLOCKS];
         $displayBlocksFromSection = $this->getDisplayBlocksFromSection();
 
         $list = [];
 
-        if (array_key_exists(BlockModel::TYPE_TEXT, $blockOperations)) {
+        if ($this->hasBlockOperation(BlockModel::TYPE_TEXT)) {
             if ($displayBlocksFromSection === 0) {
                 $isDisplay = true;
             } else {

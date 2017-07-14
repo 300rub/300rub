@@ -68,6 +68,7 @@ class PageController extends AbstractController
             "Accordion",
             "Panel",
             "panel/Settings",
+            "panel/Block",
             "UserButtons",
             "window/Users",
             "window/Users.Sessions",

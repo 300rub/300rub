@@ -23,6 +23,10 @@ return [
         Language::LANGUAGE_EN_ID => "Password",
         Language::LANGUAGE_RU_ID => "",
     ],
+    "passwordConfirm"  => [
+        Language::LANGUAGE_EN_ID => "Password confirm",
+        Language::LANGUAGE_RU_ID => "",
+    ],
     "isRemember"  => [
         Language::LANGUAGE_EN_ID => "Remember me",
         Language::LANGUAGE_RU_ID => "",

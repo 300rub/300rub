@@ -80,7 +80,7 @@
         _setSelectForm: function () {
             this.$_form = TestS.Template.get("form-container-select");
 
-            var $instance = this.$_form.find(".form-instance");
+            var $instance = this.getFormInstance();
             var $optionTemplate = this.$_form.find(".option-template");
 
             if ($.type(this._options.list) === "array") {
@@ -115,7 +115,7 @@
             this.$_form = TestS.Template.get("form-container-text");
 
             if (this._options.value !== undefined) {
-                this.$_form.find(".form-instance").val(this._options.value);
+                this.getFormInstance().val(this._options.value);
             }
         },
 
@@ -128,7 +128,7 @@
             this.$_form = TestS.Template.get("form-container-hidden");
 
             if (this._options.value !== undefined) {
-                this.$_form.find(".form-instance").val(this._options.value);
+                this.getFormInstance().val(this._options.value);
             }
         },
 
@@ -150,7 +150,15 @@
             this.$_form = TestS.Template.get("form-container-checkbox");
 
             if (this._options.value === true) {
-                this.$_form.find(".form-instance").attr("checked", "checked");
+                this.getFormInstance().attr("checked", "checked");
+            }
+
+            if ($.type(this._options.onChange) === "function") {
+                if ($.type(this._options.data) === "object") {
+                    this.getFormInstance().on("change", this._options.data, this._options.onChange);
+                } else {
+                    this.getFormInstance().on("change", this._options.onChange);
+                }
             }
         },
 
@@ -173,7 +181,7 @@
          * @returns {TestS.Form}
          */
         focus: function() {
-            this.getInstance().find(".form-instance").focus();
+            this.getFormInstance().focus();
             return this;
         },
 
@@ -196,6 +204,7 @@
                     var flattenData = {};
                     var hasError = false;
                     var isScrolled = false;
+
                     $.each(this._options.forms, $.proxy(function(i, item) {
                         item.validate();
                         if (item.getInstance().hasClass("error")) {
@@ -373,6 +382,15 @@
         },
 
         /**
+         * Gets form instance
+         *
+         * @returns {Object}
+         */
+        getFormInstance: function () {
+            return this.getInstance().find(".form-instance");
+        },
+
+        /**
          * Sets name
          *
          * @returns {TestS.Form}
@@ -384,7 +402,7 @@
                 return this;
             }
 
-            this.getInstance().find(".form-instance").attr("name", this._options.name);
+            this.getFormInstance().attr("name", this._options.name);
             return this;
         },
 
@@ -394,7 +412,7 @@
          * @returns {String}
          */
         getName: function() {
-            return this.$_form.find(".form-instance").attr("name");
+            return this.getFormInstance().attr("name");
         },
 
         /**
@@ -425,7 +443,7 @@
                 return this;
             }
 
-            this.$_form.find(".form-instance").attr("placeholder", this._options.placeholder);
+            this.getFormInstance().attr("placeholder", this._options.placeholder);
             return this;
         },
 
@@ -453,7 +471,7 @@
          * @private
          */
         _setOnBlur: function() {
-            this.$_form.find(".form-instance").on("blur", $.proxy(this.validate, this));
+            this.getFormInstance().on("blur", $.proxy(this.validate, this));
             return this;
         },
 
@@ -463,7 +481,9 @@
          * @returns {TestS.Form}
          */
         validate: function() {
-            if (this._options.validation === undefined) {
+            this.$_form.removeClass("error");
+
+            if ($.type(this._options.validation) !== "object" || this._options.validation.length === 0) {
                 return this;
             }
 
@@ -515,7 +535,7 @@
          * @returns {mixed}
          */
         getValue: function() {
-            return this.$_form.find(".form-instance").val();
+            return this.getFormInstance().val();
         },
 
         /**
@@ -524,7 +544,7 @@
          * @returns {mixed}
          */
         getParsedValue: function () {
-            var $formInstance = this.$_form.find(".form-instance");
+            var $formInstance = this.getFormInstance();
             var value;
 
             switch (this._options.type) {

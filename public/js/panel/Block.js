@@ -2,11 +2,11 @@
     'use strict';
 
     /**
-     * Settings panel
+     * Block panel
      *
      * @type {Object}
      */
-    TestS.Panel.Settings = function () {
+    TestS.Panel.Block = function () {
         this.init();
     };
 
@@ -15,7 +15,7 @@
      *
      * @type {Object}
      */
-    TestS.Panel.Settings.prototype = {
+    TestS.Panel.Block.prototype = {
 
         /**
          * @var {Window.TestS.Panel}
@@ -27,8 +27,8 @@
          */
         init: function () {
             this._panel = new TestS.Panel({
-                controller: "settings",
-                action: "settings",
+                controller: "block",
+                action: "blocks",
                 success: $.proxy(this._onLoadDataSuccess, this)
             });
         },
@@ -45,23 +45,20 @@
                 .setTitle(data.title)
                 .setDescription(data.description);
 
-            $.each(data.list, $.proxy(function(key, name) {
+            $.each(data.list, $.proxy(function(i, itemData) {
                 var $item = TestS.Template.get("panel-list-item");
 
                 $item.addClass("without-buttons");
                 $item.find(".settings").remove();
                 $item.find(".design").remove();
-                $item.find(".text").text(name);
+                $item.find(".text").text(itemData.name);
 
-                switch (key) {
-                    case "users":
-                        $item.find(".icon").addClass("fa-user");
+                switch (itemData.type) {
+                    case "text":
+                        $item.find(".icon").addClass("fa-font");
                         $item.find(".label").on("click", function() {
-                            new TestS.Window.Users();
+                            //new TestS.Panel.Block.Text();
                         });
-                        break;
-                    case "icon":
-                        $item.find(".icon").addClass("fa-picture-o");
                         break;
                     default:
                         break;

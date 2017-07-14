@@ -26,8 +26,24 @@
             this.$_container = $("#user-buttons");
 
             this
+                ._setBlocks()
                 ._setSettings()
                 ._setLogout();
+        },
+
+        /**
+         * Sets blocks
+         *
+         * @returns {TestS.UserButtons}
+         *
+         * @private
+         */
+        _setBlocks: function() {
+            $("#user-button-block").on("click", function () {
+                new TestS.Panel.Block();
+            });
+
+            return this;
         },
 
         /**

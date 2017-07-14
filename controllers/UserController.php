@@ -533,6 +533,26 @@ class UserController extends AbstractController
                 "name"       => "login",
                 "validation" => $userModel->getValidationRulesForField("login"),
             ],
+            "password"      => [
+                "label"      => Language::t("user", "password"),
+                "name"       => "password",
+                "validation" => $id === 0 ? array_merge(
+                    $userModel->getValidationRulesForField("password"),
+                    [
+                        "minLength" => 3
+                    ]
+                ) : "",
+            ],
+            "passwordConfirm"      => [
+                "label"      => Language::t("user", "passwordConfirm"),
+                "name"       => "passwordConfirm",
+                "validation" => $id === 0 ? array_merge(
+                    $userModel->getValidationRulesForField("password"),
+                    [
+                        "minLength" => 3
+                    ]
+                ) : "",
+            ],
             "email"      => [
                 "label"      => Language::t("common", "email"),
                 "value"      => $email,
@@ -778,7 +798,6 @@ class UserController extends AbstractController
             || strlen($data["passwordConfirm"]) !== 32
             || !array_key_exists("operations", $data)
             || !is_array($data["operations"])
-            || !is_int($data["type"])
         ) {
             throw new BadRequestException(
                 "Incorrect request to add user. Data: {data}",
@@ -846,7 +865,6 @@ class UserController extends AbstractController
             || !is_array($data["operations"])
             || !array_key_exists("isChangePassword", $data)
             || !is_bool($data["isChangePassword"])
-            || !is_int($data["type"])
         ) {
             throw new BadRequestException(
                 "Incorrect request to update user. Data: {data}",

@@ -219,7 +219,7 @@ abstract class AbstractController
      *
      * @return bool
      */
-    protected function hasBlockOperation($type, $key, $operation)
+    protected function hasBlockOperation($type, $key = null, $operation = null)
     {
         if ($this->isFullAccess() === true) {
             return true;
@@ -234,6 +234,10 @@ abstract class AbstractController
             || !array_key_exists($type, $operations[Operation::TYPE_BLOCKS])
         ) {
             return false;
+        }
+
+        if ($key === null) {
+            return true;
         }
 
         if (array_key_exists(Operation::ALL, $operations[Operation::TYPE_BLOCKS][$type])
