@@ -19,4 +19,8 @@ return [
         Language::LANGUAGE_EN_ID => "from page",
         Language::LANGUAGE_RU_ID => "",
     ],
+    "blockDescription" => [
+        Language::LANGUAGE_EN_ID => "Select any block type",
+        Language::LANGUAGE_RU_ID => "",
+    ]
 ];

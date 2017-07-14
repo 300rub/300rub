@@ -1495,10 +1495,7 @@ class UserControllerTest extends AbstractControllerTest
         if ($isSuccess === true) {
             $this->compareExpectedAndActual(
                 [
-                    "result" => true,
-                    "users"  => [
-                        "title" => "Users"
-                    ]
+                    "result" => true
                 ],
                 $actual
             );

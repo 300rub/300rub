@@ -52,6 +52,23 @@ class BlockModel extends AbstractModel
     }
 
     /**
+     * Gets type name
+     *
+     * @param int $type
+     *
+     * @return string
+     */
+    public static function getTypeName($type)
+    {
+        $typeNames = self::getTypeNames();
+        if (array_key_exists($type, $typeNames)) {
+            return $typeNames[$type];
+        }
+
+        return "";
+    }
+
+    /**
      * Gets table name
      *
      * @return string

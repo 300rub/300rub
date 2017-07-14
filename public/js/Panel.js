@@ -144,7 +144,6 @@
             this.getInstance().addClass("transparent");
             this.$_userButtons.removeClass("hidden");
 
-
             setTimeout($.proxy(function() {
                 this.getInstance().remove();
             }, this), 300);
