@@ -69,6 +69,8 @@ class PageController extends AbstractController
             "Panel",
             "panel/Settings",
             "panel/Block",
+            "panel/Design",
+            "panel/design/Block",
             "UserButtons",
             "window/Users",
             "window/Users.Sessions",
@@ -108,6 +110,7 @@ class PageController extends AbstractController
      */
     private static $_userTemplatesMap = [
         "panel/panel",
+        "panel/design/block",
         "window/users"
     ];
 
