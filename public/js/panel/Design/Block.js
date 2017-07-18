@@ -4,12 +4,16 @@
     /**
      * Design block
      *
-     * @param {Object} options
+     * @param {Object} data
+     * @param {Object} $cssContainer
+     * @param {String} cssSelector
      *
      * @type {Object}
      */
-    TestS.Panel.Design.Block = function (options) {
-        this._options = options;
+    TestS.Panel.Design.Block = function (data, $cssContainer, cssSelector) {
+        this._data = data;
+        this.$_cssContainer = $cssContainer;
+        this._cssSelector = cssSelector;
         this.init();
     };
 
@@ -21,11 +25,25 @@
     TestS.Panel.Design.Block.prototype = {
 
         /**
-         * Options
+         * Data
          *
          * @type {Object}
          */
-        _options: {},
+        _data: {},
+
+        /**
+         * CSS container
+         *
+         * @type {Object}
+         */
+        $_cssContainer: null,
+
+        /**
+         * CSS selector
+         *
+         * @type {Object}
+         */
+        _cssSelector: "",
 
         /**
          * Design container
@@ -35,27 +53,17 @@
         $_designContainer: null,
 
         /**
-         * Block
-         *
-         * @type {Object}
-         */
-        $_block: null,
-
-        /**
          * Margin example container
          *
          * @type {Object}
          */
         $_marginExample: null,
 
-        $_marginTop: null,
-
         /**
          * Init
          */
         init: function () {
             this.$_designContainer = TestS.Template.get("design-block-container");
-            this.$_block = this._options.block;
 
             this._setMargin();
         },
@@ -70,7 +78,9 @@
         _setMargin: function() {
             this.$_marginExample = this.$_designContainer.find(".margin-example-inside");
 
-            this._setMarginTop();
+            this
+                ._updateMarginExample()
+                ._setMarginTop();
 
             return this;
         },
@@ -85,17 +95,21 @@
         _setMarginTop: function() {
             var t = this;
 
-            this.$_marginTop = this.$_designContainer
+            this.$_designContainer
                 .find("margin-top")
                 .val(this._options.data.marginTop)
                 .attr("name", this._options.namespace + "." + "marginTop")
                 .on("keyup", function() {
-                    t._updateMarginTop($(this).val());
+                    t._data["marginTop"] = parseInt($(this).val());
+                    t._updateMarginExample();
+                    t._update();
                 })
                 .spinner({
                     min: -300,
                     spin: $.proxy(function (event, ui) {
-                        t._updateMarginTop(ui.value);
+                        t._data["marginTop"] = parseInt(ui.value);
+                        t._updateMarginExample();
+                        t._update();
                     }, this)
                 });
 
@@ -103,19 +117,81 @@
         },
 
         /**
-         * Updates margin-top
-         *
-         * @param value
+         * Updates margin example
          *
          * @returns {TestS.Panel.Design.Block}
          *
          * @private
          */
-        _updateMarginTop: function(value) {
-            var result = parseInt(value) + "px !important";
+        _updateMarginExample: function() {
+            return this;
+        },
 
-            this.$_marginExample.css("margin-top", result);
-            this.$_block.css("margin-top", result);
+        /**
+         * Generates CSS
+         *
+         * @returns {String}
+         *
+         * @private
+         */
+        _generateCss: function() {
+            var css = "<style> ";
+
+            // Standard
+
+            css += this._cssSelector + " { ";
+
+            css += "margin: "
+                + this._data["marginTop"] + "px "
+                + this._data["marginRight"] + "px "
+                + this._data["marginBottom"] + "px "
+                + this._data["marginLeft"] + "px !important; ";
+
+            css += "padding: "
+                + this._data["paddingTop"] + "px "
+                + this._data["paddingRight"] + "px "
+                + this._data["paddingBottom"] + "px "
+                + this._data["paddingLeft"] + "px !important; ";
+
+            css += "} ";
+
+            // Hover
+
+            css += this._cssSelector + ":hover { ";
+
+            if (this._data["hasMarginHover"]) {
+                css += "margin: "
+                    + this._data["marginTopHover"] + "px "
+                    + this._data["marginRightHover"] + "px "
+                    + this._data["marginBottomHover"] + "px "
+                    + this._data["marginLeftHover"] + "px !important; ";
+            }
+
+            if (this._data["hasPaddingHover"]) {
+                css += "padding: "
+                    + this._data["paddingTopHover"] + "px "
+                    + this._data["paddingRightHover"] + "px "
+                    + this._data["paddingBottomHover"] + "px "
+                    + this._data["paddingLeftHover"] + "px !important; ";
+            }
+
+            css += "} ";
+
+            css += "</style>";
+            return css;
+        },
+
+        /**
+         * Updates design
+         *
+         * @returns {TestS.Panel.Design.Block}
+         *
+         * @private
+         */
+        _update: function() {
+            this.$_cssContainer.html(
+                this._generateCss()
+            );
 
             return this;
         },
