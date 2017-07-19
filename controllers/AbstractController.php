@@ -4,8 +4,12 @@ namespace testS\controllers;
 
 use testS\applications\App;
 use testS\components\exceptions\AccessException;
+use testS\components\exceptions\CommonException;
 use testS\components\Operation;
 use testS\components\User;
+use testS\models\AbstractModel;
+use testS\models\DesignBlockModel;
+use testS\models\DesignTextModel;
 use testS\models\UserModel;
 use testS\components\Db;
 
@@ -30,6 +34,13 @@ abstract class AbstractController
     const FORM_TYPE_CHECKBOX = "checkbox";
     const FORM_TYPE_BUTTON = "button";
     const FORM_TYPE_SELECT = "select";
+
+    /**
+     * CSS
+     *
+     * @var array
+     */
+    private static $_css = [];
 
     /**
      * Request data
@@ -414,5 +425,88 @@ abstract class AbstractController
     {
         Db::rollbackTransaction();
         Db::startTransaction();
+    }
+
+    /**
+     * Gets CSS
+     *
+     * @param int           $blockId
+     * @param AbstractModel $model
+     * @param string        $childSelector
+     *
+     * @throws CommonException
+     *
+     * @return string
+     */
+    protected function getCss($blockId, $model, $childSelector = null)
+    {
+        $type = null;
+        if ($model instanceof DesignBlockModel) {
+            $type = "block";
+        } elseif ($model instanceof DesignTextModel) {
+            $type = "text";
+        }
+
+        if ($type === null) {
+            throw new CommonException(
+                "Unable to detect design type to get CSS. Model given: {class}",
+                [
+                    "class" => get_class($model)
+                ]
+            );
+        }
+
+        if ($childSelector !== null) {
+            $id = sprintf(
+                "design-block-%s-%s-%s",
+                $blockId,
+                str_replace([".", " "], ["", "-"], $childSelector),
+                $type
+            );
+            $selector = sprintf(
+                ".block-%s %s",
+                $blockId,
+                $childSelector
+            );
+        } else {
+            $id = sprintf(
+                "design-block-%s-%s",
+                $blockId,
+                $type
+            );
+            $selector = sprintf(
+                ".block-%s",
+                $blockId
+            );
+        }
+
+        if (array_key_exists($id, self::$_css)) {
+            return self::$_css[$id];
+        }
+
+        $css = "";
+        $isUser = $this->isUser();
+
+        if ($isUser === true) {
+            $css .= sprintf('<div id="%s">', $id);
+            $css .= "<style>";
+        }
+
+        $css .= $this->getContentFromTemplate(
+            "design/" . $type,
+            [
+                "model"    => $model,
+                "id"       => $id,
+                "selector" => $selector,
+            ]
+        );
+
+        if ($isUser === true) {
+            $css .= '</style></div>';
+        }
+
+        self::$_css[$id] = $css;
+
+        return $css;
     }
 }

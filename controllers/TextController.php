@@ -24,14 +24,53 @@ class TextController extends AbstractController
     /**
      * Gets block's HTML
      *
-     * @param int $id
+     * @param int $blockId
      *
      * @return string
+     *
+     * @throws BadRequestException
+     * @throws NotFoundException
      */
-    public function getHtml($id = 0)
+    public function getHtml($blockId = 0)
     {
-        // @TODO
-        return "<b>hardcoded{$id}</b>";
+        if ($blockId === 0) {
+            $data = $this->getData();
+            if (array_key_exists("id", $data)) {
+                $blockId = (int)$data["id"];
+            }
+        }
+
+        if ($blockId === 0) {
+            throw new BadRequestException("Block ID can not be 0");
+        }
+
+        $blockModel = (new BlockModel())->byId($blockId)->find();
+        if ($blockModel === null) {
+            throw new NotFoundException(
+                "Unable to find text BlockModel by ID: {id}",
+                [
+                    "id" => $blockId
+                ]
+            );
+        }
+
+        $textModel = $blockModel->getContentModel(true);
+        if (!$textModel instanceof TextModel) {
+            throw new BadRequestException(
+                "Block content model is not a text. ID: {id}. Block type: {type}",
+                [
+                    "id"           => $blockId,
+                    "contentClass" => get_class($textModel),
+                ]
+            );
+        }
+
+        $css = "";
+        $css .= $this->getCss($blockId, $textModel->get("designBlockModel"));
+
+        return [
+            "css" => $css
+        ];
     }
 
     /**
