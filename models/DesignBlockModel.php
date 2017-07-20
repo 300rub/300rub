@@ -417,4 +417,48 @@ class DesignBlockModel extends AbstractModel
             ],
         ];
     }
+
+    /**
+     * Gets gradient direction
+     *
+     * @param bool $isHover
+     *
+     * @return array
+     */
+    public function getGradientDirection($isHover = false)
+    {
+        if ($isHover === false) {
+            $gradientDirection = $this->get("gradientDirection");
+        } else {
+            $gradientDirection = $this->get("gradientDirectionHover");
+        }
+
+        if (array_key_exists($gradientDirection, self::$gradientDirectionList)) {
+            return self::$gradientDirectionList[$gradientDirection];
+        }
+
+        return self::$gradientDirectionList[self::GRADIENT_DIRECTION_HORIZONTAL];
+    }
+
+    /**
+     * Gets border style
+     *
+     * @param bool $isHover
+     *
+     * @return string
+     */
+    public function getBorderStyle($isHover = false)
+    {
+        if ($isHover === false) {
+            $borderStyle = $this->get("borderStyle");
+        } else {
+            $borderStyle = $this->get("borderStyleHover");
+        }
+
+        if (array_key_exists($borderStyle, self::$borderStyleList)) {
+            return self::$borderStyleList[$borderStyle];
+        }
+
+        return self::$borderStyleList[self::BORDER_STYLE_NONE];
+    }
 }
