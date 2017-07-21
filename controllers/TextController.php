@@ -67,6 +67,7 @@ class TextController extends AbstractController
 
         $css = "";
         $css .= $this->getCss($blockId, $textModel->get("designBlockModel"));
+        $css .= $this->getCss($blockId, $textModel->get("designTextModel"));
 
         return [
             "css" => $css
