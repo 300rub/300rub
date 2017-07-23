@@ -139,6 +139,7 @@
          */
         _setPasswordForm: function () {
             this.$_form = TestS.Template.get("form-container-password");
+            this.getFormInstance().val("");
         },
 
         /**

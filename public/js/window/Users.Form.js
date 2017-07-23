@@ -182,6 +182,8 @@
          * @private
          */
         _setForms: function (data) {
+            this._forms = [];
+
             var $textFormsContainer = this.$_container.find(".text-forms-container");
             var t = this;
 

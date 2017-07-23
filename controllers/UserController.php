@@ -854,15 +854,13 @@ class UserController extends AbstractController
     public function updateUser()
     {
         $this->checkSettingsOperation(Operation::SETTINGS_USER_UPDATE);
+        $user = App::web()->getUser();
 
         $data = $this->getData();
         if (!array_key_exists("id", $data)
             || !array_key_exists("name", $data)
             || !array_key_exists("login", $data)
             || !array_key_exists("email", $data)
-            || !array_key_exists("operations", $data)
-            || !array_key_exists("type", $data)
-            || !is_array($data["operations"])
             || !array_key_exists("isChangePassword", $data)
             || !is_bool($data["isChangePassword"])
         ) {
@@ -885,7 +883,7 @@ class UserController extends AbstractController
         }
 
         if ($userModel->isOwner()
-            && App::web()->getUser()->getType() !== UserModel::TYPE_OWNER
+            && $user->getType() !== UserModel::TYPE_OWNER
         ) {
             throw new AccessException(
                 "Unable to update owner"
@@ -925,11 +923,19 @@ class UserController extends AbstractController
         $userModel->set(
             [
                 "login" => $data["login"],
-                "type"  => $data["type"],
                 "name"  => $data["name"],
                 "email" => $data["email"],
             ]
         );
+        if (array_key_exists("type", $data)
+            && $user->getId() !== $userModel->getId()
+        ) {
+            $userModel->set(
+                [
+                    "type"  => $data["type"],
+                ]
+            );
+        }
         $userModel->save();
 
         $errors = $userModel->getParsedErrors();
@@ -939,7 +945,11 @@ class UserController extends AbstractController
             ];
         }
 
-        $userModel->updateOperations($data["operations"]);
+        if (array_key_exists("operations", $data)
+            && is_array($data["operations"])
+        ) {
+            $userModel->updateOperations($data["operations"]);
+        }
 
         return $this->getSimpleSuccessResult();
     }

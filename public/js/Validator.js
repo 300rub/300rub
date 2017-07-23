@@ -63,6 +63,9 @@
                     case "latinDigitUnderscoreHyphen":
                         this._checkLatinDigitUnderscoreHyphen();
                         break;
+                    case "email":
+                        this._checkEmail();
+                        break;
                 }
             }, this));
         },
@@ -133,6 +136,18 @@
             var pattern = new RegExp("^[0-9a-z-_]+$");
             if (!pattern.test($.trim(this._value))) {
                 this._addError(TestS.Validator.Errors.get("latinDigitUnderscoreHyphen"));
+            }
+        },
+
+        /**
+         * Checks email
+         *
+         * @private
+         */
+        _checkEmail: function() {
+            var pattern = new RegExp(/^[+a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/i);
+            if (!pattern.test($.trim(this._value))) {
+                this._addError(TestS.Validator.Errors.get("email"));
             }
         }
     };
