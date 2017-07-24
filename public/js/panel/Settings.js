@@ -7,6 +7,8 @@
      * @type {Object}
      */
     TestS.Panel.Settings = function () {
+        this._panel = null;
+
         this.init();
     };
 
@@ -16,12 +18,6 @@
      * @type {Object}
      */
     TestS.Panel.Settings.prototype = {
-
-        /**
-         * @var {Window.TestS.Panel}
-         */
-        _panel: null,
-
         /**
          * Init
          */

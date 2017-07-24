@@ -9,7 +9,9 @@
      * @type {Object}
      */
     TestS.Window.Users.Sessions = function (options) {
-        this._options = options;
+        this._options = $.extend({}, options);
+        this._window = null;
+
         this.init();
     };
 
@@ -19,17 +21,6 @@
      * @type {Object}
      */
     TestS.Window.Users.Sessions.prototype = {
-
-        /**
-         * @type {Window.TestS.Window}
-         */
-        _window: null,
-
-        /**
-         * @type {Object}
-         */
-        _options: {},
-
         /**
          * Init
          */
@@ -58,47 +49,47 @@
             this._window.getInstance().find(".footer").remove();
 
             var $table = TestS.Template.get("window-users-sessions-table");
-            $table.find(".browser-label").text(data.labels.browser);
-            $table.find(".current-label").text(data.labels.current);
-            $table.find(".online-label").text(data.labels.online);
-            $table.find(".last-activity-label").text(data.labels.lastActivity);
-            $table.find(".platform-label").text(data.labels.platform);
-            $table.find(".token-label").text(data.labels.token);
+            $table.find(".browser-label").text(data["labels"]["browser"]);
+            $table.find(".current-label").text(data["labels"]["current"]);
+            $table.find(".online-label").text(data["labels"]["online"]);
+            $table.find(".last-activity-label").text(data["labels"]["lastActivity"]);
+            $table.find(".platform-label").text(data["labels"]["platform"]);
+            $table.find(".token-label").text(data["labels"]["token"]);
 
             var $trTemplate = $table.find(".tr-template");
             var canDeleteAll = false;
-            $.each(data.list, $.proxy(function (i, session) {
+            $.each(data["list"], $.proxy(function (i, session) {
                 var $tr = $trTemplate.clone();
-                $tr.find(".browser-value").text(session.browser + " " + session.version);
-                $tr.find(".last-activity-value").text(session.lastActivity);
-                $tr.find(".ip-value").text(session.ip);
-                $tr.find(".platform-value").text(session.platform);
-                if (session.isCurrent !== true) {
+                $tr.find(".browser-value").text(session["browser"] + " " + session["version"]);
+                $tr.find(".last-activity-value").text(session["lastActivity"]);
+                $tr.find(".ip-value").text(session["ip"]);
+                $tr.find(".platform-value").text(session["platform"]);
+                if (session["isCurrent"] !== true) {
                     $tr.find(".current-value").text("");
                 }
-                if (session.isOnline !== true) {
+                if (session["isOnline"] !== true) {
                     $tr.find(".online-value").text("");
                 }
 
                 var $buttons = $tr.find(".buttons");
                 $buttons.addClass("align-right");
 
-                if (data.canDelete === true
+                if (data["canDelete"] === true
                     && session.token !== TestS.getToken()
                 ) {
                     new TestS.Form({
                         type: "button",
                         class: "gray-button button-small",
                         icon: "fa-trash",
-                        label: data.labels.delete,
+                        label: data["labels"].delete,
                         appendTo: $buttons,
                         confirm: {
-                            text: data.labels.deleteConfirm.text,
+                            text: data["labels"]["deleteConfirm"]["text"],
                             yes: {
-                                label: data.labels.deleteConfirm.yes,
+                                label: data["labels"]["deleteConfirm"]["yes"],
                                 icon: "fa-trash"
                             },
-                            no: data.labels.deleteConfirm.no
+                            no: data["labels"]["deleteConfirm"]["no"]
                         },
                         ajax: {
                             data: {
@@ -134,22 +125,22 @@
                     type: "button",
                     class: "gray-button button-medium margin-bottom-15",
                     icon: "fa-trash",
-                    label: data.labels.deleteAllSessions,
+                    label: data["labels"]["deleteAllSessions"],
                     appendTo: this._window.getBody(),
                     confirm: {
-                        text: data.labels.deleteAllConfirm.text,
+                        text: data["labels"]["deleteAllConfirm"]["text"],
                         yes: {
-                            label: data.labels.deleteAllConfirm.yes,
+                            label: data["labels"]["deleteAllConfirm"]["yes"],
                             icon: "fa-trash"
                         },
-                        no: data.labels.deleteAllConfirm.no
+                        no: data["labels"]["deleteAllConfirm"]["no"]
                     },
                     ajax: {
                         data: {
                             controller: "user",
                             action: "sessions",
                             data: {
-                                id: data.id
+                                id: id
                             }
                         },
                         type: "DELETE",
@@ -160,7 +151,7 @@
             }
 
             this._window
-                .setTitle(data.title)
+                .setTitle(data["title"])
                 .removeLoading();
         }
     };

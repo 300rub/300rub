@@ -11,9 +11,12 @@
      * @type {Object}
      */
     TestS.Panel.Design.Block = function (data, $cssContainer, cssSelector) {
-        this._data = data;
+        this._data = $.extend({}, data);
         this.$_cssContainer = $cssContainer;
         this._cssSelector = cssSelector;
+        this.$_designContainer = null;
+        this.$_marginExample = null;
+
         this.init();
     };
 
@@ -23,48 +26,11 @@
      * @type {Object}
      */
     TestS.Panel.Design.Block.prototype = {
-
-        /**
-         * Data
-         *
-         * @type {Object}
-         */
-        _data: {},
-
-        /**
-         * CSS container
-         *
-         * @type {Object}
-         */
-        $_cssContainer: null,
-
-        /**
-         * CSS selector
-         *
-         * @type {Object}
-         */
-        _cssSelector: "",
-
-        /**
-         * Design container
-         *
-         * @type {Object}
-         */
-        $_designContainer: null,
-
-        /**
-         * Margin example container
-         *
-         * @type {Object}
-         */
-        $_marginExample: null,
-
         /**
          * Init
          */
         init: function () {
             this.$_designContainer = TestS.Template.get("design-block-container");
-
             this._setMargin();
         },
 

@@ -7,6 +7,10 @@ use testS\components\ValueGenerator;
 /**
  * Model for working with table "grids"
  *
+ * @method GridModel   in($field, $values)
+ * @method GridModel   ordered($value)
+ * @method GridModel[] findAll()
+ *
  * @package testS\models
  */
 class GridModel extends AbstractModel

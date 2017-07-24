@@ -17,14 +17,6 @@
      * @type {Object}
      */
     TestS.Ajax.prototype = {
-
-        /**
-         * Options
-         *
-         * @var {Object}
-         */
-        _options: {},
-
         /**
          * Init
          */
@@ -149,11 +141,11 @@
          * @private
          */
         _getError: function() {
-            if ($.type(this._options.error) !== "function") {
+            if ($.type(this._options["error"]) !== "function") {
                 return this._error;
             }
 
-            return this._options.error;
+            return this._options["error"];
         },
 
         /**
@@ -209,23 +201,23 @@
         var trace = "";
 
         if ($.type(jqXHR) === "object"
-            && $.type(jqXHR.responseJSON) === "object"
-            && $.type(jqXHR.responseJSON.error) === "object"
+            && $.type(jqXHR["responseJSON"]) === "object"
+            && $.type(jqXHR["responseJSON"]["error"]) === "object"
         ) {
-            if (jqXHR.responseJSON.error.message !== undefined) {
-                message = jqXHR.responseJSON.error.message;
+            if (jqXHR["responseJSON"]["error"]["message"] !== undefined) {
+                message = jqXHR["responseJSON"]["error"]["message"];
             }
 
-            if (jqXHR.responseJSON.error.file !== undefined) {
-                file = jqXHR.responseJSON.error.file;
+            if (jqXHR["responseJSON"]["error"]["file"] !== undefined) {
+                file = jqXHR["responseJSON"]["error"]["file"];
             }
 
-            if (jqXHR.responseJSON.error.line !== undefined) {
-                line = jqXHR.responseJSON.error.line;
+            if (jqXHR["responseJSON"]["error"]["line"] !== undefined) {
+                line = jqXHR["responseJSON"]["error"]["line"];
             }
 
-            if (jqXHR.responseJSON.error.trace !== undefined) {
-                trace = jqXHR.responseJSON.error.trace;
+            if (jqXHR["responseJSON"]["error"]["trace"] !== undefined) {
+                trace = jqXHR["responseJSON"]["error"]["trace"];
             }
         }
 

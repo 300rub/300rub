@@ -25,6 +25,9 @@
      */
     TestS.Accordion.Element = function (title) {
         this._title = title;
+        this.$_container = null;
+        this.$_body = null;
+
         this.init();
     };
 
@@ -34,28 +37,6 @@
      * @type {Object}
      */
     TestS.Accordion.Element.prototype = {
-
-        /**
-         * Title
-         *
-         * @var {String}
-         */
-        _title: "",
-
-        /**
-         * Container
-         *
-         * @var {Object}
-         */
-        $_container: null,
-
-        /**
-         * Body
-         *
-         * @var {Object}
-         */
-        $_body: null,
-
         /**
          * Init
          */

@@ -12,6 +12,8 @@
      */
     TestS.Form = function (options) {
         this._options = $.extend({}, options);
+        this.$_form = null;
+
         this.init();
     };
 
@@ -21,21 +23,6 @@
      * @type {Object}
      */
     TestS.Form.prototype = {
-
-        /**
-         * _options
-         *
-         * @var {Object}
-         */
-        _options: {},
-
-        /**
-         * Form Instance
-         *
-         * @var {Object}
-         */
-        $_form: null,
-
         /**
          * Init
          */

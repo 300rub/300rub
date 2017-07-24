@@ -7,6 +7,8 @@
      * @type {Object}
      */
     TestS.Window.Users = function () {
+        this._window = null;
+
         this.init();
     };
 
@@ -16,12 +18,6 @@
      * @type {Object}
      */
     TestS.Window.Users.prototype = {
-
-        /**
-         * @var {Window.TestS.Window}
-         */
-        _window: null,
-
         /**
          * Init
          */

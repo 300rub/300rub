@@ -7,6 +7,8 @@
      * @type {Object}
      */
     TestS.UserButtons = function () {
+        this.$_container = null;
+
         this.init();
     };
 
@@ -16,9 +18,6 @@
      * @type {Object}
      */
     TestS.UserButtons.prototype = {
-
-        $_container: null,
-
         /**
          * Init
          */

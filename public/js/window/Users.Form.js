@@ -9,7 +9,17 @@
      * @type {Object}
      */
     TestS.Window.Users.Form = function (options) {
-        this._options = options;
+        this._options = $.extend({}, options);
+        this.$_container = null;
+        this.$_operationsContainer = null;
+        this._window = null;
+        this._nameForm = null;
+        this._loginForm = null;
+        this._emailForm = null;
+        this._passwordForm = null;
+        this._passwordConfirmForm = null;
+        this._forms = [];
+
         this.init();
     };
 
@@ -19,73 +29,6 @@
      * @type {Object}
      */
     TestS.Window.Users.Form.prototype = {
-
-        /**
-         * @type {Window.TestS.Window}
-         */
-        _window: null,
-
-        /**
-         * @type {Object}
-         */
-        _options: {},
-
-        /**
-         * Name
-         *
-         * @var {Object}
-         */
-        _nameForm: null,
-
-        /**
-         * Login
-         *
-         * @var {Object}
-         */
-        _loginForm: null,
-
-        /**
-         * Email
-         *
-         * @var {Object}
-         */
-        _emailForm: null,
-
-        /**
-         * Password
-         *
-         * @var {Object}
-         */
-        _passwordForm: null,
-
-        /**
-         * Password confirm
-         *
-         * @var {Object}
-         */
-        _passwordConfirmForm: null,
-
-        /**
-         * Container
-         *
-         * @var {Object}
-         */
-        $_container: null,
-
-        /**
-         * Operations container
-         *
-         * @var {Object}
-         */
-        $_operationsContainer: null,
-
-        /**
-         * Forms
-         *
-         * @var Array
-         */
-        _forms: [],
-
         /**
          * Init
          */
@@ -182,8 +125,6 @@
          * @private
          */
         _setForms: function (data) {
-            this._forms = [];
-
             var $textFormsContainer = this.$_container.find(".text-forms-container");
             var t = this;
 

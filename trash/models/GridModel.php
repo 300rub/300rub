@@ -18,56 +18,6 @@
 //    return $this;
 //}
 //
-///**
-// * Gets structure
-// *
-// * @param SectionModel $section Section model
-// *
-// * @return array
-// */
-//public function getStructure(SectionModel $section)
-//{
-//    $structure["width"] = $section->getWidth();
-//
-//    $gridLineIds = [];
-//    $gridLineModels = (new GridLineModel)
-//        ->withRelations()
-//        ->bySectionId($section->id)
-//        ->ordered("sort")
-//        ->findAll();
-//
-//    if (!$gridLineModels) {
-//        return [];
-//    }
-//
-//    foreach ($gridLineModels as $gridLineModel) {
-//        $gridLineIds[] = $gridLineModel->id;
-//    }
-//    $gridModels = (new GridModel)->in("t.gridLineId", $gridLineIds)->ordered("y, x")->findAll();
-//    $lines = [];
-//
-//    foreach ($gridLineModels as $gridLineModel) {
-//        $grids = [];
-//        foreach ($gridModels as $gridModel) {
-//            if ($gridModel->gridLineId == $gridLineModel->id) {
-//                $grids[] = $gridModel;
-//            }
-//        }
-//        $lines[$gridLineModel->sort] = [
-//            "line"  => $gridLineModel,
-//            "grids" => $grids
-//        ];
-//    }
-//
-//    foreach ($lines as $sort => $data) {
-//        $structure["lines"][$sort] = [
-//            "line"  => $data["line"],
-//            "grids" => $this->_getLineStructure($data["grids"])
-//        ];
-//    }
-//
-//    return $structure;
-//}
 //
 ///**
 // * Gets line structure

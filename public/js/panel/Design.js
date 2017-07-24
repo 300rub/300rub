@@ -9,7 +9,9 @@
      * @type {Object}
      */
     TestS.Panel.Design = function (options) {
-        this._options = options;
+        this._options = $.extend({}, options);
+        this._panel = null;
+
         this.init();
     };
 
@@ -19,19 +21,6 @@
      * @type {Object}
      */
     TestS.Panel.Design.prototype = {
-
-        /**
-         * Options
-         *
-         * @type {Object}
-         */
-        _options: {},
-
-        /**
-         * @var {Window.TestS.Panel}
-         */
-        _panel: null,
-
         /**
          * Init
          */

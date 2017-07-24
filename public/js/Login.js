@@ -16,7 +16,6 @@
      * @type {Object}
      */
     TestS.Login.prototype = {
-
         /**
          * Init
          */

@@ -7,6 +7,11 @@
      * @type {Object}
      */
     TestS.Window.Login = function () {
+        this._window = null;
+        this._userForm = null;
+        this._passwordForm = null;
+        this._isRememberForm = null;
+
         this.init();
     };
 
@@ -16,33 +21,6 @@
      * @type {Object}
      */
     TestS.Window.Login.prototype = {
-
-        /**
-         * @var {Window.TestS.Window}
-         */
-        _window: null,
-
-        /**
-         * User form
-         *
-         * @var {Object}
-         */
-        _userForm: null,
-
-        /**
-         * Password form
-         *
-         * @var {Object}
-         */
-        _passwordForm: null,
-
-        /**
-         * Is remember form
-         *
-         * @var {Object}
-         */
-        _isRememberForm: null,
-
         /**
          * Init
          */
@@ -89,7 +67,7 @@
                         appendTo: this._window.getBody(),
                         type: "checkbox"
                     },
-                    data.forms.isRemember
+                    data.forms["isRemember"]
                 )
             );
 

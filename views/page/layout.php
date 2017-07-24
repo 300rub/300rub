@@ -57,5 +57,37 @@
     });
 </script>
 
+<style>
+    .block {
+        width: 10%;
+        border: 1px solid #ccc;
+        display: inline-block;
+        vertical-align: top;
+    }
+
+    .test {
+        background: #eee;
+        height: 100px;
+
+    }
+
+    .test:hover {
+        box-shadow: 1px 1px 1px 1px rgba(0,0,0,0.3);
+    }
+</style>
+
+<div class="block">
+    <div class="test"></div>
+</div>
+<div class="block">
+    1
+</div>
+<div class="block">
+    1
+</div>
+<div class="block">
+    1
+</div>
+
 </body>
 </html>

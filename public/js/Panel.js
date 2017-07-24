@@ -4,10 +4,16 @@
     /**
      * Panel
      *
+     * @param {Object} options
+     *
      * @type {TestS.Panel}
      */
     TestS.Panel = function (options) {
         this._options = $.extend({}, options);
+        this.$_instance = null;
+        this.$_body = null;
+        this.$_userButtons = null;
+
         this.init();
     };
 
@@ -17,35 +23,6 @@
      * @type {Object}
      */
     TestS.Panel.prototype = {
-
-        /**
-         * _options
-         *
-         * @var {Object}
-         */
-        _options: {},
-
-        /**
-         * Panel
-         *
-         * @var {Object}
-         */
-        $_instance: null,
-
-        /**
-         * Body
-         *
-         * @var {Object}
-         */
-        $_body: null,
-
-        /**
-         * User buttons
-         *
-         * @var {Object}
-         */
-        $_userButtons: null,
-
         /**
          * Init
          */
@@ -207,7 +184,7 @@
         /**
          * Removes loading
          *
-         * @returns {TestS.Window}
+         * @returns {TestS.Panel}
          */
         removeLoading: function() {
             this.getInstance().removeClass("loading");

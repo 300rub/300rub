@@ -11,7 +11,9 @@
      */
     TestS.Validator = function (value, rules) {
         this._value = value;
-        this._rules = rules;
+        this._rules = $.extend({}, rules);
+        this._errors = [];
+
         this.init();
     };
 
@@ -21,28 +23,6 @@
      * @type {Object}
      */
     TestS.Validator.prototype = {
-
-        /**
-         * Value
-         *
-         * @var {string}
-         */
-        _value: "",
-
-        /**
-         * Rules
-         *
-         * @var {Object}
-         */
-        _rules: {},
-
-        /**
-         * Errors
-         *
-         * @var {Array}
-         */
-        _errors: [],
-
         /**
          * Init
          */
@@ -145,7 +125,7 @@
          * @private
          */
         _checkEmail: function() {
-            var pattern = new RegExp(/^[+a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/i);
+            var pattern = new RegExp("^[+a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$");
             if (!pattern.test($.trim(this._value))) {
                 this._addError(TestS.Validator.Errors.get("email"));
             }

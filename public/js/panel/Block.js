@@ -7,6 +7,8 @@
      * @type {Object}
      */
     TestS.Panel.Block = function () {
+        this._panel = null;
+
         this.init();
     };
 
@@ -16,12 +18,6 @@
      * @type {Object}
      */
     TestS.Panel.Block.prototype = {
-
-        /**
-         * @var {Window.TestS.Panel}
-         */
-        _panel: null,
-
         /**
          * Init
          */

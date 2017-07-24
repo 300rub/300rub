@@ -10,6 +10,10 @@
      */
     TestS.Window = function (options) {
         this._options = $.extend({}, options);
+        this.$_instance = null;
+        this.$_body = null;
+        this.$_overlay = null;
+
         this.init();
     };
 
@@ -19,35 +23,6 @@
      * @type {Object}
      */
     TestS.Window.prototype = {
-
-        /**
-         * _options
-         *
-         * @var {Object}
-         */
-        _options: {},
-
-        /**
-         * Window
-         *
-         * @var {Object}
-         */
-        $_instance: null,
-
-        /**
-         * Body
-         *
-         * @var {Object}
-         */
-        $_body: null,
-
-        /**
-         * Overlay
-         *
-         * @var {Object}
-         */
-        $_overlay: null,
-
         /**
          * Init
          */

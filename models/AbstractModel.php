@@ -2,13 +2,16 @@
 
 namespace testS\models;
 
+use testS\applications\App;
 use testS\components\Db;
+use testS\components\exceptions\CommonException;
 use testS\components\exceptions\ModelException;
 use testS\components\Language;
 use testS\components\Validator;
 use testS\components\ValueGenerator;
 use Exception;
 use DateTime;
+use testS\components\View;
 
 /**
  * Abstract class for working with models
@@ -1181,6 +1184,61 @@ abstract class AbstractModel
     }
 
     /**
+     * Adds ORDER BY to SQL request
+     *
+     * @param string|array $value
+     * @param string       $alias
+     * @param bool         $isDesc
+     *
+     * @return AbstractModel
+     */
+    public function ordered($value = "name", $alias = Db::DEFAULT_ALIAS, $isDesc = false)
+    {
+        if ($isDesc === true) {
+            $order = "DESC";
+        } else {
+            $order = "ASC";
+        }
+
+        if (is_array($value)) {
+            $list = [];
+            foreach ($value as $v) {
+                $list[] = sprintf("%s.%s", $alias, $v);
+            }
+            $orderBy = implode(",", $list);
+        } else {
+            $orderBy = sprintf("%s.%s", $alias, $value);
+        }
+
+        $this->getDb()->setOrder(sprintf("%s %s", $orderBy, $order));
+
+        return $this;
+    }
+
+    /**
+     * Adds in condition to SQL request
+     *
+     * @param string $field
+     * @param array  $values
+     * @param string $alias
+     *
+     * @return AbstractModel
+     */
+    public function in($field, $values, $alias = Db::DEFAULT_ALIAS)
+    {
+        $this->getDb()->addWhere(
+            sprintf(
+                "%s.%s IN (%s)",
+                $alias,
+                $field,
+                implode(",", $values)
+            )
+        );
+
+        return $this;
+    }
+
+    /**
      * Sets relation fields before save
      *
      * @return AbstractModel
@@ -1460,5 +1518,82 @@ abstract class AbstractModel
      */
     protected function afterDuplicate($oldModel)
     {
+    }
+
+    /**
+     * Gets CSS
+     *
+     * @param AbstractModel $model
+     * @param string        $selector
+     * @param string        $childSelector
+     *
+     * @throws CommonException
+     *
+     * @return string
+     */
+    protected function getCssFromView($model, $selector, $childSelector = null)
+    {
+        $type = null;
+        if ($model instanceof DesignBlockModel) {
+            $type = "block";
+        } elseif ($model instanceof DesignTextModel) {
+            $type = "text";
+        }
+
+        if ($type === null) {
+            throw new CommonException(
+                "Unable to detect design type to get CSS. Model given: {class}",
+                [
+                    "class" => get_class($model)
+                ]
+            );
+        }
+
+        if ($childSelector !== null) {
+            $id = sprintf(
+                "design-block-%s-%s-%s",
+                $blockId,
+                str_replace([".", " "], ["", "-"], $childSelector),
+                $type
+            );
+            $selector = sprintf(
+                ".block-%s %s",
+                $blockId,
+                $childSelector
+            );
+        } else {
+            $id = sprintf(
+                "design-block-%s-%s",
+                $blockId,
+                $type
+            );
+            $selector = sprintf(
+                ".block-%s",
+                $blockId
+            );
+        }
+
+        $css = "";
+        $isUser = App::web()->getUser() !== null;
+
+        if ($isUser === true) {
+            $css .= sprintf('<div id="%s">', $id);
+            $css .= "<style>";
+        }
+
+        $css .= View::get(
+            "design/" . $type,
+            [
+                "model"    => $model,
+                "id"       => $id,
+                "selector" => $selector,
+            ]
+        );
+
+        if ($isUser === true) {
+            $css .= '</style></div>';
+        }
+
+        return $css;
     }
 }
