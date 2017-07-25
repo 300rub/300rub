@@ -57,37 +57,5 @@
     });
 </script>
 
-<style>
-    .block {
-        width: 10%;
-        border: 1px solid #ccc;
-        display: inline-block;
-        vertical-align: top;
-    }
-
-    .test {
-        background: #eee;
-        height: 100px;
-        transition: box-shadow .3s;
-    }
-
-    .test:hover {
-        box-shadow: 1px 1px 10px 10px rgba(0,0,0,0.3);
-    }
-</style>
-
-<div class="block">
-    <div class="test"></div>
-</div>
-<div class="block">
-    <div class="test"></div>
-</div>
-<div class="block">
-    <div class="test"></div>
-</div>
-<div class="block">
-    <div class="test"></div>
-</div>
-
 </body>
 </html>
