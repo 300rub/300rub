@@ -2,6 +2,7 @@
 
 namespace testS\tests\unit\models;
 
+use testS\models\AbstractModel;
 use testS\models\SectionModel;
 
 /**
@@ -340,5 +341,13 @@ class SectionModelTest extends AbstractModelTest
 
         $this->assertSame(true, $model->get("isMain"));
         $this->assertSame(false, $newModel->get("isMain"));
+    }
+
+    public function testSetStructureAndStatic()
+    {
+        $sectionModel = $this->getNewModel()->byId(1)->withRelations()->find();
+        var_dump(AbstractModel::getCss());
+        $sectionModel->setStructureAndStatic();
+        var_dump(AbstractModel::getCss());
     }
 }

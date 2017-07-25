@@ -2,7 +2,6 @@
 
 namespace testS\models;
 
-use testS\applications\App;
 use testS\components\Db;
 use testS\components\exceptions\CommonException;
 use testS\components\exceptions\ModelException;
@@ -47,6 +46,13 @@ abstract class AbstractModel
      * PK fields name
      */
     const PK_FIELD = "id";
+
+    /**
+     * CSS
+     *
+     * @var array
+     */
+    private static $_css = [];
 
     /**
      * Model fields
@@ -1523,15 +1529,24 @@ abstract class AbstractModel
     /**
      * Gets CSS
      *
+     * @return array
+     */
+    public static function getCss()
+    {
+        return self::$_css;
+    }
+
+    /**
+     * Adds CSS to collection
+     *
      * @param AbstractModel $model
      * @param string        $selector
-     * @param string        $childSelector
      *
      * @throws CommonException
      *
-     * @return string
+     * @return AbstractModel
      */
-    protected function getCssFromView($model, $selector, $childSelector = null)
+    protected function addCss(AbstractModel $model, $selector)
     {
         $type = null;
         if ($model instanceof DesignBlockModel) {
@@ -1549,37 +1564,23 @@ abstract class AbstractModel
             );
         }
 
-        if ($childSelector !== null) {
-            $id = sprintf(
-                "design-block-%s-%s-%s",
-                $blockId,
-                str_replace([".", " "], ["", "-"], $childSelector),
-                $type
-            );
-            $selector = sprintf(
-                ".block-%s %s",
-                $blockId,
-                $childSelector
-            );
-        } else {
-            $id = sprintf(
-                "design-block-%s-%s",
-                $blockId,
-                $type
-            );
-            $selector = sprintf(
-                ".block-%s",
-                $blockId
-            );
+        $id = sprintf(
+            "%s-%s",
+            str_replace([".", " "], ["", "-"], $selector),
+            $type
+        );
+
+        if (array_key_exists($id, self::$_css)) {
+            return $this;
         }
 
         $css = "";
-        $isUser = App::web()->getUser() !== null;
-
-        if ($isUser === true) {
-            $css .= sprintf('<div id="%s">', $id);
-            $css .= "<style>";
-        }
+//        $isUser = App::web()->getUser() !== null;
+//
+//        if ($isUser === true) {
+//            $css .= sprintf('<div id="%s">', $id);
+//            $css .= "<style>";
+//        }
 
         $css .= View::get(
             "design/" . $type,
@@ -1590,10 +1591,12 @@ abstract class AbstractModel
             ]
         );
 
-        if ($isUser === true) {
-            $css .= '</style></div>';
-        }
+//        if ($isUser === true) {
+//            $css .= '</style></div>';
+//        }
 
-        return $css;
+        self::$_css[$id] = $css;
+
+        return $this;
     }
 }

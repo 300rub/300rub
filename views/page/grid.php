@@ -1,8 +1,8 @@
 <?php if (!empty($structure["lines"])) { ?>
-	<div class="section-container-<?= 1 //TODO ?>">
+	<div class="section-<?= 1 //TODO ?>">
 		<?php foreach ($structure["lines"] as $lineNumber => $data) { ?>
-			<div class="line-container-<?= 1 //TODO ?>">
-				<div class="line-<?= 1 //TODO ?>">
+			<div class="line-<?= 1 //TODO ?>">
+				<div class="line-container">
 					<?php foreach ($data["grids"] as $gridContainer) { ?>
 
 						<div class="col-<?= $gridContainer["col"] ?> col-offset-<?= $gridContainer["offset"] ?>">

@@ -116,17 +116,6 @@ class UserSessionModel extends AbstractModel
     }
 
     /**
-     * Adds ORDER BY to SQL request
-     *
-     * @return UserSessionModel
-     */
-    public function ordered()
-    {
-        $this->getDb()->setOrder(sprintf("%s.lastActivity DESC", Db::DEFAULT_ALIAS));
-        return $this;
-    }
-
-    /**
      * Gets formatted last Activity
      *
      * @return string

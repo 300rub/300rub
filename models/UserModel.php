@@ -206,18 +206,6 @@ class UserModel extends AbstractModel
     }
 
     /**
-     * Adds order by condition to SQL request
-     *
-     * @return UserModel
-     */
-    public function ordered()
-    {
-        $this->getDb()->setOrder(sprintf("%s.name", Db::DEFAULT_ALIAS));
-
-        return $this;
-    }
-
-    /**
      * Gets operations by user ID
      *
      * @return array

@@ -64,4 +64,24 @@ class GridLineModel extends AbstractModel
 
         return $this;
     }
+
+    /**
+     * Sets CSS
+     *
+     * @return GridLineModel
+     */
+    public function setCss()
+    {
+        $this
+            ->addCss(
+                $this->get("outsideDesignModel"),
+                sprintf(".line-%s", $this->getId())
+            )
+            ->addCss(
+                $this->get("insideDesignModel"),
+                sprintf(".line-%s .line-container", $this->getId())
+            );
+
+        return $this;
+    }
 }

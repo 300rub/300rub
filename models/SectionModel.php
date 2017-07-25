@@ -9,6 +9,10 @@ use testS\components\ValueGenerator;
 /**
  * Model for working with table "sections"
  *
+ * @method SectionModel byId($id)
+ * @method SectionModel find()
+ * @method SectionModel withRelations()
+ *
  * @package testS\models
  */
 class SectionModel extends AbstractModel
@@ -18,20 +22,6 @@ class SectionModel extends AbstractModel
      * Default page with in px
      */
     const DEFAULT_WIDTH = 980;
-
-    /**
-     * CSS
-     *
-     * @var array
-     */
-    private $_css = [];
-
-    /**
-     * JS
-     *
-     * @var array
-     */
-    private $_js = [];
 
     /**
      * Structure
@@ -79,17 +69,6 @@ class SectionModel extends AbstractModel
     }
 
     /**
-     * Order by name
-     *
-     * @return SectionModel
-     */
-    public function ordered()
-    {
-        $this->getDb()->setOrder(sprintf("%s.name", "seoModel"));
-        return $this;
-    }
-
-    /**
      * Adds isMain = 1 condition to SQL request
      *
      * @param int $language
@@ -126,13 +105,19 @@ class SectionModel extends AbstractModel
         return $this->main($this->get("language"))->find() === null;
     }
 
-    private function getCss()
+    /**
+     * Sets section CSS
+     *
+     * @return SectionModel
+     */
+    public function setCss()
     {
-        $list = [];
+        $this->addCss(
+            $this->get("designBlockModel"),
+            sprintf(".section-%s", $this->getId())
+        );
 
-        $this->get("designBlockModel");
-
-        $this->getCssFromView()
+        return $this;
     }
 
     /**
@@ -146,20 +131,24 @@ class SectionModel extends AbstractModel
             return $this;
         }
 
-//        $gridLineIds = [];
-//        $gridLineModels = (new GridLineModel)
-//            ->withRelations()
-//            ->bySectionId($this->getId())
-//            ->ordered("sort")
-//            ->findAll();
-//
-//        if (!$gridLineModels) {
-//            return $this;
-//        }
-//
-//        foreach ($gridLineModels as $gridLineModel) {
-//            $gridLineIds[] = $gridLineModel->getId();
-//        }
+        $this->setCss();
+
+        $gridLineIds = [];
+        $gridLineModels = (new GridLineModel)
+            ->withRelations()
+            ->bySectionId($this->getId())
+            ->ordered("sort")
+            ->findAll();
+
+        if (!$gridLineModels) {
+            return $this;
+        }
+
+        foreach ($gridLineModels as $gridLineModel) {
+            $gridLineIds[] = $gridLineModel->getId();
+            $gridLineModel->setCss();
+        }
+
 //        $gridModels = (new GridModel)
 //            ->in("gridLineId", $gridLineIds)
 //            ->ordered(["y", "x"])

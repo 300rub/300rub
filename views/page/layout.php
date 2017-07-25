@@ -68,11 +68,11 @@
     .test {
         background: #eee;
         height: 100px;
-
+        transition: box-shadow .3s;
     }
 
     .test:hover {
-        box-shadow: 1px 1px 1px 1px rgba(0,0,0,0.3);
+        box-shadow: 1px 1px 10px 10px rgba(0,0,0,0.3);
     }
 </style>
 
@@ -80,13 +80,13 @@
     <div class="test"></div>
 </div>
 <div class="block">
-    1
+    <div class="test"></div>
 </div>
 <div class="block">
-    1
+    <div class="test"></div>
 </div>
 <div class="block">
-    1
+    <div class="test"></div>
 </div>
 
 </body>

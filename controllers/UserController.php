@@ -3,6 +3,7 @@
 namespace testS\controllers;
 
 use testS\applications\App;
+use testS\components\Db;
 use testS\components\exceptions\AccessException;
 use testS\components\exceptions\BadRequestException;
 use testS\components\exceptions\NotFoundException;
@@ -315,7 +316,7 @@ class UserController extends AbstractController
 
         $userSessionModels = (new UserSessionModel())
             ->byUserId($id)
-            ->ordered()
+            ->ordered("lastActivity", Db::DEFAULT_ALIAS, true)
             ->findAll();
 
         $list = [];
@@ -615,7 +616,7 @@ class UserController extends AbstractController
             ];
         }
 
-        $sections = (new SectionModel)->ordered()->withRelations()->findAll();
+        $sections = (new SectionModel)->ordered("name", "seoModel")->withRelations()->findAll();
         if (count($sections) > 0) {
             foreach ($sections as $section) {
                 $id = $section->getId();
