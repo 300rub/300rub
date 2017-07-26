@@ -260,4 +260,83 @@ class SectionModel extends AbstractModel
 //
 //        return $structure;
 //    }
+
+    private $_gridsCompactedByY = [];
+
+    private $_yPossibleBorders = [];
+
+    private $_sameBorders = [];
+
+    /**
+     * Sets array of grids compacted by Y
+     *
+     * @param GridModel[] $grids
+     *
+     * @return SectionModel
+     */
+    private function _setGridsCompactedByY($grids)
+    {
+        foreach ($grids as $grid) {
+            $this->_gridsCompactedByY[$grid->get("y")][] = $grid;
+        }
+
+        return $this;
+    }
+
+    private function _setSameBorders()
+    {
+        foreach ($this->_yPossibleBorders as $y => $borders) {
+            $nextKey = $y + 1;
+
+            if (!array_key_exists($nextKey, $this->_yPossibleBorders)) {
+                $this->_sameBorders[$y] = 0;
+                continue;
+            }
+
+            $same = array_intersect($borders, $this->_yPossibleBorders[$nextKey]);
+        }
+
+        return $this;
+    }
+
+    /**
+     * Sets possible borders for Y line
+     *
+     * @param GridModel[] $grids
+     *
+     * @return int[]
+     */
+    private function _setPossibleYBorders($grids)
+    {
+        $borders = [];
+        $currentY = 0;
+        $last = 0;
+
+        foreach ($grids as $grid) {
+            $y = $grid->get("y");
+            if ($y > $currentY) {
+                $currentY = $y;
+            }
+
+            $x = $grid->get("x");
+            $width = $grid->get("width");
+            $end = $x + $width;
+            $borders[$currentY][] = $x;
+            $borders[$currentY][] = $end;
+            
+            if ($x > $last) {
+                for ($i = $last; $i < $x; $i++) {
+                    $borders[$currentY][] = $i;
+                }
+            }
+            
+            $last = $end;
+        }
+
+        foreach ($borders as $y => $values) {
+            $this->_yPossibleBorders[$y] = array_diff(array_unique($values), [0, GridModel::GRID_SIZE]);
+        }
+
+        return $this;
+    }
 }
