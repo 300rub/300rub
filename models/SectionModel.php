@@ -66,7 +66,7 @@ class SectionModel extends AbstractModel
      *
      * @param int $language
      *
-     * @return UserModel
+     * @return SectionModel
      */
     public function main($language = null)
     {
@@ -142,143 +142,32 @@ class SectionModel extends AbstractModel
             $gridLineModel->setCss();
         }
 
-//        $gridModels = (new GridModel)
-//            ->in("gridLineId", $gridLineIds)
-//            ->ordered(["y", "x"])
-//            ->findAll();
-//        $lines = [];
-//
-//        foreach ($gridLineModels as $gridLineModel) {
-//            $grids = [];
-//
-//            foreach ($gridModels as $gridModel) {
-//                if ($gridModel->get("gridLineId") === $gridLineModel->getId()) {
-//                    $grids[] = $gridModel;
-//                }
-//            }
-//
-//            $lines[$gridLineModel->get("sort")] = [
-//                "line"  => $gridLineModel,
-//                "grids" => $grids
-//            ];
-//        }
-//
-//        foreach ($lines as $sort => $data) {
-//            $structure["lines"][$sort] = [
-//                "line"  => $data["line"],
-//                "grids" => $this->_getLineStructure($data["grids"])
-//            ];
-//        }
+        $gridModels = (new GridModel)
+            ->in("gridLineId", $gridLineIds)
+            ->ordered(["y", "x"])
+            ->findAll();
+
+        foreach ($gridLineModels as $gridLineModel) {
+            $lineGrids = [];
+
+            foreach ($gridModels as $gridModel) {
+                if ($gridModel->get("gridLineId") === $gridLineModel->getId()) {
+                    $lineGrids[] = $gridModel;
+                }
+            }
+
+            $this
+                ->_setYBlockLines($lineGrids)
+                ->_setPossibleYBorders($lineGrids);
+
+
+
+            $structure = $this->_getLineStructure();
+            var_dump($structure);
+        }
 
         return $this;
     }
-
-    /**
-     * Gets line structure
-     *
-     * @param GridModel[] $grids Grid models
-     *
-     * @return array
-     */
-//    private function _getLineStructure($grids)
-//    {
-//        $structure = [];
-//
-//        $doubleGrid = [];
-//        for ($i = 0; $i < GridModel::GRID_SIZE * 2; $i++) {
-//            $doubleGrid[$i] = 0;
-//        }
-//        foreach ($grids as $grid) {
-//            $x = $grid->get("x");
-//            for ($i = $x * 2; $i < ($x + $grid->get("width")) * 2 - 1; $i++) {
-//                $doubleGrid[$i] = 1;
-//            }
-//        }
-//
-//        $borders = [];
-//        $flag = 0;
-//        foreach ($doubleGrid as $x => $val) {
-//            if ($val != $flag) {
-//                $borders[] = $x;
-//                $flag = $val;
-//            }
-//        }
-//
-//        if (!$borders) {
-//            return $structure;
-//        }
-//
-//        for ($i = 0; $i < count($borders); $i = $i + 2) {
-//            if ($i) {
-//                $offset = ($borders[$i] - $borders[$i - 1] - 1) / 2;
-//            } else {
-//                $offset = $borders[$i] / 2;
-//            }
-//
-//            $gridsList = [];
-//            $right = 0;
-//            $prevY = 0;
-//            foreach ($grids as $grid) {
-//                $x = $grid->get("x");
-//                $y = $grid->get("y");
-//                $width = $grid->get("width");
-//
-//                if (
-//                    $x >= $borders[$i] / 2
-//                    && $x < $borders[$i + 1] / 2
-//                    && $width <= ($borders[$i + 1] - $borders[$i] + 1) / 2
-//                ) {
-//                    if ($y > $prevY) {
-//                        $right = 0;
-//                    }
-//                    $gridsList[] = [
-//                        "model"  => $grid->getContentModel(),
-//                        "view"   => $grid->getContentView(),
-//                        "class"  => $grid->getBlockClass(),
-//                        "col"    => $width,
-//                        "y"      => $y,
-//                        "offset" => $x - $borders[$i] / 2 - $right,
-//                    ];
-//                    $prevY = $y;
-//                    $right = $x - $borders[$i] / 2 + $width;
-//                }
-//            }
-//
-//            $structure[] = [
-//                "col"    => ($borders[$i + 1] - $borders[$i] + 1) / 2,
-//                "offset" => $offset,
-//                "grids"  => $gridsList,
-//            ];
-//        }
-//
-//        return $structure;
-//    }
-
-//    private $_gridsCompactedByY = [];
-//
-
-//
-//    private $_sameBorders = [];
-
-
-
-//    private function _setSameBorders()
-//    {
-//        foreach ($this->_yPossibleBorders as $y => $borders) {
-//            $nextKey = $y + 1;
-//
-//            if (!array_key_exists($nextKey, $this->_yPossibleBorders)) {
-//                $this->_sameBorders[$y] = 0;
-//                continue;
-//            }
-//
-//            $same = array_intersect($borders, $this->_yPossibleBorders[$nextKey]);
-//        }
-//
-//        return $this;
-//    }
-
-
 
     protected $_yBlockLines = [];
 
@@ -305,7 +194,7 @@ class SectionModel extends AbstractModel
      *
      * @param GridModel[] $grids
      *
-     * @return int[]
+     * @return SectionModel
      */
     private function _setPossibleYBorders($grids)
     {
@@ -335,13 +224,22 @@ class SectionModel extends AbstractModel
         }
 
         foreach ($borders as $y => $values) {
-            $this->_yPossibleBorders[$y] = array_unique($values);
+            $values = array_unique($values);
+            sort($values);
+
+            $last = $values[count($values) - 1];
+
+            if ($last < GridModel::GRID_SIZE) {
+                for ($i = $last + 1; $i <= GridModel::GRID_SIZE; $i++) {
+                    $values[] = $i;
+                }
+            }
+
+            $this->_yPossibleBorders[$y] = $values;
         }
 
         return $this;
     }
-
-    private $_structure = [];
 
     private function _getLineStructure($top = 0, $bottom = 999, $left = 0, $right = GridModel::GRID_SIZE)
     {
@@ -350,7 +248,7 @@ class SectionModel extends AbstractModel
 
         $bordersInfo = $this->_getSameBordersInfo($top, $bottom, $left, $right);
         foreach ($bordersInfo as $count => $countData) {
-            foreach ($bordersInfo as $data) {
+            foreach ($countData as $data) {
                 $y = $data["y"];
 
                 if (in_array($y, $usedYLines)) {
@@ -399,9 +297,17 @@ class SectionModel extends AbstractModel
                     ];
                 }
 
+                if (count($containers) === 1) {
+                    // @TODO blocks
+                } else {
+                    // @TODO recursion
+                }
+
                 $structure[$y] = $containers;
             }
         }
+
+        ksort($structure);
 
         return $structure;
     }
@@ -442,6 +348,9 @@ class SectionModel extends AbstractModel
                 $possibleBorders = $checkSame;
                 $count++;
             }
+
+            $borders = array_unique($borders);
+            sort($borders);
 
             $info[$count][] = [
                 "y"       => $y,

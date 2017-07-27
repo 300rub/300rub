@@ -346,8 +346,8 @@ class SectionModelTest extends AbstractModelTest
     public function testSetStructureAndStatic()
     {
         $sectionModel = $this->getNewModel()->byId(1)->withRelations()->find();
-        var_dump(AbstractModel::getCss());
+       // var_dump(AbstractModel::getCss());
         $sectionModel->setStructureAndStatic();
-        var_dump(AbstractModel::getCss());
+       // var_dump(AbstractModel::getCss());
     }
 }
