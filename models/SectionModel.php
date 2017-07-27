@@ -24,13 +24,6 @@ class SectionModel extends AbstractModel
     const DEFAULT_WIDTH = 980;
 
     /**
-     * Structure
-     *
-     * @var array
-     */
-    private $_structure = [];
-
-    /**
      * Gets table name
      *
      * @return string
@@ -261,11 +254,33 @@ class SectionModel extends AbstractModel
 //        return $structure;
 //    }
 
-    private $_gridsCompactedByY = [];
+//    private $_gridsCompactedByY = [];
+//
 
-    private $_yPossibleBorders = [];
+//
+//    private $_sameBorders = [];
 
-    private $_sameBorders = [];
+
+
+//    private function _setSameBorders()
+//    {
+//        foreach ($this->_yPossibleBorders as $y => $borders) {
+//            $nextKey = $y + 1;
+//
+//            if (!array_key_exists($nextKey, $this->_yPossibleBorders)) {
+//                $this->_sameBorders[$y] = 0;
+//                continue;
+//            }
+//
+//            $same = array_intersect($borders, $this->_yPossibleBorders[$nextKey]);
+//        }
+//
+//        return $this;
+//    }
+
+
+
+    protected $_yBlockLines = [];
 
     /**
      * Sets array of grids compacted by Y
@@ -274,30 +289,16 @@ class SectionModel extends AbstractModel
      *
      * @return SectionModel
      */
-    private function _setGridsCompactedByY($grids)
+    private function _setYBlockLines($grids)
     {
         foreach ($grids as $grid) {
-            $this->_gridsCompactedByY[$grid->get("y")][] = $grid;
+            $this->_yBlockLines[$grid->get("y")][] = $grid;
         }
 
         return $this;
     }
 
-    private function _setSameBorders()
-    {
-        foreach ($this->_yPossibleBorders as $y => $borders) {
-            $nextKey = $y + 1;
-
-            if (!array_key_exists($nextKey, $this->_yPossibleBorders)) {
-                $this->_sameBorders[$y] = 0;
-                continue;
-            }
-
-            $same = array_intersect($borders, $this->_yPossibleBorders[$nextKey]);
-        }
-
-        return $this;
-    }
+    private $_yPossibleBorders = [];
 
     /**
      * Sets possible borders for Y line
@@ -323,20 +324,148 @@ class SectionModel extends AbstractModel
             $end = $x + $width;
             $borders[$currentY][] = $x;
             $borders[$currentY][] = $end;
-            
+
             if ($x > $last) {
                 for ($i = $last; $i < $x; $i++) {
                     $borders[$currentY][] = $i;
                 }
             }
-            
+
             $last = $end;
         }
 
         foreach ($borders as $y => $values) {
-            $this->_yPossibleBorders[$y] = array_diff(array_unique($values), [0, GridModel::GRID_SIZE]);
+            $this->_yPossibleBorders[$y] = array_unique($values);
         }
 
         return $this;
+    }
+
+    private $_structure = [];
+
+    private function _getLineStructure($top = 0, $bottom = 999, $left = 0, $right = GridModel::GRID_SIZE)
+    {
+        $usedYLines = [];
+        $structure = [];
+
+        $bordersInfo = $this->_getSameBordersInfo($top, $bottom, $left, $right);
+        foreach ($bordersInfo as $count => $countData) {
+            foreach ($bordersInfo as $data) {
+                $y = $data["y"];
+
+                if (in_array($y, $usedYLines)) {
+                    continue;
+                }
+
+                $currentLines = [];
+                $yLast = $y + $count - 1;
+                for ($i = $y; $i <= $yLast; $i++) {
+                    $currentLines[] = $i;
+                }
+                $usedYLines = array_merge($usedYLines, $currentLines);
+
+                $possibleBorders = $data["borders"];
+
+                /**
+                 * @var BlockModel[] $blocks
+                 */
+                $borders = [];
+                foreach ($possibleBorders as $possibleBorder) {
+                    foreach ($this->_yBlockLines as $blockLineY => $blocks) {
+                        if (!in_array($blockLineY, $currentLines)
+                            || in_array($possibleBorder, $borders)
+                        ) {
+                            continue;
+                        }
+
+                        foreach ($blocks as $block) {
+                            $blockX = $block->get("x");
+                            $blockWidth = $block->get("width");
+                            if ($blockX === $possibleBorder
+                                || $blockX + $blockWidth === $possibleBorder
+                            ) {
+                                $borders[] = $possibleBorder;
+                            }
+                        }
+                    }
+                }
+
+                $containers = [];
+                sort($borders);
+                for ($i = 0; $i < count($borders) - 1; $i++) {
+                    $containers[] = [
+                        "x"     => $borders[$i],
+                        "width" => $borders[$i + 1] - $borders[$i],
+                    ];
+                }
+
+                $structure[$y] = $containers;
+            }
+        }
+
+        return $structure;
+    }
+
+    private function _getSameBordersInfo($top, $bottom, $left, $right)
+    {
+        $info = [];
+
+        $yList = array_keys($this->_yBlockLines);
+        foreach ($yList as $y) {
+            if ($y < $top
+                || $y > $bottom
+            ) {
+                continue;
+            }
+
+            $possibleBorders = $this->_getPossibleBordersFromTo($y, $left, $right);
+            if (count($possibleBorders) === 0) {
+                continue;
+            }
+
+            $length = count($yList);
+            if ($y === $length - 1) {
+                break;
+            }
+
+            $borders = [0, GridModel::GRID_SIZE];
+            $count = 1;
+            for ($i = $y + 1; $i < $length; $i++) {
+                $nextPossibleBorders = $this->_getPossibleBordersFromTo($i, $left, $right);
+                $checkSame = array_intersect($possibleBorders, $nextPossibleBorders);
+
+                if (count($checkSame) === 2) {
+                    break;
+                }
+
+                $borders = $checkSame;
+                $possibleBorders = $checkSame;
+                $count++;
+            }
+
+            $info[$count][] = [
+                "y"       => $y,
+                "borders" => $borders
+            ];
+        }
+
+        krsort($info);
+
+        return $info;
+    }
+
+    private function _getPossibleBordersFromTo($y, $left, $right)
+    {
+        $possibleBorders = [];
+
+        foreach ($this->_yPossibleBorders[$y] as $border) {
+            if ($border >= $left
+                && $border <= $right
+            ) {
+                $possibleBorders[] = $border;
+            }
+        }
+
+        return $possibleBorders;
     }
 }
