@@ -2,7 +2,6 @@
 
 namespace testS\tests\unit\models;
 
-use testS\models\AbstractModel;
 use testS\models\SectionModel;
 
 /**

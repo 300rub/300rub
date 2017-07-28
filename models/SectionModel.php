@@ -24,6 +24,20 @@ class SectionModel extends AbstractModel
     const DEFAULT_WIDTH = 980;
 
     /**
+     * Array of y => blocks
+     *
+     * @var array
+     */
+    private $_yBlockLines = [];
+
+    /**
+     * Array of possible borders
+     *
+     * @var array
+     */
+    private $_yPossibleBorders = [];
+
+    /**
      * Gets table name
      *
      * @return string
@@ -160,16 +174,12 @@ class SectionModel extends AbstractModel
                 ->_setYBlockLines($lineGrids)
                 ->_setPossibleYBorders($lineGrids);
 
-
-
             $structure = $this->_getLineStructure();
-            var_dump($structure);
+            //var_dump($structure);
         }
 
         return $this;
     }
-
-    protected $_yBlockLines = [];
 
     /**
      * Sets array of grids compacted by Y
@@ -186,8 +196,6 @@ class SectionModel extends AbstractModel
 
         return $this;
     }
-
-    private $_yPossibleBorders = [];
 
     /**
      * Sets possible borders for Y line
@@ -241,6 +249,16 @@ class SectionModel extends AbstractModel
         return $this;
     }
 
+    /**
+     * Gets line structure
+     *
+     * @param int $top
+     * @param int $bottom
+     * @param int $left
+     * @param int $right
+     *
+     * @return array
+     */
     private function _getLineStructure($top = 0, $bottom = 999, $left = 0, $right = GridModel::GRID_SIZE)
     {
         $usedYLines = [];
@@ -292,15 +310,29 @@ class SectionModel extends AbstractModel
                 sort($borders);
                 for ($i = 0; $i < count($borders) - 1; $i++) {
                     $containers[] = [
+                        "type"  => "container",
                         "x"     => $borders[$i],
                         "width" => $borders[$i + 1] - $borders[$i],
                     ];
                 }
 
                 if (count($containers) === 1) {
-                    // @TODO blocks
+                    $left = $containers[0]["x"];
+                    $right = $containers[0]["x"] + $containers[0]["width"];
+                    $containerBlocks = $this->_getContainerBlocks($y, $yLast, $left, $right);
+                    $containers[0]["data"] = count($containerBlocks);
                 } else {
-                    // @TODO recursion
+                    foreach ($containers as &$container) {
+                        $left = $container["x"];
+                        $right = $container["x"] + $container["width"];
+                        $data = $this->_getLineStructure($y, $yLast, $left, $right);
+                        $container["data"] = $data;
+                        var_dump($y);
+                        var_dump($yLast);
+                        var_dump($left);
+                        var_dump($right);
+                        var_dump($data);
+                    }
                 }
 
                 $structure[$y] = $containers;
@@ -312,6 +344,49 @@ class SectionModel extends AbstractModel
         return $structure;
     }
 
+    private function _getContainerBlocks($top, $bottom, $left, $right)
+    {
+        $filteredBlocks = [];
+
+        /**
+         * @var BlockModel[] $blocks
+         */
+        foreach ($this->_yBlockLines as $y => $blocks) {
+            if ($y < $top
+                || $y > $bottom
+            ) {
+                continue;
+            }
+
+            foreach ($blocks as $block) {
+                $x = $block->get("x");
+                $width = $block->get("width");
+                if ($x >= $left
+                    && $x + $width <= $right
+                ) {
+                    $filteredBlocks[] = [
+                        "type"  => "block",
+                        "id"    => $block->getId(),
+                        "x"     => $x,
+                        "width" => $width,
+                    ];
+                }
+            }
+        }
+
+        return $filteredBlocks;
+    }
+
+    /**
+     * Gets the same borders
+     *
+     * @param int $top
+     * @param int $bottom
+     * @param int $left
+     * @param int $right
+     *
+     * @return array
+     */
     private function _getSameBordersInfo($top, $bottom, $left, $right)
     {
         $info = [];
@@ -363,6 +438,15 @@ class SectionModel extends AbstractModel
         return $info;
     }
 
+    /**
+     * Gets possible borders
+     *
+     * @param int $y
+     * @param int $left
+     * @param int $right
+     *
+     * @return int[]
+     */
     private function _getPossibleBordersFromTo($y, $left, $right)
     {
         $possibleBorders = [];
