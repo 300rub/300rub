@@ -406,8 +406,9 @@ class SectionModel extends AbstractModel
                         "type"  => "block",
                         "id"    => $grid->get("blockId"),
                         "x"     => $x,
+                        "y"     => $y,
                         "width" => $width,
-                        "html"  => "blocks html"
+                        "html"  => "&nbsp;"
                     ];
                 }
             }

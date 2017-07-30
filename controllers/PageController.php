@@ -40,6 +40,7 @@ class PageController extends AbstractController
         ],
         "less" => [
             "default",
+            "grid",
             "form",
             "window"
         ]
