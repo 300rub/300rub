@@ -24,11 +24,11 @@ class SectionModel extends AbstractModel
     const DEFAULT_WIDTH = 980;
 
     /**
-     * Array of y => blocks
+     * Array of y => grids
      *
      * @var array
      */
-    private $_yBlockLines = [];
+    private $_yGrids = [];
 
     /**
      * Array of possible borders
@@ -36,6 +36,13 @@ class SectionModel extends AbstractModel
      * @var array
      */
     private $_yPossibleBorders = [];
+
+    /**
+     * Stricture
+     *
+     * @var array
+     */
+    private $_structure = [];
 
     /**
      * Gets table name
@@ -171,14 +178,23 @@ class SectionModel extends AbstractModel
             }
 
             $this
-                ->_setYBlockLines($lineGrids)
+                ->_setyGrids($lineGrids)
                 ->_setPossibleYBorders($lineGrids);
 
-            $structure = $this->_getLineStructure();
-            //var_dump($structure);
+            $this->_structure[$gridLineModel->getId()] = $this->_getLineStructure();
         }
 
         return $this;
+    }
+
+    /**
+     * Gets structure
+     *
+     * @return array
+     */
+    public function getStructure()
+    {
+        return $this->_structure;
     }
 
     /**
@@ -188,10 +204,10 @@ class SectionModel extends AbstractModel
      *
      * @return SectionModel
      */
-    private function _setYBlockLines($grids)
+    private function _setyGrids($grids)
     {
         foreach ($grids as $grid) {
-            $this->_yBlockLines[$grid->get("y")][] = $grid;
+            $this->_yGrids[$grid->get("y")][] = $grid;
         }
 
         return $this;
@@ -283,22 +299,22 @@ class SectionModel extends AbstractModel
                 $possibleBorders = $data["borders"];
 
                 /**
-                 * @var BlockModel[] $blocks
+                 * @var GridModel[] $grids
                  */
                 $borders = [];
                 foreach ($possibleBorders as $possibleBorder) {
-                    foreach ($this->_yBlockLines as $blockLineY => $blocks) {
-                        if (!in_array($blockLineY, $currentLines)
+                    foreach ($this->_yGrids as $gridY => $grids) {
+                        if (!in_array($gridY, $currentLines)
                             || in_array($possibleBorder, $borders)
                         ) {
                             continue;
                         }
 
-                        foreach ($blocks as $block) {
-                            $blockX = $block->get("x");
-                            $blockWidth = $block->get("width");
-                            if ($blockX === $possibleBorder
-                                || $blockX + $blockWidth === $possibleBorder
+                        foreach ($grids as $grid) {
+                            $gridX = $grid->get("x");
+                            $gridWidth = $grid->get("width");
+                            if ($gridX === $possibleBorder
+                                || $gridX + $gridWidth === $possibleBorder
                             ) {
                                 $borders[] = $possibleBorder;
                             }
@@ -306,36 +322,48 @@ class SectionModel extends AbstractModel
                     }
                 }
 
-                $containers = [];
+                $structureData = [];
                 sort($borders);
                 for ($i = 0; $i < count($borders) - 1; $i++) {
-                    $containers[] = [
-                        "type"  => "container",
-                        "x"     => $borders[$i],
-                        "width" => $borders[$i + 1] - $borders[$i],
-                    ];
-                }
+                    $x = $borders[$i];
+                    $width = $borders[$i + 1] - $x;
 
-                if (count($containers) === 1) {
-                    $left = $containers[0]["x"];
-                    $right = $containers[0]["x"] + $containers[0]["width"];
-                    $containerBlocks = $this->_getContainerBlocks($y, $yLast, $left, $right);
-                    $containers[0]["data"] = count($containerBlocks);
-                } else {
-                    foreach ($containers as &$container) {
-                        $left = $container["x"];
-                        $right = $container["x"] + $container["width"];
-                        $data = $this->_getLineStructure($y, $yLast, $left, $right);
-                        $container["data"] = $data;
-                        var_dump($y);
-                        var_dump($yLast);
-                        var_dump($left);
-                        var_dump($right);
-                        var_dump($data);
+                    if ($width > 0) {
+                        $structureData[] = [
+                            "type"  => "container",
+                            "x"     => $x,
+                            "width" => $width,
+                        ];
                     }
                 }
 
-                $structure[$y] = $containers;
+                if (count($structureData) === 1) {
+                    $left = $structureData[0]["x"];
+                    $right = $structureData[0]["x"] + $structureData[0]["width"];
+                    $containerGrids = $this->_getContainerBlocks($y, $yLast, $left, $right);
+
+                    if (count($containerGrids) > 0) {
+                        $structureData = $containerGrids;
+                    } else {
+                        continue;
+                    }
+                } else {
+                    foreach ($structureData as $key => &$container) {
+                        $left = $container["x"];
+                        $right = $container["x"] + $container["width"];
+                        $data = $this->_getLineStructure($y, $yLast, $left, $right);
+
+                        if (count($data) === 0) {
+                            unset($structureData[$key]);
+                        } else {
+                            $container["data"] = $data;
+                        }
+                    }
+                }
+
+                if (count($structureData) > 0) {
+                    $structure[$y] = $structureData;
+                }
             }
         }
 
@@ -344,37 +372,48 @@ class SectionModel extends AbstractModel
         return $structure;
     }
 
+    /**
+     * Gets blocks from container
+     *
+     * @param int $top
+     * @param int $bottom
+     * @param int $left
+     * @param int $right
+     *
+     * @return array
+     */
     private function _getContainerBlocks($top, $bottom, $left, $right)
     {
-        $filteredBlocks = [];
+        $blocks = [];
 
         /**
-         * @var BlockModel[] $blocks
+         * @var GridModel[] $grids
          */
-        foreach ($this->_yBlockLines as $y => $blocks) {
+        foreach ($this->_yGrids as $y => $grids) {
             if ($y < $top
                 || $y > $bottom
             ) {
                 continue;
             }
 
-            foreach ($blocks as $block) {
-                $x = $block->get("x");
-                $width = $block->get("width");
+            foreach ($grids as $grid) {
+                $x = $grid->get("x");
+                $width = $grid->get("width");
                 if ($x >= $left
                     && $x + $width <= $right
                 ) {
-                    $filteredBlocks[] = [
+                    $blocks[] = [
                         "type"  => "block",
-                        "id"    => $block->getId(),
+                        "id"    => $grid->get("blockId"),
                         "x"     => $x,
                         "width" => $width,
+                        "html"  => "blocks html"
                     ];
                 }
             }
         }
 
-        return $filteredBlocks;
+        return $blocks;
     }
 
     /**
@@ -391,7 +430,8 @@ class SectionModel extends AbstractModel
     {
         $info = [];
 
-        $yList = array_keys($this->_yBlockLines);
+        $yList = array_keys($this->_yGrids);
+
         foreach ($yList as $y) {
             if ($y < $top
                 || $y > $bottom
@@ -404,18 +444,21 @@ class SectionModel extends AbstractModel
                 continue;
             }
 
-            $length = count($yList);
-            if ($y === $length - 1) {
+            if ($y >= $bottom) {
+                $info[1][] = [
+                    "y"       => $bottom,
+                    "borders" => [$left, $right]
+                ];
                 break;
             }
 
-            $borders = [0, GridModel::GRID_SIZE];
+            $borders = [$left, $right];
             $count = 1;
-            for ($i = $y + 1; $i < $length; $i++) {
+            for ($i = $y + 1; $i < $bottom; $i++) {
                 $nextPossibleBorders = $this->_getPossibleBordersFromTo($i, $left, $right);
                 $checkSame = array_intersect($possibleBorders, $nextPossibleBorders);
 
-                if (count($checkSame) === 2) {
+                if (count($checkSame) <= 2) {
                     break;
                 }
 
@@ -433,7 +476,20 @@ class SectionModel extends AbstractModel
             ];
         }
 
-        krsort($info);
+        if (count($info) === 1
+            && array_key_exists(1, $info)
+        ) {
+            return [
+                $bottom - $top + 1 => [
+                    0 => [
+                        "y"       => $top,
+                        "borders" => [$left, $right]
+                    ]
+                ]
+            ];
+        } else {
+            krsort($info);
+        }
 
         return $info;
     }
@@ -450,6 +506,10 @@ class SectionModel extends AbstractModel
     private function _getPossibleBordersFromTo($y, $left, $right)
     {
         $possibleBorders = [];
+
+        if (!array_key_exists($y, $this->_yPossibleBorders)) {
+            return [];
+        }
 
         foreach ($this->_yPossibleBorders[$y] as $border) {
             if ($border >= $left

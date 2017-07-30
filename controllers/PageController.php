@@ -5,6 +5,7 @@ namespace testS\controllers;
 use testS\applications\App;
 use testS\components\Language;
 use testS\components\Validator;
+use testS\models\SectionModel;
 use testS\models\SeoModel;
 
 /**
@@ -161,7 +162,29 @@ class PageController extends AbstractController
         SeoModel::setKeywords("keywords");
         SeoModel::setDescription("description");
 
-        return "";
+        $sectionModel = (new SectionModel())->byId(1)->withRelations()->find();
+        $sectionModel->setStructureAndStatic();
+
+        $structure = $sectionModel->getStructure();
+
+        $lineHtml = "";
+        foreach ($structure as $line => $lineStructure) {
+            $lineHtml .= $this->getContentFromTemplate(
+                "page/line",
+                [
+                    "id"        => $line,
+                    "structure" => $lineStructure
+                ]
+            );
+        }
+
+        return $this->getContentFromTemplate(
+            "page/section",
+            [
+                "id"      => $sectionModel->getId(),
+                "content" => $lineHtml
+            ]
+        );
     }
 
     /**
