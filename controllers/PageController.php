@@ -5,6 +5,7 @@ namespace testS\controllers;
 use testS\applications\App;
 use testS\components\Language;
 use testS\components\Validator;
+use testS\models\AbstractContentModel;
 use testS\models\SectionModel;
 use testS\models\SeoModel;
 
@@ -124,8 +125,9 @@ class PageController extends AbstractController
     public function getPage()
     {
         $content = $this->_getCommonContent();
+        $isUser = $this->isUser();
 
-        if ($this->isUser()) {
+        if ($isUser) {
             $token = App::web()->getUser()->getToken();
             $layoutData = array_merge_recursive(self::$_commonDevStaticMap, self::$_userDevStaticMap);
             $templatesMap = array_merge(self::$_commonTemplatesMap, self::$_userTemplatesMap);
@@ -148,6 +150,8 @@ class PageController extends AbstractController
         $layoutData["language"] = Language::getActiveId();
         $layoutData["errorMessages"] = Validator::getErrorMessages();
         $layoutData["token"] = $token;
+        $layoutData["isUser"] = $isUser;
+        $layoutData["generatedCss"] = AbstractContentModel::getCss();
 
         return $this->getContentFromTemplate("page/layout", $layoutData);
     }

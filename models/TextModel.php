@@ -2,15 +2,17 @@
 
 namespace testS\models;
 
+use testS\components\exceptions\ModelException;
 use testS\components\Language;
 use testS\components\ValueGenerator;
+use testS\components\View;
 
 /**
  * Model for working with table "texts"
  *
  * @package testS\models
  */
-class TextModel extends AbstractModel
+class TextModel extends AbstractBlockModel
 {
 
     /**
@@ -88,5 +90,60 @@ class TextModel extends AbstractModel
             ]);
             $newTextInstanceModel->save();
         }
+    }
+
+    /**
+     * Sets CSS
+     *
+     * @param int $id
+     *
+     * @return TextModel
+     */
+    public function setCss($id = null)
+    {
+        if ($this->get("hasEditor") === false) {
+            $this->addCss(
+                $this->get("designTextModel"),
+                sprintf(".block-%s", $id)
+            );
+        }
+
+        $this->addCss(
+            $this->get("designBlockModel"),
+            sprintf(".block-%s", $id)
+        );
+
+        return $this;
+    }
+
+    /**
+     * Gets HTML
+     *
+     * @param array $options
+     *
+     * @return AbstractContentModel
+     *
+     * @throws ModelException
+     */
+    public function getHtml($options = [])
+    {
+        $this->setCss($options["blockId"]);
+
+        $textInstanceModel = (new TextInstanceModel())->byTextId($this->getId())->find();
+        if ($textInstanceModel === null) {
+            throw new ModelException(
+                "Unable to find TextInstanceModel by textId: {id}",
+                [
+                    "id" => $this->getId()
+                ]
+            );
+        }
+
+        return View::get(
+            "content/text",
+            [
+                "text" => $textInstanceModel->get("text"),
+            ]
+        );
     }
 }

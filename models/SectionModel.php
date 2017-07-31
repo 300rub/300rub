@@ -15,7 +15,7 @@ use testS\components\ValueGenerator;
  *
  * @package testS\models
  */
-class SectionModel extends AbstractModel
+class SectionModel extends AbstractContentModel
 {
 
     /**
@@ -43,6 +43,13 @@ class SectionModel extends AbstractModel
      * @var array
      */
     private $_structure = [];
+
+    /**
+     * Block content models
+     *
+     * @var array
+     */
+    private $_blockContentModels = [];
 
     /**
      * Gets table name
@@ -122,9 +129,11 @@ class SectionModel extends AbstractModel
     /**
      * Sets section CSS
      *
+     * @param int $id
+     *
      * @return SectionModel
      */
-    public function setCss()
+    public function setCss($id = null)
     {
         $this->addCss(
             $this->get("designBlockModel"),
@@ -405,13 +414,28 @@ class SectionModel extends AbstractModel
                 if ($x >= $left
                     && $x + $width <= $right
                 ) {
+                    $blockId = $grid->get("blockId");
+
+                    /**
+                     * @var AbstractBlockModel $contentModel
+                     */
+                    if (array_key_exists($blockId, $this->_blockContentModels)) {
+                        $contentModel = $this->_blockContentModels[$blockId];
+                    } else {
+                        $blockModel = (new BlockModel())->byId($blockId)->find();
+                        $contentModel = $blockModel->getContentModel(true);
+                        $this->_blockContentModels[$blockId] = $contentModel;
+                    }
+
                     $blocks[] = [
                         "type"  => "block",
                         "id"    => $grid->get("blockId"),
                         "y"     => $y,
                         "left"  => 100 / $containerWidth * ($x - $left),
                         "width" => $width,
-                        "html"  => "&nbsp;"
+                        "html"  => $contentModel->getHtml([
+                            "blockId" => $blockId
+                        ])
                     ];
                 }
             }

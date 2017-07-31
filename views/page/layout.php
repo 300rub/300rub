@@ -10,6 +10,8 @@
  * @var int      $language
  * @var array    $errorMessages
  * @var string   $token
+ * @var bool     $isUser
+ * @var array    $generatedCss
  */
 ?>
 
@@ -20,13 +22,21 @@
     <title><?= $title ?></title>
     <meta name="keywords" content="<?= $keywords ?>"/>
     <meta name="description" content="<?= $description ?>"/>
-   <?php if (isset($css)) { foreach ($css as $fileName) { ?>
+    <?php if (isset($css)) { foreach ($css as $fileName) { ?>
         <link rel="stylesheet" type="text/css" href="/css/<?= $fileName ?>.css" />
     <?php } } ?>
 
     <?php if (isset($less)) { foreach ($less as $fileName) { ?>
         <link rel="stylesheet/less" type="text/css" href="/less/<?= $fileName ?>.less" />
     <?php } } ?>
+
+    <style><?php
+        if ($isUser === false) {
+            foreach ($generatedCss as $gCss) {
+                echo $gCss;
+            }
+        }
+    ?></style>
 
     <?php if (isset($js)) { foreach ($js as $fileName) { ?>
         <script src="/js/<?= $fileName ?>.js"></script>
@@ -42,6 +52,15 @@
     <?php } ?>
 </head>
 <body>
+
+<?php
+if ($isUser === true) {
+    foreach ($generatedCss as $id => $gCss) {
+        $styleMask = "<style>%s</style>";
+        echo sprintf('<div id="%s">' . $styleMask . '</div>', $id, $gCss);
+    }
+}
+?>
 
 <?= $content; ?>
 

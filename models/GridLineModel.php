@@ -11,7 +11,7 @@ namespace testS\models;
  *
  * @package testS\models
  */
-class GridLineModel extends AbstractModel
+class GridLineModel extends AbstractContentModel
 {
 
     /**
@@ -68,9 +68,11 @@ class GridLineModel extends AbstractModel
     /**
      * Sets CSS
      *
+     * @param int $id
+     *
      * @return GridLineModel
      */
-    public function setCss()
+    public function setCss($id = null)
     {
         $this
             ->addCss(
