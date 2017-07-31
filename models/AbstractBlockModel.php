@@ -2,8 +2,8 @@
 
 namespace testS\models;
 
-use testS\components\exceptions\CommonException;
-use testS\components\View;
+use testS\applications\App;
+use testS\components\exceptions\NotFoundException;
 
 /**
  * Abstract class for working with block models
