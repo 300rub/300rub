@@ -1622,27 +1622,13 @@ class UserControllerTest extends AbstractControllerTest
                     "login"            => "newLogin",
                     "password"         => $password1,
                     "passwordConfirm"  => $password1,
-                    "email"            => "newEmail@email.com",
-                    "isChangePassword" => true,
-                    "operations"       => []
-                ],
-                true
-            ],
-            7  => [
-                self::TYPE_FULL,
-                [
-                    "id"               => "new",
-                    "name"             => "Name",
-                    "login"            => "newLogin",
-                    "password"         => $password1,
-                    "passwordConfirm"  => $password1,
                     "type"             => UserModel::TYPE_LIMITED,
                     "isChangePassword" => true,
                     "operations"       => []
                 ],
                 true
             ],
-            8  => [
+            7  => [
                 self::TYPE_FULL,
                 [
                     "id"              => "new",
@@ -1656,21 +1642,7 @@ class UserControllerTest extends AbstractControllerTest
                 ],
                 true
             ],
-            9  => [
-                self::TYPE_FULL,
-                [
-                    "id"               => "new",
-                    "name"             => "Name",
-                    "login"            => "newLogin",
-                    "password"         => $password1,
-                    "passwordConfirm"  => $password1,
-                    "type"             => UserModel::TYPE_LIMITED,
-                    "email"            => "newEmail@email.com",
-                    "isChangePassword" => true,
-                ],
-                true
-            ],
-            10 => [
+            8 => [
                 self::TYPE_FULL,
                 [
                     "id"               => "new",
@@ -1690,7 +1662,7 @@ class UserControllerTest extends AbstractControllerTest
                     ]
                 ]
             ],
-            11 => [
+            9 => [
                 self::TYPE_FULL,
                 [
                     "id"               => "new",
@@ -1711,7 +1683,7 @@ class UserControllerTest extends AbstractControllerTest
                     ]
                 ]
             ],
-            12 => [
+            10 => [
                 self::TYPE_FULL,
                 [
                     "id"               => "new",
@@ -1726,7 +1698,7 @@ class UserControllerTest extends AbstractControllerTest
                 [],
                 true,
             ],
-            13 => [
+            11 => [
                 self::TYPE_FULL,
                 [
                     "id"               => "new",
@@ -1739,7 +1711,7 @@ class UserControllerTest extends AbstractControllerTest
                 ],
                 true
             ],
-            14 => [
+            12 => [
                 self::TYPE_FULL,
                 [
                     "id"               => "new",

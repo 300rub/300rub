@@ -32,10 +32,10 @@ function buildStructureHtml($structure)
                     }
 
 					$html .= sprintf(
-						'<div class="grid left-%s width-%s block-%s" style="background: #%s%s%s;">%s</div>',
-						$item["x"],
+						'<div class="grid width-%s block-%s" style="margin-left: %s%%; background: #%s%s%s;">%s</div>',
 						$item["width"],
 						$item["id"],
+						$item["left"],
                         rand(10, 99),
                         rand(10, 99),
                         rand(10, 99),
@@ -45,9 +45,9 @@ function buildStructureHtml($structure)
 					break;
 				case "container":
 					$html .= sprintf(
-						'<div class="grid left-%s width-%s">%s</div>',
-						$item["x"],
+						'<div class="grid width-%s" style="margin-left: %s%%;">%s</div>',
 						$item["width"],
+						$item["left"],
 						buildStructureHtml($item["data"])
 					);
 

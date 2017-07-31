@@ -18,16 +18,17 @@ class TextControllerTest extends AbstractControllerTest
 
     public function testGetHtml()
     {
-        $this->setUser(self::TYPE_FULL);
-        $this->sendRequest("text", "html", ["id" => 1]);
-        $body = $this->getBody();
-        var_dump($body);
-
-
-        $this->setUser(null);
-        $this->sendRequest("text", "html", ["id" => 1]);
-        $body = $this->getBody();
-        var_dump($body);
+        $this->markTestSkipped();
+//        $this->setUser(self::TYPE_FULL);
+//        $this->sendRequest("text", "html", ["id" => 1]);
+//        $body = $this->getBody();
+//        var_dump($body);
+//
+//
+//        $this->setUser(null);
+//        $this->sendRequest("text", "html", ["id" => 1]);
+//        $body = $this->getBody();
+//        var_dump($body);
     }
 
     /**

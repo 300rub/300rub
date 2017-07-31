@@ -279,6 +279,7 @@ class SectionModel extends AbstractModel
     {
         $usedYLines = [];
         $structure = [];
+        $containerWidth = $right - $left;
 
         $bordersInfo = $this->_getSameBordersInfo($top, $bottom, $left, $right);
         foreach ($bordersInfo as $count => $countData) {
@@ -332,6 +333,7 @@ class SectionModel extends AbstractModel
                         $structureData[] = [
                             "type"  => "container",
                             "x"     => $x,
+                            "left"  => 100 / $containerWidth * ($x - $left),
                             "width" => $width,
                         ];
                     }
@@ -385,6 +387,7 @@ class SectionModel extends AbstractModel
     private function _getContainerBlocks($top, $bottom, $left, $right)
     {
         $blocks = [];
+        $containerWidth = $right - $left;
 
         /**
          * @var GridModel[] $grids
@@ -405,8 +408,8 @@ class SectionModel extends AbstractModel
                     $blocks[] = [
                         "type"  => "block",
                         "id"    => $grid->get("blockId"),
-                        "x"     => $x,
                         "y"     => $y,
+                        "left"  => 100 / $containerWidth * ($x - $left),
                         "width" => $width,
                         "html"  => "&nbsp;"
                     ];
