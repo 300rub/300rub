@@ -5,6 +5,7 @@ namespace testS\models;
 use testS\components\Db;
 use testS\components\Language;
 use testS\components\ValueGenerator;
+use testS\components\View;
 
 /**
  * Model for working with table "sections"
@@ -15,7 +16,7 @@ use testS\components\ValueGenerator;
  *
  * @package testS\models
  */
-class SectionModel extends AbstractContentModel
+class SectionModel extends AbstractModel
 {
 
     /**
@@ -45,11 +46,18 @@ class SectionModel extends AbstractContentModel
     private $_structure = [];
 
     /**
-     * Block content models
+     * CSS
      *
      * @var array
      */
-    private $_blockContentModels = [];
+    private $_css = [];
+
+    /**
+     * JS
+     *
+     * @var array
+     */
+    private $_js = [];
 
     /**
      * Gets table name
@@ -111,6 +119,26 @@ class SectionModel extends AbstractContentModel
     }
 
     /**
+     * Gets CSS
+     *
+     * @return array
+     */
+    public function getCss()
+    {
+        return $this->_css;
+    }
+
+    /**
+     * Gets JS
+     *
+     * @return array
+     */
+    public function getJs()
+    {
+        return $this->_js;
+    }
+
+    /**
      * Generates isMain
      *
      * @param bool $value
@@ -127,20 +155,16 @@ class SectionModel extends AbstractContentModel
     }
 
     /**
-     * Sets section CSS
-     *
-     * @param int $id
+     * Generates section CSS
      *
      * @return SectionModel
      */
-    public function setCss($id = null)
+    private function _generateCss()
     {
-        $this->addCss(
+        return View::generateCss(
             $this->get("designBlockModel"),
             sprintf(".section-%s", $this->getId())
         );
-
-        return $this;
     }
 
     /**
@@ -154,7 +178,7 @@ class SectionModel extends AbstractContentModel
             return $this;
         }
 
-        $this->setCss();
+        $this->_css = $this->_generateCss();
 
         $gridLineIds = [];
         $gridLineModels = (new GridLineModel)
@@ -169,7 +193,10 @@ class SectionModel extends AbstractContentModel
 
         foreach ($gridLineModels as $gridLineModel) {
             $gridLineIds[] = $gridLineModel->getId();
-            $gridLineModel->setCss();
+            $this->_css = array_merge(
+                $this->_css,
+                $gridLineModel->generateCss()
+            );
         }
 
         $gridModels = (new GridModel)
@@ -416,16 +443,26 @@ class SectionModel extends AbstractContentModel
                 ) {
                     $blockId = $grid->get("blockId");
 
-                    /**
-                     * @var AbstractBlockModel $contentModel
-                     */
-                    if (array_key_exists($blockId, $this->_blockContentModels)) {
-                        $contentModel = $this->_blockContentModels[$blockId];
+                    if (array_key_exists($blockId, $this->_blocksContent)) {
+                        $html = $this->_blocksContent[$blockId]["html"];
+                        $css = $this->_blocksContent[$blockId]["css"];
+                        $js = $this->_blocksContent[$blockId]["js"];
                     } else {
-                        $blockModel = (new BlockModel())->byId($blockId)->find();
-                        $contentModel = $blockModel->getContentModel(true);
-                        $this->_blockContentModels[$blockId] = $contentModel;
+                        $blockModel = BlockModel::getById($blockId);
+                        $blockModel->setContent();
+                        $html = $blockModel->getHtml();
+                        $css = $blockModel->getCss();
+                        $js = $blockModel->getJs();
+
+                        $this->_blocksContent[$blockId] = [
+                            "html" => $html,
+                            "css"  => $css,
+                            "js"   => $js,
+                        ];
                     }
+
+                    $this->_css = array_merge($this->_css, $css);
+                    $this->_js = array_merge($this->_js, $js);
 
                     $blocks[] = [
                         "type"  => "block",
@@ -433,9 +470,7 @@ class SectionModel extends AbstractContentModel
                         "y"     => $y,
                         "left"  => 100 / $containerWidth * ($x - $left),
                         "width" => $width,
-                        "html"  => $contentModel->getHtml([
-                            "blockId" => $blockId
-                        ])
+                        "html"  => $html
                     ];
                 }
             }
@@ -443,6 +478,8 @@ class SectionModel extends AbstractContentModel
 
         return $blocks;
     }
+
+    private $_blocksContent = [];
 
     /**
      * Gets the same borders

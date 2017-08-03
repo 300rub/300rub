@@ -2,6 +2,7 @@
 
 namespace testS\models;
 
+use testS\applications\App;
 use testS\components\exceptions\ModelException;
 use testS\components\Language;
 use testS\components\ValueGenerator;
@@ -12,7 +13,7 @@ use testS\components\View;
  *
  * @package testS\models
  */
-class TextModel extends AbstractBlockModel
+class TextModel extends AbstractContentModel
 {
 
     /**
@@ -93,43 +94,63 @@ class TextModel extends AbstractBlockModel
     }
 
     /**
-     * Sets CSS
+     * Gets HTML memcached key
      *
-     * @param int $id
+     * @param int    $id
+     * @param string $uri
+     * @param string $parameter
      *
-     * @return TextModel
+     * @return string
      */
-    public function setCss($id = null)
+    public function getHtmlMemcachedKey($id, $uri = "", $parameter = "")
     {
-        if ($this->get("hasEditor") === false) {
-            $this->addCss(
-                $this->get("designTextModel"),
-                sprintf(".block-%s", $id)
-            );
-        }
-
-        $this->addCss(
-            $this->get("designBlockModel"),
-            sprintf(".block-%s", $id)
-        );
-
-        return $this;
+        return sprintf("text_%s_html", $id);
     }
 
     /**
-     * Gets HTML
+     * Gets CSS memcached key
      *
-     * @param array $options
+     * @param int    $id
+     * @param string $uri
      *
-     * @return AbstractContentModel
+     * @return string
+     */
+    public function getCssMemcachedKey($id, $uri = "")
+    {
+        return sprintf("text_%s_css", $id);
+    }
+
+    /**
+     * Gets JS memcached key
+     *
+     * @param int    $id
+     * @param string $uri
+     *
+     * @return string
+     */
+    public function getJsMemcachedKey($id, $uri = "")
+    {
+        return sprintf("text_%s_js", $id);
+    }
+
+    /**
+     * Generates HTML
+     *
+     * @return string
      *
      * @throws ModelException
      */
-    public function getHtml($options = [])
+    public function generateHtml()
     {
-        $this->setCss($options["blockId"]);
+        $memcached = App::getInstance()->getMemcached();
+        $htmlMemcachedKey = $this->getHtmlMemcachedKey($this->getContentId());
+        $htmlMemcachedValue = $memcached->get($htmlMemcachedKey);
 
-        $textInstanceModel = (new TextInstanceModel())->byTextId($this->getId())->find();
+        if ($htmlMemcachedValue !== false) {
+            return $htmlMemcachedValue;
+        }
+
+        $textInstanceModel = (new TextInstanceModel())->byTextId($this->getContentId())->find();
         if ($textInstanceModel === null) {
             throw new ModelException(
                 "Unable to find TextInstanceModel by textId: {id}",
@@ -139,11 +160,83 @@ class TextModel extends AbstractBlockModel
             );
         }
 
-        return View::get(
+        $html = View::get(
             "content/text",
             [
-                "text" => $textInstanceModel->get("text"),
+                "blockId" => $this->getBlockId(),
+                "text"    => $textInstanceModel->get("text"),
             ]
         );
+
+        $memcached->set($htmlMemcachedKey, $html);
+
+        return $html;
+    }
+
+    /**
+     * Generates CSS
+     *
+     * @return array
+     */
+    public function generateCss()
+    {
+        $css = [];
+
+        if ($this->get("hasEditor") === false) {
+            $css = array_merge(
+                $css,
+                View::generateCss(
+                    $this->get("designTextModel"),
+                    sprintf(".block-%s", $this->getBlockId())
+                )
+            );
+        }
+
+        $css = array_merge(
+            $css,
+            View::generateCss(
+                $this->get("designBlockModel"),
+                sprintf(".block-%s", $this->getBlockId())
+            )
+        );
+
+        return $css;
+    }
+
+    /**
+     * Generates JS
+     *
+     * @return array
+     */
+    public function generateJs()
+    {
+        return [];
+    }
+
+    /**
+     * Runs after deleting
+     */
+    protected function afterDelete()
+    {
+        parent::afterDelete();
+
+        $memcached = App::getInstance()->getMemcached();
+        $memcached
+            ->delete($this->getHtmlMemcachedKey($this->getId()))
+            ->delete($this->getCssMemcachedKey($this->getId()))
+            ->delete($this->getJsMemcachedKey($this->getId()));
+    }
+
+    /**
+     * Runs after saving
+     */
+    protected function afterSave()
+    {
+        parent::afterSave();
+
+        $memcached = App::getInstance()->getMemcached();
+        $memcached
+            ->delete($this->getCssMemcachedKey($this->getId()))
+            ->delete($this->getJsMemcachedKey($this->getId()));
     }
 }

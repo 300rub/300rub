@@ -2,8 +2,10 @@
 
 namespace testS\models;
 
+use testS\applications\App;
 use testS\components\Db;
 use testS\components\exceptions\ModelException;
+use testS\components\exceptions\NotFoundException;
 use testS\components\Language;
 use testS\components\Validator;
 use testS\components\ValueGenerator;
@@ -28,6 +30,34 @@ class BlockModel extends AbstractModel
      */
     const TYPE_TEXT = 1;
     const TYPE_IMAGE = 2;
+
+    /**
+     * URI
+     *
+     * @var string
+     */
+    private $_uri = "";
+
+    /**
+     * HTML
+     *
+     * @var string
+     */
+    private $_html = "";
+
+    /**
+     * CSS
+     *
+     * @var array
+     */
+    private $_css = [];
+
+    /**
+     * JS
+     *
+     * @var array
+     */
+    private $_js = [];
 
     /**
      * Type list
@@ -162,6 +192,31 @@ class BlockModel extends AbstractModel
     }
 
     /**
+     * Gets new content model
+     *
+     * @return AbstractContentModel
+     *
+     * @throws ModelException
+     */
+    private function _getNewContentModel()
+    {
+        $className = "\\testS\\models\\" . self::$typeList[$this->get("contentType")];
+
+        $model = new $className;
+        if (!$model instanceof AbstractContentModel) {
+            throw new ModelException(
+                "Unable to find model: {className} with contentType = {contentType}",
+                [
+                    "className"   => $className,
+                    "contentType" => $this->get("contentType")
+                ]
+            );
+        }
+
+        return $model;
+    }
+
+    /**
      * Gets model by contentType and contentId
      *
      * @param bool $withRelations
@@ -173,31 +228,17 @@ class BlockModel extends AbstractModel
      */
     public function getContentModel($withRelations = false, $value = null)
     {
-        $className = "\\testS\\models\\" . self::$typeList[$this->get("contentType")];
-
-        /**
-         * @var AbstractModel $model
-         */
-        $model = new $className;
-        if (!$model instanceof AbstractModel) {
-            throw new ModelException(
-                "Unable to find model: {className} with contentType = {contentType}",
-                [
-                    "className"   => $className,
-                    "contentType" => $this->get("contentType")
-                ]
-            );
-        }
-
         if ($value === null) {
             $value = $this->get("contentId");
         }
-        $model = $model->byId($value)->withRelations($withRelations)->find();
+
+        $newModel = $this->_getNewContentModel();
+        $model = $newModel->byId($value)->withRelations($withRelations)->find();
         if (!$model instanceof AbstractModel) {
             throw new ModelException(
                 "Unable to find model: {className} with ID = {id}",
                 [
-                    "className" => $className,
+                    "className" => get_class($newModel),
                     "id"        => $value
                 ]
             );
@@ -213,7 +254,23 @@ class BlockModel extends AbstractModel
     {
         parent::afterDelete();
 
+        App::getInstance()->getMemcached()->delete(
+            self::_getMemcachedKey($this->getId())
+        );
+
         $this->getContentModel()->delete();
+    }
+
+    /**
+     * Runs after saving
+     */
+    protected function afterSave()
+    {
+        parent::afterSave();
+
+        App::getInstance()->getMemcached()->delete(
+            self::_getMemcachedKey($this->getId())
+        );
     }
 
     /**
@@ -295,5 +352,111 @@ class BlockModel extends AbstractModel
         $this->getDb()->addParameter("language", $language);
 
         return $this;
+    }
+
+    /**
+     * Sets URI
+     *
+     * @param string $uri
+     *
+     * @return BlockModel
+     */
+    public function setUri($uri)
+    {
+        $this->_uri = $uri;
+        return $this;
+    }
+
+    /**
+     * Sets content
+     *
+     * @return BlockModel
+     */
+    public function setContent()
+    {
+	    $model = $this->_getNewContentModel();
+
+        $model
+            ->setBlockId($this->getId())
+            ->setUri($this->_uri)
+            ->setContentId($this->get("contentId"))
+            ->generateContent();
+
+        $this->_html = $model->getHtml();
+        $this->_css = $model->getCss();
+        $this->_js = $model->getJs();
+
+        return $this;
+    }
+
+    /**
+     * Gets HTML
+     *
+     * @return string
+     */
+    public function getHtml()
+    {
+        return $this->_html;
+    }
+
+    /**
+     * Gets CSS
+     *
+     * @return array
+     */
+    public function getCss()
+    {
+        return $this->_css;
+    }
+
+    /**
+     * Gets JS
+     *
+     * @return array
+     */
+    public function getJs()
+    {
+        return $this->_js;
+    }
+
+    /**
+     * Gets memcached key
+     *
+     * @param int $id
+     *
+     * @return string
+     */
+    private static function _getMemcachedKey($id)
+    {
+        return sprintf("block_%s", $id);
+    }
+
+    /**
+     * Gets model by ID
+     *
+     * @param int $id
+     *
+     * @return BlockModel
+     *
+     * @throws NotFoundException
+     */
+    public static function getById($id)
+    {
+        $memcached = App::getInstance()->getMemcached();
+        $memcachedKey = self::_getMemcachedKey($id);
+
+        $memcachedValue = $memcached->get($memcachedKey);
+        if ($memcachedValue instanceof BlockModel) {
+            return $memcachedValue;
+        }
+
+        $model = (new BlockModel())->byId($id)->find();
+        if ($model === null) {
+            throw new NotFoundException("Unable to find block model by ID: {id}", ["id" => $id]);
+        }
+
+        $memcached->set($memcachedKey, $model);
+
+        return $model;
     }
 }

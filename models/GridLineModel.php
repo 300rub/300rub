@@ -1,6 +1,7 @@
 <?php
 
 namespace testS\models;
+use testS\components\View;
 
 /**
  * Model for working with table "gridLines"
@@ -11,7 +12,7 @@ namespace testS\models;
  *
  * @package testS\models
  */
-class GridLineModel extends AbstractContentModel
+class GridLineModel extends AbstractModel
 {
 
     /**
@@ -66,24 +67,30 @@ class GridLineModel extends AbstractContentModel
     }
 
     /**
-     * Sets CSS
+     * Generates CSS
      *
-     * @param int $id
-     *
-     * @return GridLineModel
+     * @return array
      */
-    public function setCss($id = null)
+    public function generateCss()
     {
-        $this
-            ->addCss(
+        $css = [];
+
+        $css = array_merge(
+            $css,
+            View::generateCss(
                 $this->get("outsideDesignModel"),
                 sprintf(".line-%s", $this->getId())
             )
-            ->addCss(
+        );
+
+        $css = array_merge(
+            $css,
+            View::generateCss(
                 $this->get("insideDesignModel"),
                 sprintf(".line-%s .line-container", $this->getId())
-            );
+            )
+        );
 
-        return $this;
+        return $css;
     }
 }

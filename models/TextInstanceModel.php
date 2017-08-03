@@ -2,6 +2,7 @@
 
 namespace testS\models;
 
+use testS\applications\App;
 use testS\components\Db;
 
 /**
@@ -53,5 +54,33 @@ class TextInstanceModel extends AbstractModel
         $this->getDb()->addParameter("textId", $textId);
 
         return $this;
+    }
+
+    /**
+     * Runs after deleting
+     */
+    protected function afterDelete()
+    {
+        parent::afterDelete();
+
+        App::getInstance()->getMemcached()->delete(
+            (new TextModel())->getHtmlMemcachedKey(
+                $this->get("textId")
+            )
+        );
+    }
+
+    /**
+     * Runs after saving
+     */
+    protected function afterSave()
+    {
+        parent::afterSave();
+
+        App::getInstance()->getMemcached()->delete(
+            (new TextModel())->getHtmlMemcachedKey(
+                $this->get("textId")
+            )
+        );
     }
 }

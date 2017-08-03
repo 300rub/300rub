@@ -171,15 +171,7 @@ class TextController extends AbstractController
         } else {
             $this->checkBlockOperation(BlockModel::TYPE_TEXT, $id, Operation::TEXT_UPDATE_SETTINGS);
 
-            $blockModel = (new BlockModel())->byId($id)->find();
-            if ($blockModel === null) {
-                throw new NotFoundException(
-                    "Unable to find text BlockModel with ID: {id}",
-                    [
-                        "id" => $id
-                    ]
-                );
-            }
+            $blockModel = BlockModel::getById($id);
 
             $textModel = $blockModel->getContentModel();
 
@@ -323,15 +315,7 @@ class TextController extends AbstractController
 
         $this->checkBlockOperation(BlockModel::TYPE_TEXT, $data["id"], Operation::TEXT_UPDATE_SETTINGS);
 
-        $blockModel = (new BlockModel())->byId($data["id"])->find();
-        if ($blockModel === null) {
-            throw new NotFoundException(
-                "Unable to find text BlockModel by ID: {id}",
-                [
-                    "id" => $data["id"]
-                ]
-            );
-        }
+        $blockModel = BlockModel::getById($data["id"]);
 
         $textModel = $blockModel->getContentModel();
         $textModel->set(
@@ -386,15 +370,7 @@ class TextController extends AbstractController
 
         $this->checkBlockOperation(BlockModel::TYPE_TEXT, $data["id"], Operation::TEXT_DELETE);
 
-        $blockModel = (new BlockModel())->byId($data["id"])->find();
-        if ($blockModel === null) {
-            throw new NotFoundException(
-                "Unable to find text BlockModel by ID: {id}",
-                [
-                    "id" => $data["id"]
-                ]
-            );
-        }
+        $blockModel = BlockModel::getById($data["id"]);
 
         if ($blockModel->get("contentType") !== BlockModel::TYPE_TEXT) {
             throw new BadRequestException(
@@ -439,15 +415,7 @@ class TextController extends AbstractController
 
         $this->checkBlockOperation(BlockModel::TYPE_TEXT, $data["id"], Operation::TEXT_UPDATE_DESIGN);
 
-        $blockModel = (new BlockModel())->byId($data["id"])->find();
-        if ($blockModel === null) {
-            throw new NotFoundException(
-                "Unable to find text BlockModel by ID: {id}",
-                [
-                    "id" => $data["id"]
-                ]
-            );
-        }
+        $blockModel = BlockModel::getById($data["id"]);
 
         $textModel = $blockModel->getContentModel(true);
         if (!$textModel instanceof TextModel) {
@@ -516,15 +484,7 @@ class TextController extends AbstractController
 
         $this->checkBlockOperation(BlockModel::TYPE_TEXT, $data["id"], Operation::TEXT_UPDATE_DESIGN);
 
-        $blockModel = (new BlockModel())->byId($data["id"])->find();
-        if ($blockModel === null) {
-            throw new NotFoundException(
-                "Unable to find text BlockModel by ID: {id}",
-                [
-                    "id" => $data["id"]
-                ]
-            );
-        }
+        $blockModel = BlockModel::getById($data["id"]);
 
         $textModel = $blockModel->getContentModel();
         if (!$textModel instanceof TextModel) {
@@ -574,15 +534,7 @@ class TextController extends AbstractController
 
         $this->checkBlockOperation(BlockModel::TYPE_TEXT, $data["id"], Operation::TEXT_UPDATE_CONTENT);
 
-        $blockModel = (new BlockModel())->byId($data["id"])->find();
-        if ($blockModel === null) {
-            throw new NotFoundException(
-                "Unable to find text BlockModel by ID: {id}",
-                [
-                    "id" => $data["id"]
-                ]
-            );
-        }
+        $blockModel = BlockModel::getById($data["id"]);
 
         $textModel = $blockModel->getContentModel();
         if (!$textModel instanceof TextModel) {
@@ -647,15 +599,7 @@ class TextController extends AbstractController
 
         $this->checkBlockOperation(BlockModel::TYPE_TEXT, $data["id"], Operation::TEXT_UPDATE_CONTENT);
 
-        $blockModel = (new BlockModel())->byId($data["id"])->find();
-        if ($blockModel === null) {
-            throw new NotFoundException(
-                "Unable to find text BlockModel by ID: {id}",
-                [
-                    "id" => $data["id"]
-                ]
-            );
-        }
+        $blockModel = BlockModel::getById($data["id"]);
 
         $textModel = $blockModel->getContentModel();
         if (!$textModel instanceof TextModel) {

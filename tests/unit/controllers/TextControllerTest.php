@@ -2,6 +2,7 @@
 
 namespace testS\tests\unit\controllers;
 
+use testS\applications\App;
 use testS\models\BlockModel;
 use testS\models\DesignBlockModel;
 use testS\models\DesignTextModel;
@@ -677,7 +678,7 @@ class TextControllerTest extends AbstractControllerTest
         $this->compareExpectedAndActual($expected, $body);
 
         $textModel = (new TextModel())->byId($textModel->getId())->find();
-        $blockModel = (new BlockModel())->byId($blockModel->getId())->find();
+        $blockModel = BlockModel::getById($blockModel->getId());
 
         $this->assertSame($data["name"], $blockModel->get("name"));
         $this->assertSame($data["type"], $textModel->get("type"));

@@ -124,7 +124,10 @@ class PageController extends AbstractController
      */
     public function getPage()
     {
-        $content = $this->_getCommonContent();
+        $sectionModel = (new SectionModel())->byId(1)->withRelations()->find();
+        $sectionModel->setStructureAndStatic();
+
+        $content = $this->_getCommonContent($sectionModel);
         $isUser = $this->isUser();
 
         if ($isUser) {
@@ -151,7 +154,7 @@ class PageController extends AbstractController
         $layoutData["errorMessages"] = Validator::getErrorMessages();
         $layoutData["token"] = $token;
         $layoutData["isUser"] = $isUser;
-        $layoutData["generatedCss"] = AbstractContentModel::getCss();
+        $layoutData["generatedCss"] = $sectionModel->getCss();
 
         return $this->getContentFromTemplate("page/layout", $layoutData);
     }
@@ -159,16 +162,15 @@ class PageController extends AbstractController
     /**
      * Gets common content
      *
+     * @param SectionModel $sectionModel
+     *
      * @return string
      */
-    private function _getCommonContent()
+    private function _getCommonContent($sectionModel)
     {
         SeoModel::setTitle("title");
         SeoModel::setKeywords("keywords");
         SeoModel::setDescription("description");
-
-        $sectionModel = (new SectionModel())->byId(1)->withRelations()->find();
-        $sectionModel->setStructureAndStatic();
 
         $structure = $sectionModel->getStructure();
 

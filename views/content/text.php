@@ -5,4 +5,4 @@
  * @var string $text
  */
 
-echo $text;
+echo sprintf('<div class="block-%s">%s</div>', $blockId, $text);
