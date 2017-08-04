@@ -1,35 +1,65 @@
 <div class="design-block-container">
-    <div class="margin-container">
-        Margin
-        <input type="text" title="margin-top" class="margin-top" />
-        <input type="text" title="margin-right" class="margin-right" />
-        <input type="text" title="margin-bottom" class="margin-top" />
-        <input type="text" title="margin-left" class="margin-left" />
+    <div class="category-container margin-container">
+        <div class="category-title"></div>
 
-        <input type="text" title="margin-top-hover" class="margin-top-hover" />
-        <input type="text" title="margin-right-hover" class="margin-right-hover" />
-        <input type="text" title="margin-bottom-hover" class="margin-top-hover" />
-        <input type="text" title="margin-left-hover" class="margin-left-hover" />
+        <div class="styles-example-container"></div>
 
-        <label>
-            <input type="checkbox" class="has-margin-animation">
-            lol hasMarginAnimation lol
-        </label>
-
-        lol Example lol
         <div class="margin-example-container">
-            <div class="margin-example-outside">
-                <div class="margin-example-inside"></div>
-            </div>
+            <div class="margin-example"></div>
+        </div>
+
+        <div class="margin-top-container">
+            <input type="text" title="margin-top" class="margin-top" /> px
+        </div>
+
+        <div class="margin-right-container">
+            <input type="text" title="margin-right" class="margin-right" /> px
+        </div>
+
+        <div class="margin-bottom-container">
+            <input type="text" title="margin-bottom" class="margin-bottom" /> px
+        </div>
+
+        <div class="margin-left-container">
+            <input type="text" title="margin-left" class="margin-left" /> px
+        </div>
+
+        <div class="margin-top-hover-container">
+            <input type="text" title="margin-top on hover" class="margin-top-hover" /> px
+        </div>
+
+        <div class="margin-right-hover-container">
+            <input type="text" title="margin-right on hover" class="margin-right-hover" /> px
+        </div>
+
+        <div class="margin-bottom-hover-container">
+            <input type="text" title="margin-bottom on hover" class="margin-bottom-hover" /> px
+        </div>
+
+        <div class="margin-left-hover-container">
+            <input type="text" title="margin-left on hover" class="margin-left-hover" /> px
+        </div>
+
+        <div class="form-container form-container-checkbox">
+            <label>
+                <input type="checkbox" class="form-instance has-margin-hover" />
+                <span class="icons">
+                    <i class="fa fa-square-o"></i>
+                    <i class="fa fa-check-square-o"></i>
+                </span>
+                <span class="label-text has-margin-hover-label"></span>
+            </label>
+        </div>
+
+        <div class="form-container form-container-checkbox">
+            <label>
+                <input type="checkbox" class="form-instance has-margin-animation" />
+                <span class="icons">
+                    <i class="fa fa-square-o"></i>
+                    <i class="fa fa-check-square-o"></i>
+                </span>
+                <span class="label-text has-margin-animation-label"></span>
+            </label>
         </div>
     </div>
-</div>
-
-<div class="design-block-styles">
-    {selector} {
-        margin: {marginTop} {marginRight} {marginBottom} {marginLeft};
-    }
-    {selector}:hover {
-        margin: {marginTopHover} {marginRightHover} {marginBottomHover} {marginLeftHover};
-    }
 </div>

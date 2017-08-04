@@ -94,6 +94,15 @@
             }
 
             return this.$_wrapper;
+        },
+
+        /**
+         * Gets unique ID
+         *
+         * @returns {number}
+         */
+        getUniqueId: function() {
+            return Math.round(new Date().getTime() + (Math.random() * 100));
         }
     }
 }(window);
