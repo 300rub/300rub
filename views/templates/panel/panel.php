@@ -1,5 +1,6 @@
 <div class="panel loading transparent">
     <div class="header">
+        <a class="back fa fa-chevron-left hidden"></a>
         <div class="title"></div>
         <a class="close fa fa-remove"></a>
         <div class="description"></div>

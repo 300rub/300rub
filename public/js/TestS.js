@@ -84,6 +84,18 @@
         },
 
         /**
+         * Removes element by class name
+         *
+         * @param {String} className
+         *
+         * @return {TestS}
+         */
+        remove: function(className) {
+            this.getWrapper().find("." + className).remove();
+            return this;
+        },
+
+        /**
          * Gets wrapper
          *
          * @returns {Object}
@@ -103,6 +115,17 @@
          */
         getUniqueId: function() {
             return Math.round(new Date().getTime() + (Math.random() * 100));
+        },
+
+        /**
+         * Gets int value
+         *
+         * @param {mixed} value
+         *
+         * @return {int}
+         */
+        getIntVal: function(value) {
+            return parseInt(value) || 0;
         }
     }
 }(window);

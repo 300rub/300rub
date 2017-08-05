@@ -6,7 +6,7 @@
      *
      * @type {Object}
      */
-    TestS.Panel.Block = function () {
+    TestS.Panel.Block.Text = function () {
         this._panel = null;
 
         this.init();
@@ -17,13 +17,13 @@
      *
      * @type {Object}
      */
-    TestS.Panel.Block.prototype = {
+    TestS.Panel.Block.Text.prototype = {
         /**
          * Init
          */
         init: function () {
             this._panel = new TestS.Panel({
-                controller: "block",
+                controller: "text",
                 action: "blocks",
                 success: $.proxy(this._onLoadDataSuccess, this)
             });
@@ -39,26 +39,27 @@
         _onLoadDataSuccess: function(data) {
             this._panel
                 .setTitle(data.title)
-                .setDescription(data.description);
+                .setDescription(data.description)
+                .setBack(TestS.Panel.Block);
 
             $.each(data.list, $.proxy(function(i, itemData) {
                 var $item = TestS.Template.get("panel-list-item");
 
                 $item.addClass("without-buttons");
-                $item.find(".settings").remove();
-                $item.find(".design").remove();
-                $item.find(".text").text(itemData.name);
 
-                switch (itemData.type) {
-                    case "text":
-                        $item.find(".icon").addClass("fa-font");
-                        $item.find(".label").on("click", function() {
-                            new TestS.Panel.Block.Text();
-                        });
-                        break;
-                    default:
-                        break;
+                if (itemData["canUpdateDesign"] === true) {
+                    $item.find(".design").on("click", function() {
+                        new TestS.Panel.Design("text", "design", itemData.id);
+                    });
+                } else {
+                    $item.find(".design").remove();
                 }
+
+                $item.find(".settings").remove();
+
+                $item.find(".text").text(itemData.name);
+                $item.find(".icon").addClass("fa-font");
+
 
                 this._panel.getBody().append($item);
             }, this));

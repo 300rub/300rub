@@ -4,11 +4,11 @@ use testS\components\Language;
 
 return [
     "margin"       => [
-        Language::LANGUAGE_EN_ID => "External padding",
+        Language::LANGUAGE_EN_ID => "Margin",
         Language::LANGUAGE_RU_ID => "Внешние отступы",
     ],
     "padding"      => [
-        Language::LANGUAGE_EN_ID => "Internal padding",
+        Language::LANGUAGE_EN_ID => "Padding",
         Language::LANGUAGE_RU_ID => "Внутренние отступы",
     ],
     "combine"      => [
@@ -41,6 +41,14 @@ return [
     ],
     "textDesign"     => [
         Language::LANGUAGE_EN_ID => "Text design",
+        Language::LANGUAGE_RU_ID => "",
+    ],
+    "setHover"     => [
+        Language::LANGUAGE_EN_ID => "Set hover",
+        Language::LANGUAGE_RU_ID => ""
+    ],
+    "useAnimation"     => [
+        Language::LANGUAGE_EN_ID => "Use animation",
         Language::LANGUAGE_RU_ID => "",
     ],
 ];

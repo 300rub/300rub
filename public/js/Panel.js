@@ -87,6 +87,14 @@
             return this;
         },
 
+        setBack: function (object) {
+            this.getInstance().find(".header .back")
+                .removeClass("hidden")
+                .on("click", function() {
+                    new object;
+                });
+        },
+
         /**
          * Sets description
          *
@@ -138,6 +146,7 @@
          * @private
          */
         _addDomElement: function() {
+            TestS.remove("panel");
             TestS.append(this.getInstance());
 
             setTimeout($.proxy(function() {
@@ -158,11 +167,19 @@
          * @private
          */
         _loadData: function() {
+            var data = {
+                controller: this._options.controller,
+                action: this._options.action
+            };
+
+            if (this._options.id !== undefined) {
+                data.data = {
+                    id: this._options.id
+                };
+            }
+
             new TestS.Ajax({
-                data: {
-                    controller: this._options.controller,
-                    action: this._options.action
-                },
+                data: data,
                 success: this._options.success,
                 error: $.proxy(this.onError, this)
             });

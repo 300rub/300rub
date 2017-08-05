@@ -73,6 +73,8 @@ if ($isUser === true) {
         <?php foreach ($errorMessages as $key => $value) { ?>
             TestS.Validator.Errors.set("<?= $key ?>", "<?= $value ?>");
         <?php } ?>
+
+        new TestS.Panel.Design("text", "design", 1);
     });
 </script>
 

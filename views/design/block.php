@@ -17,16 +17,16 @@ $marginLeft = $model->get("marginLeft");
 //    || $marginBottom !== 0
 //    || $marginLeft !== 0
 //) {
-    if ($marginTop > 0) {
+    if ($marginTop !== 0) {
         $marginTop .= "px";
     }
-    if ($marginRight > 0) {
+    if ($marginRight !== 0) {
         $marginRight .= "px";
     }
-    if ($marginBottom > 0) {
+    if ($marginBottom !== 0) {
         $marginBottom .= "px";
     }
-    if ($marginLeft > 0) {
+    if ($marginLeft !== 0) {
         $marginLeft .= "px";
     }
     $css .= sprintf(
@@ -47,16 +47,16 @@ if ($paddingTop !== 0
     || $paddingBottom !== 0
     || $paddingLeft !== 0
 ) {
-    if ($paddingTop > 0) {
+    if ($paddingTop !== 0) {
         $paddingTop .= "px";
     }
-    if ($paddingRight > 0) {
+    if ($paddingRight !== 0) {
         $paddingRight .= "px";
     }
-    if ($paddingBottom > 0) {
+    if ($paddingBottom !== 0) {
         $paddingBottom .= "px";
     }
-    if ($paddingLeft > 0) {
+    if ($paddingLeft !== 0) {
         $paddingLeft .= "px";
     }
     $css .= sprintf(
@@ -139,16 +139,16 @@ if ($borderTopLeftRadius !== 0
     || $borderBottomRightRadius !== 0
     || $borderBottomLeftRadius !== 0
 ) {
-    if ($borderTopLeftRadius > 0) {
+    if ($borderTopLeftRadius !== 0) {
         $borderTopLeftRadius .= "px";
     }
-    if ($borderTopRightRadius > 0) {
+    if ($borderTopRightRadius !== 0) {
         $borderTopRightRadius .= "px";
     }
-    if ($borderBottomRightRadius > 0) {
+    if ($borderBottomRightRadius !== 0) {
         $borderBottomRightRadius .= "px";
     }
-    if ($borderBottomLeftRadius > 0) {
+    if ($borderBottomLeftRadius !== 0) {
         $borderBottomLeftRadius .= "px";
     }
     $css .= sprintf(
@@ -183,16 +183,16 @@ if ($borderTopWidth !== 0
     || $borderBottomWidth !== 0
     || $borderLeftWidth !== 0
 ) {
-    if ($borderTopWidth > 0) {
+    if ($borderTopWidth !== 0) {
         $borderTopWidth .= "px";
     }
-    if ($borderRightWidth > 0) {
+    if ($borderRightWidth !== 0) {
         $borderRightWidth .= "px";
     }
-    if ($borderBottomWidth > 0) {
+    if ($borderBottomWidth !== 0) {
         $borderBottomWidth .= "px";
     }
-    if ($borderLeftWidth > 0) {
+    if ($borderLeftWidth !== 0) {
         $borderLeftWidth .= "px";
     }
     $css .= sprintf(
@@ -285,16 +285,16 @@ if ($model->get("hasMarginHover") === true) {
         || $marginBottom !== 0
         || $marginLeft !== 0
     ) {
-        if ($marginTop > 0) {
+        if ($marginTop !== 0) {
             $marginTop .= "px";
         }
-        if ($marginRight > 0) {
+        if ($marginRight !== 0) {
             $marginRight .= "px";
         }
-        if ($marginBottom > 0) {
+        if ($marginBottom !== 0) {
             $marginBottom .= "px";
         }
-        if ($marginLeft > 0) {
+        if ($marginLeft !== 0) {
             $marginLeft .= "px";
         }
         $css .= sprintf(
@@ -317,16 +317,16 @@ if ($model->get("hasMarginHover") === true) {
         || $paddingBottom !== 0
         || $paddingLeft !== 0
     ) {
-        if ($paddingTop > 0) {
+        if ($paddingTop !== 0) {
             $paddingTop .= "px";
         }
-        if ($paddingRight > 0) {
+        if ($paddingRight !== 0) {
             $paddingRight .= "px";
         }
-        if ($paddingBottom > 0) {
+        if ($paddingBottom !== 0) {
             $paddingBottom .= "px";
         }
-        if ($paddingLeft > 0) {
+        if ($paddingLeft !== 0) {
             $paddingLeft .= "px";
         }
         $css .= sprintf(
@@ -410,16 +410,16 @@ if ($model->get("hasBorderRadiusHover") === true) {
         || $borderBottomRightRadius !== 0
         || $borderBottomLeftRadius !== 0
     ) {
-        if ($borderTopLeftRadius > 0) {
+        if ($borderTopLeftRadius !== 0) {
             $borderTopLeftRadius .= "px";
         }
-        if ($borderTopRightRadius > 0) {
+        if ($borderTopRightRadius !== 0) {
             $borderTopRightRadius .= "px";
         }
-        if ($borderBottomRightRadius > 0) {
+        if ($borderBottomRightRadius !== 0) {
             $borderBottomRightRadius .= "px";
         }
-        if ($borderBottomLeftRadius > 0) {
+        if ($borderBottomLeftRadius !== 0) {
             $borderBottomLeftRadius .= "px";
         }
         $css .= sprintf(
@@ -456,16 +456,16 @@ if ($model->get("hasBorderHover") === true) {
         || $borderBottomWidth !== 0
         || $borderLeftWidth !== 0
     ) {
-        if ($borderTopWidth > 0) {
+        if ($borderTopWidth !== 0) {
             $borderTopWidth .= "px";
         }
-        if ($borderRightWidth > 0) {
+        if ($borderRightWidth !== 0) {
             $borderRightWidth .= "px";
         }
-        if ($borderBottomWidth > 0) {
+        if ($borderBottomWidth !== 0) {
             $borderBottomWidth .= "px";
         }
-        if ($borderLeftWidth > 0) {
+        if ($borderLeftWidth !== 0) {
             $borderLeftWidth .= "px";
         }
         $css .= sprintf(

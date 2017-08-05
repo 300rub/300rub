@@ -429,24 +429,27 @@ class TextController extends AbstractController
         }
 
         return [
-            "id"          => $blockModel->getId(),
+            "id"          => $id,
             "title"       => Language::t("text", "designTitle"),
             "description" => Language::t("text", "designDescription"),
             "list"        => [
                 [
-                    "title" => Language::t("text", "designTitle"),
-                    "data"  => [
+                    "title"            => Language::t("text", "designTitle"),
+                    "containerIdGroup" => sprintf("block-%s", $id),
+                    "selector"         => sprintf(".block-%s", $id),
+                    "data"             => [
                         [
                             "title" => Language::t("design", "blockDesign"),
-                            "name"  => "designBlockModel",
+                            "namespace"  => "designBlockModel",
                             "type"  => DesignBlockModel::TYPE,
-                            "data"  => $textModel->get("designBlockModel")->get(null, ["id"])
+                            "values"  => $textModel->get("designBlockModel")->get(null, ["id"]),
+                            "labels" => DesignBlockModel::getLabels(),
                         ],
                         [
                             "title" => Language::t("design", "textDesign"),
-                            "name"  => "designTextModel",
+                            "namespace"  => "designTextModel",
                             "type"  => DesignTextModel::TYPE,
-                            "data"  => $textModel->get("designTextModel")->get(null, ["id"])
+                            "values"  => $textModel->get("designTextModel")->get(null, ["id"])
                         ],
                     ]
                 ]

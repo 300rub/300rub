@@ -140,7 +140,7 @@
                             controller: "user",
                             action: "sessions",
                             data: {
-                                id: id
+                                id: data.id
                             }
                         },
                         type: "DELETE",

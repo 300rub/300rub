@@ -1,0 +1,122 @@
+@import "variables";
+@import "webkit";
+@import "helpers";
+
+.design-container {
+  .category-container {
+    margin: 5px 0;
+    padding-left: 15px;
+    border-left: 1px solid @grayBorderColor;
+
+    .category-title {
+      background: @grayBackground;
+      line-height: 30px;
+      padding-left: 15px;
+      margin-bottom: 10px;
+      margin-left: -15px;
+      font-size: 14px;
+    }
+
+    .relative-container {
+      margin-left: -15px;
+      position: relative;
+
+      .spinner-container {
+        position: absolute;
+
+        input {
+          border: 1px solid @grayBorderColor;
+          padding: 2px 25px 2px 5px;
+          line-height: 19px;
+          .border-radius(4px);
+          font-size: 14px;
+          background: white;
+          width: 60px;
+
+          &:hover {
+            border-color: @blueBorderColor;
+          }
+
+          &:focus {
+            border-color: @blueBorderColor;
+            box-shadow: 0 0 0 3px rgba(131, 192, 253, 0.5);
+          }
+        }
+
+        .fa {
+          .gray-blue-link;
+          position: absolute;
+          left: 40px;
+          font-size: 0;
+          height: 12px;
+          line-height: 12px;
+
+          &:before {
+            font-size: 14px;
+          }
+        }
+
+        .fa-chevron-up {
+          top: 0;
+        }
+
+        .fa-chevron-down {
+          bottom: 0;
+        }
+      }
+    }
+  }
+}
+
+.design-block-container {
+  .margin-container {
+    .relative-container {
+      height: 150px;
+
+      .margin-top-container {
+        top: 0;
+        left: 50%;
+        margin-left: -30px;
+      }
+
+      .margin-right-container {
+        top: 60px;
+        left: 50%;
+        margin-left: 60px;
+      }
+
+      .margin-bottom-container {
+        top: 115px;
+        left: 50%;
+        margin-left: -30px;
+      }
+
+      .margin-left-container {
+        top: 60px;
+        left: 50%;
+        margin-left: -120px;
+      }
+
+      .margin-example-container {
+        width: 100px;
+        height: 80px;
+        border: 1px solid @darkGrayBorderColor;
+        position: absolute;
+        top: 30px;
+        left: 50%;
+        margin-left: -50px;
+        overflow: hidden;
+
+        .margin-example {
+          position: absolute;
+          border: 2px solid @darkGrayBorderColor;
+          top: 0;
+          bottom: 0;
+          left: 0;
+          right: 0;
+          background: @lightGrayBackground;
+        }
+      }
+    }
+  }
+}

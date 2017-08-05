@@ -2,6 +2,7 @@
 
 namespace testS\models;
 
+use testS\components\Language;
 use testS\components\ValueGenerator;
 
 /**
@@ -102,6 +103,20 @@ class DesignBlockModel extends AbstractModel
         self::BORDER_STYLE_DOTTED => "dotted",
         self::BORDER_STYLE_DASHED => "dashed",
     ];
+
+    /**
+     * Gets labels
+     *
+     * @return array
+     */
+    public static function getLabels()
+    {
+        return [
+            "margin" => Language::t("design", "margin"),
+            "setHover" => Language::t("design", "setHover"),
+            "useAnimation" => Language::t("design", "useAnimation"),
+        ];
+    }
 
     /**
      * Gets table name
