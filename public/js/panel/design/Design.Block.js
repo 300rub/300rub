@@ -98,6 +98,10 @@
             return this;
         },
 
+        getDesignContainer: function() {
+            return this.$_designContainer;
+        },
+
         _setValues: function() {
             var values = this._data["values"];
 
@@ -179,27 +183,11 @@
                     },
                     icons: {
                         up: "fa fa-chevron-up",
-                        down: "fa fa-chevron-down",
+                        down: "fa fa-chevron-down"
                     }
                 });
 
             return this;
-        },
-
-        _getMarginTop: function() {
-            return TestS.getIntVal(this._marginTop);
-        },
-
-        _getMarginRight: function() {
-            return TestS.getIntVal(this._marginRight);
-        },
-
-        _getMarginBottom: function() {
-            return TestS.getIntVal(this._marginBottom);
-        },
-
-        _getMarginLeft: function() {
-            return TestS.getIntVal(this._marginLeft);
         },
 
         _updateMargin: function() {
@@ -228,10 +216,10 @@
         },
 
         _generateMarginCss: function() {
-            var marginTop = this._getMarginTop();
-            var marginRight = this._getMarginRight();
-            var marginBottom = this._getMarginBottom();
-            var marginLeft = this._getMarginLeft();
+            var marginTop = TestS.getIntVal(this._marginTop);
+            var marginRight = TestS.getIntVal(this._marginRight);
+            var marginBottom = TestS.getIntVal(this._marginBottom);
+            var marginLeft = TestS.getIntVal(this._marginLeft);
 
             if (marginTop === 0
                 && marginRight === 0
@@ -266,10 +254,6 @@
 
         _getName: function(name) {
             return this._namespace + "." + name;
-        },
-
-        getDesignContainer: function() {
-            return this.$_designContainer;
         }
     };
 }(window.jQuery, window.TestS);

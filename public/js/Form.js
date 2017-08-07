@@ -46,6 +46,9 @@
                 case "button":
                     this._setButtonForm();
                     break;
+                case "spinner":
+                    this._setSpinner();
+                    break;
                 default:
                     return this;
             }
@@ -90,6 +93,19 @@
                 } else {
                     $instance.on("change", this._options.onChange);
                 }
+            }
+        },
+
+        /**
+         * Sets text form
+         *
+         * @private
+         */
+        _setSpinner: function () {
+            this.$_form = TestS.Template.get("form-container-spinner");
+
+            if (this._options.value !== undefined) {
+                this.getFormInstance().val(this._options.value);
             }
         },
 

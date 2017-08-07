@@ -97,6 +97,13 @@
         margin-left: -120px;
       }
 
+      .margin-top-hover-container,
+      .margin-right-hover-container,
+      .margin-bottom-hover-container,
+      .margin-left-hover-container {
+        display: none;
+      }
+
       .margin-example-container {
         width: 100px;
         height: 80px;
@@ -117,6 +124,54 @@
           background: @lightGrayBackground;
         }
       }
+    }
+  }
+
+  .margin-container.hover {
+    .margin-top-container {
+      margin-left: -70px;
+    }
+
+    .margin-right-container {
+      top: 40px;
+      left: 50%;
+      margin-left: 60px;
+    }
+
+    .margin-bottom-container {
+      top: 115px;
+      left: 50%;
+      margin-left: -70px;
+    }
+
+    .margin-left-container {
+      top: 40px;
+      left: 50%;
+      margin-left: -120px;
+    }
+
+    .margin-top-hover-container {
+      top: 0;
+      left: 50%;
+      margin-left: 10px;
+    }
+
+    .margin-right-hover-container {
+      top: 80px;
+      left: 50%;
+      margin-left: 60px;
+    }
+
+    .margin-bottom-hover-container {
+      top: 115px;
+      left: 50%;
+      margin-left: 10px;
+    }
+
+    .margin-left-hover-container {
+      top: 80px;
+      left: 50%;
+      margin-left: -120px;
     }
   }
 }

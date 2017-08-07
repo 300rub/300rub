@@ -3,7 +3,6 @@
         <div class="category-title"></div>
 
         <div class="relative-container">
-
             <div class="styles-example-container"></div>
 
             <div class="margin-example-container">
@@ -26,22 +25,25 @@
                 <input type="text" title="margin-left" class="margin-left" />
             </div>
 
-            <div class="margin-top-hover-container hidden">
+            <div class="margin-top-hover-container spinner-container">
+                <i class="fa-arrow-right"></i>
                 <input type="text" title="margin-top on hover" class="margin-top-hover" />
             </div>
 
-            <div class="margin-right-hover-container hidden">
+            <div class="margin-right-hover-container spinner-container">
+                <i class="fa-arrow-down"></i>
                 <input type="text" title="margin-right on hover" class="margin-right-hover" />
             </div>
 
-            <div class="margin-bottom-hover-container hidden">
+            <div class="margin-bottom-hover-container spinner-container">
+                <i class="fa-arrow-right"></i>
                 <input type="text" title="margin-bottom on hover" class="margin-bottom-hover" />
             </div>
 
-            <div class="margin-left-hover-container hidden">
+            <div class="margin-left-hover-container spinner-container">
+                <i class="fa-arrow-down"></i>
                 <input type="text" title="margin-left on hover" class="margin-left-hover" />
             </div>
-
         </div>
 
         <div class="form-container form-container-checkbox">

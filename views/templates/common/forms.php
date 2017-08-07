@@ -61,3 +61,12 @@
 <div class="form-container-hidden">
     <input type="hidden" class="form-instance">
 </div>
+
+<div class="form-container-spinner">
+    <span class="before"></span>
+    <label>
+        <span class="label-text"></span>
+        <input type="text" class="form-instance" />
+    </label>
+    <span class="after"></span>
+</div>
