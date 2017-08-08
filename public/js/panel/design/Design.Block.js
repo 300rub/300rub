@@ -11,23 +11,18 @@
     TestS.Panel.Design.Block = function (data) {
         this._data = $.extend({}, data);
 
-        this._namespace = "";
         this._selector = "";
         this._labels = {};
+        this._values = {};
+        this._names = {};
 
-        this.$_styleContainer = null;
+        this._rollback = "";
+
         this.$_designContainer = null;
-
-        this.$_marginContainer = null;
+        this.$_styleContainer = null;
+        
         this.$_marginExample = null;
-        this._marginTop = null;
-        this._marginRight = null;
-        this._marginBottom = null;
-        this._marginLeft = null;
-        this._marginTopHover = null;
-        this._marginRightHover = null;
-        this._marginBottomHover = null;
-        this._marginLeftHover = null;
+        this.$_marginExampleStyles = null;
 
         this.init();
     };
@@ -44,23 +39,72 @@
          */
         init: function () {
             this
-                ._setNamespace()
                 ._setSelector()
                 ._setStyleContainer()
+                ._setRollback()
                 ._setLabels()
                 ._setValues()
+                ._setNames()
                 ._setDesignContainer()
                 ._setMargin();
         },
 
-        _setNamespace: function() {
-            if (this._data["namespace"] !== undefined) {
-                this._namespace = this._data["namespace"];
-            }
+        /**
+         * Sets values
+         *
+         * @returns {TestS.Panel.Design.Block}
+         *
+         * @private
+         */
+        _setValues: function() {
+            this._values = $.extend(
+                {
+                    marginTop: null,
+                    marginRight: null,
+                    marginBottom: null,
+                    marginLeft: null,
+                    marginTopHover: null,
+                    marginRightHover: null,
+                    marginBottomHover: null,
+                    marginLeftHover: null
+                },
+                this._data["values"]
+            );
 
             return this;
         },
 
+        /**
+         * Sets names
+         *
+         * @returns {TestS.Panel.Design.Block}
+         *
+         * @private
+         */
+        _setNames: function() {
+            var namespace = "";
+            if (this._data["namespace"] !== undefined) {
+                namespace = this._data["namespace"];
+            }
+
+            $.each(this._values, $.proxy(function(name) {
+                if (namespace !== "") {
+                    this._names[name] = namespace + "." + name;
+                } else {
+                    this._names[name] = name;
+                }
+            }, this));
+
+            return this;
+        },
+
+        /**
+         * Sets selector
+         *
+         * @returns {TestS.Panel.Design.Block}
+         *
+         * @private
+         */
         _setSelector: function() {
             if (this._data["selector"] !== undefined) {
                 this._selector = this._data["selector"];
@@ -69,6 +113,13 @@
             return this;
         },
 
+        /**
+         * Sets style container
+         *
+         * @returns {TestS.Panel.Design.Block}
+         *
+         * @private
+         */
         _setStyleContainer: function() {
             if (this._data["containerId"] !== undefined) {
                 this.$_styleContainer = $("#" + this._data["containerId"]);
@@ -77,6 +128,26 @@
             return this;
         },
 
+        /**
+         * Sets rollback styles
+         *
+         * @returns {TestS.Panel.Design.Block}
+         *
+         * @private
+         */
+        _setRollback: function() {
+            this._rollback = this.$_styleContainer.html();
+
+            return this;
+        },
+
+        /**
+         * Sets labels
+         *
+         * @returns {TestS.Panel.Design.Block}
+         *
+         * @private
+         */
         _setLabels: function() {
             if ($.type(this._data["labels"]) === "object") {
                 this._labels = this._data["labels"];
@@ -85,6 +156,15 @@
             return this;
         },
 
+        /**
+         * Gets label
+         *
+         * @param {String} key
+         *
+         * @returns {String}
+         *
+         * @private
+         */
         _getLabel: function(key) {
             if (this._labels[key] !== undefined) {
                 return this._labels[key];
@@ -93,133 +173,301 @@
             return "";
         },
 
+        /**
+         * Sets design container
+         *
+         * @returns {TestS.Panel.Design.Block}
+         *
+         * @private
+         */
         _setDesignContainer: function() {
             this.$_designContainer = TestS.Template.get("design-block-container");
             return this;
         },
 
+        /**
+         * Gets design container
+         *
+         * @returns {Object}
+         */
         getDesignContainer: function() {
             return this.$_designContainer;
         },
 
-        _setValues: function() {
-            var values = this._data["values"];
-
-            if ($.type(values) !== "object") {
-                return this;
-            }
-
-            if (values["marginTop"] !== undefined) {
-                this._marginTop = parseInt(values["marginTop"]);
-            }
-
-            if (values["marginRight"] !== undefined) {
-                this._marginRight = parseInt(values["marginRight"]);
-            }
-
-            if (values["marginBottom"] !== undefined) {
-                this._marginBottom = parseInt(values["marginBottom"]);
-            }
-
-            if (values["marginLeft"] !== undefined) {
-                this._marginLeft = parseInt(values["marginLeft"]);
-            }
-
-            return this;
-        },
-
+        /**
+         * Sets margin
+         *
+         * @returns {TestS.Panel.Design.Block}
+         *
+         * @private
+         */
         _setMargin: function() {
-            this.$_marginContainer = this.$_designContainer.find(".margin-container");
+            var $container = this.$_designContainer.find(".margin-container");
 
-            if (this._marginTop === null
-                && this._marginRight === null
-                && this._marginBottom === null
-                && this._marginLeft === null
+            if (this._values["marginTop"] === null
+                && this._values["marginRight"] === null
+                && this._values["marginBottom"] === null
+                && this._values["marginLeft"] === null
             ) {
-                this.$_marginContainer.remove();
-                return this;
-            }
-
-            var uniqueId = TestS.getUniqueId();
-            this.$_marginExample = this.$_marginContainer.find(".margin-example")
-                .addClass("margin-example-" + uniqueId)
-                .attr("data-id", uniqueId);
-
-            this.$_marginContainer.find(".category-title").text(this._getLabel("margin"));
-            this.$_marginContainer.find(".has-margin-hover-label").text(this._getLabel("setHover"));
-            this.$_marginContainer.find(".has-margin-animation-label").text(this._getLabel("useAnimation"));
-
-            this
-                ._setSpinner("margin-top-container", "marginTop", "_updateMargin")
-                ._setSpinner("margin-right-container", "marginRight", "_updateMargin")
-                ._setSpinner("margin-bottom-container", "marginBottom", "_updateMargin")
-                ._setSpinner("margin-left-container", "marginLeft", "_updateMargin")
-            ;
-
-            return this;
-        },
-
-        _setSpinner: function(containerClassName, name, callbackName) {
-            var t = this;
-            var privateName = "_" + name;
-
-            var $container = t.$_designContainer.find("." + containerClassName);
-            if (t[privateName] === null) {
                 $container.remove();
                 return this;
             }
 
-            $container.find("input")
-                .val(t[privateName])
-                .attr("name", t._getName(name))
-                .on("keyup", function() {
-                    t[privateName] = parseInt($(this).val());
-                    t[callbackName]();
-                })
-                .spinner({
-                    spin: function (event, ui) {
-                        t[privateName] = parseInt(ui.value);
-                        t[callbackName]();
-                    },
-                    icons: {
-                        up: "fa fa-chevron-up",
-                        down: "fa fa-chevron-down"
-                    }
+            this.$_marginExampleStyles = $container.find(".styles-example-container");
+
+            $container.find(".category-title").text(this._getLabel("margin"));
+
+            var uniqueId = TestS.getUniqueId();
+            this.$_marginExample = $container.find(".margin-example")
+                .addClass("margin-example-" + uniqueId)
+                .attr("data-id", uniqueId);
+
+            var $relativeContainer = $container.find(".relative-container");
+
+            if (this._values["marginTop"] !== null) {
+                var marginTopHover = null;
+
+                if (this._values["marginTopHover"] !== null) {
+                    marginTopHover = new TestS.Form({
+                        type: "spinner",
+                        value: this._values["marginTopHover"],
+                        class: "margin-top-hover",
+                        callback: $.proxy(function (value) {
+                            this._values["marginTopHover"] = value;
+                            this._updateMargin(false);
+                        }, this),
+                        appendTo: $relativeContainer
+                    });
+                }
+
+                new TestS.Form({
+                    type: "spinner",
+                    value: this._values["marginTop"],
+                    class: "margin-top",
+                    callback: $.proxy(function (value) {
+                        if (this._values["marginTop"] === this._values["marginTopHover"]
+                            && marginTopHover !== null
+                        ) {
+                            this._values["marginTopHover"] = value;
+                            marginTopHover.setValue(value);
+                        }
+
+                        this._values["marginTop"] = value;
+
+                        this._updateMargin(false);
+                    }, this),
+                    appendTo: $relativeContainer
                 });
+            }
+
+            if (this._values["marginRight"] !== null) {
+                var marginRightHover = null;
+
+                if (this._values["marginRightHover"] !== null) {
+                    marginRightHover = new TestS.Form({
+                        type: "spinner",
+                        value: this._values["marginRightHover"],
+                        class: "margin-right-hover",
+                        callback: $.proxy(function (value) {
+                            this._values["marginRightHover"] = value;
+                            this._updateMargin(false);
+                        }, this),
+                        appendTo: $relativeContainer
+                    });
+                }
+
+                new TestS.Form({
+                    type: "spinner",
+                    value: this._values["marginRight"],
+                    class: "margin-right",
+                    callback: $.proxy(function (value) {
+                        if (this._values["marginRight"] === this._values["marginRightHover"]
+                            && marginRightHover !== null
+                        ) {
+                            this._values["marginRightHover"] = value;
+                            marginRightHover.setValue(value);
+                        }
+
+                        this._values["marginRight"] = value;
+
+                        this._updateMargin(false);
+                    }, this),
+                    appendTo: $relativeContainer
+                });
+            }
+
+            if (this._values["marginBottom"] !== null) {
+                var marginBottomHover = null;
+
+                if (this._values["marginBottomHover"] !== null) {
+                    marginBottomHover = new TestS.Form({
+                        type: "spinner",
+                        value: this._values["marginBottomHover"],
+                        class: "margin-bottom-hover",
+                        callback: $.proxy(function (value) {
+                            this._values["marginBottomHover"] = value;
+                            this._updateMargin(false);
+                        }, this),
+                        appendTo: $relativeContainer
+                    });
+                }
+
+                new TestS.Form({
+                    type: "spinner",
+                    value: this._values["marginBottom"],
+                    class: "margin-bottom",
+                    callback: $.proxy(function (value) {
+                        if (this._values["marginBottom"] === this._values["marginBottomHover"]
+                            && marginBottomHover !== null
+                        ) {
+                            this._values["marginBottomHover"] = value;
+                            marginBottomHover.setValue(value);
+                        }
+
+                        this._values["marginBottom"] = value;
+
+                        this._updateMargin(false);
+                    }, this),
+                    appendTo: $relativeContainer
+                });
+            }
+
+            if (this._values["marginLeft"] !== null) {
+                var marginLeftHover = null;
+
+                if (this._values["marginLeftHover"] !== null) {
+                    marginLeftHover = new TestS.Form({
+                        type: "spinner",
+                        value: this._values["marginLeftHover"],
+                        class: "margin-left-hover",
+                        callback: $.proxy(function (value) {
+                            this._values["marginLeftHover"] = value;
+                            this._updateMargin(false);
+                        }, this),
+                        appendTo: $relativeContainer
+                    });
+                }
+
+                new TestS.Form({
+                    type: "spinner",
+                    value: this._values["marginLeft"],
+                    class: "margin-left",
+                    callback: $.proxy(function (value) {
+                        if (this._values["marginLeft"] === this._values["marginLeftHover"]
+                            && marginLeftHover !== null
+                        ) {
+                            this._values["marginLeftHover"] = value;
+                            marginLeftHover.setValue(value);
+                        }
+
+                        this._values["marginLeft"] = value;
+
+                        this._updateMargin(false);
+                    }, this),
+                    appendTo: $relativeContainer
+                });
+            }
+
+            if (this._values["hasMarginHover"] === true) {
+                $container.addClass("has-hover");
+            }
+
+            new TestS.Form({
+                type: "checkbox",
+                value: this._values["hasMarginHover"],
+                label: this._getLabel("setHover"),
+                onCheck: function() {
+                    $container.addClass("has-hover");
+                },
+                onUnCheck: function() {
+                    $container.removeClass("has-hover");
+                },
+                appendTo: $container
+            });
+
+            new TestS.Form({
+                type: "checkbox",
+                value: this._values["hasMarginAnimation"],
+                label: this._getLabel("useAnimation"),
+                class: "has-animation",
+                appendTo: $container
+            });
+
+            this._updateMargin(true);
 
             return this;
         },
 
-        _updateMargin: function() {
-            var $example = this.$_marginContainer.find(".styles-example-container");
+        /**
+         * Updates margin
+         *
+         * @param {boolean} isOnlyExample
+         *
+         * @private
+         */
+        _updateMargin: function(isOnlyExample) {
+            var id = this.$_marginExample.data("id");
 
             var css = "<style>"
                 + ".margin-example-"
-                + this.$_marginExample.data("id")
+                + id
                 + "{"
-                + this._generateMarginCss()
-                + "}</style>";
+                + this._generateMarginCss(false)
+                + "}.margin-example-"
+                + id
+                + ":hover {"
+                + this._generateMarginCss(true)
+                +"}</style>";
 
-            $example.html(css);
+            this.$_marginExampleStyles.html(css);
 
-            this._update();
+            if (isOnlyExample !== true) {
+                this._update();
+            }
         },
 
+        /**
+         * Updates all styles
+         *
+         * @private
+         */
         _update: function() {
             var css = "<style>"
                 + this._selector
                 + "{"
-                + this._generateCss()
+                + this._generateCss(false)
+                + "}"
+                + this._selector
+                + ":hover{"
+                + this._generateCss(true)
                 + "}</style>";
 
             this.$_styleContainer.html(css);
         },
 
-        _generateMarginCss: function() {
-            var marginTop = TestS.getIntVal(this._marginTop);
-            var marginRight = TestS.getIntVal(this._marginRight);
-            var marginBottom = TestS.getIntVal(this._marginBottom);
-            var marginLeft = TestS.getIntVal(this._marginLeft);
+        /**
+         * Generates margin styles
+         *
+         * @param {boolean} isHover
+         *
+         * @returns {String}
+         *
+         * @private
+         */
+        _generateMarginCss: function(isHover) {
+            var marginTop, marginRight, marginBottom, marginLeft;
+
+            if (isHover === true) {
+                marginTop = TestS.getIntVal(this._values["marginTopHover"]);
+                marginRight = TestS.getIntVal(this._values["marginTopHover"]);
+                marginBottom = TestS.getIntVal(this._values["marginTopHover"]);
+                marginLeft = TestS.getIntVal(this._values["marginTopHover"]);
+            } else {
+                marginTop = TestS.getIntVal(this._values["marginTop"]);
+                marginRight = TestS.getIntVal(this._values["marginRight"]);
+                marginBottom = TestS.getIntVal(this._values["marginBottom"]);
+                marginLeft = TestS.getIntVal(this._values["marginLeft"]);
+            }
 
             if (marginTop === 0
                 && marginRight === 0
@@ -248,12 +496,17 @@
             return "margin:" + marginTop + " " + marginRight + " " + marginBottom + " " + marginLeft + ";";
         },
 
-        _generateCss: function() {
-            return this._generateMarginCss();
-        },
-
-        _getName: function(name) {
-            return this._namespace + "." + name;
+        /**
+         * Generates all styles
+         *
+         * @param {boolean} isHover
+         *
+         * @returns {String}
+         *
+         * @private
+         */
+        _generateCss: function(isHover) {
+            return this._generateMarginCss(isHover);
         }
     };
 }(window.jQuery, window.TestS);

@@ -20,50 +20,6 @@
     .relative-container {
       margin-left: -15px;
       position: relative;
-
-      .spinner-container {
-        position: absolute;
-
-        input {
-          border: 1px solid @grayBorderColor;
-          padding: 2px 25px 2px 5px;
-          line-height: 19px;
-          .border-radius(4px);
-          font-size: 14px;
-          background: white;
-          width: 60px;
-
-          &:hover {
-            border-color: @blueBorderColor;
-          }
-
-          &:focus {
-            border-color: @blueBorderColor;
-            box-shadow: 0 0 0 3px rgba(131, 192, 253, 0.5);
-          }
-        }
-
-        .fa {
-          .gray-blue-link;
-          position: absolute;
-          left: 40px;
-          font-size: 0;
-          height: 12px;
-          line-height: 12px;
-
-          &:before {
-            font-size: 14px;
-          }
-        }
-
-        .fa-chevron-up {
-          top: 0;
-        }
-
-        .fa-chevron-down {
-          bottom: 0;
-        }
-      }
     }
   }
 }
@@ -73,34 +29,34 @@
     .relative-container {
       height: 150px;
 
-      .margin-top-container {
+      .margin-top {
         top: 0;
         left: 50%;
         margin-left: -30px;
       }
 
-      .margin-right-container {
+      .margin-right {
         top: 60px;
         left: 50%;
         margin-left: 60px;
       }
 
-      .margin-bottom-container {
+      .margin-bottom {
         top: 115px;
         left: 50%;
         margin-left: -30px;
       }
 
-      .margin-left-container {
+      .margin-left {
         top: 60px;
         left: 50%;
         margin-left: -120px;
       }
 
-      .margin-top-hover-container,
-      .margin-right-hover-container,
-      .margin-bottom-hover-container,
-      .margin-left-hover-container {
+      .margin-top-hover,
+      .margin-right-hover,
+      .margin-bottom-hover,
+      .margin-left-hover {
         display: none;
       }
 
@@ -125,53 +81,61 @@
         }
       }
     }
+
+    .has-animation {
+      display: none;
+    }
   }
 
-  .margin-container.hover {
-    .margin-top-container {
+  .margin-container.has-hover {
+    .margin-top {
       margin-left: -70px;
     }
 
-    .margin-right-container {
+    .margin-right {
       top: 40px;
       left: 50%;
       margin-left: 60px;
     }
 
-    .margin-bottom-container {
+    .margin-bottom {
       top: 115px;
       left: 50%;
       margin-left: -70px;
     }
 
-    .margin-left-container {
+    .margin-left {
       top: 40px;
       left: 50%;
       margin-left: -120px;
     }
 
-    .margin-top-hover-container {
+    .margin-top-hover {
       top: 0;
       left: 50%;
       margin-left: 10px;
     }
 
-    .margin-right-hover-container {
+    .margin-right-hover {
       top: 80px;
       left: 50%;
       margin-left: 60px;
     }
 
-    .margin-bottom-hover-container {
+    .margin-bottom-hover {
       top: 115px;
       left: 50%;
       margin-left: 10px;
     }
 
-    .margin-left-hover-container {
+    .margin-left-hover {
       top: 80px;
       left: 50%;
       margin-left: -120px;
+    }
+
+    .has-animation {
+      display: block;
     }
   }
 }

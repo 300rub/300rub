@@ -1,5 +1,6 @@
 @import "variables";
 @import "webkit";
+@import "helpers";
 
 .form-container {
   margin: 15px 0;
@@ -158,4 +159,48 @@
   font-weight: bold;
   font-size: 14px;
   padding: 0 4px;
+}
+
+.form-container-spinner {
+  position: absolute;
+
+  input {
+    border: 1px solid @grayBorderColor;
+    padding: 2px 24px 4px 10px;
+    line-height: 22px;
+    .border-radius(4px);
+    font-size: 15px;
+    background: white;
+    width: 80px;
+
+    &:hover {
+      border-color: @blueBorderColor;
+    }
+
+    &:focus {
+      border-color: @blueBorderColor;
+      box-shadow: 0 0 0 3px rgba(131, 192, 253, 0.5);
+    }
+  }
+
+  .fa {
+    .gray-blue-link;
+    position: absolute;
+    left: 40px;
+    font-size: 0;
+    height: 12px;
+    line-height: 12px;
+
+    &:before {
+      font-size: 14px;
+    }
+  }
+
+  .fa-chevron-up {
+    top: 0;
+  }
+
+  .fa-chevron-down {
+    bottom: 0;
+  }
 }

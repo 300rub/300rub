@@ -165,14 +165,13 @@
                     name: "isChangePassword",
                     value: false,
                     label: data.labels["isChangePassword"],
-                    onChange: function() {
-                        if (this.checked) {
-                            t._passwordForm.getInstance().removeClass("hidden");
-                            t._passwordConfirmForm.getInstance().removeClass("hidden");
-                        } else {
-                            t._passwordForm.getInstance().addClass("hidden");
-                            t._passwordConfirmForm.getInstance().addClass("hidden");
-                        }
+                    onCheck: function() {
+                        t._passwordForm.getInstance().removeClass("hidden");
+                        t._passwordConfirmForm.getInstance().removeClass("hidden");
+                    },
+                    onUnCheck: function() {
+                        t._passwordForm.getInstance().addClass("hidden");
+                        t._passwordConfirmForm.getInstance().addClass("hidden");
                     }
                 });
                 this._forms.push(isChangePassword);

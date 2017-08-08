@@ -13,6 +13,7 @@
     TestS.Form = function (options) {
         this._options = $.extend({}, options);
         this.$_form = null;
+        this.$_instance = null;
 
         this.init();
     };
@@ -97,16 +98,77 @@
         },
 
         /**
-         * Sets text form
+         * Sets spinner
          *
          * @private
          */
         _setSpinner: function () {
+            var t = this;
+
             this.$_form = TestS.Template.get("form-container-spinner");
 
+            this._allowOnlyNumbers();
+
             if (this._options.value !== undefined) {
-                this.getFormInstance().val(this._options.value);
+                this.getFormInstance().val(
+                    TestS.getIntVal(this._options.value)
+                );
             }
+
+            if ($.type(this._options.callback) === "function") {
+                this.getFormInstance().on("keyup", function() {
+                    t._options.callback(
+                        TestS.getIntVal($(this).val())
+                    )
+                });
+            }
+
+            this.getFormInstance().spinner({
+                spin: function (event, ui) {
+                    if ($.type(t._options.callback) === "function") {
+                        t._options.callback(
+                            TestS.getIntVal(ui.value)
+                        );
+                    }
+                },
+                icons: {
+                    up: "fa fa-chevron-up",
+                    down: "fa fa-chevron-down"
+                }
+            });
+        },
+
+        /**
+         * Allows only numbers
+         *
+         * Allow: Ctrl+A/C/V/X, Command+A/C/V/X
+         * Allow: home, end, left, right, down, up
+         * Ensure that it is a number and stop the keypress
+         *
+         * @returns {TestS.Form}
+         *
+         * @private
+         */
+        _allowOnlyNumbers: function() {
+            this.getFormInstance().on("keydown", function(e) {
+                if ($.inArray(e.keyCode, [46, 8, 9, 27, 13]) !== -1
+                    || (
+                        (e.ctrlKey === true || e.metaKey === true)
+                        && (e.keyCode == 65 || e.keyCode == 67 || e.keyCode == 86 || e.keyCode == 88)
+                    )
+                    || (e.keyCode >= 35 && e.keyCode <= 40)
+                ) {
+                    return null;
+                }
+
+                if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57))
+                    && (e.keyCode < 96 || e.keyCode > 105)
+                ) {
+                    return false;
+                }
+            });
+
+            return this;
         },
 
         /**
@@ -151,18 +213,28 @@
          * @private
          */
         _setCheckboxForm: function () {
-            this.$_form = TestS.Template.get("form-container-checkbox");
+            var t = this;
 
-            if (this._options.value === true) {
-                this.getFormInstance().attr("checked", "checked");
+            t.$_form = TestS.Template.get("form-container-checkbox");
+
+            if (t._options.value === true) {
+                t.getFormInstance().attr("checked", "checked");
             }
 
-            if ($.type(this._options.onChange) === "function") {
-                if ($.type(this._options.data) === "object") {
-                    this.getFormInstance().on("change", this._options.data, this._options.onChange);
-                } else {
-                    this.getFormInstance().on("change", this._options.onChange);
-                }
+            if ($.type(t._options["onCheck"]) === "function") {
+                t.getFormInstance().on("change", function() {
+                    if (this.checked) {
+                        t._options.onCheck();
+                    }
+                });
+            }
+
+            if ($.type(t._options["onUnCheck"]) === "function") {
+                t.getFormInstance().on("change", function() {
+                    if (this.checked) {
+                        t._options.onUnCheck();
+                    }
+                });
             }
         },
 
@@ -391,7 +463,11 @@
          * @returns {Object}
          */
         getFormInstance: function () {
-            return this.getInstance().find(".form-instance");
+            if (this.$_instance === null) {
+                this.$_instance = this.getInstance().find(".form-instance");
+            }
+
+            return this.$_instance;
         },
 
         /**
@@ -558,12 +634,27 @@
                 case "checkbox":
                     value = $formInstance.is(':checked');
                     break;
+                case "spinner":
+                    value = TestS.getIntVal($formInstance.val());
+                    break;
                 default:
                     value = $formInstance.val();
                     break;
             }
 
             return value;
+        },
+
+        /**
+         * Sets value
+         *
+         * @param {mixed} value
+         *
+         * @returns {TestS.Form}
+         */
+        setValue: function(value) {
+            this.getFormInstance().val(value);
+            return this;
         }
     };
 }(window.jQuery, window.TestS);
