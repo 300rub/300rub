@@ -64,6 +64,7 @@
 
 <div class="form-container-spinner">
     <label>
+        <i class="icon-before fa"></i>
         <span class="label-text"></span>
         <input type="text" class="form-instance" />
     </label>

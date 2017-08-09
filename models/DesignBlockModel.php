@@ -113,6 +113,7 @@ class DesignBlockModel extends AbstractModel
     {
         return [
             "margin" => Language::t("design", "margin"),
+            "padding" => Language::t("design", "padding"),
             "setHover" => Language::t("design", "setHover"),
             "useAnimation" => Language::t("design", "useAnimation"),
         ];

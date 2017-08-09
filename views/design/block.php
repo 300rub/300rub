@@ -12,11 +12,11 @@ $marginTop = $model->get("marginTop");
 $marginRight = $model->get("marginRight");
 $marginBottom = $model->get("marginBottom");
 $marginLeft = $model->get("marginLeft");
-//if ($marginTop !== 0
-//    || $marginRight !== 0
-//    || $marginBottom !== 0
-//    || $marginLeft !== 0
-//) {
+if ($marginTop !== 0
+    || $marginRight !== 0
+    || $marginBottom !== 0
+    || $marginLeft !== 0
+) {
     if ($marginTop !== 0) {
         $marginTop .= "px";
     }
@@ -36,7 +36,7 @@ $marginLeft = $model->get("marginLeft");
         $marginBottom,
         $marginLeft
     );
-//}
+}
 
 $paddingTop = $model->get("paddingTop");
 $paddingRight = $model->get("paddingRight");

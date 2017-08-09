@@ -85,13 +85,13 @@
 
                 });
 
-                if (listLength > 1) {
+                //if (listLength > 1) {
                     var groupAccordionElement = new TestS.Accordion.Element(groupData["title"]);
                     groupAccordionElement.add(groupContainer);
                     groupAccordionElement.appendTo(this._panel.getBody());
-                } else {
-                    groupContainer.appendTo(this._panel.getBody());
-                }
+                //} else {
+                //    groupContainer.appendTo(this._panel.getBody());
+                //}
             }, this));
 
             TestS.Accordion(this._panel.getBody());

@@ -7,3 +7,70 @@
 https://www.youtube.com/watch?v=1edPxKqiptw
 
 https://www.nginx.com/resources/admin-guide/load-balancer/
+
+
+/**
+         * Generates padding styles
+         *
+         * @param {boolean} isHover
+         *
+         * @returns {String}
+         *
+         * @private
+         */
+        _generatePaddingCss: function(isHover) {
+            var paddingTop, paddingRight, paddingBottom, paddingLeft;
+
+            if (isHover === true) {
+                if (this._values["hasPaddingHover"] !== true) {
+                    return "";
+                }
+
+                paddingTop = TestS.getIntVal(this._values["paddingTopHover"]);
+                paddingRight = TestS.getIntVal(this._values["paddingTopHover"]);
+                paddingBottom = TestS.getIntVal(this._values["paddingTopHover"]);
+                paddingLeft = TestS.getIntVal(this._values["paddingTopHover"]);
+            } else {
+                paddingTop = TestS.getIntVal(this._values["paddingTop"]);
+                paddingRight = TestS.getIntVal(this._values["paddingRight"]);
+                paddingBottom = TestS.getIntVal(this._values["paddingBottom"]);
+                paddingLeft = TestS.getIntVal(this._values["paddingLeft"]);
+            }
+
+            if (paddingTop === 0
+                && paddingRight === 0
+                && paddingBottom === 0
+                && paddingLeft === 0
+            ) {
+                return "";
+            }
+
+            if (paddingTop !== 0) {
+                paddingTop += "px";
+            }
+
+            if (paddingRight !== 0) {
+                paddingRight += "px";
+            }
+
+            if (paddingBottom !== 0) {
+                paddingBottom += "px";
+            }
+
+            if (paddingLeft !== 0) {
+                paddingLeft += "px";
+            }
+
+            var css = "padding:" + paddingTop + " " + paddingRight + " " + paddingBottom + " " + paddingLeft + ";";
+
+            if (isHover !== true
+                && this._values["hasPaddingAnimation"] === true
+            ) {
+                css += "-webkit-transition:padding .3s;";
+                css += "-ms-transition:padding .3s;";
+                css += "-o-transition:padding .3s;";
+                css += "transition:padding .3s;";
+            }
+
+            return css
+        },

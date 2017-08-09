@@ -16,13 +16,15 @@
         this._values = {};
         this._names = {};
 
-        this._rollback = "";
+        this._rollbackStyles = "";
 
         this.$_designContainer = null;
         this.$_styleContainer = null;
         
         this.$_marginExample = null;
         this.$_marginExampleStyles = null;
+        this.$_paddingExample = null;
+        this.$_paddingExampleStyles = null;
 
         this.init();
     };
@@ -46,7 +48,8 @@
                 ._setValues()
                 ._setNames()
                 ._setDesignContainer()
-                ._setMargin();
+                ._setMargin()
+                ._setPadding();
         },
 
         /**
@@ -66,7 +69,19 @@
                     marginTopHover: null,
                     marginRightHover: null,
                     marginBottomHover: null,
-                    marginLeftHover: null
+                    marginLeftHover: null,
+                    hasMarginHover: null,
+                    hasMarginAnimation: null,
+                    paddingTop: null,
+                    paddingRight: null,
+                    paddingBottom: null,
+                    paddingLeft: null,
+                    paddingTopHover: null,
+                    paddingRightHover: null,
+                    paddingBottomHover: null,
+                    paddingLeftHover: null,
+                    hasPaddingHover: null,
+                    hasPaddingAnimation: null
                 },
                 this._data["values"]
             );
@@ -136,9 +151,16 @@
          * @private
          */
         _setRollback: function() {
-            this._rollback = this.$_styleContainer.html();
+            this._rollbackStyles = this.$_styleContainer.html();
 
             return this;
+        },
+
+        /**
+         * Rollbacks
+         */
+        rollback: function() {
+            this.$_styleContainer.html(this._rollbackStyles);
         },
 
         /**
@@ -232,6 +254,7 @@
                         type: "spinner",
                         value: this._values["marginTopHover"],
                         class: "margin-top-hover",
+                        iconBefore: "fa-arrow-right",
                         callback: $.proxy(function (value) {
                             this._values["marginTopHover"] = value;
                             this._updateMargin(false);
@@ -251,9 +274,7 @@
                             this._values["marginTopHover"] = value;
                             marginTopHover.setValue(value);
                         }
-
                         this._values["marginTop"] = value;
-
                         this._updateMargin(false);
                     }, this),
                     appendTo: $relativeContainer
@@ -287,9 +308,7 @@
                             this._values["marginRightHover"] = value;
                             marginRightHover.setValue(value);
                         }
-
                         this._values["marginRight"] = value;
-
                         this._updateMargin(false);
                     }, this),
                     appendTo: $relativeContainer
@@ -304,6 +323,7 @@
                         type: "spinner",
                         value: this._values["marginBottomHover"],
                         class: "margin-bottom-hover",
+                        iconBefore: "fa-arrow-right",
                         callback: $.proxy(function (value) {
                             this._values["marginBottomHover"] = value;
                             this._updateMargin(false);
@@ -323,9 +343,7 @@
                             this._values["marginBottomHover"] = value;
                             marginBottomHover.setValue(value);
                         }
-
                         this._values["marginBottom"] = value;
-
                         this._updateMargin(false);
                     }, this),
                     appendTo: $relativeContainer
@@ -359,9 +377,7 @@
                             this._values["marginLeftHover"] = value;
                             marginLeftHover.setValue(value);
                         }
-
                         this._values["marginLeft"] = value;
-
                         this._updateMargin(false);
                     }, this),
                     appendTo: $relativeContainer
@@ -372,28 +388,258 @@
                 $container.addClass("has-hover");
             }
 
-            new TestS.Form({
-                type: "checkbox",
-                value: this._values["hasMarginHover"],
-                label: this._getLabel("setHover"),
-                onCheck: function() {
-                    $container.addClass("has-hover");
-                },
-                onUnCheck: function() {
-                    $container.removeClass("has-hover");
-                },
-                appendTo: $container
-            });
+            if (this._values["hasMarginHover"] !== null) {
+                new TestS.Form({
+                    type: "checkbox",
+                    value: this._values["hasMarginHover"],
+                    label: this._getLabel("setHover"),
+                    onCheck: $.proxy(function () {
+                        this._values["hasMarginHover"] = true;
+                        $container.addClass("has-hover");
+                        this._updateMargin(false);
+                    }, this),
+                    onUnCheck: $.proxy(function () {
+                        this._values["hasMarginHover"] = false;
+                        $container.removeClass("has-hover");
+                        this._updateMargin(false);
+                    }, this),
+                    appendTo: $container
+                });
+            }
 
-            new TestS.Form({
-                type: "checkbox",
-                value: this._values["hasMarginAnimation"],
-                label: this._getLabel("useAnimation"),
-                class: "has-animation",
-                appendTo: $container
-            });
+            if (this._values["hasMarginAnimation"] !== null) {
+                new TestS.Form({
+                    type: "checkbox",
+                    value: this._values["hasMarginAnimation"],
+                    label: this._getLabel("useAnimation"),
+                    class: "has-animation",
+                    onCheck: $.proxy(function () {
+                        this._values["hasMarginAnimation"] = true;
+                        this._updateMargin(false);
+                    }, this),
+                    onUnCheck: $.proxy(function () {
+                        this._values["hasMarginAnimation"] = false;
+                        this._updateMargin(false);
+                    }, this),
+                    appendTo: $container
+                });
+            }
 
             this._updateMargin(true);
+
+            return this;
+        },
+
+        /**
+         * Sets padding
+         *
+         * @returns {TestS.Panel.Design.Block}
+         *
+         * @private
+         */
+        _setPadding: function() {
+            var $container = this.$_designContainer.find(".padding-container");
+
+            if (this._values["paddingTop"] === null
+                && this._values["paddingRight"] === null
+                && this._values["paddingBottom"] === null
+                && this._values["paddingLeft"] === null
+            ) {
+                $container.remove();
+                return this;
+            }
+
+            this.$_paddingExampleStyles = $container.find(".styles-example-container");
+
+            $container.find(".category-title").text(this._getLabel("padding"));
+
+            var uniqueId = TestS.getUniqueId();
+            this.$_paddingExample = $container.find(".padding-example")
+                .addClass("padding-example-" + uniqueId)
+                .attr("data-id", uniqueId);
+
+            var $relativeContainer = $container.find(".relative-container");
+
+            if (this._values["paddingTop"] !== null) {
+                var paddingTopHover = null;
+
+                if (this._values["paddingTopHover"] !== null) {
+                    paddingTopHover = new TestS.Form({
+                        type: "spinner",
+                        value: this._values["paddingTopHover"],
+                        class: "padding-top-hover",
+                        iconBefore: "fa-arrow-right",
+                        callback: $.proxy(function (value) {
+                            this._values["paddingTopHover"] = value;
+                            this._updatePadding(false);
+                        }, this),
+                        appendTo: $relativeContainer
+                    });
+                }
+
+                new TestS.Form({
+                    type: "spinner",
+                    value: this._values["paddingTop"],
+                    class: "padding-top",
+                    callback: $.proxy(function (value) {
+                        if (this._values["paddingTop"] === this._values["paddingTopHover"]
+                            && paddingTopHover !== null
+                        ) {
+                            this._values["paddingTopHover"] = value;
+                            paddingTopHover.setValue(value);
+                        }
+                        this._values["paddingTop"] = value;
+                        this._updatePadding(false);
+                    }, this),
+                    appendTo: $relativeContainer
+                });
+            }
+
+            if (this._values["paddingRight"] !== null) {
+                var paddingRightHover = null;
+
+                if (this._values["paddingRightHover"] !== null) {
+                    paddingRightHover = new TestS.Form({
+                        type: "spinner",
+                        value: this._values["paddingRightHover"],
+                        class: "padding-right-hover",
+                        callback: $.proxy(function (value) {
+                            this._values["paddingRightHover"] = value;
+                            this._updatePadding(false);
+                        }, this),
+                        appendTo: $relativeContainer
+                    });
+                }
+
+                new TestS.Form({
+                    type: "spinner",
+                    value: this._values["paddingRight"],
+                    class: "padding-right",
+                    callback: $.proxy(function (value) {
+                        if (this._values["paddingRight"] === this._values["paddingRightHover"]
+                            && paddingRightHover !== null
+                        ) {
+                            this._values["paddingRightHover"] = value;
+                            paddingRightHover.setValue(value);
+                        }
+                        this._values["paddingRight"] = value;
+                        this._updatePadding(false);
+                    }, this),
+                    appendTo: $relativeContainer
+                });
+            }
+
+            if (this._values["paddingBottom"] !== null) {
+                var paddingBottomHover = null;
+
+                if (this._values["paddingBottomHover"] !== null) {
+                    paddingBottomHover = new TestS.Form({
+                        type: "spinner",
+                        value: this._values["paddingBottomHover"],
+                        class: "padding-bottom-hover",
+                        iconBefore: "fa-arrow-right",
+                        callback: $.proxy(function (value) {
+                            this._values["paddingBottomHover"] = value;
+                            this._updatePadding(false);
+                        }, this),
+                        appendTo: $relativeContainer
+                    });
+                }
+
+                new TestS.Form({
+                    type: "spinner",
+                    value: this._values["paddingBottom"],
+                    class: "padding-bottom",
+                    callback: $.proxy(function (value) {
+                        if (this._values["paddingBottom"] === this._values["paddingBottomHover"]
+                            && paddingBottomHover !== null
+                        ) {
+                            this._values["paddingBottomHover"] = value;
+                            paddingBottomHover.setValue(value);
+                        }
+                        this._values["paddingBottom"] = value;
+                        this._updatePadding(false);
+                    }, this),
+                    appendTo: $relativeContainer
+                });
+            }
+
+            if (this._values["paddingLeft"] !== null) {
+                var paddingLeftHover = null;
+
+                if (this._values["paddingLeftHover"] !== null) {
+                    paddingLeftHover = new TestS.Form({
+                        type: "spinner",
+                        value: this._values["paddingLeftHover"],
+                        class: "padding-left-hover",
+                        callback: $.proxy(function (value) {
+                            this._values["paddingLeftHover"] = value;
+                            this._updatePadding(false);
+                        }, this),
+                        appendTo: $relativeContainer
+                    });
+                }
+
+                new TestS.Form({
+                    type: "spinner",
+                    value: this._values["paddingLeft"],
+                    class: "padding-left",
+                    callback: $.proxy(function (value) {
+                        if (this._values["paddingLeft"] === this._values["paddingLeftHover"]
+                            && paddingLeftHover !== null
+                        ) {
+                            this._values["paddingLeftHover"] = value;
+                            paddingLeftHover.setValue(value);
+                        }
+                        this._values["paddingLeft"] = value;
+                        this._updatePadding(false);
+                    }, this),
+                    appendTo: $relativeContainer
+                });
+            }
+
+            if (this._values["hasPaddingHover"] === true) {
+                $container.addClass("has-hover");
+            }
+
+            if (this._values["hasPaddingHover"] !== null) {
+                new TestS.Form({
+                    type: "checkbox",
+                    value: this._values["hasPaddingHover"],
+                    label: this._getLabel("setHover"),
+                    onCheck: $.proxy(function () {
+                        this._values["hasPaddingHover"] = true;
+                        $container.addClass("has-hover");
+                        this._updatePadding(false);
+                    }, this),
+                    onUnCheck: $.proxy(function () {
+                        this._values["hasPaddingHover"] = false;
+                        $container.removeClass("has-hover");
+                        this._updatePadding(false);
+                    }, this),
+                    appendTo: $container
+                });
+            }
+
+            if (this._values["hasPaddingAnimation"] !== null) {
+                new TestS.Form({
+                    type: "checkbox",
+                    value: this._values["hasPaddingAnimation"],
+                    label: this._getLabel("useAnimation"),
+                    class: "has-animation",
+                    onCheck: $.proxy(function () {
+                        this._values["hasPaddingAnimation"] = true;
+                        this._updatePadding(false);
+                    }, this),
+                    onUnCheck: $.proxy(function () {
+                        this._values["hasPaddingAnimation"] = false;
+                        this._updatePadding(false);
+                    }, this),
+                    appendTo: $container
+                });
+            }
+
+            this._updatePadding(true);
 
             return this;
         },
@@ -427,22 +673,31 @@
         },
 
         /**
-         * Updates all styles
+         * Updates padding
+         *
+         * @param {boolean} isOnlyExample
          *
          * @private
          */
-        _update: function() {
-            var css = "<style>"
-                + this._selector
-                + "{"
-                + this._generateCss(false)
-                + "}"
-                + this._selector
-                + ":hover{"
-                + this._generateCss(true)
-                + "}</style>";
+        _updatePadding: function(isOnlyExample) {
+            var id = this.$_paddingExample.data("id");
 
-            this.$_styleContainer.html(css);
+            var css = "<style>"
+                + ".padding-example-"
+                + id
+                + "{"
+                + this._generatePaddingCss(false)
+                + "}.padding-example-"
+                + id
+                + ":hover {"
+                + this._generatePaddingCss(true)
+                +"}</style>";
+
+            this.$_paddingExampleStyles.html(css);
+
+            if (isOnlyExample !== true) {
+                this._update();
+            }
         },
 
         /**
@@ -458,23 +713,19 @@
             var marginTop, marginRight, marginBottom, marginLeft;
 
             if (isHover === true) {
+                if (this._values["hasMarginHover"] !== true) {
+                    return "";
+                }
+
                 marginTop = TestS.getIntVal(this._values["marginTopHover"]);
-                marginRight = TestS.getIntVal(this._values["marginTopHover"]);
-                marginBottom = TestS.getIntVal(this._values["marginTopHover"]);
-                marginLeft = TestS.getIntVal(this._values["marginTopHover"]);
+                marginRight = TestS.getIntVal(this._values["marginRightHover"]);
+                marginBottom = TestS.getIntVal(this._values["marginBottomHover"]);
+                marginLeft = TestS.getIntVal(this._values["marginLeftHover"]);
             } else {
                 marginTop = TestS.getIntVal(this._values["marginTop"]);
                 marginRight = TestS.getIntVal(this._values["marginRight"]);
                 marginBottom = TestS.getIntVal(this._values["marginBottom"]);
                 marginLeft = TestS.getIntVal(this._values["marginLeft"]);
-            }
-
-            if (marginTop === 0
-                && marginRight === 0
-                && marginBottom === 0
-                && marginLeft === 0
-            ) {
-                return "";
             }
 
             if (marginTop !== 0) {
@@ -493,7 +744,95 @@
                 marginLeft += "px";
             }
 
-            return "margin:" + marginTop + " " + marginRight + " " + marginBottom + " " + marginLeft + ";";
+            var css = "margin:" + marginTop + " " + marginRight + " " + marginBottom + " " + marginLeft + ";";
+
+            if (this._values["hasMarginHover"] === true
+                && this._values["hasMarginAnimation"] === true
+            ) {
+                css += "-webkit-transition:margin .3s;";
+                css += "-ms-transition:margin .3s;";
+                css += "-o-transition:margin .3s;";
+                css += "transition:margin .3s;";
+            }
+
+            return css
+        },
+
+        /**
+         * Generates padding styles
+         *
+         * @param {boolean} isHover
+         *
+         * @returns {String}
+         *
+         * @private
+         */
+        _generatePaddingCss: function(isHover) {
+            var paddingTop, paddingRight, paddingBottom, paddingLeft;
+
+            if (isHover === true) {
+                if (this._values["hasPaddingHover"] !== true) {
+                    return "";
+                }
+
+                paddingTop = TestS.getIntVal(this._values["paddingTopHover"]);
+                paddingRight = TestS.getIntVal(this._values["paddingRightHover"]);
+                paddingBottom = TestS.getIntVal(this._values["paddingBottomHover"]);
+                paddingLeft = TestS.getIntVal(this._values["paddingLeftHover"]);
+            } else {
+                paddingTop = TestS.getIntVal(this._values["paddingTop"]);
+                paddingRight = TestS.getIntVal(this._values["paddingRight"]);
+                paddingBottom = TestS.getIntVal(this._values["paddingBottom"]);
+                paddingLeft = TestS.getIntVal(this._values["paddingLeft"]);
+            }
+
+            if (paddingTop !== 0) {
+                paddingTop += "px";
+            }
+
+            if (paddingRight !== 0) {
+                paddingRight += "px";
+            }
+
+            if (paddingBottom !== 0) {
+                paddingBottom += "px";
+            }
+
+            if (paddingLeft !== 0) {
+                paddingLeft += "px";
+            }
+
+            var css = "padding:" + paddingTop + " " + paddingRight + " " + paddingBottom + " " + paddingLeft + ";";
+
+            if (this._values["hasPaddingHover"] === true
+                && this._values["hasPaddingAnimation"] === true
+            ) {
+                css += "-webkit-transition:padding .3s;";
+                css += "-ms-transition:padding .3s;";
+                css += "-o-transition:padding .3s;";
+                css += "transition:padding .3s;";
+            }
+
+            return css
+        },
+
+        /**
+         * Updates all styles
+         *
+         * @private
+         */
+        _update: function() {
+            var css = "<style>"
+                + this._selector
+                + "{"
+                + this._generateCss(false)
+                + "}"
+                + this._selector
+                + ":hover{"
+                + this._generateCss(true)
+                + "}</style>";
+
+            this.$_styleContainer.html(css);
         },
 
         /**

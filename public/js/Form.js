@@ -123,6 +123,13 @@
                 });
             }
 
+            var $iconBefore = this.$_form.find(".icon-before");
+            if (this._options["iconBefore"] !== undefined) {
+                $iconBefore.addClass(this._options["iconBefore"]);
+            } else {
+                $iconBefore.remove();
+            }
+
             this.getFormInstance().spinner({
                 spin: function (event, ui) {
                     if ($.type(t._options.callback) === "function") {
@@ -231,7 +238,7 @@
 
             if ($.type(t._options["onUnCheck"]) === "function") {
                 t.getFormInstance().on("change", function() {
-                    if (this.checked) {
+                    if (!this.checked) {
                         t._options.onUnCheck();
                     }
                 });

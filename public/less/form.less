@@ -171,7 +171,7 @@
     .border-radius(4px);
     font-size: 15px;
     background: white;
-    width: 80px;
+    width: 70px;
 
     &:hover {
       border-color: @blueBorderColor;
@@ -183,24 +183,27 @@
     }
   }
 
-  .fa {
-    .gray-blue-link;
-    position: absolute;
-    left: 40px;
-    font-size: 0;
-    height: 12px;
-    line-height: 12px;
+  a {
 
-    &:before {
-      font-size: 14px;
+    .fa {
+      .gray-blue-link;
+      position: absolute;
+      right: 3px;
+      font-size: 0;
+      height: 15px;
+      line-height: 12px;
+
+      &:before {
+        font-size: 16px;
+      }
     }
-  }
 
-  .fa-chevron-up {
-    top: 0;
-  }
+    .fa-chevron-up {
+      top: 0;
+    }
 
-  .fa-chevron-down {
-    bottom: 0;
+    .fa-chevron-down {
+      bottom: 0;
+    }
   }
 }
