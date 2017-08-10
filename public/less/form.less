@@ -161,7 +161,7 @@
   padding: 0 4px;
 }
 
-.form-container-spinner {
+.form-spinner {
   position: absolute;
 
   input {
@@ -204,6 +204,26 @@
 
     .fa-chevron-down {
       bottom: 0;
+    }
+  }
+}
+
+.form-container-radio-buttons {
+  .label-body {
+    line-height: 30px;
+    min-width: 30px;
+    padding: 0 10px;
+    text-align: center;
+    background: @grayBackground;
+    cursor: pointer;
+  }
+
+  .form-instance {
+    display: none;
+
+    &:checked + .label-body {
+      background: @darkGrayBackground;
+      color: white;
     }
   }
 }

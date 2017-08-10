@@ -62,10 +62,21 @@
     <input type="hidden" class="form-instance">
 </div>
 
-<div class="form-container-spinner">
+<div class="form-spinner">
     <label>
         <i class="icon-before fa"></i>
         <span class="label-text"></span>
         <input type="text" class="form-instance" />
     </label>
 </div>
+
+
+<div class="form-container form-container-radio-buttons"></div>
+
+<label class="radio-button-item">
+    <input type="radio" class="form-instance" />
+    <span class="label-body">
+        <i class="label-icon fa"></i>
+        <span class="label-text"></span>
+    </span>
+</label>

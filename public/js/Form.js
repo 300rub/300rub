@@ -41,6 +41,9 @@
                 case "checkbox":
                     this._setCheckboxForm();
                     break;
+                case "radioButtons":
+                    this._setRadioButtonsForm();
+                    break;
                 case "select":
                     this._setSelectForm();
                     break;
@@ -105,7 +108,7 @@
         _setSpinner: function () {
             var t = this;
 
-            this.$_form = TestS.Template.get("form-container-spinner");
+            this.$_form = TestS.Template.get("form-spinner");
 
             this._allowOnlyNumbers();
 
@@ -243,6 +246,74 @@
                     }
                 });
             }
+        },
+
+        /**
+         * Sets radio form
+         *
+         * @returns {TestS.Form}
+         *
+         * @private
+         */
+        _setRadioButtonsForm: function () {
+            var t = this;
+
+            t.$_form = TestS.Template.get("form-container-radio-buttons");
+
+            if ($.type(t._options["data"]) !== "array") {
+                return t;
+            }
+
+            var name;
+            if (t._options["name"] === undefined) {
+                name = "radio" + TestS.getUniqueId();
+            } else {
+                name = t._options["name"];
+            }
+
+            $.each(t._options["data"], function(i, data) {
+                if ($.type(data) !== "object"
+                    || data["value"] === undefined
+                ) {
+                    return false;
+                }
+
+                var $item = TestS.Template.get("radio-button-item");
+
+                var $icon = $item.find(".label-icon");
+                if (data["icon"] !== undefined) {
+                    $icon.addClass(data["icon"]);
+                } else {
+                    $icon.remove();
+                }
+
+                var $label = $item.find(".label-text");
+                if (data["label"] !== undefined) {
+                    $label.text(data["label"]);
+                } else {
+                    $label.remove();
+                }
+
+                var $formInstance = $item.find(".form-instance");
+                $formInstance.val(data["value"]);
+                $formInstance.attr("name", name);
+
+                if ((t._options["value"] === undefined && i === 0)
+                    || t._options["value"] !== undefined && t._options["value"] === data["value"]
+                ) {
+                    $formInstance.attr("checked", true);
+                }
+
+                t.$_form.append($item);
+            });
+
+            if ($.type(t._options["onChange"]) === "function") {
+                t.getFormInstance().on("change", function () {
+                    t._options["onChange"]($(this).val());
+                });
+            }
+
+            return this;
         },
 
         /**

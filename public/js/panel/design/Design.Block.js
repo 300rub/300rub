@@ -716,6 +716,25 @@
                     }, this)
                 );
 
+            new TestS.Form({
+                type: "radioButtons",
+                value: this._values["gradientDirection"],
+                data: [
+                    {
+                        value: 0,
+                        icon: "fa-lock"
+                    },
+                    {
+                        value: 1,
+                        icon: "fa-user"
+                    }
+                ],
+                onChange: $.proxy(function (value) {
+                    console.log(value)
+                }, this),
+                appendTo: $container
+            });
+
             //    gradientDirection: null,
             //    gradientDirectionHover: null,
             //    hasBackgroundHover: null,
