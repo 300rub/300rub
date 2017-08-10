@@ -133,4 +133,130 @@
       display: block;
     }
   }
+
+  .padding-container {
+    .relative-container {
+      height: 155px;
+
+      .padding-top {
+        top: 1px;
+        left: 50%;
+        margin-left: -35px;
+      }
+
+      .padding-right {
+        top: 60px;
+        left: 50%;
+        margin-left: 55px;
+      }
+
+      .padding-bottom {
+        top: 119px;
+        left: 50%;
+        margin-left: -35px;
+      }
+
+      .padding-left {
+        top: 60px;
+        left: 50%;
+        margin-left: -125px;
+      }
+
+      .padding-top-hover {
+        top: 1px;
+        left: 50%;
+        margin-left: -5px;
+        display: none;
+      }
+
+      .padding-right-hover {
+        left: 50%;
+        margin-left: 55px;
+        top: 80px;
+        display: none;
+      }
+
+      .padding-bottom-hover {
+        top: 119px;
+        left: 50%;
+        margin-left: -5px;
+        display: none;
+      }
+
+      .padding-left-hover {
+        left: 50%;
+        margin-left: -125px;
+        top: 80px;
+        display: none;
+      }
+
+      .padding-example-container {
+        width: 100px;
+        height: 80px;
+        border: 2px solid @darkGrayBorderColor;
+        position: absolute;
+        top: 35px;
+        left: 50%;
+        margin-left: -50px;
+        overflow: hidden;
+        background: @lightGrayBackground;
+
+        .padding-example {
+          position: relative;
+          border: 1px solid @darkGrayBorderColor;
+          height: 100%;
+        }
+      }
+    }
+
+    .has-animation {
+      display: none;
+    }
+  }
+
+  .padding-container.has-hover {
+    .padding-top {
+      margin-left: -80px;
+    }
+
+    .padding-right {
+      top: 40px;
+    }
+
+    .padding-bottom {
+      margin-left: -80px;
+    }
+
+    .padding-left {
+      top: 40px;
+    }
+
+    .padding-top-hover, .padding-right-hover, .padding-bottom-hover, .padding-left-hover {
+      display: block;
+    }
+
+    .has-animation {
+      display: block;
+    }
+  }
+
+  .background-container {
+    .color-button {
+      width: 100px;
+      height: 30px;
+    }
+  }
+}
+
+.ui-colorpicker {
+  .border-radius(6px);
+  position: fixed;
+  top: 50% !important;
+  left: 50% !important;
+  margin-left: -304px;
+  margin-top: -156px;
+  background: white;
+  border: 1px solid @darkGrayBorderColor;
+  box-shadow: 0 5px 15px rgba(0,0,0,.5);
+  padding: 15px;
 }

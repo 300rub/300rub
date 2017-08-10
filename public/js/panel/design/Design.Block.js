@@ -49,6 +49,7 @@
                 ._setNames()
                 ._setDesignContainer()
                 ._setMargin()
+                ._setBackground()
                 ._setPadding();
         },
 
@@ -81,7 +82,15 @@
                     paddingBottomHover: null,
                     paddingLeftHover: null,
                     hasPaddingHover: null,
-                    hasPaddingAnimation: null
+                    hasPaddingAnimation: null,
+                    backgroundColorFrom: null,
+                    backgroundColorFromHover: null,
+                    backgroundColorTo: null,
+                    backgroundColorToHover: null,
+                    gradientDirection: null,
+                    gradientDirectionHover: null,
+                    hasBackgroundHover: null,
+                    hasBackgroundAnimation: null
                 },
                 this._data["values"]
             );
@@ -454,7 +463,7 @@
             $container.find(".category-title").text(this._getLabel("padding"));
 
             var uniqueId = TestS.getUniqueId();
-            this.$_paddingExample = $container.find(".padding-example")
+            this.$_paddingExample = $container.find(".padding-example-container")
                 .addClass("padding-example-" + uniqueId)
                 .attr("data-id", uniqueId);
 
@@ -645,6 +654,107 @@
         },
 
         /**
+         * Sets padding
+         *
+         * @returns {TestS.Panel.Design.Block}
+         *
+         * @private
+         */
+        _setBackground: function() {
+            var $container = this.$_designContainer.find(".background-container");
+
+            $container.find(".category-title").text(this._getLabel("background"));
+
+            var $backgroundColorContainer = $container.find(".background-color-container");
+            var $backgroundColorHoverContainer = $container.find(".background-color-hover-container");
+            var $backgroundColorFromContainer = $container.find(".background-color-from-container");
+            var $backgroundColorToContainer = $container.find(".background-color-to-container");
+            var $backgroundColorFromHoverContainer = $container.find(".background-color-from-hover-container");
+            var $backgroundColorToHoverContainer = $container.find(".background-color-to-hover-container");
+
+            this
+                ._setColorPicker(
+                    $backgroundColorContainer.find(".background-color"),
+                    "aaa",
+                    $.proxy(function(color) {
+                        this._values["backgroundColorFrom"] = color;
+                    }, this)
+                )
+                ._setColorPicker(
+                    $backgroundColorHoverContainer.find(".background-color-hover"),
+                    "aaa",
+                    $.proxy(function(color) {
+                        this._values["backgroundColorFromHover"] = color;
+                    }, this)
+                )
+                ._setColorPicker(
+                    $backgroundColorFromContainer.find(".background-color-from"),
+                    "aaa",
+                    $.proxy(function(color) {
+                        this._values["backgroundColorFrom"] = color;
+                    }, this)
+                )
+                ._setColorPicker(
+                    $backgroundColorToContainer.find(".background-color-to"),
+                    "aaa",
+                    $.proxy(function(color) {
+                        this._values["backgroundColorTo"] = color;
+                    }, this)
+                )
+                ._setColorPicker(
+                    $backgroundColorFromHoverContainer.find(".background-color-from-hover"),
+                    "aaa",
+                    $.proxy(function(color) {
+                        this._values["backgroundColorFromHover"] = color;
+                    }, this)
+                )
+                ._setColorPicker(
+                    $backgroundColorToHoverContainer.find(".background-color-to-hover"),
+                    "aaa",
+                    $.proxy(function(color) {
+                        this._values["backgroundColorToHover"] = color;
+                    }, this)
+                );
+
+            //    gradientDirection: null,
+            //    gradientDirectionHover: null,
+            //    hasBackgroundHover: null,
+            //    hasBackgroundAnimation: null
+
+            return this;
+        },
+
+        /**
+         * Sets color picker
+         *
+         * @param {Object}   $object
+         * @param {String}   title
+         * @param {function} callback
+         *
+         * @returns {TestS.Panel.Design.Block}
+         *
+         * @private
+         */
+        _setColorPicker: function ($object, title, callback) {
+            $object.colorpicker({
+                parts: 'full',
+                alpha: true,
+                showOn: 'button',
+                buttonColorize: true,
+                buttonClass: "color-button",
+                buttonImage: "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7",
+                buttonImageOnly: true,
+                title: title,
+                colorFormat: "RGBA",
+                select: function (event, data) {
+                    callback(data.formatted);
+                }
+            });
+
+            return this;
+        },
+
+        /**
          * Updates margin
          *
          * @param {boolean} isOnlyExample
@@ -654,16 +764,21 @@
         _updateMargin: function(isOnlyExample) {
             var id = this.$_marginExample.data("id");
 
-            var css = "<style>"
-                + ".margin-example-"
+            var css = "<style>";
+
+            css += ".margin-example-"
                 + id
                 + "{"
                 + this._generateMarginCss(false)
-                + "}.margin-example-"
+                + "}";
+
+            css += ".margin-example-"
                 + id
-                + ":hover {"
+                + ":hover{"
                 + this._generateMarginCss(true)
-                +"}</style>";
+                +"}";
+
+            css +="</style>";
 
             this.$_marginExampleStyles.html(css);
 
@@ -682,16 +797,21 @@
         _updatePadding: function(isOnlyExample) {
             var id = this.$_paddingExample.data("id");
 
-            var css = "<style>"
-                + ".padding-example-"
+            var css = "<style>";
+
+            css += ".padding-example-"
                 + id
                 + "{"
                 + this._generatePaddingCss(false)
-                + "}.padding-example-"
+                + "}";
+
+            css += ".padding-example-"
                 + id
-                + ":hover {"
+                + ":hover{"
                 + this._generatePaddingCss(true)
-                +"}</style>";
+                +"}";
+
+            css += "</style>";
 
             this.$_paddingExampleStyles.html(css);
 
@@ -822,15 +942,19 @@
          * @private
          */
         _update: function() {
-            var css = "<style>"
-                + this._selector
+            var css = "<style>";
+
+            css += this._selector
                 + "{"
                 + this._generateCss(false)
-                + "}"
-                + this._selector
+                + "}";
+
+            css += this._selector
                 + ":hover{"
                 + this._generateCss(true)
-                + "}</style>";
+                + "}";
+
+            css += "</style>";
 
             this.$_styleContainer.html(css);
         },
@@ -845,7 +969,8 @@
          * @private
          */
         _generateCss: function(isHover) {
-            return this._generateMarginCss(isHover);
+            return this._generateMarginCss(isHover)
+                + this._generatePaddingCss(isHover);
         }
     };
 }(window.jQuery, window.TestS);

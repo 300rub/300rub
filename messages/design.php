@@ -51,4 +51,8 @@ return [
         Language::LANGUAGE_EN_ID => "Use animation",
         Language::LANGUAGE_RU_ID => "",
     ],
+    "background"     => [
+        Language::LANGUAGE_EN_ID => "Background",
+        Language::LANGUAGE_RU_ID => "",
+    ],
 ];

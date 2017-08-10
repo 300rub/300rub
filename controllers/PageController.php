@@ -66,8 +66,12 @@ class PageController extends AbstractController
      * @var array
      */
     private static $_userDevStaticMap = [
+        "css"  => [
+            "lib/colorpicker/jquery.colorpicker",
+        ],
         "js" => [
             "lib/jquery-ui.min",
+            "lib/jquery.colorpicker",
             "Accordion",
             "Panel",
             "panel/Settings",
