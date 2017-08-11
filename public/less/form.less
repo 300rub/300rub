@@ -18,6 +18,7 @@
       display: block;
 
       .form-instance {
+        .transition(box-shadow, 0.15s);
         border: 1px solid @grayBorderColor;
         padding: 2px 24px 4px 10px;
         line-height: 22px;
@@ -32,7 +33,7 @@
 
         &:focus {
           border-color: @blueBorderColor;
-          box-shadow: 0 0 0 3px rgba(131, 192, 253, 0.5);
+          .box-shadow(0 0 0 3px rgba(131, 192, 253, 0.5));
         }
       }
 
@@ -165,6 +166,7 @@
   position: absolute;
 
   input {
+    .transition(box-shadow, 0.15s);
     border: 1px solid @grayBorderColor;
     padding: 2px 24px 4px 10px;
     line-height: 22px;
@@ -179,7 +181,7 @@
 
     &:focus {
       border-color: @blueBorderColor;
-      box-shadow: 0 0 0 3px rgba(131, 192, 253, 0.5);
+      .box-shadow(0 0 0 3px rgba(131, 192, 253, 0.5));
     }
   }
 

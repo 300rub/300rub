@@ -58,7 +58,6 @@ class DesignBlockModel extends AbstractModel
             "msLinear"     => "left",
             "linear"       => "to right",
             "ie"           => 1,
-            "label"        => "→"
         ],
         self::GRADIENT_DIRECTION_VERTICAL   => [
             "mozLinear"    => "top",
@@ -68,7 +67,6 @@ class DesignBlockModel extends AbstractModel
             "msLinear"     => "top",
             "linear"       => "to bottom",
             "ie"           => 0,
-            "label"        => "↓"
         ],
         self::GRADIENT_DIRECTION_135DEG     => [
             "mozLinear"    => "-45deg",
@@ -78,7 +76,6 @@ class DesignBlockModel extends AbstractModel
             "msLinear"     => "-45deg",
             "linear"       => "135deg",
             "ie"           => 1,
-            "label"        => "↘"
         ],
         self::GRADIENT_DIRECTION_45DEG      => [
             "mozLinear"    => "45deg",
@@ -88,7 +85,6 @@ class DesignBlockModel extends AbstractModel
             "msLinear"     => "45deg",
             "linear"       => "45deg",
             "ie"           => 1,
-            "label"        => "↗"
         ],
     ];
 

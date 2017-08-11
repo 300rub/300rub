@@ -37,6 +37,51 @@
     TestS.Panel.Design.Block.prototype = {
 
         /**
+         * List of gradient directions options
+         *
+         * @var {Object}
+         */
+        _gradientDirectionList: {
+            0: {
+                "mozLinear": "left",
+                "webkit": "linear, left top, right top",
+                "webkitLinear": "left",
+                "oLinear": "left",
+                "msLinear": "left",
+                "linear": "to right",
+                "ie": 1
+            },
+            1: {
+                "mozLinear": "top",
+                "webkit": "linear, left top, left bottom",
+                "webkitLinear": "top",
+                "oLinear": "top",
+                "msLinear": "top",
+                "linear": "to bottom",
+                "ie": 0
+            },
+            2: {
+                "mozLinear": "-45deg",
+                "webkit": "linear, left top, right bottom",
+                "webkitLinear": "-45deg",
+                "oLinear": "-45deg",
+                "msLinear": "-45deg",
+                "linear": "135deg",
+                "ie": 1
+            },
+            3: {
+                "mozLinear": "45deg",
+                "webkit": "linear, left bottom, right top",
+                "webkitLinear": "45deg",
+                "oLinear": "45deg",
+                "msLinear": "45deg",
+                "linear": "45deg",
+                "ie": 1
+            }
+        },
+
+
+        /**
          * Init
          */
         init: function () {
@@ -663,6 +708,11 @@
         _setBackground: function() {
             var $container = this.$_designContainer.find(".background-container");
 
+            if (this._values["backgroundColorFrom"] === null) {
+                $container.remove();
+                return this;
+            }
+
             $container.find(".category-title").text(this._getLabel("background"));
 
             var $backgroundColorContainer = $container.find(".background-color-container");
@@ -672,73 +722,160 @@
             var $backgroundColorFromHoverContainer = $container.find(".background-color-from-hover-container");
             var $backgroundColorToHoverContainer = $container.find(".background-color-to-hover-container");
 
-            this
-                ._setColorPicker(
+            if (this._values["backgroundColorFrom"] !== null) {
+                this._setColorPicker(
                     $backgroundColorContainer.find(".background-color"),
                     "aaa",
                     $.proxy(function(color) {
                         this._values["backgroundColorFrom"] = color;
                     }, this)
-                )
-                ._setColorPicker(
-                    $backgroundColorHoverContainer.find(".background-color-hover"),
-                    "aaa",
-                    $.proxy(function(color) {
-                        this._values["backgroundColorFromHover"] = color;
-                    }, this)
-                )
-                ._setColorPicker(
+                );
+
+                this._setColorPicker(
                     $backgroundColorFromContainer.find(".background-color-from"),
                     "aaa",
                     $.proxy(function(color) {
                         this._values["backgroundColorFrom"] = color;
                     }, this)
-                )
-                ._setColorPicker(
+                );
+            } else {
+                $backgroundColorContainer.remove();
+                $backgroundColorFromContainer.remove();
+            }
+
+            if (this._values["backgroundColorTo"] !== null) {
+                this._setColorPicker(
                     $backgroundColorToContainer.find(".background-color-to"),
                     "aaa",
                     $.proxy(function(color) {
                         this._values["backgroundColorTo"] = color;
                     }, this)
-                )
-                ._setColorPicker(
+                );
+            } else {
+                $backgroundColorToContainer.remove();
+            }
+
+            if (this._values["backgroundColorFromHover"] !== null) {
+                this._setColorPicker(
+                    $backgroundColorHoverContainer.find(".background-color-hover"),
+                    "aaa",
+                    $.proxy(function(color) {
+                        this._values["backgroundColorFromHover"] = color;
+                    }, this)
+                );
+
+                this._setColorPicker(
                     $backgroundColorFromHoverContainer.find(".background-color-from-hover"),
                     "aaa",
                     $.proxy(function(color) {
                         this._values["backgroundColorFromHover"] = color;
                     }, this)
-                )
-                ._setColorPicker(
+                );
+            } else {
+                $backgroundColorHoverContainer.remove();
+                $backgroundColorFromHoverContainer.remove();
+            }
+
+            if (this._values["backgroundColorToHover"] !== null) {
+                this._setColorPicker(
                     $backgroundColorToHoverContainer.find(".background-color-to-hover"),
                     "aaa",
                     $.proxy(function(color) {
                         this._values["backgroundColorToHover"] = color;
                     }, this)
                 );
+            } else {
+                $backgroundColorToHoverContainer.remove();
+            }
 
-            new TestS.Form({
-                type: "radioButtons",
-                value: this._values["gradientDirection"],
-                data: [
-                    {
-                        value: 0,
-                        icon: "fa-lock"
-                    },
-                    {
-                        value: 1,
-                        icon: "fa-user"
-                    }
-                ],
-                onChange: $.proxy(function (value) {
-                    console.log(value)
-                }, this),
-                appendTo: $container
-            });
+            if (this._values["gradientDirection"] !== null) {
+                new TestS.Form({
+                    type: "radioButtons",
+                    value: this._values["gradientDirection"],
+                    data: [
+                        {
+                            value: 0,
+                            icon: "fa-long-arrow-right"
+                        },
+                        {
+                            value: 1,
+                            icon: "fa-long-arrow-down"
+                        },
+                        {
+                            value: 2,
+                            icon: "fa-user"
+                        },
+                        {
+                            value: 3,
+                            icon: "fa-lock"
+                        }
+                    ],
+                    onChange: $.proxy(function (value) {
+                        console.log(value)
+                    }, this),
+                    appendTo: $container
+                });
+            }
 
-            //    gradientDirection: null,
-            //    gradientDirectionHover: null,
-            //    hasBackgroundHover: null,
-            //    hasBackgroundAnimation: null
+            if (this._values["gradientDirectionHover"] !== null) {
+                new TestS.Form({
+                    type: "radioButtons",
+                    value: this._values["gradientDirectionHover"],
+                    data: [
+                        {
+                            value: 0,
+                            icon: "fa-long-arrow-right"
+                        },
+                        {
+                            value: 1,
+                            icon: "fa-long-arrow-down"
+                        },
+                        {
+                            value: 2,
+                            icon: "fa-user"
+                        },
+                        {
+                            value: 3,
+                            icon: "fa-lock"
+                        }
+                    ],
+                    onChange: $.proxy(function (value) {
+                        console.log(value)
+                    }, this),
+                    appendTo: $container
+                });
+            }
+
+            if (this._values["hasBackgroundHover"] !== null) {
+                new TestS.Form({
+                    type: "checkbox",
+                    value: this._values["hasBackgroundHover"],
+                    label: this._getLabel("setHover"),
+                    onCheck: $.proxy(function () {
+
+                    }, this),
+                    onUnCheck: $.proxy(function () {
+
+                    }, this),
+                    appendTo: $container
+                });
+            }
+
+            if (this._values["hasBackgroundAnimation"] !== null) {
+                new TestS.Form({
+                    type: "checkbox",
+                    value: this._values["hasBackgroundAnimation"],
+                    label: this._getLabel("useAnimation"),
+                    class: "has-animation",
+                    onCheck: $.proxy(function () {
+
+                    }, this),
+                    onUnCheck: $.proxy(function () {
+
+                    }, this),
+                    appendTo: $container
+                });
+            }
 
             return this;
         },
@@ -774,69 +911,26 @@
         },
 
         /**
-         * Updates margin
+         * Gets gradient direction
          *
-         * @param {boolean} isOnlyExample
+         * @param {boolean} isHover
          *
-         * @private
+         * @return {Object}
          */
-        _updateMargin: function(isOnlyExample) {
-            var id = this.$_marginExample.data("id");
+        _getGradientDirection: function(isHover) {
+            var gradientDirection;
 
-            var css = "<style>";
-
-            css += ".margin-example-"
-                + id
-                + "{"
-                + this._generateMarginCss(false)
-                + "}";
-
-            css += ".margin-example-"
-                + id
-                + ":hover{"
-                + this._generateMarginCss(true)
-                +"}";
-
-            css +="</style>";
-
-            this.$_marginExampleStyles.html(css);
-
-            if (isOnlyExample !== true) {
-                this._update();
+            if (isHover === true) {
+                gradientDirection = this._values["gradientDirectionHover"];
+            } else {
+                gradientDirection = this._values["gradientDirection"];
             }
-        },
 
-        /**
-         * Updates padding
-         *
-         * @param {boolean} isOnlyExample
-         *
-         * @private
-         */
-        _updatePadding: function(isOnlyExample) {
-            var id = this.$_paddingExample.data("id");
-
-            var css = "<style>";
-
-            css += ".padding-example-"
-                + id
-                + "{"
-                + this._generatePaddingCss(false)
-                + "}";
-
-            css += ".padding-example-"
-                + id
-                + ":hover{"
-                + this._generatePaddingCss(true)
-                +"}";
-
-            css += "</style>";
-
-            this.$_paddingExampleStyles.html(css);
-
-            if (isOnlyExample !== true) {
-                this._update();
+            if (this._gradientDirectionList[gradientDirection] !== undefined) {
+                return this._gradientDirectionList[gradientDirection];
             }
+
+            return this._gradientDirectionList[0];
         },
 
         /**
@@ -956,6 +1050,186 @@
         },
 
         /**
+         * Generates background styles
+         *
+         * @param {boolean} isHover
+         *
+         * @returns {String}
+         *
+         * @private
+         */
+        _generateBackgroundCss: function(isHover) {
+            var css = "";
+
+            var backgroundColorFrom = this._values["backgroundColorFrom"];
+            if (backgroundColorFrom === null) {
+                backgroundColorFrom = "";
+            }
+
+            var backgroundColorTo = this._values["backgroundColorTo"];
+            if (backgroundColorTo === null) {
+                backgroundColorTo = "";
+            }
+
+            var isSimpleBackground = false;
+
+            if (backgroundColorFrom !== ""
+                && backgroundColorTo === ""
+            ) {
+                css += "background-color: " + backgroundColorFrom + ";";
+                isSimpleBackground = true;
+            } else if (backgroundColorFrom === ""
+                && backgroundColorTo !== ""
+            ) {
+                css += "background-color: " + backgroundColorTo + ";";
+                isSimpleBackground = true;
+            } else if (backgroundColorFrom !== ""
+                && backgroundColorTo !== ""
+            ) {
+                var gradientDirection = this._getGradientDirection(isHover);
+
+                css += "background: " + backgroundColorFrom + ";";
+                css += "background: -moz-linear-gradient("
+                    + gradientDirection["mozLinear"]
+                    + ", "
+                    + backgroundColorFrom
+                    + " 0%, "
+                    + backgroundColorTo
+                    + " 100%);";
+
+                css += "background: -webkit-gradient("
+                    + gradientDirection["webkit"]
+                    + ", color-stop(0%, "
+                    + backgroundColorFrom
+                    + "), color-stop(100%, "
+                    + backgroundColorTo
+                    + "));";
+
+                css += "background: -webkit-linear-gradient("
+                    + gradientDirection["webkitLinear"]
+                    + ", "
+                    + backgroundColorFrom
+                    + " 0%, "
+                    + backgroundColorTo
+                    + " 100%);";
+
+                css += "background: -o-linear-gradient("
+                    + gradientDirection["oLinear"]
+                    + ", "
+                    + backgroundColorFrom
+                    + " 0%, "
+                    + backgroundColorTo
+                    + " 100%);";
+
+                css += "background: -ms-linear-gradient("
+                    + gradientDirection["msLinear"]
+                    + ", "
+                    + backgroundColorFrom
+                    + " 0%, "
+                    + backgroundColorTo
+                    + " 100%);";
+
+                css += "background: linear-gradient("
+                    + gradientDirection["linear"]
+                    + ", "
+                    + backgroundColorFrom
+                    + " 0%, "
+                    + backgroundColorTo
+                    + " 100%);";
+
+                css += "filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='"
+                    + backgroundColorFrom
+                    + "', endColorstr='"
+                    + backgroundColorTo
+                    + "',GradientType="
+                    + gradientDirection["ie"]
+                    + ");";
+            }
+
+            return css
+        },
+
+        /**
+         * Generates all styles
+         *
+         * @param {boolean} isHover
+         *
+         * @returns {String}
+         *
+         * @private
+         */
+        _generateCss: function(isHover) {
+            return this._generateMarginCss(isHover)
+                + this._generatePaddingCss(isHover);
+        },
+
+        /**
+         * Updates margin
+         *
+         * @param {boolean} isOnlyExample
+         *
+         * @private
+         */
+        _updateMargin: function(isOnlyExample) {
+            var id = this.$_marginExample.data("id");
+
+            var css = "<style>";
+
+            css += ".margin-example-"
+                + id
+                + "{"
+                + this._generateMarginCss(false)
+                + "}";
+
+            css += ".margin-example-"
+                + id
+                + ":hover{"
+                + this._generateMarginCss(true)
+                +"}";
+
+            css +="</style>";
+
+            this.$_marginExampleStyles.html(css);
+
+            if (isOnlyExample !== true) {
+                this._update();
+            }
+        },
+
+        /**
+         * Updates padding
+         *
+         * @param {boolean} isOnlyExample
+         *
+         * @private
+         */
+        _updatePadding: function(isOnlyExample) {
+            var id = this.$_paddingExample.data("id");
+
+            var css = "<style>";
+
+            css += ".padding-example-"
+                + id
+                + "{"
+                + this._generatePaddingCss(false)
+                + "}";
+
+            css += ".padding-example-"
+                + id
+                + ":hover{"
+                + this._generatePaddingCss(true)
+                +"}";
+
+            css += "</style>";
+
+            this.$_paddingExampleStyles.html(css);
+
+            if (isOnlyExample !== true) {
+                this._update();
+            }
+        },
+
+        /**
          * Updates all styles
          *
          * @private
@@ -976,20 +1250,6 @@
             css += "</style>";
 
             this.$_styleContainer.html(css);
-        },
-
-        /**
-         * Generates all styles
-         *
-         * @param {boolean} isHover
-         *
-         * @returns {String}
-         *
-         * @private
-         */
-        _generateCss: function(isHover) {
-            return this._generateMarginCss(isHover)
-                + this._generatePaddingCss(isHover);
         }
     };
 }(window.jQuery, window.TestS);
