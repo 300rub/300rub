@@ -11,10 +11,6 @@ return [
         Language::LANGUAGE_EN_ID => "Padding",
         Language::LANGUAGE_RU_ID => "Внутренние отступы",
     ],
-    "combine"      => [
-        Language::LANGUAGE_EN_ID => "Combine",
-        Language::LANGUAGE_RU_ID => "Соединить",
-    ],
     "borderRadius" => [
         Language::LANGUAGE_EN_ID => "Corner rounding",
         Language::LANGUAGE_RU_ID => "Скругления углов",
@@ -23,15 +19,7 @@ return [
         Language::LANGUAGE_EN_ID => "Border",
         Language::LANGUAGE_RU_ID => "Граница",
     ],
-    "fill"         => [
-        Language::LANGUAGE_EN_ID => "Fill",
-        Language::LANGUAGE_RU_ID => "Заливка",
-    ],
-    "clear"        => [
-        Language::LANGUAGE_EN_ID => "Clear",
-        Language::LANGUAGE_RU_ID => "очистить",
-    ],
-    "gradient"     => [
+    "gradientDirection"     => [
         Language::LANGUAGE_EN_ID => "Gradient direction",
         Language::LANGUAGE_RU_ID => "",
     ],
@@ -53,6 +41,14 @@ return [
     ],
     "background"     => [
         Language::LANGUAGE_EN_ID => "Background",
+        Language::LANGUAGE_RU_ID => "",
+    ],
+    "backgroundColor"     => [
+        Language::LANGUAGE_EN_ID => "Background color",
+        Language::LANGUAGE_RU_ID => "",
+    ],
+    "useGradient"     => [
+        Language::LANGUAGE_EN_ID => "Use gradient",
         Language::LANGUAGE_RU_ID => "",
     ],
 ];

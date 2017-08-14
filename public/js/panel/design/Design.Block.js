@@ -25,6 +25,8 @@
         this.$_marginExampleStyles = null;
         this.$_paddingExample = null;
         this.$_paddingExampleStyles = null;
+        this.$_backgroundExample = null;
+        this.$_backgroundExampleStyles = null;
 
         this.init();
     };
@@ -715,8 +717,13 @@
 
             $container.find(".category-title").text(this._getLabel("background"));
 
-            var $backgroundColorContainer = $container.find(".background-color-container");
-            var $backgroundColorHoverContainer = $container.find(".background-color-hover-container");
+            this.$_backgroundExampleStyles = $container.find(".styles-example-container");
+
+            var uniqueId = TestS.getUniqueId();
+            this.$_backgroundExample = $container.find(".background-example")
+                .addClass("background-example-" + uniqueId)
+                .attr("data-id", uniqueId);
+
             var $backgroundColorFromContainer = $container.find(".background-color-from-container");
             var $backgroundColorToContainer = $container.find(".background-color-to-container");
             var $backgroundColorFromHoverContainer = $container.find(".background-color-from-hover-container");
@@ -724,31 +731,24 @@
 
             if (this._values["backgroundColorFrom"] !== null) {
                 this._setColorPicker(
-                    $backgroundColorContainer.find(".background-color"),
-                    "aaa",
-                    $.proxy(function(color) {
-                        this._values["backgroundColorFrom"] = color;
-                    }, this)
-                );
-
-                this._setColorPicker(
                     $backgroundColorFromContainer.find(".background-color-from"),
-                    "aaa",
+                    this._getLabel("backgroundColor"),
                     $.proxy(function(color) {
                         this._values["backgroundColorFrom"] = color;
+                        this._updateBackground(false);
                     }, this)
                 );
             } else {
-                $backgroundColorContainer.remove();
                 $backgroundColorFromContainer.remove();
             }
 
             if (this._values["backgroundColorTo"] !== null) {
                 this._setColorPicker(
                     $backgroundColorToContainer.find(".background-color-to"),
-                    "aaa",
+                    this._getLabel("backgroundColor"),
                     $.proxy(function(color) {
                         this._values["backgroundColorTo"] = color;
+                        this._updateBackground(false);
                     }, this)
                 );
             } else {
@@ -757,31 +757,24 @@
 
             if (this._values["backgroundColorFromHover"] !== null) {
                 this._setColorPicker(
-                    $backgroundColorHoverContainer.find(".background-color-hover"),
-                    "aaa",
-                    $.proxy(function(color) {
-                        this._values["backgroundColorFromHover"] = color;
-                    }, this)
-                );
-
-                this._setColorPicker(
                     $backgroundColorFromHoverContainer.find(".background-color-from-hover"),
-                    "aaa",
+                    this._getLabel("backgroundColor"),
                     $.proxy(function(color) {
                         this._values["backgroundColorFromHover"] = color;
+                        this._updateBackground(false);
                     }, this)
                 );
             } else {
-                $backgroundColorHoverContainer.remove();
                 $backgroundColorFromHoverContainer.remove();
             }
 
             if (this._values["backgroundColorToHover"] !== null) {
                 this._setColorPicker(
                     $backgroundColorToHoverContainer.find(".background-color-to-hover"),
-                    "aaa",
+                    this._getLabel("backgroundColor"),
                     $.proxy(function(color) {
                         this._values["backgroundColorToHover"] = color;
+                        this._updateBackground(false);
                     }, this)
                 );
             } else {
@@ -811,7 +804,8 @@
                         }
                     ],
                     onChange: $.proxy(function (value) {
-                        console.log(value)
+                        this._values["gradientDirection"] = value;
+                        this._updateBackground(false);
                     }, this),
                     appendTo: $container
                 });
@@ -840,22 +834,42 @@
                         }
                     ],
                     onChange: $.proxy(function (value) {
-                        console.log(value)
+                        this._values["gradientDirectionHover"] = value;
+                        this._updateBackground(false);
                     }, this),
                     appendTo: $container
                 });
             }
 
+            new TestS.Form({
+                type: "checkbox",
+                value: this._values["backgroundColorTo"] || this._values["backgroundColorHover"],
+                label: this._getLabel("useGradient"),
+                onCheck: $.proxy(function () {
+                    // @ TODO add/remove class to container
+                }, this),
+                onUnCheck: $.proxy(function () {
+                    // @ TODO add/remove class to container
+                }, this),
+                appendTo: $container
+            });
+
             if (this._values["hasBackgroundHover"] !== null) {
                 new TestS.Form({
                     type: "checkbox",
                     value: this._values["hasBackgroundHover"],
-                    label: this._getLabel("setHover"),
+                    label: this._getLabel("useGradient"),
                     onCheck: $.proxy(function () {
+                        // @ TODO add/remove class to container
 
+                        this._values["hasBackgroundHover"] = true;
+                        this._updateBackground(false);
                     }, this),
                     onUnCheck: $.proxy(function () {
+                        // @ TODO add/remove class to container
 
+                        this._values["hasBackgroundHover"] = false;
+                        this._updateBackground(false);
                     }, this),
                     appendTo: $container
                 });
@@ -868,14 +882,18 @@
                     label: this._getLabel("useAnimation"),
                     class: "has-animation",
                     onCheck: $.proxy(function () {
-
+                        this._values["hasBackgroundAnimation"] = true;
+                        this._updateBackground(false);
                     }, this),
                     onUnCheck: $.proxy(function () {
-
+                        this._values["hasBackgroundAnimation"] = false;
+                        this._updateBackground(false);
                     }, this),
                     appendTo: $container
                 });
             }
+
+            this._updateBackground(true);
 
             return this;
         },
@@ -1146,6 +1164,16 @@
                     + ");";
             }
 
+            if (isSimpleBackground === true
+                && this._values["hasBackgroundHover"] === true
+                && this._values["hasBackgroundAnimation"] === true
+            ) {
+                css += "-webkit-transition:padding .3s;";
+                css += "-ms-transition:background-color .3s;";
+                css += "-o-transition:background-color .3s;";
+                css += "transition:background-color .3s;";
+            }
+
             return css
         },
 
@@ -1223,6 +1251,39 @@
             css += "</style>";
 
             this.$_paddingExampleStyles.html(css);
+
+            if (isOnlyExample !== true) {
+                this._update();
+            }
+        },
+
+        /**
+         * Updates background
+         *
+         * @param {boolean} isOnlyExample
+         *
+         * @private
+         */
+        _updateBackground: function(isOnlyExample) {
+            var id = this.$_backgroundExample.data("id");
+
+            var css = "<style>";
+
+            css += ".background-example-"
+                + id
+                + "{"
+                + this._generateBackgroundCss(false)
+                + "}";
+
+            css += ".background-example-"
+                + id
+                + ":hover{"
+                + this._generateBackgroundCss(true)
+                +"}";
+
+            css += "</style>";
+
+            this.$_backgroundExampleStyles.html(css);
 
             if (isOnlyExample !== true) {
                 this._update();
