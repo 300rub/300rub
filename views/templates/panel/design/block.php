@@ -51,6 +51,14 @@
         <div class="relative-container">
             <div class="styles-example-container"></div>
             <div class="border-example"></div>
+
+            <div class="border-color-container">
+                <input type="hidden" class="border-color">
+            </div>
+
+            <div class="border-color-hover-container">
+                <input type="hidden" class="border-color-hover">
+            </div>
         </div>
     </div>
 </div>

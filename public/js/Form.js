@@ -294,6 +294,10 @@
                     $label.remove();
                 }
 
+                if (data["class"] !== undefined) {
+                    $item.addClass(data["class"]);
+                }
+
                 var $formInstance = $item.find(".form-instance");
                 $formInstance.val(data["value"]);
                 $formInstance.attr("name", name);

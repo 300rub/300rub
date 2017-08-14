@@ -152,21 +152,21 @@ if ($borderTopLeftRadius !== 0
         $borderBottomLeftRadius .= "px";
     }
     $css .= sprintf(
-        "-webkit-border-radius: %s %s %s %s;",
+        "-webkit-border-radius:%s %s %s %s;",
         $borderTopLeftRadius,
         $borderTopRightRadius,
         $borderBottomRightRadius,
         $borderBottomLeftRadius
     );
     $css .= sprintf(
-        "-moz-border-radius: %s %s %s %s;",
+        "-moz-border-radius:%s %s %s %s;",
         $borderTopLeftRadius,
         $borderTopRightRadius,
         $borderBottomRightRadius,
         $borderBottomLeftRadius
     );
     $css .= sprintf(
-        "border-radius: %s %s %s %s;",
+        "border-radius:%s %s %s %s;",
         $borderTopLeftRadius,
         $borderTopRightRadius,
         $borderBottomRightRadius,
@@ -250,14 +250,10 @@ if ($isSimpleBackground === true
 ) {
     $transitions[] = "background-color .3s";
 }
-if ($model->get("hasBorderRadiusHover") === true
-    && $model->get("hasBorderRadiusAnimation")
-) {
-    $transitions[] = "border-radius .3s";
-}
 if ($model->get("hasBorderHover") === true
     && $model->get("hasBorderAnimation")
 ) {
+    $transitions[] = "border-radius .3s";
     $transitions[] = "border-width .3s";
     $transitions[] = "border-color .3s";
 }
@@ -400,7 +396,7 @@ if ($model->get("hasBackgroundHover") === true) {
     }
 }
 
-if ($model->get("hasBorderRadiusHover") === true) {
+if ($model->get("hasBorderHover") === true) {
     $borderTopLeftRadius = $model->get("borderTopLeftRadiusHover");
     $borderTopRightRadius = $model->get("borderTopRightRadiusHover");
     $borderBottomRightRadius = $model->get("borderBottomRightRadiusHover");
@@ -444,9 +440,7 @@ if ($model->get("hasBorderRadiusHover") === true) {
             $borderBottomLeftRadius
         );
     }
-}
 
-if ($model->get("hasBorderHover") === true) {
     $borderTopWidth = $model->get("borderTopWidthHover");
     $borderRightWidth = $model->get("borderRightWidthHover");
     $borderBottomWidth = $model->get("borderBottomWidthHover");

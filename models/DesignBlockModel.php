@@ -108,16 +108,15 @@ class DesignBlockModel extends AbstractModel
     public static function getLabels()
     {
         return [
-            "margin"                   => Language::t("design", "margin"),
-            "padding"                  => Language::t("design", "padding"),
-            "setHover"                 => Language::t("design", "setHover"),
-            "useAnimation"             => Language::t("design", "useAnimation"),
-            "background"               => Language::t("design", "background"),
-            "backgroundColor"          => Language::t("design", "backgroundColor"),
-            "useGradient"              => Language::t("design", "useGradient"),
-            "border"                   => Language::t("design", "border"),
-            "setBorderRadiusHover"     => Language::t("design", "setBorderRadiusHover"),
-            "useBorderRadiusAnimation" => Language::t("design", "useBorderRadiusAnimation"),
+            "margin"          => Language::t("design", "margin"),
+            "padding"         => Language::t("design", "padding"),
+            "setHover"        => Language::t("design", "setHover"),
+            "useAnimation"    => Language::t("design", "useAnimation"),
+            "background"      => Language::t("design", "background"),
+            "backgroundColor" => Language::t("design", "backgroundColor"),
+            "borderColor"     => Language::t("design", "borderColor"),
+            "useGradient"     => Language::t("design", "useGradient"),
+            "border"          => Language::t("design", "border"),
         ];
     }
 
@@ -342,12 +341,6 @@ class DesignBlockModel extends AbstractModel
                 self::FIELD_VALUE => [
                     ValueGenerator::MIN => 0
                 ],
-            ],
-            "hasBorderRadiusHover"         => [
-                self::FIELD_TYPE => self::FIELD_TYPE_BOOL,
-            ],
-            "hasBorderRadiusAnimation"     => [
-                self::FIELD_TYPE => self::FIELD_TYPE_BOOL,
             ],
             "borderTopWidth"               => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,

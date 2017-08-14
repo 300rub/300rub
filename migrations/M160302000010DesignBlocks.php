@@ -55,8 +55,6 @@ class M160302000010DesignBlocks extends AbstractMigration
                 "borderBottomRightRadiusHover" => self::TYPE_SMALLINT_UNSIGNED,
                 "borderBottomLeftRadius"       => self::TYPE_SMALLINT_UNSIGNED,
                 "borderBottomLeftRadiusHover"  => self::TYPE_SMALLINT_UNSIGNED,
-                "hasBorderRadiusHover"         => self::TYPE_BOOL,
-                "hasBorderRadiusAnimation"     => self::TYPE_BOOL,
                 "borderTopWidth"               => self::TYPE_SMALLINT_UNSIGNED,
                 "borderTopWidthHover"          => self::TYPE_SMALLINT_UNSIGNED,
                 "borderRightWidth"             => self::TYPE_SMALLINT_UNSIGNED,
