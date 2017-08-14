@@ -44,4 +44,13 @@
             </div>
         </div>
     </div>
+
+    <div class="category-container border-container">
+        <div class="category-title"></div>
+
+        <div class="relative-container">
+            <div class="styles-example-container"></div>
+            <div class="border-example"></div>
+        </div>
+    </div>
 </div>

@@ -27,6 +27,8 @@
         this.$_paddingExampleStyles = null;
         this.$_backgroundExample = null;
         this.$_backgroundExampleStyles = null;
+        this.$_borderExample = null;
+        this.$_borderExampleStyles = null;
 
         this.init();
     };
@@ -96,8 +98,9 @@
                 ._setNames()
                 ._setDesignContainer()
                 ._setMargin()
+                ._setPadding()
                 ._setBackground()
-                ._setPadding();
+                ._setBorder();
         },
 
         /**
@@ -137,7 +140,31 @@
                     gradientDirection: null,
                     gradientDirectionHover: null,
                     hasBackgroundHover: null,
-                    hasBackgroundAnimation: null
+                    hasBackgroundAnimation: null,
+                    borderTopLeftRadius: null,
+                    borderTopLeftRadiusHover: null,
+                    borderTopRightRadius: null,
+                    borderTopRightRadiusHover: null,
+                    borderBottomRightRadius: null,
+                    borderBottomRightRadiusHover: null,
+                    borderBottomLeftRadius: null,
+                    borderBottomLeftRadiusHover: null,
+                    hasBorderRadiusHover: null,
+                    hasBorderRadiusAnimation: null,
+                    borderTopWidth: null,
+                    borderTopWidthHover: null,
+                    borderRightWidth: null,
+                    borderRightWidthHover: null,
+                    borderBottomWidth: null,
+                    borderBottomWidthHover: null,
+                    borderLeftWidth: null,
+                    borderLeftWidthHover: null,
+                    borderStyle: null,
+                    borderStyleHover: null,
+                    borderColor: null,
+                    borderColorHover: null,
+                    hasBorderHover: null,
+                    hasBorderAnimation: null
                 },
                 this._data["values"]
             );
@@ -894,6 +921,224 @@
             }
 
             this._updateBackground(true);
+
+            return this;
+        },
+
+        /**
+         * Sets border
+         *
+         * @returns {TestS.Panel.Design.Block}
+         *
+         * @private
+         */
+        _setBorder: function() {
+            var $container = this.$_designContainer.find(".border-container");
+
+            if (this._values["borderTopLeftRadius"] === null
+                && this._values["borderTopRightRadius"] === null
+                && this._values["borderBottomRightRadius"] === null
+                && this._values["borderBottomLeftRadius"] === null
+                && this._values["borderTopWidth"] === null
+                && this._values["borderRightWidth"] === null
+                && this._values["borderBottomWidth"] === null
+                && this._values["borderLeftWidth"] === null
+            ) {
+                $container.remove();
+                return this;
+            }
+
+            this.$_borderExampleStyles = $container.find(".styles-example-container");
+
+            $container.find(".category-title").text(this._getLabel("border"));
+
+            var uniqueId = TestS.getUniqueId();
+            this.$_borderExample = $container.find(".border-example")
+                .addClass("border-example-" + uniqueId)
+                .attr("data-id", uniqueId);
+
+            var $relativeContainer = $container.find(".relative-container");
+
+            if (this._values["borderTopLeftRadius"] !== null) {
+                var borderTopLeftRadiusHover = null;
+
+                if (this._values["borderTopLeftRadiusHover"] !== null) {
+                    borderTopLeftRadiusHover = new TestS.Form({
+                        type: "spinner",
+                        value: this._values["borderTopLeftRadiusHover"],
+                        class: "border-top-left-radius-hover",
+                        iconBefore: "fa-arrow-right",
+                        callback: $.proxy(function (value) {
+                            this._values["borderTopLeftRadiusHover"] = value;
+                            this._updateBorder(false);
+                        }, this),
+                        appendTo: $relativeContainer
+                    });
+                }
+
+                new TestS.Form({
+                    type: "spinner",
+                    value: this._values["borderTopLeftRadius"],
+                    class: "border-top-left-radius",
+                    callback: $.proxy(function (value) {
+                        if (this._values["borderTopLeftRadius"] === this._values["borderTopLeftRadiusHover"]
+                            && borderTopLeftRadiusHover !== null
+                        ) {
+                            this._values["borderTopLeftRadiusHover"] = value;
+                            borderTopLeftRadiusHover.setValue(value);
+                        }
+                        this._values["borderTopLeftRadius"] = value;
+                        this._updateBorder(false);
+                    }, this),
+                    appendTo: $relativeContainer
+                });
+            }
+
+            if (this._values["borderTopRightRadius"] !== null) {
+                var borderTopRightRadiusHover = null;
+
+                if (this._values["borderTopRightRadiusHover"] !== null) {
+                    borderTopRightRadiusHover = new TestS.Form({
+                        type: "spinner",
+                        value: this._values["borderTopRightRadiusHover"],
+                        class: "border-top-right-radius-hover",
+                        callback: $.proxy(function (value) {
+                            this._values["borderTopRightRadiusHover"] = value;
+                            this._updateBorder(false);
+                        }, this),
+                        appendTo: $relativeContainer
+                    });
+                }
+
+                new TestS.Form({
+                    type: "spinner",
+                    value: this._values["borderTopRightRadius"],
+                    class: "border-top-right-radius",
+                    callback: $.proxy(function (value) {
+                        if (this._values["borderTopRightRadius"] === this._values["borderTopRightRadiusHover"]
+                            && borderTopRightRadiusHover !== null
+                        ) {
+                            this._values["borderTopRightRadiusHover"] = value;
+                            borderTopRightRadiusHover.setValue(value);
+                        }
+                        this._values["borderTopRightRadius"] = value;
+                        this._updateBorder(false);
+                    }, this),
+                    appendTo: $relativeContainer
+                });
+            }
+
+            if (this._values["borderBottomRightRadius"] !== null) {
+                var borderBottomRightRadiusHover = null;
+
+                if (this._values["borderBottomRightRadiusHover"] !== null) {
+                    borderBottomRightRadiusHover = new TestS.Form({
+                        type: "spinner",
+                        value: this._values["borderBottomRightRadiusHover"],
+                        class: "border-bottom-right-radius-hover",
+                        iconBefore: "fa-arrow-right",
+                        callback: $.proxy(function (value) {
+                            this._values["borderBottomRightRadiusHover"] = value;
+                            this._updateBorder(false);
+                        }, this),
+                        appendTo: $relativeContainer
+                    });
+                }
+
+                new TestS.Form({
+                    type: "spinner",
+                    value: this._values["borderBottomRightRadius"],
+                    class: "border-bottom-right-radius",
+                    callback: $.proxy(function (value) {
+                        if (this._values["borderBottomRightRadius"] === this._values["borderBottomRightRadiusHover"]
+                            && borderBottomRightRadiusHover !== null
+                        ) {
+                            this._values["borderBottomRightRadiusHover"] = value;
+                            borderBottomRightRadiusHover.setValue(value);
+                        }
+                        this._values["borderBottomRightRadius"] = value;
+                        this._updateBorder(false);
+                    }, this),
+                    appendTo: $relativeContainer
+                });
+            }
+
+            if (this._values["borderBottomLeftRadius"] !== null) {
+                var borderBottomLeftRadiusHover = null;
+
+                if (this._values["borderBottomLeftRadiusHover"] !== null) {
+                    borderBottomLeftRadiusHover = new TestS.Form({
+                        type: "spinner",
+                        value: this._values["borderBottomLeftRadiusHover"],
+                        class: "border-bottom-left-radius-hover",
+                        callback: $.proxy(function (value) {
+                            this._values["borderBottomLeftRadiusHover"] = value;
+                            this._updateBorder(false);
+                        }, this),
+                        appendTo: $relativeContainer
+                    });
+                }
+
+                new TestS.Form({
+                    type: "spinner",
+                    value: this._values["borderBottomLeftRadius"],
+                    class: "border-bottom-left-radius",
+                    callback: $.proxy(function (value) {
+                        if (this._values["borderBottomLeftRadius"] === this._values["borderBottomLeftRadiusHover"]
+                            && borderBottomLeftRadiusHover !== null
+                        ) {
+                            this._values["borderBottomLeftRadiusHover"] = value;
+                            borderBottomLeftRadiusHover.setValue(value);
+                        }
+                        this._values["borderBottomLeftRadius"] = value;
+                        this._updateBorder(false);
+                    }, this),
+                    appendTo: $relativeContainer
+                });
+            }
+
+            if (this._values["hasBorderRadiusHover"] === true) {
+                $container.addClass("has-border-radius-hover");
+            }
+
+            if (this._values["hasBorderRadiusHover"] !== null) {
+                new TestS.Form({
+                    type: "checkbox",
+                    value: this._values["hasBorderRadiusHover"],
+                    label: this._getLabel("setBorderRadiusHover"),
+                    onCheck: $.proxy(function () {
+                        this._values["hasBorderRadiusHover"] = true;
+                        $container.addClass("has-border-radius-hover");
+                        this._updateBorder(false);
+                    }, this),
+                    onUnCheck: $.proxy(function () {
+                        this._values["hasBorderRadiusHover"] = false;
+                        $container.removeClass("has-border-radius-hover");
+                        this._updateBorder(false);
+                    }, this),
+                    appendTo: $container
+                });
+            }
+
+            if (this._values["hasBorderRadiusAnimation"] !== null) {
+                new TestS.Form({
+                    type: "checkbox",
+                    value: this._values["hasBorderRadiusAnimation"],
+                    label: this._getLabel("useBorderRadiusAnimation"),
+                    class: "has-border-radius-animation",
+                    onCheck: $.proxy(function () {
+                        this._values["hasBorderRadiusAnimation"] = true;
+                        this._updateBorder(false);
+                    }, this),
+                    onUnCheck: $.proxy(function () {
+                        this._values["hasBorderRadiusAnimation"] = false;
+                        this._updateBorder(false);
+                    }, this),
+                    appendTo: $container
+                });
+            }
+
+            this._updateBorder(true);
 
             return this;
         },

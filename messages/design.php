@@ -35,8 +35,16 @@ return [
         Language::LANGUAGE_EN_ID => "Set hover",
         Language::LANGUAGE_RU_ID => ""
     ],
+    "setBorderRadiusHover"     => [
+        Language::LANGUAGE_EN_ID => "Set border radius hover",
+        Language::LANGUAGE_RU_ID => ""
+    ],
     "useAnimation"     => [
         Language::LANGUAGE_EN_ID => "Use animation",
+        Language::LANGUAGE_RU_ID => "",
+    ],
+    "useBorderRadiusAnimation"     => [
+        Language::LANGUAGE_EN_ID => "Use border radius animation",
         Language::LANGUAGE_RU_ID => "",
     ],
     "background"     => [
