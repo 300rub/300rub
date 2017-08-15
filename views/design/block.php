@@ -30,7 +30,7 @@ if ($marginTop !== 0
         $marginLeft .= "px";
     }
     $css .= sprintf(
-        "margin: %s %s %s %s;",
+        "margin:%s %s %s %s;",
         $marginTop,
         $marginRight,
         $marginBottom,
@@ -60,7 +60,7 @@ if ($paddingTop !== 0
         $paddingLeft .= "px";
     }
     $css .= sprintf(
-        "padding: %s %s %s %s;",
+        "padding:%s %s %s %s;",
         $paddingTop,
         $paddingRight,
         $paddingBottom,
@@ -74,56 +74,56 @@ $isSimpleBackground = false;
 if ($backgroundColorFrom !== ""
     && $backgroundColorTo === ""
 ) {
-    $css .= sprintf("background-color: %s;", $backgroundColorFrom);
+    $css .= sprintf("background-color:%s;", $backgroundColorFrom);
     $isSimpleBackground = true;
 } elseif ($backgroundColorFrom === ""
     && $backgroundColorTo !== ""
 ) {
-    $css .= sprintf("background-color: %s;", $backgroundColorTo);
+    $css .= sprintf("background-color:%s;", $backgroundColorTo);
     $isSimpleBackground = true;
 } elseif ($backgroundColorFrom !== ""
     && $backgroundColorTo !== ""
 ) {
     $gradientDirection = $model->getGradientDirection();
-    $css .= sprintf("background: %s;", $backgroundColorFrom);
+    $css .= sprintf("background:%s;", $backgroundColorFrom);
     $css .= sprintf(
-        "background: -moz-linear-gradient(%s, %s 0%%, %s 100%%);",
+        "background:-moz-linear-gradient(%s, %s 0%%, %s 100%%);",
         $gradientDirection["mozLinear"],
         $backgroundColorFrom,
         $backgroundColorTo
     );
     $css .= sprintf(
-        "background: -webkit-gradient(%s, color-stop(0%%, %s), color-stop(100%%, %s));",
+        "background:-webkit-gradient(%s, color-stop(0%%, %s), color-stop(100%%, %s));",
         $gradientDirection["webkit"],
         $backgroundColorFrom,
         $backgroundColorTo
     );
     $css .= sprintf(
-        "background: -webkit-linear-gradient(%s, %s 0%%, %s 100%%);",
+        "background:-webkit-linear-gradient(%s, %s 0%%, %s 100%%);",
         $gradientDirection["webkitLinear"],
         $backgroundColorFrom,
         $backgroundColorTo
     );
     $css .= sprintf(
-        "background: -o-linear-gradient(%s, %s 0%%, %s 100%%);",
+        "background:-o-linear-gradient(%s, %s 0%%, %s 100%%);",
         $gradientDirection["oLinear"],
         $backgroundColorFrom,
         $backgroundColorTo
     );
     $css .= sprintf(
-        "background: -ms-linear-gradient(%s, %s 0%%, %s 100%%);",
+        "background:-ms-linear-gradient(%s, %s 0%%, %s 100%%);",
         $gradientDirection["msLinear"],
         $backgroundColorFrom,
         $backgroundColorTo
     );
     $css .= sprintf(
-        "background: linear-gradient(%s, %s 0%%, %s 100%%);",
+        "background:linear-gradient(%s, %s 0%%, %s 100%%);",
         $gradientDirection["linear"],
         $backgroundColorFrom,
         $backgroundColorTo
     );
     $css .= sprintf(
-        "filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='%s', endColorstr='%s',GradientType=%s);",
+        "filter:progid:DXImageTransform.Microsoft.gradient( startColorstr='%s', endColorstr='%s',GradientType=%s);",
         $backgroundColorFrom,
         $backgroundColorTo,
         $gradientDirection["ie"]
@@ -196,7 +196,7 @@ if ($borderTopWidth !== 0
         $borderLeftWidth .= "px";
     }
     $css .= sprintf(
-        "border-width: %s %s %s %s;",
+        "border-width:%s %s %s %s;",
         $borderTopWidth,
         $borderRightWidth,
         $borderBottomWidth,
@@ -206,7 +206,7 @@ if ($borderTopWidth !== 0
 
 if ($model->get("borderStyle") !== 0) {
     $css .= sprintf(
-        "border-style: %s;",
+        "border-style:%s;",
         $model->getBorderStyle()
     );
 }
@@ -214,7 +214,7 @@ if ($model->get("borderStyle") !== 0) {
 $borderColor = $model->get("borderColor");
 if ($borderColor !== "") {
     $css .= sprintf(
-        "border-color: %s;",
+        "border-color:%s;",
         $borderColor
     );
 }
@@ -228,7 +228,7 @@ if ($width !== 0) {
     }
 
     $css .= sprintf(
-        "width: %s;",
+        "width:%s;",
         $width
     );
 }
@@ -259,10 +259,10 @@ if ($model->get("hasBorderHover") === true
 }
 $transition = implode(",", $transitions);
 if ($transition !== "") {
-    $css .= sprintf("-webkit-transition: %s;", $transition);
-    $css .= sprintf("-ms-transition: %s;", $transition);
-    $css .= sprintf("-o-transition: %s;", $transition);
-    $css .= sprintf("transition: %s;", $transition);
+    $css .= sprintf("-webkit-transition:%s;", $transition);
+    $css .= sprintf("-ms-transition:%s;", $transition);
+    $css .= sprintf("-o-transition:%s;", $transition);
+    $css .= sprintf("transition:%s;", $transition);
 }
 
 if ($css !== "") {
@@ -294,7 +294,7 @@ if ($model->get("hasMarginHover") === true) {
             $marginLeft .= "px";
         }
         $css .= sprintf(
-            "margin: %s %s %s %s;",
+            "margin:%s %s %s %s;",
             $marginTop,
             $marginRight,
             $marginBottom,
@@ -326,7 +326,7 @@ if ($model->get("hasMarginHover") === true) {
             $paddingLeft .= "px";
         }
         $css .= sprintf(
-            "padding: %s %s %s %s;",
+            "padding:%s %s %s %s;",
             $paddingTop,
             $paddingRight,
             $paddingBottom,
@@ -341,54 +341,54 @@ if ($model->get("hasBackgroundHover") === true) {
     if ($backgroundColorFrom !== ""
         && $backgroundColorTo === ""
     ) {
-        $css .= sprintf("background-color: %s;", $backgroundColorFrom);
+        $css .= sprintf("background-color:%s;", $backgroundColorFrom);
     } elseif ($backgroundColorFrom === ""
         && $backgroundColorTo !== ""
     ) {
-        $css .= sprintf("background-color: %s;", $backgroundColorTo);
+        $css .= sprintf("background-color:%s;", $backgroundColorTo);
     } elseif ($backgroundColorFrom !== ""
         && $backgroundColorTo !== ""
     ) {
         $gradientDirection = $model->getGradientDirection(true);
-        $css .= sprintf("background: %s;", $backgroundColorFrom);
+        $css .= sprintf("background:%s;", $backgroundColorFrom);
         $css .= sprintf(
-            "background: -moz-linear-gradient(%s, %s 0%%, %s 100%%);",
+            "background:-moz-linear-gradient(%s, %s 0%%, %s 100%%);",
             $gradientDirection["mozLinear"],
             $backgroundColorFrom,
             $backgroundColorTo
         );
         $css .= sprintf(
-            "background: -webkit-gradient(%s, color-stop(0%%, %s), color-stop(100%%, %s));",
+            "background:-webkit-gradient(%s, color-stop(0%%, %s), color-stop(100%%, %s));",
             $gradientDirection["webkit"],
             $backgroundColorFrom,
             $backgroundColorTo
         );
         $css .= sprintf(
-            "background: -webkit-linear-gradient(%s, %s 0%%, %s 100%%);",
+            "background:-webkit-linear-gradient(%s, %s 0%%, %s 100%%);",
             $gradientDirection["webkitLinear"],
             $backgroundColorFrom,
             $backgroundColorTo
         );
         $css .= sprintf(
-            "background: -o-linear-gradient(%s, %s 0%%, %s 100%%);",
+            "background:-o-linear-gradient(%s, %s 0%%, %s 100%%);",
             $gradientDirection["oLinear"],
             $backgroundColorFrom,
             $backgroundColorTo
         );
         $css .= sprintf(
-            "background: -ms-linear-gradient(%s, %s 0%%, %s 100%%);",
+            "background:-ms-linear-gradient(%s, %s 0%%, %s 100%%);",
             $gradientDirection["msLinear"],
             $backgroundColorFrom,
             $backgroundColorTo
         );
         $css .= sprintf(
-            "background: linear-gradient(%s, %s 0%%, %s 100%%);",
+            "background:linear-gradient(%s, %s 0%%, %s 100%%);",
             $gradientDirection["linear"],
             $backgroundColorFrom,
             $backgroundColorTo
         );
         $css .= sprintf(
-            "filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='%s', endColorstr='%s',GradientType=%s);",
+            "filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='%s', endColorstr='%s',GradientType=%s);",
             $backgroundColorFrom,
             $backgroundColorTo,
             $gradientDirection["ie"]
@@ -419,21 +419,21 @@ if ($model->get("hasBorderHover") === true) {
             $borderBottomLeftRadius .= "px";
         }
         $css .= sprintf(
-            "-webkit-border-radius: %s %s %s %s;",
+            "-webkit-border-radius:%s %s %s %s;",
             $borderTopLeftRadius,
             $borderTopRightRadius,
             $borderBottomRightRadius,
             $borderBottomLeftRadius
         );
         $css .= sprintf(
-            "-moz-border-radius: %s %s %s %s;",
+            "-moz-border-radius:%s %s %s %s;",
             $borderTopLeftRadius,
             $borderTopRightRadius,
             $borderBottomRightRadius,
             $borderBottomLeftRadius
         );
         $css .= sprintf(
-            "border-radius: %s %s %s %s;",
+            "border-radius:%s %s %s %s;",
             $borderTopLeftRadius,
             $borderTopRightRadius,
             $borderBottomRightRadius,
@@ -463,7 +463,7 @@ if ($model->get("hasBorderHover") === true) {
             $borderLeftWidth .= "px";
         }
         $css .= sprintf(
-            "border-width: %s %s %s %s;",
+            "border-width:%s %s %s %s;",
             $borderTopWidth,
             $borderRightWidth,
             $borderBottomWidth,
@@ -473,7 +473,7 @@ if ($model->get("hasBorderHover") === true) {
 
     if ($model->get("borderStyleHover") !== 0) {
         $css .= sprintf(
-            "border-style: %s;",
+            "border-style:%s;",
             $model->getBorderStyle(true)
         );
     }
@@ -481,7 +481,7 @@ if ($model->get("hasBorderHover") === true) {
     $borderColor = $model->get("borderColorHover");
     if ($borderColor !== "") {
         $css .= sprintf(
-            "border-color: %s;",
+            "border-color:%s;",
             $borderColor
         );
     }

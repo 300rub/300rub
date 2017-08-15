@@ -190,21 +190,28 @@
         display: none;
       }
 
-      .padding-example-container {
+      .padding-example-wrapper {
         width: 100px;
         height: 80px;
-        border: 2px solid @darkGrayBorderColor;
         position: absolute;
         top: 35px;
         left: 50%;
         margin-left: -50px;
         overflow: hidden;
-        background: @lightGrayBackground;
+        border: 2px solid @darkGrayBorderColor;
 
-        .padding-example {
+        .padding-example-container {
+          width: 96px;
+          height: 76px;
           position: relative;
-          border: 1px solid @darkGrayBorderColor;
-          height: 100%;
+          overflow: hidden;
+          background: @lightGrayBackground;
+
+          .padding-example {
+            position: relative;
+            border: 1px solid @darkGrayBorderColor;
+            height: 100%;
+          }
         }
       }
     }
@@ -239,30 +246,26 @@
       display: block;
     }
   }
+}
 
-  .background-container {
-    .color-button {
-      width: 100px;
-      height: 30px;
-      border: 8px solid @lightGrayBackground;
-      position: relative;
-      cursor: pointer;
+.color-container {
+  .gradient-vertical (@lightGrayBackground, @grayBackground);
+  border: 1px solid @grayBorderColor;
+  width: 90px;
+  height: 30px;
+  padding: 4px;
+  text-align: center;
 
-      &:before {
-        content: " ";
-        position: absolute;
-        z-index: -1;
-        top: 1px;
-        left: 1px;
-        right: 1px;
-        bottom: 1px;
-        border: 1px solid @grayBorderColor;
-      }
+  .color-button {
+    border: 1px solid @darkGrayBorderColor;
+    width: 80px;
+    height: 20px;
+    cursor: pointer;
+    background: white;
+  }
 
-      &:hover &:before {
-        border-color: @blueBorderColor;
-      }
-    }
+  &:hover {
+    border-color: @darkGrayBorderColor;
   }
 }
 

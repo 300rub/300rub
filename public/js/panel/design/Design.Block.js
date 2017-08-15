@@ -84,6 +84,17 @@
             }
         },
 
+        /**
+         * List of border styles
+         *
+         * @var {Object}
+         */
+        _borderStyleList: {
+            0: "none",
+            1: "solid",
+            2: "dotted",
+            3: "dashed"
+        },
 
         /**
          * Init
@@ -549,6 +560,7 @@
                         type: "spinner",
                         value: this._values["paddingTopHover"],
                         class: "padding-top-hover",
+                        min: 0,
                         iconBefore: "fa-arrow-right",
                         callback: $.proxy(function (value) {
                             this._values["paddingTopHover"] = value;
@@ -562,6 +574,7 @@
                     type: "spinner",
                     value: this._values["paddingTop"],
                     class: "padding-top",
+                    min: 0,
                     callback: $.proxy(function (value) {
                         if (this._values["paddingTop"] === this._values["paddingTopHover"]
                             && paddingTopHover !== null
@@ -584,6 +597,7 @@
                         type: "spinner",
                         value: this._values["paddingRightHover"],
                         class: "padding-right-hover",
+                        min: 0,
                         callback: $.proxy(function (value) {
                             this._values["paddingRightHover"] = value;
                             this._updatePadding(false);
@@ -596,6 +610,7 @@
                     type: "spinner",
                     value: this._values["paddingRight"],
                     class: "padding-right",
+                    min: 0,
                     callback: $.proxy(function (value) {
                         if (this._values["paddingRight"] === this._values["paddingRightHover"]
                             && paddingRightHover !== null
@@ -618,6 +633,7 @@
                         type: "spinner",
                         value: this._values["paddingBottomHover"],
                         class: "padding-bottom-hover",
+                        min: 0,
                         iconBefore: "fa-arrow-right",
                         callback: $.proxy(function (value) {
                             this._values["paddingBottomHover"] = value;
@@ -631,6 +647,7 @@
                     type: "spinner",
                     value: this._values["paddingBottom"],
                     class: "padding-bottom",
+                    min: 0,
                     callback: $.proxy(function (value) {
                         if (this._values["paddingBottom"] === this._values["paddingBottomHover"]
                             && paddingBottomHover !== null
@@ -653,6 +670,7 @@
                         type: "spinner",
                         value: this._values["paddingLeftHover"],
                         class: "padding-left-hover",
+                        min: 0,
                         callback: $.proxy(function (value) {
                             this._values["paddingLeftHover"] = value;
                             this._updatePadding(false);
@@ -665,6 +683,7 @@
                     type: "spinner",
                     value: this._values["paddingLeft"],
                     class: "padding-left",
+                    min: 0,
                     callback: $.proxy(function (value) {
                         if (this._values["paddingLeft"] === this._values["paddingLeftHover"]
                             && paddingLeftHover !== null
@@ -965,6 +984,7 @@
                         type: "spinner",
                         value: this._values["borderTopLeftRadiusHover"],
                         class: "border-top-left-radius-hover",
+                        min: 0,
                         iconBefore: "fa-arrow-right",
                         callback: $.proxy(function (value) {
                             this._values["borderTopLeftRadiusHover"] = value;
@@ -978,6 +998,7 @@
                     type: "spinner",
                     value: this._values["borderTopLeftRadius"],
                     class: "border-top-left-radius",
+                    min: 0,
                     callback: $.proxy(function (value) {
                         if (this._values["borderTopLeftRadius"] === this._values["borderTopLeftRadiusHover"]
                             && borderTopLeftRadiusHover !== null
@@ -1000,6 +1021,7 @@
                         type: "spinner",
                         value: this._values["borderTopRightRadiusHover"],
                         class: "border-top-right-radius-hover",
+                        min: 0,
                         callback: $.proxy(function (value) {
                             this._values["borderTopRightRadiusHover"] = value;
                             this._updateBorder(false);
@@ -1012,6 +1034,7 @@
                     type: "spinner",
                     value: this._values["borderTopRightRadius"],
                     class: "border-top-right-radius",
+                    min: 0,
                     callback: $.proxy(function (value) {
                         if (this._values["borderTopRightRadius"] === this._values["borderTopRightRadiusHover"]
                             && borderTopRightRadiusHover !== null
@@ -1034,6 +1057,7 @@
                         type: "spinner",
                         value: this._values["borderBottomRightRadiusHover"],
                         class: "border-bottom-right-radius-hover",
+                        min: 0,
                         iconBefore: "fa-arrow-right",
                         callback: $.proxy(function (value) {
                             this._values["borderBottomRightRadiusHover"] = value;
@@ -1047,6 +1071,7 @@
                     type: "spinner",
                     value: this._values["borderBottomRightRadius"],
                     class: "border-bottom-right-radius",
+                    min: 0,
                     callback: $.proxy(function (value) {
                         if (this._values["borderBottomRightRadius"] === this._values["borderBottomRightRadiusHover"]
                             && borderBottomRightRadiusHover !== null
@@ -1069,6 +1094,7 @@
                         type: "spinner",
                         value: this._values["borderBottomLeftRadiusHover"],
                         class: "border-bottom-left-radius-hover",
+                        min: 0,
                         callback: $.proxy(function (value) {
                             this._values["borderBottomLeftRadiusHover"] = value;
                             this._updateBorder(false);
@@ -1081,6 +1107,7 @@
                     type: "spinner",
                     value: this._values["borderBottomLeftRadius"],
                     class: "border-bottom-left-radius",
+                    min: 0,
                     callback: $.proxy(function (value) {
                         if (this._values["borderBottomLeftRadius"] === this._values["borderBottomLeftRadiusHover"]
                             && borderBottomLeftRadiusHover !== null
@@ -1103,6 +1130,7 @@
                         type: "spinner",
                         value: this._values["borderTopWidthHover"],
                         class: "border-top-Width-hover",
+                        min: 0,
                         iconBefore: "fa-arrow-right",
                         callback: $.proxy(function (value) {
                             this._values["borderTopWidthHover"] = value;
@@ -1116,6 +1144,7 @@
                     type: "spinner",
                     value: this._values["borderTopWidth"],
                     class: "border-top-width",
+                    min: 0,
                     callback: $.proxy(function (value) {
                         if (this._values["borderTopWidth"] === this._values["borderTopWidthHover"]
                             && borderTopWidthHover !== null
@@ -1138,6 +1167,7 @@
                         type: "spinner",
                         value: this._values["borderRightWidthHover"],
                         class: "border-right-width-hover",
+                        min: 0,
                         iconBefore: "fa-arrow-right",
                         callback: $.proxy(function (value) {
                             this._values["borderRightWidthHover"] = value;
@@ -1151,6 +1181,7 @@
                     type: "spinner",
                     value: this._values["borderRightWidth"],
                     class: "border-right-width",
+                    min: 0,
                     callback: $.proxy(function (value) {
                         if (this._values["borderRightWidth"] === this._values["borderRightWidthHover"]
                             && borderRightWidthHover !== null
@@ -1173,6 +1204,7 @@
                         type: "spinner",
                         value: this._values["borderBottomWidthHover"],
                         class: "border-bottom-width-hover",
+                        min: 0,
                         iconBefore: "fa-arrow-right",
                         callback: $.proxy(function (value) {
                             this._values["borderBottomWidthHover"] = value;
@@ -1186,6 +1218,7 @@
                     type: "spinner",
                     value: this._values["borderBottomWidth"],
                     class: "border-bottom-width",
+                    min: 0,
                     callback: $.proxy(function (value) {
                         if (this._values["borderRightWidth"] === this._values["borderBottomWidthHover"]
                             && borderBottomWidthHover !== null
@@ -1208,6 +1241,7 @@
                         type: "spinner",
                         value: this._values["borderLeftWidthHover"],
                         class: "border-left-width-hover",
+                        min: 0,
                         iconBefore: "fa-arrow-right",
                         callback: $.proxy(function (value) {
                             this._values["borderLeftWidthHover"] = value;
@@ -1221,6 +1255,7 @@
                     type: "spinner",
                     value: this._values["borderLeftWidth"],
                     class: "border-left-width",
+                    min: 0,
                     callback: $.proxy(function (value) {
                         if (this._values["borderLeftWidth"] === this._values["borderLeftWidthHover"]
                             && borderLeftWidthHover !== null
@@ -1424,6 +1459,29 @@
         },
 
         /**
+         * Gets border style
+         *
+         * @param {boolean} isHover
+         *
+         * @return {String}
+         */
+        _getBorderStyle: function(isHover) {
+            var borderStyle;
+
+            if (isHover === true) {
+                borderStyle = this._values["borderStyleHover"];
+            } else {
+                borderStyle = this._values["borderStyle"];
+            }
+
+            if (this._borderStyleList[borderStyle] !== undefined) {
+                return this._borderStyleList[borderStyle];
+            }
+
+            return this._borderStyleList[0];
+        },
+
+        /**
          * Generates margin styles
          *
          * @param {boolean} isHover
@@ -1549,14 +1607,22 @@
          * @private
          */
         _generateBackgroundCss: function(isHover) {
-            var css = "";
+            var css = "",
+                backgroundColorFrom = "",
+                backgroundColorTo = "";
 
-            var backgroundColorFrom = this._values["backgroundColorFrom"];
+            if (isHover === true) {
+                backgroundColorFrom = this._values["backgroundColorFromHover"];
+                backgroundColorTo = this._values["backgroundColorToHover"];
+            } else {
+                backgroundColorFrom = this._values["backgroundColorFrom"];
+                backgroundColorTo = this._values["backgroundColorTo"];
+            }
+
             if (backgroundColorFrom === null) {
                 backgroundColorFrom = "";
             }
 
-            var backgroundColorTo = this._values["backgroundColorTo"];
             if (backgroundColorTo === null) {
                 backgroundColorTo = "";
             }
@@ -1666,7 +1732,8 @@
                 borderTopWidth,
                 borderRightWidth,
                 borderBottomWidth,
-                borderLeftWidth;
+                borderLeftWidth,
+                borderColor;
 
             if (isHover === true) {
                 if (this._values["hasBorderHover"] !== true) {
@@ -1682,6 +1749,8 @@
                 borderRightWidth = TestS.getIntVal(this._values["borderRightWidthHover"]);
                 borderBottomWidth = TestS.getIntVal(this._values["borderBottomWidthHover"]);
                 borderLeftWidth = TestS.getIntVal(this._values["borderLeftWidthHover"]);
+
+                borderColor = this._values["borderColorHover"];
             } else {
                 borderTopLeftRadius = TestS.getIntVal(this._values["borderTopLeftRadius"]);
                 borderTopRightRadius = TestS.getIntVal(this._values["borderTopRightRadius"]);
@@ -1692,6 +1761,8 @@
                 borderRightWidth = TestS.getIntVal(this._values["borderRightWidth"]);
                 borderBottomWidth = TestS.getIntVal(this._values["borderBottomWidth"]);
                 borderLeftWidth = TestS.getIntVal(this._values["borderLeftWidth"]);
+
+                borderColor = this._values["borderColor"];
             }
 
             if (borderTopLeftRadius !== 0) {
@@ -1768,6 +1839,17 @@
                 + borderLeftWidth
                 + ";";
 
+            if (borderColor === null) {
+                borderColor = "";
+            }
+
+            if (borderColor !== "") {
+                css += "border-color:" + borderColor + ";";
+            }
+
+            var borderStyle = this._getBorderStyle(isHover);
+            css += "border-style:" + borderStyle + ";";
+
             if (this._values["hasBorderHover"] === true
                 && this._values["hasBorderAnimation"] === true
             ) {
@@ -1792,7 +1874,8 @@
         _generateCss: function(isHover) {
             return this._generateMarginCss(isHover)
                 + this._generatePaddingCss(isHover)
-                + this._generateBackgroundCss(isHover);
+                + this._generateBackgroundCss(isHover)
+                + this._generateBorderCss(isHover);
         },
 
         /**

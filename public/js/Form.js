@@ -72,31 +72,38 @@
          * @private
          */
         _setSelectForm: function () {
-            this.$_form = TestS.Template.get("form-container-select");
+            var t = this;
 
-            var $instance = this.getFormInstance();
-            var $optionTemplate = this.$_form.find(".option-template");
+            t.$_form = TestS.Template.get("form-container-select");
 
-            if ($.type(this._options.list) === "array") {
-                $.each(this._options.list, function(i, object) {
-                    $optionTemplate.clone()
-                        .attr("value", object.key)
-                        .text(object.value)
-                        .appendTo($instance);
+            var $instance = t.getFormInstance();
+            var $optionTemplate = t.$_form.find(".option-template");
+
+            if ($.type(t._options.list) === "array") {
+                $.each(t._options.list, function(i, object) {
+                    var $option = $optionTemplate.clone()
+                        .attr("value", object["key"])
+                        .text(object["value"]);
+
+                    if (object["class"] !== undefined) {
+                        $option.addClass(object["class"]);
+                    }
+
+                    $option.appendTo($instance);
                 });
             }
             $optionTemplate.remove();
 
-            if (this._options.value !== undefined) {
-                $instance.val(this._options.value);
+            if (t._options.value !== undefined) {
+                $instance.val(t._options.value);
             }
 
-            if ($.type(this._options.onChange) === "function") {
-                if ($.type(this._options.data) === "object") {
-                    $instance.on("change", this._options.data, this._options.onChange);
-                } else {
-                    $instance.on("change", this._options.onChange);
-                }
+            if ($.type(t._options.onChange) === "function") {
+                $instance.on("change", function() {
+                    t._options.onChange(
+                        TestS.getIntVal($(this).val())
+                    );
+                });
             }
         },
 
@@ -133,7 +140,13 @@
                 $iconBefore.remove();
             }
 
+            var min = -999999;
+            if (this._options["min"] !== undefined) {
+                min = this._options["min"];
+            }
+
             this.getFormInstance().spinner({
+                min: min,
                 spin: function (event, ui) {
                     if ($.type(t._options.callback) === "function") {
                         t._options.callback(

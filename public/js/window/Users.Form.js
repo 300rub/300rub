@@ -221,8 +221,8 @@
                         {
                             appendTo: $textFormsContainer,
                             type: "select",
-                            onChange: function () {
-                                if (parseInt($(this).val()) === data.operations["limitedId"]) {
+                            onChange: function (value) {
+                                if (value === data.operations["limitedId"]) {
                                     t.$_operationsContainer.removeClass("hidden");
                                 } else {
                                     t.$_operationsContainer.addClass("hidden");

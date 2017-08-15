@@ -79,6 +79,7 @@ class PageController extends AbstractController
             "panel/Block.Text",
             "panel/design/Design",
             "panel/design/Design.Block",
+            "panel/design/Design.Text",
             "UserButtons",
             "window/Users",
             "window/Users.Sessions",

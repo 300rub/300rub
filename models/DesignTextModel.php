@@ -83,67 +83,67 @@ class DesignTextModel extends AbstractModel
      */
     public static $familyList = [
         self::FAMILY_MYRAD         => [
-            "class" => "l-font-family-myrad",
+            "class" => "font-family-myrad",
             "name"  => "MyriadPro"
         ],
         self::FAMILY_ARIAL         => [
-            "class" => "l-font-family-arial",
+            "class" => "font-family-arial",
             "name"  => "Arial, Helvetica"
         ],
         self::FAMILY_ARIAL_BLACK   => [
-            "class" => "l-font-family-arial-black",
+            "class" => "font-family-arial-black",
             "name"  => "Arial Black, Gadget"
         ],
         self::FAMILY_COMIC_SANS_MS => [
-            "class" => "l-font-family-comic-sans",
+            "class" => "font-family-comic-sans",
             "name"  => "Comic Sans MS"
         ],
         self::FAMILY_COURIER_NEW   => [
-            "class" => "l-font-family-courier-new",
+            "class" => "font-family-courier-new",
             "name"  => "Courier New"
         ],
         self::FAMILY_GEORGIA       => [
-            "class" => "l-font-family-georgia",
+            "class" => "font-family-georgia",
             "name"  => "Georgia"
         ],
         self::FAMILY_IMPACT        => [
-            "class" => "l-font-family-impact",
+            "class" => "font-family-impact",
             "name"  => "Impact, Charcoal"
         ],
         self::FAMILY_MONACO        => [
-            "class" => "l-font-family-monaco",
+            "class" => "font-family-monaco",
             "name"  => "Lucida Console, Monaco"
         ],
         self::FAMILY_LUCIDA_GRANDE => [
-            "class" => "l-font-family-lucida-grande",
+            "class" => "font-family-lucida-grande",
             "name"  => "Lucida Sans Unicode"
         ],
         self::FAMILY_PALATINO      => [
-            "class" => "l-font-family-palatino",
+            "class" => "font-family-palatino",
             "name"  => "Palatino"
         ],
         self::FAMILY_TAHOMA        => [
-            "class" => "l-font-family-tahoma",
+            "class" => "font-family-tahoma",
             "name"  => "Tahoma, Geneva"
         ],
         self::FAMILY_TIMES         => [
-            "class" => "l-font-family-times",
+            "class" => "font-family-times",
             "name"  => "Times New Roman, Times"
         ],
         self::FAMILY_HELVETICA     => [
-            "class" => "l-font-family-helvetica",
+            "class" => "font-family-helvetica",
             "name"  => "Trebuchet MS, Helvetica"
         ],
         self::FAMILY_VERDANA       => [
-            "class" => "l-font-family-verdana",
+            "class" => "font-family-verdana",
             "name"  => "Verdana, Geneva"
         ],
         self::FAMILY_GENEVA        => [
-            "class" => "l-font-family-geneva",
+            "class" => "font-family-geneva",
             "name"  => "MS Sans Serif, Geneva"
         ],
         self::FAMILY_MS_SERIF      => [
-            "class" => "l-font-family-ms-serif",
+            "class" => "font-family-ms-serif",
             "name"  => "MS Serif, New York"
         ]
     ];
