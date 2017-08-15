@@ -381,6 +381,7 @@
                         type: "spinner",
                         value: this._values["marginRightHover"],
                         class: "margin-right-hover",
+                        iconBefore: "fa-arrow-down",
                         callback: $.proxy(function (value) {
                             this._values["marginRightHover"] = value;
                             this._updateMargin(false);
@@ -450,6 +451,7 @@
                         type: "spinner",
                         value: this._values["marginLeftHover"],
                         class: "margin-left-hover",
+                        iconBefore: "fa-arrow-down",
                         callback: $.proxy(function (value) {
                             this._values["marginLeftHover"] = value;
                             this._updateMargin(false);
@@ -597,6 +599,7 @@
                         type: "spinner",
                         value: this._values["paddingRightHover"],
                         class: "padding-right-hover",
+                        iconBefore: "fa-arrow-down",
                         min: 0,
                         callback: $.proxy(function (value) {
                             this._values["paddingRightHover"] = value;
@@ -670,6 +673,7 @@
                         type: "spinner",
                         value: this._values["paddingLeftHover"],
                         class: "padding-left-hover",
+                        iconBefore: "fa-arrow-down",
                         min: 0,
                         callback: $.proxy(function (value) {
                             this._values["paddingLeftHover"] = value;
@@ -902,7 +906,7 @@
                 new TestS.Form({
                     type: "checkbox",
                     value: this._values["hasBackgroundHover"],
-                    label: this._getLabel("useGradient"),
+                    label: this._getLabel("setHover"),
                     onCheck: $.proxy(function () {
                         //
 
