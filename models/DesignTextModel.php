@@ -202,101 +202,104 @@ class DesignTextModel extends AbstractModel
     public function getFieldsInfo()
     {
         return [
-            "size"               => [
+            "size"                => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
                     ValueGenerator::MIN_THEN => [self::MIN_SIZE_VALUE, 0],
                 ],
             ],
-            "sizeHover"          => [
+            "sizeHover"           => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
                     ValueGenerator::MIN_THEN => [self::MIN_SIZE_VALUE, 0],
                 ],
             ],
-            "family"             => [
+            "family"              => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
                     ValueGenerator::ARRAY_KEY => [self::$familyList, self::FAMILY_MYRAD]
                 ],
             ],
-            ValueGenerator::COLOR              => [
+            ValueGenerator::COLOR => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_STRING,
                 self::FIELD_VALUE => [
                     ValueGenerator::COLOR
                 ],
             ],
-            "colorHover"         => [
+            "colorHover"          => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_STRING,
                 self::FIELD_VALUE => [
                     ValueGenerator::COLOR
                 ],
             ],
-            "isItalic"           => [
+            "isItalic"            => [
                 self::FIELD_TYPE => self::FIELD_TYPE_BOOL,
             ],
-            "isItalicHover"      => [
+            "isItalicHover"       => [
                 self::FIELD_TYPE => self::FIELD_TYPE_BOOL,
             ],
-            "isBold"             => [
+            "isBold"              => [
                 self::FIELD_TYPE => self::FIELD_TYPE_BOOL,
             ],
-            "isBoldHover"        => [
+            "isBoldHover"         => [
                 self::FIELD_TYPE => self::FIELD_TYPE_BOOL,
             ],
-            "align"              => [
+            "align"               => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
                     ValueGenerator::ARRAY_KEY => [self::$textAlignList, self::TEXT_ALIGN_LEFT]
                 ],
             ],
-            "decoration"         => [
+            "decoration"          => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
                     ValueGenerator::ARRAY_KEY => [self::$textDecorationList, self::TEXT_DECORATION_NONE]
                 ],
             ],
-            "decorationHover"    => [
+            "decorationHover"     => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
                     ValueGenerator::ARRAY_KEY => [self::$textDecorationList, self::TEXT_DECORATION_NONE]
                 ],
             ],
-            "transform"          => [
+            "transform"           => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
                     ValueGenerator::ARRAY_KEY => [self::$textTransformList, self::TEXT_TRANSFORM_NONE]
                 ],
             ],
-            "transformHover"     => [
+            "transformHover"      => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
                     ValueGenerator::ARRAY_KEY => [self::$textTransformList, self::TEXT_TRANSFORM_NONE]
                 ],
             ],
-            "letterSpacing"      => [
+            "letterSpacing"       => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
                     ValueGenerator::MIN => self::MIN_LETTER_SPACING_VALUE
                 ],
             ],
-            "letterSpacingHover" => [
+            "letterSpacingHover"  => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
                     ValueGenerator::MIN => self::MIN_LETTER_SPACING_VALUE
                 ],
             ],
-            "lineHeight"         => [
+            "lineHeight"          => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
                     ValueGenerator::MIN_THEN => [self::MIN_LINE_HEIGHT_VALUE, 0],
                 ],
             ],
-            "lineHeightHover"    => [
+            "lineHeightHover"     => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
                     ValueGenerator::MIN_THEN => [self::MIN_LINE_HEIGHT_VALUE, 0],
                 ],
+            ],
+            "hasHover"            => [
+                self::FIELD_TYPE => self::FIELD_TYPE_BOOL,
             ],
         ];
     }

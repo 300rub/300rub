@@ -24,6 +24,14 @@
     </label>
 </div>
 
+<label class="checkbox-button">
+    <input type="checkbox" class="form-instance" />
+    <span class="body">
+        <span class="icon fa"></span>
+        <span class="label"></span>
+    </span>
+</label>
+
 <div class="form-container form-container-password">
     <label>
         <span class="label-text"></span>

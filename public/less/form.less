@@ -124,6 +124,42 @@
   }
 }
 
+.checkbox-button {
+  .body {
+    .transition(background-color, .15s);
+    .border-radius(4px);
+    display: inline-block;
+    min-width: 30px;
+    padding: 0 10px;
+    background-color: @grayBackground;
+    text-align: center;
+
+    * {
+      line-height: 30px;
+    }
+  }
+
+  .form-instance {
+    display: none;
+
+    &:checked + .body {
+      background-color: @blueBackground;
+
+      * {
+        color: white;
+      }
+    }
+  }
+
+  &:hover {
+    .icons {
+      .fa-square-o {
+        color: @blueBorderColor;
+      }
+    }
+  }
+}
+
 .form-button {
   .icons {
     width: 22px;
@@ -233,7 +269,7 @@
       }
 
       &:hover {
-        background-color: @blueBorderColor;
+        background-color: @blueBackground;
 
         * {
           color: white;
@@ -245,7 +281,7 @@
       display: none;
 
       &:checked + .label-body {
-        background-color: @blueBorderColor;
+        background-color: @blueBackground;
 
         * {
           color: white;

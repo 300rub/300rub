@@ -41,6 +41,9 @@
                 case "checkbox":
                     this._setCheckboxForm();
                     break;
+                case "checkboxButton":
+                    this._setCheckboxButton();
+                    break;
                 case "radioButtons":
                     this._setRadioButtonsForm();
                     break;
@@ -240,8 +243,53 @@
 
             t.$_form = TestS.Template.get("form-container-checkbox");
 
-            if (t._options.value === true) {
+            if (t._options["value"] === true) {
                 t.getFormInstance().attr("checked", "checked");
+            }
+
+            if ($.type(t._options["onCheck"]) === "function") {
+                t.getFormInstance().on("change", function() {
+                    if (this.checked) {
+                        t._options.onCheck();
+                    }
+                });
+            }
+
+            if ($.type(t._options["onUnCheck"]) === "function") {
+                t.getFormInstance().on("change", function() {
+                    if (!this.checked) {
+                        t._options.onUnCheck();
+                    }
+                });
+            }
+        },
+
+        /**
+         * Sets checkbox button
+         *
+         * @private
+         */
+        _setCheckboxButton: function () {
+            var t = this;
+
+            t.$_form = TestS.Template.get("checkbox-button");
+
+            if (t._options["value"] === true) {
+                t.getFormInstance().attr("checked", "checked");
+            }
+
+            var $icon = t.getFormInstance().find(".icon");
+            if (t._options["icon"] !== undefined) {
+                $icon.addClass(t._options["icon"]);
+            } else {
+                $icon.remove();
+            }
+
+            var $label = t.getFormInstance().find(".label");
+            if (t._options["label"] !== undefined) {
+                $label.addClass(t._options["label"]);
+            } else {
+                $label.remove();
             }
 
             if ($.type(t._options["onCheck"]) === "function") {
@@ -727,6 +775,9 @@
                     value = md5($formInstance.val() + "(^_^)");
                     break;
                 case "checkbox":
+                    value = $formInstance.is(':checked');
+                    break;
+                case "checkboxButton":
                     value = $formInstance.is(':checked');
                     break;
                 case "spinner":

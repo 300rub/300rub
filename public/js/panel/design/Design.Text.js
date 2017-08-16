@@ -20,9 +20,11 @@
 
         this.$_designContainer = null;
         this.$_styleContainer = null;
-        
-        //this.$_example = null;
-        //this.$_styles = null;
+        this.$_commonContainer = null;
+        this.$_hoverContainer = null;
+
+        this.$_example = null;
+        this.$_styles = null;
 
         this.init();
     };
@@ -118,8 +120,18 @@
                 ._setValues()
                 ._setNames()
                 ._setDesignContainer()
+                ._setCommonContainer()
+                ._setHoverContainer()
+                ._setExample()
+                ._setStyles()
+                ._update(true)
                 ._setSize()
-                ._setFamily();
+                ._setFamily()
+                ._setColor()
+                ._setIsItalic()
+                ._setIsBold()
+                ._setAlign()
+                ._setDecoration();
         },
 
         /**
@@ -149,7 +161,8 @@
                     letterSpacing: null,
                     letterSpacingHover: null,
                     lineHeight: null,
-                    lineHeightHover: null
+                    lineHeightHover: null,
+                    hasHover: null
                 },
                 this._data["values"]
             );
@@ -276,6 +289,54 @@
         },
 
         /**
+         * Sets common container
+         *
+         * @returns {TestS.Panel.Design.Text}
+         *
+         * @private
+         */
+        _setCommonContainer: function() {
+            this.$_commonContainer = this.$_designContainer.find(".common-container");
+            return this;
+        },
+
+        /**
+         * Sets hover container
+         *
+         * @returns {TestS.Panel.Design.Text}
+         *
+         * @private
+         */
+        _setHoverContainer: function() {
+            this.$_hoverContainer = this.$_designContainer.find("hover-container");
+            return this;
+        },
+
+        /**
+         * Sets example
+         *
+         * @returns {TestS.Panel.Design.Text}
+         *
+         * @private
+         */
+        _setExample: function() {
+            this.$_example = this.$_designContainer.find(".example");
+            return this;
+        },
+
+        /**
+         * Sets styles
+         *
+         * @returns {TestS.Panel.Design.Text}
+         *
+         * @private
+         */
+        _setStyles: function() {
+            this.$_styles = this.$_designContainer.find(".styles-example-container");
+            return this;
+        },
+
+        /**
          * Gets design container
          *
          * @returns {Object}
@@ -306,9 +367,9 @@
                     min: 0,
                     callback: $.proxy(function (value) {
                         this._values["sizeHover"] = value;
-                        this._updateCss(false);
+                        this._update(false);
                     }, this),
-                    appendTo: this.$_designContainer
+                    appendTo: this.$_hoverContainer
                 });
             }
 
@@ -325,9 +386,9 @@
                         sizeHover.setValue(value);
                     }
                     this._values["size"] = value;
-                    this._updateCss(false);
+                    this._update(false);
                 }, this),
-                appendTo: this.$_designContainer
+                appendTo: this.$_commonContainer
             });
 
             return this;
@@ -361,9 +422,331 @@
                 class: "family",
                 onChange: $.proxy(function (value) {
                     this._values["family"] = value;
-                    this._updateCss(false);
+                    this._update(false);
                 }, this),
-                appendTo: this.$_designContainer
+                appendTo: this.$_commonContainer
+            });
+
+            return this;
+        },
+
+        /**
+         * Sets color
+         *
+         * @returns {TestS.Panel.Design.Text}
+         *
+         * @private
+         */
+        _setColor: function() {
+            var $colorContainer = this.$_commonContainer.find(".common-color-container");
+            var $colorHoverContainer = $container.find(".color-hover-container");
+
+            if (this._values["color"] !== null) {
+                this._setColorPicker(
+                    $colorContainer.find(".color"),
+                    this._getLabel("color"),
+                    $.proxy(function(color) {
+                        this._values["color"] = color;
+                        this._update(false);
+                    }, this)
+                );
+            } else {
+                $colorContainer.remove();
+            }
+
+            if (this._values["colorHover"] !== null) {
+                this._setColorPicker(
+                    $colorHoverContainer.find(".color-hover"),
+                    this._getLabel("colorHover"),
+                    $.proxy(function(color) {
+                        this._values["colorHover"] = color;
+                        this._update(false);
+                    }, this)
+                );
+            } else {
+                $colorHoverContainer.remove();
+            }
+
+            return this;
+        },
+
+        /**
+         * Sets isItalic
+         *
+         * @returns {TestS.Panel.Design.Text}
+         *
+         * @private
+         */
+        _setIsItalic: function() {
+            var hoverForm = null;
+
+            if (this._values["isItalicHover"] !== null) {
+                hoverForm = new TestS.Form({
+                    type: "checkboxButton",
+                    value: this._values["isItalicHover"],
+                    icon: "fa-italic",
+                    onCheck: $.proxy(function () {
+                        this._values["isItalicHover"] = true;
+                        this._update(false);
+                    }, this),
+                    onUnCheck: $.proxy(function () {
+                        this._values["isItalicHover"] = false;
+                        this._update(false);
+                    }, this),
+                    appendTo: this.$_hoverContainer
+                });
+            }
+
+            if (this._values["isItalic"] !== null) {
+                new TestS.Form({
+                    type: "checkboxButton",
+                    value: this._values["isItalic"],
+                    icon: "fa-italic",
+                    onCheck: $.proxy(function () {
+                        if (hoverForm !== null
+                            && this._values["isItalic"] === this._values["isItalicHover"]
+                        ) {
+                            hoverForm.getFormInstance().attr("checked", true);
+                            this._values["isItalicHover"] = true;
+                        }
+
+                        this._values["isItalic"] = true;
+                        this._update(false);
+                    }, this),
+                    onUnCheck: $.proxy(function () {
+                        if (hoverForm !== null
+                            && this._values["isItalic"] === this._values["isItalicHover"]
+                        ) {
+                            hoverForm.getFormInstance().attr("checked", false);
+                            this._values["isItalicHover"] = false;
+                        }
+
+                        this._values["isItalic"] = false;
+                        this._update(false);
+                    }, this),
+                    appendTo: this.$_commonContainer
+                });
+            }
+
+            return this;
+        },
+
+        /**
+         * Sets isBold
+         *
+         * @returns {TestS.Panel.Design.Text}
+         *
+         * @private
+         */
+        _setIsBold: function() {
+            var hoverForm = null;
+
+            if (this._values["isBoldHover"] !== null) {
+                hoverForm = new TestS.Form({
+                    type: "checkboxButton",
+                    value: this._values["isBoldHover"],
+                    icon: "fa-bold",
+                    onCheck: $.proxy(function () {
+                        this._values["isBoldHover"] = true;
+                        this._update(false);
+                    }, this),
+                    onUnCheck: $.proxy(function () {
+                        this._values["isBoldHover"] = false;
+                        this._update(false);
+                    }, this),
+                    appendTo: this.$_hoverContainer
+                });
+            }
+
+            if (this._values["isBold"] !== null) {
+                new TestS.Form({
+                    type: "checkboxButton",
+                    value: this._values["isBold"],
+                    icon: "fa-bold",
+                    onCheck: $.proxy(function () {
+                        if (hoverForm !== null
+                            && this._values["isBold"] === this._values["isBoldHover"]
+                        ) {
+                            hoverForm.getFormInstance().attr("checked", true);
+                            this._values["isBoldHover"] = true;
+                        }
+
+                        this._values["isBold"] = true;
+                        this._update(false);
+                    }, this),
+                    onUnCheck: $.proxy(function () {
+                        if (hoverForm !== null
+                            && this._values["isBold"] === this._values["isBoldHover"]
+                        ) {
+                            hoverForm.getFormInstance().attr("checked", false);
+                            this._values["isBoldHover"] = false;
+                        }
+
+                        this._values["isBold"] = false;
+                        this._update(false);
+                    }, this),
+                    appendTo: this.$_commonContainer
+                });
+            }
+
+            return this;
+        },
+
+        /**
+         * Sets align
+         *
+         * @returns {TestS.Panel.Design.Text}
+         *
+         * @private
+         */
+        _setAlign: function() {
+            if (this._values["align"] === null) {
+                return this;
+            }
+
+            new TestS.Form({
+                type: "radioButtons",
+                value: this._values["align"],
+                data: [
+                    {
+                        value: 0,
+                        icon: "fa-align-left"
+                    },
+                    {
+                        value: 1,
+                        icon: "fa-align-center"
+                    },
+                    {
+                        value: 2,
+                        icon: "fa-align-right"
+                    },
+                    {
+                        value: 3,
+                        icon: "fa-align-justify"
+                    }
+                ],
+                onChange: $.proxy(function (value) {
+                    this._values["align"] = value;
+                    this._update(false);
+                }, this),
+                appendTo: this.$_commonContainer
+            });
+
+            return this;
+        },
+
+        /**
+         * Sets align
+         *
+         * @returns {TestS.Panel.Design.Text}
+         *
+         * @private
+         */
+        _setDecoration: function() {
+            var hoverForm = null;
+            if (this._values["decorationHover"] !== null) {
+                hoverForm = new TestS.Form({
+                    type: "radioButtons",
+                    value: this._values["decorationHover"],
+                    data: [
+                        {
+                            value: 0,
+                            class: "none",
+                            label: "A"
+                        },
+                        {
+                            value: 1,
+                            class: "underline",
+                            label: "U"
+                        },
+                        {
+                            value: 2,
+                            class: "line-through",
+                            label: "T"
+                        },
+                        {
+                            value: 3,
+                            class: "overline",
+                            label: "O"
+                        }
+                    ],
+                    onChange: $.proxy(function (value) {
+                        this._values["decorationHover"] = value;
+                        this._update(false);
+                    }, this),
+                    appendTo: this.$_hoverContainer
+                });
+            }
+
+            if (this._values["decoration"] !== null) {
+                new TestS.Form({
+                    type: "radioButtons",
+                    value: this._values["decoration"],
+                    data: [
+                        {
+                            value: 0,
+                            class: "none",
+                            label: "A"
+                        },
+                        {
+                            value: 1,
+                            class: "underline",
+                            label: "U"
+                        },
+                        {
+                            value: 2,
+                            class: "line-through",
+                            label: "T"
+                        },
+                        {
+                            value: 3,
+                            class: "overline",
+                            label: "O"
+                        }
+                    ],
+                    onChange: $.proxy(function (value) {
+                        if (hoverForm !== null
+                            && this._values["decoration"] === this._values["decorationHover"]
+                        ) {
+                            this._values["decorationHover"] = false;
+                            hoverForm.getFormInstance().val(value).change();
+                        }
+
+                        this._values["decoration"] = value;
+                        this._update(false);
+                    }, this),
+                    appendTo: this.$_hoverContainer
+                });
+            }
+
+            return this;
+        },
+
+        /**
+         * Sets color picker
+         *
+         * @param {Object}   $object
+         * @param {String}   title
+         * @param {function} callback
+         *
+         * @returns {TestS.Panel.Design.Text}
+         *
+         * @private
+         */
+        _setColorPicker: function ($object, title, callback) {
+            $object.colorpicker({
+                parts: 'full',
+                alpha: true,
+                showOn: 'button',
+                buttonColorize: true,
+                buttonClass: "color-button",
+                buttonImage: "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7",
+                buttonImageOnly: true,
+                title: title,
+                colorFormat: "RGBA",
+                select: function (event, data) {
+                    callback(data.formatted);
+                }
             });
 
             return this;
@@ -374,8 +757,8 @@
          *
          * @private
          */
-        _updateCss: function() {
-
+        _update: function() {
+            return this;
         }
     };
 }(window.jQuery, window.TestS);

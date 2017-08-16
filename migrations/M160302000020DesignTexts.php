@@ -37,6 +37,7 @@ class M160302000020DesignTexts extends AbstractMigration
                 "letterSpacingHover" => self::TYPE_SMALLINT,
                 "lineHeight"         => self::TYPE_SMALLINT_UNSIGNED,
                 "lineHeightHover"    => self::TYPE_SMALLINT,
+                "hasHover"           => self::TYPE_BOOL,
             ]
         );
     }
