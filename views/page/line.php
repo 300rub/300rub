@@ -32,12 +32,9 @@ function buildStructureHtml($structure)
                     }
 
 					$html .= sprintf(
-						'<div class="grid width-%s" style="margin-left: %s%%; background: #%s%s%s;">%s</div>',
+						'<div class="grid width-%s" style="margin-left: %s%%;">%s</div>',
 						$item["width"],
 						$item["left"],
-                        rand(10, 99),
-                        rand(10, 99),
-                        rand(10, 99),
 						$item["html"]
 					);
 

@@ -88,3 +88,7 @@
         <span class="label-text"></span>
     </span>
 </label>
+
+<div class="color-picker">
+    <input type="hidden" class="form-instance">
+</div>

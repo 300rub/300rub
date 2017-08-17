@@ -50,6 +50,9 @@
                 case "select":
                     this._setSelectForm();
                     break;
+                case "color":
+                    this._setColor();
+                    break;
                 case "button":
                     this._setButtonForm();
                     break;
@@ -108,6 +111,43 @@
                     );
                 });
             }
+        },
+
+        /**
+         * Sets color form
+         *
+         * @private
+         */
+        _setColor: function () {
+            this.$_form = TestS.Template.get("color-picker");
+
+            var title = "";
+            if (this._options["title"] !== undefined) {
+                title = this._options["title"];
+            }
+
+            if (this._options["value"] !== undefined) {
+                this.getFormInstance().val(this._options["value"]);
+            }
+
+            this.getFormInstance().colorpicker({
+                parts: 'full',
+                alpha: true,
+                showOn: 'button',
+                buttonColorize: true,
+                buttonClass: "color-button",
+                buttonImage: "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7",
+                buttonImageOnly: true,
+                title: title,
+                colorFormat: "RGBA",
+                select: $.proxy(function (event, data) {
+                    if ($.type(this._options["callback"]) === "function") {
+                        this._options["callback"](data.formatted);
+                    }
+                }, this)
+            });
+
+            console.log(this.$_form);
         },
 
         /**

@@ -772,61 +772,56 @@
                 .addClass("background-example-" + uniqueId)
                 .attr("data-id", uniqueId);
 
-            var $backgroundColorFromContainer = $container.find(".background-color-from-container");
-            var $backgroundColorToContainer = $container.find(".background-color-to-container");
-            var $backgroundColorFromHoverContainer = $container.find(".background-color-from-hover-container");
-            var $backgroundColorToHoverContainer = $container.find(".background-color-to-hover-container");
-
             if (this._values["backgroundColorFrom"] !== null) {
-                this._setColorPicker(
-                    $backgroundColorFromContainer.find(".background-color-from"),
-                    this._getLabel("backgroundColor"),
-                    $.proxy(function(color) {
+                new TestS.Form({
+                    type: "color",
+                    title: this._getLabel("backgroundColor"),
+                    value: this._values["backgroundColorFrom"],
+                    callback: $.proxy(function (color) {
                         this._values["backgroundColorFrom"] = color;
                         this._updateBackground(false);
-                    }, this)
-                );
-            } else {
-                $backgroundColorFromContainer.remove();
+                    }, this),
+                    appendTo: $container
+                });
             }
 
             if (this._values["backgroundColorTo"] !== null) {
-                this._setColorPicker(
-                    $backgroundColorToContainer.find(".background-color-to"),
-                    this._getLabel("backgroundColor"),
-                    $.proxy(function(color) {
+                new TestS.Form({
+                    type: "color",
+                    title: this._getLabel("backgroundColor"),
+                    value: this._values["backgroundColorTo"],
+                    callback: $.proxy(function (color) {
                         this._values["backgroundColorTo"] = color;
                         this._updateBackground(false);
-                    }, this)
-                );
-            } else {
-                $backgroundColorToContainer.remove();
+                    }, this),
+                    appendTo: $container
+                });
             }
 
             if (this._values["backgroundColorFromHover"] !== null) {
-                this._setColorPicker(
-                    $backgroundColorFromHoverContainer.find(".background-color-from-hover"),
-                    this._getLabel("backgroundColor"),
-                    $.proxy(function(color) {
+                new TestS.Form({
+                    type: "color",
+                    title: this._getLabel("backgroundColor"),
+                    value: this._values["backgroundColorFromHover"],
+                    callback: $.proxy(function (color) {
                         this._values["backgroundColorFromHover"] = color;
                         this._updateBackground(false);
-                    }, this)
-                );
-            } else {
-                $backgroundColorFromHoverContainer.remove();
+                    }, this),
+                    appendTo: $container
+                });
             }
 
             if (this._values["backgroundColorToHover"] !== null) {
-                this._setColorPicker(
-                    $backgroundColorToHoverContainer.find(".background-color-to-hover"),
-                    this._getLabel("backgroundColor"),
-                    $.proxy(function(color) {
+                new TestS.Form({
+                    type: "color",
+                    title: this._getLabel("backgroundColor"),
+                    value: this._values["backgroundColorToHover"],
+                    callback: $.proxy(function (color) {
                         this._values["backgroundColorToHover"] = color;
                         this._updateBackground(false);
-                    }, this)
-                );
-            } else {
-                $backgroundColorToHoverContainer.remove();
+                    }, this),
+                    appendTo: $container
+                });
             }
 
             if (this._values["gradientDirection"] !== null) {
@@ -1334,33 +1329,30 @@
                 });
             }
 
-            var $borderColorContainer = $container.find(".border-color-container");
-            var $borderColorHoverContainer = $container.find(".border-color-hover-container");
-
             if (this._values["borderColor"] !== null) {
-                this._setColorPicker(
-                    $borderColorContainer.find(".border-color"),
-                    this._getLabel("borderColor"),
-                    $.proxy(function(color) {
+                new TestS.Form({
+                    type: "color",
+                    title: this._getLabel("borderColor"),
+                    value: this._values["borderColor"],
+                    callback: $.proxy(function (color) {
                         this._values["borderColor"] = color;
                         this._updateBorder(false);
-                    }, this)
-                );
-            } else {
-                $borderColorContainer.remove();
+                    }, this),
+                    appendTo: $container
+                });
             }
 
             if (this._values["borderColorHover"] !== null) {
-                this._setColorPicker(
-                    $borderColorHoverContainer.find(".border-color-hover"),
-                    this._getLabel("borderColor"),
-                    $.proxy(function(color) {
+                new TestS.Form({
+                    type: "color",
+                    title: this._getLabel("borderColor"),
+                    value: this._values["borderColorHover"],
+                    callback: $.proxy(function (color) {
                         this._values["borderColorHover"] = color;
                         this._updateBorder(false);
-                    }, this)
-                );
-            } else {
-                $borderColorHoverContainer.remove();
+                    }, this),
+                    appendTo: $container
+                });
             }
 
             if (this._values["hasBorderHover"] === true) {
@@ -1405,36 +1397,6 @@
             }
 
             this._updateBorder(true);
-
-            return this;
-        },
-
-        /**
-         * Sets color picker
-         *
-         * @param {Object}   $object
-         * @param {String}   title
-         * @param {function} callback
-         *
-         * @returns {TestS.Panel.Design.Block}
-         *
-         * @private
-         */
-        _setColorPicker: function ($object, title, callback) {
-            $object.colorpicker({
-                parts: 'full',
-                alpha: true,
-                showOn: 'button',
-                buttonColorize: true,
-                buttonClass: "color-button",
-                buttonImage: "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7",
-                buttonImageOnly: true,
-                title: title,
-                colorFormat: "RGBA",
-                select: function (event, data) {
-                    callback(data.formatted);
-                }
-            });
 
             return this;
         },

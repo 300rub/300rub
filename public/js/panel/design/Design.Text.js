@@ -24,7 +24,7 @@
         this.$_hoverContainer = null;
 
         this.$_example = null;
-        this.$_styles = null;
+        this.$_exampleStyles = null;
 
         this.init();
     };
@@ -109,6 +109,82 @@
         },
 
         /**
+         * Align list
+         *
+         * @var {Array}
+         */
+        _alignList: [
+            {
+                value: 0,
+                icon: "fa-align-left"
+            },
+            {
+                value: 1,
+                icon: "fa-align-center"
+            },
+            {
+                value: 2,
+                icon: "fa-align-right"
+            },
+            {
+                value: 3,
+                icon: "fa-align-justify"
+            }
+        ],
+
+        /**
+         * Text decoration list
+         *
+         * @var {Array}
+         */
+        _decorationList: [
+            {
+                value: 0,
+                class: "none",
+                label: "A"
+            },
+            {
+                value: 1,
+                class: "underline",
+                label: "U"
+            },
+            {
+                value: 2,
+                class: "line-through",
+                label: "T"
+            },
+            {
+                value: 3,
+                class: "overline",
+                label: "O"
+            }
+        ],
+
+        /**
+         * Text decoration list
+         *
+         * @var {Array}
+         */
+        _transformList: [
+            {
+                value: 0,
+                label: "-"
+            },
+            {
+                value: 1,
+                label: "AA"
+            },
+            {
+                value: 2,
+                label: "aa"
+            },
+            {
+                value: 3,
+                label: "Aa"
+            }
+        ],
+
+        /**
          * Init
          */
         init: function () {
@@ -123,7 +199,7 @@
                 ._setCommonContainer()
                 ._setHoverContainer()
                 ._setExample()
-                ._setStyles()
+                ._setExampleStyles()
                 ._update(true)
                 ._setSize()
                 ._setFamily()
@@ -131,7 +207,11 @@
                 ._setIsItalic()
                 ._setIsBold()
                 ._setAlign()
-                ._setDecoration();
+                ._setDecoration()
+                ._setTransform()
+                ._setLetterSpacing()
+                ._setLineHeight()
+                ._setHasHover();
         },
 
         /**
@@ -320,7 +400,12 @@
          * @private
          */
         _setExample: function() {
-            this.$_example = this.$_designContainer.find(".example");
+            var uniqueId = TestS.getUniqueId();
+
+            this.$_example = this.$_designContainer.find(".example")
+                .addClass("padding-example-" + uniqueId)
+                .attr("data-id", uniqueId);
+
             return this;
         },
 
@@ -331,8 +416,8 @@
          *
          * @private
          */
-        _setStyles: function() {
-            this.$_styles = this.$_designContainer.find(".styles-example-container");
+        _setExampleStyles: function() {
+            this.$_exampleStyles = this.$_designContainer.find(".styles-example-container");
             return this;
         },
 
@@ -438,33 +523,30 @@
          * @private
          */
         _setColor: function() {
-            var $colorContainer = this.$_commonContainer.find(".common-color-container");
-            var $colorHoverContainer = $container.find(".color-hover-container");
-
             if (this._values["color"] !== null) {
-                this._setColorPicker(
-                    $colorContainer.find(".color"),
-                    this._getLabel("color"),
-                    $.proxy(function(color) {
+                new TestS.Form({
+                    type: "color",
+                    title: this._getLabel("color"),
+                    value: this._values["color"],
+                    callback: $.proxy(function (color) {
                         this._values["color"] = color;
                         this._update(false);
-                    }, this)
-                );
-            } else {
-                $colorContainer.remove();
+                    }, this),
+                    appendTo: this.$_commonContainer
+                });
             }
 
             if (this._values["colorHover"] !== null) {
-                this._setColorPicker(
-                    $colorHoverContainer.find(".color-hover"),
-                    this._getLabel("colorHover"),
-                    $.proxy(function(color) {
+                new TestS.Form({
+                    type: "color",
+                    title: this._getLabel("color"),
+                    value: this._values["colorHover"],
+                    callback: $.proxy(function (color) {
                         this._values["colorHover"] = color;
                         this._update(false);
-                    }, this)
-                );
-            } else {
-                $colorHoverContainer.remove();
+                    }, this),
+                    appendTo: this.$_hoverContainer
+                });
             }
 
             return this;
@@ -607,24 +689,7 @@
             new TestS.Form({
                 type: "radioButtons",
                 value: this._values["align"],
-                data: [
-                    {
-                        value: 0,
-                        icon: "fa-align-left"
-                    },
-                    {
-                        value: 1,
-                        icon: "fa-align-center"
-                    },
-                    {
-                        value: 2,
-                        icon: "fa-align-right"
-                    },
-                    {
-                        value: 3,
-                        icon: "fa-align-justify"
-                    }
-                ],
+                data: this._alignList,
                 onChange: $.proxy(function (value) {
                     this._values["align"] = value;
                     this._update(false);
@@ -648,28 +713,7 @@
                 hoverForm = new TestS.Form({
                     type: "radioButtons",
                     value: this._values["decorationHover"],
-                    data: [
-                        {
-                            value: 0,
-                            class: "none",
-                            label: "A"
-                        },
-                        {
-                            value: 1,
-                            class: "underline",
-                            label: "U"
-                        },
-                        {
-                            value: 2,
-                            class: "line-through",
-                            label: "T"
-                        },
-                        {
-                            value: 3,
-                            class: "overline",
-                            label: "O"
-                        }
-                    ],
+                    data: this._decorationList,
                     onChange: $.proxy(function (value) {
                         this._values["decorationHover"] = value;
                         this._update(false);
@@ -682,28 +726,7 @@
                 new TestS.Form({
                     type: "radioButtons",
                     value: this._values["decoration"],
-                    data: [
-                        {
-                            value: 0,
-                            class: "none",
-                            label: "A"
-                        },
-                        {
-                            value: 1,
-                            class: "underline",
-                            label: "U"
-                        },
-                        {
-                            value: 2,
-                            class: "line-through",
-                            label: "T"
-                        },
-                        {
-                            value: 3,
-                            class: "overline",
-                            label: "O"
-                        }
-                    ],
+                    data: this._decorationList,
                     onChange: $.proxy(function (value) {
                         if (hoverForm !== null
                             && this._values["decoration"] === this._values["decorationHover"]
@@ -715,7 +738,7 @@
                         this._values["decoration"] = value;
                         this._update(false);
                     }, this),
-                    appendTo: this.$_hoverContainer
+                    appendTo: this.$_commonContainer
                 });
             }
 
@@ -723,41 +746,245 @@
         },
 
         /**
-         * Sets color picker
-         *
-         * @param {Object}   $object
-         * @param {String}   title
-         * @param {function} callback
+         * Sets transform
          *
          * @returns {TestS.Panel.Design.Text}
          *
          * @private
          */
-        _setColorPicker: function ($object, title, callback) {
-            $object.colorpicker({
-                parts: 'full',
-                alpha: true,
-                showOn: 'button',
-                buttonColorize: true,
-                buttonClass: "color-button",
-                buttonImage: "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7",
-                buttonImageOnly: true,
-                title: title,
-                colorFormat: "RGBA",
-                select: function (event, data) {
-                    callback(data.formatted);
-                }
+        _setTransform: function() {
+            var hoverForm = null;
+            if (this._values["transformHover"] !== null) {
+                hoverForm = new TestS.Form({
+                    type: "radioButtons",
+                    value: this._values["transformHover"],
+                    data: this._transformList,
+                    onChange: $.proxy(function (value) {
+                        this._values["transformHover"] = value;
+                        this._update(false);
+                    }, this),
+                    appendTo: this.$_hoverContainer
+                });
+            }
+
+            if (this._values["transform"] !== null) {
+                new TestS.Form({
+                    type: "radioButtons",
+                    value: this._values["transform"],
+                    data: this._decorationList,
+                    onChange: $.proxy(function (value) {
+                        if (hoverForm !== null
+                            && this._values["transform"] === this._values["transformHover"]
+                        ) {
+                            this._values["transformHover"] = false;
+                            hoverForm.getFormInstance().val(value).change();
+                        }
+
+                        this._values["transform"] = value;
+                        this._update(false);
+                    }, this),
+                    appendTo: this.$_commonContainer
+                });
+            }
+
+            return this;
+        },
+
+        /**
+         * Sets letterSpacing
+         *
+         * @returns {TestS.Panel.Design.Text}
+         *
+         * @private
+         */
+        _setLetterSpacing: function() {
+            var hoverForm = null;
+
+            if (this._values["letterSpacingHover"] !== null) {
+                hoverForm = new TestS.Form({
+                    type: "spinner",
+                    value: this._values["letterSpacingHover"],
+                    callback: $.proxy(function (value) {
+                        this._values["letterSpacingHover"] = value;
+                        this._update(false);
+                    }, this),
+                    appendTo: this.$_hoverContainer
+                });
+            }
+
+            if (this._values["letterSpacing"] !== null) {
+                new TestS.Form({
+                    type: "spinner",
+                    value: this._values["letterSpacing"],
+                    callback: $.proxy(function (value) {
+                        if (hoverForm !== null
+                            && this._values["letterSpacing"] === this._values["letterSpacingHover"]
+                        ) {
+                            this._values["letterSpacingHover"] = value;
+                            hoverForm.getFormInstance().val(value);
+                        }
+
+                        this._values["letterSpacing"] = value;
+                        this._update(false);
+                    }, this),
+                    appendTo: this.$_commonContainer
+                });
+            }
+
+            return this;
+        },
+
+        /**
+         * Sets lineHeight
+         *
+         * @returns {TestS.Panel.Design.Text}
+         *
+         * @private
+         */
+        _setLineHeight: function() {
+            var hoverForm = null;
+
+            if (this._values["lineHeightHover"] !== null) {
+                hoverForm = new TestS.Form({
+                    type: "spinner",
+                    value: this._values["lineHeightHover"],
+                    callback: $.proxy(function (value) {
+                        this._values["lineHeightHover"] = value;
+                        this._update(false);
+                    }, this),
+                    appendTo: this.$_hoverContainer
+                });
+            }
+
+            if (this._values["lineHeight"] !== null) {
+                new TestS.Form({
+                    type: "spinner",
+                    value: this._values["lineHeight"],
+                    callback: $.proxy(function (value) {
+                        if (hoverForm !== null
+                            && this._values["lineHeight"] === this._values["lineHeightHover"]
+                        ) {
+                            this._values["lineHeightHover"] = value;
+                            hoverForm.getFormInstance().val(value);
+                        }
+
+                        this._values["lineHeight"] = value;
+                        this._update(false);
+                    }, this),
+                    appendTo: this.$_commonContainer
+                });
+            }
+
+            return this;
+        },
+
+        /**
+         * Sets lineHeight
+         *
+         * @returns {TestS.Panel.Design.Text}
+         *
+         * @private
+         */
+        _setHasHover: function() {
+            if (this._values["hasHover"] === null) {
+                this.$_hoverContainer.addClass("hidden");
+                return this;
+            }
+
+            if (this._values["hasHover"] === true) {
+                this.$_hoverContainer.removeClass("hidden");
+            } else {
+                this.$_hoverContainer.addClass("hidden");
+            }
+
+            new TestS.Form({
+                type: "checkbox",
+                value: this._values["hasHover"],
+                label: this._getLabel("setHover"),
+                onCheck: $.proxy(function () {
+                    this._values["hasHover"] = true;
+                    this.$_hoverContainer.removeClass("hidden");
+                    this._update(false);
+                }, this),
+                onUnCheck: $.proxy(function () {
+                    this._values["hasHover"] = false;
+                    this.$_hoverContainer.addClass("hidden");
+                    this._updateMargin(false);
+                }, this),
+                appendTo: this.$_designContainer.find(".hover-checkbox-container")
             });
 
             return this;
         },
 
         /**
-         * Updates CSS
+         * Generates styles
+         *
+         * @param {boolean} isHover
+         *
+         * @returns {String}
          *
          * @private
          */
-        _update: function() {
+        _generateCss: function(isHover) {
+            var css = "123";
+
+            if (isHover === true) {
+                css += "123";
+            }
+
+            return css
+        },
+
+        /**
+         * Updates CSS
+         *
+         * @param {boolean} isOnlyExample
+         *
+         * @private
+         */
+        _update: function(isOnlyExample) {
+            var css;
+            var generatedCss = this._generateCss(false);
+            var generatedHoverCss = this._generateCss(true);
+            var id = this.$_example.data("id");
+
+            css = "<style>";
+
+            css += ".border-example-"
+                + id
+                + "{"
+                + generatedCss
+                + "}";
+
+            css += ".border-example-"
+                + id
+                + ":hover{"
+                + generatedHoverCss
+                +"}";
+
+            css += "</style>";
+
+            this.$_exampleStyles.html(css);
+
+            if (isOnlyExample !== true) {
+                css = "<style>";
+
+                css += this._selector
+                    + "{"
+                    + generatedCss
+                    + "}";
+
+                css += this._selector
+                    + ":hover{"
+                    + generatedHoverCss
+                    + "}";
+
+                css += "</style>";
+
+                this.$_styleContainer.html(css);
+            }
+
             return this;
         }
     };

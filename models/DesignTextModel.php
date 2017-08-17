@@ -2,6 +2,7 @@
 
 namespace testS\models;
 
+use testS\components\Language;
 use testS\components\ValueGenerator;
 
 /**
@@ -183,6 +184,18 @@ class DesignTextModel extends AbstractModel
         self::TEXT_TRANSFORM_LOWERCASE  => "lowercase",
         self::TEXT_TRANSFORM_CAPITALIZE => "capitalize",
     ];
+
+    /**
+     * Gets labels
+     *
+     * @return array
+     */
+    public static function getLabels()
+    {
+        return [
+            "setHover" => Language::t("design", "setHover"),
+        ];
+    }
 
     /**
      * Gets table name

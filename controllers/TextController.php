@@ -449,7 +449,8 @@ class TextController extends AbstractController
                             "title" => Language::t("design", "textDesign"),
                             "namespace"  => "designTextModel",
                             "type"  => DesignTextModel::TYPE,
-                            "values"  => $textModel->get("designTextModel")->get(null, ["id"])
+                            "values"  => $textModel->get("designTextModel")->get(null, ["id"]),
+                            "labels" => DesignTextModel::getLabels(),
                         ],
                     ]
                 ]
