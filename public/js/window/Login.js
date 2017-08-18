@@ -74,7 +74,6 @@
             this._window
                 .setTitle(data.title)
                 .setSubmit({
-                    type: "button",
                     label: data.forms.button.label,
                     icon: "fa-lock",
                     forms: [this._userForm, this._passwordForm, this._isRememberForm],

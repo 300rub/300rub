@@ -4,6 +4,7 @@ namespace testS\models;
 
 use testS\components\Language;
 use testS\components\ValueGenerator;
+use testS\components\View;
 
 /**
  * Model for working with table "designTexts"
@@ -314,6 +315,41 @@ class DesignTextModel extends AbstractModel
             "hasHover"            => [
                 self::FIELD_TYPE => self::FIELD_TYPE_BOOL,
             ],
+        ];
+    }
+
+    /**
+     * Gets design
+     *
+     * @param string $selector
+     * @param string $namespace
+     * @param array  $except
+     * @param string $title
+     *
+     * @return array
+     */
+    public function getDesign($selector, $namespace = null, array $except = null, $title = null)
+    {
+        if ($title === null) {
+            $title = Language::t("design", "textDesign");
+        }
+
+        if ($namespace === null) {
+            $namespace = "designTextModel";
+        }
+
+        if ($except === null) {
+            $except = ["id"];
+        }
+
+        return [
+            "selector"  => $selector,
+            "id"        => View::generateCssId($selector, self::TYPE),
+            "type"      => self::TYPE,
+            "title"     => $title,
+            "namespace" => $namespace,
+            "labels"    => self::getLabels(),
+            "values"    => $this->get(null, $except),
         ];
     }
 }

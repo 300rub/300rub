@@ -297,8 +297,8 @@
          * @private
          */
         _setStyleContainer: function() {
-            if (this._data["containerId"] !== undefined) {
-                this.$_styleContainer = $("#" + this._data["containerId"]);
+            if (this._data["id"] !== undefined) {
+                this.$_styleContainer = $("#" + this._data["id"]);
             }
 
             return this;
@@ -986,6 +986,23 @@
             }
 
             return this;
+        },
+
+        /**
+         * Gets data
+         *
+         * @returns {Object}
+         */
+        getData: function() {
+            var data = {};
+
+            $.each(this._values, $.proxy(function(key, value) {
+                if (this._names[key] !== undefined) {
+                    data[this._names[key]] = value;
+                }
+            }, this));
+
+            return data;
         }
     };
 }(window.jQuery, window.TestS);

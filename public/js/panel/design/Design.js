@@ -45,34 +45,19 @@
          * @private
          */
         _onLoadDataSuccess: function(data) {
-            this._panel
-                .setTitle(data.title)
-                .setDescription(data.description)
-                .setBack(TestS.Panel.Block.Text);
-
             var listLength = data["list"].length;
+            var designs = [];
 
             $.each(data["list"], $.proxy(function(groupKey, groupData) {
                 var groupContainer = $("<div/>");
                 $.each(groupData["data"], function (typeKey, typeData) {
-                    var data = {
-                        namespace: typeData["namespace"],
-                        values: typeData["values"],
-                        labels: typeData["labels"],
-                        selector: groupData["selector"]
-                    };
-
                     var design;
                     switch (typeData["type"]) {
                         case "block":
-                            design = new TestS.Panel.Design.Block(
-                                $.extend(
-                                    data,
-                                    {
-                                        containerId: groupData["containerIdGroup"] + "-block"
-                                    }
-                                )
-                            );
+                            design = new TestS.Panel.Design.Block(typeData);
+                            break;
+                        case "text":
+                            design = new TestS.Panel.Design.Text(typeData);
                             break;
                         default:
                             return false;
@@ -83,6 +68,7 @@
 
                     typeAccordionElement.appendTo(groupContainer);
 
+                    designs.push(design);
                 });
 
                 //if (listLength > 1) {
@@ -97,7 +83,45 @@
             TestS.Accordion(this._panel.getBody());
 
             this._panel
+                .setTitle(data.title)
+                .setDescription(data.description)
+                .setBack(function(){
+                    new TestS.Panel.Block.Text();
+
+                    $.each(designs, function(i, design) {
+                        design.rollback();
+                    });
+                })
+                .setCloseEvents(function(){
+                    $.each(designs, function(i, design) {
+                        design.rollback();
+                    });
+                })
                 .setMaxHeight()
+                .setSubmit({
+                    label: "aaa",
+                    icon: "fa-lock",
+                    ajax: {
+                        data: {
+                            controller: "user",
+                            action: "session",
+                            data: function() {
+                                var data = {};
+
+                                $.each(designs, function(i, design) {
+                                    data = $.extend(data, design.getData());
+                                });
+
+                                return data;
+                            }
+                        },
+                        type: "POST",
+                        success: function() {
+                            new TestS.Panel.Block.Text();
+                        },
+                        error: $.proxy(this._panel.onError, this._panel)
+                    }
+                })
                 .removeLoading();
         }
     };

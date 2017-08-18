@@ -574,6 +574,13 @@
                         $spinner.removeClass("hidden");
 
                         var ajax = this._options.ajax;
+
+                        if (ajax["data"] !== undefined
+                            && $.type(ajax["data"]["data"]) === "function"
+                        ) {
+                            ajax["data"]["data"] = this._parseFormData($.extend({}, ajax["data"]["data"]()));
+                        }
+
                         if ($.type(ajax.complete) !== "function") {
                             ajax.complete = $.proxy(function () {
                                 $icon.removeClass("hidden");

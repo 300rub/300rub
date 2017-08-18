@@ -32,7 +32,7 @@
             this.$_userButtons = $("#user-buttons");
 
             this
-                ._setCloseEvents()
+                .setCloseEvents()
                 ._addDomElement()
                 ._loadData();
         },
@@ -87,12 +87,15 @@
             return this;
         },
 
-        setBack: function (object) {
+        /**
+         * Sets back button
+         *
+         * @param onClick
+         */
+        setBack: function (onClick) {
             this.getInstance().find(".header .back")
                 .removeClass("hidden")
-                .on("click", function() {
-                    new object;
-                });
+                .on("click", onClick);
         },
 
         /**
@@ -110,12 +113,18 @@
         /**
          * Close event
          *
-         * @returns {TestS.Panel}
+         * @param {function} callback
          *
-         * @private
+         * @returns {TestS.Panel}
          */
-        _setCloseEvents: function() {
-            this.getInstance().find(".header .close").on("click", $.proxy(this._removePanel, this));
+        setCloseEvents: function(callback) {
+            this.getInstance().find(".header .close").off().on("click", $.proxy(function() {
+                if ($.type(callback) === "function") {
+                    callback();
+                }
+
+                this._removePanel();
+            }, this));
 
             return this;
         },
@@ -205,6 +214,34 @@
          */
         removeLoading: function() {
             this.getInstance().removeClass("loading");
+            return this;
+        },
+
+        /**
+         * Sets submit
+         *
+         * @param {Object} [options]
+         *
+         * @returns {TestS.Panel}
+         */
+        setSubmit: function(options) {
+            var submit = new TestS.Form(
+                $.extend(
+                    {
+                        type: "button",
+                        class: "submit",
+                        appendTo: this.getInstance().find(".footer")
+                    },
+                    options
+                )
+            );
+
+            this.getBody().keypress(function(e) {
+                if (e.which === 13) {
+                    submit.getInstance().click();
+                }
+            });
+
             return this;
         }
     };

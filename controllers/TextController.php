@@ -428,30 +428,24 @@ class TextController extends AbstractController
             );
         }
 
+        /**
+         * @var DesignBlockModel $designBlockModel
+         * @var DesignTextModel  $designTextModel
+         */
+        $cssSelector = sprintf(".block-%s", $id);
+        $designBlockModel = $textModel->get("designBlockModel");
+        $designTextModel = $textModel->get("designTextModel");
+
         return [
             "id"          => $id,
             "title"       => Language::t("text", "designTitle"),
             "description" => Language::t("text", "designDescription"),
             "list"        => [
                 [
-                    "title"            => Language::t("text", "designTitle"),
-                    "containerIdGroup" => sprintf("block-%s", $id),
-                    "selector"         => sprintf(".block-%s", $id),
-                    "data"             => [
-                        [
-                            "title" => Language::t("design", "blockDesign"),
-                            "namespace"  => "designBlockModel",
-                            "type"  => DesignBlockModel::TYPE,
-                            "values"  => $textModel->get("designBlockModel")->get(null, ["id"]),
-                            "labels" => DesignBlockModel::getLabels(),
-                        ],
-                        [
-                            "title" => Language::t("design", "textDesign"),
-                            "namespace"  => "designTextModel",
-                            "type"  => DesignTextModel::TYPE,
-                            "values"  => $textModel->get("designTextModel")->get(null, ["id"]),
-                            "labels" => DesignTextModel::getLabels(),
-                        ],
+                    "title" => Language::t("text", "designTitle"),
+                    "data"  => [
+                        $designBlockModel->getDesign($cssSelector),
+                        $designTextModel->getDesign($cssSelector),
                     ]
                 ]
             ],

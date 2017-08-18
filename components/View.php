@@ -45,6 +45,23 @@ class View
 	}
 
 	/**
+	 * Generates CSS ID
+	 *
+	 * @param string $selector
+	 * @param string $type
+	 *
+	 * @return string
+	 */
+	public static function generateCssId($selector, $type)
+	{
+		return sprintf(
+			"%s-%s",
+			str_replace([".", " "], ["", "-"], $selector),
+			$type
+		);
+	}
+
+	/**
 	 * Generates CSS
 	 *
 	 * @param AbstractModel $model
@@ -58,9 +75,9 @@ class View
 	{
 		$type = null;
 		if ($model instanceof DesignBlockModel) {
-			$type = "block";
+			$type = DesignBlockModel::TYPE;
 		} elseif ($model instanceof DesignTextModel) {
-			$type = "text";
+			$type = DesignTextModel::TYPE;
 		}
 
 		if ($type === null) {
@@ -72,11 +89,7 @@ class View
 			);
 		}
 
-		$id = sprintf(
-			"%s-%s",
-			str_replace([".", " "], ["", "-"], $selector),
-			$type
-		);
+		$id = self::generateCssId($selector, $type);
 
 		$css = View::get(
 			"design/" . $type,

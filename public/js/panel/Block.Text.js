@@ -40,7 +40,9 @@
             this._panel
                 .setTitle(data.title)
                 .setDescription(data.description)
-                .setBack(TestS.Panel.Block);
+                .setBack(function() {
+                    new TestS.Panel.Block();
+                });
 
             $.each(data.list, $.proxy(function(i, itemData) {
                 var $item = TestS.Template.get("panel-list-item");

@@ -63,7 +63,6 @@
             this._window
                 .setTitle(data.title)
                 .setSubmit({
-                    type: "button",
                     label: data.button.label,
                     icon: "fa-check",
                     forms: this._forms,

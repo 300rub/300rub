@@ -4,6 +4,7 @@ namespace testS\models;
 
 use testS\components\Language;
 use testS\components\ValueGenerator;
+use testS\components\View;
 
 /**
  * Model for working with table "designBlocks"
@@ -471,5 +472,40 @@ class DesignBlockModel extends AbstractModel
         }
 
         return self::$borderStyleList[self::BORDER_STYLE_NONE];
+    }
+
+    /**
+     * Gets design
+     *
+     * @param string $selector
+     * @param string $namespace
+     * @param array  $except
+     * @param string $title
+     *
+     * @return array
+     */
+    public function getDesign($selector, $namespace = null, array $except = null, $title = null)
+    {
+        if ($title === null) {
+            $title = Language::t("design", "blockDesign");
+        }
+
+        if ($namespace === null) {
+            $namespace = "designBlockModel";
+        }
+
+        if ($except === null) {
+            $except = ["id"];
+        }
+
+        return [
+            "selector"  => $selector,
+            "id"        => View::generateCssId($selector, self::TYPE),
+            "type"      => self::TYPE,
+            "title"     => $title,
+            "namespace" => $namespace,
+            "labels"    => self::getLabels(),
+            "values"    => $this->get(null, $except),
+        ];
     }
 }

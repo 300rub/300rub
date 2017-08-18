@@ -258,7 +258,7 @@
         },
 
         /**
-         * Adds loading
+         * Sets submit
          *
          * @param {Object} [options]
          *
@@ -268,6 +268,7 @@
             var submit = new TestS.Form(
                 $.extend(
                     {
+                        type: "button",
                         class: "submit",
                         appendTo: this.getInstance().find(".footer")
                     },
