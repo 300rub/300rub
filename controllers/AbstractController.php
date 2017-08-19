@@ -4,6 +4,7 @@ namespace testS\controllers;
 
 use testS\applications\App;
 use testS\components\exceptions\AccessException;
+use testS\components\exceptions\BadRequestException;
 use testS\components\Operation;
 use testS\components\User;
 use testS\components\View;
@@ -31,6 +32,11 @@ abstract class AbstractController
     const FORM_TYPE_CHECKBOX = "checkbox";
     const FORM_TYPE_BUTTON = "button";
     const FORM_TYPE_SELECT = "select";
+
+    // Check data constants
+    const TYPE_INT = "int";
+    const TYPE_ARRAY = "array";
+    const NOT_EMPTY = "notEmpty";
 
     /**
      * Request data
@@ -398,5 +404,72 @@ abstract class AbstractController
     {
         Db::rollbackTransaction();
         Db::startTransaction();
+    }
+
+    /**
+     * Checks the data
+     *
+     * @param array $check
+     *
+     * @throws BadRequestException
+     *
+     * @return AbstractController
+     */
+    protected function checkData(array $check)
+    {
+        $data = $this->getData();
+
+        foreach ($check as $field => $options) {
+            if (!is_array($options)) {
+                $field = $options;
+                $options = [];
+            }
+
+            if (!array_key_exists($field, $data)) {
+                throw new BadRequestException(
+                    "Unable to find {field} in request",
+                    [
+                        "field" => $field
+                    ]
+                );
+            }
+
+            $value = $data[$field];
+
+            if (in_array(self::TYPE_INT, $options)
+                && !is_int($value)
+            ) {
+                throw new BadRequestException(
+                    "The field type of {field} is not integer",
+                    [
+                        "field" => $field
+                    ]
+                );
+            }
+
+            if (in_array(self::TYPE_ARRAY, $options)
+                && !is_array($value)
+            ) {
+                throw new BadRequestException(
+                    "The field {field} is not an array",
+                    [
+                        "field" => $field
+                    ]
+                );
+            }
+
+            if (in_array(self::NOT_EMPTY, $options)
+                && empty($value)
+            ) {
+                throw new BadRequestException(
+                    "The field {field} can not be empty",
+                    [
+                        "field" => $field
+                    ]
+                );
+            }
+        }
+
+        return $this;
     }
 }

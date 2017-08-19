@@ -269,7 +269,7 @@
                 $.extend(
                     {
                         type: "button",
-                        class: "submit",
+                        class: "btn btn-big btn-blue submit",
                         appendTo: this.getInstance().find(".footer")
                     },
                     options

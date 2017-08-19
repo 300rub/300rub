@@ -1,6 +1,5 @@
 @import "webkit";
 @import "variables";
-@import "helpers";
 
 .panel {
   .border-radius(6px);
@@ -28,7 +27,6 @@
     }
 
     .back {
-      .grayRedLink;
       position: absolute;
       width: 32px;
       height: 32px;
@@ -41,7 +39,6 @@
     }
 
     .close {
-      .grayRedLink;
       position: absolute;
       width: 32px;
       height: 32px;
@@ -121,6 +118,19 @@
       .label {
         padding-right: 10px;
       }
+    }
+  }
+
+  .footer {
+    height: 46px;
+    border-top: 1px solid @grayBorderColor;
+    position: relative;
+    margin: 0 15px;
+
+    .submit {
+      position: absolute;
+      bottom: 10px;
+      right: 0;
     }
   }
 

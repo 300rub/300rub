@@ -90,12 +90,16 @@
         /**
          * Sets back button
          *
-         * @param onClick
+         * @param {function} onClick
+         *
+         * @returns {TestS.Panel}
          */
         setBack: function (onClick) {
             this.getInstance().find(".header .back")
                 .removeClass("hidden")
                 .on("click", onClick);
+
+            return this;
         },
 
         /**
@@ -229,7 +233,7 @@
                 $.extend(
                     {
                         type: "button",
-                        class: "submit",
+                        class: "btn btn-blue submit",
                         appendTo: this.getInstance().find(".footer")
                     },
                     options

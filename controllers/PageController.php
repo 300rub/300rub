@@ -39,10 +39,7 @@ class PageController extends AbstractController
             "window/Login",
         ],
         "less" => [
-            "default",
-            "grid",
-            "form",
-            "window"
+            "common"
         ]
     ];
 
@@ -86,9 +83,7 @@ class PageController extends AbstractController
             "window/Users.Form",
         ],
         "less" => [
-            "userButtons",
-            "panel",
-            "design",
+            "admin",
         ]
     ];
 

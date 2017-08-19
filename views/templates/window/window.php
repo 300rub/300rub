@@ -1,7 +1,7 @@
 <div class="window loading transparent">
     <div class="header">
         <div class="title"></div>
-        <a class="close fa fa-remove"></a>
+        <a class="close gray-red-link fa fa-remove"></a>
     </div>
 
     <div class="body scroll-container"></div>

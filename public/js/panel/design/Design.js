@@ -47,6 +47,10 @@
         _onLoadDataSuccess: function(data) {
             var listLength = data["list"].length;
             var designs = [];
+            var id = data["id"];
+            var controller = data["controller"];
+            var action = data["action"];
+            var buttonLabel = data["button"]["label"];
 
             $.each(data["list"], $.proxy(function(groupKey, groupData) {
                 var groupContainer = $("<div/>");
@@ -99,14 +103,16 @@
                 })
                 .setMaxHeight()
                 .setSubmit({
-                    label: "aaa",
-                    icon: "fa-lock",
+                    label: buttonLabel,
+                    icon: "fa-check",
                     ajax: {
                         data: {
-                            controller: "user",
-                            action: "session",
+                            controller: controller,
+                            action: action,
                             data: function() {
-                                var data = {};
+                                var data = {
+                                    id: id
+                                };
 
                                 $.each(designs, function(i, design) {
                                     data = $.extend(data, design.getData());

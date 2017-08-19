@@ -146,8 +146,6 @@
                     }
                 }, this)
             });
-
-            console.log(this.$_form);
         },
 
         /**
@@ -198,8 +196,8 @@
                     }
                 },
                 icons: {
-                    up: "fa fa-chevron-up",
-                    down: "fa fa-chevron-down"
+                    up: "fa fa-chevron-up gray-blue-link",
+                    down: "fa fa-chevron-down gray-blue-link"
                 }
             });
         },

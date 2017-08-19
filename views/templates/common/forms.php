@@ -78,7 +78,6 @@
     </label>
 </div>
 
-
 <div class="form-container form-container-radio-buttons"></div>
 
 <label class="radio-button-item">

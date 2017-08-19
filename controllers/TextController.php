@@ -438,6 +438,8 @@ class TextController extends AbstractController
 
         return [
             "id"          => $id,
+            "controller"  => "text",
+            "action"      => "design",
             "title"       => Language::t("text", "designTitle"),
             "description" => Language::t("text", "designDescription"),
             "list"        => [
@@ -449,6 +451,9 @@ class TextController extends AbstractController
                     ]
                 ]
             ],
+            "button"     => [
+                "label" => Language::t("common", "save"),
+            ]
         ];
     }
 
@@ -462,23 +467,13 @@ class TextController extends AbstractController
      */
     public function updateDesign()
     {
+        $this->checkData([
+            "id"               => [self::TYPE_INT, self::NOT_EMPTY],
+            "designBlockModel" => [self::TYPE_ARRAY, self::NOT_EMPTY],
+            "designTextModel"  => [self::TYPE_ARRAY, self::NOT_EMPTY],
+        ]);
+
         $data = $this->getData();
-        if (!array_key_exists("id", $data)
-            || !array_key_exists("designTextModel", $data)
-            || !array_key_exists("designBlockModel", $data)
-            || !is_int($data["id"])
-            || !is_array($data["designTextModel"])
-            || !is_array($data["designBlockModel"])
-            || !is_int($data["id"])
-            || $data["id"] === 0
-        ) {
-            throw new BadRequestException(
-                "Incorrect request to update text design. Data: {data}",
-                [
-                    "data" => json_encode($data)
-                ]
-            );
-        }
 
         $this->checkBlockOperation(BlockModel::TYPE_TEXT, $data["id"], Operation::TEXT_UPDATE_DESIGN);
 
