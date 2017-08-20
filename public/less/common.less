@@ -186,11 +186,11 @@ a, button {
 }
 
 .btn-blue {
-  .gradient-vertical(@blueButtonGradientFrom, @blueButtonGradientTo);
-  border-color: @blueButtonBorderColor;
+  .gradient-vertical(@blueGradientFrom, @blueGradientTo);
+  border-color: @blueBorderColor;
 
   &:hover {
-    .gradient-vertical(@blueButtonGradientFromHover, @blueButtonGradientToHover);
+    .gradient-vertical(@blueGradientFromHover, @blueGradientToHover);
   }
 
   &:focus {
@@ -198,16 +198,16 @@ a, button {
   }
 
   * {
-    color: @blueButtonColor;
+    color: white;
   }
 }
 
 .btn-gray {
-  .gradient-vertical(@grayButtonGradientFrom, @grayButtonGradientTo);
-  border-color: @grayButtonBorderColor;
+  .gradient-vertical(@grayGradientFrom, @grayGradientTo);
+  border-color: @grayBorderColor;
 
   &:hover {
-    .gradient-vertical(@grayButtonGradientFromHover, @grayButtonGradientToHover);
+    .gradient-vertical(@grayGradientFromHover, @grayGradientToHover);
   }
 
   &:focus {
@@ -215,6 +215,6 @@ a, button {
   }
 
   * {
-    color: @grayButtonColor;
+    color: @defaultTextColor;
   }
 }

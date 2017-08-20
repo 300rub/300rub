@@ -138,6 +138,7 @@
                 buttonClass: "color-button",
                 buttonImage: "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7",
                 buttonImageOnly: true,
+                showNoneButton: true,
                 title: title,
                 colorFormat: "RGBA",
                 select: $.proxy(function (event, data) {
