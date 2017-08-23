@@ -66,18 +66,25 @@ class Web extends AbstractApplication
      */
     private function _setSite()
     {
-        Db::setSystemPdo();
-
         $host = $_SERVER["HTTP_HOST"];
 
-        $siteModel = (new SiteModel())->byHost($host)->find();
-        if ($siteModel === null) {
-            throw new NotFoundException(
-                "Unable to find site with host: {host}",
-                [
-                    "host" => $host
-                ]
-            );
+        $memcachedKey = "site_" . $host;
+
+        $siteModel = $this->getMemcached()->get($memcachedKey);
+        if (!$siteModel instanceof SiteModel) {
+            Db::setSystemPdo();
+
+            $siteModel = (new SiteModel())->byHost($host)->find();
+            if ($siteModel === null) {
+                throw new NotFoundException(
+                    "Unable to find site with host: {host}",
+                    [
+                        "host" => $host
+                    ]
+                );
+            }
+
+            $this->getMemcached()->set($memcachedKey, $siteModel);
         }
 
         Db::setPdo(

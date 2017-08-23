@@ -28,9 +28,10 @@ class Memcached
     public function __construct($host, $port)
     {
         $memcached = new \Memcached();
-        $result = $memcached->addServer($host, $port);
 
-        if ($result === true) {
+        $memcached->addServer($host, $port);
+
+        if ($memcached->getStats() !== false) {
             $this->_memcached = $memcached;
         }
     }

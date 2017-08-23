@@ -444,11 +444,11 @@ class BlockModel extends AbstractModel
     {
         $memcached = App::getInstance()->getMemcached();
         $memcachedKey = self::_getMemcachedKey($id);
-
-        $memcachedValue = $memcached->get($memcachedKey);
-        if ($memcachedValue instanceof BlockModel) {
-            return $memcachedValue;
-        }
+//
+//        $memcachedValue = $memcached->get($memcachedKey);
+//        if ($memcachedValue !== false) {
+//            return $memcachedValue;
+//        }
 
         $model = (new BlockModel())->byId($id)->find();
         if ($model === null) {

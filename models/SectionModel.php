@@ -157,7 +157,7 @@ class SectionModel extends AbstractModel
     /**
      * Generates section CSS
      *
-     * @return SectionModel
+     * @return array
      */
     private function _generateCss()
     {
