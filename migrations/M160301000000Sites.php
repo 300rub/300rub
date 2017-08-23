@@ -37,10 +37,9 @@ class M160301000000Sites extends AbstractMigration
                     "dbName"     => self::TYPE_STRING,
                     "language"   => self::TYPE_TINYINT_UNSIGNED,
                     "email"      => self::TYPE_STRING,
-                    "ssh"        => self::TYPE_STRING,
                 ]
             )
-            ->createIndex("sites", "host");
+            ->createUniqueIndex("sites", "sites_host", "host");
     }
 
     /**
@@ -48,21 +47,20 @@ class M160301000000Sites extends AbstractMigration
      */
     public function insertData()
     {
-        $config = App::getInstance()->getConfig();
+        $app = App::getInstance();
 
         Db::execute(
             "INSERT " .
-            "INTO sites (host, dbHost, dbUser, dbPassword, dbName, language, email, ssh) " .
-            "VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
+            "INTO sites (host, dbHost, dbUser, dbPassword, dbName, language, email) " .
+            "VALUES (?, ?, ?, ?, ?, ?, ?)",
             [
-                $config->host,
-                $config->db->host,
-                $config->db->user,
-                $config->db->password,
-                $config->db->name,
-                $config->language,
-                $config->email->address,
-                $config->ssh->active
+                DEV_HOST,
+                $app->getConfig(["db", "localhost", "host"]),
+                $app->getConfig(["db", "localhost", "user"]),
+                $app->getConfig(["db", "localhost", "password"]),
+                $app->getConfig(["db", "localhost", "name"]),
+                DEV_LANGUAGE,
+                DEV_EMAIL,
             ]
         );
     }

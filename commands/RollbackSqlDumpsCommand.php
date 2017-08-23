@@ -28,6 +28,8 @@ class RollbackSqlDumpsCommand extends AbstractCommand
 	 */
 	public static function rollbackDumps()
 	{
+        Db::setSystemPdo();
+
 		$sites = Db::fetchAll("SELECT * " . "FROM `sites`");
 
 		foreach ($sites as $site) {

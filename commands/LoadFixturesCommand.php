@@ -3,6 +3,7 @@
 namespace testS\commands;
 
 use testS\applications\App;
+use testS\components\Db;
 use testS\models\AbstractModel;
 
 /**
@@ -73,6 +74,8 @@ class LoadFixturesCommand extends AbstractCommand
 //		}
 //		exec("cp -r {$copyFilesFolder} {$uploadFilesFolder}");
 //		chmod($uploadFilesFolder, 0777);
+
+        Db::setLocalhostPdo();
 
 		// DB
 		foreach (self::$fixtureOrder as $fixture) {

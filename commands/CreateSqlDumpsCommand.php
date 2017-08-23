@@ -28,6 +28,8 @@ class CreateSqlDumpsCommand extends AbstractCommand
 	 */
 	public static function createDumps()
 	{
+        Db::setSystemPdo();
+
 		$sites = Db::fetchAll("SELECT * " . "FROM `sites`");
 
 		foreach ($sites as $site) {

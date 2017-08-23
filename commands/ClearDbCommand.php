@@ -31,29 +31,66 @@ class ClearDbCommand extends AbstractCommand
 	 */
 	public static function clear()
 	{
-		$db = App::getInstance()->getConfig()->db;
+        $app = App::getInstance();
 
 		exec(
 			sprintf(
 				'mysql -u %s -p%s -h %s -e "DROP DATABASE IF EXISTS %s"',
-				$db->user,
-				$db->password,
-				$db->host,
-				$db->name
+                $app->getConfig(["db", "localhost", "user"]),
+                $app->getConfig(["db", "localhost", "password"]),
+                $app->getConfig(["db", "localhost", "host"]),
+                $app->getConfig(["db", "localhost", "name"])
 			)
 		);
-
 		exec(
 			sprintf(
 				'mysql -u %s -p%s -h %s -e "CREATE DATABASE IF NOT EXISTS %s"',
-				$db->user,
-				$db->password,
-				$db->host,
-				$db->name
+                $app->getConfig(["db", "localhost", "user"]),
+                $app->getConfig(["db", "localhost", "password"]),
+                $app->getConfig(["db", "localhost", "host"]),
+                $app->getConfig(["db", "localhost", "name"])
 			)
 		);
 
-		Db::setPdo($db->host, $db->user, $db->password, $db->name);
+        exec(
+            sprintf(
+                'mysql -u %s -p%s -h %s -e "DROP DATABASE IF EXISTS %s"',
+                $app->getConfig(["db", "system", "user"]),
+                $app->getConfig(["db", "system", "password"]),
+                $app->getConfig(["db", "system", "host"]),
+                $app->getConfig(["db", "system", "name"])
+            )
+        );
+        exec(
+            sprintf(
+                'mysql -u %s -p%s -h %s -e "CREATE DATABASE IF NOT EXISTS %s"',
+                $app->getConfig(["db", "system", "user"]),
+                $app->getConfig(["db", "system", "password"]),
+                $app->getConfig(["db", "system", "host"]),
+                $app->getConfig(["db", "system", "name"])
+            )
+        );
+
+        exec(
+            sprintf(
+                'mysql -u %s -p%s -h %s -e "DROP DATABASE IF EXISTS %s"',
+                $app->getConfig(["db", "help", "user"]),
+                $app->getConfig(["db", "help", "password"]),
+                $app->getConfig(["db", "help", "host"]),
+                $app->getConfig(["db", "help", "name"])
+            )
+        );
+        exec(
+            sprintf(
+                'mysql -u %s -p%s -h %s -e "CREATE DATABASE IF NOT EXISTS %s"',
+                $app->getConfig(["db", "help", "user"]),
+                $app->getConfig(["db", "help", "password"]),
+                $app->getConfig(["db", "help", "host"]),
+                $app->getConfig(["db", "help", "name"])
+            )
+        );
+
+		Db::setSystemPdo();
 
 		$migration = new M160301000000Sites();
 		$migration->up();

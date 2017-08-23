@@ -58,7 +58,18 @@ class ErrorHandler
 	{
 		restore_error_handler();
 		restore_exception_handler();
-		throw new CommonException($exception->getMessage());
+
+        throw new CommonException(
+            "Exception occurred with type: {type}, message: {message}, " .
+            "file: {file}, line: {line} backtrace: {backtrace}",
+            [
+                "type"      => get_class($exception),
+                "message"   => $exception->getMessage(),
+                "file"      => $exception->getFile(),
+                "line"      => $exception->getLine(),
+                "backtrace" => $exception->getTraceAsString()
+            ]
+        );
 	}
 
 	/**

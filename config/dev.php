@@ -2,14 +2,20 @@
 
 return [
     "db"        => [
-        "sites" => [
-            "host"     => "localhost",
+        "localhost" => [
+            "host"     => "127.0.0.1",
             "user"     => "root",
             "password" => "root",
-            "name"     => "sites",
+            "name"     => "localhost",
+        ],
+        "system" => [
+            "host"     => "127.0.0.1",
+            "user"     => "root",
+            "password" => "root",
+            "name"     => "system",
         ],
         "help"  => [
-            "host"     => "localhost",
+            "host"     => "127.0.0.1",
             "user"     => "root",
             "password" => "root",
             "name"     => "help",

@@ -47,13 +47,7 @@ abstract class AbstractApplication
 			->_setErrorHandler()
 			->_setConfig($config)
 			->_activateVendorAutoload()
-			->_setDbConnection()
             ->_setMemcached();
-	}
-
-	private function _setSiteId()
-	{
-
 	}
 
 	/**
@@ -123,32 +117,17 @@ abstract class AbstractApplication
 	}
 
 	/**
-	 * Sets connection with DB
-	 *
-	 * @return AbstractApplication
-	 *
-	 * @throws DbException
-	 */
-	private function _setDbConnection()
-	{
-		Db::setPdo(
-			$this->getConfig()->db->host,
-			$this->getConfig()->db->user,
-			$this->getConfig()->db->password,
-			$this->getConfig()->db->name
-		);
-
-		return $this;
-	}
-
-	/**
 	 * Sets Memcached
 	 *
 	 * @return AbstractApplication
 	 */
 	private function _setMemcached()
 	{
-		$this->_memcached = new Memcached($this->getConfig()->memcached->host, $this->getConfig()->memcached->port);
+		$this->_memcached = new Memcached(
+		    $this->getConfig(["memcached", "host"]),
+		    $this->getConfig(["memcached", "port"])
+        );
+
 		return $this;
 	}
 

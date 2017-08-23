@@ -47,6 +47,7 @@ class MigrateCommand extends AbstractCommand
 	public static function migrate()
 	{
 		try {
+            Db::setSystemPdo();
 			self::_setNewMigrations();
 			self::_setSites();
 		} catch (Exception $e) {
@@ -82,7 +83,7 @@ class MigrateCommand extends AbstractCommand
 		while (false !== ($file = readdir($migrations))) {
 			if (strpos($file, "M") === 0) {
 				$version = str_replace(".php", "", $file);
-				if (App::getInstance()->getConfig()->isDebug || !in_array($version, $versions)) {
+				if (!in_array($version, $versions)) {
 					self::$_migrations[] = $version;
 				}
 			}
@@ -136,12 +137,7 @@ class MigrateCommand extends AbstractCommand
 	 */
 	private static function _updateVersions()
 	{
-		Db::setPdo(
-			App::getInstance()->getConfig()->db->host,
-			App::getInstance()->getConfig()->db->user,
-			App::getInstance()->getConfig()->db->password,
-			App::getInstance()->getConfig()->db->name
-		);
+        Db::setSystemPdo();
 
 		try {
 			Db::startTransaction();

@@ -4,6 +4,7 @@ namespace testS\components;
 
 use PDO;
 use PDOStatement;
+use testS\applications\App;
 use testS\components\exceptions\DbException;
 use testS\models\AbstractModel;
 
@@ -112,6 +113,36 @@ class Db
                 PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
                 PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES \'UTF8\''
             ]
+        );
+    }
+
+    /**
+     * Sets system PDO
+     */
+    public static function setSystemPdo()
+    {
+        $app = App::getInstance();
+
+        self::setPdo(
+            $app->getConfig(["db", "system", "host"]),
+            $app->getConfig(["db", "system", "user"]),
+            $app->getConfig(["db", "system", "password"]),
+            $app->getConfig(["db", "system", "name"])
+        );
+    }
+
+    /**
+     * Sets localhost PDO
+     */
+    public static function setLocalhostPdo()
+    {
+        $app = App::getInstance();
+
+        self::setPdo(
+            $app->getConfig(["db", "localhost", "host"]),
+            $app->getConfig(["db", "localhost", "user"]),
+            $app->getConfig(["db", "localhost", "password"]),
+            $app->getConfig(["db", "localhost", "name"])
         );
     }
 

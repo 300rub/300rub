@@ -2,8 +2,6 @@
 
 namespace testS\applications;
 
-use testS\commands\CreateSqlDumpsCommand;
-use testS\commands\RollbackSqlDumpsCommand;
 use testS\components\Language;
 
 /**

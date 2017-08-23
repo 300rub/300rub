@@ -4,6 +4,9 @@ define("APP_ENV", getenv('APP_ENV'));
 define("ENV_DEV", "dev");
 define("ENV_PROD", "prod");
 define("ENV_TEST", "test");
+define("DEV_HOST", "localhost");
+define("DEV_LANGUAGE", 1);
+define("DEV_EMAIL", "email@localhost.local");
 
 switch (APP_ENV) {
     case ENV_PROD:
@@ -18,6 +21,8 @@ switch (APP_ENV) {
 }
 
 $config["staticMap"] = require "static.php";
+
+return $config;
 
 // Main settings
 return [
