@@ -148,11 +148,8 @@ class Web extends AbstractApplication
             Db::startTransaction();
         }
 
-        if ($this->getConfig()->isDebug === false
-            && (
-                !array_key_exists("HTTP_X_REQUESTED_WITH", $_SERVER)
-                || strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) !== "xmlhttprequest"
-            )
+        if ( !array_key_exists("HTTP_X_REQUESTED_WITH", $_SERVER)
+            || strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) !== "xmlhttprequest"
         ) {
             throw new BadRequestException("Only AJAX request is allowed");
         }

@@ -27,8 +27,12 @@ class Memcached
      */
     public function __construct($host, $port)
     {
-        $this->_memcached = new \Memcached();
-        $this->_memcached->addServer($host, $port);
+        $memcached = new \Memcached();
+        $result = $memcached->addServer($host, $port);
+
+        if ($result === true) {
+            $this->_memcached = $memcached;
+        }
     }
 
     /**
@@ -44,6 +48,10 @@ class Memcached
      */
     public function set($key, $value, $expiration = null)
     {
+        if ($this->_memcached === null) {
+            return $this;
+        }
+
         $result = $this->_memcached->set($key, $value, $expiration);
 
         if ($result === false) {
@@ -69,6 +77,10 @@ class Memcached
      */
     public function get($key)
     {
+        if ($this->_memcached === null) {
+            return false;
+        }
+
         return $this->_memcached->get($key);
     }
 
@@ -83,6 +95,10 @@ class Memcached
      */
     public function delete($key)
     {
+        if ($this->_memcached === null) {
+            return $this;
+        }
+
         if ($this->get($key) === false) {
             return $this;
         }

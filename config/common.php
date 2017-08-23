@@ -1,10 +1,11 @@
 <?php
 
+define("APP_ENV", getenv('APP_ENV'));
 define("ENV_DEV", "dev");
 define("ENV_PROD", "prod");
 define("ENV_TEST", "test");
 
-switch (getenv('APP_ENV')) {
+switch (APP_ENV) {
     case ENV_PROD:
         $config = require "prod.php";
         break;
@@ -15,6 +16,8 @@ switch (getenv('APP_ENV')) {
         $config = require "dev.php";
         break;
 }
+
+$config["staticMap"] = require "static.php";
 
 // Main settings
 return [

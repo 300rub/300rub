@@ -18,7 +18,7 @@ abstract class AbstractApplication
 	/**
 	 * Settings from config
 	 *
-	 * @var object
+	 * @var array
 	 */
 	private $_config = null;
 
@@ -51,15 +51,10 @@ abstract class AbstractApplication
             ->_setMemcached();
 	}
 
-    /**
-     * Gets config
-     *
-     * @return object
-     */
-	public function getConfig()
-    {
-        return $this->_config;
-    }
+	private function _setSiteId()
+	{
+
+	}
 
 	/**
 	 * Sets Error Handler
@@ -82,9 +77,37 @@ abstract class AbstractApplication
 	 */
 	private function _setConfig($config)
 	{
-		$this->_config = json_decode(json_encode($config));
+		$this->_config = $config;
 
 		return $this;
+	}
+
+	/**
+	 * Gets config
+	 *
+	 * @param array $path
+	 *
+	 * @return mixed
+	 */
+	public function getConfig(array $path = [])
+	{
+		$value = $this->_config;
+
+		if (count($path) === 0) {
+			return $value;
+		}
+
+		foreach ($path as $item) {
+			if (!is_array($value)
+				|| !array_key_exists($item, $value)
+			) {
+				return null;
+			}
+
+			$value = $value[$item];
+		}
+
+		return $value;
 	}
 
 	/**
