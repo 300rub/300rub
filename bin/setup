@@ -2,10 +2,9 @@
 
 trap "exit" INT
 
-docker-compose ${DOCKER_COMPOSER_FILES} kill
-docker-compose ${DOCKER_COMPOSER_FILES} rm -f
-docker-compose ${DOCKER_COMPOSER_FILES} build
-docker-compose ${DOCKER_COMPOSER_FILES} up -d
+docker-compose -f docker-compose.yml -f docker-compose-dev.yml kill
+docker-compose -f docker-compose.yml -f docker-compose-dev.yml rm -f
+docker-compose -f docker-compose.yml -f docker-compose-dev.yml up -d
 
 sleep 5
 

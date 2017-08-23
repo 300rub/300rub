@@ -1,0 +1,3 @@
+phpfpm:
+    environment:
+        APP_ENV: prod
