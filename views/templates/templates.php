@@ -1,10 +1,12 @@
 <div id="templates">
 <?php
 /**
- * @var string[] $templates
+ * @var bool $isUser
  */
-foreach ($templates as $template) {
-    include($template . ".php");
+
+include "common.php";
+if ($isUser) {
+    include "admin.php";
 }
 ?>
 </div>

@@ -273,4 +273,42 @@
       display: block;
     }
   }
+
+  .background-container {
+    .relative-container {
+      height: 120px;
+
+      .background-color-from {
+        top: 25px;
+        left: 50%;
+        margin-left: -127px;
+        position: absolute;
+      }
+
+      .background-color-to {
+        top: 25px;
+        left: 50%;
+        margin-left: 57px;
+        position: absolute;
+        display: none;
+      }
+
+      .background-example {
+        width: 100px;
+        height: 80px;
+        border: 1px solid @darkGrayBorderColor;
+        position: absolute;
+        top: 0;
+        left: 50%;
+        margin-left: -50px;
+        overflow: hidden;
+      }
+    }
+  }
+
+  .background-container.has-gradient {
+    .background-color-to {
+      display: block;
+    }
+  }
 }

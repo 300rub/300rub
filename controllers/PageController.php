@@ -17,141 +17,41 @@ class PageController extends AbstractController
 {
 
     /**
-     * Common Dev Static Map
-     *
-     * @var array
-     */
-    private static $_commonDevStaticMap = [
-        "css"  => [
-            "fonts/OpenSans/font",
-            "lib/fa/css/font-awesome.min",
-            "lib/hover-min",
-        ],
-        "js"   => [
-            "lib/jquery.min",
-            "lib/md5.min",
-            "TestS",
-            "Validator",
-            "Template",
-            "Ajax",
-            "Form",
-            "Window",
-            "window/Login",
-        ],
-        "less" => [
-            "common"
-        ]
-    ];
-
-    /**
-     * Guest Dev Static Map
-     *
-     * @var array
-     */
-    private static $_guestDevStaticMap = [
-        "js"   => [
-            "Login"
-        ],
-        "less" => [
-            "login"
-        ]
-    ];
-
-    /**
-     * User Dev Static Map
-     *
-     * @var array
-     */
-    private static $_userDevStaticMap = [
-        "css"  => [
-            "lib/colorpicker/jquery.colorpicker",
-        ],
-        "js" => [
-            "lib/jquery-ui.min",
-            "lib/jquery.colorpicker",
-            "Accordion",
-            "Panel",
-            "panel/Settings",
-            "panel/Block",
-            "panel/Block.Text",
-            "panel/design/Design",
-            "panel/design/Design.Block",
-            "panel/design/Design.Text",
-            "UserButtons",
-            "window/Users",
-            "window/Users.Sessions",
-            "window/Users.Form",
-        ],
-        "less" => [
-            "admin",
-        ]
-    ];
-
-    /**
-     * Common templates map
-     *
-     * @var array
-     */
-    private static $_commonTemplatesMap = [
-        "common/ajax-error",
-        "common/accordion",
-        "common/forms",
-        "window/window"
-    ];
-
-    /**
-     * Guest templates map
-     *
-     * @var array
-     */
-    private static $_guestTemplatesMap = [
-
-    ];
-
-    /**
-     * User templates map
-     *
-     * @var array
-     */
-    private static $_userTemplatesMap = [
-        "panel/panel",
-        "panel/design/block",
-        "window/users"
-    ];
-
-    /**
      * Gets login page
      *
      * @return string
      */
     public function getPage()
     {
+        $isUser = $this->isUser();
+
         $sectionModel = (new SectionModel())->byId(1)->withRelations()->find();
         $sectionModel->setStructureAndStatic();
 
         $content = $this->_getCommonContent($sectionModel);
-        $isUser = $this->isUser();
 
         if ($isUser) {
             $token = App::web()->getUser()->getToken();
-            $layoutData = array_merge_recursive(self::$_commonDevStaticMap, self::$_userDevStaticMap);
-            $templatesMap = array_merge(self::$_commonTemplatesMap, self::$_userTemplatesMap);
-
             $content .= $this->_getUserContent();
         } else {
             $token = "";
-            $layoutData = array_merge_recursive(self::$_commonDevStaticMap, self::$_guestDevStaticMap);
-            $templatesMap = array_merge(self::$_commonTemplatesMap, self::$_guestTemplatesMap);
-
             $content .= $this->_getGuestContent();
         }
 
-        $content .= $this->getContentFromTemplate("templates/templates", ["templates" => array_unique($templatesMap)]);
+        $content .= $this->getContentFromTemplate(
+            "templates/templates",
+            [
+                "isUser" => $isUser
+            ]
+        );
 
         $layoutData["content"] = $content;
         $layoutData["title"] = SeoModel::getTitle();
         $layoutData["keywords"] = SeoModel::getKeywords();
         $layoutData["description"] = SeoModel::getDescription();
+        $layoutData["css"] = $this->_getCss();
+        $layoutData["js"] = $this->_getJs();
+        $layoutData["less"] = $this->_getLess();
         $layoutData["language"] = Language::getActiveId();
         $layoutData["errorMessages"] = Validator::getErrorMessages();
         $layoutData["token"] = $token;
@@ -159,6 +59,85 @@ class PageController extends AbstractController
         $layoutData["generatedCss"] = $sectionModel->getCss();
 
         return $this->getContentFromTemplate("page/layout", $layoutData);
+    }
+
+    /**
+     * Gets CSS
+     *
+     * @return array
+     */
+    private function _getCss()
+    {
+        $isUser = $this->isUser();
+        $app = App::getInstance();
+
+        $css = $app->getConfig(["staticMap", "common", "libs", "css"]);
+        if ($isUser) {
+            $css = array_merge($css, $app->getConfig(["staticMap", "admin", "libs", "css"]));
+        }
+
+        if (APP_ENV !== ENV_DEV) {
+            $css[] = $app->getConfig(["staticMap", "common", "compiledCss"]);
+            if ($isUser) {
+                $css[] = $app->getConfig(["staticMap", "admin", "compiledCss"]);
+            }
+        }
+
+        return $css;
+    }
+
+    /**
+     * Gets JS
+     *
+     * @return array
+     */
+    private function _getJs()
+    {
+        $isUser = $this->isUser();
+        $app = App::getInstance();
+
+        $js = $app->getConfig(["staticMap", "common", "libs", "js"]);
+        if ($isUser) {
+            $js = array_merge($js, $app->getConfig(["staticMap", "admin", "libs", "js"]));
+        }
+
+        if (APP_ENV === ENV_DEV) {
+            $js = array_merge($js, $app->getConfig(["staticMap", "common", "js"]));
+            if ($isUser) {
+                $js = array_merge($js, $app->getConfig(["staticMap", "admin", "js"]));
+            }
+        } else {
+            $js[] = $app->getConfig(["staticMap", "common", "compiledJs"]);
+            if ($isUser) {
+                $js[] = $app->getConfig(["staticMap", "admin", "compiledJs"]);
+            }
+        }
+
+        return $js;
+    }
+
+    /**
+     * Gets less
+     *
+     * @return array
+     */
+    private function _getLess()
+    {
+        if (APP_ENV !== ENV_DEV) {
+            return [];
+        }
+
+        $isUser = $this->isUser();
+        $app = App::getInstance();
+
+        $less = [];
+
+        $less[] = $app->getConfig(["staticMap", "common", "less"]);
+        if ($isUser) {
+            $less[] = $app->getConfig(["staticMap", "admin", "less"]);
+        }
+
+        return $less;
     }
 
     /**

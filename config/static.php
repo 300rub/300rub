@@ -22,7 +22,10 @@ return [
             "Form",
             "Window",
             "window/Login",
-        ]
+            "Login",
+        ],
+        "compiledCss" => "common",
+        "compiledJs" => "common",
     ],
     "admin"  => [
         "libs" => [
@@ -48,6 +51,8 @@ return [
             "window/Users",
             "window/Users.Sessions",
             "window/Users.Form",
-        ]
+        ],
+        "compiledCss" => "admin",
+        "compiledJs" => "admin",
     ],
 ];

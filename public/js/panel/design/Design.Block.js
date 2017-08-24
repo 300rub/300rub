@@ -772,16 +772,19 @@
                 .addClass("background-example-" + uniqueId)
                 .attr("data-id", uniqueId);
 
+            var $relativeContainer = $container.find(".relative-container");
+
             if (this._values["backgroundColorFrom"] !== null) {
                 new TestS.Form({
                     type: "color",
                     title: this._getLabel("backgroundColor"),
                     value: this._values["backgroundColorFrom"],
+                    class: "background-color-from",
                     callback: $.proxy(function (color) {
                         this._values["backgroundColorFrom"] = color;
                         this._updateBackground(false);
                     }, this),
-                    appendTo: $container
+                    appendTo: $relativeContainer
                 });
             }
 
@@ -790,11 +793,12 @@
                     type: "color",
                     title: this._getLabel("backgroundColor"),
                     value: this._values["backgroundColorTo"],
+                    class: "background-color-to",
                     callback: $.proxy(function (color) {
                         this._values["backgroundColorTo"] = color;
                         this._updateBackground(false);
                     }, this),
-                    appendTo: $container
+                    appendTo: $relativeContainer
                 });
             }
 
@@ -884,15 +888,19 @@
                 });
             }
 
+            var hasGradient = this._values["backgroundColorTo"] || this._values["backgroundColorHover"];
+            if (hasGradient) {
+                $container.addClass("has-gradient");
+            }
             new TestS.Form({
                 type: "checkbox",
-                value: this._values["backgroundColorTo"] || this._values["backgroundColorHover"],
+                value: hasGradient,
                 label: this._getLabel("useGradient"),
                 onCheck: $.proxy(function () {
-                    //
+                    $container.addClass("has-gradient");
                 }, this),
                 onUnCheck: $.proxy(function () {
-                    //
+                    $container.removeClass("has-gradient");
                 }, this),
                 appendTo: $container
             });
