@@ -230,55 +230,57 @@ input.form-instance {
 .form-container-radio-buttons {
   display: inline-block;
 
-  .radio-button-item {
-    display: inline-block;
-    margin: 0;
-    cursor: pointer;
-
-    .label-body {
-      .transition(background-color);
-      text-align: center;
+  .radio-buttons {
+    .radio-button-item {
       display: inline-block;
-      min-width: 30px;
-      padding: 0 10px;
-      background-color: @grayBackground;
+      margin: 0;
+      cursor: pointer;
 
-      * {
-        line-height: 30px;
-      }
-
-      &:hover {
-        background-color: @blueBackground;
+      .label-body {
+        .transition(background-color);
+        text-align: center;
+        display: inline-block;
+        min-width: 30px;
+        padding: 0 10px;
+        background-color: @grayBackground;
 
         * {
-          color: white;
+          line-height: 30px;
+        }
+
+        &:hover {
+          background-color: @blueBackground;
+
+          * {
+            color: white;
+          }
         }
       }
-    }
 
-    &:first-child {
-      .label-body {
-        .border-radius(4px 0 0 4px);
+      &:first-child {
+        .label-body {
+          .border-radius(4px 0 0 4px);
+        }
       }
-    }
 
-    &:last-child {
-      .label-body {
-        .border-radius(0 4px 4px 0);
+      &:last-child {
+        .label-body {
+          .border-radius(0 4px 4px 0);
+        }
       }
-    }
 
-    .form-instance {
-      display: none;
+      .form-instance {
+        display: none;
 
-      &:checked + .label-body {
-        background-color: @blueBackground;
-        .box-shadow(@formGrayBoxShadow);
-        position: relative;
-        z-index: 10;
+        &:checked + .label-body {
+          background-color: @blueBackground;
+          .box-shadow(@formGrayBoxShadow);
+          position: relative;
+          z-index: 10;
 
-        * {
-          color: white;
+          * {
+            color: white;
+          }
         }
       }
     }
@@ -293,6 +295,10 @@ input.form-instance {
   height: 30px;
   padding: 4px;
   text-align: center;
+
+  .icon-before {
+    position: absolute;
+  }
 
   .color-button {
     .border-radius(4px);

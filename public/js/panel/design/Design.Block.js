@@ -807,11 +807,13 @@
                     type: "color",
                     title: this._getLabel("backgroundColor"),
                     value: this._values["backgroundColorFromHover"],
+                    class: "background-color-from-hover",
+                    iconBefore: "fa-arrow-down",
                     callback: $.proxy(function (color) {
                         this._values["backgroundColorFromHover"] = color;
                         this._updateBackground(false);
                     }, this),
-                    appendTo: $container
+                    appendTo: $relativeContainer
                 });
             }
 
@@ -820,68 +822,47 @@
                     type: "color",
                     title: this._getLabel("backgroundColor"),
                     value: this._values["backgroundColorToHover"],
+                    class: "background-color-to-hover",
+                    iconBefore: "fa-arrow-down",
                     callback: $.proxy(function (color) {
                         this._values["backgroundColorToHover"] = color;
                         this._updateBackground(false);
                     }, this),
-                    appendTo: $container
+                    appendTo: $relativeContainer
                 });
             }
 
-            if (this._values["gradientDirection"] !== null) {
+            if (this._values["hasBackgroundHover"] !== null) {
                 new TestS.Form({
-                    type: "radioButtons",
-                    value: this._values["gradientDirection"],
-                    data: [
-                        {
-                            value: 0,
-                            icon: "fa-long-arrow-right"
-                        },
-                        {
-                            value: 1,
-                            icon: "fa-long-arrow-down"
-                        },
-                        {
-                            value: 2,
-                            icon: "fa-user"
-                        },
-                        {
-                            value: 3,
-                            icon: "fa-lock"
-                        }
-                    ],
-                    onChange: $.proxy(function (value) {
-                        this._values["gradientDirection"] = value;
+                    type: "checkbox",
+                    value: this._values["hasBackgroundHover"],
+                    label: this._getLabel("setHover"),
+                    onCheck: $.proxy(function () {
+                        $container.addClass("has-hover");
+                        this._values["hasBackgroundHover"] = true;
+                        this._updateBackground(false);
+                    }, this),
+                    onUnCheck: $.proxy(function () {
+                        $container.removeClass("has-hover");
+                        this._values["hasBackgroundHover"] = false;
                         this._updateBackground(false);
                     }, this),
                     appendTo: $container
                 });
             }
 
-            if (this._values["gradientDirectionHover"] !== null) {
+            if (this._values["hasBackgroundAnimation"] !== null) {
                 new TestS.Form({
-                    type: "radioButtons",
-                    value: this._values["gradientDirectionHover"],
-                    data: [
-                        {
-                            value: 0,
-                            icon: "fa-long-arrow-right"
-                        },
-                        {
-                            value: 1,
-                            icon: "fa-long-arrow-down"
-                        },
-                        {
-                            value: 2,
-                            icon: "fa-user"
-                        },
-                        {
-                            value: 3,
-                            icon: "fa-lock"
-                        }
-                    ],
-                    onChange: $.proxy(function (value) {
-                        this._values["gradientDirectionHover"] = value;
+                    type: "checkbox",
+                    value: this._values["hasBackgroundAnimation"],
+                    label: this._getLabel("useAnimation"),
+                    class: "has-animation",
+                    onCheck: $.proxy(function () {
+                        this._values["hasBackgroundAnimation"] = true;
+                        this._updateBackground(false);
+                    }, this),
+                    onUnCheck: $.proxy(function () {
+                        this._values["hasBackgroundAnimation"] = false;
                         this._updateBackground(false);
                     }, this),
                     appendTo: $container
@@ -905,39 +886,68 @@
                 appendTo: $container
             });
 
-            if (this._values["hasBackgroundHover"] !== null) {
+            if (this._values["gradientDirection"] !== null) {
                 new TestS.Form({
-                    type: "checkbox",
-                    value: this._values["hasBackgroundHover"],
-                    label: this._getLabel("setHover"),
-                    onCheck: $.proxy(function () {
-                        //
-
-                        this._values["hasBackgroundHover"] = true;
-                        this._updateBackground(false);
-                    }, this),
-                    onUnCheck: $.proxy(function () {
-                        //
-
-                        this._values["hasBackgroundHover"] = false;
+                    type: "radioButtons",
+                    value: this._values["gradientDirection"],
+                    label: this._getLabel("gradientDirection"),
+                    class: "gradient-direction",
+                    data: [
+                        {
+                            value: 0,
+                            icon: "fa-long-arrow-right"
+                        },
+                        {
+                            value: 1,
+                            icon: "fa-long-arrow-down"
+                        },
+                        {
+                            value: 2,
+                            icon: "fa-long-arrow-right",
+                            class: "deg-45"
+                        },
+                        {
+                            value: 3,
+                            icon: "fa-long-arrow-up",
+                            class: "deg-45"
+                        }
+                    ],
+                    onChange: $.proxy(function (value) {
+                        this._values["gradientDirection"] = value;
                         this._updateBackground(false);
                     }, this),
                     appendTo: $container
                 });
             }
 
-            if (this._values["hasBackgroundAnimation"] !== null) {
+            if (this._values["gradientDirectionHover"] !== null) {
                 new TestS.Form({
-                    type: "checkbox",
-                    value: this._values["hasBackgroundAnimation"],
-                    label: this._getLabel("useAnimation"),
-                    class: "has-animation",
-                    onCheck: $.proxy(function () {
-                        this._values["hasBackgroundAnimation"] = true;
-                        this._updateBackground(false);
-                    }, this),
-                    onUnCheck: $.proxy(function () {
-                        this._values["hasBackgroundAnimation"] = false;
+                    type: "radioButtons",
+                    value: this._values["gradientDirectionHover"],
+                    label: this._getLabel("gradientDirectionHover"),
+                    class: "gradient-direction-hover",
+                    data: [
+                        {
+                            value: 0,
+                            icon: "fa-long-arrow-right"
+                        },
+                        {
+                            value: 1,
+                            icon: "fa-long-arrow-down"
+                        },
+                        {
+                            value: 2,
+                            icon: "fa-long-arrow-right",
+                            class: "deg-45"
+                        },
+                        {
+                            value: 3,
+                            icon: "fa-long-arrow-up",
+                            class: "deg-45"
+                        }
+                    ],
+                    onChange: $.proxy(function (value) {
+                        this._values["gradientDirectionHover"] = value;
                         this._updateBackground(false);
                     }, this),
                     appendTo: $container

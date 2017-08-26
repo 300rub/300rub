@@ -23,6 +23,10 @@ return [
         Language::LANGUAGE_EN_ID => "Gradient direction",
         Language::LANGUAGE_RU_ID => "",
     ],
+    "gradientDirectionHover"     => [
+        Language::LANGUAGE_EN_ID => "Gradient direction hover",
+        Language::LANGUAGE_RU_ID => "",
+    ],
     "blockDesign"     => [
         Language::LANGUAGE_EN_ID => "Block design",
         Language::LANGUAGE_RU_ID => "",

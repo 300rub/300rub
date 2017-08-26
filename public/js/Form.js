@@ -130,6 +130,13 @@
                 this.getFormInstance().val(this._options["value"]);
             }
 
+            var $iconBefore = this.$_form.find(".icon-before");
+            if (this._options["iconBefore"] !== undefined) {
+                $iconBefore.addClass(this._options["iconBefore"]);
+            } else {
+                $iconBefore.remove();
+            }
+
             this.getFormInstance().colorpicker({
                 parts: 'full',
                 alpha: true,
@@ -326,7 +333,7 @@
 
             var $label = t.getFormInstance().find(".label");
             if (t._options["label"] !== undefined) {
-                $label.addClass(t._options["label"]);
+                $label.text(t._options["label"]);
             } else {
                 $label.remove();
             }
@@ -371,6 +378,15 @@
                 name = t._options["name"];
             }
 
+            var $label = t.$_form.find(".label");
+            if (t._options["label"] !== undefined) {
+                $label.text(t._options["label"]);
+            } else {
+                $label.remove();
+            }
+
+            var $radioButtons = t.$_form.find(".radio-buttons");
+
             $.each(t._options["data"], function(i, data) {
                 if ($.type(data) !== "object"
                     || data["value"] === undefined
@@ -408,7 +424,7 @@
                     $formInstance.attr("checked", true);
                 }
 
-                t.$_form.append($item);
+                $radioButtons.append($item);
             });
 
             if ($.type(t._options["onChange"]) === "function") {

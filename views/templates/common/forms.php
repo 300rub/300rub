@@ -78,7 +78,10 @@
     </label>
 </div>
 
-<div class="form-container form-container-radio-buttons"></div>
+<div class="form-container form-container-radio-buttons">
+    <span class="label"></span>
+    <span class="radio-buttons"></span>
+</div>
 
 <label class="radio-button-item">
     <input type="radio" class="form-instance" />
@@ -89,5 +92,6 @@
 </label>
 
 <div class="color-picker">
+    <i class="icon-before fa"></i>
     <input type="hidden" class="form-instance">
 </div>

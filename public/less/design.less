@@ -276,7 +276,7 @@
 
   .background-container {
     .relative-container {
-      height: 120px;
+      height: 85px;
 
       .background-color-from {
         top: 25px;
@@ -293,6 +293,34 @@
         display: none;
       }
 
+      .background-color-from-hover {
+        top: 48px;
+        left: 50%;
+        margin-left: -127px;
+        position: absolute;
+        display: none;
+
+        .icon-before {
+          left: 50%;
+          margin-left: -7px;
+          top: -15px;
+        }
+      }
+
+      .background-color-to-hover {
+        top: 48px;
+        left: 50%;
+        margin-left: 57px;
+        position: absolute;
+        display: none;
+
+        .icon-before {
+          left: 50%;
+          margin-left: -7px;
+          top: -15px;
+        }
+      }
+
       .background-example {
         width: 100px;
         height: 80px;
@@ -304,10 +332,72 @@
         overflow: hidden;
       }
     }
+
+    .has-animation {
+      display: none;
+    }
+
+    .gradient-direction {
+      text-align: center;
+      margin-bottom: 10px;
+      display: none;
+    }
+
+    .gradient-direction-hover {
+      text-align: center;
+      margin-bottom: 10px;
+      display: none;
+    }
+
+    .form-container-radio-buttons {
+      .deg-45 {
+        .label-icon {
+          .transform(rotate(45deg));
+        }
+      }
+
+      .label {
+        font-size: 12px;
+        margin: -5px 0 5px 0;
+        display: block;
+      }
+    }
   }
 
   .background-container.has-gradient {
     .background-color-to {
+      display: block;
+    }
+
+    .gradient-direction {
+      display: block;
+    }
+  }
+
+  .background-container.has-hover {
+    .background-color-from {
+      top: 2px;
+    }
+
+    .background-color-from-hover {
+      display: block;
+    }
+
+    .has-animation {
+      display: block;
+    }
+  }
+
+  .background-container.has-gradient.has-hover {
+    .background-color-to {
+      top: 2px;
+    }
+
+    .background-color-to-hover {
+      display: block;
+    }
+
+    .gradient-direction-hover {
       display: block;
     }
   }

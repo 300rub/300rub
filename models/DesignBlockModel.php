@@ -109,15 +109,17 @@ class DesignBlockModel extends AbstractModel
     public static function getLabels()
     {
         return [
-            "margin"          => Language::t("design", "margin"),
-            "padding"         => Language::t("design", "padding"),
-            "setHover"        => Language::t("design", "setHover"),
-            "useAnimation"    => Language::t("design", "useAnimation"),
-            "background"      => Language::t("design", "background"),
-            "backgroundColor" => Language::t("design", "backgroundColor"),
-            "borderColor"     => Language::t("design", "borderColor"),
-            "useGradient"     => Language::t("design", "useGradient"),
-            "border"          => Language::t("design", "border"),
+            "margin"                 => Language::t("design", "margin"),
+            "padding"                => Language::t("design", "padding"),
+            "setHover"               => Language::t("design", "setHover"),
+            "useAnimation"           => Language::t("design", "useAnimation"),
+            "background"             => Language::t("design", "background"),
+            "backgroundColor"        => Language::t("design", "backgroundColor"),
+            "borderColor"            => Language::t("design", "borderColor"),
+            "useGradient"            => Language::t("design", "useGradient"),
+            "border"                 => Language::t("design", "border"),
+            "gradientDirection"      => Language::t("design", "gradientDirection"),
+            "gradientDirectionHover" => Language::t("design", "gradientDirectionHover"),
         ];
     }
 
