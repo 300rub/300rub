@@ -187,7 +187,6 @@ abstract class AbstractControllerTest extends AbstractUnitTest
                 CURLOPT_HTTPHEADER,
                 [
                     'Content-Type: application/json',
-                    'Content-Length: ' . strlen(json_encode($dataJson)),
                     "X-Requested-With: XMLHttpRequest",
                     "User-Agent: " . $ua,
                 ]

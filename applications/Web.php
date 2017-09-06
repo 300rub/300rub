@@ -66,10 +66,13 @@ class Web extends AbstractApplication
      */
     private function _setSite()
     {
-        $host = $_SERVER["HTTP_HOST"];
+        if (APP_ENV === ENV_DEV) {
+            $host = DEV_HOST;
+        } else {
+            $host = $_SERVER["HTTP_HOST"];
+        }
 
         $memcachedKey = "site_" . $host;
-
         $siteModel = $this->getMemcached()->get($memcachedKey);
         if (!$siteModel instanceof SiteModel) {
             Db::setSystemPdo();
@@ -211,8 +214,10 @@ class Web extends AbstractApplication
             Db::startTransaction();
         }
 
-        if ( !array_key_exists("HTTP_X_REQUESTED_WITH", $_SERVER)
-            || strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) !== "xmlhttprequest"
+        if (APP_ENV !== ENV_DEV
+            && (!array_key_exists("HTTP_X_REQUESTED_WITH", $_SERVER)
+                || strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) !== "xmlhttprequest"
+            )
         ) {
             throw new BadRequestException("Only AJAX request is allowed");
         }

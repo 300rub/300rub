@@ -919,21 +919,41 @@ class TextControllerTest extends AbstractControllerTest
 
         $expected = [
             "id"          => $id,
+            "controller"  => "text",
+            "action"      => "design",
+            "title"       => "Text design",
+            "description" => "You can configure text's design",
             "list"        => [
                 [
+                    "title" => "Text design",
                     "data"  => [
                         [
-                            "name"  => "designBlockModel",
-                            "type"  => "block",
-                            "data"  => $expectedBlockData
+                            "selector"  => sprintf(".block-%s", $id),
+                            "id"        => sprintf("block-%s-block", $id),
+                            "type"      => "block",
+                            "title"     => "Block design",
+                            "namespace" => "designBlockModel",
+                            "labels"    => [
+                                "margin" => "Margin",
+                            ],
+                            "values"    => $expectedBlockData,
                         ],
                         [
-                            "name"  => "designTextModel",
-                            "type"  => "text",
-                            "data"  => $expectedTextData
-                        ],
+                            "selector"  => sprintf(".block-%s", $id),
+                            "id"        => sprintf("block-%s-text", $id),
+                            "type"      => "text",
+                            "title"     => "Text design",
+                            "namespace" => "designTextModel",
+                            "labels"    => [
+                                "setHover" => "Set hover",
+                            ],
+                            "values"    => $expectedTextData
+                        ]
                     ]
                 ]
+            ],
+            "button"     => [
+                "label" => "Save",
             ],
         ];
 
