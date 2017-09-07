@@ -32,6 +32,20 @@
     </span>
 </label>
 
+<div class="form-container-checkbox-on-off">
+    <label>
+        <input type="checkbox" class="form-instance" />
+            <span class="on-off-wrapper">
+                <span class="on-off-container">
+                    <span class="on">On</span>
+                    <span class="separator"></span>
+                    <span class="off">Off</span>
+                </span>
+            </span>
+        <span class="label-text"></span>
+    </label>
+</div>
+
 <div class="form-container form-container-password">
     <label>
         <span class="label-text"></span>

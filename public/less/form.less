@@ -158,6 +158,100 @@ input.form-instance {
   }
 }
 
+.form-container-checkbox-on-off {
+  label {
+    .transition(background-color);
+    .border-radius(4px);
+    display: block;
+    cursor: pointer;
+    min-height: 40px;
+    padding: 5px 10px;
+
+    &:hover {
+      background-color: @lightGrayBackground;
+    }
+
+    .label-text {
+      margin-right: 70px;
+      line-height: 20px;
+      display: block;
+      padding-top: 5px;
+    }
+
+    .on-off-wrapper {
+      .border-radius(4px);
+      display: block;
+      float: right;
+      width: 60px;
+      border: 1px solid @grayBorderColor;
+      overflow: hidden;
+
+      .on-off-container {
+        .transition(margin-left);
+        display: block;
+        height: 28px;
+        width: 200px;
+        margin-left: -50px;
+
+        .on, .off {
+          display: block;
+          float: left;
+          height: 28px;
+          line-height: 28px;
+          width: 50px;
+          text-align: center;
+          margin: 0;
+          z-index: 10;
+          position: relative;
+        }
+
+        .on {
+          .gradient-vertical(@blueGradientFrom, @blueGradientTo);
+          padding-right: 4px;
+          color: white;
+
+          &:hover {
+            .gradient-vertical(@blueGradientFromHover, @blueGradientToHover);
+          }
+        }
+
+        .off {
+          .gradient-vertical(@grayGradientFrom, @grayGradientTo);
+          padding-left: 4px;
+
+          &:hover {
+            .gradient-vertical(@grayGradientFromHover, @grayGradientToHover);
+          }
+        }
+
+        .separator {
+          .border-radius(4px);
+          display: block;
+          float: left;
+          height: 28px;
+          width: 20px;
+          margin: 0 -4px;
+          background-color: white;
+          z-index: 20;
+          position: relative;
+        }
+      }
+    }
+
+    .form-instance {
+      display: none;
+    }
+
+    .form-instance:checked + .on-off-wrapper {
+      border-color: @blueBorderColor;
+
+      .on-off-container {
+        margin-left: 0;
+      }
+    }
+  }
+}
+
 .form-button {
   .icons {
     width: 22px;
