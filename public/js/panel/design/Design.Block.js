@@ -484,7 +484,7 @@
 
             if (this._values["hasMarginHover"] !== null) {
                 new TestS.Form({
-                    type: "checkbox",
+                    type: "checkboxOnOff",
                     value: this._values["hasMarginHover"],
                     label: this._getLabel("setHover"),
                     onCheck: $.proxy(function () {
@@ -503,7 +503,7 @@
 
             if (this._values["hasMarginAnimation"] !== null) {
                 new TestS.Form({
-                    type: "checkbox",
+                    type: "checkboxOnOff",
                     value: this._values["hasMarginAnimation"],
                     label: this._getLabel("useAnimation"),
                     class: "has-animation",

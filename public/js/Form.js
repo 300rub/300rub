@@ -44,6 +44,9 @@
                 case "checkboxButton":
                     this._setCheckboxButton();
                     break;
+                case "checkboxOnOff":
+                    this._setCheckboxOnOffForm();
+                    break;
                 case "radioButtons":
                     this._setRadioButtonsForm();
                     break;
@@ -336,6 +339,37 @@
                 $label.text(t._options["label"]);
             } else {
                 $label.remove();
+            }
+
+            if ($.type(t._options["onCheck"]) === "function") {
+                t.getFormInstance().on("change", function() {
+                    if (this.checked) {
+                        t._options.onCheck();
+                    }
+                });
+            }
+
+            if ($.type(t._options["onUnCheck"]) === "function") {
+                t.getFormInstance().on("change", function() {
+                    if (!this.checked) {
+                        t._options.onUnCheck();
+                    }
+                });
+            }
+        },
+
+        /**
+         * Sets checkbox On / Off form
+         *
+         * @private
+         */
+        _setCheckboxOnOffForm: function () {
+            var t = this;
+
+            t.$_form = TestS.Template.get("form-container-checkbox-on-off");
+
+            if (t._options["value"] === true) {
+                t.getFormInstance().attr("checked", "checked");
             }
 
             if ($.type(t._options["onCheck"]) === "function") {
