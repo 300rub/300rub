@@ -6,12 +6,10 @@ use testS\components\Db;
 use testS\components\exceptions\BadRequestException;
 use Exception;
 use testS\components\exceptions\ContentException;
-use testS\components\exceptions\NotFoundException;
 use testS\components\Language;
 use testS\components\User;
 use testS\controllers\AbstractController;
 use testS\controllers\PageController;
-use testS\models\SiteModel;
 use testS\models\UserModel;
 use testS\models\UserSessionModel;
 
@@ -51,75 +49,13 @@ class Web extends AbstractApplication
     private $_user = null;
 
     /**
-     * Site
-     *
-     * @var SiteModel
-     */
-    private $_site = null;
-
-    /**
-     * Sets site
-     *
-     * @return Web
-     *
-     * @throws NotFoundException
-     */
-    private function _setSite()
-    {
-        if (APP_ENV === ENV_DEV) {
-            $host = DEV_HOST;
-        } else {
-            $host = $_SERVER["HTTP_HOST"];
-        }
-
-        $memcachedKey = "site_" . $host;
-        $siteModel = $this->getMemcached()->get($memcachedKey);
-        if (!$siteModel instanceof SiteModel) {
-            Db::setSystemPdo();
-
-            $siteModel = (new SiteModel())->byHost($host)->find();
-            if ($siteModel === null) {
-                throw new NotFoundException(
-                    "Unable to find site with host: {host}",
-                    [
-                        "host" => $host
-                    ]
-                );
-            }
-
-            $this->getMemcached()->set($memcachedKey, $siteModel);
-        }
-
-        Db::setPdo(
-            $siteModel->get("dbHost"),
-            $siteModel->get("dbUser"),
-            $siteModel->get("dbPassword"),
-            $siteModel->get("dbName")
-        );
-
-        $this->_site = $siteModel;
-
-        return $this;
-    }
-
-    /**
-     * Gets site
-     *
-     * @return SiteModel
-     */
-    public function getSite()
-    {
-        return $this->_site;
-    }
-
-    /**
      * Runs application
      *
      * @return void
      */
     public function run()
     {
-        $this->_setSite();
+        $this->setSite($_SERVER["HTTP_HOST"]);
 
         $isAjax = false;
         if (strpos(trim($_SERVER["REQUEST_URI"], "/"), self::API_URL) === 0) {

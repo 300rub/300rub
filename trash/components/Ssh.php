@@ -1,6 +1,6 @@
 <?php
 
-namespace testS\components;
+namespace testS\componentasasds;
 
 use testS\applications\App;
 use testS\components\exceptions\SshException;

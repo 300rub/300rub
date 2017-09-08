@@ -2,11 +2,10 @@
 
 namespace testS\components;
 
-use testS\applications\App;
 use testS\components\exceptions\FileException;
 
 /**
- * Class for working with files
+ * Class to work with files
  *
  * @package testS\components
  */
@@ -14,131 +13,175 @@ class File
 {
 
     /**
-     * File name
+     * Default HTTP file name
+     */
+    const DEFAULT_POST_FILE_NAME = "file";
+
+    /**
+     * The original name of the file on the client machine
      *
      * @var string
      */
     private $_name = "";
 
     /**
-     * File constructor.
+     * The mime type of the file, if the browser provided this information.
+     * An example would be "image/gif".
+     * This mime type is however not checked on the PHP side and therefore don't take its value for granted.
      *
-     * @param string $name File's name
+     * @var string
      */
-    public function __construct($name)
-    {
-        $this->_name = $name;
-    }
+    private $_type = "";
 
     /**
-     * Uploads file
+     * The size, in bytes, of the uploaded file.
      *
-     * @param string $name File's name
-     *
-     * @return string
-     *
-     * @throws FileException
+     * @var int
      */
-    public function upload($name)
-    {
-        if (empty($_FILES[$name]['tmp_name'])) {
-            throw new FileException(
-                "File with name: {name} was not found in tmp",
-                [
-                    "name" => $name
-                ]
-            );
-        }
-
-        if (!move_uploaded_file($_FILES[$name]['tmp_name'], $this->_getFullFilePath())) {
-            throw new FileException(
-                "File with name: {name} was not moved to upload folder",
-                [
-                    "name" => $name
-                ]
-            );
-        }
-
-        return $this->_getFullFilePath();
-    }
+    private $_size = 0;
 
     /**
-     * Deletes file
+     * The temporary filename of the file in which the uploaded file was stored on the server.
      *
-     * @throws FileException
+     * @var string
      */
-    public function delete()
-    {
-        $fileUploadPath = $this->_getFullFilePath();
-
-        if (
-            file_exists($fileUploadPath)
-            && unlink($fileUploadPath) === false
-        ) {
-            throw new FileException(
-                "Unable to delete file with path: {path} from upload folder",
-                [
-                    "path" => $fileUploadPath
-                ]
-            );
-        }
-
-        if (!App::web()->getConfig()->isDebug) {
-            $ssh = new Ssh();
-            $ssh->deleteFile($this->_getFilePath());
-        }
-    }
+    private $_tmpName = "";
 
     /**
-     * Sends file to remote server
+     * Generated unique name
      *
-     * @throws FileException
+     * @var string
      */
-    public function send()
-    {
-        $fileUploadPath = $this->_getFullFilePath();
-
-        if (!file_exists($fileUploadPath)) {
-            throw new FileException(
-                "File with path: {path} doesn't exist",
-                [
-                    "path" => $fileUploadPath
-                ]
-            );
-        }
-
-        if (!App::web()->getConfig()->isDebug) {
-            $ssh = new Ssh();
-            $ssh->sendFile($fileUploadPath, $this->_getFilePath());
-
-            if (unlink($fileUploadPath) === false) {
-                throw new FileException(
-                    "Unable to delete file with path: {path} from upload folder",
-                    [
-                        "path" => $fileUploadPath
-                    ]
-                );
-            }
-        }
-    }
+    private $_uniqueName = "";
 
     /**
-     * Gets file path
+     * Gets file URL
+     *
+     * @param string $uniqueName
      *
      * @return string
      */
-    private function _getFilePath()
+    public static function getUrl($uniqueName)
     {
-        return App::web()->getConfig()->siteId . "/" . $this->_name;
+        return $uniqueName;
     }
 
     /**
-     * Gets file path in upload folder
+     * Constructor
      *
-     * @return string
+     * @param string $postFileName
      */
-    private function _getFullFilePath()
+    public function __construct()
     {
-        return __DIR__ . "/../public/upload/" . $this->_getFilePath();
+        $this->_setUniqueName();
     }
+
+    /**
+     * Sets file info
+     *
+     * @param string $postFileName
+     *
+     * @return File
+     *
+     * @throws FileException
+     */
+    public function setFileInfo($postFileName = self::DEFAULT_POST_FILE_NAME)
+    {
+        if (!array_key_exists($postFileName, $_FILES)) {
+            throw new FileException(
+                "Unable to find the file with POST name: {name} in files: {files}",
+                [
+                    "name"  => $postFileName,
+                    "files" => json_encode($_FILES)
+                ]
+            );
+        }
+
+        $file = $_FILES[$postFileName];
+
+        if (array_key_exists("name", $file)) {
+            $this->_name = $file["name"];
+        }
+
+        if (array_key_exists("type", $file)) {
+            $this->_type = $file["type"];
+        }
+
+        if (array_key_exists("size", $file)) {
+            $this->_size = $file["size"];
+        }
+
+        if (array_key_exists("tmp_name", $file)) {
+            $this->_tmpName = $file["tmp_name"];
+        }
+
+        return $this;
+    }
+
+    /**
+     * Generates unique file name
+     *
+     * @param string $uniqueName
+     *
+     * @return File
+     */
+    public function setUniqueName($uniqueName = null)
+    {
+        if ($uniqueName !== null) {
+            $this->_uniqueName = $uniqueName;
+            return $this;
+        }
+
+        $this->_uniqueName = substr(md5(uniqid() . rand(1, 999)), 0, 10);
+
+        $extension = trim(pathinfo($this->_name, PATHINFO_EXTENSION));
+        if ($extension !== "") {
+            $this->_uniqueName .= "." . $extension;
+        }
+
+        return $this;
+    }
+
+//    /**
+//     * Uploads the file
+//     *
+//     * @return File
+//     */
+//    public function uploadFile()
+//    {
+//        if (APP_ENV === ENV_DEV) {
+//            $this->_localUpload();
+//        } else {
+//            $this->_externalUpload();
+//        }
+//
+//        return $this;
+//    }
+//
+//    /**
+//     * Uploads the file locally
+//     *
+//     * DEV only
+//     */
+//    protected function _localUpload()
+//    {
+//        $this->generateUniqueName();
+//
+//        $uploadDir = "/var/www/public/upload";
+//        $path = $uploadDir . "/" . $this->generatedName;
+//
+//        move_uploaded_file($this->tmpName, $path);
+//        chmod($path, 0777);
+//    }
+//
+//    /**
+//     * Uploads the file to external service
+//     *
+//     * PROD and PIT
+//     */
+//    protected function _externalUpload()
+//    {
+//        // @TODO Amazon S3 for example
+//    }
+
 }

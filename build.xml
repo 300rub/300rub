@@ -62,7 +62,7 @@
     </target>
 
     <target name="phpunit" depends="create-sql-dumps, clear-db, migrate, load-fixtures">
-        <exec executable="php" failonerror="false">
+        <exec executable="php" failonerror="true">
             <arg value='vendor/phpunit/phpunit/phpunit' />
             <arg value='--bootstrap=tests/bootstrap.php' />
             <arg value='${path}' />
@@ -74,6 +74,12 @@
     <target name="prepare" depends="clear-logs">
         <delete dir="backups" />
         <mkdir dir="backups" />
+        <delete dir="public/upload" />
+        <mkdir dir="public/upload" />
+        <mkdir dir="public/upload/1" />
+        <exec executable="chmod" failonerror="true">
+            <arg line="-R 0777 public/upload" />
+        </exec>
     </target>
 
     <target name="build" depends="prepare, clear-db, migrate, load-fixtures">

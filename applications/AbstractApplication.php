@@ -4,8 +4,10 @@ namespace testS\applications;
 
 use testS\components\Db;
 use testS\components\ErrorHandler;
-use testS\components\exceptions\DbException;
+use testS\components\exceptions\NotFoundException;
+use testS\components\Language;
 use testS\components\Memcached;
+use testS\models\SiteModel;
 
 /**
  * Abstract class for work with application
@@ -28,6 +30,13 @@ abstract class AbstractApplication
 	 * @var Memcached
 	 */
 	private $_memcached = null;
+
+	/**
+	 * Site
+	 *
+	 * @var SiteModel
+	 */
+	protected $site = null;
 
 	/**
 	 * Runs application
@@ -139,5 +148,64 @@ abstract class AbstractApplication
 	public function getMemcached()
 	{
 		return $this->_memcached;
+	}
+
+	/**
+	 * Sets site
+	 *
+	 * @param string $hostname
+	 *
+	 * @return Web
+	 *
+	 * @throws NotFoundException
+	 */
+	protected function setSite($hostname = null)
+	{
+		if (APP_ENV === ENV_DEV || $hostname === null) {
+			$host = DEV_HOST;
+		} else {
+			$host = $hostname;
+		}
+
+		$memcachedKey = "site_" . $host;
+		$siteModel = $this->getMemcached()->get($memcachedKey);
+		if (!$siteModel instanceof SiteModel) {
+			Db::setSystemPdo();
+
+			$siteModel = (new SiteModel())->byHost($host)->find();
+			if ($siteModel === null) {
+				throw new NotFoundException(
+					"Unable to find site with host: {host}",
+					[
+						"host" => $host
+					]
+				);
+			}
+
+			$this->getMemcached()->set($memcachedKey, $siteModel);
+		}
+
+		Db::setPdo(
+			$siteModel->get("dbHost"),
+			$siteModel->get("dbUser"),
+			$siteModel->get("dbPassword"),
+			$siteModel->get("dbName")
+		);
+
+		Language::setActiveId($siteModel->get("language"));
+
+		$this->site = $siteModel;
+
+		return $this;
+	}
+
+	/**
+	 * Gets site
+	 *
+	 * @return SiteModel
+	 */
+	public function getSite()
+	{
+		return $this->site;
 	}
 }
