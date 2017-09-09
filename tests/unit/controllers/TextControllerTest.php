@@ -945,7 +945,7 @@ class TextControllerTest extends AbstractControllerTest
                             "title"     => "Text design",
                             "namespace" => "designTextModel",
                             "labels"    => [
-                                "setHover" => "Set hover",
+                                "mouseHoverEffect" => "Mouse-over effect",
                             ],
                             "values"    => $expectedTextData
                         ]

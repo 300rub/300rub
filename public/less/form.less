@@ -161,11 +161,12 @@ input.form-instance {
 .form-container-checkbox-on-off {
   label {
     .transition(background-color);
-    .border-radius(4px);
     display: block;
     cursor: pointer;
     min-height: 40px;
-    padding: 5px 10px;
+    padding: 5px 10px 6px 10px;
+    border-bottom: 1px solid @grayBorderColor;
+    position: relative;
 
     &:hover {
       background-color: @lightGrayBackground;
@@ -181,7 +182,10 @@ input.form-instance {
     .on-off-wrapper {
       .border-radius(4px);
       display: block;
-      float: right;
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      margin-top: -15px;
       width: 60px;
       border: 1px solid @grayBorderColor;
       overflow: hidden;

@@ -194,7 +194,7 @@ class DesignTextModel extends AbstractModel
     public static function getLabels()
     {
         return [
-            "setHover" => Language::t("design", "setHover"),
+            "mouseHoverEffect" => Language::t("design", "mouseHoverEffect"),
         ];
     }
 

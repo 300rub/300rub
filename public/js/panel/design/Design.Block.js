@@ -486,7 +486,7 @@
                 new TestS.Form({
                     type: "checkboxOnOff",
                     value: this._values["hasMarginHover"],
-                    label: this._getLabel("setHover"),
+                    label: this._getLabel("mouseHoverEffect"),
                     onCheck: $.proxy(function () {
                         this._values["hasMarginHover"] = true;
                         $container.addClass("has-hover");
@@ -505,7 +505,7 @@
                 new TestS.Form({
                     type: "checkboxOnOff",
                     value: this._values["hasMarginAnimation"],
-                    label: this._getLabel("useAnimation"),
+                    label: this._getLabel("mouseHoverAnimation"),
                     class: "has-animation",
                     onCheck: $.proxy(function () {
                         this._values["hasMarginAnimation"] = true;
@@ -708,9 +708,9 @@
 
             if (this._values["hasPaddingHover"] !== null) {
                 new TestS.Form({
-                    type: "checkbox",
+                    type: "checkboxOnOff",
                     value: this._values["hasPaddingHover"],
-                    label: this._getLabel("setHover"),
+                    label: this._getLabel("mouseHoverEffect"),
                     onCheck: $.proxy(function () {
                         this._values["hasPaddingHover"] = true;
                         $container.addClass("has-hover");
@@ -727,9 +727,9 @@
 
             if (this._values["hasPaddingAnimation"] !== null) {
                 new TestS.Form({
-                    type: "checkbox",
+                    type: "checkboxOnOff",
                     value: this._values["hasPaddingAnimation"],
-                    label: this._getLabel("useAnimation"),
+                    label: this._getLabel("mouseHoverAnimation"),
                     class: "has-animation",
                     onCheck: $.proxy(function () {
                         this._values["hasPaddingAnimation"] = true;
@@ -834,9 +834,9 @@
 
             if (this._values["hasBackgroundHover"] !== null) {
                 new TestS.Form({
-                    type: "checkbox",
+                    type: "checkboxOnOff",
                     value: this._values["hasBackgroundHover"],
-                    label: this._getLabel("setHover"),
+                    label: this._getLabel("mouseHoverEffect"),
                     onCheck: $.proxy(function () {
                         $container.addClass("has-hover");
                         this._values["hasBackgroundHover"] = true;
@@ -853,9 +853,9 @@
 
             if (this._values["hasBackgroundAnimation"] !== null) {
                 new TestS.Form({
-                    type: "checkbox",
+                    type: "checkboxOnOff",
                     value: this._values["hasBackgroundAnimation"],
-                    label: this._getLabel("useAnimation"),
+                    label: this._getLabel("mouseHoverAnimation"),
                     class: "has-animation",
                     onCheck: $.proxy(function () {
                         this._values["hasBackgroundAnimation"] = true;
@@ -874,7 +874,7 @@
                 $container.addClass("has-gradient");
             }
             new TestS.Form({
-                type: "checkbox",
+                type: "checkboxOnOff",
                 value: hasGradient,
                 label: this._getLabel("useGradient"),
                 onCheck: $.proxy(function () {
@@ -1381,7 +1381,7 @@
                 new TestS.Form({
                     type: "checkbox",
                     value: this._values["hasBorderHover"],
-                    label: this._getLabel("setHover"),
+                    label: this._getLabel("mouseHoverEffect"),
                     onCheck: $.proxy(function () {
                         this._values["hasBorderHover"] = true;
                         $container.addClass("has-hover");
@@ -1400,7 +1400,7 @@
                 new TestS.Form({
                     type: "checkbox",
                     value: this._values["hasBorderAnimation"],
-                    label: this._getLabel("useAnimation"),
+                    label: this._getLabel("mouseHoverAnimation"),
                     class: "has-animation",
                     onCheck: $.proxy(function () {
                         this._values["hasBorderAnimation"] = true;

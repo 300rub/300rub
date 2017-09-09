@@ -35,12 +35,12 @@ return [
         Language::LANGUAGE_EN_ID => "Text design",
         Language::LANGUAGE_RU_ID => "",
     ],
-    "setHover"     => [
-        Language::LANGUAGE_EN_ID => "Set hover",
+    "mouseHoverEffect"     => [
+        Language::LANGUAGE_EN_ID => "Mouse-over effect",
         Language::LANGUAGE_RU_ID => ""
     ],
-    "useAnimation"     => [
-        Language::LANGUAGE_EN_ID => "Use animation",
+    "mouseHoverAnimation"     => [
+        Language::LANGUAGE_EN_ID => "Mouse-over animation",
         Language::LANGUAGE_RU_ID => "",
     ],
     "background"     => [

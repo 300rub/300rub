@@ -8,7 +8,7 @@
 
     .category-title {
       margin-bottom: 5px;
-      font-size: 16px;
+      font-size: 18px;
       font-weight: 300;
       text-align: center;
     }
@@ -20,6 +20,10 @@
 
   .form-spinner {
     position: absolute;
+  }
+
+  .form-container-checkbox-on-off {
+    margin: 0 15px;
   }
 }
 
@@ -59,21 +63,21 @@
       }
 
       .margin-top-hover, .margin-right-hover, .margin-bottom-hover, .margin-left-hover {
-        .transition(opacity);
-        opacity: 0;
-        z-index: -10;
+        visibility: hidden;
       }
 
       .margin-top-hover {
+        .transition(margin-left);
         top: 1px;
         left: 50%;
-        margin-left: -5px;
+        margin-left: -35px;
       }
 
       .margin-right-hover {
+        .transition(top);
         left: 50%;
         margin-left: 57px;
-        top: 83px;
+        top: 60px;
 
         .icon-before {
           position: absolute;
@@ -84,15 +88,17 @@
       }
 
       .margin-bottom-hover {
+        .transition(margin-left);
         top: 119px;
         left: 50%;
-        margin-left: -5px;
+        margin-left: -35px;
       }
 
       .margin-left-hover {
+        .transition(top);
         left: 50%;
         margin-left: -127px;
-        top: 83px;
+        top: 60px;
 
         .icon-before {
           position: absolute;
@@ -127,10 +133,6 @@
     .has-animation {
       display: none;
     }
-
-    .form-container-checkbox-on-off {
-      margin: 0 30px;
-    }
   }
 
   .margin-container.has-hover {
@@ -151,8 +153,23 @@
     }
 
     .margin-top-hover, .margin-right-hover, .margin-bottom-hover, .margin-left-hover {
-      opacity: 1;
-      z-index: auto;
+      visibility: visible;
+    }
+
+    .margin-top-hover {
+      margin-left: -5px;
+    }
+
+    .margin-right-hover {
+      top: 83px;
+    }
+
+    .margin-bottom-hover {
+      margin-left: -5px;
+    }
+
+    .margin-left-hover {
+      top: 83px;
     }
 
     .has-animation {
@@ -161,45 +178,55 @@
   }
 
   .padding-container {
+    padding-bottom: 5px;
+
     .relative-container {
       height: 155px;
 
       .padding-top {
+        .transition(margin-left);
         top: 1px;
         left: 50%;
         margin-left: -35px;
       }
 
       .padding-right {
+        .transition(top);
         top: 60px;
         left: 50%;
         margin-left: 57px;
       }
 
       .padding-bottom {
+        .transition(margin-left);
         top: 119px;
         left: 50%;
         margin-left: -35px;
       }
 
       .padding-left {
+        .transition(top);
         top: 60px;
         left: 50%;
         margin-left: -127px;
       }
 
+      .padding-top-hover, .padding-right-hover, .padding-bottom-hover, .padding-left-hover {
+        visibility: hidden;
+      }
+
       .padding-top-hover {
+        .transition(margin-left);
         top: 1px;
         left: 50%;
-        margin-left: -5px;
-        display: none;
+        margin-left: -35px;
       }
 
       .padding-right-hover {
+        .transition(top);
         left: 50%;
         margin-left: 57px;
-        top: 83px;
-        display: none;
+        top: 60px;
 
         .icon-before {
           position: absolute;
@@ -210,17 +237,17 @@
       }
 
       .padding-bottom-hover {
+        .transition(margin-left);
         top: 119px;
         left: 50%;
-        margin-left: -5px;
-        display: none;
+        margin-left: -35px;
       }
 
       .padding-left-hover {
+        .transition(top);
         left: 50%;
         margin-left: -127px;
-        top: 83px;
-        display: none;
+        top: 60px;
 
         .icon-before {
           position: absolute;
@@ -279,7 +306,23 @@
     }
 
     .padding-top-hover, .padding-right-hover, .padding-bottom-hover, .padding-left-hover {
-      display: block;
+      visibility: visible;
+    }
+
+    .padding-top-hover {
+      margin-left: -5px;
+    }
+
+    .padding-right-hover {
+      top: 83px;
+    }
+
+    .padding-bottom-hover {
+      margin-left: -5px;
+    }
+
+    .padding-left-hover {
+      top: 83px;
     }
 
     .has-animation {

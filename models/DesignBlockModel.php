@@ -111,8 +111,8 @@ class DesignBlockModel extends AbstractModel
         return [
             "margin"                 => Language::t("design", "margin"),
             "padding"                => Language::t("design", "padding"),
-            "setHover"               => Language::t("design", "setHover"),
-            "useAnimation"           => Language::t("design", "useAnimation"),
+            "mouseHoverEffect"       => Language::t("design", "mouseHoverEffect"),
+            "mouseHoverAnimation"    => Language::t("design", "mouseHoverAnimation"),
             "background"             => Language::t("design", "background"),
             "backgroundColor"        => Language::t("design", "backgroundColor"),
             "borderColor"            => Language::t("design", "borderColor"),

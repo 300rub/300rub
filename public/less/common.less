@@ -74,10 +74,12 @@ a, button {
   margin: 5px 0;
 
   .accordion-title {
+    .border-radius(4px);
+    .transition(background-color);
     display: block;
-    line-height: 30px;
-    padding: 0 15px 0 12px;
-    background: @grayBackground;
+    line-height: 20px;
+    padding: 5px 15px 5px 12px;
+    border: 1px solid @grayBorderColor;
 
     .fa {
       margin-right: 5px;
@@ -86,9 +88,7 @@ a, button {
     }
 
     &:hover {
-      .text {
-        text-decoration: underline;
-      }
+      background-color: @lightGrayBackground;
     }
   }
 
@@ -159,7 +159,7 @@ a, button {
 .btn {
   .border-radius(4px);
   border: 1px solid;
-  height: 26px;
+  height: 30px;
   padding: 0 16px 1px 16px;
 
   * {

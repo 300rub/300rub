@@ -900,7 +900,7 @@
             new TestS.Form({
                 type: "checkbox",
                 value: this._values["hasHover"],
-                label: this._getLabel("setHover"),
+                label: this._getLabel("mouseHoverEffect"),
                 onCheck: $.proxy(function () {
                     this._values["hasHover"] = true;
                     this.$_hoverContainer.removeClass("hidden");
