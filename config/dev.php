@@ -25,4 +25,8 @@ return [
         "host" => "localhost",
         "port" => 11211
     ],
+    "file" => [
+        "pathMask" => __DIR__ . "../public/upload/%s/%s",
+        "urlMask" => "http://127.0.0.1/upload/%s/%s"
+    ]
 ];

@@ -32,14 +32,15 @@ class ImageInstanceModelTest extends AbstractModelTest
         return [
             "empty1" => [
                 [],
-                [
-                    "fileName" => ["required"]
-                ]
+                [],
+                null,
+                null,
+                self::EXCEPTION_MODEL
             ],
             "empty2" => [
                 [
                     "imageAlbumId" => "",
-                    "fileName"     => "",
+                    "fileModel"    => "",
                     "isCover"      => "",
                     "sort"         => "",
                     "alt"          => "",
@@ -54,13 +55,16 @@ class ImageInstanceModelTest extends AbstractModelTest
                     "thumbX2"      => "",
                     "thumbY2"      => "",
                 ],
-                [
-                    "fileName" => ["required"]
-                ]
+                [],
+                null,
+                null,
+                self::EXCEPTION_MODEL
             ],
             "empty3" => [
                 [
-                    "fileName" => "file.jpg",
+                    "fileModel" => [
+                        "uniqueName" => "file7.jpg",
+                    ]
                 ],
                 [],
                 null,
@@ -70,11 +74,15 @@ class ImageInstanceModelTest extends AbstractModelTest
             "empty4" => [
                 [
                     "imageAlbumId" => 1,
-                    "fileName"     => "file.jpg",
+                    "fileModel" => [
+                        "uniqueName" => "file.jpg",
+                    ]
                 ],
                 [
                     "imageAlbumId" => 1,
-                    "fileName"     => "file.jpg",
+                    "fileModel" => [
+                        "uniqueName" => "file.jpg",
+                    ],
                     "isCover"      => false,
                     "sort"         => 0,
                     "alt"          => "",
@@ -104,7 +112,9 @@ class ImageInstanceModelTest extends AbstractModelTest
             "correct1" => [
                 [
                     "imageAlbumId" => 1,
-                    "fileName"     => "file1.jpg",
+                    "fileModel" => [
+                        "uniqueName" => "file.jpg",
+                    ],
                     "isCover"      => true,
                     "sort"         => 10,
                     "alt"          => "Alt 1",
@@ -121,7 +131,9 @@ class ImageInstanceModelTest extends AbstractModelTest
                 ],
                 [
                     "imageAlbumId" => 1,
-                    "fileName"     => "file1.jpg",
+                    "fileModel" => [
+                        "uniqueName" => "file.jpg",
+                    ],
                     "isCover"      => true,
                     "sort"         => 10,
                     "alt"          => "Alt 1",
@@ -138,7 +150,9 @@ class ImageInstanceModelTest extends AbstractModelTest
                 ],
                 [
                     "imageAlbumId" => 1,
-                    "fileName"     => "file2.jpg",
+                    "fileModel" => [
+                        "uniqueName" => "file2.jpg",
+                    ],
                     "isCover"      => false,
                     "sort"         => 20,
                     "alt"          => "Alt 2",
@@ -155,7 +169,9 @@ class ImageInstanceModelTest extends AbstractModelTest
                 ],
                 [
                     "imageAlbumId" => 1,
-                    "fileName"     => "file2.jpg",
+                    "fileModel" => [
+                        "uniqueName" => "file2.jpg",
+                    ],
                     "isCover"      => false,
                     "sort"         => 20,
                     "alt"          => "Alt 2",
@@ -185,7 +201,9 @@ class ImageInstanceModelTest extends AbstractModelTest
             "incorrect1" => [
                 [
                     "imageAlbumId" => "incorrect",
-                    "fileName"     => "incorrect",
+                    "fileModel" => [
+                        "uniqueName" => "incorrect",
+                    ],
                     "isCover"      => "incorrect",
                     "sort"         => "incorrect",
                     "alt"          => "incorrect",
@@ -208,7 +226,9 @@ class ImageInstanceModelTest extends AbstractModelTest
             "incorrect2" => [
                 [
                     "imageAlbumId" => "1 ",
-                    "fileName"     => "<b> 123 </b>",
+                    "fileModel" => [
+                        "uniqueName" => "<b> 123 </b>",
+                    ],
                     "isCover"      => "incorrect",
                     "sort"         => "incorrect",
                     "alt"          => "incorrect",
@@ -225,7 +245,9 @@ class ImageInstanceModelTest extends AbstractModelTest
                 ],
                 [
                     "imageAlbumId" => 1,
-                    "fileName"     => "123",
+                    "fileModel" => [
+                        "uniqueName" => "123",
+                    ],
                     "isCover"      => false,
                     "sort"         => 0,
                     "alt"          => "incorrect",
@@ -241,16 +263,22 @@ class ImageInstanceModelTest extends AbstractModelTest
                     "thumbY2"      => 0,
                 ],
                 [
-                    "fileName" => $this->generateStringWithLength(26)
+                    "fileModel" => [
+                        "uniqueName" => $this->generateStringWithLength(26),
+                    ],
                 ],
                 [
-                    "fileName" => ["maxLength"]
+                    "fileModel" => [
+                        "uniqueName" => ["maxLength"]
+                    ],
                 ]
             ],
             "incorrect3" => [
                 [
                     "imageAlbumId" => "1 ",
-                    "fileName"     => 123,
+                    "fileModel" => [
+                        "uniqueName" => 12345
+                    ],
                     "isCover"      => 9999,
                     "sort"         => 9999,
                     "alt"          => 9999,
@@ -267,7 +295,9 @@ class ImageInstanceModelTest extends AbstractModelTest
                 ],
                 [
                     "imageAlbumId" => 1,
-                    "fileName"     => "123",
+                    "fileModel" => [
+                        "uniqueName" => "12345",
+                    ],
                     "isCover"      => true,
                     "sort"         => 9999,
                     "alt"          => "9999",
@@ -299,7 +329,9 @@ class ImageInstanceModelTest extends AbstractModelTest
                 ],
                 [
                     "imageAlbumId" => 1,
-                    "fileName"     => "123",
+                    "fileModel" => [
+                        "uniqueName" => "12345",
+                    ],
                     "isCover"      => false,
                     "sort"         => -10,
                     "alt"          => "-10",
@@ -328,7 +360,9 @@ class ImageInstanceModelTest extends AbstractModelTest
         $this->duplicate(
             [
                 "imageAlbumId" => 1,
-                "fileName"     => "file1.jpg",
+                "fileModel" => [
+                    "uniqueName" => "file.jpg",
+                ],
                 "isCover"      => true,
                 "sort"         => 10,
                 "alt"          => "Alt 1",
@@ -343,9 +377,8 @@ class ImageInstanceModelTest extends AbstractModelTest
                 "thumbX2"      => 35,
                 "thumbY2"      => 45,
             ],
-            [
-                "fileName" => ["required"]
-            ]
+            [],
+            self::EXCEPTION_MODEL
         );
     }
 }

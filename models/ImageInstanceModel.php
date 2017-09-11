@@ -34,11 +34,6 @@ class ImageInstanceModel extends AbstractModel
     const THUMB_PREFIX = "thumb_";
 
     /**
-     * File name length
-     */
-    const FILE_NAME_LENGTH = 16;
-
-    /**
      * Gets table name
      *
      * @return string
@@ -56,19 +51,12 @@ class ImageInstanceModel extends AbstractModel
     public function getFieldsInfo()
     {
         return [
-            "imageAlbumId" => [
-                self::FIELD_RELATION_TO_PARENT => "ImageGroupModel",
+            "fileId" => [
+                self::FIELD_RELATION => "FileModel",
                 self::FIELD_SKIP_DUPLICATION => true,
             ],
-            "fileName"     => [
-                self::FIELD_TYPE => self::FIELD_TYPE_STRING,
-                self::FIELD_VALIDATION => [
-                    Validator::TYPE_REQUIRED,
-                    Validator::TYPE_MAX_LENGTH => 25,
-                ],
-                self::FIELD_VALUE      => [
-                    ValueGenerator::CLEAR_STRIP_TAGS
-                ],
+            "imageAlbumId" => [
+                self::FIELD_RELATION_TO_PARENT => "ImageGroupModel",
                 self::FIELD_SKIP_DUPLICATION => true,
             ],
             "isCover"      => [

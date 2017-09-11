@@ -86,18 +86,10 @@ class RecordInstanceModelTest extends AbstractModelTest
                     "date"                         => "",
                     "sort"                         => "",
                 ],
-                [
-                    "seoModel"                => [
-                        "name" => ["required"],
-                        "url"  => ["required", "url"]
-                    ],
-                    "imageGroupModel"         => [
-                        "name" => ["required"]
-                    ],
-                    "coverImageInstanceModel" => [
-                        "fileName" => ["required"]
-                    ]
-                ],
+                [],
+                null,
+                null,
+                self::EXCEPTION_MODEL
             ],
             "empty5" => [
                 [
@@ -117,7 +109,9 @@ class RecordInstanceModelTest extends AbstractModelTest
                     ],
                     "coverImageInstanceModel"      => [
                         "imageAlbumId" => 1,
-                        "fileName"     => "name"
+                        "fileModel" => [
+                            "uniqueName" => "name"
+                        ],
                     ],
                 ],
                 [
@@ -144,7 +138,9 @@ class RecordInstanceModelTest extends AbstractModelTest
                     ],
                     "coverImageInstanceModel"      => [
                         "imageAlbumId" => 1,
-                        "fileName"     => "name",
+                        "fileModel" => [
+                            "uniqueName" => "name"
+                        ],
                         "isCover"      => false,
                         "sort"         => 0,
                         "alt"          => "",
@@ -198,7 +194,9 @@ class RecordInstanceModelTest extends AbstractModelTest
                     ],
                     "coverImageInstanceModel"      => [
                         "imageAlbumId" => 1,
-                        "fileName"     => "record",
+                        "fileModel" => [
+                            "uniqueName" => "record"
+                        ],
                         "isCover"      => false,
                         "sort"         => 0,
                         "alt"          => "",
@@ -239,7 +237,9 @@ class RecordInstanceModelTest extends AbstractModelTest
                     ],
                     "coverImageInstanceModel"      => [
                         "imageAlbumId" => 1,
-                        "fileName"     => "record",
+                        "fileModel" => [
+                            "uniqueName" => "record"
+                        ],
                         "isCover"      => false,
                         "sort"         => 0,
                         "alt"          => "",
@@ -280,7 +280,9 @@ class RecordInstanceModelTest extends AbstractModelTest
                     ],
                     "coverImageInstanceModel"      => [
                         "imageAlbumId" => 1,
-                        "fileName"     => "name.jpg",
+                        "fileModel" => [
+                            "uniqueName" => "name.jpg"
+                        ],
                         "isCover"      => false,
                         "sort"         => 10,
                         "alt"          => "123",
@@ -321,7 +323,9 @@ class RecordInstanceModelTest extends AbstractModelTest
                     ],
                     "coverImageInstanceModel"      => [
                         "imageAlbumId" => 1,
-                        "fileName"     => "name.jpg",
+                        "fileModel" => [
+                            "uniqueName" => "name.jpg"
+                        ],
                         "isCover"      => false,
                         "sort"         => 10,
                         "alt"          => "123",
@@ -391,7 +395,9 @@ class RecordInstanceModelTest extends AbstractModelTest
                     ],
                     "coverImageInstanceModel"      => [
                         "imageAlbumId" => "1asd",
-                        "fileName"     => " <b>record ",
+                        "fileModel" => [
+                            "uniqueName" => " <b>record ",
+                        ],
                         "isCover"      => 0,
                         "sort"         => "incorrect",
                         "alt"          => 333,
@@ -432,7 +438,9 @@ class RecordInstanceModelTest extends AbstractModelTest
                     ],
                     "coverImageInstanceModel"      => [
                         "imageAlbumId" => 1,
-                        "fileName"     => "record",
+                        "fileModel" => [
+                            "uniqueName" => "record",
+                        ],
                         "isCover"      => false,
                         "sort"         => 0,
                         "alt"          => "333",
@@ -485,7 +493,9 @@ class RecordInstanceModelTest extends AbstractModelTest
                 ],
                 "coverImageInstanceModel"      => [
                     "imageAlbumId" => 1,
-                    "fileName"     => "record",
+                    "fileModel"    => [
+                        "uniqueName" => "record"
+                    ],
                     "isCover"      => false,
                     "sort"         => 0,
                     "alt"          => "",
