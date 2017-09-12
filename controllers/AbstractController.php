@@ -36,6 +36,8 @@ abstract class AbstractController
     // Check data constants
     const TYPE_INT = "int";
     const TYPE_ARRAY = "array";
+    const TYPE_BOOL = "bool";
+    const TYPE_STRING = "string";
     const NOT_EMPTY = "notEmpty";
 
     /**
@@ -441,6 +443,28 @@ abstract class AbstractController
             ) {
                 throw new BadRequestException(
                     "The field type of {field} is not integer",
+                    [
+                        "field" => $field
+                    ]
+                );
+            }
+
+            if (in_array(self::TYPE_STRING, $options)
+                && !is_string($value)
+            ) {
+                throw new BadRequestException(
+                    "The field type of {field} is not string",
+                    [
+                        "field" => $field
+                    ]
+                );
+            }
+
+            if (in_array(self::TYPE_BOOL, $options)
+                && !is_bool($value)
+            ) {
+                throw new BadRequestException(
+                    "The field type of {field} is not bool",
                     [
                         "field" => $field
                     ]

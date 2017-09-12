@@ -147,8 +147,8 @@ abstract class AbstractControllerTest extends AbstractUnitTest
      * @param string $controller
      * @param string $action
      * @param string $fileName
-     * @param string $mimeType
      * @param array  $data
+     * @param string $mimeType
      * @param int    $language
      *
      * @return AbstractControllerTest
@@ -157,8 +157,8 @@ abstract class AbstractControllerTest extends AbstractUnitTest
         $controller,
         $action,
         $fileName,
-        $mimeType = "application/octet-stream",
         array $data = [],
+        $mimeType = "application/octet-stream",
         $language = Language::LANGUAGE_EN_ID
     ) {
         $host = trim(shell_exec("/sbin/ip route|awk '/default/ { print $3 }'"));

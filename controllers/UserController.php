@@ -83,21 +83,13 @@ class UserController extends AbstractController
     {
         $data = $this->getData();
 
-        if (empty($data["user"])
-            || empty($data["password"])
-            || !array_key_exists("isRemember", $data)
-            || !is_string($data["user"])
-            || !is_string($data["password"])
-            || !is_bool($data["isRemember"])
-            || strlen($data["password"]) !== 32
-        ) {
-            throw new BadRequestException(
-                "Incorrect request for user authorization. Data: {data}",
-                [
-                    "data" => json_encode($data)
-                ]
-            );
-        }
+        $this->checkData(
+            [
+                "user"       => [self::TYPE_STRING, self::NOT_EMPTY],
+                "password"   => [self::TYPE_STRING, self::NOT_EMPTY],
+                "isRemember" => [self::TYPE_BOOL],
+            ]
+        );
 
         $userModel = (new UserModel())->byLogin($data["user"])->find();
         if (!$userModel instanceof UserModel) {
@@ -289,15 +281,13 @@ class UserController extends AbstractController
     {
         $this->checkUser();
 
+        $this->checkData(
+            [
+                "id" => [self::NOT_EMPTY],
+            ]
+        );
+
         $data = $this->getData();
-        if (empty($data["id"])) {
-            throw new BadRequestException(
-                "Incorrect request to get user sessions. Data: {data}",
-                [
-                    "data" => json_encode($data)
-                ]
-            );
-        }
         $id = (int)$data["id"];
 
         if ($id !== App::web()->getUser()->getId()) {
@@ -788,25 +778,19 @@ class UserController extends AbstractController
     {
         $this->checkSettingsOperation(Operation::SETTINGS_USER_ADD);
 
+        $this->checkData(
+            [
+                "name"            => [self::TYPE_STRING, self::NOT_EMPTY],
+                "login"           => [self::TYPE_STRING, self::NOT_EMPTY],
+                "email"           => [self::TYPE_STRING, self::NOT_EMPTY],
+                "type"            => [self::TYPE_INT],
+                "password"        => [self::TYPE_STRING, self::NOT_EMPTY],
+                "passwordConfirm" => [self::TYPE_STRING, self::NOT_EMPTY],
+                "operations"      => [self::TYPE_ARRAY],
+            ]
+        );
+
         $data = $this->getData();
-        if (!array_key_exists("name", $data)
-            || !array_key_exists("login", $data)
-            || !array_key_exists("email", $data)
-            || !array_key_exists("type", $data)
-            || !array_key_exists("password", $data)
-            || !array_key_exists("passwordConfirm", $data)
-            || strlen($data["password"]) !== 32
-            || strlen($data["passwordConfirm"]) !== 32
-            || !array_key_exists("operations", $data)
-            || !is_array($data["operations"])
-        ) {
-            throw new BadRequestException(
-                "Incorrect request to add user. Data: {data}",
-                [
-                    "data" => json_encode($data)
-                ]
-            );
-        }
 
         if ($data["password"] !== $data["passwordConfirm"]) {
             return [
@@ -855,23 +839,19 @@ class UserController extends AbstractController
     public function updateUser()
     {
         $this->checkSettingsOperation(Operation::SETTINGS_USER_UPDATE);
-        $user = App::web()->getUser();
 
+        $this->checkData(
+            [
+                "id"               => [self::TYPE_INT, self::NOT_EMPTY],
+                "name"             => [self::TYPE_STRING, self::NOT_EMPTY],
+                "login"            => [self::TYPE_STRING, self::NOT_EMPTY],
+                "email"            => [self::TYPE_STRING, self::NOT_EMPTY],
+                "isChangePassword" => [self::TYPE_BOOL],
+            ]
+        );
+
+        $user = App::web()->getUser();
         $data = $this->getData();
-        if (!array_key_exists("id", $data)
-            || !array_key_exists("name", $data)
-            || !array_key_exists("login", $data)
-            || !array_key_exists("email", $data)
-            || !array_key_exists("isChangePassword", $data)
-            || !is_bool($data["isChangePassword"])
-        ) {
-            throw new BadRequestException(
-                "Incorrect request to update user. Data: {data}",
-                [
-                    "data" => json_encode($data)
-                ]
-            );
-        }
 
         $userModel = (new UserModel())->byId($data["id"])->find();
         if ($userModel === null) {
@@ -962,15 +942,13 @@ class UserController extends AbstractController
     {
         $this->checkSettingsOperation(Operation::SETTINGS_USER_DELETE);
 
+        $this->checkData(
+            [
+                "id" => [self::TYPE_INT, self::NOT_EMPTY],
+            ]
+        );
+
         $data = $this->getData();
-        if (!array_key_exists("id", $data)) {
-            throw new BadRequestException(
-                "Incorrect request to delete user. Data: {data}",
-                [
-                    "data" => json_encode($data)
-                ]
-            );
-        }
 
         $userModel = (new UserModel())->byId($data["id"])->find();
         if ($userModel === null) {

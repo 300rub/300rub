@@ -203,14 +203,6 @@ class UserControllerTest extends AbstractControllerTest
                 ],
                 400
             ],
-            "incorrectPasswordLength" => [
-                "data" => [
-                    "user"       => "user",
-                    "password"   => "pass",
-                    "isRemember" => false,
-                ],
-                400
-            ],
             "incorrectUser"           => [
                 "data" => [
                     "user"       => "incorrect",
@@ -1084,7 +1076,7 @@ class UserControllerTest extends AbstractControllerTest
      * @param bool   $isSuccess
      * @param array  $expectedOperations
      *
-     * @dataProvider dataProviderForTestAddUser
+     * @dataProvider dataProviderForTestCreateUser
      *
      * @return bool
      */
@@ -1133,11 +1125,11 @@ class UserControllerTest extends AbstractControllerTest
     }
 
     /**
-     * Data provider for testAddUser
+     * Data provider for testCreateUser
      *
      * @return array
      */
-    public function dataProviderForTestAddUser()
+    public function dataProviderForTestCreateUser()
     {
         $password1 = $this->generateStringWithLength(32);
         $password2 = $this->generateStringWithLength(32);

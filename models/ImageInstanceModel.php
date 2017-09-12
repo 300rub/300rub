@@ -2,6 +2,7 @@
 
 namespace testS\models;
 
+use testS\components\exceptions\FileException;
 use testS\components\Validator;
 use testS\components\ValueGenerator;
 
@@ -155,5 +156,35 @@ class ImageInstanceModel extends AbstractModel
                 self::FIELD_SKIP_DUPLICATION => true,
             ],
         ];
+    }
+
+    public function upload()
+    {
+        $fileModel = new FileModel();
+        $fileModel->parsePostRequest();
+
+        $info = getimagesize($fileModel->getTmpName());
+        if (!is_array($info)) {
+            throw new FileException(
+                "Uploaded file: {file} is not an image",
+                [
+                    "file" => $fileModel->get("originalName")
+                ]
+            );
+        }
+
+        $extension = "";
+        if (array_key_exists("mime", $info)) {
+            switch ($info["mime"]) {
+                case "image/jpeg":
+                    $extension = "jpg";
+                    break;
+            }
+        }
+        $fileModel->setUniqueName($extension);
+
+        $fileModel->upload();
+
+        return $fileModel->getUrl();
     }
 }

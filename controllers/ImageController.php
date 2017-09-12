@@ -2,7 +2,10 @@
 
 namespace testS\controllers;
 
+use testS\components\Operation;
+use testS\models\BlockModel;
 use testS\models\FileModel;
+use testS\models\ImageInstanceModel;
 
 /**
  * ImageController
@@ -97,11 +100,20 @@ class ImageController extends AbstractController
      */
     public function createImage()
     {
-        $fileModel = new FileModel();
-        $fileModel->upload();
+        $this->checkData(
+            [
+                "id" => [self::NOT_EMPTY],
+            ]
+        );
+
+        $data = $this->getData();
+
+        $this->checkBlockOperation(BlockModel::TYPE_IMAGE, $data["id"], Operation::TEXT_UPDATE_CONTENT);
+
+        $imageInstanceModel = new ImageInstanceModel();
 
         return [
-            "path" => $fileModel->getUrl()
+            "path" => $imageInstanceModel->upload()
         ];
     }
 

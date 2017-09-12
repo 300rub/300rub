@@ -118,10 +118,6 @@ class FileModel extends AbstractModel
      */
     public function upload()
     {
-        $this
-            ->_setFileInfo()
-            ->_setUniqueName();
-
         if (APP_ENV === ENV_DEV) {
             $this->_localUpload();
         } else {
@@ -132,13 +128,13 @@ class FileModel extends AbstractModel
     }
 
     /**
-     * Sets file info
+     * Parses POST request
      *
      * @return FileModel
      *
      * @throws FileException
      */
-    private function _setFileInfo()
+    public function parsePostRequest()
     {
         if (!array_key_exists(self::POST_FILE_NAME, $_FILES)) {
             throw new FileException(
@@ -172,11 +168,23 @@ class FileModel extends AbstractModel
     }
 
     /**
+     * Gets tmp name
+     *
+     * @return string
+     */
+    public function getTmpName()
+    {
+        return $this->_tmpName;
+    }
+
+    /**
      * Ses unique file name
+     *
+     * @param string $extension
      *
      * @return FileModel
      */
-    private function _setUniqueName()
+    public function setUniqueName($extension = "")
     {
         if ($this->get("uniqueName") !== "") {
             return $this;
@@ -184,7 +192,10 @@ class FileModel extends AbstractModel
 
         $uniqueName = substr(md5(uniqid() . rand(1, 999)), 0, 10);
 
-        $extension = trim(pathinfo($this->get("originalName"), PATHINFO_EXTENSION));
+        if ($extension === "") {
+            $extension = trim(strtolower(pathinfo($this->get("originalName"), PATHINFO_EXTENSION)));
+        }
+
         if ($extension !== "") {
             $uniqueName .= "." . $extension;
         }

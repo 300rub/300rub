@@ -230,20 +230,15 @@ class TextController extends AbstractController
     {
         $this->checkBlockOperation(BlockModel::TYPE_TEXT, Operation::ALL, Operation::TEXT_ADD);
 
+        $this->checkData(
+            [
+                "name"      => [self::TYPE_STRING],
+                "type"      => [self::TYPE_INT],
+                "hasEditor" => [self::TYPE_BOOL],
+            ]
+        );
+
         $data = $this->getData();
-        if (!array_key_exists("name", $data)
-            || !array_key_exists("type", $data)
-            || !array_key_exists("hasEditor", $data)
-            || !is_int($data["type"])
-            || !is_bool($data["hasEditor"])
-        ) {
-            throw new BadRequestException(
-                "Incorrect request to add text block. Data: {data}",
-                [
-                    "data" => json_encode($data)
-                ]
-            );
-        }
 
         $textModel = new TextModel();
         $textModel->set(
@@ -295,23 +290,16 @@ class TextController extends AbstractController
      */
     public function updateBlock()
     {
+        $this->checkData(
+            [
+                "id"        => [self::TYPE_INT, self::NOT_EMPTY],
+                "name"      => [self::TYPE_STRING],
+                "type"      => [self::TYPE_INT],
+                "hasEditor" => [self::TYPE_BOOL],
+            ]
+        );
+
         $data = $this->getData();
-        if (!array_key_exists("id", $data)
-            || !array_key_exists("name", $data)
-            || !array_key_exists("type", $data)
-            || !array_key_exists("hasEditor", $data)
-            || !is_int($data["id"])
-            || !is_int($data["type"])
-            || !is_bool($data["hasEditor"])
-            || $data["id"] === 0
-        ) {
-            throw new BadRequestException(
-                "Incorrect request to update text block. Data: {data}",
-                [
-                    "data" => json_encode($data)
-                ]
-            );
-        }
 
         $this->checkBlockOperation(BlockModel::TYPE_TEXT, $data["id"], Operation::TEXT_UPDATE_SETTINGS);
 
@@ -355,18 +343,13 @@ class TextController extends AbstractController
      */
     public function deleteBlock()
     {
+        $this->checkData(
+            [
+                "id" => [self::TYPE_INT, self::NOT_EMPTY],
+            ]
+        );
+
         $data = $this->getData();
-        if (!array_key_exists("id", $data)
-            || !is_int($data["id"])
-            || $data["id"] === 0
-        ) {
-            throw new BadRequestException(
-                "Incorrect request to delete text block. Data: {data}",
-                [
-                    "data" => json_encode($data)
-                ]
-            );
-        }
 
         $this->checkBlockOperation(BlockModel::TYPE_TEXT, $data["id"], Operation::TEXT_DELETE);
 
@@ -397,21 +380,14 @@ class TextController extends AbstractController
      */
     public function getDesign()
     {
+        $this->checkData(
+            [
+                "id" => [self::NOT_EMPTY],
+            ]
+        );
+
         $data = $this->getData();
-
-        $id = 0;
-        if (array_key_exists("id", $data)) {
-            $id = (int)$data["id"];
-        }
-
-        if ($id === 0) {
-            throw new BadRequestException(
-                "Incorrect request to get text block design. Data: {data}",
-                [
-                    "data" => json_encode($data)
-                ]
-            );
-        }
+        $id = (int)$data["id"];
 
         $this->checkBlockOperation(BlockModel::TYPE_TEXT, $data["id"], Operation::TEXT_UPDATE_DESIGN);
 
@@ -467,11 +443,13 @@ class TextController extends AbstractController
      */
     public function updateDesign()
     {
-        $this->checkData([
-            "id"               => [self::TYPE_INT, self::NOT_EMPTY],
-            "designBlockModel" => [self::TYPE_ARRAY, self::NOT_EMPTY],
-            "designTextModel"  => [self::TYPE_ARRAY, self::NOT_EMPTY],
-        ]);
+        $this->checkData(
+            [
+                "id"               => [self::TYPE_INT, self::NOT_EMPTY],
+                "designBlockModel" => [self::TYPE_ARRAY, self::NOT_EMPTY],
+                "designTextModel"  => [self::TYPE_ARRAY, self::NOT_EMPTY],
+            ]
+        );
 
         $data = $this->getData();
 
@@ -509,25 +487,18 @@ class TextController extends AbstractController
      */
     public function getContent()
     {
+        $this->checkData(
+            [
+                "id" => [self::NOT_EMPTY],
+            ]
+        );
+
         $data = $this->getData();
+        $id = (int) $data["id"];
 
-        $id = 0;
-        if (array_key_exists("id", $data)) {
-            $id = (int) $data["id"];
-        }
+        $this->checkBlockOperation(BlockModel::TYPE_TEXT, $id, Operation::TEXT_UPDATE_CONTENT);
 
-        if ($id === 0) {
-            throw new BadRequestException(
-                "Incorrect request to get text block content. Data: {data}",
-                [
-                    "data" => json_encode($data)
-                ]
-            );
-        }
-
-        $this->checkBlockOperation(BlockModel::TYPE_TEXT, $data["id"], Operation::TEXT_UPDATE_CONTENT);
-
-        $blockModel = BlockModel::getById($data["id"]);
+        $blockModel = BlockModel::getById($id);
 
         $textModel = $blockModel->getContentModel();
         if (!$textModel instanceof TextModel) {
@@ -576,19 +547,14 @@ class TextController extends AbstractController
      */
     public function updateContent()
     {
+        $this->checkData(
+            [
+                "id"   => [self::TYPE_INT, self::NOT_EMPTY],
+                "text" => [self::TYPE_STRING],
+            ]
+        );
+
         $data = $this->getData();
-        if (!array_key_exists("id", $data)
-            || !array_key_exists("text", $data)
-            || !is_int($data["id"])
-            || $data["id"] === 0
-        ) {
-            throw new BadRequestException(
-                "Incorrect request to update content. Data: {data}",
-                [
-                    "data" => json_encode($data)
-                ]
-            );
-        }
 
         $this->checkBlockOperation(BlockModel::TYPE_TEXT, $data["id"], Operation::TEXT_UPDATE_CONTENT);
 

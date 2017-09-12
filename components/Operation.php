@@ -34,6 +34,32 @@ class Operation
     const SECTION_DUPLICATE = "SECTION_DUPLICATE";
 
     /**
+     * Settings operations
+     */
+    const SETTINGS_ICON = "SETTINGS_ICON";
+    const SETTINGS_USER_VIEW = "SETTINGS_USER_VIEW";
+    const SETTINGS_USER_UPDATE = "SETTINGS_USER_UPDATE";
+    const SETTINGS_USER_DELETE = "SETTINGS_USER_DELETE";
+    const SETTINGS_USER_VIEW_SESSIONS = "SETTINGS_USER_VIEW_SESSIONS";
+    const SETTINGS_USER_DELETE_SESSIONS = "SETTINGS_USER_DELETE_SESSIONS";
+    const SETTINGS_USER_ADD = "SETTINGS_USER_ADD";
+
+    /**
+     * Block text operations
+     */
+    const TEXT_ADD = "TEXT_ADD";
+    const TEXT_UPDATE_SETTINGS = "TEXT_UPDATE_SETTINGS";
+    const TEXT_UPDATE_DESIGN = "TEXT_UPDATE_DESIGN";
+    const TEXT_UPDATE_CONTENT = "TEXT_UPDATE_CONTENT";
+    const TEXT_DELETE = "TEXT_DELETE";
+    const TEXT_DUPLICATE = "TEXT_DUPLICATE";
+
+    /**
+     * Block image operations
+     */
+    const IMAGE_UPLOAD = "IMAGE_UPLOAD";
+
+    /**
      * Gets section operations
      *
      * @param bool $isAll
@@ -57,14 +83,22 @@ class Operation
     }
 
     /**
-     * Block text operations
+     * Gets settings operations
+     *
+     * @return array
      */
-    const TEXT_ADD = "TEXT_ADD";
-    const TEXT_UPDATE_SETTINGS = "TEXT_UPDATE_SETTINGS";
-    const TEXT_UPDATE_DESIGN = "TEXT_UPDATE_DESIGN";
-    const TEXT_UPDATE_CONTENT = "TEXT_UPDATE_CONTENT";
-    const TEXT_DELETE = "TEXT_DELETE";
-    const TEXT_DUPLICATE = "TEXT_DUPLICATE";
+    public static function getSettingsOperations()
+    {
+        return [
+            self::SETTINGS_ICON                 => Language::t("operation", "settingsChangeIcon"),
+            self::SETTINGS_USER_VIEW            => Language::t("operation", "settingsViewUsers"),
+            self::SETTINGS_USER_UPDATE          => Language::t("operation", "settingsEditUsers"),
+            self::SETTINGS_USER_DELETE          => Language::t("operation", "settingsDeleteUsers"),
+            self::SETTINGS_USER_VIEW_SESSIONS   => Language::t("operation", "settingsViewUserSessions"),
+            self::SETTINGS_USER_DELETE_SESSIONS => Language::t("operation", "settingsDeleteUserSessions"),
+            self::SETTINGS_USER_ADD             => Language::t("operation", "settingsAddUsers"),
+        ];
+    }
 
     /**
      * Gets block text operations
@@ -91,32 +125,23 @@ class Operation
     }
 
     /**
-     * Settings operations
-     */
-    const SETTINGS_ICON = "SETTINGS_ICON";
-    const SETTINGS_USER_VIEW = "SETTINGS_USER_VIEW";
-    const SETTINGS_USER_UPDATE = "SETTINGS_USER_UPDATE";
-    const SETTINGS_USER_DELETE = "SETTINGS_USER_DELETE";
-    const SETTINGS_USER_VIEW_SESSIONS = "SETTINGS_USER_VIEW_SESSIONS";
-    const SETTINGS_USER_DELETE_SESSIONS = "SETTINGS_USER_DELETE_SESSIONS";
-    const SETTINGS_USER_ADD = "SETTINGS_USER_ADD";
-
-    /**
-     * Gets settings operations
+     * Gets block image operations
+     *
+     * @param bool $isAll
      *
      * @return array
      */
-    public static function getSettingsOperations()
+    public static function getBlockImageOperations($isAll = false)
     {
-        return [
-            self::SETTINGS_ICON                 => Language::t("operation", "settingsChangeIcon"),
-            self::SETTINGS_USER_VIEW            => Language::t("operation", "settingsViewUsers"),
-            self::SETTINGS_USER_UPDATE          => Language::t("operation", "settingsEditUsers"),
-            self::SETTINGS_USER_DELETE          => Language::t("operation", "settingsDeleteUsers"),
-            self::SETTINGS_USER_VIEW_SESSIONS   => Language::t("operation", "settingsViewUserSessions"),
-            self::SETTINGS_USER_DELETE_SESSIONS => Language::t("operation", "settingsDeleteUserSessions"),
-            self::SETTINGS_USER_ADD             => Language::t("operation", "settingsAddUsers"),
+        $list = [
+            self::IMAGE_UPLOAD => Language::t("operation", "imageUpload"),
         ];
+
+        if ($isAll === true) {
+
+        }
+
+        return $list;
     }
 
     /**

@@ -59,4 +59,8 @@ return [
         Language::LANGUAGE_EN_ID => "Edit settings",
         Language::LANGUAGE_RU_ID => "",
     ],
+    "imageUpload" => [
+        Language::LANGUAGE_EN_ID => "Image upload",
+        Language::LANGUAGE_RU_ID => "",
+    ],
 ];

@@ -2,7 +2,6 @@
 
 namespace testS\tests\unit\controllers;
 
-use testS\applications\App;
 use testS\models\BlockModel;
 use testS\models\DesignBlockModel;
 use testS\models\DesignTextModel;
