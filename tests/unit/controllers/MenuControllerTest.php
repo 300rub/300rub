@@ -20,7 +20,7 @@ class MenuControllerTest extends AbstractControllerTest
         $this->markTestSkipped();
     }
 
-    public function testAddBlock()
+    public function testCreateBlock()
     {
         $this->markTestSkipped();
     }

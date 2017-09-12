@@ -82,7 +82,7 @@
                             controller: "user",
                             action: "session"
                         },
-                        type: "PUT",
+                        type: "POST",
                         success: $.proxy(this._onSuccess, this),
                         error: $.proxy(this._window.onError, this._window)
                     }

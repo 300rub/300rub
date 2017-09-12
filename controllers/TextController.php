@@ -226,7 +226,7 @@ class TextController extends AbstractController
      *
      * @throws BadRequestException
      */
-    public function addBlock()
+    public function createBlock()
     {
         $this->checkBlockOperation(BlockModel::TYPE_TEXT, Operation::ALL, Operation::TEXT_ADD);
 

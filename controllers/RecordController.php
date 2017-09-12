@@ -29,7 +29,7 @@ class RecordController extends AbstractController
     /**
      * Adds block
      */
-    public function addBlock()
+    public function createBlock()
     {
         // @TODO
     }
@@ -85,7 +85,7 @@ class RecordController extends AbstractController
     /**
      * Adds a record
      */
-    public function addRecord()
+    public function createRecord()
     {
         // @TODO
     }

@@ -71,7 +71,7 @@
                             controller: "user",
                             action: "user"
                         },
-                        type: data.id === 0 ? "PUT" : "POST",
+                        type: data.id === 0 ? "POST" : "PUT",
                         success: $.proxy(this._onSuccess, this),
                         error: $.proxy(this._window.onError, this._window)
                     }

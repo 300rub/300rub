@@ -2,6 +2,8 @@
 
 namespace testS\controllers;
 
+use testS\models\FileModel;
+
 /**
  * ImageController
  *
@@ -29,7 +31,7 @@ class ImageController extends AbstractController
     /**
      * Adds block
      */
-    public function addBlock()
+    public function createBlock()
     {
         // @TODO
     }
@@ -93,9 +95,14 @@ class ImageController extends AbstractController
     /**
      * Add image
      */
-    public function addImage()
+    public function createImage()
     {
-        // @TODO
+        $fileModel = new FileModel();
+        $fileModel->upload();
+
+        return [
+            "path" => $fileModel->getUrl()
+        ];
     }
 
     /**
@@ -125,7 +132,7 @@ class ImageController extends AbstractController
     /**
      * Add album
      */
-    public function addAlbum()
+    public function createAlbum()
     {
         // @TODO
     }

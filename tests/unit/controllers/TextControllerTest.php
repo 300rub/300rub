@@ -469,7 +469,7 @@ class TextControllerTest extends AbstractControllerTest
     }
 
     /**
-     * Test for addUser method
+     * Test for createUser method
      *
      * @param string $user
      * @param array  $data
@@ -480,14 +480,14 @@ class TextControllerTest extends AbstractControllerTest
      *
      * @dataProvider dataProviderForTestAddBlock
      */
-    public function testAddBlock($user, $data, $hasError = false, $hasValidationErrors = false)
+    public function testCreateBlock($user, $data, $hasError = false, $hasValidationErrors = false)
     {
         $textModelCountBefore = (new TextModel())->getCount();
         $textInstanceModelCountBefore = (new TextInstanceModel())->getCount();
         $blockModelCountBefore = (new BlockModel())->getCount();
 
         $this->setUser($user);
-        $this->sendRequest("text", "block", $data, "PUT");
+        $this->sendRequest("text", "block", $data, "POST");
         $body = $this->getBody();
 
         $textModelCountAfter = (new TextModel())->getCount();
@@ -656,7 +656,7 @@ class TextControllerTest extends AbstractControllerTest
         $data["id"] = $blockModel->getId();
 
         $this->setUser($user);
-        $this->sendRequest("text", "block", $data, "POST");
+        $this->sendRequest("text", "block", $data, "PUT");
         $body = $this->getBody();
 
         if ($hasError === true) {
@@ -1102,7 +1102,7 @@ class TextControllerTest extends AbstractControllerTest
         }
 
         $this->setUser($user);
-        $this->sendRequest("text", "design", array_merge($data, ["id" => $requestId]), "POST");
+        $this->sendRequest("text", "design", array_merge($data, ["id" => $requestId]), "PUT");
         $body = $this->getBody();
 
         if ($hasError === true) {
@@ -1421,7 +1421,7 @@ class TextControllerTest extends AbstractControllerTest
         ];
 
         $this->setUser($user);
-        $this->sendRequest("text", "content", $data, "POST");
+        $this->sendRequest("text", "content", $data, "PUT");
         $body = $this->getBody();
 
         if ($hasError === true) {

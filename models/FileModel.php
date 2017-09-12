@@ -16,9 +16,9 @@ class FileModel extends AbstractModel
 {
 
     /**
-     * Default HTTP file name
+     * HTTP file name
      */
-    const DEFAULT_POST_FILE_NAME = "file";
+    const POST_FILE_NAME = "file";
 
     /**
      * The temporary filename of the file in which the uploaded file was stored on the server.
@@ -140,17 +140,17 @@ class FileModel extends AbstractModel
      */
     private function _setFileInfo()
     {
-        if (!array_key_exists(self::DEFAULT_POST_FILE_NAME, $_FILES)) {
+        if (!array_key_exists(self::POST_FILE_NAME, $_FILES)) {
             throw new FileException(
                 "Unable to find the file with POST name: {name} in files: {files}",
                 [
-                    "name"  => self::DEFAULT_POST_FILE_NAME,
+                    "name"  => self::POST_FILE_NAME,
                     "files" => json_encode($_FILES)
                 ]
             );
         }
 
-        $file = $_FILES[self::DEFAULT_POST_FILE_NAME];
+        $file = $_FILES[self::POST_FILE_NAME];
 
         if (array_key_exists("name", $file)) {
             $this->set(["originalName" => $file["name"]]);

@@ -29,7 +29,7 @@ class CatalogController extends AbstractController
     /**
      * Adds block
      */
-    public function addBlock()
+    public function createBlock()
     {
         // @TODO
     }
@@ -85,7 +85,7 @@ class CatalogController extends AbstractController
     /**
      * Adds menu
      */
-    public function addMenu()
+    public function createMenu()
     {
         // @TODO
     }
@@ -117,7 +117,7 @@ class CatalogController extends AbstractController
     /**
      * Adds instance
      */
-    public function addInstance()
+    public function createInstance()
     {
         // @TODO
     }
@@ -149,7 +149,7 @@ class CatalogController extends AbstractController
     /**
      * Adds bin instance
      */
-    public function addBinInstance()
+    public function createBinInstance()
     {
         // @TODO
     }

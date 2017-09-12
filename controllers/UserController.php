@@ -79,7 +79,7 @@ class UserController extends AbstractController
      *
      * @throws BadRequestException
      */
-    public function addSession()
+    public function createSession()
     {
         $data = $this->getData();
 
@@ -784,7 +784,7 @@ class UserController extends AbstractController
      *
      * @return array
      */
-    public function addUser()
+    public function createUser()
     {
         $this->checkSettingsOperation(Operation::SETTINGS_USER_ADD);
 

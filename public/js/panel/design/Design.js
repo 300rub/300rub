@@ -121,7 +121,7 @@
                                 return data;
                             }
                         },
-                        type: "POST",
+                        type: "PUT",
                         success: function() {
                             new TestS.Panel.Block.Text();
                         },

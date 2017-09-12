@@ -21,7 +21,7 @@ class SectionController extends AbstractController
     /**
      * Adds section
      */
-    public function addSection()
+    public function createSection()
     {
         // @TODO
     }

@@ -29,7 +29,7 @@ class FeedbackController extends AbstractController
     /**
      * Adds block
      */
-    public function addBlock()
+    public function createBlock()
     {
         // @TODO
     }

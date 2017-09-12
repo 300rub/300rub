@@ -15,7 +15,7 @@ class SectionControllerTest extends AbstractControllerTest
         $this->markTestSkipped();
     }
 
-    public function testAddSection()
+    public function testCreateSection()
     {
         $this->markTestSkipped();
     }

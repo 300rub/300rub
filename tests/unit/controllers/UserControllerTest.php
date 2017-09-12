@@ -4,7 +4,6 @@ namespace testS\tests\unit\controllers;
 
 use testS\applications\App;
 use testS\components\Operation;
-use testS\components\User;
 use testS\models\BlockModel;
 use testS\models\UserModel;
 use testS\models\UserSessionModel;
@@ -98,7 +97,7 @@ class UserControllerTest extends AbstractControllerTest
     }
 
     /**
-     * Test for adding session
+     * Test for creating session
      *
      * @param array $data
      * @param int   $expectedCode
@@ -108,12 +107,12 @@ class UserControllerTest extends AbstractControllerTest
      *
      * @return bool
      */
-    public function testAddSession($data, $expectedCode = 200, $expectedBody = null)
+    public function testCreateSession($data, $expectedCode = 200, $expectedBody = null)
     {
         $this->setUser(null);
 
         // Send request
-        $this->sendRequest("user", "session", $data, "PUT");
+        $this->sendRequest("user", "session", $data, "POST");
 
         // Check status code
         $this->assertSame($expectedCode, $this->getStatusCode());
@@ -1076,7 +1075,7 @@ class UserControllerTest extends AbstractControllerTest
     }
 
     /**
-     * Test for method addUser
+     * Test for method createUser
      *
      * @param string $user
      * @param array  $data
@@ -1089,7 +1088,7 @@ class UserControllerTest extends AbstractControllerTest
      *
      * @return bool
      */
-    public function testAddUser(
+    public function testCreateUser(
         $user,
         $data,
         $hasException,
@@ -1099,7 +1098,7 @@ class UserControllerTest extends AbstractControllerTest
     )
     {
         $this->setUser($user);
-        $this->sendRequest("user", "user", $data, "PUT");
+        $this->sendRequest("user", "user", $data, "POST");
 
         if ($hasException === true) {
             $this->assertError();
@@ -1479,7 +1478,7 @@ class UserControllerTest extends AbstractControllerTest
             $data["id"] = $model->getId();
         }
 
-        $this->sendRequest("user", "user", $data, "POST");
+        $this->sendRequest("user", "user", $data, "PUT");
 
         if ($hasException === true) {
             if ($model !== null) {

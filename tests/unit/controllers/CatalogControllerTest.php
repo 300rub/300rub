@@ -20,7 +20,7 @@ class CatalogControllerTest extends AbstractControllerTest
         $this->markTestSkipped();
     }
 
-    public function testAddBlock()
+    public function testCreateBlock()
     {
         $this->markTestSkipped();
     }
@@ -55,7 +55,7 @@ class CatalogControllerTest extends AbstractControllerTest
         $this->markTestSkipped();
     }
 
-    public function testAddMenu()
+    public function testCreateMenu()
     {
         $this->markTestSkipped();
     }
@@ -75,7 +75,7 @@ class CatalogControllerTest extends AbstractControllerTest
         $this->markTestSkipped();
     }
 
-    public function testAddInstance()
+    public function testCreateInstance()
     {
         $this->markTestSkipped();
     }
@@ -95,7 +95,7 @@ class CatalogControllerTest extends AbstractControllerTest
         $this->markTestSkipped();
     }
 
-    public function testAddBinInstance()
+    public function testCreateBinInstance()
     {
         $this->markTestSkipped();
     }

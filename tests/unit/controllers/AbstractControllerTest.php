@@ -56,6 +56,13 @@ abstract class AbstractControllerTest extends AbstractUnitTest
     private $_body;
 
     /**
+     * File data
+     *
+     * @var array
+     */
+    private $_fileData = [];
+
+    /**
      * Gets user token
      *
      * @return string
@@ -135,6 +142,74 @@ abstract class AbstractControllerTest extends AbstractUnitTest
     }
 
     /**
+     * Sends a file
+     *
+     * @param string $controller
+     * @param string $action
+     * @param string $fileName
+     * @param string $mimeType
+     * @param array  $data
+     * @param int    $language
+     *
+     * @return AbstractControllerTest
+     */
+    protected function sendFile(
+        $controller,
+        $action,
+        $fileName,
+        $mimeType = "application/octet-stream",
+        array $data = [],
+        $language = Language::LANGUAGE_EN_ID
+    ) {
+        $host = trim(shell_exec("/sbin/ip route|awk '/default/ { print $3 }'"));
+
+        $this->_setFileData($data);
+        $postData = array(
+            "token"      => $this->getUserToken(),
+            "controller" => $controller,
+            "action"     => $action,
+            "language"   => $language,
+            'file'       => curl_file_create(__DIR__ . '/../../../fixtures/files/' . $fileName, $mimeType)
+        );
+        $postData = array_merge($postData, $this->_fileData);
+
+        $curl = curl_init();
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($curl, CURLOPT_URL, $host . "/api/");
+        curl_setopt($curl, CURLOPT_POSTFIELDS, $postData);
+        curl_setopt($curl, CURLOPT_HTTPHEADER, array("Content-type: multipart/form-data"));
+
+        $body = curl_exec($curl);
+        $info = curl_getinfo($curl);
+
+        $this->_statusCode = $info["http_code"];
+        $this->_body = json_decode($body, true);
+
+        return $this;
+    }
+
+    /**
+     * Sets file data
+     *
+     * @param array  $data
+     * @param string $prefix
+     *
+     * @return AbstractControllerTest
+     */
+    private function _setFileData(array $data, $prefix = "data")
+    {
+        foreach ($data as $key => $value) {
+            if (is_array($value)) {
+                $this->_setFileData($value, sprintf("%s[%s]", $prefix, $key));
+            } else {
+                $this->_fileData[sprintf("%s[%s]", $prefix, $key)] = $value;
+            }
+        }
+
+        return $this;
+    }
+
+    /**
      * Gets response
      *
      * @param string $controller
@@ -153,8 +228,7 @@ abstract class AbstractControllerTest extends AbstractUnitTest
         $method = "GET",
         $language = Language::LANGUAGE_EN_ID,
         $ua = self::UA_FIREFOX_4_0_1
-    )
-    {
+    ) {
         $host = trim(shell_exec("/sbin/ip route|awk '/default/ { print $3 }'"));
 
         $dataJson = [

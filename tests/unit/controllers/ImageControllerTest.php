@@ -1,6 +1,7 @@
 <?php
 
 namespace testS\tests\unit\controllers;
+use testS\components\Language;
 
 /**
  * Tests for the controller ImageController
@@ -20,7 +21,7 @@ class ImageControllerTest extends AbstractControllerTest
         $this->markTestSkipped();
     }
 
-    public function testAddBlock()
+    public function testCreateBlock()
     {
         $this->markTestSkipped();
     }
@@ -60,9 +61,14 @@ class ImageControllerTest extends AbstractControllerTest
         $this->markTestSkipped();
     }
 
-    public function testAddImage()
+    public function testCreateImage()
     {
-        $this->markTestSkipped();
+        //$this->markTestSkipped();
+
+        $this->setUser(self::TYPE_FULL);
+        $this->sendFile("image", "image", "bigImage.jpg", "image/jpg");
+        $body = $this->getBody();
+        var_dump($body);
     }
 
     public function testUpdateImage()
@@ -80,7 +86,7 @@ class ImageControllerTest extends AbstractControllerTest
         $this->markTestSkipped();
     }
 
-    public function testAddAlbum()
+    public function testCreateAlbum()
     {
         $this->markTestSkipped();
     }

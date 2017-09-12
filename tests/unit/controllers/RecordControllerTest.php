@@ -20,7 +20,7 @@ class RecordControllerTest extends AbstractControllerTest
         $this->markTestSkipped();
     }
 
-    public function testAddBlock()
+    public function testCreateBlock()
     {
         $this->markTestSkipped();
     }
@@ -55,7 +55,7 @@ class RecordControllerTest extends AbstractControllerTest
         $this->markTestSkipped();
     }
 
-    public function testAddRecord()
+    public function testCreateRecord()
     {
         $this->markTestSkipped();
     }

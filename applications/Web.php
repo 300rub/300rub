@@ -10,6 +10,7 @@ use testS\components\Language;
 use testS\components\User;
 use testS\controllers\AbstractController;
 use testS\controllers\PageController;
+use testS\models\FileModel;
 use testS\models\UserModel;
 use testS\models\UserSessionModel;
 
@@ -127,11 +128,11 @@ class Web extends AbstractApplication
                 $this->_useTransaction = false;
                 break;
             case self::METHOD_POST:
-                $actionPrefix = "update";
+                $actionPrefix = "create";
                 $this->_useTransaction = true;
                 break;
             case self::METHOD_PUT:
-                $actionPrefix = "add";
+                $actionPrefix = "update";
                 $this->_useTransaction = true;
                 break;
             case self::METHOD_DELETE:
@@ -161,7 +162,11 @@ class Web extends AbstractApplication
         if ($method === self::METHOD_GET) {
             $input = $_GET;
         } else {
-            $input = json_decode(file_get_contents('php://input'), true);
+            if (array_key_exists(FileModel::POST_FILE_NAME, $_FILES)) {
+                $input = $_POST;
+            } else {
+                $input = json_decode(file_get_contents('php://input'), true);
+            }
         }
 
         if (empty($input["controller"])
@@ -256,7 +261,11 @@ class Web extends AbstractApplication
         if ($method === self::METHOD_GET) {
             $input = $_GET;
         } else {
-            $input = json_decode(file_get_contents('php://input'), true);
+            if (array_key_exists(FileModel::POST_FILE_NAME, $_FILES)) {
+                $input = $_POST;
+            } else {
+                $input = json_decode(file_get_contents('php://input'), true);
+            }
         }
 
         if (!empty($input["token"])) {
