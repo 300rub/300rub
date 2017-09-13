@@ -119,14 +119,14 @@ class ImageModel extends AbstractModel
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
                     ValueGenerator::MIN => 0,
-                    ValueGenerator::MAX => ImageInstanceModel::MAX_SIZE
+                    ValueGenerator::MAX => ImageInstanceModel::VIEW_MAX_SIZE
                 ],
             ],
             "cropHeight"          => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
                     ValueGenerator::MIN => 0,
-                    ValueGenerator::MAX => ImageInstanceModel::MAX_SIZE
+                    ValueGenerator::MAX => ImageInstanceModel::VIEW_MAX_SIZE
                 ],
             ],
             "cropX"               => [

@@ -102,7 +102,8 @@ class ImageController extends AbstractController
     {
         $this->checkData(
             [
-                "id" => [self::NOT_EMPTY],
+                "id"           => [self::NOT_EMPTY],
+                "imageAlbumId" => [self::NOT_EMPTY],
             ]
         );
 
@@ -111,6 +112,7 @@ class ImageController extends AbstractController
         $this->checkBlockOperation(BlockModel::TYPE_IMAGE, $data["id"], Operation::TEXT_UPDATE_CONTENT);
 
         $imageInstanceModel = new ImageInstanceModel();
+        $imageInstanceModel->set(["imageAlbumId" => $data["imageAlbumId"]]);
 
         return [
             "path" => $imageInstanceModel->upload()

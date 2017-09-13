@@ -28,6 +28,16 @@ class FileModel extends AbstractModel
     private $_tmpName = "";
 
     /**
+     * Generates unique hash
+     *
+     * @return string
+     */
+    private static function _generateUniqueHash()
+    {
+        return substr(md5(uniqid() . rand(1, 999)), 0, 10);
+    }
+
+    /**
      * Gets table name
      *
      * @return string
@@ -103,6 +113,7 @@ class FileModel extends AbstractModel
         if (APP_ENV === ENV_DEV) {
             return sprintf(
                 $app->getConfig(["file", "urlMask"]),
+                trim(shell_exec("/sbin/ip route|awk '/default/ { print $3 }'")),
                 $siteId,
                 $this->get("uniqueName")
             );
@@ -168,6 +179,17 @@ class FileModel extends AbstractModel
     }
 
     /**
+     * Generates tmp name
+     *
+     * @return FileModel
+     */
+    public function generateTmpName()
+    {
+        $this->_tmpName = "/tmp/" . self::_generateUniqueHash();
+        return $this;
+    }
+
+    /**
      * Gets tmp name
      *
      * @return string
@@ -175,6 +197,17 @@ class FileModel extends AbstractModel
     public function getTmpName()
     {
         return $this->_tmpName;
+    }
+
+    /**
+     * Sets file size from tmp file
+     *
+     * @return FileModel
+     */
+    public function setSizeFromTmpFile()
+    {
+        $this->set(["size" => filesize($this->_tmpName)]);
+        return $this;
     }
 
     /**
@@ -190,7 +223,7 @@ class FileModel extends AbstractModel
             return $this;
         }
 
-        $uniqueName = substr(md5(uniqid() . rand(1, 999)), 0, 10);
+        $uniqueName = self::_generateUniqueHash();
 
         if ($extension === "") {
             $extension = trim(strtolower(pathinfo($this->get("originalName"), PATHINFO_EXTENSION)));
@@ -228,9 +261,18 @@ class FileModel extends AbstractModel
             $this->get("uniqueName")
         );
 
-        if (!move_uploaded_file($this->_tmpName, $path)) {
+        if (!copy($this->_tmpName, $path)) {
+            if (!unlink($this->_tmpName)) {
+                throw new FileException(
+                    "Unable to copy and remove uploaded file with tmpName: {tmpName}",
+                    [
+                        "tmpName" => $this->_tmpName,
+                    ]
+                );
+            }
+
             throw new FileException(
-                "Unable to move uploaded file. " .
+                "Unable to copy uploaded file. " .
                 "Name: {name}, type: {type}, size: {size}, tmpName: {tmpName}, uniqueName: {uniqueName}",
                 [
                     "name"       => $this->get("originalName"),
@@ -238,6 +280,15 @@ class FileModel extends AbstractModel
                     "size"       => $this->get("size"),
                     "tmpName"    => $this->_tmpName,
                     "uniqueName" => $this->get("uniqueName"),
+                ]
+            );
+        }
+
+        if (!unlink($this->_tmpName)) {
+            throw new FileException(
+                "Unable to remove uploaded file with tmpName: {tmpName}",
+                [
+                    "tmpName" => $this->_tmpName,
                 ]
             );
         }

@@ -65,7 +65,7 @@ class ImageControllerTest extends AbstractControllerTest
         //$this->markTestSkipped();
 
         $this->setUser(self::TYPE_FULL);
-        $this->sendFile("image", "image", "bigImage.jpg", ["id" => 1]);
+        $this->sendFile("image", "image", "bigImage.jpg", ["id" => 1, "imageAlbumId" => 1]);
         $body = $this->getBody();
         var_dump($body);
     }
