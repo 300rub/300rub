@@ -40,6 +40,69 @@ class ImageInstanceModel extends AbstractModel
     const EXT_JPG = "jpg";
 
     /**
+     * Image info
+     *
+     * @var array|bool
+     */
+    private $_info = false;
+
+    /**
+     * Original file model
+     *
+     * @var FileModel
+     */
+    private $_originalFileModel = null;
+
+    /**
+     * View file model
+     *
+     * @var FileModel
+     */
+    private $_viewFileModel = null;
+
+    /**
+     * Thumb file model
+     *
+     * @var FileModel
+     */
+    private $_thumbFileModel = null;
+
+    /**
+     * Extension
+     *
+     * @var string
+     */
+    private $_extension = "";
+
+    /**
+     * View width
+     *
+     * @var int
+     */
+    private $_viewWidth = 0;
+
+    /**
+     * View height
+     *
+     * @var int
+     */
+    private $_viewHeight = 0;
+
+    /**
+     * Thumb width
+     *
+     * @var int
+     */
+    private $_thumbWidth = 0;
+
+    /**
+     * Thumb height
+     *
+     * @var int
+     */
+    private $_thumbHeight = 0;
+
+    /**
      * Gets table name
      *
      * @return string
@@ -165,67 +228,180 @@ class ImageInstanceModel extends AbstractModel
 
     public function upload()
     {
-        $originalFileModel = new FileModel();
-        $originalFileModel->parsePostRequest();
+        $this
+            ->_setOriginalFileModel()
+            ->_setInfo()
+            ->_setExtension()
+            ->_setSizes()
+            ->_uploadOriginalFile()
+            ->_setViewFileModel()
+            ->_setThumbFileModel()
+            ->_uploadImage();
 
-        $info = getimagesize($originalFileModel->getTmpName());
-        if (!is_array($info)) {
+        $this->_originalFileModel->save();
+
+        return $this->_originalFileModel->getUrl();
+    }
+
+    /**
+     * Uploads view and thumb images
+     *
+     * @return ImageInstanceModel
+     *
+     * @throws FileException
+     */
+    private function _uploadImage()
+    {
+        switch ($this->_extension) {
+            case self::EXT_JPG:
+                $this->_saveJpg();
+                break;
+            default:
+                throw new FileException(
+                    "Unable to upload image with extension: {extension}",
+                    [
+                        "extension" => $this->_extension
+                    ]
+                );
+        }
+
+        $this->_viewFileModel->setSizeFromTmpFile()->upload();
+        $this->_thumbFileModel->setSizeFromTmpFile()->upload();
+
+        return $this;
+    }
+
+    /**
+     * Sets original file model
+     *
+     * @return ImageInstanceModel
+     */
+    private function _setOriginalFileModel()
+    {
+        $this->_originalFileModel = new FileModel();
+        $this->_originalFileModel->parsePostRequest();
+
+        return $this;
+    }
+
+    /**
+     * Uploads original file
+     *
+     * @return ImageInstanceModel
+     */
+    private function _uploadOriginalFile()
+    {
+        $this->_originalFileModel
+            ->setUniqueName($this->_extension)
+            ->upload();
+
+        return $this;
+    }
+
+    /**
+     * Sets view file model
+     *
+     * @return ImageInstanceModel
+     */
+    private function _setViewFileModel()
+    {
+        $this->_viewFileModel = new FileModel();
+        $this->_viewFileModel
+            ->generateTmpName()
+            ->set(
+                [
+                    "uniqueName" => self::VIEW_PREFIX . $this->_originalFileModel->get("uniqueName"),
+                    "type"       => $this->_originalFileModel->get("type")
+                ]
+            );
+
+        return $this;
+    }
+
+    /**
+     * Sets thumb file model
+     *
+     * @return ImageInstanceModel
+     */
+    private function _setThumbFileModel()
+    {
+        $this->_thumbFileModel = new FileModel();
+        $this->_thumbFileModel
+            ->generateTmpName()
+            ->set(
+                [
+                    "uniqueName" => self::THUMB_PREFIX . $this->_originalFileModel->get("uniqueName"),
+                    "type"       => $this->_originalFileModel->get("type")
+                ]
+            );
+
+        return $this;
+    }
+
+    /**
+     * Sets info
+     *
+     * @return ImageInstanceModel
+     *
+     * @throws FileException
+     */
+    private function _setInfo()
+    {
+        $this->_info = getimagesize($this->_originalFileModel->getTmpName());
+        if (!is_array($this->_info)) {
             throw new FileException(
                 "Uploaded file: {file} is not an image",
                 [
-                    "file" => $originalFileModel->get("originalName")
+                    "file" => $this->_originalFileModel->get("originalName")
                 ]
             );
         }
 
-        if (!array_key_exists("mime", $info)) {
+        if (!array_key_exists("mime", $this->_info)) {
             throw new FileException(
                 "Unable to get image mime. Info: {info}",
                 [
-                    "info" => json_encode($info)
+                    "info" => json_encode($this->_info)
                 ]
             );
         }
 
-        switch ($info["mime"]) {
+        return $this;
+    }
+
+    /**
+     * Sets extension
+     *
+     * @return ImageInstanceModel
+     *
+     * @throws FileException
+     */
+    private function _setExtension()
+    {
+        switch ($this->_info["mime"]) {
             case self::MIME_JPG:
-                $extension = self::EXT_JPG;
+                $this->_extension = self::EXT_JPG;
                 break;
             default:
                 throw new FileException(
                     "Unable to upload image with mime: {mime}",
                     [
-                        "mime" => $info["mime"]
+                        "mime" => $this->_info["mime"]
                     ]
                 );
         }
 
-        $originalFileUrl = $originalFileModel
-            ->setUniqueName($extension)
-            ->upload()
-            ->getUrl();
+        return $this;
+    }
 
-        $viewFileModel = new FileModel();
-        $viewFileModel
-            ->generateTmpName()
-            ->set(
-                [
-                    "uniqueName" => self::VIEW_PREFIX . $originalFileModel->get("uniqueName"),
-                    "type"       => $originalFileModel->get("type")
-                ]
-            );
-
-        $thumbFileModel = new FileModel();
-        $thumbFileModel
-            ->generateTmpName()
-            ->set(
-                [
-                    "uniqueName" => self::THUMB_PREFIX . $originalFileModel->get("uniqueName"),
-                    "type"       => $originalFileModel->get("type")
-                ]
-            );
-
-        list($originalWidth, $originalHeight) = $info;
+    /**
+     * Sets sizes
+     *
+     * @return ImageInstanceModel
+     */
+    private function _setSizes()
+    {
+        list($originalWidth, $originalHeight) = $this->_info;
 
         $viewWidth = $originalWidth;
         $viewHeight = $originalHeight;
@@ -258,59 +434,64 @@ class ImageInstanceModel extends AbstractModel
             }
         }
 
-        switch ($extension) {
-            case self::EXT_JPG:
-                $originalImage = imagecreatefromjpeg($originalFileUrl);
+        $this->set(
+            [
+                "width"  => $originalWidth,
+                "height" => $originalHeight,
+            ]
+        );
 
-                $viewImage = imagecreatetruecolor($viewWidth, $viewHeight);
-                imagecopyresampled(
-                    $viewImage,
-                    $originalImage,
-                    0,
-                    0,
-                    0,
-                    0,
-                    $viewWidth,
-                    $viewHeight,
-                    $originalWidth,
-                    $originalHeight
-                );
-                imagejpeg($viewImage, $viewFileModel->getTmpName());
+        $this->_viewWidth = $viewWidth;
+        $this->_viewHeight = $viewHeight;
+        $this->_thumbWidth = $thumbWidth;
+        $this->_thumbHeight = $thumbHeight;
 
-                $thumbImage = imagecreatetruecolor($thumbWidth, $thumbHeight);
-                imagecopyresampled(
-                    $thumbImage,
-                    $originalImage,
-                    0,
-                    0,
-                    0,
-                    0,
-                    $thumbWidth,
-                    $thumbHeight,
-                    $originalWidth,
-                    $originalHeight
-                );
-                imagejpeg($thumbImage, $thumbFileModel->getTmpName());
+        return $this;
+    }
 
-                break;
-            default:
-                throw new FileException(
-                    "Unable to upload image with extension: {extension}",
-                    [
-                        "extension" => $extension
-                    ]
-                );
-        }
+    /**
+     * Save JPG
+     *
+     * @return ImageInstanceModel
+     */
+    private function _saveJpg()
+    {
+        $originalImage = imagecreatefromjpeg($this->_originalFileModel->getUrl());
+
+        $viewImage = imagecreatetruecolor($this->_viewWidth, $this->_viewHeight);
+        imagecopyresampled(
+            $viewImage,
+            $originalImage,
+            0,
+            0,
+            0,
+            0,
+            $this->_viewWidth,
+            $this->_viewHeight,
+            $this->get("width"),
+            $this->get("height")
+        );
+        imagejpeg($viewImage, $this->_viewFileModel->getTmpName());
+
+        $thumbImage = imagecreatetruecolor($this->_thumbWidth, $this->_thumbHeight);
+        imagecopyresampled(
+            $thumbImage,
+            $originalImage,
+            0,
+            0,
+            0,
+            0,
+            $this->_thumbWidth,
+            $this->_thumbHeight,
+            $this->get("width"),
+            $this->get("height")
+        );
+        imagejpeg($thumbImage, $this->_thumbFileModel->getTmpName());
 
         imagedestroy($originalImage);
         imagedestroy($viewImage);
         imagedestroy($thumbImage);
 
-        $viewFileModel->setSizeFromTmpFile()->upload();
-        $thumbFileModel->setSizeFromTmpFile()->upload();
-
-        $originalFileModel->save();
-
-        return $originalFileModel->getUrl();
+        return $this;
     }
 }
