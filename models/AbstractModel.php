@@ -3,14 +3,12 @@
 namespace testS\models;
 
 use testS\components\Db;
-use testS\components\exceptions\CommonException;
 use testS\components\exceptions\ModelException;
 use testS\components\Language;
 use testS\components\Validator;
 use testS\components\ValueGenerator;
 use Exception;
 use DateTime;
-use testS\components\View;
 
 /**
  * Abstract class for working with models
@@ -311,7 +309,7 @@ abstract class AbstractModel
         foreach ($fields as $field => $value) {
             $relationIdField = $this->_getRelationIdFields($field);
             if (!array_key_exists($field, $this->_fields)
-                || !is_array($value)
+                || (!$value instanceof self && !is_array($value))
                 || !array_key_exists($relationIdField, $info)
                 || !array_key_exists(self::FIELD_RELATION, $info[$relationIdField])
             ) {
@@ -324,11 +322,17 @@ abstract class AbstractModel
                 continue;
             }
 
-            $relationModel = $this->_getRelationModelByFieldName($relationIdField, !$this->isNew());
-            $relationModel->set($value);
-
+            if ($value instanceof self) {
+                $relationModel = $value;
+            } else {
+                $relationModel = $this->_getRelationModelByFieldName($relationIdField, !$this->isNew());
+                $relationModel->set($value);
+            }
             $this->_fields[$field] = $relationModel;
-            $this->_fields[$relationIdField] = $relationModel->getId();
+
+            if ($relationModel->getId()) {
+                $this->_fields[$relationIdField] = $relationModel->getId();
+            }
         }
 
         // Sets relation IDs

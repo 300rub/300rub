@@ -226,6 +226,11 @@ class ImageInstanceModel extends AbstractModel
         ];
     }
 
+    /**
+     * Uploads the file
+     *
+     * @return array
+     */
     public function upload()
     {
         $this
@@ -236,11 +241,33 @@ class ImageInstanceModel extends AbstractModel
             ->_uploadOriginalFile()
             ->_setViewFileModel()
             ->_setThumbFileModel()
-            ->_uploadImage();
+            ->_uploadImage()
+            ->_saveModel();
 
-        $this->_originalFileModel->save();
+        return [
+            "originalUrl"  => $this->_originalFileModel->getUrl(),
+            "viewUrl"      => $this->_viewFileModel->getUrl(),
+            "thumbUrl"     => $this->_thumbFileModel->getUrl(),
+            "name"         => str_replace(
+                sprintf(".%s", $this->_extension),
+                "",
+                $this->_originalFileModel->get("originalName")
+            ),
+            "id"           => $this->getId()
+        ];
+    }
 
-        return $this->_originalFileModel->getUrl();
+    /**
+     * Saves the model
+     *
+     * @return ImageInstanceModel
+     */
+    private function _saveModel()
+    {
+        $this->set(["fileModel" => $this->_originalFileModel]);
+        $this->save();
+
+        return $this;
     }
 
     /**
