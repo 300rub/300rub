@@ -40,7 +40,9 @@ class ImageInstanceModelTest extends AbstractModelTest
             "empty2" => [
                 [
                     "imageAlbumId" => "",
-                    "fileModel"    => "",
+                    "originalFileModel"    => "",
+                    "viewFileModel"    => "",
+                    "thumbFileModel"    => "",
                     "isCover"      => "",
                     "sort"         => "",
                     "alt"          => "",
@@ -62,8 +64,14 @@ class ImageInstanceModelTest extends AbstractModelTest
             ],
             "empty3" => [
                 [
-                    "fileModel" => [
+                    "originalFileModel" => [
                         "uniqueName" => "file7.jpg",
+                    ],
+                    "viewFileModel" => [
+                        "uniqueName" => "view_file7.jpg",
+                    ],
+                    "thumbFileModel" => [
+                        "uniqueName" => "thumb_file7.jpg",
                     ]
                 ],
                 [],
@@ -74,14 +82,26 @@ class ImageInstanceModelTest extends AbstractModelTest
             "empty4" => [
                 [
                     "imageAlbumId" => 1,
-                    "fileModel" => [
+                    "originalFileModel" => [
                         "uniqueName" => "file.jpg",
+                    ],
+                    "viewFileModel" => [
+                        "uniqueName" => "view_file.jpg",
+                    ],
+                    "thumbFileModel" => [
+                        "uniqueName" => "thumb_file.jpg",
                     ]
                 ],
                 [
                     "imageAlbumId" => 1,
-                    "fileModel" => [
+                    "originalFileModel" => [
                         "uniqueName" => "file.jpg",
+                    ],
+                    "viewFileModel" => [
+                        "uniqueName" => "view_file.jpg",
+                    ],
+                    "thumbFileModel" => [
+                        "uniqueName" => "thumb_file.jpg",
                     ],
                     "isCover"      => false,
                     "sort"         => 0,
@@ -112,8 +132,14 @@ class ImageInstanceModelTest extends AbstractModelTest
             "correct1" => [
                 [
                     "imageAlbumId" => 1,
-                    "fileModel" => [
+                    "originalFileModel" => [
                         "uniqueName" => "file.jpg",
+                    ],
+                    "viewFileModel" => [
+                        "uniqueName" => "view_file.jpg",
+                    ],
+                    "thumbFileModel" => [
+                        "uniqueName" => "thumb_file.jpg",
                     ],
                     "isCover"      => true,
                     "sort"         => 10,
@@ -131,8 +157,14 @@ class ImageInstanceModelTest extends AbstractModelTest
                 ],
                 [
                     "imageAlbumId" => 1,
-                    "fileModel" => [
+                    "originalFileModel" => [
                         "uniqueName" => "file.jpg",
+                    ],
+                    "viewFileModel" => [
+                        "uniqueName" => "view_file.jpg",
+                    ],
+                    "thumbFileModel" => [
+                        "uniqueName" => "thumb_file.jpg",
                     ],
                     "isCover"      => true,
                     "sort"         => 10,
@@ -150,8 +182,14 @@ class ImageInstanceModelTest extends AbstractModelTest
                 ],
                 [
                     "imageAlbumId" => 1,
-                    "fileModel" => [
+                    "originalFileModel" => [
                         "uniqueName" => "file2.jpg",
+                    ],
+                    "viewFileModel" => [
+                        "uniqueName" => "view_file2.jpg",
+                    ],
+                    "thumbFileModel" => [
+                        "uniqueName" => "thumb_file2.jpg",
                     ],
                     "isCover"      => false,
                     "sort"         => 20,
@@ -169,8 +207,14 @@ class ImageInstanceModelTest extends AbstractModelTest
                 ],
                 [
                     "imageAlbumId" => 1,
-                    "fileModel" => [
+                    "originalFileModel" => [
                         "uniqueName" => "file2.jpg",
+                    ],
+                    "viewFileModel" => [
+                        "uniqueName" => "view_file2.jpg",
+                    ],
+                    "thumbFileModel" => [
+                        "uniqueName" => "thumb_file2.jpg",
                     ],
                     "isCover"      => false,
                     "sort"         => 20,
@@ -201,8 +245,14 @@ class ImageInstanceModelTest extends AbstractModelTest
             "incorrect1" => [
                 [
                     "imageAlbumId" => "incorrect",
-                    "fileModel" => [
+                    "originalFileModel" => [
                         "uniqueName" => "incorrect",
+                    ],
+                    "viewFileModel" => [
+                        "uniqueName" => "view_incorrect.jpg",
+                    ],
+                    "thumbFileModel" => [
+                        "uniqueName" => "thumb_incorrect.jpg",
                     ],
                     "isCover"      => "incorrect",
                     "sort"         => "incorrect",
@@ -226,8 +276,14 @@ class ImageInstanceModelTest extends AbstractModelTest
             "incorrect2" => [
                 [
                     "imageAlbumId" => "1 ",
-                    "fileModel" => [
+                    "originalFileModel" => [
                         "uniqueName" => "<b> 123 </b>",
+                    ],
+                    "viewFileModel" => [
+                        "uniqueName" => "<b> view_123 </b>",
+                    ],
+                    "thumbFileModel" => [
+                        "uniqueName" => "<b> thumb_123 </b>",
                     ],
                     "isCover"      => "incorrect",
                     "sort"         => "incorrect",
@@ -245,8 +301,14 @@ class ImageInstanceModelTest extends AbstractModelTest
                 ],
                 [
                     "imageAlbumId" => 1,
-                    "fileModel" => [
+                    "originalFileModel" => [
                         "uniqueName" => "123",
+                    ],
+                    "viewFileModel" => [
+                        "uniqueName" => "view_123",
+                    ],
+                    "thumbFileModel" => [
+                        "uniqueName" => "thumb_123",
                     ],
                     "isCover"      => false,
                     "sort"         => 0,
@@ -263,12 +325,24 @@ class ImageInstanceModelTest extends AbstractModelTest
                     "thumbY2"      => 0,
                 ],
                 [
-                    "fileModel" => [
+                    "originalFileModel" => [
+                        "uniqueName" => $this->generateStringWithLength(26),
+                    ],
+                    "viewFileModel" => [
+                        "uniqueName" => $this->generateStringWithLength(26),
+                    ],
+                    "thumbFileModel" => [
                         "uniqueName" => $this->generateStringWithLength(26),
                     ],
                 ],
                 [
-                    "fileModel" => [
+                    "originalFileModel" => [
+                        "uniqueName" => ["maxLength"]
+                    ],
+                    "viewFileModel" => [
+                        "uniqueName" => ["maxLength"]
+                    ],
+                    "thumbFileModel" => [
                         "uniqueName" => ["maxLength"]
                     ],
                 ]
@@ -276,8 +350,14 @@ class ImageInstanceModelTest extends AbstractModelTest
             "incorrect3" => [
                 [
                     "imageAlbumId" => "1 ",
-                    "fileModel" => [
+                    "originalFileModel" => [
                         "uniqueName" => 12345
+                    ],
+                    "viewFileModel" => [
+                        "uniqueName" => 11111
+                    ],
+                    "thumbFileModel" => [
+                        "uniqueName" => 22222
                     ],
                     "isCover"      => 9999,
                     "sort"         => 9999,
@@ -295,8 +375,14 @@ class ImageInstanceModelTest extends AbstractModelTest
                 ],
                 [
                     "imageAlbumId" => 1,
-                    "fileModel" => [
+                    "originalFileModel" => [
                         "uniqueName" => "12345",
+                    ],
+                    "viewFileModel" => [
+                        "uniqueName" => "11111",
+                    ],
+                    "thumbFileModel" => [
+                        "uniqueName" => "22222",
                     ],
                     "isCover"      => true,
                     "sort"         => 9999,
@@ -329,8 +415,14 @@ class ImageInstanceModelTest extends AbstractModelTest
                 ],
                 [
                     "imageAlbumId" => 1,
-                    "fileModel" => [
+                    "originalFileModel" => [
                         "uniqueName" => "12345",
+                    ],
+                    "viewFileModel" => [
+                        "uniqueName" => "11111",
+                    ],
+                    "thumbFileModel" => [
+                        "uniqueName" => "22222",
                     ],
                     "isCover"      => false,
                     "sort"         => -10,
@@ -360,8 +452,14 @@ class ImageInstanceModelTest extends AbstractModelTest
         $this->duplicate(
             [
                 "imageAlbumId" => 1,
-                "fileModel" => [
+                "originalFileModel" => [
                     "uniqueName" => "file.jpg",
+                ],
+                "viewFileModel" => [
+                    "uniqueName" => "view_file.jpg",
+                ],
+                "thumbFileModel" => [
+                    "uniqueName" => "thumb_file.jpg",
                 ],
                 "isCover"      => true,
                 "sort"         => 10,

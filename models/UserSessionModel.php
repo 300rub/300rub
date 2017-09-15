@@ -12,6 +12,7 @@ use DateTime;
  * @package testS\models
  *
  * @method UserSessionModel   find()
+ * @method UserSessionModel   ordered($value = "name", $alias = Db::DEFAULT_ALIAS, $isDesc = false)
  * @method UserSessionModel[] findAll()
  */
 class UserSessionModel extends AbstractModel

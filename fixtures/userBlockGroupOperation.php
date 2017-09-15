@@ -29,4 +29,9 @@ return [
         "blockType" => BlockModel::TYPE_TEXT,
         "operation" => Operation::TEXT_DELETE,
     ],
+    6 => [
+        "userId"    => 3,
+        "blockType" => BlockModel::TYPE_IMAGE,
+        "operation" => Operation::IMAGE_UPLOAD,
+    ],
 ];

@@ -62,11 +62,17 @@ abstract class AbstractController
     /**
      * Gets data
      *
-     * @return array
+     * @param string
+     *
+     * @return mixed
      */
-    protected function getData()
+    protected function get($key)
     {
-        return $this->_data;
+        if (!array_key_exists($key, $this->_data)) {
+            return null;
+        }
+
+        return $this->_data[$key];
     }
 
     /**
@@ -365,9 +371,8 @@ abstract class AbstractController
      */
     protected function getDisplayBlocksFromSection()
     {
-        $data = $this->getData();
-        if (array_key_exists(self::DISPLAY_BLOCKS_FROM_SECTION, $data)) {
-            $value = (int) $data[self::DISPLAY_BLOCKS_FROM_SECTION];
+        if ($this->get(self::DISPLAY_BLOCKS_FROM_SECTION) !== null) {
+            $value = (int) $this->get(self::DISPLAY_BLOCKS_FROM_SECTION);
             $_SESSION[self::DISPLAY_BLOCKS_FROM_SECTION] = $value;
             setcookie(self::DISPLAY_BLOCKS_FROM_SECTION, $value, time() + 86400 * 365 * 10, "/"); // 10 years
             return $value;
@@ -419,15 +424,13 @@ abstract class AbstractController
      */
     protected function checkData(array $check)
     {
-        $data = $this->getData();
-
         foreach ($check as $field => $options) {
             if (!is_array($options)) {
                 $field = $options;
                 $options = [];
             }
 
-            if (!array_key_exists($field, $data)) {
+            if (!array_key_exists($field, $this->_data)) {
                 throw new BadRequestException(
                     "Unable to find {field} in request",
                     [
@@ -436,7 +439,7 @@ abstract class AbstractController
                 );
             }
 
-            $value = $data[$field];
+            $value = $this->get($field);
 
             if (in_array(self::TYPE_INT, $options)
                 && !is_int($value)

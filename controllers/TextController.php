@@ -155,16 +155,11 @@ class TextController extends AbstractController
      */
     public function getBlock()
     {
-        $id = 0;
         $name = "";
         $type = TextModel::TYPE_DIV;
         $hasEditor = false;
 
-        $data = $this->getData();
-        if (array_key_exists("id", $data)) {
-            $id = (int)$data["id"];
-        }
-
+        $id = (int) $this->get("id");
         if ($id === 0) {
             $this->checkBlockOperation(BlockModel::TYPE_TEXT, Operation::ALL, Operation::TEXT_ADD);
             $blockModel = new BlockModel();
@@ -238,13 +233,11 @@ class TextController extends AbstractController
             ]
         );
 
-        $data = $this->getData();
-
         $textModel = new TextModel();
         $textModel->set(
             [
-                "type"      => $data["type"],
-                "hasEditor" => $data["hasEditor"],
+                "type"      => $this->get("type"),
+                "hasEditor" => $this->get("hasEditor"),
             ]
         );
         $textModel->save();
@@ -260,7 +253,7 @@ class TextController extends AbstractController
         $blockModel = new BlockModel();
         $blockModel->set(
             [
-                "name"        => $data["name"],
+                "name"        => $this->get("name"),
                 "language"    => Language::getActiveId(),
                 "contentType" => BlockModel::TYPE_TEXT,
                 "contentId"   => $textModel->getId(),
@@ -299,24 +292,22 @@ class TextController extends AbstractController
             ]
         );
 
-        $data = $this->getData();
+        $this->checkBlockOperation(BlockModel::TYPE_TEXT, $this->get("id"), Operation::TEXT_UPDATE_SETTINGS);
 
-        $this->checkBlockOperation(BlockModel::TYPE_TEXT, $data["id"], Operation::TEXT_UPDATE_SETTINGS);
-
-        $blockModel = BlockModel::getById($data["id"]);
+        $blockModel = BlockModel::getById($this->get("id"));
 
         $textModel = $blockModel->getContentModel();
         $textModel->set(
             [
-                "type"      => $data["type"],
-                "hasEditor" => $data["hasEditor"],
+                "type"      => $this->get("type"),
+                "hasEditor" => $this->get("hasEditor"),
             ]
         );
         $textModel->save();
 
         $blockModel->set(
             [
-                "name" => $data["name"],
+                "name" => $this->get("name"),
             ]
         );
         $blockModel->save();
@@ -349,17 +340,15 @@ class TextController extends AbstractController
             ]
         );
 
-        $data = $this->getData();
+        $this->checkBlockOperation(BlockModel::TYPE_TEXT, $this->get("id"), Operation::TEXT_DELETE);
 
-        $this->checkBlockOperation(BlockModel::TYPE_TEXT, $data["id"], Operation::TEXT_DELETE);
-
-        $blockModel = BlockModel::getById($data["id"]);
+        $blockModel = BlockModel::getById($this->get("id"));
 
         if ($blockModel->get("contentType") !== BlockModel::TYPE_TEXT) {
             throw new BadRequestException(
                 "Incorrect text block to delete. ID: {id}. Block type: {type}",
                 [
-                    "id"   => $data["id"],
+                    "id"   => $this->get("id"),
                     "type" => $blockModel->get("contentType"),
                 ]
             );
@@ -386,19 +375,18 @@ class TextController extends AbstractController
             ]
         );
 
-        $data = $this->getData();
-        $id = (int)$data["id"];
+        $id = (int) $this->get("id");
 
-        $this->checkBlockOperation(BlockModel::TYPE_TEXT, $data["id"], Operation::TEXT_UPDATE_DESIGN);
+        $this->checkBlockOperation(BlockModel::TYPE_TEXT, $id, Operation::TEXT_UPDATE_DESIGN);
 
-        $blockModel = BlockModel::getById($data["id"]);
+        $blockModel = BlockModel::getById($id);
 
         $textModel = $blockModel->getContentModel(true);
         if (!$textModel instanceof TextModel) {
             throw new BadRequestException(
                 "Block content model is not a text. ID: {id}. Block type: {type}",
                 [
-                    "id"           => $data["id"],
+                    "id"           => $id,
                     "contentClass" => get_class($textModel),
                 ]
             );
@@ -451,26 +439,24 @@ class TextController extends AbstractController
             ]
         );
 
-        $data = $this->getData();
+        $this->checkBlockOperation(BlockModel::TYPE_TEXT, $this->get("id"), Operation::TEXT_UPDATE_DESIGN);
 
-        $this->checkBlockOperation(BlockModel::TYPE_TEXT, $data["id"], Operation::TEXT_UPDATE_DESIGN);
-
-        $blockModel = BlockModel::getById($data["id"]);
+        $blockModel = BlockModel::getById($this->get("id"));
 
         $textModel = $blockModel->getContentModel();
         if (!$textModel instanceof TextModel) {
             throw new BadRequestException(
                 "Block content model is not a text. ID: {id}. Block type: {type}",
                 [
-                    "id"           => $data["id"],
+                    "id"           => $this->get("id"),
                     "contentClass" => get_class($textModel),
                 ]
             );
         }
 
         $textModel->set([
-            "designTextModel"  => $data["designTextModel"],
-            "designBlockModel" => $data["designBlockModel"],
+            "designTextModel"  => $this->get("designTextModel"),
+            "designBlockModel" => $this->get("designBlockModel"),
         ]);
         $textModel->save();
 
@@ -493,8 +479,7 @@ class TextController extends AbstractController
             ]
         );
 
-        $data = $this->getData();
-        $id = (int) $data["id"];
+        $id = (int) $this->get("id");
 
         $this->checkBlockOperation(BlockModel::TYPE_TEXT, $id, Operation::TEXT_UPDATE_CONTENT);
 
@@ -505,7 +490,7 @@ class TextController extends AbstractController
             throw new BadRequestException(
                 "Block content model is not a text. ID: {id}. Block type: {type}",
                 [
-                    "id"           => $data["id"],
+                    "id"           => $id,
                     "contentClass" => get_class($textModel),
                 ]
             );
@@ -554,18 +539,16 @@ class TextController extends AbstractController
             ]
         );
 
-        $data = $this->getData();
+        $this->checkBlockOperation(BlockModel::TYPE_TEXT, $this->get("id"), Operation::TEXT_UPDATE_CONTENT);
 
-        $this->checkBlockOperation(BlockModel::TYPE_TEXT, $data["id"], Operation::TEXT_UPDATE_CONTENT);
-
-        $blockModel = BlockModel::getById($data["id"]);
+        $blockModel = BlockModel::getById($this->get("id"));
 
         $textModel = $blockModel->getContentModel();
         if (!$textModel instanceof TextModel) {
             throw new BadRequestException(
                 "Block content model is not a text. ID: {id}. Block type: {type}",
                 [
-                    "id"           => $data["id"],
+                    "id"           => $this->get("id"),
                     "contentClass" => get_class($textModel),
                 ]
             );
@@ -583,7 +566,7 @@ class TextController extends AbstractController
 
         $textInstanceModel->set(
             [
-                "text" => $data["text"]
+                "text" => $this->get("text")
             ]
         );
         $textInstanceModel->save();

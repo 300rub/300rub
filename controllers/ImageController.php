@@ -4,7 +4,6 @@ namespace testS\controllers;
 
 use testS\components\Operation;
 use testS\models\BlockModel;
-use testS\models\FileModel;
 use testS\models\ImageInstanceModel;
 
 /**
@@ -107,16 +106,12 @@ class ImageController extends AbstractController
             ]
         );
 
-        $data = $this->getData();
-
-        $this->checkBlockOperation(BlockModel::TYPE_IMAGE, $data["id"], Operation::TEXT_UPDATE_CONTENT);
+        $this->checkBlockOperation(BlockModel::TYPE_IMAGE, $this->get("id"), Operation::IMAGE_UPLOAD);
 
         $imageInstanceModel = new ImageInstanceModel();
-        $imageInstanceModel->set(["imageAlbumId" => $data["imageAlbumId"]]);
+        $imageInstanceModel->set(["imageAlbumId" => $this->get("imageAlbumId")]);
 
-        return [
-            "path" => $imageInstanceModel->upload()
-        ];
+        return $imageInstanceModel->upload();
     }
 
     /**

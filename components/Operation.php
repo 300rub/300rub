@@ -157,6 +157,8 @@ class Operation
         switch ($contentType) {
             case BlockModel::TYPE_TEXT:
                 return self::getBlockTextOperations($isAll);
+            case BlockModel::TYPE_IMAGE:
+                return self::getBlockImageOperations($isAll);
             default:
                 return [];
         }

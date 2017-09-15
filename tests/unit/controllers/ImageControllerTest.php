@@ -1,6 +1,8 @@
 <?php
 
 namespace testS\tests\unit\controllers;
+use testS\applications\App;
+use testS\models\ImageInstanceModel;
 
 /**
  * Tests for the controller ImageController
@@ -60,14 +62,142 @@ class ImageControllerTest extends AbstractControllerTest
         $this->markTestSkipped();
     }
 
-    public function testCreateImage()
+    /**
+     * Test for createImage action
+     *
+     * @param string $user
+     * @param string $file
+     * @param int    $blockId
+     * @param int    $albumId
+     * @param bool   $hasError
+     *
+     * @return bool
+     *
+     * @dataProvider dataProviderForTestCreateImage
+     */
+    public function testCreateImage($user, $file, $blockId, $albumId, $hasError = false)
     {
-        //$this->markTestSkipped();
+        $this->setUser($user);
+        $this->sendFile("image", "image", $file, ["id" => $blockId, "imageAlbumId" => $albumId]);
 
-        $this->setUser(self::TYPE_FULL);
-        $this->sendFile("image", "image", "bigImage.jpg", ["id" => 1, "imageAlbumId" => 1]);
+        if ($hasError === true) {
+            $this->assertError();
+            return true;
+        }
+
         $body = $this->getBody();
-        var_dump($body);
+
+        $originalFileExplode = explode("/", $body["originalUrl"]);
+        $originalFile = $originalFileExplode[count($originalFileExplode) - 1];
+        $originalFilePath = sprintf(
+            App::getInstance()->getConfig(["file", "pathMask"]),
+            App::getInstance()->getSite()->getId(),
+            $originalFile
+        );
+        $this->assertTrue(file_exists($originalFilePath));
+
+        $viewFileExplode = explode("/", $body["viewUrl"]);
+        $viewFile = $viewFileExplode[count($viewFileExplode) - 1];
+        $viewFilePath = sprintf(
+            App::getInstance()->getConfig(["file", "pathMask"]),
+            App::getInstance()->getSite()->getId(),
+            $viewFile
+        );
+        $this->assertTrue(file_exists($viewFilePath));
+
+        $thumbFileExplode = explode("/", $body["thumbUrl"]);
+        $thumbFile = $thumbFileExplode[count($thumbFileExplode) - 1];
+        $thumbFilePath = sprintf(
+            App::getInstance()->getConfig(["file", "pathMask"]),
+            App::getInstance()->getSite()->getId(),
+            $thumbFile
+        );
+        $this->assertTrue(file_exists($thumbFilePath));
+
+        $imageInstanceModel = (new ImageInstanceModel())->byId($body["id"])->withRelations()->find();
+        $this->assertNotNull($imageInstanceModel);
+
+        $this->assertSame($originalFile, $imageInstanceModel->get("originalFileModel")->get("uniqueName"));
+        $this->assertSame($viewFile, $imageInstanceModel->get("viewFileModel")->get("uniqueName"));
+        $this->assertSame($thumbFile, $imageInstanceModel->get("thumbFileModel")->get("uniqueName"));
+
+        $imageInstanceModel->delete();
+
+        return true;
+    }
+
+    /**
+     * Data provider for testCreateImage
+     *
+     * @return array
+     */
+    public function dataProviderForTestCreateImage()
+    {
+        return [
+            "userJpgCorrect" => [
+                "user"     => self::TYPE_LIMITED,
+                "file"     => "bigImage.jpg",
+                "blockId"  => 1,
+                "albumId"  => 1,
+                "hasError" => false
+            ],
+            "userPngCorrect" => [
+                "user"     => self::TYPE_LIMITED,
+                "file"     => "bigImage.png",
+                "blockId"  => 1,
+                "albumId"  => 1,
+                "hasError" => false
+            ],
+            "userJpgIncorrectAlbumId" => [
+                "user"     => self::TYPE_LIMITED,
+                "file"     => "bigImage.jpg",
+                "blockId"  => 1,
+                "albumId"  => 999,
+                "hasError" => true
+            ],
+            "userJpgEmptyAlbumId" => [
+                "user"     => self::TYPE_LIMITED,
+                "file"     => "bigImage.jpg",
+                "blockId"  => 1,
+                "albumId"  => 0,
+                "hasError" => true
+            ],
+            "userIncorrectFormat" => [
+                "user"     => self::TYPE_LIMITED,
+                "file"     => "file.txt",
+                "blockId"  => 1,
+                "albumId"  => 1,
+                "hasError" => true
+            ],
+            "blockedJpg" => [
+                "user"     => self::TYPE_BLOCKED_USER,
+                "file"     => "bigImage.jpg",
+                "blockId"  => 1,
+                "albumId"  => 1,
+                "hasError" => true
+            ],
+            "blockedPng" => [
+                "user"     => self::TYPE_BLOCKED_USER,
+                "file"     => "bigImage.png",
+                "blockId"  => 1,
+                "albumId"  => 1,
+                "hasError" => true
+            ],
+            "guestJpg" => [
+                "user"     => null,
+                "file"     => "bigImage.jpg",
+                "blockId"  => 1,
+                "albumId"  => 1,
+                "hasError" => true
+            ],
+            "guestPng" => [
+                "user"     => null,
+                "file"     => "bigImage.png",
+                "blockId"  => 1,
+                "albumId"  => 1,
+                "hasError" => true
+            ],
+        ];
     }
 
     public function testUpdateImage()

@@ -33,11 +33,9 @@ class ImageInstanceModel extends AbstractModel
      */
     const THUMB_PREFIX = "thumb_";
 
-    // Mimes
-    const MIME_JPG = "image/jpeg";
-
     // Extensions
     const EXT_JPG = "jpg";
+    const EXT_PNG = "png";
 
     /**
      * Image info
@@ -45,27 +43,6 @@ class ImageInstanceModel extends AbstractModel
      * @var array|bool
      */
     private $_info = false;
-
-    /**
-     * Original file model
-     *
-     * @var FileModel
-     */
-    private $_originalFileModel = null;
-
-    /**
-     * View file model
-     *
-     * @var FileModel
-     */
-    private $_viewFileModel = null;
-
-    /**
-     * Thumb file model
-     *
-     * @var FileModel
-     */
-    private $_thumbFileModel = null;
 
     /**
      * Extension
@@ -120,7 +97,15 @@ class ImageInstanceModel extends AbstractModel
     public function getFieldsInfo()
     {
         return [
-            "fileId"       => [
+            "originalFileId"       => [
+                self::FIELD_RELATION         => "FileModel",
+                self::FIELD_SKIP_DUPLICATION => true,
+            ],
+            "viewFileId"       => [
+                self::FIELD_RELATION         => "FileModel",
+                self::FIELD_SKIP_DUPLICATION => true,
+            ],
+            "thumbFileId"       => [
                 self::FIELD_RELATION         => "FileModel",
                 self::FIELD_SKIP_DUPLICATION => true,
             ],
@@ -234,6 +219,7 @@ class ImageInstanceModel extends AbstractModel
     public function upload()
     {
         $this
+            ->_checkImageAlbumId()
             ->_setOriginalFileModel()
             ->_setInfo()
             ->_setExtension()
@@ -242,30 +228,33 @@ class ImageInstanceModel extends AbstractModel
             ->_setViewFileModel()
             ->_setThumbFileModel()
             ->_uploadImage()
-            ->_saveModel();
+            ->save();
 
         return [
-            "originalUrl"  => $this->_originalFileModel->getUrl(),
-            "viewUrl"      => $this->_viewFileModel->getUrl(),
-            "thumbUrl"     => $this->_thumbFileModel->getUrl(),
+            "originalUrl"  => $this->get("originalFileModel")->getUrl(),
+            "viewUrl"      => $this->get("viewFileModel")->getUrl(),
+            "thumbUrl"     => $this->get("thumbFileModel")->getUrl(),
             "name"         => str_replace(
                 sprintf(".%s", $this->_extension),
                 "",
-                $this->_originalFileModel->get("originalName")
+                $this->get("originalFileModel")->get("originalName")
             ),
             "id"           => $this->getId()
         ];
     }
 
     /**
-     * Saves the model
+     * Checks image album ID
      *
      * @return ImageInstanceModel
+     *
+     * @throws FileException
      */
-    private function _saveModel()
+    private function _checkImageAlbumId()
     {
-        $this->set(["fileModel" => $this->_originalFileModel]);
-        $this->save();
+        if ($this->get("imageAlbumId") === 0) {
+            throw new FileException("Unable to upload image because imageAlbumId is 0");
+        }
 
         return $this;
     }
@@ -283,6 +272,9 @@ class ImageInstanceModel extends AbstractModel
             case self::EXT_JPG:
                 $this->_saveJpg();
                 break;
+            case self::EXT_PNG:
+                $this->_savePng();
+                break;
             default:
                 throw new FileException(
                     "Unable to upload image with extension: {extension}",
@@ -292,8 +284,8 @@ class ImageInstanceModel extends AbstractModel
                 );
         }
 
-        $this->_viewFileModel->setSizeFromTmpFile()->upload();
-        $this->_thumbFileModel->setSizeFromTmpFile()->upload();
+        $this->get("viewFileModel")->setSizeFromTmpFile()->upload();
+        $this->get("thumbFileModel")->setSizeFromTmpFile()->upload();
 
         return $this;
     }
@@ -305,8 +297,11 @@ class ImageInstanceModel extends AbstractModel
      */
     private function _setOriginalFileModel()
     {
-        $this->_originalFileModel = new FileModel();
-        $this->_originalFileModel->parsePostRequest();
+        $this->set(
+            [
+                "originalFileModel" => (new FileModel())->parsePostRequest()
+            ]
+        );
 
         return $this;
     }
@@ -318,7 +313,7 @@ class ImageInstanceModel extends AbstractModel
      */
     private function _uploadOriginalFile()
     {
-        $this->_originalFileModel
+        $this->get("originalFileModel")
             ->setUniqueName($this->_extension)
             ->upload();
 
@@ -332,15 +327,18 @@ class ImageInstanceModel extends AbstractModel
      */
     private function _setViewFileModel()
     {
-        $this->_viewFileModel = new FileModel();
-        $this->_viewFileModel
-            ->generateTmpName()
-            ->set(
-                [
-                    "uniqueName" => self::VIEW_PREFIX . $this->_originalFileModel->get("uniqueName"),
-                    "type"       => $this->_originalFileModel->get("type")
-                ]
-            );
+        $this->set(
+            [
+                "viewFileModel" => (new FileModel())
+                    ->generateTmpName()
+                    ->set(
+                        [
+                            "uniqueName" => self::VIEW_PREFIX . $this->get("originalFileModel")->get("uniqueName"),
+                            "type"       => $this->get("originalFileModel")->get("type")
+                        ]
+                    )
+            ]
+        );
 
         return $this;
     }
@@ -352,15 +350,18 @@ class ImageInstanceModel extends AbstractModel
      */
     private function _setThumbFileModel()
     {
-        $this->_thumbFileModel = new FileModel();
-        $this->_thumbFileModel
-            ->generateTmpName()
-            ->set(
-                [
-                    "uniqueName" => self::THUMB_PREFIX . $this->_originalFileModel->get("uniqueName"),
-                    "type"       => $this->_originalFileModel->get("type")
-                ]
-            );
+        $this->set(
+            [
+                "thumbFileModel" => (new FileModel())
+                    ->generateTmpName()
+                    ->set(
+                        [
+                            "uniqueName" => self::THUMB_PREFIX . $this->get("originalFileModel")->get("uniqueName"),
+                            "type"       => $this->get("originalFileModel")->get("type")
+                        ]
+                    )
+            ]
+        );
 
         return $this;
     }
@@ -374,12 +375,12 @@ class ImageInstanceModel extends AbstractModel
      */
     private function _setInfo()
     {
-        $this->_info = getimagesize($this->_originalFileModel->getTmpName());
+        $this->_info = getimagesize($this->get("originalFileModel")->getTmpName());
         if (!is_array($this->_info)) {
             throw new FileException(
                 "Uploaded file: {file} is not an image",
                 [
-                    "file" => $this->_originalFileModel->get("originalName")
+                    "file" => $this->get("originalFileModel")->get("originalName")
                 ]
             );
         }
@@ -405,17 +406,28 @@ class ImageInstanceModel extends AbstractModel
      */
     private function _setExtension()
     {
-        switch ($this->_info["mime"]) {
-            case self::MIME_JPG:
-                $this->_extension = self::EXT_JPG;
-                break;
-            default:
-                throw new FileException(
-                    "Unable to upload image with mime: {mime}",
-                    [
-                        "mime" => $this->_info["mime"]
-                    ]
-                );
+        $mime = $this->_info["mime"];
+
+        if (stripos($mime, "image") === false) {
+            throw new FileException(
+                "File with mime: {mime} is not an image",
+                [
+                    "mime" => $mime
+                ]
+            );
+        }
+
+        if (stripos($mime, "jpg") !== false || stripos($mime, "jpeg") !== false) {
+            $this->_extension = self::EXT_JPG;
+        } elseif (stripos($mime, "png") !== false) {
+            $this->_extension = self::EXT_PNG;
+        } else {
+            throw new FileException(
+                "Unable to upload image with mime: {mime}",
+                [
+                    "mime" => $mime
+                ]
+            );
         }
 
         return $this;
@@ -477,13 +489,13 @@ class ImageInstanceModel extends AbstractModel
     }
 
     /**
-     * Save JPG
+     * Saves JPG
      *
      * @return ImageInstanceModel
      */
     private function _saveJpg()
     {
-        $originalImage = imagecreatefromjpeg($this->_originalFileModel->getUrl());
+        $originalImage = imagecreatefromjpeg($this->get("originalFileModel")->getUrl());
 
         $viewImage = imagecreatetruecolor($this->_viewWidth, $this->_viewHeight);
         imagecopyresampled(
@@ -498,7 +510,7 @@ class ImageInstanceModel extends AbstractModel
             $this->get("width"),
             $this->get("height")
         );
-        imagejpeg($viewImage, $this->_viewFileModel->getTmpName());
+        imagejpeg($viewImage, $this->get("viewFileModel")->getTmpName());
 
         $thumbImage = imagecreatetruecolor($this->_thumbWidth, $this->_thumbHeight);
         imagecopyresampled(
@@ -513,7 +525,61 @@ class ImageInstanceModel extends AbstractModel
             $this->get("width"),
             $this->get("height")
         );
-        imagejpeg($thumbImage, $this->_thumbFileModel->getTmpName());
+        imagejpeg($thumbImage, $this->get("thumbFileModel")->getTmpName());
+
+        imagedestroy($originalImage);
+        imagedestroy($viewImage);
+        imagedestroy($thumbImage);
+
+        return $this;
+    }
+
+    /**
+     * Saves PNG
+     *
+     * @return ImageInstanceModel
+     */
+    private function _savePng()
+    {
+        $originalImage = imagecreatefrompng($this->get("originalFileModel")->getUrl());
+
+        $viewImage = imagecreatetruecolor($this->_viewWidth, $this->_viewHeight);
+        imagealphablending($viewImage, false);
+        imagesavealpha($viewImage, true);
+        $transparent = imagecolorallocatealpha($viewImage, 255, 255, 255, 127);
+        imagefilledrectangle($viewImage, 0, 0, $this->get("width"), $this->get("height"), $transparent);
+        imagecopyresampled(
+            $viewImage,
+            $originalImage,
+            0,
+            0,
+            0,
+            0,
+            $this->_viewWidth,
+            $this->_viewHeight,
+            $this->get("width"),
+            $this->get("height")
+        );
+        imagepng($viewImage, $this->get("viewFileModel")->getTmpName());
+
+        $thumbImage = imagecreatetruecolor($this->_thumbWidth, $this->_thumbHeight);
+        imagealphablending($thumbImage, false);
+        imagesavealpha($thumbImage, true);
+        $transparent = imagecolorallocatealpha($thumbImage, 255, 255, 255, 127);
+        imagefilledrectangle($thumbImage, 0, 0, $this->get("width"), $this->get("height"), $transparent);
+        imagecopyresampled(
+            $thumbImage,
+            $originalImage,
+            0,
+            0,
+            0,
+            0,
+            $this->_thumbWidth,
+            $this->_thumbHeight,
+            $this->get("width"),
+            $this->get("height")
+        );
+        imagepng($thumbImage, $this->get("thumbFileModel")->getTmpName());
 
         imagedestroy($originalImage);
         imagedestroy($viewImage);

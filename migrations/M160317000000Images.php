@@ -96,26 +96,30 @@ class M160317000000Images extends AbstractMigration
             ->createTable(
                 "imageInstances",
                 [
-                    "id"           => self::TYPE_PK,
-                    "imageAlbumId" => self::TYPE_FK,
-                    "fileId"       => self::TYPE_FK,
-                    "isCover"      => self::TYPE_BOOL,
-                    "sort"         => self::TYPE_SMALLINT,
-                    "alt"          => self::TYPE_TEXT,
-                    "width"        => self::TYPE_SMALLINT_UNSIGNED,
-                    "height"       => self::TYPE_SMALLINT_UNSIGNED,
-                    "x1"           => self::TYPE_SMALLINT_UNSIGNED,
-                    "y1"           => self::TYPE_SMALLINT_UNSIGNED,
-                    "x2"           => self::TYPE_SMALLINT_UNSIGNED,
-                    "y2"           => self::TYPE_SMALLINT_UNSIGNED,
-                    "thumbX1"      => self::TYPE_SMALLINT_UNSIGNED,
-                    "thumbY1"      => self::TYPE_SMALLINT_UNSIGNED,
-                    "thumbX2"      => self::TYPE_SMALLINT_UNSIGNED,
-                    "thumbY2"      => self::TYPE_SMALLINT_UNSIGNED,
+                    "id"             => self::TYPE_PK,
+                    "imageAlbumId"   => self::TYPE_FK,
+                    "originalFileId" => self::TYPE_FK,
+                    "viewFileId"     => self::TYPE_FK,
+                    "thumbFileId"    => self::TYPE_FK,
+                    "isCover"        => self::TYPE_BOOL,
+                    "sort"           => self::TYPE_SMALLINT,
+                    "alt"            => self::TYPE_TEXT,
+                    "width"          => self::TYPE_SMALLINT_UNSIGNED,
+                    "height"         => self::TYPE_SMALLINT_UNSIGNED,
+                    "x1"             => self::TYPE_SMALLINT_UNSIGNED,
+                    "y1"             => self::TYPE_SMALLINT_UNSIGNED,
+                    "x2"             => self::TYPE_SMALLINT_UNSIGNED,
+                    "y2"             => self::TYPE_SMALLINT_UNSIGNED,
+                    "thumbX1"        => self::TYPE_SMALLINT_UNSIGNED,
+                    "thumbY1"        => self::TYPE_SMALLINT_UNSIGNED,
+                    "thumbX2"        => self::TYPE_SMALLINT_UNSIGNED,
+                    "thumbY2"        => self::TYPE_SMALLINT_UNSIGNED,
                 ]
             )
             ->createForeignKey("imageInstances", "imageAlbumId", "imageGroups", self::FK_CASCADE, self::FK_CASCADE)
-            ->createForeignKey("imageInstances", "fileId", "files")
+            ->createForeignKey("imageInstances", "originalFileId", "files")
+            ->createForeignKey("imageInstances", "viewFileId", "files")
+            ->createForeignKey("imageInstances", "thumbFileId", "files")
             ->createIndex("imageInstances", "isCover")
             ->createIndex("imageInstances", "sort");
     }

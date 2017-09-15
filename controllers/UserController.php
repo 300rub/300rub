@@ -81,8 +81,6 @@ class UserController extends AbstractController
      */
     public function createSession()
     {
-        $data = $this->getData();
-
         $this->checkData(
             [
                 "user"       => [self::TYPE_STRING, self::NOT_EMPTY],
@@ -91,7 +89,7 @@ class UserController extends AbstractController
             ]
         );
 
-        $userModel = (new UserModel())->byLogin($data["user"])->find();
+        $userModel = (new UserModel())->byLogin($this->get("user"))->find();
         if (!$userModel instanceof UserModel) {
             return [
                 "errors" => [
@@ -100,7 +98,7 @@ class UserController extends AbstractController
             ];
         }
 
-        if ($userModel->get("password") !== sha1($data["password"])) {
+        if ($userModel->get("password") !== sha1($this->get("password"))) {
             return [
                 "errors" => [
                     "password" => Language::t("user", "incorrect")
@@ -112,7 +110,7 @@ class UserController extends AbstractController
 
         App::web()->setUser($token, $userModel);
         $_SESSION["token"] = $token;
-        if ($data["isRemember"] === true) {
+        if ($this->get("isRemember") === true) {
             setcookie("token", $token, time() + 86400 * 365 * 10, "/"); // 10 years
         }
 
@@ -155,8 +153,7 @@ class UserController extends AbstractController
             return $this->getSimpleSuccessResult();
         }
 
-        $data = $this->getData();
-        if (!array_key_exists("token", $data)) {
+        if (!$this->get("token")) {
             App::web()->getMemcached()->delete($user->getToken());
 
             setcookie('token', '', time() - 3600, "/");
@@ -170,7 +167,7 @@ class UserController extends AbstractController
             return $this->getSimpleSuccessResult();
         }
 
-        $token = $data["token"];
+        $token = $this->get("token");
 
         if (!is_string($token)
             || strlen($token) !== 32
@@ -221,12 +218,7 @@ class UserController extends AbstractController
         $this->checkUser();
         $user = App::web()->getUser();
 
-        $data = $this->getData();
-
-        $id = 0;
-        if (array_key_exists("id", $data)) {
-            $id = (int)$data["id"];
-        }
+        $id = (int) $this->get("id");
 
         if ($id === 0
             || $id === $user->getId()
@@ -287,8 +279,7 @@ class UserController extends AbstractController
             ]
         );
 
-        $data = $this->getData();
-        $id = (int)$data["id"];
+        $id = (int) $this->get("id");
 
         if ($id !== App::web()->getUser()->getId()) {
             $this->checkSettingsOperation(Operation::SETTINGS_USER_VIEW_SESSIONS);
@@ -437,16 +428,12 @@ class UserController extends AbstractController
     {
         $this->checkUser();
 
-        $data = $this->getData();
         $id = 0;
-        if (!empty($data["id"])) {
-            $id = (int)$data["id"];
+        if ($this->get("id")) {
+            $id = (int) $this->get("id");
             if ($id === 0) {
                 throw new BadRequestException(
-                    "Incorrect request to get user. Data: {data}",
-                    [
-                        "data" => json_encode($data)
-                    ]
+                    "Incorrect request to get user"
                 );
             }
         }
@@ -790,9 +777,7 @@ class UserController extends AbstractController
             ]
         );
 
-        $data = $this->getData();
-
-        if ($data["password"] !== $data["passwordConfirm"]) {
+        if ($this->get("password") !== $this->get("passwordConfirm")) {
             return [
                 "errors" => [
                     "passwordConfirm" => Language::t("user", "passwordsMatch")
@@ -803,11 +788,11 @@ class UserController extends AbstractController
         $userModel = new UserModel();
         $userModel->set(
             [
-                "login"    => $data["login"],
-                "password" => UserModel::getPasswordHash($data["password"]),
-                "type"     => $data["type"],
-                "name"     => $data["name"],
-                "email"    => $data["email"],
+                "login"    => $this->get("login"),
+                "password" => UserModel::getPasswordHash($this->get("password")),
+                "type"     => $this->get("type"),
+                "name"     => $this->get("name"),
+                "email"    => $this->get("email"),
             ]
         );
         $userModel->save();
@@ -819,7 +804,7 @@ class UserController extends AbstractController
             ];
         }
 
-        $userModel->addOperations($data["operations"]);
+        $userModel->addOperations($this->get("operations"));
 
         return [
             "result" => true,
@@ -851,14 +836,13 @@ class UserController extends AbstractController
         );
 
         $user = App::web()->getUser();
-        $data = $this->getData();
 
-        $userModel = (new UserModel())->byId($data["id"])->find();
+        $userModel = (new UserModel())->byId($this->get("id"))->find();
         if ($userModel === null) {
             throw new NotFoundException(
                 "Unable to find user by ID: {id}",
                 [
-                    "id" => $data["id"]
+                    "id" => $this->get("id")
                 ]
             );
         }
@@ -871,22 +855,22 @@ class UserController extends AbstractController
             );
         }
 
-        if ($data["isChangePassword"] === true) {
-            if (!array_key_exists("password", $data)
-                || !array_key_exists("passwordConfirm", $data)
-                || strlen($data["password"]) !== 32
-                || strlen($data["passwordConfirm"]) !== 32
+        if ($this->get("isChangePassword") === true) {
+            if (!$this->get("password")
+                || !$this->get("passwordConfirm")
+                || strlen($this->get("password")) !== 32
+                || strlen($this->get("passwordConfirm")) !== 32
             ) {
                 throw new BadRequestException(
                     "Incorrect passwords. Password: {password}, passwordConfirm: {passwordConfirm}",
                     [
-                        "password"        => $data["password"],
-                        "passwordConfirm" => $data["passwordConfirm"],
+                        "password"        => $this->get("password"),
+                        "passwordConfirm" => $this->get("passwordConfirm"),
                     ]
                 );
             }
 
-            if ($data["password"] !== $data["passwordConfirm"]) {
+            if ($this->get("password") !== $this->get("passwordConfirm")) {
                 return [
                     "errors" => [
                         "passwordConfirm" => Language::t("user", "passwordsMatch")
@@ -896,24 +880,24 @@ class UserController extends AbstractController
 
             $userModel->set(
                 [
-                    "password" => UserModel::getPasswordHash($data["password"])
+                    "password" => UserModel::getPasswordHash($this->get("password"))
                 ]
             );
         }
 
         $userModel->set(
             [
-                "login" => $data["login"],
-                "name"  => $data["name"],
-                "email" => $data["email"],
+                "login" => $this->get("login"),
+                "name"  => $this->get("name"),
+                "email" => $this->get("email"),
             ]
         );
-        if (array_key_exists("type", $data)
+        if ($this->get("type")
             && $user->getId() !== $userModel->getId()
         ) {
             $userModel->set(
                 [
-                    "type"  => $data["type"],
+                    "type"  => $this->get("type"),
                 ]
             );
         }
@@ -926,10 +910,10 @@ class UserController extends AbstractController
             ];
         }
 
-        if (array_key_exists("operations", $data)
-            && is_array($data["operations"])
+        if ($this->get("operations")
+            && is_array($this->get("operations"))
         ) {
-            $userModel->updateOperations($data["operations"]);
+            $userModel->updateOperations($this->get("operations"));
         }
 
         return $this->getSimpleSuccessResult();
@@ -948,14 +932,12 @@ class UserController extends AbstractController
             ]
         );
 
-        $data = $this->getData();
-
-        $userModel = (new UserModel())->byId($data["id"])->find();
+        $userModel = (new UserModel())->byId($this->get("id"))->find();
         if ($userModel === null) {
             throw new NotFoundException(
                 "Unable to find user by ID: {id}",
                 [
-                    "id" => $data["id"]
+                    "id" => $this->get("id")
                 ]
             );
         }

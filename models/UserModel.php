@@ -19,6 +19,7 @@ use testS\components\ValueGenerator;
  * @method UserModel[] findAll()
  * @method UserModel   exceptId($id)
  * @method UserModel   latest
+ * @method UserModel   ordered($value = "name", $alias = Db::DEFAULT_ALIAS, $isDesc = false)
  */
 class UserModel extends AbstractModel
 {
