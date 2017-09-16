@@ -3,8 +3,7 @@
 
 .panel {
   .border-radius(6px);
-  .transition-duration(.15s);
-  .transition-property(opacity);
+  .transition(opacity);
   background: white;
   border: 1px solid @darkGrayBorderColor;
   box-shadow: 0 5px 15px rgba(0,0,0,.5);
@@ -63,8 +62,7 @@
       position: relative;
 
       .label {
-        .transition-duration(.15s);
-        .transition-property(background-color);
+        .transition(background-color);
         display: block;
         padding: 6px 70px 6px 6px;
         line-height: 20px;
@@ -83,8 +81,7 @@
       }
 
       .settings, .design {
-        .transition-duration(.15s);
-        .transition-property(font-size);
+        .transition(font-size);
         position: absolute;
         width: 32px;
         height: 32px;

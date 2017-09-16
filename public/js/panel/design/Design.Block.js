@@ -30,6 +30,8 @@
         this.$_borderExample = null;
         this.$_borderExampleStyles = null;
 
+        this._useGradient = false;
+
         this.init();
     };
 
@@ -832,56 +834,28 @@
                 });
             }
 
-            if (this._values["hasBackgroundHover"] !== null) {
-                new TestS.Form({
-                    type: "checkboxOnOff",
-                    value: this._values["hasBackgroundHover"],
-                    label: this._getLabel("mouseHoverEffect"),
-                    onCheck: $.proxy(function () {
-                        $container.addClass("has-hover");
-                        this._values["hasBackgroundHover"] = true;
-                        this._updateBackground(false);
-                    }, this),
-                    onUnCheck: $.proxy(function () {
-                        $container.removeClass("has-hover");
-                        this._values["hasBackgroundHover"] = false;
-                        this._updateBackground(false);
-                    }, this),
-                    appendTo: $container
-                });
-            }
-
-            if (this._values["hasBackgroundAnimation"] !== null) {
-                new TestS.Form({
-                    type: "checkboxOnOff",
-                    value: this._values["hasBackgroundAnimation"],
-                    label: this._getLabel("mouseHoverAnimation"),
-                    class: "has-animation",
-                    onCheck: $.proxy(function () {
-                        this._values["hasBackgroundAnimation"] = true;
-                        this._updateBackground(false);
-                    }, this),
-                    onUnCheck: $.proxy(function () {
-                        this._values["hasBackgroundAnimation"] = false;
-                        this._updateBackground(false);
-                    }, this),
-                    appendTo: $container
-                });
-            }
-
-            var hasGradient = this._values["backgroundColorTo"] || this._values["backgroundColorHover"];
+            var hasGradient = !!(this._values["backgroundColorTo"] || this._values["backgroundColorHover"]);
             if (hasGradient) {
                 $container.addClass("has-gradient");
+                this._useGradient = true;
             }
+            if (this._values["hasBackgroundHover"]) {
+                $container.addClass("has-hover");
+            }
+
             new TestS.Form({
                 type: "checkboxOnOff",
                 value: hasGradient,
                 label: this._getLabel("useGradient"),
                 onCheck: $.proxy(function () {
                     $container.addClass("has-gradient");
+                    this._useGradient = true;
+                    this._updateBackground(false);
                 }, this),
                 onUnCheck: $.proxy(function () {
                     $container.removeClass("has-gradient");
+                    this._useGradient = false;
+                    this._updateBackground(false);
                 }, this),
                 appendTo: $container
             });
@@ -914,6 +888,43 @@
                     ],
                     onChange: $.proxy(function (value) {
                         this._values["gradientDirection"] = value;
+                        this._updateBackground(false);
+                    }, this),
+                    appendTo: $container
+                });
+            }
+
+            if (this._values["hasBackgroundHover"] !== null) {
+                new TestS.Form({
+                    type: "checkboxOnOff",
+                    value: this._values["hasBackgroundHover"],
+                    label: this._getLabel("mouseHoverEffect"),
+                    onCheck: $.proxy(function () {
+                        $container.addClass("has-hover");
+                        this._values["hasBackgroundHover"] = true;
+                        this._updateBackground(false);
+                    }, this),
+                    onUnCheck: $.proxy(function () {
+                        $container.removeClass("has-hover");
+                        this._values["hasBackgroundHover"] = false;
+                        this._updateBackground(false);
+                    }, this),
+                    appendTo: $container
+                });
+            }
+
+            if (this._values["hasBackgroundAnimation"] !== null) {
+                new TestS.Form({
+                    type: "checkboxOnOff",
+                    value: this._values["hasBackgroundAnimation"],
+                    label: this._getLabel("mouseHoverAnimation"),
+                    class: "has-animation",
+                    onCheck: $.proxy(function () {
+                        this._values["hasBackgroundAnimation"] = true;
+                        this._updateBackground(false);
+                    }, this),
+                    onUnCheck: $.proxy(function () {
+                        this._values["hasBackgroundAnimation"] = false;
                         this._updateBackground(false);
                     }, this),
                     appendTo: $container
@@ -1623,6 +1634,11 @@
             ) {
                 css += "background-color: " + backgroundColorTo + ";";
                 isSimpleBackground = true;
+            } else if (backgroundColorFrom !== ""
+                && backgroundColorTo !== ""
+                && this._useGradient !== true
+            ) {
+                css += "background-color: " + backgroundColorFrom + ";";
             } else if (backgroundColorFrom !== ""
                 && backgroundColorTo !== ""
             ) {
