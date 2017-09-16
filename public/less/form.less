@@ -418,11 +418,11 @@ input.form-instance {
   top: 50% !important;
   left: 50% !important;
   margin-left: -304px;
-  margin-top: -156px;
+  margin-top: -185px;
   background: white;
   border: 1px solid @darkGrayBorderColor;
-  box-shadow: 0 5px 15px rgba(0,0,0,.5);
-  padding: 15px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, .5);
+  padding: 10px;
 
   .ui-dialog-titlebar {
     padding-bottom: 5px;
@@ -431,7 +431,7 @@ input.form-instance {
       text-align: center;
       display: block;
       line-height: 32px;
-      margin-top: -15px;
+      margin-top: -10px;
       font-size: 18px;
       font-weight: 300;
     }
@@ -468,10 +468,15 @@ input.form-instance {
     }
   }
 
+  .ui-colorpicker-buttonset {
+    margin: 0;
+  }
+
   .ui-colorpicker-ok {
     .btn;
     .btn-blue;
   }
+
   .ui-colorpicker-ok.ui-state-disabled {
     background: @blueGradientFromHover;
   }
@@ -479,5 +484,64 @@ input.form-instance {
   .ui-colorpicker-cancel {
     .btn;
     .btn-gray;
+  }
+
+  .ui-colorpicker-special-transparent {
+    display: none;
+  }
+
+  .ui-colorpicker-special-transparent + label {
+    display: none;
+  }
+
+  .ui-dialog-buttonset {
+    text-align: right;
+    margin-top: 5px;
+  }
+
+  .ui-colorpicker-special-none {
+    display: none;
+  }
+
+  .ui-colorpicker-special-none + label {
+    .btn;
+    .btn-gray;
+    display: inline-block;
+    margin: 0;
+    line-height: 28px;
+  }
+
+  .ui-colorpicker-special-none:checked + label {
+    display: none;
+  }
+
+  input[type="text"], input[type="number"] {
+    .transition(box-shadow, 0.15s);
+    .border-radius(4px);
+    border: 1px solid @grayBorderColor;
+    padding: 0 0 1px 10px;
+    line-height: 22px;
+    font-size: 15px;
+    background: white;
+
+    &:hover {
+      border-color: @blueBorderColor;
+    }
+
+    &:focus {
+      .box-shadow(@formBlueBoxShadow);
+      border-color: @blueBorderColor;
+    }
+  }
+
+  .ui-colorpicker-preview {
+    .border-radius(4px);
+    height: 25px;
+    overflow: hidden;
+    border: 1px solid @grayBorderColor;
+
+    .ui-colorpicker-preview-initial, .ui-colorpicker-preview-current {
+      height: 23px;
+    }
   }
 }

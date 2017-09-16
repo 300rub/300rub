@@ -120,6 +120,9 @@ class DesignBlockModel extends AbstractModel
             "border"                 => Language::t("design", "border"),
             "gradientDirection"      => Language::t("design", "gradientDirection"),
             "gradientDirectionHover" => Language::t("design", "gradientDirectionHover"),
+            "cancel"                 => Language::t("common", "cancel"),
+            "save"                   => Language::t("common", "save"),
+            "clear"                  => Language::t("common", "clear"),
         ];
     }
 

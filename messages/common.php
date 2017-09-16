@@ -103,4 +103,8 @@ return [
         Language::LANGUAGE_EN_ID => "No",
         Language::LANGUAGE_RU_ID => "",
     ],
+    "clear" => [
+        Language::LANGUAGE_EN_ID => "Clear",
+        Language::LANGUAGE_RU_ID => "",
+    ],
 ];

@@ -347,7 +347,7 @@
                         type: "spinner",
                         value: this._values["marginTopHover"],
                         class: "margin-top-hover",
-                        iconBefore: "fa-arrow-right",
+                        iconBefore: "fa-mouse-pointer",
                         callback: $.proxy(function (value) {
                             this._values["marginTopHover"] = value;
                             this._updateMargin(false);
@@ -382,7 +382,7 @@
                         type: "spinner",
                         value: this._values["marginRightHover"],
                         class: "margin-right-hover",
-                        iconBefore: "fa-arrow-down",
+                        iconBefore: "fa-mouse-pointer",
                         callback: $.proxy(function (value) {
                             this._values["marginRightHover"] = value;
                             this._updateMargin(false);
@@ -417,7 +417,7 @@
                         type: "spinner",
                         value: this._values["marginBottomHover"],
                         class: "margin-bottom-hover",
-                        iconBefore: "fa-arrow-right",
+                        iconBefore: "fa-mouse-pointer",
                         callback: $.proxy(function (value) {
                             this._values["marginBottomHover"] = value;
                             this._updateMargin(false);
@@ -452,7 +452,7 @@
                         type: "spinner",
                         value: this._values["marginLeftHover"],
                         class: "margin-left-hover",
-                        iconBefore: "fa-arrow-down",
+                        iconBefore: "fa-mouse-pointer",
                         callback: $.proxy(function (value) {
                             this._values["marginLeftHover"] = value;
                             this._updateMargin(false);
@@ -564,7 +564,7 @@
                         value: this._values["paddingTopHover"],
                         class: "padding-top-hover",
                         min: 0,
-                        iconBefore: "fa-arrow-right",
+                        iconBefore: "fa-mouse-pointer",
                         callback: $.proxy(function (value) {
                             this._values["paddingTopHover"] = value;
                             this._updatePadding(false);
@@ -600,7 +600,7 @@
                         type: "spinner",
                         value: this._values["paddingRightHover"],
                         class: "padding-right-hover",
-                        iconBefore: "fa-arrow-down",
+                        iconBefore: "fa-mouse-pointer",
                         min: 0,
                         callback: $.proxy(function (value) {
                             this._values["paddingRightHover"] = value;
@@ -638,7 +638,7 @@
                         value: this._values["paddingBottomHover"],
                         class: "padding-bottom-hover",
                         min: 0,
-                        iconBefore: "fa-arrow-right",
+                        iconBefore: "fa-mouse-pointer",
                         callback: $.proxy(function (value) {
                             this._values["paddingBottomHover"] = value;
                             this._updatePadding(false);
@@ -674,7 +674,7 @@
                         type: "spinner",
                         value: this._values["paddingLeftHover"],
                         class: "padding-left-hover",
-                        iconBefore: "fa-arrow-down",
+                        iconBefore: "fa-mouse-pointer",
                         min: 0,
                         callback: $.proxy(function (value) {
                             this._values["paddingLeftHover"] = value;
@@ -764,6 +764,10 @@
                 return this;
             }
 
+            $.colorpicker.regional[""]["none"] = this._getLabel("clear");
+            $.colorpicker.regional[""]["ok"] = this._getLabel("save");
+            $.colorpicker.regional[""]["cancel"] = this._getLabel("cancel");
+
             $container.find(".category-title").text(this._getLabel("background"));
 
             this.$_backgroundExampleStyles = $container.find(".styles-example-container");
@@ -809,7 +813,7 @@
                     title: this._getLabel("backgroundColor"),
                     value: this._values["backgroundColorFromHover"],
                     class: "background-color-from-hover",
-                    iconBefore: "fa-arrow-down",
+                    iconBefore: "fa-mouse-pointer",
                     callback: $.proxy(function (color) {
                         this._values["backgroundColorFromHover"] = color;
                         this._updateBackground(false);
@@ -824,7 +828,7 @@
                     title: this._getLabel("backgroundColor"),
                     value: this._values["backgroundColorToHover"],
                     class: "background-color-to-hover",
-                    iconBefore: "fa-arrow-down",
+                    iconBefore: "fa-mouse-pointer",
                     callback: $.proxy(function (color) {
                         this._values["backgroundColorToHover"] = color;
                         this._updateBackground(false);
