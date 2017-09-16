@@ -70,17 +70,17 @@ if ($paddingTop !== 0
 
 $backgroundColorFrom = $model->get("backgroundColorFrom");
 $backgroundColorTo = $model->get("backgroundColorTo");
-$isSimpleBackground = false;
+if ($model->get("hasBackgroundGradient") === false) {
+    $backgroundColorTo = "";
+}
 if ($backgroundColorFrom !== ""
     && $backgroundColorTo === ""
 ) {
     $css .= sprintf("background-color:%s;", $backgroundColorFrom);
-    $isSimpleBackground = true;
 } elseif ($backgroundColorFrom === ""
     && $backgroundColorTo !== ""
 ) {
     $css .= sprintf("background-color:%s;", $backgroundColorTo);
-    $isSimpleBackground = true;
 } elseif ($backgroundColorFrom !== ""
     && $backgroundColorTo !== ""
 ) {
@@ -244,7 +244,7 @@ if ($model->get("hasPaddingHover") === true
 ) {
     $transitions[] = "padding .3s";
 }
-if ($isSimpleBackground === true
+if ($model->get("hasBackgroundGradient") === false
     && $model->get("hasBackgroundHover") === true
     && $model->get("hasBackgroundAnimation")
 ) {
@@ -338,6 +338,16 @@ if ($model->get("hasMarginHover") === true) {
 if ($model->get("hasBackgroundHover") === true) {
     $backgroundColorFrom = $model->get("backgroundColorFromHover");
     $backgroundColorTo = $model->get("backgroundColorToHover");
+    if ($model->get("hasBackgroundGradient") === false) {
+        $backgroundColorTo = "";
+    } else {
+        if ($backgroundColorFrom !== "" && $backgroundColorTo === "") {
+            $backgroundColorTo = $backgroundColorFrom;
+        } elseif ($backgroundColorFrom === "" && $backgroundColorTo !== "") {
+            $backgroundColorFrom = $backgroundColorTo;
+        }
+    }
+
     if ($backgroundColorFrom !== ""
         && $backgroundColorTo === ""
     ) {

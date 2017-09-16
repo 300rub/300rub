@@ -30,8 +30,6 @@
         this.$_borderExample = null;
         this.$_borderExampleStyles = null;
 
-        this._useGradient = false;
-
         this.init();
     };
 
@@ -152,6 +150,7 @@
                     backgroundColorToHover: null,
                     gradientDirection: null,
                     gradientDirectionHover: null,
+                    hasBackgroundGradient: null,
                     hasBackgroundHover: null,
                     hasBackgroundAnimation: null,
                     borderTopLeftRadius: null,
@@ -834,10 +833,8 @@
                 });
             }
 
-            var hasGradient = !!(this._values["backgroundColorTo"] || this._values["backgroundColorHover"]);
-            if (hasGradient) {
+            if (this._values["hasBackgroundGradient"]) {
                 $container.addClass("has-gradient");
-                this._useGradient = true;
             }
             if (this._values["hasBackgroundHover"]) {
                 $container.addClass("has-hover");
@@ -845,16 +842,16 @@
 
             new TestS.Form({
                 type: "checkboxOnOff",
-                value: hasGradient,
+                value: this._values["hasBackgroundGradient"],
                 label: this._getLabel("useGradient"),
                 onCheck: $.proxy(function () {
                     $container.addClass("has-gradient");
-                    this._useGradient = true;
+                    this._values["hasBackgroundGradient"] = true;
                     this._updateBackground(false);
                 }, this),
                 onUnCheck: $.proxy(function () {
                     $container.removeClass("has-gradient");
-                    this._useGradient = false;
+                    this._values["hasBackgroundGradient"] = false;
                     this._updateBackground(false);
                 }, this),
                 appendTo: $container
@@ -1607,6 +1604,9 @@
                 backgroundColorTo = "";
 
             if (isHover === true) {
+                if (this._values["hasBackgroundHover"] !== true) {
+                    return "";
+                }
                 backgroundColorFrom = this._values["backgroundColorFromHover"];
                 backgroundColorTo = this._values["backgroundColorToHover"];
             } else {
@@ -1622,21 +1622,27 @@
                 backgroundColorTo = "";
             }
 
-            var isSimpleBackground = false;
+            if (this._values["hasBackgroundGradient"] !== true) {
+                backgroundColorTo = "";
+            } else if (isHover) {
+                if (backgroundColorFrom !== "" && backgroundColorTo === "") {
+                    backgroundColorTo = backgroundColorFrom;
+                } else if (backgroundColorFrom === "" && backgroundColorTo !== "") {
+                    backgroundColorFrom = backgroundColorTo;
+                }
+            }
 
             if (backgroundColorFrom !== ""
                 && backgroundColorTo === ""
             ) {
                 css += "background-color: " + backgroundColorFrom + ";";
-                isSimpleBackground = true;
             } else if (backgroundColorFrom === ""
                 && backgroundColorTo !== ""
             ) {
                 css += "background-color: " + backgroundColorTo + ";";
-                isSimpleBackground = true;
             } else if (backgroundColorFrom !== ""
                 && backgroundColorTo !== ""
-                && this._useGradient !== true
+                && this._values["hasBackgroundGradient"] !== true
             ) {
                 css += "background-color: " + backgroundColorFrom + ";";
             } else if (backgroundColorFrom !== ""
@@ -1702,7 +1708,7 @@
                     + ");";
             }
 
-            if (isSimpleBackground === true
+            if (this._values["hasBackgroundGradient"] === false
                 && this._values["hasBackgroundHover"] === true
                 && this._values["hasBackgroundAnimation"] === true
             ) {
@@ -1712,7 +1718,7 @@
                 css += "transition:background-color .3s;";
             }
 
-            return css
+            return css;
         },
 
         /**

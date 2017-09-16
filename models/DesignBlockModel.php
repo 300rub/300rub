@@ -291,6 +291,9 @@ class DesignBlockModel extends AbstractModel
                     ]
                 ],
             ],
+            "hasBackgroundGradient"        => [
+                self::FIELD_TYPE => self::FIELD_TYPE_BOOL,
+            ],
             "hasBackgroundHover"           => [
                 self::FIELD_TYPE => self::FIELD_TYPE_BOOL,
             ],

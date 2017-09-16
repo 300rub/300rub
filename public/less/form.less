@@ -423,4 +423,61 @@ input.form-instance {
   border: 1px solid @darkGrayBorderColor;
   box-shadow: 0 5px 15px rgba(0,0,0,.5);
   padding: 15px;
+
+  .ui-dialog-titlebar {
+    padding-bottom: 5px;
+
+    .ui-dialog-title {
+      text-align: center;
+      display: block;
+      line-height: 32px;
+      margin-top: -15px;
+      font-size: 18px;
+      font-weight: 300;
+    }
+
+    .ui-dialog-titlebar-close {
+      position: absolute;
+      top: 0;
+      right: 0;
+      text-decoration: none;
+
+      span {
+        visibility: hidden;
+
+        &:after {
+          font-family: FontAwesome, sans-serif;
+          content: '\f00d';
+          visibility: visible;
+          color: @grayLinkColor;
+          line-height: 32px;
+          text-align: center;
+          width: 32px;
+          display: inline-block;
+          font-size: 18px;
+        }
+      }
+
+      &:hover {
+        span {
+          &:after {
+            color: @redLinkColor;
+          }
+        }
+      }
+    }
+  }
+
+  .ui-colorpicker-ok {
+    .btn;
+    .btn-blue;
+  }
+  .ui-colorpicker-ok.ui-state-disabled {
+    background: @blueGradientFromHover;
+  }
+
+  .ui-colorpicker-cancel {
+    .btn;
+    .btn-gray;
+  }
 }

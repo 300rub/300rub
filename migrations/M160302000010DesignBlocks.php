@@ -45,6 +45,7 @@ class M160302000010DesignBlocks extends AbstractMigration
                 "backgroundColorToHover"       => self::TYPE_STRING_25,
                 "gradientDirection"            => self::TYPE_TINYINT_UNSIGNED,
                 "gradientDirectionHover"       => self::TYPE_TINYINT_UNSIGNED,
+                "hasBackgroundGradient"        => self::TYPE_BOOL,
                 "hasBackgroundHover"           => self::TYPE_BOOL,
                 "hasBackgroundAnimation"       => self::TYPE_BOOL,
                 "borderTopLeftRadius"          => self::TYPE_SMALLINT_UNSIGNED,
