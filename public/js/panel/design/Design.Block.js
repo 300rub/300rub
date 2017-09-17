@@ -1014,7 +1014,7 @@
                         value: this._values["borderTopLeftRadiusHover"],
                         class: "border-top-left-radius-hover",
                         min: 0,
-                        iconBefore: "fa-arrow-right",
+                        iconBefore: "fa-mouse-pointer",
                         callback: $.proxy(function (value) {
                             this._values["borderTopLeftRadiusHover"] = value;
                             this._updateBorder(false);
@@ -1050,6 +1050,7 @@
                         type: "spinner",
                         value: this._values["borderTopRightRadiusHover"],
                         class: "border-top-right-radius-hover",
+                        iconBefore: "fa-mouse-pointer",
                         min: 0,
                         callback: $.proxy(function (value) {
                             this._values["borderTopRightRadiusHover"] = value;
@@ -1087,7 +1088,7 @@
                         value: this._values["borderBottomRightRadiusHover"],
                         class: "border-bottom-right-radius-hover",
                         min: 0,
-                        iconBefore: "fa-arrow-right",
+                        iconBefore: "fa-mouse-pointer",
                         callback: $.proxy(function (value) {
                             this._values["borderBottomRightRadiusHover"] = value;
                             this._updateBorder(false);
@@ -1123,6 +1124,7 @@
                         type: "spinner",
                         value: this._values["borderBottomLeftRadiusHover"],
                         class: "border-bottom-left-radius-hover",
+                        iconBefore: "fa-mouse-pointer",
                         min: 0,
                         callback: $.proxy(function (value) {
                             this._values["borderBottomLeftRadiusHover"] = value;
@@ -1158,9 +1160,9 @@
                     borderTopWidthHover = new TestS.Form({
                         type: "spinner",
                         value: this._values["borderTopWidthHover"],
-                        class: "border-top-Width-hover",
+                        class: "border-top-width-hover",
                         min: 0,
-                        iconBefore: "fa-arrow-right",
+                        iconBefore: "fa-mouse-pointer",
                         callback: $.proxy(function (value) {
                             this._values["borderTopWidthHover"] = value;
                             this._updateBorder(false);
@@ -1197,7 +1199,7 @@
                         value: this._values["borderRightWidthHover"],
                         class: "border-right-width-hover",
                         min: 0,
-                        iconBefore: "fa-arrow-right",
+                        iconBefore: "fa-mouse-pointer",
                         callback: $.proxy(function (value) {
                             this._values["borderRightWidthHover"] = value;
                             this._updateBorder(false);
@@ -1234,7 +1236,7 @@
                         value: this._values["borderBottomWidthHover"],
                         class: "border-bottom-width-hover",
                         min: 0,
-                        iconBefore: "fa-arrow-right",
+                        iconBefore: "fa-mouse-pointer",
                         callback: $.proxy(function (value) {
                             this._values["borderBottomWidthHover"] = value;
                             this._updateBorder(false);
@@ -1271,7 +1273,7 @@
                         value: this._values["borderLeftWidthHover"],
                         class: "border-left-width-hover",
                         min: 0,
-                        iconBefore: "fa-arrow-right",
+                        iconBefore: "fa-mouse-pointer",
                         callback: $.proxy(function (value) {
                             this._values["borderLeftWidthHover"] = value;
                             this._updateBorder(false);
@@ -1391,7 +1393,7 @@
 
             if (this._values["hasBorderHover"] !== null) {
                 new TestS.Form({
-                    type: "checkbox",
+                    type: "checkboxOnOff",
                     value: this._values["hasBorderHover"],
                     label: this._getLabel("mouseHoverEffect"),
                     onCheck: $.proxy(function () {
@@ -1410,7 +1412,7 @@
 
             if (this._values["hasBorderAnimation"] !== null) {
                 new TestS.Form({
-                    type: "checkbox",
+                    type: "checkboxOnOff",
                     value: this._values["hasBorderAnimation"],
                     label: this._getLabel("mouseHoverAnimation"),
                     class: "has-animation",

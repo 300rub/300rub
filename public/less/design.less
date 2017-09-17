@@ -462,4 +462,224 @@
       display: none;
     }
   }
+
+  .border-container {
+    padding-bottom: 5px;
+
+    .relative-container {
+      .transition(height);
+      height: 180px;
+
+      .border-top-left-radius {
+        left: 50%;
+        margin-left: -127px;
+        top: 27px;
+      }
+
+      .border-top-left-radius-hover {
+        visibility: hidden;
+        margin-left: -127px;
+        top: 27px;
+      }
+
+      .border-top-right-radius {
+        left: 50%;
+        margin-left: 57px;
+        top: 27px;
+      }
+
+      .border-top-right-radius-hover {
+        visibility: hidden;
+        margin-left: 57px;
+        top: 27px;
+      }
+
+      .border-bottom-left-radius {
+        left: 50%;
+        margin-left: -127px;
+        top: 122px;
+      }
+
+      .border-bottom-left-radius-hover {
+        visibility: hidden;
+        margin-left: -127px;
+        top: 122px;
+      }
+
+      .border-bottom-right-radius {
+        left: 50%;
+        margin-left: 57px;
+        top: 122px;
+      }
+
+      .border-bottom-right-radius-hover {
+        visibility: hidden;
+        margin-left: 57px;
+        top: 122px;
+      }
+
+      .border-top-width {
+        left: 50%;
+        top: 6px;
+        margin-left: -35px;
+      }
+
+      .border-top-width-hover {
+        top: 6px;
+        margin-left: -35px;
+        visibility: hidden;
+      }
+
+      .border-right-width {
+        left: 50%;
+        margin-left: 57px;
+        top: 75px;
+      }
+
+      .border-right-width-hover {
+        visibility: hidden;
+        margin-left: 57px;
+        top: 75px;
+      }
+
+      .border-bottom-width {
+        left: 50%;
+        top: 144px;
+        margin-left: -35px;
+      }
+
+      .border-bottom-width-hover {
+        visibility: hidden;
+        top: 144px;
+        margin-left: -35px;
+      }
+
+      .border-left-width {
+        left: 50%;
+        margin-left: -127px;
+        top: 75px;
+      }
+
+      .border-left-width-hover {
+        visibility: hidden;
+        margin-left: -127px;
+        top: 75px;
+      }
+
+      .border-top-left-radius-hover,
+      .border-top-right-radius-hover,
+      .border-bottom-left-radius-hover,
+      .border-bottom-right-radius-hover,
+      .border-top-width-hover,
+      .border-right-width-hover,
+      .border-bottom-width-hover,
+      .border-left-width-hover {
+        .transition(top);
+        left: 50%;
+
+        .icon-before {
+          position: absolute;
+          left: 50%;
+          top: 50%;
+          margin-top: 10px;
+          font-size: 10px;
+        }
+      }
+
+      .border-example {
+        .transition(top);
+        width: 100px;
+        height: 100px;
+        position: absolute;
+        top: 40px;
+        left: 50%;
+        margin-left: -50px;
+        overflow: hidden;
+        background-color: @grayBackground;
+      }
+    }
+  }
+
+  .border-container.has-hover {
+    .relative-container {
+      height: 250px;
+
+      .border-top-left-radius {
+        top: 21px;
+      }
+
+      .border-top-left-radius-hover {
+        visibility: visible;
+        top: 55px;
+      }
+
+      .border-top-right-radius {
+        top: 21px;
+      }
+
+      .border-top-right-radius-hover {
+        visibility: visible;
+        top: 55px;
+      }
+
+      .border-bottom-left-radius {
+        top: 165px;
+      }
+
+      .border-bottom-left-radius-hover {
+        visibility: visible;
+        top: 199px;
+      }
+
+      .border-bottom-right-radius {
+        top: 165px;
+      }
+
+      .border-bottom-right-radius-hover {
+        visibility: visible;
+        top: 199px;
+      }
+
+      .border-top-width {
+        top: 2px;
+      }
+
+      .border-top-width-hover {
+        top: 36px;
+        visibility: visible;
+      }
+
+      .border-right-width {
+        top: 93px;
+      }
+
+      .border-right-width-hover {
+        visibility: visible;
+        top: 127px;
+      }
+
+      .border-bottom-width {
+        top: 184px;
+      }
+
+      .border-bottom-width-hover {
+        visibility: visible;
+        top: 218px;
+      }
+
+      .border-left-width {
+        top: 93px;
+      }
+
+      .border-left-width-hover {
+        visibility: visible;
+        top: 127px;
+      }
+
+      .border-example {
+        top: 70px;
+        height: 110px;
+      }
+    }
+  }
 }
