@@ -12,5 +12,11 @@ return [
         "language"    => 1,
         "contentType" => 1,
         "contentId"   => 2,
-    ]
+    ],
+    3 => [
+        "name"        => "Simple images",
+        "language"    => 1,
+        "contentType" => 2,
+        "contentId"   => 1,
+    ],
 ];

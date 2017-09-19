@@ -63,4 +63,12 @@ return [
         Language::LANGUAGE_EN_ID => "Image upload",
         Language::LANGUAGE_RU_ID => "",
     ],
+    "imageDelete" => [
+        Language::LANGUAGE_EN_ID => "Image upload",
+        Language::LANGUAGE_RU_ID => "",
+    ],
+    "imageUpdate" => [
+        Language::LANGUAGE_EN_ID => "Image update",
+        Language::LANGUAGE_RU_ID => "",
+    ],
 ];

@@ -2,8 +2,6 @@
 
 namespace testS\models;
 
-use testS\components\Language;
-use testS\components\Validator;
 use testS\components\ValueGenerator;
 
 /**
@@ -11,7 +9,7 @@ use testS\components\ValueGenerator;
  *
  * @package testS\models
  */
-class ImageModel extends AbstractModel
+class ImageModel extends AbstractContentModel
 {
 
     /**
@@ -166,5 +164,75 @@ class ImageModel extends AbstractModel
                 self::FIELD_TYPE => self::FIELD_TYPE_BOOL
             ],
         ];
+    }
+
+    /**
+     * Gets HTML memcached key
+     *
+     * @param int    $id
+     * @param string $uri
+     * @param string $parameter
+     *
+     * @return string
+     */
+    public function getHtmlMemcachedKey($id, $uri = "", $parameter = "")
+    {
+        return "";
+    }
+
+    /**
+     * Gets CSS memcached key
+     *
+     * @param int    $id
+     * @param string $uri
+     *
+     * @return string
+     */
+    public function getCssMemcachedKey($id, $uri = "")
+    {
+        return "";
+    }
+
+    /**
+     * Gets JS memcached key
+     *
+     * @param int    $id
+     * @param string $uri
+     *
+     * @return string
+     */
+    public function getJsMemcachedKey($id, $uri = "")
+    {
+        return "";
+    }
+
+    /**
+     * Generates HTML
+     *
+     * @return string
+     */
+    public function generateHtml()
+    {
+        return "";
+    }
+
+    /**
+     * Generates CSS
+     *
+     * @return array
+     */
+    public function generateCss()
+    {
+        return [];
+    }
+
+    /**
+     * Generates JS
+     *
+     * @return array
+     */
+    public function generateJs()
+    {
+        return [];
     }
 }

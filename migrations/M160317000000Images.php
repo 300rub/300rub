@@ -114,6 +114,8 @@ class M160317000000Images extends AbstractMigration
                     "thumbY1"        => self::TYPE_SMALLINT_UNSIGNED,
                     "thumbX2"        => self::TYPE_SMALLINT_UNSIGNED,
                     "thumbY2"        => self::TYPE_SMALLINT_UNSIGNED,
+                    "angle"          => self::TYPE_SMALLINT,
+                    "flip"           => self::TYPE_TINYINT_UNSIGNED,
                 ]
             )
             ->createForeignKey("imageInstances", "imageAlbumId", "imageGroups", self::FK_CASCADE, self::FK_CASCADE)

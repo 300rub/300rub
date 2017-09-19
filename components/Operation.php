@@ -58,6 +58,8 @@ class Operation
      * Block image operations
      */
     const IMAGE_UPLOAD = "IMAGE_UPLOAD";
+    const IMAGE_UPDATE = "IMAGE_UPDATE";
+    const IMAGE_DELETE = "IMAGE_DELETE";
 
     /**
      * Gets section operations
@@ -135,6 +137,8 @@ class Operation
     {
         $list = [
             self::IMAGE_UPLOAD => Language::t("operation", "imageUpload"),
+            self::IMAGE_UPDATE => Language::t("operation", "imageUpdate"),
+            self::IMAGE_DELETE => Language::t("operation", "imageDelete"),
         ];
 
         if ($isAll === true) {

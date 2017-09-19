@@ -1,6 +1,7 @@
 <?php
 
 namespace testS\tests\unit\controllers;
+
 use testS\applications\App;
 use testS\models\ImageInstanceModel;
 
@@ -57,9 +58,115 @@ class ImageControllerTest extends AbstractControllerTest
         $this->markTestSkipped();
     }
 
-    public function testGetImage()
+    /**
+     * Test for method getImage
+     *
+     * @param string $user
+     * @param bool   $hasError
+     * @param int    $id
+     *
+     * @dataProvider dataProviderForTestGetImage
+     */
+    public function testGetImage($user, $hasError = false, $id = null)
     {
-        $this->markTestSkipped();
+        $this->setUser($user);
+
+        $imageInstanceModel = new ImageInstanceModel();
+        $imageInstanceModel->set(
+            [
+                "imageAlbumId"      => 1,
+                "originalFileModel" => [
+                    "uniqueName" => "new_file.jpg",
+                ],
+                "viewFileModel"     => [
+                    "uniqueName" => "view_new_file.jpg",
+                ],
+                "thumbFileModel"    => [
+                    "uniqueName" => "thumb_new_file.jpg",
+                ],
+                "alt"               => "Alt 1",
+                "width"             => 800,
+                "height"            => 600,
+                "x1"                => 10,
+                "y1"                => 30,
+                "x2"                => 70,
+                "y2"                => 80,
+                "thumbX1"           => 5,
+                "thumbY1"           => 15,
+                "thumbX2"           => 35,
+                "thumbY2"           => 45,
+            ]
+        );
+        $imageInstanceModel->save();
+
+        if ($id === null) {
+            $id = $imageInstanceModel->getId();
+        }
+
+        $this->sendRequest("image", "image", ["blockId" => 3, "id" => $id]);
+
+        if ($hasError === true) {
+            $this->assertError();
+        } else {
+            $expected = [
+                "url"     => "http://172.17.0.1/upload/1/new_file.jpg",
+                "alt"     => "Alt 1",
+                "width"   => 800,
+                "height"  => 600,
+                "x1"      => 10,
+                "y1"      => 30,
+                "x2"      => 70,
+                "y2"      => 80,
+                "thumbX1" => 5,
+                "thumbY1" => 15,
+                "thumbX2" => 35,
+                "thumbY2" => 45,
+            ];
+            $this->compareExpectedAndActual($expected, $this->getBody());
+        }
+
+        $imageInstanceModel->delete();
+    }
+
+    /**
+     * Data provider for testGetImage
+     *
+     * @return array
+     */
+    public function dataProviderForTestGetImage()
+    {
+        return [
+            "admin"                => [
+                "user"     => self::TYPE_FULL,
+                "hasError" => false,
+                "id"       => null
+            ],
+            "adminIncorrectId"     => [
+                "user"     => self::TYPE_FULL,
+                "hasError" => true,
+                "id"       => 9999
+            ],
+            "adminIncorrectFormat" => [
+                "user"     => self::TYPE_FULL,
+                "hasError" => true,
+                "id"       => "1"
+            ],
+            "limited"              => [
+                "user"     => self::TYPE_LIMITED,
+                "hasError" => false,
+                "id"       => null
+            ],
+            "guest"                => [
+                "user"     => null,
+                "hasError" => true,
+                "id"       => null
+            ],
+            "blocked"              => [
+                "user"     => self::TYPE_BLOCKED_USER,
+                "hasError" => true,
+                "id"       => null
+            ],
+        ];
     }
 
     /**
@@ -78,7 +185,7 @@ class ImageControllerTest extends AbstractControllerTest
     public function testCreateImage($user, $file, $blockId, $albumId, $hasError = false)
     {
         $this->setUser($user);
-        $this->sendFile("image", "image", $file, ["id" => $blockId, "imageAlbumId" => $albumId]);
+        $this->sendFile("image", "image", $file, ["blockId" => $blockId, "imageAlbumId" => $albumId]);
 
         if ($hasError === true) {
             $this->assertError();
@@ -134,66 +241,66 @@ class ImageControllerTest extends AbstractControllerTest
     public function dataProviderForTestCreateImage()
     {
         return [
-            "userJpgCorrect" => [
+            "userJpgCorrect"          => [
                 "user"     => self::TYPE_LIMITED,
                 "file"     => "bigImage.jpg",
-                "blockId"  => 1,
+                "blockId"  => 3,
                 "albumId"  => 1,
                 "hasError" => false
             ],
-            "userPngCorrect" => [
+            "userPngCorrect"          => [
                 "user"     => self::TYPE_LIMITED,
                 "file"     => "bigImage.png",
-                "blockId"  => 1,
+                "blockId"  => 3,
                 "albumId"  => 1,
                 "hasError" => false
             ],
             "userJpgIncorrectAlbumId" => [
                 "user"     => self::TYPE_LIMITED,
                 "file"     => "bigImage.jpg",
-                "blockId"  => 1,
+                "blockId"  => 3,
                 "albumId"  => 999,
                 "hasError" => true
             ],
-            "userJpgEmptyAlbumId" => [
+            "userJpgEmptyAlbumId"     => [
                 "user"     => self::TYPE_LIMITED,
                 "file"     => "bigImage.jpg",
-                "blockId"  => 1,
+                "blockId"  => 3,
                 "albumId"  => 0,
                 "hasError" => true
             ],
-            "userIncorrectFormat" => [
+            "userIncorrectFormat"     => [
                 "user"     => self::TYPE_LIMITED,
                 "file"     => "file.txt",
-                "blockId"  => 1,
+                "blockId"  => 3,
                 "albumId"  => 1,
                 "hasError" => true
             ],
-            "blockedJpg" => [
+            "blockedJpg"              => [
                 "user"     => self::TYPE_BLOCKED_USER,
                 "file"     => "bigImage.jpg",
-                "blockId"  => 1,
+                "blockId"  => 3,
                 "albumId"  => 1,
                 "hasError" => true
             ],
-            "blockedPng" => [
+            "blockedPng"              => [
                 "user"     => self::TYPE_BLOCKED_USER,
                 "file"     => "bigImage.png",
-                "blockId"  => 1,
+                "blockId"  => 3,
                 "albumId"  => 1,
                 "hasError" => true
             ],
-            "guestJpg" => [
+            "guestJpg"                => [
                 "user"     => null,
                 "file"     => "bigImage.jpg",
-                "blockId"  => 1,
+                "blockId"  => 3,
                 "albumId"  => 1,
                 "hasError" => true
             ],
-            "guestPng" => [
+            "guestPng"                => [
                 "user"     => null,
                 "file"     => "bigImage.png",
-                "blockId"  => 1,
+                "blockId"  => 3,
                 "albumId"  => 1,
                 "hasError" => true
             ],
@@ -205,9 +312,94 @@ class ImageControllerTest extends AbstractControllerTest
         $this->markTestSkipped();
     }
 
-    public function testDeleteImage()
+    /**
+     * Test for method deleteImage
+     *
+     * @param string $user
+     * @param bool   $hasError
+     * @param int    $id
+     *
+     * @dataProvider dataProviderForTestDeleteImage
+     */
+    public function testDeleteImage($user, $hasError = false, $id = null)
     {
-        $this->markTestSkipped();
+        $this->setUser($user);
+
+        $imageInstanceModel = new ImageInstanceModel();
+        $imageInstanceModel->set(
+            [
+                "imageAlbumId"      => 1,
+                "originalFileModel" => [
+                    "uniqueName" => "new_file.jpg",
+                ],
+                "viewFileModel"     => [
+                    "uniqueName" => "view_new_file.jpg",
+                ],
+                "thumbFileModel"    => [
+                    "uniqueName" => "thumb_new_file.jpg",
+                ],
+            ]
+        );
+        $imageInstanceModel->save();
+
+        if ($id === null) {
+            $id = $imageInstanceModel->getId();
+        }
+
+        $this->sendRequest("image", "image", ["blockId" => 3, "id" => $id], "DELETE");
+
+        if ($hasError === true) {
+            $this->assertError();
+            $this->assertNotNull($imageInstanceModel->byId($imageInstanceModel->getId())->find());
+            $imageInstanceModel->delete();
+        } else {
+            $expected = [
+                "result" => true
+            ];
+            $this->assertSame($expected, $this->getBody());
+            $this->assertNull($imageInstanceModel->byId($imageInstanceModel->getId())->find());
+        }
+    }
+
+    /**
+     * Data provider for testDeleteImage
+     *
+     * @return array
+     */
+    public function dataProviderForTestDeleteImage()
+    {
+        return [
+            "admin"                => [
+                "user"     => self::TYPE_FULL,
+                "hasError" => false,
+                "id"       => null
+            ],
+            "adminIncorrectId"     => [
+                "user"     => self::TYPE_FULL,
+                "hasError" => true,
+                "id"       => 9999
+            ],
+            "adminIncorrectFormat" => [
+                "user"     => self::TYPE_FULL,
+                "hasError" => true,
+                "id"       => "1"
+            ],
+            "limited"              => [
+                "user"     => self::TYPE_LIMITED,
+                "hasError" => false,
+                "id"       => null
+            ],
+            "guest"                => [
+                "user"     => null,
+                "hasError" => true,
+                "id"       => null
+            ],
+            "blocked"              => [
+                "user"     => self::TYPE_BLOCKED_USER,
+                "hasError" => true,
+                "id"       => null
+            ],
+        ];
     }
 
     public function testGetAlbum()
