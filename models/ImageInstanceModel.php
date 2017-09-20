@@ -559,11 +559,12 @@ class ImageInstanceModel extends AbstractModel
                 ->_createImage()
                 ->_flip()
                 ->_rotate()
-                ->_crop(0, 0, 1000, 1000)
-                ->_resize(800, 600)
-                ->_saveImage("aaa")
-                ->_destroyImage();
+                ->_crop($this->get("x1"), $this->get("y1"), $this->get("x2"), $this->get("y2"))
+                ->_resize($this->_viewWidth, $this->_viewHeight)
+                ->_saveImage("aaa");
         }
+
+        $this->_destroyOriginalImage();
 
         return [
             "isChanged" => true
@@ -835,10 +836,12 @@ class ImageInstanceModel extends AbstractModel
      *
      * @throws FileException
      */
-    private function _destroyImage()
+    private function _destroyOriginalImage()
     {
-        imagedestroy($this->_originalImage);
-        $this->_originalImage = null;
+        if ($this->_originalImage !== null) {
+            imagedestroy($this->_originalImage);
+            $this->_originalImage = null;
+        }
 
         return $this;
     }
