@@ -193,6 +193,8 @@ class ImageControllerTest extends AbstractControllerTest
         }
 
         $body = $this->getBody();
+        var_dump($body);
+        return true;
 
         $originalFileExplode = explode("/", $body["originalUrl"]);
         $originalFile = $originalFileExplode[count($originalFileExplode) - 1];

@@ -35,11 +35,46 @@ class ImageInstanceModel extends AbstractModel
     const FLIP_BOTH = 3;
 
     /**
-     * Image info
+     * Original file model
      *
-     * @var array|bool
+     * @var FileModel
      */
-    private $_info = false;
+    private $_originalFileModel = null;
+
+    /**
+     * View file model
+     *
+     * @var FileModel
+     */
+    private $_viewFileModel = null;
+
+    /**
+     * Thumb file model
+     *
+     * @var FileModel
+     */
+    private $_thumbFileModel = null;
+
+    /**
+     * Original image resource
+     *
+     * @var resource
+     */
+    private $_originalImage = null;
+
+    /**
+     * View image resource
+     *
+     * @var resource
+     */
+    private $_viewImage = null;
+
+    /**
+     * Thumb image resource
+     *
+     * @var resource
+     */
+    private $_thumbImage = null;
 
     /**
      * Extension
@@ -75,27 +110,27 @@ class ImageInstanceModel extends AbstractModel
      * @var int
      */
     private $_thumbHeight = 0;
-
-    /**
-     * Is model changed flag
-     *
-     * @var bool
-     */
-    private $_isModelChanged = false;
-
-    /**
-     * Is view changed flag
-     *
-     * @var bool
-     */
-    private $_isViewChanged = false;
-
-    /**
-     * Is thumb changed flag
-     *
-     * @var bool
-     */
-    private $_isThumbChanged = false;
+//
+//    /**
+//     * Is model changed flag
+//     *
+//     * @var bool
+//     */
+//    private $_isModelChanged = false;
+//
+//    /**
+//     * Is view changed flag
+//     *
+//     * @var bool
+//     */
+//    private $_isViewChanged = false;
+//
+//    /**
+//     * Is thumb changed flag
+//     *
+//     * @var bool
+//     */
+//    private $_isThumbChanged = false;
 
     /**
      * Gets type list
@@ -253,24 +288,20 @@ class ImageInstanceModel extends AbstractModel
         ];
     }
 
-    /**
-     * Uploads the file
-     *
-     * @return array
-     */
     public function upload()
     {
         $this
-            ->_checkImageAlbumId()
-            ->_setOriginalFileModel()
-            ->_setInfo()
-            ->_setExtension($this->_info["mime"])
-            ->_setSizes($this->_info[0], $this->_info[1])
+            ->_checkBeforeUpload()
+            ->_setOriginalFileModelFromUploadedFile()
+            ->_setParametersForUploadedFile()
+            ->_setNewFileModels()
             ->_uploadOriginalFile()
-            ->_setViewFileModel()
-            ->_setThumbFileModel()
-            ->_uploadImage()
-            ->save();
+            ->_createTmpViewImageToUpload()
+            ->_createTmpThumbImageToUpload()
+            ->_destroyOriginalImage()
+            ->_uploadViewFile()
+            ->_uploadThumbFile()
+            ->_save();
 
         return [
             "originalUrl" => $this->get("originalFileModel")->getUrl(),
@@ -286,13 +317,13 @@ class ImageInstanceModel extends AbstractModel
     }
 
     /**
-     * Checks image album ID
+     * Checks before upload
      *
      * @return ImageInstanceModel
      *
      * @throws FileException
      */
-    private function _checkImageAlbumId()
+    private function _checkBeforeUpload()
     {
         if ($this->get("imageAlbumId") === 0) {
             throw new FileException("Unable to upload image because imageAlbumId is 0");
@@ -302,140 +333,55 @@ class ImageInstanceModel extends AbstractModel
     }
 
     /**
-     * Uploads view and thumb images
+     * Sets original file model from uploaded file
+     *
+     * @return ImageInstanceModel
+     */
+    private function _setOriginalFileModelFromUploadedFile()
+    {
+        $this->_originalFileModel = (new FileModel())->parsePostRequest();
+        return $this;
+    }
+
+    /**
+     * Sets parameters for uploaded file
      *
      * @return ImageInstanceModel
      *
      * @throws FileException
      */
-    private function _uploadImage()
+    private function _setParametersForUploadedFile()
     {
-        $viewTmp = $this->get("viewFileModel")->getTmpName();
-        $this
-            ->_createImage()
-            ->_resize($this->_viewWidth, $this->_viewHeight)
-            ->_saveImage($viewTmp);
-        $this
-            ->get("viewFileModel")
-            ->setSizeFromTmpFile()
-            ->upload();
-
-        $thumbTmp = $this->get("thumbFileModel")->getTmpName();
-        $this
-            ->_createImage()
-            ->_resize($this->_thumbWidth, $this->_thumbHeight)
-            ->_saveImage($thumbTmp);
-        $this
-            ->get("thumbFileModel")
-            ->setSizeFromTmpFile()
-            ->upload();
-
-        return $this;
-    }
-
-    /**
-     * Sets original file model
-     *
-     * @return ImageInstanceModel
-     */
-    private function _setOriginalFileModel()
-    {
-        $this->set(
-            [
-                "originalFileModel" => (new FileModel())->parsePostRequest()
-            ]
-        );
-
-        return $this;
-    }
-
-    /**
-     * Uploads original file
-     *
-     * @return ImageInstanceModel
-     */
-    private function _uploadOriginalFile()
-    {
-        $this->get("originalFileModel")
-            ->setUniqueName($this->_extension)
-            ->upload();
-
-        return $this;
-    }
-
-    /**
-     * Sets view file model
-     *
-     * @return ImageInstanceModel
-     */
-    private function _setViewFileModel()
-    {
-        $this->set(
-            [
-                "viewFileModel" => (new FileModel())
-                    ->generateTmpName()
-                    ->setUniqueName($this->_extension)
-                    ->set(
-                        [
-                            "type" => $this->get("originalFileModel")->get("type")
-                        ]
-                    )
-            ]
-        );
-
-        return $this;
-    }
-
-    /**
-     * Sets thumb file model
-     *
-     * @return ImageInstanceModel
-     */
-    private function _setThumbFileModel()
-    {
-        $this->set(
-            [
-                "thumbFileModel" => (new FileModel())
-                    ->generateTmpName()
-                    ->setUniqueName($this->_extension)
-                    ->set(
-                        [
-                            "type" => $this->get("originalFileModel")->get("type")
-                        ]
-                    )
-            ]
-        );
-
-        return $this;
-    }
-
-    /**
-     * Sets info
-     *
-     * @return ImageInstanceModel
-     *
-     * @throws FileException
-     */
-    private function _setInfo()
-    {
-        $this->_info = getimagesize($this->get("originalFileModel")->getTmpName());
-        if (!is_array($this->_info)) {
+        $info = getimagesize($this->_originalFileModel->getTmpName());
+        if (!is_array($info)) {
             throw new FileException(
                 "Uploaded file: {file} is not an image",
                 [
-                    "file" => $this->get("originalFileModel")->get("originalName")
+                    "file" => $this->_originalFileModel->get("originalName")
                 ]
             );
         }
 
-        if (!array_key_exists("mime", $this->_info)) {
+        if (!array_key_exists("mime", $info)) {
             throw new FileException(
                 "Unable to get image mime. Info: {info}",
                 [
-                    "info" => json_encode($this->_info)
+                    "info" => json_encode($info)
                 ]
             );
         }
+
+        $this->set(
+            [
+                "width"  => $info[0],
+                "height" => $info[1],
+                "mime"   => $info["mime"]
+            ]
+        );
+
+        $this
+            ->_setExtension($info["mime"])
+            ->_setSizes($info[0], $info[1]);
 
         return $this;
     }
@@ -532,144 +478,205 @@ class ImageInstanceModel extends AbstractModel
         return $this;
     }
 
-    public function update()
-    {
-        $this->_setIsChanged();
-        if ($this->_isModelChanged === false
-            && $this->_isViewChanged === false
-            && $this->_isThumbChanged === false
-        ) {
-            return [
-                "isChanged" => false
-            ];
-        }
-
-        $this
-            ->_setExtension($this->get("originalFileModel")->get("type"))
-            ->_setSizes($this->get("width"), $this->get("height"));
-
-        if ($this->_isModelChanged === true) {
-            $this->save();
-        }
-
-
-        if ($this->_isViewChanged === true) {
-            $this->get("viewFileModel");
-            $this
-                ->_createImage()
-                ->_flip()
-                ->_rotate()
-                ->_crop($this->get("x1"), $this->get("y1"), $this->get("x2"), $this->get("y2"))
-                ->_resize($this->_viewWidth, $this->_viewHeight)
-                ->_saveImage("aaa");
-        }
-
-        $this->_destroyOriginalImage();
-
-        return [
-            "isChanged" => true
-        ];
-    }
-
-    private $_originalImage = null;
-    private $_image = null;
-
     /**
-     * Sets isChanged flags
+     * Sets new file models
      *
      * @return ImageInstanceModel
      */
-    private function _setIsChanged()
+    private function _setNewFileModels()
     {
-        $currentImageInstanceModel = $this->byId($this->getId())->find();
+        $this->_originalFileModel->setUniqueName($this->_extension);
 
-        if ($currentImageInstanceModel->get("alt") !== $this->get("alt")) {
-            $this->_isModelChanged = true;
+        $this->_viewFileModel = (new FileModel())
+            ->generateTmpName()
+            ->setUniqueName($this->_extension)
+            ->set(
+                [
+                    "type" => $this->_originalFileModel->get("type")
+                ]
+            );
+
+        $this->_thumbFileModel = (new FileModel())
+            ->generateTmpName()
+            ->setUniqueName($this->_extension)
+            ->set(
+                [
+                    "type" => $this->_originalFileModel->get("type")
+                ]
+            );
+
+        return $this;
+    }
+
+    /**
+     * Uploads original file
+     *
+     * @return ImageInstanceModel
+     */
+    private function _uploadOriginalFile()
+    {
+        $this->_originalFileModel->upload();
+        return $this;
+    }
+
+    /**
+     * Uploads view file
+     *
+     * @return ImageInstanceModel
+     */
+    private function _uploadViewFile()
+    {
+        $this->_viewFileModel->upload();
+        return $this;
+    }
+
+    /**
+     * Uploads thumb file
+     *
+     * @return ImageInstanceModel
+     */
+    private function _uploadThumbFile()
+    {
+        $this->_thumbFileModel->upload();
+        return $this;
+    }
+
+    /**
+     * Gets original image
+     *
+     * @return resource
+     *
+     * @throws FileException
+     */
+    private function _getOriginalImage()
+    {
+        $url = $this->_originalFileModel->getUrl();
+
+        if ($this->_originalImage === null) {
+            switch ($this->_extension) {
+                case self::EXT_JPG:
+                    $this->_originalImage = imagecreatefromjpeg($url);
+                    break;
+                case self::EXT_PNG:
+                    $this->_originalImage = imagecreatefrompng($url);
+                    break;
+            }
         }
 
-        if ($currentImageInstanceModel->get("x1") !== $this->get("x1")) {
-            $this->_isModelChanged = true;
-            $this->_isViewChanged = true;
+        if ($this->_originalImage === null) {
+            throw new FileException("Unable to create image from URL: {url}", ["url" => $url]);
         }
 
-        if ($currentImageInstanceModel->get("x2") !== $this->get("x2")) {
-            $this->_isModelChanged = true;
-            $this->_isViewChanged = true;
+        return $this->_originalImage;
+    }
+
+    /**
+     * Gets view image
+     *
+     * @return resource
+     */
+    private function _getViewImage()
+    {
+        if ($this->_viewImage === null) {
+            $this->_viewImage = $this->_getOriginalImage();
         }
 
-        if ($currentImageInstanceModel->get("y1") !== $this->get("y1")) {
-            $this->_isModelChanged = true;
-            $this->_isViewChanged = true;
+        return $this->_viewImage;
+    }
+
+    /**
+     * Gets thumb image
+     *
+     * @return resource
+     */
+    private function _getThumbImage()
+    {
+        if ($this->_thumbImage === null) {
+            $this->_thumbImage = $this->_getOriginalImage();
         }
 
-        if ($currentImageInstanceModel->get("y2") !== $this->get("y2")) {
-            $this->_isModelChanged = true;
-            $this->_isViewChanged = true;
-        }
+        return $this->_thumbImage;
+    }
 
-        if ($currentImageInstanceModel->get("thumbX1") !== $this->get("thumbX1")) {
-            $this->_isModelChanged = true;
-            $this->_isThumbChanged = true;
-        }
-
-        if ($currentImageInstanceModel->get("thumbX2") !== $this->get("thumbX2")) {
-            $this->_isModelChanged = true;
-            $this->_isThumbChanged = true;
-        }
-
-        if ($currentImageInstanceModel->get("thumbY1") !== $this->get("thumbY1")) {
-            $this->_isModelChanged = true;
-            $this->_isThumbChanged = true;
-        }
-
-        if ($currentImageInstanceModel->get("thumbY2") !== $this->get("thumbY2")) {
-            $this->_isModelChanged = true;
-            $this->_isThumbChanged = true;
-        }
-
-        if ($currentImageInstanceModel->get("angle") !== $this->get("angle")) {
-            $this->_isModelChanged = true;
-            $this->_isViewChanged = true;
-            $this->_isThumbChanged = true;
-        }
-
-        if ($currentImageInstanceModel->get("flip") !== $this->get("flip")) {
-            $this->_isModelChanged = true;
-            $this->_isViewChanged = true;
-            $this->_isThumbChanged = true;
+    /**
+     * Destroys original image
+     *
+     * @return ImageInstanceModel
+     */
+    private function _destroyOriginalImage()
+    {
+        if ($this->_originalImage !== null) {
+            imagedestroy($this->_originalImage);
+            $this->_originalImage = null;
         }
 
         return $this;
     }
 
     /**
-     * Creates an image
+     * Destroys view image
      *
      * @return ImageInstanceModel
-     *
-     * @throws FileException
      */
-    private function _createImage()
+    private function _destroyViewImage()
     {
-        if ($this->_originalImage === null) {
-            switch ($this->_extension) {
-                case self::EXT_JPG:
-                    $this->_originalImage = imagecreatefromjpeg($this->get("originalFileModel")->getUrl());
-                    break;
-                case self::EXT_PNG:
-                    $this->_originalImage = imagecreatefrompng($this->get("originalFileModel")->getUrl());
-                    break;
-                default:
-                    throw new FileException(
-                        "Unable to create image with extension: {extension}",
-                        [
-                            "extension" => $this->_extension
-                        ]
-                    );
-            }
+        if ($this->_viewImage !== null) {
+            imagedestroy($this->_viewImage);
+            $this->_viewImage = null;
         }
 
-        $this->_image = $this->_originalImage;
+        return $this;
+    }
+
+    /**
+     * Destroys thumb image
+     *
+     * @return ImageInstanceModel
+     */
+    private function _destroyThumbImage()
+    {
+        if ($this->_thumbImage !== null) {
+            imagedestroy($this->_thumbImage);
+            $this->_thumbImage = null;
+        }
+
+        return $this;
+    }
+
+    /**
+     * Creates view tmp image to upload
+     *
+     * @return ImageInstanceModel
+     */
+    private function _createTmpViewImageToUpload()
+    {
+        $resource = $this->_getViewImage();
+
+        $this
+            ->_resize($resource, $this->_viewWidth, $this->_viewHeight)
+            ->_saveImage($resource, $this->_viewFileModel->getTmpName())
+            ->_destroyViewImage();
+
+        imagedestroy($resource);
+
+        return $this;
+    }
+
+    /**
+     * Creates thumb tmp image to upload
+     *
+     * @return ImageInstanceModel
+     */
+    private function _createTmpThumbImageToUpload()
+    {
+        $resource = $this->_getThumbImage();
+
+        $this
+            ->_resize($resource, $this->_thumbWidth, $this->_thumbHeight)
+            ->_saveImage($resource, $this->_thumbFileModel->getTmpName())
+            ->_destroyThumbImage();
+
+        imagedestroy($resource);
 
         return $this;
     }
@@ -677,12 +684,13 @@ class ImageInstanceModel extends AbstractModel
     /**
      * Resize the image
      *
-     * @param int $width
-     * @param int $height
+     * @param resource $resource
+     * @param int      $width
+     * @param int      $height
      *
      * @return ImageInstanceModel
      */
-    private function _resize($width, $height)
+    private function _resize(&$resource, $width, $height)
     {
         $image = imagecreatetruecolor($width, $height);
 
@@ -697,7 +705,7 @@ class ImageInstanceModel extends AbstractModel
 
         imagecopyresampled(
             $image,
-            $this->_image,
+            $resource,
             0,
             0,
             0,
@@ -708,93 +716,9 @@ class ImageInstanceModel extends AbstractModel
             $this->get("height")
         );
 
-        $this->_image = $image;
+        $resource = $image;
+
         imagedestroy($image);
-
-        return $this;
-    }
-
-    /**
-     * Flips the image
-     *
-     * @return ImageInstanceModel
-     */
-    private function _flip()
-    {
-        if ($this->get("flip") === self::FLIP_NONE) {
-            return $this;
-        }
-
-        switch ($this->get("flip")) {
-            case self::FLIP_HORIZONTAL:
-                $flip = IMG_FLIP_HORIZONTAL;
-                break;
-            case self::FLIP_VERTICAL:
-                $flip = IMG_FLIP_VERTICAL;
-                break;
-            case self::FLIP_BOTH:
-                $flip = IMG_FLIP_BOTH;
-                break;
-            default:
-                $flip = self::FLIP_NONE;
-        }
-
-        imageflip($this->_image, $flip);
-
-        return $this;
-    }
-
-    /**
-     * Rotates the image
-     *
-     * @return ImageInstanceModel
-     */
-    private function _rotate()
-    {
-        if ($this->get("angle") === 0) {
-            return $this;
-        }
-
-        $this->_image = imagerotate($this->_image, $this->get("angle"), 0);
-
-        return $this;
-    }
-
-    /**
-     * Crops the image
-     *
-     * @param int $x1
-     * @param int $y1
-     * @param int $x2
-     * @param int $y2
-     *
-     * @return ImageInstanceModel
-     *
-     * @throws FileException
-     */
-    private function _crop($x1, $y1, $x2, $y2)
-    {
-        if ($x1 === 0
-            && $y1 === 0
-            && $x2 === $this->get("width")
-            && $y2 === $this->get("height")
-        ) {
-            return $this;
-        }
-
-        $this->_image = imagecrop(
-            $this->_image,
-            [
-                'x' => $x1,
-                'y' => $y1,
-                'width' => $x2 - $x1,
-                'height' => $y2 - $y1
-            ]
-        );
-
-        if ($this->_image === false) {
-            throw new FileException("Unable to crop the image with ID: {id}", ["id" => $this->getId()]);
-        }
 
         return $this;
     }
@@ -802,20 +726,21 @@ class ImageInstanceModel extends AbstractModel
     /**
      * Saves the image
      *
-     * @param string $tmpName
+     * @param resource $resource
+     * @param string   $tmpName
      *
      * @return ImageInstanceModel
      *
      * @throws FileException
      */
-    private function _saveImage($tmpName)
+    private function _saveImage($resource, $tmpName)
     {
         switch ($this->_extension) {
             case self::EXT_JPG:
-                imagejpeg($this->_image, $tmpName);
+                imagejpeg($resource, $tmpName);
                 break;
             case self::EXT_PNG:
-                imagepng($this->_image, $tmpName);
+                imagepng($resource, $tmpName);
                 break;
             default:
                 throw new FileException(
@@ -830,19 +755,350 @@ class ImageInstanceModel extends AbstractModel
     }
 
     /**
-     * Destroys the image
+     * Saves the model
      *
      * @return ImageInstanceModel
-     *
-     * @throws FileException
      */
-    private function _destroyOriginalImage()
+    private function _save()
     {
-        if ($this->_originalImage !== null) {
-            imagedestroy($this->_originalImage);
-            $this->_originalImage = null;
-        }
+        $this->set(
+            [
+                "originalFileModel" => $this->_originalFileModel,
+                "viewFileModel"     => $this->_viewFileModel,
+                "thumbFileModel"    => $this->_thumbFileModel,
+            ]
+        );
+
+        $this->save();
 
         return $this;
     }
+
+//    /**
+//     * Uploads the file
+//     *
+//     * @return array
+//     */
+//    public function upload()
+//    {
+//        $this
+//            ->_checkImageAlbumId()
+//            ->_setOriginalFileModel()
+//            ->_setInfo()
+//            ->_setExtension($this->_info["mime"])
+//            ->_setSizes($this->_info[0], $this->_info[1])
+//            ->_uploadOriginalFile()
+//            ->_setViewFileModel()
+//            ->_setThumbFileModel()
+//            ->_uploadImage()
+//            ->save();
+//
+//        return [
+//            "originalUrl" => $this->get("originalFileModel")->getUrl(),
+//            "viewUrl"     => $this->get("viewFileModel")->getUrl(),
+//            "thumbUrl"    => $this->get("thumbFileModel")->getUrl(),
+//            "name"        => str_replace(
+//                sprintf(".%s", $this->_extension),
+//                "",
+//                $this->get("originalFileModel")->get("originalName")
+//            ),
+//            "id"          => $this->getId()
+//        ];
+//    }
+//
+
+//
+//    /**
+//     * Uploads view and thumb images
+//     *
+//     * @return ImageInstanceModel
+//     *
+//     * @throws FileException
+//     */
+//    private function _uploadImage()
+//    {
+//        $viewTmp = $this->get("viewFileModel")->getTmpName();
+//        $this
+//            ->_createImage()
+//            ->_resize($this->_viewWidth, $this->_viewHeight)
+//            ->_saveImage($viewTmp);
+//        $this
+//            ->get("viewFileModel")
+//            ->setSizeFromTmpFile()
+//            ->upload();
+//
+//        $thumbTmp = $this->get("thumbFileModel")->getTmpName();
+//        $this
+//            ->_createImage()
+//            ->_resize($this->_thumbWidth, $this->_thumbHeight)
+//            ->_saveImage($thumbTmp);
+//        $this
+//            ->get("thumbFileModel")
+//            ->setSizeFromTmpFile()
+//            ->upload();
+//
+//        return $this;
+//    }
+//
+
+//
+
+//
+
+//
+
+//
+
+//
+
+//
+
+//
+//    public function update()
+//    {
+//        $this->_setIsChanged();
+//        if ($this->_isModelChanged === false
+//            && $this->_isViewChanged === false
+//            && $this->_isThumbChanged === false
+//        ) {
+//            return [
+//                "isChanged" => false
+//            ];
+//        }
+//
+//        $this
+//            ->_setExtension($this->get("originalFileModel")->get("type"))
+//            ->_setSizes($this->get("width"), $this->get("height"));
+//
+//        if ($this->_isModelChanged === true) {
+//            $this->save();
+//        }
+//
+//
+//        if ($this->_isViewChanged === true) {
+//            $this->get("viewFileModel");
+//            $this
+//                ->_createImage()
+//                ->_flip()
+//                ->_rotate()
+//                ->_crop($this->get("x1"), $this->get("y1"), $this->get("x2"), $this->get("y2"))
+//                ->_resize($this->_viewWidth, $this->_viewHeight)
+//                ->_saveImage("aaa");
+//        }
+//
+//        $this->_destroyOriginalImage();
+//
+//        return [
+//            "isChanged" => true
+//        ];
+//    }
+//
+//    private $_originalImage = null;
+//    private $_image = null;
+//
+//    /**
+//     * Sets isChanged flags
+//     *
+//     * @return ImageInstanceModel
+//     */
+//    private function _setIsChanged()
+//    {
+//        $currentImageInstanceModel = $this->byId($this->getId())->find();
+//
+//        if ($currentImageInstanceModel->get("alt") !== $this->get("alt")) {
+//            $this->_isModelChanged = true;
+//        }
+//
+//        if ($currentImageInstanceModel->get("x1") !== $this->get("x1")) {
+//            $this->_isModelChanged = true;
+//            $this->_isViewChanged = true;
+//        }
+//
+//        if ($currentImageInstanceModel->get("x2") !== $this->get("x2")) {
+//            $this->_isModelChanged = true;
+//            $this->_isViewChanged = true;
+//        }
+//
+//        if ($currentImageInstanceModel->get("y1") !== $this->get("y1")) {
+//            $this->_isModelChanged = true;
+//            $this->_isViewChanged = true;
+//        }
+//
+//        if ($currentImageInstanceModel->get("y2") !== $this->get("y2")) {
+//            $this->_isModelChanged = true;
+//            $this->_isViewChanged = true;
+//        }
+//
+//        if ($currentImageInstanceModel->get("thumbX1") !== $this->get("thumbX1")) {
+//            $this->_isModelChanged = true;
+//            $this->_isThumbChanged = true;
+//        }
+//
+//        if ($currentImageInstanceModel->get("thumbX2") !== $this->get("thumbX2")) {
+//            $this->_isModelChanged = true;
+//            $this->_isThumbChanged = true;
+//        }
+//
+//        if ($currentImageInstanceModel->get("thumbY1") !== $this->get("thumbY1")) {
+//            $this->_isModelChanged = true;
+//            $this->_isThumbChanged = true;
+//        }
+//
+//        if ($currentImageInstanceModel->get("thumbY2") !== $this->get("thumbY2")) {
+//            $this->_isModelChanged = true;
+//            $this->_isThumbChanged = true;
+//        }
+//
+//        if ($currentImageInstanceModel->get("angle") !== $this->get("angle")) {
+//            $this->_isModelChanged = true;
+//            $this->_isViewChanged = true;
+//            $this->_isThumbChanged = true;
+//        }
+//
+//        if ($currentImageInstanceModel->get("flip") !== $this->get("flip")) {
+//            $this->_isModelChanged = true;
+//            $this->_isViewChanged = true;
+//            $this->_isThumbChanged = true;
+//        }
+//
+//        return $this;
+//    }
+//
+//    /**
+//     * Creates an image
+//     *
+//     * @return ImageInstanceModel
+//     *
+//     * @throws FileException
+//     */
+//    private function _createImage()
+//    {
+//        if ($this->_originalImage === null) {
+//            switch ($this->_extension) {
+//                case self::EXT_JPG:
+//                    $this->_originalImage = imagecreatefromjpeg($this->get("originalFileModel")->getUrl());
+//                    break;
+//                case self::EXT_PNG:
+//                    $this->_originalImage = imagecreatefrompng($this->get("originalFileModel")->getUrl());
+//                    break;
+//                default:
+//                    throw new FileException(
+//                        "Unable to create image with extension: {extension}",
+//                        [
+//                            "extension" => $this->_extension
+//                        ]
+//                    );
+//            }
+//        }
+//
+//        $this->_image = $this->_originalImage;
+//
+//        return $this;
+//    }
+//
+
+//
+//    /**
+//     * Flips the image
+//     *
+//     * @return ImageInstanceModel
+//     */
+//    private function _flip()
+//    {
+//        if ($this->get("flip") === self::FLIP_NONE) {
+//            return $this;
+//        }
+//
+//        switch ($this->get("flip")) {
+//            case self::FLIP_HORIZONTAL:
+//                $flip = IMG_FLIP_HORIZONTAL;
+//                break;
+//            case self::FLIP_VERTICAL:
+//                $flip = IMG_FLIP_VERTICAL;
+//                break;
+//            case self::FLIP_BOTH:
+//                $flip = IMG_FLIP_BOTH;
+//                break;
+//            default:
+//                $flip = self::FLIP_NONE;
+//        }
+//
+//        imageflip($this->_image, $flip);
+//
+//        return $this;
+//    }
+//
+//    /**
+//     * Rotates the image
+//     *
+//     * @return ImageInstanceModel
+//     */
+//    private function _rotate()
+//    {
+//        if ($this->get("angle") === 0) {
+//            return $this;
+//        }
+//
+//        $this->_image = imagerotate($this->_image, $this->get("angle"), 0);
+//
+//        return $this;
+//    }
+//
+//    /**
+//     * Crops the image
+//     *
+//     * @param int $x1
+//     * @param int $y1
+//     * @param int $x2
+//     * @param int $y2
+//     *
+//     * @return ImageInstanceModel
+//     *
+//     * @throws FileException
+//     */
+//    private function _crop($x1, $y1, $x2, $y2)
+//    {
+//        if ($x1 === 0
+//            && $y1 === 0
+//            && $x2 === $this->get("width")
+//            && $y2 === $this->get("height")
+//        ) {
+//            return $this;
+//        }
+//
+//        $this->_image = imagecrop(
+//            $this->_image,
+//            [
+//                'x' => $x1,
+//                'y' => $y1,
+//                'width' => $x2 - $x1,
+//                'height' => $y2 - $y1
+//            ]
+//        );
+//
+//        if ($this->_image === false) {
+//            throw new FileException("Unable to crop the image with ID: {id}", ["id" => $this->getId()]);
+//        }
+//
+//        return $this;
+//    }
+//
+
+//
+//    /**
+//     * Destroys the image
+//     *
+//     * @return ImageInstanceModel
+//     *
+//     * @throws FileException
+//     */
+//    private function _destroyOriginalImage()
+//    {
+//        if ($this->_originalImage !== null) {
+//            imagedestroy($this->_originalImage);
+//            $this->_originalImage = null;
+//        }
+//
+//        return $this;
+//    }
 }

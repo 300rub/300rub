@@ -24,10 +24,8 @@ class M160316000000Files extends AbstractMigration
                     "type"         => self::TYPE_STRING_50,
                     "size"         => self::TYPE_INT_UNSIGNED,
                     "uniqueName"   => self::TYPE_STRING_25,
-                    "isRemoved"    => self::TYPE_BOOL,
                 ]
             )
-            ->createUniqueIndex("files", "files_uniqueName", "uniqueName")
-            ->createIndex("files", "isRemoved");
+            ->createUniqueIndex("files", "files_uniqueName", "uniqueName");
     }
 }

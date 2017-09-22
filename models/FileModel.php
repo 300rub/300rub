@@ -93,10 +93,6 @@ class FileModel extends AbstractModel
                 ],
                 self::FIELD_SKIP_DUPLICATION => true,
             ],
-            "isRemoved"    => [
-                self::FIELD_TYPE             => self::FIELD_TYPE_BOOL,
-                self::FIELD_SKIP_DUPLICATION => true,
-            ],
         ];
     }
 
@@ -185,7 +181,7 @@ class FileModel extends AbstractModel
      */
     public function generateTmpName()
     {
-        $this->_tmpName = "/tmp/" . self::_generateUniqueHash();
+        $this->_tmpName = sprintf("/tmp/%s_%s", date("Y-m-d"), self::_generateUniqueHash());
         return $this;
     }
 
