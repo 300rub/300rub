@@ -109,7 +109,7 @@ class ImageControllerTest extends AbstractControllerTest
             $this->assertError();
         } else {
             $expected = [
-                "url"     => "http://172.17.0.1/upload/1/new_file.jpg",
+                "url"     => "http://" . $this->getHost() . "/upload/1/new_file.jpg",
                 "alt"     => "Alt 1",
                 "width"   => 800,
                 "height"  => 600,
@@ -193,8 +193,6 @@ class ImageControllerTest extends AbstractControllerTest
         }
 
         $body = $this->getBody();
-        var_dump($body);
-        return true;
 
         $originalFileExplode = explode("/", $body["originalUrl"]);
         $originalFile = $originalFileExplode[count($originalFileExplode) - 1];

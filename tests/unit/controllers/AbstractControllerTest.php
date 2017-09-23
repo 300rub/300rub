@@ -142,6 +142,16 @@ abstract class AbstractControllerTest extends AbstractUnitTest
     }
 
     /**
+     * Gets host
+     *
+     * @return string
+     */
+    protected function getHost()
+    {
+        return trim(shell_exec("/sbin/ip route|awk '/default/ { print $3 }'"));
+    }
+
+    /**
      * Sends a file
      *
      * @param string $controller
@@ -161,7 +171,7 @@ abstract class AbstractControllerTest extends AbstractUnitTest
         $mimeType = "application/octet-stream",
         $language = Language::LANGUAGE_EN_ID
     ) {
-        $host = trim(shell_exec("/sbin/ip route|awk '/default/ { print $3 }'"));
+        $host = $this->getHost();
 
         $this->_setFileData($data);
         $postData = array(
@@ -229,7 +239,7 @@ abstract class AbstractControllerTest extends AbstractUnitTest
         $language = Language::LANGUAGE_EN_ID,
         $ua = self::UA_FIREFOX_4_0_1
     ) {
-        $host = trim(shell_exec("/sbin/ip route|awk '/default/ { print $3 }'"));
+        $host = $this->getHost();
 
         $dataJson = [
             "token"      => $this->getUserToken(),

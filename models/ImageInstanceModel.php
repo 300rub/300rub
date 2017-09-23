@@ -5,6 +5,7 @@ namespace testS\models;
 use testS\components\exceptions\FileException;
 use testS\components\Language;
 use testS\components\ValueGenerator;
+use Gregwar\Image\Image;
 
 /**
  * Model for working with table "imageInstances"
@@ -54,27 +55,6 @@ class ImageInstanceModel extends AbstractModel
      * @var FileModel
      */
     private $_thumbFileModel = null;
-
-    /**
-     * Original image resource
-     *
-     * @var resource
-     */
-    private $_originalImage = null;
-
-    /**
-     * View image resource
-     *
-     * @var resource
-     */
-    private $_viewImage = null;
-
-    /**
-     * Thumb image resource
-     *
-     * @var resource
-     */
-    private $_thumbImage = null;
 
     /**
      * Extension
@@ -298,7 +278,6 @@ class ImageInstanceModel extends AbstractModel
             ->_uploadOriginalFile()
             ->_createTmpViewImageToUpload()
             ->_createTmpThumbImageToUpload()
-            ->_destroyOriginalImage()
             ->_uploadViewFile()
             ->_uploadThumbFile()
             ->_save();
@@ -542,122 +521,16 @@ class ImageInstanceModel extends AbstractModel
     }
 
     /**
-     * Gets original image
-     *
-     * @return resource
-     *
-     * @throws FileException
-     */
-    private function _getOriginalImage()
-    {
-        $url = $this->_originalFileModel->getUrl();
-
-        if ($this->_originalImage === null) {
-            switch ($this->_extension) {
-                case self::EXT_JPG:
-                    $this->_originalImage = imagecreatefromjpeg($url);
-                    break;
-                case self::EXT_PNG:
-                    $this->_originalImage = imagecreatefrompng($url);
-                    break;
-            }
-        }
-
-        if ($this->_originalImage === null) {
-            throw new FileException("Unable to create image from URL: {url}", ["url" => $url]);
-        }
-
-        return $this->_originalImage;
-    }
-
-    /**
-     * Gets view image
-     *
-     * @return resource
-     */
-    private function _getViewImage()
-    {
-        if ($this->_viewImage === null) {
-            $this->_viewImage = $this->_getOriginalImage();
-        }
-
-        return $this->_viewImage;
-    }
-
-    /**
-     * Gets thumb image
-     *
-     * @return resource
-     */
-    private function _getThumbImage()
-    {
-        if ($this->_thumbImage === null) {
-            $this->_thumbImage = $this->_getOriginalImage();
-        }
-
-        return $this->_thumbImage;
-    }
-
-    /**
-     * Destroys original image
-     *
-     * @return ImageInstanceModel
-     */
-    private function _destroyOriginalImage()
-    {
-        if ($this->_originalImage !== null) {
-            imagedestroy($this->_originalImage);
-            $this->_originalImage = null;
-        }
-
-        return $this;
-    }
-
-    /**
-     * Destroys view image
-     *
-     * @return ImageInstanceModel
-     */
-    private function _destroyViewImage()
-    {
-        if ($this->_viewImage !== null) {
-            imagedestroy($this->_viewImage);
-            $this->_viewImage = null;
-        }
-
-        return $this;
-    }
-
-    /**
-     * Destroys thumb image
-     *
-     * @return ImageInstanceModel
-     */
-    private function _destroyThumbImage()
-    {
-        if ($this->_thumbImage !== null) {
-            imagedestroy($this->_thumbImage);
-            $this->_thumbImage = null;
-        }
-
-        return $this;
-    }
-
-    /**
      * Creates view tmp image to upload
      *
      * @return ImageInstanceModel
      */
     private function _createTmpViewImageToUpload()
     {
-        $resource = $this->_getViewImage();
-
-        $this
-            ->_resize($resource, $this->_viewWidth, $this->_viewHeight)
-            ->_saveImage($resource, $this->_viewFileModel->getTmpName())
-            ->_destroyViewImage();
-
-        imagedestroy($resource);
+        Image
+            ::open($this->_originalFileModel->getUrl())
+            ->resize($this->_viewWidth, $this->_viewHeight)
+            ->save($this->_viewFileModel->getTmpName());
 
         return $this;
     }
@@ -669,87 +542,10 @@ class ImageInstanceModel extends AbstractModel
      */
     private function _createTmpThumbImageToUpload()
     {
-        $resource = $this->_getThumbImage();
-
-        $this
-            ->_resize($resource, $this->_thumbWidth, $this->_thumbHeight)
-            ->_saveImage($resource, $this->_thumbFileModel->getTmpName())
-            ->_destroyThumbImage();
-
-        imagedestroy($resource);
-
-        return $this;
-    }
-
-    /**
-     * Resize the image
-     *
-     * @param resource $resource
-     * @param int      $width
-     * @param int      $height
-     *
-     * @return ImageInstanceModel
-     */
-    private function _resize(&$resource, $width, $height)
-    {
-        $image = imagecreatetruecolor($width, $height);
-
-        switch ($this->_extension) {
-            case self::EXT_PNG:
-                imagealphablending($image, false);
-                imagesavealpha($image, true);
-                $transparent = imagecolorallocatealpha($image, 255, 255, 255, 127);
-                imagefilledrectangle($image, 0, 0, $this->get("width"), $this->get("height"), $transparent);
-                break;
-        }
-
-        imagecopyresampled(
-            $image,
-            $resource,
-            0,
-            0,
-            0,
-            0,
-            $width,
-            $height,
-            $this->get("width"),
-            $this->get("height")
-        );
-
-        $resource = $image;
-
-        imagedestroy($image);
-
-        return $this;
-    }
-
-    /**
-     * Saves the image
-     *
-     * @param resource $resource
-     * @param string   $tmpName
-     *
-     * @return ImageInstanceModel
-     *
-     * @throws FileException
-     */
-    private function _saveImage($resource, $tmpName)
-    {
-        switch ($this->_extension) {
-            case self::EXT_JPG:
-                imagejpeg($resource, $tmpName);
-                break;
-            case self::EXT_PNG:
-                imagepng($resource, $tmpName);
-                break;
-            default:
-                throw new FileException(
-                    "Unable to save image with extension: {extension}",
-                    [
-                        "extension" => $this->_extension
-                    ]
-                );
-        }
+        Image
+            ::open($this->_originalFileModel->getUrl())
+            ->resize($this->_thumbWidth, $this->_thumbHeight)
+            ->save($this->_thumbFileModel->getTmpName());
 
         return $this;
     }
