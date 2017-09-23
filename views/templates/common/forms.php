@@ -93,7 +93,7 @@
 </div>
 
 <div class="form-container form-container-radio-buttons">
-    <span class="label"></span>
+    <span class="label-text"></span>
     <span class="radio-buttons"></span>
 </div>
 
@@ -101,11 +101,14 @@
     <input type="radio" class="form-instance" />
     <span class="label-body">
         <i class="label-icon fa"></i>
-        <span class="label-text"></span>
+        <span class="label"></span>
     </span>
 </label>
 
-<div class="color-picker">
-    <i class="icon-before fa"></i>
-    <input type="hidden" class="form-instance">
+<div class="color-picker-container">
+    <span class="label-text"></span>
+    <div class="color-picker">
+        <i class="icon-before fa"></i>
+        <input type="hidden" class="form-instance">
+    </div>
 </div>

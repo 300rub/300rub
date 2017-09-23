@@ -116,6 +116,7 @@ class DesignBlockModel extends AbstractModel
             "background"             => Language::t("design", "background"),
             "backgroundColor"        => Language::t("design", "backgroundColor"),
             "borderColor"            => Language::t("design", "borderColor"),
+            "borderColorHover"       => Language::t("design", "borderColorHover"),
             "useGradient"            => Language::t("design", "useGradient"),
             "border"                 => Language::t("design", "border"),
             "gradientDirection"      => Language::t("design", "gradientDirection"),
@@ -123,6 +124,8 @@ class DesignBlockModel extends AbstractModel
             "cancel"                 => Language::t("common", "cancel"),
             "save"                   => Language::t("common", "save"),
             "clear"                  => Language::t("common", "clear"),
+            "borderStyle"            => Language::t("design", "borderStyle"),
+            "borderStyleHover"       => Language::t("design", "borderStyleHover"),
         ];
     }
 

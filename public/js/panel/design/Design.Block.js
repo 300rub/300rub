@@ -1304,22 +1304,27 @@
             if (this._values["borderStyle"] !== null) {
                 new TestS.Form({
                     type: "radioButtons",
+                    label: this._getLabel("borderStyle"),
                     value: this._values["borderStyle"],
                     data: [
                         {
                             value: 0,
+                            label: "",
                             class: "none"
                         },
                         {
                             value: 1,
+                            label: "",
                             class: "solid"
                         },
                         {
                             value: 2,
+                            label: "",
                             class: "dotted"
                         },
                         {
                             value: 3,
+                            label: "",
                             class: "dashed"
                         }
                     ],
@@ -1331,56 +1336,14 @@
                 });
             }
 
-            if (this._values["borderStyleHover"] !== null) {
-                new TestS.Form({
-                    type: "radioButtons",
-                    value: this._values["borderStyleHover"],
-                    data: [
-                        {
-                            value: 0,
-                            class: "none"
-                        },
-                        {
-                            value: 1,
-                            class: "solid"
-                        },
-                        {
-                            value: 2,
-                            class: "dotted"
-                        },
-                        {
-                            value: 3,
-                            class: "dashed"
-                        }
-                    ],
-                    onChange: $.proxy(function (value) {
-                        this._values["borderStyleHover"] = value;
-                        this._updateBorder(false);
-                    }, this),
-                    appendTo: $container
-                });
-            }
-
             if (this._values["borderColor"] !== null) {
                 new TestS.Form({
                     type: "color",
+                    label: this._getLabel("borderColor"),
                     title: this._getLabel("borderColor"),
                     value: this._values["borderColor"],
                     callback: $.proxy(function (color) {
                         this._values["borderColor"] = color;
-                        this._updateBorder(false);
-                    }, this),
-                    appendTo: $container
-                });
-            }
-
-            if (this._values["borderColorHover"] !== null) {
-                new TestS.Form({
-                    type: "color",
-                    title: this._getLabel("borderColor"),
-                    value: this._values["borderColorHover"],
-                    callback: $.proxy(function (color) {
-                        this._values["borderColorHover"] = color;
                         this._updateBorder(false);
                     }, this),
                     appendTo: $container
@@ -1410,12 +1373,63 @@
                 });
             }
 
+            if (this._values["borderStyleHover"] !== null) {
+                new TestS.Form({
+                    type: "radioButtons",
+                    label: this._getLabel("borderStyleHover"),
+                    value: this._values["borderStyleHover"],
+                    class: "border-style-hover",
+                    data: [
+                        {
+                            value: 0,
+                            label: "",
+                            class: "none"
+                        },
+                        {
+                            value: 1,
+                            label: "",
+                            class: "solid"
+                        },
+                        {
+                            value: 2,
+                            label: "",
+                            class: "dotted"
+                        },
+                        {
+                            value: 3,
+                            label: "",
+                            class: "dashed"
+                        }
+                    ],
+                    onChange: $.proxy(function (value) {
+                        this._values["borderStyleHover"] = value;
+                        this._updateBorder(false);
+                    }, this),
+                    appendTo: $container
+                });
+            }
+
+            if (this._values["borderColorHover"] !== null) {
+                new TestS.Form({
+                    type: "color",
+                    label: this._getLabel("borderColorHover"),
+                    title: this._getLabel("borderColor"),
+                    value: this._values["borderColorHover"],
+                    class: "border-color-hover",
+                    callback: $.proxy(function (color) {
+                        this._values["borderColorHover"] = color;
+                        this._updateBorder(false);
+                    }, this),
+                    appendTo: $container
+                });
+            }
+
             if (this._values["hasBorderAnimation"] !== null) {
                 new TestS.Form({
                     type: "checkboxOnOff",
                     value: this._values["hasBorderAnimation"],
                     label: this._getLabel("mouseHoverAnimation"),
-                    class: "has-animation",
+                    class: "has-border-animation",
                     onCheck: $.proxy(function () {
                         this._values["hasBorderAnimation"] = true;
                         this._updateBorder(false);
@@ -1483,12 +1497,13 @@
          * Generates margin styles
          *
          * @param {boolean} isHover
+         * @param {boolean} skipAnimation
          *
          * @returns {String}
          *
          * @private
          */
-        _generateMarginCss: function(isHover) {
+        _generateMarginCss: function(isHover, skipAnimation) {
             var marginTop, marginRight, marginBottom, marginLeft;
 
             if (isHover === true) {
@@ -1525,7 +1540,8 @@
 
             var css = "margin:" + marginTop + " " + marginRight + " " + marginBottom + " " + marginLeft + ";";
 
-            if (this._values["hasMarginHover"] === true
+            if (skipAnimation !== true
+                && this._values["hasMarginHover"] === true
                 && this._values["hasMarginAnimation"] === true
             ) {
                 css += "-webkit-transition:margin .3s;";
@@ -1541,12 +1557,13 @@
          * Generates padding styles
          *
          * @param {boolean} isHover
+         * @param {boolean} skipAnimation
          *
          * @returns {String}
          *
          * @private
          */
-        _generatePaddingCss: function(isHover) {
+        _generatePaddingCss: function(isHover, skipAnimation) {
             var paddingTop, paddingRight, paddingBottom, paddingLeft;
 
             if (isHover === true) {
@@ -1583,7 +1600,8 @@
 
             var css = "padding:" + paddingTop + " " + paddingRight + " " + paddingBottom + " " + paddingLeft + ";";
 
-            if (this._values["hasPaddingHover"] === true
+            if (skipAnimation !== true
+                && this._values["hasPaddingHover"] === true
                 && this._values["hasPaddingAnimation"] === true
             ) {
                 css += "-webkit-transition:padding .3s;";
@@ -1599,12 +1617,13 @@
          * Generates background styles
          *
          * @param {boolean} isHover
+         * @param {boolean} skipAnimation
          *
          * @returns {String}
          *
          * @private
          */
-        _generateBackgroundCss: function(isHover) {
+        _generateBackgroundCss: function(isHover, skipAnimation) {
             var css = "",
                 backgroundColorFrom = "",
                 backgroundColorTo = "";
@@ -1714,11 +1733,12 @@
                     + ");";
             }
 
-            if (this._values["hasBackgroundGradient"] === false
+            if (skipAnimation !== true
+                && this._values["hasBackgroundGradient"] === false
                 && this._values["hasBackgroundHover"] === true
                 && this._values["hasBackgroundAnimation"] === true
             ) {
-                css += "-webkit-transition:padding .3s;";
+                css += "-webkit-transition:background-color .3s;";
                 css += "-ms-transition:background-color .3s;";
                 css += "-o-transition:background-color .3s;";
                 css += "transition:background-color .3s;";
@@ -1731,12 +1751,13 @@
          * Generates border styles
          *
          * @param {boolean} isHover
+         * @param {boolean} skipAnimation
          *
          * @returns {String}
          *
          * @private
          */
-        _generateBorderCss: function(isHover) {
+        _generateBorderCss: function(isHover, skipAnimation) {
             var borderTopLeftRadius,
                 borderTopRightRadius,
                 borderBottomRightRadius,
@@ -1862,7 +1883,8 @@
             var borderStyle = this._getBorderStyle(isHover);
             css += "border-style:" + borderStyle + ";";
 
-            if (this._values["hasBorderHover"] === true
+            if (skipAnimation !== true
+                && this._values["hasBorderHover"] === true
                 && this._values["hasBorderAnimation"] === true
             ) {
                 css += "-webkit-transition:border-radius .3s,border-width .3s,border-color .3s;";
@@ -1884,10 +1906,49 @@
          * @private
          */
         _generateCss: function(isHover) {
-            return this._generateMarginCss(isHover)
-                + this._generatePaddingCss(isHover)
-                + this._generateBackgroundCss(isHover)
-                + this._generateBorderCss(isHover);
+            var css = this._generateMarginCss(isHover, true)
+                + this._generatePaddingCss(isHover, true)
+                + this._generateBackgroundCss(isHover, true)
+                + this._generateBorderCss(isHover, true);
+
+            var animation = [];
+
+            if (this._values["hasMarginHover"] === true
+                && this._values["hasMarginAnimation"] === true
+            ) {
+                animation.push("margin .3s");
+            }
+
+            if (this._values["hasPaddingHover"] === true
+                && this._values["hasPaddingAnimation"] === true
+            ) {
+                animation.push("padding .3s");
+            }
+
+            if (this._values["hasBackgroundGradient"] === false
+                && this._values["hasBackgroundHover"] === true
+                && this._values["hasBackgroundAnimation"] === true
+            ) {
+                animation.push("background-color .3s");
+            }
+
+            if (this._values["hasBorderHover"] === true
+                && this._values["hasBorderAnimation"] === true
+            ) {
+                animation.push("border-radius .3s");
+                animation.push("border-width .3s");
+                animation.push("border-color .3s");
+            }
+
+            if (animation.length > 0) {
+                var animationString = animation.join(",");
+                css += "-webkit-transition:" + animationString + ";";
+                css += "-ms-transition:" + animationString + ";";
+                css += "-o-transition:" + animationString + ";";
+                css += "transition:" + animationString + ";";
+            }
+
+            return css;
         },
 
         /**

@@ -411,45 +411,40 @@ if ($model->get("hasBorderHover") === true) {
     $borderTopRightRadius = $model->get("borderTopRightRadiusHover");
     $borderBottomRightRadius = $model->get("borderBottomRightRadiusHover");
     $borderBottomLeftRadius = $model->get("borderBottomLeftRadiusHover");
-    if ($borderTopLeftRadius !== 0
-        || $borderTopRightRadius !== 0
-        || $borderBottomRightRadius !== 0
-        || $borderBottomLeftRadius !== 0
-    ) {
-        if ($borderTopLeftRadius !== 0) {
-            $borderTopLeftRadius .= "px";
-        }
-        if ($borderTopRightRadius !== 0) {
-            $borderTopRightRadius .= "px";
-        }
-        if ($borderBottomRightRadius !== 0) {
-            $borderBottomRightRadius .= "px";
-        }
-        if ($borderBottomLeftRadius !== 0) {
-            $borderBottomLeftRadius .= "px";
-        }
-        $css .= sprintf(
-            "-webkit-border-radius:%s %s %s %s;",
-            $borderTopLeftRadius,
-            $borderTopRightRadius,
-            $borderBottomRightRadius,
-            $borderBottomLeftRadius
-        );
-        $css .= sprintf(
-            "-moz-border-radius:%s %s %s %s;",
-            $borderTopLeftRadius,
-            $borderTopRightRadius,
-            $borderBottomRightRadius,
-            $borderBottomLeftRadius
-        );
-        $css .= sprintf(
-            "border-radius:%s %s %s %s;",
-            $borderTopLeftRadius,
-            $borderTopRightRadius,
-            $borderBottomRightRadius,
-            $borderBottomLeftRadius
-        );
+
+    if ($borderTopLeftRadius !== 0) {
+        $borderTopLeftRadius .= "px";
     }
+    if ($borderTopRightRadius !== 0) {
+        $borderTopRightRadius .= "px";
+    }
+    if ($borderBottomRightRadius !== 0) {
+        $borderBottomRightRadius .= "px";
+    }
+    if ($borderBottomLeftRadius !== 0) {
+        $borderBottomLeftRadius .= "px";
+    }
+    $css .= sprintf(
+        "-webkit-border-radius:%s %s %s %s;",
+        $borderTopLeftRadius,
+        $borderTopRightRadius,
+        $borderBottomRightRadius,
+        $borderBottomLeftRadius
+    );
+    $css .= sprintf(
+        "-moz-border-radius:%s %s %s %s;",
+        $borderTopLeftRadius,
+        $borderTopRightRadius,
+        $borderBottomRightRadius,
+        $borderBottomLeftRadius
+    );
+    $css .= sprintf(
+        "border-radius:%s %s %s %s;",
+        $borderTopLeftRadius,
+        $borderTopRightRadius,
+        $borderBottomRightRadius,
+        $borderBottomLeftRadius
+    );
 
     $borderTopWidth = $model->get("borderTopWidthHover");
     $borderRightWidth = $model->get("borderRightWidthHover");

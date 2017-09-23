@@ -343,6 +343,7 @@ input.form-instance {
         background-color: @grayBackground;
 
         * {
+          height: 30px;
           line-height: 30px;
         }
 
@@ -385,30 +386,33 @@ input.form-instance {
   }
 }
 
-.color-picker {
-  .gradient-vertical (@grayGradientFrom, @grayGradientTo);
-  .border-radius(4px);
-  border: 1px solid @grayBorderColor;
-  width: 70px;
-  height: 30px;
-  padding: 4px;
-  text-align: center;
-
-  .icon-before {
-    position: absolute;
-  }
-
-  .color-button {
+.color-picker-container {
+  .color-picker {
+    .gradient-vertical (@grayGradientFrom, @grayGradientTo);
     .border-radius(4px);
-    border: 1px solid @darkGrayBorderColor;
-    width: 60px;
-    height: 20px;
-    cursor: pointer;
-    background: white;
-  }
+    border: 1px solid @grayBorderColor;
+    width: 70px;
+    height: 30px;
+    padding: 4px;
+    text-align: center;
+    display: inline-block;
 
-  &:hover {
-    border-color: @darkGrayBorderColor;
+    .icon-before {
+      position: absolute;
+    }
+
+    .color-button {
+      .border-radius(4px);
+      border: 1px solid @darkGrayBorderColor;
+      width: 60px;
+      height: 20px;
+      cursor: pointer;
+      background: white;
+    }
+
+    &:hover {
+      border-color: @darkGrayBorderColor;
+    }
   }
 }
 

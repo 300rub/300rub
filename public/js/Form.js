@@ -122,7 +122,7 @@
          * @private
          */
         _setColor: function () {
-            this.$_form = TestS.Template.get("color-picker");
+            this.$_form = TestS.Template.get("color-picker-container");
 
             var title = "";
             if (this._options["title"] !== undefined) {
@@ -138,6 +138,13 @@
                 $iconBefore.addClass(this._options["iconBefore"]);
             } else {
                 $iconBefore.remove();
+            }
+
+            var $label = this.$_form.find(".label-text");
+            if (this._options["label"] !== undefined) {
+                $label.text(this._options["label"]);
+            } else {
+                $label.remove();
             }
 
             this.getFormInstance().colorpicker({
@@ -412,7 +419,7 @@
                 name = t._options["name"];
             }
 
-            var $label = t.$_form.find(".label");
+            var $label = t.$_form.find(".label-text");
             if (t._options["label"] !== undefined) {
                 $label.text(t._options["label"]);
             } else {
@@ -437,7 +444,7 @@
                     $icon.remove();
                 }
 
-                var $label = $item.find(".label-text");
+                var $label = $item.find(".label");
                 if (data["label"] !== undefined) {
                     $label.text(data["label"]);
                 } else {

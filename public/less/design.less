@@ -409,7 +409,7 @@
         }
       }
 
-      .label {
+      .label-text {
         font-size: 12px;
         margin: 0 0 5px 0;
         display: block;
@@ -587,7 +587,6 @@
       }
 
       .border-example {
-        .transition(top);
         width: 100px;
         height: 100px;
         position: absolute;
@@ -597,6 +596,83 @@
         overflow: hidden;
         background-color: @grayBackground;
       }
+    }
+
+    .color-picker-container {
+      padding: 5px 0 5px 0;
+      margin: 0 15px 0 15px;
+      border-bottom: 1px solid @grayBorderColor;
+      text-align: center;
+
+      .label-text {
+        display: block;
+        text-align: center;
+        font-size: 12px;
+        margin-bottom: 5px;
+      }
+    }
+
+    .form-container-radio-buttons {
+      display: block;
+      text-align: center;
+      padding: 5px 0 5px 0;
+      margin: 0 15px 0 15px;
+      border-bottom: 1px solid @grayBorderColor;
+
+      .label-text {
+        display: block;
+        text-align: center;
+        font-size: 12px;
+        margin-bottom: 5px;
+      }
+
+      .label-body {
+        height: 30px;
+        padding: 14px 0 0 7px;
+
+        .label {
+          display: block;
+          line-height: 1px;
+          height: 1px;
+          width: 16px;
+        }
+
+        &:hover {
+          .label {
+            border-bottom-color: white;
+          }
+        }
+      }
+
+      .solid {
+        .label {
+          border-bottom: 2px solid @defaultTextColor;
+        }
+      }
+
+      .dotted {
+        .label {
+          border-bottom: 2px dotted @defaultTextColor;
+        }
+      }
+
+      .dashed {
+        .label {
+          border-bottom: 2px dashed @defaultTextColor;
+        }
+      }
+    }
+
+    .border-style-hover {
+      display: none;
+    }
+
+    .border-color-hover {
+      display: none;
+    }
+
+    .has-border-animation {
+      display: none;
     }
   }
 
@@ -680,6 +756,18 @@
         top: 70px;
         height: 110px;
       }
+    }
+
+    .border-style-hover {
+      display: block;
+    }
+
+    .border-color-hover {
+      display: block;
+    }
+
+    .has-border-animation {
+      display: block;
     }
   }
 }

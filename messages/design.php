@@ -55,8 +55,20 @@ return [
         Language::LANGUAGE_EN_ID => "Border color",
         Language::LANGUAGE_RU_ID => "",
     ],
+    "borderColorHover"     => [
+        Language::LANGUAGE_EN_ID => "Border color on mouse-over",
+        Language::LANGUAGE_RU_ID => "",
+    ],
     "useGradient"     => [
         Language::LANGUAGE_EN_ID => "Use gradient",
+        Language::LANGUAGE_RU_ID => "",
+    ],
+    "borderStyle"     => [
+        Language::LANGUAGE_EN_ID => "Border style",
+        Language::LANGUAGE_RU_ID => "",
+    ],
+    "borderStyleHover"     => [
+        Language::LANGUAGE_EN_ID => "Border style on mouse-over",
         Language::LANGUAGE_RU_ID => "",
     ],
 ];
