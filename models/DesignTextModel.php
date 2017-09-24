@@ -195,6 +195,7 @@ class DesignTextModel extends AbstractModel
     {
         return [
             "mouseHoverEffect" => Language::t("design", "mouseHoverEffect"),
+            "textExample" => Language::t("design", "textExample"),
         ];
     }
 

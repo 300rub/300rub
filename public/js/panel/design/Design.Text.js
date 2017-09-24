@@ -388,7 +388,7 @@
          * @private
          */
         _setHoverContainer: function() {
-            this.$_hoverContainer = this.$_designContainer.find("hover-container");
+            this.$_hoverContainer = this.$_designContainer.find(".hover-container");
             return this;
         },
 
@@ -403,8 +403,9 @@
             var uniqueId = TestS.getUniqueId();
 
             this.$_example = this.$_designContainer.find(".example")
-                .addClass("padding-example-" + uniqueId)
-                .attr("data-id", uniqueId);
+                .addClass("example-" + uniqueId)
+                .attr("data-id", uniqueId)
+                .text(this._getLabel("textExample"));
 
             return this;
         },
@@ -898,7 +899,7 @@
             }
 
             new TestS.Form({
-                type: "checkbox",
+                type: "checkboxOnOff",
                 value: this._values["hasHover"],
                 label: this._getLabel("mouseHoverEffect"),
                 onCheck: $.proxy(function () {
@@ -909,7 +910,7 @@
                 onUnCheck: $.proxy(function () {
                     this._values["hasHover"] = false;
                     this.$_hoverContainer.addClass("hidden");
-                    this._updateMargin(false);
+                    this._update(false);
                 }, this),
                 appendTo: this.$_designContainer.find(".hover-checkbox-container")
             });

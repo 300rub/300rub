@@ -334,14 +334,14 @@
                 t.getFormInstance().attr("checked", "checked");
             }
 
-            var $icon = t.getFormInstance().find(".icon");
+            var $icon = t.$_form.find(".icon");
             if (t._options["icon"] !== undefined) {
                 $icon.addClass(t._options["icon"]);
             } else {
                 $icon.remove();
             }
 
-            var $label = t.getFormInstance().find(".label");
+            var $label = t.$_form.find(".label");
             if (t._options["label"] !== undefined) {
                 $label.text(t._options["label"]);
             } else {
