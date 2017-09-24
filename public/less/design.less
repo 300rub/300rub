@@ -776,6 +776,7 @@
   .common-container {
     .family {
       margin-right: 80px;
+      margin-bottom: 7px;
     }
 
     .size {
@@ -784,7 +785,34 @@
     }
 
     .color-picker-container {
-      display: inline-block;
+      float: left;
+    }
+
+    .align {
+      display: block;
+      margin-left: 80px;
+    }
+
+    .decoration {
+      margin-left: 10px;
+
+      .underline {
+        .label {
+          text-decoration: underline;
+        }
+      }
+
+      .line-through {
+        .label {
+          text-decoration: line-through;
+        }
+      }
+
+      .overline {
+        .label {
+          text-decoration: overline;
+        }
+      }
     }
   }
 
@@ -792,5 +820,9 @@
     .border-radius(4px);
     border: 1px solid @grayBorderColor;
     padding: 15px;
+    margin: 5px 0;
+    min-height: 70px;
+    max-height: 120px;
+    overflow: hidden;
   }
 }

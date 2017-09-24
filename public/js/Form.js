@@ -98,6 +98,10 @@
                         $option.addClass(object["class"]);
                     }
 
+                    if (object["style"] !== undefined) {
+                        $option.attr("style", object["style"]);
+                    }
+
                     $option.appendTo($instance);
                 });
             }

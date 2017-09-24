@@ -43,67 +43,67 @@
          */
         _familyList: {
             0: {
-                class: "font-family-myrad",
-                name: "MyriadPro"
+                style: 'font-family: "Open Sans", sans-serif;',
+                name: "Open Sans"
             },
             1: {
-                class: "font-family-arial",
+                style: 'font-family: Arial, Helvetica, sans-serif;',
                 name: "Arial, Helvetica"
             },
             2: {
-                class: "font-family-arial-black",
+                style: 'font-family: "Arial Black", Gadget, sans-serif;',
                 name: "Arial Black, Gadget"
             },
             3 : {
-                class: "font-family-comic-sans",
+                style: 'font-family: "Comic Sans MS", cursive;',
                 name: "Comic Sans MS"
             },
             4: {
-                class: "font-family-courier-new",
+                style: 'font-family: "Courier New", Courier, monospace;',
                 name: "Courier New"
             },
             5: {
-                class: "font-family-georgia",
+                style: 'font-family: Georgia, serif;',
                 name: "Georgia"
             },
             6: {
-                class: "font-family-impact",
+                style: 'font-family: Impact, Charcoal, sans-serif;',
                 name: "Impact, Charcoal"
             },
             7: {
-                class: "font-family-monaco",
+                style: 'font-family: "Lucida Console", Monaco, monospace;',
                 name: "Lucida Console, Monaco"
             },
             8: {
-                class: "font-family-lucida-grande",
+                style: 'font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;',
                 name: "Lucida Sans Unicode"
             },
             9: {
-                class: "font-family-palatino",
+                style: 'font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;',
                 name: "Palatino"
             },
             10: {
-                class: "font-family-tahoma",
+                style: 'font-family: Tahoma, Geneva, sans-serif;',
                 name: "Tahoma, Geneva"
             },
             11: {
-                class: "font-family-times",
+                style: 'font-family: "Times New Roman", Times, serif;',
                 name: "Times New Roman, Times"
             },
             12: {
-                class: "font-family-helvetica",
+                style: 'font-family: "Trebuchet MS", Helvetica, sans-serif;',
                 name: "Trebuchet MS, Helvetica"
             },
             13: {
-                class: "font-family-verdana",
+                style: 'font-family: Verdana, Geneva, sans-serif;',
                 name: "Verdana, Geneva"
             },
             14: {
-                class: "font-family-geneva",
+                style: 'font-family: "MS Sans Serif", Geneva, sans-serif;',
                 name: "MS Sans Serif, Geneva"
             },
             15: {
-                class: "font-family-ms-serif",
+                style: 'font-family: "MS Serif", "New York", serif;',
                 name: "MS Serif, New York"
             }
         },
@@ -116,18 +116,22 @@
         _alignList: [
             {
                 value: 0,
+                css: "left",
                 icon: "fa-align-left"
             },
             {
                 value: 1,
+                css: "center",
                 icon: "fa-align-center"
             },
             {
                 value: 2,
+                css: "right",
                 icon: "fa-align-right"
             },
             {
                 value: 3,
+                css: "justify",
                 icon: "fa-align-justify"
             }
         ],
@@ -140,21 +144,25 @@
         _decorationList: [
             {
                 value: 0,
+                css: "none",
                 class: "none",
-                label: "A"
+                label: "N"
             },
             {
                 value: 1,
+                css: "underline",
                 class: "underline",
                 label: "U"
             },
             {
                 value: 2,
+                css: "line-through",
                 class: "line-through",
                 label: "T"
             },
             {
                 value: 3,
+                css: "overline",
                 class: "overline",
                 label: "O"
             }
@@ -168,18 +176,22 @@
         _transformList: [
             {
                 value: 0,
+                css: "none",
                 label: "-"
             },
             {
                 value: 1,
+                css: "uppercase",
                 label: "AA"
             },
             {
                 value: 2,
+                css: "lowercase",
                 label: "aa"
             },
             {
                 value: 3,
+                css: "capitalize",
                 label: "Aa"
             }
         ],
@@ -204,9 +216,9 @@
                 ._setSize()
                 ._setFamily()
                 ._setColor()
+                ._setAlign()
                 ._setIsItalic()
                 ._setIsBold()
-                ._setAlign()
                 ._setDecoration()
                 ._setTransform()
                 ._setLetterSpacing()
@@ -497,7 +509,7 @@
                 list.push({
                     key: key,
                     value: data["name"],
-                    class: data["class"]
+                    style: data["style"]
                 });
             });
 
@@ -691,6 +703,7 @@
                 type: "radioButtons",
                 value: this._values["align"],
                 data: this._alignList,
+                class: "align",
                 onChange: $.proxy(function (value) {
                     this._values["align"] = value;
                     this._update(false);
@@ -728,6 +741,7 @@
                     type: "radioButtons",
                     value: this._values["decoration"],
                     data: this._decorationList,
+                    class: "decoration",
                     onChange: $.proxy(function (value) {
                         if (hoverForm !== null
                             && this._values["decoration"] === this._values["decorationHover"]
@@ -772,7 +786,7 @@
                 new TestS.Form({
                     type: "radioButtons",
                     value: this._values["transform"],
-                    data: this._decorationList,
+                    data: this._transformList,
                     onChange: $.proxy(function (value) {
                         if (hoverForm !== null
                             && this._values["transform"] === this._values["transformHover"]
@@ -919,6 +933,80 @@
         },
 
         /**
+         * Gets family style
+         *
+         * @return {String}
+         *
+         * @private
+         */
+        _getFamilyStyle: function() {
+            if (this._familyList[this._values["family"]] === undefined) {
+                return this._familyList[0]["style"];
+            }
+
+            return this._familyList[this._values["family"]]["style"];
+        },
+
+        /**
+         * Gets align
+         *
+         * @return {String}
+         *
+         * @private
+         */
+        _getAlign: function() {
+            if (this._alignList[this._values["align"]] === undefined) {
+                return this._alignList[0]["css"];
+            }
+
+            return this._alignList[this._values["align"]]["css"];
+        },
+
+        /**
+         * Gets transform
+         *
+         * @return {String}
+         *
+         * @private
+         */
+        _getTransform: function(isHover) {
+            var transform;
+            if (isHover === true) {
+                transform = this._values["transformHover"];
+            } else {
+                transform = this._values["transform"];
+            }
+
+            if (this._transformList[transform] === undefined) {
+                return this._transformList[0]["css"];
+            }
+
+            return this._transformList[transform]["css"];
+        },
+
+        /**
+         * Gets decoration
+         *
+         * @return {String}
+         *
+         * @private
+         */
+        _getDecoration: function(isHover) {
+            var decoration;
+            if (isHover === true) {
+                decoration = this._values["decorationHover"];
+            } else {
+                decoration = this._values["decoration"];
+            }
+
+            if (this._decorationList[decoration] === undefined) {
+                return this._decorationList[0]["css"];
+            }
+
+            return this._decorationList[decoration]["css"];
+        },
+
+        /**
          * Generates styles
          *
          * @param {boolean} isHover
@@ -928,13 +1016,49 @@
          * @private
          */
         _generateCss: function(isHover) {
-            var css = "123";
-
+            var css = "";
+            var size, color, isBold, isItalic;
             if (isHover === true) {
-                css += "123";
+                if (this._values["hasHover"] !== true) {
+                    return "";
+                }
+
+                size = this._values["sizeHover"];
+                color = this._values["colorHover"];
+                isBold = this._values["isBoldHover"];
+                isItalic = this._values["isItalicHover"];
+            } else {
+                size = this._values["size"];
+                color = this._values["color"];
+                isBold = this._values["isBold"];
+                isItalic = this._values["isItalic"];
             }
 
-            return css
+            css += this._getFamilyStyle();
+            css += "font-size:" + size + "px;";
+
+            if (color) {
+                css += "color:" + color + ";";
+            }
+
+            css += "text-align:" + this._getAlign() + ";";
+
+            if (isBold === true) {
+                css += "font-weight: bold;";
+            } else {
+                css += "font-weight: normal;";
+            }
+
+            if (isItalic === true) {
+                css += "font-style: italic;";
+            } else {
+                css += "font-style: normal;";
+            }
+
+            css += "text-transform:" + this._getTransform(isHover) + ";";
+            css += "text-decoration:" + this._getDecoration(isHover) + ";";
+
+            return css;
         },
 
         /**
@@ -952,13 +1076,13 @@
 
             css = "<style>";
 
-            css += ".border-example-"
+            css += ".example-"
                 + id
                 + "{"
                 + generatedCss
                 + "}";
 
-            css += ".border-example-"
+            css += ".example-"
                 + id
                 + ":hover{"
                 + generatedHoverCss

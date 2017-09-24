@@ -25,6 +25,11 @@ class DesignTextModel extends AbstractModel
     const MIN_SIZE_VALUE = 4;
 
     /**
+     * Default size
+     */
+    const DEFAULT_SIZE = 14;
+
+    /**
      * Min letter spacing value
      */
     const MIN_LETTER_SPACING_VALUE = -10;
@@ -37,7 +42,7 @@ class DesignTextModel extends AbstractModel
     /**
      * Font family types
      */
-    const FAMILY_MYRAD = 0;
+    const FAMILY_OPEN_SANS = 0;
     const FAMILY_ARIAL = 1;
     const FAMILY_ARIAL_BLACK = 2;
     const FAMILY_COMIC_SANS_MS = 3;
@@ -84,9 +89,9 @@ class DesignTextModel extends AbstractModel
      * @var array
      */
     public static $familyList = [
-        self::FAMILY_MYRAD         => [
-            "class" => "font-family-myrad",
-            "name"  => "MyriadPro"
+        self::FAMILY_OPEN_SANS         => [
+            "class" => "font-family-open-sans",
+            "name"  => "Open Sans"
         ],
         self::FAMILY_ARIAL         => [
             "class" => "font-family-arial",
@@ -232,7 +237,7 @@ class DesignTextModel extends AbstractModel
             "family"              => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
-                    ValueGenerator::ARRAY_KEY => [self::$familyList, self::FAMILY_MYRAD]
+                    ValueGenerator::ARRAY_KEY => [self::$familyList, self::FAMILY_OPEN_SANS]
                 ],
             ],
             ValueGenerator::COLOR => [
@@ -343,6 +348,13 @@ class DesignTextModel extends AbstractModel
             $except = ["id"];
         }
 
+        $values = $this->get(null, $except);
+        if (array_key_exists("size", $values)
+            && $values["size"] === 0
+        ) {
+            $values["size"] = self::DEFAULT_SIZE;
+        }
+
         return [
             "selector"  => $selector,
             "id"        => View::generateCssId($selector, self::TYPE),
@@ -350,7 +362,7 @@ class DesignTextModel extends AbstractModel
             "title"     => $title,
             "namespace" => $namespace,
             "labels"    => self::getLabels(),
-            "values"    => $this->get(null, $except),
+            "values"    => $values,
         ];
     }
 }
