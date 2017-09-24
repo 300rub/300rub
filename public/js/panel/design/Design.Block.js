@@ -90,10 +90,9 @@
          * @var {Object}
          */
         _borderStyleList: {
-            0: "none",
-            1: "solid",
-            2: "dotted",
-            3: "dashed"
+            0: "solid",
+            1: "dotted",
+            2: "dashed"
         },
 
         /**
@@ -1251,7 +1250,7 @@
                     class: "border-bottom-width",
                     min: 0,
                     callback: $.proxy(function (value) {
-                        if (this._values["borderRightWidth"] === this._values["borderBottomWidthHover"]
+                        if (this._values["borderBottomWidth"] === this._values["borderBottomWidthHover"]
                             && borderBottomWidthHover !== null
                         ) {
                             this._values["borderBottomWidthHover"] = value;
@@ -1310,20 +1309,15 @@
                         {
                             value: 0,
                             label: "",
-                            class: "none"
+                            class: "solid"
                         },
                         {
                             value: 1,
                             label: "",
-                            class: "solid"
-                        },
-                        {
-                            value: 2,
-                            label: "",
                             class: "dotted"
                         },
                         {
-                            value: 3,
+                            value: 2,
                             label: "",
                             class: "dashed"
                         }
@@ -1383,20 +1377,15 @@
                         {
                             value: 0,
                             label: "",
-                            class: "none"
+                            class: "solid"
                         },
                         {
                             value: 1,
                             label: "",
-                            class: "solid"
-                        },
-                        {
-                            value: 2,
-                            label: "",
                             class: "dotted"
                         },
                         {
-                            value: 3,
+                            value: 2,
                             label: "",
                             class: "dashed"
                         }
@@ -1876,12 +1865,12 @@
                 borderColor = "";
             }
 
-            if (borderColor !== "") {
-                css += "border-color:" + borderColor + ";";
+            if (borderColor === "") {
+                borderColor = "transparent";
             }
+            css += "border-color:" + borderColor + ";";
 
-            var borderStyle = this._getBorderStyle(isHover);
-            css += "border-style:" + borderStyle + ";";
+            css += "border-style:" + this._getBorderStyle(isHover) + ";";
 
             if (skipAnimation !== true
                 && this._values["hasBorderHover"] === true

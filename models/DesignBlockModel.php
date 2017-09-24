@@ -40,10 +40,9 @@ class DesignBlockModel extends AbstractModel
     /**
      * Border styles
      */
-    const BORDER_STYLE_NONE = 0;
-    const BORDER_STYLE_SOLID = 1;
-    const BORDER_STYLE_DOTTED = 2;
-    const BORDER_STYLE_DASHED = 3;
+    const BORDER_STYLE_SOLID = 0;
+    const BORDER_STYLE_DOTTED = 1;
+    const BORDER_STYLE_DASHED = 2;
 
     /**
      * List of gradient directions options
@@ -95,7 +94,6 @@ class DesignBlockModel extends AbstractModel
      * @var array
      */
     public static $borderStyleList = [
-        self::BORDER_STYLE_NONE   => "none",
         self::BORDER_STYLE_SOLID  => "solid",
         self::BORDER_STYLE_DOTTED => "dotted",
         self::BORDER_STYLE_DASHED => "dashed",
@@ -417,13 +415,13 @@ class DesignBlockModel extends AbstractModel
             "borderStyle"                  => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
-                    ValueGenerator::ARRAY_KEY => [self::$borderStyleList, self::BORDER_STYLE_NONE]
+                    ValueGenerator::ARRAY_KEY => [self::$borderStyleList, self::BORDER_STYLE_SOLID]
                 ],
             ],
             "borderStyleHover"             => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
-                    ValueGenerator::ARRAY_KEY => [self::$borderStyleList, self::BORDER_STYLE_NONE]
+                    ValueGenerator::ARRAY_KEY => [self::$borderStyleList, self::BORDER_STYLE_SOLID]
                 ],
             ],
             "hasBorderHover"               => [
@@ -482,7 +480,7 @@ class DesignBlockModel extends AbstractModel
             return self::$borderStyleList[$borderStyle];
         }
 
-        return self::$borderStyleList[self::BORDER_STYLE_NONE];
+        return self::$borderStyleList[self::BORDER_STYLE_SOLID];
     }
 
     /**

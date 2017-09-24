@@ -174,6 +174,7 @@ if ($borderTopLeftRadius !== 0
     );
 }
 
+$hasBorder = false;
 $borderTopWidth = $model->get("borderTopWidth");
 $borderRightWidth = $model->get("borderRightWidth");
 $borderBottomWidth = $model->get("borderBottomWidth");
@@ -183,6 +184,7 @@ if ($borderTopWidth !== 0
     || $borderBottomWidth !== 0
     || $borderLeftWidth !== 0
 ) {
+    $hasBorder = true;
     if ($borderTopWidth !== 0) {
         $borderTopWidth .= "px";
     }
@@ -203,16 +205,15 @@ if ($borderTopWidth !== 0
         $borderLeftWidth
     );
 }
-
-if ($model->get("borderStyle") !== 0) {
+if ($hasBorder === true) {
     $css .= sprintf(
         "border-style:%s;",
         $model->getBorderStyle()
     );
-}
-
-$borderColor = $model->get("borderColor");
-if ($borderColor !== "") {
+    $borderColor = $model->get("borderColor");
+    if ($borderColor === "") {
+        $borderColor = "transparent";
+    }
     $css .= sprintf(
         "border-color:%s;",
         $borderColor
@@ -450,46 +451,40 @@ if ($model->get("hasBorderHover") === true) {
     $borderRightWidth = $model->get("borderRightWidthHover");
     $borderBottomWidth = $model->get("borderBottomWidthHover");
     $borderLeftWidth = $model->get("borderLeftWidthHover");
-    if ($borderTopWidth !== 0
-        || $borderRightWidth !== 0
-        || $borderBottomWidth !== 0
-        || $borderLeftWidth !== 0
-    ) {
-        if ($borderTopWidth !== 0) {
-            $borderTopWidth .= "px";
-        }
-        if ($borderRightWidth !== 0) {
-            $borderRightWidth .= "px";
-        }
-        if ($borderBottomWidth !== 0) {
-            $borderBottomWidth .= "px";
-        }
-        if ($borderLeftWidth !== 0) {
-            $borderLeftWidth .= "px";
-        }
-        $css .= sprintf(
-            "border-width:%s %s %s %s;",
-            $borderTopWidth,
-            $borderRightWidth,
-            $borderBottomWidth,
-            $borderLeftWidth
-        );
-    }
 
-    if ($model->get("borderStyleHover") !== 0) {
-        $css .= sprintf(
-            "border-style:%s;",
-            $model->getBorderStyle(true)
-        );
+    if ($borderTopWidth !== 0) {
+        $borderTopWidth .= "px";
     }
+    if ($borderRightWidth !== 0) {
+        $borderRightWidth .= "px";
+    }
+    if ($borderBottomWidth !== 0) {
+        $borderBottomWidth .= "px";
+    }
+    if ($borderLeftWidth !== 0) {
+        $borderLeftWidth .= "px";
+    }
+    $css .= sprintf(
+        "border-width:%s %s %s %s;",
+        $borderTopWidth,
+        $borderRightWidth,
+        $borderBottomWidth,
+        $borderLeftWidth
+    );
+
+    $css .= sprintf(
+        "border-style:%s;",
+        $model->getBorderStyle(true)
+    );
 
     $borderColor = $model->get("borderColorHover");
-    if ($borderColor !== "") {
-        $css .= sprintf(
-            "border-color:%s;",
-            $borderColor
-        );
+    if ($borderColor === "") {
+        $borderColor = "transparent";
     }
+    $css .= sprintf(
+        "border-color:%s;",
+        $borderColor
+    );
 }
 
 if ($css !== "") {
