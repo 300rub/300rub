@@ -89,69 +89,69 @@ class DesignTextModel extends AbstractModel
      * @var array
      */
     public static $familyList = [
-        self::FAMILY_OPEN_SANS         => [
-            "class" => "font-family-open-sans",
-            "name"  => "Open Sans"
+        self::FAMILY_OPEN_SANS     => [
+            "family" => '"Open Sans", sans-serif',
+            "name"   => "Open Sans"
         ],
         self::FAMILY_ARIAL         => [
-            "class" => "font-family-arial",
-            "name"  => "Arial, Helvetica"
+            "family" => 'Arial, Helvetica, sans-serif',
+            "name"   => "Arial, Helvetica"
         ],
         self::FAMILY_ARIAL_BLACK   => [
-            "class" => "font-family-arial-black",
-            "name"  => "Arial Black, Gadget"
+            "family" => 'Arial Black", Gadget, sans-serif',
+            "name"   => "Arial Black, Gadget"
         ],
         self::FAMILY_COMIC_SANS_MS => [
-            "class" => "font-family-comic-sans",
-            "name"  => "Comic Sans MS"
+            "family" => 'Comic Sans MS", cursive',
+            "name"   => "Comic Sans MS"
         ],
         self::FAMILY_COURIER_NEW   => [
-            "class" => "font-family-courier-new",
-            "name"  => "Courier New"
+            "family" => 'Courier New", Courier, monospace',
+            "name"   => "Courier New"
         ],
         self::FAMILY_GEORGIA       => [
-            "class" => "font-family-georgia",
-            "name"  => "Georgia"
+            "family" => 'Georgia, serif',
+            "name"   => "Georgia"
         ],
         self::FAMILY_IMPACT        => [
-            "class" => "font-family-impact",
-            "name"  => "Impact, Charcoal"
+            "family" => 'Impact, Charcoal, sans-serif',
+            "name"   => "Impact, Charcoal"
         ],
         self::FAMILY_MONACO        => [
-            "class" => "font-family-monaco",
-            "name"  => "Lucida Console, Monaco"
+            "family" => 'Lucida Console", Monaco, monospace',
+            "name"   => "Lucida Console, Monaco"
         ],
         self::FAMILY_LUCIDA_GRANDE => [
-            "class" => "font-family-lucida-grande",
-            "name"  => "Lucida Sans Unicode"
+            "family" => 'Lucida Sans Unicode", "Lucida Grande", sans-serif',
+            "name"   => "Lucida Sans Unicode"
         ],
         self::FAMILY_PALATINO      => [
-            "class" => "font-family-palatino",
-            "name"  => "Palatino"
+            "family" => 'Palatino Linotype", "Book Antiqua", Palatino, serif',
+            "name"   => "Palatino"
         ],
         self::FAMILY_TAHOMA        => [
-            "class" => "font-family-tahoma",
-            "name"  => "Tahoma, Geneva"
+            "family" => 'Tahoma, Geneva, sans-serif',
+            "name"   => "Tahoma, Geneva"
         ],
         self::FAMILY_TIMES         => [
-            "class" => "font-family-times",
-            "name"  => "Times New Roman, Times"
+            "family" => 'Times New Roman", Times, serif',
+            "name"   => "Times New Roman, Times"
         ],
         self::FAMILY_HELVETICA     => [
-            "class" => "font-family-helvetica",
-            "name"  => "Trebuchet MS, Helvetica"
+            "family" => 'Trebuchet MS", Helvetica, sans-serif',
+            "name"   => "Trebuchet MS, Helvetica"
         ],
         self::FAMILY_VERDANA       => [
-            "class" => "font-family-verdana",
-            "name"  => "Verdana, Geneva"
+            "family" => 'Verdana, Geneva, sans-serif',
+            "name"   => "Verdana, Geneva"
         ],
         self::FAMILY_GENEVA        => [
-            "class" => "font-family-geneva",
-            "name"  => "MS Sans Serif, Geneva"
+            "family" => 'MS Sans Serif", Geneva, sans-serif',
+            "name"   => "MS Sans Serif, Geneva"
         ],
         self::FAMILY_MS_SERIF      => [
-            "class" => "font-family-ms-serif",
-            "name"  => "MS Serif, New York"
+            "family" => '"MS Serif", "New York", serif',
+            "name"   => "MS Serif, New York"
         ]
     ];
 
@@ -364,5 +364,79 @@ class DesignTextModel extends AbstractModel
             "labels"    => self::getLabels(),
             "values"    => $values,
         ];
+    }
+
+    /**
+     * Gets family
+     *
+     * @return string
+     */
+    public function getFamily()
+    {
+        $family = $this->get("family");
+        if (array_key_exists($family, self::$familyList)) {
+            return self::$familyList[$family];
+        }
+
+        return self::$familyList[self::FAMILY_OPEN_SANS];
+    }
+
+    /**
+     * Gets text align
+     *
+     * @return string
+     */
+    public function getAlign()
+    {
+        $align = $this->get("align");
+        if (array_key_exists($align, self::$textAlignList)) {
+            return self::$textAlignList[$align];
+        }
+
+        return self::$textAlignList[self::TEXT_ALIGN_LEFT];
+    }
+
+    /**
+     * Gets text decoration
+     *
+     * @param bool $isHover
+     *
+     * @return string
+     */
+    public function getDecoration($isHover = false)
+    {
+        if ($isHover === true) {
+            $decoration = $this->get("decorationHover");
+        } else {
+            $decoration = $this->get("decoration");
+        }
+
+        if (array_key_exists($decoration, self::$textDecorationList)) {
+            return self::$textDecorationList[$decoration];
+        }
+
+        return self::$textDecorationList[self::TEXT_DECORATION_NONE];
+    }
+
+    /**
+     * Gets text transform
+     *
+     * @param bool $isHover
+     *
+     * @return string
+     */
+    public function getTransform($isHover = false)
+    {
+        if ($isHover === true) {
+            $transform = $this->get("transformHover");
+        } else {
+            $transform = $this->get("transform");
+        }
+
+        if (array_key_exists($transform, self::$textTransformList)) {
+            return self::$textTransformList[$transform];
+        }
+
+        return self::$textTransformList[self::TEXT_TRANSFORM_NONE];
     }
 }

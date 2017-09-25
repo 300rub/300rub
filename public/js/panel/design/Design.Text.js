@@ -1017,7 +1017,7 @@
          */
         _generateCss: function(isHover) {
             var css = "";
-            var size, color, isBold, isItalic;
+            var size, color, isBold, isItalic, letterSpacing, lineHeight;
             if (isHover === true) {
                 if (this._values["hasHover"] !== true) {
                     return "";
@@ -1027,26 +1027,23 @@
                 color = this._values["colorHover"];
                 isBold = this._values["isBoldHover"];
                 isItalic = this._values["isItalicHover"];
+                letterSpacing = this._values["letterSpacingHover"];
+                lineHeight = this._values["lineHeightHover"];
             } else {
                 size = this._values["size"];
                 color = this._values["color"];
                 isBold = this._values["isBold"];
                 isItalic = this._values["isItalic"];
+                letterSpacing = this._values["letterSpacing"];
+                lineHeight = this._values["lineHeight"];
             }
 
-            css += this._getFamilyStyle();
             css += "font-size:" + size + "px;";
+
+            css += this._getFamilyStyle();
 
             if (color) {
                 css += "color:" + color + ";";
-            }
-
-            css += "text-align:" + this._getAlign() + ";";
-
-            if (isBold === true) {
-                css += "font-weight: bold;";
-            } else {
-                css += "font-weight: normal;";
             }
 
             if (isItalic === true) {
@@ -1055,8 +1052,20 @@
                 css += "font-style: normal;";
             }
 
-            css += "text-transform:" + this._getTransform(isHover) + ";";
+            if (isBold === true) {
+                css += "font-weight: bold;";
+            } else {
+                css += "font-weight: normal;";
+            }
+
+            css += "text-align:" + this._getAlign() + ";";
             css += "text-decoration:" + this._getDecoration(isHover) + ";";
+            css += "text-transform:" + this._getTransform(isHover) + ";";
+
+            css += "letter-spacing:" + letterSpacing + "px;";
+
+            var finalLineHeight = 1.4 + lineHeight / 100;
+            css += "line-height:" + finalLineHeight + ";";
 
             return css;
         },
