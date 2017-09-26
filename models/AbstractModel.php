@@ -1064,10 +1064,16 @@ abstract class AbstractModel
     public function getParsedErrors()
     {
         $parsedErrors = [];
-
         $errors = $this->getErrors();
+
         foreach ($errors as $key => $values) {
-            if (count($values) > 0) {
+            if (count($values) === 0) {
+                continue;
+            }
+
+            if ($this->get($key) instanceof self) {
+                $parsedErrors[$key] = $this->get($key)->getParsedErrors();
+            } else {
                 $parsedErrors[$key] = Language::t("validation", $values[0]);
             }
         }

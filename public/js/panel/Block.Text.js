@@ -2,7 +2,7 @@
     'use strict';
 
     /**
-     * Block panel
+     * Block text panel
      *
      * @type {Object}
      */
@@ -49,19 +49,33 @@
 
                 $item.addClass("without-buttons");
 
+                var $designIcon = $item.find(".design");
                 if (itemData["canUpdateDesign"] === true) {
-                    $item.find(".design").on("click", function() {
-                        new TestS.Panel.Design("text", "design", itemData.id);
+                    $designIcon.on("click", function() {
+                        new TestS.Panel.Design({
+                            controller: "text",
+                            action: "design",
+                            id: itemData.id,
+                            success: function () {
+                                new TestS.Panel.Block.Text();
+                            }
+                        });
                     });
                 } else {
-                    $item.find(".design").remove();
+                    $designIcon.remove();
                 }
 
-                $item.find(".settings").remove();
+                var $settingsIcon = $item.find(".settings");
+                if (itemData["canUpdateDesign"] === true) {
+                    $settingsIcon.on("click", function() {
+                        new TestS.Panel.Block.Text.Settings(itemData.id);
+                    });
+                } else {
+                    $settingsIcon.remove();
+                }
 
                 $item.find(".text").text(itemData.name);
                 $item.find(".icon").addClass("fa-font");
-
 
                 this._panel.getBody().append($item);
             }, this));

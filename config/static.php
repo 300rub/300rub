@@ -45,6 +45,7 @@ return [
             "panel/Settings",
             "panel/Block",
             "panel/Block.Text",
+            "panel/Block.Text.Settings",
             "panel/design/Design",
             "panel/design/Design.Block",
             "panel/design/Design.Text",

@@ -4,16 +4,16 @@
     /**
      * Panel design
      *
-     * @param {String} controller
-     * @param {String} action
-     * @param {int}    id
+     * @param {Object} options
      *
      * @type {Object}
      */
-    TestS.Panel.Design = function (controller, action, id) {
-        this._controller = controller;
-        this._action = action;
-        this._id = id;
+    TestS.Panel.Design = function (options) {
+        this._controller = options["controller"];
+        this._action = options["action"];
+        this._id = options["id"];
+        this._success = options["success"];
+
         this._panel = null;
 
         this.init();
@@ -122,9 +122,7 @@
                             }
                         },
                         type: "PUT",
-                        success: function() {
-                            new TestS.Panel.Block.Text();
-                        },
+                        success: this._success,
                         error: $.proxy(this._panel.onError, this._panel)
                     }
                 })

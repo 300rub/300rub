@@ -185,10 +185,6 @@ class TextController extends AbstractController
                 "text",
                 $id === 0 ? "addBlockDescription" : "editBlockDescription"
             ),
-            "back"        => [
-                "controller" => "text",
-                "action"     => "blocks"
-            ],
             "forms"       => [
                 "name"      => [
                     "name"       => "name",

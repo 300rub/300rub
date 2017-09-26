@@ -977,7 +977,7 @@ class TextControllerTest extends AbstractControllerTest
                     "marginTop" => 0
                 ],
                 "expectedTextData"  => [
-                    "size" => 0
+                    "size" => 14
                 ],
             ],
             "admin0"         => [
