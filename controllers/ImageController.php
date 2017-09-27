@@ -3,6 +3,7 @@
 namespace testS\controllers;
 
 use testS\components\exceptions\NotFoundException;
+use testS\components\Language;
 use testS\components\Operation;
 use testS\models\BlockModel;
 use testS\models\FileModel;
@@ -17,17 +18,88 @@ class ImageController extends AbstractController
 {
 
     /**
-     * Gets block's HTML
+     * Gets a list of blocks
+     *
+     * @return array
      */
-    public function getHtml()
+    public function getBlocks()
     {
-        // @TODO
+        $this->checkUser();
+
+        $blockModels = (new BlockModel())
+            ->byContentType(BlockModel::TYPE_IMAGE)
+            ->byLanguage(Language::getActiveId())
+            ->bySectionId($this->getDisplayBlocksFromSection())
+            ->findAll();
+
+        $list = [];
+        foreach ($blockModels as $blockModel) {
+            $canUpdateSettings = $this->hasBlockOperation(
+                BlockModel::TYPE_IMAGE,
+                $blockModel->getId(),
+                Operation::IMAGE_UPDATE_SETTINGS
+            );
+            $canUpdateDesign = $this->hasBlockOperation(
+                BlockModel::TYPE_IMAGE,
+                $blockModel->getId(),
+                Operation::IMAGE_UPDATE_DESIGN
+            );
+            $canUpdateContent = $this->hasBlockOperation(
+                BlockModel::TYPE_IMAGE,
+                $blockModel->getId(),
+                Operation::IMAGE_UPDATE_CONTENT
+            );
+
+            if ($canUpdateSettings === false
+                && $canUpdateDesign === false
+                && $canUpdateContent === false
+            ) {
+                continue;
+            }
+
+            $list[] = [
+                "name"              => $blockModel->get("name"),
+                "id"                => $blockModel->getId(),
+                "canUpdateSettings" => $canUpdateSettings,
+                "canUpdateDesign"   => $canUpdateDesign,
+                "canUpdateContent"  => $canUpdateContent
+            ];
+        }
+
+        $canAdd = $this->hasBlockOperation(
+            BlockModel::TYPE_IMAGE,
+            Operation::ALL,
+            Operation::IMAGE_ADD
+        );
+
+        return [
+            "title"       => Language::t("image", "images"),
+            "description" => Language::t("image", "panelDescription"),
+            "list"        => $list,
+            "back"        => [
+                "controller" => "block",
+                "action"     => "blocks"
+            ],
+            "settings"    => [
+                "controller" => "image",
+                "action"     => "block"
+            ],
+            "design"      => [
+                "controller" => "image",
+                "action"     => "design"
+            ],
+            "content"     => [
+                "controller" => "image",
+                "action"     => "content"
+            ],
+            "canAdd"      => $canAdd,
+        ];
     }
 
     /**
-     * Gets a list of blocks
+     * Gets block
      */
-    public function getBlocks()
+    public function getBlock()
     {
         // @TODO
     }
@@ -169,53 +241,53 @@ class ImageController extends AbstractController
      */
     public function updateImage()
     {
-        $this->checkData(
-            [
-                "blockId" => [self::TYPE_INT, self::NOT_EMPTY],
-                "id"      => [self::TYPE_INT, self::NOT_EMPTY],
-                "alt"     => [self::TYPE_STRING],
-                "x1"      => [self::TYPE_INT],
-                "y1"      => [self::TYPE_INT],
-                "x2"      => [self::TYPE_INT],
-                "y2"      => [self::TYPE_INT],
-                "thumbX1" => [self::TYPE_INT],
-                "thumbY1" => [self::TYPE_INT],
-                "thumbX2" => [self::TYPE_INT],
-                "thumbY2" => [self::TYPE_INT],
-                "angle"   => [self::TYPE_INT],
-                "flip"    => [self::TYPE_INT],
-            ]
-        );
-
-        $this->checkBlockOperation(BlockModel::TYPE_IMAGE, $this->get("blockId"), Operation::IMAGE_UPDATE);
-
-        $imageInstanceModel = (new ImageInstanceModel())->byId($this->get("id"))->withRelations()->find();
-        if (!$imageInstanceModel instanceof ImageInstanceModel) {
-            throw new NotFoundException(
-                "Unable to find ImageInstanceModel by ID: {id}",
-                [
-                    "id" => $this->get("id")
-                ]
-            );
-        }
-
-        $imageInstanceModel->set(
-            [
-                "alt"     => $this->get("alt"),
-                "x1"      => $this->get("x1"),
-                "y1"      => $this->get("y1"),
-                "x2"      => $this->get("x2"),
-                "y2"      => $this->get("y2"),
-                "thumbX1" => $this->get("thumbX1"),
-                "thumbY1" => $this->get("thumbY1"),
-                "thumbX2" => $this->get("thumbX2"),
-                "thumbY2" => $this->get("thumbY2"),
-                "angle"   => $this->get("angle"),
-                "flip"    => $this->get("flip"),
-            ]
-        );
-
-        return $imageInstanceModel->update();
+//        $this->checkData(
+//            [
+//                "blockId" => [self::TYPE_INT, self::NOT_EMPTY],
+//                "id"      => [self::TYPE_INT, self::NOT_EMPTY],
+//                "alt"     => [self::TYPE_STRING],
+//                "x1"      => [self::TYPE_INT],
+//                "y1"      => [self::TYPE_INT],
+//                "x2"      => [self::TYPE_INT],
+//                "y2"      => [self::TYPE_INT],
+//                "thumbX1" => [self::TYPE_INT],
+//                "thumbY1" => [self::TYPE_INT],
+//                "thumbX2" => [self::TYPE_INT],
+//                "thumbY2" => [self::TYPE_INT],
+//                "angle"   => [self::TYPE_INT],
+//                "flip"    => [self::TYPE_INT],
+//            ]
+//        );
+//
+//        $this->checkBlockOperation(BlockModel::TYPE_IMAGE, $this->get("blockId"), Operation::IMAGE_UPDATE);
+//
+//        $imageInstanceModel = (new ImageInstanceModel())->byId($this->get("id"))->withRelations()->find();
+//        if (!$imageInstanceModel instanceof ImageInstanceModel) {
+//            throw new NotFoundException(
+//                "Unable to find ImageInstanceModel by ID: {id}",
+//                [
+//                    "id" => $this->get("id")
+//                ]
+//            );
+//        }
+//
+//        $imageInstanceModel->set(
+//            [
+//                "alt"     => $this->get("alt"),
+//                "x1"      => $this->get("x1"),
+//                "y1"      => $this->get("y1"),
+//                "x2"      => $this->get("x2"),
+//                "y2"      => $this->get("y2"),
+//                "thumbX1" => $this->get("thumbX1"),
+//                "thumbY1" => $this->get("thumbY1"),
+//                "thumbX2" => $this->get("thumbX2"),
+//                "thumbY2" => $this->get("thumbY2"),
+//                "angle"   => $this->get("angle"),
+//                "flip"    => $this->get("flip"),
+//            ]
+//        );
+//
+//        return $imageInstanceModel->update();
     }
 
     /**

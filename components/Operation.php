@@ -57,9 +57,14 @@ class Operation
     /**
      * Block image operations
      */
+    const IMAGE_ADD = "IMAGE_ADD";
     const IMAGE_UPLOAD = "IMAGE_UPLOAD";
     const IMAGE_UPDATE = "IMAGE_UPDATE";
     const IMAGE_DELETE = "IMAGE_DELETE";
+    const IMAGE_UPDATE_SETTINGS = "IMAGE_UPDATE_SETTINGS";
+    const IMAGE_UPDATE_DESIGN = "IMAGE_UPDATE_DESIGN";
+    const IMAGE_UPDATE_CONTENT = "IMAGE_UPDATE_CONTENT";
+    const IMAGE_DUPLICATE = "IMAGE_DUPLICATE";
 
     /**
      * Gets section operations
@@ -136,13 +141,17 @@ class Operation
     public static function getBlockImageOperations($isAll = false)
     {
         $list = [
-            self::IMAGE_UPLOAD => Language::t("operation", "imageUpload"),
-            self::IMAGE_UPDATE => Language::t("operation", "imageUpdate"),
-            self::IMAGE_DELETE => Language::t("operation", "imageDelete"),
+            self::IMAGE_UPLOAD          => Language::t("operation", "imageUpload"),
+            self::IMAGE_UPDATE          => Language::t("operation", "imageUpdate"),
+            self::IMAGE_DELETE          => Language::t("operation", "imageDelete"),
+            self::IMAGE_UPDATE_SETTINGS => Language::t("operation", "editSettings"),
+            self::IMAGE_UPDATE_DESIGN   => Language::t("operation", "editDesign"),
+            self::IMAGE_UPDATE_CONTENT  => Language::t("operation", "edit"),
+            self::IMAGE_DUPLICATE       => Language::t("operation", "duplicate"),
         ];
 
         if ($isAll === true) {
-
+            $list[self::IMAGE_ADD] = Language::t("operation", "add");
         }
 
         return $list;

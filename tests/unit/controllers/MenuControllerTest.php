@@ -10,11 +10,6 @@ namespace testS\tests\unit\controllers;
 class MenuControllerTest extends AbstractControllerTest
 {
 
-    public function testGetHtml()
-    {
-        $this->markTestSkipped();
-    }
-
     public function testGetBlocks()
     {
         $this->markTestSkipped();

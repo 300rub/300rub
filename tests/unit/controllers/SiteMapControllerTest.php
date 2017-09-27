@@ -10,11 +10,6 @@ namespace testS\tests\unit\controllers;
 class SiteMapControllerTest extends AbstractControllerTest
 {
 
-    public function testGetHtml()
-    {
-        $this->markTestSkipped();
-    }
-
     public function testGetBlocks()
     {
         $this->markTestSkipped();

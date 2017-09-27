@@ -9,14 +9,6 @@ namespace testS\controllers;
  */
 class SiteMapController extends AbstractController
 {
-
-    /**
-     * Gets block's HTML
-     */
-    public function getHtml()
-    {
-        // @TODO
-    }
     
     /**
      * Gets a list of blocks

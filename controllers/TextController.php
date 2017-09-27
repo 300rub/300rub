@@ -22,55 +22,9 @@ class TextController extends AbstractController
 {
 
     /**
-     * Gets block's HTML
-     *
-     * @param int $blockId
-     *
-     * @return string
-     */
-    public function getHtml($blockId = 0)
-    {
-//        if ($blockId === 0) {
-//            $data = $this->getData();
-//            if (array_key_exists("id", $data)) {
-//                $blockId = (int)$data["id"];
-//            }
-//        }
-//
-//        if ($blockId === 0) {
-//            throw new BadRequestException("Block ID can not be 0");
-//        }
-//
-//        $blockModel = (new BlockModel())->byId($blockId)->find();
-//        if ($blockModel === null) {
-//            throw new NotFoundException(
-//                "Unable to find text BlockModel by ID: {id}",
-//                [
-//                    "id" => $blockId
-//                ]
-//            );
-//        }
-//
-//        $textModel = $blockModel->getContentModel(true);
-//        if (!$textModel instanceof TextModel) {
-//            throw new BadRequestException(
-//                "Block content model is not a text. ID: {id}. Block type: {type}",
-//                [
-//                    "id"           => $blockId,
-//                    "contentClass" => get_class($textModel),
-//                ]
-//            );
-//        }
-//
-//        $css = "";
-//        $css .= $this->getCss($blockId, $textModel->get("designBlockModel"));
-//        $css .= $this->getCss($blockId, $textModel->get("designTextModel"));
-
-        return "";
-    }
-
-    /**
      * Gets a list of blocks
+     *
+     * @return array
      */
     public function getBlocks()
     {
@@ -119,7 +73,7 @@ class TextController extends AbstractController
         $canAdd = $this->hasBlockOperation(
             BlockModel::TYPE_TEXT,
             Operation::ALL,
-            Operation::TEXT_UPDATE_SETTINGS
+            Operation::TEXT_ADD
         );
 
         return [
@@ -317,7 +271,14 @@ class TextController extends AbstractController
             ];
         }
 
-        return $this->getSimpleSuccessResult();
+        $blockModel->setContent();
+
+        return [
+            "result" => true,
+            "html"   => $blockModel->getHtml(),
+            "css"    => $blockModel->getCss(),
+            "js"     => $blockModel->getJs(),
+        ];
     }
 
     /**
@@ -567,9 +528,13 @@ class TextController extends AbstractController
         );
         $textInstanceModel->save();
 
+        $blockModel->setContent();
+
         return [
             "result" => true,
-            "html"   => $this->getHtml($blockModel->getId())
+            "html"   => $blockModel->getHtml(),
+            "css"    => $blockModel->getCss(),
+            "js"     => $blockModel->getJs(),
         ];
     }
 }

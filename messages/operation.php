@@ -64,7 +64,7 @@ return [
         Language::LANGUAGE_RU_ID => "",
     ],
     "imageDelete" => [
-        Language::LANGUAGE_EN_ID => "Image upload",
+        Language::LANGUAGE_EN_ID => "Image delete",
         Language::LANGUAGE_RU_ID => "",
     ],
     "imageUpdate" => [

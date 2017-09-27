@@ -44,4 +44,24 @@ return [
         "blockType" => BlockModel::TYPE_IMAGE,
         "operation" => Operation::IMAGE_UPDATE,
     ],
+    9 => [
+        "userId"    => 3,
+        "blockType" => BlockModel::TYPE_IMAGE,
+        "operation" => Operation::IMAGE_ADD,
+    ],
+    10 => [
+        "userId"    => 3,
+        "blockType" => BlockModel::TYPE_IMAGE,
+        "operation" => Operation::IMAGE_UPDATE_DESIGN,
+    ],
+    11 => [
+        "userId"    => 3,
+        "blockType" => BlockModel::TYPE_IMAGE,
+        "operation" => Operation::IMAGE_UPDATE_CONTENT,
+    ],
+    12 => [
+        "userId"    => 3,
+        "blockType" => BlockModel::TYPE_IMAGE,
+        "operation" => Operation::IMAGE_UPDATE_SETTINGS,
+    ],
 ];

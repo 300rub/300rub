@@ -213,6 +213,10 @@ class BlockModel extends AbstractModel
             );
         }
 
+        $model->set([
+            "id" => $this->get("contentId")
+        ]);
+
         return $model;
     }
 
@@ -444,11 +448,11 @@ class BlockModel extends AbstractModel
     {
         $memcached = App::getInstance()->getMemcached();
         $memcachedKey = self::_getMemcachedKey($id);
-//
-//        $memcachedValue = $memcached->get($memcachedKey);
-//        if ($memcachedValue !== false) {
-//            return $memcachedValue;
-//        }
+
+        $memcachedValue = $memcached->get($memcachedKey);
+        if ($memcachedValue !== false) {
+            return $memcachedValue;
+        }
 
         $model = (new BlockModel())->byId($id)->find();
         if ($model === null) {

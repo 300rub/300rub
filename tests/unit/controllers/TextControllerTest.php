@@ -16,21 +16,6 @@ use testS\models\TextModel;
 class TextControllerTest extends AbstractControllerTest
 {
 
-    public function testGetHtml()
-    {
-        $this->markTestSkipped();
-//        $this->setUser(self::TYPE_FULL);
-//        $this->sendRequest("text", "html", ["id" => 1]);
-//        $body = $this->getBody();
-//        var_dump($body);
-//
-//
-//        $this->setUser(null);
-//        $this->sendRequest("text", "html", ["id" => 1]);
-//        $body = $this->getBody();
-//        var_dump($body);
-    }
-
     /**
      * Test for getBlocks
      *
@@ -270,10 +255,6 @@ class TextControllerTest extends AbstractControllerTest
         $expected = [
             "id"    => $id,
             "title" => $title,
-            "back"  => [
-                "controller" => "text",
-                "action"     => "blocks"
-            ],
             "forms" => [
                 "name"      => [
                     "name"       => "name",
@@ -641,6 +622,15 @@ class TextControllerTest extends AbstractControllerTest
         );
         $textModel->save();
 
+        $textInstanceModel = new TextInstanceModel();
+        $textInstanceModel->set(
+            [
+                "textId" => $textModel->getId(),
+                "text"   => "test text",
+            ]
+        );
+        $textInstanceModel->save();
+
         $blockModel = new BlockModel();
         $blockModel->set(
             [
@@ -670,11 +660,11 @@ class TextControllerTest extends AbstractControllerTest
             return true;
         }
 
-        $expected = [
-            "result" => true
-        ];
-
-        $this->compareExpectedAndActual($expected, $body);
+        $this->assertArrayHasKey("html", $body);
+        $this->assertArrayHasKey("css", $body);
+        $this->assertArrayHasKey("js", $body);
+        $this->assertTrue($body["result"]);
+        $this->assertNotFalse(strpos($body["html"], "test text"));
 
         $textModel = (new TextModel())->byId($textModel->getId())->find();
         $blockModel = BlockModel::getById($blockModel->getId());
@@ -1433,7 +1423,13 @@ class TextControllerTest extends AbstractControllerTest
         }
 
         $this->assertArrayHasKey("html", $body);
+        $this->assertArrayHasKey("css", $body);
+        $this->assertArrayHasKey("js", $body);
         $this->assertTrue($body["result"]);
+
+        if ($text) {
+            $this->assertNotFalse(strpos($body["html"], $text));
+        }
 
         $blockModel->delete();
         return true;

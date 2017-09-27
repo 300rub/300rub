@@ -177,7 +177,7 @@ class ImageModel extends AbstractContentModel
      */
     public function getHtmlMemcachedKey($id, $uri = "", $parameter = "")
     {
-        return "";
+        return sprintf("image_%s_html", $id);
     }
 
     /**
@@ -190,7 +190,7 @@ class ImageModel extends AbstractContentModel
      */
     public function getCssMemcachedKey($id, $uri = "")
     {
-        return "";
+        return sprintf("image_%s_css", $id);
     }
 
     /**
@@ -203,7 +203,7 @@ class ImageModel extends AbstractContentModel
      */
     public function getJsMemcachedKey($id, $uri = "")
     {
-        return "";
+        return sprintf("image_%s_js", $id);
     }
 
     /**

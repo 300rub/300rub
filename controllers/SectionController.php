@@ -9,14 +9,6 @@ namespace testS\controllers;
  */
 class SectionController extends AbstractController
 {
-    
-    /**
-     * Gets a list of sections
-     */
-    public function getSections()
-    {
-        // @TODO
-    }
 
     /**
      * Adds section
