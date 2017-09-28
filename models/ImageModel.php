@@ -2,6 +2,7 @@
 
 namespace testS\models;
 
+use testS\components\Language;
 use testS\components\ValueGenerator;
 
 /**
@@ -62,9 +63,9 @@ class ImageModel extends AbstractContentModel
     public static function getTypeList()
     {
         return [
-            self::TYPE_ZOOM   => "",
-            self::TYPE_SLIDER => "",
-            self::TYPE_SIMPLE => ""
+            self::TYPE_ZOOM   => Language::t("image", "zoom"),
+            self::TYPE_SLIDER => Language::t("image", "slider"),
+            self::TYPE_SIMPLE => Language::t("image", "simple"),
         ];
     }
 

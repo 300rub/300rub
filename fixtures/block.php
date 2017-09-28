@@ -14,9 +14,15 @@ return [
         "contentId"   => 2,
     ],
     3 => [
-        "name"        => "Simple images",
+        "name"        => "Zoom image",
         "language"    => 1,
         "contentType" => 2,
         "contentId"   => 1,
+    ],
+    4 => [
+        "name"        => "Slider image",
+        "language"    => 1,
+        "contentType" => 2,
+        "contentId"   => 2,
     ],
 ];

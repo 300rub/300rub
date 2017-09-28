@@ -5,9 +5,11 @@ namespace testS\controllers;
 use testS\components\exceptions\NotFoundException;
 use testS\components\Language;
 use testS\components\Operation;
+use testS\components\ValueGenerator;
 use testS\models\BlockModel;
 use testS\models\FileModel;
 use testS\models\ImageInstanceModel;
+use testS\models\ImageModel;
 
 /**
  * ImageController
@@ -98,10 +100,123 @@ class ImageController extends AbstractController
 
     /**
      * Gets block
+     *
+     * @return array
      */
     public function getBlock()
     {
-        // @TODO
+        $id = (int)$this->get("id");
+
+        if ($id === 0) {
+            $this->checkBlockOperation(BlockModel::TYPE_IMAGE, Operation::ALL, Operation::IMAGE_ADD);
+
+            $blockModel = new BlockModel();
+            $name = "";
+
+            $type = ImageModel::TYPE_ZOOM;
+            $autoCropType = ImageModel::AUTO_CROP_TYPE_NONE;
+            $cropWidth = 0;
+            $cropHeight = 0;
+            $cropX = 0;
+            $cropY = 0;
+            $thumbAutoCropType = ImageModel::AUTO_CROP_TYPE_NONE;
+            $thumbCropX = 0;
+            $thumbCropY = 0;
+            $useAlbums = false;
+        } else {
+            $this->checkBlockOperation(BlockModel::TYPE_IMAGE, $id, Operation::IMAGE_UPDATE_SETTINGS);
+
+            $blockModel = BlockModel::getById($id);
+            $name = $blockModel->get("name");
+
+            $imageModel = $blockModel->getContentModel();
+            $type = $imageModel->get("type");
+            $autoCropType = $imageModel->get("autoCropType");
+            $cropWidth = $imageModel->get("cropWidth");
+            $cropHeight = $imageModel->get("cropHeight");
+            $cropX = $imageModel->get("cropX");
+            $cropY = $imageModel->get("cropY");
+            $thumbAutoCropType = $imageModel->get("thumbAutoCropType");
+            $thumbCropX = $imageModel->get("thumbCropX");
+            $thumbCropY = $imageModel->get("thumbCropY");
+            $useAlbums = $imageModel->get("useAlbums");
+        }
+
+        return [
+            "id"          => $id,
+            "title"       => Language::t(
+                "image",
+                $id === 0 ? "addBlockTitle" : "editBlockTitle"
+            ),
+            "description" => Language::t(
+                "image",
+                $id === 0 ? "addBlockDescription" : "editBlockDescription"
+            ),
+            "forms"       => [
+                "name"              => [
+                    "name"       => "name",
+                    "label"      => Language::t("common", "name"),
+                    "validation" => $blockModel->getValidationRulesForField("name"),
+                    "value"      => $name,
+                ],
+                "type"              => [
+                    "label" => Language::t("common", "type"),
+                    "value" => $type,
+                    "name"  => "type",
+                    "list"  => ValueGenerator::generate(ValueGenerator::ORDERED_ARRAY, ImageModel::getTypeList())
+                ],
+                "autoCropType"      => [
+                    "label" => Language::t("image", "autoCropType"),
+                    "value" => $autoCropType,
+                    "name"  => "autoCropType",
+                    "list"  => ImageModel::getAutoCropTypeList()
+                ],
+                "cropWidth"         => [
+                    "name"  => "cropWidth",
+                    "label" => Language::t("image", "cropWidth"),
+                    "value" => $cropWidth,
+                ],
+                "cropHeight"        => [
+                    "name"  => "cropHeight",
+                    "label" => Language::t("image", "cropHeight"),
+                    "value" => $cropHeight,
+                ],
+                "cropX"             => [
+                    "name"  => "cropX",
+                    "label" => Language::t("image", "cropX"),
+                    "value" => $cropX,
+                ],
+                "cropY"             => [
+                    "name"  => "cropY",
+                    "label" => Language::t("image", "cropY"),
+                    "value" => $cropY,
+                ],
+                "thumbAutoCropType" => [
+                    "label" => Language::t("image", "thumbAutoCropType"),
+                    "value" => $thumbAutoCropType,
+                    "name"  => "thumbAutoCropType",
+                    "list"  => ImageModel::getAutoCropTypeList()
+                ],
+                "useAlbums"         => [
+                    "name"  => "useAlbums",
+                    "label" => Language::t("image", "useAlbums"),
+                    "value" => $useAlbums,
+                ],
+                "thumbCropX"        => [
+                    "name"  => "thumbCropX",
+                    "label" => Language::t("image", "thumbCropX"),
+                    "value" => $thumbCropX,
+                ],
+                "thumbCropY"        => [
+                    "name"  => "thumbCropY",
+                    "label" => Language::t("image", "thumbCropY"),
+                    "value" => $thumbCropY,
+                ],
+                "button"            => [
+                    "label" => Language::t("common", $id === 0 ? "add" : "update"),
+                ]
+            ]
+        ];
     }
 
     /**
@@ -241,53 +356,53 @@ class ImageController extends AbstractController
      */
     public function updateImage()
     {
-//        $this->checkData(
-//            [
-//                "blockId" => [self::TYPE_INT, self::NOT_EMPTY],
-//                "id"      => [self::TYPE_INT, self::NOT_EMPTY],
-//                "alt"     => [self::TYPE_STRING],
-//                "x1"      => [self::TYPE_INT],
-//                "y1"      => [self::TYPE_INT],
-//                "x2"      => [self::TYPE_INT],
-//                "y2"      => [self::TYPE_INT],
-//                "thumbX1" => [self::TYPE_INT],
-//                "thumbY1" => [self::TYPE_INT],
-//                "thumbX2" => [self::TYPE_INT],
-//                "thumbY2" => [self::TYPE_INT],
-//                "angle"   => [self::TYPE_INT],
-//                "flip"    => [self::TYPE_INT],
-//            ]
-//        );
-//
-//        $this->checkBlockOperation(BlockModel::TYPE_IMAGE, $this->get("blockId"), Operation::IMAGE_UPDATE);
-//
-//        $imageInstanceModel = (new ImageInstanceModel())->byId($this->get("id"))->withRelations()->find();
-//        if (!$imageInstanceModel instanceof ImageInstanceModel) {
-//            throw new NotFoundException(
-//                "Unable to find ImageInstanceModel by ID: {id}",
-//                [
-//                    "id" => $this->get("id")
-//                ]
-//            );
-//        }
-//
-//        $imageInstanceModel->set(
-//            [
-//                "alt"     => $this->get("alt"),
-//                "x1"      => $this->get("x1"),
-//                "y1"      => $this->get("y1"),
-//                "x2"      => $this->get("x2"),
-//                "y2"      => $this->get("y2"),
-//                "thumbX1" => $this->get("thumbX1"),
-//                "thumbY1" => $this->get("thumbY1"),
-//                "thumbX2" => $this->get("thumbX2"),
-//                "thumbY2" => $this->get("thumbY2"),
-//                "angle"   => $this->get("angle"),
-//                "flip"    => $this->get("flip"),
-//            ]
-//        );
-//
-//        return $imageInstanceModel->update();
+        //        $this->checkData(
+        //            [
+        //                "blockId" => [self::TYPE_INT, self::NOT_EMPTY],
+        //                "id"      => [self::TYPE_INT, self::NOT_EMPTY],
+        //                "alt"     => [self::TYPE_STRING],
+        //                "x1"      => [self::TYPE_INT],
+        //                "y1"      => [self::TYPE_INT],
+        //                "x2"      => [self::TYPE_INT],
+        //                "y2"      => [self::TYPE_INT],
+        //                "thumbX1" => [self::TYPE_INT],
+        //                "thumbY1" => [self::TYPE_INT],
+        //                "thumbX2" => [self::TYPE_INT],
+        //                "thumbY2" => [self::TYPE_INT],
+        //                "angle"   => [self::TYPE_INT],
+        //                "flip"    => [self::TYPE_INT],
+        //            ]
+        //        );
+        //
+        //        $this->checkBlockOperation(BlockModel::TYPE_IMAGE, $this->get("blockId"), Operation::IMAGE_UPDATE);
+        //
+        //        $imageInstanceModel = (new ImageInstanceModel())->byId($this->get("id"))->withRelations()->find();
+        //        if (!$imageInstanceModel instanceof ImageInstanceModel) {
+        //            throw new NotFoundException(
+        //                "Unable to find ImageInstanceModel by ID: {id}",
+        //                [
+        //                    "id" => $this->get("id")
+        //                ]
+        //            );
+        //        }
+        //
+        //        $imageInstanceModel->set(
+        //            [
+        //                "alt"     => $this->get("alt"),
+        //                "x1"      => $this->get("x1"),
+        //                "y1"      => $this->get("y1"),
+        //                "x2"      => $this->get("x2"),
+        //                "y2"      => $this->get("y2"),
+        //                "thumbX1" => $this->get("thumbX1"),
+        //                "thumbY1" => $this->get("thumbY1"),
+        //                "thumbX2" => $this->get("thumbX2"),
+        //                "thumbY2" => $this->get("thumbY2"),
+        //                "angle"   => $this->get("angle"),
+        //                "flip"    => $this->get("flip"),
+        //            ]
+        //        );
+        //
+        //        return $imageInstanceModel->update();
     }
 
     /**

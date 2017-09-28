@@ -223,6 +223,299 @@ class ImageControllerTest extends AbstractControllerTest
         ];
     }
 
+    /**
+     * Test for getBlock method
+     *
+     * @param string $user
+     * @param int    $id
+     * @param  bool  $hasError
+     * @param string $title
+     * @param string $name
+     * @param int    $type
+     * @param int    $autoCropType
+     * @param int    $cropWidth
+     * @param int    $cropHeight
+     * @param int    $cropX
+     * @param int    $cropY
+     * @param int    $thumbAutoCropType
+     * @param int    $useAlbums
+     * @param int    $thumbCropX
+     * @param int    $thumbCropY
+     *
+     * @return bool
+     *
+     * @dataProvider dataProviderForTestGetBlock
+     */
+    public function testGetBlock(
+        $user,
+        $id,
+        $hasError,
+        $title = null,
+        $name = null,
+        $type = null,
+        $autoCropType = null,
+        $cropWidth = null,
+        $cropHeight = null,
+        $cropX = null,
+        $cropY = null,
+        $thumbAutoCropType = null,
+        $useAlbums = null,
+        $thumbCropX = null,
+        $thumbCropY = null
+    )
+    {
+        $this->setUser($user);
+        $this->sendRequest("image", "block", ["id" => $id]);
+        $body = $this->getBody();
+
+        if ($hasError === true) {
+            $this->assertArrayHasKey("error", $body);
+            return true;
+        }
+
+        $expected = [
+            "id"    => $id,
+            "title" => $title,
+            "forms" => [
+                "name"              => [
+                    "name"       => "name",
+                    "validation" => [],
+                    "value"      => $name,
+                ],
+                "type"              => [
+                    "value" => $type,
+                    "name"  => "type",
+                    "list"  => []
+                ],
+                "autoCropType"      => [
+                    "value" => $autoCropType,
+                    "name"  => "autoCropType",
+                    "list"  => []
+                ],
+                "cropWidth"         => [
+                    "name"  => "cropWidth",
+                    "value" => $cropWidth,
+                ],
+                "cropHeight"        => [
+                    "name"  => "cropHeight",
+                    "value" => $cropHeight,
+                ],
+                "cropX"             => [
+                    "name"  => "cropX",
+                    "value" => $cropX,
+                ],
+                "cropY"             => [
+                    "name"  => "cropY",
+                    "value" => $cropY,
+                ],
+                "thumbAutoCropType" => [
+                    "value" => $thumbAutoCropType,
+                    "name"  => "thumbAutoCropType",
+                    "list"  => []
+                ],
+                "useAlbums"         => [
+                    "name"  => "useAlbums",
+                    "value" => $useAlbums,
+                ],
+                "thumbCropX"        => [
+                    "name"  => "thumbCropX",
+                    "value" => $thumbCropX,
+                ],
+                "thumbCropY"        => [
+                    "name"  => "thumbCropY",
+                    "value" => $thumbCropY,
+                ],
+            ]
+        ];
+
+        $this->compareExpectedAndActual($expected, $body);
+
+        return true;
+    }
+
+    /**
+     * Data provider for testGetBlock
+     *
+     * @return array
+     */
+    public function dataProviderForTestGetBlock()
+    {
+        return [
+            "adminAdd"            => [
+                "user"              => self::TYPE_FULL,
+                "id"                => 0,
+                "hasError"          => false,
+                "title"             => "Add image",
+                "name"              => "",
+                "type"              => 0,
+                "autoCropType"      => 0,
+                "cropWidth"         => 0,
+                "cropHeight"        => 0,
+                "cropX"             => 0,
+                "cropY"             => 0,
+                "thumbAutoCropType" => 0,
+                "useAlbums"         => false,
+                "thumbCropX"        => 0,
+                "thumbCropY"        => 0,
+            ],
+            "adminEdit3"          => [
+                "user"              => self::TYPE_FULL,
+                "id"                => 3,
+                "hasError"          => false,
+                "title"             => "Edit image",
+                "name"              => "Zoom image",
+                "type"              => 0,
+                "autoCropType"      => 0,
+                "cropWidth"         => 0,
+                "cropHeight"        => 0,
+                "cropX"             => 0,
+                "cropY"             => 0,
+                "thumbAutoCropType" => 0,
+                "useAlbums"         => false,
+                "thumbCropX"        => 0,
+                "thumbCropY"        => 0,
+            ],
+            "adminEdit4"          => [
+                "user"              => self::TYPE_FULL,
+                "id"                => 4,
+                "hasError"          => false,
+                "title"             => "Edit image",
+                "name"              => "Slider image",
+                "type"              => 1,
+                "autoCropType"      => 5,
+                "cropWidth"         => 1000,
+                "cropHeight"        => 800,
+                "cropX"             => 3,
+                "cropY"             => 4,
+                "thumbAutoCropType" => 8,
+                "useAlbums"         => true,
+                "thumbCropX"        => 1,
+                "thumbCropY"        => 2,
+            ],
+            "adminEdit9999"       => [
+                "user"     => self::TYPE_FULL,
+                "id"       => 9999,
+                "hasError" => true
+            ],
+            "guestAdd"            => [
+                "user"     => null,
+                "id"       => 0,
+                "hasError" => true
+            ],
+            "guestEdit3"          => [
+                "user"     => null,
+                "id"       => 3,
+                "hasError" => true,
+            ],
+            "guestEdit4"          => [
+                "user"     => null,
+                "id"       => 4,
+                "hasError" => true,
+            ],
+            "guestEdit9999"       => [
+                "user"     => null,
+                "id"       => 9999,
+                "hasError" => true
+            ],
+            "blockedAdd"          => [
+                "user"     => self::TYPE_BLOCKED_USER,
+                "id"       => 0,
+                "hasError" => true
+            ],
+            "blockedEdit3"        => [
+                "user"     => self::TYPE_BLOCKED_USER,
+                "id"       => 3,
+                "hasError" => true,
+            ],
+            "blockedEdit4"        => [
+                "user"     => self::TYPE_BLOCKED_USER,
+                "id"       => 4,
+                "hasError" => true,
+            ],
+            "blockedEdit9999"     => [
+                "user"     => self::TYPE_BLOCKED_USER,
+                "id"       => 9999,
+                "hasError" => true
+            ],
+            "noOperationAdd"      => [
+                "user"     => self::TYPE_NO_OPERATIONS_USER,
+                "id"       => 0,
+                "hasError" => true
+            ],
+            "noOperationEdit3"    => [
+                "user"     => self::TYPE_NO_OPERATIONS_USER,
+                "id"       => 3,
+                "hasError" => true,
+            ],
+            "noOperationEdit4"    => [
+                "user"     => self::TYPE_NO_OPERATIONS_USER,
+                "id"       => 4,
+                "hasError" => true,
+            ],
+            "noOperationEdit9999" => [
+                "user"     => self::TYPE_NO_OPERATIONS_USER,
+                "id"       => 9999,
+                "hasError" => true
+            ],
+            "userAdd"             => [
+                "user"              => self::TYPE_LIMITED,
+                "id"                => 0,
+                "hasError"          => false,
+                "title"             => "Add image",
+                "name"              => "",
+                "type"              => 0,
+                "autoCropType"      => 0,
+                "cropWidth"         => 0,
+                "cropHeight"        => 0,
+                "cropX"             => 0,
+                "cropY"             => 0,
+                "thumbAutoCropType" => 0,
+                "useAlbums"         => false,
+                "thumbCropX"        => 0,
+                "thumbCropY"        => 0,
+            ],
+            "userEdit3"           => [
+                "user"              => self::TYPE_LIMITED,
+                "id"                => 3,
+                "hasError"          => false,
+                "title"             => "Edit image",
+                "name"              => "Zoom image",
+                "type"              => 0,
+                "autoCropType"      => 0,
+                "cropWidth"         => 0,
+                "cropHeight"        => 0,
+                "cropX"             => 0,
+                "cropY"             => 0,
+                "thumbAutoCropType" => 0,
+                "useAlbums"         => false,
+                "thumbCropX"        => 0,
+                "thumbCropY"        => 0,
+            ],
+            "userEdit4"           => [
+                "user"              => self::TYPE_LIMITED,
+                "id"                => 4,
+                "hasError"          => false,
+                "title"             => "Edit image",
+                "name"              => "Slider image",
+                "type"              => 1,
+                "autoCropType"      => 5,
+                "cropWidth"         => 1000,
+                "cropHeight"        => 800,
+                "cropX"             => 3,
+                "cropY"             => 4,
+                "thumbAutoCropType" => 8,
+                "useAlbums"         => true,
+                "thumbCropX"        => 1,
+                "thumbCropY"        => 2,
+            ],
+            "userEdit9999"        => [
+                "user"     => self::TYPE_LIMITED,
+                "id"       => 9999,
+                "hasError" => true
+            ],
+        ];
+    }
+
     public function testCreateBlock()
     {
         $this->markTestSkipped();
