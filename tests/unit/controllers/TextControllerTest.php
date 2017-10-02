@@ -449,7 +449,7 @@ class TextControllerTest extends AbstractControllerTest
     }
 
     /**
-     * Test for createUser method
+     * Test for createBlock method
      *
      * @param string $user
      * @param array  $data
@@ -458,7 +458,7 @@ class TextControllerTest extends AbstractControllerTest
      *
      * @return bool
      *
-     * @dataProvider dataProviderForTestAddBlock
+     * @dataProvider dataProviderForTestCreateBlock
      */
     public function testCreateBlock($user, $data, $hasError = false, $hasValidationErrors = false)
     {
@@ -516,11 +516,11 @@ class TextControllerTest extends AbstractControllerTest
     }
 
     /**
-     * Data provider for testAddBlock
+     * Data provider for testCreateBlock
      *
      * @return array
      */
-    public function dataProviderForTestAddBlock()
+    public function dataProviderForTestCreateBlock()
     {
         return [
             "fullCorrect"             => [
