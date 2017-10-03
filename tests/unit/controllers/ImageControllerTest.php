@@ -1055,9 +1055,541 @@ class ImageControllerTest extends AbstractControllerTest
         ];
     }
 
-    public function testUpdateBlock()
+    /**
+     * Test for updateUser method
+     *
+     * @param string $user
+     * @param array  $data
+     * @param bool   $hasError
+     * @param bool   $hasValidationErrors
+     *
+     * @return bool
+     *
+     * @dataProvider dataProviderForTestUpdateBlock
+     */
+    public function testUpdateBlock($user, $data, $hasError = false, $hasValidationErrors = false)
     {
-        $this->markTestSkipped();
+        $imageModel = new ImageModel();
+        $imageModel->save();
+
+        $blockModel = new BlockModel();
+        $blockModel->set(
+            [
+                "name"        => "name",
+                "language"    => 1,
+                "contentType" => BlockModel::TYPE_IMAGE,
+                "contentId"   => $imageModel->getId(),
+            ]
+        );
+        $blockModel->save();
+
+        $data["id"] = $blockModel->getId();
+
+        $this->setUser($user);
+        $this->sendRequest("image", "block", $data, "PUT");
+        $body = $this->getBody();
+
+        if ($hasError === true) {
+            $this->assertError();
+            $blockModel->delete();
+            return true;
+        }
+
+        if ($hasValidationErrors === true) {
+            $this->assertErrors();
+            $blockModel->delete();
+            return true;
+        }
+
+        $this->assertArrayHasKey("html", $body);
+        $this->assertArrayHasKey("css", $body);
+        $this->assertArrayHasKey("js", $body);
+        $this->assertTrue($body["result"]);
+
+        $imageModel = (new ImageModel())->byId($imageModel->getId())->find();
+        $blockModel = BlockModel::getById($blockModel->getId());
+
+        $this->assertSame($data["name"], $blockModel->get("name"));
+        $this->assertSame($data["type"], $imageModel->get("type"));
+        $this->assertSame($data["autoCropType"], $imageModel->get("autoCropType"));
+        $this->assertSame($data["cropWidth"], $imageModel->get("cropWidth"));
+        $this->assertSame($data["cropHeight"], $imageModel->get("cropHeight"));
+        $this->assertSame($data["cropX"], $imageModel->get("cropX"));
+        $this->assertSame($data["cropY"], $imageModel->get("cropY"));
+        $this->assertSame($data["thumbAutoCropType"], $imageModel->get("thumbAutoCropType"));
+        $this->assertSame($data["useAlbums"], $imageModel->get("useAlbums"));
+        $this->assertSame($data["thumbCropX"], $imageModel->get("thumbCropX"));
+        $this->assertSame($data["thumbCropY"], $imageModel->get("thumbCropY"));
+
+        $blockModel->delete();
+
+        return true;
+    }
+
+    /**
+     * Data provider for testUpdateBlock
+     *
+     * @return array
+     */
+    public function dataProviderForTestUpdateBlock()
+    {
+        return [
+            "fullCorrect"             => [
+                "user"                => self::TYPE_FULL,
+                "data"                => [
+                    "name"              => "Block name",
+                    "type"              => 1,
+                    "autoCropType"      => 2,
+                    "cropWidth"         => 100,
+                    "cropHeight"        => 200,
+                    "cropX"             => 300,
+                    "cropY"             => 400,
+                    "thumbAutoCropType" => 3,
+                    "useAlbums"         => true,
+                    "thumbCropX"        => 10,
+                    "thumbCropY"        => 20,
+                ],
+                "hasError"            => false,
+                "hasValidationErrors" => false,
+            ],
+            "fullEmptyName"           => [
+                "user"                => self::TYPE_FULL,
+                "data"                => [
+                    "name"              => "",
+                    "type"              => 1,
+                    "autoCropType"      => 2,
+                    "cropWidth"         => 100,
+                    "cropHeight"        => 200,
+                    "cropX"             => 300,
+                    "cropY"             => 400,
+                    "thumbAutoCropType" => 3,
+                    "useAlbums"         => true,
+                    "thumbCropX"        => 10,
+                    "thumbCropY"        => 20,
+                ],
+                "hasError"            => false,
+                "hasValidationErrors" => true,
+            ],
+            "guest"                   => [
+                "user"     => null,
+                "data"     => [
+                    "name"              => "Block name",
+                    "type"              => 1,
+                    "autoCropType"      => 2,
+                    "cropWidth"         => 100,
+                    "cropHeight"        => 200,
+                    "cropX"             => 300,
+                    "cropY"             => 400,
+                    "thumbAutoCropType" => 3,
+                    "useAlbums"         => true,
+                    "thumbCropX"        => 10,
+                    "thumbCropY"        => 20,
+                ],
+                "hasError" => true,
+            ],
+            "blocked"                 => [
+                "user"     => self::TYPE_BLOCKED_USER,
+                "data"     => [
+                    "name"              => "Block name",
+                    "type"              => 1,
+                    "autoCropType"      => 2,
+                    "cropWidth"         => 100,
+                    "cropHeight"        => 200,
+                    "cropX"             => 300,
+                    "cropY"             => 400,
+                    "thumbAutoCropType" => 3,
+                    "useAlbums"         => true,
+                    "thumbCropX"        => 10,
+                    "thumbCropY"        => 20,
+                ],
+                "hasError" => true,
+            ],
+            "noOperationUser"         => [
+                "user"     => self::TYPE_NO_OPERATIONS_USER,
+                "data"     => [
+                    "name"              => "Block name",
+                    "type"              => 1,
+                    "autoCropType"      => 2,
+                    "cropWidth"         => 100,
+                    "cropHeight"        => 200,
+                    "cropX"             => 300,
+                    "cropY"             => 400,
+                    "thumbAutoCropType" => 3,
+                    "useAlbums"         => true,
+                    "thumbCropX"        => 10,
+                    "thumbCropY"        => 20,
+                ],
+                "hasError" => true,
+            ],
+            "userWithoutType"             => [
+                "user"                => self::TYPE_LIMITED,
+                "data"                => [
+                    "name"              => "Block name",
+                    "autoCropType"      => 2,
+                    "cropWidth"         => 100,
+                    "cropHeight"        => 200,
+                    "cropX"             => 300,
+                    "cropY"             => 400,
+                    "thumbAutoCropType" => 3,
+                    "useAlbums"         => true,
+                    "thumbCropX"        => 10,
+                    "thumbCropY"        => 20,
+                ],
+                "hasError"            => true,
+                "hasValidationErrors" => false,
+            ],
+            "userIncorrectType"             => [
+                "user"                => self::TYPE_LIMITED,
+                "data"                => [
+                    "name"              => "Block name",
+                    "type"              => "incorrect",
+                    "autoCropType"      => 2,
+                    "cropWidth"         => 100,
+                    "cropHeight"        => 200,
+                    "cropX"             => 300,
+                    "cropY"             => 400,
+                    "thumbAutoCropType" => 3,
+                    "useAlbums"         => true,
+                    "thumbCropX"        => 10,
+                    "thumbCropY"        => 20,
+                ],
+                "hasError"            => true,
+                "hasValidationErrors" => false,
+            ],
+            "userWithoutAutoCropType"             => [
+                "user"                => self::TYPE_LIMITED,
+                "data"                => [
+                    "name"              => "Block name",
+                    "type"              => 1,
+                    "cropWidth"         => 100,
+                    "cropHeight"        => 200,
+                    "cropX"             => 300,
+                    "cropY"             => 400,
+                    "thumbAutoCropType" => 3,
+                    "useAlbums"         => true,
+                    "thumbCropX"        => 10,
+                    "thumbCropY"        => 20,
+                ],
+                "hasError"            => true,
+                "hasValidationErrors" => false,
+            ],
+            "userIncorrectAutoCropType"             => [
+                "user"                => self::TYPE_LIMITED,
+                "data"                => [
+                    "name"              => "Block name",
+                    "type"              => 1,
+                    "autoCropType"      => "incorrect",
+                    "cropWidth"         => 100,
+                    "cropHeight"        => 200,
+                    "cropX"             => 300,
+                    "cropY"             => 400,
+                    "thumbAutoCropType" => 3,
+                    "useAlbums"         => true,
+                    "thumbCropX"        => 10,
+                    "thumbCropY"        => 20,
+                ],
+                "hasError"            => true,
+                "hasValidationErrors" => false,
+            ],
+            "userWithoutCropWidth"             => [
+                "user"                => self::TYPE_LIMITED,
+                "data"                => [
+                    "name"              => "Block name",
+                    "type"              => 1,
+                    "autoCropType"      => 2,
+                    "cropHeight"        => 200,
+                    "cropX"             => 300,
+                    "cropY"             => 400,
+                    "thumbAutoCropType" => 3,
+                    "useAlbums"         => true,
+                    "thumbCropX"        => 10,
+                    "thumbCropY"        => 20,
+                ],
+                "hasError"            => true,
+                "hasValidationErrors" => false,
+            ],
+            "userIncorrectCropWidth"             => [
+                "user"                => self::TYPE_LIMITED,
+                "data"                => [
+                    "name"              => "Block name",
+                    "type"              => 1,
+                    "autoCropType"      => 2,
+                    "cropWidth"         => "incorrect",
+                    "cropHeight"        => 200,
+                    "cropX"             => 300,
+                    "cropY"             => 400,
+                    "thumbAutoCropType" => 3,
+                    "useAlbums"         => true,
+                    "thumbCropX"        => 10,
+                    "thumbCropY"        => 20,
+                ],
+                "hasError"            => true,
+                "hasValidationErrors" => false,
+            ],
+            "userWithoutCropHeight"             => [
+                "user"                => self::TYPE_LIMITED,
+                "data"                => [
+                    "name"              => "Block name",
+                    "type"              => 1,
+                    "autoCropType"      => 2,
+                    "cropWidth"         => 100,
+                    "cropX"             => 300,
+                    "cropY"             => 400,
+                    "thumbAutoCropType" => 3,
+                    "useAlbums"         => true,
+                    "thumbCropX"        => 10,
+                    "thumbCropY"        => 20,
+                ],
+                "hasError"            => true,
+                "hasValidationErrors" => false,
+            ],
+            "userIncorrectCropHeight"             => [
+                "user"                => self::TYPE_LIMITED,
+                "data"                => [
+                    "name"              => "Block name",
+                    "type"              => 1,
+                    "autoCropType"      => 2,
+                    "cropWidth"         => 100,
+                    "cropHeight"        => "incorrect",
+                    "cropX"             => 300,
+                    "cropY"             => 400,
+                    "thumbAutoCropType" => 3,
+                    "useAlbums"         => true,
+                    "thumbCropX"        => 10,
+                    "thumbCropY"        => 20,
+                ],
+                "hasError"            => true,
+                "hasValidationErrors" => false,
+            ],
+            "userWithoutCropX"             => [
+                "user"                => self::TYPE_LIMITED,
+                "data"                => [
+                    "name"              => "Block name",
+                    "type"              => 1,
+                    "autoCropType"      => 2,
+                    "cropWidth"         => 100,
+                    "cropHeight"        => 200,
+                    "cropY"             => 400,
+                    "thumbAutoCropType" => 3,
+                    "useAlbums"         => true,
+                    "thumbCropX"        => 10,
+                    "thumbCropY"        => 20,
+                ],
+                "hasError"            => true,
+                "hasValidationErrors" => false,
+            ],
+            "userIncorrectCropX"             => [
+                "user"                => self::TYPE_LIMITED,
+                "data"                => [
+                    "name"              => "Block name",
+                    "type"              => 1,
+                    "autoCropType"      => 2,
+                    "cropWidth"         => 100,
+                    "cropHeight"        => 200,
+                    "cropX"             => "incorrect",
+                    "cropY"             => 400,
+                    "thumbAutoCropType" => 3,
+                    "useAlbums"         => true,
+                    "thumbCropX"        => 10,
+                    "thumbCropY"        => 20,
+                ],
+                "hasError"            => true,
+                "hasValidationErrors" => false,
+            ],
+            "userWithoutCropY"             => [
+                "user"                => self::TYPE_LIMITED,
+                "data"                => [
+                    "name"              => "Block name",
+                    "type"              => 1,
+                    "autoCropType"      => 2,
+                    "cropWidth"         => 100,
+                    "cropHeight"        => 200,
+                    "cropX"             => 400,
+                    "thumbAutoCropType" => 3,
+                    "useAlbums"         => true,
+                    "thumbCropX"        => 10,
+                    "thumbCropY"        => 20,
+                ],
+                "hasError"            => true,
+                "hasValidationErrors" => false,
+            ],
+            "userIncorrectCropY"             => [
+                "user"                => self::TYPE_LIMITED,
+                "data"                => [
+                    "name"              => "Block name",
+                    "type"              => 1,
+                    "autoCropType"      => 2,
+                    "cropWidth"         => 100,
+                    "cropHeight"        => 200,
+                    "cropX"             => 300,
+                    "cropY"             => "incorrect",
+                    "thumbAutoCropType" => 3,
+                    "useAlbums"         => true,
+                    "thumbCropX"        => 10,
+                    "thumbCropY"        => 20,
+                ],
+                "hasError"            => true,
+                "hasValidationErrors" => false,
+            ],
+            "userWithoutThumbAutoCropType"             => [
+                "user"                => self::TYPE_LIMITED,
+                "data"                => [
+                    "name"              => "Block name",
+                    "type"              => 1,
+                    "autoCropType"      => 2,
+                    "cropWidth"         => 100,
+                    "cropHeight"        => 200,
+                    "cropX"             => 300,
+                    "cropY"             => 400,
+                    "useAlbums"         => true,
+                    "thumbCropX"        => 10,
+                    "thumbCropY"        => 20,
+                ],
+                "hasError"            => true,
+                "hasValidationErrors" => false,
+            ],
+            "userIncorrectThumbAutoCropType"             => [
+                "user"                => self::TYPE_LIMITED,
+                "data"                => [
+                    "name"              => "Block name",
+                    "type"              => 1,
+                    "autoCropType"      => 2,
+                    "cropWidth"         => 100,
+                    "cropHeight"        => 200,
+                    "cropX"             => 300,
+                    "cropY"             => 400,
+                    "thumbAutoCropType" => "incorrect",
+                    "useAlbums"         => true,
+                    "thumbCropX"        => 10,
+                    "thumbCropY"        => 20,
+                ],
+                "hasError"            => true,
+                "hasValidationErrors" => false,
+            ],
+            "userWithoutUseAlbums"             => [
+                "user"                => self::TYPE_LIMITED,
+                "data"                => [
+                    "name"              => "Block name",
+                    "type"              => 1,
+                    "autoCropType"      => 2,
+                    "cropWidth"         => 100,
+                    "cropHeight"        => 200,
+                    "cropX"             => 300,
+                    "cropY"             => 400,
+                    "thumbAutoCropType" => 3,
+                    "thumbCropX"        => 10,
+                    "thumbCropY"        => 20,
+                ],
+                "hasError"            => true,
+                "hasValidationErrors" => false,
+            ],
+            "userIncorrectUseAlbums"             => [
+                "user"                => self::TYPE_LIMITED,
+                "data"                => [
+                    "name"              => "Block name",
+                    "type"              => 1,
+                    "autoCropType"      => 2,
+                    "cropWidth"         => 100,
+                    "cropHeight"        => 200,
+                    "cropX"             => 300,
+                    "cropY"             => 400,
+                    "thumbAutoCropType" => 3,
+                    "useAlbums"         => "incorrect",
+                    "thumbCropX"        => 10,
+                    "thumbCropY"        => 20,
+                ],
+                "hasError"            => true,
+                "hasValidationErrors" => false,
+            ],
+            "userWithoutThumbCropX"             => [
+                "user"                => self::TYPE_LIMITED,
+                "data"                => [
+                    "name"              => "Block name",
+                    "type"              => 1,
+                    "autoCropType"      => 2,
+                    "cropWidth"         => 100,
+                    "cropHeight"        => 200,
+                    "cropX"             => 300,
+                    "cropY"             => 400,
+                    "thumbAutoCropType" => 3,
+                    "useAlbums"         => true,
+                    "thumbCropY"        => 20,
+                ],
+                "hasError"            => true,
+                "hasValidationErrors" => false,
+            ],
+            "userIncorrectThumbCropX"             => [
+                "user"                => self::TYPE_LIMITED,
+                "data"                => [
+                    "name"              => "Block name",
+                    "type"              => 1,
+                    "autoCropType"      => 2,
+                    "cropWidth"         => 100,
+                    "cropHeight"        => 200,
+                    "cropX"             => 300,
+                    "cropY"             => 400,
+                    "thumbAutoCropType" => 3,
+                    "useAlbums"         => true,
+                    "thumbCropX"        => "incorrect",
+                    "thumbCropY"        => 20,
+                ],
+                "hasError"            => true,
+                "hasValidationErrors" => false,
+            ],
+            "userWithoutThumbCropY"             => [
+                "user"                => self::TYPE_LIMITED,
+                "data"                => [
+                    "name"              => "Block name",
+                    "type"              => 1,
+                    "autoCropType"      => 2,
+                    "cropWidth"         => 100,
+                    "cropHeight"        => 200,
+                    "cropX"             => 300,
+                    "cropY"             => 400,
+                    "thumbAutoCropType" => 3,
+                    "useAlbums"         => true,
+                    "thumbCropX"        => 20,
+                ],
+                "hasError"            => true,
+                "hasValidationErrors" => false,
+            ],
+            "userIncorrectThumbCropY"             => [
+                "user"                => self::TYPE_LIMITED,
+                "data"                => [
+                    "name"              => "Block name",
+                    "type"              => 1,
+                    "autoCropType"      => 2,
+                    "cropWidth"         => 100,
+                    "cropHeight"        => 200,
+                    "cropX"             => 300,
+                    "cropY"             => 400,
+                    "thumbAutoCropType" => 3,
+                    "useAlbums"         => true,
+                    "thumbCropX"        => 10,
+                    "thumbCropY"        => "incorrect",
+                ],
+                "hasError"            => true,
+                "hasValidationErrors" => false,
+            ],
+            "userCorrect"             => [
+                "user"                => self::TYPE_LIMITED,
+                "data"                => [
+                    "name"              => "Block name",
+                    "type"              => 1,
+                    "autoCropType"      => 2,
+                    "cropWidth"         => 100,
+                    "cropHeight"        => 200,
+                    "cropX"             => 300,
+                    "cropY"             => 400,
+                    "thumbAutoCropType" => 3,
+                    "useAlbums"         => true,
+                    "thumbCropX"        => 10,
+                    "thumbCropY"        => 20,
+                ],
+                "hasError"            => false,
+                "hasValidationErrors" => false,
+            ],
+        ];
     }
 
     public function testDeleteBlock()

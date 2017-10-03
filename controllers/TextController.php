@@ -227,9 +227,6 @@ class TextController extends AbstractController
      * Updates block
      *
      * @return array
-     *
-     * @throws BadRequestException
-     * @throws NotFoundException
      */
     public function updateBlock()
     {
@@ -287,7 +284,6 @@ class TextController extends AbstractController
      * @return array
      *
      * @throws BadRequestException
-     * @throws NotFoundException
      */
     public function deleteBlock()
     {
