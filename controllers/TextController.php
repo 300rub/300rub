@@ -103,17 +103,22 @@ class TextController extends AbstractController
     /**
      * Gets block
      *
+     * @param int $id
+     *
      * @return array
      *
      * @throws NotFoundException
      */
-    public function getBlock()
+    public function getBlock($id = null)
     {
         $name = "";
         $type = TextModel::TYPE_DIV;
         $hasEditor = false;
 
-        $id = (int) $this->get("id");
+        if (!$id) {
+            $id = (int)$this->get("id");
+        }
+
         if ($id === 0) {
             $this->checkBlockOperation(BlockModel::TYPE_TEXT, Operation::ALL, Operation::TEXT_ADD);
             $blockModel = new BlockModel();
@@ -296,7 +301,6 @@ class TextController extends AbstractController
         $this->checkBlockOperation(BlockModel::TYPE_TEXT, $this->get("id"), Operation::TEXT_DELETE);
 
         $blockModel = BlockModel::getById($this->get("id"));
-
         if ($blockModel->get("contentType") !== BlockModel::TYPE_TEXT) {
             throw new BadRequestException(
                 "Incorrect text block to delete. ID: {id}. Block type: {type}",
@@ -310,6 +314,39 @@ class TextController extends AbstractController
         $blockModel->delete();
 
         return $this->getSimpleSuccessResult();
+    }
+
+    /**
+     * Duplicates text block
+     *
+     * @return array
+     *
+     * @throws BadRequestException
+     */
+    public function createBlockDuplication()
+    {
+        $this->checkData(
+            [
+                "id" => [self::TYPE_INT, self::NOT_EMPTY],
+            ]
+        );
+
+        $this->checkBlockOperation(BlockModel::TYPE_TEXT, $this->get("id"), Operation::TEXT_DUPLICATE);
+
+        $blockModel = BlockModel::getById($this->get("id"));
+        if ($blockModel->get("contentType") !== BlockModel::TYPE_TEXT) {
+            throw new BadRequestException(
+                "Incorrect text block to duplicate. ID: {id}. Block type: {type}",
+                [
+                    "id"   => $this->get("id"),
+                    "type" => $blockModel->get("contentType"),
+                ]
+            );
+        }
+
+        return $this->getBlock(
+            $blockModel->duplicate()->getId()
+        );
     }
 
     /**

@@ -883,6 +883,135 @@ class TextControllerTest extends AbstractControllerTest
     }
 
     /**
+     * Test for the method createBlockDuplication
+     *
+     * @param string $user
+     * @param int    $id
+     * @param bool   $hasError
+     * @param array  $expectedData
+     *
+     * @dataProvider dataProviderForTestCreateBlockDuplication
+     */
+    public function testCreateBlockDuplication($user, $id = null, $hasError = false, array $expectedData = [])
+    {
+        $this->setUser($user);
+
+        $this->sendRequest("text", "blockDuplication", ["id" => $id], "POST");
+
+        if ($hasError === true) {
+            $this->assertError();
+        } else {
+            $expected = [
+                "forms" => [
+                    "name"      => [
+                        "name"       => "name",
+                        "label"      => "Name",
+                        "validation" => [],
+                        "value"      => $expectedData["name"],
+                    ],
+                    "type"      => [
+                        "label" => "Type",
+                        "value" => $expectedData["type"],
+                        "name"  => "type",
+                        "list"  => []
+                    ],
+                    "hasEditor" => [
+                        "name"  => "hasEditor",
+                        "label" => "Has editor",
+                        "value" => $expectedData["hasEditor"],
+                    ],
+                ]
+            ];
+
+            $this->compareExpectedAndActual($expected, $this->getBody());
+
+            $blockModel = (new BlockModel())->latest()->find();
+
+            $textModel = $blockModel->getContentModel();
+            $this->assertTrue($textModel instanceof TextModel);
+
+            $textInstanceModel = (new TextInstanceModel())->byTextId($textModel->getId())->find();
+            $this->assertTrue($textInstanceModel instanceof TextInstanceModel);
+            $this->assertSame($expectedData["text"], $textInstanceModel->get("text"));
+
+            $blockModel->delete();
+        }
+    }
+
+    /**
+     * Data provider for testCreateBlockDuplication
+     *
+     * @return array
+     */
+    public function dataProviderForTestCreateBlockDuplication()
+    {
+        return [
+            "fullCorrect"          => [
+                "user"     => self::TYPE_FULL,
+                "id"       => 1,
+                "hasError" => false,
+                "expectedData" => [
+                    "name"      => "Simple text (Copy)",
+                    "type"      => 0,
+                    "hasEditor" => false,
+                    "text"      => "Text",
+                ]
+            ],
+            "fullIncorrect"        => [
+                "user"     => self::TYPE_FULL,
+                "id"       => 9999,
+                "hasError" => true
+            ],
+            "userCorrect"          => [
+                "user"     => self::TYPE_LIMITED,
+                "id"       => 1,
+                "hasError" => false,
+                "expectedData" => [
+                    "name"      => "Simple text (Copy)",
+                    "type"      => 0,
+                    "hasEditor" => false,
+                    "text"      => "Text",
+                ]
+            ],
+            "userIncorrect"        => [
+                "user"     => self::TYPE_LIMITED,
+                "id"       => 9999,
+                "hasError" => true
+            ],
+            "blockedCorrect"       => [
+                "user"     => self::TYPE_BLOCKED_USER,
+                "id"       => 1,
+                "hasError" => true
+            ],
+            "blockedIncorrect"     => [
+                "user"     => self::TYPE_LIMITED,
+                "id"       => 9999,
+                "hasError" => true
+            ],
+            "noOperationCorrect"   => [
+                "user"     => self::TYPE_NO_OPERATIONS_USER,
+                "id"       => 1,
+                "hasError" => true
+            ],
+            "noOperationIncorrect" => [
+                "user"     => self::TYPE_NO_OPERATIONS_USER,
+                "id"       => 9999,
+                "hasError" => true
+            ],
+            "guestCorrect"         => [
+                "user"     => null,
+                "id"       => 1,
+                "hasError" => true
+            ],
+            "guestIncorrect"       => [
+                "user"     => null,
+                "id"       => 9999,
+                "hasError" => true
+            ],
+        ];
+    }
+
+    /**
      * Test for get design method
      *
      * @param string $user
