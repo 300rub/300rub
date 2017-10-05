@@ -99,4 +99,16 @@ return [
         Language::LANGUAGE_EN_ID => "Thumb crop Y",
         Language::LANGUAGE_RU_ID => "",
     ],
+    "createAlbum" => [
+        Language::LANGUAGE_EN_ID => "Create album",
+        Language::LANGUAGE_RU_ID => "",
+    ],
+    "updateAlbum" => [
+        Language::LANGUAGE_EN_ID => "Update album",
+        Language::LANGUAGE_RU_ID => "",
+    ],
+    "deleteAlbum" => [
+        Language::LANGUAGE_EN_ID => "Update album",
+        Language::LANGUAGE_RU_ID => "",
+    ],
 ];

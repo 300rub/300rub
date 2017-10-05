@@ -238,7 +238,7 @@ class BlockModel extends AbstractModel
 
         $newModel = $this->_getNewContentModel();
         $model = $newModel->byId($value)->withRelations($withRelations)->find();
-        if (!$model instanceof AbstractModel) {
+        if (!$model instanceof AbstractContentModel) {
             throw new ModelException(
                 "Unable to find model: {className} with ID = {id}",
                 [

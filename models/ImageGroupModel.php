@@ -2,6 +2,7 @@
 
 namespace testS\models;
 
+use testS\components\Db;
 use testS\components\Validator;
 use testS\components\ValueGenerator;
 
@@ -49,5 +50,20 @@ class ImageGroupModel extends AbstractModel
                 self::FIELD_TYPE => self::FIELD_TYPE_INT,
             ],
         ];
+    }
+
+    /**
+     * Adds imageId condition to SQL request
+     *
+     * @param int $imageId
+     *
+     * @return ImageGroupModel
+     */
+    public function byImageId($imageId)
+    {
+        $this->getDb()->addWhere(sprintf("%s.imageId = :imageId", Db::DEFAULT_ALIAS));
+        $this->getDb()->addParameter("imageId", (int) $imageId);
+
+        return $this;
     }
 }

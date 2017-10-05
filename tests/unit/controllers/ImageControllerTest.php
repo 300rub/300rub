@@ -1711,6 +1711,97 @@ class ImageControllerTest extends AbstractControllerTest
         ];
     }
 
+    /**
+     * Test for the method createBlockDuplication
+     *
+     * @param string $user
+     * @param int    $id
+     * @param bool   $hasError
+     *
+     * @dataProvider dataProviderForTestCreateBlockDuplication
+     */
+    public function testCreateBlockDuplication($user, $id = null, $hasError = false)
+    {
+        $this->setUser($user);
+
+        $this->sendRequest("image", "blockDuplication", ["id" => $id], "POST");
+
+        if ($hasError === true) {
+            $this->assertError();
+        } else {
+            $body = $this->getBody();
+            $this->assertTrue($body["id"] > $id);
+
+            $blockModel = (new BlockModel())->latest()->find();
+
+            $imageModel = $blockModel->getContentModel();
+            $this->assertTrue($imageModel instanceof ImageModel);
+
+            $blockModel->delete();
+        }
+    }
+
+    /**
+     * Data provider for testCreateBlockDuplication
+     *
+     * @return array
+     */
+    public function dataProviderForTestCreateBlockDuplication()
+    {
+        return [
+            "fullCorrect"          => [
+                "user"     => self::TYPE_FULL,
+                "id"       => 3,
+                "hasError" => false,
+            ],
+            "fullIncorrect"        => [
+                "user"     => self::TYPE_FULL,
+                "id"       => 9999,
+                "hasError" => true
+            ],
+            "userCorrect"          => [
+                "user"     => self::TYPE_LIMITED,
+                "id"       => 3,
+                "hasError" => false,
+            ],
+            "userIncorrect"        => [
+                "user"     => self::TYPE_LIMITED,
+                "id"       => 9999,
+                "hasError" => true
+            ],
+            "blockedCorrect"       => [
+                "user"     => self::TYPE_BLOCKED_USER,
+                "id"       => 3,
+                "hasError" => true
+            ],
+            "blockedIncorrect"     => [
+                "user"     => self::TYPE_LIMITED,
+                "id"       => 9999,
+                "hasError" => true
+            ],
+            "noOperationCorrect"   => [
+                "user"     => self::TYPE_NO_OPERATIONS_USER,
+                "id"       => 3,
+                "hasError" => true
+            ],
+            "noOperationIncorrect" => [
+                "user"     => self::TYPE_NO_OPERATIONS_USER,
+                "id"       => 9999,
+                "hasError" => true
+            ],
+            "guestCorrect"         => [
+                "user"     => null,
+                "id"       => 3,
+                "hasError" => true
+            ],
+            "guestIncorrect"       => [
+                "user"     => null,
+                "id"       => 9999,
+                "hasError" => true
+            ],
+        ];
+    }
+
     public function testGetDesign()
     {
         $this->markTestSkipped();

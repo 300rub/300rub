@@ -61,10 +61,13 @@ class Operation
     const IMAGE_UPLOAD = "IMAGE_UPLOAD";
     const IMAGE_UPDATE = "IMAGE_UPDATE";
     const IMAGE_DELETE = "IMAGE_DELETE";
+    const IMAGE_DUPLICATE = "IMAGE_DUPLICATE";
     const IMAGE_UPDATE_SETTINGS = "IMAGE_UPDATE_SETTINGS";
     const IMAGE_UPDATE_DESIGN = "IMAGE_UPDATE_DESIGN";
     const IMAGE_UPDATE_CONTENT = "IMAGE_UPDATE_CONTENT";
-    const IMAGE_DUPLICATE = "IMAGE_DUPLICATE";
+    const IMAGE_CREATE_ALBUM = "IMAGE_CREATE_ALBUM";
+    const IMAGE_UPDATE_ALBUM = "IMAGE_UPDATE_ALBUM";
+    const IMAGE_DELETE_ALBUM = "IMAGE_DELETE_ALBUM";
 
     /**
      * Gets section operations
@@ -148,6 +151,9 @@ class Operation
             self::IMAGE_UPDATE_DESIGN   => Language::t("operation", "editDesign"),
             self::IMAGE_UPDATE_CONTENT  => Language::t("operation", "edit"),
             self::IMAGE_DUPLICATE       => Language::t("operation", "duplicate"),
+            self::IMAGE_UPDATE_ALBUM    => Language::t("image", "updateAlbum"),
+            self::IMAGE_CREATE_ALBUM    => Language::t("image", "createAlbum"),
+            self::IMAGE_DELETE_ALBUM    => Language::t("image", "deleteAlbum"),
         ];
 
         if ($isAll === true) {

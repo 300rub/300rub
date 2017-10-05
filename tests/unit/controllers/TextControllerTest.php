@@ -888,11 +888,10 @@ class TextControllerTest extends AbstractControllerTest
      * @param string $user
      * @param int    $id
      * @param bool   $hasError
-     * @param array  $expectedData
      *
      * @dataProvider dataProviderForTestCreateBlockDuplication
      */
-    public function testCreateBlockDuplication($user, $id = null, $hasError = false, array $expectedData = [])
+    public function testCreateBlockDuplication($user, $id = null, $hasError = false)
     {
         $this->setUser($user);
 
@@ -901,29 +900,8 @@ class TextControllerTest extends AbstractControllerTest
         if ($hasError === true) {
             $this->assertError();
         } else {
-            $expected = [
-                "forms" => [
-                    "name"      => [
-                        "name"       => "name",
-                        "label"      => "Name",
-                        "validation" => [],
-                        "value"      => $expectedData["name"],
-                    ],
-                    "type"      => [
-                        "label" => "Type",
-                        "value" => $expectedData["type"],
-                        "name"  => "type",
-                        "list"  => []
-                    ],
-                    "hasEditor" => [
-                        "name"  => "hasEditor",
-                        "label" => "Has editor",
-                        "value" => $expectedData["hasEditor"],
-                    ],
-                ]
-            ];
-
-            $this->compareExpectedAndActual($expected, $this->getBody());
+            $body = $this->getBody();
+            $this->assertTrue($body["id"] > $id);
 
             $blockModel = (new BlockModel())->latest()->find();
 
@@ -932,7 +910,6 @@ class TextControllerTest extends AbstractControllerTest
 
             $textInstanceModel = (new TextInstanceModel())->byTextId($textModel->getId())->find();
             $this->assertTrue($textInstanceModel instanceof TextInstanceModel);
-            $this->assertSame($expectedData["text"], $textInstanceModel->get("text"));
 
             $blockModel->delete();
         }
@@ -950,12 +927,6 @@ class TextControllerTest extends AbstractControllerTest
                 "user"     => self::TYPE_FULL,
                 "id"       => 1,
                 "hasError" => false,
-                "expectedData" => [
-                    "name"      => "Simple text (Copy)",
-                    "type"      => 0,
-                    "hasEditor" => false,
-                    "text"      => "Text",
-                ]
             ],
             "fullIncorrect"        => [
                 "user"     => self::TYPE_FULL,
@@ -966,12 +937,6 @@ class TextControllerTest extends AbstractControllerTest
                 "user"     => self::TYPE_LIMITED,
                 "id"       => 1,
                 "hasError" => false,
-                "expectedData" => [
-                    "name"      => "Simple text (Copy)",
-                    "type"      => 0,
-                    "hasEditor" => false,
-                    "text"      => "Text",
-                ]
             ],
             "userIncorrect"        => [
                 "user"     => self::TYPE_LIMITED,

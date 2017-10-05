@@ -9,6 +9,7 @@ use testS\components\Operation;
 use testS\components\ValueGenerator;
 use testS\models\BlockModel;
 use testS\models\FileModel;
+use testS\models\ImageGroupModel;
 use testS\models\ImageInstanceModel;
 use testS\models\ImageModel;
 
@@ -107,7 +108,6 @@ class ImageController extends AbstractController
     public function getBlock()
     {
         $id = (int)$this->get("id");
-
         if ($id === 0) {
             $this->checkBlockOperation(BlockModel::TYPE_IMAGE, Operation::ALL, Operation::IMAGE_ADD);
 
@@ -390,6 +390,39 @@ class ImageController extends AbstractController
     }
 
     /**
+     * Duplicates block
+     *
+     * @return array
+     *
+     * @throws BadRequestException
+     */
+    public function createBlockDuplication()
+    {
+        $this->checkData(
+            [
+                "id" => [self::TYPE_INT, self::NOT_EMPTY],
+            ]
+        );
+
+        $this->checkBlockOperation(BlockModel::TYPE_IMAGE, $this->get("id"), Operation::IMAGE_DUPLICATE);
+
+        $blockModel = BlockModel::getById($this->get("id"));
+        if ($blockModel->get("contentType") !== BlockModel::TYPE_IMAGE) {
+            throw new BadRequestException(
+                "Incorrect image block to duplicate. ID: {id}. Block type: {type}",
+                [
+                    "id"   => $this->get("id"),
+                    "type" => $blockModel->get("contentType"),
+                ]
+            );
+        }
+
+        return [
+            "id" => $blockModel->duplicate()->getId()
+        ];
+    }
+
+    /**
      * Gets block's design
      */
     public function getDesign()
@@ -502,6 +535,8 @@ class ImageController extends AbstractController
      */
     public function updateImage()
     {
+        // @TODO
+
         //        $this->checkData(
         //            [
         //                "blockId" => [self::TYPE_INT, self::NOT_EMPTY],
@@ -588,33 +623,197 @@ class ImageController extends AbstractController
 
     /**
      * Gets album
+     *
+     * @throws NotFoundException
+     *
+     * @return array
      */
     public function getAlbum()
     {
-        // @TODO
+        $this->checkData(
+            [
+                "blockId" => [self::NOT_EMPTY],
+            ]
+        );
+
+        $id = (int)$this->get("id");
+        $blockId = (int)$this->get("blockId");
+
+        if ($id === 0) {
+            $this->checkBlockOperation(BlockModel::TYPE_IMAGE, $blockId, Operation::IMAGE_CREATE_ALBUM);
+            $imageGroupModel = new ImageGroupModel();
+            $name = "";
+        } else {
+            $this->checkBlockOperation(BlockModel::TYPE_IMAGE, $blockId, Operation::IMAGE_UPDATE_ALBUM);
+
+            $blockModel = BlockModel::getById($this->get("blockId"));
+            $imageModel = $blockModel->getContentModel();
+            $imageGroupModel = (new ImageGroupModel())->byImageId($imageModel->getId())->byId($id);
+
+            if ($imageGroupModel === null) {
+                throw new NotFoundException(
+                    "Unable to find ImageGroupModel by ID: {id} and blockId: {blockId} and imageId: {imageId}",
+                    [
+                        "id"      => $id,
+                        "blockId" => $blockModel->get(),
+                        "imageId" => $imageModel->getId(),
+                    ]
+                );
+            }
+
+            $name = $imageGroupModel->get("name");
+        }
+
+        return [
+            "blockId" => $blockId,
+            "id"      => $id,
+            "title"   => Language::t(
+                "image",
+                $id === 0 ? "addAlbum" : "editAlbum"
+            ),
+            "forms"   => [
+                "name"   => [
+                    "name"       => "name",
+                    "label"      => Language::t("common", "name"),
+                    "validation" => $imageGroupModel->getValidationRulesForField("name"),
+                    "value"      => $name,
+                ],
+                "button" => [
+                    "label" => Language::t("common", $id === 0 ? "add" : "update"),
+                ]
+            ]
+        ];
     }
 
     /**
-     * Add album
+     * Creates an album
+     *
+     * @return array
      */
     public function createAlbum()
     {
-        // @TODO
+        $this->checkData(
+            [
+                "blockId" => [self::TYPE_INT, self::NOT_EMPTY],
+                "name"    => [self::TYPE_STRING],
+            ]
+        );
+
+        $this->checkBlockOperation(BlockModel::TYPE_IMAGE, $this->get("blockId"), Operation::IMAGE_CREATE_ALBUM);
+
+        $blockModel = BlockModel::getById($this->get("blockId"));
+        $imageModel = $blockModel->getContentModel();
+
+        $imageGroupModel = new ImageGroupModel();
+        $imageGroupModel->set(
+            [
+                "imageId" => $imageModel->getId(),
+                "name"    => $this->get("name"),
+                "sort"    => 10000,
+            ]
+        );
+        $imageGroupModel->save();
+
+        $errors = $imageGroupModel->getParsedErrors();
+        if (count($errors) > 0) {
+            $this->removeSavedData();
+
+            return [
+                "errors" => $errors
+            ];
+        }
+
+        return $this->getSimpleSuccessResult();
     }
 
     /**
-     * Update album
+     * Updates album
+     *
+     * @throws NotFoundException
+     *
+     * @return array
      */
     public function updateAlbum()
     {
-        // @TODO
+        $this->checkData(
+            [
+                "blockId" => [self::TYPE_INT, self::NOT_EMPTY],
+                "id"      => [self::TYPE_INT, self::NOT_EMPTY],
+                "name"    => [self::TYPE_STRING],
+            ]
+        );
+
+        $this->checkBlockOperation(BlockModel::TYPE_IMAGE, $this->get("blockId"), Operation::IMAGE_UPDATE_ALBUM);
+
+        $blockModel = BlockModel::getById($this->get("blockId"));
+        $imageModel = $blockModel->getContentModel();
+        $imageGroupModel = (new ImageGroupModel())->byImageId($imageModel->getId())->byId($this->get("id"));
+
+        if ($imageGroupModel === null) {
+            throw new NotFoundException(
+                "Unable to find ImageGroupModel by ID: {id} and blockId: {blockId} and imageId: {imageId}",
+                [
+                    "id"      => $this->get("id"),
+                    "blockId" => $blockModel->get(),
+                    "imageId" => $imageModel->getId(),
+                ]
+            );
+        }
+
+        $imageGroupModel->set(
+            [
+                "name" => $this->get("name"),
+            ]
+        );
+        $imageGroupModel->save();
+
+        $errors = $imageGroupModel->getParsedErrors();
+        if (count($errors) > 0) {
+            $this->removeSavedData();
+
+            return [
+                "errors" => $errors
+            ];
+        }
+
+        return $this->getSimpleSuccessResult();
     }
 
     /**
      * Delete album
+     *
+     * @throws NotFoundException
+     *
+     * @return array
      */
     public function deleteAlbum()
     {
-        // @TODO
+        $this->checkData(
+            [
+                "blockId" => [self::TYPE_INT, self::NOT_EMPTY],
+                "id"      => [self::TYPE_INT, self::NOT_EMPTY],
+            ]
+        );
+
+        $this->checkBlockOperation(BlockModel::TYPE_IMAGE, $this->get("blockId"), Operation::IMAGE_DELETE_ALBUM);
+
+        $blockModel = BlockModel::getById($this->get("blockId"));
+        $imageModel = $blockModel->getContentModel();
+        $imageGroupModel = (new ImageGroupModel())->byImageId($imageModel->getId())->byId($this->get("id"));
+
+        if ($imageGroupModel === null) {
+            throw new NotFoundException(
+                "Unable to find ImageGroupModel by ID: {id} and blockId: {blockId} and imageId: {imageId}",
+                [
+                    "id"      => $this->get("id"),
+                    "blockId" => $blockModel->get(),
+                    "imageId" => $imageModel->getId(),
+                ]
+            );
+        }
+
+        $imageGroupModel->delete();
+
+        return $this->getSimpleSuccessResult();
     }
 }

@@ -103,22 +103,17 @@ class TextController extends AbstractController
     /**
      * Gets block
      *
-     * @param int $id
-     *
      * @return array
      *
      * @throws NotFoundException
      */
-    public function getBlock($id = null)
+    public function getBlock()
     {
         $name = "";
         $type = TextModel::TYPE_DIV;
         $hasEditor = false;
 
-        if (!$id) {
-            $id = (int)$this->get("id");
-        }
-
+        $id = (int)$this->get("id");
         if ($id === 0) {
             $this->checkBlockOperation(BlockModel::TYPE_TEXT, Operation::ALL, Operation::TEXT_ADD);
             $blockModel = new BlockModel();
@@ -344,9 +339,9 @@ class TextController extends AbstractController
             );
         }
 
-        return $this->getBlock(
-            $blockModel->duplicate()->getId()
-        );
+        return [
+            "id" => $blockModel->duplicate()->getId()
+        ];
     }
 
     /**
