@@ -79,4 +79,9 @@ return [
         "blockType" => BlockModel::TYPE_IMAGE,
         "operation" => Operation::IMAGE_DUPLICATE,
     ],
+    [
+        "userId"    => 3,
+        "blockType" => BlockModel::TYPE_IMAGE,
+        "operation" => Operation::IMAGE_DELETE_ALBUM,
+    ],
 ];

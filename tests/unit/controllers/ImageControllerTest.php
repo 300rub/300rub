@@ -4,6 +4,7 @@ namespace testS\tests\unit\controllers;
 
 use testS\applications\App;
 use testS\models\BlockModel;
+use testS\models\ImageGroupModel;
 use testS\models\ImageInstanceModel;
 use testS\models\ImageModel;
 
@@ -2181,8 +2182,85 @@ class ImageControllerTest extends AbstractControllerTest
         $this->markTestSkipped();
     }
 
-    public function testDeleteAlbum()
+    /**
+     * Test for method deleteAlbum
+     *
+     * @param string $user
+     * @param bool   $hasError
+     * @param int    $id
+     *
+     * @dataProvider dataProviderForTestDeleteAlbum
+     */
+    public function testDeleteAlbum($user, $hasError = false, $id = null)
     {
-        $this->markTestSkipped();
+        $this->setUser($user);
+
+        $imageGroupModel = new ImageGroupModel();
+        $imageGroupModel->set(
+            [
+                "imageId"      => 1,
+                "name" => $this->generateStringWithLength(10)
+            ]
+        );
+        $imageGroupModel->save();
+
+        if ($id === null) {
+            $id = $imageGroupModel->getId();
+        }
+
+        $this->sendRequest("image", "album", ["blockId" => 3, "id" => $id], "DELETE");
+
+        if ($hasError === true) {
+            $this->assertError();
+            $this->assertNotNull($imageGroupModel->byId($imageGroupModel->getId())->find());
+            $imageGroupModel->delete();
+        } else {
+            $expected = [
+                "result" => true
+            ];
+            $this->assertSame($expected, $this->getBody());
+            $this->assertNull($imageGroupModel->byId($imageGroupModel->getId())->find());
+        }
+    }
+
+    /**
+     * Data provider for testDeleteAlbum
+     *
+     * @return array
+     */
+    public function dataProviderForTestDeleteAlbum()
+    {
+        return [
+            "admin"                => [
+                "user"     => self::TYPE_FULL,
+                "hasError" => false,
+                "id"       => null
+            ],
+            "limitedIncorrectId"     => [
+                "user"     => self::TYPE_LIMITED,
+                "hasError" => true,
+                "id"       => 9999
+            ],
+            "limitedIncorrectFormat" => [
+                "user"     => self::TYPE_LIMITED,
+                "hasError" => true,
+                "id"       => "1"
+            ],
+            "limited"              => [
+                "user"     => self::TYPE_LIMITED,
+                "hasError" => false,
+                "id"       => null
+            ],
+            "guest"                => [
+                "user"     => null,
+                "hasError" => true,
+                "id"       => null
+            ],
+            "blocked"              => [
+                "user"     => self::TYPE_BLOCKED_USER,
+                "hasError" => true,
+                "id"       => null
+            ],
+        ];
     }
 }
