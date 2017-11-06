@@ -62,7 +62,10 @@ class Console extends AbstractApplication
 	 * @param string $message
 	 * @param bool   $isError
 	 */
-	public function output($message, $isError = false) {
+	public function output($message, $isError = false)
+	{
+		return false;
+
 		$output = "\e[0;33m" . date("Y-m-d H:i:s", time());
 		if ($isError === false) {
 			$output .= " \e[0;32m[success] ";

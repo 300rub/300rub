@@ -747,7 +747,7 @@ class ImageController extends AbstractController
 
         $blockModel = BlockModel::getById($this->get("blockId"));
         $imageModel = $blockModel->getContentModel();
-        $imageGroupModel = (new ImageGroupModel())->byImageId($imageModel->getId())->byId($this->get("id"));
+        $imageGroupModel = (new ImageGroupModel())->byImageId($imageModel->getId())->byId($this->get("id"))->find();
 
         if ($imageGroupModel === null) {
             throw new NotFoundException(

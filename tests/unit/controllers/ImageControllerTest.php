@@ -598,7 +598,7 @@ class ImageControllerTest extends AbstractControllerTest
     public function dataProviderForTestCreateBlock()
     {
         return [
-            "fullCorrect"             => [
+            "fullCorrect"                    => [
                 "user"                => self::TYPE_FULL,
                 "data"                => [
                     "name"              => "Block name",
@@ -616,7 +616,7 @@ class ImageControllerTest extends AbstractControllerTest
                 "hasError"            => false,
                 "hasValidationErrors" => false,
             ],
-            "fullEmptyName"           => [
+            "fullEmptyName"                  => [
                 "user"                => self::TYPE_FULL,
                 "data"                => [
                     "name"              => "",
@@ -634,7 +634,7 @@ class ImageControllerTest extends AbstractControllerTest
                 "hasError"            => false,
                 "hasValidationErrors" => true,
             ],
-            "guest"                   => [
+            "guest"                          => [
                 "user"     => null,
                 "data"     => [
                     "name"              => "Block name",
@@ -651,7 +651,7 @@ class ImageControllerTest extends AbstractControllerTest
                 ],
                 "hasError" => true,
             ],
-            "blocked"                 => [
+            "blocked"                        => [
                 "user"     => self::TYPE_BLOCKED_USER,
                 "data"     => [
                     "name"              => "Block name",
@@ -668,7 +668,7 @@ class ImageControllerTest extends AbstractControllerTest
                 ],
                 "hasError" => true,
             ],
-            "noOperationUser"         => [
+            "noOperationUser"                => [
                 "user"     => self::TYPE_NO_OPERATIONS_USER,
                 "data"     => [
                     "name"              => "Block name",
@@ -685,7 +685,7 @@ class ImageControllerTest extends AbstractControllerTest
                 ],
                 "hasError" => true,
             ],
-            "userWithoutType"             => [
+            "userWithoutType"                => [
                 "user"                => self::TYPE_LIMITED,
                 "data"                => [
                     "name"              => "Block name",
@@ -702,7 +702,7 @@ class ImageControllerTest extends AbstractControllerTest
                 "hasError"            => true,
                 "hasValidationErrors" => false,
             ],
-            "userIncorrectType"             => [
+            "userIncorrectType"              => [
                 "user"                => self::TYPE_LIMITED,
                 "data"                => [
                     "name"              => "Block name",
@@ -720,7 +720,7 @@ class ImageControllerTest extends AbstractControllerTest
                 "hasError"            => true,
                 "hasValidationErrors" => false,
             ],
-            "userWithoutAutoCropType"             => [
+            "userWithoutAutoCropType"        => [
                 "user"                => self::TYPE_LIMITED,
                 "data"                => [
                     "name"              => "Block name",
@@ -737,7 +737,7 @@ class ImageControllerTest extends AbstractControllerTest
                 "hasError"            => true,
                 "hasValidationErrors" => false,
             ],
-            "userIncorrectAutoCropType"             => [
+            "userIncorrectAutoCropType"      => [
                 "user"                => self::TYPE_LIMITED,
                 "data"                => [
                     "name"              => "Block name",
@@ -755,7 +755,7 @@ class ImageControllerTest extends AbstractControllerTest
                 "hasError"            => true,
                 "hasValidationErrors" => false,
             ],
-            "userWithoutCropWidth"             => [
+            "userWithoutCropWidth"           => [
                 "user"                => self::TYPE_LIMITED,
                 "data"                => [
                     "name"              => "Block name",
@@ -772,7 +772,7 @@ class ImageControllerTest extends AbstractControllerTest
                 "hasError"            => true,
                 "hasValidationErrors" => false,
             ],
-            "userIncorrectCropWidth"             => [
+            "userIncorrectCropWidth"         => [
                 "user"                => self::TYPE_LIMITED,
                 "data"                => [
                     "name"              => "Block name",
@@ -790,7 +790,7 @@ class ImageControllerTest extends AbstractControllerTest
                 "hasError"            => true,
                 "hasValidationErrors" => false,
             ],
-            "userWithoutCropHeight"             => [
+            "userWithoutCropHeight"          => [
                 "user"                => self::TYPE_LIMITED,
                 "data"                => [
                     "name"              => "Block name",
@@ -807,7 +807,7 @@ class ImageControllerTest extends AbstractControllerTest
                 "hasError"            => true,
                 "hasValidationErrors" => false,
             ],
-            "userIncorrectCropHeight"             => [
+            "userIncorrectCropHeight"        => [
                 "user"                => self::TYPE_LIMITED,
                 "data"                => [
                     "name"              => "Block name",
@@ -825,7 +825,7 @@ class ImageControllerTest extends AbstractControllerTest
                 "hasError"            => true,
                 "hasValidationErrors" => false,
             ],
-            "userWithoutCropX"             => [
+            "userWithoutCropX"               => [
                 "user"                => self::TYPE_LIMITED,
                 "data"                => [
                     "name"              => "Block name",
@@ -860,7 +860,7 @@ class ImageControllerTest extends AbstractControllerTest
                 "hasError"            => true,
                 "hasValidationErrors" => false,
             ],
-            "userWithoutCropY"             => [
+            "userWithoutCropY"               => [
                 "user"                => self::TYPE_LIMITED,
                 "data"                => [
                     "name"              => "Block name",
@@ -895,24 +895,24 @@ class ImageControllerTest extends AbstractControllerTest
                 "hasError"            => true,
                 "hasValidationErrors" => false,
             ],
-            "userWithoutThumbAutoCropType"             => [
+            "userWithoutThumbAutoCropType"   => [
                 "user"                => self::TYPE_LIMITED,
                 "data"                => [
-                    "name"              => "Block name",
-                    "type"              => 1,
-                    "autoCropType"      => 2,
-                    "cropWidth"         => 100,
-                    "cropHeight"        => 200,
-                    "cropX"             => 300,
-                    "cropY"             => 400,
-                    "useAlbums"         => true,
-                    "thumbCropX"        => 10,
-                    "thumbCropY"        => 20,
+                    "name"         => "Block name",
+                    "type"         => 1,
+                    "autoCropType" => 2,
+                    "cropWidth"    => 100,
+                    "cropHeight"   => 200,
+                    "cropX"        => 300,
+                    "cropY"        => 400,
+                    "useAlbums"    => true,
+                    "thumbCropX"   => 10,
+                    "thumbCropY"   => 20,
                 ],
                 "hasError"            => true,
                 "hasValidationErrors" => false,
             ],
-            "userIncorrectThumbAutoCropType"             => [
+            "userIncorrectThumbAutoCropType" => [
                 "user"                => self::TYPE_LIMITED,
                 "data"                => [
                     "name"              => "Block name",
@@ -930,7 +930,7 @@ class ImageControllerTest extends AbstractControllerTest
                 "hasError"            => true,
                 "hasValidationErrors" => false,
             ],
-            "userWithoutUseAlbums"             => [
+            "userWithoutUseAlbums"           => [
                 "user"                => self::TYPE_LIMITED,
                 "data"                => [
                     "name"              => "Block name",
@@ -947,7 +947,7 @@ class ImageControllerTest extends AbstractControllerTest
                 "hasError"            => true,
                 "hasValidationErrors" => false,
             ],
-            "userIncorrectUseAlbums"             => [
+            "userIncorrectUseAlbums"         => [
                 "user"                => self::TYPE_LIMITED,
                 "data"                => [
                     "name"              => "Block name",
@@ -965,7 +965,7 @@ class ImageControllerTest extends AbstractControllerTest
                 "hasError"            => true,
                 "hasValidationErrors" => false,
             ],
-            "userWithoutThumbCropX"             => [
+            "userWithoutThumbCropX"          => [
                 "user"                => self::TYPE_LIMITED,
                 "data"                => [
                     "name"              => "Block name",
@@ -982,7 +982,7 @@ class ImageControllerTest extends AbstractControllerTest
                 "hasError"            => true,
                 "hasValidationErrors" => false,
             ],
-            "userIncorrectThumbCropX"             => [
+            "userIncorrectThumbCropX"        => [
                 "user"                => self::TYPE_LIMITED,
                 "data"                => [
                     "name"              => "Block name",
@@ -1000,7 +1000,7 @@ class ImageControllerTest extends AbstractControllerTest
                 "hasError"            => true,
                 "hasValidationErrors" => false,
             ],
-            "userWithoutThumbCropY"             => [
+            "userWithoutThumbCropY"          => [
                 "user"                => self::TYPE_LIMITED,
                 "data"                => [
                     "name"              => "Block name",
@@ -1017,7 +1017,7 @@ class ImageControllerTest extends AbstractControllerTest
                 "hasError"            => true,
                 "hasValidationErrors" => false,
             ],
-            "userIncorrectThumbCropY"             => [
+            "userIncorrectThumbCropY"        => [
                 "user"                => self::TYPE_LIMITED,
                 "data"                => [
                     "name"              => "Block name",
@@ -1035,7 +1035,7 @@ class ImageControllerTest extends AbstractControllerTest
                 "hasError"            => true,
                 "hasValidationErrors" => false,
             ],
-            "userCorrect"             => [
+            "userCorrect"                    => [
                 "user"                => self::TYPE_LIMITED,
                 "data"                => [
                     "name"              => "Block name",
@@ -1135,7 +1135,7 @@ class ImageControllerTest extends AbstractControllerTest
     public function dataProviderForTestUpdateBlock()
     {
         return [
-            "fullCorrect"             => [
+            "fullCorrect"                    => [
                 "user"                => self::TYPE_FULL,
                 "data"                => [
                     "name"              => "Block name",
@@ -1153,7 +1153,7 @@ class ImageControllerTest extends AbstractControllerTest
                 "hasError"            => false,
                 "hasValidationErrors" => false,
             ],
-            "fullEmptyName"           => [
+            "fullEmptyName"                  => [
                 "user"                => self::TYPE_FULL,
                 "data"                => [
                     "name"              => "",
@@ -1171,7 +1171,7 @@ class ImageControllerTest extends AbstractControllerTest
                 "hasError"            => false,
                 "hasValidationErrors" => true,
             ],
-            "guest"                   => [
+            "guest"                          => [
                 "user"     => null,
                 "data"     => [
                     "name"              => "Block name",
@@ -1188,7 +1188,7 @@ class ImageControllerTest extends AbstractControllerTest
                 ],
                 "hasError" => true,
             ],
-            "blocked"                 => [
+            "blocked"                        => [
                 "user"     => self::TYPE_BLOCKED_USER,
                 "data"     => [
                     "name"              => "Block name",
@@ -1205,7 +1205,7 @@ class ImageControllerTest extends AbstractControllerTest
                 ],
                 "hasError" => true,
             ],
-            "noOperationUser"         => [
+            "noOperationUser"                => [
                 "user"     => self::TYPE_NO_OPERATIONS_USER,
                 "data"     => [
                     "name"              => "Block name",
@@ -1222,7 +1222,7 @@ class ImageControllerTest extends AbstractControllerTest
                 ],
                 "hasError" => true,
             ],
-            "userWithoutType"             => [
+            "userWithoutType"                => [
                 "user"                => self::TYPE_LIMITED,
                 "data"                => [
                     "name"              => "Block name",
@@ -1239,7 +1239,7 @@ class ImageControllerTest extends AbstractControllerTest
                 "hasError"            => true,
                 "hasValidationErrors" => false,
             ],
-            "userIncorrectType"             => [
+            "userIncorrectType"              => [
                 "user"                => self::TYPE_LIMITED,
                 "data"                => [
                     "name"              => "Block name",
@@ -1257,7 +1257,7 @@ class ImageControllerTest extends AbstractControllerTest
                 "hasError"            => true,
                 "hasValidationErrors" => false,
             ],
-            "userWithoutAutoCropType"             => [
+            "userWithoutAutoCropType"        => [
                 "user"                => self::TYPE_LIMITED,
                 "data"                => [
                     "name"              => "Block name",
@@ -1274,7 +1274,7 @@ class ImageControllerTest extends AbstractControllerTest
                 "hasError"            => true,
                 "hasValidationErrors" => false,
             ],
-            "userIncorrectAutoCropType"             => [
+            "userIncorrectAutoCropType"      => [
                 "user"                => self::TYPE_LIMITED,
                 "data"                => [
                     "name"              => "Block name",
@@ -1292,7 +1292,7 @@ class ImageControllerTest extends AbstractControllerTest
                 "hasError"            => true,
                 "hasValidationErrors" => false,
             ],
-            "userWithoutCropWidth"             => [
+            "userWithoutCropWidth"           => [
                 "user"                => self::TYPE_LIMITED,
                 "data"                => [
                     "name"              => "Block name",
@@ -1309,7 +1309,7 @@ class ImageControllerTest extends AbstractControllerTest
                 "hasError"            => true,
                 "hasValidationErrors" => false,
             ],
-            "userIncorrectCropWidth"             => [
+            "userIncorrectCropWidth"         => [
                 "user"                => self::TYPE_LIMITED,
                 "data"                => [
                     "name"              => "Block name",
@@ -1327,7 +1327,7 @@ class ImageControllerTest extends AbstractControllerTest
                 "hasError"            => true,
                 "hasValidationErrors" => false,
             ],
-            "userWithoutCropHeight"             => [
+            "userWithoutCropHeight"          => [
                 "user"                => self::TYPE_LIMITED,
                 "data"                => [
                     "name"              => "Block name",
@@ -1344,7 +1344,7 @@ class ImageControllerTest extends AbstractControllerTest
                 "hasError"            => true,
                 "hasValidationErrors" => false,
             ],
-            "userIncorrectCropHeight"             => [
+            "userIncorrectCropHeight"        => [
                 "user"                => self::TYPE_LIMITED,
                 "data"                => [
                     "name"              => "Block name",
@@ -1362,7 +1362,7 @@ class ImageControllerTest extends AbstractControllerTest
                 "hasError"            => true,
                 "hasValidationErrors" => false,
             ],
-            "userWithoutCropX"             => [
+            "userWithoutCropX"               => [
                 "user"                => self::TYPE_LIMITED,
                 "data"                => [
                     "name"              => "Block name",
@@ -1397,7 +1397,7 @@ class ImageControllerTest extends AbstractControllerTest
                 "hasError"            => true,
                 "hasValidationErrors" => false,
             ],
-            "userWithoutCropY"             => [
+            "userWithoutCropY"               => [
                 "user"                => self::TYPE_LIMITED,
                 "data"                => [
                     "name"              => "Block name",
@@ -1432,24 +1432,24 @@ class ImageControllerTest extends AbstractControllerTest
                 "hasError"            => true,
                 "hasValidationErrors" => false,
             ],
-            "userWithoutThumbAutoCropType"             => [
+            "userWithoutThumbAutoCropType"   => [
                 "user"                => self::TYPE_LIMITED,
                 "data"                => [
-                    "name"              => "Block name",
-                    "type"              => 1,
-                    "autoCropType"      => 2,
-                    "cropWidth"         => 100,
-                    "cropHeight"        => 200,
-                    "cropX"             => 300,
-                    "cropY"             => 400,
-                    "useAlbums"         => true,
-                    "thumbCropX"        => 10,
-                    "thumbCropY"        => 20,
+                    "name"         => "Block name",
+                    "type"         => 1,
+                    "autoCropType" => 2,
+                    "cropWidth"    => 100,
+                    "cropHeight"   => 200,
+                    "cropX"        => 300,
+                    "cropY"        => 400,
+                    "useAlbums"    => true,
+                    "thumbCropX"   => 10,
+                    "thumbCropY"   => 20,
                 ],
                 "hasError"            => true,
                 "hasValidationErrors" => false,
             ],
-            "userIncorrectThumbAutoCropType"             => [
+            "userIncorrectThumbAutoCropType" => [
                 "user"                => self::TYPE_LIMITED,
                 "data"                => [
                     "name"              => "Block name",
@@ -1467,7 +1467,7 @@ class ImageControllerTest extends AbstractControllerTest
                 "hasError"            => true,
                 "hasValidationErrors" => false,
             ],
-            "userWithoutUseAlbums"             => [
+            "userWithoutUseAlbums"           => [
                 "user"                => self::TYPE_LIMITED,
                 "data"                => [
                     "name"              => "Block name",
@@ -1484,7 +1484,7 @@ class ImageControllerTest extends AbstractControllerTest
                 "hasError"            => true,
                 "hasValidationErrors" => false,
             ],
-            "userIncorrectUseAlbums"             => [
+            "userIncorrectUseAlbums"         => [
                 "user"                => self::TYPE_LIMITED,
                 "data"                => [
                     "name"              => "Block name",
@@ -1502,7 +1502,7 @@ class ImageControllerTest extends AbstractControllerTest
                 "hasError"            => true,
                 "hasValidationErrors" => false,
             ],
-            "userWithoutThumbCropX"             => [
+            "userWithoutThumbCropX"          => [
                 "user"                => self::TYPE_LIMITED,
                 "data"                => [
                     "name"              => "Block name",
@@ -1519,7 +1519,7 @@ class ImageControllerTest extends AbstractControllerTest
                 "hasError"            => true,
                 "hasValidationErrors" => false,
             ],
-            "userIncorrectThumbCropX"             => [
+            "userIncorrectThumbCropX"        => [
                 "user"                => self::TYPE_LIMITED,
                 "data"                => [
                     "name"              => "Block name",
@@ -1537,7 +1537,7 @@ class ImageControllerTest extends AbstractControllerTest
                 "hasError"            => true,
                 "hasValidationErrors" => false,
             ],
-            "userWithoutThumbCropY"             => [
+            "userWithoutThumbCropY"          => [
                 "user"                => self::TYPE_LIMITED,
                 "data"                => [
                     "name"              => "Block name",
@@ -1554,7 +1554,7 @@ class ImageControllerTest extends AbstractControllerTest
                 "hasError"            => true,
                 "hasValidationErrors" => false,
             ],
-            "userIncorrectThumbCropY"             => [
+            "userIncorrectThumbCropY"        => [
                 "user"                => self::TYPE_LIMITED,
                 "data"                => [
                     "name"              => "Block name",
@@ -1572,7 +1572,7 @@ class ImageControllerTest extends AbstractControllerTest
                 "hasError"            => true,
                 "hasValidationErrors" => false,
             ],
-            "userCorrect"             => [
+            "userCorrect"                    => [
                 "user"                => self::TYPE_LIMITED,
                 "data"                => [
                     "name"              => "Block name",
@@ -2177,9 +2177,130 @@ class ImageControllerTest extends AbstractControllerTest
         $this->markTestSkipped();
     }
 
-    public function testUpdateAlbum()
+    /**
+     * Test for the updateAlbum method
+     *
+     * @param string $user
+     * @param array  $data
+     * @param bool   $hasError
+     * @param bool   $hasErrors
+     * @param int    $id
+     *
+     * @dataProvider dataProviderForTestUpdateAlbum
+     */
+    public function testUpdateAlbum($user, $data, $hasError = false, $hasErrors = false, $id = null)
     {
-        $this->markTestSkipped();
+        $this->setUser($user);
+
+        $imageGroupModel = new ImageGroupModel();
+        $imageGroupModel->set(
+            [
+                "imageId" => 1,
+                "name"    => $this->generateStringWithLength(10)
+            ]
+        );
+        $imageGroupModel->save();
+
+        if ($id === null) {
+            $id = $imageGroupModel->getId();
+        }
+
+        $data = array_merge(
+            $data,
+            [
+                "blockId" => 3,
+                "id"      => $id
+            ]
+        );
+
+        $this->sendRequest("image", "album", $data, "PUT");
+
+        if ($hasError === true) {
+            $this->assertError();
+        } elseif ($hasErrors === true) {
+            $this->assertErrors();
+        } else {
+            $expected = [
+                "result" => true
+            ];
+            $this->assertSame($expected, $this->getBody());
+        }
+
+        $imageGroupModel->delete();
+    }
+
+    /**
+     * Data provider for testUpdateAlbum
+     *
+     * @return array
+     */
+    public function dataProviderForTestUpdateAlbum()
+    {
+        return [
+            "admin"              => [
+                "user"      => self::TYPE_FULL,
+                "data"      => [
+                    "name" => "New album name",
+                ],
+                "hasError"  => false,
+                "hasErrors" => false,
+                "id"        => null
+            ],
+            "limitedIncorrectId" => [
+                "user"      => self::TYPE_LIMITED,
+                "data"      => [
+                    "name" => "New album name",
+                ],
+                "hasError"  => true,
+                "hasErrors" => false,
+                "id"        => 9999
+            ],
+            "limitedEmpty"       => [
+                "user"      => self::TYPE_LIMITED,
+                "data"      => [
+                    "name" => "",
+                ],
+                "hasError"  => false,
+                "hasErrors" => true,
+                "id"        => null
+            ],
+            "limitedLongName"    => [
+                "user"      => self::TYPE_LIMITED,
+                "data"      => [
+                    "name" => $this->generateStringWithLength(256),
+                ],
+                "hasError"  => false,
+                "hasErrors" => true,
+                "id"        => null
+            ],
+            "limited"            => [
+                "user"      => self::TYPE_LIMITED,
+                "data"      => [
+                    "name" => "New album name",
+                ],
+                "hasError"  => false,
+                "hasErrors" => false,
+                "id"        => null
+            ],
+            "guest"              => [
+                "user"      => null,
+                "data"      => [
+                    "name" => "New album name",
+                ],
+                "hasError"  => true,
+                "hasErrors" => false,
+                "id"        => null
+            ],
+            "blocked"            => [
+                "user"      => self::TYPE_BLOCKED_USER,
+                "data"      => [
+                    "name" => "New album name",
+                ],
+                "hasError"  => true,
+                "hasErrors" => false,
+                "id"        => null
+            ],
+        ];
     }
 
     /**
@@ -2198,8 +2319,8 @@ class ImageControllerTest extends AbstractControllerTest
         $imageGroupModel = new ImageGroupModel();
         $imageGroupModel->set(
             [
-                "imageId"      => 1,
-                "name" => $this->generateStringWithLength(10)
+                "imageId" => 1,
+                "name"    => $this->generateStringWithLength(10)
             ]
         );
         $imageGroupModel->save();
@@ -2231,32 +2352,27 @@ class ImageControllerTest extends AbstractControllerTest
     public function dataProviderForTestDeleteAlbum()
     {
         return [
-            "admin"                => [
+            "admin"              => [
                 "user"     => self::TYPE_FULL,
                 "hasError" => false,
                 "id"       => null
             ],
-            "limitedIncorrectId"     => [
+            "limitedIncorrectId" => [
                 "user"     => self::TYPE_LIMITED,
                 "hasError" => true,
                 "id"       => 9999
             ],
-            "limitedIncorrectFormat" => [
-                "user"     => self::TYPE_LIMITED,
-                "hasError" => true,
-                "id"       => "1"
-            ],
-            "limited"              => [
+            "limited"            => [
                 "user"     => self::TYPE_LIMITED,
                 "hasError" => false,
                 "id"       => null
             ],
-            "guest"                => [
+            "guest"              => [
                 "user"     => null,
                 "hasError" => true,
                 "id"       => null
             ],
-            "blocked"              => [
+            "blocked"            => [
                 "user"     => self::TYPE_BLOCKED_USER,
                 "hasError" => true,
                 "id"       => null
