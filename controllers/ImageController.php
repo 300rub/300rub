@@ -689,6 +689,8 @@ class ImageController extends AbstractController
      * Creates an album
      *
      * @return array
+     *
+     * @throws BadRequestException
      */
     public function createAlbum()
     {
@@ -703,6 +705,15 @@ class ImageController extends AbstractController
 
         $blockModel = BlockModel::getById($this->get("blockId"));
         $imageModel = $blockModel->getContentModel();
+        if (!$imageModel instanceof ImageModel) {
+            throw new BadRequestException(
+                "Unable to create new album. Content model: {modelType} is not an ImageModel for Block with ID: {id}",
+                [
+                    "modelType" => get_class($imageModel),
+                    "id"        => $this->get("blockId")
+                ]
+            );
+        }
 
         $imageGroupModel = new ImageGroupModel();
         $imageGroupModel->set(

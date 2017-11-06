@@ -89,4 +89,9 @@ return [
         "blockType" => BlockModel::TYPE_IMAGE,
         "operation" => Operation::IMAGE_UPDATE_ALBUM,
     ],
+    [
+        "userId"    => 3,
+        "blockType" => BlockModel::TYPE_IMAGE,
+        "operation" => Operation::IMAGE_CREATE_ALBUM,
+    ],
 ];

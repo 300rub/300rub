@@ -2172,9 +2172,107 @@ class ImageControllerTest extends AbstractControllerTest
         $this->markTestSkipped();
     }
 
-    public function testCreateAlbum()
+    /**
+     * Test for the createAlbum method
+     *
+     * @param string $user
+     * @param array  $data
+     * @param bool   $hasError
+     * @param bool   $hasErrors
+     *
+     * @dataProvider dataProviderForTestCreateAlbum
+     */
+    public function testCreateAlbum($user, $data, $hasError, $hasErrors)
     {
-        $this->markTestSkipped();
+        $this->setUser($user);
+
+        $this->sendRequest("image", "album", $data, "POST");
+
+        if ($hasError === true) {
+            $this->assertError();
+        } elseif ($hasErrors === true) {
+            $this->assertErrors();
+        } else {
+            $expected = [
+                "result" => true
+            ];
+            $this->assertSame($expected, $this->getBody());
+            (new ImageGroupModel())->latest()->find()->delete();
+        }
+    }
+
+    /**
+     * Data provider for testCreateAlbum
+     *
+     * @return array
+     */
+    public function dataProviderForTestCreateAlbum()
+    {
+        return [
+            "admin"              => [
+                "user"      => self::TYPE_FULL,
+                "data"      => [
+                    "blockId" => 3,
+                    "name" => "New album name",
+                ],
+                "hasError"  => false,
+                "hasErrors" => false
+            ],
+            "limitedEmpty"       => [
+                "user"      => self::TYPE_LIMITED,
+                "data"      => [
+                    "blockId" => 3,
+                    "name" => "",
+                ],
+                "hasError"  => false,
+                "hasErrors" => true
+            ],
+            "limitedLongName"    => [
+                "user"      => self::TYPE_LIMITED,
+                "data"      => [
+                    "blockId" => 3,
+                    "name" => $this->generateStringWithLength(256),
+                ],
+                "hasError"  => false,
+                "hasErrors" => true
+            ],
+            "limited"            => [
+                "user"      => self::TYPE_LIMITED,
+                "data"      => [
+                    "blockId" => 3,
+                    "name" => "New album name",
+                ],
+                "hasError"  => false,
+                "hasErrors" => false
+            ],
+            "limitedIncorrectBlockId"            => [
+                "user"      => self::TYPE_LIMITED,
+                "data"      => [
+                    "blockId" => 1,
+                    "name" => "New album name",
+                ],
+                "hasError"  => true,
+                "hasErrors" => false
+            ],
+            "guest"              => [
+                "user"      => null,
+                "data"      => [
+                    "blockId" => 3,
+                    "name" => "New album name",
+                ],
+                "hasError"  => true,
+                "hasErrors" => false
+            ],
+            "blocked"            => [
+                "user"      => self::TYPE_BLOCKED_USER,
+                "data"      => [
+                    "blockId" => 3,
+                    "name" => "New album name",
+                ],
+                "hasError"  => true,
+                "hasErrors" => false
+            ],
+        ];
     }
 
     /**
