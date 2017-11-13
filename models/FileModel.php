@@ -291,4 +291,45 @@ class FileModel extends AbstractModel
 
         chmod($path, 0777);
     }
+
+    /**
+     * Deletes file by unique name
+     *
+     * @param $name
+     */
+    public static function deleteByUniqueName($name)
+    {
+        if (APP_ENV === ENV_DEV) {
+           self::_localDeleteByUniqueName($name);
+        } else {
+
+        }
+    }
+
+    /**
+     * Deletes file by unique name locally
+     *
+     * @param string $name
+     *
+     * @throws FileException
+     */
+    private static function _localDeleteByUniqueName($name)
+    {
+        $app = App::getInstance();
+
+        $path = sprintf(
+            $app->getConfig(["file", "pathMask"]),
+            $app->getSite()->getId(),
+            $name
+        );
+
+        if (file_exists($path) && !unlink($path)) {
+            throw new FileException(
+                "Unable to remove file by unique name: {name}",
+                [
+                    "name" => $name,
+                ]
+            );
+        }
+    }
 }

@@ -92,6 +92,20 @@ class ImageInstanceModel extends AbstractModel
     private $_thumbHeight = 0;
 
     /**
+     * Is view changed
+     *
+     * @var bool
+     */
+    private $_isViewChanged = false;
+
+    /**
+     * Is thumb changed
+     *
+     * @var bool
+     */
+    private $_isThumbChanged = false;
+
+    /**
      * Gets type list
      *
      * @return array
@@ -558,11 +572,22 @@ class ImageInstanceModel extends AbstractModel
      */
     public function update(array $data)
     {
+        $viewName = $this->get("viewFileModel")->get("uniqueName");
+        $thumbName = $this->get("thumbFileModel")->get("uniqueName");
+
         $this
             ->_setSizes($this->get("width"), $this->get("height"))
             ->_updateView($data)
             ->_updateThumb($data)
             ->_updateImage($data);
+
+        if ($this->_isViewChanged) {
+            FileModel::deleteByUniqueName($viewName);
+        }
+
+        if ($this->_isThumbChanged) {
+            FileModel::deleteByUniqueName($thumbName);
+        }
 
         return [
             "originalUrl" => $this->get("originalFileModel")->getUrl(),
@@ -621,6 +646,8 @@ class ImageInstanceModel extends AbstractModel
 
         $viewFileModel->save();
 
+        $this->_isViewChanged = true;
+
         return $this;
     }
 
@@ -678,6 +705,8 @@ class ImageInstanceModel extends AbstractModel
         $image->save($thumbFileModel->getTmpName());
 
         $thumbFileModel->save();
+
+        $this->_isThumbChanged = true;
 
         return $this;
     }

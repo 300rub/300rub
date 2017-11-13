@@ -2051,9 +2051,54 @@ class ImageControllerTest extends AbstractControllerTest
         ];
     }
 
-    public function testUpdateImage()
+    /**
+     * Test for updateImage action
+     *
+     * @param string $user
+     * @param string $file
+     * @param int    $blockId
+     * @param int    $albumId
+     * @param bool   $hasError
+     *
+     * @return bool
+     *
+     * @dataProvider dataProviderForTestUpdateImage
+     */
+    public function testUpdateImage($user, $file, $blockId, $albumId, $hasError = false)
     {
         $this->markTestSkipped();
+
+        // Create new one
+        $this->setUser(self::TYPE_FULL);
+        $this->sendFile("image", "image", $file, ["blockId" => $blockId, "imageAlbumId" => $albumId]);
+        $this->setUser($user);
+
+        // Gets parameters of created
+
+        // Make sure that files exist
+
+        // Update
+
+        // Checks parameters
+
+        // Compare urls
+
+        // Make sure new files exist
+
+        // Make sure old files don't exist
+    }
+
+    public function dataProviderForTestUpdateImage()
+    {
+        return [
+            [
+                "user"     => self::TYPE_LIMITED,
+                "file"     => "bigImage.jpg",
+                "blockId"  => 3,
+                "albumId"  => 1,
+                "hasError" => false
+            ]
+        ];
     }
 
     /**
@@ -2067,6 +2112,8 @@ class ImageControllerTest extends AbstractControllerTest
      */
     public function testDeleteImage($user, $hasError = false, $id = null)
     {
+        $this->markTestSkipped("Delete files");
+
         $this->setUser($user);
 
         $imageInstanceModel = new ImageInstanceModel();
