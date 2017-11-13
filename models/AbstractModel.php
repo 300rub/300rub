@@ -878,14 +878,11 @@ abstract class AbstractModel
     /**
      * Saves model in DB
      *
-     * @param string $where
-     * @param array  $parameters
-     *
      * @throws ModelException
      *
      * @return AbstractModel
      */
-    public final function save($where = null, array $parameters = [])
+    public final function save()
     {
         $this->_clearErrors();
         if (count($this->validate()->getErrors()) > 0) {
@@ -901,7 +898,7 @@ abstract class AbstractModel
             $this->_setFieldsForDbBeforeSave();
 
             if ($this->getId()) {
-                $this->_update($where, $parameters);
+                $this->_update();
             } else {
                 $this->_create();
             }
@@ -926,29 +923,41 @@ abstract class AbstractModel
 
     /**
      * Updates the record in DB
-     *
-     * @param string $where
-     * @param array  $parameters
      */
-    private function _update($where, array $parameters)
+    private function _update()
+    {
+        $this->getDb()
+            ->setWhere("id = :id")
+            ->addParameter("id", $this->getId())
+            ->update();
+    }
+
+    /**
+     * @param $data
+     * @param $where
+     * @param $parameters
+     *
+     * @return AbstractModel
+     */
+    protected function updateMany($data, $where, $parameters = [])
     {
         $db = $this->getDb();
 
-        if ($where === null) {
-            $db
-                ->setWhere("id = :id")
-                ->addParameter("id", $this->getId());
-        } else {
-            $db->setWhere($where);
-
-            if (count($parameters) > 0) {
-                foreach ($parameters as $parameterKey => $parameterValue) {
-                    $db->addParameter($parameterKey, $parameterValue);
-                }
+        $db->setWhere($where);
+        if (count($parameters) > 0) {
+            foreach ($parameters as $parameterKey => $parameterValue) {
+                $db->addParameter($parameterKey, $parameterValue);
             }
         }
 
-        $this->getDb()->update();
+        foreach ($data as $field => $parameter) {
+            $db->addField($field);
+            $db->addParameter($field, $parameter);
+        }
+
+        $db->update();
+
+        return $this;
     }
 
     /**

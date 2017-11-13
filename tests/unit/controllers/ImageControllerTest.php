@@ -2048,27 +2048,6 @@ class ImageControllerTest extends AbstractControllerTest
                 "albumId"  => 1,
                 "hasError" => true
             ],
-            "blockedPng"              => [
-                "user"     => self::TYPE_BLOCKED_USER,
-                "file"     => "bigImage.png",
-                "blockId"  => 3,
-                "albumId"  => 1,
-                "hasError" => true
-            ],
-            "guestJpg"                => [
-                "user"     => null,
-                "file"     => "bigImage.jpg",
-                "blockId"  => 3,
-                "albumId"  => 1,
-                "hasError" => true
-            ],
-            "guestPng"                => [
-                "user"     => null,
-                "file"     => "bigImage.png",
-                "blockId"  => 3,
-                "albumId"  => 1,
-                "hasError" => true
-            ],
         ];
     }
 
