@@ -2167,9 +2167,120 @@ class ImageControllerTest extends AbstractControllerTest
         ];
     }
 
-    public function testGetAlbum()
+    /**
+     * Test to get album
+     *
+     * @param string $user
+     * @param int    $blockId
+     * @param int    $id
+     * @param bool   $hasError
+     * @param bool   $hasErrors
+     * @param string $title
+     * @param string $name
+     * @param string $buttonLabel
+     *
+     * @dataProvider dataProviderForTestGetAlbum
+     *
+     * @return bool
+     */
+    public function testGetAlbum(
+        $user,
+        $blockId,
+        $id,
+        $hasError,
+        $hasErrors = false,
+        $title = null,
+        $name = null,
+        $buttonLabel = null
+    ) {
+        $this->setUser($user);
+
+        $this->sendRequest("image", "album", ["blockId" => $blockId, "id" => $id]);
+
+        if ($hasError === true) {
+            $this->assertError();
+            return true;
+        }
+
+        if ($hasErrors === true) {
+            $this->assertErrors();
+            return true;
+        }
+
+        $expected = [
+            "blockId" => $blockId,
+            "title"   => $title,
+            "forms"   => [
+                "name"   => [
+                    "name"       => "name",
+                    "label"      => "Name",
+                    "validation" => ["required" => "required", "maxLength" => 255],
+                    "value"      => $name,
+                ],
+                "button" => [
+                    "label" => $buttonLabel,
+                ]
+            ]
+        ];
+
+        $this->compareExpectedAndActual($expected, $this->getBody());
+
+        return true;
+    }
+
+    /**
+     * Data provider for testGetAlbum
+     *
+     * @return array
+     */
+    public function dataProviderForTestGetAlbum()
     {
-        $this->markTestSkipped();
+        return [
+            "userUpdateCorrect" => [
+                "user"      => self::TYPE_LIMITED,
+                "blockId"   => 3,
+                "id"        => 1,
+                "hasError"  => false,
+                "hasErrors" => false,
+                "title"     => "Update album",
+                "name"      => "Name",
+                $buttonLabel = "Update"
+            ],
+            "userCreateCorrect" => [
+                "user"      => self::TYPE_LIMITED,
+                "blockId"   => 3,
+                "id"        => 0,
+                "hasError"  => false,
+                "hasErrors" => false,
+                "title"     => "Create album",
+                "name"      => "",
+                $buttonLabel = "Add"
+            ],
+            "userUpdateIncorrectId" => [
+                "user"      => self::TYPE_LIMITED,
+                "blockId"   => 3,
+                "id"        => 999,
+                "hasError"  => true,
+            ],
+            "userUpdateIncorrectBlockId" => [
+                "user"      => self::TYPE_LIMITED,
+                "blockId"   => 999,
+                "id"        => 1,
+                "hasError"  => true,
+            ],
+            "noOperationUpdate" => [
+                "user"      => self::TYPE_NO_OPERATIONS_USER,
+                "blockId"   => 3,
+                "id"        => 1,
+                "hasError"  => true,
+            ],
+            "noOperationCreate" => [
+                "user"      => self::TYPE_NO_OPERATIONS_USER,
+                "blockId"   => 3,
+                "id"        => 0,
+                "hasError"  => true,
+            ],
+        ];
     }
 
     /**

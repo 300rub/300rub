@@ -648,7 +648,7 @@ class ImageController extends AbstractController
 
             $blockModel = BlockModel::getById($this->get("blockId"));
             $imageModel = $blockModel->getContentModel();
-            $imageGroupModel = (new ImageGroupModel())->byImageId($imageModel->getId())->byId($id);
+            $imageGroupModel = (new ImageGroupModel())->byImageId($imageModel->getId())->byId($id)->find();
 
             if ($imageGroupModel === null) {
                 throw new NotFoundException(
@@ -669,7 +669,7 @@ class ImageController extends AbstractController
             "id"      => $id,
             "title"   => Language::t(
                 "image",
-                $id === 0 ? "addAlbum" : "editAlbum"
+                $id === 0 ? "createAlbum" : "updateAlbum"
             ),
             "forms"   => [
                 "name"   => [
