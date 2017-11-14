@@ -173,7 +173,6 @@ class ImageInstanceModel extends AbstractModel
                 self::FIELD_TYPE             => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE            => [
                     ValueGenerator::MIN => 0,
-                    ValueGenerator::MAX => self::VIEW_MAX_SIZE
                 ],
                 self::FIELD_SKIP_DUPLICATION => true,
             ],
@@ -181,7 +180,6 @@ class ImageInstanceModel extends AbstractModel
                 self::FIELD_TYPE             => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE            => [
                     ValueGenerator::MIN => 0,
-                    ValueGenerator::MAX => self::VIEW_MAX_SIZE
                 ],
                 self::FIELD_SKIP_DUPLICATION => true,
             ],
@@ -189,7 +187,6 @@ class ImageInstanceModel extends AbstractModel
                 self::FIELD_TYPE             => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE            => [
                     ValueGenerator::MIN => 0,
-                    ValueGenerator::MAX => self::VIEW_MAX_SIZE
                 ],
                 self::FIELD_SKIP_DUPLICATION => true,
             ],
@@ -197,7 +194,6 @@ class ImageInstanceModel extends AbstractModel
                 self::FIELD_TYPE             => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE            => [
                     ValueGenerator::MIN => 0,
-                    ValueGenerator::MAX => self::VIEW_MAX_SIZE
                 ],
                 self::FIELD_SKIP_DUPLICATION => true,
             ],
@@ -205,7 +201,6 @@ class ImageInstanceModel extends AbstractModel
                 self::FIELD_TYPE             => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE            => [
                     ValueGenerator::MIN => 0,
-                    ValueGenerator::MAX => self::VIEW_MAX_SIZE
                 ],
                 self::FIELD_SKIP_DUPLICATION => true,
             ],
@@ -213,7 +208,6 @@ class ImageInstanceModel extends AbstractModel
                 self::FIELD_TYPE             => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE            => [
                     ValueGenerator::MIN => 0,
-                    ValueGenerator::MAX => self::VIEW_MAX_SIZE
                 ],
                 self::FIELD_SKIP_DUPLICATION => true,
             ],
@@ -221,7 +215,6 @@ class ImageInstanceModel extends AbstractModel
                 self::FIELD_TYPE             => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE            => [
                     ValueGenerator::MIN => 0,
-                    ValueGenerator::MAX => self::THUMB_MAX_SIZE
                 ],
                 self::FIELD_SKIP_DUPLICATION => true,
             ],
@@ -229,7 +222,6 @@ class ImageInstanceModel extends AbstractModel
                 self::FIELD_TYPE             => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE            => [
                     ValueGenerator::MIN => 0,
-                    ValueGenerator::MAX => self::THUMB_MAX_SIZE
                 ],
                 self::FIELD_SKIP_DUPLICATION => true,
             ],
@@ -237,7 +229,6 @@ class ImageInstanceModel extends AbstractModel
                 self::FIELD_TYPE             => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE            => [
                     ValueGenerator::MIN => 0,
-                    ValueGenerator::MAX => self::THUMB_MAX_SIZE
                 ],
                 self::FIELD_SKIP_DUPLICATION => true,
             ],
@@ -245,7 +236,6 @@ class ImageInstanceModel extends AbstractModel
                 self::FIELD_TYPE             => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE            => [
                     ValueGenerator::MIN => 0,
-                    ValueGenerator::MAX => self::THUMB_MAX_SIZE
                 ],
                 self::FIELD_SKIP_DUPLICATION => true,
             ],
@@ -416,7 +406,7 @@ class ImageInstanceModel extends AbstractModel
                 $viewHeight = $viewHeight / $k;
             }
 
-            if ($thumbWidth > self::VIEW_MAX_SIZE) {
+            if ($thumbWidth > self::THUMB_MAX_SIZE) {
                 $k = $thumbWidth / self::THUMB_MAX_SIZE;
                 $thumbWidth = self::THUMB_MAX_SIZE;
                 $thumbHeight = $thumbHeight / $k;
@@ -428,7 +418,7 @@ class ImageInstanceModel extends AbstractModel
                 $viewWidth = $viewWidth / $k;
             }
 
-            if ($thumbHeight > self::VIEW_MAX_SIZE) {
+            if ($thumbHeight > self::THUMB_MAX_SIZE) {
                 $k = $thumbHeight / self::THUMB_MAX_SIZE;
                 $thumbHeight = self::THUMB_MAX_SIZE;
                 $thumbWidth = $thumbWidth / $k;
@@ -576,7 +566,6 @@ class ImageInstanceModel extends AbstractModel
         $thumbName = $this->get("thumbFileModel")->get("uniqueName");
 
         $this
-            ->_setSizes($this->get("width"), $this->get("height"))
             ->_updateView($data)
             ->_updateThumb($data)
             ->_updateImage($data);
@@ -640,9 +629,28 @@ class ImageInstanceModel extends AbstractModel
             $image->rotate($data["angle"]);
         }
 
-        $image->crop($data["x1"], $data["y1"], $data["x2"] - $data["x1"], $data["y2"] - $data["y1"]);
-        $image->resize($this->_viewWidth, $this->_viewHeight);
+        $viewWidth = $data["x2"] - $data["x1"];
+        $viewHeight = $data["y2"] - $data["y1"];
+
+        $image->crop($data["x1"], $data["y1"], $viewWidth, $viewHeight);
+
+        if ($viewWidth > $viewHeight) {
+            if ($viewWidth > self::VIEW_MAX_SIZE) {
+                $k = $viewWidth / self::VIEW_MAX_SIZE;
+                $viewWidth = self::VIEW_MAX_SIZE;
+                $viewHeight = $viewHeight / $k;
+            }
+        } else {
+            if ($viewHeight > self::VIEW_MAX_SIZE) {
+                $k = $viewHeight / self::VIEW_MAX_SIZE;
+                $viewHeight = self::VIEW_MAX_SIZE;
+                $viewWidth = $viewWidth / $k;
+            }
+        }
+
+        $image->resize($viewWidth, $viewHeight);
         $image->save($viewFileModel->getTmpName());
+        $viewFileModel->upload();
 
         $viewFileModel->save();
 
@@ -670,7 +678,7 @@ class ImageInstanceModel extends AbstractModel
             return $this;
         }
 
-        $thumbFileModel = $this->get("viewFileModel");
+        $thumbFileModel = $this->get("thumbFileModel");
 
         $thumbFileModel->generateTmpName();
         $thumbFileModel->setUniqueName(
@@ -695,14 +703,34 @@ class ImageInstanceModel extends AbstractModel
             $image->rotate($data["angle"]);
         }
 
+        $thumbWidth = $data["thumbX2"] - $data["thumbX1"];
+        $thumbHeight = $data["thumbY2"] - $data["thumbY1"];
+
         $image->crop(
             $data["thumbX1"],
             $data["thumbY1"],
-            $data["thumbX2"] - $data["thumbX1"],
-            $data["thumbY2"] - $data["thumbY1"]
+            $thumbWidth,
+            $thumbHeight
         );
+
+        if ($thumbWidth > $thumbHeight) {
+            if ($thumbWidth > self::THUMB_MAX_SIZE) {
+                $k = $thumbWidth / self::THUMB_MAX_SIZE;
+                $thumbWidth = self::THUMB_MAX_SIZE;
+                $thumbHeight = $thumbHeight / $k;
+            }
+        } else {
+            if ($thumbHeight > self::THUMB_MAX_SIZE) {
+                $k = $thumbHeight / self::THUMB_MAX_SIZE;
+                $thumbHeight = self::THUMB_MAX_SIZE;
+                $thumbWidth = $thumbWidth / $k;
+            }
+        }
+        $this->_setSizes($thumbWidth, $thumbHeight);
+
         $image->resize($this->_thumbWidth, $this->_thumbHeight);
         $image->save($thumbFileModel->getTmpName());
+        $thumbFileModel->upload();
 
         $thumbFileModel->save();
 
@@ -720,19 +748,17 @@ class ImageInstanceModel extends AbstractModel
      */
     private function _updateImage(array $data)
     {
-        if ($data["isCover"] !== $this->get("isCover")) {
-            if ($data["isCover"] === true) {
-                $this->updateMany(
-                    ["isCover" => 0],
-                    "imageAlbumId = :imageAlbumId",
-                    ["imageAlbumId" => $this->get("imageAlbumId")]
-                );
-            }
-
-            $this->set(["isCover" => $data["isCover"]]);
+        if ($data["isCover"] !== $this->get("isCover")
+            && $data["isCover"] === true
+        ) {
+            $this->updateMany(
+                ["isCover" => 0],
+                "imageAlbumId = :imageAlbumId",
+                ["imageAlbumId" => $this->get("imageAlbumId")]
+            );
         }
 
-        $this->set(["alt" => $data["alt"]]);
+        $this->set($data);
         $this->save();
 
         return $this;

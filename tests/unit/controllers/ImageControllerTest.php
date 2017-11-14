@@ -2056,48 +2056,195 @@ class ImageControllerTest extends AbstractControllerTest
      *
      * @param string $user
      * @param string $file
-     * @param int    $blockId
-     * @param int    $albumId
+     * @param array  $data
      * @param bool   $hasError
      *
      * @return bool
      *
      * @dataProvider dataProviderForTestUpdateImage
      */
-    public function testUpdateImage($user, $file, $blockId, $albumId, $hasError = false)
+    public function testUpdateImage($user, $file, $data, $hasError = false)
     {
-        $this->markTestSkipped();
-
         // Create new one
         $this->setUser(self::TYPE_FULL);
-        $this->sendFile("image", "image", $file, ["blockId" => $blockId, "imageAlbumId" => $albumId]);
-        $this->setUser($user);
+        $this->sendFile("image", "image", $file, ["blockId" => $data["blockId"], "imageAlbumId" => 1]);
 
         // Gets parameters of created
+        $body = $this->getBody();
+        $id = $body["id"];
+        $originalFileName = explode("/", $body["originalUrl"]);
+        $originalFileName = end($originalFileName);
+        $viewFileName = explode("/", $body["viewUrl"]);
+        $viewFileName = end($viewFileName);
+        $thumbFileName = explode("/", $body["thumbUrl"]);
+        $thumbFileName = end($thumbFileName);
 
         // Make sure that files exist
+        $app = App::getInstance();
+        $this->assertFileExists(
+            sprintf(
+                $app->getConfig(["file", "pathMask"]),
+                $app->getSite()->getId(),
+                $originalFileName
+            )
+        );
+        $this->assertFileExists(
+            sprintf(
+                $app->getConfig(["file", "pathMask"]),
+                $app->getSite()->getId(),
+                $viewFileName
+            )
+        );
+        $this->assertFileExists(
+            sprintf(
+                $app->getConfig(["file", "pathMask"]),
+                $app->getSite()->getId(),
+                $thumbFileName
+            )
+        );
 
         // Update
+        $this->setUser($user);
+        $data["id"] = $id;
+        $this->sendRequest("image", "image", $data, "PUT");
 
-        // Checks parameters
+        if ($hasError === true) {
+            $this->assertError();
+            (new ImageInstanceModel())->byId($id)->find()->delete();
+            return true;
+        }
 
-        // Compare urls
+        // Compare
+        $body = $this->getBody();
+        $updatedOriginalFileName = explode("/", $body["originalUrl"]);
+        $updatedOriginalFileName = end($updatedOriginalFileName);
+        $updatedViewFileName = explode("/", $body["viewUrl"]);
+        $updatedViewFileName = end($updatedViewFileName);
+        $updatedThumbFileName = explode("/", $body["thumbUrl"]);
+        $updatedThumbFileName = end($updatedThumbFileName);
+        $this->assertSame($originalFileName, $updatedOriginalFileName);
+        $this->assertNotSame($viewFileName, $updatedViewFileName);
+        $this->assertNotSame($thumbFileName, $updatedThumbFileName);
 
         // Make sure new files exist
+        $this->assertFileExists(
+            sprintf(
+                $app->getConfig(["file", "pathMask"]),
+                $app->getSite()->getId(),
+                $updatedViewFileName
+            )
+        );
+        $this->assertFileExists(
+            sprintf(
+                $app->getConfig(["file", "pathMask"]),
+                $app->getSite()->getId(),
+                $updatedThumbFileName
+            )
+        );
 
         // Make sure old files don't exist
+        $this->assertFileNotExists(
+            sprintf(
+                $app->getConfig(["file", "pathMask"]),
+                $app->getSite()->getId(),
+                $viewFileName
+            )
+        );
+        $this->assertFileNotExists(
+            sprintf(
+                $app->getConfig(["file", "pathMask"]),
+                $app->getSite()->getId(),
+                $thumbFileName
+            )
+        );
+
+        // Check DB
+        $imageInstanceModel = (new ImageInstanceModel())->byId($id)->find();
+        $this->assertSame($data["isCover"], $imageInstanceModel->get("isCover"));
+        $this->assertSame($data["alt"], $imageInstanceModel->get("alt"));
+        $this->assertSame($data["x1"], $imageInstanceModel->get("x1"));
+        $this->assertSame($data["y1"], $imageInstanceModel->get("y1"));
+        $this->assertSame($data["x2"], $imageInstanceModel->get("x2"));
+        $this->assertSame($data["y2"], $imageInstanceModel->get("y2"));
+        $this->assertSame($data["thumbX1"], $imageInstanceModel->get("thumbX1"));
+        $this->assertSame($data["thumbY1"], $imageInstanceModel->get("thumbY1"));
+        $this->assertSame($data["thumbX2"], $imageInstanceModel->get("thumbX2"));
+        $this->assertSame($data["thumbY2"], $imageInstanceModel->get("thumbY2"));
+        $this->assertSame($data["angle"], $imageInstanceModel->get("angle"));
+        $this->assertSame($data["flip"], $imageInstanceModel->get("flip"));
+        $imageInstanceModel->delete();
+
+        return true;
     }
 
+    /**
+     * Data provider for testUpdateImage
+     *
+     * @return array
+     */
     public function dataProviderForTestUpdateImage()
     {
         return [
-            [
+            "userJpgCorrect" => [
                 "user"     => self::TYPE_LIMITED,
                 "file"     => "bigImage.jpg",
-                "blockId"  => 3,
-                "albumId"  => 1,
+                [
+                    "blockId" => 3,
+                    "isCover" => true,
+                    "alt"     => "New alt",
+                    "x1"      => 0,
+                    "y1"      => 0,
+                    "x2"      => 3000,
+                    "y2"      => 1000,
+                    "thumbX1" => 0,
+                    "thumbY1" => 0,
+                    "thumbX2" => 3000,
+                    "thumbY2" => 1000,
+                    "angle"   => 90,
+                    "flip"    => 3,
+                ],
                 "hasError" => false
-            ]
+            ],
+            "userPngCorrect"          => [
+                "user"     => self::TYPE_LIMITED,
+                "file"     => "bigImage.png",
+                [
+                    "blockId" => 3,
+                    "isCover" => true,
+                    "alt"     => "New alt",
+                    "x1"      => 0,
+                    "y1"      => 0,
+                    "x2"      => 3000,
+                    "y2"      => 1000,
+                    "thumbX1" => 0,
+                    "thumbY1" => 0,
+                    "thumbX2" => 3000,
+                    "thumbY2" => 1000,
+                    "angle"   => 90,
+                    "flip"    => 3,
+                ],
+                "hasError" => false
+            ],
+            "blockedJpg"              => [
+                "user"     => self::TYPE_BLOCKED_USER,
+                "file"     => "bigImage.jpg",
+                [
+                    "blockId" => 3,
+                    "isCover" => true,
+                    "alt"     => "New alt",
+                    "x1"      => 0,
+                    "y1"      => 0,
+                    "x2"      => 3000,
+                    "y2"      => 1000,
+                    "thumbX1" => 0,
+                    "thumbY1" => 0,
+                    "thumbX2" => 3000,
+                    "thumbY2" => 1000,
+                    "angle"   => 90,
+                    "flip"    => 3,
+                ],
+                "hasError" => true
+            ],
         ];
     }
 

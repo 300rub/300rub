@@ -215,10 +215,6 @@ class FileModel extends AbstractModel
      */
     public function setUniqueName($extension = "")
     {
-        if ($this->get("uniqueName") !== "") {
-            return $this;
-        }
-
         $uniqueName = self::_generateUniqueHash();
 
         if ($extension === "") {
