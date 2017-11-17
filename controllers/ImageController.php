@@ -440,10 +440,130 @@ class ImageController extends AbstractController
 
     /**
      * Gets block's content
+     *
+     * @return array
+     *
+     * @throws BadRequestException
      */
     public function getContent()
     {
-        // @TODO
+        $this->checkData(
+            [
+                "id" => [self::NOT_EMPTY],
+            ]
+        );
+
+        $this->checkBlockOperation(BlockModel::TYPE_IMAGE, $this->get("id"), Operation::IMAGE_UPDATE_CONTENT);
+
+        $blockModel = BlockModel::getById($this->get("id"));
+
+        $imageModel = $blockModel->getContentModel();
+        if (!$imageModel instanceof ImageModel) {
+            throw new BadRequestException(
+                "Incorrect image block to get content. ID: {id}. Block class: {class}",
+                [
+                    "id"    => $this->get("id"),
+                    "class" => get_class($imageModel),
+                ]
+            );
+        }
+
+        $list = [];
+        $groupId = (int) $this->get("groupId");
+        $data = [
+            "labels" => []
+        ];
+
+        if ($imageModel->get("useAlbums") === true
+            && !$groupId
+        ) {
+            $imageGroupModels = (new ImageGroupModel())->byImageId($imageModel->getId())->ordered("sort")->findAll();
+            foreach ($imageGroupModels as $imageGroupModel) {
+                $cover = (new ImageInstanceModel)->coverByGroupId($imageGroupModel->getId())->withRelations()->find();
+                if ($cover !== null) {
+                    $cover = [
+                        "id"  => $cover->getId(),
+                        "url" => $cover->get("thumbFileModel")->getUrl(),
+                        "alt" => $cover->get("alt"),
+                    ];
+                }
+                $list[] = [
+                    "id"    => $imageGroupModel->getId(),
+                    "name"  => $imageGroupModel->get("name"),
+                    "cover" => $cover
+                ];
+            }
+
+            return array_merge(
+                $data,
+                [
+                    "useAlbums"      => true,
+                    "canCreateAlbum" => $this->hasBlockOperation(
+                        BlockModel::TYPE_IMAGE,
+                        $this->get("id"),
+                        Operation::IMAGE_CREATE_ALBUM
+                    ),
+                    "canUpdateAlbum" => $this->hasBlockOperation(
+                        BlockModel::TYPE_IMAGE,
+                        $this->get("id"),
+                        Operation::IMAGE_UPDATE_ALBUM
+                    ),
+                    "canDeleteAlbum" => $this->hasBlockOperation(
+                        BlockModel::TYPE_IMAGE,
+                        $this->get("id"),
+                        Operation::IMAGE_DELETE_ALBUM
+                    ),
+                    "list"           => $list
+                ]
+            );
+        } else {
+            if ($imageModel->get("useAlbums") === true
+                && $groupId
+            ) {
+                $imageInstanceModels = (new ImageInstanceModel())
+                    ->byGroupId($groupId)
+                    ->ordered("sort")
+                    ->withRelations()
+                    ->findAll();
+            } else {
+                $imageInstanceModels = (new ImageInstanceModel())
+                    ->byImageId($imageModel->getId())
+                    ->ordered("sort")
+                    ->withRelations()
+                    ->findAll();
+            }
+
+            foreach ($imageInstanceModels as $imageInstanceModel) {
+                $list[] = [
+                    "id"  => $imageInstanceModel->getId(),
+                    "alt" => $imageInstanceModel->get("alt"),
+                    "url" => $imageInstanceModel->get("thumbFileModel")->getUrl()
+                ];
+            }
+
+            return array_merge(
+                $data,
+                [
+                    "useAlbums"      => false,
+                    "canUploadImage" => $this->hasBlockOperation(
+                        BlockModel::TYPE_IMAGE,
+                        $this->get("id"),
+                        Operation::IMAGE_UPLOAD
+                    ),
+                    "canUpdateImage" => $this->hasBlockOperation(
+                        BlockModel::TYPE_IMAGE,
+                        $this->get("id"),
+                        Operation::IMAGE_UPDATE
+                    ),
+                    "canDeleteImage" => $this->hasBlockOperation(
+                        BlockModel::TYPE_IMAGE,
+                        $this->get("id"),
+                        Operation::IMAGE_DELETE
+                    ),
+                    "list"           => $list
+                ]
+            );
+        }
     }
 
     /**

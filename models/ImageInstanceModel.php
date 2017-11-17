@@ -2,6 +2,7 @@
 
 namespace testS\models;
 
+use testS\components\Db;
 use testS\components\exceptions\FileException;
 use testS\components\Language;
 use testS\components\ValueGenerator;
@@ -760,6 +761,62 @@ class ImageInstanceModel extends AbstractModel
 
         $this->set($data);
         $this->save();
+
+        return $this;
+    }
+
+    /**
+     * Adds SQL condition to select cover
+     *
+     * @param int $groupId
+     *
+     * @return ImageInstanceModel
+     */
+    public function coverByGroupId($groupId)
+    {
+        $this->getDb()->addWhere("t.imageGroupId = :imageGroupId");
+        $this->getDb()->addParameter("imageGroupId", $groupId);
+        $this->getDb()->setOrder("t.isCover DESC, t.sort");
+        $this->getDb()->setLimit(1);
+
+        return $this;
+    }
+
+    /**
+     * Adds SQL condition by group ID
+     *
+     * @param int $groupId
+     *
+     * @return ImageInstanceModel
+     */
+    public function byGroupId($groupId)
+    {
+        $this->getDb()->addWhere("t.imageGroupId = :imageGroupId");
+        $this->getDb()->addParameter("imageGroupId", $groupId);
+
+        return $this;
+    }
+
+    /**
+     * Adds SQL condition by image ID
+     *
+     * @param int $imageId
+     *
+     * @return ImageInstanceModel
+     */
+    public function byImageId($imageId)
+    {
+        $this->getDb()->addJoin(
+            "imageGroups",
+            "imageGroups",
+            Db::DEFAULT_ALIAS,
+            self::PK_FIELD,
+            Db::JOIN_TYPE_INNER,
+            "imageGroupId"
+        );
+
+        $this->getDb()->addWhere(sprintf("%s.imageId = :imageId", "imageGroups"));
+        $this->getDb()->addParameter("imageId", $imageId);
 
         return $this;
     }
