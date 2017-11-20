@@ -1,3 +1,4 @@
+- Operation dependencies (parentId) + code logic (update image -> delete image)
 - Logging user changes
 - True / false operations save
 

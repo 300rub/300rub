@@ -1813,9 +1813,132 @@ class ImageControllerTest extends AbstractControllerTest
         $this->markTestSkipped();
     }
 
-    public function testGetContent()
+    /**
+     * Test for method getContent
+     *
+     * @param string $user
+     * @param int    $blockId
+     * @param bool   $hasError
+     * @param array  $expected
+     * @param int    $groupId
+     *
+     * @dataProvider dataProviderForTestGetContent
+     *
+     * @return bool
+     */
+    public function testGetContent($user, $blockId, $hasError, $expected, $groupId = null)
     {
-        $this->markTestSkipped();
+        $this->setUser($user);
+
+        $data = [
+            "id" => $blockId
+        ];
+        if ($groupId !== null) {
+            $data["groupId"] = $groupId;
+        }
+
+        $this->sendRequest("image", "content", $data);
+
+        if ($hasError === true) {
+            $this->assertError();
+            return true;
+        }
+
+        $this->compareExpectedAndActual($expected, $this->getBody());
+
+        return true;
+    }
+
+    /**
+     * Data provider for testGetContent
+     *
+     * @return array
+     */
+    public function dataProviderForTestGetContent()
+    {
+        return [
+            "userCorrectAlbums" => [
+                "user"     => self::TYPE_LIMITED,
+                "blockId"  => 5,
+                "hasError" => false,
+                "expected" => [
+                    "labels"         => [],
+                    "useAlbums"      => true,
+                    "canCreateAlbum" => true,
+                    "canUpdateAlbum" => true,
+                    "canDeleteAlbum" => true,
+                    "list"           => [
+                        [
+                            "id"    => 4,
+                            "name"  => "Name 1",
+                            "cover" => []
+                        ],
+                        [
+                            "id"    => 5,
+                            "name"  => "Name 2",
+                            "cover" => null
+                        ]
+                    ]
+                ]
+            ],
+            "userCorrectAlbum" => [
+                "user"     => self::TYPE_LIMITED,
+                "blockId"  => 5,
+                "hasError" => false,
+                "expected" => [
+                    "labels"         => [],
+                    "useAlbums"      => false,
+                    "canUploadImage" => true,
+                    "canUpdateImage" => true,
+                    "canDeleteImage" => true,
+                    "list"           => [
+                        [
+                            "id"  => 3,
+                            "alt" => "",
+                        ],
+                        [
+                            "id"  => 4,
+                            "alt" => "",
+                        ]
+                    ]
+                ],
+                "groupId"  => 4,
+            ],
+            "userCorrectWithoutAlbums" => [
+                "user" => self::TYPE_LIMITED,
+                "blockId"  => 3,
+                "hasError" => false,
+                "expected" => []
+            ],
+            "userIncorrectBlock" => [
+                "user"     => self::TYPE_LIMITED,
+                "blockId"  => 1,
+                "hasError" => true,
+                "expected" => [
+                    "labels"         => [],
+                    "useAlbums"      => false,
+                    "canUploadImage" => true,
+                    "canUpdateImage" => true,
+                    "canDeleteImage" => true,
+                    "list"           => [
+                        [
+                            "id"  => 1,
+                            "alt" => "",
+                        ],
+                        [
+                            "id"  => 2,
+                            "alt" => "",
+                        ]
+                    ]
+                ]
+            ],
+            "withoutOperations"  => [
+                "user"     => self::TYPE_NO_OPERATIONS_USER,
+                "blockId"  => 5,
+                "hasError" => true,
+                "expected" => []
+            ]
+        ];
     }
 
     public function testUpdateContent()
@@ -1839,7 +1962,7 @@ class ImageControllerTest extends AbstractControllerTest
         $imageInstanceModel = new ImageInstanceModel();
         $imageInstanceModel->set(
             [
-                "imageAlbumId"      => 1,
+                "imageGroupId"      => 1,
                 "originalFileModel" => [
                     "uniqueName" => "new_file.jpg",
                 ],
@@ -1911,11 +2034,6 @@ class ImageControllerTest extends AbstractControllerTest
                 "hasError" => true,
                 "id"       => 9999
             ],
-            "adminIncorrectFormat" => [
-                "user"     => self::TYPE_FULL,
-                "hasError" => true,
-                "id"       => "1"
-            ],
             "limited"              => [
                 "user"     => self::TYPE_LIMITED,
                 "hasError" => false,
@@ -1950,7 +2068,7 @@ class ImageControllerTest extends AbstractControllerTest
     public function testCreateImage($user, $file, $blockId, $albumId, $hasError = false)
     {
         $this->setUser($user);
-        $this->sendFile("image", "image", $file, ["blockId" => $blockId, "imageAlbumId" => $albumId]);
+        $this->sendFile("image", "image", $file, ["blockId" => $blockId, "imageGroupId" => $albumId]);
 
         if ($hasError === true) {
             $this->assertError();
@@ -2067,7 +2185,7 @@ class ImageControllerTest extends AbstractControllerTest
     {
         // Create new one
         $this->setUser(self::TYPE_FULL);
-        $this->sendFile("image", "image", $file, ["blockId" => $data["blockId"], "imageAlbumId" => 1]);
+        $this->sendFile("image", "image", $file, ["blockId" => $data["blockId"], "imageGroupId" => 1]);
 
         // Gets parameters of created
         $body = $this->getBody();
@@ -2266,7 +2384,7 @@ class ImageControllerTest extends AbstractControllerTest
         $imageInstanceModel = new ImageInstanceModel();
         $imageInstanceModel->set(
             [
-                "imageAlbumId"      => 1,
+                "imageGroupId"      => 1,
                 "originalFileModel" => [
                     "uniqueName" => "new_file.jpg",
                 ],

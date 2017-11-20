@@ -8,7 +8,7 @@ return [
      */
     1  => [
         "fileName"     => "0000000000000001",
-        "imageAlbumId" => 1,
+        "imageGroupId" => 1,
         "isCover"      => 0,
         "sort"         => 1,
         "alt"          => "Simple image 1",
@@ -30,7 +30,7 @@ return [
      */
     2  => [
         "fileName"     => "0000000000000002",
-        "imageAlbumId" => 1,
+        "imageGroupId" => 1,
         "isCover"      => 0,
         "sort"         => 2,
         "alt"          => "Simple image 2",
@@ -52,7 +52,7 @@ return [
      */
     3  => [
         "fileName"     => "0000000000000003",
-        "imageAlbumId" => 1,
+        "imageGroupId" => 1,
         "isCover"      => 0,
         "sort"         => 3,
         "alt"          => "Simple image 3",
@@ -76,7 +76,7 @@ return [
      */
     4  => [
         "fileName"     => "0000000000000004",
-        "imageAlbumId" => 2,
+        "imageGroupId" => 2,
         "isCover"      => 0,
         "sort"         => 1,
         "alt"          => "FancyBox image 1",
@@ -100,7 +100,7 @@ return [
      */
     5  => [
         "fileName"     => "0000000000000005",
-        "imageAlbumId" => 2,
+        "imageGroupId" => 2,
         "isCover"      => 0,
         "sort"         => 2,
         "alt"          => "FancyBox image 2",
@@ -124,7 +124,7 @@ return [
      */
     6  => [
         "fileName"     => "0000000000000006",
-        "imageAlbumId" => 2,
+        "imageGroupId" => 2,
         "isCover"      => 0,
         "sort"         => 3,
         "alt"          => "FancyBox image 3",
@@ -148,7 +148,7 @@ return [
      */
     7  => [
         "fileName"     => "0000000000000007",
-        "imageAlbumId" => 3,
+        "imageGroupId" => 3,
         "isCover"      => 0,
         "sort"         => 1,
         "alt"          => "Slider image 1",
@@ -172,7 +172,7 @@ return [
      */
     8  => [
         "fileName"     => "0000000000000008",
-        "imageAlbumId" => 3,
+        "imageGroupId" => 3,
         "isCover"      => 0,
         "sort"         => 2,
         "alt"          => "Slider image 2",
@@ -196,7 +196,7 @@ return [
      */
     9  => [
         "fileName"     => "0000000000000009",
-        "imageAlbumId" => 3,
+        "imageGroupId" => 3,
         "isCover"      => 0,
         "sort"         => 3,
         "alt"          => "Slider image 3",
@@ -220,7 +220,7 @@ return [
      */
     10 => [
         "fileName"     => "0000000000000010",
-        "imageAlbumId" => 4,
+        "imageGroupId" => 4,
         "isCover"      => 0,
         "sort"         => 1,
         "alt"          => "Simple album 1, image 1",
@@ -244,7 +244,7 @@ return [
      */
     11 => [
         "fileName"     => "0000000000000011",
-        "imageAlbumId" => 4,
+        "imageGroupId" => 4,
         "isCover"      => 0,
         "sort"         => 2,
         "alt"          => "Simple album 1, image 2",
@@ -268,7 +268,7 @@ return [
      */
     12 => [
         "fileName"     => "0000000000000012",
-        "imageAlbumId" => 4,
+        "imageGroupId" => 4,
         "isCover"      => 0,
         "sort"         => 3,
         "alt"          => "Simple album 1, image 3",
@@ -292,7 +292,7 @@ return [
      */
     13 => [
         "fileName"     => "0000000000000013",
-        "imageAlbumId" => 5,
+        "imageGroupId" => 5,
         "isCover"      => 0,
         "sort"         => 1,
         "alt"          => "Simple album 2, image 1",
@@ -316,7 +316,7 @@ return [
      */
     14 => [
         "fileName"     => "0000000000000014",
-        "imageAlbumId" => 5,
+        "imageGroupId" => 5,
         "isCover"      => 1,
         "sort"         => 2,
         "alt"          => "Simple album 2, image 2",
@@ -340,7 +340,7 @@ return [
      */
     15 => [
         "fileName"     => "0000000000000015",
-        "imageAlbumId" => 5,
+        "imageGroupId" => 5,
         "isCover"      => 0,
         "sort"         => 3,
         "alt"          => "Simple album 2, image 3",
@@ -364,7 +364,7 @@ return [
      */
     16 => [
         "fileName"     => "0000000000000016",
-        "imageAlbumId" => 6,
+        "imageGroupId" => 6,
         "isCover"      => 0,
         "sort"         => 1,
         "alt"          => "FancyBox album 1, image 1",
@@ -388,7 +388,7 @@ return [
      */
     17 => [
         "fileName"     => "0000000000000017",
-        "imageAlbumId" => 6,
+        "imageGroupId" => 6,
         "isCover"      => 0,
         "sort"         => 2,
         "alt"          => "FancyBox album 1, image 2",
@@ -412,7 +412,7 @@ return [
      */
     18 => [
         "fileName"     => "0000000000000018",
-        "imageAlbumId" => 6,
+        "imageGroupId" => 6,
         "isCover"      => 0,
         "sort"         => 3,
         "alt"          => "FancyBox album 1, image 3",
@@ -436,7 +436,7 @@ return [
      */
     19 => [
         "fileName"     => "0000000000000019",
-        "imageAlbumId" => 7,
+        "imageGroupId" => 7,
         "isCover"      => 0,
         "sort"         => 1,
         "alt"          => "FancyBox album 2, image 1",
@@ -460,7 +460,7 @@ return [
      */
     20 => [
         "fileName"     => "0000000000000020",
-        "imageAlbumId" => 7,
+        "imageGroupId" => 7,
         "isCover"      => 1,
         "sort"         => 2,
         "alt"          => "FancyBox album 2, image 2",
@@ -484,7 +484,7 @@ return [
      */
     21 => [
         "fileName"     => "0000000000000021",
-        "imageAlbumId" => 7,
+        "imageGroupId" => 7,
         "isCover"      => 0,
         "sort"         => 3,
         "alt"          => "FancyBox album 2, image 3",
@@ -508,7 +508,7 @@ return [
      */
     22 => [
         "fileName"     => "0000000000000022",
-        "imageAlbumId" => 8,
+        "imageGroupId" => 8,
         "isCover"      => 0,
         "sort"         => 1,
         "alt"          => "Slider album 1, image 1",
@@ -532,7 +532,7 @@ return [
      */
     23 => [
         "fileName"     => "0000000000000023",
-        "imageAlbumId" => 8,
+        "imageGroupId" => 8,
         "isCover"      => 0,
         "sort"         => 2,
         "alt"          => "Slider album 1, image 2",
@@ -556,7 +556,7 @@ return [
      */
     24 => [
         "fileName"     => "0000000000000024",
-        "imageAlbumId" => 8,
+        "imageGroupId" => 8,
         "isCover"      => 0,
         "sort"         => 3,
         "alt"          => "Slider album 1, image 3",
@@ -580,7 +580,7 @@ return [
      */
     25 => [
         "fileName"     => "0000000000000025",
-        "imageAlbumId" => 9,
+        "imageGroupId" => 9,
         "isCover"      => 0,
         "sort"         => 1,
         "alt"          => "Slider album 2, image 1",
@@ -604,7 +604,7 @@ return [
      */
     26 => [
         "fileName"     => "0000000000000026",
-        "imageAlbumId" => 9,
+        "imageGroupId" => 9,
         "isCover"      => 1,
         "sort"         => 2,
         "alt"          => "Slider album 2, image 2",
@@ -628,7 +628,7 @@ return [
      */
     27 => [
         "fileName"     => "0000000000000027",
-        "imageAlbumId" => 9,
+        "imageGroupId" => 9,
         "isCover"      => 0,
         "sort"         => 3,
         "alt"          => "Slider album 2, image 3",

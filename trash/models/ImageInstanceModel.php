@@ -48,15 +48,15 @@
 ///**
 // * Add condition for select by image ID
 // *
-// * @param integer $imageAlbumId ImageAlbum ID
+// * @param integer $imageGroupId ImageAlbum ID
 // *
 // * @return ImageInstanceModel
 // */
-//public function byAlbumId($imageAlbumId = 0)
+//public function byAlbumId($imageGroupId = 0)
 //{
 //    $this->getDb()
-//        ->addWhere("imageAlbumId = :imageAlbumId")
-//        ->addParameter("imageAlbumId", $imageAlbumId);
+//        ->addWhere("imageGroupId = :imageGroupId")
+//        ->addParameter("imageGroupId", $imageGroupId);
 //
 //    return $this;
 //}

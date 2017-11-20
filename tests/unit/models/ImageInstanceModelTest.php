@@ -39,7 +39,7 @@ class ImageInstanceModelTest extends AbstractModelTest
             ],
             "empty2" => [
                 [
-                    "imageAlbumId" => "",
+                    "imageGroupId" => "",
                     "originalFileModel"    => "",
                     "viewFileModel"    => "",
                     "thumbFileModel"    => "",
@@ -81,7 +81,7 @@ class ImageInstanceModelTest extends AbstractModelTest
             ],
             "empty4" => [
                 [
-                    "imageAlbumId" => 1,
+                    "imageGroupId" => 1,
                     "originalFileModel" => [
                         "uniqueName" => "file.jpg",
                     ],
@@ -93,7 +93,7 @@ class ImageInstanceModelTest extends AbstractModelTest
                     ]
                 ],
                 [
-                    "imageAlbumId" => 1,
+                    "imageGroupId" => 1,
                     "originalFileModel" => [
                         "uniqueName" => "file.jpg",
                     ],
@@ -131,7 +131,7 @@ class ImageInstanceModelTest extends AbstractModelTest
         return [
             "correct1" => [
                 [
-                    "imageAlbumId" => 1,
+                    "imageGroupId" => 1,
                     "originalFileModel" => [
                         "uniqueName" => "file.jpg",
                     ],
@@ -156,7 +156,7 @@ class ImageInstanceModelTest extends AbstractModelTest
                     "thumbY2"      => 45,
                 ],
                 [
-                    "imageAlbumId" => 1,
+                    "imageGroupId" => 1,
                     "originalFileModel" => [
                         "uniqueName" => "file.jpg",
                     ],
@@ -181,7 +181,7 @@ class ImageInstanceModelTest extends AbstractModelTest
                     "thumbY2"      => 45,
                 ],
                 [
-                    "imageAlbumId" => 1,
+                    "imageGroupId" => 1,
                     "originalFileModel" => [
                         "uniqueName" => "file2.jpg",
                     ],
@@ -206,7 +206,7 @@ class ImageInstanceModelTest extends AbstractModelTest
                     "thumbY2"      => 145,
                 ],
                 [
-                    "imageAlbumId" => 1,
+                    "imageGroupId" => 1,
                     "originalFileModel" => [
                         "uniqueName" => "file2.jpg",
                     ],
@@ -244,7 +244,7 @@ class ImageInstanceModelTest extends AbstractModelTest
         return [
             "incorrect1" => [
                 [
-                    "imageAlbumId" => "incorrect",
+                    "imageGroupId" => "incorrect",
                     "originalFileModel" => [
                         "uniqueName" => "incorrect",
                     ],
@@ -275,7 +275,7 @@ class ImageInstanceModelTest extends AbstractModelTest
             ],
             "incorrect2" => [
                 [
-                    "imageAlbumId" => "1 ",
+                    "imageGroupId" => "1 ",
                     "originalFileModel" => [
                         "uniqueName" => "<b> 123 </b>",
                     ],
@@ -300,7 +300,7 @@ class ImageInstanceModelTest extends AbstractModelTest
                     "thumbY2"      => "incorrect",
                 ],
                 [
-                    "imageAlbumId" => 1,
+                    "imageGroupId" => 1,
                     "originalFileModel" => [
                         "uniqueName" => "123",
                     ],
@@ -349,7 +349,7 @@ class ImageInstanceModelTest extends AbstractModelTest
             ],
             "incorrect3" => [
                 [
-                    "imageAlbumId" => "1 ",
+                    "imageGroupId" => "1 ",
                     "originalFileModel" => [
                         "uniqueName" => 12345
                     ],
@@ -374,7 +374,7 @@ class ImageInstanceModelTest extends AbstractModelTest
                     "thumbY2"      => 9999,
                 ],
                 [
-                    "imageAlbumId" => 1,
+                    "imageGroupId" => 1,
                     "originalFileModel" => [
                         "uniqueName" => "12345",
                     ],
@@ -414,7 +414,7 @@ class ImageInstanceModelTest extends AbstractModelTest
                     "thumbY2" => -10,
                 ],
                 [
-                    "imageAlbumId" => 1,
+                    "imageGroupId" => 1,
                     "originalFileModel" => [
                         "uniqueName" => "12345",
                     ],
@@ -451,7 +451,7 @@ class ImageInstanceModelTest extends AbstractModelTest
     {
         $this->duplicate(
             [
-                "imageAlbumId" => 1,
+                "imageGroupId" => 1,
                 "originalFileModel" => [
                     "uniqueName" => "file.jpg",
                 ],

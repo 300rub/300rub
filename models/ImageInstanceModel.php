@@ -139,7 +139,7 @@ class ImageInstanceModel extends AbstractModel
     public function getFieldsInfo()
     {
         return [
-            "imageAlbumId"   => [
+            "imageGroupId"   => [
                 self::FIELD_RELATION_TO_PARENT => "ImageGroupModel",
                 self::FIELD_SKIP_DUPLICATION   => true,
             ],
@@ -288,8 +288,8 @@ class ImageInstanceModel extends AbstractModel
      */
     private function _checkBeforeUpload()
     {
-        if ($this->get("imageAlbumId") === 0) {
-            throw new FileException("Unable to upload image because imageAlbumId is 0");
+        if ($this->get("imageGroupId") === 0) {
+            throw new FileException("Unable to upload image because imageGroupId is 0");
         }
 
         return $this;
@@ -754,8 +754,8 @@ class ImageInstanceModel extends AbstractModel
         ) {
             $this->updateMany(
                 ["isCover" => 0],
-                "imageAlbumId = :imageAlbumId",
-                ["imageAlbumId" => $this->get("imageAlbumId")]
+                "imageGroupId = :imageGroupId",
+                ["imageGroupId" => $this->get("imageGroupId")]
             );
         }
 
@@ -810,8 +810,6 @@ class ImageInstanceModel extends AbstractModel
             "imageGroups",
             "imageGroups",
             Db::DEFAULT_ALIAS,
-            self::PK_FIELD,
-            Db::JOIN_TYPE_INNER,
             "imageGroupId"
         );
 

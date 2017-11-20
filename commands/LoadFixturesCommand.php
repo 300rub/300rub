@@ -2,8 +2,8 @@
 
 namespace testS\commands;
 
-use testS\applications\App;
 use testS\components\Db;
+use testS\components\Language;
 use testS\models\AbstractModel;
 
 /**
@@ -13,6 +13,8 @@ use testS\models\AbstractModel;
  */
 class LoadFixturesCommand extends AbstractCommand
 {
+
+	private static $_fileData = [];
 
     /**
      * Order of fixtures loading
@@ -64,17 +66,6 @@ class LoadFixturesCommand extends AbstractCommand
 	 */
 	public static function load()
 	{
-		// Files
-//		$siteId = App::getInstance()->getConfig()->siteId;
-//		$uploadFilesFolder = __DIR__ . "/../public/upload/{$siteId}";
-//		exec("rm -r {$uploadFilesFolder}");
-//		$copyFilesFolder = __DIR__ . "/../fixtures/files";
-//		if (!file_exists(__DIR__ . "/../public/upload")) {
-//			mkdir(__DIR__ . "/../public/upload", 0777);
-//		}
-//		exec("cp -r {$copyFilesFolder} {$uploadFilesFolder}");
-//		chmod($uploadFilesFolder, 0777);
-
         Db::setLocalhostPdo();
 
 		// DB
@@ -91,6 +82,87 @@ class LoadFixturesCommand extends AbstractCommand
 				$model = new $modelName;
 				$model->set($record);
 				$model->save();
+			}
+		}
+
+		// Files
+		$map = require(__DIR__ . "/../fixtures/files/map.php");
+		foreach ($map as $data) {
+			if (array_key_exists("mimeType", $data)) {
+				$mimeType = $data["mimeType"];
+			} else {
+				$mimeType = "application/octet-stream";
+			}
+			if (array_key_exists("language", $data)) {
+				$language = $data["language"];
+			} else {
+				$language = Language::LANGUAGE_EN_ID;
+			}
+
+			self::sendFile(
+				$data["controller"],
+				$data["action"],
+				$data["file"],
+				$data["data"],
+				$mimeType,
+				$language
+			);
+		}
+	}
+
+	/**
+	 * Sends a file
+	 *
+	 * @param string $controller
+	 * @param string $action
+	 * @param string $fileName
+	 * @param array  $data
+	 * @param string $mimeType
+	 * @param int    $language
+	 */
+	private static function sendFile(
+		$controller,
+		$action,
+		$fileName,
+		array $data = [],
+		$mimeType = "application/octet-stream",
+		$language = Language::LANGUAGE_EN_ID
+	) {
+		$host = trim(shell_exec("/sbin/ip route|awk '/default/ { print $3 }'"));
+
+		self::$_fileData = [];
+		self::_setFileData($data);
+		$postData = array(
+			"token"      => "c4ca4238a0b923820dcc509a6f75849b",
+			"controller" => $controller,
+			"action"     => $action,
+			"language"   => $language,
+			'file'       => curl_file_create(__DIR__ . '/../fixtures/files/' . $fileName, $mimeType)
+		);
+		$postData = array_merge($postData, self::$_fileData);
+
+		$curl = curl_init();
+		curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+		curl_setopt($curl, CURLOPT_URL, $host . "/api/");
+		curl_setopt($curl, CURLOPT_POSTFIELDS, $postData);
+		curl_setopt($curl, CURLOPT_HTTPHEADER, array("Content-type: multipart/form-data"));
+
+		curl_exec($curl);
+	}
+
+	/**
+	 * Sets file data
+	 *
+	 * @param array  $data
+	 * @param string $prefix
+	 */
+	private static function _setFileData(array $data, $prefix = "data")
+	{
+		foreach ($data as $key => $value) {
+			if (is_array($value)) {
+				self::_setFileData($value, sprintf("%s[%s]", $prefix, $key));
+			} else {
+				self::$_fileData[sprintf("%s[%s]", $prefix, $key)] = $value;
 			}
 		}
 	}

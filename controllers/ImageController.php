@@ -638,14 +638,14 @@ class ImageController extends AbstractController
         $this->checkData(
             [
                 "blockId"      => [self::NOT_EMPTY],
-                "imageAlbumId" => [self::NOT_EMPTY],
+                "imageGroupId" => [self::NOT_EMPTY],
             ]
         );
 
         $this->checkBlockOperation(BlockModel::TYPE_IMAGE, $this->get("blockId"), Operation::IMAGE_UPLOAD);
 
         $imageInstanceModel = new ImageInstanceModel();
-        $imageInstanceModel->set(["imageAlbumId" => $this->get("imageAlbumId")]);
+        $imageInstanceModel->set(["imageGroupId" => $this->get("imageGroupId")]);
 
         return $imageInstanceModel->upload();
     }

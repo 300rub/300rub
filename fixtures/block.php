@@ -25,4 +25,10 @@ return [
         "contentType" => 2,
         "contentId"   => 2,
     ],
+    5 => [
+        "name"        => "Zoom image with albums",
+        "language"    => 1,
+        "contentType" => 2,
+        "contentId"   => 3,
+    ],
 ];

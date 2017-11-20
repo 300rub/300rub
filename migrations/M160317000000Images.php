@@ -97,7 +97,7 @@ class M160317000000Images extends AbstractMigration
                 "imageInstances",
                 [
                     "id"             => self::TYPE_PK,
-                    "imageAlbumId"   => self::TYPE_FK,
+                    "imageGroupId"   => self::TYPE_FK,
                     "originalFileId" => self::TYPE_FK,
                     "viewFileId"     => self::TYPE_FK,
                     "thumbFileId"    => self::TYPE_FK,
@@ -118,7 +118,7 @@ class M160317000000Images extends AbstractMigration
                     "flip"           => self::TYPE_TINYINT_UNSIGNED,
                 ]
             )
-            ->createForeignKey("imageInstances", "imageAlbumId", "imageGroups", self::FK_CASCADE, self::FK_CASCADE)
+            ->createForeignKey("imageInstances", "imageGroupId", "imageGroups", self::FK_CASCADE, self::FK_CASCADE)
             ->createForeignKey("imageInstances", "originalFileId", "files")
             ->createForeignKey("imageInstances", "viewFileId", "files")
             ->createForeignKey("imageInstances", "thumbFileId", "files")
