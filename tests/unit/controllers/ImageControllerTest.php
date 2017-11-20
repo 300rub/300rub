@@ -1941,9 +1941,92 @@ class ImageControllerTest extends AbstractControllerTest
         ];
     }
 
-    public function testUpdateContent()
+    /**
+     * Test for method updateContent
+     *
+     * @param string $user
+     * @param array  $data
+     * @param bool   $hasError
+     *
+     * @return bool
+     *
+     * @dataProvider dataProviderForTestUpdateContent
+     */
+    public function testUpdateContent($user, $data, $hasError)
     {
-        $this->markTestSkipped();
+        $this->setUser($user);
+
+        $this->sendRequest("image", "content", $data, "PUT");
+
+        if ($hasError === true) {
+            $this->assertError();
+            return true;
+        }
+        
+        $this->assertSame(
+            [
+                "result" => true
+            ],
+            $this->getBody()
+        );
+
+        return true;
+    }
+
+    /**
+     * Data provider for testUpdateContent
+     *
+     * @return array
+     */
+    public function dataProviderForTestUpdateContent()
+    {
+        return [
+            "userUpdateAlbums" => [
+                "user"     => self::TYPE_LIMITED,
+                "data"     => [
+                    "id"      => 4,
+                    "groupId" => 0,
+                    "list"    => [2, 3],
+                ],
+                "hasError" => false,
+            ],
+            "userUpdateImages" => [
+                "user"     => self::TYPE_LIMITED,
+                "data"     => [
+                    "id"      => 3,
+                    "groupId" => 0,
+                    "list"    => [1, 2],
+                ],
+                "hasError" => false,
+            ],
+            "userUpdateAlbum" => [
+                "user"     => self::TYPE_LIMITED,
+                "data"     => [
+                    "id"      => 3,
+                    "groupId" => 1,
+                    "list"    => [1, 2],
+                ],
+                "hasError" => false,
+            ],
+            "userUpdateAlbumIncorrect" => [
+                "user"     => self::TYPE_LIMITED,
+                "data"     => [
+                    "id"      => 3,
+                    "groupId" => 1,
+                    "list"    => [1, 2, 9999],
+                ],
+                "hasError" => true,
+            ],
+            "userWithNoOperations" => [
+                "user"     => self::TYPE_NO_OPERATIONS_USER,
+                "data"     => [
+                    "id"      => 4,
+                    "groupId" => 0,
+                    "list"    => [2, 3],
+                ],
+                "hasError" => true,
+            ],
+        ];
     }
 
     /**

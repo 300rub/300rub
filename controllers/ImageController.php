@@ -7,6 +7,7 @@ use testS\components\exceptions\NotFoundException;
 use testS\components\Language;
 use testS\components\Operation;
 use testS\components\ValueGenerator;
+use testS\models\AbstractModel;
 use testS\models\BlockModel;
 use testS\models\FileModel;
 use testS\models\ImageGroupModel;
@@ -568,10 +569,83 @@ class ImageController extends AbstractController
 
     /**
      * Updates block's content
+     *
+     * @return array
+     *
+     * @throws BadRequestException
      */
     public function updateContent()
     {
-        // @TODO
+        $this->checkData(
+            [
+                "id"      => [self::TYPE_INT, self::NOT_EMPTY],
+                "groupId" => [self::TYPE_INT],
+                "list"    => [self::TYPE_ARRAY]
+            ]
+        );
+
+        $this->checkBlockOperation(BlockModel::TYPE_IMAGE, $this->get("id"), Operation::IMAGE_UPDATE_CONTENT);
+
+        $blockModel = BlockModel::getById($this->get("id"));
+
+        $imageModel = $blockModel->getContentModel();
+        if (!$imageModel instanceof ImageModel) {
+            throw new BadRequestException(
+                "Incorrect image block to update content. ID: {id}. Block class: {class}",
+                [
+                    "id"    => $this->get("id"),
+                    "class" => get_class($imageModel),
+                ]
+            );
+        }
+
+        if ($imageModel->get("useAlbums")) {
+            $groupId = $this->get("groupId");
+
+            if ($groupId === 0) {
+                $models = $imageInstanceModels = (new ImageGroupModel())
+                    ->byImageId($imageModel->getId())
+                    ->findAll();
+            } else {
+                $models = (new ImageInstanceModel())
+                    ->byGroupId($groupId)
+                    ->findAll();
+            }
+        } else {
+            $models = $imageInstanceModels = (new ImageInstanceModel())
+                ->byImageId($imageModel->getId())
+                ->findAll();
+        }
+
+        $modelList = [];
+        foreach ($models as $model) {
+            $modelList[$model->getId()] = $model;
+        }
+
+        $list = $this->get("list");
+        $sort = 10;
+        foreach ($list as $item) {
+            if (!array_key_exists($item, $modelList)) {
+                throw new BadRequestException(
+                    "Unable to find model with ID: {id}",
+                    [
+                        "id" => $item,
+                    ]
+                );
+            }
+
+            /**
+             * @var AbstractModel $model
+             */
+            $model = $modelList[$item];
+            $model
+                ->set(["sort" => $sort])
+                ->save();
+
+            $sort += 10;
+        }
+
+        return $this->getSimpleSuccessResult();
     }
 
     /**
