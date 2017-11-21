@@ -111,4 +111,12 @@ return [
         Language::LANGUAGE_EN_ID => "Update album",
         Language::LANGUAGE_RU_ID => "",
     ],
+    "designTitle"    => [
+        Language::LANGUAGE_EN_ID => "Image design",
+        Language::LANGUAGE_RU_ID => "",
+    ],
+    "designDescription"   => [
+        Language::LANGUAGE_EN_ID => "You can configure image's design",
+        Language::LANGUAGE_RU_ID => "",
+    ],
 ];

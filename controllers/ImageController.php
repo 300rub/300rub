@@ -428,7 +428,62 @@ class ImageController extends AbstractController
      */
     public function getDesign()
     {
-        // @TODO
+        $this->checkData(
+            [
+                "id" => [self::NOT_EMPTY],
+            ]
+        );
+
+        $id = (int) $this->get("id");
+
+        $this->checkBlockOperation(BlockModel::TYPE_IMAGE, $id, Operation::IMAGE_UPDATE_DESIGN);
+
+        $blockModel = BlockModel::getById($id);
+
+        $imageModel = $blockModel->getContentModel(true);
+        if (!$imageModel instanceof ImageModel) {
+            throw new BadRequestException(
+                "Block content model is not an image. ID: {id}. Block type: {type}",
+                [
+                    "id"           => $id,
+                    "contentClass" => get_class($imageModel),
+                ]
+            );
+        }
+
+//        $data = [];
+//        switch ($imageModel->get("type")) {
+//            case ImageModel::TYPE_SIMPLE:
+//
+//                $data[] =
+//                break;
+//            case ImageModel::TYPE_SLIDER:
+//
+//                break;
+//            default:
+//
+//                break;
+//        }
+//
+//        return [
+//            "id"          => $id,
+//            "controller"  => "image",
+//            "action"      => "design",
+//            "title"       => Language::t("image", "designTitle"),
+//            "description" => Language::t("image", "designDescription"),
+//            "list"        => [
+//                [
+//                    "title" => Language::t("text", "designTitle"),
+//                    "data"  => [
+//                        $designBlockModel->getDesign($cssSelector),
+//                        $designTextModel->getDesign($cssSelector),
+//                    ]
+//                ]
+//            ],
+//            "button"     => [
+//                "label" => Language::t("common", "save"),
+//            ]
+//        ];
     }
 
     /**

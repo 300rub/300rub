@@ -45,7 +45,6 @@
          * @private
          */
         _onLoadDataSuccess: function(data) {
-            var listLength = data["list"].length;
             var designs = [];
             var id = data["id"];
             var controller = data["controller"];
@@ -75,7 +74,7 @@
                     designs.push(design);
                 });
 
-                //if (listLength > 1) {
+                //if (data["list"].length > 1) {
                     var groupAccordionElement = new TestS.Accordion.Element(groupData["title"]);
                     groupAccordionElement.add(groupContainer);
                     groupAccordionElement.appendTo(this._panel.getBody());
