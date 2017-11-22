@@ -39,15 +39,11 @@ class DesignImageSimpleModelTest extends AbstractModelTest
                     "imageDesignBlockModel"     => [
                         "marginTop" => 0
                     ],
-                    "designTextModel"           => [
-                        "size" => 0
-                    ],
                     "alignment"                 => 0
                 ],
                 [
                     "containerDesignBlockModel" => "",
                     "imageDesignBlockModel"     => "",
-                    "designTextModel"           => "",
                     "alignment"                 => "",
                 ],
                 [
@@ -57,9 +53,6 @@ class DesignImageSimpleModelTest extends AbstractModelTest
                     "imageDesignBlockModel"     => [
                         "marginTop" => 0
                     ],
-                    "designTextModel"           => [
-                        "size" => 0
-                    ],
                     "alignment"                 => 0
                 ],
             ],
@@ -67,7 +60,6 @@ class DesignImageSimpleModelTest extends AbstractModelTest
                 [
                     "containerDesignBlockModel" => null,
                     "imageDesignBlockModel"     => null,
-                    "designTextModel"           => null,
                     "alignment"                 => null,
                 ],
                 [
@@ -77,15 +69,11 @@ class DesignImageSimpleModelTest extends AbstractModelTest
                     "imageDesignBlockModel"     => [
                         "marginTop" => 0
                     ],
-                    "designTextModel"           => [
-                        "size" => 0
-                    ],
                     "alignment"                 => 0
                 ],
                 [
                     "containerDesignBlockModel" => " ",
                     "imageDesignBlockModel"     => " ",
-                    "designTextModel"           => " ",
                     "alignment"                 => " ",
                 ],
                 [
@@ -95,9 +83,6 @@ class DesignImageSimpleModelTest extends AbstractModelTest
                     "imageDesignBlockModel"     => [
                         "marginTop" => 0
                     ],
-                    "designTextModel"           => [
-                        "size" => 0
-                    ],
                     "alignment"                 => 0
                 ],
             ],
@@ -105,7 +90,6 @@ class DesignImageSimpleModelTest extends AbstractModelTest
                 [
                     "containerDesignBlockId" => " ",
                     "imageDesignBlockId"     => " ",
-                    "designTextId"           => " ",
                     "alignment"              => " ",
                 ],
                 [
@@ -115,15 +99,11 @@ class DesignImageSimpleModelTest extends AbstractModelTest
                     "imageDesignBlockModel"     => [
                         "marginTop" => 0
                     ],
-                    "designTextModel"           => [
-                        "size" => 0
-                    ],
                     "alignment"                 => 0
                 ],
                 [
                     "containerDesignBlockId" => null,
                     "imageDesignBlockId"     => null,
-                    "designTextId"           => null,
                     "alignment"              => null,
                 ],
                 [
@@ -132,9 +112,6 @@ class DesignImageSimpleModelTest extends AbstractModelTest
                     ],
                     "imageDesignBlockModel"     => [
                         "marginTop" => 0
-                    ],
-                    "designTextModel"           => [
-                        "size" => 0
                     ],
                     "alignment"                 => 0
                 ],
@@ -147,9 +124,6 @@ class DesignImageSimpleModelTest extends AbstractModelTest
                     "imageDesignBlockModel"     => [
                         "marginTop" => " "
                     ],
-                    "designTextModel"           => [
-                        "size" => " "
-                    ],
                 ],
                 [
                     "containerDesignBlockModel" => [
@@ -157,16 +131,12 @@ class DesignImageSimpleModelTest extends AbstractModelTest
                     ],
                     "imageDesignBlockModel"     => [
                         "marginTop" => 0
-                    ],
-                    "designTextModel"           => [
-                        "size" => 0
                     ],
                     "alignment"                 => 0
                 ],
                 [
                     "containerDesignBlockModel" => [],
                     "imageDesignBlockModel"     => [],
-                    "designTextModel"           => [],
                 ],
                 [
                     "containerDesignBlockModel" => [
@@ -174,9 +144,6 @@ class DesignImageSimpleModelTest extends AbstractModelTest
                     ],
                     "imageDesignBlockModel"     => [
                         "marginTop" => 0
-                    ],
-                    "designTextModel"           => [
-                        "size" => 0
                     ],
                     "alignment"                 => 0
                 ],
@@ -206,9 +173,6 @@ class DesignImageSimpleModelTest extends AbstractModelTest
                         "borderColorHover"         => "rgb(0,255,0)",
                         "backgroundColorFromHover" => "rgba(255,0,255,0.5)",
                     ],
-                    "designTextModel"           => [
-                        "size" => 20
-                    ],
                     "alignment"                 => 1
                 ],
                 [
@@ -224,9 +188,6 @@ class DesignImageSimpleModelTest extends AbstractModelTest
                         "borderColorHover"         => "rgb(0,255,0)",
                         "backgroundColorFromHover" => "rgba(255,0,255,0.5)",
                     ],
-                    "designTextModel"           => [
-                        "size" => 20
-                    ],
                     "alignment"                 => 1
                 ],
                 [
@@ -241,9 +202,6 @@ class DesignImageSimpleModelTest extends AbstractModelTest
                         "borderBottomWidth"        => 4,
                         "borderColorHover"         => "rgb(255,0,0)",
                         "backgroundColorFromHover" => "rgba(0,0,255,0.7)",
-                    ],
-                    "designTextModel"           => [
-                        "size" => 30
                     ],
                     "alignment"                 => 2
                 ],
@@ -259,9 +217,6 @@ class DesignImageSimpleModelTest extends AbstractModelTest
                         "borderBottomWidth"        => 4,
                         "borderColorHover"         => "rgb(255,0,0)",
                         "backgroundColorFromHover" => "rgba(0,0,255,0.7)",
-                    ],
-                    "designTextModel"           => [
-                        "size" => 30
                     ],
                     "alignment"                 => 2
                 ],
@@ -281,7 +236,6 @@ class DesignImageSimpleModelTest extends AbstractModelTest
                 [
                     "containerDesignBlockModel" => "incorrect",
                     "imageDesignBlockModel"     => "incorrect",
-                    "designTextModel"           => "incorrect",
                     "alignment"                 => "incorrect",
                 ],
                 [
@@ -290,9 +244,6 @@ class DesignImageSimpleModelTest extends AbstractModelTest
                     ],
                     "imageDesignBlockModel"     => [
                         "marginTop" => 0
-                    ],
-                    "designTextModel"           => [
-                        "size" => 0
                     ],
                     "alignment"                 => 0
                 ],
@@ -347,9 +298,6 @@ class DesignImageSimpleModelTest extends AbstractModelTest
                     "borderColorHover"         => "rgb(0,255,0)",
                     "backgroundColorFromHover" => "rgba(255,0,255,0.5)",
                 ],
-                "designTextModel"           => [
-                    "size" => 20
-                ],
                 "alignment"                 => 1
             ],
             [
@@ -364,9 +312,6 @@ class DesignImageSimpleModelTest extends AbstractModelTest
                     "borderBottomWidth"        => 7,
                     "borderColorHover"         => "rgb(0,255,0)",
                     "backgroundColorFromHover" => "rgba(255,0,255,0.5)",
-                ],
-                "designTextModel"           => [
-                    "size" => 20
                 ],
                 "alignment"                 => 1
             ]

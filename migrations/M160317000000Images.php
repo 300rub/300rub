@@ -22,13 +22,11 @@ class M160317000000Images extends AbstractMigration
                     "id"                     => self::TYPE_PK,
                     "containerDesignBlockId" => self::TYPE_FK,
                     "imageDesignBlockId"     => self::TYPE_FK,
-                    "designTextId"           => self::TYPE_FK,
                     "alignment"              => self::TYPE_TINYINT_UNSIGNED,
                 ]
             )
             ->createForeignKey("designImageSimple", "containerDesignBlockId", "designBlocks")
             ->createForeignKey("designImageSimple", "imageDesignBlockId", "designBlocks")
-            ->createForeignKey("designImageSimple", "designTextId", "designTexts")
             ->createTable(
                 "designImageZooms",
                 [

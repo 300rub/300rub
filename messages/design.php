@@ -75,4 +75,16 @@ return [
         Language::LANGUAGE_EN_ID => "All their equipment and instruments are alive.",
         Language::LANGUAGE_RU_ID => "",
     ],
+    "imagesContainer" => [
+        Language::LANGUAGE_EN_ID => "Images container",
+        Language::LANGUAGE_RU_ID => "",
+    ],
+    "imageBlock" => [
+        Language::LANGUAGE_EN_ID => "Image block",
+        Language::LANGUAGE_RU_ID => "",
+    ],
+    "image" => [
+        Language::LANGUAGE_EN_ID => "Image",
+        Language::LANGUAGE_RU_ID => "",
+    ],
 ];

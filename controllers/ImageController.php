@@ -9,6 +9,7 @@ use testS\components\Operation;
 use testS\components\ValueGenerator;
 use testS\models\AbstractModel;
 use testS\models\BlockModel;
+use testS\models\DesignBlockModel;
 use testS\models\FileModel;
 use testS\models\ImageGroupModel;
 use testS\models\ImageInstanceModel;
@@ -425,6 +426,10 @@ class ImageController extends AbstractController
 
     /**
      * Gets block's design
+     *
+     * @return array
+     *
+     * @throws BadRequestException
      */
     public function getDesign()
     {
@@ -434,7 +439,7 @@ class ImageController extends AbstractController
             ]
         );
 
-        $id = (int) $this->get("id");
+        $id = (int)$this->get("id");
 
         $this->checkBlockOperation(BlockModel::TYPE_IMAGE, $id, Operation::IMAGE_UPDATE_DESIGN);
 
@@ -451,39 +456,42 @@ class ImageController extends AbstractController
             );
         }
 
-//        $data = [];
-//        switch ($imageModel->get("type")) {
-//            case ImageModel::TYPE_SIMPLE:
-//
-//                $data[] =
-//                break;
-//            case ImageModel::TYPE_SLIDER:
-//
-//                break;
-//            default:
-//
-//                break;
-//        }
-//
-//        return [
-//            "id"          => $id,
-//            "controller"  => "image",
-//            "action"      => "design",
-//            "title"       => Language::t("image", "designTitle"),
-//            "description" => Language::t("image", "designDescription"),
-//            "list"        => [
-//                [
-//                    "title" => Language::t("text", "designTitle"),
-//                    "data"  => [
-//                        $designBlockModel->getDesign($cssSelector),
-//                        $designTextModel->getDesign($cssSelector),
-//                    ]
-//                ]
-//            ],
-//            "button"     => [
-//                "label" => Language::t("common", "save"),
-//            ]
-//        ];
+        $data = [
+            $imageModel->get("designBlockModel")->getDesign(sprintf(".block-%s", $id))
+        ];
+
+        $cssSelector = sprintf(".image-%s", $imageModel->getId());
+        switch ($imageModel->get("type")) {
+            case ImageModel::TYPE_SIMPLE:
+                $data = array_merge(
+                    $data,
+                    $imageModel->get("designImageSimpleModel")->getDesign($cssSelector)
+                );
+                break;
+            case ImageModel::TYPE_SLIDER:
+
+                break;
+            default:
+
+                break;
+        }
+
+        return [
+            "id"          => $id,
+            "controller"  => "image",
+            "action"      => "design",
+            "title"       => Language::t("image", "designTitle"),
+            "description" => Language::t("image", "designDescription"),
+            "list"        => [
+                [
+                    "title" => Language::t("image", "designTitle"),
+                    "data"  => $data
+                ]
+            ],
+            "button"      => [
+                "label" => Language::t("common", "save"),
+            ]
+        ];
     }
 
     /**

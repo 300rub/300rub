@@ -2,7 +2,9 @@
 
 namespace testS\models;
 
+use testS\components\Language;
 use testS\components\ValueGenerator;
+use testS\components\View;
 
 /**
  * Model for working with table "designImageSimple"
@@ -11,6 +13,9 @@ use testS\components\ValueGenerator;
  */
 class DesignImageSimpleModel extends AbstractModel
 {
+
+    // Type
+    const TYPE = "image-simple";
 
     /**
      * Alignments
@@ -30,6 +35,18 @@ class DesignImageSimpleModel extends AbstractModel
             self::ALIGNMENT_LEFT   => "",
             self::ALIGNMENT_CENTER => "",
             self::ALIGNMENT_RIGHT  => ""
+        ];
+    }
+
+    /**
+     * Gets labels
+     *
+     * @return array
+     */
+    public static function getLabels()
+    {
+        return [
+
         ];
     }
 
@@ -57,14 +74,50 @@ class DesignImageSimpleModel extends AbstractModel
             "imageDesignBlockId" => [
                 self::FIELD_RELATION => "DesignBlockModel"
             ],
-            "designTextId"       => [
-                self::FIELD_RELATION => "DesignTextModel"
-            ],
             "alignment"          => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
                     ValueGenerator::ARRAY_KEY => [self::getAlignmentList(), self::ALIGNMENT_LEFT]
                 ],
+            ]
+        ];
+    }
+
+    /**
+     * Gets design
+     *
+     * @param string $selector
+     * @param string $namespace
+     *
+     * @return array
+     */
+    public function getDesign($selector, $namespace = null)
+    {
+        if ($namespace === null) {
+            $namespace = "designImageSimpleModel";
+        }
+
+        return [
+            $this->get("containerDesignBlockModel")->getDesign(
+                $selector,
+                $namespace . ".containerDesignBlockModel",
+                ["id"],
+                Language::t("design", "imagesContainer")
+            ),
+            $this->get("imageDesignBlockModel")->getDesign(
+                $selector . " .image-instance",
+                $namespace . ".imageDesignBlockModel",
+                ["id"],
+                Language::t("design", "imageBlock")
+            ),
+            [
+                "selector"  => $selector,
+                "id"        => View::generateCssId($selector, self::TYPE),
+                "type"      => self::TYPE,
+                "title"     => Language::t("design", "image"),
+                "namespace" => $namespace,
+                "labels"    => self::getLabels(),
+                "values"    => $this->get(null, ["id"]),
             ]
         ];
     }
