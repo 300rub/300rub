@@ -68,9 +68,6 @@ class ImageModelTest extends AbstractModelTest
                         "imageDesignBlockModel"     => [
                             "marginTop" => 0
                         ],
-                        "designTextModel"           => [
-                            "size" => 0
-                        ],
                         "alignment"                 => 0
                     ],
                     "type"                   => 0,
@@ -137,9 +134,6 @@ class ImageModelTest extends AbstractModelTest
                         ],
                         "imageDesignBlockModel"     => [
                             "marginTop" => 0
-                        ],
-                        "designTextModel"           => [
-                            "size" => 0
                         ],
                         "alignment"                 => 0
                     ],
@@ -215,9 +209,6 @@ class ImageModelTest extends AbstractModelTest
                         "imageDesignBlockModel"     => [
                             "marginTop" => 0
                         ],
-                        "designTextModel"           => [
-                            "size" => 0
-                        ],
                         "alignment"                 => 0
                     ],
                     "type"                   => 0,
@@ -280,9 +271,6 @@ class ImageModelTest extends AbstractModelTest
                         "imageDesignBlockModel"     => [
                             "marginTop" => 30
                         ],
-                        "designTextModel"           => [
-                            "size" => 40
-                        ],
                         "alignment"                 => 1
                     ],
                     "type"                   => 1,
@@ -331,9 +319,6 @@ class ImageModelTest extends AbstractModelTest
                         ],
                         "imageDesignBlockModel"     => [
                             "marginTop" => 30
-                        ],
-                        "designTextModel"           => [
-                            "size" => 40
                         ],
                         "alignment"                 => 1
                     ],
@@ -555,9 +540,6 @@ class ImageModelTest extends AbstractModelTest
                     "imageDesignBlockModel"     => [
                         "marginTop" => 30
                     ],
-                    "designTextModel"           => [
-                        "size" => 40
-                    ],
                     "alignment"                 => 1
                 ],
                 "type"                   => 1,
@@ -606,9 +588,6 @@ class ImageModelTest extends AbstractModelTest
                     ],
                     "imageDesignBlockModel"     => [
                         "marginTop" => 30
-                    ],
-                    "designTextModel"           => [
-                        "size" => 40
                     ],
                     "alignment"                 => 1
                 ],

@@ -4,7 +4,7 @@ use testS\models\ImageModel;
 
 return [
     1 => [
-        "type"              => ImageModel::TYPE_ZOOM,
+        "type"              => ImageModel::TYPE_SIMPLE,
         "autoCropType"      => ImageModel::AUTO_CROP_TYPE_NONE,
         "cropWidth"         => 0,
         "cropHeight"        => 0,

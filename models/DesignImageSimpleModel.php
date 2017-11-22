@@ -117,7 +117,9 @@ class DesignImageSimpleModel extends AbstractModel
                 "title"     => Language::t("design", "image"),
                 "namespace" => $namespace,
                 "labels"    => self::getLabels(),
-                "values"    => $this->get(null, ["id"]),
+                "values"    => [
+                    "alignment" => $this->get("alignment")
+                ],
             ]
         ];
     }

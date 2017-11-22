@@ -469,10 +469,8 @@ class ImageController extends AbstractController
                 );
                 break;
             case ImageModel::TYPE_SLIDER:
-
                 break;
             default:
-
                 break;
         }
 

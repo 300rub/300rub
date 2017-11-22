@@ -69,9 +69,6 @@ class RecordModelTest extends AbstractModelTest
                             "imageDesignBlockModel"     => [
                                 "marginTop" => 0
                             ],
-                            "designTextModel"           => [
-                                "size" => 0
-                            ],
                             "alignment"                 => 0
                         ],
                         "type"                   => 0,
@@ -120,9 +117,6 @@ class RecordModelTest extends AbstractModelTest
                             ],
                             "imageDesignBlockModel"     => [
                                 "marginTop" => 0
-                            ],
-                            "designTextModel"           => [
-                                "size" => 0
                             ],
                             "alignment"                 => 0
                         ],
@@ -259,9 +253,6 @@ class RecordModelTest extends AbstractModelTest
                             "imageDesignBlockModel"     => [
                                 "marginTop" => 10
                             ],
-                            "designTextModel"           => [
-                                "size" => 10
-                            ],
                             "alignment"                 => 1
                         ],
                         "type"                   => 1,
@@ -310,9 +301,6 @@ class RecordModelTest extends AbstractModelTest
                             ],
                             "imageDesignBlockModel"     => [
                                 "marginTop" => 1
-                            ],
-                            "designTextModel"           => [
-                                "size" => 20
                             ],
                             "alignment"                 => 1
                         ],
@@ -436,9 +424,6 @@ class RecordModelTest extends AbstractModelTest
                             "imageDesignBlockModel"     => [
                                 "marginTop" => 10
                             ],
-                            "designTextModel"           => [
-                                "size" => 10
-                            ],
                             "alignment"                 => 1
                         ],
                         "type"                   => 1,
@@ -487,9 +472,6 @@ class RecordModelTest extends AbstractModelTest
                             ],
                             "imageDesignBlockModel"     => [
                                 "marginTop" => 1
-                            ],
-                            "designTextModel"           => [
-                                "size" => 20
                             ],
                             "alignment"                 => 1
                         ],
@@ -612,9 +594,6 @@ class RecordModelTest extends AbstractModelTest
                             ],
                             "imageDesignBlockModel"     => [
                                 "marginTop" => 30
-                            ],
-                            "designTextModel"           => [
-                                "size" => 30
                             ],
                             "alignment"                 => 0
                         ],
@@ -664,9 +643,6 @@ class RecordModelTest extends AbstractModelTest
                             ],
                             "imageDesignBlockModel"     => [
                                 "marginTop" => 30
-                            ],
-                            "designTextModel"           => [
-                                "size" => 30
                             ],
                             "alignment"                 => 0
                         ],
@@ -790,9 +766,6 @@ class RecordModelTest extends AbstractModelTest
                             "imageDesignBlockModel"     => [
                                 "marginTop" => 30
                             ],
-                            "designTextModel"           => [
-                                "size" => 30
-                            ],
                             "alignment"                 => 0
                         ],
                         "type"                   => 0,
@@ -841,9 +814,6 @@ class RecordModelTest extends AbstractModelTest
                             ],
                             "imageDesignBlockModel"     => [
                                 "marginTop" => 30
-                            ],
-                            "designTextModel"           => [
-                                "size" => 30
                             ],
                             "alignment"                 => 0
                         ],
@@ -1033,9 +1003,6 @@ class RecordModelTest extends AbstractModelTest
                         "imageDesignBlockModel"     => [
                             "marginTop" => 10
                         ],
-                        "designTextModel"           => [
-                            "size" => 10
-                        ],
                         "alignment"                 => 1
                     ],
                     "type"                   => 1,
@@ -1084,9 +1051,6 @@ class RecordModelTest extends AbstractModelTest
                         ],
                         "imageDesignBlockModel"     => [
                             "marginTop" => 1
-                        ],
-                        "designTextModel"           => [
-                            "size" => 20
                         ],
                         "alignment"                 => 1
                     ],
@@ -1210,9 +1174,6 @@ class RecordModelTest extends AbstractModelTest
                         "imageDesignBlockModel"     => [
                             "marginTop" => 10
                         ],
-                        "designTextModel"           => [
-                            "size" => 10
-                        ],
                         "alignment"                 => 1
                     ],
                     "type"                   => 1,
@@ -1261,9 +1222,6 @@ class RecordModelTest extends AbstractModelTest
                         ],
                         "imageDesignBlockModel"     => [
                             "marginTop" => 1
-                        ],
-                        "designTextModel"           => [
-                            "size" => 20
                         ],
                         "alignment"                 => 1
                     ],

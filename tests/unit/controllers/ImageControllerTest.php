@@ -32,7 +32,7 @@ class ImageControllerTest extends AbstractControllerTest
      *
      * @dataProvider dataProviderForTestGetBlocks
      */
-    public function testGetBlocks(
+    public function estGetBlocks(
         $user,
         $displayBlocksFromSection,
         $hasError,
@@ -249,7 +249,7 @@ class ImageControllerTest extends AbstractControllerTest
      *
      * @dataProvider dataProviderForTestGetBlock
      */
-    public function testGetBlock(
+    public function estGetBlock(
         $user,
         $id,
         $hasError,
@@ -367,7 +367,7 @@ class ImageControllerTest extends AbstractControllerTest
                 "hasError"          => false,
                 "title"             => "Edit image",
                 "name"              => "Zoom image",
-                "type"              => 0,
+                "type"              => 2,
                 "autoCropType"      => 0,
                 "cropWidth"         => 0,
                 "cropHeight"        => 0,
@@ -483,7 +483,7 @@ class ImageControllerTest extends AbstractControllerTest
                 "hasError"          => false,
                 "title"             => "Edit image",
                 "name"              => "Zoom image",
-                "type"              => 0,
+                "type"              => 2,
                 "autoCropType"      => 0,
                 "cropWidth"         => 0,
                 "cropHeight"        => 0,
@@ -531,7 +531,7 @@ class ImageControllerTest extends AbstractControllerTest
      *
      * @dataProvider dataProviderForTestCreateBlock
      */
-    public function testCreateBlock($user, $data, $hasError = false, $hasValidationErrors = false)
+    public function estCreateBlock($user, $data, $hasError = false, $hasValidationErrors = false)
     {
         $imageModelCountBefore = (new ImageModel())->getCount();
         $blockModelCountBefore = (new BlockModel())->getCount();
@@ -1068,7 +1068,7 @@ class ImageControllerTest extends AbstractControllerTest
      *
      * @dataProvider dataProviderForTestUpdateBlock
      */
-    public function testUpdateBlock($user, $data, $hasError = false, $hasValidationErrors = false)
+    public function estUpdateBlock($user, $data, $hasError = false, $hasValidationErrors = false)
     {
         $imageModel = new ImageModel();
         $imageModel->save();
@@ -1602,7 +1602,7 @@ class ImageControllerTest extends AbstractControllerTest
      *
      * @dataProvider dataProviderForTestDeleteBlock
      */
-    public function testDeleteBlock($user, $id = null, $hasError = false)
+    public function estDeleteBlock($user, $id = null, $hasError = false)
     {
         $this->setUser($user);
 
@@ -1721,7 +1721,7 @@ class ImageControllerTest extends AbstractControllerTest
      *
      * @dataProvider dataProviderForTestCreateBlockDuplication
      */
-    public function testCreateBlockDuplication($user, $id = null, $hasError = false)
+    public function estCreateBlockDuplication($user, $id = null, $hasError = false)
     {
         $this->setUser($user);
 
@@ -1803,12 +1803,577 @@ class ImageControllerTest extends AbstractControllerTest
         ];
     }
 
-    public function testGetDesign()
+    /**
+     * Test for method getDesign
+     *
+     * @param string $user
+     * @param int    $id
+     * @param bool   $hasError
+     * @param array  $expected
+     *
+     * @dataProvider dataProviderForTestGetDesign
+     *
+     * @return bool
+     */
+    public function testGetDesign($user, $id, $hasError, $expected)
     {
-        $this->markTestSkipped();
+        $this->setUser($user);
+
+        $this->sendRequest("image", "design", ["id" => $id]);
+
+        if ($hasError === true) {
+            $this->assertError();
+            return true;
+        }
+
+        $this->compareExpectedAndActual($expected, $this->getBody());
+
+        return true;
     }
 
-    public function testUpdateDesign()
+    /**
+     * Data provider for testGetDesign
+     *
+     * @return array
+     */
+    public function dataProviderForTestGetDesign()
+    {
+        return [
+            "userSimple" => [
+                "user"     => self::TYPE_LIMITED,
+                "id"       => 3,
+                "hasError" => false,
+                "expected" => [
+
+                ]
+            ]
+        ];
+    }
+
+//
+//["id"]=>
+//[exec]   int(3)
+//[exec]   ["controller"]=>
+//[exec]   string(5) "image"
+//[exec]   ["action"]=>
+//[exec]   string(6) "design"
+//[exec]   ["title"]=>
+//[exec]   string(12) "Image design"
+//[exec]   ["description"]=>
+//[exec]   string(32) "You can configure image's design"
+//[exec]   ["list"]=>
+//[exec]   array(1) {
+//[exec]     [0]=>
+//[exec]     array(2) {
+//[exec]       ["title"]=>
+//[exec]       string(12) "Image design"
+//[exec]       ["data"]=>
+//[exec]       array(4) {
+//[exec]         [0]=>
+//[exec]         array(7) {
+//[exec]           ["selector"]=>
+//[exec]           string(8) ".block-3"
+//[exec]           ["id"]=>
+//[exec]           string(13) "block-3-block"
+//[exec]           ["type"]=>
+//[exec]           string(5) "block"
+//[exec]           ["title"]=>
+//[exec]           string(12) "Block design"
+//[exec]           ["namespace"]=>
+//[exec]           string(16) "designBlockModel"
+//[exec]           ["labels"]=>
+//[exec]           array(17) {
+//[exec]             ["margin"]=>
+//[exec]             string(6) "Margin"
+//[exec]             ["padding"]=>
+//[exec]             string(7) "Padding"
+//[exec]             ["mouseHoverEffect"]=>
+//[exec]             string(17) "Mouse-over effect"
+//[exec]             ["mouseHoverAnimation"]=>
+//[exec]             string(20) "Mouse-over animation"
+//[exec]             ["background"]=>
+//[exec]             string(10) "Background"
+//[exec]             ["backgroundColor"]=>
+//[exec]             string(16) "Background color"
+//[exec]             ["borderColor"]=>
+//[exec]             string(12) "Border color"
+//[exec]             ["borderColorHover"]=>
+//[exec]             string(26) "Border color on mouse-over"
+//[exec]             ["useGradient"]=>
+//[exec]             string(12) "Use gradient"
+//[exec]             ["border"]=>
+//[exec]             string(6) "Border"
+//[exec]             ["gradientDirection"]=>
+//[exec]             string(18) "Gradient direction"
+//[exec]             ["gradientDirectionHover"]=>
+//[exec]             string(32) "Gradient direction on mouse-over"
+//[exec]             ["cancel"]=>
+//[exec]             string(6) "Cancel"
+//[exec]             ["save"]=>
+//[exec]             string(4) "Save"
+//[exec]             ["clear"]=>
+//[exec]             string(5) "Clear"
+//[exec]             ["borderStyle"]=>
+//[exec]             string(12) "Border style"
+//[exec]             ["borderStyleHover"]=>
+//[exec]             string(26) "Border style on mouse-over"
+//[exec]           }
+//[exec]           ["values"]=>
+//     [exec]           array(52) {
+//    [exec]             ["marginTop"]=>
+//     [exec]             int(0)
+//    [exec]             ["marginTopHover"]=>
+//     [exec]             int(0)
+//    [exec]             ["marginRight"]=>
+//     [exec]             int(0)
+//    [exec]             ["marginRightHover"]=>
+//     [exec]             int(0)
+//    [exec]             ["marginBottom"]=>
+//     [exec]             int(0)
+//    [exec]             ["marginBottomHover"]=>
+//     [exec]             int(0)
+//    [exec]             ["marginLeft"]=>
+//     [exec]             int(0)
+//    [exec]             ["marginLeftHover"]=>
+//     [exec]             int(0)
+//    [exec]             ["hasMarginHover"]=>
+//     [exec]             bool(false)
+//    [exec]             ["hasMarginAnimation"]=>
+//     [exec]             bool(false)
+//    [exec]             ["paddingTop"]=>
+//     [exec]             int(0)
+//    [exec]             ["paddingTopHover"]=>
+//     [exec]             int(0)
+//    [exec]             ["paddingRight"]=>
+//     [exec]             int(0)
+//    [exec]             ["paddingRightHover"]=>
+//     [exec]             int(0)
+//    [exec]             ["paddingBottom"]=>
+//     [exec]             int(0)
+//    [exec]             ["paddingBottomHover"]=>
+//     [exec]             int(0)
+//    [exec]             ["paddingLeft"]=>
+//     [exec]             int(0)
+//    [exec]             ["paddingLeftHover"]=>
+//     [exec]             int(0)
+//    [exec]             ["hasPaddingHover"]=>
+//     [exec]             bool(false)
+//    [exec]             ["hasPaddingAnimation"]=>
+//     [exec]             bool(false)
+//    [exec]             ["backgroundColorFrom"]=>
+//     [exec]             string(0) ""
+//    [exec]             ["backgroundColorFromHover"]=>
+//     [exec]             string(0) ""
+//    [exec]             ["backgroundColorTo"]=>
+//     [exec]             string(0) ""
+//    [exec]             ["backgroundColorToHover"]=>
+//     [exec]             string(0) ""
+//    [exec]             ["gradientDirection"]=>
+//     [exec]             int(0)
+//    [exec]             ["gradientDirectionHover"]=>
+//     [exec]             int(0)
+//    [exec]             ["hasBackgroundGradient"]=>
+//     [exec]             bool(false)
+//    [exec]             ["hasBackgroundHover"]=>
+//     [exec]             bool(false)
+//    [exec]             ["hasBackgroundAnimation"]=>
+//     [exec]             bool(false)
+//    [exec]             ["borderTopLeftRadius"]=>
+//     [exec]             int(0)
+//    [exec]             ["borderTopLeftRadiusHover"]=>
+//     [exec]             int(0)
+//    [exec]             ["borderTopRightRadius"]=>
+//     [exec]             int(0)
+//    [exec]             ["borderTopRightRadiusHover"]=>
+//     [exec]             int(0)
+//    [exec]             ["borderBottomRightRadius"]=>
+//     [exec]             int(0)
+//    [exec]             ["borderBottomRightRadiusHover"]=>
+//     [exec]             int(0)
+//    [exec]             ["borderBottomLeftRadius"]=>
+//     [exec]             int(0)
+//    [exec]             ["borderBottomLeftRadiusHover"]=>
+//     [exec]             int(0)
+//    [exec]             ["borderTopWidth"]=>
+//     [exec]             int(0)
+//    [exec]             ["borderTopWidthHover"]=>
+//     [exec]             int(0)
+//    [exec]             ["borderRightWidth"]=>
+//     [exec]             int(0)
+//    [exec]             ["borderRightWidthHover"]=>
+//     [exec]             int(0)
+//    [exec]             ["borderBottomWidth"]=>
+//     [exec]             int(0)
+//    [exec]             ["borderBottomWidthHover"]=>
+//     [exec]             int(0)
+//    [exec]             ["borderLeftWidth"]=>
+//     [exec]             int(0)
+//    [exec]             ["borderLeftWidthHover"]=>
+//     [exec]             int(0)
+//    [exec]             ["borderColor"]=>
+//     [exec]             string(0) ""
+//    [exec]             ["borderColorHover"]=>
+//     [exec]             string(0) ""
+//    [exec]             ["borderStyle"]=>
+//     [exec]             int(0)
+//    [exec]             ["borderStyleHover"]=>
+//     [exec]             int(0)
+//    [exec]             ["hasBorderHover"]=>
+//     [exec]             bool(false)
+//    [exec]             ["hasBorderAnimation"]=>
+//     [exec]             bool(false)
+//    [exec]             ["width"]=>
+//     [exec]             int(0)
+//    [exec]           }
+//     [exec]         }
+//     [exec]         [1]=>
+//     [exec]         array(7) {
+//    [exec]           ["selector"]=>
+//     [exec]           string(8) ".image-1"
+//    [exec]           ["id"]=>
+//     [exec]           string(13) "image-1-block"
+//    [exec]           ["type"]=>
+//     [exec]           string(5) "block"
+//    [exec]           ["title"]=>
+//     [exec]           string(16) "Images container"
+//    [exec]           ["namespace"]=>
+//     [exec]           string(48) "designImageSimpleModel.containerDesignBlockModel"
+//    [exec]           ["labels"]=>
+//     [exec]           array(17) {
+//        [exec]             ["margin"]=>
+//     [exec]             string(6) "Margin"
+//        [exec]             ["padding"]=>
+//     [exec]             string(7) "Padding"
+//        [exec]             ["mouseHoverEffect"]=>
+//     [exec]             string(17) "Mouse-over effect"
+//        [exec]             ["mouseHoverAnimation"]=>
+//     [exec]             string(20) "Mouse-over animation"
+//        [exec]             ["background"]=>
+//     [exec]             string(10) "Background"
+//        [exec]             ["backgroundColor"]=>
+//     [exec]             string(16) "Background color"
+//        [exec]             ["borderColor"]=>
+//     [exec]             string(12) "Border color"
+//        [exec]             ["borderColorHover"]=>
+//     [exec]             string(26) "Border color on mouse-over"
+//        [exec]             ["useGradient"]=>
+//     [exec]             string(12) "Use gradient"
+//        [exec]             ["border"]=>
+//     [exec]             string(6) "Border"
+//        [exec]             ["gradientDirection"]=>
+//     [exec]             string(18) "Gradient direction"
+//        [exec]             ["gradientDirectionHover"]=>
+//     [exec]             string(32) "Gradient direction on mouse-over"
+//        [exec]             ["cancel"]=>
+//     [exec]             string(6) "Cancel"
+//        [exec]             ["save"]=>
+//     [exec]             string(4) "Save"
+//        [exec]             ["clear"]=>
+//     [exec]             string(5) "Clear"
+//        [exec]             ["borderStyle"]=>
+//     [exec]             string(12) "Border style"
+//        [exec]             ["borderStyleHover"]=>
+//     [exec]             string(26) "Border style on mouse-over"
+//        [exec]           }
+//     [exec]           ["values"]=>
+//     [exec]           array(52) {
+//        [exec]             ["marginTop"]=>
+//     [exec]             int(0)
+//        [exec]             ["marginTopHover"]=>
+//     [exec]             int(0)
+//        [exec]             ["marginRight"]=>
+//     [exec]             int(0)
+//        [exec]             ["marginRightHover"]=>
+//     [exec]             int(0)
+//        [exec]             ["marginBottom"]=>
+//     [exec]             int(0)
+//        [exec]             ["marginBottomHover"]=>
+//     [exec]             int(0)
+//        [exec]             ["marginLeft"]=>
+//     [exec]             int(0)
+//        [exec]             ["marginLeftHover"]=>
+//     [exec]             int(0)
+//        [exec]             ["hasMarginHover"]=>
+//     [exec]             bool(false)
+//        [exec]             ["hasMarginAnimation"]=>
+//     [exec]             bool(false)
+//        [exec]             ["paddingTop"]=>
+//     [exec]             int(0)
+//        [exec]             ["paddingTopHover"]=>
+//     [exec]             int(0)
+//        [exec]             ["paddingRight"]=>
+//     [exec]             int(0)
+//        [exec]             ["paddingRightHover"]=>
+//     [exec]             int(0)
+//        [exec]             ["paddingBottom"]=>
+//     [exec]             int(0)
+//        [exec]             ["paddingBottomHover"]=>
+//     [exec]             int(0)
+//        [exec]             ["paddingLeft"]=>
+//     [exec]             int(0)
+//        [exec]             ["paddingLeftHover"]=>
+//     [exec]             int(0)
+//        [exec]             ["hasPaddingHover"]=>
+//     [exec]             bool(false)
+//        [exec]             ["hasPaddingAnimation"]=>
+//     [exec]             bool(false)
+//        [exec]             ["backgroundColorFrom"]=>
+//     [exec]             string(0) ""
+//        [exec]             ["backgroundColorFromHover"]=>
+//     [exec]             string(0) ""
+//        [exec]             ["backgroundColorTo"]=>
+//     [exec]             string(0) ""
+//        [exec]             ["backgroundColorToHover"]=>
+//     [exec]             string(0) ""
+//        [exec]             ["gradientDirection"]=>
+//     [exec]             int(0)
+//        [exec]             ["gradientDirectionHover"]=>
+//     [exec]             int(0)
+//        [exec]             ["hasBackgroundGradient"]=>
+//     [exec]             bool(false)
+//        [exec]             ["hasBackgroundHover"]=>
+//     [exec]             bool(false)
+//        [exec]             ["hasBackgroundAnimation"]=>
+//     [exec]             bool(false)
+//        [exec]             ["borderTopLeftRadius"]=>
+//     [exec]             int(0)
+//        [exec]             ["borderTopLeftRadiusHover"]=>
+//     [exec]             int(0)
+//        [exec]             ["borderTopRightRadius"]=>
+//     [exec]             int(0)
+//        [exec]             ["borderTopRightRadiusHover"]=>
+//     [exec]             int(0)
+//        [exec]             ["borderBottomRightRadius"]=>
+//     [exec]             int(0)
+//        [exec]             ["borderBottomRightRadiusHover"]=>
+//     [exec]             int(0)
+//        [exec]             ["borderBottomLeftRadius"]=>
+//     [exec]             int(0)
+//        [exec]             ["borderBottomLeftRadiusHover"]=>
+//     [exec]             int(0)
+//        [exec]             ["borderTopWidth"]=>
+//     [exec]             int(0)
+//        [exec]             ["borderTopWidthHover"]=>
+//     [exec]             int(0)
+//        [exec]             ["borderRightWidth"]=>
+//     [exec]             int(0)
+//        [exec]             ["borderRightWidthHover"]=>
+//     [exec]             int(0)
+//        [exec]             ["borderBottomWidth"]=>
+//     [exec]             int(0)
+//        [exec]             ["borderBottomWidthHover"]=>
+//     [exec]             int(0)
+//        [exec]             ["borderLeftWidth"]=>
+//     [exec]             int(0)
+//        [exec]             ["borderLeftWidthHover"]=>
+//     [exec]             int(0)
+//        [exec]             ["borderColor"]=>
+//     [exec]             string(0) ""
+//        [exec]             ["borderColorHover"]=>
+//     [exec]             string(0) ""
+//        [exec]             ["borderStyle"]=>
+//     [exec]             int(0)
+//        [exec]             ["borderStyleHover"]=>
+//     [exec]             int(0)
+//        [exec]             ["hasBorderHover"]=>
+//     [exec]             bool(false)
+//        [exec]             ["hasBorderAnimation"]=>
+//     [exec]             bool(false)
+//        [exec]             ["width"]=>
+//     [exec]             int(0)
+//        [exec]           }
+//     [exec]         }
+//     [exec]         [2]=>
+//     [exec]         array(7) {
+//    [exec]           ["selector"]=>
+//     [exec]           string(24) ".image-1 .image-instance"
+//    [exec]           ["id"]=>
+//     [exec]           string(28) "image-1-image-instance-block"
+//    [exec]           ["type"]=>
+//     [exec]           string(5) "block"
+//    [exec]           ["title"]=>
+//     [exec]           string(11) "Image block"
+//    [exec]           ["namespace"]=>
+//     [exec]           string(44) "designImageSimpleModel.imageDesignBlockModel"
+//    [exec]           ["labels"]=>
+//     [exec]           array(17) {
+//        [exec]             ["margin"]=>
+//     [exec]             string(6) "Margin"
+//        [exec]             ["padding"]=>
+//     [exec]             string(7) "Padding"
+//        [exec]             ["mouseHoverEffect"]=>
+//     [exec]             string(17) "Mouse-over effect"
+//        [exec]             ["mouseHoverAnimation"]=>
+//     [exec]             string(20) "Mouse-over animation"
+//        [exec]             ["background"]=>
+//     [exec]             string(10) "Background"
+//        [exec]             ["backgroundColor"]=>
+//     [exec]             string(16) "Background color"
+//        [exec]             ["borderColor"]=>
+//     [exec]             string(12) "Border color"
+//        [exec]             ["borderColorHover"]=>
+//     [exec]             string(26) "Border color on mouse-over"
+//        [exec]             ["useGradient"]=>
+//     [exec]             string(12) "Use gradient"
+//        [exec]             ["border"]=>
+//     [exec]             string(6) "Border"
+//        [exec]             ["gradientDirection"]=>
+//     [exec]             string(18) "Gradient direction"
+//        [exec]             ["gradientDirectionHover"]=>
+//     [exec]             string(32) "Gradient direction on mouse-over"
+//        [exec]             ["cancel"]=>
+//     [exec]             string(6) "Cancel"
+//        [exec]             ["save"]=>
+//     [exec]             string(4) "Save"
+//        [exec]             ["clear"]=>
+//     [exec]             string(5) "Clear"
+//        [exec]             ["borderStyle"]=>
+//     [exec]             string(12) "Border style"
+//        [exec]             ["borderStyleHover"]=>
+//     [exec]             string(26) "Border style on mouse-over"
+//        [exec]           }
+//     [exec]           ["values"]=>
+//     [exec]           array(52) {
+//        [exec]             ["marginTop"]=>
+//     [exec]             int(0)
+//        [exec]             ["marginTopHover"]=>
+//     [exec]             int(0)
+//        [exec]             ["marginRight"]=>
+//     [exec]             int(0)
+//        [exec]             ["marginRightHover"]=>
+//     [exec]             int(0)
+//        [exec]             ["marginBottom"]=>
+//     [exec]             int(0)
+//        [exec]             ["marginBottomHover"]=>
+//     [exec]             int(0)
+//        [exec]             ["marginLeft"]=>
+//     [exec]             int(0)
+//        [exec]             ["marginLeftHover"]=>
+//     [exec]             int(0)
+//        [exec]             ["hasMarginHover"]=>
+//     [exec]             bool(false)
+//        [exec]             ["hasMarginAnimation"]=>
+//     [exec]             bool(false)
+//        [exec]             ["paddingTop"]=>
+//     [exec]             int(0)
+//        [exec]             ["paddingTopHover"]=>
+//     [exec]             int(0)
+//        [exec]             ["paddingRight"]=>
+//     [exec]             int(0)
+//        [exec]             ["paddingRightHover"]=>
+//     [exec]             int(0)
+//        [exec]             ["paddingBottom"]=>
+//     [exec]             int(0)
+//        [exec]             ["paddingBottomHover"]=>
+//     [exec]             int(0)
+//        [exec]             ["paddingLeft"]=>
+//     [exec]             int(0)
+//        [exec]             ["paddingLeftHover"]=>
+//     [exec]             int(0)
+//        [exec]             ["hasPaddingHover"]=>
+//     [exec]             bool(false)
+//        [exec]             ["hasPaddingAnimation"]=>
+//     [exec]             bool(false)
+//        [exec]             ["backgroundColorFrom"]=>
+//     [exec]             string(0) ""
+//        [exec]             ["backgroundColorFromHover"]=>
+//     [exec]             string(0) ""
+//        [exec]             ["backgroundColorTo"]=>
+//     [exec]             string(0) ""
+//        [exec]             ["backgroundColorToHover"]=>
+//     [exec]             string(0) ""
+//        [exec]             ["gradientDirection"]=>
+//     [exec]             int(0)
+//        [exec]             ["gradientDirectionHover"]=>
+//     [exec]             int(0)
+//        [exec]             ["hasBackgroundGradient"]=>
+//     [exec]             bool(false)
+//        [exec]             ["hasBackgroundHover"]=>
+//     [exec]             bool(false)
+//        [exec]             ["hasBackgroundAnimation"]=>
+//     [exec]             bool(false)
+//        [exec]             ["borderTopLeftRadius"]=>
+//     [exec]             int(0)
+//        [exec]             ["borderTopLeftRadiusHover"]=>
+//     [exec]             int(0)
+//        [exec]             ["borderTopRightRadius"]=>
+//     [exec]             int(0)
+//        [exec]             ["borderTopRightRadiusHover"]=>
+//     [exec]             int(0)
+//        [exec]             ["borderBottomRightRadius"]=>
+//     [exec]             int(0)
+//        [exec]             ["borderBottomRightRadiusHover"]=>
+//     [exec]             int(0)
+//        [exec]             ["borderBottomLeftRadius"]=>
+//     [exec]             int(0)
+//        [exec]             ["borderBottomLeftRadiusHover"]=>
+//     [exec]             int(0)
+//        [exec]             ["borderTopWidth"]=>
+//     [exec]             int(0)
+//        [exec]             ["borderTopWidthHover"]=>
+//     [exec]             int(0)
+//        [exec]             ["borderRightWidth"]=>
+//     [exec]             int(0)
+//        [exec]             ["borderRightWidthHover"]=>
+//     [exec]             int(0)
+//        [exec]             ["borderBottomWidth"]=>
+//     [exec]             int(0)
+//        [exec]             ["borderBottomWidthHover"]=>
+//     [exec]             int(0)
+//        [exec]             ["borderLeftWidth"]=>
+//     [exec]             int(0)
+//        [exec]             ["borderLeftWidthHover"]=>
+//     [exec]             int(0)
+//        [exec]             ["borderColor"]=>
+//     [exec]             string(0) ""
+//        [exec]             ["borderColorHover"]=>
+//     [exec]             string(0) ""
+//        [exec]             ["borderStyle"]=>
+//     [exec]             int(0)
+//        [exec]             ["borderStyleHover"]=>
+//     [exec]             int(0)
+//        [exec]             ["hasBorderHover"]=>
+//     [exec]             bool(false)
+//        [exec]             ["hasBorderAnimation"]=>
+//     [exec]             bool(false)
+//        [exec]             ["width"]=>
+//     [exec]             int(0)
+//        [exec]           }
+//     [exec]         }
+//     [exec]         [3]=>
+//     [exec]         array(7) {
+//    [exec]           ["selector"]=>
+//     [exec]           string(8) ".image-1"
+//    [exec]           ["id"]=>
+//     [exec]           string(20) "image-1-image-simple"
+//    [exec]           ["type"]=>
+//     [exec]           string(12) "image-simple"
+//    [exec]           ["title"]=>
+//     [exec]           string(5) "Image"
+//    [exec]           ["namespace"]=>
+//     [exec]           string(22) "designImageSimpleModel"
+//    [exec]           ["labels"]=>
+//     [exec]           array(0) {
+//        [exec]           }
+//     [exec]           ["values"]=>
+//     [exec]           array(1) {
+//        [exec]             ["alignment"]=>
+//     [exec]             int(0)
+//        [exec]           }
+//     [exec]         }
+//     [exec]       }
+//     [exec]     }
+//     [exec]   }
+//     [exec]   ["button"]=>
+//     [exec]   array(1) {
+//    [exec]     ["label"]=>
+//     [exec]     string(4) "Save"
+//    [exec]   }
+//     [exec] }
+//     [exec]
+//
+
+    public function estUpdateDesign()
     {
         $this->markTestSkipped();
     }
@@ -1826,7 +2391,7 @@ class ImageControllerTest extends AbstractControllerTest
      *
      * @return bool
      */
-    public function testGetContent($user, $blockId, $hasError, $expected, $groupId = null)
+    public function estGetContent($user, $blockId, $hasError, $expected, $groupId = null)
     {
         $this->setUser($user);
 
@@ -1952,7 +2517,7 @@ class ImageControllerTest extends AbstractControllerTest
      *
      * @dataProvider dataProviderForTestUpdateContent
      */
-    public function testUpdateContent($user, $data, $hasError)
+    public function estUpdateContent($user, $data, $hasError)
     {
         $this->setUser($user);
 
@@ -2038,7 +2603,7 @@ class ImageControllerTest extends AbstractControllerTest
      *
      * @dataProvider dataProviderForTestGetImage
      */
-    public function testGetImage($user, $hasError = false, $id = null)
+    public function estGetImage($user, $hasError = false, $id = null)
     {
         $this->setUser($user);
 
@@ -2148,7 +2713,7 @@ class ImageControllerTest extends AbstractControllerTest
      *
      * @dataProvider dataProviderForTestCreateImage
      */
-    public function testCreateImage($user, $file, $blockId, $albumId, $hasError = false)
+    public function estCreateImage($user, $file, $blockId, $albumId, $hasError = false)
     {
         $this->setUser($user);
         $this->sendFile("image", "image", $file, ["blockId" => $blockId, "imageGroupId" => $albumId]);
@@ -2264,7 +2829,7 @@ class ImageControllerTest extends AbstractControllerTest
      *
      * @dataProvider dataProviderForTestUpdateImage
      */
-    public function testUpdateImage($user, $file, $data, $hasError = false)
+    public function estUpdateImage($user, $file, $data, $hasError = false)
     {
         // Create new one
         $this->setUser(self::TYPE_FULL);
@@ -2458,7 +3023,7 @@ class ImageControllerTest extends AbstractControllerTest
      *
      * @dataProvider dataProviderForTestDeleteImage
      */
-    public function testDeleteImage($user, $hasError = false, $id = null)
+    public function estDeleteImage($user, $hasError = false, $id = null)
     {
         $this->markTestSkipped("Delete files");
 
@@ -2557,7 +3122,7 @@ class ImageControllerTest extends AbstractControllerTest
      *
      * @return bool
      */
-    public function testGetAlbum(
+    public function estGetAlbum(
         $user,
         $blockId,
         $id,
@@ -2667,7 +3232,7 @@ class ImageControllerTest extends AbstractControllerTest
      *
      * @dataProvider dataProviderForTestCreateAlbum
      */
-    public function testCreateAlbum($user, $data, $hasError, $hasErrors)
+    public function estCreateAlbum($user, $data, $hasError, $hasErrors)
     {
         $this->setUser($user);
 
@@ -2771,7 +3336,7 @@ class ImageControllerTest extends AbstractControllerTest
      *
      * @dataProvider dataProviderForTestUpdateAlbum
      */
-    public function testUpdateAlbum($user, $data, $hasError = false, $hasErrors = false, $id = null)
+    public function estUpdateAlbum($user, $data, $hasError = false, $hasErrors = false, $id = null)
     {
         $this->setUser($user);
 
@@ -2895,7 +3460,7 @@ class ImageControllerTest extends AbstractControllerTest
      *
      * @dataProvider dataProviderForTestDeleteAlbum
      */
-    public function testDeleteAlbum($user, $hasError = false, $id = null)
+    public function estDeleteAlbum($user, $hasError = false, $id = null)
     {
         $this->setUser($user);
 
