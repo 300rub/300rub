@@ -32,7 +32,7 @@ class ImageControllerTest extends AbstractControllerTest
      *
      * @dataProvider dataProviderForTestGetBlocks
      */
-    public function estGetBlocks(
+    public function testGetBlocks(
         $user,
         $displayBlocksFromSection,
         $hasError,
@@ -91,111 +91,6 @@ class ImageControllerTest extends AbstractControllerTest
     public function dataProviderForTestGetBlocks()
     {
         return [
-            "guestViewAll"                   => [
-                "user"                     => null,
-                "displayBlocksFromSection" => 0,
-                "hasError"                 => true
-            ],
-            "guestViewFromPage"              => [
-                "user"                     => null,
-                "displayBlocksFromSection" => 1,
-                "hasError"                 => true
-            ],
-            "guestViewFromNonexistentPage"   => [
-                "user"                     => null,
-                "displayBlocksFromSection" => 9999,
-                "hasError"                 => true
-            ],
-            "ownerViewAll"                   => [
-                "user"                     => self::TYPE_OWNER,
-                "displayBlocksFromSection" => 0,
-                "hasError"                 => false,
-                "hasResult"                => true,
-                "canAdd"                   => true,
-                "canUpdateDesign"          => true,
-                "catUpdateContent"         => true,
-                "canUpdateSettings"        => true,
-            ],
-            "ownerViewFromPage"              => [
-                "user"                     => self::TYPE_OWNER,
-                "displayBlocksFromSection" => 1,
-                "hasError"                 => false,
-                "hasResult"                => true,
-                "canAdd"                   => true,
-                "canUpdateDesign"          => true,
-                "catUpdateContent"         => true,
-                "canUpdateSettings"        => true,
-            ],
-            "ownerViewFromNonexistentPage"   => [
-                "user"                     => self::TYPE_OWNER,
-                "displayBlocksFromSection" => 9999,
-                "hasError"                 => false,
-                "hasResult"                => false,
-                "canAdd"                   => true,
-            ],
-            "adminViewAll"                   => [
-                "user"                     => self::TYPE_FULL,
-                "displayBlocksFromSection" => 0,
-                "hasError"                 => false,
-                "hasResult"                => true,
-                "canAdd"                   => true,
-                "canUpdateDesign"          => true,
-                "catUpdateContent"         => true,
-                "canUpdateSettings"        => true,
-            ],
-            "adminViewFromPage"              => [
-                "user"                     => self::TYPE_FULL,
-                "displayBlocksFromSection" => 1,
-                "hasError"                 => false,
-                "hasResult"                => true,
-                "canAdd"                   => true,
-                "canUpdateDesign"          => true,
-                "catUpdateContent"         => true,
-                "canUpdateSettings"        => true,
-            ],
-            "adminViewFromNonexistentPage"   => [
-                "user"                     => self::TYPE_FULL,
-                "displayBlocksFromSection" => 9999,
-                "hasError"                 => false,
-                "hasResult"                => false,
-                "canAdd"                   => true,
-            ],
-            "noOperationViewAll"             => [
-                "user"                     => self::TYPE_NO_OPERATIONS_USER,
-                "displayBlocksFromSection" => 0,
-                "hasError"                 => false,
-                "hasResult"                => false,
-                "canAdd"                   => false,
-            ],
-            "noOperationFromPage"            => [
-                "user"                     => self::TYPE_NO_OPERATIONS_USER,
-                "displayBlocksFromSection" => 1,
-                "hasError"                 => false,
-                "hasResult"                => false,
-                "canAdd"                   => false,
-            ],
-            "noOperationFromNonexistentPage" => [
-                "user"                     => self::TYPE_NO_OPERATIONS_USER,
-                "displayBlocksFromSection" => 9999,
-                "hasError"                 => false,
-                "hasResult"                => false,
-                "canAdd"                   => false,
-            ],
-            "blockedViewAll"                 => [
-                "user"                     => self::TYPE_BLOCKED_USER,
-                "displayBlocksFromSection" => 0,
-                "hasError"                 => true
-            ],
-            "blockedViewFromPage"            => [
-                "user"                     => self::TYPE_BLOCKED_USER,
-                "displayBlocksFromSection" => 1,
-                "hasError"                 => true
-            ],
-            "blockedViewFromNonexistentPage" => [
-                "user"                     => self::TYPE_BLOCKED_USER,
-                "displayBlocksFromSection" => 9999,
-                "hasError"                 => true
-            ],
             "limitedViewAll"                 => [
                 "user"                     => self::TYPE_LIMITED,
                 "displayBlocksFromSection" => 0,
@@ -223,6 +118,13 @@ class ImageControllerTest extends AbstractControllerTest
                 "hasResult"                => false,
                 "canAdd"                   => true,
             ],
+            "noOperationViewAll"             => [
+                "user"                     => self::TYPE_NO_OPERATIONS_USER,
+                "displayBlocksFromSection" => 0,
+                "hasError"                 => false,
+                "hasResult"                => false,
+                "canAdd"                   => false,
+            ],
         ];
     }
 
@@ -249,7 +151,7 @@ class ImageControllerTest extends AbstractControllerTest
      *
      * @dataProvider dataProviderForTestGetBlock
      */
-    public function estGetBlock(
+    public function testGetBlock(
         $user,
         $id,
         $hasError,
@@ -344,102 +246,6 @@ class ImageControllerTest extends AbstractControllerTest
     public function dataProviderForTestGetBlock()
     {
         return [
-            "adminAdd"            => [
-                "user"              => self::TYPE_FULL,
-                "id"                => 0,
-                "hasError"          => false,
-                "title"             => "Add image",
-                "name"              => "",
-                "type"              => 0,
-                "autoCropType"      => 0,
-                "cropWidth"         => 0,
-                "cropHeight"        => 0,
-                "cropX"             => 0,
-                "cropY"             => 0,
-                "thumbAutoCropType" => 0,
-                "useAlbums"         => false,
-                "thumbCropX"        => 0,
-                "thumbCropY"        => 0,
-            ],
-            "adminEdit3"          => [
-                "user"              => self::TYPE_FULL,
-                "id"                => 3,
-                "hasError"          => false,
-                "title"             => "Edit image",
-                "name"              => "Zoom image",
-                "type"              => 2,
-                "autoCropType"      => 0,
-                "cropWidth"         => 0,
-                "cropHeight"        => 0,
-                "cropX"             => 0,
-                "cropY"             => 0,
-                "thumbAutoCropType" => 0,
-                "useAlbums"         => false,
-                "thumbCropX"        => 0,
-                "thumbCropY"        => 0,
-            ],
-            "adminEdit4"          => [
-                "user"              => self::TYPE_FULL,
-                "id"                => 4,
-                "hasError"          => false,
-                "title"             => "Edit image",
-                "name"              => "Slider image",
-                "type"              => 1,
-                "autoCropType"      => 5,
-                "cropWidth"         => 1000,
-                "cropHeight"        => 800,
-                "cropX"             => 3,
-                "cropY"             => 4,
-                "thumbAutoCropType" => 8,
-                "useAlbums"         => true,
-                "thumbCropX"        => 1,
-                "thumbCropY"        => 2,
-            ],
-            "adminEdit9999"       => [
-                "user"     => self::TYPE_FULL,
-                "id"       => 9999,
-                "hasError" => true
-            ],
-            "guestAdd"            => [
-                "user"     => null,
-                "id"       => 0,
-                "hasError" => true
-            ],
-            "guestEdit3"          => [
-                "user"     => null,
-                "id"       => 3,
-                "hasError" => true,
-            ],
-            "guestEdit4"          => [
-                "user"     => null,
-                "id"       => 4,
-                "hasError" => true,
-            ],
-            "guestEdit9999"       => [
-                "user"     => null,
-                "id"       => 9999,
-                "hasError" => true
-            ],
-            "blockedAdd"          => [
-                "user"     => self::TYPE_BLOCKED_USER,
-                "id"       => 0,
-                "hasError" => true
-            ],
-            "blockedEdit3"        => [
-                "user"     => self::TYPE_BLOCKED_USER,
-                "id"       => 3,
-                "hasError" => true,
-            ],
-            "blockedEdit4"        => [
-                "user"     => self::TYPE_BLOCKED_USER,
-                "id"       => 4,
-                "hasError" => true,
-            ],
-            "blockedEdit9999"     => [
-                "user"     => self::TYPE_BLOCKED_USER,
-                "id"       => 9999,
-                "hasError" => true
-            ],
             "noOperationAdd"      => [
                 "user"     => self::TYPE_NO_OPERATIONS_USER,
                 "id"       => 0,
@@ -531,7 +337,7 @@ class ImageControllerTest extends AbstractControllerTest
      *
      * @dataProvider dataProviderForTestCreateBlock
      */
-    public function estCreateBlock($user, $data, $hasError = false, $hasValidationErrors = false)
+    public function testCreateBlock($user, $data, $hasError = false, $hasValidationErrors = false)
     {
         $imageModelCountBefore = (new ImageModel())->getCount();
         $blockModelCountBefore = (new BlockModel())->getCount();
@@ -1068,7 +874,7 @@ class ImageControllerTest extends AbstractControllerTest
      *
      * @dataProvider dataProviderForTestUpdateBlock
      */
-    public function estUpdateBlock($user, $data, $hasError = false, $hasValidationErrors = false)
+    public function testUpdateBlock($user, $data, $hasError = false, $hasValidationErrors = false)
     {
         $imageModel = new ImageModel();
         $imageModel->save();
@@ -1602,7 +1408,7 @@ class ImageControllerTest extends AbstractControllerTest
      *
      * @dataProvider dataProviderForTestDeleteBlock
      */
-    public function estDeleteBlock($user, $id = null, $hasError = false)
+    public function testDeleteBlock($user, $id = null, $hasError = false)
     {
         $this->setUser($user);
 
@@ -1721,7 +1527,7 @@ class ImageControllerTest extends AbstractControllerTest
      *
      * @dataProvider dataProviderForTestCreateBlockDuplication
      */
-    public function estCreateBlockDuplication($user, $id = null, $hasError = false)
+    public function testCreateBlockDuplication($user, $id = null, $hasError = false)
     {
         $this->setUser($user);
 
@@ -1815,7 +1621,7 @@ class ImageControllerTest extends AbstractControllerTest
      *
      * @return bool
      */
-    public function estGetDesign($user, $id, $hasError, $expected)
+    public function testGetDesign($user, $id, $hasError, $expected)
     {
         $this->setUser($user);
 
@@ -2213,7 +2019,7 @@ class ImageControllerTest extends AbstractControllerTest
      *
      * @return bool
      */
-    public function estGetContent($user, $blockId, $hasError, $expected, $groupId = null)
+    public function testGetContent($user, $blockId, $hasError, $expected, $groupId = null)
     {
         $this->setUser($user);
 
@@ -2339,7 +2145,7 @@ class ImageControllerTest extends AbstractControllerTest
      *
      * @dataProvider dataProviderForTestUpdateContent
      */
-    public function estUpdateContent($user, $data, $hasError)
+    public function testUpdateContent($user, $data, $hasError)
     {
         $this->setUser($user);
 
@@ -2425,7 +2231,7 @@ class ImageControllerTest extends AbstractControllerTest
      *
      * @dataProvider dataProviderForTestGetImage
      */
-    public function estGetImage($user, $hasError = false, $id = null)
+    public function testGetImage($user, $hasError = false, $id = null)
     {
         $this->setUser($user);
 
@@ -2494,13 +2300,8 @@ class ImageControllerTest extends AbstractControllerTest
     public function dataProviderForTestGetImage()
     {
         return [
-            "admin"                => [
-                "user"     => self::TYPE_FULL,
-                "hasError" => false,
-                "id"       => null
-            ],
-            "adminIncorrectId"     => [
-                "user"     => self::TYPE_FULL,
+            "limitedIncorrectId"     => [
+                "user"     => self::TYPE_LIMITED,
                 "hasError" => true,
                 "id"       => 9999
             ],
@@ -2535,7 +2336,7 @@ class ImageControllerTest extends AbstractControllerTest
      *
      * @dataProvider dataProviderForTestCreateImage
      */
-    public function estCreateImage($user, $file, $blockId, $albumId, $hasError = false)
+    public function testCreateImage($user, $file, $blockId, $albumId, $hasError = false)
     {
         $this->setUser($user);
         $this->sendFile("image", "image", $file, ["blockId" => $blockId, "imageGroupId" => $albumId]);
@@ -2651,7 +2452,7 @@ class ImageControllerTest extends AbstractControllerTest
      *
      * @dataProvider dataProviderForTestUpdateImage
      */
-    public function estUpdateImage($user, $file, $data, $hasError = false)
+    public function testUpdateImage($user, $file, $data, $hasError = false)
     {
         // Create new one
         $this->setUser(self::TYPE_FULL);
@@ -2845,10 +2646,8 @@ class ImageControllerTest extends AbstractControllerTest
      *
      * @dataProvider dataProviderForTestDeleteImage
      */
-    public function estDeleteImage($user, $hasError = false, $id = null)
+    public function testDeleteImage($user, $hasError = false, $id = null)
     {
-        $this->markTestSkipped("Delete files");
-
         $this->setUser($user);
 
         $imageInstanceModel = new ImageInstanceModel();
@@ -2895,33 +2694,23 @@ class ImageControllerTest extends AbstractControllerTest
     public function dataProviderForTestDeleteImage()
     {
         return [
-            "admin"                => [
-                "user"     => self::TYPE_FULL,
-                "hasError" => false,
-                "id"       => null
-            ],
-            "adminIncorrectId"     => [
-                "user"     => self::TYPE_FULL,
+            "limitedIncorrectId"     => [
+                "user"     => self::TYPE_LIMITED,
                 "hasError" => true,
                 "id"       => 9999
             ],
-            "adminIncorrectFormat" => [
-                "user"     => self::TYPE_FULL,
+            "limitedIncorrectFormat" => [
+                "user"     => self::TYPE_LIMITED,
                 "hasError" => true,
                 "id"       => "1"
             ],
-            "limited"              => [
+            "limitedCorrect"              => [
                 "user"     => self::TYPE_LIMITED,
                 "hasError" => false,
                 "id"       => null
             ],
-            "guest"                => [
-                "user"     => null,
-                "hasError" => true,
-                "id"       => null
-            ],
-            "blocked"              => [
-                "user"     => self::TYPE_BLOCKED_USER,
+            "noOperation"              => [
+                "user"     => self::TYPE_NO_OPERATIONS_USER,
                 "hasError" => true,
                 "id"       => null
             ],
@@ -2944,7 +2733,7 @@ class ImageControllerTest extends AbstractControllerTest
      *
      * @return bool
      */
-    public function estGetAlbum(
+    public function testGetAlbum(
         $user,
         $blockId,
         $id,
@@ -3054,7 +2843,7 @@ class ImageControllerTest extends AbstractControllerTest
      *
      * @dataProvider dataProviderForTestCreateAlbum
      */
-    public function estCreateAlbum($user, $data, $hasError, $hasErrors)
+    public function testCreateAlbum($user, $data, $hasError, $hasErrors)
     {
         $this->setUser($user);
 
@@ -3081,15 +2870,6 @@ class ImageControllerTest extends AbstractControllerTest
     public function dataProviderForTestCreateAlbum()
     {
         return [
-            "admin"              => [
-                "user"      => self::TYPE_FULL,
-                "data"      => [
-                    "blockId" => 3,
-                    "name" => "New album name",
-                ],
-                "hasError"  => false,
-                "hasErrors" => false
-            ],
             "limitedEmpty"       => [
                 "user"      => self::TYPE_LIMITED,
                 "data"      => [
@@ -3108,7 +2888,7 @@ class ImageControllerTest extends AbstractControllerTest
                 "hasError"  => false,
                 "hasErrors" => true
             ],
-            "limited"            => [
+            "limitedCorrect"            => [
                 "user"      => self::TYPE_LIMITED,
                 "data"      => [
                     "blockId" => 3,
@@ -3126,17 +2906,8 @@ class ImageControllerTest extends AbstractControllerTest
                 "hasError"  => true,
                 "hasErrors" => false
             ],
-            "guest"              => [
-                "user"      => null,
-                "data"      => [
-                    "blockId" => 3,
-                    "name" => "New album name",
-                ],
-                "hasError"  => true,
-                "hasErrors" => false
-            ],
-            "blocked"            => [
-                "user"      => self::TYPE_BLOCKED_USER,
+            "noOperation"              => [
+                "user"      => self::TYPE_NO_OPERATIONS_USER,
                 "data"      => [
                     "blockId" => 3,
                     "name" => "New album name",
@@ -3158,7 +2929,7 @@ class ImageControllerTest extends AbstractControllerTest
      *
      * @dataProvider dataProviderForTestUpdateAlbum
      */
-    public function estUpdateAlbum($user, $data, $hasError = false, $hasErrors = false, $id = null)
+    public function testUpdateAlbum($user, $data, $hasError = false, $hasErrors = false, $id = null)
     {
         $this->setUser($user);
 
@@ -3207,15 +2978,6 @@ class ImageControllerTest extends AbstractControllerTest
     public function dataProviderForTestUpdateAlbum()
     {
         return [
-            "admin"              => [
-                "user"      => self::TYPE_FULL,
-                "data"      => [
-                    "name" => "New album name",
-                ],
-                "hasError"  => false,
-                "hasErrors" => false,
-                "id"        => null
-            ],
             "limitedIncorrectId" => [
                 "user"      => self::TYPE_LIMITED,
                 "data"      => [
@@ -3243,7 +3005,7 @@ class ImageControllerTest extends AbstractControllerTest
                 "hasErrors" => true,
                 "id"        => null
             ],
-            "limited"            => [
+            "limitedCorrect"            => [
                 "user"      => self::TYPE_LIMITED,
                 "data"      => [
                     "name" => "New album name",
@@ -3252,17 +3014,8 @@ class ImageControllerTest extends AbstractControllerTest
                 "hasErrors" => false,
                 "id"        => null
             ],
-            "guest"              => [
-                "user"      => null,
-                "data"      => [
-                    "name" => "New album name",
-                ],
-                "hasError"  => true,
-                "hasErrors" => false,
-                "id"        => null
-            ],
-            "blocked"            => [
-                "user"      => self::TYPE_BLOCKED_USER,
+            "noOperation"              => [
+                "user"      => self::TYPE_NO_OPERATIONS_USER,
                 "data"      => [
                     "name" => "New album name",
                 ],
@@ -3282,7 +3035,7 @@ class ImageControllerTest extends AbstractControllerTest
      *
      * @dataProvider dataProviderForTestDeleteAlbum
      */
-    public function estDeleteAlbum($user, $hasError = false, $id = null)
+    public function testDeleteAlbum($user, $hasError = false, $id = null)
     {
         $this->setUser($user);
 
@@ -3322,11 +3075,6 @@ class ImageControllerTest extends AbstractControllerTest
     public function dataProviderForTestDeleteAlbum()
     {
         return [
-            "admin"              => [
-                "user"     => self::TYPE_FULL,
-                "hasError" => false,
-                "id"       => null
-            ],
             "limitedIncorrectId" => [
                 "user"     => self::TYPE_LIMITED,
                 "hasError" => true,
@@ -3337,13 +3085,8 @@ class ImageControllerTest extends AbstractControllerTest
                 "hasError" => false,
                 "id"       => null
             ],
-            "guest"              => [
-                "user"     => null,
-                "hasError" => true,
-                "id"       => null
-            ],
-            "blocked"            => [
-                "user"     => self::TYPE_BLOCKED_USER,
+            "noOperation"              => [
+                "user"     => self::TYPE_NO_OPERATIONS_USER,
                 "hasError" => true,
                 "id"       => null
             ],
