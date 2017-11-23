@@ -9,7 +9,6 @@ use testS\components\Operation;
 use testS\components\ValueGenerator;
 use testS\models\AbstractModel;
 use testS\models\BlockModel;
-use testS\models\DesignBlockModel;
 use testS\models\FileModel;
 use testS\models\ImageGroupModel;
 use testS\models\ImageInstanceModel;
@@ -132,7 +131,7 @@ class ImageController extends AbstractController
             $blockModel = BlockModel::getById($id);
             $name = $blockModel->get("name");
 
-            $imageModel = $blockModel->getContentModel();
+            $imageModel = $blockModel->getContentModel(false, null, "ImageModel");
             $type = $imageModel->get("type");
             $autoCropType = $imageModel->get("autoCropType");
             $cropWidth = $imageModel->get("cropWidth");
@@ -313,8 +312,7 @@ class ImageController extends AbstractController
         $this->checkBlockOperation(BlockModel::TYPE_IMAGE, $this->get("id"), Operation::IMAGE_UPDATE_SETTINGS);
 
         $blockModel = BlockModel::getById($this->get("id"));
-
-        $imageModel = $blockModel->getContentModel();
+        $imageModel = $blockModel->getContentModel(false, null, "ImageModel");
         $imageModel->set(
             [
                 "type"              => $this->get("type"),
@@ -444,17 +442,7 @@ class ImageController extends AbstractController
         $this->checkBlockOperation(BlockModel::TYPE_IMAGE, $id, Operation::IMAGE_UPDATE_DESIGN);
 
         $blockModel = BlockModel::getById($id);
-
-        $imageModel = $blockModel->getContentModel(true);
-        if (!$imageModel instanceof ImageModel) {
-            throw new BadRequestException(
-                "Block content model is not an image. ID: {id}. Block type: {type}",
-                [
-                    "id"           => $id,
-                    "contentClass" => get_class($imageModel),
-                ]
-            );
-        }
+        $imageModel = $blockModel->getContentModel(true, null, "ImageModel");
 
         $data = [
             $imageModel->get("designBlockModel")->getDesign(sprintf(".block-%s", $id))
@@ -503,10 +491,60 @@ class ImageController extends AbstractController
 
     /**
      * Updates block's design
+     *
+     * @return array
+     *
+     * @throws BadRequestException
+     * @throws NotFoundException
      */
     public function updateDesign()
     {
-        // @TODO
+        $this->checkData(
+            [
+                "id" => [self::TYPE_INT, self::NOT_EMPTY],
+            ]
+        );
+
+        $this->checkBlockOperation(BlockModel::TYPE_IMAGE, $this->get("id"), Operation::IMAGE_UPDATE_DESIGN);
+
+        $blockModel = BlockModel::getById($this->get("id"));
+
+        $imageModel = $blockModel->getContentModel(false, null, "ImageModel");
+
+        $imageModel->set(
+            [
+                "designBlockModel" => $this->get("designBlockModel"),
+            ]
+        );
+
+        if ($this->get("designImageZoomModel")) {
+            $imageModel->set(
+                [
+                    "designImageZoomModel" => $this->get("designImageZoomModel"),
+                ]
+            );
+        } elseif ($this->get("designImageSliderModel")) {
+            $imageModel->set(
+                [
+                    "designImageSliderModel" => $this->get("designImageSliderModel"),
+                ]
+            );
+        } elseif ($this->get("designImageSimpleModel")) {
+            $imageModel->set(
+                [
+                    "designImageSimpleModel" => $this->get("designImageSimpleModel"),
+                ]
+            );
+        } else {
+            throw new BadRequestException(
+                "Unable to find find designImageZoomModel or designImageSliderModel or designImageSimpleModel " .
+                "in request to update design"
+            );
+        }
+
+        $imageModel->save();
+
+        return $this->getSimpleSuccessResult();
     }
 
     /**
@@ -527,17 +565,7 @@ class ImageController extends AbstractController
         $this->checkBlockOperation(BlockModel::TYPE_IMAGE, $this->get("id"), Operation::IMAGE_UPDATE_CONTENT);
 
         $blockModel = BlockModel::getById($this->get("id"));
-
-        $imageModel = $blockModel->getContentModel();
-        if (!$imageModel instanceof ImageModel) {
-            throw new BadRequestException(
-                "Incorrect image block to get content. ID: {id}. Block class: {class}",
-                [
-                    "id"    => $this->get("id"),
-                    "class" => get_class($imageModel),
-                ]
-            );
-        }
+        $imageModel = $blockModel->getContentModel(false, null, "ImageModel");
 
         $list = [];
         $groupId = (int) $this->get("groupId");
@@ -657,17 +685,7 @@ class ImageController extends AbstractController
         $this->checkBlockOperation(BlockModel::TYPE_IMAGE, $this->get("id"), Operation::IMAGE_UPDATE_CONTENT);
 
         $blockModel = BlockModel::getById($this->get("id"));
-
-        $imageModel = $blockModel->getContentModel();
-        if (!$imageModel instanceof ImageModel) {
-            throw new BadRequestException(
-                "Incorrect image block to update content. ID: {id}. Block class: {class}",
-                [
-                    "id"    => $this->get("id"),
-                    "class" => get_class($imageModel),
-                ]
-            );
-        }
+        $imageModel = $blockModel->getContentModel(false, null, "ImageModel");
 
         if ($imageModel->get("useAlbums")) {
             $groupId = $this->get("groupId");
@@ -909,7 +927,7 @@ class ImageController extends AbstractController
             $this->checkBlockOperation(BlockModel::TYPE_IMAGE, $blockId, Operation::IMAGE_UPDATE_ALBUM);
 
             $blockModel = BlockModel::getById($this->get("blockId"));
-            $imageModel = $blockModel->getContentModel();
+            $imageModel = $blockModel->getContentModel(false, null, "ImageModel");
             $imageGroupModel = (new ImageGroupModel())->byImageId($imageModel->getId())->byId($id)->find();
 
             if ($imageGroupModel === null) {
@@ -966,16 +984,7 @@ class ImageController extends AbstractController
         $this->checkBlockOperation(BlockModel::TYPE_IMAGE, $this->get("blockId"), Operation::IMAGE_CREATE_ALBUM);
 
         $blockModel = BlockModel::getById($this->get("blockId"));
-        $imageModel = $blockModel->getContentModel();
-        if (!$imageModel instanceof ImageModel) {
-            throw new BadRequestException(
-                "Unable to create new album. Content model: {modelType} is not an ImageModel for Block with ID: {id}",
-                [
-                    "modelType" => get_class($imageModel),
-                    "id"        => $this->get("blockId")
-                ]
-            );
-        }
+        $imageModel = $blockModel->getContentModel(false, null, "ImageModel");
 
         $imageGroupModel = new ImageGroupModel();
         $imageGroupModel->set(
@@ -1019,7 +1028,7 @@ class ImageController extends AbstractController
         $this->checkBlockOperation(BlockModel::TYPE_IMAGE, $this->get("blockId"), Operation::IMAGE_UPDATE_ALBUM);
 
         $blockModel = BlockModel::getById($this->get("blockId"));
-        $imageModel = $blockModel->getContentModel();
+        $imageModel = $blockModel->getContentModel(false, null, "ImageModel");
         $imageGroupModel = (new ImageGroupModel())->byImageId($imageModel->getId())->byId($this->get("id"))->find();
 
         if ($imageGroupModel === null) {
@@ -1071,7 +1080,7 @@ class ImageController extends AbstractController
         $this->checkBlockOperation(BlockModel::TYPE_IMAGE, $this->get("blockId"), Operation::IMAGE_DELETE_ALBUM);
 
         $blockModel = BlockModel::getById($this->get("blockId"));
-        $imageModel = $blockModel->getContentModel();
+        $imageModel = $blockModel->getContentModel(false, null, "ImageModel");
         $imageGroupModel = (new ImageGroupModel())->byImageId($imageModel->getId())->byId($this->get("id"))->find();
 
         if ($imageGroupModel === null) {

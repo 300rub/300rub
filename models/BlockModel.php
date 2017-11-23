@@ -223,22 +223,29 @@ class BlockModel extends AbstractModel
     /**
      * Gets model by contentType and contentId
      *
-     * @param bool $withRelations
-     * @param int  $value
+     * @param bool   $withRelations
+     * @param int    $value
+     * @param string $instance
      *
      * @return AbstractModel
      *
      * @throws ModelException
      */
-    public function getContentModel($withRelations = false, $value = null)
+    public function getContentModel($withRelations = false, $value = null, $instance = null)
     {
         if ($value === null) {
             $value = $this->get("contentId");
         }
 
+        if ($instance === null) {
+            $instance = "testS\\models\\AbstractContentModel";
+        } else {
+            $instance = "testS\\models\\{$instance}";
+        }
+
         $newModel = $this->_getNewContentModel();
         $model = $newModel->byId($value)->withRelations($withRelations)->find();
-        if (!$model instanceof AbstractContentModel) {
+        if (!$model instanceof $instance) {
             throw new ModelException(
                 "Unable to find model: {className} with ID = {id}",
                 [

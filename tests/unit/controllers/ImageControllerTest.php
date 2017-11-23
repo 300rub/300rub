@@ -32,7 +32,7 @@ class ImageControllerTest extends AbstractControllerTest
      *
      * @dataProvider dataProviderForTestGetBlocks
      */
-    public function testGetBlocks(
+    public function estGetBlocks(
         $user,
         $displayBlocksFromSection,
         $hasError,
@@ -249,7 +249,7 @@ class ImageControllerTest extends AbstractControllerTest
      *
      * @dataProvider dataProviderForTestGetBlock
      */
-    public function testGetBlock(
+    public function estGetBlock(
         $user,
         $id,
         $hasError,
@@ -531,7 +531,7 @@ class ImageControllerTest extends AbstractControllerTest
      *
      * @dataProvider dataProviderForTestCreateBlock
      */
-    public function testCreateBlock($user, $data, $hasError = false, $hasValidationErrors = false)
+    public function estCreateBlock($user, $data, $hasError = false, $hasValidationErrors = false)
     {
         $imageModelCountBefore = (new ImageModel())->getCount();
         $blockModelCountBefore = (new BlockModel())->getCount();
@@ -1068,7 +1068,7 @@ class ImageControllerTest extends AbstractControllerTest
      *
      * @dataProvider dataProviderForTestUpdateBlock
      */
-    public function testUpdateBlock($user, $data, $hasError = false, $hasValidationErrors = false)
+    public function estUpdateBlock($user, $data, $hasError = false, $hasValidationErrors = false)
     {
         $imageModel = new ImageModel();
         $imageModel->save();
@@ -1602,7 +1602,7 @@ class ImageControllerTest extends AbstractControllerTest
      *
      * @dataProvider dataProviderForTestDeleteBlock
      */
-    public function testDeleteBlock($user, $id = null, $hasError = false)
+    public function estDeleteBlock($user, $id = null, $hasError = false)
     {
         $this->setUser($user);
 
@@ -1721,7 +1721,7 @@ class ImageControllerTest extends AbstractControllerTest
      *
      * @dataProvider dataProviderForTestCreateBlockDuplication
      */
-    public function testCreateBlockDuplication($user, $id = null, $hasError = false)
+    public function estCreateBlockDuplication($user, $id = null, $hasError = false)
     {
         $this->setUser($user);
 
@@ -1815,7 +1815,7 @@ class ImageControllerTest extends AbstractControllerTest
      *
      * @return bool
      */
-    public function testGetDesign($user, $id, $hasError, $expected)
+    public function estGetDesign($user, $id, $hasError, $expected)
     {
         $this->setUser($user);
 
@@ -2023,9 +2023,181 @@ class ImageControllerTest extends AbstractControllerTest
         ];
     }
 
-    public function testUpdateDesign()
+    /**
+     * Test for method updateDesign
+     *
+     * @param string $user
+     * @param int    $id
+     * @param array  $data
+     * @param bool   $hasError
+     *
+     * @return bool
+     *
+     * @dataProvider dataProviderForTestUpdateDesign
+     */
+    public function testUpdateDesign($user, $id, $data, $hasError)
     {
-        $this->markTestSkipped();
+        $blockModel = null;
+        if ($id === null) {
+            $imageModel = new ImageModel();
+            $imageModel->save();
+
+            $blockModel = new BlockModel();
+            $blockModel->set(
+                [
+                    "name"        => "name",
+                    "language"    => 1,
+                    "contentType" => BlockModel::TYPE_IMAGE,
+                    "contentId"   => $imageModel->getId(),
+                ]
+            );
+            $blockModel->save();
+
+            $requestId = $blockModel->getId();
+        } else {
+            $requestId = $id;
+        }
+
+        $this->setUser($user);
+        $this->sendRequest("image", "design", array_merge($data, ["id" => $requestId]), "PUT");
+        $body = $this->getBody();
+
+        if ($hasError === true) {
+            $this->assertError();
+
+            if ($id === null) {
+                $blockModel->delete();
+            }
+            return true;
+        }
+
+        $this->assertTrue($body["result"]);
+
+        $blockModel->delete();
+        return true;
+    }
+
+    /**
+     * Data provider for testUpdateDesign
+     *
+     * @return array
+     */
+    public function dataProviderForTestUpdateDesign()
+    {
+        return [
+            "userCorrectSimple" => [
+                "user"     => self::TYPE_LIMITED,
+                "id"       => null,
+                "data"     => [
+                    "designBlockModel"       => [
+                        "marginTop" => 10
+                    ],
+                    "designImageSimpleModel" => [
+                        "containerDesignBlockModel" => [
+                            "marginTop" => 20
+                        ],
+                        "imageDesignBlockModel"     => [
+                            "marginTop" => 20
+                        ],
+                        "alignment"                 => 1
+                    ]
+                ],
+                "hasError" => false
+            ],
+            "userCorrectZoom"   => [
+                "user"     => self::TYPE_LIMITED,
+                "id"       => null,
+                "data"     => [
+                    "designBlockModel"     => [
+                        "marginTop" => 10
+                    ],
+                    "designImageZoomModel" => [
+                        "designBlockModel"     => [
+                            "marginTop" => 20
+                        ],
+                        "hasScroll"            => true,
+                        "thumbsAlignment"      => 1,
+                        "descriptionAlignment" => 1,
+                        "effect"               => 0,
+                    ]
+                ],
+                "hasError" => false
+            ],
+            "userCorrectSlider" => [
+                "user"     => self::TYPE_LIMITED,
+                "id"       => null,
+                "data"     => [
+                    "designBlockModel"     => [
+                        "marginTop" => 10
+                    ],
+                    "designImageZoomModel" => [
+                        "containerDesignBlockModel"   => [
+                            "marginTop" => 20
+                        ],
+                        "navigationDesignBlockModel"  => [
+                            "marginTop" => 20
+                        ],
+                        "descriptionDesignBlockModel" => [
+                            "marginTop" => 20
+                        ],
+                        "effect"                      => 0,
+                        "hasAutoPlay"                 => true,
+                        "playSpeed"                   => 5,
+                        "navigationAlignment"         => 1,
+                        "descriptionAlignment"        => 1,
+                    ]
+                ],
+                "hasError" => false
+            ],
+            "userInCorrect"     => [
+                "user"     => self::TYPE_LIMITED,
+                "id"       => null,
+                "data"     => [
+                    "designBlockModel" => [
+                        "marginTop" => 10
+                    ],
+                ],
+                "hasError" => true
+            ],
+            "userIncorrectId"   => [
+                "user"     => self::TYPE_LIMITED,
+                "id"       => 999,
+                "data"     => [
+                    "designBlockModel"       => [
+                        "marginTop" => 10
+                    ],
+                    "designImageSimpleModel" => [
+                        "containerDesignBlockModel" => [
+                            "marginTop" => 20
+                        ],
+                        "imageDesignBlockModel"     => [
+                            "marginTop" => 20
+                        ],
+                        "alignment"                 => 1
+                    ]
+                ],
+                "hasError" => true
+            ],
+            "noOperation"       => [
+                "user"     => self::TYPE_NO_OPERATIONS_USER,
+                "id"       => null,
+                "data"     => [
+                    "designBlockModel"       => [
+                        "marginTop" => 10
+                    ],
+                    "designImageSimpleModel" => [
+                        "containerDesignBlockModel" => [
+                            "marginTop" => 20
+                        ],
+                        "imageDesignBlockModel"     => [
+                            "marginTop" => 20
+                        ],
+                        "alignment"                 => 1
+                    ]
+                ],
+                "hasError" => true
+            ],
+        ];
     }
 
     /**
@@ -2041,7 +2213,7 @@ class ImageControllerTest extends AbstractControllerTest
      *
      * @return bool
      */
-    public function testGetContent($user, $blockId, $hasError, $expected, $groupId = null)
+    public function estGetContent($user, $blockId, $hasError, $expected, $groupId = null)
     {
         $this->setUser($user);
 
@@ -2167,7 +2339,7 @@ class ImageControllerTest extends AbstractControllerTest
      *
      * @dataProvider dataProviderForTestUpdateContent
      */
-    public function testUpdateContent($user, $data, $hasError)
+    public function estUpdateContent($user, $data, $hasError)
     {
         $this->setUser($user);
 
@@ -2253,7 +2425,7 @@ class ImageControllerTest extends AbstractControllerTest
      *
      * @dataProvider dataProviderForTestGetImage
      */
-    public function testGetImage($user, $hasError = false, $id = null)
+    public function estGetImage($user, $hasError = false, $id = null)
     {
         $this->setUser($user);
 
@@ -2363,7 +2535,7 @@ class ImageControllerTest extends AbstractControllerTest
      *
      * @dataProvider dataProviderForTestCreateImage
      */
-    public function testCreateImage($user, $file, $blockId, $albumId, $hasError = false)
+    public function estCreateImage($user, $file, $blockId, $albumId, $hasError = false)
     {
         $this->setUser($user);
         $this->sendFile("image", "image", $file, ["blockId" => $blockId, "imageGroupId" => $albumId]);
@@ -2479,7 +2651,7 @@ class ImageControllerTest extends AbstractControllerTest
      *
      * @dataProvider dataProviderForTestUpdateImage
      */
-    public function testUpdateImage($user, $file, $data, $hasError = false)
+    public function estUpdateImage($user, $file, $data, $hasError = false)
     {
         // Create new one
         $this->setUser(self::TYPE_FULL);
@@ -2673,7 +2845,7 @@ class ImageControllerTest extends AbstractControllerTest
      *
      * @dataProvider dataProviderForTestDeleteImage
      */
-    public function testDeleteImage($user, $hasError = false, $id = null)
+    public function estDeleteImage($user, $hasError = false, $id = null)
     {
         $this->markTestSkipped("Delete files");
 
@@ -2772,7 +2944,7 @@ class ImageControllerTest extends AbstractControllerTest
      *
      * @return bool
      */
-    public function testGetAlbum(
+    public function estGetAlbum(
         $user,
         $blockId,
         $id,
@@ -2882,7 +3054,7 @@ class ImageControllerTest extends AbstractControllerTest
      *
      * @dataProvider dataProviderForTestCreateAlbum
      */
-    public function testCreateAlbum($user, $data, $hasError, $hasErrors)
+    public function estCreateAlbum($user, $data, $hasError, $hasErrors)
     {
         $this->setUser($user);
 
@@ -2986,7 +3158,7 @@ class ImageControllerTest extends AbstractControllerTest
      *
      * @dataProvider dataProviderForTestUpdateAlbum
      */
-    public function testUpdateAlbum($user, $data, $hasError = false, $hasErrors = false, $id = null)
+    public function estUpdateAlbum($user, $data, $hasError = false, $hasErrors = false, $id = null)
     {
         $this->setUser($user);
 
@@ -3110,7 +3282,7 @@ class ImageControllerTest extends AbstractControllerTest
      *
      * @dataProvider dataProviderForTestDeleteAlbum
      */
-    public function testDeleteAlbum($user, $hasError = false, $id = null)
+    public function estDeleteAlbum($user, $hasError = false, $id = null)
     {
         $this->setUser($user);
 

@@ -121,8 +121,7 @@ class TextController extends AbstractController
             $this->checkBlockOperation(BlockModel::TYPE_TEXT, $id, Operation::TEXT_UPDATE_SETTINGS);
 
             $blockModel = BlockModel::getById($id);
-
-            $textModel = $blockModel->getContentModel();
+            $textModel = $blockModel->getContentModel(false, null, "TextModel");
 
             $name = $blockModel->get("name");
             $type = $textModel->get("type");
@@ -243,7 +242,7 @@ class TextController extends AbstractController
 
         $blockModel = BlockModel::getById($this->get("id"));
 
-        $textModel = $blockModel->getContentModel();
+        $textModel = $blockModel->getContentModel(false, null, "TextModel");
         $textModel->set(
             [
                 "type"      => $this->get("type"),
@@ -365,17 +364,7 @@ class TextController extends AbstractController
         $this->checkBlockOperation(BlockModel::TYPE_TEXT, $id, Operation::TEXT_UPDATE_DESIGN);
 
         $blockModel = BlockModel::getById($id);
-
-        $textModel = $blockModel->getContentModel(true);
-        if (!$textModel instanceof TextModel) {
-            throw new BadRequestException(
-                "Block content model is not a text. ID: {id}. Block type: {type}",
-                [
-                    "id"           => $id,
-                    "contentClass" => get_class($textModel),
-                ]
-            );
-        }
+        $textModel = $blockModel->getContentModel(true, null, "TextModel");
 
         /**
          * @var DesignBlockModel $designBlockModel
@@ -427,17 +416,7 @@ class TextController extends AbstractController
         $this->checkBlockOperation(BlockModel::TYPE_TEXT, $this->get("id"), Operation::TEXT_UPDATE_DESIGN);
 
         $blockModel = BlockModel::getById($this->get("id"));
-
-        $textModel = $blockModel->getContentModel();
-        if (!$textModel instanceof TextModel) {
-            throw new BadRequestException(
-                "Block content model is not a text. ID: {id}. Block type: {type}",
-                [
-                    "id"           => $this->get("id"),
-                    "contentClass" => get_class($textModel),
-                ]
-            );
-        }
+        $textModel = $blockModel->getContentModel(false, null, "TextModel");
 
         $textModel->set([
             "designTextModel"  => $this->get("designTextModel"),
@@ -469,17 +448,7 @@ class TextController extends AbstractController
         $this->checkBlockOperation(BlockModel::TYPE_TEXT, $id, Operation::TEXT_UPDATE_CONTENT);
 
         $blockModel = BlockModel::getById($id);
-
-        $textModel = $blockModel->getContentModel();
-        if (!$textModel instanceof TextModel) {
-            throw new BadRequestException(
-                "Block content model is not a text. ID: {id}. Block type: {type}",
-                [
-                    "id"           => $id,
-                    "contentClass" => get_class($textModel),
-                ]
-            );
-        }
+        $textModel = $blockModel->getContentModel(false, null, "TextModel");
 
         $textInstanceModel = (new TextInstanceModel())->byTextId($textModel->getId())->find();
         if ($textInstanceModel === null) {
@@ -527,17 +496,7 @@ class TextController extends AbstractController
         $this->checkBlockOperation(BlockModel::TYPE_TEXT, $this->get("id"), Operation::TEXT_UPDATE_CONTENT);
 
         $blockModel = BlockModel::getById($this->get("id"));
-
-        $textModel = $blockModel->getContentModel();
-        if (!$textModel instanceof TextModel) {
-            throw new BadRequestException(
-                "Block content model is not a text. ID: {id}. Block type: {type}",
-                [
-                    "id"           => $this->get("id"),
-                    "contentClass" => get_class($textModel),
-                ]
-            );
-        }
+        $textModel = $blockModel->getContentModel(false, null, "TextModel");
 
         $textInstanceModel = (new TextInstanceModel())->byTextId($textModel->getId())->find();
         if ($textInstanceModel === null) {
