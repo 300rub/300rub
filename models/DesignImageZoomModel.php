@@ -2,7 +2,9 @@
 
 namespace testS\models;
 
+use testS\components\Language;
 use testS\components\ValueGenerator;
+use testS\components\View;
 
 /**
  * Model for working with table "designImageZooms"
@@ -11,6 +13,9 @@ use testS\components\ValueGenerator;
  */
 class DesignImageZoomModel extends AbstractModel
 {
+
+    // Type
+    const TYPE = "image-zoom";
 
     /**
      * Description alignments
@@ -75,6 +80,17 @@ class DesignImageZoomModel extends AbstractModel
         ];
     }
 
+    /** Gets labels
+     *
+     * @return array
+     */
+    public static function getLabels()
+    {
+        return [
+
+        ];
+    }
+
     /**
      * Gets table name
      *
@@ -123,6 +139,39 @@ class DesignImageZoomModel extends AbstractModel
                     ValueGenerator::ARRAY_KEY => [self::getEffectList(), self::EFFECT_NONE]
                 ],
             ],
+        ];
+    }
+
+    /**
+     * Gets design
+     *
+     * @param string $selector
+     * @param string $namespace
+     *
+     * @return array
+     */
+    public function getDesign($selector, $namespace = null)
+    {
+        if ($namespace === null) {
+            $namespace = "designImageZoomModel";
+        }
+
+        return [
+            $this->get("designBlockModel")->getDesign(
+                $selector,
+                $namespace . ".designBlockModel",
+                ["id"],
+                Language::t("design", "imagesContainer")
+            ),
+            [
+                "selector"  => $selector,
+                "id"        => View::generateCssId($selector, self::TYPE),
+                "type"      => self::TYPE,
+                "title"     => Language::t("design", "image"),
+                "namespace" => $namespace,
+                "labels"    => self::getLabels(),
+                "values" => $this->get(null, ["id", "designBlockId", "designBlockModel"])
+            ]
         ];
     }
 }

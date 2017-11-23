@@ -87,4 +87,12 @@ return [
         Language::LANGUAGE_EN_ID => "Image",
         Language::LANGUAGE_RU_ID => "",
     ],
+    "navigationBlock" => [
+        Language::LANGUAGE_EN_ID => "Navigation block",
+        Language::LANGUAGE_RU_ID => "",
+    ],
+    "descriptionBlock" => [
+        Language::LANGUAGE_EN_ID => "Description block",
+        Language::LANGUAGE_RU_ID => "",
+    ],
 ];

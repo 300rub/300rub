@@ -469,8 +469,17 @@ class ImageController extends AbstractController
                 );
                 break;
             case ImageModel::TYPE_SLIDER:
+                $data = array_merge(
+                    $data,
+                    $imageModel->get("designImageSliderModel")->getDesign($cssSelector)
+                );
                 break;
             default:
+                $data = array_merge(
+                    $data,
+                    $imageModel->get("designImageZoomModel")->getDesign($cssSelector)
+                );
+                break;
                 break;
         }
 

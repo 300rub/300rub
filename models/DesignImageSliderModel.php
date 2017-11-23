@@ -2,7 +2,9 @@
 
 namespace testS\models;
 
+use testS\components\Language;
 use testS\components\ValueGenerator;
+use testS\components\View;
 
 /**
  * Model for working with table "designImageSliders"
@@ -11,6 +13,9 @@ use testS\components\ValueGenerator;
  */
 class DesignImageSliderModel extends AbstractModel
 {
+
+    // Type
+    const TYPE = "image-slider";
 
     /**
      * Navigation alignments
@@ -90,6 +95,18 @@ class DesignImageSliderModel extends AbstractModel
     }
 
     /**
+     * Gets labels
+     *
+     * @return array
+     */
+    public static function getLabels()
+    {
+        return [
+
+        ];
+    }
+
+    /**
      * Gets table name
      *
      * @return string
@@ -148,6 +165,57 @@ class DesignImageSliderModel extends AbstractModel
                         self::DESCRIPTION_ALIGNMENT_NONE
                     ]
                 ],
+            ]
+        ];
+    }
+
+    /**
+     * Gets design
+     *
+     * @param string $selector
+     * @param string $namespace
+     *
+     * @return array
+     */
+    public function getDesign($selector, $namespace = null)
+    {
+        if ($namespace === null) {
+            $namespace = "designImageSliderModel";
+        }
+
+        return [
+            $this->get("containerDesignBlockModel")->getDesign(
+                $selector,
+                $namespace . ".containerDesignBlockModel",
+                ["id"],
+                Language::t("design", "imagesContainer")
+            ),
+            $this->get("navigationDesignBlockModel")->getDesign(
+                $selector . " .navigation",
+                $namespace . ".navigationDesignBlockModel",
+                ["id"],
+                Language::t("design", "navigationBlock")
+            ),
+            $this->get("descriptionDesignBlockModel")->getDesign(
+                $selector . " .description",
+                $namespace . ".descriptionDesignBlockModel",
+                ["id"],
+                Language::t("design", "descriptionBlock")
+            ),
+            [
+                "selector"  => $selector,
+                "id"        => View::generateCssId($selector, self::TYPE),
+                "type"      => self::TYPE,
+                "title"     => Language::t("design", "image"),
+                "namespace" => $namespace,
+                "labels"    => self::getLabels(),
+                "values" => [
+                    "effect"               => $this->get("effect"),
+                    "hasAutoPlay"          => $this->get("hasAutoPlay"),
+                    "playSpeed"            => $this->get("playSpeed"),
+                    "navigationAlignment"  => $this->get("navigationAlignment"),
+                    "descriptionAlignment" => $this->get("descriptionAlignment"),
+                ]
             ]
         ];
     }
