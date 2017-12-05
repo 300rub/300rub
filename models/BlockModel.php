@@ -30,6 +30,7 @@ class BlockModel extends AbstractModel
      */
     const TYPE_TEXT = 1;
     const TYPE_IMAGE = 2;
+    const TYPE_RECORD = 3;
 
     /**
      * URI

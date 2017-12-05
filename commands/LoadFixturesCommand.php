@@ -14,6 +14,11 @@ use testS\models\AbstractModel;
 class LoadFixturesCommand extends AbstractCommand
 {
 
+	/**
+	 * File Data
+	 *
+	 * @var array
+	 */
 	private static $_fileData = [];
 
     /**
@@ -68,9 +73,23 @@ class LoadFixturesCommand extends AbstractCommand
 	{
         Db::setLocalhostPdo();
 
+		$dir = "";
+		switch (APP_ENV) {
+			case ENV_TEST:
+				$dir = "test";
+				break;
+			case ENV_DEV:
+				$dir = "dev";
+				break;
+		}
+
 		// DB
 		foreach (self::$fixtureOrder as $fixture) {
-		    $filePath = __DIR__ . "/../fixtures/{$fixture}.php";
+		    $filePath = __DIR__ . "/../fixtures/{$dir}/{$fixture}.php";
+
+			if (!file_exists($filePath)) {
+				continue;
+			}
 
 			$records = require($filePath);
 			foreach ($records as $id => $record) {
@@ -86,7 +105,7 @@ class LoadFixturesCommand extends AbstractCommand
 		}
 
 		// Files
-		$map = require(__DIR__ . "/../fixtures/files/map.php");
+		$map = require(__DIR__ . "/../fixtures/{$dir}/_fileMap.php");
 		foreach ($map as $data) {
 			if (array_key_exists("mimeType", $data)) {
 				$mimeType = $data["mimeType"];

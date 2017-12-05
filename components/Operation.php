@@ -70,6 +70,14 @@ class Operation
     const IMAGE_DELETE_ALBUM = "IMAGE_DELETE_ALBUM";
 
     /**
+     * Block record operations
+     */
+    const RECORD_ADD = "RECORD_ADD";
+    const RECORD_UPDATE_SETTINGS = "RECORD_UPDATE_SETTINGS";
+    const RECORD_UPDATE_DESIGN = "RECORD_UPDATE_DESIGN";
+    const RECORD_UPDATE_CONTENT = "RECORD_UPDATE_CONTENT";
+
+    /**
      * Gets section operations
      *
      * @param bool $isAll
