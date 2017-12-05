@@ -219,10 +219,10 @@
                 ._setAlign()
                 ._setIsItalic()
                 ._setIsBold()
-                ._setDecoration()
-                ._setTransform()
-                ._setLetterSpacing()
                 ._setLineHeight()
+                ._setDecoration()
+                ._setLetterSpacing()
+                ._setTransform()
                 ._setHasHover();
         },
 
@@ -831,6 +831,8 @@
                 new TestS.Form({
                     type: "spinner",
                     value: this._values["letterSpacing"],
+                    class: "letter-spacing",
+                    iconBefore: "fa-arrows-h",
                     callback: $.proxy(function (value) {
                         if (hoverForm !== null
                             && this._values["letterSpacing"] === this._values["letterSpacingHover"]
@@ -875,6 +877,8 @@
                 new TestS.Form({
                     type: "spinner",
                     value: this._values["lineHeight"],
+                    class: "line-height",
+                    iconBefore: "fa-arrows-v",
                     callback: $.proxy(function (value) {
                         if (hoverForm !== null
                             && this._values["lineHeight"] === this._values["lineHeightHover"]
