@@ -2,8 +2,6 @@
 
 namespace testS\models;
 
-use testS\components\Language;
-use testS\components\Validator;
 use testS\components\ValueGenerator;
 
 /**
@@ -11,7 +9,7 @@ use testS\components\ValueGenerator;
  *
  * @package testS\models
  */
-class RecordModel extends AbstractModel
+class RecordModel extends AbstractContentModel
 {
 
     /**
@@ -51,10 +49,10 @@ class RecordModel extends AbstractModel
     public function getFieldsInfo()
     {
         return [
-            "coverImagesId"     => [
+            "coverImageId"     => [
                 self::FIELD_RELATION => "ImageModel"
             ],
-            "imagesImagesId"    => [
+            "imagesImageId"    => [
                 self::FIELD_RELATION => "ImageModel"
             ],
             "descriptionTextId" => [
@@ -100,5 +98,75 @@ class RecordModel extends AbstractModel
                 ],
             ],
         ];
+    }
+
+    /**
+     * Gets HTML memcached key
+     *
+     * @param int    $id
+     * @param string $uri
+     * @param string $parameter
+     *
+     * @return string
+     */
+    public function getHtmlMemcachedKey($id, $uri = "", $parameter = "")
+    {
+        return sprintf("image_%s_html", $id);
+    }
+
+    /**
+     * Gets CSS memcached key
+     *
+     * @param int    $id
+     * @param string $uri
+     *
+     * @return string
+     */
+    public function getCssMemcachedKey($id, $uri = "")
+    {
+        return sprintf("image_%s_css", $id);
+    }
+
+    /**
+     * Gets JS memcached key
+     *
+     * @param int    $id
+     * @param string $uri
+     *
+     * @return string
+     */
+    public function getJsMemcachedKey($id, $uri = "")
+    {
+        return sprintf("image_%s_js", $id);
+    }
+
+    /**
+     * Generates HTML
+     *
+     * @return string
+     */
+    public function generateHtml()
+    {
+        return "";
+    }
+
+    /**
+     * Generates CSS
+     *
+     * @return array
+     */
+    public function generateCss()
+    {
+        return [];
+    }
+
+    /**
+     * Generates JS
+     *
+     * @return array
+     */
+    public function generateJs()
+    {
+        return [];
     }
 }

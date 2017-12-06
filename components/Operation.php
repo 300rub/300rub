@@ -172,6 +172,28 @@ class Operation
     }
 
     /**
+     * Gets block image operations
+     *
+     * @param bool $isAll
+     *
+     * @return array
+     */
+    public static function getBlockRecordOperations($isAll = false)
+    {
+        $list = [
+            self::RECORD_UPDATE_SETTINGS => Language::t("operation", "editSettings"),
+            self::RECORD_UPDATE_DESIGN   => Language::t("operation", "editDesign"),
+            self::RECORD_UPDATE_CONTENT  => Language::t("operation", "edit"),
+        ];
+
+        if ($isAll === true) {
+            $list[self::RECORD_ADD] = Language::t("operation", "add");
+        }
+
+        return $list;
+    }
+
+    /**
      * Gets a list of content operations by content type
      *
      * @param int  $contentType
@@ -186,6 +208,8 @@ class Operation
                 return self::getBlockTextOperations($isAll);
             case BlockModel::TYPE_IMAGE:
                 return self::getBlockImageOperations($isAll);
+            case BlockModel::TYPE_RECORD:
+                return self::getBlockRecordOperations($isAll);
             default:
                 return [];
         }

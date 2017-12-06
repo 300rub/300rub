@@ -29,6 +29,24 @@ class RecordController extends AbstractController
             ->bySectionId($this->getDisplayBlocksFromSection())
             ->findAll();
 
+        $cloneBlockModels = (new BlockModel())
+            ->byContentType(BlockModel::TYPE_RECORD_CLONE)
+            ->byLanguage(Language::getActiveId())
+            ->bySectionId($this->getDisplayBlocksFromSection())
+            ->findAll();
+
+        $packedCloneModels = [];
+        foreach ($cloneBlockModels as $cloneBlockModel) {
+            $contentModel = $cloneBlockModel->getContentModel(false, null, "RecordCloneModel");
+
+            $recordId = $contentModel->get("recordId");
+            if (!array_key_exists($recordId, $packedCloneModels)) {
+                $packedCloneModels[$recordId] = [];
+            }
+
+            $packedCloneModels[$recordId][] = $cloneBlockModel;
+        }
+
         $list = [];
         foreach ($blockModels as $blockModel) {
             $canUpdateSettings = $this->hasBlockOperation(
@@ -54,12 +72,34 @@ class RecordController extends AbstractController
                 continue;
             }
 
+            $clones = [];
+            if ($canUpdateSettings === true
+                || $canUpdateDesign === true
+            ) {
+                $contentId = $blockModel->get("contentId");
+                if (array_key_exists($contentId, $packedCloneModels)) {
+                    /**
+                     * @var BlockModel[] $cloneModels
+                     */
+                    $cloneModels = $packedCloneModels[$contentId];
+                    foreach ($cloneModels as $cloneModel) {
+                        $clones[] = [
+                            "name"              => $cloneModel->get("name"),
+                            "id"                => $cloneModel->getId(),
+                            "canUpdateSettings" => $canUpdateSettings,
+                            "canUpdateDesign"   => $canUpdateDesign,
+                        ];
+                    }
+                }
+            }
+
             $list[] = [
                 "name"              => $blockModel->get("name"),
                 "id"                => $blockModel->getId(),
                 "canUpdateSettings" => $canUpdateSettings,
                 "canUpdateDesign"   => $canUpdateDesign,
-                "canUpdateContent"  => $canUpdateContent
+                "canUpdateContent"  => $canUpdateContent,
+                "clones"            => $clones
             ];
         }
 

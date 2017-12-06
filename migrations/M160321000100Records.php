@@ -55,8 +55,8 @@ class M160321000100Records extends AbstractMigration
                 "records",
                 [
                     "id"                => self::TYPE_PK,
-                    "coverImagesId"     => self::TYPE_FK,
-                    "imagesImagesId"    => self::TYPE_FK,
+                    "coverImageId"     => self::TYPE_FK,
+                    "imagesImageId"    => self::TYPE_FK,
                     "descriptionTextId" => self::TYPE_FK,
                     "textTextId"        => self::TYPE_FK,
                     "designRecordsId"   => self::TYPE_FK,
@@ -69,8 +69,8 @@ class M160321000100Records extends AbstractMigration
                     "fullCardDateType"  => self::TYPE_TINYINT_UNSIGNED,
                 ]
             )
-            ->createForeignKey("records", "coverImagesId", "images")
-            ->createForeignKey("records", "imagesImagesId", "images")
+            ->createForeignKey("records", "coverImageId", "images")
+            ->createForeignKey("records", "imagesImageId", "images")
             ->createForeignKey("records", "descriptionTextId", "texts")
             ->createForeignKey("records", "textTextId", "texts")
             ->createForeignKey("records", "designRecordsId", "designRecords")
@@ -100,7 +100,7 @@ class M160321000100Records extends AbstractMigration
                 [
                     "id"                  => self::TYPE_PK,
                     "recordId"            => self::TYPE_FK,
-                    "coverImagesId"       => self::TYPE_FK,
+                    "coverImageId"       => self::TYPE_FK,
                     "descriptionTextId"   => self::TYPE_FK,
                     "designRecordCloneId" => self::TYPE_FK,
                     "hasCover"            => self::TYPE_BOOL,
@@ -111,7 +111,7 @@ class M160321000100Records extends AbstractMigration
                 ]
             )
             ->createForeignKey("recordClones", "recordId", "records")
-            ->createForeignKey("recordClones", "coverImagesId", "images")
+            ->createForeignKey("recordClones", "coverImageId", "images")
             ->createForeignKey("recordClones", "descriptionTextId", "texts")
             ->createForeignKey("recordClones", "designRecordCloneId", "designRecordClones")
             ->createTable(

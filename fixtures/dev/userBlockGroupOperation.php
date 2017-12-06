@@ -94,4 +94,24 @@ return [
         "blockType" => BlockModel::TYPE_IMAGE,
         "operation" => Operation::IMAGE_CREATE_ALBUM,
     ],
+    [
+        "userId"    => 3,
+        "blockType" => BlockModel::TYPE_RECORD,
+        "operation" => Operation::RECORD_UPDATE_SETTINGS,
+    ],
+    [
+        "userId"    => 3,
+        "blockType" => BlockModel::TYPE_RECORD,
+        "operation" => Operation::RECORD_UPDATE_DESIGN,
+    ],
+    [
+        "userId"    => 3,
+        "blockType" => BlockModel::TYPE_RECORD,
+        "operation" => Operation::RECORD_UPDATE_CONTENT,
+    ],
+    [
+        "userId"    => 3,
+        "blockType" => BlockModel::TYPE_RECORD,
+        "operation" => Operation::RECORD_ADD,
+    ],
 ];

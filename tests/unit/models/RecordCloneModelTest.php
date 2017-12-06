@@ -40,7 +40,7 @@ class RecordCloneModelTest extends AbstractModelTest
             "empty2" => [
                 [
                     "recordId"               => "",
-                    "coverImagesModel"       => "",
+                    "coverImageModel"       => "",
                     "descriptionTextModel"   => "",
                     "designRecordCloneModel" => "",
                     "hasCover"               => "",
@@ -60,7 +60,7 @@ class RecordCloneModelTest extends AbstractModelTest
                 ],
                 [
                     "recordId"               => 1,
-                    "coverImagesModel"       => [
+                    "coverImageModel"       => [
                         "designBlockModel" => [
                             "marginTop" => 0,
                         ],
@@ -104,7 +104,7 @@ class RecordCloneModelTest extends AbstractModelTest
             "correct1" => [
                 [
                     "recordId"               => 1,
-                    "coverImagesModel"       => [
+                    "coverImageModel"       => [
                         "designBlockModel" => [
                             "marginTop" => 10,
                         ],
@@ -135,7 +135,7 @@ class RecordCloneModelTest extends AbstractModelTest
                 ],
                 [
                     "recordId"               => 1,
-                    "coverImagesModel"       => [
+                    "coverImageModel"       => [
                         "designBlockModel" => [
                             "marginTop" => 10,
                         ],
@@ -166,7 +166,7 @@ class RecordCloneModelTest extends AbstractModelTest
                 ],
                 [
                     "recordId"               => 1,
-                    "coverImagesModel"       => [
+                    "coverImageModel"       => [
                         "designBlockModel" => [
                             "marginTop" => 20,
                         ],
@@ -197,7 +197,7 @@ class RecordCloneModelTest extends AbstractModelTest
                 ],
                 [
                     "recordId"               => 1,
-                    "coverImagesModel"       => [
+                    "coverImageModel"       => [
                         "designBlockModel" => [
                             "marginTop" => 20,
                         ],
@@ -241,7 +241,7 @@ class RecordCloneModelTest extends AbstractModelTest
             "incorrect1" => [
                 [
                     "recordId"               => "incorrect",
-                    "coverImagesModel"       => "incorrect",
+                    "coverImageModel"       => "incorrect",
                     "descriptionTextModel"   => "incorrect",
                     "designRecordCloneModel" => "incorrect",
                     "hasCover"               => "incorrect",
@@ -258,7 +258,7 @@ class RecordCloneModelTest extends AbstractModelTest
             "incorrect2" => [
                 [
                     "recordId"               => " 1a ",
-                    "coverImagesModel"       => [
+                    "coverImageModel"       => [
                         "designBlockModel" => [
                             "marginTop" => " 10 s",
                         ],
@@ -289,7 +289,7 @@ class RecordCloneModelTest extends AbstractModelTest
                 ],
                 [
                     "recordId"               => 1,
-                    "coverImagesModel"       => [
+                    "coverImageModel"       => [
                         "designBlockModel" => [
                             "marginTop" => 10,
                         ],
@@ -338,7 +338,7 @@ class RecordCloneModelTest extends AbstractModelTest
         $this->duplicate(
             [
                 "recordId"               => 1,
-                "coverImagesModel"       => [
+                "coverImageModel"       => [
                     "designBlockModel" => [
                         "marginTop" => 10,
                     ],
@@ -369,7 +369,7 @@ class RecordCloneModelTest extends AbstractModelTest
             ],
             [
                 "recordId"               => 1,
-                "coverImagesModel"       => [
+                "coverImageModel"       => [
                     "designBlockModel" => [
                         "marginTop" => 10,
                     ],

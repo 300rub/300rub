@@ -117,4 +117,26 @@ class Memcached
 
         return $this;
     }
+
+    /**
+     * Flushes Memcache
+     *
+     * @return Memcached
+     *
+     * @throws MemcacheException
+     */
+    public function flush()
+    {
+        if ($this->_memcached === null) {
+            return $this;
+        }
+
+        $result = $this->_memcached->flush();
+
+        if ($result === false) {
+            throw new MemcacheException("Unable to flush from memcache");
+        }
+
+        return $this;
+    }
 }

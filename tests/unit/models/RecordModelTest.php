@@ -33,7 +33,7 @@ class RecordModelTest extends AbstractModelTest
             "empty1" => [
                 [],
                 [
-                    "coverImagesModel"     => [
+                    "coverImageModel"     => [
                         "designBlockModel"       => [
                             "marginTop" => 0,
                         ],
@@ -82,7 +82,7 @@ class RecordModelTest extends AbstractModelTest
                         "thumbCropY"             => 0,
                         "useAlbums"              => false,
                     ],
-                    "imagesImagesModel"    => [
+                    "imagesImageModel"    => [
                         "designBlockModel"       => [
                             "marginTop" => 0,
                         ],
@@ -217,7 +217,7 @@ class RecordModelTest extends AbstractModelTest
         return [
             "correct1" => [
                 [
-                    "coverImagesModel"     => [
+                    "coverImageModel"     => [
                         "designBlockModel"       => [
                             "marginTop" => 10,
                         ],
@@ -266,7 +266,7 @@ class RecordModelTest extends AbstractModelTest
                         "thumbCropY"             => 1,
                         "useAlbums"              => true,
                     ],
-                    "imagesImagesModel"    => [
+                    "imagesImageModel"    => [
                         "designBlockModel"       => [
                             "marginTop" => 10,
                         ],
@@ -388,7 +388,7 @@ class RecordModelTest extends AbstractModelTest
                     "fullCardDateType"     => 1,
                 ],
                 [
-                    "coverImagesModel"     => [
+                    "coverImageModel"     => [
                         "designBlockModel"       => [
                             "marginTop" => 10,
                         ],
@@ -437,7 +437,7 @@ class RecordModelTest extends AbstractModelTest
                         "thumbCropY"             => 1,
                         "useAlbums"              => true,
                     ],
-                    "imagesImagesModel"    => [
+                    "imagesImageModel"    => [
                         "designBlockModel"       => [
                             "marginTop" => 10,
                         ],
@@ -559,7 +559,7 @@ class RecordModelTest extends AbstractModelTest
                     "fullCardDateType"     => 1,
                 ],
                 [
-                    "coverImagesModel"     => [
+                    "coverImageModel"     => [
                         "designBlockModel"       => [
                             "marginTop" => 30,
                         ],
@@ -608,7 +608,7 @@ class RecordModelTest extends AbstractModelTest
                         "thumbCropY"             => 0,
                         "useAlbums"              => false,
                     ],
-                    "imagesImagesModel"    => [
+                    "imagesImageModel"    => [
                         "designBlockModel"       => [
                             "marginTop" => 30,
                         ],
@@ -730,7 +730,7 @@ class RecordModelTest extends AbstractModelTest
                     "fullCardDateType"     => 0,
                 ],
                 [
-                    "coverImagesModel"     => [
+                    "coverImageModel"     => [
                         "designBlockModel"       => [
                             "marginTop" => 30,
                         ],
@@ -779,7 +779,7 @@ class RecordModelTest extends AbstractModelTest
                         "thumbCropY"             => 0,
                         "useAlbums"              => false,
                     ],
-                    "imagesImagesModel"    => [
+                    "imagesImageModel"    => [
                         "designBlockModel"       => [
                             "marginTop" => 30,
                         ],
@@ -914,8 +914,8 @@ class RecordModelTest extends AbstractModelTest
         return [
             "incorrect1" => [
                 [
-                    "coverImagesModel"     => "incorrect",
-                    "imagesImagesModel"    => "incorrect",
+                    "coverImageModel"     => "incorrect",
+                    "imagesImageModel"    => "incorrect",
                     "descriptionTextModel" => "incorrect",
                     "textTextModel"        => "incorrect",
                     "designRecordsModel"   => "incorrect",
@@ -967,7 +967,7 @@ class RecordModelTest extends AbstractModelTest
     {
         $this->duplicate(
             [
-                "coverImagesModel"     => [
+                "coverImageModel"     => [
                     "designBlockModel"       => [
                         "marginTop" => 10,
                     ],
@@ -1016,7 +1016,7 @@ class RecordModelTest extends AbstractModelTest
                     "thumbCropY"             => 1,
                     "useAlbums"              => true,
                 ],
-                "imagesImagesModel"    => [
+                "imagesImageModel"    => [
                     "designBlockModel"       => [
                         "marginTop" => 10,
                     ],
@@ -1138,7 +1138,7 @@ class RecordModelTest extends AbstractModelTest
                 "fullCardDateType"     => 1,
             ],
             [
-                "coverImagesModel"     => [
+                "coverImageModel"     => [
                     "designBlockModel"       => [
                         "marginTop" => 10,
                     ],
@@ -1187,7 +1187,7 @@ class RecordModelTest extends AbstractModelTest
                     "thumbCropY"             => 1,
                     "useAlbums"              => true,
                 ],
-                "imagesImagesModel"    => [
+                "imagesImageModel"    => [
                     "designBlockModel"       => [
                         "marginTop" => 10,
                     ],

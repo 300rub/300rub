@@ -31,6 +31,7 @@ class BlockModel extends AbstractModel
     const TYPE_TEXT = 1;
     const TYPE_IMAGE = 2;
     const TYPE_RECORD = 3;
+    const TYPE_RECORD_CLONE = 4;
 
     /**
      * URI
@@ -66,8 +67,10 @@ class BlockModel extends AbstractModel
      * @var array
      */
     public static $typeList = [
-        self::TYPE_TEXT  => "TextModel",
-        self::TYPE_IMAGE => "ImageModel"
+        self::TYPE_TEXT         => "TextModel",
+        self::TYPE_IMAGE        => "ImageModel",
+        self::TYPE_RECORD       => "RecordModel",
+        self::TYPE_RECORD_CLONE => "RecordCloneModel",
     ];
 
     /**
@@ -78,7 +81,9 @@ class BlockModel extends AbstractModel
     public static function getTypeNames()
     {
         return [
-            self::TYPE_TEXT  => Language::t("text", "texts"),
+            self::TYPE_TEXT   => Language::t("text", "texts"),
+            self::TYPE_IMAGE  => Language::t("image", "images"),
+            self::TYPE_RECORD => Language::t("record", "records"),
         ];
     }
 

@@ -34,6 +34,8 @@ class LoadFixturesCommand extends AbstractCommand
         "textInstance",
 		"image",
 		"imageGroup",
+		"record",
+		"recordClone",
         "block",
         "section",
         "gridLine",
@@ -51,7 +53,6 @@ class LoadFixturesCommand extends AbstractCommand
 		"search",
 		"menu",
 		"menuInstance",
-		"record",
 		"catalogInstance",
 		"catalogBin",
     ];
@@ -63,25 +64,23 @@ class LoadFixturesCommand extends AbstractCommand
 	 */
 	public function run($args = [])
 	{
-		self::load();
+		if (array_key_exists(0, $args)) {
+			$dir = $args[0];
+		} else {
+			$dir = "dev";
+		}
+
+		self::load($dir);
 	}
 
 	/**
 	 * Clear DB script
+	 *
+	 * @param string $dir
 	 */
-	public static function load()
+	public static function load($dir)
 	{
         Db::setLocalhostPdo();
-
-		$dir = "";
-		switch (APP_ENV) {
-			case ENV_TEST:
-				$dir = "test";
-				break;
-			case ENV_DEV:
-				$dir = "dev";
-				break;
-		}
 
 		// DB
 		foreach (self::$fixtureOrder as $fixture) {
