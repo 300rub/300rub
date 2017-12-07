@@ -126,6 +126,168 @@ class RecordControllerTest extends AbstractControllerTest
         ];
     }
 
+    /**
+     * Test for method getBlock
+     *
+     * @param string $user
+     * @param int    $id
+     * @param bool   $hasError
+     * @param array $expected
+     *
+     * @return bool
+     *
+     * @dataProvider dataProviderForTestGetBlock
+     */
+    public function testGetBlock($user, $id, $hasError, array $expected = [])
+    {
+        $this->setUser($user);
+        $this->sendRequest("record", "block", ["id" => $id]);
+        $body = $this->getBody();
+
+        if ($hasError === true) {
+            $this->assertArrayHasKey("error", $body);
+            return true;
+        }
+
+        $expected = [
+            "id"          => $id,
+            "title"       => $expected["title"],
+            "forms"       => [
+                "name"               => [
+                    "name"       => "name",
+                    "validation" => [],
+                    "value"      => $expected["name"],
+                ],
+                "hasCover"           => [
+                    "name"  => "hasCover",
+                    "value" => $expected["hasCover"],
+                ],
+                "hasImages"          => [
+                    "name"  => "hasImages",
+                    "value" => $expected["hasImages"],
+                ],
+                "hasCoverZoom"       => [
+                    "name"  => "hasCoverZoom",
+                    "value" => $expected["hasCoverZoom"],
+                ],
+                "hasDescription"     => [
+                    "name"  => "hasDescription",
+                    "value" => $expected["hasDescription"],
+                ],
+                "useAutoload"        => [
+                    "name"  => "useAutoload",
+                    "value" => $expected["useAutoload"],
+                ],
+                "pageNavigationSize" => [
+                    "name"  => "pageNavigationSize",
+                    "value" => $expected["pageNavigationSize"],
+                ],
+                "shortCardDateType"  => [
+                    "value" => $expected["shortCardDateType"],
+                    "name"  => "shortCardDateType",
+                    "list"  => []
+                ],
+                "fullCardDateType"   => [
+                    "value" => $expected["fullCardDateType"],
+                    "name"  => "fullCardDateType",
+                    "list"  => []
+                ],
+                "button"             => [
+                    "label" => $expected["button"],
+                ]
+            ]
+        ];
+
+        $this->compareExpectedAndActual($expected, $body);
+
+        return true;
+    }
+
+    /**
+     * Data provider for testGetBlock
+     *
+     * @return array
+     */
+    public function dataProviderForTestGetBlock()
+    {
+        return [
+            "noOperationAdd"      => [
+                "user"     => self::TYPE_NO_OPERATIONS_USER,
+                "id"       => 0,
+                "hasError" => true
+            ],
+            "noOperationEdit6"    => [
+                "user"     => self::TYPE_NO_OPERATIONS_USER,
+                "id"       => 6,
+                "hasError" => true,
+            ],
+            "noOperationEdit8"    => [
+                "user"     => self::TYPE_NO_OPERATIONS_USER,
+                "id"       => 8,
+                "hasError" => true,
+            ],
+            "userAdd" => [
+                "user"     => self::TYPE_LIMITED,
+                "id"       => 0,
+                "hasError" => false,
+                "expected" => [
+                    "title"              => "Add record",
+                    "name"               => "",
+                    "hasCover"           => false,
+                    "hasImages"          => false,
+                    "hasCoverZoom"       => false,
+                    "hasDescription"     => false,
+                    "useAutoload"        => false,
+                    "pageNavigationSize" => 0,
+                    "shortCardDateType"  => 0,
+                    "fullCardDateType"   => 0,
+                    "button"             => "Add",
+                ],
+            ],
+            "userEdit6" => [
+                "user"     => self::TYPE_LIMITED,
+                "id"       => 6,
+                "hasError" => false,
+                "expected" => [
+                    "title"              => "Edit record",
+                    "name"               => "Records 1",
+                    "hasCover"           => false,
+                    "hasImages"          => false,
+                    "hasCoverZoom"       => false,
+                    "hasDescription"     => false,
+                    "useAutoload"        => false,
+                    "pageNavigationSize" => 0,
+                    "shortCardDateType"  => 0,
+                    "fullCardDateType"   => 0,
+                    "button"             => "Update",
+                ],
+            ],
+            "userEdit8" => [
+                "user"     => self::TYPE_LIMITED,
+                "id"       => 8,
+                "hasError" => false,
+                "expected" => [
+                    "title"              => "Edit record",
+                    "name"               => "Records 2",
+                    "hasCover"           => true,
+                    "hasImages"          => true,
+                    "hasCoverZoom"       => true,
+                    "hasDescription"     => true,
+                    "useAutoload"        => true,
+                    "pageNavigationSize" => 20,
+                    "shortCardDateType"  => 1,
+                    "fullCardDateType"   => 1,
+                    "button"             => "Update",
+                ],
+            ],
+            "userEdit9999"        => [
+                "user"     => self::TYPE_LIMITED,
+                "id"       => 9999,
+                "hasError" => true
+            ],
+        ];
+    }
+
     public function testCreateBlock()
     {
         $this->markTestSkipped();
@@ -141,12 +303,52 @@ class RecordControllerTest extends AbstractControllerTest
         $this->markTestSkipped();
     }
 
+    public function testCreateBlockDuplication()
+    {
+        $this->markTestSkipped();
+    }
+
+    public function testGetCloneBlock()
+    {
+        $this->markTestSkipped();
+    }
+
+    public function testCreateCloneBlock()
+    {
+        $this->markTestSkipped();
+    }
+
+    public function testUpdateCloneBlock()
+    {
+        $this->markTestSkipped();
+    }
+
+    public function testDeleteCloneBlock()
+    {
+        $this->markTestSkipped();
+    }
+
+    public function testCreateCloneBlockDuplication()
+    {
+        $this->markTestSkipped();
+    }
+
     public function testGetDesign()
     {
         $this->markTestSkipped();
     }
 
     public function testUpdateDesign()
+    {
+        $this->markTestSkipped();
+    }
+
+    public function testGetCloneDesign()
+    {
+        $this->markTestSkipped();
+    }
+
+    public function testUpdateCloneDesign()
     {
         $this->markTestSkipped();
     }

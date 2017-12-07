@@ -111,37 +111,12 @@ class ImageController extends AbstractController
         $id = (int)$this->get("id");
         if ($id === 0) {
             $this->checkBlockOperation(BlockModel::TYPE_IMAGE, Operation::ALL, Operation::IMAGE_ADD);
-
             $blockModel = new BlockModel();
-            $name = "";
-
-            $type = ImageModel::TYPE_ZOOM;
-            $autoCropType = ImageModel::AUTO_CROP_TYPE_NONE;
-            $cropWidth = 0;
-            $cropHeight = 0;
-            $cropX = 0;
-            $cropY = 0;
-            $thumbAutoCropType = ImageModel::AUTO_CROP_TYPE_NONE;
-            $thumbCropX = 0;
-            $thumbCropY = 0;
-            $useAlbums = false;
+            $imageModel = new ImageModel();
         } else {
             $this->checkBlockOperation(BlockModel::TYPE_IMAGE, $id, Operation::IMAGE_UPDATE_SETTINGS);
-
             $blockModel = BlockModel::getById($id);
-            $name = $blockModel->get("name");
-
             $imageModel = $blockModel->getContentModel(false, null, "ImageModel");
-            $type = $imageModel->get("type");
-            $autoCropType = $imageModel->get("autoCropType");
-            $cropWidth = $imageModel->get("cropWidth");
-            $cropHeight = $imageModel->get("cropHeight");
-            $cropX = $imageModel->get("cropX");
-            $cropY = $imageModel->get("cropY");
-            $thumbAutoCropType = $imageModel->get("thumbAutoCropType");
-            $thumbCropX = $imageModel->get("thumbCropX");
-            $thumbCropY = $imageModel->get("thumbCropY");
-            $useAlbums = $imageModel->get("useAlbums");
         }
 
         return [
@@ -159,60 +134,60 @@ class ImageController extends AbstractController
                     "name"       => "name",
                     "label"      => Language::t("common", "name"),
                     "validation" => $blockModel->getValidationRulesForField("name"),
-                    "value"      => $name,
+                    "value"      => $blockModel->get("name"),
                 ],
                 "type"              => [
                     "label" => Language::t("common", "type"),
-                    "value" => $type,
+                    "value" => $imageModel->get("type"),
                     "name"  => "type",
                     "list"  => ValueGenerator::generate(ValueGenerator::ORDERED_ARRAY, ImageModel::getTypeList())
                 ],
                 "autoCropType"      => [
                     "label" => Language::t("image", "autoCropType"),
-                    "value" => $autoCropType,
+                    "value" => $imageModel->get("autoCropType"),
                     "name"  => "autoCropType",
                     "list"  => ImageModel::getAutoCropTypeList()
                 ],
                 "cropWidth"         => [
                     "name"  => "cropWidth",
                     "label" => Language::t("image", "cropWidth"),
-                    "value" => $cropWidth,
+                    "value" => $imageModel->get("cropWidth"),
                 ],
                 "cropHeight"        => [
                     "name"  => "cropHeight",
                     "label" => Language::t("image", "cropHeight"),
-                    "value" => $cropHeight,
+                    "value" => $imageModel->get("cropHeight"),
                 ],
                 "cropX"             => [
                     "name"  => "cropX",
                     "label" => Language::t("image", "cropX"),
-                    "value" => $cropX,
+                    "value" => $imageModel->get("cropX"),
                 ],
                 "cropY"             => [
                     "name"  => "cropY",
                     "label" => Language::t("image", "cropY"),
-                    "value" => $cropY,
+                    "value" => $imageModel->get("cropY"),
                 ],
                 "thumbAutoCropType" => [
                     "label" => Language::t("image", "thumbAutoCropType"),
-                    "value" => $thumbAutoCropType,
+                    "value" => $imageModel->get("thumbAutoCropType"),
                     "name"  => "thumbAutoCropType",
                     "list"  => ImageModel::getAutoCropTypeList()
                 ],
                 "useAlbums"         => [
                     "name"  => "useAlbums",
                     "label" => Language::t("image", "useAlbums"),
-                    "value" => $useAlbums,
+                    "value" => $imageModel->get("useAlbums"),
                 ],
                 "thumbCropX"        => [
                     "name"  => "thumbCropX",
                     "label" => Language::t("image", "thumbCropX"),
-                    "value" => $thumbCropX,
+                    "value" => $imageModel->get("thumbCropX"),
                 ],
                 "thumbCropY"        => [
                     "name"  => "thumbCropY",
                     "label" => Language::t("image", "thumbCropY"),
-                    "value" => $thumbCropY,
+                    "value" => $imageModel->get("thumbCropY"),
                 ],
                 "button"            => [
                     "label" => Language::t("common", $id === 0 ? "add" : "update"),

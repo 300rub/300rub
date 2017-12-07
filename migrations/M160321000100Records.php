@@ -54,19 +54,20 @@ class M160321000100Records extends AbstractMigration
             ->createTable(
                 "records",
                 [
-                    "id"                => self::TYPE_PK,
-                    "coverImageId"     => self::TYPE_FK,
-                    "imagesImageId"    => self::TYPE_FK,
-                    "descriptionTextId" => self::TYPE_FK,
-                    "textTextId"        => self::TYPE_FK,
-                    "designRecordsId"   => self::TYPE_FK,
-                    "hasCover"          => self::TYPE_BOOL,
-                    "hasImages"         => self::TYPE_BOOL,
-                    "hasCoverZoom"      => self::TYPE_BOOL,
-                    "hasDescription"    => self::TYPE_BOOL,
-                    "hasAutoload"       => self::TYPE_BOOL,
-                    "shortCardDateType" => self::TYPE_TINYINT_UNSIGNED,
-                    "fullCardDateType"  => self::TYPE_TINYINT_UNSIGNED,
+                    "id"                 => self::TYPE_PK,
+                    "coverImageId"       => self::TYPE_FK,
+                    "imagesImageId"      => self::TYPE_FK,
+                    "descriptionTextId"  => self::TYPE_FK,
+                    "textTextId"         => self::TYPE_FK,
+                    "designRecordsId"    => self::TYPE_FK,
+                    "hasCover"           => self::TYPE_BOOL,
+                    "hasImages"          => self::TYPE_BOOL,
+                    "hasCoverZoom"       => self::TYPE_BOOL,
+                    "hasDescription"     => self::TYPE_BOOL,
+                    "useAutoload"        => self::TYPE_BOOL,
+                    "pageNavigationSize" => self::TYPE_TINYINT_UNSIGNED,
+                    "shortCardDateType"  => self::TYPE_TINYINT_UNSIGNED,
+                    "fullCardDateType"   => self::TYPE_TINYINT_UNSIGNED,
                 ]
             )
             ->createForeignKey("records", "coverImageId", "images")
@@ -100,7 +101,7 @@ class M160321000100Records extends AbstractMigration
                 [
                     "id"                  => self::TYPE_PK,
                     "recordId"            => self::TYPE_FK,
-                    "coverImageId"       => self::TYPE_FK,
+                    "coverImageId"        => self::TYPE_FK,
                     "descriptionTextId"   => self::TYPE_FK,
                     "designRecordCloneId" => self::TYPE_FK,
                     "hasCover"            => self::TYPE_BOOL,

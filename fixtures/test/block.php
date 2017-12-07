@@ -34,15 +34,21 @@ return [
         "contentId"   => 3,
     ],
     6 => [
-        "name"        => "Records",
+        "name"        => "Records 1",
         "language"    => 1,
         "contentType" => BlockModel::TYPE_RECORD,
         "contentId"   => 1,
     ],
     7 => [
-        "name"        => "Records",
+        "name"        => "Records 1 clone 1",
         "language"    => 1,
         "contentType" => BlockModel::TYPE_RECORD_CLONE,
         "contentId"   => 1,
+    ],
+    8 => [
+        "name"        => "Records 2",
+        "language"    => 1,
+        "contentType" => BlockModel::TYPE_RECORD,
+        "contentId"   => 2,
     ],
 ];

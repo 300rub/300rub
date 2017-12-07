@@ -5,6 +5,7 @@ namespace testS\controllers;
 use testS\components\Language;
 use testS\components\Operation;
 use testS\models\BlockModel;
+use testS\models\RecordModel;
 
 /**
  * RecordController
@@ -134,6 +135,92 @@ class RecordController extends AbstractController
     }
 
     /**
+     * Gets block
+     *
+     * @return array
+     */
+    public function getBlock()
+    {
+        $id = (int)$this->get("id");
+        if ($id === 0) {
+            $this->checkBlockOperation(BlockModel::TYPE_RECORD, Operation::ALL, Operation::RECORD_ADD);
+
+            $blockModel = new BlockModel();
+            $recordModel = new RecordModel();
+        } else {
+            $this->checkBlockOperation(BlockModel::TYPE_RECORD, $id, Operation::RECORD_UPDATE_SETTINGS);
+
+            $blockModel = BlockModel::getById($id);
+            $recordModel = $blockModel->getContentModel(false, null, "RecordModel");
+        }
+
+        return [
+            "id"          => $id,
+            "title"       => Language::t(
+                "record",
+                $id === 0 ? "addBlockTitle" : "editBlockTitle"
+            ),
+            "description" => Language::t(
+                "record",
+                $id === 0 ? "addBlockDescription" : "editBlockDescription"
+            ),
+            "forms"       => [
+                "name"               => [
+                    "name"       => "name",
+                    "label"      => Language::t("common", "name"),
+                    "validation" => $blockModel->getValidationRulesForField("name"),
+                    "value"      => $blockModel->get("name"),
+                ],
+                "hasCover"           => [
+                    "name"  => "hasCover",
+                    "label" => Language::t("record", "hasCover"),
+                    "value" => $recordModel->get("hasCover"),
+                ],
+                "hasImages"          => [
+                    "name"  => "hasImages",
+                    "label" => Language::t("record", "hasImages"),
+                    "value" => $recordModel->get("hasImages"),
+                ],
+                "hasCoverZoom"       => [
+                    "name"  => "hasCoverZoom",
+                    "label" => Language::t("record", "hasCoverZoom"),
+                    "value" => $recordModel->get("hasCoverZoom"),
+                ],
+                "hasDescription"     => [
+                    "name"  => "hasDescription",
+                    "label" => Language::t("record", "hasDescription"),
+                    "value" => $recordModel->get("hasDescription"),
+                ],
+                "useAutoload"        => [
+                    "name"  => "useAutoload",
+                    "label" => Language::t("record", "useAutoload"),
+                    "value" => $recordModel->get("useAutoload"),
+                ],
+                "pageNavigationSize" => [
+                    "name"  => "pageNavigationSize",
+                    "label" => Language::t("record", "pageNavigationSize"),
+                    "value" => $recordModel->get("pageNavigationSize"),
+                ],
+                "shortCardDateType"  => [
+                    "label" => Language::t("record", "shortCardDateType"),
+                    "value" => $recordModel->get("shortCardDateType"),
+                    "name"  => "shortCardDateType",
+                    "list"  => RecordModel::getDateTypeList()
+                ],
+                "fullCardDateType"   => [
+                    "label" => Language::t("record", "fullCardDateType"),
+                    "value" => $recordModel->get("fullCardDateType"),
+                    "name"  => "fullCardDateType",
+                    "list"  => RecordModel::getDateTypeList()
+                ],
+                "button"             => [
+                    "label" => Language::t("common", $id === 0 ? "add" : "update"),
+                ]
+            ]
+        ];
+    }
+
+    /**
      * Adds block
      */
     public function createBlock()
@@ -158,6 +245,54 @@ class RecordController extends AbstractController
     }
 
     /**
+     * Adds block
+     */
+    public function createBlockDuplication()
+    {
+        // @TODO
+    }
+
+    /**
+     * Gets block
+     */
+    public function getCloneBlock()
+    {
+        // @TODO
+    }
+
+    /**
+     * Adds block
+     */
+    public function createCloneBlock()
+    {
+        // @TODO
+    }
+
+    /**
+     * Updates block
+     */
+    public function updateCloneBlock()
+    {
+        // @TODO
+    }
+
+    /**
+     * Deletes block
+     */
+    public function deleteCloneBlock()
+    {
+        // @TODO
+    }
+
+    /**
+     * Adds block
+     */
+    public function createCloneBlockDuplication()
+    {
+        // @TODO
+    }
+
+    /**
      * Gets block's design
      */
     public function getDesign()
@@ -169,6 +304,22 @@ class RecordController extends AbstractController
      * Updates block's design
      */
     public function updateDesign()
+    {
+        // @TODO
+    }
+
+    /**
+     * Gets block's design
+     */
+    public function getCloneDesign()
+    {
+        // @TODO
+    }
+
+    /**
+     * Updates block's design
+     */
+    public function updateCloneDesign()
     {
         // @TODO
     }

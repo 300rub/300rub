@@ -76,8 +76,11 @@ class RecordModel extends AbstractContentModel
             "hasDescription"    => [
                 self::FIELD_TYPE => self::FIELD_TYPE_BOOL
             ],
-            "hasAutoload"       => [
+            "useAutoload"        => [
                 self::FIELD_TYPE => self::FIELD_TYPE_BOOL
+            ],
+            "pageNavigationSize" => [
+                self::FIELD_TYPE => self::FIELD_TYPE_INT,
             ],
             "shortCardDateType" => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
