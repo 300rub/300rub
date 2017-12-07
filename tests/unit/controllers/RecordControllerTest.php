@@ -1,6 +1,8 @@
 <?php
 
 namespace testS\tests\unit\controllers;
+use testS\models\BlockModel;
+use testS\models\RecordModel;
 
 /**
  * Tests for the controller RecordController
@@ -288,9 +290,379 @@ class RecordControllerTest extends AbstractControllerTest
         ];
     }
 
-    public function testCreateBlock()
+    /**
+     * Test for createBlock method
+     *
+     * @param string $user
+     * @param array  $data
+     * @param bool   $hasError
+     * @param bool   $hasValidationErrors
+     *
+     * @return bool
+     *
+     * @dataProvider dataProviderForTestCreateBlock
+     */
+    public function testCreateBlock($user, $data, $hasError = false, $hasValidationErrors = false)
     {
-        $this->markTestSkipped();
+        $recordModelCountBefore = (new RecordModel())->getCount();
+        $blockModelCountBefore = (new BlockModel())->getCount();
+
+        $this->setUser($user);
+        $this->sendRequest("record", "block", $data, "POST");
+        $body = $this->getBody();
+
+        $recordModelCountAfter = (new RecordModel())->getCount();
+        $blockModelCountAfter = (new BlockModel())->getCount();
+
+        if ($hasError === true) {
+            $this->assertError();
+
+            $this->assertSame($recordModelCountBefore, $recordModelCountAfter);
+            $this->assertSame($blockModelCountBefore, $blockModelCountAfter);
+
+            return true;
+        }
+
+        if ($hasValidationErrors === true) {
+            $this->assertErrors();
+
+            $this->assertSame($recordModelCountBefore, $recordModelCountAfter);
+            $this->assertSame($blockModelCountBefore, $blockModelCountAfter);
+
+            return true;
+        }
+
+        $expected = [
+            "result" => true
+        ];
+
+        $this->compareExpectedAndActual($expected, $body);
+
+        $blockRecordModel = (new BlockModel())->latest()->find();
+        $recordModel = $blockRecordModel->getContentModel();
+
+        $this->assertSame($data["name"], $blockRecordModel->get("name"));
+        $this->assertSame($data["hasCover"], $recordModel->get("hasCover"));
+        $this->assertSame($data["hasImages"], $recordModel->get("hasImages"));
+        $this->assertSame($data["hasCoverZoom"], $recordModel->get("hasCoverZoom"));
+        $this->assertSame($data["hasDescription"], $recordModel->get("hasDescription"));
+        $this->assertSame($data["useAutoload"], $recordModel->get("useAutoload"));
+        $this->assertSame($data["pageNavigationSize"], $recordModel->get("pageNavigationSize"));
+        $this->assertSame($data["shortCardDateType"], $recordModel->get("shortCardDateType"));
+        $this->assertSame($data["fullCardDateType"], $recordModel->get("fullCardDateType"));
+
+        $this->assertSame($recordModelCountBefore, $recordModelCountAfter - 1);
+        $this->assertSame($blockModelCountBefore, $blockModelCountAfter - 1);
+
+        $blockRecordModel->delete();
+
+        return true;
+    }
+
+    /**
+     * Data provider for testCreateBlock
+     *
+     * @return array
+     */
+    public function dataProviderForTestCreateBlock()
+    {
+        return [
+            "userEmptyName"                  => [
+                "user"                => self::TYPE_LIMITED,
+                "data"                => [
+                    "name"               => "",
+                    "hasCover"           => true,
+                    "hasImages"          => true,
+                    "hasCoverZoom"       => true,
+                    "hasDescription"     => true,
+                    "useAutoload"        => true,
+                    "pageNavigationSize" => 20,
+                    "shortCardDateType"  => 1,
+                    "fullCardDateType"   => 1,
+                ],
+                "hasError"            => false,
+                "hasValidationErrors" => true,
+            ],
+            "noOperationUser"                => [
+                "user"     => self::TYPE_NO_OPERATIONS_USER,
+                "data"     => [
+                    "name"               => "Block name",
+                    "hasCover"           => true,
+                    "hasImages"          => true,
+                    "hasCoverZoom"       => true,
+                    "hasDescription"     => true,
+                    "useAutoload"        => true,
+                    "pageNavigationSize" => 20,
+                    "shortCardDateType"  => 1,
+                    "fullCardDateType"   => 1,
+                ],
+                "hasError" => true,
+            ],
+            "userWithoutHasCover"                => [
+                "user"                => self::TYPE_LIMITED,
+                "data"                => [
+                    "name"               => "Block name",
+                    "hasImages"          => true,
+                    "hasCoverZoom"       => true,
+                    "hasDescription"     => true,
+                    "useAutoload"        => true,
+                    "pageNavigationSize" => 20,
+                    "shortCardDateType"  => 1,
+                    "fullCardDateType"   => 1,
+                ],
+                "hasError"            => true,
+                "hasValidationErrors" => false,
+            ],
+            "userIncorrectHasCover"              => [
+                "user"                => self::TYPE_LIMITED,
+                "data"                => [
+                    "name"              => "Block name",
+                    "hasCover"           => "incorrect",
+                    "hasImages"          => true,
+                    "hasCoverZoom"       => true,
+                    "hasDescription"     => true,
+                    "useAutoload"        => true,
+                    "pageNavigationSize" => 20,
+                    "shortCardDateType"  => 1,
+                    "fullCardDateType"   => 1,
+                ],
+                "hasError"            => true,
+                "hasValidationErrors" => false,
+            ],
+            "userWithoutHasImages"                    => [
+                "user"                => self::TYPE_LIMITED,
+                "data"                => [
+                    "name"               => "Block name",
+                    "hasCover"           => true,
+                    "hasCoverZoom"       => true,
+                    "hasDescription"     => true,
+                    "useAutoload"        => true,
+                    "pageNavigationSize" => 20,
+                    "shortCardDateType"  => 1,
+                    "fullCardDateType"   => 1,
+                ],
+                "hasError"            => true,
+                "hasValidationErrors" => false,
+            ],
+            "userIncorrectHasImages"              => [
+                "user"                => self::TYPE_LIMITED,
+                "data"                => [
+                    "name"               => "Block name",
+                    "hasCover"           => true,
+                    "hasImages"          => "incorrect",
+                    "hasCoverZoom"       => true,
+                    "hasDescription"     => true,
+                    "useAutoload"        => true,
+                    "pageNavigationSize" => 20,
+                    "shortCardDateType"  => 1,
+                    "fullCardDateType"   => 1,
+                ],
+                "hasError"            => true,
+                "hasValidationErrors" => false,
+            ],
+            "userWithoutHasCoverZoom"                    => [
+                "user"                => self::TYPE_LIMITED,
+                "data"                => [
+                    "name"               => "Block name",
+                    "hasCover"           => true,
+                    "hasImages"          => true,
+                    "hasDescription"     => true,
+                    "useAutoload"        => true,
+                    "pageNavigationSize" => 20,
+                    "shortCardDateType"  => 1,
+                    "fullCardDateType"   => 1,
+                ],
+                "hasError"            => true,
+                "hasValidationErrors" => false,
+            ],
+            "userIncorrectHasCoverZoom"              => [
+                "user"                => self::TYPE_LIMITED,
+                "data"                => [
+                    "name"               => "Block name",
+                    "hasCover"           => true,
+                    "hasImages"          => true,
+                    "hasCoverZoom"       => "incorrect",
+                    "hasDescription"     => true,
+                    "useAutoload"        => true,
+                    "pageNavigationSize" => 20,
+                    "shortCardDateType"  => 1,
+                    "fullCardDateType"   => 1,
+                ],
+                "hasError"            => true,
+                "hasValidationErrors" => false,
+            ],
+            "userWithoutHasDescription"                    => [
+                "user"                => self::TYPE_LIMITED,
+                "data"                => [
+                    "name"               => "Block name",
+                    "hasCover"           => true,
+                    "hasImages"          => true,
+                    "hasCoverZoom"       => true,
+                    "useAutoload"        => true,
+                    "pageNavigationSize" => 20,
+                    "shortCardDateType"  => 1,
+                    "fullCardDateType"   => 1,
+                ],
+                "hasError"            => true,
+                "hasValidationErrors" => false,
+            ],
+            "userIncorrectHasDescription"              => [
+                "user"                => self::TYPE_LIMITED,
+                "data"                => [
+                    "name"               => "Block name",
+                    "hasCover"           => true,
+                    "hasImages"          => true,
+                    "hasCoverZoom"       => true,
+                    "hasDescription"     => "incorrect",
+                    "useAutoload"        => true,
+                    "pageNavigationSize" => 20,
+                    "shortCardDateType"  => 1,
+                    "fullCardDateType"   => 1,
+                ],
+                "hasError"            => true,
+                "hasValidationErrors" => false,
+            ],
+            "userWithoutUseAutoload"                    => [
+                "user"                => self::TYPE_LIMITED,
+                "data"                => [
+                    "name"               => "Block name",
+                    "hasCover"           => true,
+                    "hasImages"          => true,
+                    "hasCoverZoom"       => true,
+                    "hasDescription"     => true,
+                    "pageNavigationSize" => 20,
+                    "shortCardDateType"  => 1,
+                    "fullCardDateType"   => 1,
+                ],
+                "hasError"            => true,
+                "hasValidationErrors" => false,
+            ],
+            "userIncorrectUseAutoload"              => [
+                "user"                => self::TYPE_LIMITED,
+                "data"                => [
+                    "name"               => "Block name",
+                    "hasCover"           => true,
+                    "hasImages"          => true,
+                    "hasCoverZoom"       => true,
+                    "hasDescription"     => true,
+                    "useAutoload"        => "incorrect",
+                    "pageNavigationSize" => 20,
+                    "shortCardDateType"  => 1,
+                    "fullCardDateType"   => 1,
+                ],
+                "hasError"            => true,
+                "hasValidationErrors" => false,
+            ],
+            "userWithoutPageNavigationSize"                    => [
+                "user"                => self::TYPE_LIMITED,
+                "data"                => [
+                    "name"               => "Block name",
+                    "hasCover"           => true,
+                    "hasImages"          => true,
+                    "hasCoverZoom"       => true,
+                    "hasDescription"     => true,
+                    "useAutoload"        => true,
+                    "shortCardDateType"  => 1,
+                    "fullCardDateType"   => 1,
+                ],
+                "hasError"            => true,
+                "hasValidationErrors" => false,
+            ],
+            "userIncorrectPageNavigationSize"              => [
+                "user"                => self::TYPE_LIMITED,
+                "data"                => [
+                    "name"               => "Block name",
+                    "hasCover"           => true,
+                    "hasImages"          => true,
+                    "hasCoverZoom"       => true,
+                    "hasDescription"     => true,
+                    "useAutoload"        => true,
+                    "pageNavigationSize" => "incorrect",
+                    "shortCardDateType"  => 1,
+                    "fullCardDateType"   => 1,
+                ],
+                "hasError"            => true,
+                "hasValidationErrors" => false,
+            ],
+            "userWithoutShortCardDateType"                    => [
+                "user"                => self::TYPE_LIMITED,
+                "data"                => [
+                    "name"               => "Block name",
+                    "hasCover"           => true,
+                    "hasImages"          => true,
+                    "hasCoverZoom"       => true,
+                    "hasDescription"     => true,
+                    "useAutoload"        => true,
+                    "pageNavigationSize" => 20,
+                    "fullCardDateType"   => 1,
+                ],
+                "hasError"            => true,
+                "hasValidationErrors" => false,
+            ],
+            "userIncorrectShortCardDateType"              => [
+                "user"                => self::TYPE_LIMITED,
+                "data"                => [
+                    "name"               => "Block name",
+                    "hasCover"           => true,
+                    "hasImages"          => true,
+                    "hasCoverZoom"       => true,
+                    "hasDescription"     => true,
+                    "useAutoload"        => true,
+                    "pageNavigationSize" => 20,
+                    "shortCardDateType"  => "incorrect",
+                    "fullCardDateType"   => 1,
+                ],
+                "hasError"            => true,
+                "hasValidationErrors" => false,
+            ],
+            "userWithoutFullCardDateType"                    => [
+                "user"                => self::TYPE_LIMITED,
+                "data"                => [
+                    "name"               => "Block name",
+                    "hasCover"           => true,
+                    "hasImages"          => true,
+                    "hasCoverZoom"       => true,
+                    "hasDescription"     => true,
+                    "useAutoload"        => true,
+                    "pageNavigationSize" => 20,
+                    "shortCardDateType"  => 1,
+                ],
+                "hasError"            => true,
+                "hasValidationErrors" => false,
+            ],
+            "userIncorrectFullCardDateType"              => [
+                "user"                => self::TYPE_LIMITED,
+                "data"                => [
+                    "name"               => "Block name",
+                    "hasCover"           => true,
+                    "hasImages"          => true,
+                    "hasCoverZoom"       => true,
+                    "hasDescription"     => true,
+                    "useAutoload"        => true,
+                    "pageNavigationSize" => 20,
+                    "shortCardDateType"  => 1,
+                    "fullCardDateType"   => "incorrect",
+                ],
+                "hasError"            => true,
+                "hasValidationErrors" => false,
+            ],
+            "userCorrect"                    => [
+                "user"                => self::TYPE_LIMITED,
+                "data"                => [
+                    "name"               => "Block name",
+                    "hasCover"           => true,
+                    "hasImages"          => true,
+                    "hasCoverZoom"       => true,
+                    "hasDescription"     => true,
+                    "useAutoload"        => true,
+                    "pageNavigationSize" => 20,
+                    "shortCardDateType"  => 1,
+                    "fullCardDateType"   => 1,
+                ],
+                "hasError"            => false,
+                "hasValidationErrors" => false,
+            ],
+        ];
     }
 
     public function testUpdateBlock()
