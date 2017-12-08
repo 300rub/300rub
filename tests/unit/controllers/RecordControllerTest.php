@@ -1,6 +1,7 @@
 <?php
 
 namespace testS\tests\unit\controllers;
+
 use testS\models\BlockModel;
 use testS\models\RecordModel;
 
@@ -665,14 +666,219 @@ class RecordControllerTest extends AbstractControllerTest
         ];
     }
 
-    public function testUpdateBlock()
+    /**
+     * Test for updateUser method
+     *
+     * @param string $user
+     * @param array  $data
+     * @param bool   $hasError
+     * @param bool   $hasValidationErrors
+     *
+     * @return bool
+     *
+     * @dataProvider dataProviderForTestUpdateBlock
+     */
+    public function testUpdateBlock($user, $data, $hasError = false, $hasValidationErrors = false)
     {
-        $this->markTestSkipped();
+        $recordModel = new RecordModel();
+        $recordModel->save();
+
+        $blockModel = new BlockModel();
+        $blockModel->set(
+            [
+                "name"        => "name",
+                "language"    => 1,
+                "contentType" => BlockModel::TYPE_RECORD,
+                "contentId"   => $recordModel->getId(),
+            ]
+        );
+        $blockModel->save();
+
+        $data["id"] = $blockModel->getId();
+
+        $this->setUser($user);
+        $this->sendRequest("record", "block", $data, "PUT");
+        $body = $this->getBody();
+
+        if ($hasError === true) {
+            $this->assertError();
+            $blockModel->delete();
+            return true;
+        }
+
+        if ($hasValidationErrors === true) {
+            $this->assertErrors();
+            $blockModel->delete();
+            return true;
+        }
+
+        $this->assertArrayHasKey("html", $body);
+        $this->assertArrayHasKey("css", $body);
+        $this->assertArrayHasKey("js", $body);
+        $this->assertTrue($body["result"]);
+
+        $recordModel = (new RecordModel())->byId($recordModel->getId())->find();
+        $blockModel = BlockModel::getById($blockModel->getId());
+
+        $this->assertSame($data["name"], $blockModel->get("name"));
+        $this->assertSame($data["hasCover"], $recordModel->get("hasCover"));
+        $this->assertSame($data["hasImages"], $recordModel->get("hasImages"));
+        $this->assertSame($data["hasCoverZoom"], $recordModel->get("hasCoverZoom"));
+        $this->assertSame($data["hasDescription"], $recordModel->get("hasDescription"));
+        $this->assertSame($data["useAutoload"], $recordModel->get("useAutoload"));
+        $this->assertSame($data["pageNavigationSize"], $recordModel->get("pageNavigationSize"));
+        $this->assertSame($data["shortCardDateType"], $recordModel->get("shortCardDateType"));
+        $this->assertSame($data["fullCardDateType"], $recordModel->get("fullCardDateType"));
+
+        $blockModel->delete();
+
+        return true;
     }
 
-    public function testDeleteBlock()
+    /**
+     * Data provider for testUpdateBlock
+     *
+     * @return array
+     */
+    public function dataProviderForTestUpdateBlock()
     {
-        $this->markTestSkipped();
+        return [
+            "noOperationUser"                => [
+                "user"     => self::TYPE_NO_OPERATIONS_USER,
+                "data"     => [
+                    "name"               => "Block name",
+                    "hasCover"           => true,
+                    "hasImages"          => true,
+                    "hasCoverZoom"       => true,
+                    "hasDescription"     => true,
+                    "useAutoload"        => true,
+                    "pageNavigationSize" => 20,
+                    "shortCardDateType"  => 1,
+                    "fullCardDateType"   => 1,
+                ],
+                "hasError" => true,
+            ],
+            "userCorrect"                    => [
+                "user"                => self::TYPE_LIMITED,
+                "data"                => [
+                    "name"               => "Block name",
+                    "hasCover"           => true,
+                    "hasImages"          => true,
+                    "hasCoverZoom"       => true,
+                    "hasDescription"     => true,
+                    "useAutoload"        => true,
+                    "pageNavigationSize" => 20,
+                    "shortCardDateType"  => 1,
+                    "fullCardDateType"   => 1,
+                ],
+                "hasError"            => false,
+                "hasValidationErrors" => false,
+            ],
+        ];
+    }
+
+    /**
+     * Test for the method deleteBlock
+     *
+     * @param string $user
+     * @param int    $id
+     * @param bool   $hasError
+     *
+     * @dataProvider dataProviderForTestDeleteBlock
+     */
+    public function testDeleteBlock($user, $id = null, $hasError = false)
+    {
+        $this->setUser($user);
+
+        $blockModel = null;
+        if ($id === null) {
+            $recordModel = new RecordModel();
+            $recordModel->save();
+
+            $blockModel = new BlockModel();
+            $blockModel->set(
+                [
+                    "name"        => "name",
+                    "language"    => 1,
+                    "contentType" => BlockModel::TYPE_RECORD,
+                    "contentId"   => $recordModel->getId(),
+                ]
+            );
+            $blockModel->save();
+
+            $requestId = $blockModel->getId();
+        } else {
+            $requestId = $id;
+        }
+
+        $this->sendRequest("record", "block", ["id" => $requestId], "DELETE");
+
+        if ($hasError === true) {
+            $this->assertError();
+
+            if ($id === null) {
+                $blockModel->delete();
+            }
+        } else {
+            $expected = [
+                "result" => true
+            ];
+
+            $this->compareExpectedAndActual($expected, $this->getBody());
+
+            $this->assertNull((new BlockModel())->byId($blockModel->getId())->find());
+        }
+    }
+
+    /**
+     * Data provider for testDeleteBlock
+     *
+     * @return array
+     */
+    public function dataProviderForTestDeleteBlock()
+    {
+        return [
+            "userCorrect"            => [
+                "user"     => self::TYPE_LIMITED,
+                "id"       => null,
+                "hasError" => false
+            ],
+            "userIncorrect"          => [
+                "user"     => self::TYPE_LIMITED,
+                "id"       => 9999,
+                "hasError" => true
+            ],
+            "blockedCorrect"         => [
+                "user"     => self::TYPE_BLOCKED_USER,
+                "id"       => null,
+                "hasError" => true
+            ],
+            "blockedIncorrect"       => [
+                "user"     => self::TYPE_LIMITED,
+                "id"       => 9999,
+                "hasError" => true
+            ],
+            "noOperationCorrect"     => [
+                "user"     => self::TYPE_NO_OPERATIONS_USER,
+                "id"       => null,
+                "hasError" => true
+            ],
+            "noOperationIncorrect"   => [
+                "user"     => self::TYPE_NO_OPERATIONS_USER,
+                "id"       => 9999,
+                "hasError" => true
+            ],
+            "guestCorrect"           => [
+                "user"     => null,
+                "id"       => null,
+                "hasError" => true
+            ],
+            "guestIncorrect"         => [
+                "user"     => null,
+                "id"       => 9999,
+                "hasError" => true
+            ],
+        ];
     }
 
     public function testCreateBlockDuplication()

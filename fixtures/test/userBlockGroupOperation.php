@@ -114,4 +114,9 @@ return [
         "blockType" => BlockModel::TYPE_RECORD,
         "operation" => Operation::RECORD_ADD,
     ],
+    [
+        "userId"    => 3,
+        "blockType" => BlockModel::TYPE_RECORD,
+        "operation" => Operation::RECORD_DELETE,
+    ],
 ];

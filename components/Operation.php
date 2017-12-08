@@ -76,6 +76,7 @@ class Operation
     const RECORD_UPDATE_SETTINGS = "RECORD_UPDATE_SETTINGS";
     const RECORD_UPDATE_DESIGN = "RECORD_UPDATE_DESIGN";
     const RECORD_UPDATE_CONTENT = "RECORD_UPDATE_CONTENT";
+    const RECORD_DELETE = "RECORD_DELETE";
 
     /**
      * Gets section operations
@@ -184,6 +185,7 @@ class Operation
             self::RECORD_UPDATE_SETTINGS => Language::t("operation", "editSettings"),
             self::RECORD_UPDATE_DESIGN   => Language::t("operation", "editDesign"),
             self::RECORD_UPDATE_CONTENT  => Language::t("operation", "edit"),
+            self::RECORD_DELETE          => Language::t("operation", "delete"),
         ];
 
         if ($isAll === true) {
