@@ -37,9 +37,13 @@
                 ._loadData();
 
             this._setMaxHeight();
-            $(window).resize($.proxy(function () {
-                this._setMaxHeight();
-            }, this));
+            $(window).resize(
+                $.proxy(
+                    function () {
+                        this._setMaxHeight();
+                    }, this
+                )
+            );
 
             return this;
         },
@@ -49,10 +53,14 @@
          *
          * @private
          */
-        _setMaxHeight: function() {
-            this.$_body.css("max-height", $.proxy(function () {
-                return $(window).outerHeight() - 148;
-            }, this));
+        _setMaxHeight: function () {
+            this.$_body.css(
+                "max-height", $.proxy(
+                    function () {
+                        return $(window).outerHeight() - 148;
+                    }, this
+                )
+            );
         },
 
         /**
@@ -62,7 +70,7 @@
          *
          * @private
          */
-        _setNameAndAddToCollection: function() {
+        _setNameAndAddToCollection: function () {
             if (this._options.name === undefined) {
                 return this;
             }
@@ -84,7 +92,7 @@
          *
          * @returns {TestS.Window}
          */
-        getParent: function() {
+        getParent: function () {
             if (this._options.parent === undefined) {
                 return null;
             }
@@ -97,7 +105,7 @@
          *
          * @returns {Object}
          */
-        getInstance: function() {
+        getInstance: function () {
             return this.$_instance;
         },
 
@@ -106,7 +114,7 @@
          *
          * @returns {Object}
          */
-        getBody: function() {
+        getBody: function () {
             return this.$_body;
         },
 
@@ -115,7 +123,7 @@
          *
          * @returns {Object}
          */
-        getOverlay: function() {
+        getOverlay: function () {
             return this.$_overlay;
         },
 
@@ -126,7 +134,7 @@
          *
          * @private
          */
-        _setCloseEvents: function() {
+        _setCloseEvents: function () {
             this.getOverlay().on("click",  $.proxy(this.remove, this));
             this.getInstance().find(".header .close").on("click", $.proxy(this.remove, this));
 
@@ -138,7 +146,7 @@
          *
          * @returns {TestS.Window}
          */
-        reload: function() {
+        reload: function () {
             this.getInstance().remove();
             this.getOverlay().remove();
             this.init();
@@ -149,7 +157,7 @@
         /**
          * Removes window and overlay
          */
-        remove: function(isReloadParent) {
+        remove: function (isReloadParent) {
             this.getInstance().addClass("transparent");
             this.getOverlay().addClass("transparent");
 
@@ -164,14 +172,18 @@
                 TestS.getWrapper().find(".panel").removeClass("transparent");
             }
 
-            setTimeout($.proxy(function() {
-                this.getInstance().remove();
-                this.getOverlay().remove();
+            setTimeout(
+                $.proxy(
+                    function () {
+                        this.getInstance().remove();
+                        this.getOverlay().remove();
 
-                if (this._options.name !== undefined) {
-                    TestS.Window.Collection.delete(this._options.name);
-                }
-            }, this), 350);
+                        if (this._options.name !== undefined) {
+                            TestS.Window.Collection.delete(this._options.name);
+                        }
+                    }, this
+                ), 350
+            );
         },
 
         /**
@@ -181,7 +193,7 @@
          *
          * @private
          */
-        _addDomElement: function() {
+        _addDomElement: function () {
             if (this._options.level !== undefined) {
                 this.getInstance().addClass("level-" + this._options.level);
                 this.getOverlay().addClass("level-" + this._options.level);
@@ -190,10 +202,14 @@
             TestS.append(this.getInstance());
             TestS.append(this.getOverlay());
 
-            setTimeout($.proxy(function() {
-                this.getInstance().removeClass("transparent");
-                this.getOverlay().removeClass("transparent");
-            }, this), 50);
+            setTimeout(
+                $.proxy(
+                    function () {
+                        this.getInstance().removeClass("transparent");
+                        this.getOverlay().removeClass("transparent");
+                    }, this
+                ), 50
+            );
 
             TestS.getWrapper().find(".panel").addClass("transparent");
 
@@ -205,7 +221,7 @@
          *
          * @private
          */
-        _loadData: function() {
+        _loadData: function () {
             var ajaxData = {
                 controller: this._options.controller,
                 action: this._options.action
@@ -215,11 +231,13 @@
                 ajaxData.data = this._options.data;
             }
 
-            new TestS.Ajax({
-                data: ajaxData,
-                success: this._options.success,
-                error: $.proxy(this.onError, this)
-            });
+            new TestS.Ajax(
+                {
+                    data: ajaxData,
+                    success: this._options.success,
+                    error: $.proxy(this.onError, this)
+                }
+            );
         },
 
         /**
@@ -242,7 +260,7 @@
          *
          * @returns {TestS.Window}
          */
-        setTitle: function(title) {
+        setTitle: function (title) {
             this.getInstance().find(".header .title").text(title);
             return this;
         },
@@ -252,7 +270,7 @@
          *
          * @returns {TestS.Window}
          */
-        removeLoading: function() {
+        removeLoading: function () {
             this.getInstance().removeClass("loading");
             return this;
         },
@@ -264,7 +282,7 @@
          *
          * @returns {TestS.Window}
          */
-        setSubmit: function(options) {
+        setSubmit: function (options) {
             var submit = new TestS.Form(
                 $.extend(
                     {
@@ -276,11 +294,13 @@
                 )
             );
 
-            this.getBody().keypress(function(e) {
-                if (e.which === 13) {
-                    submit.getInstance().click();
+            this.getBody().keypress(
+                function (e) {
+                    if (e.which === 13) {
+                        submit.getInstance().click();
+                    }
                 }
-            });
+            );
 
             return this;
         }
@@ -308,7 +328,7 @@
          *
          * @returns {TestS}
          */
-        add: function(name, window) {
+        add: function (name, window) {
             this._instances[name] = window;
             return this;
         },
@@ -320,7 +340,7 @@
          *
          * @returns {TestS}
          */
-        delete: function(name) {
+        delete: function (name) {
             if (this._instances[name] !== undefined) {
                 delete(this._instances[name]);
             }
@@ -335,7 +355,7 @@
          *
          * @returns {TestS.Window}
          */
-        get: function(name) {
+        get: function (name) {
             if (this._instances[name] === undefined) {
                 return null;
             }

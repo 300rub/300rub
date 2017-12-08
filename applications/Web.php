@@ -16,8 +16,6 @@ use testS\models\UserSessionModel;
 
 /**
  * Class for working with WEB application
- *
- * @package testS\application
  */
 class Web extends AbstractApplication
 {
