@@ -1,12 +1,29 @@
 <?php
 
+/**
+ * PHP version 7
+ *
+ * @category TestS
+ * @package  Applications
+ * @author   Mikhail Vasilev <donvasilion@gmail.com>
+ * @license  http://opensource.org/licenses/gpl-license.php GNU Public License
+ * @link     -
+ */
+
 namespace testS\applications;
 
+use testS\commands\AbstractCommand;
 use testS\components\exceptions\CommonException;
 use Exception;
 
 /**
  * Class for working with console
+ *
+ * @category TestS
+ * @package  Applications
+ * @author   Mikhail Vasilev <donvasilion@gmail.com>
+ * @license  http://opensource.org/licenses/gpl-license.php GNU Public License
+ * @link     -
  */
 class Console extends AbstractApplication
 {
@@ -20,6 +37,8 @@ class Console extends AbstractApplication
      * Runs command
      *
      * @throws Exception
+     *
+     * @return void
      */
     public function run()
     {
@@ -31,22 +50,20 @@ class Console extends AbstractApplication
                 throw new CommonException("Incorrect command");
             }
 
-            $command = ucfirst($args[1]);
+            $commandName = ucfirst($args[1]);
             array_shift($args);
             array_shift($args);
 
-            $className = "\\testS\\commands\\" . $command. self::COMMAND_ENDING;
-            $this->output("The command \"{$command}\" has been started");
+            $className = "\\testS\\commands\\" . $commandName . self::COMMAND_ENDING;
+            $this->output("The command \"{$commandName}\" has been started");
 
-            /**
-             * @var \testS\commands\AbstractCommand $class;
-             */
-            $class = new $className;
-            $class->run($args);
+            $command = $this->_getCommandByClassName($className);
+            $command->run($args);
 
             $time = number_format(microtime(true) - $startTime, 3);
             App::console()->output(
-                "The command \"{$command}\" has been finished successfully with time: {$time}\n"
+                "The command \"{$commandName}\" has been finished " .
+                "successfully with time: {$time}\n"
             );
         } catch (Exception $e) {
             $this->output($e->getMessage() . "\n", true);
@@ -55,14 +72,28 @@ class Console extends AbstractApplication
     }
 
     /**
+     * Gets command by class name
+     *
+     * @param string $className Class name
+     *
+     * @return AbstractCommand
+     */
+    private function _getCommandByClassName($className)
+    {
+        return new $className;
+    }
+
+    /**
      * Console output
      *
-     * @param string $message
-     * @param bool   $isError
+     * @param string $message Message
+     * @param bool   $isError Error flag
+     *
+     * @return void
      */
     public function output($message, $isError = false)
     {
-        return false;
+        return;
 
         $output = "\e[0;33m" . date("Y-m-d H:i:s", time());
         if ($isError === false) {

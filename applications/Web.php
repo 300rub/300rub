@@ -1,5 +1,15 @@
 <?php
 
+/**
+ * PHP version 7
+ *
+ * @category TestS
+ * @package  Applications
+ * @author   Mikhail Vasilev <donvasilion@gmail.com>
+ * @license  http://opensource.org/licenses/gpl-license.php GNU Public License
+ * @link     -
+ */
+
 namespace testS\applications;
 
 use testS\components\Db;
@@ -16,6 +26,12 @@ use testS\models\UserSessionModel;
 
 /**
  * Class for working with WEB application
+ *
+ * @category TestS
+ * @package  Applications
+ * @author   Mikhail Vasilev <donvasilion@gmail.com>
+ * @license  http://opensource.org/licenses/gpl-license.php GNU Public License
+ * @link     -
  */
 class Web extends AbstractApplication
 {
@@ -78,31 +94,33 @@ class Web extends AbstractApplication
 
             $output = $e->getMessage();
             if ($isAjax === true) {
-                $output = json_encode([
-                    "error" => [
-                        "message" => $e->getMessage(),
-                        "file"    => $e->getFile(),
-                        "line"    => $e->getLine(),
-                        "trace"   => $e->getTraceAsString(),
+                $output = json_encode(
+                    [
+                        "error" => [
+                            "message" => $e->getMessage(),
+                            "file"    => $e->getFile(),
+                            "line"    => $e->getLine(),
+                            "trace"   => $e->getTraceAsString(),
+                        ]
                     ]
-                ]);
+                );
             }
             switch ($e->getCode()) {
-                case 204:
-                    http_response_code(204);
-                    break;
-                case 400:
-                    http_response_code(400);
-                    break;
-                case 404:
-                    http_response_code(404);
-                    break;
-                case 403:
-                    http_response_code(403);
-                    break;
-                default:
-                    http_response_code(500);
-                    break;
+            case 204:
+                http_response_code(204);
+                break;
+            case 400:
+                http_response_code(400);
+                break;
+            case 404:
+                http_response_code(404);
+                break;
+            case 403:
+                http_response_code(403);
+                break;
+            default:
+                http_response_code(500);
+                break;
             }
         }
 
@@ -121,29 +139,29 @@ class Web extends AbstractApplication
     {
         $method = strtoupper($_SERVER['REQUEST_METHOD']);
         switch ($method) {
-            case self::METHOD_GET:
-                $actionPrefix = "get";
-                $this->_useTransaction = false;
-                break;
-            case self::METHOD_POST:
-                $actionPrefix = "create";
-                $this->_useTransaction = true;
-                break;
-            case self::METHOD_PUT:
-                $actionPrefix = "update";
-                $this->_useTransaction = true;
-                break;
-            case self::METHOD_DELETE:
-                $actionPrefix = "delete";
-                $this->_useTransaction = true;
-                break;
-            default:
-                throw new BadRequestException(
-                    "AJAX request method: {method} is not allowed",
-                    [
+        case self::METHOD_GET:
+            $actionPrefix = "get";
+            $this->_useTransaction = false;
+            break;
+        case self::METHOD_POST:
+            $actionPrefix = "create";
+            $this->_useTransaction = true;
+            break;
+        case self::METHOD_PUT:
+            $actionPrefix = "update";
+            $this->_useTransaction = true;
+            break;
+        case self::METHOD_DELETE:
+            $actionPrefix = "delete";
+            $this->_useTransaction = true;
+            break;
+        default:
+            throw new BadRequestException(
+                "AJAX request method: {method} is not allowed",
+                [
                         "method" => $method
                     ]
-                );
+            );
         }
         if ($this->_useTransaction === true) {
             Db::startTransaction();
@@ -151,8 +169,7 @@ class Web extends AbstractApplication
 
         if (APP_ENV !== ENV_DEV
             && (!array_key_exists("HTTP_X_REQUESTED_WITH", $_SERVER)
-                || strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) !== "xmlhttprequest"
-            )
+            || strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) !== "xmlhttprequest")
         ) {
             throw new BadRequestException("Only AJAX request is allowed");
         }
@@ -196,7 +213,10 @@ class Web extends AbstractApplication
             $input["data"] = [];
         }
 
-        $controllerClassName = sprintf("\\testS\\controllers\\%sController", ucfirst($input["controller"]));
+        $controllerClassName = sprintf(
+            "\\testS\\controllers\\%sController",
+            ucfirst($input["controller"])
+        );
         if (!class_exists($controllerClassName)) {
             throw new BadRequestException(
                 "Class: {controllerClassName} doesn't exists",
@@ -206,11 +226,12 @@ class Web extends AbstractApplication
             );
         }
 
-        /**
-         * @var AbstractController $controller
-         */
-        $controllerMethodName = sprintf("%s%s", $actionPrefix, ucfirst($input["action"]));
-        $controller = new $controllerClassName;
+        $controllerMethodName = sprintf(
+            "%s%s",
+            $actionPrefix,
+            ucfirst($input["action"])
+        );
+        $controller = $this->_getControllerByClassName($controllerClassName);
         $controller->setData($input["data"]);
         if (!method_exists($controller, $controllerMethodName)) {
             throw new BadRequestException(
@@ -237,6 +258,18 @@ class Web extends AbstractApplication
         }
 
         return json_encode($output);
+    }
+
+    /**
+     * Gets controller by class name
+     *
+     * @param string $controllerClassName Class name
+     *
+     * @return AbstractController
+     */
+    private function _getControllerByClassName($controllerClassName)
+    {
+        return new $controllerClassName;
     }
 
     /**
@@ -298,7 +331,9 @@ class Web extends AbstractApplication
             return $this;
         }
 
-        $userModel = (new UserModel())->byId($userSessionModel->get("userId"))->find();
+        $userModel = (new UserModel())
+            ->byId($userSessionModel->get("userId"))
+            ->find();
         if (!$userModel instanceof UserModel) {
             return $this;
         }
@@ -323,8 +358,8 @@ class Web extends AbstractApplication
     /**
      * Sets User
      *
-     * @param string    $token
-     * @param UserModel $userModel
+     * @param string    $token     Token
+     * @param UserModel $userModel User model
      *
      * @return Web
      */

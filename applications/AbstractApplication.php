@@ -1,5 +1,15 @@
 <?php
 
+/**
+ * PHP version 7
+ *
+ * @category TestS
+ * @package  Applications
+ * @author   Mikhail Vasilev <donvasilion@gmail.com>
+ * @license  http://opensource.org/licenses/gpl-license.php GNU Public License
+ * @link     -
+ */
+
 namespace testS\applications;
 
 use testS\components\Db;
@@ -12,200 +22,204 @@ use testS\models\SiteModel;
 /**
  * Abstract class for work with application
  *
- * @package testS\application
+ * @category TestS
+ * @package  Applications
+ * @author   Mikhail Vasilev <donvasilion@gmail.com>
+ * @license  http://opensource.org/licenses/gpl-license.php GNU Public License
+ * @link     -
  */
 abstract class AbstractApplication
 {
 
-	/**
-	 * Settings from config
-	 *
-	 * @var array
-	 */
-	private $_config = null;
+    /**
+     * Settings from config
+     *
+     * @var array
+     */
+    private $_config = null;
 
-	/**
-	 * Memcached
-	 *
-	 * @var Memcached
-	 */
-	private $_memcached = null;
+    /**
+     * Memcached
+     *
+     * @var Memcached
+     */
+    private $_memcached = null;
 
-	/**
-	 * Site
-	 *
-	 * @var SiteModel
-	 */
-	protected $site = null;
+    /**
+     * Site
+     *
+     * @var SiteModel
+     */
+    protected $site = null;
 
-	/**
-	 * Runs application
-	 *
-	 * @return void
-	 */
-	abstract public function run();
+    /**
+     * Runs application
+     *
+     * @return void
+     */
+    abstract public function run();
 
-	/**
-	 * Constructor
-	 *
-	 * @param array $config Settings from config
-	 */
-	public function __construct($config)
-	{
-		$this
-			->_setErrorHandler()
-			->_setConfig($config)
-			->_activateVendorAutoload()
+    /**
+     * Constructor
+     *
+     * @param array $config Settings from config
+     */
+    public function __construct($config)
+    {
+        $this
+            ->_setErrorHandler()
+            ->_setConfig($config)
+            ->_activateVendorAutoload()
             ->_setMemcached();
-	}
+    }
 
-	/**
-	 * Sets Error Handler
-	 *
-	 * @return AbstractApplication
-	 */
-	private function _setErrorHandler()
-	{
-		new ErrorHandler();
+    /**
+     * Sets Error Handler
+     *
+     * @return AbstractApplication
+     */
+    private function _setErrorHandler()
+    {
+        new ErrorHandler();
 
-		return $this;
-	}
+        return $this;
+    }
 
-	/**
-	 * Parses config settings
-	 *
-	 * @param array $config Config settings
-	 *
-	 * @return AbstractApplication
-	 */
-	private function _setConfig($config)
-	{
-		$this->_config = $config;
+    /**
+     * Parses config settings
+     *
+     * @param array $config Config settings
+     *
+     * @return AbstractApplication
+     */
+    private function _setConfig($config)
+    {
+        $this->_config = $config;
 
-		return $this;
-	}
+        return $this;
+    }
 
-	/**
-	 * Gets config
-	 *
-	 * @param array $path
-	 *
-	 * @return mixed
-	 */
-	public function getConfig(array $path = [])
-	{
-		$value = $this->_config;
+    /**
+     * Gets config
+     *
+     * @param array $path Path for config item
+     *
+     * @return mixed
+     */
+    public function getConfig(array $path = [])
+    {
+        $value = $this->_config;
 
-		if (count($path) === 0) {
-			return $value;
-		}
+        if (count($path) === 0) {
+            return $value;
+        }
 
-		foreach ($path as $item) {
-			if (!is_array($value)
-				|| !array_key_exists($item, $value)
-			) {
-				return null;
-			}
+        foreach ($path as $item) {
+            if (!is_array($value)
+                || !array_key_exists($item, $value)
+            ) {
+                return null;
+            }
 
-			$value = $value[$item];
-		}
+            $value = $value[$item];
+        }
 
-		return $value;
-	}
+        return $value;
+    }
 
-	/**
-	 * Activates vendor autoload
-	 *
-	 * @return AbstractApplication
-	 */
-	private function _activateVendorAutoload()
-	{
-		require_once(__DIR__ . "/../vendor/autoload.php");
+    /**
+     * Activates vendor autoload
+     *
+     * @return AbstractApplication
+     */
+    private function _activateVendorAutoload()
+    {
+        include_once __DIR__ . "/../vendor/autoload.php";
 
-		return $this;
-	}
+        return $this;
+    }
 
-	/**
-	 * Sets Memcached
-	 *
-	 * @return AbstractApplication
-	 */
-	private function _setMemcached()
-	{
-		$this->_memcached = new Memcached(
-		    $this->getConfig(["memcached", "host"]),
-		    $this->getConfig(["memcached", "port"])
+    /**
+     * Sets Memcached
+     *
+     * @return AbstractApplication
+     */
+    private function _setMemcached()
+    {
+        $this->_memcached = new Memcached(
+            $this->getConfig(["memcached", "host"]),
+            $this->getConfig(["memcached", "port"])
         );
 
-		return $this;
-	}
+        return $this;
+    }
 
-	/**
-	 * Gets Memcached
-	 *
-	 * @return Memcached
-	 */
-	public function getMemcached()
-	{
-		return $this->_memcached;
-	}
+    /**
+     * Gets Memcached
+     *
+     * @return Memcached
+     */
+    public function getMemcached()
+    {
+        return $this->_memcached;
+    }
 
-	/**
-	 * Sets site
-	 *
-	 * @param string $hostname
-	 *
-	 * @return Web
-	 *
-	 * @throws NotFoundException
-	 */
-	protected function setSite($hostname = null)
-	{
-		if (APP_ENV === ENV_DEV || $hostname === null) {
-			$host = DEV_HOST;
-		} else {
-			$host = $hostname;
-		}
+    /**
+     * Sets site
+     *
+     * @param string $hostname Site hostname
+     *
+     * @return AbstractApplication
+     *
+     * @throws NotFoundException
+     */
+    protected function setSite($hostname = null)
+    {
+        if (APP_ENV === ENV_DEV || $hostname === null) {
+            $host = DEV_HOST;
+        } else {
+            $host = $hostname;
+        }
 
-		$memcachedKey = "site_" . $host;
-		$siteModel = $this->getMemcached()->get($memcachedKey);
-		if (!$siteModel instanceof SiteModel) {
-			Db::setSystemPdo();
+        $memcachedKey = "site_" . $host;
+        $siteModel = $this->getMemcached()->get($memcachedKey);
+        if (!$siteModel instanceof SiteModel) {
+            Db::setSystemPdo();
 
-			$siteModel = (new SiteModel())->byHost($host)->find();
-			if ($siteModel === null) {
-				throw new NotFoundException(
-					"Unable to find site with host: {host}",
-					[
-						"host" => $host
-					]
-				);
-			}
+            $siteModel = (new SiteModel())->byHost($host)->find();
+            if ($siteModel === null) {
+                throw new NotFoundException(
+                    "Unable to find site with host: {host}",
+                    [
+                    "host" => $host
+                    ]
+                );
+            }
 
-			$this->getMemcached()->set($memcachedKey, $siteModel);
-		}
+            $this->getMemcached()->set($memcachedKey, $siteModel);
+        }
 
-		Db::setPdo(
-			$siteModel->get("dbHost"),
-			$siteModel->get("dbUser"),
-			$siteModel->get("dbPassword"),
-			$siteModel->get("dbName")
-		);
+        Db::setPdo(
+            $siteModel->get("dbHost"),
+            $siteModel->get("dbUser"),
+            $siteModel->get("dbPassword"),
+            $siteModel->get("dbName")
+        );
 
-		Language::setActiveId($siteModel->get("language"));
+        Language::setActiveId($siteModel->get("language"));
 
-		$this->site = $siteModel;
+        $this->site = $siteModel;
 
-		return $this;
-	}
+        return $this;
+    }
 
-	/**
-	 * Gets site
-	 *
-	 * @return SiteModel
-	 */
-	public function getSite()
-	{
-		return $this->site;
-	}
+    /**
+     * Gets site
+     *
+     * @return SiteModel
+     */
+    public function getSite()
+    {
+        return $this->site;
+    }
 }
