@@ -1,0 +1,5 @@
+#!/bin/bash
+
+path=${1/$PWD\//}
+
+docker exec -it tests_phpfpm_1 ant phpcbf -Dpath="$path"

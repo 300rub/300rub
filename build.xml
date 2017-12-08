@@ -83,6 +83,13 @@
         </exec>
     </target>
 
+    <target name="phpcbf" description="Fixing code with PHP Code Sniffer">
+        <exec executable="./vendor/squizlabs/php_codesniffer/bin/phpcbf">
+            <arg value="--ignore=backups,bin,docker,logs,public/*/lib,trash,vendor" />
+            <arg path="${path}" />
+        </exec>
+    </target>
+
     <target name="phpunit" depends="create-sql-dumps, clear-db, clear-memcached, migrate, load-test-fixtures">
         <exec executable="php" failonerror="true">
             <arg value='vendor/phpunit/phpunit/phpunit' />
