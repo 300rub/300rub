@@ -36,7 +36,7 @@ class Db
      *
      * @var PDO
      */
-    private static $_pdo;
+    private $_pdo;
 
     /**
      * Select
@@ -102,9 +102,9 @@ class Db
      * @param string $password DB Password
      * @param string $dbName   DB name
      */
-    public static function setPdo($host, $user, $password, $dbName)
+    public function setPdo($host, $user, $password, $dbName)
     {
-        self::$_pdo = new PDO(
+        $this->_pdo = new PDO(
             "mysql:host={$host};dbname={$dbName};charset=UTF8",
             $user,
             $password,
@@ -119,11 +119,11 @@ class Db
     /**
      * Sets system PDO
      */
-    public static function setSystemPdo()
+    public function setSystemPdo()
     {
         $app = App::getInstance();
 
-        self::setPdo(
+        $this->setPdo(
             $app->getConfig(["db", "system", "host"]),
             $app->getConfig(["db", "system", "user"]),
             $app->getConfig(["db", "system", "password"]),

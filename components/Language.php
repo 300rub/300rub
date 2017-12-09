@@ -37,7 +37,7 @@ class Language
 	 *
 	 * @var int
 	 */
-	private static $_activeId = self::LANGUAGE_EN_ID;
+	private $_activeId = self::LANGUAGE_EN_ID;
 
 	/**
 	 * List of languages
@@ -49,14 +49,14 @@ class Language
 		self::LANGUAGE_RU_ID => self::LANGUAGE_RU_ALIAS,
 	];
 
-	public static function getActiveId()
+	public function getActiveId()
 	{
-		return self::$_activeId;
+		return $this->_activeId;
 	}
 
-	public static function setActiveId($id)
+	public function setActiveId($id)
 	{
-		self::$_activeId = $id;
+        $this->_activeId = $id;
 	}
 
 	/**

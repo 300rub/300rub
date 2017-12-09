@@ -36,14 +36,28 @@ abstract class AbstractApplication
      *
      * @var array
      */
-    private $config = null;
+    private $_config = null;
 
     /**
      * Memcached
      *
      * @var Memcached
      */
-    private $memcached = null;
+    private $_memcached = null;
+
+    /**
+     * DB
+     *
+     * @var Db
+     */
+    private $_db = null;
+
+    /**
+     * Language
+     *
+     * @var Language
+     */
+    private $_language = null;
 
     /**
      * Site
@@ -67,10 +81,12 @@ abstract class AbstractApplication
     public function __construct($config)
     {
         $this
-            ->setErrorHandler()
-            ->setConfig($config)
-            ->activateVendorAutoload()
-            ->setMemcached();
+            ->_setErrorHandler()
+            ->_setConfig($config)
+            ->_setDb()
+            ->_setLanguage()
+            ->_activateVendorAutoload()
+            ->_setMemcached();
     }
 
     /**
@@ -78,7 +94,7 @@ abstract class AbstractApplication
      *
      * @return AbstractApplication
      */
-    private function setErrorHandler()
+    private function _setErrorHandler()
     {
         new ErrorHandler();
 
@@ -92,9 +108,9 @@ abstract class AbstractApplication
      *
      * @return AbstractApplication
      */
-    private function setConfig($config)
+    private function _setConfig($config)
     {
-        $this->config = $config;
+        $this->_config = $config;
 
         return $this;
     }
@@ -108,7 +124,7 @@ abstract class AbstractApplication
      */
     public function getConfig(array $path = [])
     {
-        $value = $this->config;
+        $value = $this->_config;
 
         if (count($path) === 0) {
             return $value;
@@ -128,11 +144,53 @@ abstract class AbstractApplication
     }
 
     /**
+     * Sets DB
+     *
+     * @return AbstractApplication
+     */
+    private function _setDb()
+    {
+        $this->_db = new Db();
+        return $this;
+    }
+
+    /**
+     * Gets DB
+     *
+     * @return Db
+     */
+    public function getDb()
+    {
+        return $this->_db;
+    }
+
+    /**
+     * Sets Language
+     *
+     * @return AbstractApplication
+     */
+    private function _setLanguage()
+    {
+        $this->_language = new Language();
+        return $this;
+    }
+
+    /**
+     * Gets Language
+     *
+     * @return Language
+     */
+    public function getLanguage()
+    {
+        return $this->_language;
+    }
+
+    /**
      * Activates vendor autoload
      *
      * @return AbstractApplication
      */
-    private function activateVendorAutoload()
+    private function _activateVendorAutoload()
     {
         include_once __DIR__ . "/../vendor/autoload.php";
 
@@ -144,9 +202,9 @@ abstract class AbstractApplication
      *
      * @return AbstractApplication
      */
-    private function setMemcached()
+    private function _setMemcached()
     {
-        $this->memcached = new Memcached(
+        $this->_memcached = new Memcached(
             $this->getConfig(["memcached", "host"]),
             $this->getConfig(["memcached", "port"])
         );
@@ -161,7 +219,7 @@ abstract class AbstractApplication
      */
     public function getMemcached()
     {
-        return $this->memcached;
+        return $this->_memcached;
     }
 
     /**
@@ -182,7 +240,7 @@ abstract class AbstractApplication
         $memcachedKey = "site_" . $hostname;
         $siteModel = $this->getMemcached()->get($memcachedKey);
         if (!$siteModel instanceof SiteModel) {
-            Db::setSystemPdo();
+            $this->getDb()->setSystemPdo();
 
             $siteModel = (new SiteModel())->byHost($hostname)->find();
             if ($siteModel === null) {
@@ -197,14 +255,14 @@ abstract class AbstractApplication
             $this->getMemcached()->set($memcachedKey, $siteModel);
         }
 
-        Db::setPdo(
+        $this->getDb()->setPdo(
             $siteModel->get("dbHost"),
             $siteModel->get("dbUser"),
             $siteModel->get("dbPassword"),
             $siteModel->get("dbName")
         );
 
-        Language::setActiveId($siteModel->get("language"));
+        $this->getLanguage()->setActiveId($siteModel->get("language"));
 
         $this->site = $siteModel;
 
