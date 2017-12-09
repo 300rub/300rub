@@ -12,9 +12,3 @@ phpfpm:
     volumes:
         - ".:/var/www"
     command: php-fpm
-
-node:
-    image: node:9.2.1
-    volumes:
-        - ".:/var/www"
-    tty: true

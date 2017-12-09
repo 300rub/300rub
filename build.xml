@@ -106,6 +106,14 @@
         </exec>
     </target>
 
+    <target name="jshint" description="JSHint, a JavaScript Code Quality Tool">
+        <exec executable="jshint">
+            <arg path="${path}" />
+            <arg value="--exclude" />
+            <arg value="vendor,backups,bin,docker,logs,trash,public/js/lib" />
+        </exec>
+    </target>
+
     <target name="phpunit" depends="create-sql-dumps, clear-db, clear-memcached, migrate, load-test-fixtures">
         <exec executable="php" failonerror="true">
             <arg value='vendor/phpunit/phpunit/phpunit' />
