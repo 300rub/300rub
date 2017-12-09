@@ -13,8 +13,8 @@ phpfpm:
         - ".:/var/www"
     command: php-fpm
 
-ant:
-    image: ant:1.9.4
+node:
+    image: node:9.2.1
     volumes:
         - ".:/var/www"
     tty: true
