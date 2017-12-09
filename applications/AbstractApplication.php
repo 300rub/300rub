@@ -36,14 +36,14 @@ abstract class AbstractApplication
      *
      * @var array
      */
-    private $_config = null;
+    private $config = null;
 
     /**
      * Memcached
      *
      * @var Memcached
      */
-    private $_memcached = null;
+    private $memcached = null;
 
     /**
      * Site
@@ -67,10 +67,10 @@ abstract class AbstractApplication
     public function __construct($config)
     {
         $this
-            ->_setErrorHandler()
-            ->_setConfig($config)
-            ->_activateVendorAutoload()
-            ->_setMemcached();
+            ->setErrorHandler()
+            ->setConfig($config)
+            ->activateVendorAutoload()
+            ->setMemcached();
     }
 
     /**
@@ -78,7 +78,7 @@ abstract class AbstractApplication
      *
      * @return AbstractApplication
      */
-    private function _setErrorHandler()
+    private function setErrorHandler()
     {
         new ErrorHandler();
 
@@ -92,9 +92,9 @@ abstract class AbstractApplication
      *
      * @return AbstractApplication
      */
-    private function _setConfig($config)
+    private function setConfig($config)
     {
-        $this->_config = $config;
+        $this->config = $config;
 
         return $this;
     }
@@ -108,7 +108,7 @@ abstract class AbstractApplication
      */
     public function getConfig(array $path = [])
     {
-        $value = $this->_config;
+        $value = $this->config;
 
         if (count($path) === 0) {
             return $value;
@@ -132,7 +132,7 @@ abstract class AbstractApplication
      *
      * @return AbstractApplication
      */
-    private function _activateVendorAutoload()
+    private function activateVendorAutoload()
     {
         include_once __DIR__ . "/../vendor/autoload.php";
 
@@ -144,9 +144,9 @@ abstract class AbstractApplication
      *
      * @return AbstractApplication
      */
-    private function _setMemcached()
+    private function setMemcached()
     {
-        $this->_memcached = new Memcached(
+        $this->memcached = new Memcached(
             $this->getConfig(["memcached", "host"]),
             $this->getConfig(["memcached", "port"])
         );
@@ -161,7 +161,7 @@ abstract class AbstractApplication
      */
     public function getMemcached()
     {
-        return $this->_memcached;
+        return $this->memcached;
     }
 
     /**
@@ -176,22 +176,20 @@ abstract class AbstractApplication
     protected function setSite($hostname = null)
     {
         if (APP_ENV === ENV_DEV || $hostname === null) {
-            $host = DEV_HOST;
-        } else {
-            $host = $hostname;
+            $hostname = DEV_HOST;
         }
 
-        $memcachedKey = "site_" . $host;
+        $memcachedKey = "site_" . $hostname;
         $siteModel = $this->getMemcached()->get($memcachedKey);
         if (!$siteModel instanceof SiteModel) {
             Db::setSystemPdo();
 
-            $siteModel = (new SiteModel())->byHost($host)->find();
+            $siteModel = (new SiteModel())->byHost($hostname)->find();
             if ($siteModel === null) {
                 throw new NotFoundException(
                     "Unable to find site with host: {host}",
                     [
-                    "host" => $host
+                    "host" => $hostname
                     ]
                 );
             }

@@ -1,7 +1,0 @@
-#!/bin/bash
-
-trap "exit" INT
-
-docker-compose -f docker-compose.yml -f docker-compose-prod.yml kill
-docker-compose -f docker-compose.yml -f docker-compose-prod.yml rm -f
-docker-compose -f docker-compose.yml -f docker-compose-prod.yml up -d
