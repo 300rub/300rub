@@ -6,16 +6,16 @@
      *
      * @param {TestS.Panel.Design.Block} object
      *
-     * @property {TestS.Panel.Design.Block} _object
+     * @property {TestS.Panel.Design.Block} object
      *
      * @type {Object}
      */
     TestS.Panel.Design.Block.Margin = function (object) {
-        this._object = $.extend({}, object);
-        this.$_container = null;
-        this.$_relativeContainer = null;
-        this.$_example = null;
-        this._uniqueId = 0;
+        this.object = $.extend({}, object);
+        this.$container = null;
+        this.$relativeContainer = null;
+        this.$example = null;
+        this.uniqueId = 0;
 
         this.init();
     };
@@ -30,26 +30,26 @@
          * Init
          */
         init: function () {
-            this.$_container = this._object.getDesignContainer().find(".margin-container");
+            this.$container = this.object.getDesignContainer().find(".margin-container");
 
-            if (this._object.getValue("marginTop") === null &&
-                this._object.getValue("marginRight") === null &&
-                this._object.getValue("marginBottom") === null &&
-                this._object.getValue("marginLeft") === null
+            if (this.object.getValue("marginTop") === null &&
+                this.object.getValue("marginRight") === null &&
+                this.object.getValue("marginBottom") === null &&
+                this.object.getValue("marginLeft") === null
             ) {
-                this.$_container.remove();
+                this.$container.remove();
                 return this;
             }
 
             this
-                ._setInitialSettings()
-                ._setMarginTop()
-                ._setMarginRight()
-                ._setMarginBottom()
-                ._setMarginLeft()
-                ._setMarginHover()
-                ._setHasMarginAnimation()
-                ._update(true);
+                .setInitialSettings()
+                .setMarginTop()
+                .setMarginRight()
+                .setMarginBottom()
+                .setMarginLeft()
+                .setMarginHover()
+                .setHasMarginAnimation()
+                .update(true);
         },
 
         /**
@@ -59,19 +59,19 @@
          *
          * @private
          */
-        _setInitialSettings: function () {
-            this.$_example = this.$_container.find(".styles-example-container");
+        setInitialSettings: function () {
+            this.$example = this.$container.find(".styles-example-container");
 
-            this.$_container
+            this.$container
                 .find(".category-title")
-                .text(this._object.getLabel("margin"));
+                .text(this.object.getLabel("margin"));
 
-            this._uniqueId = TestS.Library.getUniqueId();
-            this.$_example = this.$_container
+            this.uniqueId = TestS.Library.getUniqueId();
+            this.$example = this.$container
                 .find(".margin-example")
-                .addClass("margin-example-" + this._uniqueId);
+                .addClass("margin-example-" + this.uniqueId);
 
-            this.$_relativeContainer = this.$_container.find(".relative-container");
+            this.$relativeContainer = this.$container.find(".relative-container");
 
             return this;
         },
@@ -83,43 +83,43 @@
          *
          * @private
          */
-        _setMarginTop: function () {
-            if (this._object.getValue("marginTop") === null) {
+        setMarginTop: function () {
+            if (this.object.getValue("marginTop") === null) {
                 return this;
             }
 
             var hover = null;
 
-            if (this._object.getValue("marginTopHover") !== null) {
+            if (this.object.getValue("marginTopHover") !== null) {
                 hover = new TestS.Form({
                     type: "spinner",
-                    value: this._object.getValue("marginTopHover"),
-                    class: "margin-top-hover",
+                    value: this.object.getValue("marginTopHover"),
+                    css: "margin-top-hover",
                     iconBefore: "fa-mouse-pointer",
                     callback: $.proxy(function (value) {
-                        this._object.setValue("marginTopHover", value);
-                        this._update(false);
+                        this.object.setValue("marginTopHover", value);
+                        this.update(false);
                     }, this),
-                    appendTo: this.$_relativeContainer
+                    appendTo: this.$relativeContainer
                 });
             }
 
             TestS.Form({
                 type: "spinner",
-                value: this._object.getValue("marginTop"),
-                class: "margin-top",
+                value: this.object.getValue("marginTop"),
+                css: "margin-top",
                 callback: $.proxy(function (value) {
-                    if (this._object.getValue("marginTop") === this._object.getValue("marginTopHover") &&
+                    if (this.object.getValue("marginTop") === this.object.getValue("marginTopHover") &&
                         hover !== null
                     ) {
-                        this._object.setValue("marginTopHover", value);
+                        this.object.setValue("marginTopHover", value);
                         hover.setValue(value);
                     }
 
-                    this._object.setValue("marginTop", value);
-                    this._update(false);
+                    this.object.setValue("marginTop", value);
+                    this.update(false);
                 }, this),
-                appendTo: this.$_relativeContainer
+                appendTo: this.$relativeContainer
             });
 
             return this;
@@ -132,43 +132,43 @@
          *
          * @private
          */
-        _setMarginRight: function () {
-            if (this._object.getValue("marginRight") === null) {
+        setMarginRight: function () {
+            if (this.object.getValue("marginRight") === null) {
                 return this;
             }
 
             var hover = null;
 
-            if (this._object.getValue("marginRightHover") !== null) {
+            if (this.object.getValue("marginRightHover") !== null) {
                 hover = new TestS.Form({
                     type: "spinner",
-                    value: this._object.getValue("marginRightHover"),
-                    class: "margin-right-hover",
+                    value: this.object.getValue("marginRightHover"),
+                    css: "margin-right-hover",
                     iconBefore: "fa-mouse-pointer",
                     callback: $.proxy(function (value) {
-                        this._object.setValue("marginRightHover", value);
-                        this._update(false);
+                        this.object.setValue("marginRightHover", value);
+                        this.update(false);
                     }, this),
-                    appendTo: this.$_relativeContainer
+                    appendTo: this.$relativeContainer
                 });
             }
 
             TestS.Form({
                 type: "spinner",
-                value: this._object.getValue("marginRight"),
-                class: "margin-right",
+                value: this.object.getValue("marginRight"),
+                css: "margin-right",
                 callback: $.proxy(function (value) {
-                    if (this._object.getValue("marginRight") === this._object.getValue("marginRightHover") &&
+                    if (this.object.getValue("marginRight") === this.object.getValue("marginRightHover") &&
                         hover !== null
                     ) {
-                        this._object.setValue("marginRightHover", value);
+                        this.object.setValue("marginRightHover", value);
                         hover.setValue(value);
                     }
 
-                    this._object.setValue("marginRight", value);
-                    this._update(false);
+                    this.object.setValue("marginRight", value);
+                    this.update(false);
                 }, this),
-                appendTo: this.$_relativeContainer
+                appendTo: this.$relativeContainer
             });
 
             return this;
@@ -181,43 +181,43 @@
          *
          * @private
          */
-        _setMarginBottom: function () {
-            if (this._object.getValue("marginBottom") === null) {
+        setMarginBottom: function () {
+            if (this.object.getValue("marginBottom") === null) {
                 return this;
             }
 
             var hover = null;
 
-            if (this._object.getValue("marginBottomHover") !== null) {
+            if (this.object.getValue("marginBottomHover") !== null) {
                 hover = new TestS.Form({
                     type: "spinner",
-                    value: this._object.getValue("marginBottomHover"),
-                    class: "margin-bottom-hover",
+                    value: this.object.getValue("marginBottomHover"),
+                    css: "margin-bottom-hover",
                     iconBefore: "fa-mouse-pointer",
                     callback: $.proxy(function (value) {
-                        this._object.setValue("marginBottomHover", value);
-                        this._update(false);
+                        this.object.setValue("marginBottomHover", value);
+                        this.update(false);
                     }, this),
-                    appendTo: this.$_relativeContainer
+                    appendTo: this.$relativeContainer
                 });
             }
 
             TestS.Form({
                 type: "spinner",
-                value: this._object.getValue("marginBottom"),
-                class: "margin-bottom",
+                value: this.object.getValue("marginBottom"),
+                css: "margin-bottom",
                 callback: $.proxy(function (value) {
-                    if (this._object.getValue("marginBottom") === this._object.getValue("marginBottomHover") &&
+                    if (this.object.getValue("marginBottom") === this.object.getValue("marginBottomHover") &&
                         hover !== null
                     ) {
-                        this._object.setValue("marginBottomHover", value);
+                        this.object.setValue("marginBottomHover", value);
                         hover.setValue(value);
                     }
 
-                    this._object.setValue("marginBottom", value);
-                    this._update(false);
+                    this.object.setValue("marginBottom", value);
+                    this.update(false);
                 }, this),
-                appendTo: this.$_relativeContainer
+                appendTo: this.$relativeContainer
             });
 
             return this;
@@ -230,43 +230,43 @@
          *
          * @private
          */
-        _setMarginLeft: function () {
-            if (this._object.getValue("marginLeft") === null) {
+        setMarginLeft: function () {
+            if (this.object.getValue("marginLeft") === null) {
                 return this;
             }
 
             var hover = null;
 
-            if (this._object.getValue("marginLeftHover") !== null) {
+            if (this.object.getValue("marginLeftHover") !== null) {
                 hover = new TestS.Form({
                     type: "spinner",
-                    value: this._object.getValue("marginLeftHover"),
-                    class: "margin-left-hover",
+                    value: this.object.getValue("marginLeftHover"),
+                    css: "margin-left-hover",
                     iconBefore: "fa-mouse-pointer",
                     callback: $.proxy(function (value) {
-                        this._object.setValue("marginLeftHover", value);
-                        this._update(false);
+                        this.object.setValue("marginLeftHover", value);
+                        this.update(false);
                     }, this),
-                    appendTo: this.$_relativeContainer
+                    appendTo: this.$relativeContainer
                 });
             }
 
             TestS.Form({
                 type: "spinner",
-                value: this._object.getValue("marginLeft"),
-                class: "margin-left",
+                value: this.object.getValue("marginLeft"),
+                css: "margin-left",
                 callback: $.proxy(function (value) {
-                    if (this._object.getValue("marginLeft") === this._object.getValue("marginLeftHover") &&
+                    if (this.object.getValue("marginLeft") === this.object.getValue("marginLeftHover") &&
                         hover !== null
                     ) {
-                        this._object.setValue("marginLeftHover", value);
+                        this.object.setValue("marginLeftHover", value);
                         hover.setValue(value);
                     }
 
-                    this._object.setValue("marginLeft", value);
-                    this._update(false);
+                    this.object.setValue("marginLeft", value);
+                    this.update(false);
                 }, this),
-                appendTo: this.$_relativeContainer
+                appendTo: this.$relativeContainer
             });
 
             return this;
@@ -279,30 +279,30 @@
          *
          * @private
          */
-        _setMarginHover: function () {
-            if (this.$_object.getValue("hasMarginHover") === true) {
-                this.$_container.addClass("has-hover");
+        setMarginHover: function () {
+            if (this.object.getValue("hasMarginHover") === true) {
+                this.$container.addClass("has-hover");
             }
 
-            if (this.$_object.getValue("hasMarginHover") === null) {
+            if (this.object.getValue("hasMarginHover") === null) {
                 return this;
             }
 
             TestS.Form({
                 type: "checkboxOnOff",
-                value: this.$_object.getValue("hasMarginHover"),
-                label: this.$_object.getLabel("mouseHoverEffect"),
+                value: this.object.getValue("hasMarginHover"),
+                label: this.object.getLabel("mouseHoverEffect"),
                 onCheck: $.proxy(function () {
-                    this.$_object.setValue("hasMarginHover", true);
-                    this.$_container.addClass("has-hover");
-                    this._update(false);
+                    this.object.setValue("hasMarginHover", true);
+                    this.$container.addClass("has-hover");
+                    this.update(false);
                 }, this),
                 onUnCheck: $.proxy(function () {
-                    this.$_object.setValue("hasMarginHover", false);
-                    this.$_container.removeClass("has-hover");
-                    this._update(false);
+                    this.object.setValue("hasMarginHover", false);
+                    this.$container.removeClass("has-hover");
+                    this.update(false);
                 }, this),
-                appendTo: this.$_container
+                appendTo: this.$container
             });
 
             return this;
@@ -315,25 +315,25 @@
          *
          * @private
          */
-        _setHasMarginAnimation: function () {
-            if (this.$_object.getValue("hasMarginAnimation") === null) {
+        setHasMarginAnimation: function () {
+            if (this.object.getValue("hasMarginAnimation") === null) {
                 return this;
             }
 
             TestS.Form({
                 type: "checkboxOnOff",
-                value: this.$_object.getValue("hasMarginAnimation"),
-                label: this.$_object.getLabel("mouseHoverAnimation"),
-                class: "has-animation",
+                value: this.object.getValue("hasMarginAnimation"),
+                label: this.object.getLabel("mouseHoverAnimation"),
+                css: "has-animation",
                 onCheck: $.proxy(function () {
-                    this.$_object.setValue("hasMarginAnimation", true);
-                    this._update(false);
+                    this.object.setValue("hasMarginAnimation", true);
+                    this.update(false);
                 }, this),
                 onUnCheck: $.proxy(function () {
-                    this.$_object.setValue("hasMarginAnimation", false);
-                    this._update(false);
+                    this.object.setValue("hasMarginAnimation", false);
+                    this.update(false);
                 }, this),
-                appendTo: this.$_container
+                appendTo: this.$container
             });
 
             return this;
@@ -351,19 +351,35 @@
             var marginTop, marginRight, marginBottom, marginLeft;
 
             if (isHover === true) {
-                if (this.$_object.getValue("hasMarginHover") !== true) {
+                if (this.object.getValue("hasMarginHover") !== true) {
                     return "";
                 }
 
-                marginTop = TestS.Library.getIntVal(this.$_object.getValue("marginTopHover"));
-                marginRight = TestS.Library.getIntVal(this.$_object.getValue("marginRightHover"));
-                marginBottom = TestS.Library.getIntVal(this.$_object.getValue("marginBottomHover"));
-                marginLeft = TestS.Library.getIntVal(this.$_object.getValue("marginLeftHover"));
+                marginTop = TestS.Library.getIntVal(
+                    this.object.getValue("marginTopHover")
+                );
+                marginRight = TestS.Library.getIntVal(
+                    this.object.getValue("marginRightHover")
+                );
+                marginBottom = TestS.Library.getIntVal(
+                    this.object.getValue("marginBottomHover")
+                );
+                marginLeft = TestS.Library.getIntVal(
+                    this.object.getValue("marginLeftHover")
+                );
             } else {
-                marginTop = TestS.Library.getIntVal(this.$_object.getValue("marginTop"));
-                marginRight = TestS.Library.getIntVal(this.$_object.getValue("marginRight"));
-                marginBottom = TestS.Library.getIntVal(this.$_object.getValue("marginBottom"));
-                marginLeft = TestS.Library.getIntVal(this.$_object.getValue("marginLeft"));
+                marginTop = TestS.Library.getIntVal(
+                    this.object.getValue("marginTop")
+                );
+                marginRight = TestS.Library.getIntVal(
+                    this.object.getValue("marginRight")
+                );
+                marginBottom = TestS.Library.getIntVal(
+                    this.object.getValue("marginBottom")
+                );
+                marginLeft = TestS.Library.getIntVal(
+                    this.object.getValue("marginLeft")
+                );
             }
 
             if (marginTop !== 0) {
@@ -385,8 +401,8 @@
             var css = "margin:" + marginTop + " " + marginRight + " " + marginBottom + " " + marginLeft + ";";
 
             if (skipAnimation !== true &&
-                this._object.getValue("hasMarginHover") === true &&
-                this._object.getValue("hasMarginAnimation") === true
+                this.object.getValue("hasMarginHover") === true &&
+                this.object.getValue("hasMarginAnimation") === true
             ) {
                 css += "-webkit-transition:margin .3s;";
                 css += "-ms-transition:margin .3s;";
@@ -404,27 +420,27 @@
          *
          * @private
          */
-        _update: function (isOnlyExample) {
+        update: function (isOnlyExample) {
             var css = "<style>";
 
             css += ".margin-example-" +
-                this._uniqueId +
+                this.uniqueId +
                 "{" +
                 this.generateMarginCss(false, false) +
                 "}";
 
             css += ".margin-example-" +
-                this._uniqueId +
+                this.uniqueId +
                 ":hover{" +
                 this.generateMarginCss(true, false) +
                 "}";
 
             css += "</style>";
 
-            this.$_example.html(css);
+            this.$example.html(css);
 
             if (isOnlyExample !== true) {
-                this._object.update();
+                this.object.update();
             }
 
             return this;

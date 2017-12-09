@@ -103,12 +103,16 @@
     <target name="lesshint" description="Lesshint is a tool to aid you in writing clean and consistent Less.">
         <exec executable="lesshint">
             <arg path="${path}" />
+            <arg value="--config" />
+            <arg path="${basedir}/config/code/lesshint.json" />
         </exec>
     </target>
 
     <target name="jshint" description="JSHint, a JavaScript Code Quality Tool">
         <exec executable="jshint">
             <arg path="${path}" />
+            <arg value="--config" />
+            <arg path="${basedir}/config/code/jshint.json" />
             <arg value="--exclude" />
             <arg value="vendor,backups,bin,docker,logs,trash,public/js/lib" />
         </exec>
