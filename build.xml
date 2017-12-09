@@ -94,7 +94,7 @@
         <exec executable="./vendor/phpmd/phpmd/src/bin/phpmd">
             <arg path="${path}" />
             <arg value="text" />
-            <arg value="cleancode,codesize,controversial,design,naming,unusedcode" />
+            <arg value="config/code/phpmd/cleancode.xml,config/code/phpmd/codesize.xml,config/code/phpmd/controversial.xml,config/code/phpmd/design.xml,config/code/phpmd/naming.xml,config/code/phpmd/unusedcode.xml" />
             <arg value="--exclude" />
             <arg value="vendor,backups,bin,docker,logs,trash,public" />
         </exec>
@@ -104,7 +104,7 @@
         <exec executable="lesshint">
             <arg path="${path}" />
             <arg value="--config" />
-            <arg path="${basedir}/config/code/lesshint.json" />
+            <arg path="${baseDir}/config/code/lesshint.json" />
         </exec>
     </target>
 
@@ -112,7 +112,7 @@
         <exec executable="jshint">
             <arg path="${path}" />
             <arg value="--config" />
-            <arg path="${basedir}/config/code/jshint.json" />
+            <arg path="${baseDir}/config/code/jshint.json" />
             <arg value="--exclude" />
             <arg value="vendor,backups,bin,docker,logs,trash,public/js/lib" />
         </exec>
