@@ -3,8 +3,8 @@
 /**
  * PHP version 7
  *
- * @category TestS
- * @package  Applications
+ * @category Applications
+ * @package  Application
  * @author   Mikhail Vasilev <donvasilion@gmail.com>
  * @license  http://opensource.org/licenses/gpl-license.php GNU Public License
  * @link     -
@@ -15,8 +15,8 @@ namespace testS\applications;
 /**
  * Class for running application
  *
- * @category TestS
- * @package  Applications
+ * @category Applications
+ * @package  Application
  * @author   Mikhail Vasilev <donvasilion@gmail.com>
  * @license  http://opensource.org/licenses/gpl-license.php GNU Public License
  * @link     -

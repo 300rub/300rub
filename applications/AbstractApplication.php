@@ -3,8 +3,8 @@
 /**
  * PHP version 7
  *
- * @category TestS
- * @package  Applications
+ * @category Applications
+ * @package  Application
  * @author   Mikhail Vasilev <donvasilion@gmail.com>
  * @license  http://opensource.org/licenses/gpl-license.php GNU Public License
  * @link     -
@@ -22,8 +22,8 @@ use testS\models\SiteModel;
 /**
  * Abstract class for work with application
  *
- * @category TestS
- * @package  Applications
+ * @category Applications
+ * @package  Application
  * @author   Mikhail Vasilev <donvasilion@gmail.com>
  * @license  http://opensource.org/licenses/gpl-license.php GNU Public License
  * @link     -

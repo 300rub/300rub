@@ -1,13 +1,27 @@
 <?php
 
-namespace testS\components;
+/**
+ * PHP version 7
+ *
+ * @category Applications
+ * @package  Components
+ * @author   Mikhail Vasilev <donvasilion@gmail.com>
+ * @license  http://opensource.org/licenses/gpl-license.php GNU Public License
+ * @link     -
+ */
 
-use testS\components\exceptions\MemcacheException;
+namespace testS\applications\components;
+
+use testS\applications\exceptions\MemcacheException;
 
 /**
  * Class for working with Memcached
  *
- * @package testS\components
+ * @category Applications
+ * @package  Components
+ * @author   Mikhail Vasilev <donvasilion@gmail.com>
+ * @license  http://opensource.org/licenses/gpl-license.php GNU Public License
+ * @link     -
  */
 class Memcached
 {
@@ -22,8 +36,8 @@ class Memcached
     /**
      * Memcached constructor.
      *
-     * @param string $host
-     * @param int    $port
+     * @param string $host The hostname of the memcache server
+     * @param int    $port The port on which memcache is running
      */
     public function __construct($host, $port)
     {
@@ -39,9 +53,9 @@ class Memcached
     /**
      * Sets value to the cache
      *
-     * @param string $key
-     * @param mixed  $value
-     * @param int    $expiration
+     * @param string $key        The key under which to store the value.
+     * @param mixed  $value      The value to store.
+     * @param int    $expiration The expiration time, defaults to 0.
      *
      * @return Memcached
      *
@@ -57,7 +71,8 @@ class Memcached
 
         if ($result === false) {
             throw new MemcacheException(
-                "Unable to save memcache with key: {key}, value: {value}, expiration: {expiration}",
+                "Unable to save memcache with key: {key}, " .
+                "value: {value}, expiration: {expiration}",
                 [
                     "key"        => $key,
                     "value"      => $value,
@@ -72,7 +87,7 @@ class Memcached
     /**
      * Gets value from memcache by key
      *
-     * @param string $key
+     * @param string $key The key of the item to retrieve.
      *
      * @return mixed
      */
@@ -88,7 +103,7 @@ class Memcached
     /**
      * Deletes value from the cache
      *
-     * @param string $key
+     * @param string $key The key to be deleted.
      *
      * @return Memcached
      *

@@ -3,8 +3,8 @@
 /**
  * PHP version 7
  *
- * @category TestS
- * @package  Applications
+ * @category Applications
+ * @package  Application
  * @author   Mikhail Vasilev <donvasilion@gmail.com>
  * @license  http://opensource.org/licenses/gpl-license.php GNU Public License
  * @link     -
@@ -27,8 +27,8 @@ use testS\models\UserSessionModel;
 /**
  * Class for working with WEB application
  *
- * @category TestS
- * @package  Applications
+ * @category Applications
+ * @package  Application
  * @author   Mikhail Vasilev <donvasilion@gmail.com>
  * @license  http://opensource.org/licenses/gpl-license.php GNU Public License
  * @link     -
