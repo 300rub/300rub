@@ -1,13 +1,28 @@
 <?php
 
-namespace testS\components;
+/**
+ * PHP version 7
+ *
+ * @category Applications
+ * @package  Components
+ * @author   Mikhail Vasilev <donvasilion@gmail.com>
+ * @license  http://opensource.org/licenses/gpl-license.php GNU Public License
+ * @link     -
+ */
 
+namespace testS\applications\components;
+
+use testS\applications\App;
 use testS\models\BlockModel;
 
 /**
  * Class for work with user from session
  *
- * @package testS\components
+ * @category Applications
+ * @package  Components
+ * @author   Mikhail Vasilev <donvasilion@gmail.com>
+ * @license  http://opensource.org/licenses/gpl-license.php GNU Public License
+ * @link     -
  */
 class Operation
 {
@@ -81,21 +96,27 @@ class Operation
     /**
      * Gets section operations
      *
-     * @param bool $isAll
+     * @param bool $isAll Flag
      *
      * @return array
      */
-    public static function getSectionOperations($isAll = false)
+    public function getSectionOperations($isAll = false)
     {
+        $language = App::getInstance()->getLanguage();
+        
         $list = [
-            self::SECTION_UPDATE        => Language::t("operation", "edit"),
-            self::SECTION_DESIGN_UPDATE => Language::t("operation", "editDesign"),
-            self::SECTION_DELETE        => Language::t("operation", "delete"),
-            self::SECTION_DUPLICATE     => Language::t("operation", "duplicate"),
+            self::SECTION_UPDATE        =>
+                $language->getMessage("operation", "edit"),
+            self::SECTION_DESIGN_UPDATE =>
+                $language->getMessage("operation", "editDesign"),
+            self::SECTION_DELETE        =>
+                $language->getMessage("operation", "delete"),
+            self::SECTION_DUPLICATE     =>
+                $language->getMessage("operation", "duplicate"),
         ];
 
         if ($isAll === true) {
-            $list[self::SECTION_ADD] = Language::t("operation", "add");
+            $list[self::SECTION_ADD] = $language->getMessage("operation", "add");
         }
 
         return $list;
@@ -106,38 +127,54 @@ class Operation
      *
      * @return array
      */
-    public static function getSettingsOperations()
+    public function getSettingsOperations()
     {
+        $language = App::getInstance()->getLanguage();
+
         return [
-            self::SETTINGS_ICON                 => Language::t("operation", "settingsChangeIcon"),
-            self::SETTINGS_USER_VIEW            => Language::t("operation", "settingsViewUsers"),
-            self::SETTINGS_USER_UPDATE          => Language::t("operation", "settingsEditUsers"),
-            self::SETTINGS_USER_DELETE          => Language::t("operation", "settingsDeleteUsers"),
-            self::SETTINGS_USER_VIEW_SESSIONS   => Language::t("operation", "settingsViewUserSessions"),
-            self::SETTINGS_USER_DELETE_SESSIONS => Language::t("operation", "settingsDeleteUserSessions"),
-            self::SETTINGS_USER_ADD             => Language::t("operation", "settingsAddUsers"),
+            self::SETTINGS_ICON                 =>
+                $language->getMessage("operation", "settingsChangeIcon"),
+            self::SETTINGS_USER_VIEW            =>
+                $language->getMessage("operation", "settingsViewUsers"),
+            self::SETTINGS_USER_UPDATE          =>
+                $language->getMessage("operation", "settingsEditUsers"),
+            self::SETTINGS_USER_DELETE          =>
+                $language->getMessage("operation", "settingsDeleteUsers"),
+            self::SETTINGS_USER_VIEW_SESSIONS   =>
+                $language->getMessage("operation", "settingsViewUserSessions"),
+            self::SETTINGS_USER_DELETE_SESSIONS =>
+                $language->getMessage("operation", "settingsDeleteUserSessions"),
+            self::SETTINGS_USER_ADD             =>
+                $language->getMessage("operation", "settingsAddUsers"),
         ];
     }
 
     /**
      * Gets block text operations
      *
-     * @param bool $isAll
+     * @param bool $isAll Flag
      *
      * @return array
      */
-    public static function getBlockTextOperations($isAll = false)
+    public function getBlockTextOperations($isAll = false)
     {
+        $language = App::getInstance()->getLanguage();
+
         $list = [
-            self::TEXT_UPDATE_SETTINGS => Language::t("operation", "editSettings"),
-            self::TEXT_UPDATE_DESIGN   => Language::t("operation", "editDesign"),
-            self::TEXT_UPDATE_CONTENT  => Language::t("operation", "edit"),
-            self::TEXT_DELETE          => Language::t("operation", "delete"),
-            self::TEXT_DUPLICATE       => Language::t("operation", "duplicate"),
+            self::TEXT_UPDATE_SETTINGS =>
+                $language->getMessage("operation", "editSettings"),
+            self::TEXT_UPDATE_DESIGN   =>
+                $language->getMessage("operation", "editDesign"),
+            self::TEXT_UPDATE_CONTENT  =>
+                $language->getMessage("operation", "edit"),
+            self::TEXT_DELETE          =>
+                $language->getMessage("operation", "delete"),
+            self::TEXT_DUPLICATE       =>
+                $language->getMessage("operation", "duplicate"),
         ];
 
         if ($isAll === true) {
-            $list[self::TEXT_ADD] = Language::t("operation", "add");
+            $list[self::TEXT_ADD] = $language->getMessage("operation", "add");
         }
 
         return $list;
@@ -146,27 +183,39 @@ class Operation
     /**
      * Gets block image operations
      *
-     * @param bool $isAll
+     * @param bool $isAll Flag
      *
      * @return array
      */
-    public static function getBlockImageOperations($isAll = false)
+    public function getBlockImageOperations($isAll = false)
     {
+        $language = App::getInstance()->getLanguage();
+
         $list = [
-            self::IMAGE_UPLOAD          => Language::t("operation", "imageUpload"),
-            self::IMAGE_UPDATE          => Language::t("operation", "imageUpdate"),
-            self::IMAGE_DELETE          => Language::t("operation", "imageDelete"),
-            self::IMAGE_UPDATE_SETTINGS => Language::t("operation", "editSettings"),
-            self::IMAGE_UPDATE_DESIGN   => Language::t("operation", "editDesign"),
-            self::IMAGE_UPDATE_CONTENT  => Language::t("operation", "edit"),
-            self::IMAGE_DUPLICATE       => Language::t("operation", "duplicate"),
-            self::IMAGE_UPDATE_ALBUM    => Language::t("image", "updateAlbum"),
-            self::IMAGE_CREATE_ALBUM    => Language::t("image", "createAlbum"),
-            self::IMAGE_DELETE_ALBUM    => Language::t("image", "deleteAlbum"),
+            self::IMAGE_UPLOAD          =>
+                $language->getMessage("operation", "imageUpload"),
+            self::IMAGE_UPDATE          =>
+                $language->getMessage("operation", "imageUpdate"),
+            self::IMAGE_DELETE          =>
+                $language->getMessage("operation", "imageDelete"),
+            self::IMAGE_UPDATE_SETTINGS =>
+                $language->getMessage("operation", "editSettings"),
+            self::IMAGE_UPDATE_DESIGN   =>
+                $language->getMessage("operation", "editDesign"),
+            self::IMAGE_UPDATE_CONTENT  =>
+                $language->getMessage("operation", "edit"),
+            self::IMAGE_DUPLICATE       =>
+                $language->getMessage("operation", "duplicate"),
+            self::IMAGE_UPDATE_ALBUM    =>
+                $language->getMessage("image", "updateAlbum"),
+            self::IMAGE_CREATE_ALBUM    =>
+                $language->getMessage("image", "createAlbum"),
+            self::IMAGE_DELETE_ALBUM    =>
+                $language->getMessage("image", "deleteAlbum"),
         ];
 
         if ($isAll === true) {
-            $list[self::IMAGE_ADD] = Language::t("operation", "add");
+            $list[self::IMAGE_ADD] = $language->getMessage("operation", "add");
         }
 
         return $list;
@@ -175,21 +224,27 @@ class Operation
     /**
      * Gets block image operations
      *
-     * @param bool $isAll
+     * @param bool $isAll Flag
      *
      * @return array
      */
-    public static function getBlockRecordOperations($isAll = false)
+    public function getBlockRecordOperations($isAll = false)
     {
+        $language = App::getInstance()->getLanguage();
+
         $list = [
-            self::RECORD_UPDATE_SETTINGS => Language::t("operation", "editSettings"),
-            self::RECORD_UPDATE_DESIGN   => Language::t("operation", "editDesign"),
-            self::RECORD_UPDATE_CONTENT  => Language::t("operation", "edit"),
-            self::RECORD_DELETE          => Language::t("operation", "delete"),
+            self::RECORD_UPDATE_SETTINGS =>
+                $language->getMessage("operation", "editSettings"),
+            self::RECORD_UPDATE_DESIGN   =>
+                $language->getMessage("operation", "editDesign"),
+            self::RECORD_UPDATE_CONTENT  =>
+                $language->getMessage("operation", "edit"),
+            self::RECORD_DELETE          =>
+                $language->getMessage("operation", "delete"),
         ];
 
         if ($isAll === true) {
-            $list[self::RECORD_ADD] = Language::t("operation", "add");
+            $list[self::RECORD_ADD] = $language->getMessage("operation", "add");
         }
 
         return $list;
@@ -198,22 +253,22 @@ class Operation
     /**
      * Gets a list of content operations by content type
      *
-     * @param int  $contentType
-     * @param bool $isAll
+     * @param int  $contentType Content type
+     * @param bool $isAll       Flag
      *
      * @return array
      */
-    public static function getOperationsByContentType($contentType, $isAll = false)
+    public function getOperationsByContentType($contentType, $isAll = false)
     {
         switch ($contentType) {
-            case BlockModel::TYPE_TEXT:
-                return self::getBlockTextOperations($isAll);
-            case BlockModel::TYPE_IMAGE:
-                return self::getBlockImageOperations($isAll);
-            case BlockModel::TYPE_RECORD:
-                return self::getBlockRecordOperations($isAll);
-            default:
-                return [];
+        case BlockModel::TYPE_TEXT:
+            return self::getBlockTextOperations($isAll);
+        case BlockModel::TYPE_IMAGE:
+            return self::getBlockImageOperations($isAll);
+        case BlockModel::TYPE_RECORD:
+            return self::getBlockRecordOperations($isAll);
+        default:
+            return [];
         }
     }
 }

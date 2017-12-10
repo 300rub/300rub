@@ -13,10 +13,11 @@
 namespace testS\applications;
 
 use testS\components\Db;
-use testS\components\ErrorHandler;
+use testS\applications\components\ErrorHandler;
 use testS\applications\exceptions\NotFoundException;
 use testS\applications\components\SuperGlobalVariable;
 use testS\applications\components\Language;
+use testS\applications\components\Operation;
 use testS\applications\components\Memcached;
 use testS\models\SiteModel;
 
@@ -68,6 +69,13 @@ abstract class AbstractApplication
     private $_language = null;
 
     /**
+     * Operation
+     *
+     * @var Operation
+     */
+    private $_operation = null;
+
+    /**
      * Site
      *
      * @var SiteModel
@@ -91,8 +99,10 @@ abstract class AbstractApplication
         $this
             ->_setErrorHandler()
             ->_setConfig($config)
+            ->_setSuperGlobalVariable()
             ->_setDb()
             ->_setLanguage()
+            ->_setOperation()
             ->_activateVendorAutoload()
             ->_setMemcached();
     }
@@ -212,6 +222,27 @@ abstract class AbstractApplication
     public function getLanguage()
     {
         return $this->_language;
+    }
+
+    /**
+     * Sets Operation
+     *
+     * @return AbstractApplication
+     */
+    private function _setOperation()
+    {
+        $this->_operation = new Operation();
+        return $this;
+    }
+
+    /**
+     * Gets Operation
+     *
+     * @return Operation
+     */
+    public function getOperation()
+    {
+        return $this->_operation;
     }
 
     /**
