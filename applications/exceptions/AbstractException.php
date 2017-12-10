@@ -1,13 +1,28 @@
 <?php
 
-namespace testS\components\exceptions;
+/**
+ * PHP version 7
+ *
+ * @category Applications
+ * @package  Exceptions
+ * @author   Mikhail Vasilev <donvasilion@gmail.com>
+ * @license  http://opensource.org/licenses/gpl-license.php GNU Public License
+ * @link     -
+ */
+
+namespace testS\applications\exceptions;
 
 use Exception;
+use testS\applications\App;
 
 /**
  * Exception class file
  *
- * @package testS\components
+ * @category Applications
+ * @package  Exceptions
+ * @author   Mikhail Vasilev <donvasilion@gmail.com>
+ * @license  http://opensource.org/licenses/gpl-license.php GNU Public License
+ * @link     -
  */
 abstract class AbstractException extends Exception
 {
@@ -29,8 +44,8 @@ abstract class AbstractException extends Exception
     /**
      * AbstractException constructor.
      *
-     * @param string $message
-     * @param array  $parameters
+     * @param string $message    Message
+     * @param array  $parameters Parameters
      */
     public function __construct($message, array $parameters = [])
     {
@@ -38,14 +53,25 @@ abstract class AbstractException extends Exception
             if (is_array($value)) {
                 $value = json_encode($value);
             }
-            $message = str_replace('{' . $key . '}', "[" . (string)$value . "]", $message);
+            $message = str_replace(
+                '{' . $key . '}',
+                "[" . (string)$value . "]",
+                $message
+            );
         }
 
-        if (
-            empty($_SERVER['HTTP_X_REQUESTED_WITH'])
-            && isset($_SERVER['REQUEST_URI'])
+        $xRequestedWith = App::getInstance()
+            ->getSuperGlobalVariable()
+            ->getServerValue("HTTP_X_REQUESTED_WITH");
+
+        $uri = App::getInstance()
+            ->getSuperGlobalVariable()
+            ->getServerValue("REQUEST_URI");
+
+        if ($xRequestedWith
+            && $uri
         ) {
-            $message .= "\nREQUEST_URI = " . $_SERVER['REQUEST_URI'];
+            $message .= "\nREQUEST_URI = " . $uri;
         }
 
         $this->_writeLog($message);
@@ -56,7 +82,9 @@ abstract class AbstractException extends Exception
     /**
      * Write log
      *
-     * @param string $message
+     * @param string $message Message
+     *
+     * @return void
      */
     private function _writeLog($message)
     {

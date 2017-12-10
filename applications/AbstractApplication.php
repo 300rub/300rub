@@ -14,9 +14,10 @@ namespace testS\applications;
 
 use testS\components\Db;
 use testS\components\ErrorHandler;
-use testS\components\exceptions\NotFoundException;
-use testS\components\Language;
-use testS\components\Memcached;
+use testS\applications\exceptions\NotFoundException;
+use testS\applications\components\SuperGlobalVariable;
+use testS\applications\components\Language;
+use testS\applications\components\Memcached;
 use testS\models\SiteModel;
 
 /**
@@ -37,6 +38,13 @@ abstract class AbstractApplication
      * @var array
      */
     private $_config = null;
+
+    /**
+     * Super-global variable
+     *
+     * @var SuperGlobalVariable
+     */
+    private $_superGlobalVariable = null;
 
     /**
      * Memcached
@@ -141,6 +149,27 @@ abstract class AbstractApplication
         }
 
         return $value;
+    }
+
+    /**
+     * Sets Super-global variable
+     *
+     * @return AbstractApplication
+     */
+    private function _setSuperGlobalVariable()
+    {
+        $this->_superGlobalVariable = new SuperGlobalVariable();
+        return $this;
+    }
+
+    /**
+     * Gets Super-global variable
+     *
+     * @return SuperGlobalVariable
+     */
+    public function getSuperGlobalVariable()
+    {
+        return $this->_superGlobalVariable;
     }
 
     /**

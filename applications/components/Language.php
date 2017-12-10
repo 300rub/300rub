@@ -10,7 +10,7 @@
  * @link     -
  */
 
-namespace testS\application\components;
+namespace testS\applications\components;
 
 use testS\applications\exceptions\CommonException;
 
