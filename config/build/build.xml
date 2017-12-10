@@ -1,4 +1,4 @@
-<project name="testS" default="build">
+<project name="testS" default="build" basedir="/var/www">
 
     <target name="clear-logs">
         <echo>Removing all log files</echo>

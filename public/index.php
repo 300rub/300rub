@@ -13,8 +13,8 @@
 use testS\applications\App;
 
 // Config file path
-$config = include __DIR__ . "/config/common.php";
+$config = include __DIR__ . "/../config/common.php";
 
 // Runs the web application
-require __DIR__ . "/applications/App.php";
+require __DIR__ . "/../applications/App.php";
 App::web($config)->run();

@@ -5,10 +5,10 @@ nginx:
     links:
         - phpfpm
     volumes:
-        - ".:/var/www"
+        - "./../..:/var/www"
 
 phpfpm:
     image: php-fpm:7.0
     volumes:
-        - ".:/var/www"
+        - "./../..:/var/www"
     command: php-fpm

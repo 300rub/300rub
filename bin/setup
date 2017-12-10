@@ -1,8 +1,8 @@
 #!/bin/bash
 
-docker-compose -f docker-compose.yml -f docker-compose-dev.yml kill
-docker-compose -f docker-compose.yml -f docker-compose-dev.yml rm -f
-docker-compose -f docker-compose.yml -f docker-compose-dev.yml up -d
+docker-compose -f config/docker-compose/docker-compose.yml -f config/docker-compose/docker-compose-dev.yml -p  tests kill
+docker-compose -f config/docker-compose/docker-compose.yml -f config/docker-compose/docker-compose-dev.yml -p  tests rm -f
+docker-compose -f config/docker-compose/docker-compose.yml -f config/docker-compose/docker-compose-dev.yml -p  tests up -d
 
 echo "Waiting 5 sec for MySQL..."
 sleep 5
@@ -14,4 +14,4 @@ mysql -u root -proot -h 127.0.0.1 -P 7777 -e "GRANT ALL PRIVILEGES ON localhost.
 mysql -u root -proot -h 127.0.0.1 -P 7777 -e "CREATE DATABASE help" 2> /dev/null
 mysql -u root -proot -h 127.0.0.1 -P 7777 -e "GRANT ALL PRIVILEGES ON help.* TO 'root'@'127.0.0.1' IDENTIFIED BY 'root'" 2> /dev/null
 
-docker exec -it tests_phpfpm_1 ant
+docker exec -it tests_phpfpm_1 ant -file config/build/build.xml

@@ -2,4 +2,4 @@
 
 path=${1/$PWD\//}
 
-docker exec -it tests_phpfpm_1 ant phpcbf -Dpath="$path"
+docker exec -it tests_phpfpm_1 ant -file config/build/build.xml phpcbf -Dpath="$path"
