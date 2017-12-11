@@ -1,14 +1,28 @@
 <?php
 
-namespace testS\components;
+/**
+ * PHP version 7
+ *
+ * @category Applications
+ * @package  Components
+ * @author   Mikhail Vasilev <donvasilion@gmail.com>
+ * @license  http://opensource.org/licenses/gpl-license.php GNU Public License
+ * @link     -
+ */
 
-use testS\components\exceptions\ContentException;
-use DateTime;
+namespace testS\applications\components;
+
+use testS\applications\App;
+use testS\applications\exceptions\ContentException;
 
 /**
  * Class for generation values
  *
- * @package testS\components
+ * @category Applications
+ * @package  Components
+ * @author   Mikhail Vasilev <donvasilion@gmail.com>
+ * @license  http://opensource.org/licenses/gpl-license.php GNU Public License
+ * @link     -
  */
 class ValueGenerator
 {
@@ -37,63 +51,63 @@ class ValueGenerator
     /**
      * Generates a value
      *
-     * @param string $type
-     * @param mixed  $value
-     * @param mixed  $param
+     * @param string $type  Generator type
+     * @param mixed  $value Value
+     * @param mixed  $param Additional parameter
      *
      * @return mixed
      */
-    public static function generate($type, $value, $param = null)
+    public function generate($type, $value, $param = null)
     {
         switch ($type) {
-            case self::MIN:
-                return self::_generateMin($value, $param);
-            case self::MAX:
-                return self::_generateMax($value, $param);
-            case self::MIN_THEN:
-                return self::_generateMinThen($value, $param);
-            case self::COLOR:
-                return self::_generateColor($value);
-            case self::CLEAR_STRIP_TAGS:
-                return self::_generateWithClearStripTags($value);
-            case self::COPY_NAME:
-                return self::_generateNameCopy($value);
-            case self::COPY_URL:
-                return self::_generateUrlCopy($value);
-            case self::ARRAY_KEY:
-                return self::_generateArrayKey($value, $param);
-            case self::URL:
-                return self::_generateUrl($value, $param);
-            case self::STRING:
-                return self::_generateString($value);
-            case self::INT:
-                return self::_generateInt($value);
-            case self::FLOAT:
-                return self::_generateFloat($value);
-            case self::BOOL:
-                return self::_generateBool($value);
-            case self::BOOL_INT:
-                return self::_generateBoolInt($value);
-            case self::DATETIME:
-                return self::_generateDateTime($value);
-            case self::DATETIME_AS_STRING:
-                return self::_generateDateTimeAsString($value);
-            case self::ORDERED_ARRAY:
-                return self::_generateOrderedKeyValueArrayForJson($value);
-            default:
-                return $value;
+        case self::MIN:
+            return $this->_generateMin($value, $param);
+        case self::MAX:
+            return $this->_generateMax($value, $param);
+        case self::MIN_THEN:
+            return $this->_generateMinThen($value, $param);
+        case self::COLOR:
+            return $this->_generateColor($value);
+        case self::CLEAR_STRIP_TAGS:
+            return $this->_generateWithClearStripTags($value);
+        case self::COPY_NAME:
+            return $this->_generateNameCopy($value);
+        case self::COPY_URL:
+            return $this->_generateUrlCopy($value);
+        case self::ARRAY_KEY:
+            return $this->_generateArrayKey($value, $param);
+        case self::URL:
+            return $this->_generateUrl($value, $param);
+        case self::STRING:
+            return $this->_generateString($value);
+        case self::INT:
+            return $this->_generateInt($value);
+        case self::FLOAT:
+            return $this->_generateFloat($value);
+        case self::BOOL:
+            return $this->_generateBool($value);
+        case self::BOOL_INT:
+            return $this->_generateBoolInt($value);
+        case self::DATETIME:
+            return $this->_generateDateTime($value);
+        case self::DATETIME_AS_STRING:
+            return $this->_generateDateTimeAsString($value);
+        case self::ORDERED_ARRAY:
+            return $this->_generateOrderedKeyValueArrayForJson($value);
+        default:
+            return $value;
         }
     }
 
     /**
      * Min value
      *
-     * @param int       $value
-     * @param int|array $min
+     * @param int       $value Value
+     * @param int|array $min   Min value
      *
      * @return int
      */
-    private static function _generateMin($value, $min)
+    private function _generateMin($value, $min)
     {
         if (is_array($min)) {
             $operator = "+";
@@ -114,12 +128,12 @@ class ValueGenerator
     /**
      * Max value
      *
-     * @param int       $value
-     * @param int|array $max
+     * @param int       $value Value
+     * @param int|array $max   Max value
      *
      * @return int
      */
-    private static function _generateMax($value, $max)
+    private function _generateMax($value, $max)
     {
         if (is_array($max)) {
             $operator = "-";
@@ -140,17 +154,18 @@ class ValueGenerator
     /**
      * Min then
      *
-     * @param int   $value
-     * @param array $parameters
+     * @param int   $value      Value
+     * @param array $parameters Additional parameters
      *
      * @return int
      */
-    private static function _generateMinThen($value, array $parameters) {
+    private function _generateMinThen($value, array $parameters)
+    {
         $min = $parameters[0];
         $defaultValue = $parameters[1];
 
         if ($value <= $min) {
-           return $defaultValue;
+            return $defaultValue;
         }
 
         return $value;
@@ -159,13 +174,18 @@ class ValueGenerator
     /**
      * Color
      *
-     * @param string $value
+     * @param string $value Value
      *
      * @return string
      */
-    private static function _generateColor($value)
+    private function _generateColor($value)
     {
-        if (preg_match('/(.*?)(rgb|rgba)\((\d+),\s*(\d+),\s*(\d+)(?:,\s*(\d+(?:\.\d+)?))?\)/i', $value)) {
+        $isValid = preg_match(
+            '/(.*?)(rgb|rgba)\((\d+),\s*(\d+),\s*(\d+)(?:,\s*(\d+(?:\.\d+)?))?\)/i',
+            $value
+        );
+
+        if ($isValid) {
             return $value;
         }
 
@@ -175,11 +195,11 @@ class ValueGenerator
     /**
      * Clears strip tags
      *
-     * @param string $value
+     * @param string $value Value
      *
      * @return string
      */
-    private static function _generateWithClearStripTags($value)
+    private function _generateWithClearStripTags($value)
     {
         $value = preg_replace('/<script\b[^>]*>(.*?)<\/script>/is', "", $value);
         return trim(strip_tags($value));
@@ -188,23 +208,27 @@ class ValueGenerator
     /**
      * Copy name
      *
-     * @param string $value
+     * @param string $value Value
      *
      * @return string
      */
-    private static function _generateNameCopy($value)
+    private function _generateNameCopy($value)
     {
-        return sprintf("%s (%s)", $value, Language::t("common", "copy"));
+        return sprintf(
+            "%s (%s)",
+            $value,
+            App::getInstance()->getLanguage()->getMessage("common", "copy")
+        );
     }
 
     /**
      * Copy URL
      *
-     * @param string $value
+     * @param string $value Value
      *
      * @return string
      */
-    private static function _generateUrlCopy($value)
+    private function _generateUrlCopy($value)
     {
         return $value . "-copy";
     }
@@ -212,14 +236,14 @@ class ValueGenerator
     /**
      * Array key
      *
-     * @param int|string $value
-     * @param array $parameters
+     * @param int|string $value      Value
+     * @param array      $parameters Additional parameters
      *
      * @return int|string
      *
      * @throws ContentException
      */
-    private static function _generateArrayKey($value, array $parameters)
+    private function _generateArrayKey($value, array $parameters)
     {
         $list = $parameters[0];
         $defaultValue = null;
@@ -230,15 +254,15 @@ class ValueGenerator
         if (!array_key_exists($value, $list)) {
             if (array_key_exists($defaultValue, $list)) {
                 return $defaultValue;
-            } else {
-                throw new ContentException(
-                    "Unable to find value: {value} from array keys: {keys}",
-                    [
-                        "value" => $value,
-                        "keys" => implode(", ", array_keys($list))
-                    ]
-                );
             }
+
+            throw new ContentException(
+                "Unable to find value: {value} from array keys: {keys}",
+                [
+                    "value" => $value,
+                    "keys"  => implode(", ", array_keys($list))
+                ]
+            );
         }
 
         return $value;
@@ -247,17 +271,17 @@ class ValueGenerator
     /**
      * URL
      *
-     * @param string $value
-     * @param string $name
+     * @param string $value Value
+     * @param string $name  Name to transliterate
      *
      * @return string
      */
-    private static function _generateUrl($value, $name)
+    private function _generateUrl($value, $name)
     {
         if ($name !== "" && $value === "") {
             $value = $name;
         }
-        $value = Language::translit($value);
+        $value = App::getInstance()->getLanguage()->getTransliteration($value);
         $value = str_replace(["_", " "], "-", $value);
         $value = strtolower($value);
         $value = preg_replace('~[^-a-z0-9]+~u', '', $value);
@@ -269,47 +293,47 @@ class ValueGenerator
     /**
      * String type
      *
-     * @param mixed|string $value
+     * @param mixed|string $value Value
      *
      * @return string
      */
-    private static function _generateString($value)
+    private function _generateString($value)
     {
-        return trim((string) $value);
+        return trim((string)$value);
     }
 
     /**
      * Generates int type
      *
-     * @param mixed|string $value
+     * @param mixed|string $value Value
      *
      * @return string
      */
-    private static function _generateInt($value)
+    private function _generateInt($value)
     {
-        return (int) $value;
+        return (int)$value;
     }
 
     /**
      * Generates float type
      *
-     * @param mixed|string $value
+     * @param mixed|string $value Value
      *
      * @return string
      */
-    private static function _generateFloat($value)
+    private function _generateFloat($value)
     {
-        return (float) $value;
+        return (float)$value;
     }
 
     /**
      * Generates bool type
      *
-     * @param mixed|string $value
+     * @param mixed|string $value Value
      *
      * @return string
      */
-    private static function _generateBool($value)
+    private function _generateBool($value)
     {
         if (is_bool($value)) {
             return $value;
@@ -318,9 +342,9 @@ class ValueGenerator
         if (is_int($value)) {
             if ($value > 0) {
                 return true;
-            } else {
-                return false;
             }
+
+            return false;
         }
 
         if (is_string($value)) {
@@ -336,11 +360,11 @@ class ValueGenerator
     /**
      * Generates 1 or 0
      *
-     * @param mixed|string $value
+     * @param mixed|string $value Value
      *
      * @return string
      */
-    private static function _generateBoolInt($value)
+    private function _generateBoolInt($value)
     {
         if ($value === true) {
             return 1;
@@ -350,7 +374,7 @@ class ValueGenerator
             return 0;
         }
 
-        $value = (int) $value;
+        $value = (int)$value;
         if ($value >= 1) {
             return 1;
         }
@@ -361,16 +385,16 @@ class ValueGenerator
     /**
      * Generates DateTime
      *
-     * @param mixed|string $value
+     * @param mixed|string $value Value
      *
-     * @return DateTime
+     * @return \DateTime
      */
-    private static function _generateDateTime($value)
+    private function _generateDateTime($value)
     {
         try {
-            $dateTime = new DateTime($value);
+            $dateTime = new \DateTime($value);
         } catch (\Exception $e) {
-            $dateTime = new DateTime();
+            $dateTime = new \DateTime();
         }
 
         return $dateTime;
@@ -379,13 +403,13 @@ class ValueGenerator
     /**
      * Generates DateTime as string
      *
-     * @param mixed|DateTime $value
+     * @param mixed|\DateTime $value Value
      *
-     * @return DateTime
+     * @return string
      */
-    private static function _generateDateTimeAsString($value)
+    private function _generateDateTimeAsString($value)
     {
-        if ($value instanceof DateTime) {
+        if ($value instanceof \DateTime) {
             return $value->format("Y-m-d H:i:s");
         }
 
@@ -395,37 +419,38 @@ class ValueGenerator
     /**
      * Gets value by operator
      *
-     * @param int $value1
-     * @param int $value2
-     * @param string $operator
-     * @param int $defaultValue
+     * @param int    $value1   Value 1
+     * @param int    $value2   Value
+     * @param string $operator Operator to compare
+     * @param int    $default  Default value
      *
      * @return float|int
      */
-    private static function _getValueByOperator($value1, $value2, $operator, $defaultValue = 0)
+    private function _getValueByOperator($value1, $value2, $operator, $default = 0)
     {
         switch ($operator) {
-            case "-":
-                return $value1 - $value2;
-            case "+":
-                return $value1 + $value2;
-            case "*":
-                return $value1 * $value2;
-            case "/":
-                return $value1 / $value2;
-            default:
-                return $defaultValue;
+        case "-":
+            return $value1 - $value2;
+        case "+":
+            return $value1 + $value2;
+        case "*":
+            return $value1 * $value2;
+        case "/":
+            return $value1 / $value2;
+        default:
+            return $default;
         }
     }
 
     /**
      * Generates ordered key value array for json
      *
-     * @param array $array
+     * @param array $array Array to order
      *
      * @return array
      */
-    private static function _generateOrderedKeyValueArrayForJson(array $array) {
+    private function _generateOrderedKeyValueArrayForJson(array $array)
+    {
         asort($array);
         $list = [];
 

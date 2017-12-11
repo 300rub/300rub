@@ -96,11 +96,11 @@ class Operation
     /**
      * Gets section operations
      *
-     * @param bool $isAll Flag
+     * @param bool $isAll Is to display all operations
      *
      * @return array
      */
-    public function getSectionOperations($isAll = false)
+    public function getSectionOperations($isAll)
     {
         $language = App::getInstance()->getLanguage();
         
@@ -152,11 +152,11 @@ class Operation
     /**
      * Gets block text operations
      *
-     * @param bool $isAll Flag
+     * @param bool $isAll Is to display all operations
      *
      * @return array
      */
-    public function getBlockTextOperations($isAll = false)
+    public function getBlockTextOperations($isAll)
     {
         $language = App::getInstance()->getLanguage();
 
@@ -183,11 +183,11 @@ class Operation
     /**
      * Gets block image operations
      *
-     * @param bool $isAll Flag
+     * @param bool $isAll Is to display all operations
      *
      * @return array
      */
-    public function getBlockImageOperations($isAll = false)
+    public function getBlockImageOperations($isAll)
     {
         $language = App::getInstance()->getLanguage();
 
@@ -224,11 +224,11 @@ class Operation
     /**
      * Gets block image operations
      *
-     * @param bool $isAll Flag
+     * @param bool $isAll Is to display all operations
      *
      * @return array
      */
-    public function getBlockRecordOperations($isAll = false)
+    public function getBlockRecordOperations($isAll)
     {
         $language = App::getInstance()->getLanguage();
 
@@ -258,7 +258,7 @@ class Operation
      *
      * @return array
      */
-    public function getOperationsByContentType($contentType, $isAll = false)
+    public function getOperationsByContentType($contentType, $isAll)
     {
         switch ($contentType) {
         case BlockModel::TYPE_TEXT:

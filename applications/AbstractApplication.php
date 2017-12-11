@@ -18,6 +18,7 @@ use testS\applications\exceptions\NotFoundException;
 use testS\applications\components\SuperGlobalVariable;
 use testS\applications\components\Language;
 use testS\applications\components\Operation;
+use testS\applications\components\View;
 use testS\applications\components\Memcached;
 use testS\models\SiteModel;
 
@@ -76,11 +77,18 @@ abstract class AbstractApplication
     private $_operation = null;
 
     /**
+     * View
+     *
+     * @var View
+     */
+    private $_view = null;
+
+    /**
      * Site
      *
      * @var SiteModel
      */
-    protected $site = null;
+    private $_site = null;
 
     /**
      * Runs application
@@ -98,12 +106,13 @@ abstract class AbstractApplication
     {
         $this
             ->_setErrorHandler()
+            ->_activateVendorAutoload()
             ->_setConfig($config)
             ->_setSuperGlobalVariable()
             ->_setDb()
             ->_setLanguage()
             ->_setOperation()
-            ->_activateVendorAutoload()
+            ->_setView()
             ->_setMemcached();
     }
 
@@ -115,6 +124,18 @@ abstract class AbstractApplication
     private function _setErrorHandler()
     {
         new ErrorHandler();
+
+        return $this;
+    }
+
+    /**
+     * Activates vendor autoload
+     *
+     * @return AbstractApplication
+     */
+    private function _activateVendorAutoload()
+    {
+        include_once __DIR__ . "/../vendor/autoload.php";
 
         return $this;
     }
@@ -246,15 +267,24 @@ abstract class AbstractApplication
     }
 
     /**
-     * Activates vendor autoload
+     * Sets View
      *
      * @return AbstractApplication
      */
-    private function _activateVendorAutoload()
+    private function _setView()
     {
-        include_once __DIR__ . "/../vendor/autoload.php";
-
+        $this->_view = new View();
         return $this;
+    }
+
+    /**
+     * Gets View
+     *
+     * @return View
+     */
+    public function getView()
+    {
+        return $this->_view;
     }
 
     /**
@@ -324,7 +354,7 @@ abstract class AbstractApplication
 
         $this->getLanguage()->setActiveId($siteModel->get("language"));
 
-        $this->site = $siteModel;
+        $this->_site = $siteModel;
 
         return $this;
     }
@@ -336,6 +366,6 @@ abstract class AbstractApplication
      */
     public function getSite()
     {
-        return $this->site;
+        return $this->_site;
     }
 }

@@ -1,13 +1,27 @@
 <?php
 
-namespace testS\components;
+/**
+ * PHP version 7
+ *
+ * @category Applications
+ * @package  Components
+ * @author   Mikhail Vasilev <donvasilion@gmail.com>
+ * @license  http://opensource.org/licenses/gpl-license.php GNU Public License
+ * @link     -
+ */
+
+namespace testS\applications\components;
 
 use testS\models\UserModel;
 
 /**
  * Class for work with user from session
  *
- * @package testS\components
+ * @category Applications
+ * @package  Components
+ * @author   Mikhail Vasilev <donvasilion@gmail.com>
+ * @license  http://opensource.org/licenses/gpl-license.php GNU Public License
+ * @link     -
  */
 class User
 {
@@ -64,8 +78,8 @@ class User
     /**
      * User constructor.
      *
-     * @param string    $token
-     * @param UserModel $userModel
+     * @param string    $token     Token key
+     * @param UserModel $userModel User model
      */
     public function __construct($token, UserModel $userModel)
     {
@@ -141,7 +155,7 @@ class User
     /**
      * Gets is owner
      *
-     * @return bool
+     * @return int
      */
     public function getType()
     {
