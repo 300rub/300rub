@@ -162,6 +162,7 @@ RUN set -ex \
     gpg --keyserver ha.pool.sks-keyservers.net --recv-keys "$key" ; \
   done
 
+ENV DOCKER_FIX '
 ENV NODE_VERSION 9.2.1
 
 RUN ARCH= && dpkgArch="$(dpkg --print-architecture)" \
