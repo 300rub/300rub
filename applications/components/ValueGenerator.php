@@ -24,29 +24,59 @@ use testS\applications\exceptions\ContentException;
  * @license  http://opensource.org/licenses/gpl-license.php GNU Public License
  * @link     -
  */
-class ValueGenerator
+abstract class ValueGenerator
 {
 
     /**
      * Types
      */
-    const MIN = "min";
-    const MAX = "max";
-    const MIN_THEN = "minThen";
-    const COLOR = "color";
-    const CLEAR_STRIP_TAGS = "clearStripTags";
-    const COPY_NAME = "copyName";
-    const COPY_URL = "copyUrl";
-    const ARRAY_KEY = "arrayKey";
-    const URL = "url";
-    const STRING = "string";
-    const INT = "int";
-    const FLOAT = "float";
-    const BOOL = "bool";
-    const BOOL_INT = "boolInt";
-    const DATETIME = "datetime";
-    const DATETIME_AS_STRING = "datetimeAsString";
-    const ORDERED_ARRAY = "orderedArray";
+    const MIN = "Min";
+    const MAX = "Max";
+    const MIN_THEN = "MinThen";
+    const COLOR = "Color";
+    const CLEAR_STRIP_TAGS = "ClearStripTags";
+    const COPY_NAME = "CopyName";
+    const COPY_URL = "CopyUrl";
+    const ARRAY_KEY = "ArrayKey";
+    const URL = "Url";
+    const STRING = "String";
+    const INT = "Int";
+    const FLOAT = "Float";
+    const BOOL = "Bool";
+    const BOOL_INT = "BoolInt";
+    const DATETIME = "Datetime";
+    const DATETIME_AS_STRING = "DatetimeAsString";
+    const ORDERED_ARRAY = "OrderedArray";
+
+    protected static $typeList = [
+        self::MIN,
+        self::MAX,
+        self::MIN_THEN,
+        self::COLOR,
+        self::CLEAR_STRIP_TAGS,
+        self::COPY_NAME,
+        self::COPY_URL,
+        self::ARRAY_KEY,
+        self::URL,
+        self::STRING,
+        self::INT,
+        self::FLOAT,
+        self::BOOL,
+        self::BOOL_INT,
+        self::DATETIME,
+        self::DATETIME_AS_STRING,
+        self::ORDERED_ARRAY,
+    ];
+
+    /**
+     * Generates value
+     *
+     * @param mixed $value Initial value
+     * @param mixed $param Param
+     *
+     * @return mixed
+     */
+    abstract public function generate($value, $param);
 
     /**
      * Generates a value
@@ -57,168 +87,19 @@ class ValueGenerator
      *
      * @return mixed
      */
-    public function generate($type, $value, $param = null)
+    public static function factory($type, $value, $param = null)
     {
-        switch ($type) {
-        case self::MIN:
-            return $this->_generateMin($value, $param);
-        case self::MAX:
-            return $this->_generateMax($value, $param);
-        case self::MIN_THEN:
-            return $this->_generateMinThen($value, $param);
-        case self::COLOR:
-            return $this->_generateColor($value);
-        case self::CLEAR_STRIP_TAGS:
-            return $this->_generateWithClearStripTags($value);
-        case self::COPY_NAME:
-            return $this->_generateNameCopy($value);
-        case self::COPY_URL:
-            return $this->_generateUrlCopy($value);
-        case self::ARRAY_KEY:
-            return $this->_generateArrayKey($value, $param);
-        case self::URL:
-            return $this->_generateUrl($value, $param);
-        case self::STRING:
-            return $this->_generateString($value);
-        case self::INT:
-            return $this->_generateInt($value);
-        case self::FLOAT:
-            return $this->_generateFloat($value);
-        case self::BOOL:
-            return $this->_generateBool($value);
-        case self::BOOL_INT:
-            return $this->_generateBoolInt($value);
-        case self::DATETIME:
-            return $this->_generateDateTime($value);
-        case self::DATETIME_AS_STRING:
-            return $this->_generateDateTimeAsString($value);
-        case self::ORDERED_ARRAY:
-            return $this->_generateOrderedKeyValueArrayForJson($value);
-        default:
-            return $value;
-        }
-    }
-
-    /**
-     * Min value
-     *
-     * @param int       $value Value
-     * @param int|array $min   Min value
-     *
-     * @return int
-     */
-    private function _generateMin($value, $min)
-    {
-        if (is_array($min)) {
-            $operator = "+";
-            if (!empty($min[2])) {
-                $operator = $min[2];
-            }
-
-            $min = self::_getValueByOperator($min[0], $min[1], $operator, -99999);
-        }
-
-        if ($value < $min) {
-            $value = $min;
-        }
-
-        return $value;
-    }
-
-    /**
-     * Max value
-     *
-     * @param int       $value Value
-     * @param int|array $max   Max value
-     *
-     * @return int
-     */
-    private function _generateMax($value, $max)
-    {
-        if (is_array($max)) {
-            $operator = "-";
-            if (!empty($max[2])) {
-                $operator = $max[2];
-            }
-
-            $max = self::_getValueByOperator($max[0], $max[1], $operator, 99999);
-        }
-
-        if ($value > $max) {
-            $value = $max;
-        }
-
-        return $value;
-    }
-
-    /**
-     * Min then
-     *
-     * @param int   $value      Value
-     * @param array $parameters Additional parameters
-     *
-     * @return int
-     */
-    private function _generateMinThen($value, array $parameters)
-    {
-        $min = $parameters[0];
-        $defaultValue = $parameters[1];
-
-        if ($value <= $min) {
-            return $defaultValue;
-        }
-
-        return $value;
-    }
-
-    /**
-     * Color
-     *
-     * @param string $value Value
-     *
-     * @return string
-     */
-    private function _generateColor($value)
-    {
-        $isValid = preg_match(
-            '/(.*?)(rgb|rgba)\((\d+),\s*(\d+),\s*(\d+)(?:,\s*(\d+(?:\.\d+)?))?\)/i',
-            $value
-        );
-
-        if ($isValid) {
+        if (!in_array($type, self::$typeList)) {
             return $value;
         }
 
-        return "";
-    }
+        /**
+         * @var ValueGenerator $object
+         */
+        $className = "\\testS\\applications\\components\\ValueGenerator\\" . $type;
+        $object = new $className;
 
-    /**
-     * Clears strip tags
-     *
-     * @param string $value Value
-     *
-     * @return string
-     */
-    private function _generateWithClearStripTags($value)
-    {
-        $value = preg_replace('/<script\b[^>]*>(.*?)<\/script>/is', "", $value);
-        return trim(strip_tags($value));
-    }
-
-    /**
-     * Copy name
-     *
-     * @param string $value Value
-     *
-     * @return string
-     */
-    private function _generateNameCopy($value)
-    {
-        return sprintf(
-            "%s (%s)",
-            $value,
-            App::getInstance()->getLanguage()->getMessage("common", "copy")
-        );
+        return $object->generate($value, $param);
     }
 
     /**
@@ -426,7 +307,7 @@ class ValueGenerator
      *
      * @return float|int
      */
-    private function _getValueByOperator($value1, $value2, $operator, $default = 0)
+    protected function getValueByOperator($value1, $value2, $operator, $default = 0)
     {
         switch ($operator) {
         case "-":
