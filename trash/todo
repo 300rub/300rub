@@ -10,3 +10,4 @@ https://www.youtube.com/watch?v=1edPxKqiptw
 https://www.nginx.com/resources/admin-guide/load-balancer/
 
 
+docker exec -it tests_phpfpm_1 ./vendor/squizlabs/php_codesniffer/bin/phpcs --standard=config/code/phpcs/generic.xml,config/code/phpcs/pear.xml applications/components/ValueGenerator/UrlCopy.php
