@@ -1,15 +1,5 @@
 <?php
 
-/**
- * PHP version 7
- *
- * @category Applications
- * @package  Components
- * @author   Mikhail Vasilev <donvasilion@gmail.com>
- * @license  http://opensource.org/licenses/gpl-license.php GNU Public License
- * @link     -
- */
-
 namespace testS\applications\components\ValueGenerator;
 
 use testS\applications\components\ValueGenerator;
@@ -17,12 +7,6 @@ use testS\applications\App;
 
 /**
  * Class for name copy value generation
- *
- * @category Applications
- * @package  Components_ValueGenerator
- * @author   Mikhail Vasilev <donvasilion@gmail.com>
- * @license  http://opensource.org/licenses/gpl-license.php GNU Public License
- * @link     -
  */
 class CopyName extends ValueGenerator
 {
@@ -38,9 +22,9 @@ class CopyName extends ValueGenerator
     public function generate($value, $param)
     {
         return sprintf(
-            "%s (%s)",
+            '%s (%s)',
             $value,
-            App::getInstance()->getLanguage()->getMessage("common", "copy")
+            App::getInstance()->getLanguage()->getMessage('common', 'copy')
         );
     }
 }

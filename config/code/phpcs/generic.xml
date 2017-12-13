@@ -40,10 +40,7 @@
     <rule ref="Generic.Files.OneTraitPerFile"/>
 
     <rule ref="Generic.Formatting.DisallowMultipleStatements"/>
-    <rule ref="Generic.Formatting.MultipleStatementAlignment"/>
     <rule ref="Generic.Formatting.NoSpaceAfterCast"/>
-    <rule ref="Generic.Formatting.SpaceAfterCast"/>
-    <rule ref="Generic.Formatting.SpaceAfterNot"/>
 
     <rule ref="Generic.Functions.CallTimePassByReference"/>
     <rule ref="Generic.Functions.FunctionCallArgumentSpacing"/>

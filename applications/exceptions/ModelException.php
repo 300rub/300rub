@@ -1,25 +1,9 @@
 <?php
 
-/**
- * PHP version 7
- *
- * @category Applications
- * @package  Exceptions
- * @author   Mikhail Vasilev <donvasilion@gmail.com>
- * @license  http://opensource.org/licenses/gpl-license.php GNU Public License
- * @link     -
- */
-
 namespace testS\applications\exceptions;
 
 /**
  * ModelException class
- *
- * @category Applications
- * @package  Exceptions
- * @author   Mikhail Vasilev <donvasilion@gmail.com>
- * @license  http://opensource.org/licenses/gpl-license.php GNU Public License
- * @link     -
  */
 class ModelException extends AbstractException
 {
@@ -41,6 +25,6 @@ class ModelException extends AbstractException
      */
     protected function getLogName()
     {
-        return "model.log";
+        return 'model.log';
     }
 }

@@ -85,21 +85,17 @@ abstract class ValueGenerator
      * @param mixed  $value Value
      * @param mixed  $param Additional parameter
      *
-     * @return mixed
+     * @return ValueGenerator
      */
     public static function factory($type, $value, $param = null)
     {
         if (!in_array($type, self::$typeList)) {
-            return $value;
+            //
         }
 
-        /**
-         * @var ValueGenerator $object
-         */
         $className = "\\testS\\applications\\components\\ValueGenerator\\" . $type;
-        $object = new $className;
 
-        return $object->generate($value, $param);
+        return new $className;
     }
 
     /**

@@ -1,15 +1,5 @@
 <?php
 
-/**
- * PHP version 7
- *
- * @category Applications
- * @package  Exceptions
- * @author   Mikhail Vasilev <donvasilion@gmail.com>
- * @license  http://opensource.org/licenses/gpl-license.php GNU Public License
- * @link     -
- */
-
 namespace testS\applications\exceptions;
 
 use Exception;
@@ -17,12 +7,6 @@ use testS\applications\App;
 
 /**
  * Exception class file
- *
- * @category Applications
- * @package  Exceptions
- * @author   Mikhail Vasilev <donvasilion@gmail.com>
- * @license  http://opensource.org/licenses/gpl-license.php GNU Public License
- * @link     -
  */
 abstract class AbstractException extends Exception
 {
@@ -50,26 +34,27 @@ abstract class AbstractException extends Exception
     public function __construct($message, array $parameters = [])
     {
         foreach ($parameters as $key => $value) {
-            if (is_array($value)) {
+            if (is_array($value) === true) {
                 $value = json_encode($value);
             }
+
             $message = str_replace(
                 '{' . $key . '}',
-                "[" . (string)$value . "]",
+                '[' . (string)$value . ']',
                 $message
             );
         }
 
         $xRequestedWith = App::getInstance()
             ->getSuperGlobalVariable()
-            ->getServerValue("HTTP_X_REQUESTED_WITH");
+            ->getServerValue('HTTP_X_REQUESTED_WITH');
 
         $uri = App::getInstance()
             ->getSuperGlobalVariable()
-            ->getServerValue("REQUEST_URI");
+            ->getServerValue('REQUEST_URI');
 
-        if ($xRequestedWith
-            && $uri
+        if (empty($xRequestedWith) === false
+            && empty($uri) === false
         ) {
             $message .= "\nREQUEST_URI = " . $uri;
         }
@@ -84,26 +69,32 @@ abstract class AbstractException extends Exception
      *
      * @param string $message Message
      *
-     * @return void
+     * @return bool
      */
     private function _writeLog($message)
     {
         $logMessage = sprintf(
             "[%s] %s\nFile: %s\nLine: %s\nTrace:\n%s\n\n",
-            date("Y-m-d H:i:s", time()),
+            date('Y-m-d H:i:s', time()),
             $message,
             $this->getFile(),
             $this->getLine(),
             $this->getTraceAsString()
         );
 
-        $logFolder = __DIR__ . "/../../logs";
-        $logFile = $logFolder . "/" . $this->getLogName();
+        $logFolder = __DIR__ . '/../../logs';
+        $logFile = $logFolder . '/' . $this->getLogName();
 
-        $file = @fopen($logFile, "a");
-        @flock($file, LOCK_EX);
-        @fwrite($file, $logMessage);
-        @flock($file, LOCK_UN);
-        @fclose($file);
+        try {
+            $file = fopen($logFile, 'a');
+            flock($file, LOCK_EX);
+            fwrite($file, $logMessage);
+            flock($file, LOCK_UN);
+            fclose($file);
+        } catch (\Exception $e) {
+            return false;
+        }
+
+        return true;
     }
 }

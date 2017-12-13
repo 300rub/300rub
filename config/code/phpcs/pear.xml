@@ -4,7 +4,6 @@
 
     <rule ref="PEAR.Classes.ClassDeclaration"/>
 
-    <rule ref="PEAR.Commenting.ClassComment"/>
     <rule ref="PEAR.Commenting.FunctionComment"/>
     <rule ref="PEAR.Commenting.InlineComment"/>
 
@@ -24,5 +23,4 @@
 
     <rule ref="PEAR.WhiteSpace.ObjectOperatorIndent"/>
     <rule ref="PEAR.WhiteSpace.ScopeClosingBrace"/>
-    <rule ref="PEAR.WhiteSpace.ScopeIndent"/>
 </ruleset>
