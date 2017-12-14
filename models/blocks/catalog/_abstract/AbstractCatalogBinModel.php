@@ -1,16 +1,15 @@
 <?php
 
-namespace testS\models;
+namespace testS\models\blocks\catalog\_abstract;
 
-use testS\components\Validator;
-use testS\components\ValueGenerator;
+use testS\models\AbstractModel;
+use testS\applications\components\Validator;
+use testS\applications\components\ValueGenerator;
 
 /**
- * Model for working with table "catalogBins"
- *
- * @package testS\models
+ * Abstract model for working with table "catalogBins"
  */
-class CatalogBinModel extends AbstractModel
+abstract class AbstractCatalogBinModel extends AbstractModel
 {
 
     /**
@@ -27,8 +26,8 @@ class CatalogBinModel extends AbstractModel
     public static function getStatusList()
     {
         return [
-            self::STATUS_ADDED    => "",
-            self::STATUS_COMPLETED => "",
+            self::STATUS_ADDED     => '',
+            self::STATUS_COMPLETED => '',
         ];
     }
 
@@ -39,7 +38,7 @@ class CatalogBinModel extends AbstractModel
      */
     public function getTableName()
     {
-        return "catalogBins";
+        return 'catalogBins';
     }
 
     /**
@@ -50,26 +49,26 @@ class CatalogBinModel extends AbstractModel
     public function getFieldsInfo()
     {
         return [
-            "catalogId"         => [
-                self::FIELD_RELATION_TO_PARENT => "CatalogModel",
-                self::FIELD_SKIP_DUPLICATION => true,
+            'catalogId'         => [
+                self::FIELD_RELATION_TO_PARENT   => 'CatalogModel',
+                self::FIELD_SKIP_DUPLICATION     => true,
                 self::FIELD_NOT_CHANGE_ON_UPDATE => true,
             ],
-            "catalogInstanceId" => [
-                self::FIELD_RELATION_TO_PARENT => "CatalogInstanceModel",
-                self::FIELD_SKIP_DUPLICATION => true,
+            'catalogInstanceId' => [
+                self::FIELD_RELATION_TO_PARENT   => 'CatalogInstanceModel',
+                self::FIELD_SKIP_DUPLICATION     => true,
                 self::FIELD_NOT_CHANGE_ON_UPDATE => true,
             ],
-            "count"             => [
-                self::FIELD_TYPE  => self::FIELD_TYPE_INT,
-                self::FIELD_VALIDATION => [
+            'count'             => [
+                self::FIELD_TYPE             => self::FIELD_TYPE_INT,
+                self::FIELD_VALIDATION       => [
                     Validator::TYPE_MIN_VALUE => 1
                 ],
                 self::FIELD_SKIP_DUPLICATION => true,
             ],
-            "status"            => [
-                self::FIELD_TYPE  => self::FIELD_TYPE_INT,
-                self::FIELD_VALUE => [
+            'status'            => [
+                self::FIELD_TYPE             => self::FIELD_TYPE_INT,
+                self::FIELD_VALUE            => [
                     ValueGenerator::ARRAY_KEY => [
                         self::getStatusList(),
                         self::STATUS_ADDED

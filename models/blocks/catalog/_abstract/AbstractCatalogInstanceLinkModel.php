@@ -1,13 +1,13 @@
 <?php
 
-namespace testS\models;
+namespace testS\models\blocks\catalog\_abstract;
+
+use testS\models\AbstractModel;
 
 /**
- * Model for working with table "catalogInstanceLinks"
- *
- * @package testS\models
+ * Abstract model for working with table "catalogInstanceLinks"
  */
-class CatalogInstanceLinkModel extends AbstractModel
+abstract class AbstractCatalogInstanceLinkModel extends AbstractModel
 {
 
     /**
@@ -17,7 +17,7 @@ class CatalogInstanceLinkModel extends AbstractModel
      */
     public function getTableName()
     {
-        return "catalogInstanceLinks";
+        return 'catalogInstanceLinks';
     }
 
     /**
@@ -28,13 +28,13 @@ class CatalogInstanceLinkModel extends AbstractModel
     public function getFieldsInfo()
     {
         return [
-            "catalogInstanceId"     => [
-                self::FIELD_RELATION_TO_PARENT   => "CatalogInstanceModel",
+            'catalogInstanceId'     => [
+                self::FIELD_RELATION_TO_PARENT   => 'CatalogInstanceModel',
                 self::FIELD_NOT_CHANGE_ON_UPDATE => true,
                 self::FIELD_SKIP_DUPLICATION     => true,
             ],
-            "linkCatalogInstanceId" => [
-                self::FIELD_RELATION_TO_PARENT   => "CatalogInstanceModel",
+            'linkCatalogInstanceId' => [
+                self::FIELD_RELATION_TO_PARENT   => 'CatalogInstanceModel',
                 self::FIELD_NOT_CHANGE_ON_UPDATE => true,
                 self::FIELD_SKIP_DUPLICATION     => true,
             ],

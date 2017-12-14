@@ -1,23 +1,21 @@
 <?php
 
-namespace testS\models;
+namespace testS\models\blocks\block;
 
-use testS\components\Language;
-use testS\components\ValueGenerator;
-use testS\components\View;
+use testS\models\AbstractModel;
+use testS\applications\App;
+use testS\applications\components\ValueGenerator;
 
 /**
- * Model for working with table "designBlocks"
- *
- * @package testS\models
+ * Abstract model for working with table "designBlocks"
  */
-class DesignBlockModel extends AbstractModel
+abstract class AbstractDesignBlockModel extends AbstractModel
 {
 
     /**
      * Type
      */
-    const TYPE = "block";
+    const TYPE = 'block';
 
     /**
      * Min margin value
@@ -49,42 +47,42 @@ class DesignBlockModel extends AbstractModel
      *
      * @var array
      */
-    public static $gradientDirectionList = [
+    public static $gradientDirections = [
         self::GRADIENT_DIRECTION_HORIZONTAL => [
-            "mozLinear"    => "left",
-            "webkit"       => "linear, left top, right top",
-            "webkitLinear" => "left",
-            "oLinear"      => "left",
-            "msLinear"     => "left",
-            "linear"       => "to right",
-            "ie"           => 1,
+            'mozLinear'    => 'left',
+            'webkit'       => 'linear, left top, right top',
+            'webkitLinear' => 'left',
+            'oLinear'      => 'left',
+            'msLinear'     => 'left',
+            'linear'       => 'to right',
+            'ie'           => 1,
         ],
         self::GRADIENT_DIRECTION_VERTICAL   => [
-            "mozLinear"    => "top",
-            "webkit"       => "linear, left top, left bottom",
-            "webkitLinear" => "top",
-            "oLinear"      => "top",
-            "msLinear"     => "top",
-            "linear"       => "to bottom",
-            "ie"           => 0,
+            'mozLinear'    => 'top',
+            'webkit'       => 'linear, left top, left bottom',
+            'webkitLinear' => 'top',
+            'oLinear'      => 'top',
+            'msLinear'     => 'top',
+            'linear'       => 'to bottom',
+            'ie'           => 0,
         ],
         self::GRADIENT_DIRECTION_135DEG     => [
-            "mozLinear"    => "-45deg",
-            "webkit"       => "linear, left top, right bottom",
-            "webkitLinear" => "-45deg",
-            "oLinear"      => "-45deg",
-            "msLinear"     => "-45deg",
-            "linear"       => "135deg",
-            "ie"           => 1,
+            'mozLinear'    => '-45deg',
+            'webkit'       => 'linear, left top, right bottom',
+            'webkitLinear' => '-45deg',
+            'oLinear'      => '-45deg',
+            'msLinear'     => '-45deg',
+            'linear'       => '135deg',
+            'ie'           => 1,
         ],
         self::GRADIENT_DIRECTION_45DEG      => [
-            "mozLinear"    => "45deg",
-            "webkit"       => "linear, left bottom, right top",
-            "webkitLinear" => "45deg",
-            "oLinear"      => "45deg",
-            "msLinear"     => "45deg",
-            "linear"       => "45deg",
-            "ie"           => 1,
+            'mozLinear'    => '45deg',
+            'webkit'       => 'linear, left bottom, right top',
+            'webkitLinear' => '45deg',
+            'oLinear'      => '45deg',
+            'msLinear'     => '45deg',
+            'linear'       => '45deg',
+            'ie'           => 1,
         ],
     ];
 
@@ -93,10 +91,10 @@ class DesignBlockModel extends AbstractModel
      *
      * @var array
      */
-    public static $borderStyleList = [
-        self::BORDER_STYLE_SOLID  => "solid",
-        self::BORDER_STYLE_DOTTED => "dotted",
-        self::BORDER_STYLE_DASHED => "dashed",
+    public static $borderStyles = [
+        self::BORDER_STYLE_SOLID  => 'solid',
+        self::BORDER_STYLE_DOTTED => 'dotted',
+        self::BORDER_STYLE_DASHED => 'dashed',
     ];
 
     /**
@@ -106,24 +104,43 @@ class DesignBlockModel extends AbstractModel
      */
     public static function getLabels()
     {
+        $language = App::getInstance()->getLanguage();
+
         return [
-            "margin"                 => Language::t("design", "margin"),
-            "padding"                => Language::t("design", "padding"),
-            "mouseHoverEffect"       => Language::t("design", "mouseHoverEffect"),
-            "mouseHoverAnimation"    => Language::t("design", "mouseHoverAnimation"),
-            "background"             => Language::t("design", "background"),
-            "backgroundColor"        => Language::t("design", "backgroundColor"),
-            "borderColor"            => Language::t("design", "borderColor"),
-            "borderColorHover"       => Language::t("design", "borderColorHover"),
-            "useGradient"            => Language::t("design", "useGradient"),
-            "border"                 => Language::t("design", "border"),
-            "gradientDirection"      => Language::t("design", "gradientDirection"),
-            "gradientDirectionHover" => Language::t("design", "gradientDirectionHover"),
-            "cancel"                 => Language::t("common", "cancel"),
-            "save"                   => Language::t("common", "save"),
-            "clear"                  => Language::t("common", "clear"),
-            "borderStyle"            => Language::t("design", "borderStyle"),
-            "borderStyleHover"       => Language::t("design", "borderStyleHover"),
+            'margin'                 => $language
+                ->getMessage('design', 'margin'),
+            'padding'                => $language
+                ->getMessage('design', 'padding'),
+            'mouseHoverEffect'       => $language
+                ->getMessage('design', 'mouseHoverEffect'),
+            'mouseHoverAnimation'    => $language
+                ->getMessage('design', 'mouseHoverAnimation'),
+            'background'             => $language
+                ->getMessage('design', 'background'),
+            'backgroundColor'        => $language
+                ->getMessage('design', 'backgroundColor'),
+            'borderColor'            => $language
+                ->getMessage('design', 'borderColor'),
+            'borderColorHover'       => $language
+                ->getMessage('design', 'borderColorHover'),
+            'useGradient'            => $language
+                ->getMessage('design', 'useGradient'),
+            'border'                 => $language
+                ->getMessage('design', 'border'),
+            'gradientDirection'      => $language
+                ->getMessage('design', 'gradientDirection'),
+            'gradientDirectionHover' => $language
+                ->getMessage('design', 'gradientDirectionHover'),
+            'cancel'                 => $language
+                ->getMessage('common', 'cancel'),
+            'save'                   => $language
+                ->getMessage('common', 'save'),
+            'clear'                  => $language
+                ->getMessage('common', 'clear'),
+            'borderStyle'            => $language
+                ->getMessage('design', 'borderStyle'),
+            'borderStyleHover'       => $language
+                ->getMessage('design', 'borderStyleHover'),
         ];
     }
 
@@ -134,7 +151,7 @@ class DesignBlockModel extends AbstractModel
      */
     public function getTableName()
     {
-        return "designBlocks";
+        return 'designBlocks';
     }
 
     /**
@@ -144,293 +161,260 @@ class DesignBlockModel extends AbstractModel
      */
     public function getFieldsInfo()
     {
+        return array_merge(
+            $this->_getMarginFieldsInfo(),
+            $this->_getPaddingFieldsInfo(),
+            $this->_getBackgroundFieldsInfo(),
+            $this->_getBorderRadiusFieldsInfo(),
+            $this->_getBorderWidthFieldsInfo(),
+            $this->_getBorderStyleFieldsInfo(),
+            $this->_getCommonFieldsInfo()
+        );
+    }
+
+    /**
+     * Gets margin fields info
+     *
+     * @return array
+     */
+    private function _getMarginFieldsInfo()
+    {
         return [
-            "marginTop"                    => [
+            'marginTop'          => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
                     ValueGenerator::MIN => self::MIN_MARGIN_VALUE
                 ],
             ],
-            "marginTopHover"               => [
+            'marginTopHover'     => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
                     ValueGenerator::MIN => self::MIN_MARGIN_VALUE
                 ],
             ],
-            "marginRight"                  => [
+            'marginRight'        => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
                     ValueGenerator::MIN => self::MIN_MARGIN_VALUE
                 ],
             ],
-            "marginRightHover"             => [
+            'marginRightHover'   => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
                     ValueGenerator::MIN => self::MIN_MARGIN_VALUE
                 ],
             ],
-            "marginBottom"                 => [
+            'marginBottom'       => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
                     ValueGenerator::MIN => self::MIN_MARGIN_VALUE
                 ],
             ],
-            "marginBottomHover"            => [
+            'marginBottomHover'  => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
                     ValueGenerator::MIN => self::MIN_MARGIN_VALUE
                 ],
             ],
-            "marginLeft"                   => [
+            'marginLeft'         => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
                     ValueGenerator::MIN => self::MIN_MARGIN_VALUE
                 ],
             ],
-            "marginLeftHover"              => [
+            'marginLeftHover'    => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
                     ValueGenerator::MIN => self::MIN_MARGIN_VALUE
                 ],
             ],
-            "hasMarginHover"               => [
+            'hasMarginHover'     => [
                 self::FIELD_TYPE => self::FIELD_TYPE_BOOL,
             ],
-            "hasMarginAnimation"           => [
+            'hasMarginAnimation' => [
                 self::FIELD_TYPE => self::FIELD_TYPE_BOOL,
             ],
-            "paddingTop"                   => [
+        ];
+    }
+
+    /**
+     * Gets padding fields info
+     *
+     * @return array
+     */
+    private function _getPaddingFieldsInfo()
+    {
+        return [
+            'paddingTop'          => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
                     ValueGenerator::MIN => 0
                 ],
             ],
-            "paddingTopHover"              => [
+            'paddingTopHover'     => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
                     ValueGenerator::MIN => 0
                 ],
             ],
-            "paddingRight"                 => [
+            'paddingRight'        => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
                     ValueGenerator::MIN => 0
                 ],
             ],
-            "paddingRightHover"            => [
+            'paddingRightHover'   => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
                     ValueGenerator::MIN => 0
                 ],
             ],
-            "paddingBottom"                => [
+            'paddingBottom'       => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
                     ValueGenerator::MIN => 0
                 ],
             ],
-            "paddingBottomHover"           => [
+            'paddingBottomHover'  => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
                     ValueGenerator::MIN => 0
                 ],
             ],
-            "paddingLeft"                  => [
+            'paddingLeft'         => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
                     ValueGenerator::MIN => 0
                 ],
             ],
-            "paddingLeftHover"             => [
+            'paddingLeftHover'    => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
                     ValueGenerator::MIN => 0
                 ],
             ],
-            "hasPaddingHover"              => [
+            'hasPaddingHover'     => [
                 self::FIELD_TYPE => self::FIELD_TYPE_BOOL,
             ],
-            "hasPaddingAnimation"          => [
+            'hasPaddingAnimation' => [
                 self::FIELD_TYPE => self::FIELD_TYPE_BOOL,
             ],
-            "backgroundColorFrom"          => [
+        ];
+    }
+
+    /**
+     * Gets background fields info
+     *
+     * @return array
+     */
+    private function _getBackgroundFieldsInfo()
+    {
+        return [
+            'backgroundColorFrom'      => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_STRING,
                 self::FIELD_VALUE => [
                     ValueGenerator::COLOR
                 ],
             ],
-            "backgroundColorFromHover"     => [
+            'backgroundColorFromHover' => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_STRING,
                 self::FIELD_VALUE => [
                     ValueGenerator::COLOR
                 ],
             ],
-            "backgroundColorTo"            => [
+            'backgroundColorTo'        => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_STRING,
                 self::FIELD_VALUE => [
                     ValueGenerator::COLOR
                 ],
             ],
-            "backgroundColorToHover"       => [
+            'backgroundColorToHover'   => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_STRING,
                 self::FIELD_VALUE => [
                     ValueGenerator::COLOR
                 ],
             ],
-            "gradientDirection"            => [
+            'gradientDirection'        => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
                     ValueGenerator::ARRAY_KEY => [
-                        self::$gradientDirectionList,
+                        self::$gradientDirections,
                         self::GRADIENT_DIRECTION_HORIZONTAL
                     ]
                 ],
             ],
-            "gradientDirectionHover"       => [
+            'gradientDirectionHover'   => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
                     ValueGenerator::ARRAY_KEY => [
-                        self::$gradientDirectionList,
+                        self::$gradientDirections,
                         self::GRADIENT_DIRECTION_HORIZONTAL
                     ]
                 ],
             ],
-            "hasBackgroundGradient"        => [
+            'hasBackgroundGradient'    => [
                 self::FIELD_TYPE => self::FIELD_TYPE_BOOL,
             ],
-            "hasBackgroundHover"           => [
+            'hasBackgroundHover'       => [
                 self::FIELD_TYPE => self::FIELD_TYPE_BOOL,
             ],
-            "hasBackgroundAnimation"       => [
+            'hasBackgroundAnimation'   => [
                 self::FIELD_TYPE => self::FIELD_TYPE_BOOL,
             ],
-            "borderTopLeftRadius"          => [
+        ];
+    }
+
+    /**
+     * Gets border radius fields info
+     *
+     * @return array
+     */
+    private function _getBorderRadiusFieldsInfo()
+    {
+        return [
+            'borderTopLeftRadius'          => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
                     ValueGenerator::MIN => 0
                 ],
             ],
-            "borderTopLeftRadiusHover"     => [
+            'borderTopLeftRadiusHover'     => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
                     ValueGenerator::MIN => 0
                 ],
             ],
-            "borderTopRightRadius"         => [
+            'borderTopRightRadius'         => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
                     ValueGenerator::MIN => 0
                 ],
             ],
-            "borderTopRightRadiusHover"    => [
+            'borderTopRightRadiusHover'    => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
                     ValueGenerator::MIN => 0
                 ],
             ],
-            "borderBottomRightRadius"      => [
+            'borderBottomRightRadius'      => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
                     ValueGenerator::MIN => 0
                 ],
             ],
-            "borderBottomRightRadiusHover" => [
+            'borderBottomRightRadiusHover' => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
                     ValueGenerator::MIN => 0
                 ],
             ],
-            "borderBottomLeftRadius"       => [
+            'borderBottomLeftRadius'       => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
                     ValueGenerator::MIN => 0
                 ],
             ],
-            "borderBottomLeftRadiusHover"  => [
-                self::FIELD_TYPE  => self::FIELD_TYPE_INT,
-                self::FIELD_VALUE => [
-                    ValueGenerator::MIN => 0
-                ],
-            ],
-            "borderTopWidth"               => [
-                self::FIELD_TYPE  => self::FIELD_TYPE_INT,
-                self::FIELD_VALUE => [
-                    ValueGenerator::MIN => 0
-                ],
-            ],
-            "borderTopWidthHover"          => [
-                self::FIELD_TYPE  => self::FIELD_TYPE_INT,
-                self::FIELD_VALUE => [
-                    ValueGenerator::MIN => 0
-                ],
-            ],
-            "borderRightWidth"             => [
-                self::FIELD_TYPE  => self::FIELD_TYPE_INT,
-                self::FIELD_VALUE => [
-                    ValueGenerator::MIN => 0
-                ],
-            ],
-            "borderRightWidthHover"        => [
-                self::FIELD_TYPE  => self::FIELD_TYPE_INT,
-                self::FIELD_VALUE => [
-                    ValueGenerator::MIN => 0
-                ],
-            ],
-            "borderBottomWidth"            => [
-                self::FIELD_TYPE  => self::FIELD_TYPE_INT,
-                self::FIELD_VALUE => [
-                    ValueGenerator::MIN => 0
-                ],
-            ],
-            "borderBottomWidthHover"       => [
-                self::FIELD_TYPE  => self::FIELD_TYPE_INT,
-                self::FIELD_VALUE => [
-                    ValueGenerator::MIN => 0
-                ],
-            ],
-            "borderLeftWidth"              => [
-                self::FIELD_TYPE  => self::FIELD_TYPE_INT,
-                self::FIELD_VALUE => [
-                    ValueGenerator::MIN => 0
-                ],
-            ],
-            "borderLeftWidthHover"         => [
-                self::FIELD_TYPE  => self::FIELD_TYPE_INT,
-                self::FIELD_VALUE => [
-                    ValueGenerator::MIN => 0
-                ],
-            ],
-            "borderColor"                  => [
-                self::FIELD_TYPE  => self::FIELD_TYPE_STRING,
-                self::FIELD_VALUE => [
-                    ValueGenerator::COLOR
-                ],
-            ],
-            "borderColorHover"             => [
-                self::FIELD_TYPE  => self::FIELD_TYPE_STRING,
-                self::FIELD_VALUE => [
-                    ValueGenerator::COLOR
-                ],
-            ],
-            "borderStyle"                  => [
-                self::FIELD_TYPE  => self::FIELD_TYPE_INT,
-                self::FIELD_VALUE => [
-                    ValueGenerator::ARRAY_KEY => [self::$borderStyleList, self::BORDER_STYLE_SOLID]
-                ],
-            ],
-            "borderStyleHover"             => [
-                self::FIELD_TYPE  => self::FIELD_TYPE_INT,
-                self::FIELD_VALUE => [
-                    ValueGenerator::ARRAY_KEY => [self::$borderStyleList, self::BORDER_STYLE_SOLID]
-                ],
-            ],
-            "hasBorderHover"               => [
-                self::FIELD_TYPE => self::FIELD_TYPE_BOOL,
-            ],
-            "hasBorderAnimation"           => [
-                self::FIELD_TYPE => self::FIELD_TYPE_BOOL,
-            ],
-            "width"                        => [
+            'borderBottomLeftRadiusHover'  => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
                     ValueGenerator::MIN => 0
@@ -440,81 +424,125 @@ class DesignBlockModel extends AbstractModel
     }
 
     /**
-     * Gets gradient direction
-     *
-     * @param bool $isHover
+     * Gets border width fields info
      *
      * @return array
      */
-    public function getGradientDirection($isHover = false)
+    private function _getBorderWidthFieldsInfo()
     {
-        if ($isHover === false) {
-            $gradientDirection = $this->get("gradientDirection");
-        } else {
-            $gradientDirection = $this->get("gradientDirectionHover");
-        }
-
-        if (array_key_exists($gradientDirection, self::$gradientDirectionList)) {
-            return self::$gradientDirectionList[$gradientDirection];
-        }
-
-        return self::$gradientDirectionList[self::GRADIENT_DIRECTION_HORIZONTAL];
-    }
-
-    /**
-     * Gets border style
-     *
-     * @param bool $isHover
-     *
-     * @return string
-     */
-    public function getBorderStyle($isHover = false)
-    {
-        if ($isHover === false) {
-            $borderStyle = $this->get("borderStyle");
-        } else {
-            $borderStyle = $this->get("borderStyleHover");
-        }
-
-        if (array_key_exists($borderStyle, self::$borderStyleList)) {
-            return self::$borderStyleList[$borderStyle];
-        }
-
-        return self::$borderStyleList[self::BORDER_STYLE_SOLID];
-    }
-
-    /**
-     * Gets design
-     *
-     * @param string $selector
-     * @param string $namespace
-     * @param array  $except
-     * @param string $title
-     *
-     * @return array
-     */
-    public function getDesign($selector, $namespace = null, array $except = null, $title = null)
-    {
-        if ($title === null) {
-            $title = Language::t("design", "blockDesign");
-        }
-
-        if ($namespace === null) {
-            $namespace = "designBlockModel";
-        }
-
-        if ($except === null) {
-            $except = ["id"];
-        }
-
         return [
-            "selector"  => $selector,
-            "id"        => View::generateCssId($selector, self::TYPE),
-            "type"      => self::TYPE,
-            "title"     => $title,
-            "namespace" => $namespace,
-            "labels"    => self::getLabels(),
-            "values"    => $this->get(null, $except),
+            'borderTopWidth'         => [
+                self::FIELD_TYPE  => self::FIELD_TYPE_INT,
+                self::FIELD_VALUE => [
+                    ValueGenerator::MIN => 0
+                ],
+            ],
+            'borderTopWidthHover'    => [
+                self::FIELD_TYPE  => self::FIELD_TYPE_INT,
+                self::FIELD_VALUE => [
+                    ValueGenerator::MIN => 0
+                ],
+            ],
+            'borderRightWidth'       => [
+                self::FIELD_TYPE  => self::FIELD_TYPE_INT,
+                self::FIELD_VALUE => [
+                    ValueGenerator::MIN => 0
+                ],
+            ],
+            'borderRightWidthHover'  => [
+                self::FIELD_TYPE  => self::FIELD_TYPE_INT,
+                self::FIELD_VALUE => [
+                    ValueGenerator::MIN => 0
+                ],
+            ],
+            'borderBottomWidth'      => [
+                self::FIELD_TYPE  => self::FIELD_TYPE_INT,
+                self::FIELD_VALUE => [
+                    ValueGenerator::MIN => 0
+                ],
+            ],
+            'borderBottomWidthHover' => [
+                self::FIELD_TYPE  => self::FIELD_TYPE_INT,
+                self::FIELD_VALUE => [
+                    ValueGenerator::MIN => 0
+                ],
+            ],
+            'borderLeftWidth'        => [
+                self::FIELD_TYPE  => self::FIELD_TYPE_INT,
+                self::FIELD_VALUE => [
+                    ValueGenerator::MIN => 0
+                ],
+            ],
+            'borderLeftWidthHover'   => [
+                self::FIELD_TYPE  => self::FIELD_TYPE_INT,
+                self::FIELD_VALUE => [
+                    ValueGenerator::MIN => 0
+                ],
+            ],
+        ];
+    }
+
+    /**
+     * Gets border style fields info
+     *
+     * @return array
+     */
+    private function _getBorderStyleFieldsInfo()
+    {
+        return [
+            'borderColor'        => [
+                self::FIELD_TYPE  => self::FIELD_TYPE_STRING,
+                self::FIELD_VALUE => [
+                    ValueGenerator::COLOR
+                ],
+            ],
+            'borderColorHover'   => [
+                self::FIELD_TYPE  => self::FIELD_TYPE_STRING,
+                self::FIELD_VALUE => [
+                    ValueGenerator::COLOR
+                ],
+            ],
+            'borderStyle'        => [
+                self::FIELD_TYPE  => self::FIELD_TYPE_INT,
+                self::FIELD_VALUE => [
+                    ValueGenerator::ARRAY_KEY => [
+                        self::$borderStyles,
+                        self::BORDER_STYLE_SOLID
+                    ]
+                ],
+            ],
+            'borderStyleHover'   => [
+                self::FIELD_TYPE  => self::FIELD_TYPE_INT,
+                self::FIELD_VALUE => [
+                    ValueGenerator::ARRAY_KEY => [
+                        self::$borderStyles,
+                        self::BORDER_STYLE_SOLID
+                    ]
+                ],
+            ],
+            'hasBorderHover'     => [
+                self::FIELD_TYPE => self::FIELD_TYPE_BOOL,
+            ],
+            'hasBorderAnimation' => [
+                self::FIELD_TYPE => self::FIELD_TYPE_BOOL,
+            ],
+        ];
+    }
+
+    /**
+     * Gets common fields info
+     *
+     * @return array
+     */
+    private function _getCommonFieldsInfo()
+    {
+        return [
+            'width' => [
+                self::FIELD_TYPE  => self::FIELD_TYPE_INT,
+                self::FIELD_VALUE => [
+                    ValueGenerator::MIN => 0
+                ],
+            ],
         ];
     }
 }

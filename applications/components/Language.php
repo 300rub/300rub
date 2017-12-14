@@ -112,6 +112,16 @@ class Language
     }
 
     /**
+     * Gets alias list
+     *
+     * @return array
+     */
+    public function getAliasList()
+    {
+        return $this->_aliasList;
+    }
+
+    /**
      * Gets active alias
      *
      * @return string

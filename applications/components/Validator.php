@@ -1,6 +1,6 @@
 <?php
 
-namespace testS\components;
+namespace testS\applications\components;
 
 /**
  * Class for validation model's fields

@@ -1,16 +1,15 @@
 <?php
 
-namespace testS\models;
+namespace testS\models\blocks\catalog\_abstract;
 
-use testS\components\Validator;
-use testS\components\ValueGenerator;
+use testS\models\AbstractModel;
+use testS\applications\components\Validator;
+use testS\applications\components\ValueGenerator;
 
 /**
- * Model for working with table "catalogMenu"
- *
- * @package testS\models
+ * Abstract model for working with table "catalogMenu"
  */
-class CatalogMenuModel extends AbstractModel
+abstract class AbstractCatalogMenuModel extends AbstractModel
 {
 
     /**
@@ -20,7 +19,7 @@ class CatalogMenuModel extends AbstractModel
      */
     public function getTableName()
     {
-        return "catalogMenu";
+        return 'catalogMenu';
     }
 
     /**
@@ -31,17 +30,17 @@ class CatalogMenuModel extends AbstractModel
     public function getFieldsInfo()
     {
         return [
-            "parentId"            => [
-                self::FIELD_RELATION_TO_PARENT => "CatalogMenuModel",
-                self::FIELD_ALLOW_NULL => true,
+            'parentId'  => [
+                self::FIELD_RELATION_TO_PARENT => 'CatalogMenuModel',
+                self::FIELD_ALLOW_NULL         => true,
             ],
-            "seoId"              => [
-                self::FIELD_RELATION => "SeoModel"
+            'seoId'     => [
+                self::FIELD_RELATION => 'SeoModel'
             ],
-            "catalogId"            => [
-                self::FIELD_RELATION_TO_PARENT => "CatalogModel"
+            'catalogId' => [
+                self::FIELD_RELATION_TO_PARENT => 'CatalogModel'
             ],
-            "icon"     => [
+            'icon'      => [
                 self::FIELD_TYPE       => self::FIELD_TYPE_STRING,
                 self::FIELD_VALIDATION => [
                     Validator::TYPE_MAX_LENGTH => 50,
@@ -50,7 +49,7 @@ class CatalogMenuModel extends AbstractModel
                     ValueGenerator::CLEAR_STRIP_TAGS
                 ],
             ],
-            "subName"     => [
+            'subName'   => [
                 self::FIELD_TYPE       => self::FIELD_TYPE_STRING,
                 self::FIELD_VALIDATION => [
                     Validator::TYPE_MAX_LENGTH => 255,

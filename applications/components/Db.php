@@ -1,6 +1,6 @@
 <?php
 
-namespace testS\components;
+namespace testS\applications\components;
 
 use PDO;
 use PDOStatement;

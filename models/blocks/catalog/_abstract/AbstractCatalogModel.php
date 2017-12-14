@@ -1,16 +1,15 @@
 <?php
 
-namespace testS\models;
+namespace testS\models\blocks\catalog\_abstract;
 
-use testS\components\Validator;
-use testS\components\ValueGenerator;
+use testS\models\AbstractModel;
+use testS\applications\components\Validator;
+use testS\applications\components\ValueGenerator;
 
 /**
- * Model for working with table "catalogs"
- *
- * @package testS\models
+ * Abstract model for working with table "catalogs"
  */
-class CatalogModel extends AbstractModel
+abstract class AbstractCatalogModel extends AbstractModel
 {
 
     /**
@@ -27,8 +26,8 @@ class CatalogModel extends AbstractModel
     public static function getDateTypeList()
     {
         return [
-            self::DATE_TYPE_COMMON => "",
-            self::DATE_TYPE_1 => ""
+            self::DATE_TYPE_COMMON => '',
+            self::DATE_TYPE_1      => ''
         ];
     }
 
@@ -39,7 +38,7 @@ class CatalogModel extends AbstractModel
      */
     public function getTableName()
     {
-        return "catalogs";
+        return 'catalogs';
     }
 
     /**
@@ -50,31 +49,31 @@ class CatalogModel extends AbstractModel
     public function getFieldsInfo()
     {
         return [
-            "imageId"            => [
-                self::FIELD_RELATION => "ImageModel"
+            'imageId'            => [
+                self::FIELD_RELATION => 'ImageModel'
             ],
-            "tabId"              => [
-                self::FIELD_RELATION => "TabModel"
+            'tabId'              => [
+                self::FIELD_RELATION => 'TabModel'
             ],
-            "fieldId"            => [
-                self::FIELD_RELATION => "FieldModel"
+            'fieldId'            => [
+                self::FIELD_RELATION => 'FieldModel'
             ],
-            "descriptionTextId"  => [
-                self::FIELD_RELATION => "TextModel"
+            'descriptionTextId'  => [
+                self::FIELD_RELATION => 'TextModel'
             ],
-            "designCatalogId"    => [
-                self::FIELD_RELATION => "DesignCatalogModel"
+            'designCatalogId'    => [
+                self::FIELD_RELATION => 'DesignCatalogModel'
             ],
-            "hasImages"          => [
+            'hasImages'          => [
                 self::FIELD_TYPE => self::FIELD_TYPE_BOOL
             ],
-            "useAutoload"        => [
+            'useAutoload'        => [
                 self::FIELD_TYPE => self::FIELD_TYPE_BOOL
             ],
-            "pageNavigationSize" => [
+            'pageNavigationSize' => [
                 self::FIELD_TYPE => self::FIELD_TYPE_INT,
             ],
-            "shortCardDateType"  => [
+            'shortCardDateType'  => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
                     ValueGenerator::ARRAY_KEY => [
@@ -83,7 +82,7 @@ class CatalogModel extends AbstractModel
                     ]
                 ],
             ],
-            "fullCardDateType"   => [
+            'fullCardDateType'   => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
                     ValueGenerator::ARRAY_KEY => [
@@ -92,10 +91,10 @@ class CatalogModel extends AbstractModel
                     ]
                 ],
             ],
-            "hasRelations"       => [
+            'hasRelations'       => [
                 self::FIELD_TYPE => self::FIELD_TYPE_BOOL
             ],
-            "relationsLabel"     => [
+            'relationsLabel'     => [
                 self::FIELD_TYPE       => self::FIELD_TYPE_STRING,
                 self::FIELD_VALIDATION => [
                     Validator::TYPE_MAX_LENGTH => 255,
@@ -104,7 +103,7 @@ class CatalogModel extends AbstractModel
                     ValueGenerator::CLEAR_STRIP_TAGS
                 ],
             ],
-            "hasBin"             => [
+            'hasBin'             => [
                 self::FIELD_TYPE => self::FIELD_TYPE_BOOL
             ],
         ];
