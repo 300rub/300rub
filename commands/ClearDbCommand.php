@@ -2,7 +2,7 @@
 
 namespace testS\commands;
 
-use testS\applications\App;
+use testS\application\App;
 use testS\components\Db;
 use testS\migrations\M160301000000Sites;
 use testS\migrations\M160302000000Migrations;

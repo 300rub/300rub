@@ -2,7 +2,7 @@
 
 namespace testS\controllers;
 
-use testS\applications\App;
+use testS\application\App;
 use testS\components\Language;
 use testS\components\Validator;
 use testS\models\SectionModel;

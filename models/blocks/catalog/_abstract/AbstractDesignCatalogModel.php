@@ -3,7 +3,7 @@
 namespace testS\models\blocks\catalog\_abstract;
 
 use testS\models\AbstractModel;
-use testS\applications\components\ValueGenerator;
+use testS\application\components\ValueGenerator;
 
 /**
  * Abstract model for working with table "designCatalogs"

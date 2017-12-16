@@ -2,7 +2,7 @@
 
 namespace testS\tests\unit\controllers;
 
-use testS\applications\App;
+use testS\application\App;
 use testS\components\Operation;
 use testS\models\BlockModel;
 use testS\models\UserModel;

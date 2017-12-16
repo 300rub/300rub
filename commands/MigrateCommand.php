@@ -2,7 +2,7 @@
 
 namespace testS\commands;
 
-use testS\applications\App;
+use testS\application\App;
 use testS\components\Db;
 use testS\components\exceptions\MigrationException;
 use Exception;

@@ -2,7 +2,7 @@
 
 namespace testS\models\blocks\block;
 
-use testS\applications\App;
+use testS\application\App;
 
 /**
  * Model for working with table "designBlocks"

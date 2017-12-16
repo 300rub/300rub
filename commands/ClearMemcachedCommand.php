@@ -2,7 +2,7 @@
 
 namespace testS\commands;
 
-use testS\applications\App;
+use testS\application\App;
 
 /**
  * Clear Memcached command

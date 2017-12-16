@@ -2,7 +2,7 @@
 
 namespace testS\models\blocks\block;
 
-use testS\applications\App;
+use testS\application\App;
 use testS\components\Db;
 use testS\components\exceptions\ModelException;
 use testS\components\exceptions\NotFoundException;

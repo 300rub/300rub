@@ -1,6 +1,6 @@
 <?php
 
-use testS\applications\App;
+use testS\application\App;
 
 require("errors.php");
 require("window/window.php");

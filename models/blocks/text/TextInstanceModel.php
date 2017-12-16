@@ -2,7 +2,7 @@
 
 namespace testS\models;
 
-use testS\applications\App;
+use testS\application\App;
 use testS\components\Db;
 
 /**

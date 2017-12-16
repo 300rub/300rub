@@ -2,7 +2,7 @@
 
 namespace testS\migrations;
 
-use testS\applications\App;
+use testS\application\App;
 use testS\components\Db;
 
 /**

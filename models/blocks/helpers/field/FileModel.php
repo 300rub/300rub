@@ -2,7 +2,7 @@
 
 namespace testS\models;
 
-use testS\applications\App;
+use testS\application\App;
 use testS\components\exceptions\FileException;
 use testS\components\Validator;
 use testS\components\ValueGenerator;

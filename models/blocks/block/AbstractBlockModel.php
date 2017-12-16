@@ -2,10 +2,10 @@
 
 namespace testS\models\blocks\block;
 
-use testS\applications\App;
+use testS\application\App;
 use testS\models\AbstractModel;
-use testS\applications\components\Validator;
-use testS\applications\components\ValueGenerator;
+use testS\application\components\Validator;
+use testS\application\components\ValueGenerator;
 
 /**
  * Abstract model for working with table "blocks"

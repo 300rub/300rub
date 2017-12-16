@@ -2,7 +2,7 @@
 
 namespace testS\models;
 
-use testS\applications\App;
+use testS\application\App;
 use testS\components\exceptions\CommonException;
 use testS\components\exceptions\ModelException;
 use testS\components\View;

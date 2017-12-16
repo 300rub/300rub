@@ -2,7 +2,7 @@
 
 namespace testS\controllers;
 
-use testS\applications\App;
+use testS\application\App;
 use testS\components\exceptions\AccessException;
 use testS\components\exceptions\BadRequestException;
 use testS\components\Operation;

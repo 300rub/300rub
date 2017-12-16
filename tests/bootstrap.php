@@ -1,6 +1,6 @@
 <?php
 
-use testS\applications\App;
+use testS\application\App;
 
 // Config file path
 $config = require(__DIR__ . "/../config/common.php");

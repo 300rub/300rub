@@ -3,8 +3,8 @@
 namespace testS\models\blocks\block;
 
 use testS\models\AbstractModel;
-use testS\applications\App;
-use testS\applications\components\ValueGenerator;
+use testS\application\App;
+use testS\application\components\ValueGenerator;
 
 /**
  * Abstract model for working with table "designBlocks"

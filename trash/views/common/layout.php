@@ -1,6 +1,6 @@
 <?php
 
-use testS\applications\App;
+use testS\application\App;
 use testS\components\Language;
 
 /**
