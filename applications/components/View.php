@@ -1,30 +1,14 @@
 <?php
 
-/**
- * PHP version 7
- *
- * @category Applications
- * @package  Components
- * @author   Mikhail Vasilev <donvasilion@gmail.com>
- * @license  http://opensource.org/licenses/gpl-license.php GNU Public License
- * @link     -
- */
-
 namespace testS\applications\components;
 
 use testS\applications\exceptions\CommonException;
 use testS\models\AbstractModel;
-use testS\models\DesignBlockModel;
-use testS\models\DesignTextModel;
+use testS\models\blocks\block\DesignBlockModel;
+use testS\models\blocks\text\DesignTextModel;
 
 /**
  * Class for working with views
- *
- * @category Applications
- * @package  Components
- * @author   Mikhail Vasilev <donvasilion@gmail.com>
- * @license  http://opensource.org/licenses/gpl-license.php GNU Public License
- * @link     -
  */
 class View
 {
@@ -39,7 +23,7 @@ class View
      */
     public function get($viewFile, $data = [])
     {
-        $path = $this->_getViewsRootDir() . $viewFile . ".php";
+        $path = $this->_getViewsRootDir() . $viewFile . '.php';
 
         extract($data, EXTR_OVERWRITE);
 
@@ -56,7 +40,7 @@ class View
      */
     private function _getViewsRootDir()
     {
-        return __DIR__ . "/../views/";
+        return __DIR__ . '/../views/';
     }
 
     /**
@@ -70,8 +54,8 @@ class View
     public function generateCssId($selector, $type)
     {
         return sprintf(
-            "%s-%s",
-            str_replace([".", " "], ["", "-"], $selector),
+            '%s-%s',
+            str_replace(['.', ' '], ['', '-'], $selector),
             $type
         );
     }
@@ -97,9 +81,9 @@ class View
 
         if ($type === null) {
             throw new CommonException(
-                "Unable to detect design type to get CSS. Model given: {class}",
+                'Unable to detect design type to get CSS. Model given: {class}',
                 [
-                    "class" => get_class($model)
+                    'class' => get_class($model)
                 ]
             );
         }
@@ -107,11 +91,11 @@ class View
         $cssId = $this->generateCssId($selector, $type);
 
         $css = $this->get(
-            "design/" . $type,
+            'design/' . $type,
             [
-                "model"    => $model,
-                "id"       => $cssId,
-                "selector" => $selector,
+                'model'    => $model,
+                'id'       => $cssId,
+                'selector' => $selector,
             ]
         );
 

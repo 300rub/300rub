@@ -1,27 +1,11 @@
 <?php
 
-/**
- * PHP version 7
- *
- * @category Applications
- * @package  Components
- * @author   Mikhail Vasilev <donvasilion@gmail.com>
- * @license  http://opensource.org/licenses/gpl-license.php GNU Public License
- * @link     -
- */
-
 namespace testS\applications\components;
 
 use testS\models\UserModel;
 
 /**
  * Class for work with user from session
- *
- * @category Applications
- * @package  Components
- * @author   Mikhail Vasilev <donvasilion@gmail.com>
- * @license  http://opensource.org/licenses/gpl-license.php GNU Public License
- * @link     -
  */
 class User
 {
@@ -43,7 +27,7 @@ class User
     /**
      * ID
      *
-     * @var int
+     * @var integer
      */
     private $_id = 0;
 
@@ -52,28 +36,28 @@ class User
      *
      * @var string
      */
-    private $_login = "";
+    private $_login = '';
 
     /**
      * Name
      *
      * @var string
      */
-    private $_name = "";
+    private $_name = '';
 
     /**
      * Email
      *
      * @var string
      */
-    private $_email = "";
+    private $_email = '';
 
     /**
      * Type
      *
-     * @var int
+     * @var integer
      */
-    private $_type = "";
+    private $_type = '';
 
     /**
      * User constructor.
@@ -86,10 +70,10 @@ class User
         $this->_token = $token;
         $this->_operations = $userModel->getOperations();
         $this->_id = $userModel->getId();
-        $this->_login = $userModel->get("login");
-        $this->_name = $userModel->get("name");
-        $this->_email = $userModel->get("email");
-        $this->_type = $userModel->get("type");
+        $this->_login = $userModel->get('login');
+        $this->_name = $userModel->get('name');
+        $this->_email = $userModel->get('email');
+        $this->_type = $userModel->get('type');
     }
 
     /**

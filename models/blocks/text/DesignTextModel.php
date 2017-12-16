@@ -1,6 +1,6 @@
 <?php
 
-namespace testS\models;
+namespace testS\models\blocks\text;
 
 use testS\components\Language;
 use testS\components\ValueGenerator;

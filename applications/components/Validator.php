@@ -2,245 +2,250 @@
 
 namespace testS\applications\components;
 
+use testS\applications\App;
+
 /**
  * Class for validation model's fields
- *
- * @package testS\components
  */
 class Validator
 {
 
-	/**
-	 * Types
-	 */
-	const TYPE_REQUIRED = "required";
-	const TYPE_URL = "url";
-	const TYPE_MAX_LENGTH = "maxLength";
-	const TYPE_MIN_LENGTH = "minLength";
-	const TYPE_MIN_VALUE = "minValue";
-	const TYPE_IP = "ip";
-	const TYPE_LATIN_DIGIT_UNDERSCORE_HYPHEN = "latinDigitUnderscoreHyphen";
-	const TYPE_EMAIL = "email";
-	const TYPE_UNIQUE = "unique";
+    /**
+     * Types
+     */
+    const TYPE_REQUIRED = 'required';
+    const TYPE_URL = 'url';
+    const TYPE_MAX_LENGTH = 'maxLength';
+    const TYPE_MIN_LENGTH = 'minLength';
+    const TYPE_MIN_VALUE = 'minValue';
+    const TYPE_IP = 'ip';
+    const TYPE_LATIN_DIGIT_UNDERSCORE_HYPHEN = 'latinDigitUnderscoreHyphen';
+    const TYPE_EMAIL = 'email';
 
-	/**
-	 * Value
-	 *
-	 * @var string
-	 */
-	private $_value;
+    /**
+     * Type list
+     *
+     * @var array
+     */
+    private $_typeList = [
+        self::TYPE_REQUIRED
+            => 'checkRequired',
+        self::TYPE_URL
+            => 'checkUrl',
+        self::TYPE_MAX_LENGTH
+            => 'checkMaxLength',
+        self::TYPE_MIN_LENGTH
+            => 'checkMinLength',
+        self::TYPE_MIN_VALUE
+            => 'checkMinValue',
+        self::TYPE_IP
+            => 'checkIp',
+        self::TYPE_LATIN_DIGIT_UNDERSCORE_HYPHEN
+            => 'checkLatinDigitUnderscoreHyphen',
+        self::TYPE_EMAIL
+            => 'checkEmail',
+    ];
 
-	/**
-	 * Rules
-	 *
-	 * @var array
-	 */
-	private $_rules = [];
+    /**
+     * Value
+     *
+     * @var string
+     */
+    private $_value;
 
-	/**
-	 * Errors
-	 *
-	 * @var array
-	 */
-	private $_errors = [];
+    /**
+     * Rule value
+     *
+     * @var mixed
+     */
+    private $_ruleValue = null;
 
-	/**
-	 * Constructor
-	 *
-	 * @param string $value
-	 * @param array  $rules
-	 */
-	public function __construct($value, $rules)
-	{
-		$this->_value = $value;
-		$this->_rules = $rules;
-	}
+    /**
+     * Errors
+     *
+     * @var array
+     */
+    private $_errors = [];
 
-	/**
-	 * Validation
-	 *
-	 * @return Validator
-	 */
-	public function validate()
-	{
-		foreach ($this->_rules as $key => $value) {
-			switch ($key) {
-				case self::TYPE_REQUIRED:
-					$this->_checkRequired();
-					break;
-				case self::TYPE_MIN_LENGTH:
-					$this->_checkMinLength($value);
-					break;
-				case self::TYPE_MIN_VALUE:
-					$this->_checkMinValue($value);
-					break;
-				case self::TYPE_MAX_LENGTH:
-					$this->_checkMaxLength($value);
-					break;
-				case self::TYPE_URL:
-					$this->_checkUrl();
-					break;
-				case self::TYPE_LATIN_DIGIT_UNDERSCORE_HYPHEN:
-					$this->_checkLatinDigitUnderscoreHyphen();
-					break;
-				case self::TYPE_EMAIL:
-					$this->_checkEmail();
-					break;
-				case self::TYPE_IP:
-					$this->_checkIp();
-					break;
-				default:
-					break;
-			}
-		}
+    /**
+     * Validates
+     *
+     * @param mixed $value Value
+     * @param array $rules Rules
+     *
+     * @return Validator
+     */
+    public function validate($value, $rules)
+    {
+        $this->_value = $value;
 
-		return $this;
-	}
+        foreach ($rules as $key => $value) {
+            if (array_key_exists($key, $this->_typeList) === false) {
+                continue;
+            }
 
-	/**
-	 * Gets errors
-	 *
-	 * @return array
-	 */
-	public function getErrors()
-	{
-		return $this->_errors;
-	}
+            $this->_ruleValue = $value;
 
-	/**
-	 * Adds error
-	 *
-	 * @param string $value Value
-	 *
-	 * @return Validator
-	 */
-	private function _addError($value)
-	{
-		if (!in_array($value, $this->_errors)) {
-			$this->_errors[] = $value;
-		}
+            $method = $this->_typeList[$key];
+            $this->$method();
+        }
 
-		return $this;
-	}
+        return $this;
+    }
 
-	/**
-	 * Verifies required
-	 *
-	 * @return void
-	 */
-	private function _checkRequired()
-	{
-		if (!$this->_value) {
-			$this->_addError(self::TYPE_REQUIRED);
-		}
-	}
+    /**
+     * Gets errors
+     *
+     * @return array
+     */
+    public function getErrors()
+    {
+        return $this->_errors;
+    }
 
-	/**
-	 * Verifies string length for max value
-	 *
-	 * @param int  $max   Max value
-	 *
-	 * @return void
-	 */
-	private function _checkMaxLength($max)
-	{
-		if (mb_strlen($this->_value) > $max) {
-			$this->_addError(self::TYPE_MAX_LENGTH);
-		}
-	}
+    /**
+     * Adds error
+     *
+     * @param string $value Value
+     *
+     * @return Validator
+     */
+    private function _addError($value)
+    {
+        if (in_array($value, $this->_errors) === false) {
+            $this->_errors[] = $value;
+        }
 
-	/**
-	 * Verifies string length for min value
-	 *
-	 * @param int $min Min value
-	 *
-	 * @return void
-	 */
-	private function _checkMinLength($min)
-	{
-		if (mb_strlen($this->_value) < $min) {
-			$this->_addError(self::TYPE_MIN_LENGTH);
-		}
-	}
+        return $this;
+    }
 
-	/**
-	 * Verifies min value
-	 *
-	 * @param int $min
-	 *
-	 * @return void
-	 */
-	private function _checkMinValue($min)
-	{
-		if ($this->_value < $min) {
-			$this->_addError(self::TYPE_MIN_VALUE);
-		}
-	}
+    /**
+     * Verifies required
+     *
+     * @return void
+     */
+    protected function checkRequired()
+    {
+        if (empty($this->_value) === true) {
+            $this->_addError(self::TYPE_REQUIRED);
+        }
+    }
 
-	/**
-	 * Verifies URL
-	 *
-	 * @return void
-	 */
-	private function _checkUrl()
-	{
-		if (!$this->_value || !preg_match("/^[0-9a-z-]+$/i", $this->_value)) {
-			$this->_addError(self::TYPE_URL);
-		}
-	}
+    /**
+     * Verifies string length for max value
+     *
+     * @return void
+     */
+    protected function checkMaxLength()
+    {
+        if (mb_strlen($this->_value) > $this->_ruleValue) {
+            $this->_addError(self::TYPE_MAX_LENGTH);
+        }
+    }
 
-	/**
-	 * Verifies regex: latin, digit, underscore, hyphen
-	 *
-	 * @return void
-	 */
-	private function _checkLatinDigitUnderscoreHyphen()
-	{
-		if ($this->_value && !preg_match("/^[0-9a-z-_]+$/i", $this->_value)) {
-			$this->_addError(self::TYPE_LATIN_DIGIT_UNDERSCORE_HYPHEN);
-		}
-	}
+    /**
+     * Verifies string length for min value
+     *
+     * @return void
+     */
+    protected function checkMinLength()
+    {
+        if (mb_strlen($this->_value) < $this->_ruleValue) {
+            $this->_addError(self::TYPE_MIN_LENGTH);
+        }
+    }
 
-	/**
-	 * Verifies Email
-	 *
-	 * @return void
-	 */
-	private function _checkEmail()
-	{
-		if (!filter_var($this->_value, FILTER_VALIDATE_EMAIL)) {
-			$this->_addError(self::TYPE_EMAIL);
-		}
-	}
+    /**
+     * Verifies min value
+     *
+     * @return void
+     */
+    protected function checkMinValue()
+    {
+        if ($this->_value < $this->_ruleValue) {
+            $this->_addError(self::TYPE_MIN_VALUE);
+        }
+    }
 
-	/**
-	 * Verifies IP
-	 *
-	 * @return void
-	 */
-	private function _checkIp()
-	{
-		if (!filter_var($this->_value, FILTER_VALIDATE_IP)) {
-			$this->_addError(self::TYPE_IP);
-		}
-	}
+    /**
+     * Verifies URL
+     *
+     * @return void
+     */
+    protected function checkUrl()
+    {
+        if (empty($this->_value) === true
+            || (bool)preg_match('/^[0-9a-z-]+$/i', $this->_value) === false
+        ) {
+            $this->_addError(self::TYPE_URL);
+        }
+    }
 
-	/**
-	 * Gets all error messages
-	 *
-	 * @return array
-	 */
-	public static function getErrorMessages()
-	{
-		return [
-			self::TYPE_REQUIRED                      => Language::t("validation", "required"),
-			self::TYPE_MAX_LENGTH                    => Language::t("validation", "maxLength"),
-			self::TYPE_MIN_LENGTH                    => Language::t("validation", "minLength"),
-			self::TYPE_URL                           => Language::t("validation", "url"),
-			self::TYPE_IP                            => Language::t("validation", "ip"),
-			self::TYPE_EMAIL                         => Language::t("validation", "email"),
-			self::TYPE_UNIQUE                        => Language::t("validation", "unique"),
-			self::TYPE_LATIN_DIGIT_UNDERSCORE_HYPHEN => Language::t("validation", "latinDigitUnderscoreHyphen"),
-		];
-	}
+    /**
+     * Verifies regex: latin, digit, underscore, hyphen
+     *
+     * @return void
+     */
+    protected function checkLatinDigitUnderscoreHyphen()
+    {
+        if (empty($this->_value) === false
+            && (bool)preg_match('/^[0-9a-z-_]+$/i', $this->_value) === false
+        ) {
+            $this->_addError(self::TYPE_LATIN_DIGIT_UNDERSCORE_HYPHEN);
+        }
+    }
+
+    /**
+     * Verifies Email
+     *
+     * @return void
+     */
+    protected function checkEmail()
+    {
+        if ((bool)filter_var($this->_value, FILTER_VALIDATE_EMAIL) === false) {
+            $this->_addError(self::TYPE_EMAIL);
+        }
+    }
+
+    /**
+     * Verifies IP
+     *
+     * @return void
+     */
+    protected function checkIp()
+    {
+        if ((bool)filter_var($this->_value, FILTER_VALIDATE_IP) === false) {
+            $this->_addError(self::TYPE_IP);
+        }
+    }
+
+    /**
+     * Gets all error messages
+     *
+     * @return array
+     */
+    public function getErrorMessages()
+    {
+        $language = App::getInstance()->getLanguage();
+
+        return [
+            self::TYPE_REQUIRED
+                => $language->getMessage('validation', 'required'),
+            self::TYPE_MAX_LENGTH
+                => $language->getMessage('validation', 'maxLength'),
+            self::TYPE_MIN_LENGTH
+                => $language->getMessage('validation', 'minLength'),
+            self::TYPE_URL
+                => $language->getMessage('validation', 'url'),
+            self::TYPE_IP
+                => $language->getMessage('validation', 'ip'),
+            self::TYPE_EMAIL
+                => $language->getMessage('validation', 'email'),
+            self::TYPE_LATIN_DIGIT_UNDERSCORE_HYPHEN
+                => $language->getMessage(
+                    'validation',
+                    'latinDigitUnderscoreHyphen'
+                ),
+        ];
+    }
 }

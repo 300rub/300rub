@@ -1,19 +1,11 @@
 <?php
 
-/**
- * PHP version 7
- *
- * @category Applications
- * @package  Application
- * @author   Mikhail Vasilev <donvasilion@gmail.com>
- * @license  http://opensource.org/licenses/gpl-license.php GNU Public License
- * @link     -
- */
-
 namespace testS\applications;
 
-use testS\components\Db;
+use testS\applications\components\Db;
+use testS\applications\components\Config;
 use testS\applications\components\ErrorHandler;
+use testS\applications\components\Validator;
 use testS\applications\exceptions\NotFoundException;
 use testS\applications\components\SuperGlobalVariable;
 use testS\applications\components\Language;
@@ -24,12 +16,6 @@ use testS\models\SiteModel;
 
 /**
  * Abstract class for work with application
- *
- * @category Applications
- * @package  Application
- * @author   Mikhail Vasilev <donvasilion@gmail.com>
- * @license  http://opensource.org/licenses/gpl-license.php GNU Public License
- * @link     -
  */
 abstract class AbstractApplication
 {
@@ -37,7 +23,7 @@ abstract class AbstractApplication
     /**
      * Settings from config
      *
-     * @var array
+     * @var Config
      */
     private $_config = null;
 
@@ -84,6 +70,13 @@ abstract class AbstractApplication
     private $_view = null;
 
     /**
+     * View
+     *
+     * @var Validator
+     */
+    private $_validator = null;
+
+    /**
      * Site
      *
      * @var SiteModel
@@ -113,6 +106,7 @@ abstract class AbstractApplication
             ->_setLanguage()
             ->_setOperation()
             ->_setView()
+            ->_setValidator()
             ->_setMemcached();
     }
 
@@ -149,7 +143,7 @@ abstract class AbstractApplication
      */
     private function _setConfig($config)
     {
-        $this->_config = $config;
+        $this->_config = new Config($config);
 
         return $this;
     }
@@ -157,29 +151,11 @@ abstract class AbstractApplication
     /**
      * Gets config
      *
-     * @param array $path Path for config item
-     *
-     * @return mixed
+     * @return Config
      */
-    public function getConfig(array $path = [])
+    public function getConfig()
     {
-        $value = $this->_config;
-
-        if (count($path) === 0) {
-            return $value;
-        }
-
-        foreach ($path as $item) {
-            if (!is_array($value)
-                || !array_key_exists($item, $value)
-            ) {
-                return null;
-            }
-
-            $value = $value[$item];
-        }
-
-        return $value;
+        return $this->_config;
     }
 
     /**
@@ -295,8 +271,8 @@ abstract class AbstractApplication
     private function _setMemcached()
     {
         $this->_memcached = new Memcached(
-            $this->getConfig(["memcached", "host"]),
-            $this->getConfig(["memcached", "port"])
+            $this->getConfig()->getValue(["memcached", "host"]),
+            $this->getConfig()->getValue(["memcached", "port"])
         );
 
         return $this;

@@ -22,7 +22,7 @@ use testS\components\ValueGenerator;
  * @method BlockModel[] findAll()
  * @method BlockModel duplicate()
  */
-class BlockModel extends AbstractModel
+class BlockModel extends AbstractBlockModel
 {
 
 

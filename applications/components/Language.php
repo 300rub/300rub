@@ -1,27 +1,11 @@
 <?php
 
-/**
- * PHP version 7
- *
- * @category Applications
- * @package  Components
- * @author   Mikhail Vasilev <donvasilion@gmail.com>
- * @license  http://opensource.org/licenses/gpl-license.php GNU Public License
- * @link     -
- */
-
 namespace testS\applications\components;
 
 use testS\applications\exceptions\CommonException;
 
 /**
  * Class contains lib of static functions for working with language
- *
- * @category Applications
- * @package  Components
- * @author   Mikhail Vasilev <donvasilion@gmail.com>
- * @license  http://opensource.org/licenses/gpl-license.php GNU Public License
- * @link     -
  */
 class Language
 {
@@ -34,7 +18,7 @@ class Language
     /**
      * Language alias. English
      */
-    const LANGUAGE_EN_ALIAS = "en";
+    const LANGUAGE_EN_ALIAS = 'en';
 
     /**
      * Language ID. Russian
@@ -44,12 +28,12 @@ class Language
     /**
      * Language alias. Russian
      */
-    const LANGUAGE_RU_ALIAS = "ru";
+    const LANGUAGE_RU_ALIAS = 'ru';
 
     /**
      * Active language ID
      *
-     * @var int
+     * @var integer
      */
     private $_activeId = self::LANGUAGE_EN_ID;
 
@@ -98,15 +82,15 @@ class Language
     public function setIdByAlias($name)
     {
         $languageId = array_search($name, $this->_aliasList);
-        if (!$languageId) {
+        if ((bool)$languageId === true) {
             $this->setActiveId($languageId);
             return $this;
         }
 
         throw new CommonException(
-            "Unable to find language with name: {name}",
+            'Unable to find language with name: {name}',
             [
-            "name" => $name
+            'name' => $name
             ]
         );
     }
@@ -128,7 +112,7 @@ class Language
      */
     public function getActiveAlias()
     {
-        if (in_array(self::getActiveId(), $this->_aliasList)) {
+        if (in_array(self::getActiveId(), $this->_aliasList) === true) {
             return $this->_aliasList[self::getActiveId()];
         }
 
@@ -145,12 +129,12 @@ class Language
      */
     public function getMessage($category, $key)
     {
-        $messages = include __DIR__ . "/../../messages/{$category}.php";
-        if (array_key_exists($key, $messages)) {
+        $messages = include __DIR__ . '/../../messages/' . $category . '.php';
+        if (array_key_exists($key, $messages) === true) {
             return $messages[$key][self::getActiveId()];
         }
 
-        return "";
+        return '';
     }
 
     /**

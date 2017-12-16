@@ -1,27 +1,11 @@
 <?php
 
-/**
- * PHP version 7
- *
- * @category Applications
- * @package  Components
- * @author   Mikhail Vasilev <donvasilion@gmail.com>
- * @license  http://opensource.org/licenses/gpl-license.php GNU Public License
- * @link     -
- */
-
 namespace testS\applications\components;
 
 use testS\applications\exceptions\MemcacheException;
 
 /**
  * Class for working with Memcached
- *
- * @category Applications
- * @package  Components
- * @author   Mikhail Vasilev <donvasilion@gmail.com>
- * @license  http://opensource.org/licenses/gpl-license.php GNU Public License
- * @link     -
  */
 class Memcached
 {
@@ -71,12 +55,12 @@ class Memcached
 
         if ($result === false) {
             throw new MemcacheException(
-                "Unable to save memcache with key: {key}, " .
-                "value: {value}, expiration: {expiration}",
+                'Unable to save memcache with key: {key}, ' .
+                'value: {value}, expiration: {expiration}',
                 [
-                    "key"        => $key,
-                    "value"      => $value,
-                    "expiration" => $expiration
+                    'key'        => $key,
+                    'value'      => $value,
+                    'expiration' => $expiration
                 ]
             );
         }
@@ -123,9 +107,9 @@ class Memcached
 
         if ($result === false) {
             throw new MemcacheException(
-                "Unable to delete from memcache with key: {key}",
+                'Unable to delete from memcache with key: {key}',
                 [
-                    "key" => $key,
+                    'key' => $key,
                 ]
             );
         }
@@ -149,7 +133,7 @@ class Memcached
         $result = $this->_memcached->flush();
 
         if ($result === false) {
-            throw new MemcacheException("Unable to flush from memcache");
+            throw new MemcacheException('Unable to flush from memcache');
         }
 
         return $this;

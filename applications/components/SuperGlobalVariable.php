@@ -1,25 +1,9 @@
 <?php
 
-/**
- * PHP version 7
- *
- * @category Applications
- * @package  Components
- * @author   Mikhail Vasilev <donvasilion@gmail.com>
- * @license  http://opensource.org/licenses/gpl-license.php GNU Public License
- * @link     -
- */
-
 namespace testS\applications\components;
 
 /**
  * Class to work with super-global variables
- *
- * @category Applications
- * @package  Components
- * @author   Mikhail Vasilev <donvasilion@gmail.com>
- * @license  http://opensource.org/licenses/gpl-license.php GNU Public License
- * @link     -
  */
 class SuperGlobalVariable
 {
@@ -50,7 +34,7 @@ class SuperGlobalVariable
      */
     public function getServerValue($key)
     {
-        if (array_key_exists($key, $this->_server)) {
+        if (array_key_exists($key, $this->_server) === true) {
             return $this->_server[$key];
         }
 
