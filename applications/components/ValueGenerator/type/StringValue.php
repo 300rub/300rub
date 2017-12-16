@@ -2,12 +2,12 @@
 
 namespace testS\applications\components\ValueGenerator;
 
-use testS\applications\components\ValueGenerator;
+use testS\applications\components\ValueGenerator\_abstract\AbstractType;
 
 /**
  * Class for string generation
  */
-class StringValue extends ValueGenerator
+class StringValue extends AbstractType
 {
 
     /**

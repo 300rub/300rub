@@ -2,12 +2,12 @@
 
 namespace testS\applications\components\ValueGenerator;
 
-use testS\applications\components\ValueGenerator;
+use testS\applications\components\ValueGenerator\_abstract\AbstractModifier;
 
 /**
  * Class for ordered key value array for json generation
  */
-class OrderedArrayForJson extends ValueGenerator
+class OrderedArrayForJson extends AbstractModifier
 {
 
     /**

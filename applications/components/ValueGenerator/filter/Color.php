@@ -2,12 +2,12 @@
 
 namespace testS\applications\components\ValueGenerator;
 
-use testS\applications\components\ValueGenerator;
+use testS\applications\components\ValueGenerator\_abstract\AbstractFilter;
 
 /**
  * Class for color value generation
  */
-class Color extends ValueGenerator
+class Color extends AbstractFilter
 {
 
     /**

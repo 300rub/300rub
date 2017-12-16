@@ -2,12 +2,12 @@
 
 namespace testS\applications\components\ValueGenerator;
 
-use testS\applications\components\ValueGenerator;
+use testS\applications\components\ValueGenerator\_abstract\AbstractType;
 
 /**
  * Class for DateTime string value generation
  */
-class Iso extends ValueGenerator
+class Iso extends AbstractType
 {
 
     /**

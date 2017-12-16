@@ -2,12 +2,12 @@
 
 namespace testS\applications\components\ValueGenerator;
 
-use testS\applications\components\ValueGenerator;
+use testS\applications\components\ValueGenerator\_abstract\AbstractModifier;
 
 /**
  * Class for generation of value with clear strip tags
  */
-class ClearStripTags extends ValueGenerator
+class ClearStripTags extends AbstractModifier
 {
 
     /**

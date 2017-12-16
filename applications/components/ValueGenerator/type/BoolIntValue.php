@@ -2,12 +2,12 @@
 
 namespace testS\applications\components\ValueGenerator;
 
-use testS\applications\components\ValueGenerator;
+use testS\applications\components\ValueGenerator\_abstract\AbstractType;
 
 /**
  * Class for bool integer (0/1) value generation
  */
-class BoolIntValue extends ValueGenerator
+class BoolIntValue extends AbstractType
 {
 
     /**

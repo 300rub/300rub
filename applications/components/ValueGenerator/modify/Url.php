@@ -3,12 +3,12 @@
 namespace testS\applications\components\ValueGenerator;
 
 use testS\applications\App;
-use testS\applications\components\ValueGenerator;
+use testS\applications\components\ValueGenerator\_abstract\AbstractModifier;
 
 /**
  * Class for URL generation
  */
-class Url extends ValueGenerator
+class Url extends AbstractModifier
 {
 
     /**

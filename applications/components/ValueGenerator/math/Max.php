@@ -2,12 +2,12 @@
 
 namespace testS\applications\components\ValueGenerator;
 
-use testS\applications\components\ValueGenerator;
+use testS\applications\components\ValueGenerator\_abstract\AbstractMath;
 
 /**
  * Class for max value generation
  */
-class Max extends ValueGenerator
+class Max extends AbstractMath
 {
 
     /**

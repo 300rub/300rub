@@ -2,13 +2,13 @@
 
 namespace testS\applications\components\ValueGenerator;
 
-use testS\applications\components\ValueGenerator;
+use testS\applications\components\ValueGenerator\_abstract\AbstractFilter;
 use testS\applications\exceptions\CommonException;
 
 /**
  * Class for array key generation
  */
-class ArrayKey extends ValueGenerator
+class ArrayKey extends AbstractFilter
 {
 
     /**

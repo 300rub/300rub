@@ -2,12 +2,12 @@
 
 namespace testS\applications\components\ValueGenerator;
 
-use testS\applications\components\ValueGenerator;
+use testS\applications\components\ValueGenerator\_abstract\AbstractType;
 
 /**
  * Class for integer generation
  */
-class IntValue extends ValueGenerator
+class IntValue extends AbstractType
 {
 
     /**

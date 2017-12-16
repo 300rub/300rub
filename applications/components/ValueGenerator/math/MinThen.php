@@ -2,12 +2,12 @@
 
 namespace testS\applications\components\ValueGenerator;
 
-use testS\applications\components\ValueGenerator;
+use testS\applications\components\ValueGenerator\_abstract\AbstractMath;
 
 /**
  * Class for min -> then value generation
  */
-class MinThen extends ValueGenerator
+class MinThen extends AbstractMath
 {
 
     /**

@@ -2,12 +2,12 @@
 
 namespace testS\applications\components\ValueGenerator;
 
-use testS\applications\components\ValueGenerator;
+use testS\applications\components\ValueGenerator\_abstract\AbstractType;
 
 /**
- * Class for URL copy generation
+ * Class for float value generation
  */
-class UrlCopy extends ValueGenerator
+class FloatValue extends AbstractType
 {
 
     /**
@@ -17,6 +17,6 @@ class UrlCopy extends ValueGenerator
      */
     public function generate()
     {
-        return $this->value . '-copy';
+        return (float)$this->value;
     }
 }

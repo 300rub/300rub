@@ -2,13 +2,13 @@
 
 namespace testS\applications\components\ValueGenerator;
 
-use testS\applications\components\ValueGenerator;
+use testS\applications\components\ValueGenerator\_abstract\AbstractModifier;
 use testS\applications\App;
 
 /**
  * Class for name copy value generation
  */
-class CopyName extends ValueGenerator
+class CopyName extends AbstractModifier
 {
 
     /**
