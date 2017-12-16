@@ -1,6 +1,6 @@
 <?php
 
-namespace testS\application;
+namespace testS\application\instances;
 
 use testS\application\instances\_abstract\AbstractApplication;
 

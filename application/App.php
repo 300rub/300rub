@@ -2,6 +2,11 @@
 
 namespace testS\application;
 
+use testS\application\instances\_abstract\AbstractApplication;
+use testS\application\instances\Console;
+use testS\application\instances\Test;
+use testS\application\instances\Web;
+
 /**
  * Class for running application
  */
@@ -45,7 +50,7 @@ class App
      */
     public static function console($config = [])
     {
-        if (!self::$_console) {
+        if (self::$_console !== null) {
             self::$_console = new Console($config);
         }
 
@@ -61,7 +66,7 @@ class App
      */
     public static function web($config = [])
     {
-        if (!self::$_web) {
+        if (self::$_web !== null) {
             self::$_web = new Web($config);
         }
 
@@ -77,7 +82,7 @@ class App
      */
     public static function test($config = [])
     {
-        if (!self::$_test) {
+        if (self::$_test !== null) {
             self::$_test = new Test($config);
         }
 
@@ -91,15 +96,15 @@ class App
      */
     public static function getInstance()
     {
-        if (self::$_web) {
+        if (self::$_web !== null) {
             return self::$_web;
         }
 
-        if (self::$_console) {
+        if (self::$_console !== null) {
             return self::$_console;
         }
 
-        if (self::$_test) {
+        if (self::$_test !== null) {
             return self::$_test;
         }
 
@@ -115,7 +120,7 @@ class App
      */
     public static function autoload($className)
     {
-        if (in_array($className, self::$classMap)) {
+        if (in_array($className, self::$classMap) === true) {
             return false;
         }
 
@@ -131,7 +136,7 @@ class App
                 )
             )  .
             '.php';
-        if (file_exists($filePath)) {
+        if (file_exists($filePath) === true) {
             include_once $filePath;
         }
 
