@@ -13,18 +13,17 @@ class ClearStripTags extends ValueGenerator
     /**
      * Generates value
      *
-     * @param mixed $value Initial value
-     * @param mixed $param Param
-     *
      * @return mixed
      */
-    public function generate($value, $param)
+    public function generate()
     {
-        ValueGenerator::factory('aaa', 'bbbb')->generate('aaaa', 'bbb');
-
         return trim(
             strip_tags(
-                preg_replace('/<script\b[^>]*>(.*?)<\/script>/is', '', $value)
+                preg_replace(
+                    '/<script\b[^>]*>(.*?)<\/script>/is',
+                    '',
+                    $this->value
+                )
             )
         );
     }

@@ -5,9 +5,9 @@ namespace testS\applications\components\ValueGenerator;
 use testS\applications\components\ValueGenerator;
 
 /**
- * Class for min -> then value generation
+ * Class for DateTime string value generation
  */
-class MinThen extends ValueGenerator
+class Iso extends ValueGenerator
 {
 
     /**
@@ -17,10 +17,10 @@ class MinThen extends ValueGenerator
      */
     public function generate()
     {
-        if ($this->value <= $this->param[0]) {
-            return $this->param[1];
+        if ($this->value instanceof \DateTime) {
+            return $this->value->format('Y-m-d H:i:s');
         }
 
-        return $this->value;
+        return date('Y-m-d H:i:s', time());
     }
 }

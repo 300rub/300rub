@@ -13,31 +13,28 @@ class Min extends ValueGenerator
     /**
      * Generates value
      *
-     * @param mixed $value Initial value
-     * @param mixed $min   Param
-     *
      * @return mixed
      */
-    public function generate($value, $min)
+    public function generate()
     {
-        if (is_array($min) === true) {
+        if (is_array($this->param) === true) {
             $operator = '+';
-            if (empty($min[2]) === false) {
-                $operator = $min[2];
+            if (empty($this->param[2]) === false) {
+                $operator = $this->param[2];
             }
 
-            $min = $this->getValueByOperator(
-                $min[0],
-                $min[1],
+            $this->param = $this->getValueByOperator(
+                $this->param[0],
+                $this->param[1],
                 $operator,
                 -99999
             );
         }
 
-        if ($value < $min) {
-            $value = $min;
+        if ($this->value < $this->param) {
+            $this->value = $this->param;
         }
 
-        return $value;
+        return $this->value;
     }
 }

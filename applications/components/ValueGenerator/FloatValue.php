@@ -5,9 +5,9 @@ namespace testS\applications\components\ValueGenerator;
 use testS\applications\components\ValueGenerator;
 
 /**
- * Class for min -> then value generation
+ * Class for float value generation
  */
-class MinThen extends ValueGenerator
+class FloatValue extends ValueGenerator
 {
 
     /**
@@ -17,10 +17,6 @@ class MinThen extends ValueGenerator
      */
     public function generate()
     {
-        if ($this->value <= $this->param[0]) {
-            return $this->param[1];
-        }
-
-        return $this->value;
+        return (float)$this->value;
     }
 }

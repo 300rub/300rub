@@ -1,31 +1,15 @@
 <?php
 
-/**
- * PHP version 7
- *
- * @category Applications
- * @package  Components
- * @author   Mikhail Vasilev <donvasilion@gmail.com>
- * @license  http://opensource.org/licenses/gpl-license.php GNU Public License
- * @link     -
- */
-
 namespace testS\applications\components;
 
 use testS\applications\exceptions\CommonException;
 
 /**
  * Class for handling errors
- *
- * @category Applications
- * @package  Components
- * @author   Mikhail Vasilev <donvasilion@gmail.com>
- * @license  http://opensource.org/licenses/gpl-license.php GNU Public License
- * @link     -
  */
 class ErrorHandler
 {
-    
+
     /**
      * Constructor
      */
@@ -41,8 +25,8 @@ class ErrorHandler
      */
     private function _setErrorReporting()
     {
-        ini_set("error_reporting", E_ALL);
-        ini_set("display_errors", "On");
+        ini_set('error_reporting', E_ALL);
+        ini_set('display_errors', 'On');
 
         return $this;
     }
@@ -64,7 +48,7 @@ class ErrorHandler
      * Handles exceptions
      *
      * @param \Exception $exception Exception
-     * 
+     *
      * @throws CommonException
      *
      * @return void
@@ -75,14 +59,14 @@ class ErrorHandler
         restore_exception_handler();
 
         throw new CommonException(
-            "Exception occurred with type: {type}, message: {message}, " .
-            "file: {file}, line: {line} backtrace: {backtrace}",
+            'Exception occurred with type: {type}, message: {message}, ' .
+            'file: {file}, line: {line} backtrace: {backtrace}',
             [
-                "type"      => get_class($exception),
-                "message"   => $exception->getMessage(),
-                "file"      => $exception->getFile(),
-                "line"      => $exception->getLine(),
-                "backtrace" => $exception->getTraceAsString()
+                'type'      => get_class($exception),
+                'message'   => $exception->getMessage(),
+                'file'      => $exception->getFile(),
+                'line'      => $exception->getLine(),
+                'backtrace' => $exception->getTraceAsString()
             ]
         );
     }
@@ -102,12 +86,13 @@ class ErrorHandler
     public function handleError($code, $message, $file, $line)
     {
         throw new CommonException(
-            "Error! code: {code}, message: {message}, file: {file}, line: {line}",
+            'Error! code: {code}, message: {message}, ' .
+            'file: {file}, line: {line}',
             [
-                "code"    => $code,
-                "message" => $message,
-                "file"    => $file,
-                "line"    => $line
+                'code'    => $code,
+                'message' => $message,
+                'file'    => $file,
+                'line'    => $line
             ]
         );
     }

@@ -5,9 +5,9 @@ namespace testS\applications\components\ValueGenerator;
 use testS\applications\components\ValueGenerator;
 
 /**
- * Class for min -> then value generation
+ * Class for URL copy generation
  */
-class MinThen extends ValueGenerator
+class UrlCopy extends ValueGenerator
 {
 
     /**
@@ -17,10 +17,6 @@ class MinThen extends ValueGenerator
      */
     public function generate()
     {
-        if ($this->value <= $this->param[0]) {
-            return $this->param[1];
-        }
-
-        return $this->value;
+        return $this->value . '-copy';
     }
 }

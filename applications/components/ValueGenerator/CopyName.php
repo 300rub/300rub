@@ -14,16 +14,13 @@ class CopyName extends ValueGenerator
     /**
      * Generates value
      *
-     * @param mixed $value Initial value
-     * @param mixed $param Param
-     *
      * @return mixed
      */
-    public function generate($value, $param)
+    public function generate()
     {
         return sprintf(
             '%s (%s)',
-            $value,
+            $this->value,
             App::getInstance()->getLanguage()->getMessage('common', 'copy')
         );
     }

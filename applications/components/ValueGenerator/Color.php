@@ -13,21 +13,18 @@ class Color extends ValueGenerator
     /**
      * Generates value
      *
-     * @param mixed $value Initial value
-     * @param mixed $param Param
-     *
      * @return mixed
      */
-    public function generate($value, $param)
+    public function generate()
     {
         $isValid = preg_match(
             '/(.*?)(rgb|rgba)\((\d+),\s*(\d+),\s*' .
             '(\d+)(?:,\s*(\d+(?:\.\d+)?))?\)/i',
-            $value
+            $this->value
         );
 
         if ($isValid === true) {
-            return $value;
+            return $this->value;
         }
 
         return '';
