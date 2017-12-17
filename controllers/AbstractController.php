@@ -1,6 +1,6 @@
 <?php
 
-namespace testS\controllers;
+namespace testS\controllers\_abstract;
 
 use testS\application\App;
 use testS\components\exceptions\AccessException;
@@ -46,6 +46,8 @@ abstract class AbstractController
      * @var array
      */
     private $_data = [];
+
+    abstract public function run();
 
     /**
      * Gets simple success result

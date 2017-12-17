@@ -3,15 +3,20 @@
 namespace testS\application\instances;
 
 use testS\application\components\User;
-use testS\application\instances\_abstract\AbstractWeb;
+use testS\application\instances\_abstract\AbstractWebAjax;
 use testS\models\UserModel;
-use testS\models\UserSessionModel;
+use testS\models\user\UserSessionModel;
 
 /**
  * Class for working with WEB application
  */
-class Web extends AbstractWeb
+class Web extends AbstractWebAjax
 {
+
+    /**
+     * API url
+     */
+    const API_URL = 'api';
 
     /**
      * User in session
@@ -41,52 +46,28 @@ class Web extends AbstractWeb
             $isAjax = true;
         }
 
-        try {
-            session_start();
-            $this->_initialUserSet();
+        session_start();
 
-            $output = $this->getOutput($isAjax);
-        } catch (\Exception $e) {
-            if ($this->useTransaction === true) {
-                $this->getDb()->rollbackTransaction();
-            }
+        $this->_initialUserSet();
 
-            $output = $e->getMessage();
-            if ($isAjax === true) {
-                $output = json_encode(
-                    [
-                        'error' => [
-                            'message' => $e->getMessage(),
-                            'file'    => $e->getFile(),
-                            'line'    => $e->getLine(),
-                            'trace'   => $e->getTraceAsString(),
-                        ]
-                    ]
-                );
-            }
-
-            switch ($e->getCode()) {
-                case 204:
-                    http_response_code(204);
-                    break;
-                case 400:
-                    http_response_code(400);
-                    break;
-                case 404:
-                    http_response_code(404);
-                    break;
-                case 403:
-                    http_response_code(403);
-                    break;
-                default:
-                    http_response_code(500);
-                    break;
-            }
-        }
-
-        echo $output;
+        echo $this->_getOutput($isAjax);
     }
 
+    /**
+     * Gets output
+     *
+     * @param bool $isAjax Flag of ajax request
+     *
+     * @return string
+     */
+    private function _getOutput($isAjax)
+    {
+        if ($isAjax === true) {
+            return $this->processAjax();
+        }
+
+        return $this->processPage();
+    }
 
     /**
      * Gets user

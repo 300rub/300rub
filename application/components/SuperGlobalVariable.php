@@ -9,6 +9,11 @@ class SuperGlobalVariable
 {
 
     /**
+     * Post file name
+     */
+    const POST_FILE_NAME = 'file';
+
+    /**
      * Gets $_SERVER value by key
      *
      * @param string $key Server key

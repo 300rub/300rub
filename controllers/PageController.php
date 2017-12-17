@@ -1,10 +1,11 @@
 <?php
 
-namespace testS\controllers;
+namespace testS\controllers\page;
 
 use testS\application\App;
 use testS\components\Language;
 use testS\components\Validator;
+use testS\controllers\_abstract\AbstractController;
 use testS\models\SectionModel;
 use testS\models\SeoModel;
 
@@ -21,7 +22,7 @@ class PageController extends AbstractController
      *
      * @return string
      */
-    public function getPage()
+    public function run()
     {
         $isUser = $this->isUser();
 

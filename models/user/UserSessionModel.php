@@ -1,10 +1,11 @@
 <?php
 
-namespace testS\models;
+namespace testS\models\user;
 
 use testS\components\Db;
 use testS\components\Validator;
 use DateTime;
+use testS\models\AbstractModel;
 
 /**
  * Model for working with table "userSessions"
