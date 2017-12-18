@@ -2,59 +2,59 @@
 
 namespace testS\commands;
 
-use testS\components\Db;
-use testS\components\exceptions\MigrationException;
+use testS\application\App;
+use testS\commands\_abstract\AbstractCommand;
+use testS\application\exceptions\MigrationException;
 
 /**
  * Rollback Sql dumps command
- *
- * @package testS\commands
  */
 class RollbackSqlDumpsCommand extends AbstractCommand
 {
 
-	/**
-	 * Runs the command
-	 *
-	 * @param string[] $args command arguments
-	 */
-	public function run($args = [])
-	{
-		self::rollbackDumps();
-	}
+    /**
+     * Runs the command
+     *
+     * @return void
+     *
+     * @throws MigrationException
+     */
+    public function run()
+    {
+        $dbObject = App::getInstance()->getDb();
 
-	/**
-	 * Clear DB script
-	 */
-	public static function rollbackDumps()
-	{
-        Db::setSystemPdo();
+        $dbObject->setSystemPdo();
 
-		$sites = Db::fetchAll("SELECT * " . "FROM `sites`");
+        $sites = $dbObject->fetchAll('SELECT * ' . 'FROM `sites`');
 
-		foreach ($sites as $site) {
-			Db::setPdo($site["dbHost"], $site["dbUser"], $site["dbPassword"], $site["dbName"]);
+        foreach ($sites as $site) {
+            $dbObject->setPdo(
+                $site['dbHost'],
+                $site['dbUser'],
+                $site['dbPassword'],
+                $site['dbName']
+            );
 
-			$file = __DIR__ . "/../backups/" . $site["dbName"] . ".sql.gz";
-			if (!file_exists($file)) {
-				throw new MigrationException(
-					"Unable to find the dump file for DB: {db}",
-					[
-						"db" => $site["dbName"]
-					]
-				);
-			}
+            $file = __DIR__ . '/../backups/' . $site['dbName'] . '.sql.gz';
+            if (file_exists($file) === false) {
+                throw new MigrationException(
+                    'Unable to find the dump file for DB: {db}',
+                    [
+                        'db' => $site['dbName']
+                    ]
+                );
+            }
 
-			exec(
-				sprintf(
-					"gunzip < %s | mysql -u %s -p%s -h %s %s",
-					$file,
-					$site["dbUser"],
-					$site["dbPassword"],
-					$site["dbHost"],
-					$site["dbName"]
-				)
-			);
-		}
-	}
+            exec(
+                sprintf(
+                    'gunzip < %s | mysql -u %s -p%s -h %s %s',
+                    $file,
+                    $site['dbUser'],
+                    $site['dbPassword'],
+                    $site['dbHost'],
+                    $site['dbName']
+                )
+            );
+        }
+    }
 }

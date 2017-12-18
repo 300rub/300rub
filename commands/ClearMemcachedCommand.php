@@ -3,22 +3,21 @@
 namespace testS\commands;
 
 use testS\application\App;
+use testS\commands\_abstract\AbstractCommand;
 
 /**
  * Clear Memcached command
- *
- * @package testS\commands
  */
 class ClearMemcachedCommand extends AbstractCommand
 {
 
-	/**
-	 * Runs the command
-	 *
-	 * @param string[] $args command arguments
-	 */
-	public function run($args = [])
-	{
-		App::getInstance()->getMemcached()->flush();
-	}
+    /**
+     * Runs the command
+     *
+     * @return void
+     */
+    public function run()
+    {
+        App::getInstance()->getMemcached()->flush();
+    }
 }

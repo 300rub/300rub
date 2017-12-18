@@ -3,7 +3,7 @@
 namespace testS\application\instances;
 
 use testS\application\instances\_abstract\AbstractApplication;
-use testS\commands\AbstractCommand;
+use testS\commands\_abstract\AbstractCommand;
 use testS\application\exceptions\CommonException;
 
 /**
@@ -50,8 +50,10 @@ class Console extends AbstractApplication
                 false
             );
 
-            $command = $this->_getCommandByClassName($className);
-            $command->run($args);
+            $this
+                ->_getCommandByClassName($className)
+                ->setArguments($args)
+                ->run();
 
             $time = number_format((microtime(true) - $startTime), 3);
             $this->output(

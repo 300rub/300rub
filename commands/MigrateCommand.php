@@ -3,159 +3,199 @@
 namespace testS\commands;
 
 use testS\application\App;
-use testS\components\Db;
-use testS\components\exceptions\MigrationException;
-use Exception;
+use testS\application\exceptions\MigrationException;
+use testS\commands\_abstract\AbstractCommand;
+use testS\migrations\AbstractMigration;
 
 /**
  * Applies migrations
- *
- * @package testS\commands
  */
 class MigrateCommand extends AbstractCommand
 {
 
-	/**
-	 * New migrations
-	 *
-	 * @var string[]
-	 */
-	private static $_migrations = [];
+    /**
+     * New migrations
+     *
+     * @var string[]
+     */
+    private $_migrations = [];
 
-	/**
-	 * All sites
-	 *
-	 * @var array
-	 */
-	private static $_sites = [];
+    /**
+     * All sites
+     *
+     * @var array
+     */
+    private $_sites = [];
 
-	/**
-	 * Runs the command
-	 *
-	 * @param string[] $args command arguments
-	 */
-	public function run($args = [])
-	{
-		self::migrate();
-	}
+    /**
+     * Runs the command
+     *
+     * App::console()->output($e->getMessage(), true);
+     * try {
+     * App::console()->output("DB rollback has been started");
+     * } catch (Exception $e) {
+     * throw $e;
+     * }
+     *
+     * @return void
+     *
+     * @throws \Exception
+     */
+    public function run()
+    {
+        try {
+            App::getInstance()->getDb()->setSystemPdo();
+            $this
+                ->_setNewMigrations()
+                ->_setSites();
+        } catch (\Exception $e) {
+            throw $e;
+        }
 
-	/**
-	 * Migrate
-	 *
-	 * @throws Exception
-	 */
-	public static function migrate()
-	{
-		try {
-            Db::setSystemPdo();
-			self::_setNewMigrations();
-			self::_setSites();
-		} catch (Exception $e) {
-			throw $e;
-		}
+        try {
+            $this
+                ->_applyMigration()
+                ->_updateVersions();
+        } catch (\Exception $e) {
+            throw $e;
+        }
+    }
 
-		try {
-			self::_applyMigration();
-			self::_updateVersions();
-		} catch (Exception $e) {
-			throw $e;
-			//App::console()->output($e->getMessage(), true);
-			//			try {
-			//				App::console()->output("DB rollback has been started");
-			//			} catch (Exception $e) {
-			//				throw $e;
-			//			}
-		}
-	}
+    /**
+     * Sets the list of non-applied migrations
+     *
+     * @return MigrateCommand
+     */
+    private function _setNewMigrations()
+    {
+        $versions = [];
+        $rows = App::getInstance()
+            ->getDb()
+            ->fetchAll('SELECT * ' . 'FROM `migrations`');
+        foreach ($rows as $row) {
+            $versions[] = $row['version'];
+        }
 
-	/**
-	 * Sets the list of non-applied migrations
-	 */
-	private static function _setNewMigrations()
-	{
-		$versions = [];
-		$rows = Db::fetchAll("SELECT * " . "FROM `migrations`");
-		foreach ($rows as $row) {
-			$versions[] = $row["version"];
-		}
+        $files = scandir(__DIR__ . '/../migrations');
+        foreach ($files as $file) {
+            if ($file === '.'
+                || $file === '..'
+                || strpos($file, 'M') !== 0
+            ) {
+                continue;
+            }
 
-		$migrations = opendir(__DIR__ . "/../migrations");
-		while (false !== ($file = readdir($migrations))) {
-			if (strpos($file, "M") === 0) {
-				$version = str_replace(".php", "", $file);
-				if (!in_array($version, $versions)) {
-					self::$_migrations[] = $version;
-				}
-			}
-		}
-	}
+            $version = str_replace('.php', '', $file);
+            if (in_array($version, $versions) === false) {
+                $this->_migrations[] = $version;
+            }
+        }
 
-	/**
-	 * Sets sites
-	 */
-	private static function _setSites()
-	{
-		self::$_sites = Db::fetchAll("SELECT * " . "FROM `sites`");
-	}
+        return $this;
+    }
 
-	/**
-	 * Applies the migrations
-	 *
-	 * @throws MigrationException
-	 *
-	 * @return bool
-	 */
-	private static function _applyMigration()
-	{
-		if (!self::$_migrations || !self::$_sites) {
-			return false;
-		}
+    /**
+     * Sets sites
+     *
+     * @return MigrateCommand
+     */
+    private function _setSites()
+    {
+        $this->_sites = App::getInstance()
+            ->getDb()
+            ->fetchAll('SELECT * ' . 'FROM `sites`');
 
-		sort(self::$_migrations);
-		foreach (self::$_sites as $site) {
-			Db::setPdo($site["dbHost"], $site["dbUser"], $site["dbPassword"], $site["dbName"]);
+        return $this;
+    }
 
-			foreach (self::$_migrations as $migrationName) {
-				/**
-				 * @var \testS\migrations\AbstractMigration $migration
-				 */
-				$migrationFullName = "\\testS\\migrations\\{$migrationName}";
-				$migration = new $migrationFullName;
-				if (!$migration->isSkip) {
-					$migration->up();
-				}
-			}
-		}
+    /**
+     * Applies the migrations
+     *
+     * @throws MigrationException
+     *
+     * @return MigrateCommand
+     */
+    private function _applyMigration()
+    {
+        if (count($this->_migrations) === 0
+            || count($this->_sites) === 0
+        ) {
+            return $this;
+        }
 
-		return true;
-	}
+        sort($this->_migrations);
 
-	/**
-	 * Version's update
-	 *
-	 * @throws MigrationException
-	 */
-	private static function _updateVersions()
-	{
-        Db::setSystemPdo();
+        foreach ($this->_sites as $site) {
+            App::getInstance()
+                ->getDb()
+                ->setPdo(
+                    $site['dbHost'],
+                    $site['dbUser'],
+                    $site['dbPassword'],
+                    $site['dbName']
+                );
 
-		try {
-			Db::startTransaction();
+            foreach ($this->_migrations as $migrationName) {
+                $migration = $this->_getMigrationByName($migrationName);
+                if ($migration->isSkip === false) {
+                    $migration->up();
+                }
+            }
+        }
 
-			foreach (self::$_migrations as $migration) {
-				if (!Db::execute("INSERT" . " INTO `migrations` (version) VALUES(?)", [$migration])) {
-					throw new MigrationException(
-						"UUnable to update version with migration: {migration}",
-						[
-							"migration" => $migration,
-						]
-					);
-				}
-			}
-		} catch (MigrationException $e) {
-			Db::rollbackTransaction();
-		}
+        return $this;
+    }
 
-		Db::commitTransaction();
-	}
+    /**
+     * Gets migration by name
+     *
+     * @param string $migrationName Migration name
+     *
+     * @return AbstractMigration
+     */
+    private function _getMigrationByName($migrationName)
+    {
+        $migrationFullName = '\\testS\\migrations\\' . $migrationName;
+        return new $migrationFullName;
+    }
+
+    /**
+     * Version's update
+     *
+     * @throws MigrationException
+     *
+     * @return MigrateCommand
+     */
+    private function _updateVersions()
+    {
+        $dbObject = App::getInstance()->getDb();
+
+        $dbObject->setSystemPdo();
+
+        try {
+            $dbObject->startTransaction();
+
+            foreach ($this->_migrations as $migration) {
+                $result = $dbObject->execute(
+                    'INSERT' . ' INTO `migrations` (version) VALUES(?)',
+                    [$migration]
+                );
+
+                if ($result === false) {
+                    throw new MigrationException(
+                        'UUnable to update version with migration: {migration}',
+                        [
+                            'migration' => $migration,
+                        ]
+                    );
+                }
+            }
+        } catch (MigrationException $e) {
+            $dbObject->rollbackTransaction();
+        }
+
+        $dbObject->commitTransaction();
+
+        return $this;
+    }
 }
