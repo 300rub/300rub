@@ -2,10 +2,10 @@
 
 namespace testS\migrations;
 
+use testS\migrations\_abstract\AbstractMigration;
+
 /**
  * Creates table for storing list of migrations
- *
- * @package testS\migrations
  */
 class M160302000000Migrations extends AbstractMigration
 {
@@ -13,20 +13,22 @@ class M160302000000Migrations extends AbstractMigration
     /**
      * Flag. If it is true - it will be skipped in common applying
      *
-     * @var bool
+     * @var boolean
      */
     public $isSkip = true;
 
     /**
      * Applies migration
+     *
+     * @return void
      */
-    public function up()
+    public function apply()
     {
         $this->createTable(
-            "migrations",
+            'migrations',
             [
-                "id"      => self::TYPE_PK,
-                "version" => self::TYPE_STRING_100,
+                'id'      => self::TYPE_PK,
+                'version' => self::TYPE_STRING_100,
             ]
         );
     }

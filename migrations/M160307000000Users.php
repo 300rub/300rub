@@ -2,96 +2,227 @@
 
 namespace testS\migrations;
 
+use testS\migrations\_abstract\AbstractMigration;
+
 /**
  * Creates users table
- *
- * @package testS\migrations
  */
 class M160307000000Users extends AbstractMigration
 {
 
     /**
      * Applies migration
+     *
+     * @return void
      */
-    public function up()
+    public function apply()
     {
         $this
+            ->_createUsers()
+            ->_createUserSessions()
+            ->_createUserBlockOperations()
+            ->_createUserBlockGroupOperations()
+            ->_createUserSectionOperations()
+            ->_createUserSectionGroupOperations()
+            ->_createUserSettingsOperations();
+    }
+
+    /**
+     * Creates users table
+     *
+     * @return M160307000000Users
+     */
+    private function _createUsers()
+    {
+        return $this
             ->createTable(
-                "users",
+                'users',
                 [
-                    "id"       => self::TYPE_PK,
-                    "login"    => self::TYPE_STRING_50,
-                    "type"     => self::TYPE_TINYINT_UNSIGNED,
-                    "password" => self::TYPE_CHAR_40,
-                    "name"     => self::TYPE_STRING_100,
-                    "email"    => self::TYPE_STRING_100,
+                    'id'       => self::TYPE_PK,
+                    'login'    => self::TYPE_STRING_50,
+                    'type'     => self::TYPE_TINYINT_UNSIGNED,
+                    'password' => self::TYPE_CHAR_40,
+                    'name'     => self::TYPE_STRING_100,
+                    'email'    => self::TYPE_STRING_100,
                 ]
             )
-            ->createUniqueIndex("users", "users_login", "login")
-            ->createUniqueIndex("users", "users_email", "email")
+            ->createUniqueIndex('users', 'users_login', 'login')
+            ->createUniqueIndex('users', 'users_email', 'email');
+    }
+
+    /**
+     * Creates userSessions table
+     *
+     * @return M160307000000Users
+     */
+    private function _createUserSessions()
+    {
+        return $this
             ->createTable(
-                "userSessions",
+                'userSessions',
                 [
-                    "id"           => self::TYPE_PK,
-                    "userId"       => self::TYPE_FK,
-                    "token"        => self::TYPE_CHAR_32,
-                    "ip"           => self::TYPE_STRING_25,
-                    "ua"           => self::TYPE_STRING,
-                    "lastActivity" => self::TYPE_DATETIME,
+                    'id'           => self::TYPE_PK,
+                    'userId'       => self::TYPE_FK,
+                    'token'        => self::TYPE_CHAR_32,
+                    'ip'           => self::TYPE_STRING_25,
+                    'ua'           => self::TYPE_STRING,
+                    'lastActivity' => self::TYPE_DATETIME,
                 ]
             )
-            ->createForeignKey("userSessions", "userId", "users", self::FK_CASCADE, self::FK_CASCADE)
-            ->createUniqueIndex("userSessions", "userSessions_token", "token")
+            ->createForeignKey(
+                'userSessions',
+                'userId',
+                'users',
+                self::FK_CASCADE,
+                self::FK_CASCADE
+            )
+            ->createUniqueIndex(
+                'userSessions',
+                'userSessions_token',
+                'token'
+            );
+    }
+
+    /**
+     * Creates userBlockOperations table
+     *
+     * @return M160307000000Users
+     */
+    private function _createUserBlockOperations()
+    {
+        return $this
             ->createTable(
-                "userBlockOperations",
+                'userBlockOperations',
                 [
-                    "id"        => self::TYPE_PK,
-                    "userId"    => self::TYPE_FK,
-                    "blockId"   => self::TYPE_FK,
-                    "blockType" => self::TYPE_TINYINT_UNSIGNED,
-                    "operation" => self::TYPE_STRING_50,
+                    'id'        => self::TYPE_PK,
+                    'userId'    => self::TYPE_FK,
+                    'blockId'   => self::TYPE_FK,
+                    'blockType' => self::TYPE_TINYINT_UNSIGNED,
+                    'operation' => self::TYPE_STRING_50,
                 ]
             )
-            ->createForeignKey("userBlockOperations", "userId", "users", self::FK_CASCADE, self::FK_CASCADE)
-            ->createForeignKey("userBlockOperations", "blockId", "blocks", self::FK_CASCADE, self::FK_CASCADE)
+            ->createForeignKey(
+                'userBlockOperations',
+                'userId',
+                'users',
+                self::FK_CASCADE,
+                self::FK_CASCADE
+            )
+            ->createForeignKey(
+                'userBlockOperations',
+                'blockId',
+                'blocks',
+                self::FK_CASCADE,
+                self::FK_CASCADE
+            );
+    }
+
+    /**
+     * Creates userBlockGroupOperations table
+     *
+     * @return M160307000000Users
+     */
+    private function _createUserBlockGroupOperations()
+    {
+        return $this
             ->createTable(
-                "userBlockGroupOperations",
+                'userBlockGroupOperations',
                 [
-                    "id"        => self::TYPE_PK,
-                    "userId"    => self::TYPE_FK,
-                    "blockType" => self::TYPE_TINYINT_UNSIGNED,
-                    "operation" => self::TYPE_STRING_50,
+                    'id'        => self::TYPE_PK,
+                    'userId'    => self::TYPE_FK,
+                    'blockType' => self::TYPE_TINYINT_UNSIGNED,
+                    'operation' => self::TYPE_STRING_50,
                 ]
             )
-            ->createForeignKey("userBlockGroupOperations", "userId", "users", self::FK_CASCADE, self::FK_CASCADE)
+            ->createForeignKey(
+                'userBlockGroupOperations',
+                'userId',
+                'users',
+                self::FK_CASCADE,
+                self::FK_CASCADE
+            );
+    }
+
+    /**
+     * Creates table userSectionOperations
+     *
+     * @return M160307000000Users
+     */
+    private function _createUserSectionOperations()
+    {
+        return $this
             ->createTable(
-                "userSectionOperations",
+                'userSectionOperations',
                 [
-                    "id"             => self::TYPE_PK,
-                    "userId"    => self::TYPE_FK,
-                    "sectionId" => self::TYPE_FK,
-                    "operation"      => self::TYPE_STRING_50,
+                    'id'             => self::TYPE_PK,
+                    'userId'    => self::TYPE_FK,
+                    'sectionId' => self::TYPE_FK,
+                    'operation'      => self::TYPE_STRING_50,
                 ]
             )
-            ->createForeignKey("userSectionOperations", "userId", "users", self::FK_CASCADE, self::FK_CASCADE)
-            ->createForeignKey("userSectionOperations", "sectionId", "sections", self::FK_CASCADE, self::FK_CASCADE)
+            ->createForeignKey(
+                'userSectionOperations',
+                'userId',
+                'users',
+                self::FK_CASCADE,
+                self::FK_CASCADE
+            )
+            ->createForeignKey(
+                'userSectionOperations',
+                'sectionId',
+                'sections',
+                self::FK_CASCADE,
+                self::FK_CASCADE
+            );
+    }
+
+    /**
+     * Creates userSectionGroupOperations table
+     *
+     * @return M160307000000Users
+     */
+    private function _createUserSectionGroupOperations()
+    {
+        return $this
             ->createTable(
-                "userSectionGroupOperations",
+                'userSectionGroupOperations',
                 [
-                    "id"        => self::TYPE_PK,
-                    "userId"    => self::TYPE_FK,
-                    "operation" => self::TYPE_STRING_50,
+                    'id'        => self::TYPE_PK,
+                    'userId'    => self::TYPE_FK,
+                    'operation' => self::TYPE_STRING_50,
                 ]
             )
-            ->createForeignKey("userSectionGroupOperations", "userId", "users", self::FK_CASCADE, self::FK_CASCADE)
+            ->createForeignKey(
+                'userSectionGroupOperations',
+                'userId',
+                'users',
+                self::FK_CASCADE,
+                self::FK_CASCADE
+            );
+    }
+
+    /**
+     * Creates userSettingsOperations table
+     *
+     * @return AbstractMigration
+     */
+    private function _createUserSettingsOperations()
+    {
+        return $this
             ->createTable(
-                "userSettingsOperations",
+                'userSettingsOperations',
                 [
-                    "id"        => self::TYPE_PK,
-                    "userId"    => self::TYPE_FK,
-                    "operation" => self::TYPE_STRING_50,
+                    'id'        => self::TYPE_PK,
+                    'userId'    => self::TYPE_FK,
+                    'operation' => self::TYPE_STRING_50,
                 ]
             )
-            ->createForeignKey("userSettingsOperations", "userId", "users", self::FK_CASCADE, self::FK_CASCADE);
+            ->createForeignKey(
+                'userSettingsOperations',
+                'userId',
+                'users',
+                self::FK_CASCADE,
+                self::FK_CASCADE
+            );
     }
 }

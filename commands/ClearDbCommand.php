@@ -82,10 +82,10 @@ class ClearDbCommand extends AbstractCommand
         App::getInstance()->getDb()->setSystemPdo();
 
         $migration = new M160301000000Sites();
-        $migration->up();
+        $migration->apply();
         $migration->insertData();
 
         $migration = new M160302000000Migrations();
-        $migration->up();
+        $migration->apply();
     }
 }

@@ -20,7 +20,7 @@ class SuperGlobalVariable
      *
      * @return mixed|null
      *
-     * @SuppressWarnings(PHPMD)
+     * @SuppressWarnings(PMD.Superglobals)
      */
     public function getServerValue($key)
     {
@@ -38,7 +38,7 @@ class SuperGlobalVariable
      *
      * @return mixed|null
      *
-     * @SuppressWarnings(PHPMD)
+     * @SuppressWarnings(PMD.Superglobals)
      */
     public function getPostValue($key = null)
     {
@@ -60,7 +60,7 @@ class SuperGlobalVariable
      *
      * @return mixed|null
      *
-     * @SuppressWarnings(PHPMD)
+     * @SuppressWarnings(PMD.Superglobals)
      */
     public function getGetValue($key = null)
     {
@@ -82,7 +82,7 @@ class SuperGlobalVariable
      *
      * @return mixed|null
      *
-     * @SuppressWarnings(PHPMD)
+     * @SuppressWarnings(PMD.Superglobals)
      */
     public function getFilesValue($key)
     {
@@ -100,7 +100,7 @@ class SuperGlobalVariable
      *
      * @return mixed|null
      *
-     * @SuppressWarnings(PHPMD)
+     * @SuppressWarnings(PMD.Superglobals)
      */
     public function getSessionValue($key)
     {
@@ -119,7 +119,7 @@ class SuperGlobalVariable
      *
      * @return SuperGlobalVariable
      *
-     * @SuppressWarnings(PHPMD)
+     * @SuppressWarnings(PMD.Superglobals)
      */
     public function setSessionValue($key, $value)
     {
@@ -135,7 +135,7 @@ class SuperGlobalVariable
      *
      * @return mixed|null
      *
-     * @SuppressWarnings(PHPMD)
+     * @SuppressWarnings(PMD.Superglobals)
      */
     public function getCookieValue($key)
     {
@@ -154,7 +154,7 @@ class SuperGlobalVariable
      *
      * @return SuperGlobalVariable
      *
-     * @SuppressWarnings(PHPMD)
+     * @SuppressWarnings(PMD.Superglobals)
      */
     public function setCookieValue($key, $value)
     {

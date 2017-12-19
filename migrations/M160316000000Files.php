@@ -2,30 +2,32 @@
 
 namespace testS\migrations;
 
+use testS\migrations\_abstract\AbstractMigration;
+
 /**
  * Creates files table
- *
- * @package testS\migrations
  */
 class M160316000000Files extends AbstractMigration
 {
 
     /**
      * Applies migration
+     *
+     * @return void
      */
-    public function up()
+    public function apply()
     {
         $this
             ->createTable(
-                "files",
+                'files',
                 [
-                    "id"           => self::TYPE_PK,
-                    "originalName" => self::TYPE_STRING,
-                    "type"         => self::TYPE_STRING_50,
-                    "size"         => self::TYPE_INT_UNSIGNED,
-                    "uniqueName"   => self::TYPE_STRING_25,
+                    'id'           => self::TYPE_PK,
+                    'originalName' => self::TYPE_STRING,
+                    'type'         => self::TYPE_STRING_50,
+                    'size'         => self::TYPE_INT_UNSIGNED,
+                    'uniqueName'   => self::TYPE_STRING_25,
                 ]
             )
-            ->createUniqueIndex("files", "files_uniqueName", "uniqueName");
+            ->createUniqueIndex('files', 'files_uniqueName', 'uniqueName');
     }
 }

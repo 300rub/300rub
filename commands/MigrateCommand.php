@@ -5,7 +5,7 @@ namespace testS\commands;
 use testS\application\App;
 use testS\application\exceptions\MigrationException;
 use testS\commands\_abstract\AbstractCommand;
-use testS\migrations\AbstractMigration;
+use testS\migrations\_abstract\AbstractMigration;
 
 /**
  * Applies migrations
@@ -138,7 +138,7 @@ class MigrateCommand extends AbstractCommand
             foreach ($this->_migrations as $migrationName) {
                 $migration = $this->_getMigrationByName($migrationName);
                 if ($migration->isSkip === false) {
-                    $migration->up();
+                    $migration->apply();
                 }
             }
         }

@@ -2,32 +2,38 @@
 
 namespace testS\migrations;
 
+use testS\migrations\_abstract\AbstractMigration;
+
 /**
  * Creates sections table
- *
- * @package testS\migrations
  */
 class M160305000000Sections extends AbstractMigration
 {
 
     /**
      * Applies migration
+     *
+     * @return void
      */
-    public function up()
+    public function apply()
     {
         $this
             ->createTable(
-                "sections",
+                'sections',
                 [
-                    "id"            => self::TYPE_PK,
-                    "seoId"         => self::TYPE_FK,
-                    "designBlockId" => self::TYPE_FK,
-                    "language"      => self::TYPE_TINYINT_UNSIGNED,
-                    "isMain"        => self::TYPE_BOOL,
+                    'id'            => self::TYPE_PK,
+                    'seoId'         => self::TYPE_FK,
+                    'designBlockId' => self::TYPE_FK,
+                    'language'      => self::TYPE_TINYINT_UNSIGNED,
+                    'isMain'        => self::TYPE_BOOL,
                 ]
             )
-            ->createForeignKey("sections", "seoId", "seo")
-            ->createForeignKey("sections", "designBlockId", "designBlocks")
-            ->createIndex("sections", "language,isMain", "sections_language_isMain");
+            ->createForeignKey('sections', 'seoId', 'seo')
+            ->createForeignKey('sections', 'designBlockId', 'designBlocks')
+            ->createIndex(
+                'sections',
+                'language,isMain',
+                'sections_language_isMain'
+            );
     }
 }

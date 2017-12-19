@@ -14,4 +14,4 @@ mysql -u root -proot -h 127.0.0.1 -P 7777 -e "GRANT ALL PRIVILEGES ON localhost.
 mysql -u root -proot -h 127.0.0.1 -P 7777 -e "CREATE DATABASE help" 2> /dev/null
 mysql -u root -proot -h 127.0.0.1 -P 7777 -e "GRANT ALL PRIVILEGES ON help.* TO 'root'@'127.0.0.1' IDENTIFIED BY 'root'" 2> /dev/null
 
-# docker exec -it tests_phpfpm_1 ant -file config/build/build.xml
+docker exec -it tests_phpfpm_1 ant -file config/build/build.xml

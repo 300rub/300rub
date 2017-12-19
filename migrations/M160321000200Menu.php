@@ -2,63 +2,93 @@
 
 namespace testS\migrations;
 
+use testS\migrations\_abstract\AbstractMigration;
+
 /**
  * Creates records tables
- *
- * @package testS\migrations
  */
 class M160321000200Menu extends AbstractMigration
 {
 
     /**
      * Applies migration
+     *
+     * @return void
      */
-    public function up()
+    public function apply()
     {
         $this
             ->createTable(
-                "designMenu",
+                'designMenu',
                 [
-                    "id"                       => self::TYPE_PK,
-                    "containerDesignBlockId"   => self::TYPE_FK,
-                    "firstLevelDesignBlockId"  => self::TYPE_FK,
-                    "firstLevelDesignTextId"   => self::TYPE_FK,
-                    "secondLevelDesignBlockId" => self::TYPE_FK,
-                    "secondLevelDesignTextId"  => self::TYPE_FK,
-                    "lastLevelDesignBlockId"   => self::TYPE_FK,
-                    "lastLevelDesignTextId"    => self::TYPE_FK,
+                    'id'                       => self::TYPE_PK,
+                    'containerDesignBlockId'   => self::TYPE_FK,
+                    'firstLevelDesignBlockId'  => self::TYPE_FK,
+                    'firstLevelDesignTextId'   => self::TYPE_FK,
+                    'secondLevelDesignBlockId' => self::TYPE_FK,
+                    'secondLevelDesignTextId'  => self::TYPE_FK,
+                    'lastLevelDesignBlockId'   => self::TYPE_FK,
+                    'lastLevelDesignTextId'    => self::TYPE_FK,
                 ]
             )
-            ->createForeignKey("designMenu", "containerDesignBlockId", "designBlocks")
-            ->createForeignKey("designMenu", "firstLevelDesignBlockId", "designBlocks")
-            ->createForeignKey("designMenu", "firstLevelDesignTextId", "designTexts")
-            ->createForeignKey("designMenu", "secondLevelDesignBlockId", "designBlocks")
-            ->createForeignKey("designMenu", "secondLevelDesignTextId", "designTexts")
-            ->createForeignKey("designMenu", "lastLevelDesignBlockId", "designBlocks")
-            ->createForeignKey("designMenu", "lastLevelDesignTextId", "designTexts")
+            ->createForeignKey(
+                'designMenu',
+                'containerDesignBlockId',
+                'designBlocks'
+            )
+            ->createForeignKey(
+                'designMenu',
+                'firstLevelDesignBlockId',
+                'designBlocks'
+            )
+            ->createForeignKey(
+                'designMenu',
+                'firstLevelDesignTextId',
+                'designTexts'
+            )
+            ->createForeignKey(
+                'designMenu',
+                'secondLevelDesignBlockId',
+                'designBlocks'
+            )
+            ->createForeignKey(
+                'designMenu',
+                'secondLevelDesignTextId',
+                'designTexts'
+            )
+            ->createForeignKey(
+                'designMenu',
+                'lastLevelDesignBlockId',
+                'designBlocks'
+            )
+            ->createForeignKey(
+                'designMenu',
+                'lastLevelDesignTextId',
+                'designTexts'
+            )
             ->createTable(
-                "menu",
+                'menu',
                 [
-                    "id"           => self::TYPE_PK,
-                    "designMenuId" => self::TYPE_FK,
-                    "type"         => self::TYPE_TINYINT_UNSIGNED,
+                    'id'           => self::TYPE_PK,
+                    'designMenuId' => self::TYPE_FK,
+                    'type'         => self::TYPE_TINYINT_UNSIGNED,
                 ]
             )
-            ->createForeignKey("menu", "designMenuId", "designMenu")
+            ->createForeignKey('menu', 'designMenuId', 'designMenu')
             ->createTable(
-                "menuInstances",
+                'menuInstances',
                 [
-                    "id"        => self::TYPE_PK,
-                    "menuId"    => self::TYPE_FK,
-                    "parentId"  => self::TYPE_FK_NULL,
-                    "sectionId" => self::TYPE_FK,
-                    "icon"      => self::TYPE_STRING_50,
-                    "subName"   => self::TYPE_STRING,
-                    "sort"      => self::TYPE_SMALLINT,
+                    'id'        => self::TYPE_PK,
+                    'menuId'    => self::TYPE_FK,
+                    'parentId'  => self::TYPE_FK_NULL,
+                    'sectionId' => self::TYPE_FK,
+                    'icon'      => self::TYPE_STRING_50,
+                    'subName'   => self::TYPE_STRING,
+                    'sort'      => self::TYPE_SMALLINT,
                 ]
             )
-            ->createForeignKey("menuInstances", "menuId", "menu")
-            ->createForeignKey("menuInstances", "parentId", "menuInstances")
-            ->createForeignKey("menuInstances", "sectionId", "sections");
+            ->createForeignKey('menuInstances', 'menuId', 'menu')
+            ->createForeignKey('menuInstances', 'parentId', 'menuInstances')
+            ->createForeignKey('menuInstances', 'sectionId', 'sections');
     }
 }

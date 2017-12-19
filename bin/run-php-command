@@ -1,11 +1,14 @@
 #!/usr/bin/env php
 <?php
 
+require(__DIR__ . "/../application/App.php");
+
 use testS\application\App;
 
 // Config file path
 $config = require(__DIR__ . "/../config/common.php");
 
+spl_autoload_register(['testS\application\App','autoload']);
+
 // Runs a command
-require(__DIR__ . "/../applications/App.php");
 App::console($config)->run();

@@ -50,7 +50,7 @@ class App
      */
     public static function console($config = [])
     {
-        if (self::$_console !== null) {
+        if (self::$_console === null) {
             self::$_console = new Console($config);
         }
 
@@ -66,7 +66,7 @@ class App
      */
     public static function web($config = [])
     {
-        if (self::$_web !== null) {
+        if (self::$_web === null) {
             self::$_web = new Web($config);
         }
 
@@ -82,7 +82,7 @@ class App
      */
     public static function test($config = [])
     {
-        if (self::$_test !== null) {
+        if (self::$_test === null) {
             self::$_test = new Test($config);
         }
 

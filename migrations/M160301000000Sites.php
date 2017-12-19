@@ -3,12 +3,10 @@
 namespace testS\migrations;
 
 use testS\application\App;
-use testS\components\Db;
+use testS\migrations\_abstract\AbstractMigration;
 
 /**
  * Creates table for storing information about all sites
- *
- * @package testS\migrations
  */
 class M160301000000Sites extends AbstractMigration
 {
@@ -16,49 +14,55 @@ class M160301000000Sites extends AbstractMigration
     /**
      * Flag. If it is true - it will be skipped in common applying
      *
-     * @var bool
+     * @var boolean
      */
     public $isSkip = true;
 
     /**
      * Applies migration
+     *
+     * @return void
      */
-    public function up()
+    public function apply()
     {
         $this
             ->createTable(
-                "sites",
+                'sites',
                 [
-                    "id"         => self::TYPE_PK,
-                    "host"       => self::TYPE_STRING,
-                    "dbHost"     => self::TYPE_STRING,
-                    "dbUser"     => self::TYPE_STRING,
-                    "dbPassword" => self::TYPE_STRING,
-                    "dbName"     => self::TYPE_STRING,
-                    "language"   => self::TYPE_TINYINT_UNSIGNED,
-                    "email"      => self::TYPE_STRING,
+                    'id'         => self::TYPE_PK,
+                    'host'       => self::TYPE_STRING,
+                    'dbHost'     => self::TYPE_STRING,
+                    'dbUser'     => self::TYPE_STRING,
+                    'dbPassword' => self::TYPE_STRING,
+                    'dbName'     => self::TYPE_STRING,
+                    'language'   => self::TYPE_TINYINT_UNSIGNED,
+                    'email'      => self::TYPE_STRING,
                 ]
             )
-            ->createUniqueIndex("sites", "sites_host", "host");
+            ->createUniqueIndex('sites', 'sites_host', 'host');
     }
 
     /**
      * Inserts test data
+     *
+     * @return void
      */
     public function insertData()
     {
-        $app = App::getInstance();
+        $dbObject = App::getInstance()->getDb();
+        $config = App::getInstance()->getConfig();
 
-        Db::execute(
-            "INSERT " .
-            "INTO sites (host, dbHost, dbUser, dbPassword, dbName, language, email) " .
-            "VALUES (?, ?, ?, ?, ?, ?, ?)",
+        $dbObject->execute(
+            'INSERT ' .
+            'INTO sites ' .
+            '(host, dbHost, dbUser, dbPassword, dbName, language, email)' .
+            ' VALUES (?, ?, ?, ?, ?, ?, ?)',
             [
                 DEV_HOST,
-                $app->getConfig(["db", "localhost", "host"]),
-                $app->getConfig(["db", "localhost", "user"]),
-                $app->getConfig(["db", "localhost", "password"]),
-                $app->getConfig(["db", "localhost", "name"]),
+                $config->getValue(['db', 'localhost', 'host']),
+                $config->getValue(['db', 'localhost', 'user']),
+                $config->getValue(['db', 'localhost', 'password']),
+                $config->getValue(['db', 'localhost', 'name']),
                 DEV_LANGUAGE,
                 DEV_EMAIL,
             ]

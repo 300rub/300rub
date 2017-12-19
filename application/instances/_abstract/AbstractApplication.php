@@ -98,16 +98,16 @@ abstract class AbstractApplication
     public function __construct($config)
     {
         $this
-            ->_setErrorHandler()
-            ->_activateVendorAutoload()
             ->_setConfig($config)
             ->_setSuperGlobalVariable()
             ->_setDb()
+            ->_activateVendorAutoload()
             ->_setLanguage()
             ->_setOperation()
             ->_setView()
+            ->_setMemcached()
             ->_setValidator()
-            ->_setMemcached();
+            ->_setErrorHandler();
     }
 
     /**
@@ -132,7 +132,7 @@ abstract class AbstractApplication
      */
     private function _activateVendorAutoload()
     {
-        include_once __DIR__ . '/../vendor/autoload.php';
+        include_once __DIR__ . '/../../../vendor/autoload.php';
 
         return $this;
     }

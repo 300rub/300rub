@@ -144,7 +144,7 @@
         </exec>
     </target>
 
-    <target name="build" depends="prepare, clear-db, clear-memcached, migrate, load-fixtures">
+    <target name="build" depends="prepare, clear-db, clear-memcached, migrate">
     </target>
 
 </project>

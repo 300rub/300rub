@@ -45,12 +45,13 @@ abstract class AbstractException extends Exception
             );
         }
 
-        $xRequestedWith = App::getInstance()
-            ->getSuperGlobalVariable()
+        $superGlobalVariable = App::getInstance()
+            ->getSuperGlobalVariable();
+
+        $xRequestedWith = $superGlobalVariable
             ->getServerValue('HTTP_X_REQUESTED_WITH');
 
-        $uri = App::getInstance()
-            ->getSuperGlobalVariable()
+        $uri = $superGlobalVariable
             ->getServerValue('REQUEST_URI');
 
         if (empty($xRequestedWith) === false
