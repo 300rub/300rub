@@ -3,8 +3,9 @@
 namespace testS\application\components\_abstract;
 
 use testS\application\App;
+use testS\application\components\Db;
 use testS\application\exceptions\DbException;
-use testS\models\AbstractModel;
+use testS\models\_abstract\AbstractModel;
 
 /**
  * Abstract class for working with DB
@@ -353,7 +354,7 @@ abstract class AbstractDb
      * @param string $key   Parameter key
      * @param mixed  $value Parameter value
      *
-     * @return AbstractDb
+     * @return Db
      *
      * @throws DbException
      */

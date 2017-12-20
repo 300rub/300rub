@@ -1,24 +1,12 @@
 <?php
 
-namespace testS\models\model;
+namespace testS\models\_abstract;
 
 /**
  * Abstract class for working with models
+ *
+ * @package testS\models
  */
-abstract class AbstractModel
+abstract class AbstractModel extends AbstractDuplicateModel
 {
-
-    /**
-     * Gets table name
-     *
-     * @return string
-     */
-    abstract public function getTableName();
-
-    /**
-     * Gets fields info
-     *
-     * @return array
-     */
-    abstract public function getFieldsInfo();
 }

@@ -21,6 +21,7 @@ class Validator
     const TYPE_IP = 'ip';
     const TYPE_LATIN_DIGIT_UNDERSCORE_HYPHEN = 'latinDigitUnderscoreHyphen';
     const TYPE_EMAIL = 'email';
+    const TYPE_UNIQUE = 'unique';
 
     /**
      * Type list
