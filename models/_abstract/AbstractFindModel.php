@@ -12,6 +12,11 @@ abstract class AbstractFindModel extends AbstractBaseModel
 {
 
     /**
+     * Default order name
+     */
+    const DEFAULT_ORDER_NAME = 'name';
+
+    /**
      * Flag of selecting relations
      *
      * @var string[]
@@ -104,29 +109,30 @@ abstract class AbstractFindModel extends AbstractBaseModel
     /**
      * Adds ORDER BY to SQL request
      *
-     * @param string|array $value
-     * @param string       $alias
-     * @param bool         $isDesc
+     * @param string|array $value  Order by value
+     * @param string       $alias  Table alias
+     * @param bool         $isDesc Flag of order indirection
      *
      * @return AbstractModel
      */
-    public function ordered($value = 'name', $alias = Db::DEFAULT_ALIAS, $isDesc = false)
-    {
+    public function ordered(
+        $value = self::DEFAULT_ORDER_NAME,
+        $alias = Db::DEFAULT_ALIAS,
+        $isDesc = null
+    ) {
+        $order = 'ASC';
         if ($isDesc === true) {
             $order = 'DESC';
-        } else {
-            $order = 'ASC';
         }
 
-        if (is_array($value)) {
+        $orderBy = sprintf('%s.%s', $alias, $value);
+        if (is_array($value) === true) {
             $list = [];
             foreach ($value as $v) {
                 $list[] = sprintf('%s.%s', $alias, $v);
             }
 
             $orderBy = implode(',', $list);
-        } else {
-            $orderBy = sprintf('%s.%s', $alias, $value);
         }
 
         $this->getDb()->setOrder(sprintf('%s %s', $orderBy, $order));
@@ -137,13 +143,13 @@ abstract class AbstractFindModel extends AbstractBaseModel
     /**
      * Adds in condition to SQL request
      *
-     * @param string $field
-     * @param array  $values
-     * @param string $alias
+     * @param string $field  Table field
+     * @param array  $values Values
+     * @param string $alias  Table alias
      *
      * @return AbstractModel
      */
-    public function in($field, $values, $alias = Db::DEFAULT_ALIAS)
+    public function addIn($field, $values, $alias = Db::DEFAULT_ALIAS)
     {
         $this->getDb()->addWhere(
             sprintf(
@@ -160,18 +166,23 @@ abstract class AbstractFindModel extends AbstractBaseModel
     /**
      * Gets relation model
      *
-     * @param string $fieldName
-     * @param bool   $isFind
+     * @param string $fieldName Field name
+     * @param bool   $isFind    Flag of finding a model by field - ID
      *
      * @return AbstractModel
      *
      * @throws ModelException
      */
-    protected function getRelationModelByFieldName($fieldName, $isFind = false)
+    protected function getRelationModelByFieldName($fieldName, $isFind = null)
     {
         $info = $this->getFieldsInfo();
-        if (!array_key_exists($fieldName, $info)
-            || !array_key_exists(self::FIELD_RELATION, $info[$fieldName])
+
+        $hasRelation = array_key_exists(
+            self::FIELD_RELATION,
+            $info[$fieldName]
+        );
+        if (array_key_exists($fieldName, $info) === false
+            || $hasRelation === false
         ) {
             return null;
         }
@@ -182,9 +193,9 @@ abstract class AbstractFindModel extends AbstractBaseModel
             return $this->get($relationField);
         }
 
-        $model = $this->_getModelByName($relationModelName);
+        $model = $this->getModelByName($relationModelName);
 
-        if ($isFind === false) {
+        if ($isFind !== true) {
             return $model;
         }
 
@@ -208,20 +219,10 @@ abstract class AbstractFindModel extends AbstractBaseModel
     }
 
     /**
-     * @param $name
-     *
-     * @return AbstractModel
-     */
-    private function _getModelByName($name)
-    {
-        return new $name;
-    }
-
-    /**
      * Gets one or more fields
      *
-     * @param string|string[] $param
-     * @param string|string[] $except
+     * @param string|string[] $param  Param - key
+     * @param string|string[] $except Except keys
      *
      * @return mixed
      *
@@ -232,10 +233,10 @@ abstract class AbstractFindModel extends AbstractBaseModel
         $fields = $this->getFields();
 
         if ($param === null) {
-            if (is_array($except)) {
+            if (is_array($except) === true) {
                 $list = [];
                 foreach ($fields as $key => $value) {
-                    if (!in_array($key, $except)) {
+                    if (in_array($key, $except) === false) {
                         $list[$key] = $value;
                     }
                 }
@@ -246,12 +247,13 @@ abstract class AbstractFindModel extends AbstractBaseModel
             return $fields;
         }
 
-        if (is_array($param)) {
+        if (is_array($param) === true) {
             $list = [];
             foreach ($param as $field) {
-                if (!array_key_exists($field, $fields)) {
+                if (array_key_exists($field, $fields) === false) {
                     throw new ModelException(
-                        'Unable to find the field {field} from the model {model}',
+                        'Unable to find the field {field} ' .
+                        'from the model {model}',
                         [
                             'field' => $field,
                             'model' => get_class($this)
@@ -265,7 +267,7 @@ abstract class AbstractFindModel extends AbstractBaseModel
             return $list;
         }
 
-        if (!array_key_exists($param, $fields)) {
+        if (array_key_exists($param, $fields) === false) {
             throw new ModelException(
                 'Unable to find field {field} for model {model}',
                 [
@@ -288,17 +290,16 @@ abstract class AbstractFindModel extends AbstractBaseModel
         $result = $this->setDbBeforeFind()->getDb()->find();
         $this->getDb()->reset();
 
-        if (!$result) {
+        if (count($result) === 0) {
             return null;
         }
 
-        $model = new $this;
+        $model = $this->getNewModel();
         $model->set($this->_parseDbResponse($result));
         $model->afterFind();
 
         return $model;
     }
-
 
     /**
      * Models search in DB
@@ -310,13 +311,13 @@ abstract class AbstractFindModel extends AbstractBaseModel
         $results = $this->setDbBeforeFind()->getDb()->findAll();
         $this->getDb()->reset();
 
-        if (!$results) {
+        if (count($results) === 0) {
             return [];
         }
 
         $list = [];
         foreach ($results as $result) {
-            $model = new $this;
+            $model = $this->getNewModel();
             $model->set($this->_parseDbResponse($result));
             $model->afterFind();
             $list[] = $model;
@@ -328,7 +329,7 @@ abstract class AbstractFindModel extends AbstractBaseModel
     /**
      * Parses DB response
      *
-     * @param array $response
+     * @param array $response DB Response
      *
      * @return array
      */
@@ -338,16 +339,18 @@ abstract class AbstractFindModel extends AbstractBaseModel
         $list = [];
 
         foreach ($response as $fullFieldName => $value) {
-            if (strripos($fullFieldName, Db::SEPARATOR)) {
-                list($alias, $field) = explode(Db::SEPARATOR, $fullFieldName, 2);
-                if (!array_key_exists($alias, $helpList)) {
-                    $helpList[$alias] = [];
-                }
-
-                $helpList[$alias][$field] = $value;
-            } else {
+            if (strpos($fullFieldName, Db::SEPARATOR) === false) {
                 $list[$fullFieldName] = $value;
+                continue;
             }
+
+            list($alias, $field)
+                = explode(Db::SEPARATOR, $fullFieldName, 2);
+            if (array_key_exists($alias, $helpList) === false) {
+                $helpList[$alias] = [];
+            }
+
+            $helpList[$alias][$field] = $value;
         }
 
         foreach ($helpList as $key => $response) {
@@ -355,9 +358,11 @@ abstract class AbstractFindModel extends AbstractBaseModel
                 foreach ($response as $k => $value) {
                     $list[$k] = $value;
                 }
-            } else {
-                $list[$key] = $this->_parseDbResponse($response);
+
+                continue;
             }
+
+            $list[$key] = $this->_parseDbResponse($response);
         }
 
         return $list;
@@ -366,44 +371,58 @@ abstract class AbstractFindModel extends AbstractBaseModel
     /**
      * Sets DB before find
      *
-     * @param string $alias
+     * @param string $alias DB table alias
      *
      * @return AbstractModel
      */
     public final function setDbBeforeFind($alias = Db::DEFAULT_ALIAS)
     {
         $info = $this->getFieldsInfo();
-        $db = $this->getDb();
+        $dbObject = $this->getDb();
 
-        $db->addSelect(self::PK_FIELD, $alias);
+        $dbObject->addSelect(self::PK_FIELD, $alias);
 
-        foreach ($info as $field => $value) {
-            $db->addSelect($field, $alias);
+        foreach (array_keys($info) as $field) {
+            $dbObject->addSelect($field, $alias);
 
+            $hasRelation = array_key_exists(
+                self::FIELD_RELATION,
+                $info[$field]
+            );
             if ($this->_withRelations === true
-                && array_key_exists(self::FIELD_RELATION, $info[$field])
+                && $hasRelation === true
             ) {
                 $relationModel = $this->getRelationModelByFieldName($field);
-                if (!$relationModel instanceof AbstractModel) {
+                if ($relationModel instanceof AbstractModel === false) {
                     continue;
                 }
 
                 $relationField = $this->getRelationName($field);
 
+                $relationAlias = $alias . Db::SEPARATOR . $relationField;
                 if ($alias === Db::DEFAULT_ALIAS) {
                     $relationAlias = $relationField;
-                } else {
-                    $relationAlias = $alias . Db::SEPARATOR . $relationField;
                 }
 
-                if (in_array($relationAlias, $this->_exceptRelations)) {
+                $hasExceptRelation = in_array(
+                    $relationAlias,
+                    $this->_exceptRelations
+                );
+                if ($hasExceptRelation === true) {
                     continue;
                 }
 
-                $relationModel->withRelations()->exceptRelations($this->_exceptRelations);
+                $relationModel
+                    ->withRelations()
+                    ->exceptRelations($this->_exceptRelations);
                 $relationModel->setDb($this->getDb());
 
-                $db->addJoin($relationModel->getTableName(), $relationAlias, $alias, $field);
+                $dbObject->addJoin(
+                    $relationModel->getTableName(),
+                    $relationAlias,
+                    $alias,
+                    $field
+                );
 
                 $relationModel->setDbBeforeFind($relationAlias);
             }
@@ -427,6 +446,8 @@ abstract class AbstractFindModel extends AbstractBaseModel
 
     /**
      * Executes after finding
+     *
+     * @return void
      */
     protected function afterFind()
     {

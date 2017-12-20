@@ -84,44 +84,28 @@ abstract class AbstractBaseModel
     private function _setDefaultValues()
     {
         foreach ($this->getFieldsInfo() as $field => $info) {
-            if (array_key_exists(self::FIELD_ALLOW_NULL, $info)) {
+            if (array_key_exists(self::FIELD_ALLOW_NULL, $info) === true) {
                 $this->_fields[$field] = null;
                 continue;
             }
 
-            if (array_key_exists(self::FIELD_TYPE, $info)) {
-                switch ($info[self::FIELD_TYPE]) {
-                    case self::FIELD_TYPE_INT:
-                        $this->_fields[$field] = 0;
-                        break;
-                    case self::FIELD_TYPE_FLOAT:
-                        $this->_fields[$field] = 0.0;
-                        break;
-                    case self::FIELD_TYPE_STRING:
-                        $this->_fields[$field] = '';
-                        break;
-                    case self::FIELD_TYPE_BOOL:
-                        $this->_fields[$field] = false;
-                        break;
-                    case self::FIELD_TYPE_DATETIME:
-                        $this->_fields[$field] = new \DateTime();
-                        break;
-                    default:
-                        $this->_fields[$field] = null;
-                        break;
-                }
-
+            if (array_key_exists(self::FIELD_TYPE, $info) === true) {
+                $this->_setDefaultTypeValues($info[self::FIELD_TYPE], $field);
                 continue;
             }
 
-            if (array_key_exists(self::FIELD_RELATION, $info)) {
+            if (array_key_exists(self::FIELD_RELATION, $info) === true) {
                 $relationField = $this->getRelationName($field);
                 $this->_fields[$relationField] = null;
                 $this->_fields[$field] = 0;
                 continue;
             }
 
-            if (array_key_exists(self::FIELD_RELATION_TO_PARENT, $info)) {
+            $hasRelationToParent = array_key_exists(
+                self::FIELD_RELATION_TO_PARENT,
+                $info
+            );
+            if ($hasRelationToParent === true) {
                 $this->_fields[$field] = 0;
                 continue;
             }
@@ -133,9 +117,41 @@ abstract class AbstractBaseModel
     }
 
     /**
+     * Sets default type values
+     *
+     * @param string $type  Type
+     * @param string $field Field
+     *
+     * @return void
+     */
+    private function _setDefaultTypeValues($type, $field)
+    {
+        switch ($type) {
+            case self::FIELD_TYPE_INT:
+                $this->_fields[$field] = 0;
+                break;
+            case self::FIELD_TYPE_FLOAT:
+                $this->_fields[$field] = 0.0;
+                break;
+            case self::FIELD_TYPE_STRING:
+                $this->_fields[$field] = '';
+                break;
+            case self::FIELD_TYPE_BOOL:
+                $this->_fields[$field] = false;
+                break;
+            case self::FIELD_TYPE_DATETIME:
+                $this->_fields[$field] = new \DateTime();
+                break;
+            default:
+                $this->_fields[$field] = null;
+                break;
+        }
+    }
+
+    /**
      * Gets relation name
      *
-     * @param string $fieldName
+     * @param string $fieldName Field name with "Id" at the end
      *
      * @return string
      */
@@ -147,7 +163,7 @@ abstract class AbstractBaseModel
     /**
      * Gets relation Id field
      *
-     * @param string $relationName
+     * @param string $relationName Relation name with "Model" at hte end
      *
      * @return string
      */
@@ -186,7 +202,7 @@ abstract class AbstractBaseModel
      *
      * @param Db $dbObject DB object
      *
-     * @return AbstractBaseModel
+     * @return AbstractModel
      */
     protected final function setDb(Db $dbObject)
     {
@@ -226,23 +242,65 @@ abstract class AbstractBaseModel
         return $this->getId() === 0;
     }
 
+    /**
+     * Sets field
+     *
+     * @param string $key   Field key
+     * @param mixed  $value Field value
+     *
+     * @return AbstractModel
+     */
     protected function setField($key, $value)
     {
         $this->_fields[$key] = $value;
         return $this;
     }
 
+    /**
+     * Gets field
+     *
+     * @param string $key Field key
+     *
+     * @return mixed
+     */
     protected function getField($key)
     {
-        if (array_key_exists($key, $this->_fields)) {
+        if (array_key_exists($key, $this->_fields) === true) {
             return $this->_fields[$key];
         }
 
         return null;
     }
 
+    /**
+     * Gets all fields
+     *
+     * @return array
+     */
     protected function getFields()
     {
         return $this->_fields;
+    }
+
+    /**
+     * Gets new model
+     *
+     * @return AbstractModel
+     */
+    protected function getNewModel()
+    {
+        return new $this;
+    }
+
+    /**
+     * Gets model by name
+     *
+     * @param string $name Full name of the class
+     *
+     * @return AbstractModel
+     */
+    protected function getModelByName($name)
+    {
+        return new $name;
     }
 }

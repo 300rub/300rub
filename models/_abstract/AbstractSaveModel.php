@@ -660,8 +660,8 @@ abstract class AbstractSaveModel extends AbstractFindModel
             $relationName = $this->getRelationName($field);
             $relationModelName = $relationInfo[self::FIELD_RELATION];
 
-            if (!$this->get($relationName) instanceof $relationModelName) {
-                $relationModel = new $relationModelName;
+            if ($this->get($relationName) instanceof $relationModelName === false) {
+                $relationModel = $this->getModelByName($relationModelName);
 
                 if ($this->get($field) !== 0) {
                     $relationModel = $relationModel->byId($this->get($field))->find();
