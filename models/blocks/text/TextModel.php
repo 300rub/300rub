@@ -76,24 +76,6 @@ class TextModel extends AbstractContentModel
     }
 
     /**
-     * After duplicate
-     *
-     * @param TextModel $oldModel
-     */
-    protected function afterDuplicate($oldModel)
-    {
-        $textInstanceModels = (new TextInstanceModel())->byTextId($oldModel->getId())->findAll();
-        foreach ($textInstanceModels as $textInstanceModel) {
-            $newTextInstanceModel = new TextInstanceModel();
-            $newTextInstanceModel->set([
-                "textId" => $this->getId(),
-                "text"   => $textInstanceModel->get("text")
-            ]);
-            $newTextInstanceModel->save();
-        }
-    }
-
-    /**
      * Gets HTML memcached key
      *
      * @param int    $id

@@ -338,8 +338,21 @@ class TextController extends AbstractController
             );
         }
 
+        $duplication = $blockModel->duplicate();
+
+        // TODO
+//        $textInstanceModels = (new TextInstanceModel())->byTextId($oldModel->getId())->findAll();
+//        foreach ($textInstanceModels as $textInstanceModel) {
+//            $newTextInstanceModel = new TextInstanceModel();
+//            $newTextInstanceModel->set([
+//                "textId" => $this->getId(),
+//                "text"   => $textInstanceModel->get("text")
+//            ]);
+//            $newTextInstanceModel->save();
+//        }
+
         return [
-            "id" => $blockModel->duplicate()->getId()
+            "id" => $duplication->getId()
         ];
     }
 
