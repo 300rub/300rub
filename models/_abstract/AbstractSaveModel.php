@@ -253,66 +253,80 @@ abstract class AbstractSaveModel extends AbstractFindModel
                 $value = null;
             }
 
-            switch ($info[$field][self::FIELD_TYPE]) {
-                case self::FIELD_TYPE_STRING:
-                    $this->setField(
-                        $field,
-                        ValueGenerator::factory(
-                            ValueGenerator::STRING,
-                            $value
-                        )->generate()
-                    );
-                    break;
-                case self::FIELD_TYPE_INT:
-                    $this->setField(
-                        $field,
-                        ValueGenerator::factory(
-                            ValueGenerator::INT,
-                            $value
-                        )->generate()
-                    );
-                    break;
-                case self::FIELD_TYPE_FLOAT:
-                    $this->setField(
-                        $field,
-                        ValueGenerator::factory(
-                            ValueGenerator::FLOAT,
-                            $value
-                        )->generate()
-                    );
-                    break;
-                case self::FIELD_TYPE_BOOL:
-                    $this->setField(
-                        $field,
-                        ValueGenerator::factory(
-                            ValueGenerator::BOOL,
-                            $value
-                        )->generate()
-                    );
-                    break;
-                case self::FIELD_TYPE_DATETIME:
-                    $hasCurrentDateTime = array_key_exists(
-                        self::FIELD_CURRENT_DATE_TIME,
-                        $info[$field]
-                    );
-                    if ($hasCurrentDateTime === true) {
-                        $value = 'now';
-                    }
-
-                    $this->setField(
-                        $field,
-                        ValueGenerator::factory(
-                            ValueGenerator::DATETIME,
-                            $value
-                        )->generate()
-                    );
-                    break;
-                default:
-                    break;
-            }
+            $this->_setFieldByType($field, $value, $info);
         }
 
         return $this;
+    }
+
+    /**
+     * Sets field value by type
+     *
+     * @param string $field Field
+     * @param mixed  $value Value
+     * @param array  $info  Fields info
+     *
+     * @return void
+     */
+    private function _setFieldByType($field, $value, $info)
+    {
+        switch ($info[$field][self::FIELD_TYPE]) {
+            case self::FIELD_TYPE_STRING:
+                $this->setField(
+                    $field,
+                    ValueGenerator::factory(
+                        ValueGenerator::STRING,
+                        $value
+                    )->generate()
+                );
+                break;
+            case self::FIELD_TYPE_INT:
+                $this->setField(
+                    $field,
+                    ValueGenerator::factory(
+                        ValueGenerator::INT,
+                        $value
+                    )->generate()
+                );
+                break;
+            case self::FIELD_TYPE_FLOAT:
+                $this->setField(
+                    $field,
+                    ValueGenerator::factory(
+                        ValueGenerator::FLOAT,
+                        $value
+                    )->generate()
+                );
+                break;
+            case self::FIELD_TYPE_BOOL:
+                $this->setField(
+                    $field,
+                    ValueGenerator::factory(
+                        ValueGenerator::BOOL,
+                        $value
+                    )->generate()
+                );
+                break;
+            case self::FIELD_TYPE_DATETIME:
+                $hasCurrentDateTime = array_key_exists(
+                    self::FIELD_CURRENT_DATE_TIME,
+                    $info[$field]
+                );
+                if ($hasCurrentDateTime === true) {
+                    $value = 'now';
+                }
+
+                $this->setField(
+                    $field,
+                    ValueGenerator::factory(
+                        ValueGenerator::DATETIME,
+                        $value
+                    )->generate()
+                );
+                break;
+            default:
+                break;
+        }
     }
 
     /**
@@ -340,45 +354,62 @@ abstract class AbstractSaveModel extends AbstractFindModel
             }
 
             foreach ($fieldInfo[self::FIELD_VALUE] as $key => $value) {
-                if (is_string($key) === false) {
-                    $this->setField(
-                        $field,
-                        ValueGenerator::factory(
-                            $value,
-                            $this->get($field)
-                        )->generate()
-                    );
-                    continue;
-                }
-
-                if (is_string($value) === true
-                    && stripos($value, '{') === 0
-                ) {
-                    $value = $this->get(
-                        str_replace(['{', '}'], '', $value)
-                    );
-                } elseif (is_array($value) === true) {
-                    foreach ($value as &$valueGeneratorVal) {
-                        if (is_string($valueGeneratorVal) === true
-                            && stripos($valueGeneratorVal, '{') === 0
-                        ) {
-                            $valueGeneratorVal = $this->get(
-                                str_replace(['{', '}'], '', $valueGeneratorVal)
-                            );
-                        }
-                    }
-                }
-
-                $this->setField(
-                    $field,
-                    ValueGenerator::factory(
-                        $key,
-                        $this->get($field),
-                        $value
-                    )->generate()
-                );
+                $this->_setFieldValue($field, $key, $value);
             }
         }
+
+        return $this;
+    }
+
+    /**
+     * Sets field value
+     *
+     * @param string         $field Field
+     * @param string|integer $key   FIELD_VALUE key
+     * @param string|array   $value FIELD_VALUE value
+     *
+     * @return AbstractSaveModel
+     */
+    private function _setFieldValue($field, $key, $value)
+    {
+        if (is_string($key) === false) {
+            $this->setField(
+                $field,
+                ValueGenerator::factory(
+                    $value,
+                    $this->get($field)
+                )->generate()
+            );
+
+            return $this;
+        }
+
+        if (is_string($value) === true
+            && stripos($value, '{') === 0
+        ) {
+            $value = $this->get(
+                str_replace(['{', '}'], '', $value)
+            );
+        } elseif (is_array($value) === true) {
+            foreach ($value as &$valueGeneratorVal) {
+                if (is_string($valueGeneratorVal) === true
+                    && stripos($valueGeneratorVal, '{') === 0
+                ) {
+                    $valueGeneratorVal = $this->get(
+                        str_replace(['{', '}'], '', $valueGeneratorVal)
+                    );
+                }
+            }
+        }
+
+        $this->setField(
+            $field,
+            ValueGenerator::factory(
+                $key,
+                $this->get($field),
+                $value
+            )->generate()
+        );
 
         return $this;
     }
