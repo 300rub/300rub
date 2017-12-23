@@ -10,7 +10,7 @@ use testS\models\_abstract\AbstractModel;
 /**
  * Abstract model for working with table "designForms"
  */
-class AbstractDesignFormModel extends AbstractModel
+abstract class AbstractDesignFormModel extends AbstractModel
 {
 
     /**

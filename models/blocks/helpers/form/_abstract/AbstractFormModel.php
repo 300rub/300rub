@@ -9,7 +9,7 @@ use testS\models\_abstract\AbstractModel;
 /**
  * Model for working with table "forms"
  */
-class AbstractFormModel extends AbstractModel
+abstract class AbstractFormModel extends AbstractModel
 {
 
     /**

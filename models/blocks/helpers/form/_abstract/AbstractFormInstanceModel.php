@@ -10,7 +10,7 @@ use testS\models\_abstract\AbstractModel;
 /**
  * Abstract model for working with table "formInstances"
  */
-class AbstractFormInstanceModel extends AbstractModel
+abstract class AbstractFormInstanceModel extends AbstractModel
 {
 
     /**

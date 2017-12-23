@@ -1,13 +1,13 @@
 <?php
 
-namespace testS\models\blocks\helpers\field\_abstract;
+namespace testS\models\blocks\helpers\tab\_abstract;
 
 use testS\models\_abstract\AbstractModel;
 
 /**
- * Abstract model for working with table "fieldGroups"
+ * Abstract model for working with table "tabGroups"
  */
-abstract class AbstractFieldGroupModel extends AbstractModel
+abstract class AbstractTabGroupModel extends AbstractModel
 {
 
     /**
@@ -17,7 +17,7 @@ abstract class AbstractFieldGroupModel extends AbstractModel
      */
     public function getTableName()
     {
-        return 'fieldGroups';
+        return 'tabGroups';
     }
 
     /**
@@ -28,8 +28,8 @@ abstract class AbstractFieldGroupModel extends AbstractModel
     public function getFieldsInfo()
     {
         return [
-            'fieldId' => [
-                self::FIELD_RELATION_TO_PARENT   => 'FieldModel',
+            'tabId' => [
+                self::FIELD_RELATION_TO_PARENT   => 'TabModel',
                 self::FIELD_NOT_CHANGE_ON_UPDATE => true,
             ],
         ];

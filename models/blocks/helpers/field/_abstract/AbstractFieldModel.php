@@ -7,7 +7,7 @@ use testS\models\_abstract\AbstractModel;
 /**
  * Model for working with table "fields"
  */
-class AbstractFieldModel extends AbstractModel
+abstract class AbstractFieldModel extends AbstractModel
 {
 
     /**

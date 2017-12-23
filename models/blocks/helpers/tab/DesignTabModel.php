@@ -1,45 +1,12 @@
 <?php
 
-namespace testS\models;
+namespace testS\models\blocks\helpers\tab;
+
+use testS\models\blocks\helpers\tab\_abstract\AbstractDesignTabModel;
 
 /**
  * Model for working with table "designTabs"
- *
- * @package testS\models
  */
-class DesignTabModel extends AbstractModel
+class DesignTabModel extends AbstractDesignTabModel
 {
-
-    /**
-     * Gets table name
-     *
-     * @return string
-     */
-    public function getTableName()
-    {
-        return "designTabs";
-    }
-
-    /**
-     * Gets fields info
-     *
-     * @return array
-     */
-    public function getFieldsInfo()
-    {
-        return [
-            "containerDesignBlockId" => [
-                self::FIELD_RELATION => "DesignBlockModel"
-            ],
-            "tabDesignBlockId"     => [
-                self::FIELD_RELATION => "DesignBlockModel"
-            ],
-            "tabDesignTextId"      => [
-                self::FIELD_RELATION => "DesignTextModel"
-            ],
-            "contentDesignBlockId"     => [
-                self::FIELD_RELATION => "DesignBlockModel"
-            ],
-        ];
-    }
 }

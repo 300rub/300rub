@@ -9,7 +9,7 @@ use testS\models\_abstract\AbstractModel;
 /**
  * Abstract model for working with table "files"
  */
-class AbstractFileModel extends AbstractModel
+abstract class AbstractFileModel extends AbstractModel
 {
 
     /**

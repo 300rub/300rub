@@ -9,7 +9,7 @@ use testS\models\_abstract\AbstractModel;
 /**
  * Abstract model for working with table "fieldTemplates"
  */
-class AbstractFieldTemplateModel extends AbstractModel
+abstract class AbstractFieldTemplateModel extends AbstractModel
 {
 
     /**
