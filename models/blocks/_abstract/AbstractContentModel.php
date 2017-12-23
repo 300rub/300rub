@@ -1,16 +1,13 @@
 <?php
 
-namespace testS\models;
+namespace testS\models\blocks\_abstract;
 
 use testS\application\App;
-use testS\components\exceptions\CommonException;
-use testS\components\exceptions\ModelException;
-use testS\components\View;
+use testS\application\exceptions\ModelException;
+use testS\models\_abstract\AbstractModel;
 
 /**
  * Abstract class for working with content models
- *
- * @package testS\models
  */
 abstract class AbstractContentModel extends AbstractModel
 {
@@ -25,14 +22,14 @@ abstract class AbstractContentModel extends AbstractModel
     /**
      * Block ID
      *
-     * @var int
+     * @var integer
      */
     private $_blockId = 0;
 
     /**
      * Content ID === ID
      *
-     * @var int
+     * @var integer
      */
     private $_contentId = 0;
 
@@ -41,59 +38,63 @@ abstract class AbstractContentModel extends AbstractModel
      *
      * @var string
      */
-    private $_uri = "";
+    private $_uri = '';
 
     /**
      * HTML
      *
      * @var string
      */
-    protected $html = "";
+    protected $html = '';
 
     /**
-     * CSS
+     * CSS list
      *
      * @var array
      */
-    protected $css = [];
+    protected $cssList = [];
 
     /**
-     * JS
+     * JS list
      *
      * @var array
      */
-    protected $js = [];
+    protected $jsList = [];
 
     /**
      * Gets HTML memcached key
      *
-     * @param int    $id
-     * @param string $uri
-     * @param string $parameter
+     * @param int    $contentId Content ID
+     * @param string $uri       URI
+     * @param string $parameter Additional parameter
      *
      * @return string
      */
-    abstract public function getHtmlMemcachedKey($id, $uri = "", $parameter = "");
+    abstract public function getHtmlMemcachedKey(
+        $contentId,
+        $uri = '',
+        $parameter = ''
+    );
 
     /**
      * Gets CSS memcached key
      *
-     * @param int    $id
-     * @param string $uri
+     * @param int    $contentId Content ID
+     * @param string $uri       URI
      *
      * @return string
      */
-    abstract public function getCssMemcachedKey($id, $uri = "");
+    abstract public function getCssMemcachedKey($contentId, $uri = '');
 
     /**
      * Gets JS memcached key
      *
-     * @param int    $id
-     * @param string $uri
+     * @param int    $contentId Content ID
+     * @param string $uri       URI
      *
      * @return string
      */
-    abstract public function getJsMemcachedKey($id, $uri = "");
+    abstract public function getJsMemcachedKey($contentId, $uri = '');
 
     /**
      * Generates HTML
@@ -129,13 +130,13 @@ abstract class AbstractContentModel extends AbstractModel
             return $this->_contentModel;
         }
 
-        $model = $this->byId($this->getContentId())->withRelations()->find();
-        if (!$model instanceof AbstractContentModel) {
+        $model = $this->_getContentModel();
+        if ($model instanceof AbstractContentModel === false) {
             throw new ModelException(
-                "Unable to find model: {class} with relations by ID: {id}",
+                'Unable to find model: {class} with relations by ID: {id}',
                 [
-                    "class" => get_class($this),
-                    "id"    => $this->getContentId()
+                    'class' => get_class($this),
+                    'id'    => $this->getContentId()
                 ]
             );
         }
@@ -148,9 +149,19 @@ abstract class AbstractContentModel extends AbstractModel
     }
 
     /**
+     * Gets content model
+     *
+     * @return null|AbstractModel|AbstractContentModel
+     */
+    private function _getContentModel()
+    {
+        return $this->byId($this->getContentId())->withRelations()->find();
+    }
+
+    /**
      * Sets block ID
      *
-     * @param int $blockId
+     * @param int $blockId Block ID
      *
      * @return AbstractContentModel
      */
@@ -173,7 +184,7 @@ abstract class AbstractContentModel extends AbstractModel
     /**
      * Sets content ID
      *
-     * @param int $contentId
+     * @param int $contentId Content ID
      *
      * @return AbstractContentModel
      */
@@ -196,7 +207,7 @@ abstract class AbstractContentModel extends AbstractModel
     /**
      * Sets URI
      *
-     * @param string $uri
+     * @param string $uri URI
      *
      * @return AbstractContentModel
      */
@@ -233,7 +244,7 @@ abstract class AbstractContentModel extends AbstractModel
      */
     public function getCss()
     {
-        return $this->css;
+        return $this->cssList;
     }
 
     /**
@@ -243,39 +254,80 @@ abstract class AbstractContentModel extends AbstractModel
      */
     public function getJs()
     {
-        return $this->js;
+        return $this->jsList;
     }
 
     /**
      * Generates content
+     *
+     * @return void
      */
     public function generateContent()
     {
-        $memcached = App::getInstance()->getMemcached();
-        $contentId = $this->getContentId();
+        $this
+            ->_setHtml()
+            ->_setCssList()
+            ->_setJsList();
+    }
 
-        $cssMemcachedKey = $this->getCssMemcachedKey($contentId);
-        $jsMemcachedKey = $this->getJsMemcachedKey($contentId);
-
-        $cssMemcachedValue = $memcached->get($cssMemcachedKey);
-        $jsMemcachedValue = $memcached->get($jsMemcachedKey);
-
+    /**
+     * Sets HTML
+     *
+     * @return AbstractContentModel
+     */
+    private function _setHtml()
+    {
         $this->html = $this->generateHtml();
+        return $this;
+    }
 
-        if ($cssMemcachedValue !== false) {
-            $this->css = $cssMemcachedValue;
-        } else {
-            $css = $this->getContentModel()->generateCss();
-            $memcached->set($cssMemcachedKey, $css);
-            $this->css = $css;
+    /**
+     * Sets CSS list
+     *
+     * @return AbstractContentModel
+     */
+    private function _setCssList()
+    {
+        $memcached = App::getInstance()->getMemcached();
+        $memcachedKey = $this->getJsMemcachedKey(
+            $this->getContentId()
+        );
+        $memcachedValue = $memcached->get($memcachedKey);
+
+        if ($memcachedValue !== false) {
+            $this->cssList = $memcachedValue;
+            return $this;
         }
 
-        if ($jsMemcachedValue !== false) {
-            $this->js = $jsMemcachedValue;
-        } else {
-            $js = $this->getContentModel()->generateJs();
-            $memcached->set($jsMemcachedKey, $js);
-            $this->js = $js;
+        $css = $this->getContentModel()->generateCss();
+        $memcached->set($memcachedKey, $css);
+        $this->cssList = $css;
+
+        return $this;
+    }
+
+    /**
+     * Sets JS list
+     *
+     * @return AbstractContentModel
+     */
+    private function _setJsList()
+    {
+        $memcached = App::getInstance()->getMemcached();
+        $memcachedKey = $this->getCssMemcachedKey(
+            $this->getContentId()
+        );
+        $memcachedValue = $memcached->get($memcachedKey);
+
+        if ($memcachedValue !== false) {
+            $this->jsList = $memcachedValue;
+            return $this;
         }
+
+        $jsList = $this->getContentModel()->generateJs();
+        $memcached->set($memcachedKey, $jsList);
+        $this->jsList = $jsList;
+
+        return $this;
     }
 }

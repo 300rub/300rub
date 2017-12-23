@@ -3,6 +3,7 @@
 namespace testS\models\blocks\block;
 
 use testS\application\App;
+use testS\models\blocks\block\_abstract\AbstractDesignBlockModel;
 
 /**
  * Model for working with table "designBlocks"

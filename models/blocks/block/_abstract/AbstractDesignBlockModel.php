@@ -1,10 +1,10 @@
 <?php
 
-namespace testS\models\blocks\block;
+namespace testS\models\blocks\block\_abstract;
 
-use testS\models\AbstractModel;
 use testS\application\App;
 use testS\application\components\ValueGenerator;
+use testS\models\_abstract\AbstractModel;
 
 /**
  * Abstract model for working with table "designBlocks"

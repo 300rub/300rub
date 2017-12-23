@@ -3,9 +3,9 @@
 namespace testS\models\blocks\block;
 
 use testS\application\App;
-use testS\models\AbstractModel;
 use testS\application\components\Validator;
 use testS\application\components\ValueGenerator;
+use testS\models\_abstract\AbstractModel;
 
 /**
  * Abstract model for working with table "blocks"
@@ -27,10 +27,14 @@ abstract class AbstractBlockModel extends AbstractModel
      * @var array
      */
     public static $typeList = [
-        self::TYPE_TEXT         => 'TextModel',
-        self::TYPE_IMAGE        => 'ImageModel',
-        self::TYPE_RECORD       => 'RecordModel',
-        self::TYPE_RECORD_CLONE => 'RecordCloneModel',
+        self::TYPE_TEXT
+            => '\\models\\blocks\\text\\TextModel',
+        self::TYPE_IMAGE
+            => '\\models\\blocks\\image\\ImageModel',
+        self::TYPE_RECORD
+            => '\\models\\blocks\\record\\RecordModel',
+        self::TYPE_RECORD_CLONE
+            => '\\models\\blocks\\record\\RecordCloneModel',
     ];
 
     /**

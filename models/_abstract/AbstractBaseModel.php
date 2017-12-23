@@ -298,7 +298,7 @@ abstract class AbstractBaseModel
      *
      * @return AbstractModel
      */
-    protected function getModelByName($name)
+    public function getModelByName($name)
     {
         return new $name;
     }
