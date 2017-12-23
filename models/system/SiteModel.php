@@ -6,6 +6,7 @@ use testS\components\Db;
 use testS\components\Language;
 use testS\components\Validator;
 use testS\components\ValueGenerator;
+use testS\models\_abstract\AbstractModel;
 
 /**
  * Model for working with table "sites"

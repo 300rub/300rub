@@ -84,8 +84,12 @@ class SuperGlobalVariable
      *
      * @SuppressWarnings(PMD.Superglobals)
      */
-    public function getFilesValue($key)
+    public function getFilesValue($key = null)
     {
+        if ($key === null) {
+            return $_FILES;
+        }
+
         if (array_key_exists($key, $_FILES) === true) {
             return $_FILES[$key];
         }

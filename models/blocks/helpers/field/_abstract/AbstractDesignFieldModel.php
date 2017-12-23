@@ -2,12 +2,12 @@
 
 namespace testS\models\blocks\helpers\field\_abstract;
 
+use testS\models\_abstract\AbstractModel;
+
 /**
- * Model for working with table "designFields"
- *
- * @package testS\models
+ * Abstract model for working with table "designFields"
  */
-class DesignFieldModel extends AbstractModel
+class AbstractDesignFieldModel extends AbstractModel
 {
 
     /**
@@ -17,7 +17,7 @@ class DesignFieldModel extends AbstractModel
      */
     public function getTableName()
     {
-        return "designFields";
+        return 'designFields';
     }
 
     /**
@@ -28,35 +28,35 @@ class DesignFieldModel extends AbstractModel
     public function getFieldsInfo()
     {
         return [
-            "shortCardContainerDesignBlockId" => [
-                self::FIELD_RELATION => "DesignBlockModel"
+            'shortCardContainerDesignBlockId' => [
+                self::FIELD_RELATION => 'DesignBlockModel'
             ],
-            "shortCardLabelDesignBlockId"     => [
-                self::FIELD_RELATION => "DesignBlockModel"
+            'shortCardLabelDesignBlockId'     => [
+                self::FIELD_RELATION => 'DesignBlockModel'
             ],
-            "shortCardLabelDesignTextId"      => [
-                self::FIELD_RELATION => "DesignTextModel"
+            'shortCardLabelDesignTextId'      => [
+                self::FIELD_RELATION => 'DesignTextModel'
             ],
-            "shortCardValueDesignBlockId"     => [
-                self::FIELD_RELATION => "DesignBlockModel"
+            'shortCardValueDesignBlockId'     => [
+                self::FIELD_RELATION => 'DesignBlockModel'
             ],
-            "shortCardValueDesignTextId"      => [
-                self::FIELD_RELATION => "DesignTextModel"
+            'shortCardValueDesignTextId'      => [
+                self::FIELD_RELATION => 'DesignTextModel'
             ],
-            "fullCardContainerDesignBlockId"  => [
-                self::FIELD_RELATION => "DesignBlockModel"
+            'fullCardContainerDesignBlockId'  => [
+                self::FIELD_RELATION => 'DesignBlockModel'
             ],
-            "fullCardLabelDesignBlockId"      => [
-                self::FIELD_RELATION => "DesignBlockModel"
+            'fullCardLabelDesignBlockId'      => [
+                self::FIELD_RELATION => 'DesignBlockModel'
             ],
-            "fullCardLabelDesignTextId"       => [
-                self::FIELD_RELATION => "DesignTextModel"
+            'fullCardLabelDesignTextId'       => [
+                self::FIELD_RELATION => 'DesignTextModel'
             ],
-            "fullCardValueDesignBlockId"      => [
-                self::FIELD_RELATION => "DesignBlockModel"
+            'fullCardValueDesignBlockId'      => [
+                self::FIELD_RELATION => 'DesignBlockModel'
             ],
-            "fullCardValueDesignTextId"       => [
-                self::FIELD_RELATION => "DesignTextModel"
+            'fullCardValueDesignTextId'       => [
+                self::FIELD_RELATION => 'DesignTextModel'
             ],
         ];
     }

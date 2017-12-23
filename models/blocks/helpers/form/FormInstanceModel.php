@@ -1,112 +1,12 @@
 <?php
 
-namespace testS\models;
+namespace testS\models\blocks\helpers\form;
 
-use testS\components\Language;
-use testS\components\Validator;
-use testS\components\ValueGenerator;
+use testS\models\blocks\helpers\form\_abstract\AbstractFormInstanceModel;
 
 /**
  * Model for working with table "formInstances"
- *
- * @package testS\models
  */
-class FormInstanceModel extends AbstractModel
+class FormInstanceModel extends AbstractFormInstanceModel
 {
-
-    /**
-     * Validation types
-     */
-    const VALIDATION_TYPE_FREE_TEXT = 0;
-    const VALIDATION_TYPE_NUMBER = 1;
-
-    /**
-     * Types
-     */
-    const TYPE_TEXT_FIELD = 0;
-    const TYPE_DROP_DOWN = 1;
-
-    /**
-     * Gets a validation type list
-     *
-     * @return array
-     */
-    public static function getValidationTypeList()
-    {
-        return [
-            self::VALIDATION_TYPE_FREE_TEXT => Language::t("form", "validationTypeFreeText"),
-            self::VALIDATION_TYPE_NUMBER => ""
-        ];
-    }
-
-    /**
-     * Gets a type list
-     *
-     * @return array
-     */
-    public static function getTypeList()
-    {
-        return [
-            self::TYPE_TEXT_FIELD => Language::t("form", "typeTextField"),
-            self::TYPE_DROP_DOWN => ""
-        ];
-    }
-
-    /**
-     * Gets table name
-     *
-     * @return string
-     */
-    public function getTableName()
-    {
-        return "formInstances";
-    }
-
-    /**
-     * Gets fields info
-     *
-     * @return array
-     */
-    public function getFieldsInfo()
-    {
-        return [
-            "formId"         => [
-                self::FIELD_RELATION => "FormModel"
-            ],
-            "sort"           => [
-                self::FIELD_TYPE => self::FIELD_TYPE_INT
-            ],
-            "label"          => [
-                self::FIELD_TYPE       => self::FIELD_TYPE_STRING,
-                self::FIELD_VALIDATION => [
-                    Validator::TYPE_REQUIRED,
-                    Validator::TYPE_MAX_LENGTH => 255
-                ],
-                self::FIELD_VALUE      => [
-                    ValueGenerator::CLEAR_STRIP_TAGS
-                ],
-            ],
-            "isRequired"     => [
-                self::FIELD_TYPE => self::FIELD_TYPE_BOOL
-            ],
-            "validationType" => [
-                self::FIELD_TYPE  => self::FIELD_TYPE_INT,
-                self::FIELD_VALUE => [
-                    ValueGenerator::ARRAY_KEY => [
-                        self::getValidationTypeList(),
-                        self::VALIDATION_TYPE_FREE_TEXT
-                    ]
-                ]
-            ],
-            "type"           => [
-                self::FIELD_TYPE  => self::FIELD_TYPE_INT,
-                self::FIELD_VALUE => [
-                    ValueGenerator::ARRAY_KEY => [
-                        self::getTypeList(),
-                        self::TYPE_TEXT_FIELD
-                    ]
-                ]
-            ],
-        ];
-    }
 }
