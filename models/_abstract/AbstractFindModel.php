@@ -35,7 +35,7 @@ abstract class AbstractFindModel extends AbstractBaseModel
      *
      * @param int $idValue ID
      *
-     * @return AbstractModel
+     * @return AbstractModel|AbstractFindModel
      */
     public function byId($idValue)
     {
@@ -50,7 +50,7 @@ abstract class AbstractFindModel extends AbstractBaseModel
      *
      * @param int $idValue ID
      *
-     * @return AbstractModel
+     * @return AbstractModel|AbstractFindModel
      */
     public function exceptId($idValue)
     {
@@ -63,7 +63,7 @@ abstract class AbstractFindModel extends AbstractBaseModel
     /**
      * With all relations
      *
-     * @return AbstractModel
+     * @return AbstractModel|AbstractFindModel
      */
     public function withRelations()
     {
@@ -74,7 +74,7 @@ abstract class AbstractFindModel extends AbstractBaseModel
     /**
      * Without all relations
      *
-     * @return AbstractModel
+     * @return AbstractModel|AbstractFindModel
      */
     public function withoutRelations()
     {
@@ -87,7 +87,7 @@ abstract class AbstractFindModel extends AbstractBaseModel
      *
      * @param string[] $aliases Relation aliases
      *
-     * @return AbstractModel
+     * @return AbstractModel|AbstractFindModel
      */
     public function exceptRelations(array $aliases)
     {
@@ -98,7 +98,7 @@ abstract class AbstractFindModel extends AbstractBaseModel
     /**
      * Adds condition to select latest model
      *
-     * @return AbstractModel
+     * @return AbstractModel|AbstractFindModel
      */
     public function latest()
     {
@@ -113,7 +113,7 @@ abstract class AbstractFindModel extends AbstractBaseModel
      * @param string       $alias  Table alias
      * @param bool         $isDesc Flag of order indirection
      *
-     * @return AbstractModel
+     * @return AbstractModel|AbstractFindModel
      */
     public function ordered(
         $value = self::DEFAULT_ORDER_NAME,
@@ -147,7 +147,7 @@ abstract class AbstractFindModel extends AbstractBaseModel
      * @param array  $values Values
      * @param string $alias  Table alias
      *
-     * @return AbstractModel
+     * @return AbstractModel|AbstractFindModel
      */
     public function addIn($field, $values, $alias = Db::DEFAULT_ALIAS)
     {
@@ -373,7 +373,7 @@ abstract class AbstractFindModel extends AbstractBaseModel
      *
      * @param string $alias DB table alias
      *
-     * @return AbstractModel
+     * @return AbstractModel|AbstractFindModel
      */
     public final function setDbBeforeFind($alias = Db::DEFAULT_ALIAS)
     {

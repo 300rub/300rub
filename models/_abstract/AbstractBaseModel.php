@@ -202,12 +202,11 @@ abstract class AbstractBaseModel
      *
      * @param Db $dbObject DB object
      *
-     * @return AbstractModel
+     * @return AbstractModel|AbstractBaseModel
      */
     protected final function setDb(Db $dbObject)
     {
         $this->_db = $dbObject;
-
         return $this;
     }
 
@@ -248,7 +247,7 @@ abstract class AbstractBaseModel
      * @param string $key   Field key
      * @param mixed  $value Field value
      *
-     * @return AbstractModel
+     * @return AbstractModel|AbstractBaseModel
      */
     protected function setField($key, $value)
     {

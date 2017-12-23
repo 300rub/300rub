@@ -146,7 +146,7 @@ abstract class AbstractDb
      *
      * @param string $table Table name
      *
-     * @return AbstractDb
+     * @return AbstractDb|Db
      */
     public function setTable($table)
     {

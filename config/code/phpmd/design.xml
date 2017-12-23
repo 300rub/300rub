@@ -134,7 +134,7 @@ hierarchy. You should consider to refactor this class hierarchy.
         </description>
         <priority>2</priority>
         <properties>
-            <property name="minimum" value="6" description="Maximum number of acceptable parent classes." />
+            <property name="minimum" value="15" description="Maximum number of acceptable parent classes." />
         </properties>
         <example />
     </rule>

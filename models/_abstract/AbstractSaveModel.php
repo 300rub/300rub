@@ -2,7 +2,6 @@
 
 namespace testS\models\_abstract;
 
-use testS\application\App;
 use testS\application\components\Db;
 use testS\application\components\Validator;
 use testS\application\components\ValueGenerator;
@@ -11,467 +10,19 @@ use testS\application\exceptions\ModelException;
 /**
  * Abstract class for working with models
  */
-abstract class AbstractSaveModel extends AbstractFindModel
+abstract class AbstractSaveModel extends AbstractValidateModel
 {
-
-    /**
-     * Errors
-     *
-     * @var array
-     */
-    private $_errors = [];
-
-    /**
-     * Clears errors
-     *
-     * @return AbstractSaveModel
-     */
-    private function _clearErrors()
-    {
-        $this->_errors = [];
-        return $this;
-    }
-
-    /**
-     * Gets errors
-     *
-     * @return array
-     */
-    public final function getErrors()
-    {
-        return $this->_errors;
-    }
-
-    /**
-     * Adds errors
-     *
-     * @param string $field  Field
-     * @param array  $errors Errors
-     *
-     * @return AbstractSaveModel
-     */
-    protected function addErrors($field, array $errors)
-    {
-        if (count($errors) === 0) {
-            return $this;
-        }
-
-        if (array_key_exists($field, $this->_errors) === false) {
-            $this->_errors[$field] = $errors;
-            return $this;
-        }
-
-        $this->_errors[$field] = array_merge(
-            $this->_errors[$field],
-            $errors
-        );
-
-        return $this;
-    }
-
-    /**
-     * Sets field values
-     *
-     * @param array $fields Fields
-     *
-     * @return AbstractModel
-     */
-    public final function set(array $fields)
-    {
-        return $this
-            ->_setRelations($fields)
-            ->_setRelationsToParent($fields)
-            ->_setTypes($fields)
-            ->_setValues()
-            ->_setNulls($fields)
-            ->_setId($fields);
-    }
-
-    /**
-     * Sets relations
-     *
-     * @param array $fields Fields
-     *
-     * @return AbstractSaveModel
-     */
-    private function _setRelations(array $fields)
-    {
-        $info = $this->getFieldsInfo();
-
-        // Sets from model arrays
-        foreach ($fields as $field => $value) {
-            $relationIdField = $this->getRelationIdFields($field);
-            if (array_key_exists($field, $this->getFields()) === false) {
-                continue;
-            }
-
-            if ($value instanceof self === false
-                && is_array($value) === false
-            ) {
-                continue;
-            }
-
-            if (array_key_exists($relationIdField, $info) === false) {
-                continue;
-            }
-
-            if ($this->isNew() === false) {
-                continue;
-            }
-
-            $hasRelation = array_key_exists(
-                self::FIELD_RELATION,
-                $info[$relationIdField]
-            );
-            if ($hasRelation === false) {
-                continue;
-            }
-
-            $hasNotChange = array_key_exists(
-                self::FIELD_NOT_CHANGE_ON_UPDATE,
-                $info[$relationIdField]
-            );
-            if ($hasNotChange === true) {
-                continue;
-            }
-
-            $relationModel = $value;
-            if ($value instanceof self === false) {
-                $isFind = true;
-                if ($this->isNew() === true) {
-                    $isFind = false;
-                }
-
-                $relationModel = $this->getRelationModelByFieldName(
-                    $relationIdField,
-                    $isFind
-                );
-                $relationModel->set($value);
-            }
-
-            $this->setField($field, $relationModel);
-
-            if ($relationModel->getId() > 0) {
-                $this->setField($relationIdField, $relationModel->getId());
-            }
-        }
-
-        // Sets relation IDs
-        foreach ($fields as $field => $value) {
-            $hasRelation = array_key_exists(
-                self::FIELD_RELATION,
-                $info[$field]
-            );
-            if (array_key_exists($field, $info) === false
-                || $hasRelation === false
-                || (int)$value === 0
-            ) {
-                continue;
-            }
-
-            $this->setField($field, (int)$value);
-        }
-
-        return $this;
-    }
-
-    /**
-     * Sets relations to parent
-     *
-     * @param array $fields Fields
-     *
-     * @return AbstractSaveModel
-     */
-    private function _setRelationsToParent(array $fields)
-    {
-        $info = $this->getFieldsInfo();
-
-        foreach ($fields as $field => $value) {
-            $hasRelation = array_key_exists(
-                self::FIELD_RELATION_TO_PARENT,
-                $info[$field]
-            );
-
-            if (array_key_exists($field, $this->getFields()) === false
-                || array_key_exists($field, $info) === false
-                || $hasRelation === false
-            ) {
-                continue;
-            }
-
-            $hasNotChange = array_key_exists(
-                self::FIELD_NOT_CHANGE_ON_UPDATE,
-                $info[$field]
-            );
-            if ($this->isNew() === false
-                && $hasNotChange === true
-            ) {
-                continue;
-            }
-
-            $this->setField(
-                $field,
-                ValueGenerator::factory(ValueGenerator::INT, $value)->generate()
-            );
-        }
-
-        return $this;
-    }
-
-    /**
-     * Sets types
-     *
-     * @param array $fields Fields
-     *
-     * @return AbstractSaveModel
-     */
-    private function _setTypes(array $fields)
-    {
-        $info = $this->getFieldsInfo();
-
-        foreach ($fields as $field => $value) {
-            if (array_key_exists($field, $this->getFields()) === false
-                || array_key_exists($field, $info) === false
-                || array_key_exists(self::FIELD_TYPE, $info[$field]) === false
-            ) {
-                continue;
-            }
-
-            $hasNotChange = array_key_exists(
-                self::FIELD_NOT_CHANGE_ON_UPDATE,
-                $info[$field]
-            );
-            if ($this->isNew() === false
-                && $hasNotChange === true
-            ) {
-                continue;
-            }
-
-            if (is_array($value) === true
-                || is_object($value) === true
-            ) {
-                $value = null;
-            }
-
-            $this->_setFieldByType($field, $value, $info);
-        }
-
-        return $this;
-    }
-
-    /**
-     * Sets field value by type
-     *
-     * @param string $field Field
-     * @param mixed  $value Value
-     * @param array  $info  Fields info
-     *
-     * @return void
-     */
-    private function _setFieldByType($field, $value, $info)
-    {
-        switch ($info[$field][self::FIELD_TYPE]) {
-            case self::FIELD_TYPE_STRING:
-                $this->setField(
-                    $field,
-                    ValueGenerator::factory(
-                        ValueGenerator::STRING,
-                        $value
-                    )->generate()
-                );
-                break;
-            case self::FIELD_TYPE_INT:
-                $this->setField(
-                    $field,
-                    ValueGenerator::factory(
-                        ValueGenerator::INT,
-                        $value
-                    )->generate()
-                );
-                break;
-            case self::FIELD_TYPE_FLOAT:
-                $this->setField(
-                    $field,
-                    ValueGenerator::factory(
-                        ValueGenerator::FLOAT,
-                        $value
-                    )->generate()
-                );
-                break;
-            case self::FIELD_TYPE_BOOL:
-                $this->setField(
-                    $field,
-                    ValueGenerator::factory(
-                        ValueGenerator::BOOL,
-                        $value
-                    )->generate()
-                );
-                break;
-            case self::FIELD_TYPE_DATETIME:
-                $hasCurrentDateTime = array_key_exists(
-                    self::FIELD_CURRENT_DATE_TIME,
-                    $info[$field]
-                );
-                if ($hasCurrentDateTime === true) {
-                    $value = 'now';
-                }
-
-                $this->setField(
-                    $field,
-                    ValueGenerator::factory(
-                        ValueGenerator::DATETIME,
-                        $value
-                    )->generate()
-                );
-                break;
-            default:
-                break;
-        }
-    }
-
-    /**
-     * Sets values
-     *
-     * @return AbstractSaveModel
-     */
-    private function _setValues()
-    {
-        $info = $this->getFieldsInfo();
-
-        foreach ($info as $field => $fieldInfo) {
-            if (array_key_exists(self::FIELD_VALUE, $fieldInfo) === false) {
-                continue;
-            }
-
-            $hasNotChange = array_key_exists(
-                self::FIELD_NOT_CHANGE_ON_UPDATE,
-                $info[$field]
-            );
-            if ($this->isNew() === false
-                && $hasNotChange === true
-            ) {
-                continue;
-            }
-
-            foreach ($fieldInfo[self::FIELD_VALUE] as $key => $value) {
-                $this->_setFieldValue($field, $key, $value);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
-     * Sets field value
-     *
-     * @param string         $field Field
-     * @param string|integer $key   FIELD_VALUE key
-     * @param string|array   $value FIELD_VALUE value
-     *
-     * @return AbstractSaveModel
-     */
-    private function _setFieldValue($field, $key, $value)
-    {
-        if (is_string($key) === false) {
-            $this->setField(
-                $field,
-                ValueGenerator::factory(
-                    $value,
-                    $this->get($field)
-                )->generate()
-            );
-
-            return $this;
-        }
-
-        if (is_string($value) === true
-            && stripos($value, '{') === 0
-        ) {
-            $value = $this->get(
-                str_replace(['{', '}'], '', $value)
-            );
-        } elseif (is_array($value) === true) {
-            foreach ($value as &$valueGeneratorVal) {
-                if (is_string($valueGeneratorVal) === true
-                    && stripos($valueGeneratorVal, '{') === 0
-                ) {
-                    $valueGeneratorVal = $this->get(
-                        str_replace(['{', '}'], '', $valueGeneratorVal)
-                    );
-                }
-            }
-        }
-
-        $this->setField(
-            $field,
-            ValueGenerator::factory(
-                $key,
-                $this->get($field),
-                $value
-            )->generate()
-        );
-
-        return $this;
-    }
-
-    /**
-     * Sets null values
-     *
-     * @param array $fields Fields
-     *
-     * @return AbstractSaveModel
-     */
-    private function _setNulls(array $fields)
-    {
-        $info = $this->getFieldsInfo();
-
-        foreach (array_keys($fields) as $field) {
-            $isAllowNull = array_key_exists(
-                self::FIELD_ALLOW_NULL,
-                $info[$field]
-            );
-
-            if (array_key_exists($field, $this->getFields()) === false
-                || array_key_exists($field, $info) === false
-                || $isAllowNull === false
-                || $info[$field][self::FIELD_ALLOW_NULL] !== true
-                || empty($this->get($field)) === false
-            ) {
-                continue;
-            }
-
-            $this->setField($field, null);
-        }
-
-        return $this;
-    }
-
-    /**
-     * Sets ID
-     *
-     * @param array $fields Fields
-     *
-     * @return AbstractSaveModel
-     */
-    private function _setId(array $fields)
-    {
-        if (array_key_exists(self::PK_FIELD, $fields) === true) {
-            $this->setField(self::PK_FIELD, (int)$fields[self::PK_FIELD]);
-        }
-
-        return $this;
-    }
 
     /**
      * Saves model in DB
      *
      * @throws ModelException
      *
-     * @return AbstractModel
+     * @return AbstractModel|AbstractSaveModel
      */
     public final function save()
     {
-        $this->_clearErrors();
+        $this->clearErrors();
         if (count($this->validate()->getErrors()) > 0) {
             return $this;
         }
@@ -542,7 +93,7 @@ abstract class AbstractSaveModel extends AbstractFindModel
      * @param string $where      Where condition
      * @param array  $parameters Parameters
      *
-     * @return AbstractModel
+     * @return AbstractModel|AbstractSaveModel
      */
     protected function updateMany(array $data, $where, $parameters = [])
     {
@@ -668,99 +219,6 @@ abstract class AbstractSaveModel extends AbstractFindModel
     }
 
     /**
-     * Validates model's fields
-     *
-     * @return AbstractModel
-     */
-    public final function validate()
-    {
-        $info = $this->getFieldsInfo();
-
-        foreach (array_keys($info) as $field) {
-            $rules = $this->getValidationRulesForField($field);
-            if (count($rules) === 0) {
-                continue;
-            }
-
-            $this->addErrors(
-                $field,
-                App::getInstance()
-                    ->getValidator()
-                    ->validate($this->get($field), $rules)
-                    ->getErrors()
-            );
-        }
-
-        return $this;
-    }
-
-    /**
-     * Gets parsed errors
-     *
-     * @return array
-     */
-    public function getParsedErrors()
-    {
-        $parsedErrors = [];
-        $errors = $this->getErrors();
-
-        foreach ($errors as $key => $values) {
-            if (count($values) === 0) {
-                continue;
-            }
-
-            if ($this->get($key) instanceof self) {
-                $parsedErrors[$key] = $this->get($key)->getParsedErrors();
-                continue;
-            }
-
-            $parsedErrors[$key] = App::getInstance()
-                ->getLanguage()
-                ->getMessage('validation', $values[0]);
-        }
-
-        return $parsedErrors;
-    }
-
-    /**
-     * Gets validation rules for field
-     *
-     * @param string $field Field
-     *
-     * @return array
-     *
-     * @throws ModelException
-     */
-    public final function getValidationRulesForField($field)
-    {
-        $info = $this->getFieldsInfo();
-        if (array_key_exists($field, $info) === false) {
-            throw new ModelException(
-                'Unable to find field: {field} for model: {model}',
-                [
-                    'field' => $field,
-                    'model' => get_class($this)
-                ]
-            );
-        }
-
-        if (array_key_exists(self::FIELD_VALIDATION, $info[$field]) === false) {
-            return [];
-        }
-
-        $rules = [];
-        foreach ($info[$field][self::FIELD_VALIDATION] as $key => $value) {
-            if (is_string($key) === false) {
-                $key = $value;
-            }
-
-            $rules[$key] = $value;
-        }
-
-        return $rules;
-    }
-
-    /**
      * Runs before saving
      *
      * @return void
@@ -776,7 +234,7 @@ abstract class AbstractSaveModel extends AbstractFindModel
     /**
      * Sets fields before save
      *
-     * @return AbstractModel
+     * @return AbstractModel|AbstractSaveModel
      */
     private function _setFieldsBeforeSave()
     {
@@ -828,7 +286,7 @@ abstract class AbstractSaveModel extends AbstractFindModel
      *
      * @param string $field Field
      *
-     * @return AbstractModel
+     * @return AbstractModel|AbstractSaveModel
      */
     protected function checkUnique($field)
     {
@@ -847,7 +305,7 @@ abstract class AbstractSaveModel extends AbstractFindModel
     /**
      * Sets relation fields before save
      *
-     * @return AbstractModel
+     * @return AbstractModel|AbstractSaveModel
      *
      * @throws ModelException
      */
@@ -906,7 +364,7 @@ abstract class AbstractSaveModel extends AbstractFindModel
      *
      * @throws ModelException
      *
-     * @return AbstractModel
+     * @return AbstractModel|AbstractSaveModel
      */
     private function _checkParentsBeforeSave()
     {
