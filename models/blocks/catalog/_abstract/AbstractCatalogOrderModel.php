@@ -2,9 +2,8 @@
 
 namespace testS\models\blocks\catalog\_abstract;
 
-use testS\models\AbstractModel;
+use testS\models\_abstract\AbstractModel;
 use testS\application\components\Validator;
-use testS\application\components\ValueGenerator;
 
 /**
  * Abstract model for working with table "catalogOrders"

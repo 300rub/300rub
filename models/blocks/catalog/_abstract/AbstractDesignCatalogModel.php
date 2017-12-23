@@ -2,7 +2,7 @@
 
 namespace testS\models\blocks\catalog\_abstract;
 
-use testS\models\AbstractModel;
+use testS\models\_abstract\AbstractModel;
 use testS\application\components\ValueGenerator;
 
 /**
