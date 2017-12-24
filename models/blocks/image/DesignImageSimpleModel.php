@@ -1,124 +1,61 @@
 <?php
 
-namespace testS\models;
+namespace testS\models\blocks\image;
 
-use testS\components\Language;
-use testS\components\ValueGenerator;
-use testS\components\View;
+use testS\models\blocks\image\_abstract\AbstractDesignImageSimpleModel;
+use testS\application\App;
 
 /**
  * Model for working with table "designImageSimple"
- *
- * @package testS\models
  */
-class DesignImageSimpleModel extends AbstractModel
+class DesignImageSimpleModel extends AbstractDesignImageSimpleModel
 {
 
-    // Type
-    const TYPE = "image-simple";
-
     /**
-     * Alignments
+     * Type
      */
-    const ALIGNMENT_LEFT = 0;
-    const ALIGNMENT_CENTER = 1;
-    const ALIGNMENT_RIGHT = 2;
-
-    /**
-     * Gets alignment list
-     *
-     * @return array
-     */
-    public static function getAlignmentList()
-    {
-        return [
-            self::ALIGNMENT_LEFT   => "",
-            self::ALIGNMENT_CENTER => "",
-            self::ALIGNMENT_RIGHT  => ""
-        ];
-    }
-
-    /**
-     * Gets labels
-     *
-     * @return array
-     */
-    public static function getLabels()
-    {
-        return [
-
-        ];
-    }
-
-    /**
-     * Gets table name
-     *
-     * @return string
-     */
-    public function getTableName()
-    {
-        return "designImageSimple";
-    }
-
-    /**
-     * Gets fields info
-     *
-     * @return array
-     */
-    public function getFieldsInfo()
-    {
-        return [
-            "containerDesignBlockId"      => [
-                self::FIELD_RELATION => "DesignBlockModel"
-            ],
-            "imageDesignBlockId" => [
-                self::FIELD_RELATION => "DesignBlockModel"
-            ],
-            "alignment"          => [
-                self::FIELD_TYPE  => self::FIELD_TYPE_INT,
-                self::FIELD_VALUE => [
-                    ValueGenerator::ARRAY_KEY => [self::getAlignmentList(), self::ALIGNMENT_LEFT]
-                ],
-            ]
-        ];
-    }
+    const TYPE = 'image-simple';
 
     /**
      * Gets design
      *
-     * @param string $selector
-     * @param string $namespace
+     * @param string $selector  CSS selector
+     * @param string $namespace Namespace
      *
      * @return array
      */
     public function getDesign($selector, $namespace = null)
     {
         if ($namespace === null) {
-            $namespace = "designImageSimpleModel";
+            $namespace = 'designImageSimpleModel';
         }
 
+        $language = App::getInstance()->getLanguage();
+
         return [
-            $this->get("containerDesignBlockModel")->getDesign(
+            $this->get('containerDesignBlockModel')->getDesign(
                 $selector,
-                $namespace . ".containerDesignBlockModel",
-                ["id"],
-                Language::t("design", "imagesContainer")
+                $namespace . '.containerDesignBlockModel',
+                ['id'],
+                $language->getMessage('design', 'imagesContainer')
             ),
-            $this->get("imageDesignBlockModel")->getDesign(
-                $selector . " .image-instance",
-                $namespace . ".imageDesignBlockModel",
-                ["id"],
-                Language::t("design", "imageBlock")
+            $this->get('imageDesignBlockModel')->getDesign(
+                $selector . ' .image-instance',
+                $namespace . '.imageDesignBlockModel',
+                ['id'],
+                $language->getMessage('design', 'imageBlock')
             ),
             [
-                "selector"  => $selector,
-                "id"        => View::generateCssId($selector, self::TYPE),
-                "type"      => self::TYPE,
-                "title"     => Language::t("design", "image"),
-                "namespace" => $namespace,
-                "labels"    => self::getLabels(),
-                "values"    => [
-                    "alignment" => $this->get("alignment")
+                'selector'  => $selector,
+                'id'        => App::getInstance()
+                ->getView()
+                ->generateCssId($selector, self::TYPE),
+                'type'      => self::TYPE,
+                'title'     => $language->getMessage('design', 'image'),
+                'namespace' => $namespace,
+                'labels'    => self::getLabels(),
+                'values'    => [
+                    'alignment' => $this->get('alignment')
                 ],
             ]
         ];

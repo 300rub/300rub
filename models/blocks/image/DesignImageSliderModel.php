@@ -1,220 +1,76 @@
 <?php
 
-namespace testS\models;
+namespace testS\models\blocks\image;
 
-use testS\components\Language;
-use testS\components\ValueGenerator;
-use testS\components\View;
+use testS\models\blocks\image\_abstract\AbstractDesignImageSliderModel;
+use testS\application\App;
 
 /**
  * Model for working with table "designImageSliders"
- *
- * @package testS\models
  */
-class DesignImageSliderModel extends AbstractModel
+class DesignImageSliderModel extends AbstractDesignImageSliderModel
 {
 
-    // Type
-    const TYPE = "image-slider";
-
     /**
-     * Navigation alignments
+     * Type
      */
-    const NAVIGATION_ALIGNMENT_NONE = 0;
-    const NAVIGATION_ALIGNMENT_TOP_LEFT = 1;
-    const NAVIGATION_ALIGNMENT_TOP_CENTER = 2;
-    const NAVIGATION_ALIGNMENT_TOP_RIGHT = 3;
-    const NAVIGATION_ALIGNMENT_MIDDLE_LEFT = 4;
-    const NAVIGATION_ALIGNMENT_MIDDLE_CENTER = 5;
-    const NAVIGATION_ALIGNMENT_MIDDLE_RIGHT = 6;
-    const NAVIGATION_ALIGNMENT_BOTTOM_LEFT = 7;
-    const NAVIGATION_ALIGNMENT_BOTTOM_CENTER = 8;
-    const NAVIGATION_ALIGNMENT_BOTTOM_RIGHT = 9;
-
-    /**
-     * Description alignments
-     */
-    const DESCRIPTION_ALIGNMENT_NONE = 0;
-    const DESCRIPTION_ALIGNMENT_TOP = 1;
-    const DESCRIPTION_ALIGNMENT_LEFT = 2;
-    const DESCRIPTION_ALIGNMENT_RIGHT = 3;
-    const DESCRIPTION_ALIGNMENT_BOTTOM = 4;
-
-    /**
-     * Effects
-     */
-    const EFFECT_NONE = 0;
-
-    /**
-     * Gets description alignment list
-     *
-     * @return array
-     */
-    public static function getDescriptionAlignmentList()
-    {
-        return [
-            self::DESCRIPTION_ALIGNMENT_NONE   => "",
-            self::DESCRIPTION_ALIGNMENT_TOP    => "",
-            self::DESCRIPTION_ALIGNMENT_LEFT   => "",
-            self::DESCRIPTION_ALIGNMENT_RIGHT  => "",
-            self::DESCRIPTION_ALIGNMENT_BOTTOM => ""
-        ];
-    }
-
-    /**
-     * Gets navigation alignment list
-     *
-     * @return array
-     */
-    public static function getNavigationAlignmentList()
-    {
-        return [
-            self::NAVIGATION_ALIGNMENT_NONE          => "",
-            self::NAVIGATION_ALIGNMENT_TOP_LEFT      => "",
-            self::NAVIGATION_ALIGNMENT_TOP_CENTER    => "",
-            self::NAVIGATION_ALIGNMENT_TOP_RIGHT     => "",
-            self::NAVIGATION_ALIGNMENT_MIDDLE_LEFT   => "",
-            self::NAVIGATION_ALIGNMENT_MIDDLE_CENTER => "",
-            self::NAVIGATION_ALIGNMENT_MIDDLE_RIGHT  => "",
-            self::NAVIGATION_ALIGNMENT_BOTTOM_LEFT   => "",
-            self::NAVIGATION_ALIGNMENT_BOTTOM_CENTER => "",
-            self::NAVIGATION_ALIGNMENT_BOTTOM_RIGHT  => ""
-        ];
-    }
-
-    /**
-     * Gets a list of effects
-     *
-     * @return array
-     */
-    public static function getEffectList()
-    {
-        return [
-            self::EFFECT_NONE => "",
-        ];
-    }
-
-    /**
-     * Gets labels
-     *
-     * @return array
-     */
-    public static function getLabels()
-    {
-        return [
-
-        ];
-    }
-
-    /**
-     * Gets table name
-     *
-     * @return string
-     */
-    public function getTableName()
-    {
-        return "designImageSliders";
-    }
-
-    /**
-     * Gets fields info
-     *
-     * @return array
-     */
-    public function getFieldsInfo()
-    {
-        return [
-            "containerDesignBlockId"            => [
-                self::FIELD_RELATION => "DesignBlockModel"
-            ],
-            "navigationDesignBlockId"  => [
-                self::FIELD_RELATION => "DesignBlockModel"
-            ],
-            "descriptionDesignBlockId" => [
-                self::FIELD_RELATION => "DesignBlockModel"
-            ],
-            "effect"                   => [
-                self::FIELD_TYPE  => self::FIELD_TYPE_INT,
-                self::FIELD_VALUE => [
-                    ValueGenerator::ARRAY_KEY => [self::getEffectList(), self::EFFECT_NONE]
-                ],
-            ],
-            "hasAutoPlay"              => [
-                self::FIELD_TYPE => self::FIELD_TYPE_BOOL,
-            ],
-            "playSpeed"                => [
-                self::FIELD_TYPE  => self::FIELD_TYPE_INT,
-                self::FIELD_VALUE => [
-                    ValueGenerator::MIN => 0
-                ],
-            ],
-            "navigationAlignment"      => [
-                self::FIELD_TYPE  => self::FIELD_TYPE_INT,
-                self::FIELD_VALUE => [
-                    ValueGenerator::ARRAY_KEY => [
-                        self::getNavigationAlignmentList(),
-                        self::NAVIGATION_ALIGNMENT_NONE
-                    ]
-                ],
-            ],
-            "descriptionAlignment"     => [
-                self::FIELD_TYPE  => self::FIELD_TYPE_INT,
-                self::FIELD_VALUE => [
-                    ValueGenerator::ARRAY_KEY => [
-                        self::getDescriptionAlignmentList(),
-                        self::DESCRIPTION_ALIGNMENT_NONE
-                    ]
-                ],
-            ]
-        ];
-    }
+    const TYPE = 'image-slider';
 
     /**
      * Gets design
      *
-     * @param string $selector
-     * @param string $namespace
+     * @param string $selector  CSS selector
+     * @param string $namespace Name space
      *
      * @return array
      */
     public function getDesign($selector, $namespace = null)
     {
         if ($namespace === null) {
-            $namespace = "designImageSliderModel";
+            $namespace = 'designImageSliderModel';
         }
 
+        $language = App::getInstance()->getLanguage();
+
         return [
-            $this->get("containerDesignBlockModel")->getDesign(
+            $this->get('containerDesignBlockModel')->getDesign(
                 $selector,
-                $namespace . ".containerDesignBlockModel",
-                ["id"],
-                Language::t("design", "imagesContainer")
+                $namespace . '.containerDesignBlockModel',
+                ['id'],
+                $language->getMessage('design', 'imagesContainer')
             ),
-            $this->get("navigationDesignBlockModel")->getDesign(
-                $selector . " .navigation",
-                $namespace . ".navigationDesignBlockModel",
-                ["id"],
-                Language::t("design", "navigationBlock")
+            $this->get('navigationDesignBlockModel')->getDesign(
+                $selector . ' .navigation',
+                $namespace . '.navigationDesignBlockModel',
+                ['id'],
+                $language->getMessage('design', 'navigationBlock')
             ),
-            $this->get("descriptionDesignBlockModel")->getDesign(
-                $selector . " .description",
-                $namespace . ".descriptionDesignBlockModel",
-                ["id"],
-                Language::t("design", "descriptionBlock")
+            $this->get('descriptionDesignBlockModel')->getDesign(
+                $selector . ' .description',
+                $namespace . '.descriptionDesignBlockModel',
+                ['id'],
+                $language->getMessage('design', 'descriptionBlock')
             ),
             [
-                "selector"  => $selector,
-                "id"        => View::generateCssId($selector, self::TYPE),
-                "type"      => self::TYPE,
-                "title"     => Language::t("design", "image"),
-                "namespace" => $namespace,
-                "labels"    => self::getLabels(),
-                "values" => [
-                    "effect"               => $this->get("effect"),
-                    "hasAutoPlay"          => $this->get("hasAutoPlay"),
-                    "playSpeed"            => $this->get("playSpeed"),
-                    "navigationAlignment"  => $this->get("navigationAlignment"),
-                    "descriptionAlignment" => $this->get("descriptionAlignment"),
+                'selector'  => $selector,
+                'id'        => App::getInstance()
+                ->getView()
+                ->generateCssId($selector, self::TYPE),
+                'type'      => self::TYPE,
+                'title'     => $language->getMessage('design', 'image'),
+                'namespace' => $namespace,
+                'labels'    => self::getLabels(),
+                'values' => [
+                    'effect'
+                        => $this->get('effect'),
+                    'hasAutoPlay'
+                        => $this->get('hasAutoPlay'),
+                    'playSpeed'
+                        => $this->get('playSpeed'),
+                    'navigationAlignment'
+                        => $this->get('navigationAlignment'),
+                    'descriptionAlignment'
+                        => $this->get('descriptionAlignment'),
                 ]
             ]
         ];

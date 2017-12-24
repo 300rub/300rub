@@ -64,37 +64,23 @@ abstract class AbstractContentModel extends AbstractModel
     /**
      * Gets HTML memcached key
      *
-     * @param int    $contentId Content ID
-     * @param string $uri       URI
-     * @param string $parameter Additional parameter
-     *
      * @return string
      */
-    abstract public function getHtmlMemcachedKey(
-        $contentId,
-        $uri = '',
-        $parameter = ''
-    );
+    abstract public function getHtmlMemcachedKey();
 
     /**
      * Gets CSS memcached key
      *
-     * @param int    $contentId Content ID
-     * @param string $uri       URI
-     *
      * @return string
      */
-    abstract public function getCssMemcachedKey($contentId, $uri = '');
+    abstract public function getCssMemcachedKey();
 
     /**
      * Gets JS memcached key
      *
-     * @param int    $contentId Content ID
-     * @param string $uri       URI
-     *
      * @return string
      */
-    abstract public function getJsMemcachedKey($contentId, $uri = '');
+    abstract public function getJsMemcachedKey();
 
     /**
      * Generates HTML
@@ -289,9 +275,7 @@ abstract class AbstractContentModel extends AbstractModel
     private function _setCssList()
     {
         $memcached = App::getInstance()->getMemcached();
-        $memcachedKey = $this->getJsMemcachedKey(
-            $this->getContentId()
-        );
+        $memcachedKey = $this->getCssMemcachedKey();
         $memcachedValue = $memcached->get($memcachedKey);
 
         if ($memcachedValue !== false) {
@@ -314,9 +298,7 @@ abstract class AbstractContentModel extends AbstractModel
     private function _setJsList()
     {
         $memcached = App::getInstance()->getMemcached();
-        $memcachedKey = $this->getCssMemcachedKey(
-            $this->getContentId()
-        );
+        $memcachedKey = $this->getJsMemcachedKey();
         $memcachedValue = $memcached->get($memcachedKey);
 
         if ($memcachedValue !== false) {

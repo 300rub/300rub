@@ -1,19 +1,17 @@
 <?php
 
-namespace testS\models;
+namespace testS\models\blocks\image;
 
-use testS\components\Db;
-use testS\components\exceptions\FileException;
-use testS\components\Language;
-use testS\components\ValueGenerator;
+use testS\application\components\Db;
+use testS\application\exceptions\FileException;
 use Gregwar\Image\Image;
+use testS\models\blocks\helpers\file\FileModel;
+use testS\models\blocks\image\_abstract\AbstractImageInstanceModel;
 
 /**
  * Model for working with table "imageInstances"
- *
- * @package testS\models
  */
-class ImageInstanceModel extends AbstractModel
+class ImageInstanceModel extends AbstractImageInstanceModel
 {
 
     /**
@@ -26,15 +24,11 @@ class ImageInstanceModel extends AbstractModel
      */
     const THUMB_MAX_SIZE = 300;
 
-    // Extensions
-    const EXT_JPG = "jpg";
-    const EXT_PNG = "png";
-
-    // Flips
-    const FLIP_NONE = 0;
-    const FLIP_HORIZONTAL = 1;
-    const FLIP_VERTICAL = 2;
-    const FLIP_BOTH = 3;
+    /**
+     * Extensions
+     */
+    const EXT_JPG = 'jpg';
+    const EXT_PNG = 'png';
 
     /**
      * Original file model
@@ -62,196 +56,55 @@ class ImageInstanceModel extends AbstractModel
      *
      * @var string
      */
-    private $_extension = "";
+    private $_extension = '';
 
     /**
      * View width
      *
-     * @var int
+     * @var integer
      */
     private $_viewWidth = 0;
 
     /**
      * View height
      *
-     * @var int
+     * @var integer
      */
     private $_viewHeight = 0;
 
     /**
      * Thumb width
      *
-     * @var int
+     * @var integer
      */
     private $_thumbWidth = 0;
 
     /**
      * Thumb height
      *
-     * @var int
+     * @var integer
      */
     private $_thumbHeight = 0;
 
     /**
      * Is view changed
      *
-     * @var bool
+     * @var boolean
      */
     private $_isViewChanged = false;
 
     /**
      * Is thumb changed
      *
-     * @var bool
+     * @var boolean
      */
     private $_isThumbChanged = false;
 
     /**
-     * Gets type list
+     * Uploads a file
      *
      * @return array
      */
-    public static function getFlipList()
-    {
-        return [
-            self::FLIP_NONE       => Language::t("image", "flipNone"),
-            self::FLIP_HORIZONTAL => Language::t("image", "flipHorizontal"),
-            self::FLIP_VERTICAL   => Language::t("image", "flipVertical"),
-            self::FLIP_BOTH       => Language::t("image", "flipBoth"),
-        ];
-    }
-
-    /**
-     * Gets table name
-     *
-     * @return string
-     */
-    public function getTableName()
-    {
-        return "imageInstances";
-    }
-
-    /**
-     * Gets fields info
-     *
-     * @return array
-     */
-    public function getFieldsInfo()
-    {
-        return [
-            "imageGroupId"   => [
-                self::FIELD_RELATION_TO_PARENT => "ImageGroupModel",
-                self::FIELD_SKIP_DUPLICATION   => true,
-            ],
-            "originalFileId" => [
-                self::FIELD_RELATION         => "FileModel",
-                self::FIELD_SKIP_DUPLICATION => true,
-            ],
-            "viewFileId"     => [
-                self::FIELD_RELATION         => "FileModel",
-                self::FIELD_SKIP_DUPLICATION => true,
-            ],
-            "thumbFileId"    => [
-                self::FIELD_RELATION         => "FileModel",
-                self::FIELD_SKIP_DUPLICATION => true,
-            ],
-            "isCover"        => [
-                self::FIELD_TYPE             => self::FIELD_TYPE_BOOL,
-                self::FIELD_SKIP_DUPLICATION => true,
-            ],
-            "sort"           => [
-                self::FIELD_TYPE             => self::FIELD_TYPE_INT,
-                self::FIELD_SKIP_DUPLICATION => true,
-            ],
-            "alt"            => [
-                self::FIELD_TYPE             => self::FIELD_TYPE_STRING,
-                self::FIELD_VALUE            => [
-                    ValueGenerator::CLEAR_STRIP_TAGS
-                ],
-                self::FIELD_SKIP_DUPLICATION => true,
-            ],
-            "width"          => [
-                self::FIELD_TYPE             => self::FIELD_TYPE_INT,
-                self::FIELD_VALUE            => [
-                    ValueGenerator::MIN => 0,
-                ],
-                self::FIELD_SKIP_DUPLICATION => true,
-            ],
-            "height"         => [
-                self::FIELD_TYPE             => self::FIELD_TYPE_INT,
-                self::FIELD_VALUE            => [
-                    ValueGenerator::MIN => 0,
-                ],
-                self::FIELD_SKIP_DUPLICATION => true,
-            ],
-            "x1"             => [
-                self::FIELD_TYPE             => self::FIELD_TYPE_INT,
-                self::FIELD_VALUE            => [
-                    ValueGenerator::MIN => 0,
-                ],
-                self::FIELD_SKIP_DUPLICATION => true,
-            ],
-            "y1"             => [
-                self::FIELD_TYPE             => self::FIELD_TYPE_INT,
-                self::FIELD_VALUE            => [
-                    ValueGenerator::MIN => 0,
-                ],
-                self::FIELD_SKIP_DUPLICATION => true,
-            ],
-            "x2"             => [
-                self::FIELD_TYPE             => self::FIELD_TYPE_INT,
-                self::FIELD_VALUE            => [
-                    ValueGenerator::MIN => 0,
-                ],
-                self::FIELD_SKIP_DUPLICATION => true,
-            ],
-            "y2"             => [
-                self::FIELD_TYPE             => self::FIELD_TYPE_INT,
-                self::FIELD_VALUE            => [
-                    ValueGenerator::MIN => 0,
-                ],
-                self::FIELD_SKIP_DUPLICATION => true,
-            ],
-            "thumbX1"        => [
-                self::FIELD_TYPE             => self::FIELD_TYPE_INT,
-                self::FIELD_VALUE            => [
-                    ValueGenerator::MIN => 0,
-                ],
-                self::FIELD_SKIP_DUPLICATION => true,
-            ],
-            "thumbY1"        => [
-                self::FIELD_TYPE             => self::FIELD_TYPE_INT,
-                self::FIELD_VALUE            => [
-                    ValueGenerator::MIN => 0,
-                ],
-                self::FIELD_SKIP_DUPLICATION => true,
-            ],
-            "thumbX2"        => [
-                self::FIELD_TYPE             => self::FIELD_TYPE_INT,
-                self::FIELD_VALUE            => [
-                    ValueGenerator::MIN => 0,
-                ],
-                self::FIELD_SKIP_DUPLICATION => true,
-            ],
-            "thumbY2"        => [
-                self::FIELD_TYPE             => self::FIELD_TYPE_INT,
-                self::FIELD_VALUE            => [
-                    ValueGenerator::MIN => 0,
-                ],
-                self::FIELD_SKIP_DUPLICATION => true,
-            ],
-            "angle"          => [
-                self::FIELD_TYPE => self::FIELD_TYPE_INT,
-            ],
-            "flip"           => [
-                self::FIELD_TYPE  => self::FIELD_TYPE_INT,
-                self::FIELD_VALUE => [
-                    ValueGenerator::ARRAY_KEY => [self::getFlipList(), self::FLIP_NONE]
-                ],
-            ],
-        ];
-    }
-
     public function upload()
     {
         $this
@@ -267,15 +120,15 @@ class ImageInstanceModel extends AbstractModel
             ->_save();
 
         return [
-            "originalUrl" => $this->get("originalFileModel")->getUrl(),
-            "viewUrl"     => $this->get("viewFileModel")->getUrl(),
-            "thumbUrl"    => $this->get("thumbFileModel")->getUrl(),
-            "name"        => str_replace(
-                sprintf(".%s", $this->_extension),
-                "",
-                $this->get("originalFileModel")->get("originalName")
+            'originalUrl' => $this->get('originalFileModel')->getUrl(),
+            'viewUrl'     => $this->get('viewFileModel')->getUrl(),
+            'thumbUrl'    => $this->get('thumbFileModel')->getUrl(),
+            'name'        => str_replace(
+                sprintf('.%s', $this->_extension),
+                '',
+                $this->get('originalFileModel')->get('originalName')
             ),
-            "id"          => $this->getId()
+            'id'          => $this->getId()
         ];
     }
 
@@ -288,8 +141,10 @@ class ImageInstanceModel extends AbstractModel
      */
     private function _checkBeforeUpload()
     {
-        if ($this->get("imageGroupId") === 0) {
-            throw new FileException("Unable to upload image because imageGroupId is 0");
+        if ($this->get('imageGroupId') === 0) {
+            throw new FileException(
+                'Unable to upload image because imageGroupId is 0'
+            );
         }
 
         return $this;
@@ -302,7 +157,9 @@ class ImageInstanceModel extends AbstractModel
      */
     private function _setOriginalFileModelFromUploadedFile()
     {
-        $this->_originalFileModel = (new FileModel())->parsePostRequest();
+        $this->_originalFileModel = new FileModel();
+        $this->_originalFileModel->parsePostRequest();
+
         return $this;
     }
 
@@ -316,34 +173,34 @@ class ImageInstanceModel extends AbstractModel
     private function _setParametersForUploadedFile()
     {
         $info = getimagesize($this->_originalFileModel->getTmpName());
-        if (!is_array($info)) {
+        if (is_array($info) === false) {
             throw new FileException(
-                "Uploaded file: {file} is not an image",
+                'Uploaded file: {file} is not an image',
                 [
-                    "file" => $this->_originalFileModel->get("originalName")
+                    'file' => $this->_originalFileModel->get('originalName')
                 ]
             );
         }
 
-        if (!array_key_exists("mime", $info)) {
+        if (array_key_exists('mime', $info) === false) {
             throw new FileException(
-                "Unable to get image mime. Info: {info}",
+                'Unable to get image mime. Info: {info}',
                 [
-                    "info" => json_encode($info)
+                    'info' => json_encode($info)
                 ]
             );
         }
 
         $this->set(
             [
-                "width"  => $info[0],
-                "height" => $info[1],
-                "mime"   => $info["mime"]
+                'width'  => $info[0],
+                'height' => $info[1],
+                'mime'   => $info['mime']
             ]
         );
 
         $this
-            ->_setExtension($info["mime"])
+            ->_setExtension($info['mime'])
             ->_setSizes($info[0], $info[1]);
 
         return $this;
@@ -352,7 +209,7 @@ class ImageInstanceModel extends AbstractModel
     /**
      * Sets extension
      *
-     * @param string $mime
+     * @param string $mime MIME of the file
      *
      * @return ImageInstanceModel
      *
@@ -360,36 +217,40 @@ class ImageInstanceModel extends AbstractModel
      */
     private function _setExtension($mime)
     {
-        if (stripos($mime, "image") === false) {
+        if (stripos($mime, 'image') === false) {
             throw new FileException(
-                "File with mime: {mime} is not an image",
+                'File with mime: {mime} is not an image',
                 [
-                    "mime" => $mime
+                    'mime' => $mime
                 ]
             );
         }
 
-        if (stripos($mime, "jpg") !== false || stripos($mime, "jpeg") !== false) {
+        if (stripos($mime, 'jpg') !== false
+            || stripos($mime, 'jpeg') !== false
+        ) {
             $this->_extension = self::EXT_JPG;
-        } elseif (stripos($mime, "png") !== false) {
-            $this->_extension = self::EXT_PNG;
-        } else {
-            throw new FileException(
-                "Unable to upload image with mime: {mime}",
-                [
-                    "mime" => $mime
-                ]
-            );
+            return $this;
         }
 
-        return $this;
+        if (stripos($mime, 'png') !== false) {
+            $this->_extension = self::EXT_PNG;
+            return $this;
+        }
+
+        throw new FileException(
+            'Unable to upload image with mime: {mime}',
+            [
+                'mime' => $mime
+            ]
+        );
     }
 
     /**
      * Sets sizes
      *
-     * @param int $originalWidth
-     * @param int $originalHeight
+     * @param int $originalWidth  Original width
+     * @param int $originalHeight Original height
      *
      * @return ImageInstanceModel
      */
@@ -402,34 +263,34 @@ class ImageInstanceModel extends AbstractModel
 
         if ($originalWidth > $originalHeight) {
             if ($viewWidth > self::VIEW_MAX_SIZE) {
-                $k = $viewWidth / self::VIEW_MAX_SIZE;
+                $coefficient = ($viewWidth / self::VIEW_MAX_SIZE);
                 $viewWidth = self::VIEW_MAX_SIZE;
-                $viewHeight = $viewHeight / $k;
+                $viewHeight = ($viewHeight / $coefficient);
             }
 
             if ($thumbWidth > self::THUMB_MAX_SIZE) {
-                $k = $thumbWidth / self::THUMB_MAX_SIZE;
+                $coefficient = ($thumbWidth / self::THUMB_MAX_SIZE);
                 $thumbWidth = self::THUMB_MAX_SIZE;
-                $thumbHeight = $thumbHeight / $k;
+                $thumbHeight = ($thumbHeight / $coefficient);
             }
         } else {
             if ($viewHeight > self::VIEW_MAX_SIZE) {
-                $k = $viewHeight / self::VIEW_MAX_SIZE;
+                $coefficient = ($viewHeight / self::VIEW_MAX_SIZE);
                 $viewHeight = self::VIEW_MAX_SIZE;
-                $viewWidth = $viewWidth / $k;
+                $viewWidth = ($viewWidth / $coefficient);
             }
 
             if ($thumbHeight > self::THUMB_MAX_SIZE) {
-                $k = $thumbHeight / self::THUMB_MAX_SIZE;
+                $coefficient = ($thumbHeight / self::THUMB_MAX_SIZE);
                 $thumbHeight = self::THUMB_MAX_SIZE;
-                $thumbWidth = $thumbWidth / $k;
+                $thumbWidth = ($thumbWidth / $coefficient);
             }
         }
 
         $this->set(
             [
-                "width"  => $originalWidth,
-                "height" => $originalHeight,
+                'width'  => $originalWidth,
+                'height' => $originalHeight,
             ]
         );
 
@@ -450,21 +311,23 @@ class ImageInstanceModel extends AbstractModel
     {
         $this->_originalFileModel->setUniqueName($this->_extension);
 
-        $this->_viewFileModel = (new FileModel())
+        $this->_viewFileModel = new FileModel();
+        $this->_viewFileModel
             ->generateTmpName()
             ->setUniqueName($this->_extension)
             ->set(
                 [
-                    "type" => $this->_originalFileModel->get("type")
+                    'type' => $this->_originalFileModel->get('type')
                 ]
             );
 
-        $this->_thumbFileModel = (new FileModel())
+        $this->_thumbFileModel = new FileModel();
+        $this->_thumbFileModel
             ->generateTmpName()
             ->setUniqueName($this->_extension)
             ->set(
                 [
-                    "type" => $this->_originalFileModel->get("type")
+                    'type' => $this->_originalFileModel->get('type')
                 ]
             );
 
@@ -511,8 +374,7 @@ class ImageInstanceModel extends AbstractModel
      */
     private function _createTmpViewImageToUpload()
     {
-        Image
-            ::open($this->_originalFileModel->getUrl())
+        Image::open($this->_originalFileModel->getUrl())
             ->resize($this->_viewWidth, $this->_viewHeight)
             ->save($this->_viewFileModel->getTmpName());
 
@@ -526,8 +388,7 @@ class ImageInstanceModel extends AbstractModel
      */
     private function _createTmpThumbImageToUpload()
     {
-        Image
-            ::open($this->_originalFileModel->getUrl())
+        Image::open($this->_originalFileModel->getUrl())
             ->resize($this->_thumbWidth, $this->_thumbHeight)
             ->save($this->_thumbFileModel->getTmpName());
 
@@ -543,9 +404,9 @@ class ImageInstanceModel extends AbstractModel
     {
         $this->set(
             [
-                "originalFileModel" => $this->_originalFileModel,
-                "viewFileModel"     => $this->_viewFileModel,
-                "thumbFileModel"    => $this->_thumbFileModel,
+                'originalFileModel' => $this->_originalFileModel,
+                'viewFileModel'     => $this->_viewFileModel,
+                'thumbFileModel'    => $this->_thumbFileModel,
             ]
         );
 
@@ -557,64 +418,77 @@ class ImageInstanceModel extends AbstractModel
     /**
      * Updates the image
      *
-     * @param array $data
+     * @param array $data Request data
      *
      * @return array
      */
     public function update(array $data)
     {
-        $viewName = $this->get("viewFileModel")->get("uniqueName");
-        $thumbName = $this->get("thumbFileModel")->get("uniqueName");
+        $viewName = $this->get('viewFileModel')->get('uniqueName');
+        $thumbName = $this->get('thumbFileModel')->get('uniqueName');
 
         $this
             ->_updateView($data)
             ->_updateThumb($data)
             ->_updateImage($data);
 
-        if ($this->_isViewChanged) {
-            FileModel::deleteByUniqueName($viewName);
+        $file = new FileModel();
+
+        if ($this->_isViewChanged === true) {
+            $file->deleteByUniqueName($viewName);
         }
 
-        if ($this->_isThumbChanged) {
-            FileModel::deleteByUniqueName($thumbName);
+        if ($this->_isThumbChanged === true) {
+            $file->deleteByUniqueName($thumbName);
         }
 
         return [
-            "originalUrl" => $this->get("originalFileModel")->getUrl(),
-            "viewUrl"     => $this->get("viewFileModel")->getUrl(),
-            "thumbUrl"    => $this->get("thumbFileModel")->getUrl(),
+            'originalUrl' => $this->get('originalFileModel')->getUrl(),
+            'viewUrl'     => $this->get('viewFileModel')->getUrl(),
+            'thumbUrl'    => $this->get('thumbFileModel')->getUrl(),
         ];
     }
 
     /**
      * Updates the view file
      *
-     * @param array $data
+     * @param array $data Request data
      *
      * @return ImageInstanceModel
+     *
+     * @SuppressWarnings(PMD.StaticAccess)
      */
     private function _updateView(array $data)
     {
-        if ($data["x1"] === $this->get("x1")
-            && $data["x2"] === $this->get("x2")
-            && $data["y1"] === $this->get("y1")
-            && $data["y2"] === $this->get("y2")
-            && $data["angle"] === $this->get("angle")
-            && $data["flip"] === $this->get("flip")
+        if ($data['x1'] === $this->get('x1')
+            && $data['x2'] === $this->get('x2')
+            && $data['y1'] === $this->get('y1')
+            && $data['y2'] === $this->get('y2')
+            && $data['angle'] === $this->get('angle')
+            && $data['flip'] === $this->get('flip')
         ) {
             return $this;
         }
 
-        $viewFileModel = $this->get("viewFileModel");
+        $viewFileModel = $this->get('viewFileModel');
 
         $viewFileModel->generateTmpName();
         $viewFileModel->setUniqueName(
-            trim(strtolower(pathinfo($viewFileModel->get("uniqueName"), PATHINFO_EXTENSION)))
+            trim(
+                strtolower(
+                    pathinfo(
+                        $viewFileModel->get('uniqueName'),
+                        PATHINFO_EXTENSION
+                    )
+                )
+            )
         );
 
-        $image = Image::open($this->get("originalFileModel")->getUrl());
+        $image = Image::open(
+            $this->get('originalFileModel')->getUrl()
+        );
 
-        switch ($data["flip"]) {
+        switch ($data['flip']) {
             case self::FLIP_BOTH:
                 $image->flip(true, true);
                 break;
@@ -626,26 +500,26 @@ class ImageInstanceModel extends AbstractModel
                 break;
         }
 
-        if ($data["angle"] !== 0) {
-            $image->rotate($data["angle"]);
+        if ($data['angle'] !== 0) {
+            $image->rotate($data['angle']);
         }
 
-        $viewWidth = $data["x2"] - $data["x1"];
-        $viewHeight = $data["y2"] - $data["y1"];
+        $viewWidth = ($data['x2'] - $data['x1']);
+        $viewHeight = ($data['y2'] - $data['y1']);
 
-        $image->crop($data["x1"], $data["y1"], $viewWidth, $viewHeight);
+        $image->crop($data['x1'], $data['y1'], $viewWidth, $viewHeight);
 
         if ($viewWidth > $viewHeight) {
             if ($viewWidth > self::VIEW_MAX_SIZE) {
-                $k = $viewWidth / self::VIEW_MAX_SIZE;
+                $coefficient = ($viewWidth / self::VIEW_MAX_SIZE);
                 $viewWidth = self::VIEW_MAX_SIZE;
-                $viewHeight = $viewHeight / $k;
+                $viewHeight = ($viewHeight / $coefficient);
             }
         } else {
             if ($viewHeight > self::VIEW_MAX_SIZE) {
-                $k = $viewHeight / self::VIEW_MAX_SIZE;
+                $coefficient = ($viewHeight / self::VIEW_MAX_SIZE);
                 $viewHeight = self::VIEW_MAX_SIZE;
-                $viewWidth = $viewWidth / $k;
+                $viewWidth = ($viewWidth / $coefficient);
             }
         }
 
@@ -663,32 +537,43 @@ class ImageInstanceModel extends AbstractModel
     /**
      * Updates the thumb file
      *
-     * @param array $data
+     * @param array $data Request data
      *
      * @return ImageInstanceModel
+     *
+     * @SuppressWarnings(PMD.StaticAccess)
      */
     private function _updateThumb(array $data)
     {
-        if ($data["thumbX1"] === $this->get("thumbX1")
-            && $data["thumbX2"] === $this->get("thumbX2")
-            && $data["thumbY1"] === $this->get("thumbY1")
-            && $data["thumbY2"] === $this->get("thumbY2")
-            && $data["angle"] === $this->get("angle")
-            && $data["flip"] === $this->get("flip")
+        if ($data['thumbX1'] === $this->get('thumbX1')
+            && $data['thumbX2'] === $this->get('thumbX2')
+            && $data['thumbY1'] === $this->get('thumbY1')
+            && $data['thumbY2'] === $this->get('thumbY2')
+            && $data['angle'] === $this->get('angle')
+            && $data['flip'] === $this->get('flip')
         ) {
             return $this;
         }
 
-        $thumbFileModel = $this->get("thumbFileModel");
+        $thumbFileModel = $this->get('thumbFileModel');
 
         $thumbFileModel->generateTmpName();
         $thumbFileModel->setUniqueName(
-            trim(strtolower(pathinfo($thumbFileModel->get("uniqueName"), PATHINFO_EXTENSION)))
+            trim(
+                strtolower(
+                    pathinfo(
+                        $thumbFileModel->get('uniqueName'),
+                        PATHINFO_EXTENSION
+                    )
+                )
+            )
         );
 
-        $image = Image::open($this->get("originalFileModel")->getUrl());
+        $image = Image::open(
+            $this->get('originalFileModel')->getUrl()
+        );
 
-        switch ($data["flip"]) {
+        switch ($data['flip']) {
             case self::FLIP_BOTH:
                 $image->flip(true, true);
                 break;
@@ -700,33 +585,34 @@ class ImageInstanceModel extends AbstractModel
                 break;
         }
 
-        if ($data["angle"] !== 0) {
-            $image->rotate($data["angle"]);
+        if ($data['angle'] !== 0) {
+            $image->rotate($data['angle']);
         }
 
-        $thumbWidth = $data["thumbX2"] - $data["thumbX1"];
-        $thumbHeight = $data["thumbY2"] - $data["thumbY1"];
+        $thumbWidth = ($data['thumbX2'] - $data['thumbX1']);
+        $thumbHeight = ($data['thumbY2'] - $data['thumbY1']);
 
         $image->crop(
-            $data["thumbX1"],
-            $data["thumbY1"],
+            $data['thumbX1'],
+            $data['thumbY1'],
             $thumbWidth,
             $thumbHeight
         );
 
         if ($thumbWidth > $thumbHeight) {
             if ($thumbWidth > self::THUMB_MAX_SIZE) {
-                $k = $thumbWidth / self::THUMB_MAX_SIZE;
+                $coefficient = ($thumbWidth / self::THUMB_MAX_SIZE);
                 $thumbWidth = self::THUMB_MAX_SIZE;
-                $thumbHeight = $thumbHeight / $k;
+                $thumbHeight = ($thumbHeight / $coefficient);
             }
         } else {
             if ($thumbHeight > self::THUMB_MAX_SIZE) {
-                $k = $thumbHeight / self::THUMB_MAX_SIZE;
+                $coefficient = ($thumbHeight / self::THUMB_MAX_SIZE);
                 $thumbHeight = self::THUMB_MAX_SIZE;
-                $thumbWidth = $thumbWidth / $k;
+                $thumbWidth = ($thumbWidth / $coefficient);
             }
         }
+
         $this->_setSizes($thumbWidth, $thumbHeight);
 
         $image->resize($this->_thumbWidth, $this->_thumbHeight);
@@ -743,19 +629,19 @@ class ImageInstanceModel extends AbstractModel
     /**
      * Updates the image
      *
-     * @param array $data
+     * @param array $data Request data
      *
      * @return ImageInstanceModel
      */
     private function _updateImage(array $data)
     {
-        if ($data["isCover"] !== $this->get("isCover")
-            && $data["isCover"] === true
+        if ($data['isCover'] !== $this->get('isCover')
+            && $data['isCover'] === true
         ) {
             $this->updateMany(
-                ["isCover" => 0],
-                "imageGroupId = :imageGroupId",
-                ["imageGroupId" => $this->get("imageGroupId")]
+                ['isCover' => 0],
+                'imageGroupId = :imageGroupId',
+                ['imageGroupId' => $this->get('imageGroupId')]
             );
         }
 
@@ -768,15 +654,15 @@ class ImageInstanceModel extends AbstractModel
     /**
      * Adds SQL condition to select cover
      *
-     * @param int $groupId
+     * @param int $groupId Group ID
      *
      * @return ImageInstanceModel
      */
     public function coverByGroupId($groupId)
     {
-        $this->getDb()->addWhere("t.imageGroupId = :imageGroupId");
-        $this->getDb()->addParameter("imageGroupId", $groupId);
-        $this->getDb()->setOrder("t.isCover DESC, t.sort");
+        $this->getDb()->addWhere('t.imageGroupId = :imageGroupId');
+        $this->getDb()->addParameter('imageGroupId', $groupId);
+        $this->getDb()->setOrder('t.isCover DESC, t.sort');
         $this->getDb()->setLimit(1);
 
         return $this;
@@ -785,14 +671,14 @@ class ImageInstanceModel extends AbstractModel
     /**
      * Adds SQL condition by group ID
      *
-     * @param int $groupId
+     * @param int $groupId Group ID
      *
      * @return ImageInstanceModel
      */
     public function byGroupId($groupId)
     {
-        $this->getDb()->addWhere("t.imageGroupId = :imageGroupId");
-        $this->getDb()->addParameter("imageGroupId", $groupId);
+        $this->getDb()->addWhere('t.imageGroupId = :imageGroupId');
+        $this->getDb()->addParameter('imageGroupId', $groupId);
 
         return $this;
     }
@@ -800,21 +686,23 @@ class ImageInstanceModel extends AbstractModel
     /**
      * Adds SQL condition by image ID
      *
-     * @param int $imageId
+     * @param int $imageId Image ID
      *
      * @return ImageInstanceModel
      */
     public function byImageId($imageId)
     {
         $this->getDb()->addJoin(
-            "imageGroups",
-            "imageGroups",
+            'imageGroups',
+            'imageGroups',
             Db::DEFAULT_ALIAS,
-            "imageGroupId"
+            'imageGroupId'
         );
 
-        $this->getDb()->addWhere(sprintf("%s.imageId = :imageId", "imageGroups"));
-        $this->getDb()->addParameter("imageId", $imageId);
+        $this->getDb()->addWhere(
+            'imageGroups.imageId = :imageId'
+        );
+        $this->getDb()->addParameter('imageId', $imageId);
 
         return $this;
     }
