@@ -1,86 +1,68 @@
 <?php
 
-namespace testS\models;
+namespace testS\models\blocks\text;
 
 use testS\application\App;
-use testS\components\Db;
+use testS\application\components\Db;
+use testS\models\blocks\text\_abstract\AbstractTextInstanceModel;
 
 /**
  * Model for working with table "textInstances"
- *
- * @package testS\models
  */
-class TextInstanceModel extends AbstractModel
+class TextInstanceModel extends AbstractTextInstanceModel
 {
-
-    /**
-     * Gets table name
-     *
-     * @return string
-     */
-    public function getTableName()
-    {
-        return "textInstances";
-    }
-
-    /**
-     * Gets fields info
-     *
-     * @return array
-     */
-    public function getFieldsInfo()
-    {
-        return [
-            "textId"  => [
-                self::FIELD_RELATION_TO_PARENT   => "TextModel",
-                self::FIELD_NOT_CHANGE_ON_UPDATE => true
-            ],
-            "text"          => [
-                self::FIELD_TYPE => self::FIELD_TYPE_STRING
-            ]
-        ];
-    }
 
     /**
      * Finds by text ID
      *
-     * @param int $textId
+     * @param int $textId Text ID
      *
      * @return TextInstanceModel
      */
     public function byTextId($textId)
     {
-        $this->getDb()->addWhere(sprintf("%s.textId = :textId", Db::DEFAULT_ALIAS));
-        $this->getDb()->addParameter("textId", $textId);
+        $this->getDb()->addWhere(
+            sprintf(
+                '%s.textId = :textId',
+                Db::DEFAULT_ALIAS
+            )
+        );
+        $this->getDb()->addParameter('textId', $textId);
 
         return $this;
     }
 
     /**
      * Runs after deleting
+     *
+     * @return void
      */
     protected function afterDelete()
     {
         parent::afterDelete();
 
+        $textModel = new TextModel();
+        $textModel->set(['id' => $this->get('textId')]);
+
         App::getInstance()->getMemcached()->delete(
-            (new TextModel())->getHtmlMemcachedKey(
-                $this->get("textId")
-            )
+            $textModel->getHtmlMemcachedKey()
         );
     }
 
     /**
      * Runs after saving
+     *
+     * @return void
      */
     protected function afterSave()
     {
         parent::afterSave();
 
+        $textModel = new TextModel();
+        $textModel->set(['id' => $this->get('textId')]);
+
         App::getInstance()->getMemcached()->delete(
-            (new TextModel())->getHtmlMemcachedKey(
-                $this->get("textId")
-            )
+            $textModel->getHtmlMemcachedKey()
         );
     }
 }
