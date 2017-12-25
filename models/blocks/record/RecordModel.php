@@ -1,146 +1,43 @@
 <?php
 
-namespace testS\models;
+namespace testS\models\blocks\record;
 
-use testS\components\ValueGenerator;
+use testS\models\blocks\record\_abstract\AbstractRecordModel;
 
 /**
  * Model for working with table "records"
- *
- * @package testS\models
  */
-class RecordModel extends AbstractContentModel
+class RecordModel extends AbstractRecordModel
 {
-
-    /**
-     * Short date types
-     */
-    const DATE_TYPE_COMMON = 0;
-    const DATE_TYPE_1 = 1;
-
-    /**
-     * Gets date type list
-     *
-     * @return array
-     */
-    public static function getDateTypeList()
-    {
-        return [
-            self::DATE_TYPE_COMMON => "",
-            self::DATE_TYPE_1      => "",
-        ];
-    }
-
-    /**
-     * Gets table name
-     *
-     * @return string
-     */
-    public function getTableName()
-    {
-        return "records";
-    }
-
-    /**
-     * Gets fields info
-     *
-     * @return array
-     */
-    public function getFieldsInfo()
-    {
-        return [
-            "coverImageId"     => [
-                self::FIELD_RELATION => "ImageModel"
-            ],
-            "imagesImageId"    => [
-                self::FIELD_RELATION => "ImageModel"
-            ],
-            "descriptionTextId" => [
-                self::FIELD_RELATION => "TextModel"
-            ],
-            "textTextId"        => [
-                self::FIELD_RELATION => "TextModel"
-            ],
-            "designRecordsId"   => [
-                self::FIELD_RELATION => "DesignRecordModel"
-            ],
-            "hasCover"          => [
-                self::FIELD_TYPE => self::FIELD_TYPE_BOOL
-            ],
-            "hasImages"         => [
-                self::FIELD_TYPE => self::FIELD_TYPE_BOOL
-            ],
-            "hasCoverZoom"      => [
-                self::FIELD_TYPE => self::FIELD_TYPE_BOOL
-            ],
-            "hasDescription"    => [
-                self::FIELD_TYPE => self::FIELD_TYPE_BOOL
-            ],
-            "useAutoload"        => [
-                self::FIELD_TYPE => self::FIELD_TYPE_BOOL
-            ],
-            "pageNavigationSize" => [
-                self::FIELD_TYPE => self::FIELD_TYPE_INT,
-            ],
-            "shortCardDateType" => [
-                self::FIELD_TYPE  => self::FIELD_TYPE_INT,
-                self::FIELD_VALUE => [
-                    ValueGenerator::ARRAY_KEY => [
-                        self::getDateTypeList(),
-                        self::DATE_TYPE_COMMON
-                    ]
-                ],
-            ],
-            "fullCardDateType"  => [
-                self::FIELD_TYPE  => self::FIELD_TYPE_INT,
-                self::FIELD_VALUE => [
-                    ValueGenerator::ARRAY_KEY => [
-                        self::getDateTypeList(),
-                        self::DATE_TYPE_COMMON
-                    ]
-                ],
-            ],
-        ];
-    }
 
     /**
      * Gets HTML memcached key
      *
-     * @param int    $id
-     * @param string $uri
-     * @param string $parameter
-     *
      * @return string
      */
-    public function getHtmlMemcachedKey($id, $uri = "", $parameter = "")
+    public function getHtmlMemcachedKey()
     {
-        return sprintf("image_%s_html", $id);
+        return sprintf('image_%s_html', $this->getId());
     }
 
     /**
      * Gets CSS memcached key
      *
-     * @param int    $id
-     * @param string $uri
-     *
      * @return string
      */
-    public function getCssMemcachedKey($id, $uri = "")
+    public function getCssMemcachedKey()
     {
-        return sprintf("image_%s_css", $id);
+        return sprintf('image_%s_css', $this->getId());
     }
 
     /**
      * Gets JS memcached key
      *
-     * @param int    $id
-     * @param string $uri
-     *
      * @return string
      */
-    public function getJsMemcachedKey($id, $uri = "")
+    public function getJsMemcachedKey()
     {
-        return sprintf("image_%s_js", $id);
+        return sprintf('image_%s_js', $this->getId());
     }
 
     /**
@@ -150,7 +47,7 @@ class RecordModel extends AbstractContentModel
      */
     public function generateHtml()
     {
-        return "";
+        return '';
     }
 
     /**
