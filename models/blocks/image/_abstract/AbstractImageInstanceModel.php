@@ -21,6 +21,16 @@ abstract class AbstractImageInstanceModel extends AbstractModel
     const FLIP_BOTH = 3;
 
     /**
+     * Max size in px
+     */
+    const VIEW_MAX_SIZE = 2000;
+
+    /**
+     * Max thumb size in px
+     */
+    const THUMB_MAX_SIZE = 300;
+
+    /**
      * Gets type list
      *
      * @return array
