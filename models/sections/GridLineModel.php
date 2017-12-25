@@ -1,52 +1,15 @@
 <?php
 
-namespace testS\models;
-use testS\components\View;
+namespace testS\models\sections;
+
+use testS\application\App;
+use testS\models\sections\_abstract\AbstractGridLineModel;
 
 /**
  * Model for working with table "gridLines"
- *
- * @method GridLineModel   withRelations()
- * @method GridLineModel   ordered($type)
- * @method GridLineModel[] findAll()
- *
- * @package testS\models
  */
-class GridLineModel extends AbstractModel
+class GridLineModel extends AbstractGridLineModel
 {
-
-    /**
-     * Gets table name
-     *
-     * @return string
-     */
-    public function getTableName()
-    {
-        return "gridLines";
-    }
-
-    /**
-     * Gets fields info
-     *
-     * @return array
-     */
-    public function getFieldsInfo()
-    {
-        return [
-            "sectionId"       => [
-                self::FIELD_RELATION_TO_PARENT => "SectionModel",
-            ],
-            "outsideDesignId" => [
-                self::FIELD_RELATION => "DesignBlockModel"
-            ],
-            "insideDesignId"  => [
-                self::FIELD_RELATION => "DesignBlockModel"
-            ],
-            "sort"            => [
-                self::FIELD_TYPE => self::FIELD_TYPE_INT,
-            ],
-        ];
-    }
 
     /**
      * Adds section ID to SQL request
@@ -73,11 +36,13 @@ class GridLineModel extends AbstractModel
      */
     public function generateCss()
     {
+        $view = App::getInstance()->getView();
+
         $css = [];
 
         $css = array_merge(
             $css,
-            View::generateCss(
+            $view->generateCss(
                 $this->get("outsideDesignModel"),
                 sprintf(".line-%s", $this->getId())
             )
@@ -85,7 +50,7 @@ class GridLineModel extends AbstractModel
 
         $css = array_merge(
             $css,
-            View::generateCss(
+            $view->generateCss(
                 $this->get("insideDesignModel"),
                 sprintf(".line-%s .line-container", $this->getId())
             )
