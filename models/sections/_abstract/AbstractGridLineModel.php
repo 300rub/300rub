@@ -17,7 +17,7 @@ abstract class AbstractGridLineModel extends AbstractModel
      */
     public function getTableName()
     {
-        return "gridLines";
+        return 'gridLines';
     }
 
     /**
@@ -28,16 +28,16 @@ abstract class AbstractGridLineModel extends AbstractModel
     public function getFieldsInfo()
     {
         return [
-            "sectionId"       => [
-                self::FIELD_RELATION_TO_PARENT => "SectionModel",
+            'sectionId'       => [
+                self::FIELD_RELATION_TO_PARENT => 'SectionModel',
             ],
-            "outsideDesignId" => [
-                self::FIELD_RELATION => "DesignBlockModel"
+            'outsideDesignId' => [
+                self::FIELD_RELATION => 'DesignBlockModel'
             ],
-            "insideDesignId"  => [
-                self::FIELD_RELATION => "DesignBlockModel"
+            'insideDesignId'  => [
+                self::FIELD_RELATION => 'DesignBlockModel'
             ],
-            "sort"            => [
+            'sort'            => [
                 self::FIELD_TYPE => self::FIELD_TYPE_INT,
             ],
         ];

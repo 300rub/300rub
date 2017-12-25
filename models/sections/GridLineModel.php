@@ -20,10 +20,12 @@ class GridLineModel extends AbstractGridLineModel
      */
     public function bySectionId($sectionId = null)
     {
-        if ($sectionId) {
+        $sectionId = (int)$sectionId;
+
+        if ($sectionId > 0) {
             $this->getDb()
-                ->addWhere("sectionId = :sectionId")
-                ->addParameter("sectionId", $sectionId);
+                ->addWhere('sectionId = :sectionId')
+                ->addParameter('sectionId', $sectionId);
         }
 
         return $this;
@@ -43,16 +45,16 @@ class GridLineModel extends AbstractGridLineModel
         $css = array_merge(
             $css,
             $view->generateCss(
-                $this->get("outsideDesignModel"),
-                sprintf(".line-%s", $this->getId())
+                $this->get('outsideDesignModel'),
+                sprintf('.line-%s', $this->getId())
             )
         );
 
         $css = array_merge(
             $css,
             $view->generateCss(
-                $this->get("insideDesignModel"),
-                sprintf(".line-%s .line-container", $this->getId())
+                $this->get('insideDesignModel'),
+                sprintf('.line-%s .line-container', $this->getId())
             )
         );
 
