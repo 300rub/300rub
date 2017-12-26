@@ -1,45 +1,12 @@
 <?php
 
-namespace testS\models;
+namespace testS\models\system;
+
+use testS\models\system\_abstract\AbstractHelpModel;
 
 /**
  * Model for working with table "help"
- *
- * @package testS\models
  */
-class HelpModel extends AbstractModel
+class HelpModel extends AbstractHelpModel
 {
-
-    /**
-     * Gets table name
-     *
-     * @return string
-     */
-    public function getTableName()
-    {
-        return "help";
-    }
-
-    /**
-     * Gets fields info
-     *
-     * @return array
-     */
-    public function getFieldsInfo()
-    {
-        return [
-            "language" => [
-                self::FIELD_TYPE => self::FIELD_TYPE_STRING,
-            ],
-            "category" => [
-                self::FIELD_TYPE => self::FIELD_TYPE_STRING,
-            ],
-            "name"     => [
-                self::FIELD_TYPE => self::FIELD_TYPE_STRING,
-            ],
-            "content"  => [
-                self::FIELD_TYPE => self::FIELD_TYPE_STRING,
-            ],
-        ];
-    }
 }
