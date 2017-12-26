@@ -11,6 +11,13 @@ class GridModel extends AbstractGridModel
 {
 
     /**
+     * Same borders info
+     *
+     * @var array
+     */
+    private $_sameBordersInfo = [];
+
+    /**
      * Sets possible borders for one [Y line => borders]
      *
      * @param GridModel[] $grids Grid model
@@ -73,7 +80,7 @@ class GridModel extends AbstractGridModel
      *
      * @return int[]
      */
-    public function getPossibleBordersFromTo(
+    private function _getPossibleBordersFromTo(
         $possibleBorders,
         $yValue,
         $left,
@@ -150,5 +157,133 @@ class GridModel extends AbstractGridModel
         }
 
         return $borders;
+    }
+
+    /**
+     * Gets the same borders
+     *
+     * @param array $possibleBorders Possible borders
+     * @param array $yGrids          Y line => Grids
+     * @param int   $top             Top
+     * @param int   $bottom          Bottom
+     * @param int   $left            Left
+     * @param int   $right           Right
+     *
+     * @return array
+     */
+    public function getSameBordersInfo(
+        $possibleBorders,
+        $yGrids,
+        $top,
+        $bottom,
+        $left,
+        $right
+    ) {
+        $this->_sameBordersInfo = [];
+
+        $yList = array_keys($yGrids);
+
+        foreach ($yList as $yValue) {
+            if ($yValue < $top
+                || $yValue > $bottom
+            ) {
+                continue;
+            }
+
+            if ($yValue >= $bottom) {
+                $info[1][] = [
+                    'y'       => $bottom,
+                    'borders' => [$left, $right]
+                ];
+                break;
+            }
+
+            $this->_setSameBorderInfo(
+                $possibleBorders,
+                $yValue,
+                $bottom,
+                $left,
+                $right
+            );
+        }
+
+        if (count($this->_sameBordersInfo) === 1
+            && array_key_exists(1, $this->_sameBordersInfo) === true
+        ) {
+            return [
+                ($bottom - $top + 1) => [
+                    0 => [
+                        'y'       => $top,
+                        'borders' => [$left, $right]
+                    ]
+                ]
+            ];
+        }
+
+        krsort($info);
+
+        return $info;
+    }
+
+    /**
+     * Sets borders for one line
+     *
+     * @param array $possibleBorders Possible borders
+     * @param int   $yValue          Line number
+     * @param int   $bottom          Bottom
+     * @param int   $left            Left
+     * @param int   $right           Right
+     *
+     * @return GridModel
+     */
+    private function _setSameBorderInfo(
+        $possibleBorders,
+        $yValue,
+        $bottom,
+        $left,
+        $right
+    ) {
+        $bordersFromTo = $this->_getPossibleBordersFromTo(
+            $possibleBorders,
+            $yValue,
+            $left,
+            $right
+        );
+        if (count($bordersFromTo) === 0) {
+            return $this;
+        }
+
+        $borders = [$left, $right];
+        $count = 1;
+        for ($i = ($yValue + 1); $i < $bottom; $i++) {
+            $nextPossibleBorders = $this
+                ->_getPossibleBordersFromTo(
+                    $possibleBorders,
+                    $i,
+                    $left,
+                    $right
+                );
+
+            $checkSame
+                = array_intersect($bordersFromTo, $nextPossibleBorders);
+
+            if (count($checkSame) <= 2) {
+                break;
+            }
+
+            $borders = $checkSame;
+            $bordersFromTo = $checkSame;
+            $count++;
+        }
+
+        $borders = array_unique($borders);
+        sort($borders);
+
+        $this->_sameBordersInfo[$count][] = [
+            'y'       => $yValue,
+            'borders' => $borders
+        ];
+
+        return $this;
     }
 }

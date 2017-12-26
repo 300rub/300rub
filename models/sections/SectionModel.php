@@ -82,13 +82,6 @@ class SectionModel extends AbstractSectionModel
     private $_blocksContent = [];
 
     /**
-     * Same borders info
-     *
-     * @var array
-     */
-    private $_sameBordersInfo = [];
-
-    /**
      * Gets CSS
      *
      * @return array
@@ -241,7 +234,15 @@ class SectionModel extends AbstractSectionModel
         $containerWidth = ($right - $left);
         $gridModelForBorders = new GridModel();
 
-        $bordersInfo = $this->_getSameBordersInfo($top, $bottom, $left, $right);
+        $bordersInfo = $gridModelForBorders->getSameBordersInfo(
+            $this->_possibleBorders,
+            $this->_yGrids,
+            $top,
+            $bottom,
+            $left,
+            $right
+        );
+
         foreach ($bordersInfo as $count => $countData) {
             foreach ($countData as $data) {
                 $yValue = $data['y'];
@@ -462,115 +463,5 @@ class SectionModel extends AbstractSectionModel
             'width' => $width,
             'html'  => $this->_blockHtml
         ];
-    }
-
-    /**
-     * Gets the same borders
-     *
-     * @param int $top    Top
-     * @param int $bottom Bottom
-     * @param int $left   Left
-     * @param int $right  Right
-     *
-     * @return array
-     */
-    private function _getSameBordersInfo($top, $bottom, $left, $right)
-    {
-        $this->_sameBordersInfo = [];
-
-        $yList = array_keys($this->_yGrids);
-
-        foreach ($yList as $yValue) {
-            if ($yValue < $top
-                || $yValue > $bottom
-            ) {
-                continue;
-            }
-
-            if ($yValue >= $bottom) {
-                $info[1][] = [
-                    'y'       => $bottom,
-                    'borders' => [$left, $right]
-                ];
-                break;
-            }
-
-            $this->_setSameBorderInfo($yValue, $bottom, $left, $right);
-        }
-
-        if (count($this->_sameBordersInfo) === 1
-            && array_key_exists(1, $this->_sameBordersInfo) === true
-        ) {
-            return [
-                ($bottom - $top + 1) => [
-                    0 => [
-                        'y'       => $top,
-                        'borders' => [$left, $right]
-                    ]
-                ]
-            ];
-        }
-
-        krsort($info);
-
-        return $info;
-    }
-
-    /**
-     * Sets borders for one line
-     *
-     * @param int $yValue Line number
-     * @param int $bottom Bottom
-     * @param int $left   Left
-     * @param int $right  Right
-     *
-     * @return SectionModel
-     */
-    private function _setSameBorderInfo($yValue, $bottom, $left, $right)
-    {
-        $gridModelForBorders = new GridModel();
-
-        $possibleBorders = $gridModelForBorders->getPossibleBordersFromTo(
-            $this->_possibleBorders,
-            $yValue,
-            $left,
-            $right
-        );
-        if (count($possibleBorders) === 0) {
-            return $this;
-        }
-
-        $borders = [$left, $right];
-        $count = 1;
-        for ($i = ($yValue + 1); $i < $bottom; $i++) {
-            $nextPossibleBorders = $gridModelForBorders
-                ->getPossibleBordersFromTo(
-                    $this->_possibleBorders,
-                    $i,
-                    $left,
-                    $right
-                );
-
-            $checkSame
-                = array_intersect($possibleBorders, $nextPossibleBorders);
-
-            if (count($checkSame) <= 2) {
-                break;
-            }
-
-            $borders = $checkSame;
-            $possibleBorders = $checkSame;
-            $count++;
-        }
-
-        $borders = array_unique($borders);
-        sort($borders);
-
-        $this->_sameBordersInfo[$count][] = [
-            'y'       => $yValue,
-            'borders' => $borders
-        ];
-
-        return $this;
     }
 }
