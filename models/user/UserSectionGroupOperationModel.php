@@ -1,11 +1,12 @@
 <?php
 
-namespace testS\models;
+namespace testS\models\user;
 
 use testS\components\Db;
 use testS\components\Operation;
 use testS\components\Validator;
 use testS\components\ValueGenerator;
+use testS\models\_abstract\AbstractModel;
 
 /**
  * Model for working with table "userSectionGroupOperations"

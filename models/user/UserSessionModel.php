@@ -5,7 +5,7 @@ namespace testS\models\user;
 use testS\components\Db;
 use testS\components\Validator;
 use DateTime;
-use testS\models\AbstractModel;
+use testS\models\_abstract\AbstractModel;
 
 /**
  * Model for working with table "userSessions"

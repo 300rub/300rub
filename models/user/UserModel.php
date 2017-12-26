@@ -1,41 +1,23 @@
 <?php
 
-namespace testS\models;
+namespace testS\models\user;
 
 use testS\application\App;
-use testS\components\Db;
-use testS\components\Language;
-use testS\components\Operation;
-use testS\components\Validator;
-use testS\components\ValueGenerator;
+use testS\application\components\Db;
+use testS\application\components\Operation;
+use testS\models\blocks\block\BlockModel;
+use testS\models\user\_abstract\AbstractUserModel;
 
 /**
  * Model for working with table "users"
- *
- * @package testS\models
- *
- * @method UserModel   byId($id)
- * @method UserModel   find()
- * @method UserModel[] findAll()
- * @method UserModel   exceptId($id)
- * @method UserModel   latest
- * @method UserModel   ordered($value = "name", $alias = Db::DEFAULT_ALIAS, $isDesc = false)
  */
-class UserModel extends AbstractModel
+class UserModel extends AbstractUserModel
 {
-
-    /**
-     * Types
-     */
-    const TYPE_BLOCKED = 0;
-    const TYPE_OWNER = 1;
-    const TYPE_FULL = 2;
-    const TYPE_LIMITED = 3;
 
     /**
      * Password salt
      */
-    const PASSWORD_SALT = "(^_^)";
+    const PASSWORD_SALT = '(^_^)';
 
     /**
      * Length of password
@@ -45,133 +27,25 @@ class UserModel extends AbstractModel
     /**
      * Remember or not
      *
-     * @var bool
+     * @var boolean
      */
     public $isRemember = false;
 
     /**
-     * Gets type list
-     *
-     * @param bool $exceptOwner
-     *
-     * @return array
-     */
-    public static function getTypeList($exceptOwner = false)
-    {
-        $list = [
-            self::TYPE_FULL    => Language::t("user", "typeFull"),
-            self::TYPE_LIMITED => Language::t("user", "typeLimited"),
-            self::TYPE_BLOCKED => Language::t("user", "typeBlocked"),
-        ];
-
-        if ($exceptOwner === false) {
-            $list[self::TYPE_OWNER] = Language::t("user", "typeOwner");
-        }
-
-        return $list;
-    }
-
-    /**
-     * Gets table name
-     *
-     * @return string
-     */
-    public function getTableName()
-    {
-        return "users";
-    }
-
-    /**
-     * Gets fields info
-     *
-     * @return array
-     */
-    public function getFieldsInfo()
-    {
-        return [
-            "login"    => [
-                self::FIELD_TYPE             => self::FIELD_TYPE_STRING,
-                self::FIELD_VALIDATION       => [
-                    Validator::TYPE_REQUIRED,
-                    Validator::TYPE_MIN_LENGTH => 3,
-                    Validator::TYPE_MAX_LENGTH => 50,
-                    Validator::TYPE_LATIN_DIGIT_UNDERSCORE_HYPHEN
-                ],
-                self::FIELD_SKIP_DUPLICATION => true,
-                self::FIELD_UNIQUE           => true
-            ],
-            "password" => [
-                self::FIELD_TYPE             => self::FIELD_TYPE_STRING,
-                self::FIELD_VALIDATION       => [
-                    Validator::TYPE_REQUIRED,
-                    Validator::TYPE_MIN_LENGTH => 40,
-                    Validator::TYPE_MAX_LENGTH => 40,
-                ],
-                self::FIELD_SKIP_DUPLICATION => true,
-            ],
-            "type"     => [
-                self::FIELD_TYPE        => self::FIELD_TYPE_INT,
-                self::FIELD_VALUE       => [
-                    ValueGenerator::ARRAY_KEY => [self::getTypeList(), self::TYPE_BLOCKED]
-                ],
-                self::FIELD_BEFORE_SAVE => ["setType"],
-            ],
-            "name"     => [
-                self::FIELD_TYPE             => self::FIELD_TYPE_STRING,
-                self::FIELD_VALIDATION       => [
-                    Validator::TYPE_REQUIRED,
-                    Validator::TYPE_MAX_LENGTH => 100,
-                ],
-                self::FIELD_SKIP_DUPLICATION => true,
-                self::FIELD_VALUE      => [
-                    ValueGenerator::CLEAR_STRIP_TAGS
-                ],
-            ],
-            "email"    => [
-                self::FIELD_TYPE             => self::FIELD_TYPE_STRING,
-                self::FIELD_VALIDATION       => [
-                    Validator::TYPE_REQUIRED,
-                    Validator::TYPE_EMAIL,
-                ],
-                self::FIELD_SKIP_DUPLICATION => true,
-                self::FIELD_UNIQUE           => true
-            ],
-        ];
-    }
-
-    /**
-     * Sets is owner
-     *
-     * @param int $value
-     *
-     * @return bool
-     */
-    protected function setType($value)
-    {
-        if ($value === self::TYPE_OWNER
-            && $this->owner()->exceptId($this->getId())->find() !== null
-        ) {
-            return self::TYPE_BLOCKED;
-        }
-
-        return $value;
-    }
-
-    /**
      * Gets type as string
      *
-     * @param int $type
+     * @param int $type Type value
      *
      * @return string
      */
     public function getType($type = null)
     {
         if ($type === null) {
-            $type = $this->get("type");
+            $type = $this->get('type');
         }
 
-        $typeList = self::getTypeList();
-        if (!array_key_exists($type, $typeList)) {
+        $typeList = $this->getTypeList(false);
+        if (array_key_exists($type, $typeList) === false) {
             return null;
         }
 
@@ -181,27 +55,19 @@ class UserModel extends AbstractModel
     /**
      * Adds login condition to SQL request
      *
-     * @param string $login
+     * @param string $login Login
      *
      * @return UserModel
      */
     public function byLogin($login)
     {
-        $this->getDb()->addWhere(sprintf("%s.login = :login", Db::DEFAULT_ALIAS));
-        $this->getDb()->addParameter("login", $login);
-
-        return $this;
-    }
-
-    /**
-     * Adds owner condition to SQL request
-     *
-     * @return UserModel
-     */
-    public function owner()
-    {
-        $this->getDb()->addWhere(sprintf("%s.type = :type", Db::DEFAULT_ALIAS));
-        $this->getDb()->addParameter("type", self::TYPE_OWNER);
+        $this->getDb()->addWhere(
+            sprintf(
+                '%s.login = :login',
+                Db::DEFAULT_ALIAS
+            )
+        );
+        $this->getDb()->addParameter('login', $login);
 
         return $this;
     }
@@ -224,60 +90,65 @@ class UserModel extends AbstractModel
         ];
 
         // All sections
-        $sectionGroupOperations = (new UserSectionGroupOperationModel())->byUserId($this->getId())->findAll();
+        $sectionGroup = new UserSectionGroupOperationModel();
+        $sectionGroupOperations = $sectionGroup->byUserId($this->getId())->findAll();
         if (count($sectionGroupOperations) > 0) {
             $operations[Operation::TYPE_SECTIONS][Operation::ALL] = [];
             foreach ($sectionGroupOperations as $sectionGroupOperation) {
-                $operations[Operation::TYPE_SECTIONS][Operation::ALL][] = $sectionGroupOperation->get("operation");
+                $operations[Operation::TYPE_SECTIONS][Operation::ALL][] = $sectionGroupOperation->get('operation');
             }
         }
 
         // Sections
         $sectionOperations = (new UserSectionOperationModel())->byUserId($this->getId())->findAll();
         foreach ($sectionOperations as $sectionOperation) {
-            $operations[Operation::TYPE_SECTIONS][$sectionOperation->get("sectionId")][] =
-                $sectionOperation->get("operation");
+            $operations[Operation::TYPE_SECTIONS][$sectionOperation->get('sectionId')][] = $sectionOperation->get('operation');
         }
 
         // All blocks
         $blockGroupOperations = (new UserBlockGroupOperationModel())->byUserId($this->getId())->findAll();
         foreach ($blockGroupOperations as $blockGroupOperation) {
-            $blockType = $blockGroupOperation->get("blockType");
+            $blockType = $blockGroupOperation->get('blockType');
             if (!array_key_exists($blockType, $operations[Operation::TYPE_BLOCKS])) {
                 $operations[Operation::TYPE_BLOCKS][$blockType] = [];
             }
+
             if (!array_key_exists(Operation::ALL, $operations[Operation::TYPE_BLOCKS][$blockType])) {
                 $operations[Operation::TYPE_BLOCKS][$blockType][Operation::ALL] = [];
             }
-            $operations[Operation::TYPE_BLOCKS][$blockType][Operation::ALL][] = $blockGroupOperation->get("operation");
+
+            $operations[Operation::TYPE_BLOCKS][$blockType][Operation::ALL][] = $blockGroupOperation->get('operation');
         }
 
         // Blocks
         $blockOperations = (new UserBlockOperationModel())->byUserId($this->getId())->findAll();
         foreach ($blockOperations as $blockOperation) {
-            $blockType = $blockOperation->get("blockType");
+            $blockType = $blockOperation->get('blockType');
             if (!array_key_exists($blockType, $operations[Operation::TYPE_BLOCKS])) {
                 $operations[Operation::TYPE_BLOCKS][$blockType] = [];
             }
-            if (!array_key_exists($blockOperation->get("blockId"), $operations[Operation::TYPE_BLOCKS][$blockType])) {
-                $operations[Operation::TYPE_BLOCKS][$blockType][$blockOperation->get("blockId")] = [];
+
+            if (!array_key_exists($blockOperation->get('blockId'), $operations[Operation::TYPE_BLOCKS][$blockType])) {
+                $operations[Operation::TYPE_BLOCKS][$blockType][$blockOperation->get('blockId')] = [];
             }
-            $operations[Operation::TYPE_BLOCKS][$blockType][$blockOperation->get("blockId")][] =
-                $blockOperation->get("operation");
+
+            $operations[Operation::TYPE_BLOCKS][$blockType][$blockOperation->get('blockId')][] = $blockOperation->get('operation');
         }
 
         // Settings
         $settingsOperations = (new UserSettingsOperationModel())->byUserId($this->getId())->findAll();
         foreach ($settingsOperations as $settingsOperation) {
-            $operations[Operation::TYPE_SETTINGS][] = $settingsOperation->get("operation");
+            $operations[Operation::TYPE_SETTINGS][] = $settingsOperation->get('operation');
         }
 
         if (count($operations[Operation::TYPE_BLOCKS]) === 0) {
             unset($operations[Operation::TYPE_BLOCKS]);
         }
+
         if (count($operations[Operation::TYPE_SECTIONS]) === 0) {
             unset($operations[Operation::TYPE_SECTIONS]);
         }
+
         if (count($operations[Operation::TYPE_SETTINGS]) === 0) {
             unset($operations[Operation::TYPE_SETTINGS]);
         }
@@ -317,19 +188,26 @@ class UserModel extends AbstractModel
             return $this;
         }
 
+        $operation = App::getInstance()->getOperation();
+
         foreach ($operations[Operation::TYPE_SECTIONS] as $key => $values) {
             if ($key === Operation::ALL
                 && is_array($operations[Operation::TYPE_SECTIONS][$key])
             ) {
-                foreach ($operations[Operation::TYPE_SECTIONS][$key] as $operationKey => $operationValue) {
-                    if (array_key_exists($operationKey, Operation::getSectionOperations(true))
+                $sectionOperations = $operations[Operation::TYPE_SECTIONS][$key];
+                foreach ($sectionOperations as $operationKey => $operationValue) {
+                    $hasOperation = array_key_exists(
+                        $operationKey,
+                        $operation->getSectionOperations(true)
+                    );
+                    if ($hasOperation === true
                         && $operationValue === true
                     ) {
                         $model = new UserSectionGroupOperationModel();
                         $model->set(
                             [
-                                "userId"    => $this->getId(),
-                                "operation" => $operationKey
+                                'userId'    => $this->getId(),
+                                'operation' => $operationKey
                             ]
                         );
                         $model->save();
@@ -340,18 +218,22 @@ class UserModel extends AbstractModel
             }
 
             if ($key !== Operation::ALL
-                && is_array($operations[Operation::TYPE_SECTIONS][$key])
+                && is_array($operations[Operation::TYPE_SECTIONS][$key]) === true
             ) {
                 foreach ($operations[Operation::TYPE_SECTIONS][$key] as $operationKey => $operationValue) {
-                    if (array_key_exists($operationKey, Operation::getSectionOperations())
+                    $hasOperation = array_key_exists(
+                        $operationKey,
+                        $operation->getSectionOperations(false)
+                    );
+                    if ($hasOperation === true
                         && $operationValue === true
                     ) {
                         $model = new UserSectionOperationModel();
                         $model->set(
                             [
-                                "userId"    => $this->getId(),
-                                "sectionId" => $key,
-                                "operation" => $operationKey
+                                'userId'    => $this->getId(),
+                                'sectionId' => $key,
+                                'operation' => $operationKey
                             ]
                         );
                         $model->save();
@@ -366,42 +248,50 @@ class UserModel extends AbstractModel
     /**
      * Adds block operations
      *
-     * @param array $operations
+     * @param array $operations Operations
      *
      * @return UserModel
      */
-    private function _addBlockOperations(array $operations) {
-        if (!array_key_exists(Operation::TYPE_BLOCKS, $operations)
-            || !is_array($operations[Operation::TYPE_BLOCKS])
+    private function _addBlockOperations(array $operations)
+    {
+        if (array_key_exists(Operation::TYPE_BLOCKS, $operations) === false
+            || is_array($operations[Operation::TYPE_BLOCKS]) === false
         ) {
             return $this;
         }
 
-        foreach ($operations[Operation::TYPE_BLOCKS] as $blockType => $blockTypeValues) {
-            if (!array_key_exists($blockType, BlockModel::$typeList)
-                || !is_array($blockTypeValues)
+        $blockOperations = $operations[Operation::TYPE_BLOCKS];
+        foreach ($blockOperations as $blockType => $blockTypeValues) {
+            if (array_key_exists($blockType, BlockModel::$typeList) === false
+                || is_array($blockTypeValues) === false
             ) {
                 continue;
             }
 
-            $blockAllOperations = Operation::getOperationsByContentType($blockType, true);
-            $blockOperations = Operation::getOperationsByContentType($blockType);
+            $operation = App::getInstance()->getOperation();
+            $blockAllOperations
+                = $operation->getOperationsByContentType($blockType, true);
+            $blockOperations
+                = $operation->getOperationsByContentType($blockType, false);
 
-
-            foreach ($blockTypeValues as $key => $value) {
+            foreach (array_keys($blockTypeValues) as $key) {
                 if ($key === Operation::ALL
-                    && is_array($blockTypeValues[$key])
+                    && is_array($blockTypeValues[$key]) === true
                 ) {
                     foreach ($blockTypeValues[$key] as $operationKey => $operationValue) {
-                        if (array_key_exists($operationKey, $blockAllOperations)
+                        $hasKey = array_key_exists(
+                            $operationKey,
+                            $blockAllOperations
+                        );
+                        if ($hasKey === true
                             && $operationValue === true
                         ) {
                             $model = new UserBlockGroupOperationModel();
                             $model->set(
                                 [
-                                    "userId"    => $this->getId(),
-                                    "blockType" => $blockType,
-                                    "operation" => $operationKey
+                                    'userId'    => $this->getId(),
+                                    'blockType' => $blockType,
+                                    'operation' => $operationKey
                                 ]
                             );
                             $model->save();
@@ -412,19 +302,23 @@ class UserModel extends AbstractModel
                 }
 
                 if ($key !== Operation::ALL
-                    && is_array($blockTypeValues[$key])
+                    && is_array($blockTypeValues[$key]) === true
                 ) {
                     foreach ($blockTypeValues[$key] as $operationKey => $operationValue) {
-                        if (array_key_exists($operationKey, $blockOperations)
+                        $hasKey = array_key_exists(
+                            $operationKey,
+                            $blockOperations
+                        );
+                        if ($hasKey === true
                             && $operationValue === true
                         ) {
                             $model = new UserBlockOperationModel();
                             $model->set(
                                 [
-                                    "userId"    => $this->getId(),
-                                    "blockType" => $blockType,
-                                    "blockId"   => $key,
-                                    "operation" => $operationKey
+                                    'userId'    => $this->getId(),
+                                    'blockType' => $blockType,
+                                    'blockId'   => $key,
+                                    'operation' => $operationKey
                                 ]
                             );
                             $model->save();
@@ -440,27 +334,32 @@ class UserModel extends AbstractModel
     /**
      * Adds settings operations
      *
-     * @param array $operations
+     * @param array $operations Operations
      *
      * @return UserModel
      */
     private function _addSettingsOperations(array $operations)
     {
-        if (!array_key_exists(Operation::TYPE_SETTINGS, $operations)
-            || !is_array($operations[Operation::TYPE_SETTINGS])
+        if (array_key_exists(Operation::TYPE_SETTINGS, $operations) === false
+            || is_array($operations[Operation::TYPE_SETTINGS]) === false
         ) {
             return $this;
         }
 
-        foreach ($operations[Operation::TYPE_SETTINGS] as $operationKey => $operationValue) {
-            if (array_key_exists($operationKey, Operation::getSettingsOperations())
+        $settingsOperations = $operations[Operation::TYPE_SETTINGS];
+        foreach ($settingsOperations as $operationKey => $operationValue) {
+            $hasOperation = array_key_exists(
+                $operationKey,
+                App::getInstance()->getOperation()->getSettingsOperations()
+            );
+            if ($hasOperation === true
                 && $operationValue === true
             ) {
                 $model = new UserSettingsOperationModel();
                 $model->set(
                     [
-                        "userId"    => $this->getId(),
-                        "operation" => $operationKey
+                        'userId'    => $this->getId(),
+                        'operation' => $operationKey
                     ]
                 );
                 $model->save();
@@ -473,7 +372,7 @@ class UserModel extends AbstractModel
     /**
      * Updates operations
      *
-     * @param array $operations
+     * @param array $operations Operations
      *
      * @return UserModel
      */
@@ -483,10 +382,12 @@ class UserModel extends AbstractModel
             ->_deleteOperations()
             ->addOperations($operations);
 
-        $sessionModels = (new UserSessionModel())->byUserId($this->getId())->findAll();
+        $sessionModels = new UserSessionModel();
+        $sessionModels->byUserId($this->getId());
+        $sessionModels = $sessionModels->findAll();
         foreach ($sessionModels as $sessionModel) {
             App::web()->getMemcached()->delete(
-                $sessionModel->get("token")
+                $sessionModel->get('token')
             );
         }
 
@@ -500,11 +401,45 @@ class UserModel extends AbstractModel
      */
     private function _deleteOperations()
     {
-        (new UserBlockGroupOperationModel())->delete("userId = :userId", ["userId" => $this->getId()]);
-        (new UserBlockOperationModel())->delete("userId = :userId", ["userId" => $this->getId()]);
-        (new UserSectionGroupOperationModel())->delete("userId = :userId", ["userId" => $this->getId()]);
-        (new UserSectionOperationModel())->delete("userId = :userId", ["userId" => $this->getId()]);
-        (new UserSettingsOperationModel())->delete("userId = :userId", ["userId" => $this->getId()]);
+        $blockGroup = new UserBlockGroupOperationModel();
+        $blockGroup->delete(
+            'userId = :userId',
+            [
+                'userId' => $this->getId()
+            ]
+        );
+
+        $blockOperation = new UserBlockOperationModel();
+        $blockOperation->delete(
+            'userId = :userId',
+            [
+                'userId' => $this->getId()
+            ]
+        );
+
+        $sectionGroup = new UserSectionGroupOperationModel();
+        $sectionGroup->delete(
+            'userId = :userId',
+            [
+                'userId' => $this->getId()
+            ]
+        );
+
+        $sectionOperation = new UserSectionOperationModel();
+        $sectionOperation->delete(
+            'userId = :userId',
+            [
+                'userId' => $this->getId()
+            ]
+        );
+
+        $settingsOperation = new UserSettingsOperationModel();
+        $settingsOperation->delete(
+            'userId = :userId',
+            [
+                'userId' => $this->getId()
+            ]
+        );
 
         return $this;
     }
@@ -516,18 +451,18 @@ class UserModel extends AbstractModel
      */
     public function isOwner()
     {
-        return $this->get("type") === self::TYPE_OWNER;
+        return $this->get('type') === self::TYPE_OWNER;
     }
 
     /**
      * Gets password hash
      *
-     * @param string $password
-     * @param bool   $isOriginal
+     * @param string $password   Password hash
+     * @param bool   $isOriginal Flag of original password
      *
      * @return string
      */
-    public static function getPasswordHash($password, $isOriginal = false)
+    public static function getPasswordHash($password, $isOriginal)
     {
         if ($isOriginal === true) {
             return sha1(md5($password . self::PASSWORD_SALT));

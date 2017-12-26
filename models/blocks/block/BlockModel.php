@@ -43,8 +43,6 @@ class BlockModel extends AbstractBlockModel
      */
     private $_js = [];
 
-
-
     /**
      * Gets type names
      *
