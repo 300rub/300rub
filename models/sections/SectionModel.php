@@ -279,9 +279,9 @@ class SectionModel extends AbstractSectionModel
         $last = 0;
 
         foreach ($grids as $grid) {
-            $y = $grid->get('y');
-            if ($y > $currentY) {
-                $currentY = $y;
+            $yValue = $grid->get('y');
+            if ($yValue > $currentY) {
+                $currentY = $yValue;
             }
 
             $x = $grid->get('x');
@@ -340,100 +340,30 @@ class SectionModel extends AbstractSectionModel
         $bordersInfo = $this->_getSameBordersInfo($top, $bottom, $left, $right);
         foreach ($bordersInfo as $count => $countData) {
             foreach ($countData as $data) {
-                $y = $data['y'];
+                $yValue = $data['y'];
 
-                if (in_array($y, $usedYLines) === true) {
+                if (in_array($yValue, $usedYLines) === true) {
                     continue;
                 }
 
                 $currentLines = [];
-                $yLast = ($y + $count - 1);
-                for ($i = $y; $i <= $yLast; $i++) {
+                $yLast = ($yValue + $count - 1);
+                for ($i = $yValue; $i <= $yLast; $i++) {
                     $currentLines[] = $i;
                 }
 
                 $usedYLines = array_merge($usedYLines, $currentLines);
 
-                $possibleBorders = $data['borders'];
-
-                $borders = [];
-                foreach ($possibleBorders as $possibleBorder) {
-                    foreach ($this->_yGrids as $gridY => $grids) {
-                        if (in_array($gridY, $currentLines) === false
-                            || in_array($possibleBorder, $borders) === true
-                        ) {
-                            continue;
-                        }
-
-                        foreach ($grids as $grid) {
-                            $gridX = $grid->get('x');
-                            $gridWidth = $grid->get('width');
-                            if ($gridX === $possibleBorder
-                                || ($gridX + $gridWidth) === $possibleBorder
-                            ) {
-                                $borders[] = $possibleBorder;
-                            }
-                        }
-                    }
-                }
-
-                $structureData = [];
-                sort($borders);
-                $countBorders = (count($borders) - 1);
-                for ($i = 0; $i < $countBorders; $i++) {
-                    $x = $borders[$i];
-                    $width = ($borders[($i + 1)] - $x);
-
-                    if ($width > 0) {
-                        $structureData[] = [
-                            'type'  => 'container',
-                            'x'     => $x,
-                            'left'  => (100 / $containerWidth * ($x - $left)),
-                            'width' => $width,
-                        ];
-                    }
-                }
-
-                if (count($structureData) === 1) {
-                    $left = $structureData[0]['x'];
-                    $right
-                        = ($structureData[0]['x'] + $structureData[0]['width']);
-                    $containerGrids = $this->_getContainerBlocks(
-                        $y,
-                        $yLast,
-                        $left,
-                        $right
-                    );
-
-                    if (count($containerGrids) === 0) {
-                        continue;
-
-                    }
-
-                    $structureData = $containerGrids;
-                } else {
-                    foreach ($structureData as $key => &$container) {
-                        $left = $container['x'];
-                        $right = ($container['x'] + $container['width']);
-                        $data = $this->_getLineStructure(
-                            $y,
-                            $yLast,
-                            $left,
-                            $right
-                        );
-
-                        if (count($data) === 0) {
-                            unset($structureData[$key]);
-                        }
-
-                        if (count($data) > 0) {
-                            $container['data'] = $data;
-                        }
-                    }
-                }
+                $structureData = $this->_getStructureData(
+                    $yValue,
+                    $yLast,
+                    $containerWidth,
+                    $left,
+                    $this->_getBorders($data, $currentLines)
+                );
 
                 if (count($structureData) > 0) {
-                    $structure[$y] = $structureData;
+                    $structure[$yValue] = $structureData;
                 }
             }
         }
@@ -441,6 +371,132 @@ class SectionModel extends AbstractSectionModel
         ksort($structure);
 
         return $structure;
+    }
+
+    /**
+     * Gets borders
+     *
+     * @param array $data         Count data
+     * @param array $currentLines Current lines
+     *
+     * @return array
+     */
+    private function _getBorders($data, $currentLines)
+    {
+        $borders = [];
+
+        foreach ($data['borders'] as $possibleBorder) {
+            foreach ($this->_yGrids as $gridY => $grids) {
+                if (in_array($gridY, $currentLines) === false
+                    || in_array($possibleBorder, $borders) === true
+                ) {
+                    continue;
+                }
+
+                $borders = array_merge(
+                    $borders,
+                    $this->_getGridBorders($grids, $possibleBorder)
+                );
+            }
+        }
+
+        return $borders;
+    }
+
+    /**
+     * Gets grid borders
+     *
+     * @param GridModel[] $grids          Grid models
+     * @param integer     $possibleBorder Possible border
+     *
+     * @return array
+     */
+    private function _getGridBorders($grids, $possibleBorder)
+    {
+        $borders = [];
+
+        foreach ($grids as $grid) {
+            $gridX = $grid->get('x');
+            $gridWidth = $grid->get('width');
+            if ($gridX === $possibleBorder
+                || ($gridX + $gridWidth) === $possibleBorder
+            ) {
+                $borders[] = $possibleBorder;
+            }
+        }
+
+        return $borders;
+    }
+
+    /**
+     * Gets structure date
+     *
+     * @param integer $yValue         Current Y value
+     * @param integer $yLast          Last Y value
+     * @param integer $containerWidth Container width
+     * @param integer $left           Left
+     * @param array   $borders        Borders
+     *
+     * @return array
+     */
+    private function _getStructureData(
+        $yValue,
+        $yLast,
+        $containerWidth,
+        $left,
+        $borders
+    ) {
+        $structureData = [];
+        sort($borders);
+        $countBorders = (count($borders) - 1);
+        for ($i = 0; $i < $countBorders; $i++) {
+            $xValue = $borders[$i];
+            $width = ($borders[($i + 1)] - $xValue);
+
+            if ($width > 0) {
+                $structureData[] = [
+                    'type'  => 'container',
+                    'x'     => $xValue,
+                    'left'  => (100 / $containerWidth * ($xValue - $left)),
+                    'width' => $width,
+                ];
+            }
+        }
+
+        if (count($structureData) === 1) {
+            $left = $structureData[0]['x'];
+            $right
+                = ($structureData[0]['x'] + $structureData[0]['width']);
+            $containerGrids = $this->_getContainerBlocks(
+                $yValue,
+                $yLast,
+                $left,
+                $right
+            );
+
+            return $containerGrids;
+        }
+
+        foreach ($structureData as $key => &$container) {
+            $left = $container['x'];
+            $right = ($container['x'] + $container['width']);
+            $data = $this->_getLineStructure(
+                $yValue,
+                $yLast,
+                $left,
+                $right
+            );
+
+            if (count($data) === 0) {
+                unset($structureData[$key]);
+            }
+
+            if (count($data) > 0) {
+                $container['data'] = $data;
+            }
+        }
+
+        return $structureData;
     }
 
     /**
