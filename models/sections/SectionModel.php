@@ -45,14 +45,35 @@ class SectionModel extends AbstractSectionModel
      *
      * @var array
      */
-    private $_css = [];
+    private $_cssList = [];
 
     /**
      * JS
      *
      * @var array
      */
-    private $_js = [];
+    private $_jsList = [];
+
+    /**
+     * Block HTML
+     *
+     * @var string
+     */
+    private $_blockHtml = '';
+
+    /**
+     * Block CSS
+     *
+     * @var array
+     */
+    private $_blockCss = [];
+
+    /**
+     * Block JS
+     *
+     * @var array
+     */
+    private $_blockJs = [];
 
     /**
      * Blocks content
@@ -60,6 +81,13 @@ class SectionModel extends AbstractSectionModel
      * @var array
      */
     private $_blocksContent = [];
+
+    /**
+     * Same borders info
+     *
+     * @var array
+     */
+    private $_sameBordersInfo = [];
 
     /**
      * Adds isMain = 1 condition to SQL request
@@ -99,7 +127,7 @@ class SectionModel extends AbstractSectionModel
      */
     public function getCss()
     {
-        return $this->_css;
+        return $this->_cssList;
     }
 
     /**
@@ -109,7 +137,7 @@ class SectionModel extends AbstractSectionModel
      */
     public function getJs()
     {
-        return $this->_js;
+        return $this->_jsList;
     }
 
     /**
@@ -168,7 +196,7 @@ class SectionModel extends AbstractSectionModel
             return $this;
         }
 
-        $this->_css = $this->_generateCss();
+        $this->_cssList = $this->_generateCss();
 
         $gridLineModels = $this->_getGridLineModels();
         if (count($gridLineModels) === 0) {
@@ -179,8 +207,8 @@ class SectionModel extends AbstractSectionModel
 
         foreach ($gridLineModels as $gridLineModel) {
             $gridLineIds[] = $gridLineModel->getId();
-            $this->_css = array_merge(
-                $this->_css,
+            $this->_cssList = array_merge(
+                $this->_cssList,
                 $gridLineModel->generateCss()
             );
         }
@@ -377,11 +405,12 @@ class SectionModel extends AbstractSectionModel
                         $right
                     );
 
-                    if (count($containerGrids) > 0) {
-                        $structureData = $containerGrids;
-                    } else {
+                    if (count($containerGrids) === 0) {
                         continue;
+
                     }
+
+                    $structureData = $containerGrids;
                 } else {
                     foreach ($structureData as $key => &$container) {
                         $left = $container['x'];
@@ -395,7 +424,9 @@ class SectionModel extends AbstractSectionModel
 
                         if (count($data) === 0) {
                             unset($structureData[$key]);
-                        } else {
+                        }
+
+                        if (count($data) > 0) {
                             $container['data'] = $data;
                         }
                     }
@@ -425,61 +456,103 @@ class SectionModel extends AbstractSectionModel
     private function _getContainerBlocks($top, $bottom, $left, $right)
     {
         $blocks = [];
-        $containerWidth = ($right - $left);
 
-        foreach ($this->_yGrids as $y => $grids) {
-            if ($y < $top
-                || $y > $bottom
+        foreach ($this->_yGrids as $yValue => $grids) {
+            if ($yValue < $top
+                || $yValue > $bottom
             ) {
                 continue;
             }
 
             foreach ($grids as $grid) {
-                $x = $grid->get('x');
-                $width = $grid->get('width');
-                if ($x >= $left
-                    && ($x + $width) <= $right
-                ) {
-                    $blockId = $grid->get('blockId');
+                $block = $this->_getContainerBlock(
+                    $grid,
+                    $yValue,
+                    $left,
+                    $right
+                );
 
-                    $hasBlockId = array_key_exists(
-                        $blockId,
-                        $this->_blocksContent
-                    );
-                    if ($hasBlockId === true) {
-                        $html = $this->_blocksContent[$blockId]['html'];
-                        $css = $this->_blocksContent[$blockId]['css'];
-                        $js = $this->_blocksContent[$blockId]['js'];
-                    } else {
-                        $blockModel = BlockModel::getById($blockId)
-                            ->setContent();
-                        $html = $blockModel->getHtml();
-                        $css = $blockModel->getCss();
-                        $js = $blockModel->getJs();
-
-                        $this->_blocksContent[$blockId] = [
-                            'html' => $html,
-                            'css'  => $css,
-                            'js'   => $js,
-                        ];
-                    }
-
-                    $this->_css = array_merge($this->_css, $css);
-                    $this->_js = array_merge($this->_js, $js);
-
-                    $blocks[] = [
-                        'type'  => 'block',
-                        'id'    => $grid->get('blockId'),
-                        'y'     => $y,
-                        'left'  => (100 / $containerWidth * ($x - $left)),
-                        'width' => $width,
-                        'html'  => $html
-                    ];
+                if (count($block) > 0) {
+                    $blocks[] = $block;
                 }
             }
         }
 
         return $blocks;
+    }
+
+    /**
+     * Sets block static
+     *
+     * @param GridModel $grid Grid model
+     *
+     * @return SectionModel
+     */
+    private function _setBlockStatic($grid)
+    {
+        $blockId = $grid->get('blockId');
+
+        $hasBlockId = array_key_exists(
+            $blockId,
+            $this->_blocksContent
+        );
+        if ($hasBlockId === true) {
+            $this->_blockHtml = $this->_blocksContent[$blockId]['html'];
+            $this->_blockCss = $this->_blocksContent[$blockId]['css'];
+            $this->_blockJs = $this->_blocksContent[$blockId]['js'];
+            return $this;
+        }
+
+        $blockModel = BlockModel::getById($blockId)
+            ->setContent();
+        $this->_blockHtml = $blockModel->getHtml();
+        $this->_blockCss = $blockModel->getCss();
+        $this->_blockJs = $blockModel->getJs();
+
+        $this->_blocksContent[$blockId] = [
+            'html' => $this->_blockHtml,
+            'css'  => $this->_blockCss,
+            'js'   => $this->_blockJs,
+        ];
+
+        return $this;
+    }
+
+    /**
+     * Gets container block
+     *
+     * @param GridModel $grid   Grim model
+     * @param int       $yValue Y value
+     * @param int       $left   Left
+     * @param int       $right  Right
+     *
+     * @return array
+     */
+    private function _getContainerBlock($grid, $yValue, $left, $right)
+    {
+        $containerWidth = ($right - $left);
+
+        $xValue = $grid->get('x');
+        $width = $grid->get('width');
+        if ($xValue < $left
+            || ($xValue + $width) > $right
+        ) {
+            return [];
+        }
+
+        $this->_setBlockStatic($grid);
+
+        $this->_cssList = array_merge($this->_cssList, $this->_blockCss);
+        $this->_jsList = array_merge($this->_jsList, $this->_blockJs);
+
+        return [
+            'type'  => 'block',
+            'id'    => $grid->get('blockId'),
+            'y'     => $yValue,
+            'left'  => (100 / $containerWidth * ($xValue - $left)),
+            'width' => $width,
+            'html'  => $this->_blockHtml
+        ];
     }
 
     /**
@@ -494,24 +567,18 @@ class SectionModel extends AbstractSectionModel
      */
     private function _getSameBordersInfo($top, $bottom, $left, $right)
     {
-        $info = [];
+        $this->_sameBordersInfo = [];
 
         $yList = array_keys($this->_yGrids);
 
-        foreach ($yList as $y) {
-            if ($y < $top
-                || $y > $bottom
+        foreach ($yList as $yValue) {
+            if ($yValue < $top
+                || $yValue > $bottom
             ) {
                 continue;
             }
 
-            $possibleBorders
-                = $this->_getPossibleBordersFromTo($y, $left, $right);
-            if (count($possibleBorders) === 0) {
-                continue;
-            }
-
-            if ($y >= $bottom) {
+            if ($yValue >= $bottom) {
                 $info[1][] = [
                     'y'       => $bottom,
                     'borders' => [$left, $right]
@@ -519,34 +586,11 @@ class SectionModel extends AbstractSectionModel
                 break;
             }
 
-            $borders = [$left, $right];
-            $count = 1;
-            for ($i = ($y + 1); $i < $bottom; $i++) {
-                $nextPossibleBorders
-                    = $this->_getPossibleBordersFromTo($i, $left, $right);
-                $checkSame
-                    = array_intersect($possibleBorders, $nextPossibleBorders);
-
-                if (count($checkSame) <= 2) {
-                    break;
-                }
-
-                $borders = $checkSame;
-                $possibleBorders = $checkSame;
-                $count++;
-            }
-
-            $borders = array_unique($borders);
-            sort($borders);
-
-            $info[$count][] = [
-                'y'       => $y,
-                'borders' => $borders
-            ];
+            $this->_setSameBorderInfo($yValue, $bottom, $left, $right);
         }
 
-        if (count($info) === 1
-            && array_key_exists(1, $info) === true
+        if (count($this->_sameBordersInfo) === 1
+            && array_key_exists(1, $this->_sameBordersInfo) === true
         ) {
             return [
                 ($bottom - $top + 1) => [
@@ -561,6 +605,52 @@ class SectionModel extends AbstractSectionModel
         krsort($info);
 
         return $info;
+    }
+
+    /**
+     * Sets borders for one line
+     *
+     * @param int $yValue Line number
+     * @param int $bottom Bottom
+     * @param int $left   Left
+     * @param int $right  Right
+     *
+     * @return SectionModel
+     */
+    private function _setSameBorderInfo($yValue, $bottom, $left, $right)
+    {
+        $possibleBorders
+            = $this->_getPossibleBordersFromTo($yValue, $left, $right);
+        if (count($possibleBorders) === 0) {
+            return $this;
+        }
+
+        $borders = [$left, $right];
+        $count = 1;
+        for ($i = ($yValue + 1); $i < $bottom; $i++) {
+            $nextPossibleBorders
+                = $this->_getPossibleBordersFromTo($i, $left, $right);
+            $checkSame
+                = array_intersect($possibleBorders, $nextPossibleBorders);
+
+            if (count($checkSame) <= 2) {
+                break;
+            }
+
+            $borders = $checkSame;
+            $possibleBorders = $checkSame;
+            $count++;
+        }
+
+        $borders = array_unique($borders);
+        sort($borders);
+
+        $this->_sameBordersInfo[$count][] = [
+            'y'       => $yValue,
+            'borders' => $borders
+        ];
+
+        return $this;
     }
 
     /**
