@@ -3,6 +3,7 @@
 namespace testS\models\sections\_abstract;
 
 use testS\application\App;
+use testS\application\components\Db;
 use testS\application\components\ValueGenerator;
 use testS\models\_abstract\AbstractModel;
 
@@ -53,5 +54,52 @@ abstract class AbstractSectionModel extends AbstractModel
                 self::FIELD_BEFORE_SAVE      => ['generateIsMain']
             ],
         ];
+    }
+
+    /**
+     * Generates isMain
+     *
+     * @param bool $value Is main value
+     *
+     * @return bool
+     */
+    protected function generateIsMain($value)
+    {
+        if ($value !== true) {
+            return false;
+        }
+
+        return $this->main($this->get('language'))->find() === null;
+    }
+
+    /**
+     * Adds isMain = 1 condition to SQL request
+     *
+     * @param int $language Language ID
+     *
+     * @return AbstractSectionModel
+     */
+    public function main($language = null)
+    {
+        if ($language === null) {
+            $language = App::getInstance()->getLanguage()->getActiveId();
+        }
+
+        $this->getDb()->addWhere(
+            sprintf(
+                '%s.isMain = :isMain',
+                Db::DEFAULT_ALIAS
+            )
+        );
+        $this->getDb()->addWhere(
+            sprintf(
+                '%s.language = :language',
+                Db::DEFAULT_ALIAS
+            )
+        );
+        $this->getDb()->addParameter('isMain', 1);
+        $this->getDb()->addParameter('language', $language);
+
+        return $this;
     }
 }

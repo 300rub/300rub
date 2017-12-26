@@ -3,7 +3,6 @@
 namespace testS\models\sections;
 
 use testS\application\App;
-use testS\application\components\Db;
 use testS\models\blocks\block\BlockModel;
 use testS\models\blocks\block\DesignBlockModel;
 use testS\models\sections\_abstract\AbstractSectionModel;
@@ -31,7 +30,7 @@ class SectionModel extends AbstractSectionModel
      *
      * @var array
      */
-    private $_yPossibleBorders = [];
+    private $_possibleBorders = [];
 
     /**
      * Stricture
@@ -90,37 +89,6 @@ class SectionModel extends AbstractSectionModel
     private $_sameBordersInfo = [];
 
     /**
-     * Adds isMain = 1 condition to SQL request
-     *
-     * @param int $language Language ID
-     *
-     * @return SectionModel
-     */
-    public function main($language = null)
-    {
-        if ($language === null) {
-            $language = App::getInstance()->getLanguage()->getActiveId();
-        }
-
-        $this->getDb()->addWhere(
-            sprintf(
-                '%s.isMain = :isMain',
-                Db::DEFAULT_ALIAS
-            )
-        );
-        $this->getDb()->addWhere(
-            sprintf(
-                '%s.language = :language',
-                Db::DEFAULT_ALIAS
-            )
-        );
-        $this->getDb()->addParameter('isMain', 1);
-        $this->getDb()->addParameter('language', $language);
-
-        return $this;
-    }
-
-    /**
      * Gets CSS
      *
      * @return array
@@ -138,22 +106,6 @@ class SectionModel extends AbstractSectionModel
     public function getJs()
     {
         return $this->_jsList;
-    }
-
-    /**
-     * Generates isMain
-     *
-     * @param bool $value Is main value
-     *
-     * @return bool
-     */
-    protected function generateIsMain($value)
-    {
-        if ($value !== true) {
-            return false;
-        }
-
-        return $this->main($this->get('language'))->find() === null;
     }
 
     /**
@@ -219,6 +171,8 @@ class SectionModel extends AbstractSectionModel
             ->ordered(['y', 'x']);
         $gridModels = $gridModels->findAll();
 
+        $gridModelForBorders = new GridModel();
+
         foreach ($gridLineModels as $gridLineModel) {
             $lineGrids = [];
 
@@ -228,9 +182,10 @@ class SectionModel extends AbstractSectionModel
                 }
             }
 
-            $this
-                ->_setyGrids($lineGrids)
-                ->_setPossibleBorders($lineGrids);
+            $this->_setyGrids($lineGrids);
+
+            $this->_possibleBorders
+                = $gridModelForBorders->getPossibleBorders($lineGrids);
 
             $this->_structure[$gridLineModel->getId()]
                 = $this->_getLineStructure();
@@ -266,58 +221,6 @@ class SectionModel extends AbstractSectionModel
     }
 
     /**
-     * Sets possible borders for one line
-     *
-     * @param GridModel[] $grids Grid model
-     *
-     * @return SectionModel
-     */
-    private function _setPossibleBorders($grids)
-    {
-        $borders = [];
-        $currentY = 0;
-        $last = 0;
-
-        foreach ($grids as $grid) {
-            $yValue = $grid->get('y');
-            if ($yValue > $currentY) {
-                $currentY = $yValue;
-            }
-
-            $x = $grid->get('x');
-            $width = $grid->get('width');
-            $end = ($x + $width);
-            $borders[$currentY][] = $x;
-            $borders[$currentY][] = $end;
-
-            if ($x > $last) {
-                for ($i = $last; $i < $x; $i++) {
-                    $borders[$currentY][] = $i;
-                }
-            }
-
-            $last = $end;
-        }
-
-        foreach ($borders as $y => $values) {
-            $values = array_unique($values);
-            sort($values);
-
-            $last = $values[(count($values) - 1)];
-
-            if ($last < GridModel::GRID_SIZE) {
-                for ($i = ($last + 1); $i <= GridModel::GRID_SIZE; $i++) {
-                    $values[] = $i;
-                }
-            }
-
-            $this->_yPossibleBorders[$y] = $values;
-        }
-
-        return $this;
-    }
-
-    /**
      * Gets line structure
      *
      * @param int $top    Top
@@ -336,6 +239,7 @@ class SectionModel extends AbstractSectionModel
         $usedYLines = [];
         $structure = [];
         $containerWidth = ($right - $left);
+        $gridModelForBorders = new GridModel();
 
         $bordersInfo = $this->_getSameBordersInfo($top, $bottom, $left, $right);
         foreach ($bordersInfo as $count => $countData) {
@@ -359,7 +263,11 @@ class SectionModel extends AbstractSectionModel
                     $yLast,
                     $containerWidth,
                     $left,
-                    $this->_getBorders($data, $currentLines)
+                    $gridModelForBorders->getBorders(
+                        $this->_yGrids,
+                        $data['borders'],
+                        $currentLines
+                    )
                 );
 
                 if (count($structureData) > 0) {
@@ -371,61 +279,6 @@ class SectionModel extends AbstractSectionModel
         ksort($structure);
 
         return $structure;
-    }
-
-    /**
-     * Gets borders
-     *
-     * @param array $data         Count data
-     * @param array $currentLines Current lines
-     *
-     * @return array
-     */
-    private function _getBorders($data, $currentLines)
-    {
-        $borders = [];
-
-        foreach ($data['borders'] as $possibleBorder) {
-            foreach ($this->_yGrids as $gridY => $grids) {
-                if (in_array($gridY, $currentLines) === false
-                    || in_array($possibleBorder, $borders) === true
-                ) {
-                    continue;
-                }
-
-                $borders = array_merge(
-                    $borders,
-                    $this->_getGridBorders($grids, $possibleBorder)
-                );
-            }
-        }
-
-        return $borders;
-    }
-
-    /**
-     * Gets grid borders
-     *
-     * @param GridModel[] $grids          Grid models
-     * @param integer     $possibleBorder Possible border
-     *
-     * @return array
-     */
-    private function _getGridBorders($grids, $possibleBorder)
-    {
-        $borders = [];
-
-        foreach ($grids as $grid) {
-            $gridX = $grid->get('x');
-            $gridWidth = $grid->get('width');
-            if ($gridX === $possibleBorder
-                || ($gridX + $gridWidth) === $possibleBorder
-            ) {
-                $borders[] = $possibleBorder;
-            }
-        }
-
-        return $borders;
     }
 
     /**
@@ -675,8 +528,14 @@ class SectionModel extends AbstractSectionModel
      */
     private function _setSameBorderInfo($yValue, $bottom, $left, $right)
     {
-        $possibleBorders
-            = $this->_getPossibleBordersFromTo($yValue, $left, $right);
+        $gridModelForBorders = new GridModel();
+
+        $possibleBorders = $gridModelForBorders->getPossibleBordersFromTo(
+            $this->_possibleBorders,
+            $yValue,
+            $left,
+            $right
+        );
         if (count($possibleBorders) === 0) {
             return $this;
         }
@@ -684,8 +543,14 @@ class SectionModel extends AbstractSectionModel
         $borders = [$left, $right];
         $count = 1;
         for ($i = ($yValue + 1); $i < $bottom; $i++) {
-            $nextPossibleBorders
-                = $this->_getPossibleBordersFromTo($i, $left, $right);
+            $nextPossibleBorders = $gridModelForBorders
+                ->getPossibleBordersFromTo(
+                    $this->_possibleBorders,
+                    $i,
+                    $left,
+                    $right
+                );
+
             $checkSame
                 = array_intersect($possibleBorders, $nextPossibleBorders);
 
@@ -707,33 +572,5 @@ class SectionModel extends AbstractSectionModel
         ];
 
         return $this;
-    }
-
-    /**
-     * Gets possible borders
-     *
-     * @param int $yValue Y
-     * @param int $left   Left
-     * @param int $right  Right
-     *
-     * @return int[]
-     */
-    private function _getPossibleBordersFromTo($yValue, $left, $right)
-    {
-        $possibleBorders = [];
-
-        if (array_key_exists($yValue, $this->_yPossibleBorders) === false) {
-            return [];
-        }
-
-        foreach ($this->_yPossibleBorders[$yValue] as $border) {
-            if ($border >= $left
-                && $border <= $right
-            ) {
-                $possibleBorders[] = $border;
-            }
-        }
-
-        return $possibleBorders;
     }
 }
