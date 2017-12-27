@@ -1,6 +1,6 @@
 <?php
 
-namespace testS\application\components\ValueGenerator;
+namespace testS\application\components\ValueGenerator\filter;
 
 use testS\application\components\ValueGenerator\_abstract\AbstractFilter;
 use testS\application\exceptions\CommonException;

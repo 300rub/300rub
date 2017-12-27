@@ -1,6 +1,6 @@
 <?php
 
-namespace testS\application\components\ValueGenerator;
+namespace testS\application\components\ValueGenerator\modify;
 
 use testS\application\App;
 use testS\application\components\ValueGenerator\_abstract\AbstractModifier;

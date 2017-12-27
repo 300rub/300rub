@@ -1,6 +1,6 @@
 <?php
 
-namespace testS\application\components\ValueGenerator;
+namespace testS\application\components\ValueGenerator\type;
 
 use testS\application\components\ValueGenerator\_abstract\AbstractType;
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace testS\application\components\ValueGenerator;
+namespace testS\application\components\ValueGenerator\math;
 
 use testS\application\components\ValueGenerator\_abstract\AbstractMath;
 

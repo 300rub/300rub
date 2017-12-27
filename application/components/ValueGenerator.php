@@ -13,23 +13,57 @@ abstract class ValueGenerator
     /**
      * Types
      */
-    const ARRAY_KEY = 'ArrayKey';
-    const BOOL_INT = 'BoolIntValue';
-    const BOOL = 'BoolValue';
-    const CLEAR_STRIP_TAGS = 'ClearStripTags';
-    const COLOR = 'Color';
-    const COPY_NAME = 'CopyName';
-    const DATETIME = 'DateTimeValue';
-    const FLOAT = 'FloatValue';
-    const INT = 'IntValue';
-    const MAX = 'Max';
-    const MIN = 'Min';
-    const MIN_THEN = 'MinThen';
-    const STRING = 'StringValue';
-    const URL = 'Url';
-    const COPY_URL = 'UrlCopy';
-    const DATETIME_AS_STRING = 'Iso';
-    const ORDERED_ARRAY = 'OrderedArrayForJson';
+    const ARRAY_KEY
+        = '\\testS\\application\\components\\ValueGenerator\\' .
+            'filter\\ArrayKey';
+    const BOOL_INT
+        = '\\testS\\application\\components\\ValueGenerator\\' .
+            'type\\BoolIntValue';
+    const BOOL
+        = '\\testS\\application\\components\\ValueGenerator\\' .
+            'type\\BoolValue';
+    const CLEAR_STRIP_TAGS
+        = '\\testS\\application\\components\\ValueGenerator\\' .
+            'modify\\ClearStripTags';
+    const COLOR
+        = '\\testS\\application\\components\\ValueGenerator\\' .
+            'filter\\Color';
+    const COPY_NAME
+        = '\\testS\\application\\components\\ValueGenerator\\' .
+            'modify\\CopyName';
+    const DATETIME
+        = '\\testS\\application\\components\\ValueGenerator\\' .
+            'type\\DateTimeValue';
+    const FLOAT
+        = '\\testS\\application\\components\\ValueGenerator\\' .
+            'type\\FloatValue';
+    const INT
+        = '\\testS\\application\\components\\ValueGenerator\\' .
+            'type\\IntValue';
+    const MAX
+        = '\\testS\\application\\components\\ValueGenerator\\' .
+            'math\\Max';
+    const MIN
+        = '\\testS\\application\\components\\ValueGenerator\\' .
+            'math\\Min';
+    const MIN_THEN
+        = '\\testS\\application\\components\\ValueGenerator\\' .
+            'math\\MinThen';
+    const STRING
+        = '\\testS\\application\\components\\ValueGenerator\\' .
+            'type\\StringValue';
+    const URL
+        = '\\testS\\application\\components\\ValueGenerator\\' .
+            'modify\\Url';
+    const COPY_URL
+        = '\\testS\\application\\components\\ValueGenerator\\' .
+            'modify\\UrlCopy';
+    const DATETIME_AS_STRING
+        = '\\testS\\application\\components\\ValueGenerator\\' .
+            'type\\Iso';
+    const ORDERED_ARRAY
+        = '\\testS\\application\\components\\ValueGenerator\\' .
+            'modify\\OrderedArrayForJson';
 
     /**
      * Type list
@@ -99,9 +133,7 @@ abstract class ValueGenerator
             );
         }
 
-        $className
-            = "\\testS\\application\\components\\ValueGenerator\\" . $type;
-        $object = new $className;
+        $object = new $type;
         $object->value = $value;
         $object->param = $param;
 
