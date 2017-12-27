@@ -14,7 +14,7 @@ class UserBlockOperationModel extends AbstractUserBlockOperationModel
     /**
      * Adds userId condition to SQL request
      *
-     * @param int $userId
+     * @param int $userId User ID
      *
      * @return UserBlockOperationModel
      */
@@ -22,11 +22,11 @@ class UserBlockOperationModel extends AbstractUserBlockOperationModel
     {
         $this->getDb()->addWhere(
             sprintf(
-                "%s.userId = :userId",
+                '%s.userId = :userId',
                 Db::DEFAULT_ALIAS
             )
         );
-        $this->getDb()->addParameter("userId", $userId);
+        $this->getDb()->addParameter('userId', $userId);
 
         return $this;
     }

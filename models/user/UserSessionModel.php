@@ -2,15 +2,13 @@
 
 namespace testS\models\user;
 
-use testS\components\Db;
-use testS\components\Validator;
-use DateTime;
-use testS\models\_abstract\AbstractModel;
+use testS\application\components\Db;
+use testS\models\user\_abstract\AbstractUserSessionModel;
 
 /**
  * Model for working with table "userSessions"
  */
-class UserSessionModel extends AbstractModel
+class UserSessionModel extends AbstractUserSessionModel
 {
 
     /**
@@ -19,64 +17,21 @@ class UserSessionModel extends AbstractModel
     const ONLINE_VALUE = 600;
 
     /**
-     * Gets table name
-     *
-     * @return string
-     */
-    public function getTableName()
-    {
-        return "userSessions";
-    }
-
-    /**
-     * Gets fields info
-     *
-     * @return array
-     */
-    public function getFieldsInfo()
-    {
-        return [
-            "userId"       => [
-                self::FIELD_RELATION_TO_PARENT   => "UserModel",
-                self::FIELD_NOT_CHANGE_ON_UPDATE => true
-            ],
-            "token"        => [
-                self::FIELD_TYPE                 => self::FIELD_TYPE_STRING,
-                self::FIELD_VALIDATION           => [
-                    Validator::TYPE_REQUIRED,
-                    Validator::TYPE_MAX_LENGTH => 32,
-                    Validator::TYPE_MIN_LENGTH => 32
-                ],
-                self::FIELD_NOT_CHANGE_ON_UPDATE => true
-            ],
-            "ip"           => [
-                self::FIELD_TYPE       => self::FIELD_TYPE_STRING,
-                self::FIELD_VALIDATION => [
-                    Validator::TYPE_REQUIRED,
-                    Validator::TYPE_IP
-                ],
-            ],
-            "ua"           => [
-                self::FIELD_TYPE => self::FIELD_TYPE_STRING,
-            ],
-            "lastActivity" => [
-                self::FIELD_TYPE              => self::FIELD_TYPE_DATETIME,
-                self::FIELD_CURRENT_DATE_TIME => true
-            ],
-        ];
-    }
-
-    /**
      * Finds by token
      *
-     * @param string $token
+     * @param string $token Token
      *
      * @return UserSessionModel
      */
     public function byToken($token)
     {
-        $this->getDb()->addWhere(sprintf("%s.token = :token", Db::DEFAULT_ALIAS));
-        $this->getDb()->addParameter("token", $token);
+        $this->getDb()->addWhere(
+            sprintf(
+                '%s.token = :token',
+                Db::DEFAULT_ALIAS
+            )
+        );
+        $this->getDb()->addParameter('token', $token);
 
         return $this;
     }
@@ -84,14 +39,19 @@ class UserSessionModel extends AbstractModel
     /**
      * Finds except token
      *
-     * @param string $token
+     * @param string $token Token
      *
      * @return UserSessionModel
      */
     public function exceptToken($token)
     {
-        $this->getDb()->addWhere(sprintf("%s.token != :token", Db::DEFAULT_ALIAS));
-        $this->getDb()->addParameter("token", $token);
+        $this->getDb()->addWhere(
+            sprintf(
+                '%s.token != :token',
+                Db::DEFAULT_ALIAS
+            )
+        );
+        $this->getDb()->addParameter('token', $token);
 
         return $this;
     }
@@ -99,14 +59,19 @@ class UserSessionModel extends AbstractModel
     /**
      * Finds by user ID
      *
-     * @param int $userId
+     * @param int $userId User ID
      *
      * @return UserSessionModel
      */
     public function byUserId($userId)
     {
-        $this->getDb()->addWhere(sprintf("%s.userId = :userId", Db::DEFAULT_ALIAS));
-        $this->getDb()->addParameter("userId", $userId);
+        $this->getDb()->addWhere(
+            sprintf(
+                '%s.userId = :userId',
+                Db::DEFAULT_ALIAS
+            )
+        );
+        $this->getDb()->addParameter('userId', $userId);
 
         return $this;
     }
@@ -118,15 +83,12 @@ class UserSessionModel extends AbstractModel
      */
     public function getFormattedLastActivity()
     {
-        /**
-         * @var DateTime $lastActivity
-         */
-        $lastActivity = $this->get("lastActivity");
-        if (!$lastActivity instanceof DateTime) {
-            return "";
+        $lastActivity = $this->get('lastActivity');
+        if ($lastActivity instanceof \DateTime === false) {
+            return '';
         }
 
-        return $lastActivity->format("d/m/Y H:i");
+        return $lastActivity->format('d/m/Y H:i');
     }
 
     /**
@@ -136,14 +98,11 @@ class UserSessionModel extends AbstractModel
      */
     public function isOnline()
     {
-        /**
-         * @var DateTime $lastActivity
-         */
-        $lastActivity = $this->get("lastActivity");
-        if (!$lastActivity instanceof DateTime) {
+        $lastActivity = $this->get('lastActivity');
+        if ($lastActivity instanceof \DateTime === false) {
             return false;
         }
 
-        return time() - $lastActivity->getTimestamp() < self::ONLINE_VALUE;
+        return (time() - $lastActivity->getTimestamp()) < self::ONLINE_VALUE;
     }
 }
