@@ -4,7 +4,7 @@ namespace testS\models\blocks\helpers\file;
 
 use testS\application\App;
 use testS\application\exceptions\FileException;
-use testS\models\blocks\helpers\file\_abstract\AbstractFileModel;
+use testS\models\blocks\helpers\file\_base\AbstractFileModel;
 
 /**
  * Model for working with table "files"

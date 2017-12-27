@@ -2,7 +2,7 @@
 
 namespace testS\models\blocks\helpers\tab;
 
-use testS\models\blocks\helpers\tab\_abstract\AbstractTabModel;
+use testS\models\blocks\helpers\tab\_base\AbstractTabModel;
 
 /**
  * Model for working with table "tabs"

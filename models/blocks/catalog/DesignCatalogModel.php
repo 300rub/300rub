@@ -2,7 +2,7 @@
 
 namespace testS\models\blocks\catalog;
 
-use testS\models\blocks\catalog\_abstract\AbstractDesignCatalogModel;
+use testS\models\blocks\catalog\_base\AbstractDesignCatalogModel;
 
 /**
  * Model for working with table "designCatalogs"

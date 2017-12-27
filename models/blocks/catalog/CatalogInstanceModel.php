@@ -2,7 +2,7 @@
 
 namespace testS\models\blocks\catalog;
 
-use testS\models\blocks\catalog\_abstract\AbstractCatalogInstanceModel;
+use testS\models\blocks\catalog\_base\AbstractCatalogInstanceModel;
 
 /**
  * Model for working with table "catalogInstances"

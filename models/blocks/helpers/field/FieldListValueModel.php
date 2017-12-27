@@ -2,7 +2,7 @@
 
 namespace testS\models\blocks\helpers\field;
 
-use testS\models\blocks\helpers\field\_abstract\AbstractFieldListValueModel;
+use testS\models\blocks\helpers\field\_base\AbstractFieldListValueModel;
 
 /**
  * Model for working with table "fieldListValues"

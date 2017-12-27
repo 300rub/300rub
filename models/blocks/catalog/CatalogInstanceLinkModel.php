@@ -2,7 +2,7 @@
 
 namespace testS\models\blocks\catalog;
 
-use testS\models\blocks\catalog\_abstract\AbstractCatalogInstanceLinkModel;
+use testS\models\blocks\catalog\_base\AbstractCatalogInstanceLinkModel;
 
 /**
  * Model for working with table "catalogInstanceLinks"

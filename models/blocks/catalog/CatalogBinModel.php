@@ -2,7 +2,7 @@
 
 namespace testS\models\blocks\catalog;
 
-use testS\models\blocks\catalog\_abstract\AbstractCatalogBinModel;
+use testS\models\blocks\catalog\_base\AbstractCatalogBinModel;
 
 /**
  * Model for working with table "catalogBins"

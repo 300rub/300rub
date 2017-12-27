@@ -8,6 +8,7 @@ use testS\application\exceptions\ModelException;
 use testS\application\exceptions\NotFoundException;
 use testS\models\_abstract\AbstractModel;
 use testS\models\blocks\_abstract\AbstractContentModel;
+use testS\models\blocks\block\_base\AbstractBlockModel;
 
 /**
  * Model for working with table "blocks"

@@ -2,7 +2,7 @@
 
 namespace testS\models\blocks\catalog;
 
-use testS\models\blocks\catalog\_abstract\AbstractCatalogMenuModel;
+use testS\models\blocks\catalog\_base\AbstractCatalogMenuModel;
 
 /**
  * Model for working with table "catalogMenu"
