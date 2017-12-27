@@ -30,7 +30,8 @@ abstract class AbstractFieldModel extends Model
         return [
             'designFieldId'       => [
                 self::FIELD_RELATION
-                    => '\\testS\\models\\blocks\\helpers\\field\\DesignFieldModel'
+                    => '\\testS\\models\\blocks\\helpers\\' .
+                        'field\\DesignFieldModel'
             ],
         ];
     }

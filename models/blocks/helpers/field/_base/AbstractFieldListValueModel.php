@@ -32,7 +32,8 @@ abstract class AbstractFieldListValueModel extends AbstractFieldModel
         return [
             'fieldTemplateId' => [
                 self::FIELD_RELATION_TO_PARENT
-                    => '\\testS\\models\\blocks\\helpers\\field\\FieldTemplateModel',
+                    => '\\testS\\models\\blocks\\helpers\\' .
+                        'field\\FieldTemplateModel',
             ],
             'value'           => [
                 self::FIELD_TYPE       => self::FIELD_TYPE_STRING,

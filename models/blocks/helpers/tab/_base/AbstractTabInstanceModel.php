@@ -38,7 +38,8 @@ abstract class AbstractTabInstanceModel extends AbstractTabModel
             ],
             'tabTemplateId'  => [
                 self::FIELD_RELATION_TO_PARENT
-                    => '\\testS\\models\\blocks\\helpers\\tab\\TabTemplateModel',
+                    => '\\testS\\models\\blocks\\helpers\\' .
+                        'tab\\TabTemplateModel',
             ],
         ];
     }

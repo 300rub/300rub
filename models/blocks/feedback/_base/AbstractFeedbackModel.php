@@ -36,7 +36,8 @@ abstract class AbstractFeedbackModel extends Model
             ],
             'subjectFormInstanceId' => [
                 self::FIELD_RELATION
-                    => '\\testS\\models\\blocks\\helpers\\form\\FormInstanceModel'
+                    => '\\testS\\models\\blocks\\helpers\\' .
+                        'form\\FormInstanceModel'
             ],
             'subjectText' => [
                 self::FIELD_TYPE => self::FIELD_TYPE_STRING,
