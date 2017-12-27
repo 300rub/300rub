@@ -77,6 +77,10 @@ abstract class AbstractSetRelationModel extends AbstractFindModel
         $info = $this->getFieldsInfo();
 
         foreach ($fields as $field => $value) {
+            if (array_key_exists($field, $info) === false) {
+                continue;
+            }
+
             $hasRelation = array_key_exists(
                 self::FIELD_RELATION_TO_PARENT,
                 $info[$field]
@@ -152,6 +156,10 @@ abstract class AbstractSetRelationModel extends AbstractFindModel
         $info = $this->getFieldsInfo();
 
         foreach ($fields as $field => $value) {
+            if (array_key_exists($field, $info) === false) {
+                continue;
+            }
+
             $hasRelation = array_key_exists(
                 self::FIELD_RELATION,
                 $info[$field]

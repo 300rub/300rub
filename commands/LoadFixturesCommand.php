@@ -26,8 +26,6 @@ class LoadFixturesCommand extends AbstractCommand
      * @var string[]
      */
     private $_fixtureOrder = [
-        'settings'
-            => '\\testS\\models\\settings\\SettingsModel',
         'user'
             => '\\testS\\models\\user\\UserModel',
         'userSession'
@@ -36,52 +34,52 @@ class LoadFixturesCommand extends AbstractCommand
             => '\\testS\\models\\blocks\\text\\TextModel',
         'textInstance'
             => '\\testS\\models\\blocks\\text\\TextInstanceModel',
-        'image'
-            => '\\testS\\models\\blocks\\image\\ImageModel',
-        'imageGroup'
-            => '\\testS\\models\\blocks\\image\\ImageGroupModel',
-        'record'
-            => '\\testS\\models\\blocks\\record\\RecordModel',
-        'recordClone'
-            => '\\testS\\models\\blocks\\record\\RecordCloneModel',
-        'block'
-            => '\\testS\\models\\blocks\\block\\BlockModel',
-        'section'
-            => '\\testS\\models\\sections\\SectionModel',
-        'gridLine'
-            => '\\testS\\models\\sections\\GridLineModel',
-        'grid'
-            => '\\testS\\models\\sections\\GridModel',
-        'userSettingsOperation'
-            => '\\testS\\models\\user\\UserSettingsOperationModel',
-        'userBlockGroupOperation'
-            => '\\testS\\models\\user\\UserSettingsOperationModel\\',
-        'tab'
-            => '\\testS\\models\\blocks\\helpers\\tab\\TabModel',
-        'tabGroup'
-            => '\\testS\\models\\blocks\\helpers\\tab\\TabGroupModel',
-        'tabTemplate'
-            => '\\testS\\models\\blocks\\helpers\\tab\\TabTemplateModel',
-        'field'
-            => '\\testS\\models\\blocks\\helpers\\field\\FieldModel',
-        'fieldTemplate'
-            => '\\testS\\models\\blocks\\helpers\\field\\FieldTemplateModel',
-        'fieldGroup'
-            => '\\testS\\models\\blocks\\helpers\\field\\FieldGroupModel',
-        'catalog'
-            => '\\testS\\models\\blocks\\catalog\\CatalogModel',
-        'catalogMenu'
-            => '\\testS\\models\\blocks\\catalog\\CatalogMenuModel',
-        'search'
-            => '\\testS\\models\\blocks\\search\\SearchModel',
-        'menu'
-            => '\\testS\\models\\blocks\\menu\\MenuModel',
-        'menuInstance'
-            => '\\testS\\models\\blocks\\menu\\MenuInstanceModel',
-        'catalogInstance'
-            => '\\testS\\models\\blocks\\catalog\\CatalogInstanceModel',
-        'catalogBin'
-            => '\\testS\\models\\blocks\\catalog\\CatalogBinModel',
+//        'image'
+//            => '\\testS\\models\\blocks\\image\\ImageModel',
+//        'imageGroup'
+//            => '\\testS\\models\\blocks\\image\\ImageGroupModel',
+//        'record'
+//            => '\\testS\\models\\blocks\\record\\RecordModel',
+//        'recordClone'
+//            => '\\testS\\models\\blocks\\record\\RecordCloneModel',
+//        'block'
+//            => '\\testS\\models\\blocks\\block\\BlockModel',
+//        'section'
+//            => '\\testS\\models\\sections\\SectionModel',
+//        'gridLine'
+//            => '\\testS\\models\\sections\\GridLineModel',
+//        'grid'
+//            => '\\testS\\models\\sections\\GridModel',
+//        'userSettingsOperation'
+//            => '\\testS\\models\\user\\UserSettingsOperationModel',
+//        'userBlockGroupOperation'
+//            => '\\testS\\models\\user\\UserSettingsOperationModel\\',
+//        'tab'
+//            => '\\testS\\models\\blocks\\helpers\\tab\\TabModel',
+//        'tabGroup'
+//            => '\\testS\\models\\blocks\\helpers\\tab\\TabGroupModel',
+//        'tabTemplate'
+//            => '\\testS\\models\\blocks\\helpers\\tab\\TabTemplateModel',
+//        'field'
+//            => '\\testS\\models\\blocks\\helpers\\field\\FieldModel',
+//        'fieldTemplate'
+//            => '\\testS\\models\\blocks\\helpers\\field\\FieldTemplateModel',
+//        'fieldGroup'
+//            => '\\testS\\models\\blocks\\helpers\\field\\FieldGroupModel',
+//        'catalog'
+//            => '\\testS\\models\\blocks\\catalog\\CatalogModel',
+//        'catalogMenu'
+//            => '\\testS\\models\\blocks\\catalog\\CatalogMenuModel',
+//        'search'
+//            => '\\testS\\models\\blocks\\search\\SearchModel',
+//        'menu'
+//            => '\\testS\\models\\blocks\\menu\\MenuModel',
+//        'menuInstance'
+//            => '\\testS\\models\\blocks\\menu\\MenuInstanceModel',
+//        'catalogInstance'
+//            => '\\testS\\models\\blocks\\catalog\\CatalogInstanceModel',
+//        'catalogBin'
+//            => '\\testS\\models\\blocks\\catalog\\CatalogBinModel',
     ];
 
     /**
@@ -127,27 +125,27 @@ class LoadFixturesCommand extends AbstractCommand
             }
         }
 
-        $map = include __DIR__ . '/../fixtures/' . $dir . '/_fileMap.php';
-        foreach ($map as $data) {
-            $mimeType = 'application/octet-stream';
-            if (array_key_exists('mimeType', $data) === true) {
-                $mimeType = $data['mimeType'];
-            }
-
-            $language = Language::LANGUAGE_EN_ID;
-            if (array_key_exists('language', $data) === true) {
-                $language = $data['language'];
-            }
-
-            $this->_sendFile(
-                $data['group'],
-                $data['controller'],
-                $data['file'],
-                $data['data'],
-                $mimeType,
-                $language
-            );
-        }
+//        $map = include __DIR__ . '/../fixtures/' . $dir . '/_fileMap.php';
+//        foreach ($map as $data) {
+//            $mimeType = 'application/octet-stream';
+//            if (array_key_exists('mimeType', $data) === true) {
+//                $mimeType = $data['mimeType'];
+//            }
+//
+//            $language = Language::LANGUAGE_EN_ID;
+//            if (array_key_exists('language', $data) === true) {
+//                $language = $data['language'];
+//            }
+//
+//            $this->_sendFile(
+//                $data['group'],
+//                $data['controller'],
+//                $data['file'],
+//                $data['data'],
+//                $mimeType,
+//                $language
+//            );
+//        }
     }
 
     /**

@@ -271,7 +271,8 @@ abstract class AbstractSaveModel extends AbstractValidateModel
             if (array_key_exists(self::FIELD_UNIQUE, $parameters) === true) {
                 $model = $this
                     ->exceptId($this->getId())
-                    ->checkUnique($field)->find();
+                    ->checkUnique($field)
+                    ->find();
                 if ($model !== null) {
                     $this->addErrors($field, [Validator::TYPE_UNIQUE]);
                 }

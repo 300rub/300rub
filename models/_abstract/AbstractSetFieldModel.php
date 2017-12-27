@@ -236,6 +236,10 @@ abstract class AbstractSetFieldModel extends AbstractSetRelationModel
         $info = $this->getFieldsInfo();
 
         foreach (array_keys($fields) as $field) {
+            if (array_key_exists($field, $info) === false) {
+                continue;
+            }
+
             $isAllowNull = array_key_exists(
                 self::FIELD_ALLOW_NULL,
                 $info[$field]
