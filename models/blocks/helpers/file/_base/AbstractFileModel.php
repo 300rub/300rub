@@ -4,12 +4,12 @@ namespace testS\models\blocks\helpers\file\_base;
 
 use testS\application\components\Validator;
 use testS\application\components\ValueGenerator;
-use testS\models\blocks\helpers\file\_abstract\AbstractFileModel as Model;
+use testS\models\_abstract\AbstractModel;
 
 /**
  * Abstract model for working with table "files"
  */
-abstract class AbstractFileModel extends Model
+abstract class AbstractFileModel extends AbstractModel
 {
 
     /**

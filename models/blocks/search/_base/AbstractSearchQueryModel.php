@@ -4,12 +4,12 @@ namespace testS\models\blocks\search\_base;
 
 use testS\application\components\Validator;
 use testS\application\components\ValueGenerator;
-use testS\models\blocks\search\_abstract\AbstractSearchModel;
+use testS\models\_abstract\AbstractModel;
 
 /**
  * Abstract model for working with table "searchQueries"
  */
-abstract class AbstractSearchQueryModel extends AbstractSearchModel
+abstract class AbstractSearchQueryModel extends AbstractModel
 {
 
     /**

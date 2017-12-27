@@ -4,12 +4,12 @@ namespace testS\models\blocks\catalog\_base;
 
 use testS\application\components\Validator;
 use testS\application\components\ValueGenerator;
-use testS\models\blocks\catalog\_abstract\AbstractCatalogModel;
+use testS\models\_abstract\AbstractModel;
 
 /**
  * Abstract model for working with table "catalogMenu"
  */
-abstract class AbstractCatalogMenuModel extends AbstractCatalogModel
+abstract class AbstractCatalogMenuModel extends AbstractModel
 {
 
     /**

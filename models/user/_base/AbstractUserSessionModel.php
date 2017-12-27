@@ -3,12 +3,12 @@
 namespace testS\models\user\_base;
 
 use testS\application\components\Validator;
-use testS\models\user\_abstract\AbstractUserModel as Model;
+use testS\models\_abstract\AbstractModel;
 
 /**
  * Abstract model for working with table "userSessions"
  */
-abstract class AbstractUserSessionModel extends Model
+abstract class AbstractUserSessionModel extends AbstractModel
 {
 
     /**

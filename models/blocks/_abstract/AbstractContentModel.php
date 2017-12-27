@@ -9,7 +9,7 @@ use testS\models\_abstract\AbstractModel;
 /**
  * Abstract class for working with content models
  */
-abstract class AbstractContentModel extends AbstractBlocksModel
+abstract class AbstractContentModel extends AbstractModel
 {
 
     /**

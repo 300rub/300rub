@@ -4,12 +4,12 @@ namespace testS\models\blocks\menu\_base;
 
 use testS\application\components\Validator;
 use testS\application\components\ValueGenerator;
-use testS\models\blocks\menu\_abstract\AbstractMenuModel;
+use testS\models\_abstract\AbstractModel;
 
 /**
  * Abstract model for working with table "menuInstances"
  */
-abstract class AbstractMenuInstanceModel extends AbstractMenuModel
+abstract class AbstractMenuInstanceModel extends AbstractModel
 {
 
     /**

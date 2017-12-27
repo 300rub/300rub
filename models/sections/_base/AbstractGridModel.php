@@ -3,12 +3,12 @@
 namespace testS\models\sections\_base;
 
 use testS\application\components\ValueGenerator;
-use testS\models\sections\_abstract\AbstractSectionsModel;
+use testS\models\_abstract\AbstractModel;
 
 /**
  * Abstract model for working with table "grids"
  */
-abstract class AbstractGridModel extends AbstractSectionsModel
+abstract class AbstractGridModel extends AbstractModel
 {
 
     /**

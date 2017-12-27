@@ -2,12 +2,12 @@
 
 namespace testS\models\blocks\record\_base;
 
-use testS\models\blocks\record\_abstract\AbstractRecordModel;
+use testS\models\_abstract\AbstractModel;
 
 /**
  * Abstract model for working with table "recordInstances"
  */
-abstract class AbstractRecordInstanceModel extends AbstractRecordModel
+abstract class AbstractRecordInstanceModel extends AbstractModel
 {
 
     /**

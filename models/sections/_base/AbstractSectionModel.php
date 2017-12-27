@@ -5,12 +5,12 @@ namespace testS\models\sections\_base;
 use testS\application\App;
 use testS\application\components\Db;
 use testS\application\components\ValueGenerator;
-use testS\models\sections\_abstract\AbstractSectionsModel;
+use testS\models\_abstract\AbstractModel;
 
 /**
  * Abstract model for working with table "sections"
  */
-abstract class AbstractSectionModel extends AbstractSectionsModel
+abstract class AbstractSectionModel extends AbstractModel
 {
 
     /**

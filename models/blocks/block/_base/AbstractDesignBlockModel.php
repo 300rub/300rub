@@ -4,12 +4,12 @@ namespace testS\models\blocks\block\_base;
 
 use testS\application\App;
 use testS\application\components\ValueGenerator;
-use testS\models\blocks\block\_abstract\AbstractBlockModel;
+use testS\models\_abstract\AbstractModel;
 
 /**
  * Abstract model for working with table "designBlocks"
  */
-abstract class AbstractDesignBlockModel extends AbstractBlockModel
+abstract class AbstractDesignBlockModel extends AbstractModel
 {
 
     /**

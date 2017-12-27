@@ -4,12 +4,12 @@ namespace testS\models\settings\_base;
 
 use testS\application\components\Validator;
 use testS\application\components\ValueGenerator;
-use testS\models\settings\_abstract\AbstractSettingsModel as Model;
+use testS\models\_abstract\AbstractModel;
 
 /**
  * Abstract model for working with table "settings"
  */
-abstract class AbstractSettingsModel extends Model
+abstract class AbstractSettingsModel extends AbstractModel
 {
 
     /**

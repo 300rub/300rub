@@ -6,12 +6,12 @@ use testS\application\App;
 use testS\application\components\Db;
 use testS\application\components\Validator;
 use testS\application\components\ValueGenerator;
-use testS\models\user\_abstract\AbstractUserModel as Base;
+use testS\models\_abstract\AbstractModel;
 
 /**
  * Abstract model for working with table "users"
  */
-abstract class AbstractUserModel extends Base
+abstract class AbstractUserModel extends AbstractModel
 {
 
     /**

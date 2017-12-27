@@ -2,12 +2,12 @@
 
 namespace testS\models\blocks\catalog\_base;
 
-use testS\models\blocks\catalog\_abstract\AbstractCatalogModel;
+use testS\models\_abstract\AbstractModel;
 
 /**
  * Abstract model for working with table "catalogInstances"
  */
-abstract class AbstractCatalogInstanceModel extends AbstractCatalogModel
+abstract class AbstractCatalogInstanceModel extends AbstractModel
 {
 
     /**

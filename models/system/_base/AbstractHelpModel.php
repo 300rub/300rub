@@ -2,12 +2,12 @@
 
 namespace testS\models\system\_base;
 
-use testS\models\system\_abstract\AbstractSystemModel;
+use testS\models\_abstract\AbstractModel;
 
 /**
  * Abstract model for working with table "help"
  */
-abstract class AbstractHelpModel extends AbstractSystemModel
+abstract class AbstractHelpModel extends AbstractModel
 {
 
     /**

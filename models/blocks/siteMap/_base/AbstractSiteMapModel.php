@@ -3,12 +3,12 @@
 namespace testS\models\blocks\siteMap\_base;
 
 use testS\application\components\ValueGenerator;
-use testS\models\blocks\siteMap\_abstract\AbstractSiteMapModel as Model;
+use testS\models\_abstract\AbstractModel;
 
 /**
  * Abstract model for working with table "siteMaps"
  */
-abstract class AbstractSiteMapModel extends Model
+abstract class AbstractSiteMapModel extends AbstractModel
 {
 
     /**

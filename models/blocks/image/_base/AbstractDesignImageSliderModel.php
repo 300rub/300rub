@@ -3,12 +3,12 @@
 namespace testS\models\blocks\image\_base;
 
 use testS\application\components\ValueGenerator;
-use testS\models\blocks\image\_abstract\AbstractImageModel;
+use testS\models\_abstract\AbstractModel;
 
 /**
  * Abstract model for working with table "designImageSliders"
  */
-abstract class AbstractDesignImageSliderModel extends AbstractImageModel
+abstract class AbstractDesignImageSliderModel extends AbstractModel
 {
 
     /**

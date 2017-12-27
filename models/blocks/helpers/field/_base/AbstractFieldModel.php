@@ -2,12 +2,12 @@
 
 namespace testS\models\blocks\helpers\field\_base;
 
-use testS\models\blocks\helpers\field\_abstract\AbstractFieldModel as Model;
+use testS\models\_abstract\AbstractModel;
 
 /**
  * Abstract model for working with table "fields"
  */
-abstract class AbstractFieldModel extends Model
+abstract class AbstractFieldModel extends AbstractModel
 {
 
     /**

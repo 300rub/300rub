@@ -3,12 +3,12 @@
 namespace testS\models\blocks\catalog\_base;
 
 use testS\application\components\Validator;
-use testS\models\blocks\catalog\_abstract\AbstractCatalogModel;
+use testS\models\_abstract\AbstractModel;
 
 /**
  * Abstract model for working with table "catalogOrders"
  */
-abstract class AbstractCatalogOrderModel extends AbstractCatalogModel
+abstract class AbstractCatalogOrderModel extends AbstractModel
 {
 
     /**

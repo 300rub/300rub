@@ -4,12 +4,12 @@ namespace testS\models\user\_base;
 
 use testS\application\App;
 use testS\application\components\ValueGenerator;
-use testS\models\user\_abstract\AbstractUserModel;
+use testS\models\_abstract\AbstractModel;
 
 /**
  * Abstract model for working with table "userSettingsOperations"
  */
-abstract class AbstractUserSettingsOperationModel extends AbstractUserModel
+abstract class AbstractUserSettingsOperationModel extends AbstractModel
 {
 
     /**

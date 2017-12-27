@@ -2,12 +2,12 @@
 
 namespace testS\models\blocks\helpers\tab\_base;
 
-use testS\models\blocks\helpers\tab\_abstract\AbstractTabModel;
+use testS\models\_abstract\AbstractModel;
 
 /**
  * Abstract model for working with table "designTabs"
  */
-abstract class AbstractDesignTabModel extends AbstractTabModel
+abstract class AbstractDesignTabModel extends AbstractModel
 {
 
     /**

@@ -4,12 +4,12 @@ namespace testS\models\blocks\helpers\tab\_base;
 
 use testS\application\components\ValueGenerator;
 use testS\application\components\Validator;
-use testS\models\blocks\helpers\tab\_abstract\AbstractTabModel;
+use testS\models\_abstract\AbstractModel;
 
 /**
  * Model for working with table "tabTemplates"
  */
-abstract class AbstractTabTemplateModel extends AbstractTabModel
+abstract class AbstractTabTemplateModel extends AbstractModel
 {
 
     /**

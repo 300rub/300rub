@@ -2,12 +2,12 @@
 
 namespace testS\models\blocks\search\_base;
 
-use testS\models\blocks\search\_abstract\AbstractSearchModel;
+use testS\models\_abstract\AbstractModel;
 
 /**
  * Abstract model for working with table "designSearch"
  */
-abstract class AbstractDesignSearchModel extends AbstractSearchModel
+abstract class AbstractDesignSearchModel extends AbstractModel
 {
 
     /**

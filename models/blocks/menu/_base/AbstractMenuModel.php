@@ -3,12 +3,12 @@
 namespace testS\models\blocks\menu\_base;
 
 use testS\application\components\ValueGenerator;
-use testS\models\blocks\menu\_abstract\AbstractMenuModel as Model;
+use testS\models\_abstract\AbstractModel;
 
 /**
  * Abstract model for working with table "menu"
  */
-abstract class AbstractMenuModel extends Model
+abstract class AbstractMenuModel extends AbstractModel
 {
 
     /**

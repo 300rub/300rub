@@ -2,12 +2,12 @@
 
 namespace testS\models\sections\_base;
 
-use testS\models\sections\_abstract\AbstractSectionsModel;
+use testS\models\_abstract\AbstractModel;
 
 /**
  * Abstract model for working with table "gridLines"
  */
-abstract class AbstractGridLineModel extends AbstractSectionsModel
+abstract class AbstractGridLineModel extends AbstractModel
 {
 
     /**
