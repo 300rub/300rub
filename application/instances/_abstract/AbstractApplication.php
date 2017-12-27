@@ -12,7 +12,7 @@ use testS\application\components\Language;
 use testS\application\components\Operation;
 use testS\application\components\View;
 use testS\application\components\Memcached;
-use testS\models\SiteModel;
+use testS\models\system\SiteModel;
 
 /**
  * Abstract class for work with application
