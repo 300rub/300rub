@@ -4,12 +4,12 @@ namespace testS\models\blocks\helpers\field\_base;
 
 use testS\application\components\ValueGenerator;
 use testS\application\components\Validator;
-use testS\models\_abstract\AbstractModel;
+use testS\models\blocks\helpers\field\_abstract\AbstractFieldModel;
 
 /**
  * Abstract model for working with table "fieldListValues"
  */
-abstract class AbstractFieldListValueModel extends AbstractModel
+abstract class AbstractFieldListValueModel extends AbstractFieldModel
 {
 
     /**

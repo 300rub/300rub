@@ -4,12 +4,12 @@ namespace testS\models\blocks\helpers\form\_base;
 
 use testS\application\components\Validator;
 use testS\application\components\ValueGenerator;
-use testS\models\_abstract\AbstractModel;
+use testS\models\blocks\helpers\form\_abstract\AbstractFormModel as Model;
 
 /**
  * Model for working with table "forms"
  */
-abstract class AbstractFormModel extends AbstractModel
+abstract class AbstractFormModel extends Model
 {
 
     /**

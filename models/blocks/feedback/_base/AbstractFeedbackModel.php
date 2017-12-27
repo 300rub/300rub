@@ -4,12 +4,12 @@ namespace testS\models\blocks\feedback\_base;
 
 use testS\application\components\Validator;
 use testS\application\components\ValueGenerator;
-use testS\models\_abstract\AbstractModel;
+use testS\models\blocks\feedback\_abstract\AbstractFeedbackModel as Model;
 
 /**
  * Abstract model for working with table "feedback"
  */
-abstract class AbstractFeedbackModel extends AbstractModel
+abstract class AbstractFeedbackModel extends Model
 {
 
     /**
