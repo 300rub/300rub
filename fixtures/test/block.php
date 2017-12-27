@@ -1,6 +1,6 @@
 <?php
 
-use testS\models\BlockModel;
+use testS\models\blocks\block\BlockModel;
 
 return [
     1 => [

@@ -1,6 +1,6 @@
 <?php
 
-use testS\models\UserModel;
+use testS\models\user\UserModel;
 
 return [
     1 => [

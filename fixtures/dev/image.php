@@ -1,6 +1,6 @@
 <?php
 
-use testS\models\ImageModel;
+use testS\models\blocks\image\ImageModel;
 
 return [
     1 => [

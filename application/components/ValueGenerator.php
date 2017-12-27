@@ -100,7 +100,7 @@ abstract class ValueGenerator
         }
 
         $className
-            = "\\testS\\applications\\components\\ValueGenerator\\" . $type;
+            = "\\testS\\application\\components\\ValueGenerator\\" . $type;
         $object = new $className;
         $object->value = $value;
         $object->param = $param;

@@ -1,6 +1,6 @@
 <?php
 
-use testS\components\Language;
+use testS\application\components\Language;
 
 return [
     "records"            => [
