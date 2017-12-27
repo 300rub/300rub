@@ -44,7 +44,7 @@ abstract class AbstractMenuInstanceModel extends AbstractModel
             ],
             'sectionId' => [
                 self::FIELD_RELATION_TO_PARENT
-                    => '\\testS\\\models\\\sections\\SectionModel'
+                    => '\\testS\\models\\sections\\SectionModel'
             ],
             'icon'      => [
                 self::FIELD_TYPE       => self::FIELD_TYPE_STRING,

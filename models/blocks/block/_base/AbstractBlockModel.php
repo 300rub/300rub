@@ -28,13 +28,13 @@ abstract class AbstractBlockModel extends AbstractModel
      */
     public static $typeList = [
         self::TYPE_TEXT
-            => '\\models\\blocks\\text\\TextModel',
+            => '\\testS\\models\\blocks\\text\\TextModel',
         self::TYPE_IMAGE
-            => '\\models\\blocks\\image\\ImageModel',
+            => '\\testS\\models\\blocks\\image\\ImageModel',
         self::TYPE_RECORD
-            => '\\models\\blocks\\record\\RecordModel',
+            => '\\testS\\models\\blocks\\record\\RecordModel',
         self::TYPE_RECORD_CLONE
-            => '\\models\\blocks\\record\\RecordCloneModel',
+            => '\\testS\\models\\blocks\\record\\RecordCloneModel',
     ];
 
     /**
