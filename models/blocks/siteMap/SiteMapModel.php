@@ -2,7 +2,7 @@
 
 namespace testS\models\blocks\siteMap;
 
-use testS\models\blocks\siteMap\_abstract\AbstractSiteMapModel;
+use testS\models\blocks\siteMap\_base\AbstractSiteMapModel;
 
 /**
  * Model for working with table "siteMaps"

@@ -5,6 +5,7 @@ namespace testS\models\blocks\image\_abstract;
 use testS\models\blocks\helpers\file\FileModel;
 use testS\application\exceptions\FileException;
 use Gregwar\Image\Image;
+use testS\models\blocks\image\_base\AbstractImageInstanceModel;
 
 /**
  * Abstract model for working with table "imageInstances"

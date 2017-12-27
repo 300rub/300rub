@@ -2,7 +2,7 @@
 
 namespace testS\models\blocks\menu;
 
-use testS\models\blocks\menu\_abstract\AbstractDesignMenuModel;
+use testS\models\blocks\menu\_base\AbstractDesignMenuModel;
 
 /**
  * Model for working with table "designMenu"

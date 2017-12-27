@@ -2,7 +2,7 @@
 
 namespace testS\models\blocks\search;
 
-use testS\models\blocks\search\_abstract\AbstractSearchModel;
+use testS\models\blocks\search\_base\AbstractSearchModel;
 
 /**
  * Model for working with table "search"

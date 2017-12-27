@@ -2,7 +2,7 @@
 
 namespace testS\models\blocks\text;
 
-use testS\models\blocks\text\_abstract\AbstractDesignTextModel;
+use testS\models\blocks\text\_base\AbstractDesignTextModel;
 use testS\application\App;
 
 /**

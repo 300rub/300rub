@@ -2,7 +2,7 @@
 
 namespace testS\models\blocks\record;
 
-use testS\models\blocks\record\_abstract\AbstractRecordModel;
+use testS\models\blocks\record\_base\AbstractRecordModel;
 
 /**
  * Model for working with table "records"

@@ -3,7 +3,7 @@
 namespace testS\models\user;
 
 use testS\application\components\Db;
-use testS\models\user\_abstract\AbstractUserSessionModel;
+use testS\models\user\_base\AbstractUserSessionModel;
 
 /**
  * Model for working with table "userSessions"

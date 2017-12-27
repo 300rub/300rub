@@ -2,7 +2,7 @@
 
 namespace testS\models\blocks\image;
 
-use testS\models\blocks\image\_abstract\AbstractDesignImageSimpleModel;
+use testS\models\blocks\image\_base\AbstractDesignImageSimpleModel;
 use testS\application\App;
 
 /**

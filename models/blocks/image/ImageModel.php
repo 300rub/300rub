@@ -2,7 +2,7 @@
 
 namespace testS\models\blocks\image;
 
-use testS\models\blocks\image\_abstract\AbstractImageModel;
+use testS\models\blocks\image\_base\AbstractImageModel;
 
 /**
  * Model for working with table "images"

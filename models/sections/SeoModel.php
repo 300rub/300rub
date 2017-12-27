@@ -2,7 +2,7 @@
 
 namespace testS\models\sections;
 
-use testS\models\sections\_abstract\AbstractSeoModel;
+use testS\models\sections\_base\AbstractSeoModel;
 
 /**
  * Model for working with table "seo"

@@ -3,7 +3,7 @@
 namespace testS\models\sections;
 
 use testS\application\App;
-use testS\models\sections\_abstract\AbstractGridLineModel;
+use testS\models\sections\_base\AbstractGridLineModel;
 
 /**
  * Model for working with table "gridLines"

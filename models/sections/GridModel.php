@@ -2,7 +2,7 @@
 
 namespace testS\models\sections;
 
-use testS\models\sections\_abstract\AbstractGridModel;
+use testS\models\sections\_base\AbstractGridModel;
 
 /**
  * Model for working with table "grids"

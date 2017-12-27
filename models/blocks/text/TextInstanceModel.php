@@ -4,7 +4,7 @@ namespace testS\models\blocks\text;
 
 use testS\application\App;
 use testS\application\components\Db;
-use testS\models\blocks\text\_abstract\AbstractTextInstanceModel;
+use testS\models\blocks\text\_base\AbstractTextInstanceModel;
 
 /**
  * Model for working with table "textInstances"

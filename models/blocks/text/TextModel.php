@@ -4,7 +4,7 @@ namespace testS\models\blocks\text;
 
 use testS\application\App;
 use testS\application\exceptions\ModelException;
-use testS\models\blocks\text\_abstract\AbstractTextModel;
+use testS\models\blocks\text\_base\AbstractTextModel;
 
 /**
  * Model for working with table "texts"

@@ -2,7 +2,7 @@
 
 namespace testS\models\blocks\record;
 
-use testS\models\blocks\record\_abstract\AbstractRecordCloneModel;
+use testS\models\blocks\record\_base\AbstractRecordCloneModel;
 
 /**
  * Model for working with table "recordClones"

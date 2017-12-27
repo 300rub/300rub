@@ -2,7 +2,7 @@
 
 namespace testS\models\settings;
 
-use testS\models\settings\_abstract\AbstractSettingsModel;
+use testS\models\settings\_base\AbstractSettingsModel;
 
 /**
  * Model for working with table "settings"

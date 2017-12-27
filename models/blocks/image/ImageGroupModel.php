@@ -3,7 +3,7 @@
 namespace testS\models\blocks\image;
 
 use testS\application\components\Db;
-use testS\models\blocks\image\_abstract\AbstractImageGroupModel;
+use testS\models\blocks\image\_base\AbstractImageGroupModel;
 
 /**
  * Model for working with table "imageGroups"

@@ -2,7 +2,7 @@
 
 namespace testS\models\system;
 
-use testS\models\system\_abstract\AbstractHelpModel;
+use testS\models\system\_base\AbstractHelpModel;
 
 /**
  * Model for working with table "help"

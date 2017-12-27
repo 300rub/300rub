@@ -3,7 +3,7 @@
 namespace testS\models\user;
 
 use testS\application\components\Db;
-use testS\models\user\_abstract\AbstractUserBlockOperationModel;
+use testS\models\user\_base\AbstractUserBlockOperationModel;
 
 /**
  * Model for working with table "userBlockOperations"

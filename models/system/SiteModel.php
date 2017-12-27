@@ -3,7 +3,7 @@
 namespace testS\models\system;
 
 use testS\application\components\Db;
-use testS\models\system\_abstract\AbstractSiteModel;
+use testS\models\system\_base\AbstractSiteModel;
 
 /**
  * Model for working with table "sites"
