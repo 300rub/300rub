@@ -4,7 +4,7 @@ namespace testS\application\instances;
 
 use testS\application\components\User;
 use testS\application\instances\_abstract\AbstractWebAjax;
-use testS\models\UserModel;
+use testS\models\user\UserModel;
 use testS\models\user\UserSessionModel;
 
 /**
@@ -119,7 +119,8 @@ class Web extends AbstractWebAjax
         }
 
         $userSessionModel = new UserSessionModel();
-        $userSessionModel = $userSessionModel->byToken($token)->find();
+        $userSessionModel->byToken($token);
+        $userSessionModel = $userSessionModel->find();
         if ($userSessionModel instanceof UserSessionModel === false) {
             return $this;
         }

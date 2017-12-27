@@ -5,7 +5,7 @@ namespace testS\commands;
 use testS\application\App;
 use testS\application\components\Language;
 use testS\commands\_abstract\AbstractCommand;
-use testS\models\AbstractModel;
+use testS\models\_abstract\AbstractModel;
 
 /**
  * Load fixtures command

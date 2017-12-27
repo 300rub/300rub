@@ -3,7 +3,7 @@
 namespace testS\application\components;
 
 use testS\application\exceptions\CommonException;
-use testS\models\AbstractModel;
+use testS\models\_abstract\AbstractModel;
 use testS\models\blocks\block\DesignBlockModel;
 use testS\models\blocks\text\DesignTextModel;
 

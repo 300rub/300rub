@@ -354,7 +354,7 @@ abstract class AbstractDb
      * @param string $key   Parameter key
      * @param mixed  $value Parameter value
      *
-     * @return Db
+     * @return Db|AbstractDb
      *
      * @throws DbException
      */

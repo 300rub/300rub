@@ -2,7 +2,7 @@
 
 namespace testS\application\components;
 
-use testS\models\UserModel;
+use testS\models\user\UserModel;
 
 /**
  * Class for work with user from session
