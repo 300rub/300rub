@@ -2,12 +2,12 @@
 
 namespace testS\models\blocks\menu\_base;
 
-use testS\models\_abstract\AbstractModel;
+use testS\models\blocks\menu\_abstract\AbstractMenuModel;
 
 /**
  * Abstract model for working with table "designMenu"
  */
-abstract class AbstractDesignMenuModel extends AbstractModel
+abstract class AbstractDesignMenuModel extends AbstractMenuModel
 {
 
     /**

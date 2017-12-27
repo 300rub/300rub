@@ -4,12 +4,12 @@ namespace testS\models\blocks\image\_base;
 
 use testS\application\components\Validator;
 use testS\application\components\ValueGenerator;
-use testS\models\_abstract\AbstractModel;
+use testS\models\blocks\image\_abstract\AbstractImageModel;
 
 /**
  * Abstract model for working with table "imageGroups"
  */
-abstract class AbstractImageGroupModel extends AbstractModel
+abstract class AbstractImageGroupModel extends AbstractImageModel
 {
 
     /**

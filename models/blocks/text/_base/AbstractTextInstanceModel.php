@@ -2,12 +2,12 @@
 
 namespace testS\models\blocks\text\_base;
 
-use testS\models\_abstract\AbstractModel;
+use testS\models\blocks\text\_abstract\AbstractTextModel;
 
 /**
  * Abstract model for working with table "textInstances"
  */
-abstract class AbstractTextInstanceModel extends AbstractModel
+abstract class AbstractTextInstanceModel extends AbstractTextModel
 {
 
     /**

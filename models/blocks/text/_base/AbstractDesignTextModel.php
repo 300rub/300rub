@@ -3,12 +3,12 @@
 namespace testS\models\blocks\text\_base;
 
 use testS\application\components\ValueGenerator;
-use testS\models\_abstract\AbstractModel;
+use testS\models\blocks\text\_abstract\AbstractTextModel;
 
 /**
  * Abstract model for working with table "designTexts"
  */
-abstract class AbstractDesignTextModel extends AbstractModel
+abstract class AbstractDesignTextModel extends AbstractTextModel
 {
 
     /**
