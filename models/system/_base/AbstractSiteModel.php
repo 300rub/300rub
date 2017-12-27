@@ -5,12 +5,12 @@ namespace testS\models\system\_base;
 use testS\application\App;
 use testS\application\components\Validator;
 use testS\application\components\ValueGenerator;
-use testS\models\_abstract\AbstractModel;
+use testS\models\system\_abstract\AbstractSystemModel;
 
 /**
  * Abstract model for working with table "sites"
  */
-abstract class AbstractSiteModel extends AbstractModel
+abstract class AbstractSiteModel extends AbstractSystemModel
 {
 
     /**

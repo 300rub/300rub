@@ -2,14 +2,14 @@
 
 namespace testS\models\blocks\catalog\_base;
 
-use testS\models\_abstract\AbstractModel;
 use testS\application\components\Validator;
 use testS\application\components\ValueGenerator;
+use testS\models\blocks\catalog\_abstract\AbstractCatalogModel as Model;
 
 /**
  * Abstract model for working with table "catalogs"
  */
-abstract class AbstractCatalogModel extends AbstractModel
+abstract class AbstractCatalogModel extends Model
 {
 
     /**

@@ -2,13 +2,13 @@
 
 namespace testS\models\blocks\catalog\_base;
 
-use testS\models\_abstract\AbstractModel;
 use testS\application\components\ValueGenerator;
+use testS\models\blocks\catalog\_abstract\AbstractCatalogModel;
 
 /**
  * Abstract model for working with table "designCatalogs"
  */
-abstract class AbstractDesignCatalogModel extends AbstractModel
+abstract class AbstractDesignCatalogModel extends AbstractCatalogModel
 {
 
     /**

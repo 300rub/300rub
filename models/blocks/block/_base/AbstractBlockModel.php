@@ -5,12 +5,12 @@ namespace testS\models\blocks\block\_base;
 use testS\application\App;
 use testS\application\components\Validator;
 use testS\application\components\ValueGenerator;
-use testS\models\_abstract\AbstractModel;
+use testS\models\blocks\block\_abstract\AbstractBlockModel as Model;
 
 /**
  * Abstract model for working with table "blocks"
  */
-abstract class AbstractBlockModel extends AbstractModel
+abstract class AbstractBlockModel extends Model
 {
 
     /**

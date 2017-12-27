@@ -4,12 +4,12 @@ namespace testS\models\sections\_base;
 
 use testS\application\components\Validator;
 use testS\application\components\ValueGenerator;
-use testS\models\_abstract\AbstractModel;
+use testS\models\sections\_abstract\AbstractSectionsModel;
 
 /**
  * Abstract model for working with table "seo"
  */
-abstract class AbstractSeoModel extends AbstractModel
+abstract class AbstractSeoModel extends AbstractSectionsModel
 {
 
     /**
