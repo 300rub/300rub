@@ -49,7 +49,8 @@ abstract class AbstractMenuModel extends Model
     {
         return [
             'designMenuId' => [
-                self::FIELD_RELATION => 'DesignMenuModel'
+                self::FIELD_RELATION
+                    => '\\testS\\models\\blocks\\menu\\DesignMenuModel'
             ],
             'type'         => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,

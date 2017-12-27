@@ -103,7 +103,8 @@ abstract class AbstractDesignImageZoomModel extends AbstractImageModel
     {
         return [
             'designBlockId'        => [
-                self::FIELD_RELATION => 'DesignBlockModel'
+                self::FIELD_RELATION
+                    => '\\testS\\models\\blocks\\block\\DesignBlockModel'
             ],
             'hasScroll'            => [
                 self::FIELD_TYPE => self::FIELD_TYPE_BOOL,

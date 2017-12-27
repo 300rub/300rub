@@ -84,19 +84,23 @@ abstract class AbstractImageInstanceModel extends AbstractImageModel
     {
         return [
             'imageGroupId'   => [
-                self::FIELD_RELATION_TO_PARENT => 'ImageGroupModel',
+                self::FIELD_RELATION_TO_PARENT
+                    => '\\testS\\models\\blocks\\image\\ImageGroupModel',
                 self::FIELD_SKIP_DUPLICATION   => true,
             ],
             'originalFileId' => [
-                self::FIELD_RELATION         => 'FileModel',
+                self::FIELD_RELATION
+                    => '\\testS\\models\\blocks\\helpers\\file\\FileModel',
                 self::FIELD_SKIP_DUPLICATION => true,
             ],
             'viewFileId'     => [
-                self::FIELD_RELATION         => 'FileModel',
+                self::FIELD_RELATION
+                    => '\\testS\\models\\blocks\\helpers\\file\\FileModel',
                 self::FIELD_SKIP_DUPLICATION => true,
             ],
             'thumbFileId'    => [
-                self::FIELD_RELATION         => 'FileModel',
+                self::FIELD_RELATION
+                    => '\\testS\\models\\blocks\\helpers\\file\\FileModel',
                 self::FIELD_SKIP_DUPLICATION => true,
             ],
         ];

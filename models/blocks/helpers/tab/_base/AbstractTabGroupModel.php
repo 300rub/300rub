@@ -29,7 +29,8 @@ abstract class AbstractTabGroupModel extends AbstractTabModel
     {
         return [
             'tabId' => [
-                self::FIELD_RELATION_TO_PARENT   => 'TabModel',
+                self::FIELD_RELATION_TO_PARENT
+                    => '\\testS\\models\\blocks\\helpers\\tab\\TabModel',
                 self::FIELD_NOT_CHANGE_ON_UPDATE => true,
             ],
         ];

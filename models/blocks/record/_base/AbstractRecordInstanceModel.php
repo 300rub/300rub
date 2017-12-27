@@ -46,27 +46,33 @@ abstract class AbstractRecordInstanceModel extends AbstractRecordModel
     {
         return [
             'recordId'                  => [
-                self::FIELD_RELATION_TO_PARENT => 'RecordModel',
+                self::FIELD_RELATION_TO_PARENT
+                    => '\\testS\\models\\blocks\\record\\RecordModel',
                 self::FIELD_SKIP_DUPLICATION => true,
             ],
             'seoId'                     => [
-                self::FIELD_RELATION => 'SeoModel',
+                self::FIELD_RELATION
+                    => '\\testS\\models\\sections\\SeoModel',
                 self::FIELD_SKIP_DUPLICATION => true,
             ],
             'textTextInstanceId'        => [
-                self::FIELD_RELATION => 'TextInstanceModel',
+                self::FIELD_RELATION
+                    => '\\testS\\models\\blocks\\text\\TextInstanceModel',
                 self::FIELD_SKIP_DUPLICATION => true,
             ],
             'descriptionTextInstanceId' => [
-                self::FIELD_RELATION => 'TextInstanceModel',
+                self::FIELD_RELATION
+                    => '\\testS\\models\\blocks\\text\\TextInstanceModel',
                 self::FIELD_SKIP_DUPLICATION => true,
             ],
             'imageGroupId'              => [
-                self::FIELD_RELATION => 'ImageGroupModel',
+                self::FIELD_RELATION
+                    => '\\testS\\models\\blocks\\image\\ImageGroupModel',
                 self::FIELD_SKIP_DUPLICATION => true,
             ],
             'coverImageInstanceId'      => [
-                self::FIELD_RELATION => 'ImageInstanceModel',
+                self::FIELD_RELATION
+                    => '\\testS\\models\\blocks\\image\\ImageInstanceModel',
                 self::FIELD_SKIP_DUPLICATION => true,
             ],
             'date'                      => [

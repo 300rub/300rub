@@ -29,13 +29,16 @@ abstract class AbstractGridLineModel extends AbstractSectionsModel
     {
         return [
             'sectionId'       => [
-                self::FIELD_RELATION_TO_PARENT => 'SectionModel',
+                self::FIELD_RELATION_TO_PARENT
+                    => '\\testS\\models\\sections\\SectionModel',
             ],
             'outsideDesignId' => [
-                self::FIELD_RELATION => 'DesignBlockModel'
+                self::FIELD_RELATION
+                    => '\\testS\\models\\blocks\\block\\DesignBlockModel'
             ],
             'insideDesignId'  => [
-                self::FIELD_RELATION => 'DesignBlockModel'
+                self::FIELD_RELATION
+                    => '\\testS\\models\\blocks\\block\\DesignBlockModel'
             ],
             'sort'            => [
                 self::FIELD_TYPE => self::FIELD_TYPE_INT,

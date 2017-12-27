@@ -90,16 +90,20 @@ abstract class AbstractImageModel extends AbstractContentModel
     {
         return [
             'designBlockId'       => [
-                self::FIELD_RELATION => 'DesignBlockModel'
+                self::FIELD_RELATION
+                    => '\\testS\\models\\blocks\\block\\DesignBlockModel'
             ],
             'designImageSliderId' => [
-                self::FIELD_RELATION => 'DesignImageSliderModel'
+                self::FIELD_RELATION
+                    => '\\testS\\models\\blocks\\image\\DesignImageSliderModel'
             ],
             'designImageZoomId'   => [
-                self::FIELD_RELATION => 'DesignImageZoomModel'
+                self::FIELD_RELATION
+                    => '\\testS\\models\\blocks\\image\\DesignImageZoomModel'
             ],
             'designImageSimpleId' => [
-                self::FIELD_RELATION => 'DesignImageSimpleModel'
+                self::FIELD_RELATION
+                    => '\\testS\\models\\blocks\\image\\DesignImageSimpleModel'
             ],
             'type'                => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,

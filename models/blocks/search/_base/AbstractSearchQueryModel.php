@@ -31,7 +31,8 @@ abstract class AbstractSearchQueryModel extends AbstractSearchModel
     {
         return [
             'searchId'   => [
-                self::FIELD_RELATION_TO_PARENT => 'SearchModel',
+                self::FIELD_RELATION_TO_PARENT
+                    => '\\testS\\models\\blocks\\search\\SearchModel',
                 self::FIELD_NOT_CHANGE_ON_UPDATE => true,
                 self::FIELD_SKIP_DUPLICATION => true,
             ],

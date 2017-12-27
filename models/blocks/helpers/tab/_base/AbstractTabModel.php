@@ -29,10 +29,12 @@ abstract class AbstractTabModel extends Model
     {
         return [
             'designTabsId'       => [
-                self::FIELD_RELATION => 'DesignTabModel'
+                self::FIELD_RELATION
+                    => '\\testS\\models\\blocks\\helpers\\tab\\DesignTabModel'
             ],
             'textId'       => [
-                self::FIELD_RELATION => 'TextModel'
+                self::FIELD_RELATION
+                    => '\\testS\\models\\blocks\\text\\TextModel'
             ],
             'isShowEmpty'       => [
                 self::FIELD_TYPE => self::FIELD_TYPE_BOOL

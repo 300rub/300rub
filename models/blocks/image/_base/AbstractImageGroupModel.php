@@ -31,7 +31,8 @@ abstract class AbstractImageGroupModel extends AbstractImageModel
     {
         return [
             'imageId' => [
-                self::FIELD_RELATION_TO_PARENT => 'ImageModel',
+                self::FIELD_RELATION_TO_PARENT
+                    => '\\testS\\models\\blocks\\image\\ImageModel',
                 self::FIELD_NOT_CHANGE_ON_UPDATE => true,
             ],
             'name'    => [

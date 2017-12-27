@@ -78,7 +78,8 @@ abstract class AbstractFormInstanceModel extends AbstractFormModel
     {
         return [
             'formId'         => [
-                self::FIELD_RELATION => 'FormModel'
+                self::FIELD_RELATION
+                    => '\\testS\\models\\blocks\\helpers\\form\\FormModel'
             ],
             'sort'           => [
                 self::FIELD_TYPE => self::FIELD_TYPE_INT

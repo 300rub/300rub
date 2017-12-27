@@ -49,25 +49,32 @@ abstract class AbstractDesignRecordCloneModel extends AbstractRecordModel
     {
         return [
             'containerDesignBlockId'   => [
-                self::FIELD_RELATION => 'DesignBlockModel'
+                self::FIELD_RELATION
+                    => '\\testS\\models\\blocks\\block\\DesignBlockModel'
             ],
             'instanceDesignBlockId'    => [
-                self::FIELD_RELATION => 'DesignBlockModel'
+                self::FIELD_RELATION
+                    => '\\testS\\models\\blocks\\block\\DesignBlockModel'
             ],
             'titleDesignBlockId'       => [
-                self::FIELD_RELATION => 'DesignBlockModel'
+                self::FIELD_RELATION
+                    => '\\testS\\models\\blocks\\block\\DesignBlockModel'
             ],
             'titleDesignTextId'        => [
-                self::FIELD_RELATION => 'DesignTextModel'
+                self::FIELD_RELATION
+                    => '\\testS\\models\\blocks\\text\\DesignTextModel'
             ],
             'dateDesignTextId'         => [
-                self::FIELD_RELATION => 'DesignTextModel'
+                self::FIELD_RELATION
+                    => '\\testS\\models\\blocks\\text\\DesignTextModel'
             ],
             'descriptionDesignBlockId' => [
-                self::FIELD_RELATION => 'DesignBlockModel'
+                self::FIELD_RELATION
+                    => '\\testS\\models\\blocks\\block\\DesignBlockModel'
             ],
             'descriptionDesignTextId'  => [
-                self::FIELD_RELATION => 'DesignTextModel'
+                self::FIELD_RELATION
+                    => '\\testS\\models\\blocks\\text\\DesignTextModel'
             ],
             'viewType'                 => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,

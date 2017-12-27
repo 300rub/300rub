@@ -49,16 +49,20 @@ abstract class AbstractRecordCloneModel extends AbstractContentModel
     {
         return [
             'recordId'            => [
-                self::FIELD_RELATION_TO_PARENT => 'RecordModel'
+                self::FIELD_RELATION_TO_PARENT
+                    => '\\testS\\models\\blocks\\record\\RecordModel'
             ],
             'coverImageId'       => [
-                self::FIELD_RELATION => 'ImageModel'
+                self::FIELD_RELATION
+                    => '\\testS\\models\\blocks\\image\\ImageModel'
             ],
             'descriptionTextId'   => [
-                self::FIELD_RELATION => 'TextModel'
+                self::FIELD_RELATION
+                    => '\\testS\\models\\blocks\\text\\TextModel'
             ],
             'designRecordCloneId' => [
-                self::FIELD_RELATION => 'DesignRecordCloneModel'
+                self::FIELD_RELATION
+                    => '\\testS\\models\\blocks\\record\\DesignRecordCloneModel'
             ],
             'hasCover'            => [
                 self::FIELD_TYPE => self::FIELD_TYPE_BOOL

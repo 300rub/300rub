@@ -29,28 +29,36 @@ abstract class AbstractDesignSearchModel extends AbstractSearchModel
     {
         return [
             'containerDesignBlockId'      => [
-                self::FIELD_RELATION => 'DesignBlockModel'
+                self::FIELD_RELATION
+                    => '\\testS\\models\\blocks\\block\\DesignBlockModel'
             ],
             'titleDesignBlockId'          => [
-                self::FIELD_RELATION => 'DesignBlockModel'
+                self::FIELD_RELATION
+                    => '\\testS\\models\\blocks\\block\\DesignBlockModel'
             ],
             'titleDesignTextId'           => [
-                self::FIELD_RELATION => 'DesignTextModel'
+                self::FIELD_RELATION
+                    => '\\testS\\models\\blocks\\text\\DesignTextModel'
             ],
             'descriptionDesignBlockId'    => [
-                self::FIELD_RELATION => 'DesignBlockModel'
+                self::FIELD_RELATION
+                    => '\\testS\\models\\blocks\\block\\DesignBlockModel'
             ],
             'descriptionDesignTextId'     => [
-                self::FIELD_RELATION => 'DesignTextModel'
+                self::FIELD_RELATION
+                    => '\\testS\\models\\blocks\\text\\DesignTextModel'
             ],
             'paginationDesignBlockId'     => [
-                self::FIELD_RELATION => 'DesignBlockModel'
+                self::FIELD_RELATION
+                    => '\\testS\\models\\blocks\\block\\DesignBlockModel'
             ],
             'paginationItemDesignBlockId' => [
-                self::FIELD_RELATION => 'DesignBlockModel'
+                self::FIELD_RELATION
+                    => '\\testS\\models\\blocks\\block\\DesignBlockModel'
             ],
             'paginationItemDesignTextId'  => [
-                self::FIELD_RELATION => 'DesignTextModel'
+                self::FIELD_RELATION
+                    => '\\testS\\models\\blocks\\text\\DesignTextModel'
             ],
         ];
     }

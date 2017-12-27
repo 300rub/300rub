@@ -29,34 +29,44 @@ abstract class AbstractDesignFieldModel extends AbstractFieldModel
     {
         return [
             'shortCardContainerDesignBlockId' => [
-                self::FIELD_RELATION => 'DesignBlockModel'
+                self::FIELD_RELATION
+                    => '\\testS\\models\\blocks\\block\\DesignBlockModel'
             ],
             'shortCardLabelDesignBlockId'     => [
-                self::FIELD_RELATION => 'DesignBlockModel'
+                self::FIELD_RELATION
+                    => '\\testS\\models\\blocks\\block\\DesignBlockModel'
             ],
             'shortCardLabelDesignTextId'      => [
-                self::FIELD_RELATION => 'DesignTextModel'
+                self::FIELD_RELATION
+                    => '\\testS\\models\\blocks\\text\\DesignTextModel'
             ],
             'shortCardValueDesignBlockId'     => [
-                self::FIELD_RELATION => 'DesignBlockModel'
+                self::FIELD_RELATION
+                    => '\\testS\\models\\blocks\\block\\DesignBlockModel'
             ],
             'shortCardValueDesignTextId'      => [
-                self::FIELD_RELATION => 'DesignTextModel'
+                self::FIELD_RELATION
+                    => '\\testS\\models\\blocks\\text\\DesignTextModel'
             ],
             'fullCardContainerDesignBlockId'  => [
-                self::FIELD_RELATION => 'DesignBlockModel'
+                self::FIELD_RELATION
+                    => '\\testS\\models\\blocks\\block\\DesignBlockModel'
             ],
             'fullCardLabelDesignBlockId'      => [
-                self::FIELD_RELATION => 'DesignBlockModel'
+                self::FIELD_RELATION
+                    => '\\testS\\models\\blocks\\block\\DesignBlockModel'
             ],
             'fullCardLabelDesignTextId'       => [
-                self::FIELD_RELATION => 'DesignTextModel'
+                self::FIELD_RELATION
+                    => '\\testS\\models\\blocks\\text\\DesignTextModel'
             ],
             'fullCardValueDesignBlockId'      => [
-                self::FIELD_RELATION => 'DesignBlockModel'
+                self::FIELD_RELATION
+                    => '\\testS\\models\\blocks\\block\\DesignBlockModel'
             ],
             'fullCardValueDesignTextId'       => [
-                self::FIELD_RELATION => 'DesignTextModel'
+                self::FIELD_RELATION
+                    => '\\testS\\models\\blocks\\text\\DesignTextModel'
             ],
         ];
     }

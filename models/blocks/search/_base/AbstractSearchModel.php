@@ -29,10 +29,12 @@ abstract class AbstractSearchModel extends Model
     {
         return [
             'formId'      => [
-                self::FIELD_RELATION => 'FormModel'
+                self::FIELD_RELATION
+                    => '\\testS\\models\\blocks\\helpers\\form\\FormModel'
             ],
             'searchDesignId'          => [
-                self::FIELD_RELATION => 'DesignSearchModel'
+                self::FIELD_RELATION
+                    => '\\testS\\models\\blocks\\search\\DesignSearchModel'
             ],
         ];
     }

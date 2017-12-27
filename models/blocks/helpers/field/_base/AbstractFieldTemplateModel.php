@@ -69,7 +69,8 @@ abstract class AbstractFieldTemplateModel extends AbstractFieldModel
     {
         return [
             'fieldId'            => [
-                self::FIELD_RELATION_TO_PARENT => 'FieldModel',
+                self::FIELD_RELATION_TO_PARENT
+                    => '\\testS\\models\\blocks\\helpers\\field\\FieldModel',
             ],
             'sort'               => [
                 self::FIELD_TYPE => self::FIELD_TYPE_INT,

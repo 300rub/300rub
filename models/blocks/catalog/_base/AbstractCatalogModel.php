@@ -50,19 +50,24 @@ abstract class AbstractCatalogModel extends Model
     {
         return [
             'imageId'            => [
-                self::FIELD_RELATION => 'ImageModel'
+                self::FIELD_RELATION
+                    => '\\testS\\models\\blocks\\image\\ImageModel'
             ],
             'tabId'              => [
-                self::FIELD_RELATION => 'TabModel'
+                self::FIELD_RELATION
+                    => '\\testS\\models\\blocks\\helpers\\tab\\TabModel'
             ],
             'fieldId'            => [
-                self::FIELD_RELATION => 'FieldModel'
+                self::FIELD_RELATION
+                    => '\\testS\\models\\blocks\\helpers\\field\\FieldModel'
             ],
             'descriptionTextId'  => [
-                self::FIELD_RELATION => 'TextModel'
+                self::FIELD_RELATION
+                    => '\\testS\\models\\blocks\\text\\TextModel'
             ],
             'designCatalogId'    => [
-                self::FIELD_RELATION => 'DesignCatalogModel'
+                self::FIELD_RELATION
+                    => '\\testS\\models\\blocks\\catalog\\DesignCatalogModel'
             ],
             'hasImages'          => [
                 self::FIELD_TYPE => self::FIELD_TYPE_BOOL

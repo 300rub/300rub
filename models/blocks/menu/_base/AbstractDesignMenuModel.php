@@ -29,25 +29,32 @@ abstract class AbstractDesignMenuModel extends AbstractMenuModel
     {
         return [
             'containerDesignBlockId'       => [
-                self::FIELD_RELATION => 'DesignBlockModel'
+                self::FIELD_RELATION
+                    => '\\testS\\models\\blocks\\block\\DesignBlockModel'
             ],
             'firstLevelDesignBlockId'       => [
-                self::FIELD_RELATION => 'DesignBlockModel'
+                self::FIELD_RELATION
+                    => '\\testS\\models\\blocks\\block\\DesignBlockModel'
             ],
             'firstLevelDesignTextId'       => [
-                self::FIELD_RELATION => 'DesignTextModel'
+                self::FIELD_RELATION
+                    => '\\testS\\models\\blocks\\text\\DesignTextModel'
             ],
             'secondLevelDesignBlockId'       => [
-                self::FIELD_RELATION => 'DesignBlockModel'
+                self::FIELD_RELATION
+                    => '\\testS\\models\\blocks\\block\\DesignBlockModel'
             ],
             'secondLevelDesignTextId'       => [
-                self::FIELD_RELATION => 'DesignTextModel'
+                self::FIELD_RELATION
+                    => '\\testS\\models\\blocks\\text\\DesignTextModel'
             ],
             'lastLevelDesignBlockId'       => [
-                self::FIELD_RELATION => 'DesignBlockModel'
+                self::FIELD_RELATION
+                    => '\\testS\\models\\blocks\\block\\DesignBlockModel'
             ],
             'lastLevelDesignTextId'       => [
-                self::FIELD_RELATION => 'DesignTextModel'
+                self::FIELD_RELATION
+                    => '\\testS\\models\\blocks\\text\\DesignTextModel'
             ],
         ];
     }

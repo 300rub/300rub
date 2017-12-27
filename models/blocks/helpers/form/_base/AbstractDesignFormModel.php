@@ -84,31 +84,40 @@ abstract class AbstractDesignFormModel extends AbstractFormModel
     {
         return [
             'containerDesignBlockId'       => [
-                self::FIELD_RELATION => 'DesignBlockModel'
+                self::FIELD_RELATION
+                    => '\\testS\\models\\blocks\\block\\DesignBlockModel'
             ],
             'lineDesignBlockId'       => [
-                self::FIELD_RELATION => 'DesignBlockModel'
+                self::FIELD_RELATION
+                    => '\\testS\\models\\blocks\\block\\DesignBlockModel'
             ],
             'labelDesignBlockId'       => [
-                self::FIELD_RELATION => 'DesignBlockModel'
+                self::FIELD_RELATION
+                    => '\\testS\\models\\blocks\\block\\DesignBlockModel'
             ],
             'labelDesignTextId'       => [
-                self::FIELD_RELATION => 'DesignTextModel'
+                self::FIELD_RELATION
+                    => '\\testS\\models\\blocks\\text\\DesignTextModel'
             ],
             'formDesignBlockId'       => [
-                self::FIELD_RELATION => 'DesignBlockModel'
+                self::FIELD_RELATION
+                    => '\\testS\\models\\blocks\\block\\DesignBlockModel'
             ],
             'formDesignTextId'       => [
-                self::FIELD_RELATION => 'DesignTextModel'
+                self::FIELD_RELATION
+                    => '\\testS\\models\\blocks\\text\\DesignTextModel'
             ],
             'submitDesignBlockId'       => [
-                self::FIELD_RELATION => 'DesignBlockModel'
+                self::FIELD_RELATION
+                    => '\\testS\\models\\blocks\\block\\DesignBlockModel'
             ],
             'submitDesignTextId'       => [
-                self::FIELD_RELATION => 'DesignTextModel'
+                self::FIELD_RELATION
+                    => '\\testS\\models\\blocks\\text\\DesignTextModel'
             ],
             'submitIconDesignTextId'       => [
-                self::FIELD_RELATION => 'DesignTextModel'
+                self::FIELD_RELATION
+                    => '\\testS\\models\\blocks\\text\\DesignTextModel'
             ],
             'submitIcon'       => [
                 self::FIELD_TYPE => self::FIELD_TYPE_STRING,

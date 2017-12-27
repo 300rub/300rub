@@ -34,10 +34,12 @@ abstract class AbstractSectionModel extends AbstractSectionsModel
 
         return [
             'seoId'         => [
-                self::FIELD_RELATION => 'SeoModel'
+                self::FIELD_RELATION
+                    => '\\testS\\models\\sections\\SeoModel'
             ],
             'designBlockId' => [
-                self::FIELD_RELATION => 'DesignBlockModel'
+                self::FIELD_RELATION
+                    => '\\testS\\models\\blocks\\block\\DesignBlockModel'
             ],
             'language'      => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,

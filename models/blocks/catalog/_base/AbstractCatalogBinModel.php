@@ -50,12 +50,14 @@ abstract class AbstractCatalogBinModel extends AbstractCatalogModel
     {
         return [
             'catalogId'         => [
-                self::FIELD_RELATION_TO_PARENT   => 'CatalogModel',
+                self::FIELD_RELATION_TO_PARENT
+                    => '\\testS\\models\\blocks\\catalog\\CatalogModel',
                 self::FIELD_SKIP_DUPLICATION     => true,
                 self::FIELD_NOT_CHANGE_ON_UPDATE => true,
             ],
             'catalogInstanceId' => [
-                self::FIELD_RELATION_TO_PARENT   => 'CatalogInstanceModel',
+                self::FIELD_RELATION_TO_PARENT
+                    => '\\testS\\models\\blocks\\catalog\\CatalogInstanceModel',
                 self::FIELD_SKIP_DUPLICATION     => true,
                 self::FIELD_NOT_CHANGE_ON_UPDATE => true,
             ],

@@ -32,12 +32,14 @@ abstract class AbstractUserBlockOperationModel extends AbstractUserModel
     {
         return [
             'userId' => [
-                self::FIELD_RELATION_TO_PARENT   => 'UserModel',
+                self::FIELD_RELATION_TO_PARENT
+                    => '\\testS\\models\\user\\UserModel',
                 self::FIELD_SKIP_DUPLICATION     => true,
                 self::FIELD_NOT_CHANGE_ON_UPDATE => true,
             ],
             'blockId' => [
-                self::FIELD_RELATION_TO_PARENT => 'BlockModel',
+                self::FIELD_RELATION_TO_PARENT
+                    => '\\testS\\models\\blocks\\block\\BlockModel',
                 self::FIELD_SKIP_DUPLICATION     => true,
                 self::FIELD_NOT_CHANGE_ON_UPDATE => true,
             ],

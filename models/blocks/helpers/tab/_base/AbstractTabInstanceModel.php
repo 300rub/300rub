@@ -29,13 +29,16 @@ abstract class AbstractTabInstanceModel extends AbstractTabModel
     {
         return [
             'tabGroupId'     => [
-                self::FIELD_RELATION_TO_PARENT => 'TabGroupModel',
+                self::FIELD_RELATION_TO_PARENT
+                    => '\\testS\\models\\blocks\\helpers\\tab\\TabGroupModel',
             ],
             'textInstanceId' => [
-                self::FIELD_RELATION => 'TextInstanceModel',
+                self::FIELD_RELATION
+                    => '\\testS\\models\\blocks\\text\\TextInstanceModel',
             ],
             'tabTemplateId'  => [
-                self::FIELD_RELATION_TO_PARENT => 'TabTemplateModel',
+                self::FIELD_RELATION_TO_PARENT
+                    => '\\testS\\models\\blocks\\helpers\\tab\\TabTemplateModel',
             ],
         ];
     }

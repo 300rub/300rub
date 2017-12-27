@@ -49,13 +49,16 @@ abstract class AbstractSiteMapModel extends Model
     {
         return [
             'containerDesignBlockId' => [
-                self::FIELD_RELATION => 'DesignBlockModel'
+                self::FIELD_RELATION
+                    => '\\testS\\models\\blocks\\block\\DesignBlockModel'
             ],
             'itemDesignBlockId'      => [
-                self::FIELD_RELATION => 'DesignBlockModel'
+                self::FIELD_RELATION
+                    => '\\testS\\models\\blocks\\block\\DesignBlockModel'
             ],
             'itemDesignTextId'       => [
-                self::FIELD_RELATION => 'DesignTextModel'
+                self::FIELD_RELATION
+                    => '\\testS\\models\\blocks\\text\\DesignTextModel'
             ],
             'style'                  => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,

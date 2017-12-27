@@ -29,7 +29,8 @@ abstract class AbstractTextInstanceModel extends AbstractTextModel
     {
         return [
             'textId'  => [
-                self::FIELD_RELATION_TO_PARENT   => 'TextModel',
+                self::FIELD_RELATION_TO_PARENT
+                    => '\\testS\\models\\blocks\\text\\TextModel',
                 self::FIELD_NOT_CHANGE_ON_UPDATE => true
             ],
             'text'          => [

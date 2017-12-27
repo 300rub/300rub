@@ -31,14 +31,17 @@ abstract class AbstractCatalogMenuModel extends AbstractCatalogModel
     {
         return [
             'parentId'  => [
-                self::FIELD_RELATION_TO_PARENT => 'CatalogMenuModel',
+                self::FIELD_RELATION_TO_PARENT
+                    => '\\testS\\models\\blocks\\catalog\\CatalogMenuModel',
                 self::FIELD_ALLOW_NULL         => true,
             ],
             'seoId'     => [
-                self::FIELD_RELATION => 'SeoModel'
+                self::FIELD_RELATION
+                    => '\\testS\\models\\sections\\SeoModel'
             ],
             'catalogId' => [
-                self::FIELD_RELATION_TO_PARENT => 'CatalogModel'
+                self::FIELD_RELATION_TO_PARENT
+                    => '\\testS\\models\\blocks\\catalog\\CatalogModel'
             ],
             'icon'      => [
                 self::FIELD_TYPE       => self::FIELD_TYPE_STRING,

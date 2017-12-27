@@ -31,10 +31,12 @@ abstract class AbstractFeedbackModel extends Model
     {
         return [
             'formId' => [
-                self::FIELD_RELATION => 'FormModel'
+                self::FIELD_RELATION
+                    => '\\testS\\models\\blocks\\helpers\\form\\FormModel'
             ],
             'subjectFormInstanceId' => [
-                self::FIELD_RELATION => 'FormInstanceModel'
+                self::FIELD_RELATION
+                    => '\\testS\\models\\blocks\\helpers\\form\\FormInstanceModel'
             ],
             'subjectText' => [
                 self::FIELD_TYPE => self::FIELD_TYPE_STRING,

@@ -49,19 +49,24 @@ abstract class AbstractRecordModel extends AbstractContentModel
     {
         return [
             'coverImageId'     => [
-                self::FIELD_RELATION => 'ImageModel'
+                self::FIELD_RELATION
+                    => '\\testS\\models\\blocks\\image\\ImageModel'
             ],
             'imagesImageId'    => [
-                self::FIELD_RELATION => 'ImageModel'
+                self::FIELD_RELATION
+                    => '\\testS\\models\\blocks\\image\\ImageModel'
             ],
             'descriptionTextId' => [
-                self::FIELD_RELATION => 'TextModel'
+                self::FIELD_RELATION
+                    => '\\testS\\models\\blocks\\text\\TextModel'
             ],
             'textTextId'        => [
-                self::FIELD_RELATION => 'TextModel'
+                self::FIELD_RELATION
+                    => '\\testS\\models\\blocks\\text\\TextModel'
             ],
             'designRecordsId'   => [
-                self::FIELD_RELATION => 'DesignRecordModel'
+                self::FIELD_RELATION
+                    => '\\testS\\models\\blocks\\record\\DesignRecordModel'
             ],
             'hasCover'          => [
                 self::FIELD_TYPE => self::FIELD_TYPE_BOOL

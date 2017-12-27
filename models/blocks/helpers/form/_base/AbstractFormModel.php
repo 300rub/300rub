@@ -31,7 +31,8 @@ abstract class AbstractFormModel extends Model
     {
         return [
             'designFormId' => [
-                self::FIELD_RELATION => 'DesignFormModel'
+                self::FIELD_RELATION
+                    => '\\testS\\models\\blocks\\helpers\\form\\DesignFormModel'
             ],
             'hasLabel'     => [
                 self::FIELD_TYPE => self::FIELD_TYPE_BOOL

@@ -31,7 +31,8 @@ abstract class AbstractFormListValueModel extends AbstractFormModel
     {
         return [
             'formInstanceId' => [
-                self::FIELD_RELATION_TO_PARENT => 'FormInstanceModel'
+                self::FIELD_RELATION_TO_PARENT
+                    => '\\testS\\models\\blocks\\helpers\\form\\FormInstanceModel'
             ],
             'sort'           => [
                 self::FIELD_TYPE => self::FIELD_TYPE_INT

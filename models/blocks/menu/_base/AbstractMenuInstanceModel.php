@@ -31,17 +31,20 @@ abstract class AbstractMenuInstanceModel extends AbstractMenuModel
     {
         return [
             'menuId'    => [
-                self::FIELD_RELATION_TO_PARENT   => 'MenuModel',
+                self::FIELD_RELATION_TO_PARENT
+                    => '\\testS\\models\\blocks\\menu\\MenuModel',
                 self::FIELD_SKIP_DUPLICATION     => true,
                 self::FIELD_NOT_CHANGE_ON_UPDATE => true
             ],
             'parentId'  => [
-                self::FIELD_RELATION_TO_PARENT => 'MenuInstanceModel',
+                self::FIELD_RELATION_TO_PARENT
+                    => '\\testS\\models\\blocks\\menu\\MenuInstanceModel',
                 self::FIELD_ALLOW_NULL         => true,
                 self::FIELD_SKIP_DUPLICATION   => true,
             ],
             'sectionId' => [
-                self::FIELD_RELATION_TO_PARENT => 'SectionModel'
+                self::FIELD_RELATION_TO_PARENT
+                    => '\\testS\\\models\\\sections\\SectionModel'
             ],
             'icon'      => [
                 self::FIELD_TYPE       => self::FIELD_TYPE_STRING,

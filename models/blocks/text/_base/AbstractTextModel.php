@@ -56,10 +56,12 @@ abstract class AbstractTextModel extends AbstractContentModel
     {
         return [
             'designTextId'  => [
-                self::FIELD_RELATION => 'DesignTextModel'
+                self::FIELD_RELATION
+                    => '\\testS\\models\\blocks\\text\\DesignTextModel'
             ],
             'designBlockId' => [
-                self::FIELD_RELATION => 'DesignBlockModel'
+                self::FIELD_RELATION
+                    => '\\testS\\models\\blocks\\block\\DesignBlockModel'
             ],
             'type'          => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,

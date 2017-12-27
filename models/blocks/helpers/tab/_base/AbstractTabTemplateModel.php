@@ -31,7 +31,8 @@ abstract class AbstractTabTemplateModel extends AbstractTabModel
     {
         return [
             'tabId' => [
-                self::FIELD_RELATION_TO_PARENT => 'TabModel',
+                self::FIELD_RELATION_TO_PARENT
+                    => '\\testS\\models\\blocks\\helpers\\tab\\TabModel',
             ],
             'sort'  => [
                 self::FIELD_TYPE => self::FIELD_TYPE_INT,

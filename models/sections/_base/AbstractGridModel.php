@@ -40,10 +40,12 @@ abstract class AbstractGridModel extends AbstractSectionsModel
     {
         return [
             'blockId'    => [
-                self::FIELD_RELATION_TO_PARENT => 'BlockModel',
+                self::FIELD_RELATION_TO_PARENT
+                    => '\\testS\\models\\blocks\\block\\BlockModel',
             ],
             'gridLineId' => [
-                self::FIELD_RELATION_TO_PARENT => 'GridLineModel',
+                self::FIELD_RELATION_TO_PARENT
+                    => '\\testS\\models\\sections\\GridLineModel',
             ],
             'x'          => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
