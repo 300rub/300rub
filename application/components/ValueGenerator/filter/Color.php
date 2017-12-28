@@ -23,10 +23,10 @@ class Color extends AbstractFilter
             $this->value
         );
 
-        if ($isValid === true) {
-            return $this->value;
+        if (empty($isValid) === true) {
+            return '';
         }
 
-        return '';
+        return $this->value;
     }
 }

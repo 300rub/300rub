@@ -108,6 +108,10 @@ abstract class AbstractDuplicateModel extends AbstractDeleteModel
             self::FIELD_BEFORE_DUPLICATE,
             $info
         );
+        if ($hasBeforeDuplicate === false) {
+            return $this;
+        }
+
         $beforeDuplicate = $info[self::FIELD_BEFORE_DUPLICATE];
         if ($hasBeforeDuplicate === false) {
             return $this;
