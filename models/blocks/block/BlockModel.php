@@ -4,10 +4,8 @@ namespace testS\models\blocks\block;
 
 use testS\application\App;
 use testS\application\components\Db;
-use testS\application\exceptions\ModelException;
 use testS\application\exceptions\NotFoundException;
 use testS\models\_abstract\AbstractModel;
-use testS\models\blocks\_abstract\AbstractContentModel;
 use testS\models\blocks\block\_base\AbstractBlockModel;
 
 /**
@@ -78,125 +76,6 @@ class BlockModel extends AbstractBlockModel
     }
 
     /**
-     * Sets and checks content ID
-     *
-     * @param int $value Content ID
-     *
-     * @throws ModelException
-     *
-     * @return int
-     */
-    protected function setContentIdBeforeSave($value)
-    {
-        $value = (int)$value;
-
-        if ($value === 0) {
-            throw new ModelException(
-                'Unable to save BlockModel because contentId is null'
-            );
-        }
-
-        $this->getContentModel();
-
-        return $value;
-    }
-
-    /**
-     * Sets contentId before duplicate
-     *
-     * @param int $value Content ID
-     *
-     * @return int
-     *
-     * @throws ModelException
-     */
-    protected function setContentIdBeforeDuplicate($value)
-    {
-        return $this
-            ->getContentModel(true, $value)
-            ->duplicate()
-            ->getId();
-    }
-
-    /**
-     * Gets new content model
-     *
-     * @return AbstractContentModel
-     *
-     * @throws ModelException
-     */
-    private function _getNewContentModel()
-    {
-        $className = self::$typeList[$this->get('contentType')];
-
-        $model = $this->getModelByName($className);
-        if ($model instanceof AbstractContentModel === false) {
-            throw new ModelException(
-                'Unable to find model: {className} ' .
-                'with contentType = {contentType}',
-                [
-                    'className'   => $className,
-                    'contentType' => $this->get('contentType')
-                ]
-            );
-        }
-
-        $model->set(
-            [
-            'id' => $this->get('contentId')
-            ]
-        );
-
-        return $model;
-    }
-
-    /**
-     * Gets model by contentType and contentId
-     *
-     * @param bool   $withRelations Flag to use relations
-     * @param int    $value         Content ID
-     * @param string $instance      Instance to check
-     *
-     * @return AbstractContentModel|AbstractModel
-     *
-     * @throws ModelException
-     */
-    public function getContentModel(
-        $withRelations = null,
-        $value = null,
-        $instance = null
-    ) {
-        if ($value === null) {
-            $value = $this->get('contentId');
-        }
-
-        if ($instance === null) {
-            $instance
-                = 'testS\\models\\blocks\\_abstract\\AbstractContentModel';
-        }
-
-        $newModel = $this->_getNewContentModel();
-        $model = $newModel->byId($value);
-
-        if ($withRelations === true) {
-            $model->withRelations();
-        }
-
-        $model->find();
-        if ($model instanceof $instance === false) {
-            throw new ModelException(
-                'Unable to find model: {className} with ID = {id}',
-                [
-                    'className' => get_class($newModel),
-                    'id'        => $value
-                ]
-            );
-        }
-
-        return $model;
-    }
-
-    /**
      * Runs after deleting
      *
      * @return void
@@ -209,7 +88,7 @@ class BlockModel extends AbstractBlockModel
             self::_getMemcachedKey($this->getId())
         );
 
-        $this->getContentModel()->delete();
+        $this->getContentModel(true)->delete();
     }
 
     /**
@@ -344,7 +223,7 @@ class BlockModel extends AbstractBlockModel
      */
     public function setContent()
     {
-        $model = $this->_getNewContentModel();
+        $model = $this->getNewContentModel();
 
         $model
             ->setBlockId($this->getId())

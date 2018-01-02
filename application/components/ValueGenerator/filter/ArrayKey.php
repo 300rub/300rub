@@ -3,7 +3,7 @@
 namespace testS\application\components\ValueGenerator\filter;
 
 use testS\application\components\ValueGenerator\_abstract\AbstractFilter;
-use testS\application\exceptions\CommonException;
+use testS\application\exceptions\ContentException;
 
 /**
  * Class for array key generation
@@ -16,7 +16,7 @@ class ArrayKey extends AbstractFilter
      *
      * @return mixed
      *
-     * @throws CommonException
+     * @throws ContentException
      */
     public function generate()
     {
@@ -35,7 +35,7 @@ class ArrayKey extends AbstractFilter
             return $defaultValue;
         }
 
-        throw new CommonException(
+        throw new ContentException(
             'Unable to find value: {value} from array keys: {keys}',
             [
                 'value' => $this->value,

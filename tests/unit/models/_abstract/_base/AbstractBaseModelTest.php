@@ -82,6 +82,7 @@ abstract class AbstractBaseModelTest extends AbstractModelTest
             }
 
             $model->set($updateData)->save();
+
             $errors = $model->getErrors();
             if (count($errors) > 0) {
                 $this->compareExpectedAndActual($updateExpected, $errors, true);

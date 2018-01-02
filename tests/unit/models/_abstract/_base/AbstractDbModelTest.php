@@ -310,18 +310,24 @@ abstract class AbstractDbModelTest extends AbstractModelTest
             Validator::TYPE_MIN_LENGTH,
             $validation
         );
-        $maxLength = $validation[Validator::TYPE_MAX_LENGTH];
-        $minLength = $validation[Validator::TYPE_MIN_LENGTH];
 
         if ($hasMaxLength === true
             && $hasMinLength === true
-            && $maxLength === $minLength
         ) {
-            return [sprintf('char(%s)', $maxLength)];
+            $maxLength = $validation[Validator::TYPE_MAX_LENGTH];
+            $minLength = $validation[Validator::TYPE_MIN_LENGTH];
+            if ($maxLength === $minLength) {
+                return [sprintf('char(%s)', $maxLength)];
+            }
         }
 
         if ($hasMaxLength === true) {
-            return [sprintf('varchar(%s)', $maxLength)];
+            return [
+                sprintf(
+                    'varchar(%s)',
+                    $validation[Validator::TYPE_MAX_LENGTH]
+                )
+            ];
         }
 
         return ['char', 'varchar', 'text'];

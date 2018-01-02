@@ -290,7 +290,7 @@ abstract class AbstractFindModel extends AbstractBaseModel
         $result = $this->setDbBeforeFind()->getDb()->find();
         $this->getDb()->reset();
 
-        if (empty($result) === true) {
+        if ($result === false) {
             return null;
         }
 
@@ -311,7 +311,7 @@ abstract class AbstractFindModel extends AbstractBaseModel
         $results = $this->setDbBeforeFind()->getDb()->findAll();
         $this->getDb()->reset();
 
-        if (empty($result) === true) {
+        if (count($results) === 0) {
             return [];
         }
 

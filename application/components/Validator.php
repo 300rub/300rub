@@ -78,6 +78,7 @@ class Validator
      */
     public function validate($value, $rules)
     {
+        $this->_errors = [];
         $this->_value = $value;
 
         foreach ($rules as $key => $value) {

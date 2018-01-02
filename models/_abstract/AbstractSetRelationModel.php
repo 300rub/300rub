@@ -37,10 +37,6 @@ abstract class AbstractSetRelationModel extends AbstractFindModel
                 continue;
             }
 
-            if ($this->isNew() === false) {
-                continue;
-            }
-
             $hasRelation = array_key_exists(
                 self::FIELD_RELATION,
                 $info[$relationIdField]
