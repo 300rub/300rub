@@ -1,6 +1,6 @@
 <?php
 
-namespace testS\tests\unit\models;
+namespace testS\tests\unit\models\blocks\block\_base\AbstractDesignBlockModel;
 
 use testS\models\blocks\block\DesignBlockModel;
 use testS\tests\unit\models\_abstract\_base\AbstractIncorrectModelTest;

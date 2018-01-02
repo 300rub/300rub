@@ -25,7 +25,7 @@ class AbstractCatalogOrderModelDuplicateTest extends AbstractDuplicateModelTest
     /**
      * Data provider for CRUD. Duplicate
      *
-     * @return array
+     * @return void
      */
     public function testDuplicate()
     {

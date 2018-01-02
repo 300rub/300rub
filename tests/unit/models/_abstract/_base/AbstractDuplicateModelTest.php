@@ -33,7 +33,7 @@ abstract class AbstractDuplicateModelTest extends AbstractModelTest
      * @param string $expectedException Expected exception
      * @param array  $exceptRelations   Except relations
      *
-     * @return AbstractBaseDuplicateModelTest
+     * @return AbstractDuplicateModelTest
      *
      * @throws \Exception
      */

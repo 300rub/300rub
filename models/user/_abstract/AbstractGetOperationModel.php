@@ -21,11 +21,7 @@ abstract class AbstractGetOperationModel extends AbstractUserModel
      *
      * @var array
      */
-    private $_operations = [
-        Operation::TYPE_BLOCKS   => [],
-        Operation::TYPE_SECTIONS => [],
-        Operation::TYPE_SETTINGS => [],
-    ];
+    private $_operations = [];
 
     /**
      * Gets operations by user ID
@@ -39,6 +35,7 @@ abstract class AbstractGetOperationModel extends AbstractUserModel
         }
 
         return $this
+            ->_resetOperations()
             ->_setAllSectionOperations()
             ->_setSectionOperations()
             ->_setAllBlockOperations()
@@ -46,6 +43,22 @@ abstract class AbstractGetOperationModel extends AbstractUserModel
             ->_setSettingsOperations()
             ->_cleanUpOperations()
             ->_getOperations();
+    }
+
+    /**
+     * Resets operations
+     *
+     * @return AbstractGetOperationModel
+     */
+    private function _resetOperations()
+    {
+        $this->_operations = [
+            Operation::TYPE_BLOCKS   => [],
+            Operation::TYPE_SECTIONS => [],
+            Operation::TYPE_SETTINGS => [],
+        ];
+
+        return $this;
     }
 
     /**
@@ -196,15 +209,33 @@ abstract class AbstractGetOperationModel extends AbstractUserModel
      */
     private function _cleanUpOperations()
     {
-        if (count($this->_operations[Operation::TYPE_BLOCKS]) === 0) {
+        $hasBlocks = array_key_exists(
+            Operation::TYPE_BLOCKS,
+            $this->_operations
+        );
+        if ($hasBlocks === true
+            && count($this->_operations[Operation::TYPE_BLOCKS]) === 0
+        ) {
             unset($this->_operations[Operation::TYPE_BLOCKS]);
         }
 
-        if (count($this->_operations[Operation::TYPE_SECTIONS]) === 0) {
+        $hasSections = array_key_exists(
+            Operation::TYPE_SECTIONS,
+            $this->_operations
+        );
+        if ($hasSections === true
+            && count($this->_operations[Operation::TYPE_SECTIONS]) === 0
+        ) {
             unset($this->_operations[Operation::TYPE_SECTIONS]);
         }
 
-        if (count($this->_operations[Operation::TYPE_SETTINGS]) === 0) {
+        $hasSettings = array_key_exists(
+            Operation::TYPE_SETTINGS,
+            $this->_operations
+        );
+        if ($hasSettings === true
+            && count($this->_operations[Operation::TYPE_SETTINGS]) === 0
+        ) {
             unset($this->_operations[Operation::TYPE_SETTINGS]);
         }
 

@@ -2,6 +2,7 @@
 
 namespace testS\tests\unit\models\blocks\block\_base\AbstractBlockModel;
 
+use testS\models\_abstract\AbstractModel;
 use testS\models\blocks\block\BlockModel;
 use testS\tests\unit\models\_abstract\_base\AbstractDuplicateModelTest;
 
@@ -26,7 +27,7 @@ class AbstractBlockModelDuplicateTest extends AbstractDuplicateModelTest
      *
      * @param integer $modelId ID
      *
-     * @return BlockModel
+     * @return BlockModel|AbstractModel
      */
     private function _getModelById($modelId)
     {
@@ -38,7 +39,7 @@ class AbstractBlockModelDuplicateTest extends AbstractDuplicateModelTest
      *
      * @param BlockModel $modelForCopy Model to copy
      *
-     * @return BlockModel
+     * @return BlockModel|AbstractModel
      */
     private function _duplicate($modelForCopy)
     {

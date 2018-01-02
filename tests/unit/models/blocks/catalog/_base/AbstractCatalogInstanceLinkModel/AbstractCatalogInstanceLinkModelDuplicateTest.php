@@ -26,7 +26,7 @@ class AbstractCatalogInstanceLinkModelDuplicateTest extends AbstractDuplicateMod
     /**
      * Data provider for CRUD. Duplicate
      *
-     * @return array
+     * @return void
      */
     public function testDuplicate()
     {
