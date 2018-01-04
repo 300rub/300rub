@@ -1,6 +1,7 @@
 <?php
 
-namespace testS\tests\unit\models\image\_base\AbstractDesignImageZoomModel;
+// @codingStandardsIgnoreLine
+namespace testS\tests\unit\models\blocks\image\_base\AbstractDesignImageZoomModel;
 
 use testS\models\blocks\image\DesignImageZoomModel;
 use testS\tests\unit\models\_abstract\_base\AbstractEmptyModelTest;

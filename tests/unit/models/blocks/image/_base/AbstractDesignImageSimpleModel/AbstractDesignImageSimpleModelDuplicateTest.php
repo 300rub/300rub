@@ -1,6 +1,7 @@
 <?php
 
-namespace testS\tests\unit\models\image\_base\AbstractDesignImageSimpleModel;
+// @codingStandardsIgnoreLine
+namespace testS\tests\unit\models\blocks\image\_base\AbstractDesignImageSimpleModel;
 
 use testS\models\blocks\image\DesignImageSimpleModel;
 use testS\tests\unit\models\_abstract\_base\AbstractDuplicateModelTest;
