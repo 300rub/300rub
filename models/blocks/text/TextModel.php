@@ -171,4 +171,27 @@ class TextModel extends AbstractTextModel
             ->delete($this->getCssMemcachedKey())
             ->delete($this->getJsMemcachedKey());
     }
+
+    /**
+     * After duplicate
+     *
+     * @return void
+     */
+    protected function afterDuplicate()
+    {
+        $textInstanceModels = new TextInstanceModel();
+        $textInstanceModels->byTextId($this->getDuplicateId());
+        $textInstanceModels = $textInstanceModels->findAll();
+
+        foreach ($textInstanceModels as $textInstanceModel) {
+            $newTextInstanceModel = new TextInstanceModel();
+            $newTextInstanceModel->set(
+                [
+                    'textId' => $this->getId(),
+                    'text'   => $textInstanceModel->get('text')
+                ]
+            );
+            $newTextInstanceModel->save();
+        }
+    }
 }

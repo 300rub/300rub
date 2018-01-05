@@ -18,6 +18,13 @@ abstract class AbstractDuplicateModel extends AbstractDeleteModel
     private $_duplicateModel = null;
 
     /**
+     * Duplicate ID
+     *
+     * @var integer
+     */
+    private $_duplicateId = 0;
+
+    /**
      * Duplicates the model
      *
      * @return AbstractModel
@@ -46,7 +53,12 @@ abstract class AbstractDuplicateModel extends AbstractDeleteModel
                 ->_setChangeOnDuplicate($info, $field);
         }
 
-        return $this->_duplicateModel->save();
+        $newModel = $this->_duplicateModel->save();
+        $newModel
+            ->setDuplicateId($this->getId())
+            ->afterDuplicate();
+
+        return $newModel;
     }
 
     /**
@@ -229,5 +241,37 @@ abstract class AbstractDuplicateModel extends AbstractDeleteModel
         );
 
         return $this;
+    }
+
+    /**
+     * Sets Duplicate ID
+     *
+     * @param int $duplicateId Duplicate ID
+     *
+     * @return AbstractDuplicateModel
+     */
+    public function setDuplicateId($duplicateId)
+    {
+        $this->_duplicateId = $duplicateId;
+        return $this;
+    }
+
+    /**
+     * Gets duplicate ID
+     *
+     * @return int
+     */
+    protected function getDuplicateId()
+    {
+        return $this->_duplicateId;
+    }
+
+    /**
+     * After duplicate
+     *
+     * @return void
+     */
+    protected function afterDuplicate()
+    {
     }
 }
