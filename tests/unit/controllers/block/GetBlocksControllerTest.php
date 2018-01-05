@@ -5,13 +5,13 @@ namespace testS\tests\unit\controllers\block;
 use testS\tests\unit\controllers\_abstract\AbstractControllerTest;
 
 /**
- * Tests for the controller BlockController
+ * Tests for the controller GetBlocksController
  */
 class GetBlocksControllerTest extends AbstractControllerTest
 {
 
     /**
-     * Test for the method getBlocks
+     * Test
      *
      * @param string $user         User
      * @param int    $blockSection Block section
@@ -22,7 +22,7 @@ class GetBlocksControllerTest extends AbstractControllerTest
      *
      * @dataProvider dataProviderForTestGetBlocks
      */
-    public function testGetBlocks(
+    public function testRun(
         $user,
         $blockSection,
         $hasError,
