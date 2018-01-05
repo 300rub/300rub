@@ -1,14 +1,12 @@
 <?php
 
-namespace testS\tests\unit\controllers;
+namespace testS\tests\unit\controllers\_abstract;
 
-use testS\components\Language;
-use testS\tests\unit\AbstractUnitTest;
+use testS\application\components\Language;
+use testS\tests\unit\_abstract\AbstractUnitTest;
 
 /**
- * Class AbstractControllerTest
- *
- * @package testS\tests\unit\controllers
+ * Abstract class to work with controller tests
  */
 abstract class AbstractControllerTest extends AbstractUnitTest
 {
@@ -16,16 +14,16 @@ abstract class AbstractControllerTest extends AbstractUnitTest
     /**
      * Cookie path
      */
-    const COOKIE_PATH = "/tmp/cookie";
+    const COOKIE_PATH = '/tmp/cookie';
 
     /**
      * User types
      */
-    const TYPE_OWNER = "owner";
-    const TYPE_FULL = "admin";
-    const TYPE_LIMITED = "user";
-    const TYPE_NO_OPERATIONS_USER = "user_no_operation";
-    const TYPE_BLOCKED_USER = "blocked_user";
+    const TYPE_OWNER = 'owner';
+    const TYPE_FULL = 'admin';
+    const TYPE_LIMITED = 'user';
+    const TYPE_NO_OPERATIONS_USER = 'user_no_operation';
+    const TYPE_BLOCKED_USER = 'blocked_user';
 
     /**
      * User session ID
@@ -44,7 +42,7 @@ abstract class AbstractControllerTest extends AbstractUnitTest
     /**
      * Response code
      *
-     * @var int
+     * @var integer
      */
     private $_statusCode = 0;
 
@@ -95,14 +93,17 @@ abstract class AbstractControllerTest extends AbstractUnitTest
     /**
      * Sets User
      *
-     * @param string $type
-     * @param string $token
-     * @param string $sessionId
+     * @param string $type      User type
+     * @param string $token     Token
+     * @param string $sessionId Session ID
      *
      * @return AbstractControllerTest
      */
-    protected function setUser($type = self::TYPE_OWNER, $token = "", $sessionId = "")
-    {
+    protected function setUser(
+        $type = self::TYPE_OWNER,
+        $token = '',
+        $sessionId = ''
+    ) {
         switch ($type) {
             case self::TYPE_OWNER:
                 $this->_userSessionId = self::SESSION_ID_OWNER;
@@ -130,11 +131,11 @@ abstract class AbstractControllerTest extends AbstractUnitTest
                 break;
         }
 
-        if ($token !== "") {
+        if ($token !== '') {
             $this->_userToken = $token;
         }
 
-        if ($sessionId !== "") {
+        if ($sessionId !== '') {
             $this->_userSessionId = $sessionId;
         }
 
@@ -154,45 +155,52 @@ abstract class AbstractControllerTest extends AbstractUnitTest
     /**
      * Sends a file
      *
-     * @param string $controller
-     * @param string $action
-     * @param string $fileName
-     * @param array  $data
-     * @param string $mimeType
-     * @param int    $language
+     * @param string $group      Group
+     * @param string $controller Controller
+     * @param string $fileName   File name
+     * @param array  $data       Data
+     * @param string $mimeType   Mime type
+     * @param int    $language   Language ID
      *
      * @return AbstractControllerTest
      */
     protected function sendFile(
+        $group,
         $controller,
-        $action,
         $fileName,
         array $data = [],
-        $mimeType = "application/octet-stream",
+        $mimeType = 'application/octet-stream',
         $language = Language::LANGUAGE_EN_ID
     ) {
         $host = $this->getHost();
 
         $this->_setFileData($data);
-        $postData = array(
-            "token"      => $this->getUserToken(),
-            "controller" => $controller,
-            "action"     => $action,
-            "language"   => $language,
-            'file'       => curl_file_create(__DIR__ . '/../../../fixtures/files/' . $fileName, $mimeType)
-        );
+        $postData = [
+            'token'      => $this->getUserToken(),
+            'group'      => $group,
+            'controller' => $controller,
+            'language'   => $language,
+            'file'       => curl_file_create(
+                __DIR__ . '/../../../fixtures/files/' . $fileName,
+                $mimeType
+            )
+        ];
         $postData = array_merge($postData, $this->_fileData);
 
         $curl = curl_init();
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($curl, CURLOPT_URL, $host . "/api/");
+        curl_setopt($curl, CURLOPT_URL, $host . '/api/');
         curl_setopt($curl, CURLOPT_POSTFIELDS, $postData);
-        curl_setopt($curl, CURLOPT_HTTPHEADER, array("Content-type: multipart/form-data"));
+        curl_setopt(
+            $curl,
+            CURLOPT_HTTPHEADER,
+            ['Content-type: multipart/form-data']
+        );
 
         $body = curl_exec($curl);
         $info = curl_getinfo($curl);
 
-        $this->_statusCode = $info["http_code"];
+        $this->_statusCode = $info['http_code'];
         $this->_body = json_decode($body, true);
 
         return $this;
@@ -201,19 +209,20 @@ abstract class AbstractControllerTest extends AbstractUnitTest
     /**
      * Sets file data
      *
-     * @param array  $data
-     * @param string $prefix
+     * @param array  $data   Data
+     * @param string $prefix Prefix
      *
      * @return AbstractControllerTest
      */
-    private function _setFileData(array $data, $prefix = "data")
+    private function _setFileData(array $data, $prefix = 'data')
     {
         foreach ($data as $key => $value) {
-            if (is_array($value)) {
-                $this->_setFileData($value, sprintf("%s[%s]", $prefix, $key));
-            } else {
-                $this->_fileData[sprintf("%s[%s]", $prefix, $key)] = $value;
+            if (is_array($value) === true) {
+                $this->_setFileData($value, sprintf('%s[%s]', $prefix, $key));
+                continue;
             }
+
+            $this->_fileData[sprintf('%s[%s]', $prefix, $key)] = $value;
         }
 
         return $this;
@@ -222,63 +231,65 @@ abstract class AbstractControllerTest extends AbstractUnitTest
     /**
      * Gets response
      *
-     * @param string $controller
-     * @param string $action
-     * @param array  $data
-     * @param string $method
-     * @param int    $language
-     * @param string $ua
+     * @param string $group      Group
+     * @param string $controller Controller
+     * @param array  $data       Data
+     * @param string $method     HTTP Method
+     * @param int    $language   Language ID
+     * @param string $userAgent  User Agent
      *
      * @return AbstractControllerTest
      */
     protected function sendRequest(
+        $group,
         $controller,
-        $action,
         array $data = [],
-        $method = "GET",
+        $method = 'GET',
         $language = Language::LANGUAGE_EN_ID,
-        $ua = self::UA_FIREFOX_4_0_1
+        $userAgent = self::UA_FIREFOX_4_0_1
     ) {
         $host = $this->getHost();
 
         $dataJson = [
-            "token"      => $this->getUserToken(),
-            "controller" => $controller,
-            "action"     => $action,
-            "language"   => $language,
-            "data"       => $data
+            'token'      => $this->getUserToken(),
+            'group'      => $group,
+            'controller' => $controller,
+            'language'   => $language,
+            'data'       => $data
         ];
 
         $curl = curl_init();
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($curl, CURLOPT_CUSTOMREQUEST, $method);
 
-        if ($method === "GET") {
+        $host = $host . '/api/';
+        if ($method === 'GET') {
             $query = http_build_query($dataJson);
-            curl_setopt($curl, CURLOPT_URL, $host . "/api/?" . $query);
-            curl_setopt(
-                $curl,
-                CURLOPT_HTTPHEADER,
-                [
-                    "User-Agent: " . $ua,
-                ]
-            );
-        } else {
-            curl_setopt($curl, CURLOPT_URL, $host . "/api/");
+            $host .= '?' . $query;
+        }
+
+        curl_setopt($curl, CURLOPT_URL, $host);
+
+        $headers = [
+            'User-Agent: ' . $userAgent,
+        ];
+        if ($method !== 'GET') {
+            $headers[] = 'Content-Type: application/json';
+            $headers[] = 'X-Requested-With: XMLHttpRequest';
+        }
+
+        curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
+
+        if ($method !== 'GET') {
             curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode($dataJson));
-            curl_setopt(
-                $curl,
-                CURLOPT_HTTPHEADER,
-                [
-                    'Content-Type: application/json',
-                    "X-Requested-With: XMLHttpRequest",
-                    "User-Agent: " . $ua,
-                ]
-            );
         }
 
         if ($this->_userSessionId !== null) {
-            curl_setopt($curl, CURLOPT_COOKIE, sprintf("%s=%s", session_name(), $this->_userSessionId));
+            curl_setopt(
+                $curl,
+                CURLOPT_COOKIE,
+                sprintf('%s=%s', session_name(), $this->_userSessionId)
+            );
         }
 
         curl_setopt($curl, CURLOPT_COOKIESESSION, true);
@@ -288,7 +299,7 @@ abstract class AbstractControllerTest extends AbstractUnitTest
         $body = curl_exec($curl);
         $info = curl_getinfo($curl);
 
-        $this->_statusCode = $info["http_code"];
+        $this->_statusCode = $info['http_code'];
         $this->_body = json_decode($body, true);
 
         return $this;
@@ -296,10 +307,12 @@ abstract class AbstractControllerTest extends AbstractUnitTest
 
     /**
      * Removes cookie
+     *
+     * @return void
      */
     protected function removeCookie()
     {
-        if (file_exists(self::COOKIE_PATH)) {
+        if (file_exists(self::COOKIE_PATH) === true) {
             unlink(self::COOKIE_PATH);
         }
     }
@@ -311,16 +324,21 @@ abstract class AbstractControllerTest extends AbstractUnitTest
      */
     protected function getSessionIdFromCookie()
     {
-        if (!file_exists(self::COOKIE_PATH)) {
+        if (file_exists(self::COOKIE_PATH) === false) {
             return null;
         }
 
-        $cookieFile = fopen(self::COOKIE_PATH, "r");
+        $cookieFile = fopen(self::COOKIE_PATH, 'r');
         $cookieContent = fread($cookieFile, filesize(self::COOKIE_PATH));
         fclose($cookieFile);
 
-        preg_match('/' . session_name() . '	([a-z0-9]+)/', $cookieContent, $matches, PREG_OFFSET_CAPTURE);
-        if (empty($matches[1][0])) {
+        preg_match(
+            '/' . session_name() . '	([a-z0-9]+)/',
+            $cookieContent,
+            $matches,
+            PREG_OFFSET_CAPTURE
+        );
+        if (empty($matches[1][0]) === true) {
             return null;
         }
 
@@ -334,16 +352,21 @@ abstract class AbstractControllerTest extends AbstractUnitTest
      */
     protected function getTokenFromCookie()
     {
-        if (!file_exists(self::COOKIE_PATH)) {
+        if (file_exists(self::COOKIE_PATH) === false) {
             return null;
         }
 
-        $cookieFile = fopen(self::COOKIE_PATH, "r");
+        $cookieFile = fopen(self::COOKIE_PATH, 'r');
         $cookieContent = fread($cookieFile, filesize(self::COOKIE_PATH));
         fclose($cookieFile);
 
-        preg_match('/token	([a-z0-9]+)/', $cookieContent, $matches, PREG_OFFSET_CAPTURE);
-        if (empty($matches[1][0])) {
+        preg_match(
+            '/token	([a-z0-9]+)/',
+            $cookieContent,
+            $matches,
+            PREG_OFFSET_CAPTURE
+        );
+        if (empty($matches[1][0]) === true) {
             return null;
         }
 
@@ -352,17 +375,21 @@ abstract class AbstractControllerTest extends AbstractUnitTest
 
     /**
      * Asserts an error in body response
+     *
+     * @return void
      */
     protected function assertError()
     {
-        $this->assertArrayHasKey("error", $this->getBody());
+        $this->assertArrayHasKey('error', $this->getBody());
     }
 
     /**
      * Asserts an errors in body response
+     *
+     * @return void
      */
     protected function assertErrors()
     {
-        $this->assertArrayHasKey("errors", $this->getBody());
+        $this->assertArrayHasKey('errors', $this->getBody());
     }
 }

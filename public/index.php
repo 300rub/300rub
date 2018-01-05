@@ -6,7 +6,7 @@ use testS\application\App;
 $config = include __DIR__ . "/../config/common.php";
 
 // Runs the web application
-require __DIR__ . "/../applications/App.php";
+require __DIR__ . "/../application/App.php";
 
 spl_autoload_register(['testS\application\App','autoload']);
 

@@ -4,6 +4,7 @@ namespace testS\application\instances;
 
 use testS\application\components\User;
 use testS\application\instances\_abstract\AbstractWebAjax;
+use testS\models\_abstract\AbstractModel;
 use testS\models\user\UserModel;
 use testS\models\user\UserSessionModel;
 
@@ -46,8 +47,6 @@ class Web extends AbstractWebAjax
             $isAjax = true;
         }
 
-        session_start();
-
         $this->_initialUserSet();
 
         echo $this->_getOutput($isAjax);
@@ -86,8 +85,8 @@ class Web extends AbstractWebAjax
     /**
      * Sets User
      *
-     * @param string    $token     Token
-     * @param UserModel $userModel User model
+     * @param string                  $token     Token
+     * @param UserModel|AbstractModel $userModel User model
      *
      * @return Web
      */
@@ -143,6 +142,15 @@ class Web extends AbstractWebAjax
      */
     private function _getToken()
     {
+        $input = $this->getInput();
+        if (empty($input['token']) === false) {
+            $this
+                ->getSuperGlobalVariable()
+                ->setSessionValue('token', $input['token'])
+                ->setCookieValue('token', $input['token']);
+            return $input['token'];
+        }
+
         $sessionToken = $this
             ->getSuperGlobalVariable()
             ->getSessionValue('token');
@@ -158,15 +166,6 @@ class Web extends AbstractWebAjax
                 ->getSuperGlobalVariable()
                 ->setSessionValue('token', $cookieToken);
             return $cookieToken;
-        }
-
-        $input = $this->getInput();
-        if (empty($input['token']) === false) {
-            $this
-                ->getSuperGlobalVariable()
-                ->setSessionValue('token', $input['token'])
-                ->setCookieValue('token', $input['token']);
-            return $input['token'];
         }
 
         return null;

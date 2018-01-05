@@ -97,6 +97,8 @@ abstract class AbstractApplication
      */
     public function __construct($config)
     {
+        session_start();
+
         $this
             ->_setConfig($config)
             ->_setSuperGlobalVariable()

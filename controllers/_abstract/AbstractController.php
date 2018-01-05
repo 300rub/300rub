@@ -11,9 +11,9 @@ abstract class AbstractController extends AbstractOperationController
 {
 
     /**
-     * Display blocks from section variable name
+     * Block section variable name
      */
-    const DISPLAY_BLOCKS_FROM_SECTION = 'displayBlocksFromSection';
+    const BLOCK_SECTION = 'blockSection';
 
     /**
      * Form types
@@ -23,6 +23,20 @@ abstract class AbstractController extends AbstractOperationController
     const FORM_TYPE_CHECKBOX = 'checkbox';
     const FORM_TYPE_BUTTON = 'button';
     const FORM_TYPE_SELECT = 'select';
+
+    /**
+     * Block section
+     *
+     * @var integer
+     */
+    private $_blockSection = null;
+
+    /**
+     * Runs controller
+     *
+     * @return array
+     */
+    abstract public function run();
 
     /**
      * Gets simple success result
@@ -41,56 +55,65 @@ abstract class AbstractController extends AbstractOperationController
      *
      * @return int
      */
-    protected function getDisplayBlocksFromSection()
+    protected function getBlockSection()
     {
+        if ($this->_blockSection !== null) {
+            return $this->_blockSection;
+        }
+
         $globalObject = App::web()->getSuperGlobalVariable();
 
-        if ($this->get(self::DISPLAY_BLOCKS_FROM_SECTION) !== null) {
-            $value = (int)$this->get(self::DISPLAY_BLOCKS_FROM_SECTION);
+        if ($this->get(self::BLOCK_SECTION) !== null) {
+            $value = (int)$this->get(self::BLOCK_SECTION);
             $globalObject->setSessionValue(
-                self::DISPLAY_BLOCKS_FROM_SECTION,
+                self::BLOCK_SECTION,
                 $value
             );
             $globalObject->setCookieValue(
-                self::DISPLAY_BLOCKS_FROM_SECTION,
+                self::BLOCK_SECTION,
                 $value,
                 (time() + 86400 * 365 * 10)
             );
 
+            $this->_blockSection = $value;
             return $value;
         }
 
         $sessionValue = $globalObject->getSessionValue(
-            self::DISPLAY_BLOCKS_FROM_SECTION
+            self::BLOCK_SECTION
         );
         if ($sessionValue !== null) {
             $value = (int)$sessionValue;
             $cookieValue = $globalObject->getCookieValue(
-                self::DISPLAY_BLOCKS_FROM_SECTION
+                self::BLOCK_SECTION
             );
             if ($cookieValue === null) {
                 $globalObject->setCookieValue(
-                    self::DISPLAY_BLOCKS_FROM_SECTION,
+                    self::BLOCK_SECTION,
                     $value,
                     (time() + 86400 * 365 * 10)
                 );
             }
 
+            $this->_blockSection = $value;
             return $value;
         }
 
         $cookieValue = $globalObject->getCookieValue(
-            self::DISPLAY_BLOCKS_FROM_SECTION
+            self::BLOCK_SECTION
         );
         if ($cookieValue !== null) {
             $value = (int)$cookieValue;
             $globalObject->setSessionValue(
-                self::DISPLAY_BLOCKS_FROM_SECTION,
+                self::BLOCK_SECTION,
                 $value
             );
+
+            $this->_blockSection = $value;
             return $value;
         }
 
+        $this->_blockSection = 0;
         return 0;
     }
 
