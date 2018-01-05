@@ -153,16 +153,22 @@ class SuperGlobalVariable
     /**
      * Sets $_COOKIE value
      *
-     * @param string $key   COOKIE  key
-     * @param string $value COOKIE  value
+     * @param string $key    COOKIE key
+     * @param string $value  COOKIE value
+     * @param int    $expire COOKIE lifetime
      *
      * @return SuperGlobalVariable
      *
      * @SuppressWarnings(PMD.Superglobals)
      */
-    public function setCookieValue($key, $value)
+    public function setCookieValue($key, $value, $expire = null)
     {
+        if ($expire === null) {
+            $expire = (time() + 86400 * 365 * 10);
+        }
+
         $_COOKIE[$key] = $value;
+        setcookie($key, $value, $expire, '/');
 
         return $this;
     }
