@@ -8,7 +8,7 @@ use testS\models\user\UserSessionModel;
 use testS\tests\unit\controllers\_abstract\AbstractControllerTest;
 
 /**
- * Tests for the controller GetLoginFormsController
+ * Tests for the controller CreateSessionController
  */
 class CreateSessionControllerTest extends AbstractControllerTest
 {
