@@ -151,6 +151,24 @@ class SuperGlobalVariable
     }
 
     /**
+     * Removes $_COOKIE value by key
+     *
+     * @param string $key COOKIE key
+     *
+     * @return SuperGlobalVariable
+     *
+     * @SuppressWarnings(PMD.Superglobals)
+     */
+    public function deleteCookieValue($key)
+    {
+        if (array_key_exists($key, $_COOKIE) === true) {
+            unset($_COOKIE[$key]);
+        }
+
+        return $this;
+    }
+
+    /**
      * Sets $_COOKIE value
      *
      * @param string $key    COOKIE key

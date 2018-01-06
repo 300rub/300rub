@@ -284,7 +284,7 @@ abstract class AbstractControllerTest extends AbstractUnitTest
             curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode($dataJson));
         }
 
-        $this->removeCookie();
+        $this->_removeCookie();
         if ($this->_userSessionId !== null) {
             $cookie = sprintf(
                 '%s=%s',
@@ -312,7 +312,7 @@ abstract class AbstractControllerTest extends AbstractUnitTest
      *
      * @return void
      */
-    protected function removeCookie()
+    private function _removeCookie()
     {
         if (file_exists(self::COOKIE_PATH) === true) {
             unlink(self::COOKIE_PATH);

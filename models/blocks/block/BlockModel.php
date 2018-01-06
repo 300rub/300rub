@@ -47,7 +47,7 @@ class BlockModel extends AbstractBlockModel
      *
      * @return array
      */
-    public static function getTypeNames()
+    public function getTypeNames()
     {
         $language = App::getInstance()->getLanguage();
 

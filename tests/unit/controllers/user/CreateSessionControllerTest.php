@@ -81,7 +81,6 @@ class CreateSessionControllerTest extends AbstractControllerTest
         // Remove.
         $userSessionModel->delete();
         $memcached->delete($token);
-        $this->removeCookie();
 
         return true;
     }

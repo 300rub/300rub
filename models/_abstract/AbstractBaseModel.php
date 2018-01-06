@@ -213,7 +213,7 @@ abstract class AbstractBaseModel
     /**
      * Clears ID
      *
-     * @return AbstractBaseModel
+     * @return AbstractBaseModel|AbstractModel
      */
     public function clearId()
     {
