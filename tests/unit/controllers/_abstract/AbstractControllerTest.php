@@ -284,12 +284,14 @@ abstract class AbstractControllerTest extends AbstractUnitTest
             curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode($dataJson));
         }
 
+        $this->removeCookie();
         if ($this->_userSessionId !== null) {
-            curl_setopt(
-                $curl,
-                CURLOPT_COOKIE,
-                sprintf('%s=%s', session_name(), $this->_userSessionId)
+            $cookie = sprintf(
+                '%s=%s',
+                session_name(),
+                $this->_userSessionId
             );
+            curl_setopt($curl, CURLOPT_COOKIE, $cookie);
         }
 
         curl_setopt($curl, CURLOPT_COOKIESESSION, true);

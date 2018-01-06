@@ -20,7 +20,7 @@ class GetBlocksControllerTest extends AbstractControllerTest
      *
      * @return bool
      *
-     * @dataProvider dataProviderForTestGetBlocks
+     * @dataProvider dataProvider
      */
     public function testRun(
         $user,
@@ -54,11 +54,11 @@ class GetBlocksControllerTest extends AbstractControllerTest
     }
 
     /**
-     * Data provider for testGetBlocks
+     * Data provider
      *
      * @return array
      */
-    public function dataProviderForTestGetBlocks()
+    public function dataProvider()
     {
         return [
             'adminAll' => [
