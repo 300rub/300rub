@@ -16,15 +16,15 @@ class DeleteSessionControllerTest extends AbstractControllerTest
     /**
      * Test
      *
-     * @param string $user
-     * @param string $token
-     * @param bool   $hasError
+     * @param string $user     User type
+     * @param string $token    Token
+     * @param bool   $hasError Error flag
      *
      * @return bool
      *
      * @dataProvider dataProvider
      */
-    public function testRun($user, $token = null, $hasError = false)
+    public function testRun($user, $token = null, $hasError = null)
     {
         $memcached = App::getInstance()->getMemcached();
         $this->setUser($user);
@@ -43,22 +43,24 @@ class DeleteSessionControllerTest extends AbstractControllerTest
             return true;
         }
 
-        $this->assertSame($beforeDelete - 1, $afterDelete);
+        $this->assertSame(($beforeDelete - 1), $afterDelete);
         $sessionModel->clearId()->save();
 
         $expectedBody = [
-            "result" => true
+            'result' => true
         ];
         $this->assertSame($expectedBody, $this->getBody());
 
-        $memcachedResult = $memcached->get($sessionModel->get("token"));
+        $memcachedResult = $memcached->get($sessionModel->get('token'));
         $this->assertFalse($memcachedResult);
 
         return true;
     }
 
     /**
-     * @param $token
+     * Sends request
+     *
+     * @param string $token Token
      *
      * @return UserSessionModel|AbstractModel
      */
@@ -69,12 +71,12 @@ class DeleteSessionControllerTest extends AbstractControllerTest
             $sessionModel->byToken($token);
             $sessionModel = $sessionModel->find();
             $this->sendRequest(
-                "user",
-                "session",
+                'user',
+                'session',
                 [
-                    "token" => $token
+                    'token' => $token
                 ],
-                "DELETE"
+                'DELETE'
             );
 
             return $sessionModel;
@@ -84,10 +86,10 @@ class DeleteSessionControllerTest extends AbstractControllerTest
         $sessionModel->byToken($this->getUserToken());
         $sessionModel = $sessionModel->find();
         $this->sendRequest(
-            "user",
-            "session",
+            'user',
+            'session',
             [],
-            "DELETE"
+            'DELETE'
         );
 
         return $sessionModel;
@@ -101,53 +103,53 @@ class DeleteSessionControllerTest extends AbstractControllerTest
     public function dataProvider()
     {
         return [
-            "ownerDeleteOwner"     => [
+            'ownerDeleteOwner'     => [
                 self::TYPE_OWNER,
-                "c4ca4238a0b923820dcc509a6f75849b"
+                'c4ca4238a0b923820dcc509a6f75849b'
             ],
-            "ownerDeleteHimself"   => [
+            'ownerDeleteHimself'   => [
                 self::TYPE_OWNER
             ],
-            "ownerDeleteAdmin"     => [
+            'ownerDeleteAdmin'     => [
                 self::TYPE_OWNER,
-                "c81e728d9d4c2f636f067f89cc14862c"
+                'c81e728d9d4c2f636f067f89cc14862c'
             ],
-            "ownerDeleteUser"      => [
+            'ownerDeleteUser'      => [
                 self::TYPE_OWNER,
-                "eccbc87e4b5ce2fe28308fd9f2a7baf3"
+                'eccbc87e4b5ce2fe28308fd9f2a7baf3'
             ],
-            "adminDeleteOwner"     => [
+            'adminDeleteOwner'     => [
                 self::TYPE_FULL,
-                "c4ca4238a0b923820dcc509a6f75849b",
+                'c4ca4238a0b923820dcc509a6f75849b',
                 true
             ],
-            "adminDeleteHimself"   => [
+            'adminDeleteHimself'   => [
                 self::TYPE_OWNER
             ],
-            "adminDeleteAdmin"     => [
+            'adminDeleteAdmin'     => [
                 self::TYPE_OWNER,
-                "c81e728d9d4c2f636f067f89cc14862c",
+                'c81e728d9d4c2f636f067f89cc14862c',
             ],
-            "adminDeleteUser"      => [
+            'adminDeleteUser'      => [
                 self::TYPE_OWNER,
-                "eccbc87e4b5ce2fe28308fd9f2a7baf3",
+                'eccbc87e4b5ce2fe28308fd9f2a7baf3',
             ],
-            "limitedDeleteOwner"   => [
+            'limitedDeleteOwner'   => [
                 self::TYPE_LIMITED,
-                "c4ca4238a0b923820dcc509a6f75849b",
+                'c4ca4238a0b923820dcc509a6f75849b',
                 true
             ],
-            "limitedDeleteHimself" => [
+            'limitedDeleteHimself' => [
                 self::TYPE_LIMITED
             ],
-            "limitedDeleteAdmin"   => [
+            'limitedDeleteAdmin'   => [
                 self::TYPE_LIMITED,
-                "c81e728d9d4c2f636f067f89cc14862c",
+                'c81e728d9d4c2f636f067f89cc14862c',
                 true
             ],
-            "limitedDeleteUser"    => [
+            'limitedDeleteUser'    => [
                 self::TYPE_LIMITED,
-                "eccbc87e4b5ce2fe28308fd9f2a7baf3"
+                'eccbc87e4b5ce2fe28308fd9f2a7baf3'
             ],
         ];
     }
