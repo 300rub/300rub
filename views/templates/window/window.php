@@ -1,3 +1,7 @@
+<?php
+//phpcs:disable Generic.Files.InlineHTML
+?>
+
 <div class="window loading transparent">
     <div class="header">
         <div class="title"></div>

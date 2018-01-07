@@ -1,3 +1,7 @@
+<?php
+//phpcs:disable Generic.Files.InlineHTML
+?>
+
 <div class="panel loading transparent">
     <div class="header">
         <a class="back gray-red-link fa fa-chevron-left hidden"></a>

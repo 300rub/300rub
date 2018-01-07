@@ -1,3 +1,7 @@
+<?php
+//phpcs:disable Generic.Files.InlineHTML
+?>
+
 <div class="design-container design-block-container">
     <div class="category-container margin-container">
         <div class="category-title"></div>

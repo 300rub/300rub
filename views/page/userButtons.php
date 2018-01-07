@@ -1,11 +1,15 @@
 <?php
 /**
+ * Variables
+ *
  * @var bool   $isDisplayBlocks
  * @var bool   $isDisplaySections
  * @var bool   $isDisplaySettings
  * @var string $logoutYes
  * @var string $logoutNo
  * @var string $logoutConfirmText
+ *
+ * phpcs:disable Generic.Files.InlineHTML
  */
 ?>
 
@@ -36,9 +40,9 @@
     </a>
     <div
         class="logout-confirmation hidden"
-        data-yes="<?= $logoutYes ?>"
-        data-no="<?= $logoutNo ?>"
+        data-yes="<?php echo $logoutYes; ?>"
+        data-no="<?php echo $logoutNo; ?>"
     >
-        <div><?= $logoutConfirmText ?></div>
+        <div><?php echo $logoutConfirmText; ?></div>
     </div>
 </div>

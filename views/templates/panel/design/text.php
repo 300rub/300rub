@@ -1,3 +1,7 @@
+<?php
+//phpcs:disable Generic.Files.InlineHTML
+?>
+
 <div class="design-container design-text-container">
     <div class="elements-container common-container"></div>
 

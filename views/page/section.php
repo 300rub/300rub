@@ -1,6 +1,8 @@
 <?php
 
 /**
+ * Variables
+ *
  * @var int    $id
  * @var string $content
  */

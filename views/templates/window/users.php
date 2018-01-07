@@ -1,3 +1,7 @@
+<?php
+//phpcs:disable Generic.Files.InlineHTML
+?>
+
 <table class="table window-users-table">
     <tr>
         <th class="name-label"></th>

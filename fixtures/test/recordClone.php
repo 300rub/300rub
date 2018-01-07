@@ -2,6 +2,6 @@
 
 return [
     1 => [
-        "recordId" => 1
+        'recordId' => 1
     ],
 ];

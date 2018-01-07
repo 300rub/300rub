@@ -2,11 +2,11 @@
 
 return [
     1 => [
-        "seoModel"      => [
-            "name" => "Text Blocks",
-            "url"  => "text-blocks"
+        'seoModel'      => [
+            'name' => 'Text Blocks',
+            'url'  => 'text-blocks'
         ],
-        "language" => 1,
-        "isMain"   => false,
+        'language' => 1,
+        'isMain'   => false,
     ],
 ];

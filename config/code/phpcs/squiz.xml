@@ -17,7 +17,6 @@
     <rule ref="Squiz.Commenting.EmptyCatchComment"/>
     <rule ref="Squiz.Commenting.FunctionCommentThrowTag"/>
     <rule ref="Squiz.Commenting.InlineComment"/>
-    <rule ref="Squiz.Commenting.InlineComment"/>
     <rule ref="Squiz.Commenting.PostStatementComment"/>
     <rule ref="Squiz.Commenting.VariableComment"/>
 

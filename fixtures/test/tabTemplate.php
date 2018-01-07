@@ -2,8 +2,8 @@
 
 return [
     1 => [
-        "tabId" => 1,
-        "sort"  => 10,
-        "label" => "Tab template",
+        'tabId' => 1,
+        'sort'  => 10,
+        'label' => 'Tab template',
     ]
 ];

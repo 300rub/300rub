@@ -1,3 +1,7 @@
+<?php
+//phpcs:disable Generic.Files.InlineHTML
+?>
+
 <div class="ajax-error">
     <div class="message"></div>
     <div class="path">

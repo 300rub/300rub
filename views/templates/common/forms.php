@@ -1,3 +1,7 @@
+<?php
+//phpcs:disable Generic.Files.InlineHTML
+?>
+
 <button class="form-button form-instance">
     <span class="icons">
         <i class="icon fa"></i>

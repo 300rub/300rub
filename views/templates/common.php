@@ -1,8 +1,8 @@
 <?php
 
-include "common/ajax-error.php";
-include "common/accordion.php";
-include "common/forms.php";
-include "window/window.php";
+require 'common/ajax-error.php';
+require 'common/accordion.php';
+require 'common/forms.php';
+require 'window/window.php';
 
-?>
+

@@ -2,11 +2,11 @@
 
 return [
     1 => [
-        "type"      => 0,
-        "hasEditor" => false,
+        'type'      => 0,
+        'hasEditor' => false,
     ],
     2 => [
-        "type"      => 0,
-        "hasEditor" => true,
+        'type'      => 0,
+        'hasEditor' => true,
     ]
 ];

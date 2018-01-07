@@ -1,0 +1,3 @@
+#!/bin/bash
+
+docker exec -it tests_phpfpm_1 env COMPOSER=/var/www/config/composer/composer.json php bin/lib/composer.phar update

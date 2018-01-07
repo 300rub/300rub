@@ -1,12 +1,18 @@
-<div id="templates">
 <?php
 /**
+ * Variables
+ *
  * @var bool $isUser
+ *
+ * phpcs:disable Generic.Files.InlineHTML
  */
+?>
 
-include "common.php";
-if ($isUser) {
-    include "admin.php";
+<div id="templates">
+<?php
+require 'common.php';
+if ($isUser === true) {
+    include 'admin.php';
 }
 ?>
 </div>

@@ -2,16 +2,16 @@
 
 return [
     1 => [
-        "parentId"  => null,
-        "seoModel"  => [
-            "name"        => "Test",
-            "url"         => "",
-            "title"       => "",
-            "keywords"    => "",
-            "description" => "",
+        'parentId'  => null,
+        'seoModel'  => [
+            'name'        => 'Test',
+            'url'         => '',
+            'title'       => '',
+            'keywords'    => '',
+            'description' => '',
         ],
-        "catalogId" => 1,
-        "icon"      => "",
-        "subName"   => "",
+        'catalogId' => 1,
+        'icon'      => '',
+        'subName'   => '',
     ],
 ];

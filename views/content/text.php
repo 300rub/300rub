@@ -1,6 +1,8 @@
 <?php
 
 /**
+ * Variables
+ *
  * @var int    $blockId
  * @var string $text
  */

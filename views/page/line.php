@@ -1,64 +1,71 @@
 <?php
 
 /**
+ * Variables
+ *
  * @var int   $id
  * @var array $structure
+ *
+ * phpcs:disable PSR1.Files.SideEffects
+ * phpcs:disable Squiz.Functions.GlobalFunction
  */
 
 /**
  * Builds structure
  *
- * @param array $structure
+ * @param array $structure Structure
  *
  * @return string
  */
 function buildStructureHtml($structure)
 {
-	$html = "";
+    $html = '';
 
-	foreach ($structure as $yLine => $yData) {
-	    $lastY = 0;
+    foreach ($structure as $yData) {
+        $lastY = 0;
 
-		foreach ($yData as $item) {
-			if (!array_key_exists("type", $item)) {
-				continue;
-			}
+        foreach ($yData as $item) {
+            if (array_key_exists('type', $item) === false) {
+                continue;
+            }
 
-			switch ($item["type"]) {
-				case "block":
-                    if ($lastY < $item["y"]) {
+            switch ($item['type']) {
+                case 'block':
+                    if ($lastY < $item['y']) {
                         $html .= '<div class="clear"></div>';
-                        $lastY = $item["y"];
+                        $lastY = $item['y'];
                     }
 
-					$html .= sprintf(
-						'<div class="grid width-%s" style="margin-left: %s%%;">%s</div>',
-						$item["width"],
-						$item["left"],
-						$item["html"]
-					);
+                    $html .= sprintf(
+                        '<div class="grid width-%s" ' .
+                        'style="margin-left: %s%%;">%s</div>',
+                        $item['width'],
+                        $item['left'],
+                        $item['html']
+                    );
 
-					break;
-				case "container":
-					$html .= sprintf(
-						'<div class="grid width-%s" style="margin-left: %s%%;">%s</div>',
-						$item["width"],
-						$item["left"],
-						buildStructureHtml($item["data"])
-					);
+                    break;
+                case 'container':
+                    $html .= sprintf(
+                        '<div class="grid width-%s" ' .
+                        'style="margin-left: %s%%;">%s</div>',
+                        $item['width'],
+                        $item['left'],
+                        buildStructureHtml($item['data'])
+                    );
 
-					break;
-			}
-		}
+                    break;
+            }
+        }
 
-		$html .= '<div class="clear"></div>';
-	}
+        $html .= '<div class="clear"></div>';
+    }
 
-	return $html;
+    return $html;
 }
 
 echo sprintf(
-	'<div class="line-%s"><div class="line-container">%s</div></div>',
-	$id,
-	buildStructureHtml($structure)
+    '<div class="line-%s"><div class="line-container">%s</div></div>',
+    $id,
+    buildStructureHtml($structure)
 );
