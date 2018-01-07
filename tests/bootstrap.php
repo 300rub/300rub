@@ -2,11 +2,11 @@
 
 use testS\application\App;
 
-// Config file path
-$config = require(__DIR__ . "/../config/common.php");
+// Config file path.
+$config = include __DIR__ . '/../config/common.php';
 
-// Runs a command
-require(__DIR__ . "/../application/App.php");
+// Runs a command.
+require __DIR__ . '/../application/App.php';
 
 spl_autoload_register(['testS\application\App','autoload']);
 
