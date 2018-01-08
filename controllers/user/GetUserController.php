@@ -90,7 +90,8 @@ class GetUserController extends AbstractController
         $language = App::web()->getLanguage();
 
         $userId = 0;
-        if (empty($this->get('id')) === false) {
+        $blockId = $this->get('id');
+        if (empty($blockId) === false) {
             $userId = (int)$this->get('id');
             if ($userId === 0) {
                 throw new BadRequestException(

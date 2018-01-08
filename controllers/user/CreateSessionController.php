@@ -40,7 +40,8 @@ class CreateSessionController extends AbstractController
         $global = App::web()->getSuperGlobalVariable();
 
         $userModel = new UserModel();
-        $userModel = $userModel->byLogin($this->get('user'))->find();
+        $userModel->byLogin($this->get('user'));
+        $userModel = $userModel->find();
         if ($userModel instanceof UserModel === false) {
             return [
                 'errors' => [

@@ -36,7 +36,8 @@ class DeleteSessionController extends AbstractController
             return $this->getSimpleSuccessResult();
         }
 
-        if (empty($this->get('token')) !== false) {
+        $token = $this->get('token');
+        if (empty($token) !== false) {
             App::web()->getMemcached()->delete($user->getToken());
 
             setcookie('token', '', (time() - 3600), '/');

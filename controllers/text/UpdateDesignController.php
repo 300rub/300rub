@@ -2,9 +2,9 @@
 
 namespace testS\controllers\text;
 
-use Slim\Exception\NotFoundException;
 use testS\application\components\Operation;
 use testS\application\exceptions\BadRequestException;
+use testS\application\exceptions\NotFoundException;
 use testS\controllers\_abstract\AbstractController;
 use testS\models\blocks\block\BlockModel;
 use testS\models\blocks\text\TextModel;

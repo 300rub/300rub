@@ -149,7 +149,8 @@ class UpdateUserController extends AbstractController
      */
     private function _hasOperations()
     {
-        if (empty($this->get('operations')) === false
+        $operations = $this->get('operations');
+        if (empty($operations) === false
             && is_array($this->get('operations')) === true
         ) {
             return true;
