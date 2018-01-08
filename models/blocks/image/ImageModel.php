@@ -11,6 +11,11 @@ class ImageModel extends AbstractImageModel
 {
 
     /**
+     * Class name
+     */
+    const CLASS_NAME = '\\testS\\models\\blocks\\image\\ImageModel';
+
+    /**
      * Gets HTML memcached key
      *
      * @return string

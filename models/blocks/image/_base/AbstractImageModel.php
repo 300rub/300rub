@@ -39,7 +39,7 @@ abstract class AbstractImageModel extends AbstractContentModel
      *
      * @return array
      */
-    public static function getAutoCropTypeList()
+    public function getAutoCropTypeList()
     {
         return [
             self::AUTO_CROP_TYPE_NONE          => '',
@@ -60,7 +60,7 @@ abstract class AbstractImageModel extends AbstractContentModel
      *
      * @return array
      */
-    public static function getTypeList()
+    public function getTypeList()
     {
         $language = App::getInstance()->getLanguage();
 
@@ -109,7 +109,7 @@ abstract class AbstractImageModel extends AbstractContentModel
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
                     ValueGenerator::ARRAY_KEY => [
-                        self::getTypeList(),
+                        $this->getTypeList(),
                         self::TYPE_ZOOM]
 
                 ],
@@ -118,7 +118,7 @@ abstract class AbstractImageModel extends AbstractContentModel
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
                     ValueGenerator::ARRAY_KEY => [
-                        self::getAutoCropTypeList(),
+                        $this->getAutoCropTypeList(),
                         self::AUTO_CROP_TYPE_NONE
                     ]
                 ],
@@ -153,7 +153,7 @@ abstract class AbstractImageModel extends AbstractContentModel
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
                     ValueGenerator::ARRAY_KEY => [
-                        self::getAutoCropTypeList(),
+                        $this->getAutoCropTypeList(),
                         self::AUTO_CROP_TYPE_NONE
                     ]
                 ],

@@ -13,11 +13,6 @@ class TextModel extends AbstractTextModel
 {
 
     /**
-     * Class name
-     */
-    const CLASS_NAME = '\\testS\\models\\blocks\\text\\TextModel';
-
-    /**
      * Gets HTML memcached key
      *
      * @return string
