@@ -413,8 +413,9 @@ class SectionModel extends AbstractSectionModel
             return $this;
         }
 
-        $blockModel = BlockModel::getById($blockId)
-            ->setContent();
+        $blockModel = new BlockModel();
+        $blockModel = $blockModel->getById($blockId);
+        $blockModel->setContent();
         $this->_blockHtml = $blockModel->getHtml();
         $this->_blockCss = $blockModel->getCss();
         $this->_blockJs = $blockModel->getJs();

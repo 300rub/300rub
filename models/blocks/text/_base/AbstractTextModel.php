@@ -5,6 +5,7 @@ namespace testS\models\blocks\text\_base;
 use testS\application\App;
 use testS\application\components\ValueGenerator;
 use testS\models\blocks\_abstract\AbstractContentModel;
+use testS\models\blocks\text\DesignTextModel;
 
 /**
  * Abstract model for working with table "texts"
@@ -25,7 +26,7 @@ abstract class AbstractTextModel extends AbstractContentModel
      *
      * @return array
      */
-    public static function getTypeList()
+    public function getTypeList()
     {
         $language = App::getInstance()->getLanguage();
 
@@ -67,7 +68,7 @@ abstract class AbstractTextModel extends AbstractContentModel
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
                     ValueGenerator::ARRAY_KEY => [
-                        self::getTypeList(),
+                        $this->getTypeList(),
                         self::TYPE_DIV
                     ]
                 ],
@@ -76,5 +77,25 @@ abstract class AbstractTextModel extends AbstractContentModel
                 self::FIELD_TYPE => self::FIELD_TYPE_BOOL,
             ],
         ];
+    }
+
+    /**
+     * Gets design text model
+     *
+     * @return DesignTextModel
+     */
+    public function getDesignTextModel()
+    {
+        return $this->get('designTextModel');
+    }
+
+    /**
+     * Gets design block model
+     *
+     * @return DesignTextModel
+     */
+    public function getDesignBlockModel()
+    {
+        return $this->get('designBlockModel');
     }
 }

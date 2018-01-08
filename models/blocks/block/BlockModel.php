@@ -101,7 +101,7 @@ class BlockModel extends AbstractBlockModel
         parent::afterSave();
 
         App::getInstance()->getMemcached()->delete(
-            self::_getMemcachedKey($this->getId())
+            $this->_getMemcachedKey($this->getId())
         );
     }
 
@@ -275,7 +275,7 @@ class BlockModel extends AbstractBlockModel
      *
      * @return string
      */
-    private static function _getMemcachedKey($blockId)
+    private function _getMemcachedKey($blockId)
     {
         return sprintf('block_%s', $blockId);
     }
@@ -289,10 +289,10 @@ class BlockModel extends AbstractBlockModel
      *
      * @throws NotFoundException
      */
-    public static function getById($blockId)
+    public function getById($blockId)
     {
         $memcached = App::getInstance()->getMemcached();
-        $memcachedKey = self::_getMemcachedKey($blockId);
+        $memcachedKey = $this->_getMemcachedKey($blockId);
 
         $memcachedValue = $memcached->get($memcachedKey);
         if ($memcachedValue !== false) {
