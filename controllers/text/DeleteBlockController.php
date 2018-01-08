@@ -34,8 +34,7 @@ class DeleteBlockController extends AbstractController
             Operation::TEXT_DELETE
         );
 
-        $blockModel = new BlockModel();
-        $blockModel = $blockModel->getById($this->get('id'));
+        $blockModel = BlockModel::model()->getById($this->get('id'));
         if ($blockModel->get('contentType') !== BlockModel::TYPE_TEXT) {
             throw new BadRequestException(
                 'Incorrect text block to delete. ID: {id}. Block type: {type}',

@@ -1,10 +1,9 @@
 <?php
 
-namespace testS\tests\unit\controllers\text;
+namespace testS\tests\unit\controllers\image;
 
 use testS\models\blocks\block\BlockModel;
-use testS\models\blocks\text\TextInstanceModel;
-use testS\models\blocks\text\TextModel;
+use testS\models\blocks\image\ImageModel;
 use testS\tests\unit\controllers\_abstract\AbstractControllerTest;
 
 /**
@@ -29,7 +28,7 @@ class CreateBlockDuplicationControllerTest extends AbstractControllerTest
         $this->setUser($user);
 
         $this->sendRequest(
-            'text',
+            'image',
             'blockDuplication',
             [
                 'id' => $blockId
@@ -47,13 +46,8 @@ class CreateBlockDuplicationControllerTest extends AbstractControllerTest
 
         $blockModel = BlockModel::model()->getLatest();
 
-        $textModel = $blockModel->getContentModel();
-        $this->assertTrue($textModel instanceof TextModel);
-
-        $textInstanceModel = new TextInstanceModel();
-        $textInstanceModel->byTextId($textModel->getId());
-        $textInstanceModel = $textInstanceModel->find();
-        $this->assertTrue($textInstanceModel instanceof TextInstanceModel);
+        $imageModel = $blockModel->getContentModel();
+        $this->assertTrue($imageModel instanceof ImageModel);
 
         $blockModel->delete();
 
@@ -70,52 +64,52 @@ class CreateBlockDuplicationControllerTest extends AbstractControllerTest
         return [
             'fullCorrect'          => [
                 'user'     => self::TYPE_FULL,
-                'id'       => 1,
+                'blockId'  => 3,
                 'hasError' => false,
             ],
             'fullIncorrect'        => [
                 'user'     => self::TYPE_FULL,
-                'id'       => 9999,
+                'blockId'  => 9999,
                 'hasError' => true
             ],
             'userCorrect'          => [
                 'user'     => self::TYPE_LIMITED,
-                'id'       => 1,
+                'blockId'  => 3,
                 'hasError' => false,
             ],
             'userIncorrect'        => [
                 'user'     => self::TYPE_LIMITED,
-                'id'       => 9999,
+                'blockId'  => 9999,
                 'hasError' => true
             ],
             'blockedCorrect'       => [
                 'user'     => self::TYPE_BLOCKED_USER,
-                'id'       => 1,
+                'blockId'  => 3,
                 'hasError' => true
             ],
             'blockedIncorrect'     => [
                 'user'     => self::TYPE_LIMITED,
-                'id'       => 9999,
+                'blockId'  => 9999,
                 'hasError' => true
             ],
             'noOperationCorrect'   => [
                 'user'     => self::TYPE_NO_OPERATIONS_USER,
-                'id'       => 1,
+                'blockId'  => 3,
                 'hasError' => true
             ],
             'noOperationIncorrect' => [
                 'user'     => self::TYPE_NO_OPERATIONS_USER,
-                'id'       => 9999,
+                'blockId'  => 9999,
                 'hasError' => true
             ],
             'guestCorrect'         => [
                 'user'     => null,
-                'id'       => 1,
+                'blockId'  => 3,
                 'hasError' => true
             ],
             'guestIncorrect'       => [
                 'user'     => null,
-                'id'       => 9999,
+                'blockId'  => 9999,
                 'hasError' => true
             ],
         ];

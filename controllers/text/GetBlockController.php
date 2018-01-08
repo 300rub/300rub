@@ -44,7 +44,6 @@ class GetBlockController extends AbstractController
                 Operation::TEXT_UPDATE_SETTINGS
             );
 
-            $blockModel = new BlockModel();
             $blockModel = $blockModel->getById($blockId);
             $textModel = $blockModel->getContentModel(
                 false,

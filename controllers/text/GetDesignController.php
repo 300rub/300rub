@@ -78,12 +78,12 @@ class GetDesignController extends AbstractController
      */
     private function _getTextModel($blockId)
     {
-        $blockModel = new BlockModel();
-        $blockModel = $blockModel->getById($blockId);
-        return $blockModel->getContentModel(
-            true,
-            null,
-            TextModel::CLASS_NAME
-        );
+        return BlockModel::model()
+            ->getById($blockId)
+            ->getContentModel(
+                true,
+                null,
+                TextModel::CLASS_NAME
+            );
     }
 }

@@ -39,13 +39,13 @@ class UpdateDesignController extends AbstractController
             Operation::TEXT_UPDATE_DESIGN
         );
 
-        $blockModel = new BlockModel();
-        $blockModel = $blockModel->getById($this->get('id'));
-        $textModel = $blockModel->getContentModel(
-            false,
-            null,
-            TextModel::CLASS_NAME
-        );
+        $textModel = BlockModel::model()
+            ->getById($this->get('id'))
+            ->getContentModel(
+                false,
+                null,
+                TextModel::CLASS_NAME
+            );
 
         $textModel->set(
             [

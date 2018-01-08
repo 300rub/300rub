@@ -1,6 +1,6 @@
 <?php
 
-namespace testS\controllers\text;
+namespace testS\controllers\image;
 
 use testS\application\components\Operation;
 use testS\application\exceptions\BadRequestException;
@@ -8,7 +8,7 @@ use testS\controllers\_abstract\AbstractController;
 use testS\models\blocks\block\BlockModel;
 
 /**
- * Duplicates text block
+ * Duplicates block
  */
 class CreateBlockDuplicationController extends AbstractController
 {
@@ -29,15 +29,15 @@ class CreateBlockDuplicationController extends AbstractController
         );
 
         $this->checkBlockOperation(
-            BlockModel::TYPE_TEXT,
+            BlockModel::TYPE_IMAGE,
             $this->get('id'),
-            Operation::TEXT_DUPLICATE
+            Operation::IMAGE_DUPLICATE
         );
 
         $blockModel = BlockModel::model()->getById($this->get('id'));
-        if ($blockModel->get('contentType') !== BlockModel::TYPE_TEXT) {
+        if ($blockModel->get('contentType') !== BlockModel::TYPE_IMAGE) {
             throw new BadRequestException(
-                'Incorrect text block to duplicate. ' .
+                'Incorrect image block to duplicate. ' .
                 'ID: {id}. Block type: {type}',
                 [
                     'id'   => $this->get('id'),
@@ -46,10 +46,8 @@ class CreateBlockDuplicationController extends AbstractController
             );
         }
 
-        $duplication = $blockModel->duplicate();
-
         return [
-            'id' => $duplication->getId()
+            'id' => $blockModel->duplicate()->getId()
         ];
     }
 }

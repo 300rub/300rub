@@ -39,8 +39,7 @@ class GetContentController extends AbstractController
             Operation::TEXT_UPDATE_CONTENT
         );
 
-        $blockModel = new BlockModel();
-        $blockModel = $blockModel->getById($blockId);
+        $blockModel = BlockModel::model()->getById($blockId);
         $textModel = $blockModel->getContentModel(
             false,
             null,

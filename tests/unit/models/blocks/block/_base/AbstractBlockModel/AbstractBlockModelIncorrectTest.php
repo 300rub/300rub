@@ -46,8 +46,7 @@ class AbstractBlockModelIncorrectTest extends AbstractIncorrectModelTest
      */
     private function _getDataProviderIncorrect1()
     {
-        $textModel1 = new TextModel();
-        $textModel1->save();
+        $textModel1 = TextModel::model()->save();
 
         return [
             [
@@ -103,8 +102,7 @@ class AbstractBlockModelIncorrectTest extends AbstractIncorrectModelTest
      */
     private function _getDataProviderIncorrect3()
     {
-        $textModel2 = new TextModel();
-        $textModel2->save();
+        $textModel2 = TextModel::model()->save();
 
         return [
             [
@@ -171,8 +169,7 @@ class AbstractBlockModelIncorrectTest extends AbstractIncorrectModelTest
      */
     private function _getDataProviderIncorrect6()
     {
-        $textModel3 = new TextModel();
-        $textModel3->save();
+        $textModel3 = TextModel::model()->save();
 
         return [
             [

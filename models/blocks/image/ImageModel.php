@@ -74,4 +74,14 @@ class ImageModel extends AbstractImageModel
     {
         return [];
     }
+
+    /**
+     * Gets ImageModel
+     *
+     * @return ImageModel
+     */
+    public static function model()
+    {
+        return new self;
+    }
 }

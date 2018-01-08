@@ -461,11 +461,10 @@ class GetUserController extends AbstractController
                 )
             ];
 
-            $blocks = new BlockModel();
-            $blocks
+            $blocks = BlockModel::model()
                 ->byContentType($blockKey)
-                ->ordered();
-            $blocks = $blocks->findAll();
+                ->ordered()
+                ->findAll();
             if (count($blocks) > 0) {
                 switch ($blockKey) {
                     case BlockModel::TYPE_TEXT:

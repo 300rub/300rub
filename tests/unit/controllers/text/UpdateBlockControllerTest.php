@@ -84,11 +84,10 @@ class UpdateBlockControllerTest extends AbstractControllerTest
         $this->assertTrue($body['result']);
         $this->assertNotFalse(strpos($body['html'], 'test text'));
 
-        $newTextModel = new TextModel();
-        $newTextModel->byId($textModel->getId());
-        $newTextModel = $newTextModel->find();
-        $newBlockModel = new BlockModel();
-        $newBlockModel = $newBlockModel->getById($blockModel->getId());
+        $newTextModel = TextModel::model()
+            ->byId($textModel->getId())
+            ->find();
+        $newBlockModel = BlockModel::model()->getById($blockModel->getId());
 
         $this->assertSame($data['name'], $newBlockModel->get('name'));
         $this->assertSame($data['type'], $newTextModel->get('type'));

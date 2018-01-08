@@ -1,9 +1,9 @@
 <?php
 
-namespace testS\tests\unit\controllers\text;
+namespace testS\tests\unit\controllers\image;
 
 use testS\models\blocks\block\BlockModel;
-use testS\models\blocks\text\TextModel;
+use testS\models\blocks\image\ImageModel;
 use testS\tests\unit\controllers\_abstract\AbstractControllerTest;
 
 /**
@@ -30,22 +30,15 @@ class DeleteBlockControllerTest extends AbstractControllerTest
         $blockModel = null;
         $requestId = $blockId;
         if ($blockId === null) {
-            $textModel = new TextModel();
-            $textModel->set(
-                [
-                    'type'      => 0,
-                    'hasEditor' => 0,
-                ]
-            );
-            $textModel->save();
+            $imageModel = ImageModel::model()->save();
 
             $blockModel = new BlockModel();
             $blockModel->set(
                 [
                     'name'        => 'name',
                     'language'    => 1,
-                    'contentType' => BlockModel::TYPE_TEXT,
-                    'contentId'   => $textModel->getId(),
+                    'contentType' => BlockModel::TYPE_IMAGE,
+                    'contentId'   => $imageModel->getId(),
                 ]
             );
             $blockModel->save();
@@ -53,7 +46,7 @@ class DeleteBlockControllerTest extends AbstractControllerTest
             $requestId = $blockModel->getId();
         }
 
-        $this->sendRequest('text', 'block', ['id' => $requestId], 'DELETE');
+        $this->sendRequest('image', 'block', ['id' => $requestId], 'DELETE');
 
         if ($hasError === true) {
             $this->assertError();
@@ -70,6 +63,7 @@ class DeleteBlockControllerTest extends AbstractControllerTest
         ];
 
         $this->compareExpectedAndActual($expected, $this->getBody());
+
         $this->assertNull(
             BlockModel::model()->byId($blockModel->getId())->find()
         );
@@ -85,54 +79,59 @@ class DeleteBlockControllerTest extends AbstractControllerTest
     public function dataProvider()
     {
         return [
-            'fullCorrect'          => [
+            'fullCorrect'            => [
                 'user'     => self::TYPE_FULL,
-                'id'       => null,
+                'blockId'  => null,
                 'hasError' => false
             ],
-            'fullIncorrect'        => [
+            'fullIncorrect'          => [
                 'user'     => self::TYPE_FULL,
-                'id'       => 9999,
+                'blockId'  => 9999,
                 'hasError' => true
             ],
-            'userCorrect'          => [
+            'fullIncorrectTypeBlock' => [
+                'user'     => self::TYPE_FULL,
+                'blockId'  => 1,
+                'hasError' => true
+            ],
+            'userCorrect'            => [
                 'user'     => self::TYPE_LIMITED,
-                'id'       => null,
+                'blockId'  => null,
                 'hasError' => false
             ],
-            'userIncorrect'        => [
+            'userIncorrect'          => [
                 'user'     => self::TYPE_LIMITED,
-                'id'       => 9999,
+                'blockId'  => 9999,
                 'hasError' => true
             ],
-            'blockedCorrect'       => [
+            'blockedCorrect'         => [
                 'user'     => self::TYPE_BLOCKED_USER,
-                'id'       => null,
+                'blockId'  => null,
                 'hasError' => true
             ],
-            'blockedIncorrect'     => [
+            'blockedIncorrect'       => [
                 'user'     => self::TYPE_LIMITED,
-                'id'       => 9999,
+                'blockId'  => 9999,
                 'hasError' => true
             ],
-            'noOperationCorrect'   => [
+            'noOperationCorrect'     => [
                 'user'     => self::TYPE_NO_OPERATIONS_USER,
-                'id'       => null,
+                'blockId'  => null,
                 'hasError' => true
             ],
-            'noOperationIncorrect' => [
+            'noOperationIncorrect'   => [
                 'user'     => self::TYPE_NO_OPERATIONS_USER,
-                'id'       => 9999,
+                'blockId'  => 9999,
                 'hasError' => true
             ],
-            'guestCorrect'         => [
+            'guestCorrect'           => [
                 'user'     => null,
-                'id'       => null,
+                'blockId'  => null,
                 'hasError' => true
             ],
-            'guestIncorrect'       => [
+            'guestIncorrect'         => [
                 'user'     => null,
-                'id'       => 9999,
+                'blockId'  => 9999,
                 'hasError' => true
             ],
         ];

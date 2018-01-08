@@ -29,10 +29,8 @@ class AbstractBlockModelCorrectTest extends AbstractCorrectModelTest
      */
     protected function getDataProviderCorrect()
     {
-        $textModel1 = new TextModel();
-        $textModel1->save();
-        $textModel2 = new TextModel();
-        $textModel2->save();
+        $textModel1 = TextModel::model()->save();
+        $textModel2 = TextModel::model()->save();
 
         return [
             'correct1' => [

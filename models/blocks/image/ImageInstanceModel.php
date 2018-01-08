@@ -67,4 +67,14 @@ class ImageInstanceModel extends AbstractUpdateModel
 
         return $this;
     }
+
+    /**
+     * Gets ImageInstanceModel
+     *
+     * @return ImageInstanceModel
+     */
+    public static function model()
+    {
+        return new self;
+    }
 }

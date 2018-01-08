@@ -24,12 +24,11 @@ class GetBlocksController extends AbstractController
 
         $language = App::web()->getLanguage();
 
-        $blockModels = new BlockModel();
-        $blockModels
+        $blockModels = BlockModel::model()
             ->byContentType(BlockModel::TYPE_IMAGE)
             ->byLanguage($language->getActiveId())
-            ->bySectionId($this->getBlockSection());
-        $blockModels = $blockModels->findAll();
+            ->bySectionId($this->getBlockSection())
+            ->findAll();
 
         $list = [];
         foreach ($blockModels as $blockModel) {

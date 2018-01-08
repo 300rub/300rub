@@ -199,4 +199,14 @@ class TextModel extends AbstractTextModel
             $newTextInstanceModel->save();
         }
     }
+
+    /**
+     * Gets TextModel
+     *
+     * @return TextModel
+     */
+    public static function model()
+    {
+        return new self;
+    }
 }

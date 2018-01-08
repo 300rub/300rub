@@ -299,8 +299,7 @@ class BlockModel extends AbstractBlockModel
             return $memcachedValue;
         }
 
-        $model = new BlockModel();
-        $model = $model->byId($blockId)->find();
+        $model = self::model()->byId($blockId)->find();
         if ($model === null) {
             throw new NotFoundException(
                 'Unable to find block model by ID: {id}',
@@ -313,5 +312,25 @@ class BlockModel extends AbstractBlockModel
         $memcached->set($memcachedKey, $model);
 
         return $model;
+    }
+
+    /**
+     * Gets latest block model
+     *
+     * @return null|AbstractModel|BlockModel
+     */
+    public function getLatest()
+    {
+        return self::model()->latest()->find();
+    }
+
+    /**
+     * Gets BlockModel
+     *
+     * @return BlockModel
+     */
+    public static function model()
+    {
+        return new self;
     }
 }

@@ -2,7 +2,6 @@
 
 namespace testS\tests\unit\controllers\text;
 
-use testS\models\_abstract\AbstractModel;
 use testS\models\blocks\block\BlockModel;
 use testS\models\blocks\text\TextInstanceModel;
 use testS\models\blocks\text\TextModel;
@@ -32,23 +31,19 @@ class CreateBlockControllerTest extends AbstractControllerTest
         $hasError = null,
         $hasValidationErrors = null
     ) {
-        $textCountBefore = new TextModel();
-        $textCountBefore = $textCountBefore->getCount();
+        $textCountBefore = TextModel::model()->getCount();
         $instanceCountBefore = new TextInstanceModel();
         $instanceCountBefore = $instanceCountBefore->getCount();
-        $blockCountBefore = new BlockModel();
-        $blockCountBefore = $blockCountBefore->getCount();
+        $blockCountBefore = BlockModel::model()->getCount();
 
         $this->setUser($user);
         $this->sendRequest('text', 'block', $data, 'POST');
         $body = $this->getBody();
 
-        $textModelCountAfter = new TextModel();
-        $textModelCountAfter = $textModelCountAfter->getCount();
+        $textModelCountAfter = TextModel::model()->getCount();
         $instanceCountAfter = new TextInstanceModel();
         $instanceCountAfter = $instanceCountAfter->getCount();
-        $blockModelCountAfter = new BlockModel();
-        $blockModelCountAfter = $blockModelCountAfter->getCount();
+        $blockModelCountAfter = BlockModel::model()->getCount();
 
         if ($hasError === true) {
             $this->assertError();
@@ -76,7 +71,7 @@ class CreateBlockControllerTest extends AbstractControllerTest
 
         $this->compareExpectedAndActual($expected, $body);
 
-        $blockTextModel = $this->_getLatestBlockModel();
+        $blockTextModel = BlockModel::model()->getLatest();
         $textModel = $blockTextModel->getContentModel();
         $this->assertSame($data['name'], $blockTextModel->get('name'));
         $this->assertSame($data['type'], $textModel->get('type'));
@@ -89,18 +84,6 @@ class CreateBlockControllerTest extends AbstractControllerTest
         $blockTextModel->delete();
 
         return true;
-    }
-
-    /**
-     * Gets latest block model
-     *
-     * @return AbstractModel|BlockModel
-     */
-    private function _getLatestBlockModel()
-    {
-        $blockTextModel = new BlockModel();
-        $blockTextModel->latest();
-        return $blockTextModel->find();
     }
 
     /**

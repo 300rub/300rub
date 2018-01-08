@@ -30,4 +30,14 @@ class ImageGroupModel extends AbstractImageGroupModel
 
         return $this;
     }
+
+    /**
+     * Gets ImageGroupModel
+     *
+     * @return ImageGroupModel
+     */
+    public static function model()
+    {
+        return new self;
+    }
 }
