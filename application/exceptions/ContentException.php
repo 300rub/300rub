@@ -25,6 +25,6 @@ class ContentException extends AbstractException
      */
     protected function getLogName()
     {
-        return 'content.log';
+        return 'content';
     }
 }

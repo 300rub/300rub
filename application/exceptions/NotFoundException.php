@@ -25,6 +25,6 @@ class NotFoundException extends AbstractException
      */
     protected function getLogName()
     {
-        return 'notFound.log';
+        return 'notFound';
     }
 }

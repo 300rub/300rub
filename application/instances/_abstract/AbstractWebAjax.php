@@ -419,8 +419,11 @@ abstract class AbstractWebAjax extends AbstractWebPage
         return [
             'error' => [
                 'message' => $exception->getMessage(),
-                'file'    => $exception->getFile(),
-                'line'    => $exception->getLine(),
+                'file'    => sprintf(
+                    '%s (%s)',
+                    $exception->getFile(),
+                    $exception->getLine()
+                ),
                 'trace'   => $exception->getTraceAsString(),
             ]
         ];

@@ -5,6 +5,7 @@ namespace testS\application\instances\_abstract;
 use testS\application\components\Db;
 use testS\application\components\Config;
 use testS\application\components\ErrorHandler;
+use testS\application\components\Logger;
 use testS\application\components\Validator;
 use testS\application\exceptions\NotFoundException;
 use testS\application\components\SuperGlobalVariable;
@@ -33,6 +34,13 @@ abstract class AbstractApplication
      * @var SuperGlobalVariable
      */
     private $_superGlobalVariable = null;
+
+    /**
+     * Logger
+     *
+     * @var Logger
+     */
+    private $_logger = null;
 
     /**
      * Memcached
@@ -102,6 +110,7 @@ abstract class AbstractApplication
         $this
             ->_setConfig($config)
             ->_setSuperGlobalVariable()
+            ->_setLogger()
             ->_setDb()
             ->_activateVendorAutoload()
             ->_setLanguage()
@@ -182,6 +191,27 @@ abstract class AbstractApplication
     public function getSuperGlobalVariable()
     {
         return $this->_superGlobalVariable;
+    }
+
+    /**
+     * Sets Logger
+     *
+     * @return AbstractApplication
+     */
+    private function _setLogger()
+    {
+        $this->_logger = new Logger();
+        return $this;
+    }
+
+    /**
+     * Gets Logger
+     *
+     * @return Logger
+     */
+    public function getLogger()
+    {
+        return $this->_logger;
     }
 
     /**

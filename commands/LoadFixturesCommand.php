@@ -125,27 +125,27 @@ class LoadFixturesCommand extends AbstractCommand
             }
         }
 
-//        $map = include __DIR__ . '/../fixtures/' . $dir . '/_fileMap.php';
-//        foreach ($map as $data) {
-//            $mimeType = 'application/octet-stream';
-//            if (array_key_exists('mimeType', $data) === true) {
-//                $mimeType = $data['mimeType'];
-//            }
-//
-//            $language = Language::LANGUAGE_EN_ID;
-//            if (array_key_exists('language', $data) === true) {
-//                $language = $data['language'];
-//            }
-//
-//            $this->_sendFile(
-//                $data['group'],
-//                $data['controller'],
-//                $data['file'],
-//                $data['data'],
-//                $mimeType,
-//                $language
-//            );
-//        }
+        $map = include __DIR__ . '/../fixtures/' . $dir . '/_fileMap.php';
+        foreach ($map as $data) {
+            $mimeType = 'application/octet-stream';
+            if (array_key_exists('mimeType', $data) === true) {
+                $mimeType = $data['mimeType'];
+            }
+
+            $language = Language::LANGUAGE_EN_ID;
+            if (array_key_exists('language', $data) === true) {
+                $language = $data['language'];
+            }
+
+            $this->_sendFile(
+                $data['group'],
+                $data['controller'],
+                $data['file'],
+                $data['data'],
+                $mimeType,
+                $language
+            );
+        }
     }
 
     /**

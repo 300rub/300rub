@@ -25,6 +25,6 @@ class BadRequestException extends AbstractException
      */
     protected function getLogName()
     {
-        return 'badRequest.log';
+        return 'badRequest';
     }
 }

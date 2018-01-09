@@ -25,6 +25,6 @@ class DbException extends AbstractException
      */
     protected function getLogName()
     {
-        return 'db.log';
+        return 'db';
     }
 }

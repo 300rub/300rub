@@ -7,7 +7,7 @@ use testS\models\blocks\image\ImageInstanceModel;
 use testS\tests\unit\controllers\_abstract\AbstractControllerTest;
 
 /**
- * Tests for the controller CreateBlockController
+ * Tests for the controller CreateImageController
  */
 class CreateImageControllerTest extends AbstractControllerTest
 {

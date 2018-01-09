@@ -70,32 +70,21 @@ abstract class AbstractException extends Exception
      *
      * @param string $message Message
      *
-     * @return bool
+     * @return void
      */
     private function _writeLog($message)
     {
         $logMessage = sprintf(
-            "[%s] %s\nFile: %s\nLine: %s\nTrace:\n%s\n\n",
-            date('Y-m-d H:i:s', time()),
+            "%s\nFile: %s (%s)\nTrace:\n%s\n\n",
             $message,
             $this->getFile(),
             $this->getLine(),
             $this->getTraceAsString()
         );
 
-        $logFolder = __DIR__ . '/../../logs';
-        $logFile = $logFolder . '/' . $this->getLogName();
-
-        try {
-            $file = fopen($logFile, 'a');
-            flock($file, LOCK_EX);
-            fwrite($file, $logMessage);
-            flock($file, LOCK_UN);
-            fclose($file);
-        } catch (\Exception $e) {
-            return false;
-        }
-
-        return true;
+        App::getInstance()->getLogger()->error(
+            $logMessage,
+            $this->getLogName()
+        );
     }
 }

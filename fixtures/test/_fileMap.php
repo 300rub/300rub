@@ -2,8 +2,8 @@
 
 return [
     [
+        'group'      => 'image',
         'controller' => 'image',
-        'action'     => 'image',
         'file'       => 'bigImage.jpg',
         'data'       => [
             'blockId'      => 3,
@@ -11,8 +11,8 @@ return [
         ],
     ],
     [
+        'group'      => 'image',
         'controller' => 'image',
-        'action'     => 'image',
         'file'       => 'bigImage.jpg',
         'data'       => [
             'blockId'      => 3,
@@ -20,8 +20,8 @@ return [
         ],
     ],
     [
+        'group'      => 'image',
         'controller' => 'image',
-        'action'     => 'image',
         'file'       => 'bigImage.png',
         'data'       => [
             'blockId'      => 4,
@@ -29,8 +29,8 @@ return [
         ],
     ],
     [
+        'group'      => 'image',
         'controller' => 'image',
-        'action'     => 'image',
         'file'       => 'bigImage.jpg',
         'data'       => [
             'blockId'      => 5,

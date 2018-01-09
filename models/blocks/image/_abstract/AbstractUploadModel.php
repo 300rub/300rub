@@ -228,8 +228,13 @@ abstract class AbstractUploadModel extends AbstractImageInstanceModel
      */
     private function _setParametersForUploadedFile()
     {
-        $info = getimagesize($this->_originalFileModel->getTmpName());
-        if (is_array($info) === false) {
+        try {
+            $info = getimagesize($this->_originalFileModel->getTmpName());
+
+            if (is_array($info) === false) {
+                throw new FileException('Uploaded file is not an image');
+            }
+        } catch (\Exception $e) {
             throw new FileException(
                 'Uploaded file: {file} is not an image',
                 [

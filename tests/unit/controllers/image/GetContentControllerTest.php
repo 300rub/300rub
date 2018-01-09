@@ -46,8 +46,6 @@ class GetContentControllerTest extends AbstractControllerTest
             return true;
         }
 
-        var_dump($this->getBody());
-
         $this->compareExpectedAndActual($expected, $this->getBody());
 
         return true;
