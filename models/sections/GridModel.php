@@ -191,7 +191,7 @@ class GridModel extends AbstractGridModel
             }
 
             if ($yValue >= $bottom) {
-                $info[1][] = [
+                $this->_sameBordersInfo[1][] = [
                     'y'       => $bottom,
                     'borders' => [$left, $right]
                 ];
@@ -220,9 +220,9 @@ class GridModel extends AbstractGridModel
             ];
         }
 
-        krsort($info);
+        krsort($this->_sameBordersInfo);
 
-        return $info;
+        return $this->_sameBordersInfo;
     }
 
     /**

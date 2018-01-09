@@ -465,4 +465,14 @@ class SectionModel extends AbstractSectionModel
             'html'  => $this->_blockHtml
         ];
     }
+
+    /**
+     * Gets SectionModel
+     *
+     * @return SectionModel
+     */
+    public static function model()
+    {
+        return new self;
+    }
 }

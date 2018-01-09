@@ -2,9 +2,6 @@
 
 namespace testS\controllers;
 
-use testS\components\Language;
-use testS\components\Operation;
-
 /**
  * SettingController
  *
@@ -12,30 +9,6 @@ use testS\components\Operation;
  */
 class SettingsController extends AbstractController
 {
-
-    /**
-     * Gets settings
-     *
-     * @return array
-     */
-    public function getSettings()
-    {
-        $this->checkUser();
-
-        $list = [];
-
-        $list["users"] = Language::t("settings", "users");
-
-        if ($this->hasSettingsOperation(Operation::SETTINGS_ICON)) {
-            $list["icon"] = Language::t("settings", "icon");
-        }
-
-        return [
-            "title"       => Language::t("settings", "settings"),
-            "description" => Language::t("settings", "description"),
-            "list"        => $list
-        ];
-    }
 
     public function getIcon()
     {

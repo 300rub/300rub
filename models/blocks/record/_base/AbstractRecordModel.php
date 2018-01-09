@@ -22,7 +22,7 @@ abstract class AbstractRecordModel extends AbstractContentModel
      *
      * @return array
      */
-    public static function getDateTypeList()
+    public function getDateTypeList()
     {
         return [
             self::DATE_TYPE_COMMON => '',
@@ -90,7 +90,7 @@ abstract class AbstractRecordModel extends AbstractContentModel
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
                     ValueGenerator::ARRAY_KEY => [
-                        self::getDateTypeList(),
+                        $this->getDateTypeList(),
                         self::DATE_TYPE_COMMON
                     ]
                 ],
@@ -99,7 +99,7 @@ abstract class AbstractRecordModel extends AbstractContentModel
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
                     ValueGenerator::ARRAY_KEY => [
-                        self::getDateTypeList(),
+                        $this->getDateTypeList(),
                         self::DATE_TYPE_COMMON
                     ]
                 ],

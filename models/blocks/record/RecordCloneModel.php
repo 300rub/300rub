@@ -11,6 +11,11 @@ class RecordCloneModel extends AbstractRecordCloneModel
 {
 
     /**
+     * Class name
+     */
+    const CLASS_NAME = '\\testS\\models\\blocks\\record\\RecordCloneModel';
+
+    /**
      * Gets HTML memcached key
      *
      * @return string

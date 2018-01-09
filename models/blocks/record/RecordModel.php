@@ -11,6 +11,11 @@ class RecordModel extends AbstractRecordModel
 {
 
     /**
+     * Class name
+     */
+    const CLASS_NAME = '\\testS\\models\\blocks\\record\\RecordModel';
+
+    /**
      * Gets HTML memcached key
      *
      * @return string
@@ -68,5 +73,15 @@ class RecordModel extends AbstractRecordModel
     public function generateJs()
     {
         return [];
+    }
+
+    /**
+     * Gets RecordModel
+     *
+     * @return RecordModel
+     */
+    public static function model()
+    {
+        return new self;
     }
 }
