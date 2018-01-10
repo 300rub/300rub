@@ -1,4 +1,4 @@
-!function (window) {
+!function (window, $) {
     'use strict';
 
     /**
@@ -13,7 +13,7 @@
          *
          * @var {Object}
          */
-        $_wrapper: null,
+        _wrapper: null,
 
         /**
          * Language
@@ -36,7 +36,7 @@
          *
          * @returns {TestS}
          */
-        setLanguage: function(language) {
+        setLanguage: function (language) {
             this._language = language;
             return this;
         },
@@ -46,7 +46,7 @@
          *
          * @returns {number}
          */
-        getLanguage: function() {
+        getLanguage: function () {
             return this._language;
         },
 
@@ -90,7 +90,7 @@
          *
          * @return {TestS}
          */
-        remove: function(className) {
+        remove: function (className) {
             this.getWrapper().find("." + className).remove();
             return this;
         },
@@ -100,12 +100,12 @@
          *
          * @returns {Object}
          */
-        getWrapper: function() {
-            if (this.$_wrapper === null) {
-                this.$_wrapper = $("#ajax-wrapper");
+        getWrapper: function () {
+            if (this._wrapper === null) {
+                this._wrapper = $("#ajax-wrapper");
             }
 
-            return this.$_wrapper;
+            return this._wrapper;
         }
-    }
-}(window);
+    };
+}(window, window.jQuery);

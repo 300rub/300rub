@@ -6,7 +6,7 @@
      *
      * @param {Object} data
      *
-     * @property {TestS.Panel.Design.Block.Margin} _marginObject
+     * @property {TestS.Panel.Design.Block.Margin} _margin
      *
      * @type {Object}
      */
@@ -23,7 +23,7 @@
         this.$_designContainer = null;
         this.$_styleContainer = null;
 
-        this._marginObject = null;
+        this._margin = null;
 
         this.$_paddingExample = null;
         this.$_paddingExampleStyles = null;
@@ -307,6 +307,10 @@
         getDesignContainer: function() {
             return this.$_designContainer;
         },
+
+        getValues: function () {
+            return this._data["values"];
+        },
         
         getValue: function(key) {
             if (this._values[key] !== undefined) {
@@ -334,7 +338,7 @@
          * @private
          */
         _setMargin: function() {
-            this._marginObject = new TestS.Panel.Design.Block.Margin(this);
+            this._margin = new TestS.Panel.Design.Block.Margin(this);
             return this;
         },
 
@@ -1649,7 +1653,7 @@
          * @private
          */
         _generateCss: function(isHover) {
-            var css = this._marginObject.generateMarginCss(isHover, true)
+            var css = this._margin.generateMarginCss(isHover, true)
                 + this._generatePaddingCss(isHover, true)
                 + this._generateBackgroundCss(isHover, true)
                 + this._generateBorderCss(isHover, true);

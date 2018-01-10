@@ -4,16 +4,24 @@
     /**
      * Accordion
      */
-    TestS.Accordion = function($container) {
-        $container.find(".accordion-title").off().on("click", function () {
-            var $accordionContainer = $(this).parent();
-            if ($accordionContainer.hasClass("opened")) {
-                $accordionContainer.removeClass("opened");
-            } else {
-                $accordionContainer.parent().find(".accordion-container").removeClass("opened");
+    TestS.Accordion = function ($container) {
+        $container.find(".accordion-title").off().on(
+            "click",
+            function () {
+                var $accordionContainer = $(this).parent();
+                if ($accordionContainer.hasClass("opened")) {
+                    $accordionContainer.removeClass("opened");
+                    return true;
+                }
+
+                $accordionContainer
+                    .parent()
+                    .find(".accordion-container")
+                    .removeClass("opened");
                 $accordionContainer.addClass("opened");
+                return true;
             }
-        });
+        );
     };
 
     /**
@@ -25,8 +33,8 @@
      */
     TestS.Accordion.Element = function (title) {
         this._title = title;
-        this.$_container = null;
-        this.$_body = null;
+        this._container = null;
+        this._body = null;
 
         this.init();
     };
@@ -41,9 +49,9 @@
          * Init
          */
         init: function () {
-            this.$_container = TestS.Template.get("accordion-container");
-            this.$_container.find(".accordion-title .text").text(this._title);
-            this.$_body = this.$_container.find(".accordion-body");
+            this._container = TestS.Template.get("accordion-container");
+            this._container.find(".accordion-title .text").text(this._title);
+            this._body = this._container.find(".accordion-body");
         },
 
         /**
@@ -54,7 +62,7 @@
          * @return {TestS.Accordion.Element}
          */
         add: function ($object) {
-            this.$_body.append($object);
+            this._body.append($object);
             return this;
         },
 
@@ -64,7 +72,7 @@
          * @return {Object}
          */
         getBody: function () {
-            return this.$_body;
+            return this._body;
         },
 
         /**
@@ -73,7 +81,7 @@
          * @return {Object}
          */
         get: function () {
-            return this.$_container;
+            return this._container;
         },
 
         /**
@@ -84,7 +92,7 @@
          * @return {TestS.Accordion.Element}
          */
         appendTo: function ($object) {
-            this.$_container.appendTo($object);
+            this._container.appendTo($object);
             return this;
         }
     };

@@ -102,7 +102,7 @@
         </exec>
     </target>
 
-    <target name="full-php-check" depends="phpcs, phpmd">
+    <target name="full-php-check" depends="phpcs, phpmd, jshint">
     </target>
 
     <target name="lesshint" description="Lesshint is a tool to aid you in writing clean and consistent Less.">
@@ -117,7 +117,7 @@
         <exec executable="jshint">
             <arg path="${path}" />
             <arg value="--config" />
-            <arg path="${baseDir}/config/code/jshint.json" />
+            <arg path="config/code/jshint.json" />
             <arg value="--exclude" />
             <arg value="vendor,backups,bin,docker,logs,trash,public/js/lib" />
         </exec>
