@@ -23,8 +23,8 @@
          */
         init: function () {
             this._window = new TestS.Window({
-                controller: "user",
-                action: "users",
+                group: "user",
+                controller: "users",
                 success: $.proxy(this._onLoadDataSuccess, this),
                 name: "users"
             });
@@ -97,8 +97,8 @@
                         },
                         ajax: {
                             data: {
+                                group: "user",
                                 controller: "user",
-                                action: "user",
                                 data: {
                                     id: user.id
                                 }

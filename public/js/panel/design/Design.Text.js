@@ -412,7 +412,7 @@
          * @private
          */
         _setExample: function() {
-            var uniqueId = TestS.getUniqueId();
+            var uniqueId = TestS.Library.getUniqueId();
 
             this.$_example = this.$_designContainer.find(".example")
                 .addClass("example-" + uniqueId)

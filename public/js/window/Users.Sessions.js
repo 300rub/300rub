@@ -26,8 +26,8 @@
          */
         init: function () {
             this._window = new TestS.Window({
-                controller: "user",
-                action: "sessions",
+                group: "user",
+                controller: "sessions",
                 data: {
                     id: this._options.id
                 },
@@ -93,8 +93,8 @@
                         },
                         ajax: {
                             data: {
-                                controller: "user",
-                                action: "session",
+                                group: "user",
+                                controller: "session",
                                 data: {
                                     token: session.token
                                 }
@@ -137,8 +137,8 @@
                     },
                     ajax: {
                         data: {
-                            controller: "user",
-                            action: "sessions",
+                            group: "user",
+                            controller: "sessions",
                             data: {
                                 id: data.id
                             }

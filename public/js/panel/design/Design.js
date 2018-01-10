@@ -9,8 +9,8 @@
      * @type {Object}
      */
     TestS.Panel.Design = function (options) {
+        this._group = options["group"];
         this._controller = options["controller"];
-        this._action = options["action"];
         this._id = options["id"];
         this._success = options["success"];
 
@@ -30,8 +30,8 @@
          */
         init: function () {
             this._panel = new TestS.Panel({
+                group: this._group,
                 controller: this._controller,
-                action: this._action,
                 id: this._id,
                 success: $.proxy(this._onLoadDataSuccess, this)
             });
@@ -47,8 +47,8 @@
         _onLoadDataSuccess: function(data) {
             var designs = [];
             var id = data["id"];
+            var group = data["group"];
             var controller = data["controller"];
-            var action = data["action"];
             var buttonLabel = data["button"]["label"];
 
             $.each(data["list"], $.proxy(function(groupKey, groupData) {
@@ -106,8 +106,8 @@
                     icon: "fa-check",
                     ajax: {
                         data: {
+                            group: group,
                             controller: controller,
-                            action: action,
                             data: function() {
                                 var data = {
                                     id: id

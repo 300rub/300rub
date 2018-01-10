@@ -79,8 +79,8 @@
                 ajax: {
                     type: "DELETE",
                     data: {
-                        controller: "user",
-                        action: "session"
+                        group: "user",
+                        controller: "session"
                     },
                     success: function() {
                         window.location.reload();

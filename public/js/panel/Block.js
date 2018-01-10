@@ -23,8 +23,8 @@
          */
         init: function () {
             this._panel = new TestS.Panel({
-                controller: "block",
-                action: "blocks",
+                group: "block",
+                controller: "blocks",
                 success: $.proxy(this._onLoadDataSuccess, this)
             });
         },

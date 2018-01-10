@@ -39,6 +39,7 @@ return [
         ],
         'less' => 'admin',
         'js'   => [
+            'Library',
             'Accordion',
             'UserButtons',
             'Panel',
@@ -48,6 +49,7 @@ return [
             'panel/Block.Text.Settings',
             'panel/design/Design',
             'panel/design/Design.Block',
+            'panel/design/block/Margin',
             'panel/design/Design.Text',
             'window/Users',
             'window/Users.Sessions',

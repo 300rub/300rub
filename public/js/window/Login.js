@@ -26,8 +26,8 @@
          */
         init: function () {
             this._window = new TestS.Window({
-                controller: "user",
-                action: "loginForms",
+                group: "user",
+                controller: "loginForms",
                 success: $.proxy(this._onLoadDataSuccess, this),
                 name: "login"
             });
@@ -79,8 +79,8 @@
                     forms: [this._userForm, this._passwordForm, this._isRememberForm],
                     ajax: {
                         data: {
-                            controller: "user",
-                            action: "session"
+                            group: "user",
+                            controller: "session"
                         },
                         type: "POST",
                         success: $.proxy(this._onSuccess, this),

@@ -46,6 +46,8 @@
                 .getDesignContainer()
                 .find(".margin-container");
 
+            this._setValues();
+
             if (this._marginTop === null
                 && this._marginRight === null
                 && this._marginBottom === null
@@ -66,48 +68,40 @@
                 ._update(true);
         },
 
+        /**
+         * Sets values
+         *
+         * @return {TestS.Panel.Design.Block.Margin}
+         *
+         * @private
+         */
         _setValues: function () {
             var values = this._object.getValues();
 
-            if (values.marginTop !== undefined) {
-                this._marginTop = values.marginTop;
-            }
+            var keys = [
+                "marginTop",
+                "marginRight",
+                "marginBottom",
+                "marginLeft",
+                "marginTopHover",
+                "marginRightHover",
+                "marginBottomHover",
+                "marginLeftHover",
+                "hasMarginHover",
+                "hasMarginAnimation"
+            ];
 
-            if (values.marginRight !== undefined) {
-                this._marginRight = values.marginRight;
-            }
-
-            if (values.marginBottom !== undefined) {
-                this._marginBottom = values.marginBottom;
-            }
-
-            if (values.marginLeft !== undefined) {
-                this._marginLeft = values.marginLeft;
-            }
-
-            if (values.marginTopHover !== undefined) {
-                this._marginTopHover = values.marginTopHover;
-            }
-
-            if (values.marginRightHover !== undefined) {
-                this._marginRightHover = values.marginRightHover;
-            }
-
-            if (values.marginBottomHover !== undefined) {
-                this._marginBottomHover = values.marginBottomHover;
-            }
-
-            if (values.marginLeftHover !== undefined) {
-                this._marginLeftHover = values.marginLeftHover;
-            }
-
-            if (values.hasMarginHover !== undefined) {
-                this._hasMarginHover = values.hasMarginHover;
-            }
-
-            if (values.hasMarginAnimation !== undefined) {
-                this._hasMarginAnimation = values.hasMarginAnimation;
-            }
+            $.each(
+                keys,
+                $.proxy(
+                    function (index, key) {
+                        if (values[key] !== undefined) {
+                            this["_" + key] = values[key];
+                        }
+                    },
+                    this
+                )
+            );
 
             return this;
         },
@@ -158,23 +152,24 @@
                         value: this._marginTopHover,
                         css: "margin-top-hover",
                         iconBefore: "fa-mouse-pointer",
+                        appendTo: this._relativeContainer,
                         callback: $.proxy(
                             function (value) {
                                 this._marginTopHover = value;
                                 this._update(false);
                             },
                             this
-                        ),
-                    appendTo: this._relativeContainer
+                        )
                     }
                 );
             }
 
-            TestS.Form(
+            new TestS.Form(
                 {
                     type: "spinner",
                     value: this._marginTop,
                     css: "margin-top",
+                    appendTo: this._relativeContainer,
                     callback: $.proxy(
                         function (value) {
                             var marginTop = this._marginTop;
@@ -191,8 +186,7 @@
                             this._update(false);
                         },
                         this
-                    ),
-                appendTo: this._relativeContainer
+                    )
                 }
             );
 
@@ -220,23 +214,24 @@
                         value: this._marginRightHover,
                         css: "margin-right-hover",
                         iconBefore: "fa-mouse-pointer",
+                        appendTo: this._relativeContainer,
                         callback: $.proxy(
                             function (value) {
                                 this._marginRightHover = value;
                                 this._update(false);
                             },
                             this
-                        ),
-                    appendTo: this._relativeContainer
+                        )
                     }
                 );
             }
 
-            TestS.Form(
+            new TestS.Form(
                 {
                     type: "spinner",
                     value: this._marginRight,
                     css: "margin-right",
+                    appendTo: this._relativeContainer,
                     callback: $.proxy(
                         function (value) {
                             var marginRight
@@ -254,8 +249,7 @@
                             this._update(false);
                         },
                         this
-                    ),
-                appendTo: this._relativeContainer
+                    )
                 }
             );
 
@@ -295,11 +289,12 @@
                 );
             }
 
-            TestS.Form(
+            new TestS.Form(
                 {
                     type: "spinner",
                     value: this._marginBottom,
                     css: "margin-bottom",
+                    appendTo: this._relativeContainer,
                     callback: $.proxy(
                         function (value) {
                             var marginBottom
@@ -317,8 +312,7 @@
                             this._update(false);
                         },
                         this
-                    ),
-                appendTo: this._relativeContainer
+                    )
                 }
             );
 
@@ -346,23 +340,24 @@
                         value: this._marginLeftHover,
                         css: "margin-left-hover",
                         iconBefore: "fa-mouse-pointer",
+                        appendTo: this._relativeContainer,
                         callback: $.proxy(
                             function (value) {
                                 this._marginLeftHover = value;
                                 this._update(false);
                             },
                             this
-                        ),
-                    appendTo: this._relativeContainer
+                        )
                     }
                 );
             }
 
-            TestS.Form(
+            new TestS.Form(
                 {
                     type: "spinner",
                     value: this._marginLeft,
                     css: "margin-left",
+                    appendTo: this._relativeContainer,
                     callback: $.proxy(
                         function (value) {
                             var marginLeft
@@ -380,8 +375,7 @@
                             this._update(false);
                         },
                         this
-                    ),
-                appendTo: this._relativeContainer
+                    )
                 }
             );
 
@@ -422,7 +416,7 @@
                 this
             );
 
-            TestS.Form(
+            new TestS.Form(
                 {
                     type: "checkboxOnOff",
                     value: this._hasMarginHover,
@@ -464,7 +458,7 @@
                 this
             );
 
-            TestS.Form(
+            new TestS.Form(
                 {
                     type: "checkboxOnOff",
                     value: this._hasMarginAnimation,
@@ -487,13 +481,13 @@
          *
          * @returns {String}
          */
-        generateMarginCss: function (isHover, skipAnimation) {
+        generateCss: function (isHover, skipAnimation) {
             if (isHover === true) {
                 if (this._hasMarginHover !== true) {
                     return "";
                 }
 
-                return this._getMarginCss(
+                return this._getCss(
                     skipAnimation,
                     TestS.Library.getIntVal(
                         this._marginTopHover
@@ -510,7 +504,7 @@
                 );
             }
 
-            return this._getMarginCss(
+            return this._getCss(
                 skipAnimation,
                 TestS.Library.getIntVal(
                     this._marginTop
@@ -540,7 +534,7 @@
          *
          * @private
          */
-        _getMarginCss: function (
+        _getCss: function (
             skipAnimation,
             marginTop,
             marginRight,
@@ -599,13 +593,13 @@
             css += ".margin-example-";
             css += this._uniqueId;
             css += "{";
-            css += this.generateMarginCss(false, false);
+            css += this.generateCss(false, false);
             css += "}";
 
             css += ".margin-example-";
             css += this._uniqueId;
             css += ":hover{";
-            css += this.generateMarginCss(true, false);
+            css += this.generateCss(true, false);
             css += "}";
 
             css += "</style>";
@@ -617,6 +611,16 @@
             }
 
             return this;
+        },
+
+        /**
+         * Has animation
+         *
+         * @return {boolean}
+         */
+        hasAnimation: function () {
+            return this._hasMarginHover === true
+                && this._hasMarginAnimation === true;
         }
     };
 }(window.jQuery, window.TestS);

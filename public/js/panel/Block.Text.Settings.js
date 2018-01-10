@@ -28,8 +28,8 @@
          */
         init: function () {
             this._panel = new TestS.Panel({
-                controller: "text",
-                action: "settings",
+                group: "text",
+                controller: "settings",
                 id: this._id,
                 success: $.proxy(this._onLoadDataSuccess, this)
             });
@@ -87,8 +87,8 @@
                     forms: [this._name, this._type, this._hasEditor],
                     ajax: {
                         data: {
-                            controller: "text",
-                            action: "block"
+                            group: "text",
+                            controller: "block"
                         },
                         type: data["id"] === 0 ? "POST" : "PUT",
                         success: $.proxy(this._onSuccess, this),

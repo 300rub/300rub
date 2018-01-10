@@ -223,8 +223,8 @@
          */
         _loadData: function () {
             var ajaxData = {
-                controller: this._options.controller,
-                action: this._options.action
+                group: this._options.group,
+                controller: this._options.controller
             };
 
             if ($.type(this._options.data) === "object") {

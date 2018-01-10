@@ -125,16 +125,6 @@
         _setValues: function() {
             this._values = $.extend(
                 {
-                    marginTop: null,
-                    marginRight: null,
-                    marginBottom: null,
-                    marginLeft: null,
-                    marginTopHover: null,
-                    marginRightHover: null,
-                    marginBottomHover: null,
-                    marginLeftHover: null,
-                    hasMarginHover: null,
-                    hasMarginAnimation: null,
                     paddingTop: null,
                     paddingRight: null,
                     paddingBottom: null,
@@ -365,7 +355,7 @@
 
             $container.find(".category-title").text(this.getLabel("padding"));
 
-            var uniqueId = TestS.getUniqueId();
+            var uniqueId = TestS.Library.getUniqueId();
             this.$_paddingExample = $container.find(".padding-example-container")
                 .addClass("padding-example-" + uniqueId)
                 .attr("data-id", uniqueId);
@@ -589,7 +579,7 @@
 
             this.$_backgroundExampleStyles = $container.find(".styles-example-container");
 
-            var uniqueId = TestS.getUniqueId();
+            var uniqueId = TestS.Library.getUniqueId();
             this.$_backgroundExample = $container.find(".background-example")
                 .addClass("background-example-" + uniqueId)
                 .attr("data-id", uniqueId);
@@ -815,7 +805,7 @@
 
             $container.find(".category-title").text(this.getLabel("border"));
 
-            var uniqueId = TestS.getUniqueId();
+            var uniqueId = TestS.Library.getUniqueId();
             this.$_borderExample = $container.find(".border-example")
                 .addClass("border-example-" + uniqueId)
                 .attr("data-id", uniqueId);
@@ -1318,15 +1308,15 @@
                     return "";
                 }
 
-                paddingTop = TestS.getIntVal(this._values["paddingTopHover"]);
-                paddingRight = TestS.getIntVal(this._values["paddingRightHover"]);
-                paddingBottom = TestS.getIntVal(this._values["paddingBottomHover"]);
-                paddingLeft = TestS.getIntVal(this._values["paddingLeftHover"]);
+                paddingTop = TestS.Library.getIntVal(this._values["paddingTopHover"]);
+                paddingRight = TestS.Library.getIntVal(this._values["paddingRightHover"]);
+                paddingBottom = TestS.Library.getIntVal(this._values["paddingBottomHover"]);
+                paddingLeft = TestS.Library.getIntVal(this._values["paddingLeftHover"]);
             } else {
-                paddingTop = TestS.getIntVal(this._values["paddingTop"]);
-                paddingRight = TestS.getIntVal(this._values["paddingRight"]);
-                paddingBottom = TestS.getIntVal(this._values["paddingBottom"]);
-                paddingLeft = TestS.getIntVal(this._values["paddingLeft"]);
+                paddingTop = TestS.Library.getIntVal(this._values["paddingTop"]);
+                paddingRight = TestS.Library.getIntVal(this._values["paddingRight"]);
+                paddingBottom = TestS.Library.getIntVal(this._values["paddingBottom"]);
+                paddingLeft = TestS.Library.getIntVal(this._values["paddingLeft"]);
             }
 
             if (paddingTop !== 0) {
@@ -1520,27 +1510,27 @@
                     return "";
                 }
 
-                borderTopLeftRadius = TestS.getIntVal(this._values["borderTopLeftRadiusHover"]);
-                borderTopRightRadius = TestS.getIntVal(this._values["borderTopRightRadiusHover"]);
-                borderBottomRightRadius = TestS.getIntVal(this._values["borderBottomRightRadiusHover"]);
-                borderBottomLeftRadius = TestS.getIntVal(this._values["borderBottomLeftRadiusHover"]);
+                borderTopLeftRadius = TestS.Library.getIntVal(this._values["borderTopLeftRadiusHover"]);
+                borderTopRightRadius = TestS.Library.getIntVal(this._values["borderTopRightRadiusHover"]);
+                borderBottomRightRadius = TestS.Library.getIntVal(this._values["borderBottomRightRadiusHover"]);
+                borderBottomLeftRadius = TestS.Library.getIntVal(this._values["borderBottomLeftRadiusHover"]);
 
-                borderTopWidth = TestS.getIntVal(this._values["borderTopWidthHover"]);
-                borderRightWidth = TestS.getIntVal(this._values["borderRightWidthHover"]);
-                borderBottomWidth = TestS.getIntVal(this._values["borderBottomWidthHover"]);
-                borderLeftWidth = TestS.getIntVal(this._values["borderLeftWidthHover"]);
+                borderTopWidth = TestS.Library.getIntVal(this._values["borderTopWidthHover"]);
+                borderRightWidth = TestS.Library.getIntVal(this._values["borderRightWidthHover"]);
+                borderBottomWidth = TestS.Library.getIntVal(this._values["borderBottomWidthHover"]);
+                borderLeftWidth = TestS.Library.getIntVal(this._values["borderLeftWidthHover"]);
 
                 borderColor = this._values["borderColorHover"];
             } else {
-                borderTopLeftRadius = TestS.getIntVal(this._values["borderTopLeftRadius"]);
-                borderTopRightRadius = TestS.getIntVal(this._values["borderTopRightRadius"]);
-                borderBottomRightRadius = TestS.getIntVal(this._values["borderBottomRightRadius"]);
-                borderBottomLeftRadius = TestS.getIntVal(this._values["borderBottomLeftRadius"]);
+                borderTopLeftRadius = TestS.Library.getIntVal(this._values["borderTopLeftRadius"]);
+                borderTopRightRadius = TestS.Library.getIntVal(this._values["borderTopRightRadius"]);
+                borderBottomRightRadius = TestS.Library.getIntVal(this._values["borderBottomRightRadius"]);
+                borderBottomLeftRadius = TestS.Library.getIntVal(this._values["borderBottomLeftRadius"]);
 
-                borderTopWidth = TestS.getIntVal(this._values["borderTopWidth"]);
-                borderRightWidth = TestS.getIntVal(this._values["borderRightWidth"]);
-                borderBottomWidth = TestS.getIntVal(this._values["borderBottomWidth"]);
-                borderLeftWidth = TestS.getIntVal(this._values["borderLeftWidth"]);
+                borderTopWidth = TestS.Library.getIntVal(this._values["borderTopWidth"]);
+                borderRightWidth = TestS.Library.getIntVal(this._values["borderRightWidth"]);
+                borderBottomWidth = TestS.Library.getIntVal(this._values["borderBottomWidth"]);
+                borderLeftWidth = TestS.Library.getIntVal(this._values["borderLeftWidth"]);
 
                 borderColor = this._values["borderColor"];
             }
@@ -1653,16 +1643,14 @@
          * @private
          */
         _generateCss: function(isHover) {
-            var css = this._margin.generateMarginCss(isHover, true)
+            var css = this._margin.generateCss(isHover, true)
                 + this._generatePaddingCss(isHover, true)
                 + this._generateBackgroundCss(isHover, true)
                 + this._generateBorderCss(isHover, true);
 
             var animation = [];
 
-            if (this._values["hasMarginHover"] === true
-                && this._values["hasMarginAnimation"] === true
-            ) {
+            if (this._margin.hasAnimation() === true) {
                 animation.push("margin .3s");
             }
 

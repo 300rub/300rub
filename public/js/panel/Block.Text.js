@@ -23,8 +23,8 @@
          */
         init: function () {
             this._panel = new TestS.Panel({
-                controller: "text",
-                action: "blocks",
+                group: "text",
+                controller: "blocks",
                 success: $.proxy(this._onLoadDataSuccess, this)
             });
         },
@@ -53,8 +53,8 @@
                 if (itemData["canUpdateDesign"] === true) {
                     $designIcon.on("click", function() {
                         new TestS.Panel.Design({
-                            controller: "text",
-                            action: "design",
+                            group: "text",
+                            controller: "design",
                             id: itemData.id,
                             success: function () {
                                 new TestS.Panel.Block.Text();

@@ -34,8 +34,8 @@
          */
         init: function () {
             this._window = new TestS.Window({
+                group: "user",
                 controller: "user",
-                action: "user",
                 data: {
                     id: this._options.id
                 },
@@ -68,8 +68,8 @@
                     forms: this._forms,
                     ajax: {
                         data: {
-                            controller: "user",
-                            action: "user"
+                            group: "user",
+                            controller: "user"
                         },
                         type: data.id === 0 ? "POST" : "PUT",
                         success: $.proxy(this._onSuccess, this),

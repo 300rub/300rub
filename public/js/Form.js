@@ -114,7 +114,7 @@
             if ($.type(t._options.onChange) === "function") {
                 $instance.on("change", function() {
                     t._options.onChange(
-                        TestS.getIntVal($(this).val())
+                        TestS.Library.getIntVal($(this).val())
                     );
                 });
             }
@@ -184,14 +184,14 @@
 
             if (this._options.value !== undefined) {
                 this.getFormInstance().val(
-                    TestS.getIntVal(this._options.value)
+                    TestS.Library.getIntVal(this._options.value)
                 );
             }
 
             if ($.type(this._options.callback) === "function") {
                 this.getFormInstance().on("keyup", function() {
                     t._options.callback(
-                        TestS.getIntVal($(this).val())
+                        TestS.Library.getIntVal($(this).val())
                     )
                 });
             }
@@ -213,7 +213,7 @@
                 spin: function (event, ui) {
                     if ($.type(t._options.callback) === "function") {
                         t._options.callback(
-                            TestS.getIntVal(ui.value)
+                            TestS.Library.getIntVal(ui.value)
                         );
                     }
                 },
@@ -418,7 +418,7 @@
 
             var name;
             if (t._options["name"] === undefined) {
-                name = "radio" + TestS.getUniqueId();
+                name = "radio" + TestS.Library.getUniqueId();
             } else {
                 name = t._options["name"];
             }
@@ -785,11 +785,20 @@
          * @private
          */
         _setClass: function() {
-            if (this._options.class === undefined) {
+            if (this._options.class === undefined
+                && this._options.css === undefined
+            ) {
                 return this;
             }
 
-            this.$_form.addClass(this._options.class);
+            if (this._options.class !== undefined) {
+                this.$_form.addClass(this._options.class);
+            }
+
+            if (this._options.css !== undefined) {
+                this.$_form.addClass(this._options.css);
+            }
+
             return this;
         },
 
@@ -888,7 +897,7 @@
                     value = $formInstance.is(':checked');
                     break;
                 case "spinner":
-                    value = TestS.getIntVal($formInstance.val());
+                    value = TestS.Library.getIntVal($formInstance.val());
                     break;
                 default:
                     value = $formInstance.val();

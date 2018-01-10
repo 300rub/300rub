@@ -181,8 +181,8 @@
          */
         _loadData: function() {
             var data = {
-                controller: this._options.controller,
-                action: this._options.action
+                group: this._options.group,
+                controller: this._options.controller
             };
 
             if (this._options.id !== undefined) {
