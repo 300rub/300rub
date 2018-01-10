@@ -6,73 +6,73 @@
   .transition(opacity);
   background: white;
   border: 1px solid @darkGrayBorderColor;
-  box-shadow: 0 5px 15px rgba(0,0,0,.5);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
   overflow: hidden;
-  width: 330px;
   position: fixed;
-  top: 16px;
   right: 16px;
+  top: 16px;
+  width: 330px;
 
   .header {
     border-bottom: 1px solid @grayBorderColor;
     position: relative;
 
     .title {
-      line-height: 32px;
-      padding: 0 35px 0 10px;
       font-size: 18px;
       font-weight: 300;
+      line-height: 32px;
+      padding: 0 35px 0 10px;
       text-align: center;
     }
 
     .back {
-      position: absolute;
-      width: 32px;
-      height: 32px;
-      line-height: 32px;
       display: block;
-      text-align: center;
       font-size: 18px;
-      top: 0;
+      height: 32px;
       left: 0;
+      line-height: 32px;
+      position: absolute;
+      text-align: center;
+      top: 0;
+      width: 32px;
     }
 
     .close {
-      position: absolute;
-      width: 32px;
+      display: block;
+      font-size: 18px;
       height: 32px;
       line-height: 32px;
-      display: block;
-      text-align: center;
-      font-size: 18px;
-      top: 0;
+      position: absolute;
       right: 0;
+      text-align: center;
+      top: 0;
+      width: 32px;
     }
 
     .description {
-      padding: 5px 10px 10px 10px;
       font-size: 12px;
+      padding: 5px 10px 10px 10px;
     }
   }
 
   .body {
     .panel-list-item {
-      min-height: 32px;
       border-bottom: 1px solid @grayBorderColor;
+      min-height: 32px;
       position: relative;
 
       .label {
         .transition(background-color);
         display: block;
-        padding: 6px 70px 6px 6px;
-        line-height: 20px;
         font-size: 14px;
+        line-height: 20px;
+        padding: 6px 70px 6px 6px;
 
         .icon {
           display: inline-block;
-          width: 32px;
           font-size: 16px;
           text-align: center;
+          width: 32px;
         }
 
         &:hover {
@@ -80,17 +80,18 @@
         }
       }
 
-      .settings, .design {
+      .settings,
+      .design {
         .transition(font-size);
-        position: absolute;
-        width: 32px;
+        color: @darkGrayLinkColor;
+        font-size: 16px;
         height: 32px;
         line-height: 32px;
-        text-align: center;
-        color: @darkGrayLinkColor;
-        top: 50%;
         margin-top: -16px;
-        font-size: 16px;
+        position: absolute;
+        text-align: center;
+        top: 50%;
+        width: 32px;
 
         &:hover {
           color: @blueLinkColor;
@@ -119,26 +120,26 @@
   }
 
   .footer {
-    height: 46px;
     border-top: 1px solid @grayBorderColor;
+    height: 46px;
     position: relative;
 
     .submit {
-      position: absolute;
       bottom: 8px;
+      position: absolute;
       right: 15px;
     }
   }
 
   .loader {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    font-size: 30px;
-    margin-top: -15px;
-    margin-left: -15px;
     color: @grayBorderColor;
     display: none;
+    font-size: 30px;
+    left: 50%;
+    margin-left: -15px;
+    margin-top: -15px;
+    position: absolute;
+    top: 50%;
   }
 
   .accordion-container {
@@ -150,7 +151,7 @@
 
 .panel.error {
   .header {
-    border-bottom: none;
+    border-bottom: 0;
     height: 32px;
 
     .title {
@@ -181,7 +182,7 @@
   height: 100px;
 
   .header {
-    border-bottom: none;
+    border-bottom: 0;
     height: 32px;
 
     .title {

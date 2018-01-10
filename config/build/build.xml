@@ -109,7 +109,7 @@
         <exec executable="lesshint">
             <arg path="${path}" />
             <arg value="--config" />
-            <arg path="${baseDir}/config/code/lesshint.json" />
+            <arg path="config/code/lesshint.json" />
         </exec>
     </target>
 

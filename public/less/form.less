@@ -7,30 +7,30 @@
   label {
     .label-text {
       display: block;
-      font-weight: bold;
       font-size: 14px;
+      font-weight: bold;
       padding: 0 4px;
     }
 
     .form-instance-container {
-      position: relative;
       display: block;
+      position: relative;
 
       i.error {
+        color: @redTextColor;
+        display: none;
+        font-size: 16px;
         position: absolute;
         right: 9px;
         top: 6px;
-        color: @redTextColor;
-        font-size: 16px;
-        display: none;
       }
     }
 
     span.error {
       color: @redTextColor;
+      display: none;
       font-size: 12px;
       padding: 0 4px;
-      display: none;
     }
   }
 }
@@ -39,19 +39,19 @@ input.form-instance,
 select.form-instance {
   .transition(box-shadow, 0.15s);
   .border-radius(4px);
-  border: 1px solid @grayBorderColor;
-  padding: 2px 24px 4px 10px;
-  line-height: 22px;
-  font-size: 15px;
-  width: 100%;
   background: white;
+  border: 1px solid @grayBorderColor;
+  font-size: 15px;
+  line-height: 22px;
+  padding: 2px 24px 4px 10px;
+  width: 100%;
 
   &:hover {
     border-color: @blueBorderColor;
   }
 
   &:focus {
-    .box-shadow(@formBlueBoxShadow);
+    .box-shadow (@formBlueBoxShadow);
     border-color: @blueBorderColor;
   }
 }
@@ -77,19 +77,19 @@ select.form-instance {
 .form-container-checkbox {
   label {
     .icons {
-      font-size: 17px;
-      width: 18px;
       display: inline-block;
+      font-size: 17px;
       vertical-align: top;
+      width: 18px;
 
       .fa-square-o {
-        display: inline-block;
         color: @grayBorderColor;
+        display: inline-block;
       }
 
       .fa-check-square-o {
-        display: none;
         color: @blueBorderColor;
+        display: none;
       }
     }
 
@@ -129,10 +129,10 @@ select.form-instance {
   .body {
     .transition(background-color, .15s);
     .border-radius(4px);
+    background-color: @grayBackground;
     display: inline-block;
     min-width: 30px;
     padding: 0 10px;
-    background-color: @grayBackground;
     text-align: center;
 
     * {
@@ -164,11 +164,11 @@ select.form-instance {
 .form-container-checkbox-on-off {
   label {
     .transition(background-color);
-    display: block;
+    border-bottom: 1px solid @grayBorderColor;
     cursor: pointer;
+    display: block;
     min-height: 40px;
     padding: 5px 10px 6px 10px;
-    border-bottom: 1px solid @grayBorderColor;
     position: relative;
 
     &:hover {
@@ -176,71 +176,72 @@ select.form-instance {
     }
 
     .label-text {
-      margin-right: 70px;
-      line-height: 20px;
       display: block;
+      line-height: 20px;
+      margin-right: 70px;
       padding-top: 5px;
     }
 
     .on-off-wrapper {
       .border-radius(4px);
+      border: 1px solid @grayBorderColor;
       display: block;
+      margin-top: -15px;
+      overflow: hidden;
       position: absolute;
       right: 10px;
       top: 50%;
-      margin-top: -15px;
       width: 60px;
-      border: 1px solid @grayBorderColor;
-      overflow: hidden;
 
       .on-off-container {
         .transition(margin-left);
         display: block;
         height: 28px;
-        width: 200px;
         margin-left: -50px;
+        width: 200px;
 
-        .on, .off {
+        .on,
+        .off {
           display: block;
           float: left;
           height: 28px;
           line-height: 28px;
-          width: 50px;
-          text-align: center;
           margin: 0;
-          z-index: 10;
           position: relative;
+          text-align: center;
+          width: 50px;
+          z-index: 10;
         }
 
         .on {
-          .gradient-vertical(@blueGradientFrom, @blueGradientTo);
-          padding-right: 4px;
+          .gradient-vertical (@blueGradientFrom, @blueGradientTo);
           color: white;
+          padding-right: 4px;
 
           &:hover {
-            .gradient-vertical(@blueGradientFromHover, @blueGradientToHover);
+            .gradient-vertical (@blueGradientFromHover, @blueGradientToHover);
           }
         }
 
         .off {
-          .gradient-vertical(@grayGradientFrom, @grayGradientTo);
+          .gradient-vertical (@grayGradientFrom, @grayGradientTo);
           padding-left: 4px;
 
           &:hover {
-            .gradient-vertical(@grayGradientFromHover, @grayGradientToHover);
+            .gradient-vertical (@grayGradientFromHover, @grayGradientToHover);
           }
         }
 
         .separator {
           .border-radius(4px);
+          background-color: white;
           display: block;
           float: left;
           height: 28px;
-          width: 20px;
           margin: 0 -4px;
-          background-color: white;
-          z-index: 20;
           position: relative;
+          width: 20px;
+          z-index: 20;
         }
       }
     }
@@ -261,45 +262,45 @@ select.form-instance {
 
 .form-button {
   .icons {
-    width: 22px;
-    text-align: center;
     display: inline-block;
     margin: 0 -2px 0 -5px;
+    text-align: center;
+    width: 22px;
   }
 }
 
 .form-button.submit {
   &:hover:before {
     content: ".";
-    position: absolute;
-    width: 100%;
     height: 18px;
     left: 0;
-    top: -18px;
     opacity: 0;
+    position: absolute;
+    top: -18px;
+    width: 100%;
   }
 
   &:hover:after {
+    bottom: -18px;
     content: ".";
-    position: absolute;
-    width: 100%;
     height: 18px;
     left: 0;
-    bottom: -18px;
     opacity: 0;
+    position: absolute;
+    width: 100%;
   }
 }
 
 .group-title {
   display: block;
-  font-weight: bold;
   font-size: 14px;
+  font-weight: bold;
   padding: 0 4px;
 }
 
 .form-spinner {
-  position: relative;
   display: inline-block;
+  position: relative;
 
   input {
     width: 70px;
@@ -307,11 +308,11 @@ select.form-instance {
 
   a {
     .fa {
-      position: absolute;
-      right: 3px;
       font-size: 0;
       height: 15px;
       line-height: 12px;
+      position: absolute;
+      right: 3px;
 
       &:before {
         font-size: 16px;
@@ -333,17 +334,17 @@ select.form-instance {
 
   .radio-buttons {
     .radio-button-item {
+      cursor: pointer;
       display: inline-block;
       margin: 0;
-      cursor: pointer;
 
       .label-body {
         .transition(background-color);
-        text-align: center;
+        background-color: @grayBackground;
         display: inline-block;
         min-width: 30px;
         padding: 0 10px;
-        background-color: @grayBackground;
+        text-align: center;
 
         * {
           height: 30px;
@@ -376,7 +377,7 @@ select.form-instance {
 
         &:checked + .label-body {
           background-color: @blueBackground;
-          .box-shadow(@formGrayBoxShadow);
+          .box-shadow (@formGrayBoxShadow);
           position: relative;
           z-index: 10;
 
@@ -394,13 +395,13 @@ select.form-instance {
 
   .color-picker {
     .gradient-vertical (@grayGradientFrom, @grayGradientTo);
-    .border-radius(4px);
+    .border-radius (4px);
     border: 1px solid @grayBorderColor;
-    width: 70px;
+    display: inline-block;
     height: 30px;
     padding: 4px;
     text-align: center;
-    display: inline-block;
+    width: 70px;
 
     .icon-before {
       position: absolute;
@@ -408,11 +409,11 @@ select.form-instance {
 
     .color-button {
       .border-radius(4px);
-      border: 1px solid @darkGrayBorderColor;
-      width: 60px;
-      height: 20px;
-      cursor: pointer;
       background: white;
+      border: 1px solid @darkGrayBorderColor;
+      cursor: pointer;
+      height: 20px;
+      width: 60px;
     }
 
     &:hover {
@@ -423,47 +424,47 @@ select.form-instance {
 
 .ui-colorpicker {
   .border-radius(6px);
-  position: fixed;
-  top: 50% !important;
+  background: white;
+  border: 1px solid @darkGrayBorderColor;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
   left: 50% !important;
   margin-left: -304px;
   margin-top: -185px;
-  background: white;
-  border: 1px solid @darkGrayBorderColor;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, .5);
   padding: 10px;
+  position: fixed;
+  top: 50% !important;
 
   .ui-dialog-titlebar {
     padding-bottom: 5px;
 
     .ui-dialog-title {
-      text-align: center;
       display: block;
-      line-height: 32px;
-      margin-top: -10px;
       font-size: 18px;
       font-weight: 300;
+      line-height: 32px;
+      margin-top: -10px;
+      text-align: center;
     }
 
     .ui-dialog-titlebar-close {
       position: absolute;
-      top: 0;
       right: 0;
       text-decoration: none;
+      top: 0;
 
       span {
         visibility: hidden;
 
         &:after {
-          font-family: FontAwesome, sans-serif;
-          content: '\f00d';
-          visibility: visible;
           color: @grayLinkColor;
+          content: "\f00d";
+          display: inline-block;
+          font-family: FontAwesome, sans-serif;
+          font-size: 18px;
           line-height: 32px;
           text-align: center;
+          visibility: visible;
           width: 32px;
-          display: inline-block;
-          font-size: 18px;
         }
       }
 
@@ -504,8 +505,8 @@ select.form-instance {
   }
 
   .ui-dialog-buttonset {
-    text-align: right;
     margin-top: 5px;
+    text-align: right;
   }
 
   .ui-colorpicker-special-none {
@@ -516,40 +517,42 @@ select.form-instance {
     .btn;
     .btn-gray;
     display: inline-block;
-    margin: 0;
     line-height: 28px;
+    margin: 0;
   }
 
   .ui-colorpicker-special-none:checked + label {
     display: none;
   }
 
-  input[type="text"], input[type="number"] {
+  input[type="text"],
+  input[type="number"] {
     .transition(box-shadow, 0.15s);
     .border-radius(4px);
-    border: 1px solid @grayBorderColor;
-    padding: 0 0 1px 10px;
-    line-height: 22px;
-    font-size: 15px;
     background: white;
+    border: 1px solid @grayBorderColor;
+    font-size: 15px;
+    line-height: 22px;
+    padding: 0 0 1px 10px;
 
     &:hover {
       border-color: @blueBorderColor;
     }
 
     &:focus {
-      .box-shadow(@formBlueBoxShadow);
+      .box-shadow (@formBlueBoxShadow);
       border-color: @blueBorderColor;
     }
   }
 
   .ui-colorpicker-preview {
     .border-radius(4px);
+    border: 1px solid @grayBorderColor;
     height: 25px;
     overflow: hidden;
-    border: 1px solid @grayBorderColor;
 
-    .ui-colorpicker-preview-initial, .ui-colorpicker-preview-current {
+    .ui-colorpicker-preview-initial,
+    .ui-colorpicker-preview-current {
       height: 23px;
     }
   }

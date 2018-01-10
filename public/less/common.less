@@ -8,21 +8,22 @@
 // Common
 
 * {
-  margin: 0;
-  padding: 0;
   .box-sizing;
-  outline: none;
-  font-family: 'Open Sans', sans-serif;
+  color: @defaultTextColor;
+  font-family: "Open Sans", sans-serif;
   font-size: 14px;
   line-height: 1.4;
-  color: @defaultTextColor;
+  margin: 0;
+  outline: none;
+  padding: 0;
 }
 
 #templates {
   display: none;
 }
 
-a, button {
+a,
+button {
   cursor: pointer;
 }
 
@@ -49,15 +50,16 @@ a, button {
 // Table
 
 .table {
-  border-spacing: 0;
   border-collapse: collapse;
-  width: 100%;
+  border-spacing: 0;
   margin: 15px 0;
+  width: 100%;
 
-  th, td {
+  th,
+  td {
     padding: 8px;
-    vertical-align: top;
     text-align: left;
+    vertical-align: top;
   }
 
   td {
@@ -77,10 +79,10 @@ a, button {
   .accordion-title {
     .border-radius(4px);
     .transition(background-color);
+    border: 1px solid @grayBorderColor;
     display: block;
     line-height: 20px;
     padding: 5px 15px 5px 12px;
-    border: 1px solid @grayBorderColor;
 
     .fa {
       margin-right: 5px;
@@ -93,8 +95,8 @@ a, button {
   }
 
   .accordion-body {
-    padding: 0 0 0 15px;
     display: none;
+    padding: 0 0 0 15px;
 
     .form-container {
       margin: 4px 0;
@@ -119,8 +121,8 @@ a, button {
 
   &::-webkit-scrollbar {
     -webkit-appearance: none;
-    width: 8px;
     height: 8px;
+    width: 8px;
   }
 
   &::-webkit-scrollbar-thumb {
@@ -186,15 +188,15 @@ a, button {
 }
 
 .btn-blue {
-  .gradient-vertical(@blueGradientFrom, @blueGradientTo);
+  .gradient-vertical (@blueGradientFrom, @blueGradientTo);
   border-color: @blueBorderColor;
 
   &:hover {
-    .gradient-vertical(@blueGradientFromHover, @blueGradientToHover);
+    .gradient-vertical (@blueGradientFromHover, @blueGradientToHover);
   }
 
   &:focus {
-    .box-shadow(@formBlueBoxShadow);
+    .box-shadow (@formBlueBoxShadow);
   }
 
   * {
@@ -203,15 +205,15 @@ a, button {
 }
 
 .btn-gray {
-  .gradient-vertical(@grayGradientFrom, @grayGradientTo);
+  .gradient-vertical (@grayGradientFrom, @grayGradientTo);
   border-color: @grayBorderColor;
 
   &:hover {
-    .gradient-vertical(@grayGradientFromHover, @grayGradientToHover);
+    .gradient-vertical (@grayGradientFromHover, @grayGradientToHover);
   }
 
   &:focus {
-    .box-shadow(@formGrayBoxShadow);
+    .box-shadow (@formGrayBoxShadow);
   }
 
   * {

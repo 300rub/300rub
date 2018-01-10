@@ -3,37 +3,37 @@
 
 .window {
   .transition(opacity);
-  left: 50%;
-  top: 25px;
   background: white;
-  position: fixed;
-  z-index: 1010;
-  width: 800px;
+  left: 50%;
   margin-left: -400px;
+  position: fixed;
+  top: 25px;
+  width: 800px;
+  z-index: 1010;
 
   .header {
-    height: 42px;
     border-bottom: 1px solid @grayBorderColor;
+    height: 42px;
     position: relative;
     z-index: 20;
 
     .title {
-      padding: 0 25px;
-      line-height: 40px;
       font-size: 22px;
       font-weight: 300;
+      line-height: 40px;
+      padding: 0 25px;
     }
 
     .close {
-      position: absolute;
-      width: 40px;
+      display: block;
+      font-size: 22px;
       height: 40px;
       line-height: 40px;
-      display: block;
-      text-align: center;
-      font-size: 22px;
-      top: 0;
+      position: absolute;
       right: 0;
+      text-align: center;
+      top: 0;
+      width: 40px;
     }
   }
 
@@ -44,27 +44,27 @@
   }
 
   .footer {
-    height: 60px;
     border-top: 1px solid @grayBorderColor;
-    position: relative;
+    height: 60px;
     margin: 0 25px;
+    position: relative;
 
     .submit {
-      position: absolute;
       bottom: 12px;
+      position: absolute;
       right: 0;
     }
   }
 
   .loader {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    font-size: 40px;
-    margin-top: -20px;
-    margin-left: -20px;
     color: @grayBorderColor;
     display: none;
+    font-size: 40px;
+    left: 50%;
+    margin-left: -20px;
+    margin-top: -20px;
+    position: absolute;
+    top: 50%;
   }
 
   .ajax-error {
@@ -74,7 +74,7 @@
 
 .window.error {
   .header {
-    border-bottom: none;
+    border-bottom: 0;
     height: 1px;
 
     .title {
@@ -103,7 +103,7 @@
 
 .window.loading {
   .header {
-    border-bottom: none;
+    border-bottom: 0;
 
     .title {
       display: none;
@@ -115,7 +115,7 @@
   }
 
   .footer {
-    border-top: none;
+    border-top: 0;
 
     * {
       display: none;
@@ -129,49 +129,50 @@
 
 .window-overlay {
   .transition(opacity);
-  position: fixed;
-  z-index: 1000;
-  left: 0;
-  top: 0;
-  right: 0;
+  background: rgba(0, 0, 0, 0.2);
   bottom: 0;
-  background: rgba(0, 0, 0, .2);
+  left: 0;
+  position: fixed;
+  right: 0;
+  top: 0;
+  z-index: 1000;
 }
 
 .window.level-2 {
   z-index: 1030;
 }
+
 .window-overlay.level-2 {
   z-index: 1020;
 }
 
 .confirm-overlay {
-  z-index: 10000;
-  position: fixed;
-  left: 0;
-  top: 0;
-  right: 0;
   bottom: 0;
+  left: 0;
+  position: fixed;
+  right: 0;
+  top: 0;
+  z-index: 10000;
 }
 
 .confirm-window {
-  z-index: 10010;
-  position: fixed;
   .border-radius(6px);
   background: white;
   border: 1px solid @darkGrayBorderColor;
-  box-shadow: 0 5px 15px rgba(0,0,0,.5);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
   padding: 15px;
+  position: fixed;
   text-align: center;
+  z-index: 10010;
 
   .buttons {
     white-space: nowrap;
 
     .icons {
-      width: 22px;
-      text-align: center;
       display: inline-block;
       margin: 0 -2px 0 -5px;
+      text-align: center;
+      width: 22px;
     }
   }
 
@@ -182,6 +183,6 @@
 }
 
 .window-users-form {
-  width: 400px;
   margin-left: -200px;
+  width: 400px;
 }

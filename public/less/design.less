@@ -3,13 +3,13 @@
 
 .design-container {
   .category-container {
-    margin: 5px 0;
     border-bottom: 1px solid @grayBorderColor;
+    margin: 5px 0;
 
     .category-title {
-      margin-bottom: 5px;
       font-size: 18px;
       font-weight: 300;
+      margin-bottom: 5px;
       text-align: center;
     }
 
@@ -36,41 +36,44 @@
 
       .margin-top {
         .transition(margin-left);
-        top: 1px;
         left: 50%;
         margin-left: -35px;
+        top: 1px;
       }
 
       .margin-right {
         .transition(top);
-        top: 60px;
         left: 50%;
         margin-left: 57px;
+        top: 60px;
       }
 
       .margin-bottom {
         .transition(margin-left);
-        top: 119px;
         left: 50%;
         margin-left: -35px;
+        top: 119px;
       }
 
       .margin-left {
         .transition(top);
-        top: 60px;
         left: 50%;
         margin-left: -127px;
+        top: 60px;
       }
 
-      .margin-top-hover, .margin-right-hover, .margin-bottom-hover, .margin-left-hover {
+      .margin-top-hover,
+      .margin-right-hover,
+      .margin-bottom-hover,
+      .margin-left-hover {
         visibility: hidden;
       }
 
       .margin-top-hover {
         .transition(margin-left);
-        top: 1px;
         left: 50%;
         margin-left: -35px;
+        top: 1px;
       }
 
       .margin-right-hover {
@@ -82,9 +85,9 @@
 
       .margin-bottom-hover {
         .transition(margin-left);
-        top: 119px;
         left: 50%;
         margin-left: -35px;
+        top: 119px;
       }
 
       .margin-left-hover {
@@ -94,34 +97,37 @@
         top: 60px;
       }
 
-      .margin-top-hover, .margin-right-hover, .margin-bottom-hover, .margin-left-hover {
+      .margin-top-hover,
+      .margin-right-hover,
+      .margin-bottom-hover,
+      .margin-left-hover {
         .icon-before {
-          position: absolute;
-          left: 50%;
-          top: 50%;
-          margin-top: 10px;
           font-size: 10px;
+          left: 50%;
+          margin-top: 10px;
+          position: absolute;
+          top: 50%;
         }
       }
 
       .margin-example-container {
-        width: 100px;
-        height: 80px;
         border: 1px solid @darkGrayBorderColor;
-        position: absolute;
-        top: 35px;
+        height: 80px;
         left: 50%;
         margin-left: -50px;
         overflow: hidden;
+        position: absolute;
+        top: 35px;
+        width: 100px;
 
         .margin-example {
-          position: absolute;
+          background: @lightGrayBackground;
           border: 2px solid @darkGrayBorderColor;
-          top: 0;
           bottom: 0;
           left: 0;
+          position: absolute;
           right: 0;
-          background: @lightGrayBackground;
+          top: 0;
         }
       }
     }
@@ -148,7 +154,10 @@
       top: 43px;
     }
 
-    .margin-top-hover, .margin-right-hover, .margin-bottom-hover, .margin-left-hover {
+    .margin-top-hover,
+    .margin-right-hover,
+    .margin-bottom-hover,
+    .margin-left-hover {
       visibility: visible;
     }
 
@@ -181,41 +190,44 @@
 
       .padding-top {
         .transition(margin-left);
-        top: 1px;
         left: 50%;
         margin-left: -35px;
+        top: 1px;
       }
 
       .padding-right {
         .transition(top);
-        top: 60px;
         left: 50%;
         margin-left: 57px;
+        top: 60px;
       }
 
       .padding-bottom {
         .transition(margin-left);
-        top: 119px;
         left: 50%;
         margin-left: -35px;
+        top: 119px;
       }
 
       .padding-left {
         .transition(top);
-        top: 60px;
         left: 50%;
         margin-left: -127px;
+        top: 60px;
       }
 
-      .padding-top-hover, .padding-right-hover, .padding-bottom-hover, .padding-left-hover {
+      .padding-top-hover,
+      .padding-right-hover,
+      .padding-bottom-hover,
+      .padding-left-hover {
         visibility: hidden;
       }
 
       .padding-top-hover {
         .transition(margin-left);
-        top: 1px;
         left: 50%;
         margin-left: -35px;
+        top: 1px;
       }
 
       .padding-right-hover {
@@ -227,9 +239,9 @@
 
       .padding-bottom-hover {
         .transition(margin-left);
-        top: 119px;
         left: 50%;
         margin-left: -35px;
+        top: 119px;
       }
 
       .padding-left-hover {
@@ -239,37 +251,40 @@
         top: 60px;
       }
 
-      .padding-top-hover, .padding-right-hover, .padding-bottom-hover, .padding-left-hover {
+      .padding-top-hover,
+      .padding-right-hover,
+      .padding-bottom-hover,
+      .padding-left-hover {
         .icon-before {
-          position: absolute;
-          left: 50%;
-          top: 50%;
-          margin-top: 10px;
           font-size: 10px;
+          left: 50%;
+          margin-top: 10px;
+          position: absolute;
+          top: 50%;
         }
       }
 
       .padding-example-wrapper {
-        width: 100px;
+        border: 2px solid @darkGrayBorderColor;
         height: 80px;
-        position: absolute;
-        top: 35px;
         left: 50%;
         margin-left: -50px;
         overflow: hidden;
-        border: 2px solid @darkGrayBorderColor;
+        position: absolute;
+        top: 35px;
+        width: 100px;
 
         .padding-example-container {
-          width: 96px;
-          height: 76px;
-          position: relative;
-          overflow: hidden;
           background: @lightGrayBackground;
+          height: 76px;
+          overflow: hidden;
+          position: relative;
+          width: 96px;
 
           .padding-example {
-            position: relative;
             border: 1px solid @darkGrayBorderColor;
             height: 100%;
+            position: relative;
           }
         }
       }
@@ -297,7 +312,10 @@
       top: 43px;
     }
 
-    .padding-top-hover, .padding-right-hover, .padding-bottom-hover, .padding-left-hover {
+    .padding-top-hover,
+    .padding-right-hover,
+    .padding-bottom-hover,
+    .padding-left-hover {
       visibility: visible;
     }
 
@@ -330,58 +348,59 @@
 
       .background-color-from {
         .transition(top);
-        top: 25px;
         left: 50%;
         margin-left: -127px;
         position: absolute;
+        top: 25px;
       }
 
       .background-color-to {
         .transition(top);
-        top: 25px;
+        display: none;
         left: 50%;
         margin-left: 57px;
         position: absolute;
-        display: none;
+        top: 25px;
       }
 
       .background-color-from-hover {
         .transition(top);
-        top: 25px;
         left: 50%;
         margin-left: -127px;
         position: absolute;
+        top: 25px;
         visibility: hidden;
       }
 
       .background-color-to-hover {
         .transition(top);
-        top: 25px;
         left: 50%;
         margin-left: 57px;
         position: absolute;
+        top: 25px;
         visibility: hidden;
       }
 
-      .background-color-from-hover, .background-color-to-hover {
+      .background-color-from-hover,
+      .background-color-to-hover {
         .icon-before {
-          position: absolute;
-          left: 50%;
-          top: 50%;
-          margin-top: 10px;
           font-size: 10px;
+          left: 50%;
+          margin-top: 10px;
+          position: absolute;
+          top: 50%;
         }
       }
 
       .background-example {
-        width: 100px;
-        height: 80px;
         border: 1px solid @darkGrayBorderColor;
-        position: absolute;
-        top: 0;
+        height: 80px;
         left: 50%;
         margin-left: -50px;
         overflow: hidden;
+        position: absolute;
+        top: 0;
+        width: 100px;
       }
     }
 
@@ -390,16 +409,16 @@
     }
 
     .gradient-direction {
-      text-align: center;
-      display: none;
-      padding: 5px 0 10px 0;
-      margin: 0 15px 0 15px;
       border-bottom: 1px solid @grayBorderColor;
+      display: none;
+      margin: 0 15px 0 15px;
+      padding: 5px 0 10px 0;
+      text-align: center;
     }
 
     .gradient-direction-hover {
-      text-align: center;
       display: none;
+      text-align: center;
     }
 
     .form-container-radio-buttons {
@@ -410,9 +429,9 @@
       }
 
       .label-text {
+        display: block;
         font-size: 12px;
         margin: 0 0 5px 0;
-        display: block;
       }
     }
   }
@@ -477,9 +496,9 @@
       }
 
       .border-top-left-radius-hover {
-        visibility: hidden;
         margin-left: -127px;
         top: 27px;
+        visibility: hidden;
       }
 
       .border-top-right-radius {
@@ -489,9 +508,9 @@
       }
 
       .border-top-right-radius-hover {
-        visibility: hidden;
         margin-left: 57px;
         top: 27px;
+        visibility: hidden;
       }
 
       .border-bottom-left-radius {
@@ -501,9 +520,9 @@
       }
 
       .border-bottom-left-radius-hover {
-        visibility: hidden;
         margin-left: -127px;
         top: 122px;
+        visibility: hidden;
       }
 
       .border-bottom-right-radius {
@@ -513,20 +532,20 @@
       }
 
       .border-bottom-right-radius-hover {
-        visibility: hidden;
         margin-left: 57px;
         top: 122px;
+        visibility: hidden;
       }
 
       .border-top-width {
         left: 50%;
-        top: 6px;
         margin-left: -35px;
+        top: 6px;
       }
 
       .border-top-width-hover {
-        top: 6px;
         margin-left: -35px;
+        top: 6px;
         visibility: hidden;
       }
 
@@ -537,21 +556,21 @@
       }
 
       .border-right-width-hover {
-        visibility: hidden;
         margin-left: 57px;
         top: 75px;
+        visibility: hidden;
       }
 
       .border-bottom-width {
         left: 50%;
-        top: 144px;
         margin-left: -35px;
+        top: 144px;
       }
 
       .border-bottom-width-hover {
-        visibility: hidden;
-        top: 144px;
         margin-left: -35px;
+        top: 144px;
+        visibility: hidden;
       }
 
       .border-left-width {
@@ -561,9 +580,9 @@
       }
 
       .border-left-width-hover {
-        visibility: hidden;
         margin-left: -127px;
         top: 75px;
+        visibility: hidden;
       }
 
       .border-top-left-radius-hover,
@@ -578,52 +597,52 @@
         left: 50%;
 
         .icon-before {
-          position: absolute;
-          left: 50%;
-          top: 50%;
-          margin-top: 10px;
           font-size: 10px;
+          left: 50%;
+          margin-top: 10px;
+          position: absolute;
+          top: 50%;
         }
       }
 
       .border-example {
-        width: 100px;
+        background-color: @grayBackground;
         height: 100px;
-        position: absolute;
-        top: 40px;
         left: 50%;
         margin-left: -50px;
         overflow: hidden;
-        background-color: @grayBackground;
+        position: absolute;
+        top: 40px;
+        width: 100px;
       }
     }
 
     .color-picker-container {
-      padding: 5px 0 5px 0;
-      margin: 0 15px 0 15px;
       border-bottom: 1px solid @grayBorderColor;
+      margin: 0 15px 0 15px;
+      padding: 5px 0 5px 0;
       text-align: center;
 
       .label-text {
         display: block;
-        text-align: center;
         font-size: 12px;
         margin-bottom: 5px;
+        text-align: center;
       }
     }
 
     .form-container-radio-buttons {
-      display: block;
-      text-align: center;
-      padding: 5px 0 5px 0;
-      margin: 0 15px 0 15px;
       border-bottom: 1px solid @grayBorderColor;
+      display: block;
+      margin: 0 15px 0 15px;
+      padding: 5px 0 5px 0;
+      text-align: center;
 
       .label-text {
         display: block;
-        text-align: center;
         font-size: 12px;
         margin-bottom: 5px;
+        text-align: center;
       }
 
       .label-body {
@@ -632,8 +651,8 @@
 
         .label {
           display: block;
-          line-height: 1px;
           height: 1px;
+          line-height: 1px;
           width: 16px;
         }
 
@@ -685,8 +704,8 @@
       }
 
       .border-top-left-radius-hover {
-        visibility: visible;
         top: 55px;
+        visibility: visible;
       }
 
       .border-top-right-radius {
@@ -694,8 +713,8 @@
       }
 
       .border-top-right-radius-hover {
-        visibility: visible;
         top: 55px;
+        visibility: visible;
       }
 
       .border-bottom-left-radius {
@@ -703,8 +722,8 @@
       }
 
       .border-bottom-left-radius-hover {
-        visibility: visible;
         top: 199px;
+        visibility: visible;
       }
 
       .border-bottom-right-radius {
@@ -712,8 +731,8 @@
       }
 
       .border-bottom-right-radius-hover {
-        visibility: visible;
         top: 199px;
+        visibility: visible;
       }
 
       .border-top-width {
@@ -730,8 +749,8 @@
       }
 
       .border-right-width-hover {
-        visibility: visible;
         top: 127px;
+        visibility: visible;
       }
 
       .border-bottom-width {
@@ -739,8 +758,8 @@
       }
 
       .border-bottom-width-hover {
-        visibility: visible;
         top: 218px;
+        visibility: visible;
       }
 
       .border-left-width {
@@ -748,13 +767,13 @@
       }
 
       .border-left-width-hover {
-        visibility: visible;
         top: 127px;
+        visibility: visible;
       }
 
       .border-example {
-        top: 70px;
         height: 110px;
+        top: 70px;
       }
     }
 
@@ -775,17 +794,13 @@
 .design-text-container {
   .common-container {
     .family {
-      margin-right: 80px;
       margin-bottom: 7px;
+      margin-right: 80px;
     }
 
     .size {
-      position: relative;
       float: right;
-    }
-
-    .color-picker-container {
-
+      position: relative;
     }
 
     .align {
@@ -826,10 +841,10 @@
   .example {
     .border-radius(4px);
     border: 1px solid @grayBorderColor;
-    padding: 15px;
     margin: 5px 0;
-    min-height: 70px;
     max-height: 120px;
+    min-height: 70px;
     overflow: hidden;
+    padding: 15px;
   }
 }
