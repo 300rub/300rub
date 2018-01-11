@@ -2,13 +2,13 @@
     'use strict';
 
     /**
-     * Margin
+     * Padding
      *
      * @property {TestS.Panel.Design.Block} _object
      *
      * @type {Object}
      */
-    TestS.Panel.Design.Block.Margin = function () {
+    TestS.Panel.Design.Block.Padding = function () {
         this._object = null;
 
         this._container = null;
@@ -17,16 +17,16 @@
 
         this._uniqueId = 0;
 
-        this._marginTop = null;
-        this._marginRight = null;
-        this._marginBottom = null;
-        this._marginLeft = null;
-        this._marginTopHover = null;
-        this._marginRightHover = null;
-        this._marginBottomHover = null;
-        this._marginLeftHover = null;
-        this._hasMarginHover = null;
-        this._hasMarginAnimation = null;
+        this._paddingTop = null;
+        this._paddingRight = null;
+        this._paddingBottom = null;
+        this._paddingLeft = null;
+        this._paddingTopHover = null;
+        this._paddingRightHover = null;
+        this._paddingBottomHover = null;
+        this._paddingLeftHover = null;
+        this._hasPaddingHover = null;
+        this._hasPaddingAnimation = null;
     };
 
     /**
@@ -34,7 +34,7 @@
      *
      * @type {Object}
      */
-    TestS.Panel.Design.Block.Margin.prototype = {
+    TestS.Panel.Design.Block.Padding.prototype = {
 
         /**
          * Init
@@ -46,14 +46,14 @@
 
             this._container = this._object
                 .getDesignContainer()
-                .find(".margin-container");
+                .find(".padding-container");
 
             this._setValues();
 
-            if (this._marginTop === null
-                && this._marginRight === null
-                && this._marginBottom === null
-                && this._marginLeft === null
+            if (this._paddingTop === null
+                && this._paddingRight === null
+                && this._paddingBottom === null
+                && this._paddingLeft === null
             ) {
                 this._container.remove();
                 return this;
@@ -61,19 +61,19 @@
 
             this
                 ._setInitialSettings()
-                ._setMarginTop()
-                ._setMarginRight()
-                ._setMarginBottom()
-                ._setMarginLeft()
-                ._setMarginHover()
-                ._setHasMarginAnimation()
+                ._setPaddingTop()
+                ._setPaddingRight()
+                ._setPaddingBottom()
+                ._setPaddingLeft()
+                ._setPaddingHover()
+                ._setHasPaddingAnimation()
                 ._update(true);
         },
 
         /**
          * Sets values
          *
-         * @return {TestS.Panel.Design.Block.Margin}
+         * @return {TestS.Panel.Design.Block.Padding}
          *
          * @private
          */
@@ -81,16 +81,16 @@
             var values = this._object.getValues();
 
             var keys = [
-                "marginTop",
-                "marginRight",
-                "marginBottom",
-                "marginLeft",
-                "marginTopHover",
-                "marginRightHover",
-                "marginBottomHover",
-                "marginLeftHover",
-                "hasMarginHover",
-                "hasMarginAnimation"
+                "paddingTop",
+                "paddingRight",
+                "paddingBottom",
+                "paddingLeft",
+                "paddingTopHover",
+                "paddingRightHover",
+                "paddingBottomHover",
+                "paddingLeftHover",
+                "hasPaddingHover",
+                "hasPaddingAnimation"
             ];
 
             $.each(
@@ -111,7 +111,7 @@
         /**
          * Initial settings
          *
-         * @returns {TestS.Panel.Design.Block.Margin}
+         * @returns {TestS.Panel.Design.Block.Padding}
          *
          * @private
          */
@@ -120,12 +120,12 @@
 
             this._container
                 .find(".category-title")
-                .text(this._object.getLabel("margin"));
+                .text(this._object.getLabel("padding"));
 
             this._uniqueId = TestS.Library.getUniqueId();
             this._example = this._container
-                .find(".margin-example")
-                .addClass("margin-example-" + this._uniqueId);
+                .find(".padding-example")
+                .addClass("padding-example-" + this._uniqueId);
 
             this._relativeContainer
                 = this._container.find(".relative-container");
@@ -134,30 +134,30 @@
         },
 
         /**
-         * Sets margin-top
+         * Sets padding-top
          *
-         * @returns {TestS.Panel.Design.Block.Margin}
+         * @returns {TestS.Panel.Design.Block.Padding}
          *
          * @private
          */
-        _setMarginTop: function () {
-            if (this._marginTop === null) {
+        _setPaddingTop: function () {
+            if (this._paddingTop === null) {
                 return this;
             }
 
             var hover = null;
 
-            if (this._marginTopHover !== null) {
+            if (this._paddingTopHover !== null) {
                 hover = new TestS.Form(
                     {
                         type: "spinner",
-                        value: this._marginTopHover,
-                        css: "margin-top-hover",
+                        value: this._paddingTopHover,
+                        css: "padding-top-hover",
                         iconBefore: "fa-mouse-pointer",
                         appendTo: this._relativeContainer,
                         callback: $.proxy(
                             function (value) {
-                                this._marginTopHover = value;
+                                this._paddingTopHover = value;
                                 this._update(false);
                             },
                             this
@@ -169,22 +169,22 @@
             new TestS.Form(
                 {
                     type: "spinner",
-                    value: this._marginTop,
-                    css: "margin-top",
+                    value: this._paddingTop,
+                    css: "padding-top",
                     appendTo: this._relativeContainer,
                     callback: $.proxy(
                         function (value) {
-                            var marginTop = this._marginTop;
-                            var marginTopHover
-                            = this._marginTopHover;
-                            if (marginTop === marginTopHover
+                            var paddingTop = this._paddingTop;
+                            var paddingTopHover
+                            = this._paddingTopHover;
+                            if (paddingTop === paddingTopHover
                                 && hover !== null
                             ) {
-                                this._marginTopHover = value;
+                                this._paddingTopHover = value;
                                 hover.setValue(value);
                             }
 
-                            this._marginTop = value;
+                            this._paddingTop = value;
                             this._update(false);
                         },
                         this
@@ -196,30 +196,30 @@
         },
 
         /**
-         * Sets margin-right
+         * Sets padding-right
          *
-         * @returns {TestS.Panel.Design.Block.Margin}
+         * @returns {TestS.Panel.Design.Block.Padding}
          *
          * @private
          */
-        _setMarginRight: function () {
-            if (this._marginRight === null) {
+        _setPaddingRight: function () {
+            if (this._paddingRight === null) {
                 return this;
             }
 
             var hover = null;
 
-            if (this._marginRightHover !== null) {
+            if (this._paddingRightHover !== null) {
                 hover = new TestS.Form(
                     {
                         type: "spinner",
-                        value: this._marginRightHover,
-                        css: "margin-right-hover",
+                        value: this._paddingRightHover,
+                        css: "padding-right-hover",
                         iconBefore: "fa-mouse-pointer",
                         appendTo: this._relativeContainer,
                         callback: $.proxy(
                             function (value) {
-                                this._marginRightHover = value;
+                                this._paddingRightHover = value;
                                 this._update(false);
                             },
                             this
@@ -231,23 +231,23 @@
             new TestS.Form(
                 {
                     type: "spinner",
-                    value: this._marginRight,
-                    css: "margin-right",
+                    value: this._paddingRight,
+                    css: "padding-right",
                     appendTo: this._relativeContainer,
                     callback: $.proxy(
                         function (value) {
-                            var marginRight
-                                = this._marginRight;
-                            var marginRightHover
-                            = this._marginRightHover;
-                            if (marginRight === marginRightHover
+                            var paddingRight
+                                = this._paddingRight;
+                            var paddingRightHover
+                            = this._paddingRightHover;
+                            if (paddingRight === paddingRightHover
                                 && hover !== null
                             ) {
-                                this._marginRightHover = value;
+                                this._paddingRightHover = value;
                                 hover.setValue(value);
                             }
 
-                            this._marginRight = value;
+                            this._paddingRight = value;
                             this._update(false);
                         },
                         this
@@ -259,30 +259,30 @@
         },
 
         /**
-         * Sets margin-bottom
+         * Sets padding-bottom
          *
-         * @returns {TestS.Panel.Design.Block.Margin}
+         * @returns {TestS.Panel.Design.Block.Padding}
          *
          * @private
          */
-        _setMarginBottom: function () {
-            if (this._marginBottom === null) {
+        _setPaddingBottom: function () {
+            if (this._paddingBottom === null) {
                 return this;
             }
 
             var hover = null;
 
-            if (this._marginBottomHover !== null) {
+            if (this._paddingBottomHover !== null) {
                 hover = new TestS.Form(
                     {
                         type: "spinner",
-                        value: this._marginBottomHover,
-                        css: "margin-bottom-hover",
+                        value: this._paddingBottomHover,
+                        css: "padding-bottom-hover",
                         iconBefore: "fa-mouse-pointer",
                         appendTo: this._relativeContainer,
                         callback: $.proxy(
                             function (value) {
-                                this._marginBottomHover = value;
+                                this._paddingBottomHover = value;
                                 this._update(false);
                             },
                             this
@@ -294,23 +294,23 @@
             new TestS.Form(
                 {
                     type: "spinner",
-                    value: this._marginBottom,
-                    css: "margin-bottom",
+                    value: this._paddingBottom,
+                    css: "padding-bottom",
                     appendTo: this._relativeContainer,
                     callback: $.proxy(
                         function (value) {
-                            var marginBottom
-                                = this._marginBottom;
-                            var marginBottomHover
-                            = this._marginBottomHover;
-                            if (marginBottom === marginBottomHover
+                            var paddingBottom
+                                = this._paddingBottom;
+                            var paddingBottomHover
+                            = this._paddingBottomHover;
+                            if (paddingBottom === paddingBottomHover
                                 && hover !== null
                             ) {
-                                this._marginBottomHover = value;
+                                this._paddingBottomHover = value;
                                 hover.setValue(value);
                             }
 
-                            this._marginBottom = value;
+                            this._paddingBottom = value;
                             this._update(false);
                         },
                         this
@@ -322,30 +322,30 @@
         },
 
         /**
-         * Sets margin-left
+         * Sets padding-left
          *
-         * @returns {TestS.Panel.Design.Block.Margin}
+         * @returns {TestS.Panel.Design.Block.Padding}
          *
          * @private
          */
-        _setMarginLeft: function () {
-            if (this._marginLeft === null) {
+        _setPaddingLeft: function () {
+            if (this._paddingLeft === null) {
                 return this;
             }
 
             var hover = null;
 
-            if (this._marginLeftHover !== null) {
+            if (this._paddingLeftHover !== null) {
                 hover = new TestS.Form(
                     {
                         type: "spinner",
-                        value: this._marginLeftHover,
-                        css: "margin-left-hover",
+                        value: this._paddingLeftHover,
+                        css: "padding-left-hover",
                         iconBefore: "fa-mouse-pointer",
                         appendTo: this._relativeContainer,
                         callback: $.proxy(
                             function (value) {
-                                this._marginLeftHover = value;
+                                this._paddingLeftHover = value;
                                 this._update(false);
                             },
                             this
@@ -357,23 +357,23 @@
             new TestS.Form(
                 {
                     type: "spinner",
-                    value: this._marginLeft,
-                    css: "margin-left",
+                    value: this._paddingLeft,
+                    css: "padding-left",
                     appendTo: this._relativeContainer,
                     callback: $.proxy(
                         function (value) {
-                            var marginLeft
-                                = this._marginLeft;
-                            var marginLeftHover
-                            = this._marginLeftHover;
-                            if (marginLeft === marginLeftHover
+                            var paddingLeft
+                                = this._paddingLeft;
+                            var paddingLeftHover
+                            = this._paddingLeftHover;
+                            if (paddingLeft === paddingLeftHover
                                 && hover !== null
                             ) {
-                                this._marginLeftHover = value;
+                                this._paddingLeftHover = value;
                                 hover.setValue(value);
                             }
 
-                            this._marginLeft = value;
+                            this._paddingLeft = value;
                             this._update(false);
                         },
                         this
@@ -385,24 +385,24 @@
         },
 
         /**
-         * Sets margin hover
+         * Sets padding hover
          *
-         * @returns {TestS.Panel.Design.Block.Margin}
+         * @returns {TestS.Panel.Design.Block.Padding}
          *
          * @private
          */
-        _setMarginHover: function () {
-            if (this._hasMarginHover === true) {
+        _setPaddingHover: function () {
+            if (this._hasPaddingHover === true) {
                 this._container.addClass("has-hover");
             }
 
-            if (this._hasMarginHover === null) {
+            if (this._hasPaddingHover === null) {
                 return this;
             }
 
             var onCheck = $.proxy(
                 function () {
-                    this._hasMarginHover = true;
+                    this._hasPaddingHover = true;
                     this._container.addClass("has-hover");
                     this._update(false);
                 },
@@ -411,7 +411,7 @@
 
             var onUnCheck = $.proxy(
                 function () {
-                    this._hasMarginHover = false;
+                    this._hasPaddingHover = false;
                     this._container.removeClass("has-hover");
                     this._update(false);
                 },
@@ -421,7 +421,7 @@
             new TestS.Form(
                 {
                     type: "checkboxOnOff",
-                    value: this._hasMarginHover,
+                    value: this._hasPaddingHover,
                     label: this._object.getLabel("mouseHoverEffect"),
                     onCheck: onCheck,
                     onUnCheck: onUnCheck,
@@ -433,20 +433,20 @@
         },
 
         /**
-         * Sets margin animation
+         * Sets padding animation
          *
-         * @returns {TestS.Panel.Design.Block.Margin}
+         * @returns {TestS.Panel.Design.Block.Padding}
          *
          * @private
          */
-        _setHasMarginAnimation: function () {
-            if (this._hasMarginAnimation === null) {
+        _setHasPaddingAnimation: function () {
+            if (this._hasPaddingAnimation === null) {
                 return this;
             }
 
             var onCheck = $.proxy(
                 function () {
-                    this._hasMarginAnimation = true;
+                    this._hasPaddingAnimation = true;
                     this._update(false);
                 },
                 this
@@ -454,7 +454,7 @@
 
             var onUnCheck = $.proxy(
                 function () {
-                    this._hasMarginAnimation = false;
+                    this._hasPaddingAnimation = false;
                     this._update(false);
                 },
                 this
@@ -463,7 +463,7 @@
             new TestS.Form(
                 {
                     type: "checkboxOnOff",
-                    value: this._hasMarginAnimation,
+                    value: this._hasPaddingAnimation,
                     label: this._object.getLabel("mouseHoverAnimation"),
                     css: "has-animation",
                     onCheck: onCheck,
@@ -476,7 +476,7 @@
         },
 
         /**
-         * Generates margin styles
+         * Generates padding styles
          *
          * @param {boolean} isHover
          * @param {boolean} skipAnimation
@@ -485,23 +485,23 @@
          */
         generateCss: function (isHover, skipAnimation) {
             if (isHover === true) {
-                if (this._hasMarginHover !== true) {
+                if (this._hasPaddingHover !== true) {
                     return "";
                 }
 
                 return this._getCss(
                     skipAnimation,
                     TestS.Library.getIntVal(
-                        this._marginTopHover
+                        this._paddingTopHover
                     ),
                     TestS.Library.getIntVal(
-                        this._marginRightHover
+                        this._paddingRightHover
                     ),
                     TestS.Library.getIntVal(
-                        this._marginBottomHover
+                        this._paddingBottomHover
                     ),
                     TestS.Library.getIntVal(
-                        this._marginLeftHover
+                        this._paddingLeftHover
                     )
                 );
             }
@@ -509,28 +509,28 @@
             return this._getCss(
                 skipAnimation,
                 TestS.Library.getIntVal(
-                    this._marginTop
+                    this._paddingTop
                 ),
                 TestS.Library.getIntVal(
-                    this._marginRight
+                    this._paddingRight
                 ),
                 TestS.Library.getIntVal(
-                    this._marginBottom
+                    this._paddingBottom
                 ),
                 TestS.Library.getIntVal(
-                    this._marginLeft
+                    this._paddingLeft
                 )
             );
         },
 
         /**
-         * Gets margin CSS
+         * Gets padding CSS
          *
          * @param {boolean}       skipAnimation
-         * @param {Number|String} marginTop
-         * @param {Number|String} marginRight
-         * @param {Number|String} marginBottom
-         * @param {Number|String} marginLeft
+         * @param {Number|String} paddingTop
+         * @param {Number|String} paddingRight
+         * @param {Number|String} paddingBottom
+         * @param {Number|String} paddingLeft
          *
          * @returns {String}
          *
@@ -538,45 +538,45 @@
          */
         _getCss: function (
             skipAnimation,
-            marginTop,
-            marginRight,
-            marginBottom,
-            marginLeft
+            paddingTop,
+            paddingRight,
+            paddingBottom,
+            paddingLeft
         ) {
-            if (marginTop !== 0) {
-                marginTop += "px";
+            if (paddingTop !== 0) {
+                paddingTop += "px";
             }
 
-            if (marginRight !== 0) {
-                marginRight += "px";
+            if (paddingRight !== 0) {
+                paddingRight += "px";
             }
 
-            if (marginBottom !== 0) {
-                marginBottom += "px";
+            if (paddingBottom !== 0) {
+                paddingBottom += "px";
             }
 
-            if (marginLeft !== 0) {
-                marginLeft += "px";
+            if (paddingLeft !== 0) {
+                paddingLeft += "px";
             }
 
-            var css = "margin:";
-            css += marginTop;
+            var css = "padding:";
+            css += paddingTop;
             css += " ";
-            css += marginRight;
+            css += paddingRight;
             css += " ";
-            css += marginBottom;
+            css += paddingBottom;
             css += " ";
-            css += marginLeft;
+            css += paddingLeft;
             css += ";";
 
             if (skipAnimation !== true
-                && this._hasMarginHover === true
-                && this._hasMarginAnimation === true
+                && this._hasPaddingHover === true
+                && this._hasPaddingAnimation === true
             ) {
-                css += "-webkit-transition:margin .3s;";
-                css += "-ms-transition:margin .3s;";
-                css += "-o-transition:margin .3s;";
-                css += "transition:margin .3s;";
+                css += "-webkit-transition:padding .3s;";
+                css += "-ms-transition:padding .3s;";
+                css += "-o-transition:padding .3s;";
+                css += "transition:padding .3s;";
             }
 
             return css;
@@ -592,13 +592,13 @@
         _update: function (isOnlyExample) {
             var css = "<style>";
 
-            css += ".margin-example-";
+            css += ".padding-example-";
             css += this._uniqueId;
             css += "{";
             css += this.generateCss(false, false);
             css += "}";
 
-            css += ".margin-example-";
+            css += ".padding-example-";
             css += this._uniqueId;
             css += ":hover{";
             css += this.generateCss(true, false);
@@ -621,8 +621,8 @@
          * @return {boolean}
          */
         hasAnimation: function () {
-            return this._hasMarginHover === true
-                && this._hasMarginAnimation === true;
+            return this._hasPaddingHover === true
+                && this._hasPaddingAnimation === true;
         }
     };
 }(window.jQuery, window.TestS);

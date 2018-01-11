@@ -50,6 +50,7 @@ return [
             'panel/design/Design',
             'panel/design/Design.Block',
             'panel/design/block/Margin',
+            'panel/design/block/Padding',
             'panel/design/Design.Text',
             'window/Users',
             'window/Users.Sessions',
