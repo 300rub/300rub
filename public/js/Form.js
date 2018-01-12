@@ -10,7 +10,7 @@
      *
      * @returns {Object}
      */
-    TestS.Form = function (options) {
+    TestS.FormOld = function (options) {
         this._options = $.extend({}, options);
         this.$_form = null;
         this.$_instance = null;
@@ -23,30 +23,12 @@
      *
      * @type {Object}
      */
-    TestS.Form.prototype = {
+    TestS.FormOld.prototype = {
         /**
          * Init
          */
         init: function () {
             switch (this._options.type) {
-                case "text":
-                    this._setTextForm();
-                    break;
-                case "hidden":
-                    this._setHiddenForm();
-                    break;
-                case "password":
-                    this._setPasswordForm();
-                    break;
-                case "checkbox":
-                    this._setCheckboxForm();
-                    break;
-                case "checkboxButton":
-                    this._setCheckboxButton();
-                    break;
-                case "checkboxOnOff":
-                    this._setCheckboxOnOffForm();
-                    break;
                 case "radioButtons":
                     this._setRadioButtonsForm();
                     break;
@@ -65,14 +47,6 @@
                 default:
                     return this;
             }
-
-            this
-                ._setName()
-                ._setLabel()
-                ._setPlaceholder()
-                ._setClass()
-                ._setOnBlur()
-                ._appendTo();
         },
 
         /**
@@ -258,149 +232,6 @@
         },
 
         /**
-         * Sets text form
-         *
-         * @private
-         */
-        _setTextForm: function () {
-            this.$_form = TestS.Template.get("form-container-text");
-
-            if (this._options.value !== undefined) {
-                this.getFormInstance().val(this._options.value);
-            }
-        },
-
-        /**
-         * Sets hidden form
-         *
-         * @private
-         */
-        _setHiddenForm: function () {
-            this.$_form = TestS.Template.get("form-container-hidden");
-
-            if (this._options.value !== undefined) {
-                this.getFormInstance().val(this._options.value);
-            }
-        },
-
-        /**
-         * Sets password form
-         *
-         * @private
-         */
-        _setPasswordForm: function () {
-            this.$_form = TestS.Template.get("form-container-password");
-            this.getFormInstance().val("");
-        },
-
-        /**
-         * Sets checkbox form
-         *
-         * @private
-         */
-        _setCheckboxForm: function () {
-            var t = this;
-
-            t.$_form = TestS.Template.get("form-container-checkbox");
-
-            if (t._options["value"] === true) {
-                t.getFormInstance().attr("checked", "checked");
-            }
-
-            if ($.type(t._options["onCheck"]) === "function") {
-                t.getFormInstance().on("change", function() {
-                    if (this.checked) {
-                        t._options.onCheck();
-                    }
-                });
-            }
-
-            if ($.type(t._options["onUnCheck"]) === "function") {
-                t.getFormInstance().on("change", function() {
-                    if (!this.checked) {
-                        t._options.onUnCheck();
-                    }
-                });
-            }
-        },
-
-        /**
-         * Sets checkbox button
-         *
-         * @private
-         */
-        _setCheckboxButton: function () {
-            var t = this;
-
-            t.$_form = TestS.Template.get("checkbox-button");
-
-            if (t._options["value"] === true) {
-                t.getFormInstance().attr("checked", "checked");
-            }
-
-            var $icon = t.$_form.find(".icon");
-            if (t._options["icon"] !== undefined) {
-                $icon.addClass(t._options["icon"]);
-            } else {
-                $icon.remove();
-            }
-
-            var $label = t.$_form.find(".label");
-            if (t._options["label"] !== undefined) {
-                $label.text(t._options["label"]);
-            } else {
-                $label.remove();
-            }
-
-            if ($.type(t._options["onCheck"]) === "function") {
-                t.getFormInstance().on("change", function() {
-                    if (this.checked) {
-                        t._options.onCheck();
-                    }
-                });
-            }
-
-            if ($.type(t._options["onUnCheck"]) === "function") {
-                t.getFormInstance().on("change", function() {
-                    if (!this.checked) {
-                        t._options.onUnCheck();
-                    }
-                });
-            }
-        },
-
-        /**
-         * Sets checkbox On / Off form
-         *
-         * @private
-         */
-        _setCheckboxOnOffForm: function () {
-            var t = this;
-
-            t.$_form = TestS.Template.get("form-container-checkbox-on-off");
-
-            if (t._options["value"] === true) {
-                t.getFormInstance().attr("checked", "checked");
-            }
-
-            if ($.type(t._options["onCheck"]) === "function") {
-                t.getFormInstance().on("change", function() {
-                    if (this.checked) {
-                        t._options.onCheck();
-                    }
-                });
-            }
-
-            if ($.type(t._options["onUnCheck"]) === "function") {
-                t.getFormInstance().on("change", function() {
-                    if (!this.checked) {
-                        t._options.onUnCheck();
-                    }
-                });
-            }
-        },
-
-        /**
          * Sets radio form
          *
          * @returns {TestS.Form}
@@ -478,29 +309,6 @@
                 });
             }
 
-            return this;
-        },
-
-        /**
-         * Scrolls container to the forms
-         *
-         * @returns {TestS.Form}
-         */
-        scrollTo: function() {
-            var $scrollContainer = this.getInstance().closest(".scroll-container");
-            var scrollTop = this.getInstance().position().top;
-            var scrollTopContainer = $scrollContainer.find("div:first-child").position().top;
-            $scrollContainer.scrollTop(scrollTop - scrollTopContainer);
-            return this;
-        },
-
-        /**
-         * Does focus on instance
-         *
-         * @returns {TestS.Form}
-         */
-        focus: function() {
-            this.getFormInstance().focus();
             return this;
         },
 
@@ -699,224 +507,23 @@
         },
 
         /**
-         * Gets instance
-         *
-         * @returns {Object}
-         */
-        getInstance: function () {
-            return this.$_form;
-        },
-
-        /**
-         * Gets form instance
-         *
-         * @returns {Object}
-         */
-        getFormInstance: function () {
-            if (this.$_instance === null) {
-                this.$_instance = this.getInstance().find(".form-instance");
-            }
-
-            return this.$_instance;
-        },
-
-        /**
-         * Sets name
-         *
-         * @returns {TestS.Form}
-         *
-         * @private
-         */
-        _setName: function() {
-            if (this._options.name === undefined) {
-                return this;
-            }
-
-            this.getFormInstance().attr("name", this._options.name);
-            return this;
-        },
-
-        /**
-         * Gets the name
-         *
-         * @returns {String}
-         */
-        getName: function() {
-            return this.getFormInstance().attr("name");
-        },
-
-        /**
-         * Sets label
-         *
-         * @returns {TestS.Form}
-         *
-         * @private
-         */
-        _setLabel: function() {
-            if (this._options.label === undefined) {
-                return this;
-            }
-
-            this.$_form.find(".label-text").text(this._options.label);
-            return this;
-        },
-
-        /**
-         * Sets name
-         *
-         * @returns {TestS.Form}
-         *
-         * @private
-         */
-        _setPlaceholder: function() {
-            if (this._options.placeholder === undefined) {
-                return this;
-            }
-
-            this.getFormInstance().attr("placeholder", this._options.placeholder);
-            return this;
-        },
-
-        /**
-         * Sets class
-         *
-         * @returns {TestS.Form}
-         *
-         * @private
-         */
-        _setClass: function() {
-            if (this._options.class === undefined
-                && this._options.css === undefined
-            ) {
-                return this;
-            }
-
-            if (this._options.class !== undefined) {
-                this.$_form.addClass(this._options.class);
-            }
-
-            if (this._options.css !== undefined) {
-                this.$_form.addClass(this._options.css);
-            }
-
-            return this;
-        },
-
-        /**
-         * Sets on blur event (validation)
-         *
-         * @returns {TestS.Form}
-         *
-         * @private
-         */
-        _setOnBlur: function() {
-            this.getFormInstance().on("blur", $.proxy(this.validate, this));
-            return this;
-        },
-
-        /**
-         * Validates the form
-         *
-         * @returns {TestS.Form}
-         */
-        validate: function() {
-            this.$_form.removeClass("error");
-
-            if ($.type(this._options.validation) !== "object" || this._options.validation.length === 0) {
-                return this;
-            }
-
-            var validator = new TestS.Validator(this.getValue(), this._options.validation);
-            var errors = validator.getErrors();
-            if (errors.length > 0) {
-                this.setError(errors[0]);
-            } else {
-                this.$_form.removeClass("error");
-                this.$_form.find("span.error").text("");
-            }
-
-            return this;
-        },
-
-        /**
-         * Sets error
-         *
-         * @param {String} error
-         *
-         * @returns {TestS.Form}
-         */
-        setError: function(error) {
-            this.$_form.addClass("error");
-            this.$_form.find("span.error").text(error);
-
-            return this;
-        },
-
-        /**
-         * Appends to
-         *
-         * @returns {TestS.Form}
-         *
-         * @private
-         */
-        _appendTo: function() {
-            if (this._options.appendTo === undefined) {
-                return this;
-            }
-
-            this.$_form.appendTo(this._options.appendTo);
-            return this;
-        },
-
-        /**
-         * Gets value
-         *
-         * @returns {mixed}
-         */
-        getValue: function() {
-            return this.getFormInstance().val();
-        },
-
-        /**
          * Gets parsed value
          *
          * @returns {mixed}
          */
         getParsedValue: function () {
-            var $formInstance = this.getFormInstance();
             var value;
 
             switch (this._options.type) {
-                case "password":
-                    value = md5($formInstance.val() + "(^_^)");
-                    break;
-                case "checkbox":
-                    value = $formInstance.is(':checked');
-                    break;
-                case "checkboxButton":
-                    value = $formInstance.is(':checked');
-                    break;
                 case "spinner":
-                    value = TestS.Library.getIntVal($formInstance.val());
+                    value = TestS.Library.getIntVal(this._instance.val());
                     break;
                 default:
-                    value = $formInstance.val();
+                    value = this._instance.val();
                     break;
             }
 
             return value;
-        },
-
-        /**
-         * Sets value
-         *
-         * @param {mixed} value
-         *
-         * @returns {TestS.Form}
-         */
-        setValue: function(value) {
-            this.getFormInstance().val(value);
-            return this;
         }
     };
 }(window.jQuery, window.TestS);

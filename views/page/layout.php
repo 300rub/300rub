@@ -110,5 +110,15 @@ if ($isUser === true) {
     });
 </script>
 
+<!--<script>-->
+<!--    new TestS.Form.Text(-->
+<!--        {-->
+<!--            appendTo: $("body"),-->
+<!--            placeholder: "aaaa",-->
+<!--            value: "32131"-->
+<!--        }-->
+<!--    );-->
+<!--</script>-->
+
 </body>
 </html>
