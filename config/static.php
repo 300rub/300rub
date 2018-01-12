@@ -26,6 +26,7 @@ return [
             'form/Checkbox',
             'form/CheckboxButton',
             'form/CheckboxOnOff',
+            'form/Spinner',
             'Window',
             'window/Login',
             'Login',

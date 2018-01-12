@@ -80,7 +80,7 @@
          *
          * @param {String} option
          *
-         * @returns {String|mixed}
+         * @returns {*}
          */
         getOption: function (option) {
             if (this._options[option] === undefined) {
@@ -209,7 +209,7 @@
         /**
          * Sets value
          *
-         * @param {mixed} value
+         * @param {*} value
          *
          * @returns {TestS.Form}
          */
@@ -221,7 +221,7 @@
         /**
          * Gets value
          *
-         * @returns {mixed}
+         * @returns {*}
          */
         getValue: function () {
             return this._instance.val();
@@ -280,6 +280,94 @@
                 = scrollContainer.find("div:first-child").position().top;
             scrollContainer.scrollTop(scrollTop - scrollTopContainer);
             return this;
+        },
+
+        /**
+         * Allows only numbers
+         *
+         * @returns {TestS.Form}
+         */
+        allowOnlyNumbers: function () {
+            this.getInstance().on(
+                "keydown",
+                function (e) {
+                    if (this._isSystemKeyCode(e) === true
+                        || this._isCopyPastKeyCode(e) === true
+                        || this._isMoveKeyCode(e) === true
+                    ) {
+                        return null;
+                    }
+
+                    if (this._isNotNumberKeyCode(e) === true) {
+                        return false;
+                    }
+                }
+            );
+
+            return this;
+        },
+
+        /**
+         * Allows: backspace, delete, tab, escape, enter and .
+         *
+         * @param {Object} e
+         *
+         * @returns {Boolean}
+         *
+         * @private
+         */
+        _isSystemKeyCode: function (e) {
+            return $.inArray(e.keyCode, [46, 8, 9, 27, 13, 110, 190]) !== -1;
+        },
+
+        /**
+         * Allows: Ctrl/cmd+A
+         * Allows: Ctrl/cmd+C
+         * Allows: Ctrl/cmd+X
+         *
+         * @param {Object} e
+         *
+         * @returns {Boolean}
+         *
+         * @private
+         */
+        _isCopyPastKeyCode: function (e) {
+            return (e.keyCode === 65
+                    && (e.ctrlKey === true || e.metaKey === true)
+                )
+                || (e.keyCode === 67
+                    && (e.ctrlKey === true || e.metaKey === true)
+                )
+                || (e.keyCode === 88
+                    && (e.ctrlKey === true || e.metaKey === true)
+                );
+        },
+
+        /**
+         * Allows: home, end, left, right
+         *
+         * @param {Object} e
+         *
+         * @returns {Boolean}
+         *
+         * @private
+         */
+        _isMoveKeyCode: function (e) {
+            return e.keyCode >= 35 && e.keyCode <= 39;
+        },
+
+        /**
+         * Ensures that it is a number and stop the keypress
+         *
+         * @param {Object} e
+         *
+         * @returns {Boolean}
+         *
+         * @private
+         */
+        _isNotNumberKeyCode: function (e) {
+            return (e.shiftKey || (e.keyCode < 48 || e.keyCode > 57))
+                && (e.keyCode < 96 || e.keyCode > 105);
         }
     };
 }(window.jQuery, window.TestS);

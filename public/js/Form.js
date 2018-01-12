@@ -156,80 +156,10 @@
 
             this._allowOnlyNumbers();
 
-            if (this._options.value !== undefined) {
-                this.getFormInstance().val(
-                    TestS.Library.getIntVal(this._options.value)
-                );
-            }
 
-            if ($.type(this._options.callback) === "function") {
-                this.getFormInstance().on("keyup", function() {
-                    t._options.callback(
-                        TestS.Library.getIntVal($(this).val())
-                    )
-                });
-            }
-
-            var $iconBefore = this.$_form.find(".icon-before");
-            if (this._options["iconBefore"] !== undefined) {
-                $iconBefore.addClass(this._options["iconBefore"]);
-            } else {
-                $iconBefore.remove();
-            }
-
-            var min = -999999;
-            if (this._options["min"] !== undefined) {
-                min = this._options["min"];
-            }
-
-            this.getFormInstance().spinner({
-                min: min,
-                spin: function (event, ui) {
-                    if ($.type(t._options.callback) === "function") {
-                        t._options.callback(
-                            TestS.Library.getIntVal(ui.value)
-                        );
-                    }
-                },
-                icons: {
-                    up: "fa fa-chevron-up gray-blue-link",
-                    down: "fa fa-chevron-down gray-blue-link"
-                }
-            });
         },
 
-        /**
-         * Allows only numbers
-         *
-         * Allow: Ctrl+A/C/V/X, Command+A/C/V/X
-         * Allow: home, end, left, right, down, up
-         * Ensure that it is a number and stop the keypress
-         *
-         * @returns {TestS.Form}
-         *
-         * @private
-         */
-        _allowOnlyNumbers: function() {
-            this.getFormInstance().on("keydown", function(e) {
-                if ($.inArray(e.keyCode, [46, 8, 9, 27, 13]) !== -1
-                    || (
-                        (e.ctrlKey === true || e.metaKey === true)
-                        && (e.keyCode == 65 || e.keyCode == 67 || e.keyCode == 86 || e.keyCode == 88)
-                    )
-                    || (e.keyCode >= 35 && e.keyCode <= 40)
-                ) {
-                    return null;
-                }
 
-                if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57))
-                    && (e.keyCode < 96 || e.keyCode > 105)
-                ) {
-                    return false;
-                }
-            });
-
-            return this;
-        },
 
         /**
          * Sets radio form
