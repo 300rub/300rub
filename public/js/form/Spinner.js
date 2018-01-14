@@ -16,7 +16,7 @@
      *
      * @type {Object}
      */
-    TestS.Form.Spinner.prototype = {
+    var prototype = {
 
         /**
          * Constructor
@@ -88,7 +88,7 @@
      * Extends prototype
      */
     TestS.Form.Spinner.prototype = $.extend(
-        TestS.Form.prototype,
-        TestS.Form.Spinner.prototype
+        Object.create(TestS.Form.prototype),
+        prototype
     );
 }(window.jQuery, window.TestS);

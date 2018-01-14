@@ -16,7 +16,7 @@
      *
      * @type {Object}
      */
-    TestS.Form.CheckboxButton.prototype = {
+    var prototype = {
 
         /**
          * Constructor
@@ -88,7 +88,7 @@
      * Extends prototype
      */
     TestS.Form.CheckboxButton.prototype = $.extend(
-        TestS.Form.prototype,
-        TestS.Form.CheckboxButton.prototype
+        Object.create(TestS.Form.prototype),
+        prototype
     );
 }(window.jQuery, window.TestS);

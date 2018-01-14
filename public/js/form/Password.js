@@ -16,7 +16,7 @@
      *
      * @type {Object}
      */
-    TestS.Form.Password.prototype = {
+    var prototype = {
 
         /**
          * Constructor
@@ -44,7 +44,7 @@
      * Extends prototype
      */
     TestS.Form.Password.prototype = $.extend(
-        TestS.Form.prototype,
-        TestS.Form.Password.prototype
+        Object.create(TestS.Form.prototype),
+        prototype
     );
 }(window.jQuery, window.TestS);

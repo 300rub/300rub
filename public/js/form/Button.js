@@ -16,7 +16,7 @@
      *
      * @type {Object}
      */
-    TestS.Form.Button.prototype = {
+    var prototype = {
 
         /**
          * Constructor
@@ -183,6 +183,8 @@
         /**
          * Processes form
          *
+         * @return {Boolean}
+         *
          * @private
          */
         _processForm: function () {
@@ -216,25 +218,28 @@
                 || $.type(ajax) !== "object"
                 || this.getForm().hasClass("disabled") === true
             ) {
-                var icon = this.getForm().find(".icons .icon");
-                var spinner = this.getForm().find(".icons .fa-spin");
-                this.getForm().addClass("disabled");
-
-                icon.addClass("hidden");
-                spinner.removeClass("hidden");
-
-                ajax.data.data = data;
-                ajax.complete = $.proxy(
-                    function () {
-                        icon.removeClass("hidden");
-                        spinner.addClass("hidden");
-                        this.getForm().removeClass("disabled");
-                    },
-                    this
-                );
-
-                new TestS.Ajax(ajax);
+                return false;
             }
+
+            var icon = this.getForm().find(".icons .icon");
+            var spinner = this.getForm().find(".icons .fa-spin");
+            this.getForm().addClass("disabled");
+
+            icon.addClass("hidden");
+            spinner.removeClass("hidden");
+
+            ajax.data.data = data;
+            ajax.complete = $.proxy(
+                function () {
+                    icon.removeClass("hidden");
+                    spinner.addClass("hidden");
+                    this.getForm().removeClass("disabled");
+                },
+                this
+            );
+
+            new TestS.Ajax(ajax);
+            return true;
         },
 
         /**
@@ -253,17 +258,16 @@
                 function (fullFieldName, value) {
                     if (fullFieldName.indexOf(".") === -1) {
                         object[fullFieldName] = value;
-                        return false;
-                    }
+                    } else {
+                        var arr = fullFieldName.split(".");
+                        var alias = arr.shift();
+                        var field = arr.join(".");
+                        if (helpObject[alias] === undefined) {
+                            helpObject[alias] = {};
+                        }
 
-                    var arr = fullFieldName.split(".");
-                    var alias = arr.shift();
-                    var field = arr.join(".");
-                    if (helpObject[alias] === undefined) {
-                        helpObject[alias] = {};
+                        helpObject[alias][field] = value;
                     }
-
-                    helpObject[alias][field] = value;
                 }
             );
 
@@ -285,7 +289,7 @@
      * Extends prototype
      */
     TestS.Form.Button.prototype = $.extend(
-        TestS.Form.prototype,
-        TestS.Form.Button.prototype
+        Object.create(TestS.Form.prototype),
+        prototype
     );
 }(window.jQuery, window.TestS);

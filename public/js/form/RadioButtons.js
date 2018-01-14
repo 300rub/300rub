@@ -16,7 +16,7 @@
      *
      * @type {Object}
      */
-    TestS.Form.RadioButtons.prototype = {
+    var prototype = {
 
         /**
          * Constructor
@@ -114,7 +114,7 @@
      * Extends prototype
      */
     TestS.Form.RadioButtons.prototype = $.extend(
-        TestS.Form.prototype,
-        TestS.Form.RadioButtons.prototype
+        Object.create(TestS.Form.prototype),
+        prototype
     );
 }(window.jQuery, window.TestS);

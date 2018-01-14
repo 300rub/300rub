@@ -16,7 +16,7 @@
      *
      * @type {Object}
      */
-    TestS.Form.Hidden.prototype = {
+    var prototype = {
 
         /**
          * Constructor
@@ -35,7 +35,7 @@
      * Extends prototype
      */
     TestS.Form.Hidden.prototype = $.extend(
-        TestS.Form.prototype,
-        TestS.Form.Hidden.prototype
+        Object.create(TestS.Form.prototype),
+        prototype
     );
 }(window.jQuery, window.TestS);

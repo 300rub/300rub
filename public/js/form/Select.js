@@ -16,7 +16,7 @@
      *
      * @type {Object}
      */
-    TestS.Form.Select.prototype = {
+    var prototype = {
 
         /**
          * Constructor
@@ -75,7 +75,7 @@
      * Extends prototype
      */
     TestS.Form.Select.prototype = $.extend(
-        TestS.Form.prototype,
-        TestS.Form.Select.prototype
+        Object.create(TestS.Form.prototype),
+        prototype
     );
 }(window.jQuery, window.TestS);

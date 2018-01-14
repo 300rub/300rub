@@ -16,7 +16,7 @@
      *
      * @type {Object}
      */
-    TestS.Form.CheckboxOnOff.prototype = {
+    var prototype = {
 
         /**
          * Constructor
@@ -72,7 +72,7 @@
      * Extends prototype
      */
     TestS.Form.CheckboxOnOff.prototype = $.extend(
-        TestS.Form.prototype,
-        TestS.Form.CheckboxOnOff.prototype
+        Object.create(TestS.Form.prototype),
+        prototype
     );
 }(window.jQuery, window.TestS);

@@ -16,7 +16,7 @@
      *
      * @type {Object}
      */
-    TestS.Form.Text.prototype = {
+    var prototype = {
 
         /**
          * Constructor
@@ -35,7 +35,7 @@
      * Extends prototype
      */
     TestS.Form.Text.prototype = $.extend(
-        TestS.Form.prototype,
-        TestS.Form.Text.prototype
+        Object.create(TestS.Form.prototype),
+        prototype
     );
 }(window.jQuery, window.TestS);

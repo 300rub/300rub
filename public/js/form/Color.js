@@ -16,7 +16,7 @@
      *
      * @type {Object}
      */
-    TestS.Form.Color.prototype = {
+    var prototype = {
 
         /**
          * Constructor
@@ -79,7 +79,7 @@
      * Extends prototype
      */
     TestS.Form.Color.prototype = $.extend(
-        TestS.Form.prototype,
-        TestS.Form.Color.prototype
+        Object.create(TestS.Form.prototype),
+        prototype
     );
 }(window.jQuery, window.TestS);
