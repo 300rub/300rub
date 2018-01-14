@@ -127,30 +127,27 @@
             var $textFormsContainer = this.$_container.find(".text-forms-container");
             var t = this;
 
-            var idForm = new TestS.Form({
+            var idForm = new TestS.Form.Hidden({
                 appendTo: $textFormsContainer,
-                type: "hidden",
                 name: "id",
                 value: data.id
             });
             this._forms.push(idForm);
 
-            this._nameForm = new TestS.Form(
+            this._nameForm = new TestS.Form.Text(
                 $.extend(
                     {
-                        appendTo: $textFormsContainer,
-                        type: "text"
+                        appendTo: $textFormsContainer
                     },
                     data.name
                 )
             );
             this._forms.push(this._nameForm);
 
-            this._loginForm = new TestS.Form(
+            this._loginForm = new TestS.Form.Text(
                 $.extend(
                     {
-                        appendTo: $textFormsContainer,
-                        type: "text"
+                        appendTo: $textFormsContainer
                     },
                     data.login
                 )
@@ -158,9 +155,8 @@
             this._forms.push(this._loginForm);
 
             if (data.id !== 0) {
-                var isChangePassword = new TestS.Form({
+                var isChangePassword = new TestS.Form.Checkbox({
                     appendTo: $textFormsContainer,
-                    type: "checkbox",
                     name: "isChangePassword",
                     value: false,
                     label: data.labels["isChangePassword"],
@@ -176,22 +172,20 @@
                 this._forms.push(isChangePassword);
             }
 
-            this._passwordForm = new TestS.Form(
+            this._passwordForm = new TestS.Form.Password(
                 $.extend(
                     {
-                        appendTo: $textFormsContainer,
-                        type: "password"
+                        appendTo: $textFormsContainer
                     },
                     data.password
                 )
             );
             this._forms.push(this._passwordForm);
 
-            this._passwordConfirmForm = new TestS.Form(
+            this._passwordConfirmForm = new TestS.Form.Password(
                 $.extend(
                     {
-                        appendTo: $textFormsContainer,
-                        type: "password"
+                        appendTo: $textFormsContainer
                     },
                     data["passwordConfirm"]
                 )
@@ -203,11 +197,10 @@
                 t._passwordConfirmForm.getInstance().addClass("hidden");
             }
 
-            this._emailForm = new TestS.Form(
+            this._emailForm = new TestS.Form.Text(
                 $.extend(
                     {
-                        appendTo: $textFormsContainer,
-                        type: "text"
+                        appendTo: $textFormsContainer
                     },
                     data.email
                 )
@@ -215,11 +208,10 @@
             this._forms.push(this._emailForm);
 
             if (data.operations["canChange"] === true) {
-                var typeForm = new TestS.Form(
+                var typeForm = new TestS.Form.Select(
                     $.extend(
                         {
                             appendTo: $textFormsContainer,
-                            type: "select",
                             onChange: function (value) {
                                 if (value === data.operations["limitedId"]) {
                                     t.$_operationsContainer.removeClass("hidden");
@@ -264,11 +256,10 @@
                         var sectionsAllAccordionElement = new TestS.Accordion.Element(groupObject.data.ALL.title);
 
                         $.each(groupObject.data.ALL.data, function (allKey, allObject) {
-                            var form = new TestS.Form(
+                            var form = new TestS.Form.Checkbox(
                                 $.extend(
                                     {
-                                        appendTo: sectionsAllAccordionElement.getBody(),
-                                        type: "checkbox"
+                                        appendTo: sectionsAllAccordionElement.getBody()
                                     },
                                     allObject
                                 )
@@ -288,11 +279,10 @@
                             $.each(
                                 groupObjectDataObject.data,
                                 function (groupObjectDataObjectDataKey, groupObjectDataObjectDataObject) {
-                                    var form = new TestS.Form(
+                                    var form = new TestS.Form.Checkbox(
                                         $.extend(
                                             {
-                                                appendTo: sectionAccordionElement.getBody(),
-                                                type: "checkbox"
+                                                appendTo: sectionAccordionElement.getBody()
                                             },
                                             groupObjectDataObjectDataObject
                                         )
@@ -313,11 +303,10 @@
                                 = new TestS.Accordion.Element(groupObjectDataObject.data.ALL.title);
 
                             $.each(groupObjectDataObject.data.ALL.data, function (allKey, allObject) {
-                                var form = new TestS.Form(
+                                var form = new TestS.Form.Checkbox(
                                     $.extend(
                                         {
-                                            appendTo: blockAllAccordionElement.getBody(),
-                                            type: "checkbox"
+                                            appendTo: blockAllAccordionElement.getBody()
                                         },
                                         allObject
                                     )
@@ -337,11 +326,10 @@
                                         = new TestS.Accordion.Element(groupObjectDataObjectDataObject.title);
 
                                     $.each(groupObjectDataObjectDataObject.data, function (key, object) {
-                                        var form = new TestS.Form(
+                                        var form = new TestS.Form.Checkbox(
                                             $.extend(
                                                 {
-                                                    appendTo: blockAccordionElement.getBody(),
-                                                    type: "checkbox"
+                                                    appendTo: blockAccordionElement.getBody()
                                                 },
                                                 object
                                             )
@@ -359,11 +347,10 @@
                         break;
                     case "SETTINGS":
                         $.each(groupObject.data, function (checkboxKey, checkboxObject) {
-                            var form = new TestS.Form(
+                            var form = new TestS.Form.Checkbox(
                                 $.extend(
                                     {
-                                        appendTo: categoryAccordionElement.getBody(),
-                                        type: "checkbox"
+                                        appendTo: categoryAccordionElement.getBody()
                                     },
                                     checkboxObject
                                 )

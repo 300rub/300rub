@@ -458,10 +458,9 @@
             var sizeHover = null;
 
             if (this._values["sizeHover"] !== null) {
-                sizeHover = new TestS.Form({
-                    type: "spinner",
+                sizeHover = new TestS.Form.Spinner({
                     value: this._values["sizeHover"],
-                    class: "size-hover",
+                    css: "size-hover",
                     min: 0,
                     callback: $.proxy(function (value) {
                         this._values["sizeHover"] = value;
@@ -471,10 +470,9 @@
                 });
             }
 
-            new TestS.Form({
-                type: "spinner",
+            new TestS.Form.Spinner({
                 value: this._values["size"],
-                class: "size",
+                css: "size",
                 min: 0,
                 callback: $.proxy(function (value) {
                     if (this._values["size"] === this._values["sizeHover"]
@@ -513,11 +511,10 @@
                 });
             });
 
-            new TestS.Form({
-                type: "select",
+            new TestS.Form.Select({
                 list: list,
                 value: this._values["family"],
-                class: "family",
+                css: "family",
                 onChange: $.proxy(function (value) {
                     this._values["family"] = value;
                     this._update(false);
@@ -537,8 +534,7 @@
          */
         _setColor: function() {
             if (this._values["color"] !== null) {
-                new TestS.Form({
-                    type: "color",
+                new TestS.Form.Color({
                     title: this._getLabel("color"),
                     value: this._values["color"],
                     callback: $.proxy(function (color) {
@@ -550,8 +546,7 @@
             }
 
             if (this._values["colorHover"] !== null) {
-                new TestS.Form({
-                    type: "color",
+                new TestS.Form.Color({
                     title: this._getLabel("color"),
                     value: this._values["colorHover"],
                     callback: $.proxy(function (color) {
@@ -576,8 +571,7 @@
             var hoverForm = null;
 
             if (this._values["isItalicHover"] !== null) {
-                hoverForm = new TestS.Form({
-                    type: "checkboxButton",
+                hoverForm = new TestS.Form.CheckboxButton({
                     value: this._values["isItalicHover"],
                     icon: "fa-italic",
                     onCheck: $.proxy(function () {
@@ -593,8 +587,7 @@
             }
 
             if (this._values["isItalic"] !== null) {
-                new TestS.Form({
-                    type: "checkboxButton",
+                new TestS.Form.CheckboxButton({
                     value: this._values["isItalic"],
                     icon: "fa-italic",
                     onCheck: $.proxy(function () {
@@ -637,8 +630,7 @@
             var hoverForm = null;
 
             if (this._values["isBoldHover"] !== null) {
-                hoverForm = new TestS.Form({
-                    type: "checkboxButton",
+                hoverForm = new TestS.Form.CheckboxButton({
                     value: this._values["isBoldHover"],
                     icon: "fa-bold",
                     onCheck: $.proxy(function () {
@@ -654,8 +646,7 @@
             }
 
             if (this._values["isBold"] !== null) {
-                new TestS.Form({
-                    type: "checkboxButton",
+                new TestS.Form.CheckboxButton({
                     value: this._values["isBold"],
                     icon: "fa-bold",
                     onCheck: $.proxy(function () {
@@ -699,11 +690,10 @@
                 return this;
             }
 
-            new TestS.Form({
-                type: "radioButtons",
+            new TestS.Form.RadioButtons({
                 value: this._values["align"],
                 data: this._alignList,
-                class: "align",
+                css: "align",
                 onChange: $.proxy(function (value) {
                     this._values["align"] = value;
                     this._update(false);
@@ -724,8 +714,7 @@
         _setDecoration: function() {
             var hoverForm = null;
             if (this._values["decorationHover"] !== null) {
-                hoverForm = new TestS.Form({
-                    type: "radioButtons",
+                hoverForm = new TestS.Form.RadioButtons({
                     value: this._values["decorationHover"],
                     data: this._decorationList,
                     onChange: $.proxy(function (value) {
@@ -737,11 +726,10 @@
             }
 
             if (this._values["decoration"] !== null) {
-                new TestS.Form({
-                    type: "radioButtons",
+                new TestS.Form.RadioButtons({
                     value: this._values["decoration"],
                     data: this._decorationList,
-                    class: "decoration",
+                    css: "decoration",
                     onChange: $.proxy(function (value) {
                         if (hoverForm !== null
                             && this._values["decoration"] === this._values["decorationHover"]
@@ -770,8 +758,7 @@
         _setTransform: function() {
             var hoverForm = null;
             if (this._values["transformHover"] !== null) {
-                hoverForm = new TestS.Form({
-                    type: "radioButtons",
+                hoverForm = new TestS.Form.RadioButtons({
                     value: this._values["transformHover"],
                     data: this._transformList,
                     onChange: $.proxy(function (value) {
@@ -783,8 +770,7 @@
             }
 
             if (this._values["transform"] !== null) {
-                new TestS.Form({
-                    type: "radioButtons",
+                new TestS.Form.RadioButtons({
                     value: this._values["transform"],
                     data: this._transformList,
                     onChange: $.proxy(function (value) {
@@ -816,8 +802,7 @@
             var hoverForm = null;
 
             if (this._values["letterSpacingHover"] !== null) {
-                hoverForm = new TestS.Form({
-                    type: "spinner",
+                hoverForm = new TestS.Form.Spinner({
                     value: this._values["letterSpacingHover"],
                     callback: $.proxy(function (value) {
                         this._values["letterSpacingHover"] = value;
@@ -828,10 +813,9 @@
             }
 
             if (this._values["letterSpacing"] !== null) {
-                new TestS.Form({
-                    type: "spinner",
+                new TestS.Form.Spinner({
                     value: this._values["letterSpacing"],
-                    class: "letter-spacing",
+                    css: "letter-spacing",
                     iconBefore: "fa-arrows-h",
                     callback: $.proxy(function (value) {
                         if (hoverForm !== null
@@ -862,8 +846,7 @@
             var hoverForm = null;
 
             if (this._values["lineHeightHover"] !== null) {
-                hoverForm = new TestS.Form({
-                    type: "spinner",
+                hoverForm = new TestS.Form.Spinner({
                     value: this._values["lineHeightHover"],
                     callback: $.proxy(function (value) {
                         this._values["lineHeightHover"] = value;
@@ -874,10 +857,9 @@
             }
 
             if (this._values["lineHeight"] !== null) {
-                new TestS.Form({
-                    type: "spinner",
+                new TestS.Form.Spinner({
                     value: this._values["lineHeight"],
-                    class: "line-height",
+                    css: "line-height",
                     iconBefore: "fa-arrows-v",
                     callback: $.proxy(function (value) {
                         if (hoverForm !== null
@@ -916,8 +898,7 @@
                 this.$_hoverContainer.addClass("hidden");
             }
 
-            new TestS.Form({
-                type: "checkboxOnOff",
+            new TestS.Form.CheckboxOnOff({
                 value: this._values["hasHover"],
                 label: this._getLabel("mouseHoverEffect"),
                 onCheck: $.proxy(function () {

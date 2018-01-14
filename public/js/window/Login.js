@@ -41,31 +41,28 @@
          * @private
          */
         _onLoadDataSuccess: function(data) {
-            this._userForm = new TestS.Form(
+            this._userForm = new TestS.Form.Text(
                 $.extend(
                     {
-                        appendTo: this._window.getBody(),
-                        type: "text"
+                        appendTo: this._window.getBody()
                     },
                     data.forms.user
                 )
             );
 
-            this._passwordForm = new TestS.Form(
+            this._passwordForm = new TestS.Form.Password(
                 $.extend(
                     {
-                        appendTo: this._window.getBody(),
-                        type: "password"
+                        appendTo: this._window.getBody()
                     },
                     data.forms.password
                 )
             );
 
-            this._isRememberForm = new TestS.Form(
+            this._isRememberForm = new TestS.Form.Checkbox(
                 $.extend(
                     {
-                        appendTo: this._window.getBody(),
-                        type: "checkbox"
+                        appendTo: this._window.getBody()
                     },
                     data.forms["isRemember"]
                 )

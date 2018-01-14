@@ -55,9 +55,8 @@
                 $buttons.addClass("align-right");
 
                 if (user.canViewSessions === true) {
-                    new TestS.Form({
-                        type: "button",
-                        class: "gray-button button-small",
+                    new TestS.Form.Button({
+                        css: "gray-button button-small",
                         icon: "fa-users",
                         label: data.labels.sessions,
                         appendTo: $buttons,
@@ -68,9 +67,8 @@
                 }
 
                 if (user.canUpdate === true) {
-                    new TestS.Form({
-                        type: "button",
-                        class: "gray-button button-small",
+                    new TestS.Form.Button({
+                        css: "gray-button button-small",
                         icon: "fa-pencil",
                         label: data.labels.edit,
                         appendTo: $buttons,
@@ -81,9 +79,8 @@
                 }
 
                 if (user.canDelete === true) {
-                    new TestS.Form({
-                        type: "button",
-                        class: "gray-button button-small",
+                    new TestS.Form.Button({
+                        css: "gray-button button-small",
                         icon: "fa-trash",
                         label: data.labels.delete,
                         appendTo: $buttons,
@@ -118,9 +115,8 @@
 
             this._window.getBody().append($table);
 
-            new TestS.Form({
-                type: "button",
-                class: "gray-button button-medium margin-bottom-15",
+            new TestS.Form.Button({
+                css: "gray-button button-medium margin-bottom-15",
                 icon: "fa-user-plus",
                 label: data.labels.add,
                 appendTo: this._window.getBody(),

@@ -12,7 +12,7 @@
     };
 
     /**
-     * Text form prototype
+     * Password form prototype
      *
      * @type {Object}
      */

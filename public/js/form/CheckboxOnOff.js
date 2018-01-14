@@ -12,7 +12,7 @@
     };
 
     /**
-     * Text form prototype
+     * CheckboxOnOff form prototype
      *
      * @type {Object}
      */

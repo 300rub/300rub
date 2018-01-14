@@ -148,9 +148,8 @@
             var hover = null;
 
             if (this._paddingTopHover !== null) {
-                hover = new TestS.Form(
+                hover = new TestS.Form.Spinner(
                     {
-                        type: "spinner",
                         value: this._paddingTopHover,
                         css: "padding-top-hover",
                         iconBefore: "fa-mouse-pointer",
@@ -166,9 +165,8 @@
                 );
             }
 
-            new TestS.Form(
+            new TestS.Form.Spinner(
                 {
-                    type: "spinner",
                     value: this._paddingTop,
                     css: "padding-top",
                     appendTo: this._relativeContainer,
@@ -210,9 +208,8 @@
             var hover = null;
 
             if (this._paddingRightHover !== null) {
-                hover = new TestS.Form(
+                hover = new TestS.Form.Spinner(
                     {
-                        type: "spinner",
                         value: this._paddingRightHover,
                         css: "padding-right-hover",
                         iconBefore: "fa-mouse-pointer",
@@ -228,9 +225,8 @@
                 );
             }
 
-            new TestS.Form(
+            new TestS.Form.Spinner(
                 {
-                    type: "spinner",
                     value: this._paddingRight,
                     css: "padding-right",
                     appendTo: this._relativeContainer,
@@ -273,9 +269,8 @@
             var hover = null;
 
             if (this._paddingBottomHover !== null) {
-                hover = new TestS.Form(
+                hover = new TestS.Form.Spinner(
                     {
-                        type: "spinner",
                         value: this._paddingBottomHover,
                         css: "padding-bottom-hover",
                         iconBefore: "fa-mouse-pointer",
@@ -291,9 +286,8 @@
                 );
             }
 
-            new TestS.Form(
+            new TestS.Form.Spinner(
                 {
-                    type: "spinner",
                     value: this._paddingBottom,
                     css: "padding-bottom",
                     appendTo: this._relativeContainer,
@@ -336,9 +330,8 @@
             var hover = null;
 
             if (this._paddingLeftHover !== null) {
-                hover = new TestS.Form(
+                hover = new TestS.Form.Spinner(
                     {
-                        type: "spinner",
                         value: this._paddingLeftHover,
                         css: "padding-left-hover",
                         iconBefore: "fa-mouse-pointer",
@@ -354,9 +347,8 @@
                 );
             }
 
-            new TestS.Form(
+            new TestS.Form.Spinner(
                 {
-                    type: "spinner",
                     value: this._paddingLeft,
                     css: "padding-left",
                     appendTo: this._relativeContainer,
@@ -418,9 +410,8 @@
                 this
             );
 
-            new TestS.Form(
+            new TestS.Form.CheckboxOnOff(
                 {
-                    type: "checkboxOnOff",
                     value: this._hasPaddingHover,
                     label: this._object.getLabel("mouseHoverEffect"),
                     onCheck: onCheck,
@@ -460,9 +451,8 @@
                 this
             );
 
-            new TestS.Form(
+            new TestS.Form.CheckboxOnOff(
                 {
-                    type: "checkboxOnOff",
                     value: this._hasPaddingAnimation,
                     label: this._object.getLabel("mouseHoverAnimation"),
                     css: "has-animation",

@@ -54,6 +54,7 @@
                 ._setPlaceholder()
                 ._setCssClass()
                 ._setOnBlur()
+                ._setOnlyNumbers()
                 ._appendTo();
         },
 
@@ -287,7 +288,11 @@
          *
          * @returns {TestS.Form}
          */
-        allowOnlyNumbers: function () {
+        _setOnlyNumbers: function () {
+            if (this.getOption("onlyNumbers") === null) {
+                return this;
+            }
+
             this.getInstance().on(
                 "keydown",
                 function (e) {

@@ -43,31 +43,28 @@
          * @private
          */
         _onLoadDataSuccess: function(data) {
-            this._name = new TestS.Form(
+            this._name = new TestS.Form.Text(
                 $.extend(
                     {
-                        appendTo: this._panel.getBody(),
-                        type: "text"
+                        appendTo: this._panel.getBody()
                     },
                     data["forms"]["name"]
                 )
             );
 
-            this._type = new TestS.Form(
+            this._type = new TestS.Form.Select(
                 $.extend(
                     {
-                        appendTo: this._panel.getBody(),
-                        type: "select"
+                        appendTo: this._panel.getBody()
                     },
                     data["forms"]["type"]
                 )
             );
 
-            this._hasEditor = new TestS.Form(
+            this._hasEditor = new TestS.Form.CheckboxOnOff(
                 $.extend(
                     {
-                        appendTo: this._panel.getBody(),
-                        type: "checkboxOnOff"
+                        appendTo: this._panel.getBody()
                     },
                     data["forms"]["hasEditor"]
                 )

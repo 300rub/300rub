@@ -148,9 +148,8 @@
             var hover = null;
 
             if (this._marginTopHover !== null) {
-                hover = new TestS.Form(
+                hover = new TestS.Form.Spinner(
                     {
-                        type: "spinner",
                         value: this._marginTopHover,
                         css: "margin-top-hover",
                         iconBefore: "fa-mouse-pointer",
@@ -166,9 +165,8 @@
                 );
             }
 
-            new TestS.Form(
+            new TestS.Form.Spinner(
                 {
-                    type: "spinner",
                     value: this._marginTop,
                     css: "margin-top",
                     appendTo: this._relativeContainer,
@@ -210,9 +208,8 @@
             var hover = null;
 
             if (this._marginRightHover !== null) {
-                hover = new TestS.Form(
+                hover = new TestS.Form.Spinner(
                     {
-                        type: "spinner",
                         value: this._marginRightHover,
                         css: "margin-right-hover",
                         iconBefore: "fa-mouse-pointer",
@@ -228,9 +225,8 @@
                 );
             }
 
-            new TestS.Form(
+            new TestS.Form.Spinner(
                 {
-                    type: "spinner",
                     value: this._marginRight,
                     css: "margin-right",
                     appendTo: this._relativeContainer,
@@ -273,9 +269,8 @@
             var hover = null;
 
             if (this._marginBottomHover !== null) {
-                hover = new TestS.Form(
+                hover = new TestS.Form.Spinner(
                     {
-                        type: "spinner",
                         value: this._marginBottomHover,
                         css: "margin-bottom-hover",
                         iconBefore: "fa-mouse-pointer",
@@ -291,9 +286,8 @@
                 );
             }
 
-            new TestS.Form(
+            new TestS.Form.Spinner(
                 {
-                    type: "spinner",
                     value: this._marginBottom,
                     css: "margin-bottom",
                     appendTo: this._relativeContainer,
@@ -336,9 +330,8 @@
             var hover = null;
 
             if (this._marginLeftHover !== null) {
-                hover = new TestS.Form(
+                hover = new TestS.Form.Spinner(
                     {
-                        type: "spinner",
                         value: this._marginLeftHover,
                         css: "margin-left-hover",
                         iconBefore: "fa-mouse-pointer",
@@ -354,9 +347,8 @@
                 );
             }
 
-            new TestS.Form(
+            new TestS.Form.Spinner(
                 {
-                    type: "spinner",
                     value: this._marginLeft,
                     css: "margin-left",
                     appendTo: this._relativeContainer,
@@ -418,9 +410,8 @@
                 this
             );
 
-            new TestS.Form(
+            new TestS.Form.CheckboxOnOff(
                 {
-                    type: "checkboxOnOff",
                     value: this._hasMarginHover,
                     label: this._object.getLabel("mouseHoverEffect"),
                     onCheck: onCheck,
@@ -460,9 +451,8 @@
                 this
             );
 
-            new TestS.Form(
+            new TestS.Form.CheckboxOnOff(
                 {
-                    type: "checkboxOnOff",
                     value: this._hasMarginAnimation,
                     label: this._object.getLabel("mouseHoverAnimation"),
                     css: "has-animation",

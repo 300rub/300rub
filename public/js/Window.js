@@ -283,11 +283,10 @@
          * @returns {TestS.Window}
          */
         setSubmit: function (options) {
-            var submit = new TestS.Form(
+            var submit = new TestS.Form.Button(
                 $.extend(
                     {
-                        type: "button",
-                        class: "btn btn-big btn-blue submit",
+                        css: "btn btn-big btn-blue submit",
                         appendTo: this.getInstance().find(".footer")
                     },
                     options

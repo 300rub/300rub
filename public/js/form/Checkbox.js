@@ -16,7 +16,7 @@
      *
      * @type {Object}
      */
-    TestS.Form.Text.prototype = {
+    TestS.Form.Checkbox.prototype = {
 
         /**
          * Constructor

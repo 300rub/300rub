@@ -357,11 +357,10 @@
             var $relativeContainer = $container.find(".relative-container");
 
             if (this._values["backgroundColorFrom"] !== null) {
-                new TestS.Form({
-                    type: "color",
+                new TestS.Form.Color({
                     title: this.getLabel("backgroundColor"),
                     value: this._values["backgroundColorFrom"],
-                    class: "background-color-from",
+                    css: "background-color-from",
                     callback: $.proxy(function (color) {
                         this._values["backgroundColorFrom"] = color;
                         this._updateBackground(false);
@@ -371,11 +370,10 @@
             }
 
             if (this._values["backgroundColorTo"] !== null) {
-                new TestS.Form({
-                    type: "color",
+                new TestS.Form.Color({
                     title: this.getLabel("backgroundColor"),
                     value: this._values["backgroundColorTo"],
-                    class: "background-color-to",
+                    css: "background-color-to",
                     callback: $.proxy(function (color) {
                         this._values["backgroundColorTo"] = color;
                         this._updateBackground(false);
@@ -385,11 +383,10 @@
             }
 
             if (this._values["backgroundColorFromHover"] !== null) {
-                new TestS.Form({
-                    type: "color",
+                new TestS.Form.Color({
                     title: this.getLabel("backgroundColor"),
                     value: this._values["backgroundColorFromHover"],
-                    class: "background-color-from-hover",
+                    css: "background-color-from-hover",
                     iconBefore: "fa-mouse-pointer",
                     callback: $.proxy(function (color) {
                         this._values["backgroundColorFromHover"] = color;
@@ -400,11 +397,10 @@
             }
 
             if (this._values["backgroundColorToHover"] !== null) {
-                new TestS.Form({
-                    type: "color",
+                new TestS.Form.Color({
                     title: this.getLabel("backgroundColor"),
                     value: this._values["backgroundColorToHover"],
-                    class: "background-color-to-hover",
+                    css: "background-color-to-hover",
                     iconBefore: "fa-mouse-pointer",
                     callback: $.proxy(function (color) {
                         this._values["backgroundColorToHover"] = color;
@@ -421,8 +417,7 @@
                 $container.addClass("has-hover");
             }
 
-            new TestS.Form({
-                type: "checkboxOnOff",
+            new TestS.Form.CheckboxOnOff({
                 value: this._values["hasBackgroundGradient"],
                 label: this.getLabel("useGradient"),
                 onCheck: $.proxy(function () {
@@ -439,11 +434,10 @@
             });
 
             if (this._values["gradientDirection"] !== null) {
-                new TestS.Form({
-                    type: "radioButtons",
+                new TestS.Form.RadioButtons({
                     value: this._values["gradientDirection"],
                     label: this.getLabel("gradientDirection"),
-                    class: "gradient-direction",
+                    css: "gradient-direction",
                     data: [
                         {
                             value: 0,
@@ -473,8 +467,7 @@
             }
 
             if (this._values["hasBackgroundHover"] !== null) {
-                new TestS.Form({
-                    type: "checkboxOnOff",
+                new TestS.Form.CheckboxOnOff({
                     value: this._values["hasBackgroundHover"],
                     label: this.getLabel("mouseHoverEffect"),
                     onCheck: $.proxy(function () {
@@ -492,11 +485,10 @@
             }
 
             if (this._values["hasBackgroundAnimation"] !== null) {
-                new TestS.Form({
-                    type: "checkboxOnOff",
+                new TestS.Form.CheckboxOnOff({
                     value: this._values["hasBackgroundAnimation"],
                     label: this.getLabel("mouseHoverAnimation"),
-                    class: "has-animation",
+                    css: "has-animation",
                     onCheck: $.proxy(function () {
                         this._values["hasBackgroundAnimation"] = true;
                         this._updateBackground(false);
@@ -510,11 +502,10 @@
             }
 
             if (this._values["gradientDirectionHover"] !== null) {
-                new TestS.Form({
-                    type: "radioButtons",
+                new TestS.Form.RadioButtons({
                     value: this._values["gradientDirectionHover"],
                     label: this.getLabel("gradientDirectionHover"),
-                    class: "gradient-direction-hover",
+                    css: "gradient-direction-hover",
                     data: [
                         {
                             value: 0,
@@ -586,10 +577,9 @@
                 var borderTopLeftRadiusHover = null;
 
                 if (this._values["borderTopLeftRadiusHover"] !== null) {
-                    borderTopLeftRadiusHover = new TestS.Form({
-                        type: "spinner",
+                    borderTopLeftRadiusHover = new TestS.Form.Spinner({
                         value: this._values["borderTopLeftRadiusHover"],
-                        class: "border-top-left-radius-hover",
+                        css: "border-top-left-radius-hover",
                         min: 0,
                         iconBefore: "fa-mouse-pointer",
                         callback: $.proxy(function (value) {
@@ -600,10 +590,9 @@
                     });
                 }
 
-                new TestS.Form({
-                    type: "spinner",
+                new TestS.Form.Spinner({
                     value: this._values["borderTopLeftRadius"],
-                    class: "border-top-left-radius",
+                    css: "border-top-left-radius",
                     min: 0,
                     callback: $.proxy(function (value) {
                         if (this._values["borderTopLeftRadius"] === this._values["borderTopLeftRadiusHover"]
@@ -623,10 +612,9 @@
                 var borderTopRightRadiusHover = null;
 
                 if (this._values["borderTopRightRadiusHover"] !== null) {
-                    borderTopRightRadiusHover = new TestS.Form({
-                        type: "spinner",
+                    borderTopRightRadiusHover = new TestS.Form.Spinner({
                         value: this._values["borderTopRightRadiusHover"],
-                        class: "border-top-right-radius-hover",
+                        css: "border-top-right-radius-hover",
                         iconBefore: "fa-mouse-pointer",
                         min: 0,
                         callback: $.proxy(function (value) {
@@ -637,10 +625,9 @@
                     });
                 }
 
-                new TestS.Form({
-                    type: "spinner",
+                new TestS.Form.Spinner({
                     value: this._values["borderTopRightRadius"],
-                    class: "border-top-right-radius",
+                    css: "border-top-right-radius",
                     min: 0,
                     callback: $.proxy(function (value) {
                         if (this._values["borderTopRightRadius"] === this._values["borderTopRightRadiusHover"]
@@ -660,10 +647,9 @@
                 var borderBottomRightRadiusHover = null;
 
                 if (this._values["borderBottomRightRadiusHover"] !== null) {
-                    borderBottomRightRadiusHover = new TestS.Form({
-                        type: "spinner",
+                    borderBottomRightRadiusHover = new TestS.Form.Spinner({
                         value: this._values["borderBottomRightRadiusHover"],
-                        class: "border-bottom-right-radius-hover",
+                        css: "border-bottom-right-radius-hover",
                         min: 0,
                         iconBefore: "fa-mouse-pointer",
                         callback: $.proxy(function (value) {
@@ -674,10 +660,9 @@
                     });
                 }
 
-                new TestS.Form({
-                    type: "spinner",
+                new TestS.Form.Spinner({
                     value: this._values["borderBottomRightRadius"],
-                    class: "border-bottom-right-radius",
+                    css: "border-bottom-right-radius",
                     min: 0,
                     callback: $.proxy(function (value) {
                         if (this._values["borderBottomRightRadius"] === this._values["borderBottomRightRadiusHover"]
@@ -697,10 +682,9 @@
                 var borderBottomLeftRadiusHover = null;
 
                 if (this._values["borderBottomLeftRadiusHover"] !== null) {
-                    borderBottomLeftRadiusHover = new TestS.Form({
-                        type: "spinner",
+                    borderBottomLeftRadiusHover = new TestS.Form.Spinner({
                         value: this._values["borderBottomLeftRadiusHover"],
-                        class: "border-bottom-left-radius-hover",
+                        css: "border-bottom-left-radius-hover",
                         iconBefore: "fa-mouse-pointer",
                         min: 0,
                         callback: $.proxy(function (value) {
@@ -711,10 +695,9 @@
                     });
                 }
 
-                new TestS.Form({
-                    type: "spinner",
+                new TestS.Form.Spinner({
                     value: this._values["borderBottomLeftRadius"],
-                    class: "border-bottom-left-radius",
+                    css: "border-bottom-left-radius",
                     min: 0,
                     callback: $.proxy(function (value) {
                         if (this._values["borderBottomLeftRadius"] === this._values["borderBottomLeftRadiusHover"]
@@ -734,10 +717,9 @@
                 var borderTopWidthHover = null;
 
                 if (this._values["borderTopWidthHover"] !== null) {
-                    borderTopWidthHover = new TestS.Form({
-                        type: "spinner",
+                    borderTopWidthHover = new TestS.Form.Spinner({
                         value: this._values["borderTopWidthHover"],
-                        class: "border-top-width-hover",
+                        css: "border-top-width-hover",
                         min: 0,
                         iconBefore: "fa-mouse-pointer",
                         callback: $.proxy(function (value) {
@@ -748,10 +730,9 @@
                     });
                 }
 
-                new TestS.Form({
-                    type: "spinner",
+                new TestS.Form.Spinner({
                     value: this._values["borderTopWidth"],
-                    class: "border-top-width",
+                    css: "border-top-width",
                     min: 0,
                     callback: $.proxy(function (value) {
                         if (this._values["borderTopWidth"] === this._values["borderTopWidthHover"]
@@ -771,10 +752,9 @@
                 var borderRightWidthHover = null;
 
                 if (this._values["borderRightWidthHover"] !== null) {
-                    borderRightWidthHover = new TestS.Form({
-                        type: "spinner",
+                    borderRightWidthHover = new TestS.Form.Spinner({
                         value: this._values["borderRightWidthHover"],
-                        class: "border-right-width-hover",
+                        css: "border-right-width-hover",
                         min: 0,
                         iconBefore: "fa-mouse-pointer",
                         callback: $.proxy(function (value) {
@@ -785,10 +765,9 @@
                     });
                 }
 
-                new TestS.Form({
-                    type: "spinner",
+                new TestS.Form.Spinner({
                     value: this._values["borderRightWidth"],
-                    class: "border-right-width",
+                    css: "border-right-width",
                     min: 0,
                     callback: $.proxy(function (value) {
                         if (this._values["borderRightWidth"] === this._values["borderRightWidthHover"]
@@ -808,10 +787,9 @@
                 var borderBottomWidthHover = null;
 
                 if (this._values["borderBottomWidthHover"] !== null) {
-                    borderBottomWidthHover = new TestS.Form({
-                        type: "spinner",
+                    borderBottomWidthHover = new TestS.Form.Spinner({
                         value: this._values["borderBottomWidthHover"],
-                        class: "border-bottom-width-hover",
+                        css: "border-bottom-width-hover",
                         min: 0,
                         iconBefore: "fa-mouse-pointer",
                         callback: $.proxy(function (value) {
@@ -822,10 +800,9 @@
                     });
                 }
 
-                new TestS.Form({
-                    type: "spinner",
+                new TestS.Form.Spinner({
                     value: this._values["borderBottomWidth"],
-                    class: "border-bottom-width",
+                    css: "border-bottom-width",
                     min: 0,
                     callback: $.proxy(function (value) {
                         if (this._values["borderBottomWidth"] === this._values["borderBottomWidthHover"]
@@ -845,10 +822,9 @@
                 var borderLeftWidthHover = null;
 
                 if (this._values["borderLeftWidthHover"] !== null) {
-                    borderLeftWidthHover = new TestS.Form({
-                        type: "spinner",
+                    borderLeftWidthHover = new TestS.Form.Spinner({
                         value: this._values["borderLeftWidthHover"],
-                        class: "border-left-width-hover",
+                        css: "border-left-width-hover",
                         min: 0,
                         iconBefore: "fa-mouse-pointer",
                         callback: $.proxy(function (value) {
@@ -859,10 +835,9 @@
                     });
                 }
 
-                new TestS.Form({
-                    type: "spinner",
+                new TestS.Form.Spinner({
                     value: this._values["borderLeftWidth"],
-                    class: "border-left-width",
+                    css: "border-left-width",
                     min: 0,
                     callback: $.proxy(function (value) {
                         if (this._values["borderLeftWidth"] === this._values["borderLeftWidthHover"]
@@ -879,8 +854,7 @@
             }
 
             if (this._values["borderStyle"] !== null) {
-                new TestS.Form({
-                    type: "radioButtons",
+                new TestS.Form.RadioButtons({
                     label: this.getLabel("borderStyle"),
                     value: this._values["borderStyle"],
                     data: [
@@ -909,8 +883,7 @@
             }
 
             if (this._values["borderColor"] !== null) {
-                new TestS.Form({
-                    type: "color",
+                new TestS.Form.Color({
                     label: this.getLabel("borderColor"),
                     title: this.getLabel("borderColor"),
                     value: this._values["borderColor"],
@@ -927,8 +900,7 @@
             }
 
             if (this._values["hasBorderHover"] !== null) {
-                new TestS.Form({
-                    type: "checkboxOnOff",
+                new TestS.Form.CheckboxOnOff({
                     value: this._values["hasBorderHover"],
                     label: this.getLabel("mouseHoverEffect"),
                     onCheck: $.proxy(function () {
@@ -946,11 +918,10 @@
             }
 
             if (this._values["borderStyleHover"] !== null) {
-                new TestS.Form({
-                    type: "radioButtons",
+                new TestS.Form.RadioButtons({
                     label: this.getLabel("borderStyleHover"),
                     value: this._values["borderStyleHover"],
-                    class: "border-style-hover",
+                    css: "border-style-hover",
                     data: [
                         {
                             value: 0,
@@ -977,12 +948,11 @@
             }
 
             if (this._values["borderColorHover"] !== null) {
-                new TestS.Form({
-                    type: "color",
+                new TestS.Form.Color({
                     label: this.getLabel("borderColorHover"),
                     title: this.getLabel("borderColor"),
                     value: this._values["borderColorHover"],
-                    class: "border-color-hover",
+                    css: "border-color-hover",
                     callback: $.proxy(function (color) {
                         this._values["borderColorHover"] = color;
                         this._updateBorder(false);
@@ -992,11 +962,10 @@
             }
 
             if (this._values["hasBorderAnimation"] !== null) {
-                new TestS.Form({
-                    type: "checkboxOnOff",
+                new TestS.Form.CheckboxOnOff({
                     value: this._values["hasBorderAnimation"],
                     label: this.getLabel("mouseHoverAnimation"),
-                    class: "has-border-animation",
+                    css: "has-border-animation",
                     onCheck: $.proxy(function () {
                         this._values["hasBorderAnimation"] = true;
                         this._updateBorder(false);

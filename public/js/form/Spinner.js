@@ -72,6 +72,15 @@
                     }
                 }
             );
+        },
+
+        /**
+         * Gets value
+         *
+         * @returns {String}
+         */
+        getValue: function () {
+            return TestS.Library.getIntVal(this.getInstance().val());
         }
     };
 

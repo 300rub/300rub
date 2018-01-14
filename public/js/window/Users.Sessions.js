@@ -77,9 +77,8 @@
                 if (data["canDelete"] === true
                     && session.token !== TestS.getToken()
                 ) {
-                    new TestS.Form({
-                        type: "button",
-                        class: "gray-button button-small",
+                    new TestS.Form.Button({
+                        css: "gray-button button-small",
                         icon: "fa-trash",
                         label: data["labels"].delete,
                         appendTo: $buttons,
@@ -121,9 +120,8 @@
             this._window.getBody().append($table);
 
             if (canDeleteAll === true) {
-                new TestS.Form({
-                    type: "button",
-                    class: "gray-button button-medium margin-bottom-15",
+                new TestS.Form.Button({
+                    css: "gray-button button-medium margin-bottom-15",
                     icon: "fa-trash",
                     label: data["labels"]["deleteAllSessions"],
                     appendTo: this._window.getBody(),

@@ -70,9 +70,8 @@
         _setLogout: function() {
             var $logoutConfirmation = this.$_container.find(".logout-confirmation");
 
-            new TestS.Form({
-                type: "button",
-                class: "button",
+            new TestS.Form.Button({
+                css: "button",
                 appendTo: $logoutConfirmation,
                 label: $logoutConfirmation.data("yes"),
                 icon: "fa-sign-out",
@@ -94,9 +93,9 @@
                 }
             });
 
-            new TestS.Form({
+            new TestS.Form.Button({
                 type: "button",
-                class: "gray-button",
+                css: "gray-button",
                 appendTo: $logoutConfirmation,
                 label: $logoutConfirmation.data("no"),
                 icon: "fa-ban",
