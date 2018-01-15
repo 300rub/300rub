@@ -7,7 +7,7 @@
      * @param {Object} options
      */
     TestS.Form.Password = function (options) {
-        this.set("form-container-password", options);
+        TestS.Form.Abstract.call(this, "form-container-password", options);
         this.init();
     };
 
@@ -16,35 +16,27 @@
      *
      * @type {Object}
      */
-    var prototype = {
+    TestS.Form.Password.prototype
+        = Object.create(TestS.Form.Abstract.prototype);
 
-        /**
-         * Constructor
-         */
-        constructor: TestS.Form.Password,
+    /**
+     * Constructor
+     */
+    TestS.Form.Password.prototype.constructor = TestS.Form.Password;
 
-        /**
-         * Init
-         */
-        init: function () {
-            this.getInstance().val("");
-        },
-
-        /**
-         * Gets value
-         *
-         * @returns {String}
-         */
-        getValue: function () {
-            return window.md5(this.getInstance().val() + "(^_^)");
-        }
+    /**
+     * Init
+     */
+    TestS.Form.Password.prototype.init = function () {
+        this.getInstance().val("");
     };
 
     /**
-     * Extends prototype
+     * Gets value
+     *
+     * @returns {String}
      */
-    TestS.Form.Password.prototype = $.extend(
-        Object.create(TestS.Form.prototype),
-        prototype
-    );
+    TestS.Form.Password.prototype.getValue = function () {
+        return window.md5(this.getInstance().val() + "(^_^)");
+    };
 }(window.jQuery, window.TestS);

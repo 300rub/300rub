@@ -7,6 +7,8 @@
      * @type {Object}
      */
     window.TestS = {
+        Form: {},
+
 
         /**
          * Wrapper

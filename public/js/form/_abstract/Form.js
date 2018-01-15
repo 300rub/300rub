@@ -6,7 +6,8 @@
      *
      * @constructor
      */
-    TestS.Form = function () {
+    TestS.Form.Abstract = function (name, options) {
+        this._set(name, options);
     };
 
     /**
@@ -14,7 +15,7 @@
      *
      * @type {Object}
      */
-    TestS.Form.prototype = {
+    TestS.Form.Abstract.prototype = {
 
         /**
          * Form
@@ -42,8 +43,10 @@
          *
          * @param {String} name
          * @param {Object} options
+         *
+         * @private
          */
-        set: function (name, options) {
+        _set: function (name, options) {
             this._form = TestS.Template.get(name);
             this._instance = this._form.find(".form-instance");
             this._options = $.extend({}, options);
@@ -94,7 +97,7 @@
         /**
          * Sets name
          *
-         * @returns {TestS.Form}
+         * @returns {TestS.Form.Abstract}
          *
          * @private
          */
@@ -120,7 +123,7 @@
         /**
          * Sets label
          *
-         * @returns {TestS.Form}
+         * @returns {TestS.Form.Abstract}
          *
          * @private
          */
@@ -137,7 +140,7 @@
         /**
          * Sets placeholder
          *
-         * @returns {TestS.Form}
+         * @returns {TestS.Form.Abstract}
          *
          * @private
          */
@@ -154,7 +157,7 @@
         /**
          * Sets CSS class
          *
-         * @returns {TestS.Form}
+         * @returns {TestS.Form.Abstract}
          *
          * @private
          */
@@ -171,7 +174,7 @@
         /**
          * Sets on blur event (validation)
          *
-         * @returns {TestS.Form}
+         * @returns {TestS.Form.Abstract}
          *
          * @private
          */
@@ -183,7 +186,7 @@
         /**
          * Validates the form
          *
-         * @returns {TestS.Form}
+         * @returns {TestS.Form.Abstract}
          */
         validate: function () {
             this._form.removeClass("error");
@@ -212,7 +215,7 @@
          *
          * @param {*} value
          *
-         * @returns {TestS.Form}
+         * @returns {TestS.Form.Abstract}
          */
         setValue: function (value) {
             this._instance.val(value);
@@ -233,7 +236,7 @@
          *
          * @param {String} error
          *
-         * @returns {TestS.Form}
+         * @returns {TestS.Form.Abstract}
          */
         setError: function (error) {
             this._form.addClass("error");
@@ -245,7 +248,7 @@
         /**
          * Appends to
          *
-         * @returns {TestS.Form}
+         * @returns {TestS.Form.Abstract}
          *
          * @private
          */
@@ -262,7 +265,7 @@
         /**
          * Does focus on instance
          *
-         * @returns {TestS.Form}
+         * @returns {TestS.Form.Abstract}
          */
         focus: function () {
             this._instance.focus();
@@ -272,7 +275,7 @@
         /**
          * Scrolls container to the form
          *
-         * @returns {TestS.Form}
+         * @returns {TestS.Form.Abstract}
          */
         scrollTo: function () {
             var scrollContainer = this._instance.closest(".scroll-container");
@@ -286,7 +289,7 @@
         /**
          * Allows only numbers
          *
-         * @returns {TestS.Form}
+         * @returns {TestS.Form.Abstract}
          */
         _setOnlyNumbers: function () {
             if (this.getOption("onlyNumbers") === null) {

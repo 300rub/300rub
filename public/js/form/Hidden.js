@@ -7,7 +7,7 @@
      * @param {Object} options
      */
     TestS.Form.Hidden = function (options) {
-        this.set("form-container-hidden", options);
+        TestS.Form.Abstract.call(this, "form-container-hidden", options);
         this.init();
     };
 
@@ -16,26 +16,17 @@
      *
      * @type {Object}
      */
-    var prototype = {
-
-        /**
-         * Constructor
-         */
-        constructor: TestS.Form.Hidden,
-
-        /**
-         * Init
-         */
-        init: function () {
-            this.getInstance().val(this.getOption("value"));
-        }
-    };
+    TestS.Form.Hidden.prototype = Object.create(TestS.Form.Abstract.prototype);
 
     /**
-     * Extends prototype
+     * Constructor
      */
-    TestS.Form.Hidden.prototype = $.extend(
-        Object.create(TestS.Form.prototype),
-        prototype
-    );
+    TestS.Form.Hidden.prototype.constructor = TestS.Form.Hidden;
+
+    /**
+     * Init
+     */
+    TestS.Form.Hidden.prototype.init = function () {
+        this.getInstance().val(this.getOption("value"));
+    };
 }(window.jQuery, window.TestS);

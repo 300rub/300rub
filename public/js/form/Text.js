@@ -7,7 +7,7 @@
      * @param {Object} options
      */
     TestS.Form.Text = function (options) {
-        this.set("form-container-text", options);
+        TestS.Form.Abstract.call(this, "form-container-text", options);
         this.init();
     };
 
@@ -16,26 +16,17 @@
      *
      * @type {Object}
      */
-    var prototype = {
-
-        /**
-         * Constructor
-         */
-        constructor: TestS.Form.Text,
-
-        /**
-         * Init
-         */
-        init: function () {
-            this.getInstance().val(this.getOption("value"));
-        }
-    };
+    TestS.Form.Text.prototype = Object.create(TestS.Form.Abstract.prototype);
 
     /**
-     * Extends prototype
+     * Constructor
      */
-    TestS.Form.Text.prototype = $.extend(
-        Object.create(TestS.Form.prototype),
-        prototype
-    );
+    TestS.Form.Text.prototype.constructor = TestS.Form.Text;
+
+    /**
+     * Init
+     */
+    TestS.Form.Text.prototype.init = function () {
+        this.getInstance().val(this.getOption("value"));
+    };
 }(window.jQuery, window.TestS);
