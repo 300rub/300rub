@@ -6,13 +6,13 @@
      *
      * @type {Object}
      */
-    TestS.Template = {
+    TestS.Components.Template = {
         /**
          * Container
          *
          * @var {Object}
          */
-        $_container: null,
+        _container: null,
 
         /**
          * Templates
@@ -28,7 +28,7 @@
          *
          * @returns {Object}
          */
-        get: function(templateCssClass) {
+        get: function (templateCssClass) {
             if (this._templates[templateCssClass] === undefined) {
                 this.set(templateCssClass);
             }
@@ -41,12 +41,13 @@
          *
          * @param {String} templateCssClass
          */
-        set: function(templateCssClass) {
-            if (this.$_container === null) {
-                this.$_container = $("#templates");
+        set: function (templateCssClass) {
+            if (this._container === null) {
+                this._container = $("#templates");
             }
 
-            this._templates[templateCssClass] = this.$_container.find("." + templateCssClass);
+            this._templates[templateCssClass]
+                = this._container.find("." + templateCssClass);
         }
     };
 }(window.jQuery, window.TestS);

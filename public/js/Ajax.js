@@ -194,7 +194,7 @@
      * @returns {Object}
      */
     TestS.Ajax.getErrorTemplate = function(jqXHR) {
-        var $template = TestS.Template.get("ajax-error");
+        var $template = TestS.Components.Template.get("ajax-error");
         var message = "Error";
         var file = "";
         var line = "";

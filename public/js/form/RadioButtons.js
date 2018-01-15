@@ -36,7 +36,7 @@
 
         var name = this.getOption("name");
         if (name === null) {
-            name = "radio" + TestS.Library.getUniqueId();
+            name = "radio" + TestS.Components.Library.getUniqueId();
         }
 
         var labelElement = this.getForm().find(".label-text");
@@ -48,7 +48,7 @@
         }
 
         var radioButtons = this.getForm().find(".radio-buttons");
-        var radioButtonItem = TestS.Template.get("radio-button-item");
+        var radioButtonItem = TestS.Components.Template.get("radio-button-item");
 
         var value = this.getOption("value");
 

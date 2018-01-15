@@ -66,7 +66,7 @@
                             return false;
                     }
 
-                    var typeAccordionElement = new TestS.Accordion.Element(typeData["title"]);
+                    var typeAccordionElement = new TestS.Components.Accordion.Element(typeData["title"]);
                     typeAccordionElement.add(design.getDesignContainer());
 
                     typeAccordionElement.appendTo(groupContainer);
@@ -75,7 +75,7 @@
                 });
 
                 //if (data["list"].length > 1) {
-                    var groupAccordionElement = new TestS.Accordion.Element(groupData["title"]);
+                    var groupAccordionElement = new TestS.Components.Accordion.Element(groupData["title"]);
                     groupAccordionElement.add(groupContainer);
                     groupAccordionElement.appendTo(this._panel.getBody());
                 //} else {
@@ -83,7 +83,7 @@
                 //}
             }, this));
 
-            TestS.Accordion(this._panel.getBody());
+            TestS.Components.Accordion.Container(this._panel.getBody());
 
             this._panel
                 .setTitle(data.title)

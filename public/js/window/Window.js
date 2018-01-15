@@ -27,9 +27,9 @@
          * Init
          */
         init: function () {
-            this.$_instance = TestS.Template.get("window");
+            this.$_instance = TestS.Components.Template.get("window");
             this.$_body = this.$_instance.find(".body");
-            this.$_overlay = TestS.Template.get("window-overlay");
+            this.$_overlay = TestS.Components.Template.get("window-overlay");
             this
                 ._setNameAndAddToCollection()
                 ._setCloseEvents()

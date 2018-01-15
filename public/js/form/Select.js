@@ -64,7 +64,7 @@
                 "change",
                 function () {
                     onChange(
-                        TestS.Library.getIntVal($(this).val())
+                        TestS.Components.Library.getIntVal($(this).val())
                     );
                 }
             );

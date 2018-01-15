@@ -8,6 +8,9 @@
      */
     window.TestS = {
         Form: {},
+        Components: {
+            Accordion: {}
+        },
 
 
         /**

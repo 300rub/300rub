@@ -122,7 +122,7 @@
                 .find(".category-title")
                 .text(this._object.getLabel("margin"));
 
-            this._uniqueId = TestS.Library.getUniqueId();
+            this._uniqueId = TestS.Components.Library.getUniqueId();
             this._example = this._container
                 .find(".margin-example")
                 .addClass("margin-example-" + this._uniqueId);
@@ -481,16 +481,16 @@
 
                 return this._getCss(
                     skipAnimation,
-                    TestS.Library.getIntVal(
+                    TestS.Components.Library.getIntVal(
                         this._marginTopHover
                     ),
-                    TestS.Library.getIntVal(
+                    TestS.Components.Library.getIntVal(
                         this._marginRightHover
                     ),
-                    TestS.Library.getIntVal(
+                    TestS.Components.Library.getIntVal(
                         this._marginBottomHover
                     ),
-                    TestS.Library.getIntVal(
+                    TestS.Components.Library.getIntVal(
                         this._marginLeftHover
                     )
                 );
@@ -498,16 +498,16 @@
 
             return this._getCss(
                 skipAnimation,
-                TestS.Library.getIntVal(
+                TestS.Components.Library.getIntVal(
                     this._marginTop
                 ),
-                TestS.Library.getIntVal(
+                TestS.Components.Library.getIntVal(
                     this._marginRight
                 ),
-                TestS.Library.getIntVal(
+                TestS.Components.Library.getIntVal(
                     this._marginBottom
                 ),
-                TestS.Library.getIntVal(
+                TestS.Components.Library.getIntVal(
                     this._marginLeft
                 )
             );

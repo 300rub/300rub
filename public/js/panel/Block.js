@@ -42,7 +42,7 @@
                 .setDescription(data.description);
 
             $.each(data.list, $.proxy(function(i, itemData) {
-                var $item = TestS.Template.get("panel-list-item");
+                var $item = TestS.Components.Template.get("panel-list-item");
 
                 $item.addClass("without-buttons");
                 $item.find(".settings").remove();

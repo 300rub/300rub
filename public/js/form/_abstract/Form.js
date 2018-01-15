@@ -47,7 +47,7 @@
          * @private
          */
         _set: function (name, options) {
-            this._form = TestS.Template.get(name);
+            this._form = TestS.Components.Template.get(name);
             this._instance = this._form.find(".form-instance");
             this._options = $.extend({}, options);
 
@@ -198,7 +198,7 @@
                 return this;
             }
 
-            var validator = new TestS.Validator(this.getValue(), validation);
+            var validator = new TestS.Components.Validator(this.getValue(), validation);
             var errors = validator.getErrors();
             if (errors.length > 0) {
                 this.setError(errors[0]);

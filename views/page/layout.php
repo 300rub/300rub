@@ -103,7 +103,7 @@ if ($isUser === true) {
         window.TestS.setLanguage(<?php echo $language; ?>);
         window.TestS.setToken("<?php echo $token; ?>");
         <?php foreach ($errorMessages as $key => $value) { ?>
-            TestS.Validator.Errors.set(
+            TestS.Components.Errors.set(
                 "<?php echo $key; ?>", "<?php echo $value; ?>"
             );
         <?php } ?>

@@ -54,7 +54,7 @@
          * @private
          */
         _onLoadDataSuccess: function (data) {
-            this.$_container = TestS.Template.get("users-form-container");
+            this.$_container = TestS.Components.Template.get("users-form-container");
 
             this._window.getBody().append(this.$_container);
 
@@ -249,11 +249,11 @@
             this.$_operationsContainer.find(".group-title").text(data.labels.operations);
 
             $.each(data.operations.list, function (groupKey, groupObject) {
-                var categoryAccordionElement = new TestS.Accordion.Element(groupObject.title);
+                var categoryAccordionElement = new TestS.Components.Accordion.Element(groupObject.title);
 
                 switch (groupKey) {
                     case "SECTIONS":
-                        var sectionsAllAccordionElement = new TestS.Accordion.Element(groupObject.data.ALL.title);
+                        var sectionsAllAccordionElement = new TestS.Components.Accordion.Element(groupObject.data.ALL.title);
 
                         $.each(groupObject.data.ALL.data, function (allKey, allObject) {
                             var form = new TestS.Form.Checkbox(
@@ -274,7 +274,7 @@
                                 return true;
                             }
 
-                            var sectionAccordionElement = new TestS.Accordion.Element(groupObjectDataObject.title);
+                            var sectionAccordionElement = new TestS.Components.Accordion.Element(groupObjectDataObject.title);
 
                             $.each(
                                 groupObjectDataObject.data,
@@ -298,9 +298,9 @@
                     case "BLOCKS":
                         $.each(groupObject.data, function (groupObjectDataKey, groupObjectDataObject) {
                             var blockTypeAccordionElement
-                                = new TestS.Accordion.Element(groupObjectDataObject.title);
+                                = new TestS.Components.Accordion.Element(groupObjectDataObject.title);
                             var blockAllAccordionElement
-                                = new TestS.Accordion.Element(groupObjectDataObject.data.ALL.title);
+                                = new TestS.Components.Accordion.Element(groupObjectDataObject.data.ALL.title);
 
                             $.each(groupObjectDataObject.data.ALL.data, function (allKey, allObject) {
                                 var form = new TestS.Form.Checkbox(
@@ -323,7 +323,7 @@
                                     }
 
                                     var blockAccordionElement
-                                        = new TestS.Accordion.Element(groupObjectDataObjectDataObject.title);
+                                        = new TestS.Components.Accordion.Element(groupObjectDataObjectDataObject.title);
 
                                     $.each(groupObjectDataObjectDataObject.data, function (key, object) {
                                         var form = new TestS.Form.Checkbox(
@@ -365,7 +365,7 @@
                 categoryAccordionElement.appendTo(t.$_operationsContainer)
             });
 
-            TestS.Accordion(this.$_operationsContainer);
+            TestS.Components.Accordion.Container(this.$_operationsContainer);
         }
     };
 }(window.jQuery, window.TestS);

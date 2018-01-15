@@ -108,9 +108,9 @@
      */
     TestS.Form.Button.prototype._setConfirmWindow = function () {
         var confirm = this.getOption("confirm");
-        var confirmWindow = TestS.Template.get("confirm-window");
+        var confirmWindow = TestS.Components.Template.get("confirm-window");
         var buttons = confirmWindow.find(".buttons");
-        var confirmOverlay = TestS.Template.get("confirm-overlay");
+        var confirmOverlay = TestS.Components.Template.get("confirm-overlay");
         var text = confirmWindow.find(".text");
         text.text(confirm.text);
 

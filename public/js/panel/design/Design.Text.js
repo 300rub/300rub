@@ -376,7 +376,7 @@
          * @private
          */
         _setDesignContainer: function() {
-            this.$_designContainer = TestS.Template.get("design-text-container");
+            this.$_designContainer = TestS.Components.Template.get("design-text-container");
             return this;
         },
 
@@ -412,7 +412,7 @@
          * @private
          */
         _setExample: function() {
-            var uniqueId = TestS.Library.getUniqueId();
+            var uniqueId = TestS.Components.Library.getUniqueId();
 
             this.$_example = this.$_designContainer.find(".example")
                 .addClass("example-" + uniqueId)

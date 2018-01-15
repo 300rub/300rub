@@ -48,7 +48,7 @@
         _onLoadDataSuccess: function(data) {
             this._window.getInstance().find(".footer").remove();
 
-            var $table = TestS.Template.get("window-users-sessions-table");
+            var $table = TestS.Components.Template.get("window-users-sessions-table");
             $table.find(".browser-label").text(data["labels"]["browser"]);
             $table.find(".current-label").text(data["labels"]["current"]);
             $table.find(".online-label").text(data["labels"]["online"]);

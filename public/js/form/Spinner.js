@@ -28,7 +28,7 @@
      */
     TestS.Form.Spinner.prototype.init = function () {
         this.getInstance().val(
-            TestS.Library.getIntVal(this.getOption("value"))
+            TestS.Components.Library.getIntVal(this.getOption("value"))
         );
 
         var callback = this.getOption("callback");
@@ -37,7 +37,7 @@
                 "keyup",
                 function () {
                     callback(
-                        TestS.Library.getIntVal($(this).val())
+                        TestS.Components.Library.getIntVal($(this).val())
                     );
                 }
             );
@@ -62,7 +62,7 @@
                 spin: function (event, ui) {
                     if ($.type(callback) === "function") {
                         callback(
-                            TestS.Library.getIntVal(ui.value)
+                            TestS.Components.Library.getIntVal(ui.value)
                         );
                     }
                 },
@@ -80,6 +80,6 @@
      * @returns {String}
      */
     TestS.Form.Spinner.prototype.getValue = function () {
-        return TestS.Library.getIntVal(this.getInstance().val());
+        return TestS.Components.Library.getIntVal(this.getInstance().val());
     };
 }(window.jQuery, window.TestS);

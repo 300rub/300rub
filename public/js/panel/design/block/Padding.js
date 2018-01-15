@@ -122,7 +122,7 @@
                 .find(".category-title")
                 .text(this._object.getLabel("padding"));
 
-            this._uniqueId = TestS.Library.getUniqueId();
+            this._uniqueId = TestS.Components.Library.getUniqueId();
             this._example = this._container
                 .find(".padding-example")
                 .addClass("padding-example-" + this._uniqueId);
@@ -481,16 +481,16 @@
 
                 return this._getCss(
                     skipAnimation,
-                    TestS.Library.getIntVal(
+                    TestS.Components.Library.getIntVal(
                         this._paddingTopHover
                     ),
-                    TestS.Library.getIntVal(
+                    TestS.Components.Library.getIntVal(
                         this._paddingRightHover
                     ),
-                    TestS.Library.getIntVal(
+                    TestS.Components.Library.getIntVal(
                         this._paddingBottomHover
                     ),
-                    TestS.Library.getIntVal(
+                    TestS.Components.Library.getIntVal(
                         this._paddingLeftHover
                     )
                 );
@@ -498,16 +498,16 @@
 
             return this._getCss(
                 skipAnimation,
-                TestS.Library.getIntVal(
+                TestS.Components.Library.getIntVal(
                     this._paddingTop
                 ),
-                TestS.Library.getIntVal(
+                TestS.Components.Library.getIntVal(
                     this._paddingRight
                 ),
-                TestS.Library.getIntVal(
+                TestS.Components.Library.getIntVal(
                     this._paddingBottom
                 ),
-                TestS.Library.getIntVal(
+                TestS.Components.Library.getIntVal(
                     this._paddingLeft
                 )
             );

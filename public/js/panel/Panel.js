@@ -27,7 +27,7 @@
          * Init
          */
         init: function () {
-            this.$_instance = TestS.Template.get("panel");
+            this.$_instance = TestS.Components.Template.get("panel");
             this.$_body = this.$_instance.find(".body");
             this.$_userButtons = $("#user-buttons");
 

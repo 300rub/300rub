@@ -40,7 +40,7 @@
         _onLoadDataSuccess: function(data) {
             this._window.getInstance().find(".footer").remove();
 
-            var $table = TestS.Template.get("window-users-table");
+            var $table = TestS.Components.Template.get("window-users-table");
             $table.find(".name-label").text(data.labels.name);
             $table.find(".email-label").text(data.labels.email);
             $table.find(".access-label").text(data.labels.access);
