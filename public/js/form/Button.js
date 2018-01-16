@@ -98,7 +98,7 @@
             );
         }
 
-        new TestS.Ajax(ajax);
+        new TestS.Components.Ajax(ajax);
     };
 
     /**
@@ -145,8 +145,8 @@
             }
         );
 
-        TestS.append(confirmOverlay);
-        TestS.append(confirmWindow);
+        TestS.System.App.append(confirmOverlay);
+        TestS.System.App.append(confirmWindow);
 
         confirmOverlay.on(
             "click",
@@ -238,7 +238,7 @@
             this
         );
 
-        new TestS.Ajax(ajax);
+        new TestS.Components.Ajax(ajax);
         return true;
     };
 

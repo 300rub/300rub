@@ -169,7 +169,7 @@
                     parent.getInstance().removeClass("transparent");
                 }
             } else {
-                TestS.getWrapper().find(".panel").removeClass("transparent");
+                TestS.System.App.getWrapper().find(".panel").removeClass("transparent");
             }
 
             setTimeout(
@@ -199,8 +199,8 @@
                 this.getOverlay().addClass("level-" + this._options.level);
             }
 
-            TestS.append(this.getInstance());
-            TestS.append(this.getOverlay());
+            TestS.System.App.append(this.getInstance());
+            TestS.System.App.append(this.getOverlay());
 
             setTimeout(
                 $.proxy(
@@ -211,7 +211,7 @@
                 ), 50
             );
 
-            TestS.getWrapper().find(".panel").addClass("transparent");
+            TestS.System.App.getWrapper().find(".panel").addClass("transparent");
 
             return this;
         },
@@ -231,7 +231,7 @@
                 ajaxData.data = this._options.data;
             }
 
-            new TestS.Ajax(
+            new TestS.Components.Ajax(
                 {
                     data: ajaxData,
                     success: this._options.success,
@@ -246,7 +246,7 @@
          * @param {Object} jqXHR
          */
         onError: function (jqXHR) {
-            var $errorTemplate = TestS.Ajax.getErrorTemplate(jqXHR);
+            var $errorTemplate = TestS.Components.Error.getAjaxErrorTemplate(jqXHR);
             this.getInstance()
                 .removeClass("loading")
                 .addClass("error");

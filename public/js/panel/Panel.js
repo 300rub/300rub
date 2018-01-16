@@ -159,8 +159,8 @@
          * @private
          */
         _addDomElement: function() {
-            TestS.remove("panel");
-            TestS.append(this.getInstance());
+            TestS.System.App.remove("panel");
+            TestS.System.App.append(this.getInstance());
 
             setTimeout($.proxy(function() {
                 this.getInstance().removeClass("transparent");
@@ -191,7 +191,7 @@
                 };
             }
 
-            new TestS.Ajax({
+            new TestS.Components.Ajax({
                 data: data,
                 success: this._options.success,
                 error: $.proxy(this.onError, this)
@@ -204,7 +204,7 @@
          * @param {Object} jqXHR
          */
         onError: function (jqXHR) {
-            var $errorTemplate = TestS.Ajax.getErrorTemplate(jqXHR);
+            var $errorTemplate = TestS.Components.Error.getAjaxErrorTemplate(jqXHR);
             this.getInstance()
                 .removeClass("loading")
                 .addClass("error");

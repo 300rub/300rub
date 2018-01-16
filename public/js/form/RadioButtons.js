@@ -48,7 +48,8 @@
         }
 
         var radioButtons = this.getForm().find(".radio-buttons");
-        var radioButtonItem = TestS.Components.Template.get("radio-button-item");
+        var radioButtonItem
+            = TestS.Components.Template.get("radio-button-item");
 
         var value = this.getOption("value");
 

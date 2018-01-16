@@ -75,7 +75,7 @@
                 $buttons.addClass("align-right");
 
                 if (data["canDelete"] === true
-                    && session.token !== TestS.getToken()
+                    && session.token !== TestS.System.App.getToken()
                 ) {
                     new TestS.Form.Button({
                         css: "gray-button button-small",
@@ -101,7 +101,7 @@
                             type: "DELETE",
                             error: $.proxy(this._window.onError, this._window),
                             success: function() {
-                                if (session.token === TestS.getToken()) {
+                                if (session.token === TestS.System.App.getToken()) {
                                     window.location.reload();
                                 } else {
                                     $tr.remove();
