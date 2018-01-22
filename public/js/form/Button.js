@@ -24,7 +24,7 @@
     TestS.Form.Button.prototype.constructor = TestS.Form.Button;
 
     /**
-     * Constructor
+     * Init
      */
     TestS.Form.Button.prototype.init = function () {
         var icon = this.getOption("icon");

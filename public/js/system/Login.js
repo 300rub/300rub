@@ -23,7 +23,7 @@
             $("#login-button").on(
                 "click",
                 function () {
-                    new TestS.Window.Login();
+                    new TestS.Window.Users.Login();
                 }
             );
         }

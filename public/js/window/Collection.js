@@ -35,7 +35,7 @@
          *
          * @returns {TestS}
          */
-        delete: function (name) {
+        remove: function (name) {
             if (this._instances[name] !== undefined) {
                 delete(this._instances[name]);
             }
