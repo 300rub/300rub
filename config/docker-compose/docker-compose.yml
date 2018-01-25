@@ -1,5 +1,5 @@
 nginx:
-    image: nginx:1.11.4
+    image: nginx:1.13.8
     ports:
         - "80:80"
     links:
