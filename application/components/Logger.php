@@ -57,7 +57,7 @@ class Logger
         flock($file, LOCK_UN);
         fclose($file);
 
-        chmod($filePath, 0777);
+        //chmod($filePath, 0777);
     }
 
     /**
