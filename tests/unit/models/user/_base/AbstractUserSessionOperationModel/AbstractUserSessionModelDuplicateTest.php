@@ -2,7 +2,6 @@
 
 namespace testS\tests\unit\models\user\_base\AbstractUserSessionModel;
 
-use testS\application\components\Operation;
 use testS\models\user\UserSessionModel;
 use testS\tests\unit\models\_abstract\_base\AbstractDuplicateModelTest;
 
