@@ -11,6 +11,9 @@
         Components: {
             Accordion: {}
         },
-        System: {}
+        System: {},
+        Window: {
+            Users: {}
+        }
     };
 }(window, window.jQuery);

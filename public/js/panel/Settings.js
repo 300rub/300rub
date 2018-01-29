@@ -53,7 +53,7 @@
                     case "users":
                         $item.find(".icon").addClass("fa-user");
                         $item.find(".label").on("click", function() {
-                            new TestS.Window.Users();
+                            new TestS.Window.Users.List();
                         });
                         break;
                     case "icon":

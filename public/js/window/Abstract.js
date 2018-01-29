@@ -100,15 +100,6 @@
         },
 
         /**
-         * Gets overlay
-         *
-         * @returns {Object}
-         */
-        getOverlay: function () {
-            return this._overlay;
-        },
-
-        /**
          * Sets title
          *
          * @param {String} title
@@ -349,6 +340,15 @@
                 .removeClass("loading")
                 .addClass("error");
             this.getBody().html(errorTemplate);
+        },
+
+        /**
+         * On load error
+         *
+         * @param {Object} jqXHR
+         */
+        onError: function (jqXHR) {
+            console.log(jqXHR);
         },
 
         /**

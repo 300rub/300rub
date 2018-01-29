@@ -97,7 +97,7 @@ class GetUsersController extends AbstractController
                     => $language->getMessage('user', 'sessions'),
                 'edit'
                     => $language->getMessage('common', 'edit'),
-                'delete'
+                'deleteLabel'
                     => $language->getMessage('common', 'delete'),
                 'add'
                     => $language->getMessage('common', 'add'),

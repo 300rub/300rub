@@ -76,7 +76,7 @@ class GetSessionsController extends AbstractController
                     => $language->getMessage('user', 'online'),
                 'current'
                     => $language->getMessage('user', 'current'),
-                'delete'
+                'deleteLabel'
                     => $language->getMessage('common', 'delete'),
                 'deleteAllSessions'
                     => $language->getMessage('user', 'deleteAllSessions'),

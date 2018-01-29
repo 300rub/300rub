@@ -23,7 +23,7 @@
     };
 
     /**
-     * Button form prototype
+     * Prototype
      *
      * @type {Object}
      */
