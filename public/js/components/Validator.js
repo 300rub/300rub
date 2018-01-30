@@ -23,6 +23,12 @@
      * @type {Object}
      */
     TestS.Components.Validator.prototype = {
+
+        /**
+         * Constructor
+         */
+        constructor: TestS.Components.Validator,
+
         /**
          * Init
          */

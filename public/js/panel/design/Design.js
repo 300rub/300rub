@@ -89,7 +89,7 @@
                 .setTitle(data.title)
                 .setDescription(data.description)
                 .setBack(function(){
-                    new TestS.Panel.Block.Text();
+                    new TestS.Panel.Blocks.Text.List();
 
                     $.each(designs, function(i, design) {
                         design.rollback();

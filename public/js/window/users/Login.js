@@ -46,7 +46,7 @@
         this._userForm = new TestS.Form.Text(
             $.extend(
                 {
-                    appendTo: this._window.getBody()
+                    appendTo: this.getBody()
                 },
                 data.forms.user
             )
@@ -55,7 +55,7 @@
         this._passwordForm = new TestS.Form.Password(
             $.extend(
                 {
-                    appendTo: this._window.getBody()
+                    appendTo: this.getBody()
                 },
                 data.forms.password
             )
@@ -64,13 +64,13 @@
         this._isRememberForm = new TestS.Form.Checkbox(
             $.extend(
                 {
-                    appendTo: this._window.getBody()
+                    appendTo: this.getBody()
                 },
                 data.forms.isRemember
             )
         );
 
-        this._window
+        this
             .setTitle(data.title)
             .setSubmit(
                 {
@@ -88,7 +88,7 @@
                         },
                         type: "POST",
                         success: $.proxy(this._onSendSuccess, this),
-                        error: $.proxy(this._window.onError, this._window)
+                        error: TestS.System.App.showError
                     }
                 }
             );

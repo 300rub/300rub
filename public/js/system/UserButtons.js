@@ -47,7 +47,7 @@
             $("#user-button-block").on(
                 "click",
                 function () {
-                    new TestS.Panel.Block();
+                    new TestS.Panel.Blocks.List();
                 }
             );
 
@@ -65,7 +65,7 @@
             $("#user-button-settings").on(
                 "click",
                 function () {
-                    new TestS.Panel.Settings();
+                    new TestS.Panel.Settings.List();
                 }
             );
 

@@ -14,6 +14,12 @@
         System: {},
         Window: {
             Users: {}
+        },
+        Panel: {
+            Blocks: {
+                Text: {}
+            },
+            Settings: {}
         }
     };
 }(window, window.jQuery);

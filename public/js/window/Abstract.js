@@ -46,6 +46,13 @@
         _overlay: null,
 
         /**
+         * Options
+         *
+         * @var {Object}
+         */
+        _options: {},
+
+        /**
          * Init
          *
          * @param {Object} options
@@ -340,15 +347,6 @@
                 .removeClass("loading")
                 .addClass("error");
             this.getBody().html(errorTemplate);
-        },
-
-        /**
-         * On load error
-         *
-         * @param {Object} jqXHR
-         */
-        onError: function (jqXHR) {
-            console.log(jqXHR);
         },
 
         /**

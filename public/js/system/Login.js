@@ -16,6 +16,12 @@
      * @type {Object}
      */
     TestS.System.Login.prototype = {
+
+        /**
+         * Constructor
+         */
+        constructor: TestS.System.Login,
+
         /**
          * Init
          */
