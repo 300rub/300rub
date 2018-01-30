@@ -19,7 +19,8 @@
             Blocks: {
                 Text: {}
             },
-            Settings: {}
+            Settings: {},
+            Design: {}
         }
     };
 }(window, window.jQuery);

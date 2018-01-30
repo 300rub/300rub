@@ -64,7 +64,7 @@
                         $designIcon.on(
                             "click",
                             function () {
-                                new TestS.Panel.Design(
+                                new TestS.Panel.Design.Editor(
                                     {
                                         group: "text",
                                         controller: "design",
