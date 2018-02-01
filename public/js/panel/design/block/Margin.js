@@ -27,7 +27,7 @@
             {
                 designContainer: options.designContainer,
                 groupContainerName: "margin-container",
-                title: options.designContainer,
+                title: options.labels.title,
                 updateExampleEvent: "update-margin-example",
                 labels: options.labels,
                 values: {

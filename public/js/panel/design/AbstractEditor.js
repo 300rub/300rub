@@ -53,6 +53,20 @@
         _rollbackStyles: "",
 
         /**
+         * Labels
+         *
+         * @var {Object}
+         */
+        _labels: {},
+
+        /**
+         * Values
+         *
+         * @var {Object}
+         */
+        _values: {},
+
+        /**
          * Init
          *
          * @param {Object} options
@@ -64,6 +78,8 @@
                 ._setSelector(options.selector)
                 ._setStyleContainer(options.cssId)
                 ._setDesignContainer(options.name)
+                ._setLabels(options.labels)
+                ._setValues(options.values)
                 ._setRollback()
         },
 
@@ -156,6 +172,52 @@
          */
         rollback: function() {
             this._styleContainer.html(this._rollbackStyles);
+        },
+
+        /**
+         * Sets labels
+         *
+         * @param {Object} labels
+         *
+         * @returns {TestS.Panel.Design.AbstractEditor}
+         *
+         * @private
+         */
+        _setLabels: function(labels) {
+            this._labels = $.extend({}, labels);
+            return this;
+        },
+
+        /**
+         * Gets labels
+         *
+         * @returns {Object}
+         */
+        getLabels: function() {
+            return this._labels;
+        },
+
+        /**
+         * Sets labels
+         *
+         * @param {Object} values
+         *
+         * @returns {TestS.Panel.Design.AbstractEditor}
+         *
+         * @private
+         */
+        _setValues: function(values) {
+            this._values = $.extend({}, values);
+            return this;
+        },
+
+        /**
+         * Gets values
+         *
+         * @returns {Object}
+         */
+        getValues: function() {
+            return this._values;
         }
     };
 }(window.jQuery, window.TestS);
