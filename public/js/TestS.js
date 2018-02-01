@@ -20,7 +20,10 @@
                 Text: {}
             },
             Settings: {},
-            Design: {}
+            Design: {
+                Block: {},
+                Text: {}
+            }
         }
     };
 }(window, window.jQuery);

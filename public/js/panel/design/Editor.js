@@ -20,6 +20,7 @@
         );
 
         this._success = options.success;
+        this._designs = [];
     };
 
     /**
@@ -46,61 +47,10 @@
     TestS.Panel.Design.Editor.prototype._onLoadDataSuccess = function (
         data
     ) {
-        var designs = [];
-        var id = data.id;
-        var group = data.group;
-        var controller = data.controller;
-        var buttonLabel = data.button.label;
-
         $.each(
             data.list,
             $.proxy(
-                function (groupKey, groupData) {
-                    var groupContainer = $("<div/>");
-                    $.each(
-                        groupData.data,
-                        function (typeKey, typeData) {
-                            var design;
-                            switch (typeData.type) {
-                                case "block":
-                                    design = new TestS.Panel.Design.Block(
-                                        typeData
-                                    );
-                                    break;
-                                case "text":
-                                    design = new TestS.Panel.Design.Text(
-                                        typeData
-                                    );
-                                    break;
-                                default:
-                                    return false;
-                            }
-
-                            var typeAccordionElement
-                                = new TestS.Components.Accordion.Element(
-                                    typeData.title
-                                );
-                            typeAccordionElement.add(
-                                design.getDesignContainer()
-                            );
-
-                            typeAccordionElement.appendTo(groupContainer);
-
-                            designs.push(design);
-                        }
-                    );
-
-                    if (data.list.length > 1) {
-                        var groupAccordionElement
-                            = new TestS.Components.Accordion.Element(
-                                groupData.title
-                            );
-                        groupAccordionElement.add(groupContainer);
-                        groupAccordionElement.appendTo(this.getBody());
-                    } else {
-                        groupContainer.appendTo(this.getBody());
-                    }
-                },
+                this._displayGroup,
                 this
             )
         );
@@ -115,7 +65,7 @@
                     new TestS.Panel.Blocks.Text.List();
 
                     $.each(
-                        designs,
+                        this._designs,
                         function (i, design) {
                             design.rollback();
                         }
@@ -125,7 +75,7 @@
             .setCloseEvents(
                 function () {
                     $.each(
-                        designs,
+                        this._designs,
                         function (i, design) {
                             design.rollback();
                         }
@@ -134,19 +84,19 @@
             )
             .setSubmit(
                 {
-                    label: buttonLabel,
+                    label: data.button.label,
                     icon: "fa-check",
                     ajax: {
                         data: {
-                            group: group,
-                            controller: controller,
+                            group: data.group,
+                            controller: data.controller,
                             data: function () {
                                 var data = {
-                                    id: id
+                                    id: data.id
                                 };
 
                                 $.each(
-                                    designs,
+                                    this._designs,
                                     function (i, design) {
                                         data = $.extend(data, design.getData());
                                     }
@@ -161,5 +111,66 @@
                     }
                 }
             );
+    };
+
+    /**
+     * Displays group
+     *
+     * @param {String} groupKey
+     * @param {Object} groupData
+     *
+     * @private
+     */
+    TestS.Panel.Design.Editor.prototype._displayGroup = function (
+        groupKey,
+        groupData
+    ) {
+        var groupContainer = $("<div/>");
+        $.each(
+            groupData.data,
+            $.proxy(
+                function (typeKey, typeData) {
+                    var design;
+                    switch (typeData.type) {
+                        case "block":
+                            design = new TestS.Panel.Design.Block(
+                                typeData
+                            );
+                            break;
+                        case "text":
+                            design = new TestS.Panel.Design.Text(
+                                typeData
+                            );
+                            break;
+                        default:
+                            return false;
+                    }
+
+                    var typeAccordionElement
+                        = new TestS.Components.Accordion.Element(
+                            typeData.title
+                        );
+                    typeAccordionElement.add(
+                        design.getDesignContainer()
+                    );
+
+                    typeAccordionElement.appendTo(groupContainer);
+
+                    this._designs.push(design);
+                },
+                this
+            )
+        );
+
+        if (this._designs.length > 1) {
+            var groupAccordionElement
+                = new TestS.Components.Accordion.Element(
+                    groupData.title
+                );
+            groupAccordionElement.add(groupContainer);
+            groupAccordionElement.appendTo(this.getBody());
+        } else {
+            groupContainer.appendTo(this.getBody());
+        }
     };
 }(window.jQuery, window.TestS);

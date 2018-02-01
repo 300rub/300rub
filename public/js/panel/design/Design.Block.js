@@ -9,7 +9,7 @@
      * @property {TestS.Panel.Design.Block.Margin} _margin
      * @property {TestS.Panel.Design.Block.Padding} _padding
      *
-     * @type {Object}
+     * @type {TestS.Panel.Design.Block}
      */
     TestS.Panel.Design.Block = function (data) {
         this._data = $.extend({}, data);
@@ -102,9 +102,6 @@
          */
         init: function () {
             this
-                ._setSelector()
-                ._setStyleContainer()
-                ._setRollback()
                 ._setLabels()
                 ._setValues()
                 ._setNames()
@@ -187,56 +184,6 @@
         },
 
         /**
-         * Sets selector
-         *
-         * @returns {TestS.Panel.Design.Block}
-         *
-         * @private
-         */
-        _setSelector: function() {
-            if (this._data["selector"] !== undefined) {
-                this._selector = this._data["selector"];
-            }
-
-            return this;
-        },
-
-        /**
-         * Sets style container
-         *
-         * @returns {TestS.Panel.Design.Block}
-         *
-         * @private
-         */
-        _setStyleContainer: function() {
-            if (this._data["id"] !== undefined) {
-                this.$_styleContainer = $("#" + this._data["id"]);
-            }
-
-            return this;
-        },
-
-        /**
-         * Sets rollback styles
-         *
-         * @returns {TestS.Panel.Design.Block}
-         *
-         * @private
-         */
-        _setRollback: function() {
-            this._rollbackStyles = this.$_styleContainer.html();
-
-            return this;
-        },
-
-        /**
-         * Rollbacks
-         */
-        rollback: function() {
-            this.$_styleContainer.html(this._rollbackStyles);
-        },
-
-        /**
          * Sets labels
          *
          * @returns {TestS.Panel.Design.Block}
@@ -266,26 +213,7 @@
             return "";
         },
 
-        /**
-         * Sets design container
-         *
-         * @returns {TestS.Panel.Design.Block}
-         *
-         * @private
-         */
-        _setDesignContainer: function() {
-            this.$_designContainer = TestS.Components.Template.get("design-block-container");
-            return this;
-        },
 
-        /**
-         * Gets design container
-         *
-         * @returns {Object}
-         */
-        getDesignContainer: function() {
-            return this.$_designContainer;
-        },
 
         getValues: function () {
             return this._data["values"];
