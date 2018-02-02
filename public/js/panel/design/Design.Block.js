@@ -102,11 +102,7 @@
          */
         init: function () {
             this
-                ._setLabels()
                 ._setValues()
-                ._setNames()
-                ._setDesignContainer()
-                ._setEditors()
                 ._setBackground()
                 ._setBorder();
         },
@@ -155,30 +151,6 @@
                 },
                 this._data["values"]
             );
-
-            return this;
-        },
-
-        /**
-         * Sets names
-         *
-         * @returns {TestS.Panel.Design.Block}
-         *
-         * @private
-         */
-        _setNames: function() {
-            var namespace = "";
-            if (this._data["namespace"] !== undefined) {
-                namespace = this._data["namespace"];
-            }
-
-            $.each(this._values, $.proxy(function(name) {
-                if (namespace !== "") {
-                    this._names[name] = namespace + "." + name;
-                } else {
-                    this._names[name] = name;
-                }
-            }, this));
 
             return this;
         },
@@ -1180,17 +1152,12 @@
          */
         _generateCss: function(isHover) {
             var css = "";
-            css += this._margin.generateCss(isHover, true);
+
             css += this._padding.generateCss(isHover, true);
 
             css += this._generateBackgroundCss(isHover, true)
                 + this._generateBorderCss(isHover, true);
 
-            var animation = [];
-
-            if (this._margin.hasAnimation() === true) {
-                animation.push("margin .3s");
-            }
 
             if (this._padding.hasAnimation() === true) {
                 animation.push("padding .3s");
@@ -1209,14 +1176,6 @@
                 animation.push("border-radius .3s");
                 animation.push("border-width .3s");
                 animation.push("border-color .3s");
-            }
-
-            if (animation.length > 0) {
-                var animationString = animation.join(",");
-                css += "-webkit-transition:" + animationString + ";";
-                css += "-ms-transition:" + animationString + ";";
-                css += "-o-transition:" + animationString + ";";
-                css += "transition:" + animationString + ";";
             }
 
             return css;
@@ -1286,44 +1245,6 @@
             if (isOnlyExample !== true) {
                 this._update();
             }
-        },
-
-        /**
-         * Updates all styles
-         */
-        update: function() {
-            var css = "<style>";
-
-            css += this._selector
-                + "{"
-                + this._generateCss(false)
-                + "}";
-
-            css += this._selector
-                + ":hover{"
-                + this._generateCss(true)
-                + "}";
-
-            css += "</style>";
-
-            this.$_styleContainer.html(css);
-        },
-
-        /**
-         * Gets data
-         *
-         * @returns {Object}
-         */
-        getData: function() {
-            var data = {};
-
-            $.each(this._values, $.proxy(function(key, value) {
-                if (this._names[key] !== undefined) {
-                    data[this._names[key]] = value;
-                }
-            }, this));
-
-            return data;
         }
     };
 }(window.jQuery, window.TestS);

@@ -25,6 +25,13 @@
         constructor: TestS.Panel.Design.AbstractGroup,
 
         /**
+         * Options
+         *
+         * @var {Object}
+         */
+        _options: {},
+
+        /**
          * Style container
          *
          * @var {Object}
@@ -60,6 +67,20 @@
         _labels: {},
 
         /**
+         * Namespace
+         *
+         * @var {String}
+         */
+        _namespace: "",
+
+        /**
+         * Fields
+         *
+         * @var {Array}
+         */
+        fields: [],
+
+        /**
          * Init
          *
          * @param {Object} options
@@ -67,28 +88,29 @@
          * @private
          */
         _set: function (options) {
+            this._options = $.extend({}, options);
+
             this
-                ._setDesignContainer(options.designContainer)
-                ._setGroupContainer(options.groupContainerName)
-                ._setValues(options.values.keys, options.values.values)
+                ._setDesignContainer()
+                ._setGroupContainer()
+                ._setValues()
                 ._checkValues()
-                ._setLabels(options.labels)
-                ._setTitle(options.title)
-                ._setUpdateExampleEvent(options.updateExampleEvent)
+                ._setLabels()
+                ._setTitle()
+                ._setNamespace()
+                ._setUpdateExampleEvent()
                 .updateExample();
         },
 
         /**
          * Sets design container
          *
-         * @param {Object} designContainer
-         *
          * @returns {TestS.Panel.Design.AbstractGroup}
          *
          * @private
          */
-        _setDesignContainer: function (designContainer) {
-            this._designContainer = designContainer;
+        _setDesignContainer: function () {
+            this._designContainer = this._options.designContainer;
             return this;
         },
 
@@ -104,15 +126,14 @@
         /**
          * Sets group container
          *
-         * @param {String} groupContainerName
-         *
          * @returns {TestS.Panel.Design.AbstractGroup}
          *
          * @private
          */
-        _setGroupContainer: function (groupContainerName) {
-            this._groupContainer
-                = this._designContainer.find("." + groupContainerName);
+        _setGroupContainer: function () {
+            this._groupContainer = this._designContainer.find(
+                "." + this._options.groupContainerName
+            );
             return this;
         },
 
@@ -128,22 +149,19 @@
         /**
          * Sets values
          *
-         * @param {Array}  keys
-         * @param {Object} values
-         *
          * @return {TestS.Panel.Design.AbstractGroup}
          *
          * @private
          */
-        _setValues: function (keys, values) {
+        _setValues: function () {
             this._hasValues = false;
 
             $.each(
-                keys,
+                this.fields,
                 $.proxy(
                     function (index, key) {
-                        if (values[key] !== undefined) {
-                            this["_" + key] = values[key];
+                        if (this._options.values[key] !== undefined) {
+                            this["_" + key] = this._options.values[key];
                             this._hasValues = true;
                         }
                     },
@@ -157,14 +175,12 @@
         /**
          * Sets labels
          *
-         * @param {Object} labels
-         *
          * @return {TestS.Panel.Design.AbstractGroup}
          *
          * @private
          */
-        _setLabels: function (labels) {
-            this._labels = $.extend({}, labels);
+        _setLabels: function () {
+            this._labels = $.extend({}, this._options.labels);
             return this;
         },
 
@@ -201,15 +217,13 @@
         /**
          * Sets title
          *
-         * @param {String} title
-         *
          * @private
          */
-        _setTitle: function (title) {
-            if (title !== undefined) {
+        _setTitle: function () {
+            if (this._options.title !== undefined) {
                 this._groupContainer
                     .find(".category-title")
-                    .text(title);
+                    .text(this._options.title);
             }
 
             return this;
@@ -218,14 +232,12 @@
         /**
          * Sets update example event
          *
-         * @param {String} updateExampleEvent
-         *
          * @returns {TestS.Panel.Design.AbstractGroup}
          *
          * @private
          */
-        _setUpdateExampleEvent: function (updateExampleEvent) {
-            this._updateExampleEvent = updateExampleEvent;
+        _setUpdateExampleEvent: function () {
+            this._updateExampleEvent = this._options.updateExampleEvent;
             return this;
         },
 
@@ -260,6 +272,53 @@
          */
         hasAnimation: function () {
             return false;
+        },
+
+        /**
+         * Sets namespace
+         *
+         * @returns {TestS.Panel.Design.AbstractGroup}
+         *
+         * @private
+         */
+        _setNamespace: function () {
+            if (this._options.namespace !== undefined) {
+                this._namespace = this._options.namespace;
+            }
+
+            return this;
+        },
+
+        /**
+         * Gets data
+         *
+         * @returns {Object}
+         */
+        getData: function () {
+            var data = {};
+
+            $.each(
+                this.fields,
+                $.proxy(
+                    function (key, field) {
+                        if (this["_" + field] === undefined
+                            || this["_" + field] === null
+                        ) {
+                            return false;
+                        }
+
+                        var name = field;
+                        if (this._namespace !== "") {
+                            name = this._namespace + "." + field;
+                        }
+
+                        data[name] = this["_" + field];
+                    },
+                    this
+                )
+            );
+
+            return data;
         }
     };
 }(window.jQuery, window.TestS);

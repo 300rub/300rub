@@ -30,21 +30,8 @@
                 title: options.labels.title,
                 updateExampleEvent: "update-margin-example",
                 labels: options.labels,
-                values: {
-                    keys: [
-                        "marginTop",
-                        "marginRight",
-                        "marginBottom",
-                        "marginLeft",
-                        "marginTopHover",
-                        "marginRightHover",
-                        "marginBottomHover",
-                        "marginLeftHover",
-                        "hasMarginHover",
-                        "hasMarginAnimation"
-                    ],
-                    values: options.values
-                }
+                namespace: options.namespace,
+                values: options.values
             }
         );
 
@@ -64,6 +51,24 @@
      */
     TestS.Panel.Design.Block.Margin.prototype.constructor
         = TestS.Panel.Design.Block.Margin;
+
+    /**
+     * Fields
+     *
+     * @type {Array}
+     */
+    TestS.Panel.Design.Block.Margin.prototype.fields = [
+        "marginTop",
+        "marginRight",
+        "marginBottom",
+        "marginLeft",
+        "marginTopHover",
+        "marginRightHover",
+        "marginBottomHover",
+        "marginLeftHover",
+        "hasMarginHover",
+        "hasMarginAnimation"
+    ];
 
     /**
      * Init

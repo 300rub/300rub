@@ -25,6 +25,13 @@
         constructor: TestS.Panel.Design.AbstractEditor,
 
         /**
+         * Options
+         *
+         * @var {Object}
+         */
+        _options: {},
+
+        /**
          * Selector
          *
          * @var {String}
@@ -67,20 +74,38 @@
         _values: {},
 
         /**
+         * Namespace
+         *
+         * @var {String}
+         */
+        _namespace: "",
+
+        /**
+         * Unique ID
+         *
+         * @var {String}
+         */
+        _uniqueId: "",
+
+        /**
          * Init
          *
          * @param {Object} options
          *
          * @private
          */
-        _set: function(options) {
+        _set: function (options) {
+            this._options = $.extend({}, options);
+
             this
-                ._setSelector(options.selector)
-                ._setStyleContainer(options.cssId)
-                ._setDesignContainer(options.name)
-                ._setLabels(options.labels)
-                ._setValues(options.values)
-                ._setRollback()
+                ._setSelector()
+                ._setStyleContainer()
+                ._setDesignContainer()
+                ._setLabels()
+                ._setValues()
+                ._setNamespace()
+                ._setUniqueId()
+                ._setRollback();
         },
 
         /**
@@ -90,9 +115,9 @@
          *
          * @private
          */
-        _setSelector: function(selector) {
-            if (selector !== undefined) {
-                this._selector = selector;
+        _setSelector: function () {
+            if (this._options.selector !== undefined) {
+                this._selector = this._options.selector;
             }
 
             return this;
@@ -103,7 +128,7 @@
          *
          * @returns {String}
          */
-        getSelector: function() {
+        getSelector: function () {
             return this._selector;
         },
 
@@ -114,9 +139,9 @@
          *
          * @private
          */
-        _setStyleContainer: function(cssId) {
-            if (cssId !== undefined) {
-                this._styleContainer = $("#" + cssId);
+        _setStyleContainer: function () {
+            if (this._options.cssId !== undefined) {
+                this._styleContainer = $("#" + this._options.cssId);
             }
 
             return this;
@@ -127,21 +152,21 @@
          *
          * @returns {Object}
          */
-        getStyleContainer: function() {
+        getStyleContainer: function () {
             return this._styleContainer;
         },
 
         /**
          * Sets design container
          *
-         * @param {String} name
-         *
          * @returns {TestS.Panel.Design.AbstractEditor}
          *
          * @private
          */
-        _setDesignContainer: function(name) {
-            this._designContainer = TestS.Components.Template.get(name);
+        _setDesignContainer: function () {
+            this._designContainer = TestS.Components.Template.get(
+                this._options.name
+            );
             return this;
         },
 
@@ -150,7 +175,7 @@
          *
          * @returns {Object}
          */
-        getDesignContainer: function() {
+        getDesignContainer: function () {
             return this._designContainer;
         },
 
@@ -161,7 +186,7 @@
          *
          * @private
          */
-        _setRollback: function() {
+        _setRollback: function () {
             this._rollbackStyles = this._styleContainer.html();
 
             return this;
@@ -170,21 +195,19 @@
         /**
          * Rollbacks
          */
-        rollback: function() {
+        rollback: function () {
             this._styleContainer.html(this._rollbackStyles);
         },
 
         /**
          * Sets labels
          *
-         * @param {Object} labels
-         *
          * @returns {TestS.Panel.Design.AbstractEditor}
          *
          * @private
          */
-        _setLabels: function(labels) {
-            this._labels = $.extend({}, labels);
+        _setLabels: function () {
+            this._labels = $.extend({}, this._options.labels);
             return this;
         },
 
@@ -193,21 +216,19 @@
          *
          * @returns {Object}
          */
-        getLabels: function() {
+        getLabels: function () {
             return this._labels;
         },
 
         /**
          * Sets labels
          *
-         * @param {Object} values
-         *
          * @returns {TestS.Panel.Design.AbstractEditor}
          *
          * @private
          */
-        _setValues: function(values) {
-            this._values = $.extend({}, values);
+        _setValues: function () {
+            this._values = $.extend({}, this._options.values);
             return this;
         },
 
@@ -216,8 +237,53 @@
          *
          * @returns {Object}
          */
-        getValues: function() {
+        getValues: function () {
             return this._values;
+        },
+
+        /**
+         * Sets namespace
+         *
+         * @returns {TestS.Panel.Design.AbstractGroup}
+         *
+         * @private
+         */
+        _setNamespace: function () {
+            if (this._options.namespace !== undefined) {
+                this._namespace = this._options.namespace;
+            }
+
+            return this;
+        },
+
+        /**
+         * Gets namespace
+         *
+         * @returns {String}
+         */
+        getNamespace: function () {
+            return this._namespace;
+        },
+
+        /**
+         * Sets unique ID
+         *
+         * @returns {TestS.Panel.Design.AbstractGroup}
+         *
+         * @private
+         */
+        _setUniqueId: function () {
+            this._uniqueId = TestS.Components.Library.getUniqueId();
+            return this;
+        },
+
+        /**
+         * Gets unique ID
+         *
+         * @returns {String}
+         */
+        getUniqueId: function () {
+            return this._uniqueId;
         }
     };
 }(window.jQuery, window.TestS);
