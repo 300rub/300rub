@@ -70,17 +70,16 @@ function setupDb()
 # Parse the command line to override defaults
 parseCommandLine $@
 
-# Re-creating selenium cpntainer
-echo -e "${C_GREEN}Running selenium and phpunit${C_DEFAULT}"
+# Creating selenium
+echo -e "${C_GREEN}Creating selenium${C_DEFAULT}"
 docker-compose -f config/docker-compose/selenium/selenium.yml kill
 docker-compose -f config/docker-compose/selenium/selenium.yml rm -f
 docker-compose -f config/docker-compose/selenium/selenium.yml up -d
 
-# Re-creating test environments
-echo -e "${C_GREEN}Removing test environments ${C_DEFAULT}"
+# Creating test environments
+echo -e "${C_GREEN}Creating test environments ${C_DEFAULT}"
 executeDockerCompose "kill"
 executeDockerCompose "rm -f"
-echo -e "${C_GREEN}Creating test environments ${C_DEFAULT}"
 executeDockerCompose "up -d"
 
 # DB
@@ -92,3 +91,13 @@ echo -e "OK"
 # VNC
 vncviewer localhost:8901 -passwd ./config/docker-compose/selenium/vnc-password > /dev/null 2>&1 &
 VNC_PID=$!
+
+sleep 2
+
+# Cleaning up
+echo -e "${C_GREEN}Removing all containers ${C_DEFAULT}"
+kill $VNC_PID
+executeDockerCompose "kill"
+executeDockerCompose "rm -f"
+docker-compose -f config/docker-compose/selenium/selenium.yml kill
+docker-compose -f config/docker-compose/selenium/selenium.yml rm -f
