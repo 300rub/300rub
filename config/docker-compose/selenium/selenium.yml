@@ -1,0 +1,15 @@
+selenium:
+    image: selenium/standalone-firefox-debug:2.48.2
+    ports:
+        - "8901:5900"
+    environment:
+        SE_OPTS: "-maxSession 10"
+
+phpfpm:
+    image: php-fpm:7.0
+    net: "bridge"
+    environment:
+        APP_ENV: dev
+    volumes:
+        - "./../..:/var/www"
+    command: php-fpm
