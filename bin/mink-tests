@@ -1,0 +1,82 @@
+#!/bin/bash
+
+# Defaults
+PARAMS=""
+RUN_SINGLE="false"
+ENV_COUNT="2"
+
+# Colors
+C_GREEN="\e[32m"
+C_DEFAULT="\e[39m"
+
+function parseCommandLine()
+{
+    while [[ $# > 0 ]]
+    do
+    key="$1"
+    shift
+
+    case $key in
+        -s|--single)
+        RUN_SINGLE="true"
+        ;;
+
+        -h|--help)
+        echo -e "Usage [options] [path]"
+        echo -e "Available [options]"
+        echo -e "-s|--single\tRuns phpunit as a single process (good for debugging phpunit crashes)"
+        echo -e "[path]\t\tPath to the file or folder"
+        exit;
+        ;;
+
+        *)
+            # unknown option
+            PARAMS="$PARAMS $key"
+        ;;
+    esac
+    done
+}
+
+function executeDockerCompose()
+{
+    for i in `seq 1 $ENV_COUNT`;
+    do
+        docker-compose \
+            -f config/docker-compose/docker-compose.yml \
+            -f config/docker-compose/selenium/base.yml \
+            -f config/docker-compose/selenium/test$i.yml \
+            -p selenium$i \
+            $1;
+    done
+}
+
+function setupDb()
+{
+    for i in `seq 1 $ENV_COUNT`;
+    do
+        mysql -u root -proot -h 127.0.0.1 -P 700$i -e "CREATE DATABASE system" 2> /dev/null
+        mysql -u root -proot -h 127.0.0.1 -P 700$i -e "GRANT ALL PRIVILEGES ON system.* TO 'root'@'127.0.0.1' IDENTIFIED BY 'root'" 2> /dev/null
+        mysql -u root -proot -h 127.0.0.1 -P 700$i -e "CREATE DATABASE localhost" 2> /dev/null
+        mysql -u root -proot -h 127.0.0.1 -P 700$i -e "GRANT ALL PRIVILEGES ON localhost.* TO 'root'@'127.0.0.1' IDENTIFIED BY 'root'" 2> /dev/null
+        mysql -u root -proot -h 127.0.0.1 -P 700$i -e "CREATE DATABASE help" 2> /dev/null
+        mysql -u root -proot -h 127.0.0.1 -P 700$i -e "GRANT ALL PRIVILEGES ON help.* TO 'root'@'127.0.0.1' IDENTIFIED BY 'root'" 2> /dev/null
+
+        docker exec -it selenium${i}_phpfpm_1 ant -file config/build/build.xml
+    done
+}
+
+# Parse the command line to override defaults
+parseCommandLine $@
+
+echo $PARAMS
+echo $RUN_SINGLE
+echo $ENV_COUNT
+
+echo -e "${C_GREEN}Removing test environments ${C_DEFAULT}"
+executeDockerCompose "kill"
+executeDockerCompose "rm -f"
+echo -e "${C_GREEN}Creating test environments ${C_DEFAULT}"
+executeDockerCompose "up -d"
+
+sleep 5
+setupDb

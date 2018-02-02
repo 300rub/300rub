@@ -1,8 +1,8 @@
 #!/bin/bash
 
-docker-compose -f config/docker-compose/docker-compose.yml -f config/docker-compose/docker-compose-dev.yml -p  tests kill
-docker-compose -f config/docker-compose/docker-compose.yml -f config/docker-compose/docker-compose-dev.yml -p  tests rm -f
-docker-compose -f config/docker-compose/docker-compose.yml -f config/docker-compose/docker-compose-dev.yml -p  tests up -d
+docker-compose -f config/docker-compose/docker-compose.yml -f config/docker-compose/docker-compose-dev.yml -p tests kill
+docker-compose -f config/docker-compose/docker-compose.yml -f config/docker-compose/docker-compose-dev.yml -p tests rm -f
+docker-compose -f config/docker-compose/docker-compose.yml -f config/docker-compose/docker-compose-dev.yml -p tests up -d
 
 echo "Waiting 5 sec for MySQL..."
 sleep 5

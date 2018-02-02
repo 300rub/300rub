@@ -1,11 +1,5 @@
-nginx:
-    ports:
-        - "80:80"
-
 phpfpm:
     net: "bridge"
-    ports:
-        - "7777:3306" # MySQL
     environment:
         APP_ENV: dev
 

@@ -355,7 +355,9 @@ abstract class AbstractApplication
      */
     protected function setSite($hostname = null)
     {
-        if (APP_ENV === ENV_DEV || $hostname === null) {
+        if (APP_ENV === ENV_DEV
+            || $hostname === null
+        ) {
             $hostname = DEV_HOST;
         }
 

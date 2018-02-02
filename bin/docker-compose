@@ -1,0 +1,3 @@
+#!/bin/bash
+
+docker-compose -f config/docker-compose/docker-compose.yml -f config/docker-compose/docker-compose-dev.yml -p tests $1

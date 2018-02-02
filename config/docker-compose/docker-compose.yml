@@ -1,7 +1,5 @@
 nginx:
     image: nginx:1.13.8
-    ports:
-        - "80:80"
     links:
         - phpfpm
     volumes:

@@ -1,0 +1,11 @@
+nginx:
+    ports:
+        - "8001:80"
+    volumes:
+        - "./../..:/var/www"
+
+phpfpm:
+    ports:
+        - "7001:3306"
+    volumes:
+        - "./../..:/var/www"
