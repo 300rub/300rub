@@ -45,7 +45,7 @@ function executeDockerCompose()
             -f config/docker-compose/docker-compose.yml \
             -f config/docker-compose/selenium/base.yml \
             -f config/docker-compose/selenium/test$i.yml \
-            -p selenium$i \
+            -p seleniumtest$i \
             $1;
     done
 }
@@ -61,9 +61,9 @@ function setupDb()
         mysql -u root -proot -h 127.0.0.1 -P 700$i -e "CREATE DATABASE help" 2> /dev/null
         mysql -u root -proot -h 127.0.0.1 -P 700$i -e "GRANT ALL PRIVILEGES ON help.* TO 'root'@'127.0.0.1' IDENTIFIED BY 'root'" 2> /dev/null
 
-        docker exec -it selenium${i}_phpfpm_1 php bin/run-php-command clearDb
-        docker exec -it selenium${i}_phpfpm_1 php bin/run-php-command migrate
-        docker exec -it selenium${i}_phpfpm_1 php bin/run-php-command loadFixtures
+        docker exec -it seleniumtest${i}_phpfpm_1 php bin/run-php-command clearDb
+        docker exec -it seleniumtest${i}_phpfpm_1 php bin/run-php-command migrate
+        docker exec -it seleniumtest${i}_phpfpm_1 php bin/run-php-command loadFixtures
     done
 }
 
@@ -72,9 +72,9 @@ parseCommandLine $@
 
 # Creating selenium
 echo -e "${C_GREEN}Creating selenium${C_DEFAULT}"
-docker-compose -f config/docker-compose/selenium/selenium.yml kill
-docker-compose -f config/docker-compose/selenium/selenium.yml rm -f
-docker-compose -f config/docker-compose/selenium/selenium.yml up -d
+docker-compose -f config/docker-compose/selenium/selenium.yml -p selenium kill
+docker-compose -f config/docker-compose/selenium/selenium.yml -p selenium rm -f
+docker-compose -f config/docker-compose/selenium/selenium.yml -p selenium up -d
 
 # Creating test environments
 echo -e "${C_GREEN}Creating test environments ${C_DEFAULT}"
