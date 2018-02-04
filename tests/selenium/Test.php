@@ -2,11 +2,17 @@
 
 namespace testS\tests\selenium;
 
-use Behat\Mink\Mink;
+use Facebook\WebDriver\Remote\RemoteWebDriver;
+use Facebook\WebDriver\WebDriverBy;
+
+//require 'Session.php';
+//
+//use Behat\Mink\Mink;
+//use Behat\Mink\Selector\NamedSelector;
 
 class Test extends  \PHPUnit_Framework_TestCase
 {
-
+//
 //    /**
 //     * Mink instance
 //     *
@@ -14,16 +20,46 @@ class Test extends  \PHPUnit_Framework_TestCase
 //     */
 //    protected static $_mink;
 //
-////rootUrl: http://test-%s.toolkit.local
-////screenshotsDirectory: /tmp/selenium
-////drivers:
-//    //localhost_firefox:
-//        //class: EE\Library\TestBundle\Logic\ToolkitSelenium2Driver
-//        //arguments:
-//            //- firefox
-//            //- browserName: firefox
-//            //firefox_profile: ../Resources/config/localhost/firefox_profile.zip.b64
-//            //- http://selenium:4444/wd/hub
+//    /**
+//     * Options storage
+//     *
+//     * @var string[]
+//     */
+//    protected static $_options;
+//
+//    public static function setUpBeforeClass()
+//    {
+//        if (file_exists('/tmp/selenium') === false) {
+//            mkdir('/tmp/selenium', 0777);
+//        }
+//
+//        if (null === self::$_options) {
+//            self::$_options = [
+//                'rootUrl' => 'http://localhost:800%s',
+//                'screenshotsDirectory' => '/tmp/selenium',
+//                'drivers' => [
+//                    'localhost_firefox' => [
+//                        'class' => 'Behat\Mink\Driver\Selenium2Driver',
+//                        'arguments' => [
+//                            1 => [
+//                                'firefox',
+//                                'browserName' => 'firefox',
+//                                'firefox_profile' => 'firefox_profile.zip.b64',
+//                                'http://selenium:4444/wd/hub'
+//                            ]
+//                        ]
+//                    ]
+//                ]
+//            ];
+//        }
+//    }
+//
+//    public static function tearDownAfterClass()
+//    {
+//        if (null !== self::$_mink) {
+//            self::$_mink->stopSessions();
+//        }
+//    }
 //
 //    public function getMink()
 //    {
@@ -37,81 +73,155 @@ class Test extends  \PHPUnit_Framework_TestCase
 //
 //    protected function _registerSessions()
 //    {
-//        $arguments = [
-//            'firefox',
-//            'browserName' => 'firefox',
-//            'firefox_profile' => 'UEsDBBQDAAAIANFpT0OMzWDE+QMAANsJAAAIAAAAcHJlZnMuanOVVU1z2jAQvedXaNJLm4IwkABp
-//p5dOp53M9GvapFfPIq3xFllypTWG/vpKhjQNCU0yMFiS9z097T4tz8Qn95uMAXEV0IuvHgv0aBWG
-//o6PBiXjnhHUsUBMLLimIggzKI3ESv+KiEBvXiAqWKFQJdoFBsLuJE20Zf+McBdS1IQVMzor41jfW
-//kl30EguXN+g2KhFzFG6FvvXEjDaSoL3DgWvicK3j0m01QHzYBsyOLmmpb87T68QqsGJFgbijvPr2
-//UcDcNfxKOVvQIrG9d15UzqMgWzhfdfv1REAUJXP9ajBo21ZW26RJ5xeDxtJ6oJrArqLf8VSy5Mo8
-//SzuHyDc4OmoC+jzNnx+DikoCzckQbyRvaoQSQRdktSwMhPIt+OOeyF68voWqa9nUGhhljOGrbnhJ
-//FUrQ2tn+HNRy4V1jdX8b1uf4MhENx6fD8/PZcDZ9LOPcOLU0FPhB1vE0e7TOgOBV2Ue7IIsH6Gaj
-//Pbq5d22cSQWqRKkpLOOwBhVTl1DZ6exsOnkQEirwnAf6jbIgHziP5ovwAkzAJ4DzblXnKzANdtuP
-//T0enDyrewvIQzP/3rGjhO6vJaP1ALkk8cLbagMKwlfbWuWV8LsOPv6jRAdTNTYiuWUEcaBnQoGLU
-//lzC/sBrX6Vz3wz0tSg5yLEPp2rQN++bAUQJHYU0tS1dhDYuUrOPtJUsrx48D5akFeNLRkA0ZffEu
-//sYyy4Sg7y8bDYTbJTp/MVAV2tpPjV6+GI5kdYthY9dW7yv0gbMNHLPjulSRttiZ/B2Q2nx1TsetN
-//naHH08loej6e7IEsG6lK8AG5QtvIW35JwlqyOi71h6OzUU80oQ9BEfXExfcv/dns7Lw/7Imry/f9
-//2Z70ymkqNqmVoA9y28wkKKYV3u87i9w6v4yhbknYuSN86jyIelvdA4DUBCOzwpqlxgIaw0k445oH
-//qfH1/mnTg3VaebneW43z17/eZPK8dzI46UazW+9/hpjF+3evvVtvpHV5GhCG3Nm0u3EKTOkCx9yP
-//pjKLn5ioE+l8+iOIh5TNMs27uP9Sp5Z89xbsrpwGhjmEbeE/AVlGmy7SfsnvIksK7PxG4rqm3T3n
-//qC0QWs5V4316VrDOk2PDdXebPZ3L1UwVmPxaate7Et9kOp2OhpNsj9LTCtRGqlp3Jtxzy35YAEsc
-//CXftCt+vx1+Tc+51TMB4MOKNbMHbfEUYzb3IK1qj3u3yeEDXdmKxFR6A1mhMlK+W6KUmlbICfpO8
-//gTb/8Hav5imBEI0RD9U0VVdOSfsN8HDodQf+ZYh3xZ+cz8an2dltbCyQDQzGyLaMkYYiFrROqo4f
-//FSnHk3uCW5zrWBD00c8QU8OpFIvusE1imRtMiD9QSwECPwMUAwAACADRaU9DjM1gxPkDAADbCQAA
-//CAAAAAAAAAAAACCAgIEAAAAAcHJlZnMuanNQSwUGAAAAAAEAAQA2AAAAHwQAAAAA',
-//            'http://selenium:4444/wd/hub'
-//        ];
+//        foreach ($this->_getOption('drivers') as $id => $driverConfig) {
+//            $reflection = new \ReflectionClass($driverConfig['class']);
 //
+//            foreach ($driverConfig['arguments'][1] as $key => &$value) {
+//                if ($key === 'firefox_profile') {
+//                    $value = file_get_contents(__DIR__ . '/'. $value);
+//                }
+//            }
 //
-//        $reflection = new \ReflectionClass('EE\Library\TestBundle\Logic\ToolkitSelenium2Driver');
+//            $driver = $reflection->newInstanceArgs($driverConfig['arguments']);
 //
-////            foreach ($driverConfig['arguments'][1] as $key => &$value) {
-////                if ($key === 'firefox_profile') {
-////                    $value = file_get_contents(__DIR__ . '/'. $value);
-////                }
-////            }
-//
-//        $driver = $reflection->newInstanceArgs($arguments);
-//
-//        $this->getMink()->registerSession('localhost_firefox', $this->_createSession($driver));
+//            $this->getMink()->registerSession($id, $this->_createSession($driver));
+//        }
 //    }
 //
-//    protected function _createSession(DriverInterface $driver)
+//    /**
+//     * @return string|array
+//     */
+//    protected function _getOption($key, $default = null)
+//    {
+//        return array_key_exists($key, self::$_options) ? self::$_options[$key] : $default;
+//    }
+//
+//    protected function _createSession($driver)
 //    {
 //        $session = new Session($driver);
 //        $session->getSelectorsHandler()->registerSelector('named', new NamedSelector());
 //        return $session;
 //    }
 //
+//    public function getRootUrl()
+//    {
+//        return sprintf($this->_getOption('rootUrl'), getenv('TEST_TOKEN') + 1);
+//    }
+//
+//    protected function getSession($name = null)
+//    {
+//        return $this->getMink()->getSession($name);
+//    }
+//
+//    protected function preDispatchRunTest()
+//    {
+//        $session = $this->getSession();
+//        //$session->visit($this->getRootUrl());
+//        $session->visit("https://www.google.co.uk");
+//
+//        $session->getDriver()->resizeWindow(1280, 1024);
+//    }
+//
+//    protected function postDispatchRunTest()
+//    {
+//    }
+//
+//    protected function runTest()
+//    {
+//        foreach (array_keys($this->_getOption('drivers')) as $sessionName) {
+//            $this->getMink()->setDefaultSessionName($sessionName);
+//
+//            try {
+//                $this->preDispatchRunTest();
+//                parent::runTest();
+//                $this->postDispatchRunTest();
+//            } catch (\Exception $ex) {
+////                var_dump($ex->getMessage());
+////                var_dump($ex->getFile());
+////                var_dump($ex->getLine());
+////                var_dump($ex->getTraceAsString());
+//
+//
+//                if (
+//                    null !== ($screenshotsDirectory = $this->_getOption('screenshotsDirectory')) &&
+//                    $this->getMink()->getSession()->getDriver() instanceof \Behat\Mink\Driver\Selenium2Driver
+//                ) {
+//                    $imageData = $this->getSession()->getDriver()->getScreenshot();
+//                    $fileName = $screenshotsDirectory . DIRECTORY_SEPARATOR .
+//                        $sessionName . '_' .
+//                        str_replace('\\', '-', $this->toString()) .
+//                        '-' . date('c') . '.png';
+//                    file_put_contents($fileName, $imageData);
+//                }
+//                throw $ex;
+//            }
+//        }
+//    }
+//
+//    public function toString()
+//    {
+//        return str_replace(parent::getDataSetAsString(), '', parent::toString());
+//    }
+//
 
 
 
 
 
 
-    public function getUrl()
-    {
-        return sprintf('localhost:800%s', getenv('TEST_TOKEN') + 1);
-    }
+
 
     public function testA()
     {
-        $this->assertEquals(0, getenv('TEST_TOKEN'));
+        sleep(2);
+        $web_driver = RemoteWebDriver::create(
+            "http://selenium:4444/wd/hub",
+            array("platform"=>"WINDOWS", "browserName"=>"firefox", "version" => "latest"), 120000
+        );
+        $web_driver->get("http://google.com");
+
+        $element = $web_driver->findElement(WebDriverBy::name("q"));
+        if($element) {
+            $element->sendKeys("TestingBot");
+            $element->submit();
+        }
+        sleep(2);
+        print $web_driver->getTitle();
+        $this->assertEquals("asd", $web_driver->getTitle());
+        $web_driver->quit();
+
+//        sleep(3);
+//        $this->assertPageContainsText($this->getSession(), "aaa");
+//        $this->assertEquals(0, getenv('TEST_TOKEN'));
     }
 
-    public function testB()
-    {
-        $this->assertEquals(1, getenv('TEST_TOKEN'));
-    }
+//    public function testB()
+//    {
+//        sleep(3);
+//        $this->assertEquals(1, getenv('TEST_TOKEN'));
+//    }
+//
+//    public function testC()
+//    {
+//        sleep(3);
+//        $this->assertEquals(0, getenv('TEST_TOKEN'));
+//    }
+//
+//    public function testD()
+//    {
+//        sleep(3);
+//        $this->assertEquals(1, getenv('TEST_TOKEN'));
+//    }
 
-    public function testC()
-    {
-        $this->assertEquals(0, getenv('TEST_TOKEN'));
-    }
-
-    public function testD()
-    {
-        $this->assertEquals(1, getenv('TEST_TOKEN'));
-    }
+//    protected function assertPageContainsText($subject, $text, $message = null)
+//    {
+//        $page = $subject->getPage()->getText();
+//
+//        if (null === $message) {
+//            $message = sprintf('The text "%s" was not found anywhere in the text of the page', $text);
+//        }
+//
+//        $constraint = new \PHPUnit_Framework_Constraint_StringContains($text, true);
+//        $this->assertThat($page, $constraint, $message);
+//    }
 }

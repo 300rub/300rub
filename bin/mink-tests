@@ -89,7 +89,7 @@ setupDb
 echo -e "OK"
 
 # VNC
-#vncviewer localhost:8901 -passwd ./config/docker-compose/selenium/vnc-password > /dev/null 2>&1 &
+vncviewer localhost:8901 -passwd ./config/docker-compose/selenium/vnc-password > /dev/null 2>&1 &
 #VNC_PID=$!
 
 sleep 2
