@@ -25,10 +25,6 @@
 		"phploc/phploc": "4.0.1",
 
 		"brianium/paratest": "0.15.0",
-		"behat/behat": "3.4.3",
-		"behat/mink": "1.6.0",
-		"behat/mink-extension": "2.3.0",
-		"behat/mink-selenium2-driver": "1.2.0",
 		"facebook/webdriver": "1.0.4"
 	},
     "repositories": [
