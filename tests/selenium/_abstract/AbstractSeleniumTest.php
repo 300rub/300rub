@@ -2,39 +2,17 @@
 
 namespace testS\tests\selenium\_abstract;
 
-use Facebook\WebDriver\Remote\RemoteWebDriver;
 use Facebook\WebDriver\WebDriverBy;
-use Facebook\WebDriver\WebDriverExpectedCondition;
 
-/**
- * Abstract class to work with selenium tests
- */
-class AbstractSeleniumTest extends  \PHPUnit_Framework_TestCase
+class AbstractSeleniumTest extends AbstractSeleniumTestCase
 {
 
-    const WAIT_TIME = 10;
-    const WAIT_INTERVAL = 100;
-
-    /**
-     * Web driver
-     *
-     * @var RemoteWebDriver
-     */
-    protected $driver = null;
-
-    private function _setWebDriver()
-    {
-        $this->driver = RemoteWebDriver::create(
-            "http://selenium:4444/wd/hub",
-            array(
-                "platform"    => "WINDOWS",
-                "browserName" => "firefox",
-                "version"     => "latest"
-            )
-        );
-
-        return $this;
-    }
+    private $userTypes = [
+        'user' => [
+            'user'     => 'user',
+            'password' => 'pass'
+        ]
+    ];
 
     protected function getUrl()
     {
@@ -52,51 +30,34 @@ class AbstractSeleniumTest extends  \PHPUnit_Framework_TestCase
     protected function openBaseUrl()
     {
         $this->driver->get($this->getUrl());
-        sleep(3);
         return $this;
     }
 
     public function setUp()
     {
+        parent::setUp();
+
         $this
-            ->_setWebDriver()
             ->resetDb()
             ->openBaseUrl();
     }
 
-    public function tearDown()
+    protected function submitWindow($name)
     {
-        $this->driver->quit();
-    }
-
-    protected function clickId($cssId)
-    {
-        if ($this->isVisibleId($cssId) === false) {
-            $this->waitId($cssId);
-        }
-
         $this->driver
-            ->findElement(WebDriverBy::id($cssId))
+            ->findElement(
+                WebDriverBy::cssSelector(
+                    sprintf('.window-%s %s', $name, '.footer .submit')
+                )
+            )
             ->click();
     }
 
-    protected function isVisibleId($cssId)
+    protected function login($type = 'user')
     {
-        if (count($this->driver->findElements(WebDriverBy::id($cssId))) === 0) {
-            return false;
-        }
-
-        return true;
-    }
-
-    protected function waitId($cssId)
-    {
-        $this->driver->wait(self::WAIT_TIME, self::WAIT_INTERVAL)->until(
-            WebDriverExpectedCondition::visibilityOfElementLocated(
-                WebDriverBy::id($cssId)
-            )
-        );
-
-        return $this;
+        $this->clickId('login-button');
+        $this->fillText('.window-login input[name="user"]', $this->userTypes[$type]['user']);
+        $this->fillText('.window-login input[name="password"]', $this->userTypes[$type]['password']);
+        $this->submitWindow('login');
     }
 }
