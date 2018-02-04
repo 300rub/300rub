@@ -89,15 +89,16 @@ setupDb
 echo -e "OK"
 
 # VNC
-vncviewer localhost:8901 -passwd ./config/docker-compose/selenium/vnc-password > /dev/null 2>&1 &
-VNC_PID=$!
+#vncviewer localhost:8901 -passwd ./config/docker-compose/selenium/vnc-password > /dev/null 2>&1 &
+#VNC_PID=$!
 
 sleep 2
+docker exec -it selenium_phpfpm_1 ant -file config/build/build.xml paratest
 
 # Cleaning up
-echo -e "${C_GREEN}Removing all containers ${C_DEFAULT}"
-kill $VNC_PID
-executeDockerCompose "kill"
-executeDockerCompose "rm -f"
-docker-compose -f config/docker-compose/selenium/selenium.yml kill
-docker-compose -f config/docker-compose/selenium/selenium.yml rm -f
+#echo -e "${C_GREEN}Removing all containers ${C_DEFAULT}"
+#kill $VNC_PID
+#executeDockerCompose "kill"
+#executeDockerCompose "rm -f"
+#docker-compose -f config/docker-compose/selenium/selenium.yml kill
+#docker-compose -f config/docker-compose/selenium/selenium.yml rm -f

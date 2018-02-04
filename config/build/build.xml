@@ -133,6 +133,16 @@
         <antcall target="rollback-sql-dumps" />
     </target>
 
+    <target name="paratest">
+        <exec executable="php" failonerror="true">
+            <arg value='vendor/brianium/paratest/bin/paratest' />
+            <arg value='--bootstrap=tests/bootstrap_paratest.php' />
+            <arg value='-p 2' />
+            <arg value='-f' />
+            <arg value='tests/selenium' />
+        </exec>
+    </target>
+
     <target name="prepare" depends="clear-logs">
         <delete dir="backups" />
         <mkdir dir="backups" />
