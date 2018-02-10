@@ -10,15 +10,15 @@ class LikeTest extends AbstractSeleniumTestCase
     public function testLike()
     {
         $this->driver->get('https://vk.com/');
-        $this->fillText('#index_login_form input[name="email"]', 'donvasilion@gmail.com');
-        $this->fillText('#index_login_form input[name="pass"]', 'mypasS77');
+        $this->fillText('#index_login_form input[name="email"]', '447894241250');
+        $this->fillText('#index_login_form input[name="pass"]', 'vk1pasS77');
         $this->click('#index_login_form #index_login_button');
         $this->waitCssSelector('.top_profile_name');
         $this->driver->get('https://olike.ru/');
 
         $this->driver->executeScript('$("img[data-uloginbutton=\"vkontakte\"]").click()');
 
-        for ($i = 1; $i < 5; $i++) {
+        for ($i = 1; $i < 47; $i++) {
             $this->click('.universalButton_dash.purpleButton');
             sleep(1);
             $handles = $this->driver->getWindowHandles();
