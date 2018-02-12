@@ -106,45 +106,55 @@ class LoadFixturesCommand extends AbstractCommand
      */
     public function load($dir)
     {
-        App::getInstance()->getDb()->setLocalhostPdo();
+        $sites = ['site1', 'site2'];
+        $config = App::getInstance()->getConfig();
 
-        foreach ($this->_fixtureOrder as $fixture => $modelName) {
-            $filePath
-                = __DIR__ . '/../fixtures/' . $dir . '/' . $fixture . '.php';
-
-            if (file_exists($filePath) === false) {
-                continue;
-            }
-
-            $records = include $filePath;
-            foreach ($records as $record) {
-                $this
-                    ->_getModelByName($modelName)
-                    ->set($record)
-                    ->save();
-            }
-        }
-
-        $map = include __DIR__ . '/../fixtures/' . $dir . '/_fileMap.php';
-        foreach ($map as $data) {
-            $mimeType = 'application/octet-stream';
-            if (array_key_exists('mimeType', $data) === true) {
-                $mimeType = $data['mimeType'];
-            }
-
-            $language = Language::LANGUAGE_EN_ID;
-            if (array_key_exists('language', $data) === true) {
-                $language = $data['language'];
-            }
-
-            $this->_sendFile(
-                $data['group'],
-                $data['controller'],
-                $data['file'],
-                $data['data'],
-                $mimeType,
-                $language
+        foreach ($sites as $site) {
+            App::getInstance()->getDb()->setPdo(
+                $config->getValue(['db', $site, 'host']),
+                $config->getValue(['db', $site, 'user']),
+                $config->getValue(['db', $site, 'password']),
+                $config->getValue(['db', $site, 'name'])
             );
+
+            foreach ($this->_fixtureOrder as $fixture => $modelName) {
+                $filePath
+                    = __DIR__ . '/../fixtures/' . $dir . '/' . $fixture . '.php';
+
+                if (file_exists($filePath) === false) {
+                    continue;
+                }
+
+                $records = include $filePath;
+                foreach ($records as $record) {
+                    $this
+                        ->_getModelByName($modelName)
+                        ->set($record)
+                        ->save();
+                }
+            }
+
+            $map = include __DIR__ . '/../fixtures/' . $dir . '/_fileMap.php';
+            foreach ($map as $data) {
+                $mimeType = 'application/octet-stream';
+                if (array_key_exists('mimeType', $data) === true) {
+                    $mimeType = $data['mimeType'];
+                }
+
+                $language = Language::LANGUAGE_EN_ID;
+                if (array_key_exists('language', $data) === true) {
+                    $language = $data['language'];
+                }
+
+                $this->_sendFile(
+                    $data['group'],
+                    $data['controller'],
+                    $data['file'],
+                    $data['data'],
+                    $mimeType,
+                    $language
+                );
+            }
         }
     }
 

@@ -33,7 +33,7 @@ abstract class AbstractSiteModel extends AbstractModel
         $language = App::getInstance()->getLanguage();
 
         return [
-            'host'        => [
+            'name'          => [
                 self::FIELD_TYPE                => self::FIELD_TYPE_STRING,
                 self::FIELD_VALIDATION          => [
                     Validator::TYPE_REQUIRED,

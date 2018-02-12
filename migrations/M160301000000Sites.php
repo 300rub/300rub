@@ -30,7 +30,7 @@ class M160301000000Sites extends AbstractMigration
                 'sites',
                 [
                     'id'         => self::TYPE_PK,
-                    'host'       => self::TYPE_STRING,
+                    'name'       => self::TYPE_STRING,
                     'dbHost'     => self::TYPE_STRING,
                     'dbUser'     => self::TYPE_STRING,
                     'dbPassword' => self::TYPE_STRING,
@@ -39,7 +39,7 @@ class M160301000000Sites extends AbstractMigration
                     'email'      => self::TYPE_STRING,
                 ]
             )
-            ->createUniqueIndex('sites', 'sites_host', 'host');
+            ->createUniqueIndex('sites', 'sites_name', 'name');
     }
 
     /**
@@ -55,14 +55,30 @@ class M160301000000Sites extends AbstractMigration
         $dbObject->execute(
             'INSERT ' .
             'INTO sites ' .
-            '(host, dbHost, dbUser, dbPassword, dbName, language, email)' .
+            '(name, dbHost, dbUser, dbPassword, dbName, language, email)' .
             ' VALUES (?, ?, ?, ?, ?, ?, ?)',
             [
-                DEV_HOST,
-                $config->getValue(['db', 'localhost', 'host']),
-                $config->getValue(['db', 'localhost', 'user']),
-                $config->getValue(['db', 'localhost', 'password']),
-                $config->getValue(['db', 'localhost', 'name']),
+                'site1',
+                $config->getValue(['db', 'site1', 'host']),
+                $config->getValue(['db', 'site1', 'user']),
+                $config->getValue(['db', 'site1', 'password']),
+                $config->getValue(['db', 'site1', 'name']),
+                DEV_LANGUAGE,
+                DEV_EMAIL,
+            ]
+        );
+
+        $dbObject->execute(
+            'INSERT ' .
+            'INTO sites ' .
+            '(name, dbHost, dbUser, dbPassword, dbName, language, email)' .
+            ' VALUES (?, ?, ?, ?, ?, ?, ?)',
+            [
+                'site2',
+                $config->getValue(['db', 'site2', 'host']),
+                $config->getValue(['db', 'site2', 'user']),
+                $config->getValue(['db', 'site2', 'password']),
+                $config->getValue(['db', 'site2', 'name']),
                 DEV_LANGUAGE,
                 DEV_EMAIL,
             ]

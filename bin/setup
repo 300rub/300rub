@@ -9,8 +9,10 @@ sleep 5
 
 mysql -u root -proot -h 127.0.0.1 -P 7777 -e "CREATE DATABASE system" 2> /dev/null
 mysql -u root -proot -h 127.0.0.1 -P 7777 -e "GRANT ALL PRIVILEGES ON system.* TO 'root'@'127.0.0.1' IDENTIFIED BY 'root'" 2> /dev/null
-mysql -u root -proot -h 127.0.0.1 -P 7777 -e "CREATE DATABASE localhost" 2> /dev/null
-mysql -u root -proot -h 127.0.0.1 -P 7777 -e "GRANT ALL PRIVILEGES ON localhost.* TO 'root'@'127.0.0.1' IDENTIFIED BY 'root'" 2> /dev/null
+mysql -u root -proot -h 127.0.0.1 -P 7777 -e "CREATE DATABASE site1" 2> /dev/null
+mysql -u root -proot -h 127.0.0.1 -P 7777 -e "GRANT ALL PRIVILEGES ON site1.* TO 'root'@'127.0.0.1' IDENTIFIED BY 'root'" 2> /dev/null
+mysql -u root -proot -h 127.0.0.1 -P 7777 -e "CREATE DATABASE site2" 2> /dev/null
+mysql -u root -proot -h 127.0.0.1 -P 7777 -e "GRANT ALL PRIVILEGES ON site2.* TO 'root'@'127.0.0.1' IDENTIFIED BY 'root'" 2> /dev/null
 mysql -u root -proot -h 127.0.0.1 -P 7777 -e "CREATE DATABASE help" 2> /dev/null
 mysql -u root -proot -h 127.0.0.1 -P 7777 -e "GRANT ALL PRIVILEGES ON help.* TO 'root'@'127.0.0.1' IDENTIFIED BY 'root'" 2> /dev/null
 

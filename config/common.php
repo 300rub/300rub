@@ -8,7 +8,9 @@ define('DEV_HOST', 'localhost');
 define('DEV_LANGUAGE', 1);
 define('DEV_EMAIL', 'email@localhost.local');
 
-$config = [];
+$config = [
+    'host'=> 'ss.com',
+];
 
 switch (APP_ENV) {
     case ENV_PRE_PROD:

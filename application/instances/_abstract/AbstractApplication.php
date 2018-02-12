@@ -13,6 +13,7 @@ use testS\application\components\Language;
 use testS\application\components\Operation;
 use testS\application\components\View;
 use testS\application\components\Memcached;
+use testS\models\_abstract\AbstractModel;
 use testS\models\system\SiteModel;
 
 /**
@@ -355,19 +356,15 @@ abstract class AbstractApplication
      */
     protected function setSite($hostname = null)
     {
-        if (APP_ENV === ENV_DEV
-            || $hostname === null
-        ) {
-            $hostname = DEV_HOST;
+        if ($hostname === null) {
+            $hostname = $this->getConfig()->getValue(['domains', 0, 'name']);
         }
 
-        $memcachedKey = 'site_' . $hostname;
+        $memcachedKey = 'site_' . str_replace('.', '_', $hostname);
         $siteModel = $this->getMemcached()->get($memcachedKey);
         if ($siteModel instanceof SiteModel === false) {
             $this->getDb()->setSystemPdo();
-
-            $siteModel = new SiteModel;
-            $siteModel = $siteModel->byHost($hostname)->find();
+            $siteModel = $this->_getSiteModel($hostname);
             if ($siteModel === null) {
                 throw new NotFoundException(
                     'Unable to find site with host: {host}',
@@ -392,6 +389,31 @@ abstract class AbstractApplication
         $this->_site = $siteModel;
 
         return $this;
+    }
+
+    /**
+     * Gets SiteModel by hostname
+     *
+     * @param string $hostname Hostname
+     *
+     * @return SiteModel|AbstractModel
+     */
+    private function _getSiteModel($hostname)
+    {
+        $siteModel = new SiteModel;
+        $baseHost = $this->getConfig()->getValue(['host']);
+        $baseHostLength = strlen($baseHost);
+        $hostnameLength = strlen($hostname);
+
+        if ($hostnameLength > $baseHostLength + 1) {
+            $hostnameEnd = substr($hostname, -1 * $baseHostLength);
+            if ($hostnameEnd === $baseHost) {
+                $name = substr($hostname, 0, -1 * ($baseHostLength + 1));
+                return $siteModel->byName($name)->find();
+            }
+        }
+
+        return $siteModel->byDomain($hostname)->find();
     }
 
     /**

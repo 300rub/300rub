@@ -1,12 +1,41 @@
 <?php
 
 return [
+    'host'      => 'ss.local',
+    'domains' => [
+        [
+            'siteId' => 1,
+            'name'   => 'site11.local',
+            'isMain' => true,
+        ],
+        [
+            'siteId' => 1,
+            'name'   => 'site12.local',
+            'isMain' => false,
+        ],
+        [
+            'siteId' => 2,
+            'name'   => 'site21.local',
+            'isMain' => false,
+        ],
+        [
+            'siteId' => 2,
+            'name'   => 'site22.local',
+            'isMain' => true,
+        ],
+    ],
     'db'        => [
-        'localhost' => [
+        'site1'  => [
             'host'     => '127.0.0.1',
             'user'     => 'root',
             'password' => 'root',
-            'name'     => 'localhost',
+            'name'     => 'site1',
+        ],
+        'site2'  => [
+            'host'     => '127.0.0.1',
+            'user'     => 'root',
+            'password' => 'root',
+            'name'     => 'site2',
         ],
         'system' => [
             'host'     => '127.0.0.1',

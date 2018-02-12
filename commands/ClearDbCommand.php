@@ -5,6 +5,7 @@ namespace testS\commands;
 use testS\application\App;
 use testS\commands\_abstract\AbstractCommand;
 use testS\migrations\M160301000000Sites;
+use testS\migrations\M160301000010Domains;
 use testS\migrations\M160302000000Migrations;
 
 /**
@@ -25,19 +26,38 @@ class ClearDbCommand extends AbstractCommand
         exec(
             sprintf(
                 'mysql -u %s -p%s -h %s -e "DROP DATABASE IF EXISTS %s"',
-                $config->getValue(['db', 'localhost', 'user']),
-                $config->getValue(['db', 'localhost', 'password']),
-                $config->getValue(['db', 'localhost', 'host']),
-                $config->getValue(['db', 'localhost', 'name'])
+                $config->getValue(['db', 'site1', 'user']),
+                $config->getValue(['db', 'site1', 'password']),
+                $config->getValue(['db', 'site1', 'host']),
+                $config->getValue(['db', 'site1', 'name'])
             )
         );
         exec(
             sprintf(
                 'mysql -u %s -p%s -h %s -e "CREATE DATABASE IF NOT EXISTS %s"',
-                $config->getValue(['db', 'localhost', 'user']),
-                $config->getValue(['db', 'localhost', 'password']),
-                $config->getValue(['db', 'localhost', 'host']),
-                $config->getValue(['db', 'localhost', 'name'])
+                $config->getValue(['db', 'site1', 'user']),
+                $config->getValue(['db', 'site1', 'password']),
+                $config->getValue(['db', 'site1', 'host']),
+                $config->getValue(['db', 'site1', 'name'])
+            )
+        );
+
+        exec(
+            sprintf(
+                'mysql -u %s -p%s -h %s -e "DROP DATABASE IF EXISTS %s"',
+                $config->getValue(['db', 'site2', 'user']),
+                $config->getValue(['db', 'site2', 'password']),
+                $config->getValue(['db', 'site2', 'host']),
+                $config->getValue(['db', 'site2', 'name'])
+            )
+        );
+        exec(
+            sprintf(
+                'mysql -u %s -p%s -h %s -e "CREATE DATABASE IF NOT EXISTS %s"',
+                $config->getValue(['db', 'site2', 'user']),
+                $config->getValue(['db', 'site2', 'password']),
+                $config->getValue(['db', 'site2', 'host']),
+                $config->getValue(['db', 'site2', 'name'])
             )
         );
 
@@ -82,6 +102,10 @@ class ClearDbCommand extends AbstractCommand
         App::getInstance()->getDb()->setSystemPdo();
 
         $migration = new M160301000000Sites();
+        $migration->apply();
+        $migration->insertData();
+
+        $migration = new M160301000010Domains();
         $migration->apply();
         $migration->insertData();
 

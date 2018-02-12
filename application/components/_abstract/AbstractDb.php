@@ -123,25 +123,6 @@ abstract class AbstractDb
     }
 
     /**
-     * Sets localhost PDO
-     *
-     * @return AbstractDb
-     */
-    public function setLocalhostPdo()
-    {
-        $config = App::getInstance()->getConfig();
-
-        $this->setPdo(
-            $config->getValue(['db', 'localhost', 'host']),
-            $config->getValue(['db', 'localhost', 'user']),
-            $config->getValue(['db', 'localhost', 'password']),
-            $config->getValue(['db', 'localhost', 'name'])
-        );
-
-        return $this;
-    }
-
-    /**
      * Sets table
      *
      * @param string $table Table name
