@@ -17,6 +17,6 @@ class Test extends AbstractApplication
      */
     public function run()
     {
-        $this->setSite(DEV_HOST);
+        $this->setSite();
     }
 }

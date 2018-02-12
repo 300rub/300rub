@@ -52,41 +52,16 @@ class M160301000010Domains extends AbstractMigration
     public function insertData()
     {
         $dbObject = App::getInstance()->getDb();
-
-        $dbObject->execute(
-            'INSERT ' . 'INTO domains (siteId, name, isMain) VALUES (?, ?, ?)',
-            [
-                1,
-                'site11.local',
-                true
-            ]
-        );
-
-        $dbObject->execute(
-            'INSERT ' . 'INTO domains (siteId, name, isMain) VALUES (?, ?, ?)',
-            [
-                1,
-                'site12.local',
-                false
-            ]
-        );
-
-        $dbObject->execute(
-            'INSERT ' . 'INTO domains (siteId, name, isMain) VALUES (?, ?, ?)',
-            [
-                2,
-                'site21.local',
-                false
-            ]
-        );
-
-        $dbObject->execute(
-            'INSERT ' . 'INTO domains (siteId, name, isMain) VALUES (?, ?, ?)',
-            [
-                2,
-                'site22.local',
-                true
-            ]
-        );
+        $domains = App::getInstance()->getConfig()->getValue(['domains']);
+        foreach ($domains as $domain) {
+            $dbObject->execute(
+                'INSERT ' . 'INTO domains (siteId, name, isMain) VALUES (?, ?, ?)',
+                [
+                    $domain['siteId'],
+                    $domain['name'],
+                    $domain['isMain'],
+                ]
+            );
+        }
     }
 }

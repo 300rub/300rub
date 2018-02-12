@@ -14,6 +14,11 @@ return [
             'isMain' => false,
         ],
         [
+            'siteId' => 1,
+            'name'   => trim(shell_exec("/sbin/ip route|awk '/default/ { print $3 }'")),
+            'isMain' => false,
+        ],
+        [
             'siteId' => 2,
             'name'   => 'site21.local',
             'isMain' => false,
