@@ -4,7 +4,7 @@ return [
     [
         'group'      => 'image',
         'controller' => 'image',
-        'file'       => 'bigImage.jpg',
+        'file'       => 'mediumImage.jpg',
         'data'       => [
             'blockId'      => 3,
             'imageGroupId' => 1
@@ -13,7 +13,7 @@ return [
     [
         'group'      => 'image',
         'controller' => 'image',
-        'file'       => 'bigImage.jpg',
+        'file'       => 'mediumImage.jpg',
         'data'       => [
             'blockId'      => 3,
             'imageGroupId' => 1
@@ -22,7 +22,7 @@ return [
     [
         'group'      => 'image',
         'controller' => 'image',
-        'file'       => 'bigImage.png',
+        'file'       => 'mediumImage.png',
         'data'       => [
             'blockId'      => 4,
             'imageGroupId' => 4
@@ -31,7 +31,7 @@ return [
     [
         'group'      => 'image',
         'controller' => 'image',
-        'file'       => 'bigImage.jpg',
+        'file'       => 'mediumImage.jpg',
         'data'       => [
             'blockId'      => 5,
             'imageGroupId' => 4

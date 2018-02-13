@@ -111,28 +111,28 @@ class CreateImageControllerTest extends AbstractControllerTest
         return [
             'userJpgCorrect'          => [
                 'user'     => self::TYPE_LIMITED,
-                'file'     => 'bigImage.jpg',
+                'file'     => 'mediumImage.jpg',
                 'blockId'  => 3,
                 'albumId'  => 1,
                 'hasError' => false
             ],
             'userPngCorrect'          => [
                 'user'     => self::TYPE_LIMITED,
-                'file'     => 'bigImage.png',
+                'file'     => 'mediumImage.png',
                 'blockId'  => 3,
                 'albumId'  => 1,
                 'hasError' => false
             ],
             'userJpgIncorrectAlbumId' => [
                 'user'     => self::TYPE_LIMITED,
-                'file'     => 'bigImage.jpg',
+                'file'     => 'mediumImage.jpg',
                 'blockId'  => 3,
                 'albumId'  => 999,
                 'hasError' => true
             ],
             'userJpgEmptyAlbumId'     => [
                 'user'     => self::TYPE_LIMITED,
-                'file'     => 'bigImage.jpg',
+                'file'     => 'mediumImage.jpg',
                 'blockId'  => 3,
                 'albumId'  => 0,
                 'hasError' => true
@@ -146,7 +146,7 @@ class CreateImageControllerTest extends AbstractControllerTest
             ],
             'blockedJpg'              => [
                 'user'     => self::TYPE_BLOCKED_USER,
-                'file'     => 'bigImage.jpg',
+                'file'     => 'mediumImage.jpg',
                 'blockId'  => 3,
                 'albumId'  => 1,
                 'hasError' => true

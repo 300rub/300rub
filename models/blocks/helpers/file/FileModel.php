@@ -48,7 +48,9 @@ class FileModel extends AbstractFileModel
 
         return sprintf(
             App::getInstance()->getConfig()->getValue(['file', 'urlMask']),
-            trim(shell_exec("/sbin/ip route|awk '/default/ { print $3 }'")),
+            App::getInstance()
+                ->getSuperGlobalVariable()
+                ->getServerValue('HTTP_HOST'),
             App::getInstance()->getSite()->getId(),
             $this->get('uniqueName')
         );

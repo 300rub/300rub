@@ -96,7 +96,7 @@ class GetUsersControllerTest extends AbstractControllerTest
                     'access'                => 'Access',
                     'sessions'              => 'Sessions',
                     'edit'                  => 'Edit',
-                    'delete'                => 'Delete',
+                    'deleteLabel'           => 'Delete',
                     'add'                   => 'Add',
                     'email'                 => 'Email',
                     'deleteUserConfirmText'
@@ -176,7 +176,7 @@ class GetUsersControllerTest extends AbstractControllerTest
                     'access'                => 'Access',
                     'sessions'              => 'Sessions',
                     'edit'                  => 'Edit',
-                    'delete'                => 'Delete',
+                    'deleteLabel'           => 'Delete',
                     'add'                   => 'Add',
                     'email'                 => 'Email',
                     'deleteUserConfirmText'

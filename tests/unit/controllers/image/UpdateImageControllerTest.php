@@ -210,7 +210,7 @@ class UpdateImageControllerTest extends AbstractControllerTest
         return [
             'userJpgCorrect' => [
                 'user'     => self::TYPE_LIMITED,
-                'file'     => 'bigImage.jpg',
+                'file'     => 'mediumImage.jpg',
                 [
                     'blockId' => 3,
                     'isCover' => true,
@@ -230,7 +230,7 @@ class UpdateImageControllerTest extends AbstractControllerTest
             ],
             'userPngCorrect'          => [
                 'user'     => self::TYPE_LIMITED,
-                'file'     => 'bigImage.png',
+                'file'     => 'mediumImage.png',
                 [
                     'blockId' => 3,
                     'isCover' => true,
@@ -250,7 +250,7 @@ class UpdateImageControllerTest extends AbstractControllerTest
             ],
             'blockedJpg'              => [
                 'user'     => self::TYPE_BLOCKED_USER,
-                'file'     => 'bigImage.jpg',
+                'file'     => 'mediumImage.jpg',
                 [
                     'blockId' => 3,
                     'isCover' => true,

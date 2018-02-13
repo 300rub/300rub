@@ -2,6 +2,7 @@
 
 namespace testS\tests\unit\controllers\_abstract;
 
+use testS\application\App;
 use testS\application\components\Language;
 use testS\tests\unit\_abstract\AbstractUnitTest;
 
@@ -149,7 +150,7 @@ abstract class AbstractControllerTest extends AbstractUnitTest
      */
     protected function getHost()
     {
-        return trim(shell_exec("/sbin/ip route|awk '/default/ { print $3 }'"));
+        return 'site1.ss.local';
     }
 
     /**
