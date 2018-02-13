@@ -6,7 +6,7 @@
      *
      * @type {Object}
      */
-    window.TestS = {
+    window.Ss = {
         Form: {},
         Components: {
             Accordion: {}

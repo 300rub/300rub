@@ -13,5 +13,5 @@ phpfpm:
         APP_ENV: dev
     volumes:
         - "./../../..:/var/www"
-        - "./../../../logs/selenium:/tmp/selenium"
+        - "./../../../tmp/selenium:/tmp/selenium"
     command: php-fpm
