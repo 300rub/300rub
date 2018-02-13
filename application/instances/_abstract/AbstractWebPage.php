@@ -2,6 +2,8 @@
 
 namespace ss\application\instances\_abstract;
 
+use ss\controllers\page\LoginController;
+use ss\controllers\page\LogoutController;
 use ss\controllers\page\PageController;
 
 /**
@@ -17,6 +19,21 @@ abstract class AbstractWebPage extends AbstractApplication
      */
     protected function processPage()
     {
+        $requestUri = $this
+            ->getSuperGlobalVariable()
+            ->getServerValue('REQUEST_URI');
+        $requestUri = trim($requestUri, '/');
+
+        if ($requestUri === 'login') {
+            $loginController = new LoginController();
+            return $loginController->run();
+        }
+
+        if ($requestUri === 'logout') {
+            $logoutController = new LogoutController();
+            return $logoutController->run();
+        }
+
         $pageController = new PageController();
         return $pageController->run();
     }
