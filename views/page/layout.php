@@ -100,10 +100,10 @@ if ($isUser === true) {
 
 <script>
     window.jQuery(document).ready(function() {
-        window.TestS.System.App.setLanguage(<?php echo $language; ?>);
-        window.TestS.System.App.setToken("<?php echo $token; ?>");
+        window.Ss.System.App.setLanguage(<?php echo $language; ?>);
+        window.Ss.System.App.setToken("<?php echo $token; ?>");
         <?php foreach ($errorMessages as $key => $value) { ?>
-            TestS.Components.Error.set(
+            Ss.Components.Error.set(
                 "<?php echo $key; ?>", "<?php echo $value; ?>"
             );
         <?php } ?>

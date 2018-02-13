@@ -22,7 +22,7 @@
         /**
          * Constructor
          */
-        constructor: Ss.Panel.Design.AbstractEditor,
+        //constructor: Ss.Panel.Design.AbstractEditor,
 
         /**
          * Options

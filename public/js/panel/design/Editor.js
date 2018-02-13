@@ -133,12 +133,12 @@
                     var design;
                     switch (typeData.type) {
                         case "block":
-                            design = new Ss.Panel.Design.Block(
+                            design = new Ss.Panel.Design.Block.Editor(
                                 typeData
                             );
                             break;
                         case "text":
-                            design = new Ss.Panel.Design.Text(
+                            design = new Ss.Panel.Design.Text.Editor(
                                 typeData
                             );
                             break;
