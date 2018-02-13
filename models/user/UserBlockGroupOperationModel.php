@@ -1,9 +1,9 @@
 <?php
 
-namespace testS\models\user;
+namespace ss\models\user;
 
-use testS\application\components\Db;
-use testS\models\user\_base\AbstractUserBlockGroupOperationModel;
+use ss\application\components\Db;
+use ss\models\user\_base\AbstractUserBlockGroupOperationModel;
 
 /**
  * Model for working with table "userBlockGroupOperations"

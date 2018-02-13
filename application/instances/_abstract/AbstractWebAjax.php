@@ -1,11 +1,11 @@
 <?php
 
-namespace testS\application\instances\_abstract;
+namespace ss\application\instances\_abstract;
 
-use testS\application\components\SuperGlobalVariable;
-use testS\application\exceptions\BadRequestException;
-use testS\application\exceptions\ContentException;
-use testS\controllers\_abstract\AbstractController;
+use ss\application\components\SuperGlobalVariable;
+use ss\application\exceptions\BadRequestException;
+use ss\application\exceptions\ContentException;
+use ss\controllers\_abstract\AbstractController;
 
 /**
  * Abstract class for working with AJAX requests
@@ -318,7 +318,7 @@ abstract class AbstractWebAjax extends AbstractWebPage
     private function _setController()
     {
         $controllerClassName = sprintf(
-            '\\testS\\controllers\\%s\\%s%sController',
+            '\\ss\\controllers\\%s\\%s%sController',
             strtolower($this->_input['group']),
             $this->_prefix,
             ucfirst($this->_input['controller'])

@@ -1,4 +1,4 @@
-!function ($, TestS) {
+!function ($, Ss) {
     'use strict';
 
     /**
@@ -6,9 +6,9 @@
      *
      * @param {Object} options
      *
-     * @type {TestS.Panel.Design.AbstractGroup}
+     * @type {Ss.Panel.Design.AbstractGroup}
      */
-    TestS.Panel.Design.AbstractGroup = function (options) {
+    Ss.Panel.Design.AbstractGroup = function (options) {
         this._set(options);
     };
 
@@ -17,12 +17,12 @@
      *
      * @type {Object}
      */
-    TestS.Panel.Design.AbstractGroup.prototype = {
+    Ss.Panel.Design.AbstractGroup.prototype = {
 
         /**
          * Constructor
          */
-        constructor: TestS.Panel.Design.AbstractGroup,
+        constructor: Ss.Panel.Design.AbstractGroup,
 
         /**
          * Options
@@ -105,7 +105,7 @@
         /**
          * Sets design container
          *
-         * @returns {TestS.Panel.Design.AbstractGroup}
+         * @returns {Ss.Panel.Design.AbstractGroup}
          *
          * @private
          */
@@ -126,7 +126,7 @@
         /**
          * Sets group container
          *
-         * @returns {TestS.Panel.Design.AbstractGroup}
+         * @returns {Ss.Panel.Design.AbstractGroup}
          *
          * @private
          */
@@ -149,7 +149,7 @@
         /**
          * Sets values
          *
-         * @return {TestS.Panel.Design.AbstractGroup}
+         * @return {Ss.Panel.Design.AbstractGroup}
          *
          * @private
          */
@@ -175,7 +175,7 @@
         /**
          * Sets labels
          *
-         * @return {TestS.Panel.Design.AbstractGroup}
+         * @return {Ss.Panel.Design.AbstractGroup}
          *
          * @private
          */
@@ -202,7 +202,7 @@
         /**
          * Checks values
          *
-         * @returns {TestS.Panel.Design.AbstractGroup}
+         * @returns {Ss.Panel.Design.AbstractGroup}
          *
          * @private
          */
@@ -232,7 +232,7 @@
         /**
          * Sets update example event
          *
-         * @returns {TestS.Panel.Design.AbstractGroup}
+         * @returns {Ss.Panel.Design.AbstractGroup}
          *
          * @private
          */
@@ -277,7 +277,7 @@
         /**
          * Sets namespace
          *
-         * @returns {TestS.Panel.Design.AbstractGroup}
+         * @returns {Ss.Panel.Design.AbstractGroup}
          *
          * @private
          */
@@ -321,4 +321,4 @@
             return data;
         }
     };
-}(window.jQuery, window.TestS);
+}(window.jQuery, window.Ss);

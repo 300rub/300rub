@@ -1,9 +1,9 @@
 <?php
 
-namespace testS\tests\unit\models\blocks\image\_base\AbstractImageInstanceModel;
+namespace ss\tests\unit\models\blocks\image\_base\AbstractImageInstanceModel;
 
-use testS\models\blocks\image\ImageInstanceModel;
-use testS\tests\unit\models\_abstract\_base\AbstractIncorrectModelTest;
+use ss\models\blocks\image\ImageInstanceModel;
+use ss\tests\unit\models\_abstract\_base\AbstractIncorrectModelTest;
 
 /**
  * Tests for the model AbstractImageInstanceModel

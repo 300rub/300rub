@@ -3,12 +3,12 @@
 
 require(__DIR__ . "/../application/App.php");
 
-use testS\application\App;
+use ss\application\App;
 
 // Config file path
 $config = require(__DIR__ . "/../config/common.php");
 
-spl_autoload_register(['testS\application\App','autoload']);
+spl_autoload_register(['ss\application\App','autoload']);
 
 // Runs a command
 App::console($config)->run();

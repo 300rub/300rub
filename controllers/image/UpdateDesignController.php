@@ -1,13 +1,13 @@
 <?php
 
-namespace testS\controllers\image;
+namespace ss\controllers\image;
 
-use testS\application\components\Operation;
-use testS\application\exceptions\BadRequestException;
-use testS\controllers\_abstract\AbstractController;
-use testS\models\_abstract\AbstractModel;
-use testS\models\blocks\block\BlockModel;
-use testS\models\blocks\image\ImageModel;
+use ss\application\components\Operation;
+use ss\application\exceptions\BadRequestException;
+use ss\controllers\_abstract\AbstractController;
+use ss\models\_abstract\AbstractModel;
+use ss\models\blocks\block\BlockModel;
+use ss\models\blocks\image\ImageModel;
 
 /**
  * Updates block's design

@@ -1,9 +1,9 @@
 <?php
 
-namespace testS\tests\unit\models\blocks\catalog\_base\AbstractCatalogModel;
+namespace ss\tests\unit\models\blocks\catalog\_base\AbstractCatalogModel;
 
-use testS\models\blocks\catalog\CatalogModel;
-use testS\tests\unit\models\_abstract\_base\AbstractDuplicateModelTest;
+use ss\models\blocks\catalog\CatalogModel;
+use ss\tests\unit\models\_abstract\_base\AbstractDuplicateModelTest;
 
 /**
  * Tests for the model AbstractCatalogModel

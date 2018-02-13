@@ -1,10 +1,10 @@
 <?php
 
-namespace testS\models\blocks\text;
+namespace ss\models\blocks\text;
 
-use testS\application\App;
-use testS\application\components\Db;
-use testS\models\blocks\text\_base\AbstractTextInstanceModel;
+use ss\application\App;
+use ss\application\components\Db;
+use ss\models\blocks\text\_base\AbstractTextInstanceModel;
 
 /**
  * Model for working with table "textInstances"

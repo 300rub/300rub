@@ -1,10 +1,10 @@
 <?php
 
 // @codingStandardsIgnoreLine
-namespace testS\tests\unit\models\blocks\record\_base\AbstractDesignRecordCloneModel;
+namespace ss\tests\unit\models\blocks\record\_base\AbstractDesignRecordCloneModel;
 
-use testS\models\blocks\record\DesignRecordCloneModel;
-use testS\tests\unit\models\_abstract\_base\AbstractIncorrectModelTest;
+use ss\models\blocks\record\DesignRecordCloneModel;
+use ss\tests\unit\models\_abstract\_base\AbstractIncorrectModelTest;
 
 /**
  * Tests for the model AbstractDesignRecordCloneModel

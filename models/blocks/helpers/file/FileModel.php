@@ -1,10 +1,10 @@
 <?php
 
-namespace testS\models\blocks\helpers\file;
+namespace ss\models\blocks\helpers\file;
 
-use testS\application\App;
-use testS\application\exceptions\FileException;
-use testS\models\blocks\helpers\file\_base\AbstractFileModel;
+use ss\application\App;
+use ss\application\exceptions\FileException;
+use ss\models\blocks\helpers\file\_base\AbstractFileModel;
 
 /**
  * Model for working with table "files"

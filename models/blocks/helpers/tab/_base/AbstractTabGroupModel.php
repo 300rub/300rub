@@ -1,8 +1,8 @@
 <?php
 
-namespace testS\models\blocks\helpers\tab\_base;
+namespace ss\models\blocks\helpers\tab\_base;
 
-use testS\models\_abstract\AbstractModel;
+use ss\models\_abstract\AbstractModel;
 
 /**
  * Abstract model for working with table "tabGroups"
@@ -30,7 +30,7 @@ abstract class AbstractTabGroupModel extends AbstractModel
         return [
             'tabId' => [
                 self::FIELD_RELATION_TO_PARENT
-                    => '\\testS\\models\\blocks\\helpers\\tab\\TabModel',
+                    => '\\ss\\models\\blocks\\helpers\\tab\\TabModel',
                 self::FIELD_NOT_CHANGE_ON_UPDATE => true,
             ],
         ];

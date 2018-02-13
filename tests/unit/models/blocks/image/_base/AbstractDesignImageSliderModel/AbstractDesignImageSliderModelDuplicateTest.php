@@ -1,10 +1,10 @@
 <?php
 
 // @codingStandardsIgnoreLine
-namespace testS\tests\unit\models\blocks\image\_base\AbstractDesignImageSliderModel;
+namespace ss\tests\unit\models\blocks\image\_base\AbstractDesignImageSliderModel;
 
-use testS\models\blocks\image\DesignImageSliderModel;
-use testS\tests\unit\models\_abstract\_base\AbstractDuplicateModelTest;
+use ss\models\blocks\image\DesignImageSliderModel;
+use ss\tests\unit\models\_abstract\_base\AbstractDuplicateModelTest;
 
 /**
  * Tests for the model AbstractDesignImageSliderModel

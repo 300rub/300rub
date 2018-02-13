@@ -1,6 +1,6 @@
 <?php
 
-namespace testS\models\_abstract;
+namespace ss\models\_abstract;
 
 /**
  * Abstract class for working with models

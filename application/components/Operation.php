@@ -1,9 +1,9 @@
 <?php
 
-namespace testS\application\components;
+namespace ss\application\components;
 
-use testS\application\App;
-use testS\models\blocks\block\BlockModel;
+use ss\application\App;
+use ss\models\blocks\block\BlockModel;
 
 /**
  * Class for work with user from session

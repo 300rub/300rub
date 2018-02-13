@@ -10,7 +10,7 @@
  * phpcs:disable Generic.Files.InlineHTML
  */
 
-use testS\models\blocks\text\DesignTextModel;
+use ss\models\blocks\text\DesignTextModel;
 
 $css = '';
 

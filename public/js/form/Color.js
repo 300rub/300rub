@@ -1,4 +1,4 @@
-!function ($, TestS) {
+!function ($, Ss) {
     'use strict';
 
     /**
@@ -6,8 +6,8 @@
      *
      * @param {Object} options
      */
-    TestS.Form.Color = function (options) {
-        TestS.Form.Abstract.call(this, "color-picker-container", options);
+    Ss.Form.Color = function (options) {
+        Ss.Form.Abstract.call(this, "color-picker-container", options);
         this.init();
     };
 
@@ -16,17 +16,17 @@
      *
      * @type {Object}
      */
-    TestS.Form.Color.prototype = Object.create(TestS.Form.Abstract.prototype);
+    Ss.Form.Color.prototype = Object.create(Ss.Form.Abstract.prototype);
 
     /**
      * Constructor
      */
-    TestS.Form.Color.prototype.constructor = TestS.Form.Color;
+    Ss.Form.Color.prototype.constructor = Ss.Form.Color;
 
     /**
      * Init
      */
-    TestS.Form.Color.prototype.init = function () {
+    Ss.Form.Color.prototype.init = function () {
         this.getInstance().val(this.getOption("value"));
 
         var iconBeforeElement = this.getForm().find(".icon-before");
@@ -73,4 +73,4 @@
             }
         );
     };
-}(window.jQuery, window.TestS);
+}(window.jQuery, window.Ss);

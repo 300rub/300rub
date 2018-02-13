@@ -1,14 +1,14 @@
 <?php
 
-namespace testS\controllers\text;
+namespace ss\controllers\text;
 
-use testS\application\App;
-use testS\application\components\Operation;
-use testS\application\exceptions\BadRequestException;
-use testS\application\exceptions\NotFoundException;
-use testS\controllers\_abstract\AbstractController;
-use testS\models\blocks\block\BlockModel;
-use testS\models\blocks\text\TextModel;
+use ss\application\App;
+use ss\application\components\Operation;
+use ss\application\exceptions\BadRequestException;
+use ss\application\exceptions\NotFoundException;
+use ss\controllers\_abstract\AbstractController;
+use ss\models\blocks\block\BlockModel;
+use ss\models\blocks\text\TextModel;
 
 /**
  * Gets block's design

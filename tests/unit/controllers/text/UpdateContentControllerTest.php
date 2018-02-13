@@ -1,11 +1,11 @@
 <?php
 
-namespace testS\tests\unit\controllers\text;
+namespace ss\tests\unit\controllers\text;
 
-use testS\models\blocks\block\BlockModel;
-use testS\models\blocks\text\TextInstanceModel;
-use testS\models\blocks\text\TextModel;
-use testS\tests\unit\controllers\_abstract\AbstractControllerTest;
+use ss\models\blocks\block\BlockModel;
+use ss\models\blocks\text\TextInstanceModel;
+use ss\models\blocks\text\TextModel;
+use ss\tests\unit\controllers\_abstract\AbstractControllerTest;
 
 /**
  * Tests for the controller UpdateContentController

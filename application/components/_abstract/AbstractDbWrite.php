@@ -1,8 +1,8 @@
 <?php
 
-namespace testS\application\components\_abstract;
+namespace ss\application\components\_abstract;
 
-use testS\application\exceptions\DbException;
+use ss\application\exceptions\DbException;
 
 /**
  * Abstract class for working with DB writing

@@ -1,8 +1,8 @@
 <?php
 
-namespace testS\models\blocks\helpers\field\_base;
+namespace ss\models\blocks\helpers\field\_base;
 
-use testS\models\_abstract\AbstractModel;
+use ss\models\_abstract\AbstractModel;
 
 /**
  * Abstract model for working with table "fieldGroups"
@@ -30,7 +30,7 @@ abstract class AbstractFieldGroupModel extends AbstractModel
         return [
             'fieldId' => [
                 self::FIELD_RELATION_TO_PARENT
-                    => '\\testS\\models\\blocks\\helpers\\field\\FieldModel',
+                    => '\\ss\\models\\blocks\\helpers\\field\\FieldModel',
                 self::FIELD_NOT_CHANGE_ON_UPDATE => true,
             ],
         ];

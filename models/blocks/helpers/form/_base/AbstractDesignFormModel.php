@@ -1,11 +1,11 @@
 <?php
 
-namespace testS\models\blocks\helpers\form\_base;
+namespace ss\models\blocks\helpers\form\_base;
 
-use testS\application\App;
-use testS\application\components\Validator;
-use testS\application\components\ValueGenerator;
-use testS\models\_abstract\AbstractModel;
+use ss\application\App;
+use ss\application\components\Validator;
+use ss\application\components\ValueGenerator;
+use ss\models\_abstract\AbstractModel;
 
 /**
  * Abstract model for working with table "designForms"
@@ -85,39 +85,39 @@ abstract class AbstractDesignFormModel extends AbstractModel
         return [
             'containerDesignBlockId'       => [
                 self::FIELD_RELATION
-                    => '\\testS\\models\\blocks\\block\\DesignBlockModel'
+                    => '\\ss\\models\\blocks\\block\\DesignBlockModel'
             ],
             'lineDesignBlockId'       => [
                 self::FIELD_RELATION
-                    => '\\testS\\models\\blocks\\block\\DesignBlockModel'
+                    => '\\ss\\models\\blocks\\block\\DesignBlockModel'
             ],
             'labelDesignBlockId'       => [
                 self::FIELD_RELATION
-                    => '\\testS\\models\\blocks\\block\\DesignBlockModel'
+                    => '\\ss\\models\\blocks\\block\\DesignBlockModel'
             ],
             'labelDesignTextId'       => [
                 self::FIELD_RELATION
-                    => '\\testS\\models\\blocks\\text\\DesignTextModel'
+                    => '\\ss\\models\\blocks\\text\\DesignTextModel'
             ],
             'formDesignBlockId'       => [
                 self::FIELD_RELATION
-                    => '\\testS\\models\\blocks\\block\\DesignBlockModel'
+                    => '\\ss\\models\\blocks\\block\\DesignBlockModel'
             ],
             'formDesignTextId'       => [
                 self::FIELD_RELATION
-                    => '\\testS\\models\\blocks\\text\\DesignTextModel'
+                    => '\\ss\\models\\blocks\\text\\DesignTextModel'
             ],
             'submitDesignBlockId'       => [
                 self::FIELD_RELATION
-                    => '\\testS\\models\\blocks\\block\\DesignBlockModel'
+                    => '\\ss\\models\\blocks\\block\\DesignBlockModel'
             ],
             'submitDesignTextId'       => [
                 self::FIELD_RELATION
-                    => '\\testS\\models\\blocks\\text\\DesignTextModel'
+                    => '\\ss\\models\\blocks\\text\\DesignTextModel'
             ],
             'submitIconDesignTextId'       => [
                 self::FIELD_RELATION
-                    => '\\testS\\models\\blocks\\text\\DesignTextModel'
+                    => '\\ss\\models\\blocks\\text\\DesignTextModel'
             ],
             'submitIcon'       => [
                 self::FIELD_TYPE => self::FIELD_TYPE_STRING,

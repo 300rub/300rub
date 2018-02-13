@@ -1,13 +1,13 @@
 <?php
 
-namespace testS\controllers\text;
+namespace ss\controllers\text;
 
-use testS\application\components\Operation;
-use testS\application\exceptions\NotFoundException;
-use testS\controllers\_abstract\AbstractController;
-use testS\models\blocks\block\BlockModel;
-use testS\models\blocks\text\TextInstanceModel;
-use testS\models\blocks\text\TextModel;
+use ss\application\components\Operation;
+use ss\application\exceptions\NotFoundException;
+use ss\controllers\_abstract\AbstractController;
+use ss\models\blocks\block\BlockModel;
+use ss\models\blocks\text\TextInstanceModel;
+use ss\models\blocks\text\TextModel;
 
 /**
  * Updates block's content

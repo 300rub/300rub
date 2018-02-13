@@ -1,8 +1,8 @@
 <?php
 
-namespace testS\models\blocks\record;
+namespace ss\models\blocks\record;
 
-use testS\models\blocks\record\_base\AbstractDesignRecordCloneModel;
+use ss\models\blocks\record\_base\AbstractDesignRecordCloneModel;
 
 /**
  * Model for working with table "designRecordClones"

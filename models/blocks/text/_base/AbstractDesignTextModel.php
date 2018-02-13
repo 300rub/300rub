@@ -1,9 +1,9 @@
 <?php
 
-namespace testS\models\blocks\text\_base;
+namespace ss\models\blocks\text\_base;
 
-use testS\application\components\ValueGenerator;
-use testS\models\_abstract\AbstractModel;
+use ss\application\components\ValueGenerator;
+use ss\models\_abstract\AbstractModel;
 
 /**
  * Abstract model for working with table "designTexts"

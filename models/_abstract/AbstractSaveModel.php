@@ -1,11 +1,11 @@
 <?php
 
-namespace testS\models\_abstract;
+namespace ss\models\_abstract;
 
-use testS\application\components\Db;
-use testS\application\components\Validator;
-use testS\application\components\ValueGenerator;
-use testS\application\exceptions\ModelException;
+use ss\application\components\Db;
+use ss\application\components\Validator;
+use ss\application\components\ValueGenerator;
+use ss\application\exceptions\ModelException;
 
 /**
  * Abstract class for working with models

@@ -1,9 +1,9 @@
 <?php
 
-namespace testS\application\components\ValueGenerator\modify;
+namespace ss\application\components\ValueGenerator\modify;
 
-use testS\application\components\ValueGenerator\_abstract\AbstractModifier;
-use testS\application\App;
+use ss\application\components\ValueGenerator\_abstract\AbstractModifier;
+use ss\application\App;
 
 /**
  * Class for name copy value generation

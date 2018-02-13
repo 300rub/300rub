@@ -1,8 +1,8 @@
 <?php
 
-namespace testS\application\components;
+namespace ss\application\components;
 
-use testS\application\App;
+use ss\application\App;
 
 /**
  * Class for validation model's fields

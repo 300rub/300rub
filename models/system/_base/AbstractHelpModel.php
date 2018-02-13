@@ -1,8 +1,8 @@
 <?php
 
-namespace testS\models\system\_base;
+namespace ss\models\system\_base;
 
-use testS\models\_abstract\AbstractModel;
+use ss\models\_abstract\AbstractModel;
 
 /**
  * Abstract model for working with table "help"

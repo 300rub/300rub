@@ -1,6 +1,6 @@
 <?php
 
-use testS\application\components\Operation;
+use ss\application\components\Operation;
 
 return [
     1 => [

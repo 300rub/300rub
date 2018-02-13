@@ -1,8 +1,8 @@
 <?php
 
-namespace testS\application\components;
+namespace ss\application\components;
 
-use testS\application\components\_abstract\AbstractDbWrite;
+use ss\application\components\_abstract\AbstractDbWrite;
 
 /**
  * Class for working with DB

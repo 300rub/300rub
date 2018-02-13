@@ -1,9 +1,9 @@
 <?php
 
-namespace testS\tests\unit\models\blocks\text\_base\AbstractTextInstanceModel;
+namespace ss\tests\unit\models\blocks\text\_base\AbstractTextInstanceModel;
 
-use testS\models\blocks\text\TextInstanceModel;
-use testS\tests\unit\models\_abstract\_base\AbstractEmptyModelTest;
+use ss\models\blocks\text\TextInstanceModel;
+use ss\tests\unit\models\_abstract\_base\AbstractEmptyModelTest;
 
 /**
  * Tests for the model TextInstanceModel

@@ -1,8 +1,8 @@
 <?php
 
-namespace testS\application\components;
+namespace ss\application\components;
 
-use testS\application\exceptions\CommonException;
+use ss\application\exceptions\CommonException;
 
 /**
  * Class for handling errors

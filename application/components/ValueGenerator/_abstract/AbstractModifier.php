@@ -1,8 +1,8 @@
 <?php
 
-namespace testS\application\components\ValueGenerator\_abstract;
+namespace ss\application\components\ValueGenerator\_abstract;
 
-use testS\application\components\ValueGenerator;
+use ss\application\components\ValueGenerator;
 
 /**
  * Abstract class to modify value

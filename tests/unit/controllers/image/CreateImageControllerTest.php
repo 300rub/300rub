@@ -1,10 +1,10 @@
 <?php
 
-namespace testS\tests\unit\controllers\image;
+namespace ss\tests\unit\controllers\image;
 
-use testS\application\App;
-use testS\models\blocks\image\ImageInstanceModel;
-use testS\tests\unit\controllers\_abstract\AbstractControllerTest;
+use ss\application\App;
+use ss\models\blocks\image\ImageInstanceModel;
+use ss\tests\unit\controllers\_abstract\AbstractControllerTest;
 
 /**
  * Tests for the controller CreateImageController

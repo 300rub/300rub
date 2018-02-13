@@ -1,9 +1,9 @@
 <?php
 
-namespace testS\models\blocks\record\_base;
+namespace ss\models\blocks\record\_base;
 
-use testS\application\components\ValueGenerator;
-use testS\models\_abstract\AbstractModel;
+use ss\application\components\ValueGenerator;
+use ss\models\_abstract\AbstractModel;
 
 /**
  * Abstract model for working with table "designRecords"
@@ -88,55 +88,55 @@ abstract class AbstractDesignRecordModel extends AbstractModel
         return [
             'shortCardContainerDesignBlockId'      => [
                 self::FIELD_RELATION
-                    => '\\testS\\models\\blocks\\block\\DesignBlockModel'
+                    => '\\ss\\models\\blocks\\block\\DesignBlockModel'
             ],
             'shortCardInstanceDesignBlockId'       => [
                 self::FIELD_RELATION
-                    => '\\testS\\models\\blocks\\block\\DesignBlockModel'
+                    => '\\ss\\models\\blocks\\block\\DesignBlockModel'
             ],
             'shortCardTitleDesignBlockId'          => [
                 self::FIELD_RELATION
-                    => '\\testS\\models\\blocks\\block\\DesignBlockModel'
+                    => '\\ss\\models\\blocks\\block\\DesignBlockModel'
             ],
             'shortCardTitleDesignTextId'           => [
                 self::FIELD_RELATION
-                    => '\\testS\\models\\blocks\\text\\DesignTextModel'
+                    => '\\ss\\models\\blocks\\text\\DesignTextModel'
             ],
             'shortCardDateDesignTextId'            => [
                 self::FIELD_RELATION
-                    => '\\testS\\models\\blocks\\text\\DesignTextModel'
+                    => '\\ss\\models\\blocks\\text\\DesignTextModel'
             ],
             'shortCardDescriptionDesignBlockId'    => [
                 self::FIELD_RELATION
-                    => '\\testS\\models\\blocks\\block\\DesignBlockModel'
+                    => '\\ss\\models\\blocks\\block\\DesignBlockModel'
             ],
             'shortCardDescriptionDesignTextId'     => [
                 self::FIELD_RELATION
-                    => '\\testS\\models\\blocks\\text\\DesignTextModel'
+                    => '\\ss\\models\\blocks\\text\\DesignTextModel'
             ],
             'shortCardPaginationDesignBlockId'     => [
                 self::FIELD_RELATION
-                    => '\\testS\\models\\blocks\\block\\DesignBlockModel'
+                    => '\\ss\\models\\blocks\\block\\DesignBlockModel'
             ],
             'shortCardPaginationItemDesignBlockId' => [
                 self::FIELD_RELATION
-                    => '\\testS\\models\\blocks\\block\\DesignBlockModel'
+                    => '\\ss\\models\\blocks\\block\\DesignBlockModel'
             ],
             'shortCardPaginationItemDesignTextId'  => [
                 self::FIELD_RELATION
-                    => '\\testS\\models\\blocks\\text\\DesignTextModel'
+                    => '\\ss\\models\\blocks\\text\\DesignTextModel'
             ],
             'fullCardTitleDesignBlockId'           => [
                 self::FIELD_RELATION
-                    => '\\testS\\models\\blocks\\block\\DesignBlockModel'
+                    => '\\ss\\models\\blocks\\block\\DesignBlockModel'
             ],
             'fullCardTitleDesignTextId'            => [
                 self::FIELD_RELATION
-                    => '\\testS\\models\\blocks\\text\\DesignTextModel'
+                    => '\\ss\\models\\blocks\\text\\DesignTextModel'
             ],
             'fullCardDateDesignTextId'             => [
                 self::FIELD_RELATION
-                    => '\\testS\\models\\blocks\\text\\DesignTextModel'
+                    => '\\ss\\models\\blocks\\text\\DesignTextModel'
             ],
             'shortCardViewType'                    => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,

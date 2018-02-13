@@ -1,8 +1,8 @@
 <?php
 
-namespace testS\models\settings;
+namespace ss\models\settings;
 
-use testS\models\settings\_base\AbstractSettingsModel;
+use ss\models\settings\_base\AbstractSettingsModel;
 
 /**
  * Model for working with table "settings"

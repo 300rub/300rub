@@ -1,8 +1,8 @@
 <?php
 
-namespace testS\controllers\_abstract;
+namespace ss\controllers\_abstract;
 
-use testS\application\exceptions\BadRequestException;
+use ss\application\exceptions\BadRequestException;
 
 /**
  * Abstract class for working with controller data

@@ -1,4 +1,4 @@
-!function ($, TestS) {
+!function ($, Ss) {
     'use strict';
 
     /**
@@ -6,8 +6,8 @@
      *
      * @type {Object}
      */
-    TestS.Panel.Blocks.Text.Settings = function (id) {
-        TestS.Panel.Abstract.call(
+    Ss.Panel.Blocks.Text.Settings = function (id) {
+        Ss.Panel.Abstract.call(
             this,
             {
                 group: "text",
@@ -27,14 +27,14 @@
      *
      * @type {Object}
      */
-    TestS.Panel.Blocks.Text.Settings.prototype
-        = Object.create(TestS.Panel.Abstract.prototype);
+    Ss.Panel.Blocks.Text.Settings.prototype
+        = Object.create(Ss.Panel.Abstract.prototype);
 
     /**
      * Constructor
      */
-    TestS.Panel.Blocks.Text.Settings.prototype.constructor
-        = TestS.Panel.Blocks.Text.Settings;
+    Ss.Panel.Blocks.Text.Settings.prototype.constructor
+        = Ss.Panel.Blocks.Text.Settings;
 
     /**
      * On load window success
@@ -43,10 +43,10 @@
      *
      * @private
      */
-    TestS.Panel.Blocks.Text.Settings.prototype._onLoadDataSuccess = function (
+    Ss.Panel.Blocks.Text.Settings.prototype._onLoadDataSuccess = function (
         data
     ) {
-        this._name = new TestS.Form.Text(
+        this._name = new Ss.Form.Text(
             $.extend(
                 {
                     appendTo: this._panel.getBody()
@@ -55,7 +55,7 @@
             )
         );
 
-        this._type = new TestS.Form.Select(
+        this._type = new Ss.Form.Select(
             $.extend(
                 {
                     appendTo: this._panel.getBody()
@@ -64,7 +64,7 @@
             )
         );
 
-        this._hasEditor = new TestS.Form.CheckboxOnOff(
+        this._hasEditor = new Ss.Form.CheckboxOnOff(
             $.extend(
                 {
                     appendTo: this._panel.getBody()
@@ -85,7 +85,7 @@
             .setDescription(data.description)
             .setBack(
                 function () {
-                    new TestS.Panel.Blocks.Text.List();
+                    new Ss.Panel.Blocks.Text.List();
                 }
             )
             .setSubmit(
@@ -100,7 +100,7 @@
                         },
                         type: type,
                         success: $.proxy(this._onSendDataSuccess, this),
-                        error: TestS.System.App.showError
+                        error: Ss.System.App.showError
                     }
                 }
             );
@@ -113,7 +113,7 @@
      *
      * @private
      */
-    TestS.Panel.Blocks.Text.Settings.prototype._onSendDataSuccess = function (
+    Ss.Panel.Blocks.Text.Settings.prototype._onSendDataSuccess = function (
         data
     ) {
         if ($.type(data.errors) === "object"
@@ -124,7 +124,7 @@
                 .scrollTo()
                 .focus();
         } else {
-            new TestS.Panel.Blocks.Text.List();
+            new Ss.Panel.Blocks.Text.List();
         }
     };
-}(window.jQuery, window.TestS);
+}(window.jQuery, window.Ss);

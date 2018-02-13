@@ -1,4 +1,4 @@
-!function ($, TestS) {
+!function ($, Ss) {
     'use strict';
 
     /**
@@ -6,8 +6,8 @@
      *
      * @type {Object}
      */
-    TestS.Panel.Blocks.Text.List = function () {
-        TestS.Panel.Abstract.call(
+    Ss.Panel.Blocks.Text.List = function () {
+        Ss.Panel.Abstract.call(
             this,
             {
                 group: "text",
@@ -22,14 +22,14 @@
      *
      * @type {Object}
      */
-    TestS.Panel.Blocks.Text.List.prototype
-        = Object.create(TestS.Panel.Abstract.prototype);
+    Ss.Panel.Blocks.Text.List.prototype
+        = Object.create(Ss.Panel.Abstract.prototype);
 
     /**
      * Constructor
      */
-    TestS.Panel.Blocks.Text.List.prototype.constructor
-        = TestS.Panel.Blocks.Text.List;
+    Ss.Panel.Blocks.Text.List.prototype.constructor
+        = Ss.Panel.Blocks.Text.List;
 
     /**
      * On load window success
@@ -38,7 +38,7 @@
      *
      * @private
      */
-    TestS.Panel.Blocks.Text.List.prototype._onLoadDataSuccess = function (
+    Ss.Panel.Blocks.Text.List.prototype._onLoadDataSuccess = function (
         data
     ) {
         this
@@ -46,7 +46,7 @@
             .setDescription(data.description)
             .setBack(
                 function () {
-                    new TestS.Panel.Blocks.List();
+                    new Ss.Panel.Blocks.List();
                 }
             );
 
@@ -55,7 +55,7 @@
             $.proxy(
                 function (i, itemData) {
                     var $item
-                        = TestS.Components.Template.get("panel-list-item");
+                        = Ss.Components.Template.get("panel-list-item");
 
                     $item.addClass("without-buttons");
 
@@ -64,13 +64,13 @@
                         $designIcon.on(
                             "click",
                             function () {
-                                new TestS.Panel.Design.Editor(
+                                new Ss.Panel.Design.Editor(
                                     {
                                         group: "text",
                                         controller: "design",
                                         id: itemData.id,
                                         success: function () {
-                                            new TestS.Panel.Blocks.Text.List();
+                                            new Ss.Panel.Blocks.Text.List();
                                         }
                                     }
                                 );
@@ -85,7 +85,7 @@
                         $settingsIcon.on(
                             "click",
                             function () {
-                                new TestS.Panel.Blocks.Text.Settings(
+                                new Ss.Panel.Blocks.Text.Settings(
                                     itemData.id
                                 );
                             }
@@ -103,4 +103,4 @@
             )
         );
     };
-}(window.jQuery, window.TestS);
+}(window.jQuery, window.Ss);

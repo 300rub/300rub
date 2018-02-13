@@ -1,8 +1,8 @@
 <?php
 
-namespace testS\models\blocks\catalog\_base;
+namespace ss\models\blocks\catalog\_base;
 
-use testS\models\_abstract\AbstractModel;
+use ss\models\_abstract\AbstractModel;
 
 /**
  * Abstract model for working with table "catalogInstances"
@@ -47,27 +47,27 @@ abstract class AbstractCatalogInstanceModel extends AbstractModel
         return [
             'seoId'         => [
                 self::FIELD_RELATION
-                    => '\\testS\\models\\sections\\SeoModel',
+                    => '\\ss\\models\\sections\\SeoModel',
                 self::FIELD_SKIP_DUPLICATION => true,
             ],
             'tabGroupId'    => [
                 self::FIELD_RELATION
-                    => '\\testS\\models\\blocks\\helpers\\tab\\TabGroupModel',
+                    => '\\ss\\models\\blocks\\helpers\\tab\\TabGroupModel',
                 self::FIELD_SKIP_DUPLICATION => true,
             ],
             'imageGroupId'  => [
                 self::FIELD_RELATION
-                    => '\\testS\\models\\blocks\\image\\ImageGroupModel',
+                    => '\\ss\\models\\blocks\\image\\ImageGroupModel',
                 self::FIELD_SKIP_DUPLICATION => true,
             ],
             'catalogMenuId' => [
                 self::FIELD_RELATION_TO_PARENT
-                    => '\\testS\\models\\blocks\\catalog\\CatalogMenuModel',
+                    => '\\ss\\models\\blocks\\catalog\\CatalogMenuModel',
                 self::FIELD_SKIP_DUPLICATION   => true,
             ],
             'fieldGroupId'  => [
                 self::FIELD_RELATION
-                    => '\\testS\\models\\blocks\\' .
+                    => '\\ss\\models\\blocks\\' .
                     'helpers\\field\\FieldGroupModel',
                 self::FIELD_SKIP_DUPLICATION => true,
             ],

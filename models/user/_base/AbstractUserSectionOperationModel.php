@@ -1,10 +1,10 @@
 <?php
 
-namespace testS\models\user\_base;
+namespace ss\models\user\_base;
 
-use testS\application\App;
-use testS\application\components\ValueGenerator;
-use testS\models\_abstract\AbstractModel;
+use ss\application\App;
+use ss\application\components\ValueGenerator;
+use ss\models\_abstract\AbstractModel;
 
 /**
  * Abstract model for working with table "userSectionOperations"
@@ -32,13 +32,13 @@ abstract class AbstractUserSectionOperationModel extends AbstractModel
         return [
             'userId' => [
                 self::FIELD_RELATION_TO_PARENT
-                    => '\\testS\\models\\user\\UserModel',
+                    => '\\ss\\models\\user\\UserModel',
                 self::FIELD_SKIP_DUPLICATION     => true,
                 self::FIELD_NOT_CHANGE_ON_UPDATE => true,
             ],
             'sectionId' => [
                 self::FIELD_RELATION_TO_PARENT
-                    => '\\testS\\models\\sections\\SectionModel',
+                    => '\\ss\\models\\sections\\SectionModel',
                 self::FIELD_SKIP_DUPLICATION     => true,
                 self::FIELD_NOT_CHANGE_ON_UPDATE => true,
             ],

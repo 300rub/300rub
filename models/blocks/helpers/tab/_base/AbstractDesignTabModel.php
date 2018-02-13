@@ -1,8 +1,8 @@
 <?php
 
-namespace testS\models\blocks\helpers\tab\_base;
+namespace ss\models\blocks\helpers\tab\_base;
 
-use testS\models\_abstract\AbstractModel;
+use ss\models\_abstract\AbstractModel;
 
 /**
  * Abstract model for working with table "designTabs"
@@ -30,19 +30,19 @@ abstract class AbstractDesignTabModel extends AbstractModel
         return [
             'containerDesignBlockId' => [
                 self::FIELD_RELATION
-                    => '\\testS\\models\\blocks\\block\\DesignBlockModel'
+                    => '\\ss\\models\\blocks\\block\\DesignBlockModel'
             ],
             'tabDesignBlockId'     => [
                 self::FIELD_RELATION
-                    => '\\testS\\models\\blocks\\block\\DesignBlockModel'
+                    => '\\ss\\models\\blocks\\block\\DesignBlockModel'
             ],
             'tabDesignTextId'      => [
                 self::FIELD_RELATION
-                    => '\\testS\\models\\blocks\\text\\DesignTextModel'
+                    => '\\ss\\models\\blocks\\text\\DesignTextModel'
             ],
             'contentDesignBlockId'     => [
                 self::FIELD_RELATION
-                    => '\\testS\\models\\blocks\\block\\DesignBlockModel'
+                    => '\\ss\\models\\blocks\\block\\DesignBlockModel'
             ],
         ];
     }

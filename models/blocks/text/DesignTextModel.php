@@ -1,9 +1,9 @@
 <?php
 
-namespace testS\models\blocks\text;
+namespace ss\models\blocks\text;
 
-use testS\models\blocks\text\_base\AbstractDesignTextModel;
-use testS\application\App;
+use ss\models\blocks\text\_base\AbstractDesignTextModel;
+use ss\application\App;
 
 /**
  * Model for working with table "designTexts"

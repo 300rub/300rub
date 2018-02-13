@@ -1,10 +1,10 @@
 <?php
 
 // @codingStandardsIgnoreLine
-namespace testS\tests\unit\models\blocks\helpers\tab\_base\AbstractTabInstanceModel;
+namespace ss\tests\unit\models\blocks\helpers\tab\_base\AbstractTabInstanceModel;
 
-use testS\models\blocks\helpers\tab\TabInstanceModel;
-use testS\tests\unit\models\_abstract\_base\AbstractEmptyModelTest;
+use ss\models\blocks\helpers\tab\TabInstanceModel;
+use ss\tests\unit\models\_abstract\_base\AbstractEmptyModelTest;
 
 /**
  * Tests for the model AbstractTabInstanceModel

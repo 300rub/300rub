@@ -1,10 +1,10 @@
 <?php
 
-namespace testS\controllers\block;
+namespace ss\controllers\block;
 
-use testS\application\App;
-use testS\controllers\_abstract\AbstractController;
-use testS\models\blocks\block\BlockModel;
+use ss\application\App;
+use ss\controllers\_abstract\AbstractController;
+use ss\models\blocks\block\BlockModel;
 
 /**
  * Gets a list of blocks

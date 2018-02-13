@@ -1,9 +1,9 @@
 <?php
 
-namespace testS\tests\unit\models\blocks\siteMap\_base\AbstractSiteMapModel;
+namespace ss\tests\unit\models\blocks\siteMap\_base\AbstractSiteMapModel;
 
-use testS\models\blocks\siteMap\SiteMapModel;
-use testS\tests\unit\models\_abstract\_base\AbstractDbModelTest;
+use ss\models\blocks\siteMap\SiteMapModel;
+use ss\tests\unit\models\_abstract\_base\AbstractDbModelTest;
 
 /**
  * Tests for the model SiteMapModel

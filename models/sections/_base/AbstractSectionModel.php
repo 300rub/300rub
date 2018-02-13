@@ -1,11 +1,11 @@
 <?php
 
-namespace testS\models\sections\_base;
+namespace ss\models\sections\_base;
 
-use testS\application\App;
-use testS\application\components\Db;
-use testS\application\components\ValueGenerator;
-use testS\models\_abstract\AbstractModel;
+use ss\application\App;
+use ss\application\components\Db;
+use ss\application\components\ValueGenerator;
+use ss\models\_abstract\AbstractModel;
 
 /**
  * Abstract model for working with table "sections"
@@ -35,11 +35,11 @@ abstract class AbstractSectionModel extends AbstractModel
         return [
             'seoId'         => [
                 self::FIELD_RELATION
-                    => '\\testS\\models\\sections\\SeoModel'
+                    => '\\ss\\models\\sections\\SeoModel'
             ],
             'designBlockId' => [
                 self::FIELD_RELATION
-                    => '\\testS\\models\\blocks\\block\\DesignBlockModel'
+                    => '\\ss\\models\\blocks\\block\\DesignBlockModel'
             ],
             'language'      => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,

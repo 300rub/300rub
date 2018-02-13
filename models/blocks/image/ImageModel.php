@@ -1,8 +1,8 @@
 <?php
 
-namespace testS\models\blocks\image;
+namespace ss\models\blocks\image;
 
-use testS\models\blocks\image\_base\AbstractImageModel;
+use ss\models\blocks\image\_base\AbstractImageModel;
 
 /**
  * Model for working with table "images"
@@ -13,7 +13,7 @@ class ImageModel extends AbstractImageModel
     /**
      * Class name
      */
-    const CLASS_NAME = '\\testS\\models\\blocks\\image\\ImageModel';
+    const CLASS_NAME = '\\ss\\models\\blocks\\image\\ImageModel';
 
     /**
      * Gets HTML memcached key

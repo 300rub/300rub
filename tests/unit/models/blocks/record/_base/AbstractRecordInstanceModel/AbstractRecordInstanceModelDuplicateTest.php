@@ -1,10 +1,10 @@
 <?php
 
 // @codingStandardsIgnoreLine
-namespace testS\tests\unit\models\blocks\record\_base\AbstractRecordInstanceModel;
+namespace ss\tests\unit\models\blocks\record\_base\AbstractRecordInstanceModel;
 
-use testS\models\blocks\record\RecordInstanceModel;
-use testS\tests\unit\models\_abstract\_base\AbstractDuplicateModelTest;
+use ss\models\blocks\record\RecordInstanceModel;
+use ss\tests\unit\models\_abstract\_base\AbstractDuplicateModelTest;
 
 /**
  * Tests for the model AbstractRecordInstanceModel

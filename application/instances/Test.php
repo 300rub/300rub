@@ -1,8 +1,8 @@
 <?php
 
-namespace testS\application\instances;
+namespace ss\application\instances;
 
-use testS\application\instances\_abstract\AbstractApplication;
+use ss\application\instances\_abstract\AbstractApplication;
 
 /**
  * Test application class

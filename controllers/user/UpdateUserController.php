@@ -1,16 +1,16 @@
 <?php
 
-namespace testS\controllers\user;
+namespace ss\controllers\user;
 
-use testS\application\App;
-use testS\application\components\Operation;
-use testS\application\components\User;
-use testS\application\exceptions\AccessException;
-use testS\application\exceptions\BadRequestException;
-use testS\application\exceptions\NotFoundException;
-use testS\controllers\_abstract\AbstractController;
-use testS\models\_abstract\AbstractModel;
-use testS\models\user\UserModel;
+use ss\application\App;
+use ss\application\components\Operation;
+use ss\application\components\User;
+use ss\application\exceptions\AccessException;
+use ss\application\exceptions\BadRequestException;
+use ss\application\exceptions\NotFoundException;
+use ss\controllers\_abstract\AbstractController;
+use ss\models\_abstract\AbstractModel;
+use ss\models\user\UserModel;
 
 /**
  * Updates user

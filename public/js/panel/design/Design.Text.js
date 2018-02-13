@@ -1,4 +1,4 @@
-!function ($, TestS) {
+!function ($, Ss) {
     'use strict';
 
     /**
@@ -8,7 +8,7 @@
      *
      * @type {Object}
      */
-    TestS.Panel.Design.Text = function (data) {
+    Ss.Panel.Design.Text = function (data) {
         this._data = $.extend({}, data);
 
         this._selector = "";
@@ -34,7 +34,7 @@
      *
      * @type {Object}
      */
-    TestS.Panel.Design.Text.prototype = {
+    Ss.Panel.Design.Text.prototype = {
 
         /**
          * List of font family types
@@ -229,7 +229,7 @@
         /**
          * Sets values
          *
-         * @returns {TestS.Panel.Design.Text}
+         * @returns {Ss.Panel.Design.Text}
          *
          * @private
          */
@@ -265,7 +265,7 @@
         /**
          * Sets names
          *
-         * @returns {TestS.Panel.Design.Text}
+         * @returns {Ss.Panel.Design.Text}
          *
          * @private
          */
@@ -289,7 +289,7 @@
         /**
          * Sets selector
          *
-         * @returns {TestS.Panel.Design.Text}
+         * @returns {Ss.Panel.Design.Text}
          *
          * @private
          */
@@ -304,7 +304,7 @@
         /**
          * Sets style container
          *
-         * @returns {TestS.Panel.Design.Text}
+         * @returns {Ss.Panel.Design.Text}
          *
          * @private
          */
@@ -319,7 +319,7 @@
         /**
          * Sets rollback styles
          *
-         * @returns {TestS.Panel.Design.Text}
+         * @returns {Ss.Panel.Design.Text}
          *
          * @private
          */
@@ -339,7 +339,7 @@
         /**
          * Sets labels
          *
-         * @returns {TestS.Panel.Design.Text}
+         * @returns {Ss.Panel.Design.Text}
          *
          * @private
          */
@@ -371,19 +371,19 @@
         /**
          * Sets design container
          *
-         * @returns {TestS.Panel.Design.Text}
+         * @returns {Ss.Panel.Design.Text}
          *
          * @private
          */
         _setDesignContainer: function() {
-            this.$_designContainer = TestS.Components.Template.get("design-text-container");
+            this.$_designContainer = Ss.Components.Template.get("design-text-container");
             return this;
         },
 
         /**
          * Sets common container
          *
-         * @returns {TestS.Panel.Design.Text}
+         * @returns {Ss.Panel.Design.Text}
          *
          * @private
          */
@@ -395,7 +395,7 @@
         /**
          * Sets hover container
          *
-         * @returns {TestS.Panel.Design.Text}
+         * @returns {Ss.Panel.Design.Text}
          *
          * @private
          */
@@ -407,12 +407,12 @@
         /**
          * Sets example
          *
-         * @returns {TestS.Panel.Design.Text}
+         * @returns {Ss.Panel.Design.Text}
          *
          * @private
          */
         _setExample: function() {
-            var uniqueId = TestS.Components.Library.getUniqueId();
+            var uniqueId = Ss.Components.Library.getUniqueId();
 
             this.$_example = this.$_designContainer.find(".example")
                 .addClass("example-" + uniqueId)
@@ -425,7 +425,7 @@
         /**
          * Sets styles
          *
-         * @returns {TestS.Panel.Design.Text}
+         * @returns {Ss.Panel.Design.Text}
          *
          * @private
          */
@@ -446,7 +446,7 @@
         /**
          * Sets size
          *
-         * @returns {TestS.Panel.Design.Text}
+         * @returns {Ss.Panel.Design.Text}
          *
          * @private
          */
@@ -458,7 +458,7 @@
             var sizeHover = null;
 
             if (this._values["sizeHover"] !== null) {
-                sizeHover = new TestS.Form.Spinner({
+                sizeHover = new Ss.Form.Spinner({
                     value: this._values["sizeHover"],
                     css: "size-hover",
                     min: 0,
@@ -470,7 +470,7 @@
                 });
             }
 
-            new TestS.Form.Spinner({
+            new Ss.Form.Spinner({
                 value: this._values["size"],
                 css: "size",
                 min: 0,
@@ -493,7 +493,7 @@
         /**
          * Sets family
          *
-         * @returns {TestS.Panel.Design.Text}
+         * @returns {Ss.Panel.Design.Text}
          *
          * @private
          */
@@ -511,7 +511,7 @@
                 });
             });
 
-            new TestS.Form.Select({
+            new Ss.Form.Select({
                 list: list,
                 value: this._values["family"],
                 css: "family",
@@ -528,13 +528,13 @@
         /**
          * Sets color
          *
-         * @returns {TestS.Panel.Design.Text}
+         * @returns {Ss.Panel.Design.Text}
          *
          * @private
          */
         _setColor: function() {
             if (this._values["color"] !== null) {
-                new TestS.Form.Color({
+                new Ss.Form.Color({
                     title: this._getLabel("color"),
                     value: this._values["color"],
                     callback: $.proxy(function (color) {
@@ -546,7 +546,7 @@
             }
 
             if (this._values["colorHover"] !== null) {
-                new TestS.Form.Color({
+                new Ss.Form.Color({
                     title: this._getLabel("color"),
                     value: this._values["colorHover"],
                     callback: $.proxy(function (color) {
@@ -563,7 +563,7 @@
         /**
          * Sets isItalic
          *
-         * @returns {TestS.Panel.Design.Text}
+         * @returns {Ss.Panel.Design.Text}
          *
          * @private
          */
@@ -571,7 +571,7 @@
             var hoverForm = null;
 
             if (this._values["isItalicHover"] !== null) {
-                hoverForm = new TestS.Form.CheckboxButton({
+                hoverForm = new Ss.Form.CheckboxButton({
                     value: this._values["isItalicHover"],
                     icon: "fa-italic",
                     onCheck: $.proxy(function () {
@@ -587,7 +587,7 @@
             }
 
             if (this._values["isItalic"] !== null) {
-                new TestS.Form.CheckboxButton({
+                new Ss.Form.CheckboxButton({
                     value: this._values["isItalic"],
                     icon: "fa-italic",
                     onCheck: $.proxy(function () {
@@ -622,7 +622,7 @@
         /**
          * Sets isBold
          *
-         * @returns {TestS.Panel.Design.Text}
+         * @returns {Ss.Panel.Design.Text}
          *
          * @private
          */
@@ -630,7 +630,7 @@
             var hoverForm = null;
 
             if (this._values["isBoldHover"] !== null) {
-                hoverForm = new TestS.Form.CheckboxButton({
+                hoverForm = new Ss.Form.CheckboxButton({
                     value: this._values["isBoldHover"],
                     icon: "fa-bold",
                     onCheck: $.proxy(function () {
@@ -646,7 +646,7 @@
             }
 
             if (this._values["isBold"] !== null) {
-                new TestS.Form.CheckboxButton({
+                new Ss.Form.CheckboxButton({
                     value: this._values["isBold"],
                     icon: "fa-bold",
                     onCheck: $.proxy(function () {
@@ -681,7 +681,7 @@
         /**
          * Sets align
          *
-         * @returns {TestS.Panel.Design.Text}
+         * @returns {Ss.Panel.Design.Text}
          *
          * @private
          */
@@ -690,7 +690,7 @@
                 return this;
             }
 
-            new TestS.Form.RadioButtons({
+            new Ss.Form.RadioButtons({
                 value: this._values["align"],
                 data: this._alignList,
                 css: "align",
@@ -707,14 +707,14 @@
         /**
          * Sets align
          *
-         * @returns {TestS.Panel.Design.Text}
+         * @returns {Ss.Panel.Design.Text}
          *
          * @private
          */
         _setDecoration: function() {
             var hoverForm = null;
             if (this._values["decorationHover"] !== null) {
-                hoverForm = new TestS.Form.RadioButtons({
+                hoverForm = new Ss.Form.RadioButtons({
                     value: this._values["decorationHover"],
                     data: this._decorationList,
                     onChange: $.proxy(function (value) {
@@ -726,7 +726,7 @@
             }
 
             if (this._values["decoration"] !== null) {
-                new TestS.Form.RadioButtons({
+                new Ss.Form.RadioButtons({
                     value: this._values["decoration"],
                     data: this._decorationList,
                     css: "decoration",
@@ -751,14 +751,14 @@
         /**
          * Sets transform
          *
-         * @returns {TestS.Panel.Design.Text}
+         * @returns {Ss.Panel.Design.Text}
          *
          * @private
          */
         _setTransform: function() {
             var hoverForm = null;
             if (this._values["transformHover"] !== null) {
-                hoverForm = new TestS.Form.RadioButtons({
+                hoverForm = new Ss.Form.RadioButtons({
                     value: this._values["transformHover"],
                     data: this._transformList,
                     onChange: $.proxy(function (value) {
@@ -770,7 +770,7 @@
             }
 
             if (this._values["transform"] !== null) {
-                new TestS.Form.RadioButtons({
+                new Ss.Form.RadioButtons({
                     value: this._values["transform"],
                     data: this._transformList,
                     onChange: $.proxy(function (value) {
@@ -794,7 +794,7 @@
         /**
          * Sets letterSpacing
          *
-         * @returns {TestS.Panel.Design.Text}
+         * @returns {Ss.Panel.Design.Text}
          *
          * @private
          */
@@ -802,7 +802,7 @@
             var hoverForm = null;
 
             if (this._values["letterSpacingHover"] !== null) {
-                hoverForm = new TestS.Form.Spinner({
+                hoverForm = new Ss.Form.Spinner({
                     value: this._values["letterSpacingHover"],
                     callback: $.proxy(function (value) {
                         this._values["letterSpacingHover"] = value;
@@ -813,7 +813,7 @@
             }
 
             if (this._values["letterSpacing"] !== null) {
-                new TestS.Form.Spinner({
+                new Ss.Form.Spinner({
                     value: this._values["letterSpacing"],
                     css: "letter-spacing",
                     iconBefore: "fa-arrows-h",
@@ -838,7 +838,7 @@
         /**
          * Sets lineHeight
          *
-         * @returns {TestS.Panel.Design.Text}
+         * @returns {Ss.Panel.Design.Text}
          *
          * @private
          */
@@ -846,7 +846,7 @@
             var hoverForm = null;
 
             if (this._values["lineHeightHover"] !== null) {
-                hoverForm = new TestS.Form.Spinner({
+                hoverForm = new Ss.Form.Spinner({
                     value: this._values["lineHeightHover"],
                     callback: $.proxy(function (value) {
                         this._values["lineHeightHover"] = value;
@@ -857,7 +857,7 @@
             }
 
             if (this._values["lineHeight"] !== null) {
-                new TestS.Form.Spinner({
+                new Ss.Form.Spinner({
                     value: this._values["lineHeight"],
                     css: "line-height",
                     iconBefore: "fa-arrows-v",
@@ -882,7 +882,7 @@
         /**
          * Sets lineHeight
          *
-         * @returns {TestS.Panel.Design.Text}
+         * @returns {Ss.Panel.Design.Text}
          *
          * @private
          */
@@ -898,7 +898,7 @@
                 this.$_hoverContainer.addClass("hidden");
             }
 
-            new TestS.Form.CheckboxOnOff({
+            new Ss.Form.CheckboxOnOff({
                 value: this._values["hasHover"],
                 label: this._getLabel("mouseHoverEffect"),
                 onCheck: $.proxy(function () {
@@ -1124,4 +1124,4 @@
             return data;
         }
     };
-}(window.jQuery, window.TestS);
+}(window.jQuery, window.Ss);

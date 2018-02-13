@@ -1,9 +1,9 @@
 <?php
 
-namespace testS\models\blocks\block;
+namespace ss\models\blocks\block;
 
-use testS\application\App;
-use testS\models\blocks\block\_base\AbstractDesignBlockModel;
+use ss\application\App;
+use ss\models\blocks\block\_base\AbstractDesignBlockModel;
 
 /**
  * Model for working with table "designBlocks"

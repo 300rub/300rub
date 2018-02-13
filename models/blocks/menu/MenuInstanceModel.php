@@ -1,8 +1,8 @@
 <?php
 
-namespace testS\models\blocks\menu;
+namespace ss\models\blocks\menu;
 
-use testS\models\blocks\menu\_base\AbstractMenuInstanceModel;
+use ss\models\blocks\menu\_base\AbstractMenuInstanceModel;
 
 /**
  * Model for working with table "menuInstances"

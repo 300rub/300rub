@@ -1,8 +1,8 @@
 <?php
 
-namespace testS\models\blocks\search;
+namespace ss\models\blocks\search;
 
-use testS\models\blocks\search\_base\AbstractSearchModel;
+use ss\models\blocks\search\_base\AbstractSearchModel;
 
 /**
  * Model for working with table "search"

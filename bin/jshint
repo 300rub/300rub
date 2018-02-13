@@ -3,8 +3,8 @@
 path=${1/$PWD\//}
 
 if [[ $path == "" ]]; then
-  docker exec -it tests_phpfpm_1 ant -file config/build/build.xml jshint -Dpath="/var/www/public/js"
+  docker exec -it ss_phpfpm_1 ant -file config/build/build.xml jshint -Dpath="/var/www/public/js"
   exit 1
 fi
 
-docker exec -it tests_phpfpm_1 ant -file config/build/build.xml jshint -Dpath="/var/www/$path"
+docker exec -it ss_phpfpm_1 ant -file config/build/build.xml jshint -Dpath="/var/www/$path"

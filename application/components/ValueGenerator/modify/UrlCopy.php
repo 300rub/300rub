@@ -1,8 +1,8 @@
 <?php
 
-namespace testS\application\components\ValueGenerator\modify;
+namespace ss\application\components\ValueGenerator\modify;
 
-use testS\application\components\ValueGenerator\_abstract\AbstractModifier;
+use ss\application\components\ValueGenerator\_abstract\AbstractModifier;
 
 /**
  * Class for URL copy generation

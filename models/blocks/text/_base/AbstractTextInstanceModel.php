@@ -1,8 +1,8 @@
 <?php
 
-namespace testS\models\blocks\text\_base;
+namespace ss\models\blocks\text\_base;
 
-use testS\models\_abstract\AbstractModel;
+use ss\models\_abstract\AbstractModel;
 
 /**
  * Abstract model for working with table "textInstances"
@@ -30,7 +30,7 @@ abstract class AbstractTextInstanceModel extends AbstractModel
         return [
             'textId'  => [
                 self::FIELD_RELATION_TO_PARENT
-                    => '\\testS\\models\\blocks\\text\\TextModel',
+                    => '\\ss\\models\\blocks\\text\\TextModel',
                 self::FIELD_NOT_CHANGE_ON_UPDATE => true
             ],
             'text'          => [

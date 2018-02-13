@@ -1,9 +1,9 @@
 <?php
 
-namespace testS\tests\unit\controllers\image;
+namespace ss\tests\unit\controllers\image;
 
-use testS\models\blocks\image\ImageGroupModel;
-use testS\tests\unit\controllers\_abstract\AbstractControllerTest;
+use ss\models\blocks\image\ImageGroupModel;
+use ss\tests\unit\controllers\_abstract\AbstractControllerTest;
 
 /**
  * Tests for the controller UpdateAlbumController

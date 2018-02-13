@@ -1,6 +1,6 @@
 <?php
 
-namespace testS\application\components\_abstract;
+namespace ss\application\components\_abstract;
 
 /**
  * Abstract class for working with DB reading

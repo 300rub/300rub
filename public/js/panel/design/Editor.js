@@ -1,4 +1,4 @@
-!function ($, TestS) {
+!function ($, Ss) {
     'use strict';
 
     /**
@@ -8,8 +8,8 @@
      *
      * @type {Object}
      */
-    TestS.Panel.Design.Editor = function (options) {
-        TestS.Panel.Abstract.call(
+    Ss.Panel.Design.Editor = function (options) {
+        Ss.Panel.Abstract.call(
             this,
             {
                 group: options.group,
@@ -28,14 +28,14 @@
      *
      * @type {Object}
      */
-    TestS.Panel.Design.Editor.prototype
-        = Object.create(TestS.Panel.Abstract.prototype);
+    Ss.Panel.Design.Editor.prototype
+        = Object.create(Ss.Panel.Abstract.prototype);
 
     /**
      * Constructor
      */
-    TestS.Panel.Design.Editor.prototype.constructor
-        = TestS.Panel.Design.Editor;
+    Ss.Panel.Design.Editor.prototype.constructor
+        = Ss.Panel.Design.Editor;
 
     /**
      * On load window success
@@ -44,7 +44,7 @@
      *
      * @private
      */
-    TestS.Panel.Design.Editor.prototype._onLoadDataSuccess = function (
+    Ss.Panel.Design.Editor.prototype._onLoadDataSuccess = function (
         data
     ) {
         $.each(
@@ -55,14 +55,14 @@
             )
         );
 
-        TestS.Components.Accordion.Container(this.getBody());
+        Ss.Components.Accordion.Container(this.getBody());
 
         this
             .setTitle(data.title)
             .setDescription(data.description)
             .setBack(
                 function () {
-                    new TestS.Panel.Blocks.Text.List();
+                    new Ss.Panel.Blocks.Text.List();
 
                     $.each(
                         this._designs,
@@ -107,7 +107,7 @@
                         },
                         type: "PUT",
                         success: this._success,
-                        error: TestS.System.App.showError
+                        error: Ss.System.App.showError
                     }
                 }
             );
@@ -121,7 +121,7 @@
      *
      * @private
      */
-    TestS.Panel.Design.Editor.prototype._displayGroup = function (
+    Ss.Panel.Design.Editor.prototype._displayGroup = function (
         groupKey,
         groupData
     ) {
@@ -133,12 +133,12 @@
                     var design;
                     switch (typeData.type) {
                         case "block":
-                            design = new TestS.Panel.Design.Block(
+                            design = new Ss.Panel.Design.Block(
                                 typeData
                             );
                             break;
                         case "text":
-                            design = new TestS.Panel.Design.Text(
+                            design = new Ss.Panel.Design.Text(
                                 typeData
                             );
                             break;
@@ -147,7 +147,7 @@
                     }
 
                     var typeAccordionElement
-                        = new TestS.Components.Accordion.Element(
+                        = new Ss.Components.Accordion.Element(
                             typeData.title
                         );
                     typeAccordionElement.add(
@@ -164,7 +164,7 @@
 
         if (this._designs.length > 1) {
             var groupAccordionElement
-                = new TestS.Components.Accordion.Element(
+                = new Ss.Components.Accordion.Element(
                     groupData.title
                 );
             groupAccordionElement.add(groupContainer);
@@ -173,4 +173,4 @@
             groupContainer.appendTo(this.getBody());
         }
     };
-}(window.jQuery, window.TestS);
+}(window.jQuery, window.Ss);

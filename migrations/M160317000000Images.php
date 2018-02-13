@@ -1,8 +1,8 @@
 <?php
 
-namespace testS\migrations;
+namespace ss\migrations;
 
-use testS\migrations\_abstract\AbstractMigration;
+use ss\migrations\_abstract\AbstractMigration;
 
 /**
  * Creates image tables

@@ -1,9 +1,9 @@
 <?php
 
-namespace testS\models\blocks\siteMap\_base;
+namespace ss\models\blocks\siteMap\_base;
 
-use testS\application\components\ValueGenerator;
-use testS\models\_abstract\AbstractModel;
+use ss\application\components\ValueGenerator;
+use ss\models\_abstract\AbstractModel;
 
 /**
  * Abstract model for working with table "siteMaps"
@@ -50,15 +50,15 @@ abstract class AbstractSiteMapModel extends AbstractModel
         return [
             'containerDesignBlockId' => [
                 self::FIELD_RELATION
-                    => '\\testS\\models\\blocks\\block\\DesignBlockModel'
+                    => '\\ss\\models\\blocks\\block\\DesignBlockModel'
             ],
             'itemDesignBlockId'      => [
                 self::FIELD_RELATION
-                    => '\\testS\\models\\blocks\\block\\DesignBlockModel'
+                    => '\\ss\\models\\blocks\\block\\DesignBlockModel'
             ],
             'itemDesignTextId'       => [
                 self::FIELD_RELATION
-                    => '\\testS\\models\\blocks\\text\\DesignTextModel'
+                    => '\\ss\\models\\blocks\\text\\DesignTextModel'
             ],
             'style'                  => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,

@@ -1,10 +1,10 @@
 <?php
 
 // @codingStandardsIgnoreLine
-namespace testS\tests\unit\models\blocks\helpers\field\_base\AbstractFieldInstanceModel;
+namespace ss\tests\unit\models\blocks\helpers\field\_base\AbstractFieldInstanceModel;
 
-use testS\models\blocks\helpers\field\FieldInstanceModel;
-use testS\tests\unit\models\_abstract\_base\AbstractEmptyModelTest;
+use ss\models\blocks\helpers\field\FieldInstanceModel;
+use ss\tests\unit\models\_abstract\_base\AbstractEmptyModelTest;
 
 /**
  * Tests for the model AbstractFieldInstanceModel

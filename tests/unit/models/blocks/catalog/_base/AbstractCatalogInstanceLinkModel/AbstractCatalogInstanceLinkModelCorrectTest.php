@@ -1,10 +1,10 @@
 <?php
 
 // @codingStandardsIgnoreLine
-namespace testS\tests\unit\models\blocks\catalog\_base\AbstractCatalogInstanceLinkModel;
+namespace ss\tests\unit\models\blocks\catalog\_base\AbstractCatalogInstanceLinkModel;
 
-use testS\models\blocks\catalog\CatalogInstanceLinkModel;
-use testS\tests\unit\models\_abstract\_base\AbstractCorrectModelTest;
+use ss\models\blocks\catalog\CatalogInstanceLinkModel;
+use ss\tests\unit\models\_abstract\_base\AbstractCorrectModelTest;
 
 /**
  * Tests for the model AbstractCatalogInstanceLinkModel

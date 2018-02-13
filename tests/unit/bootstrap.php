@@ -1,6 +1,6 @@
 <?php
 
-use testS\application\App;
+use ss\application\App;
 
 // Config file path.
 $config = include __DIR__ . '/../../config/common.php';
@@ -8,6 +8,6 @@ $config = include __DIR__ . '/../../config/common.php';
 // Runs a command.
 require __DIR__ . '/../../application/App.php';
 
-spl_autoload_register(['testS\application\App','autoload']);
+spl_autoload_register(['ss\application\App','autoload']);
 
 App::test($config)->run();

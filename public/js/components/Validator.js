@@ -1,4 +1,4 @@
-!function ($, TestS) {
+!function ($, Ss) {
     'use strict';
 
     /**
@@ -9,7 +9,7 @@
      *
      * @type {Object}
      */
-    TestS.Components.Validator = function (value, rules) {
+    Ss.Components.Validator = function (value, rules) {
         this._value = value;
         this._rules = $.extend({}, rules);
         this._errors = [];
@@ -22,12 +22,12 @@
      *
      * @type {Object}
      */
-    TestS.Components.Validator.prototype = {
+    Ss.Components.Validator.prototype = {
 
         /**
          * Constructor
          */
-        constructor: TestS.Components.Validator,
+        constructor: Ss.Components.Validator,
 
         /**
          * Init
@@ -90,7 +90,7 @@
         _checkRequired: function () {
             if ($.trim(this._value) === "") {
                 this._addError(
-                    TestS.Components.Error.get("required")
+                    Ss.Components.Error.get("required")
                 );
             }
         },
@@ -105,7 +105,7 @@
         _checkMaxLength: function (max) {
             if ($.trim(this._value).length > parseInt(max, 10)) {
                 this._addError(
-                    TestS.Components.Error.get("maxLength")
+                    Ss.Components.Error.get("maxLength")
                 );
             }
         },
@@ -120,7 +120,7 @@
         _checkMinLength: function (min) {
             if ($.trim(this._value).length < parseInt(min, 10)) {
                 this._addError(
-                    TestS.Components.Error.get("minLength")
+                    Ss.Components.Error.get("minLength")
                 );
             }
         },
@@ -134,7 +134,7 @@
             var pattern = new RegExp("^[0-9a-z-_]+$");
             if (!pattern.test($.trim(this._value))) {
                 this._addError(
-                    TestS.Components.Error.get("latinDigitUnderscoreHyphen")
+                    Ss.Components.Error.get("latinDigitUnderscoreHyphen")
                 );
             }
         },
@@ -150,9 +150,9 @@
             );
             if (!pattern.test($.trim(this._value))) {
                 this._addError(
-                    TestS.Components.Error.get("email")
+                    Ss.Components.Error.get("email")
                 );
             }
         }
     };
-}(window.jQuery, window.TestS);
+}(window.jQuery, window.Ss);

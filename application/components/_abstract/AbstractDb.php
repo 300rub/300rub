@@ -1,11 +1,11 @@
 <?php
 
-namespace testS\application\components\_abstract;
+namespace ss\application\components\_abstract;
 
-use testS\application\App;
-use testS\application\components\Db;
-use testS\application\exceptions\DbException;
-use testS\models\_abstract\AbstractModel;
+use ss\application\App;
+use ss\application\components\Db;
+use ss\application\exceptions\DbException;
+use ss\models\_abstract\AbstractModel;
 
 /**
  * Abstract class for working with DB

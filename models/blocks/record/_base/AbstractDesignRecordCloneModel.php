@@ -1,9 +1,9 @@
 <?php
 
-namespace testS\models\blocks\record\_base;
+namespace ss\models\blocks\record\_base;
 
-use testS\application\components\ValueGenerator;
-use testS\models\_abstract\AbstractModel;
+use ss\application\components\ValueGenerator;
+use ss\models\_abstract\AbstractModel;
 
 /**
  * Abstract model for working with table "designRecordClones"
@@ -50,31 +50,31 @@ abstract class AbstractDesignRecordCloneModel extends AbstractModel
         return [
             'containerDesignBlockId'   => [
                 self::FIELD_RELATION
-                    => '\\testS\\models\\blocks\\block\\DesignBlockModel'
+                    => '\\ss\\models\\blocks\\block\\DesignBlockModel'
             ],
             'instanceDesignBlockId'    => [
                 self::FIELD_RELATION
-                    => '\\testS\\models\\blocks\\block\\DesignBlockModel'
+                    => '\\ss\\models\\blocks\\block\\DesignBlockModel'
             ],
             'titleDesignBlockId'       => [
                 self::FIELD_RELATION
-                    => '\\testS\\models\\blocks\\block\\DesignBlockModel'
+                    => '\\ss\\models\\blocks\\block\\DesignBlockModel'
             ],
             'titleDesignTextId'        => [
                 self::FIELD_RELATION
-                    => '\\testS\\models\\blocks\\text\\DesignTextModel'
+                    => '\\ss\\models\\blocks\\text\\DesignTextModel'
             ],
             'dateDesignTextId'         => [
                 self::FIELD_RELATION
-                    => '\\testS\\models\\blocks\\text\\DesignTextModel'
+                    => '\\ss\\models\\blocks\\text\\DesignTextModel'
             ],
             'descriptionDesignBlockId' => [
                 self::FIELD_RELATION
-                    => '\\testS\\models\\blocks\\block\\DesignBlockModel'
+                    => '\\ss\\models\\blocks\\block\\DesignBlockModel'
             ],
             'descriptionDesignTextId'  => [
                 self::FIELD_RELATION
-                    => '\\testS\\models\\blocks\\text\\DesignTextModel'
+                    => '\\ss\\models\\blocks\\text\\DesignTextModel'
             ],
             'viewType'                 => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,

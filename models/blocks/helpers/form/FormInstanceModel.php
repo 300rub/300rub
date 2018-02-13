@@ -1,8 +1,8 @@
 <?php
 
-namespace testS\models\blocks\helpers\form;
+namespace ss\models\blocks\helpers\form;
 
-use testS\models\blocks\helpers\form\_base\AbstractFormInstanceModel;
+use ss\models\blocks\helpers\form\_base\AbstractFormInstanceModel;
 
 /**
  * Model for working with table "formInstances"

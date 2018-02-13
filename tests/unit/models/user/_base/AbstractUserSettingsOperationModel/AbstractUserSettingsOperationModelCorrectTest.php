@@ -1,11 +1,11 @@
 <?php
 
 // @codingStandardsIgnoreLine
-namespace testS\tests\unit\models\user\_base\AbstractUserSettingsOperationModel;
+namespace ss\tests\unit\models\user\_base\AbstractUserSettingsOperationModel;
 
-use testS\application\components\Operation;
-use testS\models\user\UserSettingsOperationModel;
-use testS\tests\unit\models\_abstract\_base\AbstractCorrectModelTest;
+use ss\application\components\Operation;
+use ss\models\user\UserSettingsOperationModel;
+use ss\tests\unit\models\_abstract\_base\AbstractCorrectModelTest;
 
 /**
  * Tests for the model UserSettingsOperationModel

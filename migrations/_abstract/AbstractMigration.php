@@ -1,9 +1,9 @@
 <?php
 
-namespace testS\migrations\_abstract;
+namespace ss\migrations\_abstract;
 
-use testS\application\App;
-use testS\application\exceptions\MigrationException;
+use ss\application\App;
+use ss\application\exceptions\MigrationException;
 use Exception;
 
 /**

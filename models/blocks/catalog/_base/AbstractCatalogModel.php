@@ -1,10 +1,10 @@
 <?php
 
-namespace testS\models\blocks\catalog\_base;
+namespace ss\models\blocks\catalog\_base;
 
-use testS\application\components\Validator;
-use testS\application\components\ValueGenerator;
-use testS\models\_abstract\AbstractModel;
+use ss\application\components\Validator;
+use ss\application\components\ValueGenerator;
+use ss\models\_abstract\AbstractModel;
 
 /**
  * Abstract model for working with table "catalogs"
@@ -51,23 +51,23 @@ abstract class AbstractCatalogModel extends AbstractModel
         return [
             'imageId'            => [
                 self::FIELD_RELATION
-                    => '\\testS\\models\\blocks\\image\\ImageModel'
+                    => '\\ss\\models\\blocks\\image\\ImageModel'
             ],
             'tabId'              => [
                 self::FIELD_RELATION
-                    => '\\testS\\models\\blocks\\helpers\\tab\\TabModel'
+                    => '\\ss\\models\\blocks\\helpers\\tab\\TabModel'
             ],
             'fieldId'            => [
                 self::FIELD_RELATION
-                    => '\\testS\\models\\blocks\\helpers\\field\\FieldModel'
+                    => '\\ss\\models\\blocks\\helpers\\field\\FieldModel'
             ],
             'descriptionTextId'  => [
                 self::FIELD_RELATION
-                    => '\\testS\\models\\blocks\\text\\TextModel'
+                    => '\\ss\\models\\blocks\\text\\TextModel'
             ],
             'designCatalogId'    => [
                 self::FIELD_RELATION
-                    => '\\testS\\models\\blocks\\catalog\\DesignCatalogModel'
+                    => '\\ss\\models\\blocks\\catalog\\DesignCatalogModel'
             ],
             'hasImages'          => [
                 self::FIELD_TYPE => self::FIELD_TYPE_BOOL

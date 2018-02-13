@@ -1,10 +1,10 @@
 <?php
 
-namespace testS\controllers\page;
+namespace ss\controllers\page;
 
-use testS\application\App;
-use testS\controllers\_abstract\AbstractController;
-use testS\models\sections\SectionModel;
+use ss\application\App;
+use ss\controllers\_abstract\AbstractController;
+use ss\models\sections\SectionModel;
 
 /**
  * PageController

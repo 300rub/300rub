@@ -1,9 +1,9 @@
 <?php
 
-namespace testS\models\blocks\image\_abstract;
+namespace ss\models\blocks\image\_abstract;
 
 use Gregwar\Image\Image;
-use testS\models\blocks\helpers\file\FileModel;
+use ss\models\blocks\helpers\file\FileModel;
 
 /**
  * Abstract model for working with table "imageInstances"

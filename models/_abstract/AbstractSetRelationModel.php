@@ -1,8 +1,8 @@
 <?php
 
-namespace testS\models\_abstract;
+namespace ss\models\_abstract;
 
-use testS\application\components\ValueGenerator;
+use ss\application\components\ValueGenerator;
 
 /**
  * Abstract class for working with models

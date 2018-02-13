@@ -1,11 +1,11 @@
 <?php
 
-namespace testS\models\user\_base;
+namespace ss\models\user\_base;
 
-use testS\application\App;
-use testS\application\components\ValueGenerator;
-use testS\models\_abstract\AbstractModel;
-use testS\models\blocks\block\BlockModel;
+use ss\application\App;
+use ss\application\components\ValueGenerator;
+use ss\models\_abstract\AbstractModel;
+use ss\models\blocks\block\BlockModel;
 
 /**
  * Abstract model for working with table "userBlockGroupOperations"
@@ -33,7 +33,7 @@ abstract class AbstractUserBlockGroupOperationModel extends AbstractModel
         return [
             'userId' => [
                 self::FIELD_RELATION_TO_PARENT
-                    => '\\testS\\models\\user\\UserModel',
+                    => '\\ss\\models\\user\\UserModel',
                 self::FIELD_SKIP_DUPLICATION     => true,
                 self::FIELD_NOT_CHANGE_ON_UPDATE => true,
             ],

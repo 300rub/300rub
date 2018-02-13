@@ -1,4 +1,4 @@
-!function ($, TestS) {
+!function ($, Ss) {
     'use strict';
 
     /**
@@ -6,8 +6,8 @@
      *
      * @type {Object}
      */
-    TestS.Panel.Settings.List = function () {
-        TestS.Panel.Abstract.call(
+    Ss.Panel.Settings.List = function () {
+        Ss.Panel.Abstract.call(
             this,
             {
                 group: "settings",
@@ -22,13 +22,13 @@
      *
      * @type {Object}
      */
-    TestS.Panel.Settings.List.prototype
-        = Object.create(TestS.Panel.Abstract.prototype);
+    Ss.Panel.Settings.List.prototype
+        = Object.create(Ss.Panel.Abstract.prototype);
 
     /**
      * Constructor
      */
-    TestS.Panel.Settings.List.prototype.constructor = TestS.Panel.Settings.List;
+    Ss.Panel.Settings.List.prototype.constructor = Ss.Panel.Settings.List;
 
     /**
      * On load window success
@@ -37,7 +37,7 @@
      *
      * @private
      */
-    TestS.Panel.Settings.List.prototype._onLoadDataSuccess = function (data) {
+    Ss.Panel.Settings.List.prototype._onLoadDataSuccess = function (data) {
         this
             .setTitle(data.title)
             .setDescription(data.description);
@@ -46,7 +46,7 @@
             data.list,
             $.proxy(
                 function (key, name) {
-                    var item = TestS.Components.Template.get("panel-list-item");
+                    var item = Ss.Components.Template.get("panel-list-item");
                     item.addClass("without-buttons");
                     item.find(".settings").remove();
                     item.find(".design").remove();
@@ -58,7 +58,7 @@
                             item.find(".label").on(
                                 "click",
                                 function () {
-                                    new TestS.Window.Users.List();
+                                    new Ss.Window.Users.List();
                                 }
                             );
                             break;
@@ -75,4 +75,4 @@
             )
         );
     };
-}(window.jQuery, window.TestS);
+}(window.jQuery, window.Ss);

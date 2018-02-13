@@ -1,9 +1,9 @@
 <?php
 
-namespace testS\application\exceptions;
+namespace ss\application\exceptions;
 
 use Exception;
-use testS\application\App;
+use ss\application\App;
 
 /**
  * Exception class file

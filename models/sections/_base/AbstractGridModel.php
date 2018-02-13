@@ -1,9 +1,9 @@
 <?php
 
-namespace testS\models\sections\_base;
+namespace ss\models\sections\_base;
 
-use testS\application\components\ValueGenerator;
-use testS\models\_abstract\AbstractModel;
+use ss\application\components\ValueGenerator;
+use ss\models\_abstract\AbstractModel;
 
 /**
  * Abstract model for working with table "grids"
@@ -41,11 +41,11 @@ abstract class AbstractGridModel extends AbstractModel
         return [
             'blockId'    => [
                 self::FIELD_RELATION_TO_PARENT
-                    => '\\testS\\models\\blocks\\block\\BlockModel',
+                    => '\\ss\\models\\blocks\\block\\BlockModel',
             ],
             'gridLineId' => [
                 self::FIELD_RELATION_TO_PARENT
-                    => '\\testS\\models\\sections\\GridLineModel',
+                    => '\\ss\\models\\sections\\GridLineModel',
             ],
             'x'          => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,

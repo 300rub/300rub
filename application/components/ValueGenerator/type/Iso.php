@@ -1,8 +1,8 @@
 <?php
 
-namespace testS\application\components\ValueGenerator\type;
+namespace ss\application\components\ValueGenerator\type;
 
-use testS\application\components\ValueGenerator\_abstract\AbstractType;
+use ss\application\components\ValueGenerator\_abstract\AbstractType;
 
 /**
  * Class for DateTime string value generation

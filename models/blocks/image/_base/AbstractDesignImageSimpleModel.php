@@ -1,9 +1,9 @@
 <?php
 
-namespace testS\models\blocks\image\_base;
+namespace ss\models\blocks\image\_base;
 
-use testS\application\components\ValueGenerator;
-use testS\models\_abstract\AbstractModel;
+use ss\application\components\ValueGenerator;
+use ss\models\_abstract\AbstractModel;
 
 /**
  * Abstract model for working with table "designImageSimple"
@@ -64,11 +64,11 @@ abstract class AbstractDesignImageSimpleModel extends AbstractModel
         return [
             'containerDesignBlockId'      => [
                 self::FIELD_RELATION
-                    => '\\testS\\models\\blocks\\block\\DesignBlockModel'
+                    => '\\ss\\models\\blocks\\block\\DesignBlockModel'
             ],
             'imageDesignBlockId' => [
                 self::FIELD_RELATION
-                    => '\\testS\\models\\blocks\\block\\DesignBlockModel'
+                    => '\\ss\\models\\blocks\\block\\DesignBlockModel'
             ],
             'alignment'          => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,

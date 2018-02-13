@@ -1,9 +1,9 @@
 <?php
 
-namespace testS\models\user;
+namespace ss\models\user;
 
-use testS\application\components\Db;
-use testS\models\user\_abstract\AbstractSaveOperationModel;
+use ss\application\components\Db;
+use ss\models\user\_abstract\AbstractSaveOperationModel;
 
 /**
  * Model for working with table "users"

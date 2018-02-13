@@ -1,8 +1,8 @@
 <?php
 
-namespace testS\application\components;
+namespace ss\application\components;
 
-use testS\application\exceptions\MemcacheException;
+use ss\application\exceptions\MemcacheException;
 
 /**
  * Class for working with Memcached

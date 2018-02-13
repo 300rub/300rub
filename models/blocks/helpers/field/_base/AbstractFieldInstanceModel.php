@@ -1,10 +1,10 @@
 <?php
 
-namespace testS\models\blocks\helpers\field\_base;
+namespace ss\models\blocks\helpers\field\_base;
 
-use testS\application\components\ValueGenerator;
-use testS\application\components\Validator;
-use testS\models\_abstract\AbstractModel;
+use ss\application\components\ValueGenerator;
+use ss\application\components\Validator;
+use ss\models\_abstract\AbstractModel;
 
 /**
  * Model for working with table "fieldInstances"
@@ -32,12 +32,12 @@ abstract class AbstractFieldInstanceModel extends AbstractModel
         return [
             'fieldGroupId'    => [
                 self::FIELD_RELATION_TO_PARENT
-                    => '\\testS\\models\\blocks\\helpers\\' .
+                    => '\\ss\\models\\blocks\\helpers\\' .
                         'field\\FieldGroupModel',
             ],
             'fieldTemplateId' => [
                 self::FIELD_RELATION_TO_PARENT
-                    => '\\testS\\models\\blocks\\helpers\\' .
+                    => '\\ss\\models\\blocks\\helpers\\' .
                         'field\\FieldTemplateModel',
             ],
             'value'           => [

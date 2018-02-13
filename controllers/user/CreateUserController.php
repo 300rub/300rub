@@ -1,12 +1,12 @@
 <?php
 
-namespace testS\controllers\user;
+namespace ss\controllers\user;
 
-use testS\application\App;
-use testS\application\components\Operation;
-use testS\application\exceptions\BadRequestException;
-use testS\controllers\_abstract\AbstractController;
-use testS\models\user\UserModel;
+use ss\application\App;
+use ss\application\components\Operation;
+use ss\application\exceptions\BadRequestException;
+use ss\controllers\_abstract\AbstractController;
+use ss\models\user\UserModel;
 
 /**
  * Adds user

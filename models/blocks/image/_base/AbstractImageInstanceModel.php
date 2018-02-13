@@ -1,10 +1,10 @@
 <?php
 
-namespace testS\models\blocks\image\_base;
+namespace ss\models\blocks\image\_base;
 
-use testS\application\App;
-use testS\application\components\ValueGenerator;
-use testS\models\_abstract\AbstractModel;
+use ss\application\App;
+use ss\application\components\ValueGenerator;
+use ss\models\_abstract\AbstractModel;
 
 /**
  * Abstract model for working with table "imageInstances"
@@ -85,22 +85,22 @@ abstract class AbstractImageInstanceModel extends AbstractModel
         return [
             'imageGroupId'   => [
                 self::FIELD_RELATION_TO_PARENT
-                    => '\\testS\\models\\blocks\\image\\ImageGroupModel',
+                    => '\\ss\\models\\blocks\\image\\ImageGroupModel',
                 self::FIELD_SKIP_DUPLICATION   => true,
             ],
             'originalFileId' => [
                 self::FIELD_RELATION
-                    => '\\testS\\models\\blocks\\helpers\\file\\FileModel',
+                    => '\\ss\\models\\blocks\\helpers\\file\\FileModel',
                 self::FIELD_SKIP_DUPLICATION => true,
             ],
             'viewFileId'     => [
                 self::FIELD_RELATION
-                    => '\\testS\\models\\blocks\\helpers\\file\\FileModel',
+                    => '\\ss\\models\\blocks\\helpers\\file\\FileModel',
                 self::FIELD_SKIP_DUPLICATION => true,
             ],
             'thumbFileId'    => [
                 self::FIELD_RELATION
-                    => '\\testS\\models\\blocks\\helpers\\file\\FileModel',
+                    => '\\ss\\models\\blocks\\helpers\\file\\FileModel',
                 self::FIELD_SKIP_DUPLICATION => true,
             ],
         ];

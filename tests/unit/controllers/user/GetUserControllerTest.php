@@ -1,10 +1,10 @@
 <?php
 
-namespace testS\tests\unit\controllers\user;
+namespace ss\tests\unit\controllers\user;
 
-use testS\application\components\Operation;
-use testS\models\user\UserModel;
-use testS\tests\unit\controllers\_abstract\AbstractControllerTest;
+use ss\application\components\Operation;
+use ss\models\user\UserModel;
+use ss\tests\unit\controllers\_abstract\AbstractControllerTest;
 
 /**
  * Tests for the controller GetUserController

@@ -1,12 +1,12 @@
 <?php
 
-namespace testS\application\instances;
+namespace ss\application\instances;
 
-use testS\application\components\User;
-use testS\application\instances\_abstract\AbstractWebAjax;
-use testS\models\_abstract\AbstractModel;
-use testS\models\user\UserModel;
-use testS\models\user\UserSessionModel;
+use ss\application\components\User;
+use ss\application\instances\_abstract\AbstractWebAjax;
+use ss\models\_abstract\AbstractModel;
+use ss\models\user\UserModel;
+use ss\models\user\UserSessionModel;
 
 /**
  * Class for working with WEB application

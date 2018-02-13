@@ -1,9 +1,9 @@
 <?php
 
-namespace testS\tests\unit\models\blocks\feedback\_base\AbstractFeedbackModel;
+namespace ss\tests\unit\models\blocks\feedback\_base\AbstractFeedbackModel;
 
-use testS\models\blocks\feedback\FeedbackModel;
-use testS\tests\unit\models\_abstract\_base\AbstractDbModelTest;
+use ss\models\blocks\feedback\FeedbackModel;
+use ss\tests\unit\models\_abstract\_base\AbstractDbModelTest;
 
 /**
  * Tests for the model FeedbackModel

@@ -1,8 +1,8 @@
 <?php
 
-namespace testS\controllers\_abstract;
+namespace ss\controllers\_abstract;
 
-use testS\application\App;
+use ss\application\App;
 
 /**
  * Abstract class for working with controllers

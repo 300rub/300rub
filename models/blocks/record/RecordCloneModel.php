@@ -1,8 +1,8 @@
 <?php
 
-namespace testS\models\blocks\record;
+namespace ss\models\blocks\record;
 
-use testS\models\blocks\record\_base\AbstractRecordCloneModel;
+use ss\models\blocks\record\_base\AbstractRecordCloneModel;
 
 /**
  * Model for working with table "recordClones"
@@ -13,7 +13,7 @@ class RecordCloneModel extends AbstractRecordCloneModel
     /**
      * Class name
      */
-    const CLASS_NAME = '\\testS\\models\\blocks\\record\\RecordCloneModel';
+    const CLASS_NAME = '\\ss\\models\\blocks\\record\\RecordCloneModel';
 
     /**
      * Gets HTML memcached key

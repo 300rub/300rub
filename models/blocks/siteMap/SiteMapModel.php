@@ -1,8 +1,8 @@
 <?php
 
-namespace testS\models\blocks\siteMap;
+namespace ss\models\blocks\siteMap;
 
-use testS\models\blocks\siteMap\_base\AbstractSiteMapModel;
+use ss\models\blocks\siteMap\_base\AbstractSiteMapModel;
 
 /**
  * Model for working with table "siteMaps"

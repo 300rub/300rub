@@ -3,7 +3,7 @@
 /**
  * Variables
  *
- * @var \testS\models\blocks\block\DesignBlockModel $model
+ * @var \ss\models\blocks\block\DesignBlockModel $model
  * @var string                                      $id
  * @var string                                      $selector
  */

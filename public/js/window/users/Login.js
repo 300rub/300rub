@@ -1,4 +1,4 @@
-!function ($, TestS) {
+!function ($, Ss) {
     'use strict';
 
     /**
@@ -6,8 +6,8 @@
      *
      * @type {Object}
      */
-    TestS.Window.Users.Login = function () {
-        TestS.Window.Abstract.call(
+    Ss.Window.Users.Login = function () {
+        Ss.Window.Abstract.call(
             this,
             {
                 group: "user",
@@ -27,13 +27,13 @@
      *
      * @type {Object}
      */
-    TestS.Window.Users.Login.prototype
-        = Object.create(TestS.Window.Abstract.prototype);
+    Ss.Window.Users.Login.prototype
+        = Object.create(Ss.Window.Abstract.prototype);
 
     /**
      * Constructor
      */
-    TestS.Window.Users.Login.prototype.constructor = TestS.Window.Users.Login;
+    Ss.Window.Users.Login.prototype.constructor = Ss.Window.Users.Login;
 
     /**
      * On load window success
@@ -42,8 +42,8 @@
      *
      * @private
      */
-    TestS.Window.Users.Login.prototype._onLoadDataSuccess = function (data) {
-        this._userForm = new TestS.Form.Text(
+    Ss.Window.Users.Login.prototype._onLoadDataSuccess = function (data) {
+        this._userForm = new Ss.Form.Text(
             $.extend(
                 {
                     appendTo: this.getBody()
@@ -52,7 +52,7 @@
             )
         );
 
-        this._passwordForm = new TestS.Form.Password(
+        this._passwordForm = new Ss.Form.Password(
             $.extend(
                 {
                     appendTo: this.getBody()
@@ -61,7 +61,7 @@
             )
         );
 
-        this._isRememberForm = new TestS.Form.Checkbox(
+        this._isRememberForm = new Ss.Form.Checkbox(
             $.extend(
                 {
                     appendTo: this.getBody()
@@ -88,7 +88,7 @@
                         },
                         type: "POST",
                         success: $.proxy(this._onSendSuccess, this),
-                        error: TestS.System.App.showError
+                        error: Ss.System.App.showError
                     }
                 }
             );
@@ -103,7 +103,7 @@
      *
      * @private
      */
-    TestS.Window.Users.Login.prototype._onSendSuccess = function (data) {
+    Ss.Window.Users.Login.prototype._onSendSuccess = function (data) {
         if ($.type(data.errors) === "object") {
             if (data.errors.user !== undefined) {
                 this._userForm
@@ -120,4 +120,4 @@
             window.location.reload();
         }
     };
-}(window.jQuery, window.TestS);
+}(window.jQuery, window.Ss);

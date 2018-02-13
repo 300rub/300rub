@@ -1,12 +1,12 @@
 <?php
 
-namespace testS\commands;
+namespace ss\commands;
 
-use testS\application\App;
-use testS\commands\_abstract\AbstractCommand;
-use testS\migrations\M160301000000Sites;
-use testS\migrations\M160301000010Domains;
-use testS\migrations\M160302000000Migrations;
+use ss\application\App;
+use ss\commands\_abstract\AbstractCommand;
+use ss\migrations\M160301000000Sites;
+use ss\migrations\M160301000010Domains;
+use ss\migrations\M160302000000Migrations;
 
 /**
  * Clear DB command

@@ -1,9 +1,9 @@
 <?php
 
-namespace testS\commands;
+namespace ss\commands;
 
-use testS\commands\_abstract\AbstractCommand;
-use testS\application\exceptions\FileException;
+use ss\commands\_abstract\AbstractCommand;
+use ss\application\exceptions\FileException;
 
 /**
  * Static public class

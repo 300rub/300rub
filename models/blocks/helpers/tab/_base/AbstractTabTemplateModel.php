@@ -1,10 +1,10 @@
 <?php
 
-namespace testS\models\blocks\helpers\tab\_base;
+namespace ss\models\blocks\helpers\tab\_base;
 
-use testS\application\components\ValueGenerator;
-use testS\application\components\Validator;
-use testS\models\_abstract\AbstractModel;
+use ss\application\components\ValueGenerator;
+use ss\application\components\Validator;
+use ss\models\_abstract\AbstractModel;
 
 /**
  * Model for working with table "tabTemplates"
@@ -32,7 +32,7 @@ abstract class AbstractTabTemplateModel extends AbstractModel
         return [
             'tabId' => [
                 self::FIELD_RELATION_TO_PARENT
-                    => '\\testS\\models\\blocks\\helpers\\tab\\TabModel',
+                    => '\\ss\\models\\blocks\\helpers\\tab\\TabModel',
             ],
             'sort'  => [
                 self::FIELD_TYPE => self::FIELD_TYPE_INT,

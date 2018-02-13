@@ -1,4 +1,4 @@
-!function ($, TestS) {
+!function ($, Ss) {
     'use strict';
 
     /**
@@ -6,8 +6,8 @@
      *
      * @param {Object} options
      */
-    TestS.Form.Spinner = function (options) {
-        TestS.Form.Abstract.call(this, "form-spinner", options);
+    Ss.Form.Spinner = function (options) {
+        Ss.Form.Abstract.call(this, "form-spinner", options);
         this.init();
     };
 
@@ -16,19 +16,19 @@
      *
      * @type {Object}
      */
-    TestS.Form.Spinner.prototype = Object.create(TestS.Form.Abstract.prototype);
+    Ss.Form.Spinner.prototype = Object.create(Ss.Form.Abstract.prototype);
 
     /**
      * Constructor
      */
-    TestS.Form.Spinner.prototype.constructor = TestS.Form.Spinner;
+    Ss.Form.Spinner.prototype.constructor = Ss.Form.Spinner;
 
     /**
      * Init
      */
-    TestS.Form.Spinner.prototype.init = function () {
+    Ss.Form.Spinner.prototype.init = function () {
         this.getInstance().val(
-            TestS.Components.Library.getIntVal(this.getOption("value"))
+            Ss.Components.Library.getIntVal(this.getOption("value"))
         );
 
         var callback = this.getOption("callback");
@@ -37,7 +37,7 @@
                 "keyup",
                 function () {
                     callback(
-                        TestS.Components.Library.getIntVal($(this).val())
+                        Ss.Components.Library.getIntVal($(this).val())
                     );
                 }
             );
@@ -62,7 +62,7 @@
                 spin: function (event, ui) {
                     if ($.type(callback) === "function") {
                         callback(
-                            TestS.Components.Library.getIntVal(ui.value)
+                            Ss.Components.Library.getIntVal(ui.value)
                         );
                     }
                 },
@@ -79,7 +79,7 @@
      *
      * @returns {String}
      */
-    TestS.Form.Spinner.prototype.getValue = function () {
-        return TestS.Components.Library.getIntVal(this.getInstance().val());
+    Ss.Form.Spinner.prototype.getValue = function () {
+        return Ss.Components.Library.getIntVal(this.getInstance().val());
     };
-}(window.jQuery, window.TestS);
+}(window.jQuery, window.Ss);

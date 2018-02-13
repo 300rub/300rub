@@ -1,11 +1,11 @@
 <?php
 
-namespace testS\application\components;
+namespace ss\application\components;
 
-use testS\application\exceptions\CommonException;
-use testS\models\_abstract\AbstractModel;
-use testS\models\blocks\block\DesignBlockModel;
-use testS\models\blocks\text\DesignTextModel;
+use ss\application\exceptions\CommonException;
+use ss\models\_abstract\AbstractModel;
+use ss\models\blocks\block\DesignBlockModel;
+use ss\models\blocks\text\DesignTextModel;
 
 /**
  * Class for working with views

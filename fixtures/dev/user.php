@@ -1,6 +1,6 @@
 <?php
 
-use testS\models\user\UserModel;
+use ss\models\user\UserModel;
 
 $userModel = new UserModel();
 

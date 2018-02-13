@@ -1,12 +1,12 @@
 <?php
 
-namespace testS\controllers\_abstract;
+namespace ss\controllers\_abstract;
 
-use testS\application\App;
-use testS\application\components\Operation;
-use testS\application\components\User;
-use testS\application\exceptions\AccessException;
-use testS\models\user\UserModel;
+use ss\application\App;
+use ss\application\components\Operation;
+use ss\application\components\User;
+use ss\application\exceptions\AccessException;
+use ss\models\user\UserModel;
 
 /**
  * Abstract class for working with user operations

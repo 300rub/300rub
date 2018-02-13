@@ -1,8 +1,8 @@
 <?php
 
-namespace testS\tests\selenium\external;
+namespace ss\tests\selenium\external;
 
-use testS\tests\selenium\_abstract\AbstractSeleniumTestCase;
+use ss\tests\selenium\_abstract\AbstractSeleniumTestCase;
 
 class LikeTest extends AbstractSeleniumTestCase
 {

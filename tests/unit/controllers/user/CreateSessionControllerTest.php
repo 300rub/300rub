@@ -1,11 +1,11 @@
 <?php
 
-namespace testS\tests\unit\controllers\user;
+namespace ss\tests\unit\controllers\user;
 
-use testS\application\App;
-use testS\models\user\UserModel;
-use testS\models\user\UserSessionModel;
-use testS\tests\unit\controllers\_abstract\AbstractControllerTest;
+use ss\application\App;
+use ss\models\user\UserModel;
+use ss\models\user\UserSessionModel;
+use ss\tests\unit\controllers\_abstract\AbstractControllerTest;
 
 /**
  * Tests for the controller CreateSessionController
@@ -60,7 +60,7 @@ class CreateSessionControllerTest extends AbstractControllerTest
         $memcached = App::getInstance()->getMemcached();
         $user = $memcached->get($token);
         $this->assertInstanceOf(
-            'testS\\application\\components\\User',
+            'ss\\application\\components\\User',
             $user
         );
 

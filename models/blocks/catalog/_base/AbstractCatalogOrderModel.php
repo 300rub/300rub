@@ -1,9 +1,9 @@
 <?php
 
-namespace testS\models\blocks\catalog\_base;
+namespace ss\models\blocks\catalog\_base;
 
-use testS\application\components\Validator;
-use testS\models\_abstract\AbstractModel;
+use ss\application\components\Validator;
+use ss\models\_abstract\AbstractModel;
 
 /**
  * Abstract model for working with table "catalogOrders"
@@ -31,13 +31,13 @@ abstract class AbstractCatalogOrderModel extends AbstractModel
         return [
             'catalogBinId' => [
                 self::FIELD_RELATION_TO_PARENT
-                    => '\\testS\\models\\blocks\\catalog\\CatalogBinModel',
+                    => '\\ss\\models\\blocks\\catalog\\CatalogBinModel',
                 self::FIELD_SKIP_DUPLICATION     => true,
                 self::FIELD_NOT_CHANGE_ON_UPDATE => true,
             ],
             'formId'       => [
                 self::FIELD_RELATION_TO_PARENT
-                    => '\\testS\\models\\blocks\\helpers\\form\\FormModel',
+                    => '\\ss\\models\\blocks\\helpers\\form\\FormModel',
                 self::FIELD_SKIP_DUPLICATION     => true,
                 self::FIELD_NOT_CHANGE_ON_UPDATE => true,
             ],

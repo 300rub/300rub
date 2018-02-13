@@ -1,6 +1,6 @@
 <?php
 
-use testS\application\components\Language;
+use ss\application\components\Language;
 
 return [
     'blocks'         => [

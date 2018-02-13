@@ -1,9 +1,9 @@
 <?php
 
-namespace testS\tests\unit\models\sections\_base\AbstractSectionModel;
+namespace ss\tests\unit\models\sections\_base\AbstractSectionModel;
 
-use testS\models\sections\SectionModel;
-use testS\tests\unit\models\_abstract\AbstractModelTest;
+use ss\models\sections\SectionModel;
+use ss\tests\unit\models\_abstract\AbstractModelTest;
 
 /**
  * Tests for the model SectionModel

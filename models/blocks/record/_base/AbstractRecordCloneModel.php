@@ -1,9 +1,9 @@
 <?php
 
-namespace testS\models\blocks\record\_base;
+namespace ss\models\blocks\record\_base;
 
-use testS\application\components\ValueGenerator;
-use testS\models\blocks\_abstract\AbstractContentModel;
+use ss\application\components\ValueGenerator;
+use ss\models\blocks\_abstract\AbstractContentModel;
 
 /**
  * Abstract model for working with table "recordClones"
@@ -50,19 +50,19 @@ abstract class AbstractRecordCloneModel extends AbstractContentModel
         return [
             'recordId'            => [
                 self::FIELD_RELATION_TO_PARENT
-                    => '\\testS\\models\\blocks\\record\\RecordModel'
+                    => '\\ss\\models\\blocks\\record\\RecordModel'
             ],
             'coverImageId'       => [
                 self::FIELD_RELATION
-                    => '\\testS\\models\\blocks\\image\\ImageModel'
+                    => '\\ss\\models\\blocks\\image\\ImageModel'
             ],
             'descriptionTextId'   => [
                 self::FIELD_RELATION
-                    => '\\testS\\models\\blocks\\text\\TextModel'
+                    => '\\ss\\models\\blocks\\text\\TextModel'
             ],
             'designRecordCloneId' => [
                 self::FIELD_RELATION
-                    => '\\testS\\models\\blocks\\record\\DesignRecordCloneModel'
+                    => '\\ss\\models\\blocks\\record\\DesignRecordCloneModel'
             ],
             'hasCover'            => [
                 self::FIELD_TYPE => self::FIELD_TYPE_BOOL

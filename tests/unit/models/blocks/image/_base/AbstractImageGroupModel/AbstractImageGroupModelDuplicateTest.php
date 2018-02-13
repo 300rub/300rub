@@ -1,9 +1,9 @@
 <?php
 
-namespace testS\tests\unit\models\blocks\image\_base\AbstractImageGroupModel;
+namespace ss\tests\unit\models\blocks\image\_base\AbstractImageGroupModel;
 
-use testS\models\blocks\image\ImageGroupModel;
-use testS\tests\unit\models\_abstract\_base\AbstractDuplicateModelTest;
+use ss\models\blocks\image\ImageGroupModel;
+use ss\tests\unit\models\_abstract\_base\AbstractDuplicateModelTest;
 
 /**
  * Tests for the model AbstractImageGroupModel

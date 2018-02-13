@@ -1,10 +1,10 @@
 <?php
 
-namespace testS\models\blocks\catalog\_base;
+namespace ss\models\blocks\catalog\_base;
 
-use testS\application\components\Validator;
-use testS\application\components\ValueGenerator;
-use testS\models\_abstract\AbstractModel;
+use ss\application\components\Validator;
+use ss\application\components\ValueGenerator;
+use ss\models\_abstract\AbstractModel;
 
 /**
  * Abstract model for working with table "catalogBins"
@@ -51,13 +51,13 @@ abstract class AbstractCatalogBinModel extends AbstractModel
         return [
             'catalogId'         => [
                 self::FIELD_RELATION_TO_PARENT
-                    => '\\testS\\models\\blocks\\catalog\\CatalogModel',
+                    => '\\ss\\models\\blocks\\catalog\\CatalogModel',
                 self::FIELD_SKIP_DUPLICATION     => true,
                 self::FIELD_NOT_CHANGE_ON_UPDATE => true,
             ],
             'catalogInstanceId' => [
                 self::FIELD_RELATION_TO_PARENT
-                    => '\\testS\\models\\blocks\\catalog\\CatalogInstanceModel',
+                    => '\\ss\\models\\blocks\\catalog\\CatalogInstanceModel',
                 self::FIELD_SKIP_DUPLICATION     => true,
                 self::FIELD_NOT_CHANGE_ON_UPDATE => true,
             ],

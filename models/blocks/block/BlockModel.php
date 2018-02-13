@@ -1,12 +1,12 @@
 <?php
 
-namespace testS\models\blocks\block;
+namespace ss\models\blocks\block;
 
-use testS\application\App;
-use testS\application\components\Db;
-use testS\application\exceptions\NotFoundException;
-use testS\models\_abstract\AbstractModel;
-use testS\models\blocks\block\_base\AbstractBlockModel;
+use ss\application\App;
+use ss\application\components\Db;
+use ss\application\exceptions\NotFoundException;
+use ss\models\_abstract\AbstractModel;
+use ss\models\blocks\block\_base\AbstractBlockModel;
 
 /**
  * Model for working with table "blocks"

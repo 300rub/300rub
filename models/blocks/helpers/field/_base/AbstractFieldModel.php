@@ -1,8 +1,8 @@
 <?php
 
-namespace testS\models\blocks\helpers\field\_base;
+namespace ss\models\blocks\helpers\field\_base;
 
-use testS\models\_abstract\AbstractModel;
+use ss\models\_abstract\AbstractModel;
 
 /**
  * Abstract model for working with table "fields"
@@ -30,7 +30,7 @@ abstract class AbstractFieldModel extends AbstractModel
         return [
             'designFieldId'       => [
                 self::FIELD_RELATION
-                    => '\\testS\\models\\blocks\\helpers\\' .
+                    => '\\ss\\models\\blocks\\helpers\\' .
                         'field\\DesignFieldModel'
             ],
         ];

@@ -1,8 +1,8 @@
 <?php
 
-namespace testS\models\blocks\catalog;
+namespace ss\models\blocks\catalog;
 
-use testS\models\blocks\catalog\_base\AbstractCatalogBinModel;
+use ss\models\blocks\catalog\_base\AbstractCatalogBinModel;
 
 /**
  * Model for working with table "catalogBins"

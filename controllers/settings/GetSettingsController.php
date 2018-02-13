@@ -1,10 +1,10 @@
 <?php
 
-namespace testS\controllers\settings;
+namespace ss\controllers\settings;
 
-use testS\application\App;
-use testS\application\components\Operation;
-use testS\controllers\_abstract\AbstractController;
+use ss\application\App;
+use ss\application\components\Operation;
+use ss\controllers\_abstract\AbstractController;
 
 /**
  * Gets settings

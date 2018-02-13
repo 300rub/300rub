@@ -1,9 +1,9 @@
 <?php
 
-namespace testS\tests\unit\models\sections\_base\AbstractGridLineModel;
+namespace ss\tests\unit\models\sections\_base\AbstractGridLineModel;
 
-use testS\models\sections\GridLineModel;
-use testS\tests\unit\models\_abstract\_base\AbstractCorrectModelTest;
+use ss\models\sections\GridLineModel;
+use ss\tests\unit\models\_abstract\_base\AbstractCorrectModelTest;
 
 /**
  * Tests for the model GridLineModel

@@ -1,10 +1,10 @@
 <?php
 
-namespace testS\models\blocks\_abstract;
+namespace ss\models\blocks\_abstract;
 
-use testS\application\App;
-use testS\application\exceptions\ModelException;
-use testS\models\_abstract\AbstractModel;
+use ss\application\App;
+use ss\application\exceptions\ModelException;
+use ss\models\_abstract\AbstractModel;
 
 /**
  * Abstract class for working with content models

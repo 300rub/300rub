@@ -1,7 +1,7 @@
 <?php
 
-use testS\application\components\Operation;
-use testS\models\blocks\block\BlockModel;
+use ss\application\components\Operation;
+use ss\models\blocks\block\BlockModel;
 
 return [
     [

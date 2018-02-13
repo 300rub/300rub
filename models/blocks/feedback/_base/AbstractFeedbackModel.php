@@ -1,10 +1,10 @@
 <?php
 
-namespace testS\models\blocks\feedback\_base;
+namespace ss\models\blocks\feedback\_base;
 
-use testS\application\components\Validator;
-use testS\application\components\ValueGenerator;
-use testS\models\_abstract\AbstractModel;
+use ss\application\components\Validator;
+use ss\application\components\ValueGenerator;
+use ss\models\_abstract\AbstractModel;
 
 /**
  * Abstract model for working with table "feedback"
@@ -32,11 +32,11 @@ abstract class AbstractFeedbackModel extends AbstractModel
         return [
             'formId' => [
                 self::FIELD_RELATION
-                    => '\\testS\\models\\blocks\\helpers\\form\\FormModel'
+                    => '\\ss\\models\\blocks\\helpers\\form\\FormModel'
             ],
             'subjectFormInstanceId' => [
                 self::FIELD_RELATION
-                    => '\\testS\\models\\blocks\\helpers\\' .
+                    => '\\ss\\models\\blocks\\helpers\\' .
                         'form\\FormInstanceModel'
             ],
             'subjectText' => [

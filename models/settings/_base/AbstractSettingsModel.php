@@ -1,10 +1,10 @@
 <?php
 
-namespace testS\models\settings\_base;
+namespace ss\models\settings\_base;
 
-use testS\application\components\Validator;
-use testS\application\components\ValueGenerator;
-use testS\models\_abstract\AbstractModel;
+use ss\application\components\Validator;
+use ss\application\components\ValueGenerator;
+use ss\models\_abstract\AbstractModel;
 
 /**
  * Abstract model for working with table "settings"

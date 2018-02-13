@@ -1,8 +1,8 @@
 <?php
 
-namespace testS\models\blocks\helpers\tab;
+namespace ss\models\blocks\helpers\tab;
 
-use testS\models\blocks\helpers\tab\_base\AbstractTabModel;
+use ss\models\blocks\helpers\tab\_base\AbstractTabModel;
 
 /**
  * Model for working with table "tabs"

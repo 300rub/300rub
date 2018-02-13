@@ -1,12 +1,12 @@
 <?php
 
-namespace testS\models\user\_base;
+namespace ss\models\user\_base;
 
-use testS\application\App;
-use testS\application\components\Db;
-use testS\application\components\Validator;
-use testS\application\components\ValueGenerator;
-use testS\models\_abstract\AbstractModel;
+use ss\application\App;
+use ss\application\components\Db;
+use ss\application\components\Validator;
+use ss\application\components\ValueGenerator;
+use ss\models\_abstract\AbstractModel;
 
 /**
  * Abstract model for working with table "users"

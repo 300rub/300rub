@@ -1,11 +1,11 @@
 <?php
 
-namespace testS\controllers\image;
+namespace ss\controllers\image;
 
-use testS\application\App;
-use testS\application\components\Operation;
-use testS\controllers\_abstract\AbstractController;
-use testS\models\blocks\block\BlockModel;
+use ss\application\App;
+use ss\application\components\Operation;
+use ss\controllers\_abstract\AbstractController;
+use ss\models\blocks\block\BlockModel;
 
 /**
  * Gets a list of blocks

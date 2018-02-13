@@ -1,4 +1,4 @@
-!function ($, TestS) {
+!function ($, Ss) {
     'use strict';
 
     /**
@@ -8,8 +8,8 @@
      *
      * @type {Object}
      */
-    TestS.Window.Users.Form = function (options) {
-        TestS.Window.Abstract.call(
+    Ss.Window.Users.Form = function (options) {
+        Ss.Window.Abstract.call(
             this,
             {
                 group: "user",
@@ -41,13 +41,13 @@
      *
      * @type {Object}
      */
-    TestS.Window.Users.Form.prototype
-        = Object.create(TestS.Window.Abstract.prototype);
+    Ss.Window.Users.Form.prototype
+        = Object.create(Ss.Window.Abstract.prototype);
 
     /**
      * Constructor
      */
-    TestS.Window.Users.Form.prototype.constructor = TestS.Window.Users.Form;
+    Ss.Window.Users.Form.prototype.constructor = Ss.Window.Users.Form;
 
     /**
      * On load window success
@@ -56,8 +56,8 @@
      *
      * @private
      */
-    TestS.Window.Users.Form.prototype._onLoadDataSuccess = function (data) {
-        this._container = TestS.Components.Template.get("users-form-container");
+    Ss.Window.Users.Form.prototype._onLoadDataSuccess = function (data) {
+        this._container = Ss.Components.Template.get("users-form-container");
 
         this.getBody().append(this._container);
 
@@ -95,7 +95,7 @@
      *
      * @private
      */
-    TestS.Window.Users.Form.prototype._onSendSuccess = function (data) {
+    Ss.Window.Users.Form.prototype._onSendSuccess = function (data) {
         if ($.type(data.errors) === "object") {
             if (data.errors.name !== undefined) {
                 this._nameForm
@@ -128,15 +128,15 @@
      *
      * @param {Object} [data]
      *
-     * @returns {TestS.Window.Users.Form}
+     * @returns {Ss.Window.Users.Form}
      *
      * @private
      */
-    TestS.Window.Users.Form.prototype._setForms = function (data) {
+    Ss.Window.Users.Form.prototype._setForms = function (data) {
         var $textFormsContainer = this._container.find(".text-forms-container");
         var t = this;
 
-        var idForm = new TestS.Form.Hidden(
+        var idForm = new Ss.Form.Hidden(
             {
                 appendTo: $textFormsContainer,
                 name: "id",
@@ -145,7 +145,7 @@
         );
         this._forms.push(idForm);
 
-        this._nameForm = new TestS.Form.Text(
+        this._nameForm = new Ss.Form.Text(
             $.extend(
                 {
                     appendTo: $textFormsContainer
@@ -155,7 +155,7 @@
         );
         this._forms.push(this._nameForm);
 
-        this._loginForm = new TestS.Form.Text(
+        this._loginForm = new Ss.Form.Text(
             $.extend(
                 {
                     appendTo: $textFormsContainer
@@ -166,7 +166,7 @@
         this._forms.push(this._loginForm);
 
         if (data.id !== 0) {
-            var isChangePassword = new TestS.Form.Checkbox(
+            var isChangePassword = new Ss.Form.Checkbox(
                 {
                     appendTo: $textFormsContainer,
                     name: "isChangePassword",
@@ -189,7 +189,7 @@
             this._forms.push(isChangePassword);
         }
 
-        this._passwordForm = new TestS.Form.Password(
+        this._passwordForm = new Ss.Form.Password(
             $.extend(
                 {
                     appendTo: $textFormsContainer
@@ -199,7 +199,7 @@
         );
         this._forms.push(this._passwordForm);
 
-        this._passwordConfirmForm = new TestS.Form.Password(
+        this._passwordConfirmForm = new Ss.Form.Password(
             $.extend(
                 {
                     appendTo: $textFormsContainer
@@ -214,7 +214,7 @@
             t._passwordConfirmForm.getInstance().addClass("hidden");
         }
 
-        this._emailForm = new TestS.Form.Text(
+        this._emailForm = new Ss.Form.Text(
             $.extend(
                 {
                     appendTo: $textFormsContainer
@@ -225,7 +225,7 @@
         this._forms.push(this._emailForm);
 
         if (data.operations.canChange === true) {
-            var typeForm = new TestS.Form.Select(
+            var typeForm = new Ss.Form.Select(
                 $.extend(
                     {
                         appendTo: $textFormsContainer,
@@ -259,7 +259,7 @@
      *
      * @private
      */
-    TestS.Window.Users.Form.prototype._setOperations = function (data) {
+    Ss.Window.Users.Form.prototype._setOperations = function (data) {
         this._operationsContainer
             = this._container.find(".operations-container");
 
@@ -271,7 +271,7 @@
             $.proxy(
                 function (groupKey, groupObject) {
                     var categoryAccordionElement
-                        = new TestS.Components.Accordion.Element(
+                        = new Ss.Components.Accordion.Element(
                             groupObject.title
                         );
 
@@ -309,7 +309,7 @@
             )
         );
 
-        TestS.Components.Accordion.Container(this._operationsContainer);
+        Ss.Components.Accordion.Container(this._operationsContainer);
     };
 
     /**
@@ -320,12 +320,12 @@
      *
      * @private
      */
-    TestS.Window.Users.Form.prototype._setSectionOperations = function (
+    Ss.Window.Users.Form.prototype._setSectionOperations = function (
         categoryAccordionElement,
         groupObject
     ) {
         var sectionsAllAccordionElement
-            = new TestS.Components.Accordion.Element(
+            = new Ss.Components.Accordion.Element(
                 groupObject.data.ALL.title
             );
 
@@ -333,7 +333,7 @@
             groupObject.data.ALL.data,
             $.proxy(
                 function (allKey, allObject) {
-                    var form = new TestS.Form.Checkbox(
+                    var form = new Ss.Form.Checkbox(
                         $.extend(
                             {
                                 appendTo: sectionsAllAccordionElement.getBody()
@@ -357,7 +357,7 @@
                 }
 
                 var sectionAccordionElement
-                    = new TestS.Components.Accordion.Element(
+                    = new Ss.Components.Accordion.Element(
                         groupObjectDataObject.title
                     );
 
@@ -368,7 +368,7 @@
                             groupObjectDataObjectDataKey,
                             groupObjectDataObjectDataObject
                         ) {
-                            var form = new TestS.Form.Checkbox(
+                            var form = new Ss.Form.Checkbox(
                                 $.extend(
                                     {
                                         appendTo: sectionAccordionElement
@@ -396,7 +396,7 @@
      *
      * @private
      */
-    TestS.Window.Users.Form.prototype._setBlocksOperations = function (
+    Ss.Window.Users.Form.prototype._setBlocksOperations = function (
         categoryAccordionElement,
         groupObject
     ) {
@@ -404,11 +404,11 @@
             groupObject.data,
             function (groupObjectDataKey, groupObjectDataObject) {
                 var blockTypeAccordionElement
-                    = new TestS.Components.Accordion.Element(
+                    = new Ss.Components.Accordion.Element(
                         groupObjectDataObject.title
                     );
                 var blockAllAccordionElement
-                    = new TestS.Components.Accordion.Element(
+                    = new Ss.Components.Accordion.Element(
                         groupObjectDataObject.data.ALL.title
                     );
 
@@ -416,7 +416,7 @@
                     groupObjectDataObject.data.ALL.data,
                     $.proxy(
                         function (allKey, allObject) {
-                            var form = new TestS.Form.Checkbox(
+                            var form = new Ss.Form.Checkbox(
                                 $.extend(
                                     {
                                         appendTo: blockAllAccordionElement
@@ -444,7 +444,7 @@
                             }
 
                             var blockAccordionElement
-                                = new TestS.Components.Accordion.Element(
+                                = new Ss.Components.Accordion.Element(
                                     groupObjectDataObjectDataObject.title
                                 );
 
@@ -457,7 +457,7 @@
                                                 .getBody()
                                         };
 
-                                        var form = new TestS.Form.Checkbox(
+                                        var form = new Ss.Form.Checkbox(
                                             $.extend(
                                                 options,
                                                 object
@@ -491,7 +491,7 @@
      *
      * @private
      */
-    TestS.Window.Users.Form.prototype._setSettingsOperations = function (
+    Ss.Window.Users.Form.prototype._setSettingsOperations = function (
         categoryAccordionElement,
         groupObject
     ) {
@@ -499,7 +499,7 @@
             groupObject.data,
             $.proxy(
                 function (checkboxKey, checkboxObject) {
-                    var form = new TestS.Form.Checkbox(
+                    var form = new Ss.Form.Checkbox(
                         $.extend(
                             {
                                 appendTo: categoryAccordionElement.getBody()
@@ -513,4 +513,4 @@
             )
         );
     };
-}(window.jQuery, window.TestS);
+}(window.jQuery, window.Ss);

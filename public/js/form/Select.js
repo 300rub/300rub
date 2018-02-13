@@ -1,4 +1,4 @@
-!function ($, TestS) {
+!function ($, Ss) {
     'use strict';
 
     /**
@@ -6,8 +6,8 @@
      *
      * @param {Object} options
      */
-    TestS.Form.Select = function (options) {
-        TestS.Form.Abstract.call(this, "form-container-select", options);
+    Ss.Form.Select = function (options) {
+        Ss.Form.Abstract.call(this, "form-container-select", options);
         this.init();
     };
 
@@ -16,18 +16,18 @@
      *
      * @type {Object}
      */
-    TestS.Form.Select.prototype
-        = Object.create(TestS.Form.Abstract.prototype);
+    Ss.Form.Select.prototype
+        = Object.create(Ss.Form.Abstract.prototype);
 
     /**
      * Constructor
      */
-    TestS.Form.Select.prototype.constructor = TestS.Form.Select;
+    Ss.Form.Select.prototype.constructor = Ss.Form.Select;
 
     /**
      * Init
      */
-    TestS.Form.Select.prototype.init = function () {
+    Ss.Form.Select.prototype.init = function () {
         var t = this;
 
         var optionTemplate = t.getForm().find(".option-template");
@@ -64,10 +64,10 @@
                 "change",
                 function () {
                     onChange(
-                        TestS.Components.Library.getIntVal($(this).val())
+                        Ss.Components.Library.getIntVal($(this).val())
                     );
                 }
             );
         }
     };
-}(window.jQuery, window.TestS);
+}(window.jQuery, window.Ss);

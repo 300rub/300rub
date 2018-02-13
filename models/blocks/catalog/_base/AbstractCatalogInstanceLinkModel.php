@@ -1,8 +1,8 @@
 <?php
 
-namespace testS\models\blocks\catalog\_base;
+namespace ss\models\blocks\catalog\_base;
 
-use testS\models\_abstract\AbstractModel;
+use ss\models\_abstract\AbstractModel;
 
 /**
  * Abstract model for working with table "catalogInstanceLinks"
@@ -30,13 +30,13 @@ abstract class AbstractCatalogInstanceLinkModel extends AbstractModel
         return [
             'catalogInstanceId'     => [
                 self::FIELD_RELATION_TO_PARENT
-                    => '\\testS\\models\\blocks\\catalog\\CatalogInstanceModel',
+                    => '\\ss\\models\\blocks\\catalog\\CatalogInstanceModel',
                 self::FIELD_NOT_CHANGE_ON_UPDATE => true,
                 self::FIELD_SKIP_DUPLICATION     => true,
             ],
             'linkCatalogInstanceId' => [
                 self::FIELD_RELATION_TO_PARENT
-                    => '\\testS\\models\\blocks\\catalog\\CatalogInstanceModel',
+                    => '\\ss\\models\\blocks\\catalog\\CatalogInstanceModel',
                 self::FIELD_NOT_CHANGE_ON_UPDATE => true,
                 self::FIELD_SKIP_DUPLICATION     => true,
             ],

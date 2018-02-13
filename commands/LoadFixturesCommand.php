@@ -1,11 +1,11 @@
 <?php
 
-namespace testS\commands;
+namespace ss\commands;
 
-use testS\application\App;
-use testS\application\components\Language;
-use testS\commands\_abstract\AbstractCommand;
-use testS\models\_abstract\AbstractModel;
+use ss\application\App;
+use ss\application\components\Language;
+use ss\commands\_abstract\AbstractCommand;
+use ss\models\_abstract\AbstractModel;
 
 /**
  * Load fixtures command
@@ -27,59 +27,59 @@ class LoadFixturesCommand extends AbstractCommand
      */
     private $_fixtureOrder = [
         'user'
-            => '\\testS\\models\\user\\UserModel',
+            => '\\ss\\models\\user\\UserModel',
         'userSession'
-            => '\\testS\\models\\user\\UserSessionModel',
+            => '\\ss\\models\\user\\UserSessionModel',
         'text'
-            => '\\testS\\models\\blocks\\text\\TextModel',
+            => '\\ss\\models\\blocks\\text\\TextModel',
         'textInstance'
-            => '\\testS\\models\\blocks\\text\\TextInstanceModel',
+            => '\\ss\\models\\blocks\\text\\TextInstanceModel',
         'image'
-            => '\\testS\\models\\blocks\\image\\ImageModel',
+            => '\\ss\\models\\blocks\\image\\ImageModel',
         'imageGroup'
-            => '\\testS\\models\\blocks\\image\\ImageGroupModel',
+            => '\\ss\\models\\blocks\\image\\ImageGroupModel',
         'record'
-            => '\\testS\\models\\blocks\\record\\RecordModel',
+            => '\\ss\\models\\blocks\\record\\RecordModel',
         'recordClone'
-            => '\\testS\\models\\blocks\\record\\RecordCloneModel',
+            => '\\ss\\models\\blocks\\record\\RecordCloneModel',
         'block'
-            => '\\testS\\models\\blocks\\block\\BlockModel',
+            => '\\ss\\models\\blocks\\block\\BlockModel',
         'section'
-            => '\\testS\\models\\sections\\SectionModel',
+            => '\\ss\\models\\sections\\SectionModel',
         'gridLine'
-            => '\\testS\\models\\sections\\GridLineModel',
+            => '\\ss\\models\\sections\\GridLineModel',
         'grid'
-            => '\\testS\\models\\sections\\GridModel',
+            => '\\ss\\models\\sections\\GridModel',
         'userSettingsOperation'
-            => '\\testS\\models\\user\\UserSettingsOperationModel',
+            => '\\ss\\models\\user\\UserSettingsOperationModel',
         'userBlockGroupOperation'
-            => '\\testS\\models\\user\\UserBlockGroupOperationModel',
+            => '\\ss\\models\\user\\UserBlockGroupOperationModel',
         'tab'
-            => '\\testS\\models\\blocks\\helpers\\tab\\TabModel',
+            => '\\ss\\models\\blocks\\helpers\\tab\\TabModel',
         'tabGroup'
-            => '\\testS\\models\\blocks\\helpers\\tab\\TabGroupModel',
+            => '\\ss\\models\\blocks\\helpers\\tab\\TabGroupModel',
         'tabTemplate'
-            => '\\testS\\models\\blocks\\helpers\\tab\\TabTemplateModel',
+            => '\\ss\\models\\blocks\\helpers\\tab\\TabTemplateModel',
         'field'
-            => '\\testS\\models\\blocks\\helpers\\field\\FieldModel',
+            => '\\ss\\models\\blocks\\helpers\\field\\FieldModel',
         'fieldTemplate'
-            => '\\testS\\models\\blocks\\helpers\\field\\FieldTemplateModel',
+            => '\\ss\\models\\blocks\\helpers\\field\\FieldTemplateModel',
         'fieldGroup'
-            => '\\testS\\models\\blocks\\helpers\\field\\FieldGroupModel',
+            => '\\ss\\models\\blocks\\helpers\\field\\FieldGroupModel',
         'catalog'
-            => '\\testS\\models\\blocks\\catalog\\CatalogModel',
+            => '\\ss\\models\\blocks\\catalog\\CatalogModel',
         'catalogMenu'
-            => '\\testS\\models\\blocks\\catalog\\CatalogMenuModel',
+            => '\\ss\\models\\blocks\\catalog\\CatalogMenuModel',
         'search'
-            => '\\testS\\models\\blocks\\search\\SearchModel',
+            => '\\ss\\models\\blocks\\search\\SearchModel',
         'menu'
-            => '\\testS\\models\\blocks\\menu\\MenuModel',
+            => '\\ss\\models\\blocks\\menu\\MenuModel',
         'menuInstance'
-            => '\\testS\\models\\blocks\\menu\\MenuInstanceModel',
+            => '\\ss\\models\\blocks\\menu\\MenuInstanceModel',
         'catalogInstance'
-            => '\\testS\\models\\blocks\\catalog\\CatalogInstanceModel',
+            => '\\ss\\models\\blocks\\catalog\\CatalogInstanceModel',
         'catalogBin'
-            => '\\testS\\models\\blocks\\catalog\\CatalogBinModel',
+            => '\\ss\\models\\blocks\\catalog\\CatalogBinModel',
     ];
 
     /**

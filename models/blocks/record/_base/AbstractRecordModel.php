@@ -1,9 +1,9 @@
 <?php
 
-namespace testS\models\blocks\record\_base;
+namespace ss\models\blocks\record\_base;
 
-use testS\application\components\ValueGenerator;
-use testS\models\blocks\_abstract\AbstractContentModel;
+use ss\application\components\ValueGenerator;
+use ss\models\blocks\_abstract\AbstractContentModel;
 
 /**
  * Abstract model for working with table "records"
@@ -50,23 +50,23 @@ abstract class AbstractRecordModel extends AbstractContentModel
         return [
             'coverImageId'     => [
                 self::FIELD_RELATION
-                    => '\\testS\\models\\blocks\\image\\ImageModel'
+                    => '\\ss\\models\\blocks\\image\\ImageModel'
             ],
             'imagesImageId'    => [
                 self::FIELD_RELATION
-                    => '\\testS\\models\\blocks\\image\\ImageModel'
+                    => '\\ss\\models\\blocks\\image\\ImageModel'
             ],
             'descriptionTextId' => [
                 self::FIELD_RELATION
-                    => '\\testS\\models\\blocks\\text\\TextModel'
+                    => '\\ss\\models\\blocks\\text\\TextModel'
             ],
             'textTextId'        => [
                 self::FIELD_RELATION
-                    => '\\testS\\models\\blocks\\text\\TextModel'
+                    => '\\ss\\models\\blocks\\text\\TextModel'
             ],
             'designRecordsId'   => [
                 self::FIELD_RELATION
-                    => '\\testS\\models\\blocks\\record\\DesignRecordModel'
+                    => '\\ss\\models\\blocks\\record\\DesignRecordModel'
             ],
             'hasCover'          => [
                 self::FIELD_TYPE => self::FIELD_TYPE_BOOL

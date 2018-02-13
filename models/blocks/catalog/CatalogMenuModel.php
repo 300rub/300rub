@@ -1,8 +1,8 @@
 <?php
 
-namespace testS\models\blocks\catalog;
+namespace ss\models\blocks\catalog;
 
-use testS\models\blocks\catalog\_base\AbstractCatalogMenuModel;
+use ss\models\blocks\catalog\_base\AbstractCatalogMenuModel;
 
 /**
  * Model for working with table "catalogMenu"

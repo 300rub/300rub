@@ -1,9 +1,9 @@
 <?php
 
-namespace testS\migrations;
+namespace ss\migrations;
 
-use testS\application\App;
-use testS\migrations\_abstract\AbstractMigration;
+use ss\application\App;
+use ss\migrations\_abstract\AbstractMigration;
 
 /**
  * Creates table for storing information about domains

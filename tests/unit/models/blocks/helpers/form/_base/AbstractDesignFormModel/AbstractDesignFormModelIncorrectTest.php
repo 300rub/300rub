@@ -1,10 +1,10 @@
 <?php
 
 // @codingStandardsIgnoreLine
-namespace testS\tests\unit\models\blocks\helpers\form\_base\AbstractDesignFormModel;
+namespace ss\tests\unit\models\blocks\helpers\form\_base\AbstractDesignFormModel;
 
-use testS\models\blocks\helpers\form\DesignFormModel;
-use testS\tests\unit\models\_abstract\_base\AbstractIncorrectModelTest;
+use ss\models\blocks\helpers\form\DesignFormModel;
+use ss\tests\unit\models\_abstract\_base\AbstractIncorrectModelTest;
 
 /**
  * Tests for the model AbstractDesignFormModel

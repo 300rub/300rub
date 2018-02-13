@@ -1,8 +1,8 @@
 <?php
 
-namespace testS\models\blocks\helpers\tab\_base;
+namespace ss\models\blocks\helpers\tab\_base;
 
-use testS\models\_abstract\AbstractModel;
+use ss\models\_abstract\AbstractModel;
 
 /**
  * Abstract model for working with table "tabInstances"
@@ -30,15 +30,15 @@ abstract class AbstractTabInstanceModel extends AbstractModel
         return [
             'tabGroupId'     => [
                 self::FIELD_RELATION_TO_PARENT
-                    => '\\testS\\models\\blocks\\helpers\\tab\\TabGroupModel',
+                    => '\\ss\\models\\blocks\\helpers\\tab\\TabGroupModel',
             ],
             'textInstanceId' => [
                 self::FIELD_RELATION
-                    => '\\testS\\models\\blocks\\text\\TextInstanceModel',
+                    => '\\ss\\models\\blocks\\text\\TextInstanceModel',
             ],
             'tabTemplateId'  => [
                 self::FIELD_RELATION_TO_PARENT
-                    => '\\testS\\models\\blocks\\helpers\\' .
+                    => '\\ss\\models\\blocks\\helpers\\' .
                         'tab\\TabTemplateModel',
             ],
         ];

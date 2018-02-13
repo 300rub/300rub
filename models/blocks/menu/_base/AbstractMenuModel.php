@@ -1,9 +1,9 @@
 <?php
 
-namespace testS\models\blocks\menu\_base;
+namespace ss\models\blocks\menu\_base;
 
-use testS\application\components\ValueGenerator;
-use testS\models\_abstract\AbstractModel;
+use ss\application\components\ValueGenerator;
+use ss\models\_abstract\AbstractModel;
 
 /**
  * Abstract model for working with table "menu"
@@ -50,7 +50,7 @@ abstract class AbstractMenuModel extends AbstractModel
         return [
             'designMenuId' => [
                 self::FIELD_RELATION
-                    => '\\testS\\models\\blocks\\menu\\DesignMenuModel'
+                    => '\\ss\\models\\blocks\\menu\\DesignMenuModel'
             ],
             'type'         => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,

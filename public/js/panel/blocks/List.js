@@ -1,4 +1,4 @@
-!function ($, TestS) {
+!function ($, Ss) {
     'use strict';
 
     /**
@@ -6,8 +6,8 @@
      *
      * @type {Object}
      */
-    TestS.Panel.Blocks.List = function () {
-        TestS.Panel.Abstract.call(
+    Ss.Panel.Blocks.List = function () {
+        Ss.Panel.Abstract.call(
             this,
             {
                 group: "block",
@@ -22,13 +22,13 @@
      *
      * @type {Object}
      */
-    TestS.Panel.Blocks.List.prototype
-        = Object.create(TestS.Panel.Abstract.prototype);
+    Ss.Panel.Blocks.List.prototype
+        = Object.create(Ss.Panel.Abstract.prototype);
 
     /**
      * Constructor
      */
-    TestS.Panel.Blocks.List.prototype.constructor = TestS.Panel.Blocks.List;
+    Ss.Panel.Blocks.List.prototype.constructor = Ss.Panel.Blocks.List;
 
     /**
      * On load window success
@@ -37,7 +37,7 @@
      *
      * @private
      */
-    TestS.Panel.Blocks.List.prototype._onLoadDataSuccess = function (data) {
+    Ss.Panel.Blocks.List.prototype._onLoadDataSuccess = function (data) {
         this
             .setTitle(data.title)
             .setDescription(data.description);
@@ -46,7 +46,7 @@
             data.list,
             $.proxy(
                 function (i, itemData) {
-                    var item = TestS.Components.Template.get("panel-list-item");
+                    var item = Ss.Components.Template.get("panel-list-item");
 
                     item.addClass("without-buttons");
                     item.find(".settings").remove();
@@ -59,7 +59,7 @@
                             item.find(".label").on(
                                 "click",
                                 function () {
-                                    new TestS.Panel.Blocks.Text.List();
+                                    new Ss.Panel.Blocks.Text.List();
                                 }
                             );
                             break;
@@ -73,4 +73,4 @@
             )
         );
     };
-}(window.jQuery, window.TestS);
+}(window.jQuery, window.Ss);

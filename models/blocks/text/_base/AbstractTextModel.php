@@ -1,11 +1,11 @@
 <?php
 
-namespace testS\models\blocks\text\_base;
+namespace ss\models\blocks\text\_base;
 
-use testS\application\App;
-use testS\application\components\ValueGenerator;
-use testS\models\blocks\_abstract\AbstractContentModel;
-use testS\models\blocks\text\DesignTextModel;
+use ss\application\App;
+use ss\application\components\ValueGenerator;
+use ss\models\blocks\_abstract\AbstractContentModel;
+use ss\models\blocks\text\DesignTextModel;
 
 /**
  * Abstract model for working with table "texts"
@@ -58,11 +58,11 @@ abstract class AbstractTextModel extends AbstractContentModel
         return [
             'designTextId'  => [
                 self::FIELD_RELATION
-                    => '\\testS\\models\\blocks\\text\\DesignTextModel'
+                    => '\\ss\\models\\blocks\\text\\DesignTextModel'
             ],
             'designBlockId' => [
                 self::FIELD_RELATION
-                    => '\\testS\\models\\blocks\\block\\DesignBlockModel'
+                    => '\\ss\\models\\blocks\\block\\DesignBlockModel'
             ],
             'type'          => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,

@@ -1,10 +1,10 @@
 <?php
 
-namespace testS\tests\unit\controllers\image;
+namespace ss\tests\unit\controllers\image;
 
-use testS\models\blocks\block\BlockModel;
-use testS\models\blocks\image\ImageModel;
-use testS\tests\unit\controllers\_abstract\AbstractControllerTest;
+use ss\models\blocks\block\BlockModel;
+use ss\models\blocks\image\ImageModel;
+use ss\tests\unit\controllers\_abstract\AbstractControllerTest;
 
 /**
  * Tests for the controller CreateBlockDuplicationController

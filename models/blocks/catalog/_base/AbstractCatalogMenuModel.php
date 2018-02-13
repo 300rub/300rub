@@ -1,10 +1,10 @@
 <?php
 
-namespace testS\models\blocks\catalog\_base;
+namespace ss\models\blocks\catalog\_base;
 
-use testS\application\components\Validator;
-use testS\application\components\ValueGenerator;
-use testS\models\_abstract\AbstractModel;
+use ss\application\components\Validator;
+use ss\application\components\ValueGenerator;
+use ss\models\_abstract\AbstractModel;
 
 /**
  * Abstract model for working with table "catalogMenu"
@@ -32,16 +32,16 @@ abstract class AbstractCatalogMenuModel extends AbstractModel
         return [
             'parentId'  => [
                 self::FIELD_RELATION_TO_PARENT
-                    => '\\testS\\models\\blocks\\catalog\\CatalogMenuModel',
+                    => '\\ss\\models\\blocks\\catalog\\CatalogMenuModel',
                 self::FIELD_ALLOW_NULL         => true,
             ],
             'seoId'     => [
                 self::FIELD_RELATION
-                    => '\\testS\\models\\sections\\SeoModel'
+                    => '\\ss\\models\\sections\\SeoModel'
             ],
             'catalogId' => [
                 self::FIELD_RELATION_TO_PARENT
-                    => '\\testS\\models\\blocks\\catalog\\CatalogModel'
+                    => '\\ss\\models\\blocks\\catalog\\CatalogModel'
             ],
             'icon'      => [
                 self::FIELD_TYPE       => self::FIELD_TYPE_STRING,

@@ -1,8 +1,8 @@
 <?php
 
-namespace testS\application\instances\_abstract;
+namespace ss\application\instances\_abstract;
 
-use testS\controllers\page\PageController;
+use ss\controllers\page\PageController;
 
 /**
  * Abstract class to display page

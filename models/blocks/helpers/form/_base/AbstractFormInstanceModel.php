@@ -1,11 +1,11 @@
 <?php
 
-namespace testS\models\blocks\helpers\form\_base;
+namespace ss\models\blocks\helpers\form\_base;
 
-use testS\application\App;
-use testS\application\components\Validator;
-use testS\application\components\ValueGenerator;
-use testS\models\_abstract\AbstractModel;
+use ss\application\App;
+use ss\application\components\Validator;
+use ss\application\components\ValueGenerator;
+use ss\models\_abstract\AbstractModel;
 
 /**
  * Abstract model for working with table "formInstances"
@@ -79,7 +79,7 @@ abstract class AbstractFormInstanceModel extends AbstractModel
         return [
             'formId'         => [
                 self::FIELD_RELATION
-                    => '\\testS\\models\\blocks\\helpers\\form\\FormModel'
+                    => '\\ss\\models\\blocks\\helpers\\form\\FormModel'
             ],
             'sort'           => [
                 self::FIELD_TYPE => self::FIELD_TYPE_INT

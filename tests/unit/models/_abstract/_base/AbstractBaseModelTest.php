@@ -1,9 +1,9 @@
 <?php
 
-namespace testS\tests\unit\models\_abstract\_base;
+namespace ss\tests\unit\models\_abstract\_base;
 
-use testS\models\_abstract\AbstractModel;
-use testS\tests\unit\models\_abstract\AbstractModelTest;
+use ss\models\_abstract\AbstractModel;
+use ss\tests\unit\models\_abstract\AbstractModelTest;
 
 /**
  * Abstract class to test base models
@@ -70,7 +70,7 @@ abstract class AbstractBaseModelTest extends AbstractModelTest
             ->exceptRelations($exceptRelations)
             ->find();
         $this->assertInstanceOf(
-            "\\testS\\models\\_abstract\\AbstractModel",
+            "\\ss\\models\\_abstract\\AbstractModel",
             $model
         );
         $this->compareExpectedAndActual($createExpected, $model->get());
@@ -98,7 +98,7 @@ abstract class AbstractBaseModelTest extends AbstractModelTest
                 ->exceptRelations($exceptRelations)
                 ->find();
             $this->assertInstanceOf(
-                "\\testS\\models\\_abstract\\AbstractModel",
+                "\\ss\\models\\_abstract\\AbstractModel",
                 $model
             );
             $this->compareExpectedAndActual(

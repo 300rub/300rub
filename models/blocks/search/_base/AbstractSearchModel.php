@@ -1,8 +1,8 @@
 <?php
 
-namespace testS\models\blocks\search\_base;
+namespace ss\models\blocks\search\_base;
 
-use testS\models\_abstract\AbstractModel;
+use ss\models\_abstract\AbstractModel;
 
 /**
  * Abstract model for working with table "search"
@@ -30,11 +30,11 @@ abstract class AbstractSearchModel extends AbstractModel
         return [
             'formId'      => [
                 self::FIELD_RELATION
-                    => '\\testS\\models\\blocks\\helpers\\form\\FormModel'
+                    => '\\ss\\models\\blocks\\helpers\\form\\FormModel'
             ],
             'searchDesignId'          => [
                 self::FIELD_RELATION
-                    => '\\testS\\models\\blocks\\search\\DesignSearchModel'
+                    => '\\ss\\models\\blocks\\search\\DesignSearchModel'
             ],
         ];
     }

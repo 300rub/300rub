@@ -1,8 +1,8 @@
 <?php
 
-namespace testS\models\sections;
+namespace ss\models\sections;
 
-use testS\models\sections\_base\AbstractSeoModel;
+use ss\models\sections\_base\AbstractSeoModel;
 
 /**
  * Model for working with table "seo"

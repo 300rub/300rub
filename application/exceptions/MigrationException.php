@@ -1,6 +1,6 @@
 <?php
 
-namespace testS\application\exceptions;
+namespace ss\application\exceptions;
 
 /**
  * MigrationException class

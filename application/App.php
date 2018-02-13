@@ -1,11 +1,11 @@
 <?php
 
-namespace testS\application;
+namespace ss\application;
 
-use testS\application\instances\_abstract\AbstractApplication;
-use testS\application\instances\Console;
-use testS\application\instances\Test;
-use testS\application\instances\Web;
+use ss\application\instances\_abstract\AbstractApplication;
+use ss\application\instances\Console;
+use ss\application\instances\Test;
+use ss\application\instances\Web;
 
 /**
  * Class for running application
@@ -130,7 +130,7 @@ class App
                 '\\',
                 '/',
                 str_replace(
-                    'testS\\',
+                    'ss\\',
                     '',
                     $className
                 )

@@ -1,8 +1,8 @@
 <?php
 
-namespace testS\models\blocks\helpers\field;
+namespace ss\models\blocks\helpers\field;
 
-use testS\models\blocks\helpers\field\_base\AbstractFieldTemplateModel;
+use ss\models\blocks\helpers\field\_base\AbstractFieldTemplateModel;
 
 /**
  * Model for working with table "fieldTemplates"

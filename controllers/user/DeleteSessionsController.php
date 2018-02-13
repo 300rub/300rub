@@ -1,15 +1,15 @@
 <?php
 
-namespace testS\controllers\user;
+namespace ss\controllers\user;
 
-use testS\application\App;
-use testS\application\components\Operation;
-use testS\application\exceptions\AccessException;
-use testS\application\exceptions\BadRequestException;
-use testS\controllers\_abstract\AbstractController;
-use testS\models\_abstract\AbstractModel;
-use testS\models\user\UserModel;
-use testS\models\user\UserSessionModel;
+use ss\application\App;
+use ss\application\components\Operation;
+use ss\application\exceptions\AccessException;
+use ss\application\exceptions\BadRequestException;
+use ss\controllers\_abstract\AbstractController;
+use ss\models\_abstract\AbstractModel;
+use ss\models\user\UserModel;
+use ss\models\user\UserSessionModel;
 
 /**
  * Deletes all user sessions except current

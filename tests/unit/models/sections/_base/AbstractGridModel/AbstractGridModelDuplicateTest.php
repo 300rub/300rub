@@ -1,9 +1,9 @@
 <?php
 
-namespace testS\tests\unit\models\sections\_base\AbstractGridModel;
+namespace ss\tests\unit\models\sections\_base\AbstractGridModel;
 
-use testS\models\sections\GridModel;
-use testS\tests\unit\models\_abstract\_base\AbstractDuplicateModelTest;
+use ss\models\sections\GridModel;
+use ss\tests\unit\models\_abstract\_base\AbstractDuplicateModelTest;
 
 /**
  * Tests for the model GridModel

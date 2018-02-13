@@ -1,10 +1,10 @@
 <?php
 
 // @codingStandardsIgnoreLine
-namespace testS\tests\unit\models\blocks\catalog\_base\AbstractDesignCatalogModel;
+namespace ss\tests\unit\models\blocks\catalog\_base\AbstractDesignCatalogModel;
 
-use testS\models\blocks\catalog\DesignCatalogModel;
-use testS\tests\unit\models\_abstract\_base\AbstractCorrectModelTest;
+use ss\models\blocks\catalog\DesignCatalogModel;
+use ss\tests\unit\models\_abstract\_base\AbstractCorrectModelTest;
 
 /**
  * Tests for the model AbstractDesignCatalogModel

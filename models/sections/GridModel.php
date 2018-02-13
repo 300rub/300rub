@@ -1,8 +1,8 @@
 <?php
 
-namespace testS\models\sections;
+namespace ss\models\sections;
 
-use testS\models\sections\_base\AbstractGridModel;
+use ss\models\sections\_base\AbstractGridModel;
 
 /**
  * Model for working with table "grids"

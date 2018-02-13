@@ -1,11 +1,11 @@
 <?php
 
-namespace testS\controllers\record;
+namespace ss\controllers\record;
 
-use testS\application\components\Operation;
-use testS\controllers\_abstract\AbstractController;
-use testS\models\blocks\block\BlockModel;
-use testS\models\blocks\record\RecordModel;
+use ss\application\components\Operation;
+use ss\controllers\_abstract\AbstractController;
+use ss\models\blocks\block\BlockModel;
+use ss\models\blocks\record\RecordModel;
 
 /**
  * Updates block

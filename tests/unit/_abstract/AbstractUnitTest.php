@@ -1,8 +1,8 @@
 <?php
 
-namespace testS\tests\unit\_abstract;
+namespace ss\tests\unit\_abstract;
 
-use testS\models\_abstract\AbstractModel;
+use ss\models\_abstract\AbstractModel;
 
 /**
  * Abstract class to work with unit tests
@@ -42,9 +42,9 @@ abstract class AbstractUnitTest extends \PHPUnit_Framework_TestCase
      * Exceptions
      */
     const EXCEPTION_MODEL
-        = "testS\\application\\exceptions\\ModelException";
+        = "ss\\application\\exceptions\\ModelException";
     const EXCEPTION_CONTENT
-        = "testS\\application\\exceptions\\ContentException";
+        = "ss\\application\\exceptions\\ContentException";
 
     /**
      * Compares expected and actual

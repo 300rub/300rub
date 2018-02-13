@@ -1,11 +1,11 @@
 <?php
 
-namespace testS\controllers\record;
+namespace ss\controllers\record;
 
-use testS\application\components\Operation;
-use testS\application\exceptions\BadRequestException;
-use testS\controllers\_abstract\AbstractController;
-use testS\models\blocks\block\BlockModel;
+use ss\application\components\Operation;
+use ss\application\exceptions\BadRequestException;
+use ss\controllers\_abstract\AbstractController;
+use ss\models\blocks\block\BlockModel;
 
 /**
  * Deletes block

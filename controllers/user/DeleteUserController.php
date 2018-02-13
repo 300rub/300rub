@@ -1,12 +1,12 @@
 <?php
 
-namespace testS\controllers\user;
+namespace ss\controllers\user;
 
-use testS\application\components\Operation;
-use testS\application\exceptions\AccessException;
-use testS\application\exceptions\NotFoundException;
-use testS\controllers\_abstract\AbstractController;
-use testS\models\user\UserModel;
+use ss\application\components\Operation;
+use ss\application\exceptions\AccessException;
+use ss\application\exceptions\NotFoundException;
+use ss\controllers\_abstract\AbstractController;
+use ss\models\user\UserModel;
 
 /**
  * Removes user

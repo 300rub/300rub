@@ -1,8 +1,8 @@
 <?php
 
-namespace testS\models\blocks\feedback;
+namespace ss\models\blocks\feedback;
 
-use testS\models\blocks\feedback\_base\AbstractFeedbackModel;
+use ss\models\blocks\feedback\_base\AbstractFeedbackModel;
 
 /**
  * Model for working with table "feedback"

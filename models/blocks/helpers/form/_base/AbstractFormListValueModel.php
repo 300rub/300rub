@@ -1,10 +1,10 @@
 <?php
 
-namespace testS\models\blocks\helpers\form\_base;
+namespace ss\models\blocks\helpers\form\_base;
 
-use testS\application\components\Validator;
-use testS\application\components\ValueGenerator;
-use testS\models\_abstract\AbstractModel;
+use ss\application\components\Validator;
+use ss\application\components\ValueGenerator;
+use ss\models\_abstract\AbstractModel;
 
 /**
  * Abstract model for working with table "formListValues"
@@ -32,7 +32,7 @@ abstract class AbstractFormListValueModel extends AbstractModel
         return [
             'formInstanceId' => [
                 self::FIELD_RELATION_TO_PARENT
-                    => '\\testS\\models\\blocks\\helpers\\' .
+                    => '\\ss\\models\\blocks\\helpers\\' .
                         'form\\FormInstanceModel'
             ],
             'sort'           => [

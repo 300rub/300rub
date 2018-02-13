@@ -1,10 +1,10 @@
 <?php
 
 // @codingStandardsIgnoreLine
-namespace testS\tests\unit\models\blocks\helpers\field\_base\AbstractFieldListValueModel;
+namespace ss\tests\unit\models\blocks\helpers\field\_base\AbstractFieldListValueModel;
 
-use testS\models\blocks\helpers\field\FieldListValueModel;
-use testS\tests\unit\models\_abstract\_base\AbstractDuplicateModelTest;
+use ss\models\blocks\helpers\field\FieldListValueModel;
+use ss\tests\unit\models\_abstract\_base\AbstractDuplicateModelTest;
 
 /**
  * Tests for the model AbstractFieldListValueModel

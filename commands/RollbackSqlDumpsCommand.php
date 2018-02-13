@@ -1,10 +1,10 @@
 <?php
 
-namespace testS\commands;
+namespace ss\commands;
 
-use testS\application\App;
-use testS\commands\_abstract\AbstractCommand;
-use testS\application\exceptions\MigrationException;
+use ss\application\App;
+use ss\commands\_abstract\AbstractCommand;
+use ss\application\exceptions\MigrationException;
 
 /**
  * Rollback Sql dumps command

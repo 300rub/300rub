@@ -1,9 +1,9 @@
 <?php
 
-namespace testS\models\system;
+namespace ss\models\system;
 
-use testS\application\components\Db;
-use testS\models\system\_base\AbstractSiteModel;
+use ss\application\components\Db;
+use ss\models\system\_base\AbstractSiteModel;
 
 /**
  * Model for working with table "sites"

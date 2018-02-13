@@ -1,10 +1,10 @@
 <?php
 
-namespace testS\application\instances;
+namespace ss\application\instances;
 
-use testS\application\instances\_abstract\AbstractApplication;
-use testS\commands\_abstract\AbstractCommand;
-use testS\application\exceptions\CommonException;
+use ss\application\instances\_abstract\AbstractApplication;
+use ss\commands\_abstract\AbstractCommand;
+use ss\application\exceptions\CommonException;
 
 /**
  * Class for working with console
@@ -39,7 +39,7 @@ class Console extends AbstractApplication
             array_shift($args);
             array_shift($args);
 
-            $className = '\\testS\\commands\\' .
+            $className = '\\ss\\commands\\' .
                 $commandName .
                 self::COMMAND_ENDING;
             $this->output(

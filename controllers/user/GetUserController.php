@@ -1,18 +1,18 @@
 <?php
 
-namespace testS\controllers\user;
+namespace ss\controllers\user;
 
-use testS\application\App;
-use testS\application\components\Operation;
-use testS\application\components\ValueGenerator;
-use testS\application\exceptions\AccessException;
-use testS\application\exceptions\BadRequestException;
-use testS\application\exceptions\NotFoundException;
-use testS\controllers\_abstract\AbstractController;
-use testS\models\_abstract\AbstractModel;
-use testS\models\blocks\block\BlockModel;
-use testS\models\sections\SectionModel;
-use testS\models\user\UserModel;
+use ss\application\App;
+use ss\application\components\Operation;
+use ss\application\components\ValueGenerator;
+use ss\application\exceptions\AccessException;
+use ss\application\exceptions\BadRequestException;
+use ss\application\exceptions\NotFoundException;
+use ss\controllers\_abstract\AbstractController;
+use ss\models\_abstract\AbstractModel;
+use ss\models\blocks\block\BlockModel;
+use ss\models\sections\SectionModel;
+use ss\models\user\UserModel;
 
 /**
  * Gets User

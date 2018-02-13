@@ -1,10 +1,10 @@
 <?php
 
-namespace testS\tests\unit\models\blocks\text\_base\AbstractTextModel;
+namespace ss\tests\unit\models\blocks\text\_base\AbstractTextModel;
 
-use testS\models\blocks\text\TextInstanceModel;
-use testS\models\blocks\text\TextModel;
-use testS\tests\unit\models\_abstract\_base\AbstractDuplicateModelTest;
+use ss\models\blocks\text\TextInstanceModel;
+use ss\models\blocks\text\TextModel;
+use ss\tests\unit\models\_abstract\_base\AbstractDuplicateModelTest;
 
 /**
  * Tests for the model TextModel

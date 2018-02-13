@@ -1,8 +1,8 @@
 <?php
 
-namespace testS\application\components;
+namespace ss\application\components;
 
-use testS\application\exceptions\CommonException;
+use ss\application\exceptions\CommonException;
 
 /**
  * Class for generation values
@@ -14,55 +14,55 @@ abstract class ValueGenerator
      * Types
      */
     const ARRAY_KEY
-        = '\\testS\\application\\components\\ValueGenerator\\' .
+        = '\\ss\\application\\components\\ValueGenerator\\' .
             'filter\\ArrayKey';
     const BOOL_INT
-        = '\\testS\\application\\components\\ValueGenerator\\' .
+        = '\\ss\\application\\components\\ValueGenerator\\' .
             'type\\BoolIntValue';
     const BOOL
-        = '\\testS\\application\\components\\ValueGenerator\\' .
+        = '\\ss\\application\\components\\ValueGenerator\\' .
             'type\\BoolValue';
     const CLEAR_STRIP_TAGS
-        = '\\testS\\application\\components\\ValueGenerator\\' .
+        = '\\ss\\application\\components\\ValueGenerator\\' .
             'modify\\ClearStripTags';
     const COLOR
-        = '\\testS\\application\\components\\ValueGenerator\\' .
+        = '\\ss\\application\\components\\ValueGenerator\\' .
             'filter\\Color';
     const COPY_NAME
-        = '\\testS\\application\\components\\ValueGenerator\\' .
+        = '\\ss\\application\\components\\ValueGenerator\\' .
             'modify\\CopyName';
     const DATETIME
-        = '\\testS\\application\\components\\ValueGenerator\\' .
+        = '\\ss\\application\\components\\ValueGenerator\\' .
             'type\\DateTimeValue';
     const FLOAT
-        = '\\testS\\application\\components\\ValueGenerator\\' .
+        = '\\ss\\application\\components\\ValueGenerator\\' .
             'type\\FloatValue';
     const INT
-        = '\\testS\\application\\components\\ValueGenerator\\' .
+        = '\\ss\\application\\components\\ValueGenerator\\' .
             'type\\IntValue';
     const MAX
-        = '\\testS\\application\\components\\ValueGenerator\\' .
+        = '\\ss\\application\\components\\ValueGenerator\\' .
             'math\\Max';
     const MIN
-        = '\\testS\\application\\components\\ValueGenerator\\' .
+        = '\\ss\\application\\components\\ValueGenerator\\' .
             'math\\Min';
     const MIN_THEN
-        = '\\testS\\application\\components\\ValueGenerator\\' .
+        = '\\ss\\application\\components\\ValueGenerator\\' .
             'math\\MinThen';
     const STRING
-        = '\\testS\\application\\components\\ValueGenerator\\' .
+        = '\\ss\\application\\components\\ValueGenerator\\' .
             'type\\StringValue';
     const URL
-        = '\\testS\\application\\components\\ValueGenerator\\' .
+        = '\\ss\\application\\components\\ValueGenerator\\' .
             'modify\\Url';
     const COPY_URL
-        = '\\testS\\application\\components\\ValueGenerator\\' .
+        = '\\ss\\application\\components\\ValueGenerator\\' .
             'modify\\UrlCopy';
     const DATETIME_AS_STRING
-        = '\\testS\\application\\components\\ValueGenerator\\' .
+        = '\\ss\\application\\components\\ValueGenerator\\' .
             'type\\Iso';
     const ORDERED_ARRAY
-        = '\\testS\\application\\components\\ValueGenerator\\' .
+        = '\\ss\\application\\components\\ValueGenerator\\' .
             'modify\\OrderedArrayForJson';
 
     /**

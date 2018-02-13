@@ -1,11 +1,11 @@
 <?php
 
-namespace testS\models\blocks\image\_base;
+namespace ss\models\blocks\image\_base;
 
-use testS\application\App;
-use testS\application\components\ValueGenerator;
-use testS\models\blocks\_abstract\AbstractContentModel;
-use testS\models\blocks\image\ImageInstanceModel;
+use ss\application\App;
+use ss\application\components\ValueGenerator;
+use ss\models\blocks\_abstract\AbstractContentModel;
+use ss\models\blocks\image\ImageInstanceModel;
 
 /**
  * Abstract model for working with table "images"
@@ -91,19 +91,19 @@ abstract class AbstractImageModel extends AbstractContentModel
         return [
             'designBlockId'       => [
                 self::FIELD_RELATION
-                    => '\\testS\\models\\blocks\\block\\DesignBlockModel'
+                    => '\\ss\\models\\blocks\\block\\DesignBlockModel'
             ],
             'designImageSliderId' => [
                 self::FIELD_RELATION
-                    => '\\testS\\models\\blocks\\image\\DesignImageSliderModel'
+                    => '\\ss\\models\\blocks\\image\\DesignImageSliderModel'
             ],
             'designImageZoomId'   => [
                 self::FIELD_RELATION
-                    => '\\testS\\models\\blocks\\image\\DesignImageZoomModel'
+                    => '\\ss\\models\\blocks\\image\\DesignImageZoomModel'
             ],
             'designImageSimpleId' => [
                 self::FIELD_RELATION
-                    => '\\testS\\models\\blocks\\image\\DesignImageSimpleModel'
+                    => '\\ss\\models\\blocks\\image\\DesignImageSimpleModel'
             ],
             'type'                => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,

@@ -1,10 +1,10 @@
 <?php
 
-namespace testS\models\blocks\text;
+namespace ss\models\blocks\text;
 
-use testS\application\App;
-use testS\application\exceptions\ModelException;
-use testS\models\blocks\text\_base\AbstractTextModel;
+use ss\application\App;
+use ss\application\exceptions\ModelException;
+use ss\models\blocks\text\_base\AbstractTextModel;
 
 /**
  * Model for working with table "texts"
@@ -15,7 +15,7 @@ class TextModel extends AbstractTextModel
     /**
      * Class name
      */
-    const CLASS_NAME = '\\testS\\models\\blocks\\text\\TextModel';
+    const CLASS_NAME = '\\ss\\models\\blocks\\text\\TextModel';
 
     /**
      * Gets HTML memcached key

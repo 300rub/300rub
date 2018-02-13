@@ -1,9 +1,9 @@
 <?php
 
-namespace testS\models\blocks\image;
+namespace ss\models\blocks\image;
 
-use testS\models\blocks\image\_base\AbstractDesignImageSliderModel;
-use testS\application\App;
+use ss\models\blocks\image\_base\AbstractDesignImageSliderModel;
+use ss\application\App;
 
 /**
  * Model for working with table "designImageSliders"

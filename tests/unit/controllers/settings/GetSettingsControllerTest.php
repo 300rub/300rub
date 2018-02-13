@@ -1,8 +1,8 @@
 <?php
 
-namespace testS\tests\unit\controllers\block;
+namespace ss\tests\unit\controllers\block;
 
-use testS\tests\unit\controllers\_abstract\AbstractControllerTest;
+use ss\tests\unit\controllers\_abstract\AbstractControllerTest;
 
 /**
  * Tests for the controller GetSettingsController

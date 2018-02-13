@@ -1,8 +1,8 @@
 <?php
 
-namespace testS\models\blocks\helpers\form;
+namespace ss\models\blocks\helpers\form;
 
-use testS\models\blocks\helpers\form\_base\AbstractDesignFormModel;
+use ss\models\blocks\helpers\form\_base\AbstractDesignFormModel;
 
 /**
  * Model for working with table "designForms"

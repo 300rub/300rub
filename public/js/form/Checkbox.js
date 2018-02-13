@@ -1,4 +1,4 @@
-!function ($, TestS) {
+!function ($, Ss) {
     'use strict';
 
     /**
@@ -6,8 +6,8 @@
      *
      * @param {Object} options
      */
-    TestS.Form.Checkbox = function (options) {
-        TestS.Form.Abstract.call(this, "form-container-checkbox", options);
+    Ss.Form.Checkbox = function (options) {
+        Ss.Form.Abstract.call(this, "form-container-checkbox", options);
         this.init();
     };
 
@@ -16,18 +16,18 @@
      *
      * @type {Object}
      */
-    TestS.Form.Checkbox.prototype
-        = Object.create(TestS.Form.Abstract.prototype);
+    Ss.Form.Checkbox.prototype
+        = Object.create(Ss.Form.Abstract.prototype);
 
     /**
      * Constructor
      */
-    TestS.Form.Checkbox.prototype.constructor = TestS.Form.Checkbox;
+    Ss.Form.Checkbox.prototype.constructor = Ss.Form.Checkbox;
 
     /**
      * Init
      */
-    TestS.Form.Checkbox.prototype.init = function () {
+    Ss.Form.Checkbox.prototype.init = function () {
         var t = this;
 
         if (t.getOption("value") === true) {
@@ -64,7 +64,7 @@
      *
      * @returns {Boolean}
      */
-    TestS.Form.Checkbox.prototype.getValue = function () {
+    Ss.Form.Checkbox.prototype.getValue = function () {
         return this.getInstance().is(':checked');
     };
-}(window.jQuery, window.TestS);
+}(window.jQuery, window.Ss);

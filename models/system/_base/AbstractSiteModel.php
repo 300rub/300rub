@@ -1,11 +1,11 @@
 <?php
 
-namespace testS\models\system\_base;
+namespace ss\models\system\_base;
 
-use testS\application\App;
-use testS\application\components\Validator;
-use testS\application\components\ValueGenerator;
-use testS\models\_abstract\AbstractModel;
+use ss\application\App;
+use ss\application\components\Validator;
+use ss\application\components\ValueGenerator;
+use ss\models\_abstract\AbstractModel;
 
 /**
  * Abstract model for working with table "sites"

@@ -1,10 +1,10 @@
 <?php
 
-namespace testS\models\blocks\menu\_base;
+namespace ss\models\blocks\menu\_base;
 
-use testS\application\components\Validator;
-use testS\application\components\ValueGenerator;
-use testS\models\_abstract\AbstractModel;
+use ss\application\components\Validator;
+use ss\application\components\ValueGenerator;
+use ss\models\_abstract\AbstractModel;
 
 /**
  * Abstract model for working with table "menuInstances"
@@ -32,19 +32,19 @@ abstract class AbstractMenuInstanceModel extends AbstractModel
         return [
             'menuId'    => [
                 self::FIELD_RELATION_TO_PARENT
-                    => '\\testS\\models\\blocks\\menu\\MenuModel',
+                    => '\\ss\\models\\blocks\\menu\\MenuModel',
                 self::FIELD_SKIP_DUPLICATION     => true,
                 self::FIELD_NOT_CHANGE_ON_UPDATE => true
             ],
             'parentId'  => [
                 self::FIELD_RELATION_TO_PARENT
-                    => '\\testS\\models\\blocks\\menu\\MenuInstanceModel',
+                    => '\\ss\\models\\blocks\\menu\\MenuInstanceModel',
                 self::FIELD_ALLOW_NULL         => true,
                 self::FIELD_SKIP_DUPLICATION   => true,
             ],
             'sectionId' => [
                 self::FIELD_RELATION_TO_PARENT
-                    => '\\testS\\models\\sections\\SectionModel'
+                    => '\\ss\\models\\sections\\SectionModel'
             ],
             'icon'      => [
                 self::FIELD_TYPE       => self::FIELD_TYPE_STRING,

@@ -1,4 +1,4 @@
-!function ($, TestS) {
+!function ($, Ss) {
     'use strict';
 
     /**
@@ -6,7 +6,7 @@
      *
      * @type {Object}
      */
-    TestS.Window.Collection = {
+    Ss.Window.Collection = {
 
         /**
          * Collection of windows
@@ -19,9 +19,9 @@
          * Adds window to collection
          *
          * @param {String}                name
-         * @param {TestS.Window.Abstract} window
+         * @param {Ss.Window.Abstract} window
          *
-         * @returns {TestS}
+         * @returns {Ss}
          */
         add: function (name, window) {
             this._instances[name] = window;
@@ -33,7 +33,7 @@
          *
          * @param {String} name
          *
-         * @returns {TestS}
+         * @returns {Ss}
          */
         remove: function (name) {
             if (this._instances[name] !== undefined) {
@@ -48,7 +48,7 @@
          *
          * @param {String} name
          *
-         * @returns {TestS.Window.Abstract}
+         * @returns {Ss.Window.Abstract}
          */
         get: function (name) {
             if (this._instances[name] === undefined) {
@@ -58,4 +58,4 @@
             return this._instances[name];
         }
     };
-}(window.jQuery, window.TestS);
+}(window.jQuery, window.Ss);

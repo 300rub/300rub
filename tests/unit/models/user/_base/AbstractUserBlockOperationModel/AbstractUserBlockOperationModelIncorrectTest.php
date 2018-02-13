@@ -1,12 +1,12 @@
 <?php
 
 // @codingStandardsIgnoreLine
-namespace testS\tests\unit\models\user\_base\AbstractUserBlockOperationModel;
+namespace ss\tests\unit\models\user\_base\AbstractUserBlockOperationModel;
 
-use testS\application\components\Operation;
-use testS\models\blocks\block\BlockModel;
-use testS\models\user\UserBlockOperationModel;
-use testS\tests\unit\models\_abstract\_base\AbstractIncorrectModelTest;
+use ss\application\components\Operation;
+use ss\models\blocks\block\BlockModel;
+use ss\models\user\UserBlockOperationModel;
+use ss\tests\unit\models\_abstract\_base\AbstractIncorrectModelTest;
 
 /**
  * Tests for the model UserBlockOperationModel

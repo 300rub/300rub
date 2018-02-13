@@ -1,6 +1,6 @@
 <?php
 
-namespace testS\tests\selenium\_abstract;
+namespace ss\tests\selenium\_abstract;
 
 use Facebook\WebDriver\Remote\RemoteWebDriver;
 use Facebook\WebDriver\WebDriverBy;

@@ -1,11 +1,11 @@
 <?php
 
-namespace testS\commands;
+namespace ss\commands;
 
-use testS\application\App;
-use testS\application\exceptions\MigrationException;
-use testS\commands\_abstract\AbstractCommand;
-use testS\migrations\_abstract\AbstractMigration;
+use ss\application\App;
+use ss\application\exceptions\MigrationException;
+use ss\commands\_abstract\AbstractCommand;
+use ss\migrations\_abstract\AbstractMigration;
 
 /**
  * Applies migrations
@@ -155,7 +155,7 @@ class MigrateCommand extends AbstractCommand
      */
     private function _getMigrationByName($migrationName)
     {
-        $migrationFullName = '\\testS\\migrations\\' . $migrationName;
+        $migrationFullName = '\\ss\\migrations\\' . $migrationName;
         return new $migrationFullName;
     }
 

@@ -1,11 +1,11 @@
 <?php
 
-namespace testS\models\blocks\image\_abstract;
+namespace ss\models\blocks\image\_abstract;
 
-use testS\models\blocks\helpers\file\FileModel;
-use testS\application\exceptions\FileException;
+use ss\models\blocks\helpers\file\FileModel;
+use ss\application\exceptions\FileException;
 use Gregwar\Image\Image;
-use testS\models\blocks\image\_base\AbstractImageInstanceModel;
+use ss\models\blocks\image\_base\AbstractImageInstanceModel;
 
 /**
  * Abstract model for working with table "imageInstances"

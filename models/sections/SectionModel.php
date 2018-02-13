@@ -1,11 +1,11 @@
 <?php
 
-namespace testS\models\sections;
+namespace ss\models\sections;
 
-use testS\application\App;
-use testS\models\blocks\block\BlockModel;
-use testS\models\blocks\block\DesignBlockModel;
-use testS\models\sections\_base\AbstractSectionModel;
+use ss\application\App;
+use ss\models\blocks\block\BlockModel;
+use ss\models\blocks\block\DesignBlockModel;
+use ss\models\sections\_base\AbstractSectionModel;
 
 /**
  * Model for working with table "sections"

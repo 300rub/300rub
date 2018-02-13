@@ -1,12 +1,12 @@
 <?php
 
 // @codingStandardsIgnoreLine
-namespace testS\tests\unit\models\blocks\helpers\tab\_base\AbstractTabInstanceModel;
+namespace ss\tests\unit\models\blocks\helpers\tab\_base\AbstractTabInstanceModel;
 
-use testS\models\blocks\helpers\tab\TabGroupModel;
-use testS\models\blocks\helpers\tab\TabInstanceModel;
-use testS\models\blocks\helpers\tab\TabModel;
-use testS\tests\unit\models\_abstract\_base\AbstractIncorrectModelTest;
+use ss\models\blocks\helpers\tab\TabGroupModel;
+use ss\models\blocks\helpers\tab\TabInstanceModel;
+use ss\models\blocks\helpers\tab\TabModel;
+use ss\tests\unit\models\_abstract\_base\AbstractIncorrectModelTest;
 
 /**
  * Tests for the model AbstractTabInstanceModel

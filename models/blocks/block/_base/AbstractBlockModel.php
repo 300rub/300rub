@@ -1,13 +1,13 @@
 <?php
 
-namespace testS\models\blocks\block\_base;
+namespace ss\models\blocks\block\_base;
 
-use testS\application\App;
-use testS\application\components\Validator;
-use testS\application\components\ValueGenerator;
-use testS\application\exceptions\ModelException;
-use testS\models\_abstract\AbstractModel;
-use testS\models\blocks\_abstract\AbstractContentModel;
+use ss\application\App;
+use ss\application\components\Validator;
+use ss\application\components\ValueGenerator;
+use ss\application\exceptions\ModelException;
+use ss\models\_abstract\AbstractModel;
+use ss\models\blocks\_abstract\AbstractContentModel;
 
 /**
  * Abstract model for working with table "blocks"
@@ -30,13 +30,13 @@ abstract class AbstractBlockModel extends AbstractModel
      */
     public static $typeList = [
         self::TYPE_TEXT
-            => '\\testS\\models\\blocks\\text\\TextModel',
+            => '\\ss\\models\\blocks\\text\\TextModel',
         self::TYPE_IMAGE
-            => '\\testS\\models\\blocks\\image\\ImageModel',
+            => '\\ss\\models\\blocks\\image\\ImageModel',
         self::TYPE_RECORD
-            => '\\testS\\models\\blocks\\record\\RecordModel',
+            => '\\ss\\models\\blocks\\record\\RecordModel',
         self::TYPE_RECORD_CLONE
-            => '\\testS\\models\\blocks\\record\\RecordCloneModel',
+            => '\\ss\\models\\blocks\\record\\RecordCloneModel',
     ];
 
     /**
@@ -165,7 +165,7 @@ abstract class AbstractBlockModel extends AbstractModel
 
         if ($instance === null) {
             $instance
-                = 'testS\\models\\blocks\\_abstract\\AbstractContentModel';
+                = 'ss\\models\\blocks\\_abstract\\AbstractContentModel';
         }
 
         $newModel = $this->getNewContentModel();

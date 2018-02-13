@@ -1,17 +1,17 @@
 <?php
 
-namespace testS\tests\unit\models\user;
+namespace ss\tests\unit\models\user;
 
-use testS\application\components\Operation;
-use testS\models\_abstract\AbstractModel;
-use testS\models\blocks\block\BlockModel;
-use testS\models\user\UserBlockGroupOperationModel;
-use testS\models\user\UserBlockOperationModel;
-use testS\models\user\UserModel;
-use testS\models\user\UserSectionGroupOperationModel;
-use testS\models\user\UserSectionOperationModel;
-use testS\models\user\UserSettingsOperationModel;
-use testS\tests\unit\models\_abstract\AbstractModelTest;
+use ss\application\components\Operation;
+use ss\models\_abstract\AbstractModel;
+use ss\models\blocks\block\BlockModel;
+use ss\models\user\UserBlockGroupOperationModel;
+use ss\models\user\UserBlockOperationModel;
+use ss\models\user\UserModel;
+use ss\models\user\UserSectionGroupOperationModel;
+use ss\models\user\UserSectionOperationModel;
+use ss\models\user\UserSettingsOperationModel;
+use ss\tests\unit\models\_abstract\AbstractModelTest;
 
 /**
  * Tests for the model UserModel

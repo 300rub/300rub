@@ -1,20 +1,20 @@
 <?php
 
-namespace testS\application\instances\_abstract;
+namespace ss\application\instances\_abstract;
 
-use testS\application\components\Db;
-use testS\application\components\Config;
-use testS\application\components\ErrorHandler;
-use testS\application\components\Logger;
-use testS\application\components\Validator;
-use testS\application\exceptions\NotFoundException;
-use testS\application\components\SuperGlobalVariable;
-use testS\application\components\Language;
-use testS\application\components\Operation;
-use testS\application\components\View;
-use testS\application\components\Memcached;
-use testS\models\_abstract\AbstractModel;
-use testS\models\system\SiteModel;
+use ss\application\components\Db;
+use ss\application\components\Config;
+use ss\application\components\ErrorHandler;
+use ss\application\components\Logger;
+use ss\application\components\Validator;
+use ss\application\exceptions\NotFoundException;
+use ss\application\components\SuperGlobalVariable;
+use ss\application\components\Language;
+use ss\application\components\Operation;
+use ss\application\components\View;
+use ss\application\components\Memcached;
+use ss\models\_abstract\AbstractModel;
+use ss\models\system\SiteModel;
 
 /**
  * Abstract class for work with application

@@ -1,8 +1,8 @@
 <?php
 
-namespace testS\models\blocks\helpers\field;
+namespace ss\models\blocks\helpers\field;
 
-use testS\models\blocks\helpers\field\_base\AbstractFieldGroupModel;
+use ss\models\blocks\helpers\field\_base\AbstractFieldGroupModel;
 
 /**
  * Model for working with table "fieldGroups"

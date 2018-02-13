@@ -1,9 +1,9 @@
 <?php
 
-namespace testS\models\_abstract;
+namespace ss\models\_abstract;
 
-use testS\application\components\Db;
-use testS\application\exceptions\ModelException;
+use ss\application\components\Db;
+use ss\application\exceptions\ModelException;
 
 /**
  * Abstract class for working with models

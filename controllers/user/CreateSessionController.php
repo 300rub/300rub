@@ -1,12 +1,12 @@
 <?php
 
-namespace testS\controllers\user;
+namespace ss\controllers\user;
 
-use testS\application\App;
-use testS\application\exceptions\BadRequestException;
-use testS\controllers\_abstract\AbstractController;
-use testS\models\user\UserModel;
-use testS\models\user\UserSessionModel;
+use ss\application\App;
+use ss\application\exceptions\BadRequestException;
+use ss\controllers\_abstract\AbstractController;
+use ss\models\user\UserModel;
+use ss\models\user\UserSessionModel;
 
 /**
  * Adds user session. Sets User / Login

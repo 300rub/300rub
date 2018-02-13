@@ -1,9 +1,9 @@
 <?php
 
-namespace testS\tests\unit\models\blocks\menu\_base\AbstractMenuInstanceModel;
+namespace ss\tests\unit\models\blocks\menu\_base\AbstractMenuInstanceModel;
 
-use testS\models\blocks\menu\MenuInstanceModel;
-use testS\tests\unit\models\_abstract\_base\AbstractEmptyModelTest;
+use ss\models\blocks\menu\MenuInstanceModel;
+use ss\tests\unit\models\_abstract\_base\AbstractEmptyModelTest;
 
 /**
  * Tests for the model AbstractMenuInstanceModel

@@ -1,9 +1,9 @@
 <?php
 
-namespace testS\models\blocks\image;
+namespace ss\models\blocks\image;
 
-use testS\application\components\Db;
-use testS\models\blocks\image\_base\AbstractImageGroupModel;
+use ss\application\components\Db;
+use ss\models\blocks\image\_base\AbstractImageGroupModel;
 
 /**
  * Model for working with table "imageGroups"

@@ -1,4 +1,4 @@
-!function ($, TestS) {
+!function ($, Ss) {
     'use strict';
 
     /**
@@ -6,8 +6,8 @@
      *
      * @param {Object} options
      */
-    TestS.Form.CheckboxOnOff = function (options) {
-        TestS.Form.Abstract.call(
+    Ss.Form.CheckboxOnOff = function (options) {
+        Ss.Form.Abstract.call(
             this,
             "form-container-checkbox-on-off",
             options
@@ -20,19 +20,19 @@
      *
      * @type {Object}
      */
-    TestS.Form.CheckboxOnOff.prototype
-        = Object.create(TestS.Form.Abstract.prototype);
+    Ss.Form.CheckboxOnOff.prototype
+        = Object.create(Ss.Form.Abstract.prototype);
 
     /**
      * Constructor
      */
-    TestS.Form.CheckboxOnOff.prototype.constructor
-        = TestS.Form.CheckboxOnOff;
+    Ss.Form.CheckboxOnOff.prototype.constructor
+        = Ss.Form.CheckboxOnOff;
 
     /**
      * Init
      */
-    TestS.Form.CheckboxOnOff.prototype.init = function () {
+    Ss.Form.CheckboxOnOff.prototype.init = function () {
         var t = this;
 
         if (t.getOption("value") === true) {
@@ -69,7 +69,7 @@
      *
      * @returns {Boolean}
      */
-    TestS.Form.CheckboxOnOff.prototype.getValue = function () {
+    Ss.Form.CheckboxOnOff.prototype.getValue = function () {
         return this.getInstance().is(':checked');
     };
-}(window.jQuery, window.TestS);
+}(window.jQuery, window.Ss);

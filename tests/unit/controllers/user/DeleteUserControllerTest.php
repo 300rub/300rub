@@ -1,9 +1,9 @@
 <?php
 
-namespace testS\tests\unit\controllers\user;
+namespace ss\tests\unit\controllers\user;
 
-use testS\models\user\UserModel;
-use testS\tests\unit\controllers\_abstract\AbstractControllerTest;
+use ss\models\user\UserModel;
+use ss\tests\unit\controllers\_abstract\AbstractControllerTest;
 
 /**
  * Tests for the controller DeleteUserController

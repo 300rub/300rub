@@ -1,8 +1,8 @@
 <?php
 
-namespace testS\application\components;
+namespace ss\application\components;
 
-use testS\models\user\UserModel;
+use ss\models\user\UserModel;
 
 /**
  * Class for work with user from session

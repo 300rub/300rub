@@ -1,10 +1,10 @@
 <?php
 
 // @codingStandardsIgnoreLine
-namespace testS\tests\unit\models\blocks\image\_base\AbstractDesignImageZoomModel;
+namespace ss\tests\unit\models\blocks\image\_base\AbstractDesignImageZoomModel;
 
-use testS\models\blocks\image\DesignImageZoomModel;
-use testS\tests\unit\models\_abstract\_base\AbstractDbModelTest;
+use ss\models\blocks\image\DesignImageZoomModel;
+use ss\tests\unit\models\_abstract\_base\AbstractDbModelTest;
 
 /**
  * Tests for the model AbstractDesignImageZoomModel

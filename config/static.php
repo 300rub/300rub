@@ -15,7 +15,7 @@ return [
         ],
         'less' => 'common',
         'js'   => [
-            'TestS',
+            'Ss',
             'components/Validator',
             'components/Template',
             'components/Error',

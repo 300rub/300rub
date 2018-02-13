@@ -1,10 +1,10 @@
 <?php
 
-namespace testS\models\blocks\image;
+namespace ss\models\blocks\image;
 
-use testS\application\components\Db;
+use ss\application\components\Db;
 
-use testS\models\blocks\image\_abstract\AbstractUpdateModel;
+use ss\models\blocks\image\_abstract\AbstractUpdateModel;
 
 /**
  * Model for working with table "imageInstances"

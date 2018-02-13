@@ -1,4 +1,4 @@
-!function ($, TestS) {
+!function ($, Ss) {
     'use strict';
 
     /**
@@ -6,8 +6,8 @@
      *
      * @param {Object} options
      */
-    TestS.Form.Hidden = function (options) {
-        TestS.Form.Abstract.call(this, "form-container-hidden", options);
+    Ss.Form.Hidden = function (options) {
+        Ss.Form.Abstract.call(this, "form-container-hidden", options);
         this.init();
     };
 
@@ -16,17 +16,17 @@
      *
      * @type {Object}
      */
-    TestS.Form.Hidden.prototype = Object.create(TestS.Form.Abstract.prototype);
+    Ss.Form.Hidden.prototype = Object.create(Ss.Form.Abstract.prototype);
 
     /**
      * Constructor
      */
-    TestS.Form.Hidden.prototype.constructor = TestS.Form.Hidden;
+    Ss.Form.Hidden.prototype.constructor = Ss.Form.Hidden;
 
     /**
      * Init
      */
-    TestS.Form.Hidden.prototype.init = function () {
+    Ss.Form.Hidden.prototype.init = function () {
         this.getInstance().val(this.getOption("value"));
     };
-}(window.jQuery, window.TestS);
+}(window.jQuery, window.Ss);

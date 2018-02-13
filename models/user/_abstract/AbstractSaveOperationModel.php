@@ -1,16 +1,16 @@
 <?php
 
-namespace testS\models\user\_abstract;
+namespace ss\models\user\_abstract;
 
-use testS\application\App;
-use testS\application\components\Operation;
-use testS\models\blocks\block\BlockModel;
-use testS\models\user\UserBlockGroupOperationModel;
-use testS\models\user\UserBlockOperationModel;
-use testS\models\user\UserSectionGroupOperationModel;
-use testS\models\user\UserSectionOperationModel;
-use testS\models\user\UserSessionModel;
-use testS\models\user\UserSettingsOperationModel;
+use ss\application\App;
+use ss\application\components\Operation;
+use ss\models\blocks\block\BlockModel;
+use ss\models\user\UserBlockGroupOperationModel;
+use ss\models\user\UserBlockOperationModel;
+use ss\models\user\UserSectionGroupOperationModel;
+use ss\models\user\UserSectionOperationModel;
+use ss\models\user\UserSessionModel;
+use ss\models\user\UserSettingsOperationModel;
 
 /**
  * Abstract model to get user operations

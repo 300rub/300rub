@@ -1,6 +1,6 @@
 <?php
 
-namespace testS\application\components;
+namespace ss\application\components;
 
 /**
  * Class for working with config

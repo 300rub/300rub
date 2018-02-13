@@ -1,11 +1,11 @@
 <?php
 
-namespace testS\controllers\user;
+namespace ss\controllers\user;
 
-use testS\application\App;
-use testS\application\exceptions\AccessException;
-use testS\controllers\_abstract\AbstractController;
-use testS\models\user\UserModel;
+use ss\application\App;
+use ss\application\exceptions\AccessException;
+use ss\controllers\_abstract\AbstractController;
+use ss\models\user\UserModel;
 
 /**
  * Gets login forms

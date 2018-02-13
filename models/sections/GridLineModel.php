@@ -1,9 +1,9 @@
 <?php
 
-namespace testS\models\sections;
+namespace ss\models\sections;
 
-use testS\application\App;
-use testS\models\sections\_base\AbstractGridLineModel;
+use ss\application\App;
+use ss\models\sections\_base\AbstractGridLineModel;
 
 /**
  * Model for working with table "gridLines"

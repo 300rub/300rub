@@ -1,4 +1,4 @@
-!function ($, TestS) {
+!function ($, Ss) {
     'use strict';
 
     /**
@@ -6,7 +6,7 @@
      *
      * @type {Object}
      */
-    TestS.System.UserButtons = function () {
+    Ss.System.UserButtons = function () {
         this._container = null;
 
         this.init();
@@ -17,12 +17,12 @@
      *
      * @type {Object}
      */
-    TestS.System.UserButtons.prototype = {
+    Ss.System.UserButtons.prototype = {
 
         /**
          * Constructor
          */
-        constructor: TestS.System.UserButtons,
+        constructor: Ss.System.UserButtons,
 
         /**
          * Init
@@ -39,7 +39,7 @@
         /**
          * Sets blocks
          *
-         * @returns {TestS.System.UserButtons}
+         * @returns {Ss.System.UserButtons}
          *
          * @private
          */
@@ -47,7 +47,7 @@
             $("#user-button-block").on(
                 "click",
                 function () {
-                    new TestS.Panel.Blocks.List();
+                    new Ss.Panel.Blocks.List();
                 }
             );
 
@@ -57,7 +57,7 @@
         /**
          * Sets settings
          *
-         * @returns {TestS.System.UserButtons}
+         * @returns {Ss.System.UserButtons}
          *
          * @private
          */
@@ -65,7 +65,7 @@
             $("#user-button-settings").on(
                 "click",
                 function () {
-                    new TestS.Panel.Settings.List();
+                    new Ss.Panel.Settings.List();
                 }
             );
 
@@ -75,7 +75,7 @@
         /**
          * Sets logout events
          *
-         * @returns {TestS.System.UserButtons}
+         * @returns {Ss.System.UserButtons}
          *
          * @private
          */
@@ -83,7 +83,7 @@
             var $logoutConfirmation
                 = this._container.find(".logout-confirmation");
 
-            new TestS.Form.Button(
+            new Ss.Form.Button(
                 {
                     css: "button",
                     appendTo: $logoutConfirmation,
@@ -99,7 +99,7 @@
                             window.location.reload();
                         },
                         error: function (jqXHR) {
-                            var $errorTemplate = TestS.Components.Error
+                            var $errorTemplate = Ss.Components.Error
                                 .getAjaxErrorTemplate(jqXHR);
                             $logoutConfirmation
                             .html($errorTemplate)
@@ -109,7 +109,7 @@
                 }
             );
 
-            new TestS.Form.Button(
+            new Ss.Form.Button(
                 {
                     type: "button",
                     css: "gray-button",
@@ -136,7 +136,7 @@
     // Login auto init.
     $(document).ready(
         function () {
-            new TestS.System.UserButtons();
+            new Ss.System.UserButtons();
         }
     );
-}(window.jQuery, window.TestS);
+}(window.jQuery, window.Ss);

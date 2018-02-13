@@ -1,4 +1,4 @@
-!function ($, TestS) {
+!function ($, Ss) {
     'use strict';
 
     /**
@@ -6,9 +6,9 @@
      *
      * @param {Object} options
      *
-     * @type {TestS.Panel.Abstract}
+     * @type {Ss.Panel.Abstract}
      */
-    TestS.Panel.Abstract = function (options) {
+    Ss.Panel.Abstract = function (options) {
         this._set(options);
     };
 
@@ -17,12 +17,12 @@
      *
      * @type {Object}
      */
-    TestS.Panel.Abstract.prototype = {
+    Ss.Panel.Abstract.prototype = {
 
         /**
          * Constructor
          */
-        constructor: TestS.Panel.Abstract,
+        constructor: Ss.Panel.Abstract,
 
         /**
          * Panel instance
@@ -58,7 +58,7 @@
          * @param {Object} options
          */
         _set: function (options) {
-            this._panel = TestS.Components.Template.get("panel");
+            this._panel = Ss.Components.Template.get("panel");
             this._body = this._panel.find(".body");
             this._userButtons = $("#user-buttons");
 
@@ -74,7 +74,7 @@
         /**
          * Sets container's max-height
          *
-         * @return {TestS.Panel.Abstract}
+         * @return {Ss.Panel.Abstract}
          */
         _setMaxHeight: function () {
             this._setPanelMaxHeight();
@@ -125,7 +125,7 @@
          *
          * @param {String} title
          *
-         * @returns {TestS.Panel.Abstract}
+         * @returns {Ss.Panel.Abstract}
          */
         setTitle: function (title) {
             this._panel.find(".header .title").text(title);
@@ -137,7 +137,7 @@
          *
          * @param {function} onClick
          *
-         * @returns {TestS.Panel.Abstract}
+         * @returns {Ss.Panel.Abstract}
          */
         setBack: function (onClick) {
             this._panel.find(".header .back")
@@ -152,7 +152,7 @@
          *
          * @param {String} description
          *
-         * @returns {TestS.Panel.Abstract}
+         * @returns {Ss.Panel.Abstract}
          */
         setDescription: function (description) {
             this._panel.find(".header .description").text(description);
@@ -164,7 +164,7 @@
          *
          * @param {function} callback
          *
-         * @returns {TestS.Panel.Abstract}
+         * @returns {Ss.Panel.Abstract}
          */
         setCloseEvents: function (callback) {
             this._panel.find(".header .close").off().on(
@@ -217,13 +217,13 @@
         /**
          * Adds element to DOM
          *
-         * @returns {TestS.Panel.Abstract}
+         * @returns {Ss.Panel.Abstract}
          *
          * @private
          */
         _addDomElement: function () {
-            TestS.System.App.remove("panel");
-            TestS.System.App.append(this._panel);
+            Ss.System.App.remove("panel");
+            Ss.System.App.append(this._panel);
 
             setTimeout(
                 $.proxy(
@@ -266,7 +266,7 @@
                 };
             }
 
-            new TestS.Components.Ajax(
+            new Ss.Components.Ajax(
                 {
                     data: data,
                     success: $.proxy(
@@ -288,7 +288,7 @@
          */
         _onError: function (jqXHR) {
             var errorTemplate
-                = TestS.Components.Error.getAjaxErrorTemplate(jqXHR);
+                = Ss.Components.Error.getAjaxErrorTemplate(jqXHR);
 
             this._removeLoading();
             this._panel
@@ -299,7 +299,7 @@
         /**
          * Removes loading
          *
-         * @returns {TestS.Panel.Abstract}
+         * @returns {Ss.Panel.Abstract}
          *
          * @private
          */
@@ -313,10 +313,10 @@
          *
          * @param {Object} [options]
          *
-         * @returns {TestS.Panel.Abstract}
+         * @returns {Ss.Panel.Abstract}
          */
         setSubmit: function (options) {
-            var submit = new TestS.Form.Button(
+            var submit = new Ss.Form.Button(
                 $.extend(
                     {
                         css: "btn btn-blue submit",
@@ -337,4 +337,4 @@
             return this;
         }
     };
-}(window.jQuery, window.TestS);
+}(window.jQuery, window.Ss);
