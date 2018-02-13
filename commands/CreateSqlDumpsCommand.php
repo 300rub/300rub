@@ -39,7 +39,7 @@ class CreateSqlDumpsCommand extends AbstractCommand
                     $site['dbPassword'],
                     $site['dbHost'],
                     $site['dbName'],
-                    __DIR__ . '/../backups',
+                    __DIR__ . '/../tmp/backups',
                     $site['dbName']
                 )
             );

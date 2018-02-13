@@ -35,7 +35,7 @@ class RollbackSqlDumpsCommand extends AbstractCommand
                 $site['dbName']
             );
 
-            $file = __DIR__ . '/../backups/' . $site['dbName'] . '.sql.gz';
+            $file = __DIR__ . '/../tmp/backups/' . $site['dbName'] . '.sql.gz';
             if (file_exists($file) === false) {
                 throw new MigrationException(
                     'Unable to find the dump file for DB: {db}',
