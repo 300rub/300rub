@@ -129,17 +129,17 @@
         $.each(
             groupData.data,
             $.proxy(
-                function (typeKey, typeData) {
+                function (typeKey, options) {
                     var design;
-                    switch (typeData.type) {
+                    switch (options.type) {
                         case "block":
                             design = new Ss.Panel.Design.Block.Editor(
-                                typeData
+                                options
                             );
                             break;
                         case "text":
                             design = new Ss.Panel.Design.Text.Editor(
-                                typeData
+                                options
                             );
                             break;
                         default:
@@ -148,7 +148,7 @@
 
                     var typeAccordionElement
                         = new Ss.Components.Accordion.Element(
-                            typeData.title
+                        options.title
                         );
                     typeAccordionElement.add(
                         design.getDesignContainer()

@@ -22,7 +22,7 @@
         /**
          * Constructor
          */
-        //constructor: Ss.Panel.Design.AbstractEditor,
+        constructor: Ss.Panel.Design.AbstractEditor,
 
         /**
          * Options
@@ -165,7 +165,7 @@
          */
         _setDesignContainer: function () {
             this._designContainer = Ss.Components.Template.get(
-                this._options.name
+                "design-" + this._options.type + "-container"
             );
             return this;
         },

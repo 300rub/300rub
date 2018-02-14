@@ -47,6 +47,8 @@
     /**
      * Sets examples
      *
+     * @returns {Ss.Panel.Design.Block.Editor}
+     *
      * @private
      */
     Ss.Panel.Design.Block.Editor.prototype._setExamples = function () {
@@ -57,6 +59,8 @@
         this._marginExample = this.getDesignContainer()
             .find(".margin-container .styles-example-container")
             .attr("data-selector", selector);
+
+        return this;
     };
 
     /**
