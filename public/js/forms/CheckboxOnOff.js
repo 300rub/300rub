@@ -1,4 +1,4 @@
-!function ($, Ss) {
+!function ($, ss) {
     'use strict';
 
     /**
@@ -6,49 +6,37 @@
      *
      * @param {Object} options
      */
-    Ss.Form.CheckboxButton = function (options) {
-        Ss.Form.Abstract.call(this, "checkbox-button", options);
+    ss.forms.CheckboxOnOff = function (options) {
+        ss.forms.Abstract.call(
+            this,
+            "form-container-checkbox-on-off",
+            options
+        );
         this.init();
     };
 
     /**
-     * CheckboxButton form prototype
+     * CheckboxOnOff form prototype
      *
      * @type {Object}
      */
-    Ss.Form.CheckboxButton.prototype
-        = Object.create(Ss.Form.Abstract.prototype);
+    ss.forms.CheckboxOnOff.prototype
+        = Object.create(ss.forms.Abstract.prototype);
 
     /**
      * Constructor
      */
-    Ss.Form.CheckboxButton.prototype.constructor
-        = Ss.Form.CheckboxButton;
+    ss.forms.CheckboxOnOff.prototype.constructor
+        = ss.forms.CheckboxOnOff;
 
     /**
      * Init
      */
-    Ss.Form.CheckboxButton.prototype.init = function () {
+    ss.forms.CheckboxOnOff.prototype.init = function () {
         var t = this;
 
         if (t.getOption("value") === true) {
             t.getInstance().attr("checked", "checked");
-        }
-
-        var iconElement = t.getForm().find(".icon");
-        var iconValue = t.getOption("icon");
-        if (iconValue !== null) {
-            iconElement.addClass(iconValue);
-        } else {
-            iconElement.remove();
-        }
-
-        var labelElement = t.getForm().find(".label");
-        var labelValue = t.getOption("icon");
-        if (labelValue !== null) {
-            labelElement.text(labelValue);
-        } else {
-            labelElement.remove();
         }
 
         var onCheck = t.getOption("onCheck");
@@ -81,7 +69,7 @@
      *
      * @returns {Boolean}
      */
-    Ss.Form.CheckboxButton.prototype.getValue = function () {
+    ss.forms.CheckboxOnOff.prototype.getValue = function () {
         return this.getInstance().is(':checked');
     };
-}(window.jQuery, window.Ss);
+}(window.jQuery, window.ss);

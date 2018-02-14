@@ -1,4 +1,4 @@
-!function ($, Ss) {
+!function ($, ss) {
     'use strict';
 
     /**
@@ -6,7 +6,7 @@
      *
      * @type {Object}
      */
-    Ss.System.Login = function () {
+    ss.system.Login = function () {
         this.init();
     };
 
@@ -15,12 +15,12 @@
      *
      * @type {Object}
      */
-    Ss.System.Login.prototype = {
+    ss.system.Login.prototype = {
 
         /**
          * Constructor
          */
-        constructor: Ss.System.Login,
+        constructor: ss.system.Login,
 
         /**
          * Init
@@ -29,7 +29,7 @@
             $("#login-button").on(
                 "click",
                 function () {
-                    new Ss.Window.Users.Login();
+                    new ss.window.users.Login();
                 }
             );
         }
@@ -38,7 +38,7 @@
     // Login auto init.
     $(document).ready(
         function () {
-            new Ss.System.Login();
+            new ss.system.Login();
         }
     );
-}(window.jQuery, window.Ss);
+}(window.jQuery, window.ss);

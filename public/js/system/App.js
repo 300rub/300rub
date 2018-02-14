@@ -1,4 +1,4 @@
-!function ($, Ss) {
+!function ($, ss) {
     'use strict';
 
     /**
@@ -6,7 +6,7 @@
      *
      * @type {Object}
      */
-    Ss.System.App = {
+    ss.system.App = {
 
         /**
          * Wrapper
@@ -34,7 +34,7 @@
          *
          * @param {Object} object
          *
-         * @returns {Ss}
+         * @returns {ss}
          */
         append: function (object) {
             this.getWrapper().append(object);
@@ -46,7 +46,7 @@
          *
          * @param {String} className
          *
-         * @return {Ss}
+         * @return {ss}
          */
         remove: function (className) {
             this.getWrapper().find("." + className).remove();
@@ -71,7 +71,7 @@
          *
          * @param {number} language
          *
-         * @returns {Ss}
+         * @returns {ss}
          */
         setLanguage: function (language) {
             this._language = language;
@@ -92,7 +92,7 @@
          *
          * @param {String} token
          *
-         * @returns {Ss}
+         * @returns {ss}
          */
         setToken: function (token) {
             this._token = token;
@@ -117,4 +117,4 @@
             console.log(jqXHR);
         }
     };
-}(window.jQuery, window.Ss);
+}(window.jQuery, window.ss);

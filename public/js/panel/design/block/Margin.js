@@ -1,4 +1,4 @@
-!function ($, Ss) {
+!function ($, ss) {
     'use strict';
 
     /**
@@ -6,9 +6,9 @@
      *
      * @param {Object} options
      *
-     * @type {Ss.Panel.Design.Block.Editor}
+     * @type {ss.panel.design.block.Editor}
      */
-    Ss.Panel.Design.Block.Margin = function (options) {
+    ss.panel.design.block.Margin = function (options) {
         this._marginTop = null;
         this._marginRight = null;
         this._marginBottom = null;
@@ -22,7 +22,7 @@
 
         this._relativeContainer = null;
 
-        Ss.Panel.Design.AbstractGroup.call(
+        ss.panel.design.AbstractGroup.call(
             this,
             {
                 designContainer: options.designContainer,
@@ -43,21 +43,21 @@
      *
      * @type {Object}
      */
-    Ss.Panel.Design.Block.Margin.prototype
-        = Object.create(Ss.Panel.Design.AbstractGroup.prototype);
+    ss.panel.design.block.Margin.prototype
+        = Object.create(ss.panel.design.AbstractGroup.prototype);
 
     /**
      * Constructor
      */
-    Ss.Panel.Design.Block.Margin.prototype.constructor
-        = Ss.Panel.Design.Block.Margin;
+    ss.panel.design.block.Margin.prototype.constructor
+        = ss.panel.design.block.Margin;
 
     /**
      * Fields
      *
      * @type {Array}
      */
-    Ss.Panel.Design.Block.Margin.prototype.fields = [
+    ss.panel.design.block.Margin.prototype.fields = [
         "marginTop",
         "marginRight",
         "marginBottom",
@@ -73,7 +73,7 @@
     /**
      * Init
      */
-    Ss.Panel.Design.Block.Margin.prototype.init = function () {
+    ss.panel.design.block.Margin.prototype.init = function () {
         this._relativeContainer
             = this.getGroupContainer().find(".relative-container");
 
@@ -89,11 +89,11 @@
     /**
      * Sets margin-top
      *
-     * @returns {Ss.Panel.Design.Block.Margin}
+     * @returns {ss.panel.design.block.Margin}
      *
      * @private
      */
-    Ss.Panel.Design.Block.Margin.prototype._setMarginTop = function () {
+    ss.panel.design.block.Margin.prototype._setMarginTop = function () {
         if (this._marginTop === null) {
             return this;
         }
@@ -101,7 +101,7 @@
         var hover = null;
 
         if (this._marginTopHover !== null) {
-            hover = new Ss.Form.Spinner(
+            hover = new ss.forms.Spinner(
                 {
                     value: this._marginTopHover,
                     css: "margin-top-hover",
@@ -118,7 +118,7 @@
             );
         }
 
-        new Ss.Form.Spinner(
+        new ss.forms.Spinner(
             {
                 value: this._marginTop,
                 css: "margin-top",
@@ -149,11 +149,11 @@
     /**
      * Sets margin-right
      *
-     * @returns {Ss.Panel.Design.Block.Margin}
+     * @returns {ss.panel.design.block.Margin}
      *
      * @private
      */
-    Ss.Panel.Design.Block.Margin.prototype._setMarginRight = function () {
+    ss.panel.design.block.Margin.prototype._setMarginRight = function () {
         if (this._marginRight === null) {
             return this;
         }
@@ -161,7 +161,7 @@
         var hover = null;
 
         if (this._marginRightHover !== null) {
-            hover = new Ss.Form.Spinner(
+            hover = new ss.forms.Spinner(
                 {
                     value: this._marginRightHover,
                     css: "margin-right-hover",
@@ -178,7 +178,7 @@
             );
         }
 
-        new Ss.Form.Spinner(
+        new ss.forms.Spinner(
             {
                 value: this._marginRight,
                 css: "margin-right",
@@ -210,11 +210,11 @@
     /**
      * Sets margin-bottom
      *
-     * @returns {Ss.Panel.Design.Block.Margin}
+     * @returns {ss.panel.design.block.Margin}
      *
      * @private
      */
-    Ss.Panel.Design.Block.Margin.prototype._setMarginBottom = function () {
+    ss.panel.design.block.Margin.prototype._setMarginBottom = function () {
         if (this._marginBottom === null) {
             return this;
         }
@@ -222,7 +222,7 @@
         var hover = null;
 
         if (this._marginBottomHover !== null) {
-            hover = new Ss.Form.Spinner(
+            hover = new ss.forms.Spinner(
                 {
                     value: this._marginBottomHover,
                     css: "margin-bottom-hover",
@@ -239,7 +239,7 @@
             );
         }
 
-        new Ss.Form.Spinner(
+        new ss.forms.Spinner(
             {
                 value: this._marginBottom,
                 css: "margin-bottom",
@@ -271,11 +271,11 @@
     /**
      * Sets margin-left
      *
-     * @returns {Ss.Panel.Design.Block.Margin}
+     * @returns {ss.panel.design.block.Margin}
      *
      * @private
      */
-    Ss.Panel.Design.Block.Margin.prototype._setMarginLeft = function () {
+    ss.panel.design.block.Margin.prototype._setMarginLeft = function () {
         if (this._marginLeft === null) {
             return this;
         }
@@ -283,7 +283,7 @@
         var hover = null;
 
         if (this._marginLeftHover !== null) {
-            hover = new Ss.Form.Spinner(
+            hover = new ss.forms.Spinner(
                 {
                     value: this._marginLeftHover,
                     css: "margin-left-hover",
@@ -300,7 +300,7 @@
             );
         }
 
-        new Ss.Form.Spinner(
+        new ss.forms.Spinner(
             {
                 value: this._marginLeft,
                 css: "margin-left",
@@ -332,11 +332,11 @@
     /**
      * Sets margin hover
      *
-     * @returns {Ss.Panel.Design.Block.Margin}
+     * @returns {ss.panel.design.block.Margin}
      *
      * @private
      */
-    Ss.Panel.Design.Block.Margin.prototype._setMarginHover = function () {
+    ss.panel.design.block.Margin.prototype._setMarginHover = function () {
         if (this._hasMarginHover === true) {
             this.getGroupContainer().addClass("has-hover");
         }
@@ -363,7 +363,7 @@
             this
         );
 
-        new Ss.Form.CheckboxOnOff(
+        new ss.forms.CheckboxOnOff(
             {
                 value: this._hasMarginHover,
                 label: this.getLabel("mouseHoverEffect"),
@@ -379,11 +379,11 @@
     /**
      * Sets margin animation
      *
-     * @returns {Ss.Panel.Design.Block.Margin}
+     * @returns {ss.panel.design.block.Margin}
      *
      * @private
      */
-    Ss.Panel.Design.Block.Margin.prototype._setHasAnimation = function () {
+    ss.panel.design.block.Margin.prototype._setHasAnimation = function () {
         if (this._hasMarginAnimation === null) {
             return this;
         }
@@ -404,7 +404,7 @@
             this
         );
 
-        new Ss.Form.CheckboxOnOff(
+        new ss.forms.CheckboxOnOff(
             {
                 value: this._hasMarginAnimation,
                 label: this.getLabel("mouseHoverAnimation"),
@@ -425,39 +425,39 @@
      *
      * @returns {String}
      */
-    Ss.Panel.Design.Block.Margin.prototype.generateCss = function (isHover) {
+    ss.panel.design.block.Margin.prototype.generateCss = function (isHover) {
         if (isHover === true) {
             if (this._hasMarginHover !== true) {
                 return "";
             }
 
             return this._getCss(
-                Ss.Components.Library.getIntVal(
+                ss.components.Library.getIntVal(
                     this._marginTopHover
                 ),
-                Ss.Components.Library.getIntVal(
+                ss.components.Library.getIntVal(
                     this._marginRightHover
                 ),
-                Ss.Components.Library.getIntVal(
+                ss.components.Library.getIntVal(
                     this._marginBottomHover
                 ),
-                Ss.Components.Library.getIntVal(
+                ss.components.Library.getIntVal(
                     this._marginLeftHover
                 )
             );
         }
 
         return this._getCss(
-            Ss.Components.Library.getIntVal(
+            ss.components.Library.getIntVal(
                 this._marginTop
             ),
-            Ss.Components.Library.getIntVal(
+            ss.components.Library.getIntVal(
                 this._marginRight
             ),
-            Ss.Components.Library.getIntVal(
+            ss.components.Library.getIntVal(
                 this._marginBottom
             ),
-            Ss.Components.Library.getIntVal(
+            ss.components.Library.getIntVal(
                 this._marginLeft
             )
         );
@@ -475,7 +475,7 @@
      *
      * @private
      */
-    Ss.Panel.Design.Block.Margin.prototype._getCss = function (
+    ss.panel.design.block.Margin.prototype._getCss = function (
         marginTop,
         marginRight,
         marginBottom,
@@ -515,8 +515,8 @@
      *
      * @return {boolean}
      */
-    Ss.Panel.Design.Block.Margin.prototype.hasAnimation = function () {
+    ss.panel.design.block.Margin.prototype.hasAnimation = function () {
         return this._hasMarginHover === true
             && this._hasMarginAnimation === true;
     };
-}(window.jQuery, window.Ss);
+}(window.jQuery, window.ss);

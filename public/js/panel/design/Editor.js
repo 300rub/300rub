@@ -1,4 +1,4 @@
-!function ($, Ss) {
+!function ($, ss) {
     'use strict';
 
     /**
@@ -8,8 +8,8 @@
      *
      * @type {Object}
      */
-    Ss.Panel.Design.Editor = function (options) {
-        Ss.Panel.Abstract.call(
+    ss.panel.design.Editor = function (options) {
+        ss.panel.Abstract.call(
             this,
             {
                 group: options.group,
@@ -28,14 +28,14 @@
      *
      * @type {Object}
      */
-    Ss.Panel.Design.Editor.prototype
-        = Object.create(Ss.Panel.Abstract.prototype);
+    ss.panel.design.Editor.prototype
+        = Object.create(ss.panel.Abstract.prototype);
 
     /**
      * Constructor
      */
-    Ss.Panel.Design.Editor.prototype.constructor
-        = Ss.Panel.Design.Editor;
+    ss.panel.design.Editor.prototype.constructor
+        = ss.panel.design.Editor;
 
     /**
      * On load window success
@@ -44,7 +44,7 @@
      *
      * @private
      */
-    Ss.Panel.Design.Editor.prototype._onLoadDataSuccess = function (
+    ss.panel.design.Editor.prototype._onLoadDataSuccess = function (
         data
     ) {
         $.each(
@@ -55,14 +55,14 @@
             )
         );
 
-        Ss.Components.Accordion.Container(this.getBody());
+        ss.components.accordion.Container(this.getBody());
 
         this
             .setTitle(data.title)
             .setDescription(data.description)
             .setBack(
                 function () {
-                    new Ss.Panel.Blocks.Text.List();
+                    new ss.panel.blocks.text.List();
 
                     $.each(
                         this._designs,
@@ -107,7 +107,7 @@
                         },
                         type: "PUT",
                         success: this._success,
-                        error: Ss.System.App.showError
+                        error: ss.system.App.showError
                     }
                 }
             );
@@ -121,7 +121,7 @@
      *
      * @private
      */
-    Ss.Panel.Design.Editor.prototype._displayGroup = function (
+    ss.panel.design.Editor.prototype._displayGroup = function (
         groupKey,
         groupData
     ) {
@@ -133,13 +133,13 @@
                     var design;
                     switch (options.type) {
                         case "block":
-                            design = new Ss.Panel.Design.Block.Editor(
+                            design = new ss.panel.design.block.Editor(
                                 options
                             );
                             break;
                         case "text":
                             return false;
-                            design = new Ss.Panel.Design.Text.Editor(
+                            design = new ss.panel.design.Text.Editor(
                                 options
                             );
                             break;
@@ -148,7 +148,7 @@
                     }
 
                     var typeAccordionElement
-                        = new Ss.Components.Accordion.Element(
+                        = new ss.components.accordion.Element(
                         options.title
                         );
                     typeAccordionElement.add(
@@ -165,7 +165,7 @@
 
         if (this._designs.length > 1) {
             var groupAccordionElement
-                = new Ss.Components.Accordion.Element(
+                = new ss.components.accordion.Element(
                     groupData.title
                 );
             groupAccordionElement.add(groupContainer);
@@ -174,4 +174,4 @@
             groupContainer.appendTo(this.getBody());
         }
     };
-}(window.jQuery, window.Ss);
+}(window.jQuery, window.ss);

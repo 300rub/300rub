@@ -1,4 +1,4 @@
-!function ($, Ss) {
+!function ($, ss) {
     'use strict';
 
     /**
@@ -6,7 +6,7 @@
      *
      * @type {Object}
      */
-    Ss.Components.Template = {
+    ss.components.Template = {
         /**
          * Container
          *
@@ -50,4 +50,4 @@
                 = this._container.find("." + templateCssClass);
         }
     };
-}(window.jQuery, window.Ss);
+}(window.jQuery, window.ss);

@@ -1,4 +1,4 @@
-!function ($, Ss) {
+!function ($, ss) {
     'use strict';
 
     /**
@@ -6,8 +6,8 @@
      *
      * @type {Object}
      */
-    Ss.Window.Users.List = function () {
-        Ss.Window.Abstract.call(
+    ss.window.users.List = function () {
+        ss.window.Abstract.call(
             this,
             {
                 group: "user",
@@ -23,13 +23,13 @@
      *
      * @type {Object}
      */
-    Ss.Window.Users.List.prototype
-        = Object.create(Ss.Window.Abstract.prototype);
+    ss.window.users.List.prototype
+        = Object.create(ss.window.Abstract.prototype);
 
     /**
      * Constructor
      */
-    Ss.Window.Users.List.prototype.constructor = Ss.Window.Users.List;
+    ss.window.users.List.prototype.constructor = ss.window.users.List;
 
     /**
      * On load window success
@@ -38,12 +38,12 @@
      *
      * @private
      */
-    Ss.Window.Users.List.prototype._onLoadDataSuccess = function (data) {
+    ss.window.users.List.prototype._onLoadDataSuccess = function (data) {
         this.getWindow().find(".footer").remove();
 
         this.setTitle(data.title);
 
-        var table = Ss.Components.Template.get("window-users-table");
+        var table = ss.components.Template.get("window-users-table");
         table.find(".name-label").text(data.labels.name);
         table.find(".email-label").text(data.labels.email);
         table.find(".access-label").text(data.labels.access);
@@ -61,14 +61,14 @@
                     buttons.addClass("align-right");
 
                     if (user.canViewSessions === true) {
-                        new Ss.Form.Button(
+                        new ss.forms.Button(
                             {
                                 css: "gray-button button-small",
                                 icon: "fa-users",
                                 label: data.labels.sessions,
                                 appendTo: buttons,
                                 onClick: function () {
-                                    new Ss.Window.Users.Sessions(
+                                    new ss.window.users.Sessions(
                                         {
                                             id: user.id
                                         }
@@ -79,21 +79,21 @@
                     }
 
                     if (user.canUpdate === true) {
-                        new Ss.Form.Button(
+                        new ss.forms.Button(
                             {
                                 css: "gray-button button-small",
                                 icon: "fa-pencil",
                                 label: data.labels.edit,
                                 appendTo: buttons,
                                 onClick: function () {
-                                    new Ss.Window.Users.Form({id: user.id});
+                                    new ss.window.users.Form({id: user.id});
                                 }
                             }
                         );
                     }
 
                     if (user.canDelete === true) {
-                        new Ss.Form.Button(
+                        new ss.forms.Button(
                             {
                                 css: "gray-button button-small",
                                 icon: "fa-trash",
@@ -134,16 +134,16 @@
 
         this.getBody().append(table);
 
-        new Ss.Form.Button(
+        new ss.forms.Button(
             {
                 css: "gray-button button-medium margin-bottom-15",
                 icon: "fa-user-plus",
                 label: data.labels.add,
                 appendTo: this.getBody(),
                 onClick: function () {
-                    new Ss.Window.Users.Form({id: 0});
+                    new ss.window.users.Form({id: 0});
                 }
             }
         );
     };
-}(window.jQuery, window.Ss);
+}(window.jQuery, window.ss);

@@ -1,4 +1,4 @@
-!function ($, Ss) {
+!function ($, ss) {
     'use strict';
 
     /**
@@ -8,8 +8,8 @@
      *
      * @type {Object}
      */
-    Ss.Window.Users.Sessions = function (options) {
-        Ss.Window.Abstract.call(
+    ss.window.users.Sessions = function (options) {
+        ss.window.Abstract.call(
             this,
             {
                 group: "user",
@@ -32,14 +32,14 @@
      *
      * @type {Object}
      */
-    Ss.Window.Users.Sessions.prototype
-        = Object.create(Ss.Window.Abstract.prototype);
+    ss.window.users.Sessions.prototype
+        = Object.create(ss.window.Abstract.prototype);
 
     /**
      * Constructor
      */
-    Ss.Window.Users.Sessions.prototype.constructor
-        = Ss.Window.Users.Sessions;
+    ss.window.users.Sessions.prototype.constructor
+        = ss.window.users.Sessions;
 
     /**
      * On load window success
@@ -48,12 +48,12 @@
      *
      * @private
      */
-    Ss.Window.Users.Sessions.prototype._onLoadDataSuccess = function (data) {
+    ss.window.users.Sessions.prototype._onLoadDataSuccess = function (data) {
         this.getWindow().find(".footer").remove();
 
         this.setTitle(data.title);
 
-        var table = Ss.Components.Template.get(
+        var table = ss.components.Template.get(
             "window-users-sessions-table"
         );
         table.find(".browser-label").text(data.labels.browser);
@@ -88,7 +88,7 @@
                     buttons.addClass("align-right");
 
                     if (data.canDelete === true
-                        && session.token !== Ss.System.App.getToken()
+                        && session.token !== ss.system.App.getToken()
                     ) {
                         this._addDelete(data, session, tr, buttons);
 
@@ -119,13 +119,13 @@
      *
      * @private
      */
-    Ss.Window.Users.Sessions.prototype._addDelete = function (
+    ss.window.users.Sessions.prototype._addDelete = function (
         data,
         session,
         tr,
         buttons
     ) {
-        new Ss.Form.Button(
+        new ss.forms.Button(
             {
                 css: "gray-button button-small",
                 icon: "fa-trash",
@@ -150,7 +150,7 @@
                     type: "DELETE",
                     error: $.proxy(this.onError, this),
                     success: function () {
-                        if (session.token === Ss.System.App.getToken()) {
+                        if (session.token === ss.system.App.getToken()) {
                             window.location.reload();
                         } else {
                             tr.remove();
@@ -168,8 +168,8 @@
      *
      * @private
      */
-    Ss.Window.Users.Sessions.prototype._addDeleteAll = function (data) {
-        new Ss.Form.Button(
+    ss.window.users.Sessions.prototype._addDeleteAll = function (data) {
+        new ss.forms.Button(
             {
                 css: "gray-button button-medium margin-bottom-15",
                 icon: "fa-trash",
@@ -198,4 +198,4 @@
             }
         );
     };
-}(window.jQuery, window.Ss);
+}(window.jQuery, window.ss);

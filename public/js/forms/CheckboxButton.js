@@ -1,37 +1,54 @@
-!function ($, Ss) {
+!function ($, ss) {
     'use strict';
 
     /**
-     * Checkbox form
+     * CheckboxButton form
      *
      * @param {Object} options
      */
-    Ss.Form.Checkbox = function (options) {
-        Ss.Form.Abstract.call(this, "form-container-checkbox", options);
+    ss.forms.CheckboxButton = function (options) {
+        ss.forms.Abstract.call(this, "checkbox-button", options);
         this.init();
     };
 
     /**
-     * Checkbox form prototype
+     * CheckboxButton form prototype
      *
      * @type {Object}
      */
-    Ss.Form.Checkbox.prototype
-        = Object.create(Ss.Form.Abstract.prototype);
+    ss.forms.CheckboxButton.prototype
+        = Object.create(ss.forms.Abstract.prototype);
 
     /**
      * Constructor
      */
-    Ss.Form.Checkbox.prototype.constructor = Ss.Form.Checkbox;
+    ss.forms.CheckboxButton.prototype.constructor
+        = ss.forms.CheckboxButton;
 
     /**
      * Init
      */
-    Ss.Form.Checkbox.prototype.init = function () {
+    ss.forms.CheckboxButton.prototype.init = function () {
         var t = this;
 
         if (t.getOption("value") === true) {
             t.getInstance().attr("checked", "checked");
+        }
+
+        var iconElement = t.getForm().find(".icon");
+        var iconValue = t.getOption("icon");
+        if (iconValue !== null) {
+            iconElement.addClass(iconValue);
+        } else {
+            iconElement.remove();
+        }
+
+        var labelElement = t.getForm().find(".label");
+        var labelValue = t.getOption("icon");
+        if (labelValue !== null) {
+            labelElement.text(labelValue);
+        } else {
+            labelElement.remove();
         }
 
         var onCheck = t.getOption("onCheck");
@@ -64,7 +81,7 @@
      *
      * @returns {Boolean}
      */
-    Ss.Form.Checkbox.prototype.getValue = function () {
+    ss.forms.CheckboxButton.prototype.getValue = function () {
         return this.getInstance().is(':checked');
     };
-}(window.jQuery, window.Ss);
+}(window.jQuery, window.ss);

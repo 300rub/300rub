@@ -1,4 +1,4 @@
-!function ($, Ss) {
+!function ($, ss) {
     'use strict';
 
     /**
@@ -6,9 +6,9 @@
      *
      * @param {Object} options
      *
-     * @type {Ss.Panel.Abstract}
+     * @type {ss.panel.Abstract}
      */
-    Ss.Panel.Abstract = function (options) {
+    ss.panel.Abstract = function (options) {
         this._set(options);
     };
 
@@ -17,12 +17,12 @@
      *
      * @type {Object}
      */
-    Ss.Panel.Abstract.prototype = {
+    ss.panel.Abstract.prototype = {
 
         /**
          * Constructor
          */
-        constructor: Ss.Panel.Abstract,
+        constructor: ss.panel.Abstract,
 
         /**
          * Panel instance
@@ -58,7 +58,7 @@
          * @param {Object} options
          */
         _set: function (options) {
-            this._panel = Ss.Components.Template.get("panel");
+            this._panel = ss.components.Template.get("panel");
             this._body = this._panel.find(".body");
             this._userButtons = $("#user-buttons");
 
@@ -74,7 +74,7 @@
         /**
          * Sets container's max-height
          *
-         * @return {Ss.Panel.Abstract}
+         * @return {ss.panel.Abstract}
          */
         _setMaxHeight: function () {
             this._setPanelMaxHeight();
@@ -125,7 +125,7 @@
          *
          * @param {String} title
          *
-         * @returns {Ss.Panel.Abstract}
+         * @returns {ss.panel.Abstract}
          */
         setTitle: function (title) {
             this._panel.find(".header .title").text(title);
@@ -137,7 +137,7 @@
          *
          * @param {function} onClick
          *
-         * @returns {Ss.Panel.Abstract}
+         * @returns {ss.panel.Abstract}
          */
         setBack: function (onClick) {
             this._panel.find(".header .back")
@@ -152,7 +152,7 @@
          *
          * @param {String} description
          *
-         * @returns {Ss.Panel.Abstract}
+         * @returns {ss.panel.Abstract}
          */
         setDescription: function (description) {
             this._panel.find(".header .description").text(description);
@@ -164,7 +164,7 @@
          *
          * @param {function} callback
          *
-         * @returns {Ss.Panel.Abstract}
+         * @returns {ss.panel.Abstract}
          */
         setCloseEvents: function (callback) {
             this._panel.find(".header .close").off().on(
@@ -217,13 +217,13 @@
         /**
          * Adds element to DOM
          *
-         * @returns {Ss.Panel.Abstract}
+         * @returns {ss.panel.Abstract}
          *
          * @private
          */
         _addDomElement: function () {
-            Ss.System.App.remove("panel");
-            Ss.System.App.append(this._panel);
+            ss.system.App.remove("panel");
+            ss.system.App.append(this._panel);
 
             setTimeout(
                 $.proxy(
@@ -266,7 +266,7 @@
                 };
             }
 
-            new Ss.Components.Ajax(
+            new ss.components.Ajax(
                 {
                     data: data,
                     success: $.proxy(
@@ -288,7 +288,7 @@
          */
         _onError: function (jqXHR) {
             var errorTemplate
-                = Ss.Components.Error.getAjaxErrorTemplate(jqXHR);
+                = ss.components.Error.getAjaxErrorTemplate(jqXHR);
 
             this._removeLoading();
             this._panel
@@ -299,7 +299,7 @@
         /**
          * Removes loading
          *
-         * @returns {Ss.Panel.Abstract}
+         * @returns {ss.panel.Abstract}
          *
          * @private
          */
@@ -313,10 +313,10 @@
          *
          * @param {Object} [options]
          *
-         * @returns {Ss.Panel.Abstract}
+         * @returns {ss.panel.Abstract}
          */
         setSubmit: function (options) {
-            var submit = new Ss.Form.Button(
+            var submit = new ss.forms.Button(
                 $.extend(
                     {
                         css: "btn btn-blue submit",
@@ -337,4 +337,4 @@
             return this;
         }
     };
-}(window.jQuery, window.Ss);
+}(window.jQuery, window.ss);

@@ -6,24 +6,24 @@
      *
      * @type {Object}
      */
-    window.Ss = {
-        Form: {},
-        Components: {
-            Accordion: {}
+    window.ss = {
+        components: {
+            accordion: {}
         },
-        System: {},
-        Window: {
-            Users: {}
-        },
-        Panel: {
-            Blocks: {
-                Text: {}
+        forms: {},
+        panel: {
+            blocks: {
+                text: {}
             },
-            Settings: {},
-            Design: {
-                Block: {},
-                Text: {}
+            settings: {},
+            design: {
+                block: {},
+                text: {}
             }
+        },
+        system: {},
+        window: {
+            users: {}
         }
     };
 }(window, window.jQuery);

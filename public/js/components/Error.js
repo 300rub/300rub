@@ -1,4 +1,4 @@
-!function ($, Ss) {
+!function ($, ss) {
     'use strict';
 
     /**
@@ -6,7 +6,7 @@
      *
      * @var {Object}
      */
-    Ss.Components.Error = {
+    ss.components.Error = {
 
         /**
          * Errors
@@ -48,7 +48,7 @@
          * @returns {Object}
          */
         getAjaxErrorTemplate: function (jqXHR) {
-            var $template = Ss.Components.Template.get("ajax-error");
+            var $template = ss.components.Template.get("ajax-error");
             var message = "Error";
             var file = "";
             var line = "";
@@ -91,4 +91,4 @@
             return $template;
         }
     };
-}(window.jQuery, window.Ss);
+}(window.jQuery, window.ss);

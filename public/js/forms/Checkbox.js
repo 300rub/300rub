@@ -1,38 +1,33 @@
-!function ($, Ss) {
+!function ($, ss) {
     'use strict';
 
     /**
-     * CheckboxButton form
+     * Checkbox form
      *
      * @param {Object} options
      */
-    Ss.Form.CheckboxOnOff = function (options) {
-        Ss.Form.Abstract.call(
-            this,
-            "form-container-checkbox-on-off",
-            options
-        );
+    ss.forms.Checkbox = function (options) {
+        ss.forms.Abstract.call(this, "form-container-checkbox", options);
         this.init();
     };
 
     /**
-     * CheckboxOnOff form prototype
+     * Checkbox form prototype
      *
      * @type {Object}
      */
-    Ss.Form.CheckboxOnOff.prototype
-        = Object.create(Ss.Form.Abstract.prototype);
+    ss.forms.Checkbox.prototype
+        = Object.create(ss.forms.Abstract.prototype);
 
     /**
      * Constructor
      */
-    Ss.Form.CheckboxOnOff.prototype.constructor
-        = Ss.Form.CheckboxOnOff;
+    ss.forms.Checkbox.prototype.constructor = ss.forms.Checkbox;
 
     /**
      * Init
      */
-    Ss.Form.CheckboxOnOff.prototype.init = function () {
+    ss.forms.Checkbox.prototype.init = function () {
         var t = this;
 
         if (t.getOption("value") === true) {
@@ -69,7 +64,7 @@
      *
      * @returns {Boolean}
      */
-    Ss.Form.CheckboxOnOff.prototype.getValue = function () {
+    ss.forms.Checkbox.prototype.getValue = function () {
         return this.getInstance().is(':checked');
     };
-}(window.jQuery, window.Ss);
+}(window.jQuery, window.ss);

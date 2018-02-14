@@ -1,4 +1,4 @@
-!function ($, Ss) {
+!function ($, ss) {
     'use strict';
 
     /**
@@ -6,8 +6,8 @@
      *
      * @type {Object}
      */
-    Ss.Panel.Settings.List = function () {
-        Ss.Panel.Abstract.call(
+    ss.panel.settings.List = function () {
+        ss.panel.Abstract.call(
             this,
             {
                 group: "settings",
@@ -22,13 +22,13 @@
      *
      * @type {Object}
      */
-    Ss.Panel.Settings.List.prototype
-        = Object.create(Ss.Panel.Abstract.prototype);
+    ss.panel.settings.List.prototype
+        = Object.create(ss.panel.Abstract.prototype);
 
     /**
      * Constructor
      */
-    Ss.Panel.Settings.List.prototype.constructor = Ss.Panel.Settings.List;
+    ss.panel.settings.List.prototype.constructor = ss.panel.settings.List;
 
     /**
      * On load window success
@@ -37,7 +37,7 @@
      *
      * @private
      */
-    Ss.Panel.Settings.List.prototype._onLoadDataSuccess = function (data) {
+    ss.panel.settings.List.prototype._onLoadDataSuccess = function (data) {
         this
             .setTitle(data.title)
             .setDescription(data.description);
@@ -46,7 +46,7 @@
             data.list,
             $.proxy(
                 function (key, name) {
-                    var item = Ss.Components.Template.get("panel-list-item");
+                    var item = ss.components.Template.get("panel-list-item");
                     item.addClass("without-buttons");
                     item.find(".settings").remove();
                     item.find(".design").remove();
@@ -58,7 +58,7 @@
                             item.find(".label").on(
                                 "click",
                                 function () {
-                                    new Ss.Window.Users.List();
+                                    new ss.window.users.List();
                                 }
                             );
                             break;
@@ -75,4 +75,4 @@
             )
         );
     };
-}(window.jQuery, window.Ss);
+}(window.jQuery, window.ss);

@@ -1,4 +1,4 @@
-!function ($, Ss) {
+!function ($, ss) {
     'use strict';
 
     /**
@@ -6,13 +6,13 @@
      *
      * @param {Object} options
      *
-     * @type {Ss.Panel.Design.Block.Editor}
+     * @type {ss.panel.design.block.Editor}
      */
-    Ss.Panel.Design.Block.Editor = function (options) {
+    ss.panel.design.block.Editor = function (options) {
         this._margin = null;
         this._marginExample = null;
 
-        Ss.Panel.Design.AbstractEditor.call(
+        ss.panel.design.AbstractEditor.call(
             this,
             options
         );
@@ -25,19 +25,19 @@
      *
      * @type {Object}
      */
-    Ss.Panel.Design.Block.Editor.prototype
-        = Object.create(Ss.Panel.Design.AbstractEditor.prototype);
+    ss.panel.design.block.Editor.prototype
+        = Object.create(ss.panel.design.AbstractEditor.prototype);
 
     /**
      * Constructor
      */
-    Ss.Panel.Design.Block.Editor.prototype.constructor
-        = Ss.Panel.Design.Block.Editor;
+    ss.panel.design.block.Editor.prototype.constructor
+        = ss.panel.design.block.Editor;
 
     /**
      * Init
      */
-    Ss.Panel.Design.Block.Editor.prototype.init = function () {
+    ss.panel.design.block.Editor.prototype.init = function () {
         this
             ._setExamples()
             ._setGroupEditors()
@@ -47,11 +47,11 @@
     /**
      * Sets examples
      *
-     * @returns {Ss.Panel.Design.Block.Editor}
+     * @returns {ss.panel.design.block.Editor}
      *
      * @private
      */
-    Ss.Panel.Design.Block.Editor.prototype._setExamples = function () {
+    ss.panel.design.block.Editor.prototype._setExamples = function () {
         var selector;
 
         selector = "margin-example-" + this.getUniqueId();
@@ -66,12 +66,12 @@
     /**
      * Sets group editors
      *
-     * @returns {Ss.Panel.Design.Block.Editor}
+     * @returns {ss.panel.design.block.Editor}
      *
      * @private
      */
-    Ss.Panel.Design.Block.Editor.prototype._setGroupEditors = function () {
-        this._margin = new Ss.Panel.Design.Block.Margin(
+    ss.panel.design.block.Editor.prototype._setGroupEditors = function () {
+        this._margin = new ss.panel.design.block.Margin(
             {
                 designContainer: this.getDesignContainer(),
                 labels: this.getLabels(),
@@ -86,11 +86,11 @@
     /**
      * Sets update events
      *
-     * @returns {Ss.Panel.Design.Block.Editor}
+     * @returns {ss.panel.design.block.Editor}
      *
      * @private
      */
-    Ss.Panel.Design.Block.Editor.prototype._setUpdateEvents = function () {
+    ss.panel.design.block.Editor.prototype._setUpdateEvents = function () {
         this.getDesignContainer()
             .on(
                 "update",
@@ -109,7 +109,7 @@
      *
      * @private
      */
-    Ss.Panel.Design.Block.Editor.prototype._onUpdate = function () {
+    ss.panel.design.block.Editor.prototype._onUpdate = function () {
         var html = "<style>";
 
         html += this.getSelector() + "{" + this._generateCss(false) + "}";
@@ -126,7 +126,7 @@
      *
      * @private
      */
-    Ss.Panel.Design.Block.Editor.prototype._onUpdateMarginExample
+    ss.panel.design.block.Editor.prototype._onUpdateMarginExample
         = function () {
             var css = this._margin.generateCss(false);
             var cssHover = this._margin.generateCss(true);
@@ -164,7 +164,7 @@
      *
      * @private
      */
-    Ss.Panel.Design.Block.Editor.prototype._generateCss = function (
+    ss.panel.design.block.Editor.prototype._generateCss = function (
         isHover
     ) {
         var css = "";
@@ -193,11 +193,11 @@
      *
      * @returns {Object}
      */
-    Ss.Panel.Design.Block.Editor.prototype.getData = function () {
+    ss.panel.design.block.Editor.prototype.getData = function () {
         var data = {};
 
         $.extend(data, this._margin.getData());
 
         return data;
     };
-}(window.jQuery, window.Ss);
+}(window.jQuery, window.ss);

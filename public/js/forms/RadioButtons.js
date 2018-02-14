@@ -1,4 +1,4 @@
-!function ($, Ss) {
+!function ($, ss) {
     'use strict';
 
     /**
@@ -6,8 +6,8 @@
      *
      * @param {Object} options
      */
-    Ss.Form.RadioButtons = function (options) {
-        Ss.Form.Abstract.call(this, "form-container-radio-buttons", options);
+    ss.forms.RadioButtons = function (options) {
+        ss.forms.Abstract.call(this, "form-container-radio-buttons", options);
         this.init();
     };
 
@@ -16,19 +16,19 @@
      *
      * @type {Object}
      */
-    Ss.Form.RadioButtons.prototype
-        = Object.create(Ss.Form.Abstract.prototype);
+    ss.forms.RadioButtons.prototype
+        = Object.create(ss.forms.Abstract.prototype);
 
     /**
      * Constructor
      */
-    Ss.Form.RadioButtons.prototype.constructor
-        = Ss.Form.RadioButtons;
+    ss.forms.RadioButtons.prototype.constructor
+        = ss.forms.RadioButtons;
 
     /**
      * Init
      */
-    Ss.Form.RadioButtons.prototype.init = function () {
+    ss.forms.RadioButtons.prototype.init = function () {
         var dataOption = this.getOption("data");
         if ($.type(dataOption) !== "array") {
             return this;
@@ -36,7 +36,7 @@
 
         var name = this.getOption("name");
         if (name === null) {
-            name = "radio" + Ss.Components.Library.getUniqueId();
+            name = "radio" + ss.components.Library.getUniqueId();
         }
 
         var labelElement = this.getForm().find(".label-text");
@@ -49,7 +49,7 @@
 
         var radioButtons = this.getForm().find(".radio-buttons");
         var radioButtonItem
-            = Ss.Components.Template.get("radio-button-item");
+            = ss.components.Template.get("radio-button-item");
 
         var value = this.getOption("value");
 
@@ -111,4 +111,4 @@
 
         return this;
     };
-}(window.jQuery, window.Ss);
+}(window.jQuery, window.ss);

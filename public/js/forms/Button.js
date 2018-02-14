@@ -1,4 +1,4 @@
-!function ($, Ss) {
+!function ($, ss) {
     'use strict';
 
     /**
@@ -6,8 +6,8 @@
      *
      * @param {Object} options
      */
-    Ss.Form.Button = function (options) {
-        Ss.Form.Abstract.call(this, "form-button", options);
+    ss.forms.Button = function (options) {
+        ss.forms.Abstract.call(this, "form-button", options);
         this.init();
     };
 
@@ -16,17 +16,17 @@
      *
      * @type {Object}
      */
-    Ss.Form.Button.prototype = Object.create(Ss.Form.Abstract.prototype);
+    ss.forms.Button.prototype = Object.create(ss.forms.Abstract.prototype);
 
     /**
      * Constructor
      */
-    Ss.Form.Button.prototype.constructor = Ss.Form.Button;
+    ss.forms.Button.prototype.constructor = ss.forms.Button;
 
     /**
      * Init
      */
-    Ss.Form.Button.prototype.init = function () {
+    ss.forms.Button.prototype.init = function () {
         var icon = this.getOption("icon");
         if (icon !== null) {
             this.getForm().find(".icons .icon").addClass(icon);
@@ -69,7 +69,7 @@
      *
      * @private
      */
-    Ss.Form.Button.prototype._processAjax = function () {
+    ss.forms.Button.prototype._processAjax = function () {
         var icon = this.getForm().find(".icons .icon");
         var spinner = this.getForm().find(".icons .fa-spin");
         this.getForm().addClass("disabled");
@@ -98,7 +98,7 @@
             );
         }
 
-        new Ss.Components.Ajax(ajax);
+        new ss.components.Ajax(ajax);
     };
 
     /**
@@ -106,15 +106,15 @@
      *
      * @private
      */
-    Ss.Form.Button.prototype._setConfirmWindow = function () {
+    ss.forms.Button.prototype._setConfirmWindow = function () {
         var confirm = this.getOption("confirm");
-        var confirmWindow = Ss.Components.Template.get("confirm-window");
+        var confirmWindow = ss.components.Template.get("confirm-window");
         var buttons = confirmWindow.find(".buttons");
-        var confirmOverlay = Ss.Components.Template.get("confirm-overlay");
+        var confirmOverlay = ss.components.Template.get("confirm-overlay");
         var text = confirmWindow.find(".text");
         text.text(confirm.text);
 
-        new Ss.Form.Button(
+        new ss.forms.Button(
             {
                 css: "gray-button button-small",
                 icon: confirm.yes.icon,
@@ -132,7 +132,7 @@
             }
         );
 
-        new Ss.Form.Button(
+        new ss.forms.Button(
             {
                 css: "gray-button button-small",
                 icon: "fa-ban",
@@ -145,8 +145,8 @@
             }
         );
 
-        Ss.System.App.append(confirmOverlay);
-        Ss.System.App.append(confirmWindow);
+        ss.system.App.append(confirmOverlay);
+        ss.system.App.append(confirmWindow);
 
         confirmOverlay.on(
             "click",
@@ -187,7 +187,7 @@
      *
      * @private
      */
-    Ss.Form.Button.prototype._processForm = function () {
+    ss.forms.Button.prototype._processForm = function () {
         var flattenData = {};
         var hasError = false;
         var isScrolled = false;
@@ -238,7 +238,7 @@
             this
         );
 
-        new Ss.Components.Ajax(ajax);
+        new ss.components.Ajax(ajax);
         return true;
     };
 
@@ -249,7 +249,7 @@
      *
      * @return {Object}
      */
-    Ss.Form.Button.prototype._parseFormData = function (data) {
+    ss.forms.Button.prototype._parseFormData = function (data) {
         var helpObject = {};
         var object = {};
 
@@ -283,4 +283,4 @@
 
         return object;
     };
-}(window.jQuery, window.Ss);
+}(window.jQuery, window.ss);

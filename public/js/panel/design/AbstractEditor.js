@@ -1,4 +1,4 @@
-!function ($, Ss) {
+!function ($, ss) {
     'use strict';
 
     /**
@@ -6,9 +6,9 @@
      *
      * @param {Object} options
      *
-     * @type {Ss.Panel.Design.AbstractEditor}
+     * @type {ss.panel.design.AbstractEditor}
      */
-    Ss.Panel.Design.AbstractEditor = function (options) {
+    ss.panel.design.AbstractEditor = function (options) {
         this._set(options);
     };
 
@@ -17,12 +17,12 @@
      *
      * @type {Object}
      */
-    Ss.Panel.Design.AbstractEditor.prototype = {
+    ss.panel.design.AbstractEditor.prototype = {
 
         /**
          * Constructor
          */
-        constructor: Ss.Panel.Design.AbstractEditor,
+        constructor: ss.panel.design.AbstractEditor,
 
         /**
          * Options
@@ -111,7 +111,7 @@
         /**
          * Sets selector
          *
-         * @returns {Ss.Panel.Design.AbstractEditor}
+         * @returns {ss.panel.design.AbstractEditor}
          *
          * @private
          */
@@ -135,7 +135,7 @@
         /**
          * Sets style container
          *
-         * @returns {Ss.Panel.Design.AbstractEditor}
+         * @returns {ss.panel.design.AbstractEditor}
          *
          * @private
          */
@@ -159,12 +159,12 @@
         /**
          * Sets design container
          *
-         * @returns {Ss.Panel.Design.AbstractEditor}
+         * @returns {ss.panel.design.AbstractEditor}
          *
          * @private
          */
         _setDesignContainer: function () {
-            this._designContainer = Ss.Components.Template.get(
+            this._designContainer = ss.components.Template.get(
                 "design-" + this._options.type + "-container"
             );
             return this;
@@ -182,7 +182,7 @@
         /**
          * Sets rollback styles
          *
-         * @returns {Ss.Panel.Design.AbstractEditor}
+         * @returns {ss.panel.design.AbstractEditor}
          *
          * @private
          */
@@ -202,7 +202,7 @@
         /**
          * Sets labels
          *
-         * @returns {Ss.Panel.Design.AbstractEditor}
+         * @returns {ss.panel.design.AbstractEditor}
          *
          * @private
          */
@@ -223,7 +223,7 @@
         /**
          * Sets labels
          *
-         * @returns {Ss.Panel.Design.AbstractEditor}
+         * @returns {ss.panel.design.AbstractEditor}
          *
          * @private
          */
@@ -244,7 +244,7 @@
         /**
          * Sets namespace
          *
-         * @returns {Ss.Panel.Design.AbstractEditor}
+         * @returns {ss.panel.design.AbstractEditor}
          *
          * @private
          */
@@ -268,12 +268,12 @@
         /**
          * Sets unique ID
          *
-         * @returns {Ss.Panel.Design.AbstractEditor}
+         * @returns {ss.panel.design.AbstractEditor}
          *
          * @private
          */
         _setUniqueId: function () {
-            this._uniqueId = Ss.Components.Library.getUniqueId();
+            this._uniqueId = ss.components.Library.getUniqueId();
             return this;
         },
 
@@ -295,4 +295,4 @@
             return {};
         }
     };
-}(window.jQuery, window.Ss);
+}(window.jQuery, window.ss);

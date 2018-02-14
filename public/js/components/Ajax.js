@@ -1,4 +1,4 @@
-!function ($, Ss) {
+!function ($, ss) {
     'use strict';
 
     /**
@@ -6,7 +6,7 @@
      *
      * @param {Object} options
      */
-    Ss.Components.Ajax = function (options) {
+    ss.components.Ajax = function (options) {
         this._options = $.extend({}, options);
         this.init();
     };
@@ -16,12 +16,12 @@
      *
      * @type {Object}
      */
-    Ss.Components.Ajax.prototype = {
+    ss.components.Ajax.prototype = {
 
         /**
          * Constructor
          */
-        constructor: Ss.Components.Ajax,
+        constructor: ss.components.Ajax,
 
         /**
          * Init
@@ -64,8 +64,8 @@
         _getData: function () {
             var data = $.extend(
                 {
-                    language: Ss.System.App.getLanguage(),
-                    token: Ss.System.App.getToken()
+                    language: ss.system.App.getLanguage(),
+                    token: ss.system.App.getToken()
                 },
                 this._options.data
             );
@@ -170,4 +170,4 @@
         _complete: function () {
         }
     };
-}(window.jQuery, window.Ss);
+}(window.jQuery, window.ss);

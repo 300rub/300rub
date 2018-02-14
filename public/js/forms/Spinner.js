@@ -1,4 +1,4 @@
-!function ($, Ss) {
+!function ($, ss) {
     'use strict';
 
     /**
@@ -6,8 +6,8 @@
      *
      * @param {Object} options
      */
-    Ss.Form.Spinner = function (options) {
-        Ss.Form.Abstract.call(this, "form-spinner", options);
+    ss.forms.Spinner = function (options) {
+        ss.forms.Abstract.call(this, "form-spinner", options);
         this.init();
     };
 
@@ -16,19 +16,19 @@
      *
      * @type {Object}
      */
-    Ss.Form.Spinner.prototype = Object.create(Ss.Form.Abstract.prototype);
+    ss.forms.Spinner.prototype = Object.create(ss.forms.Abstract.prototype);
 
     /**
      * Constructor
      */
-    Ss.Form.Spinner.prototype.constructor = Ss.Form.Spinner;
+    ss.forms.Spinner.prototype.constructor = ss.forms.Spinner;
 
     /**
      * Init
      */
-    Ss.Form.Spinner.prototype.init = function () {
+    ss.forms.Spinner.prototype.init = function () {
         this.getInstance().val(
-            Ss.Components.Library.getIntVal(this.getOption("value"))
+            ss.components.Library.getIntVal(this.getOption("value"))
         );
 
         var callback = this.getOption("callback");
@@ -37,7 +37,7 @@
                 "keyup",
                 function () {
                     callback(
-                        Ss.Components.Library.getIntVal($(this).val())
+                        ss.components.Library.getIntVal($(this).val())
                     );
                 }
             );
@@ -62,7 +62,7 @@
                 spin: function (event, ui) {
                     if ($.type(callback) === "function") {
                         callback(
-                            Ss.Components.Library.getIntVal(ui.value)
+                            ss.components.Library.getIntVal(ui.value)
                         );
                     }
                 },
@@ -79,7 +79,7 @@
      *
      * @returns {String}
      */
-    Ss.Form.Spinner.prototype.getValue = function () {
-        return Ss.Components.Library.getIntVal(this.getInstance().val());
+    ss.forms.Spinner.prototype.getValue = function () {
+        return ss.components.Library.getIntVal(this.getInstance().val());
     };
-}(window.jQuery, window.Ss);
+}(window.jQuery, window.ss);

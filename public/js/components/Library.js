@@ -1,7 +1,7 @@
-!function ($, Ss) {
+!function ($, ss) {
     'use strict';
 
-    Ss.Components.Library = {
+    ss.components.Library = {
         /**
          * Gets unique ID
          *
@@ -22,4 +22,4 @@
             return parseInt(value, 10) || 0;
         }
     };
-}(window.jQuery, window.Ss);
+}(window.jQuery, window.ss);

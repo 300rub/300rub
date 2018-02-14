@@ -1,4 +1,4 @@
-!function ($, Ss) {
+!function ($, ss) {
     'use strict';
 
     /**
@@ -8,7 +8,7 @@
      *
      * @type {Object}
      */
-    Ss.Components.Accordion.Element = function (title) {
+    ss.components.accordion.Element = function (title) {
         this._title = title;
         this._container = null;
         this._body = null;
@@ -21,19 +21,19 @@
      *
      * @type {Object}
      */
-    Ss.Components.Accordion.Element.prototype = {
+    ss.components.accordion.Element.prototype = {
 
         /**
          * Constructor
          */
-        constructor: Ss.Components.Accordion.Element,
+        constructor: ss.components.accordion.Element,
 
         /**
          * Init
          */
         init: function () {
             this._container
-                = Ss.Components.Template.get("accordion-container");
+                = ss.components.Template.get("accordion-container");
             this._container.find(".accordion-title .text").text(this._title);
             this._body = this._container.find(".accordion-body");
         },
@@ -43,7 +43,7 @@
          *
          * @param {Object} object
          *
-         * @return {Ss.Components.Accordion.Element}
+         * @return {ss.components.accordion.Element}
          */
         add: function (object) {
             this._body.append(object);
@@ -73,11 +73,11 @@
          *
          * @param {Object} object
          *
-         * @return {Ss.Components.Accordion.Element}
+         * @return {ss.components.accordion.Element}
          */
         appendTo: function (object) {
             this._container.appendTo(object);
             return this;
         }
     };
-}(window.jQuery, window.Ss);
+}(window.jQuery, window.ss);

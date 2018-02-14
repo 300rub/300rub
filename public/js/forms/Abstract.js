@@ -1,4 +1,4 @@
-!function ($, Ss) {
+!function ($, ss) {
     'use strict';
 
     /**
@@ -6,7 +6,7 @@
      *
      * @constructor
      */
-    Ss.Form.Abstract = function (name, options) {
+    ss.forms.Abstract = function (name, options) {
         this._set(name, options);
     };
 
@@ -15,7 +15,7 @@
      *
      * @type {Object}
      */
-    Ss.Form.Abstract.prototype = {
+    ss.forms.Abstract.prototype = {
 
         /**
          * Form
@@ -47,7 +47,7 @@
          * @private
          */
         _set: function (name, options) {
-            this._form = Ss.Components.Template.get(name);
+            this._form = ss.components.Template.get(name);
             this._instance = this._form.find(".form-instance");
             this._options = $.extend({}, options);
 
@@ -97,7 +97,7 @@
         /**
          * Sets name
          *
-         * @returns {Ss.Form.Abstract}
+         * @returns {ss.forms.Abstract}
          *
          * @private
          */
@@ -123,7 +123,7 @@
         /**
          * Sets label
          *
-         * @returns {Ss.Form.Abstract}
+         * @returns {ss.forms.Abstract}
          *
          * @private
          */
@@ -140,7 +140,7 @@
         /**
          * Sets placeholder
          *
-         * @returns {Ss.Form.Abstract}
+         * @returns {ss.forms.Abstract}
          *
          * @private
          */
@@ -157,7 +157,7 @@
         /**
          * Sets CSS class
          *
-         * @returns {Ss.Form.Abstract}
+         * @returns {ss.forms.Abstract}
          *
          * @private
          */
@@ -174,7 +174,7 @@
         /**
          * Sets on blur event (validation)
          *
-         * @returns {Ss.Form.Abstract}
+         * @returns {ss.forms.Abstract}
          *
          * @private
          */
@@ -186,7 +186,7 @@
         /**
          * Validates the form
          *
-         * @returns {Ss.Form.Abstract}
+         * @returns {ss.forms.Abstract}
          */
         validate: function () {
             this._form.removeClass("error");
@@ -199,7 +199,7 @@
             }
 
             var validator
-                = new Ss.Components.Validator(this.getValue(), validation);
+                = new ss.components.Validator(this.getValue(), validation);
             var errors = validator.getErrors();
             if (errors.length > 0) {
                 this.setError(errors[0]);
@@ -216,7 +216,7 @@
          *
          * @param {*} value
          *
-         * @returns {Ss.Form.Abstract}
+         * @returns {ss.forms.Abstract}
          */
         setValue: function (value) {
             this._instance.val(value);
@@ -237,7 +237,7 @@
          *
          * @param {String} error
          *
-         * @returns {Ss.Form.Abstract}
+         * @returns {ss.forms.Abstract}
          */
         setError: function (error) {
             this._form.addClass("error");
@@ -249,7 +249,7 @@
         /**
          * Appends to
          *
-         * @returns {Ss.Form.Abstract}
+         * @returns {ss.forms.Abstract}
          *
          * @private
          */
@@ -266,7 +266,7 @@
         /**
          * Does focus on instance
          *
-         * @returns {Ss.Form.Abstract}
+         * @returns {ss.forms.Abstract}
          */
         focus: function () {
             this._instance.focus();
@@ -276,7 +276,7 @@
         /**
          * Scrolls container to the form
          *
-         * @returns {Ss.Form.Abstract}
+         * @returns {ss.forms.Abstract}
          */
         scrollTo: function () {
             var scrollContainer = this._instance.closest(".scroll-container");
@@ -290,7 +290,7 @@
         /**
          * Allows only numbers
          *
-         * @returns {Ss.Form.Abstract}
+         * @returns {ss.forms.Abstract}
          */
         _setOnlyNumbers: function () {
             if (this.getOption("onlyNumbers") === null) {
@@ -379,4 +379,4 @@
                 && (e.keyCode < 96 || e.keyCode > 105);
         }
     };
-}(window.jQuery, window.Ss);
+}(window.jQuery, window.ss);

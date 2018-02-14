@@ -1,4 +1,4 @@
-!function ($, Ss) {
+!function ($, ss) {
     'use strict';
 
     /**
@@ -6,8 +6,8 @@
      *
      * @type {Object}
      */
-    Ss.Panel.Blocks.List = function () {
-        Ss.Panel.Abstract.call(
+    ss.panel.blocks.List = function () {
+        ss.panel.Abstract.call(
             this,
             {
                 group: "block",
@@ -22,13 +22,13 @@
      *
      * @type {Object}
      */
-    Ss.Panel.Blocks.List.prototype
-        = Object.create(Ss.Panel.Abstract.prototype);
+    ss.panel.blocks.List.prototype
+        = Object.create(ss.panel.Abstract.prototype);
 
     /**
      * Constructor
      */
-    Ss.Panel.Blocks.List.prototype.constructor = Ss.Panel.Blocks.List;
+    ss.panel.blocks.List.prototype.constructor = ss.panel.blocks.List;
 
     /**
      * On load window success
@@ -37,7 +37,7 @@
      *
      * @private
      */
-    Ss.Panel.Blocks.List.prototype._onLoadDataSuccess = function (data) {
+    ss.panel.blocks.List.prototype._onLoadDataSuccess = function (data) {
         this
             .setTitle(data.title)
             .setDescription(data.description);
@@ -46,7 +46,7 @@
             data.list,
             $.proxy(
                 function (i, itemData) {
-                    var item = Ss.Components.Template.get("panel-list-item");
+                    var item = ss.components.Template.get("panel-list-item");
 
                     item.addClass("without-buttons");
                     item.find(".settings").remove();
@@ -59,7 +59,7 @@
                             item.find(".label").on(
                                 "click",
                                 function () {
-                                    new Ss.Panel.Blocks.Text.List();
+                                    new ss.panel.blocks.text.List();
                                 }
                             );
                             break;
@@ -73,4 +73,4 @@
             )
         );
     };
-}(window.jQuery, window.Ss);
+}(window.jQuery, window.ss);

@@ -1,4 +1,4 @@
-!function ($, Ss) {
+!function ($, ss) {
     'use strict';
 
     /**
@@ -8,7 +8,7 @@
      *
      * @type {Object}
      */
-    Ss.Window.Abstract = function (options) {
+    ss.window.Abstract = function (options) {
         this._set(options);
     };
 
@@ -17,12 +17,12 @@
      *
      * @type {Object}
      */
-    Ss.Window.Abstract.prototype = {
+    ss.window.Abstract.prototype = {
 
         /**
          * Constructor
          */
-        constructor: Ss.Window.Abstract,
+        constructor: ss.window.Abstract,
 
         /**
          * Window instance
@@ -58,9 +58,9 @@
          * @param {Object} options
          */
         _set: function (options) {
-            this._window = Ss.Components.Template.get("window");
+            this._window = ss.components.Template.get("window");
             this._body = this._window.find(".body");
-            this._overlay = Ss.Components.Template.get("window-overlay");
+            this._overlay = ss.components.Template.get("window-overlay");
 
             this._options = $.extend({}, options);
 
@@ -78,14 +78,14 @@
         /**
          * Gets parent
          *
-         * @returns {Ss.Window.Abstract}
+         * @returns {ss.window.Abstract}
          */
         getParent: function () {
             if (this._options.parent === undefined) {
                 return null;
             }
 
-            return Ss.Window.Collection.get(this._options.parent);
+            return ss.window.Collection.get(this._options.parent);
         },
 
         /**
@@ -111,7 +111,7 @@
          *
          * @param {String} title
          *
-         * @returns {Ss.Window.Abstract}
+         * @returns {ss.window.Abstract}
          */
         setTitle: function (title) {
             this._window.find(".header .title").text(title);
@@ -121,7 +121,7 @@
         /**
          * Sets CSS class
          *
-         * @returns {Ss.Window.Abstract}
+         * @returns {ss.window.Abstract}
          *
          * @private
          */
@@ -138,7 +138,7 @@
         /**
          * Adds window to the collection
          *
-         * @returns {Ss.Window.Abstract}
+         * @returns {ss.window.Abstract}
          *
          * @private
          */
@@ -147,7 +147,7 @@
                 return this;
             }
 
-            Ss.Window.Collection.add(this._options.name, this);
+            ss.window.Collection.add(this._options.name, this);
 
             var parent = this.getParent();
             if (parent !== null) {
@@ -160,7 +160,7 @@
         /**
          * Close event
          *
-         * @returns {Ss.Window.Abstract}
+         * @returns {ss.window.Abstract}
          *
          * @private
          */
@@ -188,7 +188,7 @@
                     parent.getWindow().removeClass("transparent");
                 }
             } else {
-                Ss.System.App.getWrapper()
+                ss.system.App.getWrapper()
                     .find(".panel")
                     .removeClass("transparent");
             }
@@ -200,7 +200,7 @@
                         this._overlay.remove();
 
                         if (this._options.name !== undefined) {
-                            Ss.Window.Collection.remove(
+                            ss.window.Collection.remove(
                                 this._options.name
                             );
                         }
@@ -214,7 +214,7 @@
         /**
          * Adds element to DOM
          *
-         * @returns {Ss.Window.Abstract}
+         * @returns {ss.window.Abstract}
          *
          * @private
          */
@@ -224,8 +224,8 @@
                 this._overlay.addClass("level-" + this._options.level);
             }
 
-            Ss.System.App.append(this._window);
-            Ss.System.App.append(this._overlay);
+            ss.system.App.append(this._window);
+            ss.system.App.append(this._overlay);
 
             setTimeout(
                 $.proxy(
@@ -238,7 +238,7 @@
                 50
             );
 
-            Ss.System.App.getWrapper()
+            ss.system.App.getWrapper()
                 .find(".panel")
                 .addClass("transparent");
 
@@ -248,7 +248,7 @@
         /**
          * Reloads the window
          *
-         * @returns {Ss.Window.Abstract}
+         * @returns {ss.window.Abstract}
          */
         reload: function () {
             this._window.remove();
@@ -263,7 +263,7 @@
          *
          * @private
          *
-         * @returns {Ss.Window.Abstract}
+         * @returns {ss.window.Abstract}
          */
         _setMaxHeight: function () {
             this._setWindowMaxHeight();
@@ -302,7 +302,7 @@
          *
          * @private
          *
-         * @returns {Ss.Window.Abstract}
+         * @returns {ss.window.Abstract}
          */
         _loadData: function () {
             var ajaxData = {
@@ -314,7 +314,7 @@
                 ajaxData.data = this._options.data;
             }
 
-            new Ss.Components.Ajax(
+            new ss.components.Ajax(
                 {
                     data: ajaxData,
                     success: $.proxy(this._onLoadSuccess, this),
@@ -342,7 +342,7 @@
          */
         _onLoadError: function (jqXHR) {
             var errorTemplate
-                = Ss.Components.Error.getAjaxErrorTemplate(jqXHR);
+                = ss.components.Error.getAjaxErrorTemplate(jqXHR);
             this._window
                 .removeClass("loading")
                 .addClass("error");
@@ -354,10 +354,10 @@
          *
          * @param {Object} [options]
          *
-         * @returns {Ss.Window.Abstract}
+         * @returns {ss.window.Abstract}
          */
         setSubmit: function (options) {
-            var submit = new Ss.Form.Button(
+            var submit = new ss.forms.Button(
                 $.extend(
                     {
                         css: "btn btn-big btn-blue submit",
@@ -378,4 +378,4 @@
             return this;
         }
     };
-}(window.jQuery, window.Ss);
+}(window.jQuery, window.ss);

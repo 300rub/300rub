@@ -1,4 +1,4 @@
-!function ($, Ss) {
+!function ($, ss) {
     'use strict';
 
     /**
@@ -6,7 +6,7 @@
      *
      * @param {Object} container
      */
-    Ss.Components.Accordion.Container = function (container) {
+    ss.components.accordion.Container = function (container) {
         container.find(".accordion-title").off().on(
             "click",
             function () {
@@ -25,4 +25,4 @@
             }
         );
     };
-}(window.jQuery, window.Ss);
+}(window.jQuery, window.ss);

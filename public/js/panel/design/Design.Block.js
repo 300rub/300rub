@@ -1,4 +1,4 @@
-!function ($, Ss) {
+!function ($, ss) {
     'use strict';
 
     /**
@@ -6,12 +6,12 @@
      *
      * @param {Object} data
      *
-     * @property {Ss.Panel.Design.Block.Margin} _margin
-     * @property {Ss.Panel.Design.Block.Padding} _padding
+     * @property {ss.panel.design.block.Margin} _margin
+     * @property {ss.panel.design.block.Padding} _padding
      *
-     * @type {Ss.Panel.Design.Block}
+     * @type {ss.panel.design.block}
      */
-    Ss.Panel.Design.Block = function (data) {
+    ss.panel.design.block = function (data) {
         this._data = $.extend({}, data);
 
         this._selector = "";
@@ -40,7 +40,7 @@
      *
      * @type {Object}
      */
-    Ss.Panel.Design.Block.prototype = {
+    ss.panel.design.block.prototype = {
 
         /**
          * List of gradient directions options
@@ -110,7 +110,7 @@
         /**
          * Sets values
          *
-         * @returns {Ss.Panel.Design.Block}
+         * @returns {ss.panel.design.block}
          *
          * @private
          */
@@ -158,7 +158,7 @@
         /**
          * Sets background
          *
-         * @returns {Ss.Panel.Design.Block}
+         * @returns {ss.panel.design.block}
          *
          * @private
          */
@@ -178,7 +178,7 @@
 
             this.$_backgroundExampleStyles = $container.find(".styles-example-container");
 
-            var uniqueId = Ss.Components.Library.getUniqueId();
+            var uniqueId = ss.components.Library.getUniqueId();
             this.$_backgroundExample = $container.find(".background-example")
                 .addClass("background-example-" + uniqueId)
                 .attr("data-id", uniqueId);
@@ -186,7 +186,7 @@
             var $relativeContainer = $container.find(".relative-container");
 
             if (this._values["backgroundColorFrom"] !== null) {
-                new Ss.Form.Color({
+                new ss.forms.Color({
                     title: this.getLabel("backgroundColor"),
                     value: this._values["backgroundColorFrom"],
                     css: "background-color-from",
@@ -199,7 +199,7 @@
             }
 
             if (this._values["backgroundColorTo"] !== null) {
-                new Ss.Form.Color({
+                new ss.forms.Color({
                     title: this.getLabel("backgroundColor"),
                     value: this._values["backgroundColorTo"],
                     css: "background-color-to",
@@ -212,7 +212,7 @@
             }
 
             if (this._values["backgroundColorFromHover"] !== null) {
-                new Ss.Form.Color({
+                new ss.forms.Color({
                     title: this.getLabel("backgroundColor"),
                     value: this._values["backgroundColorFromHover"],
                     css: "background-color-from-hover",
@@ -226,7 +226,7 @@
             }
 
             if (this._values["backgroundColorToHover"] !== null) {
-                new Ss.Form.Color({
+                new ss.forms.Color({
                     title: this.getLabel("backgroundColor"),
                     value: this._values["backgroundColorToHover"],
                     css: "background-color-to-hover",
@@ -246,7 +246,7 @@
                 $container.addClass("has-hover");
             }
 
-            new Ss.Form.CheckboxOnOff({
+            new ss.forms.CheckboxOnOff({
                 value: this._values["hasBackgroundGradient"],
                 label: this.getLabel("useGradient"),
                 onCheck: $.proxy(function () {
@@ -263,7 +263,7 @@
             });
 
             if (this._values["gradientDirection"] !== null) {
-                new Ss.Form.RadioButtons({
+                new ss.forms.RadioButtons({
                     value: this._values["gradientDirection"],
                     label: this.getLabel("gradientDirection"),
                     css: "gradient-direction",
@@ -296,7 +296,7 @@
             }
 
             if (this._values["hasBackgroundHover"] !== null) {
-                new Ss.Form.CheckboxOnOff({
+                new ss.forms.CheckboxOnOff({
                     value: this._values["hasBackgroundHover"],
                     label: this.getLabel("mouseHoverEffect"),
                     onCheck: $.proxy(function () {
@@ -314,7 +314,7 @@
             }
 
             if (this._values["hasBackgroundAnimation"] !== null) {
-                new Ss.Form.CheckboxOnOff({
+                new ss.forms.CheckboxOnOff({
                     value: this._values["hasBackgroundAnimation"],
                     label: this.getLabel("mouseHoverAnimation"),
                     css: "has-animation",
@@ -331,7 +331,7 @@
             }
 
             if (this._values["gradientDirectionHover"] !== null) {
-                new Ss.Form.RadioButtons({
+                new ss.forms.RadioButtons({
                     value: this._values["gradientDirectionHover"],
                     label: this.getLabel("gradientDirectionHover"),
                     css: "gradient-direction-hover",
@@ -371,7 +371,7 @@
         /**
          * Sets border
          *
-         * @returns {Ss.Panel.Design.Block}
+         * @returns {ss.panel.design.block}
          *
          * @private
          */
@@ -395,7 +395,7 @@
 
             $container.find(".category-title").text(this.getLabel("border"));
 
-            var uniqueId = Ss.Components.Library.getUniqueId();
+            var uniqueId = ss.components.Library.getUniqueId();
             this.$_borderExample = $container.find(".border-example")
                 .addClass("border-example-" + uniqueId)
                 .attr("data-id", uniqueId);
@@ -406,7 +406,7 @@
                 var borderTopLeftRadiusHover = null;
 
                 if (this._values["borderTopLeftRadiusHover"] !== null) {
-                    borderTopLeftRadiusHover = new Ss.Form.Spinner({
+                    borderTopLeftRadiusHover = new ss.forms.Spinner({
                         value: this._values["borderTopLeftRadiusHover"],
                         css: "border-top-left-radius-hover",
                         min: 0,
@@ -419,7 +419,7 @@
                     });
                 }
 
-                new Ss.Form.Spinner({
+                new ss.forms.Spinner({
                     value: this._values["borderTopLeftRadius"],
                     css: "border-top-left-radius",
                     min: 0,
@@ -441,7 +441,7 @@
                 var borderTopRightRadiusHover = null;
 
                 if (this._values["borderTopRightRadiusHover"] !== null) {
-                    borderTopRightRadiusHover = new Ss.Form.Spinner({
+                    borderTopRightRadiusHover = new ss.forms.Spinner({
                         value: this._values["borderTopRightRadiusHover"],
                         css: "border-top-right-radius-hover",
                         iconBefore: "fa-mouse-pointer",
@@ -454,7 +454,7 @@
                     });
                 }
 
-                new Ss.Form.Spinner({
+                new ss.forms.Spinner({
                     value: this._values["borderTopRightRadius"],
                     css: "border-top-right-radius",
                     min: 0,
@@ -476,7 +476,7 @@
                 var borderBottomRightRadiusHover = null;
 
                 if (this._values["borderBottomRightRadiusHover"] !== null) {
-                    borderBottomRightRadiusHover = new Ss.Form.Spinner({
+                    borderBottomRightRadiusHover = new ss.forms.Spinner({
                         value: this._values["borderBottomRightRadiusHover"],
                         css: "border-bottom-right-radius-hover",
                         min: 0,
@@ -489,7 +489,7 @@
                     });
                 }
 
-                new Ss.Form.Spinner({
+                new ss.forms.Spinner({
                     value: this._values["borderBottomRightRadius"],
                     css: "border-bottom-right-radius",
                     min: 0,
@@ -511,7 +511,7 @@
                 var borderBottomLeftRadiusHover = null;
 
                 if (this._values["borderBottomLeftRadiusHover"] !== null) {
-                    borderBottomLeftRadiusHover = new Ss.Form.Spinner({
+                    borderBottomLeftRadiusHover = new ss.forms.Spinner({
                         value: this._values["borderBottomLeftRadiusHover"],
                         css: "border-bottom-left-radius-hover",
                         iconBefore: "fa-mouse-pointer",
@@ -524,7 +524,7 @@
                     });
                 }
 
-                new Ss.Form.Spinner({
+                new ss.forms.Spinner({
                     value: this._values["borderBottomLeftRadius"],
                     css: "border-bottom-left-radius",
                     min: 0,
@@ -546,7 +546,7 @@
                 var borderTopWidthHover = null;
 
                 if (this._values["borderTopWidthHover"] !== null) {
-                    borderTopWidthHover = new Ss.Form.Spinner({
+                    borderTopWidthHover = new ss.forms.Spinner({
                         value: this._values["borderTopWidthHover"],
                         css: "border-top-width-hover",
                         min: 0,
@@ -559,7 +559,7 @@
                     });
                 }
 
-                new Ss.Form.Spinner({
+                new ss.forms.Spinner({
                     value: this._values["borderTopWidth"],
                     css: "border-top-width",
                     min: 0,
@@ -581,7 +581,7 @@
                 var borderRightWidthHover = null;
 
                 if (this._values["borderRightWidthHover"] !== null) {
-                    borderRightWidthHover = new Ss.Form.Spinner({
+                    borderRightWidthHover = new ss.forms.Spinner({
                         value: this._values["borderRightWidthHover"],
                         css: "border-right-width-hover",
                         min: 0,
@@ -594,7 +594,7 @@
                     });
                 }
 
-                new Ss.Form.Spinner({
+                new ss.forms.Spinner({
                     value: this._values["borderRightWidth"],
                     css: "border-right-width",
                     min: 0,
@@ -616,7 +616,7 @@
                 var borderBottomWidthHover = null;
 
                 if (this._values["borderBottomWidthHover"] !== null) {
-                    borderBottomWidthHover = new Ss.Form.Spinner({
+                    borderBottomWidthHover = new ss.forms.Spinner({
                         value: this._values["borderBottomWidthHover"],
                         css: "border-bottom-width-hover",
                         min: 0,
@@ -629,7 +629,7 @@
                     });
                 }
 
-                new Ss.Form.Spinner({
+                new ss.forms.Spinner({
                     value: this._values["borderBottomWidth"],
                     css: "border-bottom-width",
                     min: 0,
@@ -651,7 +651,7 @@
                 var borderLeftWidthHover = null;
 
                 if (this._values["borderLeftWidthHover"] !== null) {
-                    borderLeftWidthHover = new Ss.Form.Spinner({
+                    borderLeftWidthHover = new ss.forms.Spinner({
                         value: this._values["borderLeftWidthHover"],
                         css: "border-left-width-hover",
                         min: 0,
@@ -664,7 +664,7 @@
                     });
                 }
 
-                new Ss.Form.Spinner({
+                new ss.forms.Spinner({
                     value: this._values["borderLeftWidth"],
                     css: "border-left-width",
                     min: 0,
@@ -683,7 +683,7 @@
             }
 
             if (this._values["borderStyle"] !== null) {
-                new Ss.Form.RadioButtons({
+                new ss.forms.RadioButtons({
                     label: this.getLabel("borderStyle"),
                     value: this._values["borderStyle"],
                     data: [
@@ -712,7 +712,7 @@
             }
 
             if (this._values["borderColor"] !== null) {
-                new Ss.Form.Color({
+                new ss.forms.Color({
                     label: this.getLabel("borderColor"),
                     title: this.getLabel("borderColor"),
                     value: this._values["borderColor"],
@@ -729,7 +729,7 @@
             }
 
             if (this._values["hasBorderHover"] !== null) {
-                new Ss.Form.CheckboxOnOff({
+                new ss.forms.CheckboxOnOff({
                     value: this._values["hasBorderHover"],
                     label: this.getLabel("mouseHoverEffect"),
                     onCheck: $.proxy(function () {
@@ -747,7 +747,7 @@
             }
 
             if (this._values["borderStyleHover"] !== null) {
-                new Ss.Form.RadioButtons({
+                new ss.forms.RadioButtons({
                     label: this.getLabel("borderStyleHover"),
                     value: this._values["borderStyleHover"],
                     css: "border-style-hover",
@@ -777,7 +777,7 @@
             }
 
             if (this._values["borderColorHover"] !== null) {
-                new Ss.Form.Color({
+                new ss.forms.Color({
                     label: this.getLabel("borderColorHover"),
                     title: this.getLabel("borderColor"),
                     value: this._values["borderColorHover"],
@@ -791,7 +791,7 @@
             }
 
             if (this._values["hasBorderAnimation"] !== null) {
-                new Ss.Form.CheckboxOnOff({
+                new ss.forms.CheckboxOnOff({
                     value: this._values["hasBorderAnimation"],
                     label: this.getLabel("mouseHoverAnimation"),
                     css: "has-border-animation",
@@ -1018,27 +1018,27 @@
                     return "";
                 }
 
-                borderTopLeftRadius = Ss.Components.Library.getIntVal(this._values["borderTopLeftRadiusHover"]);
-                borderTopRightRadius = Ss.Components.Library.getIntVal(this._values["borderTopRightRadiusHover"]);
-                borderBottomRightRadius = Ss.Components.Library.getIntVal(this._values["borderBottomRightRadiusHover"]);
-                borderBottomLeftRadius = Ss.Components.Library.getIntVal(this._values["borderBottomLeftRadiusHover"]);
+                borderTopLeftRadius = ss.components.Library.getIntVal(this._values["borderTopLeftRadiusHover"]);
+                borderTopRightRadius = ss.components.Library.getIntVal(this._values["borderTopRightRadiusHover"]);
+                borderBottomRightRadius = ss.components.Library.getIntVal(this._values["borderBottomRightRadiusHover"]);
+                borderBottomLeftRadius = ss.components.Library.getIntVal(this._values["borderBottomLeftRadiusHover"]);
 
-                borderTopWidth = Ss.Components.Library.getIntVal(this._values["borderTopWidthHover"]);
-                borderRightWidth = Ss.Components.Library.getIntVal(this._values["borderRightWidthHover"]);
-                borderBottomWidth = Ss.Components.Library.getIntVal(this._values["borderBottomWidthHover"]);
-                borderLeftWidth = Ss.Components.Library.getIntVal(this._values["borderLeftWidthHover"]);
+                borderTopWidth = ss.components.Library.getIntVal(this._values["borderTopWidthHover"]);
+                borderRightWidth = ss.components.Library.getIntVal(this._values["borderRightWidthHover"]);
+                borderBottomWidth = ss.components.Library.getIntVal(this._values["borderBottomWidthHover"]);
+                borderLeftWidth = ss.components.Library.getIntVal(this._values["borderLeftWidthHover"]);
 
                 borderColor = this._values["borderColorHover"];
             } else {
-                borderTopLeftRadius = Ss.Components.Library.getIntVal(this._values["borderTopLeftRadius"]);
-                borderTopRightRadius = Ss.Components.Library.getIntVal(this._values["borderTopRightRadius"]);
-                borderBottomRightRadius = Ss.Components.Library.getIntVal(this._values["borderBottomRightRadius"]);
-                borderBottomLeftRadius = Ss.Components.Library.getIntVal(this._values["borderBottomLeftRadius"]);
+                borderTopLeftRadius = ss.components.Library.getIntVal(this._values["borderTopLeftRadius"]);
+                borderTopRightRadius = ss.components.Library.getIntVal(this._values["borderTopRightRadius"]);
+                borderBottomRightRadius = ss.components.Library.getIntVal(this._values["borderBottomRightRadius"]);
+                borderBottomLeftRadius = ss.components.Library.getIntVal(this._values["borderBottomLeftRadius"]);
 
-                borderTopWidth = Ss.Components.Library.getIntVal(this._values["borderTopWidth"]);
-                borderRightWidth = Ss.Components.Library.getIntVal(this._values["borderRightWidth"]);
-                borderBottomWidth = Ss.Components.Library.getIntVal(this._values["borderBottomWidth"]);
-                borderLeftWidth = Ss.Components.Library.getIntVal(this._values["borderLeftWidth"]);
+                borderTopWidth = ss.components.Library.getIntVal(this._values["borderTopWidth"]);
+                borderRightWidth = ss.components.Library.getIntVal(this._values["borderRightWidth"]);
+                borderBottomWidth = ss.components.Library.getIntVal(this._values["borderBottomWidth"]);
+                borderLeftWidth = ss.components.Library.getIntVal(this._values["borderLeftWidth"]);
 
                 borderColor = this._values["borderColor"];
             }
@@ -1247,4 +1247,4 @@
             }
         }
     };
-}(window.jQuery, window.Ss);
+}(window.jQuery, window.ss);

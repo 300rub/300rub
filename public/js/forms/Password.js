@@ -1,4 +1,4 @@
-!function ($, Ss) {
+!function ($, ss) {
     'use strict';
 
     /**
@@ -6,8 +6,8 @@
      *
      * @param {Object} options
      */
-    Ss.Form.Password = function (options) {
-        Ss.Form.Abstract.call(this, "form-container-password", options);
+    ss.forms.Password = function (options) {
+        ss.forms.Abstract.call(this, "form-container-password", options);
         this.init();
     };
 
@@ -16,18 +16,18 @@
      *
      * @type {Object}
      */
-    Ss.Form.Password.prototype
-        = Object.create(Ss.Form.Abstract.prototype);
+    ss.forms.Password.prototype
+        = Object.create(ss.forms.Abstract.prototype);
 
     /**
      * Constructor
      */
-    Ss.Form.Password.prototype.constructor = Ss.Form.Password;
+    ss.forms.Password.prototype.constructor = ss.forms.Password;
 
     /**
      * Init
      */
-    Ss.Form.Password.prototype.init = function () {
+    ss.forms.Password.prototype.init = function () {
         this.getInstance().val("");
     };
 
@@ -36,7 +36,7 @@
      *
      * @returns {String}
      */
-    Ss.Form.Password.prototype.getValue = function () {
+    ss.forms.Password.prototype.getValue = function () {
         return window.md5(this.getInstance().val() + "(^_^)");
     };
-}(window.jQuery, window.Ss);
+}(window.jQuery, window.ss);
