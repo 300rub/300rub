@@ -90,20 +90,20 @@
                         data: {
                             group: data.group,
                             controller: data.controller,
-                            data: function () {
-                                var data = {
+                            data: $.proxy(function () {
+                                var dataObject = {
                                     id: data.id
                                 };
 
                                 $.each(
                                     this._designs,
                                     function (i, design) {
-                                        data = $.extend(data, design.getData());
+                                        dataObject = $.extend(dataObject, design.getData());
                                     }
                                 );
 
-                                return data;
-                            }
+                                return dataObject;
+                            }, this)
                         },
                         type: "PUT",
                         success: this._success,
@@ -138,6 +138,7 @@
                             );
                             break;
                         case "text":
+                            return false;
                             design = new Ss.Panel.Design.Text.Editor(
                                 options
                             );

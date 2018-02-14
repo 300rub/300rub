@@ -244,7 +244,7 @@
         /**
          * Sets namespace
          *
-         * @returns {Ss.Panel.Design.AbstractGroup}
+         * @returns {Ss.Panel.Design.AbstractEditor}
          *
          * @private
          */
@@ -268,7 +268,7 @@
         /**
          * Sets unique ID
          *
-         * @returns {Ss.Panel.Design.AbstractGroup}
+         * @returns {Ss.Panel.Design.AbstractEditor}
          *
          * @private
          */
@@ -284,6 +284,15 @@
          */
         getUniqueId: function () {
             return this._uniqueId;
+        },
+
+        /**
+         * Gets data
+         *
+         * @returns {Object}
+         */
+        getData: function () {
+            return {};
         }
     };
 }(window.jQuery, window.Ss);

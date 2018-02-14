@@ -187,4 +187,17 @@
 
         return css;
     };
+
+    /**
+     * Gets data
+     *
+     * @returns {Object}
+     */
+    Ss.Panel.Design.Block.Editor.prototype.getData = function () {
+        var data = {};
+
+        $.extend(data, this._margin.getData());
+
+        return data;
+    };
 }(window.jQuery, window.Ss);
