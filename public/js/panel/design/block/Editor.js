@@ -12,6 +12,9 @@
         this._margin = null;
         this._marginExample = null;
 
+        this._padding = null;
+        this._paddingExample = null;
+
         ss.panel.design.AbstractEditor.call(
             this,
             options
@@ -60,6 +63,12 @@
             .find(".margin-container .styles-example-container")
             .attr("data-selector", selector);
 
+        selector = "padding-example-" + this.getUniqueId();
+        this.getDesignContainer().find(".padding-example-container").addClass(selector);
+        this._paddingExample = this.getDesignContainer()
+            .find(".padding-container .styles-example-container")
+            .attr("data-selector", selector);
+
         return this;
     };
 
@@ -72,6 +81,15 @@
      */
     ss.panel.design.block.Editor.prototype._setGroupEditors = function () {
         this._margin = new ss.panel.design.block.Margin(
+            {
+                designContainer: this.getDesignContainer(),
+                labels: this.getLabels(),
+                values: this.getValues(),
+                namespace: this.getNamespace()
+            }
+        );
+
+        this._padding = new ss.panel.design.block.Padding(
             {
                 designContainer: this.getDesignContainer(),
                 labels: this.getLabels(),
@@ -99,6 +117,10 @@
             .on(
                 "update-margin-example",
                 $.proxy(this._onUpdateMarginExample, this)
+            )
+            .on(
+                "update-padding-example",
+                $.proxy(this._onUpdatePaddingExample, this)
             );
 
         return this;
@@ -156,6 +178,40 @@
         };
 
     /**
+     * On update padding example
+     *
+     * @private
+     */
+    ss.panel.design.block.Editor.prototype._onUpdatePaddingExample
+        = function () {
+            var css = this._padding.generateCss(false);
+            var cssHover = this._padding.generateCss(true);
+
+            if (this._padding.hasAnimation() === true) {
+                var cssAnimation = "";
+                cssAnimation += "-webkit-transition:padding .3s;";
+                cssAnimation += "-ms-transition:padding .3s;";
+                cssAnimation += "-o-transition:padding .3s;";
+                cssAnimation += "transition:padding .3s;";
+
+                css += cssAnimation;
+                cssHover += cssAnimation;
+            }
+
+            var selector = "." + this._paddingExample.data("selector");
+
+            var html = "<style>";
+
+            html += selector + "{" + css + "}";
+
+            html += selector + ":hover{" + cssHover + "}";
+
+            html += "</style>";
+
+            this._paddingExample.html(html);
+        };
+
+    /**
      * Generates CSS
      *
      * @param {boolean} isHover
@@ -170,11 +226,16 @@
         var css = "";
 
         css += this._margin.generateCss(isHover);
+        css += this._padding.generateCss(isHover);
 
         var animation = [];
 
         if (this._margin.hasAnimation() === true) {
             animation.push("margin .3s");
+        }
+
+        if (this._padding.hasAnimation() === true) {
+            animation.push("padding .3s");
         }
 
         if (animation.length > 0) {
@@ -197,6 +258,7 @@
         var data = {};
 
         $.extend(data, this._margin.getData());
+        $.extend(data, this._padding.getData());
 
         return data;
     };
