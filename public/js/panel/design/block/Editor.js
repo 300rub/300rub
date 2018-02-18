@@ -15,6 +15,9 @@
         this._padding = null;
         this._paddingExample = null;
 
+        this._background = null;
+        this._backgroundExample = null;
+
         ss.panel.design.AbstractEditor.call(
             this,
             options
@@ -69,6 +72,12 @@
             .find(".padding-container .styles-example-container")
             .attr("data-selector", selector);
 
+        selector = "background-example-" + this.getUniqueId();
+        this.getDesignContainer().find(".background-example").addClass(selector);
+        this._backgroundExample = this.getDesignContainer()
+            .find(".background-container .styles-example-container")
+            .attr("data-selector", selector);
+
         return this;
     };
 
@@ -90,6 +99,15 @@
         );
 
         this._padding = new ss.panel.design.block.Padding(
+            {
+                designContainer: this.getDesignContainer(),
+                labels: this.getLabels(),
+                values: this.getValues(),
+                namespace: this.getNamespace()
+            }
+        );
+
+        this._background = new ss.panel.design.block.Background(
             {
                 designContainer: this.getDesignContainer(),
                 labels: this.getLabels(),
@@ -121,6 +139,9 @@
             .on(
                 "update-padding-example",
                 $.proxy(this._onUpdatePaddingExample, this)
+            ).on(
+                "update-background-example",
+                $.proxy(this._onUpdateBackgroundExample, this)
             );
 
         return this;
@@ -212,6 +233,40 @@
         };
 
     /**
+     * On update background example
+     *
+     * @private
+     */
+    ss.panel.design.block.Editor.prototype._onUpdateBackgroundExample
+        = function () {
+            var css = this._background.generateCss(false);
+            var cssHover = this._background.generateCss(true);
+
+            if (this._background.hasAnimation() === true) {
+                var cssAnimation = "";
+                cssAnimation += "-webkit-transition:background-color .3s;";
+                cssAnimation += "-ms-transition:background-color .3s;";
+                cssAnimation += "-o-transition:background-color .3s;";
+                cssAnimation += "transition:background-color .3s;";
+
+                css += cssAnimation;
+                cssHover += cssAnimation;
+            }
+
+            var selector = "." + this._backgroundExample.data("selector");
+
+            var html = "<style>";
+
+            html += selector + "{" + css + "}";
+
+            html += selector + ":hover{" + cssHover + "}";
+
+            html += "</style>";
+
+            this._backgroundExample.html(html);
+        };
+
+    /**
      * Generates CSS
      *
      * @param {boolean} isHover
@@ -227,6 +282,7 @@
 
         css += this._margin.generateCss(isHover);
         css += this._padding.generateCss(isHover);
+        css += this._background.generateCss(isHover);
 
         var animation = [];
 
@@ -236,6 +292,10 @@
 
         if (this._padding.hasAnimation() === true) {
             animation.push("padding .3s");
+        }
+
+        if (this._background.hasAnimation() === true) {
+            animation.push("background-color .3s");
         }
 
         if (animation.length > 0) {
@@ -259,6 +319,7 @@
 
         $.extend(data, this._margin.getData());
         $.extend(data, this._padding.getData());
+        $.extend(data, this._background.getData());
 
         return data;
     };

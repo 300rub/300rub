@@ -101,7 +101,7 @@
 
         var onChange = this.getOption("onChange");
         if ($.type(onChange) === "function") {
-            this.getInstance().on(
+            this.getForm().find(".form-instance").on(
                 "change",
                 function () {
                     onChange($(this).val());
