@@ -18,6 +18,9 @@
         this._background = null;
         this._backgroundExample = null;
 
+        this._border = null;
+        this._borderExample = null;
+
         ss.panel.design.AbstractEditor.call(
             this,
             options
@@ -78,6 +81,12 @@
             .find(".background-container .styles-example-container")
             .attr("data-selector", selector);
 
+        selector = "border-example-" + this.getUniqueId();
+        this.getDesignContainer().find(".border-example").addClass(selector);
+        this._borderExample = this.getDesignContainer()
+            .find(".border-container .styles-example-container")
+            .attr("data-selector", selector);
+
         return this;
     };
 
@@ -116,6 +125,15 @@
             }
         );
 
+        this._border = new ss.panel.design.block.Border(
+            {
+                designContainer: this.getDesignContainer(),
+                labels: this.getLabels(),
+                values: this.getValues(),
+                namespace: this.getNamespace()
+            }
+        );
+
         return this;
     };
 
@@ -142,6 +160,9 @@
             ).on(
                 "update-background-example",
                 $.proxy(this._onUpdateBackgroundExample, this)
+            ).on(
+                "update-border-example",
+                $.proxy(this._onUpdateBorderExample, this)
             );
 
         return this;
@@ -267,6 +288,39 @@
         };
 
     /**
+     * On update border example
+     *
+     * @private
+     */
+    ss.panel.design.block.Editor.prototype._onUpdateBorderExample
+        = function () {
+            var css = this._border.generateCss(false);
+            var cssHover = this._border.generateCss(true);
+
+            if (this._border.hasAnimation() === true) {
+                var cssAnimation = "";
+                cssAnimation += "-webkit-transition:border-radius .3s,border-width .3s,border-color .3s;";
+                cssAnimation += "-ms-transition:border-radius .3s,border-width .3s,border-color .3s;";
+                cssAnimation += "-o-transition:border-radius .3s,border-width .3s,border-color .3s;";
+                cssAnimation += "transition:border-radius .3s,border-width .3s,border-color .3s;";
+                css += cssAnimation;
+                cssHover += cssAnimation;
+            }
+
+            var selector = "." + this._borderExample.data("selector");
+
+            var html = "<style>";
+
+            html += selector + "{" + css + "}";
+
+            html += selector + ":hover{" + cssHover + "}";
+
+            html += "</style>";
+
+            this._borderExample.html(html);
+        };
+
+    /**
      * Generates CSS
      *
      * @param {boolean} isHover
@@ -283,6 +337,7 @@
         css += this._margin.generateCss(isHover);
         css += this._padding.generateCss(isHover);
         css += this._background.generateCss(isHover);
+        css += this._border.generateCss(isHover);
 
         var animation = [];
 
@@ -296,6 +351,12 @@
 
         if (this._background.hasAnimation() === true) {
             animation.push("background-color .3s");
+        }
+
+        if (this._border.hasAnimation() === true) {
+            animation.push("border-radius .3s");
+            animation.push("border-width .3s");
+            animation.push("border-color .3s");
         }
 
         if (animation.length > 0) {
@@ -320,6 +381,7 @@
         $.extend(data, this._margin.getData());
         $.extend(data, this._padding.getData());
         $.extend(data, this._background.getData());
+        $.extend(data, this._border.getData());
 
         return data;
     };

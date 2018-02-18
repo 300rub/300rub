@@ -69,6 +69,7 @@ return [
             'panel/design/block/Margin',
             'panel/design/block/Padding',
             'panel/design/block/Background',
+            'panel/design/block/Border',
             'window/users/Form',
             'window/users/List',
             'window/users/Sessions',
