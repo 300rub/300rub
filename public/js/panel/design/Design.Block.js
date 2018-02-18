@@ -6,9 +6,6 @@
      *
      * @param {Object} data
      *
-     * @property {ss.panel.design.block.Margin} _margin
-     * @property {ss.panel.design.block.Padding} _padding
-     *
      * @type {ss.panel.design.block}
      */
     ss.panel.design.block = function (data) {
@@ -23,9 +20,6 @@
 
         this.$_designContainer = null;
         this.$_styleContainer = null;
-
-        this._margin = null;
-        this._padding = null;
 
         this.$_backgroundExample = null;
         this.$_backgroundExampleStyles = null;
@@ -117,15 +111,6 @@
         _setValues: function() {
             this._values = $.extend(
                 {
-                    backgroundColorFrom: null,
-                    backgroundColorFromHover: null,
-                    backgroundColorTo: null,
-                    backgroundColorToHover: null,
-                    gradientDirection: null,
-                    gradientDirectionHover: null,
-                    hasBackgroundGradient: null,
-                    hasBackgroundHover: null,
-                    hasBackgroundAnimation: null,
                     borderTopLeftRadius: null,
                     borderTopLeftRadiusHover: null,
                     borderTopRightRadius: null,
@@ -163,104 +148,11 @@
          * @private
          */
         _setBackground: function() {
-            var $container = this.$_designContainer.find(".background-container");
-
-            if (this._values["backgroundColorFrom"] === null) {
-                $container.remove();
-                return this;
-            }
-
-            $.colorpicker.regional[""]["none"] = this.getLabel("clear");
-            $.colorpicker.regional[""]["ok"] = this.getLabel("save");
-            $.colorpicker.regional[""]["cancel"] = this.getLabel("cancel");
-
-            $container.find(".category-title").text(this.getLabel("background"));
-
-            this.$_backgroundExampleStyles = $container.find(".styles-example-container");
-
-            var uniqueId = ss.components.Library.getUniqueId();
-            this.$_backgroundExample = $container.find(".background-example")
-                .addClass("background-example-" + uniqueId)
-                .attr("data-id", uniqueId);
-
-            var $relativeContainer = $container.find(".relative-container");
-
-            if (this._values["backgroundColorFrom"] !== null) {
-                new ss.forms.Color({
-                    title: this.getLabel("backgroundColor"),
-                    value: this._values["backgroundColorFrom"],
-                    css: "background-color-from",
-                    callback: $.proxy(function (color) {
-                        this._values["backgroundColorFrom"] = color;
-                        this._updateBackground(false);
-                    }, this),
-                    appendTo: $relativeContainer
-                });
-            }
-
-            if (this._values["backgroundColorTo"] !== null) {
-                new ss.forms.Color({
-                    title: this.getLabel("backgroundColor"),
-                    value: this._values["backgroundColorTo"],
-                    css: "background-color-to",
-                    callback: $.proxy(function (color) {
-                        this._values["backgroundColorTo"] = color;
-                        this._updateBackground(false);
-                    }, this),
-                    appendTo: $relativeContainer
-                });
-            }
-
-            if (this._values["backgroundColorFromHover"] !== null) {
-                new ss.forms.Color({
-                    title: this.getLabel("backgroundColor"),
-                    value: this._values["backgroundColorFromHover"],
-                    css: "background-color-from-hover",
-                    iconBefore: "fa-mouse-pointer",
-                    callback: $.proxy(function (color) {
-                        this._values["backgroundColorFromHover"] = color;
-                        this._updateBackground(false);
-                    }, this),
-                    appendTo: $relativeContainer
-                });
-            }
-
-            if (this._values["backgroundColorToHover"] !== null) {
-                new ss.forms.Color({
-                    title: this.getLabel("backgroundColor"),
-                    value: this._values["backgroundColorToHover"],
-                    css: "background-color-to-hover",
-                    iconBefore: "fa-mouse-pointer",
-                    callback: $.proxy(function (color) {
-                        this._values["backgroundColorToHover"] = color;
-                        this._updateBackground(false);
-                    }, this),
-                    appendTo: $relativeContainer
-                });
-            }
-
-            if (this._values["hasBackgroundGradient"]) {
-                $container.addClass("has-gradient");
-            }
             if (this._values["hasBackgroundHover"]) {
                 $container.addClass("has-hover");
             }
 
-            new ss.forms.CheckboxOnOff({
-                value: this._values["hasBackgroundGradient"],
-                label: this.getLabel("useGradient"),
-                onCheck: $.proxy(function () {
-                    $container.addClass("has-gradient");
-                    this._values["hasBackgroundGradient"] = true;
-                    this._updateBackground(false);
-                }, this),
-                onUnCheck: $.proxy(function () {
-                    $container.removeClass("has-gradient");
-                    this._values["hasBackgroundGradient"] = false;
-                    this._updateBackground(false);
-                }, this),
-                appendTo: $container
-            });
+
 
             if (this._values["gradientDirection"] !== null) {
                 new ss.forms.RadioButtons({
@@ -362,8 +254,6 @@
                     appendTo: $container
                 });
             }
-
-            this._updateBackground(true);
 
             return this;
         },
@@ -1153,15 +1043,11 @@
         _generateCss: function(isHover) {
             var css = "";
 
-            css += this._padding.generateCss(isHover, true);
+
 
             css += this._generateBackgroundCss(isHover, true)
                 + this._generateBorderCss(isHover, true);
 
-
-            if (this._padding.hasAnimation() === true) {
-                animation.push("padding .3s");
-            }
 
             if (this._values["hasBackgroundGradient"] === false
                 && this._values["hasBackgroundHover"] === true
