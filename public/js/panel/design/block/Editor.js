@@ -70,13 +70,17 @@
             .attr("data-selector", selector);
 
         selector = "padding-example-" + this.getUniqueId();
-        this.getDesignContainer().find(".padding-example-container").addClass(selector);
+        this.getDesignContainer()
+            .find(".padding-example-container")
+            .addClass(selector);
         this._paddingExample = this.getDesignContainer()
             .find(".padding-container .styles-example-container")
             .attr("data-selector", selector);
 
         selector = "background-example-" + this.getUniqueId();
-        this.getDesignContainer().find(".background-example").addClass(selector);
+        this.getDesignContainer()
+            .find(".background-example")
+            .addClass(selector);
         this._backgroundExample = this.getDesignContainer()
             .find(".background-container .styles-example-container")
             .attr("data-selector", selector);
@@ -299,10 +303,14 @@
 
             if (this._border.hasAnimation() === true) {
                 var cssAnimation = "";
-                cssAnimation += "-webkit-transition:border-radius .3s,border-width .3s,border-color .3s;";
-                cssAnimation += "-ms-transition:border-radius .3s,border-width .3s,border-color .3s;";
-                cssAnimation += "-o-transition:border-radius .3s,border-width .3s,border-color .3s;";
-                cssAnimation += "transition:border-radius .3s,border-width .3s,border-color .3s;";
+                cssAnimation += "-webkit-transition:border-radius .3s,";
+                cssAnimation += "border-width .3s,border-color .3s;";
+                cssAnimation += "-ms-transition:border-radius .3s,";
+                cssAnimation += "border-width .3s,border-color .3s;";
+                cssAnimation += "-o-transition:border-radius .3s,";
+                cssAnimation += "border-width .3s,border-color .3s;";
+                cssAnimation += "transition:border-radius .3s,";
+                cssAnimation += "border-width .3s,border-color .3s;";
                 css += cssAnimation;
                 cssHover += cssAnimation;
             }

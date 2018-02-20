@@ -100,21 +100,9 @@
      * @type {Array}
      */
     ss.panel.design.block.Border.prototype._styleList = [
-        {
-            value: 0,
-            label: "",
-            css: "solid"
-        },
-        {
-            value: 1,
-            label: "",
-            css: "dotted"
-        },
-        {
-            value: 2,
-            label: "",
-            css: "dashed"
-        }
+        {value: 0, label: "", css: "solid"},
+        {value: 1, label: "", css: "dotted"},
+        {value: 2, label: "", css: "dashed"}
     ];
 
     /**
@@ -166,36 +154,47 @@
         var borderTopLeftRadiusHover = null;
 
         if (this._borderTopLeftRadiusHover !== null) {
-            borderTopLeftRadiusHover = new ss.forms.Spinner({
-                value: this._borderTopLeftRadiusHover,
-                css: "border-top-left-radius-hover",
-                min: 0,
-                iconBefore: "fa-mouse-pointer",
-                appendTo: this._relativeContainer,
-                callback: $.proxy(function (value) {
-                    this._borderTopLeftRadiusHover = value;
-                    this.update();
-                }, this)
-            });
+            borderTopLeftRadiusHover = new ss.forms.Spinner(
+                {
+                    value: this._borderTopLeftRadiusHover,
+                    css: "border-top-left-radius-hover",
+                    min: 0,
+                    iconBefore: "fa-mouse-pointer",
+                    appendTo: this._relativeContainer,
+                    callback: $.proxy(
+                        function (value) {
+                            this._borderTopLeftRadiusHover = value;
+                            this.update();
+                        },
+                        this
+                    )
+                }
+            );
         }
 
-        new ss.forms.Spinner({
-            value: this._borderTopLeftRadius,
-            css: "border-top-left-radius",
-            min: 0,
-            appendTo: this._relativeContainer,
-            callback: $.proxy(function (value) {
-                if (this._borderTopLeftRadius === this._borderTopLeftRadiusHover
-                    && borderTopLeftRadiusHover !== null
-                ) {
-                    this._borderTopLeftRadiusHover = value;
-                    borderTopLeftRadiusHover.setValue(value);
-                }
+        new ss.forms.Spinner(
+            {
+                value: this._borderTopLeftRadius,
+                css: "border-top-left-radius",
+                min: 0,
+                appendTo: this._relativeContainer,
+                callback: $.proxy(
+                    function (value) {
+                        var hover = this._borderTopLeftRadiusHover;
+                        if (this._borderTopLeftRadius === hover
+                            && borderTopLeftRadiusHover !== null
+                        ) {
+                            this._borderTopLeftRadiusHover = value;
+                            borderTopLeftRadiusHover.setValue(value);
+                        }
 
-                this._borderTopLeftRadius = value;
-                this.update();
-            }, this)
-        });
+                        this._borderTopLeftRadius = value;
+                        this.update();
+                    },
+                    this
+                )
+            }
+        );
 
         return this;
     };
@@ -215,35 +214,47 @@
         var borderTopRightRadiusHover = null;
 
         if (this._borderTopRightRadiusHover !== null) {
-            borderTopRightRadiusHover = new ss.forms.Spinner({
-                value: this._borderTopRightRadiusHover,
-                css: "border-top-right-radius-hover",
-                iconBefore: "fa-mouse-pointer",
-                min: 0,
-                appendTo: this._relativeContainer,
-                callback: $.proxy(function (value) {
-                    this._borderTopRightRadiusHover = value;
-                    this.update();
-                }, this)
-            });
+            borderTopRightRadiusHover = new ss.forms.Spinner(
+                {
+                    value: this._borderTopRightRadiusHover,
+                    css: "border-top-right-radius-hover",
+                    iconBefore: "fa-mouse-pointer",
+                    min: 0,
+                    appendTo: this._relativeContainer,
+                    callback: $.proxy(
+                        function (value) {
+                            this._borderTopRightRadiusHover = value;
+                            this.update();
+                        },
+                        this
+                    )
+                }
+            );
         }
 
-        new ss.forms.Spinner({
-            value: this._borderTopRightRadius,
-            css: "border-top-right-radius",
-            min: 0,
-            appendTo: this._relativeContainer,
-            callback: $.proxy(function (value) {
-                if (this._borderTopRightRadius === this._borderTopRightRadiusHover
-                    && borderTopRightRadiusHover !== null
-                ) {
-                    this._borderTopRightRadiusHover = value;
-                    borderTopRightRadiusHover.setValue(value);
-                }
-                this._borderTopRightRadius = value;
-                this.update();
-            }, this)
-        });
+        new ss.forms.Spinner(
+            {
+                value: this._borderTopRightRadius,
+                css: "border-top-right-radius",
+                min: 0,
+                appendTo: this._relativeContainer,
+                callback: $.proxy(
+                    function (value) {
+                        var hover = this._borderTopRightRadiusHover;
+                        if (this._borderTopRightRadius === hover
+                            && borderTopRightRadiusHover !== null
+                        ) {
+                            this._borderTopRightRadiusHover = value;
+                            borderTopRightRadiusHover.setValue(value);
+                        }
+
+                        this._borderTopRightRadius = value;
+                        this.update();
+                    },
+                    this
+                )
+            }
+        );
 
         return this;
     };
@@ -263,35 +274,47 @@
         var borderBottomRightRadiusHover = null;
 
         if (this._borderBottomRightRadiusHover !== null) {
-            borderBottomRightRadiusHover = new ss.forms.Spinner({
-                value: this._borderBottomRightRadiusHover,
-                css: "border-bottom-right-radius-hover",
-                min: 0,
-                iconBefore: "fa-mouse-pointer",
-                appendTo: this._relativeContainer,
-                callback: $.proxy(function (value) {
-                    this._borderBottomRightRadiusHover = value;
-                    this.update();
-                }, this)
-            });
+            borderBottomRightRadiusHover = new ss.forms.Spinner(
+                {
+                    value: this._borderBottomRightRadiusHover,
+                    css: "border-bottom-right-radius-hover",
+                    min: 0,
+                    iconBefore: "fa-mouse-pointer",
+                    appendTo: this._relativeContainer,
+                    callback: $.proxy(
+                        function (value) {
+                            this._borderBottomRightRadiusHover = value;
+                            this.update();
+                        },
+                        this
+                    )
+                }
+            );
         }
 
-        new ss.forms.Spinner({
-            value: this._borderBottomRightRadius,
-            css: "border-bottom-right-radius",
-            min: 0,
-            appendTo: this._relativeContainer,
-            callback: $.proxy(function (value) {
-                if (this._borderBottomRightRadius === this._borderBottomRightRadiusHover
-                    && borderBottomRightRadiusHover !== null
-                ) {
-                    this._borderBottomRightRadiusHover = value;
-                    borderBottomRightRadiusHover.setValue(value);
-                }
-                this._borderBottomRightRadius = value;
-                this.update();
-            }, this)
-        });
+        new ss.forms.Spinner(
+            {
+                value: this._borderBottomRightRadius,
+                css: "border-bottom-right-radius",
+                min: 0,
+                appendTo: this._relativeContainer,
+                callback: $.proxy(
+                    function (value) {
+                        var hover = this._borderBottomRightRadiusHover;
+                        if (this._borderBottomRightRadius === hover
+                            && borderBottomRightRadiusHover !== null
+                        ) {
+                            this._borderBottomRightRadiusHover = value;
+                            borderBottomRightRadiusHover.setValue(value);
+                        }
+
+                        this._borderBottomRightRadius = value;
+                        this.update();
+                    },
+                    this
+                )
+            }
+        );
 
         return this;
     };
@@ -311,36 +334,47 @@
         var borderBottomLeftRadiusHover = null;
 
         if (this._borderBottomLeftRadiusHover !== null) {
-            borderBottomLeftRadiusHover = new ss.forms.Spinner({
-                value: this._borderBottomLeftRadiusHover,
-                css: "border-bottom-left-radius-hover",
-                iconBefore: "fa-mouse-pointer",
-                min: 0,
-                appendTo: this._relativeContainer,
-                callback: $.proxy(function (value) {
-                    this._borderBottomLeftRadiusHover = value;
-                    this.update();
-                }, this)
-            });
+            borderBottomLeftRadiusHover = new ss.forms.Spinner(
+                {
+                    value: this._borderBottomLeftRadiusHover,
+                    css: "border-bottom-left-radius-hover",
+                    iconBefore: "fa-mouse-pointer",
+                    min: 0,
+                    appendTo: this._relativeContainer,
+                    callback: $.proxy(
+                        function (value) {
+                            this._borderBottomLeftRadiusHover = value;
+                            this.update();
+                        },
+                        this
+                    )
+                }
+            );
         }
 
-        new ss.forms.Spinner({
-            value: this._borderBottomLeftRadius,
-            css: "border-bottom-left-radius",
-            min: 0,
-            appendTo: this._relativeContainer,
-            callback: $.proxy(function (value) {
-                if (this._borderBottomLeftRadius === this._borderBottomLeftRadiusHover
-                    && borderBottomLeftRadiusHover !== null
-                ) {
-                    this._borderBottomLeftRadiusHover = value;
-                    borderBottomLeftRadiusHover.setValue(value);
-                }
+        new ss.forms.Spinner(
+            {
+                value: this._borderBottomLeftRadius,
+                css: "border-bottom-left-radius",
+                min: 0,
+                appendTo: this._relativeContainer,
+                callback: $.proxy(
+                    function (value) {
+                        var hover = this._borderBottomLeftRadiusHover;
+                        if (this._borderBottomLeftRadius === hover
+                            && borderBottomLeftRadiusHover !== null
+                        ) {
+                            this._borderBottomLeftRadiusHover = value;
+                            borderBottomLeftRadiusHover.setValue(value);
+                        }
 
-                this._borderBottomLeftRadius = value;
-                this.update();
-            }, this)
-        });
+                        this._borderBottomLeftRadius = value;
+                        this.update();
+                    },
+                    this
+                )
+            }
+        );
 
         return this;
     };
@@ -360,35 +394,46 @@
         var borderTopWidthHover = null;
 
         if (this._borderTopWidthHover !== null) {
-            borderTopWidthHover = new ss.forms.Spinner({
-                value: this._borderTopWidthHover,
-                css: "border-top-width-hover",
-                min: 0,
-                iconBefore: "fa-mouse-pointer",
-                appendTo: this._relativeContainer,
-                callback: $.proxy(function (value) {
-                    this._borderTopWidthHover = value;
-                    this.update();
-                }, this)
-            });
+            borderTopWidthHover = new ss.forms.Spinner(
+                {
+                    value: this._borderTopWidthHover,
+                    css: "border-top-width-hover",
+                    min: 0,
+                    iconBefore: "fa-mouse-pointer",
+                    appendTo: this._relativeContainer,
+                    callback: $.proxy(
+                        function (value) {
+                            this._borderTopWidthHover = value;
+                            this.update();
+                        },
+                        this
+                    )
+                }
+            );
         }
 
-        new ss.forms.Spinner({
-            value: this._borderTopWidth,
-            css: "border-top-width",
-            min: 0,
-            appendTo: this._relativeContainer,
-            callback: $.proxy(function (value) {
-                if (this._borderTopWidth === this._borderTopWidthHover
-                    && borderTopWidthHover !== null
-                ) {
-                    this._borderTopWidthHover = value;
-                    borderTopWidthHover.setValue(value);
-                }
-                this._borderTopWidth = value;
-                this.update();
-            }, this)
-        });
+        new ss.forms.Spinner(
+            {
+                value: this._borderTopWidth,
+                css: "border-top-width",
+                min: 0,
+                appendTo: this._relativeContainer,
+                callback: $.proxy(
+                    function (value) {
+                        if (this._borderTopWidth === this._borderTopWidthHover
+                            && borderTopWidthHover !== null
+                        ) {
+                            this._borderTopWidthHover = value;
+                            borderTopWidthHover.setValue(value);
+                        }
+
+                        this._borderTopWidth = value;
+                        this.update();
+                    },
+                    this
+                )
+            }
+        );
 
         return this;
     };
@@ -408,35 +453,47 @@
         var borderRightWidthHover = null;
 
         if (this._borderRightWidthHover !== null) {
-            borderRightWidthHover = new ss.forms.Spinner({
-                value: this._borderRightWidthHover,
-                css: "border-right-width-hover",
-                min: 0,
-                iconBefore: "fa-mouse-pointer",
-                appendTo: this._relativeContainer,
-                callback: $.proxy(function (value) {
-                    this._borderRightWidthHover = value;
-                    this.update();
-                }, this)
-            });
+            borderRightWidthHover = new ss.forms.Spinner(
+                {
+                    value: this._borderRightWidthHover,
+                    css: "border-right-width-hover",
+                    min: 0,
+                    iconBefore: "fa-mouse-pointer",
+                    appendTo: this._relativeContainer,
+                    callback: $.proxy(
+                        function (value) {
+                            this._borderRightWidthHover = value;
+                            this.update();
+                        },
+                        this
+                    )
+                }
+            );
         }
 
-        new ss.forms.Spinner({
-            value: this._borderRightWidth,
-            css: "border-right-width",
-            min: 0,
-            appendTo: this._relativeContainer,
-            callback: $.proxy(function (value) {
-                if (this._borderRightWidth === this._borderRightWidthHover
-                    && borderRightWidthHover !== null
-                ) {
-                    this._borderRightWidthHover = value;
-                    borderRightWidthHover.setValue(value);
-                }
-                this._borderRightWidth = value;
-                this.update();
-            }, this)
-        });
+        new ss.forms.Spinner(
+            {
+                value: this._borderRightWidth,
+                css: "border-right-width",
+                min: 0,
+                appendTo: this._relativeContainer,
+                callback: $.proxy(
+                    function (value) {
+                        var hover = this._borderRightWidthHover;
+                        if (this._borderRightWidth === hover
+                            && borderRightWidthHover !== null
+                        ) {
+                            this._borderRightWidthHover = value;
+                            borderRightWidthHover.setValue(value);
+                        }
+
+                        this._borderRightWidth = value;
+                        this.update();
+                    },
+                    this
+                )
+            }
+        );
 
         return this;
     };
@@ -456,35 +513,47 @@
         var borderBottomWidthHover = null;
 
         if (this._borderBottomWidthHover !== null) {
-            borderBottomWidthHover = new ss.forms.Spinner({
-                value: this._borderBottomWidthHover,
-                css: "border-bottom-width-hover",
-                min: 0,
-                iconBefore: "fa-mouse-pointer",
-                appendTo: this._relativeContainer,
-                callback: $.proxy(function (value) {
-                    this._borderBottomWidthHover = value;
-                    this.update();
-                }, this)
-            });
+            borderBottomWidthHover = new ss.forms.Spinner(
+                {
+                    value: this._borderBottomWidthHover,
+                    css: "border-bottom-width-hover",
+                    min: 0,
+                    iconBefore: "fa-mouse-pointer",
+                    appendTo: this._relativeContainer,
+                    callback: $.proxy(
+                        function (value) {
+                            this._borderBottomWidthHover = value;
+                            this.update();
+                        },
+                        this
+                    )
+                }
+            );
         }
 
-        new ss.forms.Spinner({
-            value: this._borderBottomWidth,
-            css: "border-bottom-width",
-            min: 0,
-            appendTo: this._relativeContainer,
-            callback: $.proxy(function (value) {
-                if (this._borderBottomWidth === this._borderBottomWidthHover
-                    && borderBottomWidthHover !== null
-                ) {
-                    this._borderBottomWidthHover = value;
-                    borderBottomWidthHover.setValue(value);
-                }
-                this._borderBottomWidth = value;
-                this.update();
-            }, this)
-        });
+        new ss.forms.Spinner(
+            {
+                value: this._borderBottomWidth,
+                css: "border-bottom-width",
+                min: 0,
+                appendTo: this._relativeContainer,
+                callback: $.proxy(
+                    function (value) {
+                        var hover = this._borderBottomWidthHover;
+                        if (this._borderBottomWidth === hover
+                            && borderBottomWidthHover !== null
+                        ) {
+                            this._borderBottomWidthHover = value;
+                            borderBottomWidthHover.setValue(value);
+                        }
+
+                        this._borderBottomWidth = value;
+                        this.update();
+                    },
+                    this
+                )
+            }
+        );
 
         return this;
     };
@@ -504,35 +573,46 @@
         var borderLeftWidthHover = null;
 
         if (this._borderLeftWidthHover !== null) {
-            borderLeftWidthHover = new ss.forms.Spinner({
-                value: this._borderLeftWidthHover,
-                css: "border-left-width-hover",
-                min: 0,
-                iconBefore: "fa-mouse-pointer",
-                appendTo: this._relativeContainer,
-                callback: $.proxy(function (value) {
-                    this._borderLeftWidthHover = value;
-                    this.update();
-                }, this)
-            });
+            borderLeftWidthHover = new ss.forms.Spinner(
+                {
+                    value: this._borderLeftWidthHover,
+                    css: "border-left-width-hover",
+                    min: 0,
+                    iconBefore: "fa-mouse-pointer",
+                    appendTo: this._relativeContainer,
+                    callback: $.proxy(
+                        function (value) {
+                            this._borderLeftWidthHover = value;
+                            this.update();
+                        },
+                        this
+                    )
+                }
+            );
         }
 
-        new ss.forms.Spinner({
-            value: this._borderLeftWidth,
-            css: "border-left-width",
-            min: 0,
-            appendTo: this._relativeContainer,
-            callback: $.proxy(function (value) {
-                if (this._borderLeftWidth === this._borderLeftWidthHover
-                    && borderLeftWidthHover !== null
-                ) {
-                    this._borderLeftWidthHover = value;
-                    borderLeftWidthHover.setValue(value);
-                }
-                this._borderLeftWidth = value;
-                this.update();
-            }, this)
-        });
+        new ss.forms.Spinner(
+            {
+                value: this._borderLeftWidth,
+                css: "border-left-width",
+                min: 0,
+                appendTo: this._relativeContainer,
+                callback: $.proxy(
+                    function (value) {
+                        if (this._borderLeftWidth === this._borderLeftWidthHover
+                            && borderLeftWidthHover !== null
+                        ) {
+                            this._borderLeftWidthHover = value;
+                            borderLeftWidthHover.setValue(value);
+                        }
+
+                        this._borderLeftWidth = value;
+                        this.update();
+                    },
+                    this
+                )
+            }
+        );
 
         return this;
     };
@@ -549,16 +629,21 @@
             return this;
         }
 
-        new ss.forms.RadioButtons({
-            label: this.getLabel("borderStyle"),
-            value: this._borderStyle,
-            data: this._styleList,
-            appendTo: this.getGroupContainer(),
-            onChange: $.proxy(function (value) {
-                this._borderStyle = value;
-                this.update();
-            }, this)
-        });
+        new ss.forms.RadioButtons(
+            {
+                label: this.getLabel("borderStyle"),
+                value: this._borderStyle,
+                data: this._styleList,
+                appendTo: this.getGroupContainer(),
+                onChange: $.proxy(
+                    function (value) {
+                        this._borderStyle = value;
+                        this.update();
+                    },
+                    this
+                )
+            }
+        );
 
         return this;
     };
@@ -575,16 +660,21 @@
             return this;
         }
 
-        new ss.forms.Color({
-            label: this.getLabel("borderColor"),
-            title: this.getLabel("borderColor"),
-            value: this._borderColor,
-            appendTo: this.getGroupContainer(),
-            callback: $.proxy(function (color) {
-                this._borderColor = color;
-                this.update();
-            }, this)
-        });
+        new ss.forms.Color(
+            {
+                label: this.getLabel("borderColor"),
+                title: this.getLabel("borderColor"),
+                value: this._borderColor,
+                appendTo: this.getGroupContainer(),
+                callback: $.proxy(
+                    function (color) {
+                        this._borderColor = color;
+                        this.update();
+                    },
+                    this
+                )
+            }
+        );
 
         return this;
     };
@@ -605,25 +695,33 @@
             this.getGroupContainer().addClass("has-hover");
         }
 
-        var onCheck = $.proxy(function () {
-            this._hasBorderHover = true;
-            this.getGroupContainer().addClass("has-hover");
-            this.update();
-        }, this);
+        var onCheck = $.proxy(
+            function () {
+                this._hasBorderHover = true;
+                this.getGroupContainer().addClass("has-hover");
+                this.update();
+            },
+            this
+        );
 
-        var onUnCheck = $.proxy(function () {
-            this._hasBorderHover = false;
-            this.getGroupContainer().removeClass("has-hover");
-            this.update();
-        }, this);
+        var onUnCheck = $.proxy(
+            function () {
+                this._hasBorderHover = false;
+                this.getGroupContainer().removeClass("has-hover");
+                this.update();
+            },
+            this
+        );
 
-        new ss.forms.CheckboxOnOff({
-            value: this._hasBorderHover,
-            label: this.getLabel("mouseHoverEffect"),
-            appendTo: this.getGroupContainer(),
-            onCheck: onCheck,
-            onUnCheck: onUnCheck
-        });
+        new ss.forms.CheckboxOnOff(
+            {
+                value: this._hasBorderHover,
+                label: this.getLabel("mouseHoverEffect"),
+                appendTo: this.getGroupContainer(),
+                onCheck: onCheck,
+                onUnCheck: onUnCheck
+            }
+        );
 
         return this;
     };
@@ -640,17 +738,22 @@
             return this;
         }
 
-        new ss.forms.RadioButtons({
-            label: this.getLabel("borderStyleHover"),
-            value: this._borderStyleHover,
-            css: "border-style-hover",
-            data: this._styleList,
-            appendTo: this.getGroupContainer(),
-            onChange: $.proxy(function (value) {
-                this._borderStyleHover = value;
-                this.update();
-            }, this)
-        });
+        new ss.forms.RadioButtons(
+            {
+                label: this.getLabel("borderStyleHover"),
+                value: this._borderStyleHover,
+                css: "border-style-hover",
+                data: this._styleList,
+                appendTo: this.getGroupContainer(),
+                onChange: $.proxy(
+                    function (value) {
+                        this._borderStyleHover = value;
+                        this.update();
+                    },
+                    this
+                )
+            }
+        );
 
         return this;
     };
@@ -667,17 +770,22 @@
             return this;
         }
 
-        new ss.forms.Color({
-            label: this.getLabel("borderColorHover"),
-            title: this.getLabel("borderColor"),
-            value: this._borderColorHover,
-            css: "border-color-hover",
-            appendTo: this.getGroupContainer(),
-            callback: $.proxy(function (color) {
-                this._borderColorHover = color;
-                this.update();
-            }, this)
-        });
+        new ss.forms.Color(
+            {
+                label: this.getLabel("borderColorHover"),
+                title: this.getLabel("borderColor"),
+                value: this._borderColorHover,
+                css: "border-color-hover",
+                appendTo: this.getGroupContainer(),
+                callback: $.proxy(
+                    function (color) {
+                        this._borderColorHover = color;
+                        this.update();
+                    },
+                    this
+                )
+            }
+        );
 
         return this;
     };
@@ -694,24 +802,32 @@
             return this;
         }
 
-        var onCheck = $.proxy(function () {
-            this._hasBorderAnimation = true;
-            this.update();
-        }, this);
+        var onCheck = $.proxy(
+            function () {
+                this._hasBorderAnimation = true;
+                this.update();
+            },
+            this
+        );
 
-        var onUnCheck =  $.proxy(function () {
-            this._hasBorderAnimation = false;
-            this.update();
-        }, this);
+        var onUnCheck = $.proxy(
+            function () {
+                this._hasBorderAnimation = false;
+                this.update();
+            },
+            this
+        );
 
-        new ss.forms.CheckboxOnOff({
-            value: this._hasBorderAnimation,
-            label: this.getLabel("mouseHoverAnimation"),
-            css: "has-border-animation",
-            appendTo: this.getGroupContainer(),
-            onCheck: onCheck,
-            onUnCheck: onUnCheck
-        });
+        new ss.forms.CheckboxOnOff(
+            {
+                value: this._hasBorderAnimation,
+                label: this.getLabel("mouseHoverAnimation"),
+                css: "has-border-animation",
+                appendTo: this.getGroupContainer(),
+                onCheck: onCheck,
+                onUnCheck: onUnCheck
+            }
+        );
 
         return this;
     };
@@ -796,6 +912,117 @@
             borderColor = this._borderColor;
         }
 
+        var css = this._generateBorderRadius(
+            borderTopLeftRadius,
+            borderTopRightRadius,
+            borderBottomRightRadius,
+            borderBottomLeftRadius
+        );
+
+        css += this._generateBorderWidth(
+            borderTopWidth,
+            borderRightWidth,
+            borderBottomWidth,
+            borderLeftWidth
+        );
+
+        css += this._generateBorderColor(borderColor);
+
+        css += "border-style:" + this._getBorderStyle(isHover) + ";";
+
+        return css;
+    };
+
+    /**
+     * Generates styles
+     *
+     * @param {String} borderColor
+     *
+     * @returns {String}
+     *
+     * @private
+     */
+    ss.panel.design.block.Border.prototype._generateBorderColor = function (
+        borderColor
+    ) {
+        if (borderColor === null) {
+            borderColor = "";
+        }
+
+        if (borderColor === "") {
+            borderColor = "transparent";
+        }
+
+        return "border-color:" + borderColor + ";";
+    };
+
+    /**
+     * Generates styles
+     *
+     * @param {String} borderTopWidth
+     * @param {String} borderRightWidth
+     * @param {String} borderBottomWidth
+     * @param {String} borderLeftWidth
+     *
+     * @returns {String}
+     *
+     * @private
+     */
+    ss.panel.design.block.Border.prototype._generateBorderWidth = function (
+        borderTopWidth,
+        borderRightWidth,
+        borderBottomWidth,
+        borderLeftWidth
+    ) {
+        if (borderTopWidth !== 0) {
+            borderTopWidth += "px";
+        }
+
+        if (borderRightWidth !== 0) {
+            borderRightWidth += "px";
+        }
+
+        if (borderBottomWidth !== 0) {
+            borderBottomWidth += "px";
+        }
+
+        if (borderLeftWidth !== 0) {
+            borderLeftWidth += "px";
+        }
+
+        var css = "";
+
+        css += "border-width:";
+        css += borderTopWidth;
+        css += " ";
+        css += borderRightWidth;
+        css += " ";
+        css += borderBottomWidth;
+        css += " ";
+        css += borderLeftWidth;
+        css += ";";
+
+        return css;
+    };
+
+    /**
+     * Generates styles
+     *
+     * @param {String} borderTopLeftRadius
+     * @param {String} borderTopRightRadius
+     * @param {String} borderBottomRightRadius
+     * @param {String} borderBottomLeftRadius
+     *
+     * @returns {String}
+     *
+     * @private
+     */
+    ss.panel.design.block.Border.prototype._generateBorderRadius = function (
+        borderTopLeftRadius,
+        borderTopRightRadius,
+        borderBottomRightRadius,
+        borderBottomLeftRadius
+    ) {
         if (borderTopLeftRadius !== 0) {
             borderTopLeftRadius += "px";
         }
@@ -814,72 +1041,23 @@
 
         var css = "";
 
-        css += "-webkit-border-radius:"
-            + borderTopLeftRadius
-            +  " "
-            + borderTopRightRadius
-            + " "
-            + borderBottomRightRadius
-            + " "
-            + borderBottomLeftRadius
-            + ";";
+        css += "-webkit-border-radius:";
+        css += borderTopLeftRadius + " ";
+        css += borderTopRightRadius + " ";
+        css += borderBottomRightRadius + " ";
+        css += borderBottomLeftRadius + ";";
 
-        css += "-moz-border-radius:"
-            + borderTopLeftRadius
-            +  " "
-            + borderTopRightRadius
-            + " "
-            + borderBottomRightRadius
-            + " "
-            + borderBottomLeftRadius
-            + ";";
+        css += "-moz-border-radius:";
+        css += borderTopLeftRadius + " ";
+        css += borderTopRightRadius + " ";
+        css += borderBottomRightRadius + " ";
+        css += borderBottomLeftRadius + ";";
 
-        css += "border-radius:"
-            + borderTopLeftRadius
-            +  " "
-            + borderTopRightRadius
-            + " "
-            + borderBottomRightRadius
-            + " "
-            + borderBottomLeftRadius
-            + ";";
-
-        if (borderTopWidth !== 0) {
-            borderTopWidth += "px";
-        }
-
-        if (borderRightWidth !== 0) {
-            borderRightWidth += "px";
-        }
-
-        if (borderBottomWidth !== 0) {
-            borderBottomWidth += "px";
-        }
-
-        if (borderLeftWidth !== 0) {
-            borderLeftWidth += "px";
-        }
-
-        css += "border-width:"
-            + borderTopWidth
-            +  " "
-            + borderRightWidth
-            + " "
-            + borderBottomWidth
-            + " "
-            + borderLeftWidth
-            + ";";
-
-        if (borderColor === null) {
-            borderColor = "";
-        }
-
-        if (borderColor === "") {
-            borderColor = "transparent";
-        }
-        css += "border-color:" + borderColor + ";";
-
-        css += "border-style:" + this._getBorderStyle(isHover) + ";";
+        css += "border-radius:";
+        css += borderTopLeftRadius + " ";
+        css += borderTopRightRadius + " ";
+        css += borderBottomRightRadius + " ";
+        css += borderBottomLeftRadius + ";";
 
         return css;
     };
@@ -901,7 +1079,9 @@
      *
      * @return {String}
      */
-    ss.panel.design.block.Border.prototype._getBorderStyle = function(isHover) {
+    ss.panel.design.block.Border.prototype._getBorderStyle = function (
+        isHover
+    ) {
         var borderStyle;
 
         if (isHover === true) {

@@ -74,24 +74,10 @@
      * @type {Array}
      */
     ss.panel.design.block.Background.prototype._gradientDirections = [
-        {
-            value: 0,
-            icon: "fa-long-arrow-right"
-        },
-        {
-            value: 1,
-            icon: "fa-long-arrow-down"
-        },
-        {
-            value: 2,
-            icon: "fa-long-arrow-right",
-            css: "deg-45"
-        },
-        {
-            value: 3,
-            icon: "fa-long-arrow-up",
-            css: "deg-45"
-        }
+        {value: 0, icon: "fa-long-arrow-right"},
+        {value: 1, icon: "fa-long-arrow-down"},
+        {value: 2, icon: "fa-long-arrow-right", css: "deg-45"},
+        {value: 3, icon: "fa-long-arrow-up", css: "deg-45"}
     ];
 
     /**
@@ -102,39 +88,39 @@
     ss.panel.design.block.Background.prototype._gradientDirectionList = {
         0: {
             "mozLinear": "left",
-                "webkit": "linear, left top, right top",
-                "webkitLinear": "left",
-                "oLinear": "left",
-                "msLinear": "left",
-                "linear": "to right",
-                "ie": 1
+            "webkit": "linear, left top, right top",
+            "webkitLinear": "left",
+            "oLinear": "left",
+            "msLinear": "left",
+            "linear": "to right",
+            "ie": 1
         },
         1: {
             "mozLinear": "top",
-                "webkit": "linear, left top, left bottom",
-                "webkitLinear": "top",
-                "oLinear": "top",
-                "msLinear": "top",
-                "linear": "to bottom",
-                "ie": 0
+            "webkit": "linear, left top, left bottom",
+            "webkitLinear": "top",
+            "oLinear": "top",
+            "msLinear": "top",
+            "linear": "to bottom",
+            "ie": 0
         },
         2: {
             "mozLinear": "-45deg",
-                "webkit": "linear, left top, right bottom",
-                "webkitLinear": "-45deg",
-                "oLinear": "-45deg",
-                "msLinear": "-45deg",
-                "linear": "135deg",
-                "ie": 1
+            "webkit": "linear, left top, right bottom",
+            "webkitLinear": "-45deg",
+            "oLinear": "-45deg",
+            "msLinear": "-45deg",
+            "linear": "135deg",
+            "ie": 1
         },
         3: {
             "mozLinear": "45deg",
-                "webkit": "linear, left bottom, right top",
-                "webkitLinear": "45deg",
-                "oLinear": "45deg",
-                "msLinear": "45deg",
-                "linear": "45deg",
-                "ie": 1
+            "webkit": "linear, left bottom, right top",
+            "webkitLinear": "45deg",
+            "oLinear": "45deg",
+            "msLinear": "45deg",
+            "linear": "45deg",
+            "ie": 1
         }
     };
 
@@ -164,9 +150,11 @@
      * @private
      */
     ss.panel.design.block.Background.prototype._setColorPicker = function () {
-        $.colorpicker.regional[""]["none"] = this.getLabel("clear");
-        $.colorpicker.regional[""]["ok"] = this.getLabel("save");
-        $.colorpicker.regional[""]["cancel"] = this.getLabel("cancel");
+        var region = "";
+
+        $.colorpicker.regional[region].none = this.getLabel("clear");
+        $.colorpicker.regional[region].ok = this.getLabel("save");
+        $.colorpicker.regional[region].cancel = this.getLabel("cancel");
 
         return this;
     };
@@ -183,32 +171,42 @@
             return this;
         }
 
-        new ss.forms.Color({
-            title: this.getLabel("backgroundColor"),
-            value: this._backgroundColorFrom,
-            css: "background-color-from",
-            appendTo: this._relativeContainer,
-            callback: $.proxy(function (color) {
-                this._backgroundColorFrom = color;
-                this.update();
-            }, this)
-        });
+        new ss.forms.Color(
+            {
+                title: this.getLabel("backgroundColor"),
+                value: this._backgroundColorFrom,
+                css: "background-color-from",
+                appendTo: this._relativeContainer,
+                callback: $.proxy(
+                    function (color) {
+                        this._backgroundColorFrom = color;
+                        this.update();
+                    },
+                    this
+                )
+            }
+        );
 
         if (this._backgroundColorFromHover === null) {
             return this;
         }
 
-        new ss.forms.Color({
-            title: this.getLabel("backgroundColor"),
-            value: this._backgroundColorFromHover,
-            css: "background-color-from-hover",
-            iconBefore: "fa-mouse-pointer",
-            appendTo: this._relativeContainer,
-            callback: $.proxy(function (color) {
-                this._backgroundColorFromHover = color;
-                this.update();
-            }, this)
-        });
+        new ss.forms.Color(
+            {
+                title: this.getLabel("backgroundColor"),
+                value: this._backgroundColorFromHover,
+                css: "background-color-from-hover",
+                iconBefore: "fa-mouse-pointer",
+                appendTo: this._relativeContainer,
+                callback: $.proxy(
+                    function (color) {
+                        this._backgroundColorFromHover = color;
+                        this.update();
+                    },
+                    this
+                )
+            }
+        );
 
         return this;
     };
@@ -225,32 +223,42 @@
             return this;
         }
 
-        new ss.forms.Color({
-            title: this.getLabel("backgroundColor"),
-            value: this._backgroundColorTo,
-            css: "background-color-to",
-            appendTo: this._relativeContainer,
-            callback: $.proxy(function (color) {
-                this._backgroundColorTo = color;
-                this.update();
-            }, this)
-        });
+        new ss.forms.Color(
+            {
+                title: this.getLabel("backgroundColor"),
+                value: this._backgroundColorTo,
+                css: "background-color-to",
+                appendTo: this._relativeContainer,
+                callback: $.proxy(
+                    function (color) {
+                        this._backgroundColorTo = color;
+                        this.update();
+                    },
+                    this
+                )
+            }
+        );
 
         if (this._backgroundColorToHover === null) {
             return this;
         }
 
-        new ss.forms.Color({
-            title: this.getLabel("backgroundColor"),
-            value: this._backgroundColorToHover,
-            css: "background-color-to-hover",
-            iconBefore: "fa-mouse-pointer",
-            appendTo: this._relativeContainer,
-            callback: $.proxy(function (color) {
-                this._backgroundColorToHover = color;
-                this.update();
-            }, this)
-        });
+        new ss.forms.Color(
+            {
+                title: this.getLabel("backgroundColor"),
+                value: this._backgroundColorToHover,
+                css: "background-color-to-hover",
+                iconBefore: "fa-mouse-pointer",
+                appendTo: this._relativeContainer,
+                callback: $.proxy(
+                    function (color) {
+                        this._backgroundColorToHover = color;
+                        this.update();
+                    },
+                    this
+                )
+            }
+        );
 
         return this;
     };
@@ -267,25 +275,33 @@
             this.getGroupContainer().addClass("has-gradient");
         }
 
-        var onCheck = $.proxy(function () {
-            this.getGroupContainer().addClass("has-gradient");
-            this._hasBackgroundGradient = true;
-            this.update();
-        }, this);
+        var onCheck = $.proxy(
+            function () {
+                this.getGroupContainer().addClass("has-gradient");
+                this._hasBackgroundGradient = true;
+                this.update();
+            },
+            this
+        );
 
-        var onUnCheck = $.proxy(function () {
-            this.getGroupContainer().removeClass("has-gradient");
-            this._hasBackgroundGradient = false;
-            this.update();
-        }, this);
+        var onUnCheck = $.proxy(
+            function () {
+                this.getGroupContainer().removeClass("has-gradient");
+                this._hasBackgroundGradient = false;
+                this.update();
+            },
+            this
+        );
 
-        new ss.forms.CheckboxOnOff({
-            value: this._hasBackgroundGradient,
-            label: this.getLabel("useGradient"),
-            appendTo: this.getGroupContainer(),
-            onCheck: onCheck,
-            onUnCheck: onUnCheck
-        });
+        new ss.forms.CheckboxOnOff(
+            {
+                value: this._hasBackgroundGradient,
+                label: this.getLabel("useGradient"),
+                appendTo: this.getGroupContainer(),
+                onCheck: onCheck,
+                onUnCheck: onUnCheck
+            }
+        );
 
         return this;
     };
@@ -297,25 +313,31 @@
      *
      * @private
      */
-    ss.panel.design.block.Background.prototype._setGradientDirection = function () {
-        if (this._gradientDirection === null) {
+    ss.panel.design.block.Background.prototype._setGradientDirection
+        = function () {
+            if (this._gradientDirection === null) {
+                return this;
+            }
+
+            new ss.forms.RadioButtons(
+                {
+                    value: this._gradientDirection,
+                    label: this.getLabel("gradientDirection"),
+                    css: "gradient-direction",
+                    data: this._gradientDirections,
+                    appendTo: this.getGroupContainer(),
+                    onChange: $.proxy(
+                        function (value) {
+                            this._gradientDirection = value;
+                            this.update();
+                        },
+                        this
+                    )
+                }
+            );
+
             return this;
-        }
-
-        new ss.forms.RadioButtons({
-            value: this._gradientDirection,
-            label: this.getLabel("gradientDirection"),
-            css: "gradient-direction",
-            data: this._gradientDirections,
-            appendTo: this.getGroupContainer(),
-            onChange: $.proxy(function (value) {
-                this._gradientDirection = value;
-                this.update();
-            }, this)
-        });
-
-        return this;
-    };
+        };
 
     /**
      * Sets has hover
@@ -329,25 +351,33 @@
             this.getGroupContainer().addClass("has-hover");
         }
 
-        var onCheck = $.proxy(function () {
-            this.getGroupContainer().addClass("has-hover");
-            this._hasBackgroundHover = true;
-            this.update();
-        }, this);
+        var onCheck = $.proxy(
+            function () {
+                this.getGroupContainer().addClass("has-hover");
+                this._hasBackgroundHover = true;
+                this.update();
+            },
+            this
+        );
 
-        var onUnCheck = $.proxy(function () {
-            this.getGroupContainer().removeClass("has-hover");
-            this._hasBackgroundHover = false;
-            this.update();
-        }, this);
+        var onUnCheck = $.proxy(
+            function () {
+                this.getGroupContainer().removeClass("has-hover");
+                this._hasBackgroundHover = false;
+                this.update();
+            },
+            this
+        );
 
-        new ss.forms.CheckboxOnOff({
-            value: this._hasBackgroundHover,
-            label: this.getLabel("mouseHoverEffect"),
-            appendTo: this.getGroupContainer(),
-            onCheck: onCheck,
-            onUnCheck: onUnCheck
-        });
+        new ss.forms.CheckboxOnOff(
+            {
+                value: this._hasBackgroundHover,
+                label: this.getLabel("mouseHoverEffect"),
+                appendTo: this.getGroupContainer(),
+                onCheck: onCheck,
+                onUnCheck: onUnCheck
+            }
+        );
 
         return this;
     };
@@ -364,24 +394,32 @@
             return this;
         }
 
-        var onCheck = $.proxy(function () {
-            this._hasBackgroundAnimation = true;
-            this.update();
-        }, this);
+        var onCheck = $.proxy(
+            function () {
+                this._hasBackgroundAnimation = true;
+                this.update();
+            },
+            this
+        );
 
-        var onUnCheck = $.proxy(function () {
-            this._hasBackgroundAnimation = false;
-            this.update();
-        }, this);
+        var onUnCheck = $.proxy(
+            function () {
+                this._hasBackgroundAnimation = false;
+                this.update();
+            },
+            this
+        );
 
-        new ss.forms.CheckboxOnOff({
-            value: this._hasBackgroundAnimation,
-            label: this.getLabel("mouseHoverAnimation"),
-            css: "has-animation",
-            appendTo: this.getGroupContainer(),
-            onCheck: onCheck,
-            onUnCheck: onUnCheck
-        });
+        new ss.forms.CheckboxOnOff(
+            {
+                value: this._hasBackgroundAnimation,
+                label: this.getLabel("mouseHoverAnimation"),
+                css: "has-animation",
+                appendTo: this.getGroupContainer(),
+                onCheck: onCheck,
+                onUnCheck: onUnCheck
+            }
+        );
 
         return this;
     };
@@ -393,25 +431,31 @@
      *
      * @private
      */
-    ss.panel.design.block.Background.prototype._setGradientDirectionHover = function () {
-        if (this._gradientDirectionHover === null) {
+    ss.panel.design.block.Background.prototype._setGradientDirectionHover
+        = function () {
+            if (this._gradientDirectionHover === null) {
+                return this;
+            }
+
+            new ss.forms.RadioButtons(
+                {
+                    value: this._gradientDirectionHover,
+                    label: this.getLabel("gradientDirectionHover"),
+                    css: "gradient-direction-hover",
+                    data: this._gradientDirections,
+                    appendTo: this.getGroupContainer(),
+                    onChange: $.proxy(
+                        function (value) {
+                            this._gradientDirectionHover = value;
+                            this.update();
+                        },
+                        this
+                    )
+                }
+            );
+
             return this;
-        }
-
-        new ss.forms.RadioButtons({
-            value: this._gradientDirectionHover,
-            label: this.getLabel("gradientDirectionHover"),
-            css: "gradient-direction-hover",
-            data: this._gradientDirections,
-            appendTo: this.getGroupContainer(),
-            onChange: $.proxy(function (value) {
-                this._gradientDirectionHover = value;
-                this.update();
-            }, this)
-        });
-
-        return this;
-    };
+        };
 
     /**
      * Generates styles
@@ -420,13 +464,16 @@
      *
      * @returns {String}
      */
-    ss.panel.design.block.Background.prototype.generateCss = function (isHover) {
+    ss.panel.design.block.Background.prototype.generateCss = function (
+        isHover
+    ) {
         var backgroundColorFrom = "", backgroundColorTo = "";
 
         if (isHover === true) {
             if (this._hasBackgroundHover !== true) {
                 return "";
             }
+
             backgroundColorFrom = this._backgroundColorFromHover;
             backgroundColorTo = this._backgroundColorToHover;
         } else {
@@ -456,37 +503,57 @@
             }
         }
 
-        if (backgroundColorFrom !== ""
-            && backgroundColorTo === ""
-        ) {
-            return "background-color: " + backgroundColorFrom + ";";
-        }
-
-        if (backgroundColorFrom === ""
-            && backgroundColorTo !== ""
-        ) {
-            return "background-color: " + backgroundColorTo + ";";
-        }
-
-        if (backgroundColorFrom !== ""
-            && backgroundColorTo !== ""
-            && this._hasBackgroundGradient !== true
-        ) {
-            return "background-color: " + backgroundColorFrom + ";";
-        }
-
-        if (backgroundColorFrom === ""
-            || backgroundColorTo === ""
-        ) {
-            return "";
-        }
-
-        return this._generateGradientCss(
+        return this._generateBackgroundCss(
             isHover,
             backgroundColorFrom,
             backgroundColorTo
         );
     };
+
+    /**
+     * Generates styles
+     *
+     * @param {boolean} isHover
+     * @param {String}  backgroundColorFrom
+     * @param {String}  backgroundColorTo
+     *
+     * @returns {String}
+     *
+     * @private
+     */
+    ss.panel.design.block.Background.prototype._generateBackgroundCss
+        = function (isHover, backgroundColorFrom, backgroundColorTo) {
+            if (backgroundColorFrom !== ""
+                && backgroundColorTo === ""
+            ) {
+                return "background-color: " + backgroundColorFrom + ";";
+            }
+
+            if (backgroundColorFrom === ""
+                && backgroundColorTo !== ""
+            ) {
+                return "background-color: " + backgroundColorTo + ";";
+            }
+
+            if (backgroundColorFrom !== ""
+                && backgroundColorTo !== ""
+                && this._hasBackgroundGradient !== true
+            ) {
+                return "background-color: " + backgroundColorFrom + ";";
+            }
+
+            if (backgroundColorFrom === ""
+                || backgroundColorTo === ""
+            ) {
+                return "";
+            }
+
+            return this._generateGradientCss(
+                isHover,
+                backgroundColorFrom,
+                backgroundColorTo
+            );
+        };
 
     /**
      * Generates styles
@@ -506,61 +573,38 @@
         var gradientDirection = this._getGradientDirection(isHover);
 
         css += "background: " + backgroundColorFrom + ";";
-        css += "background: -moz-linear-gradient("
-            + gradientDirection["mozLinear"]
-            + ", "
-            + backgroundColorFrom
-            + " 0%, "
-            + backgroundColorTo
-            + " 100%);";
+        css += "background: -moz-linear-gradient(";
+        css += gradientDirection.mozLinear;
+        css += ", " + backgroundColorFrom + " 0%, ";
+        css += backgroundColorTo + " 100%);";
 
-        css += "background: -webkit-gradient("
-            + gradientDirection["webkit"]
-            + ", color-stop(0%, "
-            + backgroundColorFrom
-            + "), color-stop(100%, "
-            + backgroundColorTo
-            + "));";
+        css += "background: -webkit-gradient(";
+        css += gradientDirection.webkit;
+        css += ", color-stop(0%, " + backgroundColorFrom;
+        css += "), color-stop(100%, " + backgroundColorTo + "));";
 
-        css += "background: -webkit-linear-gradient("
-            + gradientDirection["webkitLinear"]
-            + ", "
-            + backgroundColorFrom
-            + " 0%, "
-            + backgroundColorTo
-            + " 100%);";
+        css += "background: -webkit-linear-gradient(";
+        css += gradientDirection.webkitLinear;
+        css += ", " + backgroundColorFrom + " 0%, ";
+        css += backgroundColorTo + " 100%);";
 
-        css += "background: -o-linear-gradient("
-            + gradientDirection["oLinear"]
-            + ", "
-            + backgroundColorFrom
-            + " 0%, "
-            + backgroundColorTo
-            + " 100%);";
+        css += "background: -o-linear-gradient(";
+        css += gradientDirection.oLinear + ", ";
+        css += backgroundColorFrom + " 0%, " + backgroundColorTo + " 100%);";
 
-        css += "background: -ms-linear-gradient("
-            + gradientDirection["msLinear"]
-            + ", "
-            + backgroundColorFrom
-            + " 0%, "
-            + backgroundColorTo
-            + " 100%);";
+        css += "background: -ms-linear-gradient(";
+        css += gradientDirection.msLinear + ", ";
+        css += backgroundColorFrom + " 0%, " + backgroundColorTo + " 100%);";
 
-        css += "background: linear-gradient("
-            + gradientDirection["linear"]
-            + ", "
-            + backgroundColorFrom
-            + " 0%, "
-            + backgroundColorTo
-            + " 100%);";
+        css += "background: linear-gradient(";
+        css += gradientDirection.linear + ", ";
+        css += backgroundColorFrom + " 0%, " + backgroundColorTo + " 100%);";
 
-        css += "filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='"
-            + backgroundColorFrom
-            + "', endColorstr='"
-            + backgroundColorTo
-            + "',GradientType="
-            + gradientDirection["ie"]
-            + ");";
+        css += "filter: progid:DXImageTransform.";
+        css += "Microsoft.gradient( startColorstr='";
+        css += backgroundColorFrom + "', endColorstr='";
+        css += backgroundColorTo + "',GradientType=";
+        css += gradientDirection.ie + ");";
 
         return css;
     };
@@ -572,21 +616,22 @@
      *
      * @return {Object}
      */
-    ss.panel.design.block.Background.prototype._getGradientDirection = function(isHover) {
-        var gradientDirection;
+    ss.panel.design.block.Background.prototype._getGradientDirection
+        = function (isHover) {
+            var gradientDirection;
 
-        if (isHover === true) {
-            gradientDirection = this._gradientDirectionHover;
-        } else {
-            gradientDirection = this._gradientDirection;
-        }
+            if (isHover === true) {
+                gradientDirection = this._gradientDirectionHover;
+            } else {
+                gradientDirection = this._gradientDirection;
+            }
 
-        if (this._gradientDirectionList[gradientDirection] !== undefined) {
-            return this._gradientDirectionList[gradientDirection];
-        }
+            if (this._gradientDirectionList[gradientDirection] !== undefined) {
+                return this._gradientDirectionList[gradientDirection];
+            }
 
-        return this._gradientDirectionList[0];
-    };
+            return this._gradientDirectionList[0];
+        };
 
     /**
      * Has animation
