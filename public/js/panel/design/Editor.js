@@ -90,20 +90,26 @@
                         data: {
                             group: data.group,
                             controller: data.controller,
-                            data: $.proxy(function () {
-                                var dataObject = {
-                                    id: data.id
-                                };
+                            data: $.proxy(
+                                function () {
+                                    var dataObject = {
+                                        id: data.id
+                                    };
 
-                                $.each(
-                                    this._designs,
-                                    function (i, design) {
-                                        dataObject = $.extend(dataObject, design.getData());
-                                    }
-                                );
+                                    $.each(
+                                        this._designs,
+                                        function (i, design) {
+                                            dataObject = $.extend(
+                                                dataObject,
+                                                design.getData()
+                                            );
+                                        }
+                                    );
 
-                                return dataObject;
-                            }, this)
+                                    return dataObject;
+                                },
+                                this
+                            )
                         },
                         type: "PUT",
                         success: this._success,
@@ -138,7 +144,6 @@
                             );
                             break;
                         case "text":
-                            return false;
                             design = new ss.panel.design.Text.Editor(
                                 options
                             );
@@ -149,7 +154,7 @@
 
                     var typeAccordionElement
                         = new ss.components.accordion.Element(
-                        options.title
+                            options.title
                         );
                     typeAccordionElement.add(
                         design.getDesignContainer()
