@@ -2,34 +2,6 @@
     'use strict';
 
     /**
-     * Design block
-     *
-     * @param {Object} data
-     *
-     * @type {Object}
-     */
-    ss.panel.design.Text = function (data) {
-        this._data = $.extend({}, data);
-
-        this._selector = "";
-        this._labels = {};
-        this._values = {};
-        this._names = {};
-
-        this._rollbackStyles = "";
-
-        this.$_designContainer = null;
-        this.$_styleContainer = null;
-        this.$_commonContainer = null;
-        this.$_hoverContainer = null;
-
-        this.$_example = null;
-        this.$_exampleStyles = null;
-
-        this.init();
-    };
-
-    /**
      * Prototype
      *
      * @type {Object}
@@ -201,19 +173,6 @@
          */
         init: function () {
             this
-                ._setSelector()
-                ._setStyleContainer()
-                ._setRollback()
-                ._setLabels()
-                ._setValues()
-                ._setNames()
-                ._setDesignContainer()
-                ._setCommonContainer()
-                ._setHoverContainer()
-                ._setExample()
-                ._setExampleStyles()
-                ._update(true)
-                ._setSize()
                 ._setFamily()
                 ._setColor()
                 ._setAlign()
@@ -236,8 +195,6 @@
         _setValues: function() {
             this._values = $.extend(
                 {
-                    size: null,
-                    sizeHover: null,
                     family: null,
                     color: null,
                     colorHover: null,
@@ -258,234 +215,6 @@
                 },
                 this._data["values"]
             );
-
-            return this;
-        },
-
-        /**
-         * Sets names
-         *
-         * @returns {ss.panel.design.Text}
-         *
-         * @private
-         */
-        _setNames: function() {
-            var namespace = "";
-            if (this._data["namespace"] !== undefined) {
-                namespace = this._data["namespace"];
-            }
-
-            $.each(this._values, $.proxy(function(name) {
-                if (namespace !== "") {
-                    this._names[name] = namespace + "." + name;
-                } else {
-                    this._names[name] = name;
-                }
-            }, this));
-
-            return this;
-        },
-
-        /**
-         * Sets selector
-         *
-         * @returns {ss.panel.design.Text}
-         *
-         * @private
-         */
-        _setSelector: function() {
-            if (this._data["selector"] !== undefined) {
-                this._selector = this._data["selector"];
-            }
-
-            return this;
-        },
-
-        /**
-         * Sets style container
-         *
-         * @returns {ss.panel.design.Text}
-         *
-         * @private
-         */
-        _setStyleContainer: function() {
-            if (this._data["id"] !== undefined) {
-                this.$_styleContainer = $("#" + this._data["id"]);
-            }
-
-            return this;
-        },
-
-        /**
-         * Sets rollback styles
-         *
-         * @returns {ss.panel.design.Text}
-         *
-         * @private
-         */
-        _setRollback: function() {
-            this._rollbackStyles = this.$_styleContainer.html();
-
-            return this;
-        },
-
-        /**
-         * Rollbacks
-         */
-        rollback: function() {
-            this.$_styleContainer.html(this._rollbackStyles);
-        },
-
-        /**
-         * Sets labels
-         *
-         * @returns {ss.panel.design.Text}
-         *
-         * @private
-         */
-        _setLabels: function() {
-            if ($.type(this._data["labels"]) === "object") {
-                this._labels = this._data["labels"];
-            }
-
-            return this;
-        },
-
-        /**
-         * Gets label
-         *
-         * @param {String} key
-         *
-         * @returns {String}
-         *
-         * @private
-         */
-        _getLabel: function(key) {
-            if (this._labels[key] !== undefined) {
-                return this._labels[key];
-            }
-
-            return "";
-        },
-
-        /**
-         * Sets design container
-         *
-         * @returns {ss.panel.design.Text}
-         *
-         * @private
-         */
-        _setDesignContainer: function() {
-            this.$_designContainer = ss.components.Template.get("design-text-container");
-            return this;
-        },
-
-        /**
-         * Sets common container
-         *
-         * @returns {ss.panel.design.Text}
-         *
-         * @private
-         */
-        _setCommonContainer: function() {
-            this.$_commonContainer = this.$_designContainer.find(".common-container");
-            return this;
-        },
-
-        /**
-         * Sets hover container
-         *
-         * @returns {ss.panel.design.Text}
-         *
-         * @private
-         */
-        _setHoverContainer: function() {
-            this.$_hoverContainer = this.$_designContainer.find(".hover-container");
-            return this;
-        },
-
-        /**
-         * Sets example
-         *
-         * @returns {ss.panel.design.Text}
-         *
-         * @private
-         */
-        _setExample: function() {
-            var uniqueId = ss.components.Library.getUniqueId();
-
-            this.$_example = this.$_designContainer.find(".example")
-                .addClass("example-" + uniqueId)
-                .attr("data-id", uniqueId)
-                .text(this._getLabel("textExample"));
-
-            return this;
-        },
-
-        /**
-         * Sets styles
-         *
-         * @returns {ss.panel.design.Text}
-         *
-         * @private
-         */
-        _setExampleStyles: function() {
-            this.$_exampleStyles = this.$_designContainer.find(".styles-example-container");
-            return this;
-        },
-
-        /**
-         * Gets design container
-         *
-         * @returns {Object}
-         */
-        getDesignContainer: function() {
-            return this.$_designContainer;
-        },
-
-        /**
-         * Sets size
-         *
-         * @returns {ss.panel.design.Text}
-         *
-         * @private
-         */
-        _setSize: function() {
-            if (this._values["size"] === null) {
-                return this;
-            }
-
-            var sizeHover = null;
-
-            if (this._values["sizeHover"] !== null) {
-                sizeHover = new ss.forms.Spinner({
-                    value: this._values["sizeHover"],
-                    css: "size-hover",
-                    min: 0,
-                    callback: $.proxy(function (value) {
-                        this._values["sizeHover"] = value;
-                        this._update(false);
-                    }, this),
-                    appendTo: this.$_hoverContainer
-                });
-            }
-
-            new ss.forms.Spinner({
-                value: this._values["size"],
-                css: "size",
-                min: 0,
-                callback: $.proxy(function (value) {
-                    if (this._values["size"] === this._values["sizeHover"]
-                        && sizeHover !== null
-                    ) {
-                        this._values["sizeHover"] = value;
-                        sizeHover.setValue(value);
-                    }
-                    this._values["size"] = value;
-                    this._update(false);
-                }, this),
-                appendTo: this.$_commonContainer
-            });
 
             return this;
         },
@@ -1002,28 +731,25 @@
          */
         _generateCss: function(isHover) {
             var css = "";
-            var size, color, isBold, isItalic, letterSpacing, lineHeight;
+            var color, isBold, isItalic, letterSpacing, lineHeight;
             if (isHover === true) {
                 if (this._values["hasHover"] !== true) {
                     return "";
                 }
 
-                size = this._values["sizeHover"];
                 color = this._values["colorHover"];
                 isBold = this._values["isBoldHover"];
                 isItalic = this._values["isItalicHover"];
                 letterSpacing = this._values["letterSpacingHover"];
                 lineHeight = this._values["lineHeightHover"];
             } else {
-                size = this._values["size"];
+
                 color = this._values["color"];
                 isBold = this._values["isBold"];
                 isItalic = this._values["isItalic"];
                 letterSpacing = this._values["letterSpacing"];
                 lineHeight = this._values["lineHeight"];
             }
-
-            css += "font-size:" + size + "px;";
 
             css += this._getFamilyStyle();
 
@@ -1053,75 +779,6 @@
             css += "line-height:" + finalLineHeight + ";";
 
             return css;
-        },
-
-        /**
-         * Updates CSS
-         *
-         * @param {boolean} isOnlyExample
-         *
-         * @private
-         */
-        _update: function(isOnlyExample) {
-            var css;
-            var generatedCss = this._generateCss(false);
-            var generatedHoverCss = this._generateCss(true);
-            var id = this.$_example.data("id");
-
-            css = "<style>";
-
-            css += ".example-"
-                + id
-                + "{"
-                + generatedCss
-                + "}";
-
-            css += ".example-"
-                + id
-                + ":hover{"
-                + generatedHoverCss
-                +"}";
-
-            css += "</style>";
-
-            this.$_exampleStyles.html(css);
-
-            if (isOnlyExample !== true) {
-                css = "<style>";
-
-                css += this._selector
-                    + "{"
-                    + generatedCss
-                    + "}";
-
-                css += this._selector
-                    + ":hover{"
-                    + generatedHoverCss
-                    + "}";
-
-                css += "</style>";
-
-                this.$_styleContainer.html(css);
-            }
-
-            return this;
-        },
-
-        /**
-         * Gets data
-         *
-         * @returns {Object}
-         */
-        getData: function() {
-            var data = {};
-
-            $.each(this._values, $.proxy(function(key, value) {
-                if (this._names[key] !== undefined) {
-                    data[this._names[key]] = value;
-                }
-            }, this));
-
-            return data;
         }
     };
 }(window.jQuery, window.ss);

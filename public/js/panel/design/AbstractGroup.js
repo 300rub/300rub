@@ -131,9 +131,11 @@
          * @private
          */
         _setGroupContainer: function () {
-            this._groupContainer = this._designContainer.find(
-                "." + this._options.groupContainerName
-            );
+            if (this._options.groupContainerName !== undefined) {
+                this._groupContainer = this._designContainer.find(
+                    "." + this._options.groupContainerName
+                );
+            }
             return this;
         },
 
@@ -207,7 +209,9 @@
          * @private
          */
         _checkValues: function () {
-            if (this._hasValues === false) {
+            if (this._hasValues === false
+                && this._groupContainer !== null
+            ) {
                 this._groupContainer.remove();
             }
 
@@ -220,7 +224,9 @@
          * @private
          */
         _setTitle: function () {
-            if (this._options.title !== undefined) {
+            if (this._options.title !== undefined
+                && this._groupContainer !== null
+            ) {
                 this._groupContainer
                     .find(".category-title")
                     .text(this._options.title);
