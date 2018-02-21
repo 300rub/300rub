@@ -63,7 +63,7 @@
     /**
      * Sets size
      *
-     * @returns {ss.panel.design.Text}
+     * @returns {ss.panel.design.text.Size}
      *
      * @private
      */

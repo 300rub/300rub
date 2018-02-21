@@ -132,7 +132,7 @@
     /**
      * Sets font-family
      *
-     * @returns {ss.panel.design.Text}
+     * @returns {ss.panel.design.text.Family}
      *
      * @private
      */

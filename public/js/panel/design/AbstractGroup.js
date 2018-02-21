@@ -136,6 +136,7 @@
                     "." + this._options.groupContainerName
                 );
             }
+
             return this;
         },
 

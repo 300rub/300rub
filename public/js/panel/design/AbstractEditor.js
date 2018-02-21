@@ -242,21 +242,6 @@
         },
 
         /**
-         * Gets value
-         *
-         * @param {String} key
-         *
-         * @returns {Object}
-         */
-        getValue: function (key) {
-            if (this._values[key] === undefined) {
-                return null;
-            }
-
-            return this._values[key];
-        },
-
-        /**
          * Sets namespace
          *
          * @returns {ss.panel.design.AbstractEditor}

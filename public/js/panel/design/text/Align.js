@@ -72,7 +72,7 @@
     /**
      * Sets align
      *
-     * @returns {ss.panel.design.Text}
+     * @returns {ss.panel.design.text.Align}
      *
      * @private
      */

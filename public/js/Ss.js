@@ -1,4 +1,4 @@
-!function (window, $) {
+!function (window) {
     'use strict';
 
     /**
@@ -26,4 +26,4 @@
             users: {}
         }
     };
-}(window, window.jQuery);
+}(window);

@@ -63,7 +63,7 @@
     /**
      * Sets color
      *
-     * @returns {ss.panel.design.Text}
+     * @returns {ss.panel.design.text.Color}
      *
      * @private
      */

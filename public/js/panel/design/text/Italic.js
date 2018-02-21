@@ -63,7 +63,7 @@
     /**
      * Sets italic
      *
-     * @returns {ss.panel.design.Text}
+     * @returns {ss.panel.design.text.Italic}
      *
      * @private
      */

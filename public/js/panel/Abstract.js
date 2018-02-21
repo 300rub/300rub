@@ -269,14 +269,14 @@
             new ss.components.Ajax(
                 {
                     data: data,
+                    error: $.proxy(this._onError, this),
                     success: $.proxy(
-                        function(data) {
+                        function (data) {
                             this._options.success(data);
                             this._removeLoading();
                         },
                         this
-                    ),
-                    error: $.proxy(this._onError, this)
+                    )
                 }
             );
         },
