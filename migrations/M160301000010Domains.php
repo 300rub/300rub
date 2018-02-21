@@ -55,7 +55,8 @@ class M160301000010Domains extends AbstractMigration
         $domains = App::getInstance()->getConfig()->getValue(['domains']);
         foreach ($domains as $domain) {
             $dbObject->execute(
-                'INSERT ' . 'INTO domains (siteId, name, isMain) VALUES (?, ?, ?)',
+                'INSERT ' .
+                'INTO domains (siteId, name, isMain) VALUES (?, ?, ?)',
                 [
                     $domain['siteId'],
                     $domain['name'],

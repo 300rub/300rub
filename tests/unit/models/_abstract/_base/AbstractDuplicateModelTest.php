@@ -93,7 +93,7 @@ abstract class AbstractDuplicateModelTest extends AbstractModelTest
             ->exceptRelations($exceptRelations)
             ->find();
         $this->assertInstanceOf(
-            "\\ss\\models\\_abstract\\AbstractModel",
+            '\\ss\\models\\_abstract\\AbstractModel',
             $duplicatedModel
         );
         $this->compareExpectedAndActual(

@@ -70,7 +70,7 @@ abstract class AbstractBaseModelTest extends AbstractModelTest
             ->exceptRelations($exceptRelations)
             ->find();
         $this->assertInstanceOf(
-            "\\ss\\models\\_abstract\\AbstractModel",
+            '\\ss\\models\\_abstract\\AbstractModel',
             $model
         );
         $this->compareExpectedAndActual($createExpected, $model->get());
@@ -98,7 +98,7 @@ abstract class AbstractBaseModelTest extends AbstractModelTest
                 ->exceptRelations($exceptRelations)
                 ->find();
             $this->assertInstanceOf(
-                "\\ss\\models\\_abstract\\AbstractModel",
+                '\\ss\\models\\_abstract\\AbstractModel',
                 $model
             );
             $this->compareExpectedAndActual(

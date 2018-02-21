@@ -118,8 +118,12 @@ class LoadFixturesCommand extends AbstractCommand
             );
 
             foreach ($this->_fixtureOrder as $fixture => $modelName) {
-                $filePath
-                    = __DIR__ . '/../fixtures/' . $type . '/' . $fixture . '.php';
+                $filePath = __DIR__ .
+                    '/../fixtures/' .
+                    $type .
+                    '/' .
+                    $fixture .
+                    '.php';
 
                 if (file_exists($filePath) === false) {
                     continue;

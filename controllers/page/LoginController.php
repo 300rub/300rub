@@ -17,6 +17,6 @@ class LoginController extends AbstractPageController
      */
     public function run()
     {
-        return "123321";
+        return '123321';
     }
 }

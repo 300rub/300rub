@@ -4,21 +4,39 @@ namespace ss\tests\selenium\_abstract;
 
 use Facebook\WebDriver\WebDriverBy;
 
+/**
+ * Class AbstractSeleniumTest
+ */
 class AbstractSeleniumTest extends AbstractSeleniumTestCase
 {
 
-    private $userTypes = [
+    /**
+     * User types
+     *
+     * @var array
+     */
+    private $_userTypes = [
         'user' => [
             'user'     => 'user',
             'password' => 'pass'
         ]
     ];
 
+    /**
+     * Gets URL
+     *
+     * @return string
+     */
     protected function getUrl()
     {
-        return sprintf("http://172.17.0.1:800%s", getenv('TEST_TOKEN') + 1);
+        return sprintf('http://172.17.0.1:800%s', (getenv('TEST_TOKEN') + 1));
     }
 
+    /**
+     * Resets DB
+     *
+     * @return AbstractSeleniumTest
+     */
     protected function resetDb()
     {
         $this->driver->get(sprintf('%s/reset.php', $this->getUrl()));
@@ -27,12 +45,22 @@ class AbstractSeleniumTest extends AbstractSeleniumTestCase
         return $this;
     }
 
+    /**
+     * Opens base URL
+     *
+     * @return AbstractSeleniumTest
+     */
     protected function openBaseUrl()
     {
         $this->driver->get($this->getUrl());
         return $this;
     }
 
+    /**
+     * Setup
+     *
+     * @return void
+     */
     public function setUp()
     {
         parent::setUp();
@@ -42,6 +70,15 @@ class AbstractSeleniumTest extends AbstractSeleniumTestCase
             ->openBaseUrl();
     }
 
+    /**
+     * Submits window by name
+     *
+     * @param string $name Window name
+     *
+     * @return void
+     *
+     * @SuppressWarnings(PMD.StaticAccess)
+     */
     protected function submitWindow($name)
     {
         $this->driver
@@ -53,11 +90,24 @@ class AbstractSeleniumTest extends AbstractSeleniumTestCase
             ->click();
     }
 
+    /**
+     * Login user
+     *
+     * @param string $type User type
+     *
+     * @return void
+     */
     protected function login($type = 'user')
     {
         $this->clickId('login-button');
-        $this->fillText('.window-login input[name="user"]', $this->userTypes[$type]['user']);
-        $this->fillText('.window-login input[name="password"]', $this->userTypes[$type]['password']);
+        $this->fillText(
+            '.window-login input[name="user"]',
+            $this->_userTypes[$type]['user']
+        );
+        $this->fillText(
+            '.window-login input[name="password"]',
+            $this->_userTypes[$type]['password']
+        );
         $this->submitWindow('login');
     }
 }

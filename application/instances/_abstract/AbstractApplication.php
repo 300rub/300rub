@@ -405,10 +405,10 @@ abstract class AbstractApplication
         $baseHostLength = strlen($baseHost);
         $hostnameLength = strlen($hostname);
 
-        if ($hostnameLength > $baseHostLength + 1) {
-            $hostnameEnd = substr($hostname, -1 * $baseHostLength);
+        if ($hostnameLength > ($baseHostLength + 1)) {
+            $hostnameEnd = substr($hostname, (-1 * $baseHostLength));
             if ($hostnameEnd === $baseHost) {
-                $name = substr($hostname, 0, -1 * ($baseHostLength + 1));
+                $name = substr($hostname, 0, (-1 * ($baseHostLength + 1)));
                 return $siteModel->byName($name)->find();
             }
         }
