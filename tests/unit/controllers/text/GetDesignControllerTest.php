@@ -51,7 +51,7 @@ class GetDesignControllerTest extends AbstractControllerTest
                     'data'  => [
                         [
                             'selector'  => sprintf('.block-%s', $blockId),
-                            'id'        => sprintf('block-%s-block', $blockId),
+                            'cssId'     => sprintf('block-%s-block', $blockId),
                             'type'      => 'block',
                             'title'     => 'Block design',
                             'namespace' => 'designBlockModel',
@@ -62,7 +62,7 @@ class GetDesignControllerTest extends AbstractControllerTest
                         ],
                         [
                             'selector'  => sprintf('.block-%s', $blockId),
-                            'id'        => sprintf('block-%s-text', $blockId),
+                            'cssId'     => sprintf('block-%s-text', $blockId),
                             'type'      => 'text',
                             'title'     => 'Text design',
                             'namespace' => 'designTextModel',

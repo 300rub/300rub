@@ -47,9 +47,9 @@ class DesignImageSimpleModel extends AbstractDesignImageSimpleModel
             ),
             [
                 'selector'  => $selector,
-                'id'        => App::getInstance()
-                ->getView()
-                ->generateCssId($selector, self::TYPE),
+                'cssId'     => App::getInstance()
+                    ->getView()
+                    ->generateCssId($selector, self::TYPE),
                 'type'      => self::TYPE,
                 'title'     => $language->getMessage('design', 'image'),
                 'namespace' => $namespace,

@@ -122,7 +122,7 @@ class GetDesignControllerTest extends AbstractControllerTest
         return [
             [
                 'selector' => '.block-3',
-                'id' => 'block-3-block',
+                'cssId' => 'block-3-block',
                 'type' => 'block',
                 'namespace' => 'designBlockModel',
                 'values' => [
@@ -131,7 +131,7 @@ class GetDesignControllerTest extends AbstractControllerTest
             ],
             [
                 'selector' => '.image-1',
-                'id' => 'image-1-block',
+                'cssId' => 'image-1-block',
                 'type' => 'block',
                 'namespace'
                     => 'designImageSimpleModel.containerDesignBlockModel',
@@ -141,7 +141,7 @@ class GetDesignControllerTest extends AbstractControllerTest
             ],
             [
                 'selector' => '.image-1 .image-instance',
-                'id' => 'image-1-image-instance-block',
+                'cssId' => 'image-1-image-instance-block',
                 'type' => 'block',
                 'namespace' => 'designImageSimpleModel.imageDesignBlockModel',
                 'values' => [
@@ -150,7 +150,7 @@ class GetDesignControllerTest extends AbstractControllerTest
             ],
             [
                 'selector' => '.image-1',
-                'id' => 'image-1-image-simple',
+                'cssId' => 'image-1-image-simple',
                 'type' => 'image-simple',
                 'namespace' => 'designImageSimpleModel',
                 'values' => [
@@ -170,7 +170,7 @@ class GetDesignControllerTest extends AbstractControllerTest
         return [
             [
                 'selector' => '.block-4',
-                'id' => 'block-4-block',
+                'cssId' => 'block-4-block',
                 'type' => 'block',
                 'namespace' => 'designBlockModel',
                 'values' => [
@@ -179,7 +179,7 @@ class GetDesignControllerTest extends AbstractControllerTest
             ],
             [
                 'selector' => '.image-2',
-                'id' => 'image-2-block',
+                'cssId' => 'image-2-block',
                 'type' => 'block',
                 'namespace'
                     => 'designImageSliderModel.containerDesignBlockModel',
@@ -189,7 +189,7 @@ class GetDesignControllerTest extends AbstractControllerTest
             ],
             [
                 'selector' => '.image-2 .navigation',
-                'id' => 'image-2-navigation-block',
+                'cssId' => 'image-2-navigation-block',
                 'type' => 'block',
                 'namespace'
                     => 'designImageSliderModel.navigationDesignBlockModel',
@@ -199,7 +199,7 @@ class GetDesignControllerTest extends AbstractControllerTest
             ],
             [
                 'selector' => '.image-2 .description',
-                'id' => 'image-2-description-block',
+                'cssId' => 'image-2-description-block',
                 'type' => 'block',
                 'namespace'
                     => 'designImageSliderModel.descriptionDesignBlockModel',
@@ -209,7 +209,7 @@ class GetDesignControllerTest extends AbstractControllerTest
             ],
             [
                 'selector' => '.image-2',
-                'id' => 'image-2-image-slider',
+                'cssId' => 'image-2-image-slider',
                 'type' => 'image-slider',
                 'namespace' => 'designImageSliderModel',
                 'values' => [
@@ -233,7 +233,7 @@ class GetDesignControllerTest extends AbstractControllerTest
         return [
             [
                 'selector' => '.block-5',
-                'id' => 'block-5-block',
+                'cssId' => 'block-5-block',
                 'type' => 'block',
                 'namespace' => 'designBlockModel',
                 'values' => [
@@ -242,7 +242,7 @@ class GetDesignControllerTest extends AbstractControllerTest
             ],
             [
                 'selector' => '.image-3',
-                'id' => 'image-3-block',
+                'cssId' => 'image-3-block',
                 'type' => 'block',
                 'namespace' => 'designImageZoomModel.designBlockModel',
                 'values' => [
@@ -251,7 +251,7 @@ class GetDesignControllerTest extends AbstractControllerTest
             ],
             [
                 'selector' => '.image-3',
-                'id' => 'image-3-image-zoom',
+                'cssId' => 'image-3-image-zoom',
                 'type' => 'image-zoom',
                 'namespace' => 'designImageZoomModel',
                 'values' => [
