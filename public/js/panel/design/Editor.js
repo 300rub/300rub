@@ -144,7 +144,7 @@
                             );
                             break;
                         case "text":
-                            design = new ss.panel.design.Text.Editor(
+                            design = new ss.panel.design.text.Editor(
                                 options
                             );
                             break;

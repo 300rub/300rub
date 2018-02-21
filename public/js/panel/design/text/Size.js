@@ -6,7 +6,7 @@
      *
      * @param {Object} options
      *
-     * @type {ss.panel.design.text.Editor}
+     * @type {ss.panel.design.text.Size}
      */
     ss.panel.design.text.Size = function (options) {
         this._size = null;
@@ -80,14 +80,14 @@
                     value: this._sizeHover,
                     css: "size-hover",
                     min: 0,
+                    appendTo: this._hoverContainer,
                     callback: $.proxy(
                         function (value) {
                             this._sizeHover = value;
                             this.update();
                         },
                         this
-                    ),
-                appendTo: this._hoverContainer
+                    )
                 }
             );
         }
@@ -97,6 +97,7 @@
                 value: this._size,
                 css: "size",
                 min: 0,
+                appendTo: this._commonContainer,
                 callback: $.proxy(
                     function (value) {
                         if (this._size === this._sizeHover
@@ -110,8 +111,7 @@
                         this.update();
                     },
                     this
-                ),
-            appendTo: this._commonContainer
+                )
             }
         );
 

@@ -12,6 +12,11 @@
         this._example = null;
 
         this._size = null;
+        this._family = null;
+        this._color = null;
+        this._align = null;
+        this._italic = null;
+        this._bold = null;
 
         ss.panel.design.AbstractEditor.call(
             this,
@@ -87,6 +92,11 @@
         };
 
         this._size = new ss.panel.design.text.Size(data);
+        this._family = new ss.panel.design.text.Family(data);
+        this._color = new ss.panel.design.text.Color(data);
+        this._align = new ss.panel.design.text.Align(data);
+        this._italic = new ss.panel.design.text.Italic(data);
+        this._bold = new ss.panel.design.text.Bold(data);
 
         return this;
     };
@@ -123,7 +133,8 @@
         html += this.getSelector() + "{" + this._generateCss(false) + "}";
 
         if (this.getValue("hasHover") === true) {
-            html += this.getSelector() + ":hover{" + this._generateCss(true) + "}";
+            html += this.getSelector();
+            html += ":hover{" + this._generateCss(true) + "}";
         }
 
         html += "</style>";
@@ -142,9 +153,17 @@
             var cssHover = "";
 
             css += this._size.generateCss(false);
+            css += this._family.generateCss();
+            css += this._align.generateCss();
+            css += this._color.generateCss(false);
+            css += this._italic.generateCss(false);
+            css += this._bold.generateCss(false);
 
             if (this.getValue("hasHover") === true) {
                 cssHover += this._size.generateCss(true);
+                cssHover += this._color.generateCss(true);
+                cssHover += this._italic.generateCss(true);
+                cssHover += this._bold.generateCss(true);
             }
 
             var selector = "." + this._example.data("selector");
@@ -170,6 +189,11 @@
         var css = "";
 
         css += this._size.generateCss(isHover);
+        css += this._family.generateCss();
+        css += this._color.generateCss(isHover);
+        css += this._align.generateCss();
+        css += this._italic.generateCss(isHover);
+        css += this._bold.generateCss(isHover);
 
         return css;
     };
@@ -183,6 +207,11 @@
         var data = {};
 
         $.extend(data, this._size.getData());
+        $.extend(data, this._family.getData());
+        $.extend(data, this._color.getData());
+        $.extend(data, this._align.getData());
+        $.extend(data, this._italic.getData());
+        $.extend(data, this._bold.getData());
 
         return data;
     };
