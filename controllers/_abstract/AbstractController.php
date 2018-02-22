@@ -25,6 +25,12 @@ abstract class AbstractController extends AbstractOperationController
     const FORM_TYPE_SELECT = 'select';
 
     /**
+     * Protocols
+     */
+    const PROTOCOL_HTTP = 'http';
+    const PROTOCOL_HTTPS = 'https';
+
+    /**
      * Block section
      *
      * @var integer
@@ -140,5 +146,66 @@ abstract class AbstractController extends AbstractOperationController
         $bdObject = App::web()->getDb();
         $bdObject->rollbackTransaction();
         $bdObject->startTransaction();
+    }
+
+    /**
+     * Redirects
+     *
+     * @param string $uri      URI
+     * @param string $host     HOST
+     * @param string $protocol Protocol
+     *
+     * @return void
+     *
+     * @SuppressWarnings(PMD.ExitExpression)
+     */
+    protected function redirect($uri, $host = null, $protocol = null)
+    {
+        header(
+            sprintf(
+                'Location: %s',
+                $this->generateAbsoluteUrl($uri, $host, $protocol)
+            )
+        );
+        exit;
+    }
+
+    /**
+     * Generates absolute url
+     *
+     * @param string $uri      URI
+     * @param string $host     HOST
+     * @param string $protocol Protocol
+     *
+     * @return string
+     */
+    protected function generateAbsoluteUrl($uri, $host = null, $protocol = null)
+    {
+        if ($host === null) {
+            $host = App::web()
+                ->getSuperGlobalVariable()
+                ->getServerValue('HTTP_HOST');
+        }
+
+        if ($protocol === null) {
+            $protocol = App::web()
+                ->getSuperGlobalVariable()
+                ->getServerValue('SERVER_PROTOCOL');
+
+            $protocol = strtolower(
+                substr(
+                    $protocol,
+                    0,
+                    strpos($protocol, '/')
+                )
+            );
+        }
+
+        return sprintf(
+            '%s://%s%s',
+            $protocol,
+            $host,
+            $uri
+        );
     }
 }

@@ -2,12 +2,12 @@
 
 namespace ss\controllers\page;
 
-use ss\controllers\page\_abstract\AbstractPageController;
+use ss\controllers\_abstract\AbstractController;
 
 /**
  * Logout Controller
  */
-class LogoutController extends AbstractPageController
+class LogoutController extends AbstractController
 {
 
     /**

@@ -82,6 +82,18 @@ if (isset($js) === true) {
     </script>
     <script src="/js/<?php echo 'lib/less.min.js'; ?>"></script>
 <?php } ?>
+
+    <script>
+        window.jQuery(document).ready(function() {
+            window.ss.system.App.setLanguage(<?php echo $language; ?>);
+            window.ss.system.App.setToken("<?php echo $token; ?>");
+            <?php foreach ($errorMessages as $key => $value) { ?>
+            ss.components.Error.set(
+                "<?php echo $key; ?>", "<?php echo $value; ?>"
+            );
+            <?php } ?>
+        });
+    </script>
 </head>
 <body>
 
@@ -97,18 +109,6 @@ if ($isUser === true) {
 <?php echo $content; ?>
 
 <div id="ajax-wrapper"></div>
-
-<script>
-    window.jQuery(document).ready(function() {
-        window.ss.system.App.setLanguage(<?php echo $language; ?>);
-        window.ss.system.App.setToken("<?php echo $token; ?>");
-        <?php foreach ($errorMessages as $key => $value) { ?>
-            ss.components.Error.set(
-                "<?php echo $key; ?>", "<?php echo $value; ?>"
-            );
-        <?php } ?>
-    });
-</script>
 
 </body>
 </html>

@@ -2,6 +2,7 @@
 
 namespace ss\models\system;
 
+use ss\application\App;
 use ss\application\components\Db;
 use ss\models\system\_base\AbstractSiteModel;
 
@@ -53,5 +54,19 @@ class SiteModel extends AbstractSiteModel
         $this->getDb()->addParameter('name', $name);
 
         return $this;
+    }
+
+    /**
+     * Gets internal host
+     *
+     * @return string
+     */
+    public function getInternalHost()
+    {
+        return sprintf(
+            '%s.%s',
+            $this->get('name'),
+            App::getInstance()->getConfig()->getValue(['host'])
+        );
     }
 }

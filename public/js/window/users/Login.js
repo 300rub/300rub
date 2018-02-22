@@ -117,7 +117,7 @@
                     .focus();
             }
         } else {
-            window.location.reload();
+            window.location = "/";
         }
     };
 }(window.jQuery, window.ss);

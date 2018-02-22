@@ -35,8 +35,7 @@ return [
             'forms/Text',
             'window/Collection',
             'window/Abstract',
-            'window/users/Login',
-            'system/Login',
+            'window/users/Login'
         ],
         'compiledCss' => 'common',
         'compiledJs' => 'common',

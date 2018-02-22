@@ -32,10 +32,6 @@ class PageController extends AbstractPageController
             $content .= $this->_getUserContent();
         }
 
-        if ($isUser === false) {
-            $content .= $this->_getGuestContent();
-        }
-
         $content .= $this->getContentFromTemplate(
             'templates/templates',
             [
@@ -100,16 +96,6 @@ class PageController extends AbstractPageController
                 'content' => $lineHtml
             ]
         );
-    }
-
-    /**
-     * Gets content for guest only
-     *
-     * @return string
-     */
-    private function _getGuestContent()
-    {
-        return $this->getContentFromTemplate('page/loginButton');
     }
 
     /**
