@@ -17,7 +17,7 @@ class SiteModel extends AbstractSiteModel
      *
      * @var string
      */
-    private $_mainHost = "";
+    private $_mainHost = '';
 
     /**
      * Adds name condition to SQL request
