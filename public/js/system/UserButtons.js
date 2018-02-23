@@ -95,8 +95,8 @@
                             group: "user",
                             controller: "session"
                         },
-                        success: function () {
-                            window.location.reload();
+                        success: function (data) {
+                            window.location = data.host;
                         },
                         error: function (jqXHR) {
                             var $errorTemplate = ss.components.Error
