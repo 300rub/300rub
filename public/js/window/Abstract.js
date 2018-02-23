@@ -346,7 +346,7 @@
             this._window
                 .removeClass("loading")
                 .addClass("error");
-            this.getBody().html(errorTemplate);
+            this._body.html(errorTemplate);
         },
 
         /**
@@ -367,10 +367,10 @@
                 )
             );
 
-            this.getBody().keypress(
+            this._body.keypress(
                 function (e) {
                     if (e.which === 13) {
-                        submit.getInstance().click();
+                        submit.getForm().click();
                     }
                 }
             );
