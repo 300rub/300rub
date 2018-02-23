@@ -374,6 +374,8 @@ abstract class AbstractApplication
                 );
             }
 
+            $siteModel->setMainHost();
+
             $this->getMemcached()->set($memcachedKey, $siteModel);
         }
 

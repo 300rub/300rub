@@ -118,16 +118,12 @@ class DeleteSessionController extends AbstractController
      */
     private function _getResponse()
     {
-        //App::web()->getDb()->setSystemPdo();
-
-//        $a = [
-//            'host' => $this->generateAbsoluteUrl(
-//                '',
-//                "1",//App::web()->getSite()->getMainHost(),
-//                self::PROTOCOL_HTTP
-//            )
-//        ];
-
-        return $this->getSimpleSuccessResult();
+        return [
+            'host' => $this->generateAbsoluteUrl(
+                '',
+                App::web()->getSite()->getMainHost(),
+                self::PROTOCOL_HTTP
+            )
+        ];
     }
 }

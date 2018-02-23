@@ -13,6 +13,13 @@ class SiteModel extends AbstractSiteModel
 {
 
     /**
+     * Main host
+     *
+     * @var string
+     */
+    private $_mainHost = "";
+
+    /**
      * Adds name condition to SQL request
      *
      * @param string $name Name
@@ -71,26 +78,39 @@ class SiteModel extends AbstractSiteModel
     }
 
     /**
-     * Gets main host
+     * Sets main host
      *
-     * @return string
+     * @return SiteModel
      */
-    public function getMainHost()
+    public function setMainHost()
     {
         $domains = DomainModel::model()->getModelsBySiteId($this->getId());
 
         if (count($domains) > 0) {
             foreach ($domains as $domain) {
                 if ($domain->get('isMain') === true) {
-                    return $domain->get('name');
+                    $this->_mainHost = $domain->get('name');
+                    return $this;
                 }
             }
 
             foreach ($domains as $domain) {
-                return $domain->get('name');
+                $this->_mainHost = $domain->get('name');
+                return $this;
             }
         }
 
-        return $this->getInternalHost();
+        $this->_mainHost = $this->getInternalHost();
+        return $this;
+    }
+
+    /**
+     * Gets main host
+     *
+     * @return string
+     */
+    public function getMainHost()
+    {
+        return $this->_mainHost;
     }
 }
