@@ -29,11 +29,6 @@ abstract class AbstractWebPage extends AbstractApplication
             return $loginController->run();
         }
 
-        if ($requestUri === 'logout') {
-            $logoutController = new LogoutController();
-            return $logoutController->run();
-        }
-
         $pageController = new PageController();
         return $pageController->run();
     }

@@ -69,4 +69,28 @@ class SiteModel extends AbstractSiteModel
             App::getInstance()->getConfig()->getValue(['host'])
         );
     }
+
+    /**
+     * Gets main host
+     *
+     * @return string
+     */
+    public function getMainHost()
+    {
+        $domains = DomainModel::model()->getModelsBySiteId($this->getId());
+
+        if (count($domains) > 0) {
+            foreach ($domains as $domain) {
+                if ($domain->get('isMain') === true) {
+                    return $domain->get('name');
+                }
+            }
+
+            foreach ($domains as $domain) {
+                return $domain->get('name');
+            }
+        }
+
+        return $this->getInternalHost();
+    }
 }

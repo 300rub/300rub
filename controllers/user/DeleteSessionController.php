@@ -52,7 +52,7 @@ class DeleteSessionController extends AbstractController
                 $userSessionModel->delete();
             }
 
-            return $this->getSimpleSuccessResult();
+            return $this->_getResponse();
         }
 
         $token = $this->_getToken();
@@ -83,7 +83,7 @@ class DeleteSessionController extends AbstractController
             $userSessionModel->delete();
         }
 
-        return $this->getSimpleSuccessResult();
+        return $this->_getResponse();
     }
 
     /**
@@ -109,5 +109,25 @@ class DeleteSessionController extends AbstractController
         }
 
         return $token;
+    }
+
+    /**
+     * Gets response
+     *
+     * @return array
+     */
+    private function _getResponse()
+    {
+        //App::web()->getDb()->setSystemPdo();
+
+//        $a = [
+//            'host' => $this->generateAbsoluteUrl(
+//                '',
+//                "1",//App::web()->getSite()->getMainHost(),
+//                self::PROTOCOL_HTTP
+//            )
+//        ];
+
+        return $this->getSimpleSuccessResult();
     }
 }
