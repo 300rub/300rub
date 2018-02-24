@@ -15,7 +15,7 @@ class AbstractSeleniumTestCase extends \PHPUnit_Framework_TestCase
     /**
      * Max wait time in seconds
      */
-    const WAIT_TIME = 10;
+    const WAIT_TIME = 5;
 
     /**
      * Wait interval in milliseconds
@@ -106,6 +106,20 @@ class AbstractSeleniumTestCase extends \PHPUnit_Framework_TestCase
         }
 
         return true;
+    }
+
+    /**
+     * Gets all elements by CSS selector
+     *
+     * @param string $cssSelector CSS Selector
+     *
+     * @return \Facebook\WebDriver\Remote\RemoteWebElement[]
+     */
+    protected function findAll($cssSelector)
+    {
+        return $this->driver->findElements(
+            WebDriverBy::cssSelector($cssSelector)
+        );
     }
 
     /**
@@ -211,5 +225,21 @@ class AbstractSeleniumTestCase extends \PHPUnit_Framework_TestCase
         $this->driver
             ->findElement(WebDriverBy::cssSelector($cssSelector))
             ->click();
+    }
+
+    /**
+     * Gets element by ID
+     *
+     * @param string $cssId CSS ID
+     *
+     * @return \Facebook\WebDriver\Remote\RemoteWebElement
+     *
+     * @SuppressWarnings(PMD.StaticAccess)
+     */
+    protected function getById($cssId)
+    {
+        return $this->driver->findElement(
+            WebDriverBy::id($cssId)
+        );
     }
 }
