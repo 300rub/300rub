@@ -32,7 +32,7 @@ class BossLikeTest extends AbstractSeleniumTestCase
     /**
      * Loop count
      */
-    const LOOP_COUNT = 3;
+    const LOOP_COUNT = 7;
 
     /**
      * Data provider
@@ -176,8 +176,11 @@ class BossLikeTest extends AbstractSeleniumTestCase
                 sleep(1);
 
                 $handles = $this->driver->getWindowHandles();
-                $this->driver->switchTo()->window(end($handles));
+                if (count($handles) === 1) {
+                    continue;
+                }
 
+                $this->driver->switchTo()->window(end($handles));
                 $this->waitId('page_body');
 
                 $script = '
