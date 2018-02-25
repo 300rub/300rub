@@ -27,12 +27,12 @@ class BossLikeTest extends AbstractSeleniumTestCase
     /**
      * Price
      */
-    const TASK_PRICE = 20;
+    const TASK_PRICE = 18;
 
     /**
      * Loop count
      */
-    const LOOP_COUNT = 7;
+    const LOOP_COUNT = 50;
 
     /**
      * Data provider
@@ -48,12 +48,6 @@ class BossLikeTest extends AbstractSeleniumTestCase
                 'blUser' => 'vk447894241250@yandex.ru',
                 'blPass' => 'pass447894241250',
             ],
-            'again' => [
-                'vkUser' => '447894241250',
-                'vkPass' => 'vk1pasS77',
-                'blUser' => 'vk447894241250@yandex.ru',
-                'blPass' => 'pass447894241250',
-            ]
         ];
     }
 
@@ -151,9 +145,13 @@ class BossLikeTest extends AbstractSeleniumTestCase
                 sleep(1);
 
                 $panelBodies = $this->findAll('.panel-body');
+                $trash = null;
                 foreach ($panelBodies as $panelBody) {
                     $body = $panelBody->findElement(
                         WebDriverBy::cssSelector('.task-body h2 .do-task')
+                    );
+                    $trash = $panelBody->findElement(
+                        WebDriverBy::cssSelector('.fa-trash')
                     );
 
                     $text = $body->getText();
@@ -167,9 +165,6 @@ class BossLikeTest extends AbstractSeleniumTestCase
                         break;
                     }
 
-                    $trash = $panelBody->findElement(
-                        WebDriverBy::cssSelector('.fa-trash')
-                    );
                     $trash->click();
                 }
 
@@ -177,6 +172,10 @@ class BossLikeTest extends AbstractSeleniumTestCase
 
                 $handles = $this->driver->getWindowHandles();
                 if (count($handles) === 1) {
+                    if ($trash !== null) {
+                        $trash->click();
+                    }
+                    sleep(2);
                     continue;
                 }
 

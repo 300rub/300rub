@@ -15,7 +15,7 @@ class AbstractSeleniumTestCase extends \PHPUnit_Framework_TestCase
     /**
      * Max wait time in seconds
      */
-    const WAIT_TIME = 5;
+    const WAIT_TIME = 10;
 
     /**
      * Wait interval in milliseconds
