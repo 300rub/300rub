@@ -27,7 +27,7 @@ class BossLikeTest extends AbstractSeleniumTestCase
     /**
      * Price
      */
-    const TASK_PRICE = 18;
+    const TASK_PRICE = 20;
 
     /**
      * Loop count
