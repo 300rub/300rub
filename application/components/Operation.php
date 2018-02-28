@@ -76,6 +76,7 @@ class Operation
     const RECORD_UPDATE_DESIGN = 'RECORD_UPDATE_DESIGN';
     const RECORD_UPDATE_CONTENT = 'RECORD_UPDATE_CONTENT';
     const RECORD_DELETE = 'RECORD_DELETE';
+    const RECORD_DUPLICATE = 'RECORD_DUPLICATE';
 
     /**
      * Gets section operations
@@ -247,6 +248,8 @@ class Operation
                 => $language->getMessage('operation', 'edit'),
             self::RECORD_DELETE
                 => $language->getMessage('operation', 'delete'),
+            self::RECORD_DUPLICATE
+                => $language->getMessage('operation', 'duplicate'),
         ];
 
         if ($isAll === true) {

@@ -2,27 +2,13 @@
 
 namespace testS\controllers;
 
-use testS\components\exceptions\BadRequestException;
-use testS\components\Language;
-use testS\components\Operation;
-use testS\models\BlockModel;
-use testS\models\RecordModel;
-
 /**
  * RecordController
  *
  * @package testS\controllers
  */
-class RecordController extends AbstractController
+class RecordController
 {
-
-    /**
-     * Adds block
-     */
-    public function createBlockDuplication()
-    {
-        // @TODO
-    }
 
     /**
      * Gets block
