@@ -22,7 +22,7 @@ abstract class AbstractRecordCloneModel extends AbstractContentModel
      *
      * @return array
      */
-    public static function getDateTypeList()
+    public function getDateTypeList()
     {
         return [
             self::DATE_TYPE_COMMON => '',
@@ -65,6 +65,9 @@ abstract class AbstractRecordCloneModel extends AbstractContentModel
                     => '\\ss\\models\\blocks\\record\\DesignRecordCloneModel'
             ],
             'hasCover'            => [
+                self::FIELD_TYPE => self::FIELD_TYPE_BOOL
+            ],
+            'hasImages'           => [
                 self::FIELD_TYPE => self::FIELD_TYPE_BOOL
             ],
             'hasCoverZoom'        => [

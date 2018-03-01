@@ -39,6 +39,10 @@ return [
         Language::LANGUAGE_EN_ID => 'Add',
         Language::LANGUAGE_RU_ID => '',
     ],
+    'addClone' => [
+        Language::LANGUAGE_EN_ID => 'Add clone',
+        Language::LANGUAGE_RU_ID => '',
+    ],
     'edit' => [
         Language::LANGUAGE_EN_ID => 'Edit',
         Language::LANGUAGE_RU_ID => '',
@@ -57,6 +61,10 @@ return [
     ],
     'editSettings' => [
         Language::LANGUAGE_EN_ID => 'Edit settings',
+        Language::LANGUAGE_RU_ID => '',
+    ],
+    'editCloneSettings' => [
+        Language::LANGUAGE_EN_ID => 'Edit clone settings',
         Language::LANGUAGE_RU_ID => '',
     ],
     'imageUpload' => [

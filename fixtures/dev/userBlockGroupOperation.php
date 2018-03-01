@@ -124,4 +124,14 @@ return [
         'blockType' => BlockModel::TYPE_RECORD,
         'operation' => Operation::RECORD_DUPLICATE,
     ],
+    [
+        'userId'    => 3,
+        'blockType' => BlockModel::TYPE_RECORD,
+        'operation' => Operation::RECORD_ADD_CLONE,
+    ],
+    [
+        'userId'    => 3,
+        'blockType' => BlockModel::TYPE_RECORD,
+        'operation' => Operation::RECORD_UPDATE_CLONE_SETTINGS,
+    ],
 ];
