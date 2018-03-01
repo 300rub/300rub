@@ -74,4 +74,14 @@ class RecordCloneModel extends AbstractRecordCloneModel
     {
         return [];
     }
+
+    /**
+     * Gets new model
+     *
+     * @return RecordCloneModel
+     */
+    public static function model()
+    {
+        return new self;
+    }
 }
