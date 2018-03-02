@@ -11,22 +11,6 @@ class RecordController
 {
 
     /**
-     * Deletes block
-     */
-    public function deleteCloneBlock()
-    {
-        // @TODO
-    }
-
-    /**
-     * Adds block
-     */
-    public function createCloneBlockDuplication()
-    {
-        // @TODO
-    }
-
-    /**
      * Gets block's design
      */
     public function getDesign()

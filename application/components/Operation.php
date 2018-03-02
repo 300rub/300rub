@@ -80,6 +80,7 @@ class Operation
     const RECORD_DELETE = 'RECORD_DELETE';
     const RECORD_DELETE_CLONE = 'RECORD_DELETE_CLONE';
     const RECORD_DUPLICATE = 'RECORD_DUPLICATE';
+    const RECORD_DUPLICATE_CLONE = 'RECORD_DUPLICATE_CLONE';
 
     /**
      * Gets section operations
@@ -257,6 +258,8 @@ class Operation
                 => $language->getMessage('operation', 'deleteClone'),
             self::RECORD_DUPLICATE
                 => $language->getMessage('operation', 'duplicate'),
+            self::RECORD_DUPLICATE_CLONE
+                => $language->getMessage('operation', 'duplicateClone'),
         ];
 
         if ($isAll === true) {

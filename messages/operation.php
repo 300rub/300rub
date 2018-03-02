@@ -59,6 +59,10 @@ return [
         Language::LANGUAGE_EN_ID => 'Duplicate',
         Language::LANGUAGE_RU_ID => '',
     ],
+    'duplicateClone' => [
+        Language::LANGUAGE_EN_ID => 'Duplicate Clone',
+        Language::LANGUAGE_RU_ID => '',
+    ],
     'editDesign' => [
         Language::LANGUAGE_EN_ID => 'Edit design',
         Language::LANGUAGE_RU_ID => '',
