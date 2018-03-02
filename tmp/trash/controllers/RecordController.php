@@ -11,14 +11,6 @@ class RecordController
 {
 
     /**
-     * Updates block
-     */
-    public function updateCloneBlock()
-    {
-        // @TODO
-    }
-
-    /**
      * Deletes block
      */
     public function deleteCloneBlock()
