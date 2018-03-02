@@ -32,7 +32,7 @@ class BossLikeTest extends AbstractSeleniumTestCase
     /**
      * Loop count
      */
-    const LOOP_COUNT = 50;
+    const LOOP_COUNT = 3;
 
     /**
      * Data provider
@@ -44,9 +44,27 @@ class BossLikeTest extends AbstractSeleniumTestCase
         return [
             '447894241250' => [
                 'vkUser' => '447894241250',
-                'vkPass' => 'vk1pasS77',
+                'vkPass' => 'vk2pasS77',
                 'blUser' => 'vk447894241250@yandex.ru',
                 'blPass' => 'pass447894241250',
+                'cookie' => [
+                    [
+                        'name'    => '1711acb810d1e29fc748352d59f5bda8',
+                        'content' => 'f32cb5dde377b837ea27c912fab2bf97db894707s%3A253%3A%22d0a77660534189a1c1b1b0641f7d3245c4e0e127a%3A4%3A%7Bi%3A0%3Bs%3A7%3A%222225837%22%3Bi%3A1%3Bs%3A14%3A%22vk447894241250%22%3Bi%3A2%3Bi%3A31536000%3Bi%3A3%3Ba%3A4%3A%7Bs%3A2%3A%22id%22%3Bs%3A7%3A%222225837%22%3Bs%3A4%3A%22name%22%3Bs%3A14%3A%22vk447894241250%22%3Bs%3A10%3A%22login_time%22%3Bi%3A1520023165%3Bs%3A4%3A%22auth%22%3Bs%3A32%3A%220c34823fcc80aba36b6a49629e0ad9c8%22%3B%7D%7D%22%3B',
+                    ]
+                ]
+            ],
+            '447902599250' => [
+                'vkUser' => '447902599250',
+                'vkPass' => 'vk1pasS77',
+                'blUser' => 'vk447902599250@yandex.ru',
+                'blPass' => 'pass447902599250',
+                'cookie' => [
+                    [
+                        'name'    => '1711acb810d1e29fc748352d59f5bda8',
+                        'content' => '0f42eed5ed13579b1808dd6604fd73c2eced28a3s%3A253%3A%22220e66dcc8cecc7a0ca5a6a89b65254dcef31f00a%3A4%3A%7Bi%3A0%3Bs%3A7%3A%222245948%22%3Bi%3A1%3Bs%3A14%3A%22vk447902599250%22%3Bi%3A2%3Bi%3A31536000%3Bi%3A3%3Ba%3A4%3A%7Bs%3A2%3A%22id%22%3Bs%3A7%3A%222245948%22%3Bs%3A4%3A%22name%22%3Bs%3A14%3A%22vk447902599250%22%3Bs%3A10%3A%22login_time%22%3Bi%3A1520025166%3Bs%3A4%3A%22auth%22%3Bs%3A32%3A%22ecd4c2a6d0cd0d179d6be309576db492%22%3B%7D%7D%22%3B',
+                    ]
+                ]
             ],
         ];
     }
@@ -54,20 +72,27 @@ class BossLikeTest extends AbstractSeleniumTestCase
     /**
      * Like test
      *
-     * @param string $vkUser VK user
-     * @param string $vkPass VK pass
-     * @param string $blUser BossLike user
-     * @param string $blPass BossLike pass
+     * @param string $vkUser  VK user
+     * @param string $vkPass  VK pass
+     * @param string $blUser  BossLike user
+     * @param string $blPass  BossLike pass
+     * @param array  $cookies Cookie
      *
      * @return void
      *
      * @dataProvider dataProvider
      */
-    public function testLike($vkUser, $vkPass, $blUser, $blPass)
-    {
+    public function testLike(
+        $vkUser,
+        $vkPass,
+        $blUser,
+        $blPass,
+        $cookies
+    ) {
         $this
             ->_vkLogin($vkUser, $vkPass)
             ->_bossLikeLogin($blUser, $blPass)
+            ->_bossLikeLoginByCookie($cookies)
             ->_addLikes()
             ->_addTask();
     }
@@ -100,6 +125,22 @@ class BossLikeTest extends AbstractSeleniumTestCase
         return $this;
     }
 
+    private function _bossLikeLoginByCookie($cookies)
+    {
+        $this->driver->get('http://bosslike.ru/');
+
+        foreach ($cookies as $cookie) {
+            $this->driver->manage()->addCookie(
+                [
+                    'name'   => $cookie['name'],
+                    'value'  => $cookie['content'],
+                ]
+            );
+        }
+
+        return $this;
+    }
+
     /**
      * Boss like Login
      *
@@ -110,6 +151,10 @@ class BossLikeTest extends AbstractSeleniumTestCase
      */
     private function _bossLikeLogin($blUser, $blPass)
     {
+        if (1 === 1) {
+            return $this;
+        }
+
         $this->driver->get('http://bosslike.ru/login/');
 
         $this->fillText(
@@ -222,6 +267,14 @@ class BossLikeTest extends AbstractSeleniumTestCase
         if ($count < 1) {
             return $this;
         }
+
+        $this->driver->executeScript(
+            '
+                $("#task-menu .sidebar-header .btn-block").click(); 
+            '
+        );
+
+        sleep(1);
 
         $this->fillText(
             '#Task_count',
