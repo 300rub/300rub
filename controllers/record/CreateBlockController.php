@@ -22,9 +22,9 @@ class CreateBlockController extends AbstractController
     public function run()
     {
         $this->checkBlockOperation(
-            BlockModel::TYPE_IMAGE,
+            BlockModel::TYPE_RECORD,
             Operation::ALL,
-            Operation::IMAGE_ADD
+            Operation::RECORD_ADD
         );
 
         $this->checkData(

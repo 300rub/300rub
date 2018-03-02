@@ -15,16 +15,32 @@ return [
         Language::LANGUAGE_EN_ID => 'Edit record',
         Language::LANGUAGE_RU_ID => '',
     ],
+    'editCloneBlockTitle'    => [
+        Language::LANGUAGE_EN_ID => 'Edit record clone',
+        Language::LANGUAGE_RU_ID => '',
+    ],
     'addBlockTitle'    => [
         Language::LANGUAGE_EN_ID => 'Add record',
+        Language::LANGUAGE_RU_ID => '',
+    ],
+    'addCloneBlockTitle'    => [
+        Language::LANGUAGE_EN_ID => 'Add record clone',
         Language::LANGUAGE_RU_ID => '',
     ],
     'editBlockDescription'    => [
         Language::LANGUAGE_EN_ID => 'Edit block description...',
         Language::LANGUAGE_RU_ID => '',
     ],
+    'editCloneBlockDescription'    => [
+        Language::LANGUAGE_EN_ID => 'Edit block clone description...',
+        Language::LANGUAGE_RU_ID => '',
+    ],
     'addBlockDescription'    => [
         Language::LANGUAGE_EN_ID => 'Add block description...',
+        Language::LANGUAGE_RU_ID => '',
+    ],
+    'addCloneBlockDescription'    => [
+        Language::LANGUAGE_EN_ID => 'Add block clone description...',
         Language::LANGUAGE_RU_ID => '',
     ],
     'hasCover'    => [
@@ -57,6 +73,14 @@ return [
     ],
     'fullCardDateType'    => [
         Language::LANGUAGE_EN_ID => 'Short card date type',
+        Language::LANGUAGE_RU_ID => '',
+    ],
+    'dateType'    => [
+        Language::LANGUAGE_EN_ID => 'Date type',
+        Language::LANGUAGE_RU_ID => '',
+    ],
+    'maxCount'    => [
+        Language::LANGUAGE_EN_ID => 'Max count',
         Language::LANGUAGE_RU_ID => '',
     ],
 ];

@@ -72,10 +72,15 @@ class Operation
      * Block record operations
      */
     const RECORD_ADD = 'RECORD_ADD';
+    const RECORD_ADD_CLONE = 'RECORD_ADD_CLONE';
     const RECORD_UPDATE_SETTINGS = 'RECORD_UPDATE_SETTINGS';
+    const RECORD_UPDATE_CLONE_SETTINGS = 'RECORD_UPDATE_CLONE_SETTINGS';
     const RECORD_UPDATE_DESIGN = 'RECORD_UPDATE_DESIGN';
     const RECORD_UPDATE_CONTENT = 'RECORD_UPDATE_CONTENT';
     const RECORD_DELETE = 'RECORD_DELETE';
+    const RECORD_DELETE_CLONE = 'RECORD_DELETE_CLONE';
+    const RECORD_DUPLICATE = 'RECORD_DUPLICATE';
+    const RECORD_DUPLICATE_CLONE = 'RECORD_DUPLICATE_CLONE';
 
     /**
      * Gets section operations
@@ -241,16 +246,26 @@ class Operation
         $list = [
             self::RECORD_UPDATE_SETTINGS
                 => $language->getMessage('operation', 'editSettings'),
+            self::RECORD_UPDATE_CLONE_SETTINGS
+                => $language->getMessage('operation', 'editCloneSettings'),
             self::RECORD_UPDATE_DESIGN
                 => $language->getMessage('operation', 'editDesign'),
             self::RECORD_UPDATE_CONTENT
                 => $language->getMessage('operation', 'edit'),
             self::RECORD_DELETE
                 => $language->getMessage('operation', 'delete'),
+            self::RECORD_DELETE_CLONE
+                => $language->getMessage('operation', 'deleteClone'),
+            self::RECORD_DUPLICATE
+                => $language->getMessage('operation', 'duplicate'),
+            self::RECORD_DUPLICATE_CLONE
+                => $language->getMessage('operation', 'duplicateClone'),
         ];
 
         if ($isAll === true) {
             $list[self::RECORD_ADD] = $language->getMessage('operation', 'add');
+            $list[self::RECORD_ADD_CLONE]
+                = $language->getMessage('operation', 'addClone');
         }
 
         return $list;

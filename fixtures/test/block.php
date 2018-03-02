@@ -51,4 +51,22 @@ return [
         'contentType' => BlockModel::TYPE_RECORD,
         'contentId'   => 2,
     ],
+    9 => [
+        'name'        => 'Records 1 clone 2',
+        'language'    => 1,
+        'contentType' => BlockModel::TYPE_RECORD_CLONE,
+        'contentId'   => 2,
+    ],
+    10 => [
+        'name'        => 'Records 2 clone 1',
+        'language'    => 1,
+        'contentType' => BlockModel::TYPE_RECORD_CLONE,
+        'contentId'   => 3,
+    ],
+    11 => [
+        'name'        => 'Records 2 clone 2',
+        'language'    => 1,
+        'contentType' => BlockModel::TYPE_RECORD_CLONE,
+        'contentId'   => 4,
+    ],
 ];

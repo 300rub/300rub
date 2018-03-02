@@ -39,6 +39,10 @@ return [
         Language::LANGUAGE_EN_ID => 'Add',
         Language::LANGUAGE_RU_ID => '',
     ],
+    'addClone' => [
+        Language::LANGUAGE_EN_ID => 'Add clone',
+        Language::LANGUAGE_RU_ID => '',
+    ],
     'edit' => [
         Language::LANGUAGE_EN_ID => 'Edit',
         Language::LANGUAGE_RU_ID => '',
@@ -47,8 +51,16 @@ return [
         Language::LANGUAGE_EN_ID => 'Delete',
         Language::LANGUAGE_RU_ID => '',
     ],
+    'deleteClone' => [
+        Language::LANGUAGE_EN_ID => 'Delete Clone',
+        Language::LANGUAGE_RU_ID => '',
+    ],
     'duplicate' => [
         Language::LANGUAGE_EN_ID => 'Duplicate',
+        Language::LANGUAGE_RU_ID => '',
+    ],
+    'duplicateClone' => [
+        Language::LANGUAGE_EN_ID => 'Duplicate Clone',
         Language::LANGUAGE_RU_ID => '',
     ],
     'editDesign' => [
@@ -57,6 +69,10 @@ return [
     ],
     'editSettings' => [
         Language::LANGUAGE_EN_ID => 'Edit settings',
+        Language::LANGUAGE_RU_ID => '',
+    ],
+    'editCloneSettings' => [
+        Language::LANGUAGE_EN_ID => 'Edit clone settings',
         Language::LANGUAGE_RU_ID => '',
     ],
     'imageUpload' => [
