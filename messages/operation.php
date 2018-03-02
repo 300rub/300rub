@@ -51,6 +51,10 @@ return [
         Language::LANGUAGE_EN_ID => 'Delete',
         Language::LANGUAGE_RU_ID => '',
     ],
+    'deleteClone' => [
+        Language::LANGUAGE_EN_ID => 'Delete Clone',
+        Language::LANGUAGE_RU_ID => '',
+    ],
     'duplicate' => [
         Language::LANGUAGE_EN_ID => 'Duplicate',
         Language::LANGUAGE_RU_ID => '',

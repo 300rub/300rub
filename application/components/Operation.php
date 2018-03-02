@@ -78,6 +78,7 @@ class Operation
     const RECORD_UPDATE_DESIGN = 'RECORD_UPDATE_DESIGN';
     const RECORD_UPDATE_CONTENT = 'RECORD_UPDATE_CONTENT';
     const RECORD_DELETE = 'RECORD_DELETE';
+    const RECORD_DELETE_CLONE = 'RECORD_DELETE_CLONE';
     const RECORD_DUPLICATE = 'RECORD_DUPLICATE';
 
     /**
@@ -252,6 +253,8 @@ class Operation
                 => $language->getMessage('operation', 'edit'),
             self::RECORD_DELETE
                 => $language->getMessage('operation', 'delete'),
+            self::RECORD_DELETE_CLONE
+                => $language->getMessage('operation', 'deleteClone'),
             self::RECORD_DUPLICATE
                 => $language->getMessage('operation', 'duplicate'),
         ];

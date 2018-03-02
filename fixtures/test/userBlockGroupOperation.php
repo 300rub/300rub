@@ -134,4 +134,9 @@ return [
         'blockType' => BlockModel::TYPE_RECORD,
         'operation' => Operation::RECORD_UPDATE_CLONE_SETTINGS,
     ],
+    [
+        'userId'    => 3,
+        'blockType' => BlockModel::TYPE_RECORD,
+        'operation' => Operation::RECORD_DELETE_CLONE,
+    ],
 ];
