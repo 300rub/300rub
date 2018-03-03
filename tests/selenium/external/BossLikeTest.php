@@ -42,30 +42,30 @@ class BossLikeTest extends AbstractSeleniumTestCase
     public function dataProvider()
     {
         return [
-            '447894241250' => [
-                'vkUser' => '447894241250',
-                'vkPass' => 'vk2pasS77',
-                'blUser' => 'vk447894241250@yandex.ru',
-                'blPass' => 'pass447894241250',
-                'cookie' => [
-                    [
-                        'name'    => '1711acb810d1e29fc748352d59f5bda8',
-                        'content' => 'f32cb5dde377b837ea27c912fab2bf97db894707s%3A253%3A%22d0a77660534189a1c1b1b0641f7d3245c4e0e127a%3A4%3A%7Bi%3A0%3Bs%3A7%3A%222225837%22%3Bi%3A1%3Bs%3A14%3A%22vk447894241250%22%3Bi%3A2%3Bi%3A31536000%3Bi%3A3%3Ba%3A4%3A%7Bs%3A2%3A%22id%22%3Bs%3A7%3A%222225837%22%3Bs%3A4%3A%22name%22%3Bs%3A14%3A%22vk447894241250%22%3Bs%3A10%3A%22login_time%22%3Bi%3A1520023165%3Bs%3A4%3A%22auth%22%3Bs%3A32%3A%220c34823fcc80aba36b6a49629e0ad9c8%22%3B%7D%7D%22%3B',
-                    ]
-                ]
-            ],
-            '447902599250' => [
-                'vkUser' => '447902599250',
-                'vkPass' => 'vk1pasS77',
-                'blUser' => 'vk447902599250@yandex.ru',
-                'blPass' => 'pass447902599250',
-                'cookie' => [
-                    [
-                        'name'    => '1711acb810d1e29fc748352d59f5bda8',
-                        'content' => '0f42eed5ed13579b1808dd6604fd73c2eced28a3s%3A253%3A%22220e66dcc8cecc7a0ca5a6a89b65254dcef31f00a%3A4%3A%7Bi%3A0%3Bs%3A7%3A%222245948%22%3Bi%3A1%3Bs%3A14%3A%22vk447902599250%22%3Bi%3A2%3Bi%3A31536000%3Bi%3A3%3Ba%3A4%3A%7Bs%3A2%3A%22id%22%3Bs%3A7%3A%222245948%22%3Bs%3A4%3A%22name%22%3Bs%3A14%3A%22vk447902599250%22%3Bs%3A10%3A%22login_time%22%3Bi%3A1520025166%3Bs%3A4%3A%22auth%22%3Bs%3A32%3A%22ecd4c2a6d0cd0d179d6be309576db492%22%3B%7D%7D%22%3B',
-                    ]
-                ]
-            ],
+//            '447894241250' => [
+//                'vkUser' => '447894241250',
+//                'vkPass' => 'vk2pasS77',
+//                'blUser' => 'vk447894241250@yandex.ru',
+//                'blPass' => 'pass447894241250',
+//                'cookie' => [
+//                    [
+//                        'name'    => '1711acb810d1e29fc748352d59f5bda8',
+//                        'content' => '94fb33d9728a5cc63f2ae820d9a4ec6b0ac20fb2s%3A253%3A%22228ef1a8d9836d6c5267afe7b664724cbc1cf405a%3A4%3A%7Bi%3A0%3Bs%3A7%3A%222225837%22%3Bi%3A1%3Bs%3A14%3A%22vk447894241250%22%3Bi%3A2%3Bi%3A31536000%3Bi%3A3%3Ba%3A4%3A%7Bs%3A2%3A%22id%22%3Bs%3A7%3A%222225837%22%3Bs%3A4%3A%22name%22%3Bs%3A14%3A%22vk447894241250%22%3Bs%3A10%3A%22login_time%22%3Bi%3A1520068294%3Bs%3A4%3A%22auth%22%3Bs%3A32%3A%226a00299d06576ea8bfce3358ff3b0798%22%3B%7D%7D%22%3B',
+//                    ]
+//                ]
+//            ],
+//            '447902599250' => [
+//                'vkUser' => '447902599250',
+//                'vkPass' => 'vk1pasS77',
+//                'blUser' => 'vk447902599250@yandex.ru',
+//                'blPass' => 'pass447902599250',
+//                'cookie' => [
+//                    [
+//                        'name'    => '1711acb810d1e29fc748352d59f5bda8',
+//                        'content' => 'bdbb1bc6fffad4681b5e4299969277fe8add5b71s%3A253%3A%2240ef2879fd37cefd5d0ea0777083be92d341835ea%3A4%3A%7Bi%3A0%3Bs%3A7%3A%222245948%22%3Bi%3A1%3Bs%3A14%3A%22vk447902599250%22%3Bi%3A2%3Bi%3A31536000%3Bi%3A3%3Ba%3A4%3A%7Bs%3A2%3A%22id%22%3Bs%3A7%3A%222245948%22%3Bs%3A4%3A%22name%22%3Bs%3A14%3A%22vk447902599250%22%3Bs%3A10%3A%22login_time%22%3Bi%3A1520068347%3Bs%3A4%3A%22auth%22%3Bs%3A32%3A%220a6fb8f9019f530e1528bb9eb483ff98%22%3B%7D%7D%22%3B',
+//                    ]
+//                ]
+//            ],
             '447468771254' => [
                 'vkUser' => '447468771254',
                 'vkPass' => 'vk1pasS77',
@@ -74,7 +74,7 @@ class BossLikeTest extends AbstractSeleniumTestCase
                 'cookie' => [
                     [
                         'name'    => '1711acb810d1e29fc748352d59f5bda8',
-                        'content' => 'a2d0d1a5965b2243404f249b0e54e9c33f943422s%3A253%3A%222634bc16938c2fc3843ccb3c1ce81e7de03722b4a%3A4%3A%7Bi%3A0%3Bs%3A7%3A%222246272%22%3Bi%3A1%3Bs%3A14%3A%22vk447468771254%22%3Bi%3A2%3Bi%3A31536000%3Bi%3A3%3Ba%3A4%3A%7Bs%3A2%3A%22id%22%3Bs%3A7%3A%222246272%22%3Bs%3A4%3A%22name%22%3Bs%3A14%3A%22vk447468771254%22%3Bs%3A10%3A%22login_time%22%3Bi%3A1520027883%3Bs%3A4%3A%22auth%22%3Bs%3A32%3A%2229d1bed6dda017be1fa2017e2868507e%22%3B%7D%7D%22%3B',
+                        'content' => '2646f63c5a517d28fe74b0ef84594220e6311732s%3A253%3A%22d783fd8e720675223dc24eec2ba5c6ad0d19f338a%3A4%3A%7Bi%3A0%3Bs%3A7%3A%222246272%22%3Bi%3A1%3Bs%3A14%3A%22vk447468771254%22%3Bi%3A2%3Bi%3A31536000%3Bi%3A3%3Ba%3A4%3A%7Bs%3A2%3A%22id%22%3Bs%3A7%3A%222246272%22%3Bs%3A4%3A%22name%22%3Bs%3A14%3A%22vk447468771254%22%3Bs%3A10%3A%22login_time%22%3Bi%3A1520068694%3Bs%3A4%3A%22auth%22%3Bs%3A32%3A%22d962ea4d61925f299524c4da1790c3f5%22%3B%7D%7D%22%3B',
                     ]
                 ]
             ],
@@ -86,7 +86,7 @@ class BossLikeTest extends AbstractSeleniumTestCase
                 'cookie' => [
                     [
                         'name'    => '1711acb810d1e29fc748352d59f5bda8',
-                        'content' => 'ab1a41c7e86d9cab599573719639bf8198b0db73s%3A253%3A%229cd53796494483209482ea06956f469f1fc02342a%3A4%3A%7Bi%3A0%3Bs%3A7%3A%222246904%22%3Bi%3A1%3Bs%3A14%3A%22vk447468771543%22%3Bi%3A2%3Bi%3A31536000%3Bi%3A3%3Ba%3A4%3A%7Bs%3A2%3A%22id%22%3Bs%3A7%3A%222246904%22%3Bs%3A4%3A%22name%22%3Bs%3A14%3A%22vk447468771543%22%3Bs%3A10%3A%22login_time%22%3Bi%3A1520065377%3Bs%3A4%3A%22auth%22%3Bs%3A32%3A%22c111a0d65fb600719a0bca7cdacb1d89%22%3B%7D%7D%22%3B',
+                        'content' => '71fb7969cc7680bb77b5e3ba851a2657b97a50f8s%3A253%3A%2295a31f980b662f4792c217cf8ca9dc0da44ffe88a%3A4%3A%7Bi%3A0%3Bs%3A7%3A%222246904%22%3Bi%3A1%3Bs%3A14%3A%22vk447468771543%22%3Bi%3A2%3Bi%3A31536000%3Bi%3A3%3Ba%3A4%3A%7Bs%3A2%3A%22id%22%3Bs%3A7%3A%222246904%22%3Bs%3A4%3A%22name%22%3Bs%3A14%3A%22vk447468771543%22%3Bs%3A10%3A%22login_time%22%3Bi%3A1520068770%3Bs%3A4%3A%22auth%22%3Bs%3A32%3A%226d42f4bf587ceef7d823b4ad8e07e2ce%22%3B%7D%7D%22%3B',
                     ]
                 ]
             ],
@@ -98,7 +98,7 @@ class BossLikeTest extends AbstractSeleniumTestCase
                 'cookie' => [
                     [
                         'name'    => '1711acb810d1e29fc748352d59f5bda8',
-                        'content' => '837ac6885fbe892e2c968f461d27900b9ec07c70s%3A253%3A%22f077c9a5b54ca190b7cdb28b2e0067ab80fb2bbda%3A4%3A%7Bi%3A0%3Bs%3A7%3A%222246970%22%3Bi%3A1%3Bs%3A14%3A%22vk447543186265%22%3Bi%3A2%3Bi%3A31536000%3Bi%3A3%3Ba%3A4%3A%7Bs%3A2%3A%22id%22%3Bs%3A7%3A%222246970%22%3Bs%3A4%3A%22name%22%3Bs%3A14%3A%22vk447543186265%22%3Bs%3A10%3A%22login_time%22%3Bi%3A1520067024%3Bs%3A4%3A%22auth%22%3Bs%3A32%3A%221a29b424e1943c0c4598d8dc1d168083%22%3B%7D%7D%22%3B',
+                        'content' => '215f0c078dd0da4797df8e71f56601b0c2dae48ds%3A253%3A%2255bda6c7af72c13b8f0314ec47bcc294c661a4ffa%3A4%3A%7Bi%3A0%3Bs%3A7%3A%222246970%22%3Bi%3A1%3Bs%3A14%3A%22vk447543186265%22%3Bi%3A2%3Bi%3A31536000%3Bi%3A3%3Ba%3A4%3A%7Bs%3A2%3A%22id%22%3Bs%3A7%3A%222246970%22%3Bs%3A4%3A%22name%22%3Bs%3A14%3A%22vk447543186265%22%3Bs%3A10%3A%22login_time%22%3Bi%3A1520068839%3Bs%3A4%3A%22auth%22%3Bs%3A32%3A%2259b5fc77d5055ed246fce916762f0655%22%3B%7D%7D%22%3B',
                     ]
                 ]
             ],
