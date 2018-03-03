@@ -42,30 +42,30 @@ class BossLikeTest extends AbstractSeleniumTestCase
     public function dataProvider()
     {
         return [
-//            '447894241250' => [
-//                'vkUser' => '447894241250',
-//                'vkPass' => 'vk2pasS77',
-//                'blUser' => 'vk447894241250@yandex.ru',
-//                'blPass' => 'pass447894241250',
-//                'cookie' => [
-//                    [
-//                        'name'    => '1711acb810d1e29fc748352d59f5bda8',
-//                        'content' => '94fb33d9728a5cc63f2ae820d9a4ec6b0ac20fb2s%3A253%3A%22228ef1a8d9836d6c5267afe7b664724cbc1cf405a%3A4%3A%7Bi%3A0%3Bs%3A7%3A%222225837%22%3Bi%3A1%3Bs%3A14%3A%22vk447894241250%22%3Bi%3A2%3Bi%3A31536000%3Bi%3A3%3Ba%3A4%3A%7Bs%3A2%3A%22id%22%3Bs%3A7%3A%222225837%22%3Bs%3A4%3A%22name%22%3Bs%3A14%3A%22vk447894241250%22%3Bs%3A10%3A%22login_time%22%3Bi%3A1520068294%3Bs%3A4%3A%22auth%22%3Bs%3A32%3A%226a00299d06576ea8bfce3358ff3b0798%22%3B%7D%7D%22%3B',
-//                    ]
-//                ]
-//            ],
-//            '447902599250' => [
-//                'vkUser' => '447902599250',
-//                'vkPass' => 'vk1pasS77',
-//                'blUser' => 'vk447902599250@yandex.ru',
-//                'blPass' => 'pass447902599250',
-//                'cookie' => [
-//                    [
-//                        'name'    => '1711acb810d1e29fc748352d59f5bda8',
-//                        'content' => 'bdbb1bc6fffad4681b5e4299969277fe8add5b71s%3A253%3A%2240ef2879fd37cefd5d0ea0777083be92d341835ea%3A4%3A%7Bi%3A0%3Bs%3A7%3A%222245948%22%3Bi%3A1%3Bs%3A14%3A%22vk447902599250%22%3Bi%3A2%3Bi%3A31536000%3Bi%3A3%3Ba%3A4%3A%7Bs%3A2%3A%22id%22%3Bs%3A7%3A%222245948%22%3Bs%3A4%3A%22name%22%3Bs%3A14%3A%22vk447902599250%22%3Bs%3A10%3A%22login_time%22%3Bi%3A1520068347%3Bs%3A4%3A%22auth%22%3Bs%3A32%3A%220a6fb8f9019f530e1528bb9eb483ff98%22%3B%7D%7D%22%3B',
-//                    ]
-//                ]
-//            ],
+            '447894241250' => [
+                'vkUser' => '447894241250',
+                'vkPass' => 'vk2pasS77',
+                'blUser' => 'vk447894241250@yandex.ru',
+                'blPass' => 'pass447894241250',
+                'cookie' => [
+                    [
+                        'name'    => '1711acb810d1e29fc748352d59f5bda8',
+                        'content' => '94fb33d9728a5cc63f2ae820d9a4ec6b0ac20fb2s%3A253%3A%22228ef1a8d9836d6c5267afe7b664724cbc1cf405a%3A4%3A%7Bi%3A0%3Bs%3A7%3A%222225837%22%3Bi%3A1%3Bs%3A14%3A%22vk447894241250%22%3Bi%3A2%3Bi%3A31536000%3Bi%3A3%3Ba%3A4%3A%7Bs%3A2%3A%22id%22%3Bs%3A7%3A%222225837%22%3Bs%3A4%3A%22name%22%3Bs%3A14%3A%22vk447894241250%22%3Bs%3A10%3A%22login_time%22%3Bi%3A1520068294%3Bs%3A4%3A%22auth%22%3Bs%3A32%3A%226a00299d06576ea8bfce3358ff3b0798%22%3B%7D%7D%22%3B',
+                    ]
+                ]
+            ],
+            '447902599250' => [
+                'vkUser' => '447902599250',
+                'vkPass' => 'vk1pasS77',
+                'blUser' => 'vk447902599250@yandex.ru',
+                'blPass' => 'pass447902599250',
+                'cookie' => [
+                    [
+                        'name'    => '1711acb810d1e29fc748352d59f5bda8',
+                        'content' => 'bdbb1bc6fffad4681b5e4299969277fe8add5b71s%3A253%3A%2240ef2879fd37cefd5d0ea0777083be92d341835ea%3A4%3A%7Bi%3A0%3Bs%3A7%3A%222245948%22%3Bi%3A1%3Bs%3A14%3A%22vk447902599250%22%3Bi%3A2%3Bi%3A31536000%3Bi%3A3%3Ba%3A4%3A%7Bs%3A2%3A%22id%22%3Bs%3A7%3A%222245948%22%3Bs%3A4%3A%22name%22%3Bs%3A14%3A%22vk447902599250%22%3Bs%3A10%3A%22login_time%22%3Bi%3A1520068347%3Bs%3A4%3A%22auth%22%3Bs%3A32%3A%220a6fb8f9019f530e1528bb9eb483ff98%22%3B%7D%7D%22%3B',
+                    ]
+                ]
+            ],
             '447468771254' => [
                 'vkUser' => '447468771254',
                 'vkPass' => 'vk1pasS77',
