@@ -90,6 +90,18 @@ class BossLikeTest extends AbstractSeleniumTestCase
                     ]
                 ]
             ],
+            '447543186265' => [
+                'vkUser' => '447543186265',
+                'vkPass' => 'vk1pasS77',
+                'blUser' => 'vk447543186265@yandex.ru',
+                'blPass' => 'pass447543186265',
+                'cookie' => [
+                    [
+                        'name'    => '1711acb810d1e29fc748352d59f5bda8',
+                        'content' => '837ac6885fbe892e2c968f461d27900b9ec07c70s%3A253%3A%22f077c9a5b54ca190b7cdb28b2e0067ab80fb2bbda%3A4%3A%7Bi%3A0%3Bs%3A7%3A%222246970%22%3Bi%3A1%3Bs%3A14%3A%22vk447543186265%22%3Bi%3A2%3Bi%3A31536000%3Bi%3A3%3Ba%3A4%3A%7Bs%3A2%3A%22id%22%3Bs%3A7%3A%222246970%22%3Bs%3A4%3A%22name%22%3Bs%3A14%3A%22vk447543186265%22%3Bs%3A10%3A%22login_time%22%3Bi%3A1520067024%3Bs%3A4%3A%22auth%22%3Bs%3A32%3A%221a29b424e1943c0c4598d8dc1d168083%22%3B%7D%7D%22%3B',
+                    ]
+                ]
+            ],
         ];
     }
 
