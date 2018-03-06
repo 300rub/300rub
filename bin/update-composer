@@ -1,4 +1,4 @@
 #!/bin/bash
 
-#docker exec -it ss_phpfpm_1 env http_proxy='172.17.0.1:3128' env https_proxy='172.17.0.1:3128' env COMPOSER=/var/www/config/composer/composer.json php bin/lib/composer.phar update
-docker exec -it ss_phpfpm_1 env COMPOSER=/var/www/config/composer/composer.json php bin/lib/composer.phar update
+docker exec -it ss_phpfpm_1 env http_proxy='172.17.0.1:3128' env https_proxy='172.17.0.1:3128' env COMPOSER=/var/www/config/composer/composer.json php bin/lib/composer.phar update
+#docker exec -it ss_phpfpm_1 env COMPOSER=/var/www/config/composer/composer.json php bin/lib/composer.phar update
