@@ -67,7 +67,7 @@ class TextModel extends AbstractTextModel
         $textInstanceModel = $this->getTextInstanceModel();
 
         $html = App::getInstance()->getView()->get(
-            'content/text',
+            'content/text/text',
             [
                 'blockId' => $this->getBlockId(),
                 'text'    => $textInstanceModel->get('text'),
