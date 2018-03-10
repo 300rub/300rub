@@ -147,37 +147,6 @@ class TextModel extends AbstractTextModel
     }
 
     /**
-     * Runs after deleting
-     *
-     * @return void
-     */
-    protected function afterDelete()
-    {
-        parent::afterDelete();
-
-        $memcached = App::getInstance()->getMemcached();
-        $memcached
-            ->delete($this->getHtmlMemcachedKey())
-            ->delete($this->getCssMemcachedKey())
-            ->delete($this->getJsMemcachedKey());
-    }
-
-    /**
-     * Runs after saving
-     *
-     * @return void
-     */
-    protected function afterSave()
-    {
-        parent::afterSave();
-
-        $memcached = App::getInstance()->getMemcached();
-        $memcached
-            ->delete($this->getCssMemcachedKey())
-            ->delete($this->getJsMemcachedKey());
-    }
-
-    /**
      * After duplicate
      *
      * @return void

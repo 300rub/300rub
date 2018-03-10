@@ -42,6 +42,8 @@ class LoadFixturesCommand extends AbstractCommand
             => '\\ss\\models\\blocks\\record\\RecordModel',
         'recordClone'
             => '\\ss\\models\\blocks\\record\\RecordCloneModel',
+        'menu'
+            => '\\ss\\models\\blocks\\menu\\MenuModel',
         'block'
             => '\\ss\\models\\blocks\\block\\BlockModel',
         'section'
@@ -72,8 +74,6 @@ class LoadFixturesCommand extends AbstractCommand
             => '\\ss\\models\\blocks\\catalog\\CatalogMenuModel',
         'search'
             => '\\ss\\models\\blocks\\search\\SearchModel',
-        'menu'
-            => '\\ss\\models\\blocks\\menu\\MenuModel',
         'menuInstance'
             => '\\ss\\models\\blocks\\menu\\MenuInstanceModel',
         'catalogInstance'

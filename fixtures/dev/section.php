@@ -1,12 +1,14 @@
 <?php
 
+use ss\application\components\Language;
+
 return [
     1 => [
         'seoModel'      => [
-            'name' => 'Text Blocks',
-            'url'  => 'text-blocks'
+            'name' => 'Main page',
+            'url'  => 'main'
         ],
-        'language' => 1,
+        'language' => Language::LANGUAGE_EN_ID,
         'isMain'   => false,
     ],
 ];

@@ -3,12 +3,12 @@
 namespace ss\models\blocks\menu\_base;
 
 use ss\application\components\ValueGenerator;
-use ss\models\_abstract\AbstractModel;
+use ss\models\blocks\_abstract\AbstractContentModel;
 
 /**
  * Abstract model for working with table "menu"
  */
-abstract class AbstractMenuModel extends AbstractModel
+abstract class AbstractMenuModel extends AbstractContentModel
 {
 
     /**

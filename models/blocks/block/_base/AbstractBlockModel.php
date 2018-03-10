@@ -8,6 +8,11 @@ use ss\application\components\ValueGenerator;
 use ss\application\exceptions\ModelException;
 use ss\models\_abstract\AbstractModel;
 use ss\models\blocks\_abstract\AbstractContentModel;
+use ss\models\blocks\image\ImageModel;
+use ss\models\blocks\menu\MenuModel;
+use ss\models\blocks\record\RecordCloneModel;
+use ss\models\blocks\record\RecordModel;
+use ss\models\blocks\text\TextModel;
 
 /**
  * Abstract model for working with table "blocks"
@@ -22,6 +27,7 @@ abstract class AbstractBlockModel extends AbstractModel
     const TYPE_IMAGE = 2;
     const TYPE_RECORD = 3;
     const TYPE_RECORD_CLONE = 4;
+    const TYPE_MENU = 5;
 
     /**
      * Type list
@@ -29,14 +35,11 @@ abstract class AbstractBlockModel extends AbstractModel
      * @var array
      */
     public static $typeList = [
-        self::TYPE_TEXT
-            => '\\ss\\models\\blocks\\text\\TextModel',
-        self::TYPE_IMAGE
-            => '\\ss\\models\\blocks\\image\\ImageModel',
-        self::TYPE_RECORD
-            => '\\ss\\models\\blocks\\record\\RecordModel',
-        self::TYPE_RECORD_CLONE
-            => '\\ss\\models\\blocks\\record\\RecordCloneModel',
+        self::TYPE_TEXT         => TextModel::CLASS_NAME,
+        self::TYPE_IMAGE        => ImageModel::CLASS_NAME,
+        self::TYPE_RECORD       => RecordModel::CLASS_NAME,
+        self::TYPE_RECORD_CLONE => RecordCloneModel::CLASS_NAME,
+        self::TYPE_MENU         => MenuModel::CLASS_NAME,
     ];
 
     /**

@@ -19,13 +19,18 @@ class PageController extends AbstractPageController
      */
     public function run()
     {
+        $token = '';
+        $content = '';
+        $sectionCss = [];
         $isUser = $this->isUser();
 
         $sectionModel = $this->_getSectionModel();
-        $sectionModel->setStructureAndStatic();
 
-        $token = '';
-        $content = $this->_getCommonContent($sectionModel);
+        if ($sectionModel !== null) {
+            $sectionModel->setStructureAndStatic();
+            $content = $this->_getCommonContent($sectionModel);
+            $sectionCss = $sectionModel->getCss();
+        }
 
         if ($isUser === true) {
             $token = App::web()->getUser()->getToken();
@@ -52,7 +57,7 @@ class PageController extends AbstractPageController
             = App::web()->getValidator()->getErrorMessages();
         $layoutData['token'] = $token;
         $layoutData['isUser'] = $isUser;
-        $layoutData['generatedCss'] = $sectionModel->getCss();
+        $layoutData['generatedCss'] = $sectionCss;
 
         return $this->getContentFromTemplate('page/layout', $layoutData);
     }

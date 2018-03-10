@@ -1,34 +1,13 @@
 <?php
 
+use ss\models\blocks\block\BlockModel;
+use ss\application\components\Language;
+
 return [
     1 => [
-        'name'        => 'Simple text',
-        'language'    => 1,
-        'contentType' => 1,
+        'name'        => 'Main page menu',
+        'language'    => Language::LANGUAGE_EN_ID,
+        'contentType' => BlockModel::TYPE_MENU,
         'contentId'   => 1,
-    ],
-    2 => [
-        'name'        => 'Text with editor',
-        'language'    => 1,
-        'contentType' => 1,
-        'contentId'   => 2,
-    ],
-    3 => [
-        'name'        => 'Zoom image',
-        'language'    => 1,
-        'contentType' => 2,
-        'contentId'   => 1,
-    ],
-    4 => [
-        'name'        => 'Slider image',
-        'language'    => 1,
-        'contentType' => 2,
-        'contentId'   => 2,
-    ],
-    5 => [
-        'name'        => 'Zoom image with albums',
-        'language'    => 1,
-        'contentType' => 2,
-        'contentId'   => 3,
     ],
 ];
