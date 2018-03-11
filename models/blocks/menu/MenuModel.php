@@ -58,10 +58,17 @@ class MenuModel extends AbstractMenuModel
         $htmlMemcachedValue = $memcached->get($htmlMemcachedKey);
 
         if ($htmlMemcachedValue !== false) {
-            return $htmlMemcachedValue;
+            //return $htmlMemcachedValue;
         }
 
-        $html = '123';
+        $html = App::getInstance()->getView()->get(
+            'content/menu/menu',
+            [
+                'blockId'         => $this->getBlockId(),
+                'type'            => $this->getContentModel()->getTypeForCssClass(),
+                'designMenuModel' => $this->getContentModel()->get('designMenuModel')
+            ]
+        );
 
         $memcached->set($htmlMemcachedKey, $html);
 
@@ -98,5 +105,20 @@ class MenuModel extends AbstractMenuModel
     public static function model()
     {
         return new self;
+    }
+
+    /**
+     * Gets type value for CSS class
+     *
+     * @return array
+     */
+    public function getTypeForCssClass()
+    {
+        switch ($this->get('type')) {
+            case self::TYPE_HORIZONTAL:
+                return 'horizontal';
+            default:
+                return 'vertical';
+        }
     }
 }

@@ -106,7 +106,7 @@ abstract class AbstractContentModel extends AbstractModel
     /**
      * Gets content model
      *
-     * @return AbstractContentModel
+     * @return AbstractContentModel|mixed
      *
      * @throws ModelException
      */
