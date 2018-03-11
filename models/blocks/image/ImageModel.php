@@ -2,6 +2,7 @@
 
 namespace ss\models\blocks\image;
 
+use ss\application\App;
 use ss\models\blocks\image\_base\AbstractImageModel;
 
 /**
@@ -52,7 +53,28 @@ class ImageModel extends AbstractImageModel
      */
     public function generateHtml()
     {
-        return '';
+        $memcached = App::getInstance()->getMemcached();
+        $htmlMemcachedKey = $this->getHtmlMemcachedKey();
+        $htmlMemcachedValue = $memcached->get($htmlMemcachedKey);
+
+        if ($htmlMemcachedValue !== false) {
+            //return $htmlMemcachedValue;
+        }
+
+        $html = App::getInstance()->getView()->get(
+            'content/image/zoom',
+            [
+                'blockId' => $this->getBlockId(),
+                'images'  => ImageInstanceModel::model()
+                    ->byImageId($this->getContentId())
+                    ->ordered('sort')
+                    ->withRelations()
+                    ->findAll()
+            ]
+        );
+        $memcached->set($htmlMemcachedKey, $html);
+
+        return $html;
     }
 
     /**
