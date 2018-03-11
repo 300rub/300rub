@@ -9,6 +9,7 @@
  * @var array                                  $tree
  */
 
+echo '<pre>';
 var_dump($tree);
 
 echo sprintf(

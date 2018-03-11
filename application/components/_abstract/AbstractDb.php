@@ -27,6 +27,7 @@ abstract class AbstractDb
      * Join types
      */
     const JOIN_TYPE_INNER = 'INNER';
+    const JOIN_TYPE_LEFT = 'LEFT';
 
     /**
      * PDO model

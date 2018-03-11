@@ -9,6 +9,6 @@ return [
             'url'  => 'main'
         ],
         'language' => Language::LANGUAGE_EN_ID,
-        'isMain'   => false,
+        'isMain'   => true,
     ],
 ];
