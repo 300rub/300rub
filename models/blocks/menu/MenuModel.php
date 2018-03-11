@@ -70,7 +70,6 @@ class MenuModel extends AbstractMenuModel
                 'tree'            => MenuInstanceModel::model()->getTreeByMenuId($this->getContentId()),
             ]
         );
-
         $memcached->set($htmlMemcachedKey, $html);
 
         return $html;
@@ -84,6 +83,25 @@ class MenuModel extends AbstractMenuModel
     public function generateCss()
     {
         $css = [];
+
+        $view = App::getInstance()->getView();
+        $designModel = $this->get('designMenuModel');
+
+        $css = array_merge(
+            $css,
+            $view->generateCss(
+                $designModel->get('containerDesignBlockModel'),
+                sprintf('.block-%s', $this->getBlockId())
+            )
+        );
+
+        $css = array_merge(
+            $css,
+            $view->generateCss(
+                $designModel->get('firstLevelDesignBlockModel'),
+                sprintf('.block-%s .level-1', $this->getBlockId())
+            )
+        );
 
         return $css;
     }

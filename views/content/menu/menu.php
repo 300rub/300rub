@@ -15,15 +15,28 @@ echo sprintf(
     $type
 );
 
-echo '<ul>';
+function printMenuTree($tree, $level)
+{
+    echo '<ul>';
+    foreach ($tree as $instance) {
+        echo '<li>';
 
-foreach ($tree as $instance) {
-    echo sprintf(
-        '<li><a href="%s">%s</a></li>',
-        $instance['url'],
-        $instance['name']
-    );
+        echo sprintf(
+            '<a href="%s" class="level-%s">%s</a>',
+            $instance['url'],
+            $level,
+            $instance['name']
+        );
+
+        if (count($instance['children'])) {
+            printMenuTree($instance['children'], $level + 1);
+        }
+
+        echo '</li>';
+    }
+
+    echo '</ul>';
 }
+printMenuTree($tree, 1);
 
-echo '</ul>';
 echo '</div>';

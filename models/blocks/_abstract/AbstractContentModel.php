@@ -280,7 +280,7 @@ abstract class AbstractContentModel extends AbstractModel
 
         if ($memcachedValue !== false) {
             $this->cssList = $memcachedValue;
-            return $this;
+            //return $this;
         }
 
         $css = $this->getContentModel()->generateCss();

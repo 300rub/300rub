@@ -40,12 +40,17 @@ class MenuInstanceModel extends AbstractMenuInstanceModel
      */
     private function _generateTree($groupByParent, $parentId)
     {
+        if (array_key_exists($parentId, $groupByParent) === false) {
+            return [];
+        }
+
         $tree = [];
 
         foreach ($groupByParent[$parentId] as $instance) {
             $tree[] = [
-                'name' => $this->_generateName($instance),
-                'url'  => $this->_generateUrl($instance),
+                'name'     => $this->_generateName($instance),
+                'url'      => $this->_generateUrl($instance),
+                'children' => $this->_generateTree($groupByParent, $instance['id'])
             ];
         }
 
