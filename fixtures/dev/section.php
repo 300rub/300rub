@@ -17,7 +17,6 @@ return [
             'url'  => 'texts'
         ],
         'language' => Language::LANGUAGE_EN_ID,
-        'isMain'   => false,
     ],
     3 => [
         'seoModel'      => [
@@ -25,6 +24,12 @@ return [
             'url'  => 'images'
         ],
         'language' => Language::LANGUAGE_EN_ID,
-        'isMain'   => false,
+    ],
+    4 => [
+        'seoModel'      => [
+            'name' => 'Images zoom',
+            'url'  => 'images-zoom'
+        ],
+        'language' => Language::LANGUAGE_EN_ID,
     ],
 ];

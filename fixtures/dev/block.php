@@ -5,15 +5,15 @@ use ss\application\components\Language;
 
 return [
     1 => [
-        'name'        => 'Main page menu',
+        'name'        => 'Main menu',
         'language'    => Language::LANGUAGE_EN_ID,
         'contentType' => BlockModel::TYPE_MENU,
         'contentId'   => 1,
     ],
     2 => [
-        'name'        => 'Text menu',
+        'name'        => 'Image Zoom',
         'language'    => Language::LANGUAGE_EN_ID,
-        'contentType' => BlockModel::TYPE_MENU,
-        'contentId'   => 2,
+        'contentType' => BlockModel::TYPE_IMAGE,
+        'contentId'   => 1,
     ],
 ];

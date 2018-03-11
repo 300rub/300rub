@@ -20,16 +20,12 @@ return [
             'firstLevelDesignTextModel' => [
                 'size' => 16
             ],
-        ]
-    ],
-    2 => [
-        'designMenuModel' => [
-            'firstLevelDesignBlockModel' => [
+            'secondLevelDesignBlockModel' => [
                 'marginTop'                => -1,
                 'paddingTop'               => 10,
                 'paddingRight'             => 20,
                 'paddingBottom'            => 10,
-                'paddingLeft'              => 20,
+                'paddingLeft'              => 40,
                 'borderTopWidth'           => 1,
                 'borderRightWidth'         => 1,
                 'borderBottomWidth'        => 1,
@@ -38,9 +34,9 @@ return [
                 'hasBackgroundHover'       => true,
                 'backgroundColorFromHover' => 'rgba(0,0,0,0.03)',
             ],
-            'firstLevelDesignTextModel' => [
-                'size' => 16
+            'secondLevelDesignTextModel' => [
+                'size' => 14
             ],
         ]
-    ]
+    ],
 ];

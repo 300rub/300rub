@@ -20,9 +20,9 @@ return [
         'sort'      => 30,
     ],
     4 => [
-        'menuId'    => 2,
-        'parentId'  => 0,
-        'sectionId' => 1,
+        'menuId'    => 1,
+        'parentId'  => 3,
+        'sectionId' => 4,
         'sort'      => 10,
     ],
 ];

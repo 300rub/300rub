@@ -138,31 +138,31 @@ class LoadFixturesCommand extends AbstractCommand
                 }
             }
 
-            $map = include __DIR__ . '/../fixtures/' . $type . '/_fileMap.php';
-            foreach ($map as $data) {
-                $mimeType = 'application/octet-stream';
-                if (array_key_exists('mimeType', $data) === true) {
-                    $mimeType = $data['mimeType'];
-                }
-
-                $language = Language::LANGUAGE_EN_ID;
-                if (array_key_exists('language', $data) === true) {
-                    $language = $data['language'];
-                }
-
-                $this->_sendFile(
-                    $data['group'],
-                    $data['controller'],
-                    $data['file'],
-                    $data['data'],
-                    $mimeType,
-                    $language
-                );
-            }
-
             if ($type === 'test') {
                 break;
             }
+        }
+
+        $map = include __DIR__ . '/../fixtures/' . $type . '/_fileMap.php';
+        foreach ($map as $data) {
+            $mimeType = 'application/octet-stream';
+            if (array_key_exists('mimeType', $data) === true) {
+                $mimeType = $data['mimeType'];
+            }
+
+            $language = Language::LANGUAGE_EN_ID;
+            if (array_key_exists('language', $data) === true) {
+                $language = $data['language'];
+            }
+
+            $this->_sendFile(
+                $data['group'],
+                $data['controller'],
+                $data['file'],
+                $data['data'],
+                $mimeType,
+                $language
+            );
         }
     }
 
@@ -194,11 +194,11 @@ class LoadFixturesCommand extends AbstractCommand
         $group,
         $controller,
         $fileName,
-        array $data = [],
-        $mimeType = 'application/octet-stream',
-        $language = Language::LANGUAGE_EN_ID
+        array $data,
+        $mimeType,
+        $language
     ) {
-        $host = trim(shell_exec("/sbin/ip route|awk '/default/ { print $3 }'"));
+        $host = 'site1.ss.local';
 
         $this->_fileData = [];
         $this->_setFileData($data);
