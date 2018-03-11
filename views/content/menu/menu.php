@@ -9,34 +9,21 @@
  * @var array                                  $tree
  */
 
-echo '<pre>';
-var_dump($tree);
-
 echo sprintf(
     '<div class="block-%s menu menu-%s">',
     $blockId,
     $type
 );
-?>
 
-    <ul>
-        <li><a href="#">Link</a></li>
-        <li><a href="#">Link</a></li>
-        <li><a href="#">Link</a></li>
-        <ul>
-            <li><a href="#">Link</a></li>
-            <li><a href="#">Link</a></li>
-            <ul>
-                <li><a href="#">Link</a></li>
-                <li><a href="#">Link</a></li>
-                <ul>
-                    <li><a href="#">Link</a></li>
-                    <li><a href="#">Link</a></li>
-                </ul>
-            </ul>
-        </ul>
-    </ul>
+echo '<ul>';
 
-<?php
+foreach ($tree as $instance) {
+    echo sprintf(
+        '<li><a href="%s">%s</a></li>',
+        $instance['url'],
+        $instance['name']
+    );
+}
 
+echo '</ul>';
 echo '</div>';
