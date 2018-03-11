@@ -19,4 +19,10 @@ return [
         'sectionId' => 3,
         'sort'      => 30,
     ],
+    4 => [
+        'menuId'    => 2,
+        'parentId'  => 0,
+        'sectionId' => 1,
+        'sort'      => 10,
+    ],
 ];

@@ -131,7 +131,7 @@ class GridModel extends AbstractGridModel
             }
         }
 
-        if (count($filteredBorders) === 0) {
+        if (count($filteredBorders) < 2) {
             $filteredBorders = [0, self::GRID_SIZE];
         }
 
