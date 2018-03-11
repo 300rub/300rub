@@ -57,6 +57,8 @@ class PublicVendorCommand extends AbstractCommand
 			=> "FortAwesome/Font-Awesome/fonts/fontawesome-webfont.woff2",
         "hover-min.css"
 			=> "IanLunn/Hover/css/hover-min.css",
+		"jquery.fancybox.min.css"
+			=> "fancyapps/fancybox/dist/jquery.fancybox.min.css",
     ];
 
     /**
@@ -111,6 +113,8 @@ class PublicVendorCommand extends AbstractCommand
 			=> "less/less/dist/less.min.js",
         "md5.min.js"
 			=> "blueimp/JavaScript-MD5/js/md5.min.js",
+		"jquery.fancybox.min.js"
+			=> "fancyapps/fancybox/dist/jquery.fancybox.min.js",
     ];
 
 	/**

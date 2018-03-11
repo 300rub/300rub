@@ -10,7 +10,7 @@
 		"matthiasmullie/minify": "1.3.59",
 		"fortawesome/font-awesome": "4.7.0",
 		"idangerous/Plugins": "dev-master#c832ac40b9b60133376c920d2eaa7195c2026e62",
-		"fancyapps/fancybox": "2.1.6",
+		"fancyapps/fancybox": "3.2.5",
 		"fengyuanchen/cropper": "4.0.0-beta",
 		"donatj/phpuseragentparser": "0.9.0",
 		"IanLunn/Hover": "2.1.1",
@@ -120,6 +120,18 @@
 				"source": {
 					"type": "git",
 					"url": "https://github.com/blueimp/JavaScript-MD5",
+					"reference": "master"
+				}
+			}
+		},
+		{
+			"type": "package",
+			"package": {
+				"name": "fancyapps/fancybox",
+				"version": "3.2.5",
+				"source": {
+					"type": "git",
+					"url": "https://github.com/fancyapps/fancybox",
 					"reference": "master"
 				}
 			}

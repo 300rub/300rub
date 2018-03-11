@@ -7,10 +7,12 @@ return [
                 'fonts/OpenSans/font',
                 'lib/fa/css/font-awesome.min',
                 'lib/hover-min',
+                'lib/jquery.fancybox.min',
             ],
             'js'  => [
                 'lib/jquery.min',
                 'lib/md5.min',
+                'lib/jquery.fancybox.min',
             ]
         ],
         'less' => 'common',

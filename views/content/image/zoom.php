@@ -11,7 +11,8 @@ echo sprintf('<div class="block-%s">', $blockId);
 
 foreach ($images as $image) {
     echo sprintf(
-        '<a href="%s"><img src="%s" alt="%s" title="%s" /></a>',
+        '<a data-fancybox="image-group-%s" href="%s"><img src="%s" alt="%s" title="%s" /></a>',
+        $image->get('imageGroupId'),
         $image->get('viewFileModel')->getUrl(),
         $image->get('thumbFileModel')->getUrl(),
         $image->get('alt'),
