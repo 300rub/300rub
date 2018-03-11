@@ -3,6 +3,7 @@
 namespace ss\models\sections;
 
 use ss\application\App;
+use ss\application\components\Db;
 use ss\models\blocks\block\BlockModel;
 use ss\models\blocks\block\DesignBlockModel;
 use ss\models\sections\_base\AbstractSectionModel;
@@ -474,5 +475,46 @@ class SectionModel extends AbstractSectionModel
     public static function model()
     {
         return new self;
+    }
+
+    /**
+     * Find by URL
+     *
+     * @param string $url URL
+     *
+     * @return SectionModel
+     */
+    public function byUrl($url)
+    {
+        $this->getDb()->addJoin(
+            'seo',
+            'seo',
+            Db::DEFAULT_ALIAS,
+            'seoId'
+        );
+
+        $this->getDb()->addWhere(
+            'seo.url = :url'
+        );
+        $this->getDb()->addParameter('url', $url);
+
+        return $this;
+    }
+
+    /**
+     * Find by language
+     *
+     * @param int $language Language
+     *
+     * @return SectionModel
+     */
+    public function byLanguage($language)
+    {
+        $this->getDb()->addWhere(
+            sprintf('%s.language = :language', Db::DEFAULT_ALIAS)
+        );
+        $this->getDb()->addParameter('language', $language);
+
+        return $this;
     }
 }

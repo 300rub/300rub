@@ -3,6 +3,7 @@
 namespace ss\controllers\page;
 
 use ss\application\App;
+use ss\application\exceptions\NotFoundException;
 use ss\controllers\page\_abstract\AbstractPageController;
 use ss\models\sections\SectionModel;
 
@@ -16,6 +17,8 @@ class PageController extends AbstractPageController
      * Gets login page
      *
      * @return string
+     *
+     * @throws NotFoundException
      */
     public function run()
     {
@@ -25,6 +28,14 @@ class PageController extends AbstractPageController
         $isUser = $this->isUser();
 
         $sectionModel = $this->_getSectionModel();
+
+        if ($sectionModel === null
+            && $isUser === false
+        ) {
+            throw new NotFoundException(
+                App::web()->getLanguage()->getMessage('common', 'notFound')
+            );
+        }
 
         if ($sectionModel !== null) {
             $sectionModel->setStructureAndStatic();
@@ -69,7 +80,25 @@ class PageController extends AbstractPageController
      */
     private function _getSectionModel()
     {
-        return SectionModel::model()->byId(1)->withRelations()->find();
+        $requestUri = App::web()
+            ->getSuperGlobalVariable()
+            ->getServerValue('REQUEST_URI');
+
+        $requestUri = trim($requestUri, '/');
+
+        if (strlen($requestUri) === 0
+            || strpos($requestUri, '/') === false
+        ) {
+            return SectionModel::model()->main()->withRelations()->find();
+        }
+
+        $explode = explode('/', $requestUri);
+
+        return SectionModel::model()
+            ->byLanguage(App::web()->getLanguage()->getActiveId())
+            ->byUrl($explode[1])
+            ->withRelations()
+            ->find();
     }
 
     /**

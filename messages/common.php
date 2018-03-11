@@ -107,4 +107,8 @@ return [
         Language::LANGUAGE_EN_ID => 'Clear',
         Language::LANGUAGE_RU_ID => '',
     ],
+    'notFound' => [
+        Language::LANGUAGE_EN_ID => 'Page not found',
+        Language::LANGUAGE_RU_ID => '',
+    ],
 ];
