@@ -3,6 +3,7 @@
 namespace ss\application\components;
 
 use ss\application\exceptions\CommonException;
+use ss\application\exceptions\NotFoundException;
 
 /**
  * Class contains lib of static functions for working with language
@@ -117,6 +118,29 @@ class Language
         }
 
         return $this->_aliasList[self::LANGUAGE_EN_ID];
+    }
+
+    /**
+     * Gets alias by ID
+     *
+     * @param integer $languageId Language ID
+     *
+     * @return string
+     *
+     * @throws NotFoundException
+     */
+    public function getAliasById($languageId)
+    {
+        if (array_key_exists($languageId, $this->_aliasList) === true) {
+            return $this->_aliasList[$languageId];
+        }
+
+        throw new NotFoundException(
+            'Unable to find language with ID: {id}',
+            [
+                'id' => $languageId
+            ]
+        );
     }
 
     /**

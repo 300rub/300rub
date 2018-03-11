@@ -22,8 +22,69 @@ class MenuInstanceModel extends AbstractMenuInstanceModel
     public function getTreeByMenuId($menuId)
     {
         $structure = $this->_getDbStructure($menuId);
+        $groupByParent = [];
+        foreach ($structure as $instance) {
+            $groupByParent[(int)$instance['parentId']][] = $instance;
+        }
 
-        return $structure;
+        return $this->_generateTree($groupByParent, 0);
+    }
+
+    /**
+     * Generates tree
+     *
+     * @param array   $groupByParent Group by parent
+     * @param integer $parentId      Parent ID
+     *
+     * @return array
+     */
+    private function _generateTree($groupByParent, $parentId)
+    {
+        $tree = [];
+
+        foreach ($groupByParent[$parentId] as $instance) {
+            $tree[] = [
+                'name' => $this->_generateName($instance),
+                'url'  => $this->_generateUrl($instance),
+            ];
+        }
+
+        return $tree;
+    }
+
+    /**
+     * Generates name
+     *
+     * @param array $instance Data
+     *
+     * @return string
+     */
+    private function _generateName($instance)
+    {
+        return $instance['name'];
+    }
+
+    /**
+     * Generates URL
+     *
+     * @param array $instance Data
+     *
+     * @return string
+     */
+    private function _generateUrl($instance)
+    {
+        $languageId = (int)$instance['language'];
+        $language = App::getInstance()->getLanguage()->getAliasById($languageId);
+
+        if ((bool)$instance['isMain'] === true) {
+            if ($languageId === App::getInstance()->getSite()->get('language')) {
+                return '/';
+            }
+
+            return sprintf('/%s', $language);
+        }
+
+        return sprintf('/%s/%s', $language, $instance['url']);
     }
 
     /**
@@ -42,6 +103,7 @@ class MenuInstanceModel extends AbstractMenuInstanceModel
             ->addSelect('parentId', Db::DEFAULT_ALIAS, 'parentId')
             ->addSelect('sectionId', Db::DEFAULT_ALIAS, 'sectionId')
             ->addSelect('subName', Db::DEFAULT_ALIAS, 'subName')
+            ->addSelect('language', 'sections', 'language')
             ->addSelect('isMain', 'sections', 'isMain')
             ->addSelect('name', 'seo', 'name')
             ->addSelect('url', 'seo', 'url');
