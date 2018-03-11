@@ -21,10 +21,22 @@ function printMenuTree($tree, $level)
     foreach ($tree as $instance) {
         echo '<li>';
 
+        switch ($level) {
+            case 1:
+                $levelClass = 'first-level';
+                break;
+            case 2:
+                $levelClass = 'second-level';
+                break;
+            default:
+                $levelClass = 'last-level';
+                break;
+        }
+
         echo sprintf(
-            '<a href="%s" class="level-%s">%s</a>',
+            '<a href="%s" class="%s">%s</a>',
             $instance['url'],
-            $level,
+            $levelClass,
             $instance['name']
         );
 

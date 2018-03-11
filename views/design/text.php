@@ -21,7 +21,7 @@ if ($family !== DesignTextModel::FAMILY_OPEN_SANS) {
 
 $size = $model->get('size');
 if ($size !== 0 && $size !== DesignTextModel::DEFAULT_SIZE) {
-    $css .= sprintf('font-size:%s;', $size);
+    $css .= sprintf('font-size:%spx;', $size);
 }
 
 $color = $model->get('color');
