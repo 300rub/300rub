@@ -23,7 +23,6 @@ abstract class AbstractDeleteModel extends AbstractSaveModel
         $this->_setDeleteCondition($where, $parameters);
         $this->beforeDelete();
         $this->getDb()->delete();
-        $this->getDb()->reset();
         $this->afterDelete();
     }
 

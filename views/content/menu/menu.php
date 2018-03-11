@@ -6,7 +6,10 @@
  * @var integer                                $blockId
  * @var integer                                $type
  * @var \ss\models\blocks\menu\DesignMenuModel $designMenuModel
+ * @var array                                  $tree
  */
+
+var_dump($tree);
 
 echo sprintf(
     '<div class="block-%s menu menu-%s">',

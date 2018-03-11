@@ -44,19 +44,30 @@ abstract class AbstractDbRead extends AbstractDb
     /**
      * Sets select
      *
-     * @param string $field Field
-     * @param string $alias Table alias
+     * @param string $field   Field
+     * @param string $alias   Table alias
+     * @param string $asValue As value
      *
      * @return AbstractDbRead
      */
-    public function addSelect($field, $alias = self::DEFAULT_ALIAS)
-    {
+    public function addSelect(
+        $field,
+        $alias = self::DEFAULT_ALIAS,
+        $asValue = null
+    ) {
+        if ($asValue === null) {
+            $asValue = sprintf(
+                '%s_%s',
+                $alias,
+                $field
+            );
+        }
+
         $selectItem = sprintf(
-            '%s.%s AS %s_%s',
+            '%s.%s AS %s',
             $alias,
             $field,
-            $alias,
-            $field
+            $asValue
         );
 
         if (in_array($selectItem, $this->_select) === false) {

@@ -15,12 +15,16 @@ class Db extends AbstractDbWrite
      *
      * @return Db
      */
-    public function reset()
+    protected function reset()
     {
         $this
             ->clearFields()
-            ->clearParameters()
-            ->clearWhere();
+            ->resetSelect()
+            ->setOrder('')
+            ->setLimit('')
+            ->setWhere('')
+            ->resetJoin()
+            ->clearParameters();
 
         return $this;
     }

@@ -64,6 +64,13 @@ abstract class AbstractDb
     private $_parameters = [];
 
     /**
+     * Resets DB
+     *
+     * @return void
+     */
+    abstract protected function reset();
+
+    /**
      * Sets PDO
      *
      * @param string $host     DB Host
@@ -159,6 +166,7 @@ abstract class AbstractDb
     {
         $sth = $this->getPdo()->prepare($statement);
         $result = $sth->execute($parameters);
+        $this->reset();
 
         if ($result === false) {
             throw new DbException(
@@ -235,17 +243,6 @@ abstract class AbstractDb
             )
         );
 
-        return $this;
-    }
-
-    /**
-     * Clears where
-     *
-     * @return AbstractDb
-     */
-    protected function clearWhere()
-    {
-        $this->_where = '';
         return $this;
     }
 

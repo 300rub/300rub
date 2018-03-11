@@ -37,8 +37,6 @@ abstract class AbstractSaveModel extends AbstractValidateModel
                 ->_setFieldsForDbBeforeSave()
                 ->_save();
 
-            $this->getDb()->reset();
-
             $this->afterSave();
         } catch (\Exception $e) {
             $this->_onSaveFailure($e);
