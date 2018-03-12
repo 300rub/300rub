@@ -97,6 +97,36 @@ class MenuModel extends AbstractMenuModel
 
         $css = array_merge(
             $css,
+            $this->_generateFirstLevelCss()
+        );
+
+        $css = array_merge(
+            $css,
+            $this->_generateSecondLevelCss()
+        );
+
+        $css = array_merge(
+            $css,
+            $this->_generateLastLevelCss()
+        );
+
+        return $css;
+    }
+
+    /**
+     * Generates first level CSS
+     *
+     * @return array
+     */
+    private function _generateFirstLevelCss()
+    {
+        $view = App::getInstance()->getView();
+        $designModel = $this->get('designMenuModel');
+
+        $css = [];
+
+        $css = array_merge(
+            $css,
             $view->generateCss(
                 $designModel->get('firstLevelDesignBlockModel'),
                 sprintf('.block-%s .first-level', $this->getBlockId())
@@ -110,6 +140,37 @@ class MenuModel extends AbstractMenuModel
                 sprintf('.block-%s .first-level', $this->getBlockId())
             )
         );
+
+        $css = array_merge(
+            $css,
+            $view->generateCss(
+                $designModel->get('firstLevelActiveDesignBlockModel'),
+                sprintf('.block-%s .first-level-active', $this->getBlockId())
+            )
+        );
+
+        $css = array_merge(
+            $css,
+            $view->generateCss(
+                $designModel->get('firstLevelActiveDesignTextModel'),
+                sprintf('.block-%s .first-level-active', $this->getBlockId())
+            )
+        );
+
+        return $css;
+    }
+
+    /**
+     * Generates second level CSS
+     *
+     * @return array
+     */
+    private function _generateSecondLevelCss()
+    {
+        $view = App::getInstance()->getView();
+        $designModel = $this->get('designMenuModel');
+
+        $css = [];
 
         $css = array_merge(
             $css,
@@ -130,6 +191,37 @@ class MenuModel extends AbstractMenuModel
         $css = array_merge(
             $css,
             $view->generateCss(
+                $designModel->get('secondLevelActiveDesignBlockModel'),
+                sprintf('.block-%s .second-level-active', $this->getBlockId())
+            )
+        );
+
+        $css = array_merge(
+            $css,
+            $view->generateCss(
+                $designModel->get('secondLevelActiveDesignTextModel'),
+                sprintf('.block-%s .second-level-active', $this->getBlockId())
+            )
+        );
+
+        return $css;
+    }
+
+    /**
+     * Generates last level CSS
+     *
+     * @return array
+     */
+    private function _generateLastLevelCss()
+    {
+        $view = App::getInstance()->getView();
+        $designModel = $this->get('designMenuModel');
+
+        $css = [];
+
+        $css = array_merge(
+            $css,
+            $view->generateCss(
                 $designModel->get('lastLevelDesignBlockModel'),
                 sprintf('.block-%s .last-level', $this->getBlockId())
             )
@@ -140,6 +232,22 @@ class MenuModel extends AbstractMenuModel
             $view->generateCss(
                 $designModel->get('lastLevelDesignTextModel'),
                 sprintf('.block-%s .last-level', $this->getBlockId())
+            )
+        );
+
+        $css = array_merge(
+            $css,
+            $view->generateCss(
+                $designModel->get('lastLevelActiveDesignBlockModel'),
+                sprintf('.block-%s .last-level-active', $this->getBlockId())
+            )
+        );
+
+        $css = array_merge(
+            $css,
+            $view->generateCss(
+                $designModel->get('lastLevelActiveDesignTextModel'),
+                sprintf('.block-%s .last-level-active', $this->getBlockId())
             )
         );
 

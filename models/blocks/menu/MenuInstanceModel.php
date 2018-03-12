@@ -50,11 +50,42 @@ class MenuInstanceModel extends AbstractMenuInstanceModel
             $tree[] = [
                 'name'     => $this->_generateName($instance),
                 'url'      => $this->_generateUrl($instance),
+                'isActive' => $this->_isActive($instance),
                 'children' => $this->_generateTree($groupByParent, $instance['id'])
             ];
         }
 
         return $tree;
+    }
+
+    /**
+     * Gets isActive flag
+     *
+     * @param array $instance Data
+     *
+     * @return bool
+     */
+    private function _isActive($instance)
+    {
+        $requestUri = App::web()
+            ->getSuperGlobalVariable()
+            ->getServerValue('REQUEST_URI');
+
+        $requestUri = trim($requestUri, '/');
+
+        if (strlen($requestUri) === 0
+            || strpos($requestUri, '/') === false
+        ) {
+            return (bool)$instance['isMain'];
+        }
+
+        $explode = explode('/', $requestUri);
+
+        if ($explode[1] === $instance['url']) {
+            return true;
+        }
+
+        return false;
     }
 
     /**

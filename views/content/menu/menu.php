@@ -33,6 +33,10 @@ function printMenuTree($tree, $level)
                 break;
         }
 
+        if ($instance['isActive'] === true) {
+            $activeClass = sprintf('%s-active', $levelClass);
+        }
+
         echo sprintf(
             '<a href="%s" class="%s">%s</a>',
             $instance['url'],
