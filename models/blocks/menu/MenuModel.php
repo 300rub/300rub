@@ -58,7 +58,7 @@ class MenuModel extends AbstractMenuModel
         $htmlMemcachedValue = $memcached->get($htmlMemcachedKey);
 
         if ($htmlMemcachedValue !== false) {
-            //return $htmlMemcachedValue;
+            return $htmlMemcachedValue;
         }
 
         $html = App::getInstance()->getView()->get(

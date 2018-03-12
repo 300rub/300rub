@@ -34,7 +34,7 @@ function printMenuTree($tree, $level)
         }
 
         if ($instance['isActive'] === true) {
-            $activeClass = sprintf('%s-active', $levelClass);
+            $levelClass .= '-active';
         }
 
         echo sprintf(

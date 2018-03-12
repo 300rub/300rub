@@ -18,12 +18,20 @@ class Memcached
     private $_memcached = null;
 
     /**
+     * Ignore cache flag
+     *
+     * @var bool
+     */
+    private $_isIgnoreCache = false;
+
+    /**
      * Memcached constructor.
      *
-     * @param string $host The hostname of the memcache server
-     * @param int    $port The port on which memcache is running
+     * @param string $host          The hostname of the memcache server
+     * @param int    $port          The port on which memcache is running
+     * @param bool   $isIgnoreCache Ignore cache flag
      */
-    public function __construct($host, $port)
+    public function __construct($host, $port, $isIgnoreCache)
     {
         $memcached = new \Memcached();
 
@@ -32,6 +40,8 @@ class Memcached
         if ($memcached->getStats() !== false) {
             $this->_memcached = $memcached;
         }
+
+        $this->_isIgnoreCache = $isIgnoreCache;
     }
 
     /**
@@ -47,7 +57,9 @@ class Memcached
      */
     public function set($key, $value, $expiration = null)
     {
-        if ($this->_memcached === null) {
+        if ($this->_memcached === null
+            || $this->_isIgnoreCache === true
+        ) {
             return $this;
         }
 
@@ -77,7 +89,9 @@ class Memcached
      */
     public function get($key)
     {
-        if ($this->_memcached === null) {
+        if ($this->_memcached === null
+            || $this->_isIgnoreCache === true
+        ) {
             return false;
         }
 
@@ -95,11 +109,10 @@ class Memcached
      */
     public function delete($key)
     {
-        if ($this->_memcached === null) {
-            return $this;
-        }
-
-        if ($this->get($key) === false) {
+        if ($this->_memcached === null
+            || $this->_isIgnoreCache === true
+            || $this->get($key) === false
+        ) {
             return $this;
         }
 
@@ -126,7 +139,9 @@ class Memcached
      */
     public function flush()
     {
-        if ($this->_memcached === null) {
+        if ($this->_memcached === null
+            || $this->_isIgnoreCache === true
+        ) {
             return $this;
         }
 
