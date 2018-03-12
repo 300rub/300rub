@@ -40,6 +40,14 @@ abstract class AbstractDesignMenuModel extends AbstractModel
                 self::FIELD_RELATION
                     => '\\ss\\models\\blocks\\text\\DesignTextModel'
             ],
+            'firstLevelActiveDesignBlockId'       => [
+                self::FIELD_RELATION
+                => '\\ss\\models\\blocks\\block\\DesignBlockModel'
+            ],
+            'firstLevelActiveDesignTextId'       => [
+                self::FIELD_RELATION
+                => '\\ss\\models\\blocks\\text\\DesignTextModel'
+            ],
             'secondLevelDesignBlockId'       => [
                 self::FIELD_RELATION
                     => '\\ss\\models\\blocks\\block\\DesignBlockModel'
@@ -48,6 +56,14 @@ abstract class AbstractDesignMenuModel extends AbstractModel
                 self::FIELD_RELATION
                     => '\\ss\\models\\blocks\\text\\DesignTextModel'
             ],
+            'secondLevelActiveDesignBlockId'       => [
+                self::FIELD_RELATION
+                => '\\ss\\models\\blocks\\block\\DesignBlockModel'
+            ],
+            'secondLevelActiveDesignTextId'       => [
+                self::FIELD_RELATION
+                => '\\ss\\models\\blocks\\text\\DesignTextModel'
+            ],
             'lastLevelDesignBlockId'       => [
                 self::FIELD_RELATION
                     => '\\ss\\models\\blocks\\block\\DesignBlockModel'
@@ -55,6 +71,14 @@ abstract class AbstractDesignMenuModel extends AbstractModel
             'lastLevelDesignTextId'       => [
                 self::FIELD_RELATION
                     => '\\ss\\models\\blocks\\text\\DesignTextModel'
+            ],
+            'lastLevelActiveDesignBlockId'       => [
+                self::FIELD_RELATION
+                => '\\ss\\models\\blocks\\block\\DesignBlockModel'
+            ],
+            'lastLevelActiveDesignTextId'       => [
+                self::FIELD_RELATION
+                => '\\ss\\models\\blocks\\text\\DesignTextModel'
             ],
         ];
     }
