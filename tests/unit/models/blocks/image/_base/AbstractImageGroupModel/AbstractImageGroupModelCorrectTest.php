@@ -32,21 +32,29 @@ class AbstractImageGroupModelCorrectTest extends AbstractCorrectModelTest
             'correct1' => [
                 [
                     'imageId' => 1,
-                    'name'    => 'Name',
+                    'seoModel' => [
+                        'name' => 'Name'
+                    ],
                     'sort'    => 10,
                 ],
                 [
                     'imageId' => 1,
-                    'name'    => 'Name',
+                    'seoModel' => [
+                        'name' => 'Name'
+                    ],
                     'sort'    => 10,
                 ],
                 [
-                    'name'    => 'Name 2',
+                    'seoModel' => [
+                        'name' => 'Name 2'
+                    ],
                     'sort'    => 20,
                 ],
                 [
                     'imageId' => 1,
-                    'name'    => 'Name 2',
+                    'seoModel' => [
+                        'name' => 'Name 2'
+                    ],
                     'sort'    => 20,
                 ],
             ]

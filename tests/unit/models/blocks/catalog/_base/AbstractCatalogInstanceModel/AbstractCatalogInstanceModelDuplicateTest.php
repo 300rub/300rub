@@ -44,7 +44,9 @@ class AbstractCatalogInstanceModelDuplicateTest extends AbstractDuplicateModelTe
                 ],
                 'imageGroupModel' => [
                     'imageId' => 1,
-                    'name'    => 'name',
+                    'seoModel' => [
+                        'name'  => 'name'
+                    ],
                     'sort'    => 10,
                 ],
                 'catalogMenuId'   => 1,

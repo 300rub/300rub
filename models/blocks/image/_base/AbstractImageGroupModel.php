@@ -35,15 +35,9 @@ abstract class AbstractImageGroupModel extends AbstractModel
                     => '\\ss\\models\\blocks\\image\\ImageModel',
                 self::FIELD_NOT_CHANGE_ON_UPDATE => true,
             ],
-            'name'    => [
-                self::FIELD_TYPE       => self::FIELD_TYPE_STRING,
-                self::FIELD_VALIDATION => [
-                    Validator::TYPE_REQUIRED,
-                    Validator::TYPE_MAX_LENGTH => 255
-                ],
-                self::FIELD_VALUE      => [
-                    ValueGenerator::CLEAR_STRIP_TAGS
-                ],
+            'seoId'         => [
+                self::FIELD_RELATION
+                => '\\ss\\models\\sections\\SeoModel'
             ],
             'sort'    => [
                 self::FIELD_TYPE => self::FIELD_TYPE_INT,

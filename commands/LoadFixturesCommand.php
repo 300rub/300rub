@@ -107,6 +107,10 @@ class LoadFixturesCommand extends AbstractCommand
     public function load($type)
     {
         $sites = ['site1', 'site2'];
+        if ($type === 'test') {
+            $sites = ['site1'];
+        }
+
         $config = App::getInstance()->getConfig();
 
         foreach ($sites as $site) {
@@ -136,10 +140,6 @@ class LoadFixturesCommand extends AbstractCommand
                         ->set($record)
                         ->save();
                 }
-            }
-
-            if ($type === 'test') {
-                break;
             }
         }
 

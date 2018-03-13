@@ -35,8 +35,20 @@ return [
         Language::LANGUAGE_EN_ID => 'Email',
         Language::LANGUAGE_RU_ID => '',
     ],
+    'url'     => [
+        Language::LANGUAGE_EN_ID => 'URL',
+        Language::LANGUAGE_RU_ID => '',
+    ],
     'title'     => [
         Language::LANGUAGE_EN_ID => 'Title',
+        Language::LANGUAGE_RU_ID => '',
+    ],
+    'keywords'            => [
+        Language::LANGUAGE_EN_ID => 'Keywords',
+        Language::LANGUAGE_RU_ID => '',
+    ],
+    'description'         => [
+        Language::LANGUAGE_EN_ID => 'Description',
         Language::LANGUAGE_RU_ID => '',
     ],
     'type'      => [

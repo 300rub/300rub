@@ -30,7 +30,9 @@ class DeleteAlbumControllerTest extends AbstractControllerTest
         $imageGroupModel->set(
             [
                 'imageId' => 1,
-                'name'    => $this->generateStringWithLength(10)
+                'seoModel' => [
+                    'name' => $this->generateStringWithLength(10)
+                ]
             ]
         );
         $imageGroupModel->save();
@@ -51,6 +53,7 @@ class DeleteAlbumControllerTest extends AbstractControllerTest
 
         if ($hasError === true) {
             $this->assertError();
+
             $this->assertNotNull(
                 $imageGroupModel->byId($imageGroupModel->getId())->find()
             );

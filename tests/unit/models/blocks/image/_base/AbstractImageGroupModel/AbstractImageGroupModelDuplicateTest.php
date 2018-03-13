@@ -31,12 +31,16 @@ class AbstractImageGroupModelDuplicateTest extends AbstractDuplicateModelTest
         $this->duplicate(
             [
                 'imageId' => 1,
-                'name'    => 'Name',
+                'seoModel' => [
+                    'name' => 'Name'
+                ],
                 'sort'    => 10,
             ],
             [
                 'imageId' => 1,
-                'name'    => 'Name',
+                'seoModel' => [
+                    'name' => 'Name (Copy)'
+                ],
                 'sort'    => 10,
             ]
         );

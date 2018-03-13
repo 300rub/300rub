@@ -183,7 +183,7 @@ class M160317000000Images extends AbstractMigration
                 [
                     'id'      => self::TYPE_PK,
                     'imageId' => self::TYPE_FK,
-                    'name'    => self::TYPE_STRING,
+                    'seoId'   => self::TYPE_FK,
                     'sort'    => self::TYPE_SMALLINT,
                 ]
             )
@@ -194,6 +194,7 @@ class M160317000000Images extends AbstractMigration
                 self::FK_CASCADE,
                 self::FK_CASCADE
             )
+            ->createForeignKey('imageGroups', 'seoId', 'seo')
             ->createIndex('imageGroups', 'sort');
     }
 

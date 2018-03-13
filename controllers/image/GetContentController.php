@@ -114,6 +114,7 @@ class GetContentController extends AbstractController
         $imageGroupModels = ImageGroupModel::model()
             ->byImageId($imageModel->getId())
             ->ordered('sort')
+            ->withRelations()
             ->findAll();
         foreach ($imageGroupModels as $imageGroupModel) {
             $cover = ImageInstanceModel::model()
@@ -130,7 +131,7 @@ class GetContentController extends AbstractController
 
             $list[] = [
                 'id'    => $imageGroupModel->getId(),
-                'name'  => $imageGroupModel->get('name'),
+                'name'  => $imageGroupModel->get('seoModel')->get('name'),
                 'cover' => $cover
             ];
         }

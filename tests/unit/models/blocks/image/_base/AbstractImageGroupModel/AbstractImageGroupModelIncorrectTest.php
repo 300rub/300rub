@@ -32,7 +32,9 @@ class AbstractImageGroupModelIncorrectTest extends AbstractIncorrectModelTest
             'incorrect1' => [
                 [
                     'imageId' => 'incorrect',
-                    'name'    => 'incorrect',
+                    'seoModel' => [
+                        'name' => 'incorrect'
+                    ],
                     'sort'    => 'incorrect',
                 ],
                 [],
@@ -43,25 +45,35 @@ class AbstractImageGroupModelIncorrectTest extends AbstractIncorrectModelTest
             'incorrect2' => [
                 [
                     'imageId' => '1 asda',
-                    'name'    => '<b>incorrect</b>',
+                    'seoModel' => [
+                        'name' => '<b>incorrect</b'
+                    ],
                     'sort'    => ' 21 asd',
                 ],
                 [
                     'imageId' => 1,
-                    'name'    => 'incorrect',
+                    'seoModel' => [
+                        'name' => 'incorrect'
+                    ],
                     'sort'    => 21,
                 ],
                 [
-                    'name'    => $this->generateStringWithLength(256),
+                    'seoModel' => [
+                        'name' => $this->generateStringWithLength(256)
+                    ],
                 ],
                 [
-                    'name'    => ['maxLength'],
+                    'seoModel' => [
+                        'name' => ['maxLength'],
+                    ],
                 ]
             ],
             'incorrect3' => [
                 [
                     'imageId' => 999,
-                    'name'    => 'Name',
+                    'seoModel' => [
+                        'name' => 'Name'
+                    ],
                 ],
                 [],
                 null,

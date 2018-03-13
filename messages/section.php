@@ -11,14 +11,6 @@ return [
         Language::LANGUAGE_EN_ID => 'Main',
         Language::LANGUAGE_RU_ID => '',
     ],
-    'keywords'            => [
-        Language::LANGUAGE_EN_ID => 'Keywords',
-        Language::LANGUAGE_RU_ID => '',
-    ],
-    'description'         => [
-        Language::LANGUAGE_EN_ID => 'Description',
-        Language::LANGUAGE_RU_ID => '',
-    ],
     'sections'            => [
         Language::LANGUAGE_EN_ID => 'Sections',
         Language::LANGUAGE_RU_ID => '',

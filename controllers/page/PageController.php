@@ -80,11 +80,7 @@ class PageController extends AbstractPageController
      */
     private function _getSectionModel()
     {
-        $requestUri = App::web()
-            ->getSuperGlobalVariable()
-            ->getServerValue('REQUEST_URI');
-
-        $requestUri = trim($requestUri, '/');
+        $requestUri = App::web()->getSite()->getUri();
 
         if (strlen($requestUri) === 0
             || strpos($requestUri, '/') === false

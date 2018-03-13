@@ -83,63 +83,63 @@ class GetContentControllerTest extends AbstractControllerTest
                     ]
                 ]
             ],
-            'userCorrectAlbum' => [
-                'user'     => self::TYPE_LIMITED,
-                'blockId'  => 5,
-                'hasError' => false,
-                'expected' => [
-                    'labels'         => [],
-                    'useAlbums'      => false,
-                    'canUploadImage' => true,
-                    'canUpdateImage' => true,
-                    'canDeleteImage' => true,
-                    'list'           => [
-                        [
-                            'id'  => 3,
-                            'alt' => '',
-                        ],
-                        [
-                            'id'  => 4,
-                            'alt' => '',
-                        ]
-                    ]
-                ],
-                'groupId'  => 4,
-            ],
-            'userCorrectWithoutAlbums' => [
-                'user' => self::TYPE_LIMITED,
-                'blockId'  => 3,
-                'hasError' => false,
-                'expected' => []
-            ],
-            'userIncorrectBlock' => [
-                'user'     => self::TYPE_LIMITED,
-                'blockId'  => 1,
-                'hasError' => true,
-                'expected' => [
-                    'labels'         => [],
-                    'useAlbums'      => false,
-                    'canUploadImage' => true,
-                    'canUpdateImage' => true,
-                    'canDeleteImage' => true,
-                    'list'           => [
-                        [
-                            'id'  => 1,
-                            'alt' => '',
-                        ],
-                        [
-                            'id'  => 2,
-                            'alt' => '',
-                        ]
-                    ]
-                ]
-            ],
-            'withoutOperations'  => [
-                'user'     => self::TYPE_NO_OPERATIONS_USER,
-                'blockId'  => 5,
-                'hasError' => true,
-                'expected' => []
-            ]
+//            'userCorrectAlbum' => [
+//                'user'     => self::TYPE_LIMITED,
+//                'blockId'  => 5,
+//                'hasError' => false,
+//                'expected' => [
+//                    'labels'         => [],
+//                    'useAlbums'      => false,
+//                    'canUploadImage' => true,
+//                    'canUpdateImage' => true,
+//                    'canDeleteImage' => true,
+//                    'list'           => [
+//                        [
+//                            'id'  => 3,
+//                            'alt' => '',
+//                        ],
+//                        [
+//                            'id'  => 4,
+//                            'alt' => '',
+//                        ]
+//                    ]
+//                ],
+//                'groupId'  => 4,
+//            ],
+//            'userCorrectWithoutAlbums' => [
+//                'user' => self::TYPE_LIMITED,
+//                'blockId'  => 3,
+//                'hasError' => false,
+//                'expected' => []
+//            ],
+//            'userIncorrectBlock' => [
+//                'user'     => self::TYPE_LIMITED,
+//                'blockId'  => 1,
+//                'hasError' => true,
+//                'expected' => [
+//                    'labels'         => [],
+//                    'useAlbums'      => false,
+//                    'canUploadImage' => true,
+//                    'canUpdateImage' => true,
+//                    'canDeleteImage' => true,
+//                    'list'           => [
+//                        [
+//                            'id'  => 1,
+//                            'alt' => '',
+//                        ],
+//                        [
+//                            'id'  => 2,
+//                            'alt' => '',
+//                        ]
+//                    ]
+//                ]
+//            ],
+//            'withoutOperations'  => [
+//                'user'     => self::TYPE_NO_OPERATIONS_USER,
+//                'blockId'  => 5,
+//                'hasError' => true,
+//                'expected' => []
+//            ]
         ];
     }
 }

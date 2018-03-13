@@ -77,6 +77,16 @@ class ImageModel extends AbstractImageModel
         return $html;
     }
 
+    private function _getAlbumFromUri()
+    {
+        $albumUrl = App::getInstance()->getSite()->getUri(2);
+        if ($albumUrl === null) {
+            return null;
+        }
+
+
+    }
+
     /**
      * Generates CSS
      *

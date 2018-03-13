@@ -389,6 +389,11 @@ abstract class AbstractApplication
 
         $this->getLanguage()->setActiveId($siteModel->get('language'));
 
+        $requestUri = $this
+            ->getSuperGlobalVariable()
+            ->getServerValue('REQUEST_URI');
+        $siteModel->setUri($requestUri);
+
         $this->_site = $siteModel;
 
         return $this;

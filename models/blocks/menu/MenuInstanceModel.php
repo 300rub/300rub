@@ -67,11 +67,7 @@ class MenuInstanceModel extends AbstractMenuInstanceModel
      */
     private function _isActive($instance)
     {
-        $requestUri = App::web()
-            ->getSuperGlobalVariable()
-            ->getServerValue('REQUEST_URI');
-
-        $requestUri = trim($requestUri, '/');
+        $requestUri = App::getInstance()->getSite()->getUri();
 
         if (strlen($requestUri) === 0
             || strpos($requestUri, '/') === false

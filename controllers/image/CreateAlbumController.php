@@ -23,8 +23,8 @@ class CreateAlbumController extends AbstractController
     {
         $this->checkData(
             [
-                'blockId' => [self::TYPE_INT, self::NOT_EMPTY],
-                'name'    => [self::TYPE_STRING],
+                'blockId'  => [self::TYPE_INT, self::NOT_EMPTY],
+                'seoModel' => [self::TYPE_ARRAY],
             ]
         );
 
@@ -44,9 +44,9 @@ class CreateAlbumController extends AbstractController
         $imageGroupModel = new ImageGroupModel();
         $imageGroupModel->set(
             [
-                'imageId' => $imageModel->getId(),
-                'name'    => $this->get('name'),
-                'sort'    => 10000,
+                'imageId'  => $imageModel->getId(),
+                'seoModel' => $this->get('seoModel'),
+                'sort'     => 10000,
             ]
         );
         $imageGroupModel->save();

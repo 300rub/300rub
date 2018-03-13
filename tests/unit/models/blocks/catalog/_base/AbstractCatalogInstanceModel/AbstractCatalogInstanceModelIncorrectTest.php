@@ -57,7 +57,9 @@ class AbstractCatalogInstanceModelIncorrectTest extends AbstractIncorrectModelTe
                     ],
                     'imageGroupModel' => [
                         'imageId' => ' 1 ',
-                        'name'    => 123,
+                        'seoModel' => [
+                            'name'  => 123
+                        ],
                         'sort'    => 'aaaa',
                     ],
                     'catalogMenuId'   => '1 asd',
@@ -80,7 +82,9 @@ class AbstractCatalogInstanceModelIncorrectTest extends AbstractIncorrectModelTe
                     ],
                     'imageGroupModel' => [
                         'imageId' => 1,
-                        'name'    => '123',
+                        'seoModel' => [
+                            'name'  => '123'
+                        ],
                         'sort'    => 0,
                     ],
                     'catalogMenuId'   => 1,

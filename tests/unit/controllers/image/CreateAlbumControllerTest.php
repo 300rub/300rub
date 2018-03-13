@@ -60,7 +60,9 @@ class CreateAlbumControllerTest extends AbstractControllerTest
                 'user'      => self::TYPE_LIMITED,
                 'data'      => [
                     'blockId' => 3,
-                    'name' => '',
+                    'seoModel' => [
+                        'name' => '',
+                    ],
                 ],
                 'hasError'  => false,
                 'hasErrors' => true
@@ -69,7 +71,9 @@ class CreateAlbumControllerTest extends AbstractControllerTest
                 'user'      => self::TYPE_LIMITED,
                 'data'      => [
                     'blockId' => 3,
-                    'name' => $this->generateStringWithLength(256),
+                    'seoModel' => [
+                        'name' => $this->generateStringWithLength(256),
+                    ],
                 ],
                 'hasError'  => false,
                 'hasErrors' => true
@@ -78,7 +82,9 @@ class CreateAlbumControllerTest extends AbstractControllerTest
                 'user'      => self::TYPE_LIMITED,
                 'data'      => [
                     'blockId' => 3,
-                    'name' => 'New album name',
+                    'seoModel' => [
+                        'name' => 'New album name',
+                    ],
                 ],
                 'hasError'  => false,
                 'hasErrors' => false
@@ -87,7 +93,9 @@ class CreateAlbumControllerTest extends AbstractControllerTest
                 'user'      => self::TYPE_LIMITED,
                 'data'      => [
                     'blockId' => 1,
-                    'name' => 'New album name',
+                    'seoModel' => [
+                        'name' => 'New album name',
+                    ],
                 ],
                 'hasError'  => true,
                 'hasErrors' => false
@@ -96,7 +104,9 @@ class CreateAlbumControllerTest extends AbstractControllerTest
                 'user'      => self::TYPE_NO_OPERATIONS_USER,
                 'data'      => [
                     'blockId' => 3,
-                    'name' => 'New album name',
+                    'seoModel' => [
+                        'name' => 'New album name',
+                    ],
                 ],
                 'hasError'  => true,
                 'hasErrors' => false

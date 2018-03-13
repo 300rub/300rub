@@ -44,7 +44,9 @@ class AbstractCatalogInstanceModelCorrectTest extends AbstractCorrectModelTest
                     ],
                     'imageGroupModel' => [
                         'imageId' => 1,
-                        'name'    => 'name',
+                        'seoModel' => [
+                            'name'    => 'name'
+                        ],
                         'sort'    => 10,
                     ],
                     'catalogMenuId'   => 1,
@@ -67,7 +69,9 @@ class AbstractCatalogInstanceModelCorrectTest extends AbstractCorrectModelTest
                     ],
                     'imageGroupModel' => [
                         'imageId' => 1,
-                        'name'    => 'name',
+                        'seoModel' => [
+                            'name'    => 'name'
+                        ],
                         'sort'    => 10,
                     ],
                     'catalogMenuId'   => 1,
@@ -90,7 +94,9 @@ class AbstractCatalogInstanceModelCorrectTest extends AbstractCorrectModelTest
                     ],
                     'imageGroupModel' => [
                         'imageId' => 2,
-                        'name'    => 'name 2',
+                        'seoModel' => [
+                            'name'    => 'name 2'
+                        ],
                         'sort'    => 20,
                     ],
                     'catalogMenuId'   => 1,
@@ -113,7 +119,9 @@ class AbstractCatalogInstanceModelCorrectTest extends AbstractCorrectModelTest
                     ],
                     'imageGroupModel' => [
                         'imageId' => 1,
-                        'name'    => 'name 2',
+                        'seoModel' => [
+                            'name'    => 'name 2'
+                        ],
                         'sort'    => 20,
                     ],
                     'catalogMenuId'   => 1,

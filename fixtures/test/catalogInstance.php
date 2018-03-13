@@ -14,7 +14,9 @@ return [
         ],
         'imageGroupModel' => [
             'imageId' => 1,
-            'name'    => 'name'
+            'seoModel' => [
+                'name'    => 'name'
+            ]
         ]
     ],
     2 => [
@@ -30,7 +32,9 @@ return [
         ],
         'imageGroupModel' => [
             'imageId' => 1,
-            'name'    => 'name'
+            'seoModel' => [
+                'name'    => 'name'
+            ]
         ]
     ],
 ];

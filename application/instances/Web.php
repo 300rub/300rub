@@ -36,14 +36,11 @@ class Web extends AbstractWebAjax
         $httpHost = $this
             ->getSuperGlobalVariable()
             ->getServerValue('HTTP_HOST');
-        $requestUri = $this
-            ->getSuperGlobalVariable()
-            ->getServerValue('REQUEST_URI');
 
         $this->setSite($httpHost);
 
         $isAjax = false;
-        if (strpos(trim($requestUri, '/'), self::API_URL) === 0) {
+        if (strpos($this->getSite()->getUri(), self::API_URL) === 0) {
             $isAjax = true;
         }
 

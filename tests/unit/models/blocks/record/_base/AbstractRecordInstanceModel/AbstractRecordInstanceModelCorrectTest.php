@@ -65,7 +65,9 @@ class AbstractRecordInstanceModelCorrectTest extends AbstractCorrectModelTest
             ],
             'imageGroupModel'              => [
                 'imageId' => 1,
-                'name'    => 'record',
+                'seoModel' => [
+                    'name'    => 'record',
+                ],
                 'sort'    => 0,
             ],
             'coverImageInstanceModel'      => [
@@ -123,7 +125,9 @@ class AbstractRecordInstanceModelCorrectTest extends AbstractCorrectModelTest
             ],
             'imageGroupModel'              => [
                 'imageId' => 1,
-                'name'    => 'record',
+                'seoModel' => [
+                    'name' => 'record',
+                ],
                 'sort'    => 0,
             ],
             'coverImageInstanceModel'      => [
@@ -181,7 +185,9 @@ class AbstractRecordInstanceModelCorrectTest extends AbstractCorrectModelTest
             ],
             'imageGroupModel'              => [
                 'imageId' => 1,
-                'name'    => 'Name 2',
+                'seoModel' => [
+                    'name' => 'Name 2',
+                ],
                 'sort'    => 10,
             ],
             'coverImageInstanceModel'      => [
@@ -239,7 +245,9 @@ class AbstractRecordInstanceModelCorrectTest extends AbstractCorrectModelTest
             ],
             'imageGroupModel'              => [
                 'imageId' => 1,
-                'name'    => 'Name 2',
+                'seoModel' => [
+                    'name' => 'Name 2',
+                ],
                 'sort'    => 10,
             ],
             'coverImageInstanceModel'      => [

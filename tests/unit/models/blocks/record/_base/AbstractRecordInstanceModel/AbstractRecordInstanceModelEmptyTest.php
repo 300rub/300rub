@@ -156,7 +156,9 @@ class AbstractRecordInstanceModelEmptyTest extends AbstractEmptyModelTest
                 ],
                 'imageGroupModel'              => [
                     'imageId' => 1,
-                    'name'    => 'Name'
+                    'seoModel' => [
+                        'name'    => 'Name'
+                    ]
                 ],
                 'coverImageInstanceModel'      => [
                     'imageGroupId' => 1,
@@ -190,7 +192,9 @@ class AbstractRecordInstanceModelEmptyTest extends AbstractEmptyModelTest
                 ],
                 'imageGroupModel'              => [
                     'imageId' => 1,
-                    'name'    => 'Name',
+                    'seoModel' => [
+                        'name'    => 'Name'
+                    ],
                     'sort'    => 0,
                 ],
                 'coverImageInstanceModel'      => [

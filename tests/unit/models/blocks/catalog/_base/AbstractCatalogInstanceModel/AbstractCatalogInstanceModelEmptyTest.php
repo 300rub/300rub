@@ -63,15 +63,10 @@ class AbstractCatalogInstanceModelEmptyTest extends AbstractEmptyModelTest
                         'fieldId' => 1,
                     ],
                 ],
-                [
-                    'seoModel'        => [
-                        'name' => ['required'],
-                        'url'  => ['required', 'url']
-                    ],
-                    'imageGroupModel' => [
-                        'name' => ['required']
-                    ]
-                ],
+                [],
+                null,
+                null,
+                self::EXCEPTION_MODEL
             ],
             'empty4' => [
                 [
@@ -87,7 +82,9 @@ class AbstractCatalogInstanceModelEmptyTest extends AbstractEmptyModelTest
                     ],
                     'imageGroupModel' => [
                         'imageId' => 1,
-                        'name'    => 'name'
+                        'seoModel' => [
+                            'name'  => 'name'
+                        ],
                     ]
                 ],
                 [
@@ -103,7 +100,9 @@ class AbstractCatalogInstanceModelEmptyTest extends AbstractEmptyModelTest
                     ],
                     'imageGroupModel' => [
                         'imageId' => 1,
-                        'name'    => 'name',
+                        'seoModel' => [
+                            'name'  => 'name'
+                        ],
                         'sort'    => 0,
                     ],
                     'catalogMenuId'   => 1,

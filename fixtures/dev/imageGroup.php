@@ -2,8 +2,11 @@
 
 return [
     1 => [
-        'imageId' => 1,
-        'name'    => 'Zoom default album',
-        'sort'    => 10,
+        'imageId'  => 1,
+        'seoModel' => [
+            'name' => 'Zoom default album',
+            'url'  => 'zoom-default-album',
+        ],
+        'sort'     => 10,
     ],
 ];

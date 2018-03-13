@@ -50,7 +50,9 @@ class AbstractRecordInstanceModelDuplicateTest extends AbstractDuplicateModelTes
                 ],
                 'imageGroupModel'              => [
                     'imageId' => 1,
-                    'name'    => 'record',
+                    'seoModel' => [
+                        'name' => 'record',
+                    ],
                     'sort'    => 0,
                 ],
                 'coverImageInstanceModel'      => [

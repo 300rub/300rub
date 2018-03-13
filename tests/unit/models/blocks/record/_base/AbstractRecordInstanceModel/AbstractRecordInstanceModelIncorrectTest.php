@@ -100,7 +100,9 @@ class AbstractRecordInstanceModelIncorrectTest extends AbstractIncorrectModelTes
             ],
             'imageGroupModel'              => [
                 'imageId' => ' 1 ds',
-                'name'    => ' <b> record ',
+                'seoModel' => [
+                    'name'    => ' <b> record ',
+                ],
                 'sort'    => '25',
             ],
             'coverImageInstanceModel'      => [
@@ -158,7 +160,9 @@ class AbstractRecordInstanceModelIncorrectTest extends AbstractIncorrectModelTes
             ],
             'imageGroupModel'              => [
                 'imageId' => 1,
-                'name'    => 'record',
+                'seoModel' => [
+                    'name'    => 'record',
+                ],
                 'sort'    => 25,
             ],
             'coverImageInstanceModel'      => [

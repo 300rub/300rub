@@ -31,13 +31,16 @@ class AbstractImageGroupModelEmptyTest extends AbstractEmptyModelTest
         return [
             'empty1' => [
                 [],
-                [
-                    'name' => ['required']
-                ]
+                [],
+                null,
+                null,
+                self::EXCEPTION_MODEL
             ],
             'empty2' => [
                 [
-                    'name' => 'Name'
+                    'seoModel' => [
+                        'name' => 'Name',
+                    ]
                 ],
                 [],
                 null,
@@ -50,18 +53,23 @@ class AbstractImageGroupModelEmptyTest extends AbstractEmptyModelTest
                     'name'    => '',
                     'sort'    => '',
                 ],
-                [
-                    'name' => ['required']
-                ],
+                [],
+                null,
+                null,
+                self::EXCEPTION_MODEL
             ],
             'empty4' => [
                 [
                     'imageId' => 1,
-                    'name'    => 'Name',
+                    'seoModel' => [
+                        'name' => 'Name'
+                    ],
                 ],
                 [
                     'imageId' => 1,
-                    'name'    => 'Name',
+                    'seoModel' => [
+                        'name' => 'Name'
+                    ],
                     'sort'    => 0,
                 ],
             ]
