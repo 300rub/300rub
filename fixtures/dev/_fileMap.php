@@ -19,4 +19,22 @@ return [
             'imageGroupId' => 1
         ],
     ],
+    [
+        'group'      => 'image',
+        'controller' => 'image',
+        'file'       => 'slider1.jpg',
+        'data'       => [
+            'blockId'      => 3,
+            'imageGroupId' => 2
+        ],
+    ],
+    [
+        'group'      => 'image',
+        'controller' => 'image',
+        'file'       => 'slider2.jpg',
+        'data'       => [
+            'blockId'      => 3,
+            'imageGroupId' => 2
+        ],
+    ],
 ];

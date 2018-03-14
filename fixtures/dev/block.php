@@ -16,4 +16,10 @@ return [
         'contentType' => BlockModel::TYPE_IMAGE,
         'contentId'   => 1,
     ],
+    3 => [
+        'name'        => 'Image Slider',
+        'language'    => Language::LANGUAGE_EN_ID,
+        'contentType' => BlockModel::TYPE_IMAGE,
+        'contentId'   => 2,
+    ],
 ];

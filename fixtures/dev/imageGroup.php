@@ -9,4 +9,12 @@ return [
         ],
         'sort'     => 10,
     ],
+    2 => [
+        'imageId'  => 2,
+        'seoModel' => [
+            'name' => 'Slider default album',
+            'url'  => 'slider-default-album',
+        ],
+        'sort'     => 10,
+    ],
 ];

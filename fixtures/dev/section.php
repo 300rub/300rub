@@ -32,4 +32,11 @@ return [
         ],
         'language' => Language::LANGUAGE_EN_ID,
     ],
+    5 => [
+        'seoModel'      => [
+            'name' => 'Images slider',
+            'url'  => 'images-slider'
+        ],
+        'language' => Language::LANGUAGE_EN_ID,
+    ],
 ];

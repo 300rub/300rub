@@ -59,6 +59,8 @@ class PublicVendorCommand extends AbstractCommand
 			=> "IanLunn/Hover/css/hover-min.css",
 		"jquery.fancybox.min.css"
 			=> "fancyapps/fancybox/dist/jquery.fancybox.min.css",
+		"idangerous.chopslider-3.4.css"
+			=> "idangerous/Plugins/Chop Slider 3/Chop Slider 3 jQuery/cs3/idangerous.chopslider-3.4.css",
     ];
 
     /**
@@ -115,6 +117,8 @@ class PublicVendorCommand extends AbstractCommand
 			=> "blueimp/JavaScript-MD5/js/md5.min.js",
 		"jquery.fancybox.min.js"
 			=> "fancyapps/fancybox/dist/jquery.fancybox.min.js",
+		"idangerous.chopslider-3.4.min.js"
+			=> "idangerous/Plugins/Chop Slider 3/Chop Slider 3 jQuery/cs3/idangerous.chopslider-3.4.min.js",
     ];
 
 	/**

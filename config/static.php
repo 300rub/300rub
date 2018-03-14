@@ -8,11 +8,13 @@ return [
                 'lib/fa/css/font-awesome.min',
                 'lib/hover-min',
                 'lib/jquery.fancybox.min',
+                'lib/idangerous.chopslider-3.4',
             ],
             'js'  => [
                 'lib/jquery.min',
                 'lib/md5.min',
                 'lib/jquery.fancybox.min',
+                'lib/idangerous.chopslider-3.4.min',
             ]
         ],
         'less' => 'common',

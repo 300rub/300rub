@@ -61,8 +61,20 @@ class ImageModel extends AbstractImageModel
             return $htmlMemcachedValue;
         }
 
+//        $html = App::getInstance()->getView()->get(
+//            'content/image/zoom',
+//            [
+//                'blockId' => $this->getBlockId(),
+//                'images'  => ImageInstanceModel::model()
+//                    ->byImageId($this->getContentId())
+//                    ->ordered('sort')
+//                    ->withRelations()
+//                    ->findAll()
+//            ]
+//        );
+
         $html = App::getInstance()->getView()->get(
-            'content/image/zoom',
+            'content/image/slider',
             [
                 'blockId' => $this->getBlockId(),
                 'images'  => ImageInstanceModel::model()
@@ -72,6 +84,7 @@ class ImageModel extends AbstractImageModel
                     ->findAll()
             ]
         );
+
         $memcached->set($htmlMemcachedKey, $html);
 
         return $html;
@@ -83,8 +96,6 @@ class ImageModel extends AbstractImageModel
         if ($albumUrl === null) {
             return null;
         }
-
-
     }
 
     /**
