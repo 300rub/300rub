@@ -30,11 +30,7 @@ class ImageModel extends AbstractImageModel
      */
     public function getHtmlMemcachedKey()
     {
-        return sprintf(
-            'image_%s_html_%s',
-            $this->getId(),
-            App::getInstance()->getSite()->getUri(2)
-        );
+        return $this->_getMemcachedKey('html');
     }
 
     /**
@@ -44,11 +40,7 @@ class ImageModel extends AbstractImageModel
      */
     public function getCssMemcachedKey()
     {
-        return sprintf(
-            'image_%s_css_%s',
-            $this->getId(),
-            App::getInstance()->getSite()->getUri(2)
-        );
+        return $this->_getMemcachedKey('css');
     }
 
     /**
@@ -58,10 +50,29 @@ class ImageModel extends AbstractImageModel
      */
     public function getJsMemcachedKey()
     {
+        return $this->_getMemcachedKey('js');
+    }
+
+    /**
+     * Gets Memcached key
+     *
+     * @param string $type Type
+     *
+     * @return string
+     */
+    private function _getMemcachedKey($type)
+    {
+        $site = App::getInstance()->getSite();
+        $uri = '';
+        if ($site !== null) {
+            $uri = $site->getUri(2);
+        }
+
         return sprintf(
-            'image_%s_js_%s',
+            'image_%s_%s_%s',
             $this->getId(),
-            App::getInstance()->getSite()->getUri(2)
+            $type,
+            $uri
         );
     }
 
