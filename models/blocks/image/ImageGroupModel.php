@@ -12,6 +12,13 @@ class ImageGroupModel extends AbstractImageGroupModel
 {
 
     /**
+     * Image instance count
+     *
+     * @var int
+     */
+    private $_count = 0;
+
+    /**
      * Adds imageId condition to SQL request
      *
      * @param int $imageId Image ID
@@ -32,6 +39,46 @@ class ImageGroupModel extends AbstractImageGroupModel
     }
 
     /**
+     * Finds all by image ID
+     *
+     * @param int $imageId Image ID
+     *
+     * @return ImageGroupModel[]
+     */
+    public function findAllByImageId($imageId)
+    {
+        return ImageGroupModel::model()
+            ->byImageId($imageId)
+            ->ordered('sort')
+            ->withRelations()
+            ->findAll();
+    }
+
+    /**
+     * Find by URL
+     *
+     * @param string $url URL
+     *
+     * @return ImageGroupModel
+     */
+    public function byUrl($url)
+    {
+        $this->getDb()->addJoin(
+            'seoModel',
+            'seoModel',
+            Db::DEFAULT_ALIAS,
+            'seoId'
+        );
+
+        $this->getDb()->addWhere(
+            'seoModel.url = :url'
+        );
+        $this->getDb()->addParameter('url', $url);
+
+        return $this;
+    }
+
+    /**
      * Gets ImageGroupModel
      *
      * @return ImageGroupModel
@@ -39,5 +86,28 @@ class ImageGroupModel extends AbstractImageGroupModel
     public static function model()
     {
         return new self;
+    }
+
+    /**
+     * Sets count
+     *
+     * @param int $count Count
+     *
+     * @return ImageGroupModel
+     */
+    public function setCount($count)
+    {
+        $this->_count = $count;
+        return $this;
+    }
+
+    /**
+     * Gets count
+     *
+     * @return int
+     */
+    public function getCount()
+    {
+        return $this->_count;
     }
 }

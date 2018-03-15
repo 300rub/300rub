@@ -17,13 +17,24 @@ class ImageModel extends AbstractImageModel
     const CLASS_NAME = '\\ss\\models\\blocks\\image\\ImageModel';
 
     /**
+     * Current album
+     *
+     * @var ImageGroupModel
+     */
+    private $_currentAlbum = false;
+
+    /**
      * Gets HTML memcached key
      *
      * @return string
      */
     public function getHtmlMemcachedKey()
     {
-        return sprintf('image_%s_html', $this->getId());
+        return sprintf(
+            'image_%s_html_%s',
+            $this->getId(),
+            App::getInstance()->getSite()->getUri(2)
+        );
     }
 
     /**
@@ -33,7 +44,11 @@ class ImageModel extends AbstractImageModel
      */
     public function getCssMemcachedKey()
     {
-        return sprintf('image_%s_css', $this->getId());
+        return sprintf(
+            'image_%s_css_%s',
+            $this->getId(),
+            App::getInstance()->getSite()->getUri(2)
+        );
     }
 
     /**
@@ -43,7 +58,11 @@ class ImageModel extends AbstractImageModel
      */
     public function getJsMemcachedKey()
     {
-        return sprintf('image_%s_js', $this->getId());
+        return sprintf(
+            'image_%s_js_%s',
+            $this->getId(),
+            App::getInstance()->getSite()->getUri(2)
+        );
     }
 
     /**
@@ -61,41 +80,144 @@ class ImageModel extends AbstractImageModel
             return $htmlMemcachedValue;
         }
 
-//        $html = App::getInstance()->getView()->get(
-//            'content/image/zoom',
-//            [
-//                'blockId' => $this->getBlockId(),
-//                'images'  => ImageInstanceModel::model()
-//                    ->byImageId($this->getContentId())
-//                    ->ordered('sort')
-//                    ->withRelations()
-//                    ->findAll()
-//            ]
-//        );
-
-        $html = App::getInstance()->getView()->get(
-            'content/image/slider',
-            [
-                'blockId' => $this->getBlockId(),
-                'images'  => ImageInstanceModel::model()
-                    ->byImageId($this->getContentId())
-                    ->ordered('sort')
-                    ->withRelations()
-                    ->findAll()
-            ]
-        );
+        $html = $this->_getHtml();
 
         $memcached->set($htmlMemcachedKey, $html);
 
         return $html;
     }
 
-    private function _getAlbumFromUri()
+    /**
+     * Gets HTML
+     *
+     * @return string
+     */
+    private function _getHtml()
+    {
+        $currentAlbum = $this->_getCurrentAlbum();
+        $albumId = 0;
+
+        if ($currentAlbum instanceof ImageGroupModel
+            && $this->get('useAlbums' === true)
+        ) {
+            $albumId = $currentAlbum->getId();
+        }
+
+        if ($albumId === 0
+            && $this->get('useAlbums' === true)
+        ) {
+            return $this->_getImageGroupHtml();
+        }
+
+        return $this->_getImageInstanceHtml($albumId);
+    }
+
+    /**
+     * Gets albums HTML
+     *
+     * @return string
+     */
+    private function _getImageGroupHtml()
+    {
+        $albums = ImageGroupModel::model()->findAllByImageId(
+            $this->getContentId()
+        );
+
+        foreach ($albums as &$album) {
+            $album->setCount(
+                ImageInstanceModel::model()
+                    ->byGroupId($album->getId())
+                    ->getCount()
+            );
+        }
+
+        return App::getInstance()->getView()->get(
+            'content/image/albums',
+            [
+                'blockId' => $this->getBlockId(),
+                'albums'  => $albums
+            ]
+        );
+    }
+
+    /**
+     * Gets images HTML
+     *
+     * @param int $albumId Album ID
+     *
+     * @return string
+     */
+    private function _getImageInstanceHtml($albumId)
+    {
+        $images = new ImageInstanceModel();
+        $images
+            ->ordered('sort')
+            ->withRelations();
+
+        if ($albumId === 0) {
+            $images->byImageId($this->getContentId());
+        }
+
+        if ($albumId > 0) {
+            $images->byGroupId($albumId);
+        }
+
+        $images = $images->findAll();
+
+        switch ($this->get('type')) {
+            case self::TYPE_SLIDER:
+                $view = 'slider';
+                break;
+            case self::TYPE_SIMPLE:
+                $view = 'simple';
+                break;
+            default:
+                $view = 'zoom';
+                break;
+        }
+
+        return App::getInstance()->getView()->get(
+            sprintf('content/image/%s', $view),
+            [
+                'blockId' => $this->getBlockId(),
+                'images'  => $images
+            ]
+        );
+    }
+
+    /**
+     * Gets current album
+     *
+     * @return null|ImageGroupModel
+     */
+    private function _getCurrentAlbum()
+    {
+        if ($this->_currentAlbum === false) {
+            $this->_setCurrentAlbum();
+        }
+
+        return $this->_currentAlbum;
+    }
+
+    /**
+     * Sets album model from URL
+     *
+     * @return ImageModel
+     */
+    private function _setCurrentAlbum()
     {
         $albumUrl = App::getInstance()->getSite()->getUri(2);
         if ($albumUrl === null) {
             return null;
         }
+
+        $this->_currentAlbum = ImageGroupModel::model()
+            ->byImageId($this->getContentId())
+            ->byUrl($albumUrl)
+            ->withRelations()
+            ->find();
+
+        return $this;
     }
 
     /**
