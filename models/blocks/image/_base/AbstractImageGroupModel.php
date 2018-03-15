@@ -37,7 +37,23 @@ abstract class AbstractImageGroupModel extends AbstractModel
             ],
             'seoId'         => [
                 self::FIELD_RELATION
-                => '\\ss\\models\\sections\\SeoModel'
+                    => '\\ss\\models\\sections\\SeoModel'
+            ],
+            'containerDesignBlockId' => [
+                self::FIELD_RELATION
+                    => '\\ss\\models\\blocks\\block\\DesignBlockModel'
+            ],
+            'coverDesignBlockId' => [
+                self::FIELD_RELATION
+                => '\\ss\\models\\blocks\\block\\DesignBlockModel'
+            ],
+            'nameDesignBlockId' => [
+                self::FIELD_RELATION
+                => '\\ss\\models\\blocks\\block\\DesignBlockModel'
+            ],
+            'nameDesignTextId' => [
+                self::FIELD_RELATION
+                => '\\ss\\models\\blocks\\text\\DesignTextModel'
             ],
             'sort'    => [
                 self::FIELD_TYPE => self::FIELD_TYPE_INT,

@@ -181,10 +181,14 @@ class M160317000000Images extends AbstractMigration
             ->createTable(
                 'imageGroups',
                 [
-                    'id'      => self::TYPE_PK,
-                    'imageId' => self::TYPE_FK,
-                    'seoId'   => self::TYPE_FK,
-                    'sort'    => self::TYPE_SMALLINT,
+                    'id'                     => self::TYPE_PK,
+                    'imageId'                => self::TYPE_FK,
+                    'seoId'                  => self::TYPE_FK,
+                    'containerDesignBlockId' => self::TYPE_FK,
+                    'coverDesignBlockId'     => self::TYPE_FK,
+                    'nameDesignBlockId'      => self::TYPE_FK,
+                    'nameDesignTextId'       => self::TYPE_FK,
+                    'sort'                   => self::TYPE_SMALLINT,
                 ]
             )
             ->createForeignKey(
@@ -195,6 +199,26 @@ class M160317000000Images extends AbstractMigration
                 self::FK_CASCADE
             )
             ->createForeignKey('imageGroups', 'seoId', 'seo')
+            ->createForeignKey(
+                'imageGroups',
+                'containerDesignBlockId',
+                'designBlocks'
+            )
+            ->createForeignKey(
+                'imageGroups',
+                'coverDesignBlockId',
+                'designBlocks'
+            )
+            ->createForeignKey(
+                'imageGroups',
+                'nameDesignBlockId',
+                'designBlocks'
+            )
+            ->createForeignKey(
+                'imageGroups',
+                'nameDesignTextId',
+                'designTexts'
+            )
             ->createIndex('imageGroups', 'sort');
     }
 
