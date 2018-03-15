@@ -109,13 +109,13 @@ class ImageModel extends AbstractImageModel
         $albumId = 0;
 
         if ($currentAlbum instanceof ImageGroupModel
-            && $this->get('useAlbums' === true)
+            && $this->getContentModel()->get('useAlbums') === true
         ) {
             $albumId = $currentAlbum->getId();
         }
 
         if ($albumId === 0
-            && $this->get('useAlbums' === true)
+            && $this->getContentModel()->get('useAlbums') === true
         ) {
             return $this->_getImageGroupHtml();
         }
@@ -175,7 +175,7 @@ class ImageModel extends AbstractImageModel
 
         $images = $images->findAll();
 
-        switch ($this->get('type')) {
+        switch ($this->getContentModel()->get('type')) {
             case self::TYPE_SLIDER:
                 $view = 'slider';
                 break;

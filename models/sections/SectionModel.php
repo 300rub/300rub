@@ -487,14 +487,14 @@ class SectionModel extends AbstractSectionModel
     public function byUrl($url)
     {
         $this->getDb()->addJoin(
-            'seoModel',
-            'seoModel',
+            'seo',
+            'seo',
             Db::DEFAULT_ALIAS,
             'seoId'
         );
 
         $this->getDb()->addWhere(
-            'seoModel.url = :url'
+            'seo.url = :url'
         );
         $this->getDb()->addParameter('url', $url);
 
