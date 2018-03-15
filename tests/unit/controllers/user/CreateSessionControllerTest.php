@@ -56,13 +56,19 @@ class CreateSessionControllerTest extends AbstractControllerTest
         $userSessionModel = $userSessionModel->find();
         $this->assertNotNull($userSessionModel);
 
+        $isIgnoreCache = App::getInstance()
+            ->getConfig()
+            ->getValue(['memcached', 'isIgnoreCache']);
+
         // Make sure that logged User stores in memcache.
         $memcached = App::getInstance()->getMemcached();
-        $user = $memcached->get($token);
-        $this->assertInstanceOf(
-            'ss\\application\\components\\User',
-            $user
-        );
+        if ($isIgnoreCache !== true) {
+            $user = $memcached->get($token);
+            $this->assertInstanceOf(
+                'ss\\application\\components\\User',
+                $user
+            );
+        }
 
         // Check cookies.
         $sessionIdFromCookie = $this->getSessionIdFromCookie();
@@ -80,7 +86,9 @@ class CreateSessionControllerTest extends AbstractControllerTest
 
         // Remove.
         $userSessionModel->delete();
-        $memcached->delete($token);
+        if ($isIgnoreCache !== true) {
+            $memcached->delete($token);
+        }
 
         return true;
     }
