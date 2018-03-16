@@ -88,5 +88,7 @@ abstract class AbstractDeleteModel extends AbstractSaveModel
             $relationModel = $this->getRelationModelByFieldName($field, true);
             $relationModel->delete();
         }
+
+        $this->afterChange();
     }
 }

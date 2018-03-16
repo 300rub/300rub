@@ -18,34 +18,9 @@ class TextModel extends AbstractTextModel
     const CLASS_NAME = '\\ss\\models\\blocks\\text\\TextModel';
 
     /**
-     * Gets HTML memcached key
-     *
-     * @return string
+     * Cache eky mask
      */
-    public function getHtmlMemcachedKey()
-    {
-        return sprintf('text_%s_html', $this->getId());
-    }
-
-    /**
-     * Gets CSS memcached key
-     *
-     * @return string
-     */
-    public function getCssMemcachedKey()
-    {
-        return sprintf('text_%s_css', $this->getId());
-    }
-
-    /**
-     * Gets JS memcached key
-     *
-     * @return string
-     */
-    public function getJsMemcachedKey()
-    {
-        return sprintf('text_%s_js', $this->getId());
-    }
+    const CACHE_KEY_MASK = 'texts_%s_html';
 
     /**
      * Generates HTML
@@ -57,11 +32,11 @@ class TextModel extends AbstractTextModel
     public function generateHtml()
     {
         $memcached = App::getInstance()->getMemcached();
-        $htmlMemcachedKey = $this->getHtmlMemcachedKey();
-        $htmlMemcachedValue = $memcached->get($htmlMemcachedKey);
+        $memcachedKey = sprintf(self::CACHE_KEY_MASK, $this->getId());
+        $memcachedValue = $memcached->get($memcachedKey);
 
-        if ($htmlMemcachedValue !== false) {
-            return $htmlMemcachedValue;
+        if ($memcachedValue !== false) {
+            return $memcachedValue;
         }
 
         $textInstanceModel = $this->getTextInstanceModel();
@@ -74,7 +49,7 @@ class TextModel extends AbstractTextModel
             ]
         );
 
-        $memcached->set($htmlMemcachedKey, $html);
+        $memcached->set($memcachedKey, $html);
 
         return $html;
     }
@@ -177,5 +152,19 @@ class TextModel extends AbstractTextModel
     public static function model()
     {
         return new self;
+    }
+
+    /**
+     * Runs after changing
+     *
+     * @return void
+     */
+    protected function afterChange()
+    {
+        parent::afterChange();
+
+        $memcachedKey = sprintf(self::CACHE_KEY_MASK, $this->getId());
+        $memcached = App::getInstance()->getMemcached();
+        $memcached->delete($memcachedKey);
     }
 }

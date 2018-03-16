@@ -2,6 +2,7 @@
 
 namespace ss\models\blocks\image;
 
+use ss\application\App;
 use ss\application\components\Db;
 use ss\models\blocks\image\_base\AbstractImageGroupModel;
 
@@ -109,5 +110,63 @@ class ImageGroupModel extends AbstractImageGroupModel
     public function getCount()
     {
         return $this->_count;
+    }
+
+    /**
+     * Runs before deleting
+     *
+     * @return void
+     */
+    protected function beforeDelete()
+    {
+        parent::beforeDelete();
+
+        $imageInstances = ImageInstanceModel::model()
+            ->byGroupId($this->getId())
+            ->withRelations()
+            ->findAll();
+
+        foreach ($imageInstances as $imageInstance) {
+            $imageInstance->delete();
+        }
+    }
+
+    /**
+     * Runs after changing
+     *
+     * @return void
+     */
+    protected function afterChange()
+    {
+        parent::afterChange();
+
+        $this->resetMemcached();
+    }
+
+    /**
+     * Resets Memcached
+     *
+     * @return void
+     */
+    public function resetMemcached()
+    {
+        $memcached = App::getInstance()->getMemcached();
+        $memcached->delete(
+            sprintf(
+                ImageModel::CACHE_KEY_MASK,
+                $this->get('imageId'),
+                ''
+            )
+        );
+
+        $seoModel = $this->getRelationModelByFieldName('seoId', true);
+
+        $memcached->delete(
+            sprintf(
+                ImageModel::CACHE_KEY_MASK,
+                $this->get('imageId'),
+                $seoModel->get('url')
+            )
+        );
     }
 }

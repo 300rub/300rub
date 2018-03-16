@@ -17,4 +17,12 @@ return [
         ],
         'sort'     => 10,
     ],
+    3 => [
+        'imageId'  => 3,
+        'seoModel' => [
+            'name' => 'Simple default album',
+            'url'  => 'simple-default-album',
+        ],
+        'sort'     => 10,
+    ],
 ];

@@ -17,6 +17,11 @@ class ImageModel extends AbstractImageModel
     const CLASS_NAME = '\\ss\\models\\blocks\\image\\ImageModel';
 
     /**
+     * Cache eky mask
+     */
+    const CACHE_KEY_MASK = 'images_%s_html_%s';
+
+    /**
      * Current album
      *
      * @var ImageGroupModel
@@ -28,39 +33,7 @@ class ImageModel extends AbstractImageModel
      *
      * @return string
      */
-    public function getHtmlMemcachedKey()
-    {
-        return $this->_getMemcachedKey('html');
-    }
-
-    /**
-     * Gets CSS memcached key
-     *
-     * @return string
-     */
-    public function getCssMemcachedKey()
-    {
-        return $this->_getMemcachedKey('css');
-    }
-
-    /**
-     * Gets JS memcached key
-     *
-     * @return string
-     */
-    public function getJsMemcachedKey()
-    {
-        return $this->_getMemcachedKey('js');
-    }
-
-    /**
-     * Gets Memcached key
-     *
-     * @param string $type Type
-     *
-     * @return string
-     */
-    private function _getMemcachedKey($type)
+    public function _getMemcachedKey()
     {
         $site = App::getInstance()->getSite();
         $uri = '';
@@ -69,9 +42,8 @@ class ImageModel extends AbstractImageModel
         }
 
         return sprintf(
-            'image_%s_%s_%s',
+            self::CACHE_KEY_MASK,
             $this->getId(),
-            $type,
             $uri
         );
     }
@@ -84,16 +56,16 @@ class ImageModel extends AbstractImageModel
     public function generateHtml()
     {
         $memcached = App::getInstance()->getMemcached();
-        $htmlMemcachedKey = $this->getHtmlMemcachedKey();
-        $htmlMemcachedValue = $memcached->get($htmlMemcachedKey);
+        $memcachedKey = $this->_getMemcachedKey();
+        $memcachedValue = $memcached->get($memcachedKey);
 
-        if ($htmlMemcachedValue !== false) {
-            return $htmlMemcachedValue;
+        if ($memcachedValue !== false) {
+            return $memcachedValue;
         }
 
         $html = $this->_getHtml();
 
-        $memcached->set($htmlMemcachedKey, $html);
+        $memcached->set($memcachedKey, $html);
 
         return $html;
     }
@@ -259,5 +231,35 @@ class ImageModel extends AbstractImageModel
     public static function model()
     {
         return new self;
+    }
+
+    /**
+     * Runs after saving
+     *
+     * @return void
+     */
+    protected function afterSave()
+    {
+        parent::afterSave();
+
+        $imageGroups = ImageGroupModel::model()->findAllByImageId($this->getId());
+        foreach ($imageGroups as $imageGroup) {
+            $imageGroup->resetMemcached();
+        }
+    }
+
+    /**
+     * Runs before deleting
+     *
+     * @return void
+     */
+    protected function beforeDelete()
+    {
+        parent::beforeDelete();
+
+        $imageGroups = ImageGroupModel::model()->findAllByImageId($this->getId());
+        foreach ($imageGroups as $imageGroup) {
+            $imageGroup->delete();
+        }
     }
 }

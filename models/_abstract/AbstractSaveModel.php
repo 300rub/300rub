@@ -176,6 +176,16 @@ abstract class AbstractSaveModel extends AbstractValidateModel
      */
     protected function afterSave()
     {
+        $this->afterChange();
+    }
+
+    /**
+     * Runs after changing
+     *
+     * @return void
+     */
+    protected function afterChange()
+    {
     }
 
     /**

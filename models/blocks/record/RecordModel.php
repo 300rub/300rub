@@ -16,36 +16,6 @@ class RecordModel extends AbstractRecordModel
     const CLASS_NAME = '\\ss\\models\\blocks\\record\\RecordModel';
 
     /**
-     * Gets HTML memcached key
-     *
-     * @return string
-     */
-    public function getHtmlMemcachedKey()
-    {
-        return sprintf('image_%s_html', $this->getId());
-    }
-
-    /**
-     * Gets CSS memcached key
-     *
-     * @return string
-     */
-    public function getCssMemcachedKey()
-    {
-        return sprintf('image_%s_css', $this->getId());
-    }
-
-    /**
-     * Gets JS memcached key
-     *
-     * @return string
-     */
-    public function getJsMemcachedKey()
-    {
-        return sprintf('image_%s_js', $this->getId());
-    }
-
-    /**
      * Generates HTML
      *
      * @return string

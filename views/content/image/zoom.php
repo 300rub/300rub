@@ -3,7 +3,7 @@
 /**
  * Variables
  *
- * @var int $blockId
+ * @var int                                          $blockId
  * @var \ss\models\blocks\image\ImageInstanceModel[] $images
  */
 

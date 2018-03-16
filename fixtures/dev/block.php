@@ -22,4 +22,10 @@ return [
         'contentType' => BlockModel::TYPE_IMAGE,
         'contentId'   => 2,
     ],
+    4 => [
+        'name'        => 'Image Simple',
+        'language'    => Language::LANGUAGE_EN_ID,
+        'contentType' => BlockModel::TYPE_IMAGE,
+        'contentId'   => 3,
+    ],
 ];

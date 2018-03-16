@@ -31,4 +31,10 @@ return [
         'sectionId' => 5,
         'sort'      => 20,
     ],
+    6 => [
+        'menuId'    => 1,
+        'parentId'  => 3,
+        'sectionId' => 6,
+        'sort'      => 30,
+    ],
 ];

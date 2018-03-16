@@ -39,4 +39,11 @@ return [
         ],
         'language' => Language::LANGUAGE_EN_ID,
     ],
+    6 => [
+        'seoModel'      => [
+            'name' => 'Images simple',
+            'url'  => 'images-simple'
+        ],
+        'language' => Language::LANGUAGE_EN_ID,
+    ],
 ];

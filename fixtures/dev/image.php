@@ -8,5 +8,8 @@ return [
     ],
     2 => [
         'type' => ImageModel::TYPE_SLIDER
+    ],
+    3 => [
+        'type' => ImageModel::TYPE_SIMPLE
     ]
 ];

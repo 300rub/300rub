@@ -9,4 +9,14 @@ use ss\models\sections\_base\AbstractSeoModel;
  */
 class SeoModel extends AbstractSeoModel
 {
+
+    /**
+     * Gets new model
+     *
+     * @return SeoModel
+     */
+    public static function model()
+    {
+        return new self;
+    }
 }

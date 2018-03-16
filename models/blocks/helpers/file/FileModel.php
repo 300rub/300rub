@@ -258,7 +258,7 @@ class FileModel extends AbstractFileModel
     public function deleteByUniqueName($name)
     {
         if (APP_ENV === ENV_DEV) {
-            self::_localDeleteByUniqueName($name);
+            $this->_localDeleteByUniqueName($name);
         }
     }
 
@@ -289,6 +289,28 @@ class FileModel extends AbstractFileModel
                 [
                     'name' => $name,
                 ]
+            );
+        }
+    }
+
+    /**
+     * Runs after deleting
+     *
+     * @return void
+     */
+    protected function afterDelete()
+    {
+        parent::afterDelete();
+
+        try {
+            $this->deleteByUniqueName($this->get('uniqueName'));
+        } catch (\Exception $e) {
+            App::getInstance()->getLogger()->error(
+                sprintf(
+                    'Unable to remove file by unique name: [%s]',
+                    $this->get('uniqueName')
+                ),
+                'file'
             );
         }
     }

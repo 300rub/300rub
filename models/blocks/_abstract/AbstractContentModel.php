@@ -62,27 +62,6 @@ abstract class AbstractContentModel extends AbstractModel
     protected $jsList = [];
 
     /**
-     * Gets HTML memcached key
-     *
-     * @return string
-     */
-    abstract public function getHtmlMemcachedKey();
-
-    /**
-     * Gets CSS memcached key
-     *
-     * @return string
-     */
-    abstract public function getCssMemcachedKey();
-
-    /**
-     * Gets JS memcached key
-     *
-     * @return string
-     */
-    abstract public function getJsMemcachedKey();
-
-    /**
      * Generates HTML
      *
      * @return string
@@ -102,6 +81,32 @@ abstract class AbstractContentModel extends AbstractModel
      * @return string
      */
     abstract public function generateJs();
+
+    /**
+     * Gets CSS memcached key
+     *
+     * @return string
+     */
+    private function _getCssMemcachedKey()
+    {
+        return sprintf(
+            'block_%s_css',
+            $this->getBlockId()
+        );
+    }
+
+    /**
+     * Gets JS memcached key
+     *
+     * @return string
+     */
+    private function _getJsMemcachedKey()
+    {
+        return sprintf(
+            'block_%s_js',
+            $this->getBlockId()
+        );
+    }
 
     /**
      * Gets content model
@@ -275,7 +280,7 @@ abstract class AbstractContentModel extends AbstractModel
     private function _setCssList()
     {
         $memcached = App::getInstance()->getMemcached();
-        $memcachedKey = $this->getCssMemcachedKey();
+        $memcachedKey = $this->_getCssMemcachedKey();
         $memcachedValue = $memcached->get($memcachedKey);
 
         if ($memcachedValue !== false) {
@@ -298,7 +303,7 @@ abstract class AbstractContentModel extends AbstractModel
     private function _setJsList()
     {
         $memcached = App::getInstance()->getMemcached();
-        $memcachedKey = $this->getJsMemcachedKey();
+        $memcachedKey = $this->_getJsMemcachedKey();
         $memcachedValue = $memcached->get($memcachedKey);
 
         if ($memcachedValue !== false) {
@@ -314,33 +319,16 @@ abstract class AbstractContentModel extends AbstractModel
     }
 
     /**
-     * Runs after deleting
+     * Runs after changing
      *
      * @return void
      */
-    protected function afterDelete()
+    protected function afterChange()
     {
-        parent::afterDelete();
-
+        parent::afterChange();
         $memcached = App::getInstance()->getMemcached();
         $memcached
-            ->delete($this->getHtmlMemcachedKey())
-            ->delete($this->getCssMemcachedKey())
-            ->delete($this->getJsMemcachedKey());
-    }
-
-    /**
-     * Runs after saving
-     *
-     * @return void
-     */
-    protected function afterSave()
-    {
-        parent::afterSave();
-
-        $memcached = App::getInstance()->getMemcached();
-        $memcached
-            ->delete($this->getCssMemcachedKey())
-            ->delete($this->getJsMemcachedKey());
+            ->delete($this->_getCssMemcachedKey())
+            ->delete($this->_getJsMemcachedKey());
     }
 }

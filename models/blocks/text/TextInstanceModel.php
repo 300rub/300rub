@@ -33,36 +33,19 @@ class TextInstanceModel extends AbstractTextInstanceModel
     }
 
     /**
-     * Runs after deleting
+     * Runs after changing
      *
      * @return void
      */
-    protected function afterDelete()
+    protected function afterChange()
     {
-        parent::afterDelete();
+        parent::afterChange();
 
-        $textModel = new TextModel();
-        $textModel->set(['id' => $this->get('textId')]);
-
-        App::getInstance()->getMemcached()->delete(
-            $textModel->getHtmlMemcachedKey()
+        $memcachedKey = sprintf(
+            TextModel::CACHE_KEY_MASK,
+            $this->get('textId')
         );
-    }
-
-    /**
-     * Runs after saving
-     *
-     * @return void
-     */
-    protected function afterSave()
-    {
-        parent::afterSave();
-
-        $textModel = new TextModel();
-        $textModel->set(['id' => $this->get('textId')]);
-
-        App::getInstance()->getMemcached()->delete(
-            $textModel->getHtmlMemcachedKey()
-        );
+        $memcached = App::getInstance()->getMemcached();
+        $memcached->delete($memcachedKey);
     }
 }
