@@ -64,4 +64,18 @@ return [
         'y'          => 0,
         'width'      => 9
     ],
+    10 => [
+        'gridLineId' => 7,
+        'blockId'    => 1,
+        'x'          => 0,
+        'y'          => 0,
+        'width'      => 3
+    ],
+    11 => [
+        'gridLineId' => 7,
+        'blockId'    => 5,
+        'x'          => 3,
+        'y'          => 0,
+        'width'      => 9
+    ],
 ];

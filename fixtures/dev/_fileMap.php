@@ -55,4 +55,40 @@ return [
             'imageGroupId' => 3
         ],
     ],
+    [
+        'group'      => 'image',
+        'controller' => 'image',
+        'file'       => 'mediumImage.jpg',
+        'data'       => [
+            'blockId'      => 5,
+            'imageGroupId' => 4
+        ],
+    ],
+    [
+        'group'      => 'image',
+        'controller' => 'image',
+        'file'       => 'mediumImage.png',
+        'data'       => [
+            'blockId'      => 5,
+            'imageGroupId' => 4
+        ],
+    ],
+    [
+        'group'      => 'image',
+        'controller' => 'image',
+        'file'       => 'slider1.jpg',
+        'data'       => [
+            'blockId'      => 5,
+            'imageGroupId' => 5
+        ],
+    ],
+    [
+        'group'      => 'image',
+        'controller' => 'image',
+        'file'       => 'slider2.jpg',
+        'data'       => [
+            'blockId'      => 5,
+            'imageGroupId' => 5
+        ],
+    ],
 ];

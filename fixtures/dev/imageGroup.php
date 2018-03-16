@@ -25,4 +25,20 @@ return [
         ],
         'sort'     => 10,
     ],
+    4 => [
+        'imageId'  => 4,
+        'seoModel' => [
+            'name' => 'Album zoom 1',
+            'url'  => 'album-zoom-1',
+        ],
+        'sort'     => 10,
+    ],
+    5 => [
+        'imageId'  => 4,
+        'seoModel' => [
+            'name' => 'Album zoom 2',
+            'url'  => 'album-zoom-2',
+        ],
+        'sort'     => 20,
+    ],
 ];

@@ -46,4 +46,11 @@ return [
         ],
         'language' => Language::LANGUAGE_EN_ID,
     ],
+    7 => [
+        'seoModel'      => [
+            'name' => 'Albums zoom',
+            'url'  => 'albums-zoom'
+        ],
+        'language' => Language::LANGUAGE_EN_ID,
+    ],
 ];

@@ -11,5 +11,9 @@ return [
     ],
     3 => [
         'type' => ImageModel::TYPE_SIMPLE
+    ],
+    4 => [
+        'type'      => ImageModel::TYPE_ZOOM,
+        'useAlbums' => true,
     ]
 ];

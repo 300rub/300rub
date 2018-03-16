@@ -28,4 +28,10 @@ return [
         'contentType' => BlockModel::TYPE_IMAGE,
         'contentId'   => 3,
     ],
+    5 => [
+        'name'        => 'Albums zoom',
+        'language'    => Language::LANGUAGE_EN_ID,
+        'contentType' => BlockModel::TYPE_IMAGE,
+        'contentId'   => 4,
+    ],
 ];
