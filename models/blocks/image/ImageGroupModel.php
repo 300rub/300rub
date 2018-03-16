@@ -119,7 +119,7 @@ class ImageGroupModel extends AbstractImageGroupModel
      */
     protected function beforeDelete()
     {
-        parent::beforeDelete();
+        $this->resetMemcached();
 
         $imageInstances = ImageInstanceModel::model()
             ->byGroupId($this->getId())
@@ -129,18 +129,20 @@ class ImageGroupModel extends AbstractImageGroupModel
         foreach ($imageInstances as $imageInstance) {
             $imageInstance->delete();
         }
+
+        parent::beforeDelete();
     }
 
     /**
-     * Runs after changing
+     * Runs before saving
      *
      * @return void
      */
-    protected function afterChange()
+    protected function beforeSave()
     {
-        parent::afterChange();
-
         $this->resetMemcached();
+
+        parent::beforeSave();
     }
 
     /**

@@ -115,7 +115,7 @@ class ImageModel extends AbstractImageModel
         }
 
         return App::getInstance()->getView()->get(
-            'content/image/albums',
+            'content/image/group',
             [
                 'blockId' => $this->getBlockId(),
                 'albums'  => $albums
@@ -234,18 +234,18 @@ class ImageModel extends AbstractImageModel
     }
 
     /**
-     * Runs after saving
+     * Runs before saving
      *
      * @return void
      */
-    protected function afterSave()
+    protected function beforeSave()
     {
-        parent::afterSave();
-
         $imageGroups = ImageGroupModel::model()->findAllByImageId($this->getId());
         foreach ($imageGroups as $imageGroup) {
             $imageGroup->resetMemcached();
         }
+
+        parent::beforeSave();
     }
 
     /**
@@ -255,11 +255,11 @@ class ImageModel extends AbstractImageModel
      */
     protected function beforeDelete()
     {
-        parent::beforeDelete();
-
         $imageGroups = ImageGroupModel::model()->findAllByImageId($this->getId());
         foreach ($imageGroups as $imageGroup) {
             $imageGroup->delete();
         }
+
+        parent::beforeDelete();
     }
 }
