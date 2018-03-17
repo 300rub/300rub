@@ -4,6 +4,7 @@ namespace ss\models\blocks\image;
 
 use ss\application\App;
 use ss\application\components\Db;
+use ss\models\_abstract\AbstractModel;
 use ss\models\blocks\image\_base\AbstractImageGroupModel;
 
 /**
@@ -18,6 +19,13 @@ class ImageGroupModel extends AbstractImageGroupModel
      * @var int
      */
     private $_count = 0;
+
+    /**
+     * Cover
+     *
+     * @var ImageInstanceModel
+     */
+    private $_cover = null;
 
     /**
      * Adds imageId condition to SQL request
@@ -113,6 +121,29 @@ class ImageGroupModel extends AbstractImageGroupModel
     }
 
     /**
+     * Sets count
+     *
+     * @param ImageInstanceModel|AbstractModel $cover Cover
+     *
+     * @return ImageGroupModel
+     */
+    public function setCover($cover)
+    {
+        $this->_cover = $cover;
+        return $this;
+    }
+
+    /**
+     * Gets cover
+     *
+     * @return ImageInstanceModel
+     */
+    public function getCover()
+    {
+        return $this->_cover;
+    }
+
+    /**
      * Runs before deleting
      *
      * @return void
@@ -169,6 +200,20 @@ class ImageGroupModel extends AbstractImageGroupModel
                 $this->get('imageId'),
                 $seoModel->get('url')
             )
+        );
+    }
+
+    /**
+     * Gets URI
+     *
+     * @return string
+     */
+    public function getUri()
+    {
+        return sprintf(
+            '%s/%s',
+            App::getInstance()->getSite()->getActiveSectionUri(),
+            $this->get('seoModel')->get('url')
         );
     }
 }

@@ -48,8 +48,8 @@ return [
     ],
     7 => [
         'seoModel'      => [
-            'name' => 'Albums zoom',
-            'url'  => 'albums-zoom'
+            'name' => 'Albums',
+            'url'  => 'albums'
         ],
         'language' => Language::LANGUAGE_EN_ID,
     ],

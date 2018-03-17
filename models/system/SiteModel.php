@@ -4,6 +4,8 @@ namespace ss\models\system;
 
 use ss\application\App;
 use ss\application\components\Db;
+use ss\models\_abstract\AbstractModel;
+use ss\models\sections\SectionModel;
 use ss\models\system\_base\AbstractSiteModel;
 
 /**
@@ -25,6 +27,13 @@ class SiteModel extends AbstractSiteModel
      * @var string
      */
     private $_uri = '';
+
+    /**
+     * Active section
+     *
+     * @var SectionModel
+     */
+    private $_activeSection = null;
 
     /**
      * Adds name condition to SQL request
@@ -163,5 +172,42 @@ class SiteModel extends AbstractSiteModel
         }
         
         return null;
+    }
+
+    /**
+     * Sets active section
+     *
+     * @param SectionModel|AbstractModel $sectionModel Section model
+     *
+     * @return SiteModel
+     */
+    public function setActiveSection($sectionModel)
+    {
+        $this->_activeSection = $sectionModel;
+        return $this;
+    }
+
+    /**
+     * Gets active section
+     *
+     * @return SectionModel
+     */
+    public function getActiveSection()
+    {
+        return $this->_activeSection;
+    }
+
+    /**
+     * Gets active section URI
+     *
+     * @return string
+     */
+    public function getActiveSectionUri()
+    {
+        return sprintf(
+            '/%s/%s',
+            App::getInstance()->getLanguage()->getActiveAlias(),
+            $this->getActiveSection()->get('seoModel')->get('url')
+        );
     }
 }

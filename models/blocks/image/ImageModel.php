@@ -89,10 +89,10 @@ class ImageModel extends AbstractImageModel
         if ($albumId === 0
             && $this->getContentModel()->get('useAlbums') === true
         ) {
-            return $this->_getImageGroupHtml();
+            return $this->_getImageGroupsHtml();
         }
 
-        return $this->_getImageInstanceHtml($albumId);
+        return $this->_getImageInstancesHtml($albumId);
     }
 
     /**
@@ -100,22 +100,29 @@ class ImageModel extends AbstractImageModel
      *
      * @return string
      */
-    private function _getImageGroupHtml()
+    private function _getImageGroupsHtml()
     {
         $albums = ImageGroupModel::model()->findAllByImageId(
             $this->getContentId()
         );
 
         foreach ($albums as &$album) {
-            $album->setCount(
-                ImageInstanceModel::model()
-                    ->byGroupId($album->getId())
-                    ->getCount()
-            );
+            $album
+                ->setCount(
+                    ImageInstanceModel::model()
+                        ->byGroupId($album->getId())
+                        ->getCount()
+                )
+                ->setCover(
+                    ImageInstanceModel::model()
+                        ->coverByGroupId($album->getId())
+                        ->withRelations()
+                        ->find()
+                );
         }
 
         return App::getInstance()->getView()->get(
-            'content/image/group',
+            'content/image/albums',
             [
                 'blockId' => $this->getBlockId(),
                 'albums'  => $albums
@@ -130,7 +137,7 @@ class ImageModel extends AbstractImageModel
      *
      * @return string
      */
-    private function _getImageInstanceHtml($albumId)
+    private function _getImageInstancesHtml($albumId)
     {
         $images = new ImageInstanceModel();
         $images

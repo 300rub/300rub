@@ -27,7 +27,8 @@ class PageController extends AbstractPageController
         $sectionCss = [];
         $isUser = $this->isUser();
 
-        $sectionModel = $this->_getSectionModel();
+        $this->_setSectionModel();
+        $sectionModel = App::web()->getSite()->getActiveSection();
 
         if ($sectionModel === null
             && $isUser === false
@@ -76,25 +77,32 @@ class PageController extends AbstractPageController
     /**
      * Gets Section models
      *
-     * @return SectionModel
+     * @return PageController
      */
-    private function _getSectionModel()
+    private function _setSectionModel()
     {
-        $requestUri = App::web()->getSite()->getUri();
+        $site = App::web()->getSite();
+        $requestUri = $site->getUri();
 
         if (strlen($requestUri) === 0
             || strpos($requestUri, '/') === false
         ) {
-            return SectionModel::model()->main()->withRelations()->find();
+            $site->setActiveSection(
+                SectionModel::model()->main()->withRelations()->find()
+            );
+            return $this;
         }
 
         $explode = explode('/', $requestUri);
 
-        return SectionModel::model()
-            ->byLanguage(App::web()->getLanguage()->getActiveId())
-            ->byUrl($explode[1])
-            ->withRelations()
-            ->find();
+        $site->setActiveSection(
+            SectionModel::model()
+                ->byLanguage(App::web()->getLanguage()->getActiveId())
+                ->byUrl($explode[1])
+                ->withRelations()
+                ->find()
+        );
+        return $this;
     }
 
     /**
