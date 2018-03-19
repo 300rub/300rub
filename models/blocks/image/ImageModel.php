@@ -217,7 +217,44 @@ class ImageModel extends AbstractImageModel
      */
     public function generateCss()
     {
-        return [];
+        $css = [];
+        $view = App::getInstance()->getView();
+
+        $css = array_merge(
+            $css,
+            $view->generateCss(
+                $this->get('designBlockModel'),
+                sprintf('.block-%s', $this->getBlockId())
+            )
+        );
+
+        switch ($this->getContentModel()->get('type')) {
+            case self::TYPE_SLIDER:
+                $view = 'slider';
+                break;
+            case self::TYPE_SIMPLE:
+                $view = 'simple';
+                break;
+            default:
+                $view = 'zoom';
+                break;
+        }
+
+        return $css;
+    }
+
+    private function _getSimpleDesign()
+    {
+        $css = [];
+        $view = App::getInstance()->getView();
+
+        $css = array_merge(
+            $css,
+            $view->generateCss(
+                $this->get('designImageSimpleModel'),
+                sprintf('.block-%s .image-container', $this->getBlockId())
+            )
+        );
     }
 
     /**

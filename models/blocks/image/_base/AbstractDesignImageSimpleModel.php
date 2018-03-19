@@ -70,6 +70,17 @@ abstract class AbstractDesignImageSimpleModel extends AbstractModel
                 self::FIELD_RELATION
                     => '\\ss\\models\\blocks\\block\\DesignBlockModel'
             ],
+            'descriptionDesignBlockId' => [
+                self::FIELD_RELATION
+                => '\\ss\\models\\blocks\\block\\DesignBlockModel'
+            ],
+            'descriptionDesignTextId' => [
+                self::FIELD_RELATION
+                => '\\ss\\models\\blocks\\text\\DesignTextModel'
+            ],
+            'useDescription' => [
+                self::FIELD_TYPE => self::FIELD_TYPE_BOOL
+            ],
             'alignment'          => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [

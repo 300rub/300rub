@@ -10,21 +10,18 @@
 echo sprintf('<div class="block-%s">', $blockId);
 
 foreach ($images as $image) {
-    echo sprintf(
-        '<img src="%s" alt="%s" title="%s" />',
-        $image->get('viewFileModel')->getUrl(),
-        $image->get('alt'),
-        $image->get('alt')
-    );
+    echo '<div class="image-container">';
+        echo sprintf(
+            '<img src="%s" alt="%s" title="%s" class="image" />',
+            $image->get('viewFileModel')->getUrl(),
+            $image->get('alt'),
+            $image->get('alt')
+        );
+        echo sprintf(
+            '<div class="description">%s</div>',
+            $image->get('alt')
+        );
+    echo '</div>';
 }
 
 echo '</div>';
-
-//<div>
-//  <div style="text-align: center;">
-//<img src="https://html-online.com/editor/images/templates2.jpg"  style="margin: 50px;">
-//  </div>
-//   <div style="text-align: center;">
-//<img src="https://html-online.com/editor/images/templates2.jpg" style="margin: 50px;">
-//       </div>
-//</div>

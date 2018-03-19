@@ -37,10 +37,13 @@ class M160317000000Images extends AbstractMigration
             createTable(
                 'designImageSimple',
                 [
-                    'id'                     => self::TYPE_PK,
-                    'containerDesignBlockId' => self::TYPE_FK,
-                    'imageDesignBlockId'     => self::TYPE_FK,
-                    'alignment'              => self::TYPE_TINYINT_UNSIGNED,
+                    'id'                       => self::TYPE_PK,
+                    'containerDesignBlockId'   => self::TYPE_FK,
+                    'imageDesignBlockId'       => self::TYPE_FK,
+                    'descriptionDesignBlockId' => self::TYPE_FK,
+                    'descriptionDesignTextId'  => self::TYPE_FK,
+                    'useDescription'           => self::TYPE_BOOL,
+                    'alignment'                => self::TYPE_TINYINT_UNSIGNED,
                 ]
             )
             ->createForeignKey(
@@ -52,6 +55,16 @@ class M160317000000Images extends AbstractMigration
                 'designImageSimple',
                 'imageDesignBlockId',
                 'designBlocks'
+            )
+            ->createForeignKey(
+                'designImageSimple',
+                'descriptionDesignBlockId',
+                'designBlocks'
+            )
+            ->createForeignKey(
+                'designImageSimple',
+                'descriptionDesignTextId',
+                'designTexts'
             );
     }
 

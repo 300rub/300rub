@@ -4,14 +4,23 @@ namespace ss\application\components;
 
 use ss\application\exceptions\CommonException;
 use ss\models\_abstract\AbstractModel;
-use ss\models\blocks\block\DesignBlockModel;
-use ss\models\blocks\text\DesignTextModel;
 
 /**
  * Class for working with views
  */
 class View
 {
+
+    /**
+     * Map
+     *
+     * @var array
+     */
+    private $_map = [
+        '\\ss\\models\\blocks\\block\\DesignBlockModel'       => 'block',
+        '\\ss\\models\\blocks\\text\\DesignTextModel'         => 'text',
+        '\\ss\\models\\blocks\\image\\DesignImageSimpleModel' => 'image/simple',
+    ];
 
     /**
      * Gets content from view
@@ -55,7 +64,7 @@ class View
     {
         return sprintf(
             '%s-%s',
-            str_replace(['.', ' '], ['', '-'], $selector),
+            str_replace(['.', ' ', '/'], ['', '-', '-'], $selector),
             $type
         );
     }
@@ -73,10 +82,10 @@ class View
     public function generateCss(AbstractModel $model, $selector)
     {
         $type = null;
-        if ($model instanceof DesignBlockModel) {
-            $type = DesignBlockModel::TYPE;
-        } elseif ($model instanceof DesignTextModel) {
-            $type = DesignTextModel::TYPE;
+        foreach ($this->_map as $instance => $path) {
+            if ($model instanceof $instance) {
+                $type = $path;
+            }
         }
 
         if ($type === null) {
