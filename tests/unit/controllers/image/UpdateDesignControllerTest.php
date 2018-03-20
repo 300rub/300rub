@@ -126,9 +126,6 @@ class UpdateDesignControllerTest extends AbstractControllerTest
                         'designBlockModel'     => [
                             'marginTop' => 20
                         ],
-                        'hasScroll'            => true,
-                        'thumbsAlignment'      => 1,
-                        'descriptionAlignment' => 1,
                         'effect'               => 0,
                     ]
                 ],
@@ -155,7 +152,6 @@ class UpdateDesignControllerTest extends AbstractControllerTest
                         'hasAutoPlay'                 => true,
                         'playSpeed'                   => 5,
                         'navigationAlignment'         => 1,
-                        'descriptionAlignment'        => 1,
                     ]
                 ],
                 'hasError' => false

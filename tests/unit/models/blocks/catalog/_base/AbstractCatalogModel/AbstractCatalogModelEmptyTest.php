@@ -97,9 +97,6 @@ class AbstractCatalogModelEmptyTest extends AbstractEmptyModelTest
                 'designBlockModel'     => [
                     'marginTop' => 0
                 ],
-                'hasScroll'            => false,
-                'thumbsAlignment'      => 0,
-                'descriptionAlignment' => 0,
                 'effect'               => 0,
             ],
             'designImageSimpleModel' => [

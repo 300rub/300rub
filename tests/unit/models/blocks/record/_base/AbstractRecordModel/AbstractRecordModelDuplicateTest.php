@@ -131,9 +131,6 @@ class AbstractRecordModelDuplicateTest extends AbstractDuplicateModelTest
                 'designBlockModel'     => [
                     'marginTop' => 10
                 ],
-                'hasScroll'            => false,
-                'thumbsAlignment'      => 1,
-                'descriptionAlignment' => 1,
                 'effect'               => 0,
             ],
             'designImageSimpleModel' => [
@@ -189,9 +186,6 @@ class AbstractRecordModelDuplicateTest extends AbstractDuplicateModelTest
                 'designBlockModel'     => [
                     'marginTop' => 10
                 ],
-                'hasScroll'            => true,
-                'thumbsAlignment'      => 1,
-                'descriptionAlignment' => 1,
                 'effect'               => 0,
             ],
             'designImageSimpleModel' => [
@@ -300,9 +294,6 @@ class AbstractRecordModelDuplicateTest extends AbstractDuplicateModelTest
                 'designBlockModel'     => [
                     'marginTop' => 10
                 ],
-                'hasScroll'            => false,
-                'thumbsAlignment'      => 1,
-                'descriptionAlignment' => 1,
                 'effect'               => 0,
             ],
             'designImageSimpleModel' => [
@@ -358,9 +349,6 @@ class AbstractRecordModelDuplicateTest extends AbstractDuplicateModelTest
                 'designBlockModel'     => [
                     'marginTop' => 10
                 ],
-                'hasScroll'            => true,
-                'thumbsAlignment'      => 1,
-                'descriptionAlignment' => 1,
                 'effect'               => 0,
             ],
             'designImageSimpleModel' => [

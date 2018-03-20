@@ -255,9 +255,6 @@ class GetDesignControllerTest extends AbstractControllerTest
                 'type' => 'image-zoom',
                 'namespace' => 'designImageZoomModel',
                 'values' => [
-                    'hasScroll'            => false,
-                    'thumbsAlignment'      => 0,
-                    'descriptionAlignment' => 0,
                     'effect'               => 0,
                 ]
             ]

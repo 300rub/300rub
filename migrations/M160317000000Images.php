@@ -81,9 +81,6 @@ class M160317000000Images extends AbstractMigration
                 [
                     'id'                   => self::TYPE_PK,
                     'designBlockId'        => self::TYPE_FK,
-                    'hasScroll'            => self::TYPE_BOOL,
-                    'thumbsAlignment'      => self::TYPE_TINYINT_UNSIGNED,
-                    'descriptionAlignment' => self::TYPE_TINYINT_UNSIGNED,
                     'effect'               => self::TYPE_TINYINT_UNSIGNED,
                 ]
             )

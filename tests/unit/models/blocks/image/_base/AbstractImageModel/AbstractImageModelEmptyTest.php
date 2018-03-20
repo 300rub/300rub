@@ -68,9 +68,6 @@ class AbstractImageModelEmptyTest extends AbstractEmptyModelTest
                     'designBlockModel'     => [
                         'marginTop' => 0
                     ],
-                    'hasScroll'            => false,
-                    'thumbsAlignment'      => 0,
-                    'descriptionAlignment' => 0,
                     'effect'               => 0,
                 ],
                 'designImageSimpleModel' => [
@@ -144,9 +141,6 @@ class AbstractImageModelEmptyTest extends AbstractEmptyModelTest
                     'designBlockModel'     => [
                         'marginTop' => 0
                     ],
-                    'hasScroll'            => false,
-                    'thumbsAlignment'      => 0,
-                    'descriptionAlignment' => 0,
                     'effect'               => 0,
                 ],
                 'designImageSimpleModel' => [
@@ -194,7 +188,6 @@ class AbstractImageModelEmptyTest extends AbstractEmptyModelTest
                     'designBlockModel' => [
                         'marginTop' => ''
                     ],
-                    'hasScroll'        => ''
                 ],
                 'designImageSimpleModel' => [
                     'containerDesignBlockModel' => [
@@ -227,9 +220,6 @@ class AbstractImageModelEmptyTest extends AbstractEmptyModelTest
                     'designBlockModel'     => [
                         'marginTop' => 0
                     ],
-                    'hasScroll'            => false,
-                    'thumbsAlignment'      => 0,
-                    'descriptionAlignment' => 0,
                     'effect'               => 0,
                 ],
                 'designImageSimpleModel' => [

@@ -50,25 +50,16 @@ class AbstractDesignImageZoomModelEmptyTest extends AbstractEmptyModelTest
                 'designBlockModel'     => [
                     'marginTop' => 0
                 ],
-                'hasScroll'            => false,
-                'thumbsAlignment'      => 0,
-                'descriptionAlignment' => 0,
                 'effect'               => 0,
             ],
             [
                 'designBlockModel'     => '',
-                'hasScroll'            => '',
-                'thumbsAlignment'      => '',
-                'descriptionAlignment' => '',
                 'effect'               => '',
             ],
             [
                 'designBlockModel'     => [
                     'marginTop' => 0
                 ],
-                'hasScroll'            => false,
-                'thumbsAlignment'      => 0,
-                'descriptionAlignment' => 0,
                 'effect'               => 0,
             ]
         ];
@@ -84,34 +75,22 @@ class AbstractDesignImageZoomModelEmptyTest extends AbstractEmptyModelTest
         return [
             [
                 'designBlockModel'     => null,
-                'hasScroll'            => null,
-                'thumbsAlignment'      => null,
-                'descriptionAlignment' => null,
                 'effect'               => null,
             ],
             [
                 'designBlockModel'     => [
                     'marginTop' => 0
                 ],
-                'hasScroll'            => false,
-                'thumbsAlignment'      => 0,
-                'descriptionAlignment' => 0,
                 'effect'               => 0,
             ],
             [
                 'designBlockModel'     => ' ',
-                'hasScroll'            => ' ',
-                'thumbsAlignment'      => ' ',
-                'descriptionAlignment' => ' ',
                 'effect'               => ' ',
             ],
             [
                 'designBlockModel'     => [
                     'marginTop' => 0
                 ],
-                'hasScroll'            => false,
-                'thumbsAlignment'      => 0,
-                'descriptionAlignment' => 0,
                 'effect'               => 0,
             ],
         ];
@@ -132,9 +111,6 @@ class AbstractDesignImageZoomModelEmptyTest extends AbstractEmptyModelTest
                 'designBlockModel'     => [
                     'marginTop' => 0
                 ],
-                'hasScroll'            => false,
-                'thumbsAlignment'      => 0,
-                'descriptionAlignment' => 0,
                 'effect'               => 0,
             ],
             [
@@ -144,9 +120,6 @@ class AbstractDesignImageZoomModelEmptyTest extends AbstractEmptyModelTest
                 'designBlockModel'     => [
                     'marginTop' => 0
                 ],
-                'hasScroll'            => false,
-                'thumbsAlignment'      => 0,
-                'descriptionAlignment' => 0,
                 'effect'               => 0,
             ],
         ];
@@ -169,9 +142,6 @@ class AbstractDesignImageZoomModelEmptyTest extends AbstractEmptyModelTest
                 'designBlockModel'     => [
                     'marginTop' => 0
                 ],
-                'hasScroll'            => false,
-                'thumbsAlignment'      => 0,
-                'descriptionAlignment' => 0,
                 'effect'               => 0,
             ],
             [
@@ -181,9 +151,6 @@ class AbstractDesignImageZoomModelEmptyTest extends AbstractEmptyModelTest
                 'designBlockModel'     => [
                     'marginTop' => 0
                 ],
-                'hasScroll'            => false,
-                'thumbsAlignment'      => 0,
-                'descriptionAlignment' => 0,
                 'effect'               => 0,
             ],
         ];

@@ -38,9 +38,6 @@ class AbstractDesignImageZoomModelDuplicateTest extends AbstractDuplicateModelTe
                     'borderColorHover'         => 'rgb(0,255,0)',
                     'backgroundColorFromHover' => 'rgba(255,0,255,0.5)',
                 ],
-                'hasScroll'            => true,
-                'thumbsAlignment'      => 1,
-                'descriptionAlignment' => 2,
                 'effect'               => 0,
             ],
             [
@@ -50,9 +47,6 @@ class AbstractDesignImageZoomModelDuplicateTest extends AbstractDuplicateModelTe
                     'borderColorHover'         => 'rgb(0,255,0)',
                     'backgroundColorFromHover' => 'rgba(255,0,255,0.5)',
                 ],
-                'hasScroll'            => true,
-                'thumbsAlignment'      => 1,
-                'descriptionAlignment' => 2,
                 'effect'               => 0,
             ]
         );

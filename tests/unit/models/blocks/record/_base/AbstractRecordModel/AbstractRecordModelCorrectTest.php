@@ -69,9 +69,6 @@ class AbstractRecordModelCorrectTest extends AbstractCorrectModelTest
                 'designBlockModel'     => [
                     'marginTop' => 10
                 ],
-                'hasScroll'            => false,
-                'thumbsAlignment'      => 1,
-                'descriptionAlignment' => 1,
                 'effect'               => 0,
             ],
             'designImageSimpleModel' => [
@@ -127,9 +124,6 @@ class AbstractRecordModelCorrectTest extends AbstractCorrectModelTest
                 'designBlockModel'     => [
                     'marginTop' => 10
                 ],
-                'hasScroll'            => true,
-                'thumbsAlignment'      => 1,
-                'descriptionAlignment' => 1,
                 'effect'               => 0,
             ],
             'designImageSimpleModel' => [
@@ -238,9 +232,6 @@ class AbstractRecordModelCorrectTest extends AbstractCorrectModelTest
                 'designBlockModel'     => [
                     'marginTop' => 10
                 ],
-                'hasScroll'            => false,
-                'thumbsAlignment'      => 1,
-                'descriptionAlignment' => 1,
                 'effect'               => 0,
             ],
             'designImageSimpleModel' => [
@@ -296,9 +287,6 @@ class AbstractRecordModelCorrectTest extends AbstractCorrectModelTest
                 'designBlockModel'     => [
                     'marginTop' => 10
                 ],
-                'hasScroll'            => true,
-                'thumbsAlignment'      => 1,
-                'descriptionAlignment' => 1,
                 'effect'               => 0,
             ],
             'designImageSimpleModel' => [
@@ -407,9 +395,6 @@ class AbstractRecordModelCorrectTest extends AbstractCorrectModelTest
                 'designBlockModel'     => [
                     'marginTop' => 30
                 ],
-                'hasScroll'            => true,
-                'thumbsAlignment'      => 0,
-                'descriptionAlignment' => 0,
                 'effect'               => 0,
             ],
             'designImageSimpleModel' => [
@@ -465,9 +450,6 @@ class AbstractRecordModelCorrectTest extends AbstractCorrectModelTest
                 'designBlockModel'     => [
                     'marginTop' => 30
                 ],
-                'hasScroll'            => false,
-                'thumbsAlignment'      => 0,
-                'descriptionAlignment' => 0,
                 'effect'               => 0,
             ],
             'designImageSimpleModel' => [
@@ -576,9 +558,6 @@ class AbstractRecordModelCorrectTest extends AbstractCorrectModelTest
                 'designBlockModel'     => [
                     'marginTop' => 30
                 ],
-                'hasScroll'            => true,
-                'thumbsAlignment'      => 0,
-                'descriptionAlignment' => 0,
                 'effect'               => 0,
             ],
             'designImageSimpleModel' => [
@@ -634,9 +613,6 @@ class AbstractRecordModelCorrectTest extends AbstractCorrectModelTest
                 'designBlockModel'     => [
                     'marginTop' => 30
                 ],
-                'hasScroll'            => false,
-                'thumbsAlignment'      => 0,
-                'descriptionAlignment' => 0,
                 'effect'               => 0,
             ],
             'designImageSimpleModel' => [

@@ -12,13 +12,6 @@ abstract class AbstractDesignImageZoomModel extends AbstractModel
 {
 
     /**
-     * Description alignments
-     */
-    const DESCRIPTION_ALIGNMENT_NONE = 0;
-    const DESCRIPTION_ALIGNMENT_TOP = 1;
-    const DESCRIPTION_ALIGNMENT_BOTTOM = 2;
-
-    /**
      * Thumbs alignments
      */
     const THUMBS_ALIGNMENT_NONE = 0;
@@ -31,20 +24,6 @@ abstract class AbstractDesignImageZoomModel extends AbstractModel
      * Effects
      */
     const EFFECT_NONE = 0;
-
-    /**
-     * Gets description alignment list
-     *
-     * @return array
-     */
-    public static function getDescriptionAlignmentList()
-    {
-        return [
-            self::DESCRIPTION_ALIGNMENT_NONE   => '',
-            self::DESCRIPTION_ALIGNMENT_TOP    => '',
-            self::DESCRIPTION_ALIGNMENT_BOTTOM => ''
-        ];
-    }
 
     /**
      * Gets thumbs alignment list
@@ -105,27 +84,6 @@ abstract class AbstractDesignImageZoomModel extends AbstractModel
             'designBlockId'        => [
                 self::FIELD_RELATION
                     => '\\ss\\models\\blocks\\block\\DesignBlockModel'
-            ],
-            'hasScroll'            => [
-                self::FIELD_TYPE => self::FIELD_TYPE_BOOL,
-            ],
-            'thumbsAlignment'      => [
-                self::FIELD_TYPE  => self::FIELD_TYPE_INT,
-                self::FIELD_VALUE => [
-                    ValueGenerator::ARRAY_KEY => [
-                        self::getThumbsAlignmentList(),
-                        self::THUMBS_ALIGNMENT_NONE
-                    ]
-                ],
-            ],
-            'descriptionAlignment' => [
-                self::FIELD_TYPE  => self::FIELD_TYPE_INT,
-                self::FIELD_VALUE => [
-                    ValueGenerator::ARRAY_KEY => [
-                        self::getDescriptionAlignmentList(),
-                        self::DESCRIPTION_ALIGNMENT_NONE
-                    ]
-                ],
             ],
             'effect'               => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,

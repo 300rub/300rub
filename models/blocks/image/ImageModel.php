@@ -238,7 +238,7 @@ class ImageModel extends AbstractImageModel
             )
         );
 
-        switch ($this->getContentModel()->get('type')) {
+        switch ($this->get('type')) {
             case self::TYPE_SLIDER:
                 break;
             case self::TYPE_SIMPLE:

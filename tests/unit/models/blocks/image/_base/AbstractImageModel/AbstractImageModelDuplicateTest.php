@@ -65,9 +65,6 @@ class AbstractImageModelDuplicateTest extends AbstractDuplicateModelTest
                 'designBlockModel'     => [
                     'marginTop' => 20
                 ],
-                'hasScroll'            => true,
-                'thumbsAlignment'      => 1,
-                'descriptionAlignment' => 1,
                 'effect'               => 0,
             ],
             'designImageSimpleModel' => [
@@ -123,9 +120,6 @@ class AbstractImageModelDuplicateTest extends AbstractDuplicateModelTest
                 'designBlockModel'     => [
                     'marginTop' => 20
                 ],
-                'hasScroll'            => true,
-                'thumbsAlignment'      => 1,
-                'descriptionAlignment' => 1,
                 'effect'               => 0,
             ],
             'designImageSimpleModel' => [
