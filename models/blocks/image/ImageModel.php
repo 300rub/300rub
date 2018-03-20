@@ -33,7 +33,7 @@ class ImageModel extends AbstractImageModel
      *
      * @return string
      */
-    public function _getMemcachedKey()
+    private function _getMemcachedKey()
     {
         $site = App::getInstance()->getSite();
         $uri = '';
@@ -156,23 +156,33 @@ class ImageModel extends AbstractImageModel
 
         switch ($this->getContentModel()->get('type')) {
             case self::TYPE_SLIDER:
-                $view = 'slider';
-                break;
+                return App::getInstance()->getView()->get(
+                    'content/image/slider',
+                    [
+                        'blockId' => $this->getBlockId(),
+                        'images'  => $images
+                    ]
+                );
             case self::TYPE_SIMPLE:
-                $view = 'simple';
-                break;
+                return App::getInstance()->getView()->get(
+                    'content/image/simple',
+                    [
+                        'blockId' => $this->getBlockId(),
+                        'images'  => $images,
+                        'design'  => $this
+                            ->getContentModel()
+                            ->get('designImageSimpleModel')
+                    ]
+                );
             default:
-                $view = 'zoom';
-                break;
+                return App::getInstance()->getView()->get(
+                    'content/image/zoom',
+                    [
+                        'blockId' => $this->getBlockId(),
+                        'images'  => $images
+                    ]
+                );
         }
-
-        return App::getInstance()->getView()->get(
-            sprintf('content/image/%s', $view),
-            [
-                'blockId' => $this->getBlockId(),
-                'images'  => $images
-            ]
-        );
     }
 
     /**
@@ -230,31 +240,65 @@ class ImageModel extends AbstractImageModel
 
         switch ($this->getContentModel()->get('type')) {
             case self::TYPE_SLIDER:
-                $view = 'slider';
                 break;
             case self::TYPE_SIMPLE:
-                $view = 'simple';
+                $css = array_merge(
+                    $css,
+                    $this->_getSimpleDesign()
+                );
                 break;
             default:
-                $view = 'zoom';
                 break;
         }
 
         return $css;
     }
 
+    /**
+     * Gets simple design CSS
+     *
+     * @return array
+     */
     private function _getSimpleDesign()
     {
         $css = [];
         $view = App::getInstance()->getView();
+        $design = $this->get('designImageSimpleModel');
+        $blockId = $this->getBlockId();
 
         $css = array_merge(
             $css,
             $view->generateCss(
-                $this->get('designImageSimpleModel'),
-                sprintf('.block-%s .image-container', $this->getBlockId())
+                $design->get('containerDesignBlockModel'),
+                sprintf('.block-%s .image-container', $blockId)
             )
         );
+
+        $css = array_merge(
+            $css,
+            $view->generateCss(
+                $design->get('imageDesignBlockModel'),
+                sprintf('.block-%s .image-container .image', $blockId)
+            )
+        );
+
+        $css = array_merge(
+            $css,
+            $view->generateCss(
+                $design->get('descriptionDesignBlockModel'),
+                sprintf('.block-%s .image-container .description', $blockId)
+            )
+        );
+
+        $css = array_merge(
+            $css,
+            $view->generateCss(
+                $design->get('descriptionDesignTextModel'),
+                sprintf('.block-%s .image-container .description', $blockId)
+            )
+        );
+
+        return $css;
     }
 
     /**
@@ -284,7 +328,9 @@ class ImageModel extends AbstractImageModel
      */
     protected function beforeSave()
     {
-        $imageGroups = ImageGroupModel::model()->findAllByImageId($this->getId());
+        $imageGroups = ImageGroupModel::model()->findAllByImageId(
+            $this->getId()
+        );
         foreach ($imageGroups as $imageGroup) {
             $imageGroup->resetMemcached();
         }
@@ -299,7 +345,9 @@ class ImageModel extends AbstractImageModel
      */
     protected function beforeDelete()
     {
-        $imageGroups = ImageGroupModel::model()->findAllByImageId($this->getId());
+        $imageGroups = ImageGroupModel::model()->findAllByImageId(
+            $this->getId()
+        );
         foreach ($imageGroups as $imageGroup) {
             $imageGroup->delete();
         }

@@ -19,11 +19,22 @@ abstract class AbstractDesignImageSimpleModel extends AbstractModel
     const ALIGNMENT_RIGHT = 2;
 
     /**
+     * Align list values
+     *
+     * @var array
+     */
+    protected $alignListValues = [
+        self::ALIGNMENT_LEFT   => '',
+        self::ALIGNMENT_CENTER => 'align-center',
+        self::ALIGNMENT_RIGHT  => 'align-right'
+    ];
+
+    /**
      * Gets alignment list
      *
      * @return array
      */
-    public static function getAlignmentList()
+    public function getAlignmentList()
     {
         return [
             self::ALIGNMENT_LEFT   => '',
@@ -85,7 +96,7 @@ abstract class AbstractDesignImageSimpleModel extends AbstractModel
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
                     ValueGenerator::ARRAY_KEY => [
-                        self::getAlignmentList(),
+                        $this->alignListValues,
                         self::ALIGNMENT_LEFT
                     ]
                 ],

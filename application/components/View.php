@@ -17,9 +17,8 @@ class View
      * @var array
      */
     private $_map = [
-        '\\ss\\models\\blocks\\block\\DesignBlockModel'       => 'block',
-        '\\ss\\models\\blocks\\text\\DesignTextModel'         => 'text',
-        '\\ss\\models\\blocks\\image\\DesignImageSimpleModel' => 'image/simple',
+        '\\ss\\models\\blocks\\block\\DesignBlockModel' => 'block',
+        '\\ss\\models\\blocks\\text\\DesignTextModel'   => 'text',
     ];
 
     /**
