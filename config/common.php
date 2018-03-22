@@ -22,6 +22,6 @@ switch (APP_ENV) {
         break;
 }
 
-$config['staticMap'] = include 'static.php';
+$config['staticMap'] = include 'other/static.php';
 
 return $config;
