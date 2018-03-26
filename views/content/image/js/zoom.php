@@ -7,12 +7,14 @@
  * @var \ss\models\blocks\image\ImageInstanceModel[] $images
  */
 
-echo sprintf('<div class="block-%s">', $blockId);
+echo '<script>';
+
 
 foreach ($images as $image) {
     echo sprintf(
-        '<a class="image-container zoom-image-container" data-fancybox="image-group-%s" href="%s">',
+        '<a class="image-container zoom-image-container" data-fancybox="image-group-%s" data-caption="%s" href="%s">',
         $image->get('imageGroupId'),
+        $image->get('alt'),
         $image->get('viewFileModel')->getUrl()
     );
 
@@ -26,4 +28,4 @@ foreach ($images as $image) {
     echo '</a>';
 }
 
-echo '</div>';
+echo '</script>';

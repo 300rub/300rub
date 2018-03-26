@@ -79,6 +79,7 @@ class M160302000010DesignBlocks extends AbstractMigration
                     'hasBorderHover'               => self::TYPE_BOOL,
                     'hasBorderAnimation'           => self::TYPE_BOOL,
                     'width'                        => self::TYPE_SMALLINT_UNSIGNED,
+                    'height'                       => self::TYPE_SMALLINT_UNSIGNED,
                 ]
             )
             ->createForeignKey(

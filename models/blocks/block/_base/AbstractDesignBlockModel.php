@@ -563,6 +563,12 @@ abstract class AbstractDesignBlockModel extends AbstractModel
                     ValueGenerator::MIN => 0
                 ],
             ],
+            'height' => [
+                self::FIELD_TYPE  => self::FIELD_TYPE_INT,
+                self::FIELD_VALUE => [
+                    ValueGenerator::MIN => 0
+                ],
+            ],
         ];
     }
 }

@@ -248,6 +248,10 @@ class ImageModel extends AbstractImageModel
                 );
                 break;
             default:
+                $css = array_merge(
+                    $css,
+                    $this->_getZoomDesign()
+                );
                 break;
         }
 
@@ -295,6 +299,29 @@ class ImageModel extends AbstractImageModel
             $view->generateCss(
                 $design->get('descriptionDesignTextModel'),
                 sprintf('.block-%s .image-container .description', $blockId)
+            )
+        );
+
+        return $css;
+    }
+
+    /**
+     * Gets zoom design CSS
+     *
+     * @return array
+     */
+    private function _getZoomDesign()
+    {
+        $css = [];
+        $view = App::getInstance()->getView();
+        $design = $this->get('designImageZoomModel');
+        $blockId = $this->getBlockId();
+
+        $css = array_merge(
+            $css,
+            $view->generateCss(
+                $design->get('designBlockModel'),
+                sprintf('.block-%s .image-container', $blockId)
             )
         );
 
