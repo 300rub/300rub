@@ -9,29 +9,56 @@
  */
 
 echo sprintf('<div class="block-%s">', $blockId);
-?>
 
+if (count($images) > 0) {
+    $width = $image->get('cropWidth');
+    $height = $image->get('cropHeight');
 
-<div
-    id="<?= sprintf('slider-%s', uniqid()) ?>"
-    class="slider-container"
-    style="position:relative;top:0px;left:0px;width:600px;height:200px;overflow:hidden;"
->
-    <div
-        data-u="slides"
-        style="position:absolute;top:0px;left:0px;width:600px;height:200px;overflow:hidden;"
-    >
+    $minWidth = 2000;
+    $minHeight = 2000;
 
-        <?php
-        foreach ($images as $imageInstance) {
-            echo sprintf(
-                '<div><img data-u="image" src="%s" /></div>',
-                $imageInstance->get('viewFileModel')->getUrl()
-            );
+    $imageHtml = '';
+    foreach ($images as $imageInstance) {
+        $imageHtml .= sprintf(
+            '<div><img data-u="image" src="%s" /></div>',
+            $imageInstance->get('viewFileModel')->getUrl()
+        );
+
+        if ($imageInstance->get('width') < $minWidth) {
+            $minWidth = $imageInstance->get('width');
         }
-        ?>
-    </div>
-</div>
 
-<?php
+        if ($imageInstance->get('height') < $minHeight) {
+            $minHeight = $imageInstance->get('height');
+        }
+    }
+
+    if ($width === 0
+        || $height === 0
+    ) {
+        $width = $minWidth;
+        $height = $minHeight;
+    }
+
+    echo sprintf(
+        '<div id="slider-%s" class="slider-container" ' .
+        'style="width:%spx;height:%spx;">',
+        uniqid(),
+        $width,
+        $height
+    );
+
+    echo sprintf(
+        '<div data-u="slides" class="slides" ' .
+        'style="width:%spx;height:%spx;">',
+        $width,
+        $height
+    );
+
+    echo $imageHtml;
+
+    echo '</div>';
+    echo '</div>';
+}
+
 echo '</div>';
