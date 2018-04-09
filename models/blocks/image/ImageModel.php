@@ -160,7 +160,8 @@ class ImageModel extends AbstractImageModel
                     'content/image/slider',
                     [
                         'blockId' => $this->getBlockId(),
-                        'images'  => $images
+                        'images'  => $images,
+                        'image'   => $this->getContentModel(),
                     ]
                 );
             case self::TYPE_SIMPLE:
@@ -335,7 +336,30 @@ class ImageModel extends AbstractImageModel
      */
     public function generateJs()
     {
-        return [];
+        $js = [];
+        $view = App::getInstance()->getView();
+
+        switch ($this->get('type')) {
+            case self::TYPE_SLIDER:
+                $js = array_merge(
+                    $js,
+                    $view->generateJs(
+                        'content/image/js/slider',
+                        $this->getBlockId(),
+                        [
+                            'design'  => $this
+                                ->get('designImageSliderModel')
+                        ]
+                    )
+                );
+                break;
+            case self::TYPE_SIMPLE:
+                break;
+            default:
+                break;
+        }
+
+        return $js;
     }
 
     /**

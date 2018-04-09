@@ -6,6 +6,7 @@ define('ENV_PROD', 'prod');
 define('ENV_PRE_PROD', 'preProd');
 define('DEV_LANGUAGE', 1);
 define('DEV_EMAIL', 'email@localhost.local');
+define('PROJECT_ROOT', __DIR__ . '/..');
 
 $config = [
     'host'=> 'ss.com',

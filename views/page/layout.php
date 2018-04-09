@@ -15,6 +15,7 @@
  * @var string   $token
  * @var bool     $isUser
  * @var array    $generatedCss
+ * @var array    $generatedJs
  *
  * phpcs:disable Generic.Files.InlineHTML
  */
@@ -107,6 +108,17 @@ if ($isUser === true) {
 ?>
 
 <?php echo $content; ?>
+
+<?php
+echo '<script>';
+foreach ($generatedJs as $id => $gJs) {
+    echo sprintf(
+        '!function(){%s}();',
+        $gJs
+    );
+}
+echo '</script>';
+?>
 
 <div id="ajax-wrapper"></div>
 

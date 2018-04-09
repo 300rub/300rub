@@ -76,4 +76,35 @@ class DesignImageSliderModel extends AbstractDesignImageSliderModel
             ]
         ];
     }
+
+    /**
+     * Gets a list of effect values
+     *
+     * @return array
+     */
+    public function getEffectValues()
+    {
+        $effect = $this->get('effect');
+        if ($effect === '') {
+            return [];
+        }
+
+        $list = [];
+        $effectsNames[] = $effect;
+
+        if (strpos($effect, ';') !== false) {
+            $effectsNames = explode(';', $effect);
+        }
+
+        $allEffects = require PROJECT_ROOT . '/config/other/slider.php';
+        foreach ($allEffects as $effectGroup) {
+            foreach ($effectsNames as $effectsName) {
+                if (array_key_exists($effectsName, $effectGroup)) {
+                    $list[] = $effectGroup[$effectsName];
+                }
+            }
+        }
+
+        return $list;
+    }
 }

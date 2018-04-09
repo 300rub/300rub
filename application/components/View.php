@@ -69,6 +69,21 @@ class View
     }
 
     /**
+     * Generates JS ID
+     *
+     * @param string $blockId Block ID
+     *
+     * @return string
+     */
+    public function generateJsId($blockId)
+    {
+        return sprintf(
+            'block-%s-js',
+            $blockId
+        );
+    }
+
+    /**
      * Generates CSS
      *
      * @param AbstractModel $model    Model
@@ -109,6 +124,26 @@ class View
 
         return [
             $cssId => $css
+        ];
+    }
+
+    /**
+     * Generates JS
+     *
+     * @param string $path    File path
+     * @param int    $blockId Block ID
+     * @param array  $data    View data
+     *
+     * @return array
+     */
+    public function generateJs($path, $blockId, array $data = [])
+    {
+        $jsId = $this->generateJsId($blockId);
+        $data['blockId'] = $blockId;
+        $data['id'] = $jsId;
+
+        return [
+            $jsId => $this->get($path, $data)
         ];
     }
 }

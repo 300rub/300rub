@@ -42,6 +42,7 @@ class PageController extends AbstractPageController
             $sectionModel->setStructureAndStatic();
             $content = $this->_getCommonContent($sectionModel);
             $sectionCss = $sectionModel->getCss();
+            $sectionJs = $sectionModel->getJs();
         }
 
         if ($isUser === true) {
@@ -70,6 +71,7 @@ class PageController extends AbstractPageController
         $layoutData['token'] = $token;
         $layoutData['isUser'] = $isUser;
         $layoutData['generatedCss'] = $sectionCss;
+        $layoutData['generatedJs'] = $sectionJs;
 
         return $this->getContentFromTemplate('page/layout', $layoutData);
     }
