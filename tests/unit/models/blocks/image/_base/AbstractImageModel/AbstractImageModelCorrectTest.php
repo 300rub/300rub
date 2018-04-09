@@ -57,7 +57,6 @@ class AbstractImageModelCorrectTest extends AbstractCorrectModelTest
                 'descriptionDesignBlockModel' => [
                     'marginTop' => 10
                 ],
-                'effect'                      => 0,
                 'hasAutoPlay'                 => true,
                 'playSpeed'                   => 10,
                 'navigationAlignment'         => 1,
@@ -112,7 +111,6 @@ class AbstractImageModelCorrectTest extends AbstractCorrectModelTest
                 'descriptionDesignBlockModel' => [
                     'marginTop' => 10
                 ],
-                'effect'                      => 0,
                 'hasAutoPlay'                 => true,
                 'playSpeed'                   => 10,
                 'navigationAlignment'         => 1,

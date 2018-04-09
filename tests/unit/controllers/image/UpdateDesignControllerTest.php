@@ -148,7 +148,6 @@ class UpdateDesignControllerTest extends AbstractControllerTest
                         'descriptionDesignBlockModel' => [
                             'marginTop' => 20
                         ],
-                        'effect'                      => 0,
                         'hasAutoPlay'                 => true,
                         'playSpeed'                   => 5,
                         'navigationAlignment'         => 1,

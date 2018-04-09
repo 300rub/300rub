@@ -87,7 +87,6 @@ class AbstractCatalogModelEmptyTest extends AbstractEmptyModelTest
                 'descriptionDesignBlockModel' => [
                     'marginTop' => 0
                 ],
-                'effect'                      => 0,
                 'hasAutoPlay'                 => false,
                 'playSpeed'                   => 0,
                 'navigationAlignment'         => 0,

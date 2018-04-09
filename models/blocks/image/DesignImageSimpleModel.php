@@ -67,11 +67,11 @@ class DesignImageSimpleModel extends AbstractDesignImageSimpleModel
      *
      * @return string
      */
-    public function getAlignValue()
+    public function getAlignmentValue()
     {
         $values = $this->alignListValues;
-        if (array_key_exists($this->get('align'), $values) === true) {
-            return $this->alignListValues[$this->get('align')];
+        if (array_key_exists($this->get('alignment'), $values) === true) {
+            return $this->alignListValues[$this->get('alignment')];
         }
 
         return '';

@@ -35,11 +35,6 @@ abstract class AbstractDesignImageSliderModel extends AbstractModel
     const DESCRIPTION_ALIGNMENT_BOTTOM = 4;
 
     /**
-     * Effects
-     */
-    const EFFECT_NONE = 0;
-
-    /**
      * Gets description alignment list
      *
      * @return array
@@ -73,18 +68,6 @@ abstract class AbstractDesignImageSliderModel extends AbstractModel
             self::NAVIGATION_ALIGNMENT_BOTTOM_LEFT   => '',
             self::NAVIGATION_ALIGNMENT_BOTTOM_CENTER => '',
             self::NAVIGATION_ALIGNMENT_BOTTOM_RIGHT  => ''
-        ];
-    }
-
-    /**
-     * Gets a list of effects
-     *
-     * @return array
-     */
-    public static function getEffectList()
-    {
-        return [
-            self::EFFECT_NONE => '',
         ];
     }
 
@@ -131,13 +114,7 @@ abstract class AbstractDesignImageSliderModel extends AbstractModel
                     => '\\ss\\models\\blocks\\block\\DesignBlockModel'
             ],
             'effect'                   => [
-                self::FIELD_TYPE  => self::FIELD_TYPE_INT,
-                self::FIELD_VALUE => [
-                    ValueGenerator::ARRAY_KEY => [
-                        self::getEffectList(),
-                        self::EFFECT_NONE
-                    ]
-                ],
+                self::FIELD_TYPE  => self::FIELD_TYPE_STRING
             ],
             'hasAutoPlay'              => [
                 self::FIELD_TYPE => self::FIELD_TYPE_BOOL,

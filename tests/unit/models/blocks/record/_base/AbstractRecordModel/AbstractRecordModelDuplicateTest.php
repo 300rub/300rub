@@ -121,7 +121,6 @@ class AbstractRecordModelDuplicateTest extends AbstractDuplicateModelTest
                 'descriptionDesignBlockModel' => [
                     'marginTop' => 10
                 ],
-                'effect'                      => 0,
                 'hasAutoPlay'                 => true,
                 'playSpeed'                   => 1,
                 'navigationAlignment'         => 1,
@@ -176,7 +175,6 @@ class AbstractRecordModelDuplicateTest extends AbstractDuplicateModelTest
                 'descriptionDesignBlockModel' => [
                     'marginTop' => 10
                 ],
-                'effect'                      => 0,
                 'hasAutoPlay'                 => true,
                 'playSpeed'                   => 1,
                 'navigationAlignment'         => 1,
@@ -284,7 +282,6 @@ class AbstractRecordModelDuplicateTest extends AbstractDuplicateModelTest
                 'descriptionDesignBlockModel' => [
                     'marginTop' => 10
                 ],
-                'effect'                      => 0,
                 'hasAutoPlay'                 => true,
                 'playSpeed'                   => 1,
                 'navigationAlignment'         => 1,
@@ -339,7 +336,6 @@ class AbstractRecordModelDuplicateTest extends AbstractDuplicateModelTest
                 'descriptionDesignBlockModel' => [
                     'marginTop' => 10
                 ],
-                'effect'                      => 0,
                 'hasAutoPlay'                 => true,
                 'playSpeed'                   => 1,
                 'navigationAlignment'         => 1,

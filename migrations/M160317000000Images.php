@@ -106,7 +106,7 @@ class M160317000000Images extends AbstractMigration
                     'containerDesignBlockId'   => self::TYPE_FK,
                     'navigationDesignBlockId'  => self::TYPE_FK,
                     'descriptionDesignBlockId' => self::TYPE_FK,
-                    'effect'                   => self::TYPE_TINYINT_UNSIGNED,
+                    'effect'                   => self::TYPE_TEXT,
                     'hasAutoPlay'              => self::TYPE_BOOL,
                     'playSpeed'                => self::TYPE_TINYINT_UNSIGNED,
                     'navigationAlignment'      => self::TYPE_TINYINT_UNSIGNED,

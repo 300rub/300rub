@@ -213,7 +213,6 @@ class GetDesignControllerTest extends AbstractControllerTest
                 'type' => 'image-slider',
                 'namespace' => 'designImageSliderModel',
                 'values' => [
-                    'effect'               => 0,
                     'hasAutoPlay'          => false,
                     'playSpeed'            => 0,
                     'navigationAlignment'  => 0,

@@ -59,7 +59,6 @@ class AbstractRecordModelCorrectTest extends AbstractCorrectModelTest
                 'descriptionDesignBlockModel' => [
                     'marginTop' => 10
                 ],
-                'effect'                      => 0,
                 'hasAutoPlay'                 => true,
                 'playSpeed'                   => 1,
                 'navigationAlignment'         => 1,
@@ -114,7 +113,6 @@ class AbstractRecordModelCorrectTest extends AbstractCorrectModelTest
                 'descriptionDesignBlockModel' => [
                     'marginTop' => 10
                 ],
-                'effect'                      => 0,
                 'hasAutoPlay'                 => true,
                 'playSpeed'                   => 1,
                 'navigationAlignment'         => 1,
@@ -222,7 +220,6 @@ class AbstractRecordModelCorrectTest extends AbstractCorrectModelTest
                 'descriptionDesignBlockModel' => [
                     'marginTop' => 10
                 ],
-                'effect'                      => 0,
                 'hasAutoPlay'                 => true,
                 'playSpeed'                   => 1,
                 'navigationAlignment'         => 1,
@@ -277,7 +274,6 @@ class AbstractRecordModelCorrectTest extends AbstractCorrectModelTest
                 'descriptionDesignBlockModel' => [
                     'marginTop' => 10
                 ],
-                'effect'                      => 0,
                 'hasAutoPlay'                 => true,
                 'playSpeed'                   => 1,
                 'navigationAlignment'         => 1,
@@ -385,7 +381,6 @@ class AbstractRecordModelCorrectTest extends AbstractCorrectModelTest
                 'descriptionDesignBlockModel' => [
                     'marginTop' => 30
                 ],
-                'effect'                      => 0,
                 'hasAutoPlay'                 => false,
                 'playSpeed'                   => 0,
                 'navigationAlignment'         => 0,
@@ -440,7 +435,6 @@ class AbstractRecordModelCorrectTest extends AbstractCorrectModelTest
                 'descriptionDesignBlockModel' => [
                     'marginTop' => 30
                 ],
-                'effect'                      => 0,
                 'hasAutoPlay'                 => false,
                 'playSpeed'                   => 0,
                 'navigationAlignment'         => 0,
@@ -548,7 +542,6 @@ class AbstractRecordModelCorrectTest extends AbstractCorrectModelTest
                 'descriptionDesignBlockModel' => [
                     'marginTop' => 30
                 ],
-                'effect'                      => 0,
                 'hasAutoPlay'                 => false,
                 'playSpeed'                   => 0,
                 'navigationAlignment'         => 0,
@@ -603,7 +596,6 @@ class AbstractRecordModelCorrectTest extends AbstractCorrectModelTest
                 'descriptionDesignBlockModel' => [
                     'marginTop' => 30
                 ],
-                'effect'                      => 0,
                 'hasAutoPlay'                 => false,
                 'playSpeed'                   => 0,
                 'navigationAlignment'         => 0,

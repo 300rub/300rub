@@ -56,7 +56,6 @@ class AbstractDesignImageSliderModelEmptyTest extends AbstractEmptyModelTest
                 'descriptionDesignBlockModel' => [
                     'marginTop' => 0
                 ],
-                'effect'                      => 0,
                 'hasAutoPlay'                 => false,
                 'playSpeed'                   => 0,
                 'navigationAlignment'         => 0,
@@ -66,7 +65,6 @@ class AbstractDesignImageSliderModelEmptyTest extends AbstractEmptyModelTest
                 'containerDesignBlockModel'   => '',
                 'navigationDesignBlockModel'  => '',
                 'descriptionDesignBlockModel' => '',
-                'effect'                      => '',
                 'hasAutoPlay'                 => '',
                 'playSpeed'                   => '',
                 'navigationAlignment'         => '',
@@ -82,7 +80,6 @@ class AbstractDesignImageSliderModelEmptyTest extends AbstractEmptyModelTest
                 'descriptionDesignBlockModel' => [
                     'marginTop' => 0
                 ],
-                'effect'                      => 0,
                 'hasAutoPlay'                 => false,
                 'playSpeed'                   => 0,
                 'navigationAlignment'         => 0,
@@ -103,7 +100,6 @@ class AbstractDesignImageSliderModelEmptyTest extends AbstractEmptyModelTest
                 'containerDesignBlockModel'   => null,
                 'navigationDesignBlockModel'  => null,
                 'descriptionDesignBlockModel' => null,
-                'effect'                      => null,
                 'hasAutoPlay'                 => null,
                 'playSpeed'                   => null,
                 'navigationAlignment'         => null,
@@ -119,7 +115,6 @@ class AbstractDesignImageSliderModelEmptyTest extends AbstractEmptyModelTest
                 'descriptionDesignBlockModel' => [
                     'marginTop' => 0
                 ],
-                'effect'                      => 0,
                 'hasAutoPlay'                 => false,
                 'playSpeed'                   => 0,
                 'navigationAlignment'         => 0,
@@ -129,7 +124,6 @@ class AbstractDesignImageSliderModelEmptyTest extends AbstractEmptyModelTest
                 'containerDesignBlockModel'   => ' ',
                 'navigationDesignBlockModel'  => ' ',
                 'descriptionDesignBlockModel' => ' ',
-                'effect'                      => ' ',
                 'hasAutoPlay'                 => ' ',
                 'playSpeed'                   => ' ',
                 'navigationAlignment'         => ' ',
@@ -145,7 +139,6 @@ class AbstractDesignImageSliderModelEmptyTest extends AbstractEmptyModelTest
                 'descriptionDesignBlockModel' => [
                     'marginTop' => 0
                 ],
-                'effect'                      => 0,
                 'hasAutoPlay'                 => false,
                 'playSpeed'                   => 0,
                 'navigationAlignment'         => 0,
@@ -177,7 +170,6 @@ class AbstractDesignImageSliderModelEmptyTest extends AbstractEmptyModelTest
                 'descriptionDesignBlockModel' => [
                     'marginTop' => 0
                 ],
-                'effect'                      => 0,
                 'hasAutoPlay'                 => false,
                 'playSpeed'                   => 0,
                 'navigationAlignment'         => 0,
@@ -198,7 +190,6 @@ class AbstractDesignImageSliderModelEmptyTest extends AbstractEmptyModelTest
                 'descriptionDesignBlockModel' => [
                     'marginTop' => 0
                 ],
-                'effect'                      => 0,
                 'hasAutoPlay'                 => false,
                 'playSpeed'                   => 0,
                 'navigationAlignment'         => 0,
@@ -236,7 +227,6 @@ class AbstractDesignImageSliderModelEmptyTest extends AbstractEmptyModelTest
                 'descriptionDesignBlockModel' => [
                     'marginTop' => 0
                 ],
-                'effect'                      => 0,
                 'hasAutoPlay'                 => false,
                 'playSpeed'                   => 0,
                 'navigationAlignment'         => 0,
@@ -257,7 +247,6 @@ class AbstractDesignImageSliderModelEmptyTest extends AbstractEmptyModelTest
                 'descriptionDesignBlockModel' => [
                     'marginTop' => 0
                 ],
-                'effect'                      => 0,
                 'hasAutoPlay'                 => false,
                 'playSpeed'                   => 0,
                 'navigationAlignment'         => 0,

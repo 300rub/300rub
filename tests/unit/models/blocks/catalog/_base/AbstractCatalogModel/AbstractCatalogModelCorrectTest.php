@@ -107,7 +107,6 @@ class AbstractCatalogModelCorrectTest extends AbstractCorrectModelTest
                 'descriptionDesignBlockModel' => [
                     'marginTop' => 10
                 ],
-                'effect'                      => 0,
                 'hasAutoPlay'                 => true,
                 'playSpeed'                   => 10,
                 'navigationAlignment'         => 1,
@@ -391,7 +390,6 @@ class AbstractCatalogModelCorrectTest extends AbstractCorrectModelTest
                 'descriptionDesignBlockModel' => [
                     'marginTop' => 10
                 ],
-                'effect'                      => 0,
                 'hasAutoPlay'                 => true,
                 'playSpeed'                   => 10,
                 'navigationAlignment'         => 1,

@@ -16,7 +16,7 @@ foreach ($images as $image) {
         $descriptionHidden = ' hidden';
     }
 
-    $align = $design->getAlignValue();
+    $align = $design->getAlignmentValue();
     if ($align !== '') {
         $align = ' ' . $align;
     }

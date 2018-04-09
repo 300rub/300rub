@@ -55,7 +55,6 @@ class AbstractImageModelDuplicateTest extends AbstractDuplicateModelTest
                 'descriptionDesignBlockModel' => [
                     'marginTop' => 10
                 ],
-                'effect'                      => 0,
                 'hasAutoPlay'                 => true,
                 'playSpeed'                   => 10,
                 'navigationAlignment'         => 1,
@@ -110,7 +109,6 @@ class AbstractImageModelDuplicateTest extends AbstractDuplicateModelTest
                 'descriptionDesignBlockModel' => [
                     'marginTop' => 10
                 ],
-                'effect'                      => 0,
                 'hasAutoPlay'                 => true,
                 'playSpeed'                   => 10,
                 'navigationAlignment'         => 1,

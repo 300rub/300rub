@@ -36,7 +36,6 @@ class AbstractDesignImageSliderModelIncorrectTest extends AbstractIncorrectModel
                     'containerDesignBlockModel'   => 'incorrect',
                     'navigationDesignBlockModel'  => 'incorrect',
                     'descriptionDesignBlockModel' => 'incorrect',
-                    'effect'                      => 'incorrect',
                     'hasAutoPlay'                 => 'incorrect',
                     'playSpeed'                   => 'incorrect',
                     'navigationAlignment'         => 'incorrect',
@@ -52,21 +51,18 @@ class AbstractDesignImageSliderModelIncorrectTest extends AbstractIncorrectModel
                     'descriptionDesignBlockModel' => [
                         'marginTop' => 0
                     ],
-                    'effect'                      => 0,
                     'hasAutoPlay'                 => false,
                     'playSpeed'                   => 0,
                     'navigationAlignment'         => 0,
                     'descriptionAlignment'        => 0,
                 ],
                 [
-                    'effect'               => 999,
                     'hasAutoPlay'          => 999,
                     'playSpeed'            => -50,
                     'navigationAlignment'  => 999,
                     'descriptionAlignment' => 999,
                 ],
                 [
-                    'effect'               => 0,
                     'hasAutoPlay'          => true,
                     'playSpeed'            => 0,
                     'navigationAlignment'  => 0,
@@ -75,14 +71,12 @@ class AbstractDesignImageSliderModelIncorrectTest extends AbstractIncorrectModel
             ],
             'incorrect2' => [
                 [
-                    'effect'               => ' 0 ',
                     'hasAutoPlay'          => ' 1 ',
                     'playSpeed'            => ' 2 ',
                     'navigationAlignment'  => ' 2 ',
                     'descriptionAlignment' => ' 1 ',
                 ],
                 [
-                    'effect'               => 0,
                     'hasAutoPlay'          => true,
                     'playSpeed'            => 2,
                     'navigationAlignment'  => 2,
@@ -92,7 +86,6 @@ class AbstractDesignImageSliderModelIncorrectTest extends AbstractIncorrectModel
                     'containerDesignBlockModel' => [
                         'marginTop' => ' 500 '
                     ],
-                    'effect'                    => '-1',
                     'hasAutoPlay'               => '-1',
                     'playSpeed'                 => '-1',
                     'navigationAlignment'       => '-1',
@@ -102,7 +95,6 @@ class AbstractDesignImageSliderModelIncorrectTest extends AbstractIncorrectModel
                     'containerDesignBlockModel' => [
                         'marginTop' => 500
                     ],
-                    'effect'                    => 0,
                     'hasAutoPlay'               => false,
                     'playSpeed'                 => 0,
                     'navigationAlignment'       => 0,
