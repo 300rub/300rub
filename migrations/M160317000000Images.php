@@ -103,14 +103,16 @@ class M160317000000Images extends AbstractMigration
                 'designImageSliders',
                 [
                     'id'                       => self::TYPE_PK,
+
                     'containerDesignBlockId'   => self::TYPE_FK,
                     'navigationDesignBlockId'  => self::TYPE_FK,
                     'descriptionDesignBlockId' => self::TYPE_FK,
+
                     'effect'                   => self::TYPE_TEXT,
                     'hasAutoPlay'              => self::TYPE_BOOL,
                     'playSpeed'                => self::TYPE_TINYINT_UNSIGNED,
-                    'navigationAlignment'      => self::TYPE_TINYINT_UNSIGNED,
-                    'descriptionAlignment'     => self::TYPE_TINYINT_UNSIGNED,
+//                    'navigationAlignment'      => self::TYPE_TINYINT_UNSIGNED,
+//                    'descriptionAlignment'     => self::TYPE_TINYINT_UNSIGNED,
                 ]
             )
             ->createForeignKey(
