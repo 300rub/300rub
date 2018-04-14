@@ -40,9 +40,9 @@ abstract class AbstractDesignImageSliderModel extends AbstractModel
     public function getFieldsInfo()
     {
         return [
-            'arrowDesignBlockId'       => [
+            'arrowDesignTextId'       => [
                 self::FIELD_RELATION
-                    => '\\ss\\models\\blocks\\block\\DesignBlockModel'
+                => '\\ss\\models\\blocks\\text\\DesignTextModel'
             ],
             'bulletDesignBlockId'  => [
                 self::FIELD_RELATION
