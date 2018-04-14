@@ -102,33 +102,41 @@ class M160317000000Images extends AbstractMigration
             ->createTable(
                 'designImageSliders',
                 [
-                    'id'                       => self::TYPE_PK,
-
-                    'containerDesignBlockId'   => self::TYPE_FK,
-                    'navigationDesignBlockId'  => self::TYPE_FK,
-                    'descriptionDesignBlockId' => self::TYPE_FK,
-
-                    'effect'                   => self::TYPE_TEXT,
-                    'hasAutoPlay'              => self::TYPE_BOOL,
-                    'playSpeed'                => self::TYPE_TINYINT_UNSIGNED,
-//                    'navigationAlignment'      => self::TYPE_TINYINT_UNSIGNED,
-//                    'descriptionAlignment'     => self::TYPE_TINYINT_UNSIGNED,
+                    'id'                        => self::TYPE_PK,
+                    'arrowDesignTextId'         => self::TYPE_FK,
+                    'bulletDesignBlockId'       => self::TYPE_FK,
+                    'bulletActiveDesignBlockId' => self::TYPE_FK,
+                    'descriptionDesignBlockId'  => self::TYPE_FK,
+                    'descriptionDesignTextId'   => self::TYPE_FK,
+                    'effect'                    => self::TYPE_TEXT,
+                    'hasAutoPlay'               => self::TYPE_BOOL,
+                    'playSpeed'                 => self::TYPE_TINYINT_UNSIGNED,
                 ]
             )
             ->createForeignKey(
                 'designImageSliders',
-                'containerDesignBlockId',
+                'arrowDesignTextId',
+                'designTexts'
+            )
+            ->createForeignKey(
+                'designImageSliders',
+                'bulletDesignBlockId',
                 'designBlocks'
             )
             ->createForeignKey(
                 'designImageSliders',
-                'navigationDesignBlockId',
+                'bulletActiveDesignBlockId',
                 'designBlocks'
             )
             ->createForeignKey(
                 'designImageSliders',
                 'descriptionDesignBlockId',
                 'designBlocks'
+            )
+            ->createForeignKey(
+                'designImageSliders',
+                'descriptionDesignTextId',
+                'designTexts'
             );
     }
 

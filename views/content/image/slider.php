@@ -78,6 +78,7 @@ if (count($images) > 0) {
         <svg viewBox="0 0 16000 16000" style="position:absolute;top:0;left:0;width:100%;height:100%;">
             <polyline class="a" points="4960,1920 11040,8000 4960,14080 "></polyline>
         </svg>
+        <i class="fas fa-chevron-right"></i>
     </div>
 
     <style>

@@ -39,22 +39,38 @@ class PublicVendorCommand extends AbstractCommand
 			=> "vanderlee/colorpicker/images/preview-opacity.png",
         "colorpicker/images/ui-colorpicker.png"
 			=> "vanderlee/colorpicker/images/ui-colorpicker.png",
-        "fa/css/font-awesome.min.css"
-			=> "FortAwesome/Font-Awesome/css/font-awesome.min.css",
-        "fa/css/font-awesome.css.map"
-			=> "FortAwesome/Font-Awesome/css/font-awesome.css.map",
-        "fa/fonts/FontAwesome.otf"
-			=> "FortAwesome/Font-Awesome/fonts/FontAwesome.otf",
-        "fa/fonts/fontawesome-webfont.eot"
-			=> "FortAwesome/Font-Awesome/fonts/fontawesome-webfont.eot",
-        "fa/fonts/fontawesome-webfont.svg"
-			=> "FortAwesome/Font-Awesome/fonts/fontawesome-webfont.svg",
-        "fa/fonts/fontawesome-webfont.ttf"
-			=> "FortAwesome/Font-Awesome/fonts/fontawesome-webfont.ttf",
-        "fa/fonts/fontawesome-webfont.woff"
-			=> "FortAwesome/Font-Awesome/fonts/fontawesome-webfont.woff",
-        "fa/fonts/fontawesome-webfont.woff2"
-			=> "FortAwesome/Font-Awesome/fonts/fontawesome-webfont.woff2",
+        "fa/css/fontawesome-all.min.css"
+			=> "fortawesome/font-awesome/web-fonts-with-css/css/fontawesome-all.min.css",
+        "fa/webfonts/fa-brands-400.eot"
+			=> "fortawesome/font-awesome/web-fonts-with-css/webfonts/fa-brands-400.eot",
+		"fa/webfonts/fa-brands-400.svg"
+			=> "fortawesome/font-awesome/web-fonts-with-css/webfonts/fa-brands-400.svg",
+		"fa/webfonts/fa-brands-400.ttf"
+			=> "fortawesome/font-awesome/web-fonts-with-css/webfonts/fa-brands-400.ttf",
+		"fa/webfonts/fa-brands-400.woff"
+			=> "fortawesome/font-awesome/web-fonts-with-css/webfonts/fa-brands-400.woff",
+		"fa/webfonts/fa-brands-400.woff2"
+			=> "fortawesome/font-awesome/web-fonts-with-css/webfonts/fa-brands-400.woff2",
+		"fa/webfonts/fa-regular-400.eot"
+			=> "fortawesome/font-awesome/web-fonts-with-css/webfonts/fa-regular-400.eot",
+		"fa/webfonts/fa-regular-400.svg"
+			=> "fortawesome/font-awesome/web-fonts-with-css/webfonts/fa-regular-400.svg",
+		"fa/webfonts/fa-regular-400.ttf"
+			=> "fortawesome/font-awesome/web-fonts-with-css/webfonts/fa-regular-400.ttf",
+		"fa/webfonts/fa-regular-400.woff"
+			=> "fortawesome/font-awesome/web-fonts-with-css/webfonts/fa-regular-400.woff",
+		"fa/webfonts/fa-regular-400.woff2"
+			=> "fortawesome/font-awesome/web-fonts-with-css/webfonts/fa-regular-400.woff2",
+		"fa/webfonts/fa-solid-900.eot"
+			=> "fortawesome/font-awesome/web-fonts-with-css/webfonts/fa-solid-900.eot",
+		"fa/webfonts/fa-solid-900.svg"
+			=> "fortawesome/font-awesome/web-fonts-with-css/webfonts/fa-solid-900.svg",
+		"fa/webfonts/fa-solid-900.ttf"
+			=> "fortawesome/font-awesome/web-fonts-with-css/webfonts/fa-solid-900.ttf",
+		"fa/webfonts/fa-solid-900.woff"
+			=> "fortawesome/font-awesome/web-fonts-with-css/webfonts/fa-solid-900.woff",
+		"fa/webfonts/fa-solid-900.woff2"
+			=> "fortawesome/font-awesome/web-fonts-with-css/webfonts/fa-solid-900.woff2",
         "hover-min.css"
 			=> "IanLunn/Hover/css/hover-min.css",
 		"jquery.fancybox.min.css"
