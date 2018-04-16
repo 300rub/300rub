@@ -21,19 +21,26 @@ foreach ($images as $image) {
         $align = ' ' . $align;
     }
 
+    $link = $image->get('link');
     echo sprintf('<div class="image-container%s">', $align);
+    if ($link !== '') {
+        echo sprintf('<a href="%s">', $link);
+    }
     echo sprintf(
         '<img src="%s" alt="%s" title="%s" class="image" />',
         $image->get('viewFileModel')->getUrl(),
         $image->get('alt'),
         $image->get('alt')
     );
+    if ($link !== '') {
+        echo '</a>';
+    }
 
     echo sprintf(
         '<div class="description%s%s">%s</div>',
-        $image->get('alt'),
         $descriptionHidden,
-        $align
+        $align,
+        $image->get('alt')
     );
 
     echo '</div>';

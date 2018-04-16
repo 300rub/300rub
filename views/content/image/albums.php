@@ -15,11 +15,16 @@ foreach ($albums as $album) {
     $image = $album->getCover();
     if ($image !== null) {
         echo sprintf(
+            '<a href="%s">',
+            $album->getUri()
+        );
+        echo sprintf(
             '<img src="%s" alt="%s" title="%s" />',
             $image->get('thumbFileModel')->getUrl(),
             $image->get('alt'),
             $image->get('alt')
         );
+        echo '</a>';
     }
 
     echo $album->getCount();

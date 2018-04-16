@@ -45,7 +45,9 @@ return [
         'file'       => 'mediumImage.jpg',
         'data'       => [
             'blockId'      => 4,
-            'imageGroupId' => 3
+            'imageGroupId' => 3,
+            'link'         => '/',
+            'alt'          => 'Description 1'
         ],
     ],
     [
