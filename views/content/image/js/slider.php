@@ -39,26 +39,33 @@ if (count($effectValues) > 0) {
     echo 'options.$ArrowNavigatorOptions.$ChanceToShow = 2;';
     echo 'options.$ArrowNavigatorOptions.$AutoCenter = 2;';
     echo 'options.$ArrowNavigatorOptions.$Steps = 1;';
+
+    echo 'options.$ThumbnailNavigatorOptions = {};';
+    echo 'options.$ThumbnailNavigatorOptions.$Class = $JssorThumbnailNavigator$;';
+    echo 'options.$ThumbnailNavigatorOptions.$Orientation = 2;';
+    echo 'options.$ThumbnailNavigatorOptions.$NoDrag = true;';
 }
 
 echo sprintf('$(".block-%s .slider-container").each(function() {', $blockId);
 echo 'var slider = new $JssorSlider$($(this).attr("id"), options);';
 
-echo 'var maxWidth = 3000;';
-echo 'function scaleSlider() {';
-echo 'var containerElement = slider.$Elmt.parentNode;';
-echo 'var containerWidth = containerElement.clientWidth;';
-echo 'if (containerWidth) {';
-echo 'var expectedWidth = Math.min(maxWidth || containerWidth, containerWidth);';
-echo 'slider.$ScaleWidth(expectedWidth);';
-echo '}';
-echo 'else {';
-echo 'window.setTimeout(scaleSlider, 30);';
-echo '}';
-echo '}';
-echo 'scaleSlider();';
-echo '$Jssor$.$AddEvent(window, "load", scaleSlider);';
-echo '$Jssor$.$AddEvent(window, "resize", scaleSlider);';
-echo '$Jssor$.$AddEvent(window, "orientationchange", scaleSlider);';
+if ($design->get('isFullWidth') === true) {
+    echo 'var maxWidth = 3000;';
+    echo 'function scaleSlider() {';
+    echo 'var containerElement = slider.$Elmt.parentNode;';
+    echo 'var containerWidth = containerElement.clientWidth;';
+    echo 'if (containerWidth) {';
+    echo 'var expectedWidth = Math.min(maxWidth || containerWidth, containerWidth);';
+    echo 'slider.$ScaleWidth(expectedWidth);';
+    echo '}';
+    echo 'else {';
+    echo 'window.setTimeout(scaleSlider, 30);';
+    echo '}';
+    echo '}';
+    echo 'scaleSlider();';
+    echo '$Jssor$.$AddEvent(window, "load", scaleSlider);';
+    echo '$Jssor$.$AddEvent(window, "resize", scaleSlider);';
+    echo '$Jssor$.$AddEvent(window, "orientationchange", scaleSlider);';
+}
 
 echo '});';

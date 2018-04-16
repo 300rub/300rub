@@ -241,6 +241,10 @@ class ImageModel extends AbstractImageModel
 
         switch ($this->get('type')) {
             case self::TYPE_SLIDER:
+                $css = array_merge(
+                    $css,
+                    $this->_getSliderDesign()
+                );
                 break;
             case self::TYPE_SIMPLE:
                 $css = array_merge(
@@ -300,6 +304,45 @@ class ImageModel extends AbstractImageModel
             $view->generateCss(
                 $design->get('descriptionDesignTextModel'),
                 sprintf('.block-%s .image-container .description', $blockId)
+            )
+        );
+
+        return $css;
+    }
+
+    /**
+     * Gets slider design CSS
+     *
+     * @return array
+     */
+    private function _getSliderDesign()
+    {
+        $css = [];
+        $view = App::getInstance()->getView();
+        $design = $this->get('designImageSliderModel');
+        $blockId = $this->getBlockId();
+
+        $css = array_merge(
+            $css,
+            $view->generateCss(
+                $design->get('arrowDesignTextModel'),
+                sprintf('.block-%s .arrow i', $blockId)
+            )
+        );
+
+        $css = array_merge(
+            $css,
+            $view->generateCss(
+                $design->get('bulletDesignBlockModel'),
+                sprintf('.block-%s .i .bullet', $blockId)
+            )
+        );
+
+        $css = array_merge(
+            $css,
+            $view->generateCss(
+                $design->get('bulletActiveDesignBlockModel'),
+                sprintf('.block-%s .iav .bullet', $blockId)
             )
         );
 

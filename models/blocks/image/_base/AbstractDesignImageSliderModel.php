@@ -60,6 +60,12 @@ abstract class AbstractDesignImageSliderModel extends AbstractModel
                 self::FIELD_RELATION
                 => '\\ss\\models\\blocks\\text\\DesignTextModel'
             ],
+            'isFullWidth'              => [
+                self::FIELD_TYPE => self::FIELD_TYPE_BOOL,
+            ],
+            'hasDescription'           => [
+                self::FIELD_TYPE => self::FIELD_TYPE_BOOL,
+            ],
             'effect'                   => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_STRING
             ],

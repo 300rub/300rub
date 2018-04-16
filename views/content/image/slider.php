@@ -19,10 +19,27 @@ if (count($images) > 0) {
 
     $imageHtml = '';
     foreach ($images as $imageInstance) {
+        $alt = $imageInstance->get('alt');
+        $link = $imageInstance->get('link');
+        $openElement = '<div>';
+        if ($link !== '') {
+            $openElement = sprintf('<a href="%s">', $link);
+        }
+        $imageHtml .= $openElement;
         $imageHtml .= sprintf(
-            '<div><img data-u="image" src="%s" /></div>',
-            $imageInstance->get('viewFileModel')->getUrl()
+            '<img data-u="image" src="%s" alt="%s" />',
+            $imageInstance->get('viewFileModel')->getUrl(),
+            $alt
         );
+        $imageHtml .= sprintf(
+            '<div data-u="thumb">%s</div>',
+            $imageInstance->get('alt')
+        );
+        $closeElement = '</div>';
+        if ($link !== '') {
+            $closeElement = '</a>';
+        }
+        $imageHtml .= $closeElement;
 
         if ($imageInstance->get('width') < $minWidth) {
             $minWidth = $imageInstance->get('width');
@@ -58,30 +75,35 @@ if (count($images) > 0) {
     echo $imageHtml;
 
     echo '</div>';
-?>
 
-    <div data-u="navigator" style="position:absolute;bottom:12px;">
-        <div data-u="prototype" class="i" style="width:16px;height:16px;">
-            <div class="bullet"></div>
-        </div>
-    </div>
+    echo sprintf(
+        '<div data-u="thumbnavigator" class="description-wrapper" style="position:absolute;top:0;left:0;width:%spx;height:32px;">',
+        $width
+    );
+    echo '<div data-u="slides">';
+    echo sprintf(
+        '<div data-u="prototype" style="position:absolute;top:0;left:0;width:%spx;height:32px;">',
+        $width
+    );
+    echo '<div class="description" data-u="thumbnailtemplate" style="position:absolute;top:0;left:0;width:100%;height:100%;"></div>';
+    echo '</div>';
+    echo '</div>';
+    echo '</div>';
 
-    <div
-        data-u="arrowleft"
-        class="arrow"
-        style="position:absolute;width:60px;height:60px;left:0"
-    >
-        <i class="fas fa-chevron-left"></i>
-    </div>
+    echo '<div data-u="navigator" style="position:absolute;bottom:12px;">';
+    echo '<div data-u="prototype" class="i" style="width:16px;height:16px;">';
+    echo '<div class="bullet"></div>';
+    echo '</div>';
+    echo '</div>';
 
-    <div
-        data-u="arrowright"
-        class="arrow"
-        style="position:absolute;width:60px;height:60px;right:0"
-    >
-        <i class="fas fa-chevron-right"></i>
-    </div>
-<?php
+    echo '<div data-u="arrowleft" class="arrow" style="position:absolute;width:60px;height:60px;left:0">';
+    echo '<i class="fas fa-chevron-left"></i>';
+    echo '</div>';
+
+    echo '<div data-u="arrowright" class="arrow" style="position:absolute;width:60px;height:60px;right:0">';
+    echo '<i class="fas fa-chevron-right"></i>';
+    echo '</div>';
+
     echo '</div>';
 }
 

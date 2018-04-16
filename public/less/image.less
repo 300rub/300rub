@@ -40,12 +40,8 @@
 .slider-container {
   position:relative;
   overflow:hidden;
-  width: 600px;
-  height: 200px;
 
   .slides {
-    width: 600px;
-    height: 200px;
     position:absolute;
     top: 0;
     left: 0;
@@ -58,28 +54,32 @@
     display: block;
 
     i {
-      font-size: 40px;
       line-height: 60px;
-      color: white;
     }
   }
 
   .i {
-    width: 16px;
-    height: 16px;
-
     .bullet {
       width: 16px;
       height: 16px;
       background: #ccc;
       cursor: pointer;
-      border-radius: 50%;
     }
   }
 
   .iav {
     .bullet {
       background: red;
+    }
+  }
+
+  .description-wrapper {
+    overflow:hidden;
+
+    .description {
+      background: #ccc;
+      line-height: 32px;
+      padding: 0 15px;
     }
   }
 }

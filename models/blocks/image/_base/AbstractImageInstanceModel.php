@@ -196,6 +196,13 @@ abstract class AbstractImageInstanceModel extends AbstractModel
                 ],
                 self::FIELD_SKIP_DUPLICATION => true,
             ],
+            'link'           => [
+                self::FIELD_TYPE             => self::FIELD_TYPE_STRING,
+                self::FIELD_VALUE            => [
+                    ValueGenerator::CLEAR_STRIP_TAGS
+                ],
+                self::FIELD_SKIP_DUPLICATION => true,
+            ],
             'width'          => [
                 self::FIELD_TYPE             => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE            => [
