@@ -14,8 +14,8 @@ if (count($images) > 0) {
     $width = $image->get('cropWidth');
     $height = $image->get('cropHeight');
 
-    $minWidth = 2000;
-    $minHeight = 2000;
+    $maxWidth = 100;
+    $maxHeight = 100;
 
     $imageHtml = '';
     foreach ($images as $imageInstance) {
@@ -41,20 +41,20 @@ if (count($images) > 0) {
         }
         $imageHtml .= $closeElement;
 
-        if ($imageInstance->get('width') < $minWidth) {
-            $minWidth = $imageInstance->get('width');
+        if ($imageInstance->get('width') > $maxWidth) {
+            $maxWidth = $imageInstance->get('width');
         }
 
-        if ($imageInstance->get('height') < $minHeight) {
-            $minHeight = $imageInstance->get('height');
+        if ($imageInstance->get('height') > $maxHeight) {
+            $maxHeight = $imageInstance->get('height');
         }
     }
 
     if ($width === 0
         || $height === 0
     ) {
-        $width = $minWidth;
-        $height = $minHeight;
+        $width = $maxWidth;
+        $height = $maxHeight;
     }
 
     echo sprintf(
