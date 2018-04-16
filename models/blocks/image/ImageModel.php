@@ -346,6 +346,22 @@ class ImageModel extends AbstractImageModel
             )
         );
 
+        $css = array_merge(
+            $css,
+            $view->generateCss(
+                $design->get('descriptionDesignBlockModel'),
+                sprintf('.block-%s .description', $blockId)
+            )
+        );
+
+        $css = array_merge(
+            $css,
+            $view->generateCss(
+                $design->get('descriptionDesignTextModel'),
+                sprintf('.block-%s .description', $blockId)
+            )
+        );
+
         return $css;
     }
 

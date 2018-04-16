@@ -25,7 +25,9 @@ return [
         'file'       => 'slider1.jpg',
         'data'       => [
             'blockId'      => 3,
-            'imageGroupId' => 2
+            'imageGroupId' => 2,
+            'link'         => '/',
+            'alt'          => 'Description 1'
         ],
     ],
     [

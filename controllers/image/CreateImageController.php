@@ -36,7 +36,9 @@ class CreateImageController extends AbstractController
         $imageInstanceModel = new ImageInstanceModel();
         $imageInstanceModel->set(
             [
-                'imageGroupId' => $this->get('imageGroupId')
+                'imageGroupId' => $this->get('imageGroupId'),
+                'alt'          => $this->get('alt'),
+                'link'         => $this->get('link'),
             ]
         );
 
