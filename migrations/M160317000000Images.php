@@ -18,12 +18,53 @@ class M160317000000Images extends AbstractMigration
     public function apply()
     {
         $this
+            ->_createDesignImageAlbum()
             ->_createDesignImageSimple()
             ->_createDesignImageZooms()
             ->_createDesignImageSliders()
             ->_createImages()
             ->_createImageGroups()
             ->_createImageInstances();
+    }
+
+    /**
+     * Creates designImageAlbums table
+     *
+     * @return M160317000000Images
+     */
+    private function _createDesignImageAlbum()
+    {
+        return $this->
+        createTable(
+            'designImageAlbums',
+            [
+                'id'                     => self::TYPE_PK,
+                'containerDesignBlockId' => self::TYPE_FK,
+                'imageDesignBlockId'     => self::TYPE_FK,
+                'nameDesignBlockId'      => self::TYPE_FK,
+                'nameDesignTextId'       => self::TYPE_FK,
+            ]
+        )
+            ->createForeignKey(
+                'designImageAlbums',
+                'containerDesignBlockId',
+                'designBlocks'
+            )
+            ->createForeignKey(
+                'designImageAlbums',
+                'imageDesignBlockId',
+                'designBlocks'
+            )
+            ->createForeignKey(
+                'designImageAlbums',
+                'nameDesignBlockId',
+                'designBlocks'
+            )
+            ->createForeignKey(
+                'designImageAlbums',
+                'nameDesignTextId',
+                'designTexts'
+            );
     }
 
     /**
@@ -155,6 +196,7 @@ class M160317000000Images extends AbstractMigration
                 [
                     'id'                  => self::TYPE_PK,
                     'designBlockId'       => self::TYPE_FK,
+                    'designImageAlbumId'  => self::TYPE_FK,
                     'designImageSliderId' => self::TYPE_FK,
                     'designImageZoomId'   => self::TYPE_FK,
                     'designImageSimpleId' => self::TYPE_FK,
@@ -174,6 +216,11 @@ class M160317000000Images extends AbstractMigration
                 'images',
                 'designBlockId',
                 'designBlocks'
+            )
+            ->createForeignKey(
+                'images',
+                'designImageAlbumId',
+                'designImageAlbums'
             )
             ->createForeignKey(
                 'images',

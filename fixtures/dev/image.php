@@ -66,5 +66,11 @@ return [
     4 => [
         'type'      => ImageModel::TYPE_ZOOM,
         'useAlbums' => true,
+        'designImageAlbumModel' => [
+            'imageDesignBlockModel' => [
+                'width'  => 170,
+                'height' => 170,
+            ]
+        ]
     ]
 ];

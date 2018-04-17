@@ -239,6 +239,19 @@ class ImageModel extends AbstractImageModel
             )
         );
 
+        $this->setContentId($this->getId());
+        $currentAlbum = $this->_getCurrentAlbum();
+        if ($currentAlbum instanceof ImageGroupModel === false
+            && $this->getContentModel()->get('useAlbums') === true
+        ) {
+            $css = array_merge(
+                $css,
+                $this->_getAlbumDesign()
+            );
+
+            return $css;
+        }
+
         switch ($this->get('type')) {
             case self::TYPE_SLIDER:
                 $css = array_merge(
@@ -262,6 +275,54 @@ class ImageModel extends AbstractImageModel
 
         return $css;
     }
+
+    /**
+     * Gets album design CSS
+     *
+     * @return array
+     */
+    private function _getAlbumDesign()
+    {
+        $css = [];
+        $view = App::getInstance()->getView();
+        $design = $this->get('designImageAlbumModel');
+        $blockId = $this->getBlockId();
+
+        $css = array_merge(
+            $css,
+            $view->generateCss(
+                $design->get('containerDesignBlockModel'),
+                sprintf('.block-%s .image-container', $blockId)
+            )
+        );
+
+        $css = array_merge(
+            $css,
+            $view->generateCss(
+                $design->get('imageDesignBlockModel'),
+                sprintf('.block-%s .image-container .image', $blockId)
+            )
+        );
+
+        $css = array_merge(
+            $css,
+            $view->generateCss(
+                $design->get('nameDesignBlockModel'),
+                sprintf('.block-%s .image-container .name', $blockId)
+            )
+        );
+
+        $css = array_merge(
+            $css,
+            $view->generateCss(
+                $design->get('nameDesignTextModel'),
+                sprintf('.block-%s .image-container .name', $blockId)
+            )
+        );
+
+        return $css;
+    }
+
 
     /**
      * Gets simple design CSS

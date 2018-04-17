@@ -93,6 +93,10 @@ abstract class AbstractImageModel extends AbstractContentModel
                 self::FIELD_RELATION
                     => '\\ss\\models\\blocks\\block\\DesignBlockModel'
             ],
+            'designImageAlbumId' => [
+                self::FIELD_RELATION
+                => '\\ss\\models\\blocks\\image\\DesignImageAlbumModel'
+            ],
             'designImageSliderId' => [
                 self::FIELD_RELATION
                     => '\\ss\\models\\blocks\\image\\DesignImageSliderModel'
