@@ -61,7 +61,7 @@ class AbstractImageModelIncorrectTest extends AbstractIncorrectModelTest
                     'marginTop' => 0,
                 ],
                 'designImageSliderModel' => [
-                    'containerDesignBlockModel'   => [
+                    'bulletDesignBlockModel'   => [
                         'marginTop' => 0
                     ],
                 ],
@@ -91,7 +91,7 @@ class AbstractImageModelIncorrectTest extends AbstractIncorrectModelTest
                     'marginTop' => ' 20 a',
                 ],
                 'designImageSliderModel' => [
-                    'containerDesignBlockModel'   => [
+                    'bulletDesignBlockModel'   => [
                         'marginTop' => ' 20 a',
                     ],
                 ],
@@ -111,7 +111,7 @@ class AbstractImageModelIncorrectTest extends AbstractIncorrectModelTest
                     'marginTop' => 20,
                 ],
                 'designImageSliderModel' => [
-                    'containerDesignBlockModel'   => [
+                    'bulletDesignBlockModel'   => [
                         'marginTop' => 20
                     ],
                 ],

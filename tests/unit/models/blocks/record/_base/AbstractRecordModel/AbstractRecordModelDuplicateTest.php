@@ -112,19 +112,11 @@ class AbstractRecordModelDuplicateTest extends AbstractDuplicateModelTest
                 'marginTop' => 10,
             ],
             'designImageSliderModel' => [
-                'containerDesignBlockModel'   => [
-                    'marginTop' => 10
-                ],
-                'navigationDesignBlockModel'  => [
-                    'marginTop' => 10
-                ],
-                'descriptionDesignBlockModel' => [
+                'bulletDesignBlockModel'   => [
                     'marginTop' => 10
                 ],
                 'hasAutoPlay'                 => true,
                 'playSpeed'                   => 1,
-                'navigationAlignment'         => 1,
-                'descriptionAlignment'        => 1,
             ],
             'designImageZoomModel'   => [
                 'designBlockModel'     => [
@@ -166,19 +158,11 @@ class AbstractRecordModelDuplicateTest extends AbstractDuplicateModelTest
                 'marginTop' => 10,
             ],
             'designImageSliderModel' => [
-                'containerDesignBlockModel'   => [
-                    'marginTop' => 10
-                ],
-                'navigationDesignBlockModel'  => [
-                    'marginTop' => 10
-                ],
-                'descriptionDesignBlockModel' => [
+                'bulletDesignBlockModel'   => [
                     'marginTop' => 10
                 ],
                 'hasAutoPlay'                 => true,
                 'playSpeed'                   => 1,
-                'navigationAlignment'         => 1,
-                'descriptionAlignment'        => 1,
             ],
             'designImageZoomModel'   => [
                 'designBlockModel'     => [
@@ -273,19 +257,11 @@ class AbstractRecordModelDuplicateTest extends AbstractDuplicateModelTest
                 'marginTop' => 10,
             ],
             'designImageSliderModel' => [
-                'containerDesignBlockModel'   => [
-                    'marginTop' => 10
-                ],
-                'navigationDesignBlockModel'  => [
-                    'marginTop' => 10
-                ],
-                'descriptionDesignBlockModel' => [
+                'bulletDesignBlockModel'   => [
                     'marginTop' => 10
                 ],
                 'hasAutoPlay'                 => true,
                 'playSpeed'                   => 1,
-                'navigationAlignment'         => 1,
-                'descriptionAlignment'        => 1,
             ],
             'designImageZoomModel'   => [
                 'designBlockModel'     => [
@@ -327,19 +303,11 @@ class AbstractRecordModelDuplicateTest extends AbstractDuplicateModelTest
                 'marginTop' => 10,
             ],
             'designImageSliderModel' => [
-                'containerDesignBlockModel'   => [
-                    'marginTop' => 10
-                ],
-                'navigationDesignBlockModel'  => [
-                    'marginTop' => 10
-                ],
-                'descriptionDesignBlockModel' => [
+                'bulletDesignBlockModel'   => [
                     'marginTop' => 10
                 ],
                 'hasAutoPlay'                 => true,
                 'playSpeed'                   => 1,
-                'navigationAlignment'         => 1,
-                'descriptionAlignment'        => 1,
             ],
             'designImageZoomModel'   => [
                 'designBlockModel'     => [

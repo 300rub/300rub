@@ -93,19 +93,11 @@ class AbstractCatalogModelDuplicateTest extends AbstractDuplicateModelTest
                 'marginTop' => 10,
             ],
             'designImageSliderModel' => [
-                'containerDesignBlockModel'   => [
-                    'marginTop' => 10
-                ],
-                'navigationDesignBlockModel'  => [
-                    'marginTop' => 10
-                ],
-                'descriptionDesignBlockModel' => [
-                    'marginTop' => 10
+                'arrowDesignTextModel'   => [
+                    'size' => 10
                 ],
                 'hasAutoPlay'                 => true,
                 'playSpeed'                   => 10,
-                'navigationAlignment'         => 1,
-                'descriptionAlignment'        => 1,
             ],
             'designImageZoomModel'   => [
                 'designBlockModel'     => [
@@ -376,19 +368,11 @@ class AbstractCatalogModelDuplicateTest extends AbstractDuplicateModelTest
                 'marginTop' => 10,
             ],
             'designImageSliderModel' => [
-                'containerDesignBlockModel'   => [
-                    'marginTop' => 10
-                ],
-                'navigationDesignBlockModel'  => [
-                    'marginTop' => 10
-                ],
-                'descriptionDesignBlockModel' => [
-                    'marginTop' => 10
+                'arrowDesignTextModel'   => [
+                    'size' => 10
                 ],
                 'hasAutoPlay'                 => true,
                 'playSpeed'                   => 10,
-                'navigationAlignment'         => 1,
-                'descriptionAlignment'        => 1,
             ],
             'designImageZoomModel'   => [
                 'designBlockModel'     => [

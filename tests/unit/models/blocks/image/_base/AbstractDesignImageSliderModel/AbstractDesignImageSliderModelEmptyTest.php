@@ -47,43 +47,23 @@ class AbstractDesignImageSliderModelEmptyTest extends AbstractEmptyModelTest
         return [
             [],
             [
-                'containerDesignBlockModel'   => [
-                    'marginTop' => 0
-                ],
-                'navigationDesignBlockModel'  => [
-                    'marginTop' => 0
-                ],
-                'descriptionDesignBlockModel' => [
+                'bulletDesignBlockModel'   => [
                     'marginTop' => 0
                 ],
                 'hasAutoPlay'                 => false,
                 'playSpeed'                   => 0,
-                'navigationAlignment'         => 0,
-                'descriptionAlignment'        => 0,
             ],
             [
-                'containerDesignBlockModel'   => '',
-                'navigationDesignBlockModel'  => '',
-                'descriptionDesignBlockModel' => '',
+                'bulletDesignBlockModel'   => '',
                 'hasAutoPlay'                 => '',
                 'playSpeed'                   => '',
-                'navigationAlignment'         => '',
-                'descriptionAlignment'        => '',
             ],
             [
-                'containerDesignBlockModel'   => [
-                    'marginTop' => 0
-                ],
-                'navigationDesignBlockModel'  => [
-                    'marginTop' => 0
-                ],
-                'descriptionDesignBlockModel' => [
+                'bulletDesignBlockModel'   => [
                     'marginTop' => 0
                 ],
                 'hasAutoPlay'                 => false,
                 'playSpeed'                   => 0,
-                'navigationAlignment'         => 0,
-                'descriptionAlignment'        => 0,
             ],
         ];
     }
@@ -97,52 +77,28 @@ class AbstractDesignImageSliderModelEmptyTest extends AbstractEmptyModelTest
     {
         return [
             [
-                'containerDesignBlockModel'   => null,
-                'navigationDesignBlockModel'  => null,
-                'descriptionDesignBlockModel' => null,
+                'bulletDesignBlockModel'   => null,
                 'hasAutoPlay'                 => null,
                 'playSpeed'                   => null,
-                'navigationAlignment'         => null,
-                'descriptionAlignment'        => null,
             ],
             [
-                'containerDesignBlockModel'   => [
-                    'marginTop' => 0
-                ],
-                'navigationDesignBlockModel'  => [
-                    'marginTop' => 0
-                ],
-                'descriptionDesignBlockModel' => [
+                'bulletDesignBlockModel'   => [
                     'marginTop' => 0
                 ],
                 'hasAutoPlay'                 => false,
                 'playSpeed'                   => 0,
-                'navigationAlignment'         => 0,
-                'descriptionAlignment'        => 0,
             ],
             [
-                'containerDesignBlockModel'   => ' ',
-                'navigationDesignBlockModel'  => ' ',
-                'descriptionDesignBlockModel' => ' ',
+                'bulletDesignBlockModel'   => ' ',
                 'hasAutoPlay'                 => ' ',
                 'playSpeed'                   => ' ',
-                'navigationAlignment'         => ' ',
-                'descriptionAlignment'        => ' ',
             ],
             [
-                'containerDesignBlockModel'   => [
-                    'marginTop' => 0
-                ],
-                'navigationDesignBlockModel'  => [
-                    'marginTop' => 0
-                ],
-                'descriptionDesignBlockModel' => [
+                'bulletDesignBlockModel'   => [
                     'marginTop' => 0
                 ],
                 'hasAutoPlay'                 => false,
                 'playSpeed'                   => 0,
-                'navigationAlignment'         => 0,
-                'descriptionAlignment'        => 0,
             ],
         ];
     }
@@ -156,44 +112,24 @@ class AbstractDesignImageSliderModelEmptyTest extends AbstractEmptyModelTest
     {
         return [
             [
-                'containerDesignBlockId'   => ' ',
-                'navigationDesignBlockId'  => ' ',
-                'descriptionDesignBlockId' => ' ',
+                'bulletDesignBlockId'   => ' ',
             ],
             [
-                'containerDesignBlockModel'   => [
-                    'marginTop' => 0
-                ],
-                'navigationDesignBlockModel'  => [
-                    'marginTop' => 0
-                ],
-                'descriptionDesignBlockModel' => [
+                'bulletDesignBlockModel'   => [
                     'marginTop' => 0
                 ],
                 'hasAutoPlay'                 => false,
                 'playSpeed'                   => 0,
-                'navigationAlignment'         => 0,
-                'descriptionAlignment'        => 0,
             ],
             [
-                'containerDesignBlockId'   => null,
-                'navigationDesignBlockId'  => null,
-                'descriptionDesignBlockId' => null,
+                'bulletDesignBlockId'   => null,
             ],
             [
-                'containerDesignBlockModel'   => [
-                    'marginTop' => 0
-                ],
-                'navigationDesignBlockModel'  => [
-                    'marginTop' => 0
-                ],
-                'descriptionDesignBlockModel' => [
+                'bulletDesignBlockModel'   => [
                     'marginTop' => 0
                 ],
                 'hasAutoPlay'                 => false,
                 'playSpeed'                   => 0,
-                'navigationAlignment'         => 0,
-                'descriptionAlignment'        => 0,
             ],
         ];
     }
@@ -207,50 +143,26 @@ class AbstractDesignImageSliderModelEmptyTest extends AbstractEmptyModelTest
     {
         return [
             [
-                'containerDesignBlockModel'   => [
-                    'marginTop' => ' '
-                ],
-                'navigationDesignBlockModel'  => [
-                    'marginTop' => ' '
-                ],
-                'descriptionDesignBlockModel' => [
+                'bulletDesignBlockModel'   => [
                     'marginTop' => ' '
                 ],
             ],
             [
-                'containerDesignBlockModel'   => [
-                    'marginTop' => 0
-                ],
-                'navigationDesignBlockModel'  => [
-                    'marginTop' => 0
-                ],
-                'descriptionDesignBlockModel' => [
+                'bulletDesignBlockModel'   => [
                     'marginTop' => 0
                 ],
                 'hasAutoPlay'                 => false,
                 'playSpeed'                   => 0,
-                'navigationAlignment'         => 0,
-                'descriptionAlignment'        => 0,
             ],
             [
-                'containerDesignBlockModel'   => [],
-                'navigationDesignBlockModel'  => [],
-                'descriptionDesignBlockModel' => [],
+                'bulletDesignBlockModel'   => [],
             ],
             [
-                'containerDesignBlockModel'   => [
-                    'marginTop' => 0
-                ],
-                'navigationDesignBlockModel'  => [
-                    'marginTop' => 0
-                ],
-                'descriptionDesignBlockModel' => [
+                'bulletDesignBlockModel'   => [
                     'marginTop' => 0
                 ],
                 'hasAutoPlay'                 => false,
                 'playSpeed'                   => 0,
-                'navigationAlignment'         => 0,
-                'descriptionAlignment'        => 0,
             ],
         ];
     }

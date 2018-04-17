@@ -32,88 +32,40 @@ class AbstractDesignImageSliderModelCorrectTest extends AbstractCorrectModelTest
         return [
             'correct1' => [
                 [
-                    'containerDesignBlockModel'   => [
-                        'marginTop'                => 10,
-                        'borderBottomWidth'        => 7,
-                        'borderColorHover'         => 'rgb(0,255,0)',
-                    ],
-                    'navigationDesignBlockModel'  => [
-                        'marginTop'                => 10,
-                        'borderBottomWidth'        => 7,
-                        'borderColorHover'         => 'rgb(0,255,0)',
-                    ],
-                    'descriptionDesignBlockModel' => [
+                    'bulletDesignBlockModel'   => [
                         'marginTop'                => 10,
                         'borderBottomWidth'        => 7,
                         'borderColorHover'         => 'rgb(0,255,0)',
                     ],
                     'hasAutoPlay'                 => true,
                     'playSpeed'                   => 10,
-                    'navigationAlignment'         => 1,
-                    'descriptionAlignment'        => 2,
                 ],
                 [
-                    'containerDesignBlockModel'   => [
-                        'marginTop'                => 10,
-                        'borderBottomWidth'        => 7,
-                        'borderColorHover'         => 'rgb(0,255,0)',
-                    ],
-                    'navigationDesignBlockModel'  => [
-                        'marginTop'                => 10,
-                        'borderBottomWidth'        => 7,
-                        'borderColorHover'         => 'rgb(0,255,0)',
-                    ],
-                    'descriptionDesignBlockModel' => [
+                    'bulletDesignBlockModel'   => [
                         'marginTop'                => 10,
                         'borderBottomWidth'        => 7,
                         'borderColorHover'         => 'rgb(0,255,0)',
                     ],
                     'hasAutoPlay'                 => true,
                     'playSpeed'                   => 10,
-                    'navigationAlignment'         => 1,
-                    'descriptionAlignment'        => 2,
                 ],
                 [
-                    'containerDesignBlockModel'   => [
-                        'marginTop'                => 5,
-                        'borderBottomWidth'        => 4,
-                        'borderColorHover'         => 'rgb(255,0,0)',
-                    ],
-                    'navigationDesignBlockModel'  => [
-                        'marginTop'                => 5,
-                        'borderBottomWidth'        => 4,
-                        'borderColorHover'         => 'rgb(255,0,0)',
-                    ],
-                    'descriptionDesignBlockModel' => [
+                    'bulletDesignBlockModel'   => [
                         'marginTop'                => 5,
                         'borderBottomWidth'        => 4,
                         'borderColorHover'         => 'rgb(255,0,0)',
                     ],
                     'hasAutoPlay'                 => false,
                     'playSpeed'                   => 5,
-                    'navigationAlignment'         => 2,
-                    'descriptionAlignment'        => 1,
                 ],
                 [
-                    'containerDesignBlockModel'   => [
-                        'marginTop'                => 5,
-                        'borderBottomWidth'        => 4,
-                        'borderColorHover'         => 'rgb(255,0,0)',
-                    ],
-                    'navigationDesignBlockModel'  => [
-                        'marginTop'                => 5,
-                        'borderBottomWidth'        => 4,
-                        'borderColorHover'         => 'rgb(255,0,0)',
-                    ],
-                    'descriptionDesignBlockModel' => [
+                    'bulletDesignBlockModel'   => [
                         'marginTop'                => 5,
                         'borderBottomWidth'        => 4,
                         'borderColorHover'         => 'rgb(255,0,0)',
                     ],
                     'hasAutoPlay'                 => false,
                     'playSpeed'                   => 5,
-                    'navigationAlignment'         => 2,
-                    'descriptionAlignment'        => 1,
                 ],
             ],
         ];

@@ -49,19 +49,11 @@ class AbstractImageModelEmptyTest extends AbstractEmptyModelTest
                     'marginTop' => 0,
                 ],
                 'designImageSliderModel' => [
-                    'containerDesignBlockModel'   => [
-                        'marginTop' => 0
-                    ],
-                    'navigationDesignBlockModel'  => [
-                        'marginTop' => 0
-                    ],
-                    'descriptionDesignBlockModel' => [
+                    'bulletDesignBlockModel'   => [
                         'marginTop' => 0
                     ],
                     'hasAutoPlay'                 => false,
                     'playSpeed'                   => 0,
-                    'navigationAlignment'         => 0,
-                    'descriptionAlignment'        => 0,
                 ],
                 'designImageZoomModel'   => [
                     'designBlockModel'     => [
@@ -121,19 +113,11 @@ class AbstractImageModelEmptyTest extends AbstractEmptyModelTest
                     'marginTop' => 0,
                 ],
                 'designImageSliderModel' => [
-                    'containerDesignBlockModel'   => [
-                        'marginTop' => 0
-                    ],
-                    'navigationDesignBlockModel'  => [
-                        'marginTop' => 0
-                    ],
-                    'descriptionDesignBlockModel' => [
+                    'bulletDesignBlockModel'   => [
                         'marginTop' => 0
                     ],
                     'hasAutoPlay'                 => false,
                     'playSpeed'                   => 0,
-                    'navigationAlignment'         => 0,
-                    'descriptionAlignment'        => 0,
                 ],
                 'designImageZoomModel'   => [
                     'designBlockModel'     => [
@@ -177,10 +161,9 @@ class AbstractImageModelEmptyTest extends AbstractEmptyModelTest
                     'marginTop' => '',
                 ],
                 'designImageSliderModel' => [
-                    'containerDesignBlockModel' => [
+                    'bulletDesignBlockModel' => [
                         'marginTop' => ''
                     ],
-                    'descriptionAlignment'      => '',
                 ],
                 'designImageZoomModel'   => [
                     'designBlockModel' => [
@@ -199,19 +182,11 @@ class AbstractImageModelEmptyTest extends AbstractEmptyModelTest
                     'marginTop' => 0,
                 ],
                 'designImageSliderModel' => [
-                    'containerDesignBlockModel'   => [
-                        'marginTop' => 0
-                    ],
-                    'navigationDesignBlockModel'  => [
-                        'marginTop' => 0
-                    ],
-                    'descriptionDesignBlockModel' => [
+                    'bulletDesignBlockModel'   => [
                         'marginTop' => 0
                     ],
                     'hasAutoPlay'                 => false,
                     'playSpeed'                   => 0,
-                    'navigationAlignment'         => 0,
-                    'descriptionAlignment'        => 0,
                 ],
                 'designImageZoomModel'   => [
                     'designBlockModel'     => [

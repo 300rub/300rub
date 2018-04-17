@@ -65,25 +65,6 @@ class GetDesignControllerTest extends AbstractControllerTest
                     ]
                 ]
             ],
-            'userSlider'        => [
-                'user'     => self::TYPE_LIMITED,
-                'blockId'  => 4,
-                'hasError' => false,
-                'expected' => [
-                    'id'         => 4,
-                    'controller' => 'image',
-                    'action'     => 'design',
-                    'list'       => [
-                        [
-                            'title' => 'Image design',
-                            'data'  => $this->_userSliderData()
-                        ]
-                    ],
-                    'button'     => [
-                        'label' => 'Save'
-                    ]
-                ]
-            ],
             'userZoom'          => [
                 'user'     => self::TYPE_LIMITED,
                 'blockId'  => 5,
@@ -155,68 +136,6 @@ class GetDesignControllerTest extends AbstractControllerTest
                 'namespace' => 'designImageSimpleModel',
                 'values' => [
                     'alignment' => 0
-                ]
-            ]
-        ];
-    }
-
-    /**
-     * Data provider
-     *
-     * @return array
-     */
-    private function _userSliderData()
-    {
-        return [
-            [
-                'selector' => '.block-4',
-                'cssId' => 'block-4-block',
-                'type' => 'block',
-                'namespace' => 'designBlockModel',
-                'values' => [
-                    'marginTop' => 0
-                ]
-            ],
-            [
-                'selector' => '.image-2',
-                'cssId' => 'image-2-block',
-                'type' => 'block',
-                'namespace'
-                    => 'designImageSliderModel.containerDesignBlockModel',
-                'values' => [
-                    'marginTop' => 0
-                ]
-            ],
-            [
-                'selector' => '.image-2 .navigation',
-                'cssId' => 'image-2-navigation-block',
-                'type' => 'block',
-                'namespace'
-                    => 'designImageSliderModel.navigationDesignBlockModel',
-                'values' => [
-                    'marginTop' => 0
-                ]
-            ],
-            [
-                'selector' => '.image-2 .description',
-                'cssId' => 'image-2-description-block',
-                'type' => 'block',
-                'namespace'
-                    => 'designImageSliderModel.descriptionDesignBlockModel',
-                'values' => [
-                    'marginTop' => 0
-                ]
-            ],
-            [
-                'selector' => '.image-2',
-                'cssId' => 'image-2-image-slider',
-                'type' => 'image-slider',
-                'namespace' => 'designImageSliderModel',
-                'values' => [
-                    'hasAutoPlay'          => false,
-                    'playSpeed'            => 0,
-                    'navigationAlignment'  => 0,
-                    'descriptionAlignment' => 0,
                 ]
             ]
         ];

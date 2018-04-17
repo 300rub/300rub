@@ -239,11 +239,7 @@ class ImageModel extends AbstractImageModel
             )
         );
 
-        $this->setContentId($this->getId());
-        $currentAlbum = $this->_getCurrentAlbum();
-        if ($currentAlbum instanceof ImageGroupModel === false
-            && $this->getContentModel()->get('useAlbums') === true
-        ) {
+        if ($this->get('useAlbums') === true) {
             $css = array_merge(
                 $css,
                 $this->_getAlbumDesign()
@@ -292,7 +288,7 @@ class ImageModel extends AbstractImageModel
             $css,
             $view->generateCss(
                 $design->get('containerDesignBlockModel'),
-                sprintf('.block-%s .image-container', $blockId)
+                sprintf('.block-%s .album .image-container', $blockId)
             )
         );
 
@@ -300,7 +296,7 @@ class ImageModel extends AbstractImageModel
             $css,
             $view->generateCss(
                 $design->get('imageDesignBlockModel'),
-                sprintf('.block-%s .image-container .image', $blockId)
+                sprintf('.block-%s .album .image-container .image', $blockId)
             )
         );
 
@@ -308,7 +304,7 @@ class ImageModel extends AbstractImageModel
             $css,
             $view->generateCss(
                 $design->get('nameDesignBlockModel'),
-                sprintf('.block-%s .image-container .name', $blockId)
+                sprintf('.block-%s .album .image-container .name', $blockId)
             )
         );
 
@@ -316,7 +312,7 @@ class ImageModel extends AbstractImageModel
             $css,
             $view->generateCss(
                 $design->get('nameDesignTextModel'),
-                sprintf('.block-%s .image-container .name', $blockId)
+                sprintf('.block-%s .album .image-container .name', $blockId)
             )
         );
 

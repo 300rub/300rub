@@ -50,19 +50,11 @@ class AbstractRecordModelCorrectTest extends AbstractCorrectModelTest
                 'marginTop' => 10,
             ],
             'designImageSliderModel' => [
-                'containerDesignBlockModel'   => [
-                    'marginTop' => 10
-                ],
-                'navigationDesignBlockModel'  => [
-                    'marginTop' => 10
-                ],
-                'descriptionDesignBlockModel' => [
+                'bulletDesignBlockModel'   => [
                     'marginTop' => 10
                 ],
                 'hasAutoPlay'                 => true,
                 'playSpeed'                   => 1,
-                'navigationAlignment'         => 1,
-                'descriptionAlignment'        => 1,
             ],
             'designImageZoomModel'   => [
                 'designBlockModel'     => [
@@ -104,19 +96,11 @@ class AbstractRecordModelCorrectTest extends AbstractCorrectModelTest
                 'marginTop' => 10,
             ],
             'designImageSliderModel' => [
-                'containerDesignBlockModel'   => [
-                    'marginTop' => 10
-                ],
-                'navigationDesignBlockModel'  => [
-                    'marginTop' => 10
-                ],
-                'descriptionDesignBlockModel' => [
+                'bulletDesignBlockModel'   => [
                     'marginTop' => 10
                 ],
                 'hasAutoPlay'                 => true,
                 'playSpeed'                   => 1,
-                'navigationAlignment'         => 1,
-                'descriptionAlignment'        => 1,
             ],
             'designImageZoomModel'   => [
                 'designBlockModel'     => [
@@ -211,19 +195,11 @@ class AbstractRecordModelCorrectTest extends AbstractCorrectModelTest
                 'marginTop' => 10,
             ],
             'designImageSliderModel' => [
-                'containerDesignBlockModel'   => [
-                    'marginTop' => 10
-                ],
-                'navigationDesignBlockModel'  => [
-                    'marginTop' => 10
-                ],
-                'descriptionDesignBlockModel' => [
+                'bulletDesignBlockModel'   => [
                     'marginTop' => 10
                 ],
                 'hasAutoPlay'                 => true,
                 'playSpeed'                   => 1,
-                'navigationAlignment'         => 1,
-                'descriptionAlignment'        => 1,
             ],
             'designImageZoomModel'   => [
                 'designBlockModel'     => [
@@ -265,19 +241,11 @@ class AbstractRecordModelCorrectTest extends AbstractCorrectModelTest
                 'marginTop' => 10,
             ],
             'designImageSliderModel' => [
-                'containerDesignBlockModel'   => [
-                    'marginTop' => 10
-                ],
-                'navigationDesignBlockModel'  => [
-                    'marginTop' => 10
-                ],
-                'descriptionDesignBlockModel' => [
+                'bulletDesignBlockModel'   => [
                     'marginTop' => 10
                 ],
                 'hasAutoPlay'                 => true,
                 'playSpeed'                   => 1,
-                'navigationAlignment'         => 1,
-                'descriptionAlignment'        => 1,
             ],
             'designImageZoomModel'   => [
                 'designBlockModel'     => [
@@ -372,19 +340,11 @@ class AbstractRecordModelCorrectTest extends AbstractCorrectModelTest
                 'marginTop' => 30,
             ],
             'designImageSliderModel' => [
-                'containerDesignBlockModel'   => [
-                    'marginTop' => 30
-                ],
-                'navigationDesignBlockModel'  => [
-                    'marginTop' => 30
-                ],
-                'descriptionDesignBlockModel' => [
+                'bulletDesignBlockModel'   => [
                     'marginTop' => 30
                 ],
                 'hasAutoPlay'                 => false,
                 'playSpeed'                   => 0,
-                'navigationAlignment'         => 0,
-                'descriptionAlignment'        => 0,
             ],
             'designImageZoomModel'   => [
                 'designBlockModel'     => [
@@ -426,19 +386,11 @@ class AbstractRecordModelCorrectTest extends AbstractCorrectModelTest
                 'marginTop' => 30,
             ],
             'designImageSliderModel' => [
-                'containerDesignBlockModel'   => [
-                    'marginTop' => 30
-                ],
-                'navigationDesignBlockModel'  => [
-                    'marginTop' => 30
-                ],
-                'descriptionDesignBlockModel' => [
+                'bulletDesignBlockModel'   => [
                     'marginTop' => 30
                 ],
                 'hasAutoPlay'                 => false,
                 'playSpeed'                   => 0,
-                'navigationAlignment'         => 0,
-                'descriptionAlignment'        => 0,
             ],
             'designImageZoomModel'   => [
                 'designBlockModel'     => [
@@ -533,19 +485,11 @@ class AbstractRecordModelCorrectTest extends AbstractCorrectModelTest
                 'marginTop' => 30,
             ],
             'designImageSliderModel' => [
-                'containerDesignBlockModel'   => [
-                    'marginTop' => 30
-                ],
-                'navigationDesignBlockModel'  => [
-                    'marginTop' => 30
-                ],
-                'descriptionDesignBlockModel' => [
+                'bulletDesignBlockModel'   => [
                     'marginTop' => 30
                 ],
                 'hasAutoPlay'                 => false,
                 'playSpeed'                   => 0,
-                'navigationAlignment'         => 0,
-                'descriptionAlignment'        => 0,
             ],
             'designImageZoomModel'   => [
                 'designBlockModel'     => [
@@ -587,19 +531,11 @@ class AbstractRecordModelCorrectTest extends AbstractCorrectModelTest
                 'marginTop' => 30,
             ],
             'designImageSliderModel' => [
-                'containerDesignBlockModel'   => [
-                    'marginTop' => 30
-                ],
-                'navigationDesignBlockModel'  => [
-                    'marginTop' => 30
-                ],
-                'descriptionDesignBlockModel' => [
+                'bulletDesignBlockModel'   => [
                     'marginTop' => 30
                 ],
                 'hasAutoPlay'                 => false,
                 'playSpeed'                   => 0,
-                'navigationAlignment'         => 0,
-                'descriptionAlignment'        => 0,
             ],
             'designImageZoomModel'   => [
                 'designBlockModel'     => [

@@ -32,19 +32,7 @@ class AbstractDesignImageSliderModelDuplicateTest extends AbstractDuplicateModel
     {
         $this->duplicate(
             [
-                'containerDesignBlockModel'   => [
-                    'marginTop'                => 10,
-                    'borderBottomWidth'        => 7,
-                    'borderColorHover'         => 'rgb(0,255,0)',
-                    'backgroundColorFromHover' => 'rgba(255,0,255,0.5)',
-                ],
-                'navigationDesignBlockModel'  => [
-                    'marginTop'                => 10,
-                    'borderBottomWidth'        => 7,
-                    'borderColorHover'         => 'rgb(0,255,0)',
-                    'backgroundColorFromHover' => 'rgba(255,0,255,0.5)',
-                ],
-                'descriptionDesignBlockModel' => [
+                'bulletDesignBlockModel'   => [
                     'marginTop'                => 10,
                     'borderBottomWidth'        => 7,
                     'borderColorHover'         => 'rgb(0,255,0)',
@@ -52,23 +40,9 @@ class AbstractDesignImageSliderModelDuplicateTest extends AbstractDuplicateModel
                 ],
                 'hasAutoPlay'                 => true,
                 'playSpeed'                   => 10,
-                'navigationAlignment'         => 1,
-                'descriptionAlignment'        => 2,
             ],
             [
-                'containerDesignBlockModel'   => [
-                    'marginTop'                => 10,
-                    'borderBottomWidth'        => 7,
-                    'borderColorHover'         => 'rgb(0,255,0)',
-                    'backgroundColorFromHover' => 'rgba(255,0,255,0.5)',
-                ],
-                'navigationDesignBlockModel'  => [
-                    'marginTop'                => 10,
-                    'borderBottomWidth'        => 7,
-                    'borderColorHover'         => 'rgb(0,255,0)',
-                    'backgroundColorFromHover' => 'rgba(255,0,255,0.5)',
-                ],
-                'descriptionDesignBlockModel' => [
+                'bulletDesignBlockModel'   => [
                     'marginTop'                => 10,
                     'borderBottomWidth'        => 7,
                     'borderColorHover'         => 'rgb(0,255,0)',
@@ -76,8 +50,6 @@ class AbstractDesignImageSliderModelDuplicateTest extends AbstractDuplicateModel
                 ],
                 'hasAutoPlay'                 => true,
                 'playSpeed'                   => 10,
-                'navigationAlignment'         => 1,
-                'descriptionAlignment'        => 2,
             ]
         );
     }
