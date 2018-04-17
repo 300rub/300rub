@@ -30,108 +30,132 @@ class AbstractCatalogInstanceModelCorrectTest extends AbstractCorrectModelTest
     protected function getDataProviderCorrect()
     {
         return [
-            'correct1' => [
-                [
-                    'seoModel'        => [
-                        'name'        => 'name 1',
-                        'url'         => 'url-1',
-                        'title'       => 'title 1',
-                        'keywords'    => 'keywords 1',
-                        'description' => 'description 1',
-                    ],
-                    'tabGroupModel'   => [
-                        'tabId' => 1,
-                    ],
-                    'imageGroupModel' => [
-                        'imageId' => 1,
-                        'seoModel' => [
-                            'name'    => 'name'
-                        ],
-                        'sort'    => 10,
-                    ],
-                    'catalogMenuId'   => 1,
-                    'fieldGroupModel' => [
-                        'fieldId' => 1,
-                    ],
-                    'price'           => 10.34,
-                    'oldPrice'        => 20.54,
+            'correct1' => array_merge(
+                $this->_getCreateDataProvider(),
+                $this->_getUpdateDataProvider()
+            )
+        ];
+    }
+
+    /**
+     * Data provider for CRUD. Correct values
+     *
+     * @return array
+     */
+    private function _getCreateDataProvider()
+    {
+        return [
+            [
+                'seoModel'        => [
+                    'name'        => 'name 1',
+                    'url'         => 'url-1',
+                    'title'       => 'title 1',
+                    'keywords'    => 'keywords 1',
+                    'description' => 'description 1',
                 ],
-                [
-                    'seoModel'        => [
-                        'name'        => 'name 1',
-                        'url'         => 'url-1',
-                        'title'       => 'title 1',
-                        'keywords'    => 'keywords 1',
-                        'description' => 'description 1',
-                    ],
-                    'tabGroupModel'   => [
-                        'tabId' => 1,
-                    ],
-                    'imageGroupModel' => [
-                        'imageId' => 1,
-                        'seoModel' => [
-                            'name'    => 'name'
-                        ],
-                        'sort'    => 10,
-                    ],
-                    'catalogMenuId'   => 1,
-                    'fieldGroupModel' => [
-                        'fieldId' => 1,
-                    ],
-                    'price'           => 10.34,
-                    'oldPrice'        => 20.54,
+                'tabGroupModel'   => [
+                    'tabId' => 1,
                 ],
-                [
-                    'seoModel'        => [
-                        'name'        => 'name 2',
-                        'url'         => 'url-2',
-                        'title'       => 'title 2',
-                        'keywords'    => 'keywords 2',
-                        'description' => 'description 2',
+                'imageGroupModel' => [
+                    'imageId' => 1,
+                    'seoModel' => [
+                        'name'    => 'name'
                     ],
-                    'tabGroupModel'   => [
-                        'tabId' => 2,
-                    ],
-                    'imageGroupModel' => [
-                        'imageId' => 2,
-                        'seoModel' => [
-                            'name'    => 'name 2'
-                        ],
-                        'sort'    => 20,
-                    ],
-                    'catalogMenuId'   => 1,
-                    'fieldGroupModel' => [
-                        'fieldId' => 2,
-                    ],
-                    'price'           => 40.34,
-                    'oldPrice'        => 50.54,
+                    'sort'    => 10,
                 ],
-                [
-                    'seoModel'        => [
-                        'name'        => 'name 2',
-                        'url'         => 'url-2',
-                        'title'       => 'title 2',
-                        'keywords'    => 'keywords 2',
-                        'description' => 'description 2',
-                    ],
-                    'tabGroupModel'   => [
-                        'tabId' => 1,
-                    ],
-                    'imageGroupModel' => [
-                        'imageId' => 1,
-                        'seoModel' => [
-                            'name'    => 'name 2'
-                        ],
-                        'sort'    => 20,
-                    ],
-                    'catalogMenuId'   => 1,
-                    'fieldGroupModel' => [
-                        'fieldId' => 1,
-                    ],
-                    'price'           => 40.34,
-                    'oldPrice'        => 50.54,
+                'catalogMenuId'   => 1,
+                'fieldGroupModel' => [
+                    'fieldId' => 1,
                 ],
+                'price'           => 10.34,
+                'oldPrice'        => 20.54,
+            ],
+            [
+                'seoModel'        => [
+                    'name'        => 'name 1',
+                    'url'         => 'url-1',
+                    'title'       => 'title 1',
+                    'keywords'    => 'keywords 1',
+                    'description' => 'description 1',
+                ],
+                'tabGroupModel'   => [
+                    'tabId' => 1,
+                ],
+                'imageGroupModel' => [
+                    'imageId' => 1,
+                    'seoModel' => [
+                        'name'    => 'name'
+                    ],
+                    'sort'    => 10,
+                ],
+                'catalogMenuId'   => 1,
+                'fieldGroupModel' => [
+                    'fieldId' => 1,
+                ],
+                'price'           => 10.34,
+                'oldPrice'        => 20.54,
             ]
+        ];
+    }
+
+    /**
+     * Data provider for CRUD. Correct values
+     *
+     * @return array
+     */
+    private function _getUpdateDataProvider()
+    {
+        return [
+            [
+                'seoModel'        => [
+                    'name'        => 'name 2',
+                    'url'         => 'url-2',
+                    'title'       => 'title 2',
+                    'keywords'    => 'keywords 2',
+                    'description' => 'description 2',
+                ],
+                'tabGroupModel'   => [
+                    'tabId' => 2,
+                ],
+                'imageGroupModel' => [
+                    'imageId' => 2,
+                    'seoModel' => [
+                        'name'    => 'name 2'
+                    ],
+                    'sort'    => 20,
+                ],
+                'catalogMenuId'   => 1,
+                'fieldGroupModel' => [
+                    'fieldId' => 2,
+                ],
+                'price'           => 40.34,
+                'oldPrice'        => 50.54,
+            ],
+            [
+                'seoModel'        => [
+                    'name'        => 'name 2',
+                    'url'         => 'url-2',
+                    'title'       => 'title 2',
+                    'keywords'    => 'keywords 2',
+                    'description' => 'description 2',
+                ],
+                'tabGroupModel'   => [
+                    'tabId' => 1,
+                ],
+                'imageGroupModel' => [
+                    'imageId' => 1,
+                    'seoModel' => [
+                        'name'    => 'name 2'
+                    ],
+                    'sort'    => 20,
+                ],
+                'catalogMenuId'   => 1,
+                'fieldGroupModel' => [
+                    'fieldId' => 1,
+                ],
+                'price'           => 40.34,
+                'oldPrice'        => 50.54,
+            ],
         ];
     }
 }
