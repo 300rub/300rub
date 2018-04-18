@@ -37,7 +37,6 @@ class UpdateDesignController extends AbstractController
         $blockModel = BlockModel::model()->getById($this->get('id'));
 
         $imageModel = $blockModel->getContentModel(
-            false,
             null,
             ImageModel::CLASS_NAME
         );

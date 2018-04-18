@@ -42,7 +42,6 @@ class UpdateDesignController extends AbstractController
         $textModel = BlockModel::model()
             ->getById($this->get('id'))
             ->getContentModel(
-                false,
                 null,
                 TextModel::CLASS_NAME
             );

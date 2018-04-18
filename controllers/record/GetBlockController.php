@@ -32,7 +32,6 @@ class GetBlockController extends AbstractController
         if ($blockId > 0) {
             $blockModel = BlockModel::model()->getById($blockId);
             $recordModel = $blockModel->getContentModel(
-                false,
                 null,
                 RecordModel::CLASS_NAME
             );

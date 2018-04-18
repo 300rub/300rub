@@ -306,9 +306,7 @@ class GetUserController extends AbstractController
         ];
 
         $sections = new SectionModel();
-        $sections
-            ->ordered('name', 'seoModel')
-            ->withRelations();
+        $sections->withRelations(['seoModel'])->ordered('name', 'seoModel');
         $sections = $sections->findAll();
         if (count($sections) > 0) {
             foreach ($sections as $section) {

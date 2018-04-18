@@ -88,7 +88,7 @@ class BlockModel extends AbstractBlockModel
             self::_getMemcachedKey($this->getId())
         );
 
-        $this->getContentModel(true)->delete();
+        $this->getContentModel()->delete();
     }
 
     /**

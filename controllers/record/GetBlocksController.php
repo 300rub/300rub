@@ -119,7 +119,6 @@ class GetBlocksController extends AbstractController
         $this->_packedCloneModels = [];
         foreach ($cloneBlockModels as $cloneBlockModel) {
             $contentModel = $cloneBlockModel->getContentModel(
-                false,
                 null,
                 RecordCloneModel::CLASS_NAME
             );

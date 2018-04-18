@@ -79,7 +79,6 @@ class CreateImageControllerTest extends AbstractControllerTest
 
         $imageInstanceModel = ImageInstanceModel::model()
             ->byId($body['id'])
-            ->withRelations()
             ->find();
         $this->assertNotNull($imageInstanceModel);
 

@@ -146,7 +146,7 @@ abstract class AbstractContentModel extends AbstractModel
      */
     private function _getContentModel()
     {
-        return $this->byId($this->getContentId())->withRelations()->find();
+        return $this->byId($this->getContentId())->find();
     }
 
     /**

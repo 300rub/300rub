@@ -40,7 +40,7 @@ class GetContentController extends AbstractController
 
         $imageModel = BlockModel::model()
             ->getById($this->get('id'))
-            ->getContentModel(false, null, ImageModel::CLASS_NAME);
+            ->getContentModel(null, ImageModel::CLASS_NAME);
 
         $groupId = (int)$this->get('groupId');
         $data = [
@@ -114,12 +114,10 @@ class GetContentController extends AbstractController
         $imageGroupModels = ImageGroupModel::model()
             ->byImageId($imageModel->getId())
             ->ordered('sort')
-            ->withRelations()
             ->findAll();
         foreach ($imageGroupModels as $imageGroupModel) {
             $cover = ImageInstanceModel::model()
                 ->coverByGroupId($imageGroupModel->getId())
-                ->withRelations()
                 ->find();
             if ($cover !== null) {
                 $cover = [
@@ -185,14 +183,12 @@ class GetContentController extends AbstractController
             return ImageInstanceModel::model()
                 ->byGroupId($groupId)
                 ->ordered('sort')
-                ->withRelations()
                 ->findAll();
         }
 
         return ImageInstanceModel::model()
             ->byImageId($imageId)
             ->ordered('sort')
-            ->withRelations()
             ->findAll();
     }
 }

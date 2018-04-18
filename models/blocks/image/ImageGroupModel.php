@@ -59,7 +59,6 @@ class ImageGroupModel extends AbstractImageGroupModel
         return ImageGroupModel::model()
             ->byImageId($imageId)
             ->ordered('sort')
-            ->withRelations()
             ->findAll();
     }
 
@@ -154,7 +153,6 @@ class ImageGroupModel extends AbstractImageGroupModel
 
         $imageInstances = ImageInstanceModel::model()
             ->byGroupId($this->getId())
-            ->withRelations()
             ->findAll();
 
         foreach ($imageInstances as $imageInstance) {

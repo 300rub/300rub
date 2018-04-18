@@ -116,7 +116,6 @@ class ImageModel extends AbstractImageModel
                 ->setCover(
                     ImageInstanceModel::model()
                         ->coverByGroupId($album->getId())
-                        ->withRelations()
                         ->find()
                 );
         }
@@ -140,9 +139,7 @@ class ImageModel extends AbstractImageModel
     private function _getImageInstancesHtml($albumId)
     {
         $images = new ImageInstanceModel();
-        $images
-            ->ordered('sort')
-            ->withRelations();
+        $images->ordered('sort');
 
         if ($albumId === 0) {
             $images->byImageId($this->getContentId());
@@ -215,7 +212,6 @@ class ImageModel extends AbstractImageModel
         $this->_currentAlbum = ImageGroupModel::model()
             ->byImageId($this->getContentId())
             ->byUrl($albumUrl)
-            ->withRelations()
             ->find();
 
         return $this;

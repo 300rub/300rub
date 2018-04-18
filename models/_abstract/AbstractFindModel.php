@@ -8,7 +8,7 @@ use ss\application\exceptions\ModelException;
 /**
  * Abstract class for working with models
  */
-abstract class AbstractFindModel extends AbstractGetModel
+abstract class AbstractFindModel extends AbstractBaseModel
 {
 
     /**
@@ -17,18 +17,11 @@ abstract class AbstractFindModel extends AbstractGetModel
     const DEFAULT_ORDER_NAME = 'name';
 
     /**
-     * Flag of selecting relations
+     * Array of relation names to select
      *
      * @var string[]
      */
-    private $_withRelations = false;
-
-    /**
-     * Relations to except
-     *
-     * @var array
-     */
-    private $_exceptRelations = [];
+    private $_withRelations = [];
 
     /**
      * Adds ID condition to SQL request
@@ -63,35 +56,13 @@ abstract class AbstractFindModel extends AbstractGetModel
     /**
      * With all relations
      *
-     * @return AbstractModel|AbstractFindModel
-     */
-    public function withRelations()
-    {
-        $this->_withRelations = true;
-        return $this;
-    }
-
-    /**
-     * Without all relations
+     * @param string[] $withRelations Relations
      *
      * @return AbstractModel|AbstractFindModel
      */
-    public function withoutRelations()
+    public function withRelations(array $withRelations)
     {
-        $this->_withRelations = false;
-        return $this;
-    }
-
-    /**
-     * Except relations
-     *
-     * @param string[] $aliases Relation aliases
-     *
-     * @return AbstractModel|AbstractFindModel
-     */
-    public function exceptRelations(array $aliases)
-    {
-        $this->_exceptRelations = $aliases;
+        $this->_withRelations = $withRelations;
         return $this;
     }
 
@@ -182,20 +153,23 @@ abstract class AbstractFindModel extends AbstractGetModel
     {
         $info = $this->getFieldsInfo();
 
-        $hasRelation = array_key_exists(
-            self::FIELD_RELATION,
-            $info[$fieldName]
-        );
-        if (array_key_exists($fieldName, $info) === false
-            || $hasRelation === false
-        ) {
-            return null;
+        if (array_key_exists($fieldName, $info) === false) {
+            $hasRelation = array_key_exists(
+                self::FIELD_RELATION,
+                $info[$fieldName]
+            );
+
+            if ($hasRelation === false) {
+                return null;
+            }
         }
 
         $relationField = $this->getRelationName($fieldName);
         $relationModelName = $info[$fieldName][self::FIELD_RELATION];
-        if ($this->get($relationField) instanceof $relationModelName) {
-            return $this->get($relationField);
+
+        $field = $this->getField($relationField);
+        if ($field instanceof $relationModelName) {
+            return $field;
         }
 
         $model = $this->getModelByName($relationModelName);
@@ -204,13 +178,14 @@ abstract class AbstractFindModel extends AbstractGetModel
             return $model;
         }
 
-        $idValue = $this->get($fieldName);
+        $idValue = $this->getField($fieldName);
         if ($idValue === 0) {
             return $model;
         }
 
         $model = $model->byId($idValue)->find();
         if ($model !== null) {
+            $this->setField($relationField, $model);
             return $model;
         }
 
@@ -334,43 +309,43 @@ abstract class AbstractFindModel extends AbstractGetModel
                 self::FIELD_RELATION,
                 $info[$field]
             );
-            if ($this->_withRelations === true
-                && $hasRelation === true
+
+            if ($hasRelation === false
+                || count($this->_withRelations) === 0
             ) {
-                $relationModel = $this->getRelationModelByFieldName($field);
-                if ($relationModel instanceof AbstractModel === false) {
-                    continue;
-                }
-
-                $relationField = $this->getRelationName($field);
-
-                $relationAlias = $alias . Db::SEPARATOR . $relationField;
-                if ($alias === Db::DEFAULT_ALIAS) {
-                    $relationAlias = $relationField;
-                }
-
-                $hasExceptRelation = in_array(
-                    $relationAlias,
-                    $this->_exceptRelations
-                );
-                if ($hasExceptRelation === true) {
-                    continue;
-                }
-
-                $relationModel
-                    ->withRelations()
-                    ->exceptRelations($this->_exceptRelations);
-                $relationModel->setDb($this->getDb());
-
-                $dbObject->addJoin(
-                    $relationModel->getTableName(),
-                    $relationAlias,
-                    $alias,
-                    $field
-                );
-
-                $relationModel->setDbBeforeFind($relationAlias);
+                continue;
             }
+
+            $relationName = $this->getRelationName($field);
+            if (in_array($relationName, $this->_withRelations) === false
+                && $this->_withRelations[0] !== '*'
+            ) {
+                continue;
+            }
+
+            $relationModel = $this->getRelationModelByFieldName($field);
+            if ($relationModel instanceof AbstractModel === false) {
+                continue;
+            }
+
+            $relationField = $this->getRelationName($field);
+
+            $relationAlias = $alias . Db::SEPARATOR . $relationField;
+            if ($alias === Db::DEFAULT_ALIAS) {
+                $relationAlias = $relationField;
+            }
+
+            $relationModel->withRelations($this->_withRelations);
+            $relationModel->setDb($dbObject);
+
+            $dbObject->addJoin(
+                $relationModel->getTableName(),
+                $relationAlias,
+                $alias,
+                $field
+            );
+
+            $relationModel->setDbBeforeFind($relationAlias);
         }
 
         return $this;

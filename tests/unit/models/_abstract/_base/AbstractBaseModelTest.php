@@ -34,7 +34,6 @@ abstract class AbstractBaseModelTest extends AbstractModelTest
      * @param array  $updateExpected  Update expected
      * @param string $createException Expected created exception
      * @param string $updateException Expected update exception
-     * @param array  $exceptRelations Except relations
      *
      * @dataProvider dataProvider
      *
@@ -46,8 +45,7 @@ abstract class AbstractBaseModelTest extends AbstractModelTest
         array $updateData = null,
         array $updateExpected = null,
         $createException = null,
-        $updateException = null,
-        $exceptRelations = []
+        $updateException = null
     ) {
         // Create.
         if ($createException !== null) {
@@ -66,8 +64,7 @@ abstract class AbstractBaseModelTest extends AbstractModelTest
         // Read created.
         $model = $this->getNewModel()
             ->byId($model->getId())
-            ->withRelations()
-            ->exceptRelations($exceptRelations)
+            ->withRelations(['*'])
             ->find();
         $this->assertInstanceOf(
             '\\ss\\models\\_abstract\\AbstractModel',
@@ -94,8 +91,7 @@ abstract class AbstractBaseModelTest extends AbstractModelTest
             // Read updated.
             $model = $this->getNewModel()
                 ->byId($model->getId())
-                ->withRelations()
-                ->exceptRelations($exceptRelations)
+                ->withRelations(['*'])
                 ->find();
             $this->assertInstanceOf(
                 '\\ss\\models\\_abstract\\AbstractModel',

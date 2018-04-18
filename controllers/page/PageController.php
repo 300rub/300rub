@@ -90,7 +90,7 @@ class PageController extends AbstractPageController
             || strpos($requestUri, '/') === false
         ) {
             $site->setActiveSection(
-                SectionModel::model()->main()->withRelations()->find()
+                SectionModel::model()->main()->find()
             );
             return $this;
         }
@@ -101,7 +101,6 @@ class PageController extends AbstractPageController
             SectionModel::model()
                 ->byLanguage(App::web()->getLanguage()->getActiveId())
                 ->byUrl($explode[1])
-                ->withRelations()
                 ->find()
         );
         return $this;

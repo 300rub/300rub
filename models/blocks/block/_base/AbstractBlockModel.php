@@ -141,7 +141,7 @@ abstract class AbstractBlockModel extends AbstractModel
     protected function setContentIdBeforeDuplicate($value)
     {
         return $this
-            ->getContentModel(true, $value)
+            ->getContentModel($value)
             ->duplicate()
             ->getId();
     }
@@ -149,7 +149,6 @@ abstract class AbstractBlockModel extends AbstractModel
     /**
      * Gets model by contentType and contentId
      *
-     * @param bool   $withRelations Flag to use relations
      * @param int    $value         Content ID
      * @param string $instance      Instance to check
      *
@@ -158,7 +157,6 @@ abstract class AbstractBlockModel extends AbstractModel
      * @throws ModelException
      */
     public function getContentModel(
-        $withRelations = null,
         $value = null,
         $instance = null
     ) {
@@ -172,13 +170,7 @@ abstract class AbstractBlockModel extends AbstractModel
         }
 
         $newModel = $this->getNewContentModel();
-        $model = $newModel->byId($value);
-
-        if ($withRelations === true) {
-            $model->withRelations();
-        }
-
-        $model = $model->find();
+        $model = $newModel->byId($value)->find();
         if ($model instanceof $instance === false) {
             throw new ModelException(
                 'Unable to find model: {className} with ID = {id}',

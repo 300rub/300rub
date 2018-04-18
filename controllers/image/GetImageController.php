@@ -39,7 +39,6 @@ class GetImageController extends AbstractController
 
         $imageInstanceModel = ImageInstanceModel::model()
             ->byId($this->get('id'))
-            ->withRelations()
             ->find();
         if ($imageInstanceModel instanceof ImageInstanceModel === false) {
             throw new NotFoundException(

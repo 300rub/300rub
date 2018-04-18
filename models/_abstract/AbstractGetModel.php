@@ -7,7 +7,7 @@ use ss\application\exceptions\ModelException;
 /**
  * Abstract class for working with models
  */
-abstract class AbstractGetModel extends AbstractBaseModel
+abstract class AbstractGetModel extends AbstractFindModel
 {
 
     /**
@@ -69,6 +69,31 @@ abstract class AbstractGetModel extends AbstractBaseModel
             );
         }
 
+        if ($this->_isRelation($param) === true) {
+            return $this->getRelationModelByFieldName(
+                $this->getRelationIdFields($param),
+                true
+            );
+        }
+
         return $this->getField($param);
+    }
+
+    /**
+     * Checks if it's relation field
+     *
+     * @param string $fieldName Field name
+     *
+     * @return bool
+     */
+    private function _isRelation($fieldName)
+    {
+        if (strlen($fieldName) > 5
+            && substr($fieldName, -5) === 'Model'
+        ) {
+            return true;
+        }
+
+        return false;
     }
 }

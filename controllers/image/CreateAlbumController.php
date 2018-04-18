@@ -36,7 +36,6 @@ class CreateAlbumController extends AbstractController
 
         $blockModel = BlockModel::model()->getById($this->get('blockId'));
         $imageModel = $blockModel->getContentModel(
-            false,
             null,
             ImageModel::CLASS_NAME
         );

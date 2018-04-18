@@ -7,7 +7,7 @@ use ss\application\components\ValueGenerator;
 /**
  * Abstract class for working with models
  */
-abstract class AbstractSetRelationModel extends AbstractFindModel
+abstract class AbstractSetRelationModel extends AbstractGetModel
 {
 
     /**

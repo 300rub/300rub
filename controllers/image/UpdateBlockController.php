@@ -47,7 +47,6 @@ class UpdateBlockController extends AbstractController
 
         $imageModel = $blockModel
             ->getContentModel(
-                false,
                 null,
                 ImageModel::CLASS_NAME
             );

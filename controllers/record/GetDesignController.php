@@ -90,7 +90,6 @@ full
         $recordModel = BlockModel::model()
             ->getById($blockId)
             ->getContentModel(
-                true,
                 null,
                 RecordModel::CLASS_NAME
             );
