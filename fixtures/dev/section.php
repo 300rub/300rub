@@ -27,21 +27,21 @@ return [
     ],
     4 => [
         'seoModel'      => [
-            'name' => 'Images zoom',
+            'name' => 'Zoom',
             'url'  => 'images-zoom'
         ],
         'language' => Language::LANGUAGE_EN_ID,
     ],
     5 => [
         'seoModel'      => [
-            'name' => 'Images slider',
+            'name' => 'Slider',
             'url'  => 'images-slider'
         ],
         'language' => Language::LANGUAGE_EN_ID,
     ],
     6 => [
         'seoModel'      => [
-            'name' => 'Images simple',
+            'name' => 'Simple',
             'url'  => 'images-simple'
         ],
         'language' => Language::LANGUAGE_EN_ID,
@@ -50,6 +50,20 @@ return [
         'seoModel'      => [
             'name' => 'Albums',
             'url'  => 'albums'
+        ],
+        'language' => Language::LANGUAGE_EN_ID,
+    ],
+    8 => [
+        'seoModel'      => [
+            'name' => 'Records',
+            'url'  => 'records'
+        ],
+        'language' => Language::LANGUAGE_EN_ID,
+    ],
+    9 => [
+        'seoModel'      => [
+            'name' => 'Pagination',
+            'url'  => 'records-pagination'
         ],
         'language' => Language::LANGUAGE_EN_ID,
     ],

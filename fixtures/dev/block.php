@@ -34,4 +34,10 @@ return [
         'contentType' => BlockModel::TYPE_IMAGE,
         'contentId'   => 4,
     ],
+    6 => [
+        'name'        => 'Record pagination',
+        'language'    => Language::LANGUAGE_EN_ID,
+        'contentType' => BlockModel::TYPE_RECORD,
+        'contentId'   => 1,
+    ],
 ];

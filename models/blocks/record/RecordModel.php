@@ -22,7 +22,7 @@ class RecordModel extends AbstractRecordModel
      */
     public function generateHtml()
     {
-        return '';
+        return '1111111111';
     }
 
     /**

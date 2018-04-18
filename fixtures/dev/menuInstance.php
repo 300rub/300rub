@@ -43,4 +43,16 @@ return [
         'sectionId' => 7,
         'sort'      => 40,
     ],
+    8 => [
+        'menuId'    => 1,
+        'parentId'  => 0,
+        'sectionId' => 8,
+        'sort'      => 40,
+    ],
+    9 => [
+        'menuId'    => 1,
+        'parentId'  => 8,
+        'sectionId' => 9,
+        'sort'      => 10,
+    ],
 ];
