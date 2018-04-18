@@ -58,7 +58,7 @@ return [
     'memcached' => [
         'host'          => 'localhost',
         'port'          => 11211,
-        'isIgnoreCache' => false
+        'isIgnoreCache' => true
     ],
     'file' => [
         'pathMask' => __DIR__ . '/../public/upload/%s/%s',

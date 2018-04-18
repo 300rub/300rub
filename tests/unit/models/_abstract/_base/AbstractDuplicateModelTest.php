@@ -31,6 +31,7 @@ abstract class AbstractDuplicateModelTest extends AbstractModelTest
      * @param array  $createData        Data to create
      * @param array  $duplicateExpected Expected data after duplication
      * @param string $expectedException Expected exception
+     * @param string $withRelations     With relations
      *
      * @return AbstractDuplicateModelTest
      *
@@ -39,10 +40,15 @@ abstract class AbstractDuplicateModelTest extends AbstractModelTest
     protected function duplicate(
         array $createData = [],
         array $duplicateExpected = [],
-        $expectedException = null
+        $expectedException = null,
+        $withRelations = null
     ) {
         if ($expectedException !== null) {
             $this->expectException($expectedException);
+        }
+
+        if ($withRelations === null) {
+            $withRelations = ['*'];
         }
 
         // Create and get model.
@@ -51,7 +57,7 @@ abstract class AbstractDuplicateModelTest extends AbstractModelTest
             ->save();
         $model = $this->getNewModel()
             ->byId($model->getId())
-            ->withRelations(['*'])
+            ->withRelations($withRelations)
             ->find();
 
         // Duplicate.
@@ -86,7 +92,7 @@ abstract class AbstractDuplicateModelTest extends AbstractModelTest
         // Read duplicated from DB.
         $duplicatedModel = $this->getNewModel()
             ->byId($duplicatedModel->getId())
-            ->withRelations(['*'])
+            ->withRelations($withRelations)
             ->find();
         $this->assertInstanceOf(
             '\\ss\\models\\_abstract\\AbstractModel',

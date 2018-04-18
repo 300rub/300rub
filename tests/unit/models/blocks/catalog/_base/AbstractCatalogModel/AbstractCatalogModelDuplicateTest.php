@@ -51,7 +51,6 @@ class AbstractCatalogModelDuplicateTest extends AbstractDuplicateModelTest
             [
                 'imageModel'           => $this->_imageModelExpectData(),
                 'tabModel'             => $this->_tabModelExpectData(),
-                'fieldModel'           => $this->_fieldModelExpectData(),
                 'descriptionTextModel'
                     => $this->_descriptionTextModelExpectData(),
                 'designCatalogModel'
@@ -67,16 +66,11 @@ class AbstractCatalogModelDuplicateTest extends AbstractDuplicateModelTest
             ],
             null,
             [
-                'designCatalogModel_fullCardContainerDesignBlockModel',
-                'designCatalogModel_fullCardTitleDesignBlockModel',
-                'designCatalogModel_fullCardTitleDesignTextModel',
-                'designCatalogModel_fullCardDateDesignTextModel',
-                'designCatalogModel_fullCardPriceDesignBlockModel',
-                'designCatalogModel_fullCardPriceDesignTextModel',
-                'designCatalogModel_fullCardOldPriceDesignBlockModel',
-                'designCatalogModel_fullCardOldPriceDesignTextModel',
-                'designCatalogModel_fullCardBinButtonDesignBlockModel',
-                'designCatalogModel_fullCardBinButtonDesignTextModel',
+                'imageModel',
+                'tabModel',
+                'fieldModel',
+                'descriptionTextModel',
+                'designCatalogModel',
             ]
         );
     }
@@ -364,31 +358,6 @@ class AbstractCatalogModelDuplicateTest extends AbstractDuplicateModelTest
     private function _imageModelExpectData()
     {
         return [
-            'designBlockModel'       => [
-                'marginTop' => 10,
-            ],
-            'designImageSliderModel' => [
-                'arrowDesignTextModel'   => [
-                    'size' => 10
-                ],
-                'hasAutoPlay'                 => true,
-                'playSpeed'                   => 10,
-            ],
-            'designImageZoomModel'   => [
-                'designBlockModel'     => [
-                    'marginTop' => 20
-                ],
-                'effect'               => 0,
-            ],
-            'designImageSimpleModel' => [
-                'containerDesignBlockModel' => [
-                    'marginTop' => 20
-                ],
-                'imageDesignBlockModel'     => [
-                    'marginTop' => 30
-                ],
-                'alignment'                 => 1
-            ],
             'type'                   => 1,
             'autoCropType'           => 1,
             'cropWidth'              => 10,
@@ -410,69 +379,8 @@ class AbstractCatalogModelDuplicateTest extends AbstractDuplicateModelTest
     private function _tabModelExpectData()
     {
         return [
-            'designTabsModel' => [
-                'containerDesignBlockModel' => [
-                    'marginTop'                => 10,
-                    'borderBottomWidth'        => 7,
-                    'borderColorHover'         => 'rgb(0,255,0)',
-                    'backgroundColorFromHover' => 'rgba(255,0,255,0.5)',
-                ],
-                'tabDesignBlockModel'       => [
-                    'marginTop'                => 10,
-                    'borderBottomWidth'        => 7,
-                    'borderColorHover'         => 'rgb(0,255,0)',
-                    'backgroundColorFromHover' => 'rgba(255,0,255,0.5)',
-                ],
-                'tabDesignTextModel'        => [
-                    'size' => 20
-                ],
-                'contentDesignBlockModel'   => [
-                    'marginTop'                => 10,
-                    'borderBottomWidth'        => 7,
-                    'borderColorHover'         => 'rgb(0,255,0)',
-                    'backgroundColorFromHover' => 'rgba(255,0,255,0.5)',
-                ],
-            ],
-            'textModel'       => [
-                'designTextModel'  => [
-                    'size' => 10
-                ],
-                'designBlockModel' => [
-                    'marginTop'                => 10,
-                    'borderBottomWidth'        => 7,
-                    'borderColorHover'         => 'rgb(0,255,0)',
-                    'backgroundColorFromHover' => 'rgba(255,0,255,0.5)',
-                ],
-                'type'             => 1,
-                'hasEditor'        => true,
-            ],
             'isShowEmpty'     => true,
             'isLazyLoad'      => true,
-        ];
-    }
-
-    /**
-     * Data provider for CRUD. Duplicate
-     *
-     * @return array
-     */
-    private function _fieldModelExpectData()
-    {
-        return [
-            'designFieldModel' => [
-                'shortCardContainerDesignBlockModel' => [
-                    'marginTop' => 10
-                ],
-                'shortCardLabelDesignBlockModel'     => [
-                    'marginTop' => 20
-                ],
-                'shortCardLabelDesignTextModel'      => [
-                    'size' => 30
-                ],
-                'shortCardValueDesignBlockModel'     => [
-                    'marginTop' => 40
-                ],
-            ],
         ];
     }
 
@@ -484,12 +392,6 @@ class AbstractCatalogModelDuplicateTest extends AbstractDuplicateModelTest
     private function _descriptionTextModelExpectData()
     {
         return [
-            'designTextModel'  => [
-                'size' => 10
-            ],
-            'designBlockModel' => [
-                'marginTop' => 20
-            ],
             'type'             => 1,
             'hasEditor'        => true
         ];
@@ -503,72 +405,6 @@ class AbstractCatalogModelDuplicateTest extends AbstractDuplicateModelTest
     private function _designCatalogModelExpectData()
     {
         return [
-            'shortCardContainerDesignBlockModel'      => [
-                'marginTop'                => 10,
-                'borderBottomWidth'        => 7,
-                'borderColorHover'         => 'rgb(0,255,0)',
-                'backgroundColorFromHover' => 'rgba(255,0,255,0.5)',
-            ],
-            'shortCardInstanceDesignBlockModel'       => [
-                'marginTop'                => 10,
-                'borderBottomWidth'        => 7,
-                'borderColorHover'         => 'rgb(0,255,0)',
-                'backgroundColorFromHover' => 'rgba(255,0,255,0.5)',
-            ],
-            'shortCardTitleDesignBlockModel'          => [
-                'marginTop'                => 10,
-                'borderBottomWidth'        => 7,
-                'borderColorHover'         => 'rgb(0,255,0)',
-                'backgroundColorFromHover' => 'rgba(255,0,255,0.5)',
-            ],
-            'shortCardTitleDesignTextModel'           => [
-                'size' => 10
-            ],
-            'shortCardDateDesignTextModel'            => [
-                'size' => 10
-            ],
-            'shortCardPriceDesignBlockModel'          => [
-                'marginTop'                => 10,
-                'borderBottomWidth'        => 7,
-                'borderColorHover'         => 'rgb(0,255,0)',
-                'backgroundColorFromHover' => 'rgba(255,0,255,0.5)',
-            ],
-            'shortCardPriceDesignTextModel'           => [
-                'size' => 10
-            ],
-            'shortCardOldPriceDesignBlockModel'       => [
-                'marginTop'                => 10,
-                'borderBottomWidth'        => 7,
-                'borderColorHover'         => 'rgb(0,255,0)',
-                'backgroundColorFromHover' => 'rgba(255,0,255,0.5)',
-            ],
-            'shortCardOldPriceDesignTextModel'        => [
-                'size' => 10
-            ],
-            'shortCardDescriptionDesignBlockModel'    => [
-                'marginTop'                => 10,
-                'borderBottomWidth'        => 7,
-                'borderColorHover'         => 'rgb(0,255,0)',
-                'backgroundColorFromHover' => 'rgba(255,0,255,0.5)',
-            ],
-            'shortCardDescriptionDesignTextModel'     => [
-                'size' => 10
-            ],
-            'shortCardPaginationDesignBlockModel'     => [
-                'marginTop'                => 10,
-                'borderBottomWidth'        => 7,
-                'borderColorHover'         => 'rgb(0,255,0)',
-                'backgroundColorFromHover' => 'rgba(255,0,255,0.5)',
-            ],
-            'shortCardPaginationItemDesignBlockModel' => [
-                'marginTop'                => 10,
-                'borderBottomWidth'        => 7,
-                'borderColorHover'         => 'rgb(0,255,0)',
-                'backgroundColorFromHover' => 'rgba(255,0,255,0.5)',
-            ],
-            'shortCardPaginationItemDesignTextModel'  => [
-                'size' => 10
-            ],
             'shortCardViewType'                       => 1,
             'fullCardImagesPosition'                  => 1,
             'fullCardDatePosition'                    => 1
