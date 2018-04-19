@@ -335,7 +335,10 @@ abstract class AbstractFindModel extends AbstractBaseModel
                 $relationAlias = $relationField;
             }
 
-            $relationModel->withRelations($this->_withRelations);
+            if ($this->_withRelations[0] === '*') {
+                $relationModel->withRelations($this->_withRelations);
+            }
+
             $relationModel->setDb($dbObject);
 
             $dbObject->addJoin(

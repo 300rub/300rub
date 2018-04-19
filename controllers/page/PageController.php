@@ -25,6 +25,7 @@ class PageController extends AbstractPageController
         $token = '';
         $content = '';
         $sectionCss = [];
+        $sectionJs = [];
         $isUser = $this->isUser();
 
         $this->_setSectionModel();
@@ -90,7 +91,7 @@ class PageController extends AbstractPageController
             || strpos($requestUri, '/') === false
         ) {
             $site->setActiveSection(
-                SectionModel::model()->main()->find()
+                SectionModel::model()->main()->withRelations(['*'])->find()
             );
             return $this;
         }
@@ -101,6 +102,7 @@ class PageController extends AbstractPageController
             SectionModel::model()
                 ->byLanguage(App::web()->getLanguage()->getActiveId())
                 ->byUrl($explode[1])
+                ->withRelations(['*'])
                 ->find()
         );
         return $this;

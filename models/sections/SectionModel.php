@@ -126,6 +126,7 @@ class SectionModel extends AbstractSectionModel
         return $gridLineModels
             ->bySectionId($this->getId())
             ->ordered('sort')
+            ->withRelations(['*'])
             ->findAll();
     }
 
