@@ -84,6 +84,17 @@ abstract class AbstractBaseModel
     private function _setDefaultValues()
     {
         foreach ($this->getFieldsInfo() as $field => $info) {
+            if (array_key_exists(self::FIELD_RELATION, $info) === true) {
+                $relationField = $this->getRelationName($field);
+                $this->_fields[$relationField] = null;
+
+                $this->_fields[$field] = 0;
+                if (array_key_exists(self::FIELD_ALLOW_NULL, $info) === true) {
+                    $this->_fields[$field] = null;
+                }
+                continue;
+            }
+
             if (array_key_exists(self::FIELD_ALLOW_NULL, $info) === true) {
                 $this->_fields[$field] = null;
                 continue;
@@ -91,13 +102,6 @@ abstract class AbstractBaseModel
 
             if (array_key_exists(self::FIELD_TYPE, $info) === true) {
                 $this->_setDefaultTypeValues($info[self::FIELD_TYPE], $field);
-                continue;
-            }
-
-            if (array_key_exists(self::FIELD_RELATION, $info) === true) {
-                $relationField = $this->getRelationName($field);
-                $this->_fields[$relationField] = null;
-                $this->_fields[$field] = 0;
                 continue;
             }
 

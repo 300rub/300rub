@@ -3,7 +3,9 @@
 namespace ss\models\blocks\record;
 
 use ss\application\components\Db;
+use ss\models\blocks\image\ImageGroupModel;
 use ss\models\blocks\record\_base\AbstractRecordInstanceModel;
+use ss\models\blocks\text\TextInstanceModel;
 
 /**
  * Model for working with table "recordInstances"
@@ -63,5 +65,60 @@ class RecordInstanceModel extends AbstractRecordInstanceModel
         $this->getDb()->addParameter('recordId', (int)$recordId);
 
         return $this;
+    }
+
+    /**
+     * Runs before save
+     *
+     * @return void
+     */
+    protected function beforeSave()
+    {
+        $recordId = $this->get('recordId');
+
+        if ($this->getId() === 0
+            && $recordId > 0
+        ) {
+            $recordModel = RecordModel::model()
+                ->byId($recordId)
+                ->find();
+
+            $textInstance = new TextInstanceModel();
+            $textInstance->set(
+                [
+                    'textId' => $recordModel->get('textTextId')
+                ]
+            );
+            $textInstance->save();
+
+            $descriptionInstance = new TextInstanceModel();
+            $descriptionInstance->set(
+                [
+                    'textId' => $recordModel->get('descriptionTextId')
+                ]
+            );
+            $descriptionInstance->save();
+
+            $imageGroup = new ImageGroupModel();
+            $imageGroup->set(
+                [
+                    'imageId'  => $recordModel->get('imagesImageId'),
+                    'seoModel' => [
+                        'name' => substr(md5(uniqid() . time()), 0, 10)
+                    ]
+                ]
+            );
+            $imageGroup->save();
+
+            $this->set(
+                [
+                    'textTextInstanceId'        => $textInstance->getId(),
+                    'descriptionTextInstanceId' => $descriptionInstance->getId(),
+                    'imageGroupId'              => $imageGroup->getId(),
+                ]
+            );
+        }
+
+        parent::beforeSave();
     }
 }

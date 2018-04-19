@@ -326,7 +326,7 @@ class M160321000100Records extends AbstractMigration
                     'textTextInstanceId'        => self::TYPE_FK,
                     'descriptionTextInstanceId' => self::TYPE_FK,
                     'imageGroupId'              => self::TYPE_FK,
-                    'coverImageInstanceId'      => self::TYPE_FK,
+                    'coverImageInstanceId'      => self::TYPE_FK_NULL,
                     'date'                      => self::TYPE_DATETIME,
                     'sort'                      => self::TYPE_SMALLINT,
                 ]

@@ -331,6 +331,17 @@ abstract class AbstractSaveModel extends AbstractValidateModel
                 continue;
             }
 
+            $isAllowNull = array_key_exists(
+                self::FIELD_ALLOW_NULL,
+                $relationInfo
+            );
+            if ($isAllowNull === true
+                && $this->getField($field) === null
+                && $this->getField($this->getRelationName($field)) === null
+            ) {
+                continue;
+            }
+
             $relationName = $this->getRelationName($field);
             $modelName = $relationInfo[self::FIELD_RELATION];
 
@@ -388,7 +399,7 @@ abstract class AbstractSaveModel extends AbstractValidateModel
                 continue;
             }
 
-            $value = $this->get($field);
+            $value = $this->getField($field);
 
             $isAllowNull = array_key_exists(
                 self::FIELD_ALLOW_NULL,

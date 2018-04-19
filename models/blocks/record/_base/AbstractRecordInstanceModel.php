@@ -74,6 +74,7 @@ abstract class AbstractRecordInstanceModel extends AbstractModel
                 self::FIELD_RELATION
                     => '\\ss\\models\\blocks\\image\\ImageInstanceModel',
                 self::FIELD_SKIP_DUPLICATION => true,
+                self::FIELD_ALLOW_NULL => true,
             ],
             'date'                      => [
                 self::FIELD_TYPE => self::FIELD_TYPE_DATETIME,

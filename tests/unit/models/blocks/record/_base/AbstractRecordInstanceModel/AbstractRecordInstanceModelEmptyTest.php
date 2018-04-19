@@ -97,10 +97,12 @@ class AbstractRecordInstanceModelEmptyTest extends AbstractEmptyModelTest
                 'date'                         => '',
                 'sort'                         => '',
             ],
-            [],
-            null,
-            null,
-            self::EXCEPTION_MODEL
+            [
+                'seoModel' => [
+                    'name' => ['required'],
+                    'url'  => ['required', 'url'],
+                ],
+            ],
         ];
     }
 
@@ -128,10 +130,18 @@ class AbstractRecordInstanceModelEmptyTest extends AbstractEmptyModelTest
                 'date'                         => '',
                 'sort'                         => '',
             ],
-            [],
-            null,
-            null,
-            self::EXCEPTION_MODEL
+            [
+                'seoModel' => [
+                    'name' => ['required'],
+                    'url'  => ['required', 'url'],
+                ],
+                'imageGroupModel'              => [
+                    'seoModel' => [
+                        'name' => ['required'],
+                        'url'  => ['required', 'url'],
+                    ],
+                ],
+            ],
         ];
     }
 

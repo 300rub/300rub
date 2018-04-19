@@ -40,6 +40,8 @@ class LoadFixturesCommand extends AbstractCommand
             => '\\ss\\models\\blocks\\image\\ImageGroupModel',
         'record'
             => '\\ss\\models\\blocks\\record\\RecordModel',
+        'recordInstance'
+            => '\\ss\\models\\blocks\\record\\RecordInstanceModel',
         'recordClone'
             => '\\ss\\models\\blocks\\record\\RecordCloneModel',
         'menu'
