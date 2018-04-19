@@ -141,7 +141,7 @@ abstract class AbstractBlockModel extends AbstractModel
     protected function setContentIdBeforeDuplicate($value)
     {
         return $this
-            ->getContentModel($value)
+            ->getContentModel(null, $value)
             ->duplicate()
             ->getId();
     }
@@ -149,16 +149,16 @@ abstract class AbstractBlockModel extends AbstractModel
     /**
      * Gets model by contentType and contentId
      *
-     * @param int    $value         Content ID
-     * @param string $instance      Instance to check
+     * @param string $instance Instance to check
+     * @param int    $value    Content ID
      *
      * @return AbstractContentModel|AbstractModel
      *
      * @throws ModelException
      */
     public function getContentModel(
-        $value = null,
-        $instance = null
+        $instance = null,
+        $value = null
     ) {
         if ($value === null) {
             $value = $this->get('contentId');

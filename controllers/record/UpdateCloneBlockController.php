@@ -41,7 +41,6 @@ class UpdateCloneBlockController extends AbstractController
 
         $blockModel = BlockModel::model()->getById($this->get('id'));
         $recordCloneModel = $blockModel->getContentModel(
-            null,
             RecordCloneModel::CLASS_NAME
         );
         $recordCloneModel->set(

@@ -162,7 +162,6 @@ class GetBlockController extends AbstractController
 
             $this->_blockModel = $this->_blockModel->getById($this->_blockId);
             $this->_imageModel = $this->_blockModel->getContentModel(
-                null,
                 ImageModel::CLASS_NAME
             );
         }

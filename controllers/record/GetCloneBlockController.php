@@ -43,7 +43,6 @@ class GetCloneBlockController extends AbstractController
         if ($blockId > 0) {
             $blockModel = BlockModel::model()->getById($blockId);
             $recordCloneModel = $blockModel->getContentModel(
-                null,
                 RecordCloneModel::CLASS_NAME
             );
         }
@@ -51,7 +50,6 @@ class GetCloneBlockController extends AbstractController
         $this->_checkAccess($recordBlockId, $blockId);
 
         $recordModel = $recordBlockBlock->getContentModel(
-            null,
             RecordModel::CLASS_NAME
         );
 

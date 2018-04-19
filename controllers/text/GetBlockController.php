@@ -46,7 +46,6 @@ class GetBlockController extends AbstractController
 
             $blockModel = $blockModel->getById($blockId);
             $textModel = $blockModel->getContentModel(
-                null,
                 TextModel::CLASS_NAME
             );
 

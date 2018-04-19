@@ -40,7 +40,6 @@ class UpdateAlbumController extends AbstractController
 
         $blockModel = BlockModel::model()->getById($this->get('blockId'));
         $imageModel = $blockModel->getContentModel(
-            null,
             ImageModel::CLASS_NAME
         );
         $imageGroupModel = ImageGroupModel::model()

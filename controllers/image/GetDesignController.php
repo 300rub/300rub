@@ -41,7 +41,6 @@ class GetDesignController extends AbstractController
         $imageModel = BlockModel::model()
             ->getById($blockId)
             ->getContentModel(
-                null,
                 ImageModel::CLASS_NAME
             );
 

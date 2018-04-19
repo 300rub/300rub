@@ -40,7 +40,7 @@ class GetContentController extends AbstractController
 
         $imageModel = BlockModel::model()
             ->getById($this->get('id'))
-            ->getContentModel(null, ImageModel::CLASS_NAME);
+            ->getContentModel(ImageModel::CLASS_NAME);
 
         $groupId = (int)$this->get('groupId');
         $data = [
