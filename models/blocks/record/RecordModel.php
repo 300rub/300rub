@@ -41,20 +41,20 @@ class RecordModel extends AbstractRecordModel
         $this->_setParametersFromUri();
 
         if ($this->_recordUri !== null) {
-            return $this->_getRecord();
+            return $this->_getInstance();
         }
 
         return 'record list';
     }
 
     /**
-     * Gets record
+     * Gets record instance
      *
      * @return string
      *
      * @throws NotFoundException
      */
-    private function _getRecord()
+    private function _getInstance()
     {
         $recordInstance = RecordInstanceModel::model()
             ->byUrl($this->_recordUri)
@@ -72,7 +72,13 @@ class RecordModel extends AbstractRecordModel
             );
         }
 
-        return 'record';
+        return App::getInstance()->getView()->get(
+            'content/record/instance',
+            [
+                'blockId'        => $this->getBlockId(),
+                'recordInstance' => $recordInstance,
+            ]
+        );
     }
 
     /**

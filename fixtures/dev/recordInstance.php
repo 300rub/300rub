@@ -7,5 +7,9 @@ return [
             'name' => 'Record 1',
             'url'  => 'record-1',
         ],
+        'textTextInstanceModel' => [
+            'textId' => 1,
+            'text'   => 'Textttt'
+        ]
     ]
 ];
