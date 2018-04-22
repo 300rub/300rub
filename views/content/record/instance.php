@@ -4,6 +4,7 @@
  * Variables
  *
  * @var int                                          $blockId
+ * @var \ss\models\blocks\record\RecordModel         $record
  * @var \ss\models\blocks\record\RecordInstanceModel $recordInstance
  */
 

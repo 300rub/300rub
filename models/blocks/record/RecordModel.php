@@ -76,6 +76,7 @@ class RecordModel extends AbstractRecordModel
             'content/record/instance',
             [
                 'blockId'        => $this->getBlockId(),
+                'record'         => $this->getContentModel(),
                 'recordInstance' => $recordInstance,
             ]
         );
