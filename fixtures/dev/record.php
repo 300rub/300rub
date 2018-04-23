@@ -18,7 +18,9 @@ return [
             'fullCardDateDesignTextModel' => [
                 'color' => 'rgba(123,123,123,1)'
             ],
-
+            'fullCardTextDesignBlockModel' => [
+                'marginLeft' => 20
+            ],
             'fullCardDatePosition' => DesignRecordModel::FULL_CART_DATE_POSITION_RIGHT
         ]
     ]

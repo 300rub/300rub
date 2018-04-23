@@ -59,6 +59,8 @@ class M160321000100Records extends AbstractMigration
                     => self::TYPE_FK,
                     'shortCardPaginationItemDesignTextId'
                     => self::TYPE_FK,
+                    'shortCardViewType'
+                    => self::TYPE_TINYINT_UNSIGNED,
                     'fullCardTitleDesignBlockId'
                     => self::TYPE_FK,
                     'fullCardTitleDesignTextId'
@@ -67,8 +69,8 @@ class M160321000100Records extends AbstractMigration
                     => self::TYPE_FK,
                     'fullCardDateDesignTextId'
                     => self::TYPE_FK,
-                    'shortCardViewType'
-                    => self::TYPE_TINYINT_UNSIGNED,
+                    'fullCardTextDesignBlockId'
+                    => self::TYPE_FK,
                     'fullCardImagesPosition'
                     => self::TYPE_TINYINT_UNSIGNED,
                     'fullCardDatePosition'
@@ -154,6 +156,11 @@ class M160321000100Records extends AbstractMigration
                 'designRecords',
                 'fullCardDateDesignTextId',
                 'designTexts'
+            )
+            ->createForeignKey(
+                'designRecords',
+                'fullCardTextDesignBlockId',
+                'designBlocks'
             );
     }
 

@@ -162,6 +162,14 @@ class RecordModel extends AbstractRecordModel
             )
         );
 
+        $css = array_merge(
+            $css,
+            $view->generateCss(
+                $designRecordModel->get('fullCardTextDesignBlockModel'),
+                sprintf('.block-%s .full-card-text', $this->getBlockId())
+            )
+        );
+
         return $css;
     }
 

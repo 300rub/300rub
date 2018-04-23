@@ -144,6 +144,10 @@ abstract class AbstractDesignRecordModel extends AbstractModel
                 self::FIELD_RELATION
                     => '\\ss\\models\\blocks\\text\\DesignTextModel'
             ],
+            'fullCardTextDesignBlockId'             => [
+                self::FIELD_RELATION
+                => '\\ss\\models\\blocks\\block\\DesignBlockModel'
+            ],
             'shortCardViewType'                    => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [

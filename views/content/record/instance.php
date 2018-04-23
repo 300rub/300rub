@@ -38,7 +38,7 @@ echo sprintf(
 );
 
 echo sprintf(
-    '<div>%s</div>',
+    '<div class="full-card-text">%s</div>',
     $text
 );
 
