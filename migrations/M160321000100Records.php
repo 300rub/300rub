@@ -63,6 +63,8 @@ class M160321000100Records extends AbstractMigration
                     => self::TYPE_FK,
                     'fullCardTitleDesignTextId'
                     => self::TYPE_FK,
+                    'fullCardDateDesignBlockId'
+                    => self::TYPE_FK,
                     'fullCardDateDesignTextId'
                     => self::TYPE_FK,
                     'shortCardViewType'
@@ -142,6 +144,11 @@ class M160321000100Records extends AbstractMigration
                 'designRecords',
                 'fullCardTitleDesignTextId',
                 'designTexts'
+            )
+            ->createForeignKey(
+                'designRecords',
+                'fullCardDateDesignBlockId',
+                'designBlocks'
             )
             ->createForeignKey(
                 'designRecords',

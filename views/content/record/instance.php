@@ -27,13 +27,13 @@ switch ($datePosition) {
         break;
 }
 echo sprintf(
-    '<div class="date %s">%s</div>',
+    '<div class="full-card-date %s">%s</div>',
     $dateClass,
     $recordInstance->get('date')->format($record->getFullCardDateFormat())
 );
 
 echo sprintf(
-    '<h1>%s</h1>',
+    '<h1 class="full-card-title">%s</h1>',
     $recordInstance->get('seoModel')->get('name')
 );
 

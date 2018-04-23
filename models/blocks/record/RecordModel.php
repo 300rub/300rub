@@ -125,7 +125,44 @@ class RecordModel extends AbstractRecordModel
      */
     public function generateCss()
     {
-        return [];
+        $css = [];
+        $view = App::getInstance()->getView();
+
+        $designRecordModel = $this->get('designRecordModel');
+
+        $css = array_merge(
+            $css,
+            $view->generateCss(
+                $designRecordModel->get('fullCardTitleDesignBlockModel'),
+                sprintf('.block-%s .full-card-title', $this->getBlockId())
+            )
+        );
+
+        $css = array_merge(
+            $css,
+            $view->generateCss(
+                $designRecordModel->get('fullCardTitleDesignTextModel'),
+                sprintf('.block-%s .full-card-title', $this->getBlockId())
+            )
+        );
+
+        $css = array_merge(
+            $css,
+            $view->generateCss(
+                $designRecordModel->get('fullCardDateDesignBlockModel'),
+                sprintf('.block-%s .full-card-date', $this->getBlockId())
+            )
+        );
+
+        $css = array_merge(
+            $css,
+            $view->generateCss(
+                $designRecordModel->get('fullCardDateDesignTextModel'),
+                sprintf('.block-%s .full-card-date', $this->getBlockId())
+            )
+        );
+
+        return $css;
     }
 
     /**
