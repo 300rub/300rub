@@ -64,7 +64,7 @@ abstract class AbstractRecordModel extends AbstractContentModel
                 self::FIELD_RELATION
                     => '\\ss\\models\\blocks\\text\\TextModel'
             ],
-            'designRecordsId'   => [
+            'designRecordId'   => [
                 self::FIELD_RELATION
                     => '\\ss\\models\\blocks\\record\\DesignRecordModel'
             ],

@@ -26,8 +26,9 @@ abstract class AbstractDesignRecordModel extends AbstractModel
     /**
      * Full card date positions
      */
-    const FULL_CART_DATE_POSITION_LEFT = 0;
-    const FULL_CART_DATE_POSITION_RIGHT = 1;
+    const FULL_CART_DATE_POSITION_NONE = 0;
+    const FULL_CART_DATE_POSITION_LEFT = 1;
+    const FULL_CART_DATE_POSITION_RIGHT = 2;
 
     /**
      * Gets short card view type list
@@ -63,7 +64,8 @@ abstract class AbstractDesignRecordModel extends AbstractModel
     public static function getFullCardDatePositionList()
     {
         return [
-            self::FULL_CART_DATE_POSITION_LEFT => '',
+            self::FULL_CART_DATE_POSITION_NONE  => '',
+            self::FULL_CART_DATE_POSITION_LEFT  => '',
             self::FULL_CART_DATE_POSITION_RIGHT => '',
         ];
     }
@@ -160,8 +162,8 @@ abstract class AbstractDesignRecordModel extends AbstractModel
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
                     ValueGenerator::ARRAY_KEY => [
-                        self::getFullCardImagesPositionList(),
-                        self::FULL_CART_DATE_POSITION_LEFT
+                        self::getFullCardDatePositionList(),
+                        self::FULL_CART_DATE_POSITION_NONE
                     ]
                 ],
             ],

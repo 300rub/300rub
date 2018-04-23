@@ -32,6 +32,15 @@ class RecordModel extends AbstractRecordModel
     private $_recordUri = null;
 
     /**
+     * Date formats
+     *
+     * @var array
+     */
+    private $_dateFormats = [
+        self::DATE_TYPE_COMMON => 'd/m/Y'
+    ];
+
+    /**
      * Generates HTML
      *
      * @return string
@@ -75,9 +84,11 @@ class RecordModel extends AbstractRecordModel
         return App::getInstance()->getView()->get(
             'content/record/instance',
             [
-                'blockId'        => $this->getBlockId(),
-                'record'         => $this->getContentModel(),
-                'recordInstance' => $recordInstance,
+                'blockId'           => $this->getBlockId(),
+                'record'            => $this->getContentModel(),
+                'designRecordModel' => $this->getContentModel()->get('designRecordModel'),
+                'recordInstance'    => $recordInstance,
+                'text'              => $recordInstance->get('textTextInstanceModel')->get('text'),
             ]
         );
     }
@@ -135,5 +146,37 @@ class RecordModel extends AbstractRecordModel
     public static function model()
     {
         return new self;
+    }
+
+    /**
+     * Gets short card date format
+     *
+     * @return string
+     */
+    public function getShortCardDateFormat()
+    {
+        $type = $this->get('shortCardDateType');
+
+        if (array_key_exists($type, $this->_dateFormats) === true) {
+            return $this->_dateFormats[$type];
+        }
+
+        return $this->_dateFormats[self::DATE_TYPE_COMMON];
+    }
+
+    /**
+     * Gets full card date format
+     *
+     * @return string
+     */
+    public function getFullCardDateFormat()
+    {
+        $type = $this->get('fullCardDateType');
+
+        if (array_key_exists($type, $this->_dateFormats) === true) {
+            return $this->_dateFormats[$type];
+        }
+
+        return $this->_dateFormats[self::DATE_TYPE_COMMON];
     }
 }

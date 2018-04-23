@@ -35,7 +35,7 @@ class AbstractRecordModelIncorrectTest extends AbstractIncorrectModelTest
                     'imagesImageModel'    => 'incorrect',
                     'descriptionTextModel' => 'incorrect',
                     'textTextModel'        => 'incorrect',
-                    'designRecordsModel'   => 'incorrect',
+                    'designRecordModel'   => 'incorrect',
                     'hasCover'          => 'incorrect',
                     'hasImages'         => 'incorrect',
                     'hasCoverZoom'      => 'incorrect',

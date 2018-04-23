@@ -54,7 +54,7 @@ class AbstractRecordModelEmptyTest extends AbstractEmptyModelTest
                         'type'             => 0,
                         'hasEditor'        => false
                     ],
-                    'designRecordsModel'   => $this->_designRecordsModelData(),
+                    'designRecordModel'   => $this->_designRecordModelData(),
                     'hasCover'             => false,
                     'hasImages'            => false,
                     'hasCoverZoom'         => false,
@@ -164,7 +164,7 @@ class AbstractRecordModelEmptyTest extends AbstractEmptyModelTest
      *
      * @return array
      */
-    private function _designRecordsModelData()
+    private function _designRecordModelData()
     {
         return [
             'shortCardContainerDesignBlockModel'      => [

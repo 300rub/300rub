@@ -52,8 +52,8 @@ class AbstractRecordModelDuplicateTest extends AbstractDuplicateModelTest
                     'type'             => 1,
                     'hasEditor'        => true
                 ],
-                'designRecordsModel'
-                    => $this->_designRecordsModelCreateData(),
+                'designRecordModel'
+                    => $this->_designRecordModelCreateData(),
                 'hasCover'             => true,
                 'hasImages'            => true,
                 'hasCoverZoom'         => true,
@@ -87,8 +87,8 @@ class AbstractRecordModelDuplicateTest extends AbstractDuplicateModelTest
                     'type'             => 1,
                     'hasEditor'        => true
                 ],
-                'designRecordsModel'
-                    => $this->_designRecordsModelCreateExpectData(),
+                'designRecordModel'
+                    => $this->_designRecordModelCreateExpectData(),
                 'hasCover'             => true,
                 'hasImages'            => true,
                 'hasCoverZoom'         => true,
@@ -197,7 +197,7 @@ class AbstractRecordModelDuplicateTest extends AbstractDuplicateModelTest
      *
      * @return array
      */
-    private function _designRecordsModelCreateData()
+    private function _designRecordModelCreateData()
     {
         return [
             'shortCardContainerDesignBlockModel'      => [
@@ -342,7 +342,7 @@ class AbstractRecordModelDuplicateTest extends AbstractDuplicateModelTest
      *
      * @return array
      */
-    private function _designRecordsModelCreateExpectData()
+    private function _designRecordModelCreateExpectData()
     {
         return [
             'shortCardContainerDesignBlockModel'      => [

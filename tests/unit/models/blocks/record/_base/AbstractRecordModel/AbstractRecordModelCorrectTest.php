@@ -135,7 +135,7 @@ class AbstractRecordModelCorrectTest extends AbstractCorrectModelTest
      *
      * @return array
      */
-    private function _designRecordsModelCreateData()
+    private function _designRecordModelCreateData()
     {
         return [
             'shortCardContainerDesignBlockModel'      => [
@@ -280,7 +280,7 @@ class AbstractRecordModelCorrectTest extends AbstractCorrectModelTest
      *
      * @return array
      */
-    private function _designRecordsModelCreateExpectData()
+    private function _designRecordModelCreateExpectData()
     {
         return [
             'shortCardContainerDesignBlockModel'      => [
@@ -425,7 +425,7 @@ class AbstractRecordModelCorrectTest extends AbstractCorrectModelTest
      *
      * @return array
      */
-    private function _designRecordsModelUpdateData()
+    private function _designRecordModelUpdateData()
     {
         return [
             'shortCardContainerDesignBlockModel'      => [
@@ -570,7 +570,7 @@ class AbstractRecordModelCorrectTest extends AbstractCorrectModelTest
      *
      * @return array
      */
-    private function _designRecordsModelUpdateExpectData()
+    private function _designRecordModelUpdateExpectData()
     {
         return [
             'shortCardContainerDesignBlockModel'      => [
@@ -648,7 +648,7 @@ class AbstractRecordModelCorrectTest extends AbstractCorrectModelTest
                 'type'             => 1,
                 'hasEditor'        => true
             ],
-            'designRecordsModel'   => $this->_designRecordsModelCreateData(),
+            'designRecordModel'   => $this->_designRecordModelCreateData(),
             'hasCover'             => true,
             'hasImages'            => true,
             'hasCoverZoom'         => true,
@@ -689,8 +689,8 @@ class AbstractRecordModelCorrectTest extends AbstractCorrectModelTest
                 'type'             => 1,
                 'hasEditor'        => true
             ],
-            'designRecordsModel'
-                => $this->_designRecordsModelCreateExpectData(),
+            'designRecordModel'
+                => $this->_designRecordModelCreateExpectData(),
             'hasCover'             => true,
             'hasImages'            => true,
             'hasCoverZoom'         => true,
@@ -731,7 +731,7 @@ class AbstractRecordModelCorrectTest extends AbstractCorrectModelTest
                 'type'             => 0,
                 'hasEditor'        => false
             ],
-            'designRecordsModel'   => $this->_designRecordsModelUpdateData(),
+            'designRecordModel'   => $this->_designRecordModelUpdateData(),
             'hasCover'             => false,
             'hasImages'            => false,
             'hasCoverZoom'         => false,
@@ -772,8 +772,8 @@ class AbstractRecordModelCorrectTest extends AbstractCorrectModelTest
                 'type'             => 0,
                 'hasEditor'        => false
             ],
-            'designRecordsModel'
-                => $this->_designRecordsModelUpdateExpectData(),
+            'designRecordModel'
+                => $this->_designRecordModelUpdateExpectData(),
             'hasCover'             => false,
             'hasImages'            => false,
             'hasCoverZoom'         => false,
