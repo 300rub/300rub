@@ -92,7 +92,14 @@ class ImageModel extends AbstractImageModel
             return $this->_getImageGroupsHtml();
         }
 
-        return $this->_getImageInstancesHtml($albumId);
+        $content = $this->getContentModel()->getImageInstancesHtml($albumId);
+        return App::getInstance()->getView()->get(
+            'content/block/block',
+            [
+                'blockId' => $this->getBlockId(),
+                'content' => $content
+            ]
+        );
     }
 
     /**
@@ -120,11 +127,18 @@ class ImageModel extends AbstractImageModel
                 );
         }
 
-        return App::getInstance()->getView()->get(
+        $content = App::getInstance()->getView()->get(
             'content/image/albums',
             [
-                'blockId' => $this->getBlockId(),
                 'albums'  => $albums
+            ]
+        );
+
+        return App::getInstance()->getView()->get(
+            'content/block/block',
+            [
+                'blockId' => $this->getBlockId(),
+                'content' => $content
             ]
         );
     }
@@ -136,13 +150,13 @@ class ImageModel extends AbstractImageModel
      *
      * @return string
      */
-    private function _getImageInstancesHtml($albumId)
+    public function getImageInstancesHtml($albumId)
     {
         $images = new ImageInstanceModel();
         $images->ordered('sort');
 
         if ($albumId === 0) {
-            $images->byImageId($this->getContentId());
+            $images->byImageId($this->getId());
         }
 
         if ($albumId > 0) {
@@ -151,32 +165,27 @@ class ImageModel extends AbstractImageModel
 
         $images = $images->findAll();
 
-        switch ($this->getContentModel()->get('type')) {
+        switch ($this->get('type')) {
             case self::TYPE_SLIDER:
                 return App::getInstance()->getView()->get(
                     'content/image/slider',
                     [
-                        'blockId' => $this->getBlockId(),
                         'images'  => $images,
-                        'image'   => $this->getContentModel(),
+                        'image'   => $this,
                     ]
                 );
             case self::TYPE_SIMPLE:
                 return App::getInstance()->getView()->get(
                     'content/image/simple',
                     [
-                        'blockId' => $this->getBlockId(),
                         'images'  => $images,
-                        'design'  => $this
-                            ->getContentModel()
-                            ->get('designImageSimpleModel')
+                        'design'  => $this->get('designImageSimpleModel')
                     ]
                 );
             default:
                 return App::getInstance()->getView()->get(
                     'content/image/zoom',
                     [
-                        'blockId' => $this->getBlockId(),
                         'images'  => $images
                     ]
                 );

@@ -6,6 +6,7 @@ use ss\application\App;
 use ss\application\components\Language;
 use ss\commands\_abstract\AbstractCommand;
 use ss\models\_abstract\AbstractModel;
+use ss\models\blocks\image\ImageInstanceModel;
 
 /**
  * Load fixtures command
@@ -108,20 +109,23 @@ class LoadFixturesCommand extends AbstractCommand
      */
     public function load($type)
     {
-        $sites = ['site1', 'site2'];
+        $sites = ['site1'];
         if ($type === 'test') {
             $sites = ['site1'];
         }
 
         $config = App::getInstance()->getConfig();
+        $dbObject = App::getInstance()->getDb();
 
         foreach ($sites as $site) {
-            App::getInstance()->getDb()->setPdo(
+            $dbObject->setPdo(
                 $config->getValue(['db', $site, 'host']),
                 $config->getValue(['db', $site, 'user']),
                 $config->getValue(['db', $site, 'password']),
                 $config->getValue(['db', $site, 'name'])
             );
+
+            $dbObject->execute('SET GLOBAL FOREIGN_KEY_CHECKS=0;');
 
             foreach ($this->_fixtureOrder as $fixture => $modelName) {
                 $filePath = __DIR__ .
@@ -143,10 +147,25 @@ class LoadFixturesCommand extends AbstractCommand
                         ->save();
                 }
             }
-        }
 
-        $map = include __DIR__ . '/../fixtures/' . $type . '/_fileMap.php';
-        foreach ($map as $data) {
+            $this->_uploadImages($type, $site);
+
+            $dbObject->execute('SET GLOBAL FOREIGN_KEY_CHECKS=1;');
+        }
+    }
+
+    /**
+     * Uploads image
+     *
+     * @param string $type Type
+     * @param string $site Site name
+     *
+     * @return void
+     */
+    private function _uploadImages($type, $site)
+    {
+        $map = include __DIR__ . '/../fixtures/' . $type . '/imageInstances.php';
+        foreach ($map as $imageInstanceId => $data) {
             $mimeType = 'application/octet-stream';
             if (array_key_exists('mimeType', $data) === true) {
                 $mimeType = $data['mimeType'];
@@ -163,8 +182,14 @@ class LoadFixturesCommand extends AbstractCommand
                 $data['file'],
                 $data['data'],
                 $mimeType,
-                $language
+                $language,
+                $site
             );
+
+            $imageInstanceModel = ImageInstanceModel::model()
+                ->byId($imageInstanceId)
+                ->find();
+            $imageInstanceModel->set($data)->save();
         }
     }
 
@@ -189,6 +214,7 @@ class LoadFixturesCommand extends AbstractCommand
      * @param array  $data       Data
      * @param string $mimeType   Mime type
      * @param int    $language   Language
+     * @param string $site       Site name
      *
      * @return void
      */
@@ -198,9 +224,10 @@ class LoadFixturesCommand extends AbstractCommand
         $fileName,
         array $data,
         $mimeType,
-        $language
+        $language,
+        $site
     ) {
-        $host = 'site1.ss.local';
+        $host = $site . '.ss.local';
 
         $this->_fileData = [];
         $this->_setFileData($data);

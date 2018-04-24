@@ -3,12 +3,9 @@
 /**
  * Variables
  *
- * @var int                                            $blockId
  * @var \ss\models\blocks\image\ImageInstanceModel[]   $images
  * @var \ss\models\blocks\image\DesignImageSimpleModel $design
  */
-
-echo sprintf('<div class="block-%s">', $blockId);
 
 foreach ($images as $image) {
     $descriptionHidden = '';
@@ -45,5 +42,3 @@ foreach ($images as $image) {
 
     echo '</div>';
 }
-
-echo '</div>';

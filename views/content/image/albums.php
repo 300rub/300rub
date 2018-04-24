@@ -3,11 +3,8 @@
 /**
  * Variables
  *
- * @var int                                       $blockId
  * @var \ss\models\blocks\image\ImageGroupModel[] $albums
  */
-
-echo sprintf('<div class="block-%s">', $blockId);
 
 foreach ($albums as $album) {
     echo '<div class="album">';
@@ -41,5 +38,3 @@ foreach ($albums as $album) {
 
     echo '</div>';
 }
-
-echo '</div>';

@@ -81,6 +81,16 @@ class RecordModel extends AbstractRecordModel
             );
         }
 
+        $imagesHtml = '';
+        if ($this->getContentModel()->get('hasImages') === true) {
+            $imagesHtml = $this->getContentModel()
+                ->get('imagesImageModel')
+                ->getImageInstancesHtml(
+                    $recordInstance->get('imageGroupId')
+                );
+        }
+
+
         return App::getInstance()->getView()->get(
             'content/record/instance',
             [
@@ -89,6 +99,7 @@ class RecordModel extends AbstractRecordModel
                 'designRecordModel' => $this->getContentModel()->get('designRecordModel'),
                 'recordInstance'    => $recordInstance,
                 'text'              => $recordInstance->get('textTextInstanceModel')->get('text'),
+                'imagesHtml'        => $imagesHtml,
             ]
         );
     }

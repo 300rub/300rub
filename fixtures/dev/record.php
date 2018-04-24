@@ -4,7 +4,8 @@ use ss\models\blocks\record\DesignRecordModel;
 
 return [
     1 => [
-        'textTextId' => 1,
+        'textTextId'        => 1,
+        'imagesImageId'     => 5,
         'designRecordModel' => [
             'fullCardTitleDesignBlockModel' => [
                 'marginBottom' => 20
@@ -22,6 +23,7 @@ return [
                 'marginLeft' => 20
             ],
             'fullCardDatePosition' => DesignRecordModel::FULL_CART_DATE_POSITION_RIGHT
-        ]
+        ],
+        'hasImages'         => true,
     ]
 ];

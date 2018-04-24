@@ -3,12 +3,9 @@
 /**
  * Variables
  *
- * @var int $blockId
  * @var \ss\models\blocks\image\ImageInstanceModel[] $images
  * @var \ss\models\blocks\image\ImageModel           $image
  */
-
-echo sprintf('<div class="block-%s">', $blockId);
 
 if (count($images) > 0) {
     $width = $image->get('cropWidth');
@@ -106,5 +103,3 @@ if (count($images) > 0) {
 
     echo '</div>';
 }
-
-echo '</div>';

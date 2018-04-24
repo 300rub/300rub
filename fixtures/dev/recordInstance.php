@@ -10,6 +10,7 @@ return [
         'textTextInstanceModel' => [
             'textId' => 1,
             'text'   => 'Textttt'
-        ]
+        ],
+        'imageGroupId' => 6
     ]
 ];

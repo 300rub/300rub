@@ -10,6 +10,7 @@ use ss\models\blocks\record\DesignRecordModel;
  * @var \ss\models\blocks\record\DesignRecordModel   $designRecordModel
  * @var \ss\models\blocks\record\RecordInstanceModel $recordInstance
  * @var string                                       $text
+ * @var string                                       $imagesHtml
  */
 
 echo sprintf('<div class="block-%s">', $blockId);
@@ -36,6 +37,10 @@ echo sprintf(
     '<h1 class="full-card-title">%s</h1>',
     $recordInstance->get('seoModel')->get('name')
 );
+
+if ($record->get('hasImages')) {
+    echo $imagesHtml;
+}
 
 echo sprintf(
     '<div class="full-card-text">%s</div>',

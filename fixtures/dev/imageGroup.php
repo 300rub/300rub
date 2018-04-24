@@ -41,4 +41,12 @@ return [
         ],
         'sort'     => 20,
     ],
+    6 => [
+        'imageId'  => 5,
+        'seoModel' => [
+            'name' => 'record-instance-album',
+            'url'  => 'record-instance-album',
+        ],
+        'sort'     => 10,
+    ],
 ];

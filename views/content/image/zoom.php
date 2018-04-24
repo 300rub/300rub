@@ -3,11 +3,8 @@
 /**
  * Variables
  *
- * @var int                                          $blockId
  * @var \ss\models\blocks\image\ImageInstanceModel[] $images
  */
-
-echo sprintf('<div class="block-%s">', $blockId);
 
 foreach ($images as $image) {
     echo sprintf(
@@ -25,5 +22,3 @@ foreach ($images as $image) {
 
     echo '</a>';
 }
-
-echo '</div>';

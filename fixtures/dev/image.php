@@ -72,5 +72,8 @@ return [
                 'height' => 170,
             ]
         ]
-    ]
+    ],
+    5 => [
+        'type' => ImageModel::TYPE_SIMPLE,
+    ],
 ];

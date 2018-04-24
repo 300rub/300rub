@@ -113,7 +113,7 @@ class RecordInstanceModel extends AbstractRecordInstanceModel
                 );
             }
 
-            if ($this->getField('descriptionTextInstanceModel') === null) {
+            if ($this->get('imageGroupId') === 0) {
                 $imageGroup = new ImageGroupModel();
                 $imageGroup->set(
                     [
