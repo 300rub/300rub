@@ -90,7 +90,6 @@ class RecordModel extends AbstractRecordModel
                 );
         }
 
-
         return App::getInstance()->getView()->get(
             'content/record/instance',
             [
