@@ -41,6 +41,16 @@ class RecordModel extends AbstractRecordModel
     ];
 
     /**
+     * Gets cache type
+     *
+     * @return integer
+     */
+    public function getCacheType()
+    {
+        return self::CACHED_BY_URI;
+    }
+
+    /**
      * Generates HTML
      *
      * @return string
@@ -67,7 +77,7 @@ class RecordModel extends AbstractRecordModel
     {
         $recordInstance = RecordInstanceModel::model()
             ->byUrl($this->_recordUri)
-            ->byRecordId($this->getContentId())
+            ->byRecordId($this->getId())
             ->find();
 
         if ($recordInstance === null) {
@@ -76,14 +86,14 @@ class RecordModel extends AbstractRecordModel
                 'with URI: {uri} and record ID: {recordId}',
                 [
                     'uri'      => $this->_recordUri,
-                    'recordId' => $this->getContentId()
+                    'recordId' => $this->getId()
                 ]
             );
         }
 
         $imagesHtml = '';
-        if ($this->getContentModel()->get('hasImages') === true) {
-            $imagesHtml = $this->getContentModel()
+        if ($this->get('hasImages') === true) {
+            $imagesHtml = $this
                 ->get('imagesImageModel')
                 ->getImageInstancesHtml(
                     $recordInstance->get('imageGroupId')
@@ -94,8 +104,8 @@ class RecordModel extends AbstractRecordModel
             'content/record/instance',
             [
                 'blockId'           => $this->getBlockId(),
-                'record'            => $this->getContentModel(),
-                'designRecordModel' => $this->getContentModel()->get('designRecordModel'),
+                'record'            => $this,
+                'designRecordModel' => $this->get('designRecordModel'),
                 'recordInstance'    => $recordInstance,
                 'text'              => $recordInstance->get('textTextInstanceModel')->get('text'),
                 'imagesHtml'        => $imagesHtml,
@@ -118,7 +128,7 @@ class RecordModel extends AbstractRecordModel
         $page = (int)$url;
         if ($url > 0
             && (string)$page === $url
-            && $this->getContentModel()->get('useAutoload') === false
+            && $this->get('useAutoload') === false
         ) {
             $this->_page = $page;
             return $this;

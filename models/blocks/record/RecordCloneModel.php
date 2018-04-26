@@ -16,33 +16,13 @@ class RecordCloneModel extends AbstractRecordCloneModel
     const CLASS_NAME = '\\ss\\models\\blocks\\record\\RecordCloneModel';
 
     /**
-     * Gets HTML memcached key
+     * Gets cache type
      *
-     * @return string
+     * @return integer
      */
-    public function getHtmlMemcachedKey()
+    public function getCacheType()
     {
-        return sprintf('image_%s_html', $this->getId());
-    }
-
-    /**
-     * Gets CSS memcached key
-     *
-     * @return string
-     */
-    public function getCssMemcachedKey()
-    {
-        return sprintf('image_%s_css', $this->getId());
-    }
-
-    /**
-     * Gets JS memcached key
-     *
-     * @return string
-     */
-    public function getJsMemcachedKey()
-    {
-        return sprintf('image_%s_js', $this->getId());
+        return self::CACHED_BY_URI;
     }
 
     /**

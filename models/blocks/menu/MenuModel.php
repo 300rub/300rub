@@ -17,33 +17,13 @@ class MenuModel extends AbstractMenuModel
     const CLASS_NAME = '\\ss\\models\\blocks\\menu\\MenuModel';
 
     /**
-     * Gets HTML memcached key
+     * Gets cache type
      *
-     * @return string
+     * @return integer
      */
-    public function getHtmlMemcachedKey()
+    public function getCacheType()
     {
-        return sprintf('menu_%s_html', $this->getId());
-    }
-
-    /**
-     * Gets CSS memcached key
-     *
-     * @return string
-     */
-    public function getCssMemcachedKey()
-    {
-        return sprintf('menu_%s_css', $this->getId());
-    }
-
-    /**
-     * Gets JS memcached key
-     *
-     * @return string
-     */
-    public function getJsMemcachedKey()
-    {
-        return sprintf('menu_%s_js', $this->getId());
+        return self::NO_CACHE;
     }
 
     /**
@@ -53,26 +33,15 @@ class MenuModel extends AbstractMenuModel
      */
     public function generateHtml()
     {
-        $memcached = App::getInstance()->getMemcached();
-        $htmlMemcachedKey = $this->getHtmlMemcachedKey();
-        $htmlMemcachedValue = $memcached->get($htmlMemcachedKey);
-
-        if ($htmlMemcachedValue !== false) {
-            return $htmlMemcachedValue;
-        }
-
-        $html = App::getInstance()->getView()->get(
+        return App::getInstance()->getView()->get(
             'content/menu/menu',
             [
                 'blockId'         => $this->getBlockId(),
-                'type'            => $this->getContentModel()->getTypeForCssClass(),
-                'designMenuModel' => $this->getContentModel()->get('designMenuModel'),
-                'tree'            => MenuInstanceModel::model()->getTreeByMenuId($this->getContentId()),
+                'type'            => $this->getTypeForCssClass(),
+                'designMenuModel' => $this->get('designMenuModel'),
+                'tree'            => MenuInstanceModel::model()->getTreeByMenuId($this->getId()),
             ]
         );
-        $memcached->set($htmlMemcachedKey, $html);
-
-        return $html;
     }
 
     /**
@@ -111,6 +80,16 @@ class MenuModel extends AbstractMenuModel
         );
 
         return $css;
+    }
+
+    /**
+     * Generates JS
+     *
+     * @return array
+     */
+    public function generateJs()
+    {
+        return [];
     }
 
     /**
@@ -252,16 +231,6 @@ class MenuModel extends AbstractMenuModel
         );
 
         return $css;
-    }
-
-    /**
-     * Generates JS
-     *
-     * @return array
-     */
-    public function generateJs()
-    {
-        return [];
     }
 
     /**

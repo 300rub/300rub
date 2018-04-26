@@ -228,7 +228,6 @@ class BlockModel extends AbstractBlockModel
         $model
             ->setBlockId($this->getId())
             ->setUri($this->_uri)
-            ->setContentId($this->get('contentId'))
             ->generateContent();
 
         $this->_html = $model->getHtml();

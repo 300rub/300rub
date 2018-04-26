@@ -182,22 +182,16 @@ class ImageGroupModel extends AbstractImageGroupModel
     public function resetMemcached()
     {
         $memcached = App::getInstance()->getMemcached();
-        $memcached->delete(
-            sprintf(
-                ImageModel::CACHE_KEY_MASK,
-                $this->get('imageId'),
-                ''
-            )
-        );
+
+        $imageModel = ImageModel::model()
+            ->set(['id' => $this->get('imageId')]);
+
+        $memcached->delete($imageModel->getHtmlMemcachedKey());
 
         $seoModel = $this->getRelationModelByFieldName('seoId', true);
 
         $memcached->delete(
-            sprintf(
-                ImageModel::CACHE_KEY_MASK,
-                $this->get('imageId'),
-                $seoModel->get('url')
-            )
+            $imageModel->getHtmlMemcachedKey($seoModel->get('url'))
         );
     }
 

@@ -18,9 +18,14 @@ class TextModel extends AbstractTextModel
     const CLASS_NAME = '\\ss\\models\\blocks\\text\\TextModel';
 
     /**
-     * Cache eky mask
+     * Gets cache type
+     *
+     * @return integer
      */
-    const CACHE_KEY_MASK = 'texts_%s_html';
+    public function getCacheType()
+    {
+        return self::FULLY_CACHED;
+    }
 
     /**
      * Generates HTML
@@ -31,53 +36,15 @@ class TextModel extends AbstractTextModel
      */
     public function generateHtml()
     {
-        $memcached = App::getInstance()->getMemcached();
-        $memcachedKey = sprintf(self::CACHE_KEY_MASK, $this->getId());
-        $memcachedValue = $memcached->get($memcachedKey);
-
-        if ($memcachedValue !== false) {
-            return $memcachedValue;
-        }
-
-        $textInstanceModel = $this->getTextInstanceModel();
-
-        $html = App::getInstance()->getView()->get(
+        return App::getInstance()->getView()->get(
             'content/text/text',
             [
                 'blockId' => $this->getBlockId(),
-                'text'    => $textInstanceModel->get('text'),
+                'text'    => TextInstanceModel::model()
+                    ->getByTextId($this->getId())
+                    ->get('text'),
             ]
         );
-
-        $memcached->set($memcachedKey, $html);
-
-        return $html;
-    }
-
-    /**
-     * Gets TextInstanceModel
-     *
-     * @return TextInstanceModel
-     *
-     * @throws ModelException
-     */
-    public function getTextInstanceModel()
-    {
-        $textInstanceModel = new TextInstanceModel();
-        $textInstanceModel = $textInstanceModel
-            ->byTextId($this->getId())
-            ->find();
-
-        if ($textInstanceModel === null) {
-            throw new ModelException(
-                'Unable to find TextInstanceModel by textId: {id}',
-                [
-                    'id' => $this->getId()
-                ]
-            );
-        }
-
-        return $textInstanceModel;
     }
 
     /**
@@ -122,6 +89,16 @@ class TextModel extends AbstractTextModel
     }
 
     /**
+     * Gets TextModel
+     *
+     * @return TextModel
+     */
+    public static function model()
+    {
+        return new self;
+    }
+
+    /**
      * After duplicate
      *
      * @return void
@@ -145,16 +122,6 @@ class TextModel extends AbstractTextModel
     }
 
     /**
-     * Gets TextModel
-     *
-     * @return TextModel
-     */
-    public static function model()
-    {
-        return new self;
-    }
-
-    /**
      * Runs after changing
      *
      * @return void
@@ -163,8 +130,8 @@ class TextModel extends AbstractTextModel
     {
         parent::afterChange();
 
-        $memcachedKey = sprintf(self::CACHE_KEY_MASK, $this->getId());
-        $memcached = App::getInstance()->getMemcached();
-        $memcached->delete($memcachedKey);
+        App::getInstance()->getMemcached()->delete(
+            $this->getHtmlMemcachedKey()
+        );
     }
 }

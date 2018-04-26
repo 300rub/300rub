@@ -17,11 +17,6 @@ class ImageModel extends AbstractImageModel
     const CLASS_NAME = '\\ss\\models\\blocks\\image\\ImageModel';
 
     /**
-     * Cache eky mask
-     */
-    const CACHE_KEY_MASK = 'images_%s_html_%s';
-
-    /**
      * Current album
      *
      * @var ImageGroupModel
@@ -29,23 +24,13 @@ class ImageModel extends AbstractImageModel
     private $_currentAlbum = false;
 
     /**
-     * Gets HTML memcached key
+     * Gets cache type
      *
-     * @return string
+     * @return integer
      */
-    private function _getMemcachedKey()
+    public function getCacheType()
     {
-        $site = App::getInstance()->getSite();
-        $uri = '';
-        if ($site !== null) {
-            $uri = $site->getUri(2);
-        }
-
-        return sprintf(
-            self::CACHE_KEY_MASK,
-            $this->getId(),
-            $uri
-        );
+        return self::CACHED_BY_URI;
     }
 
     /**
@@ -55,51 +40,112 @@ class ImageModel extends AbstractImageModel
      */
     public function generateHtml()
     {
-        $memcached = App::getInstance()->getMemcached();
-        $memcachedKey = $this->_getMemcachedKey();
-        $memcachedValue = $memcached->get($memcachedKey);
-
-        if ($memcachedValue !== false) {
-            return $memcachedValue;
-        }
-
-        $html = $this->_getHtml();
-
-        $memcached->set($memcachedKey, $html);
-
-        return $html;
-    }
-
-    /**
-     * Gets HTML
-     *
-     * @return string
-     */
-    private function _getHtml()
-    {
         $currentAlbum = $this->_getCurrentAlbum();
         $albumId = 0;
 
         if ($currentAlbum instanceof ImageGroupModel
-            && $this->getContentModel()->get('useAlbums') === true
+            && $this->get('useAlbums') === true
         ) {
             $albumId = $currentAlbum->getId();
         }
 
         if ($albumId === 0
-            && $this->getContentModel()->get('useAlbums') === true
+            && $this->get('useAlbums') === true
         ) {
             return $this->_getImageGroupsHtml();
         }
 
-        $content = $this->getContentModel()->getImageInstancesHtml($albumId);
         return App::getInstance()->getView()->get(
             'content/block/block',
             [
                 'blockId' => $this->getBlockId(),
-                'content' => $content
+                'content' => $this->getImageInstancesHtml($albumId)
             ]
         );
+    }
+
+    /**
+     * Generates CSS
+     *
+     * @return array
+     */
+    public function generateCss()
+    {
+        $css = [];
+        $view = App::getInstance()->getView();
+
+        $css = array_merge(
+            $css,
+            $view->generateCss(
+                $this->get('designBlockModel'),
+                sprintf('.block-%s', $this->getBlockId())
+            )
+        );
+
+        if ($this->get('useAlbums') === true) {
+            $css = array_merge(
+                $css,
+                $this->_getAlbumCss()
+            );
+
+            return $css;
+        }
+
+        switch ($this->get('type')) {
+            case self::TYPE_SLIDER:
+                $css = array_merge(
+                    $css,
+                    $this->_getSliderCss()
+                );
+                break;
+            case self::TYPE_SIMPLE:
+                $css = array_merge(
+                    $css,
+                    $this->_getSimpleCss()
+                );
+                break;
+            default:
+                $css = array_merge(
+                    $css,
+                    $this->_getZoomCss()
+                );
+                break;
+        }
+
+        return $css;
+    }
+
+    /**
+     * Generates JS
+     *
+     * @return array
+     */
+    public function generateJs()
+    {
+        $js = [];
+        $view = App::getInstance()->getView();
+
+        switch ($this->get('type')) {
+            case self::TYPE_SLIDER:
+                $js = array_merge(
+                    $js,
+                    $view->generateJs(
+                        'content/image/js/slider',
+                        $this->getBlockId(),
+                        [
+                            'design'  => $this
+                                ->get('designImageSliderModel')
+                        ]
+                    )
+                );
+                break;
+            case self::TYPE_SIMPLE:
+                break;
+            default:
+                break;
+        }
+
+        return $js;
     }
 
     /**
@@ -110,7 +156,7 @@ class ImageModel extends AbstractImageModel
     private function _getImageGroupsHtml()
     {
         $albums = ImageGroupModel::model()->findAllByImageId(
-            $this->getContentId()
+            $this->getId()
         );
 
         foreach ($albums as &$album) {
@@ -219,7 +265,7 @@ class ImageModel extends AbstractImageModel
         }
 
         $this->_currentAlbum = ImageGroupModel::model()
-            ->byImageId($this->getContentId())
+            ->byImageId($this->getId())
             ->byUrl($albumUrl)
             ->find();
 
@@ -227,62 +273,11 @@ class ImageModel extends AbstractImageModel
     }
 
     /**
-     * Generates CSS
-     *
-     * @return array
-     */
-    public function generateCss()
-    {
-        $css = [];
-        $view = App::getInstance()->getView();
-
-        $css = array_merge(
-            $css,
-            $view->generateCss(
-                $this->get('designBlockModel'),
-                sprintf('.block-%s', $this->getBlockId())
-            )
-        );
-
-        if ($this->get('useAlbums') === true) {
-            $css = array_merge(
-                $css,
-                $this->_getAlbumDesign()
-            );
-
-            return $css;
-        }
-
-        switch ($this->get('type')) {
-            case self::TYPE_SLIDER:
-                $css = array_merge(
-                    $css,
-                    $this->_getSliderDesign()
-                );
-                break;
-            case self::TYPE_SIMPLE:
-                $css = array_merge(
-                    $css,
-                    $this->_getSimpleDesign()
-                );
-                break;
-            default:
-                $css = array_merge(
-                    $css,
-                    $this->_getZoomDesign()
-                );
-                break;
-        }
-
-        return $css;
-    }
-
-    /**
      * Gets album design CSS
      *
      * @return array
      */
-    private function _getAlbumDesign()
+    private function _getAlbumCss()
     {
         $css = [];
         $view = App::getInstance()->getView();
@@ -330,7 +325,7 @@ class ImageModel extends AbstractImageModel
      *
      * @return array
      */
-    private function _getSimpleDesign()
+    private function _getSimpleCss()
     {
         $css = [];
         $view = App::getInstance()->getView();
@@ -377,7 +372,7 @@ class ImageModel extends AbstractImageModel
      *
      * @return array
      */
-    private function _getSliderDesign()
+    private function _getSliderCss()
     {
         $css = [];
         $view = App::getInstance()->getView();
@@ -432,7 +427,7 @@ class ImageModel extends AbstractImageModel
      *
      * @return array
      */
-    private function _getZoomDesign()
+    private function _getZoomCss()
     {
         $css = [];
         $view = App::getInstance()->getView();
@@ -448,39 +443,6 @@ class ImageModel extends AbstractImageModel
         );
 
         return $css;
-    }
-
-    /**
-     * Generates JS
-     *
-     * @return array
-     */
-    public function generateJs()
-    {
-        $js = [];
-        $view = App::getInstance()->getView();
-
-        switch ($this->get('type')) {
-            case self::TYPE_SLIDER:
-                $js = array_merge(
-                    $js,
-                    $view->generateJs(
-                        'content/image/js/slider',
-                        $this->getBlockId(),
-                        [
-                            'design'  => $this
-                                ->get('designImageSliderModel')
-                        ]
-                    )
-                );
-                break;
-            case self::TYPE_SIMPLE:
-                break;
-            default:
-                break;
-        }
-
-        return $js;
     }
 
     /**

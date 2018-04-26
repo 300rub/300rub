@@ -13,6 +13,13 @@ abstract class AbstractContentModel extends AbstractModel
 {
 
     /**
+     * Cache types
+     */
+    const NO_CACHE = 0;
+    const FULLY_CACHED = 1;
+    const CACHED_BY_URI = 2;
+
+    /**
      * Content model
      *
      * @var AbstractContentModel
@@ -25,13 +32,6 @@ abstract class AbstractContentModel extends AbstractModel
      * @var integer
      */
     private $_blockId = 0;
-
-    /**
-     * Content ID === ID
-     *
-     * @var integer
-     */
-    private $_contentId = 0;
 
     /**
      * URI
@@ -62,6 +62,13 @@ abstract class AbstractContentModel extends AbstractModel
     protected $jsList = [];
 
     /**
+     * Gets cache type
+     *
+     * @return integer
+     */
+    abstract public function getCacheType();
+
+    /**
      * Generates HTML
      *
      * @return string
@@ -83,6 +90,30 @@ abstract class AbstractContentModel extends AbstractModel
     abstract public function generateJs();
 
     /**
+     * Gets HTML memcached key
+     *
+     * @param string $uri2 URI
+     * @param string $uri3 URI
+     * @param string $uri4 URI
+     *
+     * @return string
+     */
+    final public function getHtmlMemcachedKey(
+        $uri2 = null,
+        $uri3 = null,
+        $uri4 = null
+    ) {
+        return sprintf(
+            '%s_%s_html_%s_%s_%s',
+            $this->getTableName(),
+            $this->getId(),
+            $uri2,
+            $uri3,
+            $uri4
+        );
+    }
+
+    /**
      * Gets CSS memcached key
      *
      * @return string
@@ -90,8 +121,9 @@ abstract class AbstractContentModel extends AbstractModel
     private function _getCssMemcachedKey()
     {
         return sprintf(
-            'block_%s_css',
-            $this->getBlockId()
+            '%s_%s_css',
+            $this->getTableName(),
+            $this->getId()
         );
     }
 
@@ -103,8 +135,9 @@ abstract class AbstractContentModel extends AbstractModel
     private function _getJsMemcachedKey()
     {
         return sprintf(
-            'block_%s_js',
-            $this->getBlockId()
+            '%s_%s_js',
+            $this->getTableName(),
+            $this->getId()
         );
     }
 
@@ -115,19 +148,19 @@ abstract class AbstractContentModel extends AbstractModel
      *
      * @throws ModelException
      */
-    protected function getContentModel()
+    private function _getContentModel()
     {
         if ($this->_contentModel instanceof AbstractContentModel) {
             return $this->_contentModel;
         }
 
-        $model = $this->_getContentModel();
+        $model = $this->__getContentModel();
         if ($model instanceof AbstractContentModel === false) {
             throw new ModelException(
                 'Unable to find model: {class} with relations by ID: {id}',
                 [
                     'class' => get_class($this),
-                    'id'    => $this->getContentId()
+                    'id'    => $this->getId()
                 ]
             );
         }
@@ -144,9 +177,9 @@ abstract class AbstractContentModel extends AbstractModel
      *
      * @return null|AbstractModel|AbstractContentModel
      */
-    private function _getContentModel()
+    private function __getContentModel()
     {
-        return $this->byId($this->getContentId())->find();
+        return $this->byId($this->getId())->find();
     }
 
     /**
@@ -170,29 +203,6 @@ abstract class AbstractContentModel extends AbstractModel
     protected function getBlockId()
     {
         return $this->_blockId;
-    }
-
-    /**
-     * Sets content ID
-     *
-     * @param int $contentId Content ID
-     *
-     * @return AbstractContentModel
-     */
-    public function setContentId($contentId)
-    {
-        $this->_contentId = $contentId;
-        return $this;
-    }
-
-    /**
-     * Gets content ID
-     *
-     * @return int
-     */
-    protected function getContentId()
-    {
-        return $this->_contentId;
     }
 
     /**
@@ -268,7 +278,55 @@ abstract class AbstractContentModel extends AbstractModel
      */
     private function _setHtml()
     {
-        $this->html = $this->generateHtml();
+        $cacheType = $this->getCacheType();
+        switch ($cacheType) {
+            case self::FULLY_CACHED:
+                $this->_setHtmlWithCache();
+                break;
+            case self::CACHED_BY_URI:
+                $site = App::getInstance()->getSite();
+                $uri2 = null;
+                $uri3 = null;
+                $uri4 = null;
+                if ($site !== null) {
+                    $uri2 = $site->getUri(2);
+                    $uri3 = $site->getUri(3);
+                    $uri4 = $site->getUri(4);
+                }
+                $this->_setHtmlWithCache($uri2, $uri3, $uri4);
+                break;
+            default:
+                $this->html = $this->_getContentModel()->generateHtml();
+                break;
+        }
+
+        return $this;
+    }
+
+    /**
+     * Sets HTML with cached
+     *
+     * @param string $uri2 URI
+     * @param string $uri3 URI
+     * @param string $uri4 URI
+     *
+     * @return AbstractContentModel
+     */
+    private function _setHtmlWithCache($uri2 = null, $uri3 = null, $uri4 = null)
+    {
+        $memcached = App::getInstance()->getMemcached();
+        $memcachedKey = $this->getHtmlMemcachedKey($uri2, $uri3, $uri4);
+        $memcachedValue = $memcached->get($memcachedKey);
+
+        if ($memcachedValue !== false) {
+            $this->html = $memcachedValue;
+            return $this;
+        }
+
+        $html = $this->_getContentModel()->generateHtml();
+        $memcached->set($memcachedKey, $html);
+        $this->html = $html;
+
         return $this;
     }
 
@@ -288,7 +346,7 @@ abstract class AbstractContentModel extends AbstractModel
             return $this;
         }
 
-        $css = $this->getContentModel()->generateCss();
+        $css = $this->_getContentModel()->generateCss();
         $memcached->set($memcachedKey, $css);
         $this->cssList = $css;
 
@@ -311,7 +369,7 @@ abstract class AbstractContentModel extends AbstractModel
             return $this;
         }
 
-        $jsList = $this->getContentModel()->generateJs();
+        $jsList = $this->_getContentModel()->generateJs();
         $memcached->set($memcachedKey, $jsList);
         $this->jsList = $jsList;
 

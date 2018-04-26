@@ -4,6 +4,7 @@ namespace ss\models\blocks\text;
 
 use ss\application\App;
 use ss\application\components\Db;
+use ss\application\exceptions\ModelException;
 use ss\models\blocks\text\_base\AbstractTextInstanceModel;
 
 /**
@@ -33,6 +34,43 @@ class TextInstanceModel extends AbstractTextInstanceModel
     }
 
     /**
+     * Gets TextInstanceModel by text ID
+     *
+     * @param int $textId Text ID
+     *
+     * @return TextInstanceModel
+     *
+     * @throws ModelException
+     */
+    public function getByTextId($textId)
+    {
+        $textInstanceModel = $this
+            ->byTextId($textId)
+            ->find();
+
+        if ($textInstanceModel === null) {
+            throw new ModelException(
+                'Unable to find TextInstanceModel by textId: {id}',
+                [
+                    'id' => $this->getId()
+                ]
+            );
+        }
+
+        return $textInstanceModel;
+    }
+
+    /**
+     * Gets TextInstanceModel
+     *
+     * @return TextInstanceModel
+     */
+    public static function model()
+    {
+        return new self;
+    }
+
+    /**
      * Runs after changing
      *
      * @return void
@@ -41,11 +79,10 @@ class TextInstanceModel extends AbstractTextInstanceModel
     {
         parent::afterChange();
 
-        $memcachedKey = sprintf(
-            TextModel::CACHE_KEY_MASK,
-            $this->get('textId')
+        App::getInstance()->getMemcached()->delete(
+            TextModel::model()
+                ->set(['id' => $this->get('textId')])
+                ->getHtmlMemcachedKey()
         );
-        $memcached = App::getInstance()->getMemcached();
-        $memcached->delete($memcachedKey);
     }
 }

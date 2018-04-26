@@ -15,7 +15,7 @@ abstract class AbstractSetFieldModel extends AbstractSetRelationModel
      *
      * @param array $fields Fields
      *
-     * @return AbstractModel|AbstractSetFieldModel
+     * @return AbstractModel|AbstractSetFieldModel|mixed
      */
     public final function set(array $fields)
     {
