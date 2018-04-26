@@ -33,7 +33,15 @@ class AbstractRecordModelCorrectTest extends AbstractCorrectModelTest
                 $this->_createData(),
                 $this->_createExpectedData(),
                 $this->_updateData(),
-                $this->_updateExpectedData()
+                $this->_updateExpectedData(),
+                null,
+                null,
+                [
+                    'designBlockModel',
+                    'designImageSliderModel',
+                    'designImageZoomModel',
+                    'designImageSimpleModel',
+                ]
             ]
         ];
     }
@@ -136,151 +144,6 @@ class AbstractRecordModelCorrectTest extends AbstractCorrectModelTest
      * @return array
      */
     private function _designRecordModelCreateData()
-    {
-        return [
-            'shortCardContainerDesignBlockModel'      => [
-                'marginTop' => 10
-            ],
-            'shortCardInstanceDesignBlockModel'       => [
-                'marginTop' => 10
-            ],
-            'shortCardTitleDesignBlockModel'          => [
-                'marginTop' => 10
-            ],
-            'shortCardTitleDesignTextModel'           => [
-                'size' => 10
-            ],
-            'shortCardDateDesignTextModel'            => [
-                'size' => 10
-            ],
-            'shortCardDescriptionDesignBlockModel'    => [
-                'marginTop' => 10
-            ],
-            'shortCardDescriptionDesignTextModel'     => [
-                'size' => 10
-            ],
-            'shortCardPaginationDesignBlockModel'     => [
-                'marginTop' => 10
-            ],
-            'shortCardPaginationItemDesignBlockModel' => [
-                'marginTop' => 10
-            ],
-            'shortCardPaginationItemDesignTextModel'  => [
-                'size' => 10
-            ],
-            'fullCardTitleDesignBlockModel'           => [
-                'marginTop' => 10
-            ],
-            'fullCardTitleDesignTextModel'            => [
-                'size' => 10
-            ],
-            'fullCardDateDesignTextModel'             => [
-                'size' => 10
-            ],
-            'shortCardViewType'                       => 1,
-            'fullCardImagesPosition'                  => 1,
-            'fullCardDatePosition'                    => 1,
-        ];
-    }
-
-    /**
-     * Data provider for CRUD. Correct values
-     *
-     * @return array
-     */
-    private function _coverImageModelCreateExpectData()
-    {
-        return [
-            'designBlockModel'       => [
-                'marginTop' => 10,
-            ],
-            'designImageSliderModel' => [
-                'bulletDesignBlockModel'   => [
-                    'marginTop' => 10
-                ],
-                'hasAutoPlay'                 => true,
-                'playSpeed'                   => 1,
-            ],
-            'designImageZoomModel'   => [
-                'designBlockModel'     => [
-                    'marginTop' => 10
-                ],
-                'effect'               => 0,
-            ],
-            'designImageSimpleModel' => [
-                'containerDesignBlockModel' => [
-                    'marginTop' => 10
-                ],
-                'imageDesignBlockModel'     => [
-                    'marginTop' => 10
-                ],
-                'alignment'                 => 1
-            ],
-            'type'                   => 1,
-            'autoCropType'           => 1,
-            'cropWidth'              => 1,
-            'cropHeight'             => 1,
-            'cropX'                  => 1,
-            'cropY'                  => 1,
-            'thumbAutoCropType'      => 1,
-            'thumbCropX'             => 1,
-            'thumbCropY'             => 1,
-            'useAlbums'              => true,
-        ];
-    }
-
-    /**
-     * Data provider for CRUD. Correct values
-     *
-     * @return array
-     */
-    private function _imagesImageModelCreateExpectData()
-    {
-        return [
-            'designBlockModel'       => [
-                'marginTop' => 10,
-            ],
-            'designImageSliderModel' => [
-                'bulletDesignBlockModel'   => [
-                    'marginTop' => 10
-                ],
-                'hasAutoPlay'                 => true,
-                'playSpeed'                   => 1,
-            ],
-            'designImageZoomModel'   => [
-                'designBlockModel'     => [
-                    'marginTop' => 10
-                ],
-                'effect'               => 0,
-            ],
-            'designImageSimpleModel' => [
-                'containerDesignBlockModel' => [
-                    'marginTop' => 1
-                ],
-                'imageDesignBlockModel'     => [
-                    'marginTop' => 1
-                ],
-                'alignment'                 => 1
-            ],
-            'type'                   => 1,
-            'autoCropType'           => 1,
-            'cropWidth'              => 1,
-            'cropHeight'             => 1,
-            'cropX'                  => 1,
-            'cropY'                  => 1,
-            'thumbAutoCropType'      => 1,
-            'thumbCropX'             => 1,
-            'thumbCropY'             => 1,
-            'useAlbums'              => true,
-        ];
-    }
-
-    /**
-     * Data provider for CRUD. Correct values
-     *
-     * @return array
-     */
-    private function _designRecordModelCreateExpectData()
     {
         return [
             'shortCardContainerDesignBlockModel'      => [
@@ -478,151 +341,6 @@ class AbstractRecordModelCorrectTest extends AbstractCorrectModelTest
      *
      * @return array
      */
-    private function _coverImageModelUpdateExpectData()
-    {
-        return [
-            'designBlockModel'       => [
-                'marginTop' => 30,
-            ],
-            'designImageSliderModel' => [
-                'bulletDesignBlockModel'   => [
-                    'marginTop' => 30
-                ],
-                'hasAutoPlay'                 => false,
-                'playSpeed'                   => 0,
-            ],
-            'designImageZoomModel'   => [
-                'designBlockModel'     => [
-                    'marginTop' => 30
-                ],
-                'effect'               => 0,
-            ],
-            'designImageSimpleModel' => [
-                'containerDesignBlockModel' => [
-                    'marginTop' => 30
-                ],
-                'imageDesignBlockModel'     => [
-                    'marginTop' => 30
-                ],
-                'alignment'                 => 0
-            ],
-            'type'                   => 0,
-            'autoCropType'           => 0,
-            'cropWidth'              => 0,
-            'cropHeight'             => 0,
-            'cropX'                  => 0,
-            'cropY'                  => 0,
-            'thumbAutoCropType'      => 0,
-            'thumbCropX'             => 0,
-            'thumbCropY'             => 0,
-            'useAlbums'              => false,
-        ];
-    }
-
-    /**
-     * Data provider for CRUD. Correct values
-     *
-     * @return array
-     */
-    private function _imagesImageModelUpdateExpectData()
-    {
-        return [
-            'designBlockModel'       => [
-                'marginTop' => 30,
-            ],
-            'designImageSliderModel' => [
-                'bulletDesignBlockModel'   => [
-                    'marginTop' => 30
-                ],
-                'hasAutoPlay'                 => false,
-                'playSpeed'                   => 0,
-            ],
-            'designImageZoomModel'   => [
-                'designBlockModel'     => [
-                    'marginTop' => 30
-                ],
-                'effect'               => 0,
-            ],
-            'designImageSimpleModel' => [
-                'containerDesignBlockModel' => [
-                    'marginTop' => 30
-                ],
-                'imageDesignBlockModel'     => [
-                    'marginTop' => 30
-                ],
-                'alignment'                 => 0
-            ],
-            'type'                   => 0,
-            'autoCropType'           => 0,
-            'cropWidth'              => 0,
-            'cropHeight'             => 0,
-            'cropX'                  => 0,
-            'cropY'                  => 0,
-            'thumbAutoCropType'      => 0,
-            'thumbCropX'             => 0,
-            'thumbCropY'             => 0,
-            'useAlbums'              => false,
-        ];
-    }
-
-    /**
-     * Data provider for CRUD. Correct values
-     *
-     * @return array
-     */
-    private function _designRecordModelUpdateExpectData()
-    {
-        return [
-            'shortCardContainerDesignBlockModel'      => [
-                'marginTop' => 30
-            ],
-            'shortCardInstanceDesignBlockModel'       => [
-                'marginTop' => 30
-            ],
-            'shortCardTitleDesignBlockModel'          => [
-                'marginTop' => 30
-            ],
-            'shortCardTitleDesignTextModel'           => [
-                'size' => 30
-            ],
-            'shortCardDateDesignTextModel'            => [
-                'size' => 30
-            ],
-            'shortCardDescriptionDesignBlockModel'    => [
-                'marginTop' => 30
-            ],
-            'shortCardDescriptionDesignTextModel'     => [
-                'size' => 30
-            ],
-            'shortCardPaginationDesignBlockModel'     => [
-                'marginTop' => 30
-            ],
-            'shortCardPaginationItemDesignBlockModel' => [
-                'marginTop' => 30
-            ],
-            'shortCardPaginationItemDesignTextModel'  => [
-                'size' => 30
-            ],
-            'fullCardTitleDesignBlockModel'           => [
-                'marginTop' => 30
-            ],
-            'fullCardTitleDesignTextModel'            => [
-                'size' => 30
-            ],
-            'fullCardDateDesignTextModel'             => [
-                'size' => 30
-            ],
-            'shortCardViewType'                       => 0,
-            'fullCardImagesPosition'                  => 0,
-            'fullCardDatePosition'                    => 0,
-        ];
-    }
-
-    /**
-     * Data provider for CRUD. Correct values
-     *
-     * @return array
-     */
     private function _createData()
     {
         return [
@@ -667,30 +385,6 @@ class AbstractRecordModelCorrectTest extends AbstractCorrectModelTest
     private function _createExpectedData()
     {
         return [
-            'coverImageModel'     => $this->_coverImageModelCreateExpectData(),
-            'imagesImageModel'    => $this->_imagesImageModelCreateExpectData(),
-            'descriptionTextModel' => [
-                'designTextModel'  => [
-                    'size' => 10
-                ],
-                'designBlockModel' => [
-                    'marginTop' => 10
-                ],
-                'type'             => 1,
-                'hasEditor'        => true
-            ],
-            'textTextModel'        => [
-                'designTextModel'  => [
-                    'size' => 10
-                ],
-                'designBlockModel' => [
-                    'marginTop' => 10
-                ],
-                'type'             => 1,
-                'hasEditor'        => true
-            ],
-            'designRecordModel'
-                => $this->_designRecordModelCreateExpectData(),
             'hasCover'             => true,
             'hasImages'            => true,
             'hasCoverZoom'         => true,
@@ -750,30 +444,6 @@ class AbstractRecordModelCorrectTest extends AbstractCorrectModelTest
     private function _updateExpectedData()
     {
         return [
-            'coverImageModel'     => $this->_coverImageModelUpdateExpectData(),
-            'imagesImageModel'    => $this->_imagesImageModelUpdateExpectData(),
-            'descriptionTextModel' => [
-                'designTextModel'  => [
-                    'size' => 30
-                ],
-                'designBlockModel' => [
-                    'marginTop' => 30
-                ],
-                'type'             => 0,
-                'hasEditor'        => false
-            ],
-            'textTextModel'        => [
-                'designTextModel'  => [
-                    'size' => 30
-                ],
-                'designBlockModel' => [
-                    'marginTop' => 30
-                ],
-                'type'             => 0,
-                'hasEditor'        => false
-            ],
-            'designRecordModel'
-                => $this->_designRecordModelUpdateExpectData(),
             'hasCover'             => false,
             'hasImages'            => false,
             'hasCoverZoom'         => false,

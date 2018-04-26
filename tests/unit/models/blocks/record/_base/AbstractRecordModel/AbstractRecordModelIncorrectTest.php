@@ -71,6 +71,14 @@ class AbstractRecordModelIncorrectTest extends AbstractIncorrectModelTest
                     'shortCardDateType'    => 0,
                     'fullCardDateType'     => 0,
                 ],
+                null,
+                null,
+                [
+                    'designBlockModel',
+                    'designImageSliderModel',
+                    'designImageZoomModel',
+                    'designImageSimpleModel',
+                ]
             ]
         ];
     }

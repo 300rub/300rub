@@ -32,29 +32,6 @@ class AbstractRecordModelEmptyTest extends AbstractEmptyModelTest
             'empty1' => [
                 [],
                 [
-                    'coverImageModel'     => $this->_coverImageModelData(),
-                    'imagesImageModel'    => $this->_imagesImageModelData(),
-                    'descriptionTextModel' => [
-                        'designTextModel'  => [
-                            'size' => 0
-                        ],
-                        'designBlockModel' => [
-                            'marginTop' => 0
-                        ],
-                        'type'             => 0,
-                        'hasEditor'        => false
-                    ],
-                    'textTextModel'        => [
-                        'designTextModel'  => [
-                            'size' => 0
-                        ],
-                        'designBlockModel' => [
-                            'marginTop' => 0
-                        ],
-                        'type'             => 0,
-                        'hasEditor'        => false
-                    ],
-                    'designRecordModel'   => $this->_designRecordModelData(),
                     'hasCover'             => false,
                     'hasImages'            => false,
                     'hasCoverZoom'         => false,
@@ -62,153 +39,18 @@ class AbstractRecordModelEmptyTest extends AbstractEmptyModelTest
                     'useAutoload'          => false,
                     'shortCardDateType'    => 0,
                     'fullCardDateType'     => 0,
+                ],
+                [],
+                [],
+                null,
+                null,
+                [
+                    'designBlockModel',
+                    'designImageSliderModel',
+                    'designImageZoomModel',
+                    'designImageSimpleModel',
                 ]
             ],
-        ];
-    }
-
-    /**
-     * Data provider for CRUD. Empty values
-     *
-     * @return array
-     */
-    private function _coverImageModelData()
-    {
-        return [
-            'designBlockModel'       => [
-                'marginTop' => 0,
-            ],
-            'designImageSliderModel' => [
-                'bulletDesignBlockModel'   => [
-                    'marginTop' => 0
-                ],
-                'hasAutoPlay'                 => false,
-                'playSpeed'                   => 0,
-            ],
-            'designImageZoomModel'   => [
-                'designBlockModel'     => [
-                    'marginTop' => 0
-                ],
-                'effect'               => 0,
-            ],
-            'designImageSimpleModel' => [
-                'containerDesignBlockModel' => [
-                    'marginTop' => 0
-                ],
-                'imageDesignBlockModel'     => [
-                    'marginTop' => 0
-                ],
-                'alignment'                 => 0
-            ],
-            'type'                   => 0,
-            'autoCropType'           => 0,
-            'cropWidth'              => 0,
-            'cropHeight'             => 0,
-            'cropX'                  => 0,
-            'cropY'                  => 0,
-            'thumbAutoCropType'      => 0,
-            'thumbCropX'             => 0,
-            'thumbCropY'             => 0,
-            'useAlbums'              => false,
-        ];
-    }
-
-    /**
-     * Data provider for CRUD. Empty values
-     *
-     * @return array
-     */
-    private function _imagesImageModelData()
-    {
-        return [
-            'designBlockModel'       => [
-                'marginTop' => 0,
-            ],
-            'designImageSliderModel' => [
-                'bulletDesignBlockModel'   => [
-                    'marginTop' => 0
-                ],
-                'hasAutoPlay'                 => false,
-                'playSpeed'                   => 0,
-            ],
-            'designImageZoomModel'   => [
-                'designBlockModel'     => [
-                    'marginTop' => 0
-                ],
-                'effect'               => 0,
-            ],
-            'designImageSimpleModel' => [
-                'containerDesignBlockModel' => [
-                    'marginTop' => 0
-                ],
-                'imageDesignBlockModel'     => [
-                    'marginTop' => 0
-                ],
-                'alignment'                 => 0
-            ],
-            'type'                   => 0,
-            'autoCropType'           => 0,
-            'cropWidth'              => 0,
-            'cropHeight'             => 0,
-            'cropX'                  => 0,
-            'cropY'                  => 0,
-            'thumbAutoCropType'      => 0,
-            'thumbCropX'             => 0,
-            'thumbCropY'             => 0,
-            'useAlbums'              => false,
-        ];
-    }
-
-    /**
-     * Data provider for CRUD. Empty values
-     *
-     * @return array
-     */
-    private function _designRecordModelData()
-    {
-        return [
-            'shortCardContainerDesignBlockModel'      => [
-                'marginTop' => 0
-            ],
-            'shortCardInstanceDesignBlockModel'       => [
-                'marginTop' => 0
-            ],
-            'shortCardTitleDesignBlockModel'          => [
-                'marginTop' => 0
-            ],
-            'shortCardTitleDesignTextModel'           => [
-                'size' => 0
-            ],
-            'shortCardDateDesignTextModel'            => [
-                'size' => 0
-            ],
-            'shortCardDescriptionDesignBlockModel'    => [
-                'marginTop' => 0
-            ],
-            'shortCardDescriptionDesignTextModel'     => [
-                'size' => 0
-            ],
-            'shortCardPaginationDesignBlockModel'     => [
-                'marginTop' => 0
-            ],
-            'shortCardPaginationItemDesignBlockModel' => [
-                'marginTop' => 0
-            ],
-            'shortCardPaginationItemDesignTextModel'  => [
-                'size' => 0
-            ],
-            'fullCardTitleDesignBlockModel'           => [
-                'marginTop' => 0
-            ],
-            'fullCardTitleDesignTextModel'            => [
-                'size' => 0
-            ],
-            'fullCardDateDesignTextModel'             => [
-                'size' => 0
-            ],
-            'shortCardViewType'                       => 0,
-            'fullCardImagesPosition'                  => 0,
-            'fullCardDatePosition'                    => 0,
         ];
     }
 }
