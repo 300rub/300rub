@@ -11,6 +11,14 @@ class RecordController
 {
 
     /**
+     *
+     */
+    public function getDesign()
+    {
+        // @TODO
+    }
+
+    /**
      * Updates block's design
      */
     public function updateDesign()

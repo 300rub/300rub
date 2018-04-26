@@ -164,7 +164,12 @@ class LoadFixturesCommand extends AbstractCommand
      */
     private function _uploadImages($type, $site)
     {
-        $map = include __DIR__ . '/../fixtures/' . $type . '/imageInstances.php';
+        $map = include sprintf(
+            '%s/../fixtures/%s/imageInstances.php',
+            __DIR__,
+            $type
+        );
+
         foreach ($map as $imageInstanceId => $data) {
             $mimeType = 'application/octet-stream';
             if (array_key_exists('mimeType', $data) === true) {

@@ -20,7 +20,7 @@ class Memcached
     /**
      * Ignore cache flag
      *
-     * @var bool
+     * @var boolean
      */
     private $_isIgnoreCache = false;
 

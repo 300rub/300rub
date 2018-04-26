@@ -18,6 +18,48 @@ class GetAlbumController extends AbstractController
 {
 
     /**
+     * Seo model
+     *
+     * @var SeoModel
+     */
+    private $_seoModel = null;
+
+    /**
+     * Name
+     *
+     * @var string
+     */
+    private $_name = '';
+
+    /**
+     * URL
+     *
+     * @var string
+     */
+    private $_url = '';
+
+    /**
+     * Title
+     *
+     * @var string
+     */
+    private $_title = '';
+
+    /**
+     * Keywords
+     *
+     * @var string
+     */
+    private $_keywords = '';
+
+    /**
+     * Description
+     *
+     * @var string
+     */
+    private $_description = '';
+
+    /**
      * Runs controller
      *
      * @return array
@@ -32,59 +74,10 @@ class GetAlbumController extends AbstractController
             ]
         );
 
+        $this->_setVariables();
+
         $groupId = (int)$this->get('id');
         $blockId = (int)$this->get('blockId');
-
-        $seoModel = new SeoModel();
-        $name = '';
-        $url = '';
-        $title = '';
-        $keywords = '';
-        $description = '';
-
-        if ($groupId === 0) {
-            $this->checkBlockOperation(
-                BlockModel::TYPE_IMAGE,
-                $blockId,
-                Operation::IMAGE_CREATE_ALBUM
-            );
-        }
-
-        if ($groupId > 0) {
-            $this->checkBlockOperation(
-                BlockModel::TYPE_IMAGE,
-                $blockId,
-                Operation::IMAGE_UPDATE_ALBUM
-            );
-
-            $blockModel = BlockModel::model()->getById($this->get('blockId'));
-            $imageModel = $blockModel->getContentModel(
-                ImageModel::CLASS_NAME
-            );
-            $imageGroupModel = ImageGroupModel::model()
-                ->byImageId($imageModel->getId())
-                ->byId($groupId)
-                ->find();
-
-            if ($imageGroupModel === null) {
-                throw new NotFoundException(
-                    'Unable to find ImageGroupModel by ID: {id} and ' .
-                    'blockId: {blockId} and imageId: {imageId}',
-                    [
-                        'id'      => $groupId,
-                        'blockId' => $blockModel->get(),
-                        'imageId' => $imageModel->getId(),
-                    ]
-                );
-            }
-
-            $seoModel = $imageGroupModel->get('seoModel');
-            $name = $seoModel->get('name');
-            $url = $seoModel->get('url');
-            $title = $seoModel->get('title');
-            $keywords = $seoModel->get('keywords');
-            $description = $seoModel->get('description');
-        }
 
         $language = App::web()->getLanguage();
 
@@ -104,41 +97,114 @@ class GetAlbumController extends AbstractController
                     'name'       => 'name',
                     'label'      => $language->getMessage('common', 'name'),
                     'validation'
-                        => $seoModel->getValidationRulesForField('name'),
-                    'value'      => $name,
+                        => $this->_seoModel->getValidationRulesForField('name'),
+                    'value'      => $this->_name,
                 ],
                 'url'   => [
                     'name'       => 'url',
                     'label'      => $language->getMessage('common', 'url'),
                     'validation'
-                    => $seoModel->getValidationRulesForField('url'),
-                    'value'      => $url,
+                        => $this->_seoModel->getValidationRulesForField('url'),
+                    'value'      => $this->_url,
                 ],
                 'title'   => [
                     'name'       => 'title',
                     'label'      => $language->getMessage('common', 'title'),
                     'validation'
-                    => $seoModel->getValidationRulesForField('title'),
-                    'value'      => $title,
+                        => $this->_seoModel->getValidationRulesForField(
+                            'title'
+                        ),
+                    'value'      => $this->_title,
                 ],
                 'keywords'   => [
                     'name'       => 'keywords',
                     'label'      => $language->getMessage('common', 'keywords'),
                     'validation'
-                    => $seoModel->getValidationRulesForField('keywords'),
-                    'value'      => $keywords,
+                        => $this->_seoModel->getValidationRulesForField(
+                            'keywords'
+                        ),
+                    'value'      => $this->_keywords,
                 ],
                 'description'   => [
                     'name'       => 'description',
-                    'label'      => $language->getMessage('common', 'description'),
+                    'label'
+                        => $language->getMessage('common', 'description'),
                     'validation'
-                    => $seoModel->getValidationRulesForField('description'),
-                    'value'      => $description,
+                        => $this->_seoModel->getValidationRulesForField(
+                            'description'
+                        ),
+                    'value'      => $this->_description,
                 ],
                 'button' => [
                     'label' => $language->getMessage('common', $buttonKey),
                 ]
             ]
         ];
+    }
+
+    /**
+     * Sets variables
+     *
+     * @return GetAlbumController
+     *
+     * @throws NotFoundException
+     */
+    private function _setVariables()
+    {
+        $groupId = (int)$this->get('id');
+        $blockId = (int)$this->get('blockId');
+
+        $this->_seoModel = new SeoModel();
+        $this->_name = '';
+        $this->_url = '';
+        $this->_title = '';
+        $this->_keywords = '';
+        $this->_description = '';
+
+        if ($groupId === 0) {
+            $this->checkBlockOperation(
+                BlockModel::TYPE_IMAGE,
+                $blockId,
+                Operation::IMAGE_CREATE_ALBUM
+            );
+
+            return $this;
+        }
+
+        $this->checkBlockOperation(
+            BlockModel::TYPE_IMAGE,
+            $blockId,
+            Operation::IMAGE_UPDATE_ALBUM
+        );
+
+        $blockModel = BlockModel::model()->getById($this->get('blockId'));
+        $imageModel = $blockModel->getContentModel(
+            ImageModel::CLASS_NAME
+        );
+        $imageGroupModel = ImageGroupModel::model()
+            ->byImageId($imageModel->getId())
+            ->byId($groupId)
+            ->find();
+
+        if ($imageGroupModel === null) {
+            throw new NotFoundException(
+                'Unable to find ImageGroupModel by ID: {id} and ' .
+                'blockId: {blockId} and imageId: {imageId}',
+                [
+                    'id'      => $groupId,
+                    'blockId' => $blockModel->get(),
+                    'imageId' => $imageModel->getId(),
+                ]
+            );
+        }
+
+        $this->_seoModel = $imageGroupModel->get('seoModel');
+        $this->_name = $this->_seoModel->get('name');
+        $this->_url = $this->_seoModel->get('url');
+        $this->_title = $this->_seoModel->get('title');
+        $this->_keywords = $this->_seoModel->get('keywords');
+        $this->_description = $this->_seoModel->get('description');
+
+        return $this;
     }
 }
