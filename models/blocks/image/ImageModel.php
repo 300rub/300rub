@@ -122,13 +122,13 @@ class ImageModel extends AbstractImageModel
      */
     public function generateJs()
     {
-        $js = [];
+        $jsList = [];
         $view = App::getInstance()->getView();
 
         switch ($this->get('type')) {
             case self::TYPE_SLIDER:
-                $js = array_merge(
-                    $js,
+                $jsList = array_merge(
+                    $jsList,
                     $view->generateJs(
                         'content/image/js/slider',
                         $this->getBlockId(),
@@ -145,7 +145,7 @@ class ImageModel extends AbstractImageModel
                 break;
         }
 
-        return $js;
+        return $jsList;
     }
 
     /**
