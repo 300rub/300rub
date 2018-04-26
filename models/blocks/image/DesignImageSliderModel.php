@@ -96,10 +96,10 @@ class DesignImageSliderModel extends AbstractDesignImageSliderModel
             $effectsNames = explode(';', $effect);
         }
 
-        $allEffects = require PROJECT_ROOT . '/config/other/slider.php';
+        $allEffects = include PROJECT_ROOT . '/config/other/slider.php';
         foreach ($allEffects as $effectGroup) {
             foreach ($effectsNames as $effectsName) {
-                if (array_key_exists($effectsName, $effectGroup)) {
+                if (array_key_exists($effectsName, $effectGroup) === true) {
                     $list[] = $effectGroup[$effectsName];
                 }
             }

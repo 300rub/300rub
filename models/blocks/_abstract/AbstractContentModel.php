@@ -154,7 +154,7 @@ abstract class AbstractContentModel extends AbstractModel
             return $this->_contentModel;
         }
 
-        $model = $this->__getContentModel();
+        $model = $this->_getModelForContent();
         if ($model instanceof AbstractContentModel === false) {
             throw new ModelException(
                 'Unable to find model: {class} with relations by ID: {id}',
@@ -177,7 +177,7 @@ abstract class AbstractContentModel extends AbstractModel
      *
      * @return null|AbstractModel|AbstractContentModel
      */
-    private function __getContentModel()
+    private function _getModelForContent()
     {
         return $this->byId($this->getId())->find();
     }
@@ -293,6 +293,7 @@ abstract class AbstractContentModel extends AbstractModel
                     $uri3 = $site->getUri(3);
                     $uri4 = $site->getUri(4);
                 }
+
                 $this->_setHtmlWithCache($uri2, $uri3, $uri4);
                 break;
             default:

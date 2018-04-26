@@ -23,7 +23,7 @@ class SiteModel extends AbstractSiteModel
 
     /**
      * URI
-     * 
+     *
      * @var string
      */
     private $_uri = '';
@@ -139,15 +139,16 @@ class SiteModel extends AbstractSiteModel
      */
     public function setUri($uri)
     {
-        $this->_uri = trim($uri, '/');;
+        $this->_uri = trim($uri, '/');
+        ;
         return $this;
     }
 
     /**
      * Gets site URL
-     * 
+     *
      * @param integer $part 0/1/2/3...
-     * 
+     *
      * @return string|null
      */
     public function getUri($part = null)
@@ -159,18 +160,18 @@ class SiteModel extends AbstractSiteModel
         if (strlen($this->_uri) === 0) {
             return null;
         }
-        
+
         if (strpos($this->_uri, '/') === false) {
             if ($part === 0) {
                 return $this->_uri;
             }
         }
-        
+
         $explode = explode('/', $this->_uri);
         if (array_key_exists($part, $explode) === true) {
             return $explode[$part];
         }
-        
+
         return null;
     }
 

@@ -92,6 +92,7 @@ abstract class AbstractBaseModel
                 if (array_key_exists(self::FIELD_ALLOW_NULL, $info) === true) {
                     $this->_fields[$field] = null;
                 }
+
                 continue;
             }
 

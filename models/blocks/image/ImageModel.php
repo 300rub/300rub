@@ -134,7 +134,7 @@ class ImageModel extends AbstractImageModel
                         $this->getBlockId(),
                         [
                             'design'  => $this
-                                ->get('designImageSliderModel')
+                            ->get('designImageSliderModel')
                         ]
                     )
                 );

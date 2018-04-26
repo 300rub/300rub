@@ -108,7 +108,8 @@ class RecordInstanceModel extends AbstractRecordInstanceModel
                 $descriptionInstance->save();
                 $this->set(
                     [
-                        'descriptionTextInstanceId' => $descriptionInstance->getId(),
+                        'descriptionTextInstanceId'
+                            => $descriptionInstance->getId(),
                     ]
                 );
             }
@@ -135,6 +136,11 @@ class RecordInstanceModel extends AbstractRecordInstanceModel
         parent::beforeSave();
     }
 
+    /**
+     * Gets name
+     *
+     * @return string
+     */
     public function getName()
     {
         return $this->get('seoModel')->get('name');

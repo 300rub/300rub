@@ -16,7 +16,7 @@ class ImageGroupModel extends AbstractImageGroupModel
     /**
      * Image instance count
      *
-     * @var int
+     * @var integer
      */
     private $_count = 0;
 
@@ -56,7 +56,7 @@ class ImageGroupModel extends AbstractImageGroupModel
      */
     public function findAllByImageId($imageId)
     {
-        return ImageGroupModel::model()
+        return self::model()
             ->byImageId($imageId)
             ->ordered('sort')
             ->findAll();

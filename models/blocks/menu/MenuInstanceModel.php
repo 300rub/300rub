@@ -51,7 +51,10 @@ class MenuInstanceModel extends AbstractMenuInstanceModel
                 'name'     => $this->_generateName($instance),
                 'url'      => $this->_generateUrl($instance),
                 'isActive' => $this->_isActive($instance),
-                'children' => $this->_generateTree($groupByParent, $instance['id'])
+                'children' => $this->_generateTree(
+                    $groupByParent,
+                    $instance['id']
+                )
             ];
         }
 
@@ -105,11 +108,11 @@ class MenuInstanceModel extends AbstractMenuInstanceModel
      */
     private function _generateUrl($instance)
     {
-        $languageId = (int)$instance['language'];
-        $language = App::getInstance()->getLanguage()->getAliasById($languageId);
+        $langId = (int)$instance['language'];
+        $language = App::getInstance()->getLanguage()->getAliasById($langId);
 
         if ((bool)$instance['isMain'] === true) {
-            if ($languageId === App::getInstance()->getSite()->get('language')) {
+            if ($langId === App::getInstance()->getSite()->get('language')) {
                 return '/';
             }
 
@@ -142,7 +145,13 @@ class MenuInstanceModel extends AbstractMenuInstanceModel
         $dbObject
             ->setTable('menuInstances');
         $dbObject
-            ->addJoin('sections', 'sections', Db::DEFAULT_ALIAS, 'sectionId', Db::JOIN_TYPE_LEFT)
+            ->addJoin(
+                'sections',
+                'sections',
+                Db::DEFAULT_ALIAS,
+                'sectionId',
+                Db::JOIN_TYPE_LEFT
+            )
             ->addJoin('seo', 'seo', 'sections', 'seoId', Db::JOIN_TYPE_LEFT);
         $dbObject
             ->addWhere(sprintf('%s.menuId = :menuId', Db::DEFAULT_ALIAS));

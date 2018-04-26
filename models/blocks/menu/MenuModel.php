@@ -39,7 +39,8 @@ class MenuModel extends AbstractMenuModel
                 'blockId'         => $this->getBlockId(),
                 'type'            => $this->getTypeForCssClass(),
                 'designMenuModel' => $this->get('designMenuModel'),
-                'tree'            => MenuInstanceModel::model()->getTreeByMenuId($this->getId()),
+                'tree'            => MenuInstanceModel::model()
+                    ->getTreeByMenuId($this->getId()),
             ]
         );
     }

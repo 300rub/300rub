@@ -20,7 +20,7 @@ class RecordModel extends AbstractRecordModel
     /**
      * Page number
      *
-     * @var int
+     * @var integer
      */
     private $_page = 0;
 
@@ -107,7 +107,9 @@ class RecordModel extends AbstractRecordModel
                 'record'            => $this,
                 'designRecordModel' => $this->get('designRecordModel'),
                 'recordInstance'    => $recordInstance,
-                'text'              => $recordInstance->get('textTextInstanceModel')->get('text'),
+                'text'              => $recordInstance
+                    ->get('textTextInstanceModel')
+                    ->get('text'),
                 'imagesHtml'        => $imagesHtml,
             ]
         );
