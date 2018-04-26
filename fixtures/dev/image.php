@@ -17,8 +17,8 @@ return [
         'cropWidth'              => 600,
         'cropHeight'             => 200,
         'designImageSliderModel' => [
-            'effect'      =>
-                'Fade;Rotate away;Rotate Zoom+ in;Zoom VDouble+ in;' .
+            'effect'      => 'Fade;Rotate away;Rotate ' .
+                'Zoom+ in;Zoom VDouble+ in;' .
                 'Collapse Stairs;Expand Stairs;Float Right Random;' .
                 'Fly Right Random;Dominoes Stripe',
             'hasAutoPlay' => true,

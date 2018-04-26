@@ -22,7 +22,8 @@ return [
             'fullCardTextDesignBlockModel' => [
                 'marginLeft' => 20
             ],
-            'fullCardDatePosition' => DesignRecordModel::FULL_CART_DATE_POSITION_RIGHT
+            'fullCardDatePosition'
+                => DesignRecordModel::FULL_CART_DATE_POSITION_RIGHT
         ],
         'hasImages'         => true,
     ]

@@ -18,25 +18,7 @@ class M160321000200Menu extends AbstractMigration
     public function apply()
     {
         $this
-            ->createTable(
-                'designMenu',
-                [
-                    'id'                             => self::TYPE_PK,
-                    'containerDesignBlockId'         => self::TYPE_FK,
-                    'firstLevelDesignBlockId'        => self::TYPE_FK,
-                    'firstLevelDesignTextId'         => self::TYPE_FK,
-                    'firstLevelActiveDesignBlockId'  => self::TYPE_FK,
-                    'firstLevelActiveDesignTextId'   => self::TYPE_FK,
-                    'secondLevelDesignBlockId'       => self::TYPE_FK,
-                    'secondLevelDesignTextId'        => self::TYPE_FK,
-                    'secondLevelActiveDesignBlockId' => self::TYPE_FK,
-                    'secondLevelActiveDesignTextId'  => self::TYPE_FK,
-                    'lastLevelDesignBlockId'         => self::TYPE_FK,
-                    'lastLevelDesignTextId'          => self::TYPE_FK,
-                    'lastLevelActiveDesignBlockId'   => self::TYPE_FK,
-                    'lastLevelActiveDesignTextId'    => self::TYPE_FK,
-                ]
-            )
+            ->_createTable()
             ->createForeignKey(
                 'designMenu',
                 'containerDesignBlockId',
@@ -126,5 +108,35 @@ class M160321000200Menu extends AbstractMigration
             ->createForeignKey('menuInstances', 'menuId', 'menu')
             ->createForeignKey('menuInstances', 'parentId', 'menuInstances')
             ->createForeignKey('menuInstances', 'sectionId', 'sections');
+    }
+
+    /**
+     * Created table
+     *
+     * @return M160302000010DesignBlocks
+     */
+    private function _createTable()
+    {
+        $this->createTable(
+            'designMenu',
+            [
+                'id'                             => self::TYPE_PK,
+                'containerDesignBlockId'         => self::TYPE_FK,
+                'firstLevelDesignBlockId'        => self::TYPE_FK,
+                'firstLevelDesignTextId'         => self::TYPE_FK,
+                'firstLevelActiveDesignBlockId'  => self::TYPE_FK,
+                'firstLevelActiveDesignTextId'   => self::TYPE_FK,
+                'secondLevelDesignBlockId'       => self::TYPE_FK,
+                'secondLevelDesignTextId'        => self::TYPE_FK,
+                'secondLevelActiveDesignBlockId' => self::TYPE_FK,
+                'secondLevelActiveDesignTextId'  => self::TYPE_FK,
+                'lastLevelDesignBlockId'         => self::TYPE_FK,
+                'lastLevelDesignTextId'          => self::TYPE_FK,
+                'lastLevelActiveDesignBlockId'   => self::TYPE_FK,
+                'lastLevelActiveDesignTextId'    => self::TYPE_FK,
+            ]
+        );
+
+        return $this;
     }
 }
