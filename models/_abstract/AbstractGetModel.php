@@ -25,18 +25,7 @@ abstract class AbstractGetModel extends AbstractFindModel
         $fields = $this->getFields();
 
         if ($param === null) {
-            if (is_array($except) === true) {
-                $list = [];
-                foreach ($fields as $key => $value) {
-                    if (in_array($key, $except) === false) {
-                        $list[$key] = $value;
-                    }
-                }
-
-                return $list;
-            }
-
-            return $fields;
+            return $this->_getAll($except);
         }
 
         if (is_array($param) === true) {
@@ -77,6 +66,31 @@ abstract class AbstractGetModel extends AbstractFindModel
         }
 
         return $this->getField($param);
+    }
+
+    /**
+     * Gets all fields
+     *
+     * @param string|string[] $except Except keys
+     *
+     * @return array
+     */
+    private function _getAll($except)
+    {
+        $fields = $this->getFields();
+
+        if (is_array($except) === false) {
+            return $fields;
+        }
+
+        $list = [];
+        foreach ($fields as $key => $value) {
+            if (in_array($key, $except) === false) {
+                $list[$key] = $value;
+            }
+        }
+
+        return $list;
     }
 
     /**

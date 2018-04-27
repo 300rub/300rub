@@ -374,4 +374,25 @@ abstract class AbstractFindModel extends AbstractBaseModel
     protected function afterFind()
     {
     }
+
+    /**
+     * Adds condition to check unique value
+     *
+     * @param string $field Field
+     *
+     * @return AbstractModel|AbstractSaveModel
+     */
+    protected function checkUnique($field)
+    {
+        $this->getDb()->addWhere(
+            sprintf(
+                '%s.%s = :field',
+                Db::DEFAULT_ALIAS,
+                $field
+            )
+        );
+        $this->getDb()->addParameter('field', $this->getField($field));
+
+        return $this;
+    }
 }
