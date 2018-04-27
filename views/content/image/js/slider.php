@@ -14,7 +14,7 @@ if ($design->get('hasAutoPlay') === true) {
 
     $playSpeed = $design->get('playSpeed');
     if ($playSpeed !== 0) {
-        echo sprintf('options.$Idle = %s;', $playSpeed * 1000);
+        echo sprintf('options.$Idle = %s;', ($playSpeed * 1000));
     }
 }
 
@@ -62,7 +62,8 @@ if ($design->get('isFullWidth') === true) {
     echo 'var containerElement = slider.$Elmt.parentNode;';
     echo 'var containerWidth = containerElement.clientWidth;';
     echo 'if (containerWidth) {';
-    echo 'var expectedWidth = Math.min(maxWidth || containerWidth, containerWidth);';
+    echo 'var expectedWidth ' .
+        '= Math.min(maxWidth || containerWidth, containerWidth);';
     echo 'slider.$ScaleWidth(expectedWidth);';
     echo '}';
     echo 'else {';
@@ -81,7 +82,8 @@ if ($design->get('isFullWidth') === false) {
     echo 'var containerElement = slider.$Elmt.parentNode;';
     echo 'var containerWidth = containerElement.clientWidth;';
     echo 'if (containerWidth) {';
-    echo 'var expectedWidth = Math.min(maxWidth || containerWidth, containerWidth);';
+    echo 'var expectedWidth ' .
+        '= Math.min(maxWidth || containerWidth, containerWidth);';
     echo 'slider.$ScaleWidth(expectedWidth);';
     echo '}';
     echo 'else {';

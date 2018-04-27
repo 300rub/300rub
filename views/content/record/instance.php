@@ -1,7 +1,5 @@
 <?php
 
-use ss\models\blocks\record\DesignRecordModel;
-
 /**
  * Variables
  *
@@ -12,6 +10,8 @@ use ss\models\blocks\record\DesignRecordModel;
  * @var string                                       $text
  * @var string                                       $imagesHtml
  */
+
+use ss\models\blocks\record\DesignRecordModel;
 
 echo sprintf('<div class="block-%s">', $blockId);
 
@@ -27,6 +27,7 @@ switch ($datePosition) {
         $dateClass = 'hidden';
         break;
 }
+
 echo sprintf(
     '<div class="full-card-date %s">%s</div>',
     $dateClass,
@@ -38,7 +39,7 @@ echo sprintf(
     $recordInstance->get('seoModel')->get('name')
 );
 
-if ($record->get('hasImages')) {
+if ($record->get('hasImages') === true) {
     echo $imagesHtml;
 }
 

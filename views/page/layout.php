@@ -111,12 +111,14 @@ if ($isUser === true) {
 
 <?php
 echo '<script>';
+
 foreach ($generatedJs as $id => $gJs) {
     echo sprintf(
         '!function(){%s}();',
         $gJs
     );
 }
+
 echo '</script>';
 ?>
 

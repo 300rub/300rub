@@ -7,6 +7,9 @@
  * @var integer                                $type
  * @var \ss\models\blocks\menu\DesignMenuModel $designMenuModel
  * @var array                                  $tree
+ *
+ * phpcs:disable Squiz.Functions.GlobalFunction
+ * phpcs:disable PSR1.Files.SideEffects
  */
 
 echo sprintf(
@@ -15,6 +18,14 @@ echo sprintf(
     $type
 );
 
+/**
+ * Builds structure
+ *
+ * @param array $tree  Tree
+ * @param int   $level Lever
+ *
+ * @return string
+ */
 function printMenuTree($tree, $level)
 {
     echo '<ul>';
@@ -44,8 +55,8 @@ function printMenuTree($tree, $level)
             $instance['name']
         );
 
-        if (count($instance['children'])) {
-            printMenuTree($instance['children'], $level + 1);
+        if (count($instance['children']) > 0) {
+            printMenuTree($instance['children'], ($level + 1));
         }
 
         echo '</li>';

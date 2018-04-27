@@ -114,6 +114,8 @@ class AbstractSeleniumTestCase extends \PHPUnit_Framework_TestCase
      * @param string $cssSelector CSS Selector
      *
      * @return \Facebook\WebDriver\Remote\RemoteWebElement[]
+     *
+     * @SuppressWarnings(PMD.StaticAccess)
      */
     protected function findAll($cssSelector)
     {

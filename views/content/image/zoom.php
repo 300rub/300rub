@@ -8,7 +8,10 @@
 
 foreach ($images as $image) {
     echo sprintf(
-        '<a class="image-container zoom-image-container" data-fancybox="image-group-%s" href="%s">',
+        '<a ' .
+        'class="image-container ' .
+        'zoom-image-container" ' .
+        'data-fancybox="image-group-%s" href="%s">',
         $image->get('imageGroupId'),
         $image->get('viewFileModel')->getUrl()
     );
