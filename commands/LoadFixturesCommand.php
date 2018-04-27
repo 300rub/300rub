@@ -7,6 +7,7 @@ use ss\application\components\Language;
 use ss\commands\_abstract\AbstractCommand;
 use ss\models\_abstract\AbstractModel;
 use ss\models\blocks\image\ImageInstanceModel;
+use ss\models\blocks\record\RecordInstanceModel;
 
 /**
  * Load fixtures command
@@ -141,6 +142,11 @@ class LoadFixturesCommand extends AbstractCommand
 
                 $records = include $filePath;
                 foreach ($records as $record) {
+                    if ($fixture === 'recordInstance') {
+                        $this->_saveRecordInstance($record);
+                        continue;
+                    }
+
                     $this
                         ->_getModelByName($modelName)
                         ->set($record)
@@ -151,6 +157,38 @@ class LoadFixturesCommand extends AbstractCommand
             $this->_uploadImages($type, $site);
 
             $dbObject->execute('SET GLOBAL FOREIGN_KEY_CHECKS=1;');
+        }
+    }
+
+    /**
+     * Updates record instance
+     *
+     * @param array $data Data
+     *
+     * @return void
+     */
+    private function _saveRecordInstance($data)
+    {
+        $model = new RecordInstanceModel();
+        $model->set(
+            [
+                'recordId' => $data['recordId'],
+                'seoModel' => $data['seoModel']
+            ]
+        );
+        $model->save();
+
+        $model->set($data)->save();
+
+        if (array_key_exists('imageGroupId', $data) === true) {
+            $dbObject = App::getInstance()->getDb();
+            $dbObject->execute(
+                'UPDATE ' . 'recordInstances SET imageGroupId = ? WHERE id = ?',
+                [
+                    $data['imageGroupId'],
+                    $model->getId()
+                ]
+            );
         }
     }
 

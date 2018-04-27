@@ -8,8 +8,7 @@ return [
             'url'  => 'record-1',
         ],
         'textTextInstanceModel' => [
-            'textId' => 1,
-            'text'   => 'Textttt'
+            'text' => 'Textttt'
         ],
         'imageGroupId' => 6
     ]

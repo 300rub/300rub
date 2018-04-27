@@ -96,54 +96,48 @@ class RecordInstanceModel extends AbstractRecordInstanceModel
             ->byId($recordId)
             ->find();
 
-        if ($this->getField('textTextInstanceModel') === null) {
-            $textInstance = new TextInstanceModel();
-            $textInstance->set(
-                [
-                    'textId' => $recordModel->get('textTextId')
-                ]
-            );
-            $textInstance->save();
-            $this->set(
-                [
-                    'textTextInstanceId' => $textInstance->getId(),
-                ]
-            );
-        }
+        $textInstance = new TextInstanceModel();
+        $textInstance->set(
+            [
+                'textId' => $recordModel->get('textTextId')
+            ]
+        );
+        $textInstance->save();
+        $this->set(
+            [
+                'textTextInstanceId' => $textInstance->getId(),
+            ]
+        );
 
-        if ($this->getField('descriptionTextInstanceModel') === null) {
-            $descriptionInstance = new TextInstanceModel();
-            $descriptionInstance->set(
-                [
-                    'textId' => $recordModel->get('descriptionTextId')
-                ]
-            );
-            $descriptionInstance->save();
-            $this->set(
-                [
-                    'descriptionTextInstanceId'
-                    => $descriptionInstance->getId(),
-                ]
-            );
-        }
+        $descriptionInstance = new TextInstanceModel();
+        $descriptionInstance->set(
+            [
+                'textId' => $recordModel->get('descriptionTextId')
+            ]
+        );
+        $descriptionInstance->save();
+        $this->set(
+            [
+                'descriptionTextInstanceId'
+                => $descriptionInstance->getId(),
+            ]
+        );
 
-        if ($this->get('imageGroupId') === 0) {
-            $imageGroup = new ImageGroupModel();
-            $imageGroup->set(
-                [
-                    'imageId' => $recordModel->get('imagesImageId'),
-                    'seoModel' => [
-                        'name' => substr(md5(uniqid() . time()), 0, 10)
-                    ]
+        $imageGroup = new ImageGroupModel();
+        $imageGroup->set(
+            [
+                'imageId' => $recordModel->get('imagesImageId'),
+                'seoModel' => [
+                    'name' => substr(md5(uniqid() . time()), 0, 10)
                 ]
-            );
-            $imageGroup->save();
-            $this->set(
-                [
-                    'imageGroupId' => $imageGroup->getId(),
-                ]
-            );
-        }
+            ]
+        );
+        $imageGroup->save();
+        $this->set(
+            [
+                'imageGroupId' => $imageGroup->getId(),
+            ]
+        );
     }
 
     /**

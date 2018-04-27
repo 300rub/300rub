@@ -4,7 +4,6 @@ use ss\models\blocks\record\DesignRecordModel;
 
 return [
     1 => [
-        'textTextId'        => 1,
         'imagesImageId'     => 5,
         'designRecordModel' => [
             'fullCardTitleDesignBlockModel' => [
