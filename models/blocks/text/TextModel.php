@@ -101,7 +101,7 @@ class TextModel extends AbstractTextModel
             return $text;
         }
 
-        return nl2br(strip_tags($text));
+        return nl2br(htmlspecialchars($text));
     }
 
     /**
