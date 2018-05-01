@@ -55,4 +55,16 @@ return [
         'sectionId' => 9,
         'sort'      => 10,
     ],
+    10 => [
+        'menuId'    => 1,
+        'parentId'  => 2,
+        'sectionId' => 10,
+        'sort'      => 10,
+    ],
+    11 => [
+        'menuId'    => 1,
+        'parentId'  => 2,
+        'sectionId' => 11,
+        'sort'      => 20,
+    ],
 ];

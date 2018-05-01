@@ -67,4 +67,18 @@ return [
         ],
         'language' => Language::LANGUAGE_EN_ID,
     ],
+    10 => [
+        'seoModel'      => [
+            'name' => 'Simple',
+            'url'  => 'simple-text'
+        ],
+        'language' => Language::LANGUAGE_EN_ID,
+    ],
+    11 => [
+        'seoModel'      => [
+            'name' => 'Stylised',
+            'url'  => 'stylised-text'
+        ],
+        'language' => Language::LANGUAGE_EN_ID,
+    ],
 ];

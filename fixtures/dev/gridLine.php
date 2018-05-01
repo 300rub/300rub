@@ -88,4 +88,24 @@ return [
             'paddingLeft'   => 40,
         ]
     ],
+    10 => [
+        'sectionId' => 10,
+        'sort'      => 10,
+        'insideDesignModel' => [
+            'paddingTop'    => 40,
+            'paddingRight'  => 40,
+            'paddingBottom' => 40,
+            'paddingLeft'   => 40,
+        ]
+    ],
+    11 => [
+        'sectionId' => 11,
+        'sort'      => 10,
+        'insideDesignModel' => [
+            'paddingTop'    => 40,
+            'paddingRight'  => 40,
+            'paddingBottom' => 40,
+            'paddingLeft'   => 40,
+        ]
+    ],
 ];

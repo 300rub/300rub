@@ -40,4 +40,16 @@ return [
         'contentType' => BlockModel::TYPE_RECORD,
         'contentId'   => 1,
     ],
+    7 => [
+        'name'        => 'Simple text',
+        'language'    => Language::LANGUAGE_EN_ID,
+        'contentType' => BlockModel::TYPE_TEXT,
+        'contentId'   => 1,
+    ],
+    8 => [
+        'name'        => 'Stylised text',
+        'language'    => Language::LANGUAGE_EN_ID,
+        'contentType' => BlockModel::TYPE_TEXT,
+        'contentId'   => 2,
+    ],
 ];

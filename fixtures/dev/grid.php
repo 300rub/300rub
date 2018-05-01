@@ -99,4 +99,32 @@ return [
         'y'          => 0,
         'width'      => 9
     ],
+    15 => [
+        'gridLineId' => 10,
+        'blockId'    => 1,
+        'x'          => 0,
+        'y'          => 0,
+        'width'      => 3
+    ],
+    16 => [
+        'gridLineId' => 10,
+        'blockId'    => 7,
+        'x'          => 3,
+        'y'          => 0,
+        'width'      => 9
+    ],
+    17 => [
+        'gridLineId' => 11,
+        'blockId'    => 1,
+        'x'          => 0,
+        'y'          => 0,
+        'width'      => 3
+    ],
+    18 => [
+        'gridLineId' => 11,
+        'blockId'    => 8,
+        'x'          => 3,
+        'y'          => 0,
+        'width'      => 9
+    ],
 ];
