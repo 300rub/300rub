@@ -40,9 +40,7 @@ class TextModel extends AbstractTextModel
             'content/text/text',
             [
                 'blockId' => $this->getBlockId(),
-                'text'    => TextInstanceModel::model()
-                    ->getByTextId($this->getId())
-                    ->get('text'),
+                'text'    => $this->_getText(),
             ]
         );
     }
@@ -86,6 +84,24 @@ class TextModel extends AbstractTextModel
     public function generateJs()
     {
         return [];
+    }
+
+    /**
+     * Gets text
+     *
+     * @return string
+     */
+    private function _getText()
+    {
+        $text = TextInstanceModel::model()
+            ->getByTextId($this->getId())
+            ->get('text');
+
+        if ($this->get('hasEditor') === true) {
+            return $text;
+        }
+
+        return nl2br(strip_tags($text));
     }
 
     /**
