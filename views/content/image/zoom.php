@@ -9,10 +9,13 @@
 foreach ($images as $image) {
     echo sprintf(
         '<a ' .
-        'class="image-container ' .
-        'zoom-image-container" ' .
-        'data-fancybox="image-group-%s" href="%s">',
+        'class="image-container zoom-image-container"' .
+        'data-fancybox="image-group-%s" ' .
+        'data-type="image" ' .
+        'data-caption="%s"' .
+        'href="%s">',
         $image->get('imageGroupId'),
+        $image->get('alt'),
         $image->get('viewFileModel')->getUrl()
     );
 
