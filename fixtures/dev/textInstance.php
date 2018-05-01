@@ -3,22 +3,22 @@
 return [
     1 => [
         'textId' => 1,
-        '
-        Simple text. Tag <strong>.
-        New line.
+        'text' => '
+            Simple text. Tag <strong>.
+            New line.
 
-        Line after empty line
+            Line after empty line
         '
     ],
     2 => [
         'textId' => 2,
-        '
-        <h3>Text with styles</h3>
-        <p>Paragraph 1. <br/> <i>italic text</i></p>
+        'text' => '
+            <h3>Text with styles</h3>
+            <p>Paragraph 1. <br/> <i>italic text</i></p>
 
 
-        <p>Paragraph 2. <br/> <strong>strong text</strong>.
-        No extra lines</p>
+            <p>Paragraph 2. <br/> <strong>strong text</strong>.
+            No extra lines</p>
         '
     ]
 ];
