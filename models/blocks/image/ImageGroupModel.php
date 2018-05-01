@@ -143,14 +143,26 @@ class ImageGroupModel extends AbstractImageGroupModel
     }
 
     /**
+     * Gets URI
+     *
+     * @return string
+     */
+    public function getUri()
+    {
+        return sprintf(
+            '%s/%s',
+            App::getInstance()->getSite()->getActiveSectionUri(),
+            $this->get('seoModel')->get('url')
+        );
+    }
+
+    /**
      * Runs before deleting
      *
      * @return void
      */
     protected function beforeDelete()
     {
-        $this->resetMemcached();
-
         $imageInstances = ImageInstanceModel::model()
             ->byGroupId($this->getId())
             ->findAll();
@@ -163,15 +175,14 @@ class ImageGroupModel extends AbstractImageGroupModel
     }
 
     /**
-     * Runs before saving
+     * Runs after changing
      *
      * @return void
      */
-    protected function beforeSave()
+    protected function afterChange()
     {
+        parent::afterChange();
         $this->resetMemcached();
-
-        parent::beforeSave();
     }
 
     /**
@@ -181,31 +192,18 @@ class ImageGroupModel extends AbstractImageGroupModel
      */
     public function resetMemcached()
     {
-        $memcached = App::getInstance()->getMemcached();
-
         $imageModel = ImageModel::model()
             ->set(['id' => $this->get('imageId')]);
 
-        $memcached->delete($imageModel->getHtmlMemcachedKey());
-
-        $seoModel = $this->getRelationModelByFieldName('seoId', true);
-
-        $memcached->delete(
-            $imageModel->getHtmlMemcachedKey($seoModel->get('url'))
-        );
-    }
-
-    /**
-     * Gets URI
-     *
-     * @return string
-     */
-    public function getUri()
-    {
-        return sprintf(
-            '%s/%s',
-            App::getInstance()->getSite()->getActiveSectionUri(),
-            $this->get('seoModel')->get('url')
-        );
+        App::getInstance()->getMemcached()
+            ->delete(
+                $imageModel->getHtmlMemcachedKey()
+            )
+            ->delete(
+                $imageModel->getHtmlMemcachedKey(
+                    $this->getRelationModelByFieldName('seoId', true)
+                        ->get('url')
+                )
+            );
     }
 }
