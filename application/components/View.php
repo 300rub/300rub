@@ -71,16 +71,13 @@ class View
     /**
      * Generates JS ID
      *
-     * @param string $blockId Block ID
+     * @param string $selector Selector
      *
      * @return string
      */
-    public function generateJsId($blockId)
+    public function generateJsId($selector)
     {
-        return sprintf(
-            'block-%s-js',
-            $blockId
-        );
+        return str_replace(['.', ' ', '/'], ['', '-', '-'], $selector);
     }
 
     /**
@@ -130,17 +127,16 @@ class View
     /**
      * Generates JS
      *
-     * @param string $path    File path
-     * @param int    $blockId Block ID
-     * @param array  $data    View data
+     * @param string $path      File path
+     * @param int    $container CSS container
+     * @param array  $data      View data
      *
      * @return array
      */
-    public function generateJs($path, $blockId, array $data = [])
+    public function generateJs($path, $container, array $data = [])
     {
-        $jsId = $this->generateJsId($blockId);
-        $data['blockId'] = $blockId;
-        $data['id'] = $jsId;
+        $jsId = $this->generateJsId($container);
+        $data['container'] = $container;
 
         return [
             $jsId => $this->get($path, $data)

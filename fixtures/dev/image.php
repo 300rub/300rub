@@ -78,5 +78,11 @@ return [
     ],
     6 => [
         'type' => ImageModel::TYPE_ZOOM,
+        'designImageZoomModel' => [
+            'designBlockModel' => [
+                'width'  => 160,
+                'height' => 160,
+            ]
+        ]
     ],
 ];

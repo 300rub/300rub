@@ -71,48 +71,9 @@ class ImageModel extends AbstractImageModel
      */
     public function generateCss()
     {
-        $css = [];
-        $view = App::getInstance()->getView();
-
-        $css = array_merge(
-            $css,
-            $view->generateCss(
-                $this->get('designBlockModel'),
-                sprintf('.block-%s', $this->getBlockId())
-            )
+        return $this->generateCssForContainer(
+            sprintf('.block-%s', $this->getBlockId())
         );
-
-        if ($this->get('useAlbums') === true) {
-            $css = array_merge(
-                $css,
-                $this->_getAlbumCss()
-            );
-
-            return $css;
-        }
-
-        switch ($this->get('type')) {
-            case self::TYPE_SLIDER:
-                $css = array_merge(
-                    $css,
-                    $this->_getSliderCss()
-                );
-                break;
-            case self::TYPE_SIMPLE:
-                $css = array_merge(
-                    $css,
-                    $this->_getSimpleCss()
-                );
-                break;
-            default:
-                $css = array_merge(
-                    $css,
-                    $this->_getZoomCss()
-                );
-                break;
-        }
-
-        return $css;
     }
 
     /**
@@ -121,6 +82,20 @@ class ImageModel extends AbstractImageModel
      * @return array
      */
     public function generateJs()
+    {
+        return $this->generateJsForContainer(
+            sprintf('.block-%s', $this->getBlockId())
+        );
+    }
+
+    /**
+     * Generates JS
+     *
+     * @param string $container CSS selector container
+     *
+     * @return array
+     */
+    public function generateJsForContainer($container)
     {
         $jsList = [];
         $view = App::getInstance()->getView();
@@ -131,15 +106,13 @@ class ImageModel extends AbstractImageModel
                     $jsList,
                     $view->generateJs(
                         'content/image/js/slider',
-                        $this->getBlockId(),
+                        $container,
                         [
-                            'design'  => $this
-                            ->get('designImageSliderModel')
+                            'design' => $this
+                                ->get('designImageSliderModel')
                         ]
                     )
                 );
-                break;
-            case self::TYPE_SIMPLE:
                 break;
             default:
                 break;
@@ -273,22 +246,76 @@ class ImageModel extends AbstractImageModel
     }
 
     /**
-     * Gets album design CSS
+     * Generates CSS for container
+     *
+     * @param string $container CSS container
      *
      * @return array
      */
-    private function _getAlbumCss()
+    public function generateCssForContainer($container)
+    {
+        $css = [];
+        $view = App::getInstance()->getView();
+
+        $css = array_merge(
+            $css,
+            $view->generateCss(
+                $this->get('designBlockModel'),
+                $container
+            )
+        );
+
+        if ($this->get('useAlbums') === true) {
+            $css = array_merge(
+                $css,
+                $this->_getAlbumCss($container)
+            );
+
+            return $css;
+        }
+
+        switch ($this->get('type')) {
+            case self::TYPE_SLIDER:
+                $css = array_merge(
+                    $css,
+                    $this->_getSliderCss($container)
+                );
+                break;
+            case self::TYPE_SIMPLE:
+                $css = array_merge(
+                    $css,
+                    $this->_getSimpleCss($container)
+                );
+                break;
+            default:
+                $css = array_merge(
+                    $css,
+                    $this->_getZoomCss($container)
+                );
+                break;
+        }
+
+        return $css;
+    }
+
+    /**
+     * Gets album design CSS
+     *
+     * @param string $container CSS container
+     *
+     * @return array
+     */
+    private function _getAlbumCss($container)
     {
         $css = [];
         $view = App::getInstance()->getView();
         $design = $this->get('designImageAlbumModel');
-        $blockId = $this->getBlockId();
 
         $css = array_merge(
             $css,
             $view->generateCss(
                 $design->get('containerDesignBlockModel'),
-                sprintf('.block-%s .album .image-container', $blockId)
+                sprintf('%s .album .image-container', $container)
             )
         );
 
@@ -296,7 +323,7 @@ class ImageModel extends AbstractImageModel
             $css,
             $view->generateCss(
                 $design->get('imageDesignBlockModel'),
-                sprintf('.block-%s .album .image-container .image', $blockId)
+                sprintf('%s .album .image-container .image', $container)
             )
         );
 
@@ -304,7 +331,7 @@ class ImageModel extends AbstractImageModel
             $css,
             $view->generateCss(
                 $design->get('nameDesignBlockModel'),
-                sprintf('.block-%s .album .image-container .name', $blockId)
+                sprintf('%s .album .image-container .name', $container)
             )
         );
 
@@ -312,7 +339,7 @@ class ImageModel extends AbstractImageModel
             $css,
             $view->generateCss(
                 $design->get('nameDesignTextModel'),
-                sprintf('.block-%s .album .image-container .name', $blockId)
+                sprintf('%s .album .image-container .name', $container)
             )
         );
 
@@ -323,20 +350,21 @@ class ImageModel extends AbstractImageModel
     /**
      * Gets simple design CSS
      *
+     * @param string $container CSS container
+     *
      * @return array
      */
-    private function _getSimpleCss()
+    private function _getSimpleCss($container)
     {
         $css = [];
         $view = App::getInstance()->getView();
         $design = $this->get('designImageSimpleModel');
-        $blockId = $this->getBlockId();
 
         $css = array_merge(
             $css,
             $view->generateCss(
                 $design->get('containerDesignBlockModel'),
-                sprintf('.block-%s .image-container', $blockId)
+                sprintf('%s .image-container', $container)
             )
         );
 
@@ -344,7 +372,7 @@ class ImageModel extends AbstractImageModel
             $css,
             $view->generateCss(
                 $design->get('imageDesignBlockModel'),
-                sprintf('.block-%s .image-container .image', $blockId)
+                sprintf('%s .image-container .image', $container)
             )
         );
 
@@ -352,7 +380,7 @@ class ImageModel extends AbstractImageModel
             $css,
             $view->generateCss(
                 $design->get('descriptionDesignBlockModel'),
-                sprintf('.block-%s .image-container .description', $blockId)
+                sprintf('%s .image-container .description', $container)
             )
         );
 
@@ -360,7 +388,7 @@ class ImageModel extends AbstractImageModel
             $css,
             $view->generateCss(
                 $design->get('descriptionDesignTextModel'),
-                sprintf('.block-%s .image-container .description', $blockId)
+                sprintf('%s .image-container .description', $container)
             )
         );
 
@@ -370,20 +398,21 @@ class ImageModel extends AbstractImageModel
     /**
      * Gets slider design CSS
      *
+     * @param string $container CSS container
+     *
      * @return array
      */
-    private function _getSliderCss()
+    private function _getSliderCss($container)
     {
         $css = [];
         $view = App::getInstance()->getView();
         $design = $this->get('designImageSliderModel');
-        $blockId = $this->getBlockId();
 
         $css = array_merge(
             $css,
             $view->generateCss(
                 $design->get('arrowDesignTextModel'),
-                sprintf('.block-%s .arrow i', $blockId)
+                sprintf('%s .arrow i', $container)
             )
         );
 
@@ -391,7 +420,7 @@ class ImageModel extends AbstractImageModel
             $css,
             $view->generateCss(
                 $design->get('bulletDesignBlockModel'),
-                sprintf('.block-%s .i .bullet', $blockId)
+                sprintf('%s .i .bullet', $container)
             )
         );
 
@@ -399,7 +428,7 @@ class ImageModel extends AbstractImageModel
             $css,
             $view->generateCss(
                 $design->get('bulletActiveDesignBlockModel'),
-                sprintf('.block-%s .iav .bullet', $blockId)
+                sprintf('%s .iav .bullet', $container)
             )
         );
 
@@ -407,7 +436,7 @@ class ImageModel extends AbstractImageModel
             $css,
             $view->generateCss(
                 $design->get('descriptionDesignBlockModel'),
-                sprintf('.block-%s .description', $blockId)
+                sprintf('%s .description', $container)
             )
         );
 
@@ -415,7 +444,7 @@ class ImageModel extends AbstractImageModel
             $css,
             $view->generateCss(
                 $design->get('descriptionDesignTextModel'),
-                sprintf('.block-%s .description', $blockId)
+                sprintf('%s .description', $container)
             )
         );
 
@@ -425,20 +454,21 @@ class ImageModel extends AbstractImageModel
     /**
      * Gets zoom design CSS
      *
+     * @param string $container CSS container
+     *
      * @return array
      */
-    private function _getZoomCss()
+    private function _getZoomCss($container)
     {
         $css = [];
         $view = App::getInstance()->getView();
         $design = $this->get('designImageZoomModel');
-        $blockId = $this->getBlockId();
 
         $css = array_merge(
             $css,
             $view->generateCss(
                 $design->get('designBlockModel'),
-                sprintf('.block-%s .image-container', $blockId)
+                sprintf('%s .image-container', $container)
             )
         );
 

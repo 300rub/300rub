@@ -3,7 +3,7 @@
 /**
  * Variables
  *
- * @var int                                            $blockId
+ * @var string                                         $container
  * @var \ss\models\blocks\image\DesignImageSliderModel $design
  */
 
@@ -53,7 +53,7 @@ if (count($effectValues) > 0) {
     echo 'options.$SlideshowOptions.$TransitionsOrder = 1;';
 }
 
-echo sprintf('$(".block-%s .slider-container").each(function() {', $blockId);
+echo sprintf('$("%s .slider-container").each(function() {', $container);
 echo 'var slider = new $JssorSlider$($(this).attr("id"), options);';
 
 if ($design->get('isFullWidth') === true) {

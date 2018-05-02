@@ -40,7 +40,7 @@ echo sprintf(
 );
 
 if ($record->get('hasImages') === true) {
-    echo $imagesHtml;
+    echo sprintf('<div class="full-card-images">%s</div>', $imagesHtml);
 }
 
 echo sprintf(

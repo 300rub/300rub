@@ -71,6 +71,97 @@ class RecordModel extends AbstractRecordModel
     }
 
     /**
+     * Generates CSS
+     *
+     * @return array
+     */
+    public function generateCss()
+    {
+        $css = [];
+        $view = App::getInstance()->getView();
+
+        $designRecordModel = $this->get('designRecordModel');
+
+        $css = array_merge(
+            $css,
+            $view->generateCss(
+                $designRecordModel->get('fullCardTitleDesignBlockModel'),
+                sprintf('.block-%s .full-card-title', $this->getBlockId())
+            )
+        );
+
+        $css = array_merge(
+            $css,
+            $view->generateCss(
+                $designRecordModel->get('fullCardTitleDesignTextModel'),
+                sprintf('.block-%s .full-card-title', $this->getBlockId())
+            )
+        );
+
+        $css = array_merge(
+            $css,
+            $view->generateCss(
+                $designRecordModel->get('fullCardDateDesignBlockModel'),
+                sprintf('.block-%s .full-card-date', $this->getBlockId())
+            )
+        );
+
+        $css = array_merge(
+            $css,
+            $view->generateCss(
+                $designRecordModel->get('fullCardDateDesignTextModel'),
+                sprintf('.block-%s .full-card-date', $this->getBlockId())
+            )
+        );
+
+        $css = array_merge(
+            $css,
+            $view->generateCss(
+                $designRecordModel->get('fullCardTextDesignBlockModel'),
+                sprintf('.block-%s .full-card-text', $this->getBlockId())
+            )
+        );
+
+        if ($this->get('hasImages') === true) {
+            $css = array_merge(
+                $css,
+                $this->get('imagesImageModel')->generateCssForContainer(
+                    sprintf(
+                        '.block-%s .full-card-images',
+                        $this->getBlockId()
+                    )
+                )
+            );
+        }
+
+        return $css;
+    }
+
+    /**
+     * Generates JS
+     *
+     * @return array
+     */
+    public function generateJs()
+    {
+        $jsList = [];
+
+        if ($this->get('hasImages') === true) {
+            $jsList = array_merge(
+                $jsList,
+                $this->get('imagesImageModel')->generateJsForContainer(
+                    sprintf(
+                        '.block-%s .full-card-images',
+                        $this->getBlockId()
+                    )
+                )
+            );
+        }
+
+        return $jsList;
+    }
+
+    /**
      * Gets record instance
      *
      * @return string
@@ -135,71 +226,6 @@ class RecordModel extends AbstractRecordModel
 
         $this->_recordUri = $url;
         return $this;
-    }
-
-    /**
-     * Generates CSS
-     *
-     * @return array
-     */
-    public function generateCss()
-    {
-        $css = [];
-        $view = App::getInstance()->getView();
-
-        $designRecordModel = $this->get('designRecordModel');
-
-        $css = array_merge(
-            $css,
-            $view->generateCss(
-                $designRecordModel->get('fullCardTitleDesignBlockModel'),
-                sprintf('.block-%s .full-card-title', $this->getBlockId())
-            )
-        );
-
-        $css = array_merge(
-            $css,
-            $view->generateCss(
-                $designRecordModel->get('fullCardTitleDesignTextModel'),
-                sprintf('.block-%s .full-card-title', $this->getBlockId())
-            )
-        );
-
-        $css = array_merge(
-            $css,
-            $view->generateCss(
-                $designRecordModel->get('fullCardDateDesignBlockModel'),
-                sprintf('.block-%s .full-card-date', $this->getBlockId())
-            )
-        );
-
-        $css = array_merge(
-            $css,
-            $view->generateCss(
-                $designRecordModel->get('fullCardDateDesignTextModel'),
-                sprintf('.block-%s .full-card-date', $this->getBlockId())
-            )
-        );
-
-        $css = array_merge(
-            $css,
-            $view->generateCss(
-                $designRecordModel->get('fullCardTextDesignBlockModel'),
-                sprintf('.block-%s .full-card-text', $this->getBlockId())
-            )
-        );
-
-        return $css;
-    }
-
-    /**
-     * Generates JS
-     *
-     * @return array
-     */
-    public function generateJs()
-    {
-        return [];
     }
 
     /**
