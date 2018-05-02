@@ -113,4 +113,76 @@ return [
             'name' => 'record-instance-album-12',
         ],
     ],
+    18 => [
+        'imageId'  => 6,
+        'seoModel' => [
+            'name' => 'record-instance-album-13',
+        ],
+    ],
+    19 => [
+        'imageId'  => 6,
+        'seoModel' => [
+            'name' => 'record-instance-album-14',
+        ],
+    ],
+    20 => [
+        'imageId'  => 6,
+        'seoModel' => [
+            'name' => 'record-instance-album-15',
+        ],
+    ],
+    21 => [
+        'imageId'  => 6,
+        'seoModel' => [
+            'name' => 'record-instance-album-16',
+        ],
+    ],
+    22 => [
+        'imageId'  => 6,
+        'seoModel' => [
+            'name' => 'record-instance-album-17',
+        ],
+    ],
+    23 => [
+        'imageId'  => 6,
+        'seoModel' => [
+            'name' => 'record-instance-album-18',
+        ],
+    ],
+    24 => [
+        'imageId'  => 6,
+        'seoModel' => [
+            'name' => 'record-instance-album-19',
+        ],
+    ],
+    25 => [
+        'imageId'  => 6,
+        'seoModel' => [
+            'name' => 'record-instance-album-20',
+        ],
+    ],
+    26 => [
+        'imageId'  => 6,
+        'seoModel' => [
+            'name' => 'record-instance-album-21',
+        ],
+    ],
+    27 => [
+        'imageId'  => 6,
+        'seoModel' => [
+            'name' => 'record-instance-album-22',
+        ],
+    ],
+    28 => [
+        'imageId'  => 6,
+        'seoModel' => [
+            'name' => 'record-instance-album-23',
+        ],
+    ],
+    29 => [
+        'imageId'  => 6,
+        'seoModel' => [
+            'name' => 'record-instance-album-24',
+        ],
+    ],
 ];

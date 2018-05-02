@@ -76,4 +76,7 @@ return [
     5 => [
         'type' => ImageModel::TYPE_SIMPLE,
     ],
+    6 => [
+        'type' => ImageModel::TYPE_ZOOM,
+    ],
 ];
