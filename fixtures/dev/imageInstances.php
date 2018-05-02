@@ -104,4 +104,103 @@ return [
             'imageGroupId' => 6
         ],
     ],
+    12 => [
+        'group'      => 'image',
+        'controller' => 'image',
+        'file'       => 'mediumImage.jpg',
+        'data'       => [
+            'blockId'      => 5,
+            'imageGroupId' => 7
+        ],
+    ],
+    13 => [
+        'group'      => 'image',
+        'controller' => 'image',
+        'file'       => 'mediumImage.jpg',
+        'data'       => [
+            'blockId'      => 5,
+            'imageGroupId' => 8
+        ],
+    ],
+    14 => [
+        'group'      => 'image',
+        'controller' => 'image',
+        'file'       => 'mediumImage.jpg',
+        'data'       => [
+            'blockId'      => 5,
+            'imageGroupId' => 9
+        ],
+    ],
+    15 => [
+        'group'      => 'image',
+        'controller' => 'image',
+        'file'       => 'mediumImage.jpg',
+        'data'       => [
+            'blockId'      => 5,
+            'imageGroupId' => 10
+        ],
+    ],
+    16 => [
+        'group'      => 'image',
+        'controller' => 'image',
+        'file'       => 'mediumImage.jpg',
+        'data'       => [
+            'blockId'      => 5,
+            'imageGroupId' => 11
+        ],
+    ],
+    17 => [
+        'group'      => 'image',
+        'controller' => 'image',
+        'file'       => 'mediumImage.jpg',
+        'data'       => [
+            'blockId'      => 5,
+            'imageGroupId' => 12
+        ],
+    ],
+    18 => [
+        'group'      => 'image',
+        'controller' => 'image',
+        'file'       => 'mediumImage.jpg',
+        'data'       => [
+            'blockId'      => 5,
+            'imageGroupId' => 13
+        ],
+    ],
+    19 => [
+        'group'      => 'image',
+        'controller' => 'image',
+        'file'       => 'mediumImage.jpg',
+        'data'       => [
+            'blockId'      => 5,
+            'imageGroupId' => 14
+        ],
+    ],
+    20 => [
+        'group'      => 'image',
+        'controller' => 'image',
+        'file'       => 'mediumImage.jpg',
+        'data'       => [
+            'blockId'      => 5,
+            'imageGroupId' => 15
+        ],
+    ],
+    21 => [
+        'group'      => 'image',
+        'controller' => 'image',
+        'file'       => 'mediumImage.jpg',
+        'data'       => [
+            'blockId'      => 5,
+            'imageGroupId' => 16
+        ],
+    ],
+    22 => [
+        'group'      => 'image',
+        'controller' => 'image',
+        'file'       => 'mediumImage.jpg',
+        'data'       => [
+            'blockId'      => 5,
+            'imageGroupId' => 17
+        ],
+    ],
 ];
