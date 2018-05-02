@@ -107,7 +107,6 @@ class AbstractDesignRecordModelCorrectTest extends AbstractCorrectModelTest
                 'size' => 20
             ],
             'shortCardViewType'                       => 1,
-            'fullCardImagesPosition'                  => 1,
             'fullCardDatePosition'                    => 1,
         ];
     }
@@ -181,7 +180,6 @@ class AbstractDesignRecordModelCorrectTest extends AbstractCorrectModelTest
                 'size' => 20
             ],
             'shortCardViewType'                       => 1,
-            'fullCardImagesPosition'                  => 1,
             'fullCardDatePosition'                    => 1,
         ];
     }
@@ -255,7 +253,6 @@ class AbstractDesignRecordModelCorrectTest extends AbstractCorrectModelTest
                 'size' => 10
             ],
             'shortCardViewType'                       => 0,
-            'fullCardImagesPosition'                  => 0,
             'fullCardDatePosition'                    => 0,
         ];
     }
@@ -329,7 +326,6 @@ class AbstractDesignRecordModelCorrectTest extends AbstractCorrectModelTest
                 'size' => 10
             ],
             'shortCardViewType'                       => 0,
-            'fullCardImagesPosition'                  => 0,
             'fullCardDatePosition'                    => 0,
         ];
     }

@@ -186,7 +186,6 @@ class AbstractRecordModelCorrectTest extends AbstractCorrectModelTest
                 'size' => 10
             ],
             'shortCardViewType'                       => 1,
-            'fullCardImagesPosition'                  => 1,
             'fullCardDatePosition'                    => 1,
         ];
     }
@@ -331,7 +330,6 @@ class AbstractRecordModelCorrectTest extends AbstractCorrectModelTest
                 'size' => 30
             ],
             'shortCardViewType'                       => 0,
-            'fullCardImagesPosition'                  => 0,
             'fullCardDatePosition'                    => 0,
         ];
     }

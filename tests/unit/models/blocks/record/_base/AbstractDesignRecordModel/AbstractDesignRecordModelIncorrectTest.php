@@ -57,7 +57,6 @@ class AbstractDesignRecordModelIncorrectTest extends AbstractIncorrectModelTest
                 'fullCardTitleDesignTextModel'            => 'incorrect',
                 'fullCardDateDesignTextModel'             => 'incorrect',
                 'shortCardViewType'                       => 'incorrect',
-                'fullCardImagesPosition'                  => 'incorrect',
                 'fullCardDatePosition'                    => 'incorrect',
             ],
             [
@@ -101,17 +100,14 @@ class AbstractDesignRecordModelIncorrectTest extends AbstractIncorrectModelTest
                     'size' => 0
                 ],
                 'shortCardViewType'                       => 0,
-                'fullCardImagesPosition'                  => 0,
                 'fullCardDatePosition'                    => 0,
             ],
             [
                 'shortCardViewType'      => 999,
-                'fullCardImagesPosition' => 999,
                 'fullCardDatePosition'   => 999,
             ],
             [
                 'shortCardViewType'      => 0,
-                'fullCardImagesPosition' => 0,
                 'fullCardDatePosition'   => 0,
             ],
         ];
@@ -127,12 +123,10 @@ class AbstractDesignRecordModelIncorrectTest extends AbstractIncorrectModelTest
         return [
             [
                 'shortCardViewType'      => ' 1 ',
-                'fullCardImagesPosition' => ' 1 ',
                 'fullCardDatePosition'   => ' 1 ',
             ],
             [
                 'shortCardViewType'      => 1,
-                'fullCardImagesPosition' => 1,
                 'fullCardDatePosition'   => 1,
             ],
             [
@@ -173,7 +167,6 @@ class AbstractDesignRecordModelIncorrectTest extends AbstractIncorrectModelTest
                     'size' => ' 500 '
                 ],
                 'shortCardViewType'                       => true,
-                'fullCardImagesPosition'                  => false,
                 'fullCardDatePosition'                    => true,
             ],
             [
@@ -214,7 +207,6 @@ class AbstractDesignRecordModelIncorrectTest extends AbstractIncorrectModelTest
                     'size' => 500
                 ],
                 'shortCardViewType'                       => 1,
-                'fullCardImagesPosition'                  => 0,
                 'fullCardDatePosition'                    => 1,
             ],
         ];

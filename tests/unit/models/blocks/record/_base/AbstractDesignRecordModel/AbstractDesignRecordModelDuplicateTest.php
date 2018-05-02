@@ -103,7 +103,6 @@ class AbstractDesignRecordModelDuplicateTest extends AbstractDuplicateModelTest
                 'size' => 20
             ],
             'shortCardViewType'                       => 1,
-            'fullCardImagesPosition'                  => 1,
             'fullCardDatePosition'                    => 1,
         ];
     }
@@ -177,7 +176,6 @@ class AbstractDesignRecordModelDuplicateTest extends AbstractDuplicateModelTest
                 'size' => 20
             ],
             'shortCardViewType'                       => 1,
-            'fullCardImagesPosition'                  => 1,
             'fullCardDatePosition'                    => 1,
         ];
     }

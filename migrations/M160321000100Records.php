@@ -71,8 +71,6 @@ class M160321000100Records extends AbstractMigration
                     => self::TYPE_FK,
                     'fullCardTextDesignBlockId'
                     => self::TYPE_FK,
-                    'fullCardImagesPosition'
-                    => self::TYPE_TINYINT_UNSIGNED,
                     'fullCardDatePosition'
                     => self::TYPE_TINYINT_UNSIGNED,
                 ]
