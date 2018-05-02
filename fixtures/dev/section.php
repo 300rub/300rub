@@ -62,8 +62,8 @@ return [
     ],
     9 => [
         'seoModel'      => [
-            'name' => 'Pagination',
-            'url'  => 'records-pagination'
+            'name' => 'Autoload',
+            'url'  => 'records-autoload'
         ],
         'language' => Language::LANGUAGE_EN_ID,
     ],
@@ -78,6 +78,13 @@ return [
         'seoModel'      => [
             'name' => 'Stylised',
             'url'  => 'stylised-text'
+        ],
+        'language' => Language::LANGUAGE_EN_ID,
+    ],
+    12 => [
+        'seoModel'      => [
+            'name' => 'Pagination',
+            'url'  => 'records-pagination'
         ],
         'language' => Language::LANGUAGE_EN_ID,
     ],

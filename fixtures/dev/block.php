@@ -35,7 +35,7 @@ return [
         'contentId'   => 4,
     ],
     6 => [
-        'name'        => 'Record pagination',
+        'name'        => 'Record autoload',
         'language'    => Language::LANGUAGE_EN_ID,
         'contentType' => BlockModel::TYPE_RECORD,
         'contentId'   => 1,
@@ -50,6 +50,12 @@ return [
         'name'        => 'Stylised text',
         'language'    => Language::LANGUAGE_EN_ID,
         'contentType' => BlockModel::TYPE_TEXT,
+        'contentId'   => 2,
+    ],
+    9 => [
+        'name'        => 'Record pagination',
+        'language'    => Language::LANGUAGE_EN_ID,
+        'contentType' => BlockModel::TYPE_RECORD,
         'contentId'   => 2,
     ],
 ];

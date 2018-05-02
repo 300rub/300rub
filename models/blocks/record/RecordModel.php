@@ -60,7 +60,11 @@ class RecordModel extends AbstractRecordModel
         $this->_setParametersFromUri();
 
         if ($this->_recordUri !== null) {
-            return $this->_getInstance();
+            $instance = $this->_getInstance();
+
+            if ($instance !== null) {
+                return $instance;
+            }
         }
 
         return 'record list';
@@ -81,14 +85,7 @@ class RecordModel extends AbstractRecordModel
             ->find();
 
         if ($recordInstance === null) {
-            throw new NotFoundException(
-                'Unable to find record instance ' .
-                'with URI: {uri} and record ID: {recordId}',
-                [
-                    'uri'      => $this->_recordUri,
-                    'recordId' => $this->getId()
-                ]
-            );
+            return null;
         }
 
         $imagesHtml = '';
