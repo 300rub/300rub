@@ -6,6 +6,7 @@ use ss\models\blocks\record\RecordModel;
 return [
     1 => [
         'imagesImageId'     => 5,
+        'coverImageId'      => 7,
         'designRecordModel' => [
             'fullCardTitleDesignBlockModel' => [
                 'marginBottom' => 20
@@ -36,6 +37,7 @@ return [
     ],
     2 => [
         'imagesImageId'     => 6,
+        'coverImageId'      => 8,
         'designRecordModel' => [
             'fullCardTitleDesignBlockModel' => [
                 'marginBottom' => 20

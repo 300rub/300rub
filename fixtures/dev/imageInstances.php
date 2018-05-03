@@ -311,4 +311,76 @@ return [
             'imageGroupId' => 29
         ],
     ],
+    35 => [
+        'group'      => 'image',
+        'controller' => 'image',
+        'file'       => 'mediumImage.png',
+        'data'       => [
+            'blockId'      => 5,
+            'imageGroupId' => 30
+        ],
+    ],
+    36 => [
+        'group'      => 'image',
+        'controller' => 'image',
+        'file'       => 'mediumImage.png',
+        'data'       => [
+            'blockId'      => 5,
+            'imageGroupId' => 30
+        ],
+    ],
+    37 => [
+        'group'      => 'image',
+        'controller' => 'image',
+        'file'       => 'mediumImage.png',
+        'data'       => [
+            'blockId'      => 5,
+            'imageGroupId' => 30
+        ],
+    ],
+    38 => [
+        'group'      => 'image',
+        'controller' => 'image',
+        'file'       => 'mediumImage.png',
+        'data'       => [
+            'blockId'      => 5,
+            'imageGroupId' => 30
+        ],
+    ],
+    39 => [
+        'group'      => 'image',
+        'controller' => 'image',
+        'file'       => 'mediumImage.png',
+        'data'       => [
+            'blockId'      => 5,
+            'imageGroupId' => 31
+        ],
+    ],
+    40 => [
+        'group'      => 'image',
+        'controller' => 'image',
+        'file'       => 'mediumImage.png',
+        'data'       => [
+            'blockId'      => 5,
+            'imageGroupId' => 31
+        ],
+    ],
+    41 => [
+        'group'      => 'image',
+        'controller' => 'image',
+        'file'       => 'mediumImage.png',
+        'data'       => [
+            'blockId'      => 5,
+            'imageGroupId' => 31
+        ],
+    ],
+    42 => [
+        'group'      => 'image',
+        'controller' => 'image',
+        'file'       => 'mediumImage.png',
+        'data'       => [
+            'blockId'      => 5,
+            'imageGroupId' => 31
+        ],
+    ],
 ];

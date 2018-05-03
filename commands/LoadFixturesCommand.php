@@ -42,8 +42,6 @@ class LoadFixturesCommand extends AbstractCommand
             => '\\ss\\models\\blocks\\image\\ImageGroupModel',
         'record'
             => '\\ss\\models\\blocks\\record\\RecordModel',
-        'recordInstance'
-            => '\\ss\\models\\blocks\\record\\RecordInstanceModel',
         'recordClone'
             => '\\ss\\models\\blocks\\record\\RecordCloneModel',
         'menu'
@@ -142,11 +140,6 @@ class LoadFixturesCommand extends AbstractCommand
 
                 $records = include $filePath;
                 foreach ($records as $record) {
-                    if ($fixture === 'recordInstance') {
-                        $this->_saveRecordInstance($record);
-                        continue;
-                    }
-
                     $this
                         ->_getModelByName($modelName)
                         ->set($record)
@@ -156,39 +149,49 @@ class LoadFixturesCommand extends AbstractCommand
 
             $this->_uploadImages($type, $site);
 
+            $this->_saveRecordInstances($type);
+
             $dbObject->execute('SET GLOBAL FOREIGN_KEY_CHECKS=1;');
         }
     }
 
     /**
-     * Updates record instance
+     * Saves record instance
      *
-     * @param array $data Data
+     * @param string $type Type
      *
      * @return void
      */
-    private function _saveRecordInstance($data)
+    private function _saveRecordInstances($type)
     {
-        $model = new RecordInstanceModel();
-        $model->set(
-            [
-                'recordId' => $data['recordId'],
-                'seoModel' => $data['seoModel']
-            ]
-        );
-        $model->save();
+        $filePath = __DIR__ .
+            '/../fixtures/' .
+            $type .
+            '/recordInstance.php';
 
-        $model->set($data)->save();
-
-        if (array_key_exists('imageGroupId', $data) === true) {
-            $dbObject = App::getInstance()->getDb();
-            $dbObject->execute(
-                'UPDATE ' . 'recordInstances SET imageGroupId = ? WHERE id = ?',
+        $records = include $filePath;
+        foreach ($records as $data) {
+            $model = new RecordInstanceModel();
+            $model->set(
                 [
-                    $data['imageGroupId'],
-                    $model->getId()
+                    'recordId' => $data['recordId'],
+                    'seoModel' => $data['seoModel']
                 ]
             );
+            $model->save();
+
+            $model->set($data)->save();
+
+            if (array_key_exists('imageGroupId', $data) === true) {
+                $dbObject = App::getInstance()->getDb();
+                $dbObject->execute(
+                    'UPDATE ' . 'recordInstances SET imageGroupId = ? WHERE id = ?',
+                    [
+                        $data['imageGroupId'],
+                        $model->getId()
+                    ]
+                );
+            }
         }
     }
 

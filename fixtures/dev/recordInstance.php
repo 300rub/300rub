@@ -10,7 +10,8 @@ return [
         'textTextInstanceModel' => [
             'text' => 'Text 1'
         ],
-        'imageGroupId' => 6
+        'imageGroupId' => 6,
+        'coverImageInstanceId' => 35,
     ],
     2 => [
         'recordId' => 1,
@@ -21,7 +22,8 @@ return [
         'textTextInstanceModel' => [
             'text' => 'Text 2'
         ],
-        'imageGroupId' => 7
+        'imageGroupId' => 7,
+        'coverImageInstanceId' => 36,
     ],
     3 => [
         'recordId' => 1,
@@ -32,7 +34,8 @@ return [
         'textTextInstanceModel' => [
             'text' => 'Text 3'
         ],
-        'imageGroupId' => 8
+        'imageGroupId' => 8,
+        'coverImageInstanceId' => 37,
     ],
     4 => [
         'recordId' => 1,
@@ -43,7 +46,8 @@ return [
         'textTextInstanceModel' => [
             'text' => 'Text 4'
         ],
-        'imageGroupId' => 9
+        'imageGroupId' => 9,
+        'coverImageInstanceId' => 38,
     ],
     5 => [
         'recordId' => 1,
@@ -142,7 +146,8 @@ return [
         'textTextInstanceModel' => [
             'text' => 'Text 13'
         ],
-        'imageGroupId' => 18
+        'imageGroupId' => 18,
+        'coverImageInstanceId' => 39,
     ],
     14 => [
         'recordId' => 2,
@@ -153,7 +158,8 @@ return [
         'textTextInstanceModel' => [
             'text' => 'Text 14'
         ],
-        'imageGroupId' => 19
+        'imageGroupId' => 19,
+        'coverImageInstanceId' => 40,
     ],
     15 => [
         'recordId' => 2,
@@ -164,7 +170,8 @@ return [
         'textTextInstanceModel' => [
             'text' => 'Text 15'
         ],
-        'imageGroupId' => 20
+        'imageGroupId' => 20,
+        'coverImageInstanceId' => 41,
     ],
     16 => [
         'recordId' => 2,
@@ -175,7 +182,8 @@ return [
         'textTextInstanceModel' => [
             'text' => 'Text 16'
         ],
-        'imageGroupId' => 21
+        'imageGroupId' => 21,
+        'coverImageInstanceId' => 42,
     ],
     17 => [
         'recordId' => 2,

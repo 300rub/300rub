@@ -185,4 +185,16 @@ return [
             'name' => 'record-instance-album-24',
         ],
     ],
+    30 => [
+        'imageId'  => 7,
+        'seoModel' => [
+            'name' => 'record-album-1',
+        ],
+    ],
+    31 => [
+        'imageId'  => 8,
+        'seoModel' => [
+            'name' => 'record-album-2',
+        ],
+    ],
 ];
