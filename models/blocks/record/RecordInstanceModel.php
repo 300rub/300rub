@@ -2,6 +2,7 @@
 
 namespace ss\models\blocks\record;
 
+use ss\application\App;
 use ss\application\components\Db;
 use ss\models\blocks\image\ImageGroupModel;
 use ss\models\blocks\record\_base\AbstractRecordInstanceModel;
@@ -148,5 +149,19 @@ class RecordInstanceModel extends AbstractRecordInstanceModel
     public function getName()
     {
         return $this->get('seoModel')->get('name');
+    }
+
+    /**
+     * Gets URI
+     *
+     * @return string
+     */
+    public function getUri()
+    {
+        return sprintf(
+            '%s/%s',
+            App::getInstance()->getSite()->getActiveSectionUri(),
+            $this->get('seoModel')->get('url')
+        );
     }
 }

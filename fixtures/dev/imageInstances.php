@@ -98,7 +98,7 @@ return [
     11 => [
         'group'      => 'image',
         'controller' => 'image',
-        'file'       => 'mediumImage.jpg',
+        'file'       => 'slider1.jpg',
         'data'       => [
             'blockId'      => 5,
             'imageGroupId' => 6
@@ -107,7 +107,7 @@ return [
     12 => [
         'group'      => 'image',
         'controller' => 'image',
-        'file'       => 'mediumImage.jpg',
+        'file'       => 'slider1.jpg',
         'data'       => [
             'blockId'      => 5,
             'imageGroupId' => 7
@@ -116,7 +116,7 @@ return [
     13 => [
         'group'      => 'image',
         'controller' => 'image',
-        'file'       => 'mediumImage.jpg',
+        'file'       => 'slider1.jpg',
         'data'       => [
             'blockId'      => 5,
             'imageGroupId' => 8
@@ -125,7 +125,7 @@ return [
     14 => [
         'group'      => 'image',
         'controller' => 'image',
-        'file'       => 'mediumImage.jpg',
+        'file'       => 'slider1.jpg',
         'data'       => [
             'blockId'      => 5,
             'imageGroupId' => 9
@@ -134,7 +134,7 @@ return [
     15 => [
         'group'      => 'image',
         'controller' => 'image',
-        'file'       => 'mediumImage.jpg',
+        'file'       => 'slider1.jpg',
         'data'       => [
             'blockId'      => 5,
             'imageGroupId' => 10
@@ -143,7 +143,7 @@ return [
     16 => [
         'group'      => 'image',
         'controller' => 'image',
-        'file'       => 'mediumImage.jpg',
+        'file'       => 'slider1.jpg',
         'data'       => [
             'blockId'      => 5,
             'imageGroupId' => 11
@@ -152,7 +152,7 @@ return [
     17 => [
         'group'      => 'image',
         'controller' => 'image',
-        'file'       => 'mediumImage.jpg',
+        'file'       => 'slider1.jpg',
         'data'       => [
             'blockId'      => 5,
             'imageGroupId' => 12
@@ -161,7 +161,7 @@ return [
     18 => [
         'group'      => 'image',
         'controller' => 'image',
-        'file'       => 'mediumImage.jpg',
+        'file'       => 'slider1.jpg',
         'data'       => [
             'blockId'      => 5,
             'imageGroupId' => 13
@@ -170,7 +170,7 @@ return [
     19 => [
         'group'      => 'image',
         'controller' => 'image',
-        'file'       => 'mediumImage.jpg',
+        'file'       => 'slider1.jpg',
         'data'       => [
             'blockId'      => 5,
             'imageGroupId' => 14
@@ -179,7 +179,7 @@ return [
     20 => [
         'group'      => 'image',
         'controller' => 'image',
-        'file'       => 'mediumImage.jpg',
+        'file'       => 'slider1.jpg',
         'data'       => [
             'blockId'      => 5,
             'imageGroupId' => 15
@@ -188,7 +188,7 @@ return [
     21 => [
         'group'      => 'image',
         'controller' => 'image',
-        'file'       => 'mediumImage.jpg',
+        'file'       => 'slider1.jpg',
         'data'       => [
             'blockId'      => 5,
             'imageGroupId' => 16
@@ -197,7 +197,7 @@ return [
     22 => [
         'group'      => 'image',
         'controller' => 'image',
-        'file'       => 'mediumImage.jpg',
+        'file'       => 'slider1.jpg',
         'data'       => [
             'blockId'      => 5,
             'imageGroupId' => 17
@@ -206,7 +206,7 @@ return [
     23 => [
         'group'      => 'image',
         'controller' => 'image',
-        'file'       => 'mediumImage.jpg',
+        'file'       => 'slider2.jpg',
         'data'       => [
             'blockId'      => 5,
             'imageGroupId' => 18
@@ -215,7 +215,7 @@ return [
     24 => [
         'group'      => 'image',
         'controller' => 'image',
-        'file'       => 'mediumImage.jpg',
+        'file'       => 'slider2.jpg',
         'data'       => [
             'blockId'      => 5,
             'imageGroupId' => 19
@@ -224,7 +224,7 @@ return [
     25 => [
         'group'      => 'image',
         'controller' => 'image',
-        'file'       => 'mediumImage.jpg',
+        'file'       => 'slider2.jpg',
         'data'       => [
             'blockId'      => 5,
             'imageGroupId' => 20
@@ -233,7 +233,7 @@ return [
     26 => [
         'group'      => 'image',
         'controller' => 'image',
-        'file'       => 'mediumImage.jpg',
+        'file'       => 'slider2.jpg',
         'data'       => [
             'blockId'      => 5,
             'imageGroupId' => 21
@@ -242,7 +242,7 @@ return [
     27 => [
         'group'      => 'image',
         'controller' => 'image',
-        'file'       => 'mediumImage.jpg',
+        'file'       => 'slider2.jpg',
         'data'       => [
             'blockId'      => 5,
             'imageGroupId' => 22
@@ -251,7 +251,7 @@ return [
     28 => [
         'group'      => 'image',
         'controller' => 'image',
-        'file'       => 'mediumImage.jpg',
+        'file'       => 'slider2.jpg',
         'data'       => [
             'blockId'      => 5,
             'imageGroupId' => 23
@@ -260,7 +260,7 @@ return [
     29 => [
         'group'      => 'image',
         'controller' => 'image',
-        'file'       => 'mediumImage.jpg',
+        'file'       => 'slider2.jpg',
         'data'       => [
             'blockId'      => 5,
             'imageGroupId' => 24
@@ -269,7 +269,7 @@ return [
     30 => [
         'group'      => 'image',
         'controller' => 'image',
-        'file'       => 'mediumImage.jpg',
+        'file'       => 'slider2.jpg',
         'data'       => [
             'blockId'      => 5,
             'imageGroupId' => 25
@@ -278,7 +278,7 @@ return [
     31 => [
         'group'      => 'image',
         'controller' => 'image',
-        'file'       => 'mediumImage.jpg',
+        'file'       => 'slider2.jpg',
         'data'       => [
             'blockId'      => 5,
             'imageGroupId' => 26
@@ -287,7 +287,7 @@ return [
     32 => [
         'group'      => 'image',
         'controller' => 'image',
-        'file'       => 'mediumImage.jpg',
+        'file'       => 'slider2.jpg',
         'data'       => [
             'blockId'      => 5,
             'imageGroupId' => 27
@@ -296,7 +296,7 @@ return [
     33 => [
         'group'      => 'image',
         'controller' => 'image',
-        'file'       => 'mediumImage.jpg',
+        'file'       => 'slider2.jpg',
         'data'       => [
             'blockId'      => 5,
             'imageGroupId' => 28
@@ -305,7 +305,7 @@ return [
     34 => [
         'group'      => 'image',
         'controller' => 'image',
-        'file'       => 'mediumImage.jpg',
+        'file'       => 'slider2.jpg',
         'data'       => [
             'blockId'      => 5,
             'imageGroupId' => 29
@@ -314,7 +314,7 @@ return [
     35 => [
         'group'      => 'image',
         'controller' => 'image',
-        'file'       => 'mediumImage.png',
+        'file'       => 'mediumImage.jpg',
         'data'       => [
             'blockId'      => 5,
             'imageGroupId' => 30
@@ -323,7 +323,7 @@ return [
     36 => [
         'group'      => 'image',
         'controller' => 'image',
-        'file'       => 'mediumImage.png',
+        'file'       => 'mediumImage.jpg',
         'data'       => [
             'blockId'      => 5,
             'imageGroupId' => 30
@@ -332,7 +332,7 @@ return [
     37 => [
         'group'      => 'image',
         'controller' => 'image',
-        'file'       => 'mediumImage.png',
+        'file'       => 'mediumImage.jpg',
         'data'       => [
             'blockId'      => 5,
             'imageGroupId' => 30
@@ -341,7 +341,7 @@ return [
     38 => [
         'group'      => 'image',
         'controller' => 'image',
-        'file'       => 'mediumImage.png',
+        'file'       => 'mediumImage.jpg',
         'data'       => [
             'blockId'      => 5,
             'imageGroupId' => 30
@@ -350,7 +350,7 @@ return [
     39 => [
         'group'      => 'image',
         'controller' => 'image',
-        'file'       => 'mediumImage.png',
+        'file'       => 'mediumImage.jpg',
         'data'       => [
             'blockId'      => 5,
             'imageGroupId' => 31
@@ -359,7 +359,7 @@ return [
     40 => [
         'group'      => 'image',
         'controller' => 'image',
-        'file'       => 'mediumImage.png',
+        'file'       => 'mediumImage.jpg',
         'data'       => [
             'blockId'      => 5,
             'imageGroupId' => 31
@@ -368,7 +368,7 @@ return [
     41 => [
         'group'      => 'image',
         'controller' => 'image',
-        'file'       => 'mediumImage.png',
+        'file'       => 'mediumImage.jpg',
         'data'       => [
             'blockId'      => 5,
             'imageGroupId' => 31
@@ -377,7 +377,7 @@ return [
     42 => [
         'group'      => 'image',
         'controller' => 'image',
-        'file'       => 'mediumImage.png',
+        'file'       => 'mediumImage.jpg',
         'data'       => [
             'blockId'      => 5,
             'imageGroupId' => 31

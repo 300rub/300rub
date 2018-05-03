@@ -10,6 +10,9 @@ return [
         'textTextInstanceModel' => [
             'text' => 'Text 1'
         ],
+        'descriptionTextInstanceModel' => [
+            'text' => 'Description 1'
+        ],
         'imageGroupId' => 6,
         'coverImageInstanceId' => 35,
     ],
@@ -21,6 +24,9 @@ return [
         ],
         'textTextInstanceModel' => [
             'text' => 'Text 2'
+        ],
+        'descriptionTextInstanceModel' => [
+            'text' => 'Description 2'
         ],
         'imageGroupId' => 7,
         'coverImageInstanceId' => 36,
@@ -34,6 +40,9 @@ return [
         'textTextInstanceModel' => [
             'text' => 'Text 3'
         ],
+        'descriptionTextInstanceModel' => [
+            'text' => 'Description 3'
+        ],
         'imageGroupId' => 8,
         'coverImageInstanceId' => 37,
     ],
@@ -45,6 +54,9 @@ return [
         ],
         'textTextInstanceModel' => [
             'text' => 'Text 4'
+        ],
+        'descriptionTextInstanceModel' => [
+            'text' => 'Description 4'
         ],
         'imageGroupId' => 9,
         'coverImageInstanceId' => 38,
@@ -58,6 +70,9 @@ return [
         'textTextInstanceModel' => [
             'text' => 'Text 5'
         ],
+        'descriptionTextInstanceModel' => [
+            'text' => 'Description 5'
+        ],
         'imageGroupId' => 10
     ],
     6 => [
@@ -68,6 +83,9 @@ return [
         ],
         'textTextInstanceModel' => [
             'text' => 'Text 6'
+        ],
+        'descriptionTextInstanceModel' => [
+            'text' => 'Description 6'
         ],
         'imageGroupId' => 11
     ],
@@ -80,6 +98,9 @@ return [
         'textTextInstanceModel' => [
             'text' => 'Text 7'
         ],
+        'descriptionTextInstanceModel' => [
+            'text' => 'Description 7'
+        ],
         'imageGroupId' => 12
     ],
     8 => [
@@ -90,6 +111,9 @@ return [
         ],
         'textTextInstanceModel' => [
             'text' => 'Text 8'
+        ],
+        'descriptionTextInstanceModel' => [
+            'text' => 'Description 8'
         ],
         'imageGroupId' => 13
     ],
@@ -102,6 +126,9 @@ return [
         'textTextInstanceModel' => [
             'text' => 'Text 9'
         ],
+        'descriptionTextInstanceModel' => [
+            'text' => 'Description 9'
+        ],
         'imageGroupId' => 14
     ],
     10 => [
@@ -112,6 +139,9 @@ return [
         ],
         'textTextInstanceModel' => [
             'text' => 'Text 10'
+        ],
+        'descriptionTextInstanceModel' => [
+            'text' => 'Description 10'
         ],
         'imageGroupId' => 15
     ],
@@ -124,6 +154,9 @@ return [
         'textTextInstanceModel' => [
             'text' => 'Text 11'
         ],
+        'descriptionTextInstanceModel' => [
+            'text' => 'Description 11'
+        ],
         'imageGroupId' => 16
     ],
     12 => [
@@ -135,6 +168,9 @@ return [
         'textTextInstanceModel' => [
             'text' => 'Text 12'
         ],
+        'descriptionTextInstanceModel' => [
+            'text' => 'Description 12'
+        ],
         'imageGroupId' => 17
     ],
     13 => [
@@ -145,6 +181,9 @@ return [
         ],
         'textTextInstanceModel' => [
             'text' => 'Text 13'
+        ],
+        'descriptionTextInstanceModel' => [
+            'text' => 'Description 13'
         ],
         'imageGroupId' => 18,
         'coverImageInstanceId' => 39,
@@ -158,6 +197,9 @@ return [
         'textTextInstanceModel' => [
             'text' => 'Text 14'
         ],
+        'descriptionTextInstanceModel' => [
+            'text' => 'Description 14'
+        ],
         'imageGroupId' => 19,
         'coverImageInstanceId' => 40,
     ],
@@ -169,6 +211,9 @@ return [
         ],
         'textTextInstanceModel' => [
             'text' => 'Text 15'
+        ],
+        'descriptionTextInstanceModel' => [
+            'text' => 'Description 15'
         ],
         'imageGroupId' => 20,
         'coverImageInstanceId' => 41,
@@ -182,6 +227,9 @@ return [
         'textTextInstanceModel' => [
             'text' => 'Text 16'
         ],
+        'descriptionTextInstanceModel' => [
+            'text' => 'Description 16'
+        ],
         'imageGroupId' => 21,
         'coverImageInstanceId' => 42,
     ],
@@ -194,6 +242,9 @@ return [
         'textTextInstanceModel' => [
             'text' => 'Text 17'
         ],
+        'descriptionTextInstanceModel' => [
+            'text' => 'Description 17'
+        ],
         'imageGroupId' => 22
     ],
     18 => [
@@ -204,6 +255,9 @@ return [
         ],
         'textTextInstanceModel' => [
             'text' => 'Text 18'
+        ],
+        'descriptionTextInstanceModel' => [
+            'text' => 'Description 18'
         ],
         'imageGroupId' => 23
     ],
@@ -216,6 +270,9 @@ return [
         'textTextInstanceModel' => [
             'text' => 'Text 19'
         ],
+        'descriptionTextInstanceModel' => [
+            'text' => 'Description 19'
+        ],
         'imageGroupId' => 24
     ],
     20 => [
@@ -226,6 +283,9 @@ return [
         ],
         'textTextInstanceModel' => [
             'text' => 'Text 20'
+        ],
+        'descriptionTextInstanceModel' => [
+            'text' => 'Description 20'
         ],
         'imageGroupId' => 25
     ],
@@ -238,6 +298,9 @@ return [
         'textTextInstanceModel' => [
             'text' => 'Text 21'
         ],
+        'descriptionTextInstanceModel' => [
+            'text' => 'Description 21'
+        ],
         'imageGroupId' => 26
     ],
     22 => [
@@ -248,6 +311,9 @@ return [
         ],
         'textTextInstanceModel' => [
             'text' => 'Text 22'
+        ],
+        'descriptionTextInstanceModel' => [
+            'text' => 'Description 22'
         ],
         'imageGroupId' => 27
     ],
@@ -260,6 +326,9 @@ return [
         'textTextInstanceModel' => [
             'text' => 'Text 23'
         ],
+        'descriptionTextInstanceModel' => [
+            'text' => 'Description 23'
+        ],
         'imageGroupId' => 28
     ],
     24 => [
@@ -270,6 +339,9 @@ return [
         ],
         'textTextInstanceModel' => [
             'text' => 'Text 24'
+        ],
+        'descriptionTextInstanceModel' => [
+            'text' => 'Description 24'
         ],
         'imageGroupId' => 29
     ],
