@@ -29,6 +29,13 @@ class SiteModel extends AbstractSiteModel
     private $_uri = '';
 
     /**
+     * Parameters
+     *
+     * @var array
+     */
+    private $_parameters = [];
+
+    /**
      * Active section
      *
      * @var SectionModel
@@ -139,8 +146,18 @@ class SiteModel extends AbstractSiteModel
      */
     public function setUri($uri)
     {
+        if (strpos($uri, '?') === false) {
+            $this->_uri = trim($uri, '/');
+            return $this;
+        }
+
+        list($uri, $parameters) = explode('?', $uri);
+
+        parse_str($parameters, $parsedParameters);
+
         $this->_uri = trim($uri, '/');
-        ;
+        $this->_parameters = $parsedParameters;
+
         return $this;
     }
 
@@ -170,6 +187,36 @@ class SiteModel extends AbstractSiteModel
         $explode = explode('/', $this->_uri);
         if (array_key_exists($part, $explode) === true) {
             return $explode[$part];
+        }
+
+        return null;
+    }
+
+    /**
+     * Gets parameter
+     *
+     * @param int    $blockId Block ID
+     * @param string $name    Parameter name
+     *
+     * @return mixed
+     */
+    public function getParameter($blockId, $name = null)
+    {
+        if ($name === null) {
+            if (array_key_exists('block', $this->_parameters) === false
+                || (int)$blockId !== (int)$this->_parameters['block']
+            ) {
+                return null;
+            }
+
+            return $this->_parameters;
+        }
+
+        if (array_key_exists($name, $this->_parameters) === true
+            && array_key_exists('block', $this->_parameters) === true
+            && (int)$blockId === (int)$this->_parameters['block']
+        ) {
+            return $this->_parameters[$name];
         }
 
         return null;

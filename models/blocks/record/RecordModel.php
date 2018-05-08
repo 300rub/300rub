@@ -18,6 +18,11 @@ class RecordModel extends AbstractRecordModel
     const CLASS_NAME = '\\ss\\models\\blocks\\record\\RecordModel';
 
     /**
+     * Default page size
+     */
+    const DEFAULT_PAGE_SIZE = 10;
+
+    /**
      * Page number
      *
      * @var integer
@@ -47,7 +52,7 @@ class RecordModel extends AbstractRecordModel
      */
     public function getCacheType()
     {
-        return self::CACHED_BY_URI;
+        return self::NO_CACHE;
     }
 
     /**
@@ -170,6 +175,12 @@ class RecordModel extends AbstractRecordModel
     {
         $recordInstances = RecordInstanceModel::model()
             ->byRecordId($this->getId())
+            ->limit(
+                $this->_getPageNavigationSize(),
+                App::getInstance()
+                    ->getSite()
+                    ->getParameter($this->getBlockId(), 'page')
+            )
             ->findAll();
 
         return App::getInstance()->getView()->get(
@@ -289,5 +300,21 @@ class RecordModel extends AbstractRecordModel
         }
 
         return $this->_dateFormats[self::DATE_TYPE_COMMON];
+    }
+
+    /**
+     * Gets default page size
+     *
+     * @return int
+     */
+    private function _getPageNavigationSize()
+    {
+        $size = $this->get('pageNavigationSize');
+
+        if ($size === 0) {
+            return self::DEFAULT_PAGE_SIZE;
+        }
+
+        return $size;
     }
 }

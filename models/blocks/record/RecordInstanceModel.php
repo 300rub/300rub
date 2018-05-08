@@ -69,6 +69,28 @@ class RecordInstanceModel extends AbstractRecordInstanceModel
     }
 
     /**
+     * Sets limit
+     *
+     * @param int $limit Limit
+     * @param int $page  Page
+     *
+     * @return RecordInstanceModel
+     */
+    public function limit($limit, $page = 1)
+    {
+        $page = (int)$page;
+        if ($page < 1) {
+            $page = 1;
+        }
+
+        $this->getDb()->setLimit(
+            sprintf('%s, %s', (($page - 1) * $limit), $limit)
+        );
+
+        return $this;
+    }
+
+    /**
      * Runs before save
      *
      * @return void
