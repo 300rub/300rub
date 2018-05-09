@@ -6,6 +6,7 @@
  * @var int                                            $blockId
  * @var \ss\models\blocks\record\RecordModel           $record
  * @var \ss\models\blocks\record\RecordInstanceModel[] $recordInstances
+ * @var string                                         $pagination
  */
 
 echo sprintf('<div class="block-%s">', $blockId);
@@ -59,5 +60,7 @@ foreach ($recordInstances as $recordInstance) {
 
     echo '</div>';
 }
+
+echo $pagination;
 
 echo '</div>';

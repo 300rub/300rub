@@ -173,13 +173,15 @@ class RecordModel extends AbstractRecordModel
      */
     private function _getListHtml()
     {
+        $page = App::getInstance()
+            ->getSite()
+            ->getParameter($this->getBlockId(), 'page');
+
         $recordInstances = RecordInstanceModel::model()
             ->byRecordId($this->getId())
             ->limit(
                 $this->_getPageNavigationSize(),
-                App::getInstance()
-                    ->getSite()
-                    ->getParameter($this->getBlockId(), 'page')
+                $page
             )
             ->findAll();
 
@@ -189,6 +191,32 @@ class RecordModel extends AbstractRecordModel
                 'record'          => $this,
                 'blockId'         => $this->getBlockId(),
                 'recordInstances' => $recordInstances,
+                'pagination'      => $this->_getPagination(),
+            ]
+        );
+    }
+
+    private function _getPagination()
+    {
+        $count = RecordInstanceModel::model()
+            ->byRecordId($this->getId())
+            ->getCount();
+
+        $site = App::getInstance()->getSite();
+        $blockId = $this->getBlockId();
+
+        $currentPage = $site->getParameter($blockId, 'page');
+
+        $pageNavigationSize = $this->_getPageNavigationSize();
+
+        return App::getInstance()->getView()->get(
+            'content/_partials/pagination',
+            [
+                'lastPage'    => ceil($count / $pageNavigationSize),
+                'currentPage' => $currentPage,
+                'blockId'     => $blockId,
+                'parameters'  => $site->getParameter($blockId),
+                'url'         => $site->getActiveSectionUri()
             ]
         );
     }
