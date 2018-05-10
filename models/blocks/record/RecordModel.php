@@ -3,6 +3,7 @@
 namespace ss\models\blocks\record;
 
 use ss\application\App;
+use ss\application\components\Pagination;
 use ss\application\exceptions\NotFoundException;
 use ss\models\blocks\record\_base\AbstractRecordModel;
 
@@ -196,29 +197,30 @@ class RecordModel extends AbstractRecordModel
         );
     }
 
+    /**
+     * Gets pagination
+     *
+     * @return string
+     */
     private function _getPagination()
     {
         $count = RecordInstanceModel::model()
             ->byRecordId($this->getId())
             ->getCount();
-
         $site = App::getInstance()->getSite();
         $blockId = $this->getBlockId();
-
         $currentPage = $site->getParameter($blockId, 'page');
-
         $pageNavigationSize = $this->_getPageNavigationSize();
 
-        return App::getInstance()->getView()->get(
-            'content/_partials/pagination',
-            [
-                'lastPage'    => ceil($count / $pageNavigationSize),
-                'currentPage' => $currentPage,
-                'blockId'     => $blockId,
-                'parameters'  => $site->getParameter($blockId),
-                'url'         => $site->getActiveSectionUri()
-            ]
-        );
+        $pagination = new Pagination();
+        $pagination
+            ->setBlockId($blockId)
+            ->setCurrentPage($currentPage)
+            ->setLastPage(ceil($count / $pageNavigationSize))
+            ->setParameters($site->getParameter($blockId))
+            ->setUrl($site->getActiveSectionUri());
+
+        return $pagination->getHtml();
     }
 
     /**
