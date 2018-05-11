@@ -23,6 +23,13 @@
         _language: 0,
 
         /**
+         * Section ID
+         *
+         * @var {number}
+         */
+        _sectionId: 0,
+
+        /**
          * Token
          *
          * @var {String}
@@ -34,7 +41,7 @@
          *
          * @param {Object} object
          *
-         * @returns {ss}
+         * @returns {ss.system.App}
          */
         append: function (object) {
             this.getWrapper().append(object);
@@ -46,7 +53,7 @@
          *
          * @param {String} className
          *
-         * @return {ss}
+         * @return {ss.system.App}
          */
         remove: function (className) {
             this.getWrapper().find("." + className).remove();
@@ -71,7 +78,7 @@
          *
          * @param {number} language
          *
-         * @returns {ss}
+         * @returns {ss.system.App}
          */
         setLanguage: function (language) {
             this._language = language;
@@ -88,11 +95,32 @@
         },
 
         /**
+         * Sets section ID
+         *
+         * @param {number} sectionId
+         *
+         * @returns {ss.system.App}
+         */
+        setSectionId: function (sectionId) {
+            this._sectionId = sectionId;
+            return this;
+        },
+
+        /**
+         * Gets section ID
+         *
+         * @returns {number}
+         */
+        getSectionId: function () {
+            return this._sectionId;
+        },
+
+        /**
          * Sets token
          *
          * @param {String} token
          *
-         * @returns {ss}
+         * @returns {ss.system.App}
          */
         setToken: function (token) {
             this._token = token;

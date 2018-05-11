@@ -517,4 +517,18 @@ class SectionModel extends AbstractSectionModel
 
         return $this;
     }
+
+    /**
+     * Gets URL
+     *
+     * @return string
+     */
+    public function getUrl()
+    {
+        return sprintf(
+            '/%s/%s',
+            App::getInstance()->getLanguage()->getActiveAlias(),
+            $this->get('seoModel')->get('url')
+        );
+    }
 }

@@ -172,18 +172,4 @@ class RecordInstanceModel extends AbstractRecordInstanceModel
     {
         return $this->get('seoModel')->get('name');
     }
-
-    /**
-     * Gets URI
-     *
-     * @return string
-     */
-    public function getUri()
-    {
-        return sprintf(
-            '%s/%s',
-            App::getInstance()->getSite()->getActiveSectionUri(),
-            $this->get('seoModel')->get('url')
-        );
-    }
 }

@@ -27,6 +27,7 @@ class PageController extends AbstractPageController
         $sectionCss = [];
         $sectionJs = [];
         $isUser = $this->isUser();
+        $sectionId = 0;
 
         $this->_setSectionModel();
         $sectionModel = App::web()->getSite()->getActiveSection();
@@ -44,6 +45,7 @@ class PageController extends AbstractPageController
             $content = $this->_getCommonContent($sectionModel);
             $sectionCss = $sectionModel->getCss();
             $sectionJs = $sectionModel->getJs();
+            $sectionId = $sectionModel->getId();
         }
 
         if ($isUser === true) {
@@ -70,6 +72,7 @@ class PageController extends AbstractPageController
         $layoutData['errorMessages']
             = App::web()->getValidator()->getErrorMessages();
         $layoutData['token'] = $token;
+        $layoutData['sectionId'] = $sectionId;
         $layoutData['isUser'] = $isUser;
         $layoutData['generatedCss'] = $sectionCss;
         $layoutData['generatedJs'] = $sectionJs;

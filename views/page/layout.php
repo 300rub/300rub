@@ -13,6 +13,7 @@
  * @var int      $language
  * @var array    $errorMessages
  * @var string   $token
+ * @var string   $sectionId
  * @var bool     $isUser
  * @var array    $generatedCss
  * @var array    $generatedJs
@@ -85,15 +86,14 @@ if (isset($js) === true) {
 <?php } ?>
 
     <script>
-        window.jQuery(document).ready(function() {
-            window.ss.system.App.setLanguage(<?php echo $language; ?>);
-            window.ss.system.App.setToken("<?php echo $token; ?>");
-            <?php foreach ($errorMessages as $key => $value) { ?>
-            ss.components.Error.set(
-                "<?php echo $key; ?>", "<?php echo $value; ?>"
-            );
-            <?php } ?>
-        });
+        window.ss.system.App.setLanguage(<?php echo $language; ?>);
+        window.ss.system.App.setToken("<?php echo $token; ?>");
+        window.ss.system.App.setSectionId(<?php echo $sectionId; ?>);
+        <?php foreach ($errorMessages as $key => $value) { ?>
+        ss.components.Error.set(
+            "<?php echo $key; ?>", "<?php echo $value; ?>"
+        );
+        <?php } ?>
     </script>
 </head>
 <body>

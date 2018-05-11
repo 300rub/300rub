@@ -252,10 +252,6 @@ class SiteModel extends AbstractSiteModel
      */
     public function getActiveSectionUri()
     {
-        return sprintf(
-            '/%s/%s',
-            App::getInstance()->getLanguage()->getActiveAlias(),
-            $this->getActiveSection()->get('seoModel')->get('url')
-        );
+        return $this->getActiveSection()->getUrl();
     }
 }

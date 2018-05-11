@@ -151,6 +151,7 @@ class RecordModel extends AbstractRecordModel
     public function generateJs()
     {
         $jsList = [];
+        $view = App::getInstance()->getView();
 
         if ($this->get('hasImages') === true) {
             $jsList = array_merge(
@@ -160,6 +161,19 @@ class RecordModel extends AbstractRecordModel
                         '.block-%s .full-card-images',
                         $this->getBlockId()
                     )
+                )
+            );
+        }
+
+        if ($this->get('useAutoload') === true) {
+            $jsList = array_merge(
+                $jsList,
+                $view->generateJs(
+                    'content/record/js/autoload',
+                    sprintf('.block-%s', $this->getBlockId()),
+                    [
+                        'blockId' => $this->getBlockId()
+                    ]
                 )
             );
         }
@@ -178,6 +192,36 @@ class RecordModel extends AbstractRecordModel
             ->getSite()
             ->getParameter($this->getBlockId(), 'page');
 
+        $pagination = '';
+        $useAutoload = $this->get('useAutoload');
+        if ($useAutoload === false) {
+            $pagination = $this->_getPagination();
+        }
+
+        return App::getInstance()->getView()->get(
+            'content/record/list',
+            [
+                'blockId'     => $this->getBlockId(),
+                'instances'   => $this->getInstancesHtml(
+                    $page,
+                    App::getInstance()->getSite()->getActiveSectionUri()
+                ),
+                'pagination'  => $pagination,
+                'useAutoload' => $useAutoload,
+            ]
+        );
+    }
+
+    /**
+     * Gets instances HTML
+     *
+     * @param int    $page    Page number
+     * @param string $urlBase URL base
+     *
+     * @return string
+     */
+    public function getInstancesHtml($page, $urlBase)
+    {
         $recordInstances = RecordInstanceModel::model()
             ->byRecordId($this->getId())
             ->limit(
@@ -187,12 +231,11 @@ class RecordModel extends AbstractRecordModel
             ->findAll();
 
         return App::getInstance()->getView()->get(
-            'content/record/list',
+            'content/record/instances',
             [
                 'record'          => $this,
-                'blockId'         => $this->getBlockId(),
                 'recordInstances' => $recordInstances,
-                'pagination'      => $this->_getPagination(),
+                'urlBase'         => $urlBase
             ]
         );
     }

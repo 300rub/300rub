@@ -23,6 +23,7 @@ return [
             'components/Template',
             'components/Error',
             'components/Ajax',
+            'components/Autoload',
             'system/App',
             'forms/Abstract',
             'forms/Button',
