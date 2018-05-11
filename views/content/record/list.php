@@ -18,7 +18,9 @@ if ($useAutoload === false) {
 }
 
 if ($useAutoload === true) {
-    echo '<div class="autoload">autoload</div>';
+    echo '<div class="autoload">';
+    echo '<i class="fas fa-sync fa-spin"></i>';
+    echo '</div>';
 }
 
 echo '</div>';

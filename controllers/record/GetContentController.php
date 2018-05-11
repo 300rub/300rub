@@ -21,15 +21,11 @@ class GetContentController extends AbstractController
      */
     public function run()
     {
-        $recordModel = $this->_getRecordModel();
-
-        $page = (int)$this->get('page');
-        $section = $this->_getSectionModel();
-
-        $html = $recordModel->getInstancesHtml($page, $section->getUrl());
-
         return [
-            'html' => $html
+            'html' => $this->_getRecordModel()->getInstancesHtml(
+                (int)$this->get('page'),
+                $this->_getSectionModel()->getUrl()
+            )
         ];
     }
 
