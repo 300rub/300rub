@@ -195,8 +195,15 @@ class ImageGroupModel extends AbstractImageGroupModel
         $imageModel = ImageModel::model()
             ->set(['id' => $this->get('imageId')]);
 
-        $imageModel->deleteCached(0);
-        $imageModel->deleteCached(-1);
-        $imageModel->deleteCached($this->getId());
+        $imageModel
+            ->deleteHtmlMemcached(
+                $imageModel->getHtmlMemcachedKey(0)
+            )
+            ->deleteHtmlMemcached(
+                $imageModel->getHtmlMemcachedKey(-1)
+            )
+            ->deleteHtmlMemcached(
+                $imageModel->getHtmlMemcachedKey($this->getId())
+            );
     }
 }

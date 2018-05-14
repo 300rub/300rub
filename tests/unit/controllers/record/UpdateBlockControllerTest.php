@@ -62,6 +62,8 @@ class UpdateBlockControllerTest extends AbstractControllerTest
             return true;
         }
 
+        var_dump($body);
+
         $this->assertArrayHasKey('html', $body);
         $this->assertArrayHasKey('css', $body);
         $this->assertArrayHasKey('js', $body);

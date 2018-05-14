@@ -160,7 +160,7 @@ class LoadFixturesCommand extends AbstractCommand
      *
      * @param string $type Type
      *
-     * @return void
+     * @return bool
      */
     private function _saveRecordInstances($type)
     {
@@ -168,6 +168,10 @@ class LoadFixturesCommand extends AbstractCommand
             '/../fixtures/' .
             $type .
             '/recordInstance.php';
+
+        if (file_exists($filePath) === false) {
+            return false;
+        }
 
         $records = include $filePath;
         foreach ($records as $data) {
@@ -193,6 +197,8 @@ class LoadFixturesCommand extends AbstractCommand
                 );
             }
         }
+
+        return true;
     }
 
     /**

@@ -17,11 +17,6 @@ class ImageModel extends AbstractImageModel
     const CLASS_NAME = '\\ss\\models\\blocks\\image\\ImageModel';
 
     /**
-     * Cache mask
-     */
-    const CACHE_MASK = 'image_%s_%s_html';
-
-    /**
      * Is fully cached
      *
      * @return boolean
@@ -38,57 +33,9 @@ class ImageModel extends AbstractImageModel
      *
      * @return string
      */
-    private function _getCacheKey($albumId)
+    public function getHtmlMemcachedKey($albumId)
     {
-        return sprintf(self::CACHE_MASK, $this->getId(), $albumId);
-    }
-
-    /**
-     * Gets cached
-     *
-     * @param int $albumId Album ID
-     *
-     * @return mixed
-     */
-    public function getCached($albumId)
-    {
-        return App::getInstance()->getMemcached()->get(
-            $this->_getCacheKey($albumId)
-        );
-    }
-
-    /**
-     * Sets cached
-     *
-     * @param int    $albumId Album ID
-     * @param string $html    HTML
-     *
-     * @return ImageModel
-     */
-    public function setCached($albumId, $html)
-    {
-        App::getInstance()->getMemcached()->set(
-            $this->_getCacheKey($albumId),
-            $html
-        );
-
-        return $this;
-    }
-
-    /**
-     * Deletes cached
-     *
-     * @param int $albumId Album ID
-     *
-     * @return ImageModel
-     */
-    public function deleteCached($albumId)
-    {
-        App::getInstance()->getMemcached()->delete(
-            $this->_getCacheKey($albumId)
-        );
-
-        return $this;
+        return sprintf('image_%s_%s_html', $this->getId(), $albumId);
     }
 
     /**
@@ -109,13 +56,27 @@ class ImageModel extends AbstractImageModel
             $albumId = $currentAlbum->getId();
         }
 
-        return App::getInstance()->getView()->get(
+        $cacheValue = $this->getHtmlMemcached(
+            $this->getHtmlMemcachedKey($albumId)
+        );
+        if ($cacheValue !== false) {
+            return $cacheValue;
+        }
+
+        $html = App::getInstance()->getView()->get(
             'content/block/block',
             [
                 'blockId' => $this->getBlockId(),
                 'content' => $this->getImageInstancesHtml($albumId)
             ]
         );
+
+        $this->setHtmlMemcached(
+            $this->getHtmlMemcachedKey($albumId),
+            $html
+        );
+
+        return $html;
     }
 
     /**
@@ -182,7 +143,9 @@ class ImageModel extends AbstractImageModel
      */
     private function _getImageGroupsHtml()
     {
-        $cacheValue = $this->getCached(-1);
+        $cacheValue = $this->getHtmlMemcached(
+            $this->getHtmlMemcachedKey(-1)
+        );
         if ($cacheValue !== false) {
             return $cacheValue;
         }
@@ -220,7 +183,10 @@ class ImageModel extends AbstractImageModel
             ]
         );
 
-        $this->setCached(-1, $html);
+        $this->setHtmlMemcached(
+            $this->getHtmlMemcachedKey(-1),
+            $html
+        );
 
         return $html;
     }
@@ -234,11 +200,6 @@ class ImageModel extends AbstractImageModel
      */
     public function getImageInstancesHtml($albumId)
     {
-        $cacheValue = $this->getCached($albumId);
-        if ($cacheValue !== false) {
-            return $cacheValue;
-        }
-
         $images = new ImageInstanceModel();
         $images->ordered('sort');
 
@@ -254,36 +215,29 @@ class ImageModel extends AbstractImageModel
 
         switch ($this->get('type')) {
             case self::TYPE_SLIDER:
-                $html = App::getInstance()->getView()->get(
+                return App::getInstance()->getView()->get(
                     'content/image/slider',
                     [
                         'images'  => $images,
                         'image'   => $this,
                     ]
                 );
-                break;
             case self::TYPE_SIMPLE:
-                $html = App::getInstance()->getView()->get(
+                return App::getInstance()->getView()->get(
                     'content/image/simple',
                     [
                         'images'  => $images,
                         'design'  => $this->get('designImageSimpleModel')
                     ]
                 );
-                break;
             default:
-                $html = App::getInstance()->getView()->get(
+                return App::getInstance()->getView()->get(
                     'content/image/zoom',
                     [
                         'images'  => $images
                     ]
                 );
-                break;
         }
-
-        $this->setCached($albumId, $html);
-
-        return $html;
     }
 
     /**
@@ -551,14 +505,21 @@ class ImageModel extends AbstractImageModel
      */
     protected function beforeSave()
     {
-        $this->deleteCached(0);
-        $this->deleteCached(-1);
+        $this
+            ->deleteHtmlMemcached(
+                $this->getHtmlMemcachedKey(0)
+            )
+            ->deleteHtmlMemcached(
+                $this->getHtmlMemcachedKey(-1)
+            );
 
         $imageGroups = ImageGroupModel::model()->findAllByImageId(
             $this->getId()
         );
         foreach ($imageGroups as $imageGroup) {
-            $this->deleteCached($imageGroup->getId());
+            $this->deleteHtmlMemcached(
+                $this->getHtmlMemcachedKey($imageGroup->getId())
+            );
         }
 
         parent::beforeSave();
@@ -571,8 +532,13 @@ class ImageModel extends AbstractImageModel
      */
     protected function beforeDelete()
     {
-        $this->deleteCached(0);
-        $this->deleteCached(-1);
+        $this
+            ->deleteHtmlMemcached(
+                $this->getHtmlMemcachedKey(0)
+            )
+            ->deleteHtmlMemcached(
+                $this->getHtmlMemcachedKey(-1)
+            );
 
         $imageGroups = ImageGroupModel::model()->findAllByImageId(
             $this->getId()

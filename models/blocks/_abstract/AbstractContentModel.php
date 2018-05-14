@@ -124,6 +124,45 @@ abstract class AbstractContentModel extends AbstractModel
     }
 
     /**
+     * Gets HTML Memcached
+     *
+     * @param string $key Key
+     *
+     * @return mixed
+     */
+    public function getHtmlMemcached($key)
+    {
+        return App::getInstance()->getMemcached()->get($key);
+    }
+
+    /**
+     * Sets HTML Memcached
+     *
+     * @param string $key  Key
+     * @param string $html HTML
+     *
+     * @return AbstractContentModel
+     */
+    public function setHtmlMemcached($key, $html)
+    {
+        App::getInstance()->getMemcached()->set($key, $html);
+        return $this;
+    }
+
+    /**
+     * Deletes HTML Memcached
+     *
+     * @param string $key  Key
+     *
+     * @return AbstractContentModel
+     */
+    public function deleteHtmlMemcached($key)
+    {
+        App::getInstance()->getMemcached()->delete($key);
+        return $this;
+    }
+
+    /**
      * Gets content model
      *
      * @return AbstractContentModel|mixed
