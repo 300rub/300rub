@@ -17,13 +17,13 @@ class MenuModel extends AbstractMenuModel
     const CLASS_NAME = '\\ss\\models\\blocks\\menu\\MenuModel';
 
     /**
-     * Gets cache type
+     * Is fully cached
      *
-     * @return integer
+     * @return boolean
      */
-    public function getCacheType()
+    public function isFullyCached()
     {
-        return self::NO_CACHE;
+        return false;
     }
 
     /**

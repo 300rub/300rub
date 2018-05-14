@@ -87,10 +87,7 @@ class ImageInstanceModel extends AbstractUpdateModel
     {
         parent::afterChange();
 
-        $imageGroupModel = $this->_getImageGroupModel();
-        if ($imageGroupModel !== null) {
-            $imageGroupModel->resetMemcached();
-        }
+        $this->_getImageGroupModel()->resetMemcached();
     }
 
     /**

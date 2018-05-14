@@ -18,13 +18,13 @@ class TextModel extends AbstractTextModel
     const CLASS_NAME = '\\ss\\models\\blocks\\text\\TextModel';
 
     /**
-     * Gets cache type
+     * Is fully cached
      *
-     * @return integer
+     * @return boolean
      */
-    public function getCacheType()
+    public function isFullyCached()
     {
-        return self::FULLY_CACHED;
+        return true;
     }
 
     /**
@@ -135,19 +135,5 @@ class TextModel extends AbstractTextModel
             );
             $newTextInstanceModel->save();
         }
-    }
-
-    /**
-     * Runs after changing
-     *
-     * @return void
-     */
-    protected function afterChange()
-    {
-        parent::afterChange();
-
-        App::getInstance()->getMemcached()->delete(
-            $this->getHtmlMemcachedKey()
-        );
     }
 }

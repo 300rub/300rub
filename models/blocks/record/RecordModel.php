@@ -47,13 +47,13 @@ class RecordModel extends AbstractRecordModel
     ];
 
     /**
-     * Gets cache type
+     * Is fully cached
      *
-     * @return integer
+     * @return boolean
      */
-    public function getCacheType()
+    public function isFullyCached()
     {
-        return self::NO_CACHE;
+        return false;
     }
 
     /**

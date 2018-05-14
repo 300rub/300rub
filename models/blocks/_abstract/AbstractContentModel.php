@@ -13,13 +13,6 @@ abstract class AbstractContentModel extends AbstractModel
 {
 
     /**
-     * Cache types
-     */
-    const NO_CACHE = 0;
-    const FULLY_CACHED = 1;
-    const CACHED_BY_URI = 2;
-
-    /**
      * Content model
      *
      * @var AbstractContentModel
@@ -62,11 +55,11 @@ abstract class AbstractContentModel extends AbstractModel
     protected $jsList = [];
 
     /**
-     * Gets cache type
+     * Is fully cached
      *
-     * @return integer
+     * @return boolean
      */
-    abstract public function getCacheType();
+    abstract public function isFullyCached();
 
     /**
      * Generates HTML
@@ -92,24 +85,13 @@ abstract class AbstractContentModel extends AbstractModel
     /**
      * Gets HTML memcached key
      *
-     * @param string $uri2 URI
-     * @param string $uri3 URI
-     * @param string $uri4 URI
-     *
      * @return string
      */
-    final public function getHtmlMemcachedKey(
-        $uri2 = null,
-        $uri3 = null,
-        $uri4 = null
-    ) {
+    private function _getHtmlMemcachedKey() {
         return sprintf(
-            '%s_%s_html_%s_%s_%s',
+            '%s_%s_html',
             $this->getTableName(),
-            $this->getId(),
-            $uri2,
-            $uri3,
-            $uri4
+            $this->getId()
         );
     }
 
@@ -278,45 +260,13 @@ abstract class AbstractContentModel extends AbstractModel
      */
     private function _setHtml()
     {
-        $cacheType = $this->getCacheType();
-        switch ($cacheType) {
-            case self::FULLY_CACHED:
-                $this->_setHtmlWithCache();
-                break;
-            case self::CACHED_BY_URI:
-                $site = App::getInstance()->getSite();
-                $uri2 = null;
-                $uri3 = null;
-                $uri4 = null;
-                if ($site !== null) {
-                    $uri2 = $site->getUri(2);
-                    $uri3 = $site->getUri(3);
-                    $uri4 = $site->getUri(4);
-                }
-
-                $this->_setHtmlWithCache($uri2, $uri3, $uri4);
-                break;
-            default:
-                $this->html = $this->_getContentModel()->generateHtml();
-                break;
+        if ($this->isFullyCached() === false) {
+            $this->html = $this->_getContentModel()->generateHtml();
+            return $this;
         }
 
-        return $this;
-    }
-
-    /**
-     * Sets HTML with cached
-     *
-     * @param string $uri2 URI
-     * @param string $uri3 URI
-     * @param string $uri4 URI
-     *
-     * @return AbstractContentModel
-     */
-    private function _setHtmlWithCache($uri2 = null, $uri3 = null, $uri4 = null)
-    {
         $memcached = App::getInstance()->getMemcached();
-        $memcachedKey = $this->getHtmlMemcachedKey($uri2, $uri3, $uri4);
+        $memcachedKey = $this->_getHtmlMemcachedKey();
         $memcachedValue = $memcached->get($memcachedKey);
 
         if ($memcachedValue !== false) {
@@ -385,9 +335,24 @@ abstract class AbstractContentModel extends AbstractModel
     protected function afterChange()
     {
         parent::afterChange();
+
+        $this->deleteCache();
+    }
+
+    /**
+     * Delete cache
+     *
+     * @return void
+     */
+    public function deleteCache()
+    {
         $memcached = App::getInstance()->getMemcached();
         $memcached
             ->delete($this->_getCssMemcachedKey())
             ->delete($this->_getJsMemcachedKey());
+
+        if ($this->isFullyCached() === true) {
+            $memcached->delete($this->_getHtmlMemcachedKey());
+        }
     }
 }

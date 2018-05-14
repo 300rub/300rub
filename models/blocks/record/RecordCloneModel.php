@@ -16,13 +16,13 @@ class RecordCloneModel extends AbstractRecordCloneModel
     const CLASS_NAME = '\\ss\\models\\blocks\\record\\RecordCloneModel';
 
     /**
-     * Gets cache type
+     * Is fully cached
      *
-     * @return integer
+     * @return boolean
      */
-    public function getCacheType()
+    public function isFullyCached()
     {
-        return self::CACHED_BY_URI;
+        return false;
     }
 
     /**

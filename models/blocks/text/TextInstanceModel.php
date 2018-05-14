@@ -82,7 +82,7 @@ class TextInstanceModel extends AbstractTextInstanceModel
         App::getInstance()->getMemcached()->delete(
             TextModel::model()
                 ->set(['id' => $this->get('textId')])
-                ->getHtmlMemcachedKey()
+                ->deleteCache()
         );
     }
 }
