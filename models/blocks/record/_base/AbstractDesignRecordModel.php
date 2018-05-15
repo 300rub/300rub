@@ -15,7 +15,9 @@ abstract class AbstractDesignRecordModel extends AbstractModel
      * Short card view types
      */
     const SHORT_CART_VIEW_TYPE_LIST = 0;
-    const SHORT_CART_VIEW_TYPE_GRID = 1;
+    const SHORT_CART_VIEW_TYPE_GRID_1 = 1;
+    const SHORT_CART_VIEW_TYPE_GRID_2 = 2;
+    const SHORT_CART_VIEW_TYPE_GRID_3 = 3;
 
     /**
      * Full card date positions
@@ -32,8 +34,10 @@ abstract class AbstractDesignRecordModel extends AbstractModel
     public static function getShortCardViewTypeList()
     {
         return [
-            self::SHORT_CART_VIEW_TYPE_LIST => '',
-            self::SHORT_CART_VIEW_TYPE_GRID => '',
+            self::SHORT_CART_VIEW_TYPE_LIST   => '',
+            self::SHORT_CART_VIEW_TYPE_GRID_1 => '',
+            self::SHORT_CART_VIEW_TYPE_GRID_2 => '',
+            self::SHORT_CART_VIEW_TYPE_GRID_3 => '',
         ];
     }
 

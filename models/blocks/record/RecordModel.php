@@ -83,6 +83,18 @@ class RecordModel extends AbstractRecordModel
     }
 
     /**
+     * Gets view type Memcached key
+     *
+     * @param int $recordId Record ID
+     *
+     * @return string
+     */
+    private function _getViewTypeMemcachedKey($recordId)
+    {
+        return sprintf('record_%s_view_type', $recordId);
+    }
+
+    /**
      * Generates HTML
      *
      * @return string
@@ -108,6 +120,28 @@ class RecordModel extends AbstractRecordModel
      * @return array
      */
     public function generateCss()
+    {
+        $css = [];
+
+        $css = array_merge(
+            $css,
+            $this->_getFullCardCss()
+        );
+
+        $css = array_merge(
+            $css,
+            $this->_getShortCardCss()
+        );
+
+        return $css;
+    }
+
+    /**
+     * Gets full card CSS
+     *
+     * @return array
+     */
+    private function _getFullCardCss()
     {
         $css = [];
         $view = App::getInstance()->getView();
@@ -165,6 +199,93 @@ class RecordModel extends AbstractRecordModel
                 )
             );
         }
+
+        return $css;
+    }
+
+    /**
+     * Gets full card CSS
+     *
+     * @return array
+     */
+    private function _getShortCardCss()
+    {
+        $css = [];
+        $view = App::getInstance()->getView();
+
+        $designRecordModel = $this->get('designRecordModel');
+
+        $css = array_merge(
+            $css,
+            $view->generateCss(
+                $designRecordModel->get('shortCardContainerDesignBlockModel'),
+                sprintf('.block-%s', $this->getBlockId())
+            )
+        );
+
+        $css = array_merge(
+            $css,
+            $view->generateCss(
+                $designRecordModel->get('shortCardInstanceDesignBlockModel'),
+                sprintf('.block-%s .record-card', $this->getBlockId())
+            )
+        );
+
+        $css = array_merge(
+            $css,
+            $view->generateCss(
+                $designRecordModel->get('shortCardTitleDesignBlockModel'),
+                sprintf('.block-%s .record-card .title', $this->getBlockId())
+            )
+        );
+
+        $css = array_merge(
+            $css,
+            $view->generateCss(
+                $designRecordModel->get('shortCardTitleDesignTextModel'),
+                sprintf('.block-%s .record-card .title', $this->getBlockId())
+            )
+        );
+
+        $css = array_merge(
+            $css,
+            $view->generateCss(
+                $designRecordModel->get('shortCardDescriptionDesignBlockModel'),
+                sprintf('.block-%s .record-card .description', $this->getBlockId())
+            )
+        );
+
+        $css = array_merge(
+            $css,
+            $view->generateCss(
+                $designRecordModel->get('shortCardDescriptionDesignTextModel'),
+                sprintf('.block-%s .record-card .description', $this->getBlockId())
+            )
+        );
+
+        $css = array_merge(
+            $css,
+            $view->generateCss(
+                $designRecordModel->get('shortCardPaginationDesignBlockModel'),
+                sprintf('.block-%s .pagination', $this->getBlockId())
+            )
+        );
+
+        $css = array_merge(
+            $css,
+            $view->generateCss(
+                $designRecordModel->get('shortCardPaginationItemDesignBlockModel'),
+                sprintf('.block-%s .pagination a', $this->getBlockId())
+            )
+        );
+
+        $css = array_merge(
+            $css,
+            $view->generateCss(
+                $designRecordModel->get('shortCardPaginationItemDesignTextModel'),
+                sprintf('.block-%s .pagination a', $this->getBlockId())
+            )
+        );
 
         return $css;
     }
@@ -234,6 +355,7 @@ class RecordModel extends AbstractRecordModel
                 ),
                 'pagination'  => $pagination,
                 'useAutoload' => $useAutoload,
+                'viewType'    => $this->_getViewType()
             ]
         );
     }
@@ -345,6 +467,34 @@ class RecordModel extends AbstractRecordModel
     }
 
     /**
+     * Gets view type
+     *
+     * @return int
+     */
+    private function _getViewType()
+    {
+        $cacheValue = $this->getHtmlMemcached(
+            $this->_getViewTypeMemcachedKey(
+                $this->getId()
+            )
+        );
+        if ($cacheValue !== false) {
+            return $cacheValue;
+        }
+
+        $viewType = $this->get('designRecordModel')->get('shortCardViewType');
+
+        $this->setHtmlMemcached(
+            $this->_getViewTypeMemcachedKey(
+                $this->getId()
+            ),
+            $viewType
+        );
+
+        return $viewType;
+    }
+
+    /**
      * Gets record instance HTML
      *
      * @return string
@@ -381,7 +531,7 @@ class RecordModel extends AbstractRecordModel
         }
 
         $html = App::getInstance()->getView()->get(
-            'content/record/instance',
+            'content/record/fullCard',
             [
                 'blockId'           => $this->getBlockId(),
                 'record'            => $this,

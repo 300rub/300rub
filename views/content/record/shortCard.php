@@ -15,6 +15,8 @@ $url = sprintf(
     $recordInstance->get('seoModel')->get('url')
 );
 
+echo '<div class="record-card-container">';
+
 echo '<div class="record-card">';
 
 if ($record->get('hasCover') === true
@@ -55,6 +57,10 @@ if ($record->get('hasDescription') === true) {
         $recordInstance->get('descriptionTextInstanceModel')->get('text')
     );
 }
+
+echo '</div>';
+
+echo '<div class="clear"></div>';
 
 echo '</div>';
 

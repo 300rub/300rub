@@ -8,7 +8,7 @@
 
 use ss\application\components\Pagination;
 
-echo '<div>';
+echo '<div class="pagination">';
 
 foreach ($tree as $item) {
     switch ($item['type']) {
