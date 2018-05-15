@@ -20,12 +20,9 @@ class TextModel extends AbstractTextModel
     /**
      * Is fully cached
      *
-     * @return boolean
+     * @var bool
      */
-    public function isFullyCached()
-    {
-        return true;
-    }
+    protected $isFullyCached = true;
 
     /**
      * Generates HTML

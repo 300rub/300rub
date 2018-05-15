@@ -17,16 +17,6 @@ class MenuModel extends AbstractMenuModel
     const CLASS_NAME = '\\ss\\models\\blocks\\menu\\MenuModel';
 
     /**
-     * Is fully cached
-     *
-     * @return boolean
-     */
-    public function isFullyCached()
-    {
-        return false;
-    }
-
-    /**
      * Generates HTML
      *
      * @return string

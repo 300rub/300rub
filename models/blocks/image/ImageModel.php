@@ -17,16 +17,6 @@ class ImageModel extends AbstractImageModel
     const CLASS_NAME = '\\ss\\models\\blocks\\image\\ImageModel';
 
     /**
-     * Is fully cached
-     *
-     * @return boolean
-     */
-    public function isFullyCached()
-    {
-        return false;
-    }
-
-    /**
      * Gets cache key
      *
      * @param int $albumId Album ID

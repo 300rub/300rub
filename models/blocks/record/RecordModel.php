@@ -47,13 +47,39 @@ class RecordModel extends AbstractRecordModel
     ];
 
     /**
-     * Is fully cached
+     * Gets HTML Memcached short card key
      *
-     * @return boolean
+     * @param int $instanceId Record instance ID
+     *
+     * @return string
      */
-    public function isFullyCached()
+    private function _getHtmlMemcachedShortCardKey($instanceId)
     {
-        return false;
+        return sprintf('record_short_card_%s', $instanceId);
+    }
+
+    /**
+     * Gets HTML Memcached full card key
+     *
+     * @param int $instanceId Record instance ID
+     *
+     * @return string
+     */
+    private function _getHtmlMemcachedFullCardKey($instanceId)
+    {
+        return sprintf('record_full_card_%s', $instanceId);
+    }
+
+    /**
+     * Gets record count Memcached key
+     *
+     * @param int $recordId Record ID
+     *
+     * @return string
+     */
+    private function _getRecordCountMemcachedKey($recordId)
+    {
+        return sprintf('record_%s_count', $recordId);
     }
 
     /**
@@ -230,14 +256,38 @@ class RecordModel extends AbstractRecordModel
             )
             ->findAll();
 
-        return App::getInstance()->getView()->get(
-            'content/record/instances',
-            [
-                'record'          => $this,
-                'recordInstances' => $recordInstances,
-                'urlBase'         => $urlBase
-            ]
-        );
+        $html = '';
+        foreach ($recordInstances as $recordInstance) {
+            $cacheValue = $this->getHtmlMemcached(
+                $this->_getHtmlMemcachedShortCardKey(
+                    $recordInstance->getId()
+                )
+            );
+            if ($cacheValue !== false) {
+                $html .= $cacheValue;
+                continue;
+            }
+
+            $record = App::getInstance()->getView()->get(
+                'content/record/shortCard',
+                [
+                    'record'         => $this,
+                    'recordInstance' => $recordInstance,
+                    'urlBase'        => $urlBase
+                ]
+            );
+
+            $this->setHtmlMemcached(
+                $this->_getHtmlMemcachedShortCardKey(
+                    $recordInstance->getId()
+                ),
+                $record
+            );
+
+            $html .= $record;
+        }
+
+        return $html;
     }
 
     /**
@@ -247,9 +297,7 @@ class RecordModel extends AbstractRecordModel
      */
     private function _getPagination()
     {
-        $count = RecordInstanceModel::model()
-            ->byRecordId($this->getId())
-            ->getCount();
+        $count = $this->_getCount();
         $site = App::getInstance()->getSite();
         $blockId = $this->getBlockId();
         $currentPage = $site->getParameter($blockId, 'page');
@@ -264,6 +312,36 @@ class RecordModel extends AbstractRecordModel
             ->setUrl($site->getActiveSectionUri());
 
         return $pagination->getHtml();
+    }
+
+    /**
+     * Gets records count
+     *
+     * @return int
+     */
+    private function _getCount()
+    {
+        $cacheValue = $this->getHtmlMemcached(
+            $this->_getRecordCountMemcachedKey(
+                $this->getId()
+            )
+        );
+        if ($cacheValue !== false) {
+            return $cacheValue;
+        }
+
+        $count = RecordInstanceModel::model()
+            ->byRecordId($this->getId())
+            ->getCount();
+
+        $this->setHtmlMemcached(
+            $this->_getRecordCountMemcachedKey(
+                $this->getId()
+            ),
+            $count
+        );
+
+        return $count;
     }
 
     /**
@@ -284,6 +362,15 @@ class RecordModel extends AbstractRecordModel
             return null;
         }
 
+        $cacheValue = $this->getHtmlMemcached(
+            $this->_getHtmlMemcachedFullCardKey(
+                $recordInstance->getId()
+            )
+        );
+        if ($cacheValue !== false) {
+            return $cacheValue;
+        }
+
         $imagesHtml = '';
         if ($this->get('hasImages') === true) {
             $imagesHtml = $this
@@ -293,7 +380,7 @@ class RecordModel extends AbstractRecordModel
                 );
         }
 
-        return App::getInstance()->getView()->get(
+        $html = App::getInstance()->getView()->get(
             'content/record/instance',
             [
                 'blockId'           => $this->getBlockId(),
@@ -306,6 +393,15 @@ class RecordModel extends AbstractRecordModel
                 'imagesHtml'        => $imagesHtml,
             ]
         );
+
+        $this->setHtmlMemcached(
+            $this->_getHtmlMemcachedFullCardKey(
+                $recordInstance->getId()
+            ),
+            $html
+        );
+
+        return $html;
     }
 
     /**

@@ -57,9 +57,9 @@ abstract class AbstractContentModel extends AbstractModel
     /**
      * Is fully cached
      *
-     * @return boolean
+     * @var bool
      */
-    abstract public function isFullyCached();
+    protected $isFullyCached = false;
 
     /**
      * Generates HTML
@@ -299,7 +299,7 @@ abstract class AbstractContentModel extends AbstractModel
      */
     private function _setHtml()
     {
-        if ($this->isFullyCached() === false) {
+        if ($this->isFullyCached === false) {
             $this->html = $this->_getContentModel()->generateHtml();
             return $this;
         }
@@ -390,7 +390,7 @@ abstract class AbstractContentModel extends AbstractModel
             ->delete($this->_getCssMemcachedKey())
             ->delete($this->_getJsMemcachedKey());
 
-        if ($this->isFullyCached() === true) {
+        if ($this->isFullyCached === true) {
             $memcached->delete($this->_getHtmlMemcachedKey());
         }
     }
