@@ -1,8 +1,8 @@
 <?php
 
-namespace ss\application\components\ValueGenerator\type;
+namespace ss\application\components\valueGenerator\type;
 
-use ss\application\components\ValueGenerator\_abstract\AbstractType;
+use ss\application\components\valueGenerator\_abstract\AbstractType;
 
 /**
  * Class for float value generation

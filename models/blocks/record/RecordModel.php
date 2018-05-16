@@ -3,7 +3,7 @@
 namespace ss\models\blocks\record;
 
 use ss\application\App;
-use ss\application\components\Pagination;
+use ss\application\components\helpers\Pagination;
 use ss\application\exceptions\NotFoundException;
 use ss\models\blocks\record\_base\AbstractRecordModel;
 
@@ -36,16 +36,6 @@ class RecordModel extends AbstractRecordModel
      * @var string
      */
     private $_recordUri = null;
-
-    /**
-     * Date formats
-     *
-     * @var array
-     */
-    private $_dateFormats = [
-        self::DATE_TYPE_NONE => '',
-        self::DATE_TYPE_DMY  => 'd/m/Y',
-    ];
 
     /**
      * Gets HTML Memcached short card key
@@ -612,38 +602,6 @@ class RecordModel extends AbstractRecordModel
     public static function model()
     {
         return new self;
-    }
-
-    /**
-     * Gets short card date format
-     *
-     * @return string
-     */
-    public function getShortCardDateFormat()
-    {
-        $type = $this->get('shortCardDateType');
-
-        if (array_key_exists($type, $this->_dateFormats) === true) {
-            return $this->_dateFormats[$type];
-        }
-
-        return $this->_dateFormats[self::DATE_TYPE_NONE];
-    }
-
-    /**
-     * Gets full card date format
-     *
-     * @return string
-     */
-    public function getFullCardDateFormat()
-    {
-        $type = $this->get('fullCardDateType');
-
-        if (array_key_exists($type, $this->_dateFormats) === true) {
-            return $this->_dateFormats[$type];
-        }
-
-        return $this->_dateFormats[self::DATE_TYPE_NONE];
     }
 
     /**

@@ -30,8 +30,8 @@ return [
         'hasDescription'     => true,
         'useAutoload'        => true,
         'pageNavigationSize' => 4,
-        'shortCardDateType'  => RecordModel::DATE_TYPE_DMY,
-        'fullCardDateType'   => RecordModel::DATE_TYPE_DMY,
+        'shortCardDateType'  => 1,
+        'fullCardDateType'   => 1,
     ],
     2 => [
         'imagesImageId'     => 6,
@@ -59,7 +59,7 @@ return [
         'hasDescription'     => false,
         'useAutoload'        => false,
         'pageNavigationSize' => 4,
-        'shortCardDateType'  => RecordModel::DATE_TYPE_DMY,
-        'fullCardDateType'   => RecordModel::DATE_TYPE_DMY,
+        'shortCardDateType'  => 1,
+        'fullCardDateType'   => 1,
     ],
 ];

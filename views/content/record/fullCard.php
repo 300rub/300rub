@@ -11,7 +11,7 @@
  * @var string                                       $imagesHtml
  */
 
-use ss\models\blocks\record\DesignRecordModel;
+use ss\application\components\helpers\DateTime;
 
 echo sprintf('<div class="block-%s full-card">', $blockId);
 
@@ -20,14 +20,13 @@ echo sprintf(
     $recordInstance->get('seoModel')->get('name')
 );
 
-$dateValue = $recordInstance
-    ->get('date')
-    ->format($record->getFullCardDateFormat());
+$dateValue = DateTime::create($recordInstance->get('date'))
+    ->getValue($record->get('fullCardDateType'));
 
 if ($dateValue !== '') {
     echo sprintf(
         '<div class="full-card-date">%s</div>',
-        $recordInstance->get('date')->format($record->getFullCardDateFormat())
+        $dateValue
     );
 }
 

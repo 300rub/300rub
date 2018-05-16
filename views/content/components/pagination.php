@@ -6,7 +6,7 @@
  * @var array $tree Tree
  */
 
-use ss\application\components\Pagination;
+use ss\application\components\helpers\Pagination;
 
 echo '<div class="pagination">';
 

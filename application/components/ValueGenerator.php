@@ -14,55 +14,55 @@ abstract class ValueGenerator
      * Types
      */
     const ARRAY_KEY
-        = '\\ss\\application\\components\\ValueGenerator\\' .
+        = '\\ss\\application\\components\\valueGenerator\\' .
             'filter\\ArrayKey';
     const BOOL_INT
-        = '\\ss\\application\\components\\ValueGenerator\\' .
+        = '\\ss\\application\\components\\valueGenerator\\' .
             'type\\BoolIntValue';
     const BOOL
-        = '\\ss\\application\\components\\ValueGenerator\\' .
+        = '\\ss\\application\\components\\valueGenerator\\' .
             'type\\BoolValue';
     const CLEAR_STRIP_TAGS
-        = '\\ss\\application\\components\\ValueGenerator\\' .
+        = '\\ss\\application\\components\\valueGenerator\\' .
             'modify\\ClearStripTags';
     const COLOR
-        = '\\ss\\application\\components\\ValueGenerator\\' .
+        = '\\ss\\application\\components\\valueGenerator\\' .
             'filter\\Color';
     const COPY_NAME
-        = '\\ss\\application\\components\\ValueGenerator\\' .
+        = '\\ss\\application\\components\\valueGenerator\\' .
             'modify\\CopyName';
     const DATETIME
-        = '\\ss\\application\\components\\ValueGenerator\\' .
+        = '\\ss\\application\\components\\valueGenerator\\' .
             'type\\DateTimeValue';
     const FLOAT
-        = '\\ss\\application\\components\\ValueGenerator\\' .
+        = '\\ss\\application\\components\\valueGenerator\\' .
             'type\\FloatValue';
     const INT
-        = '\\ss\\application\\components\\ValueGenerator\\' .
+        = '\\ss\\application\\components\\valueGenerator\\' .
             'type\\IntValue';
     const MAX
-        = '\\ss\\application\\components\\ValueGenerator\\' .
+        = '\\ss\\application\\components\\valueGenerator\\' .
             'math\\Max';
     const MIN
-        = '\\ss\\application\\components\\ValueGenerator\\' .
+        = '\\ss\\application\\components\\valueGenerator\\' .
             'math\\Min';
     const MIN_THEN
-        = '\\ss\\application\\components\\ValueGenerator\\' .
+        = '\\ss\\application\\components\\valueGenerator\\' .
             'math\\MinThen';
     const STRING
-        = '\\ss\\application\\components\\ValueGenerator\\' .
+        = '\\ss\\application\\components\\valueGenerator\\' .
             'type\\StringValue';
     const URL
-        = '\\ss\\application\\components\\ValueGenerator\\' .
+        = '\\ss\\application\\components\\valueGenerator\\' .
             'modify\\Url';
     const COPY_URL
-        = '\\ss\\application\\components\\ValueGenerator\\' .
+        = '\\ss\\application\\components\\valueGenerator\\' .
             'modify\\UrlCopy';
     const DATETIME_AS_STRING
-        = '\\ss\\application\\components\\ValueGenerator\\' .
+        = '\\ss\\application\\components\\valueGenerator\\' .
             'type\\Iso';
     const ORDERED_ARRAY
-        = '\\ss\\application\\components\\ValueGenerator\\' .
+        = '\\ss\\application\\components\\valueGenerator\\' .
             'modify\\OrderedArrayForJson';
 
     /**

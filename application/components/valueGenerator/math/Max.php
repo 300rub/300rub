@@ -1,8 +1,8 @@
 <?php
 
-namespace ss\application\components\ValueGenerator\math;
+namespace ss\application\components\valueGenerator\math;
 
-use ss\application\components\ValueGenerator\_abstract\AbstractMath;
+use ss\application\components\valueGenerator\_abstract\AbstractMath;
 
 /**
  * Class for max value generation

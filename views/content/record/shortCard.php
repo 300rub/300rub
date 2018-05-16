@@ -8,6 +8,8 @@
  * @var string                                       $urlBase
  */
 
+use ss\application\components\helpers\DateTime;
+
 $name = $recordInstance->get('seoModel')->get('name');
 $url = sprintf(
     '%s/%s',
@@ -51,10 +53,15 @@ echo sprintf(
     $name
 );
 
-echo sprintf(
-    '<div class="short-card-date">%s</div>',
-    $recordInstance->get('date')->format($record->getShortCardDateFormat())
-);
+$dateValue = DateTime::create($recordInstance->get('date'))
+    ->getValue($record->get('shortCardDateType'));
+
+if ($dateValue !== '') {
+    echo sprintf(
+        '<div class="short-card-date">%s</div>',
+        $dateValue
+    );
+}
 
 if ($record->get('hasDescription') === true) {
     echo sprintf(

@@ -1,6 +1,6 @@
 <?php
 
-namespace ss\application\components\ValueGenerator\_abstract;
+namespace ss\application\components\valueGenerator\_abstract;
 
 use ss\application\components\ValueGenerator;
 

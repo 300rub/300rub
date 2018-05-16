@@ -2,6 +2,7 @@
 
 namespace ss\models\blocks\record\_base;
 
+use ss\application\components\helpers\DateTime;
 use ss\application\components\ValueGenerator;
 use ss\models\blocks\_abstract\AbstractContentModel;
 
@@ -10,25 +11,6 @@ use ss\models\blocks\_abstract\AbstractContentModel;
  */
 abstract class AbstractRecordModel extends AbstractContentModel
 {
-
-    /**
-     * Short date types
-     */
-    const DATE_TYPE_NONE = 0;
-    const DATE_TYPE_DMY = 1;
-
-    /**
-     * Gets date type list
-     *
-     * @return array
-     */
-    public function getDateTypeList()
-    {
-        return [
-            self::DATE_TYPE_NONE => '',
-            self::DATE_TYPE_DMY  => '',
-        ];
-    }
 
     /**
      * Gets table name
@@ -47,6 +29,8 @@ abstract class AbstractRecordModel extends AbstractContentModel
      */
     public function getFieldsInfo()
     {
+        $dateTime = new DateTime();
+
         return [
             'coverImageId'     => [
                 self::FIELD_RELATION
@@ -90,8 +74,8 @@ abstract class AbstractRecordModel extends AbstractContentModel
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
                     ValueGenerator::ARRAY_KEY => [
-                        $this->getDateTypeList(),
-                        self::DATE_TYPE_NONE
+                        $dateTime->getFormatList(),
+                        DateTime::TYPE_NONE
                     ]
                 ],
             ],
@@ -99,8 +83,8 @@ abstract class AbstractRecordModel extends AbstractContentModel
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
                     ValueGenerator::ARRAY_KEY => [
-                        $this->getDateTypeList(),
-                        self::DATE_TYPE_NONE
+                        $dateTime->getFormatList(),
+                        DateTime::TYPE_NONE
                     ]
                 ],
             ],

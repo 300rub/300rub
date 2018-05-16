@@ -3,6 +3,7 @@
 namespace ss\controllers\record;
 
 use ss\application\App;
+use ss\application\components\helpers\DateTime;
 use ss\application\components\Operation;
 use ss\controllers\_abstract\AbstractController;
 use ss\models\blocks\block\BlockModel;
@@ -44,6 +45,8 @@ class GetBlockController extends AbstractController
             $descriptionKey = 'addBlockDescription';
             $buttonLabelKey = 'add';
         }
+
+        $dateTime = new DateTime();
 
         return [
             'id'          => $blockId,
@@ -96,14 +99,14 @@ class GetBlockController extends AbstractController
                         => $language->getMessage('record', 'shortCardDateType'),
                     'value' => $recordModel->get('shortCardDateType'),
                     'name'  => 'shortCardDateType',
-                    'list'  => $recordModel->getDateTypeList()
+                    'list'  => $dateTime->getFormatList()
                 ],
                 'fullCardDateType'   => [
                     'label'
                         => $language->getMessage('record', 'fullCardDateType'),
                     'value' => $recordModel->get('fullCardDateType'),
                     'name'  => 'fullCardDateType',
-                    'list'  => $recordModel->getDateTypeList()
+                    'list'  => $dateTime->getFormatList()
                 ],
                 'button'             => [
                     'label' => $language->getMessage('common', $buttonLabelKey),

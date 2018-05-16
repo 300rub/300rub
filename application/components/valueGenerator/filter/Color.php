@@ -1,8 +1,8 @@
 <?php
 
-namespace ss\application\components\ValueGenerator\filter;
+namespace ss\application\components\valueGenerator\filter;
 
-use ss\application\components\ValueGenerator\_abstract\AbstractFilter;
+use ss\application\components\valueGenerator\_abstract\AbstractFilter;
 
 /**
  * Class for color value generation
