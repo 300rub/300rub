@@ -26,11 +26,24 @@ if ($record->get('hasCover') === true
 ) {
     $imageInstance = $recordInstance->get('coverImageInstanceModel');
     if ($imageInstance !== null) {
-        $imageInstance->get('thumbFileModel')->getUrl();
-
         echo '<div class="cover-container">';
 
-        echo sprintf('<a href="%s">', $url);
+        if ($record->get('hasCoverZoom') === false) {
+            echo sprintf('<a href="%s">', $url);
+        }
+
+        if ($record->get('hasCoverZoom') === true) {
+            echo sprintf(
+                '<a ' .
+                'data-fancybox="record-cover-%s" ' .
+                'data-type="image" ' .
+                'data-caption="%s"' .
+                'href="%s">',
+                $imageInstance->getId(),
+                $imageInstance->get('alt'),
+                $imageInstance->get('viewFileModel')->getUrl()
+            );
+        }
 
         echo sprintf(
             '<img src="%s" alt="%s" title="%s" />',
