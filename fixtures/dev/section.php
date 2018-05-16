@@ -88,4 +88,11 @@ return [
         ],
         'language' => Language::LANGUAGE_EN_ID,
     ],
+    13 => [
+        'seoModel'      => [
+            'name' => 'Clones',
+            'url'  => 'records-clones'
+        ],
+        'language' => Language::LANGUAGE_EN_ID,
+    ],
 ];

@@ -141,4 +141,18 @@ return [
         'y'          => 0,
         'width'      => 9
     ],
+    21 => [
+        'gridLineId' => 13,
+        'blockId'    => 1,
+        'x'          => 0,
+        'y'          => 0,
+        'width'      => 3
+    ],
+    22 => [
+        'gridLineId' => 13,
+        'blockId'    => 10,
+        'x'          => 3,
+        'y'          => 0,
+        'width'      => 9
+    ],
 ];

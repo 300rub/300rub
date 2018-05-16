@@ -67,9 +67,6 @@ abstract class AbstractRecordCloneModel extends AbstractContentModel
             'hasCover'            => [
                 self::FIELD_TYPE => self::FIELD_TYPE_BOOL
             ],
-            'hasImages'           => [
-                self::FIELD_TYPE => self::FIELD_TYPE_BOOL
-            ],
             'hasCoverZoom'        => [
                 self::FIELD_TYPE => self::FIELD_TYPE_BOOL
             ],

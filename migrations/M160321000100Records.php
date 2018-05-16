@@ -304,7 +304,6 @@ class M160321000100Records extends AbstractMigration
                     'descriptionTextId'   => self::TYPE_FK,
                     'designRecordCloneId' => self::TYPE_FK,
                     'hasCover'            => self::TYPE_BOOL,
-                    'hasImages'           => self::TYPE_BOOL,
                     'hasCoverZoom'        => self::TYPE_BOOL,
                     'hasDescription'      => self::TYPE_BOOL,
                     'dateType'            => self::TYPE_TINYINT_UNSIGNED,

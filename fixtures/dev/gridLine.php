@@ -68,4 +68,9 @@ return [
         'sort'      => 10,
         'insideDesignModel' => $insideDesignModel
     ],
+    13 => [
+        'sectionId' => 13,
+        'sort'      => 10,
+        'insideDesignModel' => $insideDesignModel
+    ],
 ];

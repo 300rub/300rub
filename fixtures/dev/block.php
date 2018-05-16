@@ -58,4 +58,10 @@ return [
         'contentType' => BlockModel::TYPE_RECORD,
         'contentId'   => 2,
     ],
+    10 => [
+        'name'        => 'Record clone',
+        'language'    => Language::LANGUAGE_EN_ID,
+        'contentType' => BlockModel::TYPE_RECORD_CLONE,
+        'contentId'   => 1,
+    ],
 ];

@@ -3,6 +3,7 @@
 namespace ss\models\blocks\record;
 
 use ss\application\App;
+use ss\application\components\Db;
 use ss\application\components\helpers\Pagination;
 use ss\application\exceptions\NotFoundException;
 use ss\models\blocks\record\_base\AbstractRecordModel;
@@ -391,6 +392,7 @@ class RecordModel extends AbstractRecordModel
                 $this->_getPageNavigationSize(),
                 $page
             )
+            ->ordered('sort', Db::DEFAULT_ALIAS, true)
             ->findAll();
 
         $html = '';
