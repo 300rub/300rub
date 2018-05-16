@@ -23,8 +23,6 @@ return [
             'fullCardTextDesignBlockModel' => [
                 'marginLeft' => 20
             ],
-            'fullCardDatePosition'
-                => DesignRecordModel::FULL_CART_DATE_POSITION_RIGHT
         ],
         'hasCover'           => true,
         'hasImages'          => true,
@@ -32,8 +30,8 @@ return [
         'hasDescription'     => true,
         'useAutoload'        => true,
         'pageNavigationSize' => 4,
-        'shortCardDateType'  => RecordModel::DATE_TYPE_COMMON,
-        'fullCardDateType'   => RecordModel::DATE_TYPE_COMMON,
+        'shortCardDateType'  => RecordModel::DATE_TYPE_DMY,
+        'fullCardDateType'   => RecordModel::DATE_TYPE_DMY,
     ],
     2 => [
         'imagesImageId'     => 6,
@@ -54,8 +52,6 @@ return [
             'fullCardTextDesignBlockModel' => [
                 'marginLeft' => 20
             ],
-            'fullCardDatePosition'
-            => DesignRecordModel::FULL_CART_DATE_POSITION_RIGHT
         ],
         'hasCover'           => true,
         'hasImages'          => true,
@@ -63,7 +59,7 @@ return [
         'hasDescription'     => false,
         'useAutoload'        => false,
         'pageNavigationSize' => 4,
-        'shortCardDateType'  => RecordModel::DATE_TYPE_COMMON,
-        'fullCardDateType'   => RecordModel::DATE_TYPE_COMMON,
+        'shortCardDateType'  => RecordModel::DATE_TYPE_DMY,
+        'fullCardDateType'   => RecordModel::DATE_TYPE_DMY,
     ],
 ];

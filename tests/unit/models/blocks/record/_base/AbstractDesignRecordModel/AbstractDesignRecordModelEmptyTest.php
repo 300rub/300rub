@@ -86,7 +86,6 @@ class AbstractDesignRecordModelEmptyTest extends AbstractEmptyModelTest
                     'size' => 0
                 ],
                 'shortCardViewType'                       => 0,
-                'fullCardDatePosition'                    => 0,
             ],
             [
                 'shortCardPaginationDesignBlockModel'     => '',
@@ -96,7 +95,6 @@ class AbstractDesignRecordModelEmptyTest extends AbstractEmptyModelTest
                 'fullCardTitleDesignTextModel'            => '',
                 'fullCardDateDesignTextModel'             => '',
                 'shortCardViewType'                       => '',
-                'fullCardDatePosition'                    => '',
             ],
             [
                 'shortCardContainerDesignBlockModel'      => [
@@ -130,7 +128,6 @@ class AbstractDesignRecordModelEmptyTest extends AbstractEmptyModelTest
                     'size' => 0
                 ],
                 'shortCardViewType'                       => 0,
-                'fullCardDatePosition'                    => 0,
             ],
         ];
     }
@@ -148,7 +145,6 @@ class AbstractDesignRecordModelEmptyTest extends AbstractEmptyModelTest
                 'shortCardDescriptionDesignTextModel'     => null,
                 'fullCardTitleDesignBlockModel'           => null,
                 'shortCardViewType'                       => null,
-                'fullCardDatePosition'                    => null,
             ],
             [
                 'shortCardTitleDesignTextModel'           => [
@@ -182,7 +178,6 @@ class AbstractDesignRecordModelEmptyTest extends AbstractEmptyModelTest
                     'size' => 0
                 ],
                 'shortCardViewType'                       => 0,
-                'fullCardDatePosition'                    => 0,
             ],
             [
                 'shortCardContainerDesignBlockModel'      => ' ',
@@ -193,7 +188,6 @@ class AbstractDesignRecordModelEmptyTest extends AbstractEmptyModelTest
                 'fullCardTitleDesignTextModel'            => ' ',
                 'fullCardDateDesignTextModel'             => ' ',
                 'shortCardViewType'                       => ' ',
-                'fullCardDatePosition'                    => ' ',
             ],
             [
                 'shortCardContainerDesignBlockModel'      => [
@@ -224,7 +218,6 @@ class AbstractDesignRecordModelEmptyTest extends AbstractEmptyModelTest
                     'size' => 0
                 ],
                 'shortCardViewType'                       => 0,
-                'fullCardDatePosition'                    => 0,
             ],
         ];
     }
@@ -274,7 +267,6 @@ class AbstractDesignRecordModelEmptyTest extends AbstractEmptyModelTest
                 'fullCardTitleDesignTextId'            => null,
                 'fullCardDateDesignTextId'             => null,
                 'shortCardViewType'                    => null,
-                'fullCardDatePosition'                 => null,
             ],
             [
                 'shortCardPaginationDesignBlockModel'     => [
@@ -296,7 +288,6 @@ class AbstractDesignRecordModelEmptyTest extends AbstractEmptyModelTest
                     'size' => 0
                 ],
                 'shortCardViewType'                       => 0,
-                'fullCardDatePosition'                    => 0,
             ],
         ];
     }
@@ -380,7 +371,6 @@ class AbstractDesignRecordModelEmptyTest extends AbstractEmptyModelTest
                     'size' => 0
                 ],
                 'shortCardViewType'                       => 0,
-                'fullCardDatePosition'                    => 0,
             ],
         ];
     }

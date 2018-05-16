@@ -14,8 +14,8 @@ abstract class AbstractRecordModel extends AbstractContentModel
     /**
      * Short date types
      */
-    const DATE_TYPE_COMMON = 0;
-    const DATE_TYPE_1 = 1;
+    const DATE_TYPE_NONE = 0;
+    const DATE_TYPE_DMY = 1;
 
     /**
      * Gets date type list
@@ -25,8 +25,8 @@ abstract class AbstractRecordModel extends AbstractContentModel
     public function getDateTypeList()
     {
         return [
-            self::DATE_TYPE_COMMON => '',
-            self::DATE_TYPE_1      => '',
+            self::DATE_TYPE_NONE => '',
+            self::DATE_TYPE_DMY  => '',
         ];
     }
 
@@ -91,7 +91,7 @@ abstract class AbstractRecordModel extends AbstractContentModel
                 self::FIELD_VALUE => [
                     ValueGenerator::ARRAY_KEY => [
                         $this->getDateTypeList(),
-                        self::DATE_TYPE_COMMON
+                        self::DATE_TYPE_NONE
                     ]
                 ],
             ],
@@ -100,7 +100,7 @@ abstract class AbstractRecordModel extends AbstractContentModel
                 self::FIELD_VALUE => [
                     ValueGenerator::ARRAY_KEY => [
                         $this->getDateTypeList(),
-                        self::DATE_TYPE_COMMON
+                        self::DATE_TYPE_NONE
                     ]
                 ],
             ],

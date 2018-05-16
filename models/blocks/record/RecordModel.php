@@ -43,7 +43,8 @@ class RecordModel extends AbstractRecordModel
      * @var array
      */
     private $_dateFormats = [
-        self::DATE_TYPE_COMMON => 'd/m/Y'
+        self::DATE_TYPE_NONE => '',
+        self::DATE_TYPE_DMY  => 'd/m/Y',
     ];
 
     /**
@@ -151,6 +152,14 @@ class RecordModel extends AbstractRecordModel
         $css = array_merge(
             $css,
             $view->generateCss(
+                $designRecordModel->get('fullCardContainerDesignBlockModel'),
+                sprintf('.block-%s.full-card', $this->getBlockId())
+            )
+        );
+
+        $css = array_merge(
+            $css,
+            $view->generateCss(
                 $designRecordModel->get('fullCardTitleDesignBlockModel'),
                 sprintf('.block-%s .full-card-title', $this->getBlockId())
             )
@@ -219,7 +228,7 @@ class RecordModel extends AbstractRecordModel
             $css,
             $view->generateCss(
                 $designRecordModel->get('shortCardContainerDesignBlockModel'),
-                sprintf('.block-%s', $this->getBlockId())
+                sprintf('.block-%s.record-list', $this->getBlockId())
             )
         );
 
@@ -235,7 +244,7 @@ class RecordModel extends AbstractRecordModel
             $css,
             $view->generateCss(
                 $designRecordModel->get('shortCardTitleDesignBlockModel'),
-                sprintf('.block-%s .record-card .title', $this->getBlockId())
+                sprintf('.block-%s .record-card .short-card-title', $this->getBlockId())
             )
         );
 
@@ -243,7 +252,23 @@ class RecordModel extends AbstractRecordModel
             $css,
             $view->generateCss(
                 $designRecordModel->get('shortCardTitleDesignTextModel'),
-                sprintf('.block-%s .record-card .title', $this->getBlockId())
+                sprintf('.block-%s .record-card .short-card-title', $this->getBlockId())
+            )
+        );
+
+        $css = array_merge(
+            $css,
+            $view->generateCss(
+                $designRecordModel->get('shortCardDateDesignBlockModel'),
+                sprintf('.block-%s .record-card .short-card-date', $this->getBlockId())
+            )
+        );
+
+        $css = array_merge(
+            $css,
+            $view->generateCss(
+                $designRecordModel->get('shortCardDateDesignTextModel'),
+                sprintf('.block-%s .record-card .short-card-date', $this->getBlockId())
             )
         );
 
@@ -251,7 +276,7 @@ class RecordModel extends AbstractRecordModel
             $css,
             $view->generateCss(
                 $designRecordModel->get('shortCardDescriptionDesignBlockModel'),
-                sprintf('.block-%s .record-card .description', $this->getBlockId())
+                sprintf('.block-%s .record-card .short-card-description', $this->getBlockId())
             )
         );
 
@@ -259,7 +284,7 @@ class RecordModel extends AbstractRecordModel
             $css,
             $view->generateCss(
                 $designRecordModel->get('shortCardDescriptionDesignTextModel'),
-                sprintf('.block-%s .record-card .description', $this->getBlockId())
+                sprintf('.block-%s .record-card .short-card-description', $this->getBlockId())
             )
         );
 
@@ -602,7 +627,7 @@ class RecordModel extends AbstractRecordModel
             return $this->_dateFormats[$type];
         }
 
-        return $this->_dateFormats[self::DATE_TYPE_COMMON];
+        return $this->_dateFormats[self::DATE_TYPE_NONE];
     }
 
     /**
@@ -618,7 +643,7 @@ class RecordModel extends AbstractRecordModel
             return $this->_dateFormats[$type];
         }
 
-        return $this->_dateFormats[self::DATE_TYPE_COMMON];
+        return $this->_dateFormats[self::DATE_TYPE_NONE];
     }
 
     /**

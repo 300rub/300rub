@@ -13,31 +13,23 @@
 
 use ss\models\blocks\record\DesignRecordModel;
 
-echo sprintf('<div class="block-%s">', $blockId);
-
-$datePosition = $designRecordModel->get('fullCardDatePosition');
-switch ($datePosition) {
-    case DesignRecordModel::FULL_CART_DATE_POSITION_LEFT:
-        $dateClass = 'float-left';
-        break;
-    case DesignRecordModel::FULL_CART_DATE_POSITION_RIGHT:
-        $dateClass = 'float-right';
-        break;
-    default:
-        $dateClass = 'hidden';
-        break;
-}
-
-echo sprintf(
-    '<div class="full-card-date %s">%s</div>',
-    $dateClass,
-    $recordInstance->get('date')->format($record->getFullCardDateFormat())
-);
+echo sprintf('<div class="block-%s full-card">', $blockId);
 
 echo sprintf(
     '<h1 class="full-card-title">%s</h1>',
     $recordInstance->get('seoModel')->get('name')
 );
+
+$dateValue = $recordInstance
+    ->get('date')
+    ->format($record->getFullCardDateFormat());
+
+if ($dateValue !== '') {
+    echo sprintf(
+        '<div class="full-card-date">%s</div>',
+        $recordInstance->get('date')->format($record->getFullCardDateFormat())
+    );
+}
 
 if ($record->get('hasImages') === true) {
     echo sprintf('<div class="full-card-images">%s</div>', $imagesHtml);

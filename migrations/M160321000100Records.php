@@ -47,6 +47,8 @@ class M160321000100Records extends AbstractMigration
                     => self::TYPE_FK,
                     'shortCardTitleDesignTextId'
                     => self::TYPE_FK,
+                    'shortCardDateDesignBlockId'
+                    => self::TYPE_FK,
                     'shortCardDateDesignTextId'
                     => self::TYPE_FK,
                     'shortCardDescriptionDesignBlockId'
@@ -61,6 +63,8 @@ class M160321000100Records extends AbstractMigration
                     => self::TYPE_FK,
                     'shortCardViewType'
                     => self::TYPE_TINYINT_UNSIGNED,
+                    'fullCardContainerDesignBlockId'
+                    => self::TYPE_FK,
                     'fullCardTitleDesignBlockId'
                     => self::TYPE_FK,
                     'fullCardTitleDesignTextId'
@@ -71,8 +75,6 @@ class M160321000100Records extends AbstractMigration
                     => self::TYPE_FK,
                     'fullCardTextDesignBlockId'
                     => self::TYPE_FK,
-                    'fullCardDatePosition'
-                    => self::TYPE_TINYINT_UNSIGNED,
                 ]
             );
     }
@@ -107,6 +109,11 @@ class M160321000100Records extends AbstractMigration
             )
             ->createForeignKey(
                 'designRecords',
+                'shortCardDateDesignBlockId',
+                'designBlocks'
+            )
+            ->createForeignKey(
+                'designRecords',
                 'shortCardDateDesignTextId',
                 'designTexts'
             )
@@ -134,6 +141,11 @@ class M160321000100Records extends AbstractMigration
                 'designRecords',
                 'shortCardPaginationItemDesignTextId',
                 'designTexts'
+            )
+            ->createForeignKey(
+                'designRecords',
+                'fullCardContainerDesignBlockId',
+                'designBlocks'
             )
             ->createForeignKey(
                 'designRecords',

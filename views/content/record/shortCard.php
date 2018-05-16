@@ -43,17 +43,22 @@ if ($record->get('hasCover') === true
     }
 }
 
-echo '<div class="body">';
+echo '<div class="short-card-body">';
 
 echo sprintf(
-    '<a href="%s" class="title">%s</a>',
+    '<a href="%s" class="short-card-title">%s</a>',
     $url,
     $name
 );
 
+echo sprintf(
+    '<div class="short-card-date">%s</div>',
+    $recordInstance->get('date')->format($record->getShortCardDateFormat())
+);
+
 if ($record->get('hasDescription') === true) {
     echo sprintf(
-        '<div class="description">%s</div>',
+        '<div class="short-card-description">%s</div>',
         $recordInstance->get('descriptionTextInstanceModel')->get('text')
     );
 }

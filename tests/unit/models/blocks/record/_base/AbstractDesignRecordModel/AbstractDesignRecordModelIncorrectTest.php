@@ -57,7 +57,6 @@ class AbstractDesignRecordModelIncorrectTest extends AbstractIncorrectModelTest
                 'fullCardTitleDesignTextModel'            => 'incorrect',
                 'fullCardDateDesignTextModel'             => 'incorrect',
                 'shortCardViewType'                       => 'incorrect',
-                'fullCardDatePosition'                    => 'incorrect',
             ],
             [
                 'shortCardContainerDesignBlockModel'      => [
@@ -100,15 +99,12 @@ class AbstractDesignRecordModelIncorrectTest extends AbstractIncorrectModelTest
                     'size' => 0
                 ],
                 'shortCardViewType'                       => 0,
-                'fullCardDatePosition'                    => 0,
             ],
             [
                 'shortCardViewType'      => 999,
-                'fullCardDatePosition'   => 999,
             ],
             [
                 'shortCardViewType'      => 0,
-                'fullCardDatePosition'   => 0,
             ],
         ];
     }
@@ -123,11 +119,9 @@ class AbstractDesignRecordModelIncorrectTest extends AbstractIncorrectModelTest
         return [
             [
                 'shortCardViewType'      => ' 1 ',
-                'fullCardDatePosition'   => ' 1 ',
             ],
             [
                 'shortCardViewType'      => 1,
-                'fullCardDatePosition'   => 1,
             ],
             [
                 'shortCardInstanceDesignBlockModel'       => [
@@ -167,7 +161,6 @@ class AbstractDesignRecordModelIncorrectTest extends AbstractIncorrectModelTest
                     'size' => ' 500 '
                 ],
                 'shortCardViewType'                       => true,
-                'fullCardDatePosition'                    => true,
             ],
             [
                 'shortCardInstanceDesignBlockModel'       => [
@@ -207,7 +200,6 @@ class AbstractDesignRecordModelIncorrectTest extends AbstractIncorrectModelTest
                     'size' => 500
                 ],
                 'shortCardViewType'                       => 1,
-                'fullCardDatePosition'                    => 1,
             ],
         ];
     }

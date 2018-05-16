@@ -221,7 +221,6 @@ class AbstractRecordModelDuplicateTest extends AbstractDuplicateModelTest
                 'size' => 10
             ],
             'shortCardViewType'                       => 1,
-            'fullCardDatePosition'                    => 1,
         ];
     }
 }

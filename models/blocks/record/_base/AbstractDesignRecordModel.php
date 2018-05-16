@@ -20,13 +20,6 @@ abstract class AbstractDesignRecordModel extends AbstractModel
     const SHORT_CART_VIEW_TYPE_GRID_3 = 3;
 
     /**
-     * Full card date positions
-     */
-    const FULL_CART_DATE_POSITION_NONE = 0;
-    const FULL_CART_DATE_POSITION_LEFT = 1;
-    const FULL_CART_DATE_POSITION_RIGHT = 2;
-
-    /**
      * Gets short card view type list
      *
      * @return array
@@ -38,20 +31,6 @@ abstract class AbstractDesignRecordModel extends AbstractModel
             self::SHORT_CART_VIEW_TYPE_GRID_1 => '',
             self::SHORT_CART_VIEW_TYPE_GRID_2 => '',
             self::SHORT_CART_VIEW_TYPE_GRID_3 => '',
-        ];
-    }
-
-    /**
-     * Gets full card date position list
-     *
-     * @return array
-     */
-    public static function getFullCardDatePositionList()
-    {
-        return [
-            self::FULL_CART_DATE_POSITION_NONE  => '',
-            self::FULL_CART_DATE_POSITION_LEFT  => '',
-            self::FULL_CART_DATE_POSITION_RIGHT => '',
         ];
     }
 
@@ -89,6 +68,10 @@ abstract class AbstractDesignRecordModel extends AbstractModel
                 self::FIELD_RELATION
                     => '\\ss\\models\\blocks\\text\\DesignTextModel'
             ],
+            'shortCardDateDesignBlockId'            => [
+                self::FIELD_RELATION
+                    => '\\ss\\models\\blocks\\block\\DesignBlockModel'
+            ],
             'shortCardDateDesignTextId'            => [
                 self::FIELD_RELATION
                     => '\\ss\\models\\blocks\\text\\DesignTextModel'
@@ -112,6 +95,10 @@ abstract class AbstractDesignRecordModel extends AbstractModel
             'shortCardPaginationItemDesignTextId'  => [
                 self::FIELD_RELATION
                     => '\\ss\\models\\blocks\\text\\DesignTextModel'
+            ],
+            'fullCardContainerDesignBlockId'      => [
+                self::FIELD_RELATION
+                => '\\ss\\models\\blocks\\block\\DesignBlockModel'
             ],
             'fullCardTitleDesignBlockId'           => [
                 self::FIELD_RELATION
@@ -139,15 +126,6 @@ abstract class AbstractDesignRecordModel extends AbstractModel
                     ValueGenerator::ARRAY_KEY => [
                         self::getShortCardViewTypeList(),
                         self::SHORT_CART_VIEW_TYPE_LIST
-                    ]
-                ],
-            ],
-            'fullCardDatePosition'          => [
-                self::FIELD_TYPE  => self::FIELD_TYPE_INT,
-                self::FIELD_VALUE => [
-                    ValueGenerator::ARRAY_KEY => [
-                        self::getFullCardDatePositionList(),
-                        self::FULL_CART_DATE_POSITION_NONE
                     ]
                 ],
             ],
