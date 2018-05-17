@@ -4,6 +4,7 @@ namespace ss\models\blocks\record;
 
 use ss\application\App;
 use ss\application\components\Db;
+use ss\application\components\helpers\Link;
 use ss\application\components\helpers\Pagination;
 use ss\application\exceptions\NotFoundException;
 use ss\models\blocks\record\_base\AbstractRecordModel;
@@ -367,7 +368,10 @@ class RecordModel extends AbstractRecordModel
                 'blockId'     => $this->getBlockId(),
                 'instances'   => $this->getInstancesHtml(
                     $page,
-                    App::getInstance()->getSite()->getActiveSectionUri()
+                    App::getInstance()
+                        ->getSite()
+                        ->getActiveSection()
+                        ->getId()
                 ),
                 'pagination'  => $pagination,
                 'useAutoload' => $useAutoload,
@@ -379,12 +383,12 @@ class RecordModel extends AbstractRecordModel
     /**
      * Gets instances HTML
      *
-     * @param int    $page    Page number
-     * @param string $urlBase URL base
+     * @param int $page      Page number
+     * @param int $sectionId URL base
      *
      * @return string
      */
-    public function getInstancesHtml($page, $urlBase)
+    public function getInstancesHtml($page, $sectionId)
     {
         $recordInstances = RecordInstanceModel::model()
             ->byRecordId($this->getId())
@@ -394,6 +398,8 @@ class RecordModel extends AbstractRecordModel
             )
             ->ordered('sort', Db::DEFAULT_ALIAS, true)
             ->findAll();
+
+        $link = new Link();
 
         $html = '';
         foreach ($recordInstances as $recordInstance) {
@@ -412,7 +418,10 @@ class RecordModel extends AbstractRecordModel
                 [
                     'record'         => $this,
                     'recordInstance' => $recordInstance,
-                    'urlBase'        => $urlBase
+                    'url'            => $link->generateLink(
+                        $recordInstance->get('seoModel')->get('url'),
+                        $sectionId
+                    )
                 ]
             );
 

@@ -143,20 +143,6 @@ class ImageGroupModel extends AbstractImageGroupModel
     }
 
     /**
-     * Gets URI
-     *
-     * @return string
-     */
-    public function getUri()
-    {
-        return sprintf(
-            '%s/%s',
-            App::getInstance()->getSite()->getActiveSectionUri(),
-            $this->get('seoModel')->get('url')
-        );
-    }
-
-    /**
      * Runs before deleting
      *
      * @return void

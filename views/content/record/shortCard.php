@@ -5,17 +5,12 @@
  *
  * @var \ss\models\blocks\record\RecordModel         $record
  * @var \ss\models\blocks\record\RecordInstanceModel $recordInstance
- * @var string                                       $urlBase
+ * @var string                                       $url
  */
 
 use ss\application\components\helpers\DateTime;
 
 $name = $recordInstance->get('seoModel')->get('name');
-$url = sprintf(
-    '%s/%s',
-    $urlBase,
-    $recordInstance->get('seoModel')->get('url')
-);
 
 echo '<div class="record-card-container">';
 

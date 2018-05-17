@@ -3,6 +3,7 @@
 namespace ss\models\blocks\image;
 
 use ss\application\App;
+use ss\application\components\helpers\Link;
 use ss\models\blocks\image\_base\AbstractImageModel;
 
 /**
@@ -140,11 +141,13 @@ class ImageModel extends AbstractImageModel
             return $cacheValue;
         }
 
+        $content = '';
+        $link = new Link();
+
         $albums = ImageGroupModel::model()->findAllByImageId(
             $this->getId()
         );
-
-        foreach ($albums as &$album) {
+        foreach ($albums as $album) {
             $album
                 ->setCount(
                     ImageInstanceModel::model()
@@ -156,14 +159,17 @@ class ImageModel extends AbstractImageModel
                         ->coverByGroupId($album->getId())
                         ->find()
                 );
-        }
 
-        $content = App::getInstance()->getView()->get(
-            'content/image/albums',
-            [
-                'albums' => $albums
-            ]
-        );
+            $content .= App::getInstance()->getView()->get(
+                'content/image/album',
+                [
+                    'album' => $album,
+                    'url'   => $link->generateLink(
+                        $album->get('seoModel')->get('url')
+                    )
+                ]
+            );
+        }
 
         $html = App::getInstance()->getView()->get(
             'content/block/block',

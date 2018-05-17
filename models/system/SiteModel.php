@@ -43,6 +43,13 @@ class SiteModel extends AbstractSiteModel
     private $_activeSection = null;
 
     /**
+     * Sections collection
+     *
+     * @var array
+     */
+    private $_sections = [];
+
+    /**
      * Adds name condition to SQL request
      *
      * @param string $name Name
@@ -253,5 +260,27 @@ class SiteModel extends AbstractSiteModel
     public function getActiveSectionUri()
     {
         return $this->getActiveSection()->getUrl();
+    }
+
+    /**
+     * Gets Section by ID
+     *
+     * @param int $sectionId Section ID
+     *
+     * @return SectionModel
+     */
+    public function getSectionById($sectionId)
+    {
+        if (array_key_exists($sectionId, $this->_sections) === false) {
+            $section = SectionModel::model()
+                ->byId($sectionId)
+                ->withRelations(['seoModel'])
+                ->find();
+            if ($section !== null) {
+                $this->_sections[$sectionId] = $section;
+            }
+        }
+
+        return $this->_sections[$sectionId];
     }
 }

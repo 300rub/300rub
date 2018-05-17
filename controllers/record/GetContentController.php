@@ -2,11 +2,10 @@
 
 namespace ss\controllers\record;
 
-use ss\application\exceptions\NotFoundException;
+use ss\application\components\helpers\Link;
 use ss\controllers\_abstract\AbstractController;
 use ss\models\blocks\block\BlockModel;
 use ss\models\blocks\record\RecordModel;
-use ss\models\sections\SectionModel;
 
 /**
  * Gets content
@@ -21,11 +20,16 @@ class GetContentController extends AbstractController
      */
     public function run()
     {
+        $html = $this->_getRecordModel()->getInstancesHtml(
+            (int)$this->get('page'),
+            $this->get('sectionId')
+        );
+
+        $link = new Link();
+        $html = $link->parseLinks($html);
+
         return [
-            'html' => $this->_getRecordModel()->getInstancesHtml(
-                (int)$this->get('page'),
-                $this->_getSectionModel()->getUrl()
-            )
+            'html' => $html
         ];
     }
 
@@ -40,32 +44,5 @@ class GetContentController extends AbstractController
         return $blockModel->getContentModel(
             RecordModel::CLASS_NAME
         );
-    }
-
-    /**
-     * Gets section model
-     *
-     * @return SectionModel
-     *
-     * @throws NotFoundException
-     */
-    private function _getSectionModel()
-    {
-        $sectionId = (int)$this->get('sectionId');
-
-        $section = SectionModel::model()
-            ->byId($sectionId)
-            ->withRelations(['seoModel'])
-            ->find();
-        if ($section === null) {
-            throw new NotFoundException(
-                'Unable to find section with ID: {id}',
-                [
-                    'id' => $sectionId
-                ]
-            );
-        }
-
-        return $section;
     }
 }

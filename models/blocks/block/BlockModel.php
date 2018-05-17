@@ -4,6 +4,7 @@ namespace ss\models\blocks\block;
 
 use ss\application\App;
 use ss\application\components\Db;
+use ss\application\components\helpers\Link;
 use ss\application\exceptions\NotFoundException;
 use ss\models\_abstract\AbstractModel;
 use ss\models\blocks\block\_base\AbstractBlockModel;
@@ -244,7 +245,8 @@ class BlockModel extends AbstractBlockModel
      */
     public function getHtml()
     {
-        return $this->_html;
+        $link = new Link();
+        return $link->parseLinks($this->_html);
     }
 
     /**
