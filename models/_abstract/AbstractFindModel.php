@@ -342,8 +342,10 @@ abstract class AbstractFindModel extends AbstractBaseModel
             $relationModel->setDb($dbObject);
 
             $dbObject->addJoin(
+                Db::JOIN_TYPE_INNER,
                 $relationModel->getTableName(),
                 $relationAlias,
+                self::PK_FIELD,
                 $alias,
                 $field
             );

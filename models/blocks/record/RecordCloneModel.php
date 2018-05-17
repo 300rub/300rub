@@ -4,6 +4,7 @@ namespace ss\models\blocks\record;
 
 use ss\application\App;
 use ss\application\components\Db;
+use ss\models\blocks\block\BlockModel;
 use ss\models\blocks\record\_base\AbstractRecordCloneModel;
 
 /**
@@ -29,6 +30,11 @@ class RecordCloneModel extends AbstractRecordCloneModel
      */
     public function generateHtml()
     {
+        $sectionId = $this->_getSectionId();
+        if ($sectionId === 0) {
+            return '';
+        }
+
         $recordInstances = RecordInstanceModel::model()
             ->byRecordId($this->get('recordId'))
             ->limit($this->_getMaxCount())
@@ -45,6 +51,69 @@ class RecordCloneModel extends AbstractRecordCloneModel
                     ->get('viewType')
             ]
         );
+    }
+
+    /**
+     * Gets section ID
+     *
+     * @return int
+     */
+    private function _getSectionId()
+    {
+        $dbObject = App::getInstance()->getDb();
+
+        $dbObject
+            ->addSelect('id', 'sections', 'id');
+        $dbObject
+            ->setTable('records');
+        $dbObject
+            ->addJoin(
+                Db::JOIN_TYPE_INNER,
+                'blocks',
+                'blocks',
+                'contentId',
+                Db::DEFAULT_ALIAS,
+                self::PK_FIELD
+            )
+            ->addJoin(
+                Db::JOIN_TYPE_INNER,
+                'grids',
+                'grids',
+                'blockId',
+                'blocks',
+                self::PK_FIELD
+            )
+            ->addJoin(
+                Db::JOIN_TYPE_INNER,
+                'gridLines',
+                'gridLines',
+                self::PK_FIELD,
+                'grids',
+                'gridLineId'
+            )
+            ->addJoin(
+                Db::JOIN_TYPE_INNER,
+                'sections',
+                'sections',
+                self::PK_FIELD,
+                'gridLines',
+                'sectionId'
+            );
+        $dbObject
+            ->addWhere(sprintf('%s.id = :recordId', Db::DEFAULT_ALIAS))
+            ->addWhere('blocks.contentType = :contentType');
+        $dbObject
+            ->addParameter('recordId', $this->get('recordId'))
+            ->addParameter('contentType', BlockModel::TYPE_RECORD);
+
+        $result = $dbObject->find();
+        if (is_array($result) === true
+            && array_key_exists('id', $result) === true
+        ) {
+            return (int)$result['id'];
+        }
+
+        return 0;
     }
 
     /**

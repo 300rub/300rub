@@ -271,22 +271,22 @@ abstract class AbstractDb
     /**
      * Adds join condition
      *
+     * @param string $type          Join type
      * @param string $joinTableName Table to join
      * @param string $joinAlias     Alias of table to join
+     * @param string $joinField     Join table field
      * @param string $tableAlias    Basic table alias
      * @param string $tableField    Basic table field
-     * @param string $type          Join type
-     * @param string $joinField     Join table field
      *
      * @return AbstractDb
      */
     public function addJoin(
+        $type,
         $joinTableName,
         $joinAlias,
+        $joinField,
         $tableAlias,
-        $tableField,
-        $type = self::JOIN_TYPE_INNER,
-        $joinField = AbstractModel::PK_FIELD
+        $tableField
     ) {
         $join = sprintf(
             '%s JOIN %s AS %s ON %s.%s = %s.%s',

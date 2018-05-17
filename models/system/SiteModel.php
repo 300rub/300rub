@@ -79,11 +79,11 @@ class SiteModel extends AbstractSiteModel
     public function byDomain($name)
     {
         $this->getDb()->addJoin(
-            'domains',
-            'domains',
-            Db::DEFAULT_ALIAS,
-            self::PK_FIELD,
             Db::JOIN_TYPE_INNER,
+            'domains',
+            'domains',
+            self::PK_FIELD,
+            Db::DEFAULT_ALIAS,
             'siteId'
         );
 

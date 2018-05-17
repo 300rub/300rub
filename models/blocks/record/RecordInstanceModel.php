@@ -34,8 +34,10 @@ class RecordInstanceModel extends AbstractRecordInstanceModel
     public function byUrl($url)
     {
         $this->getDb()->addJoin(
+            Db::JOIN_TYPE_INNER,
             'seo',
             'seo',
+            self::PK_FIELD,
             Db::DEFAULT_ALIAS,
             'seoId'
         );

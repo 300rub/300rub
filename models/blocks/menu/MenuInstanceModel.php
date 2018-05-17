@@ -146,13 +146,21 @@ class MenuInstanceModel extends AbstractMenuInstanceModel
             ->setTable('menuInstances');
         $dbObject
             ->addJoin(
+                Db::JOIN_TYPE_LEFT,
                 'sections',
                 'sections',
+                self::PK_FIELD,
                 Db::DEFAULT_ALIAS,
-                'sectionId',
-                Db::JOIN_TYPE_LEFT
+                'sectionId'
             )
-            ->addJoin('seo', 'seo', 'sections', 'seoId', Db::JOIN_TYPE_LEFT);
+            ->addJoin(
+                Db::JOIN_TYPE_LEFT,
+                'seo',
+                'seo',
+                self::PK_FIELD,
+                'sections',
+                'seoId'
+            );
         $dbObject
             ->addWhere(sprintf('%s.menuId = :menuId', Db::DEFAULT_ALIAS));
         $dbObject

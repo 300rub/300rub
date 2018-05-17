@@ -54,8 +54,10 @@ class ImageInstanceModel extends AbstractUpdateModel
     public function byImageId($imageId)
     {
         $this->getDb()->addJoin(
+            Db::JOIN_TYPE_INNER,
             'imageGroups',
             'imageGroups',
+            self::PK_FIELD,
             Db::DEFAULT_ALIAS,
             'imageGroupId'
         );
