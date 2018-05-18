@@ -3,14 +3,14 @@
 /**
  * Variables
  *
- * @var int     $blockId
- * @var \ss\models\blocks\record\RecordInstanceModel[] $instances
- * @var int     $viewType
+ * @var int    $blockId
+ * @var string $instances
+ * @var int    $viewType
  */
 
 use ss\models\blocks\record\DesignRecordModel;
 
-echo sprintf('<div class="block-%s">', $blockId);
+echo sprintf('<div class="record-list block-%s">', $blockId);
 
 switch ($viewType) {
     case DesignRecordModel::SHORT_CART_VIEW_TYPE_GRID_1:
@@ -27,12 +27,6 @@ switch ($viewType) {
         break;
 }
 
-echo sprintf('<div class="instances %s">', $viewType);
-
-foreach ($instances as $instance) {
-    echo 123321;
-}
-
-echo '</div>';
+echo sprintf('<div class="instances %s">%s</div>', $viewType, $instances);
 
 echo '</div>';

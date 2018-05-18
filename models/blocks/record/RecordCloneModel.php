@@ -4,6 +4,7 @@ namespace ss\models\blocks\record;
 
 use ss\application\App;
 use ss\application\components\Db;
+use ss\application\components\helpers\Link;
 use ss\models\blocks\block\BlockModel;
 use ss\models\blocks\record\_base\AbstractRecordCloneModel;
 
@@ -41,11 +42,28 @@ class RecordCloneModel extends AbstractRecordCloneModel
             ->ordered('sort', Db::DEFAULT_ALIAS, true)
             ->findAll();
 
+        $link = new Link();
+
+        $instances = '';
+        foreach ($recordInstances as $recordInstance) {
+            $instances .= App::getInstance()->getView()->get(
+                'content/record/cloneCard',
+                [
+                    'recordClone'    => $this,
+                    'recordInstance' => $recordInstance,
+                    'url'            => $link->generateLink(
+                        $recordInstance->get('seoModel')->get('url'),
+                        $sectionId
+                    )
+                ]
+            );
+        }
+
         return App::getInstance()->getView()->get(
-            'content/record/clone',
+            'content/record/cloneList',
             [
                 'blockId'     => $this->getBlockId(),
-                'instances'   => $recordInstances,
+                'instances'   => $instances,
                 'viewType'    => $this
                     ->get('designRecordCloneModel')
                     ->get('viewType')
