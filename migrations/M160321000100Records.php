@@ -244,6 +244,7 @@ class M160321000100Records extends AbstractMigration
                     'instanceDesignBlockId'    => self::TYPE_FK,
                     'titleDesignBlockId'       => self::TYPE_FK,
                     'titleDesignTextId'        => self::TYPE_FK,
+                    'dateDesignBlockId'        => self::TYPE_FK,
                     'dateDesignTextId'         => self::TYPE_FK,
                     'descriptionDesignBlockId' => self::TYPE_FK,
                     'descriptionDesignTextId'  => self::TYPE_FK,
@@ -269,6 +270,11 @@ class M160321000100Records extends AbstractMigration
                 'designRecordClones',
                 'titleDesignTextId',
                 'designTexts'
+            )
+            ->createForeignKey(
+                'designRecordClones',
+                'dateDesignBlockId',
+                'designBlocks'
             )
             ->createForeignKey(
                 'designRecordClones',

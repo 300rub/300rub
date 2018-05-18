@@ -53,10 +53,10 @@ if ($recordClone->get('hasCover') === true
     }
 }
 
-echo '<div class="short-card-body">';
+echo '<div>';
 
 echo sprintf(
-    '<a href="%s" class="short-card-title">%s</a>',
+    '<a href="%s" class="title">%s</a>',
     $url,
     $name
 );
@@ -66,14 +66,14 @@ $dateValue = DateTime::create($recordInstance->get('date'))
 
 if ($dateValue !== '') {
     echo sprintf(
-        '<div class="short-card-date">%s</div>',
+        '<div class="date">%s</div>',
         $dateValue
     );
 }
 
 if ($recordClone->get('hasDescription') === true) {
     echo sprintf(
-        '<div class="short-card-description">%s</div>',
+        '<div class="description">%s</div>',
         $recordInstance->get('descriptionTextInstanceModel')->get('text')
     );
 }

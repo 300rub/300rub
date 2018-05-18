@@ -64,6 +64,10 @@ abstract class AbstractDesignRecordCloneModel extends AbstractModel
                 self::FIELD_RELATION
                     => '\\ss\\models\\blocks\\text\\DesignTextModel'
             ],
+            'dateDesignBlockId'         => [
+                self::FIELD_RELATION
+                    => '\\ss\\models\\blocks\\block\\DesignBlockModel'
+            ],
             'dateDesignTextId'         => [
                 self::FIELD_RELATION
                     => '\\ss\\models\\blocks\\text\\DesignTextModel'

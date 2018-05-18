@@ -53,7 +53,7 @@ if ($record->get('hasCover') === true
     }
 }
 
-echo '<div class="short-card-body">';
+echo '<div>';
 
 echo sprintf(
     '<a href="%s" class="short-card-title">%s</a>',

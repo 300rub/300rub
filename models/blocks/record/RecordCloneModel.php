@@ -25,6 +25,13 @@ class RecordCloneModel extends AbstractRecordCloneModel
     const DEFAULT_MAX_COUNT = 3;
 
     /**
+     * Is fully cached
+     *
+     * @var bool
+     */
+    protected $isFullyCached = true;
+
+    /**
      * Generates HTML
      *
      * @return string
@@ -141,7 +148,76 @@ class RecordCloneModel extends AbstractRecordCloneModel
      */
     public function generateCss()
     {
-        return [];
+        $css = [];
+        $view = App::getInstance()->getView();
+
+        $designRecordModel = $this->get('designRecordCloneModel');
+
+        $css = array_merge(
+            $css,
+            $view->generateCss(
+                $designRecordModel->get('containerDesignBlockModel'),
+                sprintf('.block-%s.record-list', $this->getBlockId())
+            )
+        );
+
+        $css = array_merge(
+            $css,
+            $view->generateCss(
+                $designRecordModel->get('instanceDesignBlockModel'),
+                sprintf('.block-%s .record-card', $this->getBlockId())
+            )
+        );
+
+        $css = array_merge(
+            $css,
+            $view->generateCss(
+                $designRecordModel->get('titleDesignBlockModel'),
+                sprintf('.block-%s .record-card .title', $this->getBlockId())
+            )
+        );
+
+        $css = array_merge(
+            $css,
+            $view->generateCss(
+                $designRecordModel->get('titleDesignTextModel'),
+                sprintf('.block-%s .record-card .title', $this->getBlockId())
+            )
+        );
+
+        $css = array_merge(
+            $css,
+            $view->generateCss(
+                $designRecordModel->get('dateDesignBlockModel'),
+                sprintf('.block-%s .record-card .date', $this->getBlockId())
+            )
+        );
+
+        $css = array_merge(
+            $css,
+            $view->generateCss(
+                $designRecordModel->get('dateDesignTextModel'),
+                sprintf('.block-%s .record-card .date', $this->getBlockId())
+            )
+        );
+
+        $css = array_merge(
+            $css,
+            $view->generateCss(
+                $designRecordModel->get('descriptionDesignBlockModel'),
+                sprintf('.block-%s .record-card .description', $this->getBlockId())
+            )
+        );
+
+        $css = array_merge(
+            $css,
+            $view->generateCss(
+                $designRecordModel->get('descriptionDesignTextModel'),
+                sprintf('.block-%s .record-card .description', $this->getBlockId())
+            )
+        );
+
+        return $css;
     }
 
     /**
