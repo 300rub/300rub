@@ -164,9 +164,9 @@ class BlockModel extends AbstractBlockModel
             Db::JOIN_TYPE_INNER,
             'grids',
             'grids',
-            self::PK_FIELD,
+            'blockId',
             Db::DEFAULT_ALIAS,
-            'blockId'
+            self::PK_FIELD
         );
 
         $this->getDb()->addJoin(

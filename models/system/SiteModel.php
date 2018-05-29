@@ -82,9 +82,9 @@ class SiteModel extends AbstractSiteModel
             Db::JOIN_TYPE_INNER,
             'domains',
             'domains',
-            self::PK_FIELD,
+            'siteId',
             Db::DEFAULT_ALIAS,
-            'siteId'
+            self::PK_FIELD
         );
 
         $this->getDb()->addWhere('domains.name = :name');

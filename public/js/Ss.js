@@ -11,6 +11,9 @@
             accordion: {}
         },
         forms: {},
+        content: {
+            menu: {}
+        },
         panel: {
             blocks: {
                 text: {}

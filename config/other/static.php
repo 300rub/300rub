@@ -39,7 +39,9 @@ return [
             'forms/Text',
             'window/Collection',
             'window/Abstract',
-            'window/users/Login'
+            'window/users/Login',
+            'content/menu/Abstract',
+            'content/menu/Horizontal',
         ],
         'compiledCss' => 'common',
         'compiledJs' => 'common',
