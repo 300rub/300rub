@@ -12,14 +12,15 @@ phpfpm:
         - "site1.ss.local:172.17.0.1"
 
 db:
-    image:  mysql:5.6.19
+    build: ../docker/build/mysql/5.7.22/
     privileged: true
     net: "container:phpfpm"
     environment:
         MYSQL_ROOT_PASSWORD: root
         MYSQL_SQL_TO_RUN: 'GRANT ALL ON *.* TO root@"%" IDENTIFIED BY "root";'
-        MYSQL_DATABASE: "project"
+    volumes:
+        - ./../../data/mysql:/var/lib/mysql
 
 memcached:
-    image: memcached:latest
+    build: ../docker/build/memcached/1.5/
     net: "container:phpfpm"

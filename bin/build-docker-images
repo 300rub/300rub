@@ -3,12 +3,12 @@
 trap "exit" INT
 baseDir=$(dirname "$0")
 
-for imagePath in `find $baseDir/../config/docker/*/* -type d`
+for imagePath in `find $baseDir/../config/docker/images*/* -type d`
 do
     echo $imagePath
     IFS='/' read -r -a array <<< "$imagePath"
     arrayLen=${#array[@]}
-    imageName=${array[$arrayLen-2]}:${array[$arrayLen-1]}
+    imageName=ss/${array[$arrayLen-2]}:${array[$arrayLen-1]}
     docker build --build-arg http_proxy=http://172.17.0.1:3128 --build-arg https_proxy=http://172.17.0.1:3128 -t $imageName $imagePath
     #docker build -t $imageName $imagePath
 done

@@ -15,7 +15,7 @@ return [
         ],
         [
             'siteId' => 1,
-            'name'   => trim(shell_exec("/sbin/ip route|awk '/default/ { print $3 }'")),
+            'name'   => '127.0.0.1',
             'isMain' => false,
         ],
         [

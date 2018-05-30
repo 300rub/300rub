@@ -21,7 +21,7 @@
 
     <target name="clear-db">
         <exec executable="php" failonerror="true">
-            <arg value='bin/run-php-command' />
+            <arg value='/var/www/bin/run-php-command' />
             <arg value='clearDb' />
         </exec>
     </target>
