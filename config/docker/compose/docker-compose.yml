@@ -1,11 +1,11 @@
-nginx:
-    image: nginx:1.13.8
-    links:
-        - phpfpm
-    volumes:
-        - "./../../../../live:/var/www"
+#nginx:
+#    image: nginx:1.13.8
+#    links:
+#        - phpfpm
+#    volumes:
+#        - "./../../../../live:/var/www"
 
 phpfpm:
-    build: ../docker/build/php-fpm/7.2.6/
+    build: ../build/php-fpm/7.2.6/
     volumes:
         - "./../../../../live:/var/www"
