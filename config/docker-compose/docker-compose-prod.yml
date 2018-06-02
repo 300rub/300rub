@@ -1,7 +1,0 @@
-nginx:
-    ports:
-        - "80:80"
-
-phpfpm:
-    environment:
-        APP_ENV: prod

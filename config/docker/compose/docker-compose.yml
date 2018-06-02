@@ -3,9 +3,9 @@ nginx:
     links:
         - phpfpm
     volumes:
-        - "./../..:/var/www"
+        - "./../../../../live:/var/www"
 
 phpfpm:
     build: ../docker/build/php-fpm/7.2.6/
     volumes:
-        - "./../..:/var/www"
+        - "./../../../../live:/var/www"
