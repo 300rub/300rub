@@ -60,7 +60,7 @@ class M160301000010Domains extends AbstractMigration
                 [
                     $domain['siteId'],
                     $domain['name'],
-                    $domain['isMain'],
+                    (int)$domain['isMain'],
                 ]
             );
         }

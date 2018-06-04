@@ -16,5 +16,6 @@ RUN apt-get install -y php7.2-curl
 RUN apt-get install -y php7.2-memcached
 
 RUN apt-get install -y --fix-missing ant
+RUN apt-get install -y mysql-client
 
 EXPOSE 9000

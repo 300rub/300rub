@@ -5,16 +5,5 @@ docker-compose -f config/docker/compose/docker-compose.yml -f config/docker/comp
 docker-compose -f config/docker/compose/docker-compose.yml -f config/docker/compose/docker-compose-dev.yml -p ss build
 docker-compose -f config/docker/compose/docker-compose.yml -f config/docker/compose/docker-compose-dev.yml -p ss up -d
 
-#echo "Waiting 5 sec for MySQL..."
-#sleep 5
 
-#mysql -u root -proot -h 127.0.0.1 -P 7777 -e "CREATE DATABASE system" 2> /dev/null
-#mysql -u root -proot -h 127.0.0.1 -P 7777 -e "GRANT ALL PRIVILEGES ON system.* TO 'root'@'127.0.0.1' IDENTIFIED BY 'root'" 2> /dev/null
-#mysql -u root -proot -h 127.0.0.1 -P 7777 -e "CREATE DATABASE site1" 2> /dev/null
-#mysql -u root -proot -h 127.0.0.1 -P 7777 -e "GRANT ALL PRIVILEGES ON site1.* TO 'root'@'127.0.0.1' IDENTIFIED BY 'root'" 2> /dev/null
-#mysql -u root -proot -h 127.0.0.1 -P 7777 -e "CREATE DATABASE site2" 2> /dev/null
-#mysql -u root -proot -h 127.0.0.1 -P 7777 -e "GRANT ALL PRIVILEGES ON site2.* TO 'root'@'127.0.0.1' IDENTIFIED BY 'root'" 2> /dev/null
-#mysql -u root -proot -h 127.0.0.1 -P 7777 -e "CREATE DATABASE help" 2> /dev/null
-#mysql -u root -proot -h 127.0.0.1 -P 7777 -e "GRANT ALL PRIVILEGES ON help.* TO 'root'@'127.0.0.1' IDENTIFIED BY 'root'" 2> /dev/null
-
-#docker exec -it ss_phpfpm_1 ant -file /var/www/config/build/build.xml
+docker exec -it ss_phpfpm_1 ant -file /var/www/config/build/build.xml
