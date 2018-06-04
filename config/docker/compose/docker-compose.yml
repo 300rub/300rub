@@ -7,5 +7,6 @@
 
 phpfpm:
     build: ../build/php-fpm/7.2.6/
+    command: /var/www/config/docker/build/php-fpm/7.2.6/run.sh
     volumes:
         - "./../../../../live:/var/www"
