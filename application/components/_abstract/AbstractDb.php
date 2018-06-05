@@ -178,6 +178,8 @@ abstract class AbstractDb
             );
         }
 
+        App::getInstance()->getLogger()->debug($statement, 'mysql');
+
         return $sth;
     }
 

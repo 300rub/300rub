@@ -3,7 +3,7 @@ nginx:
     links:
         - phpfpm
     volumes:
-        - "./../../../../live:/var/www"
+        - "./../../../../dev:/var/www"
     ports:
         - "80:80"
 

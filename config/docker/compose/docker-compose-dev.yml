@@ -1,7 +1,7 @@
 phpfpm:
     net: "bridge"
     ports:
-        - "7777:3306" # MySQL
+        - "7777:3306"
     environment:
         APP_ENV: dev
     extra_hosts:

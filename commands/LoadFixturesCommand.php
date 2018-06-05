@@ -147,9 +147,9 @@ class LoadFixturesCommand extends AbstractCommand
                 }
             }
 
-            $this->_uploadImages($type, $site);
-
-            $this->_saveRecordInstances($type);
+//            $this->_uploadImages($type, $site);
+//
+//            $this->_saveRecordInstances($type);
 
             $dbObject->execute('SET GLOBAL FOREIGN_KEY_CHECKS=1;');
         }

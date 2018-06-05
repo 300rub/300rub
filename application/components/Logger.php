@@ -24,6 +24,11 @@ class Logger
     const LEVEL_ERROR = 'error';
 
     /**
+     * Level bug
+     */
+    const LEVEL_DEBUG = 'debug';
+
+    /**
      * Default file name
      */
     const DEFAULT_NAME = 'common';
@@ -45,10 +50,11 @@ class Logger
         $filePath = sprintf('%s/%s.log', __DIR__ . '/../../tmp/logs', $name);
 
         $logMessage = sprintf(
-            '[%s] [%s] %s',
+            '[%s] [%s] %s %s',
             date('Y-m-d H:i:s', time()),
             $level,
-            $message
+            $message,
+            PHP_EOL . PHP_EOL
         );
 
         $file = fopen($filePath, 'a');
@@ -95,5 +101,20 @@ class Logger
     public function error($message, $name = self::DEFAULT_NAME)
     {
         $this->log($message, $name, self::LEVEL_ERROR);
+    }
+
+    /**
+     * Logs debug message
+     *
+     * @param string $message Message
+     * @param string $name    File name
+     *
+     * @return void
+     */
+    public function debug($message, $name = self::DEFAULT_NAME)
+    {
+        if (APP_ENV === ENV_DEV) {
+            $this->log($message, $name, self::LEVEL_DEBUG);
+        }
     }
 }
