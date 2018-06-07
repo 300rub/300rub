@@ -1,8 +1,6 @@
 .idea
-vendor
-composer.lock
+config/composer/composer.lock
 public/css/lib
 public/js/lib
 public/upload
-config/local.php
-data
+vendor
