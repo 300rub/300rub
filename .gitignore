@@ -1,6 +1,4 @@
 .idea
-tmp/logs/*.log
-tmp/backups
 vendor
 composer.lock
 public/css/lib

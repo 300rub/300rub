@@ -1,12 +1,4 @@
 <project name="ss" default="build" basedir="/var/www">
-
-    <target name="clear-logs">
-        <echo>Removing all log files</echo>
-        <delete>
-            <fileset dir="tmp/logs" includes="**/*.log"/>
-        </delete>
-    </target>
-
     <target name="composer">
         <echo>Vendors updating</echo>
         <exec executable="php">
@@ -78,7 +70,7 @@
 
     <target name="phpcs" description="Check code with PHP Code Sniffer">
         <exec executable="./vendor/squizlabs/php_codesniffer/bin/phpcs">
-            <arg value="--ignore=tmp/backups/,bin/,docker/,tmp/logs/,public/*/lib,tmp/trash,vendor,config/" />
+            <arg value="--ignore=bin/,docker/,public/*/lib,vendor,config/" />
             <arg value="--standard=config/code/phpcs/generic.xml,config/code/phpcs/pear.xml,config/code/phpcs/psr1.xml,config/code/phpcs/psr2.xml,config/code/phpcs/squiz.xml,config/code/phpcs/zend.xml" />
             <arg path="${path}" />
         </exec>
@@ -86,7 +78,7 @@
 
     <target name="phpcbf" description="Fixing code with PHP Code Sniffer">
         <exec executable="./vendor/squizlabs/php_codesniffer/bin/phpcbf">
-            <arg value="--ignore=tmp/backups/,bin/,docker/,tmp/logs/,public/*/lib,tmp/trash,vendor,config/" />
+            <arg value="--ignore=bin/,docker/,public/*/lib,vendor,config/" />
             <arg value="--standard=config/code/phpcs/generic.xml,config/code/phpcs/pear.xml,config/code/phpcs/psr1.xml,config/code/phpcs/psr2.xml,config/code/phpcs/squiz.xml,config/code/phpcs/zend.xml" />
             <arg path="${path}" />
         </exec>
@@ -98,7 +90,7 @@
             <arg value="text" />
             <arg value="config/code/phpmd/cleancode.xml,config/code/phpmd/codesize.xml,config/code/phpmd/controversial.xml,config/code/phpmd/design.xml,config/code/phpmd/naming.xml,config/code/phpmd/unusedcode.xml" />
             <arg value="--exclude" />
-            <arg value="tmp/backups/,bin/,docker/,tmp/logs/,public/*/lib,tmp/trash,vendor,config/" />
+            <arg value="bin/,docker/,public/*/lib,vendor,config/" />
         </exec>
     </target>
 
@@ -122,7 +114,7 @@
             <arg value="--config" />
             <arg path="config/code/jshint.json" />
             <arg value="--exclude" />
-            <arg value="vendor,tmp/backups,bin,docker,tmp/logs,tmp/trash,public/js/lib" />
+            <arg value="vendor,bin,docker,public/js/lib" />
         </exec>
     </target>
 
@@ -146,9 +138,7 @@
         </exec>
     </target>
 
-    <target name="prepare" depends="clear-logs">
-        <delete dir="tmp/backups" />
-        <mkdir dir="tmp/backups" />
+    <target name="prepare">
         <delete dir="public/upload" />
         <mkdir dir="public/upload" />
         <mkdir dir="public/upload/1" />

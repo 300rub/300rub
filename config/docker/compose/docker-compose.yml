@@ -2,10 +2,12 @@ nginx:
     build: ../build/nginx/1.14.0/
     links:
         - phpfpm
-    volumes:
-        - "./../../../../dev:/var/www"
+    volumes_from:
+        - phpfpm
     ports:
         - "80:80"
 
 phpfpm:
     build: ../build/php-fpm/7.2.6/
+    volumes:
+        - "./../../../../..:/var/www"

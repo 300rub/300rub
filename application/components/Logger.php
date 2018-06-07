@@ -47,7 +47,7 @@ class Logger
         $name = self::DEFAULT_NAME,
         $level = self::LEVEL_INFO
     ) {
-        $filePath = sprintf('%s/%s.log', __DIR__ . '/../../tmp/logs', $name);
+        $filePath = sprintf('%s/%s.log', __DIR__ . '/../../../../logs', $name);
 
         $logMessage = sprintf(
             '[%s] [%s] %s %s',
