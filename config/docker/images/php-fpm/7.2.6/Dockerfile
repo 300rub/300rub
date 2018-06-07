@@ -14,6 +14,7 @@ RUN apt-get install -y php7.2-mbstring
 RUN apt-get install -y php7.2-xml
 RUN apt-get install -y php7.2-curl
 RUN apt-get install -y php7.2-memcached
+RUN apt-get install -y php7.2-gd
 
 RUN apt-get install -y --fix-missing ant
 RUN apt-get install -y mysql-client
