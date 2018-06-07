@@ -1,4 +1,4 @@
-<project name="ss" default="build" basedir="/var/www">
+<project name="ss" default="build" basedir="/var/www/code/live/">
     <target name="composer">
         <echo>Vendors updating</echo>
         <exec executable="php">
@@ -13,7 +13,7 @@
 
     <target name="clear-db">
         <exec executable="php" failonerror="true">
-            <arg value='/var/www/bin/run-php-command' />
+            <arg value='bin/run-php-command' />
             <arg value='clearDb' />
         </exec>
     </target>
