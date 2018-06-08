@@ -20,3 +20,11 @@ db:
 memcached:
     build: ../build/memcached/1.5/
     net: "container:phpfpm"
+
+jenkins:
+    build: ../build/jenkins/2.60.3/
+    ports:
+        - 8080:8080
+        - 50000:50000
+    volumes:
+        - ./../../../../../jenkins:/var/jenkins_home
