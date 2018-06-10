@@ -49,6 +49,11 @@ class Logger
     ) {
         $filePath = sprintf('%s/%s.log', __DIR__ . '/../../../../logs', $name);
 
+        $isNew = false;
+        if (file_exists($filePath) === false) {
+            $isNew = true;
+        }
+
         $logMessage = sprintf(
             '[%s] [%s] %s %s',
             date('Y-m-d H:i:s', time()),
@@ -62,6 +67,10 @@ class Logger
         fwrite($file, $logMessage);
         flock($file, LOCK_UN);
         fclose($file);
+
+        if ($isNew === true) {
+            chmod($filePath, 0777);
+        }
     }
 
     /**
