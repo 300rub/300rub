@@ -1,21 +1,21 @@
 {
 	"require": {
+		"troolee/gridstack": "0.3.0",
 		"components/jquery": "3.3.1",
 		"components/jqueryui": "1.12.1",
-		"troolee/gridstack": "0.3.0",
-		"lodash/lodash": "4.17.5",
 		"tinymce/tinymce": "4.7.9",
 		"vanderlee/colorpicker": "1.2.16",
-		"less/less": "2.7.2",
 		"matthiasmullie/minify": "1.3.59",
-		"fortawesome/font-awesome": "5.0.10",
 		"fancyapps/fancybox": "3.2.5",
 		"fengyuanchen/cropper": "4.0.0-beta",
 		"donatj/phpuseragentparser": "0.9.0",
 		"IanLunn/Hover": "2.1.1",
 		"blueimp/JavaScript-MD5": "2.10.0",
 		"gregwar/image": "2.0.22",
-		"jssor/slider": "27.1.0"
+		"jssor/slider": "27.1.0",
+		"lodash/lodash": "4.17.5",
+		"less/less": "2.7.2",
+		"fortawesome/font-awesome": "5.0.10"
 	},
 	"require-dev": {
 		"phpunit/phpunit": "5.5.*",
@@ -150,7 +150,7 @@
 		}
 	],
 	"config": {
-		"vendor-dir": "vendor",
+		"vendor-dir": "/var/www/code/live/vendor",
 		"component-dir": "/tmp/components",
 		"discard-changes": true
 	}

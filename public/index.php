@@ -1,4 +1,5 @@
 <?php
+
 use ss\application\App;
 
 // Config file path.

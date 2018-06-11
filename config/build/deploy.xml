@@ -1,12 +1,7 @@
-<project name="deploy" default="deploy" basedir="/var/www/code/live/">
+<project name="deploy" default="deploy">
 
-    <target name="git-fetch">
-        <exec executable="git" failonerror="true">
-            <arg value='status' />
-        </exec>
-    </target>
+    <import file="tools.xml"/>
 
-
-    <target name="deploy" depends="git-fetch">
+    <target name="deploy" depends="composer">
     </target>
 </project>
