@@ -1,5 +1,7 @@
 #!/bin/bash
 
-git status
+git fetch --all -p
+git add .
+git reset --hard origin/master
 
 #docker exec -it ss_phpfpm_1 ant -file /var/www/code/live/config/build/deploy.xml deploy
