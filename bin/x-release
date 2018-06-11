@@ -1,0 +1,5 @@
+#!/bin/bash
+
+git status
+
+#docker exec -it ss_phpfpm_1 ant -file /var/www/code/live/config/build/deploy.xml deploy

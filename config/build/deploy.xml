@@ -1,0 +1,12 @@
+<project name="deploy" default="deploy" basedir="/var/www/code/live/">
+
+    <target name="git-fetch">
+        <exec executable="git" failonerror="true">
+            <arg value='status' />
+        </exec>
+    </target>
+
+
+    <target name="deploy" depends="git-fetch">
+    </target>
+</project>
