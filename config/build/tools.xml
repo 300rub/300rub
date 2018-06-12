@@ -9,6 +9,19 @@
             <arg value='--all' />
             <arg value='-p' />
         </exec>
+        <exec executable="git">
+            <env key="http_proxy" value="${proxy}" />
+            <env key="https_proxy" value="${proxy}" />
+            <arg value='add' />
+            <arg value='.' />
+        </exec>
+        <exec executable="git">
+            <env key="http_proxy" value="${proxy}" />
+            <env key="https_proxy" value="${proxy}" />
+            <arg value='reset' />
+            <arg value='--hard' />
+            <arg value='origin/master' />
+        </exec>
     </target>
 
     <target name="composer-install">
