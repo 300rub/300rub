@@ -1,6 +1,3 @@
 #!/bin/bash
 
-proxy=172.17.0.1:3128
-config=/var/www/code/live/config/composer/composer.json
-
-docker exec -it -e http_proxy=$proxy -e https_proxy=$proxy -e COMPOSER=$config ss_phpfpm_1 composer --profile -vvv update
+docker exec -it ss_phpfpm_1 ant -file /var/www/code/live/config/build/tools.xml composer-update

@@ -1,6 +1,4 @@
-<project name="ss" default="build" basedir="/var/www/code/live/">
-
-
+<project name="ss" default="build" basedir="${basedir}/../../..">
     <target name="clear-db">
         <exec executable="php" failonerror="true">
             <arg value='bin/run-php-command' />

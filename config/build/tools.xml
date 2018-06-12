@@ -1,13 +1,22 @@
-<project name="tools" default="default">
-    <target name="composer">
-        <echo>Vendors updating</echo>
-        <exec executable="php">
-            <arg value='composer.phar' />
+<project name="tools" default="default" basedir="${basedir}/../../..">
+    <property name="proxy" value="172.17.0.1:3128" />
+
+    <target name="composer-install">
+        <exec executable="composer">
+            <env key="COMPOSER" value="${basedir}/config/composer/composer.json" />
+            <env key="http_proxy" value="${proxy}" />
+            <env key="https_proxy" value="${proxy}" />
             <arg value='install' />
         </exec>
-        <exec executable="php">
-            <arg value='composer.phar' />
+    </target>
+
+    <target name="composer-update">
+        <exec executable="composer">
+            <env key="COMPOSER" value="${basedir}/config/composer/composer.json" />
+            <env key="http_proxy" value="${proxy}" />
+            <env key="https_proxy" value="${proxy}" />
             <arg value='update' />
+            <arg value='-vvv' />
         </exec>
     </target>
 

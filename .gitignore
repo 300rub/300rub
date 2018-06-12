@@ -1,5 +1,4 @@
 .idea
-config/composer/composer.lock
 public/css/lib
 public/js/lib
 public/upload
