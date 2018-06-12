@@ -1,6 +1,6 @@
 <project name="deploy" default="deploy" basedir="${basedir}/../../..">
     <import file="tools.xml"/>
 
-    <target name="deploy" depends="git-reset, composer-install">
+    <target name="deploy" depends="composer-install">
     </target>
 </project>
