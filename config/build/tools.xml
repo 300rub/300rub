@@ -1,6 +1,12 @@
 <project name="tools" default="default" basedir="${basedir}/../../..">
     <property name="proxy" value="172.17.0.1:3128" />
 
+    <target name="git-reset">
+        <exec executable="git">
+            <arg value='status' />
+        </exec>
+    </target>
+
     <target name="composer-install">
         <exec executable="composer">
             <env key="COMPOSER" value="${basedir}/config/composer/composer.json" />
