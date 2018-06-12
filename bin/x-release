@@ -1,3 +1,16 @@
 #!/bin/bash
 
-docker exec -it ss_phpfpm_1 ant -file /var/www/code/live/config/build/deploy.xml deploy
+files='-f config/docker/compose/docker-compose.yml -f config/docker/compose/docker-compose-dev.yml'
+docker-compose $files -p ss kill
+docker-compose $files -p ss rm -f
+docker-compose $files -p ss build
+docker-compose $files -p ss up -d
+
+docker exec -it ss_phpfpm_1 ant -file /var/www/code/live/config/build/deploy.xml prepare
+
+docker-compose $files -p ss kill
+docker-compose $files -p ss rm -f
+docker-compose $files -p ss build
+docker-compose $files -p ss up -d
+
+docker exec -it ss_phpfpm_1 ant -file /var/www/code/live/config/build/build.xml phpunit -Dpath="tests/unit"

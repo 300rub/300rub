@@ -1,6 +1,6 @@
-<project name="deploy" default="deploy" basedir="${basedir}/../../..">
+<project name="deploy" default="prepare" basedir="${basedir}/../../..">
     <import file="tools.xml"/>
 
-    <target name="deploy" depends="composer-install">
+    <target name="prepare" depends="composer-install">
     </target>
 </project>
