@@ -11,18 +11,47 @@
     <target name="archive">
         <exec executable="mkdir">
             <arg value="-p" />
-            <arg value="${basedir}/../../archives" />
+            <arg value="-m" />
+            <arg value="0777" />
+            <arg value="${basedir}/../../releases" />
         </exec>
 
         <exec executable="tar">
             <arg value="--exclude=./.git" />
             <arg value="--exclude=./.idea" />
-            <arg value="-zcvf" />
-            <arg value="${basedir}/../../archives/release-${release}.tar.gz" />
+            <arg value="-zcf" />
+            <arg value="${basedir}/../../releases/release-${release}.tar.gz" />
             <arg value="." />
+        </exec>
+
+        <exec executable="chmod">
+            <arg value="0777" />
+            <arg value="${basedir}/../../releases/release-${release}.tar.gz" />
         </exec>
     </target>
 
-    <target name="deploy" depends="update-release-number, archive">
+    <target name="upload-release">
+        <exec executable="mkdir">
+            <arg value="-p" />
+            <arg value="/root/.ssh" />
+        </exec>
+
+        <exec executable="cp">
+            <arg value="/root/.ssh-tmp/id_rsa.pub" />
+            <arg value="/root/.ssh/id_rsa.pub" />
+        </exec>
+
+        <exec executable="cp">
+            <arg value="/root/.ssh-tmp/id_rsa" />
+            <arg value="/root/.ssh/id_rsa" />
+        </exec>
+
+        <exec executable="scp">
+            <arg value="/var/www/releases/release-${release}.tar.gz" />
+            <arg value="mike@10.200.218.71:/home/mike/git/test/releases/release-${release}.tar.gz" />
+        </exec>
+    </target>
+
+    <target name="deploy" depends="update-release-number, archive, upload-release">
     </target>
 </project>

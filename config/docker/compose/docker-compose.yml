@@ -11,3 +11,4 @@ phpfpm:
     build: ../build/php-fpm/7.2.6/
     volumes:
         - "./../../../../..:/var/www"
+        - "~/.ssh:/root/.ssh-tmp"
