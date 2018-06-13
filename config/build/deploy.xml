@@ -3,4 +3,26 @@
 
     <target name="prepare" depends="composer-install">
     </target>
+
+    <target name="update-release-number">
+        <echo file="${basedir}/config/release" append="false">${release}</echo>
+    </target>
+
+    <target name="archive">
+        <exec executable="mkdir">
+            <arg value="-p" />
+            <arg value="${basedir}/../../archives" />
+        </exec>
+
+        <exec executable="tar">
+            <arg value="--exclude=./.git" />
+            <arg value="--exclude=./.idea" />
+            <arg value="-zcvf" />
+            <arg value="${basedir}/../../archives/release-${release}.tar.gz" />
+            <arg value="." />
+        </exec>
+    </target>
+
+    <target name="deploy" depends="update-release-number, archive">
+    </target>
 </project>

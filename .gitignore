@@ -1,4 +1,5 @@
 .idea
+config/release
 public/css/lib
 public/js/lib
 public/upload
