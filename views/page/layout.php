@@ -49,9 +49,9 @@ if (isset($less) === true) {
     foreach ($less as $fileName) {
 ?>
     <link
-        rel="stylesheet/less"
+        rel="stylesheet"
         type="text/css"
-        href="/less/<?php echo $fileName; ?>.less"
+        href="/dev/less.php?name=<?php echo $fileName; ?>"
     />
 <?php
     }
@@ -75,15 +75,6 @@ if (isset($js) === true) {
     }
 }
 ?>
-
-<?php if (isset($less) === true && count($less) > 0) { ?>
-    <script>
-        less = {
-            logLevel: 0
-        };
-    </script>
-    <script src="/js/<?php echo 'lib/less.min.js'; ?>"></script>
-<?php } ?>
 
     <script>
         window.ss.system.App.setLanguage(<?php echo $language; ?>);

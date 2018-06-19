@@ -14,7 +14,6 @@
 		"gregwar/image": "2.0.22",
 		"jssor/slider": "27.1.0",
 		"lodash/lodash": "4.17.5",
-		"less/less": "2.7.2",
 		"fortawesome/font-awesome": "5.0.10"
 	},
 	"require-dev": {
@@ -23,9 +22,9 @@
 		"phpmd/phpmd" : "2.6.0",
 		"sebastian/phpcpd": "2.0.0",
 		"phploc/phploc": "4.0.1",
-
 		"brianium/paratest": "0.15.0",
-		"facebook/webdriver": "1.0.4"
+		"facebook/webdriver": "1.0.4",
+		"leafo/lessphp": "0.5.0"
 	},
 	"repositories": [
 		{
@@ -60,18 +59,6 @@
 				"source": {
 					"type": "git",
 					"url": "https://github.com/vanderlee/colorpicker",
-					"reference": "master"
-				}
-			}
-		},
-		{
-			"type": "package",
-			"package": {
-				"name": "less/less",
-				"version": "2.7.2",
-				"source": {
-					"type": "git",
-					"url": "https://github.com/less/less.js",
 					"reference": "master"
 				}
 			}

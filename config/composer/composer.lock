@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "147acb23a25fe15dbd48e462a7f9cd7a",
+    "content-hash": "df6b0e7d2ad2abb2e246a7aff44b49d0",
     "packages": [
         {
             "name": "IanLunn/Hover",
@@ -335,16 +335,6 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/jssor/slider",
-                "reference": "master"
-            },
-            "type": "library"
-        },
-        {
-            "name": "less/less",
-            "version": "2.7.2",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/less/less.js",
                 "reference": "master"
             },
             "type": "library"
@@ -794,6 +784,47 @@
                 "webdriver"
             ],
             "time": "2015-11-03T22:17:22+00:00"
+        },
+        {
+            "name": "leafo/lessphp",
+            "version": "v0.5.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/leafo/lessphp.git",
+                "reference": "0f5a7f5545d2bcf4e9fad9a228c8ad89cc9aa283"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/leafo/lessphp/zipball/0f5a7f5545d2bcf4e9fad9a228c8ad89cc9aa283",
+                "reference": "0f5a7f5545d2bcf4e9fad9a228c8ad89cc9aa283",
+                "shasum": ""
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "0.4.x-dev"
+                }
+            },
+            "autoload": {
+                "classmap": [
+                    "lessc.inc.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT",
+                "GPL-3.0"
+            ],
+            "authors": [
+                {
+                    "name": "Leaf Corcoran",
+                    "email": "leafot@gmail.com",
+                    "homepage": "http://leafo.net"
+                }
+            ],
+            "description": "lessphp is a compiler for LESS written in PHP.",
+            "homepage": "http://leafo.net/lessphp/",
+            "time": "2014-11-24T18:39:20+00:00"
         },
         {
             "name": "myclabs/deep-copy",
