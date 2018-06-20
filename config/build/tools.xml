@@ -43,6 +43,14 @@
         </exec>
     </target>
 
+    <target name="generate-static">
+        <exec executable="php" failonerror="true">
+            <arg value='bin/run-php-command' />
+            <arg value='generateStatic' />
+            <arg value='test' />
+        </exec>
+    </target>
+
     <target name="default">
     </target>
 </project>

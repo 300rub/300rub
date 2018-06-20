@@ -21,6 +21,19 @@ abstract class AbstractPageController extends AbstractController
         $isUser = $this->isUser();
         $config = App::getInstance()->getConfig();
 
+        if (APP_ENV !== ENV_DEV) {
+            $cssList = $config->getValue(
+                ['staticMap', 'common', 'compiledCss']
+            );
+            if ($isUser === true) {
+                $cssList[] = $config->getValue(
+                    ['staticMap', 'admin', 'compiledCss']
+                );
+            }
+
+            return $cssList;
+        }
+
         $cssList = $config->getValue(
             ['staticMap', 'common', 'libs', 'css']
         );
@@ -31,17 +44,6 @@ abstract class AbstractPageController extends AbstractController
                     ['staticMap', 'admin', 'libs', 'css']
                 )
             );
-        }
-
-        if (APP_ENV !== ENV_DEV) {
-            $cssList[] = $config->getValue(
-                ['staticMap', 'common', 'compiledCss']
-            );
-            if ($isUser === true) {
-                $cssList[] = $config->getValue(
-                    ['staticMap', 'admin', 'compiledCss']
-                );
-            }
         }
 
         return $cssList;
