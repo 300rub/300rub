@@ -12,6 +12,16 @@ abstract class AbstractPageController extends AbstractController
 {
 
     /**
+     * Is minimized
+     *
+     * @return bool
+     */
+    private function _isMinimized()
+    {
+        return APP_ENV !== ENV_DEV;
+    }
+
+    /**
      * Gets CSS
      *
      * @return array
@@ -21,8 +31,9 @@ abstract class AbstractPageController extends AbstractController
         $isUser = $this->isUser();
         $config = App::getInstance()->getConfig();
 
-        if (APP_ENV !== ENV_DEV) {
-            $cssList = $config->getValue(
+        if ($this->_isMinimized() === true) {
+            $cssList = [];
+            $cssList[] = $config->getValue(
                 ['staticMap', 'common', 'compiledCss']
             );
             if ($isUser === true) {
@@ -59,6 +70,20 @@ abstract class AbstractPageController extends AbstractController
         $isUser = $this->isUser();
         $config = App::getInstance()->getConfig();
 
+        if ($this->_isMinimized() === true) {
+            $jsList = [];
+            $jsList[] = $config->getValue(
+                ['staticMap', 'common', 'compiledJs']
+            );
+            if ($isUser === true) {
+                $jsList[] = $config->getValue(
+                    ['staticMap', 'admin', 'compiledJs']
+                );
+            }
+
+            return $jsList;
+        }
+
         $jsList = $config->getValue(
             ['staticMap', 'common', 'libs', 'js']
         );
@@ -72,37 +97,23 @@ abstract class AbstractPageController extends AbstractController
             );
         }
 
-        if (APP_ENV === ENV_DEV) {
-            $jsList = array_merge(
-                $jsList,
-                $config->getValue(
-                    ['staticMap', 'common', 'js']
-                )
-            );
-
-            if ($isUser === false) {
-                return $jsList;
-            }
-
-            return array_merge(
-                $jsList,
-                $config->getValue(
-                    ['staticMap', 'admin', 'js']
-                )
-            );
-        }
-
-        $jsList[] = $config->getValue(
-            ['staticMap', 'common', 'compiledJs']
+        $jsList = array_merge(
+            $jsList,
+            $config->getValue(
+                ['staticMap', 'common', 'js']
+            )
         );
 
-        if ($isUser === true) {
-            $jsList[] = $config->getValue(
-                ['staticMap', 'admin', 'compiledJs']
-            );
+        if ($isUser === false) {
+            return $jsList;
         }
 
-        return $jsList;
+        return array_merge(
+            $jsList,
+            $config->getValue(
+                ['staticMap', 'admin', 'js']
+            )
+        );
     }
 
     /**
@@ -112,7 +123,7 @@ abstract class AbstractPageController extends AbstractController
      */
     protected function getLess()
     {
-        if (APP_ENV !== ENV_DEV) {
+        if ($this->_isMinimized() === true) {
             return [];
         }
 
