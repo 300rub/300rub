@@ -144,7 +144,7 @@ abstract class AbstractApplication
      */
     private function _activateVendorAutoload()
     {
-        include_once __DIR__ . '/../../../vendor/autoload.php';
+        include_once CODE_ROOT . '/vendor/autoload.php';
 
         return $this;
     }

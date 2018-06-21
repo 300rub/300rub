@@ -153,7 +153,7 @@ class Language
      */
     public function getMessage($category, $key)
     {
-        $messages = include __DIR__ . '/../../messages/' . $category . '.php';
+        $messages = include CODE_ROOT . '/messages/' . $category . '.php';
         if (array_key_exists($key, $messages) === true) {
             return $messages[$key][self::getActiveId()];
         }

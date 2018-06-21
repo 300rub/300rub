@@ -182,7 +182,7 @@ abstract class AbstractControllerTest extends AbstractUnitTest
             'controller' => $controller,
             'language'   => $language,
             'file'       => curl_file_create(
-                __DIR__ . '/../../../../fixtures/files/' . $fileName,
+                CODE_ROOT . '/fixtures/files/' . $fileName,
                 $mimeType
             )
         ];

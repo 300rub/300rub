@@ -34,12 +34,13 @@ class CreateSqlDumpsCommand extends AbstractCommand
 
             exec(
                 sprintf(
-                    'mysqldump -u %s -p%s -h %s %s | gzip -c > %s/%s.sql.gz',
-                    $site['dbUser'],
+                    'export MYSQL_PWD=%s; ' .
+                    'mysqldump -u %s -h %s %s | gzip -c > %s/%s.sql.gz',
                     $site['dbPassword'],
+                    $site['dbUser'],
                     $site['dbHost'],
                     $site['dbName'],
-                    __DIR__ . '/../../../backups',
+                    FILES_ROOT . '/backups',
                     $site['dbName']
                 )
             );

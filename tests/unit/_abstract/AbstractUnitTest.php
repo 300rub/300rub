@@ -3,11 +3,12 @@
 namespace ss\tests\unit\_abstract;
 
 use ss\models\_abstract\AbstractModel;
+use ss\tests\_abstract\AbstractTest;
 
 /**
  * Abstract class to work with unit tests
  */
-abstract class AbstractUnitTest extends \PHPUnit_Framework_TestCase
+abstract class AbstractUnitTest extends AbstractTest
 {
 
     /**

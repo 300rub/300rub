@@ -35,7 +35,7 @@ class RollbackSqlDumpsCommand extends AbstractCommand
                 $site['dbName']
             );
 
-            $file = __DIR__ . '/../../../backups/' . $site['dbName'] . '.sql.gz';
+            $file = FILES_ROOT . '/backups/' . $site['dbName'] . '.sql.gz';
             if (file_exists($file) === false) {
                 throw new MigrationException(
                     'Unable to find the dump file for DB: {db}',
@@ -47,10 +47,11 @@ class RollbackSqlDumpsCommand extends AbstractCommand
 
             exec(
                 sprintf(
-                    'gunzip < %s | mysql -u %s -p%s -h %s %s',
+                    'export MYSQL_PWD=%s; ' .
+                    'gunzip < %s | mysql -u %s -h %s %s',
+                    $site['dbPassword'],
                     $file,
                     $site['dbUser'],
-                    $site['dbPassword'],
                     $site['dbHost'],
                     $site['dbName']
                 )

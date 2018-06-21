@@ -47,7 +47,7 @@ class Logger
         $name = self::DEFAULT_NAME,
         $level = self::LEVEL_INFO
     ) {
-        $filePath = sprintf('%s/%s.log', __DIR__ . '/../../../../logs', $name);
+        $filePath = sprintf('%s/%s.log', FILES_ROOT . '/logs', $name);
 
         $isNew = false;
         if (file_exists($filePath) === false) {

@@ -106,13 +106,14 @@
         </exec>
     </target>
 
-    <target name="phpunit" depends="create-sql-dumps, clear-db, clear-memcached, migrate, load-test-fixtures">
+    <target name="phpunit" depends="create-sql-dumps, clear-memcached, clear-db, migrate, load-test-fixtures">
         <exec executable="php" failonerror="true">
             <arg value='vendor/phpunit/phpunit/phpunit' />
             <arg value='--bootstrap=tests/unit/bootstrap.php' />
             <arg value='${path}' />
         </exec>
 
+        <antcall target="clear-memcached" />
         <antcall target="rollback-sql-dumps" />
     </target>
 

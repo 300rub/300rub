@@ -5,7 +5,8 @@ define('ENV_DEV', 'dev');
 define('ENV_PROD', 'prod');
 define('DEV_LANGUAGE', 1);
 define('DEV_EMAIL', 'email@localhost.local');
-define('PROJECT_ROOT', __DIR__ . '/..');
+define('CODE_ROOT', __DIR__ . '/..');
+define('FILES_ROOT', __DIR__ . '/../../..');
 
 $config = [
     'host'=> 'ss.com',

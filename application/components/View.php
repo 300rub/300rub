@@ -48,7 +48,7 @@ class View
      */
     private function _getViewsRootDir()
     {
-        return __DIR__ . '/../../views/';
+        return CODE_ROOT . '/views/';
     }
 
     /**
