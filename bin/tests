@@ -1,10 +1,22 @@
 #!/bin/bash
 
-path=${1/$PWD\//}
+command="phpunit"
+
+if [[ $1 != "-" ]]; then
+  path=${1/$PWD\//}
+fi
+
+if [[ $1 == "-" ]]; then
+  command="phpunit-reload-fixtures"
+fi
+
+if [[ $2 == "-" ]]; then
+  command="phpunit-reload-fixtures"
+fi
 
 if [[ $path == "" ]]; then
-  docker exec -it ss_phpfpm_1 ant -file /var/www/code/live/config/build/build.xml phpunit -Dpath="tests/unit"
+  docker exec -it ss_phpfpm_1 ant -file /var/www/code/live/config/build/build.xml $command -Dpath="tests/unit"
   exit 1
 fi
 
-docker exec -it ss_phpfpm_1 ant -file /var/www/code/live/config/build/build.xml phpunit -Dpath=$path
+docker exec -it ss_phpfpm_1 ant -file /var/www/code/live/config/build/build.xml $command -Dpath=$path

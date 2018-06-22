@@ -49,6 +49,20 @@
         </exec>
     </target>
 
+    <target name="create-test-sql-dump">
+        <exec executable="php" failonerror="true">
+            <arg value='bin/run-php-command' />
+            <arg value='createTestSqlDump' />
+        </exec>
+    </target>
+
+    <target name="load-test-sql-dump">
+        <exec executable="php" failonerror="true">
+            <arg value='bin/run-php-command' />
+            <arg value='loadTestSqlDump' />
+        </exec>
+    </target>
+
     <target name="rollback-sql-dumps">
         <exec executable="php" failonerror="true">
             <arg value='bin/run-php-command' />
@@ -106,7 +120,18 @@
         </exec>
     </target>
 
-    <target name="phpunit" depends="create-sql-dumps, clear-memcached, clear-db, migrate, load-test-fixtures">
+    <target name="phpunit" depends="create-sql-dumps, clear-memcached, load-test-sql-dump">
+        <exec executable="php" failonerror="true">
+            <arg value='vendor/phpunit/phpunit/phpunit' />
+            <arg value='--bootstrap=tests/unit/bootstrap.php' />
+            <arg value='${path}' />
+        </exec>
+
+        <antcall target="clear-memcached" />
+        <antcall target="rollback-sql-dumps" />
+    </target>
+
+    <target name="phpunit-reload-fixtures" depends="create-sql-dumps, clear-memcached, clear-db, migrate, load-test-fixtures, create-test-sql-dump">
         <exec executable="php" failonerror="true">
             <arg value='vendor/phpunit/phpunit/phpunit' />
             <arg value='--bootstrap=tests/unit/bootstrap.php' />
