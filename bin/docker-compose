@@ -1,0 +1,3 @@
+#!/bin/bash
+
+docker-compose -f code/live/config/docker/compose/docker-compose.yml -f code/live/config/docker/compose/docker-compose-dev.yml -p ss $1

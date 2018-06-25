@@ -1,6 +1,6 @@
 #!/bin/bash
 
-files='-f config/docker/compose/docker-compose.yml -f config/docker/compose/docker-compose-dev.yml'
+files='-f code/live/config/docker/compose/docker-compose.yml -f code/live/config/docker/compose/docker-compose-dev.yml'
 docker-compose $files -p ss kill
 docker-compose $files -p ss rm -f
 docker-compose $files -p ss build
