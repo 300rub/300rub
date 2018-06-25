@@ -34,41 +34,20 @@ class ClearDbCommand extends AbstractCommand
             sprintf(
                 'export MYSQL_PWD=%s; ' .
                 'mysql -u %s -h %s -e "DROP DATABASE IF EXISTS %s"',
-                $config->getValue(['db', 'site1', 'password']),
-                $config->getValue(['db', 'site1', 'user']),
-                $config->getValue(['db', 'site1', 'host']),
-                $config->getValue(['db', 'site1', 'name'])
+                $config->getValue(['db', 'dev', 'password']),
+                $config->getValue(['db', 'dev', 'user']),
+                $config->getValue(['db', 'dev', 'host']),
+                $config->getValue(['db', 'dev', 'name'])
             )
         );
         exec(
             sprintf(
                 'export MYSQL_PWD=%s; ' .
                 'mysql -u %s -h %s -e "CREATE DATABASE %s"',
-                $config->getValue(['db', 'site1', 'password']),
-                $config->getValue(['db', 'site1', 'user']),
-                $config->getValue(['db', 'site1', 'host']),
-                $config->getValue(['db', 'site1', 'name'])
-            )
-        );
-
-        exec(
-            sprintf(
-                'export MYSQL_PWD=%s; ' .
-                'mysql -u %s -h %s -e "DROP DATABASE IF EXISTS %s"',
-                $config->getValue(['db', 'site2', 'password']),
-                $config->getValue(['db', 'site2', 'user']),
-                $config->getValue(['db', 'site2', 'host']),
-                $config->getValue(['db', 'site2', 'name'])
-            )
-        );
-        exec(
-            sprintf(
-                'export MYSQL_PWD=%s; ' .
-                'mysql -u %s -h %s -e "CREATE DATABASE IF NOT EXISTS %s"',
-                $config->getValue(['db', 'site2', 'password']),
-                $config->getValue(['db', 'site2', 'user']),
-                $config->getValue(['db', 'site2', 'host']),
-                $config->getValue(['db', 'site2', 'name'])
+                $config->getValue(['db', 'dev', 'password']),
+                $config->getValue(['db', 'dev', 'user']),
+                $config->getValue(['db', 'dev', 'host']),
+                $config->getValue(['db', 'dev', 'name'])
             )
         );
 
@@ -146,11 +125,11 @@ class ClearDbCommand extends AbstractCommand
         try {
             $conn = new \PDO(
                 sprintf(
-                    "mysql:host=%s;",
-                    $config->getValue(['db', 'site1', 'host'])
+                    'mysql:host=%s;',
+                    $config->getValue(['db', 'dev', 'host'])
                 ),
-                $config->getValue(['db', 'site1', 'user']),
-                $config->getValue(['db', 'site1', 'password'])
+                $config->getValue(['db', 'dev', 'user']),
+                $config->getValue(['db', 'dev', 'password'])
             );
 
             $conn->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);

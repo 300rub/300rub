@@ -1,10 +1,12 @@
 #!/bin/bash
 
-path=${1/$PWD\//}
+path=${1/$PWD\/code\/dev\//}
 
 if [[ $path == "" ]]; then
   docker exec -it ss_phpfpm_1 ant -file /var/www/code/live/config/build/build.xml php-full-check -Dpath=.
   exit 1
 fi
+
+echo $path
 
 docker exec -it ss_phpfpm_1 ant -file /var/www/code/live/config/build/build.xml php-full-check -Dpath=$path

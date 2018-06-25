@@ -47,7 +47,7 @@ class DeleteSessionControllerTest extends AbstractControllerTest
         $sessionModel->clearId()->save();
 
         $expectedBody = [
-            'host' => 'http://site11.local'
+            'host' => 'http://dev1.local'
         ];
         $this->assertSame($expectedBody, $this->getBody());
 

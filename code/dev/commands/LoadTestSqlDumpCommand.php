@@ -18,7 +18,7 @@ class LoadTestSqlDumpCommand extends AbstractCommand
      */
     public function run()
     {
-        $site = App::getInstance()->getConfig()->getValue(['db', 'site1']);
+        $site = App::getInstance()->getConfig()->getValue(['db', 'dev']);
 
         exec(
             sprintf(

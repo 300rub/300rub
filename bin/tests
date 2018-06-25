@@ -3,7 +3,7 @@
 command="phpunit"
 
 if [[ $1 != "-" ]]; then
-  path=${1/$PWD\//}
+  path=${1/$PWD\/code\/dev\//}
 fi
 
 if [[ $1 == "-" ]]; then

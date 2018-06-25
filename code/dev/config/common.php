@@ -9,14 +9,12 @@ define('CODE_ROOT', __DIR__ . '/..');
 define('FILES_ROOT', __DIR__ . '/../../..');
 
 $config = [
-    'host'=> 'ss.com',
+    'staticMap' => include 'other/static.php'
 ];
 
-if (APP_ENV === ENV_DEV) {
-    $config = include 'dev.php';
-    $config = array_replace($config, include 'dev.php');
+switch (APP_ENV) {
+    case ENV_DEV:
+        return array_replace($config, include 'dev.php');
+    default:
+        return array_replace($config, include 'prod.php');
 }
-
-$config['staticMap'] = include 'other/static.php';
-
-return $config;

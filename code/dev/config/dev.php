@@ -5,42 +5,21 @@ return [
     'domains' => [
         [
             'siteId' => 1,
-            'name'   => 'site11.local',
+            'name'   => 'dev1.local',
             'isMain' => true,
         ],
         [
             'siteId' => 1,
-            'name'   => 'site12.local',
+            'name'   => 'dev2.local',
             'isMain' => false,
-        ],
-        [
-            'siteId' => 1,
-            'name'   => '127.0.0.1',
-            'isMain' => false,
-        ],
-        [
-            'siteId' => 2,
-            'name'   => 'site21.local',
-            'isMain' => false,
-        ],
-        [
-            'siteId' => 2,
-            'name'   => 'site22.local',
-            'isMain' => true,
         ],
     ],
     'db'        => [
-        'site1'  => [
+        'dev'  => [
             'host'     => '127.0.0.1',
             'user'     => 'root',
             'password' => 'root',
-            'name'     => 'site1',
-        ],
-        'site2'  => [
-            'host'     => '127.0.0.1',
-            'user'     => 'root',
-            'password' => 'root',
-            'name'     => 'site2',
+            'name'     => 'dev',
         ],
         'system' => [
             'host'     => '127.0.0.1',

@@ -58,27 +58,11 @@ class M160301000000Sites extends AbstractMigration
             '(name, dbHost, dbUser, dbPassword, dbName, language, email)' .
             ' VALUES (?, ?, ?, ?, ?, ?, ?)',
             [
-                'site1',
-                $config->getValue(['db', 'site1', 'host']),
-                $config->getValue(['db', 'site1', 'user']),
-                $config->getValue(['db', 'site1', 'password']),
-                $config->getValue(['db', 'site1', 'name']),
-                DEV_LANGUAGE,
-                DEV_EMAIL,
-            ]
-        );
-
-        $dbObject->execute(
-            'INSERT ' .
-            'INTO sites ' .
-            '(name, dbHost, dbUser, dbPassword, dbName, language, email)' .
-            ' VALUES (?, ?, ?, ?, ?, ?, ?)',
-            [
-                'site2',
-                $config->getValue(['db', 'site2', 'host']),
-                $config->getValue(['db', 'site2', 'user']),
-                $config->getValue(['db', 'site2', 'password']),
-                $config->getValue(['db', 'site2', 'name']),
+                'dev',
+                $config->getValue(['db', 'dev', 'host']),
+                $config->getValue(['db', 'dev', 'user']),
+                $config->getValue(['db', 'dev', 'password']),
+                $config->getValue(['db', 'dev', 'name']),
                 DEV_LANGUAGE,
                 DEV_EMAIL,
             ]

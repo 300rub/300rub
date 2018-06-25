@@ -108,9 +108,9 @@ class LoadFixturesCommand extends AbstractCommand
      */
     public function load($type)
     {
-        $sites = ['site1'];
+        $sites = ['dev'];
         if ($type === 'test') {
-            $sites = ['site1'];
+            $sites = ['dev'];
         }
 
         $config = App::getInstance()->getConfig();
@@ -189,7 +189,8 @@ class LoadFixturesCommand extends AbstractCommand
             if (array_key_exists('imageGroupId', $data) === true) {
                 $dbObject = App::getInstance()->getDb();
                 $dbObject->execute(
-                    'UPDATE ' . 'recordInstances SET imageGroupId = ? WHERE id = ?',
+                    'UPDATE ' .
+                    'recordInstances SET imageGroupId = ? WHERE id = ?',
                     [
                         $data['imageGroupId'],
                         $model->getId()
