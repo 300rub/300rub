@@ -1,49 +1,49 @@
 <project name="ss" default="build" basedir="${basedir}/../../..">
     <target name="clear-db">
         <exec executable="php" failonerror="true">
-            <arg value='bin/run-php-command' />
+            <arg value='commands/run' />
             <arg value='clearDb' />
         </exec>
     </target>
 
     <target name="clear-memcached">
         <exec executable="php" failonerror="true">
-            <arg value='bin/run-php-command' />
+            <arg value='commands/run' />
             <arg value='clearMemcached' />
         </exec>
     </target>
 
     <target name="public-vendor">
         <exec executable="php" failonerror="true">
-            <arg value='bin/run-php-command' />
+            <arg value='commands/run' />
             <arg value='publicVendor' />
         </exec>
     </target>
 
     <target name="create-sql-dumps">
         <exec executable="php" failonerror="true">
-            <arg value='bin/run-php-command' />
+            <arg value='commands/run' />
             <arg value='createSqlDumps' />
         </exec>
     </target>
 
     <target name="migrate">
         <exec executable="php" failonerror="true">
-            <arg value='bin/run-php-command' />
+            <arg value='commands/run' />
             <arg value='migrate' />
         </exec>
     </target>
 
     <target name="load-fixtures">
         <exec executable="php" failonerror="true">
-            <arg value='bin/run-php-command' />
+            <arg value='commands/run' />
             <arg value='loadFixtures' />
         </exec>
     </target>
 
     <target name="load-test-fixtures">
         <exec executable="php" failonerror="true">
-            <arg value='bin/run-php-command' />
+            <arg value='commands/run' />
             <arg value='loadFixtures' />
             <arg value='test' />
         </exec>
@@ -51,21 +51,21 @@
 
     <target name="create-test-sql-dump">
         <exec executable="php" failonerror="true">
-            <arg value='bin/run-php-command' />
+            <arg value='commands/run' />
             <arg value='createTestSqlDump' />
         </exec>
     </target>
 
     <target name="load-test-sql-dump">
         <exec executable="php" failonerror="true">
-            <arg value='bin/run-php-command' />
+            <arg value='commands/run' />
             <arg value='loadTestSqlDump' />
         </exec>
     </target>
 
     <target name="rollback-sql-dumps">
         <exec executable="php" failonerror="true">
-            <arg value='bin/run-php-command' />
+            <arg value='commands/run' />
             <arg value='rollbackSqlDumps' />
         </exec>
     </target>

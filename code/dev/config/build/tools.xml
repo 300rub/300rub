@@ -45,7 +45,7 @@
 
     <target name="generate-static">
         <exec executable="php" failonerror="true">
-            <arg value='bin/run-php-command' />
+            <arg value='commands/run' />
             <arg value='generateStatic' />
             <arg value='test' />
         </exec>
