@@ -3,7 +3,7 @@
 trap "exit" INT
 baseDir=$(dirname "$0")
 
-for imagePath in `find $baseDir/../config/docker/images*/* -type d`
+for imagePath in `find $baseDir/../code/live/config/docker/images*/* -type d`
 do
     echo $imagePath
     IFS='/' read -r -a array <<< "$imagePath"
