@@ -1,6 +1,6 @@
 <?php
 
-namespace ss\commands;
+namespace ss\commands\db;
 
 use ss\application\App;
 use ss\commands\_abstract\AbstractCommand;
@@ -9,7 +9,7 @@ use ss\application\exceptions\MigrationException;
 /**
  * Rollback Sql dumps command
  */
-class RollbackSqlDumpsCommand extends AbstractCommand
+class ImportSitesCommand extends AbstractCommand
 {
 
     /**
@@ -21,6 +21,8 @@ class RollbackSqlDumpsCommand extends AbstractCommand
      */
     public function run()
     {
+        $this->checkIsDev();
+
         $dbObject = App::getInstance()->getDb();
 
         $dbObject->setSystemPdo();

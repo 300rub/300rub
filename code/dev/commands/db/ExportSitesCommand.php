@@ -1,6 +1,6 @@
 <?php
 
-namespace ss\commands;
+namespace ss\commands\db;
 
 use ss\application\App;
 use ss\commands\_abstract\AbstractCommand;
@@ -8,7 +8,7 @@ use ss\commands\_abstract\AbstractCommand;
 /**
  * Create dumps command
  */
-class CreateSqlDumpsCommand extends AbstractCommand
+class ExportSitesCommand extends AbstractCommand
 {
 
     /**

@@ -1,6 +1,6 @@
 <?php
 
-namespace ss\commands;
+namespace ss\commands\db;
 
 use ss\application\App;
 use ss\application\exceptions\MigrationException;
@@ -76,7 +76,7 @@ class MigrateCommand extends AbstractCommand
             $versions[] = $row['version'];
         }
 
-        $files = scandir(__DIR__ . '/../migrations');
+        $files = scandir(__DIR__ . '/../../migrations');
         foreach ($files as $file) {
             if ($file === '.'
                 || $file === '..'

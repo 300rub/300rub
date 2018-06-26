@@ -93,7 +93,7 @@ vncviewer localhost:8901 -passwd ./config/docker-compose/selenium/vnc-password >
 #VNC_PID=$!
 
 sleep 2
-docker exec -it selenium_phpfpm_1 ant -file /var/www/code/live/config/build/build.xml paratest
+docker exec -it selenium_phpfpm_1 ant -file /var/www/code/live/config/build/build.xml test-paratest
 
 # Cleaning up
 #echo -e "${C_GREEN}Removing all containers ${C_DEFAULT}"

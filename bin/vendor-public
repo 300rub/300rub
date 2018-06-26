@@ -1,3 +1,3 @@
 #!/bin/bash
 
-docker exec -it ss_phpfpm_1 ./bin/run-php-command publicVendor
+docker exec -it ss_phpfpm_1 ant -file /var/www/code/live/config/build/build.xml tools-public-vendor

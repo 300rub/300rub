@@ -1,6 +1,6 @@
 <?php
 
-namespace ss\commands;
+namespace ss\commands\db;
 
 use ss\application\App;
 use ss\commands\_abstract\AbstractCommand;
@@ -11,7 +11,7 @@ use ss\migrations\M160302000000Migrations;
 /**
  * Clear DB command
  */
-class ClearDbCommand extends AbstractCommand
+class RecreateDevDatabasesCommand extends AbstractCommand
 {
 
     /**
@@ -26,6 +26,8 @@ class ClearDbCommand extends AbstractCommand
      */
     public function run()
     {
+        $this->checkIsDev();
+
         $config = App::getInstance()->getConfig();
 
         $this->_checkConnection();

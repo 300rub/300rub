@@ -1,6 +1,6 @@
 <?php
 
-namespace ss\commands;
+namespace ss\commands\db;
 
 use ss\application\App;
 use ss\application\components\Language;
@@ -12,7 +12,7 @@ use ss\models\blocks\record\RecordInstanceModel;
 /**
  * Load fixtures command
  */
-class LoadFixturesCommand extends AbstractCommand
+class ImportDevFixturesCommand extends AbstractCommand
 {
 
     /**
@@ -91,6 +91,10 @@ class LoadFixturesCommand extends AbstractCommand
      */
     public function run()
     {
+        $this->checkIsDev();
+
+        $this->checkIsDev();
+
         $type = 'dev';
         if (array_key_exists(0, $this->args) === true) {
             $type = $this->args[0];
@@ -128,7 +132,7 @@ class LoadFixturesCommand extends AbstractCommand
 
             foreach ($this->_fixtureOrder as $fixture => $modelName) {
                 $filePath = __DIR__ .
-                    '/../fixtures/' .
+                    '/../../fixtures/' .
                     $type .
                     '/' .
                     $fixture .
@@ -165,7 +169,7 @@ class LoadFixturesCommand extends AbstractCommand
     private function _saveRecordInstances($type)
     {
         $filePath = __DIR__ .
-            '/../fixtures/' .
+            '/../../fixtures/' .
             $type .
             '/recordInstance.php';
 
@@ -213,7 +217,7 @@ class LoadFixturesCommand extends AbstractCommand
     private function _uploadImages($type, $site)
     {
         $map = include sprintf(
-            '%s/../fixtures/%s/imageInstances.php',
+            '%s/../../fixtures/%s/imageInstances.php',
             __DIR__,
             $type
         );
@@ -291,7 +295,7 @@ class LoadFixturesCommand extends AbstractCommand
             'language'   => $language,
             'file'       => curl_file_create(
                 __DIR__ .
-                '/../fixtures/files/' .
+                '/../../fixtures/files/' .
                 $fileName,
                 $mimeType
             )

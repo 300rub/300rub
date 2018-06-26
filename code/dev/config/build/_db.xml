@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="db" basedir="${basedir}/../../..">
+    <target name="db-recreate-dev-databases">
+        <exec executable="php" failonerror="true">
+            <arg value='commands/run' />
+            <arg value='db/RecreateDevDatabasesCommand' />
+        </exec>
+    </target>
+
+    <target name="db-export-sites">
+        <exec executable="php" failonerror="true">
+            <arg value='commands/run' />
+            <arg value='db/ExportSitesCommand' />
+        </exec>
+    </target>
+
+    <target name="db-migrate">
+        <exec executable="php" failonerror="true">
+            <arg value='commands/run' />
+            <arg value='db/MigrateCommand' />
+        </exec>
+    </target>
+
+    <target name="db-import-dev-fixtures">
+        <exec executable="php" failonerror="true">
+            <arg value='commands/run' />
+            <arg value='db/ImportDevFixturesCommand' />
+        </exec>
+    </target>
+
+    <target name="db-import-sites">
+        <exec executable="php" failonerror="true">
+            <arg value='commands/run' />
+            <arg value='db/ImportSitesCommand' />
+        </exec>
+    </target>
+</project>

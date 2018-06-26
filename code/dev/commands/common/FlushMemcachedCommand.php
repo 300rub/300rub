@@ -1,14 +1,14 @@
 <?php
 
-namespace ss\commands;
+namespace ss\commands\common;
 
 use ss\application\App;
 use ss\commands\_abstract\AbstractCommand;
 
 /**
- * Clear Memcached command
+ * Flush Memcached command
  */
-class ClearMemcachedCommand extends AbstractCommand
+class FlushMemcachedCommand extends AbstractCommand
 {
 
     /**

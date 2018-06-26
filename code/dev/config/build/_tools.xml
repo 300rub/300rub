@@ -1,21 +1,22 @@
-<project name="tools" default="default" basedir="${basedir}/../../..">
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="tools" basedir="${basedir}/../../..">
     <property name="proxy" value="172.17.0.1:3128" />
 
-    <target name="git-reset">
-        <exec executable="git">
+    <target name="tools-git-reset">
+        <exec executable="git" failonerror="true">
             <env key="http_proxy" value="${proxy}" />
             <env key="https_proxy" value="${proxy}" />
             <arg value='fetch' />
             <arg value='--all' />
             <arg value='-p' />
         </exec>
-        <exec executable="git">
+        <exec executable="git" failonerror="true">
             <env key="http_proxy" value="${proxy}" />
             <env key="https_proxy" value="${proxy}" />
             <arg value='add' />
             <arg value='.' />
         </exec>
-        <exec executable="git">
+        <exec executable="git" failonerror="true">
             <env key="http_proxy" value="${proxy}" />
             <env key="https_proxy" value="${proxy}" />
             <arg value='reset' />
@@ -24,8 +25,8 @@
         </exec>
     </target>
 
-    <target name="composer-install">
-        <exec executable="composer">
+    <target name="tools-composer-install">
+        <exec executable="composer" failonerror="true">
             <env key="COMPOSER" value="${basedir}/config/composer/composer.json" />
             <env key="http_proxy" value="${proxy}" />
             <env key="https_proxy" value="${proxy}" />
@@ -33,8 +34,8 @@
         </exec>
     </target>
 
-    <target name="composer-update">
-        <exec executable="composer">
+    <target name="tools-composer-update">
+        <exec executable="composer" failonerror="true">
             <env key="COMPOSER" value="${basedir}/config/composer/composer.json" />
             <env key="http_proxy" value="${proxy}" />
             <env key="https_proxy" value="${proxy}" />
@@ -43,14 +44,34 @@
         </exec>
     </target>
 
-    <target name="generate-static">
+    <target name="tools-generate-static">
         <exec executable="php" failonerror="true">
             <arg value='commands/run' />
-            <arg value='generateStatic' />
+            <arg value='files/GenerateStaticCommand' />
             <arg value='test' />
         </exec>
     </target>
 
-    <target name="default">
+    <target name="tools-flush-memcached">
+        <exec executable="php" failonerror="true">
+            <arg value='commands/run' />
+            <arg value='common/FlushMemcachedCommand' />
+        </exec>
+    </target>
+
+    <target name="tools-public-vendor">
+        <exec executable="php" failonerror="true">
+            <arg value='commands/run' />
+            <arg value='files/PublicVendorCommand' />
+        </exec>
+    </target>
+
+    <target name="tools-prepare">
+        <delete dir="public/upload" />
+        <mkdir dir="public/upload" />
+        <mkdir dir="public/upload/1" />
+        <exec executable="chmod" failonerror="true">
+            <arg line="-R 0777 public/upload" />
+        </exec>
     </target>
 </project>

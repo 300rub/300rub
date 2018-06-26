@@ -1,14 +1,14 @@
 <?php
 
-namespace ss\commands;
+namespace ss\commands\db;
 
 use ss\application\App;
 use ss\commands\_abstract\AbstractCommand;
 
 /**
- * Loads test SQL dump command
+ * Creates test SQL dump command
  */
-class LoadTestSqlDumpCommand extends AbstractCommand
+class ExportTestCommand extends AbstractCommand
 {
 
     /**
@@ -18,17 +18,19 @@ class LoadTestSqlDumpCommand extends AbstractCommand
      */
     public function run()
     {
+        $this->checkIsDev();
+
         $site = App::getInstance()->getConfig()->getValue(['db', 'dev']);
 
         exec(
             sprintf(
                 'export MYSQL_PWD=%s; ' .
-                'gunzip < %s | mysql -u %s -h %s %s',
+                'mysqldump -u %s -h %s %s | gzip -c > %s/test.sql.gz',
                 $site['password'],
-                FILES_ROOT . '/backups/test.sql.gz',
                 $site['user'],
                 $site['host'],
-                $site['name']
+                $site['name'],
+                FILES_ROOT . '/backups'
             )
         );
     }

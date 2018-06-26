@@ -1,6 +1,6 @@
 <?php
 
-namespace ss\commands;
+namespace ss\commands\files;
 
 use ss\application\App;
 use ss\application\exceptions\FileException;
@@ -37,6 +37,8 @@ class GenerateStaticCommand extends AbstractCommand
      */
     public function run()
     {
+        $this->checkIsDev();
+
         $this->_staticMap = App::getInstance()
             ->getConfig()
             ->getValue(['staticMap']);

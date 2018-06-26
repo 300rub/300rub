@@ -1,17 +1,17 @@
 #!/bin/bash
 
-command="phpunit"
+command="test-phpunit"
 
 if [[ $1 != "-" ]]; then
   path=${1/$PWD\/code\/dev\//}
 fi
 
 if [[ $1 == "-" ]]; then
-  command="phpunit-reload-fixtures"
+  command="test-phpunit-reload-fixtures"
 fi
 
 if [[ $2 == "-" ]]; then
-  command="phpunit-reload-fixtures"
+  command="test-phpunit-reload-fixtures"
 fi
 
 if [[ $path == "" ]]; then

@@ -1,22 +1,21 @@
-<project name="deploy" default="prepare" basedir="${basedir}/../../..">
-    <import file="tools.xml"/>
-
-    <target name="prepare" depends="composer-install">
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="release" basedir="${basedir}/../../..">
+    <target name="release-prepare" depends="tools-composer-install">
     </target>
 
-    <target name="update-release-number">
+    <target name="release-update-number">
         <echo file="${basedir}/config/release" append="false">${release}</echo>
     </target>
 
-    <target name="archive">
-        <exec executable="mkdir">
+    <target name="release-archive">
+        <exec executable="mkdir" failonerror="true">
             <arg value="-p" />
             <arg value="-m" />
             <arg value="0777" />
             <arg value="${basedir}/../../releases" />
         </exec>
 
-        <exec executable="tar">
+        <exec executable="tar" failonerror="true">
             <arg value="--exclude=./.git" />
             <arg value="--exclude=./.idea" />
             <arg value="-zcf" />
@@ -24,34 +23,34 @@
             <arg value="." />
         </exec>
 
-        <exec executable="chmod">
+        <exec executable="chmod" failonerror="true">
             <arg value="0777" />
             <arg value="${basedir}/../../releases/release-${release}.tar.gz" />
         </exec>
     </target>
 
-    <target name="upload-release">
-        <exec executable="mkdir">
+    <target name="release-upload">
+        <exec executable="mkdir" failonerror="true">
             <arg value="-p" />
             <arg value="/root/.ssh" />
         </exec>
 
-        <exec executable="cp">
+        <exec executable="cp" failonerror="true">
             <arg value="/root/.ssh-tmp/id_rsa.pub" />
             <arg value="/root/.ssh/id_rsa.pub" />
         </exec>
 
-        <exec executable="cp">
+        <exec executable="cp" failonerror="true">
             <arg value="/root/.ssh-tmp/id_rsa" />
             <arg value="/root/.ssh/id_rsa" />
         </exec>
 
-        <exec executable="scp">
+        <exec executable="scp" failonerror="true">
             <arg value="/var/www/releases/release-${release}.tar.gz" />
             <arg value="mike@10.200.218.71:/home/mike/git/test/releases/release-${release}.tar.gz" />
         </exec>
     </target>
 
-    <target name="deploy" depends="update-release-number, archive, upload-release">
+    <target name="deploy" depends="release-update-number, release-archive, release-upload">
     </target>
 </project>

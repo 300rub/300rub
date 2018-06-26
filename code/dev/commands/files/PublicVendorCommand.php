@@ -1,6 +1,6 @@
 <?php
 
-namespace ss\commands;
+namespace ss\commands\files;
 
 use ss\commands\_abstract\AbstractCommand;
 use ss\application\exceptions\FileException;
@@ -140,6 +140,8 @@ class PublicVendorCommand extends AbstractCommand
 	 */
 	public function run()
 	{
+		$this->checkIsDev();
+
         $map = [
             "css" => $this->_cssMap,
             "js"  => $this->_jsMap,

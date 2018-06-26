@@ -13,11 +13,6 @@ class Console extends AbstractApplication
 {
 
     /**
-     * Command's ending
-     */
-    const COMMAND_ENDING = 'Command';
-
-    /**
      * Runs command
      *
      * @throws \Exception
@@ -35,13 +30,11 @@ class Console extends AbstractApplication
                 throw new CommonException('Incorrect command');
             }
 
-            $commandName = ucfirst($args[1]);
+            $commandName = str_replace('/', '\\', $args[1]);
             array_shift($args);
             array_shift($args);
 
-            $className = '\\ss\\commands\\' .
-                $commandName .
-                self::COMMAND_ENDING;
+            $className = '\\ss\\commands\\' . $commandName;
             $this->output(
                 sprintf(
                     'The command [%s] has been started',
