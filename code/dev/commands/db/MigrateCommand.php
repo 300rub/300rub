@@ -30,35 +30,15 @@ class MigrateCommand extends AbstractCommand
     /**
      * Runs the command
      *
-     * App::console()->output($e->getMessage(), true);
-     * try {
-     * App::console()->output("DB rollback has been started");
-     * } catch (Exception $e) {
-     * throw $e;
-     * }
-     *
      * @return void
      *
      * @throws \Exception
      */
     public function run()
     {
-        try {
-            App::getInstance()->getDb()->setSystemPdo();
-            $this
-                ->_setNewMigrations()
-                ->_setSites();
-        } catch (\Exception $e) {
-            throw $e;
-        }
-
-        try {
-            $this
-                ->_applyMigration()
-                ->_updateVersions();
-        } catch (\Exception $e) {
-            throw $e;
-        }
+        $this
+            ->_setSites()
+            ->_applyMigration();
     }
 
     /**
@@ -101,6 +81,8 @@ class MigrateCommand extends AbstractCommand
      */
     private function _setSites()
     {
+        App::getInstance()->getDb()->setSystemPdo();
+
         $this->_sites = App::getInstance()
             ->getDb()
             ->fetchAll('SELECT * ' . 'FROM `sites`');
@@ -114,12 +96,12 @@ class MigrateCommand extends AbstractCommand
      * @throws MigrationException
      *
      * @return MigrateCommand
+     *
+     * @throws \Exception
      */
     private function _applyMigration()
     {
-        if (count($this->_migrations) === 0
-            || count($this->_sites) === 0
-        ) {
+        if (count($this->_sites) === 0) {
             return $this;
         }
 
@@ -135,11 +117,40 @@ class MigrateCommand extends AbstractCommand
                     $site['dbName']
                 );
 
-            foreach ($this->_migrations as $migrationName) {
-                $migration = $this->_getMigrationByName($migrationName);
-                if ($migration->isSkip === false) {
-                    $migration->apply();
+            $dbObject = App::getInstance()->getDb();
+            $dbObject->startTransaction();
+
+            try {
+                $this->_setNewMigrations();
+                if (count($this->_migrations) === 0) {
+                    continue;
                 }
+
+                foreach ($this->_migrations as $migrationName) {
+                    $migration = $this->_getMigrationByName($migrationName);
+                    if ($migration->isSkip === false) {
+                        $migration->apply();
+                    }
+                }
+
+                $this->_updateVersions();
+
+                $dbObject->commitTransaction();
+            } catch (\Exception $e) {
+                $dbObject->rollbackTransaction();
+
+                throw new MigrationException(
+                    'An error occurred while applying migration ' .
+                    'for site ID: {siteId}, name: {siteName} ' .
+                    'Error: {error}, file: {file}, line: {line}',
+                    [
+                        'siteId'   => $site['id'],
+                        'siteName' => $site['name'],
+                        'error'    => $e->getMessage(),
+                        'file'     => $e->getFile(),
+                        'line'     => $e->getLine(),
+                    ]
+                );
             }
         }
 
@@ -170,31 +181,21 @@ class MigrateCommand extends AbstractCommand
     {
         $dbObject = App::getInstance()->getDb();
 
-        $dbObject->setSystemPdo();
+        foreach ($this->_migrations as $migration) {
+            $result = $dbObject->execute(
+                'INSERT' . ' INTO `migrations` (version) VALUES(?)',
+                [$migration]
+            );
 
-        try {
-            $dbObject->startTransaction();
-
-            foreach ($this->_migrations as $migration) {
-                $result = $dbObject->execute(
-                    'INSERT' . ' INTO `migrations` (version) VALUES(?)',
-                    [$migration]
+            if ($result === false) {
+                throw new MigrationException(
+                    'UUnable to update version with migration: {migration}',
+                    [
+                        'migration' => $migration,
+                    ]
                 );
-
-                if ($result === false) {
-                    throw new MigrationException(
-                        'UUnable to update version with migration: {migration}',
-                        [
-                            'migration' => $migration,
-                        ]
-                    );
-                }
             }
-        } catch (MigrationException $e) {
-            $dbObject->rollbackTransaction();
         }
-
-        $dbObject->commitTransaction();
 
         return $this;
     }

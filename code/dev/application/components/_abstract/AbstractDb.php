@@ -131,6 +131,25 @@ abstract class AbstractDb
     }
 
     /**
+     * Sets dev PDO
+     *
+     * @return AbstractDb
+     */
+    public function setDevPdo()
+    {
+        $config = App::getInstance()->getConfig();
+
+        $this->setPdo(
+            $config->getValue(['db', 'dev', 'host']),
+            $config->getValue(['db', 'dev', 'user']),
+            $config->getValue(['db', 'dev', 'password']),
+            $config->getValue(['db', 'dev', 'name'])
+        );
+
+        return $this;
+    }
+
+    /**
      * Sets table
      *
      * @param string $table Table name

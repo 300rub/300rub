@@ -35,6 +35,16 @@ class RecreateDevDatabasesCommand extends AbstractCommand
         exec(
             sprintf(
                 'export MYSQL_PWD=%s; ' .
+                'mysql -u %s -h %s -e "DROP DATABASE IF EXISTS sys"',
+                $config->getValue(['db', 'dev', 'password']),
+                $config->getValue(['db', 'dev', 'user']),
+                $config->getValue(['db', 'dev', 'host'])
+            )
+        );
+
+        exec(
+            sprintf(
+                'export MYSQL_PWD=%s; ' .
                 'mysql -u %s -h %s -e "DROP DATABASE IF EXISTS %s"',
                 $config->getValue(['db', 'dev', 'password']),
                 $config->getValue(['db', 'dev', 'user']),
@@ -104,6 +114,8 @@ class RecreateDevDatabasesCommand extends AbstractCommand
         $migration = new M160301000010Domains();
         $migration->apply();
         $migration->insertData();
+
+        App::getInstance()->getDb()->setDevPdo();
 
         $migration = new M160302000000Migrations();
         $migration->apply();
