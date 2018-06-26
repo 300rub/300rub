@@ -363,7 +363,10 @@ abstract class AbstractContentRecordModel extends AbstractRecordModel
             $css,
             $view->generateCss(
                 $designRecordModel->get('shortCardTitleDesignBlockModel'),
-                sprintf('.block-%s .record-card .short-card-title', $this->getBlockId())
+                sprintf(
+                    '.block-%s .record-card .short-card-title',
+                    $this->getBlockId()
+                )
             )
         );
 
@@ -371,7 +374,10 @@ abstract class AbstractContentRecordModel extends AbstractRecordModel
             $css,
             $view->generateCss(
                 $designRecordModel->get('shortCardTitleDesignTextModel'),
-                sprintf('.block-%s .record-card .short-card-title', $this->getBlockId())
+                sprintf(
+                    '.block-%s .record-card .short-card-title',
+                    $this->getBlockId()
+                )
             )
         );
 
@@ -379,7 +385,10 @@ abstract class AbstractContentRecordModel extends AbstractRecordModel
             $css,
             $view->generateCss(
                 $designRecordModel->get('shortCardDateDesignBlockModel'),
-                sprintf('.block-%s .record-card .short-card-date', $this->getBlockId())
+                sprintf(
+                    '.block-%s .record-card .short-card-date',
+                    $this->getBlockId()
+                )
             )
         );
 
@@ -387,7 +396,10 @@ abstract class AbstractContentRecordModel extends AbstractRecordModel
             $css,
             $view->generateCss(
                 $designRecordModel->get('shortCardDateDesignTextModel'),
-                sprintf('.block-%s .record-card .short-card-date', $this->getBlockId())
+                sprintf(
+                    '.block-%s .record-card .short-card-date',
+                    $this->getBlockId()
+                )
             )
         );
 
@@ -395,7 +407,10 @@ abstract class AbstractContentRecordModel extends AbstractRecordModel
             $css,
             $view->generateCss(
                 $designRecordModel->get('shortCardDescriptionDesignBlockModel'),
-                sprintf('.block-%s .record-card .short-card-description', $this->getBlockId())
+                sprintf(
+                    '.block-%s .record-card .short-card-description',
+                    $this->getBlockId()
+                )
             )
         );
 
@@ -403,9 +418,32 @@ abstract class AbstractContentRecordModel extends AbstractRecordModel
             $css,
             $view->generateCss(
                 $designRecordModel->get('shortCardDescriptionDesignTextModel'),
-                sprintf('.block-%s .record-card .short-card-description', $this->getBlockId())
+                sprintf(
+                    '.block-%s .record-card .short-card-description',
+                    $this->getBlockId()
+                )
             )
         );
+
+        $css = array_merge(
+            $css,
+            $this->_getShortCardPaginationCss()
+        );
+
+        return $css;
+    }
+
+    /**
+     * Gets full card CSS
+     *
+     * @return array
+     */
+    private function _getShortCardPaginationCss()
+    {
+        $css = [];
+        $view = App::getInstance()->getView();
+
+        $designRecordModel = $this->get('designRecordModel');
 
         $css = array_merge(
             $css,
@@ -418,7 +456,9 @@ abstract class AbstractContentRecordModel extends AbstractRecordModel
         $css = array_merge(
             $css,
             $view->generateCss(
-                $designRecordModel->get('shortCardPaginationItemDesignBlockModel'),
+                $designRecordModel->get(
+                    'shortCardPaginationItemDesignBlockModel'
+                ),
                 sprintf('.block-%s .pagination a', $this->getBlockId())
             )
         );
@@ -426,7 +466,9 @@ abstract class AbstractContentRecordModel extends AbstractRecordModel
         $css = array_merge(
             $css,
             $view->generateCss(
-                $designRecordModel->get('shortCardPaginationItemDesignTextModel'),
+                $designRecordModel->get(
+                    'shortCardPaginationItemDesignTextModel'
+                ),
                 sprintf('.block-%s .pagination a', $this->getBlockId())
             )
         );

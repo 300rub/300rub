@@ -3,8 +3,8 @@
 /**
  * Variables
  *
- *  @var string $container
- *  @var int    $blockId
+ * @var string $container
+ * @var int    $blockId
  */
 
 echo sprintf('$("%s .autoload").each(function(){', $container);
@@ -19,4 +19,4 @@ echo sprintf('options.blockId = %s;', $blockId);
 echo 'new ss.components.Autoload(options);';
 
 echo '});';
-?>
+

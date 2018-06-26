@@ -43,8 +43,8 @@ return [
             'content/menu/Abstract',
             'content/menu/Horizontal',
         ],
-        'compiledCss' => 'common',
-        'compiledJs' => 'common',
+        'compiledCss' => 'common.min',
+        'compiledJs' => 'common.min',
     ],
     'admin'  => [
         'libs' => [
@@ -91,7 +91,7 @@ return [
             'window/users/List',
             'window/users/Sessions',
         ],
-        'compiledCss' => 'admin',
-        'compiledJs' => 'admin',
+        'compiledCss' => 'admin.min',
+        'compiledJs' => 'admin.min',
     ],
 ];

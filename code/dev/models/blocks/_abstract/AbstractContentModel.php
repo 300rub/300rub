@@ -57,7 +57,7 @@ abstract class AbstractContentModel extends AbstractModel
     /**
      * Is fully cached
      *
-     * @var bool
+     * @var boolean
      */
     protected $isFullyCached = false;
 
@@ -87,7 +87,8 @@ abstract class AbstractContentModel extends AbstractModel
      *
      * @return string
      */
-    private function _getHtmlMemcachedKey() {
+    private function _getHtmlMemcachedKey()
+    {
         return sprintf(
             '%s_%s_html',
             $this->getTableName(),
@@ -152,7 +153,7 @@ abstract class AbstractContentModel extends AbstractModel
     /**
      * Deletes HTML Memcached
      *
-     * @param string $key  Key
+     * @param string $key Key
      *
      * @return AbstractContentModel
      */

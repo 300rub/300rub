@@ -96,8 +96,6 @@ class MigrateCommand extends AbstractCommand
      * @throws MigrationException
      *
      * @return MigrateCommand
-     *
-     * @throws \Exception
      */
     private function _applyMigration()
     {

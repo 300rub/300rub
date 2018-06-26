@@ -99,13 +99,12 @@ if ($isUser === true) {
 ?>
 
 <?php
-
 if (array_key_exists('test', $_GET) === false) {
     echo $content;
 }
 
 if (array_key_exists('test', $_GET) === true) {
-    require __DIR__ . '/../test/test.php';
+    include __DIR__ . '/../test/test.php';
 }
 
 ?>

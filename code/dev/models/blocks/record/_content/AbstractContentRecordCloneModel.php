@@ -23,7 +23,7 @@ abstract class AbstractContentRecordCloneModel extends AbstractRecordCloneModel
     /**
      * Is fully cached
      *
-     * @var bool
+     * @var boolean
      */
     protected $isFullyCached = true;
 
@@ -138,7 +138,10 @@ abstract class AbstractContentRecordCloneModel extends AbstractRecordCloneModel
             $css,
             $view->generateCss(
                 $designRecordModel->get('descriptionDesignBlockModel'),
-                sprintf('.block-%s .record-card .description', $this->getBlockId())
+                sprintf(
+                    '.block-%s .record-card .description',
+                    $this->getBlockId()
+                )
             )
         );
 
@@ -146,7 +149,10 @@ abstract class AbstractContentRecordCloneModel extends AbstractRecordCloneModel
             $css,
             $view->generateCss(
                 $designRecordModel->get('descriptionDesignTextModel'),
-                sprintf('.block-%s .record-card .description', $this->getBlockId())
+                sprintf(
+                    '.block-%s .record-card .description',
+                    $this->getBlockId()
+                )
             )
         );
 

@@ -16,7 +16,7 @@ abstract class AbstractContentTextModel extends AbstractTextModel
     /**
      * Is fully cached
      *
-     * @var bool
+     * @var boolean
      */
     protected $isFullyCached = true;
 

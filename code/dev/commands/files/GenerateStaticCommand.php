@@ -42,7 +42,7 @@ class GenerateStaticCommand extends AbstractCommand
         $this->_staticMap = App::getInstance()
             ->getConfig()
             ->getValue(['staticMap']);
-        $this->_publicDir = __DIR__ . '/../public';
+        $this->_publicDir = CODE_ROOT . '/public';
 
         $this
             ->_generateJs()

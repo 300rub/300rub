@@ -33,11 +33,17 @@
          * Init
          */
         init: function () {
-            this._interval = setInterval($.proxy(function() {
-                if (this._isLoad() === true) {
-                    this._load();
-                }
-            }, this), 1000);
+            this._interval = setInterval(
+                $.proxy(
+                    function () {
+                        if (this._isLoad() === true) {
+                            this._load();
+                        }
+                    },
+                    this
+                ),
+                1000
+            );
         },
 
         /**
@@ -45,37 +51,52 @@
          *
          * @private
          */
-        _load: function() {
-            new ss.components.Ajax({
-                data: {
-                    group: this._options.group,
-                    controller: this._options.controller,
+        _load: function () {
+            new ss.components.Ajax(
+                {
                     data: {
-                        page: this._page + 1,
-                        blockId: this._options.blockId,
-                        sectionId: ss.system.App.getSectionId()
-                    }
-                },
-                beforeSend: $.proxy(function () {
-                    this._canLoad = false;
-                }, this),
-                success: $.proxy(function (data) {
-                    var html = $.trim(data.html);
-                    if (html === "") {
+                        group: this._options.group,
+                        controller: this._options.controller,
+                        data: {
+                            page: this._page + 1,
+                            blockId: this._options.blockId,
+                            sectionId: ss.system.App.getSectionId()
+                        }
+                    },
+                    beforeSend: $.proxy(
+                        function () {
+                            this._canLoad = false;
+                        },
+                        this
+                    ),
+                success: $.proxy(
+                    function (data) {
+                        var html = $.trim(data.html);
+                        if (html === "") {
+                            clearInterval(this._interval);
+                            this._options.element.remove();
+                        }
+
+                        this._options.container.append(html);
+                    },
+                    this
+                ),
+                error: $.proxy(
+                    function () {
                         clearInterval(this._interval);
                         this._options.element.remove();
-                    }
-                    this._options.container.append(html);
-                }, this),
-                error: $.proxy(function () {
-                    clearInterval(this._interval);
-                    this._options.element.remove();
-                }, this),
-                complete: $.proxy(function () {
-                    this._canLoad = true;
-                    this._page++;
-                }, this)
-            });
+                    },
+                    this
+                ),
+                complete: $.proxy(
+                    function () {
+                        this._canLoad = true;
+                        this._page++;
+                    },
+                    this
+                )
+                }
+            );
         },
 
         /**
@@ -90,7 +111,7 @@
                 return false;
             }
 
-            var top = this._options.element.offset().top - 100;
+            var top = (this._options.element.offset().top - 100);
 
             return ($(document).scrollTop() + $(window).height()) > top;
         }

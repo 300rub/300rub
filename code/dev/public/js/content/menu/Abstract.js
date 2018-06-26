@@ -24,7 +24,7 @@
          *
          * @returns {Object}
          */
-        getMenu: function() {
+        getMenu: function () {
             return this._menu;
         }
     };

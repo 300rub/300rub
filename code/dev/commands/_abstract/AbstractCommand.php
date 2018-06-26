@@ -1,6 +1,7 @@
 <?php
 
 namespace ss\commands\_abstract;
+
 use ss\application\exceptions\CommonException;
 
 /**
