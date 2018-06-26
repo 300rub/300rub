@@ -40,7 +40,7 @@
             <arg value="--config" />
             <arg path="config/code/jshint.json" />
             <arg value="--exclude" />
-            <arg value="public/js/lib,public/js/*.min.js" />
+            <arg value="vendor,public/js/lib,public/js/*.min.js" />
         </exec>
     </target>
 
@@ -48,8 +48,5 @@
     </target>
 
     <target name="code-js-check" depends="code-phpcs, code-jshint">
-    </target>
-
-    <target name="code-check" depends="code-phpcs, code-phpmd, code-jshint, code-lesshint">
     </target>
 </project>
