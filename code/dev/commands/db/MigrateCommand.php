@@ -48,6 +48,8 @@ class MigrateCommand extends AbstractCommand
      */
     private function _setNewMigrations()
     {
+        $this->_migrations = [];
+
         $versions = [];
         $rows = App::getInstance()
             ->getDb()
@@ -103,8 +105,6 @@ class MigrateCommand extends AbstractCommand
             return $this;
         }
 
-        sort($this->_migrations);
-
         foreach ($this->_sites as $site) {
             App::getInstance()
                 ->getDb()
@@ -123,6 +123,8 @@ class MigrateCommand extends AbstractCommand
                 if (count($this->_migrations) === 0) {
                     continue;
                 }
+
+                sort($this->_migrations);
 
                 foreach ($this->_migrations as $migrationName) {
                     $migration = $this->_getMigrationByName($migrationName);

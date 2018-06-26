@@ -150,7 +150,7 @@ abstract class AbstractControllerTest extends AbstractUnitTest
      */
     protected function getHost()
     {
-        return 'dev.ss.local';
+        return 'test.ss.local';
     }
 
     /**

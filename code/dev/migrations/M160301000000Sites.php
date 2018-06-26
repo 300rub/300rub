@@ -3,6 +3,7 @@
 namespace ss\migrations;
 
 use ss\application\App;
+use ss\application\components\Language;
 use ss\migrations\_abstract\AbstractMigration;
 
 /**
@@ -63,8 +64,24 @@ class M160301000000Sites extends AbstractMigration
                 $config->getValue(['db', 'dev', 'user']),
                 $config->getValue(['db', 'dev', 'password']),
                 $config->getValue(['db', 'dev', 'name']),
-                DEV_LANGUAGE,
-                DEV_EMAIL,
+                Language::LANGUAGE_EN_ID,
+                'dev@ss.local',
+            ]
+        );
+
+        $dbObject->execute(
+            'INSERT ' .
+            'INTO sites ' .
+            '(name, dbHost, dbUser, dbPassword, dbName, language, email)' .
+            ' VALUES (?, ?, ?, ?, ?, ?, ?)',
+            [
+                'test',
+                $config->getValue(['db', 'test', 'host']),
+                $config->getValue(['db', 'test', 'user']),
+                $config->getValue(['db', 'test', 'password']),
+                $config->getValue(['db', 'test', 'name']),
+                Language::LANGUAGE_EN_ID,
+                'test@ss.local',
             ]
         );
     }

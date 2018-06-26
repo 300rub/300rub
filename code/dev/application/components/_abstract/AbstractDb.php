@@ -150,6 +150,25 @@ abstract class AbstractDb
     }
 
     /**
+     * Sets test PDO
+     *
+     * @return AbstractDb
+     */
+    public function setTestPdo()
+    {
+        $config = App::getInstance()->getConfig();
+
+        $this->setPdo(
+            $config->getValue(['db', 'test', 'host']),
+            $config->getValue(['db', 'test', 'user']),
+            $config->getValue(['db', 'test', 'password']),
+            $config->getValue(['db', 'test', 'name'])
+        );
+
+        return $this;
+    }
+
+    /**
      * Sets table
      *
      * @param string $table Table name

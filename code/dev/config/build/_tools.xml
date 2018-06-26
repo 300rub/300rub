@@ -70,6 +70,7 @@
         <delete dir="public/upload" />
         <mkdir dir="public/upload" />
         <mkdir dir="public/upload/1" />
+        <mkdir dir="public/upload/2" />
         <exec executable="chmod" failonerror="true">
             <arg line="-R 0777 public/upload" />
         </exec>

@@ -112,51 +112,44 @@ class ImportDevFixturesCommand extends AbstractCommand
      */
     public function load($type)
     {
-        $sites = ['dev'];
-        if ($type === 'test') {
-            $sites = ['dev'];
-        }
-
         $config = App::getInstance()->getConfig();
         $dbObject = App::getInstance()->getDb();
 
-        foreach ($sites as $site) {
-            $dbObject->setPdo(
-                $config->getValue(['db', $site, 'host']),
-                $config->getValue(['db', $site, 'user']),
-                $config->getValue(['db', $site, 'password']),
-                $config->getValue(['db', $site, 'name'])
-            );
+        $dbObject->setPdo(
+            $config->getValue(['db', $type, 'host']),
+            $config->getValue(['db', $type, 'user']),
+            $config->getValue(['db', $type, 'password']),
+            $config->getValue(['db', $type, 'name'])
+        );
 
-            $dbObject->execute('SET GLOBAL FOREIGN_KEY_CHECKS=0;');
+        $dbObject->execute('SET GLOBAL FOREIGN_KEY_CHECKS=0;');
 
-            foreach ($this->_fixtureOrder as $fixture => $modelName) {
-                $filePath = __DIR__ .
-                    '/../../fixtures/' .
-                    $type .
-                    '/' .
-                    $fixture .
-                    '.php';
+        foreach ($this->_fixtureOrder as $fixture => $modelName) {
+            $filePath = __DIR__ .
+                '/../../fixtures/' .
+                $type .
+                '/' .
+                $fixture .
+                '.php';
 
-                if (file_exists($filePath) === false) {
-                    continue;
-                }
-
-                $records = include $filePath;
-                foreach ($records as $record) {
-                    $this
-                        ->_getModelByName($modelName)
-                        ->set($record)
-                        ->save();
-                }
+            if (file_exists($filePath) === false) {
+                continue;
             }
 
-            $this->_uploadImages($type, $site);
-
-            $this->_saveRecordInstances($type);
-
-            $dbObject->execute('SET GLOBAL FOREIGN_KEY_CHECKS=1;');
+            $records = include $filePath;
+            foreach ($records as $record) {
+                $this
+                    ->_getModelByName($modelName)
+                    ->set($record)
+                    ->save();
+            }
         }
+
+        $this->_uploadImages($type);
+
+        $this->_saveRecordInstances($type);
+
+        $dbObject->execute('SET GLOBAL FOREIGN_KEY_CHECKS=1;');
     }
 
     /**
@@ -210,15 +203,14 @@ class ImportDevFixturesCommand extends AbstractCommand
      * Uploads image
      *
      * @param string $type Type
-     * @param string $site Site name
      *
      * @return void
      */
-    private function _uploadImages($type, $site)
+    private function _uploadImages($type)
     {
         $map = include sprintf(
-            '%s/../../fixtures/%s/imageInstances.php',
-            __DIR__,
+            '%s/fixtures/%s/imageInstances.php',
+            CODE_ROOT,
             $type
         );
 
@@ -240,7 +232,7 @@ class ImportDevFixturesCommand extends AbstractCommand
                 $data['data'],
                 $mimeType,
                 $language,
-                $site
+                $type
             );
 
             $imageInstanceModel = ImageInstanceModel::model()
@@ -271,7 +263,7 @@ class ImportDevFixturesCommand extends AbstractCommand
      * @param array  $data       Data
      * @param string $mimeType   Mime type
      * @param int    $language   Language
-     * @param string $site       Site name
+     * @param string $type       Type
      *
      * @return void
      */
@@ -282,9 +274,9 @@ class ImportDevFixturesCommand extends AbstractCommand
         array $data,
         $mimeType,
         $language,
-        $site
+        $type
     ) {
-        $host = $site . '.ss.local';
+        $host = $type . '.ss.local';
 
         $this->_fileData = [];
         $this->_setFileData($data);

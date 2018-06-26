@@ -22,18 +22,14 @@
         </exec>
     </target>
 
-    <target name="test-phpunit" depends="db-export-sites, tools-flush-memcached, test-import-db">
+    <target name="test-recreate-test-database">
         <exec executable="php" failonerror="true">
-            <arg value='vendor/phpunit/phpunit/phpunit' />
-            <arg value='--bootstrap=tests/unit/bootstrap.php' />
-            <arg value='${path}' />
+            <arg value='commands/run' />
+            <arg value='db/RecreateTestDatabaseCommand' />
         </exec>
-
-        <antcall target="tools-flush-memcached" />
-        <antcall target="db-import-sites" />
     </target>
 
-    <target name="test-phpunit-reload-fixtures" depends="db-export-sites, tools-flush-memcached, db-recreate-dev-databases, db-migrate, test-import-dev-fixtures, test-export-db">
+    <target name="test-phpunit" depends="tools-flush-memcached, test-import-db">
         <exec executable="php" failonerror="true">
             <arg value='vendor/phpunit/phpunit/phpunit' />
             <arg value='--bootstrap=tests/unit/bootstrap.php' />
@@ -41,7 +37,16 @@
         </exec>
 
         <antcall target="tools-flush-memcached" />
-        <antcall target="db-import-sites" />
+    </target>
+
+    <target name="test-phpunit-reload-fixtures" depends="tools-flush-memcached, test-recreate-test-database, db-migrate, test-import-dev-fixtures, test-export-db">
+        <exec executable="php" failonerror="true">
+            <arg value='vendor/phpunit/phpunit/phpunit' />
+            <arg value='--bootstrap=tests/unit/bootstrap.php' />
+            <arg value='${path}' />
+        </exec>
+
+        <antcall target="tools-flush-memcached" />
     </target>
 
     <target name="test-paratest">
