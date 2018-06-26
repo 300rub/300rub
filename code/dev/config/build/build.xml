@@ -6,6 +6,6 @@
     <import file="_test.xml"/>
     <import file="_tools.xml"/>
 
-    <target name="build" depends="tools-prepare, db-recreate-dev-databases, tools-flush-memcached, db-migrate, db-import-dev-fixtures">
+    <target name="ss-dev" depends="tools-prepare, db-recreate-dev-databases, tools-flush-memcached, db-migrate, db-import-dev-fixtures">
     </target>
 </project>
