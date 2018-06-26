@@ -3,7 +3,7 @@
 path=${1/$PWD\/code\/dev\//}
 
 if [[ $path == "" ]]; then
-  docker exec -it ss_phpfpm_1 ant -file /var/www/code/live/config/build/build.xml code-js-check -Dpath=.
+  docker exec -it ss_phpfpm_1 ant -file /var/www/code/live/config/build/build.xml code-js-check -Dpath=public/js
   exit 1
 fi
 

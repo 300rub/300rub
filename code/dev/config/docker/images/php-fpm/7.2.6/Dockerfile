@@ -27,4 +27,14 @@ RUN apt-get install -y zip unzip php7.2-zip
 RUN apt-get install -y curl
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
+RUN apt-get update
+RUN curl -sL https://deb.nodesource.com/setup_8.x -o nodesource_setup.sh
+RUN bash nodesource_setup.sh
+RUN apt-get install -y nodejs
+
+#RUN apt-get install -y npm
+
+RUN npm install -g less lesshint
+RUN npm install -g jshint
+
 EXPOSE 9000

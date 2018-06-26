@@ -95,8 +95,8 @@ class PublicVendorCommand extends AbstractCommand
 			=> "troolee/gridstack/dist/gridstack.min.map",
         "jquery.colorpicker.js"
 			=> "vanderlee/colorpicker/jquery.colorpicker.js",
-        "tinymce/tinymce.jquery.min.js"
-			=> "tinymce/tinymce/tinymce.jquery.min.js",
+        "tinymce/jquery.tinymce.min.js"
+			=> "tinymce/tinymce/jquery.tinymce.min.js",
         "tinymce/themes/modern/theme.min.js"
 			=> "tinymce/tinymce/themes/modern/theme.min.js",
         "tinymce/skins/lightgray/skin.min.css"
@@ -167,8 +167,8 @@ class PublicVendorCommand extends AbstractCommand
 	 */
 	private function _process($folder, $key, $value)
 	{
-		$vendorsDir = __DIR__ . "/../vendor";
-		$staticDir = __DIR__ . "/../public";
+		$vendorsDir = CODE_ROOT . "/vendor";
+		$staticDir = CODE_ROOT . "/public";
 
 		$dir = sprintf('%s/%s/lib', $staticDir, $folder);
 		if (file_exists($dir) === false

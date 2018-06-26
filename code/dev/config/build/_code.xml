@@ -36,11 +36,11 @@
 
     <target name="code-jshint" description="JSHint, a JavaScript Code Quality Tool">
         <exec executable="jshint" failonerror="false">
-            <arg path="${path}" />
+            <arg value="${path}" />
             <arg value="--config" />
             <arg path="config/code/jshint.json" />
             <arg value="--exclude" />
-            <arg value="vendor,docker,public/js/lib" />
+            <arg value="public/js/lib,public/js/*.min.js" />
         </exec>
     </target>
 
