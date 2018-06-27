@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="dev" basedir="${basedir}/../../..">
+    <target name="dev-upload-prepare">
+        <delete dir="public/upload/dev" />
+        <mkdir dir="public/upload/dev" />
+        <exec executable="chmod" failonerror="true">
+            <arg line="-R 0777 public/upload/dev" />
+        </exec>
+    </target>
+
+    <target name="dev-setup" depends="dev-upload-prepare, db-recreate-dev-databases, tools-flush-memcached, db-migrate, db-import-dev-fixtures">
+    </target>
+</project>

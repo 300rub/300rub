@@ -54,7 +54,7 @@ class CreateImageControllerTest extends AbstractControllerTest
         $originalFile = $originalFileExplode[(count($originalFileExplode) - 1)];
         $originalFilePath = sprintf(
             App::getInstance()->getConfig()->getValue(['file', 'pathMask']),
-            App::getInstance()->getSite()->getId(),
+            App::getInstance()->getSite()->get('name'),
             $originalFile
         );
         $this->assertTrue(file_exists($originalFilePath));
@@ -63,7 +63,7 @@ class CreateImageControllerTest extends AbstractControllerTest
         $viewFile = $viewFileExplode[(count($viewFileExplode) - 1)];
         $viewFilePath = sprintf(
             App::getInstance()->getConfig()->getValue(['file', 'pathMask']),
-            App::getInstance()->getSite()->getId(),
+            App::getInstance()->getSite()->get('name'),
             $viewFile
         );
         $this->assertTrue(file_exists($viewFilePath));
@@ -72,7 +72,7 @@ class CreateImageControllerTest extends AbstractControllerTest
         $thumbFile = $thumbFileExplode[(count($thumbFileExplode) - 1)];
         $thumbFilePath = sprintf(
             App::getInstance()->getConfig()->getValue(['file', 'pathMask']),
-            App::getInstance()->getSite()->getId(),
+            App::getInstance()->getSite()->get('name'),
             $thumbFile
         );
         $this->assertTrue(file_exists($thumbFilePath));

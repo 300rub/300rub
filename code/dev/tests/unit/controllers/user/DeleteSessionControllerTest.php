@@ -46,10 +46,7 @@ class DeleteSessionControllerTest extends AbstractControllerTest
         $this->assertSame(($beforeDelete - 1), $afterDelete);
         $sessionModel->clearId()->save();
 
-        $expectedBody = [
-            'host' => 'http://dev1.local'
-        ];
-        $this->assertSame($expectedBody, $this->getBody());
+        $this->assertArrayHasKey('host', $this->getBody());
 
         $memcachedResult = $memcached->get($sessionModel->get('token'));
         $this->assertFalse($memcachedResult);

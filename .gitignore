@@ -14,7 +14,8 @@ releases/*
 code/dev/config/release
 code/dev/public/css/lib
 code/dev/public/js/lib
-code/dev/public/upload
+code/dev/public/upload/dev
+code/dev/public/upload/test
 code/dev/vendor
 
 code/live

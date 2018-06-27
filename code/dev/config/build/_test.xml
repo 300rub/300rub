@@ -39,7 +39,7 @@
         <antcall target="tools-flush-memcached" />
     </target>
 
-    <target name="test-phpunit-reload-fixtures" depends="tools-flush-memcached, test-recreate-test-database, db-migrate, test-import-dev-fixtures, test-export-db">
+    <target name="test-phpunit-reload-fixtures" depends="test-upload-prepare, tools-flush-memcached, test-recreate-test-database, db-migrate, test-import-dev-fixtures, test-export-db">
         <exec executable="php" failonerror="true">
             <arg value='vendor/phpunit/phpunit/phpunit' />
             <arg value='--bootstrap=tests/unit/bootstrap.php' />
@@ -49,13 +49,21 @@
         <antcall target="tools-flush-memcached" />
     </target>
 
-    <target name="test-paratest">
+    <target name="test-paratest" depends="test-upload-prepare">
         <exec executable="php" failonerror="true">
             <arg value='vendor/brianium/paratest/bin/paratest' />
             <arg value='--bootstrap=tests//selenium/bootstrap.php' />
             <arg value='-p 1' />
             <arg value='-f' />
             <arg value='tests/selenium' />
+        </exec>
+    </target>
+
+    <target name="test-upload-prepare">
+        <delete dir="public/upload/test" />
+        <mkdir dir="public/upload/test" />
+        <exec executable="chmod" failonerror="true">
+            <arg line="-R 0777 public/upload/test" />
         </exec>
     </target>
 </project>

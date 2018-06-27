@@ -4,8 +4,6 @@
     <import file="_db.xml"/>
     <import file="_release.xml"/>
     <import file="_test.xml"/>
+    <import file="_dev.xml"/>
     <import file="_tools.xml"/>
-
-    <target name="ss-dev" depends="tools-prepare, db-recreate-dev-databases, tools-flush-memcached, db-migrate, db-import-dev-fixtures">
-    </target>
 </project>

@@ -17,6 +17,7 @@ class Test extends AbstractApplication
      */
     public function run()
     {
-        $this->setSite();
+        $hostname = sprintf('test.%s', $this->getConfig()->getValue(['host']));
+        $this->setSite($hostname);
     }
 }

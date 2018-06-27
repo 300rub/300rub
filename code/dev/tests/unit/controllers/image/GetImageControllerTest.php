@@ -73,9 +73,8 @@ class GetImageControllerTest extends AbstractControllerTest
             return true;
         }
 
+        $body = $this->getBody();
         $expected = [
-            'url'
-                => 'http://' . $this->getHost() . '/upload/1/new_file.jpg',
             'alt'     => 'Alt 1',
             'width'   => 800,
             'height'  => 600,
@@ -88,7 +87,8 @@ class GetImageControllerTest extends AbstractControllerTest
             'thumbX2' => 35,
             'thumbY2' => 45,
         ];
-        $this->compareExpectedAndActual($expected, $this->getBody());
+        $this->compareExpectedAndActual($expected, $body);
+        $this->assertTrue(strpos($body['url'], 'new_file.jpg') > 0);
 
         $imageInstanceModel->delete();
         return true;

@@ -54,21 +54,21 @@ class UpdateImageControllerTest extends AbstractControllerTest
         $this->assertFileExists(
             sprintf(
                 $config->getValue(['file', 'pathMask']),
-                App::getInstance()->getSite()->getId(),
+                App::getInstance()->getSite()->get('name'),
                 $originalFileName
             )
         );
         $this->assertFileExists(
             sprintf(
                 $config->getValue(['file', 'pathMask']),
-                App::getInstance()->getSite()->getId(),
+                App::getInstance()->getSite()->get('name'),
                 $viewFileName
             )
         );
         $this->assertFileExists(
             sprintf(
                 $config->getValue(['file', 'pathMask']),
-                App::getInstance()->getSite()->getId(),
+                App::getInstance()->getSite()->get('name'),
                 $thumbFileName
             )
         );
@@ -131,14 +131,14 @@ class UpdateImageControllerTest extends AbstractControllerTest
         $this->assertFileExists(
             sprintf(
                 $config->getValue(['file', 'pathMask']),
-                App::getInstance()->getSite()->getId(),
+                App::getInstance()->getSite()->get('name'),
                 $updatedViewFileName
             )
         );
         $this->assertFileExists(
             sprintf(
                 $config->getValue(['file', 'pathMask']),
-                App::getInstance()->getSite()->getId(),
+                App::getInstance()->getSite()->get('name'),
                 $updatedThumbFileName
             )
         );
@@ -147,14 +147,14 @@ class UpdateImageControllerTest extends AbstractControllerTest
         $this->assertFileNotExists(
             sprintf(
                 $config->getValue(['file', 'pathMask']),
-                App::getInstance()->getSite()->getId(),
+                App::getInstance()->getSite()->get('name'),
                 $viewFileName
             )
         );
         $this->assertFileNotExists(
             sprintf(
                 $config->getValue(['file', 'pathMask']),
-                App::getInstance()->getSite()->getId(),
+                App::getInstance()->getSite()->get('name'),
                 $thumbFileName
             )
         );

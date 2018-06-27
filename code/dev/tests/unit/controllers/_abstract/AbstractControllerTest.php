@@ -150,7 +150,10 @@ abstract class AbstractControllerTest extends AbstractUnitTest
      */
     protected function getHost()
     {
-        return 'test.ss.local';
+        return sprintf(
+            'test.%s',
+            App::getInstance()->getConfig()->getValue(['host'])
+        );
     }
 
     /**

@@ -355,12 +355,8 @@ abstract class AbstractApplication
      *
      * @throws NotFoundException
      */
-    protected function setSite($hostname = null)
+    protected function setSite($hostname)
     {
-        if ($hostname === null) {
-            $hostname = $this->getConfig()->getValue(['domains', 0, 'name']);
-        }
-
         $memcachedKey = 'site_' . str_replace('.', '_', $hostname);
         $siteModel = $this->getMemcached()->get($memcachedKey);
         if ($siteModel instanceof SiteModel === false) {

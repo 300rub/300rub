@@ -51,7 +51,7 @@ class FileModel extends AbstractFileModel
             App::getInstance()
                 ->getSuperGlobalVariable()
                 ->getServerValue('HTTP_HOST'),
-            App::getInstance()->getSite()->getId(),
+            App::getInstance()->getSite()->get('name'),
             $this->get('uniqueName')
         );
     }
@@ -207,7 +207,7 @@ class FileModel extends AbstractFileModel
             App::getInstance()
                 ->getConfig()
                 ->getValue(['file', 'pathMask']),
-            App::getInstance()->getSite()->getId(),
+            App::getInstance()->getSite()->get('name'),
             $this->get('uniqueName')
         );
 
@@ -277,7 +277,7 @@ class FileModel extends AbstractFileModel
             App::getInstance()
                 ->getConfig()
                 ->getValue(['file', 'pathMask']),
-            App::getInstance()->getSite()->getId(),
+            App::getInstance()->getSite()->get('name'),
             $name
         );
 
