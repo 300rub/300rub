@@ -18,8 +18,6 @@ class ExportTestCommand extends AbstractCommand
      */
     public function run()
     {
-        $this->checkIsDev();
-
         $site = App::getInstance()->getConfig()->getValue(['db', 'test']);
 
         exec(

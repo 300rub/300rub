@@ -42,10 +42,20 @@ class FileModel extends AbstractFileModel
      */
     public function getUrl()
     {
-        if (APP_ENV !== ENV_DEV) {
-            return '';
+        if (APP_ENV === ENV_DEV) {
+            return $this->_getDevUrl();
         }
 
+        return $this->_getProdUrl();
+    }
+
+    /**
+     * Gets dev URL
+     *
+     * @return string
+     */
+    private function _getDevUrl()
+    {
         return sprintf(
             App::getInstance()->getConfig()->getValue(['file', 'urlMask']),
             App::getInstance()
@@ -57,17 +67,13 @@ class FileModel extends AbstractFileModel
     }
 
     /**
-     * Uploads a file
+     * Gets prod URL
      *
-     * @return FileModel
+     * @return string
      */
-    public function upload()
+    private function _getProdUrl()
     {
-        if (APP_ENV === ENV_DEV) {
-            $this->_localUpload();
-        }
-
-        return $this;
+        return $this->_getDevUrl();
     }
 
     /**
@@ -186,13 +192,29 @@ class FileModel extends AbstractFileModel
     }
 
     /**
+     * Uploads a file
+     *
+     * @return FileModel
+     */
+    public function upload()
+    {
+        if (APP_ENV === ENV_DEV) {
+            $this->_devUpload();
+            return $this;
+        }
+
+        $this->_prodUpload();
+        return $this;
+    }
+
+    /**
      * Uploads a file locally
      *
      * @throws FileException
      *
      * @return void
      */
-    private function _localUpload()
+    private function _devUpload()
     {
         if (file_exists($this->_tmpName) === false) {
             throw new FileException(
@@ -249,17 +271,31 @@ class FileModel extends AbstractFileModel
     }
 
     /**
+     * Uploads a file to S3
+     *
+     * @return void
+     */
+    private function _prodUpload()
+    {
+        $this->_devUpload();
+    }
+
+    /**
      * Deletes file by unique name
      *
      * @param string $name Unique name
      *
-     * @return void
+     * @return FileModel
      */
     public function deleteByUniqueName($name)
     {
         if (APP_ENV === ENV_DEV) {
-            $this->_localDeleteByUniqueName($name);
+            $this->_deleteDevByUniqueName($name);
+            return $this;
         }
+
+        $this->_deleteProdByUniqueName($name);
+        return $this;
     }
 
     /**
@@ -271,7 +307,7 @@ class FileModel extends AbstractFileModel
      *
      * @return void
      */
-    private function _localDeleteByUniqueName($name)
+    private function _deleteDevByUniqueName($name)
     {
         $path = sprintf(
             App::getInstance()
@@ -291,6 +327,18 @@ class FileModel extends AbstractFileModel
                 ]
             );
         }
+    }
+
+    /**
+     * Deletes file by unique name on S3
+     *
+     * @param string $name Unique name
+     *
+     * @return void
+     */
+    private function _deleteProdByUniqueName($name)
+    {
+        $this->_deleteDevByUniqueName($name);
     }
 
     /**

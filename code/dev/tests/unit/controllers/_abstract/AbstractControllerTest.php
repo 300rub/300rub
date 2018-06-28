@@ -198,7 +198,10 @@ abstract class AbstractControllerTest extends AbstractUnitTest
         curl_setopt(
             $curl,
             CURLOPT_HTTPHEADER,
-            ['Content-type: multipart/form-data']
+            [
+                'Content-type: multipart/form-data',
+                'X-Requested-With: XMLHttpRequest'
+            ]
         );
 
         $body = curl_exec($curl);
@@ -279,8 +282,9 @@ abstract class AbstractControllerTest extends AbstractUnitTest
         ];
         if ($method !== 'GET') {
             $headers[] = 'Content-Type: application/json';
-            $headers[] = 'X-Requested-With: XMLHttpRequest';
         }
+
+        $headers[] = 'X-Requested-With: XMLHttpRequest';
 
         curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
 

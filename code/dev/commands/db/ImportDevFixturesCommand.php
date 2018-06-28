@@ -300,7 +300,8 @@ class ImportDevFixturesCommand extends AbstractCommand
             $curl,
             CURLOPT_HTTPHEADER,
             [
-                'Content-type: multipart/form-data'
+                'Content-type: multipart/form-data',
+                'X-Requested-With: XMLHttpRequest'
             ]
         );
 

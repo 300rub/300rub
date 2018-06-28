@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'host'      => 'ss.com',
+    'host'      => 'ss.local',
     'db'        => [
         'test' => [
             'host'     => '127.0.0.1',
@@ -26,4 +26,8 @@ return [
         'host' => 'localhost',
         'port' => 11211,
     ],
+    'file' => [
+        'pathMask' => __DIR__ . '/../public/upload/%s/%s',
+        'urlMask'  => 'http://%s/upload/%s/%s'
+    ]
 ];
