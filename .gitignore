@@ -17,5 +17,6 @@ code/dev/public/js/lib
 code/dev/public/upload/dev
 code/dev/public/upload/test
 code/dev/vendor
+code/release*
 
 code/live

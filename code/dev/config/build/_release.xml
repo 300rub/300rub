@@ -73,23 +73,25 @@
     </target>
 
     <target name="release-extract">
-        <for list="${release.hosts}" param="server" parallel="true" keepgoing="false">
+        <for list="${release.hosts}" param="server" parallel="false" keepgoing="false">
             <sequential>
                 <property name="server" value="@{server}" />
+                <property name="archive" value="${release.dir}/releases/upload/release-${release}.tar.gz" />
+                <property name="folder" value="${release.dir}/code/release-${release}" />
+
                 <sshexec
                     host="${server}"
                     username="${release.user}"
                     keyfile="${user.home}/.ssh/id_rsa"
                     trust="yes"
                     failonerror="true"
-                    command="ls -la"
+                    command="mkdir -p ${folder}; tar -xf ${archive} -C ${folder}"
                 />
             </sequential>
         </for>
     </target>
 
-    <!--<target name="release-make" depends="release-prepare-rsa, release-update-number, tools-composer-install, tools-public-vendor, tools-generate-static, test-phpunit-reload-fixtures, release-archive, release-upload">-->
+    <!--<target name="release-make" depends="release-prepare-rsa, release-update-number, tools-composer-install, tools-public-vendor, tools-generate-static, test-phpunit-reload-fixtures, release-archive, release-upload, release-extract">-->
     <target name="release-make" depends="release-prepare-rsa, release-extract">
-
     </target>
 </project>
