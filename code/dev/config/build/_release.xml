@@ -108,6 +108,7 @@
         </for>
     </target>
 
-    <target name="release-make" depends="tools-git-reset, release-prepare-rsa, release-update-number, tools-composer-install, tools-public-vendor, tools-generate-static, test-phpunit-reload-fixtures, release-archive, release-upload, release-extract, release-change-link">
+    <!--<target name="release-make" depends="tools-git-reset, release-prepare-rsa, release-update-number, tools-composer-install, tools-public-vendor, tools-generate-static, test-phpunit-reload-fixtures, release-archive, release-upload, release-extract, release-change-link">-->
+    <target name="release-make" depends="">
     </target>
 </project>
