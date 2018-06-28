@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="release" basedir="${basedir}/../../..">
+<project name="release">
+    <taskdef resource="net/sf/antcontrib/antlib.xml">
+    </taskdef>
+
     <target name="release-update-number">
         <echo file="${basedir}/config/release" append="false">${release}</echo>
     </target>
 
-    <target name="release-archive">
+    <target name="release-check-folders">
         <exec executable="mkdir" failonerror="true">
             <arg value="-p" />
             <arg value="-m" />
@@ -12,21 +15,37 @@
             <arg value="${basedir}/../../releases" />
         </exec>
 
+        <exec executable="mkdir" failonerror="true">
+            <arg value="-p" />
+            <arg value="-m" />
+            <arg value="0777" />
+            <arg value="${basedir}/../../releases/generated" />
+        </exec>
+
+        <exec executable="mkdir" failonerror="true">
+            <arg value="-p" />
+            <arg value="-m" />
+            <arg value="0777" />
+            <arg value="${basedir}/../../releases/upload" />
+        </exec>
+    </target>
+
+    <target name="release-archive" depends="release-check-folders">
         <exec executable="tar" failonerror="true">
             <arg value="--exclude=./.git" />
             <arg value="--exclude=./.idea" />
             <arg value="-zcf" />
-            <arg value="${basedir}/../../releases/release-${release}.tar.gz" />
+            <arg value="${basedir}/../../releases/generated/release-${release}.tar.gz" />
             <arg value="." />
         </exec>
 
         <exec executable="chmod" failonerror="true">
             <arg value="0777" />
-            <arg value="${basedir}/../../releases/release-${release}.tar.gz" />
+            <arg value="${basedir}/../../releases/generated/release-${release}.tar.gz" />
         </exec>
     </target>
 
-    <target name="release-upload">
+    <target name="release-upload" depends="release-check-folders">
         <exec executable="mkdir" failonerror="true">
             <arg value="-p" />
             <arg value="/root/.ssh" />
@@ -42,15 +61,23 @@
             <arg value="/root/.ssh/id_rsa" />
         </exec>
 
-        <exec executable="scp" failonerror="true">
-            <arg value="/var/www/releases/release-${release}.tar.gz" />
-            <arg value="mike@10.200.218.71:/home/mike/git/test/releases/release-${release}.tar.gz" />
-        </exec>
+        <for list="${release.hosts}" param="server" parallel="true" keepgoing="false">
+            <sequential>
+                <property name="server" value="@{server}" />
+
+                <scp
+                    file="${basedir}/../../releases/generated/release-${release}.tar.gz"
+                    todir="${release.user}@${server}:${release.upload}/release-${release}.tar.gz"
+                    keyfile="${user.home}/.ssh/id_rsa"
+                    trust="yes"
+                    sftp="true"
+                />
+            </sequential>
+        </for>
     </target>
 
-    <target name="release-deploy" depends="release-update-number, release-archive, release-upload">
-    </target>
+    <!--<target name="release-make" depends="release-update-number, tools-composer-install, tools-public-vendor, tools-generate-static, test-phpunit-reload-fixtures, release-archive, release-upload">-->
+    <target name="release-make" depends="release-upload">
 
-    <target name="release-make" depends="release-update-number, tools-composer-install, test-phpunit-reload-fixtures, release-archive">
     </target>
 </project>

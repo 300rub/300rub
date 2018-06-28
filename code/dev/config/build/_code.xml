@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="code" basedir="${basedir}/../../..">
+<project name="code">
     <target name="code-phpcs" description="Check code with PHP Code Sniffer">
         <exec executable="./vendor/squizlabs/php_codesniffer/bin/phpcs" failonerror="false">
             <arg value="--ignore=docker/,public/*/lib,vendor,config/,public/css,public/*.min.*,views/test" />

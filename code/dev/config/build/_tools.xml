@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="tools" basedir="${basedir}/../../..">
+<project name="tools">
     <property name="proxy" value="172.17.0.1:3128" />
 
     <target name="tools-git-reset">

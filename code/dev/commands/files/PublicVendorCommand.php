@@ -140,8 +140,6 @@ class PublicVendorCommand extends AbstractCommand
 	 */
 	public function run()
 	{
-		$this->checkIsDev();
-
         $map = [
             "css" => $this->_cssMap,
             "js"  => $this->_jsMap,

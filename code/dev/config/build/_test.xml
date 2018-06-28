@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="test" basedir="${basedir}/../../..">
+<project name="test">
     <target name="test-import-dev-fixtures">
         <exec executable="php" failonerror="true">
             <arg value='commands/run' />

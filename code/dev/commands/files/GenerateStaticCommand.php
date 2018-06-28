@@ -37,8 +37,6 @@ class GenerateStaticCommand extends AbstractCommand
      */
     public function run()
     {
-        $this->checkIsDev();
-
         $this->_staticMap = App::getInstance()
             ->getConfig()
             ->getValue(['staticMap']);

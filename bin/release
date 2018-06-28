@@ -1,9 +1,14 @@
 #!/bin/bash
 
-files='-f code/live/config/docker/compose/docker-compose.yml -f code/live/config/docker/compose/docker-compose-prod.yml'
-docker-compose $files -p ss kill
-docker-compose $files -p ss rm -f
-docker-compose $files -p ss build
-docker-compose $files -p ss up -d
+if [[ $1 == "" ]]; then
+  echo 'Please provide release number'
+  exit 1
+fi
 
-docker exec -it ss_phpfpm_1 ant -file /var/www/code/live/config/build/build.xml release-make -Drelease=2
+files='-f code/live/config/docker/compose/docker-compose.yml -f code/live/config/docker/compose/docker-compose-prod.yml'
+#docker-compose $files -p ss kill
+#docker-compose $files -p ss rm -f
+#docker-compose $files -p ss build
+#docker-compose $files -p ss up -d
+
+docker exec -it ss_phpfpm_1 ant -file /var/www/code/live/config/build/build.xml release-make -Drelease=$1

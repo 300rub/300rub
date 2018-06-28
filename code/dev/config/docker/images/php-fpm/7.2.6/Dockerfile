@@ -37,4 +37,8 @@ RUN apt-get install -y nodejs
 RUN npm install -g less lesshint
 RUN npm install -g jshint
 
+RUN apt-get install -y ant-contrib
+RUN apt-get install -y ant ant-optional
+RUN apt-get install -y ant libjsch-java
+
 EXPOSE 9000
