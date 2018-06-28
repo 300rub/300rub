@@ -14,14 +14,12 @@
             <arg value="0777" />
             <arg value="${basedir}/../../releases" />
         </exec>
-
         <exec executable="mkdir" failonerror="true">
             <arg value="-p" />
             <arg value="-m" />
             <arg value="0777" />
-            <arg value="${basedir}/../../releases/generated" />
+            <arg value="${basedir}/../../releases/archives" />
         </exec>
-
         <exec executable="mkdir" failonerror="true">
             <arg value="-p" />
             <arg value="-m" />
@@ -30,44 +28,42 @@
         </exec>
     </target>
 
+    <target name="release-prepare-rsa">
+        <exec executable="mkdir" failonerror="true">
+            <arg value="-p" />
+            <arg value="/root/.ssh" />
+        </exec>
+        <exec executable="cp" failonerror="true">
+            <arg value="/root/.ssh-tmp/id_rsa.pub" />
+            <arg value="/root/.ssh/id_rsa.pub" />
+        </exec>
+        <exec executable="cp" failonerror="true">
+            <arg value="/root/.ssh-tmp/id_rsa" />
+            <arg value="/root/.ssh/id_rsa" />
+        </exec>
+    </target>
+
     <target name="release-archive" depends="release-check-folders">
         <exec executable="tar" failonerror="true">
             <arg value="--exclude=./.git" />
             <arg value="--exclude=./.idea" />
             <arg value="-zcf" />
-            <arg value="${basedir}/../../releases/generated/release-${release}.tar.gz" />
+            <arg value="${basedir}/../../releases/archives/release-${release}.tar.gz" />
             <arg value="." />
         </exec>
-
         <exec executable="chmod" failonerror="true">
             <arg value="0777" />
-            <arg value="${basedir}/../../releases/generated/release-${release}.tar.gz" />
+            <arg value="${basedir}/../../releases/archives/release-${release}.tar.gz" />
         </exec>
     </target>
 
     <target name="release-upload" depends="release-check-folders">
-        <exec executable="mkdir" failonerror="true">
-            <arg value="-p" />
-            <arg value="/root/.ssh" />
-        </exec>
-
-        <exec executable="cp" failonerror="true">
-            <arg value="/root/.ssh-tmp/id_rsa.pub" />
-            <arg value="/root/.ssh/id_rsa.pub" />
-        </exec>
-
-        <exec executable="cp" failonerror="true">
-            <arg value="/root/.ssh-tmp/id_rsa" />
-            <arg value="/root/.ssh/id_rsa" />
-        </exec>
-
         <for list="${release.hosts}" param="server" parallel="true" keepgoing="false">
             <sequential>
                 <property name="server" value="@{server}" />
-
                 <scp
-                    file="${basedir}/../../releases/generated/release-${release}.tar.gz"
-                    todir="${release.user}@${server}:${release.upload}/release-${release}.tar.gz"
+                    file="${basedir}/../../releases/archives/release-${release}.tar.gz"
+                    todir="${release.user}@${server}:${release.dir}/releases/upload/release-${release}.tar.gz"
                     keyfile="${user.home}/.ssh/id_rsa"
                     trust="yes"
                     sftp="true"
@@ -76,8 +72,24 @@
         </for>
     </target>
 
-    <!--<target name="release-make" depends="release-update-number, tools-composer-install, tools-public-vendor, tools-generate-static, test-phpunit-reload-fixtures, release-archive, release-upload">-->
-    <target name="release-make" depends="release-upload">
+    <target name="release-extract">
+        <for list="${release.hosts}" param="server" parallel="true" keepgoing="false">
+            <sequential>
+                <property name="server" value="@{server}" />
+                <sshexec
+                    host="${server}"
+                    username="${release.user}"
+                    keyfile="${user.home}/.ssh/id_rsa"
+                    trust="yes"
+                    failonerror="true"
+                    command="ls -la"
+                />
+            </sequential>
+        </for>
+    </target>
+
+    <!--<target name="release-make" depends="release-prepare-rsa, release-update-number, tools-composer-install, tools-public-vendor, tools-generate-static, test-phpunit-reload-fixtures, release-archive, release-upload">-->
+    <target name="release-make" depends="release-prepare-rsa, release-extract">
 
     </target>
 </project>
