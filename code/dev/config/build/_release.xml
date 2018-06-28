@@ -91,7 +91,23 @@
         </for>
     </target>
 
-    <!--<target name="release-make" depends="release-prepare-rsa, release-update-number, tools-composer-install, tools-public-vendor, tools-generate-static, test-phpunit-reload-fixtures, release-archive, release-upload, release-extract">-->
-    <target name="release-make" depends="release-prepare-rsa, release-extract">
+    <target name="release-change-link">
+        <for list="${release.hosts}" param="server" parallel="false" keepgoing="false">
+            <sequential>
+                <property name="server" value="@{server}" />
+
+                <sshexec
+                        host="${server}"
+                        username="${release.user}"
+                        keyfile="${user.home}/.ssh/id_rsa"
+                        trust="yes"
+                        failonerror="true"
+                        command="cd ${release.dir}/code; ln -sfn release-${release} live"
+                />
+            </sequential>
+        </for>
+    </target>
+
+    <target name="release-make" depends="tools-git-reset, release-prepare-rsa, release-update-number, tools-composer-install, tools-public-vendor, tools-generate-static, test-phpunit-reload-fixtures, release-archive, release-upload, release-extract, release-change-link">
     </target>
 </project>
