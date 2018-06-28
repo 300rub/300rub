@@ -91,12 +91,10 @@ class ImportDevFixturesCommand extends AbstractCommand
      */
     public function run()
     {
-        $this->checkIsDev();
-
-        $this->checkIsDev();
-
         $type = 'dev';
-        if (array_key_exists(0, $this->args) === true) {
+        if (array_key_exists(0, $this->args) === true
+            && $this->args[0] === 'test'
+        ) {
             $type = $this->args[0];
         }
 

@@ -13,6 +13,8 @@ $config = [
 switch (APP_ENV) {
     case ENV_DEV:
         return array_replace($config, include 'dev.php');
-    default:
+    case ENV_PROD:
         return array_replace($config, include 'prod.php');
+    default:
+        throw new Exception(sprintf('Undefined env: [%s]', APP_ENV));
 }

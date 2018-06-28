@@ -1,8 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="release" basedir="${basedir}/../../..">
-    <target name="release-prepare" depends="tools-composer-install">
-    </target>
-
     <target name="release-update-number">
         <echo file="${basedir}/config/release" append="false">${release}</echo>
     </target>
@@ -51,6 +48,9 @@
         </exec>
     </target>
 
-    <target name="deploy" depends="release-update-number, release-archive, release-upload">
+    <target name="release-deploy" depends="release-update-number, release-archive, release-upload">
+    </target>
+
+    <target name="release-make" depends="release-update-number, tools-composer-install, test-phpunit-reload-fixtures, release-archive">
     </target>
 </project>

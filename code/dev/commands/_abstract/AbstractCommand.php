@@ -55,4 +55,20 @@ abstract class AbstractCommand
             );
         }
     }
+
+    /**
+     * Gets arg by key
+     *
+     * @param int $key Arg key
+     *
+     * @return string
+     */
+    protected function getArg($key)
+    {
+        if (array_key_exists($key, $this->args) === true) {
+            return $this->args[$key];
+        }
+
+        return null;
+    }
 }

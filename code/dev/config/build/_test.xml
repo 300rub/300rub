@@ -30,6 +30,8 @@
     </target>
 
     <target name="test-phpunit" depends="tools-flush-memcached, test-import-db">
+        <property name="path" value="tests/unit"/>
+
         <exec executable="php" failonerror="true">
             <arg value='vendor/phpunit/phpunit/phpunit' />
             <arg value='--bootstrap=tests/unit/bootstrap.php' />
@@ -39,7 +41,9 @@
         <antcall target="tools-flush-memcached" />
     </target>
 
-    <target name="test-phpunit-reload-fixtures" depends="test-upload-prepare, tools-flush-memcached, test-recreate-test-database, db-migrate, test-import-dev-fixtures, test-export-db">
+    <target name="test-phpunit-reload-fixtures" depends="test-upload-prepare, tools-flush-memcached, test-recreate-test-database, test-migrate, test-import-dev-fixtures, test-export-db">
+        <property name="path" value="tests/unit"/>
+
         <exec executable="php" failonerror="true">
             <arg value='vendor/phpunit/phpunit/phpunit' />
             <arg value='--bootstrap=tests/unit/bootstrap.php' />
@@ -64,6 +68,14 @@
         <mkdir dir="public/upload/test" />
         <exec executable="chmod" failonerror="true">
             <arg line="-R 0777 public/upload/test" />
+        </exec>
+    </target>
+
+    <target name="test-migrate">
+        <exec executable="php" failonerror="true">
+            <arg value='commands/run' />
+            <arg value='db/MigrateCommand' />
+            <arg value='test' />
         </exec>
     </target>
 </project>

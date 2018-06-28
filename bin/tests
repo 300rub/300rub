@@ -15,7 +15,7 @@ if [[ $2 == "-" ]]; then
 fi
 
 if [[ $path == "" ]]; then
-  docker exec -it ss_phpfpm_1 ant -file /var/www/code/live/config/build/build.xml $command -Dpath="tests/unit"
+  docker exec -it ss_phpfpm_1 ant -file /var/www/code/live/config/build/build.xml $command
   exit 1
 fi
 
