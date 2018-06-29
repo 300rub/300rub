@@ -4,6 +4,7 @@
 PARAMS=""
 RUN_SINGLE="false"
 ENV_COUNT="1"
+DOCKER_COMPOSE_DIR=code/live/config/docker/compose
 
 # Colors
 C_GREEN="\e[32m"
@@ -42,9 +43,9 @@ function executeDockerCompose()
     for i in `seq 1 $ENV_COUNT`;
     do
         docker-compose \
-            -f config/docker-compose/docker-compose.yml \
-            -f config/docker-compose/selenium/base.yml \
-            -f config/docker-compose/selenium/test$i.yml \
+            -f $DOCKER_COMPOSE_DIR/docker-compose.yml \
+            -f $DOCKER_COMPOSE_DIR/selenium/base.yml \
+            -f $DOCKER_COMPOSE_DIR/selenium/test$i.yml \
             -p seleniumtest$i \
             $1;
     done
@@ -72,14 +73,16 @@ parseCommandLine $@
 
 # Creating selenium
 echo -e "${C_GREEN}Creating selenium${C_DEFAULT}"
-docker-compose -f config/docker-compose/selenium/selenium.yml -p selenium kill
-docker-compose -f config/docker-compose/selenium/selenium.yml -p selenium rm -f
-docker-compose -f config/docker-compose/selenium/selenium.yml -p selenium up -d
+docker-compose -f $DOCKER_COMPOSE_DIR/selenium/selenium.yml -p selenium kill
+docker-compose -f $DOCKER_COMPOSE_DIR/selenium/selenium.yml -p selenium rm -f
+docker-compose -f $DOCKER_COMPOSE_DIR/selenium/selenium.yml -p selenium build
+docker-compose -f $DOCKER_COMPOSE_DIR/selenium/selenium.yml -p selenium up -d
 
 # Creating test environments
 echo -e "${C_GREEN}Creating test environments ${C_DEFAULT}"
 executeDockerCompose "kill"
 executeDockerCompose "rm -f"
+executeDockerCompose "build"
 executeDockerCompose "up -d"
 
 # DB
@@ -89,8 +92,8 @@ executeDockerCompose "up -d"
 #echo -e "OK"
 
 # VNC
-vncviewer localhost:8901 -passwd ./config/docker-compose/selenium/vnc-password > /dev/null 2>&1 &
-#VNC_PID=$!
+vncviewer localhost:8901 -passwd ./$DOCKER_COMPOSE_DIR/selenium/vnc-password > /dev/null 2>&1 &
+VNC_PID=$!
 
 sleep 2
 docker exec -it selenium_phpfpm_1 ant -file /var/www/code/live/config/build/build.xml test-paratest
@@ -100,5 +103,5 @@ docker exec -it selenium_phpfpm_1 ant -file /var/www/code/live/config/build/buil
 #kill $VNC_PID
 #executeDockerCompose "kill"
 #executeDockerCompose "rm -f"
-#docker-compose -f config/docker-compose/selenium/selenium.yml kill
-#docker-compose -f config/docker-compose/selenium/selenium.yml rm -f
+#docker-compose -f $DOCKER_COMPOSE_DIR/selenium/selenium.yml kill
+#docker-compose -f $DOCKER_COMPOSE_DIR/selenium/selenium.yml rm -f
