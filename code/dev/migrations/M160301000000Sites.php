@@ -75,11 +75,11 @@ class M160301000000Sites extends AbstractMigration
             '(name, dbHost, dbUser, dbPassword, dbName, language, email)' .
             ' VALUES (?, ?, ?, ?, ?, ?, ?)',
             [
-                'phpunit-test',
-                $config->getValue(['db', 'phpunitTest', 'host']),
-                $config->getValue(['db', 'phpunitTest', 'user']),
-                $config->getValue(['db', 'phpunitTest', 'password']),
-                $config->getValue(['db', 'phpunitTest', 'name']),
+                'phpunit',
+                $config->getValue(['db', 'phpunit', 'host']),
+                $config->getValue(['db', 'phpunit', 'user']),
+                $config->getValue(['db', 'phpunit', 'password']),
+                $config->getValue(['db', 'phpunit', 'name']),
                 Language::LANGUAGE_EN_ID,
                 'test@ss.local',
             ]

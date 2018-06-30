@@ -21,11 +21,11 @@ return [
             'password' => 'root',
             'name'     => 'dev',
         ],
-        'phpunitTest'  => [
+        'phpunit'  => [
             'host'     => '127.0.0.1',
             'user'     => 'root',
             'password' => 'root',
-            'name'     => 'phpunitTest',
+            'name'     => 'phpunit',
         ],
         'system' => [
             'host'     => '127.0.0.1',

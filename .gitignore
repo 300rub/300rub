@@ -15,7 +15,8 @@ code/dev/config/release
 code/dev/public/css/lib
 code/dev/public/js/lib
 code/dev/public/upload/dev
-code/dev/public/upload/phpunit-test
+code/dev/public/upload/phpunit
+code/dev/public/upload/selenium
 code/dev/vendor
 code/release*
 

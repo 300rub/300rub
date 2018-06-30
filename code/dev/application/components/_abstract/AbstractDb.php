@@ -159,10 +159,10 @@ abstract class AbstractDb
         $config = App::getInstance()->getConfig();
 
         $this->setPdo(
-            $config->getValue(['db', 'phpunitTest', 'host']),
-            $config->getValue(['db', 'phpunitTest', 'user']),
-            $config->getValue(['db', 'phpunitTest', 'password']),
-            $config->getValue(['db', 'phpunitTest', 'name'])
+            $config->getValue(['db', 'phpunit', 'host']),
+            $config->getValue(['db', 'phpunit', 'user']),
+            $config->getValue(['db', 'phpunit', 'password']),
+            $config->getValue(['db', 'phpunit', 'name'])
         );
 
         return $this;

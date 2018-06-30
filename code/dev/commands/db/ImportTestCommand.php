@@ -18,7 +18,7 @@ class ImportTestCommand extends AbstractCommand
      */
     public function run()
     {
-        $site = App::getInstance()->getConfig()->getValue(['db', 'phpunitTest']);
+        $site = App::getInstance()->getConfig()->getValue(['db', 'phpunit']);
 
         exec(
             sprintf(

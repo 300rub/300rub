@@ -24,7 +24,7 @@
     <target name="db-import-dev-fixtures">
         <exec executable="php" failonerror="true">
             <arg value='commands/run' />
-            <arg value='db/ImportDevFixturesCommand' />
+            <arg value='db/ImportFixturesCommand' />
         </exec>
     </target>
 

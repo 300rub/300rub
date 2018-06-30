@@ -17,7 +17,7 @@ class Test extends AbstractApplication
      */
     public function run()
     {
-        $hostname = sprintf('phpunit-test.%s', $this->getConfig()->getValue(['host']));
+        $hostname = sprintf('phpunit.%s', $this->getConfig()->getValue(['host']));
         $this->setSite($hostname);
     }
 }

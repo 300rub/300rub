@@ -3,11 +3,11 @@
 return [
     'host'      => 'ss.local',
     'db'        => [
-        'phpunitTest' => [
+        'phpunit' => [
             'host'     => '127.0.0.1',
             'user'     => 'root',
             'password' => 'root',
-            'name'     => 'phpunitTest',
+            'name'     => 'phpunit',
         ],
         'system' => [
             'host'     => '127.0.0.1',

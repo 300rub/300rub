@@ -12,7 +12,7 @@ use ss\models\blocks\record\RecordInstanceModel;
 /**
  * Load fixtures command
  */
-class ImportDevFixturesCommand extends AbstractCommand
+class ImportFixturesCommand extends AbstractCommand
 {
 
     /**
@@ -93,7 +93,7 @@ class ImportDevFixturesCommand extends AbstractCommand
     {
         $type = 'dev';
         if (array_key_exists(0, $this->args) === true
-            && $this->args[0] === 'phpunitTest'
+            && $this->args[0] === 'phpunit'
         ) {
             $type = $this->args[0];
         }
@@ -274,15 +274,7 @@ class ImportDevFixturesCommand extends AbstractCommand
         $language,
         $type
     ) {
-        switch ($type) {
-            case 'phpunitTest':
-                $name = 'phpunit-test';
-                break;
-            default:
-                $name = $type;
-                break;
-        }
-        $host = $name . '.ss.local';
+        $host = $type . '.ss.local';
 
         $this->_fileData = [];
         $this->_setFileData($data);
