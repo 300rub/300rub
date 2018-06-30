@@ -124,7 +124,7 @@
         </exec>
     </target>
 
-    <target name="test-selenium" depends="tools-flush-memcached, test-import-selenium-db">
+    <target name="test-selenium" depends="tools-flush-memcached, test-import-selenium-db, test-paratest">
     </target>
 
     <target name="test-selenium-reload-fixtures" depends="test-upload-selenium-prepare, tools-flush-memcached, test-recreate-selenium-database, test-selenium-migrate, test-import-selenium-fixtures, test-export-selenium-db">
