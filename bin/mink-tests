@@ -14,119 +14,13 @@ if [[ $2 == "-" ]]; then
   command="test-selenium-reload-fixtures"
 fi
 
+vncviewer localhost:5900 -passwd ./bin/files/vnc-password > /dev/null 2>&1 &
+VNC_PID=$!
+
 if [[ $path == "" ]]; then
   docker exec -it ss_phpfpm_1 ant -file /var/www/code/live/config/build/build.xml $command
-  exit 1
+else
+  docker exec -it ss_phpfpm_1 ant -file /var/www/code/live/config/build/build.xml $command -Dpath=$path
 fi
 
-docker exec -it ss_phpfpm_1 ant -file /var/www/code/live/config/build/build.xml $command -Dpath=$path
-
-
-
-
-
-# Defaults
-#PARAMS=""
-#RUN_SINGLE="false"
-#ENV_COUNT="1"
-#DOCKER_COMPOSE_DIR=code/live/config/docker/compose
-
-# Colors
-#C_GREEN="\e[32m"
-#C_DEFAULT="\e[39m"
-
-#function parseCommandLine()
-#{
-#    while [[ $# > 0 ]]
-#    do
-#    key="$1"
-#    shift
-#
-#    case $key in
-#        -s|--single)
-#        RUN_SINGLE="true"
-#        ;;
-#
-#        -h|--help)
-#        echo -e "Usage [options] [path]"
-#        echo -e "Available [options]"
-#        echo -e "-s|--single\tRuns phpunit as a single process (good for debugging phpunit crashes)"
-#        echo -e "[path]\t\tPath to the file or folder"
-#        exit;
-#        ;;
-#
-#        *)
-#            # unknown option
-#            PARAMS="$PARAMS $key"
-#        ;;
-#    esac
-#    done
-#}
-
-#function executeDockerCompose()
-#{
-#    for i in `seq 1 $ENV_COUNT`;
-#    do
-#        docker-compose \
-#            -f $DOCKER_COMPOSE_DIR/docker-compose.yml \
-#            -f $DOCKER_COMPOSE_DIR/selenium/base.yml \
-#            -f $DOCKER_COMPOSE_DIR/selenium/test$i.yml \
-#            -p seleniumtest$i \
-#            $1;
-#    done
-#}
-
-#function setupDb()
-#{
-#    for i in `seq 1 $ENV_COUNT`;
-#    do
-#        mysql -u root -proot -h 127.0.0.1 -P 700$i -e "CREATE DATABASE system" 2> /dev/null
-#        mysql -u root -proot -h 127.0.0.1 -P 700$i -e "GRANT ALL PRIVILEGES ON system.* TO 'root'@'127.0.0.1' IDENTIFIED BY 'root'" 2> /dev/null
-#        mysql -u root -proot -h 127.0.0.1 -P 7777 -e "CREATE DATABASE dev" 2> /dev/null
-#        mysql -u root -proot -h 127.0.0.1 -P 7777 -e "GRANT ALL PRIVILEGES ON dev.* TO 'root'@'127.0.0.1' IDENTIFIED BY 'root'" 2> /dev/null
-#        mysql -u root -proot -h 127.0.0.1 -P 700$i -e "CREATE DATABASE help" 2> /dev/null
-#        mysql -u root -proot -h 127.0.0.1 -P 700$i -e "GRANT ALL PRIVILEGES ON help.* TO 'root'@'127.0.0.1' IDENTIFIED BY 'root'" 2> /dev/null
-#
-#        docker exec -it seleniumtest${i}_phpfpm_1 php bin/run-php-command clearDb
-#        docker exec -it seleniumtest${i}_phpfpm_1 php bin/run-php-command migrate
-#        docker exec -it seleniumtest${i}_phpfpm_1 php bin/run-php-command loadFixtures
-#    done
-#}
-
-# Parse the command line to override defaults
-#parseCommandLine $@
-
-# Creating selenium
-#echo -e "${C_GREEN}Creating selenium${C_DEFAULT}"
-#docker-compose -f $DOCKER_COMPOSE_DIR/selenium/selenium.yml -p selenium kill
-#docker-compose -f $DOCKER_COMPOSE_DIR/selenium/selenium.yml -p selenium rm -f
-#docker-compose -f $DOCKER_COMPOSE_DIR/selenium/selenium.yml -p selenium build
-#docker-compose -f $DOCKER_COMPOSE_DIR/selenium/selenium.yml -p selenium up -d
-
-# Creating test environments
-#echo -e "${C_GREEN}Creating test environments ${C_DEFAULT}"
-#executeDockerCompose "kill"
-#executeDockerCompose "rm -f"
-#executeDockerCompose "build"
-#executeDockerCompose "up -d"
-
-# DB
-#echo -e "${C_GREEN}Preparing DB ${C_DEFAULT}"
-#sleep 5
-#setupDb
-#echo -e "OK"
-
-# VNC
-#vncviewer localhost:8901 -passwd ./$DOCKER_COMPOSE_DIR/selenium/vnc-password > /dev/null 2>&1 &
-#VNC_PID=$!
-
-#sleep 2
-#docker exec -it selenium_phpfpm_1 ant -file /var/www/code/live/config/build/build.xml test-paratest
-
-# Cleaning up
-#echo -e "${C_GREEN}Removing all containers ${C_DEFAULT}"
-#kill $VNC_PID
-#executeDockerCompose "kill"
-#executeDockerCompose "rm -f"
-#docker-compose -f $DOCKER_COMPOSE_DIR/selenium/selenium.yml kill
-#docker-compose -f $DOCKER_COMPOSE_DIR/selenium/selenium.yml rm -f
+kill $VNC_PID
