@@ -53,36 +53,24 @@ class M160301000000Sites extends AbstractMigration
         $dbObject = App::getInstance()->getDb();
         $config = App::getInstance()->getConfig();
 
-        $dbObject->execute(
-            'INSERT ' .
-            'INTO sites ' .
-            '(name, dbHost, dbUser, dbPassword, dbName, language, email)' .
-            ' VALUES (?, ?, ?, ?, ?, ?, ?)',
-            [
-                'dev',
-                $config->getValue(['db', 'dev', 'host']),
-                $config->getValue(['db', 'dev', 'user']),
-                $config->getValue(['db', 'dev', 'password']),
-                $config->getValue(['db', 'dev', 'name']),
-                Language::LANGUAGE_EN_ID,
-                'dev@ss.local',
-            ]
-        );
+        $sites = ['dev', 'phpunit', 'selenium'];
 
-        $dbObject->execute(
-            'INSERT ' .
-            'INTO sites ' .
-            '(name, dbHost, dbUser, dbPassword, dbName, language, email)' .
-            ' VALUES (?, ?, ?, ?, ?, ?, ?)',
-            [
-                'phpunit',
-                $config->getValue(['db', 'phpunit', 'host']),
-                $config->getValue(['db', 'phpunit', 'user']),
-                $config->getValue(['db', 'phpunit', 'password']),
-                $config->getValue(['db', 'phpunit', 'name']),
-                Language::LANGUAGE_EN_ID,
-                'test@ss.local',
-            ]
-        );
+        foreach ($sites as $site) {
+            $dbObject->execute(
+                'INSERT ' .
+                'INTO sites ' .
+                '(name, dbHost, dbUser, dbPassword, dbName, language, email)' .
+                ' VALUES (?, ?, ?, ?, ?, ?, ?)',
+                [
+                    $site,
+                    $config->getValue(['db', $site, 'host']),
+                    $config->getValue(['db', $site, 'user']),
+                    $config->getValue(['db', $site, 'password']),
+                    $config->getValue(['db', $site, 'name']),
+                    Language::LANGUAGE_EN_ID,
+                    'email@ss.local',
+                ]
+            );
+        }
     }
 }

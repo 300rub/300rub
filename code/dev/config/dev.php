@@ -27,6 +27,12 @@ return [
             'password' => 'root',
             'name'     => 'phpunit',
         ],
+        'selenium' => [
+            'host'     => '127.0.0.1',
+            'user'     => 'root',
+            'password' => 'root',
+            'name'     => 'selenium',
+        ],
         'system' => [
             'host'     => '127.0.0.1',
             'user'     => 'root',
