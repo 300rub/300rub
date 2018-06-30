@@ -3,6 +3,7 @@
 namespace ss\tests\selenium\_abstract;
 
 use Facebook\WebDriver\WebDriverBy;
+use ss\application\App;
 
 /**
  * Class AbstractSeleniumTest
@@ -29,20 +30,11 @@ class AbstractSeleniumTest extends AbstractSeleniumTestCase
      */
     protected function getUrl()
     {
-        return sprintf('http://172.17.0.1:800%s', (getenv('TEST_TOKEN') + 1));
-    }
-
-    /**
-     * Resets DB
-     *
-     * @return AbstractSeleniumTest
-     */
-    protected function resetDb()
-    {
-        $this->driver->get(sprintf('%s/reset.php', $this->getUrl()));
-        $this->waitId('ok');
-
-        return $this;
+        return sprintf(
+            'http://selenium.%s',
+            'ss.local'
+//            App::getInstance()->getConfig()->getValue(['host'])
+        );
     }
 
     /**
@@ -65,9 +57,7 @@ class AbstractSeleniumTest extends AbstractSeleniumTestCase
     {
         parent::setUp();
 
-        $this
-            ->resetDb()
-            ->openBaseUrl();
+        $this->openBaseUrl();
     }
 
     /**

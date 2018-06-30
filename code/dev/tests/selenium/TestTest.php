@@ -15,8 +15,48 @@ class TestTest extends AbstractSeleniumTest
      *
      * @return void
      */
-    public function testTest()
+    public function testA()
     {
-        $this->openBaseUrl();
+        sleep(5);
+    }
+
+    /**
+     * Test
+     *
+     * @return void
+     */
+    public function testA2()
+    {
+        sleep(5);
+    }
+
+    /**
+     * Test
+     *
+     * @return void
+     */
+    public function testA3()
+    {
+        sleep(5);
+    }
+
+    /**
+     * Test
+     *
+     * @return void
+     */
+    public function testA4()
+    {
+        sleep(5);
+    }
+
+    /**
+     * Test
+     *
+     * @return void
+     */
+    public function testA5()
+    {
+        sleep(5);
     }
 }

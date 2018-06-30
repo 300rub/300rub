@@ -4,6 +4,10 @@ selenium:
         - "5900:5900"
     environment:
         SE_OPTS: "-maxSession 10"
+    extra_hosts:
+        - "dev.ss.local:172.17.0.1"
+        - "phpunit.ss.local:172.17.0.1"
+        - "selenium.ss.local:172.17.0.1"
 
 phpfpm:
     links:

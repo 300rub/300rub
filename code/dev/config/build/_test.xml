@@ -86,7 +86,7 @@
         <exec executable="php" failonerror="true">
             <arg value='vendor/brianium/paratest/bin/paratest' />
             <arg value='--bootstrap=tests//selenium/bootstrap.php' />
-            <arg value='-p 1' />
+            <arg value='-p 10' />
             <arg value='-f' />
             <arg value='tests/selenium' />
         </exec>
