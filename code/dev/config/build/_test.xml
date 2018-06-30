@@ -22,10 +22,10 @@
         </exec>
     </target>
 
-    <target name="test-recreate-test-database">
+    <target name="test-recreate-phpunit-database">
         <exec executable="php" failonerror="true">
             <arg value='commands/run' />
-            <arg value='db/RecreateTestDatabaseCommand' />
+            <arg value='db/RecreatePhpunitDatabaseCommand' />
         </exec>
     </target>
 
@@ -41,7 +41,7 @@
         <antcall target="tools-flush-memcached" />
     </target>
 
-    <target name="test-phpunit-reload-fixtures" depends="test-upload-prepare, tools-flush-memcached, test-recreate-test-database, test-migrate, test-import-phpunit-fixtures, test-export-db">
+    <target name="test-phpunit-reload-fixtures" depends="test-upload-prepare, tools-flush-memcached, test-recreate-phpunit-database, test-migrate, test-import-phpunit-fixtures, test-export-db">
         <property name="path" value="tests/phpunit"/>
 
         <exec executable="php" failonerror="true">

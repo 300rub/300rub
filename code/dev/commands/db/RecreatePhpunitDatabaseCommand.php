@@ -9,7 +9,7 @@ use ss\migrations\M160302000000Migrations;
 /**
  * Clear DB command
  */
-class RecreateTestDatabaseCommand extends AbstractCommand
+class RecreatePhpunitDatabaseCommand extends AbstractCommand
 {
 
     /**
