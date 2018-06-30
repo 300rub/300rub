@@ -1,3 +1,8 @@
 #!/bin/bash
 
-docker-compose -f code/live/config/docker/compose/docker-compose.yml -f code/live/config/docker/compose/docker-compose-dev.yml -p ss $1
+command=$1
+if [[ $command == "" ]]; then
+    command='ps'
+fi
+
+docker-compose -f code/live/config/docker/compose/docker-compose.yml -f code/live/config/docker/compose/docker-compose-selenium.yml -f code/live/config/docker/compose/docker-compose-dev.yml -p ss $command

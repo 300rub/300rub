@@ -1,0 +1,10 @@
+selenium:
+    image: selenium/standalone-firefox-debug:2.48.2
+    ports:
+        - "5900:5900"
+    environment:
+        SE_OPTS: "-maxSession 10"
+
+phpfpm:
+    links:
+        - selenium

@@ -92,9 +92,7 @@ class ImportFixturesCommand extends AbstractCommand
     public function run()
     {
         $type = 'dev';
-        if (array_key_exists(0, $this->args) === true
-            && $this->args[0] === 'phpunit'
-        ) {
+        if (array_key_exists(0, $this->args) === true) {
             $type = $this->args[0];
         }
 

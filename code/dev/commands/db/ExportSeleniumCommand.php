@@ -8,7 +8,7 @@ use ss\commands\_abstract\AbstractCommand;
 /**
  * Creates test SQL dump command
  */
-class ExportTestCommand extends AbstractCommand
+class ExportSeleniumCommand extends AbstractCommand
 {
 
     /**
@@ -18,12 +18,12 @@ class ExportTestCommand extends AbstractCommand
      */
     public function run()
     {
-        $site = App::getInstance()->getConfig()->getValue(['db', 'phpunit']);
+        $site = App::getInstance()->getConfig()->getValue(['db', 'selenium']);
 
         exec(
             sprintf(
                 'export MYSQL_PWD=%s; ' .
-                'mysqldump -u %s -h %s %s | gzip -c > %s/test.sql.gz',
+                'mysqldump -u %s -h %s %s | gzip -c > %s/selenium.sql.gz',
                 $site['password'],
                 $site['user'],
                 $site['host'],

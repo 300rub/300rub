@@ -8,17 +8,39 @@
         </exec>
     </target>
 
-    <target name="test-export-db">
+    <target name="test-import-selenium-fixtures">
         <exec executable="php" failonerror="true">
             <arg value='commands/run' />
-            <arg value='db/ExportTestCommand' />
+            <arg value='db/ImportFixturesCommand' />
+            <arg value='selenium' />
         </exec>
     </target>
 
-    <target name="test-import-db">
+    <target name="test-export-phpunit-db">
         <exec executable="php" failonerror="true">
             <arg value='commands/run' />
-            <arg value='db/ImportTestCommand' />
+            <arg value='db/ExportPhpunitCommand' />
+        </exec>
+    </target>
+
+    <target name="test-export-selenium-db">
+        <exec executable="php" failonerror="true">
+            <arg value='commands/run' />
+            <arg value='db/ExportSeleniumCommand' />
+        </exec>
+    </target>
+
+    <target name="test-import-phpunit-db">
+        <exec executable="php" failonerror="true">
+            <arg value='commands/run' />
+            <arg value='db/ImportPhpunitCommand' />
+        </exec>
+    </target>
+
+    <target name="test-import-selenium-db">
+        <exec executable="php" failonerror="true">
+            <arg value='commands/run' />
+            <arg value='db/ImportSeleniumCommand' />
         </exec>
     </target>
 
@@ -29,7 +51,14 @@
         </exec>
     </target>
 
-    <target name="test-phpunit" depends="tools-flush-memcached, test-import-db">
+    <target name="test-recreate-selenium-database">
+        <exec executable="php" failonerror="true">
+            <arg value='commands/run' />
+            <arg value='db/RecreateSeleniumDatabaseCommand' />
+        </exec>
+    </target>
+
+    <target name="test-phpunit" depends="tools-flush-memcached, test-import-phpunit-db">
         <property name="path" value="tests/phpunit"/>
 
         <exec executable="php" failonerror="true">
@@ -41,7 +70,7 @@
         <antcall target="tools-flush-memcached" />
     </target>
 
-    <target name="test-phpunit-reload-fixtures" depends="test-upload-prepare, tools-flush-memcached, test-recreate-phpunit-database, test-migrate, test-import-phpunit-fixtures, test-export-db">
+    <target name="test-phpunit-reload-fixtures" depends="test-upload-phpunit-prepare, tools-flush-memcached, test-recreate-phpunit-database, test-phpunit-migrate, test-import-phpunit-fixtures, test-export-phpunit-db">
         <property name="path" value="tests/phpunit"/>
 
         <exec executable="php" failonerror="true">
@@ -53,7 +82,7 @@
         <antcall target="tools-flush-memcached" />
     </target>
 
-    <target name="test-paratest" depends="test-upload-prepare">
+    <target name="test-paratest">
         <exec executable="php" failonerror="true">
             <arg value='vendor/brianium/paratest/bin/paratest' />
             <arg value='--bootstrap=tests//selenium/bootstrap.php' />
@@ -63,7 +92,7 @@
         </exec>
     </target>
 
-    <target name="test-upload-prepare">
+    <target name="test-upload-phpunit-prepare">
         <delete dir="public/upload/phpunit" />
         <mkdir dir="public/upload/phpunit" />
         <exec executable="chmod" failonerror="true">
@@ -71,11 +100,33 @@
         </exec>
     </target>
 
-    <target name="test-migrate">
+    <target name="test-upload-selenium-prepare">
+        <delete dir="public/upload/selenium" />
+        <mkdir dir="public/upload/selenium" />
+        <exec executable="chmod" failonerror="true">
+            <arg line="-R 0777 public/upload/selenium" />
+        </exec>
+    </target>
+
+    <target name="test-phpunit-migrate">
         <exec executable="php" failonerror="true">
             <arg value='commands/run' />
             <arg value='db/MigrateCommand' />
             <arg value='phpunit' />
         </exec>
+    </target>
+
+    <target name="test-selenium-migrate">
+        <exec executable="php" failonerror="true">
+            <arg value='commands/run' />
+            <arg value='db/MigrateCommand' />
+            <arg value='selenium' />
+        </exec>
+    </target>
+
+    <target name="test-selenium" depends="tools-flush-memcached, test-import-selenium-db">
+    </target>
+
+    <target name="test-selenium-reload-fixtures" depends="test-upload-selenium-prepare, tools-flush-memcached, test-recreate-selenium-database, test-selenium-migrate, test-import-selenium-fixtures, test-export-selenium-db">
     </target>
 </project>

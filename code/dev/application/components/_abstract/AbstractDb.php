@@ -154,7 +154,7 @@ abstract class AbstractDb
      *
      * @return AbstractDb
      */
-    public function setTestPdo()
+    public function setPhpunitPdo()
     {
         $config = App::getInstance()->getConfig();
 
@@ -163,6 +163,25 @@ abstract class AbstractDb
             $config->getValue(['db', 'phpunit', 'user']),
             $config->getValue(['db', 'phpunit', 'password']),
             $config->getValue(['db', 'phpunit', 'name'])
+        );
+
+        return $this;
+    }
+
+    /**
+     * Sets selenium PDO
+     *
+     * @return AbstractDb
+     */
+    public function setSeleniumPdo()
+    {
+        $config = App::getInstance()->getConfig();
+
+        $this->setPdo(
+            $config->getValue(['db', 'selenium', 'host']),
+            $config->getValue(['db', 'selenium', 'user']),
+            $config->getValue(['db', 'selenium', 'password']),
+            $config->getValue(['db', 'selenium', 'name'])
         );
 
         return $this;

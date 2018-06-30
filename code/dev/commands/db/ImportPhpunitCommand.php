@@ -25,7 +25,7 @@ class ImportTestCommand extends AbstractCommand
                 'export MYSQL_PWD=%s; ' .
                 'gunzip < %s | mysql -u %s -h %s %s',
                 $site['password'],
-                FILES_ROOT . '/backups/test.sql.gz',
+                FILES_ROOT . '/backups/phpunit.sql.gz',
                 $site['user'],
                 $site['host'],
                 $site['name']

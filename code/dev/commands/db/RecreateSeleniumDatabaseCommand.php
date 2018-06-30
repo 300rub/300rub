@@ -9,7 +9,7 @@ use ss\migrations\M160302000000Migrations;
 /**
  * Clear DB command
  */
-class RecreatePhpunitDatabaseCommand extends AbstractCommand
+class RecreateSeleniumDatabaseCommand extends AbstractCommand
 {
 
     /**
@@ -32,24 +32,24 @@ class RecreatePhpunitDatabaseCommand extends AbstractCommand
             sprintf(
                 'export MYSQL_PWD=%s; ' .
                 'mysql -u %s -h %s -e "DROP DATABASE IF EXISTS %s"',
-                $config->getValue(['db', 'phpunit', 'password']),
-                $config->getValue(['db', 'phpunit', 'user']),
-                $config->getValue(['db', 'phpunit', 'host']),
-                $config->getValue(['db', 'phpunit', 'name'])
+                $config->getValue(['db', 'selenium', 'password']),
+                $config->getValue(['db', 'selenium', 'user']),
+                $config->getValue(['db', 'selenium', 'host']),
+                $config->getValue(['db', 'selenium', 'name'])
             )
         );
         exec(
             sprintf(
                 'export MYSQL_PWD=%s; ' .
                 'mysql -u %s -h %s -e "CREATE DATABASE %s"',
-                $config->getValue(['db', 'phpunit', 'password']),
-                $config->getValue(['db', 'phpunit', 'user']),
-                $config->getValue(['db', 'phpunit', 'host']),
-                $config->getValue(['db', 'phpunit', 'name'])
+                $config->getValue(['db', 'selenium', 'password']),
+                $config->getValue(['db', 'selenium', 'user']),
+                $config->getValue(['db', 'selenium', 'host']),
+                $config->getValue(['db', 'selenium', 'name'])
             )
         );
 
-        App::getInstance()->getDb()->setPhpunitPdo();
+        App::getInstance()->getDb()->setSeleniumPdo();
 
         $migration = new M160302000000Migrations();
         $migration->apply();
@@ -74,10 +74,10 @@ class RecreatePhpunitDatabaseCommand extends AbstractCommand
             $conn = new \PDO(
                 sprintf(
                     'mysql:host=%s;',
-                    $config->getValue(['db', 'phpunit', 'host'])
+                    $config->getValue(['db', 'selenium', 'host'])
                 ),
-                $config->getValue(['db', 'phpunit', 'user']),
-                $config->getValue(['db', 'phpunit', 'password'])
+                $config->getValue(['db', 'selenium', 'user']),
+                $config->getValue(['db', 'selenium', 'password'])
             );
 
             $conn->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
