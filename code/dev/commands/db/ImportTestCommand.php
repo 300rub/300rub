@@ -20,7 +20,7 @@ class ImportTestCommand extends AbstractCommand
     {
         $this->checkIsDev();
 
-        $site = App::getInstance()->getConfig()->getValue(['db', 'test']);
+        $site = App::getInstance()->getConfig()->getValue(['db', 'phpunitTest']);
 
         exec(
             sprintf(

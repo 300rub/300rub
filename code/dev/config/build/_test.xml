@@ -4,7 +4,7 @@
         <exec executable="php" failonerror="true">
             <arg value='commands/run' />
             <arg value='db/ImportDevFixturesCommand' />
-            <arg value='test' />
+            <arg value='phpunitTest' />
         </exec>
     </target>
 
@@ -64,10 +64,10 @@
     </target>
 
     <target name="test-upload-prepare">
-        <delete dir="public/upload/test" />
-        <mkdir dir="public/upload/test" />
+        <delete dir="public/upload/phpunit-test" />
+        <mkdir dir="public/upload/phpunit-test" />
         <exec executable="chmod" failonerror="true">
-            <arg line="-R 0777 public/upload/test" />
+            <arg line="-R 0777 public/upload/phpunit-test" />
         </exec>
     </target>
 
@@ -75,7 +75,7 @@
         <exec executable="php" failonerror="true">
             <arg value='commands/run' />
             <arg value='db/MigrateCommand' />
-            <arg value='test' />
+            <arg value='phpunit-test' />
         </exec>
     </target>
 </project>

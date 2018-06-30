@@ -151,7 +151,7 @@ abstract class AbstractControllerTest extends AbstractUnitTest
     protected function getHost()
     {
         return sprintf(
-            'test.%s',
+            'phpunit-test.%s',
             App::getInstance()->getConfig()->getValue(['host'])
         );
     }

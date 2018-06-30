@@ -49,7 +49,6 @@
         <exec executable="php" failonerror="true">
             <arg value='commands/run' />
             <arg value='files/GenerateStaticCommand' />
-            <arg value='test' />
         </exec>
     </target>
 

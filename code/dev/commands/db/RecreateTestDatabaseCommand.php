@@ -32,20 +32,20 @@ class RecreateTestDatabaseCommand extends AbstractCommand
             sprintf(
                 'export MYSQL_PWD=%s; ' .
                 'mysql -u %s -h %s -e "DROP DATABASE IF EXISTS %s"',
-                $config->getValue(['db', 'test', 'password']),
-                $config->getValue(['db', 'test', 'user']),
-                $config->getValue(['db', 'test', 'host']),
-                $config->getValue(['db', 'test', 'name'])
+                $config->getValue(['db', 'phpunitTest', 'password']),
+                $config->getValue(['db', 'phpunitTest', 'user']),
+                $config->getValue(['db', 'phpunitTest', 'host']),
+                $config->getValue(['db', 'phpunitTest', 'name'])
             )
         );
         exec(
             sprintf(
                 'export MYSQL_PWD=%s; ' .
                 'mysql -u %s -h %s -e "CREATE DATABASE %s"',
-                $config->getValue(['db', 'test', 'password']),
-                $config->getValue(['db', 'test', 'user']),
-                $config->getValue(['db', 'test', 'host']),
-                $config->getValue(['db', 'test', 'name'])
+                $config->getValue(['db', 'phpunitTest', 'password']),
+                $config->getValue(['db', 'phpunitTest', 'user']),
+                $config->getValue(['db', 'phpunitTest', 'host']),
+                $config->getValue(['db', 'phpunitTest', 'name'])
             )
         );
 
@@ -74,10 +74,10 @@ class RecreateTestDatabaseCommand extends AbstractCommand
             $conn = new \PDO(
                 sprintf(
                     'mysql:host=%s;',
-                    $config->getValue(['db', 'test', 'host'])
+                    $config->getValue(['db', 'phpunitTest', 'host'])
                 ),
-                $config->getValue(['db', 'test', 'user']),
-                $config->getValue(['db', 'test', 'password'])
+                $config->getValue(['db', 'phpunitTest', 'user']),
+                $config->getValue(['db', 'phpunitTest', 'password'])
             );
 
             $conn->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);

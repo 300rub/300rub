@@ -93,7 +93,7 @@ class ImportDevFixturesCommand extends AbstractCommand
     {
         $type = 'dev';
         if (array_key_exists(0, $this->args) === true
-            && $this->args[0] === 'test'
+            && $this->args[0] === 'phpunitTest'
         ) {
             $type = $this->args[0];
         }
@@ -274,7 +274,15 @@ class ImportDevFixturesCommand extends AbstractCommand
         $language,
         $type
     ) {
-        $host = $type . '.ss.local';
+        switch ($type) {
+            case 'phpunitTest':
+                $name = 'phpunit-test';
+                break;
+            default:
+                $name = $type;
+                break;
+        }
+        $host = $name . '.ss.local';
 
         $this->_fileData = [];
         $this->_setFileData($data);

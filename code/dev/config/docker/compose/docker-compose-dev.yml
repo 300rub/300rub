@@ -6,7 +6,7 @@ phpfpm:
         APP_ENV: dev
     extra_hosts:
         - "dev.ss.local:172.17.0.1"
-        - "test.ss.local:172.17.0.1"
+        - "phpunit-test.ss.local:172.17.0.1"
 
 db:
     build: ../build/mysql/5.7.22/
