@@ -17,6 +17,7 @@
  * @var bool     $isUser
  * @var array    $generatedCss
  * @var array    $generatedJs
+ * @var integer  $version
  *
  * phpcs:disable Generic.Files.InlineHTML
  */
@@ -37,7 +38,7 @@ if (isset($css) === true) {
     <link
         rel="stylesheet"
         type="text/css"
-        href="/css/<?php echo $fileName; ?>.css"
+        href="/css/<?php echo $fileName; ?>.css?<?php echo $version; ?>"
     />
 <?php
     }
@@ -70,7 +71,7 @@ if ($isUser === false) {
 if (isset($js) === true) {
     foreach ($js as $fileName) {
 ?>
-    <script src="/js/<?php echo $fileName; ?>.js"></script>
+    <script src="/js/<?php echo $fileName; ?>.js?<?php echo $version; ?>"></script>
 <?php
     }
 }

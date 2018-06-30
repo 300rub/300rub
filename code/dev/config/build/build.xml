@@ -9,5 +9,6 @@
     <import file="_release.xml"/>
     <import file="_test.xml"/>
     <import file="_dev.xml"/>
+    <import file="_prod.xml"/>
     <import file="_tools.xml"/>
 </project>

@@ -76,8 +76,24 @@ class PageController extends AbstractPageController
         $layoutData['isUser'] = $isUser;
         $layoutData['generatedCss'] = $sectionCss;
         $layoutData['generatedJs'] = $sectionJs;
+        $layoutData['version'] = $this->_getVersion();
 
         return $this->getContentFromTemplate('page/layout', $layoutData);
+    }
+
+    /**
+     * Gets release version
+     *
+     * @return int
+     */
+    private function _getVersion()
+    {
+        $release = CODE_ROOT . '/config/release';
+        if (file_exists($release) === false) {
+            return 0;
+        }
+
+        return (int)file_get_contents($release);
     }
 
     /**

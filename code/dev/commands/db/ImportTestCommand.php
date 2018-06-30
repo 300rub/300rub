@@ -18,8 +18,6 @@ class ImportTestCommand extends AbstractCommand
      */
     public function run()
     {
-        $this->checkIsDev();
-
         $site = App::getInstance()->getConfig()->getValue(['db', 'phpunitTest']);
 
         exec(

@@ -30,11 +30,11 @@
     </target>
 
     <target name="test-phpunit" depends="tools-flush-memcached, test-import-db">
-        <property name="path" value="tests/unit"/>
+        <property name="path" value="tests/phpunit"/>
 
         <exec executable="php" failonerror="true">
             <arg value='vendor/phpunit/phpunit/phpunit' />
-            <arg value='--bootstrap=tests/unit/bootstrap.php' />
+            <arg value='--bootstrap=tests/phpunit/bootstrap.php' />
             <arg value='${path}' />
         </exec>
 
@@ -42,11 +42,11 @@
     </target>
 
     <target name="test-phpunit-reload-fixtures" depends="test-upload-prepare, tools-flush-memcached, test-recreate-test-database, test-migrate, test-import-dev-fixtures, test-export-db">
-        <property name="path" value="tests/unit"/>
+        <property name="path" value="tests/phpunit"/>
 
         <exec executable="php" failonerror="true">
             <arg value='vendor/phpunit/phpunit/phpunit' />
-            <arg value='--bootstrap=tests/unit/bootstrap.php' />
+            <arg value='--bootstrap=tests/phpunit/bootstrap.php' />
             <arg value='${path}' />
         </exec>
 
