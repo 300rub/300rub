@@ -1,5 +1,5 @@
 selenium:
-    image: selenium/standalone-firefox-debug:2.48.2
+    build: ../build/selenium/2.48.2/
     ports:
         - "15900:5900"
     environment:
