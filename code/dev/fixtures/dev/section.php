@@ -95,4 +95,11 @@ return [
         ],
         'language' => Language::LANGUAGE_EN_ID,
     ],
+    14 => [
+        'seoModel'      => [
+            'name' => 'Menus',
+            'url'  => 'menus'
+        ],
+        'language' => Language::LANGUAGE_EN_ID,
+    ],
 ];

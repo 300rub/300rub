@@ -1,5 +1,7 @@
 <?php
 
+use ss\models\blocks\menu\MenuModel;
+
 return [
     1 => [
         'designMenuModel' => [
@@ -74,5 +76,11 @@ return [
                 'isBold' => true,
             ],
         ]
+    ],
+    2 => [
+        'type'            => MenuModel::TYPE_HORIZONTAL,
+        'designMenuModel' => [
+
+        ],
     ],
 ];
