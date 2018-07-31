@@ -12,24 +12,31 @@
 
 switch ($level) {
     case 1:
-        $levelClass = 'first-level';
+        $cssClass = 'first-level';
         break;
     case 2:
-        $levelClass = 'second-level';
+        $cssClass = 'second-level';
         break;
     default:
-        $levelClass = 'last-level';
+        $cssClass = 'last-level';
         break;
 }
 
 if ($isActive === true) {
-    $levelClass .= '-active';
+    $cssClass .= '-active';
+}
+
+$href = sprintf('href="%s"', $url);
+
+if ($url === null) {
+    $href = '';
+    $cssClass .= ' empty';
 }
 
 echo sprintf(
-    '<li><a href="%s" class="%s">%s</a>%s</li>',
-    $url,
-    $levelClass,
+    '<li><a %s class="%s">%s</a>%s</li>',
+    $href,
+    $cssClass,
     $name,
     $children
 );

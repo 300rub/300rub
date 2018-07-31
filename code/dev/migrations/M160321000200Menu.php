@@ -104,7 +104,6 @@ class M160321000200Menu extends AbstractMigration
                     'sort'       => self::TYPE_SMALLINT,
                     'staticName' => self::TYPE_STRING,
                     'staticUrl'  => self::TYPE_STRING,
-                    'isEmpty'    => self::TYPE_BOOL,
                 ]
             )
             ->createForeignKey('menuInstances', 'menuId', 'menu')

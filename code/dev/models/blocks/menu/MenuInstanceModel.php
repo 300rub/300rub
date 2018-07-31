@@ -96,6 +96,11 @@ class MenuInstanceModel extends AbstractMenuInstanceModel
      */
     private function _generateName($instance)
     {
+        $staticName = trim($instance['staticName']);
+        if ($staticName !== '') {
+            return $staticName;
+        }
+
         return $instance['name'];
     }
 
@@ -108,6 +113,16 @@ class MenuInstanceModel extends AbstractMenuInstanceModel
      */
     private function _generateUrl($instance)
     {
+        $url = $instance['url'];
+        if ($url === null) {
+            return $url;
+        }
+
+        $staticUrl = trim($instance['staticUrl']);
+        if ($staticUrl !== '') {
+            return $staticUrl;
+        }
+
         $langId = (int)$instance['language'];
         $language = App::getInstance()->getLanguage()->getAliasById($langId);
 
@@ -139,7 +154,6 @@ class MenuInstanceModel extends AbstractMenuInstanceModel
             ->addSelect('sectionId', Db::DEFAULT_ALIAS, 'sectionId')
             ->addSelect('staticName', Db::DEFAULT_ALIAS, 'staticName')
             ->addSelect('staticUrl', Db::DEFAULT_ALIAS, 'staticUrl')
-            ->addSelect('isEmpty', Db::DEFAULT_ALIAS, 'isEmpty')
             ->addSelect('language', 'sections', 'language')
             ->addSelect('isMain', 'sections', 'isMain')
             ->addSelect('name', 'seo', 'name')

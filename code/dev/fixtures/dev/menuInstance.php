@@ -3,19 +3,16 @@
 return [
     1 => [
         'menuId'    => 1,
-        'parentId'  => 0,
         'sectionId' => 1,
         'sort'      => 10,
     ],
     2 => [
         'menuId'    => 1,
-        'parentId'  => 0,
         'sectionId' => 2,
         'sort'      => 20,
     ],
     3 => [
         'menuId'    => 1,
-        'parentId'  => 0,
         'sectionId' => 3,
         'sort'      => 30,
     ],
@@ -45,7 +42,6 @@ return [
     ],
     8 => [
         'menuId'    => 1,
-        'parentId'  => 0,
         'sectionId' => 8,
         'sort'      => 40,
     ],
@@ -81,7 +77,6 @@ return [
     ],
     14 => [
         'menuId'    => 1,
-        'parentId'  => 0,
         'sectionId' => 14,
         'sort'      => 50,
     ],
@@ -92,15 +87,30 @@ return [
         'sort'      => 10,
     ],
     16 => [
-        'menuId'    => 2,
-        'parentId'  => 0,
-        'sectionId' => 1,
-        'sort'      => 10,
+        'menuId'     => 2,
+        'sort'       => 10,
+        'staticName' => 'First level One'
     ],
     17 => [
-        'menuId'    => 2,
-        'parentId'  => 0,
-        'sectionId' => 1,
-        'sort'      => 20,
+        'menuId'     => 2,
+        'sort'       => 30,
+        'staticName' => 'First level Three'
+    ],
+    18 => [
+        'menuId'     => 2,
+        'sort'       => 20,
+        'staticName' => 'First level Two'
+    ],
+    19 => [
+        'menuId'     => 2,
+        'parentId'   => 16,
+        'sort'       => 10,
+        'staticName' => 'Second level One'
+    ],
+    20 => [
+        'menuId'     => 2,
+        'parentId'   => 19,
+        'sort'       => 10,
+        'staticName' => 'Third level One'
     ],
 ];

@@ -77,9 +77,6 @@ abstract class AbstractMenuInstanceModel extends AbstractModel
                     ValueGenerator::CLEAR_STRIP_TAGS
                 ],
             ],
-            'isEmpty'   => [
-                self::FIELD_TYPE       => self::FIELD_TYPE_BOOL,
-            ],
         ];
     }
 }
