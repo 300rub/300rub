@@ -24,14 +24,59 @@ abstract class AbstractContentMenuModel extends AbstractMenuModel
      */
     public function generateHtml()
     {
+        $tree = MenuInstanceModel::model()
+            ->getTreeByMenuId($this->getId());
+
         return App::getInstance()->getView()->get(
             'content/menu/menu',
             [
                 'blockId'         => $this->getBlockId(),
                 'type'            => $this->getTypeForCssClass(),
                 'designMenuModel' => $this->get('designMenuModel'),
-                'tree'            => MenuInstanceModel::model()
-                    ->getTreeByMenuId($this->getId()),
+                'tree'            => $this->_getTreeHtml($tree, 1),
+            ]
+        );
+    }
+
+    /**
+     * Gets menu tree HTML
+     *
+     * @param array $tree  Tree
+     * @param int   $level Level
+     *
+     * @return string
+     */
+    private function _getTreeHtml($tree, $level)
+    {
+        $view = App::getInstance()->getView();
+
+        $content = '';
+        foreach ($tree as $instance) {
+            $children = '';
+
+            if (count($instance['children']) > 0) {
+                $children = $this->_getTreeHtml(
+                    $instance['children'],
+                    ($level + 1)
+                );
+            }
+
+            $content .= $view->get(
+                'content/menu/li',
+                [
+                    'isActive' => $instance['isActive'],
+                    'url'      => $instance['url'],
+                    'name'     => $instance['name'],
+                    'level'    => $level,
+                    'children' => $children,
+                ]
+            );
+        }
+
+        return $view->get(
+            'content/menu/ul',
+            [
+                'content' => $content,
             ]
         );
     }

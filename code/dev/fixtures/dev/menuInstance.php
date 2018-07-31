@@ -80,15 +80,27 @@ return [
         'sort'      => 30,
     ],
     14 => [
+        'menuId'    => 1,
+        'parentId'  => 0,
+        'sectionId' => 14,
+        'sort'      => 50,
+    ],
+    15 => [
+        'menuId'    => 1,
+        'parentId'  => 14,
+        'sectionId' => 15,
+        'sort'      => 10,
+    ],
+    16 => [
         'menuId'    => 2,
         'parentId'  => 0,
         'sectionId' => 1,
         'sort'      => 10,
     ],
-    15 => [
+    17 => [
         'menuId'    => 2,
         'parentId'  => 0,
-        'sectionId' => 2,
+        'sectionId' => 1,
         'sort'      => 20,
     ],
 ];

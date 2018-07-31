@@ -102,4 +102,11 @@ return [
         ],
         'language' => Language::LANGUAGE_EN_ID,
     ],
+    15 => [
+        'seoModel'      => [
+            'name' => 'Horizontal',
+            'url'  => 'horizontal-menu'
+        ],
+        'language' => Language::LANGUAGE_EN_ID,
+    ],
 ];

@@ -155,4 +155,25 @@ return [
         'y'          => 0,
         'width'      => 9
     ],
+    23 => [
+        'gridLineId' => 14,
+        'blockId'    => 1,
+        'x'          => 0,
+        'y'          => 0,
+        'width'      => 3
+    ],
+    24 => [
+        'gridLineId' => 15,
+        'blockId'    => 1,
+        'x'          => 0,
+        'y'          => 0,
+        'width'      => 3
+    ],
+    25 => [
+        'gridLineId' => 15,
+        'blockId'    => 11,
+        'x'          => 3,
+        'y'          => 0,
+        'width'      => 9
+    ],
 ];

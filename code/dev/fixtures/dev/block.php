@@ -64,4 +64,10 @@ return [
         'contentType' => BlockModel::TYPE_RECORD_CLONE,
         'contentId'   => 1,
     ],
+    11 => [
+        'name'        => 'Horizontal menu',
+        'language'    => Language::LANGUAGE_EN_ID,
+        'contentType' => BlockModel::TYPE_MENU,
+        'contentId'   => 2,
+    ],
 ];
