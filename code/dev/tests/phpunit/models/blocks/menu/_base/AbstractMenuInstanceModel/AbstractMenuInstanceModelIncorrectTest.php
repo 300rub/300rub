@@ -35,7 +35,6 @@ class AbstractMenuInstanceModelIncorrectTest extends AbstractIncorrectModelTest
                     'parentId'  => 'incorrect',
                     'sectionId' => 'incorrect',
                     'icon'      => 'incorrect',
-                    'subName'   => 'incorrect',
                     'sort'      => 'incorrect',
                 ],
                 [],
@@ -49,7 +48,6 @@ class AbstractMenuInstanceModelIncorrectTest extends AbstractIncorrectModelTest
                     'parentId'  => 'incorrect',
                     'sectionId' => ' 1 aaaa ',
                     'icon'      => 'incorrect',
-                    'subName'   => 'incorrect',
                     'sort'      => 'incorrect',
                 ],
                 [
@@ -57,21 +55,18 @@ class AbstractMenuInstanceModelIncorrectTest extends AbstractIncorrectModelTest
                     'parentId'  => null,
                     'sectionId' => 1,
                     'icon'      => 'incorrect',
-                    'subName'   => 'incorrect',
                     'sort'      => 0,
                 ],
                 [
                     'menuId'   => 2,
                     'parentId' => '1 as',
                     'icon'     => '',
-                    'subName'  => '',
                 ],
                 [
                     'menuId'    => 1,
                     'parentId'  => 1,
                     'sectionId' => 1,
                     'icon'      => '',
-                    'subName'   => '',
                     'sort'      => 0,
                 ],
             ],
@@ -89,22 +84,6 @@ class AbstractMenuInstanceModelIncorrectTest extends AbstractIncorrectModelTest
                 ],
                 [
                     'icon' => ['maxLength'],
-                ],
-            ],
-            'incorrect4' => [
-                [
-                    'menuId'    => 1,
-                    'sectionId' => 1,
-                    'subName'   => '<b> name </b>',
-                ],
-                [
-                    'subName' => 'name',
-                ],
-                [
-                    'subName' => $this->generateStringWithLength(256),
-                ],
-                [
-                    'subName' => ['maxLength'],
                 ],
             ],
         ];

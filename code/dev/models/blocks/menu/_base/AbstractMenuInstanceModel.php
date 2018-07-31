@@ -44,7 +44,8 @@ abstract class AbstractMenuInstanceModel extends AbstractModel
             ],
             'sectionId' => [
                 self::FIELD_RELATION_TO_PARENT
-                    => '\\ss\\models\\sections\\SectionModel'
+                    => '\\ss\\models\\sections\\SectionModel',
+                self::FIELD_ALLOW_NULL => true,
             ],
             'icon'      => [
                 self::FIELD_TYPE       => self::FIELD_TYPE_STRING,
@@ -55,7 +56,10 @@ abstract class AbstractMenuInstanceModel extends AbstractModel
                     ValueGenerator::CLEAR_STRIP_TAGS
                 ],
             ],
-            'subName'   => [
+            'sort'      => [
+                self::FIELD_TYPE => self::FIELD_TYPE_INT
+            ],
+            'staticName'   => [
                 self::FIELD_TYPE       => self::FIELD_TYPE_STRING,
                 self::FIELD_VALIDATION => [
                     Validator::TYPE_MAX_LENGTH => 255
@@ -64,8 +68,17 @@ abstract class AbstractMenuInstanceModel extends AbstractModel
                     ValueGenerator::CLEAR_STRIP_TAGS
                 ],
             ],
-            'sort'      => [
-                self::FIELD_TYPE => self::FIELD_TYPE_INT
+            'staticUrl'   => [
+                self::FIELD_TYPE       => self::FIELD_TYPE_STRING,
+                self::FIELD_VALIDATION => [
+                    Validator::TYPE_MAX_LENGTH => 255
+                ],
+                self::FIELD_VALUE      => [
+                    ValueGenerator::CLEAR_STRIP_TAGS
+                ],
+            ],
+            'isEmpty'   => [
+                self::FIELD_TYPE       => self::FIELD_TYPE_BOOL,
             ],
         ];
     }

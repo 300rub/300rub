@@ -35,7 +35,6 @@ class AbstractMenuInstanceModelCorrectTest extends AbstractCorrectModelTest
                     'parentId'  => null,
                     'sectionId' => 1,
                     'icon'      => 'fa-user',
-                    'subName'   => 'Name',
                     'sort'      => 10,
                 ],
                 [
@@ -43,7 +42,6 @@ class AbstractMenuInstanceModelCorrectTest extends AbstractCorrectModelTest
                     'parentId'  => null,
                     'sectionId' => 1,
                     'icon'      => 'fa-user',
-                    'subName'   => 'Name',
                     'sort'      => 10,
                 ],
                 [
@@ -51,7 +49,6 @@ class AbstractMenuInstanceModelCorrectTest extends AbstractCorrectModelTest
                     'parentId'  => 1,
                     'sectionId' => 1,
                     'icon'      => '',
-                    'subName'   => '',
                     'sort'      => 20,
                 ],
                 [
@@ -59,7 +56,6 @@ class AbstractMenuInstanceModelCorrectTest extends AbstractCorrectModelTest
                     'parentId'  => 1,
                     'sectionId' => 1,
                     'icon'      => '',
-                    'subName'   => '',
                     'sort'      => 20,
                 ]
             ]

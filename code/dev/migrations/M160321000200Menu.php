@@ -96,13 +96,15 @@ class M160321000200Menu extends AbstractMigration
             ->createTable(
                 'menuInstances',
                 [
-                    'id'        => self::TYPE_PK,
-                    'menuId'    => self::TYPE_FK,
-                    'parentId'  => self::TYPE_FK_NULL,
-                    'sectionId' => self::TYPE_FK,
-                    'icon'      => self::TYPE_STRING_50,
-                    'subName'   => self::TYPE_STRING,
-                    'sort'      => self::TYPE_SMALLINT,
+                    'id'         => self::TYPE_PK,
+                    'menuId'     => self::TYPE_FK,
+                    'parentId'   => self::TYPE_FK_NULL,
+                    'sectionId'  => self::TYPE_FK_NULL,
+                    'icon'       => self::TYPE_STRING_50,
+                    'sort'       => self::TYPE_SMALLINT,
+                    'staticName' => self::TYPE_STRING,
+                    'staticUrl'  => self::TYPE_STRING,
+                    'isEmpty'    => self::TYPE_BOOL,
                 ]
             )
             ->createForeignKey('menuInstances', 'menuId', 'menu')

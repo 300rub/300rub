@@ -34,7 +34,6 @@ class AbstractMenuInstanceModelDuplicateTest extends AbstractDuplicateModelTest
                 'parentId'  => null,
                 'sectionId' => 1,
                 'icon'      => 'fa-user',
-                'subName'   => 'Name',
                 'sort'      => 10,
             ],
             [],

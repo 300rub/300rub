@@ -8,7 +8,7 @@ use ss\commands\_abstract\AbstractCommand;
 /**
  * Loads test SQL dump command
  */
-class ImportTestCommand extends AbstractCommand
+class ImportPhpunitCommand extends AbstractCommand
 {
 
     /**
