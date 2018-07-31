@@ -1,9 +1,9 @@
 <?php
 
-namespace ss\tests\unit\models\sections\_base\AbstractGridModel;
+namespace ss\tests\phpunit\models\sections\_base\AbstractGridModel;
 
 use ss\models\sections\GridModel;
-use ss\tests\unit\models\_abstract\_base\AbstractEmptyModelTest;
+use ss\tests\phpunit\models\_abstract\_base\AbstractEmptyModelTest;
 
 /**
  * Tests for the model GridModel

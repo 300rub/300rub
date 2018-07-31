@@ -1,9 +1,9 @@
 <?php
 
-namespace ss\tests\unit\models\blocks\block\_base\AbstractBlockModel;
+namespace ss\tests\phpunit\models\blocks\block\_base\AbstractBlockModel;
 
 use ss\models\blocks\block\BlockModel;
-use ss\tests\unit\models\_abstract\_base\AbstractEmptyModelTest;
+use ss\tests\phpunit\models\_abstract\_base\AbstractEmptyModelTest;
 
 /**
  * Tests for the model BlockModel

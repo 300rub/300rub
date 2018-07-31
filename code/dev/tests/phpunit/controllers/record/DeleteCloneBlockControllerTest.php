@@ -1,11 +1,11 @@
 <?php
 
-namespace ss\tests\unit\controllers\record;
+namespace ss\tests\phpunit\controllers\record;
 
 use ss\models\blocks\block\BlockModel;
 use ss\models\blocks\record\RecordCloneModel;
 use ss\models\blocks\record\RecordModel;
-use ss\tests\unit\controllers\_abstract\AbstractControllerTest;
+use ss\tests\phpunit\controllers\_abstract\AbstractControllerTest;
 
 /**
  * Tests for the controller DeleteCloneBlockController

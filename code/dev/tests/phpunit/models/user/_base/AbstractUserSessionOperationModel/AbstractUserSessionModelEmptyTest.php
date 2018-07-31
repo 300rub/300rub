@@ -1,9 +1,9 @@
 <?php
 
-namespace ss\tests\unit\models\user\_base\AbstractUserSessionModel;
+namespace ss\tests\phpunit\models\user\_base\AbstractUserSessionModel;
 
 use ss\models\user\UserSessionModel;
-use ss\tests\unit\models\_abstract\_base\AbstractEmptyModelTest;
+use ss\tests\phpunit\models\_abstract\_base\AbstractEmptyModelTest;
 
 /**
  * Tests for the model UserSessionModel

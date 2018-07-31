@@ -1,9 +1,9 @@
 <?php
 
-namespace ss\tests\unit\models\blocks\text\_base\AbstractDesignTextModel;
+namespace ss\tests\phpunit\models\blocks\text\_base\AbstractDesignTextModel;
 
 use ss\models\blocks\text\DesignTextModel;
-use ss\tests\unit\models\_abstract\_base\AbstractCorrectModelTest;
+use ss\tests\phpunit\models\_abstract\_base\AbstractCorrectModelTest;
 
 /**
  * Tests for the model DesignTextModel

@@ -1,9 +1,9 @@
 <?php
 
-namespace ss\tests\unit\models\blocks\record\_base\AbstractDesignRecordModel;
+namespace ss\tests\phpunit\models\blocks\record\_base\AbstractDesignRecordModel;
 
 use ss\models\blocks\record\DesignRecordModel;
-use ss\tests\unit\models\_abstract\_base\AbstractDuplicateModelTest;
+use ss\tests\phpunit\models\_abstract\_base\AbstractDuplicateModelTest;
 
 /**
  * Tests for the model AbstractDesignRecordModel

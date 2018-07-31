@@ -1,6 +1,6 @@
 <?php
 
-namespace ss\tests\unit\_abstract;
+namespace ss\tests\phpunit\_abstract;
 
 use ss\models\_abstract\AbstractModel;
 use ss\tests\_abstract\AbstractTest;

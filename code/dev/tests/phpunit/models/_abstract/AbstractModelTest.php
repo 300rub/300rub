@@ -1,9 +1,9 @@
 <?php
 
-namespace ss\tests\unit\models\_abstract;
+namespace ss\tests\phpunit\models\_abstract;
 
 use ss\models\_abstract\AbstractModel;
-use ss\tests\unit\_abstract\AbstractUnitTest;
+use ss\tests\phpunit\_abstract\AbstractUnitTest;
 
 /**
  * Abstract class to work with model tests

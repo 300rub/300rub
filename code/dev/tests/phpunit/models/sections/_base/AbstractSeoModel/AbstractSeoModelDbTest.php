@@ -1,9 +1,9 @@
 <?php
 
-namespace ss\tests\unit\models\sections\_base\AbstractSeoModel;
+namespace ss\tests\phpunit\models\sections\_base\AbstractSeoModel;
 
 use ss\models\sections\SeoModel;
-use ss\tests\unit\models\_abstract\_base\AbstractDbModelTest;
+use ss\tests\phpunit\models\_abstract\_base\AbstractDbModelTest;
 
 /**
  * Tests for the model SeoModel

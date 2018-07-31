@@ -1,6 +1,6 @@
 <?php
 
-namespace ss\tests\unit\models\_abstract\_base;
+namespace ss\tests\phpunit\models\_abstract\_base;
 
 /**
  * Abstract class to test base models

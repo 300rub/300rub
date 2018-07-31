@@ -1,10 +1,10 @@
 <?php
 
-namespace ss\tests\unit\models\blocks\block\_base\AbstractBlockModel;
+namespace ss\tests\phpunit\models\blocks\block\_base\AbstractBlockModel;
 
 use ss\models\_abstract\AbstractModel;
 use ss\models\blocks\block\BlockModel;
-use ss\tests\unit\models\_abstract\_base\AbstractDuplicateModelTest;
+use ss\tests\phpunit\models\_abstract\_base\AbstractDuplicateModelTest;
 
 /**
  * Tests for the model BlockModel

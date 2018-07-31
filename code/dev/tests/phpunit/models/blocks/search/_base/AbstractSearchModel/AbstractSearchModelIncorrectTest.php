@@ -1,9 +1,9 @@
 <?php
 
-namespace ss\tests\unit\models\blocks\search\_base\AbstractSearchModel;
+namespace ss\tests\phpunit\models\blocks\search\_base\AbstractSearchModel;
 
 use ss\models\blocks\search\SearchModel;
-use ss\tests\unit\models\_abstract\_base\AbstractIncorrectModelTest;
+use ss\tests\phpunit\models\_abstract\_base\AbstractIncorrectModelTest;
 
 /**
  * Tests for the model AbstractSearchModel

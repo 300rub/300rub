@@ -1,6 +1,6 @@
 <?php
 
-namespace ss\tests\unit\models\user;
+namespace ss\tests\phpunit\models\user;
 
 use ss\application\components\Operation;
 use ss\models\_abstract\AbstractModel;
@@ -11,7 +11,7 @@ use ss\models\user\UserModel;
 use ss\models\user\UserSectionGroupOperationModel;
 use ss\models\user\UserSectionOperationModel;
 use ss\models\user\UserSettingsOperationModel;
-use ss\tests\unit\models\_abstract\AbstractModelTest;
+use ss\tests\phpunit\models\_abstract\AbstractModelTest;
 
 /**
  * Tests for the model UserModel

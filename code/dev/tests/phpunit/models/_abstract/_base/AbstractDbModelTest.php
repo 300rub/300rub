@@ -1,12 +1,12 @@
 <?php
 
-namespace ss\tests\unit\models\_abstract\_base;
+namespace ss\tests\phpunit\models\_abstract\_base;
 
 use ss\application\App;
 use ss\application\components\Validator;
 use ss\application\components\ValueGenerator;
 use ss\models\_abstract\AbstractModel;
-use ss\tests\unit\models\_abstract\AbstractModelTest;
+use ss\tests\phpunit\models\_abstract\AbstractModelTest;
 
 /**
  * Abstract class to test DB structure

@@ -1,9 +1,9 @@
 <?php
 
-namespace ss\tests\unit\models\blocks\helpers\tab\_base\AbstractTabModel;
+namespace ss\tests\phpunit\models\blocks\helpers\tab\_base\AbstractTabModel;
 
 use ss\models\blocks\helpers\tab\TabModel;
-use ss\tests\unit\models\_abstract\_base\AbstractDuplicateModelTest;
+use ss\tests\phpunit\models\_abstract\_base\AbstractDuplicateModelTest;
 
 /**
  * Tests for the model AbstractTabModel

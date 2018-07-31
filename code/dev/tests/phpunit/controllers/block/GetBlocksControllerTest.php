@@ -1,8 +1,8 @@
 <?php
 
-namespace ss\tests\unit\controllers\block;
+namespace ss\tests\phpunit\controllers\block;
 
-use ss\tests\unit\controllers\_abstract\AbstractControllerTest;
+use ss\tests\phpunit\controllers\_abstract\AbstractControllerTest;
 
 /**
  * Tests for the controller GetBlocksController

@@ -1,9 +1,9 @@
 <?php
 
-namespace ss\tests\unit\models\blocks\helpers\form\_base\AbstractFormModel;
+namespace ss\tests\phpunit\models\blocks\helpers\form\_base\AbstractFormModel;
 
 use ss\models\blocks\helpers\form\FormModel;
-use ss\tests\unit\models\_abstract\_base\AbstractDuplicateModelTest;
+use ss\tests\phpunit\models\_abstract\_base\AbstractDuplicateModelTest;
 
 /**
  * Tests for the model AbstractFormModel

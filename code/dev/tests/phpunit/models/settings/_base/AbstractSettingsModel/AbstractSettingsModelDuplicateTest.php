@@ -1,9 +1,9 @@
 <?php
 
-namespace ss\tests\unit\models\settings\_base\AbstractSettingsModel;
+namespace ss\tests\phpunit\models\settings\_base\AbstractSettingsModel;
 
 use ss\models\settings\SettingsModel;
-use ss\tests\unit\models\_abstract\_base\AbstractDuplicateModelTest;
+use ss\tests\phpunit\models\_abstract\_base\AbstractDuplicateModelTest;
 
 /**
  * Tests for the model SettingsModel

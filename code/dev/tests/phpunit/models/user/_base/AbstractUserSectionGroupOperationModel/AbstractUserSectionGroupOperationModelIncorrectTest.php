@@ -1,11 +1,11 @@
 <?php
 
 // @codingStandardsIgnoreLine
-namespace ss\tests\unit\models\user\_base\AbstractUserSectionGroupOperationModel;
+namespace ss\tests\phpunit\models\user\_base\AbstractUserSectionGroupOperationModel;
 
 use ss\application\components\Operation;
 use ss\models\user\UserSectionGroupOperationModel;
-use ss\tests\unit\models\_abstract\_base\AbstractIncorrectModelTest;
+use ss\tests\phpunit\models\_abstract\_base\AbstractIncorrectModelTest;
 
 /**
  * Tests for the model UserSectionGroupOperationModel

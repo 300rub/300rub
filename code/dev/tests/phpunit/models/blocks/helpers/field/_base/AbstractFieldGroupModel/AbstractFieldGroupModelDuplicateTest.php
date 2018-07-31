@@ -1,10 +1,10 @@
 <?php
 
 // @codingStandardsIgnoreLine
-namespace ss\tests\unit\models\blocks\helpers\field\_base\AbstractFieldGroupModel;
+namespace ss\tests\phpunit\models\blocks\helpers\field\_base\AbstractFieldGroupModel;
 
 use ss\models\blocks\helpers\field\FieldGroupModel;
-use ss\tests\unit\models\_abstract\_base\AbstractDuplicateModelTest;
+use ss\tests\phpunit\models\_abstract\_base\AbstractDuplicateModelTest;
 
 /**
  * Tests for the model AbstractFieldGroupModel

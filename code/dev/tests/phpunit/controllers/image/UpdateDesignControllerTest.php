@@ -1,10 +1,10 @@
 <?php
 
-namespace ss\tests\unit\controllers\image;
+namespace ss\tests\phpunit\controllers\image;
 
 use ss\models\blocks\block\BlockModel;
 use ss\models\blocks\image\ImageModel;
-use ss\tests\unit\controllers\_abstract\AbstractControllerTest;
+use ss\tests\phpunit\controllers\_abstract\AbstractControllerTest;
 
 /**
  * Tests for the controller UpdateDesignController

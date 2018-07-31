@@ -1,9 +1,9 @@
 <?php
 
-namespace ss\tests\unit\models\blocks\menu\_base\AbstractMenuModel;
+namespace ss\tests\phpunit\models\blocks\menu\_base\AbstractMenuModel;
 
 use ss\models\blocks\menu\MenuModel;
-use ss\tests\unit\models\_abstract\_base\AbstractDuplicateModelTest;
+use ss\tests\phpunit\models\_abstract\_base\AbstractDuplicateModelTest;
 
 /**
  * Tests for the model AbstractMenuModel

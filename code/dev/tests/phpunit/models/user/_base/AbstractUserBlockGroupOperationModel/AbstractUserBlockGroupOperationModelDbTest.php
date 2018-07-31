@@ -1,10 +1,10 @@
 <?php
 
 // @codingStandardsIgnoreLine
-namespace ss\tests\unit\models\user\_base\AbstractUserBlockGroupOperationModel;
+namespace ss\tests\phpunit\models\user\_base\AbstractUserBlockGroupOperationModel;
 
 use ss\models\user\UserBlockGroupOperationModel;
-use ss\tests\unit\models\_abstract\_base\AbstractDbModelTest;
+use ss\tests\phpunit\models\_abstract\_base\AbstractDbModelTest;
 
 /**
  * Tests for the model UserBlockGroupOperationModel

@@ -1,10 +1,10 @@
 <?php
 
-namespace ss\tests\unit\controllers\_abstract;
+namespace ss\tests\phpunit\controllers\_abstract;
 
 use ss\application\App;
 use ss\application\components\Language;
-use ss\tests\unit\_abstract\AbstractUnitTest;
+use ss\tests\phpunit\_abstract\AbstractUnitTest;
 
 /**
  * Abstract class to work with controller tests
