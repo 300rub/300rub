@@ -20,29 +20,24 @@
   ul {
     display: table;
     width: 100%;
-    background: #ddd;
 
     li {
       display: table-cell;
       position: relative;
 
       ul {
-        .transition(ease-in-out, 0.15s);
+        .transition-duration;
+        .transition-property(opacity);
         position: absolute;
-        margin-top: -10px;
         left: 0;
         top: 100%;
         visibility: hidden;
         opacity: 0;
-        background: #aaa;
-        width: auto;
-        min-width: 100px;
 
         li {
           display: block;
 
           ul {
-            background: #777;
             left: 100%;
             top: 0;
             right: auto;
@@ -63,7 +58,6 @@
       &:hover > ul {
         visibility: visible;
         opacity: 1;
-        margin-top: 0;
       }
     }
   }
