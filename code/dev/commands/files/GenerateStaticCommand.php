@@ -2,7 +2,6 @@
 
 namespace ss\commands\files;
 
-use ss\application\App;
 use ss\application\exceptions\FileException;
 use MatthiasMullie\Minify\CSS;
 use MatthiasMullie\Minify\JS;
@@ -13,13 +12,6 @@ use ss\commands\_abstract\AbstractCommand;
  */
 class GenerateStaticCommand extends AbstractCommand
 {
-
-    /**
-     * Static map
-     *
-     * @var array
-     */
-    private $_staticMap = [];
 
     /**
      * Public dir
@@ -37,40 +29,49 @@ class GenerateStaticCommand extends AbstractCommand
      */
     public function run()
     {
-        $this->_staticMap = CODE_ROOT . '/config/other/static.php';
+        $staticMaps = [];
+        $staticMaps[] = include CODE_ROOT .
+            '/config/other/static.php';
+        $staticMaps[] = include CODE_ROOT .
+            '/config/other/staticSite.php';
+
         $this->_publicDir = CODE_ROOT . '/public';
 
-        $this
-            ->_generateJs()
-            ->_generateCss();
+        foreach ($staticMaps as $map) {
+            foreach ($map as $staticMap) {
+                $this
+                    ->_generateJs($staticMap)
+                    ->_generateCss($staticMap);
+            }
+        }
     }
 
     /**
      * Generates JS files
      *
+     * @param array $staticMap JS static map
+     *
      * @return GenerateStaticCommand
      */
-    private function _generateJs()
+    private function _generateJs($staticMap)
     {
-        foreach ($this->_staticMap as $staticMap) {
-            $minimizer = new JS();
+        $minimizer = new JS();
 
-            foreach ($staticMap['libs']['js'] as $jsName) {
-                $minimizer->add(
-                    $this->_publicDir . '/js/' . $jsName . '.js'
-                );
-            }
-
-            foreach ($staticMap['js'] as $jsName) {
-                $minimizer->add(
-                    $this->_publicDir . '/js/' . $jsName . '.js'
-                );
-            }
-
-            $minimizer->minify(
-                $this->_publicDir . '/js/' . $staticMap['compiledJs'] . '.js'
+        foreach ($staticMap['libs']['js'] as $jsName) {
+            $minimizer->add(
+                $this->_publicDir . '/js/' . $jsName . '.js'
             );
         }
+
+        foreach ($staticMap['js'] as $jsName) {
+            $minimizer->add(
+                $this->_publicDir . '/js/' . $jsName . '.js'
+            );
+        }
+
+        $minimizer->minify(
+            $this->_publicDir . '/js/' . $staticMap['compiledJs'] . '.js'
+        );
 
         return $this;
     }
@@ -78,30 +79,30 @@ class GenerateStaticCommand extends AbstractCommand
     /**
      * Generates CSS files
      *
+     * @param array $staticMap CSS static map
+     *
      * @return GenerateStaticCommand
      */
-    private function _generateCss()
+    private function _generateCss($staticMap)
     {
-        foreach ($this->_staticMap as $staticMap) {
-            $minimizer = new CSS();
+        $minimizer = new CSS();
 
-            foreach ($staticMap['libs']['css'] as $cssName) {
-                $minimizer->add(
-                    $this->_publicDir . '/css/' . $cssName . '.css'
-                );
-            }
-
-            $less = new \lessc;
+        foreach ($staticMap['libs']['css'] as $cssName) {
             $minimizer->add(
-                $less->compileFile(
-                    $this->_publicDir . '/less/' . $staticMap['less'] . '.less'
-                )
-            );
-
-            $minimizer->minify(
-                $this->_publicDir . '/css/' . $staticMap['compiledCss'] . '.css'
+                $this->_publicDir . '/css/' . $cssName . '.css'
             );
         }
+
+        $less = new \lessc;
+        $minimizer->add(
+            $less->compileFile(
+                $this->_publicDir . '/less/' . $staticMap['less'] . '.less'
+            )
+        );
+
+        $minimizer->minify(
+            $this->_publicDir . '/css/' . $staticMap['compiledCss'] . '.css'
+        );
 
         return $this;
     }
