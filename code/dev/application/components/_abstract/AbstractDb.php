@@ -5,7 +5,6 @@ namespace ss\application\components\_abstract;
 use ss\application\App;
 use ss\application\components\Db;
 use ss\application\exceptions\DbException;
-use ss\models\_abstract\AbstractModel;
 
 /**
  * Abstract class for working with DB
