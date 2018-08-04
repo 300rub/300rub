@@ -8,4 +8,4 @@ $config = include __DIR__ . '/../config/common.php';
 
 spl_autoload_register(['ss\application\App','autoload']);
 
-App::web($config)->run();
+App::site($config)->run();

@@ -1,38 +1,55 @@
 <?php
 
-namespace ss\controllers\page\_abstract;
+namespace ss\controllers\site;
 
-use ss\controllers\_abstract\AbstractController;
+use ss\controllers\_abstract\AbstractBaseController;
 
 /**
- * Abstract Page Controller
+ * SiteController
  */
-abstract class AbstractPageController extends AbstractController
+class SiteController extends AbstractBaseController
 {
 
     /**
      * Static map
-     * 
+     *
      * @var array
      */
     private $_staticMap = [];
 
     /**
      * Sets static map
-     * 
-     * @param string $name Static map name
      */
-    protected function setStaticMap($name)
+    private function _setStaticMap()
     {
-        $path = sprintf(
-            '%s/config/other/%s.php',
-            CODE_ROOT,
-            $name
-        );
-        
-        $this->_staticMap = include $path;
+        $this->_staticMap = include CODE_ROOT .
+            '/config/other/staticSite.php';
     }
-    
+
+    /**
+     * Gets site page
+     *
+     * @return string
+     */
+    public function run()
+    {
+        $this->_setStaticMap();
+
+        $content = $this->getContentFromTemplate('site/index', []);
+
+        $layoutData = [];
+        $layoutData['content'] = $content;
+        $layoutData['title'] = 'Test title';
+        $layoutData['keywords'] = 'Test keywords';
+        $layoutData['description'] = 'Test description';
+        $layoutData['css'] = $this->_getCss();
+        $layoutData['js'] = $this->_getJs();
+        $layoutData['less'] = $this->_getLess();
+        $layoutData['version'] = $this->_getVersion();
+
+        return $this->getContentFromTemplate('site/layout', $layoutData);
+    }
+
     /**
      * Is minimized
      *
@@ -44,13 +61,23 @@ abstract class AbstractPageController extends AbstractController
     }
 
     /**
+     * If is user
+     *
+     * @return bool
+     */
+    private function _isUser()
+    {
+        return false;
+    }
+
+    /**
      * Gets CSS
      *
      * @return array
      */
-    protected function getCss()
+    private function _getCss()
     {
-        $isUser = $this->isUser();
+        $isUser = $this->_isUser();
 
         if ($this->_isMinimized() === true) {
             $cssList = [];
@@ -78,9 +105,9 @@ abstract class AbstractPageController extends AbstractController
      *
      * @return array
      */
-    protected function getJs()
+    private function _getJs()
     {
-        $isUser = $this->isUser();
+        $isUser = $this->_isUser();
 
         if ($this->_isMinimized() === true) {
             $jsList = [];
@@ -121,7 +148,7 @@ abstract class AbstractPageController extends AbstractController
      *
      * @return array
      */
-    protected function getLess()
+    private function _getLess()
     {
         if ($this->_isMinimized() === true) {
             return [];
@@ -130,7 +157,7 @@ abstract class AbstractPageController extends AbstractController
         $less = [];
 
         $less[] = $this->_staticMap['common']['less'];
-        if ($this->isUser() === true) {
+        if ($this->_isUser() === true) {
             $less[] = $this->_staticMap['admin']['less'];
         }
 
@@ -142,7 +169,7 @@ abstract class AbstractPageController extends AbstractController
      *
      * @return int
      */
-    protected function getVersion()
+    private function _getVersion()
     {
         $release = CODE_ROOT . '/config/release';
         if (file_exists($release) === false) {

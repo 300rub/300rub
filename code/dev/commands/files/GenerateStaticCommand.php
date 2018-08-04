@@ -37,9 +37,7 @@ class GenerateStaticCommand extends AbstractCommand
      */
     public function run()
     {
-        $this->_staticMap = App::getInstance()
-            ->getConfig()
-            ->getValue(['staticMap']);
+        $this->_staticMap = CODE_ROOT . '/config/other/static.php';
         $this->_publicDir = CODE_ROOT . '/public';
 
         $this

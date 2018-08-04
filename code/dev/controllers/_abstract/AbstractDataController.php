@@ -7,7 +7,7 @@ use ss\application\exceptions\BadRequestException;
 /**
  * Abstract class for working with controller data
  */
-abstract class AbstractDataController
+abstract class AbstractDataController extends AbstractBaseController
 {
 
     /**

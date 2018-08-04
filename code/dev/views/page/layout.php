@@ -30,7 +30,7 @@
     <title><?php echo $title; ?></title>
     <meta name="keywords" content="<?php echo $keywords; ?>"/>
     <meta name="description" content="<?php echo $description; ?>"/>
-    <link rel="shortcut icon" href="/public/img/favicon.ico"/>
+    <link rel="shortcut icon" href="/img/favicon.ico"/>
 <?php
 if (isset($css) === true) {
     foreach ($css as $fileName) {

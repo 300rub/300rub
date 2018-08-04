@@ -4,6 +4,7 @@ namespace ss\application;
 
 use ss\application\instances\_abstract\AbstractApplication;
 use ss\application\instances\Console;
+use ss\application\instances\Site;
 use ss\application\instances\Test;
 use ss\application\instances\Web;
 
@@ -40,6 +41,13 @@ class App
      * @var Test
      */
     private static $_test = null;
+
+    /**
+     * Site application
+     *
+     * @var Web
+     */
+    private static $_site = null;
 
     /**
      * Gets application for working with console
@@ -90,6 +98,22 @@ class App
     }
 
     /**
+     * Gets Application for working with site
+     *
+     * @param array $config Config settings
+     *
+     * @return Web
+     */
+    public static function site($config = [])
+    {
+        if (self::$_site === null) {
+            self::$_site = new Site($config);
+        }
+
+        return self::$_site;
+    }
+
+    /**
      * Gets current application
      *
      * @return AbstractApplication
@@ -106,6 +130,10 @@ class App
 
         if (self::$_test !== null) {
             return self::$_test;
+        }
+
+        if (self::$_site !== null) {
+            return self::$_site;
         }
 
         return null;
