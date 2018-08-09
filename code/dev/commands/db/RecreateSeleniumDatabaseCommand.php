@@ -49,7 +49,12 @@ class RecreateSeleniumDatabaseCommand extends AbstractCommand
             )
         );
 
-        App::getInstance()->getDb()->setSeleniumPdo();
+        App::getInstance()->getDb()->setPdo(
+            $config->getValue(['db', 'selenium', 'host']),
+            $config->getValue(['db', 'selenium', 'user']),
+            $config->getValue(['db', 'selenium', 'password']),
+            $config->getValue(['db', 'selenium', 'name'])
+        );
 
         $migration = new M160302000000Migrations();
         $migration->apply();

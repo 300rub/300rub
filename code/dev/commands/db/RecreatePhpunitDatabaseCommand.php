@@ -49,7 +49,12 @@ class RecreatePhpunitDatabaseCommand extends AbstractCommand
             )
         );
 
-        App::getInstance()->getDb()->setPhpunitPdo();
+        App::getInstance()->getDb()->setPdo(
+            $config->getValue(['db', 'phpunit', 'host']),
+            $config->getValue(['db', 'phpunit', 'user']),
+            $config->getValue(['db', 'phpunit', 'password']),
+            $config->getValue(['db', 'phpunit', 'name'])
+        );
 
         $migration = new M160302000000Migrations();
         $migration->apply();

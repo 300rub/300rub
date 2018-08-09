@@ -6,6 +6,7 @@ use ss\application\App;
 use ss\commands\_abstract\AbstractCommand;
 use ss\migrations\M160301000000Sites;
 use ss\migrations\M160301000010Domains;
+use ss\migrations\M160301000020Help;
 use ss\migrations\M160302000000Migrations;
 
 /**
@@ -105,7 +106,9 @@ class RecreateDevDatabasesCommand extends AbstractCommand
             )
         );
 
-        App::getInstance()->getDb()->setSystemPdo();
+        $dbObject = App::getInstance()->getDb();
+
+        $dbObject->setSystemPdo();
 
         $migration = new M160301000000Sites();
         $migration->apply();
@@ -115,7 +118,22 @@ class RecreateDevDatabasesCommand extends AbstractCommand
         $migration->apply();
         $migration->insertData();
 
-        App::getInstance()->getDb()->setDevPdo();
+        $dbObject->setPdo(
+            $config->getValue(['db', 'help', 'host']),
+            $config->getValue(['db', 'help', 'user']),
+            $config->getValue(['db', 'help', 'password']),
+            $config->getValue(['db', 'help', 'name'])
+        );
+
+        $migration = new M160301000020Help();
+        $migration->apply();
+
+        $dbObject->setPdo(
+            $config->getValue(['db', 'dev', 'host']),
+            $config->getValue(['db', 'dev', 'user']),
+            $config->getValue(['db', 'dev', 'password']),
+            $config->getValue(['db', 'dev', 'name'])
+        );
 
         $migration = new M160302000000Migrations();
         $migration->apply();

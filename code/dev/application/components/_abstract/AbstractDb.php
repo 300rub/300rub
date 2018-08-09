@@ -101,16 +101,6 @@ abstract class AbstractDb
     }
 
     /**
-     * Gets PDO
-     *
-     * @return \PDO
-     */
-    protected function getPdo()
-    {
-        return $this->_pdo;
-    }
-
-    /**
      * Sets system PDO
      *
      * @return AbstractDb
@@ -130,60 +120,13 @@ abstract class AbstractDb
     }
 
     /**
-     * Sets dev PDO
+     * Gets PDO
      *
-     * @return AbstractDb
+     * @return \PDO
      */
-    public function setDevPdo()
+    protected function getPdo()
     {
-        $config = App::getInstance()->getConfig();
-
-        $this->setPdo(
-            $config->getValue(['db', 'dev', 'host']),
-            $config->getValue(['db', 'dev', 'user']),
-            $config->getValue(['db', 'dev', 'password']),
-            $config->getValue(['db', 'dev', 'name'])
-        );
-
-        return $this;
-    }
-
-    /**
-     * Sets test PDO
-     *
-     * @return AbstractDb
-     */
-    public function setPhpunitPdo()
-    {
-        $config = App::getInstance()->getConfig();
-
-        $this->setPdo(
-            $config->getValue(['db', 'phpunit', 'host']),
-            $config->getValue(['db', 'phpunit', 'user']),
-            $config->getValue(['db', 'phpunit', 'password']),
-            $config->getValue(['db', 'phpunit', 'name'])
-        );
-
-        return $this;
-    }
-
-    /**
-     * Sets selenium PDO
-     *
-     * @return AbstractDb
-     */
-    public function setSeleniumPdo()
-    {
-        $config = App::getInstance()->getConfig();
-
-        $this->setPdo(
-            $config->getValue(['db', 'selenium', 'host']),
-            $config->getValue(['db', 'selenium', 'user']),
-            $config->getValue(['db', 'selenium', 'password']),
-            $config->getValue(['db', 'selenium', 'name'])
-        );
-
-        return $this;
+        return $this->_pdo;
     }
 
     /**
