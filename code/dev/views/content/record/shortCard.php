@@ -5,7 +5,7 @@
  *
  * @var \ss\models\blocks\record\RecordModel         $record
  * @var \ss\models\blocks\record\RecordInstanceModel $recordInstance
- * @var string                                       $url
+ * @var string                                       $uri
  */
 
 use ss\application\components\helpers\DateTime;
@@ -24,7 +24,7 @@ if ($record->get('hasCover') === true
         echo '<div class="cover-container">';
 
         if ($record->get('hasCoverZoom') === false) {
-            echo sprintf('<a href="%s">', $url);
+            echo sprintf('<a href="%s">', $uri);
         }
 
         if ($record->get('hasCoverZoom') === true) {
@@ -57,7 +57,7 @@ echo '<div>';
 
 echo sprintf(
     '<a href="%s" class="short-card-title">%s</a>',
-    $url,
+    $uri,
     $name
 );
 

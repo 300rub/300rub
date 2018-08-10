@@ -4,7 +4,7 @@ return [
     1 => [
         'seoModel'      => [
             'name' => 'Text Blocks',
-            'url'  => 'text-blocks'
+            'alias'  => 'text-blocks'
         ],
         'language' => 1,
         'isMain'   => false,

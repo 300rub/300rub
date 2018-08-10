@@ -33,7 +33,7 @@ class AbstractCatalogMenuModelDuplicateTest extends AbstractDuplicateModelTest
                 'parentId'  => null,
                 'seoModel'  => [
                     'name'        => 'Name',
-                    'url'         => 'url',
+                    'alias'         => 'alias',
                     'title'       => 'title',
                     'keywords'    => 'keywords',
                     'description' => 'description',
@@ -46,7 +46,7 @@ class AbstractCatalogMenuModelDuplicateTest extends AbstractDuplicateModelTest
                 'parentId'  => null,
                 'seoModel'  => [
                     'name'        => 'Name (Copy)',
-                    'url'         => 'url-copy',
+                    'alias'         => 'alias-copy',
                     'title'       => '',
                     'keywords'    => '',
                     'description' => '',

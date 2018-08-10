@@ -33,7 +33,7 @@ abstract class AbstractContentRecordModel extends AbstractRecordModel
      *
      * @var string
      */
-    private $_recordUri = null;
+    private $_recordAlias = null;
 
     /**
      * Gets HTML Memcached short card key
@@ -92,7 +92,7 @@ abstract class AbstractContentRecordModel extends AbstractRecordModel
     {
         $this->_setParametersFromUri();
 
-        if ($this->_recordUri !== null) {
+        if ($this->_recordAlias !== null) {
             $instance = $this->_getInstanceHtml();
 
             if ($instance !== null) {
@@ -202,7 +202,7 @@ abstract class AbstractContentRecordModel extends AbstractRecordModel
      * Gets instances HTML
      *
      * @param int $page      Page number
-     * @param int $sectionId URL base
+     * @param int $sectionId Section ID
      *
      * @return string
      */
@@ -236,8 +236,8 @@ abstract class AbstractContentRecordModel extends AbstractRecordModel
                 [
                     'record'         => $this,
                     'recordInstance' => $recordInstance,
-                    'url'            => $link->generateLink(
-                        $recordInstance->get('seoModel')->get('url'),
+                    'uri'            => $link->generateLink(
+                        $recordInstance->get('seoModel')->get('alias'),
                         $sectionId
                     )
                 ]
@@ -495,7 +495,7 @@ abstract class AbstractContentRecordModel extends AbstractRecordModel
             ->setCurrentPage($currentPage)
             ->setLastPage(ceil($count / $pageNavigationSize))
             ->setParameters($site->getParameter($blockId))
-            ->setUrl($site->getActiveSectionUri());
+            ->setUri($site->getActiveSectionUri());
 
         return $pagination->getHtml();
     }
@@ -568,7 +568,7 @@ abstract class AbstractContentRecordModel extends AbstractRecordModel
     private function _getInstanceHtml()
     {
         $recordInstance = RecordInstanceModel::model()
-            ->byUrl($this->_recordUri)
+            ->byAlias($this->_recordAlias)
             ->byRecordId($this->getId())
             ->find();
 
@@ -625,21 +625,21 @@ abstract class AbstractContentRecordModel extends AbstractRecordModel
      */
     private function _setParametersFromUri()
     {
-        $url = App::getInstance()->getSite()->getUri(2);
-        if ($url === null) {
+        $parameter = App::getInstance()->getSite()->getUri(2);
+        if ($parameter === null) {
             return $this;
         }
 
-        $page = (int)$url;
-        if ($url > 0
-            && (string)$page === $url
+        $page = (int)$parameter;
+        if ($parameter > 0
+            && (string)$page === $parameter
             && $this->get('useAutoload') === false
         ) {
             $this->_page = $page;
             return $this;
         }
 
-        $this->_recordUri = $url;
+        $this->_recordAlias = $parameter;
         return $this;
     }
 

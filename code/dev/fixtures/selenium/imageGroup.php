@@ -5,7 +5,7 @@ return [
         'imageId'  => 1,
         'seoModel' => [
             'name' => 'Zoom default album',
-            'url'  => 'zoom-default-album',
+            'alias'  => 'zoom-default-album',
         ],
         'sort'     => 10,
     ],
@@ -13,7 +13,7 @@ return [
         'imageId'  => 2,
         'seoModel' => [
             'name' => 'Slider default album',
-            'url'  => 'slider-default-album',
+            'alias'  => 'slider-default-album',
         ],
         'sort'     => 10,
     ],
@@ -21,7 +21,7 @@ return [
         'imageId'  => 3,
         'seoModel' => [
             'name' => 'Simple default album',
-            'url'  => 'simple-default-album',
+            'alias'  => 'simple-default-album',
         ],
         'sort'     => 10,
     ],
@@ -29,7 +29,7 @@ return [
         'imageId'  => 4,
         'seoModel' => [
             'name' => 'Album zoom 1',
-            'url'  => 'album-zoom-1',
+            'alias'  => 'album-zoom-1',
         ],
         'sort'     => 10,
     ],
@@ -37,7 +37,7 @@ return [
         'imageId'  => 4,
         'seoModel' => [
             'name' => 'Album zoom 2',
-            'url'  => 'album-zoom-2',
+            'alias'  => 'album-zoom-2',
         ],
         'sort'     => 20,
     ],

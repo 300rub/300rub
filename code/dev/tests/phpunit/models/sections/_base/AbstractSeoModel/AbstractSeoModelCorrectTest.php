@@ -32,28 +32,28 @@ class AbstractSeoModelCorrectTest extends AbstractCorrectModelTest
             'correct1' => [
                 [
                     'name'        => 'Name 1',
-                    'url'         => 'url-1',
+                    'alias'         => 'alias-1',
                     'title'       => '',
                     'keywords'    => '',
                     'description' => ''
                 ],
                 [
                     'name'        => 'Name 1',
-                    'url'         => 'url-1',
+                    'alias'         => 'alias-1',
                     'title'       => '',
                     'keywords'    => '',
                     'description' => ''
                 ],
                 [
                     'name'        => 'Name 2',
-                    'url'         => 'url-2',
+                    'alias'         => 'alias-2',
                     'title'       => 'title',
                     'keywords'    => 'keywords',
                     'description' => 'description'
                 ],
                 [
                     'name'        => 'Name 2',
-                    'url'         => 'url-2',
+                    'alias'         => 'alias-2',
                     'title'       => 'title',
                     'keywords'    => 'keywords',
                     'description' => 'description'
@@ -65,7 +65,7 @@ class AbstractSeoModelCorrectTest extends AbstractCorrectModelTest
                 ],
                 [
                     'name'        => 'Name 1',
-                    'url'         => 'name-1',
+                    'alias'         => 'name-1',
                     'title'       => '',
                     'keywords'    => '',
                     'description' => ''
@@ -76,7 +76,7 @@ class AbstractSeoModelCorrectTest extends AbstractCorrectModelTest
                 ],
                 [
                     'name'        => 'Name 2',
-                    'url'         => 'name-1',
+                    'alias'         => 'name-1',
                     'title'       => '',
                     'keywords'    => 'keywords',
                     'description' => ''
@@ -85,28 +85,28 @@ class AbstractSeoModelCorrectTest extends AbstractCorrectModelTest
             'correct3' => [
                 [
                     'name'        => 'Name',
-                    'url'         => 'url',
+                    'alias'         => 'alias',
                     'title'       => 'title',
                     'keywords'    => 'keywords',
                     'description' => 'description'
                 ],
                 [
                     'name'        => 'Name',
-                    'url'         => 'url',
+                    'alias'         => 'alias',
                     'title'       => 'title',
                     'keywords'    => 'keywords',
                     'description' => 'description'
                 ],
                 [
                     'name'        => 'Name 2',
-                    'url'         => 'url-2',
+                    'alias'         => 'alias-2',
                     'title'       => '',
                     'keywords'    => '',
                     'description' => ''
                 ],
                 [
                     'name'        => 'Name 2',
-                    'url'         => 'url-2',
+                    'alias'         => 'alias-2',
                     'title'       => '',
                     'keywords'    => '',
                     'description' => ''

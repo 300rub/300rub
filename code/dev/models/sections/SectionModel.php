@@ -478,13 +478,13 @@ class SectionModel extends AbstractSectionModel
     }
 
     /**
-     * Find by URL
+     * Find by Alias
      *
-     * @param string $url URL
+     * @param string $alias Alias
      *
      * @return SectionModel
      */
-    public function byUrl($url)
+    public function byAlias($alias)
     {
         $this->getDb()->addJoin(
             Db::JOIN_TYPE_INNER,
@@ -496,9 +496,9 @@ class SectionModel extends AbstractSectionModel
         );
 
         $this->getDb()->addWhere(
-            'seo.url = :url'
+            'seo.alias = :alias'
         );
-        $this->getDb()->addParameter('url', $url);
+        $this->getDb()->addParameter('alias', $alias);
 
         return $this;
     }
@@ -521,16 +521,16 @@ class SectionModel extends AbstractSectionModel
     }
 
     /**
-     * Gets URL
+     * Gets URI
      *
      * @return string
      */
-    public function getUrl()
+    public function getUri()
     {
         return sprintf(
             '/%s/%s',
             App::getInstance()->getLanguage()->getActiveAlias(),
-            $this->get('seoModel')->get('url')
+            $this->get('seoModel')->get('alias')
         );
     }
 }

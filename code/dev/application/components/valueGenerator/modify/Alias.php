@@ -6,9 +6,9 @@ use ss\application\App;
 use ss\application\components\valueGenerator\_abstract\AbstractModifier;
 
 /**
- * Class for URL generation
+ * Class for alias generation
  */
-class Url extends AbstractModifier
+class Alias extends AbstractModifier
 {
 
     /**

@@ -5,7 +5,7 @@ return [
         'imageId' => 1,
         'seoModel' => [
             'name' => 'Name',
-            'url'  => 'name',
+            'alias'  => 'name',
         ],
         'sort'    => 10,
     ],
@@ -13,7 +13,7 @@ return [
         'imageId' => 2,
         'seoModel' => [
             'name' => 'Name 1',
-            'url'  => 'name-1',
+            'alias'  => 'name-1',
         ],
         'sort'    => 10,
     ],
@@ -21,7 +21,7 @@ return [
         'imageId' => 2,
         'seoModel' => [
             'name' => 'Name 2',
-            'url'  => 'name-2',
+            'alias'  => 'name-2',
         ],
         'sort'    => 20,
     ],
@@ -29,7 +29,7 @@ return [
         'imageId' => 3,
         'seoModel' => [
             'name' => 'Name 1',
-            'url'  => 'name-1',
+            'alias'  => 'name-1',
         ],
         'sort'    => 10,
     ],
@@ -37,7 +37,7 @@ return [
         'imageId' => 3,
         'seoModel' => [
             'name' => 'Name 2',
-            'url'  => 'name-2',
+            'alias'  => 'name-2',
         ],
         'sort'    => 20,
     ],

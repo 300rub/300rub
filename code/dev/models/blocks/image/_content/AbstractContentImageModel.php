@@ -233,14 +233,14 @@ abstract class AbstractContentImageModel extends AbstractImageModel
      */
     private function _getCurrentAlbum()
     {
-        $albumUrl = App::getInstance()->getSite()->getUri(2);
-        if ($albumUrl === null) {
+        $albumAlias = App::getInstance()->getSite()->getUri(2);
+        if ($albumAlias === null) {
             return null;
         }
 
         return ImageGroupModel::model()
             ->byImageId($this->getId())
-            ->byUrl($albumUrl)
+            ->byAlias($albumAlias)
             ->find();
     }
 
@@ -282,7 +282,7 @@ abstract class AbstractContentImageModel extends AbstractImageModel
                 [
                     'album' => $album,
                     'url'   => $link->generateLink(
-                        $album->get('seoModel')->get('url')
+                        $album->get('seoModel')->get('alias')
                     )
                 ]
             );

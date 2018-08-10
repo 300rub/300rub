@@ -38,12 +38,12 @@ class Link
 
         foreach ($search as $key => $value) {
             $sectionId = str_replace(['{{section_', '}}'], '', $value);
-            $url = $site
+            $alias = $site
                 ->getSectionById($sectionId)
                 ->get('seoModel')
-                ->get('url');
+                ->get('alias');
 
-            $replace[$key] = $url;
+            $replace[$key] = $alias;
         }
 
         return str_replace($search, $replace, $html);

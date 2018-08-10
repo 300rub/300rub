@@ -169,7 +169,7 @@ class SiteModel extends AbstractSiteModel
     }
 
     /**
-     * Gets site URL
+     * Gets site URI
      *
      * @param integer $part 0/1/2/3...
      *
@@ -259,7 +259,7 @@ class SiteModel extends AbstractSiteModel
      */
     public function getActiveSectionUri()
     {
-        return $this->getActiveSection()->getUrl();
+        return $this->getActiveSection()->getUri();
     }
 
     /**

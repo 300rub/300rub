@@ -39,7 +39,7 @@ abstract class AbstractPageModel extends AbstractModel
                 self::FIELD_TYPE                => self::FIELD_TYPE_STRING,
                 self::FIELD_VALIDATION          => [
                     Validator::TYPE_REQUIRED,
-                    Validator::TYPE_URL,
+                    Validator::TYPE_ALIAS,
                     Validator::TYPE_MAX_LENGTH => 50
                 ],
                 self::FIELD_VALUE               => [

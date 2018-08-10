@@ -100,7 +100,7 @@ class AbstractRecordInstanceModelEmptyTest extends AbstractEmptyModelTest
             [
                 'seoModel' => [
                     'name' => ['required'],
-                    'url'  => ['required', 'url'],
+                    'alias'  => ['required', 'alias'],
                 ],
             ],
         ];
@@ -133,12 +133,12 @@ class AbstractRecordInstanceModelEmptyTest extends AbstractEmptyModelTest
             [
                 'seoModel' => [
                     'name' => ['required'],
-                    'url'  => ['required', 'url'],
+                    'alias'  => ['required', 'alias'],
                 ],
                 'imageGroupModel'              => [
                     'seoModel' => [
                         'name' => ['required'],
-                        'url'  => ['required', 'url'],
+                        'alias'  => ['required', 'alias'],
                     ],
                 ],
             ],
@@ -187,7 +187,7 @@ class AbstractRecordInstanceModelEmptyTest extends AbstractEmptyModelTest
                 'recordId'                     => 1,
                 'seoModel'                     => [
                     'name'        => 'name',
-                    'url'         => 'name',
+                    'alias'         => 'name',
                     'title'       => '',
                     'keywords'    => '',
                     'description' => '',

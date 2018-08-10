@@ -14,7 +14,7 @@ class Validator
      * Types
      */
     const TYPE_REQUIRED = 'required';
-    const TYPE_URL = 'url';
+    const TYPE_ALIAS = 'alias';
     const TYPE_MAX_LENGTH = 'maxLength';
     const TYPE_MIN_LENGTH = 'minLength';
     const TYPE_MIN_VALUE = 'minValue';
@@ -31,8 +31,8 @@ class Validator
     private $_typeList = [
         self::TYPE_REQUIRED
             => 'checkRequired',
-        self::TYPE_URL
-            => 'checkUrl',
+        self::TYPE_ALIAS
+            => 'checkAlias',
         self::TYPE_MAX_LENGTH
             => 'checkMaxLength',
         self::TYPE_MIN_LENGTH
@@ -170,16 +170,16 @@ class Validator
     }
 
     /**
-     * Verifies URL
+     * Verifies alias
      *
      * @return void
      */
-    protected function checkUrl()
+    protected function checkAlias()
     {
         if (empty($this->_value) === true
             || (bool)preg_match('/^[0-9a-z-]+$/i', $this->_value) === false
         ) {
-            $this->_addError(self::TYPE_URL);
+            $this->_addError(self::TYPE_ALIAS);
         }
     }
 
@@ -237,8 +237,8 @@ class Validator
                 => $language->getMessage('validation', 'maxLength'),
             self::TYPE_MIN_LENGTH
                 => $language->getMessage('validation', 'minLength'),
-            self::TYPE_URL
-                => $language->getMessage('validation', 'url'),
+            self::TYPE_ALIAS
+                => $language->getMessage('validation', 'alias'),
             self::TYPE_IP
                 => $language->getMessage('validation', 'ip'),
             self::TYPE_EMAIL

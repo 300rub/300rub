@@ -34,7 +34,7 @@ class AbstractCatalogInstanceModelDuplicateTest extends AbstractDuplicateModelTe
             [
                 'seoModel'        => [
                     'name'        => 'name 1',
-                    'url'         => 'url-1',
+                    'alias'         => 'alias-1',
                     'title'       => 'title 1',
                     'keywords'    => 'keywords 1',
                     'description' => 'description 1',

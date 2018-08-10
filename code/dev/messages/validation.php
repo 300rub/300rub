@@ -15,7 +15,7 @@ return [
         Language::LANGUAGE_EN_ID => "The field's length is too small",
         Language::LANGUAGE_RU_ID => '',
     ],
-    'url'               => [
+    'alias'               => [
         Language::LANGUAGE_EN_ID
             => 'The field should consist of ' .
                 'Latin characters, numbers and hyphens',

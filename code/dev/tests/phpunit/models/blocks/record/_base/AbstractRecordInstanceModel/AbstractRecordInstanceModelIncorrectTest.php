@@ -85,7 +85,7 @@ class AbstractRecordInstanceModelIncorrectTest extends AbstractIncorrectModelTes
             'recordId'                     => ' 1 ',
             'seoModel'                     => [
                 'name'        => '<b> name 1 </b>',
-                'url'         => '<b> url-1 <b>',
+                'alias'         => '<b> alias-1 <b>',
                 'title'       => '<b> title 1 <b>',
                 'keywords'    => '<b> keywords 1 <b>',
                 'description' => '<b> description 1<b> ',
@@ -145,7 +145,7 @@ class AbstractRecordInstanceModelIncorrectTest extends AbstractIncorrectModelTes
             'recordId'                     => 1,
             'seoModel'                     => [
                 'name'        => 'name 1',
-                'url'         => 'url-1',
+                'alias'         => 'alias-1',
                 'title'       => 'title 1',
                 'keywords'    => 'keywords 1',
                 'description' => 'description 1',

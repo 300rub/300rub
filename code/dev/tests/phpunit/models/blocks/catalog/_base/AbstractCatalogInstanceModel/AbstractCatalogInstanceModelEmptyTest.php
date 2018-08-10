@@ -90,7 +90,7 @@ class AbstractCatalogInstanceModelEmptyTest extends AbstractEmptyModelTest
                 [
                     'seoModel'        => [
                         'name'        => 'name',
-                        'url'         => 'name',
+                        'alias'         => 'name',
                         'title'       => '',
                         'keywords'    => '',
                         'description' => '',

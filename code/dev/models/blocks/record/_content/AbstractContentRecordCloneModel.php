@@ -54,8 +54,8 @@ abstract class AbstractContentRecordCloneModel extends AbstractRecordCloneModel
                 [
                     'recordClone'    => $this,
                     'recordInstance' => $recordInstance,
-                    'url'            => $link->generateLink(
-                        $recordInstance->get('seoModel')->get('url'),
+                    'uri'            => $link->generateLink(
+                        $recordInstance->get('seoModel')->get('alias'),
                         $sectionId
                     )
                 ]

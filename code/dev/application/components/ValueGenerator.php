@@ -52,12 +52,12 @@ abstract class ValueGenerator
     const STRING
         = '\\ss\\application\\components\\valueGenerator\\' .
             'type\\StringValue';
-    const URL
+    const ALIAS
         = '\\ss\\application\\components\\valueGenerator\\' .
-            'modify\\Url';
-    const COPY_URL
+            'modify\\Alias';
+    const COPY_ALIAS
         = '\\ss\\application\\components\\valueGenerator\\' .
-            'modify\\UrlCopy';
+            'modify\\AliasCopy';
     const DATETIME_AS_STRING
         = '\\ss\\application\\components\\valueGenerator\\' .
             'type\\Iso';
@@ -77,9 +77,9 @@ abstract class ValueGenerator
         self::COLOR,
         self::CLEAR_STRIP_TAGS,
         self::COPY_NAME,
-        self::COPY_URL,
+        self::COPY_ALIAS,
         self::ARRAY_KEY,
-        self::URL,
+        self::ALIAS,
         self::STRING,
         self::INT,
         self::FLOAT,

@@ -53,11 +53,11 @@ class Pagination
     private $_parameters = [];
 
     /**
-     * URL
+     * URI
      *
      * @var string
      */
-    private $_url = '';
+    private $_uri = '';
 
     /**
      * From page
@@ -144,15 +144,15 @@ class Pagination
     }
 
     /**
-     * Sets URL
+     * Sets URI
      *
-     * @param string $url URL
+     * @param string $uri URI
      *
      * @return Pagination
      */
-    public function setUrl($url)
+    public function setUri($uri)
     {
-        $this->_url = $url;
+        $this->_uri = $uri;
         return $this;
     }
 
@@ -184,12 +184,12 @@ class Pagination
 
         if ($this->_currentPage > 1) {
             $tree[] = [
-                'url'      => $this->_generateUrl(1),
+                'uri'      => $this->_generateUri(1),
                 'type'     => self::TYPE_FIRST,
                 'isActive' => false,
             ];
             $tree[] = [
-                'url'      => $this->_generateUrl($this->_currentPage - 1),
+                'uri'      => $this->_generateUri($this->_currentPage - 1),
                 'type'     => self::TYPE_PREV,
                 'isActive' => false,
             ];
@@ -203,7 +203,7 @@ class Pagination
             }
 
             $tree[] = [
-                'url'      => $this->_generateUrl($page),
+                'uri'      => $this->_generateUri($page),
                 'type'     => self::TYPE_NUMBER,
                 'value'    => $page,
                 'isActive' => $isActive,
@@ -212,12 +212,12 @@ class Pagination
 
         if ($this->_currentPage < $this->_lastPage) {
             $tree[] = [
-                'url'      => $this->_generateUrl($this->_currentPage + 1),
+                'uri'      => $this->_generateUri($this->_currentPage + 1),
                 'type'     => self::TYPE_NEXT,
                 'isActive' => false,
             ];
             $tree[] = [
-                'url'      => $this->_generateUrl($this->_lastPage),
+                'uri'      => $this->_generateUri($this->_lastPage),
                 'type'     => self::TYPE_LAST,
                 'isActive' => false,
             ];
@@ -227,13 +227,13 @@ class Pagination
     }
 
     /**
-     * Generates URL
+     * Generates URI
      *
      * @param int $page Page number
      *
      * @return string
      */
-    private function _generateUrl($page)
+    private function _generateUri($page)
     {
         $parameters = $this->_parameters;
 
@@ -249,12 +249,12 @@ class Pagination
         }
 
         if (count($parameters) === 0) {
-            return $this->_url;
+            return $this->_uri;
         }
 
         return sprintf(
             '%s?%s',
-            $this->_url,
+            $this->_uri,
             http_build_query($parameters)
         );
     }

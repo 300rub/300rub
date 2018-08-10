@@ -5,9 +5,9 @@ namespace ss\application\components\valueGenerator\modify;
 use ss\application\components\valueGenerator\_abstract\AbstractModifier;
 
 /**
- * Class for URL copy generation
+ * Class for alias copy generation
  */
-class UrlCopy extends AbstractModifier
+class AliasCopy extends AbstractModifier
 {
 
     /**

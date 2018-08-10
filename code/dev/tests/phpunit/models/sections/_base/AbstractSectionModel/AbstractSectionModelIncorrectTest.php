@@ -38,7 +38,7 @@ class AbstractSectionModelIncorrectTest extends AbstractIncorrectModelTest
                 [
                     'seoModel' => [
                         'name' => ['maxLength'],
-                        'url'  => ['maxLength']
+                        'alias'  => ['maxLength']
                     ],
                 ],
             ],
@@ -46,13 +46,13 @@ class AbstractSectionModelIncorrectTest extends AbstractIncorrectModelTest
                 [
                     'seoModel' => [
                         'name' => 'name',
-                        'url'  => 'url 2'
+                        'alias'  => 'alias 2'
                     ],
                 ],
                 [
                     'seoModel'         => [
                         'name' => 'name',
-                        'url'  => 'url-2'
+                        'alias'  => 'alias-2'
                     ],
                     'designBlockModel' => [
                         'marginTop'    => 0,
@@ -69,7 +69,7 @@ class AbstractSectionModelIncorrectTest extends AbstractIncorrectModelTest
                 [
                     'seoModel'         => [
                         'name' => 'name',
-                        'url'  => 'url-2'
+                        'alias'  => 'alias-2'
                     ],
                     'designBlockModel' => [
                         'marginTop'    => 0,

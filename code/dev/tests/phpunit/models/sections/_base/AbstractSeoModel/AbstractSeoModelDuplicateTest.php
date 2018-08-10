@@ -31,14 +31,14 @@ class AbstractSeoModelDuplicateTest extends AbstractDuplicateModelTest
         $this->duplicate(
             [
                 'name'        => 'Name',
-                'url'         => 'url',
+                'alias'         => 'alias',
                 'title'       => 'title',
                 'keywords'    => 'keywords',
                 'description' => 'description',
             ],
             [
                 'name'        => 'Name (Copy)',
-                'url'         => 'url-copy',
+                'alias'         => 'alias-copy',
                 'title'       => '',
                 'keywords'    => '',
                 'description' => '',
@@ -51,7 +51,7 @@ class AbstractSeoModelDuplicateTest extends AbstractDuplicateModelTest
             ],
             [
                 'name'        => 'Name (Copy)',
-                'url'         => 'name-copy',
+                'alias'         => 'name-copy',
                 'title'       => '',
                 'keywords'    => '',
                 'description' => '',

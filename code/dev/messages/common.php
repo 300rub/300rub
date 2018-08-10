@@ -39,6 +39,10 @@ return [
         Language::LANGUAGE_EN_ID => 'URL',
         Language::LANGUAGE_RU_ID => '',
     ],
+    'alias'     => [
+        Language::LANGUAGE_EN_ID => 'Alias',
+        Language::LANGUAGE_RU_ID => '',
+    ],
     'title'     => [
         Language::LANGUAGE_EN_ID => 'Title',
         Language::LANGUAGE_RU_ID => '',

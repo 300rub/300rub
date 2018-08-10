@@ -4,7 +4,7 @@
  * Variables
  *
  * @var \ss\models\blocks\image\ImageGroupModel $album
- * @var string                                  $url
+ * @var string                                  $uri
  */
 
 echo '<div class="album">';
@@ -12,7 +12,7 @@ echo '<div class="album">';
 $image = $album->getCover();
 echo sprintf(
     '<a href="%s" class="image-container">',
-    $url
+    $uri
 );
 
 if ($image !== null) {
@@ -30,7 +30,7 @@ echo '</a>';
 
 echo sprintf(
     '<a href="%s" class="name">%s</a>',
-    $url,
+    $uri,
     $album->get('seoModel')->get('name')
 );
 

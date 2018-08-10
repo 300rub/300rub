@@ -5,7 +5,7 @@ return [
         'recordId' => 1,
         'seoModel' => [
             'name' => 'Record 1',
-            'url'  => 'record-1',
+            'alias'  => 'record-1',
         ],
         'textTextInstanceModel' => [
             'text' => 'Text 1'
@@ -20,7 +20,7 @@ return [
         'recordId' => 1,
         'seoModel' => [
             'name' => 'Record 2',
-            'url'  => 'record-2',
+            'alias'  => 'record-2',
         ],
         'textTextInstanceModel' => [
             'text' => 'Text 2'
@@ -35,7 +35,7 @@ return [
         'recordId' => 1,
         'seoModel' => [
             'name' => 'Record 3',
-            'url'  => 'record-3',
+            'alias'  => 'record-3',
         ],
         'textTextInstanceModel' => [
             'text' => 'Text 3'
@@ -50,7 +50,7 @@ return [
         'recordId' => 1,
         'seoModel' => [
             'name' => 'Record 4',
-            'url'  => 'record-4',
+            'alias'  => 'record-4',
         ],
         'textTextInstanceModel' => [
             'text' => 'Text 4'
@@ -65,7 +65,7 @@ return [
         'recordId' => 1,
         'seoModel' => [
             'name' => 'Record 5',
-            'url'  => 'record-5',
+            'alias'  => 'record-5',
         ],
         'textTextInstanceModel' => [
             'text' => 'Text 5'
@@ -79,7 +79,7 @@ return [
         'recordId' => 1,
         'seoModel' => [
             'name' => 'Record 6',
-            'url'  => 'record-6',
+            'alias'  => 'record-6',
         ],
         'textTextInstanceModel' => [
             'text' => 'Text 6'
@@ -93,7 +93,7 @@ return [
         'recordId' => 1,
         'seoModel' => [
             'name' => 'Record 7',
-            'url'  => 'record-7',
+            'alias'  => 'record-7',
         ],
         'textTextInstanceModel' => [
             'text' => 'Text 7'
@@ -107,7 +107,7 @@ return [
         'recordId' => 1,
         'seoModel' => [
             'name' => 'Record 8',
-            'url'  => 'record-8',
+            'alias'  => 'record-8',
         ],
         'textTextInstanceModel' => [
             'text' => 'Text 8'
@@ -121,7 +121,7 @@ return [
         'recordId' => 1,
         'seoModel' => [
             'name' => 'Record 9',
-            'url'  => 'record-9',
+            'alias'  => 'record-9',
         ],
         'textTextInstanceModel' => [
             'text' => 'Text 9'
@@ -135,7 +135,7 @@ return [
         'recordId' => 1,
         'seoModel' => [
             'name' => 'Record 10',
-            'url'  => 'record-10',
+            'alias'  => 'record-10',
         ],
         'textTextInstanceModel' => [
             'text' => 'Text 10'
@@ -149,7 +149,7 @@ return [
         'recordId' => 1,
         'seoModel' => [
             'name' => 'Record 11',
-            'url'  => 'record-11',
+            'alias'  => 'record-11',
         ],
         'textTextInstanceModel' => [
             'text' => 'Text 11'
@@ -163,7 +163,7 @@ return [
         'recordId' => 1,
         'seoModel' => [
             'name' => 'Record 12',
-            'url'  => 'record-12',
+            'alias'  => 'record-12',
         ],
         'textTextInstanceModel' => [
             'text' => 'Text 12'
@@ -177,7 +177,7 @@ return [
         'recordId' => 2,
         'seoModel' => [
             'name' => 'Record 13',
-            'url'  => 'record-13',
+            'alias'  => 'record-13',
         ],
         'textTextInstanceModel' => [
             'text' => 'Text 13'
@@ -192,7 +192,7 @@ return [
         'recordId' => 2,
         'seoModel' => [
             'name' => 'Record 14',
-            'url'  => 'record-14',
+            'alias'  => 'record-14',
         ],
         'textTextInstanceModel' => [
             'text' => 'Text 14'
@@ -207,7 +207,7 @@ return [
         'recordId' => 2,
         'seoModel' => [
             'name' => 'Record 15',
-            'url'  => 'record-15',
+            'alias'  => 'record-15',
         ],
         'textTextInstanceModel' => [
             'text' => 'Text 15'
@@ -222,7 +222,7 @@ return [
         'recordId' => 2,
         'seoModel' => [
             'name' => 'Record 16',
-            'url'  => 'record-16',
+            'alias'  => 'record-16',
         ],
         'textTextInstanceModel' => [
             'text' => 'Text 16'
@@ -237,7 +237,7 @@ return [
         'recordId' => 2,
         'seoModel' => [
             'name' => 'Record 17',
-            'url'  => 'record-17',
+            'alias'  => 'record-17',
         ],
         'textTextInstanceModel' => [
             'text' => 'Text 17'
@@ -251,7 +251,7 @@ return [
         'recordId' => 2,
         'seoModel' => [
             'name' => 'Record 18',
-            'url'  => 'record-18',
+            'alias'  => 'record-18',
         ],
         'textTextInstanceModel' => [
             'text' => 'Text 18'
@@ -265,7 +265,7 @@ return [
         'recordId' => 2,
         'seoModel' => [
             'name' => 'Record 19',
-            'url'  => 'record-19',
+            'alias'  => 'record-19',
         ],
         'textTextInstanceModel' => [
             'text' => 'Text 19'
@@ -279,7 +279,7 @@ return [
         'recordId' => 2,
         'seoModel' => [
             'name' => 'Record 20',
-            'url'  => 'record-20',
+            'alias'  => 'record-20',
         ],
         'textTextInstanceModel' => [
             'text' => 'Text 20'
@@ -293,7 +293,7 @@ return [
         'recordId' => 2,
         'seoModel' => [
             'name' => 'Record 21',
-            'url'  => 'record-21',
+            'alias'  => 'record-21',
         ],
         'textTextInstanceModel' => [
             'text' => 'Text 21'
@@ -307,7 +307,7 @@ return [
         'recordId' => 2,
         'seoModel' => [
             'name' => 'Record 22',
-            'url'  => 'record-22',
+            'alias'  => 'record-22',
         ],
         'textTextInstanceModel' => [
             'text' => 'Text 22'
@@ -321,7 +321,7 @@ return [
         'recordId' => 2,
         'seoModel' => [
             'name' => 'Record 23',
-            'url'  => 'record-23',
+            'alias'  => 'record-23',
         ],
         'textTextInstanceModel' => [
             'text' => 'Text 23'
@@ -335,7 +335,7 @@ return [
         'recordId' => 2,
         'seoModel' => [
             'name' => 'Record 24',
-            'url'  => 'record-24',
+            'alias'  => 'record-24',
         ],
         'textTextInstanceModel' => [
             'text' => 'Text 24'

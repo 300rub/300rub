@@ -33,22 +33,22 @@ class AbstractSeoModelEmptyTest extends AbstractEmptyModelTest
                 [],
                 [
                     'name' => ['required'],
-                    'url'  => ['required', 'url']
+                    'alias'  => ['required', 'alias']
                 ]
             ],
             'empty2' => [
                 [
                     'name' => '',
-                    'url'  => '',
+                    'alias'  => '',
                 ],
                 [
                     'name' => ['required'],
-                    'url'  => ['required', 'url']
+                    'alias'  => ['required', 'alias']
                 ]
             ],
             'empty3' => [
                 [
-                    'url' => 'Not empty',
+                    'alias' => 'Not empty',
                 ],
                 [
                     'name' => ['required']
@@ -60,7 +60,7 @@ class AbstractSeoModelEmptyTest extends AbstractEmptyModelTest
                 ],
                 [
                     'name'        => 'Not empty',
-                    'url'         => 'not-empty',
+                    'alias'         => 'not-empty',
                     'title'       => '',
                     'keywords'    => '',
                     'description' => '',
@@ -69,26 +69,26 @@ class AbstractSeoModelEmptyTest extends AbstractEmptyModelTest
             'empty5' => [
                 [
                     'name'        => '     Not empty        ',
-                    'url'         => '     Not empty     url     ',
+                    'alias'         => '     Not empty     alias     ',
                     'title'       => '         ',
                     'keywords'    => '          ',
                     'description' => '          '
                 ],
                 [
                     'name'        => 'Not empty',
-                    'url'         => 'not-empty-----url',
+                    'alias'         => 'not-empty-----alias',
                     'title'       => '',
                     'keywords'    => '',
                     'description' => '',
                 ],
                 [
                     'name'     => ' Not empty 2 ',
-                    'url'      => '',
+                    'alias'      => '',
                     'keywords' => 'keywords',
                 ],
                 [
                     'name'        => 'Not empty 2',
-                    'url'         => 'not-empty-2',
+                    'alias'         => 'not-empty-2',
                     'title'       => '',
                     'keywords'    => 'keywords',
                     'description' => ''
@@ -100,25 +100,25 @@ class AbstractSeoModelEmptyTest extends AbstractEmptyModelTest
                 ],
                 [
                     'name' => 'Not empty',
-                    'url'  => 'not-empty',
+                    'alias'  => 'not-empty',
                 ],
                 [
                     'name' => '',
-                    'url'  => '',
+                    'alias'  => '',
                 ],
                 [
                     'name' => ['required'],
-                    'url'  => ['required', 'url']
+                    'alias'  => ['required', 'alias']
                 ]
             ],
             'empty7' => [
                 [
                     'name' => null,
-                    'url'  => null,
+                    'alias'  => null,
                 ],
                 [
                     'name' => ['required'],
-                    'url'  => ['required', 'url']
+                    'alias'  => ['required', 'alias']
                 ]
             ],
         ];

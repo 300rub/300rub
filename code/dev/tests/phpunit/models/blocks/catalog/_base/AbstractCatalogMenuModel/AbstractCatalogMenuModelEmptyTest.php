@@ -60,7 +60,7 @@ class AbstractCatalogMenuModelEmptyTest extends AbstractEmptyModelTest
                 [
                     'seoModel' => [
                         'name' => ['required'],
-                        'url'  => ['required', 'url'],
+                        'alias'  => ['required', 'alias'],
                     ],
                 ],
             ],
@@ -78,7 +78,7 @@ class AbstractCatalogMenuModelEmptyTest extends AbstractEmptyModelTest
                     'parentId'  => null,
                     'seoModel'  => [
                         'name'        => 'New name',
-                        'url'         => 'new-name',
+                        'alias'         => 'new-name',
                         'title'       => '',
                         'keywords'    => '',
                         'description' => '',
@@ -93,7 +93,7 @@ class AbstractCatalogMenuModelEmptyTest extends AbstractEmptyModelTest
                     'parentId'  => null,
                     'seoModel'  => [
                         'name'        => '',
-                        'url'         => '',
+                        'alias'         => '',
                         'title'       => '',
                         'keywords'    => '',
                         'description' => '',
@@ -105,7 +105,7 @@ class AbstractCatalogMenuModelEmptyTest extends AbstractEmptyModelTest
                 [
                     'seoModel' => [
                         'name' => ['required'],
-                        'url'  => ['required', 'url'],
+                        'alias'  => ['required', 'alias'],
                     ],
                 ],
             ]

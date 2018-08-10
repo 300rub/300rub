@@ -108,7 +108,7 @@ class PageController extends AbstractPageController
         $site->setActiveSection(
             SectionModel::model()
                 ->byLanguage(App::web()->getLanguage()->getActiveId())
-                ->byUrl($explode[1])
+                ->byAlias($explode[1])
                 ->withRelations(['*'])
                 ->find()
         );

@@ -24,13 +24,13 @@ class RecordInstanceModel extends AbstractRecordInstanceModel
     }
 
     /**
-     * Find by URL
+     * Find by Alias
      *
-     * @param string $url URL
+     * @param string $alias Alias
      *
      * @return RecordInstanceModel
      */
-    public function byUrl($url)
+    public function byAlias($alias)
     {
         $this->getDb()->addJoin(
             Db::JOIN_TYPE_INNER,
@@ -42,9 +42,9 @@ class RecordInstanceModel extends AbstractRecordInstanceModel
         );
 
         $this->getDb()->addWhere(
-            'seo.url = :url'
+            'seo.alias = :alias'
         );
-        $this->getDb()->addParameter('url', $url);
+        $this->getDb()->addParameter('alias', $alias);
 
         return $this;
     }

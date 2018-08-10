@@ -32,7 +32,7 @@ class AbstractSectionModelDuplicateTest extends AbstractDuplicateModelTest
             [
                 'seoModel'         => [
                     'name'        => 'name',
-                    'url'         => 'url',
+                    'alias'         => 'alias',
                     'title'       => 'title',
                     'keywords'    => 'keywords',
                     'description' => 'description'
@@ -47,7 +47,7 @@ class AbstractSectionModelDuplicateTest extends AbstractDuplicateModelTest
             [
                 'seoModel'         => [
                     'name'        => 'name (Copy)',
-                    'url'         => 'url-copy',
+                    'alias'         => 'alias-copy',
                     'title'       => '',
                     'keywords'    => '',
                     'description' => ''

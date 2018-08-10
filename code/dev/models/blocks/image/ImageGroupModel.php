@@ -63,13 +63,13 @@ class ImageGroupModel extends AbstractImageGroupModel
     }
 
     /**
-     * Find by URL
+     * Find by alias
      *
-     * @param string $url URL
+     * @param string $alias Alias
      *
      * @return ImageGroupModel
      */
-    public function byUrl($url)
+    public function byAlias($alias)
     {
         $this->getDb()->addJoin(
             Db::JOIN_TYPE_INNER,
@@ -81,9 +81,9 @@ class ImageGroupModel extends AbstractImageGroupModel
         );
 
         $this->getDb()->addWhere(
-            'seo.url = :url'
+            'seo.alias = :alias'
         );
-        $this->getDb()->addParameter('url', $url);
+        $this->getDb()->addParameter('alias', $alias);
 
         return $this;
     }

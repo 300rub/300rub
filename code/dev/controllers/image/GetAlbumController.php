@@ -32,11 +32,11 @@ class GetAlbumController extends AbstractController
     private $_name = '';
 
     /**
-     * URL
+     * Alias
      *
      * @var string
      */
-    private $_url = '';
+    private $_alias = '';
 
     /**
      * Title
@@ -100,12 +100,12 @@ class GetAlbumController extends AbstractController
                         => $this->_seoModel->getValidationRulesForField('name'),
                     'value'      => $this->_name,
                 ],
-                'url'   => [
-                    'name'       => 'url',
-                    'label'      => $language->getMessage('common', 'url'),
+                'alias'   => [
+                    'name'       => 'alias',
+                    'label'      => $language->getMessage('common', 'alias'),
                     'validation'
-                        => $this->_seoModel->getValidationRulesForField('url'),
-                    'value'      => $this->_url,
+                        => $this->_seoModel->getValidationRulesForField('alias'),
+                    'value'      => $this->_alias,
                 ],
                 'title'   => [
                     'name'       => 'title',
@@ -156,7 +156,7 @@ class GetAlbumController extends AbstractController
 
         $this->_seoModel = new SeoModel();
         $this->_name = '';
-        $this->_url = '';
+        $this->_alias = '';
         $this->_title = '';
         $this->_keywords = '';
         $this->_description = '';
@@ -200,7 +200,7 @@ class GetAlbumController extends AbstractController
 
         $this->_seoModel = $imageGroupModel->get('seoModel');
         $this->_name = $this->_seoModel->get('name');
-        $this->_url = $this->_seoModel->get('url');
+        $this->_alias = $this->_seoModel->get('alias');
         $this->_title = $this->_seoModel->get('title');
         $this->_keywords = $this->_seoModel->get('keywords');
         $this->_description = $this->_seoModel->get('description');

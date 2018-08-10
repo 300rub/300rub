@@ -80,7 +80,7 @@ class MenuInstanceModel extends AbstractMenuInstanceModel
 
         $explode = explode('/', $requestUri);
 
-        if ($explode[1] === $instance['url']) {
+        if ($explode[1] === $instance['alias']) {
             return true;
         }
 
@@ -113,9 +113,9 @@ class MenuInstanceModel extends AbstractMenuInstanceModel
      */
     private function _generateUrl($instance)
     {
-        $url = $instance['url'];
-        if ($url === null) {
-            return $url;
+        $alias = $instance['alias'];
+        if ($alias === null) {
+            return null;
         }
 
         $staticUrl = trim($instance['staticUrl']);
@@ -134,7 +134,7 @@ class MenuInstanceModel extends AbstractMenuInstanceModel
             return sprintf('/%s', $language);
         }
 
-        return sprintf('/%s/%s', $language, $instance['url']);
+        return sprintf('/%s/%s', $language, $alias);
     }
 
     /**
@@ -157,7 +157,7 @@ class MenuInstanceModel extends AbstractMenuInstanceModel
             ->addSelect('language', 'sections', 'language')
             ->addSelect('isMain', 'sections', 'isMain')
             ->addSelect('name', 'seo', 'name')
-            ->addSelect('url', 'seo', 'url');
+            ->addSelect('alias', 'seo', 'alias');
         $dbObject
             ->setTable('menuInstances');
         $dbObject

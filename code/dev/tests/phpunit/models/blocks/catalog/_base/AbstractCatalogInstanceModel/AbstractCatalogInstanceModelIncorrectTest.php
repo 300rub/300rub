@@ -72,7 +72,7 @@ class AbstractCatalogInstanceModelIncorrectTest extends AbstractIncorrectModelTe
                 [
                     'seoModel'        => [
                         'name'        => 'name 1',
-                        'url'         => 'name-1',
+                        'alias'         => 'name-1',
                         'title'       => '',
                         'keywords'    => '',
                         'description' => '',

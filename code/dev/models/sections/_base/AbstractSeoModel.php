@@ -43,19 +43,19 @@ abstract class AbstractSeoModel extends AbstractModel
                     ValueGenerator::COPY_NAME
                 ],
             ],
-            'url'         => [
+            'alias'       => [
                 self::FIELD_TYPE                => self::FIELD_TYPE_STRING,
                 self::FIELD_VALIDATION          => [
                     Validator::TYPE_REQUIRED,
-                    Validator::TYPE_URL,
+                    Validator::TYPE_ALIAS,
                     Validator::TYPE_MAX_LENGTH => 255
                 ],
                 self::FIELD_VALUE               => [
                     ValueGenerator::CLEAR_STRIP_TAGS,
-                    ValueGenerator::URL => '{name}'
+                    ValueGenerator::ALIAS => '{name}'
                 ],
                 self::FIELD_CHANGE_ON_DUPLICATE => [
-                    ValueGenerator::COPY_URL
+                    ValueGenerator::COPY_ALIAS
                 ]
             ],
             'title'       => [

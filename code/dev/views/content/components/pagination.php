@@ -38,7 +38,7 @@ foreach ($tree as $item) {
 
     echo sprintf(
         '<a href="%s" class="%s">%s</a> ',
-        $item['url'],
+        $item['uri'],
         $activeClass,
         $value
     );

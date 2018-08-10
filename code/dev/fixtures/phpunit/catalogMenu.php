@@ -5,7 +5,7 @@ return [
         'parentId'  => null,
         'seoModel'  => [
             'name'        => 'Test',
-            'url'         => '',
+            'alias'         => '',
             'title'       => '',
             'keywords'    => '',
             'description' => '',

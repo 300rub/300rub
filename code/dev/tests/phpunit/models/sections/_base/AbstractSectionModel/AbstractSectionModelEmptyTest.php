@@ -34,7 +34,7 @@ class AbstractSectionModelEmptyTest extends AbstractEmptyModelTest
                 [
                     'seoModel' => [
                         'name' => ['required'],
-                        'url'  => ['required', 'url']
+                        'alias'  => ['required', 'alias']
                     ]
                 ]
             ],
@@ -48,14 +48,14 @@ class AbstractSectionModelEmptyTest extends AbstractEmptyModelTest
                 [
                     'seoModel' => [
                         'name' => ['required'],
-                        'url'  => ['required', 'url']
+                        'alias'  => ['required', 'alias']
                     ]
                 ]
             ],
             'empty3' => [
                 [
                     'seoModel' => [
-                        'url' => 'url'
+                        'alias' => 'alias'
                     ],
                 ],
                 [
@@ -76,7 +76,7 @@ class AbstractSectionModelEmptyTest extends AbstractEmptyModelTest
                 [
                     'seoModel'         => [
                         'name' => 'name',
-                        'url'  => 'name'
+                        'alias'  => 'name'
                     ],
                     'designBlockModel' => [
                         'marginTop' => 0
@@ -97,7 +97,7 @@ class AbstractSectionModelEmptyTest extends AbstractEmptyModelTest
                 [
                     'seoModel'         => [
                         'name' => 'name',
-                        'url'  => 'name'
+                        'alias'  => 'name'
                     ],
                     'designBlockModel' => [
                         'marginTop' => 0

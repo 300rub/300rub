@@ -56,7 +56,7 @@ class AbstractCatalogMenuModelIncorrectTest extends AbstractIncorrectModelTest
                     'parentId'  => 1,
                     'seoModel'  => [
                         'name' => 'as asd  as',
-                        'url'  => 'as-asd--as'
+                        'alias'  => 'as-asd--as'
                     ],
                     'catalogId' => 1,
                     'icon'      => '123',

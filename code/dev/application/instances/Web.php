@@ -15,9 +15,9 @@ class Web extends AbstractWebAjax
 {
 
     /**
-     * API url
+     * API uri
      */
-    const API_URL = 'api';
+    const API_PREFIX = 'api';
 
     /**
      * User in session
@@ -40,7 +40,7 @@ class Web extends AbstractWebAjax
         $this->setSite($httpHost);
 
         $isAjax = false;
-        if (strpos($this->getSite()->getUri(), self::API_URL) === 0) {
+        if (strpos($this->getSite()->getUri(), self::API_PREFIX) === 0) {
             $isAjax = true;
         }
 

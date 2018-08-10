@@ -45,28 +45,28 @@ class AbstractSeoModelIncorrectTest extends AbstractIncorrectModelTest
             'incorrect1' => [
                 [
                     'name'        => 1,
-                    'url'         => 2,
+                    'alias'         => 2,
                     'title'       => 3,
                     'keywords'    => 4,
                     'description' => 5
                 ],
                 [
                     'name'        => '1',
-                    'url'         => '2',
+                    'alias'         => '2',
                     'title'       => '3',
                     'keywords'    => '4',
                     'description' => '5'
                 ],
                 [
                     'name'        => 1.5,
-                    'url'         => 2.5,
+                    'alias'         => 2.5,
                     'title'       => 3.5,
                     'keywords'    => 4.5,
                     'description' => 5.5
                 ],
                 [
                     'name'        => '1.5',
-                    'url'         => '25',
+                    'alias'         => '25',
                     'title'       => '3.5',
                     'keywords'    => '4.5',
                     'description' => '5.5'
@@ -75,41 +75,41 @@ class AbstractSeoModelIncorrectTest extends AbstractIncorrectModelTest
             'incorrect2' => [
                 [
                     'name'        => true,
-                    'url'         => true,
+                    'alias'         => true,
                     'title'       => true,
                     'keywords'    => true,
                     'description' => true
                 ],
                 [
                     'name'        => '1',
-                    'url'         => '1',
+                    'alias'         => '1',
                     'title'       => '1',
                     'keywords'    => '1',
                     'description' => '1'
                 ],
                 [
                     'name'        => false,
-                    'url'         => false,
+                    'alias'         => false,
                     'title'       => false,
                     'keywords'    => false,
                     'description' => false
                 ],
                 [
                     'name' => ['required'],
-                    'url'  => ['required', 'url']
+                    'alias'  => ['required', 'alias']
                 ]
             ],
             'incorrect3' => [
                 [
                     'name'        => [],
-                    'url'         => [],
+                    'alias'         => [],
                     'title'       => [],
                     'keywords'    => [],
                     'description' => []
                 ],
                 [
                     'name' => ['required'],
-                    'url'  => ['required', 'url']
+                    'alias'  => ['required', 'alias']
                 ]
             ],
         ];
@@ -126,40 +126,40 @@ class AbstractSeoModelIncorrectTest extends AbstractIncorrectModelTest
             'incorrect4' => [
                 [
                     'name'        => ['name' => 'name', 'value'],
-                    'url'         => ['name' => 'name', 'value'],
+                    'alias'         => ['name' => 'name', 'value'],
                     'title'       => ['name' => 'name', 'value'],
                     'keywords'    => ['name' => 'name', 'value'],
                     'description' => ['name' => 'name', 'value'],
                 ],
                 [
                     'name' => ['required'],
-                    'url'  => ['required', 'url']
+                    'alias'  => ['required', 'alias']
                 ]
             ],
             'incorrect5' => [
                 [
                     'name'        => new \stdClass(),
-                    'url'         => new \stdClass(),
+                    'alias'         => new \stdClass(),
                     'title'       => new \stdClass(),
                     'keywords'    => new \stdClass(),
                     'description' => new \stdClass(),
                 ],
                 [
                     'name' => ['required'],
-                    'url'  => ['required', 'url']
+                    'alias'  => ['required', 'alias']
                 ]
             ],
             'incorrect6' => [
                 [
                     'name'        => $this->generateStringWithLength(256),
-                    'url'         => $this->generateStringWithLength(256),
+                    'alias'         => $this->generateStringWithLength(256),
                     'title'       => $this->generateStringWithLength(256),
                     'keywords'    => $this->generateStringWithLength(256),
                     'description' => $this->generateStringWithLength(256),
                 ],
                 [
                     'name'        => ['maxLength'],
-                    'url'         => ['maxLength'],
+                    'alias'         => ['maxLength'],
                     'title'       => ['maxLength'],
                     'keywords'    => ['maxLength'],
                     'description' => ['maxLength'],
@@ -168,7 +168,7 @@ class AbstractSeoModelIncorrectTest extends AbstractIncorrectModelTest
             'incorrect7' => [
                 [
                     'name'        => $this->getStringWithTags('Name'),
-                    'url'         => $this->getStringWithTags('url 1'),
+                    'alias'         => $this->getStringWithTags('alias 1'),
                     'title'       => $this->getStringWithTags(' Title '),
                     'keywords'
                         => $this->getStringWithTags(' keywords, keywords '),
@@ -176,7 +176,7 @@ class AbstractSeoModelIncorrectTest extends AbstractIncorrectModelTest
                 ],
                 [
                     'name'        => 'Name',
-                    'url'         => 'url-1',
+                    'alias'         => 'alias-1',
                     'title'       => 'Title',
                     'keywords'    => 'keywords, keywords',
                     'description' => 'description',

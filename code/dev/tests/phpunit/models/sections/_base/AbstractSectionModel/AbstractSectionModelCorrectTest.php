@@ -33,7 +33,7 @@ class AbstractSectionModelCorrectTest extends AbstractCorrectModelTest
                 [
                     'seoModel'         => [
                         'name'        => 'name',
-                        'url'         => 'url',
+                        'alias'         => 'alias',
                         'title'       => 'title',
                         'keywords'    => 'keywords',
                         'description' => 'description'
@@ -48,7 +48,7 @@ class AbstractSectionModelCorrectTest extends AbstractCorrectModelTest
                 [
                     'seoModel'         => [
                         'name'        => 'name',
-                        'url'         => 'url',
+                        'alias'         => 'alias',
                         'title'       => 'title',
                         'keywords'    => 'keywords',
                         'description' => 'description'
@@ -63,7 +63,7 @@ class AbstractSectionModelCorrectTest extends AbstractCorrectModelTest
                 [
                     'seoModel'         => [
                         'name'        => 'name 2',
-                        'url'         => 'url-2',
+                        'alias'         => 'alias-2',
                         'title'       => 'title 2',
                         'keywords'    => 'keywords 2',
                         'description' => 'description 2'
@@ -78,7 +78,7 @@ class AbstractSectionModelCorrectTest extends AbstractCorrectModelTest
                 [
                     'seoModel'         => [
                         'name'        => 'name 2',
-                        'url'         => 'url-2',
+                        'alias'         => 'alias-2',
                         'title'       => 'title 2',
                         'keywords'    => 'keywords 2',
                         'description' => 'description 2'

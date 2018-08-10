@@ -34,7 +34,7 @@ class AbstractCatalogMenuModelCorrectTest extends AbstractCorrectModelTest
                     'parentId'  => null,
                     'seoModel'  => [
                         'name'        => 'Name',
-                        'url'         => 'url',
+                        'alias'         => 'alias',
                         'title'       => 'title',
                         'keywords'    => 'keywords',
                         'description' => 'description',
@@ -47,7 +47,7 @@ class AbstractCatalogMenuModelCorrectTest extends AbstractCorrectModelTest
                     'parentId'  => null,
                     'seoModel'  => [
                         'name'        => 'Name',
-                        'url'         => 'url',
+                        'alias'         => 'alias',
                         'title'       => 'title',
                         'keywords'    => 'keywords',
                         'description' => 'description',
@@ -60,7 +60,7 @@ class AbstractCatalogMenuModelCorrectTest extends AbstractCorrectModelTest
                     'parentId'  => 1,
                     'seoModel'  => [
                         'name'        => 'Name 2',
-                        'url'         => 'url-2',
+                        'alias'         => 'alias-2',
                         'title'       => 'title 2',
                         'keywords'    => 'keywords 2',
                         'description' => 'description 2',
@@ -73,7 +73,7 @@ class AbstractCatalogMenuModelCorrectTest extends AbstractCorrectModelTest
                     'parentId'  => 1,
                     'seoModel'  => [
                         'name'        => 'Name 2',
-                        'url'         => 'url-2',
+                        'alias'         => 'alias-2',
                         'title'       => 'title 2',
                         'keywords'    => 'keywords 2',
                         'description' => 'description 2',
