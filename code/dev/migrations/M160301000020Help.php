@@ -2,7 +2,6 @@
 
 namespace ss\migrations;
 
-use ss\application\App;
 use ss\migrations\_abstract\AbstractMigration;
 
 /**
@@ -31,13 +30,7 @@ class M160301000020Help extends AbstractMigration
                 [
                     'id'          => self::TYPE_PK,
                     'parentId'    => self::TYPE_FK_NULL,
-                    'language'    => self::TYPE_TINYINT,
-                    'name'        => self::TYPE_STRING,
-                    'text'        => self::TYPE_TEXT,
                     'alias'       => self::TYPE_STRING_50,
-                    'title'       => self::TYPE_STRING_100,
-                    'keywords'    => self::TYPE_STRING,
-                    'description' => self::TYPE_STRING,
                 ]
             )
             ->createForeignKey(
@@ -49,20 +42,38 @@ class M160301000020Help extends AbstractMigration
             )
             ->createUniqueIndex(
                 'categories',
-                'categories_language_alias',
-                'language,alias'
+                'categories_alias',
+                'alias'
+            )
+            ->createTable(
+                'languageCategories',
+                [
+                    'id'          => self::TYPE_PK,
+                    'categoryId'  => self::TYPE_FK,
+                    'language'    => self::TYPE_TINYINT,
+                    'name'        => self::TYPE_STRING,
+                    'text'        => self::TYPE_TEXT,
+                    'title'       => self::TYPE_STRING_100,
+                    'keywords'    => self::TYPE_STRING,
+                    'description' => self::TYPE_STRING,
+                ]
+            )
+            ->createForeignKey(
+                'languageCategories',
+                'categoryId',
+                'categories'
+            )
+            ->createUniqueIndex(
+                'languageCategories',
+                'languageCategories_categoryId_language',
+                'categoryId,language'
             )
             ->createTable(
                 'pages',
                 [
                     'id'          => self::TYPE_PK,
-                    'categoryId'  => self::TYPE_FK_NULL,
-                    'name'        => self::TYPE_STRING,
-                    'text'        => self::TYPE_TEXT,
+                    'categoryId'  => self::TYPE_FK,
                     'alias'       => self::TYPE_STRING_50,
-                    'title'       => self::TYPE_STRING_100,
-                    'keywords'    => self::TYPE_STRING,
-                    'description' => self::TYPE_STRING,
                 ]
             )
             ->createForeignKey(
@@ -74,6 +85,29 @@ class M160301000020Help extends AbstractMigration
                 'pages',
                 'pages_alias',
                 'alias'
+            )
+            ->createTable(
+                'languagePages',
+                [
+                    'id'          => self::TYPE_PK,
+                    'pageId'      => self::TYPE_FK,
+                    'language'    => self::TYPE_TINYINT,
+                    'name'        => self::TYPE_STRING,
+                    'text'        => self::TYPE_TEXT,
+                    'title'       => self::TYPE_STRING_100,
+                    'keywords'    => self::TYPE_STRING,
+                    'description' => self::TYPE_STRING,
+                ]
+            )
+            ->createForeignKey(
+                'languagePages',
+                'pageId',
+                'pages'
+            )
+            ->createUniqueIndex(
+                'languagePages',
+                'languagePages_pageId_language',
+                'pageId,language'
             );
     }
 }

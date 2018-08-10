@@ -2,8 +2,6 @@
 
 namespace ss\migrations;
 
-use ss\application\App;
-use ss\application\components\Language;
 use ss\migrations\_abstract\AbstractMigration;
 
 /**
@@ -41,36 +39,5 @@ class M160301000000Sites extends AbstractMigration
                 ]
             )
             ->createUniqueIndex('sites', 'sites_name', 'name');
-    }
-
-    /**
-     * Inserts test data
-     *
-     * @return void
-     */
-    public function insertData()
-    {
-        $dbObject = App::getInstance()->getDb();
-        $config = App::getInstance()->getConfig();
-
-        $sites = ['dev', 'phpunit', 'selenium'];
-
-        foreach ($sites as $site) {
-            $dbObject->execute(
-                'INSERT ' .
-                'INTO sites ' .
-                '(name, dbHost, dbUser, dbPassword, dbName, language, email)' .
-                ' VALUES (?, ?, ?, ?, ?, ?, ?)',
-                [
-                    $site,
-                    $config->getValue(['db', $site, 'host']),
-                    $config->getValue(['db', $site, 'user']),
-                    $config->getValue(['db', $site, 'password']),
-                    $config->getValue(['db', $site, 'name']),
-                    Language::LANGUAGE_EN_ID,
-                    'email@ss.local',
-                ]
-            );
-        }
     }
 }

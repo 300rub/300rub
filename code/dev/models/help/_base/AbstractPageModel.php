@@ -7,9 +7,9 @@ use ss\application\components\ValueGenerator;
 use ss\models\_abstract\AbstractModel;
 
 /**
- * Abstract model for working with table "categories" (help DB)
+ * Abstract model for working with table "pages" (help DB)
  */
-abstract class AbstractCategoryModel extends AbstractModel
+abstract class AbstractPageModel extends AbstractModel
 {
 
     /**
@@ -19,7 +19,7 @@ abstract class AbstractCategoryModel extends AbstractModel
      */
     public function getTableName()
     {
-        return 'categories';
+        return 'pages';
     }
 
     /**
@@ -30,10 +30,9 @@ abstract class AbstractCategoryModel extends AbstractModel
     public function getFieldsInfo()
     {
         return [
-            'parentId'  => [
+            'categoryId'  => [
                 self::FIELD_RELATION_TO_PARENT
                 => '\\ss\\models\\help\\CategoryModel',
-                self::FIELD_ALLOW_NULL         => true,
                 self::FIELD_SKIP_DUPLICATION   => true,
             ],
             'alias'         => [

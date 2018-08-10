@@ -100,12 +100,11 @@ abstract class AbstractSiteModel extends AbstractModel
                 self::FIELD_NOT_CHANGE_ON_UPDATE => true,
             ],
             'email'        => [
-                self::FIELD_TYPE                 => self::FIELD_TYPE_STRING,
-                self::FIELD_VALIDATION           => [
+                self::FIELD_TYPE              => self::FIELD_TYPE_STRING,
+                self::FIELD_VALIDATION        => [
                     Validator::TYPE_EMAIL
                 ],
-                self::FIELD_SKIP_DUPLICATION     => true,
-                self::FIELD_UNIQUE               => true
+                self::FIELD_SKIP_DUPLICATION  => true,
             ],
         ];
     }

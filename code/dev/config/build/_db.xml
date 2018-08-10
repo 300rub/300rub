@@ -25,6 +25,13 @@
         <exec executable="php" failonerror="true">
             <arg value='commands/run' />
             <arg value='db/ImportFixturesCommand' />
+            <arg value='help' />
+        </exec>
+
+        <exec executable="php" failonerror="true">
+            <arg value='commands/run' />
+            <arg value='db/ImportFixturesCommand' />
+            <arg value='system' />
         </exec>
     </target>
 

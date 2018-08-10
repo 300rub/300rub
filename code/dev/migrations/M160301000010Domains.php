@@ -2,7 +2,6 @@
 
 namespace ss\migrations;
 
-use ss\application\App;
 use ss\migrations\_abstract\AbstractMigration;
 
 /**
@@ -42,27 +41,5 @@ class M160301000010Domains extends AbstractMigration
                 self::FK_CASCADE,
                 self::FK_CASCADE
             );
-    }
-
-    /**
-     * Inserts test data
-     *
-     * @return void
-     */
-    public function insertData()
-    {
-        $dbObject = App::getInstance()->getDb();
-        $domains = App::getInstance()->getConfig()->getValue(['domains']);
-        foreach ($domains as $domain) {
-            $dbObject->execute(
-                'INSERT ' .
-                'INTO domains (siteId, name, isMain) VALUES (?, ?, ?)',
-                [
-                    $domain['siteId'],
-                    $domain['name'],
-                    (int)$domain['isMain'],
-                ]
-            );
-        }
     }
 }

@@ -82,6 +82,18 @@ class ImportFixturesCommand extends AbstractCommand
             => '\\ss\\models\\blocks\\catalog\\CatalogInstanceModel',
         'catalogBin'
             => '\\ss\\models\\blocks\\catalog\\CatalogBinModel',
+        'helpCategory'
+            => '\\ss\\models\\help\\CategoryModel',
+        'helpLanguageCategory'
+            => '\\ss\\models\\help\\LanguageCategoryModel',
+        'helpPage'
+            => '\\ss\\models\\help\\PageModel',
+        'helpLanguagePage'
+            => '\\ss\\models\\help\\LanguagePageModel',
+        'systemSite'
+            => '\\ss\\models\\system\\SiteModel',
+        'systemDomain'
+            => '\\ss\\models\\system\\DomainModel',
     ];
 
     /**
@@ -141,9 +153,9 @@ class ImportFixturesCommand extends AbstractCommand
             }
         }
 
-        $this->_uploadImages($type);
-
-        $this->_saveRecordInstances($type);
+        $this
+            ->_uploadImages($type)
+            ->_saveRecordInstances($type);
 
         $dbObject->execute('SET GLOBAL FOREIGN_KEY_CHECKS=1;');
     }
@@ -200,15 +212,21 @@ class ImportFixturesCommand extends AbstractCommand
      *
      * @param string $type Type
      *
-     * @return void
+     * @return ImportFixturesCommand
      */
     private function _uploadImages($type)
     {
-        $map = include sprintf(
+        $file = sprintf(
             '%s/fixtures/%s/imageInstances.php',
             CODE_ROOT,
             $type
         );
+
+        if (file_exists($file) === false) {
+            return $this;
+        }
+
+        $map = include $file;
 
         foreach ($map as $imageInstanceId => $data) {
             $mimeType = 'application/octet-stream';
@@ -236,6 +254,8 @@ class ImportFixturesCommand extends AbstractCommand
                 ->find();
             $imageInstanceModel->set($data)->save();
         }
+
+        return $this;
     }
 
     /**

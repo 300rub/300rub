@@ -9,11 +9,11 @@
     </target>
 
     <target name="dev-migrate">
-        <exec executable="php" failonerror="true">
-            <arg value='commands/run' />
-            <arg value='db/MigrateCommand' />
-            <arg value='dev' />
-        </exec>
+        <!--<exec executable="php" failonerror="true">-->
+            <!--<arg value='commands/run' />-->
+            <!--<arg value='db/MigrateCommand' />-->
+            <!--<arg value='dev' />-->
+        <!--</exec>-->
     </target>
 
     <target name="dev-setup" depends="dev-upload-prepare, db-recreate-dev-databases, tools-flush-memcached, dev-migrate, db-import-dev-fixtures">

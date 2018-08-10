@@ -112,11 +112,9 @@ class RecreateDevDatabasesCommand extends AbstractCommand
 
         $migration = new M160301000000Sites();
         $migration->apply();
-        $migration->insertData();
 
         $migration = new M160301000010Domains();
         $migration->apply();
-        $migration->insertData();
 
         $dbObject->setPdo(
             $config->getValue(['db', 'help', 'host']),
