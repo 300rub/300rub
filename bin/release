@@ -11,4 +11,4 @@ docker-compose $files -p ss rm -f
 docker-compose $files -p ss build
 docker-compose $files -p ss up -d
 
-docker exec -it ss_phpfpm_1 ant -file /var/www/code/live/config/build/build.xml release-make -Drelease=$1
+#docker exec -it ss_phpfpm_1 ant -file /var/www/code/live/config/build/build.xml release-make -Drelease=$1

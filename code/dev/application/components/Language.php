@@ -113,8 +113,8 @@ class Language
      */
     public function getActiveAlias()
     {
-        if (in_array(self::getActiveId(), $this->_aliasList) === true) {
-            return $this->_aliasList[self::getActiveId()];
+        if (array_key_exists($this->getActiveId(), $this->_aliasList) === true) {
+            return $this->_aliasList[$this->getActiveId()];
         }
 
         return $this->_aliasList[self::LANGUAGE_EN_ID];

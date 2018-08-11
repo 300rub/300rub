@@ -1,13 +1,13 @@
 <?php
 
-namespace ss\controllers\site;
+namespace ss\controllers\site\_abstract;
 
 use ss\controllers\_abstract\AbstractBaseController;
 
 /**
- * SiteController
+ * Abstract Controller for all site controllers
  */
-class SiteController extends AbstractBaseController
+abstract class AbstractController extends AbstractBaseController
 {
 
     /**
@@ -29,19 +29,22 @@ class SiteController extends AbstractBaseController
     /**
      * Gets site page
      *
+     * @param string $content     Content
+     * @param string $title       Meta title
+     * @param string $keywords    Meta keywords
+     * @param string $description Meta description
+     *
      * @return string
      */
-    public function run()
+    protected function getPageHtml($content, $title, $keywords, $description)
     {
         $this->_setStaticMap();
 
-        $content = $this->getContentFromTemplate('site/index', []);
-
         $layoutData = [];
         $layoutData['content'] = $content;
-        $layoutData['title'] = 'Test title';
-        $layoutData['keywords'] = 'Test keywords';
-        $layoutData['description'] = 'Test description';
+        $layoutData['title'] = $title;
+        $layoutData['keywords'] = $keywords;
+        $layoutData['description'] = $description;
         $layoutData['css'] = $this->_getCss();
         $layoutData['js'] = $this->_getJs();
         $layoutData['less'] = $this->_getLess();
