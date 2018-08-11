@@ -65,7 +65,7 @@ abstract class AbstractContentMenuModel extends AbstractMenuModel
                 'content/menu/li',
                 [
                     'isActive' => $instance['isActive'],
-                    'alias'    => $instance['alias'],
+                    'url'      => $instance['url'],
                     'name'     => $instance['name'],
                     'level'    => $level,
                     'children' => $children,

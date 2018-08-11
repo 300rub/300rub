@@ -16,6 +16,6 @@
         </exec>
     </target>
 
-    <target name="dev-setup" depends="dev-upload-prepare, db-recreate-dev-databases, tools-flush-memcached, dev-migrate, db-import-dev-fixtures">
+    <target name="dev-setup" depends="dev-upload-prepare, db-recreate-dev-databases, tools-flush-memcached, db-import-system-fixtures, dev-migrate, db-import-dev-fixtures">
     </target>
 </project>

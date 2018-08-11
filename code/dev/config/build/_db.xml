@@ -21,7 +21,7 @@
         </exec>
     </target>
 
-    <target name="db-import-dev-fixtures">
+    <target name="db-import-system-fixtures">
         <exec executable="php" failonerror="true">
             <arg value='commands/run' />
             <arg value='db/ImportFixturesCommand' />
@@ -32,6 +32,14 @@
             <arg value='commands/run' />
             <arg value='db/ImportFixturesCommand' />
             <arg value='system' />
+        </exec>
+    </target>
+
+    <target name="db-import-dev-fixtures">
+        <exec executable="php" failonerror="true">
+            <arg value='commands/run' />
+            <arg value='db/ImportFixturesCommand' />
+            <arg value='dev' />
         </exec>
     </target>
 

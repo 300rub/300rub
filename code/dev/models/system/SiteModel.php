@@ -283,4 +283,14 @@ class SiteModel extends AbstractSiteModel
 
         return $this->_sections[$sectionId];
     }
+
+    /**
+     * Gets Site model
+     *
+     * @return SiteModel
+     */
+    public static function model()
+    {
+        return new self;
+    }
 }

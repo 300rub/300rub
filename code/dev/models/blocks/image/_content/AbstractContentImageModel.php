@@ -281,7 +281,7 @@ abstract class AbstractContentImageModel extends AbstractImageModel
                 'content/image/album',
                 [
                     'album' => $album,
-                    'url'   => $link->generateLink(
+                    'uri'   => $link->generateLink(
                         $album->get('seoModel')->get('alias')
                     )
                 ]

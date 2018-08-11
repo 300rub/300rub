@@ -83,22 +83,25 @@ class MigrateCommand extends AbstractCommand
      */
     private function _setSites()
     {
-        App::getInstance()->getDb()->setSystemPdo();
+        $dbObject = App::getInstance()->getDb();
+
+        $dbObject->setSystemPdo();
 
         $siteName = $this->getArg(0);
 
         if ($siteName === null) {
-            $this->_sites = App::getInstance()
-                ->getDb()
+            $this->_sites = $dbObject
                 ->fetchAll('SELECT * ' . 'FROM `sites`');
 
             return $this;
         }
 
-        $this->_sites = App::getInstance()
-            ->getDb()
+        $this->_sites = $dbObject
             ->fetchAll(
-                sprintf('SELECT * ' . 'FROM `sites` WHERE `name` = "%s"', $siteName)
+                sprintf(
+                    'SELECT * ' . 'FROM `sites` WHERE `name` = "%s"',
+                    $siteName
+                )
             );
 
         return $this;
