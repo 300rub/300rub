@@ -4,7 +4,7 @@ namespace ss\models\help\_base;
 
 use ss\application\components\Validator;
 use ss\application\components\ValueGenerator;
-use ss\models\_abstract\AbstractModel;
+use ss\models\help\_abstract\AbstractModel;
 
 /**
  * Abstract model for working with table "pages" (help DB)

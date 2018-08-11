@@ -9,4 +9,14 @@ use ss\models\help\_base\AbstractPageModel;
  */
 class PageModel extends AbstractPageModel
 {
+
+    /**
+     * Sets content
+     *
+     * @return CategoryModel
+     */
+    public function setContent()
+    {
+        return $this;
+    }
 }

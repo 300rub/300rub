@@ -4,6 +4,7 @@ namespace ss\controllers\site;
 
 use ss\application\App;
 use ss\controllers\site\_abstract\AbstractController;
+use ss\models\help\CategoryModel;
 
 /**
  * HelpController to work with help pages
@@ -19,6 +20,10 @@ class HelpController extends AbstractController
     public function run()
     {
         $language = App::getInstance()->getLanguage();
+
+        $model = CategoryModel::model()
+            ->setAlias('sections')
+            ->setContent();
 
         $pageHtml = $this->getPageHtml(
             $this->_getContent(),
