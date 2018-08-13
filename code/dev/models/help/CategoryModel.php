@@ -86,10 +86,7 @@ class CategoryModel extends AbstractCategoryModel
             ],
             [
                 'name' => $language->getMessage('site', 'help'),
-                'uri'  => sprintf(
-                    '/%s/help',
-                    $language->getActiveAlias()
-                ),
+                'uri'  => $this->getBaseUri(),
             ],
         ];
 
@@ -166,8 +163,8 @@ class CategoryModel extends AbstractCategoryModel
             [
                 'name' => $result['name'],
                 'uri'  => sprintf(
-                    '/%s/help/%s',
-                    $language->getActiveAlias(),
+                    '%s/%s',
+                    $this->getBaseUri(),
                     $result['alias']
                 ),
             ]
@@ -292,8 +289,8 @@ class CategoryModel extends AbstractCategoryModel
             $list[] = [
                 'name' => $item['name'],
                 'uri'  => sprintf(
-                    '/%s/help/%s',
-                    $language->getActiveAlias(),
+                    '%s/%s',
+                    $this->getBaseUri(),
                     $item['alias']
                 ),
             ];

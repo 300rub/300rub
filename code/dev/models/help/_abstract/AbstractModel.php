@@ -4,6 +4,8 @@ namespace ss\models\help\_abstract;
 
 use ss\application\App;
 use ss\models\_abstract\AbstractModel as BaseModel;
+use ss\models\help\CategoryModel;
+use ss\models\help\PageModel;
 
 /**
  * Abstract model to keep html information
@@ -29,6 +31,13 @@ abstract class AbstractModel extends BaseModel
      * @var string
      */
     private $_alias = '';
+
+    /**
+     * Base URI
+     *
+     * @var string
+     */
+    private $_baseUri = '';
 
     /**
      * Name
@@ -88,6 +97,29 @@ abstract class AbstractModel extends BaseModel
      * @return array
      */
     abstract public function generateBreadcrumbs($alias, $name);
+
+    /**
+     * Sets base URI
+     *
+     * @param string $baseUri Base URI
+     *
+     * @return AbstractModel|CategoryModel|PageModel
+     */
+    public function setBaseUri($baseUri)
+    {
+        $this->_baseUri = $baseUri;
+        return $this;
+    }
+
+    /**
+     * Gets base URI
+     *
+     * @return string
+     */
+    protected function getBaseUri()
+    {
+        return $this->_baseUri;
+    }
 
     /**
      * Sets alias

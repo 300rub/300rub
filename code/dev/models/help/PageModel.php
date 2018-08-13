@@ -112,8 +112,8 @@ class PageModel extends AbstractPageModel
         );
 
         $breadcrumbs[(count($breadcrumbs) - 1)]['uri'] = sprintf(
-            '/%s/help/%s',
-            $language->getActiveAlias(),
+            '%s/%s',
+            $this->getBaseUri(),
             $result['alias']
         );
 
@@ -207,8 +207,8 @@ class PageModel extends AbstractPageModel
             $list[] = [
                 'name' => $item['name'],
                 'uri'  => sprintf(
-                    '/%s/help/%s/%s',
-                    $language->getActiveAlias(),
+                    '%s/%s/%s',
+                    $this->getBaseUri(),
                     $categoryAlias,
                     $item['alias']
                 ),

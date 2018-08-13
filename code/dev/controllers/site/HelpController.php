@@ -3,6 +3,7 @@
 namespace ss\controllers\site;
 
 use ss\application\App;
+use ss\application\instances\Site;
 use ss\controllers\site\_abstract\AbstractController;
 use ss\models\help\_abstract\AbstractModel;
 use ss\models\help\CategoryModel;
@@ -40,6 +41,7 @@ class HelpController extends AbstractController
         if (count($uriArray) < 4) {
             $categoryModel = CategoryModel::model()
                 ->setAlias($uriArray[2])
+                ->setBaseUri($this->_getUri())
                 ->setContent();
 
             return $this->getPageHtml(
@@ -52,6 +54,7 @@ class HelpController extends AbstractController
 
         $pageModel = PageModel::model()
             ->setAlias($uriArray[3])
+            ->setBaseUri($this->_getUri())
             ->setContent();
 
         return $this->getPageHtml(
@@ -92,7 +95,9 @@ class HelpController extends AbstractController
                 'name'        => $language->getMessage('site', 'help'),
                 'text'        => $language->getMessage('site', 'helpText'),
                 'childCategories'
-                    => CategoryModel::model()->getChildCategories(),
+                    => CategoryModel::model()
+                        ->setBaseUri($this->_getUri())
+                        ->getChildCategories(),
                 'pages'       => []
             ]
         );
@@ -117,10 +122,14 @@ class HelpController extends AbstractController
                 'name'        => $categoryModel->getName(),
                 'text'        => $categoryModel->getText(),
                 'childCategories'
-                    => CategoryModel::model()->getChildCategories(
-                        $categoryModel->getAlias()
-                    ),
-                'pages'       => PageModel::model()->getListByCategoryAlias(
+                    => CategoryModel::model()
+                        ->setBaseUri($this->_getUri())
+                        ->getChildCategories(
+                            $categoryModel->getAlias()
+                        ),
+                'pages'       => PageModel::model()
+                    ->setBaseUri($this->_getUri())
+                    ->getListByCategoryAlias(
                     $categoryModel->getAlias()
                 )
             ]
@@ -185,10 +194,7 @@ class HelpController extends AbstractController
                 'isActive' => false
             ],
             [
-                'uri'      => sprintf(
-                    '/%s/help',
-                    $language->getActiveAlias()
-                ),
+                'uri'      => $this->_getUri(),
                 'name'     => $language->getMessage('site', 'help'),
                 'isActive' => true
             ]
@@ -199,6 +205,20 @@ class HelpController extends AbstractController
             [
                 'menu' => $menu
             ]
+        );
+    }
+
+    /**
+     * Gets URI
+     *
+     * @return string
+     */
+    private function _getUri()
+    {
+        return sprintf(
+            '/%s/%s',
+            App::getInstance()->getLanguage()->getActiveAlias(),
+            Site::HELP_PREFIX
         );
     }
 }
