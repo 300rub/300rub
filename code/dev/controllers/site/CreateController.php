@@ -2,6 +2,7 @@
 
 namespace ss\controllers\site;
 
+use ss\application\App;
 use ss\controllers\site\_abstract\AbstractController;
 
 /**
@@ -17,10 +18,17 @@ class CreateController extends AbstractController
      */
     public function run()
     {
-        $content = $this->getContentFromTemplate('site/index', []);
-        $title = 'CREATE Test title';
-        $keywords = 'CREATE Test keywords';
-        $description = 'CREATE Test description';
+        $language = App::getInstance()->getLanguage();
+
+        $content = $this->getContentFromTemplate(
+            'site/create',
+            [
+                'createSite' => $language->getMessage('site', 'createSite')
+            ]
+        );
+        $title = 'Dev';
+        $keywords = '';
+        $description = '';
 
         $pageHtml = $this->getPageHtml(
             $content,

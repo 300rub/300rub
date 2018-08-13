@@ -55,4 +55,8 @@ return [
         Language::LANGUAGE_EN_ID => 'Page not found',
         Language::LANGUAGE_RU_ID => 'Категория не найдена',
     ],
+    'createSite' => [
+        Language::LANGUAGE_EN_ID => 'Create site',
+        Language::LANGUAGE_RU_ID => 'Создать сайт',
+    ],
 ];
