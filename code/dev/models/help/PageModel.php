@@ -106,10 +106,12 @@ class PageModel extends AbstractPageModel
 
         $result = $dbObject->find();
 
-        $breadcrumbs = CategoryModel::model()->generateBreadcrumbs(
-            $result['alias'],
-            $result['name']
-        );
+        $breadcrumbs = CategoryModel::model()
+            ->setBaseUri($this->getBaseUri())
+            ->generateBreadcrumbs(
+                $result['alias'],
+                $result['name']
+            );
 
         $breadcrumbs[(count($breadcrumbs) - 1)]['uri'] = sprintf(
             '%s/%s',

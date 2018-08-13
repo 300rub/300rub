@@ -2,15 +2,16 @@
 /**
  * Variables
  *
- * @var array $menu
+ * @var string $menu
+ * @var string $name
+ * @var string $text
  */
 ?>
-<ul>
-    <?php foreach ($menu as $item) { ?>
-        <li>
-            <a href="<?php echo $item['uri']; ?>">
-                <?php echo $item['name']; ?>
-            </a>
-        </li>
-    <?php } ?>
-</ul>
+<div class="container">
+
+    <?php echo $menu; ?>
+
+    <h1><?php echo $name; ?></h1>
+
+    <div class="content"><?php echo $text; ?></div>
+</div>

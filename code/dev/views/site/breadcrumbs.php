@@ -5,13 +5,14 @@
  * @var array $breadcrumbs
  */
 ?>
-<ul>
+<ul class="breadcrumbs">
     <?php foreach ($breadcrumbs as $breadcrumb) { ?>
         <?php if (array_key_exists('uri', $breadcrumb) === true) { ?>
             <li>
                 <a href="<?php echo $breadcrumb['uri']; ?>">
                     <?php echo $breadcrumb['name']; ?>
                 </a>
+                <span class="separator">/</span>
             </li>
         <?php } ?>
 
@@ -21,4 +22,5 @@
             </li>
         <?php } ?>
     <?php } ?>
+    <div class="clear"></div>
 </ul>

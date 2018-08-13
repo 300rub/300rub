@@ -5,12 +5,11 @@
  * @var array $menu
  */
 ?>
-<ul>
-    <?php foreach ($menu as $item) { ?>
-        <li>
+<ul class="menu">
+    <?php foreach ($menu as $item) {
+        ?><li<?php if ($item['isActive'] === true) { ?> class="active"<?php } ?>>
             <a href="<?php echo $item['uri']; ?>">
-                <?php echo $item['name']; ?>
+                <span><?php echo $item['name']; ?></span>
             </a>
-        </li>
-    <?php } ?>
+        </li><?php } ?>
 </ul>

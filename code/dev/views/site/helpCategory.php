@@ -12,35 +12,41 @@
  */
 ?>
 
-<?php echo $menu; ?>
+<div class="container">
 
-<?php echo $breadcrumbs; ?>
+    <?php echo $menu; ?>
 
-<h1><?php echo $name; ?></h1>
+    <?php echo $breadcrumbs; ?>
 
-<div><?php echo $text; ?></div>
+    <h1><?php echo $name; ?></h1>
 
-<?php if (count($childCategories) > 0) { ?>
-    <ul>
-        <?php foreach ($childCategories as $childCategory) { ?>
-            <li>
-                <a href="<?php echo $childCategory['uri']; ?>">
-                    <?php echo $childCategory['name']; ?>
-                </a>
-            </li>
+    <div class="content"><?php echo $text; ?></div>
+
+    <div class="content">
+        <?php if (count($childCategories) > 0) { ?>
+            <ul class="links-list">
+                <?php foreach ($childCategories as $childCategory) { ?>
+                    <li>
+                        -
+                        <a href="<?php echo $childCategory['uri']; ?>">
+                            <?php echo $childCategory['name']; ?>
+                        </a>
+                    </li>
+                <?php } ?>
+            </ul>
         <?php } ?>
-    </ul>
-<?php } ?>
 
-<?php if (count($pages) > 0) { ?>
-    <ul>
-        <?php foreach ($pages as $page) { ?>
-            <li>
-                <a href="<?php echo $page['uri']; ?>">
-                    <?php echo $page['name']; ?>
-                </a>
-            </li>
+        <?php if (count($pages) > 0) { ?>
+            <ul class="links-list">
+                <?php foreach ($pages as $page) { ?>
+                    <li>
+                        -
+                        <a href="<?php echo $page['uri']; ?>">
+                            <?php echo $page['name']; ?>
+                        </a>
+                    </li>
+                <?php } ?>
+            </ul>
         <?php } ?>
-    </ul>
-<?php
-}
+    </div>
+</div>

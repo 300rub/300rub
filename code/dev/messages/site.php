@@ -19,6 +19,14 @@ return [
         Language::LANGUAGE_EN_ID => 'Home',
         Language::LANGUAGE_RU_ID => 'Главная',
     ],
+    'homeName' => [
+        Language::LANGUAGE_EN_ID => 'Super Site',
+        Language::LANGUAGE_RU_ID => 'Супер сайт',
+    ],
+    'homeText' => [
+        Language::LANGUAGE_EN_ID => 'Home - text',
+        Language::LANGUAGE_RU_ID => 'Главная - текст',
+    ],
     'help' => [
         Language::LANGUAGE_EN_ID => 'Help',
         Language::LANGUAGE_RU_ID => 'Помощь',

@@ -1,6 +1,7 @@
 @import "default/variables";
 @import "default/webkit";
 @import "default/layout";
+@import "default/buttons";
 @import "grid";
 @import "form";
 @import "window";
@@ -11,43 +12,6 @@
 
 #templates {
   display: none;
-}
-
-a,
-button {
-  cursor: pointer;
-}
-
-a {
-  text-decoration: none;
-}
-
-.transparent {
-  opacity: 0;
-}
-
-.hidden {
-  display: none !important;
-}
-
-.align-right {
-  text-align: right !important;
-}
-
-.align-left {
-  text-align: left !important;
-}
-
-.align-center {
-  text-align: center !important;
-}
-
-.margin-bottom-15 {
-  margin-bottom: 15px;
-}
-
-.clear {
-  clear: both;
 }
 
 // Table
@@ -139,95 +103,4 @@ a {
   &::-webkit-scrollbar-track-piece {
     background-color: @grayBackground;
   }
-}
-
-// Links
-
-.gray-red-link {
-  color: @grayLinkColor;
-
-  &:hover {
-    color: @redLinkColor;
-  }
-}
-
-.gray-blue-link {
-  color: @grayLinkColor;
-
-  &:hover {
-    color: @blueLinkColor;
-  }
-}
-
-// Buttons
-
-.btn {
-  .border-radius(4px);
-  border: 1px solid;
-  height: 30px;
-  padding: 0 16px 1px 16px;
-
-  * {
-    font-size: 14px;
-  }
-}
-
-.btn-big {
-  height: 36px;
-  padding: 0 30px;
-
-  * {
-    font-size: 16px;
-  }
-}
-
-.btn-small {
-  height: 22px;
-  padding: 0 12px 1px 12px;
-
-  * {
-    font-size: 12px;
-  }
-}
-
-.btn-blue {
-  .gradient-vertical (@blueGradientFrom, @blueGradientTo);
-  border-color: @blueBorderColor;
-
-  &:hover {
-    .gradient-vertical (@blueGradientFromHover, @blueGradientToHover);
-  }
-
-  &:focus {
-    .box-shadow (@formBlueBoxShadow);
-  }
-
-  * {
-    color: white;
-  }
-}
-
-.btn-gray {
-  .gradient-vertical (@grayGradientFrom, @grayGradientTo);
-  border-color: @grayBorderColor;
-
-  &:hover {
-    .gradient-vertical (@grayGradientFromHover, @grayGradientToHover);
-  }
-
-  &:focus {
-    .box-shadow (@formGrayBoxShadow);
-  }
-
-  * {
-    color: @defaultTextColor;
-  }
-}
-
-.float-left {
-  float: left;
-}
-
-.float-right {
-  float: right;
 }

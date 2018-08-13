@@ -2,6 +2,7 @@
 
 namespace ss\models\help;
 
+use ss\application\App;
 use ss\application\components\Db;
 use ss\models\help\_base\AbstractLanguagePageModel;
 
@@ -33,6 +34,17 @@ class LanguagePageModel extends AbstractLanguagePageModel
             'pages.alias = :alias'
         );
         $this->getDb()->addParameter('alias', $alias);
+
+        $this->getDb()->addWhere(
+            sprintf(
+                '%s.language = :language',
+                Db::DEFAULT_ALIAS
+            )
+        );
+        $this->getDb()->addParameter(
+            'language',
+            App::getInstance()->getLanguage()->getActiveId()
+        );
 
         return $this;
     }

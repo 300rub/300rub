@@ -10,10 +10,14 @@
  */
 ?>
 
-<?php echo $menu; ?>
+<div class="container">
 
-<?php echo $breadcrumbs; ?>
+    <?php echo $menu; ?>
 
-<h1><?php echo $name; ?></h1>
+    <?php echo $breadcrumbs; ?>
 
-<div><?php echo $text; ?></div>
+    <h1><?php echo $name; ?></h1>
+
+    <div class="content"><?php echo $text; ?></div>
+
+</div>

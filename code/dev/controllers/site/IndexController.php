@@ -3,6 +3,7 @@
 namespace ss\controllers\site;
 
 use ss\application\App;
+use ss\application\instances\Site;
 use ss\controllers\site\_abstract\AbstractController;
 
 /**
@@ -37,20 +38,51 @@ class IndexController extends AbstractController
      */
     private function _getContent()
     {
+        return $this->getContentFromTemplate(
+            'site/index',
+            [
+                'menu' => $this->_getMenuHtml(),
+                'name' => App::getInstance()
+                    ->getLanguage()
+                    ->getMessage('site', 'homeName'),
+                'text' => App::getInstance()
+                    ->getLanguage()
+                    ->getMessage('site', 'homeText')
+            ]
+        );
+    }
+
+    /**
+     * Gets menu HTML
+     *
+     * @return string
+     */
+    private function _getMenuHtml()
+    {
         $language = App::getInstance()->getLanguage();
 
         $menu = [
             [
-                'uri'  => sprintf(
-                    '/%s/help',
+                'uri'      => sprintf(
+                    '/%s',
                     $language->getActiveAlias()
                 ),
-                'name' => $language->getMessage('site', 'help')
+                'name'     => $language->getMessage('site', 'home'),
+                'isActive' => true
+            ],
+            [
+                'uri'      => sprintf(
+                    '/%s/%s',
+                    App::getInstance()->getLanguage()->getActiveAlias(),
+                    Site::HELP_PREFIX
+                ),
+                'name'     => $language->getMessage('site', 'help'),
+                'isActive' => false
             ]
         ];
 
         return $this->getContentFromTemplate(
-            'site/index',
+            'site/menu',
             [
                 'menu' => $menu
             ]

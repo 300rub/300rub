@@ -1,0 +1,86 @@
+.btn {
+  .border-radius(4px);
+  border: 1px solid;
+  height: 30px;
+  padding: 0 16px 1px 16px;
+
+  * {
+    font-size: 14px;
+  }
+}
+
+.btn-big {
+  height: 36px;
+  padding: 0 30px;
+
+  * {
+    font-size: 16px;
+  }
+}
+
+.btn-small {
+  height: 22px;
+  padding: 0 12px 1px 12px;
+
+  * {
+    font-size: 12px;
+  }
+}
+
+.btn-blue {
+  .gradient-vertical (@blueGradientFrom, @blueGradientTo);
+  border-color: @blueBorderColor;
+
+  &:hover {
+    .gradient-vertical (@blueGradientFromHover, @blueGradientToHover);
+  }
+
+  &:focus {
+    .box-shadow (@formBlueBoxShadow);
+  }
+
+  * {
+    color: white;
+  }
+}
+
+.btn-gray {
+  .gradient-vertical (@grayGradientFrom, @grayGradientTo);
+  border-color: @grayBorderColor;
+
+  &:hover {
+    .gradient-vertical (@grayGradientFromHover, @grayGradientToHover);
+  }
+
+  &:focus {
+    .box-shadow (@formGrayBoxShadow);
+  }
+
+  * {
+    color: @defaultTextColor;
+  }
+}
+
+.gray-red-link {
+  color: @grayLinkColor;
+
+  &:hover {
+    color: @redLinkColor;
+  }
+}
+
+.gray-blue-link {
+  color: @grayLinkColor;
+
+  &:hover {
+    color: @blueLinkColor;
+  }
+}
+
+.blue-red-link {
+  color: @blueLinkColor;
+
+  &:hover {
+    color: @redLinkColor;
+  }
+}
