@@ -245,6 +245,7 @@ class CategoryModel extends AbstractCategoryModel
                     )
                 );
             }
+
             $parentId = $model->getId();
         }
 
@@ -269,10 +270,10 @@ class CategoryModel extends AbstractCategoryModel
         }
 
         if ($parentId !== null) {
-            $dbObject
-                ->addWhere(sprintf('%s.parentId = :parentId', Db::DEFAULT_ALIAS));
-            $dbObject
-                ->addParameter('parentId', $parentId);
+            $dbObject->addWhere(
+                sprintf('%s.parentId = :parentId', Db::DEFAULT_ALIAS)
+            );
+            $dbObject->addParameter('parentId', $parentId);
         }
 
         $dbObject

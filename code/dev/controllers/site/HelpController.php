@@ -96,8 +96,8 @@ class HelpController extends AbstractController
                 'text'        => $language->getMessage('site', 'helpText'),
                 'childCategories'
                     => CategoryModel::model()
-                        ->setBaseUri($this->_getUri())
-                        ->getChildCategories(),
+                    ->setBaseUri($this->_getUri())
+                    ->getChildCategories(),
                 'pages'       => []
             ]
         );
@@ -106,7 +106,7 @@ class HelpController extends AbstractController
     /**
      * Gets category content
      *
-     * @param CategoryModel|AbstractModel $categoryModel
+     * @param CategoryModel|AbstractModel $categoryModel Model
      *
      * @return string
      */
@@ -123,15 +123,15 @@ class HelpController extends AbstractController
                 'text'        => $categoryModel->getText(),
                 'childCategories'
                     => CategoryModel::model()
-                        ->setBaseUri($this->_getUri())
-                        ->getChildCategories(
-                            $categoryModel->getAlias()
-                        ),
+                    ->setBaseUri($this->_getUri())
+                    ->getChildCategories(
+                        $categoryModel->getAlias()
+                    ),
                 'pages'       => PageModel::model()
                     ->setBaseUri($this->_getUri())
                     ->getListByCategoryAlias(
-                    $categoryModel->getAlias()
-                )
+                        $categoryModel->getAlias()
+                    )
             ]
         );
     }
@@ -139,7 +139,7 @@ class HelpController extends AbstractController
     /**
      * Gets page content
      *
-     * @param PageModel|AbstractModel $pageModel
+     * @param PageModel|AbstractModel $pageModel Model
      *
      * @return string
      */

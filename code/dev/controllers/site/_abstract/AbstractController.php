@@ -19,6 +19,8 @@ abstract class AbstractController extends AbstractBaseController
 
     /**
      * Sets static map
+     *
+     * @return void
      */
     private function _setStaticMap()
     {

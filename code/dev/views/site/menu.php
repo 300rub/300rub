@@ -1,5 +1,7 @@
 <?php
 /**
+ * Variables
+ *
  * @var array $menu
  */
 ?>

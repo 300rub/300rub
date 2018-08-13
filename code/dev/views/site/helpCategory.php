@@ -1,6 +1,8 @@
 <?php
 
 /**
+ * Variables
+ *
  * @var string $menu
  * @var string $breadcrumbs
  * @var string $name
@@ -40,5 +42,5 @@
             </li>
         <?php } ?>
     </ul>
-<?php } ?>
-
+<?php
+}
