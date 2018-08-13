@@ -66,12 +66,13 @@ class CategoryModel extends AbstractCategoryModel
      * Generates breadcrumbs
      *
      * @param string $alias Alias
+     * @param string $name  Name
      *
      * @return array
      *
      * @throws NotFoundException
      */
-    protected function generateBreadcrumbs($alias)
+    public function generateBreadcrumbs($alias, $name)
     {
         $language = App::getInstance()->getLanguage();
 
@@ -109,7 +110,7 @@ class CategoryModel extends AbstractCategoryModel
         }
 
         $breadcrumbs[] = [
-            'label' => $this->getName(),
+            'label' => $name,
         ];
 
         return $breadcrumbs;

@@ -50,16 +50,16 @@ class HelpController extends AbstractController
             );
         }
 
-//        $pageModel = PageModel::model()
-//            ->setAlias($uriArray[3])
-//            ->setContent();
-//
-//        return $this->getPageHtml(
-//            $this->_getContent($pageModel),
-//            $pageModel->getTitle(),
-//            $pageModel->getKeywords(),
-//            $pageModel->getDescription()
-//        );
+        $pageModel = PageModel::model()
+            ->setAlias($uriArray[3])
+            ->setContent();
+
+        return $this->getPageHtml(
+            $this->_getPageContent($pageModel),
+            $pageModel->getTitle(),
+            $pageModel->getKeywords(),
+            $pageModel->getDescription()
+        );
     }
 
     /**
@@ -99,7 +99,7 @@ class HelpController extends AbstractController
     }
 
     /**
-     * Gets content
+     * Gets category content
      *
      * @param CategoryModel|AbstractModel $categoryModel
      *
@@ -123,6 +123,28 @@ class HelpController extends AbstractController
                 'pages'       => PageModel::model()->getListByCategoryAlias(
                     $categoryModel->getAlias()
                 )
+            ]
+        );
+    }
+
+    /**
+     * Gets page content
+     *
+     * @param PageModel|AbstractModel $pageModel
+     *
+     * @return string
+     */
+    private function _getPageContent($pageModel)
+    {
+        return $this->getContentFromTemplate(
+            'site/helpPage',
+            [
+                'breadcrumbs' => $this->_getBreadCrumbsHtml(
+                    $pageModel->getBreadcrumbs()
+                ),
+                'menu'        => $this->_getMenuHtml(),
+                'name'        => $pageModel->getName(),
+                'text'        => $pageModel->getText(),
             ]
         );
     }

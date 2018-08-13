@@ -13,7 +13,6 @@ use ss\models\help\_base\AbstractPageModel;
 class PageModel extends AbstractPageModel
 {
 
-
     /**
      * Type
      */
@@ -59,33 +58,67 @@ class PageModel extends AbstractPageModel
     /**
      * Generates breadcrumbs
      *
-     * param string $alias Alias
+     * @param string $alias Alias
+     * @param string $name  Name
      *
      * @return array
      */
-    protected function generateBreadcrumbs($alias)
+    public function generateBreadcrumbs($alias, $name)
     {
+        $dbObject = App::getInstance()->getDb();
         $language = App::getInstance()->getLanguage();
 
-        $breadcrumbs = [
-            [
-                'name' => $language->getMessage('site', 'home'),
-                'uri'  => sprintf(
-                    '/%s',
-                    $language->getActiveAlias()
-                ),
-            ],
-            [
-                'name' => $language->getMessage('site', 'help'),
-                'uri'  => sprintf(
-                    '/%s/help',
-                    $language->getActiveAlias()
-                ),
-            ],
-        ];
+        $dbObject
+            ->addSelect('alias', 'categories', 'alias')
+            ->addSelect('name', 'languageCategories', 'name');
+        $dbObject
+            ->setTable('pages');
+        $dbObject
+            ->addJoin(
+                Db::JOIN_TYPE_INNER,
+                'categories',
+                'categories',
+                self::PK_FIELD,
+                Db::DEFAULT_ALIAS,
+                'categoryId'
+            )
+            ->addJoin(
+                Db::JOIN_TYPE_INNER,
+                'languageCategories',
+                'languageCategories',
+                'categoryId',
+                'categories',
+                self::PK_FIELD
+            );
+
+        $dbObject
+            ->addWhere('languageCategories.language = :language');
+        $dbObject
+            ->addParameter(
+                'language',
+                $language->getActiveId()
+            );
+
+        $dbObject
+            ->addWhere(sprintf('%s.alias = :alias', Db::DEFAULT_ALIAS));
+        $dbObject
+            ->addParameter('alias', $alias);
+
+        $result = $dbObject->find();
+
+        $breadcrumbs = CategoryModel::model()->generateBreadcrumbs(
+            $result['alias'],
+            $result['name']
+        );
+
+        $breadcrumbs[(count($breadcrumbs) - 1)]['uri'] = sprintf(
+            '/%s/help/%s',
+            $language->getActiveAlias(),
+            $result['alias']
+        );
 
         $breadcrumbs[] = [
-            'name' => $this->getName(),
+            'label' => $name,
         ];
 
         return $breadcrumbs;

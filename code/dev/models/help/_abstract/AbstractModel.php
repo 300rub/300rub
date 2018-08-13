@@ -83,10 +83,11 @@ abstract class AbstractModel extends BaseModel
      * Generates breadcrumbs
      *
      * @param string $alias Alias
+     * @param string $name  Name
      *
      * @return array
      */
-    abstract protected function generateBreadcrumbs($alias);
+    abstract public function generateBreadcrumbs($alias, $name);
 
     /**
      * Sets alias
@@ -138,7 +139,7 @@ abstract class AbstractModel extends BaseModel
     {
         $memcached = App::getInstance()->getMemcached();
         $memcachedKey = $this->getNameMemcachedKey(
-            self::TYPE,
+            static::TYPE,
             $this->getAlias()
         );
 
@@ -191,7 +192,7 @@ abstract class AbstractModel extends BaseModel
     {
         $memcached = App::getInstance()->getMemcached();
         $memcachedKey = $this->getTextMemcachedKey(
-            self::TYPE,
+            static::TYPE,
             $this->getAlias()
         );
 
@@ -244,7 +245,7 @@ abstract class AbstractModel extends BaseModel
     {
         $memcached = App::getInstance()->getMemcached();
         $memcachedKey = $this->getTitleMemcachedKey(
-            self::TYPE,
+            static::TYPE,
             $this->getAlias()
         );
 
@@ -297,7 +298,7 @@ abstract class AbstractModel extends BaseModel
     {
         $memcached = App::getInstance()->getMemcached();
         $memcachedKey = $this->getKeywordsMemcachedKey(
-            self::TYPE,
+            static::TYPE,
             $this->getAlias()
         );
 
@@ -350,7 +351,7 @@ abstract class AbstractModel extends BaseModel
     {
         $memcached = App::getInstance()->getMemcached();
         $memcachedKey = $this->getDescriptionMemcachedKey(
-            self::TYPE,
+            static::TYPE,
             $this->getAlias()
         );
 
@@ -403,7 +404,7 @@ abstract class AbstractModel extends BaseModel
     {
         $memcached = App::getInstance()->getMemcached();
         $memcachedKey = $this->getBreadcrumbsMemcachedKey(
-            self::TYPE,
+            static::TYPE,
             $this->getAlias()
         );
 
@@ -414,7 +415,8 @@ abstract class AbstractModel extends BaseModel
         }
 
         $this->_breadcrumbs = $this->generateBreadcrumbs(
-            $this->getAlias()
+            $this->getAlias(),
+            $this->getName()
         );
         $memcached->set($memcachedKey, $this->_breadcrumbs);
 
