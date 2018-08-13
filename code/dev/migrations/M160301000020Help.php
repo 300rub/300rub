@@ -58,6 +58,10 @@ class M160301000020Help extends AbstractMigration
                     'description' => self::TYPE_STRING,
                 ]
             )
+            ->createIndex(
+                'languageCategories',
+                'name'
+            )
             ->createForeignKey(
                 'languageCategories',
                 'categoryId',

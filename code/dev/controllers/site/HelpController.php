@@ -4,7 +4,9 @@ namespace ss\controllers\site;
 
 use ss\application\App;
 use ss\controllers\site\_abstract\AbstractController;
+use ss\models\help\_abstract\AbstractModel;
 use ss\models\help\CategoryModel;
+use ss\models\help\PageModel;
 
 /**
  * HelpController to work with help pages
@@ -21,18 +23,43 @@ class HelpController extends AbstractController
     {
         $language = App::getInstance()->getLanguage();
 
-        $model = CategoryModel::model()
-            ->setAlias('sections')
-            ->setContent();
+        $requestUri = App::getInstance()
+            ->getSuperGlobalVariable()
+            ->getServerValue('REQUEST_URI');
+        $uriArray = explode('/', trim($requestUri, '/'));
 
-        $pageHtml = $this->getPageHtml(
-            $this->_getContent(),
-            $language->getMessage('site', 'helpTitle'),
-            $language->getMessage('site', 'helpKeywords'),
-            $language->getMessage('site', 'helpDescription')
-        );
+        if (count($uriArray) < 3) {
+            return $this->getPageHtml(
+                $this->_getContent(),
+                $language->getMessage('site', 'helpTitle'),
+                $language->getMessage('site', 'helpKeywords'),
+                $language->getMessage('site', 'helpDescription')
+            );
+        }
 
-        return $pageHtml;
+//        if (array_keys(3, $uriArray) === false) {
+//            $categoryModel = CategoryModel::model()
+//                ->setAlias($uriArray[2])
+//                ->setContent();
+//
+//            return $this->getPageHtml(
+//                $this->_getContent($categoryModel),
+//                $categoryModel->getTitle(),
+//                $categoryModel->getKeywords(),
+//                $categoryModel->getDescription()
+//            );
+//        }
+//
+//        $pageModel = PageModel::model()
+//            ->setAlias($uriArray[3])
+//            ->setContent();
+//
+//        return $this->getPageHtml(
+//            $this->_getContent($pageModel),
+//            $pageModel->getTitle(),
+//            $pageModel->getKeywords(),
+//            $pageModel->getDescription()
+//        );
     }
 
     /**
@@ -41,6 +68,27 @@ class HelpController extends AbstractController
      * @return string
      */
     private function _getContent()
+    {
+        $language = App::getInstance()->getLanguage();
+
+        return $this->getContentFromTemplate(
+            'site/helpCategory',
+            [
+                'menu' => $this->_getMenuHtml(),
+                'name' =>  $language->getMessage('site', 'help'),
+                'text' =>  $language->getMessage('site', 'helpText'),
+                'childCategories'
+                    => CategoryModel::model()->getChildCategories()
+            ]
+        );
+    }
+
+    /**
+     * Gets menu HTML
+     *
+     * @return string
+     */
+    private function _getMenuHtml()
     {
         $language = App::getInstance()->getLanguage();
 
@@ -64,7 +112,7 @@ class HelpController extends AbstractController
         ];
 
         return $this->getContentFromTemplate(
-            'site/help',
+            'site/menu',
             [
                 'menu' => $menu
             ]
