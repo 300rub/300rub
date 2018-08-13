@@ -78,15 +78,15 @@ class CategoryModel extends AbstractCategoryModel
 
         $breadcrumbs = [
             [
-                'label' => $language->getMessage('site', 'home'),
-                'uri'   => sprintf(
+                'name' => $language->getMessage('site', 'home'),
+                'uri'  => sprintf(
                     '/%s',
                     $language->getActiveAlias()
                 ),
             ],
             [
-                'label' => $language->getMessage('site', 'help'),
-                'uri'   => sprintf(
+                'name' => $language->getMessage('site', 'help'),
+                'uri'  => sprintf(
                     '/%s/help',
                     $language->getActiveAlias()
                 ),
@@ -110,7 +110,7 @@ class CategoryModel extends AbstractCategoryModel
         }
 
         $breadcrumbs[] = [
-            'label' => $name,
+            'name' => $name,
         ];
 
         return $breadcrumbs;
@@ -164,8 +164,8 @@ class CategoryModel extends AbstractCategoryModel
         array_unshift(
             $this->_parentBreadcrumbs,
             [
-                'label' => $result['name'],
-                'uri'   => sprintf(
+                'name' => $result['name'],
+                'uri'  => sprintf(
                     '/%s/help/%s',
                     $language->getActiveAlias(),
                     $result['alias']

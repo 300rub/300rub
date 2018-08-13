@@ -73,14 +73,14 @@ class HelpController extends AbstractController
 
         $breadcrumbs = [
             [
-                'uri'      => sprintf(
+                'uri'  => sprintf(
                     '/%s',
                     $language->getActiveAlias()
                 ),
-                'label'    => $language->getMessage('site', 'home'),
+                'name' => $language->getMessage('site', 'home'),
             ],
             [
-                'label' => $language->getMessage('site', 'help'),
+                'name' => $language->getMessage('site', 'help'),
             ]
         ];
 
@@ -181,7 +181,7 @@ class HelpController extends AbstractController
                     '/%s',
                     $language->getActiveAlias()
                 ),
-                'label'    => $language->getMessage('site', 'home'),
+                'name'     => $language->getMessage('site', 'home'),
                 'isActive' => false
             ],
             [
@@ -189,7 +189,7 @@ class HelpController extends AbstractController
                     '/%s/help',
                     $language->getActiveAlias()
                 ),
-                'label'    => $language->getMessage('site', 'help'),
+                'name'     => $language->getMessage('site', 'help'),
                 'isActive' => true
             ]
         ];

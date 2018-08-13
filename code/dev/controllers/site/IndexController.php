@@ -41,11 +41,11 @@ class IndexController extends AbstractController
 
         $menu = [
             [
-                'uri'   => sprintf(
+                'uri'  => sprintf(
                     '/%s/help',
                     $language->getActiveAlias()
                 ),
-                'label' => $language->getMessage('site', 'help')
+                'name' => $language->getMessage('site', 'help')
             ]
         ];
 

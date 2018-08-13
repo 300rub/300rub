@@ -118,7 +118,7 @@ class PageModel extends AbstractPageModel
         );
 
         $breadcrumbs[] = [
-            'label' => $name,
+            'name' => $name,
         ];
 
         return $breadcrumbs;
