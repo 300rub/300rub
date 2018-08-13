@@ -58,9 +58,11 @@ class PageModel extends AbstractPageModel
     /**
      * Generates breadcrumbs
      *
+     * param string $alias Alias
+     *
      * @return array
      */
-    protected function generateBreadcrumbs()
+    protected function generateBreadcrumbs($alias)
     {
         $language = App::getInstance()->getLanguage();
 

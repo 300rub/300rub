@@ -19,6 +19,13 @@ class CategoryModel extends AbstractCategoryModel
     const TYPE = 'category';
 
     /**
+     * Parent breadcrumbs
+     *
+     * @var array
+     */
+    private $_parentBreadcrumbs = [];
+
+    /**
      * Gets CategoryModel
      *
      * @return CategoryModel
@@ -58,34 +65,116 @@ class CategoryModel extends AbstractCategoryModel
     /**
      * Generates breadcrumbs
      *
+     * @param string $alias Alias
+     *
      * @return array
+     *
+     * @throws NotFoundException
      */
-    protected function generateBreadcrumbs()
+    protected function generateBreadcrumbs($alias)
     {
         $language = App::getInstance()->getLanguage();
 
         $breadcrumbs = [
             [
-                'name' => $language->getMessage('site', 'home'),
-                'uri'  => sprintf(
+                'label' => $language->getMessage('site', 'home'),
+                'uri'   => sprintf(
                     '/%s',
                     $language->getActiveAlias()
                 ),
             ],
             [
-                'name' => $language->getMessage('site', 'help'),
-                'uri'  => sprintf(
+                'label' => $language->getMessage('site', 'help'),
+                'uri'   => sprintf(
                     '/%s/help',
                     $language->getActiveAlias()
                 ),
             ],
         ];
 
+        $model = $this->byAlias($alias)->find();
+        if ($model === null) {
+            throw new NotFoundException(
+                App::getInstance()->getLanguage()->getMessage(
+                    'site',
+                    'helpCategoryNotFound'
+                )
+            );
+        }
+
+        $this->_setParentBreadcrumbs($model->get('parentId'));
+
+        if (count($this->_parentBreadcrumbs) > 0) {
+            $breadcrumbs = array_merge($breadcrumbs, $this->_parentBreadcrumbs);
+        }
+
         $breadcrumbs[] = [
-            'name' => $this->getName(),
+            'label' => $this->getName(),
         ];
 
         return $breadcrumbs;
+    }
+
+    /**
+     * Sets parent breadcrumbs
+     *
+     * @param int $parentId Parent ID
+     *
+     * @return CategoryModel
+     */
+    private function _setParentBreadcrumbs($parentId)
+    {
+        if ($parentId === null) {
+            return $this;
+        }
+
+        $language = App::getInstance()->getLanguage();
+
+        $dbObject = App::getInstance()->getDb();
+
+        $dbObject
+            ->addSelect('alias', Db::DEFAULT_ALIAS, 'alias')
+            ->addSelect('parentId', Db::DEFAULT_ALIAS, 'parentId')
+            ->addSelect('name', 'languageCategories', 'name');
+        $dbObject
+            ->setTable('categories');
+        $dbObject
+            ->addJoin(
+                Db::JOIN_TYPE_INNER,
+                'languageCategories',
+                'languageCategories',
+                'categoryId',
+                Db::DEFAULT_ALIAS,
+                self::PK_FIELD
+            );
+
+        $dbObject
+            ->addWhere(sprintf('%s.id = :id', Db::DEFAULT_ALIAS));
+        $dbObject
+            ->addParameter('id', $parentId);
+
+        $dbObject
+            ->addWhere('languageCategories.language = :language');
+        $dbObject
+            ->addParameter('language', $language->getActiveId());
+
+        $result = $dbObject->find();
+
+        array_unshift(
+            $this->_parentBreadcrumbs,
+            [
+                'label' => $result['name'],
+                'uri'   => sprintf(
+                    '/%s/help/%s',
+                    $language->getActiveAlias(),
+                    $result['alias']
+                ),
+            ]
+        );
+
+        $this->_setParentBreadcrumbs($result['parentId']);
+
+        return $this;
     }
 
     /**
@@ -154,7 +243,7 @@ class CategoryModel extends AbstractCategoryModel
                     )
                 );
             }
-            $parentId = $model->get('parentId');
+            $parentId = $model->getId();
         }
 
         $dbObject

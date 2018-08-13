@@ -82,9 +82,11 @@ abstract class AbstractModel extends BaseModel
     /**
      * Generates breadcrumbs
      *
+     * @param string $alias Alias
+     *
      * @return array
      */
-    abstract protected function generateBreadcrumbs();
+    abstract protected function generateBreadcrumbs($alias);
 
     /**
      * Sets alias
@@ -104,7 +106,7 @@ abstract class AbstractModel extends BaseModel
      *
      * @return string
      */
-    protected function getAlias()
+    public function getAlias()
     {
         return $this->_alias;
     }
@@ -120,9 +122,10 @@ abstract class AbstractModel extends BaseModel
     protected function getNameMemcachedKey($type, $alias)
     {
         return sprintf(
-            'help_name_%s_%s',
+            'help_name_%s_%s_%s',
             $type,
-            $alias
+            $alias,
+            App::getInstance()->getLanguage()->getActiveId()
         );
     }
 
@@ -172,9 +175,10 @@ abstract class AbstractModel extends BaseModel
     protected function getTextMemcachedKey($type, $alias)
     {
         return sprintf(
-            'help_text_%s_%s',
+            'help_text_%s_%s_%s',
             $type,
-            $alias
+            $alias,
+            App::getInstance()->getLanguage()->getActiveId()
         );
     }
 
@@ -224,9 +228,10 @@ abstract class AbstractModel extends BaseModel
     protected function getTitleMemcachedKey($type, $alias)
     {
         return sprintf(
-            'help_title_%s_%s',
+            'help_title_%s_%s_%s',
             $type,
-            $alias
+            $alias,
+            App::getInstance()->getLanguage()->getActiveId()
         );
     }
 
@@ -276,9 +281,10 @@ abstract class AbstractModel extends BaseModel
     protected function getKeywordsMemcachedKey($type, $alias)
     {
         return sprintf(
-            'help_keywords_%s_%s',
+            'help_keywords_%s_%s_%s',
             $type,
-            $alias
+            $alias,
+            App::getInstance()->getLanguage()->getActiveId()
         );
     }
 
@@ -328,9 +334,10 @@ abstract class AbstractModel extends BaseModel
     protected function getDescriptionMemcachedKey($type, $alias)
     {
         return sprintf(
-            'help_description_%s_%s',
+            'help_description_%s_%s_%s',
             $type,
-            $alias
+            $alias,
+            App::getInstance()->getLanguage()->getActiveId()
         );
     }
 
@@ -380,9 +387,10 @@ abstract class AbstractModel extends BaseModel
     protected function getBreadcrumbsMemcachedKey($type, $alias)
     {
         return sprintf(
-            'help_breadcrumbs_%s_%s',
+            'help_breadcrumbs_%s_%s_%s',
             $type,
-            $alias
+            $alias,
+            App::getInstance()->getLanguage()->getActiveId()
         );
     }
 
@@ -405,7 +413,9 @@ abstract class AbstractModel extends BaseModel
             return $this;
         }
 
-        $this->_breadcrumbs = $this->generateBreadcrumbs();
+        $this->_breadcrumbs = $this->generateBreadcrumbs(
+            $this->getAlias()
+        );
         $memcached->set($memcachedKey, $this->_breadcrumbs);
 
         return $this;

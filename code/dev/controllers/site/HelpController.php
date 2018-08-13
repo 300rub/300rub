@@ -37,19 +37,19 @@ class HelpController extends AbstractController
             );
         }
 
-//        if (array_keys(3, $uriArray) === false) {
-//            $categoryModel = CategoryModel::model()
-//                ->setAlias($uriArray[2])
-//                ->setContent();
-//
-//            return $this->getPageHtml(
-//                $this->_getContent($categoryModel),
-//                $categoryModel->getTitle(),
-//                $categoryModel->getKeywords(),
-//                $categoryModel->getDescription()
-//            );
-//        }
-//
+        if (count($uriArray) < 4) {
+            $categoryModel = CategoryModel::model()
+                ->setAlias($uriArray[2])
+                ->setContent();
+
+            return $this->getPageHtml(
+                $this->_getCategoryContent($categoryModel),
+                $categoryModel->getTitle(),
+                $categoryModel->getKeywords(),
+                $categoryModel->getDescription()
+            );
+        }
+
 //        $pageModel = PageModel::model()
 //            ->setAlias($uriArray[3])
 //            ->setContent();
@@ -71,14 +71,71 @@ class HelpController extends AbstractController
     {
         $language = App::getInstance()->getLanguage();
 
+        $breadcrumbs = [
+            [
+                'uri'      => sprintf(
+                    '/%s',
+                    $language->getActiveAlias()
+                ),
+                'label'    => $language->getMessage('site', 'home'),
+            ],
+            [
+                'label' => $language->getMessage('site', 'help'),
+            ]
+        ];
+
         return $this->getContentFromTemplate(
             'site/helpCategory',
             [
-                'menu' => $this->_getMenuHtml(),
-                'name' =>  $language->getMessage('site', 'help'),
-                'text' =>  $language->getMessage('site', 'helpText'),
+                'breadcrumbs' => $this->_getBreadCrumbsHtml($breadcrumbs),
+                'menu'        => $this->_getMenuHtml(),
+                'name'        => $language->getMessage('site', 'help'),
+                'text'        => $language->getMessage('site', 'helpText'),
                 'childCategories'
-                    => CategoryModel::model()->getChildCategories()
+                    => CategoryModel::model()->getChildCategories(),
+            ]
+        );
+    }
+
+    /**
+     * Gets content
+     *
+     * @param CategoryModel|AbstractModel $categoryModel
+     *
+     * @return string
+     */
+    private function _getCategoryContent($categoryModel)
+    {
+        return $this->getContentFromTemplate(
+            'site/helpCategory',
+            [
+                'breadcrumbs' => $this->_getBreadCrumbsHtml(
+                    $categoryModel->getBreadcrumbs()
+                ),
+                'menu'        => $this->_getMenuHtml(),
+                'name'        => $categoryModel->getName(),
+                'text'        => $categoryModel->getText(),
+                'childCategories'
+                    => CategoryModel::model()->getChildCategories(
+                        $categoryModel->getAlias()
+                    )
+            ]
+        );
+    }
+
+    /**
+     * Gets breadcrumbs HTML
+     *
+     * @param array $breadcrumbs Breadcrumbs
+     *
+     * @return string
+     */
+    private function _getBreadCrumbsHtml($breadcrumbs)
+    {
+        return $this->getContentFromTemplate(
+            'site/breadcrumbs',
+            [
+                'breadcrumbs' => $breadcrumbs
             ]
         );
     }
