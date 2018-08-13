@@ -203,7 +203,11 @@ class CategoryModel extends AbstractCategoryModel
      */
     private function _getChildCategoriesMemcachedKey($alias)
     {
-        return sprintf('help_child_categories_%s', $alias);
+        return sprintf(
+            'help_child_categories_%s_%s',
+            $alias,
+            App::getInstance()->getLanguage()->getActiveId()
+        );
     }
 
     /**

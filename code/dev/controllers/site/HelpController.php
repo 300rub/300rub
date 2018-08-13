@@ -93,6 +93,7 @@ class HelpController extends AbstractController
                 'text'        => $language->getMessage('site', 'helpText'),
                 'childCategories'
                     => CategoryModel::model()->getChildCategories(),
+                'pages'       => []
             ]
         );
     }
@@ -118,7 +119,10 @@ class HelpController extends AbstractController
                 'childCategories'
                     => CategoryModel::model()->getChildCategories(
                         $categoryModel->getAlias()
-                    )
+                    ),
+                'pages'       => PageModel::model()->getListByCategoryAlias(
+                    $categoryModel->getAlias()
+                )
             ]
         );
     }

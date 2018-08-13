@@ -3,6 +3,7 @@
 namespace ss\models\help;
 
 use ss\application\App;
+use ss\application\components\Db;
 use ss\application\exceptions\NotFoundException;
 use ss\models\help\_base\AbstractPageModel;
 
@@ -88,5 +89,101 @@ class PageModel extends AbstractPageModel
         ];
 
         return $breadcrumbs;
+    }
+
+    /**
+     * Gets child categories memcached key
+     *
+     * @param string $alias Alias
+     *
+     * @return string
+     */
+    private function _getListMemcachedKey($alias)
+    {
+        return sprintf(
+            'help_pages_list_%s_%s',
+            $alias,
+            App::getInstance()->getLanguage()->getActiveId()
+        );
+    }
+
+    /**
+     * Gets list by category alias
+     *
+     * @param string $categoryAlias Category alias
+     *
+     * @return array
+     */
+    public function getListByCategoryAlias($categoryAlias)
+    {
+        $memcached = App::getInstance()->getMemcached();
+        $memcachedKey = $this->_getListMemcachedKey(
+            $categoryAlias
+        );
+
+        $memcachedResult = $memcached->get($memcachedKey);
+        if ($memcachedResult !== false) {
+            return $memcachedResult;
+        }
+
+        $dbObject = App::getInstance()->getDb();
+        $language = App::getInstance()->getLanguage();
+
+        $dbObject
+            ->addSelect('alias', Db::DEFAULT_ALIAS, 'alias')
+            ->addSelect('name', 'languagePages', 'name');
+        $dbObject
+            ->setTable('pages');
+        $dbObject
+            ->addJoin(
+                Db::JOIN_TYPE_INNER,
+                'languagePages',
+                'languagePages',
+                'pageId',
+                Db::DEFAULT_ALIAS,
+                self::PK_FIELD
+            )
+            ->addJoin(
+                Db::JOIN_TYPE_INNER,
+                'categories',
+                'categories',
+                self::PK_FIELD,
+                Db::DEFAULT_ALIAS,
+                'categoryId'
+            );
+
+        $dbObject
+            ->addWhere(sprintf('categories.alias = :alias', $categoryAlias));
+        $dbObject
+            ->addParameter('alias', $categoryAlias);
+
+        $dbObject
+            ->addWhere('languagePages.language = :language');
+        $dbObject
+            ->addParameter(
+                'language',
+                $language->getActiveId()
+            );
+
+        $dbObject
+            ->setOrder('languagePages.name');
+
+        $list = [];
+        $result = $dbObject->findAll();
+        foreach ($result as $item) {
+            $list[] = [
+                'name' => $item['name'],
+                'uri'  => sprintf(
+                    '/%s/help/%s/%s',
+                    $language->getActiveAlias(),
+                    $categoryAlias,
+                    $item['alias']
+                ),
+            ];
+        }
+
+        $memcached->set($memcachedKey, $list);
+
+        return $list;
     }
 }
