@@ -8,12 +8,12 @@ return [
         Language::LANGUAGE_RU_ID => 'Вход',
     ],
     'user'  => [
-        Language::LANGUAGE_EN_ID => 'User',
-        Language::LANGUAGE_RU_ID => '',
+        Language::LANGUAGE_EN_ID => 'Username',
+        Language::LANGUAGE_RU_ID => 'Логин',
     ],
     'login'  => [
         Language::LANGUAGE_EN_ID => 'Login',
-        Language::LANGUAGE_RU_ID => '',
+        Language::LANGUAGE_RU_ID => 'Логин',
     ],
     'users'  => [
         Language::LANGUAGE_EN_ID => 'Users',
@@ -21,11 +21,11 @@ return [
     ],
     'password'  => [
         Language::LANGUAGE_EN_ID => 'Password',
-        Language::LANGUAGE_RU_ID => '',
+        Language::LANGUAGE_RU_ID => 'Пароль',
     ],
     'passwordConfirm'  => [
         Language::LANGUAGE_EN_ID => 'Password confirm',
-        Language::LANGUAGE_RU_ID => '',
+        Language::LANGUAGE_RU_ID => 'Подтверждение пароля',
     ],
     'isRemember'  => [
         Language::LANGUAGE_EN_ID => 'Remember me',

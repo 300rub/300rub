@@ -197,7 +197,7 @@
             $.proxy(
                 function (i, item) {
                     item.validate();
-                    if (item.getInstance().hasClass("error")) {
+                    if (item.getForm().hasClass("error") === true) {
                         hasError = true;
                         if (isScrolled === false) {
                             isScrolled = true;

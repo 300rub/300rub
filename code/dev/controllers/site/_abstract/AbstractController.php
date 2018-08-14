@@ -53,6 +53,8 @@ abstract class AbstractController extends AbstractDataController
         $layoutData['less'] = $this->_getLess();
         $layoutData['version'] = $this->_getVersion();
         $layoutData['language'] = App::getInstance()->getLanguage()->getActiveId();
+        $layoutData['errorMessages']
+            = App::getInstance()->getValidator()->getErrorMessages();
         $layoutData['templates'] = $this->getContentFromTemplate(
             'site/templates',
             [

@@ -30,13 +30,4 @@
     ss.forms.Password.prototype.init = function () {
         this.getInstance().val("");
     };
-
-    /**
-     * Gets value
-     *
-     * @returns {String}
-     */
-    ss.forms.Password.prototype.getValue = function () {
-        return window.md5(this.getInstance().val() + "(^_^)");
-    };
 }(window.jQuery, window.ss);

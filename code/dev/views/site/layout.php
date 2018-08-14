@@ -13,6 +13,7 @@
  * @var integer  $version
  * @var string   $templates
  * @var integer  $language
+ * @var array    $errorMessages
  *
  * phpcs:disable Generic.Files.InlineHTML
  */
@@ -66,6 +67,11 @@
 
     <script>
         window.ss.system.App.setLanguage(<?php echo $language; ?>);
+        <?php foreach ($errorMessages as $key => $value) { ?>
+            ss.components.Error.set(
+                "<?php echo $key; ?>", "<?php echo $value; ?>"
+            );
+        <?php } ?>
     </script>
 </head>
 <body>

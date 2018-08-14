@@ -49,6 +49,19 @@ class Language
     ];
 
     /**
+     * Gets value list
+     *
+     * @return array
+     */
+    public function getValueList()
+    {
+        return [
+            self::LANGUAGE_EN_ID => 'English',
+            self::LANGUAGE_RU_ID => 'Русский',
+        ];
+    }
+
+    /**
      * Gets active ID
      *
      * @return int

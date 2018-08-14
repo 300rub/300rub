@@ -29,11 +29,11 @@ return [
     ],
     'name'      => [
         Language::LANGUAGE_EN_ID => 'Name',
-        Language::LANGUAGE_RU_ID => '',
+        Language::LANGUAGE_RU_ID => 'Название',
     ],
     'email'      => [
         Language::LANGUAGE_EN_ID => 'Email',
-        Language::LANGUAGE_RU_ID => '',
+        Language::LANGUAGE_RU_ID => 'Email',
     ],
     'url'     => [
         Language::LANGUAGE_EN_ID => 'URL',
@@ -126,5 +126,13 @@ return [
     'notFound' => [
         Language::LANGUAGE_EN_ID => 'Page not found',
         Language::LANGUAGE_RU_ID => '',
+    ],
+    'address' => [
+        Language::LANGUAGE_EN_ID => 'Address',
+        Language::LANGUAGE_RU_ID => 'Адрес',
+    ],
+    'language' => [
+        Language::LANGUAGE_EN_ID => 'Language',
+        Language::LANGUAGE_RU_ID => 'Язык',
     ],
 ];

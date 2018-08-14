@@ -14,7 +14,9 @@ return [
         'less' => 'site/common',
         'js'   => [
             'Ss',
+            'components/Validator',
             'components/Template',
+            'components/Error',
             'components/Ajax',
             'system/App',
             'forms/Abstract',

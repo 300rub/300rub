@@ -4,8 +4,8 @@
 
 <button class="form-button form-instance">
     <span class="icons">
-        <i class="icon fa"></i>
-        <i class="fa fa-refresh fa-spin hidden"></i>
+        <i class="icon fas"></i>
+        <i class="fas fa-sync fa-spin hidden"></i>
     </span>
     <span class="label-text"></span>
 </button>
@@ -54,7 +54,7 @@
     <label>
         <span class="label-text"></span>
         <span class="form-instance-container">
-            <i class="fa fa-remove error"></i>
+            <i class="fas fa-times error"></i>
             <input type="password" class="form-instance">
         </span>
         <span class="error"></span>
@@ -76,7 +76,7 @@
     <label>
         <span class="label-text"></span>
         <span class="form-instance-container">
-            <i class="fa fa-remove error"></i>
+            <i class="fas fa-times error"></i>
             <input type="text" class="form-instance">
         </span>
         <span class="error"></span>

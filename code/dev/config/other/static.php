@@ -11,7 +11,6 @@ return [
             ],
             'js'  => [
                 'lib/jquery.min',
-                'lib/md5.min',
                 'lib/jquery.fancybox.min',
                 'lib/jssor.slider.min',
             ]

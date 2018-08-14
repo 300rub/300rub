@@ -12,5 +12,7 @@
 </div>
 
 <script>
-    new  ss.window.site.Create();
+    $(document).ready(function() {
+        new ss.window.site.Create();
+    });
 </script>

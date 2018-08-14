@@ -2,6 +2,7 @@
 
 namespace ss\controllers\site;
 
+use ss\application\components\ValueGenerator;
 use ss\controllers\site\_abstract\AbstractController;
 use ss\application\App;
 use ss\models\system\SiteModel;
@@ -26,19 +27,19 @@ class GetCreateFormController extends AbstractController
 
         return [
             'title'
-                => $language->getMessage('user', 'loginTitle'),
+                => $language->getMessage('site', 'createWindowTitle'),
             'forms' => [
                 'name'       => [
                     'name'       => 'name',
                     'label'
-                        => $language->getMessage('user', 'user'),
+                        => $language->getMessage('common', 'address'),
                     'validation'
                         => $siteModel->getValidationRulesForField('name')
                 ],
                 'email'       => [
                     'name'       => 'email',
                     'label'
-                        => $language->getMessage('user', 'user'),
+                        => $language->getMessage('common', 'email'),
                     'validation'
                         => $siteModel->getValidationRulesForField('email')
                 ],
@@ -60,9 +61,29 @@ class GetCreateFormController extends AbstractController
                         ]
                     )
                 ],
+                'passwordConfirm'   => [
+                    'name'       => 'passwordConfirm',
+                    'label'
+                    => $language->getMessage('user', 'passwordConfirm'),
+                    'validation' => array_merge(
+                        $userModel->getValidationRulesForField('password'),
+                        [
+                            'minLength' => 3
+                        ]
+                    )
+                ],
+                'language'       => [
+                    'label' => $language->getMessage('site', 'defaultLanguage'),
+                    'value' => $language->getActiveId(),
+                    'name'  => 'language',
+                    'list'  => ValueGenerator::factory(
+                        ValueGenerator::ORDERED_ARRAY,
+                        $language->getValueList()
+                    )->generate()
+                ],
                 'button'     => [
                     'label'
-                        => $language->getMessage('user', 'loginButton'),
+                        => $language->getMessage('site', 'createSiteButton'),
                 ]
             ]
         ];

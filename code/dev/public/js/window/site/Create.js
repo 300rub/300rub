@@ -16,6 +16,13 @@
                 name: "create-site"
             }
         );
+
+        this._nameForm = null;
+        this._emailForm = null;
+        this._userForm = null;
+        this._passwordForm = null;
+        this._passwordConfirmForm = null;
+        this._languageForm = null;
     };
 
     /**
@@ -39,7 +46,85 @@
      * @private
      */
     ss.window.site.Create.prototype._onLoadDataSuccess = function (data) {
-        this.setTitle(123);
+        this._nameForm = new ss.forms.Text(
+            $.extend(
+                {
+                    appendTo: this.getBody()
+                },
+                data.forms.name
+            )
+        );
+
+        this._emailForm = new ss.forms.Text(
+            $.extend(
+                {
+                    appendTo: this.getBody()
+                },
+                data.forms.email
+            )
+        );
+
+        this._userForm = new ss.forms.Text(
+            $.extend(
+                {
+                    appendTo: this.getBody()
+                },
+                data.forms.user
+            )
+        );
+
+        this._passwordForm = new ss.forms.Password(
+            $.extend(
+                {
+                    appendTo: this.getBody()
+                },
+                data.forms.password
+            )
+        );
+
+        this._passwordConfirmForm = new ss.forms.Password(
+            $.extend(
+                {
+                    appendTo: this.getBody()
+                },
+                data.forms.passwordConfirm
+            )
+        );
+
+        this._languageForm = new ss.forms.Select(
+            $.extend(
+                {
+                    appendTo: this.getBody()
+                },
+                data.forms.language
+            )
+        );
+
+        this
+            .setTitle(data.title)
+            .setSubmit(
+                {
+                    label: data.forms.button.label,
+                    icon: "fa-plus",
+                    forms: [
+                        this._nameForm,
+                        this._emailForm,
+                        this._userForm,
+                        this._passwordForm,
+                        this._passwordConfirmForm,
+                        this._languageForm
+                    ],
+                    ajax: {
+                        data: {
+                            group: "user",
+                            controller: "session"
+                        },
+                        type: "POST",
+                        success: $.proxy(this._onSendSuccess, this),
+                        error: ss.system.App.showError
+                    }
+                }
+            );
     };
 
     /**

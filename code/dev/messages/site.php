@@ -55,8 +55,16 @@ return [
         Language::LANGUAGE_EN_ID => 'Page not found',
         Language::LANGUAGE_RU_ID => 'Категория не найдена',
     ],
-    'createSite' => [
+    'createSiteButton' => [
         Language::LANGUAGE_EN_ID => 'Create site',
         Language::LANGUAGE_RU_ID => 'Создать сайт',
+    ],
+    'createWindowTitle' => [
+        Language::LANGUAGE_EN_ID => 'Create site',
+        Language::LANGUAGE_RU_ID => 'Создать сайт',
+    ],
+    'defaultLanguage' => [
+        Language::LANGUAGE_EN_ID => 'Default language',
+        Language::LANGUAGE_RU_ID => 'Язык по умолчанию',
     ],
 ];

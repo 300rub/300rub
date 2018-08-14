@@ -13,7 +13,7 @@ return [
     ],
     'minLength'               => [
         Language::LANGUAGE_EN_ID => "The field's length is too small",
-        Language::LANGUAGE_RU_ID => '',
+        Language::LANGUAGE_RU_ID => 'Слишком короткое значение',
     ],
     'alias'               => [
         Language::LANGUAGE_EN_ID
@@ -28,7 +28,7 @@ return [
     ],
     'email'     => [
         Language::LANGUAGE_EN_ID => 'Incorrect email',
-        Language::LANGUAGE_RU_ID => '',
+        Language::LANGUAGE_RU_ID => 'Неверный email',
     ],
     'unique' => [
         Language::LANGUAGE_EN_ID => 'The field value must be unique',
