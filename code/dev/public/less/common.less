@@ -2,9 +2,9 @@
 @import "default/webkit";
 @import "default/layout";
 @import "default/buttons";
+@import "form/form";
 @import "grid";
-@import "form";
-@import "window";
+@import "window/window";
 @import "login";
 @import "menu";
 @import "image";
@@ -78,29 +78,5 @@
 .accordion-container.opened > .accordion-title {
   .fa {
     .transform(rotate(90deg));
-  }
-}
-
-// Container
-
-.scroll-container {
-  overflow-y: auto;
-
-  &::-webkit-scrollbar {
-    -webkit-appearance: none;
-    height: 8px;
-    width: 8px;
-  }
-
-  &::-webkit-scrollbar-thumb {
-    background-color: @grayBorderColor;
-  }
-
-  &::-webkit-scrollbar-thumb:hover {
-    background-color: @blueBorderColor;
-  }
-
-  &::-webkit-scrollbar-track-piece {
-    background-color: @grayBackground;
   }
 }

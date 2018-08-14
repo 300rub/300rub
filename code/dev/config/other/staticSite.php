@@ -5,6 +5,7 @@ return [
         'libs' => [
             'css' => [
                 'fonts/OpenSans/font',
+                'lib/fa/css/fontawesome-all.min',
             ],
             'js'  => [
                 'lib/jquery.min',
