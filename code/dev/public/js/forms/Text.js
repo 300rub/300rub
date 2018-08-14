@@ -27,6 +27,26 @@
      * Init
      */
     ss.forms.Text.prototype.init = function () {
+        var container = this.getForm().find(".form-instance-container");
+        var prefixOption = this.getOption("prefix");
+        var prefixElement = container.find(".prefix");
+        var postfixOption = this.getOption("postfix");
+        var postfixElement = container.find(".postfix");
+
+        if (prefixOption !== null) {
+            container.addClass("form-instance-container-prefix");
+            prefixElement.text(prefixOption);
+        } else {
+            prefixElement.remove();
+        }
+
+        if (postfixOption !== null) {
+            container.addClass("form-instance-container-postfix");
+            postfixElement.text(postfixOption);
+        } else {
+            postfixElement.remove();
+        }
+
         this.getInstance().val(this.getOption("value"));
     };
 }(window.jQuery, window.ss);

@@ -10,8 +10,9 @@
     }
 
     .form-instance-container {
-      display: block;
       position: relative;
+      display: block;
+      width: 100%;
 
       i.error {
         color: @redTextColor;
@@ -20,6 +21,55 @@
         position: absolute;
         right: 9px;
         top: 6px;
+      }
+
+      .prefix,
+      .postfix {
+        display: none;
+      }
+    }
+
+    .form-instance-container-prefix {
+      display: table;
+
+      .form-instance {
+        display: table-cell;
+        -webkit-border-top-left-radius: 0;
+        -moz-border-top-left-radius: 0;
+        border-top-left-radius: 0;
+        -webkit-border-bottom-left-radius: 0;
+        -moz-border-bottom-left-radius: 0;
+        border-bottom-left-radius: 0;
+      }
+
+      .prefix {
+        .border-radius(4px 0 0 4px);
+        display: table-cell;
+        padding: 0 5px;
+        text-align: center;
+        background: @grayBackground;
+      }
+    }
+
+    .form-instance-container-postfix {
+      display: table;
+
+      .form-instance {
+        display: table-cell;
+        -webkit-border-top-right-radius: 0;
+        -moz-border-top-right-radius: 0;
+        border-top-right-radius: 0;
+        -webkit-border-bottom-right-radius: 0;
+        -moz-border-bottom-right-radius: 0;
+        border-bottom-right-radius: 0;
+      }
+
+      .postfix {
+        .border-radius(0 4px 4px 0);
+        display: table-cell;
+        padding: 0 20px 0 5px;
+        text-align: center;
+        background: @grayBackground;
       }
     }
 
