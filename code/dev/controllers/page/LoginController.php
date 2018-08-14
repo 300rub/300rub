@@ -18,10 +18,10 @@ class LoginController extends AbstractPageController
      */
     public function run()
     {
-        $siteHost = App::web()
+        $siteHost = App::getInstance()
             ->getSite()
             ->getInternalHost();
-        $host = App::web()
+        $host = App::getInstance()
             ->getSuperGlobalVariable()
             ->getServerValue('HTTP_HOST');
 
@@ -41,7 +41,7 @@ class LoginController extends AbstractPageController
 
         $this->setStaticMap('static');
 
-        $language = App::web()->getLanguage();
+        $language = App::getInstance()->getLanguage();
 
         $layoutData = [];
         $layoutData['content'] = $content;
@@ -53,7 +53,7 @@ class LoginController extends AbstractPageController
         $layoutData['less'] = $this->getLess();
         $layoutData['language'] = $language->getActiveId();
         $layoutData['errorMessages']
-            = App::web()->getValidator()->getErrorMessages();
+            = App::getInstance()->getValidator()->getErrorMessages();
         $layoutData['token'] = null;
         $layoutData['isUser'] = false;
         $layoutData['generatedCss'] = [];

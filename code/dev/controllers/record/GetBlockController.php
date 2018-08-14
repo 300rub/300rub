@@ -22,7 +22,7 @@ class GetBlockController extends AbstractController
      */
     public function run()
     {
-        $language = App::web()->getLanguage();
+        $language = App::getInstance()->getLanguage();
         $blockModel = new BlockModel();
         $recordModel = new RecordModel();
 

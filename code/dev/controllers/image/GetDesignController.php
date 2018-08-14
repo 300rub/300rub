@@ -79,7 +79,7 @@ class GetDesignController extends AbstractController
                 break;
         }
 
-        $language = App::web()->getLanguage();
+        $language = App::getInstance()->getLanguage();
 
         return [
             'id'          => $blockId,

@@ -40,7 +40,7 @@ class CreateUserController extends AbstractController
         if ($this->get('password') !== $this->get('passwordConfirm')) {
             return [
                 'errors' => [
-                    'passwordConfirm' => App::web()
+                    'passwordConfirm' => App::getInstance()
                         ->getLanguage()
                         ->getMessage('user', 'passwordsMatch')
                 ]

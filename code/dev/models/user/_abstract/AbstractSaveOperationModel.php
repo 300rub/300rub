@@ -351,7 +351,7 @@ abstract class AbstractSaveOperationModel extends AbstractGetOperationModel
         $sessionModels->byUserId($this->getId());
         $sessionModels = $sessionModels->findAll();
         foreach ($sessionModels as $sessionModel) {
-            App::web()->getMemcached()->delete(
+            App::getInstance()->getMemcached()->delete(
                 $sessionModel->get('token')
             );
         }

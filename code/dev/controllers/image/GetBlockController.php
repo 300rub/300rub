@@ -54,7 +54,7 @@ class GetBlockController extends AbstractController
             $buttonLabelKey = 'add';
         }
 
-        $language = App::web()->getLanguage();
+        $language = App::getInstance()->getLanguage();
 
         return [
             'id'          => $this->_blockId,

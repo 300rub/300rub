@@ -21,7 +21,7 @@ class GetSettingsController extends AbstractController
     {
         $this->checkUser();
 
-        $language = App::web()->getLanguage();
+        $language = App::getInstance()->getLanguage();
 
         $list = [];
 

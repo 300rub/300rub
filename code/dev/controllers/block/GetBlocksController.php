@@ -32,7 +32,7 @@ class GetBlocksController extends AbstractController
         $this
             ->_setTextBlock();
 
-        $language = App::web()->getLanguage();
+        $language = App::getInstance()->getLanguage();
         return [
             'title'       => $language->getMessage('block', 'blocks'),
             'description' => $language->getMessage('block', 'blockDescription'),
@@ -59,7 +59,7 @@ class GetBlocksController extends AbstractController
             $blockModel
                 ->byContentType(BlockModel::TYPE_TEXT)
                 ->bySectionId($blockSection)
-                ->byLanguage(App::web()->getLanguage()->getActiveId());
+                ->byLanguage(App::getInstance()->getLanguage()->getActiveId());
 
             $isDisplay = false;
             if ($blockModel->getCount() > 0) {

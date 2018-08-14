@@ -21,7 +21,7 @@ class GetBlocksController extends AbstractController
     public function run()
     {
         $this->checkUser();
-        $language = App::web()->getLanguage();
+        $language = App::getInstance()->getLanguage();
 
         $blockModels = BlockModel::model()
             ->byContentType(BlockModel::TYPE_TEXT)

@@ -31,17 +31,17 @@ class DeleteSessionController extends AbstractController
      */
     public function run()
     {
-        $user = App::web()->getUser();
+        $user = App::getInstance()->getUser();
         if ($user instanceof User === false) {
             return $this->getSimpleSuccessResult();
         }
 
         $token = $this->get('token');
         if (empty($token) !== false) {
-            App::web()->getMemcached()->delete($user->getToken());
+            App::getInstance()->getMemcached()->delete($user->getToken());
 
             setcookie('token', '', (time() - 3600), '/');
-            App::web()
+            App::getInstance()
                 ->getSuperGlobalVariable()
                 ->deleteCookieValue('token');
 
@@ -79,7 +79,7 @@ class DeleteSessionController extends AbstractController
                 );
             }
 
-            App::web()->getMemcached()->delete($token);
+            App::getInstance()->getMemcached()->delete($token);
             $userSessionModel->delete();
         }
 
@@ -121,7 +121,7 @@ class DeleteSessionController extends AbstractController
         return [
             'host' => $this->generateAbsoluteUrl(
                 '',
-                App::web()->getSite()->getMainHost(),
+                App::getInstance()->getSite()->getMainHost(),
                 self::PROTOCOL_HTTP
             )
         ];

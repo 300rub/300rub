@@ -30,13 +30,13 @@ class PageController extends AbstractPageController
         $sectionId = 0;
 
         $this->_setSectionModel();
-        $sectionModel = App::web()->getSite()->getActiveSection();
+        $sectionModel = App::getInstance()->getSite()->getActiveSection();
 
         if ($sectionModel === null
             && $isUser === false
         ) {
             throw new NotFoundException(
-                App::web()->getLanguage()->getMessage('common', 'notFound')
+                App::getInstance()->getLanguage()->getMessage('common', 'notFound')
             );
         }
 
@@ -49,7 +49,7 @@ class PageController extends AbstractPageController
         }
 
         if ($isUser === true) {
-            $token = App::web()->getUser()->getToken();
+            $token = App::getInstance()->getUser()->getToken();
             $content .= $this->_getUserContent();
         }
 
@@ -71,9 +71,9 @@ class PageController extends AbstractPageController
         $layoutData['js'] = $this->getJs();
         $layoutData['less'] = $this->getLess();
         $layoutData['language']
-            = App::web()->getLanguage()->getActiveId();
+            = App::getInstance()->getLanguage()->getActiveId();
         $layoutData['errorMessages']
-            = App::web()->getValidator()->getErrorMessages();
+            = App::getInstance()->getValidator()->getErrorMessages();
         $layoutData['token'] = $token;
         $layoutData['sectionId'] = $sectionId;
         $layoutData['isUser'] = $isUser;
@@ -91,7 +91,7 @@ class PageController extends AbstractPageController
      */
     private function _setSectionModel()
     {
-        $site = App::web()->getSite();
+        $site = App::getInstance()->getSite();
         $requestUri = $site->getUri();
 
         if (strlen($requestUri) === 0
@@ -107,7 +107,7 @@ class PageController extends AbstractPageController
 
         $site->setActiveSection(
             SectionModel::model()
-                ->byLanguage(App::web()->getLanguage()->getActiveId())
+                ->byLanguage(App::getInstance()->getLanguage()->getActiveId())
                 ->byAlias($explode[1])
                 ->withRelations(['*'])
                 ->find()
@@ -153,7 +153,7 @@ class PageController extends AbstractPageController
      */
     private function _getUserContent()
     {
-        $language = App::web()->getLanguage();
+        $language = App::getInstance()->getLanguage();
 
         return $this->getContentFromTemplate(
             'page/userButtons',

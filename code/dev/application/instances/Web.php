@@ -3,21 +3,18 @@
 namespace ss\application\instances;
 
 use ss\application\components\User;
-use ss\application\instances\_abstract\AbstractWebAjax;
+use ss\application\instances\_abstract\AbstractAjax;
 use ss\models\_abstract\AbstractModel;
 use ss\models\user\UserModel;
 use ss\models\user\UserSessionModel;
+use ss\controllers\page\LoginController;
+use ss\controllers\page\PageController;
 
 /**
  * Class for working with WEB application
  */
-class Web extends AbstractWebAjax
+class Web extends AbstractAjax
 {
-
-    /**
-     * API uri
-     */
-    const API_PREFIX = 'api';
 
     /**
      * User in session
@@ -166,5 +163,26 @@ class Web extends AbstractWebAjax
         }
 
         return null;
+    }
+
+    /**
+     * Gets Page output
+     *
+     * @return string
+     */
+    protected function processPage()
+    {
+        $requestUri = $this
+            ->getSuperGlobalVariable()
+            ->getServerValue('REQUEST_URI');
+        $requestUri = trim($requestUri, '/');
+
+        if ($requestUri === 'login') {
+            $loginController = new LoginController();
+            return $loginController->run();
+        }
+
+        $pageController = new PageController();
+        return $pageController->run();
     }
 }

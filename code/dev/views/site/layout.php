@@ -11,6 +11,8 @@
  * @var string[] $js
  * @var string   $content
  * @var integer  $version
+ * @var string   $templates
+ * @var integer  $language
  *
  * phpcs:disable Generic.Files.InlineHTML
  */
@@ -51,10 +53,28 @@
         }
     }
     ?>
+
+    <?php
+    if (isset($js) === true) {
+        foreach ($js as $fileName) {
+            ?>
+            <script src="/js/<?php echo $fileName; ?>.js?<?php echo $version; ?>"></script>
+            <?php
+        }
+    }
+    ?>
+
+    <script>
+        window.ss.system.App.setLanguage(<?php echo $language; ?>);
+    </script>
 </head>
 <body>
 
 <?php echo $content; ?>
+
+<div id="ajax-wrapper"></div>
+
+<?php echo $templates; ?>
 
 </body>
 </html>

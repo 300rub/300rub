@@ -35,7 +35,7 @@ class DeleteSessionsController extends AbstractController
         $userSessionModels = $this->_getUserSessionModels($userId);
 
         foreach ($userSessionModels as $userSessionModel) {
-            App::web()
+            App::getInstance()
                 ->getMemcached()
                 ->delete($userSessionModel->get('token'));
             $userSessionModel->delete();
@@ -55,7 +55,7 @@ class DeleteSessionsController extends AbstractController
      */
     private function _getUserSessionModels($userId)
     {
-        $user = App::web()->getUser();
+        $user = App::getInstance()->getUser();
 
         if ($userId === 0
             || $userId === $user->getId()

@@ -54,7 +54,7 @@ abstract class AbstractController extends AbstractOperationController
             return $this->_blockSection;
         }
 
-        $globalObject = App::web()->getSuperGlobalVariable();
+        $globalObject = App::getInstance()->getSuperGlobalVariable();
 
         if ($this->get(self::BLOCK_SECTION) !== null) {
             $value = (int)$this->get(self::BLOCK_SECTION);
@@ -117,7 +117,7 @@ abstract class AbstractController extends AbstractOperationController
      */
     protected function removeSavedData()
     {
-        $bdObject = App::web()->getDb();
+        $bdObject = App::getInstance()->getDb();
         $bdObject->rollbackTransaction();
         $bdObject->startTransaction();
     }

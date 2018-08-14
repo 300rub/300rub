@@ -26,7 +26,8 @@
         },
         system: {},
         window: {
-            users: {}
+            users: {},
+            site: {}
         }
     };
 }(window);

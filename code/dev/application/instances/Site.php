@@ -3,7 +3,7 @@
 namespace ss\application\instances;
 
 use ss\application\components\Language;
-use ss\application\instances\_abstract\AbstractApplication;
+use ss\application\instances\_abstract\AbstractAjax;
 use ss\controllers\site\_abstract\AbstractController;
 use ss\controllers\site\CreateController;
 use ss\controllers\site\HelpController;
@@ -12,7 +12,7 @@ use ss\controllers\site\IndexController;
 /**
  * Class for working with Site application
  */
-class Site extends AbstractApplication
+class Site extends AbstractAjax
 {
 
     /**
@@ -28,8 +28,33 @@ class Site extends AbstractApplication
      */
     public function run()
     {
-        $controller = $this->_getController();
-        echo $controller->run();
+        echo $this->_getOutput($this->_isAjax());
+    }
+
+    /**
+     * Flag is ajax
+     *
+     * @return bool
+     */
+    private function _isAjax()
+    {
+        $requestUri = $this
+            ->getSuperGlobalVariable()
+            ->getServerValue('REQUEST_URI');
+        $requestUri = trim($requestUri, '/');
+        $requestParameters = explode('/', $requestUri);
+
+        if ($requestUri === ''
+            || count($requestParameters) === 0
+        ) {
+            return false;
+        }
+
+        if ($requestParameters[0] === self::API_PREFIX) {
+            return true;
+        }
+
+        return false;
     }
 
     /**
@@ -37,7 +62,7 @@ class Site extends AbstractApplication
      *
      * @return AbstractController
      */
-    private function _getController()
+    private function _getPageController()
     {
         $requestUri = $this
             ->getSuperGlobalVariable()
@@ -74,5 +99,24 @@ class Site extends AbstractApplication
         }
 
         return new IndexController();
+    }
+
+    /**
+     * Gets output
+     *
+     * @param bool $isAjax Flag of ajax request
+     *
+     * @return string
+     */
+    private function _getOutput($isAjax)
+    {
+        if ($isAjax === true) {
+            return $this
+                ->setTransactionSkipped()
+                ->processAjax();
+        }
+
+        $controller = $this->_getPageController();
+        return $controller->run();
     }
 }

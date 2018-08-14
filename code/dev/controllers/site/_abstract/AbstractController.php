@@ -2,12 +2,13 @@
 
 namespace ss\controllers\site\_abstract;
 
-use ss\controllers\_abstract\AbstractBaseController;
+use ss\application\App;
+use ss\controllers\_abstract\AbstractDataController;
 
 /**
  * Abstract Controller for all site controllers
  */
-abstract class AbstractController extends AbstractBaseController
+abstract class AbstractController extends AbstractDataController
 {
 
     /**
@@ -51,6 +52,13 @@ abstract class AbstractController extends AbstractBaseController
         $layoutData['js'] = $this->_getJs();
         $layoutData['less'] = $this->_getLess();
         $layoutData['version'] = $this->_getVersion();
+        $layoutData['language'] = App::getInstance()->getLanguage()->getActiveId();
+        $layoutData['templates'] = $this->getContentFromTemplate(
+            'site/templates',
+            [
+                'isUser' => $this->_isUser()
+            ]
+        );
 
         return $this->getContentFromTemplate('site/layout', $layoutData);
     }

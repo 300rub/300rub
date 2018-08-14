@@ -53,7 +53,7 @@ class UpdateUserController extends AbstractController
             ]
         );
 
-        $this->_user = App::web()->getUser();
+        $this->_user = App::getInstance()->getUser();
         $this->_userModel = $this->_getUserModel();
 
         $this->_checkAccess();
@@ -73,7 +73,7 @@ class UpdateUserController extends AbstractController
             if ($this->get('password') !== $this->get('passwordConfirm')) {
                 return [
                     'errors' => [
-                        'passwordConfirm' => App::web()
+                        'passwordConfirm' => App::getInstance()
                             ->getLanguage()
                             ->getMessage('user', 'passwordsMatch')
                     ]

@@ -30,7 +30,7 @@ class GetBlocksController extends AbstractController
     {
         $this->checkUser();
 
-        $language = App::web()->getLanguage();
+        $language = App::getInstance()->getLanguage();
 
         $blockModels = $this->_getBlockModels();
 
@@ -144,7 +144,7 @@ class GetBlocksController extends AbstractController
     {
         return BlockModel::model()
             ->byContentType(BlockModel::TYPE_RECORD)
-            ->byLanguage(App::web()->getLanguage()->getActiveId())
+            ->byLanguage(App::getInstance()->getLanguage()->getActiveId())
             ->bySectionId($this->getBlockSection())
             ->findAll();
     }
@@ -158,7 +158,7 @@ class GetBlocksController extends AbstractController
     {
         return BlockModel::model()
             ->byContentType(BlockModel::TYPE_RECORD_CLONE)
-            ->byLanguage(App::web()->getLanguage()->getActiveId())
+            ->byLanguage(App::getInstance()->getLanguage()->getActiveId())
             ->bySectionId($this->getBlockSection())
             ->findAll();
     }

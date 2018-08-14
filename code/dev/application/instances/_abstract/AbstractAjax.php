@@ -10,8 +10,13 @@ use ss\controllers\_abstract\AbstractController;
 /**
  * Abstract class for working with AJAX requests
  */
-abstract class AbstractWebAjax extends AbstractWebPage
+abstract class AbstractAjax extends AbstractApplication
 {
+
+    /**
+     * API uri
+     */
+    const API_PREFIX = 'api';
 
     /**
      * HTTP Methods
@@ -20,6 +25,13 @@ abstract class AbstractWebAjax extends AbstractWebPage
     const METHOD_POST = 'POST';
     const METHOD_PUT = 'PUT';
     const METHOD_DELETE = 'DELETE';
+
+    /**
+     * Flag to skip transaction
+     *
+     * @var bool
+     */
+    private $_skipTransaction = false;
 
     /**
      * Flag of using transaction
@@ -86,9 +98,20 @@ abstract class AbstractWebAjax extends AbstractWebPage
     }
 
     /**
+     * Sets transaction skipped
+     *
+     * @return AbstractAjax
+     */
+    public function setTransactionSkipped()
+    {
+        $this->_skipTransaction = true;
+        return $this;
+    }
+
+    /**
      * Sets prefix
      *
-     * @return AbstractWebAjax
+     * @return AbstractAjax
      *
      * @throws BadRequestException
      */
@@ -128,10 +151,15 @@ abstract class AbstractWebAjax extends AbstractWebPage
     /**
      * Sets using transaction
      *
-     * @return AbstractWebAjax
+     * @return AbstractAjax
      */
     private function _setUseTransaction()
     {
+        if ($this->_skipTransaction === true) {
+            $this->_useTransaction = false;
+            return $this;
+        }
+
         $method = strtoupper(
             $this
                 ->getSuperGlobalVariable()
@@ -149,7 +177,7 @@ abstract class AbstractWebAjax extends AbstractWebPage
     /**
      * Starts transaction
      *
-     * @return AbstractWebAjax
+     * @return AbstractAjax
      */
     private function _startTransaction()
     {
@@ -163,7 +191,7 @@ abstract class AbstractWebAjax extends AbstractWebPage
     /**
      * Commits transaction
      *
-     * @return AbstractWebAjax
+     * @return AbstractAjax
      */
     private function _commitTransaction()
     {
@@ -177,7 +205,7 @@ abstract class AbstractWebAjax extends AbstractWebPage
     /**
      * Rollbacks transaction
      *
-     * @return AbstractWebAjax
+     * @return AbstractAjax
      */
     private function _rollbackTransaction()
     {
@@ -193,7 +221,7 @@ abstract class AbstractWebAjax extends AbstractWebPage
      *
      * @throws BadRequestException
      *
-     * @return AbstractWebAjax
+     * @return AbstractAjax
      */
     private function _checkAjaxRequest()
     {
@@ -212,7 +240,7 @@ abstract class AbstractWebAjax extends AbstractWebPage
     /**
      * Sets input value
      *
-     * @return AbstractWebAjax
+     * @return AbstractAjax
      */
     private function _setInput()
     {
@@ -261,7 +289,7 @@ abstract class AbstractWebAjax extends AbstractWebPage
     /**
      * Checks input
      *
-     * @return AbstractWebAjax
+     * @return AbstractAjax
      *
      * @throws BadRequestException
      */
@@ -285,7 +313,7 @@ abstract class AbstractWebAjax extends AbstractWebPage
     /**
      * Sets language ID
      *
-     * @return AbstractWebAjax
+     * @return AbstractAjax
      *
      * @throws BadRequestException
      */
@@ -311,7 +339,7 @@ abstract class AbstractWebAjax extends AbstractWebPage
     /**
      * Sets controller
      *
-     * @return AbstractWebAjax
+     * @return AbstractAjax
      *
      * @throws BadRequestException
      */
@@ -360,7 +388,7 @@ abstract class AbstractWebAjax extends AbstractWebPage
     /**
      * Runs controller
      *
-     * @return AbstractWebAjax
+     * @return AbstractAjax
      */
     private function _runController()
     {

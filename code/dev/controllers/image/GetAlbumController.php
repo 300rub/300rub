@@ -79,7 +79,7 @@ class GetAlbumController extends AbstractController
         $groupId = (int)$this->get('id');
         $blockId = (int)$this->get('blockId');
 
-        $language = App::web()->getLanguage();
+        $language = App::getInstance()->getLanguage();
 
         $titleKey = 'updateAlbum';
         $buttonKey = 'update';

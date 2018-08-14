@@ -54,7 +54,7 @@ class GetBlockController extends AbstractController
             $hasEditor = $textModel->get('hasEditor');
         }
 
-        $language = App::web()->getLanguage();
+        $language = App::getInstance()->getLanguage();
 
         $titleKey = 'editBlockTitle';
         $descriptionKey = 'editBlockDescription';

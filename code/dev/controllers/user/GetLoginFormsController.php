@@ -30,7 +30,7 @@ class GetLoginFormsController extends AbstractController
         }
 
         $model = new UserModel();
-        $language = App::web()->getLanguage();
+        $language = App::getInstance()->getLanguage();
 
         return [
             'title'

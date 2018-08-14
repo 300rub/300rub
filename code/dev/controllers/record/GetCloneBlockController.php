@@ -86,7 +86,7 @@ class GetCloneBlockController extends AbstractController
         $recordCloneModel,
         $hasCover
     ) {
-        $language = App::web()->getLanguage();
+        $language = App::getInstance()->getLanguage();
 
         $titleKey = 'editCloneBlockTitle';
         $descriptionKey = 'editCloneBlockDescription';

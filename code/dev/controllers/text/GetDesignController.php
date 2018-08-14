@@ -49,7 +49,7 @@ class GetDesignController extends AbstractController
             ->getDesignTextModel()
             ->getDesign($cssSelector);
 
-        $language = App::web()->getLanguage();
+        $language = App::getInstance()->getLanguage();
 
         return [
             'id'          => $blockId,

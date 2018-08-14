@@ -36,8 +36,8 @@ class CreateSessionController extends AbstractController
             ]
         );
 
-        $language = App::web()->getLanguage();
-        $global = App::web()->getSuperGlobalVariable();
+        $language = App::getInstance()->getLanguage();
+        $global = App::getInstance()->getSuperGlobalVariable();
 
         $userModel = new UserModel();
         $userModel->byLogin($this->get('user'));
@@ -60,7 +60,7 @@ class CreateSessionController extends AbstractController
 
         $token = md5(session_id());
 
-        App::web()->setUser($token, $userModel);
+        App::getInstance()->setUser($token, $userModel);
         $global->setSessionValue('token', $token);
         if ($this->get('isRemember') === true) {
             $global->setCookieValue(

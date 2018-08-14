@@ -22,7 +22,7 @@ class GetBlocksController extends AbstractController
     {
         $this->checkUser();
 
-        $language = App::web()->getLanguage();
+        $language = App::getInstance()->getLanguage();
 
         $blockModels = BlockModel::model()
             ->byContentType(BlockModel::TYPE_IMAGE)

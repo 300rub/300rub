@@ -21,7 +21,7 @@ abstract class AbstractOperationController extends AbstractDataController
      */
     protected function isUser()
     {
-        $user = App::web()->getUser();
+        $user = App::getInstance()->getUser();
         return $user instanceof User;
     }
 
@@ -38,7 +38,7 @@ abstract class AbstractOperationController extends AbstractDataController
             throw new AccessException('User is null');
         }
 
-        if (App::web()->getUser()->getType() === UserModel::TYPE_BLOCKED) {
+        if (App::getInstance()->getUser()->getType() === UserModel::TYPE_BLOCKED) {
             throw new AccessException('User is blocked');
         }
 
@@ -52,12 +52,12 @@ abstract class AbstractOperationController extends AbstractDataController
      */
     protected function getUserOperations()
     {
-        $user = App::web()->getUser();
+        $user = App::getInstance()->getUser();
         if ($user instanceof User === false) {
             return [];
         }
 
-        return App::web()->getUser()->getOperations();
+        return App::getInstance()->getUser()->getOperations();
     }
 
     /**
@@ -67,7 +67,7 @@ abstract class AbstractOperationController extends AbstractDataController
      */
     protected function isFullAccess()
     {
-        $user = App::web()->getUser();
+        $user = App::getInstance()->getUser();
         if ($user instanceof User === false) {
             return false;
         }
@@ -88,7 +88,7 @@ abstract class AbstractOperationController extends AbstractDataController
      */
     protected function isBlocked()
     {
-        $user = App::web()->getUser();
+        $user = App::getInstance()->getUser();
         if ($user instanceof User === false) {
             return true;
         }

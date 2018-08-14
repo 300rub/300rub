@@ -60,7 +60,7 @@ class CreateBlockController extends AbstractController
         $blockModel->set(
             [
                 'name'        => $this->get('name'),
-                'language'    => App::web()->getLanguage()->getActiveId(),
+                'language'    => App::getInstance()->getLanguage()->getActiveId(),
                 'contentType' => BlockModel::TYPE_RECORD,
                 'contentId'   => $recordModel->getId(),
             ]

@@ -56,7 +56,7 @@ class GetContentController extends AbstractController
             );
         }
 
-        $language = App::web()->getLanguage();
+        $language = App::getInstance()->getLanguage();
 
         return [
             'id'        => $blockModel->getId(),

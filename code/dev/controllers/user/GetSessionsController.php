@@ -40,7 +40,7 @@ class GetSessionsController extends AbstractController
 
         $userId = (int)$this->get('id');
 
-        if ($userId !== App::web()->getUser()->getId()) {
+        if ($userId !== App::getInstance()->getUser()->getId()) {
             $this->checkSettingsOperation(
                 Operation::SETTINGS_USER_VIEW_SESSIONS
             );
@@ -49,7 +49,7 @@ class GetSessionsController extends AbstractController
         $user = $this->_getUserModel($userId);
 
         $canDelete = true;
-        if ($userId !== App::web()->getUser()->getId()) {
+        if ($userId !== App::getInstance()->getUser()->getId()) {
             $canDelete = false;
             if ($user->isOwner() === false) {
                 $canDelete = $this->hasSettingsOperation(
@@ -58,7 +58,7 @@ class GetSessionsController extends AbstractController
             }
         }
 
-        $language = App::web()->getLanguage();
+        $language = App::getInstance()->getLanguage();
 
         return [
             'title'     => $language->getMessage('user', 'sessions'),
@@ -132,7 +132,7 @@ class GetSessionsController extends AbstractController
             );
 
             $isCurrent = false;
-            $token = App::web()->getUser()->getToken();
+            $token = App::getInstance()->getUser()->getToken();
             if ($userSessionModel->get('token') === $token) {
                 $isCurrent = true;
             }

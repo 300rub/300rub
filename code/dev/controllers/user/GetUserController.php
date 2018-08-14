@@ -87,7 +87,7 @@ class GetUserController extends AbstractController
     {
         $this->checkUser();
 
-        $language = App::web()->getLanguage();
+        $language = App::getInstance()->getLanguage();
 
         $userId = 0;
         $blockId = $this->get('id');
@@ -190,7 +190,7 @@ class GetUserController extends AbstractController
         $this->_email = '';
         $this->_type = 0;
 
-        $language = App::web()->getLanguage();
+        $language = App::getInstance()->getLanguage();
 
         if ($userId === 0) {
             $this->checkSettingsOperation(Operation::SETTINGS_USER_ADD);
@@ -201,7 +201,7 @@ class GetUserController extends AbstractController
             return $this;
         }
 
-        $user = App::web()->getUser();
+        $user = App::getInstance()->getUser();
 
         $this->_canChangeOperations = false;
         $this->_title = $language->getMessage('user', 'editUser');
@@ -294,7 +294,7 @@ class GetUserController extends AbstractController
      */
     private function _getSectionOperations($userOperations)
     {
-        $language = App::web()->getLanguage();
+        $language = App::getInstance()->getLanguage();
 
         $operations = [
             'title' => $language->getMessage('section', 'sections'),
@@ -336,7 +336,7 @@ class GetUserController extends AbstractController
     {
         $operations = [];
 
-        $operationList = App::web()
+        $operationList = App::getInstance()
             ->getOperation()
             ->getSectionOperations(true);
         asort($operationList);
@@ -389,7 +389,7 @@ class GetUserController extends AbstractController
     {
         $operations = [];
 
-        $operationList = App::web()
+        $operationList = App::getInstance()
             ->getOperation()
             ->getSectionOperations(false);
         asort($operationList);
@@ -437,7 +437,7 @@ class GetUserController extends AbstractController
      */
     private function _getBlockOperations($userOperations)
     {
-        $language = App::web()->getLanguage();
+        $language = App::getInstance()->getLanguage();
 
         $operations = [
             'title' => $language->getMessage('block', 'blocks'),
@@ -466,7 +466,7 @@ class GetUserController extends AbstractController
             if (count($blocks) > 0) {
                 switch ($blockKey) {
                     case BlockModel::TYPE_TEXT:
-                        $operationList = App::web()->getOperation()
+                        $operationList = App::getInstance()->getOperation()
                             ->getBlockTextOperations(false);
                         break;
                     default:
@@ -509,7 +509,7 @@ class GetUserController extends AbstractController
 
         switch ($blockKey) {
             case BlockModel::TYPE_TEXT:
-                $operationList = App::web()->getOperation()
+                $operationList = App::getInstance()->getOperation()
                     ->getBlockTextOperations(true);
                 break;
             default:
@@ -633,13 +633,13 @@ class GetUserController extends AbstractController
     private function _getSettingsOperations($userOperations)
     {
         $operations = [
-            'title' => App::web()
+            'title' => App::getInstance()
                 ->getLanguage()
                 ->getMessage('settings', 'settings'),
             'data'  => []
         ];
 
-        $operationList = App::web()
+        $operationList = App::getInstance()
             ->getOperation()
             ->getSettingsOperations();
         asort($operationList);

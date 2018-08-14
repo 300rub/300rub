@@ -22,7 +22,7 @@ class GetUsersController extends AbstractController
     public function run()
     {
         $this->checkUser();
-        $user = App::web()->getUser();
+        $user = App::getInstance()->getUser();
 
         $userModel = new UserModel();
 
@@ -78,7 +78,7 @@ class GetUsersController extends AbstractController
             }
         }
 
-        $language = App::web()->getLanguage();
+        $language = App::getInstance()->getLanguage();
 
         return [
             'title'  => $language->getMessage('user', 'users'),
