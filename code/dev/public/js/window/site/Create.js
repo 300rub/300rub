@@ -17,8 +17,8 @@
             }
         );
 
-        this._addressForm = null;
         this._nameForm = null;
+        this._userNameForm = null;
         this._emailForm = null;
         this._userForm = null;
         this._passwordForm = null;
@@ -47,21 +47,21 @@
      * @private
      */
     ss.window.site.Create.prototype._onLoadDataSuccess = function (data) {
-        this._addressForm = new ss.forms.Text(
-            $.extend(
-                {
-                    appendTo: this.getBody()
-                },
-                data.forms.address
-            )
-        );
-
         this._nameForm = new ss.forms.Text(
             $.extend(
                 {
                     appendTo: this.getBody()
                 },
                 data.forms.name
+            )
+        );
+
+        this._userNameForm = new ss.forms.Text(
+            $.extend(
+                {
+                    appendTo: this.getBody()
+                },
+                data.forms.userName
             )
         );
 
@@ -117,8 +117,8 @@
                     label: data.forms.button.label,
                     icon: "fa-plus",
                     forms: [
-                        this._addressForm,
                         this._nameForm,
+                        this._userNameForm,
                         this._emailForm,
                         this._userForm,
                         this._passwordForm,
@@ -146,6 +146,32 @@
      * @private
      */
     ss.window.site.Create.prototype._onSendSuccess = function (data) {
+        if ($.type(data.errors) === "object") {
+            if (data.errors.name !== undefined) {
+                this._nameForm
+                    .setError(data.errors.name)
+                    .scrollTo()
+                    .focus();
+
+                return false;
+            }
+
+            return false;
+        }
+
+        if ($.type(data.userErrors) === "object") {
+            if (data.userErrors.passwordConfirm !== undefined) {
+                this._passwordConfirmForm
+                    .setError(data.userErrors.passwordConfirm)
+                    .scrollTo()
+                    .focus();
+
+                return false;
+            }
+
+            return false;
+        }
+
         console.log(data);
     };
 }(window.jQuery, window.ss);

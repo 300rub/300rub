@@ -72,8 +72,8 @@ class CreateSiteController extends AbstractController
     {
         $this->checkData(
             [
-                'address'         => [self::TYPE_STRING, self::NOT_EMPTY],
                 'name'            => [self::TYPE_STRING, self::NOT_EMPTY],
+                'userName'        => [self::TYPE_STRING, self::NOT_EMPTY],
                 'email'           => [self::TYPE_STRING, self::NOT_EMPTY],
                 'user'            => [self::TYPE_STRING, self::NOT_EMPTY],
                 'password'        => [self::TYPE_STRING, self::NOT_EMPTY],
@@ -84,7 +84,7 @@ class CreateSiteController extends AbstractController
 
         if ($this->get('password') !== $this->get('passwordConfirm')) {
             return [
-                'errors' => [
+                'userErrors' => [
                     'passwordConfirm' => App::getInstance()
                         ->getLanguage()
                         ->getMessage('user', 'passwordsMatch')
@@ -98,7 +98,7 @@ class CreateSiteController extends AbstractController
         try {
             $this->_createNewSite();
 
-            $errors = $this->_siteModel->getErrors();
+            $errors = $this->_siteModel->getParsedErrors();
             if (count($errors) > 0) {
                 return [
                     'errors' => $errors
@@ -123,6 +123,11 @@ class CreateSiteController extends AbstractController
         return [
             'result' => true,
         ];
+    }
+
+    private function _createOwner()
+    {
+
     }
 
     /**
@@ -242,20 +247,5 @@ class CreateSiteController extends AbstractController
             );
         
         return $this;
-    }
-
-    /**
-     * Gets random DB host
-     *
-     * @return string
-     */
-    private function _getRandomDbHost()
-    {
-        $hosts = array_keys(
-            App::getInstance()->getConfig()->getValue(['db', 'root'])
-        );
-        shuffle($hosts);
-
-        return $hosts[0];
     }
 }

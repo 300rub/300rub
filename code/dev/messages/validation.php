@@ -32,7 +32,7 @@ return [
     ],
     'unique' => [
         Language::LANGUAGE_EN_ID => 'The field value must be unique',
-        Language::LANGUAGE_RU_ID => '',
+        Language::LANGUAGE_RU_ID => 'Такое значение уже существует. Попробуйте другое.',
     ],
     'latinDigitUnderscoreHyphen' => [
         Language::LANGUAGE_EN_ID
