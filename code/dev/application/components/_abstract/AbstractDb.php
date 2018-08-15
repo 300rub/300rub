@@ -110,6 +110,47 @@ abstract class AbstractDb
     }
 
     /**
+     * Sets PDO
+     *
+     * @param string $host DB Host
+     *
+     * @return AbstractDb
+     *
+     * @throws DbException
+     */
+    public function setRootPdo($host)
+    {
+        $rootUser = App::getInstance()
+            ->getConfig()
+            ->getValue(['db', 'root', $host]);
+
+        if ($rootUser === null) {
+            throw new DbException(
+                'Unable to find root user for host {host}',
+                [
+                    'host' => $host
+                ]
+            );
+        }
+
+        $this->_pdo = new \PDO(
+            sprintf(
+                'mysql:host=%s;charset=UTF8',
+                $host
+            ),
+            $rootUser['user'],
+            $rootUser['password'],
+            [
+                \PDO::ATTR_ERRMODE            => \PDO::ERRMODE_EXCEPTION,
+                \PDO::ATTR_DEFAULT_FETCH_MODE => \PDO::FETCH_ASSOC,
+                \PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES \'UTF8\''
+            ]
+        );
+
+        return $this;
+    }
+
+    /**
      * Sets system PDO
      *
      * @return AbstractDb

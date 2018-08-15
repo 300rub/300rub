@@ -15,6 +15,12 @@ return [
         ],
     ],
     'db'        => [
+        'root' => [
+            '127.0.0.1' => [
+                'user'     => 'root',
+                'password' => 'root',
+            ]
+        ],
         'dev'  => [
             'host'     => '127.0.0.1',
             'user'     => 'root',

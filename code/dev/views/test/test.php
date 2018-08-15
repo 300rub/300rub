@@ -1,3 +1,13 @@
+<?php
+
+$id = 1000000;
+
+echo sprintf("%07d", $id);
+
+exit;
+
+?>
+
 <div class="block-1 menu menu-horizontal">
     <ul>
         <li>

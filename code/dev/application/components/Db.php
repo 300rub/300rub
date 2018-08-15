@@ -28,4 +28,36 @@ class Db extends AbstractDbWrite
 
         return $this;
     }
+
+    /**
+     * Creates DB
+     *
+     * @param string $host     Host
+     * @param string $user     User
+     * @param string $password Password
+     * @param string $name     DB name
+     *
+     * @return Db
+     */
+    public function createNewDb($host, $user, $password, $name)
+    {
+        $this->setRootPdo($host);
+
+        $statement = sprintf(
+            "CREATE DATABASE IF NOT EXISTS %s",
+            $name
+        );
+        $this->execute($statement);
+
+        $statement = sprintf(
+            "GRANT ALL ON `%s`.* TO '%s'@'%s' IDENTIFIED BY '%s'",
+            $name,
+            $user,
+            $host,
+            $password
+        );
+        $this->execute($statement);
+
+        return $this;
+    }
 }
