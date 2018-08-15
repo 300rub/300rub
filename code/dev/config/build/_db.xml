@@ -49,4 +49,11 @@
             <arg value='db/ImportSitesCommand' />
         </exec>
     </target>
+
+    <target name="db-generate-source">
+        <exec executable="php" failonerror="true">
+            <arg value='commands/run' />
+            <arg value='db/GenerateSourceCommand' />
+        </exec>
+    </target>
 </project>

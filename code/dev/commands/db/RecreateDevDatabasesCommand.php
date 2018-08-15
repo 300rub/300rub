@@ -59,13 +59,6 @@ class RecreateDevDatabasesCommand extends AbstractCommand
                 $config->getValue(['db', 'help', 'password']),
                 $config->getValue(['db', 'help', 'name']),
                 true
-            )
-            ->createNewDb(
-                $dbHost,
-                $config->getValue(['db', 'source', 'user']),
-                $config->getValue(['db', 'source', 'password']),
-                $config->getValue(['db', 'source', 'name']),
-                true
             );
 
         $dbObject = App::getInstance()->getDb();

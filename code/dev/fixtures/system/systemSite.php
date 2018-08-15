@@ -33,4 +33,13 @@ return [
         'language'   => Language::LANGUAGE_EN_ID,
         'email'      => 'email@ss.local',
     ],
+    4 => [
+        'name'       => 'source',
+        'dbHost'     => $config->getValue(['db', 'source', 'host']),
+        'dbUser'     => $config->getValue(['db', 'source', 'user']),
+        'dbPassword' => $config->getValue(['db', 'source', 'password']),
+        'dbName'     => $config->getValue(['db', 'source', 'name']),
+        'language'   => Language::LANGUAGE_EN_ID,
+        'email'      => 'email@ss.local',
+    ],
 ];

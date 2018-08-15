@@ -40,44 +40,8 @@ class MigrateCommand extends AbstractCommand
     public function run()
     {
         $this
-            ->_setSites()
-            ->_applyMigration();
-    }
-
-    /**
-     * Setups new DB
-     *
-     * @param string $dbHost     Host
-     * @param string $dbUser     User
-     * @param string $dbPassword Password
-     * @param string $dbName     Name
-     *
-     * @throws DbException
-     */
-    public function setupNewDb($dbHost, $dbUser, $dbPassword, $dbName)
-    {
-        $dbObject = App::getInstance()->getDb();
-
-        $dbObject->setPdo(
-            $dbHost,
-            $dbUser,
-            $dbPassword,
-            $dbName
-        );
-
-        $migration = new M160302000000Migrations();
-        $migration->apply();
-
-        $this->_sites = [
-            [
-                'dbHost'     => $dbHost,
-                'dbUser'     => $dbUser,
-                'dbPassword' => $dbPassword,
-                'dbName'     => $dbName,
-            ]
-        ];
-
-        $this->_applyMigration();
+            ->setSites($this->getArg(0))
+            ->applyMigration();
     }
 
     /**
@@ -118,15 +82,15 @@ class MigrateCommand extends AbstractCommand
     /**
      * Sets sites
      *
+     * @param string $siteName Site name
+     *
      * @return MigrateCommand
      */
-    private function _setSites()
+    public function setSites($siteName = null)
     {
         $dbObject = App::getInstance()->getDb();
 
         $dbObject->setSystemPdo();
-
-        $siteName = $this->getArg(0);
 
         if ($siteName === null) {
             $this->_sites = $dbObject
@@ -153,7 +117,7 @@ class MigrateCommand extends AbstractCommand
      *
      * @return MigrateCommand
      */
-    private function _applyMigration()
+    public function applyMigration()
     {
         if (count($this->_sites) === 0) {
             return $this;
