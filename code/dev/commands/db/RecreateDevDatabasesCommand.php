@@ -28,83 +28,45 @@ class RecreateDevDatabasesCommand extends AbstractCommand
     public function run()
     {
         $this->checkIsDev();
-
-        $config = App::getInstance()->getConfig();
-
         $this->_checkConnection();
 
-        exec(
-            sprintf(
-                'export MYSQL_PWD=%s; ' .
-                'mysql -u %s -h %s -e "DROP DATABASE IF EXISTS sys"',
-                $config->getValue(['db', 'dev', 'password']),
-                $config->getValue(['db', 'dev', 'user']),
-                $config->getValue(['db', 'dev', 'host'])
-            )
-        );
+        $config = App::getInstance()->getConfig();
+        $dbObject = App::getInstance()->getDb();
+        $dbHost = $dbObject->getRandomDbHost();
 
-        exec(
-            sprintf(
-                'export MYSQL_PWD=%s; ' .
-                'mysql -u %s -h %s -e "DROP DATABASE IF EXISTS %s"',
-                $config->getValue(['db', 'dev', 'password']),
-                $config->getValue(['db', 'dev', 'user']),
-                $config->getValue(['db', 'dev', 'host']),
-                $config->getValue(['db', 'dev', 'name'])
+        $dbObject
+            ->dropDb(
+                $dbHost,
+                'sys'
             )
-        );
-        exec(
-            sprintf(
-                'export MYSQL_PWD=%s; ' .
-                'mysql -u %s -h %s -e "CREATE DATABASE %s"',
-                $config->getValue(['db', 'dev', 'password']),
+            ->createNewDb(
+                $dbHost,
                 $config->getValue(['db', 'dev', 'user']),
-                $config->getValue(['db', 'dev', 'host']),
-                $config->getValue(['db', 'dev', 'name'])
+                $config->getValue(['db', 'dev', 'password']),
+                $config->getValue(['db', 'dev', 'name']),
+                true
             )
-        );
-
-        exec(
-            sprintf(
-                'export MYSQL_PWD=%s; ' .
-                'mysql -u %s -h %s -e "DROP DATABASE IF EXISTS %s"',
-                $config->getValue(['db', 'system', 'password']),
+            ->createNewDb(
+                $dbHost,
                 $config->getValue(['db', 'system', 'user']),
-                $config->getValue(['db', 'system', 'host']),
-                $config->getValue(['db', 'system', 'name'])
-            )
-        );
-        exec(
-            sprintf(
-                'export MYSQL_PWD=%s; ' .
-                'mysql -u %s -h %s -e "CREATE DATABASE IF NOT EXISTS %s"',
                 $config->getValue(['db', 'system', 'password']),
-                $config->getValue(['db', 'system', 'user']),
-                $config->getValue(['db', 'system', 'host']),
-                $config->getValue(['db', 'system', 'name'])
+                $config->getValue(['db', 'system', 'name']),
+                true
             )
-        );
-
-        exec(
-            sprintf(
-                'export MYSQL_PWD=%s; ' .
-                'mysql -u %s -h %s -e "DROP DATABASE IF EXISTS %s"',
-                $config->getValue(['db', 'help', 'password']),
+            ->createNewDb(
+                $dbHost,
                 $config->getValue(['db', 'help', 'user']),
-                $config->getValue(['db', 'help', 'host']),
-                $config->getValue(['db', 'help', 'name'])
-            )
-        );
-        exec(
-            sprintf(
-                'export MYSQL_PWD=%s; ' .
-                'mysql -u %s -h %s -e "CREATE DATABASE IF NOT EXISTS %s"',
                 $config->getValue(['db', 'help', 'password']),
-                $config->getValue(['db', 'help', 'user']),
-                $config->getValue(['db', 'help', 'host']),
-                $config->getValue(['db', 'help', 'name'])
+                $config->getValue(['db', 'help', 'name']),
+                true
             )
-        );
+            ->createNewDb(
+                $dbHost,
+                $config->getValue(['db', 'source', 'user']),
+                $config->getValue(['db', 'source', 'password']),
+                $config->getValue(['db', 'source', 'name']),
+                true
+            );
 
         $dbObject = App::getInstance()->getDb();
 
@@ -151,15 +113,16 @@ class RecreateDevDatabasesCommand extends AbstractCommand
         }
 
         $config = App::getInstance()->getConfig();
+        $dbHost = App::getInstance()->getDb()->getRandomDbHost();
 
         try {
             $conn = new \PDO(
                 sprintf(
                     'mysql:host=%s;',
-                    $config->getValue(['db', 'dev', 'host'])
+                    $dbHost
                 ),
-                $config->getValue(['db', 'dev', 'user']),
-                $config->getValue(['db', 'dev', 'password'])
+                $config->getValue(['db', 'root', $dbHost, 'user']),
+                $config->getValue(['db', 'root', $dbHost, 'password'])
             );
 
             $conn->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);

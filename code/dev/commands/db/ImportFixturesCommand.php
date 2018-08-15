@@ -130,8 +130,6 @@ class ImportFixturesCommand extends AbstractCommand
             $config->getValue(['db', $type, 'name'])
         );
 
-        $dbObject->execute('SET GLOBAL FOREIGN_KEY_CHECKS=0;');
-
         foreach ($this->_fixtureOrder as $fixture => $modelName) {
             $filePath = __DIR__ .
                 '/../../fixtures/' .
@@ -156,8 +154,6 @@ class ImportFixturesCommand extends AbstractCommand
         $this
             ->_uploadImages($type)
             ->_saveRecordInstances($type);
-
-        $dbObject->execute('SET GLOBAL FOREIGN_KEY_CHECKS=1;');
     }
 
     /**
