@@ -36,6 +36,13 @@ abstract class AbstractDb
     private $_pdo;
 
     /**
+     * Active DB name
+     *
+     * @var string
+     */
+    private $_dbName = '';
+
+    /**
      * Table
      *
      * @var string
@@ -96,6 +103,8 @@ abstract class AbstractDb
                 \PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES \'UTF8\''
             ]
         );
+
+        $this->_dbName = $dbName;
 
         return $this;
     }
@@ -161,14 +170,32 @@ abstract class AbstractDb
      * @return \PDOStatement
      *
      * @throws DbException
+     * @throws \Exception
      */
     public function execute($statement, $parameters = [])
     {
-        $sth = $this->getPdo()->prepare($statement);
-        $result = $sth->execute($parameters);
-        $this->reset();
+        $logger = App::getInstance()->getLogger();
+        $logMessage = sprintf(
+            'DB: [%s]. Statement: [%s]. Parameters: [%s]',
+            $this->_dbName,
+            $statement,
+            json_encode($parameters)
+        );
+
+        try {
+            $sth = $this->getPdo()->prepare($statement);
+            $result = $sth->execute($parameters);
+            $this->reset();
+        } catch (\Exception $e) {
+            $logger->error($logMessage, 'mysql');
+            $this->reset();
+
+            throw $e;
+        }
 
         if ($result === false) {
+            $logger->error($logMessage, 'mysql');
+
             throw new DbException(
                 sprintf(
                     'Unable to execute sql query. Error info: %s',
@@ -177,7 +204,7 @@ abstract class AbstractDb
             );
         }
 
-        App::getInstance()->getLogger()->debug($statement, 'mysql');
+        $logger->debug($logMessage, 'mysql');
 
         return $sth;
     }

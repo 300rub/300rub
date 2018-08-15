@@ -77,7 +77,7 @@ return [
     ],
     'passwordsMatch' => [
         Language::LANGUAGE_EN_ID => 'Passwords do not match',
-        Language::LANGUAGE_RU_ID => '',
+        Language::LANGUAGE_RU_ID => 'Введенные пароли не совпадают',
     ],
     'token' => [
         Language::LANGUAGE_EN_ID => 'Token',
@@ -146,5 +146,9 @@ return [
     'isChangePassword' => [
         Language::LANGUAGE_EN_ID => 'Change password',
         Language::LANGUAGE_RU_ID => '',
-    ]
+    ],
+    'name'      => [
+        Language::LANGUAGE_EN_ID => 'Name',
+        Language::LANGUAGE_RU_ID => 'Имя',
+    ],
 ];

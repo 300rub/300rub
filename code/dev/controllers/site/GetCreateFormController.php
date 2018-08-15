@@ -29,8 +29,8 @@ class GetCreateFormController extends AbstractController
             'title'
                 => $language->getMessage('site', 'createWindowTitle'),
             'forms' => [
-                'name'       => [
-                    'name' => 'name',
+                'address'       => [
+                    'name' => 'address',
                     'label'
                         => $language->getMessage('common', 'address'),
                     'validation'
@@ -40,6 +40,13 @@ class GetCreateFormController extends AbstractController
                         '.%s',
                         App::getInstance()->getConfig()->getValue(['host'])
                     )
+                ],
+                'name'       => [
+                    'name'       => 'name',
+                    'label'
+                        => $language->getMessage('user', 'name'),
+                    'validation'
+                        => $userModel->getValidationRulesForField('name')
                 ],
                 'email'       => [
                     'name'       => 'email',

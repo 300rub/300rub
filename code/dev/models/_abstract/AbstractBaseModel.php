@@ -196,7 +196,7 @@ abstract class AbstractBaseModel
     protected final function getDb()
     {
         if ($this->_db instanceof Db === false) {
-            $this->setDb($this->_getNewDb());
+            $this->setDb($this->_getNewDb(), true);
         }
 
         return $this->_db;
@@ -205,13 +205,19 @@ abstract class AbstractBaseModel
     /**
      * Sets Db
      *
-     * @param Db $dbObject DB object
+     * @param Db   $dbObject         DB object
+     * @param bool $ignoreTableReset Ignore table reset
      *
      * @return AbstractModel|AbstractBaseModel
      */
-    protected final function setDb(Db $dbObject)
+    public final function setDb(Db $dbObject, $ignoreTableReset = null)
     {
         $this->_db = $dbObject;
+
+        if ($ignoreTableReset !== true) {
+            $this->_db->setTable($this->getTableName());
+        }
+
         return $this;
     }
 

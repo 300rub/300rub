@@ -17,6 +17,7 @@
             }
         );
 
+        this._addressForm = null;
         this._nameForm = null;
         this._emailForm = null;
         this._userForm = null;
@@ -46,6 +47,15 @@
      * @private
      */
     ss.window.site.Create.prototype._onLoadDataSuccess = function (data) {
+        this._addressForm = new ss.forms.Text(
+            $.extend(
+                {
+                    appendTo: this.getBody()
+                },
+                data.forms.address
+            )
+        );
+
         this._nameForm = new ss.forms.Text(
             $.extend(
                 {
@@ -107,6 +117,7 @@
                     label: data.forms.button.label,
                     icon: "fa-plus",
                     forms: [
+                        this._addressForm,
                         this._nameForm,
                         this._emailForm,
                         this._userForm,
@@ -116,8 +127,8 @@
                     ],
                     ajax: {
                         data: {
-                            group: "user",
-                            controller: "session"
+                            group: "site",
+                            controller: "site"
                         },
                         type: "POST",
                         success: $.proxy(this._onSendSuccess, this),
@@ -135,6 +146,6 @@
      * @private
      */
     ss.window.site.Create.prototype._onSendSuccess = function (data) {
-
+        console.log(data);
     };
 }(window.jQuery, window.ss);
