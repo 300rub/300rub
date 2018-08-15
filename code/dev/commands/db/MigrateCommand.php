@@ -3,9 +3,12 @@
 namespace ss\commands\db;
 
 use ss\application\App;
+use ss\application\exceptions\DbException;
 use ss\application\exceptions\MigrationException;
 use ss\commands\_abstract\AbstractCommand;
 use ss\migrations\_abstract\AbstractMigration;
+use ss\migrations\M160302000000Migrations;
+use ss\models\system\SiteModel;
 
 /**
  * Applies migrations
@@ -39,6 +42,42 @@ class MigrateCommand extends AbstractCommand
         $this
             ->_setSites()
             ->_applyMigration();
+    }
+
+    /**
+     * Setups new DB
+     *
+     * @param string $dbHost     Host
+     * @param string $dbUser     User
+     * @param string $dbPassword Password
+     * @param string $dbName     Name
+     *
+     * @throws DbException
+     */
+    public function setupNewDb($dbHost, $dbUser, $dbPassword, $dbName)
+    {
+        $dbObject = App::getInstance()->getDb();
+
+        $dbObject->setPdo(
+            $dbHost,
+            $dbUser,
+            $dbPassword,
+            $dbName
+        );
+
+        $migration = new M160302000000Migrations();
+        $migration->apply();
+
+        $this->_sites = [
+            [
+                'dbHost'     => $dbHost,
+                'dbUser'     => $dbUser,
+                'dbPassword' => $dbPassword,
+                'dbName'     => $dbName,
+            ]
+        ];
+
+        $this->_applyMigration();
     }
 
     /**

@@ -4,6 +4,7 @@ namespace ss\controllers\site;
 
 use ss\application\App;
 use ss\application\components\Db;
+use ss\commands\db\MigrateCommand;
 use ss\controllers\site\_abstract\AbstractController;
 use ss\models\system\SiteModel;
 
@@ -107,16 +108,39 @@ class CreateSiteController extends AbstractController
             $this
                 ->_generateDbCredentials()
                 ->_createNewDb()
-                ->_updateSiteModel();
+                ->_updateSiteModel()
+                ->_applyMigrations();
 
             $this->_systemDb->commitTransaction();
         } catch (\Exception $e) {
             $this->_systemDb->rollbackTransaction();
+
+            return [
+                'result' => $e->getMessage(),
+            ];
         }
 
         return [
             'result' => true,
         ];
+    }
+
+    /**
+     * Applies migrations for new DB
+     *
+     * @return CreateSiteController
+     */
+    private function _applyMigrations()
+    {
+        $migrateCommand = new MigrateCommand();
+        $migrateCommand->setupNewDb(
+            $this->_dbHost,
+            $this->_dbUser,
+            $this->_dbPassword,
+            $this->_dbName
+        );
+
+        return $this;
     }
 
     /**
