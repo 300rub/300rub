@@ -9,7 +9,7 @@ use ss\migrations\M160302000000Migrations;
 /**
  * Generates Source SQL script
  */
-class GenerateSourceCommand extends AbstractCommand
+class GenerateSourceDumpCommand extends AbstractCommand
 {
 
     /**

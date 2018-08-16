@@ -3,19 +3,14 @@
 namespace ss\commands\db;
 
 use ss\application\App;
-use ss\commands\_abstract\AbstractCommand;
+use ss\commands\db\_abstract\AbstractDbCommand;
 use ss\migrations\M160302000000Migrations;
 
 /**
  * Clear DB command
  */
-class RecreateSeleniumDatabaseCommand extends AbstractCommand
+class RecreateSeleniumDatabaseCommand extends AbstractDbCommand
 {
-
-    /**
-     * Max attempts
-     */
-    const MAX_ATTEMPTS = 15;
 
     /**
      * Runs the command
@@ -26,7 +21,7 @@ class RecreateSeleniumDatabaseCommand extends AbstractCommand
     {
         $config = App::getInstance()->getConfig();
 
-        $this->_checkConnection();
+        $this->checkConnection();
 
         exec(
             sprintf(
@@ -58,38 +53,5 @@ class RecreateSeleniumDatabaseCommand extends AbstractCommand
 
         $migration = new M160302000000Migrations();
         $migration->apply();
-    }
-
-    /**
-     * Checks connection
-     *
-     * @param int $attempt Attempt
-     *
-     * @return bool
-     */
-    private function _checkConnection($attempt = 1)
-    {
-        if ($attempt > self::MAX_ATTEMPTS) {
-            return false;
-        }
-
-        $config = App::getInstance()->getConfig();
-
-        try {
-            $conn = new \PDO(
-                sprintf(
-                    'mysql:host=%s;',
-                    $config->getValue(['db', 'selenium', 'host'])
-                ),
-                $config->getValue(['db', 'selenium', 'user']),
-                $config->getValue(['db', 'selenium', 'password'])
-            );
-
-            $conn->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
-            return true;
-        } catch (\Exception $e) {
-            sleep(1);
-            return $this->_checkConnection($attempt + 1);
-        }
     }
 }

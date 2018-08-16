@@ -106,6 +106,9 @@ abstract class AbstractSiteModel extends AbstractModel
                 ],
                 self::FIELD_SKIP_DUPLICATION  => true,
             ],
+            'isSource' => [
+                self::FIELD_TYPE => self::FIELD_TYPE_BOOL,
+            ],
         ];
     }
 }

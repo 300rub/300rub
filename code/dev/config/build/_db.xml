@@ -53,7 +53,14 @@
     <target name="db-generate-source">
         <exec executable="php" failonerror="true">
             <arg value='commands/run' />
-            <arg value='db/GenerateSourceCommand' />
+            <arg value='db/GenerateSourceDumpCommand' />
+        </exec>
+    </target>
+
+    <target name="db-create-source-db">
+        <exec executable="php" failonerror="true">
+            <arg value='commands/run' />
+            <arg value='db/CreateSourceDbCommand' />
         </exec>
     </target>
 </project>

@@ -205,13 +205,14 @@ abstract class AbstractFindModel extends AbstractBaseModel
      */
     public function find()
     {
-        $result = $this->setDbBeforeFind()->getDb()->find();
+        $dbObject = $this->setDbBeforeFind()->getDb();
+        $result = $dbObject->find();
 
         if ($result === false) {
             return null;
         }
 
-        $model = $this->getNewModel();
+        $model = $this->getNewModel()->setDb($dbObject);
         $model->set($this->_parseDbResponse($result));
         $model->afterFind();
 
@@ -225,7 +226,8 @@ abstract class AbstractFindModel extends AbstractBaseModel
      */
     public function findAll()
     {
-        $results = $this->setDbBeforeFind()->getDb()->findAll();
+        $dbObject = $this->setDbBeforeFind()->getDb();
+        $results = $dbObject->findAll();
 
         if (count($results) === 0) {
             return [];
@@ -233,7 +235,7 @@ abstract class AbstractFindModel extends AbstractBaseModel
 
         $list = [];
         foreach ($results as $result) {
-            $model = $this->getNewModel();
+            $model = $this->getNewModel()->setDb($dbObject);
             $model->set($this->_parseDbResponse($result));
             $model->afterFind();
             $list[] = $model;

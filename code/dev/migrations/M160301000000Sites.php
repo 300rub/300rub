@@ -36,6 +36,7 @@ class M160301000000Sites extends AbstractMigration
                     'dbName'     => self::TYPE_STRING,
                     'language'   => self::TYPE_TINYINT_UNSIGNED,
                     'email'      => self::TYPE_STRING,
+                    'isSource'   => self::TYPE_BOOL,
                 ]
             )
             ->createUniqueIndex('sites', 'sites_name', 'name');
