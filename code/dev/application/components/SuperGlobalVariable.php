@@ -195,4 +195,27 @@ class SuperGlobalVariable
 
         return $this;
     }
+
+    /**
+     * Flag of HTTPS method
+     *
+     * @return bool
+     */
+    public function isHttps()
+    {
+        $https = $this->getServerValue('HTTPS');
+        $port = $this->getServerValue('SERVER_PORT');
+
+        if ($https !== null
+            && $https !== 'off'
+        ) {
+            return true;
+        }
+
+        if ($port === 443) {
+            return true;
+        }
+
+        return false;
+    }
 }

@@ -120,8 +120,7 @@ class CreateSourceDbCommand extends AbstractDbCommand
             App::getInstance()->getConfig()->getValue(['host'])
         );
 
-        $this->_siteModel = new SiteModel();
-        $this->_siteModel->setDb($this->_systemDb);
+        $this->_siteModel = new SiteModel($this->_systemDb);
         $this->_siteModel->set([
             'name'       => $name,
             'language'   => Language::LANGUAGE_RU_ID,

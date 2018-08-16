@@ -172,6 +172,8 @@
             return false;
         }
 
-        console.log(data);
+        if (data.url !== undefined) {
+            window.location = data.url;
+        }
     };
 }(window.jQuery, window.ss);

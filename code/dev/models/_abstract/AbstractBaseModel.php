@@ -70,10 +70,16 @@ abstract class AbstractBaseModel
 
     /**
      * Constructor
+     *
+     * @param Db $dbObject DB object
      */
-    public function __construct()
+    public function __construct($dbObject = null)
     {
         $this->_setDefaultValues();
+
+        if ($dbObject !== null) {
+            $this->setDb($dbObject);
+        }
     }
 
     /**
