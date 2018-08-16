@@ -116,7 +116,7 @@ class App
     /**
      * Gets current application
      *
-     * @return AbstractApplication
+     * @return AbstractApplication|Web|Site
      */
     public static function getInstance()
     {

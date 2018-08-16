@@ -55,8 +55,12 @@ class LoginController extends AbstractPageController
         $layoutData['errorMessages']
             = App::getInstance()->getValidator()->getErrorMessages();
         $layoutData['token'] = null;
+        $layoutData['sectionId'] = 0;
         $layoutData['isUser'] = false;
         $layoutData['generatedCss'] = [];
+        $layoutData['generatedJs'] = [];
+        $layoutData['version'] = $this->getVersion();
+
 
         return $this->getContentFromTemplate('page/layout', $layoutData);
     }

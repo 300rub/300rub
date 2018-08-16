@@ -32,14 +32,6 @@ class PageController extends AbstractPageController
         $this->_setSectionModel();
         $sectionModel = App::getInstance()->getSite()->getActiveSection();
 
-        if ($sectionModel === null
-            && $isUser === false
-        ) {
-            throw new NotFoundException(
-                App::getInstance()->getLanguage()->getMessage('common', 'notFound')
-            );
-        }
-
         if ($sectionModel !== null) {
             $sectionModel->setStructureAndStatic();
             $content = $this->_getCommonContent($sectionModel);
@@ -80,6 +72,7 @@ class PageController extends AbstractPageController
         $layoutData['generatedCss'] = $sectionCss;
         $layoutData['generatedJs'] = $sectionJs;
         $layoutData['version'] = $this->getVersion();
+
 
         return $this->getContentFromTemplate('page/layout', $layoutData);
     }

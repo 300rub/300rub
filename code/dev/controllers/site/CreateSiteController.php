@@ -7,6 +7,7 @@ use ss\application\components\Db;
 use ss\application\exceptions\NotFoundException;
 use ss\controllers\site\_abstract\AbstractController;
 use ss\models\system\SiteModel;
+use ss\models\user\UserModel;
 
 /**
  * CreateSiteController to get create a new site
@@ -70,6 +71,8 @@ class CreateSiteController extends AbstractController
                 ];
             }
 
+            $this->_createUser();
+
             $this->_systemDb->commitTransaction();
         } catch (\Exception $e) {
             $this->_systemDb->rollbackTransaction();
@@ -82,6 +85,38 @@ class CreateSiteController extends AbstractController
         return [
             'result' => true,
         ];
+    }
+
+    /**
+     * Creates user
+     *
+     * @return CreateSiteController
+     */
+    private function _createUser()
+    {
+        $siteDb = new Db();
+        $siteDb->setPdo(
+            $this->_siteModel->get('dbHost'),
+            $this->_siteModel->get('dbUser'),
+            $this->_siteModel->get('dbPassword'),
+            $this->_siteModel->get('dbName')
+        );
+
+        $userModel = new UserModel();
+        $userModel->setDb($siteDb);
+        $userModel->set([
+            'login'    => $this->get('user'),
+            'password' => $userModel->getPasswordHash(
+                $this->get('password'),
+                true
+            ),
+            'type'     => UserModel::TYPE_OWNER,
+            'name'     => $this->get('userName'),
+            'email'    => $this->get('email'),
+        ]);
+        $userModel->save();
+
+        return $this;
     }
 
     /**

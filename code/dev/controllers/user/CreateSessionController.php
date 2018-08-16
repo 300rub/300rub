@@ -39,18 +39,13 @@ class CreateSessionController extends AbstractController
         $language = App::getInstance()->getLanguage();
         $global = App::getInstance()->getSuperGlobalVariable();
 
-        $userModel = new UserModel();
-        $userModel->byLogin($this->get('user'));
-        $userModel = $userModel->find();
-        if ($userModel instanceof UserModel === false) {
-            return [
-                'errors' => [
-                    'user' => $language->getMessage('user', 'incorrect')
-                ]
-            ];
-        }
+        $userModel = $this->_getUserModel();
 
-        if ($userModel->get('password') !== sha1($this->get('password'))) {
+        $passwordHash = $userModel->getPasswordHash(
+            $this->get('password'),
+            true
+        );
+        if ($userModel->get('password') !== $passwordHash) {
             return [
                 'errors' => [
                     'password' => $language->getMessage('user', 'incorrect')
@@ -88,5 +83,28 @@ class CreateSessionController extends AbstractController
         $userSessionModel->save();
 
         return ['token' => $token];
+    }
+
+    /**
+     * Gets User model
+     *
+     * @return UserModel
+     */
+    private function _getUserModel()
+    {
+        $userModel = new UserModel();
+        $userModel->byLogin($this->get('user'));
+        $userModel = $userModel->find();
+        if ($userModel instanceof UserModel === false) {
+            return [
+                'errors' => [
+                    'user' => App::getInstance()
+                        ->getLanguage()
+                        ->getMessage('user', 'incorrect')
+                ]
+            ];
+        }
+
+        return $userModel;
     }
 }
