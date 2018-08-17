@@ -143,7 +143,22 @@
         _getError: function () {
             if ($.type(this._options.error) === "function") {
                 return this._options.error;
+            } else {
+                return this._displayError;
             }
+        },
+
+        /**
+         * Displays AJAX error
+         *
+         * @param {Object} jqXHR
+         *
+         * @returns {Function}
+         *
+         * @private
+         */
+        _displayError: function(jqXHR) {
+            ss.components.Error.displayAjaxError(jqXHR);
         },
 
         /**

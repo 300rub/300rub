@@ -79,3 +79,29 @@ a {
 #templates {
   display: none;
 }
+
+.ajax-error {
+  .border-radius(4px);
+  .transition(opacity);
+  position: fixed;
+  top: -4px;
+  left: 20px;
+  background: red;
+  z-index: 99999;
+  padding: 15px 20px 10px 20px;
+
+  .message,
+  .file,
+  .trace {
+    color: white;
+    padding: 10px 0;
+  }
+
+  .message {
+    font-weight: bold;
+  }
+
+  .trace {
+    font-size: 14px;
+  }
+}

@@ -341,12 +341,8 @@
          * @param {Object} jqXHR
          */
         _onLoadError: function (jqXHR) {
-            var errorTemplate
-                = ss.components.Error.getAjaxErrorTemplate(jqXHR);
-            this._window
-                .removeClass("loading")
-                .addClass("error");
-            this._body.html(errorTemplate);
+            ss.components.Error.displayAjaxError(jqXHR);
+            this.remove();
         },
 
         /**

@@ -2,6 +2,7 @@
 
 namespace ss\application\instances\_abstract;
 
+use ss\application\App;
 use ss\application\components\SuperGlobalVariable;
 use ss\application\exceptions\BadRequestException;
 use ss\application\exceptions\ContentException;
@@ -444,15 +445,25 @@ abstract class AbstractAjax extends AbstractApplication
                 break;
         }
 
+        if (APP_ENV === ENV_DEV) {
+            return [
+                'error' => [
+                    'message' => $exception->getMessage(),
+                    'file'    => sprintf(
+                        '%s (%s)',
+                        $exception->getFile(),
+                        $exception->getLine()
+                    ),
+                    'trace'   => $exception->getTrace()
+                ]
+            ];
+        }
+
         return [
             'error' => [
-                'message' => $exception->getMessage(),
-                'file'    => sprintf(
-                    '%s (%s)',
-                    $exception->getFile(),
-                    $exception->getLine()
-                ),
-                'trace'   => $exception->getTraceAsString(),
+                'message' => App::getInstance()
+                    ->getLanguage()
+                    ->getMessage('common', 'error'),
             ]
         ];
     }

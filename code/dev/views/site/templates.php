@@ -11,6 +11,7 @@
 <div id="templates">
 <?php
 
+require __DIR__ . '/../templates/common/ajax-error.php';
 require __DIR__ . '/../templates/common/forms.php';
 require __DIR__ . '/../templates/window/window.php';
 

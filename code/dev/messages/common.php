@@ -84,8 +84,8 @@ return [
         Language::LANGUAGE_RU_ID => '',
     ],
     'error' => [
-        Language::LANGUAGE_EN_ID => 'Error!!!',
-        Language::LANGUAGE_RU_ID => '',
+        Language::LANGUAGE_EN_ID => 'An error occurred',
+        Language::LANGUAGE_RU_ID => 'Ошибка',
     ],
     'cancel' => [
         Language::LANGUAGE_EN_ID => 'Cancel',

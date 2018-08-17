@@ -2,11 +2,8 @@
 //phpcs:disable Generic.Files.InlineHTML
 ?>
 
-<div class="ajax-error">
+<div class="ajax-error transparent">
     <div class="message"></div>
-    <div class="path">
-        <span class="file"></span>
-        <span class="line"></span>
-    </div>
+    <span class="file"></span>
     <div class="trace"></div>
 </div>
