@@ -114,23 +114,34 @@ class SiteModel extends AbstractSiteModel
      */
     public function setMainHost()
     {
+        $memcached = App::getInstance()->getMemcached();
+        $memcachedKey = 'main_host';
+        $memcachedResult = $memcached->get($memcachedKey);
+        if ($memcachedResult !== false) {
+            $this->_mainHost = $memcachedResult;
+            return $this;
+        }
+
         $domains = DomainModel::model()->getModelsBySiteId($this->getId());
 
         if (count($domains) > 0) {
             foreach ($domains as $domain) {
                 if ($domain->get('isMain') === true) {
                     $this->_mainHost = $domain->get('name');
+                    $memcached->set($memcachedKey, $domain->get('name'));
                     return $this;
                 }
             }
 
             foreach ($domains as $domain) {
                 $this->_mainHost = $domain->get('name');
+                $memcached->set($memcachedKey, $domain->get('name'));
                 return $this;
             }
         }
 
         $this->_mainHost = $this->getInternalHost();
+        $memcached->set($memcachedKey, $this->getInternalHost());
         return $this;
     }
 

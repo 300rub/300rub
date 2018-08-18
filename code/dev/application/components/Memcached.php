@@ -2,6 +2,7 @@
 
 namespace ss\application\components;
 
+use ss\application\App;
 use ss\application\exceptions\MemcacheException;
 
 /**
@@ -25,6 +26,13 @@ class Memcached
     private $_isIgnoreCache = false;
 
     /**
+     * Key prefix
+     *
+     * @var string
+     */
+    private $_prefix = '';
+
+    /**
      * Memcached constructor.
      *
      * @param string $host          The hostname of the memcache server
@@ -45,25 +53,51 @@ class Memcached
     }
 
     /**
+     * Sets prefix
+     *
+     * @param string $prefix Prefix
+     *
+     * @return Memcached
+     */
+    public function setPrefix($prefix)
+    {
+        $this->_prefix = $prefix;
+        return $this;
+    }
+
+    /**
      * Sets value to the cache
      *
-     * @param string $key        The key under which to store the value.
-     * @param mixed  $value      The value to store.
-     * @param int    $expiration The expiration time, defaults to 0.
+     * @param string $key            The key under which to store the value.
+     * @param mixed  $value          The value to store.
+     * @param int    $expiration     The expiration time, defaults to 0.
+     * @param bool   $isIgnorePrefix Flag to ignore prefix
      *
      * @return Memcached
      *
      * @throws MemcacheException
      */
-    public function set($key, $value, $expiration = null)
-    {
+    public function set(
+        $key,
+        $value,
+        $expiration = null,
+        $isIgnorePrefix = null
+    ) {
         if ($this->_memcached === null
             || $this->_isIgnoreCache === true
         ) {
             return $this;
         }
 
+        if ($isIgnorePrefix !== true) {
+            $key = $this->_prefix . $key;
+        }
+
         $result = $this->_memcached->set($key, $value, $expiration);
+        App::getInstance()->getLogger()->debug(
+            'SET ' . $key,
+            'memcached'
+        );
 
         if ($result === false) {
             throw new MemcacheException(
@@ -83,11 +117,12 @@ class Memcached
     /**
      * Gets value from memcache by key
      *
-     * @param string $key The key of the item to retrieve.
+     * @param string $key            The key of the item to retrieve.
+     * @param bool   $isIgnorePrefix Flag to ignore prefix
      *
      * @return mixed
      */
-    public function get($key)
+    public function get($key, $isIgnorePrefix = null)
     {
         if ($this->_memcached === null
             || $this->_isIgnoreCache === true
@@ -95,19 +130,29 @@ class Memcached
             return false;
         }
 
+        if ($isIgnorePrefix !== true) {
+            $key = $this->_prefix . $key;
+        }
+
+        App::getInstance()->getLogger()->debug(
+            'GET ' . $key,
+            'memcached'
+        );
+
         return $this->_memcached->get($key);
     }
 
     /**
      * Deletes value from the cache
      *
-     * @param string $key The key to be deleted.
+     * @param string $key            The key to be deleted.
+     * @param bool   $isIgnorePrefix Flag to ignore prefix
      *
      * @return Memcached
      *
      * @throws MemcacheException
      */
-    public function delete($key)
+    public function delete($key, $isIgnorePrefix = null)
     {
         if ($this->_memcached === null
             || $this->_isIgnoreCache === true
@@ -116,7 +161,15 @@ class Memcached
             return $this;
         }
 
+        if ($isIgnorePrefix !== true) {
+            $key = $this->_prefix . $key;
+        }
+
         $result = $this->_memcached->delete($key);
+        App::getInstance()->getLogger()->debug(
+            'DELETE ' . $key,
+            'memcached'
+        );
 
         if ($result === false) {
             throw new MemcacheException(
