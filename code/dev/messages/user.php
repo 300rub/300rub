@@ -41,15 +41,15 @@ return [
     ],
     'logoutYes' => [
         Language::LANGUAGE_EN_ID => 'Yes',
-        Language::LANGUAGE_RU_ID => '',
+        Language::LANGUAGE_RU_ID => 'Да',
     ],
     'logoutNo' => [
         Language::LANGUAGE_EN_ID => 'No',
-        Language::LANGUAGE_RU_ID => '',
+        Language::LANGUAGE_RU_ID => 'Нет',
     ],
     'logoutConfirmText' => [
         Language::LANGUAGE_EN_ID => 'Are you sure to exit?',
-        Language::LANGUAGE_RU_ID => '',
+        Language::LANGUAGE_RU_ID => 'Вы действительно хотите выйти?',
     ],
     'typeOwner' => [
         Language::LANGUAGE_EN_ID => 'Owner',

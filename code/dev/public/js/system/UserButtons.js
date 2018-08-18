@@ -88,7 +88,7 @@
                     css: "button",
                     appendTo: $logoutConfirmation,
                     label: $logoutConfirmation.data("yes"),
-                    icon: "fa-sign-out",
+                    icon: "fa-sign-out-alt",
                     ajax: {
                         type: "DELETE",
                         data: {

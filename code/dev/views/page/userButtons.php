@@ -17,26 +17,26 @@
     <?php if ($isDisplayBlocks === true) { ?>
         <a id="user-button-block">
             <span>Blocks</span>
-            <i class="fa fa-th-large"></i>
+            <i class="fas fa-th-large"></i>
         </a>
     <?php } ?>
     <?php if ($isDisplaySections === true) { ?>
         <a>
             <span>Sections</span>
-            <i class="fa fa-file-o"></i>
+            <i class="far fa-file"></i>
         </a>
     <?php } ?>
     <a id="user-button-settings">
         <span>Settings</span>
-        <i class="fa fa-wrench"></i>
+        <i class="fas fa-wrench"></i>
     </a>
     <a>
         <span>Help</span>
-        <i class="fa fa-question"></i>
+        <i class="fas fa-question"></i>
     </a>
     <a id="user-button-logout">
         <span>Logout</span>
-        <i class="fa fa-sign-out"></i>
+        <i class="fas fa-sign-out-alt"></i>
     </a>
     <div
         class="logout-confirmation hidden"
