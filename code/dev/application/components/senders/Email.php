@@ -74,7 +74,7 @@ class Email
      *
      * @var array
      */
-    private $_addresses = [];
+    private $_recipients = [];
 
     /**
      * Reply to list
@@ -323,16 +323,16 @@ class Email
     }
 
     /**
-     * Adds address to list
+     * Adds recipient to list
      *
      * @param string $address Address
      * @param string $name    Name
      *
      * @return Email
      */
-    public function addAddress($address, $name = '')
+    public function addRecipient($address, $name = '')
     {
-        $this->_addresses[$address] = $name;
+        $this->_recipients[$address] = $name;
         return $this;
     }
 
@@ -431,7 +431,7 @@ class Email
      */
     private function _setServerSetting()
     {
-        $this->_mail->SMTPDebug = 2;
+        $this->_mail->SMTPDebug = 0;
         $this->_mail->isSMTP();
         $this->_mail->Host = $this->_getHost();
         $this->_mail->SMTPAuth = true;
@@ -455,7 +455,7 @@ class Email
             $this->_getFromName()
         );
 
-        foreach ($this->_addresses as $address => $name) {
+        foreach ($this->_recipients as $address => $name) {
             $this->_mail->addAddress($address, $name);
         }
 
@@ -501,6 +501,11 @@ class Email
 
     /**
      * Sends email
+     *
+     * @return void
+     *
+     * @throws Exception
+     * @throws \Exception
      */
     public function send()
     {
@@ -512,7 +517,15 @@ class Email
                 ->_setContent();
 
             $this->_mail->send();
-            echo 'Message has been sent';
+
+            App::getInstance()->getLogger()->info(
+                sprintf(
+                    'Email has been successfully sent' .
+                    'Data: [%s]',
+                    $this->_generateLogData()
+                ),
+                'email'
+            );
         } catch (Exception $e) {
             throw new EmailException(
                 sprintf(
@@ -545,18 +558,18 @@ class Email
     private function _generateLogData()
     {
         return sprintf(
-            'Host: [%s]' .
-            'Username: [%s]' .
-            'Password: [%s]' .
-            'SMTP Secure: [%s]' .
-            'Port: [%s]' .
-            'From address: [%s]' .
-            'From name: [%s]' .
-            'Addresses: [%s]' .
-            'Reply To: [%s]' .
-            'CC: [%s]' .
-            'Attachments: [%s]' .
-            'Subject: [%s]' .
+            'Host: [%s], ' .
+            'Username: [%s], ' .
+            'Password: [%s], ' .
+            'SMTP Secure: [%s], ' .
+            'Port: [%s], ' .
+            'From address: [%s], ' .
+            'From name: [%s], ' .
+            'Recipients: [%s], ' .
+            'Reply To: [%s], ' .
+            'CC: [%s], ' .
+            'Attachments: [%s], ' .
+            'Subject: [%s], ' .
             'Body: [%s]',
             $this->_host,
             $this->_username,
@@ -565,7 +578,7 @@ class Email
             $this->_port,
             $this->_fromAddress,
             $this->_fromName,
-            json_encode($this->_addresses),
+            json_encode($this->_recipients),
             json_encode($this->_replyToList),
             json_encode($this->_ccList),
             json_encode($this->_attachments),
