@@ -1,9 +1,10 @@
 <?php
 
-namespace ss\application\components;
+namespace ss\application\components\senders;
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
+use ss\application\App;
 use ss\application\exceptions\EmailException;
 
 /**
@@ -138,6 +139,12 @@ class Email
      */
     private function _getHost()
     {
+        if ($this->_host === '') {
+            $this->_host = App::getInstance()
+                ->getConfig()
+                ->getValue(['email', 'host']);
+        }
+
         return $this->_host;
     }
 
@@ -161,6 +168,12 @@ class Email
      */
     private function _getUsername()
     {
+        if ($this->_username === '') {
+            $this->_username = App::getInstance()
+                ->getConfig()
+                ->getValue(['email', 'username']);
+        }
+
         return $this->_username;
     }
 
@@ -184,6 +197,12 @@ class Email
      */
     private function _getPassword()
     {
+        if ($this->_password === '') {
+            $this->_password = App::getInstance()
+                ->getConfig()
+                ->getValue(['email', 'password']);
+        }
+
         return $this->_password;
     }
 
@@ -207,6 +226,12 @@ class Email
      */
     private function _getSmtpSecure()
     {
+        if ($this->_smtpSecure === '') {
+            $this->_smtpSecure = App::getInstance()
+                ->getConfig()
+                ->getValue(['email', 'smtpSecure']);
+        }
+
         return $this->_smtpSecure;
     }
 
@@ -230,6 +255,12 @@ class Email
      */
     private function _getPort()
     {
+        if ($this->_port === '') {
+            $this->_port = App::getInstance()
+                ->getConfig()
+                ->getValue(['email', 'port']);
+        }
+
         return $this->_port;
     }
 
@@ -253,6 +284,12 @@ class Email
      */
     private function _getFromAddress()
     {
+        if ($this->_fromAddress === '') {
+            $this->_fromAddress = App::getInstance()
+                ->getConfig()
+                ->getValue(['email', 'fromAddress']);
+        }
+
         return $this->_fromAddress;
     }
 
@@ -276,6 +313,12 @@ class Email
      */
     private function _getFromName()
     {
+        if ($this->_fromName === '') {
+            $this->_fromName = App::getInstance()
+                ->getConfig()
+                ->getValue(['email', 'fromName']);
+        }
+
         return $this->_fromName;
     }
 

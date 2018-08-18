@@ -66,5 +66,14 @@ return [
     'file' => [
         'pathMask' => __DIR__ . '/../public/upload/%s/%s',
         'urlMask'  => 'http://%s/upload/%s/%s'
+    ],
+    'email' => [
+        'host'        => 'smtp.gmail.com',
+        'username'    => 'ss.test.dev.local',
+        'password'    => 'mypasS77',
+        'smtpSecure'  => '587',
+        'port'        => '465',
+        'fromAddress' => 'ss.test.dev.local@gmail.com',
+        'fromName'    => 'SS test dev',
     ]
 ];
