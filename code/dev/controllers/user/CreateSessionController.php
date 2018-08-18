@@ -40,6 +40,13 @@ class CreateSessionController extends AbstractController
         $global = App::getInstance()->getSuperGlobalVariable();
 
         $userModel = $this->_getUserModel();
+        if ($userModel === null) {
+            return [
+                'errors' => [
+                    'password' => $language->getMessage('user', 'incorrect')
+                ]
+            ];
+        }
 
         $passwordHash = $userModel->getPasswordHash(
             $this->get('password'),
@@ -94,17 +101,6 @@ class CreateSessionController extends AbstractController
     {
         $userModel = new UserModel();
         $userModel->byLogin($this->get('user'));
-        $userModel = $userModel->find();
-        if ($userModel instanceof UserModel === false) {
-            return [
-                'errors' => [
-                    'user' => App::getInstance()
-                        ->getLanguage()
-                        ->getMessage('user', 'incorrect')
-                ]
-            ];
-        }
-
-        return $userModel;
+        return $userModel->find();
     }
 }

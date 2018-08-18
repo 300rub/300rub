@@ -21,8 +21,8 @@
     <label>
         <input type="checkbox" class="form-instance" />
         <span class="icons">
-            <i class="fa fa-square-o"></i>
-            <i class="fa fa-check-square-o"></i>
+            <i class="far fa-square"></i>
+            <i class="far fa-check-square"></i>
         </span>
         <span class="label-text"></span>
     </label>

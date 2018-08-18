@@ -29,15 +29,15 @@ return [
     ],
     'isRemember'  => [
         Language::LANGUAGE_EN_ID => 'Remember me',
-        Language::LANGUAGE_RU_ID => '',
+        Language::LANGUAGE_RU_ID => 'Запомнить меня',
     ],
     'loginButton'  => [
         Language::LANGUAGE_EN_ID => 'Go',
-        Language::LANGUAGE_RU_ID => '',
+        Language::LANGUAGE_RU_ID => 'Войти',
     ],
     'incorrect' => [
         Language::LANGUAGE_EN_ID => 'Incorrect user or password',
-        Language::LANGUAGE_RU_ID => '',
+        Language::LANGUAGE_RU_ID => 'Неправильный логин или пароль',
     ],
     'logoutYes' => [
         Language::LANGUAGE_EN_ID => 'Yes',

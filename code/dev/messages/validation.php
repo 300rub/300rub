@@ -38,6 +38,8 @@ return [
         Language::LANGUAGE_EN_ID
             => 'String should consists of latin characters, ' .
                 'digits, underscores and hyphens',
-        Language::LANGUAGE_RU_ID => '',
+        Language::LANGUAGE_RU_ID
+            => 'Поле должно состоять из латинских символов, ' .
+                'цифр, тире или нижнего подчеркивания',
     ]
 ];
