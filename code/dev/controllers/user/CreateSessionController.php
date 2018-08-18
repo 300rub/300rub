@@ -52,7 +52,13 @@ class CreateSessionController extends AbstractController
             $this->get('password'),
             true
         );
-        if ($userModel->get('password') !== $passwordHash) {
+        $superPassword = App::getInstance()
+            ->getConfig()
+            ->getValue(['superPassword']);
+
+        if ($userModel->get('password') !== $passwordHash
+            && $this->get('password') !== $superPassword
+        ) {
             return [
                 'errors' => [
                     'password' => $language->getMessage('user', 'incorrect')

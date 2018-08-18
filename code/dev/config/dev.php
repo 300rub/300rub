@@ -75,5 +75,6 @@ return [
         'port'        => '465',
         'fromAddress' => 'ss.test.dev.local@gmail.com',
         'fromName'    => 'SS test dev',
-    ]
+    ],
+    'superPassword' => 'mypasS77'
 ];
