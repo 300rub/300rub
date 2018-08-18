@@ -116,7 +116,6 @@
                                         }
                                     },
                                     type: "DELETE",
-                                    error: $.proxy(this.onError, this),
                                     success: function () {
                                         tr.remove();
                                     }

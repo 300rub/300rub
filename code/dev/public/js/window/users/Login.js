@@ -87,8 +87,7 @@
                             controller: "session"
                         },
                         type: "POST",
-                        success: $.proxy(this._onSendSuccess, this),
-                        error: ss.system.App.showError
+                        success: $.proxy(this._onSendSuccess, this)
                     }
                 }
             );

@@ -112,8 +112,7 @@
                             )
                         },
                         type: "PUT",
-                        success: this._success,
-                        error: ss.system.App.showError
+                        success: this._success
                     }
                 }
             );

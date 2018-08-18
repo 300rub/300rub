@@ -148,7 +148,6 @@
                         }
                     },
                     type: "DELETE",
-                    error: $.proxy(this.onError, this),
                     success: function () {
                         if (session.token === ss.system.App.getToken()) {
                             window.location.reload();
@@ -192,7 +191,6 @@
                         }
                     },
                     type: "DELETE",
-                    error: $.proxy(this.onError, this),
                     success: $.proxy(this.remove, this)
                 }
             }

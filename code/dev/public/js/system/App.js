@@ -134,15 +134,6 @@
          */
         getToken: function () {
             return this._token;
-        },
-
-        /**
-         * Shows error message
-         *
-         * @param {Object} jqXHR
-         */
-        showError: function (jqXHR) {
-            console.log(jqXHR);
         }
     };
 }(window.jQuery, window.ss);

@@ -99,8 +99,7 @@
                             controller: "block"
                         },
                         type: type,
-                        success: $.proxy(this._onSendDataSuccess, this),
-                        error: ss.system.App.showError
+                        success: $.proxy(this._onSendDataSuccess, this)
                     }
                 }
             );
