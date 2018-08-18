@@ -30,11 +30,23 @@ class LoginController extends AbstractPageController
             ->getSuperGlobalVariable()
             ->getServerValue('HTTP_HOST');
 
+        $language = App::getInstance()->getLanguage();
+
+        if ($this->isUser() === true) {
+            $this->redirect(
+                sprintf(
+                    '/%s',
+                    $language->getActiveAlias()
+                ),
+                $siteHost
+            );
+        }
+
         if ($siteHost !== $host) {
             $this->redirect(
                 sprintf(
                     '/%s/%s',
-                    App::getInstance()->getLanguage()->getActiveAlias(),
+                    $language->getActiveAlias(),
                     self::LOGIN_ALIAS
                 ),
                 $siteHost
