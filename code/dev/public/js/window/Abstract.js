@@ -151,7 +151,7 @@
 
             var parent = this.getParent();
             if (parent !== null) {
-                parent.getInstance().addClass("transparent");
+                parent.getWindow().addClass("transparent");
             }
 
             return this;

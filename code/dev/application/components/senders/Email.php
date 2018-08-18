@@ -431,6 +431,7 @@ class Email
      */
     private function _setServerSetting()
     {
+        $this->_mail->CharSet = 'UTF-8';
         $this->_mail->SMTPDebug = 0;
         $this->_mail->isSMTP();
         $this->_mail->Host = $this->_getHost();

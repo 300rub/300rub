@@ -155,4 +155,20 @@ return [
         Language::LANGUAGE_EN_ID => 'Forgot your password?',
         Language::LANGUAGE_RU_ID => 'Забыли пароль?',
     ],
+    'passwordRecovery' => [
+        Language::LANGUAGE_EN_ID => 'Password recovery',
+        Language::LANGUAGE_RU_ID => 'Восстановление пароля',
+    ],
+    'sendCode' => [
+        Language::LANGUAGE_EN_ID => 'Send code',
+        Language::LANGUAGE_RU_ID => 'Отправить код',
+    ],
+    'emailNotFound' => [
+        Language::LANGUAGE_EN_ID => 'User with such email does not exist',
+        Language::LANGUAGE_RU_ID => 'Пользователь с таким email не существует',
+    ],
+    'enterCode' => [
+        Language::LANGUAGE_EN_ID => 'To change your password please enter the code: ',
+        Language::LANGUAGE_RU_ID => 'Чтобы сменить пароль введите код: ',
+    ]
 ];

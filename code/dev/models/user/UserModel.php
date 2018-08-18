@@ -70,6 +70,26 @@ class UserModel extends AbstractSaveOperationModel
     }
 
     /**
+     * Adds email condition to SQL request
+     *
+     * @param string $email Email
+     *
+     * @return UserModel
+     */
+    public function byEmail($email)
+    {
+        $this->getDb()->addWhere(
+            sprintf(
+                '%s.email = :email',
+                Db::DEFAULT_ALIAS
+            )
+        );
+        $this->getDb()->addParameter('email', $email);
+
+        return $this;
+    }
+
+    /**
      * Is owner
      *
      * @return bool
@@ -94,5 +114,15 @@ class UserModel extends AbstractSaveOperationModel
         }
 
         return sha1($password);
+    }
+
+    /**
+     * Gets new model
+     *
+     * @return UserModel
+     */
+    public static function model()
+    {
+        return new self;
     }
 }

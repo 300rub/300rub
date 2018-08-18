@@ -75,11 +75,7 @@
                 label: data.forms.forgotPassword,
                 appendTo: this.getBody(),
                 onClick: function () {
-                    new ss.window.users.Sessions(
-                        {
-                            id: 1
-                        }
-                    );
+                    new ss.window.users.ResetEmail();
                 }
             }
         );
@@ -89,7 +85,7 @@
             .setSubmit(
                 {
                     label: data.forms.button.label,
-                    icon: "fa-lock",
+                    icon: "fas fa-lock",
                     forms: [
                         this._userForm,
                         this._passwordForm,

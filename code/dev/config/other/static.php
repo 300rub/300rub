@@ -40,6 +40,7 @@ return [
             'window/Collection',
             'window/Abstract',
             'window/users/Login',
+            'window/users/ResetEmail',
             'content/menu/Abstract',
             'content/menu/Horizontal',
         ],

@@ -118,6 +118,17 @@ abstract class AbstractUserModel extends AbstractModel
                 self::FIELD_SKIP_DUPLICATION => true,
                 self::FIELD_UNIQUE           => true
             ],
+            'code'     => [
+                self::FIELD_TYPE             => self::FIELD_TYPE_STRING,
+                self::FIELD_VALIDATION       => [
+                    Validator::TYPE_MIN_LENGTH => 3,
+                    Validator::TYPE_MAX_LENGTH => 25,
+                ],
+                self::FIELD_SKIP_DUPLICATION => true,
+                self::FIELD_VALUE      => [
+                    ValueGenerator::CLEAR_STRIP_TAGS
+                ],
+            ],
         ];
     }
 

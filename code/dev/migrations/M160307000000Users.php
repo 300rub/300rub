@@ -44,6 +44,7 @@ class M160307000000Users extends AbstractMigration
                     'password' => self::TYPE_CHAR_40,
                     'name'     => self::TYPE_STRING_100,
                     'email'    => self::TYPE_STRING_100,
+                    'code'     => self::TYPE_STRING_25,
                 ]
             )
             ->createUniqueIndex('users', 'users_login', 'login')

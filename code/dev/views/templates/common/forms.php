@@ -4,7 +4,7 @@
 
 <button class="form-button form-instance">
     <span class="icons">
-        <i class="icon fas"></i>
+        <i class="icon"></i>
         <i class="fas fa-sync fa-spin hidden"></i>
     </span>
     <span class="label-text"></span>
