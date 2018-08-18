@@ -41,7 +41,7 @@ class Site extends AbstractAjax
         $requestUri = $this
             ->getSuperGlobalVariable()
             ->getServerValue('REQUEST_URI');
-        $requestUri = trim($requestUri, '/');
+        $requestUri = strtolower(trim($requestUri, '/'));
         $requestParameters = explode('/', $requestUri);
 
         if ($requestUri === ''

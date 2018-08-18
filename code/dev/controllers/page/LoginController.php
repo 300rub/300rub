@@ -12,6 +12,11 @@ class LoginController extends AbstractPageController
 {
 
     /**
+     * Login alias
+     */
+    const LOGIN_ALIAS = 'login';
+
+    /**
      * Gets login page
      *
      * @return string
@@ -26,7 +31,14 @@ class LoginController extends AbstractPageController
             ->getServerValue('HTTP_HOST');
 
         if ($siteHost !== $host) {
-            $this->redirect('/login', $siteHost);
+            $this->redirect(
+                sprintf(
+                    '/%s/%s',
+                    App::getInstance()->getLanguage()->getActiveAlias(),
+                    self::LOGIN_ALIAS
+                ),
+                $siteHost
+            );
         }
 
         $content = $this->getContentFromTemplate(

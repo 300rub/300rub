@@ -2,6 +2,7 @@
 
 namespace ss\application\instances;
 
+use ss\application\App;
 use ss\application\components\User;
 use ss\application\instances\_abstract\AbstractAjax;
 use ss\models\_abstract\AbstractModel;
@@ -175,9 +176,21 @@ class Web extends AbstractAjax
         $requestUri = $this
             ->getSuperGlobalVariable()
             ->getServerValue('REQUEST_URI');
-        $requestUri = trim($requestUri, '/');
+        $requestUri = strtolower(trim($requestUri, '/'));
 
         if ($requestUri === 'login') {
+            $loginController = new LoginController();
+            return $loginController->run();
+        }
+
+        $requestParameters = explode('/', $requestUri);
+        if (count($requestParameters) > 1
+            && $requestParameters[1] === LoginController::LOGIN_ALIAS
+        ) {
+            App::getInstance()
+                ->getLanguage()
+                ->setIdByAlias($requestParameters[0]);
+
             $loginController = new LoginController();
             return $loginController->run();
         }
