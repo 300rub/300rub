@@ -19,7 +19,6 @@
 
         this._userForm = null;
         this._passwordForm = null;
-        this._isRememberForm = null;
     };
 
     /**
@@ -61,13 +60,28 @@
             )
         );
 
-        this._isRememberForm = new ss.forms.Checkbox(
+        var isRememberForm = new ss.forms.Checkbox(
             $.extend(
                 {
                     appendTo: this.getBody()
                 },
                 data.forms.isRemember
             )
+        );
+
+        new ss.forms.Link(
+            {
+                css: "form-container block gray-red-link",
+                label: data.forms.forgotPassword,
+                appendTo: this.getBody(),
+                onClick: function () {
+                    new ss.window.users.Sessions(
+                        {
+                            id: 1
+                        }
+                    );
+                }
+            }
         );
 
         this
@@ -79,7 +93,7 @@
                     forms: [
                         this._userForm,
                         this._passwordForm,
-                        this._isRememberForm
+                        isRememberForm
                     ],
                     ajax: {
                         data: {

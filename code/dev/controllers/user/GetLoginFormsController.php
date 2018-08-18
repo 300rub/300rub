@@ -59,6 +59,8 @@ class GetLoginFormsController extends AbstractController
                     'label'
                         => $language->getMessage('user', 'isRemember'),
                 ],
+                'forgotPassword' => $language
+                    ->getMessage('user', 'forgotPassword'),
                 'button'     => [
                     'label'
                         => $language->getMessage('user', 'loginButton'),

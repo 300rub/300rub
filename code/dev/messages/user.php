@@ -151,4 +151,8 @@ return [
         Language::LANGUAGE_EN_ID => 'Name',
         Language::LANGUAGE_RU_ID => 'Имя',
     ],
+    'forgotPassword' => [
+        Language::LANGUAGE_EN_ID => 'Forgot your password?',
+        Language::LANGUAGE_RU_ID => 'Забыли пароль?',
+    ],
 ];

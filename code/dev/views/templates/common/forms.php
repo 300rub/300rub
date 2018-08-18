@@ -117,3 +117,7 @@
         <input type="hidden" class="form-instance">
     </div>
 </div>
+
+<a class="form-link form-instance">
+    <span class="label-text"></span>
+</a>

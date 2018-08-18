@@ -36,6 +36,7 @@ return [
             'forms/Select',
             'forms/Spinner',
             'forms/Text',
+            'forms/Link',
             'window/Collection',
             'window/Abstract',
             'window/users/Login',
