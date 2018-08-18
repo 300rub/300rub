@@ -170,5 +170,17 @@ return [
     'enterCode' => [
         Language::LANGUAGE_EN_ID => 'To change your password please enter the code: ',
         Language::LANGUAGE_RU_ID => 'Чтобы сменить пароль введите код: ',
+    ],
+    'code' => [
+        Language::LANGUAGE_EN_ID => 'Code',
+        Language::LANGUAGE_RU_ID => 'Код',
+    ],
+    'verifyCode' => [
+        Language::LANGUAGE_EN_ID => 'Verify code',
+        Language::LANGUAGE_RU_ID => 'Проверить код',
+    ],
+    'incorrectCode' => [
+        Language::LANGUAGE_EN_ID => 'Incorrect code',
+        Language::LANGUAGE_RU_ID => 'Неверный код',
     ]
 ];

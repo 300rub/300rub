@@ -121,7 +121,6 @@ abstract class AbstractUserModel extends AbstractModel
             'code'     => [
                 self::FIELD_TYPE             => self::FIELD_TYPE_STRING,
                 self::FIELD_VALIDATION       => [
-                    Validator::TYPE_MIN_LENGTH => 3,
                     Validator::TYPE_MAX_LENGTH => 25,
                 ],
                 self::FIELD_SKIP_DUPLICATION => true,

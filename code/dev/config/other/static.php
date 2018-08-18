@@ -41,6 +41,7 @@ return [
             'window/Abstract',
             'window/users/Login',
             'window/users/ResetEmail',
+            'window/users/ResetCode',
             'content/menu/Abstract',
             'content/menu/Horizontal',
         ],

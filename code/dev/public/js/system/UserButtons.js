@@ -88,7 +88,7 @@
                     css: "button",
                     appendTo: $logoutConfirmation,
                     label: $logoutConfirmation.data("yes"),
-                    icon: "fa-sign-out-alt",
+                    icon: "fas fa-sign-out-alt",
                     ajax: {
                         type: "DELETE",
                         data: {
@@ -108,7 +108,7 @@
                     css: "gray-button",
                     appendTo: $logoutConfirmation,
                     label: $logoutConfirmation.data("no"),
-                    icon: "fa-ban",
+                    icon: "fas fa-ban",
                     onClick: function () {
                         $logoutConfirmation.addClass("hidden");
                     }

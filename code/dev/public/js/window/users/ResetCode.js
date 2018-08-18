@@ -2,24 +2,27 @@
     'use strict';
 
     /**
-     * ResetEmail window
+     * ResetCode window
+     *
+     * @param {Object} options
      *
      * @type {Object}
      */
-    ss.window.users.ResetEmail = function () {
+    ss.window.users.ResetCode = function (options) {
         ss.window.Abstract.call(
             this,
             {
                 group: "user",
-                controller: "resetEmailForm",
+                controller: "resetCodeForm",
                 success: $.proxy(this._onLoadDataSuccess, this),
-                name: "reset-email",
+                name: "reset-code",
                 level: 2,
                 parent: "login"
             }
         );
 
         this._form = null;
+        this._id = options.id;
     };
 
     /**
@@ -27,13 +30,13 @@
      *
      * @type {Object}
      */
-    ss.window.users.ResetEmail.prototype
+    ss.window.users.ResetCode.prototype
         = Object.create(ss.window.Abstract.prototype);
 
     /**
      * Constructor
      */
-    ss.window.users.ResetEmail.prototype.constructor = ss.window.users.ResetEmail;
+    ss.window.users.ResetCode.prototype.constructor = ss.window.users.ResetCode;
 
     /**
      * On load window success
@@ -42,14 +45,22 @@
      *
      * @private
      */
-    ss.window.users.ResetEmail.prototype._onLoadDataSuccess = function (data) {
+    ss.window.users.ResetCode.prototype._onLoadDataSuccess = function (data) {
         this._form = new ss.forms.Text(
             $.extend(
                 {
                     appendTo: this.getBody()
                 },
-                data.forms.email
+                data.forms.code
             )
+        );
+
+        var idForm = new ss.forms.Hidden(
+            {
+                name: 'id',
+                value: this._id,
+                appendTo: this.getBody()
+            }
         );
 
         this
@@ -57,14 +68,15 @@
             .setSubmit(
                 {
                     label: data.forms.button.label,
-                    icon: "far fa-envelope",
+                    icon: "fas fa-lock",
                     forms: [
-                        this._form
+                        this._form,
+                        idForm
                     ],
                     ajax: {
                         data: {
                             group: "user",
-                            controller: "resetEmail"
+                            controller: "resetCode"
                         },
                         type: "POST",
                         success: $.proxy(this._onSendSuccess, this)
@@ -82,11 +94,11 @@
      *
      * @private
      */
-    ss.window.users.ResetEmail.prototype._onSendSuccess = function (data) {
+    ss.window.users.ResetCode.prototype._onSendSuccess = function (data) {
         if ($.type(data.errors) === "object") {
-            if (data.errors.email !== undefined) {
+            if (data.errors.code !== undefined) {
                 this._form
-                    .setError(data.errors.email)
+                    .setError(data.errors.code)
                     .scrollTo()
                     .focus();
             }
@@ -94,8 +106,6 @@
             return false;
         }
 
-        new ss.window.users.ResetCode({
-            id: data.id
-        });
+        window.location.reload();
     };
 }(window.jQuery, window.ss);

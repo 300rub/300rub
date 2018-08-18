@@ -74,6 +74,8 @@ class CreateResetEmailController extends AbstractController
             ->setBody($body)
             ->send();
 
-        return $this->getSimpleSuccessResult();
+        return [
+            'id' => $userModel->getId()
+        ];
     }
 }
