@@ -182,5 +182,9 @@ return [
     'incorrectCode' => [
         Language::LANGUAGE_EN_ID => 'Incorrect code',
         Language::LANGUAGE_RU_ID => 'Неверный код',
-    ]
+    ],
+    'logoutButtonName' => [
+        Language::LANGUAGE_EN_ID => 'Logout',
+        Language::LANGUAGE_RU_ID => 'Выход',
+    ],
 ];

@@ -23,4 +23,8 @@ return [
         Language::LANGUAGE_EN_ID => 'Users',
         Language::LANGUAGE_RU_ID => '',
     ],
+    'buttonName' => [
+        Language::LANGUAGE_EN_ID => 'Settings',
+        Language::LANGUAGE_RU_ID => 'Настройки',
+    ],
 ];

@@ -52,4 +52,8 @@ return [
         Language::LANGUAGE_EN_ID => 'Add new section',
         Language::LANGUAGE_RU_ID => '',
     ],
+    'buttonName' => [
+        Language::LANGUAGE_EN_ID => 'Sections',
+        Language::LANGUAGE_RU_ID => 'Разделы',
+    ],
 ];

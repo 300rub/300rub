@@ -8,6 +8,11 @@
  * @var string $logoutYes
  * @var string $logoutNo
  * @var string $logoutConfirmText
+ * @var string $sectionsButton
+ * @var string $blocksButton
+ * @var string $settingsButton
+ * @var string $helpButton
+ * @var string $logoutButton
  *
  * phpcs:disable Generic.Files.InlineHTML
  */
@@ -16,26 +21,26 @@
 <div id="user-buttons">
     <?php if ($isDisplayBlocks === true) { ?>
         <a id="user-button-block">
-            <span>Blocks</span>
+            <span><?php echo $blocksButton; ?></span>
             <i class="fas fa-th-large"></i>
         </a>
     <?php } ?>
     <?php if ($isDisplaySections === true) { ?>
         <a>
-            <span>Sections</span>
+            <span><?php echo $sectionsButton; ?></span>
             <i class="far fa-file"></i>
         </a>
     <?php } ?>
     <a id="user-button-settings">
-        <span>Settings</span>
+        <span><?php echo $settingsButton; ?></span>
         <i class="fas fa-wrench"></i>
     </a>
     <a>
-        <span>Help</span>
+        <span><?php echo $helpButton; ?></span>
         <i class="fas fa-question"></i>
     </a>
     <a id="user-button-logout">
-        <span>Logout</span>
+        <span><?php echo $logoutButton; ?></span>
         <i class="fas fa-sign-out-alt"></i>
     </a>
     <div

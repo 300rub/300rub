@@ -159,7 +159,17 @@ class PageController extends AbstractPageController
                 'logoutNo'
                     => $language->getMessage('user', 'logoutNo'),
                 'logoutConfirmText'
-                    => $language->getMessage('user', 'logoutConfirmText')
+                    => $language->getMessage('user', 'logoutConfirmText'),
+                'sectionsButton'
+                    => $language->getMessage('section', 'buttonName'),
+                'blocksButton'
+                    => $language->getMessage('block', 'buttonName'),
+                'settingsButton'
+                    => $language->getMessage('settings', 'buttonName'),
+                'helpButton'
+                    => $language->getMessage('help', 'buttonName'),
+                'logoutButton'
+                    => $language->getMessage('user', 'logoutButtonName'),
             ]
         );
     }
