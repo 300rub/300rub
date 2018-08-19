@@ -19,7 +19,8 @@
     <target
         name="dev-setup"
         depends="
-            db-recreate-system-databases
+            db-recreate-system-databases,
+            db-recreate-dev-database
         "
     >
     </target>

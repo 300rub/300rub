@@ -7,6 +7,13 @@
         </exec>
     </target>
 
+    <target name="db-recreate-dev-database">
+        <exec executable="php" failonerror="true">
+            <arg value='commands/run' />
+            <arg value='db/RecreateDevDatabaseCommand' />
+        </exec>
+    </target>
+
     <target name="db-export-sites">
         <exec executable="php" failonerror="true">
             <arg value='commands/run' />
@@ -18,28 +25,6 @@
         <exec executable="php" failonerror="true">
             <arg value='commands/run' />
             <arg value='db/MigrateCommand' />
-        </exec>
-    </target>
-
-    <target name="db-import-system-fixtures">
-        <exec executable="php" failonerror="true">
-            <arg value='commands/run' />
-            <arg value='db/ImportFixturesCommand' />
-            <arg value='help' />
-        </exec>
-
-        <exec executable="php" failonerror="true">
-            <arg value='commands/run' />
-            <arg value='db/ImportFixturesCommand' />
-            <arg value='system' />
-        </exec>
-    </target>
-
-    <target name="db-import-dev-fixtures">
-        <exec executable="php" failonerror="true">
-            <arg value='commands/run' />
-            <arg value='db/ImportFixturesCommand' />
-            <arg value='dev' />
         </exec>
     </target>
 
