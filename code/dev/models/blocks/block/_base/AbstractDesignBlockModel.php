@@ -180,10 +180,6 @@ abstract class AbstractDesignBlockModel extends AbstractModel
     private function _getMarginFieldsInfo()
     {
         return [
-            'marginParentId'   => [
-                self::FIELD_RELATION_TO_PARENT => get_class($this),
-                self::FIELD_ALLOW_NULL         => true,
-            ],
             'marginTop'          => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
@@ -249,10 +245,6 @@ abstract class AbstractDesignBlockModel extends AbstractModel
     private function _getPaddingFieldsInfo()
     {
         return [
-            'paddingParentId'   => [
-                self::FIELD_RELATION_TO_PARENT => get_class($this),
-                self::FIELD_ALLOW_NULL         => true,
-            ],
             'paddingTop'          => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
@@ -318,10 +310,6 @@ abstract class AbstractDesignBlockModel extends AbstractModel
     private function _getBackgroundFieldsInfo()
     {
         return [
-            'backgroundParentId'   => [
-                self::FIELD_RELATION_TO_PARENT => get_class($this),
-                self::FIELD_ALLOW_NULL         => true,
-            ],
             'backgroundColorFrom'      => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_STRING,
                 self::FIELD_VALUE => [
@@ -384,10 +372,6 @@ abstract class AbstractDesignBlockModel extends AbstractModel
     private function _getBorderRadiusFieldsInfo()
     {
         return [
-            'borderParentId'   => [
-                self::FIELD_RELATION_TO_PARENT => get_class($this),
-                self::FIELD_ALLOW_NULL         => true,
-            ],
             'borderTopLeftRadius'          => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
@@ -553,10 +537,6 @@ abstract class AbstractDesignBlockModel extends AbstractModel
     private function _getCommonFieldsInfo()
     {
         return [
-            'parentId'   => [
-                self::FIELD_RELATION_TO_PARENT => get_class($this),
-                self::FIELD_ALLOW_NULL         => true,
-            ],
             'width' => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [

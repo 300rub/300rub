@@ -211,10 +211,6 @@ abstract class AbstractDesignTextModel extends AbstractModel
     private function _getFieldsInfo()
     {
         return [
-            'parentId'            => [
-                self::FIELD_RELATION_TO_PARENT => get_class($this),
-                self::FIELD_ALLOW_NULL         => true,
-            ],
             'size'                => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [

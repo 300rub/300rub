@@ -17,58 +17,10 @@ class M160302000010DesignBlocks extends AbstractMigration
      */
     public function apply()
     {
-        $this
-            ->_createTable()
-            ->createForeignKey(
-                'designBlocks',
-                'parentId',
-                'designBlocks',
-                self::FK_NULL,
-                self::FK_NULL
-            )
-            ->createForeignKey(
-                'designBlocks',
-                'marginParentId',
-                'designBlocks',
-                self::FK_NULL,
-                self::FK_NULL
-            )
-            ->createForeignKey(
-                'designBlocks',
-                'paddingParentId',
-                'designBlocks',
-                self::FK_NULL,
-                self::FK_NULL
-            )
-            ->createForeignKey(
-                'designBlocks',
-                'backgroundParentId',
-                'designBlocks',
-                self::FK_NULL,
-                self::FK_NULL
-            )
-            ->createForeignKey(
-                'designBlocks',
-                'borderParentId',
-                'designBlocks',
-                self::FK_NULL,
-                self::FK_NULL
-            );
-    }
-
-    /**
-     * Created table
-     *
-     * @return M160302000010DesignBlocks
-     */
-    private function _createTable()
-    {
         $this->createTable(
             'designBlocks',
             [
                 'id'                           => self::TYPE_PK,
-                'parentId'                     => self::TYPE_FK_NULL,
-                'marginParentId'               => self::TYPE_FK_NULL,
                 'marginTop'                    => self::TYPE_SMALLINT,
                 'marginTopHover'               => self::TYPE_SMALLINT,
                 'marginRight'                  => self::TYPE_SMALLINT,
@@ -79,7 +31,6 @@ class M160302000010DesignBlocks extends AbstractMigration
                 'marginLeftHover'              => self::TYPE_SMALLINT,
                 'hasMarginHover'               => self::TYPE_BOOL,
                 'hasMarginAnimation'           => self::TYPE_BOOL,
-                'paddingParentId'              => self::TYPE_FK_NULL,
                 'paddingTop'                   => self::TYPE_SMALLINT_UNSIGNED,
                 'paddingTopHover'              => self::TYPE_SMALLINT_UNSIGNED,
                 'paddingRight'                 => self::TYPE_SMALLINT_UNSIGNED,
@@ -90,7 +41,6 @@ class M160302000010DesignBlocks extends AbstractMigration
                 'paddingLeftHover'             => self::TYPE_SMALLINT_UNSIGNED,
                 'hasPaddingHover'              => self::TYPE_BOOL,
                 'hasPaddingAnimation'          => self::TYPE_BOOL,
-                'backgroundParentId'           => self::TYPE_FK_NULL,
                 'backgroundColorFrom'          => self::TYPE_STRING_25,
                 'backgroundColorFromHover'     => self::TYPE_STRING_25,
                 'backgroundColorTo'            => self::TYPE_STRING_25,
@@ -100,7 +50,6 @@ class M160302000010DesignBlocks extends AbstractMigration
                 'hasBackgroundGradient'        => self::TYPE_BOOL,
                 'hasBackgroundHover'           => self::TYPE_BOOL,
                 'hasBackgroundAnimation'       => self::TYPE_BOOL,
-                'borderParentId'               => self::TYPE_FK_NULL,
                 'borderTopLeftRadius'          => self::TYPE_SMALLINT_UNSIGNED,
                 'borderTopLeftRadiusHover'     => self::TYPE_SMALLINT_UNSIGNED,
                 'borderTopRightRadius'         => self::TYPE_SMALLINT_UNSIGNED,
@@ -127,7 +76,5 @@ class M160302000010DesignBlocks extends AbstractMigration
                 'height'                       => self::TYPE_SMALLINT_UNSIGNED,
             ]
         );
-
-        return $this;
     }
 }

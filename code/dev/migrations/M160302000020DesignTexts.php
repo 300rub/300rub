@@ -22,7 +22,6 @@ class M160302000020DesignTexts extends AbstractMigration
                 'designTexts',
                 [
                     'id'                 => self::TYPE_PK,
-                    'parentId'           => self::TYPE_FK_NULL,
                     'size'               => self::TYPE_SMALLINT_UNSIGNED,
                     'sizeHover'          => self::TYPE_SMALLINT_UNSIGNED,
                     'family'             => self::TYPE_TINYINT_UNSIGNED,
@@ -43,13 +42,6 @@ class M160302000020DesignTexts extends AbstractMigration
                     'lineHeightHover'    => self::TYPE_SMALLINT,
                     'hasHover'           => self::TYPE_BOOL,
                 ]
-            )
-            ->createForeignKey(
-                'designTexts',
-                'parentId',
-                'designTexts',
-                self::FK_NULL,
-                self::FK_NULL
             );
     }
 }
