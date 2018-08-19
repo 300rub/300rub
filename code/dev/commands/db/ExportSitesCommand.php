@@ -35,12 +35,12 @@ class ExportSitesCommand extends AbstractCommand
             exec(
                 sprintf(
                     'export MYSQL_PWD=%s; ' .
-                    'mysqldump -u %s -h %s %s | gzip -c > %s/%s.sql.gz',
+                    'mysqldump -u %s -h %s %s > %s/backups/%s.sql',
                     $site['dbPassword'],
                     $site['dbUser'],
                     $site['dbHost'],
                     $site['dbName'],
-                    FILES_ROOT . '/backups',
+                    FILES_ROOT,
                     $site['dbName']
                 )
             );

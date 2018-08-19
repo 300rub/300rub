@@ -37,7 +37,7 @@ class ImportSitesCommand extends AbstractCommand
                 $site['dbName']
             );
 
-            $file = FILES_ROOT . '/backups/' . $site['dbName'] . '.sql.gz';
+            $file = FILES_ROOT . '/backups/' . $site['dbName'] . '.sql';
             if (file_exists($file) === false) {
                 throw new MigrationException(
                     'Unable to find the dump file for DB: {db}',
@@ -50,12 +50,12 @@ class ImportSitesCommand extends AbstractCommand
             exec(
                 sprintf(
                     'export MYSQL_PWD=%s; ' .
-                    'gunzip < %s | mysql -u %s -h %s %s',
-                    $site['dbPassword'],
-                    $file,
-                    $site['dbUser'],
-                    $site['dbHost'],
-                    $site['dbName']
+                    'mysql -u %s -h %s %s < %s',
+                    $site['password'],
+                    $site['user'],
+                    $site['host'],
+                    $site['name'],
+                    $file
                 )
             );
         }

@@ -57,12 +57,12 @@ class GenerateSourceDumpCommand extends AbstractCommand
         exec(
             sprintf(
                 'export MYSQL_PWD=%s; ' .
-                'mysqldump -u %s -h %s %s > %s/config/db/source.sql',
+                'mysqldump -u %s -h %s %s > %s/backups/source.sql',
                 $dbPassword,
                 $dbUser,
                 $dbHost,
                 $dbName,
-                CODE_ROOT
+                FILES_ROOT
             )
         );
     }

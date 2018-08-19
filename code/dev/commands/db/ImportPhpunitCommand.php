@@ -23,12 +23,12 @@ class ImportPhpunitCommand extends AbstractCommand
         exec(
             sprintf(
                 'export MYSQL_PWD=%s; ' .
-                'gunzip < %s | mysql -u %s -h %s %s',
+                'mysql -u %s -h %s %s < %s/backups/phpunit.sql',
                 $site['password'],
-                FILES_ROOT . '/backups/phpunit.sql.gz',
                 $site['user'],
                 $site['host'],
-                $site['name']
+                $site['name'],
+                FILES_ROOT
             )
         );
     }

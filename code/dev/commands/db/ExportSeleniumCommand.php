@@ -23,12 +23,12 @@ class ExportSeleniumCommand extends AbstractCommand
         exec(
             sprintf(
                 'export MYSQL_PWD=%s; ' .
-                'mysqldump -u %s -h %s %s | gzip -c > %s/selenium.sql.gz',
+                'mysqldump -u %s -h %s %s > %s/backups/selenium.sql',
                 $site['password'],
                 $site['user'],
                 $site['host'],
                 $site['name'],
-                FILES_ROOT . '/backups'
+                FILES_ROOT
             )
         );
     }

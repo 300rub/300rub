@@ -23,12 +23,12 @@ class ImportSeleniumCommand extends AbstractCommand
         exec(
             sprintf(
                 'export MYSQL_PWD=%s; ' .
-                'gunzip < %s | mysql -u %s -h %s %s',
+                'mysql -u %s -h %s %s < %s/backups/selenium.sql',
                 $site['password'],
-                FILES_ROOT . '/backups/selenium.sql.gz',
                 $site['user'],
                 $site['host'],
-                $site['name']
+                $site['name'],
+                FILES_ROOT
             )
         );
     }

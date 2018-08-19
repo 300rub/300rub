@@ -23,28 +23,18 @@ class RecreatePhpunitDatabaseCommand extends AbstractDbCommand
 
         $this->checkConnection();
 
-        exec(
-            sprintf(
-                'export MYSQL_PWD=%s; ' .
-                'mysql -u %s -h %s -e "DROP DATABASE IF EXISTS %s"',
-                $config->getValue(['db', 'phpunit', 'password']),
-                $config->getValue(['db', 'phpunit', 'user']),
-                $config->getValue(['db', 'phpunit', 'host']),
-                $config->getValue(['db', 'phpunit', 'name'])
-            )
-        );
-        exec(
-            sprintf(
-                'export MYSQL_PWD=%s; ' .
-                'mysql -u %s -h %s -e "CREATE DATABASE %s"',
-                $config->getValue(['db', 'phpunit', 'password']),
-                $config->getValue(['db', 'phpunit', 'user']),
-                $config->getValue(['db', 'phpunit', 'host']),
-                $config->getValue(['db', 'phpunit', 'name'])
-            )
-        );
+        $dbObject = App::getInstance()->getDb();
 
-        App::getInstance()->getDb()->setPdo(
+        $dbObject
+            ->createNewDb(
+                $config->getValue(['db', 'phpunit', 'host']),
+                $config->getValue(['db', 'phpunit', 'user']),
+                $config->getValue(['db', 'phpunit', 'password']),
+                $config->getValue(['db', 'phpunit', 'name']),
+                true
+            );
+
+        $dbObject->setPdo(
             $config->getValue(['db', 'phpunit', 'host']),
             $config->getValue(['db', 'phpunit', 'user']),
             $config->getValue(['db', 'phpunit', 'password']),
