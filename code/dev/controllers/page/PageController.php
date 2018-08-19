@@ -73,7 +73,6 @@ class PageController extends AbstractPageController
         $layoutData['generatedJs'] = $sectionJs;
         $layoutData['version'] = $this->getVersion();
 
-
         return $this->getContentFromTemplate('page/layout', $layoutData);
     }
 

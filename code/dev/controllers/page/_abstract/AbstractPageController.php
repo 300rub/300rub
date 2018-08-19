@@ -55,7 +55,9 @@ abstract class AbstractPageController extends AbstractController
         if ($this->_isMinimized() === true) {
             $cssList = [];
             $cssList[] = $this->_staticMap['common']['compiledCss'];
-            if ($isUser === true) {
+            if ($isUser === true
+                && array_key_exists('admin', $this->_staticMap) === true
+            ) {
                 $cssList[] = $this->_staticMap['admin']['compiledCss'];
             }
 
@@ -63,7 +65,9 @@ abstract class AbstractPageController extends AbstractController
         }
 
         $cssList = $this->_staticMap['common']['libs']['css'];
-        if ($isUser === true) {
+        if ($isUser === true
+            && array_key_exists('admin', $this->_staticMap) === true
+        ) {
             $cssList = array_merge(
                 $cssList,
                 $this->_staticMap['admin']['libs']['css']
@@ -85,7 +89,9 @@ abstract class AbstractPageController extends AbstractController
         if ($this->_isMinimized() === true) {
             $jsList = [];
             $jsList[] = $this->_staticMap['common']['compiledJs'];
-            if ($isUser === true) {
+            if ($isUser === true
+                && array_key_exists('admin', $this->_staticMap) === true
+            ) {
                 $jsList[] = $this->_staticMap['admin']['compiledJs'];
             }
 
@@ -94,7 +100,9 @@ abstract class AbstractPageController extends AbstractController
 
         $jsList = $this->_staticMap['common']['libs']['js'];
 
-        if ($isUser === true) {
+        if ($isUser === true
+            && array_key_exists('admin', $this->_staticMap) === true
+        ) {
             $jsList = array_merge(
                 $jsList,
                 $this->_staticMap['admin']['libs']['js']
@@ -106,7 +114,9 @@ abstract class AbstractPageController extends AbstractController
             $this->_staticMap['common']['js']
         );
 
-        if ($isUser === false) {
+        if ($isUser === false
+            || array_key_exists('admin', $this->_staticMap) === false
+        ) {
             return $jsList;
         }
 
@@ -129,9 +139,18 @@ abstract class AbstractPageController extends AbstractController
 
         $less = [];
 
-        $less[] = $this->_staticMap['common']['less'];
-        if ($this->isUser() === true) {
-            $less[] = $this->_staticMap['admin']['less'];
+        $lessCommon = $this->_staticMap['common']['less'];
+        if ($lessCommon !== '') {
+            $less[] = $lessCommon;
+        }
+
+        if ($this->isUser() === true
+            && array_key_exists('admin', $this->_staticMap) === true
+        ) {
+            $lessAdmin = $this->_staticMap['admin']['less'];
+            if ($lessAdmin !== '') {
+                $less[] = $lessAdmin;
+            }
         }
 
         return $less;

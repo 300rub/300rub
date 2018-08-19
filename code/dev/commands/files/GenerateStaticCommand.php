@@ -34,6 +34,8 @@ class GenerateStaticCommand extends AbstractCommand
             '/config/other/static.php';
         $staticMaps[] = include CODE_ROOT .
             '/config/other/staticSite.php';
+        $staticMaps[] = include CODE_ROOT .
+            '/config/other/staticError.php';
 
         $this->_publicDir = CODE_ROOT . '/public';
 
@@ -56,22 +58,33 @@ class GenerateStaticCommand extends AbstractCommand
     private function _generateJs($staticMap)
     {
         $minimizer = new JS();
+        $hasJs = false;
 
-        foreach ($staticMap['libs']['js'] as $jsName) {
-            $minimizer->add(
-                $this->_publicDir . '/js/' . $jsName . '.js'
-            );
+        if (array_key_exists('js', $staticMap['libs']) === true) {
+            foreach ($staticMap['libs']['js'] as $jsName) {
+                $minimizer->add(
+                    $this->_publicDir . '/js/' . $jsName . '.js'
+                );
+            }
+
+            $hasJs = true;
         }
 
-        foreach ($staticMap['js'] as $jsName) {
-            $minimizer->add(
-                $this->_publicDir . '/js/' . $jsName . '.js'
-            );
+        if (array_key_exists('js', $staticMap) === true) {
+            foreach ($staticMap['js'] as $jsName) {
+                $minimizer->add(
+                    $this->_publicDir . '/js/' . $jsName . '.js'
+                );
+            }
+
+            $hasJs = true;
         }
 
-        $minimizer->minify(
-            $this->_publicDir . '/js/' . $staticMap['compiledJs'] . '.js'
-        );
+        if ($hasJs === true) {
+            $minimizer->minify(
+                $this->_publicDir . '/js/' . $staticMap['compiledJs'] . '.js'
+            );
+        }
 
         return $this;
     }
@@ -86,23 +99,36 @@ class GenerateStaticCommand extends AbstractCommand
     private function _generateCss($staticMap)
     {
         $minimizer = new CSS();
+        $hasCss = false;
 
-        foreach ($staticMap['libs']['css'] as $cssName) {
-            $minimizer->add(
-                $this->_publicDir . '/css/' . $cssName . '.css'
-            );
+        if (array_key_exists('css', $staticMap['libs']) === true) {
+            foreach ($staticMap['libs']['css'] as $cssName) {
+                $minimizer->add(
+                    $this->_publicDir . '/css/' . $cssName . '.css'
+                );
+            }
+
+            $hasCss = true;
         }
 
-        $less = new \lessc;
-        $minimizer->add(
-            $less->compileFile(
-                $this->_publicDir . '/less/' . $staticMap['less'] . '.less'
-            )
-        );
+        if (array_key_exists('less', $staticMap) === true
+            && $staticMap['less'] !== ''
+        ) {
+            $less = new \lessc;
+            $minimizer->add(
+                $less->compileFile(
+                    $this->_publicDir . '/less/' . $staticMap['less'] . '.less'
+                )
+            );
 
-        $minimizer->minify(
-            $this->_publicDir . '/css/' . $staticMap['compiledCss'] . '.css'
-        );
+            $hasCss = true;
+        }
+
+        if ($hasCss === true) {
+            $minimizer->minify(
+                $this->_publicDir . '/css/' . $staticMap['compiledCss'] . '.css'
+            );
+        }
 
         return $this;
     }

@@ -2,7 +2,9 @@
 
 namespace ss\application\components;
 
+use ss\application\App;
 use ss\application\exceptions\CommonException;
+use ss\controllers\page\ErrorController;
 
 /**
  * Class for handling errors
@@ -50,17 +52,26 @@ class ErrorHandler
         restore_error_handler();
         restore_exception_handler();
 
-        throw new CommonException(
-            'Exception occurred with type: {type}, message: {message}, ' .
-            'file: {file}, line: {line} backtrace: {backtrace}',
-            [
-                'type'      => get_class($exception),
-                'message'   => $exception->getMessage(),
-                'file'      => $exception->getFile(),
-                'line'      => $exception->getLine(),
-                'backtrace' => $exception->getTraceAsString()
-            ]
+        $logMessage = sprintf(
+            'Exception occurred with type: [%s], message: [%s], ' .
+            'file: [%s], line: [%s], backtrace: [%s]',
+            get_class($exception),
+            $exception->getMessage(),
+            $exception->getFile(),
+            $exception->getLine(),
+            $exception->getTraceAsString()
         );
+
+        App::getInstance()->getLogger()->error($logMessage, 'common');
+
+        $errorController = new ErrorController();
+        $errorController
+            ->setCode($exception->getCode())
+            ->setMessage($exception->getMessage())
+            ->setFile($exception->getFile())
+            ->setLine($exception->getLine())
+            ->setBacktrace($exception->getTrace());
+        echo $errorController->run();
     }
 
     /**
@@ -77,15 +88,23 @@ class ErrorHandler
      */
     public function handleError($code, $message, $file, $line)
     {
-        throw new CommonException(
-            'Error! code: {code}, message: {message}, ' .
-            'file: {file}, line: {line}',
-            [
-                'code'    => $code,
-                'message' => $message,
-                'file'    => $file,
-                'line'    => $line
-            ]
+        $logMessage = sprintf(
+            'Error! code: [%s], message: [%s], ' .
+            'file: [%s], line: [%s]',
+             $code,
+             $message,
+             $file,
+             $line
         );
+
+        App::getInstance()->getLogger()->error($logMessage, 'common');
+
+        $errorController = new ErrorController();
+        $errorController
+            ->setCode($code)
+            ->setMessage($message)
+            ->setFile($file)
+            ->setLine($line);
+        echo $errorController->run();
     }
 }
