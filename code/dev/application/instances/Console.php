@@ -35,13 +35,6 @@ class Console extends AbstractApplication
             array_shift($args);
 
             $className = '\\ss\\commands\\' . $commandName;
-            $this->output(
-                sprintf(
-                    'The command [%s] has been started',
-                    $commandName
-                ),
-                false
-            );
 
             $this
                 ->_getCommandByClassName($className)
@@ -49,17 +42,9 @@ class Console extends AbstractApplication
                 ->run();
 
             $time = number_format((microtime(true) - $startTime), 3);
-            $this->output(
-                sprintf(
-                    'The command [%s] has been finished ' .
-                    "successfully with time: [%s]\n",
-                    $commandName,
-                    $time
-                ),
-                false
-            );
+
+            echo sprintf('Time: %s seconds', $time);
         } catch (\Exception $e) {
-            $this->output($e->getMessage() . "\n", true);
             throw $e;
         }
     }
@@ -74,29 +59,5 @@ class Console extends AbstractApplication
     private function _getCommandByClassName($className)
     {
         return new $className;
-    }
-
-    /**
-     * Console output
-     *
-     * $output = "\e[0;33m" . date('Y-m-d H:i:s', time());
-     * if ($isError === false) {
-     * $output .= " \e[0;32m[success] ";
-     * } else {
-     * $output .= " \e[1;31m[error] ";
-     * }
-     *
-     * $output .= "\e[0m" . $message;
-     *
-     * echo "\n{$output}";
-     *
-     * @param string $message Message
-     * @param bool   $isError Error flag
-     *
-     * @return string
-     */
-    public function output($message, $isError)
-    {
-        return $message . (string)$isError;
     }
 }

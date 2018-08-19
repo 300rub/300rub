@@ -43,6 +43,13 @@ class RecreateDevDatabasesCommand extends AbstractDbCommand
             )
             ->createNewDb(
                 $dbHost,
+                $config->getValue(['db', 'dev', 'user']),
+                $config->getValue(['db', 'dev', 'password']),
+                $config->getValue(['db', 'dev', 'name']) . 'Admin',
+                true
+            )
+            ->createNewDb(
+                $dbHost,
                 $config->getValue(['db', 'system', 'user']),
                 $config->getValue(['db', 'system', 'password']),
                 $config->getValue(['db', 'system', 'name']),
@@ -56,7 +63,17 @@ class RecreateDevDatabasesCommand extends AbstractDbCommand
                 true
             );
 
-        $dbObject = App::getInstance()->getDb();
+        $databases = $dbObject->getAllDbNames($dbHost);
+        foreach ($databases as $database) {
+            if (strpos($database, 'site') !== 0) {
+                continue;
+            }
+
+            $dbObject->dropDb(
+                $dbHost,
+                $database
+            );
+        }
 
         $dbObject->setSystemPdo();
 

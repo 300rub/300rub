@@ -19,13 +19,22 @@
     <target
         name="dev-setup"
         depends="
-            dev-upload-prepare,
-            db-recreate-dev-databases,
-            tools-flush-memcached,
-            db-import-system-fixtures,
-            dev-migrate,
-            db-import-dev-fixtures
+            db-recreate-system-databases
         "
     >
     </target>
+
+    <!--<target-->
+            <!--name="dev-setup"-->
+            <!--depends="-->
+            <!--dev-upload-prepare,-->
+            <!--db-generate-source,-->
+            <!--db-recreate-dev-databases,-->
+            <!--tools-flush-memcached,-->
+            <!--db-import-system-fixtures,-->
+            <!--dev-migrate,-->
+            <!--db-import-dev-fixtures-->
+        <!--"-->
+    <!--&gt;-->
+    <!--</target>-->
 </project>

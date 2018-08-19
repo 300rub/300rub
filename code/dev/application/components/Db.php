@@ -106,4 +106,25 @@ class Db extends AbstractDbWrite
 
         return $hosts[0];
     }
+
+    /**
+     * Gets all databases
+     *
+     * @param string $host Host
+     *
+     * @return string[]
+     */
+    public function getAllDbNames($host)
+    {
+        $this->setRootPdo($host);
+
+        $list = [];
+
+        $results = $this->fetchAll("SHOW DATABASES");
+        foreach ($results as $result) {
+            $list[] = $result['Database'];
+        }
+
+        return $list;
+    }
 }

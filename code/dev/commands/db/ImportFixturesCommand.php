@@ -97,43 +97,63 @@ class ImportFixturesCommand extends AbstractCommand
     ];
 
     /**
+     * Type
+     *
+     * @var string
+     */
+    private $_type = '';
+
+    /**
+     * Sets type
+     *
+     * @param string $type Type
+     *
+     * @return ImportFixturesCommand
+     */
+    public function setType($type)
+    {
+        $this->_type = $type;
+        return $this;
+    }
+
+    /**
      * Runs the command
      *
      * @return void
      */
     public function run()
     {
-        $type = 'dev';
-        if (array_key_exists(0, $this->args) === true) {
-            $type = $this->args[0];
+        if ($this->_type === '') {
+            $this->_type = 'dev';
+            if (array_key_exists(0, $this->args) === true) {
+                $this->_type = $this->args[0];
+            }
         }
 
-        $this->load($type);
+        $this->load();
     }
 
     /**
      * Clear DB script
      *
-     * @param string $type Type
-     *
      * @return void
      */
-    public function load($type)
+    public function load()
     {
         $config = App::getInstance()->getConfig();
         $dbObject = App::getInstance()->getDb();
 
         $dbObject->setPdo(
-            $config->getValue(['db', $type, 'host']),
-            $config->getValue(['db', $type, 'user']),
-            $config->getValue(['db', $type, 'password']),
-            $config->getValue(['db', $type, 'name'])
+            $config->getValue(['db', $this->_type, 'host']),
+            $config->getValue(['db', $this->_type, 'user']),
+            $config->getValue(['db', $this->_type, 'password']),
+            $config->getValue(['db', $this->_type, 'name'])
         );
 
         foreach ($this->_fixtureOrder as $fixture => $modelName) {
             $filePath = __DIR__ .
                 '/../../fixtures/' .
-                $type .
+                $this->_type .
                 '/' .
                 $fixture .
                 '.php';
@@ -152,22 +172,20 @@ class ImportFixturesCommand extends AbstractCommand
         }
 
         $this
-            ->_uploadImages($type)
-            ->_saveRecordInstances($type);
+            ->_uploadImages()
+            ->_saveRecordInstances();
     }
 
     /**
      * Saves record instance
      *
-     * @param string $type Type
-     *
      * @return bool
      */
-    private function _saveRecordInstances($type)
+    private function _saveRecordInstances()
     {
         $filePath = __DIR__ .
             '/../../fixtures/' .
-            $type .
+            $this->_type .
             '/recordInstance.php';
 
         if (file_exists($filePath) === false) {
@@ -206,16 +224,14 @@ class ImportFixturesCommand extends AbstractCommand
     /**
      * Uploads image
      *
-     * @param string $type Type
-     *
      * @return ImportFixturesCommand
      */
-    private function _uploadImages($type)
+    private function _uploadImages()
     {
         $file = sprintf(
             '%s/fixtures/%s/imageInstances.php',
             CODE_ROOT,
-            $type
+            $this->_type
         );
 
         if (file_exists($file) === false) {
@@ -241,8 +257,7 @@ class ImportFixturesCommand extends AbstractCommand
                 $data['file'],
                 $data['data'],
                 $mimeType,
-                $language,
-                $type
+                $language
             );
 
             $imageInstanceModel = ImageInstanceModel::model()
@@ -275,7 +290,6 @@ class ImportFixturesCommand extends AbstractCommand
      * @param array  $data       Data
      * @param string $mimeType   Mime type
      * @param int    $language   Language
-     * @param string $type       Type
      *
      * @return void
      */
@@ -285,10 +299,9 @@ class ImportFixturesCommand extends AbstractCommand
         $fileName,
         array $data,
         $mimeType,
-        $language,
-        $type
+        $language
     ) {
-        $host = $type . '.ss.local';
+        $host = $this->_type . '.ss.local';
 
         $this->_fileData = [];
         $this->_setFileData($data);

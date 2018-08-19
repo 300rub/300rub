@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="db">
-    <target name="db-recreate-dev-databases">
+    <target name="db-recreate-system-databases">
         <exec executable="php" failonerror="true">
             <arg value='commands/run' />
-            <arg value='db/RecreateDevDatabasesCommand' />
+            <arg value='db/RecreateSystemDatabasesCommand' />
         </exec>
     </target>
 
