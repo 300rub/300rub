@@ -67,7 +67,9 @@ class RecreateDevDatabaseCommand extends AbstractDbCommand
                 $config->getValue(['db', 'dev', 'host']),
                 $config->getValue(['db', 'dev', 'user']),
                 $config->getValue(['db', 'dev', 'password']),
-                $config->getValue(['db', 'dev', 'name']) . 'Admin',
+                App::getInstance()->getDb()->getAdminDbName(
+                    $config->getValue(['db', 'dev', 'name'])
+                ),
                 true
             );
 
@@ -140,7 +142,9 @@ class RecreateDevDatabaseCommand extends AbstractDbCommand
                 $config->getValue(['db', 'dev', 'password']),
                 $config->getValue(['db', 'dev', 'user']),
                 $config->getValue(['db', 'dev', 'host']),
-                $config->getValue(['db', 'dev', 'name']) . 'Admin',
+                App::getInstance()->getDb()->getAdminDbName(
+                    $config->getValue(['db', 'dev', 'name'])
+                ),
                 FILES_ROOT
             )
         );

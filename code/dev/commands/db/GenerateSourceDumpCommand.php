@@ -51,7 +51,7 @@ class GenerateSourceDumpCommand extends AbstractCommand
 
         $migrateCommand = new MigrateCommand();
         $migrateCommand
-            ->setSites($siteName)
+            ->setSites([$siteName])
             ->applyMigration();
 
         exec(

@@ -299,7 +299,7 @@ class BlockModel extends AbstractBlockModel
 
         $memcachedValue = $memcached->get($memcachedKey);
         if ($memcachedValue !== false) {
-            return $memcachedValue;
+            return self::model()->set($memcachedValue);
         }
 
         $model = self::model()->byId($blockId)->find();
@@ -312,7 +312,7 @@ class BlockModel extends AbstractBlockModel
             );
         }
 
-        $memcached->set($memcachedKey, $model);
+        $memcached->set($memcachedKey, $model->get());
 
         return $model;
     }

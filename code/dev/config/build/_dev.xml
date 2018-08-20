@@ -8,14 +8,6 @@
         </exec>
     </target>
 
-    <target name="dev-migrate">
-        <exec executable="php" failonerror="true">
-            <arg value='commands/run' />
-            <arg value='db/MigrateCommand' />
-            <arg value='dev' />
-        </exec>
-    </target>
-
     <target
         name="dev-setup"
         depends="

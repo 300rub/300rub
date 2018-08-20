@@ -66,7 +66,9 @@ class RecreateSeleniumDatabaseCommand extends AbstractDbCommand
                 $config->getValue(['db', 'selenium', 'host']),
                 $config->getValue(['db', 'selenium', 'user']),
                 $config->getValue(['db', 'selenium', 'password']),
-                $config->getValue(['db', 'selenium', 'name']) . 'Admin',
+                App::getInstance()->getDb()->getAdminDbName(
+                    $config->getValue(['db', 'selenium', 'name'])
+                ),
                 true
             );
 
@@ -139,7 +141,9 @@ class RecreateSeleniumDatabaseCommand extends AbstractDbCommand
                 $config->getValue(['db', 'selenium', 'password']),
                 $config->getValue(['db', 'selenium', 'user']),
                 $config->getValue(['db', 'selenium', 'host']),
-                $config->getValue(['db', 'selenium', 'name']) . 'Admin',
+                App::getInstance()->getDb()->getAdminDbName(
+                    $config->getValue(['db', 'selenium', 'name'])
+                ),
                 FILES_ROOT
             )
         );

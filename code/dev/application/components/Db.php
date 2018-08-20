@@ -12,6 +12,11 @@ class Db extends AbstractDbWrite
 {
 
     /**
+     * Admin postfix
+     */
+    const ADMIN_POSTFIX = 'Admin';
+
+    /**
      * Resets fields and parameters
      *
      * @return Db
@@ -126,5 +131,24 @@ class Db extends AbstractDbWrite
         }
 
         return $list;
+    }
+
+    /**
+     * Gets admin DB name
+     *
+     * @param string $dbName DB name
+     *
+     * @return string
+     */
+    public function getAdminDbName($dbName)
+    {
+        $phpunitDbName = App::getInstance()
+            ->getConfig()
+            ->getValue(['db', 'phpunit', 'name']);
+        if ($dbName === $phpunitDbName) {
+            return $dbName;
+        }
+
+        return $dbName . self::ADMIN_POSTFIX;
     }
 }

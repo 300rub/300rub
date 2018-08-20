@@ -44,6 +44,19 @@ class Web extends AbstractAjax
 
         $this->_initialUserSet();
 
+        if ($this->getUser() !== null) {
+            $siteModel = $this->getSite();
+
+            $this->getDb()->setPdo(
+                $siteModel->get('dbHost'),
+                $siteModel->get('dbUser'),
+                $siteModel->get('dbPassword'),
+                App::getInstance()->getDb()->getAdminDbName(
+                    $siteModel->get('dbName')
+                )
+            );
+        }
+
         echo $this->_getOutput($isAjax);
     }
 

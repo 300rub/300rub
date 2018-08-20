@@ -66,7 +66,9 @@ class RecreatePhpunitDatabaseCommand extends AbstractDbCommand
                 $config->getValue(['db', 'phpunit', 'host']),
                 $config->getValue(['db', 'phpunit', 'user']),
                 $config->getValue(['db', 'phpunit', 'password']),
-                $config->getValue(['db', 'phpunit', 'name']) . 'Admin',
+                App::getInstance()->getDb()->getAdminDbName(
+                    $config->getValue(['db', 'phpunit', 'name'])
+                ),
                 true
             );
 
@@ -139,7 +141,9 @@ class RecreatePhpunitDatabaseCommand extends AbstractDbCommand
                 $config->getValue(['db', 'phpunit', 'password']),
                 $config->getValue(['db', 'phpunit', 'user']),
                 $config->getValue(['db', 'phpunit', 'host']),
-                $config->getValue(['db', 'phpunit', 'name']) . 'Admin',
+                App::getInstance()->getDb()->getAdminDbName(
+                    $config->getValue(['db', 'phpunit', 'name'])
+                ),
                 FILES_ROOT
             )
         );

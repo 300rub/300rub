@@ -3,12 +3,9 @@
 namespace ss\commands\db;
 
 use ss\application\App;
-use ss\application\exceptions\DbException;
 use ss\application\exceptions\MigrationException;
 use ss\commands\_abstract\AbstractCommand;
 use ss\migrations\_abstract\AbstractMigration;
-use ss\migrations\M160302000000Migrations;
-use ss\models\system\SiteModel;
 
 /**
  * Applies migrations
@@ -40,7 +37,7 @@ class MigrateCommand extends AbstractCommand
     public function run()
     {
         $this
-            ->setSites($this->getArg(0))
+            ->setSites()
             ->applyMigration();
     }
 
@@ -82,29 +79,37 @@ class MigrateCommand extends AbstractCommand
     /**
      * Sets sites
      *
-     * @param string $siteName Site name
+     * @param string[] $siteNames Site names
      *
      * @return MigrateCommand
      */
-    public function setSites($siteName = null)
+    public function setSites(array $siteNames = [])
     {
         $dbObject = App::getInstance()->getDb();
 
         $dbObject->setSystemPdo();
 
-        if ($siteName === null) {
-            $this->_sites = $dbObject
+        if (count($siteNames) === 0) {
+            $sites = $dbObject
                 ->fetchAll('SELECT * ' . 'FROM `sites`');
+            foreach ($sites as $site) {
+                $siteAdmin = $site;
+                $siteAdmin['dbName']
+                    = $dbObject->getAdminDbName($site['dbName']);
+
+                $this->_sites[] = $site;
+                $this->_sites[] = $siteAdmin;
+            }
 
             return $this;
         }
 
         $this->_sites = $dbObject
             ->fetchAll(
-                sprintf(
-                    'SELECT * ' . 'FROM `sites` WHERE `name` = "%s"',
-                    $siteName
-                )
+                'SELECT * ' . 'FROM `sites` WHERE `name` IN (:siteNames)',
+                [
+                    'siteNames' => implode(',', $siteNames)
+                ]
             );
 
         return $this;
