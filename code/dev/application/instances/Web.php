@@ -5,6 +5,7 @@ namespace ss\application\instances;
 use ss\application\App;
 use ss\application\components\User;
 use ss\application\instances\_abstract\AbstractAjax;
+use ss\commands\db\ImportFixturesCommand;
 use ss\models\_abstract\AbstractModel;
 use ss\models\user\UserModel;
 use ss\models\user\UserSessionModel;
@@ -42,22 +43,49 @@ class Web extends AbstractAjax
             $isAjax = true;
         }
 
-        $this->_initialUserSet();
-
-        if ($this->getUser() !== null) {
-            $siteModel = $this->getSite();
-
-            $this->getDb()->setPdo(
-                $siteModel->get('dbHost'),
-                $siteModel->get('dbUser'),
-                $siteModel->get('dbPassword'),
-                App::getInstance()->getDb()->getAdminDbName(
-                    $siteModel->get('dbName')
-                )
-            );
-        }
+        $this
+            ->_initialUserSet()
+            ->_setAdminDb();
 
         echo $this->_getOutput($isAjax);
+    }
+
+    /**
+     * Sets Admin Db
+     *
+     * @return Web
+     */
+    private function _setAdminDb()
+    {
+        $user = $this->getUser();
+        if ($user === null) {
+            return $this;
+        }
+
+        $token = $user->getToken();
+        if ($token === ImportFixturesCommand::FIXTURES_TOKEN) {
+            return $this;
+        }
+
+        $siteModel = $this->getSite();
+        $dbName =  $siteModel->get('dbName');
+        $phpunitDbName = $this
+            ->getConfig()
+            ->getValue(['db', 'phpunit', 'name']);
+        if ($dbName === $phpunitDbName) {
+            return $this;
+        }
+
+        $this->getDb()->setPdo(
+            $siteModel->get('dbHost'),
+            $siteModel->get('dbUser'),
+            $siteModel->get('dbPassword'),
+            App::getInstance()->getDb()->getAdminDbName(
+                $siteModel->get('dbName')
+            )
+        );
+
+        return $this;
     }
 
     /**

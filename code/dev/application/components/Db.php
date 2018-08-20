@@ -17,6 +17,11 @@ class Db extends AbstractDbWrite
     const ADMIN_POSTFIX = 'Admin';
 
     /**
+     * Path to source dump
+     */
+    const SOURCE_PATH = CODE_ROOT . '/config/db/source.sql';
+
+    /**
      * Resets fields and parameters
      *
      * @return Db
@@ -142,13 +147,6 @@ class Db extends AbstractDbWrite
      */
     public function getAdminDbName($dbName)
     {
-        $phpunitDbName = App::getInstance()
-            ->getConfig()
-            ->getValue(['db', 'phpunit', 'name']);
-        if ($dbName === $phpunitDbName) {
-            return $dbName;
-        }
-
         return $dbName . self::ADMIN_POSTFIX;
     }
 }

@@ -87,12 +87,12 @@ class RecreatePhpunitDatabaseCommand extends AbstractDbCommand
         exec(
             sprintf(
                 'export MYSQL_PWD=%s; ' .
-                'mysql -u %s -h %s %s < %s/backups/source.sql',
+                'mysql -u %s -h %s %s < %s',
                 $config->getValue(['db', 'phpunit', 'password']),
                 $config->getValue(['db', 'phpunit', 'user']),
                 $config->getValue(['db', 'phpunit', 'host']),
                 $config->getValue(['db', 'phpunit', 'name']),
-                FILES_ROOT
+                Db::SOURCE_PATH
             )
         );
 

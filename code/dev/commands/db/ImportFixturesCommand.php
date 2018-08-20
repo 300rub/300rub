@@ -16,6 +16,11 @@ class ImportFixturesCommand extends AbstractCommand
 {
 
     /**
+     * Token for fixtures
+     */
+    const FIXTURES_TOKEN = 'c4ca4238a0b923820dcc509a6f75849b';
+
+    /**
      * File Data
      *
      * @var array
@@ -113,6 +118,7 @@ class ImportFixturesCommand extends AbstractCommand
     public function setType($type)
     {
         $this->_type = $type;
+
         return $this;
     }
 
@@ -306,7 +312,7 @@ class ImportFixturesCommand extends AbstractCommand
         $this->_fileData = [];
         $this->_setFileData($data);
         $postData = [
-            'token'      => 'c4ca4238a0b923820dcc509a6f75849b',
+            'token'      => self::FIXTURES_TOKEN,
             'group'      => $group,
             'controller' => $controller,
             'language'   => $language,

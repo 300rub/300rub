@@ -88,12 +88,12 @@ class RecreateDevDatabaseCommand extends AbstractDbCommand
         exec(
             sprintf(
                 'export MYSQL_PWD=%s; ' .
-                'mysql -u %s -h %s %s < %s/backups/source.sql',
+                'mysql -u %s -h %s %s < %s',
                 $config->getValue(['db', 'dev', 'password']),
                 $config->getValue(['db', 'dev', 'user']),
                 $config->getValue(['db', 'dev', 'host']),
                 $config->getValue(['db', 'dev', 'name']),
-                FILES_ROOT
+                Db::SOURCE_PATH
             )
         );
 
@@ -123,29 +123,34 @@ class RecreateDevDatabaseCommand extends AbstractDbCommand
     {
         $config = App::getInstance()->getConfig();
 
+        $dbName = $config->getValue(['db', 'dev', 'name']);
+        $dbAdminName = App::getInstance()->getDb()->getAdminDbName(
+            $dbName
+        );
+
         exec(
             sprintf(
                 'export MYSQL_PWD=%s; ' .
-                'mysqldump -u %s -h %s %s > %s/backups/dev.sql',
+                'mysqldump -u %s -h %s %s > %s/backups/%s.sql',
                 $config->getValue(['db', 'dev', 'password']),
                 $config->getValue(['db', 'dev', 'user']),
                 $config->getValue(['db', 'dev', 'host']),
-                $config->getValue(['db', 'dev', 'name']),
-                FILES_ROOT
+                $dbName,
+                FILES_ROOT,
+                $dbName
             )
         );
 
         exec(
             sprintf(
                 'export MYSQL_PWD=%s; ' .
-                'mysql -u %s -h %s %s < %s/backups/dev.sql',
+                'mysql -u %s -h %s %s < %s/backups/%s.sql',
                 $config->getValue(['db', 'dev', 'password']),
                 $config->getValue(['db', 'dev', 'user']),
                 $config->getValue(['db', 'dev', 'host']),
-                App::getInstance()->getDb()->getAdminDbName(
-                    $config->getValue(['db', 'dev', 'name'])
-                ),
-                FILES_ROOT
+                $dbAdminName,
+                FILES_ROOT,
+                $dbName
             )
         );
 

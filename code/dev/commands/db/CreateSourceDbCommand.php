@@ -224,24 +224,24 @@ class CreateSourceDbCommand extends AbstractDbCommand
         exec(
             sprintf(
                 'export MYSQL_PWD=%s; ' .
-                'mysql -u %s -h %s %s < %s/backups/source.sql',
+                'mysql -u %s -h %s %s < %s',
                 $this->_dbPassword,
                 $this->_dbUser,
                 $this->_dbHost,
                 $this->_dbName,
-                FILES_ROOT
+                Db::SOURCE_PATH
             )
         );
 
         exec(
             sprintf(
                 'export MYSQL_PWD=%s; ' .
-                'mysql -u %s -h %s %s < %s/backups/source.sql',
+                'mysql -u %s -h %s %s < %s',
                 $this->_dbPassword,
                 $this->_dbUser,
                 $this->_dbHost,
                 $this->_dbNameAdmin,
-                FILES_ROOT
+                Db::SOURCE_PATH
             )
         );
 

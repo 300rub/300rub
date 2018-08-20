@@ -87,12 +87,12 @@ class RecreateSeleniumDatabaseCommand extends AbstractDbCommand
         exec(
             sprintf(
                 'export MYSQL_PWD=%s; ' .
-                'mysql -u %s -h %s %s < %s/backups/source.sql',
+                'mysql -u %s -h %s %s < %s',
                 $config->getValue(['db', 'selenium', 'password']),
                 $config->getValue(['db', 'selenium', 'user']),
                 $config->getValue(['db', 'selenium', 'host']),
                 $config->getValue(['db', 'selenium', 'name']),
-                FILES_ROOT
+                Db::SOURCE_PATH
             )
         );
 

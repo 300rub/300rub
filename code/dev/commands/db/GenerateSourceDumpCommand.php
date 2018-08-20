@@ -3,6 +3,7 @@
 namespace ss\commands\db;
 
 use ss\application\App;
+use ss\application\components\Db;
 use ss\commands\_abstract\AbstractCommand;
 use ss\migrations\M160302000000Migrations;
 
@@ -57,12 +58,12 @@ class GenerateSourceDumpCommand extends AbstractCommand
         exec(
             sprintf(
                 'export MYSQL_PWD=%s; ' .
-                'mysqldump -u %s -h %s %s > %s/backups/source.sql',
+                'mysqldump -u %s -h %s %s > %s',
                 $dbPassword,
                 $dbUser,
                 $dbHost,
                 $dbName,
-                FILES_ROOT
+                Db::SOURCE_PATH
             )
         );
     }
