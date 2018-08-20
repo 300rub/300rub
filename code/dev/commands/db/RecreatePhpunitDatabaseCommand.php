@@ -3,14 +3,28 @@
 namespace ss\commands\db;
 
 use ss\application\App;
+use ss\application\components\Db;
 use ss\commands\db\_abstract\AbstractDbCommand;
-use ss\migrations\M160302000000Migrations;
 
 /**
- * Clear DB command
+ * Recreates Phpunit databases
  */
 class RecreatePhpunitDatabaseCommand extends AbstractDbCommand
 {
+
+    /**
+     * DB object
+     *
+     * @var Db
+     */
+    private $_dbObject = null;
+
+    /**
+     * DB host
+     *
+     * @var string
+     */
+    private $_dbHost = null;
 
     /**
      * Runs the command
@@ -19,29 +33,117 @@ class RecreatePhpunitDatabaseCommand extends AbstractDbCommand
      */
     public function run()
     {
-        $config = App::getInstance()->getConfig();
-
         $this->checkConnection();
 
-        $dbObject = App::getInstance()->getDb();
+        $this->_dbObject = App::getInstance()->getDb();
+        $this->_dbHost = $this->_dbObject->getRandomDbHost();
 
-        $dbObject
+        $this
+            ->_recreateDbs()
+            ->_importSourceDb()
+            ->_loadFixtures()
+            ->_cloneDb();
+    }
+
+    /**
+     * Recreates DBs
+     *
+     * @return RecreatePhpunitDatabaseCommand
+     */
+    private function _recreateDbs()
+    {
+        $config = App::getInstance()->getConfig();
+
+        $this->_dbObject
             ->createNewDb(
                 $config->getValue(['db', 'phpunit', 'host']),
                 $config->getValue(['db', 'phpunit', 'user']),
                 $config->getValue(['db', 'phpunit', 'password']),
                 $config->getValue(['db', 'phpunit', 'name']),
                 true
+            )
+            ->createNewDb(
+                $config->getValue(['db', 'phpunit', 'host']),
+                $config->getValue(['db', 'phpunit', 'user']),
+                $config->getValue(['db', 'phpunit', 'password']),
+                $config->getValue(['db', 'phpunit', 'name']) . 'Admin',
+                true
             );
 
-        $dbObject->setPdo(
-            $config->getValue(['db', 'phpunit', 'host']),
-            $config->getValue(['db', 'phpunit', 'user']),
-            $config->getValue(['db', 'phpunit', 'password']),
-            $config->getValue(['db', 'phpunit', 'name'])
+        return $this;
+    }
+
+    /**
+     * Imports source DB
+     *
+     * @return RecreatePhpunitDatabaseCommand
+     */
+    private function _importSourceDb()
+    {
+        $config = App::getInstance()->getConfig();
+
+        exec(
+            sprintf(
+                'export MYSQL_PWD=%s; ' .
+                'mysql -u %s -h %s %s < %s/backups/source.sql',
+                $config->getValue(['db', 'phpunit', 'password']),
+                $config->getValue(['db', 'phpunit', 'user']),
+                $config->getValue(['db', 'phpunit', 'host']),
+                $config->getValue(['db', 'phpunit', 'name']),
+                FILES_ROOT
+            )
         );
 
-        $migration = new M160302000000Migrations();
-        $migration->apply();
+        return $this;
+    }
+
+    /**
+     * Loads fixtures
+     *
+     * @return RecreatePhpunitDatabaseCommand
+     */
+    private function _loadFixtures()
+    {
+        $command = new ImportFixturesCommand();
+        $command->setType('phpunit');
+        $command->run();
+
+        return $this;
+    }
+
+    /**
+     * Clones DB
+     *
+     * @return RecreatePhpunitDatabaseCommand
+     */
+    private function _cloneDb()
+    {
+        $config = App::getInstance()->getConfig();
+
+        exec(
+            sprintf(
+                'export MYSQL_PWD=%s; ' .
+                'mysqldump -u %s -h %s %s > %s/backups/phpunit.sql',
+                $config->getValue(['db', 'phpunit', 'password']),
+                $config->getValue(['db', 'phpunit', 'user']),
+                $config->getValue(['db', 'phpunit', 'host']),
+                $config->getValue(['db', 'phpunit', 'name']),
+                FILES_ROOT
+            )
+        );
+
+        exec(
+            sprintf(
+                'export MYSQL_PWD=%s; ' .
+                'mysql -u %s -h %s %s < %s/backups/phpunit.sql',
+                $config->getValue(['db', 'phpunit', 'password']),
+                $config->getValue(['db', 'phpunit', 'user']),
+                $config->getValue(['db', 'phpunit', 'host']),
+                $config->getValue(['db', 'phpunit', 'name']) . 'Admin',
+                FILES_ROOT
+            )
+        );
+
+        return $this;
     }
 }

@@ -112,6 +112,11 @@ class RecreateDevDatabaseCommand extends AbstractDbCommand
         return $this;
     }
 
+    /**
+     * Clones DB
+     *
+     * @return RecreateDevDatabaseCommand
+     */
     private function _cloneDb()
     {
         $config = App::getInstance()->getConfig();

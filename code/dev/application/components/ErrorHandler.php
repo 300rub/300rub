@@ -4,6 +4,8 @@ namespace ss\application\components;
 
 use ss\application\App;
 use ss\application\exceptions\CommonException;
+use ss\application\instances\Console;
+use ss\application\instances\Test;
 use ss\controllers\page\ErrorController;
 
 /**
@@ -62,6 +64,12 @@ class ErrorHandler
             $exception->getTraceAsString()
         );
 
+        if (App::getInstance() instanceof Console
+            || App::getInstance() instanceof Test
+        ) {
+            throw new CommonException($logMessage);
+        }
+
         App::getInstance()->getLogger()->error($logMessage, 'common');
 
         $errorController = new ErrorController();
@@ -96,6 +104,12 @@ class ErrorHandler
              $file,
              $line
         );
+
+        if (App::getInstance() instanceof Console
+            || App::getInstance() instanceof Test
+        ) {
+            throw new CommonException($logMessage);
+        }
 
         App::getInstance()->getLogger()->error($logMessage, 'common');
 

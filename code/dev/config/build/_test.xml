@@ -1,35 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="test">
-    <target name="test-import-phpunit-fixtures">
-        <exec executable="php" failonerror="true">
-            <arg value='commands/run' />
-            <arg value='db/ImportFixturesCommand' />
-            <arg value='phpunit' />
-        </exec>
-    </target>
-
-    <target name="test-import-selenium-fixtures">
-        <exec executable="php" failonerror="true">
-            <arg value='commands/run' />
-            <arg value='db/ImportFixturesCommand' />
-            <arg value='selenium' />
-        </exec>
-    </target>
-
-    <target name="test-export-phpunit-db">
-        <exec executable="php" failonerror="true">
-            <arg value='commands/run' />
-            <arg value='db/ExportPhpunitCommand' />
-        </exec>
-    </target>
-
-    <target name="test-export-selenium-db">
-        <exec executable="php" failonerror="true">
-            <arg value='commands/run' />
-            <arg value='db/ExportSeleniumCommand' />
-        </exec>
-    </target>
-
     <target name="test-import-phpunit-db">
         <exec executable="php" failonerror="true">
             <arg value='commands/run' />
@@ -70,7 +40,7 @@
         <antcall target="tools-flush-memcached" />
     </target>
 
-    <target name="test-phpunit-reload-fixtures" depends="test-upload-phpunit-prepare, tools-flush-memcached, test-recreate-phpunit-database, test-phpunit-migrate, test-import-phpunit-fixtures, test-export-phpunit-db">
+    <target name="test-phpunit-reload-fixtures" depends="test-upload-phpunit-prepare, tools-flush-memcached, test-recreate-phpunit-database">
         <property name="path" value="tests/phpunit"/>
 
         <exec executable="php" failonerror="true">
@@ -108,25 +78,9 @@
         </exec>
     </target>
 
-    <target name="test-phpunit-migrate">
-        <exec executable="php" failonerror="true">
-            <arg value='commands/run' />
-            <arg value='db/MigrateCommand' />
-            <arg value='phpunit' />
-        </exec>
-    </target>
-
-    <target name="test-selenium-migrate">
-        <exec executable="php" failonerror="true">
-            <arg value='commands/run' />
-            <arg value='db/MigrateCommand' />
-            <arg value='selenium' />
-        </exec>
-    </target>
-
     <target name="test-selenium" depends="tools-flush-memcached, test-import-selenium-db, test-paratest">
     </target>
 
-    <target name="test-selenium-reload-fixtures" depends="test-upload-selenium-prepare, tools-flush-memcached, test-recreate-selenium-database, test-selenium-migrate, test-import-selenium-fixtures, test-export-selenium-db">
+    <target name="test-selenium-reload-fixtures" depends="test-upload-selenium-prepare, tools-flush-memcached, test-recreate-selenium-database">
     </target>
 </project>
