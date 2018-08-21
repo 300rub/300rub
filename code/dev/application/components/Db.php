@@ -103,21 +103,6 @@ class Db extends AbstractDbWrite
     }
 
     /**
-     * Gets random DB host
-     *
-     * @return string
-     */
-    public function getRandomDbHost()
-    {
-        $hosts = array_keys(
-            App::getInstance()->getConfig()->getValue(['db', 'root'])
-        );
-        shuffle($hosts);
-
-        return $hosts[0];
-    }
-
-    /**
      * Gets all databases
      *
      * @param string $host Host

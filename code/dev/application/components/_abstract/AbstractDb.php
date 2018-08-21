@@ -220,35 +220,6 @@ abstract class AbstractDb
     }
 
     /**
-     * Sets PDO
-     *
-     * @param string $host DB Host
-     *
-     * @return AbstractDb
-     *
-     * @throws DbException
-     */
-    public function setRootConnection($host)
-    {
-        $rootUser = App::getInstance()
-            ->getConfig()
-            ->getValue(['db', 'root', $host]);
-
-        $this->setConnection(
-            Db::CONNECTION_TYPE_ROOT,
-            $host,
-            $rootUser['user'],
-            $rootUser['password'],
-            null,
-            true
-        );
-
-        $this->setCurrentConnection(Db::CONNECTION_TYPE_ROOT);
-
-        return $this;
-    }
-
-    /**
      * Sets system connection
      *
      * @param bool $hasTransaction Transaction flag
