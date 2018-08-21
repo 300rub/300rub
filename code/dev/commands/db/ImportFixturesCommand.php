@@ -3,6 +3,7 @@
 namespace ss\commands\db;
 
 use ss\application\App;
+use ss\application\components\Db;
 use ss\application\components\Language;
 use ss\commands\_abstract\AbstractCommand;
 use ss\models\_abstract\AbstractModel;
@@ -149,12 +150,16 @@ class ImportFixturesCommand extends AbstractCommand
         $config = App::getInstance()->getConfig();
         $dbObject = App::getInstance()->getDb();
 
-        $dbObject->setPdo(
+        $dbObject->setConnection(
+            Db::CONNECTION_TYPE_GUEST,
             $config->getValue(['db', $this->_type, 'host']),
             $config->getValue(['db', $this->_type, 'user']),
             $config->getValue(['db', $this->_type, 'password']),
-            $config->getValue(['db', $this->_type, 'name'])
+            $config->getValue(['db', $this->_type, 'name']),
+            true
         );
+
+        $dbObject->setCurrentConnection(Db::CONNECTION_TYPE_GUEST);
 
         foreach ($this->_fixtureOrder as $fixture => $modelName) {
             $filePath = __DIR__ .

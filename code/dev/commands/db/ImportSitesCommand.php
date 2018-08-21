@@ -25,7 +25,7 @@ class ImportSitesCommand extends AbstractCommand
 
         $dbObject = App::getInstance()->getDb();
 
-        $dbObject->setSystemPdo();
+        $dbObject->setSystemConnection();
 
         $sites = $dbObject->fetchAll('SELECT * ' . 'FROM `sites`');
 

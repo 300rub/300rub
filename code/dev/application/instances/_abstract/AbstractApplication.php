@@ -2,6 +2,7 @@
 
 namespace ss\application\instances\_abstract;
 
+use ss\application\components\Db;
 use ss\application\components\ErrorHandler;
 use ss\application\exceptions\NotFoundException;
 use ss\models\_abstract\AbstractModel;
@@ -80,7 +81,7 @@ abstract class AbstractApplication extends AbstractComponents
      */
     protected function setSite($hostname)
     {
-        $this->getDb()->setSystemPdo();
+        $this->getDb()->setSystemConnection();
 
         $siteModel = $this->_getSiteModel($hostname);
 
@@ -93,12 +94,15 @@ abstract class AbstractApplication extends AbstractComponents
 
         $siteModel->setMainHost();
 
-        $this->getDb()->setPdo(
+        $this->getDb()->setConnection(
+            Db::CONNECTION_TYPE_GUEST,
             $siteModel->get('dbHost'),
             $siteModel->get('dbUser'),
             $siteModel->get('dbPassword'),
             $siteModel->get('dbName')
         );
+
+        $this->getDb()->setCurrentConnection(Db::CONNECTION_TYPE_GUEST);
 
         $this->getLanguage()->setActiveId($siteModel->get('language'));
 

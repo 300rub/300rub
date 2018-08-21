@@ -40,12 +40,16 @@ class GenerateSourceDumpCommand extends AbstractCommand
             true
         );
 
-        $dbObject->setPdo(
+        $dbObject->setConnection(
+            Db::CONNECTION_TYPE_GUEST,
             $dbHost,
             $dbUser,
             $dbPassword,
-            $dbName
+            $dbName,
+            true
         );
+
+        $dbObject->setCurrentConnection(Db::CONNECTION_TYPE_GUEST);
 
         $migration = new M160302000000Migrations();
         $migration->apply();

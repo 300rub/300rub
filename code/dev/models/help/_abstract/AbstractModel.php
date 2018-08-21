@@ -466,32 +466,13 @@ abstract class AbstractModel extends BaseModel
     }
 
     /**
-     * Sets PDO
-     *
-     * @return AbstractModel
-     */
-    protected function setPdo()
-    {
-        $config = App::getInstance()->getConfig();
-
-        App::getInstance()->getDb()->setPdo(
-            $config->getValue(['db', 'help', 'host']),
-            $config->getValue(['db', 'help', 'user']),
-            $config->getValue(['db', 'help', 'password']),
-            $config->getValue(['db', 'help', 'name'])
-        );
-
-        return $this;
-    }
-
-    /**
      * Sets content
      *
      * @return AbstractModel
      */
     public function setContent()
     {
-        $this->setPdo();
+        App::getInstance()->getDb()->setHelpConnection();
 
         $this
             ->setName()

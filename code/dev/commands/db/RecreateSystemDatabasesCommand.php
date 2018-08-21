@@ -114,7 +114,7 @@ class RecreateSystemDatabasesCommand extends AbstractDbCommand
     {
         $config = App::getInstance()->getConfig();
 
-        $this->_dbObject->setSystemPdo();
+        $this->_dbObject->setSystemConnection();
 
         $migration = new M160301000000Sites();
         $migration->apply();
@@ -122,12 +122,16 @@ class RecreateSystemDatabasesCommand extends AbstractDbCommand
         $migration = new M160301000010Domains();
         $migration->apply();
 
-        $this->_dbObject->setPdo(
+        $this->_dbObject->setConnection(
+            Db::CONNECTION_TYPE_HELP,
             $config->getValue(['db', 'help', 'host']),
             $config->getValue(['db', 'help', 'user']),
             $config->getValue(['db', 'help', 'password']),
-            $config->getValue(['db', 'help', 'name'])
+            $config->getValue(['db', 'help', 'name']),
+            true
         );
+
+        $this->_dbObject->setCurrentConnection(Db::CONNECTION_TYPE_HELP);
 
         $migration = new M160301000020Help();
         $migration->apply();

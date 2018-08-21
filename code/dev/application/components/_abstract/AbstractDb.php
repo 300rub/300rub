@@ -13,6 +13,15 @@ abstract class AbstractDb
 {
 
     /**
+     * Connection types
+     */
+    const CONNECTION_TYPE_ROOT = 'root';
+    const CONNECTION_TYPE_GUEST = 'guest';
+    const CONNECTION_TYPE_ADMIN = 'admin';
+    const CONNECTION_TYPE_SYSTEM = 'system';
+    const CONNECTION_TYPE_HELP = 'help';
+
+    /**
      * Separator
      */
     const SEPARATOR = '_';
@@ -29,18 +38,25 @@ abstract class AbstractDb
     const JOIN_TYPE_LEFT = 'LEFT';
 
     /**
-     * PDO model
+     * Connections
      *
-     * @var \PDO
+     * @var array
      */
-    private $_pdo;
+    private $_connections = [];
 
     /**
-     * Active DB name
+     * Sets current connection
      *
      * @var string
      */
-    private $_dbName = '';
+    private $_currentConnection = '';
+
+    /**
+     * Flag to update both DB
+     *
+     * @var bool
+     */
+    private $_useMirror = false;
 
     /**
      * Table
@@ -78,23 +94,174 @@ abstract class AbstractDb
     abstract protected function reset();
 
     /**
-     * Sets PDO
+     * Sets update both flag
      *
-     * @param string $host     DB Host
-     * @param string $user     DB User
-     * @param string $password DB Password
-     * @param string $dbName   DB name
+     * @param bool $useMirror Update both  flag
      *
      * @return AbstractDb
      */
-    public function setPdo($host, $user, $password, $dbName)
+    public function setUseMirror($useMirror)
     {
-        $this->_pdo = new \PDO(
-            sprintf(
-                'mysql:host=%s;dbname=%s;charset=UTF8',
-                $host,
-                $dbName
-            ),
+        $this->_useMirror = (bool)$useMirror;
+        return $this;
+    }
+
+    /**
+     * Sets current connection
+     *
+     * @param bool $currentConnection Current connection
+     *
+     * @return AbstractDb
+     *
+     * @throws DbException
+     */
+    public function setCurrentConnection($currentConnection)
+    {
+        if (array_key_exists($currentConnection, $this->_connections) === false) {
+            throw new DbException(
+                'Unable to find connection: {connection}',
+                [
+                    'connection' => $currentConnection
+                ]
+            );
+        }
+
+        $this->_currentConnection = $currentConnection;
+        return $this;
+    }
+
+    /**
+     * Gets connections
+     *
+     * @return array
+     */
+    protected function getConnections()
+    {
+        return $this->_connections;
+    }
+
+    /**
+     * Gets current PDO
+     *
+     * @return mixed
+     */
+    protected function getCurrentPdo()
+    {
+        return $this->_connections[$this->_currentConnection]['pdo'];
+    }
+
+    /**
+     * Gets current DB name
+     *
+     * @return mixed
+     */
+    private function _getCurrentDbName()
+    {
+        return $this->_connections[$this->_currentConnection]['dbName'];
+    }
+
+    /**
+     * Gets mirror PDO
+     *
+     * @return \PDO
+     *
+     * @throws DbException
+     */
+    private function _getMirrorPdo()
+    {
+        return $this->_getMirrorValue('pdo');
+    }
+
+    /**
+     * Gets mirror DB name
+     *
+     * @return \PDO
+     *
+     * @throws DbException
+     */
+    private function _getMirrorDbName()
+    {
+        return $this->_getMirrorValue('dbName');
+    }
+
+    /**
+     * Gets mirror DB name
+     *
+     * @param string $key Key
+     *
+     * @return \PDO
+     *
+     * @throws DbException
+     */
+    private function _getMirrorValue($key)
+    {
+        if ($this->_currentConnection === self::CONNECTION_TYPE_GUEST) {
+            if (array_key_exists(self::CONNECTION_TYPE_ADMIN, $this->_connections) === false) {
+                throw new DbException('Unable to find admin connection');
+            }
+
+            return $this->_connections[self::CONNECTION_TYPE_ADMIN][$key];
+        }
+
+        if ($this->_currentConnection === self::CONNECTION_TYPE_ADMIN) {
+            if (array_key_exists(self::CONNECTION_TYPE_GUEST, $this->_connections) === false) {
+                throw new DbException('Unable to find guest connection');
+            }
+
+            return $this->_connections[self::CONNECTION_TYPE_GUEST][$key];
+        }
+
+        throw new DbException(
+            'Connection: {connection} does not have a mirror',
+            [
+                'connection' => $this->_currentConnection
+            ]
+        );
+    }
+
+    /**
+     * Sets connection
+     *
+     * @param string $type
+     * @param string $host
+     * @param string $user
+     * @param string $password
+     * @param string $dbName
+     * @param bool   $isRewrite
+     * @param bool   $hasTransaction
+     *
+     * @return AbstractDb
+     */
+    public function setConnection(
+        $type,
+        $host,
+        $user,
+        $password,
+        $dbName = null,
+        $isRewrite = null,
+        $hasTransaction = null
+    ) {
+        if (array_key_exists($type, $this->_connections) === true
+            && $isRewrite !== true
+        ) {
+            return $this;
+        }
+
+        $dsn = sprintf(
+            'mysql:host=%s;dbname=%s;charset=UTF8',
+            $host,
+            $dbName
+        );
+
+        if ($dbName === null) {
+            $dsn = sprintf(
+                'mysql:host=%s;charset=UTF8',
+                $host
+            );
+        }
+
+        $pdo = new \PDO(
+            $dsn,
             $user,
             $password,
             [
@@ -104,7 +271,16 @@ abstract class AbstractDb
             ]
         );
 
-        $this->_dbName = $dbName;
+        $hasTransaction = (bool)$hasTransaction;
+        if ($hasTransaction === true) {
+            $pdo->beginTransaction();
+        }
+
+        $this->_connections[$type] = [
+            'pdo'            => $pdo,
+            'dbName'         => $dbName,
+            'hasTransaction' => $hasTransaction
+        ];
 
         return $this;
     }
@@ -118,65 +294,76 @@ abstract class AbstractDb
      *
      * @throws DbException
      */
-    public function setRootPdo($host)
+    public function setRootConnection($host)
     {
         $rootUser = App::getInstance()
             ->getConfig()
             ->getValue(['db', 'root', $host]);
 
-        if ($rootUser === null) {
-            throw new DbException(
-                'Unable to find root user for host {host}',
-                [
-                    'host' => $host
-                ]
-            );
-        }
-
-        $this->_pdo = new \PDO(
-            sprintf(
-                'mysql:host=%s;charset=UTF8',
-                $host
-            ),
+        $this->setConnection(
+            Db::CONNECTION_TYPE_ROOT,
+            $host,
             $rootUser['user'],
             $rootUser['password'],
-            [
-                \PDO::ATTR_ERRMODE            => \PDO::ERRMODE_EXCEPTION,
-                \PDO::ATTR_DEFAULT_FETCH_MODE => \PDO::FETCH_ASSOC,
-                \PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES \'UTF8\''
-            ]
+            null,
+            true
         );
+
+        $this->setCurrentConnection(Db::CONNECTION_TYPE_ROOT);
 
         return $this;
     }
 
     /**
-     * Sets system PDO
+     * Sets system connection
+     *
+     * @param bool $hasTransaction Transaction flag
      *
      * @return AbstractDb
      */
-    public function setSystemPdo()
+    public function setSystemConnection($hasTransaction = null)
     {
         $config = App::getInstance()->getConfig();
 
-        $this->setPdo(
+        $this->setConnection(
+            Db::CONNECTION_TYPE_SYSTEM,
             $config->getValue(['db', 'system', 'host']),
             $config->getValue(['db', 'system', 'user']),
             $config->getValue(['db', 'system', 'password']),
-            $config->getValue(['db', 'system', 'name'])
+            $config->getValue(['db', 'system', 'name']),
+            true,
+            $hasTransaction
         );
+
+        $this->setCurrentConnection(Db::CONNECTION_TYPE_SYSTEM);
 
         return $this;
     }
 
     /**
-     * Gets PDO
+     * Sets help connection
      *
-     * @return \PDO
+     * @param bool $hasTransaction Transaction flag
+     *
+     * @return AbstractDb
      */
-    protected function getPdo()
+    public function setHelpConnection($hasTransaction = null)
     {
-        return $this->_pdo;
+        $config = App::getInstance()->getConfig();
+
+        $this->setConnection(
+            Db::CONNECTION_TYPE_HELP,
+            $config->getValue(['db', 'help', 'host']),
+            $config->getValue(['db', 'help', 'user']),
+            $config->getValue(['db', 'help', 'password']),
+            $config->getValue(['db', 'help', 'name']),
+            true,
+            $hasTransaction
+        );
+
+        $this->setCurrentConnection(Db::CONNECTION_TYPE_HELP);
+
+        return $this;
     }
 
     /**
@@ -207,24 +394,32 @@ abstract class AbstractDb
      *
      * @param string $statement  SQL statement
      * @param array  $parameters Parameters
+     * @param bool   $isMirror   Flag to update both tables
      *
      * @return \PDOStatement
      *
      * @throws DbException
      * @throws \Exception
      */
-    public function execute($statement, $parameters = [])
+    public function execute($statement, $parameters = [], $isMirror = null)
     {
+        $pdo = $this->getCurrentPdo();
+        $dbName = $this->_getCurrentDbName();
+        if ($isMirror === true) {
+            $pdo = $this->_getMirrorPdo();
+            $dbName = $this->_getMirrorDbName();
+        }
+
         $logger = App::getInstance()->getLogger();
         $logMessage = sprintf(
             'DB: [%s]. Statement: [%s]. Parameters: [%s]',
-            $this->_dbName,
+            $dbName,
             $statement,
             json_encode($parameters)
         );
 
         try {
-            $sth = $this->getPdo()->prepare($statement);
+            $sth = $pdo->prepare($statement);
             $result = $sth->execute($parameters);
             $this->reset();
         } catch (\Exception $e) {
@@ -237,15 +432,23 @@ abstract class AbstractDb
         if ($result === false) {
             $logger->error($logMessage, 'mysql');
 
-            throw new DbException(
-                sprintf(
-                    'Unable to execute sql query. Error info: %s',
-                    implode(' ,', $sth->errorInfo())
-                )
-            );
+            if ($isMirror !== true) {
+                throw new DbException(
+                    sprintf(
+                        'Unable to execute sql query. Error info: %s',
+                        implode(' ,', $sth->errorInfo())
+                    )
+                );
+            }
         }
 
         $logger->debug($logMessage, 'mysql');
+
+        if ($this->_useMirror === true
+            && $isMirror !== true
+        ) {
+            $this->execute($statement, $parameters, true);
+        }
 
         return $sth;
     }

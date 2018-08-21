@@ -58,7 +58,7 @@ class Db extends AbstractDbWrite
         $name,
         $isRecreate = null
     ) {
-        $this->setRootPdo($host);
+        $this->setRootConnection($host);
 
         if ($isRecreate === true) {
             $this->dropDb($host, $name);
@@ -91,7 +91,7 @@ class Db extends AbstractDbWrite
      * @return Db
      */
     public function dropDb($host, $name) {
-        $this->setRootPdo($host);
+        $this->setRootConnection($host);
 
         $statement = sprintf(
             "DROP DATABASE IF EXISTS %s",
@@ -126,7 +126,7 @@ class Db extends AbstractDbWrite
      */
     public function getAllDbNames($host)
     {
-        $this->setRootPdo($host);
+        $this->setRootConnection($host);
 
         $list = [];
 

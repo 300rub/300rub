@@ -75,7 +75,7 @@ class CreateSourceDbCommand extends AbstractDbCommand
         $this->checkConnection();
 
         $this->_systemDb = new Db();
-        $this->_systemDb->setSystemPdo();
+        $this->_systemDb->setSystemConnection(true);
         $this->_systemDb->startTransaction();
         try {
             $this

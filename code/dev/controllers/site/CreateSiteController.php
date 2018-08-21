@@ -21,7 +21,7 @@ class CreateSiteController extends AbstractController
      *
      * @var Db
      */
-    private $_systemDb = null;
+    private $_dbObject = null;
 
     /**
      * Site Model
@@ -61,9 +61,9 @@ class CreateSiteController extends AbstractController
             ];
         }
 
-        $this->_systemDb = new Db();
-        $this->_systemDb->setSystemPdo();
-        $this->_systemDb->startTransaction();
+        $this->_dbObject = new Db();
+        $this->_dbObject->setSystemConnection(true);
+        $this->_dbObject->startTransaction();
         try {
             $this->_updateSiteModel();
 
@@ -80,16 +80,9 @@ class CreateSiteController extends AbstractController
                 ->_createUser(
                     $token,
                     $this->_siteModel->get('dbName')
-                )
-                ->_createUser(
-                    $token,
-                    sprintf(
-                        '%sAdmin',
-                        $this->_siteModel->get('dbName')
-                    )
                 );
 
-            $this->_systemDb->commitTransaction();
+            $this->_dbObject->commitTransaction();
 
             $method = 'http';
             $isHttps = App::getInstance()
@@ -112,7 +105,7 @@ class CreateSiteController extends AbstractController
                 )
             ];
         } catch (\Exception $e) {
-            $this->_systemDb->rollbackTransaction();
+            $this->_dbObject->rollbackTransaction();
 
             throw $e;
         }
@@ -128,15 +121,27 @@ class CreateSiteController extends AbstractController
      */
     private function _createUser($token, $dbName)
     {
-        $siteDb = new Db();
-        $siteDb->setPdo(
+        $dbObject = new Db();
+
+        $dbObject->setConnection(
+            Db::CONNECTION_TYPE_GUEST,
             $this->_siteModel->get('dbHost'),
             $this->_siteModel->get('dbUser'),
             $this->_siteModel->get('dbPassword'),
             $dbName
         );
 
-        $userModel = new UserModel($siteDb);
+        $dbObject->setConnection(
+            Db::CONNECTION_TYPE_ADMIN,
+            $this->_siteModel->get('dbHost'),
+            $this->_siteModel->get('dbUser'),
+            $this->_siteModel->get('dbPassword'),
+            $dbObject->getAdminDbName($dbName)
+        );
+
+        $dbObject->setCurrentConnection(Db::CONNECTION_TYPE_GUEST);
+
+        $userModel = new UserModel($dbObject);
         $userModel->set([
             'login'    => $this->get('user'),
             'password' => $userModel->getPasswordHash(
@@ -151,7 +156,7 @@ class CreateSiteController extends AbstractController
 
         $global = App::getInstance()->getSuperGlobalVariable();
 
-        $userSessionModel = new UserSessionModel($siteDb);
+        $userSessionModel = new UserSessionModel($dbObject);
         $userSessionModel->set(
             [
                 'userId' => $userModel->getId(),
@@ -174,7 +179,7 @@ class CreateSiteController extends AbstractController
      */
     private function _updateSiteModel()
     {
-        $this->_siteModel = new SiteModel($this->_systemDb);
+        $this->_siteModel = new SiteModel($this->_dbObject);
         $this->_siteModel = $this->_siteModel->source()->find();
         if ($this->_siteModel === null) {
             throw new NotFoundException('Source site not found');

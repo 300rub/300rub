@@ -65,13 +65,23 @@ abstract class AbstractDbWrite extends AbstractDbRead
      */
     public function startTransaction()
     {
-        if ($this->getPdo()->beginTransaction() === false) {
-            throw new DbException(
-                sprintf(
-                    'Unable to start transaction. Error info: %s',
-                    implode(' ,', $this->getPdo()->errorInfo())
-                )
-            );
+        foreach ($this->getConnections() as $connection) {
+            if ($connection['hasTransaction'] === false) {
+                continue;
+            }
+
+            /**
+             * @var \PDO $pdo
+             */
+            $pdo = $connection['pdo'];
+            if ($pdo->beginTransaction() === false) {
+                throw new DbException(
+                    sprintf(
+                        'Unable to start transaction. Error info: %s',
+                        implode(' ,', $pdo->errorInfo())
+                    )
+                );
+            }
         }
 
         return $this;
@@ -86,13 +96,23 @@ abstract class AbstractDbWrite extends AbstractDbRead
      */
     public function commitTransaction()
     {
-        if ($this->getPdo()->commit() === false) {
-            throw new DbException(
-                sprintf(
-                    'Unable to commit transaction. Error info: %s',
-                    implode(' ,', $this->getPdo()->errorInfo())
-                )
-            );
+        foreach ($this->getConnections() as $connection) {
+            if ($connection['hasTransaction'] === false) {
+                continue;
+            }
+
+            /**
+             * @var \PDO $pdo
+             */
+            $pdo = $connection['pdo'];
+            if ($pdo->commit() === false) {
+                throw new DbException(
+                    sprintf(
+                        'Unable to commit transaction. Error info: %s',
+                        implode(' ,', $pdo->errorInfo())
+                    )
+                );
+            }
         }
 
         return $this;
@@ -107,13 +127,23 @@ abstract class AbstractDbWrite extends AbstractDbRead
      */
     public function rollbackTransaction()
     {
-        if ($this->getPdo()->rollBack() === false) {
-            throw new DbException(
-                sprintf(
-                    'Unable to rollback transaction. Error info: %s',
-                    implode(' ,', $this->getPdo()->errorInfo())
-                )
-            );
+        foreach ($this->getConnections() as $connection) {
+            if ($connection['hasTransaction'] === false) {
+                continue;
+            }
+
+            /**
+             * @var \PDO $pdo
+             */
+            $pdo = $connection['pdo'];
+            if ($pdo->rollBack() === false) {
+                throw new DbException(
+                    sprintf(
+                        'Unable to rollback transaction. Error info: %s',
+                        implode(' ,', $pdo->errorInfo())
+                    )
+                );
+            }
         }
 
         return $this;
@@ -143,7 +173,7 @@ abstract class AbstractDbWrite extends AbstractDbRead
 
         $this->execute($query, $this->getParameters());
 
-        return $this->getPdo()->lastInsertId();
+        return $this->getCurrentPdo()->lastInsertId();
     }
 
     /**

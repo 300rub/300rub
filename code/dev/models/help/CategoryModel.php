@@ -229,10 +229,10 @@ class CategoryModel extends AbstractCategoryModel
             return $memcachedResult;
         }
 
-        $this->setPdo();
         $language = App::getInstance()->getLanguage();
 
         $dbObject = App::getInstance()->getDb();
+        $dbObject->setHelpConnection();
 
         $parentId = null;
         if ($alias !== null) {

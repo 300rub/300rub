@@ -3,6 +3,7 @@
 namespace ss\application\instances;
 
 use ss\application\App;
+use ss\application\components\Db;
 use ss\application\components\User;
 use ss\application\instances\_abstract\AbstractAjax;
 use ss\commands\db\ImportFixturesCommand;
@@ -76,14 +77,17 @@ class Web extends AbstractAjax
             return $this;
         }
 
-        $this->getDb()->setPdo(
+        $this->getDb()->setConnection(
+            Db::CONNECTION_TYPE_ADMIN,
             $siteModel->get('dbHost'),
             $siteModel->get('dbUser'),
             $siteModel->get('dbPassword'),
-            App::getInstance()->getDb()->getAdminDbName(
+            $this->getDb()->getAdminDbName(
                 $siteModel->get('dbName')
             )
         );
+
+        $this->getDb()->setCurrentConnection(Db::CONNECTION_TYPE_ADMIN);
 
         return $this;
     }

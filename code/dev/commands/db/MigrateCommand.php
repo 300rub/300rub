@@ -3,6 +3,7 @@
 namespace ss\commands\db;
 
 use ss\application\App;
+use ss\application\components\Db;
 use ss\application\exceptions\MigrationException;
 use ss\commands\_abstract\AbstractCommand;
 use ss\migrations\_abstract\AbstractMigration;
@@ -87,7 +88,7 @@ class MigrateCommand extends AbstractCommand
     {
         $dbObject = App::getInstance()->getDb();
 
-        $dbObject->setSystemPdo();
+        $dbObject->setSystemConnection();
 
         if (count($siteNames) === 0) {
             $sites = $dbObject
@@ -128,17 +129,21 @@ class MigrateCommand extends AbstractCommand
             return $this;
         }
 
-        foreach ($this->_sites as $site) {
-            App::getInstance()
-                ->getDb()
-                ->setPdo(
-                    $site['dbHost'],
-                    $site['dbUser'],
-                    $site['dbPassword'],
-                    $site['dbName']
-                );
+        $dbObject = App::getInstance()->getDb();
 
-            $dbObject = App::getInstance()->getDb();
+        foreach ($this->_sites as $site) {
+            $dbObject->setConnection(
+                Db::CONNECTION_TYPE_GUEST,
+                $site['dbHost'],
+                $site['dbUser'],
+                $site['dbPassword'],
+                $site['dbName'],
+                true,
+                true
+            );
+
+            $dbObject->setCurrentConnection(Db::CONNECTION_TYPE_GUEST);
+
             $dbObject->startTransaction();
 
             try {
