@@ -157,7 +157,7 @@ abstract class AbstractTableRead extends AbstractTable
         $query = sprintf(
             'SELECT' . ' %s FROM %s AS %s',
             implode(',', $this->getSelect()),
-            $this->getTable(),
+            $this->getTableName(),
             self::DEFAULT_ALIAS
         );
 

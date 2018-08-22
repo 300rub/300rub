@@ -60,7 +60,7 @@ abstract class AbstractTableWrite extends AbstractTableRead
 
         $query = sprintf(
             'INSERT' . ' INTO %s (%s) VALUES (%s)',
-            $this->getTable(),
+            $this->getTableName(),
             implode(',', $this->getFields()),
             implode(',', $values)
         );
@@ -87,7 +87,7 @@ abstract class AbstractTableWrite extends AbstractTableRead
 
         $query = sprintf(
             'UPDATE' . ' %s SET %s WHERE %s',
-            $this->getTable(),
+            $this->getTableName(),
             implode(',', $sets),
             $this->getWhere()
         );
@@ -106,7 +106,7 @@ abstract class AbstractTableWrite extends AbstractTableRead
     {
         $query = sprintf(
             'DELETE' . ' FROM %s WHERE %s',
-            $this->getTable(),
+            $this->getTableName(),
             $this->getWhere()
         );
 

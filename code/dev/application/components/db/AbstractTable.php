@@ -38,7 +38,7 @@ abstract class AbstractTable
      *
      * @var string
      */
-    private $_table = '';
+    private $_tableName = '';
 
     /**
      * Where
@@ -68,9 +68,9 @@ abstract class AbstractTable
      *
      * @return AbstractTable
      */
-    public function setTable($table)
+    public function setTableName($table)
     {
-        $this->_table = $table;
+        $this->_tableName = $table;
         return $this;
     }
 
@@ -79,9 +79,9 @@ abstract class AbstractTable
      *
      * @return string
      */
-    protected function getTable()
+    protected function getTableName()
     {
-        return $this->_table;
+        return $this->_tableName;
     }
 
     /**
