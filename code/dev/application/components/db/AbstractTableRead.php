@@ -1,11 +1,11 @@
 <?php
 
-namespace ss\application\components\_abstract;
+namespace ss\application\components\db;
 
 /**
- * Abstract class for working with DB reading
+ * Abstract class to work with table reading
  */
-abstract class AbstractDbRead extends AbstractDb
+abstract class AbstractTableRead extends AbstractTable
 {
 
     /**
@@ -30,25 +30,13 @@ abstract class AbstractDbRead extends AbstractDb
     private $_limit = '';
 
     /**
-     * Resets select
-     *
-     * @return AbstractDbRead
-     */
-    public function resetSelect()
-    {
-        $this->_select = [];
-
-        return $this;
-    }
-
-    /**
      * Sets select
      *
      * @param string $field   Field
      * @param string $alias   Table alias
      * @param string $asValue As value
      *
-     * @return AbstractDbRead
+     * @return AbstractTableRead
      */
     public function addSelect(
         $field,
@@ -92,7 +80,7 @@ abstract class AbstractDbRead extends AbstractDb
      *
      * @param string $order Order by
      *
-     * @return AbstractDbRead
+     * @return AbstractTableRead
      */
     public function setOrder($order)
     {
@@ -115,7 +103,7 @@ abstract class AbstractDbRead extends AbstractDb
      *
      * @param string $limit Limit value
      *
-     * @return AbstractDbRead
+     * @return AbstractTableRead
      */
     public function setLimit($limit)
     {
@@ -131,6 +119,32 @@ abstract class AbstractDbRead extends AbstractDb
     protected function getLimit()
     {
         return $this->_limit;
+    }
+
+    /**
+     * Finds ine record
+     *
+     * @return array
+     */
+    public function find()
+    {
+        return $this->fetch(
+            $this->_getQuery(),
+            $this->getParameters()
+        );
+    }
+
+    /**
+     * Finds many records
+     *
+     * @return array
+     */
+    public function findAll()
+    {
+        return $this->fetchAll(
+            $this->_getQuery(),
+            $this->getParameters()
+        );
     }
 
     /**
@@ -164,31 +178,5 @@ abstract class AbstractDbRead extends AbstractDb
         }
 
         return $query;
-    }
-
-    /**
-     * Finds ine record
-     *
-     * @return array
-     */
-    public function find()
-    {
-        return $this->fetch(
-            $this->_getQuery(),
-            $this->getParameters()
-        );
-    }
-
-    /**
-     * Finds many records
-     *
-     * @return array
-     */
-    public function findAll()
-    {
-        return $this->fetchAll(
-            $this->_getQuery(),
-            $this->getParameters()
-        );
     }
 }

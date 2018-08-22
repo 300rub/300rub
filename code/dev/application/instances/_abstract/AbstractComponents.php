@@ -2,7 +2,7 @@
 
 namespace ss\application\instances\_abstract;
 
-use ss\application\components\Db;
+use ss\application\components\db\Db;
 use ss\application\components\Config;
 use ss\application\components\Logger;
 use ss\application\components\senders\Email;

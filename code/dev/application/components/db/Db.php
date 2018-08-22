@@ -44,6 +44,16 @@ class Db
     }
 
     /**
+     * Gets active PDO key
+     *
+     * @return string
+     */
+    public function getActivePdoKey()
+    {
+        return $this->_activePdoKey;
+    }
+
+    /**
      * Gets active PDO
      *
      * @return \PDO
@@ -316,13 +326,12 @@ class Db
         }
 
         $sth = $rootPdo->prepare(
-            'CREATE DATABASE IF NOT EXISTS :dbName'
+            sprintf(
+                'CREATE DATABASE IF NOT EXISTS %s',
+                $dbName
+            )
         );
-        $result = $sth->execute(
-            [
-                'dbName' => $dbName
-            ]
-        );
+        $result = $sth->execute();
         if ($result === false) {
             throw new DbException(
                 'Unable to create DB {dbName}',
@@ -333,17 +342,15 @@ class Db
         }
 
         $sth = $rootPdo->prepare(
-            "GRANT ALL ON `:dbName`.* TO ':user'@':host' " .
-            "IDENTIFIED BY ':password'"
+            sprintf(
+                "GRANT ALL ON `%s`.* TO '%s'@'%s' IDENTIFIED BY '%s'",
+                $dbName,
+                $user,
+                $host,
+                $password
+            )
         );
-        $result = $sth->execute(
-            [
-                'dbName'   => $dbName,
-                'user'     => $user,
-                'host'     => $host,
-                'password' => $password,
-            ]
-        );
+        $result = $sth->execute();
         if ($result === false) {
             throw new DbException(
                 'Unable to create user for DB {dbName}',
@@ -372,8 +379,13 @@ class Db
             ->setRootPdo($host)
             ->getActivePdo();
 
-        $sth = $rootPdo->prepare('DROP DATABASE IF EXISTS :dbName');
-        $result = $sth->execute(['dbName' => $dbName]);
+        $sth = $rootPdo->prepare(
+            sprintf(
+                'DROP DATABASE IF EXISTS %s',
+                $dbName
+            )
+        );
+        $result = $sth->execute();
         if ($result === false) {
             throw new DbException(
                 'Unable to drop DB {dbName}',

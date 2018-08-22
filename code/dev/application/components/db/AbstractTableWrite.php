@@ -1,13 +1,13 @@
 <?php
 
-namespace ss\application\components\_abstract;
+namespace ss\application\components\db;
 
-use ss\application\exceptions\DbException;
+use ss\application\App;
 
 /**
- * Abstract class for working with DB writing
+ * Abstract class to work with table writing
  */
-abstract class AbstractDbWrite extends AbstractDbRead
+abstract class AbstractTableWrite extends AbstractTableRead
 {
 
     /**
@@ -18,24 +18,11 @@ abstract class AbstractDbWrite extends AbstractDbRead
     private $_fields = [];
 
     /**
-     * Clears fields
-     *
-     * @return AbstractDbWrite
-     */
-    protected function clearFields()
-    {
-        $this->_fields = [];
-        return $this;
-    }
-
-    /**
      * Adds field
      *
      * @param string $field Field name
      *
-     * @return AbstractDbWrite
-     *
-     * @throws DbException
+     * @return AbstractTableWrite
      */
     public function addField($field)
     {
@@ -57,10 +44,10 @@ abstract class AbstractDbWrite extends AbstractDbRead
     }
 
     /**
-     * Inserts record to DB
+     * Inserts a record to DB
      * If success - returns new ID
      *
-     * @throws DbException
+     * @throws AbstractTableWrite
      *
      * @return int
      */
@@ -80,15 +67,16 @@ abstract class AbstractDbWrite extends AbstractDbRead
 
         $this->execute($query, $this->getParameters());
 
-        return $this->getCurrentPdo()->lastInsertId();
+        return App::getInstance()
+            ->getDb()
+            ->getActivePdo()
+            ->lastInsertId();
     }
 
     /**
-     * Updates record
+     * Updates a record
      *
-     * @throws DbException
-     *
-     * @return AbstractDbWrite
+     * @return AbstractTableWrite
      */
     public function update()
     {
@@ -110,11 +98,9 @@ abstract class AbstractDbWrite extends AbstractDbRead
     }
 
     /**
-     * Deletes record
+     * Deletes a record
      *
-     * @throws DbException
-     *
-     * @return AbstractDbWrite
+     * @return AbstractTableWrite
      */
     public function delete()
     {

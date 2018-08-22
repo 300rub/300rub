@@ -1,15 +1,14 @@
 <?php
 
-namespace ss\application\components\_abstract;
+namespace ss\application\components\db;
 
 use ss\application\App;
-use ss\application\components\Db;
 use ss\application\exceptions\DbException;
 
 /**
- * Abstract class for working with DB
+ * Abstract class to work with tables
  */
-abstract class AbstractDb
+abstract class AbstractTable
 {
 
     /**
@@ -27,6 +26,12 @@ abstract class AbstractDb
      */
     const JOIN_TYPE_INNER = 'INNER';
     const JOIN_TYPE_LEFT = 'LEFT';
+
+    /**
+     * Where operators
+     */
+    const WHERE_OPERATOR_AND = 'AND';
+    const WHERE_OPERATOR_OR = 'OR';
 
     /**
      * Table
@@ -57,18 +62,11 @@ abstract class AbstractDb
     private $_parameters = [];
 
     /**
-     * Resets DB
-     *
-     * @return void
-     */
-    abstract protected function reset();
-
-    /**
      * Sets table
      *
      * @param string $table Table name
      *
-     * @return AbstractDb|Db
+     * @return AbstractTable
      */
     public function setTable($table)
     {
@@ -87,101 +85,11 @@ abstract class AbstractDb
     }
 
     /**
-     * Executes query
-     *
-     * @param string $statement  SQL statement
-     * @param array  $parameters Parameters
-     * @param bool   $isMirror   Flag to update both tables
-     *
-     * @return \PDOStatement
-     *
-     * @throws DbException
-     * @throws \Exception
-     */
-    public function execute($statement, $parameters = [], $isMirror = null)
-    {
-        $pdo = $this->getCurrentPdo();
-        $dbName = $this->_getCurrentDbName();
-        if ($isMirror === true) {
-            $pdo = $this->_getMirrorPdo();
-            $dbName = $this->_getMirrorDbName();
-        }
-
-        $logger = App::getInstance()->getLogger();
-        $logMessage = sprintf(
-            'DB: [%s]. Statement: [%s]. Parameters: [%s]',
-            $dbName,
-            $statement,
-            json_encode($parameters)
-        );
-
-        try {
-            $sth = $pdo->prepare($statement);
-            $result = $sth->execute($parameters);
-            $this->reset();
-        } catch (\Exception $e) {
-            $logger->error($logMessage, 'mysql');
-            $this->reset();
-
-            throw $e;
-        }
-
-        if ($result === false) {
-            $logger->error($logMessage, 'mysql');
-
-            if ($isMirror !== true) {
-                throw new DbException(
-                    sprintf(
-                        'Unable to execute sql query. Error info: %s',
-                        implode(' ,', $sth->errorInfo())
-                    )
-                );
-            }
-        }
-
-        $logger->debug($logMessage, 'mysql');
-
-        if ($this->_useMirror === true
-            && $isMirror !== true
-        ) {
-            $this->execute($statement, $parameters, true);
-        }
-
-        return $sth;
-    }
-
-    /**
-     * Fetches one record
-     *
-     * @param string $statement  SQL statement
-     * @param array  $parameters Parameters
-     *
-     * @return array
-     */
-    public function fetch($statement, $parameters = [])
-    {
-        return $this->execute($statement, $parameters)->fetch();
-    }
-
-    /**
-     * Fetches many record
-     *
-     * @param string $statement  SQL statement
-     * @param array  $parameters Parameters
-     *
-     * @return array
-     */
-    public function fetchAll($statement, $parameters = [])
-    {
-        return $this->execute($statement, $parameters)->fetchAll();
-    }
-
-    /**
      * Sets where
      *
      * @param string $where Where condition
      *
-     * @return AbstractDb
+     * @return AbstractTable
      */
     public function setWhere($where)
     {
@@ -195,9 +103,9 @@ abstract class AbstractDb
      * @param string $where    Where condition
      * @param string $operator Operator(AND / OR)
      *
-     * @return AbstractDb
+     * @return AbstractTable
      */
-    public function addWhere($where, $operator = 'AND')
+    public function addWhere($where, $operator = self::WHERE_OPERATOR_AND)
     {
         if ($this->getWhere() === '') {
             $this->setWhere($where);
@@ -227,17 +135,6 @@ abstract class AbstractDb
     }
 
     /**
-     * Sets join
-     *
-     * @return AbstractDb
-     */
-    public function resetJoin()
-    {
-        $this->_join = [];
-        return $this;
-    }
-
-    /**
      * Adds join condition
      *
      * @param string $type          Join type
@@ -247,7 +144,7 @@ abstract class AbstractDb
      * @param string $tableAlias    Basic table alias
      * @param string $tableField    Basic table field
      *
-     * @return AbstractDb
+     * @return AbstractTable
      */
     public function addJoin(
         $type,
@@ -286,25 +183,12 @@ abstract class AbstractDb
     }
 
     /**
-     * Clears parameters
-     *
-     * @return AbstractDb
-     */
-    protected function clearParameters()
-    {
-        $this->_parameters = [];
-        return $this;
-    }
-
-    /**
      * Adds parameter
      *
      * @param string $key   Parameter key
      * @param mixed  $value Parameter value
      *
-     * @return Db|AbstractDb
-     *
-     * @throws DbException
+     * @return AbstractTable
      */
     public function addParameter($key, $value)
     {
@@ -320,5 +204,70 @@ abstract class AbstractDb
     protected function getParameters()
     {
         return $this->_parameters;
+    }
+
+    /**
+     * Executes query
+     *
+     * @param string $statement  SQL statement
+     * @param array  $parameters Parameters
+     *
+     * @return \PDOStatement
+     *
+     * @throws DbException
+     * @throws \Exception
+     */
+    public function execute($statement, $parameters = [])
+    {
+        $dbObject = App::getInstance()->getDb();
+
+        $logger = App::getInstance()->getLogger();
+        $logMessage = sprintf(
+            'DB: [%s]. Statement: [%s]. Parameters: [%s]',
+            $dbObject->getActivePdoKey(),
+            $statement,
+            json_encode($parameters)
+        );
+
+        try {
+            $sth = $dbObject->getActivePdo()->prepare($statement);
+            $result = $sth->execute($parameters);
+        } catch (\Exception $e) {
+            $logger->error($logMessage, 'mysql');
+            throw $e;
+        }
+
+        if ($result === false) {
+            throw new DbException($logMessage);
+        }
+
+        $logger->debug($logMessage, 'mysql');
+        return $sth;
+    }
+
+    /**
+     * Fetches one record
+     *
+     * @param string $statement  SQL statement
+     * @param array  $parameters Parameters
+     *
+     * @return array
+     */
+    public function fetch($statement, $parameters = [])
+    {
+        return $this->execute($statement, $parameters)->fetch();
+    }
+
+    /**
+     * Fetches many record
+     *
+     * @param string $statement  SQL statement
+     * @param array  $parameters Parameters
+     *
+     * @return array
+     */
+    public function fetchAll($statement, $parameters = [])
+    {
+        return $this->execute($statement, $parameters)->fetchAll();
     }
 }
