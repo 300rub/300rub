@@ -12,51 +12,83 @@ class Db
 {
 
     /**
+     * Path to source dump
+     */
+    const SOURCE_PATH = CODE_ROOT . '/config/db/source.sql';
+
+    /**
      * Active DB name
      *
      * @var string
      */
-    private $_activeDbName = '';
+    private $_activePdoKey = '';
 
     /**
+     * PDO list
+     *
      * @var \PDO[]
      */
     private $_pdoList = [];
 
     /**
-     * Sets active DB name
+     * Sets active connection
      *
-     * @param string $name DB Name
+     * @param string $activePdoKey PDO key
      *
      * @return Db
      */
-    public function setActiveDbName($name)
+    public function setActivePdoKey($activePdoKey)
     {
-        $this->_activeDbName = $name;
+        $this->_activePdoKey = $activePdoKey;
         return $this;
+    }
+
+    /**
+     * Gets active PDO
+     *
+     * @return \PDO
+     */
+    public function getActivePdo()
+    {
+        return $this->getPdo($this->_activePdoKey);
     }
 
     /**
      * Adds PDO
      *
-     * @param string $dbName   DB name
      * @param string $host     Host
      * @param string $user     User
      * @param string $password Password
+     * @param string $dbName   DB name
+     * @param string $key      PDO key
      *
      * @return Db
      */
-    public function addPdo($dbName, $host, $user, $password)
-    {
-        if (array_key_exists($dbName, $this->_pdoList) === true) {
+    public function addPdo(
+        $host,
+        $user,
+        $password,
+        $dbName = null,
+        $key = null
+    ) {
+        if ($key === null) {
+            $key = $dbName;
+        }
+
+        if (array_key_exists($key, $this->_pdoList) === true) {
             return $this;
         }
 
-        $this->_pdoList[$dbName] = new \PDO(
+        $dbNameDsn = sprintf('dbname=%s;', $dbName);
+        if ($dbName === null) {
+            $dbNameDsn = '';
+        }
+
+        $this->_pdoList[$key] = new \PDO(
             sprintf(
-                'mysql:host=%s;dbname=%s;charset=UTF8',
+                'mysql:host=%s;%scharset=UTF8',
                 $host,
-                $dbName
+                $dbNameDsn
             ),
             $user,
             $password,
@@ -73,14 +105,14 @@ class Db
     /**
      * Deletes PDO
      *
-     * @param string $dbName DB name
+     * @param string $key PDO key
      *
      * @return Db
      */
-    public function deletePdo($dbName)
+    public function deletePdo($key)
     {
-        if (array_key_exists($dbName, $this->_pdoList) === true) {
-            unset($this->_pdoList[$dbName]);
+        if (array_key_exists($key, $this->_pdoList) === true) {
+            unset($this->_pdoList[$key]);
         }
 
         return $this;
@@ -89,43 +121,43 @@ class Db
     /**
      * Gets PDO by DB name
      *
-     * @param string $dbName DB name
+     * @param string $key PDO key
      *
      * @return \PDO
      *
      * @throws DbException
      */
-    public function getPdo($dbName)
+    public function getPdo($key)
     {
-        if (array_key_exists($dbName, $this->_pdoList) === false) {
-            $pdoFromConfig = $this->_getPdoFromConfig($dbName);
+        if (array_key_exists($key, $this->_pdoList) === false) {
+            $pdoFromConfig = $this->_getPdoFromConfig($key);
             if ($pdoFromConfig !== null) {
                 return $pdoFromConfig;
             }
 
             throw new DbException(
-                'Unable to find DB instance: {dbName}',
+                'Unable to find DB instance: {key}',
                 [
-                    'dbName' => $dbName
+                    'key' => $key
                 ]
             );
         }
 
-        return $this->_pdoList[$dbName];
+        return $this->_pdoList[$key];
     }
 
     /**
      * Gets PDO from config
      *
-     * @param string $dbName DB name
+     * @param string $key PDO key
      *
      * @return null|\PDO
      */
-    private function _getPdoFromConfig($dbName)
+    private function _getPdoFromConfig($key)
     {
         $dbConfig = App::getInstance()
             ->getConfig()
-            ->getValue(['db', $dbName]);
+            ->getValue(['db', $key]);
 
         if ($dbConfig === null) {
             return null;
@@ -138,25 +170,25 @@ class Db
             $dbConfig['name']
         );
 
-        return $this->_pdoList[$dbName];
+        return $this->_pdoList[$key];
     }
 
     /**
      * Initiates a transaction
      *
-     * @param string $dbName DB name
+     * @param string $key PDO key
      *
      * @return Db
      *
      * @throws DbException
      */
-    public function beginTransaction($dbName)
+    public function beginTransaction($key)
     {
-        if ($this->getPdo($dbName)->beginTransaction() === false) {
+        if ($this->getPdo($key)->beginTransaction() === false) {
             throw new DbException(
                 'Unable to start transaction. Error info: {info}',
                 [
-                    'info' => implode(' ,', $this->getPdo($dbName)->errorInfo())
+                    'info' => implode(' ,', $this->getPdo($key)->errorInfo())
                 ]
             );
         }
@@ -167,19 +199,19 @@ class Db
     /**
      * Commits a transaction
      *
-     * @param string $dbName DB name
+     * @param string $key PDO key
      *
      * @return Db
      *
      * @throws DbException
      */
-    public function commit($dbName)
+    public function commit($key)
     {
-        if ($this->getPdo($dbName)->commit() === false) {
+        if ($this->getPdo($key)->commit() === false) {
             throw new DbException(
                 'Unable to commit transaction. Error info: {info}',
                 [
-                    'info' => implode(' ,', $this->getPdo($dbName)->errorInfo())
+                    'info' => implode(' ,', $this->getPdo($key)->errorInfo())
                 ]
             );
         }
@@ -190,19 +222,19 @@ class Db
     /**
      * Rolls back a transaction
      *
-     * @param string $dbName DB name
+     * @param string $key PDO key
      *
      * @return Db
      *
      * @throws DbException
      */
-    public function rollBack($dbName)
+    public function rollBack($key)
     {
-        if ($this->getPdo($dbName)->rollBack() === false) {
+        if ($this->getPdo($key)->rollBack() === false) {
             throw new DbException(
                 'Unable to rollback transaction. Error info: {info}',
                 [
-                    'info' => implode(' ,', $this->getPdo($dbName)->errorInfo())
+                    'info' => implode(' ,', $this->getPdo($key)->errorInfo())
                 ]
             );
         }
@@ -225,6 +257,13 @@ class Db
         return $hosts[0];
     }
 
+    /**
+     * Sets root PDO
+     *
+     * @param string $host Host name
+     *
+     * @return Db
+     */
     public function setRootPdo($host = null)
     {
         if ($host === null) {
@@ -235,18 +274,151 @@ class Db
             ->getConfig()
             ->getValue(['db', 'root', $host]);
 
-//        $this->setConnection(
-//            Db::CONNECTION_TYPE_ROOT,
-//            $host,
-//            $rootUser['user'],
-//            $rootUser['password'],
-//            null,
-//            true
-//        );
-//
-//        $this->setCurrentConnection(Db::CONNECTION_TYPE_ROOT);
+        $this->addPdo(
+            $host,
+            $rootUser['user'],
+            $rootUser['password'],
+            null,
+            $host
+        );
+
+        $this->setActivePdoKey($host);
 
         return $this;
     }
 
+    /**
+     * Creates DB
+     *
+     * @param string $host       Host
+     * @param string $user       User
+     * @param string $password   Password
+     * @param string $dbName     DB name
+     * @param string $isRecreate Flag to recreate
+     *
+     * @return Db
+     *
+     * @throws DbException
+     */
+    public function createDb(
+        $host,
+        $user,
+        $password,
+        $dbName,
+        $isRecreate = null
+    ) {
+        $rootPdo = $this
+            ->setRootPdo($host)
+            ->getActivePdo();
+
+        if ($isRecreate === true) {
+            $this->dropDb($host, $dbName);
+        }
+
+        $sth = $rootPdo->prepare(
+            'CREATE DATABASE IF NOT EXISTS :dbName'
+        );
+        $result = $sth->execute(
+            [
+                'dbName' => $dbName
+            ]
+        );
+        if ($result === false) {
+            throw new DbException(
+                'Unable to create DB {dbName}',
+                [
+                    'dbName' => $dbName
+                ]
+            );
+        }
+
+        $sth = $rootPdo->prepare(
+            "GRANT ALL ON `:dbName`.* TO ':user'@':host' " .
+            "IDENTIFIED BY ':password'"
+        );
+        $result = $sth->execute(
+            [
+                'dbName'   => $dbName,
+                'user'     => $user,
+                'host'     => $host,
+                'password' => $password,
+            ]
+        );
+        if ($result === false) {
+            throw new DbException(
+                'Unable to create user for DB {dbName}',
+                [
+                    'dbName' => $dbName
+                ]
+            );
+        }
+
+        return $this;
+    }
+
+    /**
+     * Drops DB
+     *
+     * @param string $host   Host
+     * @param string $dbName DB name
+     *
+     * @return Db
+     *
+     * @throws DbException
+     */
+    public function dropDb($host, $dbName)
+    {
+        $rootPdo = $this
+            ->setRootPdo($host)
+            ->getActivePdo();
+
+        $sth = $rootPdo->prepare('DROP DATABASE IF EXISTS :dbName');
+        $result = $sth->execute(['dbName' => $dbName]);
+        if ($result === false) {
+            throw new DbException(
+                'Unable to drop DB {dbName}',
+                [
+                    'dbName' => $dbName
+                ]
+            );
+        }
+
+        return $this;
+    }
+
+    /**
+     * Gets all databases
+     *
+     * @param string $host Host
+     *
+     * @return string[]
+     *
+     * @throws DbException
+     */
+    public function getAllDbNames($host)
+    {
+        $rootPdo = $this
+            ->setRootPdo($host)
+            ->getActivePdo();
+
+        $sth = $rootPdo->prepare('SHOW DATABASES');
+        $result = $sth->execute();
+        if ($result === false) {
+            throw new DbException(
+                'Unable to show DBs for host: {host}',
+                [
+                    'host' => $host
+                ]
+            );
+        }
+
+        $list = [];
+
+        $results = $sth->fetchAll();
+        foreach ($results as $item) {
+            $list[] = $item['Database'];
+        }
+
+        return $list;
+    }
 }
