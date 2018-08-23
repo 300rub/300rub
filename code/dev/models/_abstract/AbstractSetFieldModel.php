@@ -2,7 +2,8 @@
 
 namespace ss\models\_abstract;
 
-use ss\application\components\ValueGenerator;
+use ss\application\App;
+use ss\application\components\valueGenerator\ValueGenerator;
 
 /**
  * Abstract class for working with models
@@ -80,41 +81,43 @@ abstract class AbstractSetFieldModel extends AbstractSetRelationModel
      */
     private function _setFieldByType($field, $value, $info)
     {
+        $valueGenerator = App::getInstance()->getValueGenerator();
+
         switch ($info[$field][self::FIELD_TYPE]) {
             case self::FIELD_TYPE_STRING:
                 $this->setField(
                     $field,
-                    ValueGenerator::factory(
+                    $valueGenerator->getValue(
                         ValueGenerator::STRING,
                         $value
-                    )->generate()
+                    )
                 );
                 break;
             case self::FIELD_TYPE_INT:
                 $this->setField(
                     $field,
-                    ValueGenerator::factory(
+                    $valueGenerator->getValue(
                         ValueGenerator::INT,
                         $value
-                    )->generate()
+                    )
                 );
                 break;
             case self::FIELD_TYPE_FLOAT:
                 $this->setField(
                     $field,
-                    ValueGenerator::factory(
+                    $valueGenerator->getValue(
                         ValueGenerator::FLOAT,
                         $value
-                    )->generate()
+                    )
                 );
                 break;
             case self::FIELD_TYPE_BOOL:
                 $this->setField(
                     $field,
-                    ValueGenerator::factory(
+                    $valueGenerator->getValue(
                         ValueGenerator::BOOL,
                         $value
-                    )->generate()
+                    )
                 );
                 break;
             case self::FIELD_TYPE_DATETIME:
@@ -128,10 +131,10 @@ abstract class AbstractSetFieldModel extends AbstractSetRelationModel
 
                 $this->setField(
                     $field,
-                    ValueGenerator::factory(
+                    $valueGenerator->getValue(
                         ValueGenerator::DATETIME,
                         $value
-                    )->generate()
+                    )
                 );
                 break;
             default:
@@ -182,13 +185,15 @@ abstract class AbstractSetFieldModel extends AbstractSetRelationModel
      */
     private function _setFieldValue($field, $key, $value)
     {
+        $valueGenerator = App::getInstance()->getValueGenerator();
+
         if (is_string($key) === false) {
             $this->setField(
                 $field,
-                ValueGenerator::factory(
+                $valueGenerator->getValue(
                     $value,
                     $this->get($field)
-                )->generate()
+                )
             );
 
             return $this;
@@ -214,11 +219,11 @@ abstract class AbstractSetFieldModel extends AbstractSetRelationModel
 
         $this->setField(
             $field,
-            ValueGenerator::factory(
+            $valueGenerator->getValue(
                 $key,
                 $this->get($field),
                 $value
-            )->generate()
+            )
         );
 
         return $this;

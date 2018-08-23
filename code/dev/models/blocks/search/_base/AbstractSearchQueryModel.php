@@ -3,7 +3,7 @@
 namespace ss\models\blocks\search\_base;
 
 use ss\application\components\Validator;
-use ss\application\components\ValueGenerator;
+
 use ss\models\_abstract\AbstractModel;
 
 /**

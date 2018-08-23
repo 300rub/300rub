@@ -3,15 +3,16 @@
 namespace ss\application\instances\_abstract;
 
 use ss\application\components\db\Db;
-use ss\application\components\Config;
-use ss\application\components\Logger;
+use ss\application\components\common\Config;
+use ss\application\components\common\Logger;
 use ss\application\components\senders\Email;
-use ss\application\components\Validator;
-use ss\application\components\SuperGlobalVariable;
-use ss\application\components\Language;
-use ss\application\components\Operation;
-use ss\application\components\View;
-use ss\application\components\Memcached;
+use ss\application\components\common\Validator;
+use ss\application\components\common\SuperGlobalVariable;
+use ss\application\components\common\Language;
+use ss\application\components\user\Operation;
+use ss\application\components\common\View;
+use ss\application\components\common\Memcached;
+use ss\application\components\valueGenerator\ValueGenerator;
 
 /**
  * Abstract class for work with components
@@ -81,6 +82,13 @@ abstract class AbstractComponents
      * @var Validator
      */
     private $_validator = null;
+
+    /**
+     * ValueGenerator
+     *
+     * @var ValueGenerator
+     */
+    private $_valueGenerator = null;
 
     /**
      * Parses config settings
@@ -230,5 +238,19 @@ abstract class AbstractComponents
     public function getEmail()
     {
         return new Email();
+    }
+
+    /**
+     * Gets ValueGenerator
+     *
+     * @return ValueGenerator
+     */
+    public function getValueGenerator()
+    {
+        if ($this->_valueGenerator === null) {
+            $this->_valueGenerator = new Validator();
+        }
+
+        return $this->_valueGenerator;
     }
 }

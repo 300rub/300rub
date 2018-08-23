@@ -2,7 +2,6 @@
 
 namespace ss\models\_abstract;
 
-use ss\application\App;
 use ss\application\components\db\Table;
 
 /**
@@ -75,11 +74,52 @@ abstract class AbstractBaseModel
      */
     public function __construct(Table $table = null)
     {
-        $this->_setDefaultValues();
+        $this
+            ->_setDefaultValues()
+            ->setTable($table);
+    }
 
-        if ($table !== null) {
-            $this->setTable($table);
+    /**
+     * Sets table
+     *
+     * @param Table $table Table object
+     *
+     * @return AbstractBaseModel|AbstractModel
+     */
+    protected function setTable(Table $table = null)
+    {
+        if ($table === null) {
+            $this->resetTable();
+            return $this;
         }
+
+        $this->_table = $table;
+        return $this;
+    }
+
+    /**
+     * Resets table
+     *
+     * @return AbstractBaseModel
+     */
+    protected function resetTable()
+    {
+        $this->_table = new Table();
+        $this->_table->setTableName(
+            $this->getTableName()
+        );
+
+        return $this;
+    }
+
+    /**
+     * Gets table
+     *
+     * @return Table
+     */
+    protected function getTable()
+    {
+        return $this->_table;
     }
 
     /**
@@ -181,50 +221,6 @@ abstract class AbstractBaseModel
     protected function getRelationIdFields($relationName)
     {
         return substr($relationName, 0, -5) . 'Id';
-    }
-
-    /**
-     * Gets new DB
-     *
-     * @return Db
-     */
-    private function _getNewDb()
-    {
-        $dbObject = clone App::getInstance()->getDb();
-        return $dbObject->setTable($this->getTableName());
-    }
-
-    /**
-     * Gets DB object
-     *
-     * @return Db
-     */
-    protected final function getDb()
-    {
-        if ($this->_db instanceof Db === false) {
-            $this->setDb($this->_getNewDb(), true);
-        }
-
-        return $this->_db;
-    }
-
-    /**
-     * Sets Db
-     *
-     * @param Db   $dbObject         DB object
-     * @param bool $ignoreTableReset Ignore table reset
-     *
-     * @return AbstractModel|AbstractBaseModel
-     */
-    public final function setDb(Db $dbObject, $ignoreTableReset = null)
-    {
-        $this->_db = $dbObject;
-
-        if ($ignoreTableReset !== true) {
-            $this->_db->setTable($this->getTableName());
-        }
-
-        return $this;
     }
 
     /**

@@ -3,6 +3,7 @@
 namespace ss\models\_abstract;
 
 use ss\application\components\Db;
+use ss\application\components\db\Table;
 use ss\application\exceptions\ModelException;
 
 /**
@@ -32,8 +33,9 @@ abstract class AbstractFindModel extends AbstractBaseModel
      */
     public function byId($idValue)
     {
-        $this->getDb()->addWhere(sprintf('%s.id = :id', Db::DEFAULT_ALIAS));
-        $this->getDb()->addParameter('id', (int)$idValue);
+        $this->getTable()
+            ->addWhere(sprintf('%s.id = :id', Table::DEFAULT_ALIAS))
+            ->addParameter('id', (int)$idValue);
 
         return $this;
     }
@@ -47,8 +49,9 @@ abstract class AbstractFindModel extends AbstractBaseModel
      */
     public function exceptId($idValue)
     {
-        $this->getDb()->addWhere(sprintf('%s.id != :id', Db::DEFAULT_ALIAS));
-        $this->getDb()->addParameter('id', (int)$idValue);
+        $this->getTable()
+            ->addWhere(sprintf('%s.id != :id', Table::DEFAULT_ALIAS))
+            ->addParameter('id', (int)$idValue);
 
         return $this;
     }
@@ -73,7 +76,9 @@ abstract class AbstractFindModel extends AbstractBaseModel
      */
     public function latest()
     {
-        $this->getDb()->setOrder(sprintf('%s.id DESC', Db::DEFAULT_ALIAS));
+        $this->getTable()->setOrder(
+            sprintf('%s.id DESC', Table::DEFAULT_ALIAS)
+        );
         return $this;
     }
 
@@ -88,7 +93,7 @@ abstract class AbstractFindModel extends AbstractBaseModel
      */
     public function ordered(
         $value = self::DEFAULT_ORDER_NAME,
-        $alias = Db::DEFAULT_ALIAS,
+        $alias = Table::DEFAULT_ALIAS,
         $isDesc = null
     ) {
         $order = 'ASC';
@@ -111,7 +116,7 @@ abstract class AbstractFindModel extends AbstractBaseModel
             $orderBy = implode(',', $list);
         }
 
-        $this->getDb()->setOrder(sprintf('%s %s', $orderBy, $order));
+        $this->getTable()->setOrder(sprintf('%s %s', $orderBy, $order));
 
         return $this;
     }
@@ -125,9 +130,9 @@ abstract class AbstractFindModel extends AbstractBaseModel
      *
      * @return AbstractModel|AbstractFindModel
      */
-    public function addIn($field, $values, $alias = Db::DEFAULT_ALIAS)
+    public function addIn($field, $values, $alias = Table::DEFAULT_ALIAS)
     {
-        $this->getDb()->addWhere(
+        $this->getTable()->addWhere(
             sprintf(
                 '%s.%s IN (%s)',
                 $alias,
@@ -205,16 +210,18 @@ abstract class AbstractFindModel extends AbstractBaseModel
      */
     public function find()
     {
-        $dbObject = $this->setDbBeforeFind()->getDb();
-        $result = $dbObject->find();
+        $table = $this->setTableBeforeFind()->getTable();
+        $result = $table->find();
 
         if ($result === false) {
             return null;
         }
 
-        $model = $this->getNewModel()->setDb($dbObject);
-        $model->set($this->_parseDbResponse($result));
+        $model = $this->getNewModel();
+        $model->set($this->_parseTableResponse($result));
         $model->afterFind();
+
+        $this->resetTable();
 
         return $model;
     }
@@ -226,8 +233,8 @@ abstract class AbstractFindModel extends AbstractBaseModel
      */
     public function findAll()
     {
-        $dbObject = $this->setDbBeforeFind()->getDb();
-        $results = $dbObject->findAll();
+        $table = $this->setTableBeforeFind()->getTable();
+        $results = $table->findAll();
 
         if (count($results) === 0) {
             return [];
@@ -235,11 +242,13 @@ abstract class AbstractFindModel extends AbstractBaseModel
 
         $list = [];
         foreach ($results as $result) {
-            $model = $this->getNewModel()->setDb($dbObject);
-            $model->set($this->_parseDbResponse($result));
+            $model = $this->getNewModel();
+            $model->set($this->_parseTableResponse($result));
             $model->afterFind();
             $list[] = $model;
         }
+
+        $this->resetTable();
 
         return $list;
     }
@@ -251,7 +260,7 @@ abstract class AbstractFindModel extends AbstractBaseModel
      *
      * @return array
      */
-    private function _parseDbResponse($response)
+    private function _parseTableResponse($response)
     {
         if (is_array($response) === false) {
             return [];
@@ -261,13 +270,13 @@ abstract class AbstractFindModel extends AbstractBaseModel
         $list = [];
 
         foreach ($response as $fullFieldName => $value) {
-            if (strpos($fullFieldName, Db::SEPARATOR) === false) {
+            if (strpos($fullFieldName, Table::SEPARATOR) === false) {
                 $list[$fullFieldName] = $value;
                 continue;
             }
 
             list($alias, $field)
-                = explode(Db::SEPARATOR, $fullFieldName, 2);
+                = explode(Table::SEPARATOR, $fullFieldName, 2);
             if (array_key_exists($alias, $helpList) === false) {
                 $helpList[$alias] = [];
             }
@@ -276,7 +285,7 @@ abstract class AbstractFindModel extends AbstractBaseModel
         }
 
         foreach ($helpList as $key => $response) {
-            if ($key === Db::DEFAULT_ALIAS) {
+            if ($key === Table::DEFAULT_ALIAS) {
                 foreach ($response as $k => $value) {
                     $list[$k] = $value;
                 }
@@ -284,7 +293,7 @@ abstract class AbstractFindModel extends AbstractBaseModel
                 continue;
             }
 
-            $list[$key] = $this->_parseDbResponse($response);
+            $list[$key] = $this->_parseTableResponse($response);
         }
 
         return $list;
@@ -297,15 +306,15 @@ abstract class AbstractFindModel extends AbstractBaseModel
      *
      * @return AbstractModel|AbstractFindModel
      */
-    public final function setDbBeforeFind($alias = Db::DEFAULT_ALIAS)
+    public final function setTableBeforeFind($alias = Table::DEFAULT_ALIAS)
     {
         $info = $this->getFieldsInfo();
-        $dbObject = $this->getDb();
+        $table = $this->getTable();
 
-        $dbObject->addSelect(self::PK_FIELD, $alias);
+        $table->addSelect(self::PK_FIELD, $alias);
 
         foreach (array_keys($info) as $field) {
-            $dbObject->addSelect($field, $alias);
+            $table->addSelect($field, $alias);
 
             $hasRelation = array_key_exists(
                 self::FIELD_RELATION,
@@ -332,8 +341,8 @@ abstract class AbstractFindModel extends AbstractBaseModel
 
             $relationField = $this->getRelationName($field);
 
-            $relationAlias = $alias . Db::SEPARATOR . $relationField;
-            if ($alias === Db::DEFAULT_ALIAS) {
+            $relationAlias = $alias . Table::SEPARATOR . $relationField;
+            if ($alias === Table::DEFAULT_ALIAS) {
                 $relationAlias = $relationField;
             }
 
@@ -341,10 +350,10 @@ abstract class AbstractFindModel extends AbstractBaseModel
                 $relationModel->withRelations($this->_withRelations);
             }
 
-            $relationModel->setDb($dbObject, true);
+            $relationModel->setTable($table);
 
-            $dbObject->addJoin(
-                Db::JOIN_TYPE_INNER,
+            $table->addJoin(
+                Table::JOIN_TYPE_INNER,
                 $relationModel->getTableName(),
                 $relationAlias,
                 self::PK_FIELD,
@@ -352,7 +361,7 @@ abstract class AbstractFindModel extends AbstractBaseModel
                 $field
             );
 
-            $relationModel->setDbBeforeFind($relationAlias);
+            $relationModel->setTableBeforeFind($relationAlias);
         }
 
         return $this;
@@ -365,9 +374,9 @@ abstract class AbstractFindModel extends AbstractBaseModel
      */
     public function getCount()
     {
-        $results = $this->setDbBeforeFind()->getDb()->findAll();
-
-        return count($results);
+        return count(
+            $this->setTableBeforeFind()->getTable()->findAll()
+        );
     }
 
     /**
@@ -388,14 +397,18 @@ abstract class AbstractFindModel extends AbstractBaseModel
      */
     protected function checkUnique($field)
     {
-        $this->getDb()->addWhere(
-            sprintf(
-                '%s.%s = :field',
-                Db::DEFAULT_ALIAS,
-                $field
+        $this->getTable()
+            ->addWhere(
+                sprintf(
+                    '%s.%s = :field',
+                    Table::DEFAULT_ALIAS,
+                    $field
+                )
             )
-        );
-        $this->getDb()->addParameter('field', $this->getField($field));
+            ->addParameter(
+                'field',
+                $this->getField($field)
+            );
 
         return $this;
     }

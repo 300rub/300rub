@@ -3,7 +3,7 @@
 namespace ss\models\blocks\image\_base;
 
 use ss\application\App;
-use ss\application\components\ValueGenerator;
+
 use ss\models\_abstract\AbstractModel;
 
 /**

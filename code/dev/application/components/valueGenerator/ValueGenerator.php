@@ -112,7 +112,7 @@ abstract class ValueGenerator
     abstract public function generate();
 
     /**
-     * Generates a value
+     * Gets a value
      *
      * @param string $type  Generator type
      * @param mixed  $value Value
@@ -122,7 +122,7 @@ abstract class ValueGenerator
      *
      * @throws CommonException
      */
-    public static function factory($type, $value, $param = null)
+    public function getValue($type, $value, $param = null)
     {
         if (in_array($type, self::$typeList) === false) {
             throw new CommonException(
@@ -137,6 +137,6 @@ abstract class ValueGenerator
         $object->value = $value;
         $object->param = $param;
 
-        return $object;
+        return $this->generate();
     }
 }

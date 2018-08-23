@@ -188,7 +188,7 @@ abstract class AbstractTable
      * @param string $key   Parameter key
      * @param mixed  $value Parameter value
      *
-     * @return AbstractTable
+     * @return AbstractTable|Table
      */
     public function addParameter($key, $value)
     {

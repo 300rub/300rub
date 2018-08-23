@@ -3,7 +3,7 @@
 namespace ss\models\blocks\text\_base;
 
 use ss\application\App;
-use ss\application\components\ValueGenerator;
+
 use ss\models\blocks\_abstract\AbstractContentModel;
 use ss\models\blocks\block\DesignBlockModel;
 use ss\models\blocks\text\DesignTextModel;

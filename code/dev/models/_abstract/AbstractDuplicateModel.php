@@ -2,7 +2,7 @@
 
 namespace ss\models\_abstract;
 
-use ss\application\components\ValueGenerator;
+use ss\application\App;
 
 /**
  * Abstract class for working with models
@@ -201,13 +201,15 @@ abstract class AbstractDuplicateModel extends AbstractDeleteModel
      */
     private function _setChangeOnDuplicateField($field, $key, $value)
     {
+        $valueGenerator = App::getInstance()->getValueGenerator();
+
         if (is_string($key) === false) {
             $this->_duplicateModel->setField(
                 $field,
-                ValueGenerator::factory(
+                $valueGenerator->getValue(
                     $value,
                     $this->_duplicateModel->get($field)
-                )->generate()
+                )
             );
 
             return $this;
@@ -233,11 +235,11 @@ abstract class AbstractDuplicateModel extends AbstractDeleteModel
 
         $this->_duplicateModel->setField(
             $field,
-            ValueGenerator::factory(
+            $valueGenerator->getValue(
                 $key,
                 $this->_duplicateModel->get($field),
                 $value
-            )->generate()
+            )
         );
 
         return $this;

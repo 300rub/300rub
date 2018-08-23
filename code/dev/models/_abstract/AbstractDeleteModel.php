@@ -21,9 +21,12 @@ abstract class AbstractDeleteModel extends AbstractSaveModel
     public final function delete($where = null, array $parameters = [])
     {
         $this->_setDeleteCondition($where, $parameters);
+
         $this->beforeDelete();
-        $this->getDb()->delete();
+        $this->getTable()->delete();
         $this->afterDelete();
+
+        $this->resetTable();
     }
 
     /**
@@ -45,17 +48,17 @@ abstract class AbstractDeleteModel extends AbstractSaveModel
                 );
             }
 
-            $this->getDb()->setWhere('id = :id');
-            $this->getDb()->addParameter('id', (int)$this->getId());
+            $this->getTable()->setWhere('id = :id');
+            $this->getTable()->addParameter('id', (int)$this->getId());
 
             return $this;
         }
 
-        $this->getDb()->setWhere($where);
+        $this->getTable()->setWhere($where);
 
         if (count($parameters) > 0) {
             foreach ($parameters as $key => $value) {
-                $this->getDb()->addParameter($key, $value);
+                $this->getTable()->addParameter($key, $value);
             }
         }
 

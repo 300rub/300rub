@@ -2,7 +2,7 @@
 
 namespace ss\application\components\valueGenerator\_abstract;
 
-use ss\application\components\ValueGenerator;
+use ss\application\components\valueGenerator\ValueGenerator;
 
 /**
  * Class for integer generation

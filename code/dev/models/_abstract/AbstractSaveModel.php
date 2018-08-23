@@ -2,8 +2,9 @@
 
 namespace ss\models\_abstract;
 
-use ss\application\components\Validator;
-use ss\application\components\ValueGenerator;
+use ss\application\App;
+use ss\application\components\common\Validator;
+use ss\application\components\valueGenerator\ValueGenerator;
 use ss\application\exceptions\ModelException;
 
 /**
@@ -67,7 +68,7 @@ abstract class AbstractSaveModel extends AbstractSaveRelationModel
      */
     private function _create()
     {
-        $this->set([self::PK_FIELD => (int)$this->getDb()->insert()]);
+        $this->set([self::PK_FIELD => (int)$this->getTable()->insert()]);
     }
 
     /**
@@ -77,7 +78,7 @@ abstract class AbstractSaveModel extends AbstractSaveRelationModel
      */
     private function _update()
     {
-        $this->getDb()
+        $this->getTable()
             ->setWhere('id = :id')
             ->addParameter('id', $this->getId())
             ->update();
@@ -94,21 +95,21 @@ abstract class AbstractSaveModel extends AbstractSaveRelationModel
      */
     protected function updateMany(array $data, $where, $parameters = [])
     {
-        $dbObject = $this->getDb();
+        $table = $this->getTable();
 
-        $dbObject->setWhere($where);
+        $table->setWhere($where);
         if (count($parameters) > 0) {
             foreach ($parameters as $parameterKey => $parameterValue) {
-                $dbObject->addParameter($parameterKey, $parameterValue);
+                $table->addParameter($parameterKey, $parameterValue);
             }
         }
 
         foreach ($data as $field => $parameter) {
-            $dbObject->addField($field);
-            $dbObject->addParameter($field, $parameter);
+            $table->addField($field);
+            $table->addParameter($field, $parameter);
         }
 
-        $dbObject->update();
+        $table->update();
 
         return $this;
     }
@@ -121,46 +122,47 @@ abstract class AbstractSaveModel extends AbstractSaveRelationModel
     private function _setFieldsForDbBeforeSave()
     {
         $info = $this->getFieldsInfo();
-        $dbObject = $this->getDb();
+        $table = $this->getTable();
+        $valueGenerator = App::getInstance()->getValueGenerator();
 
         foreach ($info as $field => $fieldInfo) {
-            $dbObject->addField($field);
+            $table->addField($field);
 
             if (array_key_exists(self::FIELD_TYPE, $fieldInfo) === false) {
-                $dbObject->addParameter($field, $this->get($field));
+                $table->addParameter($field, $this->get($field));
                 continue;
             }
 
             switch ($fieldInfo[self::FIELD_TYPE]) {
                 case self::FIELD_TYPE_BOOL:
-                    $dbObject->addParameter(
+                    $table->addParameter(
                         $field,
-                        ValueGenerator::factory(
+                        $valueGenerator->getValue(
                             ValueGenerator::BOOL_INT,
                             $this->get($field)
-                        )->generate()
+                        )
                     );
                     break;
                 case self::FIELD_TYPE_STRING:
-                    $dbObject->addParameter(
+                    $table->addParameter(
                         $field,
-                        ValueGenerator::factory(
+                        $valueGenerator->getValue(
                             ValueGenerator::STRING,
                             $this->get($field)
-                        )->generate()
+                        )
                     );
                     break;
                 case self::FIELD_TYPE_DATETIME:
-                    $dbObject->addParameter(
+                    $table->addParameter(
                         $field,
-                        ValueGenerator::factory(
+                        $valueGenerator->getValue(
                             ValueGenerator::DATETIME_AS_STRING,
                             $this->get($field)
-                        )->generate()
+                        )
                     );
                     break;
                 default:
-                    $dbObject->addParameter($field, $this->get($field));
+                    $table->addParameter($field, $this->get($field));
                     break;
             }
         }

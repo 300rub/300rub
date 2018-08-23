@@ -2,7 +2,8 @@
 
 namespace ss\models\_abstract;
 
-use ss\application\components\ValueGenerator;
+use ss\application\App;
+use ss\application\components\valueGenerator\ValueGenerator;
 
 /**
  * Abstract class for working with models
@@ -101,7 +102,10 @@ abstract class AbstractSetRelationModel extends AbstractGetModel
 
             $this->setField(
                 $field,
-                ValueGenerator::factory(ValueGenerator::INT, $value)->generate()
+                App::getInstance()->getValueGenerator()->getValue(
+                    ValueGenerator::INT,
+                    $value
+                )
             );
         }
 
