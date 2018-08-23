@@ -1,6 +1,6 @@
 <?php
 
-namespace ss\application\components;
+namespace ss\application\components\common;
 
 use ss\application\exceptions\CommonException;
 use ss\application\exceptions\NotFoundException;

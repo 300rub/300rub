@@ -1,6 +1,6 @@
 <?php
 
-namespace ss\application\components;
+namespace ss\application\components\valueGenerator;
 
 use ss\application\exceptions\CommonException;
 

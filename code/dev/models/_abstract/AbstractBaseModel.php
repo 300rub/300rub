@@ -3,7 +3,7 @@
 namespace ss\models\_abstract;
 
 use ss\application\App;
-use ss\application\components\Db;
+use ss\application\components\db\Table;
 
 /**
  * Abstract class for working with models
@@ -39,11 +39,11 @@ abstract class AbstractBaseModel
     const PK_FIELD = 'id';
 
     /**
-     * DB object
+     * Table object
      *
-     * @var Db
+     * @var Table
      */
-    private $_db;
+    private $_table;
 
     /**
      * Model fields
@@ -71,14 +71,14 @@ abstract class AbstractBaseModel
     /**
      * Constructor
      *
-     * @param Db $dbObject DB object
+     * @param Table $table Table object
      */
-    public function __construct($dbObject = null)
+    public function __construct(Table $table = null)
     {
         $this->_setDefaultValues();
 
-        if ($dbObject !== null) {
-            $this->setDb($dbObject);
+        if ($table !== null) {
+            $this->setTable($table);
         }
     }
 

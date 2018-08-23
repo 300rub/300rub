@@ -1,6 +1,6 @@
 <?php
 
-namespace ss\application\components;
+namespace ss\application\components\user;
 
 use ss\models\user\UserModel;
 
