@@ -2,8 +2,9 @@
 
 namespace ss\application\instances\_abstract;
 
-use ss\application\components\Db;
-use ss\application\components\ErrorHandler;
+
+use ss\application\components\common\ErrorHandler;
+use ss\application\components\db\Db;
 use ss\application\exceptions\NotFoundException;
 use ss\models\_abstract\AbstractModel;
 use ss\models\system\SiteModel;
@@ -81,8 +82,6 @@ abstract class AbstractApplication extends AbstractComponents
      */
     protected function setSite($hostname)
     {
-        $this->getDb()->setSystemConnection();
-
         $siteModel = $this->_getSiteModel($hostname);
 
         $this->getMemcached()->setPrefix(
@@ -94,15 +93,22 @@ abstract class AbstractApplication extends AbstractComponents
 
         $siteModel->setMainHost();
 
-        $this->getDb()->setConnection(
-            Db::CONNECTION_TYPE_GUEST,
-            $siteModel->get('dbHost'),
-            $siteModel->get('dbUser'),
-            $siteModel->get('dbPassword'),
-            $siteModel->get('dbName')
-        );
-
-        $this->getDb()->setCurrentConnection(Db::CONNECTION_TYPE_GUEST);
+        $this->getDb()
+            ->addPdo(
+                $siteModel->get('dbHost'),
+                $siteModel->get('dbUser'),
+                $siteModel->get('dbPassword'),
+                $siteModel->getReadDbName()
+            )
+            ->addPdo(
+                $siteModel->get('dbHost'),
+                $siteModel->get('dbUser'),
+                $siteModel->get('dbPassword'),
+                $siteModel->getWriteDbName()
+            )
+            ->setActivePdoKey(
+                $siteModel->getReadDbName()
+            );
 
         $this->getLanguage()->setActiveId($siteModel->get('language'));
 
@@ -139,6 +145,8 @@ abstract class AbstractApplication extends AbstractComponents
         $baseHost = $this->getConfig()->getValue(['host']);
         $baseHostLength = strlen($baseHost);
         $hostnameLength = strlen($hostname);
+
+        $this->getDb()->setActivePdoKey(Db::CONFIG_DB_NAME_SYSTEM);
 
         if ($hostnameLength > ($baseHostLength + 1)) {
             $hostnameEnd = substr($hostname, (-1 * $baseHostLength));

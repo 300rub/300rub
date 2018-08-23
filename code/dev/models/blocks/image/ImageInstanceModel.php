@@ -2,7 +2,7 @@
 
 namespace ss\models\blocks\image;
 
-use ss\application\components\Db;
+
 
 use ss\models\blocks\image\_abstract\AbstractUpdateModel;
 

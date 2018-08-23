@@ -4,7 +4,7 @@ namespace ss\controllers\_abstract;
 
 use ss\application\App;
 use ss\application\components\Operation;
-use ss\application\components\User;
+use ss\application\components\user\User;
 use ss\application\exceptions\AccessException;
 use ss\models\user\UserModel;
 

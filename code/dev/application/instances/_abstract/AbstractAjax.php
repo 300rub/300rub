@@ -3,7 +3,7 @@
 namespace ss\application\instances\_abstract;
 
 use ss\application\App;
-use ss\application\components\SuperGlobalVariable;
+use ss\application\components\common\SuperGlobalVariable;
 use ss\application\exceptions\BadRequestException;
 use ss\application\exceptions\ContentException;
 use ss\controllers\_abstract\AbstractController;
@@ -28,20 +28,6 @@ abstract class AbstractAjax extends AbstractApplication
     const METHOD_DELETE = 'DELETE';
 
     /**
-     * Flag to skip transaction
-     *
-     * @var bool
-     */
-    private $_skipTransaction = false;
-
-    /**
-     * Flag of using transaction
-     *
-     * @var boolean
-     */
-    private $_useTransaction = false;
-
-    /**
      * Controller prefix
      *
      * @var string
@@ -63,13 +49,6 @@ abstract class AbstractAjax extends AbstractApplication
     private $_input = [];
 
     /**
-     * Output
-     *
-     * @var array
-     */
-    private $_output = [];
-
-    /**
      * Gets AJAX output
      *
      * @return string
@@ -78,35 +57,23 @@ abstract class AbstractAjax extends AbstractApplication
     {
         try {
             $output = $this
+                ->_checkRequest()
                 ->_setPrefix()
-                ->_setUseTransaction()
-                ->_startTransaction()
-                ->_checkAjaxRequest()
                 ->_setInput()
                 ->_checkInput()
                 ->_setLanguageId()
                 ->_setController()
-                ->_runController()
-                ->_commitTransaction()
-                ->_getAjaxOutput();
+                ->_getOutput();
+
+            App::getInstance()->getDb()->commitAll();
         } catch (\Exception $exception) {
-            $this->_rollbackTransaction();
+            App::getInstance()->getDb()->rollBackAll();
+
             $output = $this->_getAjaxErrorOutput($exception);
         }
 
         header('Content-Type: application/json');
         return json_encode($output);
-    }
-
-    /**
-     * Sets transaction skipped
-     *
-     * @return AbstractAjax
-     */
-    public function setTransactionSkipped()
-    {
-        $this->_skipTransaction = true;
-        return $this;
     }
 
     /**
@@ -150,81 +117,13 @@ abstract class AbstractAjax extends AbstractApplication
     }
 
     /**
-     * Sets using transaction
-     *
-     * @return AbstractAjax
-     */
-    private function _setUseTransaction()
-    {
-        if ($this->_skipTransaction === true) {
-            $this->_useTransaction = false;
-            return $this;
-        }
-
-        $method = strtoupper(
-            $this
-                ->getSuperGlobalVariable()
-                ->getServerValue('REQUEST_METHOD')
-        );
-
-        $this->_useTransaction = true;
-        if ($method === self::METHOD_GET) {
-            $this->_useTransaction = false;
-        }
-
-        return $this;
-    }
-
-    /**
-     * Starts transaction
-     *
-     * @return AbstractAjax
-     */
-    private function _startTransaction()
-    {
-        if ($this->_useTransaction === true) {
-            $this->getDb()->startTransaction();
-        }
-
-        return $this;
-    }
-
-    /**
-     * Commits transaction
-     *
-     * @return AbstractAjax
-     */
-    private function _commitTransaction()
-    {
-        if ($this->_useTransaction === true) {
-            $this->getDb()->commitTransaction();
-        }
-
-        return $this;
-    }
-
-    /**
-     * Rollbacks transaction
-     *
-     * @return AbstractAjax
-     */
-    private function _rollbackTransaction()
-    {
-        if ($this->_useTransaction === true) {
-            $this->getDb()->rollbackTransaction();
-        }
-
-        return $this;
-    }
-
-    /**
      * Checks AJAX request
      *
      * @throws BadRequestException
      *
      * @return AbstractAjax
      */
-    private function _checkAjaxRequest()
+    private function _checkRequest()
     {
         $requestedWith = $this
             ->getSuperGlobalVariable()
@@ -387,26 +286,17 @@ abstract class AbstractAjax extends AbstractApplication
     }
 
     /**
-     * Runs controller
-     *
-     * @return AbstractAjax
-     */
-    private function _runController()
-    {
-        $this->_output = $this->_controller->run();
-        return $this;
-    }
-
-    /**
      * Gets output
      *
      * @return string
      *
      * @throws ContentException
      */
-    private function _getAjaxOutput()
+    private function _getOutput()
     {
-        if (empty($this->_output) === true) {
+        $output = $this->_controller->run();
+
+        if (empty($output) === true) {
             throw new ContentException(
                 'Nothing to output',
                 [
@@ -415,7 +305,7 @@ abstract class AbstractAjax extends AbstractApplication
             );
         }
 
-        return $this->_output;
+        return $output;
     }
 
     /**

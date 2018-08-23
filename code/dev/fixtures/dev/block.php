@@ -1,7 +1,7 @@
 <?php
 
 use ss\models\blocks\block\BlockModel;
-use ss\application\components\Language;
+use ss\application\components\common\Language;
 
 return [
     1 => [

@@ -3,7 +3,7 @@
 namespace ss\models\blocks\menu;
 
 use ss\application\App;
-use ss\application\components\Db;
+
 use ss\models\blocks\menu\_base\AbstractMenuInstanceModel;
 
 /**

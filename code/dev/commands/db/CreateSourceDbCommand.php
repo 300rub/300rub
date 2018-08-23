@@ -3,8 +3,8 @@
 namespace ss\commands\db;
 
 use ss\application\App;
-use ss\application\components\Db;
-use ss\application\components\Language;
+
+use ss\application\components\common\Language;
 use ss\commands\db\_abstract\AbstractDbCommand;
 use ss\models\system\SiteModel;
 

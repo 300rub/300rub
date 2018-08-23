@@ -1,7 +1,7 @@
 <?php
 
 use ss\application\App;
-use ss\application\components\Language;
+use ss\application\components\common\Language;
 
 $config = App::getInstance()->getConfig();
 

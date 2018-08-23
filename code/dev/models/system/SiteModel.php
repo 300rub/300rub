@@ -3,7 +3,8 @@
 namespace ss\models\system;
 
 use ss\application\App;
-use ss\application\components\Db;
+
+use ss\application\components\db\Db;
 use ss\models\_abstract\AbstractModel;
 use ss\models\sections\SectionModel;
 use ss\models\system\_base\AbstractSiteModel;
@@ -320,5 +321,25 @@ class SiteModel extends AbstractSiteModel
     public static function model()
     {
         return new self;
+    }
+
+    /**
+     * Gets read DB name
+     *
+     * @return string
+     */
+    public function getReadDbName()
+    {
+        return $this->get('dbName') . Db::NAME_POSTFIX_READ;
+    }
+
+    /**
+     * Gets write DB name
+     *
+     * @return string
+     */
+    public function getWriteDbName()
+    {
+        return $this->get('dbName') . Db::NAME_POSTFIX_WRITE;
     }
 }

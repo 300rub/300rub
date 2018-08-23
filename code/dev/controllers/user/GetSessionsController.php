@@ -3,7 +3,7 @@
 namespace ss\controllers\user;
 
 use ss\application\App;
-use ss\application\components\Db;
+
 use ss\application\components\Operation;
 use ss\application\exceptions\BadRequestException;
 use ss\application\exceptions\NotFoundException;

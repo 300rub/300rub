@@ -3,7 +3,7 @@
 namespace ss\models\user\_base;
 
 use ss\application\App;
-use ss\application\components\Db;
+
 use ss\application\components\Validator;
 
 use ss\models\_abstract\AbstractModel;

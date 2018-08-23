@@ -3,7 +3,7 @@
 namespace ss\models\blocks\record\_content;
 
 use ss\application\App;
-use ss\application\components\Db;
+
 use ss\application\components\helpers\Link;
 use ss\application\components\helpers\Pagination;
 use ss\application\exceptions\NotFoundException;

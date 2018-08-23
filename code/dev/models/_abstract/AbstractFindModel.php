@@ -2,7 +2,7 @@
 
 namespace ss\models\_abstract;
 
-use ss\application\components\Db;
+
 use ss\application\components\db\Table;
 use ss\application\exceptions\ModelException;
 

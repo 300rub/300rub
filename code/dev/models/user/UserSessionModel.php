@@ -2,7 +2,7 @@
 
 namespace ss\models\user;
 
-use ss\application\components\Db;
+
 use ss\models\user\_base\AbstractUserSessionModel;
 
 /**

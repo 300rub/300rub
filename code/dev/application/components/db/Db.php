@@ -17,6 +17,17 @@ class Db
     const SOURCE_PATH = CODE_ROOT . '/config/db/source.sql';
 
     /**
+     * Name postfixes
+     */
+    const NAME_POSTFIX_WRITE = 'Write';
+    const NAME_POSTFIX_READ = 'Read';
+
+    /**
+     * Config DB names
+     */
+    const CONFIG_DB_NAME_SYSTEM = 'system';
+
+    /**
      * Active DB name
      *
      * @var string
@@ -29,6 +40,13 @@ class Db
      * @var \PDO[]
      */
     private $_pdoList = [];
+
+    /**
+     * Transactions list
+     *
+     * @var string[]
+     */
+    private $_transactions = [];
 
     /**
      * Sets active connection
@@ -194,6 +212,10 @@ class Db
      */
     public function beginTransaction($key)
     {
+        if (in_array($key, $this->_transactions) === true) {
+            return $this;
+        }
+
         if ($this->getPdo($key)->beginTransaction() === false) {
             throw new DbException(
                 'Unable to start transaction. Error info: {info}',
@@ -202,6 +224,8 @@ class Db
                 ]
             );
         }
+
+        $this->_transactions[] = $key;
 
         return $this;
     }
@@ -226,6 +250,25 @@ class Db
             );
         }
 
+        $transactionKey = array_search($key, $this->_transactions);
+        if ($transactionKey !== false) {
+            unset($this->_transactions[$transactionKey]);
+        }
+
+        return $this;
+    }
+
+    /**
+     * Commits all transactions
+     *
+     * @return Db
+     */
+    public function commitAll()
+    {
+        foreach ($this->_transactions as $key) {
+            $this->commit($key);
+        }
+
         return $this;
     }
 
@@ -247,6 +290,25 @@ class Db
                     'info' => implode(' ,', $this->getPdo($key)->errorInfo())
                 ]
             );
+        }
+
+        $transactionKey = array_search($key, $this->_transactions);
+        if ($transactionKey !== false) {
+            unset($this->_transactions[$transactionKey]);
+        }
+
+        return $this;
+    }
+
+    /**
+     * Rolls back all transactions
+     *
+     * @return Db
+     */
+    public function rollBackAll()
+    {
+        foreach ($this->_transactions as $key) {
+            $this->rollBack($key);
         }
 
         return $this;
@@ -432,5 +494,29 @@ class Db
         }
 
         return $list;
+    }
+
+    /**
+     * Gets DB name for writing
+     *
+     * @param string $initialDbName Initial DB name
+     *
+     * @return string
+     */
+    public function getWriteDbName($initialDbName)
+    {
+        return $initialDbName . self::NAME_POSTFIX_WRITE;
+    }
+
+    /**
+     * Gets DB name for reading
+     *
+     * @param string $initialDbName Initial DB name
+     *
+     * @return string
+     */
+    public function getReadDbName($initialDbName)
+    {
+        return $initialDbName . self::NAME_POSTFIX_READ;
     }
 }

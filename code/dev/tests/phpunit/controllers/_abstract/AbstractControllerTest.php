@@ -3,7 +3,7 @@
 namespace ss\tests\phpunit\controllers\_abstract;
 
 use ss\application\App;
-use ss\application\components\Language;
+use ss\application\components\common\Language;
 use ss\tests\phpunit\_abstract\AbstractUnitTest;
 
 /**

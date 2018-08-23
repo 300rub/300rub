@@ -3,7 +3,7 @@
 namespace ss\models\sections;
 
 use ss\application\App;
-use ss\application\components\Db;
+
 use ss\models\blocks\block\BlockModel;
 use ss\models\blocks\block\DesignBlockModel;
 use ss\models\sections\_base\AbstractSectionModel;

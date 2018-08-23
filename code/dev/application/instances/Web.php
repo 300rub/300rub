@@ -3,10 +3,9 @@
 namespace ss\application\instances;
 
 use ss\application\App;
-use ss\application\components\Db;
-use ss\application\components\User;
+
+use ss\application\components\user\User;
 use ss\application\instances\_abstract\AbstractAjax;
-use ss\commands\db\ImportFixturesCommand;
 use ss\models\_abstract\AbstractModel;
 use ss\models\user\UserModel;
 use ss\models\user\UserSessionModel;
@@ -38,58 +37,14 @@ class Web extends AbstractAjax
             ->getServerValue('HTTP_HOST');
 
         $this->setSite($httpHost);
+        $this->_setUserAndDb();
 
         $isAjax = false;
         if (strpos($this->getSite()->getUri(), self::API_PREFIX) === 0) {
             $isAjax = true;
         }
 
-        $this
-            ->_initialUserSet()
-            ->_setAdminDb();
-
         echo $this->_getOutput($isAjax);
-    }
-
-    /**
-     * Sets Admin Db
-     *
-     * @return Web
-     */
-    private function _setAdminDb()
-    {
-        $user = $this->getUser();
-        if ($user === null) {
-            return $this;
-        }
-
-        $token = $user->getToken();
-        if ($token === ImportFixturesCommand::FIXTURES_TOKEN) {
-            return $this;
-        }
-
-        $siteModel = $this->getSite();
-        $dbName =  $siteModel->get('dbName');
-        $phpunitDbName = $this
-            ->getConfig()
-            ->getValue(['db', 'phpunit', 'name']);
-        if ($dbName === $phpunitDbName) {
-            return $this;
-        }
-
-        $this->getDb()->setConnection(
-            Db::CONNECTION_TYPE_ADMIN,
-            $siteModel->get('dbHost'),
-            $siteModel->get('dbUser'),
-            $siteModel->get('dbPassword'),
-            $this->getDb()->getAdminDbName(
-                $siteModel->get('dbName')
-            )
-        );
-
-        $this->getDb()->setCurrentConnection(Db::CONNECTION_TYPE_ADMIN);
-
-        return $this;
     }
 
     /**
@@ -101,11 +56,25 @@ class Web extends AbstractAjax
      */
     private function _getOutput($isAjax)
     {
-        if ($isAjax === true) {
-            return $this->processAjax();
+        if ($isAjax === false) {
+            return $this->processPage();
         }
 
-        return $this->processPage();
+        $method = strtoupper(
+            $this
+                ->getSuperGlobalVariable()
+                ->getServerValue('REQUEST_METHOD')
+        );
+
+        if ($method !== self::METHOD_GET
+            && $this->_user !== null
+        ) {
+            App::getInstance()->getDb()->beginTransaction(
+                $this->getSite()->getWriteDbName()
+            );
+        }
+
+        return $this->processAjax();
     }
 
     /**
@@ -115,11 +84,7 @@ class Web extends AbstractAjax
      */
     public function getUser()
     {
-        if ($this->_user instanceof User) {
-            return $this->_user;
-        }
-
-        return $this->_initialUserSet()->_user;
+        return $this->_user;
     }
 
     /**
@@ -144,12 +109,19 @@ class Web extends AbstractAjax
      *
      * @return Web
      */
-    private function _initialUserSet()
+    private function _setUserAndDb()
     {
         $token = $this->_getToken();
         if ($token === null) {
+            $this->getDb()->setActivePdoKey(
+                $this->getSite()->getReadDbName()
+            );
             return $this;
         }
+
+        $this->getDb()->setActivePdoKey(
+            $this->getSite()->getWriteDbName()
+        );
 
         $user = $this->getMemcached()->get($token);
         if ($user instanceof User) {
@@ -161,6 +133,9 @@ class Web extends AbstractAjax
         $userSessionModel->byToken($token);
         $userSessionModel = $userSessionModel->find();
         if ($userSessionModel instanceof UserSessionModel === false) {
+            $this->getDb()->setActivePdoKey(
+                $this->getSite()->getReadDbName()
+            );
             return $this;
         }
 
@@ -169,6 +144,9 @@ class Web extends AbstractAjax
             ->byId($userSessionModel->get('userId'))
             ->find();
         if ($userModel instanceof UserModel === false) {
+            $this->getDb()->setActivePdoKey(
+                $this->getSite()->getReadDbName()
+            );
             return $this;
         }
 

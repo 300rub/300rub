@@ -3,7 +3,7 @@
 namespace ss\models\blocks\image;
 
 use ss\application\App;
-use ss\application\components\Db;
+
 use ss\models\_abstract\AbstractModel;
 use ss\models\blocks\image\_base\AbstractImageGroupModel;
 

@@ -1,6 +1,6 @@
 <?php
 
-use ss\application\components\Language;
+use ss\application\components\common\Language;
 
 return [
     'all'          => [

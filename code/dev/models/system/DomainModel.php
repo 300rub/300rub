@@ -2,7 +2,7 @@
 
 namespace ss\models\system;
 
-use ss\application\components\Db;
+
 use ss\models\system\_base\AbstractDomainModel;
 
 /**

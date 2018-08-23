@@ -2,7 +2,7 @@
 
 namespace ss\models\blocks\record;
 
-use ss\application\components\Db;
+
 use ss\models\blocks\image\ImageGroupModel;
 use ss\models\blocks\record\_base\AbstractRecordInstanceModel;
 use ss\models\blocks\text\TextInstanceModel;

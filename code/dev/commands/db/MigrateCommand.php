@@ -3,7 +3,7 @@
 namespace ss\commands\db;
 
 use ss\application\App;
-use ss\application\components\Db;
+
 use ss\application\exceptions\MigrationException;
 use ss\commands\_abstract\AbstractCommand;
 use ss\migrations\_abstract\AbstractMigration;

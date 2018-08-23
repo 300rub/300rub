@@ -2,7 +2,7 @@
 
 namespace ss\application\instances;
 
-use ss\application\components\Language;
+use ss\application\components\common\Language;
 use ss\application\instances\_abstract\AbstractAjax;
 use ss\controllers\site\_abstract\AbstractController;
 use ss\controllers\site\CreateController;

@@ -3,7 +3,7 @@
 namespace ss\controllers\site;
 
 use ss\application\App;
-use ss\application\components\Db;
+
 use ss\application\exceptions\NotFoundException;
 use ss\controllers\site\_abstract\AbstractController;
 use ss\models\system\SiteModel;

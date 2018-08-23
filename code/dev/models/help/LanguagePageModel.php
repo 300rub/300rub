@@ -3,7 +3,7 @@
 namespace ss\models\help;
 
 use ss\application\App;
-use ss\application\components\Db;
+
 use ss\models\help\_base\AbstractLanguagePageModel;
 
 /**
