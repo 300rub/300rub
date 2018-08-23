@@ -26,6 +26,7 @@ class Db
      * Config DB names
      */
     const CONFIG_DB_NAME_SYSTEM = 'system';
+    const CONFIG_DB_NAME_HELP = 'system';
 
     /**
      * Active DB name

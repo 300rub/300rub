@@ -3,7 +3,7 @@
 namespace ss\commands\db;
 
 use ss\application\App;
-
+use ss\application\components\db\Db;
 use ss\commands\db\_abstract\AbstractDbCommand;
 
 /**
@@ -56,18 +56,20 @@ class RecreateDevDatabaseCommand extends AbstractDbCommand
         $config = App::getInstance()->getConfig();
 
         $this->_dbObject
-            ->createNewDb(
+            ->createDb(
                 $config->getValue(['db', 'dev', 'host']),
                 $config->getValue(['db', 'dev', 'user']),
                 $config->getValue(['db', 'dev', 'password']),
-                $config->getValue(['db', 'dev', 'name']),
+                $this->_dbObject->getReadDbName(
+                    $config->getValue(['db', 'dev', 'name'])
+                ),
                 true
             )
-            ->createNewDb(
+            ->createDb(
                 $config->getValue(['db', 'dev', 'host']),
                 $config->getValue(['db', 'dev', 'user']),
                 $config->getValue(['db', 'dev', 'password']),
-                App::getInstance()->getDb()->getAdminDbName(
+                $this->_dbObject->getWriteDbName(
                     $config->getValue(['db', 'dev', 'name'])
                 ),
                 true
@@ -92,7 +94,9 @@ class RecreateDevDatabaseCommand extends AbstractDbCommand
                 $config->getValue(['db', 'dev', 'password']),
                 $config->getValue(['db', 'dev', 'user']),
                 $config->getValue(['db', 'dev', 'host']),
-                $config->getValue(['db', 'dev', 'name']),
+                $this->_dbObject->getWriteDbName(
+                    $config->getValue(['db', 'dev', 'name'])
+                ),
                 Db::SOURCE_PATH
             )
         );
@@ -124,7 +128,10 @@ class RecreateDevDatabaseCommand extends AbstractDbCommand
         $config = App::getInstance()->getConfig();
 
         $dbName = $config->getValue(['db', 'dev', 'name']);
-        $dbAdminName = App::getInstance()->getDb()->getAdminDbName(
+        $dbWriteName = App::getInstance()->getDb()->getWriteDbName(
+            $dbName
+        );
+        $dbReadName = App::getInstance()->getDb()->getReadDbName(
             $dbName
         );
 
@@ -135,9 +142,9 @@ class RecreateDevDatabaseCommand extends AbstractDbCommand
                 $config->getValue(['db', 'dev', 'password']),
                 $config->getValue(['db', 'dev', 'user']),
                 $config->getValue(['db', 'dev', 'host']),
-                $dbName,
+                $dbWriteName,
                 FILES_ROOT,
-                $dbName
+                $dbWriteName
             )
         );
 
@@ -148,9 +155,9 @@ class RecreateDevDatabaseCommand extends AbstractDbCommand
                 $config->getValue(['db', 'dev', 'password']),
                 $config->getValue(['db', 'dev', 'user']),
                 $config->getValue(['db', 'dev', 'host']),
-                $dbAdminName,
+                $dbReadName,
                 FILES_ROOT,
-                $dbName
+                $dbWriteName
             )
         );
 

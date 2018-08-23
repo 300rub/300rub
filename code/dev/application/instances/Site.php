@@ -111,9 +111,7 @@ class Site extends AbstractAjax
     private function _getOutput($isAjax)
     {
         if ($isAjax === true) {
-            return $this
-                ->setTransactionSkipped()
-                ->processAjax();
+            return $this->processAjax();
         }
 
         $controller = $this->_getPageController();

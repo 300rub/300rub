@@ -4,6 +4,7 @@ namespace ss\commands\db;
 
 use ss\application\App;
 
+use ss\application\components\db\Db;
 use ss\commands\db\_abstract\AbstractDbCommand;
 use ss\migrations\M160301000000Sites;
 use ss\migrations\M160301000010Domains;
@@ -87,14 +88,14 @@ class RecreateSystemDatabasesCommand extends AbstractDbCommand
         $config = App::getInstance()->getConfig();
 
         $this->_dbObject
-            ->createNewDb(
+            ->createDb(
                 $this->_dbHost,
                 $config->getValue(['db', 'system', 'user']),
                 $config->getValue(['db', 'system', 'password']),
                 $config->getValue(['db', 'system', 'name']),
                 true
             )
-            ->createNewDb(
+            ->createDb(
                 $this->_dbHost,
                 $config->getValue(['db', 'help', 'user']),
                 $config->getValue(['db', 'help', 'password']),
@@ -112,9 +113,7 @@ class RecreateSystemDatabasesCommand extends AbstractDbCommand
      */
     private function _applyMigrations()
     {
-        $config = App::getInstance()->getConfig();
-
-        $this->_dbObject->setSystemConnection();
+        $this->_dbObject->setActivePdoKey(Db::CONFIG_DB_NAME_SYSTEM);
 
         $migration = new M160301000000Sites();
         $migration->apply();
@@ -122,16 +121,7 @@ class RecreateSystemDatabasesCommand extends AbstractDbCommand
         $migration = new M160301000010Domains();
         $migration->apply();
 
-        $this->_dbObject->setConnection(
-            Db::CONNECTION_TYPE_HELP,
-            $config->getValue(['db', 'help', 'host']),
-            $config->getValue(['db', 'help', 'user']),
-            $config->getValue(['db', 'help', 'password']),
-            $config->getValue(['db', 'help', 'name']),
-            true
-        );
-
-        $this->_dbObject->setCurrentConnection(Db::CONNECTION_TYPE_HELP);
+        $this->_dbObject->setActivePdoKey(Db::CONFIG_DB_NAME_HELP);
 
         $migration = new M160301000020Help();
         $migration->apply();
@@ -147,11 +137,11 @@ class RecreateSystemDatabasesCommand extends AbstractDbCommand
     private function _loadFixtures()
     {
         $command = new ImportFixturesCommand();
-        $command->setType('system');
+        $command->setType(Db::CONFIG_DB_NAME_SYSTEM);
         $command->run();
 
         $command = new ImportFixturesCommand();
-        $command->setType('help');
+        $command->setType(Db::CONFIG_DB_NAME_HELP);
         $command->run();
 
         return $this;

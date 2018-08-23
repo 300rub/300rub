@@ -3,8 +3,8 @@
 namespace ss\commands\db;
 
 use ss\application\App;
-
 use ss\application\components\common\Language;
+use ss\application\components\db\Db;
 use ss\commands\db\_abstract\AbstractDbCommand;
 use ss\models\system\SiteModel;
 
@@ -13,13 +13,6 @@ use ss\models\system\SiteModel;
  */
 class CreateSourceDbCommand extends AbstractDbCommand
 {
-
-    /**
-     * System DB
-     *
-     * @var Db
-     */
-    private $_systemDb = null;
 
     /**
      * Site Model
@@ -57,13 +50,6 @@ class CreateSourceDbCommand extends AbstractDbCommand
     private $_dbName = '';
 
     /**
-     * DB Admin name
-     *
-     * @var string
-     */
-    private $_dbNameAdmin = '';
-
-    /**
      * Runs the command
      *
      * @return void
@@ -74,9 +60,6 @@ class CreateSourceDbCommand extends AbstractDbCommand
     {
         $this->checkConnection();
 
-        $this->_systemDb = new Db();
-        $this->_systemDb->setSystemConnection(true);
-        $this->_systemDb->startTransaction();
         try {
             $this
                 ->_createNewSiteRecord()
@@ -85,9 +68,9 @@ class CreateSourceDbCommand extends AbstractDbCommand
                 ->_updateSiteModel()
                 ->_importSourceDump();
 
-            $this->_systemDb->commitTransaction();
+            App::getInstance()->getDb()->commitAll();
         } catch (\Exception $e) {
-            $this->_systemDb->rollbackTransaction();
+            App::getInstance()->getDb()->rollBackAll();
 
             throw $e;
         }
@@ -120,7 +103,11 @@ class CreateSourceDbCommand extends AbstractDbCommand
             App::getInstance()->getConfig()->getValue(['host'])
         );
 
-        $this->_siteModel = new SiteModel($this->_systemDb);
+        App::getInstance()->getDb()->setActivePdoKey(
+            Db::CONFIG_DB_NAME_SYSTEM
+        );
+
+        $this->_siteModel = new SiteModel();
         $this->_siteModel->set([
             'name'       => $name,
             'language'   => Language::LANGUAGE_RU_ID,
@@ -163,10 +150,6 @@ class CreateSourceDbCommand extends AbstractDbCommand
             'site%s',
             $formattedSiteId
         );
-        $this->_dbNameAdmin = sprintf(
-            'site%sAdmin',
-            $formattedSiteId
-        );
 
         return $this;
     }
@@ -178,19 +161,24 @@ class CreateSourceDbCommand extends AbstractDbCommand
      */
     private function _createNewDb()
     {
-        $newDb = new Db();
-        $newDb
-            ->createNewDb(
+        $dbObject = App::getInstance()->getDb();
+
+        $dbObject
+            ->createDb(
                 $this->_dbHost,
                 $this->_dbUser,
                 $this->_dbPassword,
-                $this->_dbName
+                $dbObject->getReadDbName(
+                    $this->_dbName
+                )
             )
-            ->createNewDb(
+            ->createDb(
                 $this->_dbHost,
                 $this->_dbUser,
                 $this->_dbPassword,
-                $this->_dbNameAdmin
+                $dbObject->getWriteDbName(
+                    $this->_dbName
+                )
             );
 
         return $this;
@@ -203,6 +191,10 @@ class CreateSourceDbCommand extends AbstractDbCommand
      */
     private function _updateSiteModel()
     {
+        App::getInstance()->getDb()->setActivePdoKey(
+            Db::CONFIG_DB_NAME_SYSTEM
+        );
+
         $this->_siteModel->set([
             'dbHost'     => $this->_dbHost,
             'dbUser'     => $this->_dbUser,
@@ -221,6 +213,8 @@ class CreateSourceDbCommand extends AbstractDbCommand
      */
     private function _importSourceDump()
     {
+        $dbObject = App::getInstance()->getDb();
+
         exec(
             sprintf(
                 'export MYSQL_PWD=%s; ' .
@@ -228,7 +222,9 @@ class CreateSourceDbCommand extends AbstractDbCommand
                 $this->_dbPassword,
                 $this->_dbUser,
                 $this->_dbHost,
-                $this->_dbName,
+                $dbObject->getReadDbName(
+                    $this->_dbName
+                ),
                 Db::SOURCE_PATH
             )
         );
@@ -240,7 +236,9 @@ class CreateSourceDbCommand extends AbstractDbCommand
                 $this->_dbPassword,
                 $this->_dbUser,
                 $this->_dbHost,
-                $this->_dbNameAdmin,
+                $dbObject->getWriteDbName(
+                    $this->_dbName
+                ),
                 Db::SOURCE_PATH
             )
         );

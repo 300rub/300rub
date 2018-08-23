@@ -3,7 +3,7 @@
 namespace ss\commands\db;
 
 use ss\application\App;
-
+use ss\application\components\db\Db;
 use ss\commands\db\_abstract\AbstractDbCommand;
 
 /**
@@ -55,18 +55,20 @@ class RecreatePhpunitDatabaseCommand extends AbstractDbCommand
         $config = App::getInstance()->getConfig();
 
         $this->_dbObject
-            ->createNewDb(
+            ->createDb(
                 $config->getValue(['db', 'phpunit', 'host']),
                 $config->getValue(['db', 'phpunit', 'user']),
                 $config->getValue(['db', 'phpunit', 'password']),
-                $config->getValue(['db', 'phpunit', 'name']),
+                $this->_dbObject->getReadDbName(
+                    $config->getValue(['db', 'phpunit', 'name'])
+                ),
                 true
             )
-            ->createNewDb(
+            ->createDb(
                 $config->getValue(['db', 'phpunit', 'host']),
                 $config->getValue(['db', 'phpunit', 'user']),
                 $config->getValue(['db', 'phpunit', 'password']),
-                App::getInstance()->getDb()->getAdminDbName(
+                $this->_dbObject->getWriteDbName(
                     $config->getValue(['db', 'phpunit', 'name'])
                 ),
                 true
@@ -91,7 +93,9 @@ class RecreatePhpunitDatabaseCommand extends AbstractDbCommand
                 $config->getValue(['db', 'phpunit', 'password']),
                 $config->getValue(['db', 'phpunit', 'user']),
                 $config->getValue(['db', 'phpunit', 'host']),
-                $config->getValue(['db', 'phpunit', 'name']),
+                $this->_dbObject->getWriteDbName(
+                    $config->getValue(['db', 'phpunit', 'name'])
+                ),
                 Db::SOURCE_PATH
             )
         );
@@ -122,29 +126,37 @@ class RecreatePhpunitDatabaseCommand extends AbstractDbCommand
     {
         $config = App::getInstance()->getConfig();
 
+        $dbName = $config->getValue(['db', 'phpunit', 'name']);
+        $dbWriteName = App::getInstance()->getDb()->getWriteDbName(
+            $dbName
+        );
+        $dbReadName = App::getInstance()->getDb()->getReadDbName(
+            $dbName
+        );
+
         exec(
             sprintf(
                 'export MYSQL_PWD=%s; ' .
-                'mysqldump -u %s -h %s %s > %s/backups/phpunit.sql',
+                'mysqldump -u %s -h %s %s > %s/backups/%s.sql',
                 $config->getValue(['db', 'phpunit', 'password']),
                 $config->getValue(['db', 'phpunit', 'user']),
                 $config->getValue(['db', 'phpunit', 'host']),
-                $config->getValue(['db', 'phpunit', 'name']),
-                FILES_ROOT
+                $dbWriteName,
+                FILES_ROOT,
+                $dbWriteName
             )
         );
 
         exec(
             sprintf(
                 'export MYSQL_PWD=%s; ' .
-                'mysql -u %s -h %s %s < %s/backups/phpunit.sql',
+                'mysql -u %s -h %s %s < %s/backups/%s.sql',
                 $config->getValue(['db', 'phpunit', 'password']),
                 $config->getValue(['db', 'phpunit', 'user']),
                 $config->getValue(['db', 'phpunit', 'host']),
-                App::getInstance()->getDb()->getAdminDbName(
-                    $config->getValue(['db', 'phpunit', 'name'])
-                ),
-                FILES_ROOT
+                $dbReadName,
+                FILES_ROOT,
+                $dbWriteName
             )
         );
 
