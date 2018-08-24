@@ -99,10 +99,10 @@ class ErrorHandler
         $logMessage = sprintf(
             'Error! code: [%s], message: [%s], ' .
             'file: [%s], line: [%s]',
-             $code,
-             $message,
-             $file,
-             $line
+            $code,
+            $message,
+            $file,
+            $line
         );
 
         if (App::getInstance() instanceof Console

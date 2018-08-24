@@ -51,7 +51,7 @@ class Email
     /**
      * TCP port to connect to
      *
-     * @var int
+     * @var integer
      */
     private $_port = 0;
 
@@ -505,8 +505,7 @@ class Email
      *
      * @return void
      *
-     * @throws Exception
-     * @throws \Exception
+     * @throws EmailException
      */
     public function send()
     {

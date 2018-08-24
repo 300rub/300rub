@@ -108,7 +108,8 @@ class CreateSourceDbCommand extends AbstractDbCommand
         );
 
         $this->_siteModel = new SiteModel();
-        $this->_siteModel->set([
+        $this->_siteModel->set(
+            [
             'name'       => $name,
             'language'   => Language::LANGUAGE_RU_ID,
             'email'      => $email,
@@ -117,7 +118,8 @@ class CreateSourceDbCommand extends AbstractDbCommand
             'dbPassword' => 'tmp',
             'dbName'     => 'tmp',
             'isSource'   => true,
-        ]);
+            ]
+        );
         $this->_siteModel->save();
 
         return $this;
@@ -195,12 +197,14 @@ class CreateSourceDbCommand extends AbstractDbCommand
             Db::CONFIG_DB_NAME_SYSTEM
         );
 
-        $this->_siteModel->set([
+        $this->_siteModel->set(
+            [
             'dbHost'     => $this->_dbHost,
             'dbUser'     => $this->_dbUser,
             'dbPassword' => $this->_dbPassword,
             'dbName'     => $this->_dbName,
-        ]);
+            ]
+        );
         $this->_siteModel->save();
 
         return $this;

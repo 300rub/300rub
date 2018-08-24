@@ -526,7 +526,7 @@ class Db
      *
      * @param string $host   Host
      * @param string $dbName DB name
-     * @param string $path Path
+     * @param string $path   Path
      *
      * @return Db
      */
@@ -564,7 +564,7 @@ class Db
      *
      * @param string $host   Host
      * @param string $dbName DB name
-     * @param string $path Path
+     * @param string $path   Path
      *
      * @return Db
      *

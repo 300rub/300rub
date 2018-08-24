@@ -2,7 +2,6 @@
 
 namespace ss\application\instances\_abstract;
 
-
 use ss\application\components\common\ErrorHandler;
 use ss\application\components\db\Db;
 use ss\application\exceptions\NotFoundException;
