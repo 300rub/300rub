@@ -3,10 +3,12 @@
 namespace ss\commands\db;
 
 use ss\application\App;
-
+use ss\application\components\db\Db;
 use ss\application\exceptions\MigrationException;
 use ss\commands\_abstract\AbstractCommand;
 use ss\migrations\_abstract\AbstractMigration;
+use ss\models\system\MigrationModel;
+use ss\models\system\SiteModel;
 
 /**
  * Applies migrations
@@ -43,41 +45,6 @@ class MigrateCommand extends AbstractCommand
     }
 
     /**
-     * Sets the list of non-applied migrations
-     *
-     * @return MigrateCommand
-     */
-    private function _setNewMigrations()
-    {
-        $this->_migrations = [];
-
-        $versions = [];
-        $rows = App::getInstance()
-            ->getDb()
-            ->fetchAll('SELECT * ' . 'FROM `migrations`');
-        foreach ($rows as $row) {
-            $versions[] = $row['version'];
-        }
-
-        $files = scandir(__DIR__ . '/../../migrations');
-        foreach ($files as $file) {
-            if ($file === '.'
-                || $file === '..'
-                || strpos($file, 'M') !== 0
-            ) {
-                continue;
-            }
-
-            $version = str_replace('.php', '', $file);
-            if (in_array($version, $versions) === false) {
-                $this->_migrations[] = $version;
-            }
-        }
-
-        return $this;
-    }
-
-    /**
      * Sets sites
      *
      * @param string[] $siteNames Site names
@@ -88,30 +55,26 @@ class MigrateCommand extends AbstractCommand
     {
         $dbObject = App::getInstance()->getDb();
 
-        $dbObject->setSystemConnection();
+        $dbObject->setActivePdoKey(
+            Db::CONFIG_DB_NAME_SYSTEM
+        );
 
-        if (count($siteNames) === 0) {
-            $sites = $dbObject
-                ->fetchAll('SELECT * ' . 'FROM `sites`');
-            foreach ($sites as $site) {
-                $siteAdmin = $site;
-                $siteAdmin['dbName']
-                    = $dbObject->getAdminDbName($site['dbName']);
+        $sites = new SiteModel();
 
-                $this->_sites[] = $site;
-                $this->_sites[] = $siteAdmin;
-            }
-
-            return $this;
+        if (count($siteNames) > 0) {
+            $sites->addIn('name', $siteNames);
         }
 
-        $this->_sites = $dbObject
-            ->fetchAll(
-                'SELECT * ' . 'FROM `sites` WHERE `name` IN (:siteNames)',
-                [
-                    'siteNames' => implode(',', $siteNames)
-                ]
+        $sites = $sites->findAll();
+
+        foreach ($sites as $site) {
+            $this->_sites[] = $dbObject->getWriteDbName(
+                $site['dbName']
             );
+            $this->_sites[] = $dbObject->getReadDbName(
+                $site['dbName']
+            );
+        }
 
         return $this;
     }
@@ -132,19 +95,15 @@ class MigrateCommand extends AbstractCommand
         $dbObject = App::getInstance()->getDb();
 
         foreach ($this->_sites as $site) {
-            $dbObject->setConnection(
-                Db::CONNECTION_TYPE_GUEST,
-                $site['dbHost'],
-                $site['dbUser'],
-                $site['dbPassword'],
-                $site['dbName'],
-                true,
-                true
-            );
-
-            $dbObject->setCurrentConnection(Db::CONNECTION_TYPE_GUEST);
-
-            $dbObject->startTransaction();
+            $dbObject
+                ->addPdo(
+                    $site['dbHost'],
+                    $site['dbUser'],
+                    $site['dbPassword'],
+                    $site['dbName']
+                )
+                ->setActivePdoKey($site['dbName'])
+                ->beginTransaction($site['dbName']);
 
             try {
                 $this->_setNewMigrations();
@@ -163,9 +122,13 @@ class MigrateCommand extends AbstractCommand
 
                 $this->_updateVersions();
 
-                $dbObject->commitTransaction();
+                $dbObject
+                    ->commit($site['dbName'])
+                    ->deletePdo($site['dbName']);
             } catch (\Exception $e) {
-                $dbObject->rollbackTransaction();
+                $dbObject
+                    ->rollBack($site['dbName'])
+                    ->deletePdo($site['dbName']);
 
                 throw new MigrationException(
                     'An error occurred while applying migration ' .
@@ -179,6 +142,40 @@ class MigrateCommand extends AbstractCommand
                         'line'     => $e->getLine(),
                     ]
                 );
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * Sets the list of non-applied migrations
+     *
+     * @return MigrateCommand
+     */
+    private function _setNewMigrations()
+    {
+        $this->_migrations = [];
+
+        $versions = [];
+
+        $migrations = MigrationModel::model()->findAll(true);
+        foreach ($migrations as $migration) {
+            $versions[] = $migration['version'];
+        }
+
+        $files = scandir(__DIR__ . '/../../migrations');
+        foreach ($files as $file) {
+            if ($file === '.'
+                || $file === '..'
+                || strpos($file, 'M') !== 0
+            ) {
+                continue;
+            }
+
+            $version = str_replace('.php', '', $file);
+            if (in_array($version, $versions) === false) {
+                $this->_migrations[] = $version;
             }
         }
 
@@ -207,22 +204,14 @@ class MigrateCommand extends AbstractCommand
      */
     private function _updateVersions()
     {
-        $dbObject = App::getInstance()->getDb();
-
         foreach ($this->_migrations as $migration) {
-            $result = $dbObject->execute(
-                'INSERT' . ' INTO `migrations` (version) VALUES(?)',
-                [$migration]
-            );
-
-            if ($result === false) {
-                throw new MigrationException(
-                    'UUnable to update version with migration: {migration}',
+            MigrationModel::model()
+                ->set(
                     [
-                        'migration' => $migration,
+                        'version' => $migration
                     ]
-                );
-            }
+                )
+                ->save();
         }
 
         return $this;

@@ -3,7 +3,7 @@
 namespace ss\commands\db;
 
 use ss\application\App;
-
+use ss\application\components\db\Db;
 use ss\commands\_abstract\AbstractCommand;
 use ss\migrations\M160302000000Migrations;
 
@@ -32,7 +32,7 @@ class GenerateSourceDumpCommand extends AbstractCommand
         $dbPassword = $config->getValue(['db', $siteName, 'password']);
         $dbName = $config->getValue(['db', $siteName, 'name']);
 
-        $dbObject->createNewDb(
+        $dbObject->createDb(
             $dbHost,
             $dbUser,
             $dbPassword,
@@ -40,16 +40,14 @@ class GenerateSourceDumpCommand extends AbstractCommand
             true
         );
 
-        $dbObject->setConnection(
-            Db::CONNECTION_TYPE_GUEST,
+        $dbObject->addPdo(
             $dbHost,
             $dbUser,
             $dbPassword,
-            $dbName,
-            true
+            $dbName
         );
 
-        $dbObject->setCurrentConnection(Db::CONNECTION_TYPE_GUEST);
+        $dbObject->setActivePdoKey($dbName);
 
         $migration = new M160302000000Migrations();
         $migration->apply();
@@ -59,16 +57,6 @@ class GenerateSourceDumpCommand extends AbstractCommand
             ->setSites([$siteName])
             ->applyMigration();
 
-        exec(
-            sprintf(
-                'export MYSQL_PWD=%s; ' .
-                'mysqldump -u %s -h %s %s > %s',
-                $dbPassword,
-                $dbUser,
-                $dbHost,
-                $dbName,
-                Db::SOURCE_PATH
-            )
-        );
+        $dbObject->exportDb($dbHost, $dbName, Db::SOURCE_PATH);
     }
 }

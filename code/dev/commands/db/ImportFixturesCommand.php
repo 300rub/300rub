@@ -3,7 +3,6 @@
 namespace ss\commands\db;
 
 use ss\application\App;
-
 use ss\application\components\common\Language;
 use ss\commands\_abstract\AbstractCommand;
 use ss\models\_abstract\AbstractModel;
@@ -150,16 +149,20 @@ class ImportFixturesCommand extends AbstractCommand
         $config = App::getInstance()->getConfig();
         $dbObject = App::getInstance()->getDb();
 
-        $dbObject->setConnection(
-            Db::CONNECTION_TYPE_GUEST,
+        $dbObject->addPdo(
             $config->getValue(['db', $this->_type, 'host']),
             $config->getValue(['db', $this->_type, 'user']),
             $config->getValue(['db', $this->_type, 'password']),
-            $config->getValue(['db', $this->_type, 'name']),
-            true
+            $dbObject->getWriteDbName(
+                $config->getValue(['db', $this->_type, 'name'])
+            )
         );
 
-        $dbObject->setCurrentConnection(Db::CONNECTION_TYPE_GUEST);
+        $dbObject->setActivePdoKey(
+            $dbObject->getWriteDbName(
+                $config->getValue(['db', $this->_type, 'name'])
+            )
+        );
 
         foreach ($this->_fixtureOrder as $fixture => $modelName) {
             $filePath = __DIR__ .
@@ -217,15 +220,15 @@ class ImportFixturesCommand extends AbstractCommand
             $model->set($data)->save();
 
             if (array_key_exists('imageGroupId', $data) === true) {
-                $dbObject = App::getInstance()->getDb();
-                $dbObject->execute(
-                    'UPDATE ' .
-                    'recordInstances SET imageGroupId = ? WHERE id = ?',
-                    [
-                        $data['imageGroupId'],
-                        $model->getId()
-                    ]
-                );
+                RecordInstanceModel::model()
+                    ->byId($model->getId())
+                    ->find()
+                    ->set(
+                        [
+                            'imageGroupId' => $data['imageGroupId']
+                        ]
+                    )
+                    ->save();
             }
         }
 

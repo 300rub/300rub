@@ -3,7 +3,9 @@
 namespace ss\commands\db;
 
 use ss\application\App;
+use ss\application\components\db\Db;
 use ss\commands\_abstract\AbstractCommand;
+use ss\models\system\SiteModel;
 
 /**
  * Create dumps command
@@ -20,60 +22,22 @@ class ExportSitesCommand extends AbstractCommand
     {
         $dbObject = App::getInstance()->getDb();
 
-        $dbObject->setSystemConnection();
+        $dbObject->setActivePdoKey(
+            Db::CONFIG_DB_NAME_SYSTEM
+        );
 
-        $sites = $dbObject->fetchAll('SELECT * ' . 'FROM `sites`');
+        $sites = SiteModel::model()->findAll(true);
 
         foreach ($sites as $site) {
-            $dbObject->setConnection(
-                Db::CONNECTION_TYPE_GUEST,
-                $site['dbHost'],
-                $site['dbUser'],
-                $site['dbPassword'],
-                $site['dbName'],
-                true
-            );
-
-            $dbObject->setCurrentConnection(Db::CONNECTION_TYPE_GUEST);
-
-            exec(
-                sprintf(
-                    'export MYSQL_PWD=%s; ' .
-                    'mysqldump -u %s -h %s %s > %s/backups/%s.sql',
-                    $site['dbPassword'],
-                    $site['dbUser'],
+            $dbObject
+                ->exportDb(
                     $site['dbHost'],
-                    $site['dbName'],
-                    FILES_ROOT,
-                    $site['dbName']
+                    $dbObject->getWriteDbName($site['dbName'])
                 )
-            );
-
-            $adminDbName = $dbObject->getAdminDbName( $site['dbName']);
-
-            $dbObject->setConnection(
-                Db::CONNECTION_TYPE_GUEST,
-                $site['dbHost'],
-                $site['dbUser'],
-                $site['dbPassword'],
-                $adminDbName,
-                true
-            );
-
-            $dbObject->setCurrentConnection(Db::CONNECTION_TYPE_GUEST);
-
-            exec(
-                sprintf(
-                    'export MYSQL_PWD=%s; ' .
-                    'mysqldump -u %s -h %s %s > %s/backups/%s.sql',
-                    $site['dbPassword'],
-                    $site['dbUser'],
+                ->exportDb(
                     $site['dbHost'],
-                    $adminDbName,
-                    FILES_ROOT,
-                    $adminDbName
-                )
-            );
+                    $dbObject->getReadDbName($site['dbName'])
+                );
         }
     }
 }

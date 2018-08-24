@@ -130,8 +130,11 @@ abstract class AbstractFindModel extends AbstractBaseModel
      *
      * @return AbstractModel|AbstractFindModel
      */
-    public function addIn($field, $values, $alias = Table::DEFAULT_ALIAS)
-    {
+    public function addIn(
+        $field,
+        array $values,
+        $alias = Table::DEFAULT_ALIAS
+    ) {
         $this->getTable()->addWhere(
             sprintf(
                 '%s.%s IN (%s)',
@@ -206,15 +209,21 @@ abstract class AbstractFindModel extends AbstractBaseModel
     /**
      * Model search in DB
      *
+     * @param bool $isReturnArray Flag to return array
+     *
      * @return AbstractModel|null
      */
-    public function find()
+    public function find($isReturnArray = null)
     {
         $table = $this->setTableBeforeFind()->getTable();
         $result = $table->find();
 
         if ($result === false) {
             return null;
+        }
+
+        if ($isReturnArray === true) {
+            return $result;
         }
 
         $model = $this->getNewModel();
@@ -229,15 +238,21 @@ abstract class AbstractFindModel extends AbstractBaseModel
     /**
      * Models search in DB
      *
+     * @param bool $isReturnArray Flag to return array
+     *
      * @return null|AbstractModel[]
      */
-    public function findAll()
+    public function findAll($isReturnArray = null)
     {
         $table = $this->setTableBeforeFind()->getTable();
         $results = $table->findAll();
 
         if (count($results) === 0) {
             return [];
+        }
+
+        if ($isReturnArray === true) {
+            return $results;
         }
 
         $list = [];

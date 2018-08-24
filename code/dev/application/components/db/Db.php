@@ -520,4 +520,91 @@ class Db
     {
         return $initialDbName . self::NAME_POSTFIX_READ;
     }
+
+    /**
+     * Exports DB
+     *
+     * @param string $host   Host
+     * @param string $dbName DB name
+     * @param string $path Path
+     *
+     * @return Db
+     */
+    public function exportDb($host, $dbName, $path = null)
+    {
+        $rootUser = App::getInstance()
+            ->getConfig()
+            ->getValue(['db', 'root', $host]);
+
+        if ($path === null) {
+            $path = sprintf(
+                '%s/backups/%s.sql',
+                FILES_ROOT,
+                $dbName
+            );
+        }
+
+        exec(
+            sprintf(
+                'export MYSQL_PWD=%s; ' .
+                'mysqldump -u %s -h %s %s > %s',
+                $rootUser['password'],
+                $rootUser['user'],
+                $host,
+                $dbName,
+                $path
+            )
+        );
+
+        return $this;
+    }
+
+    /**
+     * Exports DB
+     *
+     * @param string $host   Host
+     * @param string $dbName DB name
+     * @param string $path Path
+     *
+     * @return Db
+     *
+     * @throws DbException
+     */
+    public function importDb($host, $dbName, $path = null)
+    {
+        $rootUser = App::getInstance()
+            ->getConfig()
+            ->getValue(['db', 'root', $host]);
+
+        if ($path === null) {
+            $path = sprintf(
+                '%s/backups/%s.sql',
+                FILES_ROOT,
+                $dbName
+            );
+        }
+
+        if (file_exists($path) === false) {
+            throw new DbException(
+                'Unable to find the dump file with path: {path}',
+                [
+                    'path' => $path
+                ]
+            );
+        }
+
+        exec(
+            sprintf(
+                'export MYSQL_PWD=%s; ' .
+                'mysql -u %s -h %s %s < %s',
+                $rootUser['password'],
+                $rootUser['user'],
+                $host,
+                $dbName,
+                $path
+            )
+        );
+
+        return $this;
+    }
 }

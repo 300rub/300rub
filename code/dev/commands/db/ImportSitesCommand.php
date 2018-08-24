@@ -3,8 +3,10 @@
 namespace ss\commands\db;
 
 use ss\application\App;
+use ss\application\components\db\Db;
 use ss\commands\_abstract\AbstractCommand;
 use ss\application\exceptions\MigrationException;
+use ss\models\system\SiteModel;
 
 /**
  * Rollback Sql dumps command
@@ -21,43 +23,24 @@ class ImportSitesCommand extends AbstractCommand
      */
     public function run()
     {
-        $this->checkIsDev();
-
         $dbObject = App::getInstance()->getDb();
 
-        $dbObject->setSystemConnection();
+        $dbObject->setActivePdoKey(
+            Db::CONFIG_DB_NAME_SYSTEM
+        );
 
-        $sites = $dbObject->fetchAll('SELECT * ' . 'FROM `sites`');
+        $sites = SiteModel::model()->findAll(true);
 
         foreach ($sites as $site) {
-            $dbObject->setPdo(
-                $site['dbHost'],
-                $site['dbUser'],
-                $site['dbPassword'],
-                $site['dbName']
-            );
-
-            $file = FILES_ROOT . '/backups/' . $site['dbName'] . '.sql';
-            if (file_exists($file) === false) {
-                throw new MigrationException(
-                    'Unable to find the dump file for DB: {db}',
-                    [
-                        'db' => $site['dbName']
-                    ]
-                );
-            }
-
-            exec(
-                sprintf(
-                    'export MYSQL_PWD=%s; ' .
-                    'mysql -u %s -h %s %s < %s',
-                    $site['password'],
-                    $site['user'],
-                    $site['host'],
-                    $site['name'],
-                    $file
+            $dbObject
+                ->importDb(
+                    $site['dbHost'],
+                    $dbObject->getWriteDbName($site['dbName'])
                 )
-            );
+                ->importDb(
+                    $site['dbHost'],
+                    $dbObject->getReadDbName($site['dbName'])
+                );
         }
     }
 }
