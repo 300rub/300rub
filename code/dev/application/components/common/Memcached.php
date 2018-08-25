@@ -19,16 +19,25 @@ class Memcached
     private $_memcached = null;
 
     /**
+     * The expiration time, defaults to 0.
+     *
+     * @var int
+     */
+    private $_expiration = 0;
+
+    /**
      * Memcached constructor.
      *
-     * @param string $host The hostname of the memcache server
-     * @param int    $port The port on which memcache is running
+     * @param string $host       The hostname of the memcache server
+     * @param int    $port       The port on which memcache is running
+     * @param int    $expiration The expiration time, defaults to 0.
      */
-    public function __construct($host, $port)
+    public function __construct($host, $port, $expiration)
     {
         $memcached = new \Memcached();
 
         $memcached->addServer($host, $port);
+        $this->_expiration = $expiration;
 
         if ($memcached->getStats() !== false) {
             $this->_memcached = $memcached;
@@ -49,6 +58,10 @@ class Memcached
     public function set($key, $value, $expiration = null) {
         if ($this->_memcached === null) {
             return $this;
+        }
+
+        if ($expiration === null) {
+            $expiration = $this->_expiration;
         }
 
         $result = $this->_memcached->set($key, $value, $expiration);
