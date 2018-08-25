@@ -21,6 +21,7 @@ abstract class AbstractDb
     /**
      * Config DB names
      */
+    const CONFIG_DB_NAME_SOURCE = 'source';
     const CONFIG_DB_NAME_SYSTEM = 'system';
     const CONFIG_DB_NAME_HELP = 'help';
 
@@ -43,7 +44,7 @@ abstract class AbstractDb
      *
      * @param string $activePdoKey PDO key
      *
-     * @return AbstractDb
+     * @return AbstractDb|Db
      */
     public function setActivePdoKey($activePdoKey)
     {

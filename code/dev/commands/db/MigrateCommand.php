@@ -65,15 +65,26 @@ class MigrateCommand extends AbstractCommand
             $sites->addIn('name', $siteNames);
         }
 
-        $sites = $sites->findAll();
+        $sites = $sites->findAll(true);
 
         foreach ($sites as $site) {
-            $this->_sites[] = $dbObject->getWriteDbName(
-                $site['dbName']
-            );
-            $this->_sites[] = $dbObject->getReadDbName(
-                $site['dbName']
-            );
+            $this->_sites[] = [
+                'dbHost'     => $site['t_dbHost'],
+                'dbUser'     => $site['t_dbUser'],
+                'dbPassword' => $site['t_dbPassword'],
+                'dbName'     => $dbObject->getWriteDbName(
+                    $site['t_dbName']
+                )
+            ];
+
+            $this->_sites[] = [
+                'dbHost'     => $site['t_dbHost'],
+                'dbUser'     => $site['t_dbUser'],
+                'dbPassword' => $site['t_dbPassword'],
+                'dbName'     => $dbObject->getReadDbName(
+                    $site['t_dbName']
+                )
+            ];
         }
 
         return $this;
@@ -161,7 +172,7 @@ class MigrateCommand extends AbstractCommand
 
         $migrations = MigrationModel::model()->findAll(true);
         foreach ($migrations as $migration) {
-            $versions[] = $migration['version'];
+            $versions[] = $migration['t_version'];
         }
 
         $files = scandir(__DIR__ . '/../../migrations');

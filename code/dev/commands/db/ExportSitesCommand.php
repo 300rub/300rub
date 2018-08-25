@@ -31,12 +31,12 @@ class ExportSitesCommand extends AbstractCommand
         foreach ($sites as $site) {
             $dbObject
                 ->exportDb(
-                    $site['dbHost'],
-                    $dbObject->getWriteDbName($site['dbName'])
+                    $site['t_dbHost'],
+                    $dbObject->getWriteDbName($site['t_dbName'])
                 )
                 ->exportDb(
-                    $site['dbHost'],
-                    $dbObject->getReadDbName($site['dbName'])
+                    $site['t_dbHost'],
+                    $dbObject->getReadDbName($site['t_dbName'])
                 );
         }
     }

@@ -134,6 +134,12 @@ abstract class AbstractFindModel extends AbstractBaseModel
         array $values,
         $alias = Table::DEFAULT_ALIAS
     ) {
+        foreach ($values as &$value) {
+            if (is_string($value) === true) {
+                $value = sprintf('\'%s\'', $value);
+            }
+        }
+
         $this->getTable()->addWhere(
             sprintf(
                 '%s.%s IN (%s)',
