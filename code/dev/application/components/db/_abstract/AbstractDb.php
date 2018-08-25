@@ -22,7 +22,7 @@ abstract class AbstractDb
      * Config DB names
      */
     const CONFIG_DB_NAME_SYSTEM = 'system';
-    const CONFIG_DB_NAME_HELP = 'system';
+    const CONFIG_DB_NAME_HELP = 'help';
 
     /**
      * Active DB name
