@@ -168,7 +168,8 @@ return [
         Language::LANGUAGE_RU_ID => 'Пользователь с таким email не существует',
     ],
     'enterCode' => [
-        Language::LANGUAGE_EN_ID => 'To change your password please enter the code: ',
+        Language::LANGUAGE_EN_ID
+            => 'To change your password please enter the code: ',
         Language::LANGUAGE_RU_ID => 'Чтобы сменить пароль введите код: ',
     ],
     'code' => [
