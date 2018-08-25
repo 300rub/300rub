@@ -39,6 +39,13 @@ class CreateSessionController extends AbstractController
         $language = App::getInstance()->getLanguage();
         $global = App::getInstance()->getSuperGlobalVariable();
 
+        $dbObject = App::getInstance()->getDb();
+        $dbObject->setActivePdoKey(
+            $dbObject->getWriteDbName(
+                App::getInstance()->getSite()->get('dbName')
+            )
+        );
+
         $userModel = $this->_getUserModel();
         if ($userModel === null) {
             return [
