@@ -123,6 +123,7 @@ abstract class AbstractDbRequest extends AbstractDbTransaction
         if ($initialDbName === self::CONFIG_DB_NAME_HELP
             || $initialDbName === self::CONFIG_DB_NAME_SYSTEM
             || $initialDbName === self::CONFIG_DB_NAME_SOURCE
+            || $initialDbName === self::CONFIG_DB_NAME_PHPUNIT
         ) {
             return $initialDbName;
         }
@@ -142,6 +143,7 @@ abstract class AbstractDbRequest extends AbstractDbTransaction
         if ($initialDbName === self::CONFIG_DB_NAME_HELP
             || $initialDbName === self::CONFIG_DB_NAME_SYSTEM
             || $initialDbName === self::CONFIG_DB_NAME_SOURCE
+            || $initialDbName === self::CONFIG_DB_NAME_PHPUNIT
         ) {
             return $initialDbName;
         }

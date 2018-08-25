@@ -24,6 +24,7 @@ abstract class AbstractDb
     const CONFIG_DB_NAME_SOURCE = 'source';
     const CONFIG_DB_NAME_SYSTEM = 'system';
     const CONFIG_DB_NAME_HELP = 'help';
+    const CONFIG_DB_NAME_PHPUNIT = 'phpunit';
 
     /**
      * Active DB name

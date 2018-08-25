@@ -2,6 +2,7 @@
 
 namespace ss\application\instances;
 
+use ss\application\components\db\Db;
 use ss\application\instances\_abstract\AbstractApplication;
 
 /**
@@ -22,5 +23,7 @@ class Test extends AbstractApplication
             $this->getConfig()->getValue(['host'])
         );
         $this->setSite($hostname);
+
+        $this->getDb()->setActivePdoKey(Db::CONFIG_DB_NAME_PHPUNIT);
     }
 }

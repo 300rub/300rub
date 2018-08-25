@@ -18,17 +18,14 @@ class ImportPhpunitCommand extends AbstractCommand
      */
     public function run()
     {
-        $site = App::getInstance()->getConfig()->getValue(['db', 'phpunit']);
+        $dbConfig = App::getInstance()
+            ->getConfig()
+            ->getValue(['db', 'phpunit']);
 
-        exec(
-            sprintf(
-                'export MYSQL_PWD=%s; ' .
-                'mysql -u %s -h %s %s < %s/backups/phpunit.sql',
-                $site['password'],
-                $site['user'],
-                $site['host'],
-                $site['name'],
-                FILES_ROOT
+        App::getInstance()->getDb()->importDb(
+            $dbConfig['host'],
+            App::getInstance()->getDb()->getWriteDbName(
+                $dbConfig['name']
             )
         );
     }

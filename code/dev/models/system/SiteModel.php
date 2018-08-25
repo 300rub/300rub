@@ -321,7 +321,9 @@ class SiteModel extends AbstractSiteModel
      */
     public function getReadDbName()
     {
-        return $this->get('dbName') . Db::NAME_POSTFIX_READ;
+        return App::getInstance()
+            ->getDb()
+            ->getReadDbName($this->get('dbName'));
     }
 
     /**
@@ -331,6 +333,8 @@ class SiteModel extends AbstractSiteModel
      */
     public function getWriteDbName()
     {
-        return $this->get('dbName') . Db::NAME_POSTFIX_WRITE;
+        return App::getInstance()
+            ->getDb()
+            ->getWriteDbName($this->get('dbName'));
     }
 }

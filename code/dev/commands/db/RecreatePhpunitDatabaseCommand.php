@@ -13,13 +13,6 @@ class RecreatePhpunitDatabaseCommand extends AbstractDbCommand
 {
 
     /**
-     * DB object
-     *
-     * @var Db
-     */
-    private $_dbObject = null;
-
-    /**
      * DB host
      *
      * @var string
@@ -35,14 +28,15 @@ class RecreatePhpunitDatabaseCommand extends AbstractDbCommand
     {
         $this->checkConnection();
 
-        $this->_dbObject = App::getInstance()->getDb();
-        $this->_dbHost = $this->_dbObject->getRandomDbHost();
+        $this->_dbHost = App::getInstance()
+            ->getDb()
+            ->getRandomDbHost();
 
         $this
-            ->_recreateDbs()
+            ->_recreateDb()
             ->_importSourceDb()
             ->_loadFixtures()
-            ->_cloneDb();
+            ->_exportDb();
     }
 
     /**
@@ -50,25 +44,16 @@ class RecreatePhpunitDatabaseCommand extends AbstractDbCommand
      *
      * @return RecreatePhpunitDatabaseCommand
      */
-    private function _recreateDbs()
+    private function _recreateDb()
     {
         $config = App::getInstance()->getConfig();
 
-        $this->_dbObject
+        App::getInstance()->getDb()
             ->createDb(
                 $config->getValue(['db', 'phpunit', 'host']),
                 $config->getValue(['db', 'phpunit', 'user']),
                 $config->getValue(['db', 'phpunit', 'password']),
-                $this->_dbObject->getReadDbName(
-                    $config->getValue(['db', 'phpunit', 'name'])
-                ),
-                true
-            )
-            ->createDb(
-                $config->getValue(['db', 'phpunit', 'host']),
-                $config->getValue(['db', 'phpunit', 'user']),
-                $config->getValue(['db', 'phpunit', 'password']),
-                $this->_dbObject->getWriteDbName(
+                App::getInstance()->getDb()->getWriteDbName(
                     $config->getValue(['db', 'phpunit', 'name'])
                 ),
                 true
@@ -93,7 +78,7 @@ class RecreatePhpunitDatabaseCommand extends AbstractDbCommand
                 $config->getValue(['db', 'phpunit', 'password']),
                 $config->getValue(['db', 'phpunit', 'user']),
                 $config->getValue(['db', 'phpunit', 'host']),
-                $this->_dbObject->getWriteDbName(
+                App::getInstance()->getDb()->getWriteDbName(
                     $config->getValue(['db', 'phpunit', 'name'])
                 ),
                 Db::SOURCE_PATH
@@ -118,45 +103,18 @@ class RecreatePhpunitDatabaseCommand extends AbstractDbCommand
     }
 
     /**
-     * Clones DB
+     * Exports DB
      *
      * @return RecreatePhpunitDatabaseCommand
      */
-    private function _cloneDb()
+    private function _exportDb()
     {
         $config = App::getInstance()->getConfig();
 
-        $dbName = $config->getValue(['db', 'phpunit', 'name']);
-        $dbWriteName = App::getInstance()->getDb()->getWriteDbName(
-            $dbName
-        );
-        $dbReadName = App::getInstance()->getDb()->getReadDbName(
-            $dbName
-        );
-
-        exec(
-            sprintf(
-                'export MYSQL_PWD=%s; ' .
-                'mysqldump -u %s -h %s %s > %s/backups/%s.sql',
-                $config->getValue(['db', 'phpunit', 'password']),
-                $config->getValue(['db', 'phpunit', 'user']),
-                $config->getValue(['db', 'phpunit', 'host']),
-                $dbWriteName,
-                FILES_ROOT,
-                $dbWriteName
-            )
-        );
-
-        exec(
-            sprintf(
-                'export MYSQL_PWD=%s; ' .
-                'mysql -u %s -h %s %s < %s/backups/%s.sql',
-                $config->getValue(['db', 'phpunit', 'password']),
-                $config->getValue(['db', 'phpunit', 'user']),
-                $config->getValue(['db', 'phpunit', 'host']),
-                $dbReadName,
-                FILES_ROOT,
-                $dbWriteName
+        App::getInstance()->getDb()->exportDb(
+            $config->getValue(['db', 'phpunit', 'host']),
+            App::getInstance()->getDb()->getWriteDbName(
+                $config->getValue(['db', 'phpunit', 'name'])
             )
         );
 
