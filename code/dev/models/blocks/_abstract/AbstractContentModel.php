@@ -236,14 +236,4 @@ abstract class AbstractContentModel extends AbstractModel
         $this->jsList = $this->_getContentModel()->generateJs();
         return $this;
     }
-
-    /**
-     * Runs after changing
-     *
-     * @return void
-     */
-    protected function afterChange()
-    {
-        parent::afterChange();
-    }
 }
