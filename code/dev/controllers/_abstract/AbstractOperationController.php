@@ -38,7 +38,8 @@ abstract class AbstractOperationController extends AbstractDataController
             throw new AccessException('User is null');
         }
 
-        if (App::getInstance()->getUser()->getType() === UserModel::TYPE_BLOCKED) {
+        $type = App::getInstance()->getUser()->getType();
+        if ($type === UserModel::TYPE_BLOCKED) {
             throw new AccessException('User is blocked');
         }
 

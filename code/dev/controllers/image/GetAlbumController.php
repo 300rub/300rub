@@ -88,6 +88,10 @@ class GetAlbumController extends AbstractController
             $buttonKey = 'add';
         }
 
+        $aliasValidation = $this
+            ->_seoModel
+            ->getValidationRulesForField('alias');
+
         return [
             'blockId' => $blockId,
             'id'      => $groupId,
@@ -103,8 +107,7 @@ class GetAlbumController extends AbstractController
                 'alias'   => [
                     'name'       => 'alias',
                     'label'      => $language->getMessage('common', 'alias'),
-                    'validation'
-                        => $this->_seoModel->getValidationRulesForField('alias'),
+                    'validation' => $aliasValidation,
                     'value'      => $this->_alias,
                 ],
                 'title'   => [

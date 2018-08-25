@@ -21,6 +21,8 @@ abstract class AbstractPageController extends AbstractController
      * Sets static map
      *
      * @param string $name Static map name
+     *
+     * @return void
      */
     protected function setStaticMap($name)
     {

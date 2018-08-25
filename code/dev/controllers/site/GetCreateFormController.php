@@ -25,6 +25,13 @@ class GetCreateFormController extends AbstractController
         $siteModel = new SiteModel();
         $userModel = new UserModel();
 
+        $languageList = App::getInstance()
+            ->getValueGenerator()
+            ->getValue(
+                ValueGenerator::ORDERED_ARRAY,
+                $language->getValueList()
+            );
+
         return [
             'title'
                 => $language->getMessage('site', 'createWindowTitle'),
@@ -88,10 +95,7 @@ class GetCreateFormController extends AbstractController
                     'label' => $language->getMessage('site', 'defaultLanguage'),
                     'value' => $language->getActiveId(),
                     'name'  => 'language',
-                    'list'  => App::getInstance()->getValueGenerator()->getValue(
-                        ValueGenerator::ORDERED_ARRAY,
-                        $language->getValueList()
-                    )
+                    'list'  => $languageList
                 ],
                 'button'     => [
                     'label'

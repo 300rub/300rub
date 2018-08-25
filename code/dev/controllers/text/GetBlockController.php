@@ -66,7 +66,12 @@ class GetBlockController extends AbstractController
             $buttonKey = 'add';
         }
 
-        $textModel = new TextModel();
+        $typeList = App::getInstance()
+            ->getValueGenerator()
+            ->getValue(
+                ValueGenerator::ORDERED_ARRAY,
+                TextModel::model()->getTypeList()
+            );
 
         return [
             'id'          => $blockId,
@@ -84,10 +89,7 @@ class GetBlockController extends AbstractController
                     'label' => $language->getMessage('common', 'type'),
                     'value' => $type,
                     'name'  => 'type',
-                    'list'  => App::getInstance()->getValueGenerator()->getValue(
-                        ValueGenerator::ORDERED_ARRAY,
-                        $textModel->getTypeList()
-                    )
+                    'list'  => $typeList
                 ],
                 'hasEditor' => [
                     'name'  => 'hasEditor',

@@ -23,7 +23,10 @@ class CreateController extends AbstractController
         $content = $this->getContentFromTemplate(
             'site/create',
             [
-                'createSite' => $language->getMessage('site', 'createSiteButton')
+                'createSite' => $language->getMessage(
+                    'site',
+                    'createSiteButton'
+                )
             ]
         );
         $title = 'Dev';

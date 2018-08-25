@@ -56,6 +56,13 @@ class GetBlockController extends AbstractController
 
         $language = App::getInstance()->getLanguage();
 
+        $typeList = App::getInstance()
+            ->getValueGenerator()
+            ->getValue(
+                ValueGenerator::ORDERED_ARRAY,
+                $this->_imageModel->getTypeList()
+            );
+
         return [
             'id'          => $this->_blockId,
             'title'       => $language->getMessage('image', $titleKey),
@@ -74,10 +81,7 @@ class GetBlockController extends AbstractController
                     'label' => $language->getMessage('common', 'type'),
                     'value' => $this->_imageModel->get('type'),
                     'name'  => 'type',
-                    'list'  => App::getInstance()->getValueGenerator()->getValue(
-                        ValueGenerator::ORDERED_ARRAY,
-                        $this->_imageModel->getTypeList()
-                    )
+                    'list'  => $typeList
                 ],
                 'autoCropType'      => [
                     'label' => $language->getMessage('image', 'autoCropType'),
