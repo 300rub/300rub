@@ -14,6 +14,36 @@ class PageController extends AbstractPageController
 {
 
     /**
+     * Gets Memcached Key
+     *
+     * @return string
+     */
+    private function _getMemcachedKey()
+    {
+        $requestUri = App::getInstance()
+            ->getSuperGlobalVariable()
+            ->getServerValue('REQUEST_URI');
+
+        $siteId = App::getInstance()->getSite()->getId();
+
+        return md5($siteId . $requestUri);
+    }
+
+    /**
+     * Is able to use Memcached
+     *
+     * @return bool
+     */
+    private function _isUseMemcached()
+    {
+        if ($this->isUser() === false) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
      * Gets login page
      *
      * @return string
@@ -22,6 +52,15 @@ class PageController extends AbstractPageController
      */
     public function run()
     {
+        if ($this->_isUseMemcached() === true) {
+            $memcachedResult = App::getInstance()
+                ->getMemcached()
+                ->get($this->_getMemcachedKey());
+            if ($memcachedResult !== false) {
+                return $memcachedResult;
+            }
+        }
+
         $token = '';
         $content = '';
         $sectionCss = [];
@@ -73,7 +112,16 @@ class PageController extends AbstractPageController
         $layoutData['generatedJs'] = $sectionJs;
         $layoutData['version'] = $this->getVersion();
 
-        return $this->getContentFromTemplate('page/layout', $layoutData);
+        $html = $this->getContentFromTemplate('page/layout', $layoutData);
+
+        if ($this->_isUseMemcached() === true) {
+            App::getInstance()->getMemcached()->set(
+                $this->_getMemcachedKey(),
+                $html
+            );
+        }
+
+        return $html;
     }
 
     /**

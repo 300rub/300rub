@@ -19,27 +19,12 @@ class Memcached
     private $_memcached = null;
 
     /**
-     * Ignore cache flag
-     *
-     * @var boolean
-     */
-    private $_isIgnoreCache = false;
-
-    /**
-     * Key prefix
-     *
-     * @var string
-     */
-    private $_prefix = '';
-
-    /**
      * Memcached constructor.
      *
-     * @param string $host          The hostname of the memcache server
-     * @param int    $port          The port on which memcache is running
-     * @param bool   $isIgnoreCache Ignore cache flag
+     * @param string $host The hostname of the memcache server
+     * @param int    $port The port on which memcache is running
      */
-    public function __construct($host, $port, $isIgnoreCache)
+    public function __construct($host, $port)
     {
         $memcached = new \Memcached();
 
@@ -48,49 +33,22 @@ class Memcached
         if ($memcached->getStats() !== false) {
             $this->_memcached = $memcached;
         }
-
-        $this->_isIgnoreCache = $isIgnoreCache;
-    }
-
-    /**
-     * Sets prefix
-     *
-     * @param string $prefix Prefix
-     *
-     * @return Memcached
-     */
-    public function setPrefix($prefix)
-    {
-        $this->_prefix = $prefix;
-        return $this;
     }
 
     /**
      * Sets value to the cache
      *
-     * @param string $key            The key under which to store the value.
-     * @param mixed  $value          The value to store.
-     * @param int    $expiration     The expiration time, defaults to 0.
-     * @param bool   $isIgnorePrefix Flag to ignore prefix
+     * @param string $key        The key under which to store the value.
+     * @param mixed  $value      The value to store.
+     * @param int    $expiration The expiration time, defaults to 0.
      *
      * @return Memcached
      *
      * @throws MemcacheException
      */
-    public function set(
-        $key,
-        $value,
-        $expiration = null,
-        $isIgnorePrefix = null
-    ) {
-        if ($this->_memcached === null
-            || $this->_isIgnoreCache === true
-        ) {
+    public function set($key, $value, $expiration = null) {
+        if ($this->_memcached === null) {
             return $this;
-        }
-
-        if ($isIgnorePrefix !== true) {
-            $key = $this->_prefix . $key;
         }
 
         $result = $this->_memcached->set($key, $value, $expiration);
@@ -117,21 +75,14 @@ class Memcached
     /**
      * Gets value from memcache by key
      *
-     * @param string $key            The key of the item to retrieve.
-     * @param bool   $isIgnorePrefix Flag to ignore prefix
+     * @param string $key The key of the item to retrieve.
      *
      * @return mixed
      */
-    public function get($key, $isIgnorePrefix = null)
+    public function get($key)
     {
-        if ($this->_memcached === null
-            || $this->_isIgnoreCache === true
-        ) {
+        if ($this->_memcached === null) {
             return false;
-        }
-
-        if ($isIgnorePrefix !== true) {
-            $key = $this->_prefix . $key;
         }
 
         App::getInstance()->getLogger()->debug(
@@ -145,24 +96,18 @@ class Memcached
     /**
      * Deletes value from the cache
      *
-     * @param string $key            The key to be deleted.
-     * @param bool   $isIgnorePrefix Flag to ignore prefix
+     * @param string $key The key to be deleted.
      *
      * @return Memcached
      *
      * @throws MemcacheException
      */
-    public function delete($key, $isIgnorePrefix = null)
+    public function delete($key)
     {
         if ($this->_memcached === null
-            || $this->_isIgnoreCache === true
             || $this->get($key) === false
         ) {
             return $this;
-        }
-
-        if ($isIgnorePrefix !== true) {
-            $key = $this->_prefix . $key;
         }
 
         $result = $this->_memcached->delete($key);
@@ -192,9 +137,7 @@ class Memcached
      */
     public function flush()
     {
-        if ($this->_memcached === null
-            || $this->_isIgnoreCache === true
-        ) {
+        if ($this->_memcached === null) {
             return $this;
         }
 

@@ -222,8 +222,7 @@ abstract class AbstractComponents
         if ($this->_memcached === null) {
             $this->_memcached = new Memcached(
                 $this->getConfig()->getValue(['memcached', 'host']),
-                $this->getConfig()->getValue(['memcached', 'port']),
-                $this->getConfig()->getValue(['memcached', 'isIgnoreCache'])
+                $this->getConfig()->getValue(['memcached', 'port'])
             );
         }
 
