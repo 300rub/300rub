@@ -142,8 +142,13 @@ abstract class AbstractUserModel extends AbstractModel
      */
     protected function setType($value)
     {
+        $ownerModel = $this->getNewModel()
+            ->owner()
+            ->exceptId($this->getId())
+            ->find();
+
         if ($value === self::TYPE_OWNER
-            && $this->owner()->exceptId($this->getId())->find() !== null
+            && $ownerModel !== null
         ) {
             return self::TYPE_BLOCKED;
         }

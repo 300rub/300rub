@@ -11,7 +11,7 @@
     <target
         name="dev-setup"
         depends="
-            db-generate-source
+            db-recreate-dev-database
         "
     >
     </target>

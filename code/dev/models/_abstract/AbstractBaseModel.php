@@ -297,7 +297,7 @@ abstract class AbstractBaseModel
     /**
      * Gets new model
      *
-     * @return AbstractModel
+     * @return AbstractModel|mixed
      */
     protected function getNewModel()
     {
