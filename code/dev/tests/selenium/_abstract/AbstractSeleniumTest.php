@@ -3,7 +3,6 @@
 namespace ss\tests\selenium\_abstract;
 
 use Facebook\WebDriver\WebDriverBy;
-use ss\application\App;
 
 /**
  * Class AbstractSeleniumTest

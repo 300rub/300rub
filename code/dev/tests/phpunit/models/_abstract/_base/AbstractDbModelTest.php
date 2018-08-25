@@ -5,6 +5,7 @@ namespace ss\tests\phpunit\models\_abstract\_base;
 use ss\application\App;
 use ss\application\components\common\Validator;
 
+use ss\application\components\valueGenerator\ValueGenerator;
 use ss\models\_abstract\AbstractModel;
 use ss\tests\phpunit\models\_abstract\AbstractModelTest;
 
@@ -31,12 +32,13 @@ abstract class AbstractDbModelTest extends AbstractModelTest
         $model = $this->getNewModel();
         $describeInfoList = App::getInstance()
             ->getDb()
-            ->fetchAll(
+            ->execute(
                 sprintf(
                     'DESCRIBE %s',
                     $model->getTableName()
                 )
-            );
+            )
+            ->fetchAll();
         $fields = $model->get();
         foreach ($describeInfoList as $describeInfo) {
             $this->assertTrue(
@@ -144,14 +146,15 @@ abstract class AbstractDbModelTest extends AbstractModelTest
 
         $keyColumnUsages = App::getInstance()
             ->getDb()
-            ->fetchAll(
+            ->execute(
                 sprintf(
                     'SELECT' .
                     ' * FROM information_schema.KEY_COLUMN_USAGE' .
                     ' WHERE REFERENCED_TABLE_NAME =\'%s\'',
                     $relationModel->getTableName()
                 )
-            );
+            )
+            ->fetchAll();
 
         $hasRelation = false;
         foreach ($keyColumnUsages as $keyColumnUsage) {

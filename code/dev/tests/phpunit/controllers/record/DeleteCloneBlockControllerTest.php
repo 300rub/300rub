@@ -4,7 +4,6 @@ namespace ss\tests\phpunit\controllers\record;
 
 use ss\models\blocks\block\BlockModel;
 use ss\models\blocks\record\RecordCloneModel;
-use ss\models\blocks\record\RecordModel;
 use ss\tests\phpunit\controllers\_abstract\AbstractControllerTest;
 
 /**
