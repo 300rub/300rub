@@ -120,6 +120,12 @@ abstract class AbstractDbRequest extends AbstractDbTransaction
      */
     public function getWriteDbName($initialDbName)
     {
+        if ($initialDbName === self::CONFIG_DB_NAME_HELP
+            || $initialDbName === self::CONFIG_DB_NAME_SYSTEM
+        ) {
+            return $initialDbName;
+        }
+
         return $initialDbName . self::NAME_POSTFIX_WRITE;
     }
 
@@ -132,6 +138,12 @@ abstract class AbstractDbRequest extends AbstractDbTransaction
      */
     public function getReadDbName($initialDbName)
     {
+        if ($initialDbName === self::CONFIG_DB_NAME_HELP
+            || $initialDbName === self::CONFIG_DB_NAME_SYSTEM
+        ) {
+            return $initialDbName;
+        }
+
         return $initialDbName . self::NAME_POSTFIX_READ;
     }
 

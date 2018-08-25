@@ -11,12 +11,20 @@
     <target
         name="dev-setup"
         depends="
-            dev-upload-prepare,
-            tools-flush-memcached,
-            db-recreate-system-databases,
-            db-generate-source,
-            db-recreate-dev-database
+            db-recreate-system-databases
         "
     >
     </target>
+
+    <!--<target-->
+        <!--name="dev-setup"-->
+        <!--depends="-->
+            <!--dev-upload-prepare,-->
+            <!--tools-flush-memcached,-->
+            <!--db-recreate-system-databases,-->
+            <!--db-generate-source,-->
+            <!--db-recreate-dev-database-->
+        <!--"-->
+    <!--&gt;-->
+    <!--</target>-->
 </project>

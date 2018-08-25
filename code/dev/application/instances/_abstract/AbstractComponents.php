@@ -248,7 +248,7 @@ abstract class AbstractComponents
     public function getValueGenerator()
     {
         if ($this->_valueGenerator === null) {
-            $this->_valueGenerator = new Validator();
+            $this->_valueGenerator = new ValueGenerator();
         }
 
         return $this->_valueGenerator;

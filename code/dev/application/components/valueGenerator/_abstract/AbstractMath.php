@@ -2,12 +2,10 @@
 
 namespace ss\application\components\valueGenerator\_abstract;
 
-use ss\application\components\valueGenerator\ValueGenerator;
-
 /**
  * Class for max value generation
  */
-abstract class AbstractMath extends ValueGenerator
+abstract class AbstractMath extends AbstractGenerator
 {
 
     /**

@@ -2,12 +2,13 @@
 
 namespace ss\application\components\valueGenerator;
 
+use ss\application\components\valueGenerator\_abstract\AbstractGenerator;
 use ss\application\exceptions\CommonException;
 
 /**
  * Class for generation values
  */
-abstract class ValueGenerator
+class ValueGenerator
 {
 
     /**
@@ -91,27 +92,6 @@ abstract class ValueGenerator
     ];
 
     /**
-     * Value
-     *
-     * @var mixed
-     */
-    protected $value;
-
-    /**
-     * Param
-     *
-     * @var mixed
-     */
-    protected $param;
-
-    /**
-     * Generates value
-     *
-     * @return mixed
-     */
-    abstract public function generate();
-
-    /**
      * Gets a value
      *
      * @param string $type  Generator type
@@ -124,6 +104,23 @@ abstract class ValueGenerator
      */
     public function getValue($type, $value, $param = null)
     {
+        return $this->_getObject($type)
+            ->setValue($value)
+            ->setParam($param)
+            ->generate();
+    }
+
+    /**
+     * Gets object by type
+     *
+     * @param string $type Type
+     *
+     * @return AbstractGenerator
+     *
+     * @throws CommonException
+     */
+    private function _getObject($type)
+    {
         if (in_array($type, self::$typeList) === false) {
             throw new CommonException(
                 'Unable to find value generator type; {type}',
@@ -133,10 +130,6 @@ abstract class ValueGenerator
             );
         }
 
-        $object = new $type;
-        $object->value = $value;
-        $object->param = $param;
-
-        return $this->generate();
+        return new $type;
     }
 }
