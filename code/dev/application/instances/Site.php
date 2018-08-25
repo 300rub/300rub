@@ -117,4 +117,14 @@ class Site extends AbstractAjax
         $controller = $this->_getPageController();
         return $controller->run();
     }
+
+    /**
+     * Gets user
+     *
+     * @return mixed
+     */
+    public function getUser()
+    {
+        return null;
+    }
 }

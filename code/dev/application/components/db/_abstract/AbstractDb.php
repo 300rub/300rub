@@ -81,7 +81,7 @@ abstract class AbstractDb
      * @param string $dbName   DB name
      * @param string $key      PDO key
      *
-     * @return AbstractDb
+     * @return AbstractDb|Db
      */
     public function addPdo(
         $host,

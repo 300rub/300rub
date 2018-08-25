@@ -112,24 +112,21 @@ class CreateSiteController extends AbstractController
     {
         $dbObject = App::getInstance()->getDb();
 
-        $dbName = $this->_siteModel->get('dbName');
+        $dbName = $dbObject->getWriteDbName(
+            $this->_siteModel->get('dbName')
+        );
 
         $dbObject
             ->addPdo(
                 $this->_siteModel->get('dbHost'),
                 $this->_siteModel->get('dbUser'),
                 $this->_siteModel->get('dbPassword'),
-                $dbObject->getWriteDbName(
-                    $dbName
-                )
+                $dbName
             )
-            ->beginTransaction(
-                $dbObject->getWriteDbName(
-                    $dbName
-                )
-            );
+            ->setActivePdoKey($dbName)
+            ->beginTransaction($dbName);
 
-        $userModel = new UserModel($dbObject);
+        $userModel = new UserModel();
         $userModel->set(
             [
             'login'    => $this->get('user'),
@@ -148,7 +145,7 @@ class CreateSiteController extends AbstractController
 
         $this->_token = md5(session_id());
 
-        $userSessionModel = new UserSessionModel($dbObject);
+        $userSessionModel = new UserSessionModel();
         $userSessionModel->set(
             [
                 'userId' => $userModel->getId(),
