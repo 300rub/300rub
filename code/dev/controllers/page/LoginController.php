@@ -85,7 +85,6 @@ class LoginController extends AbstractPageController
         $layoutData['generatedJs'] = [];
         $layoutData['version'] = $this->getVersion();
 
-
         return $this->getContentFromTemplate('page/layout', $layoutData);
     }
 }

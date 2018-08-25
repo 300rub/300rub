@@ -2,8 +2,6 @@
 
 namespace ss\models\blocks\image;
 
-
-
 use ss\application\components\db\Table;
 use ss\models\blocks\image\_abstract\AbstractUpdateModel;
 

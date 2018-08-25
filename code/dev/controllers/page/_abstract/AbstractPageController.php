@@ -12,14 +12,14 @@ abstract class AbstractPageController extends AbstractController
 
     /**
      * Static map
-     * 
+     *
      * @var array
      */
     private $_staticMap = [];
 
     /**
      * Sets static map
-     * 
+     *
      * @param string $name Static map name
      */
     protected function setStaticMap($name)
@@ -29,10 +29,10 @@ abstract class AbstractPageController extends AbstractController
             CODE_ROOT,
             $name
         );
-        
+
         $this->_staticMap = include $path;
     }
-    
+
     /**
      * Is minimized
      *

@@ -157,7 +157,7 @@
          *
          * @private
          */
-        _displayError: function(jqXHR) {
+        _displayError: function (jqXHR) {
             ss.components.Error.displayAjaxError(jqXHR);
         },
 

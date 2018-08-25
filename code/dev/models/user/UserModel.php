@@ -2,7 +2,6 @@
 
 namespace ss\models\user;
 
-
 use ss\application\components\db\Table;
 use ss\models\user\_abstract\AbstractSaveOperationModel;
 

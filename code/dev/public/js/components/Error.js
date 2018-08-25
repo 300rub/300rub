@@ -84,16 +84,19 @@
             var traceElement = template.find(".trace");
             if (trace.length !== 0) {
                 var traceText = "";
-                $.each(trace, function(i, item) {
-                    traceText += "#";
-                    traceText += i;
-                    traceText += " ";
-                    traceText += item.file;
-                    traceText += " (";
-                    traceText += item.line;
-                    traceText += ") ";
-                    traceText +=  "<br/>";
-                });
+                $.each(
+                    trace,
+                    function (i, item) {
+                        traceText += "#";
+                        traceText += i;
+                        traceText += " ";
+                        traceText += item.file;
+                        traceText += " (";
+                        traceText += item.line;
+                        traceText += ") ";
+                        traceText += "<br/>";
+                    }
+                );
 
                 traceElement.html(traceText);
             } else {
@@ -108,20 +111,25 @@
          *
          * @param {Object} jqXHR
          */
-        displayAjaxError: function(jqXHR)
-        {
+        displayAjaxError: function (jqXHR) {
             var errorTemplate
                 = this._getAjaxErrorTemplate(jqXHR);
             ss.system.App.append(errorTemplate);
 
             errorTemplate.removeClass("transparent");
 
-            setTimeout(function() {
-                errorTemplate.addClass("transparent");
-                setTimeout(function() {
-                    errorTemplate.remove();
-                }, 1000);
-            }, 7000);
+            setTimeout(
+                function () {
+                    errorTemplate.addClass("transparent");
+                    setTimeout(
+                        function () {
+                            errorTemplate.remove();
+                        },
+                        1000
+                    );
+                },
+                7000
+            );
         }
     };
 }(window.jQuery, window.ss);

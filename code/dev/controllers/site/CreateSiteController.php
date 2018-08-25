@@ -29,7 +29,7 @@ class CreateSiteController extends AbstractController
      * @var string
      */
     private $_token = null;
-    
+
     /**
      * Gets site page
      *
@@ -130,7 +130,8 @@ class CreateSiteController extends AbstractController
             );
 
         $userModel = new UserModel($dbObject);
-        $userModel->set([
+        $userModel->set(
+            [
             'login'    => $this->get('user'),
             'password' => $userModel->getPasswordHash(
                 $this->get('password'),
@@ -139,7 +140,8 @@ class CreateSiteController extends AbstractController
             'type'     => UserModel::TYPE_OWNER,
             'name'     => $this->get('userName'),
             'email'    => $this->get('email'),
-        ]);
+            ]
+        );
         $userModel->save();
 
         $global = App::getInstance()->getSuperGlobalVariable();
@@ -183,12 +185,14 @@ class CreateSiteController extends AbstractController
             throw new NotFoundException('Source site not found');
         }
 
-        $this->_siteModel->set([
+        $this->_siteModel->set(
+            [
             'name'     => $this->get('name'),
             'language' => $this->get('language'),
             'email'    => $this->get('email'),
             'isSource' => false,
-        ]);
+            ]
+        );
         $this->_siteModel->save();
 
         return $this;

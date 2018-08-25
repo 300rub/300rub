@@ -2,7 +2,6 @@
 
 namespace ss\models\blocks\record\_base;
 
-
 use ss\application\components\valueGenerator\ValueGenerator;
 use ss\models\blocks\_abstract\AbstractContentModel;
 

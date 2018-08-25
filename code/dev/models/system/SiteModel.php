@@ -83,13 +83,13 @@ class SiteModel extends AbstractSiteModel
     {
         $this->getTable()
             ->addJoin(
-            Table::JOIN_TYPE_INNER,
-            'domains',
-            'domains',
-            'siteId',
-            Table::DEFAULT_ALIAS,
-            self::PK_FIELD
-        )
+                Table::JOIN_TYPE_INNER,
+                'domains',
+                'domains',
+                'siteId',
+                Table::DEFAULT_ALIAS,
+                self::PK_FIELD
+            )
             ->addWhere('domains.name = :name')
             ->addParameter('name', $name);
 

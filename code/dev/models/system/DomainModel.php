@@ -2,7 +2,6 @@
 
 namespace ss\models\system;
 
-
 use ss\application\components\db\Table;
 use ss\models\system\_base\AbstractDomainModel;
 

@@ -2,7 +2,6 @@
 
 namespace ss\controllers\site;
 
-
 use ss\application\components\valueGenerator\ValueGenerator;
 use ss\controllers\site\_abstract\AbstractController;
 use ss\application\App;

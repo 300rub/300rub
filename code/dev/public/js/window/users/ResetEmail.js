@@ -94,8 +94,10 @@
             return false;
         }
 
-        new ss.window.users.ResetCode({
-            id: data.id
-        });
+        new ss.window.users.ResetCode(
+            {
+                id: data.id
+            }
+        );
     };
 }(window.jQuery, window.ss);

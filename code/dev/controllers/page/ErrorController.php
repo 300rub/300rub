@@ -14,7 +14,7 @@ class ErrorController extends AbstractPageController
     /**
      * Code
      *
-     * @var int
+     * @var integer
      */
     private $_code = 0;
 

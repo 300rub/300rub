@@ -32,7 +32,7 @@ class AbstractSeleniumTest extends AbstractSeleniumTestCase
         return sprintf(
             'http://selenium.%s',
             'ss.local'
-//            App::getInstance()->getConfig()->getValue(['host'])
+            // App::getInstance()->getConfig()->getValue(['host'])
         );
     }
 

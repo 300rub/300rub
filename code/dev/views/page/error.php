@@ -64,8 +64,8 @@ if (isset($less) === true) {
             <?php foreach ($backtrace as $key => $value) { ?>
                 <div>
                     #<?php echo $key; ?>
-                    <?php echo $value['file'] ?>
-                    (<?php echo $value['line'] ?>)
+                    <?php echo $value['file']; ?>
+                    (<?php echo $value['line']; ?>)
                 </div>
             <?php } ?>
         </div>
