@@ -33,6 +33,18 @@ class ImportSitesCommand extends AbstractCommand
 
         foreach ($sites as $site) {
             $dbObject
+                ->createDb(
+                    $site['t_dbHost'],
+                    $site['t_dbUser'],
+                    $site['t_dbPassword'],
+                    $dbObject->getWriteDbName($site['t_dbName'])
+                )
+                ->createDb(
+                    $site['t_dbHost'],
+                    $site['t_dbUser'],
+                    $site['t_dbPassword'],
+                    $dbObject->getReadDbName($site['t_dbName'])
+                )
                 ->importDb(
                     $site['t_dbHost'],
                     $dbObject->getWriteDbName($site['t_dbName'])
