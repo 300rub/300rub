@@ -7,6 +7,8 @@
  * @var string $breadcrumbs
  * @var string $name
  * @var string $text
+ *
+ * phpcs:disable Generic.Files.InlineHTML
  */
 ?>
 

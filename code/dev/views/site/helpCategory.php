@@ -9,6 +9,8 @@
  * @var string $text
  * @var array  $childCategories
  * @var array  $pages
+ *
+ * phpcs:disable Generic.Files.InlineHTML
  */
 ?>
 

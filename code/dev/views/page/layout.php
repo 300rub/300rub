@@ -70,13 +70,14 @@ if ($isUser === false) {
 <?php
 if (isset($js) === true) {
     foreach ($js as $fileName) {
-?>
-    <script src="/js/<?php echo $fileName; ?>.js?<?php echo $version; ?>"></script>
-<?php
+        echo sprintf(
+            '<script src="/js/%s.js?%s"></script>',
+            $fileName,
+            $version
+        );
     }
 }
 ?>
-
     <script>
         window.ss.system.App.setLanguage(<?php echo $language; ?>);
         window.ss.system.App.setToken("<?php echo $token; ?>");

@@ -5,6 +5,8 @@
  * @var string $menu
  * @var string $name
  * @var string $text
+ *
+ * phpcs:disable Generic.Files.InlineHTML
  */
 ?>
 <div class="container">

@@ -4,12 +4,30 @@
  *
  * @var array $menu
  */
-?>
-<ul class="menu">
-    <?php foreach ($menu as $item) {
-        ?><li<?php if ($item['isActive'] === true) { ?> class="active"<?php } ?>>
-            <a href="<?php echo $item['uri']; ?>">
-                <span><?php echo $item['name']; ?></span>
-            </a>
-        </li><?php } ?>
-</ul>
+
+$ulString = '';
+foreach ($menu as $item) {
+    $tagA = sprintf(
+        '<a href="%s"><span>%s</span></a>',
+        $item['uri'],
+        $item['name']
+    );
+
+    $activeClass = '';
+    if ($item['isActive'] === true) {
+        $activeClass = ' class="active"';
+    }
+
+    $tagLi = sprintf(
+        '<li%s>%s</li>',
+        $activeClass,
+        $tagA
+    );
+
+    $ulString .= $tagLi;
+}
+
+echo sprintf(
+    '<ul class="menu">%s</ul>',
+    $ulString
+);

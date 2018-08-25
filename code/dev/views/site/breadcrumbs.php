@@ -3,6 +3,8 @@
  * Variables
  *
  * @var array $breadcrumbs
+ *
+ * phpcs:disable Generic.Files.InlineHTML
  */
 ?>
 <ul class="breadcrumbs">
