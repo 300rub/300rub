@@ -3,6 +3,7 @@
 namespace ss\models\blocks\record;
 
 
+use ss\application\components\db\Table;
 use ss\models\blocks\image\ImageGroupModel;
 use ss\models\blocks\record\_base\AbstractRecordInstanceModel;
 use ss\models\blocks\text\TextInstanceModel;
@@ -32,19 +33,19 @@ class RecordInstanceModel extends AbstractRecordInstanceModel
      */
     public function byAlias($alias)
     {
-        $this->getDb()->addJoin(
-            Db::JOIN_TYPE_INNER,
+        $this->getTable()->addJoin(
+            Table::JOIN_TYPE_INNER,
             'seo',
             'seo',
             self::PK_FIELD,
-            Db::DEFAULT_ALIAS,
+            Table::DEFAULT_ALIAS,
             'seoId'
         );
 
-        $this->getDb()->addWhere(
+        $this->getTable()->addWhere(
             'seo.alias = :alias'
         );
-        $this->getDb()->addParameter('alias', $alias);
+        $this->getTable()->addParameter('alias', $alias);
 
         return $this;
     }
@@ -58,13 +59,13 @@ class RecordInstanceModel extends AbstractRecordInstanceModel
      */
     public function byRecordId($recordId)
     {
-        $this->getDb()->addWhere(
+        $this->getTable()->addWhere(
             sprintf(
                 '%s.recordId = :recordId',
-                Db::DEFAULT_ALIAS
+                Table::DEFAULT_ALIAS
             )
         );
-        $this->getDb()->addParameter('recordId', (int)$recordId);
+        $this->getTable()->addParameter('recordId', (int)$recordId);
 
         return $this;
     }
@@ -84,7 +85,7 @@ class RecordInstanceModel extends AbstractRecordInstanceModel
             $page = 1;
         }
 
-        $this->getDb()->setLimit(
+        $this->getTable()->setLimit(
             sprintf('%s, %s', (($page - 1) * $limit), $limit)
         );
 

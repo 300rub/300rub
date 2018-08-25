@@ -5,6 +5,8 @@ namespace ss\models\sections\_base;
 use ss\application\App;
 
 
+use ss\application\components\db\Table;
+use ss\application\components\valueGenerator\ValueGenerator;
 use ss\models\_abstract\AbstractModel;
 
 /**
@@ -87,20 +89,21 @@ abstract class AbstractSectionModel extends AbstractModel
             $language = App::getInstance()->getLanguage()->getActiveId();
         }
 
-        $this->getDb()->addWhere(
-            sprintf(
-                '%s.isMain = :isMain',
-                Db::DEFAULT_ALIAS
+        $this->getTable()
+            ->addWhere(
+                sprintf(
+                    '%s.isMain = :isMain',
+                    Table::DEFAULT_ALIAS
+                )
             )
-        );
-        $this->getDb()->addWhere(
-            sprintf(
-                '%s.language = :language',
-                Db::DEFAULT_ALIAS
+            ->addWhere(
+                sprintf(
+                    '%s.language = :language',
+                    Table::DEFAULT_ALIAS
+                )
             )
-        );
-        $this->getDb()->addParameter('isMain', 1);
-        $this->getDb()->addParameter('language', $language);
+            ->addParameter('isMain', 1)
+            ->addParameter('language', $language);
 
         return $this;
     }

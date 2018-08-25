@@ -4,6 +4,7 @@ namespace ss\models\blocks\text;
 
 use ss\application\App;
 
+use ss\application\components\db\Table;
 use ss\application\exceptions\ModelException;
 use ss\models\blocks\text\_base\AbstractTextInstanceModel;
 
@@ -22,13 +23,13 @@ class TextInstanceModel extends AbstractTextInstanceModel
      */
     public function byTextId($textId)
     {
-        $this->getDb()->addWhere(
+        $this->getTable()->addWhere(
             sprintf(
                 '%s.textId = :textId',
-                Db::DEFAULT_ALIAS
+                Table::DEFAULT_ALIAS
             )
         );
-        $this->getDb()->addParameter('textId', $textId);
+        $this->getTable()->addParameter('textId', $textId);
 
         return $this;
     }

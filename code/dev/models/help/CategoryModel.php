@@ -4,6 +4,7 @@ namespace ss\models\help;
 
 use ss\application\App;
 
+use ss\application\components\db\Table;
 use ss\application\exceptions\NotFoundException;
 use ss\models\help\_base\AbstractCategoryModel;
 
@@ -126,37 +127,28 @@ class CategoryModel extends AbstractCategoryModel
             return $this;
         }
 
-        $language = App::getInstance()->getLanguage();
-
-        $dbObject = App::getInstance()->getDb();
-
-        $dbObject
-            ->addSelect('alias', Db::DEFAULT_ALIAS, 'alias')
-            ->addSelect('parentId', Db::DEFAULT_ALIAS, 'parentId')
-            ->addSelect('name', 'languageCategories', 'name');
-        $dbObject
-            ->setTable('categories');
-        $dbObject
+        $table = $this->getTable()
+            ->addSelect('alias', Table::DEFAULT_ALIAS, 'alias')
+            ->addSelect('parentId', Table::DEFAULT_ALIAS, 'parentId')
+            ->addSelect('name', 'languageCategories', 'name')
+            ->setTableName('categories')
             ->addJoin(
-                Db::JOIN_TYPE_INNER,
+                Table::JOIN_TYPE_INNER,
                 'languageCategories',
                 'languageCategories',
                 'categoryId',
-                Db::DEFAULT_ALIAS,
+                Table::DEFAULT_ALIAS,
                 self::PK_FIELD
+            )
+            ->addWhere(sprintf('%s.id = :id', Table::DEFAULT_ALIAS))
+            ->addParameter('id', $parentId)
+            ->addWhere('languageCategories.language = :language')
+            ->addParameter(
+                'language',
+                App::getInstance()->getLanguage()->getActiveId()
             );
 
-        $dbObject
-            ->addWhere(sprintf('%s.id = :id', Db::DEFAULT_ALIAS));
-        $dbObject
-            ->addParameter('id', $parentId);
-
-        $dbObject
-            ->addWhere('languageCategories.language = :language');
-        $dbObject
-            ->addParameter('language', $language->getActiveId());
-
-        $result = $dbObject->find();
+        $result = $table->find();
 
         array_unshift(
             $this->_parentBreadcrumbs,
@@ -184,10 +176,10 @@ class CategoryModel extends AbstractCategoryModel
      */
     public function byAlias($alias)
     {
-        $this->getDb()->addWhere(
-            sprintf('%s.alias = :alias', Db::DEFAULT_ALIAS)
+        $this->getTable()->addWhere(
+            sprintf('%s.alias = :alias', Table::DEFAULT_ALIAS)
         );
-        $this->getDb()->addParameter('alias', $alias);
+        $this->getTable()->addParameter('alias', $alias);
 
         return $this;
     }
@@ -229,11 +221,6 @@ class CategoryModel extends AbstractCategoryModel
             return $memcachedResult;
         }
 
-        $language = App::getInstance()->getLanguage();
-
-        $dbObject = App::getInstance()->getDb();
-        $dbObject->setHelpConnection();
-
         $parentId = null;
         if ($alias !== null) {
             $model = $this->byAlias($alias)->find();
@@ -249,43 +236,42 @@ class CategoryModel extends AbstractCategoryModel
             $parentId = $model->getId();
         }
 
-        $dbObject
-            ->addSelect('alias', Db::DEFAULT_ALIAS, 'alias')
-            ->addSelect('name', 'languageCategories', 'name');
-        $dbObject
-            ->setTable('categories');
-        $dbObject
+        $table = $this->getTable()
+            ->addSelect('alias', Table::DEFAULT_ALIAS, 'alias')
+            ->addSelect('name', 'languageCategories', 'name')
+            ->setTableName('categories')
             ->addJoin(
-                Db::JOIN_TYPE_INNER,
+                Table::JOIN_TYPE_INNER,
                 'languageCategories',
                 'languageCategories',
                 'categoryId',
-                Db::DEFAULT_ALIAS,
+                Table::DEFAULT_ALIAS,
                 self::PK_FIELD
             );
 
         if ($parentId === null) {
-            $dbObject
-                ->addWhere(sprintf('%s.parentId IS NULL', Db::DEFAULT_ALIAS));
+            $table->addWhere(
+                sprintf('%s.parentId IS NULL', Table::DEFAULT_ALIAS)
+            );
         }
 
         if ($parentId !== null) {
-            $dbObject->addWhere(
-                sprintf('%s.parentId = :parentId', Db::DEFAULT_ALIAS)
+            $table->addWhere(
+                sprintf('%s.parentId = :parentId', Table::DEFAULT_ALIAS)
             );
-            $dbObject->addParameter('parentId', $parentId);
+            $table->addParameter('parentId', $parentId);
         }
 
-        $dbObject
-            ->addWhere('languageCategories.language = :language');
-        $dbObject
-            ->addParameter('language', $language->getActiveId());
-
-        $dbObject
+        $table
+            ->addWhere('languageCategories.language = :language')
+            ->addParameter(
+                'language',
+                App::getInstance()->getLanguage()->getActiveId()
+            )
             ->setOrder('languageCategories.name');
 
         $list = [];
-        $result = $dbObject->findAll();
+        $result = $table->findAll();
         foreach ($result as $item) {
             $list[] = [
                 'name' => $item['name'],

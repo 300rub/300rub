@@ -144,7 +144,7 @@ abstract class AbstractTable
      * @param string $tableAlias    Basic table alias
      * @param string $tableField    Basic table field
      *
-     * @return AbstractTable
+     * @return AbstractTable|Table
      */
     public function addJoin(
         $type,

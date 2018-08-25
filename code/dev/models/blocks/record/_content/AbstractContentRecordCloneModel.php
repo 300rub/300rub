@@ -4,6 +4,7 @@ namespace ss\models\blocks\record\_content;
 
 use ss\application\App;
 
+use ss\application\components\db\Table;
 use ss\application\components\helpers\Link;
 use ss\models\blocks\block\BlockModel;
 use ss\models\blocks\record\_base\AbstractRecordCloneModel;
@@ -42,7 +43,7 @@ abstract class AbstractContentRecordCloneModel extends AbstractRecordCloneModel
         $recordInstances = RecordInstanceModel::model()
             ->byRecordId($this->get('recordId'))
             ->limit($this->_getMaxCount())
-            ->ordered('sort', Db::DEFAULT_ALIAS, true)
+            ->ordered('sort', Table::DEFAULT_ALIAS, true)
             ->findAll();
 
         $link = new Link();
@@ -192,23 +193,19 @@ abstract class AbstractContentRecordCloneModel extends AbstractRecordCloneModel
      */
     private function _getSectionId()
     {
-        $dbObject = App::getInstance()->getDb();
-
-        $dbObject
-            ->addSelect('id', 'sections', 'id');
-        $dbObject
-            ->setTable('records');
-        $dbObject
+        $table = $this->getTable()
+            ->addSelect('id', 'sections', 'id')
+            ->setTableName('records')
             ->addJoin(
-                Db::JOIN_TYPE_INNER,
+                Table::JOIN_TYPE_INNER,
                 'blocks',
                 'blocks',
                 'contentId',
-                Db::DEFAULT_ALIAS,
+                Table::DEFAULT_ALIAS,
                 self::PK_FIELD
             )
             ->addJoin(
-                Db::JOIN_TYPE_INNER,
+                Table::JOIN_TYPE_INNER,
                 'grids',
                 'grids',
                 'blockId',
@@ -216,7 +213,7 @@ abstract class AbstractContentRecordCloneModel extends AbstractRecordCloneModel
                 self::PK_FIELD
             )
             ->addJoin(
-                Db::JOIN_TYPE_INNER,
+                Table::JOIN_TYPE_INNER,
                 'gridLines',
                 'gridLines',
                 self::PK_FIELD,
@@ -224,21 +221,19 @@ abstract class AbstractContentRecordCloneModel extends AbstractRecordCloneModel
                 'gridLineId'
             )
             ->addJoin(
-                Db::JOIN_TYPE_INNER,
+                Table::JOIN_TYPE_INNER,
                 'sections',
                 'sections',
                 self::PK_FIELD,
                 'gridLines',
                 'sectionId'
-            );
-        $dbObject
-            ->addWhere(sprintf('%s.id = :recordId', Db::DEFAULT_ALIAS))
-            ->addWhere('blocks.contentType = :contentType');
-        $dbObject
+            )
+            ->addWhere(sprintf('%s.id = :recordId', Table::DEFAULT_ALIAS))
+            ->addWhere('blocks.contentType = :contentType')
             ->addParameter('recordId', $this->get('recordId'))
             ->addParameter('contentType', BlockModel::TYPE_RECORD);
 
-        $result = $dbObject->find();
+        $result = $table->find();
         if (is_array($result) === true
             && array_key_exists('id', $result) === true
         ) {

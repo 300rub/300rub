@@ -2,8 +2,7 @@
 
 namespace ss\models\blocks\image;
 
-use ss\application\App;
-
+use ss\application\components\db\Table;
 use ss\models\_abstract\AbstractModel;
 use ss\models\blocks\image\_base\AbstractImageGroupModel;
 
@@ -36,13 +35,13 @@ class ImageGroupModel extends AbstractImageGroupModel
      */
     public function byImageId($imageId)
     {
-        $this->getDb()->addWhere(
+        $this->getTable()->addWhere(
             sprintf(
                 '%s.imageId = :imageId',
-                Db::DEFAULT_ALIAS
+                Table::DEFAULT_ALIAS
             )
         );
-        $this->getDb()->addParameter('imageId', (int)$imageId);
+        $this->getTable()->addParameter('imageId', (int)$imageId);
 
         return $this;
     }
@@ -71,19 +70,19 @@ class ImageGroupModel extends AbstractImageGroupModel
      */
     public function byAlias($alias)
     {
-        $this->getDb()->addJoin(
-            Db::JOIN_TYPE_INNER,
+        $this->getTable()->addJoin(
+            Table::JOIN_TYPE_INNER,
             'seo',
             'seo',
             self::PK_FIELD,
-            Db::DEFAULT_ALIAS,
+            Table::DEFAULT_ALIAS,
             'seoId'
         );
 
-        $this->getDb()->addWhere(
+        $this->getTable()->addWhere(
             'seo.alias = :alias'
         );
-        $this->getDb()->addParameter('alias', $alias);
+        $this->getTable()->addParameter('alias', $alias);
 
         return $this;
     }

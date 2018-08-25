@@ -23,7 +23,7 @@ class GridLineModel extends AbstractGridLineModel
         $sectionId = (int)$sectionId;
 
         if ($sectionId > 0) {
-            $this->getDb()
+            $this->getTable()
                 ->addWhere('sectionId = :sectionId')
                 ->addParameter('sectionId', $sectionId);
         }

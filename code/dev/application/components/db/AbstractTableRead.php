@@ -80,7 +80,7 @@ abstract class AbstractTableRead extends AbstractTable
      *
      * @param string $order Order by
      *
-     * @return AbstractTableRead
+     * @return AbstractTableRead|Table
      */
     public function setOrder($order)
     {

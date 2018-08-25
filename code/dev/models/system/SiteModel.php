@@ -5,6 +5,7 @@ namespace ss\models\system;
 use ss\application\App;
 
 use ss\application\components\db\Db;
+use ss\application\components\db\Table;
 use ss\models\_abstract\AbstractModel;
 use ss\models\sections\SectionModel;
 use ss\models\system\_base\AbstractSiteModel;
@@ -59,13 +60,14 @@ class SiteModel extends AbstractSiteModel
      */
     public function byName($name)
     {
-        $this->getDb()->addWhere(
-            sprintf(
-                '%s.name = :name',
-                Db::DEFAULT_ALIAS
+        $this->getTable()
+            ->addWhere(
+                sprintf(
+                    '%s.name = :name',
+                    Table::DEFAULT_ALIAS
+                )
             )
-        );
-        $this->getDb()->addParameter('name', $name);
+            ->addParameter('name', $name);
 
         return $this;
     }
@@ -79,17 +81,17 @@ class SiteModel extends AbstractSiteModel
      */
     public function byDomain($name)
     {
-        $this->getDb()->addJoin(
-            Db::JOIN_TYPE_INNER,
+        $this->getTable()
+            ->addJoin(
+            Table::JOIN_TYPE_INNER,
             'domains',
             'domains',
             'siteId',
-            Db::DEFAULT_ALIAS,
+            Table::DEFAULT_ALIAS,
             self::PK_FIELD
-        );
-
-        $this->getDb()->addWhere('domains.name = :name');
-        $this->getDb()->addParameter('name', $name);
+        )
+            ->addWhere('domains.name = :name')
+            ->addParameter('name', $name);
 
         return $this;
     }
@@ -303,10 +305,10 @@ class SiteModel extends AbstractSiteModel
      */
     public function source()
     {
-        $this->getDb()->addWhere(
+        $this->getTable()->addWhere(
             sprintf(
                 '%s.isSource = 1',
-                Db::DEFAULT_ALIAS
+                Table::DEFAULT_ALIAS
             )
         );
 

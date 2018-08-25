@@ -472,8 +472,6 @@ abstract class AbstractModel extends BaseModel
      */
     public function setContent()
     {
-        App::getInstance()->getDb()->setHelpConnection();
-
         $this
             ->setName()
             ->setText()

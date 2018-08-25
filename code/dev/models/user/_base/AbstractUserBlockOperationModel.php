@@ -4,6 +4,7 @@ namespace ss\models\user\_base;
 
 use ss\application\App;
 
+use ss\application\components\valueGenerator\ValueGenerator;
 use ss\models\_abstract\AbstractModel;
 use ss\models\blocks\block\BlockModel;
 
@@ -67,7 +68,7 @@ abstract class AbstractUserBlockOperationModel extends AbstractModel
      */
     protected function setOperationBeforeSave($value)
     {
-        return ValueGenerator::factory(
+        return App::getInstance()->getValueGenerator()->getValue(
             ValueGenerator::ARRAY_KEY,
             $value,
             [
@@ -78,6 +79,6 @@ abstract class AbstractUserBlockOperationModel extends AbstractModel
                         false
                     )
             ]
-        )->generate();
+        );
     }
 }

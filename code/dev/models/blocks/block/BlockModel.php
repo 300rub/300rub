@@ -4,6 +4,7 @@ namespace ss\models\blocks\block;
 
 use ss\application\App;
 
+use ss\application\components\db\Table;
 use ss\application\components\helpers\Link;
 use ss\application\exceptions\NotFoundException;
 use ss\models\_abstract\AbstractModel;
@@ -115,13 +116,13 @@ class BlockModel extends AbstractBlockModel
      */
     public function byContentType($contentType)
     {
-        $this->getDb()->addWhere(
+        $this->getTable()->addWhere(
             sprintf(
                 '%s.contentType = :contentType',
-                Db::DEFAULT_ALIAS
+                Table::DEFAULT_ALIAS
             )
         );
-        $this->getDb()->addParameter('contentType', $contentType);
+        $this->getTable()->addParameter('contentType', $contentType);
 
         return $this;
     }
@@ -135,13 +136,14 @@ class BlockModel extends AbstractBlockModel
      */
     public function byContentId($contentId)
     {
-        $this->getDb()->addWhere(
-            sprintf(
-                '%s.contentId = :contentId',
-                Db::DEFAULT_ALIAS
+        $this->getTable()
+            ->addWhere(
+                sprintf(
+                    '%s.contentId = :contentId',
+                    Table::DEFAULT_ALIAS
+                )
             )
-        );
-        $this->getDb()->addParameter('contentId', $contentId);
+            ->addParameter('contentId', $contentId);
 
         return $this;
     }
@@ -160,28 +162,27 @@ class BlockModel extends AbstractBlockModel
             return $this;
         }
 
-        $this->getDb()->addJoin(
-            Db::JOIN_TYPE_INNER,
-            'grids',
-            'grids',
-            'blockId',
-            Db::DEFAULT_ALIAS,
-            self::PK_FIELD
-        );
-
-        $this->getDb()->addJoin(
-            Db::JOIN_TYPE_INNER,
-            'gridLines',
-            'gridLines',
-            self::PK_FIELD,
-            'grids',
-            'gridLineId'
-        );
-
-        $this->getDb()->addWhere(
-            'gridLines.sectionId = :sectionId'
-        );
-        $this->getDb()->addParameter('sectionId', $sectionId);
+        $this->getTable()
+            ->addJoin(
+                Table::JOIN_TYPE_INNER,
+                'grids',
+                'grids',
+                'blockId',
+                Table::DEFAULT_ALIAS,
+                self::PK_FIELD
+            )
+            ->addJoin(
+                Table::JOIN_TYPE_INNER,
+                'gridLines',
+                'gridLines',
+                self::PK_FIELD,
+                'grids',
+                'gridLineId'
+            )
+            ->addWhere(
+                'gridLines.sectionId = :sectionId'
+            )
+            ->addParameter('sectionId', $sectionId);
 
         return $this;
     }
@@ -195,13 +196,14 @@ class BlockModel extends AbstractBlockModel
      */
     public function byLanguage($language)
     {
-        $this->getDb()->addWhere(
-            sprintf(
-                '%s.language = :language',
-                Db::DEFAULT_ALIAS
+        $this->getTable()
+            ->addWhere(
+                sprintf(
+                    '%s.language = :language',
+                    Table::DEFAULT_ALIAS
+                )
             )
-        );
-        $this->getDb()->addParameter('language', $language);
+            ->addParameter('language', $language);
 
         return $this;
     }

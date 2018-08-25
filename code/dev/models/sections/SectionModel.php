@@ -4,6 +4,7 @@ namespace ss\models\sections;
 
 use ss\application\App;
 
+use ss\application\components\db\Table;
 use ss\models\blocks\block\BlockModel;
 use ss\models\blocks\block\DesignBlockModel;
 use ss\models\sections\_base\AbstractSectionModel;
@@ -486,19 +487,17 @@ class SectionModel extends AbstractSectionModel
      */
     public function byAlias($alias)
     {
-        $this->getDb()->addJoin(
-            Db::JOIN_TYPE_INNER,
-            'seo',
-            'seo',
-            self::PK_FIELD,
-            Db::DEFAULT_ALIAS,
-            'seoId'
-        );
-
-        $this->getDb()->addWhere(
-            'seo.alias = :alias'
-        );
-        $this->getDb()->addParameter('alias', $alias);
+        $this->getTable()
+            ->addJoin(
+                Table::JOIN_TYPE_INNER,
+                'seo',
+                'seo',
+                self::PK_FIELD,
+                Table::DEFAULT_ALIAS,
+                'seoId'
+            )
+            ->addWhere('seo.alias = :alias')
+            ->addParameter('alias', $alias);
 
         return $this;
     }
@@ -512,10 +511,10 @@ class SectionModel extends AbstractSectionModel
      */
     public function byLanguage($language)
     {
-        $this->getDb()->addWhere(
-            sprintf('%s.language = :language', Db::DEFAULT_ALIAS)
+        $this->getTable()->addWhere(
+            sprintf('%s.language = :language', Table::DEFAULT_ALIAS)
         );
-        $this->getDb()->addParameter('language', $language);
+        $this->getTable()->addParameter('language', $language);
 
         return $this;
     }

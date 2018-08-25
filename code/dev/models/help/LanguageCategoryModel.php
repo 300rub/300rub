@@ -4,6 +4,7 @@ namespace ss\models\help;
 
 use ss\application\App;
 
+use ss\application\components\db\Table;
 use ss\models\help\_base\AbstractLanguageCategoryModel;
 
 /**
@@ -21,27 +22,27 @@ class LanguageCategoryModel extends AbstractLanguageCategoryModel
      */
     public function byAlias($alias)
     {
-        $this->getDb()->addJoin(
-            Db::JOIN_TYPE_INNER,
+        $this->getTable()->addJoin(
+            Table::JOIN_TYPE_INNER,
             'categories',
             'categories',
             self::PK_FIELD,
-            Db::DEFAULT_ALIAS,
+            Table::DEFAULT_ALIAS,
             'categoryId'
         );
 
-        $this->getDb()->addWhere(
+        $this->getTable()->addWhere(
             'categories.alias = :alias'
         );
-        $this->getDb()->addParameter('alias', $alias);
+        $this->getTable()->addParameter('alias', $alias);
 
-        $this->getDb()->addWhere(
+        $this->getTable()->addWhere(
             sprintf(
                 '%s.language = :language',
-                Db::DEFAULT_ALIAS
+                Table::DEFAULT_ALIAS
             )
         );
-        $this->getDb()->addParameter(
+        $this->getTable()->addParameter(
             'language',
             App::getInstance()->getLanguage()->getActiveId()
         );

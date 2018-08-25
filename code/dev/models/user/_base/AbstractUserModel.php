@@ -4,8 +4,10 @@ namespace ss\models\user\_base;
 
 use ss\application\App;
 
-use ss\application\components\Validator;
+use ss\application\components\common\Validator;
 
+use ss\application\components\db\Table;
+use ss\application\components\valueGenerator\ValueGenerator;
 use ss\models\_abstract\AbstractModel;
 
 /**
@@ -156,13 +158,13 @@ abstract class AbstractUserModel extends AbstractModel
      */
     public function owner()
     {
-        $this->getDb()->addWhere(
+        $this->getTable()->addWhere(
             sprintf(
                 '%s.type = :type',
-                Db::DEFAULT_ALIAS
+                Table::DEFAULT_ALIAS
             )
         );
-        $this->getDb()->addParameter('type', self::TYPE_OWNER);
+        $this->getTable()->addParameter('type', self::TYPE_OWNER);
 
         return $this;
     }

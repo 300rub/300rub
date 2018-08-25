@@ -3,6 +3,7 @@
 namespace ss\models\user;
 
 
+use ss\application\components\db\Table;
 use ss\models\user\_abstract\AbstractSaveOperationModel;
 
 /**
@@ -58,13 +59,13 @@ class UserModel extends AbstractSaveOperationModel
      */
     public function byLogin($login)
     {
-        $this->getDb()->addWhere(
+        $this->getTable()->addWhere(
             sprintf(
                 '%s.login = :login',
-                Db::DEFAULT_ALIAS
+                Table::DEFAULT_ALIAS
             )
         );
-        $this->getDb()->addParameter('login', $login);
+        $this->getTable()->addParameter('login', $login);
 
         return $this;
     }
@@ -78,13 +79,13 @@ class UserModel extends AbstractSaveOperationModel
      */
     public function byEmail($email)
     {
-        $this->getDb()->addWhere(
+        $this->getTable()->addWhere(
             sprintf(
                 '%s.email = :email',
-                Db::DEFAULT_ALIAS
+                Table::DEFAULT_ALIAS
             )
         );
-        $this->getDb()->addParameter('email', $email);
+        $this->getTable()->addParameter('email', $email);
 
         return $this;
     }

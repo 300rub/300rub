@@ -2,8 +2,9 @@
 
 namespace ss\models\blocks\menu\_base;
 
-use ss\application\components\Validator;
+use ss\application\components\common\Validator;
 
+use ss\application\components\valueGenerator\ValueGenerator;
 use ss\models\_abstract\AbstractModel;
 
 /**

@@ -2,7 +2,7 @@
 
 namespace ss\models\user\_base;
 
-use ss\application\components\Validator;
+use ss\application\components\common\Validator;
 use ss\models\_abstract\AbstractModel;
 
 /**

@@ -4,6 +4,7 @@ namespace ss\models\blocks\image;
 
 
 
+use ss\application\components\db\Table;
 use ss\models\blocks\image\_abstract\AbstractUpdateModel;
 
 /**
@@ -21,10 +22,11 @@ class ImageInstanceModel extends AbstractUpdateModel
      */
     public function coverByGroupId($groupId)
     {
-        $this->getDb()->addWhere('t.imageGroupId = :imageGroupId');
-        $this->getDb()->addParameter('imageGroupId', $groupId);
-        $this->getDb()->setOrder('t.isCover DESC, t.sort');
-        $this->getDb()->setLimit(1);
+        $this->getTable()
+            ->addWhere('t.imageGroupId = :imageGroupId')
+            ->addParameter('imageGroupId', $groupId)
+            ->setOrder('t.isCover DESC, t.sort')
+            ->setLimit(1);
 
         return $this;
     }
@@ -38,8 +40,9 @@ class ImageInstanceModel extends AbstractUpdateModel
      */
     public function byGroupId($groupId)
     {
-        $this->getDb()->addWhere('t.imageGroupId = :imageGroupId');
-        $this->getDb()->addParameter('imageGroupId', $groupId);
+        $this->getTable()
+            ->addWhere('t.imageGroupId = :imageGroupId')
+            ->addParameter('imageGroupId', $groupId);
 
         return $this;
     }
@@ -53,19 +56,19 @@ class ImageInstanceModel extends AbstractUpdateModel
      */
     public function byImageId($imageId)
     {
-        $this->getDb()->addJoin(
-            Db::JOIN_TYPE_INNER,
+        $this->getTable()->addJoin(
+            Table::JOIN_TYPE_INNER,
             'imageGroups',
             'imageGroups',
             self::PK_FIELD,
-            Db::DEFAULT_ALIAS,
+            Table::DEFAULT_ALIAS,
             'imageGroupId'
         );
 
-        $this->getDb()->addWhere(
+        $this->getTable()->addWhere(
             'imageGroups.imageId = :imageId'
         );
-        $this->getDb()->addParameter('imageId', $imageId);
+        $this->getTable()->addParameter('imageId', $imageId);
 
         return $this;
     }

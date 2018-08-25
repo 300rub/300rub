@@ -4,6 +4,7 @@ namespace ss\models\blocks\record\_content;
 
 use ss\application\App;
 
+use ss\application\components\db\Table;
 use ss\application\components\helpers\Link;
 use ss\application\components\helpers\Pagination;
 use ss\application\exceptions\NotFoundException;
@@ -214,7 +215,7 @@ abstract class AbstractContentRecordModel extends AbstractRecordModel
                 $this->_getPageNavigationSize(),
                 $page
             )
-            ->ordered('sort', Db::DEFAULT_ALIAS, true)
+            ->ordered('sort', Table::DEFAULT_ALIAS, true)
             ->findAll();
 
         $link = new Link();

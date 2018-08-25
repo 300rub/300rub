@@ -3,6 +3,7 @@
 namespace ss\controllers\site;
 
 use ss\application\App;
+use ss\application\components\db\Db;
 use ss\application\instances\Site;
 use ss\controllers\site\_abstract\AbstractController;
 use ss\models\help\_abstract\AbstractModel;
@@ -23,6 +24,10 @@ class HelpController extends AbstractController
     public function run()
     {
         $language = App::getInstance()->getLanguage();
+
+        App::getInstance()->getDb()->setActivePdoKey(
+            Db::CONFIG_DB_NAME_HELP
+        );
 
         $requestUri = App::getInstance()
             ->getSuperGlobalVariable()

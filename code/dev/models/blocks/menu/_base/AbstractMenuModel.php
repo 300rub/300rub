@@ -3,6 +3,7 @@
 namespace ss\models\blocks\menu\_base;
 
 
+use ss\application\components\valueGenerator\ValueGenerator;
 use ss\models\blocks\_abstract\AbstractContentModel;
 
 /**

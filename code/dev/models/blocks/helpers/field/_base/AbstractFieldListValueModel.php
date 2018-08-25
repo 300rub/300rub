@@ -3,7 +3,8 @@
 namespace ss\models\blocks\helpers\field\_base;
 
 
-use ss\application\components\Validator;
+use ss\application\components\common\Validator;
+use ss\application\components\valueGenerator\ValueGenerator;
 use ss\models\_abstract\AbstractModel;
 
 /**

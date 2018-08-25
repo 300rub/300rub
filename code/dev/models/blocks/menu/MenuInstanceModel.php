@@ -4,6 +4,7 @@ namespace ss\models\blocks\menu;
 
 use ss\application\App;
 
+use ss\application\components\db\Table;
 use ss\models\blocks\menu\_base\AbstractMenuInstanceModel;
 
 /**
@@ -146,45 +147,37 @@ class MenuInstanceModel extends AbstractMenuInstanceModel
      */
     private function _getDbStructure($menuId)
     {
-        $dbObject = App::getInstance()->getDb();
-
-        $dbObject
-            ->addSelect('id', Db::DEFAULT_ALIAS, 'id')
-            ->addSelect('parentId', Db::DEFAULT_ALIAS, 'parentId')
-            ->addSelect('sectionId', Db::DEFAULT_ALIAS, 'sectionId')
-            ->addSelect('staticName', Db::DEFAULT_ALIAS, 'staticName')
-            ->addSelect('staticUrl', Db::DEFAULT_ALIAS, 'staticUrl')
+        return $this->getTable()
+            ->addSelect('id', Table::DEFAULT_ALIAS, 'id')
+            ->addSelect('parentId', Table::DEFAULT_ALIAS, 'parentId')
+            ->addSelect('sectionId', Table::DEFAULT_ALIAS, 'sectionId')
+            ->addSelect('staticName', Table::DEFAULT_ALIAS, 'staticName')
+            ->addSelect('staticUrl', Table::DEFAULT_ALIAS, 'staticUrl')
             ->addSelect('language', 'sections', 'language')
             ->addSelect('isMain', 'sections', 'isMain')
             ->addSelect('name', 'seo', 'name')
-            ->addSelect('alias', 'seo', 'alias');
-        $dbObject
-            ->setTable('menuInstances');
-        $dbObject
+            ->addSelect('alias', 'seo', 'alias')
+            ->setTableName('menuInstances')
             ->addJoin(
-                Db::JOIN_TYPE_LEFT,
+                Table::JOIN_TYPE_LEFT,
                 'sections',
                 'sections',
                 self::PK_FIELD,
-                Db::DEFAULT_ALIAS,
+                Table::DEFAULT_ALIAS,
                 'sectionId'
             )
             ->addJoin(
-                Db::JOIN_TYPE_LEFT,
+                Table::JOIN_TYPE_LEFT,
                 'seo',
                 'seo',
                 self::PK_FIELD,
                 'sections',
                 'seoId'
-            );
-        $dbObject
-            ->addWhere(sprintf('%s.menuId = :menuId', Db::DEFAULT_ALIAS));
-        $dbObject
-            ->addParameter('menuId', $menuId);
-        $dbObject
-            ->setOrder(sprintf('%s.sort', Db::DEFAULT_ALIAS));
-
-        return $dbObject->findAll();
+            )
+            ->addWhere(sprintf('%s.menuId = :menuId', Table::DEFAULT_ALIAS))
+            ->addParameter('menuId', $menuId)
+            ->setOrder(sprintf('%s.sort', Table::DEFAULT_ALIAS))
+            ->findAll();
     }
 
     /**

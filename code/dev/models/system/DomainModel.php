@@ -3,6 +3,7 @@
 namespace ss\models\system;
 
 
+use ss\application\components\db\Table;
 use ss\models\system\_base\AbstractDomainModel;
 
 /**
@@ -20,13 +21,13 @@ class DomainModel extends AbstractDomainModel
      */
     public function bySiteId($siteId)
     {
-        $this->getDb()->addWhere(
+        $this->getTable()->addWhere(
             sprintf(
                 '%s.siteId = :siteId',
-                Db::DEFAULT_ALIAS
+                Table::DEFAULT_ALIAS
             )
         );
-        $this->getDb()->addParameter('siteId', $siteId);
+        $this->getTable()->addParameter('siteId', $siteId);
 
         return $this;
     }

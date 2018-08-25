@@ -4,6 +4,7 @@ namespace ss\models\help;
 
 use ss\application\App;
 
+use ss\application\components\db\Table;
 use ss\application\exceptions\NotFoundException;
 use ss\models\help\_base\AbstractPageModel;
 
@@ -65,46 +66,35 @@ class PageModel extends AbstractPageModel
      */
     public function generateBreadcrumbs($alias, $name)
     {
-        $dbObject = App::getInstance()->getDb();
-        $language = App::getInstance()->getLanguage();
-
-        $dbObject
+        $table = $this->getTable()
             ->addSelect('alias', 'categories', 'alias')
-            ->addSelect('name', 'languageCategories', 'name');
-        $dbObject
-            ->setTable('pages');
-        $dbObject
+            ->addSelect('name', 'languageCategories', 'name')
+            ->setTableName('pages')
             ->addJoin(
-                Db::JOIN_TYPE_INNER,
+                Table::JOIN_TYPE_INNER,
                 'categories',
                 'categories',
                 self::PK_FIELD,
-                Db::DEFAULT_ALIAS,
+                Table::DEFAULT_ALIAS,
                 'categoryId'
             )
             ->addJoin(
-                Db::JOIN_TYPE_INNER,
+                Table::JOIN_TYPE_INNER,
                 'languageCategories',
                 'languageCategories',
                 'categoryId',
                 'categories',
                 self::PK_FIELD
-            );
-
-        $dbObject
-            ->addWhere('languageCategories.language = :language');
-        $dbObject
+            )
+            ->addWhere('languageCategories.language = :language')
             ->addParameter(
                 'language',
-                $language->getActiveId()
-            );
-
-        $dbObject
-            ->addWhere(sprintf('%s.alias = :alias', Db::DEFAULT_ALIAS));
-        $dbObject
+                App::getInstance()->getLanguage()->getActiveId()
+            )
+            ->addWhere(sprintf('%s.alias = :alias', Table::DEFAULT_ALIAS))
             ->addParameter('alias', $alias);
 
-        $result = $dbObject->find();
+        $result = $table->find();
 
         $breadcrumbs = CategoryModel::model()
             ->setBaseUri($this->getBaseUri())
@@ -161,50 +151,37 @@ class PageModel extends AbstractPageModel
             return $memcachedResult;
         }
 
-        $dbObject = App::getInstance()->getDb();
-        $language = App::getInstance()->getLanguage();
-
-        $dbObject
-            ->addSelect('alias', Db::DEFAULT_ALIAS, 'alias')
-            ->addSelect('name', 'languagePages', 'name');
-        $dbObject
-            ->setTable('pages');
-        $dbObject
+        $table = $this->getTable()
+            ->addSelect('alias', Table::DEFAULT_ALIAS, 'alias')
+            ->addSelect('name', 'languagePages', 'name')
+            ->setTableName('pages')
             ->addJoin(
-                Db::JOIN_TYPE_INNER,
+                Table::JOIN_TYPE_INNER,
                 'languagePages',
                 'languagePages',
                 'pageId',
-                Db::DEFAULT_ALIAS,
+                Table::DEFAULT_ALIAS,
                 self::PK_FIELD
             )
             ->addJoin(
-                Db::JOIN_TYPE_INNER,
+                Table::JOIN_TYPE_INNER,
                 'categories',
                 'categories',
                 self::PK_FIELD,
-                Db::DEFAULT_ALIAS,
+                Table::DEFAULT_ALIAS,
                 'categoryId'
-            );
-
-        $dbObject
-            ->addWhere(sprintf('categories.alias = :alias', $categoryAlias));
-        $dbObject
-            ->addParameter('alias', $categoryAlias);
-
-        $dbObject
-            ->addWhere('languagePages.language = :language');
-        $dbObject
+            )
+            ->addWhere(sprintf('categories.alias = :alias', $categoryAlias))
+            ->addParameter('alias', $categoryAlias)
+            ->addWhere('languagePages.language = :language')
             ->addParameter(
                 'language',
-                $language->getActiveId()
-            );
-
-        $dbObject
+                App::getInstance()->getLanguage()->getActiveId()
+            )
             ->setOrder('languagePages.name');
 
         $list = [];
-        $result = $dbObject->findAll();
+        $result = $table->findAll();
         foreach ($result as $item) {
             $list[] = [
                 'name' => $item['name'],

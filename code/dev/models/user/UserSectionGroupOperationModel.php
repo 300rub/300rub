@@ -3,6 +3,7 @@
 namespace ss\models\user;
 
 
+use ss\application\components\db\Table;
 use ss\models\user\_base\AbstractUserSectionGroupOperationModel as Base;
 
 /**
@@ -20,13 +21,13 @@ class UserSectionGroupOperationModel extends Base
      */
     public function byUserId($userId)
     {
-        $this->getDb()->addWhere(
+        $this->getTable()->addWhere(
             sprintf(
                 '%s.userId = :userId',
-                Db::DEFAULT_ALIAS
+                Table::DEFAULT_ALIAS
             )
         );
-        $this->getDb()->addParameter('userId', $userId);
+        $this->getTable()->addParameter('userId', $userId);
 
         return $this;
     }

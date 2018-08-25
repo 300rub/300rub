@@ -3,6 +3,7 @@
 namespace ss\models\user;
 
 
+use ss\application\components\db\Table;
 use ss\models\user\_base\AbstractUserSessionModel;
 
 /**
@@ -25,13 +26,13 @@ class UserSessionModel extends AbstractUserSessionModel
      */
     public function byToken($token)
     {
-        $this->getDb()->addWhere(
+        $this->getTable()->addWhere(
             sprintf(
                 '%s.token = :token',
-                Db::DEFAULT_ALIAS
+                Table::DEFAULT_ALIAS
             )
         );
-        $this->getDb()->addParameter('token', $token);
+        $this->getTable()->addParameter('token', $token);
 
         return $this;
     }
@@ -45,13 +46,13 @@ class UserSessionModel extends AbstractUserSessionModel
      */
     public function exceptToken($token)
     {
-        $this->getDb()->addWhere(
+        $this->getTable()->addWhere(
             sprintf(
                 '%s.token != :token',
-                Db::DEFAULT_ALIAS
+                Table::DEFAULT_ALIAS
             )
         );
-        $this->getDb()->addParameter('token', $token);
+        $this->getTable()->addParameter('token', $token);
 
         return $this;
     }
@@ -65,13 +66,13 @@ class UserSessionModel extends AbstractUserSessionModel
      */
     public function byUserId($userId)
     {
-        $this->getDb()->addWhere(
+        $this->getTable()->addWhere(
             sprintf(
                 '%s.userId = :userId',
-                Db::DEFAULT_ALIAS
+                Table::DEFAULT_ALIAS
             )
         );
-        $this->getDb()->addParameter('userId', $userId);
+        $this->getTable()->addParameter('userId', $userId);
 
         return $this;
     }
