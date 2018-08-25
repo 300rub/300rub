@@ -4,6 +4,7 @@ namespace ss\application\components\common;
 
 use ss\application\App;
 use ss\application\exceptions\CommonException;
+use ss\application\instances\_abstract\AbstractAjax;
 use ss\application\instances\Console;
 use ss\application\instances\Test;
 use ss\controllers\page\ErrorController;
@@ -68,6 +69,7 @@ class ErrorHandler
 
         if (App::getInstance() instanceof Console
             || App::getInstance() instanceof Test
+            || $this->_isApi() === true
         ) {
             throw new CommonException($logMessage);
         }
@@ -111,6 +113,7 @@ class ErrorHandler
 
         if (App::getInstance() instanceof Console
             || App::getInstance() instanceof Test
+            || $this->_isApi() === true
         ) {
             throw new CommonException($logMessage);
         }
@@ -124,5 +127,28 @@ class ErrorHandler
             ->setFile($file)
             ->setLine($line);
         echo $errorController->run();
+    }
+
+    /**
+     * Checks if is API
+     *
+     * @return bool
+     */
+    private function _isApi()
+    {
+        $requestUri = App::getInstance()
+            ->getSuperGlobalVariable()
+            ->getServerValue('REQUEST_URI');
+
+        if ($requestUri === null) {
+            return false;
+        }
+
+        $requestUri = trim($requestUri, '/');
+        if (strpos($requestUri, AbstractAjax::API_PREFIX) === 0) {
+            return true;
+        }
+
+        return false;
     }
 }
