@@ -64,7 +64,7 @@ class GetLoginFormsControllerTest extends AbstractControllerTest
                     'forms' => [
                         'user'       => [
                             'name'       => 'user',
-                            'label'      => 'User',
+                            'label'      => 'Username',
                             'validation' => [
                                 'required'
                                     => 'required',
@@ -89,6 +89,7 @@ class GetLoginFormsControllerTest extends AbstractControllerTest
                             'name'  => 'isRemember',
                             'label' => 'Remember me',
                         ],
+                        'forgotPassword' => 'Forgot your password?',
                         'button'     => [
                             'label'      => 'Go',
                         ]
