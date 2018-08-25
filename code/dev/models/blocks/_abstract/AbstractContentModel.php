@@ -2,7 +2,6 @@
 
 namespace ss\models\blocks\_abstract;
 
-use ss\application\App;
 use ss\application\exceptions\ModelException;
 use ss\models\_abstract\AbstractModel;
 

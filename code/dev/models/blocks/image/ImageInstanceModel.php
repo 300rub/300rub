@@ -80,16 +80,4 @@ class ImageInstanceModel extends AbstractUpdateModel
     {
         return new self;
     }
-
-    /**
-     * Gets ImageGroupModel
-     *
-     * @return ImageGroupModel
-     */
-    private function _getImageGroupModel()
-    {
-        return ImageGroupModel::model()
-            ->byId($this->get('imageGroupId'))
-            ->find();
-    }
 }

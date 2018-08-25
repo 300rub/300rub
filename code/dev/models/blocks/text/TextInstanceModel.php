@@ -2,8 +2,6 @@
 
 namespace ss\models\blocks\text;
 
-use ss\application\App;
-
 use ss\application\components\db\Table;
 use ss\application\exceptions\ModelException;
 use ss\models\blocks\text\_base\AbstractTextInstanceModel;

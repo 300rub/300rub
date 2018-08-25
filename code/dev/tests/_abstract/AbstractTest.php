@@ -2,8 +2,6 @@
 
 namespace ss\tests\_abstract;
 
-use ss\application\App;
-
 /**
  * Abstract class to work with tests
  */

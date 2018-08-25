@@ -2,7 +2,6 @@
 
 namespace ss\models\help\_abstract;
 
-use ss\application\App;
 use ss\models\_abstract\AbstractModel as BaseModel;
 use ss\models\help\CategoryModel;
 use ss\models\help\PageModel;

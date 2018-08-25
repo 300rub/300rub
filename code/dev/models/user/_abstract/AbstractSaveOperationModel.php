@@ -9,7 +9,6 @@ use ss\models\user\UserBlockGroupOperationModel;
 use ss\models\user\UserBlockOperationModel;
 use ss\models\user\UserSectionGroupOperationModel;
 use ss\models\user\UserSectionOperationModel;
-use ss\models\user\UserSessionModel;
 use ss\models\user\UserSettingsOperationModel;
 
 /**

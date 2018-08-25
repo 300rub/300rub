@@ -2,7 +2,6 @@
 
 namespace ss\tests\phpunit\controllers\user;
 
-use ss\application\App;
 use ss\models\_abstract\AbstractModel;
 use ss\models\user\UserSessionModel;
 use ss\tests\phpunit\controllers\_abstract\AbstractControllerTest;
