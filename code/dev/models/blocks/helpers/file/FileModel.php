@@ -354,10 +354,10 @@ class FileModel extends AbstractFileModel
             $this->deleteByUniqueName($this->get('uniqueName'));
         } catch (\Exception $e) {
             App::getInstance()->getLogger()->error(
-                sprintf(
-                    'Unable to remove file by unique name: [%s]',
-                    $this->get('uniqueName')
-                ),
+                'Unable to remove file by unique name: {name}',
+                [
+                    'name' => $this->get('uniqueName')
+                ],
                 'file'
             );
         }

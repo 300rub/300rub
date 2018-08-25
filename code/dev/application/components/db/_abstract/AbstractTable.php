@@ -234,7 +234,11 @@ abstract class AbstractTable
             $sth = $dbObject->getActivePdo()->prepare($statement);
             $result = $sth->execute($parameters);
         } catch (\Exception $e) {
-            $logger->error($logMessage, 'mysql');
+            $logger->error(
+                $logMessage,
+                [],
+                'mysql'
+            );
             throw $e;
         }
 
@@ -242,7 +246,11 @@ abstract class AbstractTable
             throw new DbException($logMessage);
         }
 
-        $logger->debug($logMessage, 'mysql');
+        $logger->debug(
+            $logMessage,
+            [],
+            'mysql'
+        );
         return $sth;
     }
 

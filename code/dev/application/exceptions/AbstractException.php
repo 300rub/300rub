@@ -33,18 +33,6 @@ abstract class AbstractException extends Exception
      */
     public function __construct($message, array $parameters = [])
     {
-        foreach ($parameters as $key => $value) {
-            if (is_array($value) === true) {
-                $value = json_encode($value);
-            }
-
-            $message = str_replace(
-                '{' . $key . '}',
-                '[' . (string)$value . ']',
-                $message
-            );
-        }
-
         $superGlobalVariable = App::getInstance()
             ->getSuperGlobalVariable();
 
@@ -60,20 +48,6 @@ abstract class AbstractException extends Exception
             $message .= "\nREQUEST_URI = " . $uri;
         }
 
-        $this->_writeLog($message);
-
-        parent::__construct($message, $this->getErrorCode());
-    }
-
-    /**
-     * Write log
-     *
-     * @param string $message Message
-     *
-     * @return void
-     */
-    private function _writeLog($message)
-    {
         $logMessage = sprintf(
             "%s\nFile: %s (%s)\nTrace:\n%s\n\n",
             $message,
@@ -84,7 +58,10 @@ abstract class AbstractException extends Exception
 
         App::getInstance()->getLogger()->error(
             $logMessage,
+            $parameters,
             $this->getLogName()
         );
+
+        parent::__construct($message, $this->getErrorCode());
     }
 }

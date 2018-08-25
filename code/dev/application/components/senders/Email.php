@@ -519,11 +519,10 @@ class Email
             $this->_mail->send();
 
             App::getInstance()->getLogger()->info(
-                sprintf(
-                    'Email has been successfully sent' .
-                    'Data: [%s]',
-                    $this->_generateLogData()
-                ),
+                'Email has been successfully sent. Data: {data}',
+                [
+                    'data' => $this->_generateLogData()
+                ],
                 'email'
             );
         } catch (Exception $e) {

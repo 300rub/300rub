@@ -67,6 +67,7 @@ class Memcached
         $result = $this->_memcached->set($key, $value, $expiration);
         App::getInstance()->getLogger()->debug(
             'SET ' . $key,
+            [],
             'memcached'
         );
 
@@ -100,6 +101,7 @@ class Memcached
 
         App::getInstance()->getLogger()->debug(
             'GET ' . $key,
+            [],
             'memcached'
         );
 
@@ -126,6 +128,7 @@ class Memcached
         $result = $this->_memcached->delete($key);
         App::getInstance()->getLogger()->debug(
             'DELETE ' . $key,
+            [],
             'memcached'
         );
 

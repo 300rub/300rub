@@ -36,17 +36,31 @@ class Logger
     /**
      * Logs the message
      *
-     * @param string $message Message
-     * @param string $name    File name
-     * @param string $level   Level
+     * @param string $message    Message
+     * @param array  $parameters Parameters
+     * @param string $name       File name
+     * @param string $level      Level
      *
      * @return void
      */
     public function log(
         $message,
+        array $parameters = [],
         $name = self::DEFAULT_NAME,
         $level = self::LEVEL_INFO
     ) {
+        foreach ($parameters as $key => $value) {
+            if (is_array($value) === true) {
+                $value = json_encode($value);
+            }
+
+            $message = str_replace(
+                '{' . $key . '}',
+                '[' . (string)$value . ']',
+                $message
+            );
+        }
+
         $filePath = sprintf('%s/%s.log', FILES_ROOT . '/logs', $name);
 
         $isNew = false;
@@ -76,54 +90,70 @@ class Logger
     /**
      * Logs warning message
      *
-     * @param string $message Message
-     * @param string $name    File name
+     * @param string $message    Message
+     * @param array  $parameters Parameters
+     * @param string $name       File name
      *
      * @return void
      */
-    public function info($message, $name = self::DEFAULT_NAME)
-    {
-        $this->log($message, $name, self::LEVEL_INFO);
+    public function info(
+        $message,
+        array $parameters = [],
+        $name = self::DEFAULT_NAME
+    ) {
+        $this->log($message, $parameters, $name, self::LEVEL_INFO);
     }
 
     /**
      * Logs warning message
      *
-     * @param string $message Message
-     * @param string $name    File name
+     * @param string $message    Message
+     * @param array  $parameters Parameters
+     * @param string $name       File name
      *
      * @return void
      */
-    public function warning($message, $name = self::DEFAULT_NAME)
-    {
-        $this->log($message, $name, self::LEVEL_WARNING);
+    public function warning(
+        $message,
+        array $parameters = [],
+        $name = self::DEFAULT_NAME
+    ) {
+        $this->log($message, $parameters, $name, self::LEVEL_WARNING);
     }
 
     /**
      * Logs error
      *
-     * @param string $message Message
-     * @param string $name    File name
+     * @param string $message    Message
+     * @param array  $parameters Parameters
+     * @param string $name       File name
      *
      * @return void
      */
-    public function error($message, $name = self::DEFAULT_NAME)
-    {
-        $this->log($message, $name, self::LEVEL_ERROR);
+    public function error(
+        $message,
+        array $parameters = [],
+        $name = self::DEFAULT_NAME
+    ) {
+        $this->log($message, $parameters, $name, self::LEVEL_ERROR);
     }
 
     /**
      * Logs debug message
      *
-     * @param string $message Message
-     * @param string $name    File name
+     * @param string $message    Message
+     * @param array  $parameters Parameters
+     * @param string $name       File name
      *
      * @return void
      */
-    public function debug($message, $name = self::DEFAULT_NAME)
-    {
+    public function debug(
+        $message,
+        array $parameters = [],
+        $name = self::DEFAULT_NAME
+    ) {
         if (APP_ENV === ENV_DEV) {
-            $this->log($message, $name, self::LEVEL_DEBUG);
+            $this->log($message, $parameters, $name, self::LEVEL_DEBUG);
         }
     }
 }
