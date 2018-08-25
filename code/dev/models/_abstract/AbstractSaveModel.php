@@ -38,6 +38,8 @@ abstract class AbstractSaveModel extends AbstractSaveRelationModel
                 ->_save();
 
             $this->afterSave();
+
+            $this->resetTable();
         } catch (\Exception $e) {
             $this->_onSaveFailure($e);
         }
@@ -278,7 +280,7 @@ abstract class AbstractSaveModel extends AbstractSaveRelationModel
             }
 
             if (array_key_exists(self::FIELD_UNIQUE, $parameters) === true) {
-                $model = $this
+                $model = $this->getNewModel()
                     ->exceptId($this->getId())
                     ->checkUnique($field)
                     ->find();
