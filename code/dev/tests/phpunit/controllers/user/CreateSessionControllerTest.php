@@ -98,7 +98,7 @@ class CreateSessionControllerTest extends AbstractControllerTest
             'incorrectTypeUser'       => [
                 'data' => [
                     'user'       => 1,
-                    'password'   => md5('pass' . UserModel::PASSWORD_SALT),
+                    'password'   => 'pass',
                     'isRemember' => false,
                 ],
                 400
@@ -114,7 +114,7 @@ class CreateSessionControllerTest extends AbstractControllerTest
             'incorrectTypeIsRemember' => [
                 'data' => [
                     'user'       => 'user',
-                    'password'   => md5('pass' . UserModel::PASSWORD_SALT),
+                    'password'   => 'pass',
                     'isRemember' => 1,
                 ],
                 400
@@ -122,20 +122,20 @@ class CreateSessionControllerTest extends AbstractControllerTest
             'incorrectUser'           => [
                 'data' => [
                     'user'       => 'incorrect',
-                    'password'   => md5('pass' . UserModel::PASSWORD_SALT),
+                    'password'   => 'pass',
                     'isRemember' => false,
                 ],
                 200,
                 [
                     'errors' => [
-                        'user' => 'Incorrect user or password'
+                        'password' => 'Incorrect user or password'
                     ]
                 ]
             ],
             'incorrectPassword'       => [
                 'data' => [
                     'user'       => 'user',
-                    'password'   => md5('incorrect' . UserModel::PASSWORD_SALT),
+                    'password'   => 'incorrect',
                     'isRemember' => false,
                 ],
                 200,
@@ -148,7 +148,7 @@ class CreateSessionControllerTest extends AbstractControllerTest
             'user'                    => [
                 'data' => [
                     'user'       => 'user',
-                    'password'   => md5('pass' . UserModel::PASSWORD_SALT),
+                    'password'   => 'pass',
                     'isRemember' => false,
                 ],
                 200
@@ -156,7 +156,7 @@ class CreateSessionControllerTest extends AbstractControllerTest
             'admin'                   => [
                 'data' => [
                     'user'       => 'admin',
-                    'password'   => md5('pass' . UserModel::PASSWORD_SALT),
+                    'password'   => 'pass',
                     'isRemember' => true,
                 ],
                 200

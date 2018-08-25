@@ -132,10 +132,10 @@ abstract class AbstractUnitTest extends AbstractTest
                 $key,
                 $actual,
                 sprintf(
-                    'Unable to find key [%s] in [%s] array with keys [%s]',
+                    'Unable to find key [%s] in [%s] array [%s]',
                     $key,
                     $type,
-                    implode(', ', array_keys($actual))
+                    json_encode($actual)
                 )
             );
 
