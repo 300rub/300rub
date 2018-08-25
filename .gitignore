@@ -12,6 +12,7 @@ releases/*
 !releases/.gitkeep
 
 code/dev/config/release
+code/dev/config/prod.php
 code/dev/public/css/lib
 code/dev/public/js/lib
 code/dev/public/upload/dev

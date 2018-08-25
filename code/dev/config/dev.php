@@ -61,7 +61,7 @@ return [
     'memcached' => [
         'host'       => 'localhost',
         'port'       => 11211,
-        'expiration' => 86400,
+        'expiration' => 5,
     ],
     'file' => [
         'pathMask' => __DIR__ . '/../public/upload/%s/%s',
