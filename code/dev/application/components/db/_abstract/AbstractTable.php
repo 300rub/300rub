@@ -1,8 +1,9 @@
 <?php
 
-namespace ss\application\components\db;
+namespace ss\application\components\db\_abstract;
 
 use ss\application\App;
+use ss\application\components\db\Table;
 use ss\application\exceptions\DbException;
 
 /**

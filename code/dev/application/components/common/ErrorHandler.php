@@ -48,6 +48,8 @@ class ErrorHandler
      * @throws CommonException
      *
      * @return void
+     *
+     * @SuppressWarnings(PMD.StaticAccess)
      */
     public function handleException($exception)
     {
@@ -93,6 +95,8 @@ class ErrorHandler
      * @throws CommonException
      *
      * @return void
+     *
+     * @SuppressWarnings(PMD.StaticAccess)
      */
     public function handleError($code, $message, $file, $line)
     {
