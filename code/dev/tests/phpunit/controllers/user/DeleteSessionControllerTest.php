@@ -26,7 +26,6 @@ class DeleteSessionControllerTest extends AbstractControllerTest
      */
     public function testRun($user, $token = null, $hasError = null)
     {
-        $memcached = App::getInstance()->getMemcached();
         $this->setUser($user);
 
         $beforeDelete = new UserSessionModel();
@@ -47,9 +46,6 @@ class DeleteSessionControllerTest extends AbstractControllerTest
         $sessionModel->clearId()->save();
 
         $this->assertArrayHasKey('host', $this->getBody());
-
-        $memcachedResult = $memcached->get($sessionModel->get('token'));
-        $this->assertFalse($memcachedResult);
 
         return true;
     }

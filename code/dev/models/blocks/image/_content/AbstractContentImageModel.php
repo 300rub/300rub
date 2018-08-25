@@ -15,18 +15,6 @@ abstract class AbstractContentImageModel extends AbstractImageModel
 {
 
     /**
-     * Gets cache key
-     *
-     * @param int $albumId Album ID
-     *
-     * @return string
-     */
-    public function getHtmlMemcachedKey($albumId)
-    {
-        return sprintf('image_%s_%s_html', $this->getId(), $albumId);
-    }
-
-    /**
      * Generates HTML
      *
      * @return string
@@ -44,27 +32,13 @@ abstract class AbstractContentImageModel extends AbstractImageModel
             $albumId = $currentAlbum->getId();
         }
 
-        $cacheValue = $this->getHtmlMemcached(
-            $this->getHtmlMemcachedKey($albumId)
-        );
-        if ($cacheValue !== false) {
-            return $cacheValue;
-        }
-
-        $html = App::getInstance()->getView()->get(
+        return App::getInstance()->getView()->get(
             'content/block/block',
             [
                 'blockId' => $this->getBlockId(),
                 'content' => $this->getImageInstancesHtml($albumId)
             ]
         );
-
-        $this->setHtmlMemcached(
-            $this->getHtmlMemcachedKey($albumId),
-            $html
-        );
-
-        return $html;
     }
 
     /**
@@ -251,13 +225,6 @@ abstract class AbstractContentImageModel extends AbstractImageModel
      */
     private function _getImageGroupsHtml()
     {
-        $cacheValue = $this->getHtmlMemcached(
-            $this->getHtmlMemcachedKey(-1)
-        );
-        if ($cacheValue !== false) {
-            return $cacheValue;
-        }
-
         $content = '';
         $link = new Link();
 
@@ -288,20 +255,13 @@ abstract class AbstractContentImageModel extends AbstractImageModel
             );
         }
 
-        $html = App::getInstance()->getView()->get(
+        return App::getInstance()->getView()->get(
             'content/block/block',
             [
                 'blockId' => $this->getBlockId(),
                 'content' => $content
             ]
         );
-
-        $this->setHtmlMemcached(
-            $this->getHtmlMemcachedKey(-1),
-            $html
-        );
-
-        return $html;
     }
 
     /**
@@ -479,50 +439,5 @@ abstract class AbstractContentImageModel extends AbstractImageModel
         );
 
         return $css;
-    }
-
-    /**
-     * Runs before saving
-     *
-     * @return void
-     */
-    protected function beforeSave()
-    {
-        $this
-            ->deleteHtmlMemcached(
-                $this->getHtmlMemcachedKey(0)
-            )
-            ->deleteHtmlMemcached(
-                $this->getHtmlMemcachedKey(-1)
-            );
-
-        $imageGroups = ImageGroupModel::model()->findAllByImageId(
-            $this->getId()
-        );
-        foreach ($imageGroups as $imageGroup) {
-            $this->deleteHtmlMemcached(
-                $this->getHtmlMemcachedKey($imageGroup->getId())
-            );
-        }
-
-        parent::beforeSave();
-    }
-
-    /**
-     * Runs before deleting
-     *
-     * @return void
-     */
-    protected function beforeDelete()
-    {
-        $this
-            ->deleteHtmlMemcached(
-                $this->getHtmlMemcachedKey(0)
-            )
-            ->deleteHtmlMemcached(
-                $this->getHtmlMemcachedKey(-1)
-            );
-
-        parent::beforeDelete();
     }
 }

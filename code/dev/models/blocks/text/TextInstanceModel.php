@@ -70,20 +70,4 @@ class TextInstanceModel extends AbstractTextInstanceModel
     {
         return new self;
     }
-
-    /**
-     * Runs after changing
-     *
-     * @return void
-     */
-    protected function afterChange()
-    {
-        parent::afterChange();
-
-        App::getInstance()->getMemcached()->delete(
-            TextModel::model()
-                ->set(['id' => $this->get('textId')])
-                ->deleteCache()
-        );
-    }
 }

@@ -185,22 +185,6 @@ class CategoryModel extends AbstractCategoryModel
     }
 
     /**
-     * Gets child categories memcached key
-     *
-     * @param string $alias Alias
-     *
-     * @return string
-     */
-    private function _getChildCategoriesMemcachedKey($alias)
-    {
-        return sprintf(
-            'help_child_categories_%s_%s',
-            $alias,
-            App::getInstance()->getLanguage()->getActiveId()
-        );
-    }
-
-    /**
      * Gets child categories by alias
      *
      * @param string $alias Alias
@@ -211,16 +195,6 @@ class CategoryModel extends AbstractCategoryModel
      */
     public function getChildCategories($alias = null)
     {
-        $memcached = App::getInstance()->getMemcached();
-        $memcachedKey = $this->_getChildCategoriesMemcachedKey(
-            $alias
-        );
-
-        $memcachedResult = $memcached->get($memcachedKey);
-        if ($memcachedResult !== false) {
-            return $memcachedResult;
-        }
-
         $parentId = null;
         if ($alias !== null) {
             $model = $this->byAlias($alias)->find();
@@ -282,8 +256,6 @@ class CategoryModel extends AbstractCategoryModel
                 ),
             ];
         }
-
-        $memcached->set($memcachedKey, $list);
 
         return $list;
     }

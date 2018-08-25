@@ -82,18 +82,6 @@ class ImageInstanceModel extends AbstractUpdateModel
     }
 
     /**
-     * Runs after changing
-     *
-     * @return void
-     */
-    protected function afterChange()
-    {
-        parent::afterChange();
-
-        $this->_getImageGroupModel()->resetMemcached();
-    }
-
-    /**
      * Gets ImageGroupModel
      *
      * @return ImageGroupModel

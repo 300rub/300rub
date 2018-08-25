@@ -14,7 +14,7 @@ use ss\models\user\UserSessionModel;
 /**
  * Removes user session / Logout
  *
- * Removes DB record and Memcache
+ * Removes DB record
  *
  * 1. If there is $data["token"] - remove session by token
  * 2. If $data is empty - remove current session (logout)
@@ -38,8 +38,6 @@ class DeleteSessionController extends AbstractController
 
         $token = $this->get('token');
         if (empty($token) !== false) {
-            App::getInstance()->getMemcached()->delete($user->getToken());
-
             setcookie('token', '', (time() - 3600), '/');
             App::getInstance()
                 ->getSuperGlobalVariable()
@@ -79,7 +77,6 @@ class DeleteSessionController extends AbstractController
                 );
             }
 
-            App::getInstance()->getMemcached()->delete($token);
             $userSessionModel->delete();
         }
 

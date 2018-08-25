@@ -346,16 +346,6 @@ abstract class AbstractSaveOperationModel extends AbstractGetOperationModel
         $this
             ->_deleteOperations()
             ->addOperations($operations);
-
-        $sessionModels = new UserSessionModel();
-        $sessionModels->byUserId($this->getId());
-        $sessionModels = $sessionModels->findAll();
-        foreach ($sessionModels as $sessionModel) {
-            App::getInstance()->getMemcached()->delete(
-                $sessionModel->get('token')
-            );
-        }
-
         return $this;
     }
 

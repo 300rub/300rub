@@ -14,7 +14,7 @@ use ss\models\user\UserSessionModel;
 /**
  * Deletes all user sessions except current
  *
- * Removed DR record and memcached record
+ * Removed DR record
  */
 class DeleteSessionsController extends AbstractController
 {
@@ -35,9 +35,6 @@ class DeleteSessionsController extends AbstractController
         $userSessionModels = $this->_getUserSessionModels($userId);
 
         foreach ($userSessionModels as $userSessionModel) {
-            App::getInstance()
-                ->getMemcached()
-                ->delete($userSessionModel->get('token'));
             $userSessionModel->delete();
         }
 

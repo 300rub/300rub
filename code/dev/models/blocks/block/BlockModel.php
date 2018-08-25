@@ -85,26 +85,7 @@ class BlockModel extends AbstractBlockModel
     protected function afterDelete()
     {
         parent::afterDelete();
-
-        App::getInstance()->getMemcached()->delete(
-            self::_getMemcachedKey($this->getId())
-        );
-
         $this->getContentModel()->delete();
-    }
-
-    /**
-     * Runs after saving
-     *
-     * @return void
-     */
-    protected function afterSave()
-    {
-        parent::afterSave();
-
-        App::getInstance()->getMemcached()->delete(
-            $this->_getMemcachedKey($this->getId())
-        );
     }
 
     /**
@@ -274,18 +255,6 @@ class BlockModel extends AbstractBlockModel
     }
 
     /**
-     * Gets memcached key
-     *
-     * @param int $blockId Block ID
-     *
-     * @return string
-     */
-    private function _getMemcachedKey($blockId)
-    {
-        return sprintf('block_%s', $blockId);
-    }
-
-    /**
      * Gets model by ID
      *
      * @param int $blockId Block ID
@@ -296,14 +265,6 @@ class BlockModel extends AbstractBlockModel
      */
     public function getById($blockId)
     {
-        $memcached = App::getInstance()->getMemcached();
-        $memcachedKey = $this->_getMemcachedKey($blockId);
-
-        $memcachedValue = $memcached->get($memcachedKey);
-        if ($memcachedValue !== false) {
-            return self::model()->set($memcachedValue);
-        }
-
         $model = self::model()->byId($blockId)->find();
         if ($model === null) {
             throw new NotFoundException(
@@ -313,8 +274,6 @@ class BlockModel extends AbstractBlockModel
                 ]
             );
         }
-
-        $memcached->set($memcachedKey, $model->get());
 
         return $model;
     }

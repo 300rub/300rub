@@ -160,37 +160,4 @@ class ImageGroupModel extends AbstractImageGroupModel
 
         parent::beforeDelete();
     }
-
-    /**
-     * Runs after changing
-     *
-     * @return void
-     */
-    protected function afterChange()
-    {
-        parent::afterChange();
-        $this->resetMemcached();
-    }
-
-    /**
-     * Resets Memcached
-     *
-     * @return void
-     */
-    public function resetMemcached()
-    {
-        $imageModel = ImageModel::model()
-            ->set(['id' => $this->get('imageId')]);
-
-        $imageModel
-            ->deleteHtmlMemcached(
-                $imageModel->getHtmlMemcachedKey(0)
-            )
-            ->deleteHtmlMemcached(
-                $imageModel->getHtmlMemcachedKey(-1)
-            )
-            ->deleteHtmlMemcached(
-                $imageModel->getHtmlMemcachedKey($this->getId())
-            );
-    }
 }

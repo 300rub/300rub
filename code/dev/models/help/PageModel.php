@@ -117,22 +117,6 @@ class PageModel extends AbstractPageModel
     }
 
     /**
-     * Gets child categories memcached key
-     *
-     * @param string $alias Alias
-     *
-     * @return string
-     */
-    private function _getListMemcachedKey($alias)
-    {
-        return sprintf(
-            'help_pages_list_%s_%s',
-            $alias,
-            App::getInstance()->getLanguage()->getActiveId()
-        );
-    }
-
-    /**
      * Gets list by category alias
      *
      * @param string $categoryAlias Category alias
@@ -141,16 +125,6 @@ class PageModel extends AbstractPageModel
      */
     public function getListByCategoryAlias($categoryAlias)
     {
-        $memcached = App::getInstance()->getMemcached();
-        $memcachedKey = $this->_getListMemcachedKey(
-            $categoryAlias
-        );
-
-        $memcachedResult = $memcached->get($memcachedKey);
-        if ($memcachedResult !== false) {
-            return $memcachedResult;
-        }
-
         $table = $this->getTable()
             ->addSelect('alias', Table::DEFAULT_ALIAS, 'alias')
             ->addSelect('name', 'languagePages', 'name')
@@ -193,8 +167,6 @@ class PageModel extends AbstractPageModel
                 ),
             ];
         }
-
-        $memcached->set($memcachedKey, $list);
 
         return $list;
     }

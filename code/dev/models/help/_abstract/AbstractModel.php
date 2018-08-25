@@ -145,45 +145,13 @@ abstract class AbstractModel extends BaseModel
     }
 
     /**
-     * Gets name Memcached key
-     *
-     * @param string $type  Type
-     * @param string $alias Alias
-     *
-     * @return string
-     */
-    protected function getNameMemcachedKey($type, $alias)
-    {
-        return sprintf(
-            'help_name_%s_%s_%s',
-            $type,
-            $alias,
-            App::getInstance()->getLanguage()->getActiveId()
-        );
-    }
-
-    /**
      * Sets name
      *
      * @return AbstractModel
      */
     protected function setName()
     {
-        $memcached = App::getInstance()->getMemcached();
-        $memcachedKey = $this->getNameMemcachedKey(
-            static::TYPE,
-            $this->getAlias()
-        );
-
-        $memcachedResult = $memcached->get($memcachedKey);
-        if ($memcachedResult !== false) {
-            $this->_name = $memcachedResult;
-            return $this;
-        }
-
         $this->_name = $this->getLanguageModel()->get('name');
-        $memcached->set($memcachedKey, $this->_name);
-
         return $this;
     }
 
@@ -198,45 +166,13 @@ abstract class AbstractModel extends BaseModel
     }
 
     /**
-     * Gets text Memcached key
-     *
-     * @param string $type  Type
-     * @param string $alias Alias
-     *
-     * @return string
-     */
-    protected function getTextMemcachedKey($type, $alias)
-    {
-        return sprintf(
-            'help_text_%s_%s_%s',
-            $type,
-            $alias,
-            App::getInstance()->getLanguage()->getActiveId()
-        );
-    }
-
-    /**
      * Sets text
      *
      * @return AbstractModel
      */
     protected function setText()
     {
-        $memcached = App::getInstance()->getMemcached();
-        $memcachedKey = $this->getTextMemcachedKey(
-            static::TYPE,
-            $this->getAlias()
-        );
-
-        $memcachedResult = $memcached->get($memcachedKey);
-        if ($memcachedResult !== false) {
-            $this->_text = $memcachedResult;
-            return $this;
-        }
-
         $this->_text = $this->getLanguageModel()->get('text');
-        $memcached->set($memcachedKey, $this->_text);
-
         return $this;
     }
 
@@ -251,45 +187,13 @@ abstract class AbstractModel extends BaseModel
     }
 
     /**
-     * Gets title Memcached key
-     *
-     * @param string $type  Type
-     * @param string $alias Alias
-     *
-     * @return string
-     */
-    protected function getTitleMemcachedKey($type, $alias)
-    {
-        return sprintf(
-            'help_title_%s_%s_%s',
-            $type,
-            $alias,
-            App::getInstance()->getLanguage()->getActiveId()
-        );
-    }
-
-    /**
      * Sets title
      *
      * @return AbstractModel
      */
     protected function setTitle()
     {
-        $memcached = App::getInstance()->getMemcached();
-        $memcachedKey = $this->getTitleMemcachedKey(
-            static::TYPE,
-            $this->getAlias()
-        );
-
-        $memcachedResult = $memcached->get($memcachedKey);
-        if ($memcachedResult !== false) {
-            $this->_title = $memcachedResult;
-            return $this;
-        }
-
         $this->_title = $this->getLanguageModel()->get('title');
-        $memcached->set($memcachedKey, $this->_title);
-
         return $this;
     }
 
@@ -304,45 +208,13 @@ abstract class AbstractModel extends BaseModel
     }
 
     /**
-     * Gets keywords Memcached key
-     *
-     * @param string $type  Type
-     * @param string $alias Alias
-     *
-     * @return string
-     */
-    protected function getKeywordsMemcachedKey($type, $alias)
-    {
-        return sprintf(
-            'help_keywords_%s_%s_%s',
-            $type,
-            $alias,
-            App::getInstance()->getLanguage()->getActiveId()
-        );
-    }
-
-    /**
      * Sets keywords
      *
      * @return AbstractModel
      */
     protected function setKeywords()
     {
-        $memcached = App::getInstance()->getMemcached();
-        $memcachedKey = $this->getKeywordsMemcachedKey(
-            static::TYPE,
-            $this->getAlias()
-        );
-
-        $memcachedResult = $memcached->get($memcachedKey);
-        if ($memcachedResult !== false) {
-            $this->_keywords = $memcachedResult;
-            return $this;
-        }
-
         $this->_keywords = $this->getLanguageModel()->get('keywords');
-        $memcached->set($memcachedKey, $this->_keywords);
-
         return $this;
     }
 
@@ -357,45 +229,13 @@ abstract class AbstractModel extends BaseModel
     }
 
     /**
-     * Gets description Memcached key
-     *
-     * @param string $type  Type
-     * @param string $alias Alias
-     *
-     * @return string
-     */
-    protected function getDescriptionMemcachedKey($type, $alias)
-    {
-        return sprintf(
-            'help_description_%s_%s_%s',
-            $type,
-            $alias,
-            App::getInstance()->getLanguage()->getActiveId()
-        );
-    }
-
-    /**
      * Sets description
      *
      * @return AbstractModel
      */
     protected function setDescription()
     {
-        $memcached = App::getInstance()->getMemcached();
-        $memcachedKey = $this->getDescriptionMemcachedKey(
-            static::TYPE,
-            $this->getAlias()
-        );
-
-        $memcachedResult = $memcached->get($memcachedKey);
-        if ($memcachedResult !== false) {
-            $this->_description = $memcachedResult;
-            return $this;
-        }
-
         $this->_description = $this->getLanguageModel()->get('description');
-        $memcached->set($memcachedKey, $this->_description);
-
         return $this;
     }
 
@@ -410,48 +250,16 @@ abstract class AbstractModel extends BaseModel
     }
 
     /**
-     * Gets breadcrumbs Memcached key
-     *
-     * @param string $type  Type
-     * @param string $alias Alias
-     *
-     * @return string
-     */
-    protected function getBreadcrumbsMemcachedKey($type, $alias)
-    {
-        return sprintf(
-            'help_breadcrumbs_%s_%s_%s',
-            $type,
-            $alias,
-            App::getInstance()->getLanguage()->getActiveId()
-        );
-    }
-
-    /**
      * Sets breadcrumbs
      *
      * @return AbstractModel
      */
     protected function setBreadcrumbs()
     {
-        $memcached = App::getInstance()->getMemcached();
-        $memcachedKey = $this->getBreadcrumbsMemcachedKey(
-            static::TYPE,
-            $this->getAlias()
-        );
-
-        $memcachedResult = $memcached->get($memcachedKey);
-        if ($memcachedResult !== false) {
-            $this->_breadcrumbs = $memcachedResult;
-            return $this;
-        }
-
         $this->_breadcrumbs = $this->generateBreadcrumbs(
             $this->getAlias(),
             $this->getName()
         );
-        $memcached->set($memcachedKey, $this->_breadcrumbs);
-
         return $this;
     }
 

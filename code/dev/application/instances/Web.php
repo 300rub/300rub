@@ -98,9 +98,6 @@ class Web extends AbstractAjax
     public function setUser($token, UserModel $userModel)
     {
         $this->_user = new User($token, $userModel);
-
-        $this->getMemcached()->set($token, $this->_user);
-
         return $this;
     }
 
@@ -122,12 +119,6 @@ class Web extends AbstractAjax
         $this->getDb()->setActivePdoKey(
             $this->getSite()->getWriteDbName()
         );
-
-        $user = $this->getMemcached()->get($token);
-        if ($user instanceof User) {
-            $this->_user = $user;
-            return $this;
-        }
 
         $userSessionModel = new UserSessionModel();
         $userSessionModel->byToken($token);

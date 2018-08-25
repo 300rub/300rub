@@ -83,13 +83,6 @@ abstract class AbstractApplication extends AbstractComponents
     {
         $siteModel = $this->_getSiteModel($hostname);
 
-        $this->getMemcached()->setPrefix(
-            sprintf(
-                'site%s_',
-                $siteModel->getId()
-            )
-        );
-
         $siteModel->setMainHost();
 
         $this->getDb()
@@ -134,13 +127,6 @@ abstract class AbstractApplication extends AbstractComponents
     {
         $siteModel = new SiteModel;
 
-        $memcachedKey = 'site_' . str_replace('.', '_', $hostname);
-        $memcachedResult = $this->getMemcached()->get($memcachedKey, true);
-        if ($memcachedResult !== false) {
-            $siteModel->set($memcachedResult);
-            return $siteModel;
-        }
-
         $baseHost = $this->getConfig()->getValue(['host']);
         $baseHostLength = strlen($baseHost);
         $hostnameLength = strlen($hostname);
@@ -164,13 +150,6 @@ abstract class AbstractApplication extends AbstractComponents
                 ]
             );
         }
-
-        $this->getMemcached()->set(
-            $memcachedKey,
-            $siteModel->get(),
-            null,
-            true
-        );
 
         return $siteModel;
     }

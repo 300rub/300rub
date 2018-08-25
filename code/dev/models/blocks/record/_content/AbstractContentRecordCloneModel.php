@@ -22,13 +22,6 @@ abstract class AbstractContentRecordCloneModel extends AbstractRecordCloneModel
     const DEFAULT_MAX_COUNT = 3;
 
     /**
-     * Is fully cached
-     *
-     * @var boolean
-     */
-    protected $isFullyCached = true;
-
-    /**
      * Generates HTML
      *
      * @return string

@@ -19,7 +19,5 @@ abstract class AbstractTest extends \PHPUnit_Framework_TestCase
     protected function setUp()
     {
         parent::setUp();
-
-        App::getInstance()->getMemcached()->flush();
     }
 }

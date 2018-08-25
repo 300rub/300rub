@@ -11,7 +11,7 @@ use ss\models\user\UserSessionModel;
 /**
  * Adds user session. Sets User / Login
  *
- * Creates new record in DB, memcached record, cookie record
+ * Creates new record in DB, cookie record
  *
  * Returns "result" => false for incorrect username or password,
  * "token" in case of success
