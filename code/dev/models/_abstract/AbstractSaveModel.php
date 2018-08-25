@@ -281,6 +281,7 @@ abstract class AbstractSaveModel extends AbstractSaveRelationModel
 
             if (array_key_exists(self::FIELD_UNIQUE, $parameters) === true) {
                 $model = $this->getNewModel()
+                    ->set([$field => $this->getField($field)])
                     ->exceptId($this->getId())
                     ->checkUnique($field)
                     ->find();

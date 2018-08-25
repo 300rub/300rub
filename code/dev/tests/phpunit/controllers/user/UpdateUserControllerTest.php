@@ -47,7 +47,7 @@ class UpdateUserControllerTest extends AbstractControllerTest
                 [
                     'name'     => 'Name',
                     'login'    => 'newLogin',
-                    'password' => $model->getPasswordHash('pass', true),
+                    'password' => $model->getPasswordHash('pass'),
                     'type'     => UserModel::TYPE_LIMITED,
                     'email'    => 'newEmail@email.com',
                 ]

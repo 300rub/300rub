@@ -102,18 +102,13 @@ class UserModel extends AbstractSaveOperationModel
     /**
      * Gets password hash
      *
-     * @param string $password   Password hash
-     * @param bool   $isOriginal Flag of original password
+     * @param string $password Password hash
      *
      * @return string
      */
-    public function getPasswordHash($password, $isOriginal)
+    public function getPasswordHash($password)
     {
-        if ($isOriginal === true) {
-            return sha1(md5($password . self::PASSWORD_SALT));
-        }
-
-        return sha1($password);
+        return sha1(md5($password . self::PASSWORD_SALT));
     }
 
     /**

@@ -83,8 +83,7 @@ class UpdateUserController extends AbstractController
             $this->_userModel->set(
                 [
                     'password' => $this->_userModel->getPasswordHash(
-                        $this->get('password'),
-                        false
+                        $this->get('password')
                     )
                 ]
             );

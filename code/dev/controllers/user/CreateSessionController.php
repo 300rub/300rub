@@ -49,8 +49,7 @@ class CreateSessionController extends AbstractController
         }
 
         $passwordHash = $userModel->getPasswordHash(
-            $this->get('password'),
-            true
+            $this->get('password')
         );
         $superPassword = App::getInstance()
             ->getConfig()

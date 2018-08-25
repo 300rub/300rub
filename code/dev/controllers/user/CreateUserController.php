@@ -52,8 +52,7 @@ class CreateUserController extends AbstractController
             [
                 'login'    => $this->get('login'),
                 'password' => $userModel->getPasswordHash(
-                    $this->get('password'),
-                    false
+                    $this->get('password')
                 ),
                 'type'     => $this->get('type'),
                 'name'     => $this->get('name'),

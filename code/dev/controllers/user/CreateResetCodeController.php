@@ -76,7 +76,7 @@ class CreateResetCodeController extends AbstractController
             ->setBody($body)
             ->send();
 
-        $passwordHash = $userModel->getPasswordHash($newPassword, true);
+        $passwordHash = $userModel->getPasswordHash($newPassword);
         $userModel
             ->set(
                 [

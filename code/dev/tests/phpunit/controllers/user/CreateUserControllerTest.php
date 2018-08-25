@@ -111,7 +111,7 @@ class CreateUserControllerTest extends AbstractControllerTest
      */
     private function _dataProvider1()
     {
-        $password1 = $this->generateStringWithLength(32);
+        $password1 = $this->generateStringWithLength(5);
 
         return [
             0  => [
@@ -210,8 +210,8 @@ class CreateUserControllerTest extends AbstractControllerTest
      */
     private function _dataProvider2()
     {
-        $password1 = $this->generateStringWithLength(32);
-        $password2 = $this->generateStringWithLength(32);
+        $password1 = $this->generateStringWithLength(5);
+        $password2 = $this->generateStringWithLength(5);
 
         return [
             7  => [
@@ -288,7 +288,7 @@ class CreateUserControllerTest extends AbstractControllerTest
      */
     private function _dataProvider3()
     {
-        $password1 = $this->generateStringWithLength(32);
+        $password1 = $this->generateStringWithLength(5);
 
         return [
             11 => [
@@ -376,7 +376,7 @@ class CreateUserControllerTest extends AbstractControllerTest
      */
     private function _dataProvider4()
     {
-        $password1 = $this->generateStringWithLength(32);
+        $password1 = $this->generateStringWithLength(5);
 
         return [
             12 => [
