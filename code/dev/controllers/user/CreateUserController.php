@@ -3,7 +3,7 @@
 namespace ss\controllers\user;
 
 use ss\application\App;
-use ss\application\components\Operation;
+use ss\application\components\user\Operation;
 use ss\application\exceptions\BadRequestException;
 use ss\controllers\_abstract\AbstractController;
 use ss\models\user\UserModel;

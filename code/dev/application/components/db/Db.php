@@ -213,10 +213,6 @@ class Db
      */
     public function beginTransaction($key)
     {
-        if (in_array($key, $this->_transactions) === true) {
-            return $this;
-        }
-
         if ($this->getPdo($key)->beginTransaction() === false) {
             throw new DbException(
                 'Unable to start transaction. Error info: {info}',
@@ -380,31 +376,20 @@ class Db
         $dbName,
         $isRecreate = null
     ) {
-        $rootPdo = $this
-            ->setRootPdo($host)
-            ->getActivePdo();
-
         if ($isRecreate === true) {
             $this->dropDb($host, $dbName);
         }
 
-        $sth = $rootPdo->prepare(
+        $this->setRootPdo($host);
+
+        $this->execute(
             sprintf(
                 'CREATE DATABASE IF NOT EXISTS %s',
                 $dbName
             )
         );
-        $result = $sth->execute();
-        if ($result === false) {
-            throw new DbException(
-                'Unable to create DB {dbName}',
-                [
-                    'dbName' => $dbName
-                ]
-            );
-        }
 
-        $sth = $rootPdo->prepare(
+        $this->execute(
             sprintf(
                 "GRANT ALL ON `%s`.* TO '%s'@'%s' IDENTIFIED BY '%s'",
                 $dbName,
@@ -413,15 +398,6 @@ class Db
                 $password
             )
         );
-        $result = $sth->execute();
-        if ($result === false) {
-            throw new DbException(
-                'Unable to create user for DB {dbName}',
-                [
-                    'dbName' => $dbName
-                ]
-            );
-        }
 
         return $this;
     }
@@ -438,25 +414,14 @@ class Db
      */
     public function dropDb($host, $dbName)
     {
-        $rootPdo = $this
+        $this
             ->setRootPdo($host)
-            ->getActivePdo();
-
-        $sth = $rootPdo->prepare(
-            sprintf(
-                'DROP DATABASE IF EXISTS %s',
-                $dbName
-            )
-        );
-        $result = $sth->execute();
-        if ($result === false) {
-            throw new DbException(
-                'Unable to drop DB {dbName}',
-                [
-                    'dbName' => $dbName
-                ]
+            ->execute(
+                sprintf(
+                    'DROP DATABASE IF EXISTS %s',
+                    $dbName
+                )
             );
-        }
 
         return $this;
     }
@@ -472,20 +437,9 @@ class Db
      */
     public function getAllDbNames($host)
     {
-        $rootPdo = $this
+        $sth = $this
             ->setRootPdo($host)
-            ->getActivePdo();
-
-        $sth = $rootPdo->prepare('SHOW DATABASES');
-        $result = $sth->execute();
-        if ($result === false) {
-            throw new DbException(
-                'Unable to show DBs for host: {host}',
-                [
-                    'host' => $host
-                ]
-            );
-        }
+            ->execute('SHOW DATABASES');
 
         $list = [];
 
@@ -606,5 +560,34 @@ class Db
         );
 
         return $this;
+    }
+
+    /**
+     * Executes statement
+     *
+     * @param string $statement  Statement
+     * @param array  $parameters Parameters
+     *
+     * @throws DbException
+     *
+     * @return \PDOStatement
+     */
+    public function execute($statement, array $parameters = [])
+    {
+        $sth = $this->getActivePdo()->prepare($statement);
+        $result = $sth->execute($parameters);
+
+        if ($result === false) {
+            throw new DbException(
+                'Unable to execute statement: {statement} ' .
+                'with parameters: {parameters}',
+                [
+                    'statement'  => $statement,
+                    'parameters' => json_encode($parameters),
+                ]
+            );
+        }
+
+        return $sth;
     }
 }

@@ -3,8 +3,9 @@
 namespace ss\controllers\user;
 
 use ss\application\App;
-use ss\application\components\Operation;
+use ss\application\components\user\Operation;
 
+use ss\application\components\valueGenerator\ValueGenerator;
 use ss\application\exceptions\AccessException;
 use ss\application\exceptions\BadRequestException;
 use ss\application\exceptions\NotFoundException;
@@ -150,10 +151,10 @@ class GetUserController extends AbstractController
                 'label' => $language->getMessage('user', 'type'),
                 'value' => $this->_type,
                 'name'  => 'type',
-                'list'  => ValueGenerator::factory(
+                'list'  => App::getInstance()->getValueGenerator()->getValue(
                     ValueGenerator::ORDERED_ARRAY,
                     $userModel->getTypeList(true)
-                )->generate()
+                )
             ],
             'operations' => [
                 'canChange' => $this->_canChangeOperations,

@@ -3,6 +3,7 @@
 namespace ss\controllers\site;
 
 
+use ss\application\components\valueGenerator\ValueGenerator;
 use ss\controllers\site\_abstract\AbstractController;
 use ss\application\App;
 use ss\models\system\SiteModel;
@@ -88,10 +89,10 @@ class GetCreateFormController extends AbstractController
                     'label' => $language->getMessage('site', 'defaultLanguage'),
                     'value' => $language->getActiveId(),
                     'name'  => 'language',
-                    'list'  => ValueGenerator::factory(
+                    'list'  => App::getInstance()->getValueGenerator()->getValue(
                         ValueGenerator::ORDERED_ARRAY,
                         $language->getValueList()
-                    )->generate()
+                    )
                 ],
                 'button'     => [
                     'label'

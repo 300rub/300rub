@@ -2,7 +2,7 @@
 
 namespace ss\tests\phpunit\controllers\user;
 
-use ss\application\components\Operation;
+use ss\application\components\user\Operation;
 use ss\models\_abstract\AbstractModel;
 use ss\models\blocks\block\BlockModel;
 use ss\models\user\UserModel;

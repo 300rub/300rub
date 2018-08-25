@@ -3,7 +3,7 @@
 namespace ss\controllers\settings;
 
 use ss\application\App;
-use ss\application\components\Operation;
+use ss\application\components\user\Operation;
 use ss\controllers\_abstract\AbstractController;
 
 /**

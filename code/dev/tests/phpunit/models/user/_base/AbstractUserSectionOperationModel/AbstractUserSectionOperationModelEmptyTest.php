@@ -3,7 +3,7 @@
 // @codingStandardsIgnoreLine
 namespace ss\tests\phpunit\models\user\_base\AbstractUserSectionOperationModel;
 
-use ss\application\components\Operation;
+use ss\application\components\user\Operation;
 use ss\models\user\UserSectionOperationModel;
 use ss\tests\phpunit\models\_abstract\_base\AbstractEmptyModelTest;
 

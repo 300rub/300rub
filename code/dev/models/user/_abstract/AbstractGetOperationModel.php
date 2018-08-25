@@ -2,7 +2,7 @@
 
 namespace ss\models\user\_abstract;
 
-use ss\application\components\Operation;
+use ss\application\components\user\Operation;
 use ss\models\user\_base\AbstractUserModel;
 use ss\models\user\UserBlockGroupOperationModel;
 use ss\models\user\UserBlockOperationModel;

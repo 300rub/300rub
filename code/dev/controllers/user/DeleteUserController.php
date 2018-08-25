@@ -2,7 +2,7 @@
 
 namespace ss\controllers\user;
 
-use ss\application\components\Operation;
+use ss\application\components\user\Operation;
 use ss\application\exceptions\AccessException;
 use ss\application\exceptions\NotFoundException;
 use ss\controllers\_abstract\AbstractController;

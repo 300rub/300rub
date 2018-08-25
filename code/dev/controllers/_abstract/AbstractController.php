@@ -117,8 +117,6 @@ abstract class AbstractController extends AbstractOperationController
      */
     protected function removeSavedData()
     {
-        $bdObject = App::getInstance()->getDb();
-        $bdObject->rollbackTransaction();
-        $bdObject->startTransaction();
+        App::getInstance()->getDb()->rollBackAll();
     }
 }

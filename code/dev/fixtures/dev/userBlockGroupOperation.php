@@ -1,6 +1,6 @@
 <?php
 
-use ss\application\components\Operation;
+use ss\application\components\user\Operation;
 use ss\models\blocks\block\BlockModel;
 
 return [

@@ -3,8 +3,9 @@
 namespace ss\controllers\text;
 
 use ss\application\App;
-use ss\application\components\Operation;
+use ss\application\components\user\Operation;
 
+use ss\application\components\valueGenerator\ValueGenerator;
 use ss\controllers\_abstract\AbstractController;
 use ss\models\blocks\block\BlockModel;
 use ss\models\blocks\text\TextModel;
@@ -83,10 +84,10 @@ class GetBlockController extends AbstractController
                     'label' => $language->getMessage('common', 'type'),
                     'value' => $type,
                     'name'  => 'type',
-                    'list'  => ValueGenerator::factory(
+                    'list'  => App::getInstance()->getValueGenerator()->getValue(
                         ValueGenerator::ORDERED_ARRAY,
                         $textModel->getTypeList()
-                    )->generate()
+                    )
                 ],
                 'hasEditor' => [
                     'name'  => 'hasEditor',

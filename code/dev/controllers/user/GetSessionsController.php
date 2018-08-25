@@ -4,7 +4,8 @@ namespace ss\controllers\user;
 
 use ss\application\App;
 
-use ss\application\components\Operation;
+use ss\application\components\db\Table;
+use ss\application\components\user\Operation;
 use ss\application\exceptions\BadRequestException;
 use ss\application\exceptions\NotFoundException;
 use ss\controllers\_abstract\AbstractController;
@@ -190,7 +191,7 @@ class GetSessionsController extends AbstractController
         $userSessionModels = new UserSessionModel();
         $userSessionModels
             ->byUserId($userId)
-            ->ordered('lastActivity', Db::DEFAULT_ALIAS, true);
+            ->ordered('lastActivity', Table::DEFAULT_ALIAS, true);
         return $userSessionModels->findAll();
     }
 }

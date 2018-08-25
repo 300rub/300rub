@@ -2,7 +2,7 @@
 
 namespace ss\controllers\image;
 
-use ss\application\components\Operation;
+use ss\application\components\user\Operation;
 use ss\controllers\_abstract\AbstractController;
 use ss\models\blocks\block\BlockModel;
 use ss\models\blocks\image\ImageInstanceModel;

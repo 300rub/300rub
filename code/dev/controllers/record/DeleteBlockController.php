@@ -2,7 +2,7 @@
 
 namespace ss\controllers\record;
 
-use ss\application\components\Operation;
+use ss\application\components\user\Operation;
 use ss\application\exceptions\BadRequestException;
 use ss\controllers\_abstract\AbstractController;
 use ss\models\blocks\block\BlockModel;

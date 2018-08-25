@@ -4,7 +4,6 @@ namespace ss\migrations\_abstract;
 
 use ss\application\App;
 use ss\application\exceptions\MigrationException;
-use Exception;
 
 /**
  * Abstract class for working with migrations
@@ -88,7 +87,7 @@ abstract class AbstractMigration
             $cols[] = sprintf('`%s` %s', $name, $type);
         }
 
-        $result = App::getInstance()
+        App::getInstance()
             ->getDb()
             ->execute(
                 "\nCREATE TABLE " .
@@ -98,14 +97,6 @@ abstract class AbstractMigration
                 "\n)" .
                 $options
             );
-        if ($result === false) {
-            throw new MigrationException(
-                'Unable to create the table {table}',
-                [
-                    'table' => $table
-                ]
-            );
-        }
 
         return $this;
     }
@@ -123,30 +114,18 @@ abstract class AbstractMigration
      */
     public function createIndex($table, $column, $index = null)
     {
-        try {
-            if ($index === null) {
-                $index = sprintf('%s_%s', $table, $column);
-            }
-
-            App::getInstance()->getDb()->execute(
-                sprintf(
-                    'ALTER' . ' TABLE %s ADD INDEX %s (%s)',
-                    $table,
-                    $index,
-                    $column
-                )
-            );
-        } catch (Exception $e) {
-            throw new MigrationException(
-                'Exception: {e}. Unable to create index ' .
-                'for column {column} for table {table}',
-                [
-                    'e'      => $e->getMessage(),
-                    'column' => $column,
-                    'table'  => $table
-                ]
-            );
+        if ($index === null) {
+            $index = sprintf('%s_%s', $table, $column);
         }
+
+        App::getInstance()->getDb()->execute(
+            sprintf(
+                'ALTER' . ' TABLE %s ADD INDEX %s (%s)',
+                $table,
+                $index,
+                $column
+            )
+        );
 
         return $this;
     }
@@ -163,25 +142,13 @@ abstract class AbstractMigration
      */
     public function createFullTextIndex($table, $column)
     {
-        try {
-            App::getInstance()->getDb()->execute(
-                sprintf(
-                    'ALTER' . ' TABLE %s ADD FULLTEXT(%s)',
-                    $table,
-                    $column
-                )
-            );
-        } catch (Exception $e) {
-            throw new MigrationException(
-                'Exception: {e}. Unable to create FULLTEXT index ' .
-                'for column {column} for table {table}',
-                [
-                    'e'      => $e->getMessage(),
-                    'column' => $column,
-                    'table'  => $table
-                ]
-            );
-        }
+        App::getInstance()->getDb()->execute(
+            sprintf(
+                'ALTER' . ' TABLE %s ADD FULLTEXT(%s)',
+                $table,
+                $column
+            )
+        );
 
         return $this;
     }
@@ -199,27 +166,14 @@ abstract class AbstractMigration
      */
     public function createUniqueIndex($table, $name, $columns)
     {
-        try {
-            App::getInstance()->getDb()->execute(
-                sprintf(
-                    'ALTER' . ' TABLE %s ADD UNIQUE INDEX %s (%s)',
-                    $table,
-                    $name,
-                    $columns
-                )
-            );
-        } catch (Exception $e) {
-            throw new MigrationException(
-                'Exception: {e}. Unable to create index with ' .
-                'name {name} for columns {columns} for table {table}',
-                [
-                    'e'       => $e->getMessage(),
-                    'name'    => $name,
-                    'columns' => $columns,
-                    'table'   => $table
-                ]
-            );
-        }
+        App::getInstance()->getDb()->execute(
+            sprintf(
+                'ALTER' . ' TABLE %s ADD UNIQUE INDEX %s (%s)',
+                $table,
+                $name,
+                $columns
+            )
+        );
 
         return $this;
     }
@@ -244,32 +198,20 @@ abstract class AbstractMigration
         $onUpdate = self::FK_RESTRICT,
         $onDelete = self::FK_RESTRICT
     ) {
-        try {
-            App::getInstance()->getDb()->execute(
-                sprintf(
-                    'ALTER' . ' TABLE %s ADD CONSTRAINT ' .
-                    '%s_%s_fk FOREIGN KEY (%s) ' .
-                    'REFERENCES %s(id) ON UPDATE %s ON DELETE %s',
-                    $table,
-                    $table,
-                    $column,
-                    $column,
-                    $reference,
-                    $onUpdate,
-                    $onDelete
-                )
-            );
-        } catch (Exception $e) {
-            throw new MigrationException(
-                'Exception: {e}. Unable to create foreign key ' .
-                'for column {column} for table {table}',
-                [
-                    'e'      => $e->getMessage(),
-                    'column' => $column,
-                    'table'  => $table
-                ]
-            );
-        }
+        App::getInstance()->getDb()->execute(
+            sprintf(
+                'ALTER' . ' TABLE %s ADD CONSTRAINT ' .
+                '%s_%s_fk FOREIGN KEY (%s) ' .
+                'REFERENCES %s(id) ON UPDATE %s ON DELETE %s',
+                $table,
+                $table,
+                $column,
+                $column,
+                $reference,
+                $onUpdate,
+                $onDelete
+            )
+        );
 
         return $this;
     }

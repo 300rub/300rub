@@ -3,7 +3,8 @@
 namespace ss\controllers\image;
 
 use ss\application\App;
-use ss\application\components\Operation;
+use ss\application\components\user\Operation;
+use ss\application\components\valueGenerator\ValueGenerator;
 use ss\controllers\_abstract\AbstractController;
 use ss\models\blocks\block\BlockModel;
 use ss\models\blocks\image\ImageModel;
@@ -73,10 +74,10 @@ class GetBlockController extends AbstractController
                     'label' => $language->getMessage('common', 'type'),
                     'value' => $this->_imageModel->get('type'),
                     'name'  => 'type',
-                    'list'  => ValueGenerator::factory(
+                    'list'  => App::getInstance()->getValueGenerator()->getValue(
                         ValueGenerator::ORDERED_ARRAY,
                         $this->_imageModel->getTypeList()
-                    )->generate()
+                    )
                 ],
                 'autoCropType'      => [
                     'label' => $language->getMessage('image', 'autoCropType'),
