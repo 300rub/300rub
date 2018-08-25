@@ -115,7 +115,7 @@
             .setSubmit(
                 {
                     label: data.forms.button.label,
-                    icon: "fa-plus",
+                    icon: "fas fa-plus",
                     forms: [
                         this._nameForm,
                         this._userNameForm,
