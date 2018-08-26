@@ -188,4 +188,8 @@ return [
         Language::LANGUAGE_EN_ID => 'Logout',
         Language::LANGUAGE_RU_ID => 'Выход',
     ],
+    'releaseButtonName' => [
+        Language::LANGUAGE_EN_ID => 'Release',
+        Language::LANGUAGE_RU_ID => 'Релиз',
+    ],
 ];

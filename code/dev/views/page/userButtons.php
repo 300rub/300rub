@@ -8,6 +8,7 @@
  * @var string $logoutYes
  * @var string $logoutNo
  * @var string $logoutConfirmText
+ * @var string $releaseButton
  * @var string $sectionsButton
  * @var string $blocksButton
  * @var string $settingsButton
@@ -19,6 +20,10 @@
 ?>
 
 <div id="user-buttons">
+    <a>
+        <span><?php echo $releaseButton; ?></span>
+        <i class="fas fa-truck"></i>
+    </a>
     <?php if ($isDisplayBlocks === true) { ?>
         <a id="user-button-block">
             <span><?php echo $blocksButton; ?></span>
