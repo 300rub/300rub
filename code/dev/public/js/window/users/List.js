@@ -39,9 +39,9 @@
      * @private
      */
     ss.window.users.List.prototype._onLoadDataSuccess = function (data) {
-        this.getWindow().find(".footer").remove();
-
-        this.setTitle(data.title);
+        this
+            .setTitle(data.title)
+            .removeFooter();
 
         var table = ss.components.Template.get("window-users-table");
         table.find(".name-label").text(data.labels.name);

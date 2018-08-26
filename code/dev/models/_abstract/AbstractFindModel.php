@@ -121,6 +121,27 @@ abstract class AbstractFindModel extends AbstractBaseModel
     }
 
     /**
+     * Sets limit
+     *
+     * @param int $limit  Limit
+     * @param int $offset Offset
+     *
+     * @return AbstractModel|AbstractFindModel
+     */
+    public function limit($limit, $offset = 0)
+    {
+        $this->getTable()->setLimit(
+            sprintf(
+                '%s, %s',
+                $offset,
+                $limit
+            )
+        );
+
+        return $this;
+    }
+
+    /**
      * Adds in condition to SQL request
      *
      * @param string $field  Table field
@@ -245,7 +266,7 @@ abstract class AbstractFindModel extends AbstractBaseModel
      *
      * @param bool $isReturnArray Flag to return array
      *
-     * @return null|AbstractModel[]
+     * @return AbstractModel[]
      */
     public function findAll($isReturnArray = null)
     {

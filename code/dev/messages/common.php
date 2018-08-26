@@ -57,7 +57,7 @@ return [
     ],
     'type'      => [
         Language::LANGUAGE_EN_ID => 'Type',
-        Language::LANGUAGE_RU_ID => '',
+        Language::LANGUAGE_RU_ID => 'Тип',
     ],
     'settings'  => [
         Language::LANGUAGE_EN_ID => 'Settings',
@@ -134,5 +134,13 @@ return [
     'language' => [
         Language::LANGUAGE_EN_ID => 'Language',
         Language::LANGUAGE_RU_ID => 'Язык',
+    ],
+    'unknown' => [
+        Language::LANGUAGE_EN_ID => 'Unknown',
+        Language::LANGUAGE_RU_ID => 'Неизвестно',
+    ],
+    'date'      => [
+        Language::LANGUAGE_EN_ID => 'Date',
+        Language::LANGUAGE_RU_ID => 'Дата',
     ],
 ];

@@ -27,4 +27,28 @@ return [
         Language::LANGUAGE_EN_ID => 'Information about changes',
         Language::LANGUAGE_RU_ID => 'Информация об изменениях',
     ],
+    'event' => [
+        Language::LANGUAGE_EN_ID => 'Event',
+        Language::LANGUAGE_RU_ID => 'Событие',
+    ],
+    'category' => [
+        Language::LANGUAGE_EN_ID => 'Category',
+        Language::LANGUAGE_RU_ID => 'Категория',
+    ],
+    'typeAdd' => [
+        Language::LANGUAGE_EN_ID => 'Add',
+        Language::LANGUAGE_RU_ID => 'Добавление',
+    ],
+    'typeEdit' => [
+        Language::LANGUAGE_EN_ID => 'Edit',
+        Language::LANGUAGE_RU_ID => 'Редактирование',
+    ],
+    'typeDelete' => [
+        Language::LANGUAGE_EN_ID => 'Delete',
+        Language::LANGUAGE_RU_ID => 'Удаление',
+    ],
+    'categorySections' => [
+        Language::LANGUAGE_EN_ID => 'Sections',
+        Language::LANGUAGE_RU_ID => 'Разделы',
+    ],
 ];

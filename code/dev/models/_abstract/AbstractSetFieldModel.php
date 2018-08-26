@@ -121,12 +121,14 @@ abstract class AbstractSetFieldModel extends AbstractSetRelationModel
                 );
                 break;
             case self::FIELD_TYPE_DATETIME:
-                $hasCurrentDateTime = array_key_exists(
-                    self::FIELD_CURRENT_DATE_TIME,
-                    $info[$field]
-                );
-                if ($hasCurrentDateTime === true) {
-                    $value = 'now';
+                if (empty($value) === true) {
+                    $hasCurrentDateTime = array_key_exists(
+                        self::FIELD_CURRENT_DATE_TIME,
+                        $info[$field]
+                    );
+                    if ($hasCurrentDateTime === true) {
+                        $value = 'now';
+                    }
                 }
 
                 $this->setField(

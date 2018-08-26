@@ -372,6 +372,16 @@
             );
 
             return this;
+        },
+
+        /**
+         * Removes footer
+         *
+         * @returns {ss.window.Abstract}
+         */
+        removeFooter: function() {
+            this.getWindow().find(".footer").remove();
+            return this;
         }
     };
 }(window.jQuery, window.ss);

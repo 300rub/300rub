@@ -2,6 +2,7 @@
 
 namespace ss\models\user\_base;
 
+use ss\application\App;
 use ss\application\components\common\Validator;
 use ss\application\components\valueGenerator\ValueGenerator;
 use ss\models\_abstract\AbstractModel;
@@ -27,22 +28,33 @@ abstract class AbstractUserEventModel extends AbstractModel
     /**
      * Category list
      *
-     * @var array
+     * @return array
      */
-    public static $categoryList = [
-        self::CATEGORY_SECTION => '',
-    ];
+    public function getCategoryList()
+    {
+        $language = App::getInstance()->getLanguage();
+
+        return [
+            self::CATEGORY_SECTION
+                => $language->getMessage('release', 'categorySections'),
+        ];
+    }
 
     /**
      * Type list
      *
-     * @var array
+     * @return array
      */
-    public static $typeList = [
-        self::TYPE_ADD    => '',
-        self::TYPE_EDIT   => '',
-        self::TYPE_DELETE => '',
-    ];
+    public function getTypeList()
+    {
+        $language = App::getInstance()->getLanguage();
+
+        return [
+            self::TYPE_ADD    => $language->getMessage('release', 'typeAdd'),
+            self::TYPE_EDIT   => $language->getMessage('release', 'typeEdit'),
+            self::TYPE_DELETE => $language->getMessage('release', 'typeDelete'),
+        ];
+    }
 
     /**
      * Gets table name
@@ -70,13 +82,13 @@ abstract class AbstractUserEventModel extends AbstractModel
             'category' => [
                 self::FIELD_TYPE                 => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE                => [
-                    ValueGenerator::ARRAY_KEY => [self::$categoryList]
+                    ValueGenerator::ARRAY_KEY => [$this->getCategoryList()]
                 ],
             ],
             'type' => [
                 self::FIELD_TYPE                 => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE                => [
-                    ValueGenerator::ARRAY_KEY => [self::$typeList]
+                    ValueGenerator::ARRAY_KEY => [$this->getTypeList()]
                 ],
             ],
             'event'           => [

@@ -8,8 +8,8 @@ return [
         Language::LANGUAGE_RU_ID => 'Вход',
     ],
     'user'  => [
-        Language::LANGUAGE_EN_ID => 'Username',
-        Language::LANGUAGE_RU_ID => 'Логин',
+        Language::LANGUAGE_EN_ID => 'User',
+        Language::LANGUAGE_RU_ID => 'Пользователь',
     ],
     'login'  => [
         Language::LANGUAGE_EN_ID => 'Login',
