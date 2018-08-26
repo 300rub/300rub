@@ -9,6 +9,9 @@
     ss.system.UserButtons = function () {
         this._container = null;
 
+        this._releaseButton = null;
+        this._releaseInterval = null;
+
         this.init();
     };
 
@@ -63,10 +66,48 @@
          * @private
          */
         _setRelease: function () {
-            $("#user-button-release").on(
+            this._releaseButton = $("#user-button-release");
+
+            if (this._releaseButton.length === 0) {
+                return this;
+            }
+
+            this._releaseButton.on(
                 "click",
                 function () {
                     new ss.panel.settings.ShortInfo();
+                }
+            );
+
+            this._getReadyToRelease();
+            this._releaseInterval = setInterval(
+                $.proxy(this._getReadyToRelease, this),
+                60000
+            );
+
+            return this;
+        },
+
+        /**
+         * Gets is ready for release
+         *
+         * @returns {ss.system.UserButtons}
+         *
+         * @private
+         */
+        _getReadyToRelease: function() {
+            new ss.components.Ajax(
+                {
+                    data: {
+                        group: "release",
+                        controller: "ready"
+                    },
+                    success: $.proxy(function (data) {
+                        if (data.isReadyToRelease === true) {
+                            clearInterval(this._releaseInterval);
+                            this._releaseButton.removeClass('hidden');
+                        }
+                    }, this)
                 }
             );
 

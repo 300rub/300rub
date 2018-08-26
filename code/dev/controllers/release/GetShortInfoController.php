@@ -3,6 +3,7 @@
 namespace ss\controllers\release;
 
 use ss\application\App;
+use ss\application\components\user\Operation;
 use ss\controllers\_abstract\AbstractController;
 use ss\models\user\UserEventModel;
 
@@ -19,7 +20,9 @@ class GetShortInfoController extends AbstractController
      */
     public function run()
     {
-        $this->checkUser();
+        $this->checkSettingsOperation(
+            Operation::SETTINGS_USER_CAN_RELEASE
+        );
 
         $language = App::getInstance()->getLanguage();
 

@@ -3,9 +3,11 @@
 namespace ss\controllers\page;
 
 use ss\application\App;
+use ss\application\components\user\Operation;
 use ss\application\exceptions\NotFoundException;
 use ss\controllers\page\_abstract\AbstractPageController;
 use ss\models\sections\SectionModel;
+use ss\models\user\UserEventModel;
 
 /**
  * PageController
@@ -198,6 +200,9 @@ class PageController extends AbstractPageController
         return $this->getContentFromTemplate(
             'page/userButtons',
             [
+                'canRelease' => $this->hasSettingsOperation(
+                    Operation::SETTINGS_USER_CAN_RELEASE
+                ),
                 'isDisplaySections'
                     => $this->hasAnySectionOperations(),
                 'isDisplayBlocks'

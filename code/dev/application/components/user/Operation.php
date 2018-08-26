@@ -42,6 +42,7 @@ class Operation
     const SETTINGS_USER_VIEW_SESSIONS = 'SETTINGS_USER_VIEW_SESSIONS';
     const SETTINGS_USER_DELETE_SESSIONS = 'SETTINGS_USER_DELETE_SESSIONS';
     const SETTINGS_USER_ADD = 'SETTINGS_USER_ADD';
+    const SETTINGS_USER_CAN_RELEASE = 'SETTINGS_USER_CAN_RELEASE';
 
     /**
      * Block text operations
@@ -156,6 +157,11 @@ class Operation
                 => $language->getMessage(
                     'operation',
                     'settingsAddUsers'
+                ),
+            self::SETTINGS_USER_CAN_RELEASE
+                => $language->getMessage(
+                    'operation',
+                    'settingsCanRelease'
                 ),
         ];
     }

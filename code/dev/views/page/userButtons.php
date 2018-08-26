@@ -2,6 +2,7 @@
 /**
  * Variables
  *
+ * @var bool   $canRelease
  * @var bool   $isDisplayBlocks
  * @var bool   $isDisplaySections
  * @var bool   $isDisplaySettings
@@ -20,10 +21,12 @@
 ?>
 
 <div id="user-buttons">
-    <a id="user-button-release">
-        <span><?php echo $releaseButton; ?></span>
-        <i class="fas fa-truck"></i>
-    </a>
+    <?php if ($canRelease === true) { ?>
+        <a id="user-button-release" class="hidden">
+            <span><?php echo $releaseButton; ?></span>
+            <i class="fas fa-truck"></i>
+        </a>
+    <?php } ?>
     <?php if ($isDisplayBlocks === true) { ?>
         <a id="user-button-block">
             <span><?php echo $blocksButton; ?></span>

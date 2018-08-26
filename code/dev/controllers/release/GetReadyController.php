@@ -2,14 +2,14 @@
 
 namespace ss\controllers\release;
 
-use ss\application\App;
 use ss\application\components\user\Operation;
 use ss\controllers\_abstract\AbstractController;
+use ss\models\user\UserEventModel;
 
 /**
- * Creates a release
+ * Checks if a release is available
  */
-class CreateReleaseController extends AbstractController
+class GetReadyController extends AbstractController
 {
 
     /**
@@ -23,10 +23,14 @@ class CreateReleaseController extends AbstractController
             Operation::SETTINGS_USER_CAN_RELEASE
         );
 
-        $language = App::getInstance()->getLanguage();
+        $isReadyToRelease = false;
+        $userEventsCount = UserEventModel::model()->getCount();
+        if ($userEventsCount > 0) {
+            $isReadyToRelease = true;
+        }
 
         return [
-            'aaa' => 'ccc'
+            'isReadyToRelease' => $isReadyToRelease
         ];
     }
 }
