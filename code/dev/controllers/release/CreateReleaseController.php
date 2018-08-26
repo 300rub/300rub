@@ -23,10 +23,21 @@ class CreateReleaseController extends AbstractController
             Operation::SETTINGS_USER_CAN_RELEASE
         );
 
-        $language = App::getInstance()->getLanguage();
+        $site = App::getInstance()->getSite();
+        $dbObject = App::getInstance()->getDb();
+        $host = $site->get('dbHost');
 
-        return [
-            'aaa' => 'ccc'
-        ];
+        $dbObject->exportDb(
+            $host,
+            $site->getWriteDbName()
+        );
+
+        $dbObject->importDb(
+            $host,
+            $site->getReadDbName(),
+            $dbObject->getBackupPath($site->getWriteDbName())
+        );
+
+        return $this->getSimpleSuccessResult();
     }
 }

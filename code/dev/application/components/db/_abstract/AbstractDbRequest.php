@@ -17,6 +17,11 @@ abstract class AbstractDbRequest extends AbstractDbTransaction
     const SOURCE_PATH = CODE_ROOT . '/config/db/source.sql';
 
     /**
+     * Backup path mask
+     */
+    const BACKUP_PATH_MASK = '%s/backups/%s.sql';
+
+    /**
      * Creates DB
      *
      * @param string $host       Host
@@ -167,11 +172,7 @@ abstract class AbstractDbRequest extends AbstractDbTransaction
             ->getValue(['db', 'root', $host]);
 
         if ($path === null) {
-            $path = sprintf(
-                '%s/backups/%s.sql',
-                FILES_ROOT,
-                $dbName
-            );
+            $path = $this->getBackupPath($dbName);
         }
 
         exec(
@@ -186,7 +187,25 @@ abstract class AbstractDbRequest extends AbstractDbTransaction
             )
         );
 
+        chmod($path, 0777);
+
         return $this;
+    }
+
+    /**
+     * Gets backup path
+     *
+     * @param string $dbName DB name
+     *
+     * @return string
+     */
+    public function getBackupPath($dbName)
+    {
+        return sprintf(
+            self::BACKUP_PATH_MASK,
+            FILES_ROOT,
+            $dbName
+        );
     }
 
     /**
@@ -207,11 +226,7 @@ abstract class AbstractDbRequest extends AbstractDbTransaction
             ->getValue(['db', 'root', $host]);
 
         if ($path === null) {
-            $path = sprintf(
-                '%s/backups/%s.sql',
-                FILES_ROOT,
-                $dbName
-            );
+            $path = $this->getBackupPath($dbName);
         }
 
         if (file_exists($path) === false) {

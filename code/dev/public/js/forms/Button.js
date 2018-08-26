@@ -38,7 +38,7 @@
         if ($.type(this.getOption("forms")) === "array") {
             this.getForm().on("click", $.proxy(this._processForm, this));
         } else if ($.type(ajax) === "object"
-            && this.getForm().hasClass("disabled") === false
+            && this.getForm().prop("disabled") === false
         ) {
             if ($.type(this.getOption("confirm")) === "object") {
                 this.getForm().on(
@@ -72,7 +72,7 @@
     ss.forms.Button.prototype._processAjax = function () {
         var icon = this.getForm().find(".icons .icon");
         var spinner = this.getForm().find(".icons .fa-spin");
-        this.getForm().addClass("disabled");
+        this.getForm().attr("disabled", true);
 
         icon.addClass("hidden");
         spinner.removeClass("hidden");
@@ -92,7 +92,7 @@
                 function () {
                     icon.removeClass("hidden");
                     spinner.addClass("hidden");
-                    this.getForm().removeClass("disabled");
+                    this.getForm().attr("disabled", false);
                 },
                 this
             );
@@ -216,14 +216,14 @@
         var ajax = this.getOption("ajax");
         if (hasError === true
             || $.type(ajax) !== "object"
-            || this.getForm().hasClass("disabled") === true
+            || this.getForm().prop("disabled") === true
         ) {
             return false;
         }
 
         var icon = this.getForm().find(".icons .icon");
         var spinner = this.getForm().find(".icons .fa-spin");
-        this.getForm().addClass("disabled");
+        this.getForm().attr("disabled", true);
 
         icon.addClass("hidden");
         spinner.removeClass("hidden");
@@ -233,7 +233,7 @@
             function () {
                 icon.removeClass("hidden");
                 spinner.addClass("hidden");
-                this.getForm().removeClass("disabled");
+                this.getForm().attr("disabled", false);
             },
             this
         );
