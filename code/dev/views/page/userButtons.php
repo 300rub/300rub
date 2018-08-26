@@ -20,7 +20,7 @@
 ?>
 
 <div id="user-buttons">
-    <a>
+    <a id="user-button-release">
         <span><?php echo $releaseButton; ?></span>
         <i class="fas fa-truck"></i>
     </a>

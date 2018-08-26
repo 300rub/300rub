@@ -6,7 +6,7 @@
     <div class="header">
         <a class="back gray-red-link fa fa-chevron-left hidden"></a>
         <div class="title"></div>
-        <a class="close gray-red-link fa fa-remove"></a>
+        <a class="close gray-red-link fas fa-times"></a>
         <div class="description"></div>
     </div>
 

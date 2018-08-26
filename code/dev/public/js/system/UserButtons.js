@@ -31,6 +31,7 @@
             this._container = $("#user-buttons");
 
             this
+                ._setRelease()
                 ._setBlocks()
                 ._setSettings()
                 ._setLogout();
@@ -48,6 +49,24 @@
                 "click",
                 function () {
                     new ss.panel.blocks.List();
+                }
+            );
+
+            return this;
+        },
+
+        /**
+         * Sets release
+         *
+         * @returns {ss.system.UserButtons}
+         *
+         * @private
+         */
+        _setRelease: function () {
+            $("#user-button-release").on(
+                "click",
+                function () {
+                    new ss.panel.settings.ShortInfo();
                 }
             );
 

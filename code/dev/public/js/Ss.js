@@ -22,12 +22,14 @@
             design: {
                 block: {},
                 text: {}
-            }
+            },
+            release: {}
         },
         system: {},
         window: {
             users: {},
-            site: {}
+            site: {},
+            release: {}
         }
     };
 }(window);
