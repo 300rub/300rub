@@ -3,8 +3,10 @@
 namespace ss\controllers\release;
 
 use ss\application\App;
+use ss\application\components\db\Db;
 use ss\application\components\user\Operation;
 use ss\controllers\_abstract\AbstractController;
+use ss\models\user\UserEventModel;
 
 /**
  * Creates a release
@@ -37,6 +39,18 @@ class CreateReleaseController extends AbstractController
             $site->getReadDbName(),
             $dbObject->getBackupPath($site->getWriteDbName())
         );
+
+        $dbObject->setActivePdoKey(
+            Db::CONFIG_DB_NAME_SYSTEM
+        );
+        $site
+            ->set(['version' => ($site->get('version') + 1)])
+            ->save();
+
+        $dbObject->setActivePdoKey(
+            $site->getWriteDbName()
+        );
+        UserEventModel::model()->delete('id > 0');
 
         return $this->getSimpleSuccessResult();
     }

@@ -175,7 +175,7 @@
                             callback();
                         }
 
-                        this._removePanel();
+                        this.removePanel();
                     },
                     this
                 )
@@ -186,10 +186,8 @@
 
         /**
          * Removes panel
-         *
-         * @private
          */
-        _removePanel: function () {
+        removePanel: function () {
             this._panel.addClass("transparent");
             this._userButtons.removeClass("hidden");
 
@@ -288,7 +286,7 @@
          */
         _onError: function (jqXHR) {
             ss.components.Error.displayAjaxError(jqXHR);
-            this._removePanel();
+            this.removePanel();
         },
 
         /**

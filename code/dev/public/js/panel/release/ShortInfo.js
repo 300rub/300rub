@@ -76,13 +76,9 @@
     /**
      * On send success
      *
-     * @param {Object} [data]
-     *
      * @private
      */
-    ss.panel.settings.ShortInfo.prototype._onSendDataSuccess = function (
-        data
-    ) {
-        console.log(data);
+    ss.panel.settings.ShortInfo.prototype._onSendDataSuccess = function () {
+        window.location.reload();
     };
 }(window.jQuery, window.ss);
