@@ -2023,6 +2023,35 @@ LOCK TABLES `texts` WRITE;
 UNLOCK TABLES;
 
 --
+-- Table structure for table `userActions`
+--
+
+DROP TABLE IF EXISTS `userActions`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `userActions` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `userId` int(11) unsigned NOT NULL,
+  `type` tinyint(3) unsigned NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `userActions_userId_fk` (`userId`),
+  KEY `userActions_date` (`date`),
+  CONSTRAINT `userActions_userId_fk` FOREIGN KEY (`userId`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `userActions`
+--
+
+LOCK TABLES `userActions` WRITE;
+/*!40000 ALTER TABLE `userActions` DISABLE KEYS */;
+/*!40000 ALTER TABLE `userActions` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `userBlockGroupOperations`
 --
 
@@ -2229,4 +2258,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-08-25 21:50:53
+-- Dump completed on 2018-08-26 10:04:35

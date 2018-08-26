@@ -24,7 +24,8 @@ class M160307000000Users extends AbstractMigration
             ->_createUserBlockGroupOperations()
             ->_createUserSectionOperations()
             ->_createUserSectionGroupOperations()
-            ->_createUserSettingsOperations();
+            ->_createUserSettingsOperations()
+            ->_createUserActions();
     }
 
     /**
@@ -205,7 +206,7 @@ class M160307000000Users extends AbstractMigration
     /**
      * Creates userSettingsOperations table
      *
-     * @return AbstractMigration
+     * @return M160307000000Users
      */
     private function _createUserSettingsOperations()
     {
@@ -224,6 +225,37 @@ class M160307000000Users extends AbstractMigration
                 'users',
                 self::FK_CASCADE,
                 self::FK_CASCADE
+            );
+    }
+
+    /**
+     * Creates userSettingsOperations table
+     *
+     * @return M160307000000Users
+     */
+    private function _createUserActions()
+    {
+        return $this
+            ->createTable(
+                'userActions',
+                [
+                    'id'     => self::TYPE_PK,
+                    'userId' => self::TYPE_FK,
+                    'type'   => self::TYPE_TINYINT_UNSIGNED,
+                    'name'   => self::TYPE_STRING,
+                    'date'   => self::TYPE_DATETIME,
+                ]
+            )
+            ->createForeignKey(
+                'userActions',
+                'userId',
+                'users',
+                self::FK_CASCADE,
+                self::FK_CASCADE
+            )
+            ->createIndex(
+                'userActions',
+                'date'
             );
     }
 }

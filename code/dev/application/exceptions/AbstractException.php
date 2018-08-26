@@ -33,6 +33,18 @@ abstract class AbstractException extends Exception
      */
     public function __construct($message, array $parameters = [])
     {
+        foreach ($parameters as $key => $value) {
+            if (is_array($value) === true) {
+                $value = json_encode($value);
+            }
+
+            $message = str_replace(
+                '{' . $key . '}',
+                '[' . (string)$value . ']',
+                $message
+            );
+        }
+
         $superGlobalVariable = App::getInstance()
             ->getSuperGlobalVariable();
 
@@ -58,7 +70,7 @@ abstract class AbstractException extends Exception
 
         App::getInstance()->getLogger()->error(
             $logMessage,
-            $parameters,
+            [],
             $this->getLogName()
         );
 

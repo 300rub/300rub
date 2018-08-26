@@ -110,6 +110,9 @@ abstract class AbstractSiteModel extends AbstractModel
             'isSource' => [
                 self::FIELD_TYPE => self::FIELD_TYPE_BOOL,
             ],
+            'version' => [
+                self::FIELD_TYPE => self::FIELD_TYPE_INT,
+            ]
         ];
     }
 }
