@@ -7,9 +7,9 @@ use ss\application\components\valueGenerator\ValueGenerator;
 use ss\models\_abstract\AbstractModel;
 
 /**
- * Abstract model for working with table "userActions"
+ * Abstract model for working with table "userEvents"
  */
-abstract class AbstractUserActionModel extends AbstractModel
+abstract class AbstractUserEventModel extends AbstractModel
 {
 
     /**
@@ -33,7 +33,7 @@ abstract class AbstractUserActionModel extends AbstractModel
      */
     public function getTableName()
     {
-        return 'userActions';
+        return 'userEvents';
     }
 
     /**

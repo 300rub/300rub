@@ -237,7 +237,7 @@ class M160307000000Users extends AbstractMigration
     {
         return $this
             ->createTable(
-                'userActions',
+                'userEvents',
                 [
                     'id'     => self::TYPE_PK,
                     'userId' => self::TYPE_FK,
@@ -247,14 +247,14 @@ class M160307000000Users extends AbstractMigration
                 ]
             )
             ->createForeignKey(
-                'userActions',
+                'userEvents',
                 'userId',
                 'users',
                 self::FK_CASCADE,
                 self::FK_CASCADE
             )
             ->createIndex(
-                'userActions',
+                'userEvents',
                 'date'
             );
     }
