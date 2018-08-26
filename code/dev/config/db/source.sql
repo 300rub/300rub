@@ -2089,8 +2089,9 @@ DROP TABLE IF EXISTS `userEvents`;
 CREATE TABLE `userEvents` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `userId` int(11) unsigned NOT NULL,
+  `category` tinyint(3) unsigned NOT NULL,
   `type` tinyint(3) unsigned NOT NULL,
-  `name` varchar(255) NOT NULL,
+  `event` varchar(255) NOT NULL,
   `date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   KEY `userEvents_userId_fk` (`userId`),
@@ -2258,4 +2259,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-08-26 10:19:36
+-- Dump completed on 2018-08-26 15:16:49

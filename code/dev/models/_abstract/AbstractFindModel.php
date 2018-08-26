@@ -394,9 +394,7 @@ abstract class AbstractFindModel extends AbstractBaseModel
      */
     public function getCount()
     {
-        return count(
-            $this->setTableBeforeFind()->getTable()->findAll()
-        );
+        return $this->setTableBeforeFind()->getTable()->getCount();
     }
 
     /**

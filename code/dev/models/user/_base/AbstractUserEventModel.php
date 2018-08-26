@@ -13,9 +13,25 @@ abstract class AbstractUserEventModel extends AbstractModel
 {
 
     /**
+     * Categories
+     */
+    const CATEGORY_SECTION = 1;
+
+    /**
      * Types
      */
-    const TYPE_BLOCK_TEXT = 1;
+    const TYPE_ADD = 1;
+    const TYPE_EDIT = 2;
+    const TYPE_DELETE = 3;
+
+    /**
+     * Category list
+     *
+     * @var array
+     */
+    public static $categoryList = [
+        self::CATEGORY_SECTION => '',
+    ];
 
     /**
      * Type list
@@ -23,7 +39,9 @@ abstract class AbstractUserEventModel extends AbstractModel
      * @var array
      */
     public static $typeList = [
-        self::TYPE_BLOCK_TEXT => '',
+        self::TYPE_ADD    => '',
+        self::TYPE_EDIT   => '',
+        self::TYPE_DELETE => '',
     ];
 
     /**
@@ -49,13 +67,19 @@ abstract class AbstractUserEventModel extends AbstractModel
                     => '\\ss\\models\\user\\UserModel',
                 self::FIELD_NOT_CHANGE_ON_UPDATE => true
             ],
+            'category' => [
+                self::FIELD_TYPE                 => self::FIELD_TYPE_INT,
+                self::FIELD_VALUE                => [
+                    ValueGenerator::ARRAY_KEY => [self::$categoryList]
+                ],
+            ],
             'type' => [
                 self::FIELD_TYPE                 => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE                => [
                     ValueGenerator::ARRAY_KEY => [self::$typeList]
                 ],
             ],
-            'name'           => [
+            'event'           => [
                 self::FIELD_TYPE => self::FIELD_TYPE_STRING,
                 self::FIELD_VALIDATION          => [
                     Validator::TYPE_REQUIRED,

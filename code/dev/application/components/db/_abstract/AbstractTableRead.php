@@ -150,6 +150,27 @@ abstract class AbstractTableRead extends AbstractTable
     }
 
     /**
+     * Gets count
+     *
+     * @return int
+     */
+    public function getCount()
+    {
+        $this->_select = [];
+        $this->_select[] = sprintf(
+            'COUNT(%s.id) AS count',
+            self::DEFAULT_ALIAS
+        );
+
+        $result = $this->fetch(
+            $this->_getQuery(),
+            $this->getParameters()
+        );
+
+        return (int)$result['count'];
+    }
+
+    /**
      * Gets query
      *
      * @return string

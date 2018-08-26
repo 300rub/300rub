@@ -239,11 +239,12 @@ class M160307000000Users extends AbstractMigration
             ->createTable(
                 'userEvents',
                 [
-                    'id'     => self::TYPE_PK,
-                    'userId' => self::TYPE_FK,
-                    'type'   => self::TYPE_TINYINT_UNSIGNED,
-                    'name'   => self::TYPE_STRING,
-                    'date'   => self::TYPE_DATETIME,
+                    'id'       => self::TYPE_PK,
+                    'userId'   => self::TYPE_FK,
+                    'category' => self::TYPE_TINYINT_UNSIGNED,
+                    'type'     => self::TYPE_TINYINT_UNSIGNED,
+                    'event'    => self::TYPE_STRING,
+                    'date'     => self::TYPE_DATETIME,
                 ]
             )
             ->createForeignKey(

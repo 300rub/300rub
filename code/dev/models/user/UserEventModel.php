@@ -9,4 +9,14 @@ use ss\models\user\_base\AbstractUserEventModel;
  */
 class UserEventModel extends AbstractUserEventModel
 {
+
+    /**
+     * Gets UserEventModel
+     *
+     * @return UserEventModel
+     */
+    public static function model()
+    {
+        return new self;
+    }
 }

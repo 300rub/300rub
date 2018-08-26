@@ -2,6 +2,7 @@
 
 namespace ss\application\components\user;
 
+use ss\models\user\UserEventModel;
 use ss\models\user\UserModel;
 
 /**
@@ -154,5 +155,31 @@ class User
     public function isOwner()
     {
         return $this->getType() === UserModel::TYPE_OWNER;
+    }
+
+    /**
+     * Writes event
+     *
+     * @param string $category Category
+     * @param string $type     Event type
+     * @param string $event    Event
+     *
+     * @return User
+     */
+    public function writeEvent($category, $type, $event)
+    {
+        UserEventModel::model()
+            ->set(
+                [
+                    'userId'   => $this->getId(),
+                    'category' => $category,
+                    'type'     => $type,
+                    'event'    => $event,
+                    'data'     => new \DateTime()
+                ]
+            )
+            ->save();
+
+        return $this;
     }
 }
