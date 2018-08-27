@@ -23,8 +23,6 @@
                 parent: "users"
             }
         );
-
-        this.init();
     };
 
     /**

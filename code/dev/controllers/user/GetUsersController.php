@@ -23,13 +23,18 @@ class GetUsersController extends AbstractController
     {
         $this->checkUser();
         $user = App::getInstance()->getUser();
+        $language = App::getInstance()->getLanguage();
 
         $userModel = new UserModel();
 
         $list = [
             [
                 'id'              => $user->getId(),
-                'name'            => $user->getName(),
+                'name'            => sprintf(
+                    '%s (%s)',
+                    $user->getName(),
+                    $language->getMessage('user', 'me')
+                ),
                 'email'           => $user->getEmail(),
                 'access'          => $userModel->getType($user->getType()),
                 'canUpdate'       => true,
@@ -77,8 +82,6 @@ class GetUsersController extends AbstractController
                 ];
             }
         }
-
-        $language = App::getInstance()->getLanguage();
 
         return [
             'title'  => $language->getMessage('user', 'users'),

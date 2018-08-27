@@ -192,4 +192,8 @@ return [
         Language::LANGUAGE_EN_ID => 'Release',
         Language::LANGUAGE_RU_ID => 'Релиз',
     ],
+    'me' => [
+        Language::LANGUAGE_EN_ID => 'Me',
+        Language::LANGUAGE_RU_ID => 'Я',
+    ],
 ];

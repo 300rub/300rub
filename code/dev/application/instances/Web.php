@@ -141,6 +141,10 @@ class Web extends AbstractAjax
             return $this;
         }
 
+        $userSessionModel
+            ->set(['lastActivity' => new \DateTime()])
+            ->save();
+
         return $this->setUser($token, $userModel);
     }
 

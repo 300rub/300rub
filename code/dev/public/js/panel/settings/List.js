@@ -55,7 +55,7 @@
 
                     switch (key) {
                         case "users":
-                            item.find(".icon").addClass("fas fa-users");
+                            item.find(".icon").addClass("fas fa-user-friends");
                             item.find(".label").on(
                                 "click",
                                 function () {
