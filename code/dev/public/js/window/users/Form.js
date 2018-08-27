@@ -32,8 +32,6 @@
         this._passwordForm = null;
         this._passwordConfirmForm = null;
         this._forms = [];
-
-        this.init();
     };
 
     /**
@@ -327,23 +325,21 @@
             = new ss.components.accordion.Element(
                 groupObject.data.ALL.title
             );
+        var t = this;
 
         $.each(
             groupObject.data.ALL.data,
-            $.proxy(
-                function (allKey, allObject) {
-                    var form = new ss.forms.Checkbox(
-                        $.extend(
-                            {
-                                appendTo: sectionsAllAccordionElement.getBody()
-                            },
-                            allObject
-                        )
-                    );
-                    this._forms.push(form);
-                },
-                this
-            )
+            function (allKey, allObject) {
+                var form = new ss.forms.Checkbox(
+                    $.extend(
+                        {
+                            appendTo: sectionsAllAccordionElement.getBody()
+                        },
+                        allObject
+                    )
+                );
+                t._forms.push(form);
+            }
         );
 
         categoryAccordionElement.add(sectionsAllAccordionElement.get());
@@ -362,24 +358,21 @@
 
                 $.each(
                     groupObjectDataObject.data,
-                    $.proxy(
-                        function (
-                            groupObjectDataObjectDataKey,
-                            groupObjectDataObjectDataObject
-                        ) {
-                            var form = new ss.forms.Checkbox(
-                                $.extend(
-                                    {
-                                        appendTo: sectionAccordionElement
-                                            .getBody()
-                                    },
-                                    groupObjectDataObjectDataObject
-                                )
-                            );
-                            this._forms.push(form);
-                        },
-                        this
-                    )
+                    function (
+                        groupObjectDataObjectDataKey,
+                        groupObjectDataObjectDataObject
+                    ) {
+                        var form = new ss.forms.Checkbox(
+                            $.extend(
+                                {
+                                    appendTo: sectionAccordionElement
+                                        .getBody()
+                                },
+                                groupObjectDataObjectDataObject
+                            )
+                        );
+                        t._forms.push(form);
+                    }
                 );
 
                 categoryAccordionElement.add(sectionAccordionElement.get());
@@ -399,6 +392,7 @@
         categoryAccordionElement,
         groupObject
     ) {
+        var t = this;
         $.each(
             groupObject.data,
             function (groupObjectDataKey, groupObjectDataObject) {
@@ -413,68 +407,59 @@
 
                 $.each(
                     groupObjectDataObject.data.ALL.data,
-                    $.proxy(
-                        function (allKey, allObject) {
-                            var form = new ss.forms.Checkbox(
-                                $.extend(
-                                    {
-                                        appendTo: blockAllAccordionElement
-                                            .getBody()
-                                    },
-                                    allObject
-                                )
-                            );
-                            this._forms.push(form);
-                        },
-                        this
-                    )
+                    function (allKey, allObject) {
+                        var form = new ss.forms.Checkbox(
+                            $.extend(
+                                {
+                                    appendTo: blockAllAccordionElement
+                                        .getBody()
+                                },
+                                allObject
+                            )
+                        );
+                        t._forms.push(form);
+                    }
                 );
                 blockTypeAccordionElement.add(blockAllAccordionElement.get());
 
                 $.each(
                     groupObjectDataObject.data,
-                    $.proxy(
-                        function (
-                            groupObjectDataObjectDataKey,
-                            groupObjectDataObjectDataObject
-                        ) {
-                            if (groupObjectDataObjectDataKey === "ALL") {
-                                return true;
-                            }
+                    function (
+                        groupObjectDataObjectDataKey,
+                        groupObjectDataObjectDataObject
+                    ) {
+                        if (groupObjectDataObjectDataKey === "ALL") {
+                            return true;
+                        }
 
-                            var blockAccordionElement
-                                = new ss.components.accordion.Element(
-                                    groupObjectDataObjectDataObject.title
+                        var blockAccordionElement
+                            = new ss.components.accordion.Element(
+                                groupObjectDataObjectDataObject.title
+                            );
+
+                        $.each(
+                            groupObjectDataObjectDataObject.data,
+                            function (key, object) {
+                                var options = {
+                                    appendTo: blockAccordionElement
+                                        .getBody()
+                                };
+
+                                var form = new ss.forms.Checkbox(
+                                    $.extend(
+                                        options,
+                                        object
+                                    )
                                 );
 
-                            $.each(
-                                groupObjectDataObjectDataObject.data,
-                                $.proxy(
-                                    function (key, object) {
-                                        var options = {
-                                            appendTo: blockAccordionElement
-                                                .getBody()
-                                        };
+                                t._forms.push(form);
+                            }
+                        );
 
-                                        var form = new ss.forms.Checkbox(
-                                            $.extend(
-                                                options,
-                                                object
-                                            )
-                                        );
-
-                                        this._forms.push(form);
-                                    },
-                                    this
-                                )
-                            );
-
-                            blockTypeAccordionElement.add(
-                                blockAccordionElement.get()
-                            );
-                        },
-                        this
-                    )
+                        blockTypeAccordionElement.add(
+                            blockAccordionElement.get()
+                        );
+                    }
                 );
 
                 categoryAccordionElement.add(blockTypeAccordionElement.get());
