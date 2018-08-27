@@ -64,7 +64,7 @@ class GetLoginFormsControllerTest extends AbstractControllerTest
                     'forms' => [
                         'user'       => [
                             'name'       => 'user',
-                            'label'      => 'Username',
+                            'label'      => 'User',
                             'validation' => [
                                 'required'
                                     => 'required',

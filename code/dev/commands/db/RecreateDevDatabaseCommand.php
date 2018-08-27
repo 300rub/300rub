@@ -13,13 +13,6 @@ class RecreateDevDatabaseCommand extends AbstractDbCommand
 {
 
     /**
-     * DB object
-     *
-     * @var Db
-     */
-    private $_dbObject = null;
-
-    /**
      * DB host
      *
      * @var string
@@ -36,8 +29,9 @@ class RecreateDevDatabaseCommand extends AbstractDbCommand
         $this->checkIsDev();
         $this->checkConnection();
 
-        $this->_dbObject = App::getInstance()->getDb();
-        $this->_dbHost = $this->_dbObject->getRandomDbHost();
+        $this->_dbHost = App::getInstance()
+            ->getDb()
+            ->getRandomDbHost();
 
         $this
             ->_recreateDbs()
@@ -54,13 +48,14 @@ class RecreateDevDatabaseCommand extends AbstractDbCommand
     private function _recreateDbs()
     {
         $config = App::getInstance()->getConfig();
+        $dbObject = App::getInstance()->getDb();
 
-        $this->_dbObject
+        $dbObject
             ->createDb(
                 $config->getValue(['db', 'dev', 'host']),
                 $config->getValue(['db', 'dev', 'user']),
                 $config->getValue(['db', 'dev', 'password']),
-                $this->_dbObject->getReadDbName(
+                $dbObject->getReadDbName(
                     $config->getValue(['db', 'dev', 'name'])
                 ),
                 true
@@ -69,7 +64,7 @@ class RecreateDevDatabaseCommand extends AbstractDbCommand
                 $config->getValue(['db', 'dev', 'host']),
                 $config->getValue(['db', 'dev', 'user']),
                 $config->getValue(['db', 'dev', 'password']),
-                $this->_dbObject->getWriteDbName(
+                $dbObject->getWriteDbName(
                     $config->getValue(['db', 'dev', 'name'])
                 ),
                 true
@@ -86,20 +81,16 @@ class RecreateDevDatabaseCommand extends AbstractDbCommand
     private function _importSourceDb()
     {
         $config = App::getInstance()->getConfig();
+        $dbObject = App::getInstance()->getDb();
 
-        exec(
-            sprintf(
-                'export MYSQL_PWD=%s; ' .
-                'mysql -u %s -h %s %s < %s',
-                $config->getValue(['db', 'dev', 'password']),
-                $config->getValue(['db', 'dev', 'user']),
+        $dbObject
+            ->importDb(
                 $config->getValue(['db', 'dev', 'host']),
-                $this->_dbObject->getWriteDbName(
+                $dbObject->getWriteDbName(
                     $config->getValue(['db', 'dev', 'name'])
                 ),
                 Db::SOURCE_PATH
-            )
-        );
+            );
 
         return $this;
     }
@@ -126,40 +117,24 @@ class RecreateDevDatabaseCommand extends AbstractDbCommand
     private function _cloneDb()
     {
         $config = App::getInstance()->getConfig();
+        $dbObject = App::getInstance()->getDb();
 
         $dbName = $config->getValue(['db', 'dev', 'name']);
-        $dbWriteName = App::getInstance()->getDb()->getWriteDbName(
+        $dbHost = $config->getValue(['db', 'dev', 'host']);
+        $dbWriteName = $dbObject->getWriteDbName(
             $dbName
         );
-        $dbReadName = App::getInstance()->getDb()->getReadDbName(
+        $dbReadName = $dbObject->getReadDbName(
             $dbName
         );
 
-        exec(
-            sprintf(
-                'export MYSQL_PWD=%s; ' .
-                'mysqldump -u %s -h %s %s > %s/backups/%s.sql',
-                $config->getValue(['db', 'dev', 'password']),
-                $config->getValue(['db', 'dev', 'user']),
-                $config->getValue(['db', 'dev', 'host']),
-                $dbWriteName,
-                FILES_ROOT,
-                $dbWriteName
-            )
-        );
-
-        exec(
-            sprintf(
-                'export MYSQL_PWD=%s; ' .
-                'mysql -u %s -h %s %s < %s/backups/%s.sql',
-                $config->getValue(['db', 'dev', 'password']),
-                $config->getValue(['db', 'dev', 'user']),
-                $config->getValue(['db', 'dev', 'host']),
+        $dbObject
+            ->exportDb($dbHost, $dbWriteName)
+            ->importDb(
+                $dbHost,
                 $dbReadName,
-                FILES_ROOT,
-                $dbWriteName
-            )
-        );
+                $dbObject->getBackupPath($dbWriteName)
+            );
 
         return $this;
     }

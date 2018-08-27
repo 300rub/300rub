@@ -284,6 +284,10 @@ class GetUserControllerTest extends AbstractControllerTest
                 'value' => false
             ],
             [
+                'name'  => 'operations.SETTINGS.SETTINGS_USER_CAN_RELEASE',
+                'value' => false
+            ],
+            [
                 'name'  => 'operations.SETTINGS.SETTINGS_ICON',
                 'value' => true
             ],

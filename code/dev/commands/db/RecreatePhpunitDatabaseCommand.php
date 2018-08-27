@@ -70,20 +70,16 @@ class RecreatePhpunitDatabaseCommand extends AbstractDbCommand
     private function _importSourceDb()
     {
         $config = App::getInstance()->getConfig();
+        $dbObject = App::getInstance()->getDb();
 
-        exec(
-            sprintf(
-                'export MYSQL_PWD=%s; ' .
-                'mysql -u %s -h %s %s < %s',
-                $config->getValue(['db', 'phpunit', 'password']),
-                $config->getValue(['db', 'phpunit', 'user']),
+        $dbObject
+            ->importDb(
                 $config->getValue(['db', 'phpunit', 'host']),
-                App::getInstance()->getDb()->getWriteDbName(
+                $dbObject->getWriteDbName(
                     $config->getValue(['db', 'phpunit', 'name'])
                 ),
                 Db::SOURCE_PATH
-            )
-        );
+            );
 
         return $this;
     }

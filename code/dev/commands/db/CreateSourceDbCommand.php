@@ -219,33 +219,21 @@ class CreateSourceDbCommand extends AbstractDbCommand
     {
         $dbObject = App::getInstance()->getDb();
 
-        exec(
-            sprintf(
-                'export MYSQL_PWD=%s; ' .
-                'mysql -u %s -h %s %s < %s',
-                $this->_dbPassword,
-                $this->_dbUser,
-                $this->_dbHost,
-                $dbObject->getReadDbName(
-                    $this->_dbName
-                ),
-                Db::SOURCE_PATH
-            )
-        );
-
-        exec(
-            sprintf(
-                'export MYSQL_PWD=%s; ' .
-                'mysql -u %s -h %s %s < %s',
-                $this->_dbPassword,
-                $this->_dbUser,
+        $dbObject
+            ->importDb(
                 $this->_dbHost,
                 $dbObject->getWriteDbName(
                     $this->_dbName
                 ),
                 Db::SOURCE_PATH
             )
-        );
+            ->importDb(
+                $this->_dbHost,
+                $dbObject->getReadDbName(
+                    $this->_dbName
+                ),
+                Db::SOURCE_PATH
+            );
 
         return $this;
     }

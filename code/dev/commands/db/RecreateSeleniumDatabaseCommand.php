@@ -13,13 +13,6 @@ class RecreateSeleniumDatabaseCommand extends AbstractDbCommand
 {
 
     /**
-     * DB object
-     *
-     * @var Db
-     */
-    private $_dbObject = null;
-
-    /**
      * DB host
      *
      * @var string
@@ -35,8 +28,9 @@ class RecreateSeleniumDatabaseCommand extends AbstractDbCommand
     {
         $this->checkConnection();
 
-        $this->_dbObject = App::getInstance()->getDb();
-        $this->_dbHost = $this->_dbObject->getRandomDbHost();
+        $this->_dbHost = App::getInstance()
+            ->getDb()
+            ->getRandomDbHost();
 
         $this
             ->_recreateDbs()
@@ -53,13 +47,14 @@ class RecreateSeleniumDatabaseCommand extends AbstractDbCommand
     private function _recreateDbs()
     {
         $config = App::getInstance()->getConfig();
+        $dbObject = App::getInstance()->getDb();
 
-        $this->_dbObject
+        $dbObject
             ->createDb(
                 $config->getValue(['db', 'selenium', 'host']),
                 $config->getValue(['db', 'selenium', 'user']),
                 $config->getValue(['db', 'selenium', 'password']),
-                $this->_dbObject->getReadDbName(
+                $dbObject->getReadDbName(
                     $config->getValue(['db', 'selenium', 'name'])
                 ),
                 true
@@ -68,7 +63,7 @@ class RecreateSeleniumDatabaseCommand extends AbstractDbCommand
                 $config->getValue(['db', 'selenium', 'host']),
                 $config->getValue(['db', 'selenium', 'user']),
                 $config->getValue(['db', 'selenium', 'password']),
-                $this->_dbObject->getWriteDbName(
+                $dbObject->getWriteDbName(
                     $config->getValue(['db', 'selenium', 'name'])
                 ),
                 true
@@ -85,20 +80,16 @@ class RecreateSeleniumDatabaseCommand extends AbstractDbCommand
     private function _importSourceDb()
     {
         $config = App::getInstance()->getConfig();
+        $dbObject = App::getInstance()->getDb();
 
-        exec(
-            sprintf(
-                'export MYSQL_PWD=%s; ' .
-                'mysql -u %s -h %s %s < %s',
-                $config->getValue(['db', 'selenium', 'password']),
-                $config->getValue(['db', 'selenium', 'user']),
+        $dbObject
+            ->importDb(
                 $config->getValue(['db', 'selenium', 'host']),
-                $this->_dbObject->getWriteDbName(
+                $dbObject->getWriteDbName(
                     $config->getValue(['db', 'selenium', 'name'])
                 ),
                 Db::SOURCE_PATH
-            )
-        );
+            );
 
         return $this;
     }
@@ -125,40 +116,24 @@ class RecreateSeleniumDatabaseCommand extends AbstractDbCommand
     private function _cloneDb()
     {
         $config = App::getInstance()->getConfig();
+        $dbObject = App::getInstance()->getDb();
 
         $dbName = $config->getValue(['db', 'selenium', 'name']);
-        $dbWriteName = App::getInstance()->getDb()->getWriteDbName(
+        $dbHost = $config->getValue(['db', 'selenium', 'host']);
+        $dbWriteName = $dbObject->getWriteDbName(
             $dbName
         );
-        $dbReadName = App::getInstance()->getDb()->getReadDbName(
+        $dbReadName = $dbObject->getReadDbName(
             $dbName
         );
 
-        exec(
-            sprintf(
-                'export MYSQL_PWD=%s; ' .
-                'mysqldump -u %s -h %s %s > %s/backups/%s.sql',
-                $config->getValue(['db', 'selenium', 'password']),
-                $config->getValue(['db', 'selenium', 'user']),
-                $config->getValue(['db', 'selenium', 'host']),
-                $dbWriteName,
-                FILES_ROOT,
-                $dbWriteName
-            )
-        );
-
-        exec(
-            sprintf(
-                'export MYSQL_PWD=%s; ' .
-                'mysql -u %s -h %s %s < %s/backups/%s.sql',
-                $config->getValue(['db', 'selenium', 'password']),
-                $config->getValue(['db', 'selenium', 'user']),
-                $config->getValue(['db', 'selenium', 'host']),
+        $dbObject
+            ->exportDb($dbHost, $dbWriteName)
+            ->importDb(
+                $dbHost,
                 $dbReadName,
-                FILES_ROOT,
-                $dbWriteName
-            )
-        );
+                $dbObject->getBackupPath($dbWriteName)
+            );
 
         return $this;
     }

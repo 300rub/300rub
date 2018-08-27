@@ -3,6 +3,7 @@
 namespace ss\commands\db;
 
 use ss\application\App;
+use ss\application\components\db\Db;
 use ss\commands\_abstract\AbstractCommand;
 
 /**
@@ -20,16 +21,30 @@ class ImportSeleniumCommand extends AbstractCommand
     {
         $site = App::getInstance()->getConfig()->getValue(['db', 'selenium']);
 
-        exec(
-            sprintf(
-                'export MYSQL_PWD=%s; ' .
-                'mysql -u %s -h %s %s < %s/backups/selenium.sql',
-                $site['password'],
-                $site['user'],
+        $dbObject = App::getInstance()->getDb();
+
+        $dbObject
+            ->importDb(
                 $site['host'],
-                $site['name'],
-                FILES_ROOT
+                $dbObject->getWriteDbName(
+                    $site['name']
+                ),
+                $dbObject->getBackupPath(
+                    $dbObject->getWriteDbName(
+                        $site['name']
+                    )
+                )
             )
-        );
+            ->importDb(
+                $site['host'],
+                $dbObject->getReadDbName(
+                    $site['name']
+                ),
+                $dbObject->getBackupPath(
+                    $dbObject->getReadDbName(
+                        $site['name']
+                    )
+                )
+            );
     }
 }

@@ -52,7 +52,6 @@ class GetSessionsControllerTest extends AbstractControllerTest
                         'browser'   => 'Firefox',
                         'version'   => '4.0.1',
                         'isCurrent' => true,
-                        'isOnline'  => true
                     ];
                     $this->compareExpectedAndActual(
                         $expectedResult,
@@ -66,7 +65,6 @@ class GetSessionsControllerTest extends AbstractControllerTest
                         'browser'   => null,
                         'version'   => null,
                         'isCurrent' => false,
-                        'isOnline'  => true
                     ];
                     $this->compareExpectedAndActual(
                         $expectedResult,
