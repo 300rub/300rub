@@ -40,7 +40,8 @@
     ss.panel.settings.List.prototype._onLoadDataSuccess = function (data) {
         this
             .setTitle(data.title)
-            .setDescription(data.description);
+            .setDescription(data.description)
+            .removeFooter();
 
         $.each(
             data.list,
@@ -54,7 +55,7 @@
 
                     switch (key) {
                         case "users":
-                            item.find(".icon").addClass("fa-user");
+                            item.find(".icon").addClass("fas fa-users");
                             item.find(".label").on(
                                 "click",
                                 function () {
@@ -63,7 +64,7 @@
                             );
                             break;
                         case "icon":
-                            item.find(".icon").addClass("fa-picture-o");
+                            item.find(".icon").addClass("fas fa-image");
                             break;
                         default:
                             break;

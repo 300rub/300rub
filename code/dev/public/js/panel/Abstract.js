@@ -9,6 +9,13 @@
      * @type {ss.panel.Abstract}
      */
     ss.panel.Abstract = function (options) {
+        this._panel = null;
+        this._body = null;
+        this._options = {};
+        this._userButtons = null;
+
+        this._hasFooter = true;
+
         this._set(options);
     };
 
@@ -25,34 +32,6 @@
         constructor: ss.panel.Abstract,
 
         /**
-         * Panel instance
-         *
-         * @var {Object}
-         */
-        _panel: null,
-
-        /**
-         * Body
-         *
-         * @var {Object}
-         */
-        _body: null,
-
-        /**
-         * Options
-         *
-         * @var {Object}
-         */
-        _options: {},
-
-        /**
-         * User buttons
-         *
-         * @var {Object}
-         */
-        _userButtons: null,
-
-        /**
          * Init
          *
          * @param {Object} options
@@ -61,7 +40,6 @@
             this._panel = ss.components.Template.get("panel");
             this._body = this._panel.find(".body");
             this._userButtons = $("#user-buttons");
-
             this._options = $.extend({}, options);
 
             this
@@ -94,10 +72,15 @@
          * Sets container's max-height
          */
         _setPanelMaxHeight: function () {
+            var minusHeight = 148;
+            if (this._hasFooter === false) {
+                minusHeight = 100;
+            }
+
             this._body.css(
                 "max-height",
                 function () {
-                    return ($(window).outerHeight() - 148);
+                    return ($(window).outerHeight() - minusHeight);
                 }
             );
         },
@@ -327,6 +310,19 @@
                 }
             );
 
+            return this;
+        },
+
+        /**
+         * Removes footer
+         *
+         * @returns {ss.panel.Abstract}
+         */
+        removeFooter: function() {
+            this._hasFooter = false;
+            this._setPanelMaxHeight();
+
+            this._panel.find(".footer").remove();
             return this;
         }
     };

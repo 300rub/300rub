@@ -9,6 +9,13 @@
      * @type {Object}
      */
     ss.window.Abstract = function (options) {
+        this._window = null;
+        this._body = null;
+        this._overlay = null;
+        this._options = {};
+
+        this._hasFooter = true;
+
         this._set(options);
     };
 
@@ -25,34 +32,6 @@
         constructor: ss.window.Abstract,
 
         /**
-         * Window instance
-         *
-         * @var {Object}
-         */
-        _window: null,
-
-        /**
-         * Body
-         *
-         * @var {Object}
-         */
-        _body: null,
-
-        /**
-         * Overlay
-         *
-         * @var {Object}
-         */
-        _overlay: null,
-
-        /**
-         * Options
-         *
-         * @var {Object}
-         */
-        _options: {},
-
-        /**
          * Init
          *
          * @param {Object} options
@@ -61,7 +40,6 @@
             this._window = ss.components.Template.get("window");
             this._body = this._window.find(".body");
             this._overlay = ss.components.Template.get("window-overlay");
-
             this._options = $.extend({}, options);
 
             this
@@ -286,11 +264,16 @@
          * @private
          */
         _setWindowMaxHeight: function () {
+            var minusHeight = 148;
+            if (this._hasFooter === false) {
+                minusHeight = 90;
+            }
+
             this._body.css(
                 "max-height",
                 $.proxy(
                     function () {
-                        return ($(window).outerHeight() - 148);
+                        return ($(window).outerHeight() - minusHeight);
                     },
                     this
                 )
@@ -380,7 +363,10 @@
          * @returns {ss.window.Abstract}
          */
         removeFooter: function() {
-            this.getWindow().find(".footer").remove();
+            this._hasFooter = false;
+            this._setWindowMaxHeight();
+
+            this._window.find(".footer").remove();
             return this;
         }
     };

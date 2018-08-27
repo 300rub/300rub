@@ -19,9 +19,9 @@
 
 <div class="panel-list-item">
     <a class="label">
-        <i class="fa icon"></i>
+        <i class="icon"></i>
         <span class="text"></span>
     </a>
-    <a class="fa fa-cog settings"></a>
-    <a class="fa fa-paint-brush design"></a>
+    <a class="fas fa-cog settings"></a>
+    <a class="fas fa-pencil-alt design"></a>
 </div>
