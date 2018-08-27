@@ -83,8 +83,6 @@ abstract class AbstractApplication extends AbstractComponents
     {
         $siteModel = $this->_getSiteModel($hostname);
 
-        $siteModel->setMainHost();
-
         $this->getDb()
             ->addPdo(
                 $siteModel->get('dbHost'),
@@ -115,6 +113,18 @@ abstract class AbstractApplication extends AbstractComponents
     }
 
     /**
+     * Gets site memcached key
+     *
+     * @param string $hostname Hostname
+     *
+     * @return string
+     */
+    private function _getSiteMemcachedKey($hostname)
+    {
+        return md5($hostname);
+    }
+
+    /**
      * Gets SiteModel by hostname
      *
      * @param string $hostname Hostname
@@ -125,31 +135,45 @@ abstract class AbstractApplication extends AbstractComponents
      */
     private function _getSiteModel($hostname)
     {
-        $siteModel = new SiteModel;
+        $memcached = $this->getMemcached();
+        $memcachedResult = $memcached->get(
+            $this->_getSiteMemcachedKey($hostname)
+        );
+        if ($memcachedResult !== false) {
+            return SiteModel::model()->set($memcachedResult);
+        }
 
         $baseHost = $this->getConfig()->getValue(['host']);
         $baseHostLength = strlen($baseHost);
         $hostnameLength = strlen($hostname);
 
         $this->getDb()->setActivePdoKey(Db::CONFIG_DB_NAME_SYSTEM);
+        $siteModel = null;
 
         if ($hostnameLength > ($baseHostLength + 1)) {
             $hostnameEnd = substr($hostname, (-1 * $baseHostLength));
             if ($hostnameEnd === $baseHost) {
                 $name = substr($hostname, 0, (-1 * ($baseHostLength + 1)));
-                return $siteModel->byName($name)->find();
+                $siteModel = SiteModel::model()->byName($name)->find();
             }
         }
 
-        $siteModel = $siteModel->byDomain($hostname)->find();
         if ($siteModel === null) {
-            throw new NotFoundException(
-                'Unable to find site with host: {host}',
-                [
-                    'host' => $hostname
-                ]
-            );
+            $siteModel = SiteModel::model()->byDomain($hostname)->find();
+            if ($siteModel === null) {
+                throw new NotFoundException(
+                    'Unable to find site with host: {host}',
+                    [
+                        'host' => $hostname
+                    ]
+                );
+            }
         }
+
+        $memcached->set(
+            $this->_getSiteMemcachedKey($hostname),
+            $siteModel->get()
+        );
 
         return $siteModel;
     }

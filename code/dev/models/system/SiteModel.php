@@ -4,6 +4,7 @@ namespace ss\models\system;
 
 use ss\application\App;
 
+use ss\application\components\db\Db;
 use ss\application\components\db\Table;
 use ss\models\_abstract\AbstractModel;
 use ss\models\sections\SectionModel;
@@ -116,6 +117,9 @@ class SiteModel extends AbstractSiteModel
      */
     public function setMainHost()
     {
+        App::getInstance()->getDb()->setActivePdoKey(
+            Db::CONFIG_DB_NAME_SYSTEM
+        );
         $domains = DomainModel::model()->getModelsBySiteId($this->getId());
 
         if (count($domains) > 0) {
@@ -143,6 +147,10 @@ class SiteModel extends AbstractSiteModel
      */
     public function getMainHost()
     {
+        if ($this->_mainHost === '') {
+            $this->setMainHost();
+        }
+
         return $this->_mainHost;
     }
 
@@ -335,5 +343,10 @@ class SiteModel extends AbstractSiteModel
         return App::getInstance()
             ->getDb()
             ->getWriteDbName($this->get('dbName'));
+    }
+
+    public function clearMemcached()
+    {
+        $domains = DomainModel::model()->getModelsBySiteId($this->getId());
     }
 }
