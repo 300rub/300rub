@@ -18,6 +18,8 @@ class CreateReleaseController extends AbstractController
      * Runs controller
      *
      * @return array
+     *
+     * @throws \Exception
      */
     public function run()
     {
@@ -29,28 +31,39 @@ class CreateReleaseController extends AbstractController
         $dbObject = App::getInstance()->getDb();
         $host = $site->get('dbHost');
 
-        $dbObject->exportDb(
-            $host,
-            $site->getWriteDbName()
-        );
+        $dbObject
+            ->beginTransaction(Db::CONFIG_DB_NAME_SYSTEM)
+            ->beginTransaction($site->getWriteDbName());
 
-        $dbObject->importDb(
-            $host,
-            $site->getReadDbName(),
-            $dbObject->getBackupPath($site->getWriteDbName())
-        );
+        try {
+            $dbObject->exportDb(
+                $host,
+                $site->getWriteDbName()
+            );
 
-        $dbObject->setActivePdoKey(
-            Db::CONFIG_DB_NAME_SYSTEM
-        );
-        $site
-            ->set(['version' => ($site->get('version') + 1)])
-            ->save();
+            $dbObject->importDb(
+                $host,
+                $site->getReadDbName(),
+                $dbObject->getBackupPath($site->getWriteDbName())
+            );
 
-        $dbObject->setActivePdoKey(
-            $site->getWriteDbName()
-        );
-        UserEventModel::model()->delete('id > 0');
+            $dbObject->setActivePdoKey(
+                Db::CONFIG_DB_NAME_SYSTEM
+            );
+            $site
+                ->set(['version' => ($site->get('version') + 1)])
+                ->save();
+
+            $dbObject->setActivePdoKey(
+                $site->getWriteDbName()
+            );
+            UserEventModel::model()->delete('id > 0');
+
+            $dbObject->commitAll();
+        } catch (\Exception $e) {
+            $dbObject->rollBackAll();
+            throw $e;
+        }
 
         return $this->getSimpleSuccessResult();
     }

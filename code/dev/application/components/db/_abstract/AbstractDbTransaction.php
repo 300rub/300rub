@@ -28,6 +28,11 @@ abstract class AbstractDbTransaction extends AbstractDb
      */
     public function beginTransaction($key)
     {
+        $transactionKey = array_search($key, $this->_transactions);
+        if ($transactionKey !== false) {
+            return $this;
+        }
+
         if ($this->getPdo($key)->beginTransaction() === false) {
             throw new DbException(
                 'Unable to start transaction. Error info: {info}',
@@ -53,6 +58,11 @@ abstract class AbstractDbTransaction extends AbstractDb
      */
     public function commit($key)
     {
+        $transactionKey = array_search($key, $this->_transactions);
+        if ($transactionKey === false) {
+            return $this;
+        }
+
         if ($this->getPdo($key)->commit() === false) {
             throw new DbException(
                 'Unable to commit transaction. Error info: {info}',
@@ -62,10 +72,7 @@ abstract class AbstractDbTransaction extends AbstractDb
             );
         }
 
-        $transactionKey = array_search($key, $this->_transactions);
-        if ($transactionKey !== false) {
-            unset($this->_transactions[$transactionKey]);
-        }
+        unset($this->_transactions[$transactionKey]);
 
         return $this;
     }
@@ -95,6 +102,11 @@ abstract class AbstractDbTransaction extends AbstractDb
      */
     public function rollBack($key)
     {
+        $transactionKey = array_search($key, $this->_transactions);
+        if ($transactionKey === false) {
+            return $this;
+        }
+
         if ($this->getPdo($key)->rollBack() === false) {
             throw new DbException(
                 'Unable to rollback transaction. Error info: {info}',
@@ -104,10 +116,7 @@ abstract class AbstractDbTransaction extends AbstractDb
             );
         }
 
-        $transactionKey = array_search($key, $this->_transactions);
-        if ($transactionKey !== false) {
-            unset($this->_transactions[$transactionKey]);
-        }
+        unset($this->_transactions[$transactionKey]);
 
         return $this;
     }
