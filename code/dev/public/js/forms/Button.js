@@ -116,7 +116,7 @@
 
         new ss.forms.Button(
             {
-                css: "gray-button button-small",
+                css: "btn btn-red btn-small",
                 icon: confirm.yes.icon,
                 label: confirm.yes.label,
                 appendTo: buttons,
@@ -134,8 +134,8 @@
 
         new ss.forms.Button(
             {
-                css: "gray-button button-small",
-                icon: "fa-ban",
+                css: "btn btn-gray btn-small",
+                icon: "fas fa-ban",
                 label: confirm.no,
                 appendTo: buttons,
                 onClick: function () {

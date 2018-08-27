@@ -125,15 +125,15 @@
     ) {
         new ss.forms.Button(
             {
-                css: "gray-button button-small",
-                icon: "fa-trash",
+                css: "btn btn-red btn-small",
+                icon: "fas fa-trash",
                 label: data.labels.deleteLabel,
                 appendTo: buttons,
                 confirm: {
                     text: data.labels.deleteConfirm.text,
                     yes: {
                         label: data.labels.deleteConfirm.yes,
-                        icon: "fa-trash"
+                        icon: "fas fa-trash"
                     },
                     no: data.labels.deleteConfirm.no
                 },
@@ -168,15 +168,15 @@
     ss.window.users.Sessions.prototype._addDeleteAll = function (data) {
         new ss.forms.Button(
             {
-                css: "gray-button button-medium margin-bottom-15",
-                icon: "fa-trash",
+                css: "btn btn-red margin-bottom-15",
+                icon: "fas fa-trash",
                 label: data.labels.deleteAllSessions,
                 appendTo: this.getBody(),
                 confirm: {
                     text: data.labels.deleteAllConfirm.text,
                     yes: {
                         label: data.labels.deleteAllConfirm.yes,
-                        icon: "fa-trash"
+                        icon: "fas fa-trash"
                     },
                     no: data.labels.deleteAllConfirm.no
                 },

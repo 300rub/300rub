@@ -13,7 +13,9 @@
         <td class="name-value"></td>
         <td class="email-value"></td>
         <td class="access-value"></td>
-        <td class="buttons"></td>
+        <td class="buttons">
+            <div class="btn-group"></div>
+        </td>
     </tr>
 </table>
 

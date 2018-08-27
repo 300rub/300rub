@@ -58,6 +58,7 @@
                     tr.find(".email-value").text(user.email);
                     tr.find(".access-value").text(user.access);
                     var buttons = tr.find(".buttons");
+                    var btnGroup = buttons.find(".btn-group");
                     buttons.addClass("align-right");
 
                     if (user.canViewSessions === true) {
@@ -66,7 +67,7 @@
                                 css: "btn btn-gray btn-small",
                                 icon: "fas fa-user-secret",
                                 label: data.labels.sessions,
-                                appendTo: buttons,
+                                appendTo: btnGroup,
                                 onClick: function () {
                                     new ss.window.users.Sessions(
                                         {
@@ -81,10 +82,10 @@
                     if (user.canUpdate === true) {
                         new ss.forms.Button(
                             {
-                                css: "btn btn-gray btn-small",
+                                css: "btn btn-blue btn-small",
                                 icon: "fas fa-user-edit",
                                 label: data.labels.edit,
-                                appendTo: buttons,
+                                appendTo: btnGroup,
                                 onClick: function () {
                                     new ss.window.users.Form({id: user.id});
                                 }
@@ -95,15 +96,15 @@
                     if (user.canDelete === true) {
                         new ss.forms.Button(
                             {
-                                css: "btn btn-gray btn-small",
+                                css: "btn btn-red btn-small",
                                 icon: "fas fa-user-times",
                                 label: data.labels.deleteLabel,
-                                appendTo: buttons,
+                                appendTo: btnGroup,
                                 confirm: {
                                     text: data.labels.deleteUserConfirmText,
                                     yes: {
                                         label: data.labels.deleteLabel,
-                                        icon: "fa-trash"
+                                        icon: "fas fa-user-times"
                                     },
                                     no: data.labels.no
                                 },
@@ -135,7 +136,7 @@
 
         new ss.forms.Button(
             {
-                css: "btn btn-gray margin-bottom-15",
+                css: "btn btn-blue margin-bottom-15",
                 icon: "fas fa-user-plus",
                 label: data.labels.add,
                 appendTo: this.getBody(),
