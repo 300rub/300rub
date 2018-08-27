@@ -2,6 +2,7 @@
 
 namespace ss\application\instances\_abstract;
 
+use ss\application\App;
 use ss\application\components\common\ErrorHandler;
 use ss\application\components\db\Db;
 use ss\application\exceptions\NotFoundException;
@@ -122,6 +123,22 @@ abstract class AbstractApplication extends AbstractComponents
     private function _getSiteMemcachedKey($hostname)
     {
         return md5($hostname);
+    }
+
+    /**
+     * Deletes site memcached
+     *
+     * @param string $hostname Hostname
+     *
+     * @return AbstractApplication
+     */
+    public function deleteSiteMemcached($hostname)
+    {
+        App::getInstance()->getMemcached()->delete(
+            $this->_getSiteMemcachedKey($hostname)
+        );
+
+        return $this;
     }
 
     /**

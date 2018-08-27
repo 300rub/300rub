@@ -26,9 +26,9 @@ class PageController extends AbstractPageController
             ->getSuperGlobalVariable()
             ->getServerValue('REQUEST_URI');
 
-        $siteId = App::getInstance()->getSite()->getId();
+        $site = App::getInstance()->getSite();
 
-        return md5($siteId . $requestUri);
+        return md5($site->getId() . $site->get('version') . $requestUri);
     }
 
     /**

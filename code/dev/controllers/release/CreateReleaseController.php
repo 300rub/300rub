@@ -59,6 +59,8 @@ class CreateReleaseController extends AbstractController
             );
             UserEventModel::model()->delete('id > 0');
 
+            $site->clearMemcached();
+
             $dbObject->commitAll();
         } catch (\Exception $e) {
             $dbObject->rollBackAll();

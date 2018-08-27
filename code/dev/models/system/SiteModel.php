@@ -345,8 +345,33 @@ class SiteModel extends AbstractSiteModel
             ->getWriteDbName($this->get('dbName'));
     }
 
+    /**
+     * Clears memcached
+     *
+     * @return SiteModel
+     */
     public function clearMemcached()
     {
+        App::getInstance()->getDb()->setActivePdoKey(
+            Db::CONFIG_DB_NAME_SYSTEM
+        );
+
+        $hostNames = [];
+        $hostNames[] = sprintf(
+            '%s.%s',
+            $this->get('name'),
+            App::getInstance()->getConfig()->getValue(['host'])
+        );
+
         $domains = DomainModel::model()->getModelsBySiteId($this->getId());
+        foreach ($domains as $domain) {
+            $hostNames[] = $domain->get('name');
+        }
+
+        foreach ($hostNames as $hostname) {
+            App::getInstance()->deleteSiteMemcached($hostname);
+        }
+
+        return $this;
     }
 }
