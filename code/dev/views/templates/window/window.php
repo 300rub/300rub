@@ -1,4 +1,9 @@
 <?php
+
+use ss\application\App;
+
+$language = App::getInstance()->getLanguage();
+
 //phpcs:disable Generic.Files.InlineHTML
 ?>
 
@@ -16,3 +21,16 @@
 </div>
 
 <div class="window-overlay transparent"></div>
+
+<div class="window-confirm-unsaved">
+    <div class="confirm-container">
+        <div class="text">
+            <?php echo $language->getMessage('form', 'unsavedWindow'); ?>
+        </div>
+        <div
+            class="buttons"
+            data-close="<?php echo $language->getMessage('form', 'unsavedWindowClose'); ?>"
+            data-stay="<?php echo $language->getMessage('form', 'unsavedWindowStay'); ?>"
+        ></div>
+    </div>
+</div>

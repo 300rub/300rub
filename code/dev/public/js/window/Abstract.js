@@ -143,10 +143,61 @@
          * @private
          */
         _setCloseEvents: function () {
-            this._overlay.on("click",  $.proxy(this.remove, this));
+            this._overlay.on("click",  $.proxy(this._checkUnsavedAndClose, this));
             this._window
                 .find(".header .close")
-                .on("click", $.proxy(this.remove, this));
+                .on("click", $.proxy(this._checkUnsavedAndClose, this));
+
+            return this;
+        },
+
+        /**
+         * Checks unsaved
+         *
+         * @private
+         */
+        _checkUnsavedAndClose: function() {
+            if (this._body.find(".form-changed").length === 0) {
+                this.remove(false);
+            }
+
+            var confirmedWindow
+                = this._window.find(".window-confirm-unsaved");
+
+            if (confirmedWindow.length > 0) {
+                return this;
+            }
+
+            confirmedWindow
+                = ss.components.Template.get("window-confirm-unsaved");
+
+            var buttons = confirmedWindow.find(".buttons");
+
+            new ss.forms.Button(
+                {
+                    css: "btn btn-red",
+                    icon: "fas fa-times",
+                    label: buttons.data("close"),
+                    appendTo: buttons,
+                    onClick: $.proxy(function () {
+                        this.remove(false);
+                    }, this)
+                }
+            );
+
+            new ss.forms.Button(
+                {
+                    css: "btn btn-gray",
+                    icon: "fas fa-undo",
+                    label: buttons.data("stay"),
+                    appendTo: buttons,
+                    onClick: $.proxy(function () {
+                        confirmedWindow.remove();
+                    }, this)
+                }
+            );
+
+            this._window.append(confirmedWindow);
 
             return this;
         },

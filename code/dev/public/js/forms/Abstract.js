@@ -58,7 +58,8 @@
                 ._setCssClass()
                 ._setOnBlur()
                 ._setOnlyNumbers()
-                ._appendTo();
+                ._appendTo()
+                ._setOnChange();
         },
 
         /**
@@ -377,6 +378,20 @@
         _isNotNumberKeyCode: function (e) {
             return (e.shiftKey || (e.keyCode < 48 || e.keyCode > 57))
                 && (e.keyCode < 96 || e.keyCode > 105);
-        }
+        },
+
+        /**
+         * Sets on change
+         *
+         * @returns {ss.forms.Abstract}
+         *
+         * @private
+         */
+        _setOnChange: function () {
+            this._instance.on("change", $.proxy(function() {
+                this._instance.addClass("form-changed");
+            }, this));
+            return this;
+        },
     };
 }(window.jQuery, window.ss);
