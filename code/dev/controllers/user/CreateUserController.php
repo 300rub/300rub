@@ -30,7 +30,7 @@ class CreateUserController extends AbstractController
                 'name'            => [self::TYPE_STRING, self::NOT_EMPTY],
                 'login'           => [self::TYPE_STRING, self::NOT_EMPTY],
                 'email'           => [self::TYPE_STRING, self::NOT_EMPTY],
-                'type'            => [self::TYPE_INT],
+                'type'            => [],
                 'password'        => [self::TYPE_STRING, self::NOT_EMPTY],
                 'passwordConfirm' => [self::TYPE_STRING, self::NOT_EMPTY],
                 'operations'      => [self::TYPE_ARRAY],

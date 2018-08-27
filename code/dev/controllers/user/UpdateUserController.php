@@ -45,7 +45,7 @@ class UpdateUserController extends AbstractController
 
         $this->checkData(
             [
-                'id'               => [self::TYPE_INT, self::NOT_EMPTY],
+                'id'               => [self::NOT_EMPTY],
                 'name'             => [self::TYPE_STRING, self::NOT_EMPTY],
                 'login'            => [self::TYPE_STRING, self::NOT_EMPTY],
                 'email'            => [self::TYPE_STRING, self::NOT_EMPTY],

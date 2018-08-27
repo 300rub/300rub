@@ -71,7 +71,7 @@
             .setSubmit(
                 {
                     label: data.button.label,
-                    icon: "fa-check",
+                    icon: "fas fa-user-check",
                     forms: this._forms,
                     ajax: {
                         data: {
@@ -79,7 +79,7 @@
                             controller: "user"
                         },
                         type: type,
-                        success: $.proxy(this._onSuccess, this)
+                        success: $.proxy(this._onSendSuccess, this)
                     }
                 }
             );
