@@ -27,4 +27,28 @@ return [
         Language::LANGUAGE_EN_ID => 'Settings',
         Language::LANGUAGE_RU_ID => 'Настройки',
     ],
+    'hiddenCode'          => [
+        Language::LANGUAGE_EN_ID => 'Hidden code',
+        Language::LANGUAGE_RU_ID => 'Скрытый код',
+    ],
+    'codeListTitle' => [
+        Language::LANGUAGE_EN_ID => 'Hidden code',
+        Language::LANGUAGE_RU_ID => 'Скрытый код',
+    ],
+    'codeListDescription' => [
+        Language::LANGUAGE_EN_ID => 'Hidden code description',
+        Language::LANGUAGE_RU_ID => 'Скрытый код description',
+    ],
+    'codeHeader' => [
+        Language::LANGUAGE_EN_ID => 'Code inside the tag <header>',
+        Language::LANGUAGE_RU_ID => 'Код внутри тега <header>',
+    ],
+    'codeBodyTop' => [
+        Language::LANGUAGE_EN_ID => 'Code at the end of the tag <body>',
+        Language::LANGUAGE_RU_ID => 'Код вначале тега <body>',
+    ],
+    'codeBodyBottom' => [
+        Language::LANGUAGE_EN_ID => 'Code at the end of the tag <body>',
+        Language::LANGUAGE_RU_ID => 'Код вконце тега <body>',
+    ],
 ];

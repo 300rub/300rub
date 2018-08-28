@@ -2,6 +2,7 @@
 
 namespace ss\models\settings\_base;
 
+use ss\application\App;
 use ss\application\components\common\Validator;
 
 use ss\application\components\valueGenerator\ValueGenerator;
@@ -16,19 +17,32 @@ abstract class AbstractSettingsModel extends AbstractModel
     /**
      * Types
      */
-    const ICON = 'icon';
-    const APPLE_TOUCH_ICON_57 = 'appleTouchIcon57';
+    const ICON = 'ICON';
+    const APPLE_TOUCH_ICON_57 = 'APPLE_TOUCH_ICON_57';
+    const CODE_HEADER = 'CODE_HEADER';
+    const CODE_BODY_TOP = 'CODE_BODY_TOP';
+    const CODE_BODY_BOTTOM = 'CODE_BODY_BOTTOM';
 
     /**
      * Gets a list of types
      *
      * @return array
      */
-    public static function getTypeList()
+    public function getTypeList()
     {
+        $language = App::getInstance()->getLanguage();
+
         return [
-            self::ICON                => '',
-            self::APPLE_TOUCH_ICON_57 => '',
+            self::ICON
+                => '',
+            self::APPLE_TOUCH_ICON_57
+                => '',
+            self::CODE_HEADER
+                => $language->getMessage('settings', 'codeHeader'),
+            self::CODE_BODY_TOP
+                => $language->getMessage('settings', 'codeBodyTop'),
+            self::CODE_BODY_BOTTOM
+                => $language->getMessage('settings', 'codeBodyBottom'),
         ];
     }
 
@@ -53,17 +67,13 @@ abstract class AbstractSettingsModel extends AbstractModel
             'type' => [
                 self::FIELD_TYPE => self::FIELD_TYPE_STRING,
                 self::FIELD_VALUE => [
-                    ValueGenerator::ARRAY_KEY => [self::getTypeList()]
+                    ValueGenerator::ARRAY_KEY => [$this->getTypeList()]
                 ],
                 self::FIELD_NOT_CHANGE_ON_UPDATE => true,
                 self::FIELD_SKIP_DUPLICATION => true,
             ],
             'value'       => [
                 self::FIELD_TYPE => self::FIELD_TYPE_STRING,
-                self::FIELD_VALIDATION => [
-                    Validator::TYPE_REQUIRED,
-                    Validator::TYPE_MAX_LENGTH => 255
-                ],
                 self::FIELD_SKIP_DUPLICATION => true,
             ],
         ];

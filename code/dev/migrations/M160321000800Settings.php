@@ -23,7 +23,7 @@ class M160321000800Settings extends AbstractMigration
                 [
                     'id'    => self::TYPE_PK,
                     'type'  => self::TYPE_STRING_25,
-                    'value' => self::TYPE_STRING,
+                    'value' => self::TYPE_TEXT,
                 ]
             )
             ->createUniqueIndex('settings', 'settings_type', 'type');

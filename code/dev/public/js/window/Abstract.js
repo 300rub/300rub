@@ -159,6 +159,7 @@
         _checkUnsavedAndClose: function() {
             if (this._body.find(".form-changed").length === 0) {
                 this.remove(false);
+                return this;
             }
 
             var confirmedWindow

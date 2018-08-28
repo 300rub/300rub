@@ -66,6 +66,7 @@ return [
             'system/UserButtons',
             'panel/Abstract',
             'panel/settings/List',
+            'panel/settings/CodeList',
             'panel/blocks/List',
             'panel/blocks/text/List',
             'panel/blocks/text/Settings',

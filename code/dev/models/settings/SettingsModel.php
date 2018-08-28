@@ -9,4 +9,14 @@ use ss\models\settings\_base\AbstractSettingsModel;
  */
 class SettingsModel extends AbstractSettingsModel
 {
+
+    /**
+     * Gets new model
+     *
+     * @return SettingsModel
+     */
+    public static function model()
+    {
+        return new self;
+    }
 }

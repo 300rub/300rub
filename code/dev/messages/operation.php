@@ -11,6 +11,10 @@ return [
         Language::LANGUAGE_EN_ID => 'Change icon',
         Language::LANGUAGE_RU_ID => '',
     ],
+    'settingsHiddenCode'          => [
+        Language::LANGUAGE_EN_ID => 'Hidden code',
+        Language::LANGUAGE_RU_ID => 'Скрытый код',
+    ],
     'settingsViewUsers'          => [
         Language::LANGUAGE_EN_ID => 'View users',
         Language::LANGUAGE_RU_ID => '',

@@ -66,6 +66,15 @@
                         case "icon":
                             item.find(".icon").addClass("fas fa-image");
                             break;
+                        case "hiddenCode":
+                            item.find(".icon").addClass("fas fa-code");
+                            item.find(".label").on(
+                                "click",
+                                function () {
+                                    new ss.panel.settings.CodeList();
+                                }
+                            );
+                            break;
                         default:
                             break;
                     }

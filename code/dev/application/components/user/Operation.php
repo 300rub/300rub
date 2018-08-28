@@ -36,6 +36,7 @@ class Operation
      * Settings operations
      */
     const SETTINGS_ICON = 'SETTINGS_ICON';
+    const SETTINGS_HIDDEN_CODE = 'SETTINGS_HIDDEN_CODE';
     const SETTINGS_USER_VIEW = 'SETTINGS_USER_VIEW';
     const SETTINGS_USER_UPDATE = 'SETTINGS_USER_UPDATE';
     const SETTINGS_USER_DELETE = 'SETTINGS_USER_DELETE';
@@ -127,6 +128,11 @@ class Operation
                 => $language->getMessage(
                     'operation',
                     'settingsChangeIcon'
+                ),
+            self::SETTINGS_HIDDEN_CODE
+                => $language->getMessage(
+                    'operation',
+                    'settingsHiddenCode'
                 ),
             self::SETTINGS_USER_VIEW
                 => $language->getMessage(
