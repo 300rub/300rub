@@ -25,21 +25,26 @@ class GetCodeListController extends AbstractController
         );
 
         $language = App::getInstance()->getLanguage();
-
-        $settingsTypeList = SettingsModel::model()->getTypeList();
+        $settingModel = new SettingsModel();
 
         $list = [
             [
                 'type' => SettingsModel::CODE_HEADER,
-                'name' => $settingsTypeList[SettingsModel::CODE_HEADER]
+                'name' => $settingModel->getTypeValue(
+                    SettingsModel::CODE_HEADER
+                )
             ],
             [
                 'type' => SettingsModel::CODE_BODY_TOP,
-                'name' => $settingsTypeList[SettingsModel::CODE_BODY_TOP]
+                'name' => $settingModel->getTypeValue(
+                    SettingsModel::CODE_BODY_TOP
+                )
             ],
             [
                 'type' => SettingsModel::CODE_BODY_BOTTOM,
-                'name' => $settingsTypeList[SettingsModel::CODE_BODY_BOTTOM]
+                'name' => $settingModel->getTypeValue(
+                    SettingsModel::CODE_BODY_BOTTOM
+                )
             ],
         ];
 

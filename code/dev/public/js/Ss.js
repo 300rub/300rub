@@ -29,7 +29,8 @@
         window: {
             users: {},
             site: {},
-            release: {}
+            release: {},
+            settings: {}
         }
     };
 }(window);

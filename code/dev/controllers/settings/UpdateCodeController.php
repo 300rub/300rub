@@ -2,15 +2,14 @@
 
 namespace ss\controllers\settings;
 
-use ss\application\App;
 use ss\application\components\user\Operation;
 use ss\controllers\_abstract\AbstractController;
 use ss\models\settings\SettingsModel;
 
 /**
- * Gets code
+ * Updates code
  */
-class GetCodeController extends AbstractController
+class UpdateCodeController extends AbstractController
 {
 
     /**
@@ -26,28 +25,18 @@ class GetCodeController extends AbstractController
 
         $this->checkData(
             [
-                'type' => [self::TYPE_STRING, self::NOT_EMPTY],
+                'type'  => [self::TYPE_STRING, self::NOT_EMPTY],
+                'value' => [self::TYPE_STRING],
             ]
         );
 
         $settingsModel = $this->_getSettingsModel();
-        $language = App::getInstance()->getLanguage();
 
-        return [
-            'title' => $settingsModel->getTypeValue(),
-            'type'  => $this->get('type'),
-            'forms' => [
-                'value'       => [
-                    'name'  => 'value',
-                    'value' => $settingsModel->get('value'),
-                    'validation'
-                           => $settingsModel->getValidationRulesForField('value'),
-                ],
-                'button'     => [
-                    'label' => $language->getMessage('common', 'save'),
-                ]
-            ]
-        ];
+        $settingsModel
+            ->set(['value' => $this->get('value')])
+            ->save();
+
+        return $this->getSimpleSuccessResult();
     }
 
     /**

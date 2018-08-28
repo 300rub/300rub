@@ -228,7 +228,12 @@
         icon.addClass("hidden");
         spinner.removeClass("hidden");
 
-        ajax.data.data = data;
+        if ($.type(ajax.data.data) === "object") {
+            ajax.data.data = $.extend(ajax.data.data, data);
+        } else {
+            ajax.data.data = data;
+        }
+
         ajax.complete = $.proxy(
             function () {
                 icon.removeClass("hidden");

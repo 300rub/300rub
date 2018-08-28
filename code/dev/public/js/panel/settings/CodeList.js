@@ -41,6 +41,11 @@
         this
             .setTitle(data.title)
             .setDescription(data.description)
+            .setBack(
+                function () {
+                    new ss.panel.settings.List();
+                }
+            )
             .removeFooter();
 
         $.each(
@@ -57,8 +62,7 @@
                     item.find(".label").on(
                         "click",
                         function () {
-                            //new ss.window.users.List();
-                            console.log(123);
+                            new ss.window.settings.Code(listItem.type);
                         }
                     );
 
