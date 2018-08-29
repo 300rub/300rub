@@ -331,7 +331,7 @@ abstract class AbstractOperationController extends AbstractDataController
      *
      * @throws AccessException
      */
-    protected function checkSettingsOperation($operation)
+    protected function checkSettingsOperation($operation = null)
     {
         if ($this->hasSettingsOperation($operation) === false) {
             throw new AccessException(
@@ -366,6 +366,39 @@ abstract class AbstractOperationController extends AbstractDataController
                     'operation' => $operation,
                     'type'      => $type,
                     'key'       => $key,
+                ]
+            );
+        }
+
+        return $this;
+    }
+
+    /**
+     * Checks section operation
+     *
+     * @param string $operation Operation name
+     *
+     * @return AbstractOperationController
+     *
+     * @throws AccessException
+     */
+    protected function checkSectionOperation($operation = null)
+    {
+        $result = false;
+
+        if ($operation === null) {
+            $result = $this->hasAnySectionOperations();
+        }
+
+        if ($operation !== null) {
+            $result = $this->hasSettingsOperation($operation);
+        }
+
+        if ($result === false) {
+            throw new AccessException(
+                'Access denied for settings operation: {operation}',
+                [
+                    'operation' => $operation
                 ]
             );
         }

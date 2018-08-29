@@ -101,9 +101,6 @@ abstract class AbstractUserEventModel extends AbstractModel
                     Validator::TYPE_REQUIRED,
                     Validator::TYPE_MAX_LENGTH => 255
                 ],
-                self::FIELD_VALUE               => [
-                    ValueGenerator::CLEAR_STRIP_TAGS
-                ],
             ],
             'date' => [
                 self::FIELD_TYPE              => self::FIELD_TYPE_DATETIME,

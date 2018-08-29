@@ -19,6 +19,7 @@
                 text: {}
             },
             settings: {},
+            section: {},
             design: {
                 block: {},
                 text: {}

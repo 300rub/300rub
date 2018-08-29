@@ -92,6 +92,7 @@ return [
             'panel/design/text/Hover',
             'panel/design/text/Editor',
             'panel/release/ShortInfo',
+            'panel/section/List',
             'window/users/Form',
             'window/users/List',
             'window/users/Sessions',

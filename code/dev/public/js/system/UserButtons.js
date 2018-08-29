@@ -35,9 +35,28 @@
 
             this
                 ._setRelease()
+                ._setSection()
                 ._setBlocks()
                 ._setSettings()
                 ._setLogout();
+        },
+
+        /**
+         * Sets section
+         *
+         * @returns {ss.system.UserButtons}
+         *
+         * @private
+         */
+        _setSection: function () {
+            $("#user-button-section").on(
+                "click",
+                function () {
+                    new ss.panel.section.List();
+                }
+            );
+
+            return this;
         },
 
         /**

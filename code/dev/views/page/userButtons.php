@@ -34,7 +34,7 @@
         </a>
     <?php } ?>
     <?php if ($isDisplaySections === true) { ?>
-        <a>
+        <a id="user-button-section">
             <span><?php echo $sectionsButton; ?></span>
             <i class="far fa-file"></i>
         </a>

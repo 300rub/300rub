@@ -13,7 +13,7 @@ return [
     ],
     'sections'            => [
         Language::LANGUAGE_EN_ID => 'Sections',
-        Language::LANGUAGE_RU_ID => '',
+        Language::LANGUAGE_RU_ID => 'Разделы',
     ],
     'panelDescription'    => [
         Language::LANGUAGE_EN_ID => 'You can add/update/delete sections here',
