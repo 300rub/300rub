@@ -47,8 +47,4 @@ return [
         Language::LANGUAGE_EN_ID => 'Delete',
         Language::LANGUAGE_RU_ID => 'Удаление',
     ],
-    'categorySections' => [
-        Language::LANGUAGE_EN_ID => 'Sections',
-        Language::LANGUAGE_RU_ID => 'Разделы',
-    ],
 ];

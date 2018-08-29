@@ -52,10 +52,19 @@ abstract class AbstractSectionModel extends AbstractModel
                     ]
                 ],
             ],
+            'padding'   => [
+                self::FIELD_TYPE => self::FIELD_TYPE_INT,
+                self::FIELD_VALUE => [
+                    ValueGenerator::MIN => 0,
+                ]
+            ],
             'isMain'        => [
                 self::FIELD_TYPE             => self::FIELD_TYPE_BOOL,
                 self::FIELD_SKIP_DUPLICATION => true,
                 self::FIELD_BEFORE_SAVE      => ['generateIsMain']
+            ],
+            'isPublished'   => [
+                self::FIELD_TYPE => self::FIELD_TYPE_BOOL,
             ],
         ];
     }
@@ -92,7 +101,7 @@ abstract class AbstractSectionModel extends AbstractModel
         $this->getTable()
             ->addWhere(
                 sprintf(
-                    '%s.isMain = :isMain',
+                    '%s.isMain = 1',
                     Table::DEFAULT_ALIAS
                 )
             )
@@ -102,7 +111,12 @@ abstract class AbstractSectionModel extends AbstractModel
                     Table::DEFAULT_ALIAS
                 )
             )
-            ->addParameter('isMain', 1)
+            ->addWhere(
+                sprintf(
+                    '%s.isPublished = 1',
+                    Table::DEFAULT_ALIAS
+                )
+            )
             ->addParameter('language', $language);
 
         return $this;

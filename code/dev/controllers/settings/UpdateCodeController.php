@@ -2,9 +2,11 @@
 
 namespace ss\controllers\settings;
 
+use ss\application\App;
 use ss\application\components\user\Operation;
 use ss\controllers\_abstract\AbstractController;
 use ss\models\settings\SettingsModel;
+use ss\models\user\UserEventModel;
 
 /**
  * Updates code
@@ -36,7 +38,49 @@ class UpdateCodeController extends AbstractController
             ->set(['value' => $this->get('value')])
             ->save();
 
+        $this->_writeEvent();
+
         return $this->getSimpleSuccessResult();
+    }
+
+    /**
+     * Write an event
+     *
+     * @return UpdateCodeController
+     */
+    private function _writeEvent()
+    {
+        $language = App::getInstance()->getLanguage();
+
+        $eventName = '';
+        switch ($this->get('type')) {
+            case SettingsModel::CODE_HEADER:
+                $eventName = $language->getMessage(
+                    'events',
+                    'settingsCodeHeader'
+                );
+                break;
+            case SettingsModel::CODE_BODY_TOP:
+                $eventName = $language->getMessage(
+                    'events',
+                    'settingCodeBodyTop'
+                );
+                break;
+            case SettingsModel::CODE_BODY_BOTTOM:
+                $eventName = $language->getMessage(
+                    'events',
+                    'settingsCodeBodyBottom'
+                );
+                break;
+        }
+
+        App::getInstance()->getUser()->writeEvent(
+            UserEventModel::CATEGORY_SETTINGS,
+            UserEventModel::TYPE_EDIT,
+            $eventName
+        );
+
+        return $this;
     }
 
     /**

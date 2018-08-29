@@ -1746,11 +1746,15 @@ CREATE TABLE `sections` (
   `seoId` int(11) unsigned NOT NULL,
   `designBlockId` int(11) unsigned NOT NULL,
   `language` tinyint(3) unsigned NOT NULL,
+  `padding` int(10) unsigned NOT NULL,
   `isMain` tinyint(1) unsigned NOT NULL,
+  `isPublished` tinyint(1) unsigned NOT NULL,
   PRIMARY KEY (`id`),
   KEY `sections_seoId_fk` (`seoId`),
   KEY `sections_designBlockId_fk` (`designBlockId`),
-  KEY `sections_language_isMain` (`language`,`isMain`),
+  KEY `sections_language_isMain_isPublished` (`language`,`isMain`,`isPublished`),
+  KEY `sections_language_isPublished` (`language`,`isPublished`),
+  KEY `sections_language` (`language`),
   CONSTRAINT `sections_designBlockId_fk` FOREIGN KEY (`designBlockId`) REFERENCES `designBlocks` (`id`),
   CONSTRAINT `sections_seoId_fk` FOREIGN KEY (`seoId`) REFERENCES `seo` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -1804,7 +1808,7 @@ DROP TABLE IF EXISTS `settings`;
 CREATE TABLE `settings` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `type` varchar(25) NOT NULL,
-  `value` varchar(255) NOT NULL,
+  `value` text NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `settings_type` (`type`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -2259,4 +2263,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-08-28  7:53:31
+-- Dump completed on 2018-08-29  8:37:31

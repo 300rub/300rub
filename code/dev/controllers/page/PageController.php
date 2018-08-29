@@ -114,21 +114,15 @@ class PageController extends AbstractPageController
         $layoutData['generatedCss'] = $sectionCss;
         $layoutData['generatedJs'] = $sectionJs;
         $layoutData['version'] = $this->getVersion();
-        $layoutData['headerCode'] = $this
-            ->_getSettingsByType(
-                SettingsModel::CODE_HEADER
-            )
-            ->get('value');
-        $layoutData['bodyTopCode'] = $this
-            ->_getSettingsByType(
-                SettingsModel::CODE_BODY_TOP
-            )
-            ->get('value');
-        $layoutData['bodyBottomCode'] = $this
-            ->_getSettingsByType(
-                SettingsModel::CODE_BODY_BOTTOM
-            )
-            ->get('value');
+        $layoutData['headerCode'] = $this->_getSettingsValueByType(
+            SettingsModel::CODE_HEADER
+        );
+        $layoutData['bodyTopCode'] = $this->_getSettingsValueByType(
+            SettingsModel::CODE_BODY_TOP
+        );
+        $layoutData['bodyBottomCode'] = $this->_getSettingsValueByType(
+            SettingsModel::CODE_BODY_BOTTOM
+        );
 
         $html = $this->getContentFromTemplate('page/layout', $layoutData);
 
@@ -151,19 +145,14 @@ class PageController extends AbstractPageController
      *
      * @throws NotFoundException
      */
-    private function _getSettingsByType($type)
+    private function _getSettingsValueByType($type)
     {
         $settingsModel = SettingsModel::model()->byType($type)->find();
         if ($settingsModel === null) {
-            throw new NotFoundException(
-                'Unable to find settings model by type: {type}',
-                [
-                    'type' => $type
-                ]
-            );
+            return null;
         }
 
-        return $settingsModel;
+        return $settingsModel->get('value');
     }
 
     /**

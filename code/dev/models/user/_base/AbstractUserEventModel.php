@@ -17,6 +17,8 @@ abstract class AbstractUserEventModel extends AbstractModel
      * Categories
      */
     const CATEGORY_SECTION = 1;
+    const CATEGORY_BLOCKS = 2;
+    const CATEGORY_SETTINGS = 3;
 
     /**
      * Types
@@ -36,7 +38,9 @@ abstract class AbstractUserEventModel extends AbstractModel
 
         return [
             self::CATEGORY_SECTION
-                => $language->getMessage('release', 'categorySections'),
+                => $language->getMessage('events', 'categorySections'),
+            self::CATEGORY_SETTINGS
+                => $language->getMessage('events', 'categorySettings'),
         ];
     }
 
