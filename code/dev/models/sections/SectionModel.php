@@ -110,10 +110,26 @@ class SectionModel extends AbstractSectionModel
      */
     private function _generateCss()
     {
-        return App::getInstance()->getView()->generateCss(
-            $this->get('designBlockModel'),
-            sprintf('.section-%s', $this->getId())
+        $cssList = [];
+        $view = App::getInstance()->getView();
+
+        $cssList = array_merge(
+            $cssList,
+            $view->generateCss(
+                $this->get('designBlockModel'),
+                sprintf('.section-%s', $this->getId())
+            )
         );
+
+        $cssList = array_merge(
+            $cssList,
+            $view->generateCss(
+                $this,
+                '.line-container .grid'
+            )
+        );
+
+        return $cssList;
     }
 
     /**

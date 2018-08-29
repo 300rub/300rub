@@ -19,6 +19,7 @@ class View
     private $_map = [
         '\\ss\\models\\blocks\\block\\DesignBlockModel' => 'block',
         '\\ss\\models\\blocks\\text\\DesignTextModel'   => 'text',
+        '\\ss\\models\\sections\\SectionModel'          => 'section',
     ];
 
     /**
