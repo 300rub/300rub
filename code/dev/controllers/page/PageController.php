@@ -7,6 +7,7 @@ use ss\application\components\user\Operation;
 use ss\application\exceptions\NotFoundException;
 use ss\controllers\page\_abstract\AbstractPageController;
 use ss\models\sections\SectionModel;
+use ss\models\settings\SettingsModel;
 use ss\models\user\UserEventModel;
 
 /**
@@ -113,6 +114,21 @@ class PageController extends AbstractPageController
         $layoutData['generatedCss'] = $sectionCss;
         $layoutData['generatedJs'] = $sectionJs;
         $layoutData['version'] = $this->getVersion();
+        $layoutData['headerCode'] = $this
+            ->_getSettingsByType(
+                SettingsModel::CODE_HEADER
+            )
+            ->get('value');
+        $layoutData['bodyTopCode'] = $this
+            ->_getSettingsByType(
+                SettingsModel::CODE_BODY_TOP
+            )
+            ->get('value');
+        $layoutData['bodyBottomCode'] = $this
+            ->_getSettingsByType(
+                SettingsModel::CODE_BODY_BOTTOM
+            )
+            ->get('value');
 
         $html = $this->getContentFromTemplate('page/layout', $layoutData);
 
@@ -124,6 +140,30 @@ class PageController extends AbstractPageController
         }
 
         return $html;
+    }
+
+    /**
+     * Gets settings model by type
+     *
+     * @param string $type Type
+     *
+     * @return SettingsModel
+     *
+     * @throws NotFoundException
+     */
+    private function _getSettingsByType($type)
+    {
+        $settingsModel = SettingsModel::model()->byType($type)->find();
+        if ($settingsModel === null) {
+            throw new NotFoundException(
+                'Unable to find settings model by type: {type}',
+                [
+                    'type' => $type
+                ]
+            );
+        }
+
+        return $settingsModel;
     }
 
     /**

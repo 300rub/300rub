@@ -143,4 +143,8 @@ return [
         Language::LANGUAGE_EN_ID => 'Date',
         Language::LANGUAGE_RU_ID => 'Дата',
     ],
+    'saveAndReload' => [
+        Language::LANGUAGE_EN_ID => 'Save and reload page',
+        Language::LANGUAGE_RU_ID => 'Сохранить и перезагрузить страницу',
+    ],
 ];

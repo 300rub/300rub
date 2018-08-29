@@ -18,6 +18,9 @@
  * @var array    $generatedCss
  * @var array    $generatedJs
  * @var integer  $version
+ * @var string   $headerCode
+ * @var string   $bodyTopCode
+ * @var string   $bodyBottomCode
  *
  * phpcs:disable Generic.Files.InlineHTML
  */
@@ -88,8 +91,12 @@ if (isset($js) === true) {
         );
         <?php } ?>
     </script>
+
+    <?php echo $headerCode; ?>
 </head>
 <body>
+
+<?php echo $bodyTopCode; ?>
 
 <?php
 if ($isUser === true) {
@@ -125,6 +132,8 @@ echo '</script>';
 ?>
 
 <div id="ajax-wrapper"></div>
+
+<?php echo $bodyBottomCode; ?>
 
 </body>
 </html>

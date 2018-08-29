@@ -88,6 +88,6 @@
      * @private
      */
     ss.window.settings.Code.prototype._onSendSuccess = function (data) {
-        console.log(data);
+        window.location.reload();
     };
 }(window.jQuery, window.ss);
