@@ -11,7 +11,7 @@
             this,
             {
                 group: "text",
-                controller: "settings",
+                controller: "block",
                 id: id,
                 success: $.proxy(this._onLoadDataSuccess, this)
             }

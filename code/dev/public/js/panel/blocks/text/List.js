@@ -95,7 +95,7 @@
                     }
 
                     $item.find(".text").text(itemData.name);
-                    $item.find(".icon").addClass("fa-font");
+                    $item.find(".icon").addClass("fas fa-font");
 
                     this.getBody().append($item);
                 },

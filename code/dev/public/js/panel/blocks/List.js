@@ -54,14 +54,20 @@
                     item.find(".text").text(itemData.name);
 
                     switch (itemData.type) {
-                        case "text":
-                            item.find(".icon").addClass("fa-font");
+                        case 1:
+                            item.find(".icon").addClass("fas fa-font");
                             item.find(".label").on(
                                 "click",
                                 function () {
                                     new ss.panel.blocks.text.List();
                                 }
                             );
+                            break;
+                        case 2:
+                            item.find(".icon").addClass("fas fa-images");
+                            break;
+                        case 3:
+                            item.find(".icon").addClass("far fa-newspaper");
                             break;
                         default:
                             break;

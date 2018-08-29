@@ -29,8 +29,11 @@ class GetBlocksController extends AbstractController
         $this->checkUser();
 
         $this->_list = [];
-        $this
-            ->_setTextBlock();
+
+        $types = array_keys(BlockModel::model()->getTypeNames());
+        foreach ($types as $type) {
+            $this->_addListItem($type);
+        }
 
         $language = App::getInstance()->getLanguage();
         return [
@@ -41,38 +44,38 @@ class GetBlocksController extends AbstractController
     }
 
     /**
-     * Sets text blocks
+     * Adds item to list
+     *
+     * @param string $type Type
      *
      * @return GetBlocksController
      */
-    private function _setTextBlock()
+    private function _addListItem($type)
     {
-        if ($this->hasBlockOperation(BlockModel::TYPE_TEXT) === false) {
+        if ($this->hasBlockOperation($type) === false) {
             return $this;
         }
 
         $blockModel = new BlockModel();
 
-        $isDisplay = true;
         $blockSection = $this->getBlockSection();
         if ($blockSection > 0) {
             $blockModel
-                ->byContentType(BlockModel::TYPE_TEXT)
+                ->byContentType($type)
                 ->bySectionId($blockSection)
-                ->byLanguage(App::getInstance()->getLanguage()->getActiveId());
+                ->byLanguage(
+                    App::getInstance()->getLanguage()->getActiveId()
+                );
 
-            $isDisplay = false;
-            if ($blockModel->getCount() > 0) {
-                $isDisplay = true;
+            if ($blockModel->getCount() === 0) {
+                return $this;
             }
         }
 
-        if ($isDisplay === true) {
-            $this->_list[] = [
-                'name' => $blockModel->getTypeName(BlockModel::TYPE_TEXT),
-                'type' => 'text'
-            ];
-        }
+        $this->_list[] = [
+            'name' => $blockModel->getTypeName($type),
+            'type' => $type
+        ];
 
         return $this;
     }

@@ -69,7 +69,7 @@ class BlockModel extends AbstractBlockModel
      */
     public function getTypeName($type)
     {
-        $typeNames = self::getTypeNames();
+        $typeNames = $this->getTypeNames();
         if (array_key_exists($type, $typeNames) === true) {
             return $typeNames[$type];
         }
