@@ -117,7 +117,10 @@ class DeleteSessionController extends AbstractController
     {
         return [
             'host' => $this->generateAbsoluteUrl(
-                '',
+                sprintf(
+                    '/%s',
+                    App::getInstance()->getLanguage()->getActiveAlias()
+                ),
                 App::getInstance()->getSite()->getMainHost(),
                 self::PROTOCOL_HTTP
             )

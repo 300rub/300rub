@@ -126,7 +126,7 @@
                     .focus();
             }
         } else {
-            window.location = "/";
+            window.location = "/" + data.languageAlias;
         }
     };
 }(window.jQuery, window.ss);

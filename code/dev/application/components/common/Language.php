@@ -2,6 +2,7 @@
 
 namespace ss\application\components\common;
 
+use ss\application\App;
 use ss\application\exceptions\CommonException;
 use ss\application\exceptions\NotFoundException;
 
@@ -89,7 +90,7 @@ class Language
      *
      * @param string $name Language alias
      *
-     * @throws CommonException
+     * @throws NotFoundException
      *
      * @return Language
      */
@@ -101,12 +102,15 @@ class Language
             return $this;
         }
 
-        throw new CommonException(
+        App::getInstance()->getLogger()->error(
             'Unable to find language with name: {name}',
             [
-            'name' => $name
+                'name' => $name
             ]
         );
+        
+        http_response_code(404);
+        exit;
     }
 
     /**

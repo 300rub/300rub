@@ -87,7 +87,10 @@ class CreateSessionController extends AbstractController
         $userSessionModel = new UserSessionModel();
         $userSessionModel = $userSessionModel->byToken($token)->find();
         if ($userSessionModel instanceof UserSessionModel) {
-            return ['token' => $token];
+            return [
+                'languageAlias' => $language->getActiveAlias(),
+                'token'         => $token
+            ];
         }
 
         $userSessionModel = new UserSessionModel();
@@ -101,7 +104,10 @@ class CreateSessionController extends AbstractController
         );
         $userSessionModel->save();
 
-        return ['token' => $token];
+        return [
+            'languageAlias' => $language->getActiveAlias(),
+            'token'         => $token
+        ];
     }
 
     /**

@@ -22,7 +22,9 @@ class Test extends AbstractApplication
             'phpunit.%s',
             $this->getConfig()->getValue(['host'])
         );
-        $this->setSite($hostname);
+        $this
+            ->setSite($hostname)
+            ->setActiveLanguage();
 
         $this->getDb()->setActivePdoKey(Db::CONFIG_DB_NAME_PHPUNIT);
     }

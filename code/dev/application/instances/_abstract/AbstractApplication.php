@@ -101,8 +101,6 @@ abstract class AbstractApplication extends AbstractComponents
                 $siteModel->getReadDbName()
             );
 
-        $this->getLanguage()->setActiveId($siteModel->get('language'));
-
         $requestUri = $this
             ->getSuperGlobalVariable()
             ->getServerValue('REQUEST_URI');
@@ -110,6 +108,27 @@ abstract class AbstractApplication extends AbstractComponents
 
         $this->_site = $siteModel;
 
+        return $this;
+    }
+
+    /**
+     * Sets active language
+     *
+     * @param bool $skipAlias Flag to skip alias
+     *
+     * @return AbstractApplication
+     */
+    protected function setActiveLanguage($skipAlias = null)
+    {
+        if ($skipAlias !== true) {
+            $languageAlias = $this->_site->getUri(0);
+            if ($languageAlias !== null) {
+                $this->getLanguage()->setIdByAlias($languageAlias);
+                return $this;
+            }
+        }
+
+        $this->getLanguage()->setActiveId($this->_site->get('language'));
         return $this;
     }
 

@@ -191,24 +191,16 @@ class Web extends AbstractAjax
      */
     protected function processPage()
     {
-        $requestUri = $this
-            ->getSuperGlobalVariable()
-            ->getServerValue('REQUEST_URI');
-        $requestUri = strtolower(trim($requestUri, '/'));
-
-        if ($requestUri === 'login') {
+        if ($this->getSite()->getUri(0) === LoginController::LOGIN_ALIAS) {
+            $this->setActiveLanguage(true);
             $loginController = new LoginController();
             return $loginController->run();
         }
 
-        $requestParameters = explode('/', $requestUri);
-        if (count($requestParameters) > 1
-            && $requestParameters[1] === LoginController::LOGIN_ALIAS
-        ) {
-            App::getInstance()
-                ->getLanguage()
-                ->setIdByAlias($requestParameters[0]);
+        $this->setActiveLanguage();
 
+        if ($this->getSite()->getUri(1) === LoginController::LOGIN_ALIAS
+        ) {
             $loginController = new LoginController();
             return $loginController->run();
         }

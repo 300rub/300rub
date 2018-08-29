@@ -134,16 +134,18 @@
 
         this.getBody().append(table);
 
-        new ss.forms.Button(
-            {
-                css: "btn btn-blue margin-bottom-15",
-                icon: "fas fa-user-plus",
-                label: data.labels.add,
-                appendTo: this.getBody(),
-                onClick: function () {
-                    new ss.window.users.Form({id: 0});
+        if (data.canAdd === true) {
+            new ss.forms.Button(
+                {
+                    css: "btn btn-blue margin-bottom-15",
+                    icon: "fas fa-user-plus",
+                    label: data.labels.add,
+                    appendTo: this.getBody(),
+                    onClick: function () {
+                        new ss.window.users.Form({id: 0});
+                    }
                 }
-            }
-        );
+            );
+        }
     };
 }(window.jQuery, window.ss);
