@@ -164,7 +164,7 @@
 
             new ss.forms.Button(
                 {
-                    css: "button",
+                    css: "btn btn-red",
                     appendTo: $logoutConfirmation,
                     label: $logoutConfirmation.data("yes"),
                     icon: "fas fa-sign-out-alt",
@@ -183,8 +183,7 @@
 
             new ss.forms.Button(
                 {
-                    type: "button",
-                    css: "gray-button",
+                    css: "btn btn-gray",
                     appendTo: $logoutConfirmation,
                     label: $logoutConfirmation.data("no"),
                     icon: "fas fa-ban",
