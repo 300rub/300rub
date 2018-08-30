@@ -8,6 +8,7 @@ use ss\application\components\user\Operation;
 use ss\application\exceptions\NotFoundException;
 use ss\controllers\_abstract\AbstractController;
 use ss\models\blocks\block\BlockModel;
+use ss\models\blocks\record\RecordCloneModel;
 use ss\models\sections\GridLineModel;
 use ss\models\sections\GridModel;
 use ss\models\sections\SectionModel;
@@ -209,6 +210,8 @@ class GetStructureController extends AbstractController
         $this->_filteredBlocks = [
             $this->_getSimpleBlocks(BlockModel::TYPE_TEXT),
             $this->_getSimpleBlocks(BlockModel::TYPE_IMAGE),
+            $this->_getSimpleBlocks(BlockModel::TYPE_MENU),
+            $this->_getRecordBlocks()
         ];
 
         return $this;
@@ -238,5 +241,51 @@ class GetStructureController extends AbstractController
             'name'   => BlockModel::model()->getTypeName($type),
             'blocks' => $filteredBlocks,
         ];
+    }
+
+    /**
+     * Gets record blocks
+     *
+     * @return array
+     */
+    private function _getRecordBlocks()
+    {
+        $filteredBlocks = [];
+
+        $cloneMap = [];
+        foreach ($this->_blocks as $blockId => $data) {
+            if ($data['type'] !== BlockModel::TYPE_RECORD_CLONE) {
+                continue;
+            }
+
+            $recordBlockId = RecordCloneModel::model()
+                ->set([RecordCloneModel::PK_FIELD => $data['contentId']])
+                ->getRecordBlockId();
+
+            $cloneMap[$recordBlockId][] = [
+                'id'        => $blockId,
+                'name'      => $data['name'],
+                'contentId' => $data['contentId'],
+            ];
+        }
+
+        foreach ($this->_blocks as $blockId => $data) {
+            if ($data['type'] !== BlockModel::TYPE_RECORD) {
+                continue;
+            }
+
+            $children = [];
+            if (array_key_exists($blockId, $cloneMap) === true) {
+                $children = $cloneMap[$blockId];
+            }
+
+            $filteredBlocks[] = [
+                'id'       => $blockId,
+                'name'     => $data['name'],
+                'children' => $children
+            ];
+        }
+
+        return $filteredBlocks;
     }
 }
