@@ -57,6 +57,13 @@
                         item.find(".icon").addClass("fas fa-home");
                     }
 
+                    item.find(".label").on(
+                        "click",
+                        function () {
+                            new ss.window.section.Structure(section.id);
+                        }
+                    );
+
                     this.getBody().append(item);
                 },
                 this

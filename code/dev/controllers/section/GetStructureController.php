@@ -159,7 +159,7 @@ class GetStructureController extends AbstractController
         $this->_structure = [];
 
         $gridLineModels = GridLineModel::model()
-            ->bySectionId()
+            ->bySectionId($this->get('id'))
             ->ordered('sort')
             ->findAll();
 

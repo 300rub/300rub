@@ -31,7 +31,8 @@
             users: {},
             site: {},
             release: {},
-            settings: {}
+            settings: {},
+            section: {}
         }
     };
 }(window);

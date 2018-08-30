@@ -98,6 +98,7 @@ return [
             'window/users/Sessions',
             'window/release/FullInfo',
             'window/settings/Code',
+            'window/section/Structure',
         ],
         'compiledCss' => 'admin.min',
         'compiledJs' => 'admin.min',
