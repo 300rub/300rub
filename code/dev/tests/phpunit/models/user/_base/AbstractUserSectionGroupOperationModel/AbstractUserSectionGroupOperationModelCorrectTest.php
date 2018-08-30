@@ -45,11 +45,11 @@ class AbstractUserSectionGroupOperationModelCorrectTest extends AbstractCorrectM
             'correct2' => [
                 [
                     'userId'    => 2,
-                    'operation' => Operation::SECTION_UPDATE,
+                    'operation' => Operation::SECTION_UPDATE_CONTENT,
                 ],
                 [
                     'userId'    => 2,
-                    'operation' => Operation::SECTION_UPDATE,
+                    'operation' => Operation::SECTION_UPDATE_CONTENT,
                 ],
             ],
         ];

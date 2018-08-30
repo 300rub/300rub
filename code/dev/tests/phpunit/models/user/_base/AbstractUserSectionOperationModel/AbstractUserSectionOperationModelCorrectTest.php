@@ -48,12 +48,12 @@ class AbstractUserSectionOperationModelCorrectTest extends AbstractCorrectModelT
                 [
                     'userId'    => 2,
                     'sectionId' => 1,
-                    'operation' => Operation::SECTION_UPDATE,
+                    'operation' => Operation::SECTION_UPDATE_CONTENT,
                 ],
                 [
                     'userId'    => 2,
                     'sectionId' => 1,
-                    'operation' => Operation::SECTION_UPDATE,
+                    'operation' => Operation::SECTION_UPDATE_CONTENT,
                 ],
             ],
         ];

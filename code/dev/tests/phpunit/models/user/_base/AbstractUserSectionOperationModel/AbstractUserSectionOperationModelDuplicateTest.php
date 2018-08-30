@@ -35,7 +35,7 @@ class AbstractUserSectionOperationModelDuplicateTest extends AbstractDuplicateMo
             [
                 'userId'    => 1,
                 'sectionId' => 1,
-                'operation' => Operation::SECTION_UPDATE,
+                'operation' => Operation::SECTION_UPDATE_CONTENT,
             ],
             [],
             self::EXCEPTION_MODEL

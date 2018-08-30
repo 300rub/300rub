@@ -290,4 +290,14 @@ class GridModel extends AbstractGridModel
 
         return $this;
     }
+
+    /**
+     * Gets new model
+     *
+     * @return GridModel
+     */
+    public static function model()
+    {
+        return new self;
+    }
 }

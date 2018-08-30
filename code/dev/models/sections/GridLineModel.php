@@ -60,4 +60,14 @@ class GridLineModel extends AbstractGridLineModel
 
         return $css;
     }
+
+    /**
+     * Gets new model
+     *
+     * @return GridLineModel
+     */
+    public static function model()
+    {
+        return new self;
+    }
 }

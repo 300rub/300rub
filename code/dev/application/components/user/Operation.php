@@ -27,8 +27,9 @@ class Operation
      * Section operations
      */
     const SECTION_ADD = 'SECTION_ADD';
-    const SECTION_UPDATE = 'SECTION_UPDATE';
-    const SECTION_DESIGN_UPDATE = 'SECTION_DESIGN_UPDATE';
+    const SECTION_UPDATE_CONTENT = 'SECTION_UPDATE_CONTENT';
+    const SECTION_UPDATE_DESIGN = 'SECTION_UPDATE_DESIGN';
+    const SECTION_UPDATE_SETTINGS = 'SECTION_UPDATE_SETTINGS';
     const SECTION_DELETE = 'SECTION_DELETE';
     const SECTION_DUPLICATE = 'SECTION_DUPLICATE';
 
@@ -96,10 +97,12 @@ class Operation
         $language = App::getInstance()->getLanguage();
 
         $list = [
-            self::SECTION_UPDATE
+            self::SECTION_UPDATE_CONTENT
                 => $language->getMessage('operation', 'edit'),
-            self::SECTION_DESIGN_UPDATE
+            self::SECTION_UPDATE_DESIGN
                 => $language->getMessage('operation', 'editDesign'),
+            self::SECTION_UPDATE_SETTINGS
+                => $language->getMessage('operation', 'editSettings'),
             self::SECTION_DELETE
                 => $language->getMessage('operation', 'delete'),
             self::SECTION_DUPLICATE

@@ -36,22 +36,22 @@ class AbstractUserSectionOperationModelIncorrectTest extends AbstractIncorrectMo
                 [
                     'userId'    => '  1  ',
                     'sectionId' => '  1  ',
-                    'operation' => Operation::SECTION_UPDATE,
+                    'operation' => Operation::SECTION_UPDATE_CONTENT,
                 ],
                 [
                     'userId'    => 1,
                     'sectionId' => 1,
-                    'operation' => Operation::SECTION_UPDATE,
+                    'operation' => Operation::SECTION_UPDATE_CONTENT,
                 ],
                 [
                     'userId'    => 2,
                     'sectionId' => 2,
-                    'operation' => Operation::SECTION_DESIGN_UPDATE,
+                    'operation' => Operation::SECTION_UPDATE_DESIGN,
                 ],
                 [
                     'userId'    => 1,
                     'sectionId' => 1,
-                    'operation' => Operation::SECTION_UPDATE,
+                    'operation' => Operation::SECTION_UPDATE_CONTENT,
                 ],
             ],
             'incorrect2' => [
@@ -69,7 +69,7 @@ class AbstractUserSectionOperationModelIncorrectTest extends AbstractIncorrectMo
                 [
                     'userId'    => 999,
                     'sectionId' => 1,
-                    'operation' => Operation::SECTION_UPDATE,
+                    'operation' => Operation::SECTION_UPDATE_CONTENT,
                 ],
                 [],
                 null,
@@ -80,7 +80,7 @@ class AbstractUserSectionOperationModelIncorrectTest extends AbstractIncorrectMo
                 [
                     'userId'    => 1,
                     'sectionId' => 999,
-                    'operation' => Operation::SECTION_UPDATE,
+                    'operation' => Operation::SECTION_UPDATE_CONTENT,
                 ],
                 [],
                 null,

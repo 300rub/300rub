@@ -43,7 +43,7 @@ class AbstractUserSectionGroupOperationModelIncorrectTest extends AbstractIncorr
                 ],
                 [
                     'userId'    => 2,
-                    'operation' => Operation::SECTION_UPDATE,
+                    'operation' => Operation::SECTION_UPDATE_CONTENT,
                 ],
                 [
                     'userId'    => 1,

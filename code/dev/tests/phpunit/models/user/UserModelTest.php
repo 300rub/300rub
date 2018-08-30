@@ -210,7 +210,7 @@ class UserModelTest extends AbstractModelTest
             [
                 'userId'    => $this->_userModel->getId(),
                 'sectionId' => 1,
-                'operation' => Operation::SECTION_UPDATE
+                'operation' => Operation::SECTION_UPDATE_CONTENT
             ]
         );
         $this->_section->save();
@@ -220,7 +220,7 @@ class UserModelTest extends AbstractModelTest
                     Operation::SECTION_ADD
                 ],
                 1              => [
-                    Operation::SECTION_UPDATE
+                    Operation::SECTION_UPDATE_CONTENT
                 ]
             ],
             Operation::TYPE_SETTINGS => [
@@ -262,7 +262,7 @@ class UserModelTest extends AbstractModelTest
                     Operation::SECTION_ADD
                 ],
                 1              => [
-                    Operation::SECTION_UPDATE
+                    Operation::SECTION_UPDATE_CONTENT
                 ]
             ],
             Operation::TYPE_SETTINGS => [
@@ -308,7 +308,7 @@ class UserModelTest extends AbstractModelTest
                     Operation::SECTION_ADD
                 ],
                 1              => [
-                    Operation::SECTION_UPDATE
+                    Operation::SECTION_UPDATE_CONTENT
                 ]
             ],
             Operation::TYPE_SETTINGS => [

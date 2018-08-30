@@ -5,6 +5,7 @@ namespace ss\controllers\section;
 use ss\application\App;
 use ss\controllers\_abstract\AbstractController;
 use ss\models\sections\SectionModel;
+
 /**
  * Gets a list of codes
  */

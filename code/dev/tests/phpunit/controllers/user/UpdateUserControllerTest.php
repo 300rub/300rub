@@ -58,7 +58,7 @@ class UpdateUserControllerTest extends AbstractControllerTest
                 [
                     Operation::TYPE_SECTIONS => [
                         Operation::ALL => [
-                            Operation::SECTION_DESIGN_UPDATE,
+                            Operation::SECTION_UPDATE_DESIGN,
                             Operation::SECTION_DUPLICATE,
                         ],
                     ],
@@ -379,11 +379,11 @@ class UpdateUserControllerTest extends AbstractControllerTest
                         Operation::TYPE_SECTIONS => [
                             Operation::ALL => [
                                 Operation::SECTION_ADD => true,
-                                Operation::SECTION_UPDATE => true,
+                                Operation::SECTION_UPDATE_CONTENT => true,
                                 'incorrect' => true
                             ],
                             1              => [
-                                Operation::SECTION_DESIGN_UPDATE => true,
+                                Operation::SECTION_UPDATE_DESIGN => true,
                                 'incorrect' => true
                             ],
                             'incorrect' => true
@@ -418,10 +418,10 @@ class UpdateUserControllerTest extends AbstractControllerTest
                     Operation::TYPE_SECTIONS => [
                         Operation::ALL => [
                             Operation::SECTION_ADD,
-                            Operation::SECTION_UPDATE
+                            Operation::SECTION_UPDATE_CONTENT
                         ],
                         1              => [
-                            Operation::SECTION_DESIGN_UPDATE
+                            Operation::SECTION_UPDATE_DESIGN
                         ]
                     ],
                     Operation::TYPE_BLOCKS   => [
