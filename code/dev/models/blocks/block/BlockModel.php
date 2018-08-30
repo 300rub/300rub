@@ -56,6 +56,7 @@ class BlockModel extends AbstractBlockModel
         return [
             self::TYPE_TEXT   => $language->getMessage('text', 'texts'),
             self::TYPE_IMAGE  => $language->getMessage('image', 'images'),
+            self::TYPE_MENU  => $language->getMessage('menu', 'menu'),
             self::TYPE_RECORD => $language->getMessage('record', 'records'),
         ];
     }

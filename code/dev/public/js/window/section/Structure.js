@@ -48,6 +48,58 @@
 
         this
             .setTitle(data.title);
+
+        var sectionStructure = ss.components.Template.get("section-structure");
+
+        var blocksContainer = sectionStructure.find(".blocks-container");
+
+        $.each(data.blocks, function(i, blockGroup){
+            console.log(blockGroup);
+
+            var icon;
+            switch (blockGroup.type) {
+                case 1:
+                    icon = "fas fa-font";
+                    break;
+                default:
+                    icon = null;
+                    break;
+            }
+
+            var typeContainer = ss.components.Template.get(
+                "section-structure-type-container"
+            );
+
+            $.each(blockGroup.blocks, function(i, block) {
+                var blockElement = ss.components.Template.get(
+                    "section-structure-block"
+                );
+
+                blockElement.find(".name").text(block.name);
+                blockElement.data("id", block.id);
+
+                var iconElement = blockElement.find(".icon");
+                if (icon === null) {
+                    iconElement.remove();
+                } else {
+                    iconElement.addClass(icon);
+                }
+
+                blockElement.appendTo(typeContainer);
+            });
+
+            new ss.components.accordion.Element(
+                {
+                    title: blockGroup.name,
+                    body: typeContainer,
+                    appendTo: blocksContainer
+                }
+            );
+        });
+
+        ss.components.accordion.Container(blocksContainer);
+
+        this.getBody().append(sectionStructure);
     };
 
     /**

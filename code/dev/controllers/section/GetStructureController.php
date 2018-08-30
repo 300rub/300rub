@@ -286,6 +286,12 @@ class GetStructureController extends AbstractController
             ];
         }
 
-        return $filteredBlocks;
+        return [
+            'type'   => BlockModel::TYPE_RECORD,
+            'name'   => BlockModel::model()->getTypeName(
+                BlockModel::TYPE_RECORD
+            ),
+            'blocks' => $filteredBlocks,
+        ];
     }
 }

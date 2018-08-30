@@ -4,12 +4,12 @@
     /**
      * Accordion element
      *
-     * @param {String} title
+     * @param {Object} options
      *
      * @type {Object}
      */
-    ss.components.accordion.Element = function (title) {
-        this._title = title;
+    ss.components.accordion.Element = function (options) {
+        this._options = $.extend({}, options);
         this._container = null;
         this._body = null;
 
@@ -34,8 +34,59 @@
         init: function () {
             this._container
                 = ss.components.Template.get("accordion-container");
-            this._container.find(".accordion-title .text").text(this._title);
             this._body = this._container.find(".accordion-body");
+
+            this
+                ._setTitle()
+                ._setBody()
+                ._appendTo();
+        },
+
+        /**
+         * Sets title
+         *
+         * @returns {ss.components.accordion.Element}
+         *
+         * @private
+         */
+        _setTitle: function() {
+            if (this._options.title !== undefined) {
+                this._container
+                    .find(".accordion-title .text")
+                    .text(this._options.title);
+            }
+
+            return this;
+        },
+
+        /**
+         * Sets body
+         *
+         * @returns {ss.components.accordion.Element}
+         *
+         * @private
+         */
+        _setBody: function() {
+            if (this._options.body !== undefined) {
+                this.add(this._options.body);
+            }
+
+            return this;
+        },
+
+        /**
+         * Appends element to parent
+         *
+         * @returns {ss.components.accordion.Element}
+         *
+         * @private
+         */
+        _appendTo: function() {
+            if (this._options.appendTo !== undefined) {
+                this.appendTo(this._options.appendTo);
+            }
+
+            return this;
         },
 
         /**

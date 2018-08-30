@@ -61,7 +61,7 @@
             .setTitle(data.title)
             .setDescription(data.description)
             .setBack(
-                function () {
+                $.proxy(function () {
                     new ss.panel.blocks.text.List();
 
                     $.each(
@@ -70,17 +70,17 @@
                             design.rollback();
                         }
                     );
-                }
+                }, this)
             )
             .setCloseEvents(
-                function () {
+                $.proxy(function () {
                     $.each(
                         this._designs,
                         function (i, design) {
                             design.rollback();
                         }
                     );
-                }
+                }, this)
             )
             .setSubmit(
                 {
@@ -151,15 +151,14 @@
                             return false;
                     }
 
-                    var typeAccordionElement
-                        = new ss.components.accordion.Element(
-                            options.title
-                        );
-                    typeAccordionElement.add(
-                        design.getDesignContainer()
-                    );
+                    new ss.components.accordion.Element(
+                        {
+                            title: options.title,
+                            body: design.getDesignContainer(),
+                            appendTo: groupContainer
+                        }
 
-                    typeAccordionElement.appendTo(groupContainer);
+                    );
 
                     this._designs.push(design);
                 },
@@ -168,12 +167,13 @@
         );
 
         if (this._designs.length > 1) {
-            var groupAccordionElement
-                = new ss.components.accordion.Element(
-                    groupData.title
-                );
-            groupAccordionElement.add(groupContainer);
-            groupAccordionElement.appendTo(this.getBody());
+            new ss.components.accordion.Element(
+                {
+                    title: groupData.title,
+                    body: groupContainer,
+                    appendTo: this.getBody()
+                }
+            );
         } else {
             groupContainer.appendTo(this.getBody());
         }

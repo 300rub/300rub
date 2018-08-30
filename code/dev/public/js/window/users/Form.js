@@ -269,7 +269,9 @@
                 function (groupKey, groupObject) {
                     var categoryAccordionElement
                         = new ss.components.accordion.Element(
-                            groupObject.title
+                            {
+                                title: groupObject.title
+                            }
                         );
 
                     switch (groupKey) {
@@ -323,7 +325,9 @@
     ) {
         var sectionsAllAccordionElement
             = new ss.components.accordion.Element(
-                groupObject.data.ALL.title
+                {
+                    title: groupObject.data.ALL.title
+                }
             );
         var t = this;
 
@@ -353,7 +357,9 @@
 
                 var sectionAccordionElement
                     = new ss.components.accordion.Element(
-                        groupObjectDataObject.title
+                        {
+                            title: groupObjectDataObject.title
+                        }
                     );
 
                 $.each(
@@ -398,11 +404,15 @@
             function (groupObjectDataKey, groupObjectDataObject) {
                 var blockTypeAccordionElement
                     = new ss.components.accordion.Element(
-                        groupObjectDataObject.title
+                        {
+                            title: groupObjectDataObject.title
+                        }
                     );
                 var blockAllAccordionElement
                     = new ss.components.accordion.Element(
-                        groupObjectDataObject.data.ALL.title
+                        {
+                            title: groupObjectDataObject.data.ALL.title
+                        }
                     );
 
                 $.each(
@@ -434,7 +444,9 @@
 
                         var blockAccordionElement
                             = new ss.components.accordion.Element(
-                                groupObjectDataObjectDataObject.title
+                                {
+                                    title: groupObjectDataObjectDataObject.title
+                                }
                             );
 
                         $.each(
