@@ -12,5 +12,6 @@
 
 <div class="section-structure-block">
     <i class="icon"></i>
+    <a class="remove gray-red-link fas fa-times"></a>
     <div class="name"></div>
 </div>

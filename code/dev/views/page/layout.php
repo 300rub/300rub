@@ -90,6 +90,10 @@ if (isset($js) === true) {
             "<?php echo $key; ?>", "<?php echo $value; ?>"
         );
         <?php } ?>
+
+        $(document).ready(function(){
+            new ss.window.section.Structure(1);
+        });
     </script>
 
     <?php echo $headerCode; ?>
