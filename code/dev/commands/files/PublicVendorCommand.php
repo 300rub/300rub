@@ -87,6 +87,8 @@ class PublicVendorCommand extends AbstractCommand
 			=> "components/jquery/jquery.min.js",
         "jquery-ui.min.js"
 			=> "components/jqueryui/jquery-ui.min.js",
+		"underscore-min.js"
+			=> "components/underscore/underscore-min.js",
         "gridstack.min.js"
 			=> "troolee/gridstack/dist/gridstack.min.js",
         "gridstack.min.map"

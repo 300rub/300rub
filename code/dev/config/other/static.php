@@ -58,6 +58,7 @@ return [
             'js'  => [
                 'lib/jquery-ui.min',
                 'lib/jquery.colorpicker',
+                'lib/underscore-min',
                 'lib/gridstack.min',
             ]
         ],
