@@ -53,10 +53,12 @@ return [
         'libs' => [
             'css' => [
                 'lib/colorpicker/jquery.colorpicker',
+                'lib/gridstack.min',
             ],
             'js'  => [
                 'lib/jquery-ui.min',
                 'lib/jquery.colorpicker',
+                'lib/gridstack.min',
             ]
         ],
         'less' => 'admin',

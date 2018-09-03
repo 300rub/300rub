@@ -174,7 +174,7 @@ class GetStructureController extends AbstractController
         $gridModels = $gridModels->findAll();
 
         foreach ($gridLineModels as $gridLineModel) {
-            $lineGrids = [];
+            $blocks = [];
 
             foreach ($gridModels as $gridModel) {
                 if ($gridModel->get('gridLineId') === $gridLineModel->getId()) {
@@ -183,8 +183,12 @@ class GetStructureController extends AbstractController
                         continue;
                     }
 
-                    $lineGrids[] = [
-                        'block' => $this->_blocks[$blockId],
+                    $block = $this->_blocks[$blockId];
+
+                    $blocks[] = [
+                        'id'    => $blockId,
+                        'name'  => $block['name'],
+                        'type'  => $block['type'],
                         'x'     => $gridModel->get('x'),
                         'y'     => $gridModel->get('y'),
                         'width' => $gridModel->get('width'),
@@ -193,7 +197,7 @@ class GetStructureController extends AbstractController
             }
 
             $this->_structure[] = [
-                'grids' => $lineGrids
+                'blocks' => $blocks
             ];
         }
 
@@ -232,6 +236,7 @@ class GetStructureController extends AbstractController
                 $filteredBlocks[] = [
                     'id'   => $blockId,
                     'name' => $data['name'],
+                    'type' => $type,
                 ];
             }
         }
@@ -263,9 +268,9 @@ class GetStructureController extends AbstractController
                 ->getRecordBlockId();
 
             $cloneMap[$recordBlockId][] = [
-                'id'        => $blockId,
-                'name'      => $data['name'],
-                'contentId' => $data['contentId'],
+                'id'   => $blockId,
+                'name' => $data['name'],
+                'type' => BlockModel::TYPE_RECORD,
             ];
         }
 
@@ -282,6 +287,7 @@ class GetStructureController extends AbstractController
             $filteredBlocks[] = [
                 'id'       => $blockId,
                 'name'     => $data['name'],
+                'type'     => BlockModel::TYPE_RECORD,
                 'children' => $children
             ];
         }

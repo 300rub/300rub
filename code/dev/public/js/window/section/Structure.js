@@ -21,6 +21,9 @@
                 name: "section-structure"
             }
         );
+
+        this._baseContainer = null;
+        this._structureContainer = null;
     };
 
     /**
@@ -44,49 +47,48 @@
      * @private
      */
     ss.window.section.Structure.prototype._onLoadDataSuccess = function (data) {
-        console.log(data);
-
         this
-            .setTitle(data.title);
+            .setTitle(data.title)
+            ._setContainers()
+            ._setBlocks(data.blocks)
+            ._setStructure(data.structure);
 
-        var sectionStructure = ss.components.Template.get("section-structure");
+        this.getBody().append(this._baseContainer);
+    };
 
-        var blocksContainer = sectionStructure.find(".blocks-container");
+    /**
+     * Sets section structure
+     *
+     * @returns {ss.window.section.Structure}
+     *
+     * @private
+     */
+    ss.window.section.Structure.prototype._setContainers = function () {
+        this._baseContainer = ss.components.Template.get("section-structure");
+        this._structureContainer = this._baseContainer.find(".structure-container");
+        return this;
+    };
 
-        $.each(data.blocks, function(i, blockGroup){
-            console.log(blockGroup);
+    /**
+     * Sets blocks
+     *
+     * @param {Object} blocks
+     *
+     * @returns {ss.window.section.Structure}
+     *
+     * @private
+     */
+    ss.window.section.Structure.prototype._setBlocks = function (blocks) {
+        var blocksContainer = this._baseContainer.find(".blocks-container");
 
-            var icon;
-            switch (blockGroup.type) {
-                case 1:
-                    icon = "fas fa-font";
-                    break;
-                default:
-                    icon = null;
-                    break;
-            }
-
+        $.each(blocks, $.proxy(function(i, blockGroup){
             var typeContainer = ss.components.Template.get(
                 "section-structure-type-container"
             );
 
-            $.each(blockGroup.blocks, function(i, block) {
-                var blockElement = ss.components.Template.get(
-                    "section-structure-block"
-                );
-
-                blockElement.find(".name").text(block.name);
-                blockElement.data("id", block.id);
-
-                var iconElement = blockElement.find(".icon");
-                if (icon === null) {
-                    iconElement.remove();
-                } else {
-                    iconElement.addClass(icon);
-                }
-
-                blockElement.appendTo(typeContainer);
-            });
+            $.each(blockGroup.blocks, $.proxy(function(i, blockData) {
+                this._getBlock(blockData).appendTo(typeContainer);
+            }, this));
 
             new ss.components.accordion.Element(
                 {
@@ -95,11 +97,79 @@
                     appendTo: blocksContainer
                 }
             );
-        });
+        }, this));
 
         ss.components.accordion.Container(blocksContainer);
 
-        this.getBody().append(sectionStructure);
+        return this;
+    };
+
+    ss.window.section.Structure.prototype._getBlock = function (data) {
+        var icon;
+        switch (data.type) {
+            case 1:
+                icon = "fas fa-font";
+                break;
+            case 2:
+                icon = "fas fa-image";
+                break;
+            case 3:
+                icon = "far fa-newspaper";
+                break;
+            case 5:
+                icon = "fas fa-bars";
+                break;
+            default:
+                icon = null;
+                break;
+        }
+
+        var blockElement = ss.components.Template.get(
+            "section-structure-block"
+        );
+
+        blockElement.find(".name").text(data.name);
+        blockElement.data("id", data.id);
+
+        var iconElement = blockElement.find(".icon");
+        if (icon === null) {
+            iconElement.remove();
+        } else {
+            iconElement.addClass(icon);
+        }
+
+        return blockElement;
+    };
+
+    ss.window.section.Structure.prototype._setStructure = function (structure) {
+        $.each(structure, $.proxy(function(i, lineData) {
+            var lineElement = this._addLine();
+
+            $.each(lineData.blocks, $.proxy(function(i, blockData) {
+                var block = this._getBlock(blockData);
+                lineElement.append(block);
+
+                var options = {
+                    cellHeight: 80,
+                    verticalMargin: 10
+                };
+                lineElement.gridstack(options);
+            }, this));
+        }, this));
+
+        return this;
+    };
+
+    ss.window.section.Structure.prototype._addLine = function () {
+        var lineElement = ss.components.Template.get(
+            "section-structure-line"
+        );
+
+        lineElement.text('1111');
+
+        this._structureContainer.append(lineElement);
+
+        return lineElement;
     };
 
     /**

@@ -11,7 +11,7 @@
 		"IanLunn/Hover": "2.3.1",
 		"gregwar/image": "2.0.22",
 		"jssor/slider": "27.3.0",
-		"lodash/lodash": "4.17.10",
+		"components/underscore": "1.8.3",
 		"fortawesome/font-awesome": "5.2.0",
 		"phpmailer/phpmailer": "6.0.5"
 	},
@@ -35,18 +35,6 @@
 				"source": {
 					"type": "git",
 					"url": "https://github.com/troolee/gridstack.js.git",
-					"reference": "master"
-				}
-			}
-		},
-		{
-			"type": "package",
-			"package": {
-				"name": "lodash/lodash",
-				"version": "4.17.10",
-				"source": {
-					"type": "git",
-					"url": "https://github.com/lodash/lodash.git",
 					"reference": "master"
 				}
 			}
