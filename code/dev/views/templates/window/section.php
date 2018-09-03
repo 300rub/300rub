@@ -10,12 +10,14 @@
 
 <div class="section-structure-type-container"></div>
 
-<div class="section-structure-block">
-    <a class="remove gray-red-link fas fa-times"></a>
-    <div class="text">
-        <i class="icon"></i>
-        <span class="name"></span>
+<div class="section-structure-block grid-stack-item">
+    <div class="grid-stack-item-content">
+        <a class="remove gray-red-link fas fa-times"></a>
+        <div class="text">
+            <i class="icon"></i>
+            <span class="name"></span>
+        </div>
     </div>
 </div>
 
-<div class="section-structure-line"></div>
+<div class="section-structure-line grid-stack"></div>

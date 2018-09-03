@@ -138,6 +138,18 @@
             iconElement.addClass(icon);
         }
 
+        if (data.x !== undefined) {
+            blockElement.attr("data-gs-x", data.x);
+        }
+
+        if (data.y !== undefined) {
+            blockElement.attr("data-gs-y", data.y);
+        }
+
+        if (data.width !== undefined) {
+            blockElement.attr("data-gs-width", data.width);
+        }
+
         return blockElement;
     };
 
@@ -149,10 +161,7 @@
                 var block = this._getBlock(blockData);
                 lineElement.append(block);
 
-                var options = {
-                    cellHeight: 80,
-                    verticalMargin: 10
-                };
+                var options = {};
                 lineElement.gridstack(options);
             }, this));
         }, this));
@@ -164,8 +173,6 @@
         var lineElement = ss.components.Template.get(
             "section-structure-line"
         );
-
-        lineElement.text('1111');
 
         this._structureContainer.append(lineElement);
 
