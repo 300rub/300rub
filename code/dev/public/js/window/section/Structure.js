@@ -75,7 +75,7 @@
                     "section-structure-block"
                 );
 
-                blockElement.find(".name").text(block.name + "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+                blockElement.find(".name").text(block.name);
                 blockElement.data("id", block.id);
 
                 var iconElement = blockElement.find(".icon");
