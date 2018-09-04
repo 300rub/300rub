@@ -204,6 +204,7 @@ class GetStructureController extends AbstractController
             }
 
             $this->_structure[] = [
+                'id'     => $gridLineModel->getId(),
                 'blocks' => $blocks
             ];
         }

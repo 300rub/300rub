@@ -20,7 +20,7 @@
     </div>
 </div>
 
-<div class="section-structure-line grid-stack">
+<div class="section-structure-line grid-stack" data-id="0">
     <a class="remove gray-red-link fas fa-times"></a>
     <div class="line-name"></div>
 </div>

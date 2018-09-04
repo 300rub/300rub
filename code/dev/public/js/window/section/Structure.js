@@ -192,6 +192,7 @@
     ss.window.section.Structure.prototype._setStructure = function (structure) {
         $.each(structure, $.proxy(function(i, lineData) {
             var lineElement = this._addLine();
+            lineElement.attr("data-id", lineData.id);
 
             $.each(lineData.blocks, $.proxy(function(i, blockData) {
                 var block = this._getBlock(blockData);
@@ -288,7 +289,7 @@
                         data: $.proxy(
                             function() {
                                 return {
-                                    sectionId: this._sectionId,
+                                    id: this._sectionId,
                                     structure: this._getStructure()
                                 };
                             },
