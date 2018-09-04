@@ -11,16 +11,16 @@
 <div class="section-structure-type-container"></div>
 
 <div class="section-structure-block grid-stack-item">
+    <a class="remove gray-red-link fas fa-times"></a>
+
     <div class="grid-stack-item-content">
-        <a class="remove gray-red-link fas fa-times"></a>
-        <div class="text">
-            <i class="icon"></i>
-            <span class="name"></span>
-        </div>
+        <i class="icon"></i>
+        <span class="name"></span>
     </div>
 </div>
 
-<div class="section-structure-line grid-stack" data-id="0">
-    <a class="remove gray-red-link fas fa-times"></a>
+<div class="section-structure-line" data-id="0">
+    <a class="remove-line gray-red-link fas fa-times"></a>
     <div class="line-name"></div>
+    <div class="grid-stack"></div>
 </div>

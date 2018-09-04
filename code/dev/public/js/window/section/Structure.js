@@ -192,15 +192,31 @@
     ss.window.section.Structure.prototype._setStructure = function (structure) {
         $.each(structure, $.proxy(function(i, lineData) {
             var lineElement = this._addLine();
+            var gridStack = lineElement.find(".grid-stack");
+
             lineElement.attr("data-id", lineData.id);
 
             $.each(lineData.blocks, $.proxy(function(i, blockData) {
                 var block = this._getBlock(blockData);
-                lineElement.append(block);
-
-                var options = {};
-                lineElement.gridstack(options);
+                gridStack.append(block);
             }, this));
+
+            var options = {
+                animate: true,
+                cellHeight: "60px",
+                height: 1,
+                disableOneColumnMode: true,
+                width: 12,
+                resizable: {
+                    handles: 'w, e',
+                    classes: {
+                        "ui-resizable-w": "fas fa-arrows-alt-h",
+                        "ui-resizable-e": "fas fa-arrows-alt-h"
+                    }
+                }
+            };
+
+            gridStack.gridstack(options);
         }, this));
 
         return this;
@@ -218,7 +234,7 @@
             "section-structure-line"
         );
 
-        lineElement.find(".remove").on("click", $.proxy(function() {
+        lineElement.find(".remove-line").on("click", $.proxy(function() {
             lineElement.remove();
             this._updateLineNames();
         }, this));
@@ -238,7 +254,7 @@
      * @private
      */
     ss.window.section.Structure.prototype._updateLineNames = function () {
-        var lineLabel = this.labels.line;
+        var lineLabel = this._labels.line;
 
         this._structureContainer.find(".section-structure-line").each(function(i) {
             $(this).find(".line-name").text(lineLabel + " " + (i + 1));
@@ -259,7 +275,7 @@
             {
                 css: "btn btn-gray",
                 icon: "fas fa-plus",
-                label: this.labels.addLine,
+                label: this._labels.addLine,
                 appendTo: this.getWindow().find(".footer"),
                 onClick: $.proxy(function () {
                     this._addLine();
@@ -280,7 +296,7 @@
     ss.window.section.Structure.prototype._setSubmitButton = function () {
         return this.setSubmit(
             {
-                label: this.labels.save,
+                label: this._labels.save,
                 icon: "fas fa-save",
                 ajax: {
                     data: {

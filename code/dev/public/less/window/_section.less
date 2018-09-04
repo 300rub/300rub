@@ -8,28 +8,56 @@
     .border-radius(4px);
     border: 1px solid @grayBorderColor;
     background: white;
-    margin: 5px 0;
-    position: relative;
-    padding: 0 30px;
     cursor: move;
+    height: 60px;
 
     .remove {
+      .transition(opacity);
       position: absolute;
       top: 0;
       right: 0;
-      width: 20px;
+      width: 25px;
       height: 20px;
       line-height: 20px;
       text-align: center;
       opacity: 0;
     }
 
-    .text {
-      line-height: 40px;
+    .ui-resizable-handle {
+      .transition(opacity);
+      top: auto;
+      bottom: 0;
+      height: 20px;
+      width: 25px;
+      line-height: 20px;
+      font-size: 14px;
+      display: block !important;
+      opacity: 0;
+    }
+
+    .ui-resizable-w {
+      left: 0;
+      text-align: right;
+    }
+
+    .ui-resizable-e {
+      right: 0;
+      text-align: left;
+    }
+
+    .grid-stack-item-content {
+      line-height: 58px;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
       text-align: center;
+    }
+
+    &:hover {
+      .remove,
+      .ui-resizable-handle {
+        opacity: 1;
+      }
     }
   }
 
@@ -46,11 +74,15 @@
         background: @lightGrayBackground;
         border: solid @grayBorderColor;
         border-width: 1px 0;
-        padding: 30px 20px 10px 20px;
-        min-height: 40px;
         position: relative;
+        margin: 10px 0;
+        padding: 30px 15px 10px 15px;
 
-        .remove {
+        .grid-stack {
+          min-height: 60px;
+        }
+
+        .remove-line {
           position: absolute;
           top: 0;
           right: 0;
