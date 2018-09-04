@@ -41,7 +41,32 @@
 
     .structure-container {
       margin-left: 325px;
-      background: @lightGrayBackground;
+
+      .section-structure-line {
+        background: @lightGrayBackground;
+        border: solid @grayBorderColor;
+        border-width: 1px 0;
+        padding: 30px 20px 10px 20px;
+        min-height: 40px;
+        position: relative;
+
+        .remove {
+          position: absolute;
+          top: 0;
+          right: 0;
+          width: 20px;
+          height: 20px;
+          line-height: 20px;
+          text-align: center;
+        }
+
+        .line-name {
+          position: absolute;
+          top: 0;
+          left: 20px;
+          line-height: 20px;
+        }
+      }
     }
   }
 }

@@ -46,7 +46,7 @@ return [
     ],
     'addLine'             => [
         Language::LANGUAGE_EN_ID => 'Add line',
-        Language::LANGUAGE_RU_ID => '',
+        Language::LANGUAGE_RU_ID => 'Добавить линию',
     ],
     'addSections' => [
         Language::LANGUAGE_EN_ID => 'Add new section',

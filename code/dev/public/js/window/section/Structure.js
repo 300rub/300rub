@@ -22,8 +22,10 @@
             }
         );
 
+        this._sectionId = sectionId;
         this._baseContainer = null;
         this._structureContainer = null;
+        this._labels = {};
     };
 
     /**
@@ -49,11 +51,26 @@
     ss.window.section.Structure.prototype._onLoadDataSuccess = function (data) {
         this
             .setTitle(data.title)
+            ._setLabels(data.labels)
             ._setContainers()
             ._setBlocks(data.blocks)
-            ._setStructure(data.structure);
+            ._setStructure(data.structure)
+            ._setAddLineButton()
+            ._setSubmitButton();
 
         this.getBody().append(this._baseContainer);
+    };
+
+    /**
+     * Sets labels
+     *
+     * @returns {ss.window.section.Structure}
+     *
+     * @private
+     */
+    ss.window.section.Structure.prototype._setLabels = function (labels) {
+        this._labels = labels;
+        return this;
     };
 
     /**
@@ -104,6 +121,15 @@
         return this;
     };
 
+    /**
+     * Gets block
+     *
+     * @param {Object} data
+     *
+     * @returns {Object}
+     *
+     * @private
+     */
     ss.window.section.Structure.prototype._getBlock = function (data) {
         var icon;
         switch (data.type) {
@@ -129,7 +155,6 @@
         );
 
         blockElement.find(".name").text(data.name);
-        blockElement.data("id", data.id);
 
         var iconElement = blockElement.find(".icon");
         if (icon === null) {
@@ -137,6 +162,8 @@
         } else {
             iconElement.addClass(icon);
         }
+
+        blockElement.attr("data-id", data.id);
 
         if (data.x !== undefined) {
             blockElement.attr("data-gs-x", data.x);
@@ -153,6 +180,15 @@
         return blockElement;
     };
 
+    /**
+     * Sets structure
+     *
+     * @param {Object} structure
+     *
+     * @returns {ss.window.section.Structure}
+     *
+     * @private
+     */
     ss.window.section.Structure.prototype._setStructure = function (structure) {
         $.each(structure, $.proxy(function(i, lineData) {
             var lineElement = this._addLine();
@@ -169,24 +205,141 @@
         return this;
     };
 
+    /**
+     * Adds line
+     *
+     * @returns {Object}
+     *
+     * @private
+     */
     ss.window.section.Structure.prototype._addLine = function () {
         var lineElement = ss.components.Template.get(
             "section-structure-line"
         );
 
+        lineElement.find(".remove").on("click", $.proxy(function() {
+            lineElement.remove();
+            this._updateLineNames();
+        }, this));
+
         this._structureContainer.append(lineElement);
+
+        this._updateLineNames();
 
         return lineElement;
     };
 
     /**
-     * On send success
+     * Updates line numbers
      *
-     * @param {Object} [data]
+     * @returns {ss.window.section.Structure}
      *
      * @private
      */
-    ss.window.section.Structure.prototype._onSendSuccess = function (data) {
-        console.log(data);
+    ss.window.section.Structure.prototype._updateLineNames = function () {
+        var lineLabel = this.labels.line;
+
+        this._structureContainer.find(".section-structure-line").each(function(i) {
+            $(this).find(".line-name").text(lineLabel + " " + (i + 1));
+        });
+
+        return this;
+    };
+
+    /**
+     * Sets add line button
+     *
+     * @returns {ss.window.section.Structure}
+     *
+     * @private
+     */
+    ss.window.section.Structure.prototype._setAddLineButton = function () {
+        new ss.forms.Button(
+            {
+                css: "btn btn-gray",
+                icon: "fas fa-plus",
+                label: this.labels.addLine,
+                appendTo: this.getWindow().find(".footer"),
+                onClick: $.proxy(function () {
+                    this._addLine();
+                }, this)
+            }
+        );
+
+        return this;
+    };
+
+    /**
+     * Sets submit button
+     *
+     * @returns {ss.window.section.Structure}
+     *
+     * @private
+     */
+    ss.window.section.Structure.prototype._setSubmitButton = function () {
+        return this.setSubmit(
+            {
+                label: this.labels.save,
+                icon: "fas fa-save",
+                ajax: {
+                    data: {
+                        group: "section",
+                        controller: "structure",
+                        data: $.proxy(
+                            function() {
+                                return {
+                                    sectionId: this._sectionId,
+                                    structure: this._getStructure()
+                                };
+                            },
+                            this
+                        )
+                    },
+                    type: "PUT",
+                    success: this._onSendSuccess
+                }
+            }
+        );
+    };
+
+    /**
+     * Gets structure
+     *
+     * @returns {Array}
+     *
+     * @private
+     */
+    ss.window.section.Structure.prototype._getStructure = function () {
+        var structure = [];
+
+        this._structureContainer.find(".section-structure-line").each(function() {
+            var lineStructure = [];
+
+            $(this).find(".section-structure-block").each(function() {
+                lineStructure.push({
+                    id: $(this).data("id"),
+                    x: $(this).data("x"),
+                    y: $(this).data("y"),
+                    width: $(this).data("width")
+                });
+            });
+
+            structure.push(lineStructure);
+        });
+
+        return structure;
+    };
+
+    /**
+     * On send success
+     *
+     * @private
+     */
+    ss.window.section.Structure.prototype._onSendSuccess = function () {
+        if (this._sectionId === ss.system.App.getSectionId()) {
+            window.location.reload();
+        } else {
+            this.remove();
+        }
     };
 }(window.jQuery, window.ss);

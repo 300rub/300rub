@@ -70,10 +70,17 @@ class GetStructureController extends AbstractController
             ->_setStructure()
             ->_setFilteredBlocks();
 
+        $language = App::getInstance()->getLanguage();
+
         return [
             'title'     => $this->_section->get('seoModel')->get('name'),
             'structure' => $this->_structure,
             'blocks'    => $this->_filteredBlocks,
+            'labels'    => [
+                'line'    => $language->getMessage('section', 'line'),
+                'addLine' => $language->getMessage('section', 'addLine'),
+                'save'    => $language->getMessage('common', 'save'),
+            ],
         ];
     }
 
