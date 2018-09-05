@@ -11,18 +11,13 @@ return [
         Language::LANGUAGE_EN_ID => 'Main',
         Language::LANGUAGE_RU_ID => '',
     ],
+    'isPublished'                => [
+        Language::LANGUAGE_EN_ID => 'Published',
+        Language::LANGUAGE_RU_ID => '',
+    ],
     'sections'            => [
         Language::LANGUAGE_EN_ID => 'Sections',
         Language::LANGUAGE_RU_ID => 'Разделы',
-    ],
-    'panelDescription'    => [
-        Language::LANGUAGE_EN_ID => 'You can add/update/delete sections here',
-        Language::LANGUAGE_RU_ID => '',
-    ],
-    'settingsDescription' => [
-        Language::LANGUAGE_EN_ID => "You can edit section's name and SEO",
-        Language::LANGUAGE_RU_ID
-            => 'Здесь вы можете редактировать название и СЕО',
     ],
     'designDescription'   => [
         Language::LANGUAGE_EN_ID => "You can configure section's design",
@@ -55,5 +50,21 @@ return [
     'buttonName' => [
         Language::LANGUAGE_EN_ID => 'Sections',
         Language::LANGUAGE_RU_ID => 'Разделы',
+    ],
+    'editSettingsTitle' => [
+        Language::LANGUAGE_EN_ID => 'Edit section',
+        Language::LANGUAGE_RU_ID => 'Редактировать раздел',
+    ],
+    'editSettingsDescription' => [
+        Language::LANGUAGE_EN_ID => 'Edit section description',
+        Language::LANGUAGE_RU_ID => 'Редактировать раздел. Description',
+    ],
+    'addSettingsTitle' => [
+        Language::LANGUAGE_EN_ID => 'Add section',
+        Language::LANGUAGE_RU_ID => 'Добавить раздел',
+    ],
+    'addSettingsDescription' => [
+        Language::LANGUAGE_EN_ID => 'Add section description',
+        Language::LANGUAGE_RU_ID => 'Добавить раздел. Description',
     ],
 ];
