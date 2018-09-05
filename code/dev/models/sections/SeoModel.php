@@ -11,6 +11,11 @@ class SeoModel extends AbstractSeoModel
 {
 
     /**
+     * Max length for alias
+     */
+    const ALIAS_PREFIX_MAX_LENGTH = 20;
+
+    /**
      * Gets new model
      *
      * @return SeoModel

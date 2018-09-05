@@ -45,7 +45,6 @@
             this
                 .setCloseEvents(null)
                 ._addDomElement()
-                ._setMaxHeight()
                 ._loadData();
         },
 
@@ -72,15 +71,23 @@
          * Sets container's max-height
          */
         _setPanelMaxHeight: function () {
-            var minusHeight = 148;
+            var headerHeight = this._panel.find(".header").height();
+            var footerHeight = this._panel.find(".footer").height();
+
+            var minusHeight = 40;
             if (this._hasFooter === false) {
-                minusHeight = 100;
+                footerHeight = 0;
             }
+
+            var maxHeight = $(window).outerHeight();
+            maxHeight -= headerHeight;
+            maxHeight -= footerHeight;
+            maxHeight -= minusHeight;
 
             this._body.css(
                 "max-height",
                 function () {
-                    return ($(window).outerHeight() - minusHeight);
+                    return maxHeight;
                 }
             );
         },
@@ -241,10 +248,8 @@
                 controller: this._options.controller
             };
 
-            if (this._options.id !== undefined) {
-                data.data = {
-                    id: this._options.id
-                };
+            if ($.type(this._options.data) === "object") {
+                data.data = this._options.data;
             }
 
             new ss.components.Ajax(
@@ -254,7 +259,9 @@
                     success: $.proxy(
                         function (data) {
                             this._options.success(data);
-                            this._removeLoading();
+                            this
+                                ._removeLoading()
+                                ._setMaxHeight();
                         },
                         this
                     )
@@ -295,7 +302,7 @@
             var submit = new ss.forms.Button(
                 $.extend(
                     {
-                        css: "btn btn-blue submit",
+                        css: "btn btn-blue",
                         appendTo: this._panel.find(".footer")
                     },
                     options

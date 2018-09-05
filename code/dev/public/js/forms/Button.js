@@ -35,7 +35,9 @@
         }
 
         var ajax = this.getOption("ajax");
-        if ($.type(this.getOption("forms")) === "array") {
+        if ($.type(this.getOption("forms")) === "array"
+            || $.type(this.getOption("forms")) === "object"
+        ) {
             this.getForm().on("click", $.proxy(this._processForm, this));
         } else if ($.type(ajax) === "object"
             && this.getForm().prop("disabled") === false

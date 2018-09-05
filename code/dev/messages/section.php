@@ -11,10 +11,6 @@ return [
         Language::LANGUAGE_EN_ID => 'Main',
         Language::LANGUAGE_RU_ID => '',
     ],
-    'isPublished'                => [
-        Language::LANGUAGE_EN_ID => 'Published',
-        Language::LANGUAGE_RU_ID => '',
-    ],
     'sections'            => [
         Language::LANGUAGE_EN_ID => 'Sections',
         Language::LANGUAGE_RU_ID => 'Разделы',

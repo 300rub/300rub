@@ -4,6 +4,7 @@ namespace ss\controllers\section;
 
 use ss\application\App;
 use ss\application\components\user\Operation;
+use ss\application\exceptions\NotFoundException;
 use ss\controllers\_abstract\AbstractController;
 use ss\models\sections\SectionModel;
 use ss\models\sections\SeoModel;
@@ -36,9 +37,7 @@ class GetSectionController extends AbstractController
                 Operation::SECTION_UPDATE_SETTINGS
             );
 
-            $sectionModel = SectionModel::model()
-                ->withRelations(['seoModel'])
-                ->byId($sectionId);
+            $sectionModel = $this->_getSectionModel();
             $seoModel = $sectionModel->get('seoModel');
         }
 
@@ -70,11 +69,16 @@ class GetSectionController extends AbstractController
                     'value' => $seoModel->get('name'),
                 ],
                 'alias' => [
-                    'name'  => 'alias',
-                    'label' => $language->getMessage('common', 'alias'),
+                    'name'   => 'alias',
+                    'label'  => $language->getMessage('common', 'alias'),
                     'validation'
                         => $seoModel->getValidationRulesForField('alias'),
-                    'value' => $seoModel->get('alias'),
+                    'value'  => $seoModel->get('alias'),
+                    'prefix' => sprintf(
+                        '%s/',
+                        App::getInstance()->getSite()->getMainHost()
+                    ),
+                    'prefixMaxLength' => SeoModel::ALIAS_PREFIX_MAX_LENGTH
                 ],
                 'title' => [
                     'name'  => 'title',
@@ -104,7 +108,7 @@ class GetSectionController extends AbstractController
                 ],
                 'isPublished' => [
                     'name'  => 'isPublished',
-                    'label' => $language->getMessage('section', 'main'),
+                    'label' => $language->getMessage('common', 'published'),
                     'value' => $sectionModel->get('isPublished'),
                 ],
                 'button'    => [
@@ -112,5 +116,31 @@ class GetSectionController extends AbstractController
                 ]
             ]
         ];
+    }
+
+    /**
+     * Gets Section model
+     *
+     * @return SectionModel
+     *
+     * @throws NotFoundException
+     */
+    private function _getSectionModel()
+    {
+        $sectionModel = SectionModel::model()
+            ->withRelations(['seoModel', 'designBlockModel'])
+            ->byId($this->get('id'))
+            ->find();
+
+        if ($sectionModel === null) {
+            throw new NotFoundException(
+                'Unable to find section by ID: {id}',
+                [
+                    'id' => $this->get('id')
+                ]
+            );
+        }
+
+        return $sectionModel;
     }
 }

@@ -92,7 +92,7 @@ if (isset($js) === true) {
         <?php } ?>
 
         $(document).ready(function(){
-            new ss.window.section.Structure(4);
+            //new ss.window.section.Structure(4);
         });
     </script>
 

@@ -4,13 +4,14 @@
     /**
      * Section settings panel
      *
-     * @param {integer} sectionId
+     * @param {int} sectionId
      *
      * @type {Object}
      */
     ss.panel.section.Settings = function (sectionId) {
+        this._sectionId = sectionId;
         if (sectionId === undefined) {
-            sectionId = 0;
+            this._sectionId = 0;
         }
 
         ss.panel.Abstract.call(
@@ -70,13 +71,16 @@
             ._setForms(data.forms)
             .setSubmit(
                 {
-                    label: data.button.label,
+                    label: data.forms.button.label,
                     icon: icon,
                     forms: this._forms,
                     ajax: {
                         data: {
                             group: "section",
-                            controller: "section"
+                            controller: "section",
+                            data: {
+                                id: this._sectionId
+                            }
                         },
                         type: type,
                         success: $.proxy(this._onSendDataSuccess, this)
@@ -105,6 +109,10 @@
      * @private
      */
     ss.panel.section.Settings.prototype._setButtons = function () {
+        if (this._sectionId === 0) {
+            return this;
+        }
+
         return this
             .addHeaderButton(
                 {
@@ -114,7 +122,10 @@
                     ajax: {
                         data: {
                             group: "section",
-                            controller: "sectionDuplication"
+                            controller: "sectionDuplication",
+                            data: {
+                                id: this._sectionId
+                            }
                         },
                         type: "POST",
                         success: function(data) {
@@ -127,11 +138,14 @@
                 {
                     label: this._labels.delete,
                     icon: "fas fa-trash",
-                    css: "btn btn-gray btn-small",
+                    css: "btn btn-red btn-small",
                     ajax: {
                         data: {
                             group: "section",
-                            controller: "section"
+                            controller: "section",
+                            data: {
+                                id: this._sectionId
+                            }
                         },
                         type: "DELETE",
                         success: function() {
@@ -157,7 +171,7 @@
         this._forms.name = new ss.forms.Text(
             $.extend(
                 {
-                    appendTo: this._panel.getBody()
+                    appendTo: this.getBody()
                 },
                 forms.name
             )
@@ -166,7 +180,7 @@
         this._forms.alias = new ss.forms.Text(
             $.extend(
                 {
-                    appendTo: this._panel.getBody()
+                    appendTo: this.getBody()
                 },
                 forms.alias
             )
@@ -175,7 +189,7 @@
         this._forms.title = new ss.forms.Text(
             $.extend(
                 {
-                    appendTo: this._panel.getBody()
+                    appendTo: this.getBody()
                 },
                 forms.title
             )
@@ -184,7 +198,7 @@
         this._forms.keywords = new ss.forms.Text(
             $.extend(
                 {
-                    appendTo: this._panel.getBody()
+                    appendTo: this.getBody()
                 },
                 forms.keywords
             )
@@ -193,7 +207,7 @@
         this._forms.description = new ss.forms.Text(
             $.extend(
                 {
-                    appendTo: this._panel.getBody()
+                    appendTo: this.getBody()
                 },
                 forms.description
             )
@@ -203,7 +217,7 @@
             this._forms.isMain = new ss.forms.Checkbox(
                 $.extend(
                     {
-                        appendTo: this._panel.getBody()
+                        appendTo: this.getBody()
                     },
                     forms.isMain
                 )
@@ -213,7 +227,7 @@
         this._forms.isPublished = new ss.forms.Checkbox(
             $.extend(
                 {
-                    appendTo: this._panel.getBody()
+                    appendTo: this.getBody()
                 },
                 forms.isPublished
             )
@@ -275,7 +289,7 @@
                 return this;
             }
         } else {
-            new ss.panel.section.Settings.List();
+            new ss.panel.section.List();
 
             if (data.sectionId !== undefined) {
                 new ss.window.section.Structure(data.sectionId);

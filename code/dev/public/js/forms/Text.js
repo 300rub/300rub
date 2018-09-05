@@ -29,12 +29,24 @@
     ss.forms.Text.prototype.init = function () {
         var container = this.getForm().find(".form-instance-container");
         var prefixOption = this.getOption("prefix");
+        var prefixMaxLength = this.getOption("prefixMaxLength");
         var prefixElement = container.find(".prefix");
         var postfixOption = this.getOption("postfix");
         var postfixElement = container.find(".postfix");
 
         if (prefixOption !== null) {
             container.addClass("form-instance-container-prefix");
+
+            if (prefixMaxLength !== null) {
+                var prefixLength = prefixOption.length;
+                if (prefixLength > prefixMaxLength) {
+                    prefixOption = "..." + prefixOption.substr(
+                        (prefixLength - prefixMaxLength),
+                        prefixMaxLength
+                    );
+                }
+            }
+
             prefixElement.text(prefixOption);
         } else {
             prefixElement.remove();
