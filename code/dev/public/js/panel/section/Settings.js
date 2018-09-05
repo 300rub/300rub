@@ -16,11 +16,8 @@
             }
         );
 
-        this._name = null;
-        this._alias = null;
-        this._title = null;
-        this._keywords = null;
-        this._description = null;
+        this._labels = {};
+        this._forms = {};
     };
 
     /**
@@ -44,80 +41,6 @@
      * @private
      */
     ss.panel.section.Settings.prototype._onLoadDataSuccess = function (data) {
-        var forms = [];
-
-        this._name = new ss.forms.Text(
-            $.extend(
-                {
-                    appendTo: this._panel.getBody()
-                },
-                data.forms.name
-            )
-        );
-        forms.push(this._name);
-
-        this._alias = new ss.forms.Text(
-            $.extend(
-                {
-                    appendTo: this._panel.getBody()
-                },
-                data.forms.alias
-            )
-        );
-        forms.push(this._alias);
-
-        this._title = new ss.forms.Text(
-            $.extend(
-                {
-                    appendTo: this._panel.getBody()
-                },
-                data.forms.title
-            )
-        );
-        forms.push(this._title);
-
-        this._keywords = new ss.forms.Text(
-            $.extend(
-                {
-                    appendTo: this._panel.getBody()
-                },
-                data.forms.keywords
-            )
-        );
-        forms.push(this._keywords);
-
-        this._description = new ss.forms.Text(
-            $.extend(
-                {
-                    appendTo: this._panel.getBody()
-                },
-                data.forms.description
-            )
-        );
-        forms.push(this._description);
-
-        if (data.forms.isMain.value !== true) {
-            var isMain = new ss.forms.Checkbox(
-                $.extend(
-                    {
-                        appendTo: this._panel.getBody()
-                    },
-                    data.forms.isMain
-                )
-            );
-            forms.push(isMain);
-        }
-
-        var isPublished = new ss.forms.Checkbox(
-            $.extend(
-                {
-                    appendTo: this._panel.getBody()
-                },
-                data.forms.isPublished
-            )
-        );
-        forms.push(isPublished);
-
         var type = "PUT";
         var icon = "fas fa-save";
         if (data.id === 0) {
@@ -128,16 +51,19 @@
         this
             .setTitle(data.title)
             .setDescription(data.description)
+            ._setLabels(data.labels)
             .setBack(
                 function () {
                     new ss.panel.section.List();
                 }
             )
+            ._setButtons()
+            ._setForms(data.forms)
             .setSubmit(
                 {
                     label: data.button.label,
                     icon: icon,
-                    forms: forms,
+                    forms: this._forms,
                     ajax: {
                         data: {
                             group: "section",
@@ -148,6 +74,143 @@
                     }
                 }
             );
+    };
+
+    /**
+     * Sets labels
+     *
+     * @returns {ss.panel.section.Settings}
+     *
+     * @private
+     */
+    ss.panel.section.Settings.prototype._setLabels = function (labels) {
+        this._labels = labels;
+        return this;
+    };
+
+    /**
+     * Sets buttons
+     *
+     * @returns {ss.panel.section.Settings}
+     *
+     * @private
+     */
+    ss.panel.section.Settings.prototype._setButtons = function () {
+        return this
+            .addHeaderButton(
+                {
+                    label: this._labels.duplicate,
+                    icon: "fas fa-clone",
+                    css: "btn btn-gray btn-small",
+                    ajax: {
+                        data: {
+                            group: "section",
+                            controller: "sectionDuplication"
+                        },
+                        type: "POST",
+                        success: function(data) {
+                            new ss.panel.section.Settings(data.id);
+                        }
+                    }
+                }
+            )
+            .addHeaderButton(
+                {
+                    label: this._labels.delete,
+                    icon: "fas fa-trash",
+                    css: "btn btn-gray btn-small",
+                    ajax: {
+                        data: {
+                            group: "section",
+                            controller: "section"
+                        },
+                        type: "DELETE",
+                        success: function() {
+                            new ss.panel.section.List();
+                        }
+                    }
+                }
+            );
+    };
+
+    /**
+     * Sets forms
+     *
+     * @param {Object} forms
+     *
+     * @returns {ss.panel.section.Settings}
+     *
+     * @private
+     */
+    ss.panel.section.Settings.prototype._setForms = function (forms) {
+        this._forms = {};
+
+        this._forms.name = new ss.forms.Text(
+            $.extend(
+                {
+                    appendTo: this._panel.getBody()
+                },
+                forms.name
+            )
+        );
+
+        this._forms.alias = new ss.forms.Text(
+            $.extend(
+                {
+                    appendTo: this._panel.getBody()
+                },
+                forms.alias
+            )
+        );
+
+        this._forms.title = new ss.forms.Text(
+            $.extend(
+                {
+                    appendTo: this._panel.getBody()
+                },
+                forms.title
+            )
+        );
+
+        this._forms.keywords = new ss.forms.Text(
+            $.extend(
+                {
+                    appendTo: this._panel.getBody()
+                },
+                forms.keywords
+            )
+        );
+
+        this._forms.description = new ss.forms.Text(
+            $.extend(
+                {
+                    appendTo: this._panel.getBody()
+                },
+                forms.description
+            )
+        );
+
+        if (forms.isMain.value !== true) {
+            this._forms.isMain = new ss.forms.Checkbox(
+                $.extend(
+                    {
+                        appendTo: this._panel.getBody()
+                    },
+                    forms.isMain
+                )
+            );
+        }
+
+        this._forms.isPublished = new ss.forms.Checkbox(
+            $.extend(
+                {
+                    appendTo: this._panel.getBody()
+                },
+                forms.isPublished
+            )
+        );
+
+        return this;
     };
 
     /**
@@ -164,7 +227,7 @@
             var errors = data.errors.seoModel;
 
             if (errors.name !== undefined) {
-                this._name
+                this._forms.name
                     .setError(errors.name)
                     .scrollTo()
                     .focus();
@@ -172,7 +235,7 @@
             }
 
             if (errors.alias !== undefined) {
-                this._alias
+                this._forms.alias
                     .setError(errors.alias)
                     .scrollTo()
                     .focus();
@@ -180,7 +243,7 @@
             }
 
             if (errors.title !== undefined) {
-                this._title
+                this._forms.title
                     .setError(errors.title)
                     .scrollTo()
                     .focus();
@@ -188,7 +251,7 @@
             }
 
             if (errors.keywords !== undefined) {
-                this._keywords
+                this._forms.keywords
                     .setError(errors.keywords)
                     .scrollTo()
                     .focus();
@@ -196,7 +259,7 @@
             }
 
             if (errors.description !== undefined) {
-                this._description
+                this._forms.description
                     .setError(errors.description)
                     .scrollTo()
                     .focus();

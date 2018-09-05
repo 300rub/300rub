@@ -8,6 +8,7 @@
         <div class="title"></div>
         <a class="close gray-red-link fas fa-times"></a>
         <div class="description"></div>
+        <div class="btn-group"></div>
     </div>
 
     <div class="body scroll-container"></div>

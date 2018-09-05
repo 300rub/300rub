@@ -57,6 +57,10 @@ class GetSectionController extends AbstractController
             'id'          => $sectionId,
             'title'       => $language->getMessage('section', $titleKey),
             'description' => $language->getMessage('section', $descriptionKey),
+            'labels'      => [
+                'duplicate' => $language->getMessage('common', 'duplicate'),
+                'delete'    => $language->getMessage('common', 'delete'),
+            ],
             'forms'       => [
                 'name'  => [
                     'name'  => 'name',

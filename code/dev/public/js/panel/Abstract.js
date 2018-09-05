@@ -314,6 +314,26 @@
         },
 
         /**
+         * Adds header button
+         *
+         * @param {Object} [options]
+         *
+         * @returns {ss.panel.Abstract}
+         */
+        addHeaderButton: function (options) {
+            new ss.forms.Button(
+                $.extend(
+                    {
+                        appendTo: this._panel.find(".header .btn-group")
+                    },
+                    options
+                )
+            );
+
+            return this;
+        },
+
+        /**
          * Removes footer
          *
          * @returns {ss.panel.Abstract}
