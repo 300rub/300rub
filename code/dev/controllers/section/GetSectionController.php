@@ -11,7 +11,7 @@ use ss\models\sections\SeoModel;
 /**
  * Gets settings
  */
-class GetSettingsController extends AbstractController
+class GetSectionController extends AbstractController
 {
 
     /**

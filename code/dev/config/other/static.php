@@ -97,6 +97,7 @@ return [
             'panel/design/text/Editor',
             'panel/release/ShortInfo',
             'panel/section/List',
+            'panel/section/Settings',
             'window/users/Form',
             'window/users/List',
             'window/users/Sessions',
