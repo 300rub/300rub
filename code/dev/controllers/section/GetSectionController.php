@@ -1,6 +1,6 @@
 <?php
 
-namespace ss\controllers\text;
+namespace ss\controllers\section;
 
 use ss\application\App;
 use ss\application\components\user\Operation;

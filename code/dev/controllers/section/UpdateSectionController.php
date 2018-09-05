@@ -1,6 +1,6 @@
 <?php
 
-namespace ss\controllers\text;
+namespace ss\controllers\section;
 
 use ss\application\components\user\Operation;
 use ss\application\exceptions\NotFoundException;
