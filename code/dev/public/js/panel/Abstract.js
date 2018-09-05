@@ -334,6 +334,27 @@
         },
 
         /**
+         * Sets footer button
+         *
+         * @param {Object} [options]
+         *
+         * @returns {ss.panel.Abstract}
+         */
+        setFooterButton: function (options) {
+            var submit = new ss.forms.Button(
+                $.extend(
+                    {
+                        css: "btn btn-gray",
+                        appendTo: this._panel.find(".footer")
+                    },
+                    options
+                )
+            );
+
+            return this;
+        },
+
+        /**
          * Removes footer
          *
          * @returns {ss.panel.Abstract}

@@ -40,7 +40,14 @@
     ss.panel.section.List.prototype._onLoadDataSuccess = function (data) {
         this
             .setTitle(data.title)
-            .setDescription(data.description);
+            .setDescription(data.description)
+            .setFooterButton({
+                label: data.labels.add,
+                icon: "fas fa-plus",
+                onClick: function() {
+                    new ss.panel.section.Settings();
+                }
+            });
 
         $.each(
             data.list,
@@ -61,6 +68,15 @@
                         "click",
                         function () {
                             new ss.window.section.Structure(section.id);
+                        }
+                    );
+
+                    item.find(".settings").on(
+                        "click",
+                        function () {
+                            new ss.panel.section.Settings(
+                                section.id
+                            );
                         }
                     );
 

@@ -42,7 +42,10 @@ class GetListController extends AbstractController
         return [
             'title'       => $language->getMessage('section', 'sections'),
             'description' => $language->getMessage('section', 'panelDescription'),
-            'list'        => $list
+            'list'        => $list,
+            'labels'      => [
+                'add' => $language->getMessage('common', 'add')
+            ]
         ];
     }
 }

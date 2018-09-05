@@ -4,14 +4,23 @@
     /**
      * Section settings panel
      *
+     * @param {integer} sectionId
+     *
      * @type {Object}
      */
-    ss.panel.section.Settings = function () {
+    ss.panel.section.Settings = function (sectionId) {
+        if (sectionId === undefined) {
+            sectionId = 0;
+        }
+
         ss.panel.Abstract.call(
             this,
             {
                 group: "section",
                 controller: "section",
+                data: {
+                    id: sectionId
+                },
                 success: $.proxy(this._onLoadDataSuccess, this)
             }
         );
