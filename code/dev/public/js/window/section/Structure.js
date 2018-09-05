@@ -330,18 +330,23 @@
         var structure = [];
 
         this._structureContainer.find(".section-structure-line").each(function() {
-            var lineStructure = [];
+            var grids = [];
 
             $(this).find(".section-structure-block").each(function() {
-                lineStructure.push({
-                    id: $(this).data("id"),
+                grids.push({
+                    blockId: $(this).data("id"),
                     x: $(this).data("x"),
                     y: $(this).data("y"),
                     width: $(this).data("width")
                 });
             });
 
-            structure.push(lineStructure);
+            structure.push(
+                {
+                    id: $(this).data("id"),
+                    grids: grids
+                }
+            );
         });
 
         return structure;
