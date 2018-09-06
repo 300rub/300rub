@@ -1,6 +1,6 @@
 {
 	"require": {
-		"troolee/gridstack": "0.4.0",
+		"troolee/gridstack": "0.2.6",
 		"components/jquery": "3.3.1",
 		"components/jqueryui": "1.12.1",
 		"tinymce/tinymce": "4.8.2",
@@ -31,11 +31,11 @@
 			"type": "package",
 			"package": {
 				"name": "troolee/gridstack",
-				"version": "0.4.0",
+				"version": "0.2.6",
 				"source": {
 					"type": "git",
 					"url": "https://github.com/troolee/gridstack.js.git",
-					"reference": "master"
+					"reference": "28ed6fa"
 				}
 			}
 		},

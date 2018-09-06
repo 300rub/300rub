@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "89b56717281186629a78e5660607ec55",
+    "content-hash": "55718fa5228197afa91f573a3a90ead3",
     "packages": [
         {
             "name": "IanLunn/Hover",
@@ -493,11 +493,11 @@
         },
         {
             "name": "troolee/gridstack",
-            "version": "0.4.0",
+            "version": "0.2.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/troolee/gridstack.js.git",
-                "reference": "master"
+                "reference": "28ed6fa"
             },
             "type": "library"
         },

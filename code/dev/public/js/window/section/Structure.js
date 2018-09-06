@@ -151,10 +151,11 @@
         }
 
         var blockElement = ss.components.Template.get(
-            "section-structure-block"
+            "grid-stack-item"
         );
 
         blockElement.find(".name").text(data.name);
+        blockElement.attr("title", data.name);
 
         var iconElement = blockElement.find(".icon");
         if (icon === null) {
@@ -204,8 +205,6 @@
             var options = {
                 animate: true,
                 cellHeight: "60px",
-                height: 1,
-                disableOneColumnMode: true,
                 width: 12,
                 resizable: {
                     handles: 'w, e',
@@ -216,7 +215,9 @@
                 }
             };
 
-            gridStack.gridstack(options);
+            setTimeout(function(){
+                gridStack.gridstack(options);
+            }, 500);
         }, this));
 
         return this;
