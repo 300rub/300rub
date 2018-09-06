@@ -10,7 +10,9 @@
         components: {
             accordion: {}
         },
-        forms: {},
+        forms: {
+            components: {}
+        },
         content: {
             menu: {},
             block: {}

@@ -70,6 +70,7 @@ return [
             'components/accordion/Container',
             'components/accordion/Element',
             'system/UserButtons',
+            'forms/components/Seo',
             'panel/Abstract',
             'panel/settings/List',
             'panel/settings/CodeList',

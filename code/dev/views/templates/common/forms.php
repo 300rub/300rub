@@ -132,3 +132,9 @@
 <a class="form-link form-instance">
     <span class="label-text"></span>
 </a>
+
+<div class="form-container-textarea">
+    <div class="default"></div>
+    <a class="toggle-seo">SEO</a>
+    <div class="seo"></div>
+</div>

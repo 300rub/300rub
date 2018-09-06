@@ -49,7 +49,7 @@
         this._name = new ss.forms.Text(
             $.extend(
                 {
-                    appendTo: this._panel.getBody()
+                    appendTo: this.getBody()
                 },
                 data.forms.name
             )
@@ -58,7 +58,7 @@
         this._type = new ss.forms.Select(
             $.extend(
                 {
-                    appendTo: this._panel.getBody()
+                    appendTo: this.getBody()
                 },
                 data.forms.type
             )
@@ -67,7 +67,7 @@
         this._hasEditor = new ss.forms.CheckboxOnOff(
             $.extend(
                 {
-                    appendTo: this._panel.getBody()
+                    appendTo: this.getBody()
                 },
                 data.forms.hasEditor
             )
