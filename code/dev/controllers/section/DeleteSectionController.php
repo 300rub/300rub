@@ -30,9 +30,14 @@ class DeleteSectionController extends AbstractController
             ]
         );
 
+        $sectionModel = $this->_getSectionModel();
+        $dependentBlockIds = $sectionModel->getDependentBlockIds();
+
         $this->_getSectionModel()->delete();
 
-        return $this->getSimpleSuccessResult();
+        return [
+            'dependentBlockIds' => $dependentBlockIds
+        ];
     }
 
     /**

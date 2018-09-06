@@ -157,7 +157,6 @@ class MenuInstanceModel extends AbstractMenuInstanceModel
             ->addSelect('isMain', 'sections', 'isMain')
             ->addSelect('name', 'seo', 'name')
             ->addSelect('alias', 'seo', 'alias')
-            ->setTableName('menuInstances')
             ->addJoin(
                 Table::JOIN_TYPE_LEFT,
                 'sections',

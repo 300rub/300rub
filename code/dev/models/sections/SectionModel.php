@@ -548,4 +548,57 @@ class SectionModel extends AbstractSectionModel
             $this->get('seoModel')->get('alias')
         );
     }
+
+    /**
+     * Gets dependent block IDs
+     *
+     * @return int[]
+     */
+    public function getDependentBlockIds()
+    {
+        $results = $this->getTable()
+            ->addSelect('id', 'blocks', 'id')
+            ->addJoin(
+                Table::JOIN_TYPE_INNER,
+                'menuInstances',
+                'menuInstances',
+                'sectionId',
+                Table::DEFAULT_ALIAS,
+                self::PK_FIELD
+            )
+            ->addJoin(
+                Table::JOIN_TYPE_INNER,
+                'menu',
+                'menu',
+                self::PK_FIELD,
+                'menuInstances',
+                'menuId'
+            )
+            ->addJoin(
+                Table::JOIN_TYPE_INNER,
+                'blocks',
+                'blocks',
+                'contentId',
+                'menu',
+                self::PK_FIELD
+            )
+            ->addWhere(
+                sprintf(
+                    '%s.%s = :sectionId',
+                    Table::DEFAULT_ALIAS,
+                    self::PK_FIELD
+                )
+            )
+            ->addWhere('blocks.contentType = :contentType')
+            ->addParameter('sectionId', $this->getId())
+            ->addParameter('contentType', BlockModel::TYPE_MENU)
+            ->findAll();
+
+        $list = [];
+        foreach ($results as $result) {
+            $list[] = $result['id'];
+        }
+
+        return $list;
+    }
 }

@@ -68,7 +68,9 @@ class UpdateSectionController extends AbstractController
             ];
         }
 
-        return $this->getSimpleSuccessResult();
+        return [
+            'dependentBlockIds' => $sectionModel->getDependentBlockIds()
+        ];
     }
 
     /**
