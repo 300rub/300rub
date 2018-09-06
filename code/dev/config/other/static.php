@@ -43,6 +43,7 @@ return [
             'window/users/Login',
             'window/users/ResetEmail',
             'window/users/ResetCode',
+            'content/block/Update',
             'content/menu/Abstract',
             'content/menu/Horizontal',
         ],

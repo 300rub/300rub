@@ -25,7 +25,7 @@
     /**
      * Constructor
      */
-    ss.content.menu.Horizontal.prototype.constructor = ss.forms.Select;
+    ss.content.menu.Horizontal.prototype.constructor = ss.content.menu.Horizontal;
 
     /**
      * Init

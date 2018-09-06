@@ -12,7 +12,8 @@
         },
         forms: {},
         content: {
-            menu: {}
+            menu: {},
+            block: {}
         },
         panel: {
             blocks: {

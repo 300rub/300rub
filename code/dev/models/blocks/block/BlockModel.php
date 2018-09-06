@@ -17,13 +17,6 @@ class BlockModel extends AbstractBlockModel
 {
 
     /**
-     * URI
-     *
-     * @var string
-     */
-    private $_uri = '';
-
-    /**
      * HTML
      *
      * @var string
@@ -214,7 +207,6 @@ class BlockModel extends AbstractBlockModel
 
         $model
             ->setBlockId($this->getId())
-            ->setUri($this->_uri)
             ->generateContent();
 
         $this->_html = $model->getHtml();

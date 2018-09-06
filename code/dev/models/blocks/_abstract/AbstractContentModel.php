@@ -26,13 +26,6 @@ abstract class AbstractContentModel extends AbstractModel
     private $_blockId = 0;
 
     /**
-     * URI
-     *
-     * @var string
-     */
-    private $_uri = '';
-
-    /**
      * HTML
      *
      * @var string
@@ -98,9 +91,7 @@ abstract class AbstractContentModel extends AbstractModel
             );
         }
 
-        $model
-            ->setUri($this->_uri)
-            ->setBlockId($this->_blockId);
+        $model->setBlockId($this->_blockId);
 
         return $model;
     }
@@ -149,16 +140,6 @@ abstract class AbstractContentModel extends AbstractModel
     {
         $this->_uri = $uri;
         return $this;
-    }
-
-    /**
-     * Gets URI
-     *
-     * @return string
-     */
-    protected function getUri()
-    {
-        return $this->_uri;
     }
 
     /**
