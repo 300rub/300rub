@@ -95,8 +95,8 @@ class PublicVendorCommand extends AbstractCommand
 			=> "troolee/gridstack/dist/gridstack.min.map",
         "jquery.colorpicker.js"
 			=> "vanderlee/colorpicker/jquery.colorpicker.js",
-        "tinymce/jquery.tinymce.min.js"
-			=> "tinymce/tinymce/jquery.tinymce.min.js",
+        "tinymce/tinymce.min.js"
+			=> "tinymce/tinymce/tinymce.min.js",
         "tinymce/themes/modern/theme.min.js"
 			=> "tinymce/tinymce/themes/modern/theme.min.js",
         "tinymce/skins/lightgray/skin.min.css"
@@ -115,6 +115,8 @@ class PublicVendorCommand extends AbstractCommand
 			=> "tinymce/tinymce/plugins/hr/plugin.min.js",
         "tinymce/plugins/image/plugin.min.js"
 			=> "tinymce/tinymce/plugins/image/plugin.min.js",
+		"tinymce/plugins/imagetools/plugin.min.js"
+			=> "tinymce/tinymce/plugins/imagetools/plugin.min.js",
         "tinymce/plugins/charmap/plugin.min.js"
 			=> "tinymce/tinymce/plugins/charmap/plugin.min.js",
         "tinymce/plugins/print/plugin.min.js"

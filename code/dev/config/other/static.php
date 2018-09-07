@@ -61,6 +61,7 @@ return [
                 'lib/jquery.colorpicker',
                 'lib/underscore-min',
                 'lib/gridstack.min',
+                'lib/tinymce/tinymce.min'
             ]
         ],
         'less' => 'admin',
