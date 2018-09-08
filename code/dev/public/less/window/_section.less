@@ -4,6 +4,10 @@
   margin-left: 0;
   width: auto;
 
+  .body {
+    min-height: 60px;
+  }
+
   .grid-stack-item {
     .transition(top);
 
@@ -74,27 +78,54 @@
       border-width: 1px 0;
       position: relative;
       margin: 10px 0;
-      padding: 30px 15px 10px 15px;
+      padding: 10px 15px;
+
+      .line-header {
+        padding-bottom: 15px;
+
+        .remove-line {
+          position: absolute;
+          top: 0;
+          right: 0;
+          width: 30px;
+          height: 30px;
+          line-height: 30px;
+          font-size: 16px;
+          text-align: center;
+        }
+
+        .line-name {
+          margin-right: 10px;
+          display: inline-block;
+        }
+
+        .btn-group {
+          display: inline-block;
+        }
+      }
 
       .grid-stack {
         min-height: 60px;
       }
 
-      .remove-line {
-        position: absolute;
-        top: 0;
-        right: 0;
-        width: 20px;
-        height: 20px;
-        line-height: 20px;
-        text-align: center;
+      .line-footer {
+        padding-top: 15px;
       }
 
-      .line-name {
-        position: absolute;
-        top: 0;
-        left: 20px;
-        line-height: 20px;
+      &:first-child {
+        .line-header {
+          .up {
+            display: none;
+          }
+        }
+      }
+
+      &:last-child {
+        .line-header {
+          .down {
+            display: none;
+          }
+        }
       }
     }
   }

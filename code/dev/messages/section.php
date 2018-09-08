@@ -27,6 +27,10 @@ return [
         Language::LANGUAGE_EN_ID => 'Line',
         Language::LANGUAGE_RU_ID => 'Линия',
     ],
+    'newLine'                => [
+        Language::LANGUAGE_EN_ID => 'New line',
+        Language::LANGUAGE_RU_ID => 'Новая линия',
+    ],
     'container'           => [
         Language::LANGUAGE_EN_ID => 'Container',
         Language::LANGUAGE_RU_ID => '',

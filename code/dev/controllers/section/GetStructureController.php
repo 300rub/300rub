@@ -77,7 +77,7 @@ class GetStructureController extends AbstractController
             'structure' => $this->_structure,
             'blocks'    => $this->_filteredBlocks,
             'labels'    => [
-                'line'     => $language->getMessage('section', 'line'),
+                'newLine'  => $language->getMessage('section', 'newLine'),
                 'addLine'  => $language->getMessage('section', 'addLine'),
                 'addBlock' => $language->getMessage('section', 'addBlock'),
                 'save'     => $language->getMessage('common', 'save'),
@@ -181,6 +181,8 @@ class GetStructureController extends AbstractController
             ->ordered(['y', 'x']);
         $gridModels = $gridModels->findAll();
 
+        $lineNumber = 1;
+
         foreach ($gridLineModels as $gridLineModel) {
             $blocks = [];
 
@@ -206,8 +208,15 @@ class GetStructureController extends AbstractController
 
             $this->_structure[] = [
                 'id'     => $gridLineModel->getId(),
+                'name'   => sprintf(
+                    '%s %s',
+                    App::getInstance()->getLanguage()->getMessage('section', 'line'),
+                    $lineNumber
+                ),
                 'blocks' => $blocks
             ];
+
+            $lineNumber++;
         }
 
         return $this;

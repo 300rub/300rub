@@ -143,6 +143,10 @@
             iconElement.addClass(icon);
         }
 
+        blockElement.find(".remove").on("click", function(){
+            gridStack.removeWidget(blockElement);
+        });
+
         blockElement.attr("data-id", data.id);
 
         if (data.x === undefined) {
@@ -195,6 +199,10 @@
             lineData.id = 0;
         }
 
+        if (lineData.name === undefined) {
+            lineData.name = this._labels.newLine;
+        }
+
         var lineElement = ss.components.Template.get(
             "section-structure-line"
         );
@@ -205,6 +213,8 @@
 
         lineElement.attr("data-id", lineData.id);
 
+        lineElement.find(".line-name").text(lineData.name);
+
         this._container.append(lineElement);
 
         var gridStack = lineElement.find(".grid-stack");
@@ -213,6 +223,7 @@
             animate: true,
             cellHeight: "60px",
             width: 12,
+            verticalMargin: 10,
             resizable: {
                 handles: 'w, e',
                 classes: {
@@ -224,10 +235,10 @@
 
         new ss.forms.Button(
             {
-                css: "btn btn-gray",
+                css: "btn btn-gray btn-small",
                 icon: "fas fa-plus",
                 label: this._labels.addBlock,
-                appendTo: lineElement,
+                appendTo: lineElement.find(".line-footer"),
                 onClick: $.proxy(function () {
                     new ss.window.section.Blocks({
                         name: "section-blocks",
@@ -240,6 +251,32 @@
             }
         );
 
+        var btnGroup = lineElement.find(".line-header .btn-group");
+
+        new ss.forms.Button(
+            {
+                css: "btn btn-gray btn-small up",
+                icon: "fas fa-chevron-up",
+                label: "Up",
+                appendTo: btnGroup,
+                onClick: $.proxy(function () {
+                    lineElement.prev().before(lineElement);
+                }, this)
+            }
+        );
+
+        new ss.forms.Button(
+            {
+                css: "btn btn-gray btn-small down",
+                icon: "fas fa-chevron-down",
+                label: "Down",
+                appendTo: btnGroup,
+                onClick: $.proxy(function () {
+                    lineElement.next().after(lineElement);
+                }, this)
+            }
+        );
+
         if (lineData.blocks !== undefined) {
             setTimeout($.proxy(function(){
                 $.each(lineData.blocks, $.proxy(function (i, blockData) {
@@ -248,7 +285,7 @@
             }, this), 500);
         }
 
-        return lineElement;
+        this.getBody().scrollTop(100000);
     };
 
     /**
@@ -261,7 +298,7 @@
     ss.window.section.Structure.prototype._setAddLineButton = function () {
         new ss.forms.Button(
             {
-                css: "btn btn-gray",
+                css: "btn btn-gray btn-big button",
                 icon: "fas fa-plus",
                 label: this._labels.addLine,
                 appendTo: this.getWindow().find(".footer"),

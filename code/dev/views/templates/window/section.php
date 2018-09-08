@@ -12,9 +12,13 @@
 </a>
 
 <div class="section-structure-line" data-id="0">
-    <a class="remove-line gray-red-link fas fa-times"></a>
-    <div class="line-name"></div>
+    <div class="line-header">
+        <a class="remove-line gray-red-link fas fa-times"></a>
+        <span class="line-name"></span>
+        <div class="btn-group"></div>
+    </div>
     <div class="grid-stack" data-gs-animate="yes"></div>
+    <div class="line-footer"></div>
 </div>
 
 <div class="grid-stack-item" data-gs-height="1">
