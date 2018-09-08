@@ -139,6 +139,14 @@
                     label: this._labels.delete,
                     icon: "fas fa-trash",
                     css: "btn btn-red btn-small",
+                    confirm: {
+                        text: this._labels.deleteConfirmText,
+                        yes: {
+                            label: this._labels.delete,
+                            icon: "fas fa-trash"
+                        },
+                        no: this._labels.no
+                    },
                     ajax: {
                         data: {
                             group: "section",

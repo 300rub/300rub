@@ -8,6 +8,7 @@ use ss\application\App;
 use ss\application\components\db\Table;
 use ss\application\components\valueGenerator\ValueGenerator;
 use ss\models\_abstract\AbstractModel;
+use ss\models\sections\SectionModel;
 
 /**
  * Abstract model for working with table "sections"
@@ -82,7 +83,12 @@ abstract class AbstractSectionModel extends AbstractModel
             return false;
         }
 
-        return $this->main($this->get('language'))->find() === null;
+        SectionModel::model()->updateMany(
+            ['isMain' => 0],
+            'id > 0'
+         );
+
+        return true;
     }
 
     /**
@@ -101,12 +107,6 @@ abstract class AbstractSectionModel extends AbstractModel
         $this->getTable()
             ->addWhere(
                 sprintf(
-                    '%s.isMain = 1',
-                    Table::DEFAULT_ALIAS
-                )
-            )
-            ->addWhere(
-                sprintf(
                     '%s.language = :language',
                     Table::DEFAULT_ALIAS
                 )
@@ -117,7 +117,15 @@ abstract class AbstractSectionModel extends AbstractModel
                     Table::DEFAULT_ALIAS
                 )
             )
-            ->addParameter('language', $language);
+            ->addParameter('language', $language)
+            ->setOrder(
+                sprintf(
+                    '%s.isMain DESC, %s.id',
+                    Table::DEFAULT_ALIAS,
+                    Table::DEFAULT_ALIAS
+                )
+            )
+            ->setLimit(1);
 
         return $this;
     }

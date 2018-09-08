@@ -95,20 +95,23 @@ abstract class AbstractSaveModel extends AbstractSaveRelationModel
      *
      * @return AbstractModel|AbstractSaveModel
      */
-    protected function updateMany(array $data, $where, $parameters = [])
-    {
+    protected function updateMany(
+        array $data,
+        $where,
+        $parameters = []
+    ) {
         $table = $this->getTable();
+
+        foreach ($data as $field => $parameter) {
+            $table->addField($field);
+            $table->addParameter($field, $parameter);
+        }
 
         $table->setWhere($where);
         if (count($parameters) > 0) {
             foreach ($parameters as $parameterKey => $parameterValue) {
                 $table->addParameter($parameterKey, $parameterValue);
             }
-        }
-
-        foreach ($data as $field => $parameter) {
-            $table->addField($field);
-            $table->addParameter($field, $parameter);
         }
 
         $table->update();

@@ -63,4 +63,8 @@ return [
         Language::LANGUAGE_EN_ID => 'Add section description',
         Language::LANGUAGE_RU_ID => 'Добавить раздел. Description',
     ],
+    'deleteConfirmText' => [
+        Language::LANGUAGE_EN_ID => 'Are you sure to delete the section?',
+        Language::LANGUAGE_RU_ID => 'Вы действительно хотите удалить раздел?',
+    ],
 ];
