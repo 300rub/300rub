@@ -1,4 +1,4 @@
-<textarea rows="20">123123</textarea>
+<textarea rows="15" title="text">123123</textarea>
 
 
 <script>
@@ -11,10 +11,10 @@
                 editor.save();
             });
         },
-        plugins: "textcolor, link, hr, image, imagetools, charmap, print, preview, fullscreen, table",
+        plugins: "textcolor link hr image imagetools charmap print preview fullscreen table",
         toolbar1: "newdocument | cut copy paste | undo redo | print preview fullscreen",
         toolbar2: "table | fontselect fontsizeselect formatselect | removeformat | bullist numlist outdent indent | subscript superscript",
-        toolbar3: "image | bold italic underline strikethrough | forecolor backcolor | alignleft aligncenter alignright alignjustify | link unlink | blockquote charmap hr",
+        toolbar3: "responsivefilemanager | image | bold italic underline strikethrough | forecolor backcolor | alignleft aligncenter alignright alignjustify | link unlink | blockquote charmap hr",
         fontsize_formats: "8px 9px 10px 11px 12px 14px 16px 18px 20px 22px 24px 26px 28px 36px 48px 72px",
         font_formats: "Andale Mono 111=andale mono,times;"+
         "Arial=arial,helvetica,sans-serif;"+

@@ -5,14 +5,14 @@
 		"components/jqueryui": "1.12.1",
 		"tinymce/tinymce": "4.8.2",
 		"vanderlee/colorpicker": "1.2.17",
-		"fancyapps/fancybox": "3.3.5",
+		"fancyapps/fancybox": "3.4.1",
 		"fengyuanchen/cropper": "4.0.0",
 		"donatj/phpuseragentparser": "0.10.0",
 		"IanLunn/Hover": "2.3.1",
 		"gregwar/image": "2.0.22",
 		"jssor/slider": "27.3.0",
 		"components/underscore": "1.8.3",
-		"fortawesome/font-awesome": "5.2.0",
+		"fortawesome/font-awesome": "5.3.1",
 		"phpmailer/phpmailer": "6.0.5"
 	},
 	"require-dev": {
@@ -47,7 +47,7 @@
 				"source": {
 					"type": "git",
 					"url": "https://github.com/vanderlee/colorpicker",
-					"reference": "master"
+					"reference": "e793ce8"
 				}
 			}
 		},
@@ -59,7 +59,7 @@
 				"source": {
 					"type": "git",
 					"url": "https://github.com/fengyuanchen/cropper",
-					"reference": "master"
+					"reference": "799ab63"
 				}
 			}
 		},
@@ -71,7 +71,7 @@
 				"source": {
 					"type": "git",
 					"url": "https://github.com/IanLunn/Hover",
-					"reference": "master"
+					"reference": "7d89804"
 				}
 			}
 		},
@@ -79,11 +79,11 @@
 			"type": "package",
 			"package": {
 				"name": "fancyapps/fancybox",
-				"version": "3.3.5",
+				"version": "3.4.1",
 				"source": {
 					"type": "git",
 					"url": "https://github.com/fancyapps/fancybox",
-					"reference": "master"
+					"reference": "a829fab"
 				}
 			}
 		},
@@ -95,7 +95,7 @@
 				"source": {
 					"type": "git",
 					"url": "https://github.com/jssor/slider",
-					"reference": "master"
+					"reference": "eaf6be4"
 				}
 			}
 		},
@@ -103,11 +103,11 @@
 			"type": "package",
 			"package": {
 				"name": "fortawesome/font-awesome",
-				"version": "5.2.0",
+				"version": "5.3.1",
 				"source": {
 					"type": "git",
 					"url": "https://github.com/FortAwesome/Font-Awesome",
-					"reference": "master"
+					"reference": "ff2853a"
 				}
 			}
 		}

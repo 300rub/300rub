@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "55718fa5228197afa91f573a3a90ead3",
+    "content-hash": "8bfc1d0796f6b9c365f42baea1ce8ec0",
     "packages": [
         {
             "name": "IanLunn/Hover",
@@ -246,11 +246,11 @@
         },
         {
             "name": "fancyapps/fancybox",
-            "version": "3.3.5",
+            "version": "3.4.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/fancyapps/fancybox",
-                "reference": "master"
+                "reference": "a829fab"
             },
             "type": "library"
         },
@@ -266,11 +266,11 @@
         },
         {
             "name": "fortawesome/font-awesome",
-            "version": "5.2.0",
+            "version": "5.3.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/FortAwesome/Font-Awesome",
-                "reference": "master"
+                "reference": "ff2853a"
             },
             "type": "library"
         },
@@ -490,6 +490,16 @@
                 "wysiwyg"
             ],
             "time": "2018-08-09T09:17:07+00:00"
+        },
+        {
+            "name": "trippo/responsivefilemanager",
+            "version": "9.13.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/trippo/ResponsiveFilemanager",
+                "reference": "a50cac8"
+            },
+            "type": "library"
         },
         {
             "name": "troolee/gridstack",
