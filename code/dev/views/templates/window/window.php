@@ -20,6 +20,11 @@ $language = App::getInstance()->getLanguage();
     <i class="fas fas fa-circle-notch fa-spin loader"></i>
 </div>
 
+<div class="window-helper transparent">
+    <a class="close gray-red-link fas fa-times"></a>
+    <div class="body scroll-container"></div>
+</div>
+
 <div class="window-overlay transparent"></div>
 
 <div class="window-confirm-unsaved">

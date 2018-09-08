@@ -2,13 +2,14 @@
 //phpcs:disable Generic.Files.InlineHTML
 ?>
 
-<div class="section-structure">
-    <div class="blocks-container"></div>
-    <div class="structure-container"></div>
-    <div class="clear"></div>
-</div>
+<div class="section-structure"></div>
 
 <div class="section-structure-type-container"></div>
+
+<a class="section-block">
+    <i class="icon"></i>
+    <span class="name"></span>
+</a>
 
 <div class="section-structure-line" data-id="0">
     <a class="remove-line gray-red-link fas fa-times"></a>

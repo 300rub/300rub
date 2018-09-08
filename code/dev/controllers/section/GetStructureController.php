@@ -77,9 +77,10 @@ class GetStructureController extends AbstractController
             'structure' => $this->_structure,
             'blocks'    => $this->_filteredBlocks,
             'labels'    => [
-                'line'    => $language->getMessage('section', 'line'),
-                'addLine' => $language->getMessage('section', 'addLine'),
-                'save'    => $language->getMessage('common', 'save'),
+                'line'     => $language->getMessage('section', 'line'),
+                'addLine'  => $language->getMessage('section', 'addLine'),
+                'addBlock' => $language->getMessage('section', 'addBlock'),
+                'save'     => $language->getMessage('common', 'save'),
             ],
         ];
     }

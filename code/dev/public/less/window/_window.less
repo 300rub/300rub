@@ -110,6 +110,40 @@
   z-index: 1020;
 }
 
+.window-helper {
+  .transition(opacity);
+  background: white;
+  left: 50%;
+  margin-left: -150px;
+  position: fixed;
+  top: 25px;
+  width: 300px;
+  z-index: 9010;
+  padding: 25px 0;
+
+  .close {
+    display: block;
+    font-size: 20px;
+    height: 25px;
+    line-height: 25px;
+    position: absolute;
+    right: 0;
+    text-align: center;
+    top: 0;
+    width: 25px;
+  }
+
+  .body {
+    padding: 0 25px;
+    position: relative;
+    z-index: 10;
+  }
+}
+
+.window-overlay.level-last {
+  z-index: 9000;
+}
+
 .confirm-overlay {
   bottom: 0;
   left: 0;

@@ -23,9 +23,9 @@
         );
 
         this._sectionId = sectionId;
-        this._baseContainer = null;
-        this._structureContainer = null;
+        this._container = null;
         this._labels = {};
+        this._blocks = {};
     };
 
     /**
@@ -58,7 +58,7 @@
             ._setAddLineButton()
             ._setSubmitButton();
 
-        this.getBody().append(this._baseContainer);
+        this.getBody().append(this._container);
     };
 
     /**
@@ -81,8 +81,7 @@
      * @private
      */
     ss.window.section.Structure.prototype._setContainers = function () {
-        this._baseContainer = ss.components.Template.get("section-structure");
-        this._structureContainer = this._baseContainer.find(".structure-container");
+        this._container = ss.components.Template.get("section-structure");
         return this;
     };
 
@@ -96,41 +95,21 @@
      * @private
      */
     ss.window.section.Structure.prototype._setBlocks = function (blocks) {
-        var blocksContainer = this._baseContainer.find(".blocks-container");
-
-        $.each(blocks, $.proxy(function(i, blockGroup){
-            var typeContainer = ss.components.Template.get(
-                "section-structure-type-container"
-            );
-
-            $.each(blockGroup.blocks, $.proxy(function(i, blockData) {
-                this._getBlock(blockData).appendTo(typeContainer);
-            }, this));
-
-            new ss.components.accordion.Element(
-                {
-                    title: blockGroup.name,
-                    body: typeContainer,
-                    appendTo: blocksContainer
-                }
-            );
-        }, this));
-
-        ss.components.accordion.Container(blocksContainer);
-
+        this._blocks = blocks;
         return this;
     };
 
     /**
-     * Gets block
+     * Adds block
      *
      * @param {Object} data
+     * @param {Object} gridStack
      *
      * @returns {Object}
      *
      * @private
      */
-    ss.window.section.Structure.prototype._getBlock = function (data) {
+    ss.window.section.Structure.prototype._addBlock = function (data, gridStack) {
         var icon;
         switch (data.type) {
             case 1:
@@ -166,19 +145,25 @@
 
         blockElement.attr("data-id", data.id);
 
-        if (data.x !== undefined) {
-            blockElement.attr("data-gs-x", data.x);
+        if (data.x === undefined) {
+            data.x = 0;
         }
 
-        if (data.y !== undefined) {
-            blockElement.attr("data-gs-y", data.y);
+        if (data.y === undefined) {
+            data.y = 100;
         }
 
-        if (data.width !== undefined) {
-            blockElement.attr("data-gs-width", data.width);
+        if (data.width === undefined) {
+            data.width = 3;
         }
 
-        return blockElement;
+        gridStack.addWidget(
+            blockElement,
+            data.x,
+            data.y,
+            data.width,
+            1
+        );
     };
 
     /**
@@ -192,32 +177,7 @@
      */
     ss.window.section.Structure.prototype._setStructure = function (structure) {
         $.each(structure, $.proxy(function(i, lineData) {
-            var lineElement = this._addLine();
-            var gridStack = lineElement.find(".grid-stack");
-
-            lineElement.attr("data-id", lineData.id);
-
-            $.each(lineData.blocks, $.proxy(function(i, blockData) {
-                var block = this._getBlock(blockData);
-                gridStack.append(block);
-            }, this));
-
-            var options = {
-                animate: true,
-                cellHeight: "60px",
-                width: 12,
-                resizable: {
-                    handles: 'w, e',
-                    classes: {
-                        "ui-resizable-w": "fas fa-arrows-alt-h",
-                        "ui-resizable-e": "fas fa-arrows-alt-h"
-                    }
-                }
-            };
-
-            setTimeout(function(){
-                gridStack.gridstack(options);
-            }, 500);
+            this._addLine(lineData);
         }, this));
 
         return this;
@@ -226,42 +186,69 @@
     /**
      * Adds line
      *
-     * @returns {Object}
-     *
      * @private
      */
-    ss.window.section.Structure.prototype._addLine = function () {
+    ss.window.section.Structure.prototype._addLine = function (lineData) {
+        lineData = $.extend({}, lineData);
+
+        if (lineData.id === undefined) {
+            lineData.id = 0;
+        }
+
         var lineElement = ss.components.Template.get(
             "section-structure-line"
         );
 
         lineElement.find(".remove-line").on("click", $.proxy(function() {
             lineElement.remove();
-            this._updateLineNames();
         }, this));
 
-        this._structureContainer.append(lineElement);
+        lineElement.attr("data-id", lineData.id);
 
-        this._updateLineNames();
+        this._container.append(lineElement);
 
-        return lineElement;
-    };
+        var gridStack = lineElement.find(".grid-stack");
 
-    /**
-     * Updates line numbers
-     *
-     * @returns {ss.window.section.Structure}
-     *
-     * @private
-     */
-    ss.window.section.Structure.prototype._updateLineNames = function () {
-        var lineLabel = this._labels.line;
-
-        this._structureContainer.find(".section-structure-line").each(function(i) {
-            $(this).find(".line-name").text(lineLabel + " " + (i + 1));
+        gridStack.gridstack({
+            animate: true,
+            cellHeight: "60px",
+            width: 12,
+            resizable: {
+                handles: 'w, e',
+                classes: {
+                    "ui-resizable-w": "fas fa-arrows-alt-h",
+                    "ui-resizable-e": "fas fa-arrows-alt-h"
+                }
+            }
         });
 
-        return this;
+        new ss.forms.Button(
+            {
+                css: "btn btn-gray",
+                icon: "fas fa-plus",
+                label: this._labels.addBlock,
+                appendTo: lineElement,
+                onClick: $.proxy(function () {
+                    new ss.window.section.Blocks({
+                        name: "section-blocks",
+                        blocks: this._blocks,
+                        callback: $.proxy(function(blockData) {
+                            this._addBlock(blockData, gridStack.data('gridstack'));
+                        }, this)
+                    });
+                }, this)
+            }
+        );
+
+        if (lineData.blocks !== undefined) {
+            setTimeout($.proxy(function(){
+                $.each(lineData.blocks, $.proxy(function (i, blockData) {
+                    this._addBlock(blockData, gridStack.data('gridstack'));
+                }, this));
+            }, this), 500);
+        }
+
+        return lineElement;
     };
 
     /**
@@ -330,7 +317,7 @@
     ss.window.section.Structure.prototype._getStructure = function () {
         var structure = [];
 
-        this._structureContainer.find(".section-structure-line").each(function() {
+        this._container.find(".section-structure-line").each(function() {
             var grids = [];
 
             $(this).find(".section-structure-block").each(function() {

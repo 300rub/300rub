@@ -68,43 +68,48 @@
   }
 
   .section-structure {
-    .blocks-container {
-      float: left;
-      width: 300px;
-    }
+    .section-structure-line {
+      background: @lightGrayBackground;
+      border: solid @grayBorderColor;
+      border-width: 1px 0;
+      position: relative;
+      margin: 10px 0;
+      padding: 30px 15px 10px 15px;
 
-    .structure-container {
-      margin-left: 325px;
-
-      .section-structure-line {
-        background: @lightGrayBackground;
-        border: solid @grayBorderColor;
-        border-width: 1px 0;
-        position: relative;
-        margin: 10px 0;
-        padding: 30px 15px 10px 15px;
-
-        .grid-stack {
-          min-height: 60px;
-        }
-
-        .remove-line {
-          position: absolute;
-          top: 0;
-          right: 0;
-          width: 20px;
-          height: 20px;
-          line-height: 20px;
-          text-align: center;
-        }
-
-        .line-name {
-          position: absolute;
-          top: 0;
-          left: 20px;
-          line-height: 20px;
-        }
+      .grid-stack {
+        min-height: 60px;
       }
+
+      .remove-line {
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 20px;
+        height: 20px;
+        line-height: 20px;
+        text-align: center;
+      }
+
+      .line-name {
+        position: absolute;
+        top: 0;
+        left: 20px;
+        line-height: 20px;
+      }
+    }
+  }
+}
+
+.window-section-blocks {
+  .section-block {
+    .border-radius(4px);
+    display: block;
+    margin: 5px 0;
+    padding: 5px 10px;
+    border: 1px solid @grayBorderColor;
+
+    &:hover {
+      background: @lightGrayBackground;
     }
   }
 }
