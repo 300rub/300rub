@@ -109,76 +109,14 @@
      * @private
      */
     ss.forms.Button.prototype._setConfirmWindow = function () {
-        var confirm = this.getOption("confirm");
-        var confirmWindow = ss.components.Template.get("confirm-window");
-        var buttons = confirmWindow.find(".buttons");
-        var confirmOverlay = ss.components.Template.get("confirm-overlay");
-        var text = confirmWindow.find(".text");
-        text.text(confirm.text);
-
-        new ss.forms.Button(
-            {
-                css: "btn btn-red btn-small",
-                icon: confirm.yes.icon,
-                label: confirm.yes.label,
-                appendTo: buttons,
-                ajax: $.extend(
-                    this.getOption("ajax"),
-                    {
-                        complete: function () {
-                            confirmWindow.remove();
-                            confirmOverlay.remove();
-                        }
-                    }
-                )
-            }
-        );
-
-        new ss.forms.Button(
-            {
-                css: "btn btn-gray btn-small",
-                icon: "fas fa-ban",
-                label: confirm.no,
-                appendTo: buttons,
-                onClick: function () {
-                    confirmWindow.remove();
-                    confirmOverlay.remove();
-                }
-            }
-        );
-
-        ss.system.App.append(confirmOverlay);
-        ss.system.App.append(confirmWindow);
-
-        confirmOverlay.on(
-            "click",
-            function () {
-                confirmWindow.remove();
-                confirmOverlay.remove();
-            }
-        );
-
-        var formLeft = this.getForm().offset().left;
-        var formLeftCenter = (this.getForm().outerWidth() / 2);
-        var confirmLeftCenter = (confirmWindow.outerWidth() / 2);
-        var left = formLeft + (formLeftCenter - confirmLeftCenter);
-        if (left < 0) {
-            left = 0;
-        }
-
-        var formTop = this.getForm().offset().top;
-        var formTopCenter = (this.getForm().outerHeight() / 2);
-        var confirmTopCenter = (confirmWindow.outerWidth() / 2);
-        var top = formTop + (formTopCenter - confirmTopCenter);
-        if (top < 0) {
-            top = 0;
-        }
-
-        confirmWindow.css(
-            {
-                "left": left,
-                "top": top
-            }
+        new ss.components.Confirmation(
+            $.extend(
+                {
+                    element: this.getForm(),
+                    ajax: this.getOption("ajax")
+                },
+                this.getOption("confirm")
+            )
         );
     };
 

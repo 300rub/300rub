@@ -207,8 +207,27 @@
             "section-structure-line"
         );
 
-        lineElement.find(".remove-line").on("click", $.proxy(function() {
-            lineElement.remove();
+        var removeButton = lineElement.find(".remove-line");
+        removeButton.on("click", $.proxy(function() {
+            if (lineData.id === 0) {
+                lineElement.remove();
+                return false;
+            }
+
+            new ss.components.Confirmation(
+                {
+                    element: removeButton,
+                    text: this._labels.deleteLineConfirmText,
+                    yes: {
+                        label: this._labels.delete,
+                        icon: "fas fa-trash"
+                    },
+                    no: this._labels.no,
+                    onClick: function() {
+                        lineElement.remove();
+                    }
+                }
+            );
         }, this));
 
         lineElement.attr("data-id", lineData.id);
@@ -282,7 +301,7 @@
                 $.each(lineData.blocks, $.proxy(function (i, blockData) {
                     this._addBlock(blockData, gridStack.data('gridstack'));
                 }, this));
-            }, this), 500);
+            }, this), 300);
         }
 
         this.getBody().scrollTop(100000);
@@ -338,7 +357,7 @@
                         )
                     },
                     type: "PUT",
-                    success: this._onSendSuccess
+                    success: $.proxy(this._onSendSuccess, this)
                 }
             }
         );

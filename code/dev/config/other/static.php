@@ -69,6 +69,7 @@ return [
             'components/Library',
             'components/accordion/Container',
             'components/accordion/Element',
+            'components/Confirmation',
             'system/UserButtons',
             'forms/components/Seo',
             'panel/Abstract',

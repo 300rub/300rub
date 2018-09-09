@@ -71,4 +71,8 @@ return [
         Language::LANGUAGE_EN_ID => 'Are you sure to delete the section?',
         Language::LANGUAGE_RU_ID => 'Вы действительно хотите удалить раздел?',
     ],
+    'deleteLineConfirmText' => [
+        Language::LANGUAGE_EN_ID => 'Are you sure to delete the line?',
+        Language::LANGUAGE_RU_ID => 'Вы действительно хотите удалить линию?',
+    ]
 ];

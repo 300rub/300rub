@@ -81,6 +81,12 @@ class GetStructureController extends AbstractController
                 'addLine'  => $language->getMessage('section', 'addLine'),
                 'addBlock' => $language->getMessage('section', 'addBlock'),
                 'save'     => $language->getMessage('common', 'save'),
+                'delete'   => $language->getMessage('common', 'delete'),
+                'no'   => $language->getMessage('common', 'no'),
+                'deleteLineConfirmText' => $language->getMessage(
+                    'section',
+                    'deleteLineConfirmText'
+                ),
             ],
         ];
     }
