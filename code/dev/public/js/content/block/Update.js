@@ -52,13 +52,16 @@
      * @private
      */
     ss.content.block.Update.prototype._loadContent = function () {
+        var uri = window.location.pathname + window.location.search;
+
         new ss.components.Ajax(
             {
                 data: {
                     group: "block",
                     controller: "content",
                     data: {
-                        idList: this._filteredIdList
+                        idList: this._filteredIdList,
+                        uri: uri
                     }
                 },
                 error: $.proxy(this._onError, this),
@@ -85,7 +88,7 @@
      * @private
      */
     ss.content.block.Update.prototype._onSuccess = function (data) {
-        $.each(data, $.proxy(function(blockId, blockData) {
+        $.each(data.content, $.proxy(function(blockId, blockData) {
             var blockElement = $(".block-" + blockId);
 
             if (blockElement.length === 0) {
@@ -101,6 +104,8 @@
                 if (cssElement.length === 0) {
                     return false;
                 }
+
+                cssValue = "<style>" + cssValue + "</style>";
 
                 cssElement.html(cssValue);
             }, this));

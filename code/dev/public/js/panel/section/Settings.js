@@ -302,6 +302,10 @@
             if (data.sectionId !== undefined) {
                 new ss.window.section.Structure(data.sectionId);
             }
+
+            if (data.dependentBlockIds !== undefined) {
+                new ss.content.block.Update(data.dependentBlockIds);
+            }
         }
     };
 }(window.jQuery, window.ss);
