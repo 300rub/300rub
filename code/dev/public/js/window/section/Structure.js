@@ -376,12 +376,12 @@
         this._container.find(".section-structure-line").each(function() {
             var grids = [];
 
-            $(this).find(".section-structure-block").each(function() {
+            $(this).find(".grid-stack-item").each(function() {
                 grids.push({
                     blockId: $(this).data("id"),
-                    x: $(this).data("x"),
-                    y: $(this).data("y"),
-                    width: $(this).data("width")
+                    x: $(this).data("gs-x"),
+                    y: $(this).data("gs-y"),
+                    width: $(this).data("gs-width")
                 });
             });
 
