@@ -601,4 +601,34 @@ class SectionModel extends AbstractSectionModel
 
         return $list;
     }
+
+    /**
+     * After duplicate
+     *
+     * @return void
+     */
+    protected function afterDuplicate()
+    {
+        parent::afterDuplicate();
+
+        $gridLines = GridLineModel::model()
+            ->bySectionId($this->getDuplicateId())
+            ->findAll();
+
+        foreach ($gridLines as $gridLine) {
+            $newGridLine = $gridLine->duplicate()
+                ->set(['sectionId' => $this->getId()])
+                ->save();
+
+            $gridModels = GridModel::model()
+                ->addIn('gridLineId', [$gridLine->getId()])
+                ->findAll();
+            foreach ($gridModels as $gridModel) {
+                $newGridModel = $gridModel->duplicate();
+                $newGridModel
+                    ->set(['gridLineId' => $newGridLine->getId()])
+                    ->save();
+            }
+        }
+    }
 }
