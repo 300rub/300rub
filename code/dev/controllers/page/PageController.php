@@ -202,8 +202,8 @@ class PageController extends AbstractPageController
             $lineHtml .= $this->getContentFromTemplate(
                 'page/line',
                 [
-                    'id'        => $line,
-                    'structure' => $lineStructure
+                    'id'            => $line,
+                    'lineStructure' => $this->_getLineStructure($lineStructure)
                 ]
             );
         }
@@ -215,6 +215,63 @@ class PageController extends AbstractPageController
                 'content' => $lineHtml
             ]
         );
+    }
+
+    /**
+     * Gets line structure
+     *
+     * @param array $structure Structure
+     *
+     * @return string
+     */
+    private function _getLineStructure($structure)
+    {
+        $html = '';
+
+        foreach ($structure as $yData) {
+            $lastY = 0;
+
+            foreach ($yData as $item) {
+                if (array_key_exists('type', $item) === false) {
+                    continue;
+                }
+
+                switch ($item['type']) {
+                    case 'block':
+                        if ($lastY < $item['y']) {
+                            $html .= $this->getContentFromTemplate(
+                                'content/components/clear'
+                            );
+                            $lastY = $item['y'];
+                        }
+
+                        $html .= $this->getContentFromTemplate(
+                            'page/lineBlock',
+                            [
+                                'item' => $item
+                            ]
+                        );
+
+                        break;
+                    case 'container':
+                        $html .= $this->getContentFromTemplate(
+                            'page/lineBlockContainer',
+                            [
+                                'item' => $item,
+                                'data' => $this->_getLineStructure($item['data'])
+                            ]
+                        );
+
+                        break;
+                }
+            }
+
+            $html .= $this->getContentFromTemplate(
+                'content/components/clear'
+            );
+        }
+
+        return $html;
     }
 
     /**

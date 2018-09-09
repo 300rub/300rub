@@ -182,10 +182,13 @@ class GetStructureController extends AbstractController
             $gridLineIds[] = $gridLineModel->getId();
         }
 
-        $gridModels = GridModel::model()
-            ->addIn('gridLineId', $gridLineIds)
-            ->ordered(['y', 'x']);
-        $gridModels = $gridModels->findAll();
+        $gridModels = [];
+        if (count($gridLineIds) > 0) {
+            $gridModels = GridModel::model()
+                ->addIn('gridLineId', $gridLineIds)
+                ->ordered(['y', 'x']);
+            $gridModels = $gridModels->findAll();
+        }
 
         $lineNumber = 1;
 
