@@ -438,6 +438,35 @@ select.form-instance {
   }
 }
 
+.form-container-seo {
+  .toggle-seo {
+    margin: 15px;
+    border-bottom: 1px dotted @grayBorderColor;
+    display: block;
+
+    .fas {
+      margin-right: 5px;
+      .transition(transform);
+    }
+  }
+
+  .seo {
+    display: none;
+  }
+}
+
+.form-container-seo.opened {
+  .toggle-seo {
+    .fas {
+      .transform(rotate(90deg));
+    }
+  }
+
+  .seo {
+    display: block;
+  }
+}
+
 .color-picker-container {
   display: inline-block;
 

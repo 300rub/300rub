@@ -25,8 +25,7 @@
     ss.forms.components.Seo.prototype.init = function () {
         this
             ._setContainer()
-            ._setForms()
-        ;
+            ._setForms();
     };
 
     /**
@@ -60,60 +59,76 @@
     ss.forms.components.Seo.prototype._setForms = function () {
         var defaultContainer = this._container.find(".default");
         var seoContainer = this._container.find(".seo");
+        var toggleSeo = this._container.find(".toggle-seo");
 
-        if (this._forms.name !== undefined) {
+        toggleSeo.on("click", $.proxy(function() {
+            if (this._container.hasClass("opened") === true) {
+                this._container.removeClass("opened");
+            } else {
+                this._container.addClass("opened");
+            }
+        }, this));
+
+        if (this._formData.name !== undefined) {
             this._forms.name = new ss.forms.Text(
                 $.extend(
                     {
                         appendTo: defaultContainer
                     },
-                    this._forms.name
+                    this._formData.name
                 )
             );
         }
 
-        if (this._forms.alias !== undefined) {
+        if (this._formData.alias !== undefined) {
             this._forms.alias = new ss.forms.Text(
                 $.extend(
                     {
                         appendTo: defaultContainer
                     },
-                    this._forms.alias
+                    this._formData.alias
                 )
             );
         }
 
-        if (this._forms.title !== undefined) {
+        if (this._formData.title !== undefined) {
             this._forms.title = new ss.forms.Text(
                 $.extend(
                     {
                         appendTo: seoContainer
                     },
-                    this._forms.title
+                    this._formData.title
                 )
             );
         }
 
-        if (this._forms.keywords !== undefined) {
+        if (this._formData.keywords !== undefined) {
             this._forms.keywords = new ss.forms.Text(
                 $.extend(
                     {
                         appendTo: seoContainer
                     },
-                    this._forms.keywords
+                    this._formData.keywords
                 )
             );
         }
 
-        if (this._forms.description !== undefined) {
+        if (this._formData.description !== undefined) {
             this._forms.description = new ss.forms.Text(
                 $.extend(
                     {
                         appendTo: seoContainer
                     },
-                    this._forms.description
+                    this._formData.description
                 )
             );
+        }
+
+        if (this._formData.title.value !== ""
+            || this._formData.keywords.value !== ""
+            || this._formData.description.value !== ""
+        ) {
+            this._container.addClass("opened");
         }
 
         return this;

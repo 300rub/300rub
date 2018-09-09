@@ -174,52 +174,9 @@
      * @private
      */
     ss.panel.section.Settings.prototype._setForms = function (forms) {
-        this._forms = {};
-
-        this._forms.name = new ss.forms.Text(
-            $.extend(
-                {
-                    appendTo: this.getBody()
-                },
-                forms.name
-            )
-        );
-
-        this._forms.alias = new ss.forms.Text(
-            $.extend(
-                {
-                    appendTo: this.getBody()
-                },
-                forms.alias
-            )
-        );
-
-        this._forms.title = new ss.forms.Text(
-            $.extend(
-                {
-                    appendTo: this.getBody()
-                },
-                forms.title
-            )
-        );
-
-        this._forms.keywords = new ss.forms.Text(
-            $.extend(
-                {
-                    appendTo: this.getBody()
-                },
-                forms.keywords
-            )
-        );
-
-        this._forms.description = new ss.forms.Text(
-            $.extend(
-                {
-                    appendTo: this.getBody()
-                },
-                forms.description
-            )
-        );
+        var seo = new ss.forms.components.Seo(forms);
+        seo.getContainer().appendTo(this.getBody());
+        this._forms = $.extend({}, seo.getForms());
 
         if (forms.isMain.value !== true) {
             this._forms.isMain = new ss.forms.Checkbox(
