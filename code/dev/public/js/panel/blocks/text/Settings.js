@@ -53,8 +53,6 @@
     ss.panel.blocks.text.Settings.prototype._onLoadDataSuccess = function (
         data
     ) {
-
-
         var type = "PUT";
         var icon = "fas fa-save";
         if (data.id === 0) {
@@ -70,6 +68,8 @@
                     new ss.panel.blocks.text.List();
                 }
             )
+            ._setLabels(data.labels)
+            ._setButtons()
             ._setForms(data.forms)
             .setSubmit(
                 {
