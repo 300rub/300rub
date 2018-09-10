@@ -56,20 +56,7 @@
                     label: data.labels.add,
                     icon: "fas fa-plus",
                     onClick: function () {
-                        new ss.panel.section.Settings();
-                    }
-                });
-        } else {
-            this.removeFooter();
-        }
-
-        if (data.canAdd === true) {
-            this
-                .setFooterButton({
-                    label: data.labels.add,
-                    icon: "fas fa-plus",
-                    onClick: function () {
-                        new ss.panel.section.Settings();
+                        new ss.panel.blocks.text.Settings();
                     }
                 });
         } else {

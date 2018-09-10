@@ -28,14 +28,18 @@ class GetContentController extends AbstractController
     {
         $this->checkData(
             [
-                'idList' => [self::TYPE_ARRAY, self::NOT_EMPTY],
-                'uri'    => [self::TYPE_STRING, self::NOT_EMPTY],
+                'uri' => [self::TYPE_STRING, self::NOT_EMPTY],
             ]
         );
 
+        $idList = $this->get('idList');
+        if (is_array($idList) === false) {
+            $idList = [];
+        }
+
         App::getInstance()->getSite()->setUri($this->get('uri'));
 
-        foreach ($this->get('idList') as $blockId) {
+        foreach ($idList as $blockId) {
             if (array_key_exists($blockId, $this->_content) === true) {
                 continue;
             }

@@ -47,4 +47,18 @@ class TextModel extends AbstractContentTextModel
             $newTextInstanceModel->save();
         }
     }
+
+    /**
+     * Runs before saving
+     *
+     * @return void
+     */
+    protected function beforeSave()
+    {
+        parent::beforeSave();
+
+        if ($this->get('type') !== self::TYPE_DIV) {
+            $this->set(['hasEditor' => false]);
+        }
+    }
 }

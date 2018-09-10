@@ -4,22 +4,29 @@
     /**
      * Block text settings panel
      *
+     * @param {int} blockId
+     *
      * @type {Object}
      */
-    ss.panel.blocks.text.Settings = function (id) {
+    ss.panel.blocks.text.Settings = function (blockId) {
+        if (blockId === undefined) {
+            blockId = 0;
+        }
+
         ss.panel.Abstract.call(
             this,
             {
                 group: "text",
                 controller: "block",
-                id: id,
+                data: {
+                    id: blockId
+                },
                 success: $.proxy(this._onLoadDataSuccess, this)
             }
         );
 
-        this._name = null;
-        this._type = null;
-        this._hasEditor = null;
+        this._blockId = blockId;
+        this._forms = {};
     };
 
     /**
@@ -46,38 +53,54 @@
     ss.panel.blocks.text.Settings.prototype._onLoadDataSuccess = function (
         data
     ) {
-        this._name = new ss.forms.Text(
+        var container = ss.components.Template.get("text-settings-container");
+        container.appendTo(this.getBody());
+
+        this._forms.name = new ss.forms.Text(
             $.extend(
                 {
-                    appendTo: this.getBody()
+                    appendTo: container
                 },
                 data.forms.name
             )
         );
 
-        this._type = new ss.forms.Select(
+        this._forms.type = new ss.forms.Select(
             $.extend(
                 {
-                    appendTo: this.getBody()
+                    appendTo: container,
+                    type: "int",
+                    onChange: function(value) {
+                        if (value === 0) {
+                            container.removeClass("no-editor");
+                        } else {
+                            container.addClass("no-editor");
+                        }
+                    }
                 },
                 data.forms.type
             )
         );
 
-        this._hasEditor = new ss.forms.CheckboxOnOff(
+        this._forms.hasEditor = new ss.forms.CheckboxOnOff(
             $.extend(
                 {
-                    appendTo: this.getBody()
+                    appendTo: container,
+                    css: "editor"
                 },
                 data.forms.hasEditor
             )
         );
 
+        if (data.forms.type.value !== 0) {
+            container.addClass("no-editor");
+        }
+
         var type = "PUT";
-        var icon = "fa-check";
+        var icon = "fas fa-save";
         if (data.id === 0) {
             type = "POST";
-            icon = "fa-plus";
+            icon = "fas fa-plus";
         }
 
         this
@@ -92,11 +115,14 @@
                 {
                     label: data.forms.button.label,
                     icon: icon,
-                    forms: [this._name, this._type, this._hasEditor],
+                    forms: this._forms,
                     ajax: {
                         data: {
                             group: "text",
-                            controller: "block"
+                            controller: "block",
+                            data: {
+                                id: this._blockId
+                            }
                         },
                         type: type,
                         success: $.proxy(this._onSendDataSuccess, this)
@@ -118,7 +144,7 @@
         if ($.type(data.errors) === "object"
             && data.errors.name !== undefined
         ) {
-            this._name
+            this._forms.name
                 .setError(data.errors.name)
                 .scrollTo()
                 .focus();

@@ -71,7 +71,7 @@
             .setSubmit(
                 {
                     label: data.button.label,
-                    icon: "fas fa-user-check",
+                    icon: "fas fa-save",
                     forms: [this._textForm],
                     ajax: {
                         data: {
@@ -97,6 +97,7 @@
      */
     ss.window.blocks.text.Content.prototype._setTinyMce = function () {
         this._textForm.getInstance().tinymce({
+            height: 300,
             menubar: false,
             statusbar: false,
             setup: function (editor) {

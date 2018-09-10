@@ -217,11 +217,10 @@
          *
          * @param {*} value
          *
-         * @returns {ss.forms.Abstract}
+         * @returns {*}
          */
         setValue: function (value) {
             this._instance.val(value);
-            return this;
         },
 
         /**
@@ -230,7 +229,14 @@
          * @returns {*}
          */
         getValue: function () {
-            return this._instance.val();
+            switch (this._options.type) {
+                case "int":
+                    return ss.components.Library.getIntVal(
+                        this._instance.val()
+                    );
+                default:
+                    return this._instance.val();
+            }
         },
 
         /**
@@ -392,6 +398,6 @@
                 this._instance.addClass("form-changed");
             }, this));
             return this;
-        },
+        }
     };
 }(window.jQuery, window.ss);

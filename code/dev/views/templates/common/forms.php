@@ -36,7 +36,7 @@
     </span>
 </label>
 
-<div class="form-container-checkbox-on-off">
+<div class="form-container form-container-checkbox-on-off">
     <label>
         <input type="checkbox" class="form-instance" />
         <span class="on-off-wrapper">
