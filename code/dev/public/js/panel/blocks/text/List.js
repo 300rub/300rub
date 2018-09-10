@@ -54,12 +54,12 @@
             data.list,
             $.proxy(
                 function (i, itemData) {
-                    var $item
+                    var item
                         = ss.components.Template.get("panel-list-item");
 
-                    $item.addClass("without-buttons");
+                    item.addClass("without-buttons");
 
-                    var $designIcon = $item.find(".design");
+                    var $designIcon = item.find(".design");
                     if (itemData.canUpdateDesign === true) {
                         $designIcon.on(
                             "click",
@@ -80,7 +80,7 @@
                         $designIcon.remove();
                     }
 
-                    var $settingsIcon = $item.find(".settings");
+                    var $settingsIcon = item.find(".settings");
                     if (itemData.canUpdateDesign === true) {
                         $settingsIcon.on(
                             "click",
@@ -94,10 +94,19 @@
                         $settingsIcon.remove();
                     }
 
-                    $item.find(".text").text(itemData.name);
-                    $item.find(".icon").addClass("fas fa-font");
+                    var label = item.find(".label");
 
-                    this.getBody().append($item);
+                    label.find(".text").text(itemData.name);
+                    label.find(".icon").addClass("fas fa-font");
+
+                    item.find(".label").on(
+                        "click",
+                        function () {
+                            new ss.window.blocks.text.Content(itemData.id);
+                        }
+                    );
+
+                    this.getBody().append(item);
                 },
                 this
             )

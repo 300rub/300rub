@@ -109,6 +109,7 @@ return [
             'window/settings/Code',
             'window/section/Structure',
             'window/section/Blocks',
+            'window/blocks/text/Content',
         ],
         'compiledCss' => 'admin.min',
         'compiledJs' => 'admin.min',

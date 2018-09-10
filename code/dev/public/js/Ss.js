@@ -35,7 +35,10 @@
             site: {},
             release: {},
             settings: {},
-            section: {}
+            section: {},
+            blocks: {
+                text: {}
+            }
         }
     };
 }(window);
