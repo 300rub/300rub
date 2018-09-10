@@ -92,6 +92,18 @@
     };
 
     /**
+     * Sets labels
+     *
+     * @returns {ss.panel.blocks.text.Settings}
+     *
+     * @private
+     */
+    ss.panel.section.Settings.prototype._setLabels = function (labels) {
+        this._labels = labels;
+        return this;
+    };
+
+    /**
      * Sets forms
      *
      * @param {Object} forms
@@ -145,6 +157,69 @@
         }
 
         return this;
+    };
+
+    /**
+     * Sets buttons
+     *
+     * @returns {ss.panel.blocks.text.Settings}
+     *
+     * @private
+     */
+    ss.panel.section.Settings.prototype._setButtons = function () {
+        if (this._blockId === 0) {
+            return this;
+        }
+
+        return this
+            .addHeaderButton(
+                {
+                    label: this._labels.duplicate,
+                    icon: "fas fa-clone",
+                    css: "btn btn-gray btn-small",
+                    ajax: {
+                        data: {
+                            group: "text",
+                            controller: "blockDuplication",
+                            data: {
+                                id: this._blockId
+                            }
+                        },
+                        type: "POST",
+                        success: function(data) {
+                            new ss.panel.blocks.text.Settings(data.id);
+                        }
+                    }
+                }
+            )
+            .addHeaderButton(
+                {
+                    label: this._labels.delete,
+                    icon: "fas fa-trash",
+                    css: "btn btn-red btn-small",
+                    confirm: {
+                        text: this._labels.deleteConfirmText,
+                        yes: {
+                            label: this._labels.delete,
+                            icon: "fas fa-trash"
+                        },
+                        no: this._labels.no
+                    },
+                    ajax: {
+                        data: {
+                            group: "text",
+                            controller: "block",
+                            data: {
+                                id: this._blockId
+                            }
+                        },
+                        type: "DELETE",
+                        success: function() {
+                            new ss.panel.blocks.text.List();
+                        }
+                    }
+                }
+            );
     };
 
     /**
