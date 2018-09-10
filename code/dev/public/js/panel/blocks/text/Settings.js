@@ -53,48 +53,7 @@
     ss.panel.blocks.text.Settings.prototype._onLoadDataSuccess = function (
         data
     ) {
-        var container = ss.components.Template.get("text-settings-container");
-        container.appendTo(this.getBody());
 
-        this._forms.name = new ss.forms.Text(
-            $.extend(
-                {
-                    appendTo: container
-                },
-                data.forms.name
-            )
-        );
-
-        this._forms.type = new ss.forms.Select(
-            $.extend(
-                {
-                    appendTo: container,
-                    type: "int",
-                    onChange: function(value) {
-                        if (value === 0) {
-                            container.removeClass("no-editor");
-                        } else {
-                            container.addClass("no-editor");
-                        }
-                    }
-                },
-                data.forms.type
-            )
-        );
-
-        this._forms.hasEditor = new ss.forms.CheckboxOnOff(
-            $.extend(
-                {
-                    appendTo: container,
-                    css: "editor"
-                },
-                data.forms.hasEditor
-            )
-        );
-
-        if (data.forms.type.value !== 0) {
-            container.addClass("no-editor");
-        }
 
         var type = "PUT";
         var icon = "fas fa-save";
@@ -111,6 +70,7 @@
                     new ss.panel.blocks.text.List();
                 }
             )
+            ._setForms(data.forms)
             .setSubmit(
                 {
                     label: data.forms.button.label,
@@ -129,6 +89,62 @@
                     }
                 }
             );
+    };
+
+    /**
+     * Sets forms
+     *
+     * @param {Object} forms
+     *
+     * @returns {ss.panel.blocks.text.Settings}
+     *
+     * @private
+     */
+    ss.panel.section.Settings.prototype._setForms = function (forms) {
+        var container = ss.components.Template.get("text-settings-container");
+        container.appendTo(this.getBody());
+
+        this._forms.name = new ss.forms.Text(
+            $.extend(
+                {
+                    appendTo: container
+                },
+                forms.name
+            )
+        );
+
+        this._forms.type = new ss.forms.Select(
+            $.extend(
+                {
+                    appendTo: container,
+                    type: "int",
+                    onChange: function(value) {
+                        if (value === 0) {
+                            container.removeClass("no-editor");
+                        } else {
+                            container.addClass("no-editor");
+                        }
+                    }
+                },
+                forms.type
+            )
+        );
+
+        this._forms.hasEditor = new ss.forms.CheckboxOnOff(
+            $.extend(
+                {
+                    appendTo: container,
+                    css: "editor"
+                },
+                forms.hasEditor
+            )
+        );
+
+        if (forms.type.value !== 0) {
+            container.addClass("no-editor");
+        }
+
+        return this;
     };
 
     /**

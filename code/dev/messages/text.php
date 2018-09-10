@@ -64,4 +64,8 @@ return [
         Language::LANGUAGE_EN_ID => "You can configure text's design",
         Language::LANGUAGE_RU_ID => '',
     ],
+    'deleteConfirmText' => [
+        Language::LANGUAGE_EN_ID => 'Are you sure to delete the text?',
+        Language::LANGUAGE_RU_ID => 'Вы действительно хотите удалить текст?',
+    ],
 ];
