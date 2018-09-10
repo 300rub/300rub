@@ -98,7 +98,7 @@
      *
      * @private
      */
-    ss.panel.section.Settings.prototype._setLabels = function (labels) {
+    ss.panel.blocks.text.Settings.prototype._setLabels = function (labels) {
         this._labels = labels;
         return this;
     };
@@ -112,7 +112,7 @@
      *
      * @private
      */
-    ss.panel.section.Settings.prototype._setForms = function (forms) {
+    ss.panel.blocks.text.Settings.prototype._setForms = function (forms) {
         var container = ss.components.Template.get("text-settings-container");
         container.appendTo(this.getBody());
 
@@ -142,7 +142,7 @@
             )
         );
 
-        this._forms.hasEditor = new ss.forms.CheckboxOnOff(
+        this._forms.hasEditor = new ss.forms.Checkbox(
             $.extend(
                 {
                     appendTo: container,
@@ -166,7 +166,7 @@
      *
      * @private
      */
-    ss.panel.section.Settings.prototype._setButtons = function () {
+    ss.panel.blocks.text.Settings.prototype._setButtons = function () {
         if (this._blockId === 0) {
             return this;
         }
