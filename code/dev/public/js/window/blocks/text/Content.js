@@ -76,9 +76,12 @@
                     ajax: {
                         data: {
                             group: "text",
-                            controller: "content"
+                            controller: "content",
+                            data: {
+                                id: data.id
+                            }
                         },
-                        type: type,
+                        type: "PUT",
                         success: $.proxy(this._onSendSuccess, this)
                     }
                 }
@@ -93,8 +96,7 @@
      * @private
      */
     ss.window.blocks.text.Content.prototype._setTinyMce = function () {
-        tinymce.init({
-            selector: this._textForm.getInstance(),
+        this._textForm.getInstance().tinymce({
             menubar: false,
             statusbar: false,
             setup: function (editor) {
@@ -136,6 +138,9 @@
      */
     ss.window.blocks.text.Content.prototype._onSendSuccess = function () {
         this.remove();
-        new ss.content.block.Update([this._blockId]);
+
+        if (this._blockId !== 0) {
+            new ss.content.block.Update([this._blockId]);
+        }
     };
 }(window.jQuery, window.ss);

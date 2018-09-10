@@ -19,7 +19,8 @@
         },
         panel: {
             blocks: {
-                text: {}
+                text: {},
+                image: {}
             },
             settings: {},
             section: {},

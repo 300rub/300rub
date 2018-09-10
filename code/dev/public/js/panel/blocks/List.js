@@ -65,6 +65,12 @@
                             break;
                         case 2:
                             item.find(".icon").addClass("fas fa-images");
+                            item.find(".label").on(
+                                "click",
+                                function () {
+                                    new ss.panel.blocks.image.List();
+                                }
+                            );
                             break;
                         case 3:
                             item.find(".icon").addClass("far fa-newspaper");

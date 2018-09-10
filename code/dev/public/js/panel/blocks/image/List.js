@@ -6,11 +6,11 @@
      *
      * @type {Object}
      */
-    ss.panel.blocks.text.List = function () {
+    ss.panel.blocks.image.List = function () {
         ss.panel.Abstract.call(
             this,
             {
-                group: "text",
+                group: "image",
                 controller: "blocks",
                 success: $.proxy(this._onLoadDataSuccess, this)
             }
@@ -22,14 +22,14 @@
      *
      * @type {Object}
      */
-    ss.panel.blocks.text.List.prototype
+    ss.panel.blocks.image.List.prototype
         = Object.create(ss.panel.Abstract.prototype);
 
     /**
      * Constructor
      */
-    ss.panel.blocks.text.List.prototype.constructor
-        = ss.panel.blocks.text.List;
+    ss.panel.blocks.image.List.prototype.constructor
+        = ss.panel.blocks.image.List;
 
     /**
      * On load window success
@@ -38,7 +38,7 @@
      *
      * @private
      */
-    ss.panel.blocks.text.List.prototype._onLoadDataSuccess = function (
+    ss.panel.blocks.image.List.prototype._onLoadDataSuccess = function (
         data
     ) {
         this
@@ -49,32 +49,6 @@
                     new ss.panel.blocks.List();
                 }
             );
-
-        if (data.canAdd === true) {
-            this
-                .setFooterButton({
-                    label: data.labels.add,
-                    icon: "fas fa-plus",
-                    onClick: function () {
-                        new ss.panel.section.Settings();
-                    }
-                });
-        } else {
-            this.removeFooter();
-        }
-
-        if (data.canAdd === true) {
-            this
-                .setFooterButton({
-                    label: data.labels.add,
-                    icon: "fas fa-plus",
-                    onClick: function () {
-                        new ss.panel.section.Settings();
-                    }
-                });
-        } else {
-            this.removeFooter();
-        }
 
         $.each(
             data.list,
@@ -90,11 +64,11 @@
                             function () {
                                 new ss.panel.design.Editor(
                                     {
-                                        group: "text",
+                                        group: "image",
                                         controller: "design",
                                         id: itemData.id,
                                         success: function () {
-                                            new ss.panel.blocks.text.List();
+                                            new ss.panel.blocks.image.List();
                                         }
                                     }
                                 );
@@ -109,7 +83,7 @@
                         settingsIcon.on(
                             "click",
                             function () {
-                                new ss.panel.blocks.text.Settings(
+                                new ss.panel.blocks.image.Settings(
                                     itemData.id
                                 );
                             }
@@ -121,16 +95,14 @@
                     var label = item.find(".label");
 
                     label.find(".text").text(itemData.name);
-                    label.find(".icon").addClass("fas fa-font");
+                    label.find(".icon").addClass("fas fa-image");
 
-                    if (itemData.canUpdateContent === true) {
-                        item.find(".label").on(
-                            "click",
-                            function () {
-                                new ss.window.blocks.text.Content(itemData.id);
-                            }
-                        );
-                    }
+                    item.find(".label").on(
+                        "click",
+                        function () {
+                            new ss.window.blocks.image.Content(itemData.id);
+                        }
+                    );
 
                     this.getBody().append(item);
                 },

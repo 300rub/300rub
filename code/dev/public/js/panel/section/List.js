@@ -40,14 +40,20 @@
     ss.panel.section.List.prototype._onLoadDataSuccess = function (data) {
         this
             .setTitle(data.title)
-            .setDescription(data.description)
-            .setFooterButton({
-                label: data.labels.add,
-                icon: "fas fa-plus",
-                onClick: function() {
-                    new ss.panel.section.Settings();
-                }
-            });
+            .setDescription(data.description);
+
+        if (data.canAdd === true) {
+            this
+                .setFooterButton({
+                    label: data.labels.add,
+                    icon: "fas fa-plus",
+                    onClick: function () {
+                        new ss.panel.section.Settings();
+                    }
+                });
+        } else {
+            this.removeFooter();
+        }
 
         $.each(
             data.list,
@@ -64,21 +70,28 @@
                         item.find(".icon").addClass("fas fa-home");
                     }
 
-                    item.find(".label").on(
-                        "click",
-                        function () {
-                            new ss.window.section.Structure(section.id);
-                        }
-                    );
+                    var settingsIcon = item.find(".settings");
+                    if (section.canUpdateDesign === true) {
+                        settingsIcon.on(
+                            "click",
+                            function () {
+                                new ss.panel.section.Settings(
+                                    section.id
+                                );
+                            }
+                        );
+                    } else {
+                        settingsIcon.remove();
+                    }
 
-                    item.find(".settings").on(
-                        "click",
-                        function () {
-                            new ss.panel.section.Settings(
-                                section.id
-                            );
-                        }
-                    );
+                    if (section.canUpdateContent === true) {
+                        item.find(".label").on(
+                            "click",
+                            function () {
+                                new ss.window.section.Structure(section.id);
+                            }
+                        );
+                    }
 
                     this.getBody().append(item);
                 },

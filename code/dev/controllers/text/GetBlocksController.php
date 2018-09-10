@@ -74,24 +74,11 @@ class GetBlocksController extends AbstractController
                 => $language->getMessage('text', 'texts'),
             'description'
                 => $language->getMessage('text', 'panelDescription'),
-            'list'        => $list,
-            'back'        => [
-                'controller' => 'block',
-                'action'     => 'blocks'
+            'list'    => $list,
+            'canAdd'  => $canAdd,
+            'labels'      => [
+                'add' => $language->getMessage('common', 'add')
             ],
-            'settings'    => [
-                'controller' => 'text',
-                'action'     => 'block'
-            ],
-            'design'      => [
-                'controller' => 'text',
-                'action'     => 'design'
-            ],
-            'content'     => [
-                'controller' => 'text',
-                'action'     => 'content'
-            ],
-            'canAdd'      => $canAdd,
         ];
     }
 }

@@ -61,7 +61,8 @@ return [
                 'lib/jquery.colorpicker',
                 'lib/underscore-min',
                 'lib/gridstack.min',
-                'lib/tinymce/tinymce.min'
+                'lib/tinymce/tinymce.min',
+                'lib/tinymce/jquery.tinymce.min',
             ]
         ],
         'less' => 'admin',
@@ -77,6 +78,7 @@ return [
             'panel/settings/CodeList',
             'panel/blocks/List',
             'panel/blocks/text/List',
+            'panel/blocks/image/List',
             'panel/blocks/text/Settings',
             'panel/design/AbstractEditor',
             'panel/design/AbstractGroup',

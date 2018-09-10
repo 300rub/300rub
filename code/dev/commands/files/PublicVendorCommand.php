@@ -97,6 +97,8 @@ class PublicVendorCommand extends AbstractCommand
 			=> "vanderlee/colorpicker/jquery.colorpicker.js",
         "tinymce/tinymce.min.js"
 			=> "tinymce/tinymce/tinymce.min.js",
+		"tinymce/jquery.tinymce.min.js"
+			=> "tinymce/tinymce/jquery.tinymce.min.js",
         "tinymce/themes/modern/theme.min.js"
 			=> "tinymce/tinymce/themes/modern/theme.min.js",
         "tinymce/skins/lightgray/skin.min.css"

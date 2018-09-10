@@ -71,28 +71,11 @@ class GetBlocksController extends AbstractController
         );
 
         return [
-            'title'
-                => $language->getMessage('image', 'images'),
+            'title'   => $language->getMessage('image', 'images'),
             'description'
                 => $language->getMessage('image', 'panelDescription'),
-            'list'        => $list,
-            'back'        => [
-                'controller' => 'block',
-                'action'     => 'blocks'
-            ],
-            'settings'    => [
-                'controller' => 'image',
-                'action'     => 'block'
-            ],
-            'design'      => [
-                'controller' => 'image',
-                'action'     => 'design'
-            ],
-            'content'     => [
-                'controller' => 'image',
-                'action'     => 'content'
-            ],
-            'canAdd'      => $canAdd,
+            'list'    => $list,
+            'canAdd'  => $canAdd,
         ];
     }
 }
