@@ -90,7 +90,7 @@
             )
             .setSubmit(
                 {
-                    label: data.button.label,
+                    label: data.forms.button.label,
                     icon: icon,
                     forms: [this._name, this._type, this._hasEditor],
                     ajax: {

@@ -15,7 +15,7 @@
 
     <div class="footer"></div>
 
-    <i class="fa fa-circle-o-notch fa-spin loader"></i>
+    <i class="fas fas fa-circle-notch fa-spin loader"></i>
 </div>
 
 <div class="panel-list-item">
