@@ -28,10 +28,35 @@
         $.each(this._options.list, $.proxy(function(i, itemData) {
             var itemElement = ss.components.Template.get("image-sort-item");
             var image = itemElement.find("img");
+            var buttons = itemElement.find(".buttons");
 
             image.attr("src", itemData.url);
 
             itemElement.appendTo(this._container);
+
+            new ss.forms.Button(
+                {
+                    css: "btn btn-blue btn-small edit",
+                    icon: "fas fa-edit",
+                    label: '',
+                    appendTo: buttons,
+                    onClick: function () {
+                        //
+                    }
+                }
+            );
+
+            new ss.forms.Button(
+                {
+                    css: "btn btn-red btn-small remove",
+                    icon: "fas fa-trash",
+                    label: '',
+                    appendTo: buttons,
+                    onClick: function () {
+                        //
+                    }
+                }
+            );
         }, this));
     };
 
