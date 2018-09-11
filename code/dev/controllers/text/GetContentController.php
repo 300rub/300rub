@@ -5,7 +5,7 @@ namespace ss\controllers\text;
 use ss\application\App;
 use ss\application\components\user\Operation;
 use ss\application\exceptions\NotFoundException;
-use ss\controllers\_abstract\AbstractController;
+use ss\controllers\_abstract\AbstractBlockController;
 use ss\models\blocks\block\BlockModel;
 use ss\models\blocks\text\TextInstanceModel;
 use ss\models\blocks\text\TextModel;
@@ -13,7 +13,7 @@ use ss\models\blocks\text\TextModel;
 /**
  * Gets block's content
  */
-class GetContentController extends AbstractController
+class GetContentController extends AbstractBlockController
 {
 
     /**

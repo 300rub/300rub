@@ -5,15 +5,16 @@ namespace ss\controllers\text;
 use ss\application\App;
 use ss\application\components\user\Operation;
 use ss\application\exceptions\BadRequestException;
-use ss\controllers\_abstract\AbstractController;
+use ss\controllers\_abstract\AbstractBlockController;
 use ss\models\blocks\block\BlockModel;
 use ss\models\blocks\text\TextInstanceModel;
 use ss\models\blocks\text\TextModel;
+use ss\models\user\UserEventModel;
 
 /**
  * Adds block
  */
-class CreateBlockController extends AbstractController
+class CreateBlockController extends AbstractBlockController
 {
 
     /**
@@ -76,6 +77,12 @@ class CreateBlockController extends AbstractController
                 'errors' => $errors
             ];
         }
+
+        App::getInstance()->getUser()->writeEvent(
+            UserEventModel::CATEGORY_BLOCK_TEXT,
+            UserEventModel::TYPE_ADD,
+            $this->getBlockCreatedEvent($blockModel)
+        );
 
         return $this->getSimpleSuccessResult();
     }

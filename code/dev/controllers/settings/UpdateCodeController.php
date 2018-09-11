@@ -56,19 +56,19 @@ class UpdateCodeController extends AbstractController
         switch ($this->get('type')) {
             case SettingsModel::CODE_HEADER:
                 $eventName = $language->getMessage(
-                    'events',
+                    'event',
                     'settingsCodeHeader'
                 );
                 break;
             case SettingsModel::CODE_BODY_TOP:
                 $eventName = $language->getMessage(
-                    'events',
+                    'event',
                     'settingCodeBodyTop'
                 );
                 break;
             case SettingsModel::CODE_BODY_BOTTOM:
                 $eventName = $language->getMessage(
-                    'events',
+                    'event',
                     'settingsCodeBodyBottom'
                 );
                 break;

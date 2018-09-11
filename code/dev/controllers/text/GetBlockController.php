@@ -4,16 +4,15 @@ namespace ss\controllers\text;
 
 use ss\application\App;
 use ss\application\components\user\Operation;
-
 use ss\application\components\valueGenerator\ValueGenerator;
-use ss\controllers\_abstract\AbstractController;
+use ss\controllers\_abstract\AbstractBlockController;
 use ss\models\blocks\block\BlockModel;
 use ss\models\blocks\text\TextModel;
 
 /**
  * Gets block
  */
-class GetBlockController extends AbstractController
+class GetBlockController extends AbstractBlockController
 {
 
     /**

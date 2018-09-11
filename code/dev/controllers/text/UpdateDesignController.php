@@ -2,17 +2,19 @@
 
 namespace ss\controllers\text;
 
+use ss\application\App;
 use ss\application\components\user\Operation;
 use ss\application\exceptions\BadRequestException;
 use ss\application\exceptions\NotFoundException;
-use ss\controllers\_abstract\AbstractController;
+use ss\controllers\_abstract\AbstractBlockController;
 use ss\models\blocks\block\BlockModel;
 use ss\models\blocks\text\TextModel;
+use ss\models\user\UserEventModel;
 
 /**
  * Updates block's design
  */
-class UpdateDesignController extends AbstractController
+class UpdateDesignController extends AbstractBlockController
 {
 
     /**
@@ -39,11 +41,12 @@ class UpdateDesignController extends AbstractController
             Operation::TEXT_UPDATE_DESIGN
         );
 
-        $textModel = BlockModel::model()
-            ->getById($this->get('id'))
-            ->getContentModel(
-                TextModel::CLASS_NAME
-            );
+        $blockModel = BlockModel::model()
+            ->getById($this->get('id'));
+
+        $textModel = $blockModel->getContentModel(
+            TextModel::CLASS_NAME
+        );
 
         $textModel->set(
             [
@@ -52,6 +55,12 @@ class UpdateDesignController extends AbstractController
             ]
         );
         $textModel->save();
+
+        App::getInstance()->getUser()->writeEvent(
+            UserEventModel::CATEGORY_BLOCK_TEXT,
+            UserEventModel::TYPE_ADD,
+            $this->getBlockDesignChangedEvent($blockModel)
+        );
 
         return $this->getSimpleSuccessResult();
     }

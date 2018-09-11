@@ -6,14 +6,14 @@ use ss\application\App;
 use ss\application\components\user\Operation;
 use ss\application\exceptions\BadRequestException;
 use ss\application\exceptions\NotFoundException;
-use ss\controllers\_abstract\AbstractController;
+use ss\controllers\_abstract\AbstractBlockController;
 use ss\models\blocks\block\BlockModel;
 use ss\models\blocks\text\TextModel;
 
 /**
  * Gets block's design
  */
-class GetDesignController extends AbstractController
+class GetDesignController extends AbstractBlockController
 {
 
     /**

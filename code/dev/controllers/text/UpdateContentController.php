@@ -2,17 +2,19 @@
 
 namespace ss\controllers\text;
 
+use ss\application\App;
 use ss\application\components\user\Operation;
 use ss\application\exceptions\NotFoundException;
-use ss\controllers\_abstract\AbstractController;
+use ss\controllers\_abstract\AbstractBlockController;
 use ss\models\blocks\block\BlockModel;
 use ss\models\blocks\text\TextInstanceModel;
 use ss\models\blocks\text\TextModel;
+use ss\models\user\UserEventModel;
 
 /**
  * Updates block's content
  */
-class UpdateContentController extends AbstractController
+class UpdateContentController extends AbstractBlockController
 {
 
     /**
@@ -62,6 +64,12 @@ class UpdateContentController extends AbstractController
         $textInstanceModel->save();
 
         $blockModel->setContent();
+
+        App::getInstance()->getUser()->writeEvent(
+            UserEventModel::CATEGORY_BLOCK_TEXT,
+            UserEventModel::TYPE_ADD,
+            $this->getBlockContentChangedEvent($blockModel)
+        );
 
         return [
             'result' => true,

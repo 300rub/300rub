@@ -2,15 +2,17 @@
 
 namespace ss\controllers\text;
 
+use ss\application\App;
 use ss\application\components\user\Operation;
-use ss\controllers\_abstract\AbstractController;
+use ss\controllers\_abstract\AbstractBlockController;
 use ss\models\blocks\block\BlockModel;
 use ss\models\blocks\text\TextModel;
+use ss\models\user\UserEventModel;
 
 /**
  * Updates block
  */
-class UpdateBlockController extends AbstractController
+class UpdateBlockController extends AbstractBlockController
 {
 
     /**
@@ -36,6 +38,7 @@ class UpdateBlockController extends AbstractController
         );
 
         $blockModel = BlockModel::model()->getById($this->get('id'));
+        $oldBlock = clone $blockModel;
 
         $textModel = $blockModel->getContentModel(
             TextModel::CLASS_NAME
@@ -65,6 +68,15 @@ class UpdateBlockController extends AbstractController
         }
 
         $blockModel->setContent();
+
+        App::getInstance()->getUser()->writeEvent(
+            UserEventModel::CATEGORY_BLOCK_TEXT,
+            UserEventModel::TYPE_ADD,
+            $this->getBlockSettingsUpdatedEvent(
+                $oldBlock,
+                $blockModel
+            )
+        );
 
         return [
             'result' => true,
