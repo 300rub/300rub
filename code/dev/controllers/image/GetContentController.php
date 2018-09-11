@@ -2,6 +2,7 @@
 
 namespace ss\controllers\image;
 
+use ss\application\App;
 use ss\application\components\user\Operation;
 use ss\application\exceptions\BadRequestException;
 use ss\controllers\_abstract\AbstractController;
@@ -38,13 +39,22 @@ class GetContentController extends AbstractController
             Operation::IMAGE_UPDATE_CONTENT
         );
 
-        $imageModel = BlockModel::model()
-            ->getById($this->get('id'))
+        $blockModel =  $imageModel = BlockModel::model()
+            ->getById($this->get('id'));
+
+        $imageModel = $blockModel
             ->getContentModel(ImageModel::CLASS_NAME);
 
         $groupId = (int)$this->get('groupId');
         $data = [
-            'labels' => []
+            'id'     => $blockModel->getId(),
+            'labels' => [],
+            'name'   => $blockModel->get('name'),
+            'button' => [
+                'label' => App::getInstance()
+                    ->getLanguage()
+                    ->getMessage('common', 'save')
+            ]
         ];
 
         if ($imageModel->get('useAlbums') === true

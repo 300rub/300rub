@@ -15,7 +15,9 @@
         },
         content: {
             menu: {},
-            block: {}
+            block: {
+                image: {}
+            }
         },
         panel: {
             blocks: {
@@ -38,7 +40,8 @@
             settings: {},
             section: {},
             blocks: {
-                text: {}
+                text: {},
+                image: {}
             }
         }
     };
