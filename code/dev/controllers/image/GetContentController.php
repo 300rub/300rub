@@ -89,6 +89,7 @@ class GetContentController extends AbstractController
             $data,
             [
                 'useAlbums'      => false,
+                'groupId'   => $groupId,
                 'canCreate' => $this->hasBlockOperation(
                     BlockModel::TYPE_IMAGE,
                     $this->get('id'),

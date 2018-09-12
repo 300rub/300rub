@@ -108,7 +108,7 @@
                 return this._options.beforeSend;
             }
 
-            return null;
+            return this._emptyFunction;
         },
 
         /**
@@ -123,7 +123,7 @@
                 return this._options.success;
             }
 
-            return null;
+            return this._emptyFunction;
         },
 
         /**
@@ -166,7 +166,15 @@
                 return this._options.complete;
             }
 
-            return null;
+            return this._emptyFunction;
+        },
+
+        /**
+         * Empty function
+         *
+         * @private
+         */
+        _emptyFunction: function() {
         }
     };
 }(window.jQuery, window.ss);

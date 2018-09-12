@@ -2,9 +2,11 @@
 
 namespace ss\controllers\image;
 
+use ss\application\App;
 use ss\application\components\user\Operation;
 use ss\controllers\_abstract\AbstractController;
 use ss\models\blocks\block\BlockModel;
+use ss\models\blocks\image\ImageGroupModel;
 use ss\models\blocks\image\ImageInstanceModel;
 
 /**
@@ -22,8 +24,7 @@ class CreateImageController extends AbstractController
     {
         $this->checkData(
             [
-                'blockId'      => [self::NOT_EMPTY],
-                'imageGroupId' => [self::NOT_EMPTY],
+                'blockId' => [self::NOT_EMPTY],
             ]
         );
 
@@ -36,10 +37,50 @@ class CreateImageController extends AbstractController
         $imageInstanceModel = new ImageInstanceModel();
         $imageInstanceModel->set(
             [
-                'imageGroupId' => $this->get('imageGroupId'),
+                'imageGroupId' => $this->_getImageGroupId(),
             ]
         );
 
         return $imageInstanceModel->upload();
+    }
+
+    /**
+     * Gets group ID
+     *
+     * @return int
+     */
+    private function _getImageGroupId()
+    {
+        $groupId = (int)$this->get('groupId');
+
+        if ($groupId > 0) {
+            return $groupId;
+        }
+
+        $blockModel = BlockModel::model()->getById($this->get('blockId'));
+
+        $imageGroupModel = ImageGroupModel::model()
+            ->byImageId($blockModel->get('contentId'))
+            ->find();
+
+        if ($imageGroupModel !== null) {
+            return $imageGroupModel->getId();
+        }
+
+        $imageGroupModel = new ImageGroupModel();
+        $imageGroupModel->set(
+            [
+                'imageId' => $blockModel->get('contentId'),
+                'seoModel' => [
+                    'name'  => App::getInstance()
+                        ->getLanguage()
+                        ->getMessage('common', 'default'),
+                    'alias' => 'default'
+                ]
+            ]
+        );
+        $imageGroupModel->save();
+
+        return $imageGroupModel->getId();
     }
 }

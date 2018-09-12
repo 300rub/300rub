@@ -71,6 +71,7 @@ return [
             'components/accordion/Container',
             'components/accordion/Element',
             'components/Confirmation',
+            'components/Upload',
             'system/UserButtons',
             'forms/components/Seo',
             'content/block/image/ImageList',

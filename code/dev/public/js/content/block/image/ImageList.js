@@ -12,6 +12,7 @@
         this._container = null;
         this._uploadContainer = null;
 
+        this._activeFileNumber = 0;
         this._filesProgress = {};
         this._filesReadyToLoad = {};
 
@@ -133,7 +134,7 @@
      * @private
      */
     ss.content.block.image.ImageList.prototype._setSortable = function () {
-        if (this._options.isSortable === true) {
+        if (this._options.isSortable !== true) {
             return this;
         }
 
@@ -177,10 +178,15 @@
         var t = this;
         this._uploadContainer = ss.components.Template.get("image-upload-container");
 
-        this._uploadContainer.find(".image-add-form")
-            .on("change", function() {
-                t._uploadFiles(this.files);
-            });
+        var form = this._uploadContainer.find(".image-add-form");
+
+        if (this._options.isSingleton !== true) {
+            form.attr("multiple", true);
+        }
+
+        form.on("change", function() {
+            t._uploadFiles(this.files);
+        });
 
         this._uploadContainer.appendTo(this._container);
 
@@ -200,13 +206,15 @@
         this._beforeUpload(files);
 
         $.each(files, $.proxy(function (i, file) {
+            this._activeFileNumber = i;
+
             new ss.components.Upload(
                 {
                     data: this._getData(),
                     file: file,
                     success: $.proxy(this._onUploadSuccess, this),
-                    xhr: $.proxy(this._uploadXhr(i), this),
-                    complete: $.proxy(this._onUploadComplete(i), this)
+                    xhr: $.proxy(this._uploadXhr, this),
+                    complete: $.proxy(this._onUploadComplete, this)
                 }
             );
         }, this));
@@ -229,7 +237,7 @@
 
         this._filesProgress = {};
         this._filesReadyToLoad = {};
-        for (var i = 0; i < files.length; $i++) {
+        for (var i = 0; i < files.length; i++) {
             this._filesProgress[i] = 0;
             this._filesReadyToLoad[i] = true;
         }
@@ -271,14 +279,13 @@
     /**
      * On file upload complete
      *
-     * @param {int} fileNumber
-     *
      * @private
      */
-    ss.content.block.image.ImageList.prototype._onUploadComplete = function (fileNumber) {
-        delete this._filesReadyToLoad[fileNumber];
+    ss.content.block.image.ImageList.prototype._onUploadComplete = function () {
+        delete this._filesReadyToLoad[this._activeFileNumber];
 
-        if (this._filesReadyToLoad.length === 0) {
+        var length = Object.keys(this._filesReadyToLoad).length;
+        if (length === 0) {
             this._onFilesUploadCompete();
         }
     };
@@ -295,13 +302,11 @@
     /**
      * Upload XHR
      *
-     * @param {int} fileNumber
-     *
      * @private
      */
-    ss.content.block.image.ImageList.prototype._uploadXhr = function (fileNumber) {
+    ss.content.block.image.ImageList.prototype._uploadXhr = function () {
         var myXhr = $.ajaxSettings.xhr();
-        var filesTotal = this._filesProgress.length;
+        var filesTotal = Object.keys(this._filesProgress).length;
         var progress = this._uploadContainer.find(".progress");
 
         myXhr.upload.addEventListener('progress', $.proxy(function (event) {
@@ -309,7 +314,7 @@
                 return false;
             }
 
-            this._filesProgress[fileNumber] = event.loaded / event.total;
+            this._filesProgress[this._activeFileNumber] = event.loaded / event.total;
 
             var filesProgress = 0;
             $.each(this._filesProgress, $.proxy(function(i, value) {

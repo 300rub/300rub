@@ -65,9 +65,9 @@
             var formData = new FormData();
 
             formData.append("file", this._options.file);
-            formData.append(language, ss.system.App.getLanguage());
-            formData.append(token, ss.system.App.getToken());
-            
+            formData.append("language", ss.system.App.getLanguage());
+            formData.append("token", ss.system.App.getToken());
+
             $.each(this._options.data, function(key, value) {
                 if ($.type(value) === "object") {
                     $.each(value, function(valueKey, valueValue) {
@@ -94,7 +94,7 @@
                 return this._options.beforeSend;
             }
 
-            return null;
+            return this._emptyFunction;
         },
 
         /**
@@ -109,7 +109,7 @@
                 return this._options.success;
             }
 
-            return null;
+            return this._emptyFunction;
         },
 
         /**
@@ -152,7 +152,7 @@
                 return this._options.complete;
             }
 
-            return null;
+            return this._emptyFunction;
         },
 
         /**
@@ -167,7 +167,15 @@
                 return this._options.xhr;
             }
 
-            return null;
+            return this._emptyFunction;
+        },
+
+        /**
+         * Empty function
+         *
+         * @private
+         */
+        _emptyFunction: function() {
         }
     };
 }(window.jQuery, window.ss);

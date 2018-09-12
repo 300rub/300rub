@@ -151,4 +151,8 @@ return [
         Language::LANGUAGE_EN_ID => 'Published',
         Language::LANGUAGE_RU_ID => '',
     ],
+    'default'                => [
+        Language::LANGUAGE_EN_ID => 'Default',
+        Language::LANGUAGE_RU_ID => 'По умолчанию',
+    ],
 ];

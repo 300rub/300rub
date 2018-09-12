@@ -46,15 +46,19 @@
      * @private
      */
     ss.window.blocks.image.Content.prototype._onLoadDataSuccess = function (data) {
-        console.log(data);
-
         if (data.useAlbums === false) {
             new ss.content.block.image.ImageList(
                 $.extend(
                     data,
                     {
                         appendTo: this.getBody(),
-                        isSortable: true
+                        isSortable: true,
+                        group: "image",
+                        controller: "image",
+                        data: {
+                            blockId: data.id,
+                            imageGroupId: data.groupId
+                        }
                     }
                 )
             );
