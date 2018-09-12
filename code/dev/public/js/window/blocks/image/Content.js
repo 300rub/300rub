@@ -53,7 +53,8 @@
                 $.extend(
                     data,
                     {
-                        appendTo: this.getBody()
+                        appendTo: this.getBody(),
+                        isSortable: true
                     }
                 )
             );

@@ -29,10 +29,9 @@
     ss.content.block.image.ImageList.prototype.init = function () {
         this
             ._createContainer()
-            ._setList()
-            ._setSortable()
             ._setUploadContainer()
-        ;
+            ._setList()
+            ._setSortable();
     };
 
     /**
@@ -64,48 +63,64 @@
             return this;
         }
 
-        $.each(this._options.list, $.proxy(function(i, itemData) {
-            var itemElement = ss.components.Template.get("image-sort-item");
-            itemElement.find("img").attr("src", itemData.url);
-            itemElement.appendTo(this._container);
-
-            var buttons = itemElement.find(".buttons");
-
-            if (this._options.canUpdate !== true
-                && this._options.canDelete !== true
-            ) {
-                buttons.remove();
-                return false;
-            }
-
-            if (this._options.canUpdate === true) {
-                new ss.forms.Button(
-                    {
-                        css: "btn btn-blue btn-small edit",
-                        icon: "fas fa-edit",
-                        label: '',
-                        appendTo: buttons,
-                        onClick: function () {
-                            //
-                        }
-                    }
-                );
-            }
-
-            if (this._options.canDelete === true) {
-                new ss.forms.Button(
-                    {
-                        css: "btn btn-red btn-small remove",
-                        icon: "fas fa-trash",
-                        label: '',
-                        appendTo: buttons,
-                        onClick: function () {
-                            //
-                        }
-                    }
-                );
-            }
+        $.each(this._options.list, $.proxy(function(i, data) {
+            this._addItem(data);
         }, this));
+
+        return this;
+    };
+
+    /**
+     * Adds item
+     *
+     * @param {Object} data
+     *
+     * @returns {ss.content.block.image.ImageList}
+     *
+     * @private
+     */
+    ss.content.block.image.ImageList.prototype._addItem = function (data) {
+        var itemElement = ss.components.Template.get("image-sort-item");
+        itemElement.find("img").attr("src", data.thumbUrl);
+
+        this._uploadContainer.before(itemElement);
+
+        var buttons = itemElement.find(".buttons");
+
+        if (this._options.canUpdate !== true
+            && this._options.canDelete !== true
+        ) {
+            buttons.remove();
+            return this;
+        }
+
+        if (this._options.canUpdate === true) {
+            new ss.forms.Button(
+                {
+                    css: "btn btn-blue btn-small edit",
+                    icon: "fas fa-edit",
+                    label: '',
+                    appendTo: buttons,
+                    onClick: function () {
+                        //
+                    }
+                }
+            );
+        }
+
+        if (this._options.canDelete === true) {
+            new ss.forms.Button(
+                {
+                    css: "btn btn-red btn-small remove",
+                    icon: "fas fa-trash",
+                    label: '',
+                    appendTo: buttons,
+                    onClick: function () {
+                        //
+                    }
+                }
+            );
+        }
 
         return this;
     };
@@ -118,7 +133,7 @@
      * @private
      */
     ss.content.block.image.ImageList.prototype._setSortable = function () {
-        if (this._options.isSingleton === true) {
+        if (this._options.isSortable === true) {
             return this;
         }
 
@@ -128,6 +143,22 @@
             }
         );
 
+        return this;
+    };
+
+    /**
+     * Refreshes sortable
+     *
+     * @returns {ss.content.block.image.ImageList}
+     *
+     * @private
+     */
+    ss.content.block.image.ImageList.prototype._refreshSortable = function () {
+        if (this._options.isSortable === true) {
+            return this;
+        }
+
+        this._container.sortable("refresh");
         return this;
     };
 
@@ -195,7 +226,7 @@
     ss.content.block.image.ImageList.prototype._beforeUpload = function (files) {
         this._uploadContainer.find(".progress").css("width", 0);
         this._uploadContainer.addClass("loading");
-        
+
         this._filesProgress = {};
         this._filesReadyToLoad = {};
         for (var i = 0; i < files.length; $i++) {
@@ -232,7 +263,9 @@
      * @private
      */
     ss.content.block.image.ImageList.prototype._onUploadSuccess = function (data) {
-        console.log(data);
+        this
+            ._addItem(data)
+            ._refreshSortable();
     };
 
     /**

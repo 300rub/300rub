@@ -167,9 +167,9 @@ class GetContentController extends AbstractController
 
         foreach ($imageInstanceModels as $imageInstanceModel) {
             $list[] = [
-                'id'  => $imageInstanceModel->getId(),
-                'alt' => $imageInstanceModel->get('alt'),
-                'url' => $imageInstanceModel->get('thumbFileModel')->getUrl()
+                'id'       => $imageInstanceModel->getId(),
+                'alt'      => $imageInstanceModel->get('alt'),
+                'thumbUrl' => $imageInstanceModel->get('thumbFileModel')->getUrl()
             ];
         }
 
