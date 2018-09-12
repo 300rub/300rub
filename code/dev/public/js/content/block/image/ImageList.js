@@ -11,7 +11,9 @@
 
         this._container = null;
         this._uploadContainer = null;
+
         this._filesProgress = {};
+        this._filesReadyToLoad = {};
 
         this.init();
     };
@@ -164,6 +166,52 @@
      * @private
      */
     ss.content.block.image.ImageList.prototype._uploadFiles = function (files) {
+        this._beforeUpload(files);
+
+        $.each(files, $.proxy(function (i, file) {
+            new ss.components.Upload(
+                {
+                    data: this._getData(),
+                    file: file,
+                    success: $.proxy(this._onUploadSuccess, this),
+                    xhr: $.proxy(this._uploadXhr(i), this),
+                    complete: $.proxy(this._onUploadComplete(i), this)
+                }
+            );
+        }, this));
+
+        return this;
+    };
+
+    /**
+     * Before upload
+     *
+     * @param {Array} files
+     *
+     * @returns {ss.content.block.image.ImageList}
+     *
+     * @private
+     */
+    ss.content.block.image.ImageList.prototype._beforeUpload = function (files) {
+        this._uploadContainer.find(".progress").css("width", 0);
+        this._uploadContainer.addClass("loading");
+        
+        this._filesProgress = {};
+        this._filesReadyToLoad = {};
+        for (var i = 0; i < files.length; $i++) {
+            this._filesProgress[i] = 0;
+            this._filesReadyToLoad[i] = true;
+        }
+
+        return this;
+    };
+
+    /**
+     * Gets data for AJAX
+     *
+     * @private
+     */
+    ss.content.block.image.ImageList.prototype._getData = function () {
         var data = {
             group: this._options.group,
             controller: this._options.controller
@@ -173,25 +221,7 @@
             data.data = this._options.data;
         }
 
-        var filesLength = files.length;
-
-        this._filesProgress = {};
-        for (var i = 0; i < files.length; $i++) {
-            this._filesProgress[i] = 0;
-        }
-
-        $.each(files, $.proxy(function (i, file) {
-            new ss.components.Upload(
-                {
-                    data: data,
-                    file: file,
-                    success: $.proxy(this._onUploadSuccess, this),
-                    xhr: $.proxy(this._uploadXhr(i), this)
-                }
-            );
-        }, this));
-
-        return this;
+        return data;
     };
 
     /**
@@ -203,6 +233,30 @@
      */
     ss.content.block.image.ImageList.prototype._onUploadSuccess = function (data) {
         console.log(data);
+    };
+
+    /**
+     * On file upload complete
+     *
+     * @param {int} fileNumber
+     *
+     * @private
+     */
+    ss.content.block.image.ImageList.prototype._onUploadComplete = function (fileNumber) {
+        delete this._filesReadyToLoad[fileNumber];
+
+        if (this._filesReadyToLoad.length === 0) {
+            this._onFilesUploadCompete();
+        }
+    };
+
+    /**
+     * On files upload complete
+     *
+     * @private
+     */
+    ss.content.block.image.ImageList.prototype._onFilesUploadCompete = function () {
+        this._uploadContainer.removeClass("loading");
     };
 
     /**
@@ -221,7 +275,7 @@
             if (event.lengthComputable === false) {
                 return false;
             }
-            
+
             this._filesProgress[fileNumber] = event.loaded / event.total;
 
             var filesProgress = 0;
