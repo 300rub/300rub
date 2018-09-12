@@ -7,7 +7,7 @@
     </div>
 </div>
 
-<div class="image-add-container">
+<div class="image-upload-container">
     <div class="progress"></div>
 
     <div class="icons">

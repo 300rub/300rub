@@ -10,6 +10,8 @@
         this._options = $.extend({}, options);
 
         this._container = null;
+        this._uploadContainer = null;
+        this._filesProgress = {};
 
         this.init();
     };
@@ -27,7 +29,7 @@
             ._createContainer()
             ._setList()
             ._setSortable()
-            ._setAddButton()
+            ._setUploadContainer()
         ;
     };
 
@@ -62,36 +64,45 @@
 
         $.each(this._options.list, $.proxy(function(i, itemData) {
             var itemElement = ss.components.Template.get("image-sort-item");
-            var image = itemElement.find("img");
-            var buttons = itemElement.find(".buttons");
-
-            image.attr("src", itemData.url);
-
+            itemElement.find("img").attr("src", itemData.url);
             itemElement.appendTo(this._container);
 
-            new ss.forms.Button(
-                {
-                    css: "btn btn-blue btn-small edit",
-                    icon: "fas fa-edit",
-                    label: '',
-                    appendTo: buttons,
-                    onClick: function () {
-                        //
-                    }
-                }
-            );
+            var buttons = itemElement.find(".buttons");
 
-            new ss.forms.Button(
-                {
-                    css: "btn btn-red btn-small remove",
-                    icon: "fas fa-trash",
-                    label: '',
-                    appendTo: buttons,
-                    onClick: function () {
-                        //
+            if (this._options.canUpdate !== true
+                && this._options.canDelete !== true
+            ) {
+                buttons.remove();
+                return false;
+            }
+
+            if (this._options.canUpdate === true) {
+                new ss.forms.Button(
+                    {
+                        css: "btn btn-blue btn-small edit",
+                        icon: "fas fa-edit",
+                        label: '',
+                        appendTo: buttons,
+                        onClick: function () {
+                            //
+                        }
                     }
-                }
-            );
+                );
+            }
+
+            if (this._options.canDelete === true) {
+                new ss.forms.Button(
+                    {
+                        css: "btn btn-red btn-small remove",
+                        icon: "fas fa-trash",
+                        label: '',
+                        appendTo: buttons,
+                        onClick: function () {
+                            //
+                        }
+                    }
+                );
+            }
         }, this));
 
         return this;
@@ -125,9 +136,107 @@
      *
      * @private
      */
-    ss.content.block.image.ImageList.prototype._setAddButton = function () {
+    ss.content.block.image.ImageList.prototype._setUploadContainer = function () {
+        if (this._options.canCreate !== true) {
+            return this;
+        }
 
+        var t = this;
+        this._uploadContainer = ss.components.Template.get("image-upload-container");
+
+        this._uploadContainer.find(".image-add-form")
+            .on("change", function() {
+                t._uploadFiles(this.files);
+            });
+
+        this._uploadContainer.appendTo(this._container);
 
         return this;
+    };
+
+    /**
+     * Uploads files
+     *
+     * @param {Array} files
+     *
+     * @returns {ss.content.block.image.ImageList}
+     *
+     * @private
+     */
+    ss.content.block.image.ImageList.prototype._uploadFiles = function (files) {
+        var data = {
+            group: this._options.group,
+            controller: this._options.controller
+        };
+
+        if ($.type(this._options.data) === "object") {
+            data.data = this._options.data;
+        }
+
+        var filesLength = files.length;
+
+        this._filesProgress = {};
+        for (var i = 0; i < files.length; $i++) {
+            this._filesProgress[i] = 0;
+        }
+
+        $.each(files, $.proxy(function (i, file) {
+            new ss.components.Upload(
+                {
+                    data: data,
+                    file: file,
+                    success: $.proxy(this._onUploadSuccess, this),
+                    xhr: $.proxy(this._uploadXhr(i), this)
+                }
+            );
+        }, this));
+
+        return this;
+    };
+
+    /**
+     * On file upload success
+     *
+     * @param {Object} data
+     *
+     * @private
+     */
+    ss.content.block.image.ImageList.prototype._onUploadSuccess = function (data) {
+        console.log(data);
+    };
+
+    /**
+     * Upload XHR
+     *
+     * @param {int} fileNumber
+     *
+     * @private
+     */
+    ss.content.block.image.ImageList.prototype._uploadXhr = function (fileNumber) {
+        var myXhr = $.ajaxSettings.xhr();
+        var filesTotal = this._filesProgress.length;
+        var progress = this._uploadContainer.find(".progress");
+
+        myXhr.upload.addEventListener('progress', $.proxy(function (event) {
+            if (event.lengthComputable === false) {
+                return false;
+            }
+            
+            this._filesProgress[fileNumber] = event.loaded / event.total;
+
+            var filesProgress = 0;
+            $.each(this._filesProgress, $.proxy(function(i, value) {
+                filesProgress += value;
+            }, this));
+
+            var filesPercent = Math.ceil(filesProgress / filesTotal * 100);
+            if (filesPercent > 98) {
+                filesPercent = 98;
+            }
+
+            progress.css("width", filesPercent + "%");
+        }, this), false);
+
+        return myXhr;
     };
 }(window.jQuery, window.ss);

@@ -6,7 +6,7 @@
      *
      * @param {Object} options
      */
-    ss.components.Ajax = function (options) {
+    ss.components.Upload = function (options) {
         this._options = $.extend({}, options);
         this.init();
     };
@@ -16,12 +16,12 @@
      *
      * @type {Object}
      */
-    ss.components.Ajax.prototype = {
+    ss.components.Upload.prototype = {
 
         /**
          * Constructor
          */
-        constructor: ss.components.Ajax,
+        constructor: ss.components.Upload,
 
         /**
          * Init
@@ -33,17 +33,18 @@
                         $.ajax(
                             {
                                 url: "/api/",
-                                contentType: "application/json",
-                                accepts: "application/json",
-                                dataType: "json",
+                                type: "POST",
+                                cache: false,
+                                contentType: false,
+                                processData: false,
                                 global: false,
                                 traditional: true,
                                 data: this._getData(),
-                                type: this._getType(),
                                 beforeSend: this._getBeforeSend(),
                                 success: this._getSuccess(),
                                 error: this._getError(),
-                                complete: this._getComplete()
+                                complete: this._getComplete(),
+                                xhr: this._getXhr()
                             }
                         );
                     },
@@ -61,39 +62,24 @@
          * @private
          */
         _getData: function () {
-            var data = $.extend(
-                {
-                    language: ss.system.App.getLanguage(),
-                    token: ss.system.App.getToken()
-                },
-                this._options.data
-            );
+            var formData = new FormData();
 
-            if (this._getType() === "GET") {
-                return decodeURIComponent($.param(data));
-            }
-
-            return window.JSON.stringify(data);
-        },
-
-        /**
-         * Gets type
-         *
-         * @returns {Object}
-         *
-         * @private
-         */
-        _getType: function () {
-            switch (this._options.type) {
-                case "POST":
-                    return "POST";
-                case "PUT":
-                    return "PUT";
-                case "DELETE":
-                    return "DELETE";
-            }
-
-            return "GET";
+            formData.append("file", this._options.file);
+            formData.append(language, ss.system.App.getLanguage());
+            formData.append(token, ss.system.App.getToken());
+            
+            $.each(this._options.data, function(key, value) {
+                if ($.type(value) === "object") {
+                    $.each(value, function(valueKey, valueValue) {
+                        var formattedKey = key + "[" + valueKey + "]";
+                        formData.append(formattedKey, valueValue);
+                    });
+                } else {
+                    formData.append(key, value);
+                }
+            });
+            
+            return formData;
         },
 
         /**
@@ -164,6 +150,21 @@
         _getComplete: function () {
             if ($.type(this._options.complete) === "function") {
                 return this._options.complete;
+            }
+
+            return null;
+        },
+
+        /**
+         * Gets before send function
+         *
+         * @returns {Function}
+         *
+         * @private
+         */
+        _getXhr: function () {
+            if ($.type(this._options.xhr) === "function") {
+                return this._options.xhr;
             }
 
             return null;

@@ -64,17 +64,17 @@ class GetContentController extends AbstractController
                 $data,
                 [
                     'useAlbums'      => true,
-                    'canCreateAlbum' => $this->hasBlockOperation(
+                    'canCreate' => $this->hasBlockOperation(
                         BlockModel::TYPE_IMAGE,
                         $this->get('id'),
                         Operation::IMAGE_CREATE_ALBUM
                     ),
-                    'canUpdateAlbum' => $this->hasBlockOperation(
+                    'canUpdate' => $this->hasBlockOperation(
                         BlockModel::TYPE_IMAGE,
                         $this->get('id'),
                         Operation::IMAGE_UPDATE_ALBUM
                     ),
-                    'canDeleteAlbum' => $this->hasBlockOperation(
+                    'canDelete' => $this->hasBlockOperation(
                         BlockModel::TYPE_IMAGE,
                         $this->get('id'),
                         Operation::IMAGE_DELETE_ALBUM
@@ -89,17 +89,17 @@ class GetContentController extends AbstractController
             $data,
             [
                 'useAlbums'      => false,
-                'canUploadImage' => $this->hasBlockOperation(
+                'canCreate' => $this->hasBlockOperation(
                     BlockModel::TYPE_IMAGE,
                     $this->get('id'),
                     Operation::IMAGE_UPLOAD
                 ),
-                'canUpdateImage' => $this->hasBlockOperation(
+                'canUpdate' => $this->hasBlockOperation(
                     BlockModel::TYPE_IMAGE,
                     $this->get('id'),
                     Operation::IMAGE_UPDATE
                 ),
-                'canDeleteImage' => $this->hasBlockOperation(
+                'canDelete' => $this->hasBlockOperation(
                     BlockModel::TYPE_IMAGE,
                     $this->get('id'),
                     Operation::IMAGE_DELETE

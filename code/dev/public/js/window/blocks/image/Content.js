@@ -50,10 +50,12 @@
 
         if (data.useAlbums === false) {
             new ss.content.block.image.ImageList(
-                {
-                    list: data.list,
-                    appendTo: this.getBody()
-                }
+                $.extend(
+                    data,
+                    {
+                        appendTo: this.getBody()
+                    }
+                )
             );
         }
 
