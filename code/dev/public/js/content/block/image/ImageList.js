@@ -23,7 +23,42 @@
      * Init
      */
     ss.content.block.image.ImageList.prototype.init = function () {
+        this
+            ._createContainer()
+            ._setList()
+            ._setSortable()
+            ._setAddButton()
+        ;
+    };
+
+    /**
+     * Creates container
+     *
+     * @returns {ss.content.block.image.ImageList}
+     *
+     * @private
+     */
+    ss.content.block.image.ImageList.prototype._createContainer = function () {
         this._container = ss.components.Template.get("image-sort-container");
+
+        if (this._options.appendTo !== undefined) {
+            this._container.appendTo(this._options.appendTo);
+        }
+
+        return this;
+    };
+
+    /**
+     * Sets List
+     *
+     * @returns {ss.content.block.image.ImageList}
+     *
+     * @private
+     */
+    ss.content.block.image.ImageList.prototype._setList = function () {
+        if (this._options.list === undefined) {
+            return this;
+        }
 
         $.each(this._options.list, $.proxy(function(i, itemData) {
             var itemElement = ss.components.Template.get("image-sort-item");
@@ -58,9 +93,41 @@
                 }
             );
         }, this));
+
+        return this;
     };
 
-    ss.content.block.image.ImageList.prototype.getContainer = function () {
-        return this._container;
+    /**
+     * Sets sortable
+     *
+     * @returns {ss.content.block.image.ImageList}
+     *
+     * @private
+     */
+    ss.content.block.image.ImageList.prototype._setSortable = function () {
+        if (this._options.isSingleton === true) {
+            return this;
+        }
+
+        this._container.sortable(
+            {
+                items: ".image-sort-item"
+            }
+        );
+
+        return this;
+    };
+
+    /**
+     * Sets add button
+     *
+     * @returns {ss.content.block.image.ImageList}
+     *
+     * @private
+     */
+    ss.content.block.image.ImageList.prototype._setAddButton = function () {
+
+
+        return this;
     };
 }(window.jQuery, window.ss);

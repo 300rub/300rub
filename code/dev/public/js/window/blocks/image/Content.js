@@ -49,8 +49,12 @@
         console.log(data);
 
         if (data.useAlbums === false) {
-            var imageList = new ss.content.block.image.ImageList(data);
-            imageList.getContainer().appendTo(this.getBody());
+            new ss.content.block.image.ImageList(
+                {
+                    list: data.list,
+                    appendTo: this.getBody()
+                }
+            );
         }
 
         this
