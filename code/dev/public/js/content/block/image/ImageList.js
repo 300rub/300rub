@@ -12,6 +12,7 @@
         this._container = null;
 
         this._uploadContainer = null;
+        this._uploadForm = null;
         this._uploadProgress = null;
         this._uploadCountCurrent = null;
         this._uploadCountAll = null;
@@ -86,7 +87,7 @@
         var itemElement = ss.components.Template.get("image-sort-item");
         itemElement.find("img").attr("src", data.thumbUrl);
 
-        this._uploadContainer.before(itemElement);
+        this._container.append(itemElement);
 
         var buttons = itemElement.find(".buttons");
 
@@ -179,17 +180,16 @@
 
         var t = this;
         this._uploadContainer = ss.components.Template.get("image-upload-container");
+        this._uploadForm = this._uploadContainer.find(".image-add-form");
         this._uploadProgress = this._uploadContainer.find(".progress");
         this._uploadCountCurrent = this._uploadContainer.find(".count-container .current");
         this._uploadCountAll = this._uploadContainer.find(".count-container .all");
 
-        var form = this._uploadContainer.find(".image-add-form");
-
         if (this._options.isSingleton !== true) {
-            form.attr("multiple", true);
+            this._uploadForm.attr("multiple", true);
         }
 
-        form.on("change", function() {
+        this._uploadForm.on("change", function() {
             t._uploadFiles(this.files);
         });
 
