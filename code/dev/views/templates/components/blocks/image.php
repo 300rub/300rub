@@ -10,6 +10,12 @@
 <div class="image-upload-container">
     <div class="progress"></div>
 
+    <div class="count-container">
+        <span class="current">0</span>
+        /
+        <span class="all">0</span>
+    </div>
+
     <div class="icons">
         <i class="fas fa-camera"></i>
         <i class="fas fa-sync fa-spin"></i>
