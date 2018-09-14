@@ -120,4 +120,8 @@ return [
         Language::LANGUAGE_EN_ID => "You can configure image's design",
         Language::LANGUAGE_RU_ID => '',
     ],
+    'imageDeleteConfirm'  => [
+        Language::LANGUAGE_EN_ID => "Are you sure to delete the image?",
+        Language::LANGUAGE_RU_ID => 'Вы действительно хотите удалить изображение?',
+    ],
 ];

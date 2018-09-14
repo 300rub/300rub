@@ -19,6 +19,20 @@ class GetContentController extends AbstractController
 {
 
     /**
+     * Block model
+     *
+     * @var BlockModel
+     */
+    private $_blockModel = null;
+
+    /**
+     * Image model
+     *
+     * @var ImageModel
+     */
+    private $_imageModel = null;
+
+    /**
      * Runs controller
      *
      * @return array
@@ -39,91 +53,106 @@ class GetContentController extends AbstractController
             Operation::IMAGE_UPDATE_CONTENT
         );
 
-        $blockModel =  $imageModel = BlockModel::model()
+        $this->_blockModel = BlockModel::model()
             ->getById($this->get('id'));
 
-        $imageModel = $blockModel
+        $this->_imageModel = $this->_blockModel
             ->getContentModel(ImageModel::CLASS_NAME);
 
         $groupId = (int)$this->get('groupId');
-        $data = [
-            'id'     => $blockModel->getId(),
-            'labels' => [],
-            'name'   => $blockModel->get('name'),
-            'button' => [
-                'label' => App::getInstance()
-                    ->getLanguage()
-                    ->getMessage('common', 'save')
-            ]
-        ];
-
-        if ($imageModel->get('useAlbums') === true
+        if ($this->_imageModel->get('useAlbums') === true
             && $groupId === 0
         ) {
-            return array_merge(
-                $data,
-                [
-                    'useAlbums'      => true,
-                    'canCreate' => $this->hasBlockOperation(
-                        BlockModel::TYPE_IMAGE,
-                        $this->get('id'),
-                        Operation::IMAGE_CREATE_ALBUM
-                    ),
-                    'canUpdate' => $this->hasBlockOperation(
-                        BlockModel::TYPE_IMAGE,
-                        $this->get('id'),
-                        Operation::IMAGE_UPDATE_ALBUM
-                    ),
-                    'canDelete' => $this->hasBlockOperation(
-                        BlockModel::TYPE_IMAGE,
-                        $this->get('id'),
-                        Operation::IMAGE_DELETE_ALBUM
-                    ),
-                    'list'
-                        => $this->_getListWithAlbums($imageModel)
-                ]
-            );
-        }
-
-        return array_merge(
-            $data,
-            [
-                'useAlbums'      => false,
-                'groupId'   => $groupId,
+            return [
+                'id'     => $this->_blockModel->getId(),
+                'labels' => [],
+                'name'   => $this->_blockModel->get('name'),
+                'button' => [
+                    'label' => App::getInstance()
+                        ->getLanguage()
+                        ->getMessage('common', 'save')
+                ],
+                'useAlbums'      => true,
                 'canCreate' => $this->hasBlockOperation(
                     BlockModel::TYPE_IMAGE,
                     $this->get('id'),
-                    Operation::IMAGE_UPLOAD
+                    Operation::IMAGE_CREATE_ALBUM
                 ),
                 'canUpdate' => $this->hasBlockOperation(
                     BlockModel::TYPE_IMAGE,
                     $this->get('id'),
-                    Operation::IMAGE_UPDATE
+                    Operation::IMAGE_UPDATE_ALBUM
                 ),
                 'canDelete' => $this->hasBlockOperation(
                     BlockModel::TYPE_IMAGE,
                     $this->get('id'),
-                    Operation::IMAGE_DELETE
+                    Operation::IMAGE_DELETE_ALBUM
                 ),
                 'list'
-                    => $this->_getListWithoutAlbums($imageModel, $groupId)
-            ]
-        );
+                    => $this->_getListWithAlbums()
+            ];
+        }
+
+        return $this->_getImagesResponse();
+    }
+
+    /**
+     * Gets images response
+     *
+     * @return array
+     */
+    private function _getImagesResponse()
+    {
+        $language = App::getInstance()->getLanguage();
+
+        return [
+            'id'        => $this->_blockModel->getId(),
+            'labels'    => [
+                'deleteConfirm'
+                    => $language->getMessage('image', 'imageDeleteConfirm'),
+                'delete'
+                    => $language->getMessage('common', 'delete'),
+                'no'
+                    => $language->getMessage('common', 'no'),
+            ],
+            'name'      => $this->_blockModel->get('name'),
+            'button'    => [
+                'label' => App::getInstance()
+                    ->getLanguage()
+                    ->getMessage('common', 'save')
+            ],
+            'useAlbums' => false,
+            'groupId'   => (int)$this->get('groupId'),
+            'canCreate' => $this->hasBlockOperation(
+                BlockModel::TYPE_IMAGE,
+                $this->get('id'),
+                Operation::IMAGE_UPLOAD
+            ),
+            'canUpdate' => $this->hasBlockOperation(
+                BlockModel::TYPE_IMAGE,
+                $this->get('id'),
+                Operation::IMAGE_UPDATE
+            ),
+            'canDelete' => $this->hasBlockOperation(
+                BlockModel::TYPE_IMAGE,
+                $this->get('id'),
+                Operation::IMAGE_DELETE
+            ),
+            'list'      => $this->_getListWithoutAlbums()
+        ];
     }
 
     /**
      * Gets list with albums
      *
-     * @param ImageModel|AbstractModel $imageModel Image model
-     *
      * @return array
      */
-    private function _getListWithAlbums($imageModel)
+    private function _getListWithAlbums()
     {
         $list = [];
 
         $imageGroupModels = ImageGroupModel::model()
-            ->byImageId($imageModel->getId())
+            ->byImageId($this->_imageModel->getId())
             ->ordered('sort')
             ->findAll();
         foreach ($imageGroupModels as $imageGroupModel) {
@@ -151,26 +180,22 @@ class GetContentController extends AbstractController
     /**
      * Gets list without albums
      *
-     * @param ImageModel|AbstractModel $imageModel Image model
-     * @param integer                  $groupId    Group ID
-     *
      * @return array
      */
-    private function _getListWithoutAlbums($imageModel, $groupId)
+    private function _getListWithoutAlbums()
     {
         $list = [];
 
         $imageInstanceModels = $this->_getImageInstanceModels(
-            $imageModel->get('useAlbums'),
-            $groupId,
-            $imageModel->getId()
+            $this->_imageModel->get('useAlbums'),
+            $this->_imageModel->getId()
         );
 
         foreach ($imageInstanceModels as $imageInstanceModel) {
             $list[] = [
-                'id'       => $imageInstanceModel->getId(),
-                'alt'      => $imageInstanceModel->get('alt'),
-                'thumbUrl' => $imageInstanceModel->get('thumbFileModel')->getUrl()
+                'id'   => $imageInstanceModel->getId(),
+                'name' => $imageInstanceModel->get('alt'),
+                'url'  => $imageInstanceModel->get('thumbFileModel')->getUrl()
             ];
         }
 
@@ -181,13 +206,14 @@ class GetContentController extends AbstractController
      * Gets image instance models
      *
      * @param bool    $useAlbums Flag of using albums
-     * @param integer $groupId   Group ID
      * @param integer $imageId   Image ID
      *
      * @return AbstractModel[]|ImageInstanceModel[]
      */
-    private function _getImageInstanceModels($useAlbums, $groupId, $imageId)
+    private function _getImageInstanceModels($useAlbums, $imageId)
     {
+        $groupId = (int)$this->get('groupId');
+
         if ($useAlbums === true
             && $groupId > 0
         ) {

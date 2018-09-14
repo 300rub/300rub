@@ -48,19 +48,40 @@
     ss.window.blocks.image.Content.prototype._onLoadDataSuccess = function (data) {
         if (data.useAlbums === false) {
             new ss.content.block.image.ImageList(
-                $.extend(
-                    data,
-                    {
-                        appendTo: this.getBody(),
-                        isSortable: true,
+                {
+                    appendTo: this.getBody(),
+                    isSortable: true,
+                    list: data.list,
+                    create: {
+                        hasOperation: data.canCreate,
+                        isSingleton: false,
                         group: "image",
                         controller: "image",
                         data: {
                             blockId: data.id,
                             imageGroupId: data.groupId
                         }
+                    },
+                    update: {
+                        hasOperation: data.canUpdate,
+                        onClick: function() {
+                            console.log(123);
+                        }
+                    },
+                    delete: {
+                        hasOperation: data.canDelete,
+                        group: "image",
+                        controller: "image",
+                        data: {
+                            blockId: data.id
+                        },
+                        confirm: {
+                            text: data.labels.deleteConfirm,
+                            yes: data.labels.delete,
+                            no: data.labels.no
+                        }
                     }
-                )
+                }
             );
         }
 

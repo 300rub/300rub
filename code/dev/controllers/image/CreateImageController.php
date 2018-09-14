@@ -41,7 +41,13 @@ class CreateImageController extends AbstractController
             ]
         );
 
-        return $imageInstanceModel->upload();
+        $result = $imageInstanceModel->upload();
+
+        return [
+            'id'   => $result['id'],
+            'name' => $result['name'],
+            'url'  => $result['thumbUrl'],
+        ];
     }
 
     /**

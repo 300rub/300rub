@@ -7,7 +7,7 @@
      * @param {Object} options
      */
     ss.content.block.image.ImageList = function (options) {
-        this._options = $.extend({}, options);
+        this._options = $.extend(this._defaultOptions, options);
 
         this._container = null;
 
@@ -26,6 +26,47 @@
      * Constructor
      */
     ss.content.block.image.ImageList.prototype.constructor = ss.content.block.image.ImageList;
+
+    /**
+     * Default options
+     *
+     * @type {Object}
+     *
+     * @private
+     */
+    ss.content.block.image.ImageList.prototype._defaultOptions = {
+        appendTo: null,
+        isSortable: false,
+        list: [
+            {
+                id: 0,
+                url: "",
+                name: ""
+            }
+        ],
+        create: {
+            hasOperation: false,
+            isSingleton: false,
+            group: "",
+            controller: "",
+            data: {}
+        },
+        update: {
+            hasOperation: false,
+            onClick: function() {}
+        },
+        delete: {
+            hasOperation: false,
+            group: "",
+            controller: "",
+            data: {},
+            confirm: {
+                text: "",
+                yes: "",
+                no: ""
+            }
+        }
+    };
 
     /**
      * Init
@@ -48,7 +89,7 @@
     ss.content.block.image.ImageList.prototype._createContainer = function () {
         this._container = ss.components.Template.get("image-sort-container");
 
-        if (this._options.appendTo !== undefined) {
+        if (this._options.appendTo !== null) {
             this._container.appendTo(this._options.appendTo);
         }
 
@@ -63,7 +104,7 @@
      * @private
      */
     ss.content.block.image.ImageList.prototype._setList = function () {
-        if (this._options.list === undefined) {
+        if ($.type(this._options.list) !== "array") {
             return this;
         }
 
@@ -84,43 +125,61 @@
      * @private
      */
     ss.content.block.image.ImageList.prototype._addItem = function (data) {
+        if (data.id === 0) {
+            return this;
+        }
+
         var itemElement = ss.components.Template.get("image-sort-item");
-        itemElement.find("img").attr("src", data.thumbUrl);
+        itemElement.find("img").attr("src", data.url);
 
         this._container.append(itemElement);
 
         var buttons = itemElement.find(".buttons");
 
-        if (this._options.canUpdate !== true
-            && this._options.canDelete !== true
+        if (this._options.update.hasOperation !== true
+            && this._options.delete.hasOperation !== true
         ) {
             buttons.remove();
             return this;
         }
 
-        if (this._options.canUpdate === true) {
+        if (this._options.update.hasOperation === true) {
             new ss.forms.Button(
                 {
                     css: "btn btn-blue btn-small edit",
                     icon: "fas fa-edit",
                     label: '',
                     appendTo: buttons,
-                    onClick: function () {
-                        //
-                    }
+                    onClick: this._options.update.onClick
                 }
             );
         }
 
-        if (this._options.canDelete === true) {
+        if (this._options.delete.hasOperation === true) {
             new ss.forms.Button(
                 {
                     css: "btn btn-red btn-small remove",
                     icon: "fas fa-trash",
                     label: '',
                     appendTo: buttons,
-                    onClick: function () {
-                        //
+                    confirm: {
+                        text: this._options.delete.confirm.text,
+                        yes: {
+                            label: this._options.delete.confirm.yes,
+                            icon: "fas fa-trash"
+                        },
+                        no: this._options.delete.confirm.no
+                    },
+                    ajax: {
+                        data: {
+                            group: this._options.delete.group,
+                            controller: this._options.delete.controller,
+                            data: this._options.delete.data
+                        },
+                        type: "DELETE",
+                        success: function () {
+                            itemElement.remove();
+                        }
                     }
                 }
             );
@@ -174,7 +233,7 @@
      * @private
      */
     ss.content.block.image.ImageList.prototype._setUploadContainer = function () {
-        if (this._options.canCreate !== true) {
+        if (this._options.create.hasOperation !== true) {
             return this;
         }
 
@@ -185,7 +244,7 @@
         this._uploadCountCurrent = this._uploadContainer.find(".count-container .current");
         this._uploadCountAll = this._uploadContainer.find(".count-container .all");
 
-        if (this._options.isSingleton !== true) {
+        if (this._options.create.isSingleton !== true) {
             this._uploadForm.attr("multiple", true);
         }
 
@@ -212,6 +271,8 @@
         this._uploadProgress.css("width", 0);
         this._uploadCountCurrent.text(0);
         this._uploadCountAll.text(this._files.length);
+        this._uploadForm.attr("disabled", true);
+
         this._container.addClass("loading");
 
         this._uploadFile(0);
@@ -233,12 +294,13 @@
 
         if (this._files[number] === undefined) {
             this._container.removeClass("loading");
+            this._uploadForm.attr("disabled", false);
             return this;
         }
 
         new ss.components.Upload(
             {
-                data: this._getData(),
+                data: this._getUploadData(),
                 file: file,
                 success: $.proxy(this._onUploadSuccess, this),
                 xhr: $.proxy(this._uploadXhr, this),
@@ -257,14 +319,14 @@
      *
      * @private
      */
-    ss.content.block.image.ImageList.prototype._getData = function () {
+    ss.content.block.image.ImageList.prototype._getUploadData = function () {
         var data = {
-            group: this._options.group,
-            controller: this._options.controller
+            group: this._options.create.group,
+            controller: this._options.create.controller
         };
 
-        if ($.type(this._options.data) === "object") {
-            data.data = this._options.data;
+        if ($.type(this._options.create.data) === "object") {
+            data.data = this._options.create.data;
         }
 
         return data;
