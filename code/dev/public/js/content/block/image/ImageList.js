@@ -7,7 +7,7 @@
      * @param {Object} options
      */
     ss.content.block.image.ImageList = function (options) {
-        this._options = $.extend(this._defaultOptions, options);
+        this._options = $.extend({}, this._defaultOptions, options);
 
         this._container = null;
 
@@ -132,8 +132,6 @@
         var itemElement = ss.components.Template.get("image-sort-item");
         itemElement.find("img").attr("src", data.url);
 
-        this._container.append(itemElement);
-
         var buttons = itemElement.find(".buttons");
 
         if (this._options.update.hasOperation !== true
@@ -174,7 +172,13 @@
                         data: {
                             group: this._options.delete.group,
                             controller: this._options.delete.controller,
-                            data: this._options.delete.data
+                            data: $.extend(
+                                {},
+                                this._options.delete.data,
+                                {
+                                    id: data.id
+                                }
+                            )
                         },
                         type: "DELETE",
                         success: function () {
@@ -184,6 +188,8 @@
                 }
             );
         }
+
+        this._container.append(itemElement);
 
         return this;
     };
