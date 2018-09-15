@@ -151,7 +151,7 @@
                     label: '',
                     appendTo: buttons,
                     onClick: $.proxy(function() {
-                        new ss.window.blocks.image.Edit(
+                        new ss.window.blocks.image.Crop(
                             {
                                 blockId: this._options.update.blockId,
                                 id: data.id,

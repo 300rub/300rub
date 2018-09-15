@@ -55,6 +55,7 @@ return [
             'css' => [
                 'lib/colorpicker/jquery.colorpicker',
                 'lib/gridstack.min',
+                'lib/cropper.min',
             ],
             'js'  => [
                 'lib/jquery-ui.min',
@@ -63,6 +64,7 @@ return [
                 'lib/gridstack.min',
                 'lib/tinymce/tinymce.min',
                 'lib/tinymce/jquery.tinymce.min',
+                'lib/cropper.min',
             ]
         ],
         'less' => 'admin',
@@ -115,7 +117,7 @@ return [
             'window/section/Blocks',
             'window/blocks/text/Content',
             'window/blocks/image/Content',
-            'window/blocks/image/Edit',
+            'window/blocks/image/Crop',
         ],
         'compiledCss' => 'admin.min',
         'compiledJs' => 'admin.min',

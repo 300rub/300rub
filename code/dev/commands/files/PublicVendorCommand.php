@@ -75,6 +75,8 @@ class PublicVendorCommand extends AbstractCommand
 			=> "IanLunn/Hover/css/hover-min.css",
 		"jquery.fancybox.min.css"
 			=> "fancyapps/fancybox/dist/jquery.fancybox.min.css",
+		"cropper.min.css"
+			=> "fengyuanchen/cropper/dist/cropper.min.css",
 	];
 
     /**
@@ -133,6 +135,8 @@ class PublicVendorCommand extends AbstractCommand
 			=> "fancyapps/fancybox/dist/jquery.fancybox.min.js",
 		"jssor.slider.min.js"
 			=> "jssor/slider/js/jssor.slider.min.js",
+		"cropper.min.js"
+			=> "fengyuanchen/cropper/dist/cropper.min.js",
 	];
 
 	/**

@@ -7,5 +7,6 @@ require 'panel/blocks/text.php';
 require 'window/users.php';
 require 'window/release.php';
 require 'window/section.php';
+require 'window/image.php';
 require 'components/blocks/image.php';
 
