@@ -53,7 +53,9 @@
         },
         update: {
             hasOperation: false,
-            onClick: function() {}
+            blockId: 0,
+            level: 2,
+            parent: ""
         },
         delete: {
             hasOperation: false,
@@ -148,7 +150,16 @@
                     icon: "fas fa-edit",
                     label: '',
                     appendTo: buttons,
-                    onClick: this._options.update.onClick
+                    onClick: $.proxy(function() {
+                        new ss.window.blocks.image.Edit(
+                            {
+                                blockId: this._options.update.blockId,
+                                id: data.id,
+                                level: this._options.update.level,
+                                parent: this._options.update.parent
+                            }
+                        );
+                    }, this)
                 }
             );
         }

@@ -115,6 +115,7 @@ return [
             'window/section/Blocks',
             'window/blocks/text/Content',
             'window/blocks/image/Content',
+            'window/blocks/image/Edit',
         ],
         'compiledCss' => 'admin.min',
         'compiledJs' => 'admin.min',

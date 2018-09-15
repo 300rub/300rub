@@ -18,7 +18,7 @@
                     id: options.id
                 },
                 success: $.proxy(this._onLoadDataSuccess, this),
-                name: "users.sessions",
+                name: "users-sessions",
                 level: 2,
                 parent: "users"
             }

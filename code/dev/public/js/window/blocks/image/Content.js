@@ -64,9 +64,9 @@
                     },
                     update: {
                         hasOperation: data.canUpdate,
-                        onClick: function() {
-                            console.log(123);
-                        }
+                        blockId: data.id,
+                        level: 2,
+                        parent: "image-content"
                     },
                     delete: {
                         hasOperation: data.canDelete,
