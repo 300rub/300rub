@@ -4,10 +4,23 @@
   height: 30px;
   padding: 0 16px 1px 16px;
   position: relative;
+  font-size: 14px;
+  text-align: center;
 
-  i,
-  span {
-    font-size: 14px;
+  .icons {
+    display: inline-block;
+    margin: 0 -2px 0 -5px;
+    text-align: center;
+    width: 22px;
+  }
+}
+
+.btn-icon {
+  width: 30px;
+  padding: 0 0 1px 0;
+
+  .icons {
+    margin: 0;
   }
 }
 
@@ -121,6 +134,8 @@
 }
 
 .btn-group {
+  display: inline-block;
+
   .btn {
     .border-radius(0);
     margin: 0 -1px;

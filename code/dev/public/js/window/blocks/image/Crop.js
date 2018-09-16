@@ -71,14 +71,14 @@
             }
         });
 
-        var actions = container.find(".actions");
+        var rotateContainer = container.find(".rotate-container");
 
         new ss.forms.Button(
             {
                 css: "btn btn-blue btn-icon",
                 icon: "fas fa-undo",
                 label: '',
-                appendTo: actions,
+                appendTo: rotateContainer,
                 onClick: $.proxy(function() {
                     viewImage.cropper("rotate", -45);
                 }, this)
@@ -90,9 +90,156 @@
                 css: "btn btn-blue btn-icon",
                 icon: "fas fa-redo",
                 label: '',
-                appendTo: actions,
+                appendTo: rotateContainer,
                 onClick: $.proxy(function() {
                     viewImage.cropper("rotate", 45);
+                }, this)
+            }
+        );
+
+        var flipContainer = container.find(".flip-container");
+
+        new ss.forms.Button(
+            {
+                css: "btn btn-blue btn-icon",
+                icon: "fas fa-arrows-alt-h",
+                label: '',
+                appendTo: flipContainer,
+                onClick: $.proxy(function() {
+                    if (flipContainer.hasClass("flipped-x") === true) {
+                        viewImage.cropper("scaleX", 1);
+                        flipContainer.removeClass("flipped-x");
+                    } else {
+                        viewImage.cropper("scaleX", -1);
+                        flipContainer.addClass("flipped-x");
+                    }
+                }, this)
+            }
+        );
+
+        new ss.forms.Button(
+            {
+                css: "btn btn-blue btn-icon",
+                icon: "fas fa-arrows-alt-v",
+                label: '',
+                appendTo: flipContainer,
+                onClick: $.proxy(function() {
+                    if (flipContainer.hasClass("flipped-y") === true) {
+                        viewImage.cropper("scaleY", 1);
+                        flipContainer.removeClass("flipped-y");
+                    } else {
+                        viewImage.cropper("scaleY",-1);
+                        flipContainer.addClass("flipped-y");
+                    }
+                }, this)
+            }
+        );
+
+        var zoomContainer = container.find(".zoom-container");
+
+        new ss.forms.Button(
+            {
+                css: "btn btn-blue btn-icon",
+                icon: "fas fa-search-plus",
+                label: '',
+                appendTo: zoomContainer,
+                onClick: $.proxy(function() {
+                    viewImage.cropper("zoom", 0.1);
+                }, this)
+            }
+        );
+
+        new ss.forms.Button(
+            {
+                css: "btn btn-blue btn-icon",
+                icon: "fas fa-search-minus",
+                label: '',
+                appendTo: zoomContainer,
+                onClick: $.proxy(function() {
+                    viewImage.cropper("zoom", -0.1);
+                }, this)
+            }
+        );
+
+        var userAspectRatio = container.find(".user-aspect-container");
+        var defaultAspectRatio = container.find(".default-aspect-container");
+
+        new ss.forms.Button(
+            {
+                css: "btn btn-blue",
+                label: "1024:200",
+                appendTo: userAspectRatio,
+                onClick: $.proxy(function() {
+                    viewImage.cropper("setAspectRatio", 1024 / 200);
+                }, this)
+            }
+        );
+
+        new ss.forms.Button(
+            {
+                css: "btn btn-blue",
+                label: "Free",
+                appendTo: userAspectRatio,
+                onClick: $.proxy(function() {
+                    viewImage.cropper("setAspectRatio", NaN);
+                }, this)
+            }
+        );
+
+        new ss.forms.Button(
+            {
+                css: "btn btn-blue",
+                label: "16:9",
+                appendTo: defaultAspectRatio,
+                onClick: $.proxy(function() {
+                    viewImage.cropper("setAspectRatio", 16 / 9);
+                }, this)
+            }
+        );
+
+        new ss.forms.Button(
+            {
+                css: "btn btn-blue",
+                label: "4:3",
+                appendTo: defaultAspectRatio,
+                onClick: $.proxy(function() {
+                    viewImage.cropper("setAspectRatio", 4 / 3);
+                }, this)
+            }
+        );
+
+        new ss.forms.Button(
+            {
+                css: "btn btn-blue",
+                label: "1:1",
+                appendTo: defaultAspectRatio,
+                onClick: $.proxy(function() {
+                    viewImage.cropper("setAspectRatio", 1);
+                }, this)
+            }
+        );
+
+        new ss.forms.Button(
+            {
+                css: "btn btn-blue",
+                label: "2:3",
+                appendTo: defaultAspectRatio,
+                onClick: $.proxy(function() {
+                    viewImage.cropper("setAspectRatio", 2 / 3);
+                }, this)
+            }
+        );
+
+        var resetContainer = container.find(".reset-container");
+
+        new ss.forms.Button(
+            {
+                css: "btn btn-blue btn-icon",
+                icon: "fas fa-retweet",
+                label: "",
+                appendTo: resetContainer,
+                onClick: $.proxy(function() {
+                    viewImage.cropper("reset");
                 }, this)
             }
         );
