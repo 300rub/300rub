@@ -21,6 +21,7 @@
  * @var string   $headerCode
  * @var string   $bodyTopCode
  * @var string   $bodyBottomCode
+ * @var string   $templates
  *
  * phpcs:disable Generic.Files.InlineHTML
  */
@@ -119,6 +120,8 @@ if (array_key_exists('test', $_GET) === false) {
 if (array_key_exists('test', $_GET) === true) {
     include __DIR__ . '/../test/test.php';
 }
+
+echo $templates;
 
 ?>
 

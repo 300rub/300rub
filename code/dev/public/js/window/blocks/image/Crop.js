@@ -49,22 +49,53 @@
     ss.window.blocks.image.Crop.prototype._onLoadDataSuccess = function (data) {
         var container = ss.components.Template.get("image-crop-container");
 
-        var image = container.find(".view-image");
-        image.attr("src", data.url);
+        var viewImage = container.find(".view-image");
+        viewImage.attr("src", data.url);
 
-        image.cropper({
-            aspectRatio: 16 / 9,
+        var viewPreview = container.find(".preview");
+
+        viewImage.cropper({
+            viewMode: 2,
+            preview: viewPreview,
+            aspectRatio: 1,
+            autoCropArea: 1,
+            movable: false,
             crop: function(event) {
-                console.log(event.detail.x);
-                console.log(event.detail.y);
-                console.log(event.detail.width);
-                console.log(event.detail.height);
-                console.log(event.detail.rotate);
-                console.log(event.detail.scaleX);
-                console.log(event.detail.scaleY);
+                //console.log(event.detail.x);
+                //console.log(event.detail.y);
+                //console.log(event.detail.width);
+                //console.log(event.detail.height);
+                //console.log(event.detail.rotate);
+                //console.log(event.detail.scaleX);
+                //console.log(event.detail.scaleY);
             }
         });
 
+        var actions = container.find(".actions");
+
+        new ss.forms.Button(
+            {
+                css: "btn btn-blue btn-icon",
+                icon: "fas fa-undo",
+                label: '',
+                appendTo: actions,
+                onClick: $.proxy(function() {
+                    viewImage.cropper("rotate", -45);
+                }, this)
+            }
+        );
+
+        new ss.forms.Button(
+            {
+                css: "btn btn-blue btn-icon",
+                icon: "fas fa-redo",
+                label: '',
+                appendTo: actions,
+                onClick: $.proxy(function() {
+                    viewImage.cropper("rotate", 45);
+                }, this)
+            }
+        );
 
         this.getBody().append(container);
     };

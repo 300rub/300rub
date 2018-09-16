@@ -7,10 +7,21 @@
       .canvas {
         width: 600px;
         height: 450px;
-        background: #ccc;
+        border: 1px solid @grayBorderColor;
 
         img {
           max-width: 100%;
+        }
+      }
+
+      .right-column {
+        float: right;
+        width: 280px;
+
+        .preview {
+          overflow: hidden;
+          height: 200px;
+          border: 1px solid @grayBorderColor;
         }
       }
     }

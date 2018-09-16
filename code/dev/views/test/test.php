@@ -1,15 +1,13 @@
 <script>
     $(document).ready(function(){
-        setTimeout(function() {
-            new ss.window.blocks.image.Edit(
-                {
-                    blockId: 2,
-                    id: 74,
-                    level: undefined,
-                    parent: undefined
-                }
-            );
-        }, 1000);
+        new ss.window.blocks.image.Crop(
+            {
+                blockId: 2,
+                id: 75,
+                level: undefined,
+                parent: undefined
+            }
+        );
     });
 
 </script>

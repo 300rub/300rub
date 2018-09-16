@@ -87,17 +87,16 @@ class PageController extends AbstractPageController
             $content .= $this->_getUserContent();
         }
 
-        $content .= $this->getContentFromTemplate(
+        $this->setStaticMap('static');
+
+        $layoutData = [];
+        $layoutData['content'] = $content;
+        $layoutData['templates'] = $this->getContentFromTemplate(
             'templates/templates',
             [
                 'isUser' => $isUser
             ]
         );
-
-        $this->setStaticMap('static');
-
-        $layoutData = [];
-        $layoutData['content'] = $content;
         $layoutData['title'] = 'Test title';
         $layoutData['keywords'] = 'Test keywords';
         $layoutData['description'] = 'Test description';
