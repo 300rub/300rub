@@ -14,8 +14,6 @@ return [
     ],
     2 => [
         'type'                   => ImageModel::TYPE_SLIDER,
-        'cropWidth'              => 600,
-        'cropHeight'             => 200,
         'designImageSliderModel' => [
             'effect'      => 'Fade;Rotate away;Rotate ' .
                 'Zoom+ in;Zoom VDouble+ in;' .

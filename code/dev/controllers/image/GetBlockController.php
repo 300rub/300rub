@@ -89,16 +89,6 @@ class GetBlockController extends AbstractController
                     'name'  => 'autoCropType',
                     'list'  => $this->_imageModel->getAutoCropTypeList()
                 ],
-                'cropWidth'         => [
-                    'name'  => 'cropWidth',
-                    'label' => $language->getMessage('image', 'cropWidth'),
-                    'value' => $this->_imageModel->get('cropWidth'),
-                ],
-                'cropHeight'        => [
-                    'name'  => 'cropHeight',
-                    'label' => $language->getMessage('image', 'cropHeight'),
-                    'value' => $this->_imageModel->get('cropHeight'),
-                ],
                 'cropX'             => [
                     'name'  => 'cropX',
                     'label' => $language->getMessage('image', 'cropX'),

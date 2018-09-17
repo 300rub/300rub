@@ -49,14 +49,6 @@ class GetBlockControllerTest extends AbstractControllerTest
                     'name'  => 'autoCropType',
                     'list'  => []
                 ],
-                'cropWidth'         => [
-                    'name'  => 'cropWidth',
-                    'value' => $data['cropWidth'],
-                ],
-                'cropHeight'        => [
-                    'name'  => 'cropHeight',
-                    'value' => $data['cropHeight'],
-                ],
                 'cropX'             => [
                     'name'  => 'cropX',
                     'value' => $data['cropX'],
@@ -135,8 +127,6 @@ class GetBlockControllerTest extends AbstractControllerTest
                     'name'              => '',
                     'type'              => 0,
                     'autoCropType'      => 0,
-                    'cropWidth'         => 0,
-                    'cropHeight'        => 0,
                     'cropX'             => 0,
                     'cropY'             => 0,
                     'thumbAutoCropType' => 0,
@@ -154,8 +144,6 @@ class GetBlockControllerTest extends AbstractControllerTest
                     'name'              => 'Zoom image',
                     'type'              => 2,
                     'autoCropType'      => 0,
-                    'cropWidth'         => 0,
-                    'cropHeight'        => 0,
                     'cropX'             => 0,
                     'cropY'             => 0,
                     'thumbAutoCropType' => 0,
@@ -173,8 +161,6 @@ class GetBlockControllerTest extends AbstractControllerTest
                     'name'              => 'Slider image',
                     'type'              => 1,
                     'autoCropType'      => 5,
-                    'cropWidth'         => 1000,
-                    'cropHeight'        => 800,
                     'cropX'             => 3,
                     'cropY'             => 4,
                     'thumbAutoCropType' => 8,

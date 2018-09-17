@@ -11,8 +11,8 @@ if (count($images) === 0) {
     return '';
 }
 
-$width = $image->get('cropWidth');
-$height = $image->get('cropHeight');
+$width = $image->get('cropX');
+$height = $image->get('cropY');
 
 $maxWidth = 100;
 $maxHeight = 100;

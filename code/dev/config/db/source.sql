@@ -1386,12 +1386,14 @@ CREATE TABLE `imageInstances` (
   `y1` smallint(5) unsigned NOT NULL,
   `x2` smallint(5) unsigned NOT NULL,
   `y2` smallint(5) unsigned NOT NULL,
+  `angle` smallint(6) NOT NULL,
+  `flip` tinyint(3) unsigned NOT NULL,
   `thumbX1` smallint(5) unsigned NOT NULL,
   `thumbY1` smallint(5) unsigned NOT NULL,
   `thumbX2` smallint(5) unsigned NOT NULL,
   `thumbY2` smallint(5) unsigned NOT NULL,
-  `angle` smallint(6) NOT NULL,
-  `flip` tinyint(3) unsigned NOT NULL,
+  `thumbAngle` smallint(6) NOT NULL,
+  `thumbFlip` tinyint(3) unsigned NOT NULL,
   PRIMARY KEY (`id`),
   KEY `imageInstances_imageGroupId_fk` (`imageGroupId`),
   KEY `imageInstances_originalFileId_fk` (`originalFileId`),
@@ -1431,8 +1433,6 @@ CREATE TABLE `images` (
   `designImageSimpleId` int(11) unsigned NOT NULL,
   `type` tinyint(3) unsigned NOT NULL,
   `autoCropType` tinyint(3) unsigned NOT NULL,
-  `cropWidth` smallint(5) unsigned NOT NULL,
-  `cropHeight` smallint(5) unsigned NOT NULL,
   `cropX` int(10) unsigned NOT NULL,
   `cropY` int(10) unsigned NOT NULL,
   `thumbAutoCropType` tinyint(3) unsigned NOT NULL,
@@ -2263,4 +2263,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-09-13 21:24:01
+-- Dump completed on 2018-09-17 11:58:16

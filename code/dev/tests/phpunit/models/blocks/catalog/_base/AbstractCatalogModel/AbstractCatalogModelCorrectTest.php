@@ -115,8 +115,6 @@ class AbstractCatalogModelCorrectTest extends AbstractCorrectModelTest
             ],
             'type'                   => 1,
             'autoCropType'           => 1,
-            'cropWidth'              => 10,
-            'cropHeight'             => 20,
             'cropX'                  => 30,
             'cropY'                  => 40,
             'thumbAutoCropType'      => 1,
@@ -365,8 +363,6 @@ class AbstractCatalogModelCorrectTest extends AbstractCorrectModelTest
         return [
             'type'                   => 1,
             'autoCropType'           => 1,
-            'cropWidth'              => 10,
-            'cropHeight'             => 20,
             'cropX'                  => 30,
             'cropY'                  => 40,
             'thumbAutoCropType'      => 1,

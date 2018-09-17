@@ -110,8 +110,6 @@ class AbstractCatalogModelDuplicateTest extends AbstractDuplicateModelTest
             ],
             'type'                   => 1,
             'autoCropType'           => 1,
-            'cropWidth'              => 10,
-            'cropHeight'             => 20,
             'cropX'                  => 30,
             'cropY'                  => 40,
             'thumbAutoCropType'      => 1,
@@ -360,8 +358,6 @@ class AbstractCatalogModelDuplicateTest extends AbstractDuplicateModelTest
         return [
             'type'                   => 1,
             'autoCropType'           => 1,
-            'cropWidth'              => 10,
-            'cropHeight'             => 20,
             'cropX'                  => 30,
             'cropY'                  => 40,
             'thumbAutoCropType'      => 1,

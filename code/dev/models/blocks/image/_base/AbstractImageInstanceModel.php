@@ -71,7 +71,7 @@ abstract class AbstractImageInstanceModel extends AbstractModel
     {
         return array_merge(
             $this->_getFieldsInfoRelations(),
-            $this->_getFieldsInfoCoordinates(),
+            $this->_getFieldsInfoCrop(),
             $this->_getFieldsInfoCommon()
         );
     }
@@ -112,7 +112,7 @@ abstract class AbstractImageInstanceModel extends AbstractModel
      *
      * @return array
      */
-    private function _getFieldsInfoCoordinates()
+    private function _getFieldsInfoCrop()
     {
         return [
             'x1'             => [
@@ -143,6 +143,18 @@ abstract class AbstractImageInstanceModel extends AbstractModel
                 ],
                 self::FIELD_SKIP_DUPLICATION => true,
             ],
+            'angle'          => [
+                self::FIELD_TYPE => self::FIELD_TYPE_INT,
+            ],
+            'flip'           => [
+                self::FIELD_TYPE  => self::FIELD_TYPE_INT,
+                self::FIELD_VALUE => [
+                    ValueGenerator::ARRAY_KEY => [
+                        self::getFlipList(),
+                        self::FLIP_NONE
+                    ]
+                ],
+            ],
             'thumbX1'        => [
                 self::FIELD_TYPE             => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE            => [
@@ -170,6 +182,18 @@ abstract class AbstractImageInstanceModel extends AbstractModel
                     ValueGenerator::MIN => 0,
                 ],
                 self::FIELD_SKIP_DUPLICATION => true,
+            ],
+            'thumbAngle'          => [
+                self::FIELD_TYPE => self::FIELD_TYPE_INT,
+            ],
+            'thumbFlip'           => [
+                self::FIELD_TYPE  => self::FIELD_TYPE_INT,
+                self::FIELD_VALUE => [
+                    ValueGenerator::ARRAY_KEY => [
+                        self::getFlipList(),
+                        self::FLIP_NONE
+                    ]
+                ],
             ],
         ];
     }
@@ -217,18 +241,6 @@ abstract class AbstractImageInstanceModel extends AbstractModel
                     ValueGenerator::MIN => 0,
                 ],
                 self::FIELD_SKIP_DUPLICATION => true,
-            ],
-            'angle'          => [
-                self::FIELD_TYPE => self::FIELD_TYPE_INT,
-            ],
-            'flip'           => [
-                self::FIELD_TYPE  => self::FIELD_TYPE_INT,
-                self::FIELD_VALUE => [
-                    ValueGenerator::ARRAY_KEY => [
-                        self::getFlipList(),
-                        self::FLIP_NONE
-                    ]
-                ],
             ],
         ];
     }

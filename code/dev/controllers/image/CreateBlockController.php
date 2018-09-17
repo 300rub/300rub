@@ -32,8 +32,6 @@ class CreateBlockController extends AbstractController
                 'name'              => [self::TYPE_STRING],
                 'type'              => [self::TYPE_INT],
                 'autoCropType'      => [self::TYPE_INT],
-                'cropWidth'         => [self::TYPE_INT],
-                'cropHeight'        => [self::TYPE_INT],
                 'cropX'             => [self::TYPE_INT],
                 'cropY'             => [self::TYPE_INT],
                 'thumbAutoCropType' => [self::TYPE_INT],
@@ -48,8 +46,6 @@ class CreateBlockController extends AbstractController
             [
                 'type'              => $this->get('type'),
                 'autoCropType'      => $this->get('autoCropType'),
-                'cropWidth'         => $this->get('cropWidth'),
-                'cropHeight'        => $this->get('cropHeight'),
                 'cropX'             => $this->get('cropX'),
                 'cropY'             => $this->get('cropY'),
                 'thumbAutoCropType' => $this->get('thumbAutoCropType'),

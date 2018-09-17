@@ -202,8 +202,6 @@ class M160317000000Images extends AbstractMigration
                     'designImageSimpleId' => self::TYPE_FK,
                     'type'                => self::TYPE_TINYINT_UNSIGNED,
                     'autoCropType'        => self::TYPE_TINYINT_UNSIGNED,
-                    'cropWidth'           => self::TYPE_SMALLINT_UNSIGNED,
-                    'cropHeight'          => self::TYPE_SMALLINT_UNSIGNED,
                     'cropX'               => self::TYPE_INT_UNSIGNED,
                     'cropY'               => self::TYPE_INT_UNSIGNED,
                     'thumbAutoCropType'   => self::TYPE_TINYINT_UNSIGNED,
@@ -317,12 +315,14 @@ class M160317000000Images extends AbstractMigration
                     'y1'             => self::TYPE_SMALLINT_UNSIGNED,
                     'x2'             => self::TYPE_SMALLINT_UNSIGNED,
                     'y2'             => self::TYPE_SMALLINT_UNSIGNED,
+                    'angle'          => self::TYPE_SMALLINT,
+                    'flip'           => self::TYPE_TINYINT_UNSIGNED,
                     'thumbX1'        => self::TYPE_SMALLINT_UNSIGNED,
                     'thumbY1'        => self::TYPE_SMALLINT_UNSIGNED,
                     'thumbX2'        => self::TYPE_SMALLINT_UNSIGNED,
                     'thumbY2'        => self::TYPE_SMALLINT_UNSIGNED,
-                    'angle'          => self::TYPE_SMALLINT,
-                    'flip'           => self::TYPE_TINYINT_UNSIGNED,
+                    'thumbAngle'     => self::TYPE_SMALLINT,
+                    'thumbFlip'      => self::TYPE_TINYINT_UNSIGNED,
                 ]
             )
             ->createForeignKey(

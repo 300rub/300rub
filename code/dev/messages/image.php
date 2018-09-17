@@ -72,14 +72,6 @@ return [
         Language::LANGUAGE_EN_ID => 'Auto crop type',
         Language::LANGUAGE_RU_ID => '',
     ],
-    'cropWidth' => [
-        Language::LANGUAGE_EN_ID => 'Crop width',
-        Language::LANGUAGE_RU_ID => '',
-    ],
-    'cropHeight' => [
-        Language::LANGUAGE_EN_ID => 'Crop height',
-        Language::LANGUAGE_RU_ID => '',
-    ],
     'cropX' => [
         Language::LANGUAGE_EN_ID => 'Crop X',
         Language::LANGUAGE_RU_ID => '',
