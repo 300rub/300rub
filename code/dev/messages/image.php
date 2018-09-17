@@ -116,4 +116,12 @@ return [
         Language::LANGUAGE_EN_ID => "Are you sure to delete the image?",
         Language::LANGUAGE_RU_ID => 'Вы действительно хотите удалить изображение?',
     ],
+    'cropNoun'  => [
+        Language::LANGUAGE_EN_ID => "Crop",
+        Language::LANGUAGE_RU_ID => 'Обрезка',
+    ],
+    'cropVerb'  => [
+        Language::LANGUAGE_EN_ID => "Crop",
+        Language::LANGUAGE_RU_ID => 'Обрезать',
+    ],
 ];

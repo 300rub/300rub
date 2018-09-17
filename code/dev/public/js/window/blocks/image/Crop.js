@@ -13,7 +13,7 @@
             this,
             {
                 group: "image",
-                controller: "image",
+                controller: "crop",
                 data: {
                     blockId: options.blockId,
                     id: options.id
@@ -245,6 +245,40 @@
         );
 
         this.getBody().append(container);
+
+        this
+            .setTitle(data.title)
+            .setSubmit(
+                {
+                    label: data.button.label,
+                    icon: "fas fa-crop-alt",
+                    ajax: {
+                        data: {
+                            group: "image",
+                            controller: "content",
+                            data: function() {
+                                return {
+                                    blockId: data.blockId,
+                                    id: data.id,
+                                    isCover: false,
+                                    x1: 0,
+                                    y1: 0,
+                                    x2: 0,
+                                    y2: 0,
+                                    thumbX1: 0,
+                                    thumbY1: 0,
+                                    thumbX2: 0,
+                                    thumbY2: 0,
+                                    angle: 0,
+                                    flip: 0
+                                };
+                            }
+                        },
+                        type: "PUT",
+                        success: $.proxy(this._onSendSuccess, this)
+                    }
+                }
+            );
     };
 
     /**

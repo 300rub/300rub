@@ -62,6 +62,7 @@ class Operation
     const IMAGE_ADD = 'IMAGE_ADD';
     const IMAGE_UPLOAD = 'IMAGE_UPLOAD';
     const IMAGE_UPDATE = 'IMAGE_UPDATE';
+    const IMAGE_CROP = 'IMAGE_CROP';
     const IMAGE_DELETE = 'IMAGE_DELETE';
     const IMAGE_DUPLICATE = 'IMAGE_DUPLICATE';
     const IMAGE_UPDATE_SETTINGS = 'IMAGE_UPDATE_SETTINGS';
@@ -222,6 +223,8 @@ class Operation
                 => $language->getMessage('operation', 'imageUpload'),
             self::IMAGE_UPDATE
                 => $language->getMessage('operation', 'imageUpdate'),
+            self::IMAGE_CROP
+                => $language->getMessage('operation', 'imageCrop'),
             self::IMAGE_DELETE
                 => $language->getMessage('operation', 'imageDelete'),
             self::IMAGE_UPDATE_SETTINGS

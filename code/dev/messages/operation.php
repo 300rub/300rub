@@ -91,6 +91,10 @@ return [
         Language::LANGUAGE_EN_ID => 'Image update',
         Language::LANGUAGE_RU_ID => '',
     ],
+    'imageCrop' => [
+        Language::LANGUAGE_EN_ID => 'Image crop',
+        Language::LANGUAGE_RU_ID => '',
+    ],
     'settingsCanRelease' => [
         Language::LANGUAGE_EN_ID => 'Can release',
         Language::LANGUAGE_RU_ID => 'Может делать релиз',
