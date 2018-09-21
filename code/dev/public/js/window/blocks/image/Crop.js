@@ -24,6 +24,8 @@
                 parent: options.parent
             }
         );
+
+        this._container = null;
     };
 
     /**
@@ -48,6 +50,8 @@
      */
     ss.window.blocks.image.Crop.prototype._onLoadDataSuccess = function (data) {
         var container = ss.components.Template.get("image-crop-container");
+
+
 
         var viewImage = container.find(".view-image");
         viewImage.attr("src", data.url);
@@ -279,6 +283,10 @@
                     }
                 }
             );
+    };
+
+    ss.window.blocks.image.Crop.prototype._setViewGroup = function () {
+
     };
 
     /**

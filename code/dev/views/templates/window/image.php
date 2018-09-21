@@ -1,11 +1,11 @@
 <div class="image-crop-container">
-    <div class="group-container view-container">
-        <div class="title">View</div>
-
+    <div class="group-container">
         <div class="right-column">
-            Preview:
+            <div class="preview-label"></div>
             <div class="preview"></div>
+
             <div class="actions">
+                <div class="actions-label"></div>
                 <div class="action-container rotate-container btn-group"></div>
                 <div class="action-container flip-container btn-group"></div>
                 <div class="action-container zoom-container btn-group"></div>
@@ -15,8 +15,12 @@
             </div>
         </div>
 
-        <div class="canvas">
-            <img class="view-image" src="" />
+        <div class="left-column">
+            <div class="crop-label"></div>
+
+            <div class="canvas">
+                <img class="cropper" src="" />
+            </div>
         </div>
     </div>
 </div>

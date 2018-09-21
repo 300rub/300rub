@@ -9,6 +9,7 @@ use ss\controllers\_abstract\AbstractController;
 use ss\models\blocks\block\BlockModel;
 use ss\models\blocks\helpers\file\FileModel;
 use ss\models\blocks\image\ImageInstanceModel;
+use ss\models\blocks\image\ImageModel;
 
 /**
  * Gets image crop details
@@ -38,6 +39,11 @@ class GetCropController extends AbstractController
             Operation::IMAGE_CROP
         );
 
+        $blockModel = BlockModel::model()->getById($this->get('blockId'));
+        $imageModel = $blockModel->getContentModel(
+            ImageModel::CLASS_NAME
+        );
+
         $imageInstanceModel = ImageInstanceModel::model()
             ->byId($this->get('id'))
             ->find();
@@ -63,12 +69,18 @@ class GetCropController extends AbstractController
 
         $language = App::getInstance()->getLanguage();
 
-        return [
+        switch ($imageInstanceModel->get('flip')) {
+            case ImageInstanceModel::FLIP_HORIZONTAL:
+
+                break;
+        }
+
+        $data = [
             'blockId' => $this->get('blockId'),
             'id'      => $this->get('id'),
-            'title'   => $language->getMessage('image', 'cropNoun'),
-            'button'    => [
-                'label' => App::getInstance()
+            'labels'  => [
+                'title'       => $language->getMessage('image', 'cropNoun'),
+                'buttonLabel' => App::getInstance()
                     ->getLanguage()
                     ->getMessage('image', 'cropVerb')
             ],
@@ -79,10 +91,22 @@ class GetCropController extends AbstractController
             'y1'      => $imageInstanceModel->get('y1'),
             'x2'      => $imageInstanceModel->get('x2'),
             'y2'      => $imageInstanceModel->get('y2'),
-            'thumbX1' => $imageInstanceModel->get('thumbX1'),
-            'thumbY1' => $imageInstanceModel->get('thumbY1'),
-            'thumbX2' => $imageInstanceModel->get('thumbX2'),
-            'thumbY2' => $imageInstanceModel->get('thumbY2'),
+            'angle'   => $imageInstanceModel->get('angle'),
+            'flip'    => $imageInstanceModel->get('angle'),
         ];
+
+        if ($imageModel->get('type') !== ImageModel::TYPE_ZOOM) {
+            return $data;
+        }
+
+        return array_merge_recursive(
+            $data,
+            [
+                'thumbX1' => $imageInstanceModel->get('thumbX1'),
+                'thumbY1' => $imageInstanceModel->get('thumbY1'),
+                'thumbX2' => $imageInstanceModel->get('thumbX2'),
+                'thumbY2' => $imageInstanceModel->get('thumbY2'),
+            ]
+        );
     }
 }
