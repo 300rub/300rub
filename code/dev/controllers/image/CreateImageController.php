@@ -57,10 +57,10 @@ class CreateImageController extends AbstractController
      */
     private function _getImageGroupId()
     {
-        $groupId = (int)$this->get('groupId');
+        $imageGroupId = (int)$this->get('imageGroupId');
 
-        if ($groupId > 0) {
-            return $groupId;
+        if ($imageGroupId > 0) {
+            return $imageGroupId;
         }
 
         $blockModel = BlockModel::model()->getById($this->get('blockId'));
