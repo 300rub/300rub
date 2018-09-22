@@ -44,6 +44,23 @@
         = ss.panel.blocks.image.Settings;
 
     /**
+     * Auto crop data
+     *
+     * @type {Array}
+     */
+    ss.panel.blocks.image.Settings.prototype.autoCropData = [
+        {value: 1, icon: "fas fa-arrow-right", css: "deg-45"},
+        {value: 2, icon: "fas fa-arrow-down"},
+        {value: 3, icon: "fas fa-arrow-down", css: "deg-45"},
+        {value: 4, icon: "fas fa-arrow-right"},
+        {value: 5, icon: "fas fa-arrows-alt"},
+        {value: 6, icon: "fas fa-arrow-left"},
+        {value: 7, icon: "fas fa-arrow-up", css: "deg-45"},
+        {value: 8, icon: "fas fa-arrow-up"},
+        {value: 9, icon: "fas fa-arrow-left", css: "deg-45"}
+    ];
+
+    /**
      * On load window success
      *
      * @param {Object} [data]
@@ -118,59 +135,31 @@
 
         this._forms.name = new ss.forms.Text(
             $.extend(
+                {},
+                forms.name,
                 {
                     appendTo: container
-                },
-                forms.name
+                }
             )
         );
 
         new ss.forms.RadioButtons(
-            {
-                value: 1,
-                label: "Label",
-                css: "",
-                data: [
-                    {value: 0, icon: "fa-long-arrow-right"},
-                    {value: 1, icon: "fa-long-arrow-down"},
-                    {value: 2, icon: "fa-long-arrow-right", css: "deg-45"},
-                    {value: 3, icon: "fa-long-arrow-up", css: "deg-45"}
-                ],
-                appendTo: container,
-                onChange: $.proxy(
-                    function (value) {
-                        console.log(value);
-                    },
-                    this
-                )
-            }
-        );
-
-        new ss.forms.RadioButtons(
-            {
-                value: 1,
-                label: "Label 2",
-                css: "icon-buttons big",
-                grid: 3,
-                data: [
-                    {value: 1, icon: "fas fa-arrow-right", css: "deg-45"},
-                    {value: 2, icon: "fas fa-arrow-down"},
-                    {value: 3, icon: "fas fa-arrow-down", css: "deg-45"},
-                    {value: 4, icon: "fas fa-arrow-right"},
-                    {value: 5, icon: "fas fa-arrows-alt"},
-                    {value: 6, icon: "fas fa-arrow-left"},
-                    {value: 7, icon: "fas fa-arrow-up", css: "deg-45"},
-                    {value: 8, icon: "fas fa-arrow-up"},
-                    {value: 9, icon: "fas fa-arrow-left", css: "deg-45"}
-                ],
-                appendTo: container,
-                onChange: $.proxy(
-                    function (value) {
-                        console.log(value);
-                    },
-                    this
-                )
-            }
+            $.extend(
+                {},
+                forms.autoCropType,
+                {
+                    css: "icon-buttons big",
+                    grid: 3,
+                    data: this.autoCropData,
+                    appendTo: container,
+                    onChange: $.proxy(
+                        function (value) {
+                            console.log(value);
+                        },
+                        this
+                    )
+                }
+            )
         );
 
         return this;

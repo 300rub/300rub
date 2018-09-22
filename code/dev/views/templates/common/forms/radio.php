@@ -3,8 +3,10 @@
 ?>
 
 <div class="form-container form-container-radio-buttons">
-    <span class="label-text"></span>
-    <span class="radio-buttons"></span>
+    <label>
+        <span class="label-text"></span>
+        <span class="radio-buttons"></span>
+    </label>
 </div>
 
 <span class="radio-button-item-container"></span>
