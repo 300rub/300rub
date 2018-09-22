@@ -54,6 +54,19 @@
             )
             .showBlockSectionSwitcher(data.labels.blockSection);
 
+        if (data.canAdd === true) {
+            this
+                .setFooterButton({
+                    label: data.labels.add,
+                    icon: "fas fa-plus",
+                    onClick: function () {
+                        new ss.panel.blocks.image.Settings();
+                    }
+                });
+        } else {
+            this.removeFooter();
+        }
+
         $.each(
             data.list,
             $.proxy(
