@@ -1,0 +1,12 @@
+<?php
+//phpcs:disable Generic.Files.InlineHTML
+?>
+
+<div class="form-container-seo">
+    <div class="default"></div>
+    <a class="toggle-seo blue-red-link">
+        <i class="fas fa-caret-right"></i>
+        SEO
+    </a>
+    <div class="seo"></div>
+</div>

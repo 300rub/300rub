@@ -125,6 +125,27 @@
             )
         );
 
+        new ss.forms.RadioButtons(
+            {
+                value: 1,
+                label: "Label",
+                css: "gradient-direction",
+                data: [
+                    {value: 0, icon: "fa-long-arrow-right"},
+                    {value: 1, icon: "fa-long-arrow-down"},
+                    {value: 2, icon: "fa-long-arrow-right", css: "deg-45"},
+                    {value: 3, icon: "fa-long-arrow-up", css: "deg-45"}
+                ],
+                appendTo: container,
+                onChange: $.proxy(
+                    function (value) {
+                        console.log(value);
+                    },
+                    this
+                )
+            }
+        );
+
         return this;
     };
 
