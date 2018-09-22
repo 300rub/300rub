@@ -27,4 +27,8 @@ return [
         Language::LANGUAGE_EN_ID => 'Blocks',
         Language::LANGUAGE_RU_ID => 'Блоки',
     ],
+    'blockSection' => [
+        Language::LANGUAGE_EN_ID => 'Blocks for current section',
+        Language::LANGUAGE_RU_ID => 'Блоки для текущего раздела',
+    ],
 ];

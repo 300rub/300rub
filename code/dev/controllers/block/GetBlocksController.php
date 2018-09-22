@@ -37,9 +37,12 @@ class GetBlocksController extends AbstractController
 
         $language = App::getInstance()->getLanguage();
         return [
-            'title'       => $language->getMessage('block', 'blocks'),
-            'description' => $language->getMessage('block', 'blockDescription'),
-            'list'        => $this->_list
+            'title'        => $language->getMessage('block', 'blocks'),
+            'description'  => $language->getMessage('block', 'blockDescription'),
+            'labels' => [
+                'blockSection' => $language->getMessage('block', 'blockSection'),
+            ],
+            'list'  => $this->_list
         ];
     }
 

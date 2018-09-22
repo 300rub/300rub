@@ -340,23 +340,53 @@
             return this;
         },
 
+        /**
+         * Shows block section switcher
+         *
+         * @param {String} label
+         *
+         * @returns {ss.panel.Abstract}
+         */
         showBlockSectionSwitcher: function(label) {
             new ss.forms.CheckboxOnOff(
                 {
-                    value: 0,
+                    value: ss.system.App.getIsBlockSection(),
                     label: label,
                     css: "no-margin small",
                     appendTo: this._panel.find(".header .btn-group"),
-                    onCheck: function() {
-
-                    },
-                    onUnCheck: function() {
-
-                    }
+                    onCheck: $.proxy(function() {
+                        ss.system.App.setIsBlockSection(true);
+                        this.reload({
+                            data: {
+                                blockSection: ss.system.App.getSectionId()
+                            }
+                        });
+                    }, this),
+                    onUnCheck: $.proxy(function() {
+                        ss.system.App.setIsBlockSection(false);
+                        this.reload({
+                            data: {
+                                blockSection: 0
+                            }
+                        });
+                    }, this)
                 }
             );
 
             return this;
+        },
+
+        /**
+         * Gets block section
+         *
+         * @returns {int}
+         */
+        getBlockSection: function() {
+            if (ss.system.App.getIsBlockSection() === false) {
+                return 0;
+            }
+
+            return ss.system.App.getSectionId();
         },
 
         /**
@@ -390,6 +420,25 @@
             this._setPanelMaxHeight();
 
             this._panel.find(".footer").remove();
+            return this;
+        },
+
+        /**
+         * Reloads the panel
+         *
+         * @param {Object} options
+         *
+         * @returns {ss.panel.Abstract}
+         */
+        reload: function (options) {
+            this._panel.remove();
+
+            if ($.type(options) !== "object") {
+                options = {};
+            }
+
+            this._set($.extend({}, this._options, options));
+
             return this;
         }
     };

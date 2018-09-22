@@ -12,6 +12,9 @@
             {
                 group: "block",
                 controller: "blocks",
+                data: {
+                    blockSection: this.getBlockSection()
+                },
                 success: $.proxy(this._onLoadDataSuccess, this)
             }
         );
@@ -40,7 +43,9 @@
     ss.panel.blocks.List.prototype._onLoadDataSuccess = function (data) {
         this
             .setTitle(data.title)
-            .setDescription(data.description);
+            .setDescription(data.description)
+            .showBlockSectionSwitcher(data.labels.blockSection)
+            .removeFooter();
 
         $.each(
             data.list,
@@ -74,6 +79,9 @@
                             break;
                         case 3:
                             item.find(".icon").addClass("far fa-newspaper");
+                            break;
+                        case 5:
+                            item.find(".icon").addClass("fas fa-bars");
                             break;
                         default:
                             break;

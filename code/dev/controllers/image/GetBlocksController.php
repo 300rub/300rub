@@ -74,6 +74,9 @@ class GetBlocksController extends AbstractController
             'title'   => $language->getMessage('image', 'images'),
             'description'
                 => $language->getMessage('image', 'panelDescription'),
+            'labels' => [
+                'blockSection' => $language->getMessage('block', 'blockSection'),
+            ],
             'list'    => $list,
             'canAdd'  => $canAdd,
         ];

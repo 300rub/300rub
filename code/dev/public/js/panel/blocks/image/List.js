@@ -48,7 +48,8 @@
                 function () {
                     new ss.panel.blocks.List();
                 }
-            );
+            )
+            .showBlockSectionSwitcher(data.labels.blockSection);
 
         $.each(
             data.list,
