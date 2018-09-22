@@ -340,6 +340,25 @@
             return this;
         },
 
+        showBlockSectionSwitcher: function(label) {
+            new ss.forms.CheckboxOnOff(
+                {
+                    value: 0,
+                    label: label,
+                    css: "no-margin small",
+                    appendTo: this._panel.find(".header .btn-group"),
+                    onCheck: function() {
+
+                    },
+                    onUnCheck: function() {
+
+                    }
+                }
+            );
+
+            return this;
+        },
+
         /**
          * Sets footer button
          *

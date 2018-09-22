@@ -44,6 +44,7 @@
         this
             .setTitle(data.title)
             .setDescription(data.description)
+            .showBlockSectionSwitcher("Blocks from current section")
             .setBack(
                 function () {
                     new ss.panel.blocks.List();
