@@ -53,6 +53,16 @@
 
         var value = this.getOption("value");
 
+        var itemContainer = ss.components.Template.get(
+            "radio-button-item-container"
+        );
+
+        var current = 0;
+        var grid = this.getOption("grid");
+        if (grid === null) {
+            grid = 999;
+        }
+
         $.each(
             dataOption,
             $.proxy(
@@ -93,11 +103,25 @@
                         formInstance.attr("checked", true);
                     }
 
-                    radioButtons.append(item);
+                    itemContainer.append(item);
+
+                    current++;
+
+                    if (current >= grid) {
+                        current = 0;
+                        radioButtons.append(itemContainer);
+                        itemContainer = ss.components.Template.get(
+                            "radio-button-item-container"
+                        );
+                    }
                 },
                 this
             )
         );
+
+        if (current > 0) {
+            radioButtons.append(itemContainer);
+        }
 
         var onChange = this.getOption("onChange");
         if ($.type(onChange) === "function") {

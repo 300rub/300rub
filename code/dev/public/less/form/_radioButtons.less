@@ -2,56 +2,120 @@
   display: inline-block;
 
   .radio-buttons {
-    .radio-button-item {
-      cursor: pointer;
-      display: inline-block;
-      margin: 0;
+    .radio-button-item-container {
+      display: block;
 
-      .label-body {
-        .transition(background-color);
-        background-color: @grayBackground;
+      .radio-button-item {
+        cursor: pointer;
+        float: left;
         display: inline-block;
-        min-width: 30px;
-        padding: 0 10px;
-        text-align: center;
+        margin: 0;
 
-        * {
-          height: 30px;
-          line-height: 30px;
+        .label-body {
+          .transition(background-color);
+          background-color: @grayBackground;
+          display: inline-block;
+          min-width: 30px;
+          padding: 0 10px;
+          text-align: center;
+
+          .label-icon,
+          .label {
+            height: 30px;
+            line-height: 30px;
+          }
+
+          &:hover {
+            background-color: @blueBackground;
+
+            .label-icon,
+            .label {
+              color: white;
+            }
+          }
         }
 
-        &:hover {
-          background-color: @blueBackground;
+        .form-instance {
+          display: none;
 
-          * {
-            color: white;
+          &:checked + .label-body {
+            background-color: @blueBackground;
+            .box-shadow (@formGrayBoxShadow);
+            position: relative;
+            z-index: 10;
+
+            * {
+              color: white;
+            }
           }
         }
       }
 
       &:first-child {
-        .label-body {
-          .border-radius(4px 0 0 4px);
+        .radio-button-item {
+          &:first-child {
+            .label-body {
+              .border-top-left-radius;
+            }
+          }
+
+          &:last-child {
+            .label-body {
+              .border-top-right-radius;
+            }
+          }
         }
       }
 
       &:last-child {
-        .label-body {
-          .border-radius(0 4px 4px 0);
+        .radio-button-item {
+          &:first-child {
+            .label-body {
+              .border-bottom-left-radius;
+            }
+          }
+
+          &:last-child {
+            .label-body {
+              .border-bottom-right-radius;
+            }
+          }
         }
       }
+    }
+  }
 
-      .form-instance {
-        display: none;
+  .deg-45 {
+    .label-icon {
+      .transform(rotate(45deg));
+    }
+  }
+}
 
-        &:checked + .label-body {
-          background-color: @blueBackground;
-          .box-shadow (@formGrayBoxShadow);
-          position: relative;
-          z-index: 10;
+.form-container-radio-buttons.icon-buttons {
+  .radio-buttons {
+    .radio-button-item-container {
+      .radio-button-item {
+        .label-body {
+          width: 30px;
+          padding: 0;
+        }
+      }
+    }
+  }
+}
 
-          * {
-            color: white;
+.form-container-radio-buttons.big {
+  .radio-buttons {
+    .radio-button-item-container {
+      .radio-button-item {
+        .label-body {
+          width: 40px;
+
+          .label-icon,
+          .label {
+            height: 40px;
+            line-height: 40px;
           }
         }
       }
