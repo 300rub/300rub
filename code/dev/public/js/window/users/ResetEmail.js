@@ -45,10 +45,11 @@
     ss.window.users.ResetEmail.prototype._onLoadDataSuccess = function (data) {
         this._form = new ss.forms.Text(
             $.extend(
+                {},
+                data.forms.email,
                 {
                     appendTo: this.getBody()
-                },
-                data.forms.email
+                }
             )
         );
 

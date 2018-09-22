@@ -62,11 +62,12 @@
          */
         _getData: function () {
             var data = $.extend(
+                {},
+                this._options.data,
                 {
                     language: ss.system.App.getLanguage(),
                     token: ss.system.App.getToken()
-                },
-                this._options.data
+                }
             );
 
             if (this._getType() === "GET") {

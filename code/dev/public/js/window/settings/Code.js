@@ -48,11 +48,12 @@
     ss.window.settings.Code.prototype._onLoadDataSuccess = function (data) {
         this._valueForm = new ss.forms.Textarea(
             $.extend(
+                {},
+                data.forms.value,
                 {
                     appendTo: this.getBody(),
                     rows: 15
-                },
-                data.forms.value
+                }
             )
         );
 

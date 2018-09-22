@@ -118,15 +118,18 @@
 
         this._forms.name = new ss.forms.Text(
             $.extend(
+                {},
+                forms.name,
                 {
                     appendTo: container
-                },
-                forms.name
+                }
             )
         );
 
         this._forms.type = new ss.forms.Select(
             $.extend(
+                {},
+                forms.type,
                 {
                     appendTo: container,
                     type: "int",
@@ -137,18 +140,18 @@
                             container.addClass("no-editor");
                         }
                     }
-                },
-                forms.type
+                }
             )
         );
 
         this._forms.hasEditor = new ss.forms.Checkbox(
             $.extend(
+                {},
+                forms.hasEditor,
                 {
                     appendTo: container,
                     css: "editor"
-                },
-                forms.hasEditor
+                }
             )
         );
 

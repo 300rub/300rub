@@ -181,20 +181,22 @@
         if (forms.isMain.value !== true) {
             this._forms.isMain = new ss.forms.Checkbox(
                 $.extend(
+                    {},
+                    forms.isMain,
                     {
                         appendTo: this.getBody()
-                    },
-                    forms.isMain
+                    }
                 )
             );
         }
 
         this._forms.isPublished = new ss.forms.Checkbox(
             $.extend(
+                {},
+                forms.isPublished,
                 {
                     appendTo: this.getBody()
-                },
-                forms.isPublished
+                }
             )
         );
 

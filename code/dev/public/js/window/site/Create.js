@@ -49,64 +49,71 @@
     ss.window.site.Create.prototype._onLoadDataSuccess = function (data) {
         this._nameForm = new ss.forms.Text(
             $.extend(
+                {},
+                data.forms.name,
                 {
                     appendTo: this.getBody()
-                },
-                data.forms.name
+                }
             )
         );
 
         this._userNameForm = new ss.forms.Text(
             $.extend(
+                {},
+                data.forms.userName,
                 {
                     appendTo: this.getBody()
-                },
-                data.forms.userName
+                }
             )
         );
 
         this._emailForm = new ss.forms.Text(
             $.extend(
+                {},
+                data.forms.email,
                 {
                     appendTo: this.getBody()
-                },
-                data.forms.email
+                }
             )
         );
 
         this._userForm = new ss.forms.Text(
             $.extend(
+                {},
+                data.forms.user,
                 {
                     appendTo: this.getBody()
-                },
-                data.forms.user
+                }
             )
         );
 
         this._passwordForm = new ss.forms.Password(
             $.extend(
+                {},
+                data.forms.password,
                 {
                     appendTo: this.getBody()
-                },
-                data.forms.password
+                }
             )
         );
 
         this._passwordConfirmForm = new ss.forms.Password(
             $.extend(
+                {},
+                data.forms.passwordConfirm,
                 {
                     appendTo: this.getBody()
-                },
-                data.forms.passwordConfirm
+                }
             )
         );
 
         this._languageForm = new ss.forms.Select(
             $.extend(
+                {},
+                data.forms.language,
                 {
                     appendTo: this.getBody()
-                },
-                data.forms.language
+                }
             )
         );
 

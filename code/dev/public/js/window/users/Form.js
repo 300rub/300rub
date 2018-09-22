@@ -144,20 +144,22 @@
 
         this._nameForm = new ss.forms.Text(
             $.extend(
+                {},
+                data.name,
                 {
                     appendTo: $textFormsContainer
-                },
-                data.name
+                }
             )
         );
         this._forms.push(this._nameForm);
 
         this._loginForm = new ss.forms.Text(
             $.extend(
+                {},
+                data.login,
                 {
                     appendTo: $textFormsContainer
-                },
-                data.login
+                }
             )
         );
         this._forms.push(this._loginForm);
@@ -188,20 +190,22 @@
 
         this._passwordForm = new ss.forms.Password(
             $.extend(
+                {},
+                data.password,
                 {
                     appendTo: $textFormsContainer
-                },
-                data.password
+                }
             )
         );
         this._forms.push(this._passwordForm);
 
         this._passwordConfirmForm = new ss.forms.Password(
             $.extend(
+                {},
+                data.passwordConfirm,
                 {
                     appendTo: $textFormsContainer
-                },
-                data.passwordConfirm
+                }
             )
         );
         this._forms.push(this._passwordConfirmForm);
@@ -213,10 +217,11 @@
 
         this._emailForm = new ss.forms.Text(
             $.extend(
+                {},
+                data.email,
                 {
                     appendTo: $textFormsContainer
-                },
-                data.email
+                }
             )
         );
         this._forms.push(this._emailForm);
@@ -224,6 +229,8 @@
         if (data.operations.canChange === true) {
             var typeForm = new ss.forms.Select(
                 $.extend(
+                    {},
+                    data.type,
                     {
                         appendTo: $textFormsContainer,
                         onChange: function (value) {
@@ -233,8 +240,7 @@
                                 t._operationsContainer.addClass("hidden");
                             }
                         }
-                    },
-                    data.type
+                    }
                 )
             );
             this._forms.push(typeForm);
@@ -336,10 +342,11 @@
             function (allKey, allObject) {
                 var form = new ss.forms.Checkbox(
                     $.extend(
+                        {},
+                        allObject,
                         {
                             appendTo: sectionsAllAccordionElement.getBody()
-                        },
-                        allObject
+                        }
                     )
                 );
                 t._forms.push(form);
@@ -370,11 +377,12 @@
                     ) {
                         var form = new ss.forms.Checkbox(
                             $.extend(
+                                {},
+                                groupObjectDataObjectDataObject,
                                 {
                                     appendTo: sectionAccordionElement
                                         .getBody()
-                                },
-                                groupObjectDataObjectDataObject
+                                }
                             )
                         );
                         t._forms.push(form);
@@ -420,11 +428,12 @@
                     function (allKey, allObject) {
                         var form = new ss.forms.Checkbox(
                             $.extend(
+                                {},
+                                allObject,
                                 {
                                     appendTo: blockAllAccordionElement
                                         .getBody()
-                                },
-                                allObject
+                                }
                             )
                         );
                         t._forms.push(form);
@@ -459,8 +468,9 @@
 
                                 var form = new ss.forms.Checkbox(
                                     $.extend(
-                                        options,
-                                        object
+                                        {},
+                                        object,
+                                        options
                                     )
                                 );
 
@@ -497,10 +507,11 @@
                 function (checkboxKey, checkboxObject) {
                     var form = new ss.forms.Checkbox(
                         $.extend(
+                            {},
+                            checkboxObject,
                             {
                                 appendTo: categoryAccordionElement.getBody()
-                            },
-                            checkboxObject
+                            }
                         )
                     );
                     this._forms.push(form);

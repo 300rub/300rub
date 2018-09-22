@@ -100,6 +100,7 @@
                                         this._designs,
                                         function (i, design) {
                                             dataObject = $.extend(
+                                                {},
                                                 dataObject,
                                                 design.getData()
                                             );

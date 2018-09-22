@@ -72,10 +72,11 @@
         if (this._formData.name !== undefined) {
             this._forms.name = new ss.forms.Text(
                 $.extend(
+                    {},
+                    this._formData.name,
                     {
                         appendTo: defaultContainer
-                    },
-                    this._formData.name
+                    }
                 )
             );
         }
@@ -83,10 +84,11 @@
         if (this._formData.alias !== undefined) {
             this._forms.alias = new ss.forms.Text(
                 $.extend(
+                    {},
+                    this._formData.alias,
                     {
                         appendTo: defaultContainer
-                    },
-                    this._formData.alias
+                    }
                 )
             );
         }
@@ -94,10 +96,11 @@
         if (this._formData.title !== undefined) {
             this._forms.title = new ss.forms.Text(
                 $.extend(
+                    {},
+                    this._formData.title,
                     {
                         appendTo: seoContainer
-                    },
-                    this._formData.title
+                    }
                 )
             );
         }
@@ -105,10 +108,11 @@
         if (this._formData.keywords !== undefined) {
             this._forms.keywords = new ss.forms.Text(
                 $.extend(
+                    {},
+                    this._formData.keywords,
                     {
                         appendTo: seoContainer
-                    },
-                    this._formData.keywords
+                    }
                 )
             );
         }
@@ -116,10 +120,11 @@
         if (this._formData.description !== undefined) {
             this._forms.description = new ss.forms.Text(
                 $.extend(
+                    {},
+                    this._formData.description,
                     {
                         appendTo: seoContainer
-                    },
-                    this._formData.description
+                    }
                 )
             );
         }

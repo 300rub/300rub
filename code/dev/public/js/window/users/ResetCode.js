@@ -48,10 +48,11 @@
     ss.window.users.ResetCode.prototype._onLoadDataSuccess = function (data) {
         this._form = new ss.forms.Text(
             $.extend(
+                {},
+                data.forms.code,
                 {
                     appendTo: this.getBody()
-                },
-                data.forms.code
+                }
             )
         );
 

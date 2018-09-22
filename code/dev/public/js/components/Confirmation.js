@@ -96,6 +96,7 @@
                         label: this._options.yes.label,
                         appendTo: buttons,
                         ajax: $.extend(
+                            {},
                             this._options.ajax,
                             {
                                 complete: $.proxy(function () {

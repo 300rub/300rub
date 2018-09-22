@@ -111,11 +111,12 @@
     ss.forms.Button.prototype._setConfirmWindow = function () {
         new ss.components.Confirmation(
             $.extend(
+                {},
+                this.getOption("confirm"),
                 {
                     element: this.getForm(),
                     ajax: this.getOption("ajax")
-                },
-                this.getOption("confirm")
+                }
             )
         );
     };
@@ -169,7 +170,7 @@
         spinner.removeClass("hidden");
 
         if ($.type(ajax.data.data) === "object") {
-            ajax.data.data = $.extend(ajax.data.data, data);
+            ajax.data.data = $.extend({}, ajax.data.data, data);
         } else {
             ajax.data.data = data;
         }

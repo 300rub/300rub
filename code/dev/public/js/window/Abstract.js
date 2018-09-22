@@ -390,11 +390,12 @@
         setSubmit: function (options) {
             var submit = new ss.forms.Button(
                 $.extend(
+                    {},
+                    options,
                     {
                         css: "btn btn-big btn-blue submit",
                         appendTo: this._window.find(".footer")
-                    },
-                    options
+                    }
                 )
             );
 

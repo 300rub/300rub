@@ -301,11 +301,12 @@
         setSubmit: function (options) {
             var submit = new ss.forms.Button(
                 $.extend(
+                    {},
+                    options,
                     {
                         css: "btn btn-blue",
                         appendTo: this._panel.find(".footer")
-                    },
-                    options
+                    }
                 )
             );
 
@@ -330,10 +331,11 @@
         addHeaderButton: function (options) {
             new ss.forms.Button(
                 $.extend(
+                    {},
+                    options,
                     {
                         appendTo: this._panel.find(".header .btn-group")
-                    },
-                    options
+                    }
                 )
             );
 
@@ -399,11 +401,12 @@
         setFooterButton: function (options) {
             var submit = new ss.forms.Button(
                 $.extend(
+                    {},
+                    options,
                     {
                         css: "btn btn-gray",
                         appendTo: this._panel.find(".footer")
-                    },
-                    options
+                    }
                 )
             );
 

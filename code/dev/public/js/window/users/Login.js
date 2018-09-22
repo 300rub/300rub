@@ -44,28 +44,31 @@
     ss.window.users.Login.prototype._onLoadDataSuccess = function (data) {
         this._userForm = new ss.forms.Text(
             $.extend(
+                {},
+                data.forms.user,
                 {
                     appendTo: this.getBody()
-                },
-                data.forms.user
+                }
             )
         );
 
         this._passwordForm = new ss.forms.Password(
             $.extend(
+                {},
+                data.forms.password,
                 {
                     appendTo: this.getBody()
-                },
-                data.forms.password
+                }
             )
         );
 
         var isRememberForm = new ss.forms.Checkbox(
             $.extend(
+                {},
+                data.forms.isRemember,
                 {
                     appendTo: this.getBody()
-                },
-                data.forms.isRemember
+                }
             )
         );
 
