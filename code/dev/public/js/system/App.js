@@ -30,6 +30,13 @@
         _sectionId: 0,
 
         /**
+         * Flag to display blocks in panel from current section
+         *
+         * @var {boolean}
+         */
+        _isBlockSection: false,
+
+        /**
          * Token
          *
          * @var {String}
@@ -113,6 +120,27 @@
          */
         getSectionId: function () {
             return this._sectionId;
+        },
+
+        /**
+         * Sets flag to display blocks in panel from current section
+         *
+         * @param {boolean} isBlockSection
+         *
+         * @returns {ss.system.App}
+         */
+        setIsBlockSection: function (isBlockSection) {
+            this._isBlockSection = isBlockSection;
+            return this;
+        },
+
+        /**
+         * Gets flag to display blocks in panel from current section
+         *
+         * @returns {boolean}
+         */
+        getIsBlockSection: function () {
+            return this._isBlockSection;
         },
 
         /**

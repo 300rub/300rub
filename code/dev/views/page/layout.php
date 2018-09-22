@@ -22,6 +22,7 @@
  * @var string   $bodyTopCode
  * @var string   $bodyBottomCode
  * @var string   $templates
+ * @var bool     $setIsBlockSection
  *
  * phpcs:disable Generic.Files.InlineHTML
  */
@@ -86,6 +87,11 @@ if (isset($js) === true) {
         window.ss.system.App.setLanguage(<?php echo $language; ?>);
         window.ss.system.App.setToken("<?php echo $token; ?>");
         window.ss.system.App.setSectionId(<?php echo $sectionId; ?>);
+
+        <?php if ($setIsBlockSection === true) { ?>
+            window.ss.system.App.setIsBlockSection(true);
+        <?php } ?>
+
         <?php foreach ($errorMessages as $key => $value) { ?>
         ss.components.Error.set(
             "<?php echo $key; ?>", "<?php echo $value; ?>"

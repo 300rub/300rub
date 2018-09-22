@@ -8,7 +8,6 @@ use ss\application\exceptions\NotFoundException;
 use ss\controllers\page\_abstract\AbstractPageController;
 use ss\models\sections\SectionModel;
 use ss\models\settings\SettingsModel;
-use ss\models\user\UserEventModel;
 
 /**
  * PageController
@@ -87,6 +86,11 @@ class PageController extends AbstractPageController
             $content .= $this->_getUserContent();
         }
 
+        $setIsBlockSection = false;
+        if ($this->getBlockSection() > 0) {
+            $setIsBlockSection = true;
+        }
+
         $this->setStaticMap('static');
 
         $layoutData = [];
@@ -122,6 +126,7 @@ class PageController extends AbstractPageController
         $layoutData['bodyBottomCode'] = $this->_getSettingsValueByType(
             SettingsModel::CODE_BODY_BOTTOM
         );
+        $layoutData['setIsBlockSection'] = $setIsBlockSection;
 
         $html = $this->getContentFromTemplate('page/layout', $layoutData);
 
@@ -257,7 +262,9 @@ class PageController extends AbstractPageController
                             'page/lineBlockContainer',
                             [
                                 'item' => $item,
-                                'data' => $this->_getLineStructure($item['data'])
+                                'data' => $this->_getLineStructure(
+                                    $item['data']
+                                )
                             ]
                         );
 

@@ -1,0 +1,60 @@
+.form-container-radio-buttons {
+  display: inline-block;
+
+  .radio-buttons {
+    .radio-button-item {
+      cursor: pointer;
+      display: inline-block;
+      margin: 0;
+
+      .label-body {
+        .transition(background-color);
+        background-color: @grayBackground;
+        display: inline-block;
+        min-width: 30px;
+        padding: 0 10px;
+        text-align: center;
+
+        * {
+          height: 30px;
+          line-height: 30px;
+        }
+
+        &:hover {
+          background-color: @blueBackground;
+
+          * {
+            color: white;
+          }
+        }
+      }
+
+      &:first-child {
+        .label-body {
+          .border-radius(4px 0 0 4px);
+        }
+      }
+
+      &:last-child {
+        .label-body {
+          .border-radius(0 4px 4px 0);
+        }
+      }
+
+      .form-instance {
+        display: none;
+
+        &:checked + .label-body {
+          background-color: @blueBackground;
+          .box-shadow (@formGrayBoxShadow);
+          position: relative;
+          z-index: 10;
+
+          * {
+            color: white;
+          }
+        }
+      }
+    }
+  }
+}

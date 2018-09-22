@@ -1,0 +1,98 @@
+.form-container-checkbox-on-off {
+  label {
+    .transition(background-color);
+    border-bottom: 1px solid @grayBorderColor;
+    cursor: pointer;
+    display: block;
+    min-height: 40px;
+    padding: 5px 10px 6px 10px;
+    position: relative;
+
+    &:hover {
+      background-color: @lightGrayBackground;
+    }
+
+    .label-text {
+      display: block;
+      line-height: 20px;
+      margin-right: 70px;
+      padding-top: 5px;
+    }
+
+    .on-off-wrapper {
+      .border-radius(4px);
+      border: 1px solid @grayBorderColor;
+      display: block;
+      margin-top: -15px;
+      overflow: hidden;
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      width: 60px;
+
+      .on-off-container {
+        .transition(margin-left);
+        display: block;
+        height: 28px;
+        margin-left: -50px;
+        width: 200px;
+
+        .on,
+        .off {
+          display: block;
+          float: left;
+          height: 28px;
+          line-height: 28px;
+          margin: 0;
+          position: relative;
+          text-align: center;
+          width: 50px;
+          z-index: 10;
+        }
+
+        .on {
+          .gradient-vertical (@blueGradientFrom, @blueGradientTo);
+          color: white;
+          padding-right: 4px;
+
+          &:hover {
+            .gradient-vertical (@blueGradientFromHover, @blueGradientToHover);
+          }
+        }
+
+        .off {
+          .gradient-vertical (@grayGradientFrom, @grayGradientTo);
+          padding-left: 4px;
+
+          &:hover {
+            .gradient-vertical (@grayGradientFromHover, @grayGradientToHover);
+          }
+        }
+
+        .separator {
+          .border-radius(4px);
+          background-color: white;
+          display: block;
+          float: left;
+          height: 28px;
+          margin: 0 -4px;
+          position: relative;
+          width: 20px;
+          z-index: 20;
+        }
+      }
+    }
+
+    .form-instance {
+      display: none;
+    }
+
+    .form-instance:checked + .on-off-wrapper {
+      border-color: @blueBorderColor;
+
+      .on-off-container {
+        margin-left: 0;
+      }
+    }
+  }
+}
