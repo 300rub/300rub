@@ -27,6 +27,7 @@ abstract class AbstractContentTextModel extends AbstractTextModel
             [
                 'blockId' => $this->getBlockId(),
                 'text'    => $this->_getText(),
+                'type'    => $this->get('type'),
             ]
         );
     }
@@ -87,6 +88,12 @@ abstract class AbstractContentTextModel extends AbstractTextModel
             return $text;
         }
 
-        return nl2br(htmlspecialchars($text));
+        $text = htmlspecialchars($text);
+
+        if ($this->get('type') === self::TYPE_DIV) {
+            return nl2br($text);
+        }
+
+        return $text;
     }
 }

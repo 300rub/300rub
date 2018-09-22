@@ -214,9 +214,10 @@
                             }
                         },
                         type: "DELETE",
-                        success: function() {
+                        success: $.proxy(function() {
                             new ss.panel.blocks.text.List();
-                        }
+                            new ss.content.block.Delete([this._blockId]);
+                        }, this)
                     }
                 }
             );
@@ -241,6 +242,8 @@
                 .focus();
         } else {
             new ss.panel.blocks.text.List();
+
+            new ss.content.block.Update([this._blockId]);
         }
     };
 }(window.jQuery, window.ss);

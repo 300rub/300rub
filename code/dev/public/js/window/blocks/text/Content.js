@@ -47,20 +47,26 @@
      * @private
      */
     ss.window.blocks.text.Content.prototype._onLoadDataSuccess = function (data) {
-        var rows = 15;
-        if (data.type !== 0) {
-            rows = 1;
+        if (data.type === 0) {
+            this._textForm = new ss.forms.Textarea(
+                $.extend(
+                    {
+                        appendTo: this.getBody(),
+                        rows: 15
+                    },
+                    data.text
+                )
+            );
+        } else {
+            this._textForm = new ss.forms.Text(
+                $.extend(
+                    {
+                        appendTo: this.getBody()
+                    },
+                    data.text
+                )
+            );
         }
-
-        this._textForm = new ss.forms.Textarea(
-            $.extend(
-                {
-                    appendTo: this.getBody(),
-                    rows: rows
-                },
-                data.text
-            )
-        );
 
         if (data.hasEditor === true) {
             this._setTinyMce();

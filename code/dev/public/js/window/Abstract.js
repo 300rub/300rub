@@ -398,14 +398,6 @@
                 )
             );
 
-            this._body.keypress(
-                function (e) {
-                    if (e.which === 13) {
-                        submit.getForm().click();
-                    }
-                }
-            );
-
             return this;
         },
 

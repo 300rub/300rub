@@ -76,6 +76,7 @@ return [
             'components/Upload',
             'system/UserButtons',
             'forms/components/Seo',
+            'content/block/Delete',
             'content/block/image/ImageList',
             'panel/Abstract',
             'panel/settings/List',
