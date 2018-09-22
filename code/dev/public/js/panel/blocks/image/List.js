@@ -12,6 +12,9 @@
             {
                 group: "image",
                 controller: "blocks",
+                data: {
+                    blockSection: this.getBlockSection()
+                },
                 success: $.proxy(this._onLoadDataSuccess, this)
             }
         );

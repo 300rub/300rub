@@ -241,9 +241,13 @@
                 .scrollTo()
                 .focus();
         } else {
-            new ss.panel.blocks.text.List();
+            if (this._blockId === 0) {
+                ss.system.App.setIsBlockSection(false);
+            } else {
+                new ss.content.block.Update([this._blockId]);
+            }
 
-            new ss.content.block.Update([this._blockId]);
+            new ss.panel.blocks.text.List();
         }
     };
 }(window.jQuery, window.ss);
