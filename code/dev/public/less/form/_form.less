@@ -14,28 +14,6 @@
       display: block;
       width: 100%;
 
-      input.form-instance,
-      textarea.form-instance,
-      select.form-instance {
-        .transition(box-shadow, 0.15s);
-        .border-radius(4px);
-        background: white;
-        border: 1px solid @grayBorderColor;
-        font-size: 15px;
-        line-height: 22px;
-        padding: 2px 24px 4px 10px;
-        width: 100%;
-
-        &:hover {
-          border-color: @blueBorderColor;
-        }
-
-        &:focus {
-          .box-shadow (@formBlueBoxShadow);
-          border-color: @blueBorderColor;
-        }
-      }
-
       i.error {
         color: @redTextColor;
         display: none;
@@ -131,4 +109,24 @@
   font-size: 14px;
   font-weight: bold;
   padding: 0 4px;
+}
+
+.default-form-instance {
+  .transition(box-shadow);
+  .border-radius;
+  background: white;
+  border: 1px solid @grayBorderColor;
+  font-size: 15px;
+  line-height: 22px;
+  padding: 2px 24px 4px 10px;
+  width: 100%;
+
+  &:hover {
+    border-color: @blueBorderColor;
+  }
+
+  &:focus {
+    .box-shadow (@formBlueBoxShadow);
+    border-color: @blueBorderColor;
+  }
 }

@@ -6,6 +6,6 @@
     <span class="label-text"></span>
     <div class="color-picker">
         <i class="icon-before fa"></i>
-        <input type="hidden" class="form-instance">
+        <input type="hidden" class="form-instance default-form-instance">
     </div>
 </div>

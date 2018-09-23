@@ -8,7 +8,7 @@
         <span class="label-text"></span>
         <span class="form-instance-container">
             <i class="fas fa-times error"></i>
-            <input type="password" class="form-instance">
+            <input type="password" class="form-instance default-form-instance">
         </span>
         <span class="error"></span>
     </label>

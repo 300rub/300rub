@@ -27,6 +27,7 @@
 
         this._blockId = blockId;
         this._forms = {};
+        this._labels = {};
     };
 
     /**

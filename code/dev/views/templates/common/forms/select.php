@@ -6,7 +6,7 @@
     <label>
         <span class="label-text"></span>
         <span class="form-instance-container">
-            <select class="form-instance">
+            <select class="form-instance default-form-instance">
                 <option class="option-template"></option>
             </select>
         </span>

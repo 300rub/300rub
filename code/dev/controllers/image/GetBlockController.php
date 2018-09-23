@@ -70,8 +70,10 @@ class GetBlockController extends AbstractController
             'labels'      => [
                 'duplicate'         => $language->getMessage('common', 'duplicate'),
                 'delete'            => $language->getMessage('common', 'delete'),
-                'deleteConfirmText' => $language->getMessage('text', 'deleteConfirmText'),
+                'deleteConfirmText' => $language->getMessage('image', 'deleteConfirmText'),
                 'no'                => $language->getMessage('common', 'no'),
+                'hasAutoCrop'       => $language->getMessage('image', 'hasAutoCrop'),
+                'configureCrop'     => $language->getMessage('image', 'configureCrop'),
             ],
             'forms'       => [
                 'name'              => [
@@ -97,12 +99,10 @@ class GetBlockController extends AbstractController
                 ],
                 'cropX'             => [
                     'name'  => 'cropX',
-                    'label' => $language->getMessage('image', 'cropX'),
                     'value' => $this->_imageModel->get('cropX'),
                 ],
                 'cropY'             => [
                     'name'  => 'cropY',
-                    'label' => $language->getMessage('image', 'cropY'),
                     'value' => $this->_imageModel->get('cropY'),
                 ],
                 'thumbAutoCropType' => [
@@ -119,12 +119,10 @@ class GetBlockController extends AbstractController
                 ],
                 'thumbCropX'        => [
                     'name'  => 'thumbCropX',
-                    'label' => $language->getMessage('image', 'thumbCropX'),
                     'value' => $this->_imageModel->get('thumbCropX'),
                 ],
                 'thumbCropY'        => [
                     'name'  => 'thumbCropY',
-                    'label' => $language->getMessage('image', 'thumbCropY'),
                     'value' => $this->_imageModel->get('thumbCropY'),
                 ],
                 'button'            => [

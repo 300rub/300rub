@@ -72,24 +72,8 @@ return [
         Language::LANGUAGE_EN_ID => 'Auto crop type',
         Language::LANGUAGE_RU_ID => '',
     ],
-    'cropX' => [
-        Language::LANGUAGE_EN_ID => 'Crop X',
-        Language::LANGUAGE_RU_ID => '',
-    ],
-    'cropY' => [
-        Language::LANGUAGE_EN_ID => 'Crop Y',
-        Language::LANGUAGE_RU_ID => '',
-    ],
     'thumbAutoCropType' => [
         Language::LANGUAGE_EN_ID => 'Thumb auto crop type',
-        Language::LANGUAGE_RU_ID => '',
-    ],
-    'thumbCropX' => [
-        Language::LANGUAGE_EN_ID => 'Thumb crop X',
-        Language::LANGUAGE_RU_ID => '',
-    ],
-    'thumbCropY' => [
-        Language::LANGUAGE_EN_ID => 'Thumb crop Y',
         Language::LANGUAGE_RU_ID => '',
     ],
     'createAlbum' => [
@@ -123,5 +107,17 @@ return [
     'cropVerb'  => [
         Language::LANGUAGE_EN_ID => "Crop",
         Language::LANGUAGE_RU_ID => 'Обрезать',
+    ],
+    'deleteConfirmText' => [
+        Language::LANGUAGE_EN_ID => 'Are you sure to delete the image block?',
+        Language::LANGUAGE_RU_ID => 'Вы действительно хотите удалить блок изображения?',
+    ],
+    'hasAutoCrop' => [
+        Language::LANGUAGE_EN_ID => 'Auto crop',
+        Language::LANGUAGE_RU_ID => 'Автоматически обрезать при загрузке',
+    ],
+    'configureCrop' => [
+        Language::LANGUAGE_EN_ID => 'Configure crop',
+        Language::LANGUAGE_RU_ID => 'Настроить обрезку',
     ],
 ];

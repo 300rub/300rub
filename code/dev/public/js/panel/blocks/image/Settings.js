@@ -27,6 +27,7 @@
 
         this._blockId = blockId;
         this._forms = {};
+        this._labels = {};
     };
 
     /**
@@ -143,12 +144,107 @@
             )
         );
 
+        this._forms.type = new ss.forms.Select(
+            $.extend(
+                {},
+                forms.type,
+                {
+                    appendTo: container,
+                    onChange: function (value) {
+                        if (value === 0) {
+                            container.addClass("zoom");
+                        } else {
+                            container.removeClass("zoom");
+                        }
+                    }
+                }
+            )
+        );
+
+        this._forms.useAlbums = new ss.forms.CheckboxOnOff(
+            $.extend(
+                {},
+                forms.useAlbums,
+                {
+                    appendTo: container
+                }
+            )
+        );
+
+        var useCrop = false;
+        if (forms.cropX.value > 0
+            && forms.cropY.value > 0
+        ) {
+            useCrop = true;
+            container.addClass("use-crop");
+        }
+
+        new ss.forms.CheckboxOnOff(
+            {
+                value: useCrop,
+                label: this._labels.configureCrop,
+                appendTo: container,
+                onCheck: function() {
+                    container.addClass("use-crop");
+                },
+                onUnCheck: function() {
+                    container.removeClass("use-crop");
+                }
+            }
+        );
+
+        var cropContainer = ss.components.Template.get("image-settings-crop-container");
+
+        new ss.forms.Spinner(
+            $.extend(
+                {},
+                forms.cropX,
+                {
+                    appendTo: cropContainer.find(".crop-x"),
+                    min: 0
+                }
+            )
+        );
+
+        new ss.forms.Spinner(
+            $.extend(
+                {},
+                forms.cropY,
+                {
+                    appendTo: cropContainer.find(".crop-y"),
+                    min: 0
+                }
+            )
+        );
+
+        container.append(cropContainer);
+
+        var hasAutoCrop = false;
+        if (forms.autoCropType.value > 0) {
+            hasAutoCrop = true;
+            container.addClass("auto-crop");
+        }
+
+        new ss.forms.CheckboxOnOff(
+            {
+                value: hasAutoCrop,
+                label: this._labels.hasAutoCrop,
+                appendTo: container,
+                onCheck: function() {
+                    container.addClass("auto-crop");
+                },
+                onUnCheck: function() {
+                    container.removeClass("auto-crop");
+                }
+            }
+        );
+
         new ss.forms.RadioButtons(
             $.extend(
                 {},
                 forms.autoCropType,
                 {
-                    css: "icon-buttons big",
+                    css: "auto-crop-type icon-buttons big",
                     grid: 3,
                     data: this.autoCropData,
                     appendTo: container,
