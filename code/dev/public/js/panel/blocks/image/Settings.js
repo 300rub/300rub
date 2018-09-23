@@ -25,7 +25,9 @@
             }
         );
 
+        this._container = null;
         this._blockId = blockId;
+        this._formData = {};
         this._forms = {};
         this._labels = {};
     };
@@ -86,9 +88,17 @@
                     new ss.panel.blocks.image.List();
                 }
             )
+            ._setContainer()
             ._setLabels(data.labels)
+            ._setFormData(data.forms)
             ._setButtons()
-            ._setForms(data.forms)
+            ._setName()
+            ._setType()
+            ._setUseAlbums()
+            ._setCropProportions()
+            ._setAutoCrop()
+            ._setThumbCropProportions()
+            ._setThumbAutoCrop()
             .setSubmit(
                 {
                     label: data.forms.button.label,
@@ -110,6 +120,20 @@
     };
 
     /**
+     * Sets container
+     *
+     * @returns {ss.panel.blocks.image.Settings}
+     *
+     * @private
+     */
+    ss.panel.blocks.image.Settings.prototype._setContainer = function () {
+        this._container = ss.components.Template.get("image-settings-container");
+        this._container.appendTo(this.getBody());
+
+        return this;
+    };
+
+    /**
      * Sets labels
      *
      * @returns {ss.panel.blocks.image.Settings}
@@ -122,7 +146,19 @@
     };
 
     /**
-     * Sets forms
+     * Sets form data
+     *
+     * @returns {ss.panel.blocks.image.Settings}
+     *
+     * @private
+     */
+    ss.panel.blocks.image.Settings.prototype._setFormData = function (forms) {
+        this._formData = forms;
+        return this;
+    };
+
+    /**
+     * Sets thumb auto crop
      *
      * @param {Object} forms
      *
@@ -130,70 +166,145 @@
      *
      * @private
      */
-    ss.panel.blocks.image.Settings.prototype._setForms = function (forms) {
-        var container = ss.components.Template.get("image-settings-container");
-        container.appendTo(this.getBody());
+    ss.panel.blocks.image.Settings.prototype._setThumbAutoCrop = function (forms) {
+        var hasThumbAutoCrop = false;
+        if (this._formData.autoCropType.value > 0) {
+            hasThumbAutoCrop = true;
+            this._container.addClass("thumb-auto-crop");
+        }
 
-        this._forms.name = new ss.forms.Text(
+        new ss.forms.CheckboxOnOff(
+            {
+                value: hasThumbAutoCrop,
+                label: this._labels.hasThumbAutoCrop,
+                css: "thumb-auto-crop-container",
+                appendTo: this._container,
+                onCheck: $.proxy(function() {
+                    this._container.addClass("thumb-auto-crop");
+                }, this),
+                onUnCheck: $.proxy(function() {
+                    this._container.removeClass("thumb-auto-crop");
+                }, this)
+            }
+        );
+
+        new ss.forms.RadioButtons(
             $.extend(
                 {},
-                forms.name,
+                this._formData.thumbAutoCropType,
                 {
-                    appendTo: container
+                    css: "thumb-auto-crop-type icon-buttons big",
+                    grid: 3,
+                    data: this.autoCropData,
+                    appendTo: this._container
                 }
             )
         );
 
-        if (forms.type.value === 0) {
-            container.addClass("zoom");
+        return this;
+    };
+
+    /**
+     * Sets name
+     *
+     * @returns {ss.panel.blocks.image.Settings}
+     *
+     * @private
+     */
+    ss.panel.blocks.image.Settings.prototype._setName = function () {
+        this._forms.name = new ss.forms.Text(
+            $.extend(
+                {},
+                this._formData.name,
+                {
+                    appendTo: this._container
+                }
+            )
+        );
+
+        return this;
+    };
+
+    /**
+     * Sets type
+     *
+     * @returns {ss.panel.blocks.image.Settings}
+     *
+     * @private
+     */
+    ss.panel.blocks.image.Settings.prototype._setType = function () {
+        if (this._formData.type.value === 0) {
+            this._container.addClass("zoom");
         }
 
         this._forms.type = new ss.forms.Select(
             $.extend(
                 {},
-                forms.type,
+                this._formData.type,
                 {
-                    appendTo: container,
-                    onChange: function (value) {
+                    appendTo: this._container,
+                    onChange: $.proxy(function (value) {
                         if (value === 0) {
-                            container.addClass("zoom");
+                            this._container.addClass("zoom");
                         } else {
-                            container.removeClass("zoom");
+                            this._container.removeClass("zoom");
                         }
-                    }
+                    }, this)
                 }
             )
         );
 
+        return this;
+    };
+
+    /**
+     * Sets use albums form
+     *
+     * @returns {ss.panel.blocks.image.Settings}
+     *
+     * @private
+     */
+    ss.panel.blocks.image.Settings.prototype._setUseAlbums = function () {
         this._forms.useAlbums = new ss.forms.CheckboxOnOff(
             $.extend(
                 {},
-                forms.useAlbums,
+                this._formData.useAlbums,
                 {
-                    appendTo: container
+                    appendTo: this._container
                 }
             )
         );
 
+        return this;
+    };
+
+    /**
+     * Sets crop proportions
+     *
+     * @returns {ss.panel.blocks.image.Settings}
+     *
+     * @private
+     */
+    ss.panel.blocks.image.Settings.prototype._setCropProportions = function () {
         var useCrop = false;
-        if (forms.cropX.value > 0
-            && forms.cropY.value > 0
+        if (this._formData.cropX.value > 0
+            && this._formData.cropY.value > 0
         ) {
             useCrop = true;
-            container.addClass("use-crop");
+            this._container.addClass("use-crop");
         }
 
         new ss.forms.CheckboxOnOff(
             {
                 value: useCrop,
                 label: this._labels.configureCrop,
-                appendTo: container,
-                onCheck: function() {
-                    container.addClass("use-crop");
-                },
-                onUnCheck: function() {
-                    container.removeClass("use-crop");
-                }
+                appendTo: this._container,
+                onCheck: $.proxy(function() {
+                    this._container.addClass("use-crop");
+                }, this),
+                onUnCheck: $.proxy(function() {
+                    this._container.removeClass("use-crop");
+                }, this)
             }
         );
 
@@ -204,7 +315,7 @@
         new ss.forms.Spinner(
             $.extend(
                 {},
-                forms.cropX,
+                this._formData.cropX,
                 {
                     appendTo: cropContainer.find(".crop-x"),
                     min: 0
@@ -215,7 +326,7 @@
         new ss.forms.Spinner(
             $.extend(
                 {},
-                forms.cropY,
+                this._formData.cropY,
                 {
                     appendTo: cropContainer.find(".crop-y"),
                     min: 0
@@ -223,12 +334,23 @@
             )
         );
 
-        container.append(cropContainer);
+        this._container.append(cropContainer);
 
+        return this;
+    };
+
+    /**
+     * Sets auto crop
+     *
+     * @returns {ss.panel.blocks.image.Settings}
+     *
+     * @private
+     */
+    ss.panel.blocks.image.Settings.prototype._setAutoCrop = function () {
         var hasAutoCrop = false;
-        if (forms.autoCropType.value > 0) {
+        if (this._formData.autoCropType.value > 0) {
             hasAutoCrop = true;
-            container.addClass("auto-crop");
+            this._container.addClass("auto-crop");
         }
 
         new ss.forms.CheckboxOnOff(
@@ -236,29 +358,40 @@
                 value: hasAutoCrop,
                 label: this._labels.hasAutoCrop,
                 css: "auto-crop-container",
-                appendTo: container,
-                onCheck: function() {
-                    container.addClass("auto-crop");
-                },
-                onUnCheck: function() {
-                    container.removeClass("auto-crop");
-                }
+                appendTo: this._container,
+                onCheck: $.proxy(function() {
+                    this._container.addClass("auto-crop");
+                }, this),
+                onUnCheck: $.proxy(function() {
+                    this._container.removeClass("auto-crop");
+                }, this)
             }
         );
 
         new ss.forms.RadioButtons(
             $.extend(
                 {},
-                forms.autoCropType,
+                this._formData.autoCropType,
                 {
                     css: "auto-crop-type icon-buttons big",
                     grid: 3,
                     data: this.autoCropData,
-                    appendTo: container
+                    appendTo: this._container
                 }
             )
         );
 
+        return this;
+    };
+
+    /**
+     * Sets thumb crop proportions
+     *
+     * @returns {ss.panel.blocks.image.Settings}
+     *
+     * @private
+     */
+    ss.panel.blocks.image.Settings.prototype._setThumbCropProportions = function () {
         var thumbCropContainer = ss.components.Template.get("image-settings-crop-container");
 
         thumbCropContainer.removeClass("image-settings-crop-container");
@@ -268,7 +401,7 @@
         new ss.forms.Spinner(
             $.extend(
                 {},
-                forms.thumbCropX,
+                this._formData.thumbCropX,
                 {
                     appendTo: thumbCropContainer.find(".crop-x"),
                     min: 0
@@ -279,7 +412,7 @@
         new ss.forms.Spinner(
             $.extend(
                 {},
-                forms.thumbCropY,
+                this._formData.thumbCropY,
                 {
                     appendTo: thumbCropContainer.find(".crop-y"),
                     min: 0
@@ -287,41 +420,7 @@
             )
         );
 
-        container.append(thumbCropContainer);
-
-        var hasThumbAutoCrop = false;
-        if (forms.autoCropType.value > 0) {
-            hasThumbAutoCrop = true;
-            container.addClass("thumb-auto-crop");
-        }
-
-        new ss.forms.CheckboxOnOff(
-            {
-                value: hasThumbAutoCrop,
-                label: this._labels.hasThumbAutoCrop,
-                css: "thumb-auto-crop-container",
-                appendTo: container,
-                onCheck: function() {
-                    container.addClass("thumb-auto-crop");
-                },
-                onUnCheck: function() {
-                    container.removeClass("thumb-auto-crop");
-                }
-            }
-        );
-
-        new ss.forms.RadioButtons(
-            $.extend(
-                {},
-                forms.thumbAutoCropType,
-                {
-                    css: "thumb-auto-crop-type icon-buttons big",
-                    grid: 3,
-                    data: this.autoCropData,
-                    appendTo: container
-                }
-            )
-        );
+        this._container.append(thumbCropContainer);
 
         return this;
     };
