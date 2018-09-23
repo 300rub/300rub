@@ -123,6 +123,8 @@
             radioButtons.append(itemContainer);
         }
 
+        this.resetInstance();
+
         var onChange = this.getOption("onChange");
         if ($.type(onChange) === "function") {
             this.getForm().find(".form-instance").on(
@@ -134,5 +136,42 @@
         }
 
         return this;
+    };
+
+    /**
+     * Sets value
+     *
+     * @param {*} value
+     *
+     * @returns {*}
+     */
+    ss.forms.RadioButtons.prototype.setValue = function (value) {
+        this.getInstance().each(function() {
+            if (parseInt($(this).attr("value")) === parseInt(value)) {
+                $(this).click();
+            } else {
+                $(this).attr("checked", false);
+            }
+        });
+
+        this._instance.val(value);
+        return this;
+    };
+
+    /**
+     * Gets value
+     *
+     * @returns {int}
+     */
+    ss.forms.RadioButtons.prototype.getValue = function () {
+        var value = 0;
+
+        this.getInstance().each(function() {
+            if ($(this).is(":checked") === true) {
+                value = parseInt($(this).attr("value"));
+            }
+        });
+
+        return value;
     };
 }(window.jQuery, window.ss);

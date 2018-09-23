@@ -196,6 +196,7 @@
                 this._formData.type,
                 {
                     appendTo: this._container,
+                    type: "int",
                     onChange: $.proxy(function (value) {
                         if (value === 0) {
                             this._container.addClass("zoom");
@@ -265,7 +266,7 @@
 
         cropContainer.find(".label-text").text(this._labels.cropProportions);
 
-        new ss.forms.Spinner(
+        this._forms.cropX = new ss.forms.Spinner(
             $.extend(
                 {},
                 this._formData.cropX,
@@ -276,7 +277,7 @@
             )
         );
 
-        new ss.forms.Spinner(
+        this._forms.cropY = new ss.forms.Spinner(
             $.extend(
                 {},
                 this._formData.cropY,
@@ -314,20 +315,23 @@
                 appendTo: this._container,
                 onCheck: $.proxy(function() {
                     this._container.addClass("auto-crop");
+                    this._forms.autoCropType.setValue(5);
                 }, this),
                 onUnCheck: $.proxy(function() {
                     this._container.removeClass("auto-crop");
+                    this._forms.autoCropType.setValue(0);
                 }, this)
             }
         );
 
-        new ss.forms.RadioButtons(
+        this._forms.autoCropType = new ss.forms.RadioButtons(
             $.extend(
                 {},
                 this._formData.autoCropType,
                 {
                     css: "auto-crop-type icon-buttons big",
                     grid: 3,
+                    type: "int",
                     data: this.autoCropData,
                     appendTo: this._container
                 }
@@ -351,7 +355,7 @@
         thumbCropContainer.addClass("image-settings-thumb-crop-container");
         thumbCropContainer.find(".label-text").text(this._labels.thumbCropProportions);
 
-        new ss.forms.Spinner(
+        this._forms.thumbCropX = new ss.forms.Spinner(
             $.extend(
                 {},
                 this._formData.thumbCropX,
@@ -362,7 +366,7 @@
             )
         );
 
-        new ss.forms.Spinner(
+        this._forms.thumbCropY =new ss.forms.Spinner(
             $.extend(
                 {},
                 this._formData.thumbCropY,
@@ -402,14 +406,16 @@
                 appendTo: this._container,
                 onCheck: $.proxy(function() {
                     this._container.addClass("thumb-auto-crop");
+                    this._forms.thumbAutoCropType.setValue(5);
                 }, this),
                 onUnCheck: $.proxy(function() {
                     this._container.removeClass("thumb-auto-crop");
+                    this._forms.thumbAutoCropType.setValue(0);
                 }, this)
             }
         );
 
-        new ss.forms.RadioButtons(
+        this._forms.thumbAutoCropType = new ss.forms.RadioButtons(
             $.extend(
                 {},
                 this._formData.thumbAutoCropType,

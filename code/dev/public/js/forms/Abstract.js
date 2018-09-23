@@ -48,7 +48,7 @@
          */
         _set: function (name, options) {
             this._form = ss.components.Template.get(name);
-            this._instance = this._form.find(".form-instance");
+            this.resetInstance();
             this._options = $.extend({}, options);
 
             this
@@ -60,6 +60,16 @@
                 ._setOnlyNumbers()
                 ._appendTo()
                 ._setOnChange();
+        },
+
+        /**
+         * Resets instance
+         *
+         * @returns {ss.forms.Abstract}
+         */
+        resetInstance: function() {
+            this._instance = this._form.find(".form-instance");
+            return this;
         },
 
         /**
@@ -217,10 +227,11 @@
          *
          * @param {*} value
          *
-         * @returns {*}
+         * @returns {ss.forms.Abstract}
          */
         setValue: function (value) {
             this._instance.val(value);
+            return this;
         },
 
         /**
