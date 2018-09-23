@@ -74,6 +74,7 @@ class GetBlockController extends AbstractController
                 'no'                => $language->getMessage('common', 'no'),
                 'hasAutoCrop'       => $language->getMessage('image', 'hasAutoCrop'),
                 'configureCrop'     => $language->getMessage('image', 'configureCrop'),
+                'cropProportions'   => $language->getMessage('image', 'cropProportions'),
             ],
             'forms'       => [
                 'name'              => [

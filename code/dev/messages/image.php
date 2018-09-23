@@ -120,4 +120,8 @@ return [
         Language::LANGUAGE_EN_ID => 'Configure crop',
         Language::LANGUAGE_RU_ID => 'Настроить обрезку',
     ],
+    'cropProportions' => [
+        Language::LANGUAGE_EN_ID => 'Crop proportions',
+        Language::LANGUAGE_RU_ID => 'Пропорции обрезки',
+    ],
 ];

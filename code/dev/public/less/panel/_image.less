@@ -1,13 +1,37 @@
 .panel {
   .image-settings-container {
-    .auto-crop-type {
+    .auto-crop-type,
+    .image-settings-crop-container,
+    .auto-crop-container {
       display: none;
     }
   }
 
-  .image-settings-container.auto-crop {
+  .image-settings-container.use-crop {
+    .image-settings-crop-container,
+    .auto-crop-container {
+      display: block;
+    }
+  }
+
+  .image-settings-container.use-crop.auto-crop {
     .auto-crop-type {
       display: block;
     }
   }
+
+  //
+  //.image-settings-container.auto-crop {
+  //  .auto-crop-type {
+  //    display: block;
+  //  }
+  //}
+  //
+
+  //
+  //.image-settings-container.auto-crop.use-crop {
+  //  .image-settings-crop-container {
+  //    display: block;
+  //  }
+  //}
 }

@@ -195,6 +195,8 @@
 
         var cropContainer = ss.components.Template.get("image-settings-crop-container");
 
+        cropContainer.find(".label-text").text(this._labels.cropProportions);
+
         new ss.forms.Spinner(
             $.extend(
                 {},
@@ -229,6 +231,7 @@
             {
                 value: hasAutoCrop,
                 label: this._labels.hasAutoCrop,
+                css: "auto-crop-container",
                 appendTo: container,
                 onCheck: function() {
                     container.addClass("auto-crop");
