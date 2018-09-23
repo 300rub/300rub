@@ -148,13 +148,13 @@
     ss.forms.RadioButtons.prototype.setValue = function (value) {
         this.getInstance().each(function() {
             if (parseInt($(this).attr("value")) === parseInt(value)) {
+                $(this).prop("checked", true);
                 $(this).click();
             } else {
-                $(this).attr("checked", false);
+                $(this).prop("checked", false);
             }
         });
 
-        this._instance.val(value);
         return this;
     };
 

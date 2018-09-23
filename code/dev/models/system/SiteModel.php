@@ -242,13 +242,30 @@ class SiteModel extends AbstractSiteModel
     /**
      * Sets active section
      *
-     * @param SectionModel|AbstractModel $sectionModel Section model
-     *
      * @return SiteModel
      */
-    public function setActiveSection($sectionModel)
+    public function setActiveSection()
     {
-        $this->_activeSection = $sectionModel;
+        $site = App::getInstance()->getSite();
+        $requestUri = $site->getUri();
+
+        if (strlen($requestUri) === 0
+            || strpos($requestUri, '/') === false
+        ) {
+            $this->_activeSection = SectionModel::model()
+                ->main()
+                ->withRelations(['*'])
+                ->find();
+            return $this;
+        }
+
+        $explode = explode('/', $requestUri);
+
+        $this->_activeSection = SectionModel::model()
+            ->byLanguage(App::getInstance()->getLanguage()->getActiveId())
+            ->byAlias($explode[1])
+            ->withRelations(['*'])
+            ->find();
         return $this;
     }
 
@@ -259,6 +276,10 @@ class SiteModel extends AbstractSiteModel
      */
     public function getActiveSection()
     {
+        if ($this->_activeSection === null) {
+            $this->setActiveSection();
+        }
+
         return $this->_activeSection;
     }
 

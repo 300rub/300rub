@@ -90,6 +90,7 @@
             ._setName()
             ._setType()
             ._setUseAlbums()
+            ._setConfigureCrop()
             ._setCropProportions()
             ._setAutoCrop()
             ._setThumbCropProportions()
@@ -233,16 +234,18 @@
     };
 
     /**
-     * Sets crop proportions
+     * Sets configure crop
      *
      * @returns {ss.panel.blocks.image.Settings}
      *
      * @private
      */
-    ss.panel.blocks.image.Settings.prototype._setCropProportions = function () {
+    ss.panel.blocks.image.Settings.prototype._setConfigureCrop = function () {
         var useCrop = false;
-        if (this._formData.cropX.value > 0
-            && this._formData.cropY.value > 0
+        if ((this._formData.cropX.value > 0
+            && this._formData.cropY.value > 0)
+            || (this._formData.thumbCropX.value > 0
+            && this._formData.thumbCropY.value > 0)
         ) {
             useCrop = true;
             this._container.addClass("use-crop");
@@ -258,12 +261,27 @@
                 }, this),
                 onUnCheck: $.proxy(function() {
                     this._container.removeClass("use-crop");
+
+                    this._forms.cropX.setValue(0);
+                    this._forms.cropY.setValue(0);
+                    this._forms.thumbCropX.setValue(0);
+                    this._forms.thumbCropY.setValue(0);
                 }, this)
             }
         );
 
-        var cropContainer = ss.components.Template.get("image-settings-crop-container");
+        return this;
+    };
 
+    /**
+     * Sets crop proportions
+     *
+     * @returns {ss.panel.blocks.image.Settings}
+     *
+     * @private
+     */
+    ss.panel.blocks.image.Settings.prototype._setCropProportions = function () {
+        var cropContainer = ss.components.Template.get("image-settings-crop-container");
         cropContainer.find(".label-text").text(this._labels.cropProportions);
 
         this._forms.cropX = new ss.forms.Spinner(
@@ -393,7 +411,7 @@
      */
     ss.panel.blocks.image.Settings.prototype._setThumbAutoCrop = function (forms) {
         var hasThumbAutoCrop = false;
-        if (this._formData.autoCropType.value > 0) {
+        if (this._formData.thumbAutoCropType.value > 0) {
             hasThumbAutoCrop = true;
             this._container.addClass("thumb-auto-crop");
         }

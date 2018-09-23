@@ -78,11 +78,6 @@ class UpdateBlockController extends AbstractBlockController
             )
         );
 
-        return [
-            'result' => true,
-            'html'   => $blockModel->getHtml(),
-            'css'    => $blockModel->getCss(),
-            'js'     => $blockModel->getJs(),
-        ];
+        return $this->getSimpleSuccessResult();
     }
 }

@@ -37,7 +37,9 @@ class GetContentController extends AbstractController
             $idList = [];
         }
 
-        App::getInstance()->getSite()->setUri($this->get('uri'));
+        App::getInstance()
+            ->getSite()
+            ->setUri($this->get('uri'));
 
         foreach ($idList as $blockId) {
             if (array_key_exists($blockId, $this->_content) === true) {
