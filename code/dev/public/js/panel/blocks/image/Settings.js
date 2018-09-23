@@ -83,11 +83,6 @@
         this
             .setTitle(data.title)
             .setDescription(data.description)
-            .setBack(
-                function () {
-                    new ss.panel.blocks.image.List();
-                }
-            )
             ._setContainer()
             ._setLabels(data.labels)
             ._setFormData(data.forms)
@@ -99,6 +94,11 @@
             ._setAutoCrop()
             ._setThumbCropProportions()
             ._setThumbAutoCrop()
+            .setBack(
+                function () {
+                    new ss.panel.blocks.image.List();
+                }
+            )
             .setSubmit(
                 {
                     label: data.forms.button.label,
@@ -154,53 +154,6 @@
      */
     ss.panel.blocks.image.Settings.prototype._setFormData = function (forms) {
         this._formData = forms;
-        return this;
-    };
-
-    /**
-     * Sets thumb auto crop
-     *
-     * @param {Object} forms
-     *
-     * @returns {ss.panel.blocks.image.Settings}
-     *
-     * @private
-     */
-    ss.panel.blocks.image.Settings.prototype._setThumbAutoCrop = function (forms) {
-        var hasThumbAutoCrop = false;
-        if (this._formData.autoCropType.value > 0) {
-            hasThumbAutoCrop = true;
-            this._container.addClass("thumb-auto-crop");
-        }
-
-        new ss.forms.CheckboxOnOff(
-            {
-                value: hasThumbAutoCrop,
-                label: this._labels.hasThumbAutoCrop,
-                css: "thumb-auto-crop-container",
-                appendTo: this._container,
-                onCheck: $.proxy(function() {
-                    this._container.addClass("thumb-auto-crop");
-                }, this),
-                onUnCheck: $.proxy(function() {
-                    this._container.removeClass("thumb-auto-crop");
-                }, this)
-            }
-        );
-
-        new ss.forms.RadioButtons(
-            $.extend(
-                {},
-                this._formData.thumbAutoCropType,
-                {
-                    css: "thumb-auto-crop-type icon-buttons big",
-                    grid: 3,
-                    data: this.autoCropData,
-                    appendTo: this._container
-                }
-            )
-        );
-
         return this;
     };
 
@@ -421,6 +374,53 @@
         );
 
         this._container.append(thumbCropContainer);
+
+        return this;
+    };
+
+    /**
+     * Sets thumb auto crop
+     *
+     * @param {Object} forms
+     *
+     * @returns {ss.panel.blocks.image.Settings}
+     *
+     * @private
+     */
+    ss.panel.blocks.image.Settings.prototype._setThumbAutoCrop = function (forms) {
+        var hasThumbAutoCrop = false;
+        if (this._formData.autoCropType.value > 0) {
+            hasThumbAutoCrop = true;
+            this._container.addClass("thumb-auto-crop");
+        }
+
+        new ss.forms.CheckboxOnOff(
+            {
+                value: hasThumbAutoCrop,
+                label: this._labels.hasThumbAutoCrop,
+                css: "thumb-auto-crop-container",
+                appendTo: this._container,
+                onCheck: $.proxy(function() {
+                    this._container.addClass("thumb-auto-crop");
+                }, this),
+                onUnCheck: $.proxy(function() {
+                    this._container.removeClass("thumb-auto-crop");
+                }, this)
+            }
+        );
+
+        new ss.forms.RadioButtons(
+            $.extend(
+                {},
+                this._formData.thumbAutoCropType,
+                {
+                    css: "thumb-auto-crop-type icon-buttons big",
+                    grid: 3,
+                    data: this.autoCropData,
+                    appendTo: this._container
+                }
+            )
+        );
 
         return this;
     };
