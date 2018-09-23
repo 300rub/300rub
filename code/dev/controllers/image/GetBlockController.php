@@ -68,13 +68,16 @@ class GetBlockController extends AbstractController
             'title'       => $language->getMessage('image', $titleKey),
             'description' => $language->getMessage('image', $descriptionKey),
             'labels'      => [
-                'duplicate'         => $language->getMessage('common', 'duplicate'),
-                'delete'            => $language->getMessage('common', 'delete'),
-                'deleteConfirmText' => $language->getMessage('image', 'deleteConfirmText'),
-                'no'                => $language->getMessage('common', 'no'),
-                'hasAutoCrop'       => $language->getMessage('image', 'hasAutoCrop'),
-                'configureCrop'     => $language->getMessage('image', 'configureCrop'),
-                'cropProportions'   => $language->getMessage('image', 'cropProportions'),
+                'duplicate'            => $language->getMessage('common', 'duplicate'),
+                'delete'               => $language->getMessage('common', 'delete'),
+                'deleteConfirmText'    => $language->getMessage('image', 'deleteConfirmText'),
+                'no'                   => $language->getMessage('common', 'no'),
+                'configureCrop'        => $language->getMessage('image', 'configureCrop'),
+                'cropProportions'      => $language->getMessage('image', 'cropProportions'),
+                'hasAutoCrop'          => $language->getMessage('image', 'hasAutoCrop'),
+                'configureThumbCrop'   => $language->getMessage('image', 'configureThumbCrop'),
+                'thumbCropProportions' => $language->getMessage('image', 'thumbCropProportions'),
+                'hasThumbAutoCrop'     => $language->getMessage('image', 'hasThumbAutoCrop'),
             ],
             'forms'       => [
                 'name'              => [
@@ -92,11 +95,10 @@ class GetBlockController extends AbstractController
                     'name'  => 'type',
                     'list'  => $typeList
                 ],
-                'autoCropType'      => [
-                    'label' => $language->getMessage('image', 'autoCropType'),
-                    'value' => $this->_imageModel->get('autoCropType'),
-                    'name'  => 'autoCropType',
-                    'list'  => $this->_imageModel->getAutoCropTypeList()
+                'useAlbums'         => [
+                    'name'  => 'useAlbums',
+                    'label' => $language->getMessage('image', 'useAlbums'),
+                    'value' => $this->_imageModel->get('useAlbums'),
                 ],
                 'cropX'             => [
                     'name'  => 'cropX',
@@ -106,17 +108,11 @@ class GetBlockController extends AbstractController
                     'name'  => 'cropY',
                     'value' => $this->_imageModel->get('cropY'),
                 ],
-                'thumbAutoCropType' => [
-                    'label'
-                        => $language->getMessage('image', 'thumbAutoCropType'),
-                    'value' => $this->_imageModel->get('thumbAutoCropType'),
-                    'name'  => 'thumbAutoCropType',
+                'autoCropType'      => [
+                    'label' => $language->getMessage('image', 'autoCropType'),
+                    'value' => $this->_imageModel->get('autoCropType'),
+                    'name'  => 'autoCropType',
                     'list'  => $this->_imageModel->getAutoCropTypeList()
-                ],
-                'useAlbums'         => [
-                    'name'  => 'useAlbums',
-                    'label' => $language->getMessage('image', 'useAlbums'),
-                    'value' => $this->_imageModel->get('useAlbums'),
                 ],
                 'thumbCropX'        => [
                     'name'  => 'thumbCropX',
@@ -125,6 +121,13 @@ class GetBlockController extends AbstractController
                 'thumbCropY'        => [
                     'name'  => 'thumbCropY',
                     'value' => $this->_imageModel->get('thumbCropY'),
+                ],
+                'thumbAutoCropType' => [
+                    'label'
+                        => $language->getMessage('image', 'thumbAutoCropType'),
+                    'value' => $this->_imageModel->get('thumbAutoCropType'),
+                    'name'  => 'thumbAutoCropType',
+                    'list'  => $this->_imageModel->getAutoCropTypeList()
                 ],
                 'button'            => [
                     'label' => $language->getMessage('common', $buttonLabelKey),

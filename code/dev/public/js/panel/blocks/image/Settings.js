@@ -144,6 +144,10 @@
             )
         );
 
+        if (forms.type.value === 0) {
+            container.addClass("zoom");
+        }
+
         this._forms.type = new ss.forms.Select(
             $.extend(
                 {},
@@ -250,13 +254,71 @@
                     css: "auto-crop-type icon-buttons big",
                     grid: 3,
                     data: this.autoCropData,
-                    appendTo: container,
-                    onChange: $.proxy(
-                        function (value) {
-                            console.log(value);
-                        },
-                        this
-                    )
+                    appendTo: container
+                }
+            )
+        );
+
+        var thumbCropContainer = ss.components.Template.get("image-settings-crop-container");
+
+        thumbCropContainer.removeClass("image-settings-crop-container");
+        thumbCropContainer.addClass("image-settings-thumb-crop-container");
+        thumbCropContainer.find(".label-text").text(this._labels.thumbCropProportions);
+
+        new ss.forms.Spinner(
+            $.extend(
+                {},
+                forms.thumbCropX,
+                {
+                    appendTo: thumbCropContainer.find(".crop-x"),
+                    min: 0
+                }
+            )
+        );
+
+        new ss.forms.Spinner(
+            $.extend(
+                {},
+                forms.thumbCropY,
+                {
+                    appendTo: thumbCropContainer.find(".crop-y"),
+                    min: 0
+                }
+            )
+        );
+
+        container.append(thumbCropContainer);
+
+        var hasThumbAutoCrop = false;
+        if (forms.autoCropType.value > 0) {
+            hasThumbAutoCrop = true;
+            container.addClass("thumb-auto-crop");
+        }
+
+        new ss.forms.CheckboxOnOff(
+            {
+                value: hasThumbAutoCrop,
+                label: this._labels.hasThumbAutoCrop,
+                css: "thumb-auto-crop-container",
+                appendTo: container,
+                onCheck: function() {
+                    container.addClass("thumb-auto-crop");
+                },
+                onUnCheck: function() {
+                    container.removeClass("thumb-auto-crop");
+                }
+            }
+        );
+
+        new ss.forms.RadioButtons(
+            $.extend(
+                {},
+                forms.thumbAutoCropType,
+                {
+                    css: "thumb-auto-crop-type icon-buttons big",
+                    grid: 3,
+                    data: this.autoCropData,
+                    appendTo: container
                 }
             )
         );

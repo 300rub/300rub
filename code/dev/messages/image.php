@@ -124,4 +124,16 @@ return [
         Language::LANGUAGE_EN_ID => 'Crop proportions',
         Language::LANGUAGE_RU_ID => 'Пропорции обрезки',
     ],
+    'configureThumbCrop' => [
+        Language::LANGUAGE_EN_ID => 'Configure thumb crop',
+        Language::LANGUAGE_RU_ID => 'Настроить обрезку миниатюр',
+    ],
+    'thumbCropProportions' => [
+        Language::LANGUAGE_EN_ID => 'Thumb crop proportions',
+        Language::LANGUAGE_RU_ID => 'Пропорции обрезки миниатюр',
+    ],
+    'hasThumbAutoCrop' => [
+        Language::LANGUAGE_EN_ID => 'Thumb auto crop',
+        Language::LANGUAGE_RU_ID => 'Автоматически обрезать миниатюры при загрузке',
+    ],
 ];
