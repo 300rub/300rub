@@ -1,7 +1,9 @@
 <script>
     $(document).ready(function(){
-        new ss.panel.blocks.image.Settings(
-            2
+        new ss.window.blocks.image.Content(
+            {
+                blockId: 2
+            }
         );
     });
 

@@ -117,7 +117,11 @@
                     item.find(".label").on(
                         "click",
                         function () {
-                            new ss.window.blocks.image.Content(itemData.id);
+                            new ss.window.blocks.image.Content(
+                                {
+                                    blockId: itemData.id
+                                }
+                            );
                         }
                     );
 

@@ -63,37 +63,46 @@ class GetContentController extends AbstractController
         if ($this->_imageModel->get('useAlbums') === true
             && $groupId === 0
         ) {
-            return [
-                'id'     => $this->_blockModel->getId(),
-                'labels' => [],
-                'name'   => $this->_blockModel->get('name'),
-                'button' => [
-                    'label' => App::getInstance()
-                        ->getLanguage()
-                        ->getMessage('common', 'save')
-                ],
-                'useAlbums'      => true,
-                'canCreate' => $this->hasBlockOperation(
-                    BlockModel::TYPE_IMAGE,
-                    $this->get('id'),
-                    Operation::IMAGE_CREATE_ALBUM
-                ),
-                'canUpdate' => $this->hasBlockOperation(
-                    BlockModel::TYPE_IMAGE,
-                    $this->get('id'),
-                    Operation::IMAGE_UPDATE_ALBUM
-                ),
-                'canDelete' => $this->hasBlockOperation(
-                    BlockModel::TYPE_IMAGE,
-                    $this->get('id'),
-                    Operation::IMAGE_DELETE_ALBUM
-                ),
-                'list'
-                    => $this->_getListWithAlbums()
-            ];
+            return $this->_getAlbumsResponse();
         }
 
         return $this->_getImagesResponse();
+    }
+
+    /**
+     * Gets albums response
+     *
+     * @return array
+     */
+    private function _getAlbumsResponse()
+    {
+        return [
+            'id'     => $this->_blockModel->getId(),
+            'labels' => [],
+            'name'   => $this->_blockModel->get('name'),
+            'button' => [
+                'label' => App::getInstance()
+                    ->getLanguage()
+                    ->getMessage('common', 'save')
+            ],
+            'useAlbums'      => true,
+            'canCreate' => $this->hasBlockOperation(
+                BlockModel::TYPE_IMAGE,
+                $this->get('id'),
+                Operation::IMAGE_CREATE_ALBUM
+            ),
+            'canUpdate' => $this->hasBlockOperation(
+                BlockModel::TYPE_IMAGE,
+                $this->get('id'),
+                Operation::IMAGE_UPDATE_ALBUM
+            ),
+            'canDelete' => $this->hasBlockOperation(
+                BlockModel::TYPE_IMAGE,
+                $this->get('id'),
+                Operation::IMAGE_DELETE_ALBUM
+            ),
+            'list' => $this->_getListWithAlbums()
+        ];
     }
 
     /**

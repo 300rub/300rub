@@ -24,3 +24,12 @@
         </div>
     </div>
 </div>
+
+<div class="image-group-sort-container"></div>
+
+<div class="image-group-sort-item">
+    <img src="" />
+    <div class="buttons">
+        <div class="background"></div>
+    </div>
+</div>
