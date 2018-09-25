@@ -310,14 +310,6 @@
                 )
             );
 
-            this._body.keypress(
-                function (e) {
-                    if (e.which === 13) {
-                        submit._panel.click();
-                    }
-                }
-            );
-
             return this;
         },
 
@@ -399,7 +391,7 @@
          * @returns {ss.panel.Abstract}
          */
         setFooterButton: function (options) {
-            var submit = new ss.forms.Button(
+            new ss.forms.Button(
                 $.extend(
                     {},
                     options,

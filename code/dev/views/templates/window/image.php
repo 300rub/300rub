@@ -28,8 +28,12 @@
 <div class="image-group-sort-container"></div>
 
 <div class="image-group-sort-item">
-    <img src="" />
-    <div class="buttons">
-        <div class="background"></div>
+    <div class="cover-container">
+        <img class="cover" src="" />
+    </div>
+
+    <div class="body">
+        <div class="title"></div>
+        <div class="buttons btn-group"></div>
     </div>
 </div>

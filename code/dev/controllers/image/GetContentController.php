@@ -76,9 +76,19 @@ class GetContentController extends AbstractController
      */
     private function _getAlbumsResponse()
     {
+        $language = App::getInstance()->getLanguage();
+
         return [
             'id'     => $this->_blockModel->getId(),
-            'labels' => [],
+            'labels' => [
+                "images" => $language->getMessage('image', 'images'),
+                "edit"   => $language->getMessage('common', 'edit'),
+                "delete" => $language->getMessage('common', 'delete'),
+                'deleteConfirm'
+                    => $language->getMessage('image', 'albumDeleteConfirm'),
+                'no'     => $language->getMessage('common', 'no'),
+                'addAlbum'  => $language->getMessage('image', 'addAlbum'),
+            ],
             'name'   => $this->_blockModel->get('name'),
             'button' => [
                 'label' => App::getInstance()

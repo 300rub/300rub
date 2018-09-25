@@ -38,6 +38,7 @@
 
         this._blockId = options.blockId;
         this._groupContainer = null;
+        this._data = {};
     };
 
     /**
@@ -61,10 +62,12 @@
      * @private
      */
     ss.window.blocks.image.Content.prototype._onLoadDataSuccess = function (data) {
+        this._setData(data);
+
         if (data.useAlbums === false) {
-            this._setImages(data);
+            this._setImages();
         } else {
-            this._setAlbums(data);
+            this._setAlbums();
         }
 
         this
@@ -89,29 +92,165 @@
     };
 
     /**
-     * Sets albums
+     * Sets labels
      *
      * @param {Object} data
      *
      * @private
      */
-    ss.window.blocks.image.Content.prototype._setAlbums = function (data) {
-        this
-            ._createContainer()
-            ._setAlbumList(data.list);
+    ss.window.blocks.image.Content.prototype._setData = function (data) {
+        this._data = data;
+        return this;
     };
 
-    ss.window.blocks.image.Content.prototype._setAlbumList = function (list) {
-        $.each(list, $.proxy(function(i, data) {
-            if (data.id === 0) {
+    /**
+     * Sets albums
+     *
+     * @private
+     */
+    ss.window.blocks.image.Content.prototype._setAlbums = function () {
+        this
+            ._createContainer()
+            ._setAlbumList()
+            ._setAddAlbumButton();
+    };
+
+    /**
+     * Sets album list
+     *
+     * @returns {ss.window.blocks.image.Content}
+     *
+     * @private
+     */
+    ss.window.blocks.image.Content.prototype._setAlbumList = function () {
+        $.each(this._data.list, $.proxy(function(i, itemData) {
+            if (itemData.id === 0) {
                 return this;
             }
 
             var itemElement = ss.components.Template.get("image-group-sort-item");
-            itemElement.find("img").attr("src", data.cover.url);
+
+            var coverContainer = itemElement.find(".cover-container");
+            if (itemData.cover === null) {
+                coverContainer.remove();
+            } else {
+                coverContainer.find(".cover").attr("src", itemData.cover.url);
+            }
+
+            itemElement.find(".title").text(itemData.name);
+
+            this._setAlbumButtons(itemElement, itemData);
 
             this._groupContainer.append(itemElement);
         }, this));
+
+        this._groupContainer.sortable(
+            {
+                items: ".image-group-sort-item"
+            }
+        );
+
+        return this;
+    };
+
+    /**
+     * Sets add album button
+     *
+     * @returns {ss.window.blocks.image.Content}
+     *
+     * @private
+     */
+    ss.window.blocks.image.Content.prototype._setAddAlbumButton = function () {
+        if (this._data.canCreate !== true) {
+            return this;
+        }
+
+        this.addFooterButton(
+            {
+                label: this._data.labels.addAlbum,
+                icon: "fas fa-plus"
+            }
+        );
+
+        return this;
+    };
+
+    /**
+     * Sets album buttons
+     *
+     * @param {Object} itemElement
+     * @param {Object} itemData
+     *
+     * @returns {ss.window.blocks.image.Content}
+     *
+     * @private
+     */
+    ss.window.blocks.image.Content.prototype._setAlbumButtons = function (
+        itemElement,
+        itemData
+    ) {
+        var buttons = itemElement.find(".buttons");
+
+        new ss.forms.Button(
+            {
+                css: "btn btn-gray",
+                icon: "fas fa-images",
+                label: this._data.labels.images,
+                appendTo: buttons,
+                onClick: $.proxy(function() {
+
+                }, this)
+            }
+        );
+
+        if (this._data.canUpdate === true) {
+            new ss.forms.Button(
+                {
+                    css: "btn btn-blue",
+                    icon: "fas fa-edit",
+                    label: this._data.labels.edit,
+                    appendTo: buttons,
+                    onClick: $.proxy(function () {
+
+                    }, this)
+                }
+            );
+        }
+
+        if (this._data.canDelete === true) {
+            new ss.forms.Button(
+                {
+                    css: "btn btn-red",
+                    icon: "fas fa-trash",
+                    label: this._data.labels.delete,
+                    appendTo: buttons,
+                    confirm: {
+                        text: this._data.labels.deleteConfirm,
+                        yes: {
+                            label: this._data.labels.delete,
+                            icon: "fas fa-trash"
+                        },
+                        no: this._data.labels.no
+                    },
+                    ajax: {
+                        data: {
+                            group: "image",
+                            controller: "album",
+                            data: {
+                                id: itemData.id,
+                                blockId: this._blockId
+                            }
+                        },
+                        type: "DELETE",
+                        success: function () {
+                            itemElement.remove();
+                        }
+                    }
+                }
+            );
+        }
+
+        return this;
     };
 
     /**
@@ -133,43 +272,41 @@
     /**
      * Sets images
      *
-     * @param {Object} data
-     *
      * @private
      */
-    ss.window.blocks.image.Content.prototype._setImages = function (data) {
+    ss.window.blocks.image.Content.prototype._setImages = function () {
         new ss.content.block.image.ImageList(
             {
                 appendTo: this.getBody(),
                 isSortable: true,
-                list: data.list,
+                list: this._data.list,
                 create: {
-                    hasOperation: data.canCreate,
+                    hasOperation: this._data.canCreate,
                     isSingleton: false,
                     group: "image",
                     controller: "image",
                     data: {
-                        blockId: data.id,
-                        imageGroupId: data.groupId
+                        blockId: this._data.id,
+                        imageGroupId: this._data.groupId
                     }
                 },
                 update: {
-                    hasOperation: data.canUpdate,
-                    blockId: data.id,
+                    hasOperation: this._data.canUpdate,
+                    blockId: this._data.id,
                     level: 2,
                     parent: "image-content"
                 },
                 delete: {
-                    hasOperation: data.canDelete,
+                    hasOperation: this._data.canDelete,
                     group: "image",
                     controller: "image",
                     data: {
-                        blockId: data.id
+                        blockId: this._data.id
                     },
                     confirm: {
-                        text: data.labels.deleteConfirm,
-                        yes: data.labels.delete,
-                        no: data.labels.no
+                        text: this._data.labels.deleteConfirm,
+                        yes: this._data.labels.delete,
+                        no: this._data.labels.no
                     }
                 }
             }

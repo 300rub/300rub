@@ -413,6 +413,28 @@
 
             this._window.find(".footer").remove();
             return this;
-        }
+        },
+
+        /**
+         * Sets footer button
+         *
+         * @param {Object} [options]
+         *
+         * @returns {ss.panel.Abstract}
+         */
+        addFooterButton: function (options) {
+            new ss.forms.Button(
+                $.extend(
+                    {},
+                    {
+                        css: "btn btn-gray button",
+                        appendTo: this._window.find(".footer")
+                    },
+                    options
+                )
+            );
+
+            return this;
+        },
     };
 }(window.jQuery, window.ss);
