@@ -38,11 +38,18 @@ class PageController extends AbstractPageController
      */
     private function _isUseMemcached()
     {
-        if ($this->isUser() === false) {
-            return true;
+        if ($this->isUser() === true) {
+            return false;
         }
 
-        return false;
+        $test = App::getInstance()
+            ->getSuperGlobalVariable()
+            ->getGetValue('test');
+        if ($test !== null) {
+            return false;
+        }
+
+        return true;
     }
 
     /**
