@@ -1,5 +1,3 @@
-<script>
-
 window.ss = {
     map: {},
     instances: {},
@@ -52,10 +50,6 @@ window.ss = {
             this.instances[name].prototype = Object.create(parent.prototype);
         }
 
-        if (parameters.isAbstract === undefined) {
-            this.instances[name].prototype.constructor = this.instances[name];
-        }
-
         this.instances[name].prototype = $.extend(
             {},
             this.instances[name].prototype,
@@ -97,88 +91,3 @@ window.ss = {
         return this.get(this.map[name].parent);
     }
 };
-
-ss.add(
-    "child",
-    {
-        parent: "parent",
-
-        init: function() {
-            this.exec();
-        },
-
-        exec: function() {
-            console.log(this.getOption("aaa"));
-        }
-    }
-);
-
-ss.add(
-    "parent",
-    {
-        isAbstract: true,
-
-        init: function() {
-        }
-    }
-);
-
-ss.add(
-    ss.constants.ABSTRACT,
-    {
-        isAbstract: true,
-
-        options: {},
-
-        init: function() {
-        },
-
-        setOptions: function(options) {
-            this.options = $.extend({}, options);
-            return this;
-        },
-
-        getOption: function(pointer, defaultValue) {
-            if (defaultValue === undefined) {
-                defaultValue = null;
-            }
-
-            if ($.type(pointer) !== "array") {
-                if (this.options[pointer] === undefined) {
-                    return defaultValue;
-                }
-
-                return this.options[pointer];
-            }
-
-            var options = this.options;
-            var number;
-            var last = pointer.length - 1;
-            for (number = 0; number <= last; pointer++) {
-                if (number === last) {
-                    if (options[pointer[number]] === undefined) {
-                        return defaultValue;
-                    }
-
-                    return options[pointer[number]];
-                }
-
-                if ($.type(options[pointer[number]]) !== "object") {
-                    return defaultValue;
-                }
-
-                options = options[pointer[number]];
-            }
-        },
-
-        getOptions: function() {
-            return this.options;
-        }
-    }
-);
-
-$(document).ready(function(){
-    ss.init("child", {aaa: 444});
-});
-
-</script>

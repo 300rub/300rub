@@ -123,7 +123,7 @@
             radioButtons.append(itemContainer);
         }
 
-        this.resetInstance();
+        this.setInstance();
 
         var onChange = this.getOption("onChange");
         if ($.type(onChange) === "function") {

@@ -2,6 +2,7 @@
 
 namespace ss\controllers\page\_abstract;
 
+use ss\application\App;
 use ss\controllers\_abstract\AbstractController;
 
 /**
@@ -86,6 +87,33 @@ abstract class AbstractPageController extends AbstractController
      */
     protected function getJs()
     {
+        $staticFile = App::getInstance()->getStaticFile();
+
+
+        $path = CODE_ROOT . '/public/static/common';
+        $main = '/static/common/core/ss/js.js';
+
+        $directory = new \RecursiveDirectoryIterator($path);
+        $iterator = new \RecursiveIteratorIterator($directory);
+
+        $files = [$main];
+        foreach ($iterator as $info) {
+            $path = str_replace(CODE_ROOT . '/public', '', $info->getPathname());
+
+            if (strpos($path, '.js') === false
+                || $path === $main
+            ) {
+                continue;
+            }
+
+            $files[] = $path;
+        }
+
+        echo "<pre>";
+        var_dump($files);
+
+        exit();
+
         $isUser = $this->isUser();
 
         if ($this->_isMinimized() === true) {
