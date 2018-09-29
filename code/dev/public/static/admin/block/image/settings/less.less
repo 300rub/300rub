@@ -1,0 +1,40 @@
+@import "../../../components/panel/less";
+
+.panel {
+  .image-settings-container {
+    .auto-crop-type,
+    .image-settings-crop-container,
+    .auto-crop-container,
+    .image-settings-thumb-crop-container,
+    .thumb-auto-crop-type,
+    .thumb-auto-crop-container {
+      display: none;
+    }
+  }
+
+  .image-settings-container.use-crop {
+    .image-settings-crop-container,
+    .auto-crop-container {
+      display: block;
+    }
+  }
+
+  .image-settings-container.use-crop.auto-crop {
+    .auto-crop-type {
+      display: block;
+    }
+  }
+
+  .image-settings-container.zoom.use-crop {
+    .image-settings-thumb-crop-container,
+    .thumb-auto-crop-container {
+      display: block;
+    }
+  }
+
+  .image-settings-container.zoom.use-crop.thumb-auto-crop {
+    .thumb-auto-crop-type {
+      display: block;
+    }
+  }
+}

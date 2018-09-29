@@ -1,0 +1,146 @@
+@import "../../../common/components/window/less";
+
+.window-section-structure {
+  left: 25px;
+  right: 25px;
+  margin-left: 0;
+  width: auto;
+
+  .body {
+    min-height: 60px;
+  }
+
+  .grid-stack-item {
+    .grid-stack-item-content {
+      .border-radius(4px);
+      left: 5px;
+      right: 5px;
+      border: 1px solid @grayBorderColor;
+      background: white;
+      cursor: move;
+      height: 60px;
+
+      .remove {
+        .transition(opacity);
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 20px;
+        height: 20px;
+        line-height: 20px;
+        text-align: center;
+        opacity: 0;
+      }
+    }
+
+    .ui-resizable-handle {
+      .transition(opacity);
+      top: auto;
+      bottom: 0;
+      height: 20px;
+      width: 25px;
+      line-height: 20px;
+      font-size: 14px;
+      display: block !important;
+      opacity: 0;
+    }
+
+    .ui-resizable-w {
+      left: 0;
+      text-align: right;
+    }
+
+    .ui-resizable-e {
+      right: 0;
+      text-align: left;
+    }
+
+    .grid-stack-item-content {
+      line-height: 58px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      text-align: center;
+    }
+
+    &:hover {
+      .remove,
+      .ui-resizable-handle {
+        opacity: 1;
+      }
+    }
+  }
+
+  .section-structure {
+    .section-structure-line {
+      background: @lightGrayBackground;
+      border: solid @grayBorderColor;
+      border-width: 1px 0;
+      position: relative;
+      margin: 10px 0;
+      padding: 10px 15px;
+
+      .line-header {
+        padding-bottom: 15px;
+
+        .remove-line {
+          position: absolute;
+          top: 0;
+          right: 0;
+          width: 30px;
+          height: 30px;
+          line-height: 30px;
+          font-size: 16px;
+          text-align: center;
+        }
+
+        .line-name {
+          margin-right: 10px;
+          display: inline-block;
+        }
+
+        .btn-group {
+          display: inline-block;
+        }
+      }
+
+      .grid-stack {
+        min-height: 60px;
+      }
+
+      .line-footer {
+        padding-top: 15px;
+      }
+
+      &:first-child {
+        .line-header {
+          .up {
+            display: none;
+          }
+        }
+      }
+
+      &:last-child {
+        .line-header {
+          .down {
+            display: none;
+          }
+        }
+      }
+    }
+  }
+}
+
+.window-section-blocks {
+  .section-block {
+    .border-radius(4px);
+    display: block;
+    margin: 5px 0;
+    padding: 5px 10px;
+    border: 1px solid @grayBorderColor;
+
+    &:hover {
+      background: @lightGrayBackground;
+    }
+  }
+}

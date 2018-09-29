@@ -1,0 +1,57 @@
+@import "abstract";
+
+.fancybox-bg {
+  background: white;
+}
+
+.fancybox-is-open {
+  .fancybox-bg {
+    opacity: 1;
+  }
+}
+
+.fancybox-navigation {
+  button {
+    &:before {
+      background: none;
+    }
+
+    &:hover {
+      &:before {
+        background: @grayBackground;
+      }
+    }
+  }
+}
+
+.fancybox-toolbar {
+  .fancybox-button {
+    background: none;
+
+    &:hover {
+      background: @grayBackground;
+    }
+  }
+}
+
+.fancybox-caption-wrap {
+  padding: 0;
+  background: none;
+
+  .fancybox-caption {
+    padding: 10px 15px;
+    border-top: 1px solid @grayBorderColor;
+    color: @defaultTextColor;
+  }
+}
+
+.zoom-image-container {
+  display: inline-block;
+  overflow: hidden;
+  text-align: center;
+
+  img {
+    min-height: 100%;
+    max-height: 100%;
+  }
+}
