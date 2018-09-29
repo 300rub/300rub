@@ -1,10 +1,38 @@
+/**
+ * Main file to load instances
+ *
+ * @type {Object}
+ */
 window.ss = {
-    map: {},
-    instances: {},
+    /**
+     * Constants
+     */
     constants: {
         ABSTRACT: "abstract"
     },
 
+    /**
+     * Map
+     *
+     * @type {Object}
+     */
+    map: {},
+
+    /**
+     * Instances
+     *
+     * @type {Object}
+     */
+    instances: {},
+
+    /**
+     * Adds object to map
+     *
+     * @param {String} name
+     * @param {Object} parameters
+     *
+     * @returns {Window.ss}
+     */
     add: function(name, parameters) {
         if ($.type(name) !== "string") {
             throw "Name should be a string";
@@ -27,6 +55,13 @@ window.ss = {
         return this;
     },
 
+    /**
+     * Sets instance to collection
+     *
+     * @param {String} name
+     *
+     * @returns {Window.ss}
+     */
     set: function(name) {
         if (this.instances[name] !== undefined) {
             return this;
@@ -59,6 +94,13 @@ window.ss = {
         return this;
     },
 
+    /**
+     * Gets instance by name
+     *
+     * @param {String|*} name
+     *
+     * @returns {Object}
+     */
     get: function(name) {
         if (this.instances[name] === undefined) {
             this.set(name);
@@ -67,6 +109,14 @@ window.ss = {
         return this.instances[name];
     },
 
+    /**
+     * Initialises instance
+     *
+     * @param {String} name
+     * @param {Object} options
+     *
+     * @returns {Object}
+     */
     init: function(name, options) {
         var instance = this.get(name);
 
@@ -79,6 +129,13 @@ window.ss = {
         return instanceObject;
     },
 
+    /**
+     * Gets parent
+     *
+     * @param {String} name
+     *
+     * @returns {Object}
+     */
     getParent: function(name) {
         if (name === this.constants.ABSTRACT) {
             return null;

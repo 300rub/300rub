@@ -1,16 +1,42 @@
+/**
+ * Abstract instance
+ *
+ * @type {Object}
+ */
 ss.add(
     ss.constants.ABSTRACT,
     {
+        /**
+         * Options
+         *
+         * @var {Object}
+         */
         options: {},
 
+        /**
+         * Init
+         */
         init: function() {
         },
 
+        /**
+         * Sets options
+         *
+         * @param {Object} options
+         */
         setOptions: function(options) {
             this.options = $.extend({}, options);
             return this;
         },
 
+        /**
+         * Gets option
+         *
+         * @param {String|Array} pointer
+         * @param {*}            defaultValue
+         *
+         * @returns {*}
+         */
         getOption: function(pointer, defaultValue) {
             if (defaultValue === undefined) {
                 defaultValue = null;
@@ -44,6 +70,11 @@ ss.add(
             }
         },
 
+        /**
+         * Gets all options
+         *
+         * @returns {Object}
+         */
         getOptions: function() {
             return this.options;
         }
