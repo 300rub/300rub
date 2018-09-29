@@ -1,3 +1,6 @@
+/**
+ * Abstract form
+ */
 ss.add(
     "commonComponentsFormAbstract",
     {

@@ -1,5 +1,5 @@
 /**
- * Spinner
+ * Button
  */
 ss.add(
     "commonComponentsFormButton",
