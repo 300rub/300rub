@@ -1,7 +1,5 @@
 /**
  * Abstract instance
- *
- * @type {Object}
  */
 ss.add(
     ss.constants.ABSTRACT,

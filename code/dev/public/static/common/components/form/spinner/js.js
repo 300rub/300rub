@@ -1,8 +1,21 @@
+/**
+ * Spinner
+ */
 ss.add(
-    "commonComponentsFormsSpinner",
+    "commonComponentsFormSpinner",
     {
-        parent: "commonComponentsFormsAbstract",
+        /**
+         * Parent
+         *
+         * @var {String}
+         */
+        parent: "commonComponentsFormAbstract",
 
+        /**
+         * Parent options
+         *
+         * @var {Object}
+         */
         parentOptions: {
             template: "form-spinner",
             type: "int"

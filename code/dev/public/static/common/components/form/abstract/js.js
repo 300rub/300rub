@@ -1,5 +1,5 @@
 ss.add(
-    "commonComponentsFormsAbstract",
+    "commonComponentsFormAbstract",
     {
         /**
          * Form
