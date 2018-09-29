@@ -5,7 +5,6 @@ namespace ss\application\instances\_abstract;
 use ss\application\components\db\Db;
 use ss\application\components\common\Config;
 use ss\application\components\common\Logger;
-use ss\application\components\file\StaticFile;
 use ss\application\components\senders\Email;
 use ss\application\components\common\Validator;
 use ss\application\components\common\SuperGlobalVariable;
@@ -90,13 +89,6 @@ abstract class AbstractComponents
      * @var ValueGenerator
      */
     private $_valueGenerator = null;
-
-    /**
-     * StaticFile
-     *
-     * @var StaticFile
-     */
-    private $_staticFile = null;
 
     /**
      * Parses config settings
@@ -260,19 +252,5 @@ abstract class AbstractComponents
         }
 
         return $this->_valueGenerator;
-    }
-
-    /**
-     * Gets StaticFile
-     *
-     * @return StaticFile
-     */
-    public function getStaticFile()
-    {
-        if ($this->_staticFile === null) {
-            $this->_staticFile = new StaticFile();
-        }
-
-        return $this->_staticFile;
     }
 }

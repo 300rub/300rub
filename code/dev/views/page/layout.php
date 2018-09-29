@@ -7,7 +7,7 @@
  * @var string   $keywords
  * @var string   $description
  * @var string[] $css
- * @var string[] $less
+ * @var string   $less
  * @var string[] $js
  * @var string   $content
  * @var int      $language
@@ -50,19 +50,13 @@ if (isset($css) === true) {
 }
 ?>
 
-<?php
-if (isset($less) === true) {
-    foreach ($less as $fileName) {
-?>
+<?php if (isset($less) === true && $less !== null) { ?>
     <link
         rel="stylesheet"
         type="text/css"
-        href="/dev/less.php?name=<?php echo $fileName; ?>"
+        href="/dev/less.php?type=<?php echo $less; ?>"
     />
-<?php
-    }
-}
-?>
+<?php } ?>
     <style>
 <?php
 if ($isUser === false) {

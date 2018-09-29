@@ -3,6 +3,7 @@
 namespace ss\controllers\page\_abstract;
 
 use ss\application\App;
+use ss\application\components\file\Less;
 use ss\controllers\_abstract\AbstractController;
 
 /**
@@ -164,26 +165,14 @@ abstract class AbstractPageController extends AbstractController
     protected function getLess()
     {
         if ($this->_isMinimized() === true) {
-            return [];
+            return null;
         }
 
-        $less = [];
-
-        $lessCommon = $this->_staticMap['common']['less'];
-        if ($lessCommon !== '') {
-            $less[] = $lessCommon;
+        if ($this->isUser() === true) {
+            return Less::TYPE_ADMIN;
         }
 
-        if ($this->isUser() === true
-            && array_key_exists('admin', $this->_staticMap) === true
-        ) {
-            $lessAdmin = $this->_staticMap['admin']['less'];
-            if ($lessAdmin !== '') {
-                $less[] = $lessAdmin;
-            }
-        }
-
-        return $less;
+        return Less::TYPE_COMMON;
     }
 
     /**
