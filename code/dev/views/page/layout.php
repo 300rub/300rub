@@ -22,7 +22,7 @@
  * @var string   $bodyTopCode
  * @var string   $bodyBottomCode
  * @var string   $templates
- * @var bool     $setIsBlockSection
+ * @var bool     $isBlockSection
  *
  * phpcs:disable Generic.Files.InlineHTML
  */
@@ -82,7 +82,7 @@ if (isset($js) === true) {
         window.ss.system.App.setToken("<?php echo $token; ?>");
         window.ss.system.App.setSectionId(<?php echo $sectionId; ?>);
 
-        <?php if ($setIsBlockSection === true) { ?>
+        <?php if (isset($isBlockSection) === true && $isBlockSection === true) { ?>
             window.ss.system.App.setIsBlockSection(true);
         <?php } ?>
 

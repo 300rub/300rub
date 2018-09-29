@@ -94,9 +94,9 @@ class PageController extends AbstractPageController
             $content .= $this->_getUserContent();
         }
 
-        $setIsBlockSection = false;
+        $isBlockSection = false;
         if ($this->getBlockSection() > 0) {
-            $setIsBlockSection = true;
+            $isBlockSection = true;
         }
 
         $this->setStaticMap('static');
@@ -134,7 +134,7 @@ class PageController extends AbstractPageController
         $layoutData['bodyBottomCode'] = $this->_getSettingsValueByType(
             SettingsModel::CODE_BODY_BOTTOM
         );
-        $layoutData['setIsBlockSection'] = $setIsBlockSection;
+        $layoutData['isBlockSection'] = $isBlockSection;
 
         $html = $this->getContentFromTemplate('page/layout', $layoutData);
 

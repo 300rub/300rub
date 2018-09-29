@@ -9,7 +9,7 @@
  * @var integer  $line
  * @var array    $backtrace
  * @var string[] $css
- * @var string[] $less
+ * @var string   $less
  * @var integer  $version
  *
  * phpcs:disable Generic.Files.InlineHTML
@@ -36,19 +36,13 @@ if (isset($css) === true) {
 }
 ?>
 
-<?php
-if (isset($less) === true) {
-    foreach ($less as $fileName) {
-?>
+<?php if (isset($less) === true && $less !== null) { ?>
     <link
         rel="stylesheet"
         type="text/css"
-        href="/dev/less.php?name=<?php echo $fileName; ?>"
+        href="/dev/less.php?type=<?php echo $less; ?>"
     />
-<?php
-    }
-}
-?>
+<?php } ?>
 </head>
 <body>
 
