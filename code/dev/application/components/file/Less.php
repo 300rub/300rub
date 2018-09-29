@@ -8,17 +8,45 @@ namespace ss\application\components\file;
 class Less
 {
 
-    const TYPE_COMMON = "common";
-    const TYPE_ADMIN = "admin";
+    /**
+     * Types
+     */
+    const TYPE_COMMON = 'common';
+    const TYPE_ADMIN = 'admin';
 
+    /**
+     * Dir list
+     *
+     * @var string[]
+     */
     private $_dirList = [];
 
+    /**
+     * Parent map
+     *
+     * @var array
+     */
     private $_parentMap = [];
 
+    /**
+     * Files content
+     *
+     * @var array
+     */
     private $_filesContent = [];
 
+    /**
+     * Less content
+     *
+     * @var string
+     */
     private $_lessContent = '';
 
+    /**
+     * Less constructor.
+     *
+     * @param string $type Type
+     */
     public function __construct($type)
     {
         switch ($type) {
@@ -31,19 +59,24 @@ class Less
         }
     }
 
+    /**
+     * Gets CSS
+     *
+     * @return string
+     */
     public function getCss()
-    {
-        $less = new \lessc;
-        return $less->compile($this->_getContent());
-    }
-
-    private function _getContent()
     {
         $this->_setContent();
 
-        return $this->_lessContent;
+        $less = new \lessc;
+        return $less->compile($this->_lessContent);
     }
 
+    /**
+     * Sets content
+     *
+     * @return Less
+     */
     private function _setContent()
     {
         $this->_parseFiles();
@@ -51,8 +84,15 @@ class Less
         foreach (array_keys($this->_parentMap) as $file) {
             $this->_addContent($file);
         }
+
+        return $this;
     }
 
+    /**
+     * Parses files
+     *
+     * @return Less
+     */
     private function _parseFiles()
     {
         foreach ($this->_dirList as $dirName) {
@@ -69,6 +109,13 @@ class Less
         return $this;
     }
 
+    /**
+     * Adds content
+     *
+     * @param string $file File
+     *
+     * @return Less
+     */
     private function _addContent($file)
     {
         foreach ($this->_parentMap[$file] as $parent) {
@@ -88,7 +135,7 @@ class Less
     /**
      * Parses file
      *
-     * @param \SplFileInfo $file
+     * @param \SplFileInfo $file File
      *
      * @return Less
      */
@@ -105,7 +152,11 @@ class Less
         $this->_parentMap[$path] = [];
         $content = file_get_contents($path);
 
-        preg_match_all('/\@import\s\"[a-zA-Z0-9\.\/_-]+\"\;/', $content, $matches);
+        preg_match_all(
+            '/\@import\s\"[a-zA-Z0-9\.\/_-]+\"\;/',
+            $content,
+            $matches
+        );
 
         if (count($matches[0]) > 0) {
             foreach ($matches[0] as $match) {
@@ -130,6 +181,13 @@ class Less
         return $this;
     }
 
+    /**
+     * Gets dir name
+     *
+     * @param string $dirName Dir name
+     *
+     * @return string
+     */
     private function _getDirPath($dirName)
     {
         return __DIR__ . '/../../../public/static/' . $dirName;
