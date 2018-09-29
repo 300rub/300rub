@@ -1,54 +1,50 @@
-!function ($, ss) {
-    'use strict';
-
-    /**
-     * UserButtons
-     *
-     * @type {Object}
-     */
-    ss.system.UserButtons = function () {
-        this._container = null;
-
-        this._releaseButton = null;
-        this._releaseInterval = null;
-
-        this.init();
-    };
-
-    /**
-     * Prototype
-     *
-     * @type {Object}
-     */
-    ss.system.UserButtons.prototype = {
+/**
+ * User buttons
+ */
+ss.add(
+    "adminUserButtons",
+    {
+        /**
+         * Release button
+         *
+         * @var {Object}
+         */
+        releaseButton: null,
 
         /**
-         * Constructor
+         * Release interval
+         *
+         * @var {Number}
          */
-        constructor: ss.system.UserButtons,
+        releaseInterval: null,
+
+        /**
+         * Container
+         *
+         * @var {Object}
+         */
+        container: null,
 
         /**
          * Init
          */
-        init: function () {
-            this._container = $("#user-buttons");
+        init: function() {
+            this.releaseButton = null;
+            this.releaseInterval = null;
+            this.container = $("#user-buttons");
 
             this
-                ._setRelease()
-                ._setSection()
-                ._setBlocks()
-                ._setSettings()
-                ._setLogout();
+                .setRelease()
+                .setSection()
+                .setBlocks()
+                .setSettings()
+                .setLogout();
         },
 
         /**
          * Sets section
-         *
-         * @returns {ss.system.UserButtons}
-         *
-         * @private
          */
-        _setSection: function () {
+        setSection: function () {
             $("#user-button-section").on(
                 "click",
                 function () {
@@ -61,12 +57,8 @@
 
         /**
          * Sets blocks
-         *
-         * @returns {ss.system.UserButtons}
-         *
-         * @private
          */
-        _setBlocks: function () {
+        setBlocks: function () {
             $("#user-button-block").on(
                 "click",
                 function () {
@@ -79,28 +71,24 @@
 
         /**
          * Sets release
-         *
-         * @returns {ss.system.UserButtons}
-         *
-         * @private
          */
-        _setRelease: function () {
-            this._releaseButton = $("#user-button-release");
+        setRelease: function () {
+            this.releaseButton = $("#user-button-release");
 
-            if (this._releaseButton.length === 0) {
+            if (this.releaseButton.length === 0) {
                 return this;
             }
 
-            this._releaseButton.on(
+            this.releaseButton.on(
                 "click",
                 function () {
                     new ss.panel.settings.ShortInfo();
                 }
             );
 
-            this._getReadyToRelease();
-            this._releaseInterval = setInterval(
-                $.proxy(this._getReadyToRelease, this),
+            this.getReadyToRelease();
+            this.releaseInterval = setInterval(
+                $.proxy(this.getReadyToRelease, this),
                 60000
             );
 
@@ -109,12 +97,8 @@
 
         /**
          * Gets is ready for release
-         *
-         * @returns {ss.system.UserButtons}
-         *
-         * @private
          */
-        _getReadyToRelease: function() {
+        getReadyToRelease: function() {
             new ss.components.Ajax(
                 {
                     data: {
@@ -123,8 +107,8 @@
                     },
                     success: $.proxy(function (data) {
                         if (data.isReadyToRelease === true) {
-                            clearInterval(this._releaseInterval);
-                            this._releaseButton.removeClass('hidden');
+                            clearInterval(this.releaseInterval);
+                            this.releaseButton.removeClass('hidden');
                         }
                     }, this)
                 }
@@ -135,12 +119,8 @@
 
         /**
          * Sets settings
-         *
-         * @returns {ss.system.UserButtons}
-         *
-         * @private
          */
-        _setSettings: function () {
+        setSettings: function () {
             $("#user-button-settings").on(
                 "click",
                 function () {
@@ -153,14 +133,10 @@
 
         /**
          * Sets logout events
-         *
-         * @returns {ss.system.UserButtons}
-         *
-         * @private
          */
-        _setLogout: function () {
+        setLogout: function () {
             var $logoutConfirmation
-                = this._container.find(".logout-confirmation");
+                = this.container.find(".logout-confirmation");
 
             new ss.forms.Button(
                 {
@@ -202,12 +178,11 @@
 
             return this;
         }
-    };
+    }
+);
 
-    // Login auto init.
-    $(document).ready(
-        function () {
-            new ss.system.UserButtons();
-        }
-    );
-}(window.jQuery, window.ss);
+$(document).ready(
+    function () {
+        ss.init("adminUserButtons");
+    }
+);
