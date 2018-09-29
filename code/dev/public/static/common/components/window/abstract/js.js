@@ -1,69 +1,64 @@
-!function ($, ss) {
-    'use strict';
-
-    /**
-     * Abstract window
-     *
-     * @param {Object} options
-     *
-     * @type {Object}
-     */
-    ss.window.Abstract = function (options) {
-        this._window = null;
-        this._body = null;
-        this._overlay = null;
-        this._options = {};
-
-        this._hasFooter = true;
-
-        this._set(options);
-    };
-
-    /**
-     * Prototype
-     *
-     * @type {Object}
-     */
-    ss.window.Abstract.prototype = {
+/**
+ * Abstract window
+ */
+ss.add(
+    "commonComponentsWindowAbstract",
+    {
+        /**
+         * Window
+         *
+         * @var {Object}
+         */
+        window: null,
 
         /**
-         * Constructor
+         * Body
+         *
+         * @var {Object}
          */
-        constructor: ss.window.Abstract,
+        body: null,
+
+        /**
+         * Overlay
+         *
+         * @var {Object}
+         */
+        overlay: null,
+
+        /**
+         * Has footer
+         *
+         * @var {boolean}
+         */
+        hasFooter: true,
 
         /**
          * Init
-         *
-         * @param {Object} options
          */
-        _set: function (options) {
-            this._window = ss.components.Template.get("window");
-            this._body = this._window.find(".body");
-            this._overlay = ss.components.Template.get("window-overlay");
-            this._options = $.extend({}, options);
+        init: function() {
+            this.window = ss.components.Template.get("window");
+            this.body = this.window.find(".body");
+            this.overlay = ss.components.Template.get("window-overlay");
+            this.hasFooter = true;
 
             this
-                ._setCssClass()
-                ._addToCollection()
-                ._setCloseEvents()
-                ._addDomElement()
-                ._loadData()
-                ._setMaxHeight();
-
-            return this;
+                .setCssClass()
+                .addToCollection()
+                .setCloseEvents()
+                .addDomElement()
+                .loadData()
+                .setMaxHeight();
         },
 
         /**
          * Gets parent
-         *
-         * @returns {ss.window.Abstract}
          */
         getParent: function () {
-            if (this._options.parent === undefined) {
+            if (this.getOption("parent") === null) {
                 return null;
             }
 
-            return ss.window.Collection.get(this._options.parent);
+            return ss.window.Collection.get(this.getOption("parent"));
         },
 
         /**
@@ -72,7 +67,7 @@
          * @returns {Object}
          */
         getWindow: function () {
-            return this._window;
+            return this.window;
         },
 
         /**
@@ -81,51 +76,41 @@
          * @returns {Object}
          */
         getBody: function () {
-            return this._body;
+            return this.body;
         },
 
         /**
          * Sets title
          *
          * @param {String} title
-         *
-         * @returns {ss.window.Abstract}
          */
         setTitle: function (title) {
-            this._window.find(".header .title").text(title);
+            this.window.find(".header .title").text(title);
             return this;
         },
 
         /**
          * Sets CSS class
-         *
-         * @returns {ss.window.Abstract}
-         *
-         * @private
          */
-        _setCssClass: function () {
-            if (this._options.name === undefined) {
+        setCssClass: function () {
+            if (this.getOption("name") === null) {
                 return this;
             }
 
-            this._window.addClass("window-" + this._options.name);
+            this.window.addClass("window-" + this.getOption("name"));
 
             return this;
         },
 
         /**
          * Adds window to the collection
-         *
-         * @returns {ss.window.Abstract}
-         *
-         * @private
          */
-        _addToCollection: function () {
-            if (this._options.name === undefined) {
+        addToCollection: function () {
+            if (this.getOption("name") === null) {
                 return this;
             }
 
-            ss.window.Collection.add(this._options.name, this);
+            ss.window.Collection.add(this.getOption("name"), this);
 
             var parent = this.getParent();
             if (parent !== null) {
@@ -137,33 +122,27 @@
 
         /**
          * Close event
-         *
-         * @returns {ss.window.Abstract}
-         *
-         * @private
          */
-        _setCloseEvents: function () {
-            this._overlay.on("click",  $.proxy(this._checkUnsavedAndClose, this));
-            this._window
+        setCloseEvents: function () {
+            this.overlay.on("click",  $.proxy(this.checkUnsavedAndClose, this));
+            this.window
                 .find(".header .close")
-                .on("click", $.proxy(this._checkUnsavedAndClose, this));
+                .on("click", $.proxy(this.checkUnsavedAndClose, this));
 
             return this;
         },
 
         /**
          * Checks unsaved
-         *
-         * @private
          */
-        _checkUnsavedAndClose: function() {
-            if (this._body.find(".form-changed").length === 0) {
+        checkUnsavedAndClose: function() {
+            if (this.body.find(".form-changed").length === 0) {
                 this.remove(false);
                 return this;
             }
 
             var confirmedWindow
-                = this._window.find(".window-confirm-unsaved");
+                = this.window.find(".window-confirm-unsaved");
 
             if (confirmedWindow.length > 0) {
                 return this;
@@ -198,7 +177,7 @@
                 }
             );
 
-            this._window.append(confirmedWindow);
+            this.window.append(confirmedWindow);
 
             return this;
         },
@@ -207,8 +186,8 @@
          * Removes window and overlay
          */
         remove: function (isReloadParent) {
-            this._window.addClass("transparent");
-            this._overlay.addClass("transparent");
+            this.window.addClass("transparent");
+            this.overlay.addClass("transparent");
 
             var parent = this.getParent();
             if (parent !== null) {
@@ -226,12 +205,12 @@
             setTimeout(
                 $.proxy(
                     function () {
-                        this._window.remove();
-                        this._overlay.remove();
+                        this.window.remove();
+                        this.overlay.remove();
 
-                        if (this._options.name !== undefined) {
+                        if (this.getOption("name") !== null) {
                             ss.window.Collection.remove(
-                                this._options.name
+                                this.getOption("name")
                             );
                         }
                     },
@@ -243,25 +222,21 @@
 
         /**
          * Adds element to DOM
-         *
-         * @returns {ss.window.Abstract}
-         *
-         * @private
          */
-        _addDomElement: function () {
-            if (this._options.level !== undefined) {
-                this._window.addClass("level-" + this._options.level);
-                this._overlay.addClass("level-" + this._options.level);
+        addDomElement: function () {
+            if (this.getOption("level") !== null) {
+                this.window.addClass("level-" + this.getOption("level"));
+                this.overlay.addClass("level-" + this.getOption("level"));
             }
 
-            ss.system.App.append(this._window);
-            ss.system.App.append(this._overlay);
+            ss.system.App.append(this.window);
+            ss.system.App.append(this.overlay);
 
             setTimeout(
                 $.proxy(
                     function () {
-                        this._window.removeClass("transparent");
-                        this._overlay.removeClass("transparent");
+                        this.window.removeClass("transparent");
+                        this.overlay.removeClass("transparent");
                     },
                     this
                 ),
@@ -277,31 +252,25 @@
 
         /**
          * Reloads the window
-         *
-         * @returns {ss.window.Abstract}
          */
         reload: function () {
-            this._window.remove();
-            this._overlay.remove();
-            this._set(this._options);
+            this.window.remove();
+            this.overlay.remove();
+            this._set(this.getOptions());
 
             return this;
         },
 
         /**
          * Sets window's max-height
-         *
-         * @private
-         *
-         * @returns {ss.window.Abstract}
          */
-        _setMaxHeight: function () {
-            this._setWindowMaxHeight();
+        setMaxHeight: function () {
+            this.setWindowMaxHeight();
 
             $(window).resize(
                 $.proxy(
                     function () {
-                        this._setWindowMaxHeight();
+                        this.setWindowMaxHeight();
                     },
                     this
                 )
@@ -312,16 +281,14 @@
 
         /**
          * Sets window's max-height
-         *
-         * @private
          */
-        _setWindowMaxHeight: function () {
+        setWindowMaxHeight: function () {
             var minusHeight = 148;
-            if (this._hasFooter === false) {
+            if (this.hasFooter === false) {
                 minusHeight = 90;
             }
 
-            this._body.css(
+            this.body.css(
                 "max-height",
                 $.proxy(
                     function () {
@@ -334,26 +301,22 @@
 
         /**
          * Loads data
-         *
-         * @private
-         *
-         * @returns {ss.window.Abstract}
          */
-        _loadData: function () {
+        loadData: function () {
             var ajaxData = {
-                group: this._options.group,
-                controller: this._options.controller
+                group: this.getOption("group"),
+                controller: this.getOption("controller")
             };
 
-            if ($.type(this._options.data) === "object") {
-                ajaxData.data = this._options.data;
+            if ($.type(this.getOption("data")) === "object") {
+                ajaxData.data = this.getOption("data");
             }
 
             new ss.components.Ajax(
                 {
                     data: ajaxData,
-                    success: $.proxy(this._onLoadSuccess, this),
-                    error: $.proxy(this._onLoadError, this)
+                    success: $.proxy(this.onLoadSuccess, this),
+                    error: $.proxy(this.onLoadError, this)
                 }
             );
 
@@ -365,9 +328,13 @@
          *
          * @param {Object} data
          */
-        _onLoadSuccess: function (data) {
-            this._options.success(data);
-            this._window.removeClass("loading");
+        onLoadSuccess: function (data) {
+            var success = this.getOption("success");
+            if ($.type(success) === "function") {
+                success(data);
+            }
+
+            this.window.removeClass("loading");
         },
 
         /**
@@ -375,7 +342,7 @@
          *
          * @param {Object} jqXHR
          */
-        _onLoadError: function (jqXHR) {
+        onLoadError: function (jqXHR) {
             ss.components.Error.displayAjaxError(jqXHR);
             this.remove();
         },
@@ -384,8 +351,6 @@
          * Sets submit
          *
          * @param {Object} [options]
-         *
-         * @returns {ss.window.Abstract}
          */
         setSubmit: function (options) {
             var submit = new ss.forms.Button(
@@ -394,7 +359,7 @@
                     options,
                     {
                         css: "btn btn-big btn-blue submit",
-                        appendTo: this._window.find(".footer")
+                        appendTo: this.window.find(".footer")
                     }
                 )
             );
@@ -404,14 +369,12 @@
 
         /**
          * Removes footer
-         *
-         * @returns {ss.window.Abstract}
          */
         removeFooter: function() {
-            this._hasFooter = false;
-            this._setWindowMaxHeight();
+            this.hasFooter = false;
+            this.setWindowMaxHeight();
 
-            this._window.find(".footer").remove();
+            this.window.find(".footer").remove();
             return this;
         },
 
@@ -419,8 +382,6 @@
          * Sets footer button
          *
          * @param {Object} [options]
-         *
-         * @returns {ss.panel.Abstract}
          */
         addFooterButton: function (options) {
             new ss.forms.Button(
@@ -428,13 +389,13 @@
                     {},
                     {
                         css: "btn btn-gray button",
-                        appendTo: this._window.find(".footer")
+                        appendTo: this.window.find(".footer")
                     },
                     options
                 )
             );
 
             return this;
-        },
-    };
-}(window.jQuery, window.ss);
+        }
+    }
+);
