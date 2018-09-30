@@ -2,7 +2,6 @@
 
 namespace ss\controllers\page\_abstract;
 
-use ss\application\App;
 use ss\application\components\file\Css;
 use ss\application\components\file\Less;
 use ss\controllers\_abstract\AbstractController;
@@ -77,46 +76,47 @@ abstract class AbstractPageController extends AbstractController
 //
 //        exit();
 
-        $isUser = $this->isUser();
-
-        if ($this->_isMinimized() === true) {
-            $jsList = [];
-            $jsList[] = $this->_staticMap['common']['compiledJs'];
-            if ($isUser === true
-                && array_key_exists('admin', $this->_staticMap) === true
-            ) {
-                $jsList[] = $this->_staticMap['admin']['compiledJs'];
-            }
-
-            return $jsList;
-        }
-
-        $jsList = $this->_staticMap['common']['libs']['js'];
-
-        if ($isUser === true
-            && array_key_exists('admin', $this->_staticMap) === true
-        ) {
-            $jsList = array_merge(
-                $jsList,
-                $this->_staticMap['admin']['libs']['js']
-            );
-        }
-
-        $jsList = array_merge(
-            $jsList,
-            $this->_staticMap['common']['js']
-        );
-
-        if ($isUser === false
-            || array_key_exists('admin', $this->_staticMap) === false
-        ) {
-            return $jsList;
-        }
-
-        return array_merge(
-            $jsList,
-            $this->_staticMap['admin']['js']
-        );
+        return [];
+//        $isUser = $this->isUser();
+//
+//        if ($this->_isMinimized() === true) {
+//            $jsList = [];
+//            $jsList[] = $this->_staticMap['common']['compiledJs'];
+//            if ($isUser === true
+//                && array_key_exists('admin', $this->_staticMap) === true
+//            ) {
+//                $jsList[] = $this->_staticMap['admin']['compiledJs'];
+//            }
+//
+//            return $jsList;
+//        }
+//
+//        $jsList = $this->_staticMap['common']['libs']['js'];
+//
+//        if ($isUser === true
+//            && array_key_exists('admin', $this->_staticMap) === true
+//        ) {
+//            $jsList = array_merge(
+//                $jsList,
+//                $this->_staticMap['admin']['libs']['js']
+//            );
+//        }
+//
+//        $jsList = array_merge(
+//            $jsList,
+//            $this->_staticMap['common']['js']
+//        );
+//
+//        if ($isUser === false
+//            || array_key_exists('admin', $this->_staticMap) === false
+//        ) {
+//            return $jsList;
+//        }
+//
+//        return array_merge(
+//            $jsList,
+//            $this->_staticMap['admin']['js']
+//        );
     }
 
     /**

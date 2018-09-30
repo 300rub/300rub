@@ -133,7 +133,7 @@ class View
         $cssId = $this->generateCssId($selector, $type);
 
         $css = $this->get(
-            'design/' . $type,
+            'components/design/' . $type,
             [
                 'model'    => $model,
                 'id'       => $cssId,

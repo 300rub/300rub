@@ -70,6 +70,25 @@ class PageController extends AbstractPageController
             }
         }
 
+        $html = $this->_getPageHtml();
+
+        if ($this->_isUseMemcached() === true) {
+            App::getInstance()->getMemcached()->set(
+                $this->_getMemcachedKey(),
+                $html
+            );
+        }
+
+        return $html;
+    }
+
+    /**
+     * Gets page HTML
+     *
+     * @return string
+     */
+    private function _getPageHtml()
+    {
         $token = '';
         $content = '';
         $sectionCss = [];
@@ -99,51 +118,43 @@ class PageController extends AbstractPageController
             $isBlockSection = true;
         }
 
-        $layoutData = [];
-        $layoutData['content'] = $content;
-        $layoutData['templates'] = $this->render(
-            'templates/templates',
+        return $this->render(
+            'page/layout',
             [
-                'isUser' => $isUser
+                'content' => $content,
+                'templates' => $this->render(
+                    'templates/templates',
+                    [
+                        'isUser' => $isUser
+                    ]
+                ),
+                'title' => 'Test title',
+                'keywords' => 'Test keywords',
+                'description' => 'Test description',
+                'css' => $this->getCss(),
+                'js' => $this->getJs(),
+                'less' => $this->getLess(),
+                'language'
+                => App::getInstance()->getLanguage()->getActiveId(),
+                'errorMessages'
+                => App::getInstance()->getValidator()->getErrorMessages(),
+                'token' => $token,
+                'sectionId' => $sectionId,
+                'isUser' => $isUser,
+                'generatedCss' => $sectionCss,
+                'generatedJs' => $sectionJs,
+                'headerCode' => $this->_getSettingsValueByType(
+                    SettingsModel::CODE_HEADER
+                ),
+                'bodyTopCode' => $this->_getSettingsValueByType(
+                    SettingsModel::CODE_BODY_TOP
+                ),
+                'bodyBottomCode' => $this->_getSettingsValueByType(
+                    SettingsModel::CODE_BODY_BOTTOM
+                ),
+                'isBlockSection' => $isBlockSection,
             ]
         );
-        $layoutData['title'] = 'Test title';
-        $layoutData['keywords'] = 'Test keywords';
-        $layoutData['description'] = 'Test description';
-        $layoutData['css'] = $this->getCss();
-        $layoutData['js'] = $this->getJs();
-        $layoutData['less'] = $this->getLess();
-        $layoutData['language']
-            = App::getInstance()->getLanguage()->getActiveId();
-        $layoutData['errorMessages']
-            = App::getInstance()->getValidator()->getErrorMessages();
-        $layoutData['token'] = $token;
-        $layoutData['sectionId'] = $sectionId;
-        $layoutData['isUser'] = $isUser;
-        $layoutData['generatedCss'] = $sectionCss;
-        $layoutData['generatedJs'] = $sectionJs;
-        $layoutData['version'] = $this->getVersion();
-        $layoutData['headerCode'] = $this->_getSettingsValueByType(
-            SettingsModel::CODE_HEADER
-        );
-        $layoutData['bodyTopCode'] = $this->_getSettingsValueByType(
-            SettingsModel::CODE_BODY_TOP
-        );
-        $layoutData['bodyBottomCode'] = $this->_getSettingsValueByType(
-            SettingsModel::CODE_BODY_BOTTOM
-        );
-        $layoutData['isBlockSection'] = $isBlockSection;
-
-        $html = $this->render('page/layout', $layoutData);
-
-        if ($this->_isUseMemcached() === true) {
-            App::getInstance()->getMemcached()->set(
-                $this->_getMemcachedKey(),
-                $html
-            );
-        }
-
-        return $html;
     }
 
     /**
