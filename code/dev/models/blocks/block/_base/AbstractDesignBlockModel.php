@@ -3,14 +3,13 @@
 namespace ss\models\blocks\block\_base;
 
 use ss\application\App;
-
 use ss\application\components\valueGenerator\ValueGenerator;
-use ss\models\_abstract\AbstractModel;
+use ss\models\blocks\_abstract\AbstractDesignModel;
 
 /**
  * Abstract model for working with table "designBlocks"
  */
-abstract class AbstractDesignBlockModel extends AbstractModel
+abstract class AbstractDesignBlockModel extends AbstractDesignModel
 {
 
     /**
