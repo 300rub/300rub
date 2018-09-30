@@ -131,4 +131,14 @@ class DesignTextModel extends AbstractDesignTextCssModel
 
         return $css;
     }
+
+    /**
+     * Gets CSS type
+     *
+     * @return string
+     */
+    public function getCssType()
+    {
+        return 'text';
+    }
 }

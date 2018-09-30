@@ -3,24 +3,13 @@
 namespace ss\application\components\common;
 
 use ss\application\exceptions\CommonException;
-use ss\models\_abstract\AbstractModel;
+use ss\models\blocks\_abstract\AbstractDesignModel;
 
 /**
  * Class for working with views
  */
 class View
 {
-
-    /**
-     * Map
-     *
-     * @var array
-     */
-    private $_map = [
-        '\\ss\\models\\blocks\\block\\DesignBlockModel' => 'block',
-        '\\ss\\models\\blocks\\text\\DesignTextModel'   => 'text',
-        '\\ss\\models\\sections\\SectionModel'          => 'section',
-    ];
 
     /**
      * Twig
@@ -105,44 +94,19 @@ class View
     /**
      * Generates CSS
      *
-     * @param AbstractModel $model    Model
-     * @param string        $selector CSS selector
+     * @param AbstractDesignModel $model    Model
+     * @param string              $selector CSS selector
      *
      * @throws CommonException
      *
      * @return array
      */
-    public function generateCss(AbstractModel $model, $selector)
+    public function generateCss(AbstractDesignModel $model, $selector)
     {
-        $type = null;
-        foreach ($this->_map as $instance => $path) {
-            if ($model instanceof $instance) {
-                $type = $path;
-            }
-        }
-
-        if ($type === null) {
-            throw new CommonException(
-                'Unable to detect design type to get CSS. Model given: {class}',
-                [
-                    'class' => get_class($model)
-                ]
-            );
-        }
-
-        $cssId = $this->generateCssId($selector, $type);
-
-        $css = $this->get(
-            'components/design/' . $type,
-            [
-                'model'    => $model,
-                'id'       => $cssId,
-                'selector' => $selector,
-            ]
-        );
+        $cssId = $this->generateCssId($selector, $model->getCssType());
 
         return [
-            $cssId => $css
+            $cssId => $model->generateCss($selector)
         ];
     }
 

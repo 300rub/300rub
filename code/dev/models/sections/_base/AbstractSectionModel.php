@@ -8,12 +8,13 @@ use ss\application\App;
 use ss\application\components\db\Table;
 use ss\application\components\valueGenerator\ValueGenerator;
 use ss\models\_abstract\AbstractModel;
+use ss\models\blocks\_abstract\AbstractDesignModel;
 use ss\models\sections\SectionModel;
 
 /**
  * Abstract model for working with table "sections"
  */
-abstract class AbstractSectionModel extends AbstractModel
+abstract class AbstractSectionModel extends AbstractDesignModel
 {
 
     /**

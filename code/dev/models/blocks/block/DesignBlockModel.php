@@ -92,4 +92,14 @@ class DesignBlockModel extends AbstractDesignBlockCssModel
 
         return $css;
     }
+
+    /**
+     * Gets CSS type
+     *
+     * @return string
+     */
+    public function getCssType()
+    {
+        return 'block';
+    }
 }

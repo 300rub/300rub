@@ -631,4 +631,37 @@ class SectionModel extends AbstractSectionModel
             }
         }
     }
+
+    /**
+     * Generates CSS
+     *
+     * @param string $selector CSS selector
+     *
+     * @return string
+     */
+    public function generateCss($selector)
+    {
+        $css = '';
+
+        $padding = $this->get('padding');
+        if ($padding > 0) {
+            $css .= sprintf(
+                '%s{padding-left:%spx;}',
+                $selector,
+                $padding
+            );
+        }
+
+        return $css;
+    }
+
+    /**
+     * Gets CSS type
+     *
+     * @return string
+     */
+    public function getCssType()
+    {
+        return 'section';
+    }
 }

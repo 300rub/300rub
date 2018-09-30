@@ -17,5 +17,12 @@ abstract class AbstractDesignModel extends AbstractModel
      *
      * @return string
      */
-    abstract function generateCss($selector);
+    abstract public function generateCss($selector);
+
+    /**
+     * Gets CSS type
+     *
+     * @return string
+     */
+    abstract public function getCssType();
 }
