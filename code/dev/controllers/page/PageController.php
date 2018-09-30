@@ -103,7 +103,7 @@ class PageController extends AbstractPageController
 
         $layoutData = [];
         $layoutData['content'] = $content;
-        $layoutData['templates'] = $this->getContentFromTemplate(
+        $layoutData['templates'] = $this->render(
             'templates/templates',
             [
                 'isUser' => $isUser
@@ -136,7 +136,7 @@ class PageController extends AbstractPageController
         );
         $layoutData['isBlockSection'] = $isBlockSection;
 
-        $html = $this->getContentFromTemplate('page/layout', $layoutData);
+        $html = $this->render('page/layout', $layoutData);
 
         if ($this->_isUseMemcached() === true) {
             App::getInstance()->getMemcached()->set(
@@ -180,7 +180,7 @@ class PageController extends AbstractPageController
 
         $lineHtml = '';
         foreach ($structure as $line => $lineStructure) {
-            $lineHtml .= $this->getContentFromTemplate(
+            $lineHtml .= $this->render(
                 'page/line',
                 [
                     'id'            => $line,
@@ -189,7 +189,7 @@ class PageController extends AbstractPageController
             );
         }
 
-        return $this->getContentFromTemplate(
+        return $this->render(
             'page/section',
             [
                 'id'      => $sectionModel->getId(),
@@ -220,13 +220,13 @@ class PageController extends AbstractPageController
                 switch ($item['type']) {
                     case 'block':
                         if ($lastY < $item['y']) {
-                            $html .= $this->getContentFromTemplate(
+                            $html .= $this->render(
                                 'content/components/clear'
                             );
                             $lastY = $item['y'];
                         }
 
-                        $html .= $this->getContentFromTemplate(
+                        $html .= $this->render(
                             'page/lineBlock',
                             [
                                 'item' => $item
@@ -235,7 +235,7 @@ class PageController extends AbstractPageController
 
                         break;
                     case 'container':
-                        $html .= $this->getContentFromTemplate(
+                        $html .= $this->render(
                             'page/lineBlockContainer',
                             [
                                 'item' => $item,
@@ -249,7 +249,7 @@ class PageController extends AbstractPageController
                 }
             }
 
-            $html .= $this->getContentFromTemplate(
+            $html .= $this->render(
                 'content/components/clear'
             );
         }
@@ -266,7 +266,7 @@ class PageController extends AbstractPageController
     {
         $language = App::getInstance()->getLanguage();
 
-        return $this->getContentFromTemplate(
+        return $this->render(
             'page/userButtons',
             [
                 'canRelease' => $this->hasSettingsOperation(

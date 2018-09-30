@@ -20,7 +20,7 @@ class CreateController extends AbstractController
     {
         $language = App::getInstance()->getLanguage();
 
-        $content = $this->getContentFromTemplate(
+        $content = $this->render(
             'site/create',
             [
                 'createSite' => $language->getMessage(

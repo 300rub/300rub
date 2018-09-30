@@ -38,7 +38,7 @@ class IndexController extends AbstractController
      */
     private function _getContent()
     {
-        return $this->getContentFromTemplate(
+        return $this->render(
             'site/index',
             [
                 'menu' => $this->_getMenuHtml(),
@@ -81,7 +81,7 @@ class IndexController extends AbstractController
             ]
         ];
 
-        return $this->getContentFromTemplate(
+        return $this->render(
             'site/menu',
             [
                 'menu' => $menu

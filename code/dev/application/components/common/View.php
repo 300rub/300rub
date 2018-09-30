@@ -23,6 +23,31 @@ class View
     ];
 
     /**
+     * Twig
+     *
+     * @var \Twig_Environment
+     */
+    private $_twig = null;
+
+    /**
+     * Gets twig
+     *
+     * @return \Twig_Environment
+     */
+    private function _getTwig()
+    {
+        if ($this->_twig === null) {
+            $this->_twig = new \Twig_Environment(
+                new \Twig_Loader_Filesystem(
+                    $this->_getViewsRootDir()
+                )
+            );
+        }
+
+        return $this->_twig;
+    }
+
+    /**
      * Gets content from view
      *
      * @param string $viewFile View file
@@ -32,14 +57,10 @@ class View
      */
     public function get($viewFile, $data = [])
     {
-        $path = $this->_getViewsRootDir() . $viewFile . '.php';
-
-        extract($data, EXTR_OVERWRITE);
-
-        ob_start();
-        ob_implicit_flush(false);
-        include $path;
-        return ob_get_clean();
+        return $this->_getTwig()->render(
+            sprintf('%s.twig', $viewFile),
+            $data
+        );
     }
 
     /**

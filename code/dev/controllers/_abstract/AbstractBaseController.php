@@ -31,7 +31,7 @@ abstract class AbstractBaseController
      *
      * @return string
      */
-    protected function getContentFromTemplate($viewFile, $data = [])
+    protected function render($viewFile, $data = [])
     {
         return App::getInstance()->getView()->get($viewFile, $data);
     }

@@ -168,11 +168,12 @@ abstract class AbstractPageController extends AbstractController
             return null;
         }
 
+        $type = Less::TYPE_COMMON;
         if ($this->isUser() === true) {
-            return Less::TYPE_ADMIN;
+            $type = Less::TYPE_ADMIN;
         }
 
-        return Less::TYPE_COMMON;
+        return sprintf('/dev/less.php?type=%s', $type);
     }
 
     /**

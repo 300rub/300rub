@@ -53,7 +53,7 @@ class LoginController extends AbstractPageController
             );
         }
 
-        $content = $this->getContentFromTemplate(
+        $content = $this->render(
             'page/login'
         );
 
@@ -64,7 +64,7 @@ class LoginController extends AbstractPageController
         $layoutData = [];
         $layoutData['content'] = $content;
         $layoutData['templates'] =
-        $content = $this->getContentFromTemplate(
+        $content = $this->render(
             'templates/templates',
             [
                 'isUser' => false
@@ -89,6 +89,6 @@ class LoginController extends AbstractPageController
         $layoutData['bodyTopCode'] = '';
         $layoutData['bodyBottomCode'] = '';
 
-        return $this->getContentFromTemplate('page/layout', $layoutData);
+        return $this->render('page/layout', $layoutData);
     }
 }

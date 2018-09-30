@@ -92,7 +92,7 @@ class HelpController extends AbstractController
             ]
         ];
 
-        return $this->getContentFromTemplate(
+        return $this->render(
             'site/helpCategory',
             [
                 'breadcrumbs' => $this->_getBreadCrumbsHtml($breadcrumbs),
@@ -117,7 +117,7 @@ class HelpController extends AbstractController
      */
     private function _getCategoryContent($categoryModel)
     {
-        return $this->getContentFromTemplate(
+        return $this->render(
             'site/helpCategory',
             [
                 'breadcrumbs' => $this->_getBreadCrumbsHtml(
@@ -150,7 +150,7 @@ class HelpController extends AbstractController
      */
     private function _getPageContent($pageModel)
     {
-        return $this->getContentFromTemplate(
+        return $this->render(
             'site/helpPage',
             [
                 'breadcrumbs' => $this->_getBreadCrumbsHtml(
@@ -172,7 +172,7 @@ class HelpController extends AbstractController
      */
     private function _getBreadCrumbsHtml($breadcrumbs)
     {
-        return $this->getContentFromTemplate(
+        return $this->render(
             'site/breadcrumbs',
             [
                 'breadcrumbs' => $breadcrumbs
@@ -205,7 +205,7 @@ class HelpController extends AbstractController
             ]
         ];
 
-        return $this->getContentFromTemplate(
+        return $this->render(
             'site/menu',
             [
                 'menu' => $menu

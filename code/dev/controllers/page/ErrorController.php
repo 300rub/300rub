@@ -147,16 +147,25 @@ class ErrorController extends AbstractPageController
 
         http_response_code($this->_code);
 
-        $layoutData = [];
-        $layoutData['css'] = $this->getCss();
-        $layoutData['less'] = $this->getLess();
-        $layoutData['version'] = $this->getVersion();
-        $layoutData['code'] = $this->_code;
-        $layoutData['message'] = $this->_message;
-        $layoutData['file'] = $this->_file;
-        $layoutData['line'] = $this->_line;
-        $layoutData['backtrace'] = $this->_backtrace;
+        $isDev = false;
+        if (APP_ENV === ENV_DEV) {
+            $isDev = true;
+        }
 
-        return $this->getContentFromTemplate('page/error', $layoutData);
+        return $this->render(
+            'layout/error',
+            [
+                'icon'      => '/img/favicon.ico',
+                'isDev'     => $isDev,
+                'css'       => $this->getCss(),
+                'less'      => $this->getLess(),
+                'version'   => $this->getVersion(),
+                'code'      => $this->_code,
+                'message'   => $this->_message,
+                'file'      => $this->_file,
+                'line'      => $this->_line,
+                'backtrace' => $this->_backtrace,
+            ]
+        );
     }
 }

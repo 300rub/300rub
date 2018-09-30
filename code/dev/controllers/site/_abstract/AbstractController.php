@@ -56,14 +56,14 @@ abstract class AbstractController extends AbstractDataController
             = App::getInstance()->getLanguage()->getActiveId();
         $layoutData['errorMessages']
             = App::getInstance()->getValidator()->getErrorMessages();
-        $layoutData['templates'] = $this->getContentFromTemplate(
+        $layoutData['templates'] = $this->render(
             'site/templates',
             [
                 'isUser' => $this->_isUser()
             ]
         );
 
-        return $this->getContentFromTemplate('site/layout', $layoutData);
+        return $this->render('site/layout', $layoutData);
     }
 
     /**
