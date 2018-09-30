@@ -3,12 +3,12 @@
 namespace ss\models\blocks\text\_base;
 
 use ss\application\components\valueGenerator\ValueGenerator;
-use ss\models\_abstract\AbstractModel;
+use ss\models\blocks\_abstract\AbstractDesignModel;
 
 /**
  * Abstract model for working with table "designTexts"
  */
-abstract class AbstractDesignTextModel extends AbstractModel
+abstract class AbstractDesignTextModel extends AbstractDesignModel
 {
 
     /**
@@ -25,6 +25,11 @@ abstract class AbstractDesignTextModel extends AbstractModel
      * Min line height value
      */
     const MIN_LINE_HEIGHT_VALUE = 10;
+
+    /**
+     * Default size
+     */
+    const DEFAULT_SIZE = 14;
 
     /**
      * Font family types
