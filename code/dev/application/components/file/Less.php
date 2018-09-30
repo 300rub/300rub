@@ -2,24 +2,13 @@
 
 namespace ss\application\components\file;
 
+use ss\application\components\file\_abstract\AbstractFile;
+
 /**
  * Class for working with less files
  */
-class Less
+class Less extends AbstractFile
 {
-
-    /**
-     * Types
-     */
-    const TYPE_COMMON = 'common';
-    const TYPE_ADMIN = 'admin';
-
-    /**
-     * Dir list
-     *
-     * @var string[]
-     */
-    private $_dirList = [];
 
     /**
      * Parent map
@@ -41,23 +30,6 @@ class Less
      * @var string
      */
     private $_lessContent = '';
-
-    /**
-     * Less constructor.
-     *
-     * @param string $type Type
-     */
-    public function __construct($type)
-    {
-        switch ($type) {
-            case self::TYPE_ADMIN:
-                $this->_dirList = ['common', 'admin'];
-                break;
-            default:
-                $this->_dirList = ['common'];
-                break;
-        }
-    }
 
     /**
      * Gets CSS
@@ -95,9 +67,9 @@ class Less
      */
     private function _parseFiles()
     {
-        foreach ($this->_dirList as $dirName) {
+        foreach ($this->getDirList() as $dirName) {
             $directory = new \RecursiveDirectoryIterator(
-                $this->_getDirPath($dirName)
+                $this->getDirPath($dirName)
             );
             $iterator = new \RecursiveIteratorIterator($directory);
 
@@ -179,17 +151,5 @@ class Less
         $this->_filesContent[$path] = $content;
 
         return $this;
-    }
-
-    /**
-     * Gets dir name
-     *
-     * @param string $dirName Dir name
-     *
-     * @return string
-     */
-    private function _getDirPath($dirName)
-    {
-        return __DIR__ . '/../../../public/static/' . $dirName;
     }
 }

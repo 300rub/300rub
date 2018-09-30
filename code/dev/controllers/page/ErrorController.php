@@ -143,8 +143,6 @@ class ErrorController extends AbstractPageController
      */
     public function run()
     {
-        $this->setStaticMap('staticError');
-
         http_response_code($this->_code);
 
         $isDev = false;
@@ -159,7 +157,6 @@ class ErrorController extends AbstractPageController
                 'isDev'     => $isDev,
                 'css'       => $this->getCss(),
                 'less'      => $this->getLess(),
-                'version'   => $this->getVersion(),
                 'code'      => $this->_code,
                 'message'   => $this->_message,
                 'file'      => $this->_file,

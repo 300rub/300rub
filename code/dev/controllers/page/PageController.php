@@ -99,8 +99,6 @@ class PageController extends AbstractPageController
             $isBlockSection = true;
         }
 
-        $this->setStaticMap('static');
-
         $layoutData = [];
         $layoutData['content'] = $content;
         $layoutData['templates'] = $this->render(

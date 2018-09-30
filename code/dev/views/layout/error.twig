@@ -6,15 +6,9 @@
     <title>{{ code }} {{ message }}</title>
     <link rel="shortcut icon" href="{{ icon }}"/>
 
-    {% if css is defined %}
-        {% for fileName in css %}
-            <link
-                rel="stylesheet"
-                type="text/css"
-                href="/css/{{ fileName }}.css?{{ version }}"
-            />
-        {% endfor %}
-    {% endif %}
+    {% for fileName in css %}
+        <link rel="stylesheet" type="text/css" href="{{ fileName }}" />
+    {% endfor %}
 
     {% if less is not empty %}
         <link rel="stylesheet" type="text/css" href="{{ less }}" />

@@ -57,8 +57,6 @@ class LoginController extends AbstractPageController
             'page/login'
         );
 
-        $this->setStaticMap('static');
-
         $language = App::getInstance()->getLanguage();
 
         $layoutData = [];

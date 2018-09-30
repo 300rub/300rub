@@ -3,6 +3,7 @@
 namespace ss\controllers\page\_abstract;
 
 use ss\application\App;
+use ss\application\components\file\Css;
 use ss\application\components\file\Less;
 use ss\controllers\_abstract\AbstractController;
 
@@ -11,31 +12,6 @@ use ss\controllers\_abstract\AbstractController;
  */
 abstract class AbstractPageController extends AbstractController
 {
-
-    /**
-     * Static map
-     *
-     * @var array
-     */
-    private $_staticMap = [];
-
-    /**
-     * Sets static map
-     *
-     * @param string $name Static map name
-     *
-     * @return void
-     */
-    protected function setStaticMap($name)
-    {
-        $path = sprintf(
-            '%s/config/other/%s.php',
-            CODE_ROOT,
-            $name
-        );
-
-        $this->_staticMap = include $path;
-    }
 
     /**
      * Is minimized
@@ -54,31 +30,17 @@ abstract class AbstractPageController extends AbstractController
      */
     protected function getCss()
     {
-        $isUser = $this->isUser();
-
-        if ($this->_isMinimized() === true) {
-            $cssList = [];
-            $cssList[] = $this->_staticMap['common']['compiledCss'];
-            if ($isUser === true
-                && array_key_exists('admin', $this->_staticMap) === true
-            ) {
-                $cssList[] = $this->_staticMap['admin']['compiledCss'];
-            }
-
-            return $cssList;
+        $type = Less::TYPE_COMMON;
+        if ($this->isUser() === true) {
+            $type = Less::TYPE_ADMIN;
         }
 
-        $cssList = $this->_staticMap['common']['libs']['css'];
-        if ($isUser === true
-            && array_key_exists('admin', $this->_staticMap) === true
-        ) {
-            $cssList = array_merge(
-                $cssList,
-                $this->_staticMap['admin']['libs']['css']
-            );
-        }
+        $css = new Css($type);
+        $css
+            ->setVersion($this->_getVersion())
+            ->setHasMinimized($this->_isMinimized());
 
-        return $cssList;
+        return $css->getCssList();
     }
 
     /**
@@ -181,7 +143,7 @@ abstract class AbstractPageController extends AbstractController
      *
      * @return int
      */
-    protected function getVersion()
+    private function _getVersion()
     {
         $release = CODE_ROOT . '/config/release';
         if (file_exists($release) === false) {
