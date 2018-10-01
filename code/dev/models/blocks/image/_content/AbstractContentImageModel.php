@@ -85,51 +85,128 @@ abstract class AbstractContentImageModel extends AbstractImageModel
             $images->byGroupId($albumId);
         }
 
-        $content = '';
         $images = $images->findAll();
+        if (count($images) === 0) {
+            return '';
+        }
 
         switch ($this->get('type')) {
             case self::TYPE_SLIDER:
-                return App::getInstance()->getView()->get(
-                    'content/image/slider',
-                    [
-                        'images'  => $images,
-                        'image'   => $this,
-                    ]
-                );
+                return $this->_getSliderHtml($images);
             case self::TYPE_SIMPLE:
-                foreach ($images as $image) {
-                    $design = $this->get('designImageSimpleModel');
-
-                    $content .= App::getInstance()->getView()->get(
-                        'content/image/simple',
-                        [
-                            'align'          => $design->getAlignmentValue(),
-                            'useDescription' => $design->get('useDescription'),
-                            'alt'            => $image->get('alt'),
-                            'link'           => $image->get('link'),
-                            'viewUrl'
-                                => $image->get('viewFileModel')->getUrl(),
-                        ]
-                    );
-                }
-
-                return $content;
+                return $this->_getSimpleHtml($images);
             default:
-                foreach ($images as $image) {
-                    $content .= App::getInstance()->getView()->get(
-                        'content/image/zoom',
-                        [
-                            'groupId'  => $image->get('imageGroupId'),
-                            'alt'      => $image->get('alt'),
-                            'viewUrl'  => $image->get('viewFileModel')->getUrl(),
-                            'thumbUrl' => $image->get('thumbFileModel')->getUrl(),
-                        ]
-                    );
-                }
-
-                return $content;
+                return $this->_getZoomHtml($images);
         }
+    }
+
+    /**
+     * Gets zoom images HTML
+     *
+     * @param ImageInstanceModel[]|array $images Image Instances
+     *
+     * @return string
+     */
+    private function _getZoomHtml($images)
+    {
+        $content = '';
+
+        foreach ($images as $image) {
+            $content .= App::getInstance()->getView()->get(
+                'content/image/zoom',
+                [
+                    'groupId'  => $image->get('imageGroupId'),
+                    'alt'      => $image->get('alt'),
+                    'viewUrl'  => $image->get('viewFileModel')->getUrl(),
+                    'thumbUrl' => $image->get('thumbFileModel')->getUrl(),
+                ]
+            );
+        }
+
+        return $content;
+    }
+
+    /**
+     * Gets simple images HTML
+     *
+     * @param ImageInstanceModel[]|array $images Image Instances
+     *
+     * @return string
+     */
+    private function _getSimpleHtml($images)
+    {
+        $content = '';
+
+        foreach ($images as $image) {
+            $design = $this->get('designImageSimpleModel');
+
+            $content .= App::getInstance()->getView()->get(
+                'content/image/simple',
+                [
+                    'align'          => $design->getAlignmentValue(),
+                    'useDescription' => $design->get('useDescription'),
+                    'alt'            => $image->get('alt'),
+                    'link'           => $image->get('link'),
+                    'viewUrl'
+                                     => $image->get('viewFileModel')->getUrl(),
+                ]
+            );
+        }
+
+        return $content;
+    }
+
+    /**
+     * Gets slider HTML
+     *
+     * @param ImageInstanceModel[]|array $images Image Instances
+     *
+     * @return string
+     */
+    private function _getSliderHtml($images)
+    {
+        $maxWidth = 100;
+        $maxHeight = 100;
+
+        $width = $this->get('cropX');
+        $height = $this->get('cropY');
+
+        $imagesContent = '';
+        foreach ($images as $image) {
+            $imagesContent .= App::getInstance()->getView()->get(
+                'content/image/sliderImage',
+                [
+                    'link'    => $image->get('link'),
+                    'viewUrl' => $image->get('viewFileModel')->getUrl(),
+                    'alt'     => $image->get('alt'),
+                ]
+            );
+
+            if ($image->get('width') > $maxWidth) {
+                $maxWidth = $image->get('width');
+            }
+
+            if ($image->get('height') > $maxHeight) {
+                $maxHeight = $image->get('height');
+            }
+        }
+
+        if ($width === 0
+            || $height === 0
+        ) {
+            $width = $maxWidth;
+            $height = $maxHeight;
+        }
+
+        return App::getInstance()->getView()->get(
+            'content/image/slider',
+            [
+                'uniqueId'      => uniqid(),
+                'width'         => $width,
+                'height'        => $height,
+                'imagesContent' => $imagesContent,
+            ]
+        );
     }
 
     /**
