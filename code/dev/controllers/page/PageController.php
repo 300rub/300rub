@@ -244,8 +244,9 @@ class PageController extends AbstractPageController
                         $html .= $this->render(
                             'page/lineBlockContainer',
                             [
-                                'item' => $item,
-                                'data' => $this->_getLineStructure(
+                                'width' => $item['width'],
+                                'left'  => $item['left'],
+                                'data'  => $this->_getLineStructure(
                                     $item['data']
                                 )
                             ]

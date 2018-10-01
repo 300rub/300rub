@@ -85,6 +85,7 @@ abstract class AbstractContentImageModel extends AbstractImageModel
             $images->byGroupId($albumId);
         }
 
+        $content = '';
         $images = $images->findAll();
 
         switch ($this->get('type')) {
@@ -105,12 +106,19 @@ abstract class AbstractContentImageModel extends AbstractImageModel
                     ]
                 );
             default:
-                return App::getInstance()->getView()->get(
-                    'content/image/zoom',
-                    [
-                        'images'  => $images
-                    ]
-                );
+                foreach ($images as $image) {
+                    $content .= App::getInstance()->getView()->get(
+                        'content/image/zoom',
+                        [
+                            'groupId'  => $image->get('imageGroupId'),
+                            'alt'      => $image->get('alt'),
+                            'viewUrl'  => $image->get('viewFileModel')->getUrl(),
+                            'thumbUrl' => $image->get('thumbFileModel')->getUrl(),
+                        ]
+                    );
+                }
+
+                return $content;
         }
     }
 
@@ -181,14 +189,18 @@ abstract class AbstractContentImageModel extends AbstractImageModel
 
         switch ($this->get('type')) {
             case self::TYPE_SLIDER:
+                $design = $this->get('designImageSliderModel');
+
                 $jsList = array_merge(
                     $jsList,
                     $view->generateJs(
                         'content/image/js/slider',
                         $container,
                         [
-                            'design' => $this
-                                ->get('designImageSliderModel')
+                            'hasAutoPlay'  => $design->get('hasAutoPlay'),
+                            'playSpeed'    => $design->get('playSpeed'),
+                            'effectValues' => $design->getEffectValues(),
+                            'isFullWidth'  => $design->get('isFullWidth'),
                         ]
                     )
                 );
