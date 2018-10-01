@@ -98,13 +98,23 @@ abstract class AbstractContentImageModel extends AbstractImageModel
                     ]
                 );
             case self::TYPE_SIMPLE:
-                return App::getInstance()->getView()->get(
-                    'content/image/simple',
-                    [
-                        'images'  => $images,
-                        'design'  => $this->get('designImageSimpleModel')
-                    ]
-                );
+                foreach ($images as $image) {
+                    $design = $this->get('designImageSimpleModel');
+
+                    $content .= App::getInstance()->getView()->get(
+                        'content/image/simple',
+                        [
+                            'align'          => $design->getAlignmentValue(),
+                            'useDescription' => $design->get('useDescription'),
+                            'alt'            => $image->get('alt'),
+                            'link'           => $image->get('link'),
+                            'viewUrl'
+                                => $image->get('viewFileModel')->getUrl(),
+                        ]
+                    );
+                }
+
+                return $content;
             default:
                 foreach ($images as $image) {
                     $content .= App::getInstance()->getView()->get(
@@ -256,13 +266,27 @@ abstract class AbstractContentImageModel extends AbstractImageModel
                         ->find()
                 );
 
+            $hasCover = false;
+            $alt = '';
+            $coverUrl = '';
+            $image = $album->getCover();
+            if ($image !== null) {
+                $hasCover = true;
+                $alt = $image->get('alt');
+                $coverUrl = $image->get('thumbFileModel')->getUrl();
+            }
+
             $content .= App::getInstance()->getView()->get(
                 'content/image/album',
                 [
-                    'album' => $album,
-                    'uri'   => $link->generateLink(
+                    'hasCover' => $hasCover,
+                    'coverUrl' => $coverUrl,
+                    'alt'      => $alt,
+                    'uri'      => $link->generateLink(
                         $album->get('seoModel')->get('alias')
-                    )
+                    ),
+                    'count'    => $album->getCount(),
+                    'name'     => $album->get('seoModel')->get('name'),
                 ]
             );
         }

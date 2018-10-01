@@ -1,0 +1,18 @@
+<div class="album">
+    <a href="{{ uri }}" class="image-container">
+        {% if hasCover == true %}
+            <img
+                src="{{ coverUrl }}"
+                alt="{{ alt }}"
+                title="{{ alt }}"
+                class="image"
+            />
+        {% endif %}
+
+        <span class="count">{{ count }}</span>
+    </a>
+
+    <a href="{{ uri }}" class="name">{{ name }}</a>
+
+    <div class="clear"></div>
+</div>
