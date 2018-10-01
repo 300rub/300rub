@@ -14,6 +14,34 @@ abstract class AbstractContentTextModel extends AbstractTextModel
 {
 
     /**
+     * Tag list
+     *
+     * @return array
+     */
+    private $_tagList = [
+        self::TYPE_DIV => 'div',
+        self::TYPE_H1  => 'h1',
+        self::TYPE_H2  => 'h2',
+        self::TYPE_H3  => 'h3',
+    ];
+
+    /**
+     * Gets tag
+     *
+     * @return string
+     */
+    private function _getTag()
+    {
+        $type = $this->get('type');
+
+        if (array_key_exists($type, $this->_tagList) === true) {
+            return $this->_tagList[$type];
+        }
+
+        return $this->_tagList[self::TYPE_DIV];
+    }
+
+    /**
      * Generates HTML
      *
      * @return string
@@ -27,7 +55,7 @@ abstract class AbstractContentTextModel extends AbstractTextModel
             [
                 'blockId' => $this->getBlockId(),
                 'text'    => $this->_getText(),
-                'type'    => $this->get('type'),
+                'tag'     => $this->_getTag(),
             ]
         );
     }

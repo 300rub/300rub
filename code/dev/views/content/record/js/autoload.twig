@@ -1,0 +1,15 @@
+<script>
+    !function () {
+        $("{{ container }} .autoload").each(function(){
+            var options = {
+                group: "record",
+                controller: "content",
+                element: $(this),
+                container: $(this).parent().find(".instances"),
+                blockId: {{ blockId }}
+            };
+
+            new ss.components.Autoload(options);
+        });
+    }();
+</script>
