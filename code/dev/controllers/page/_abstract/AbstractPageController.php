@@ -139,6 +139,16 @@ abstract class AbstractPageController extends AbstractController
     }
 
     /**
+     * Gets templates
+     *
+     * @return string
+     */
+    protected function getTemplates()
+    {
+        return '';
+    }
+
+    /**
      * Gets release version
      *
      * @return int

@@ -122,12 +122,7 @@ class PageController extends AbstractPageController
             'page/layout',
             [
                 'content' => $content,
-                'templates' => $this->render(
-                    'templates/templates',
-                    [
-                        'isUser' => $isUser
-                    ]
-                ),
+                'templates' => $this->getTemplates(),
                 'title' => 'Test title',
                 'keywords' => 'Test keywords',
                 'description' => 'Test description',
@@ -238,7 +233,9 @@ class PageController extends AbstractPageController
                         $html .= $this->render(
                             'page/lineBlock',
                             [
-                                'item' => $item
+                                'width' => $item['width'],
+                                'left'  => $item['left'],
+                                'html'  => $item['html'],
                             ]
                         );
 

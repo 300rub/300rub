@@ -62,12 +62,7 @@ class LoginController extends AbstractPageController
         $layoutData = [];
         $layoutData['content'] = $content;
         $layoutData['templates'] =
-        $content = $this->render(
-            'templates/templates',
-            [
-                'isUser' => false
-            ]
-        );
+        $content = $this->getTemplates();
         $layoutData['title'] = $language->getMessage('user', 'loginTitle');
         $layoutData['keywords'] = '';
         $layoutData['description'] = '';
