@@ -79,8 +79,10 @@ class DateTime
      */
     public function getValue($formatType)
     {
-        if (array_key_exists($formatType, $this->_formatList) === false) {
-            return '';
+        if (array_key_exists($formatType, $this->_formatList) === false
+            || $formatType === self::TYPE_NONE
+        ) {
+            return null;
         }
 
         return $this->_dateTime->format($this->_formatList[$formatType]);

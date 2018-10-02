@@ -4,31 +4,13 @@ namespace ss\models\blocks\record\_base;
 
 use ss\application\components\valueGenerator\ValueGenerator;
 use ss\models\blocks\_abstract\AbstractContentModel;
+use ss\application\components\helpers\DateTime;
 
 /**
  * Abstract model for working with table "recordClones"
  */
 abstract class AbstractRecordCloneModel extends AbstractContentModel
 {
-
-    /**
-     * Short date types
-     */
-    const DATE_TYPE_COMMON = 0;
-    const DATE_TYPE_1 = 1;
-
-    /**
-     * Gets date type list
-     *
-     * @return array
-     */
-    public function getDateTypeList()
-    {
-        return [
-            self::DATE_TYPE_COMMON => '',
-            self::DATE_TYPE_1      => '',
-        ];
-    }
 
     /**
      * Gets table name
@@ -47,6 +29,8 @@ abstract class AbstractRecordCloneModel extends AbstractContentModel
      */
     public function getFieldsInfo()
     {
+        $dateTime = new DateTime();
+
         return [
             'recordId'            => [
                 self::FIELD_RELATION_TO_PARENT
@@ -77,8 +61,8 @@ abstract class AbstractRecordCloneModel extends AbstractContentModel
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
                     ValueGenerator::ARRAY_KEY => [
-                        self::getDateTypeList(),
-                        self::DATE_TYPE_COMMON
+                        $dateTime->getFormatList(),
+                        DateTime::TYPE_NONE
                     ]
                 ],
             ],

@@ -9,6 +9,7 @@ use ss\controllers\_abstract\AbstractController;
 use ss\models\blocks\block\BlockModel;
 use ss\models\blocks\record\RecordCloneModel;
 use ss\models\blocks\record\RecordModel;
+use ss\application\components\helpers\DateTime;
 
 /**
  * Gets block
@@ -97,6 +98,8 @@ class GetCloneBlockController extends AbstractController
             $buttonLabelKey = 'add';
         }
 
+        $dateTime = new DateTime();
+
         $forms = [
             'name'               => [
                 'name'       => 'name',
@@ -116,7 +119,7 @@ class GetCloneBlockController extends AbstractController
                     => $language->getMessage('record', 'dateType'),
                 'value' => $recordCloneModel->get('dateType'),
                 'name'  => 'dateType',
-                'list'  => $recordCloneModel->getDateTypeList()
+                'list'  => $dateTime->getFormatList()
             ],
             'maxCount' => [
                 'name'  => 'maxCount',
