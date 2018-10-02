@@ -3,32 +3,13 @@
 namespace ss\models\blocks\record\_base;
 
 use ss\application\components\valueGenerator\ValueGenerator;
-use ss\models\_abstract\AbstractModel;
+use ss\models\blocks\record\_abstract\AbstractDesignModel;
 
 /**
  * Abstract model for working with table "designRecordClones"
  */
-abstract class AbstractDesignRecordCloneModel extends AbstractModel
+abstract class AbstractDesignRecordCloneModel extends AbstractDesignModel
 {
-
-    /**
-     * View types
-     */
-    const VIEW_TYPE_LIST = 0;
-    const VIEW_TYPE_GRID = 1;
-
-    /**
-     * Gets view type list
-     *
-     * @return array
-     */
-    public static function getViewTypeList()
-    {
-        return [
-            self::VIEW_TYPE_LIST => '',
-            self::VIEW_TYPE_GRID => '',
-        ];
-    }
 
     /**
      * Gets table name
@@ -84,8 +65,8 @@ abstract class AbstractDesignRecordCloneModel extends AbstractModel
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
                     ValueGenerator::ARRAY_KEY => [
-                        self::getViewTypeList(),
-                        self::VIEW_TYPE_LIST
+                        $this->getShortCardViewTypeList(),
+                        self::SHORT_CART_VIEW_TYPE_LIST
                     ]
                 ],
             ],

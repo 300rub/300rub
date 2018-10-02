@@ -136,6 +136,12 @@ abstract class AbstractContentRecordModel extends AbstractRecordModel
         return App::getInstance()->getView()->get(
             'content/record/list',
             [
+                'typeCss'     => $this
+                    ->get('designRecordModel')
+                    ->getViewTypeCss($this->_getViewType()),
+                'pagination'  => $pagination,
+
+
                 'blockId'     => $this->getBlockId(),
                 'instances'   => $this->getInstancesHtml(
                     $page,
@@ -144,9 +150,8 @@ abstract class AbstractContentRecordModel extends AbstractRecordModel
                         ->getActiveSection()
                         ->getId()
                 ),
-                'pagination'  => $pagination,
+
                 'useAutoload' => $useAutoload,
-                'viewType'    => $this->_getViewType()
             ]
         );
     }

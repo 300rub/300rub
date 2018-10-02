@@ -82,6 +82,10 @@ abstract class AbstractContentRecordCloneModel extends AbstractRecordCloneModel
             );
         }
 
+        $viewType = $this
+            ->get('designRecordCloneModel')
+            ->get('viewType');
+
         return App::getInstance()->getView()->get(
             'content/record/cloneList',
             [
@@ -89,7 +93,7 @@ abstract class AbstractContentRecordCloneModel extends AbstractRecordCloneModel
                 'instances'   => $instances,
                 'typeCss'     => $this
                     ->get('designRecordCloneModel')
-                    ->getTypeCss(),
+                    ->getViewTypeCss($viewType),
             ]
         );
     }
