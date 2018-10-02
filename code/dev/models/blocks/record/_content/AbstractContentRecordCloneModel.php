@@ -72,7 +72,7 @@ abstract class AbstractContentRecordCloneModel extends AbstractRecordCloneModel
                 [
                     'cover'       => $cover,
                     'name'        => $recordInstance->get('seoModel')->get('name'),
-                    'data'        => $date,
+                    'date'        => $date,
                     'description' => $description,
                     'uri'         => $link->generateLink(
                         $recordInstance->get('seoModel')->get('alias'),

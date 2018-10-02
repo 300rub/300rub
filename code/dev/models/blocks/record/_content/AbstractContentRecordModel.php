@@ -179,12 +179,38 @@ abstract class AbstractContentRecordModel extends AbstractRecordModel
 
         $html = '';
         foreach ($recordInstances as $recordInstance) {
+            $cover = null;
+            if ($this->get('hasCover') === true) {
+                $imageInstance = $recordInstance->get('coverImageInstanceModel');
+                if ($imageInstance !== null) {
+                    $cover = [
+                        'id'       => $imageInstance->getId(),
+                        'alt'      => $imageInstance->get('alt'),
+                        'viewUrl'  => $imageInstance->get('viewFileModel')->getUrl(),
+                        'thumbUrl' => $imageInstance->get('thumbFileModel')->getUrl(),
+                        'hasZoom'  => $this->get('hasCoverZoom'),
+                    ];
+                }
+            }
+
+            $date = DateTime::create($recordInstance->get('date'))
+                ->getValue($this->get('dateType'));
+
+            $description = '';
+            if ($this->get('hasDescription') === true) {
+                $description = $recordInstance
+                    ->get('descriptionTextInstanceModel')
+                    ->get('text');
+            }
+
             $html .= App::getInstance()->getView()->get(
                 'content/record/shortCard',
                 [
-                    'record'         => $this,
-                    'recordInstance' => $recordInstance,
-                    'uri'            => $link->generateLink(
+                    'cover'       => $cover,
+                    'name'        => $recordInstance->get('seoModel')->get('name'),
+                    'date'        => $date,
+                    'description' => $description,
+                    'uri'         => $link->generateLink(
                         $recordInstance->get('seoModel')->get('alias'),
                         $sectionId
                     )
