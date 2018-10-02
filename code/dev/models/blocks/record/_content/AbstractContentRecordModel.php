@@ -3,13 +3,13 @@
 namespace ss\models\blocks\record\_content;
 
 use ss\application\App;
-
 use ss\application\components\db\Table;
 use ss\application\components\helpers\Link;
 use ss\application\components\helpers\Pagination;
 use ss\application\exceptions\NotFoundException;
 use ss\models\blocks\record\_base\AbstractRecordModel;
 use ss\models\blocks\record\RecordInstanceModel;
+use ss\application\components\helpers\DateTime;
 
 /**
  * Abstract model for working with table record content
@@ -483,17 +483,20 @@ abstract class AbstractContentRecordModel extends AbstractRecordModel
                 );
         }
 
+        $date = DateTime::create($recordInstance->get('date'))
+            ->getValue($this->get('fullCardDateType'));
+
         return App::getInstance()->getView()->get(
             'content/record/fullCard',
             [
-                'blockId'           => $this->getBlockId(),
-                'record'            => $this,
-                'designRecordModel' => $this->get('designRecordModel'),
-                'recordInstance'    => $recordInstance,
-                'text'              => $recordInstance
+                'blockId'    => $this->getBlockId(),
+                'name'       => $recordInstance->get('seoModel')->get('name'),
+                'data'       => $date,
+                'imagesHtml' => $imagesHtml,
+                'text'       => $recordInstance
                     ->get('textTextInstanceModel')
                     ->get('text'),
-                'imagesHtml'        => $imagesHtml,
+
             ]
         );
     }

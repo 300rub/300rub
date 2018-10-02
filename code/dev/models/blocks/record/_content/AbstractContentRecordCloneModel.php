@@ -87,9 +87,9 @@ abstract class AbstractContentRecordCloneModel extends AbstractRecordCloneModel
             [
                 'blockId'     => $this->getBlockId(),
                 'instances'   => $instances,
-                'viewType'    => $this
+                'typeCss'     => $this
                     ->get('designRecordCloneModel')
-                    ->get('viewType')
+                    ->getTypeCss(),
             ]
         );
     }

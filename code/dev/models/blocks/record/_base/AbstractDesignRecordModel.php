@@ -24,7 +24,7 @@ abstract class AbstractDesignRecordModel extends AbstractModel
      *
      * @return array
      */
-    public static function getShortCardViewTypeList()
+    public function getShortCardViewTypeList()
     {
         return [
             self::SHORT_CART_VIEW_TYPE_LIST   => '',
@@ -32,6 +32,33 @@ abstract class AbstractDesignRecordModel extends AbstractModel
             self::SHORT_CART_VIEW_TYPE_GRID_2 => '',
             self::SHORT_CART_VIEW_TYPE_GRID_3 => '',
         ];
+    }
+
+    /**
+     * CSS type list
+     *
+     * @var array
+     */
+    private $_viewTypeCssList = [
+        self::SHORT_CART_VIEW_TYPE_LIST   => 'view-list',
+        self::SHORT_CART_VIEW_TYPE_GRID_1 => 'view-grid-1',
+        self::SHORT_CART_VIEW_TYPE_GRID_2 => 'view-grid-2',
+        self::SHORT_CART_VIEW_TYPE_GRID_3 => 'view-grid-3',
+    ];
+
+    /**
+     * Gets type CSS
+     *
+     * @return string
+     */
+    public function getTypeCss()
+    {
+        $type = $this->get('shortCardViewType');
+        if (array_key_exists($type, $this->_viewTypeCssList) === true) {
+            return $this->_viewTypeCssList[$type];
+        }
+
+        return $this->_viewTypeCssList[self::SHORT_CART_VIEW_TYPE_LIST];
     }
 
     /**
@@ -124,7 +151,7 @@ abstract class AbstractDesignRecordModel extends AbstractModel
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
                     ValueGenerator::ARRAY_KEY => [
-                        self::getShortCardViewTypeList(),
+                        $this->getShortCardViewTypeList(),
                         self::SHORT_CART_VIEW_TYPE_LIST
                     ]
                 ],
