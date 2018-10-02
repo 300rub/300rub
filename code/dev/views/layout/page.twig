@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>{{ title }}</title>
+    <meta name="keywords" content="{{ keywords }}"/>
+    <meta name="description" content="{{ description }}"/>
+    <link rel="shortcut icon" href="{{ icon }}"/>
+
+    {% for fileName in css %}
+        <link rel="stylesheet" type="text/css" href="{{ fileName }}" />
+    {% endfor %}
+
+    {% if less is not empty %}
+        <link rel="stylesheet" type="text/css" href="{{ less }}" />
+    {% endif %}
+
+    {% if isUser == false %}
+        <style>{{ generatedCss | join }}</style>
+    {% endif %}
+
+    {% for fileName in js %}
+        <script src="{{ fileName }}"></script>
+    {% endfor %}
+
+    {#<script>#}
+        {#window.ss.system.App.setLanguage({{ language }});#}
+        {#window.ss.system.App.setToken("{{ token }}");#}
+        {#window.ss.system.App.setSectionId({{ sectionId }});#}
+
+        {#{% if isBlockSection is not empty and isBlockSection == true %}#}
+            {#window.ss.system.App.setIsBlockSection(true);#}
+        {#{% endif %}#}
+
+        {#{% for key, value in errorMessages %}#}
+            {#ss.components.Error.set("{{ key }}", "{{ value }}");#}
+        {#{% endfor %}#}
+    {#</script>#}
+
+    {{ headerCode }}
+</head>
+<body>
+    {{ bodyTopCode }}
+
+    {% if isUser == true %}
+        {% for id, gCss in generatedCss %}
+            <div id="{{ id }}">
+                <style>{{ gCss }}</style>
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    {{ content }}
+
+    {{ generatedJs | join }}
+
+    <div id="ajax-wrapper"></div>
+
+    {{ bodyBottomCode }}
+</body>
+</html>

@@ -110,7 +110,7 @@ class PageController extends AbstractPageController
 
         if ($isUser === true) {
             $token = App::getInstance()->getUser()->getToken();
-            $content .= $this->_getUserContent();
+            //$content .= $this->_getUserContent();
         }
 
         $isBlockSection = false;
@@ -119,8 +119,9 @@ class PageController extends AbstractPageController
         }
 
         return $this->render(
-            'page/layout',
+            'layout/page',
             [
+                'icon'      => '/img/favicon.ico',
                 'content' => $content,
                 'templates' => $this->getTemplates(),
                 'title' => 'Test title',
