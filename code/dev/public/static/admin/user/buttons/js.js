@@ -183,6 +183,6 @@ ss.add(
 
 $(document).ready(
     function () {
-        ss.init("adminUserButtons");
+        //ss.init("adminUserButtons");
     }
 );
