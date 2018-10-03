@@ -1,19 +1,20 @@
-!function ($, ss) {
-    'use strict';
-
-    /**
-     * Errors
-     *
-     * @var {Object}
-     */
-    ss.components.Error = {
+ss.add(
+    "commonComponentsCommonError",
+    {
 
         /**
          * Errors
          *
          * @var {Object}
          */
-        _errors: {},
+        errors: {},
+        
+        /**
+         * Init
+         */
+        init: function() {
+          
+        },
 
         /**
          * Sets an error
@@ -22,7 +23,7 @@
          * @param {String} value
          */
         set: function (key, value) {
-            this._errors[key] = value;
+            this.errors[key] = value;
         },
 
         /**
@@ -33,11 +34,11 @@
          * @returns {String}
          */
         get: function (key) {
-            if (this._errors[key] === undefined) {
+            if (this.errors[key] === undefined) {
                 return key;
             }
 
-            return this._errors[key];
+            return this.errors[key];
         },
 
         /**
@@ -46,10 +47,8 @@
          * @param {Object} jqXHR
          *
          * @returns {Object}
-         *
-         * @private
          */
-        _getAjaxErrorTemplate: function (jqXHR) {
+        getAjaxErrorTemplate: function (jqXHR) {
             var template = ss.components.Template.get("ajax-error");
             var message = "Error";
             var file = "";
@@ -113,7 +112,7 @@
          */
         displayAjaxError: function (jqXHR) {
             var errorTemplate
-                = this._getAjaxErrorTemplate(jqXHR);
+                = this.getAjaxErrorTemplate(jqXHR);
             ss.system.App.append(errorTemplate);
 
             errorTemplate.removeClass("transparent");
@@ -131,5 +130,5 @@
                 7000
             );
         }
-    };
-}(window.jQuery, window.ss);
+    }
+);

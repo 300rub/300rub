@@ -9,23 +9,9 @@
      * @type {Object}
      */
     ss.window.blocks.image.Crop = function (options) {
-        ss.window.Abstract.call(
-            this,
-            {
-                group: "image",
-                controller: "crop",
-                data: {
-                    blockId: options.blockId,
-                    id: options.id
-                },
-                success: $.proxy(this._onLoadDataSuccess, this),
-                name: "image-crop",
-                level: options.level,
-                parent: options.parent
-            }
-        );
 
-        this._container = null;
+
+
     };
 
     /**
