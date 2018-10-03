@@ -79,7 +79,21 @@ abstract class AbstractFile
      */
     protected function getDirPath($dirName)
     {
-        return __DIR__ . '/../../../../public/static/' . $dirName;
+        return sprintf(
+            '%s/static/%s',
+            $this->getPublicPath(),
+            $dirName
+        );
+    }
+
+    /**
+     * Gets public path
+     *
+     * @return string
+     */
+    protected function getPublicPath()
+    {
+        return __DIR__ . '/../../../../public';
     }
 
     /**
@@ -168,6 +182,6 @@ abstract class AbstractFile
      */
     protected function getMap()
     {
-        return include CODE_ROOT . "/config/other/staticVendor.php";
+        return include __DIR__ . '/../../../../config/other/staticVendor.php';
     }
 }
