@@ -3,6 +3,7 @@
 namespace ss\controllers\page\_abstract;
 
 use ss\application\components\file\Css;
+use ss\application\components\file\Js;
 use ss\application\components\file\Less;
 use ss\controllers\_abstract\AbstractController;
 
@@ -49,74 +50,17 @@ abstract class AbstractPageController extends AbstractController
      */
     protected function getJs()
     {
-//        $staticFile = App::getInstance()->getStaticFile();
-//
-//
-//        $path = CODE_ROOT . '/public/static/common';
-//        $main = '/static/common/core/ss/js.js';
-//
-//        $directory = new \RecursiveDirectoryIterator($path);
-//        $iterator = new \RecursiveIteratorIterator($directory);
-//
-//        $files = [$main];
-//        foreach ($iterator as $info) {
-//            $path = str_replace(CODE_ROOT . '/public', '', $info->getPathname());
-//
-//            if (strpos($path, '.js') === false
-//                || $path === $main
-//            ) {
-//                continue;
-//            }
-//
-//            $files[] = $path;
-//        }
-//
-//        echo "<pre>";
-//        var_dump($files);
-//
-//        exit();
+        $type = Less::TYPE_COMMON;
+        if ($this->isUser() === true) {
+            $type = Less::TYPE_ADMIN;
+        }
 
-        return [];
-//        $isUser = $this->isUser();
-//
-//        if ($this->_isMinimized() === true) {
-//            $jsList = [];
-//            $jsList[] = $this->_staticMap['common']['compiledJs'];
-//            if ($isUser === true
-//                && array_key_exists('admin', $this->_staticMap) === true
-//            ) {
-//                $jsList[] = $this->_staticMap['admin']['compiledJs'];
-//            }
-//
-//            return $jsList;
-//        }
-//
-//        $jsList = $this->_staticMap['common']['libs']['js'];
-//
-//        if ($isUser === true
-//            && array_key_exists('admin', $this->_staticMap) === true
-//        ) {
-//            $jsList = array_merge(
-//                $jsList,
-//                $this->_staticMap['admin']['libs']['js']
-//            );
-//        }
-//
-//        $jsList = array_merge(
-//            $jsList,
-//            $this->_staticMap['common']['js']
-//        );
-//
-//        if ($isUser === false
-//            || array_key_exists('admin', $this->_staticMap) === false
-//        ) {
-//            return $jsList;
-//        }
-//
-//        return array_merge(
-//            $jsList,
-//            $this->_staticMap['admin']['js']
-//        );
+        $jsFile = new Js($type);
+        $jsFile
+            ->setVersion($this->_getVersion())
+            ->setHasMinimized($this->_isMinimized());
+
+        return $jsFile->getJsList();
     }
 
     /**

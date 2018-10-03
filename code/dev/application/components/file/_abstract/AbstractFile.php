@@ -160,4 +160,14 @@ abstract class AbstractFile
             $extension
         );
     }
+
+    /**
+     * Gets map
+     *
+     * @return array
+     */
+    protected function getMap()
+    {
+        return include CODE_ROOT . "/config/other/staticVendor.php";
+    }
 }

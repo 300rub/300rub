@@ -5,9 +5,9 @@ namespace ss\application\components\file;
 use ss\application\components\file\_abstract\AbstractFile;
 
 /**
- * Class for working with css files
+ * Class for working with js files
  */
-class Css extends AbstractFile
+class Js extends AbstractFile
 {
 
     /**
@@ -15,14 +15,14 @@ class Css extends AbstractFile
      *
      * @return string[]
      */
-    public function getCssList()
+    public function getJsList()
     {
         $map = $this->getMap();
 
         $list = [];
 
         foreach ($this->getDirList() as $dir) {
-            foreach (array_keys($map[$dir]['css']) as $file) {
+            foreach (array_keys($map[$dir]['js']) as $file) {
                 $list[] = sprintf(
                     '/static/%s/lib/%s?%s',
                     $dir,
@@ -33,7 +33,7 @@ class Css extends AbstractFile
         }
 
         if ($this->hasMinimized() === true) {
-            $list[] = $this->getMinimizedUri('css');
+            $list[] = $this->getMinimizedUri('js');
         }
 
         return $list;
