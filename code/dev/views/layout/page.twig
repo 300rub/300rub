@@ -37,10 +37,10 @@
         {#{% endfor %}#}
     {#</script>#}
 
-    {{ headerCode }}
+    {{ headerCode | raw }}
 </head>
 <body>
-    {{ bodyTopCode }}
+    {{ bodyTopCode | raw }}
 
     {% if isUser == true %}
         {% for id, gCss in generatedCss %}
@@ -50,12 +50,12 @@
         {% endfor %}
     {% endif %}
 
-    {{ content }}
+    {{ content | raw }}
 
     {{ generatedJs | join }}
 
     <div id="ajax-wrapper"></div>
 
-    {{ bodyBottomCode }}
+    {{ bodyBottomCode  | raw }}
 </body>
 </html>

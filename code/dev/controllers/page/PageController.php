@@ -66,7 +66,7 @@ class PageController extends AbstractPageController
                 ->getMemcached()
                 ->get($this->_getMemcachedKey());
             if ($memcachedResult !== false) {
-                return $memcachedResult;
+                //return $memcachedResult;
             }
         }
 
