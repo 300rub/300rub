@@ -6,8 +6,8 @@
     {% endif %}
 
     {% if imagesHtml != "" %}
-        <div class="full-card-images">{{ imagesHtml }}</div>
+        <div class="full-card-images">{{ imagesHtml | raw }}</div>
     {% endif %}
 
-    <div class="full-card-text">{{ text }}</div>
+    <div class="full-card-text">{{ text | raw }}</div>
 </div>

@@ -1,7 +1,7 @@
 <div class="pagination">
     {% for item in tree %}
         <a
-            href="{{ item.url }}"
+            href="{{ item.uri }}"
             {% if item.isActive == true %}
                 class="active"
             {% endif %}

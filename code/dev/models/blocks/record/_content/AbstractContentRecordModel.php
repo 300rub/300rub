@@ -180,8 +180,11 @@ abstract class AbstractContentRecordModel extends AbstractRecordModel
         $html = '';
         foreach ($recordInstances as $recordInstance) {
             $cover = null;
-            if ($this->get('hasCover') === true) {
+            if ($this->get('hasCover') === true
+                && $recordInstance->get('coverImageInstanceId') !== null
+            ) {
                 $imageInstance = $recordInstance->get('coverImageInstanceModel');
+
                 if ($imageInstance !== null) {
                     $cover = [
                         'id'       => $imageInstance->getId(),
@@ -194,7 +197,7 @@ abstract class AbstractContentRecordModel extends AbstractRecordModel
             }
 
             $date = DateTime::create($recordInstance->get('date'))
-                ->getValue($this->get('dateType'));
+                ->getValue($this->get('shortCardDateType'));
 
             $description = '';
             if ($this->get('hasDescription') === true) {

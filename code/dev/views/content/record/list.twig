@@ -1,8 +1,8 @@
 <div class="record-list block-{{ blockId }}">
-    <div class="instances {{ typeCss }}">{{ instances }}</div>
+    <div class="instances {{ typeCss }}">{{ instances | raw }}</div>
 
     {% if pagination != "" %}
-        {{ pagination }}
+        {{ pagination | raw }}
     {% endif %}
 
     {% if useAutoload == true %}

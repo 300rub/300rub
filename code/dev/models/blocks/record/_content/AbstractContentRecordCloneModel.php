@@ -44,7 +44,9 @@ abstract class AbstractContentRecordCloneModel extends AbstractRecordCloneModel
         $instances = '';
         foreach ($recordInstances as $recordInstance) {
             $cover = null;
-            if ($this->get('hasCover') === true) {
+            if ($this->get('hasCover') === true
+                && $recordInstance->get('coverImageInstanceId') !== null
+            ) {
                 $imageInstance = $recordInstance->get('coverImageInstanceModel');
                 if ($imageInstance !== null) {
                     $cover = [

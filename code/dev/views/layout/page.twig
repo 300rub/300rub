@@ -16,7 +16,7 @@
     {% endif %}
 
     {% if isUser == false %}
-        <style>{{ generatedCss | join }}</style>
+        <style>{{ generatedCss | join | raw }}</style>
     {% endif %}
 
     {% for fileName in js %}
@@ -45,14 +45,14 @@
     {% if isUser == true %}
         {% for id, gCss in generatedCss %}
             <div id="{{ id }}">
-                <style>{{ gCss }}</style>
+                <style>{{ gCss | raw }}</style>
             </div>
         {% endfor %}
     {% endif %}
 
     {{ content | raw }}
 
-    {{ generatedJs | join }}
+    {{ generatedJs | join | raw }}
 
     <div id="ajax-wrapper"></div>
 

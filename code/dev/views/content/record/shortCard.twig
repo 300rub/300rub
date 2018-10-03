@@ -4,13 +4,13 @@
             <div class="cover-container">
                 {% if cover.hasZoom == true %}
                     <a
-                        data-fancybox="record-cover-{{ cover,id }}"
+                        data-fancybox="record-cover-{{ cover.id }}"
                         data-type="image"
                         data-caption="{{ cover.alt }}"
                         href="{{ cover.viewUrl }}"
                     >
                         <img
-                            src="{{ thumbUrl }}"
+                            src="{{ cover.thumbUrl }}"
                             alt="{{ name }}"
                             title="{{ name }}"
                         />
@@ -18,7 +18,7 @@
                 {% else %}
                     <a href="{{ uri }}">
                         <img
-                            src="{{ thumbUrl }}"
+                            src="{{ cover.thumbUrl }}"
                             alt="{{ name }}"
                             title="{{ name }}"
                         />
