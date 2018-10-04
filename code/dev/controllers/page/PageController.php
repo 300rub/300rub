@@ -3,7 +3,6 @@
 namespace ss\controllers\page;
 
 use ss\application\App;
-use ss\application\components\user\Operation;
 use ss\application\exceptions\NotFoundException;
 use ss\controllers\page\_abstract\AbstractPageController;
 use ss\models\sections\SectionModel;
@@ -110,7 +109,6 @@ class PageController extends AbstractPageController
 
         if ($isUser === true) {
             $token = App::getInstance()->getUser()->getToken();
-            //$content .= $this->_getUserContent();
         }
 
         $isBlockSection = false;
@@ -263,46 +261,5 @@ class PageController extends AbstractPageController
         }
 
         return $html;
-    }
-
-    /**
-     * Gets content for user only
-     *
-     * @return string
-     */
-    private function _getUserContent()
-    {
-        $language = App::getInstance()->getLanguage();
-
-        return $this->render(
-            'page/userButtons',
-            [
-                'canRelease' => $this->hasSettingsOperation(
-                    Operation::SETTINGS_USER_CAN_RELEASE
-                ),
-                'isDisplaySections'
-                    => $this->hasAnySectionOperations(),
-                'isDisplayBlocks'
-                    => $this->hasAnyBlockOperations(),
-                'logoutYes'
-                    => $language->getMessage('user', 'logoutYes'),
-                'logoutNo'
-                    => $language->getMessage('user', 'logoutNo'),
-                'logoutConfirmText'
-                    => $language->getMessage('user', 'logoutConfirmText'),
-                'releaseButton'
-                    => $language->getMessage('release', 'buttonName'),
-                'sectionsButton'
-                    => $language->getMessage('section', 'buttonName'),
-                'blocksButton'
-                    => $language->getMessage('block', 'buttonName'),
-                'settingsButton'
-                    => $language->getMessage('settings', 'buttonName'),
-                'helpButton'
-                    => $language->getMessage('help', 'buttonName'),
-                'logoutButton'
-                    => $language->getMessage('user', 'logoutButtonName'),
-            ]
-        );
     }
 }
