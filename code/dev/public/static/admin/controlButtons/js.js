@@ -134,7 +134,7 @@ ss.add(
             btn.on(
                 "click",
                 function () {
-                    new ss.panel.section.List();
+                    ss.init("adminSectionList");
                 }
             );
 

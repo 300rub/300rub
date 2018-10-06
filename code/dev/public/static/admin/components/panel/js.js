@@ -432,8 +432,19 @@ ss.add(
                 return this;
             }
 
+            this.removeFooter();
+
+            return this;
+        },
+
+        /**
+         * Removes footer
+         */
+        removeFooter: function() {
             this.hasFooter = false;
             this.panel.find(".footer").remove();
+
+            this.setMaxHeight();
 
             return this;
         },

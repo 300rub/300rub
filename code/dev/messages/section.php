@@ -15,6 +15,10 @@ return [
         Language::LANGUAGE_EN_ID => 'Sections',
         Language::LANGUAGE_RU_ID => 'Разделы',
     ],
+    'panelDescription' => [
+        Language::LANGUAGE_EN_ID => "Description...",
+        Language::LANGUAGE_RU_ID => '',
+    ],
     'designDescription'   => [
         Language::LANGUAGE_EN_ID => "You can configure section's design",
         Language::LANGUAGE_RU_ID => '',
