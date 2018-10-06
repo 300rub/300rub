@@ -42,6 +42,7 @@ ss.add(
                 .setBody()
                 .extendOptions(options)
                 .setHasFooter()
+                .setBack(null)
                 .setCloseEvents(null)
                 .addDomElement()
                 .load();
@@ -126,12 +127,20 @@ ss.add(
         /**
          * Sets back button
          *
-         * @param {function} onClick
+         * @param {function} onBack
          */
-        setBack: function (onClick) {
+        setBack: function (onBack) {
+            if ($.type(onBack) !== "function") {
+                onBack = this.getOption("back");
+            }
+            
+            if ($.type(onBack) !== "function") {
+                return this;
+            }
+            
             this.panel.find(".header .back")
                 .removeClass("hidden")
-                .on("click", onClick);
+                .on("click", onBack);
 
             return this;
         },

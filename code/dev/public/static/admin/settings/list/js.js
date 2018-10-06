@@ -45,7 +45,7 @@ ss.add(
                             case "hiddenCode":
                                 icon = "fas fa-code";
                                 open = function () {
-                                    //new ss.panel.settings.CodeList();
+                                    ss.init("adminSettingsCodeList");
                                 };
                                 break;
                             default:
