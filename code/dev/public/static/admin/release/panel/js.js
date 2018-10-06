@@ -40,14 +40,16 @@ ss.add(
                     label: this.getLabel("moreInfo"),
                     icon: "fas fa-info",
                     open: function() {
-                        console.log(123);
-                        //new ss.window.release.FullInfo();
+                        ss.init("adminReleaseWindow");
                     }
                 }
             );
         },
 
-        onSendSuccess: function(data) {
+        /**
+         * On send success
+         */
+        onSendSuccess: function() {
             window.location.reload();
         }
     }

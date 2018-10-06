@@ -36,29 +36,52 @@ ss.add(
          * Init
          */
         init: function() {
-            this.window = ss.components.Template.get("window");
-            this.body = this.window.find(".body");
-            this.overlay = ss.components.Template.get("window-overlay");
+        },
+
+        /**
+         * Creates a window
+         *
+         * @var {Object} options
+         */
+        create: function(options) {
             this.hasFooter = true;
 
             this
+                .setWindow()
+                .setBody()
+                .setOverlay()
+                .extendOptions(options)
+                .setHasFooter()
                 .setCssClass()
                 .addToCollection()
                 .setCloseEvents()
                 .addDomElement()
-                .loadData()
-                .setMaxHeight();
+                .setMaxHeight()
+                .load();
         },
 
         /**
-         * Gets parent
+         * Sets footer
          */
-        getParent: function () {
-            if (this.getOption("parent") === null) {
-                return null;
+        setHasFooter: function() {
+            this.hasFooter = true;
+
+            if (this.getOption("hasFooter") !== false) {
+                return this;
             }
 
-            return ss.window.Collection.get(this.getOption("parent"));
+            this.hasFooter = false;
+            this.window.find(".footer").remove();
+
+            return this;
+        },
+
+        /**
+         * Sets window
+         */
+        setWindow: function() {
+            this.window = ss.init("template").get("window");
+            return this;
         },
 
         /**
@@ -71,6 +94,14 @@ ss.add(
         },
 
         /**
+         * Sets body
+         */
+        setBody: function() {
+            this.body = this.window.find(".body");
+            return this;
+        },
+
+        /**
          * Gets body
          *
          * @returns {Object}
@@ -80,12 +111,30 @@ ss.add(
         },
 
         /**
-         * Sets title
-         *
-         * @param {String} title
+         * Sets overlay
          */
-        setTitle: function (title) {
-            this.window.find(".header .title").text(title);
+        setOverlay: function() {
+            this.overlay = ss.init("template").get("window-overlay");
+            return this;
+        },
+
+        /**
+         * Gets parent
+         */
+        getParent: function () {
+            if (this.getOption("parent") === null) {
+                return null;
+            }
+
+            return ss.init("commonComponentsWindowCollection")
+                .get(this.getOption("parent"));
+        },
+
+        /**
+         * Sets title
+         */
+        setTitle: function () {
+            this.window.find(".header .title").text(this.getData("title"));
             return this;
         },
 
@@ -110,7 +159,8 @@ ss.add(
                 return this;
             }
 
-            ss.window.Collection.add(this.getOption("name"), this);
+            ss.init("commonComponentsWindowCollection")
+                .add(this.getOption("name"), this);
 
             var parent = this.getParent();
             if (parent !== null) {
@@ -149,11 +199,12 @@ ss.add(
             }
 
             confirmedWindow
-                = ss.components.Template.get("window-confirm-unsaved");
+                = ss.init("template").get("window-confirm-unsaved");
 
             var buttons = confirmedWindow.find(".buttons");
 
-            new ss.forms.Button(
+            ss.init(
+                "commonComponentsFormButton",
                 {
                     css: "btn btn-red",
                     icon: "fas fa-times",
@@ -165,7 +216,8 @@ ss.add(
                 }
             );
 
-            new ss.forms.Button(
+            ss.init(
+                "commonComponentsFormButton",
                 {
                     css: "btn btn-gray",
                     icon: "fas fa-undo",
@@ -197,7 +249,7 @@ ss.add(
                     parent.getWindow().removeClass("transparent");
                 }
             } else {
-                ss.system.App.getWrapper()
+                ss.init("app").getWrapper()
                     .find(".panel")
                     .removeClass("transparent");
             }
@@ -209,9 +261,10 @@ ss.add(
                         this.overlay.remove();
 
                         if (this.getOption("name") !== null) {
-                            ss.window.Collection.remove(
-                                this.getOption("name")
-                            );
+                            ss.init("commonComponentsWindowCollection")
+                                .remove(
+                                    this.getOption("name")
+                                );
                         }
                     },
                     this
@@ -224,13 +277,15 @@ ss.add(
          * Adds element to DOM
          */
         addDomElement: function () {
+            var app = ss.init("app");
+
             if (this.getOption("level") !== null) {
                 this.window.addClass("level-" + this.getOption("level"));
                 this.overlay.addClass("level-" + this.getOption("level"));
             }
 
-            ss.system.App.append(this.window);
-            ss.system.App.append(this.overlay);
+            app.append(this.window);
+            app.append(this.overlay);
 
             setTimeout(
                 $.proxy(
@@ -243,7 +298,7 @@ ss.add(
                 50
             );
 
-            ss.system.App.getWrapper()
+            app.getWrapper()
                 .find(".panel")
                 .addClass("transparent");
 
@@ -252,11 +307,13 @@ ss.add(
 
         /**
          * Reloads the window
+         *
+         * @param {Object} options
          */
-        reload: function () {
+        reload: function (options) {
             this.window.remove();
             this.overlay.remove();
-            this._set(this.getOptions());
+            this.create(options);
 
             return this;
         },
@@ -302,49 +359,41 @@ ss.add(
         /**
          * Loads data
          */
-        loadData: function () {
-            var ajaxData = {
-                group: this.getOption("group"),
-                controller: this.getOption("controller")
-            };
-
-            if ($.type(this.getOption("data")) === "object") {
-                ajaxData.data = this.getOption("data");
-            }
-
-            new ss.components.Ajax(
+        load: function () {
+            ss.init(
+                "ajax",
                 {
-                    data: ajaxData,
-                    success: $.proxy(this.onLoadSuccess, this),
-                    error: $.proxy(this.onLoadError, this)
+                    data: {
+                        group: this.getOption("group"),
+                        controller: this.getOption("controller"),
+                        data: this.getOption("data", {})
+                    },
+                    success: $.proxy(
+                        function(data) {
+                            this
+                                .setData(data)
+                                .setTitle();
+
+                            var success = this.getOption("success");
+                            if ($.type(success) === "function") {
+                                success(data);
+                            }
+
+                            this.window.removeClass("loading");
+                        },
+                        this
+                    ),
+                    error: $.proxy(
+                        function(jqXHR) {
+                            ss.components.Error.displayAjaxError(jqXHR);
+                            this.remove();
+                        },
+                        this
+                    )
                 }
             );
 
             return this;
-        },
-
-        /**
-         * On load success
-         *
-         * @param {Object} data
-         */
-        onLoadSuccess: function (data) {
-            var success = this.getOption("success");
-            if ($.type(success) === "function") {
-                success(data);
-            }
-
-            this.window.removeClass("loading");
-        },
-
-        /**
-         * On load error
-         *
-         * @param {Object} jqXHR
-         */
-        onLoadError: function (jqXHR) {
-            ss.components.Error.displayAjaxError(jqXHR);
-            this.remove();
         },
 
         /**
@@ -353,7 +402,8 @@ ss.add(
          * @param {Object} [options]
          */
         setSubmit: function (options) {
-            var submit = new ss.forms.Button(
+            ss.init(
+                "commonComponentsFormButton",
                 $.extend(
                     {},
                     options,
@@ -368,23 +418,13 @@ ss.add(
         },
 
         /**
-         * Removes footer
-         */
-        removeFooter: function() {
-            this.hasFooter = false;
-            this.setWindowMaxHeight();
-
-            this.window.find(".footer").remove();
-            return this;
-        },
-
-        /**
          * Sets footer button
          *
          * @param {Object} [options]
          */
         addFooterButton: function (options) {
-            new ss.forms.Button(
+            ss.init(
+                "commonComponentsFormButton",
                 $.extend(
                     {},
                     {

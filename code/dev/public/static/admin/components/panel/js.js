@@ -38,9 +38,9 @@ ss.add(
          */
         create: function(options) {
             this
-                .extendOptions(options)
                 .setPanel()
                 .setBody()
+                .extendOptions(options)
                 .setCloseEvents(null)
                 .addDomElement()
                 .load();

@@ -5,6 +5,13 @@ ss.add(
     "commonComponentsWindowCollection",
     {
         /**
+         * Singleton flag
+         *
+         * @var {boolean}
+         */
+        isSingleton: true,
+
+        /**
          * Collection of windows
          *
          * @var {Object}

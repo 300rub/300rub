@@ -54,7 +54,7 @@ window.ss = {
         }
 
         if ($.type(parameters.init) !== "function") {
-            throw "Object parameters.init should be a function";
+            throw "Object parameters.init should be a function. [" + name + "]";
         }
 
         this.map[name] = parameters;
