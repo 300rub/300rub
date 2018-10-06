@@ -17,7 +17,7 @@ ss.add(
          */
         init: function() {
             ss.init(
-                "commonComponentsCommonAjax",
+                "ajax",
                 {
                     data: {
                         group: "user",
@@ -181,7 +181,7 @@ ss.add(
                 {
                     css: "btn btn-red",
                     appendTo: logoutConfirmation,
-                    label: $logoutConfirmation.data("yes"),
+                    label: this.getLabel("logoutYes"),
                     icon: "fas fa-sign-out-alt",
                     ajax: {
                         type: "DELETE",
@@ -200,13 +200,17 @@ ss.add(
                 {
                     css: "btn btn-gray",
                     appendTo: logoutConfirmation,
-                    label: $logoutConfirmation.data("no"),
+                    label: this.getLabel("logoutNo"),
                     icon: "fas fa-ban",
                     onClick: function () {
                         logoutConfirmation.addClass("hidden");
                     }
                 }
             );
+
+            logoutConfirmation
+                .find(".text")
+                .text(this.getLabel("logoutConfirmText"));
 
             btn.on(
                 "click",
@@ -222,6 +226,6 @@ ss.add(
 
 $(document).ready(
     function () {
-        //ss.init("adminUserButtons");
+        ss.init("adminUserButtons");
     }
 );

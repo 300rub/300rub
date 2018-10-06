@@ -1,7 +1,6 @@
 ss.add(
-    "commonComponentsCommonAjax",
+    "ajax",
     {
-
         /**
          * Init
          */
@@ -30,12 +29,14 @@ ss.add(
          * @returns {Object}
          */
         getData: function () {
+            var app = ss.init("app");
+
             var data = $.extend(
                 {},
                 this.getOption("data"),
                 {
-                    language: ss.system.App.getLanguage(),
-                    token: ss.system.App.getToken()
+                    language: app.getLanguage(),
+                    token: app.getToken()
                 }
             );
 

@@ -26,6 +26,13 @@ window.ss = {
     instances: {},
 
     /**
+     * Singleton instances
+     *
+     * @type {Object}
+     */
+    singletonInstances: {},
+
+    /**
      * Adds object to map
      *
      * @param {String} name
@@ -118,13 +125,19 @@ window.ss = {
      * @returns {Object}
      */
     init: function(name, options) {
+        if (this.singletonInstances[name] !== undefined) {
+            return this.singletonInstances[name];
+        }
+
         var instance = this.get(name);
-
         var instanceObject = new instance();
-
         instanceObject
             .setOptions($.extend({}, options))
             .init();
+
+        if (instanceObject.isSingleton === true) {
+            this.singletonInstances[name] = instanceObject;
+        }
 
         return instanceObject;
     },
