@@ -24,6 +24,8 @@ ss.add(
          * Init
          */
         init: function() {
+            this.set();
+
             this.getInstance().val(this.getOption("value"));
 
             var rows = this.getOption("rows");

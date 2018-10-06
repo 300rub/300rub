@@ -24,6 +24,8 @@ ss.add(
          * Init
          */
         init: function() {
+            this.set();
+
             var onClick = this.getOption("onClick");
             var data = this.getOption("data");
 

@@ -49,11 +49,8 @@ ss.add(
          * Sets container
          */
         setContainer: function() {
-            this.container = ss.components.Template.get(
-                this.getOption("user-buttons")
-            );
-
-            // Append
+            this.container = ss.init("template").get("user-buttons");
+            ss.init("app").append(this.container);
 
             return this;
         },
@@ -179,7 +176,8 @@ ss.add(
             var logoutConfirmation
                 = this.container.find("logout-confirmation");
 
-            new ss.forms.Button(
+            ss.init(
+                "commonComponentsFormButton",
                 {
                     css: "btn btn-red",
                     appendTo: logoutConfirmation,
@@ -198,7 +196,8 @@ ss.add(
                 }
             );
 
-            new ss.forms.Button(
+            ss.init(
+                "commonComponentsFormButton",
                 {
                     css: "btn btn-gray",
                     appendTo: logoutConfirmation,

@@ -24,6 +24,7 @@ ss.add(
          * Init
          */
         init: function() {
+            this.set();
         }
     }
 );

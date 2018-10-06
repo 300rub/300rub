@@ -24,6 +24,8 @@ ss.add(
          * Init
          */
         init: function() {
+            this.set();
+
             var container = this.getForm().find(".form-instance-container");
             var prefixOption = this.getOption("prefix");
             var prefixMaxLength = this.getOption("prefixMaxLength");

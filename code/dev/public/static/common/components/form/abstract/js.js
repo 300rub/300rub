@@ -22,6 +22,12 @@ ss.add(
          * Init
          */
         init: function() {
+        },
+
+        /**
+         * Sets form
+         */
+        set: function() {
             this
                 .setForm()
                 .setInstance()
@@ -40,9 +46,7 @@ ss.add(
          * Sets Form
          */
         setForm: function() {
-            this.form = ss.components.Template.get(
-                this.getOption("template")
-            );
+            this.form = ss.init("template").get(this.getOption("template"));
             return this;
         },
 
@@ -224,7 +228,7 @@ ss.add(
         setValue: function () {
             var value = this.getOption("value");
 
-            switch (this._options.type) {
+            switch (this.getOption("type")) {
                 case "int":
                     value = this.getIntValue(value);
                     break;
@@ -253,7 +257,7 @@ ss.add(
          * @returns {*}
          */
         getValue: function () {
-            switch (this._options.type) {
+            switch (this.getOption("type")) {
                 case "int":
                     return this.getIntValue(this.instance.val());
                 default:

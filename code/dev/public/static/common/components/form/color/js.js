@@ -24,6 +24,8 @@ ss.add(
          * Init
          */
         init: function() {
+            this.set();
+
             this.getInstance().val(this.getOption("value"));
 
             var iconBeforeElement = this.getForm().find(".icon-before");

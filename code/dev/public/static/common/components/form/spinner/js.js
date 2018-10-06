@@ -25,6 +25,8 @@ ss.add(
          * Init
          */
         init: function() {
+            this.set();
+
             var callback = this.getOption("callback");
             if ($.type(callback) === "function") {
                 this.getInstance().on(

@@ -24,6 +24,8 @@ ss.add(
          * Init
          */
         init: function() {
+            this.set();
+
             var t = this;
 
             if (t.getOption("value") === true) {

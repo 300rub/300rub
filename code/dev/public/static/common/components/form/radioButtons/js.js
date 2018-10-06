@@ -24,6 +24,8 @@ ss.add(
          * Init
          */
         init: function() {
+            this.set();
+
             var dataOption = this.getOption("data");
             if ($.type(dataOption) !== "array") {
                 return this;

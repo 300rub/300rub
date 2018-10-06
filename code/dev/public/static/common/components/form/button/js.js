@@ -24,6 +24,8 @@ ss.add(
          * Init
          */
         init: function() {
+            this.set();
+
             var icon = this.getOption("icon");
             if (icon !== null) {
                 this.getForm().find(".icons .icon").addClass(icon);
