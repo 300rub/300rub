@@ -23,6 +23,9 @@ ss.add(
             );
         },
 
+        /**
+         * On load success
+         */
         onLoadSuccess: function() {
             var table = ss.init("template").get("window-release-info-table");
 
