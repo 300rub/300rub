@@ -6,6 +6,7 @@ use ss\application\exceptions\AccessException;
 use ss\controllers\_abstract\AbstractController;
 use ss\application\components\user\Operation;
 use ss\application\App;
+use ss\models\user\UserEventModel;
 
 /**
  * Gets user buttons
@@ -31,10 +32,21 @@ class GetButtonsController extends AbstractController
 
         $language = App::getInstance()->getLanguage();
 
+        $canRelease = $this->hasSettingsOperation(
+            Operation::SETTINGS_USER_CAN_RELEASE
+        );
+
+        $isReadyToRelease = false;
+        if ($canRelease === true) {
+            $userEventsCount = UserEventModel::model()->getCount();
+            if ($userEventsCount > 0) {
+                $isReadyToRelease = true;
+            }
+        }
+
         return  [
-            'canRelease'        => $this->hasSettingsOperation(
-                Operation::SETTINGS_USER_CAN_RELEASE
-            ),
+            'canRelease'        => $canRelease,
+            'isReadyToRelease'  => $isReadyToRelease,
             'isDisplaySections' => $this->hasAnySectionOperations(),
             'isDisplayBlocks'   => $this->hasAnyBlockOperations(),
             'labels'            => [

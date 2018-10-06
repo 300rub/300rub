@@ -37,6 +37,7 @@ ss.add(
             this
                 .setData(data)
                 .setContainer()
+                .setRelease()
                 .setSection()
                 .setBlocks()
                 .setSettings()
@@ -52,6 +53,54 @@ ss.add(
             );
 
             // Append
+
+            return this;
+        },
+
+        /**
+         * Sets release
+         */
+        setRelease: function () {
+            var btn = this.container.find(".release");
+
+            if (this.getData("canRelease") !== true) {
+                btn.remove();
+                return this;
+            }
+
+            btn.on(
+                "click",
+                function () {
+                    new ss.panel.settings.ShortInfo();
+                }
+            );
+
+            btn.find(".label").text(this.getLabel("releaseButton"));
+
+            if (this.getData("isReadyToRelease") === true) {
+                btn.removeClass("hidden");
+                return this;
+            }
+
+            var releaseInterval = setInterval(
+                function() {
+                    new ss.components.Ajax(
+                        {
+                            data: {
+                                group: "release",
+                                controller: "ready"
+                            },
+                            success: function (data) {
+                                if (data.isReadyToRelease === true) {
+                                    clearInterval(releaseInterval);
+                                    btn.removeClass('hidden');
+                                }
+                            }
+                        }
+                    );
+                },
+                60000
+            );
 
             return this;
         },
@@ -116,6 +165,55 @@ ss.add(
             );
 
             btn.find(".label").text(this.getLabel("settingsButton"));
+
+            return this;
+        },
+
+        /**
+         * Sets logout events
+         */
+        setLogout: function () {
+            var btn = this.container.find(".logout");
+            var logoutConfirmation
+                = this.container.find("logout-confirmation");
+
+            new ss.forms.Button(
+                {
+                    css: "btn btn-red",
+                    appendTo: logoutConfirmation,
+                    label: $logoutConfirmation.data("yes"),
+                    icon: "fas fa-sign-out-alt",
+                    ajax: {
+                        type: "DELETE",
+                        data: {
+                            group: "user",
+                            controller: "session"
+                        },
+                        success: function (data) {
+                            window.location = data.host;
+                        }
+                    }
+                }
+            );
+
+            new ss.forms.Button(
+                {
+                    css: "btn btn-gray",
+                    appendTo: logoutConfirmation,
+                    label: $logoutConfirmation.data("no"),
+                    icon: "fas fa-ban",
+                    onClick: function () {
+                        logoutConfirmation.addClass("hidden");
+                    }
+                }
+            );
+
+            btn.on(
+                "click",
+                function () {
+                    logoutConfirmation.removeClass("hidden");
+                }
+            );
 
             return this;
         }
