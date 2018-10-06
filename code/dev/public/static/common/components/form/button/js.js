@@ -95,7 +95,8 @@ ss.add(
          * Sets confirm window
          */
         setConfirmWindow: function () {
-            new ss.components.Confirmation(
+            ss.init(
+                "commonComponentsConfirmation",
                 $.extend(
                     {},
                     this.getOption("confirm"),

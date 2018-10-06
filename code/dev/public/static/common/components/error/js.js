@@ -1,6 +1,12 @@
 ss.add(
-    "commonComponentsCommonError",
+    "commonComponentsError",
     {
+        /**
+         * Singleton flag
+         *
+         * @var {boolean}
+         */
+        isSingleton: true,
 
         /**
          * Errors
@@ -13,7 +19,6 @@ ss.add(
          * Init
          */
         init: function() {
-          
         },
 
         /**
@@ -49,7 +54,7 @@ ss.add(
          * @returns {Object}
          */
         getAjaxErrorTemplate: function (jqXHR) {
-            var template = ss.components.Template.get("ajax-error");
+            var template = ss.init("template").get("ajax-error");
             var message = "Error";
             var file = "";
             var trace = [];
