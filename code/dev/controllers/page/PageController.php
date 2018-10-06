@@ -162,12 +162,12 @@ class PageController extends AbstractPageController
             'layout/js/page',
             [
                 'language'
-                => App::getInstance()->getLanguage()->getActiveId(),
+                    => App::getInstance()->getLanguage()->getActiveId(),
                 'errorMessages'
-                => App::getInstance()->getValidator()->getErrorMessages(),
-                'token' => $token,
+                    => App::getInstance()->getValidator()->getErrorMessages(),
+                'token'     => $token,
                 'sectionId' => $sectionId,
-                'isUser' => $isUser,
+                'isUser'    => $isUser,
             ]
         );
     }
