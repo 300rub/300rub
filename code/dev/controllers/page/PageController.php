@@ -115,29 +115,29 @@ class PageController extends AbstractPageController
         return $this->render(
             'layout/page',
             [
-                'icon'      => '/img/favicon.ico',
-                'content' => $content,
-                'templates' => $this->getTemplates(),
-                'title' => 'Test title',
-                'keywords' => 'Test keywords',
-                'description' => 'Test description',
-                'css' => $this->getCss(),
-                'js' => $this->getJs(),
-                'less' => $this->getLess(),
-                'isUser' => $isUser,
-                'generatedCss' => $sectionCss,
-                'generatedJs' => $sectionJs,
-                'headerCode' => $this->_getSettingsValueByType(
+                'icon'           => '/img/favicon.ico',
+                'content'        => $content,
+                'templates'      => $this->getTemplates(),
+                'title'          => 'Test title',
+                'keywords'       => 'Test keywords',
+                'description'    => 'Test description',
+                'css'            => $this->getCss(),
+                'js'             => $this->getJs(),
+                'less'           => $this->getLess(),
+                'isUser'         => $isUser,
+                'generatedCss'   => $sectionCss,
+                'generatedJs'    => $sectionJs,
+                'headerCode'     => $this->_getSettingsValueByType(
                     SettingsModel::CODE_HEADER
                 ),
-                'bodyTopCode' => $this->_getSettingsValueByType(
+                'bodyTopCode'    => $this->_getSettingsValueByType(
                     SettingsModel::CODE_BODY_TOP
                 ),
                 'bodyBottomCode' => $this->_getSettingsValueByType(
                     SettingsModel::CODE_BODY_BOTTOM
                 ),
                 'isBlockSection' => $isBlockSection,
-                'initJs' => $this->_getInitJs($sectionId),
+                'initJs'         => $this->_getInitJs($sectionId),
             ]
         );
     }
