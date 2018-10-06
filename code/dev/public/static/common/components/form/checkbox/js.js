@@ -12,19 +12,10 @@ ss.add(
         parent: "commonComponentsFormAbstract",
 
         /**
-         * Parent options
-         *
-         * @var {Object}
-         */
-        parentOptions: {
-            template: "checkbox-button"
-        },
-
-        /**
          * Init
          */
         init: function() {
-            this.set();
+            this.setForm("checkbox-button");
 
             var t = this;
 

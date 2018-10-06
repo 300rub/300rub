@@ -12,19 +12,10 @@ ss.add(
         parent: "commonComponentsFormAbstract",
 
         /**
-         * Parent options
-         *
-         * @var {Object}
-         */
-        parentOptions: {
-            template: "form-container-text"
-        },
-
-        /**
          * Init
          */
         init: function() {
-            this.set();
+            this.setForm("form-container-text");
 
             var container = this.getForm().find(".form-instance-container");
             var prefixOption = this.getOption("prefix");

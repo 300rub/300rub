@@ -12,19 +12,10 @@ ss.add(
         parent: "commonComponentsFormAbstract",
 
         /**
-         * Parent options
-         *
-         * @var {Object}
-         */
-        parentOptions: {
-            template: "form-container-select"
-        },
-
-        /**
          * Init
          */
         init: function() {
-            this.set();
+            this.setForm("form-container-select");
 
             var t = this;
 

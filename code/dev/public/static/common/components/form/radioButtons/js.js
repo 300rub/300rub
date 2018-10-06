@@ -12,19 +12,10 @@ ss.add(
         parent: "commonComponentsFormAbstract",
 
         /**
-         * Parent options
-         *
-         * @var {Object}
-         */
-        parentOptions: {
-            template: "form-container-radio-buttons"
-        },
-
-        /**
          * Init
          */
         init: function() {
-            this.set();
+            this.setForm("form-container-radio-buttons");
 
             var dataOption = this.getOption("data");
             if ($.type(dataOption) !== "array") {

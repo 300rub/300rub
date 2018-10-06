@@ -12,19 +12,10 @@ ss.add(
         parent: "commonComponentsFormAbstract",
 
         /**
-         * Parent options
-         *
-         * @var {Object}
-         */
-        parentOptions: {
-            template: "form-button"
-        },
-
-        /**
          * Init
          */
         init: function() {
-            this.set();
+            this.setForm("form-button");
 
             var icon = this.getOption("icon");
             if (icon !== null) {

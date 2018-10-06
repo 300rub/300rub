@@ -12,19 +12,10 @@ ss.add(
         parent: "commonComponentsFormAbstract",
 
         /**
-         * Parent options
-         *
-         * @var {Object}
-         */
-        parentOptions: {
-            template: "form-link"
-        },
-
-        /**
          * Init
          */
         init: function() {
-            this.set();
+            this.setForm("form-link");
 
             var onClick = this.getOption("onClick");
             var data = this.getOption("data");

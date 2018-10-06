@@ -195,10 +195,22 @@ ss.add(
          */
         setLogout: function () {
             var btn = this.container.find(".logout");
-            var logoutConfirmation
-                = this.container.find("logout-confirmation");
 
             btn.find(".label").text(this.getLabel("logoutButton"));
+
+            var logoutConfirmation
+                = this.container.find(".logout-confirmation");
+
+            logoutConfirmation
+                .find(".text")
+                .text(this.getLabel("logoutConfirmText"));
+
+            btn.on(
+                "click",
+                function () {
+                    logoutConfirmation.removeClass("hidden");
+                }
+            );
 
             ss.init(
                 "commonComponentsFormButton",
@@ -230,17 +242,6 @@ ss.add(
                     onClick: function () {
                         logoutConfirmation.addClass("hidden");
                     }
-                }
-            );
-
-            logoutConfirmation
-                .find(".text")
-                .text(this.getLabel("logoutConfirmText"));
-
-            btn.on(
-                "click",
-                function () {
-                    logoutConfirmation.removeClass("hidden");
                 }
             );
 

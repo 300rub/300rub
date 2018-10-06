@@ -12,20 +12,12 @@ ss.add(
         parent: "commonComponentsFormAbstract",
 
         /**
-         * Parent options
-         *
-         * @var {Object}
-         */
-        parentOptions: {
-            template: "form-spinner",
-            type: "int"
-        },
-
-        /**
          * Init
          */
         init: function() {
-            this.set();
+            this
+                .addOption("type", "int")
+                .setForm("form-spinner");
 
             var callback = this.getOption("callback");
             if ($.type(callback) === "function") {

@@ -45,6 +45,17 @@ ss.add(
         },
 
         /**
+         * Adds option
+         *
+         * @param {String} key
+         * @param {*}      value
+         */
+        addOption: function(key, value) {
+            this.options[key] = value;
+            return this;
+        },
+
+        /**
          * Gets option
          *
          * @param {String|Array} pointer
