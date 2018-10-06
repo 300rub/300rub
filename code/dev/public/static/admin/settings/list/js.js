@@ -1,5 +1,5 @@
 ss.add(
-    "adminBlockList",
+    "adminSettingsList",
     {
         /**
          * Parent
@@ -14,8 +14,8 @@ ss.add(
         init: function() {
             this.create(
                 {
-                    group: "block",
-                    controller: "blocks",
+                    group: "settings",
+                    controller: "settings",
                     hasFooter: false
                 }
             );
@@ -25,33 +25,28 @@ ss.add(
          * On load success
          */
         onLoadSuccess: function() {
-            this.showBlockSectionSwitcher();
-
             $.each(
                 this.getData("list", {}),
                 $.proxy(
-                    function (i, itemData) {
+                    function (key, name) {
                         var icon = null;
                         var open = null;
 
-                        switch (itemData.type) {
-                            case 1:
-                                icon = "fas fa-font";
-                                open = function() {
-                                    //new ss.panel.blocks.text.List();
+                        switch (key) {
+                            case "users":
+                                icon = "fas fa-user-friends";
+                                open = function () {
+                                    //new ss.window.users.List();
                                 };
                                 break;
-                            case 2:
-                                icon = "fas fa-images";
-                                open = function() {
-                                    //new ss.panel.blocks.image.List();
+                            case "icon":
+                                icon = "fas fa-image";
+                                break;
+                            case "hiddenCode":
+                                icon = "fas fa-code";
+                                open = function () {
+                                    //new ss.panel.settings.CodeList();
                                 };
-                                break;
-                            case 3:
-                                icon = "far fa-newspaper";
-                                break;
-                            case 5:
-                                icon = "fas fa-bars";
                                 break;
                             default:
                                 break;
@@ -59,7 +54,7 @@ ss.add(
 
                         this.addListItem(
                             {
-                                label: itemData.name,
+                                label: name,
                                 icon: icon,
                                 open: open
                             }

@@ -175,7 +175,7 @@ ss.add(
             btn.on(
                 "click",
                 function () {
-                    new ss.panel.settings.List();
+                    ss.init("adminSettingsList");
                 }
             );
 
