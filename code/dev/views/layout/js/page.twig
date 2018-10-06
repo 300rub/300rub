@@ -1,0 +1,25 @@
+<script>
+    !function ($, ss) {
+        $(document).ready(
+            function () {
+                var app = ss.init("app");
+                app
+                    .setLanguage({{ language }})
+                    .setToken("{{ token }}")
+                    .setSectionId({{ sectionId }});
+
+                {% if isBlockSection is not empty and isBlockSection == true %}
+                    app.setIsBlockSection(true);
+                {% endif %}
+
+                {#{% for key, value in errorMessages %}#}
+                    {#ss.components.Error.set("{{ key }}", "{{ value }}");#}
+                {#{% endfor %}#}
+
+                {% if isUser == true %}
+                    ss.init("adminUserButtons");
+                {% endif %}
+            }
+        );
+    }(window.jQuery, window.ss);
+</script>

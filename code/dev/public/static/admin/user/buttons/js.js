@@ -41,6 +41,7 @@ ss.add(
                 .setSection()
                 .setBlocks()
                 .setSettings()
+                .setLogout()
             ;
         },
 
@@ -84,7 +85,8 @@ ss.add(
 
             var releaseInterval = setInterval(
                 function() {
-                    new ss.components.Ajax(
+                    ss.init(
+                        "ajax",
                         {
                             data: {
                                 group: "release",
@@ -97,7 +99,7 @@ ss.add(
                                 }
                             }
                         }
-                    );
+                    )
                 },
                 60000
             );
@@ -221,11 +223,5 @@ ss.add(
 
             return this;
         }
-    }
-);
-
-$(document).ready(
-    function () {
-        ss.init("adminUserButtons");
     }
 );

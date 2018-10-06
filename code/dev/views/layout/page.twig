@@ -23,21 +23,11 @@
         <script src="{{ fileName }}"></script>
     {% endfor %}
 
-    {#<script>#}
-        {#window.ss.system.App.setLanguage({{ language }});#}
-        {#window.ss.system.App.setToken("{{ token }}");#}
-        {#window.ss.system.App.setSectionId({{ sectionId }});#}
-
-        {#{% if isBlockSection is not empty and isBlockSection == true %}#}
-            {#window.ss.system.App.setIsBlockSection(true);#}
-        {#{% endif %}#}
-
-        {#{% for key, value in errorMessages %}#}
-            {#ss.components.Error.set("{{ key }}", "{{ value }}");#}
-        {#{% endfor %}#}
-    {#</script>#}
-
     {{ headerCode | raw }}
+
+    {% if initJs is not empty %}
+        {{ initJs | raw }}
+    {% endif %}
 </head>
 <body>
     {{ bodyTopCode | raw }}

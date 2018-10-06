@@ -65,7 +65,7 @@ class PageController extends AbstractPageController
                 ->getMemcached()
                 ->get($this->_getMemcachedKey());
             if ($memcachedResult !== false) {
-                //return $memcachedResult;
+                return $memcachedResult;
             }
         }
 
@@ -88,7 +88,7 @@ class PageController extends AbstractPageController
      */
     private function _getPageHtml()
     {
-        $token = '';
+
         $content = '';
         $sectionCss = [];
         $sectionJs = [];
@@ -105,10 +105,6 @@ class PageController extends AbstractPageController
             $sectionCss = $sectionModel->getCss();
             $sectionJs = $sectionModel->getJs();
             $sectionId = $sectionModel->getId();
-        }
-
-        if ($isUser === true) {
-            $token = App::getInstance()->getUser()->getToken();
         }
 
         $isBlockSection = false;
@@ -128,12 +124,6 @@ class PageController extends AbstractPageController
                 'css' => $this->getCss(),
                 'js' => $this->getJs(),
                 'less' => $this->getLess(),
-                'language'
-                => App::getInstance()->getLanguage()->getActiveId(),
-                'errorMessages'
-                => App::getInstance()->getValidator()->getErrorMessages(),
-                'token' => $token,
-                'sectionId' => $sectionId,
                 'isUser' => $isUser,
                 'generatedCss' => $sectionCss,
                 'generatedJs' => $sectionJs,
@@ -147,6 +137,37 @@ class PageController extends AbstractPageController
                     SettingsModel::CODE_BODY_BOTTOM
                 ),
                 'isBlockSection' => $isBlockSection,
+                'initJs' => $this->_getInitJs($sectionId),
+            ]
+        );
+    }
+
+    /**
+     * Gets init JS
+     *
+     * @param int $sectionId Section ID
+     *
+     * @return string
+     */
+    private function _getInitJs($sectionId)
+    {
+        $isUser = $this->isUser();
+
+        $token = '';
+        if ($isUser === true) {
+            $token = App::getInstance()->getUser()->getToken();
+        }
+
+        return $this->render(
+            'layout/js/page',
+            [
+                'language'
+                => App::getInstance()->getLanguage()->getActiveId(),
+                'errorMessages'
+                => App::getInstance()->getValidator()->getErrorMessages(),
+                'token' => $token,
+                'sectionId' => $sectionId,
+                'isUser' => $isUser,
             ]
         );
     }
