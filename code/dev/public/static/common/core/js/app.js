@@ -44,6 +44,13 @@ ss.add(
         token: "",
 
         /**
+         * DOM elements
+         *
+         * {Object}
+         */
+        domElements: {},
+
+        /**
          * Init
          */
         init: function() {
@@ -52,6 +59,7 @@ ss.add(
             this.activeSectionId = 0;
             this.isBlockSection = false;
             this.token = "";
+            this.domElements = {};
         },
 
         /**
@@ -161,6 +169,28 @@ ss.add(
          */
         getToken: function () {
             return this.token;
+        },
+
+        /**
+         * Adds DOM element to collection
+         *
+         * @param {String} key
+         * @param {Object} value
+         */
+        addDomElement: function(key, value) {
+            this.domElements[key] = value;
+            return this;
+        },
+
+        /**
+         * Gets DOM element
+         *
+         * @param {String} key
+         *
+         * @returns {*}
+         */
+        getDomElement: function(key) {
+            return this.domElements[key];
         }
     }
 );

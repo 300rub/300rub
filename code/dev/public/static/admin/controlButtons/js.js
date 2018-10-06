@@ -50,7 +50,12 @@ ss.add(
          * Displays buttons
          */
         display: function() {
-            ss.init("app").append(this.container);
+            var app = ss.init("app");
+
+            app
+                .append(this.container)
+                .addDomElement("controlButtons", this.container);
+
             setTimeout($.proxy(function(){
                 this.container.removeClass("transparent");
             }, this), 100);
