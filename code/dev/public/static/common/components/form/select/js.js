@@ -15,7 +15,7 @@ ss.add(
          * Init
          */
         init: function() {
-            this.setForm("form-container-select");
+            this.create("form-container-select");
 
             var t = this;
 

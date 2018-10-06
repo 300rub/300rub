@@ -27,10 +27,9 @@ ss.add(
         /**
          * Sets form
          */
-        setForm: function(template) {
-            this.form = ss.init("template").get(template);
-
+        create: function(template) {
             this
+                .setForm(template)
                 .setInstance()
                 .setName()
                 .setLabel()
@@ -41,6 +40,14 @@ ss.add(
                 .appendTo()
                 .setOnChange()
                 .setValue();
+        },
+
+        /**
+         * Sets form
+         */
+        setForm: function(template) {
+            this.form = ss.init("template").get(template);
+            return this;
         },
 
         /**

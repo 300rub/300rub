@@ -2,7 +2,7 @@
  * User buttons
  */
 ss.add(
-    "adminUserButtons",
+    "adminControlButtons",
     {
 
         /**
@@ -62,7 +62,7 @@ ss.add(
          * Sets container
          */
         setContainer: function() {
-            this.container = ss.init("template").get("user-buttons");
+            this.container = ss.init("template").get("control-buttons");
             return this;
         },
 
@@ -80,7 +80,7 @@ ss.add(
             btn.on(
                 "click",
                 function () {
-                    new ss.panel.settings.ShortInfo();
+                    ss.init("adminReleasePanel");
                 }
             );
 

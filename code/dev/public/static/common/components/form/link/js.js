@@ -15,7 +15,7 @@ ss.add(
          * Init
          */
         init: function() {
-            this.setForm("form-link");
+            this.create("form-link");
 
             var onClick = this.getOption("onClick");
             var data = this.getOption("data");

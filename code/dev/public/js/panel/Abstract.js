@@ -9,12 +9,11 @@
      * @type {ss.panel.Abstract}
      */
     ss.panel.Abstract = function (options) {
-        this._panel = null;
-        this._body = null;
-        this._options = {};
+
+        
         this._userButtons = null;
 
-        this._hasFooter = true;
+
 
         this._set(options);
     };
@@ -37,15 +36,12 @@
          * @param {Object} options
          */
         _set: function (options) {
-            this._panel = ss.components.Template.get("panel");
-            this._body = this._panel.find(".body");
             this._userButtons = $("#user-buttons");
-            this._options = $.extend({}, options);
 
             this
                 .setCloseEvents(null)
-                ._addDomElement()
-                ._loadData();
+                .addDomElement()
+                .loadData();
         },
 
         /**
@@ -53,12 +49,12 @@
          *
          * @return {ss.panel.Abstract}
          */
-        _setMaxHeight: function () {
-            this._setPanelMaxHeight();
+        setMaxHeight: function () {
+            this.setPanelMaxHeight();
             $(window).resize(
                 $.proxy(
                     function () {
-                        this._setPanelMaxHeight();
+                        this.setPanelMaxHeight();
                     },
                     this
                 )
@@ -70,12 +66,12 @@
         /**
          * Sets container's max-height
          */
-        _setPanelMaxHeight: function () {
-            var headerHeight = this._panel.find(".header").height();
-            var footerHeight = this._panel.find(".footer").height();
+        setPanelMaxHeight: function () {
+            var headerHeight = this.panel.find(".header").height();
+            var footerHeight = this.panel.find(".footer").height();
 
             var minusHeight = 40;
-            if (this._hasFooter === false) {
+            if (this.hasFooter === false) {
                 footerHeight = 0;
             }
 
@@ -84,7 +80,7 @@
             maxHeight -= footerHeight;
             maxHeight -= minusHeight;
 
-            this._body.css(
+            this.body.css(
                 "max-height",
                 function () {
                     return maxHeight;
@@ -98,7 +94,7 @@
          * @returns {Object}
          */
         getPanel: function () {
-            return this._panel;
+            return this.panel;
         },
 
         /**
@@ -107,7 +103,7 @@
          * @returns {Object}
          */
         getBody: function () {
-            return this._body;
+            return this.body;
         },
 
         /**
@@ -118,7 +114,7 @@
          * @returns {ss.panel.Abstract}
          */
         setTitle: function (title) {
-            this._panel.find(".header .title").text(title);
+            this.panel.find(".header .title").text(title);
             return this;
         },
 
@@ -130,7 +126,7 @@
          * @returns {ss.panel.Abstract}
          */
         setBack: function (onClick) {
-            this._panel.find(".header .back")
+            this.panel.find(".header .back")
                 .removeClass("hidden")
                 .on("click", onClick);
 
@@ -145,7 +141,7 @@
          * @returns {ss.panel.Abstract}
          */
         setDescription: function (description) {
-            this._panel.find(".header .description").text(description);
+            this.panel.find(".header .description").text(description);
             return this;
         },
 
@@ -157,7 +153,7 @@
          * @returns {ss.panel.Abstract}
          */
         setCloseEvents: function (callback) {
-            this._panel.find(".header .close").off().on(
+            this.panel.find(".header .close").off().on(
                 "click",
                 $.proxy(
                     function () {
@@ -178,13 +174,13 @@
          * Removes panel
          */
         removePanel: function () {
-            this._panel.addClass("transparent");
+            this.panel.addClass("transparent");
             this._userButtons.removeClass("hidden");
 
             setTimeout(
                 $.proxy(
                     function () {
-                        this._panel.remove();
+                        this.panel.remove();
                     },
                     this
                 ),
@@ -209,14 +205,14 @@
          *
          * @private
          */
-        _addDomElement: function () {
+        addDomElement: function () {
             ss.system.App.remove("panel");
-            ss.system.App.append(this._panel);
+            ss.system.App.append(this.panel);
 
             setTimeout(
                 $.proxy(
                     function () {
-                        this._panel.removeClass("transparent");
+                        this.panel.removeClass("transparent");
                         this._userButtons.addClass("transparent");
                     },
                     this
@@ -242,7 +238,7 @@
          *
          * @private
          */
-        _loadData: function () {
+        loadData: function () {
             var data = {
                 group: this._options.group,
                 controller: this._options.controller
@@ -255,13 +251,13 @@
             new ss.components.Ajax(
                 {
                     data: data,
-                    error: $.proxy(this._onError, this),
+                    error: $.proxy(this.onError, this),
                     success: $.proxy(
                         function (data) {
                             this._options.success(data);
                             this
-                                ._removeLoading()
-                                ._setMaxHeight();
+                                .removeLoading()
+                                .setMaxHeight();
                         },
                         this
                     )
@@ -274,7 +270,7 @@
          *
          * @param {Object} jqXHR
          */
-        _onError: function (jqXHR) {
+        onError: function (jqXHR) {
             ss.components.Error.displayAjaxError(jqXHR);
             this.removePanel();
         },
@@ -286,8 +282,8 @@
          *
          * @private
          */
-        _removeLoading: function () {
-            this._panel.removeClass("loading");
+        removeLoading: function () {
+            this.panel.removeClass("loading");
             return this;
         },
 
@@ -305,7 +301,7 @@
                     options,
                     {
                         css: "btn btn-blue",
-                        appendTo: this._panel.find(".footer")
+                        appendTo: this.panel.find(".footer")
                     }
                 )
             );
@@ -326,7 +322,7 @@
                     {},
                     options,
                     {
-                        appendTo: this._panel.find(".header .btn-group")
+                        appendTo: this.panel.find(".header .btn-group")
                     }
                 )
             );
@@ -347,7 +343,7 @@
                     value: ss.system.App.getIsBlockSection(),
                     label: label,
                     css: "no-margin small",
-                    appendTo: this._panel.find(".header .btn-group"),
+                    appendTo: this.panel.find(".header .btn-group"),
                     onCheck: $.proxy(function() {
                         ss.system.App.setIsBlockSection(true);
                         this.reload({
@@ -397,7 +393,7 @@
                     options,
                     {
                         css: "btn btn-gray",
-                        appendTo: this._panel.find(".footer")
+                        appendTo: this.panel.find(".footer")
                     }
                 )
             );
@@ -411,10 +407,10 @@
          * @returns {ss.panel.Abstract}
          */
         removeFooter: function() {
-            this._hasFooter = false;
-            this._setPanelMaxHeight();
+            this.hasFooter = false;
+            this.setPanelMaxHeight();
 
-            this._panel.find(".footer").remove();
+            this.panel.find(".footer").remove();
             return this;
         },
 
@@ -426,12 +422,7 @@
          * @returns {ss.panel.Abstract}
          */
         reload: function (options) {
-            this._panel.remove();
-
-            if ($.type(options) !== "object") {
-                options = {};
-            }
-
+            this.panel.remove();
             this._set($.extend({}, this._options, options));
 
             return this;

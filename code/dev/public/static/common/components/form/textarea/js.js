@@ -15,7 +15,7 @@ ss.add(
          * Init
          */
         init: function() {
-            this.setForm("form-container-textarea");
+            this.create("form-container-textarea");
 
             this.getInstance().val(this.getOption("value"));
 

@@ -15,7 +15,7 @@ ss.add(
          * Init
          */
         init: function() {
-            this.setForm("form-button");
+            this.create("form-button");
 
             var icon = this.getOption("icon");
             if (icon !== null) {

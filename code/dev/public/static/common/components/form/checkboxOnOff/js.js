@@ -15,7 +15,7 @@ ss.add(
          * Init
          */
         init: function() {
-            this.setForm("form-container-checkbox-on-off");
+            this.create("form-container-checkbox-on-off");
 
             var t = this;
 

@@ -15,7 +15,7 @@ ss.add(
          * Init
          */
         init: function() {
-            this.setForm("form-container-radio-buttons");
+            this.create("form-container-radio-buttons");
 
             var dataOption = this.getOption("data");
             if ($.type(dataOption) !== "array") {

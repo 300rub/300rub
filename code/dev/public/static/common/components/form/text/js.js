@@ -15,7 +15,7 @@ ss.add(
          * Init
          */
         init: function() {
-            this.setForm("form-container-text");
+            this.create("form-container-text");
 
             var container = this.getForm().find(".form-instance-container");
             var prefixOption = this.getOption("prefix");

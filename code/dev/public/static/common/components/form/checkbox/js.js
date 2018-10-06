@@ -15,7 +15,7 @@ ss.add(
          * Init
          */
         init: function() {
-            this.setForm("checkbox-button");
+            this.create("checkbox-button");
 
             var t = this;
 

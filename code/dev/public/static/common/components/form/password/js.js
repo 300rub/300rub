@@ -15,7 +15,7 @@ ss.add(
          * Init
          */
         init: function() {
-            this.setForm("form-container-password");
+            this.create("form-container-password");
         }
     }
 );

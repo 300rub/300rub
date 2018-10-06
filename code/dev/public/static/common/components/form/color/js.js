@@ -15,7 +15,7 @@ ss.add(
          * Init
          */
         init: function() {
-            this.setForm("color-picker-container");
+            this.create("color-picker-container");
 
             this.getInstance().val(this.getOption("value"));
 

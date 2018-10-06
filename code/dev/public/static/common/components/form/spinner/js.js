@@ -17,7 +17,7 @@ ss.add(
         init: function() {
             this
                 .addOption("type", "int")
-                .setForm("form-spinner");
+                .create("form-spinner");
 
             var callback = this.getOption("callback");
             if ($.type(callback) === "function") {
