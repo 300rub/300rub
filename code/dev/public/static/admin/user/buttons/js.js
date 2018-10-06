@@ -41,8 +41,21 @@ ss.add(
                 .setSection()
                 .setBlocks()
                 .setSettings()
+                .setHelp()
                 .setLogout()
-            ;
+                .display();
+        },
+
+        /**
+         * Displays buttons
+         */
+        display: function() {
+            ss.init("app").append(this.container);
+            setTimeout($.proxy(function(){
+                this.container.removeClass("transparent");
+            }, this), 100);
+
+            return this;
         },
 
         /**
@@ -50,8 +63,6 @@ ss.add(
          */
         setContainer: function() {
             this.container = ss.init("template").get("user-buttons");
-            ss.init("app").append(this.container);
-
             return this;
         },
 
@@ -169,12 +180,25 @@ ss.add(
         },
 
         /**
+         * Sets help
+         */
+        setHelp: function () {
+            var btn = this.container.find(".help");
+
+            btn.find(".label").text(this.getLabel("helpButton"));
+
+            return this;
+        },
+
+        /**
          * Sets logout events
          */
         setLogout: function () {
             var btn = this.container.find(".logout");
             var logoutConfirmation
                 = this.container.find("logout-confirmation");
+
+            btn.find(".label").text(this.getLabel("logoutButton"));
 
             ss.init(
                 "commonComponentsFormButton",

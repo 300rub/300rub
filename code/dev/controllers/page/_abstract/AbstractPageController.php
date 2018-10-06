@@ -3,6 +3,7 @@
 namespace ss\controllers\page\_abstract;
 
 use ss\application\components\file\Css;
+use ss\application\components\file\Html;
 use ss\application\components\file\Js;
 use ss\application\components\file\Less;
 use ss\controllers\_abstract\AbstractController;
@@ -61,6 +62,24 @@ abstract class AbstractPageController extends AbstractController
             ->setHasMinimized($this->_isMinimized());
 
         return $jsFile->getJsList();
+    }
+
+    /**
+     * Gets HTML
+     *
+     * @return string
+     */
+    protected function getHtml()
+    {
+        $type = Less::TYPE_COMMON;
+        if ($this->isUser() === true) {
+            $type = Less::TYPE_ADMIN;
+        }
+
+        $html = new Html($type);
+        $html->setHasMinimized($this->_isMinimized());
+
+        return $html->getHtml();
     }
 
     /**

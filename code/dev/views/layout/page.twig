@@ -46,6 +46,12 @@
 
     <div id="ajax-wrapper"></div>
 
+    {% if html is not empty %}
+        <div id="templates">
+            {{ html | raw }}
+        </div>
+    {% endif %}
+
     {{ bodyBottomCode  | raw }}
 </body>
 </html>

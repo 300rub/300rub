@@ -123,6 +123,7 @@ class PageController extends AbstractPageController
                 'description'    => 'Test description',
                 'css'            => $this->getCss(),
                 'js'             => $this->getJs(),
+                'html'           => $this->getHtml(),
                 'less'           => $this->getLess(),
                 'isUser'         => $isUser,
                 'generatedCss'   => $sectionCss,
