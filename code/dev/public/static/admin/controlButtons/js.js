@@ -58,7 +58,7 @@ ss.add(
 
             setTimeout($.proxy(function(){
                 this.container.removeClass("transparent");
-            }, this), 100);
+            }, this), 50);
 
             return this;
         },

@@ -21,6 +21,24 @@ class Css extends AbstractFile
 
         $list = [];
 
+        $dirPath = $this->getDirPath('fonts');
+        $publicPath = $this->getPublicPath();
+
+        $directory = new \RecursiveDirectoryIterator($dirPath);
+        $iterator = new \RecursiveIteratorIterator($directory);
+        foreach ($iterator as $file) {
+            $path = realpath($file->getPathname());
+
+            if (strpos($path, '.css') === false
+                || $path === false
+            ) {
+                continue;
+            }
+
+            $filePath = str_replace(realpath($publicPath), '', $path);
+            $list[] = $filePath;
+        }
+
         foreach ($this->getDirList() as $dir) {
             foreach (array_keys($map[$dir]['css']) as $file) {
                 $list[] = sprintf(
