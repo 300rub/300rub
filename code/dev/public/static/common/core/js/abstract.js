@@ -89,7 +89,7 @@ ss.add(
             var options = this.options;
             var number;
             var last = pointer.length - 1;
-            for (number = 0; number <= last; pointer++) {
+            for (number = 0; number <= last; number++) {
                 if (number === last) {
                     if (options[pointer[number]] === undefined) {
                         return defaultValue;
@@ -179,9 +179,10 @@ ss.add(
             }
 
             var data = this.data;
+
             var number;
             var last = pointer.length - 1;
-            for (number = 0; number <= last; pointer++) {
+            for (number = 0; number <= last; number++) {
                 if (number === last) {
                     if (data[pointer[number]] === undefined) {
                         return defaultValue;

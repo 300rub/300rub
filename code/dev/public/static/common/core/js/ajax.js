@@ -5,21 +5,29 @@ ss.add(
          * Init
          */
         init: function() {
-            $.ajax(
-                {
-                    url: "/api/",
-                    contentType: "application/json",
-                    accepts: "application/json",
-                    dataType: "json",
-                    global: false,
-                    traditional: true,
-                    data: this.getData(),
-                    type: this.getType(),
-                    beforeSend: this.getBeforeSend(),
-                    success: this.getSuccess(),
-                    error: this.getError(),
-                    complete: this.getComplete()
-                }
+            setTimeout(
+                $.proxy(
+                    function() {
+                        $.ajax(
+                            {
+                                url: "/api/",
+                                contentType: "application/json",
+                                accepts: "application/json",
+                                dataType: "json",
+                                global: false,
+                                traditional: true,
+                                data: this.getData(),
+                                type: this.getType(),
+                                beforeSend: this.getBeforeSend(),
+                                success: this.getSuccess(),
+                                error: this.getError(),
+                                complete: this.getComplete()
+                            }
+                        );
+                    },
+                    this
+                ),
+                300
             );
         },
 

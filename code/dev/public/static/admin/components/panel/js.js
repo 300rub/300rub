@@ -137,21 +137,21 @@ ss.add(
 
         /**
          * Sets title
-         *
-         * @param {String} title
          */
-        setTitle: function (title) {
-            this.panel.find(".header .title").text(title);
+        setTitle: function () {
+            this.panel
+                .find(".header .title")
+                .text(this.getData("title"));
             return this;
         },
 
         /**
          * Sets description
-         *
-         * @param {String} description
          */
-        setDescription: function (description) {
-            this.panel.find(".header .description").text(description);
+        setDescription: function () {
+            this.panel
+                .find(".header .description")
+                .text(this.getData("description"));
             return this;
         },
 
@@ -263,7 +263,13 @@ ss.add(
                     error: $.proxy(this.onError, this),
                     success: $.proxy(
                         function (data) {
+                            this
+                                .setData(data)
+                                .setTitle()
+                                .setDescription();
+
                             success(data);
+
                             this
                                 .removeLoading()
                                 .setMaxHeight();
@@ -429,6 +435,63 @@ ss.add(
             this.create(options);
 
             return this;
+        },
+
+        /**
+         * Adds list item
+         *
+         * @param {Object} itemOptions
+         */
+        addListItem: function(itemOptions) {
+            itemOptions = $.extend({}, itemOptions);
+
+            var listItem = ss.init("template").get("panel-list-item");
+
+            var item = listItem.find(".item");
+            if (itemOptions.label !== undefined) {
+                item.find(".text").text(itemOptions.label);
+            }
+            if (itemOptions.icon !== undefined) {
+                item.find(".icon").addClass(itemOptions.icon);
+            }
+            if ($.type(itemOptions.open) === "function") {
+                item.on(
+                    "click",
+                    itemOptions.open
+                );
+            }
+
+            var hasSettings = false;
+            var settingsButton = listItem.find(".settings");
+            if ($.type(itemOptions.settings) === "function") {
+                settingsButton.on(
+                    "click",
+                    itemOptions.settings
+                );
+                hasSettings = true;
+            } else {
+                settingsButton.remove();
+            }
+
+            var hasDesign = false;
+            var designButton = listItem.find(".design");
+            if ($.type(itemOptions.design) === "function") {
+                designButton.on(
+                    "click",
+                    itemOptions.design
+                );
+                hasDesign = true;
+            } else {
+                designButton.remove();
+            }
+
+            if (hasSettings === false
+                && hasDesign === false
+            ) {
+                listItem.addClass("without-buttons");
+            }
+
+            this.body.append(listItem);
         }
     }
 );
