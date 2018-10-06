@@ -50,7 +50,7 @@ ss.add(
          * @param {Object} options
          */
         extendOptions: function(options) {
-            this.options = $.extend({}, this,options, options);
+            this.options = $.extend({}, this.options, options);
             return this;
         },
 

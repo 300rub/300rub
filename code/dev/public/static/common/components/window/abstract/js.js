@@ -374,10 +374,7 @@ ss.add(
                                 .setData(data)
                                 .setTitle();
 
-                            var success = this.getOption("success");
-                            if ($.type(success) === "function") {
-                                success(data);
-                            }
+                            this.onLoadSuccess();
 
                             this.window.removeClass("loading");
                         },
@@ -394,6 +391,12 @@ ss.add(
             );
 
             return this;
+        },
+
+        /**
+         * On load success
+         */
+        onLoadSuccess: function() {
         },
 
         /**

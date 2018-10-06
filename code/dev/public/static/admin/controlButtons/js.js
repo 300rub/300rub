@@ -157,7 +157,7 @@ ss.add(
             btn.on(
                 "click",
                 function () {
-                    new ss.panel.blocks.List();
+                    ss.init("adminBlockList");
                 }
             );
 

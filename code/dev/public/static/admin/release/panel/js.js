@@ -1,9 +1,11 @@
-/**
- * Abstract form
- */
 ss.add(
     "adminReleasePanel",
     {
+        /**
+         * Parent
+         *
+         * @var {String}
+         */
         parent: "adminComponentsPanel",
 
         /**
@@ -13,12 +15,14 @@ ss.add(
             this.create(
                 {
                     group: "release",
-                    controller: "shortInfo",
-                    success: $.proxy(this.onLoadSuccess, this)
+                    controller: "shortInfo"
                 }
             );
         },
 
+        /**
+         * On load success
+         */
         onLoadSuccess: function() {
             this.setSubmit(
                 {

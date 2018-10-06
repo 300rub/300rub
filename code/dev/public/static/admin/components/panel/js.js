@@ -41,6 +41,7 @@ ss.add(
                 .setPanel()
                 .setBody()
                 .extendOptions(options)
+                .setHasFooter()
                 .setCloseEvents(null)
                 .addDomElement()
                 .load();
@@ -247,10 +248,13 @@ ss.add(
          * Loads data
          */
         load: function () {
-            var success = this.getOption("success");
-            if ($.type(success) !== "function") {
-                throw "Unable to find success function";
-            }
+            var data = $.extend(
+                {},
+                this.getOption("data", {}),
+                {
+                    blockSection: this.getBlockSection()
+                }
+            );
 
             ss.init(
                 "ajax",
@@ -258,7 +262,7 @@ ss.add(
                     data: {
                         group: this.getOption("group"),
                         controller: this.getOption("controller"),
-                        data: this.getOption("data", {})
+                        data: data
                     },
                     error: $.proxy(this.onError, this),
                     success: $.proxy(
@@ -268,7 +272,7 @@ ss.add(
                                 .setTitle()
                                 .setDescription();
 
-                            success(data);
+                            this.onLoadSuccess();
 
                             this
                                 .removeLoading()
@@ -280,6 +284,12 @@ ss.add(
             );
 
             return this;
+        },
+
+        /**
+         * On load success
+         */
+        onLoadSuccess: function() {
         },
 
         /**
@@ -343,17 +353,15 @@ ss.add(
 
         /**
          * Shows block section switcher
-         *
-         * @param {String} label
          */
-        showBlockSectionSwitcher: function(label) {
+        showBlockSectionSwitcher: function() {
             var app = ss.init("app");
 
             ss.init(
                 "commonComponentsFormCheckboxOnOff",
                 {
                     value: app.getIsBlockSection(),
-                    label: label,
+                    label: this.getLabel("blockSection"),
                     css: "no-margin small",
                     appendTo: this.panel.find(".header .btn-group"),
                     onCheck: $.proxy(function() {
@@ -415,13 +423,18 @@ ss.add(
         },
 
         /**
-         * Removes footer
+         * Sets footer
          */
-        removeFooter: function() {
-            this.hasFooter = false;
-            this.setPanelMaxHeight();
+        setHasFooter: function() {
+            this.hasFooter = true;
 
+            if (this.getOption("hasFooter") !== false) {
+                return this;
+            }
+
+            this.hasFooter = false;
             this.panel.find(".footer").remove();
+
             return this;
         },
 

@@ -16,7 +16,6 @@ ss.add(
                 {
                     group: "release",
                     controller: "fullInfo",
-                    success: $.proxy(this.onLoadSuccess, this),
                     name: "release-full-info",
                     hasFooter: false
                 }
