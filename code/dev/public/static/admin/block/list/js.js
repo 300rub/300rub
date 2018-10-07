@@ -44,7 +44,7 @@ ss.add(
                             case 2:
                                 icon = "fas fa-images";
                                 open = function() {
-                                    //new ss.panel.blocks.image.List();
+                                    ss.init("adminBlockImageList");
                                 };
                                 break;
                             case 3:
