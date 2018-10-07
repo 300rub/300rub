@@ -88,7 +88,6 @@ class PageController extends AbstractPageController
      */
     private function _getPageHtml()
     {
-
         $content = '';
         $sectionCss = [];
         $sectionJs = [];
@@ -107,17 +106,11 @@ class PageController extends AbstractPageController
             $sectionId = $sectionModel->getId();
         }
 
-        $isBlockSection = false;
-        if ($this->getBlockSection() > 0) {
-            $isBlockSection = true;
-        }
-
         return $this->render(
             'layout/page',
             [
                 'icon'           => '/img/favicon.ico',
                 'content'        => $content,
-                'templates'      => $this->getTemplates(),
                 'title'          => 'Test title',
                 'keywords'       => 'Test keywords',
                 'description'    => 'Test description',
@@ -137,7 +130,6 @@ class PageController extends AbstractPageController
                 'bodyBottomCode' => $this->_getSettingsValueByType(
                     SettingsModel::CODE_BODY_BOTTOM
                 ),
-                'isBlockSection' => $isBlockSection,
                 'initJs'         => $this->_getInitJs($sectionId),
             ]
         );
@@ -159,16 +151,22 @@ class PageController extends AbstractPageController
             $token = App::getInstance()->getUser()->getToken();
         }
 
+        $isBlockSection = false;
+        if ($this->getBlockSection() > 0) {
+            $isBlockSection = true;
+        }
+
         return $this->render(
             'layout/js/page',
             [
                 'language'
-                    => App::getInstance()->getLanguage()->getActiveId(),
+                     => App::getInstance()->getLanguage()->getActiveId(),
                 'errorMessages'
-                    => App::getInstance()->getValidator()->getErrorMessages(),
-                'token'     => $token,
-                'sectionId' => $sectionId,
-                'isUser'    => $isUser,
+                     => App::getInstance()->getValidator()->getErrorMessages(),
+                'token'          => $token,
+                'sectionId'      => $sectionId,
+                'isUser'         => $isUser,
+                'isBlockSection' => $isBlockSection,
             ]
         );
     }
@@ -206,7 +204,7 @@ class PageController extends AbstractPageController
         $lineHtml = '';
         foreach ($structure as $line => $lineStructure) {
             $lineHtml .= $this->render(
-                'page/line',
+                'section/line',
                 [
                     'id'            => $line,
                     'lineStructure' => $this->_getLineStructure($lineStructure)
@@ -215,7 +213,7 @@ class PageController extends AbstractPageController
         }
 
         return $this->render(
-            'page/section',
+            'section/section',
             [
                 'id'      => $sectionModel->getId(),
                 'content' => $lineHtml
@@ -252,7 +250,7 @@ class PageController extends AbstractPageController
                         }
 
                         $html .= $this->render(
-                            'page/lineBlock',
+                            'section/lineBlock',
                             [
                                 'width' => $item['width'],
                                 'left'  => $item['left'],
@@ -263,7 +261,7 @@ class PageController extends AbstractPageController
                         break;
                     case 'container':
                         $html .= $this->render(
-                            'page/lineBlockContainer',
+                            'section/lineBlockContainer',
                             [
                                 'width' => $item['width'],
                                 'left'  => $item['left'],

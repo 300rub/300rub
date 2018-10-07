@@ -53,35 +53,21 @@ class LoginController extends AbstractPageController
             );
         }
 
-        $content = $this->render(
-            'page/login'
-        );
-
         $language = App::getInstance()->getLanguage();
 
-        $layoutData = [];
-        $layoutData['content'] = $content;
-        $layoutData['templates'] =
-        $content = $this->getTemplates();
-        $layoutData['title'] = $language->getMessage('user', 'loginTitle');
-        $layoutData['keywords'] = '';
-        $layoutData['description'] = '';
-        $layoutData['css'] = $this->getCss();
-        $layoutData['js'] = $this->getJs();
-        $layoutData['less'] = $this->getLess();
-        $layoutData['language'] = $language->getActiveId();
-        $layoutData['errorMessages']
-            = App::getInstance()->getValidator()->getErrorMessages();
-        $layoutData['token'] = null;
-        $layoutData['sectionId'] = 0;
-        $layoutData['isUser'] = false;
-        $layoutData['generatedCss'] = [];
-        $layoutData['generatedJs'] = [];
-        $layoutData['version'] = $this->getVersion();
-        $layoutData['headerCode'] = '';
-        $layoutData['bodyTopCode'] = '';
-        $layoutData['bodyBottomCode'] = '';
-
-        return $this->render('page/layout', $layoutData);
+        return $this->render(
+            'layout/login',
+            [
+                'icon'           => '/img/favicon.ico',
+                'title'          => $language->getMessage('user', 'loginTitle'),
+                'css'            => $this->getCss(),
+                'js'             => $this->getJs(),
+                'html'           => $this->getHtml(),
+                'less'           => $this->getLess(),
+                'initJs'         => $this->render(
+                    'layout/js/login'
+                ),
+            ]
+        );
     }
 }
