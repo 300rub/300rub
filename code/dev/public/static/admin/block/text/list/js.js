@@ -1,5 +1,5 @@
 ss.add(
-    "adminBlockImageList",
+    "adminBlockTextList",
     {
         /**
          * Parent
@@ -14,7 +14,7 @@ ss.add(
         init: function() {
             this.create(
                 {
-                    group: "image",
+                    group: "text",
                     controller: "blocks",
                     back: function() {
                         ss.init("adminBlockList");
@@ -34,7 +34,7 @@ ss.add(
                         label: this.getLabel("add"),
                         icon: "fas fa-plus",
                         onClick: function () {
-                            //new ss.panel.blocks.image.Settings();
+                            // new ss.panel.blocks.text.Settings();
                         }
                     });
             } else {
@@ -50,11 +50,11 @@ ss.add(
                             design = function () {
                                 //new ss.panel.design.Editor(
                                 //    {
-                                //        group: "image",
+                                //        group: "text",
                                 //        controller: "design",
                                 //        id: itemData.id,
                                 //        success: function () {
-                                //            new ss.panel.blocks.image.List();
+                                //            new ss.panel.blocks.text.List();
                                 //        }
                                 //    }
                                 //);
@@ -64,7 +64,7 @@ ss.add(
                         var settings = null;
                         if (itemData.canUpdateDesign === true) {
                             settings = function () {
-                                //new ss.panel.blocks.image.Settings(
+                                //new ss.panel.blocks.text.Settings(
                                 //    itemData.id
                                 //);
                             };
@@ -73,18 +73,15 @@ ss.add(
                         var open = null;
                         if (itemData.canUpdateContent === true) {
                             open = function () {
-                                //new ss.window.blocks.image.Content(
-                                //    {
-                                //        blockId: itemData.id
-                                //    }
-                                //);
+                                //new ss.window.blocks.text.Content(itemData.id);
                             };
                         }
+
 
                         this.addListItem(
                             {
                                 label: itemData.name,
-                                icon: "fas fa-image",
+                                icon: "fas fa-font",
                                 open: open,
                                 design: design,
                                 settings: settings

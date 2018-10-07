@@ -37,7 +37,7 @@ ss.add(
                             case 1:
                                 icon = "fas fa-font";
                                 open = function() {
-                                    //new ss.panel.blocks.text.List();
+                                    ss.init("adminBlockTextList");
                                 };
                                 break;
                             case 2:
