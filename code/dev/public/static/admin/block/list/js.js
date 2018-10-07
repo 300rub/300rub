@@ -16,7 +16,8 @@ ss.add(
                 {
                     group: "block",
                     controller: "blocks",
-                    hasFooter: false
+                    hasFooter: false,
+                    hasBlockSectionSwitcher: true
                 }
             );
         },
@@ -25,8 +26,6 @@ ss.add(
          * On load success
          */
         onLoadSuccess: function() {
-            this.showBlockSectionSwitcher();
-
             $.each(
                 this.getData("list", {}),
                 $.proxy(

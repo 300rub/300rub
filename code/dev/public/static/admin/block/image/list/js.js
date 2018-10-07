@@ -18,7 +18,8 @@ ss.add(
                     controller: "blocks",
                     back: function() {
                         ss.init("adminBlockList");
-                    }
+                    },
+                    hasBlockSectionSwitcher: true
                 }
             );
         },
@@ -27,8 +28,6 @@ ss.add(
          * On load success
          */
         onLoadSuccess: function() {
-            this.showBlockSectionSwitcher();
-
             if (this.getData("canAdd") === true) {
                 this
                     .setFooterButton({

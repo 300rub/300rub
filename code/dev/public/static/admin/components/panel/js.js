@@ -281,6 +281,12 @@ ss.add(
                                 .setTitle()
                                 .setDescription();
 
+                            var switcher
+                                = this.getOption("hasBlockSectionSwitcher");
+                            if (switcher === true) {
+                                this.showBlockSectionSwitcher();
+                            }
+
                             this.onLoadSuccess();
 
                             this
