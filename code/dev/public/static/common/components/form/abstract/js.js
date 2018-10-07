@@ -19,6 +19,13 @@ ss.add(
         instance: null,
 
         /**
+         * Errors
+         *
+         * @var {Array}
+         */
+        errors: [],
+
+        /**
          * Init
          */
         init: function() {
@@ -209,17 +216,125 @@ ss.add(
                 return this;
             }
 
-            var validator
-                = new ss.components.Validator(this.getValue(), validation);
-            var errors = validator.getErrors();
-            if (errors.length > 0) {
-                this.setError(errors[0]);
+            this.validateByRules(validation);
+
+            if (this.errors.length > 0) {
+                this.setError(this.errors[0]);
             } else {
                 this.form.removeClass("error");
                 this.form.find("span.error").text("");
             }
 
             return this;
+        },
+
+        /**
+         * Validates by rules
+         *
+         * @param rules
+         */
+        validateByRules: function(rules) {
+            this.errors = [];
+
+            $.each(
+                rules,
+                $.proxy(
+                    function (key, value) {
+                        switch (key) {
+                            case "required":
+                                this.checkRequired();
+                                break;
+                            case "maxLength":
+                                this.checkMaxLength(value);
+                                break;
+                            case "minLength":
+                                this.checkMinLength(value);
+                                break;
+                            case "latinDigitUnderscoreHyphen":
+                                this.checkLatinDigitUnderscoreHyphen();
+                                break;
+                            case "email":
+                                this.checkEmail();
+                                break;
+                        }
+                    },
+                    this
+                )
+            );
+
+            return this;
+        },
+
+        /**
+         * Adds error
+         *
+         * @param {String} [error]
+         */
+        addError: function (error) {
+            this.errors.push(error);
+        },
+
+        /**
+         * Verifies required
+         */
+        checkRequired: function () {
+            if ($.trim(this.getValue()) === "") {
+                this.addError(
+                    ss.init("error").get("required")
+                );
+            }
+        },
+
+        /**
+         * Verifies string length for max value
+         *
+         * @param {int} [max]
+         */
+        checkMaxLength: function (max) {
+            if ($.trim(this.getValue()).length > parseInt(max, 10)) {
+                this.addError(
+                    ss.init("error").get("maxLength")
+                );
+            }
+        },
+
+        /**
+         * Verifies string length for min value
+         *
+         * @param {int} [min]
+         */
+        checkMinLength: function (min) {
+            if ($.trim(this.getValue()).length < parseInt(min, 10)) {
+                this.addError(
+                    ss.init("error").get("minLength")
+                );
+            }
+        },
+
+        /**
+         * Verifies regex: latin, digit, underscore, hyphen
+         */
+        checkLatinDigitUnderscoreHyphen: function () {
+            var pattern = new RegExp("^[0-9a-z-_]+$");
+            if (!pattern.test($.trim(this.getValue()))) {
+                this.addError(
+                    ss.init("error").get("latinDigitUnderscoreHyphen")
+                );
+            }
+        },
+
+        /**
+         * Checks email
+         */
+        checkEmail: function () {
+            var pattern = new RegExp(
+                "^[+a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$"
+            );
+            if (!pattern.test($.trim(this.getValue()))) {
+                this.addError(
+                    ss.init("error").get("email")
+                );
+            }
         },
 
         /**
