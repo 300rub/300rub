@@ -88,7 +88,7 @@ ss.add(
                 );
             }
 
-            new ss.components.Ajax(ajax);
+            ss.init("ajax", ajax);
         },
 
         /**
@@ -169,7 +169,7 @@ ss.add(
                 this
             );
 
-            new ss.components.Ajax(ajax);
+            ss.init("ajax", ajax);
             return true;
         },
 

@@ -56,8 +56,8 @@
     /**
      * Sets right class for overlaid menu items
      *
-     * @param {Object}  object
-     * @param {integer} leftPosition
+     * @param {Object} object
+     * @param {int}    leftPosition
      *
      * @private
      */
