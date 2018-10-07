@@ -58,15 +58,30 @@ class LoginController extends AbstractPageController
         return $this->render(
             'layout/login',
             [
-                'icon'           => '/img/favicon.ico',
-                'title'          => $language->getMessage('user', 'loginTitle'),
-                'css'            => $this->getCss(),
-                'js'             => $this->getJs(),
-                'html'           => $this->getHtml(),
-                'less'           => $this->getLess(),
-                'initJs'         => $this->render(
-                    'layout/js/login'
-                ),
+                'icon'   => '/img/favicon.ico',
+                'title'  => $language->getMessage('user', 'loginTitle'),
+                'css'    => $this->getCss(),
+                'js'     => $this->getJs(),
+                'html'   => $this->getHtml(),
+                'less'   => $this->getLess(),
+                'initJs' => $this->_getInitJs(),
+            ]
+        );
+    }
+
+    /**
+     * Gets init JS
+     *
+     * @return string
+     */
+    private function _getInitJs()
+    {
+        return $this->render(
+            'layout/js/login',
+            [
+                'language' => App::getInstance()->getLanguage()->getActiveId(),
+                'errorMessages'
+                    => App::getInstance()->getValidator()->getErrorMessages(),
             ]
         );
     }

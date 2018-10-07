@@ -280,7 +280,7 @@ ss.add(
         checkRequired: function () {
             if ($.trim(this.getValue()) === "") {
                 this.addError(
-                    ss.init("error").get("required")
+                    ss.init("commonComponentsError").get("required")
                 );
             }
         },
@@ -293,7 +293,7 @@ ss.add(
         checkMaxLength: function (max) {
             if ($.trim(this.getValue()).length > parseInt(max, 10)) {
                 this.addError(
-                    ss.init("error").get("maxLength")
+                    ss.init("commonComponentsError").get("maxLength")
                 );
             }
         },
@@ -306,7 +306,7 @@ ss.add(
         checkMinLength: function (min) {
             if ($.trim(this.getValue()).length < parseInt(min, 10)) {
                 this.addError(
-                    ss.init("error").get("minLength")
+                    ss.init("commonComponentsError").get("minLength")
                 );
             }
         },
@@ -318,7 +318,7 @@ ss.add(
             var pattern = new RegExp("^[0-9a-z-_]+$");
             if (!pattern.test($.trim(this.getValue()))) {
                 this.addError(
-                    ss.init("error").get("latinDigitUnderscoreHyphen")
+                    ss.init("commonComponentsError").get("latinDigitUnderscoreHyphen")
                 );
             }
         },
@@ -332,7 +332,7 @@ ss.add(
             );
             if (!pattern.test($.trim(this.getValue()))) {
                 this.addError(
-                    ss.init("error").get("email")
+                    ss.init("commonComponentsError").get("email")
                 );
             }
         },

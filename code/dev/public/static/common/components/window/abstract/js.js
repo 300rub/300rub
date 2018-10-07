@@ -382,7 +382,8 @@ ss.add(
                     ),
                     error: $.proxy(
                         function(jqXHR) {
-                            ss.components.Error.displayAjaxError(jqXHR);
+                            ss.init("commonComponentsError")
+                                .displayAjaxError(jqXHR);
                             this.remove();
                         },
                         this

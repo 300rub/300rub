@@ -122,7 +122,7 @@ ss.add(
          * @returns {Function}
          */
         displayError: function (jqXHR) {
-            ss.components.Error.displayAjaxError(jqXHR);
+            ss.init("commonComponentsError").displayAjaxError(jqXHR);
         },
 
         /**

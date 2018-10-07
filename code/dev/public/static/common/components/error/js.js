@@ -118,7 +118,7 @@ ss.add(
         displayAjaxError: function (jqXHR) {
             var errorTemplate
                 = this.getAjaxErrorTemplate(jqXHR);
-            ss.system.App.append(errorTemplate);
+            ss.init("app").append(errorTemplate);
 
             errorTemplate.removeClass("transparent");
 

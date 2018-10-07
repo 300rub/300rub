@@ -108,21 +108,21 @@ ss.add(
          * @param {Object} data
          */
         onSendSuccess: function (data) {
-            //if ($.type(data.errors) === "object") {
-            //    if (data.errors.user !== undefined) {
-            //        this._userForm
-            //            .setError(data.errors.user)
-            //            .scrollTo()
-            //            .focus();
-            //    } else if (data.errors.password !== undefined) {
-            //        this._passwordForm
-            //            .setError(data.errors.password)
-            //            .scrollTo()
-            //            .focus();
-            //    }
-            //} else {
-            //    window.location = "/" + data.languageAlias;
-            //}
+            if ($.type(data.errors) === "object") {
+                if (data.errors.user !== undefined) {
+                    this.forms.user
+                        .setError(data.errors.user)
+                        .scrollTo()
+                        .focus();
+                } else if (data.errors.password !== undefined) {
+                    this.forms.password
+                        .setError(data.errors.password)
+                        .scrollTo()
+                        .focus();
+                }
+            } else {
+                window.location = "/" + data.languageAlias;
+            }
         }
     }
 );
