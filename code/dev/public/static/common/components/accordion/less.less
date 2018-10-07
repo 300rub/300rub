@@ -1,6 +1,6 @@
 @import "../../core/less/common";
 
-.accordion-container {
+.accordion-element {
   margin: 5px 0;
 
   .accordion-title {
@@ -32,11 +32,11 @@
   }
 }
 
-.accordion-container.opened > .accordion-body {
+.accordion-element.opened > .accordion-body {
   display: block;
 }
 
-.accordion-container.opened > .accordion-title {
+.accordion-element.opened > .accordion-title {
   .fas {
     .transform(rotate(90deg));
   }
