@@ -302,7 +302,7 @@ ss.add(
                 all.data,
                 $.proxy(function (key, formData) {
                     this.forms[this.autoIncrement] = ss.init(
-                        "commonComponentsFormCheckbox",
+                        "commonComponentsFormCheckboxOnOff",
                         $.extend(
                             {},
                             formData,
@@ -339,7 +339,7 @@ ss.add(
                         sectionData.data,
                         function (key, formData) {
                             t.forms[this.autoIncrement] = ss.init(
-                                "commonComponentsFormCheckbox",
+                                "commonComponentsFormCheckboxOnOff",
                                 $.extend(
                                     {},
                                     formData,
