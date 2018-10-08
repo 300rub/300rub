@@ -62,11 +62,12 @@ ss.add(
                                     label: this.getLabel("sessions"),
                                     appendTo: btnGroup,
                                     onClick: function () {
-                                        //new ss.window.users.Sessions(
-                                        //    {
-                                        //        id: user.id
-                                        //    }
-                                        //);
+                                        ss.init(
+                                            "adminSettingsUserSession",
+                                            {
+                                                id: user.id
+                                            }
+                                        );
                                     }
                                 }
                             );

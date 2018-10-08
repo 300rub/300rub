@@ -81,34 +81,30 @@ class GetSessionsController extends AbstractController
                     => $language->getMessage('common', 'delete'),
                 'deleteAllSessions'
                     => $language->getMessage('user', 'deleteAllSessions'),
-                'deleteConfirm'     => [
-                    'text' => $language->getMessage(
-                        'user',
-                        'deleteSessionConfirmText'
-                    ),
-                    'yes'  => $language->getMessage(
-                        'user',
-                        'deleteSessionConfirmYes'
-                    ),
-                    'no'   => $language->getMessage(
-                        'common',
-                        'no'
-                    ),
-                ],
-                'deleteAllConfirm'  => [
-                    'text' => $language->getMessage(
-                        'user',
-                        'deleteAllSessionsConfirmText'
-                    ),
-                    'yes'  => $language->getMessage(
-                        'user',
-                        'deleteAllSessionsConfirmYes'
-                    ),
-                    'no'   => $language->getMessage(
-                        'common',
-                        'no'
-                    ),
-                ]
+                'deleteConfirmText' => $language->getMessage(
+                    'user',
+                    'deleteSessionConfirmText'
+                ),
+                'deleteConfirmYes' => $language->getMessage(
+                    'user',
+                    'deleteSessionConfirmYes'
+                ),
+                'deleteConfirmNo' => $language->getMessage(
+                    'common',
+                    'no'
+                ),
+                'deleteAllConfirmText' => $language->getMessage(
+                    'user',
+                    'deleteAllSessionsConfirmText'
+                ),
+                'deleteAllConfirmYes' => $language->getMessage(
+                    'user',
+                    'deleteAllSessionsConfirmYes'
+                ),
+                'deleteAllConfirmNo' => $language->getMessage(
+                    'common',
+                    'no'
+                ),
             ],
             'list'      => $this->_getList($userId),
             'canDelete' => $canDelete
