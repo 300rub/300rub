@@ -36,9 +36,9 @@ ss.add(
                 var element = ss.init("template").get("accordion-element");
                 element.appendTo(appendTo);
 
-                element.find(".title .text").text(item.title);
+                element.find(".accordion-title .text").text(item.title);
 
-                var body = element.find("accordion-body");
+                var body = element.find(".accordion-body");
 
                 if (item.children !== undefined) {
                     this.buildTree(item.children, body);

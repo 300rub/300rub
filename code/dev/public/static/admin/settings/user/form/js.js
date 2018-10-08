@@ -37,11 +37,24 @@ ss.add(
         operationsContainer: null,
 
         /**
+         * Operations tree
+         *
+         * @var {Array}
+         */
+        operationsTree: [],
+
+        /**
+         * Auto increment
+         */
+        autoIncrement: 1,
+
+        /**
          * Init
          */
         init: function() {
             this.forms = {};
             this.formContainer = {};
+            this.autoIncrement = 0;
 
             this.create(
                 {
@@ -98,7 +111,7 @@ ss.add(
          */
         setContainers: function() {
             this.container = ss.init("template").get("users-form-container");
-            this.formContainer = this._container.find(".text-forms-container");
+            this.formContainer = this.container.find(".text-forms-container");
 
             this.getBody().append(this.container);
             return this;
@@ -258,10 +271,106 @@ ss.add(
          */
         setOperations: function() {
             this.operationsContainer
-                = this._container.find(".operations-container");
+                = this.container.find(".operations-container");
 
             this.operationsContainer.find(".group-title")
                 .text(this.getLabel("operations"));
+
+            this.operationsTree = [];
+
+            this.setSectionOperations();
+
+            ss.init("commonComponentsAccordion", {
+                tree: this.operationsTree,
+                container: this.operationsContainer
+            });
+        },
+
+        /**
+         * Sets section operations
+         */
+        setSectionOperations: function() {
+            var children = [];
+
+            var all = this.getData(
+                ["operations", "list", "SECTIONS", "data", "ALL"],
+                {}
+            );
+
+            var allBody = $("<div/>");
+            $.each(
+                all.data,
+                $.proxy(function (key, formData) {
+                    this.forms[this.autoIncrement] = ss.init(
+                        "commonComponentsFormCheckbox",
+                        $.extend(
+                            {},
+                            formData,
+                            {
+                                appendTo: allBody
+                            }
+                        )
+                    );
+                    this.autoIncrement++;
+                }, this)
+            );
+
+            children.push(
+                {
+                    title: all.title,
+                    body: allBody
+                }
+            );
+
+            var t = this;
+
+            $.each(
+                this.getData(
+                    ["operations", "list", "SECTIONS", "data"],
+                    {}
+                ),
+                function (sectionId, sectionData) {
+                    if (sectionId === "ALL") {
+                        return true;
+                    }
+
+                    var body = $("<div/>");
+                    $.each(
+                        sectionData.data,
+                        function (key, formData) {
+                            t.forms[this.autoIncrement] = ss.init(
+                                "commonComponentsFormCheckbox",
+                                $.extend(
+                                    {},
+                                    formData,
+                                    {
+                                        appendTo: body
+                                    }
+                                )
+                            );
+                            t.autoIncrement++;
+                        }
+                    );
+
+                    children.push(
+                        {
+                            title: sectionData.title,
+                            body: body
+                        }
+                    );
+                }
+            );
+
+            this.operationsTree.push(
+                {
+                    title: this.getData(
+                        ["operations", "list", "SECTIONS", "title"]
+                    ),
+                    children: children
+                }
+            );
+
+            return this;
         },
 
         /**

@@ -53,7 +53,7 @@ ss.add(
                     "change",
                     function () {
                         onChange(
-                            ss.components.Library.getIntVal($(this).val())
+                            t.getIntValue($(this).val())
                         );
                     }
                 );

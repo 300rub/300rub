@@ -82,7 +82,12 @@ ss.add(
                                     label: this.getLabel("edit"),
                                     appendTo: btnGroup,
                                     onClick: function () {
-                                        //new ss.window.users.Form({id: user.id});
+                                        ss.init(
+                                            "adminSettingsUserForm",
+                                            {
+                                                id: user.id
+                                            }
+                                        );
                                     }
                                 }
                             );
@@ -146,7 +151,12 @@ ss.add(
                         label: this.getLabel("add"),
                         appendTo: this.getBody(),
                         onClick: function () {
-                            //new ss.window.users.Form({id: 0});
+                            ss.init(
+                                "adminSettingsUserForm",
+                                {
+                                    id: 0
+                                }
+                            );
                         }
                     }
                 );
