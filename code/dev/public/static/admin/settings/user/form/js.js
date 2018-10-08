@@ -168,15 +168,15 @@ ss.add(
                         value: false,
                         label: this.getLabel("isChangePassword"),
                         onCheck: function () {
-                            t.forms.password.getInstance()
+                            t.forms.password.getForm()
                                 .removeClass("hidden");
-                            t.forms.passwordConfirm.getInstance()
+                            t.forms.passwordConfirm.getForm()
                                 .removeClass("hidden");
                         },
                         onUnCheck: function () {
-                            t.forms.password.getInstance()
+                            t.forms.password.getForm()
                                 .addClass("hidden");
-                            t.forms.passwordConfirm.getInstance()
+                            t.forms.passwordConfirm.getForm()
                                 .addClass("hidden");
                         }
                     }
@@ -206,8 +206,8 @@ ss.add(
             );
 
             if (this.getData("id", 0) > 0) {
-                this.forms.password.getInstance().addClass("hidden");
-                this.forms.passwordConfirm.getInstance().addClass("hidden");
+                this.forms.password.getForm().addClass("hidden");
+                this.forms.passwordConfirm.getForm().addClass("hidden");
             }
 
             return this;
@@ -238,6 +238,9 @@ ss.add(
             var t = this;
 
             if (this.getData(["operations", "canChange"]) === true) {
+                var limitedValue = this.getData(["operations", "limitedId"]);
+                var typeValue = this.getData(["forms", "type", "value"]);
+
                 this.forms.type = ss.init(
                     "commonComponentsFormSelect",
                     $.extend(
@@ -246,7 +249,7 @@ ss.add(
                         {
                             appendTo: this.formContainer,
                             onChange: function (value) {
-                                if (value === t.getData(["operations", "limitedId"])) {
+                                if (value === limitedValue) {
                                     t.operationsContainer.removeClass("hidden");
                                 } else {
                                     t.operationsContainer.addClass("hidden");
@@ -258,7 +261,7 @@ ss.add(
 
                 this.setOperations();
 
-                if (this.getData(["operations", "limitedId"]) === this.getData(["type", "value"])) {
+                if (limitedValue === typeValue) {
                     this.operationsContainer.removeClass("hidden");
                 }
             }
@@ -280,6 +283,7 @@ ss.add(
 
             this
                 .setSectionOperations()
+                .setBlockOperations()
                 .setSettingsOperations();
 
             ss.init("commonComponentsAccordion", {
@@ -367,6 +371,101 @@ ss.add(
                 {
                     title: this.getData(
                         ["operations", "list", "SECTIONS", "title"]
+                    ),
+                    children: children
+                }
+            );
+
+            return this;
+        },
+
+        /**
+         * Sets block operations
+         */
+        setBlockOperations: function() {
+            var children = [];
+
+            var t = this;
+            $.each(
+                this.getData(
+                    ["operations", "list", "BLOCKS", "data"]
+                ),
+                function (groupKey, typeData) {
+                    var typeChildren = [];
+
+                    var allBody = $("<div/>");
+                    $.each(
+                        typeData.data.ALL.data,
+                        function (allKey, form) {
+                            t.forms[this.autoIncrement] = ss.init(
+                                "commonComponentsFormCheckboxOnOff",
+                                $.extend(
+                                    {},
+                                    form,
+                                    {
+                                        appendTo: allBody
+                                    }
+                                )
+                            );
+                            t.autoIncrement++;
+                        }
+                    );
+
+                    typeChildren.push(
+                        {
+                            title: typeData.data.ALL.title,
+                            body: allBody
+                        }
+                    );
+
+                    $.each(
+                        typeData.data,
+                        function (typeKey, data) {
+                            if (typeKey === "ALL") {
+                                return true;
+                            }
+
+                            var body = $("<div/>");
+
+                            $.each(
+                                data.data,
+                                function (key, form) {
+                                    t.forms[this.autoIncrement] = ss.init(
+                                        "commonComponentsFormCheckboxOnOff",
+                                        $.extend(
+                                            {},
+                                            form,
+                                            {
+                                                appendTo: body
+                                            }
+                                        )
+                                    );
+                                    t.autoIncrement++;
+                                }
+                            );
+
+                            typeChildren.push(
+                                {
+                                    title: data.title,
+                                    body: body
+                                }
+                            );
+                        }
+                    );
+
+                    children.push(
+                        {
+                            title: typeData.title,
+                            children: typeChildren
+                        }
+                    );
+                }
+            );
+
+            this.operationsTree.push(
+                {
+                    title: this.getData(
+                        ["operations", "list", "BLOCKS", "title"]
                     ),
                     children: children
                 }
