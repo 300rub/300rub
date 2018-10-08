@@ -118,53 +118,53 @@ class GetUserController extends AbstractController
         return [
             'id'         => $userId,
             'title'      => $this->_title,
-            'name'       => [
-                'label'      => $language->getMessage('common', 'name'),
-                'value'      => $this->_name,
-                'name'       => 'name',
-                'validation' => $userModel->getValidationRulesForField('name'),
-            ],
-            'login'      => [
-                'label'      => $language->getMessage('user', 'login'),
-                'value'      => $this->_login,
-                'name'       => 'login',
-                'validation' => $userModel->getValidationRulesForField('login'),
-            ],
-            'password'      => [
-                'label'      => $language->getMessage('user', 'password'),
-                'name'       => 'password',
-                'validation' => $passwordValidation,
-            ],
-            'passwordConfirm'      => [
-                'label'
-                    => $language->getMessage('user', 'passwordConfirm'),
-                'name'       => 'passwordConfirm',
-                'validation' => $passwordValidation,
-            ],
-            'email'      => [
-                'label'      => $language->getMessage('common', 'email'),
-                'value'      => $this->_email,
-                'name'       => 'email',
-                'validation' => $userModel->getValidationRulesForField('email'),
-            ],
-            'type'       => [
-                'label' => $language->getMessage('user', 'type'),
-                'value' => $this->_type,
-                'name'  => 'type',
-                'list'  => App::getInstance()->getValueGenerator()->getValue(
-                    ValueGenerator::ORDERED_ARRAY,
-                    $userModel->getTypeList(true)
-                )
+            'forms' => [
+                'name'       => [
+                    'label'      => $language->getMessage('common', 'name'),
+                    'value'      => $this->_name,
+                    'name'       => 'name',
+                    'validation' => $userModel->getValidationRulesForField('name'),
+                ],
+                'login'      => [
+                    'label'      => $language->getMessage('user', 'login'),
+                    'value'      => $this->_login,
+                    'name'       => 'login',
+                    'validation' => $userModel->getValidationRulesForField('login'),
+                ],
+                'password'      => [
+                    'label'      => $language->getMessage('user', 'password'),
+                    'name'       => 'password',
+                    'validation' => $passwordValidation,
+                ],
+                'passwordConfirm'      => [
+                    'label'
+                        => $language->getMessage('user', 'passwordConfirm'),
+                    'name'       => 'passwordConfirm',
+                    'validation' => $passwordValidation,
+                ],
+                'email'      => [
+                    'label'      => $language->getMessage('common', 'email'),
+                    'value'      => $this->_email,
+                    'name'       => 'email',
+                    'validation' => $userModel->getValidationRulesForField('email'),
+                ],
+                'type'       => [
+                    'label' => $language->getMessage('user', 'type'),
+                    'value' => $this->_type,
+                    'name'  => 'type',
+                    'list'  => App::getInstance()->getValueGenerator()->getValue(
+                        ValueGenerator::ORDERED_ARRAY,
+                        $userModel->getTypeList(true)
+                    )
+                ],
             ],
             'operations' => [
                 'canChange' => $this->_canChangeOperations,
                 'list'      => $this->_getOperations($this->_userOperations),
                 'limitedId' => UserModel::TYPE_LIMITED,
             ],
-            'button'     => [
-                'label' => $this->_buttonLabel,
-            ],
             'labels' => [
+                'button' => $this->_buttonLabel,
                 'operations'
                     => $language->getMessage('user', 'operations'),
                 'isChangePassword'
