@@ -36,7 +36,7 @@ ss.add(
                             case "users":
                                 icon = "fas fa-user-friends";
                                 open = function () {
-                                    //new ss.window.users.List();
+                                    ss.init("adminSettingsUserList");
                                 };
                                 break;
                             case "icon":

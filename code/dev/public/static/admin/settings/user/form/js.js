@@ -1,12 +1,12 @@
 ss.add(
-    "commonUserLogin",
+    "adminSettingsUserForm",
     {
         /**
          * Parent
          *
          * @var {String}
          */
-        parent: "adminSettingsUserForm",
+        parent: "commonComponentsWindowAbstract",
 
         /**
          * Forms
