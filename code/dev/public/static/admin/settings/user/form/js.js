@@ -278,7 +278,9 @@ ss.add(
 
             this.operationsTree = [];
 
-            this.setSectionOperations();
+            this
+                .setSectionOperations()
+                .setSettingsOperations();
 
             ss.init("commonComponentsAccordion", {
                 tree: this.operationsTree,
@@ -367,6 +369,43 @@ ss.add(
                         ["operations", "list", "SECTIONS", "title"]
                     ),
                     children: children
+                }
+            );
+
+            return this;
+        },
+
+        /**
+         * Sets settings operations
+         */
+        setSettingsOperations: function() {
+            var body = $("<div/>");
+            $.each(
+                this.getData(
+                    ["operations", "list", "SETTINGS", "data"],
+                    {}
+                ),
+                $.proxy(function (key, formData) {
+                    this.forms[this.autoIncrement] = ss.init(
+                        "commonComponentsFormCheckboxOnOff",
+                        $.extend(
+                            {},
+                            formData,
+                            {
+                                appendTo: body
+                            }
+                        )
+                    );
+                    this.autoIncrement++;
+                }, this)
+            );
+
+            this.operationsTree.push(
+                {
+                    title: this.getData(
+                        ["operations", "list", "SETTINGS", "title"]
+                    ),
+                    body: body
                 }
             );
 
