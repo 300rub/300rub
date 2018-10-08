@@ -470,6 +470,10 @@ class GetUserController extends AbstractController
                         $operationList = App::getInstance()->getOperation()
                             ->getBlockTextOperations(false);
                         break;
+                    case BlockModel::TYPE_IMAGE:
+                        $operationList = App::getInstance()->getOperation()
+                            ->getBlockImageOperations(false);
+                        break;
                     default:
                         $operationList = [];
                         break;
@@ -512,6 +516,10 @@ class GetUserController extends AbstractController
             case BlockModel::TYPE_TEXT:
                 $operationList = App::getInstance()->getOperation()
                     ->getBlockTextOperations(true);
+                break;
+            case BlockModel::TYPE_IMAGE:
+                $operationList = App::getInstance()->getOperation()
+                    ->getBlockImageOperations(true);
                 break;
             default:
                 $operationList = [];
