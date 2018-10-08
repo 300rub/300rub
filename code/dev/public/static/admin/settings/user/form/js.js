@@ -160,7 +160,7 @@ ss.add(
             var t = this;
 
             if (this.getData("id", 0) > 0) {
-                var isChangePassword = ss.init(
+                this.forms.isChangePassword = ss.init(
                     "commonComponentsFormCheckbox",
                     {
                         appendTo: this.formContainer,
