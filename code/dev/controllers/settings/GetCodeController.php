@@ -43,10 +43,10 @@ class GetCodeController extends AbstractController
                     'validation'
                            => $settingsModel->getValidationRulesForField('value'),
                 ],
-                'button'     => [
-                    'label' => $language->getMessage('common', 'saveAndReload'),
-                ]
-            ]
+            ],
+            'labels' => [
+                'button' => $language->getMessage('common', 'saveAndReload'),
+            ],
         ];
     }
 
