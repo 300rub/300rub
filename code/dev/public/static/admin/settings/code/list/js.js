@@ -37,7 +37,12 @@ ss.add(
                                 label: listItem.name,
                                 icon: "fas fa-code",
                                 open: function() {
-                                    //new ss.window.settings.Code(listItem.type);
+                                    ss.init(
+                                        "adminSettingsUserList",
+                                        {
+                                            type: listItem.type
+                                        }
+                                    );
                                 }
                             }
                         );

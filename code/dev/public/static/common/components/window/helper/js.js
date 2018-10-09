@@ -28,12 +28,13 @@ ss.add(
         /**
          * Init
          */
-        init: function() {
+        create: function(options) {
             this.window = null;
             this.body = null;
             this.overlay = null;
 
             this
+                .extendOptions(options)
                 .setCssClass()
                 .setCloseEvents()
                 .addDomElement()
@@ -62,11 +63,11 @@ ss.add(
          * Sets CSS class
          */
         setCssClass: function () {
-            if (this._options.name === undefined) {
+            if (this.getOption("name") === null) {
                 return this;
             }
 
-            this.window.addClass("window-" + this._options.name);
+            this.window.addClass("window-" + this.getOption("name"));
 
             return this;
         },
@@ -109,8 +110,8 @@ ss.add(
             this.window.addClass("level-last");
             this.overlay.addClass("level-last");
 
-            ss.system.App.append(this.window);
-            ss.system.App.append(this.overlay);
+            ss.init("app").append(this.window);
+            ss.init("app").append(this.overlay);
 
             setTimeout(
                 $.proxy(
@@ -149,9 +150,6 @@ ss.add(
          */
         setWindowMaxHeight: function () {
             var minusHeight = 148;
-            if (this._hasFooter === false) {
-                minusHeight = 90;
-            }
 
             this.body.css(
                 "max-height",
