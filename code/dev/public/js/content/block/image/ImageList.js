@@ -7,18 +7,6 @@
      * @param {Object} options
      */
     ss.content.block.image.ImageList = function (options) {
-        this._options = $.extend({}, this._defaultOptions, options);
-
-        this._container = null;
-
-        this._uploadContainer = null;
-        this._uploadForm = null;
-        this._uploadProgress = null;
-        this._uploadCountCurrent = null;
-        this._uploadCountAll = null;
-
-        this._files = [];
-
         this.init();
     };
 
@@ -27,48 +15,7 @@
      */
     ss.content.block.image.ImageList.prototype.constructor = ss.content.block.image.ImageList;
 
-    /**
-     * Default options
-     *
-     * @type {Object}
-     *
-     * @private
-     */
-    ss.content.block.image.ImageList.prototype._defaultOptions = {
-        appendTo: null,
-        isSortable: false,
-        list: [
-            {
-                id: 0,
-                url: "",
-                name: ""
-            }
-        ],
-        create: {
-            hasOperation: false,
-            isSingleton: false,
-            group: "",
-            controller: "",
-            data: {}
-        },
-        update: {
-            hasOperation: false,
-            blockId: 0,
-            level: 2,
-            parent: ""
-        },
-        delete: {
-            hasOperation: false,
-            group: "",
-            controller: "",
-            data: {},
-            confirm: {
-                text: "",
-                yes: "",
-                no: ""
-            }
-        }
-    };
+    
 
     /**
      * Init
@@ -89,10 +36,10 @@
      * @private
      */
     ss.content.block.image.ImageList.prototype._createContainer = function () {
-        this._container = ss.components.Template.get("image-sort-container");
+        this.container = ss.components.Template.get("image-sort-container");
 
         if (this._options.appendTo !== null) {
-            this._container.appendTo(this._options.appendTo);
+            this.container.appendTo(this._options.appendTo);
         }
 
         return this;
@@ -200,7 +147,7 @@
             );
         }
 
-        this._container.append(itemElement);
+        this.container.append(itemElement);
 
         return this;
     };
@@ -217,7 +164,7 @@
             return this;
         }
 
-        this._container.sortable(
+        this.container.sortable(
             {
                 items: ".image-sort-item"
             }
@@ -238,7 +185,7 @@
             return this;
         }
 
-        this._container.sortable("refresh");
+        this.container.sortable("refresh");
         return this;
     };
 
@@ -255,21 +202,21 @@
         }
 
         var t = this;
-        this._uploadContainer = ss.components.Template.get("image-upload-container");
-        this._uploadForm = this._uploadContainer.find(".image-add-form");
-        this._uploadProgress = this._uploadContainer.find(".progress");
-        this._uploadCountCurrent = this._uploadContainer.find(".count-container .current");
-        this._uploadCountAll = this._uploadContainer.find(".count-container .all");
+        this.uploadContainer = ss.components.Template.get("image-upload-container");
+        this.uploadForm = this.uploadContainer.find(".image-add-form");
+        this.uploadProgress = this.uploadContainer.find(".progress");
+        this.uploadCountCurrent = this.uploadContainer.find(".count-container .current");
+        this.uploadCountAll = this.uploadContainer.find(".count-container .all");
 
         if (this._options.create.isSingleton !== true) {
-            this._uploadForm.attr("multiple", true);
+            this.uploadForm.attr("multiple", true);
         }
 
-        this._uploadForm.on("change", function() {
+        this.uploadForm.on("change", function() {
             t._uploadFiles(this.files);
         });
 
-        this._uploadContainer.appendTo(this._container);
+        this.uploadContainer.appendTo(this.container);
 
         return this;
     };
@@ -284,13 +231,13 @@
      * @private
      */
     ss.content.block.image.ImageList.prototype._uploadFiles = function (files) {
-        this._files = files;
-        this._uploadProgress.css("width", 0);
-        this._uploadCountCurrent.text(0);
-        this._uploadCountAll.text(this._files.length);
-        this._uploadForm.attr("disabled", true);
+        this.files = files;
+        this.uploadProgress.css("width", 0);
+        this.uploadCountCurrent.text(0);
+        this.uploadCountAll.text(this.files.length);
+        this.uploadForm.attr("disabled", true);
 
-        this._container.addClass("loading");
+        this.container.addClass("loading");
 
         this._uploadFile(0);
 
@@ -307,11 +254,11 @@
      * @private
      */
     ss.content.block.image.ImageList.prototype._uploadFile = function (number) {
-        var file = this._files[number];
+        var file = this.files[number];
 
-        if (this._files[number] === undefined) {
-            this._container.removeClass("loading");
-            this._uploadForm.attr("disabled", false);
+        if (this.files[number] === undefined) {
+            this.container.removeClass("loading");
+            this.uploadForm.attr("disabled", false);
             return this;
         }
 
@@ -323,7 +270,7 @@
                 xhr: $.proxy(this._uploadXhr, this),
                 complete: $.proxy(function() {
                     this._uploadFile(number + 1);
-                    this._uploadCountCurrent.text(number + 1);
+                    this.uploadCountCurrent.text(number + 1);
                 }, this)
             }
         );
@@ -380,7 +327,7 @@
                 filesPercent = 98;
             }
 
-            this._uploadProgress.css("width", filesPercent + "%");
+            this.uploadProgress.css("width", filesPercent + "%");
         }, this), false);
 
         return myXhr;

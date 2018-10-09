@@ -88,13 +88,11 @@ class GetContentController extends AbstractController
                     => $language->getMessage('image', 'albumDeleteConfirm'),
                 'no'     => $language->getMessage('common', 'no'),
                 'addAlbum'  => $language->getMessage('image', 'addAlbum'),
-            ],
-            'name'   => $this->_blockModel->get('name'),
-            'button' => [
-                'label' => App::getInstance()
+                'button' => App::getInstance()
                     ->getLanguage()
                     ->getMessage('common', 'save')
             ],
+            'name'   => $this->_blockModel->get('name'),
             'useAlbums'      => true,
             'canCreate' => $this->hasBlockOperation(
                 BlockModel::TYPE_IMAGE,
@@ -133,13 +131,11 @@ class GetContentController extends AbstractController
                     => $language->getMessage('common', 'delete'),
                 'no'
                     => $language->getMessage('common', 'no'),
-            ],
-            'name'      => $this->_blockModel->get('name'),
-            'button'    => [
-                'label' => App::getInstance()
+                'button' => App::getInstance()
                     ->getLanguage()
                     ->getMessage('common', 'save')
             ],
+            'name'      => $this->_blockModel->get('name'),
             'useAlbums' => false,
             'groupId'   => (int)$this->get('groupId'),
             'canCreate' => $this->hasBlockOperation(

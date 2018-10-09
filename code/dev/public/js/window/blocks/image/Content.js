@@ -9,36 +9,7 @@
      * @type {Object}
      */
     ss.window.blocks.image.Content = function (options) {
-        var data = {};
-
-        if (options.groupId !== undefined) {
-            data = {
-                name: "image-content-group",
-                parent: "image-content",
-                level: 2
-            };
-        }
-
-        ss.window.Abstract.call(
-            this,
-            $.extend(
-                {},
-                {
-                    group: "image",
-                    controller: "content",
-                    data: {
-                        id: options.blockId
-                    },
-                    success: $.proxy(this._onLoadDataSuccess, this),
-                    name: "image-content"
-                },
-                data
-            )
-        );
-
-        this._blockId = options.blockId;
         this._groupContainer = null;
-        this._data = {};
     };
 
     /**
@@ -62,45 +33,29 @@
      * @private
      */
     ss.window.blocks.image.Content.prototype._onLoadDataSuccess = function (data) {
-        this._setData(data);
-
-        if (data.useAlbums === false) {
+        if (this.getData("useAlbums") === false) {
             this._setImages();
         } else {
             this._setAlbums();
         }
 
-        this
-            .setTitle(data.name)
-            .setSubmit(
-                {
-                    label: data.button.label,
-                    icon: "fas fa-save",
-                    ajax: {
+        this.setSubmit(
+            {
+                label: this.getLabel("button"),
+                icon: "fas fa-save",
+                ajax: {
+                    data: {
+                        group: "image",
+                        controller: "content",
                         data: {
-                            group: "image",
-                            controller: "content",
-                            data: {
-                                id: data.id
-                            }
-                        },
-                        type: "PUT",
-                        success: $.proxy(this._onSendSuccess, this)
-                    }
+                            id: this.getData("id")
+                        }
+                    },
+                    type: "PUT",
+                    success: $.proxy(this.onSendSuccess, this)
                 }
-            );
-    };
-
-    /**
-     * Sets labels
-     *
-     * @param {Object} data
-     *
-     * @private
-     */
-    ss.window.blocks.image.Content.prototype._setData = function (data) {
-        this._data = data;
-        return this;
+            }
+        );
     };
 
     /**
@@ -238,7 +193,7 @@
                             controller: "album",
                             data: {
                                 id: itemData.id,
-                                blockId: this._blockId
+                                blockId: this.getOption("blockId")
                             }
                         },
                         type: "DELETE",
@@ -321,8 +276,8 @@
     ss.window.blocks.image.Content.prototype._onSendSuccess = function () {
         this.remove();
 
-        if (this._blockId !== 0) {
-            new ss.content.block.Update([this._blockId]);
+        if (this.getOption("blockId") !== 0) {
+            new ss.content.block.Update([this.getOption("blockId")]);
         }
     };
 }(window.jQuery, window.ss);

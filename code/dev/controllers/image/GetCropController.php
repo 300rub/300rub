@@ -76,11 +76,11 @@ class GetCropController extends AbstractController
         }
 
         $data = [
+            'title'   => $language->getMessage('image', 'cropNoun'),
             'blockId' => $this->get('blockId'),
             'id'      => $this->get('id'),
             'labels'  => [
-                'title'       => $language->getMessage('image', 'cropNoun'),
-                'buttonLabel' => App::getInstance()
+                'button' => App::getInstance()
                     ->getLanguage()
                     ->getMessage('image', 'cropVerb')
             ],

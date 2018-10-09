@@ -55,6 +55,16 @@ ss.add(
         },
 
         /**
+         * Extends default options
+         *
+         * @param {Object} options
+         */
+        extendDefaultOptions: function(options) {
+            this.options = $.extend({}, options, this.options);
+            return this;
+        },
+
+        /**
          * Adds option
          *
          * @param {String} key
