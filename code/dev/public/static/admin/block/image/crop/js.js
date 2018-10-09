@@ -15,19 +15,27 @@ ss.add(
          */
         viewContainer: null,
 
+        /**
+         * View image
+         *
+         * @var {Object}
+         */
         viewImage: null,
 
         /**
          * Init
          */
         init: function() {
+            this.viewContainer = null;
+            this.viewImage = null;
+
             this.create(
                 {
                     group: "image",
                     controller: "crop",
                     data: {
                         blockId: this.getOption("blockId"),
-                        id: this.getOption("id"),
+                        id: this.getOption("id")
                     },
                     name: "image-crop"
                 }
@@ -45,8 +53,39 @@ ss.add(
                 .setViewFlip()
                 .setViewZoom()
                 .setViewAspectRatio()
-                .setViewReset()
-            ;
+                .setViewReset();
+
+            this.setSubmit(
+                {
+                    label: this.getLabel("button"),
+                    icon: "fas fa-crop-alt",
+                    ajax: {
+                        data: {
+                            group: "image",
+                            controller: "content",
+                            data: $.proxy(function() {
+                                return {
+                                    blockId: this.getData("blockId"),
+                                    id: this.getData("id"),
+                                    isCover: false,
+                                    x1: 0,
+                                    y1: 0,
+                                    x2: 0,
+                                    y2: 0,
+                                    thumbX1: 0,
+                                    thumbY1: 0,
+                                    thumbX2: 0,
+                                    thumbY2: 0,
+                                    angle: 0,
+                                    flip: 0
+                                };
+                            }, this)
+                        },
+                        type: "PUT",
+                        success: $.proxy(this.onSendSuccess, this)
+                    }
+                }
+            );
         },
 
         /**
@@ -83,6 +122,9 @@ ss.add(
             return this;
         },
 
+        /**
+         * Sets view rotate
+         */
         setViewRotate: function() {
             var rotateContainer = this.viewContainer.find(".rotate-container");
 
@@ -115,6 +157,9 @@ ss.add(
             return this;
         },
 
+        /**
+         * Sets view flip
+         */
         setViewFlip: function() {
             var flipContainer = this.viewContainer.find(".flip-container");
 
@@ -159,6 +204,9 @@ ss.add(
             return this;
         },
 
+        /**
+         * Sets view zoom
+         */
         setViewZoom: function() {
             var zoomContainer = this.viewContainer.find(".zoom-container");
 
@@ -191,9 +239,14 @@ ss.add(
             return this;
         },
 
+        /**
+         * Sets view aspect ratio
+         */
         setViewAspectRatio: function() {
-            var userAspectRatio = this.viewContainer.find(".user-aspect-container");
-            var defaultAspectRatio = this.viewContainer.find(".default-aspect-container");
+            var userAspectRatio
+                = this.viewContainer.find(".user-aspect-container");
+            var defaultAspectRatio
+                = this.viewContainer.find(".default-aspect-container");
 
             ss.init(
                 "commonComponentsFormButton",
@@ -270,6 +323,9 @@ ss.add(
             return this;
         },
 
+        /**
+         * Sets view reset
+         */
         setViewReset: function() {
             var resetContainer = this.viewContainer.find(".reset-container");
 
@@ -286,6 +342,15 @@ ss.add(
             );
 
             return this;
+        },
+
+        /**
+         * On send success
+         *
+         * @param {Object} data
+         */
+        onSendSuccess: function (data) {
+            console.log(data);
         }
     }
 );
