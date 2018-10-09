@@ -43,10 +43,9 @@ class GetResetEmailFormController extends AbstractController
                     'validation'
                         => $model->getValidationRulesForField('email')
                 ],
-                'button'     => [
-                    'label'
-                        => $language->getMessage('user', 'sendCode'),
-                ]
+            ],
+            'labels' => [
+                'button' => $language->getMessage('user', 'sendCode'),
             ]
         ];
     }

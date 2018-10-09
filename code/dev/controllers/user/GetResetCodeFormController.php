@@ -43,10 +43,9 @@ class GetResetCodeFormController extends AbstractController
                     'validation'
                         => $model->getValidationRulesForField('code')
                 ],
-                'button'     => [
-                    'label'
-                        => $language->getMessage('user', 'verifyCode'),
-                ]
+            ],
+            'labels' => [
+                'button' => $language->getMessage('user', 'verifyCode'),
             ]
         ];
     }
