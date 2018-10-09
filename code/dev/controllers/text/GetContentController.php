@@ -63,13 +63,15 @@ class GetContentController extends AbstractBlockController
             'name'      => $blockModel->get('name'),
             'type'      => $textModel->get('type'),
             'hasEditor' => $textModel->get('hasEditor'),
-            'text'      => [
-                'name'  => 'text',
-                'label' => $language->getMessage('text', 'text'),
-                'value' => $textInstanceModel->get('text'),
+            'forms'     => [
+                'text'      => [
+                    'name'  => 'text',
+                    'label' => $language->getMessage('text', 'text'),
+                    'value' => $textInstanceModel->get('text'),
+                ],
             ],
-            'button'    => [
-                'label' => $language->getMessage('common', 'update'),
+            'labels'    => [
+                'button' => $language->getMessage('common', 'update'),
             ]
         ];
     }

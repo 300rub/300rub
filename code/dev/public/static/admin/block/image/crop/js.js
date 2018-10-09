@@ -1,27 +1,291 @@
-/**
- * Abstract form
- */
 ss.add(
     "adminBlockImageCrop",
     {
+        /**
+         * Parent
+         *
+         * @var {String}
+         */
         parent: "commonComponentsWindowAbstract",
 
-        //parentOptions: {
-        //    group: "image",
-        //    controller: "crop",
-        //    //data: {
-        //    //    blockId: options.blockId,
-        //    //    id: options.id
-        //    //},
-        //    //success: $.proxy(this._onLoadDataSuccess, this),
-        //    name: "image-crop"
-        //},
+        /**
+         * Container
+         *
+         * @var {Object}
+         */
+        viewContainer: null,
+
+        viewImage: null,
 
         /**
          * Init
          */
         init: function() {
-            this._container = null;
+            this.create(
+                {
+                    group: "image",
+                    controller: "crop",
+                    data: {
+                        blockId: this.getOption("blockId"),
+                        id: this.getOption("id"),
+                    },
+                    name: "image-crop"
+                }
+            );
+        },
+
+        /**
+         * On load success
+         */
+        onLoadSuccess: function() {
+            this
+                .setContainers()
+                .setView()
+                .setViewRotate()
+                .setViewFlip()
+                .setViewZoom()
+                .setViewAspectRatio()
+                .setViewReset()
+            ;
+        },
+
+        /**
+         * Sets container
+         */
+        setContainers: function() {
+            this.viewContainer = ss.init("template").get("image-crop-container");
+            this.getBody().append(this.viewContainer);
+
+            return this;
+        },
+
+        setView: function() {
+            this.viewImage = this.viewContainer.find(".view-image");
+            this.viewImage.attr("src", this.getData("url"));
+
+            this.viewImage.cropper({
+                viewMode: 2,
+                preview: this.viewContainer.find(".preview"),
+                aspectRatio: 1,
+                autoCropArea: 1,
+                movable: false,
+                crop: function(event) {
+                    //console.log(event.detail.x);
+                    //console.log(event.detail.y);
+                    //console.log(event.detail.width);
+                    //console.log(event.detail.height);
+                    //console.log(event.detail.rotate);
+                    //console.log(event.detail.scaleX);
+                    //console.log(event.detail.scaleY);
+                }
+            });
+
+            return this;
+        },
+
+        setViewRotate: function() {
+            var rotateContainer = this.viewContainer.find(".rotate-container");
+
+            ss.init(
+                "commonComponentsFormButton",
+                {
+                    css: "btn btn-blue btn-icon",
+                    icon: "fas fa-undo",
+                    label: '',
+                    appendTo: rotateContainer,
+                    onClick: $.proxy(function() {
+                        this.viewImage.cropper("rotate", -45);
+                    }, this)
+                }
+            );
+
+            ss.init(
+                "commonComponentsFormButton",
+                {
+                    css: "btn btn-blue btn-icon",
+                    icon: "fas fa-redo",
+                    label: '',
+                    appendTo: rotateContainer,
+                    onClick: $.proxy(function() {
+                        this.viewImage.cropper("rotate", 45);
+                    }, this)
+                }
+            );
+
+            return this;
+        },
+
+        setViewFlip: function() {
+            var flipContainer = this.viewContainer.find(".flip-container");
+
+            ss.init(
+                "commonComponentsFormButton",
+                {
+                    css: "btn btn-blue btn-icon",
+                    icon: "fas fa-arrows-alt-h",
+                    label: '',
+                    appendTo: flipContainer,
+                    onClick: $.proxy(function() {
+                        if (flipContainer.hasClass("flipped-x") === true) {
+                            this.viewImage.cropper("scaleX", 1);
+                            flipContainer.removeClass("flipped-x");
+                        } else {
+                            this.viewImage.cropper("scaleX", -1);
+                            flipContainer.addClass("flipped-x");
+                        }
+                    }, this)
+                }
+            );
+
+            ss.init(
+                "commonComponentsFormButton",
+                {
+                    css: "btn btn-blue btn-icon",
+                    icon: "fas fa-arrows-alt-v",
+                    label: '',
+                    appendTo: flipContainer,
+                    onClick: $.proxy(function() {
+                        if (flipContainer.hasClass("flipped-y") === true) {
+                            this.viewImage.cropper("scaleY", 1);
+                            flipContainer.removeClass("flipped-y");
+                        } else {
+                            this.viewImage.cropper("scaleY",-1);
+                            flipContainer.addClass("flipped-y");
+                        }
+                    }, this)
+                }
+            );
+
+            return this;
+        },
+
+        setViewZoom: function() {
+            var zoomContainer = this.viewContainer.find(".zoom-container");
+
+            ss.init(
+                "commonComponentsFormButton",
+                {
+                    css: "btn btn-blue btn-icon",
+                    icon: "fas fa-search-plus",
+                    label: '',
+                    appendTo: zoomContainer,
+                    onClick: $.proxy(function() {
+                        this.viewImage.cropper("zoom", 0.1);
+                    }, this)
+                }
+            );
+
+            ss.init(
+                "commonComponentsFormButton",
+                {
+                    css: "btn btn-blue btn-icon",
+                    icon: "fas fa-search-minus",
+                    label: '',
+                    appendTo: zoomContainer,
+                    onClick: $.proxy(function() {
+                        this.viewImage.cropper("zoom", -0.1);
+                    }, this)
+                }
+            );
+
+            return this;
+        },
+
+        setViewAspectRatio: function() {
+            var userAspectRatio = this.viewContainer.find(".user-aspect-container");
+            var defaultAspectRatio = this.viewContainer.find(".default-aspect-container");
+
+            ss.init(
+                "commonComponentsFormButton",
+                {
+                    css: "btn btn-blue",
+                    label: "1024:200",
+                    appendTo: userAspectRatio,
+                    onClick: $.proxy(function() {
+                        this.viewImage.cropper("setAspectRatio", 1024 / 200);
+                    }, this)
+                }
+            );
+
+            ss.init(
+                "commonComponentsFormButton",
+                {
+                    css: "btn btn-blue",
+                    label: "Free",
+                    appendTo: userAspectRatio,
+                    onClick: $.proxy(function() {
+                        this.viewImage.cropper("setAspectRatio", NaN);
+                    }, this)
+                }
+            );
+
+            ss.init(
+                "commonComponentsFormButton",
+                {
+                    css: "btn btn-blue",
+                    label: "16:9",
+                    appendTo: defaultAspectRatio,
+                    onClick: $.proxy(function() {
+                        this.viewImage.cropper("setAspectRatio", 16 / 9);
+                    }, this)
+                }
+            );
+
+            ss.init(
+                "commonComponentsFormButton",
+                {
+                    css: "btn btn-blue",
+                    label: "4:3",
+                    appendTo: defaultAspectRatio,
+                    onClick: $.proxy(function() {
+                        this.viewImage.cropper("setAspectRatio", 4 / 3);
+                    }, this)
+                }
+            );
+
+            ss.init(
+                "commonComponentsFormButton",
+                {
+                    css: "btn btn-blue",
+                    label: "1:1",
+                    appendTo: defaultAspectRatio,
+                    onClick: $.proxy(function() {
+                        this.viewImage.cropper("setAspectRatio", 1);
+                    }, this)
+                }
+            );
+
+            ss.init(
+                "commonComponentsFormButton",
+                {
+                    css: "btn btn-blue",
+                    label: "2:3",
+                    appendTo: defaultAspectRatio,
+                    onClick: $.proxy(function() {
+                        this.viewImage.cropper("setAspectRatio", 2 / 3);
+                    }, this)
+                }
+            );
+
+            return this;
+        },
+
+        setViewReset: function() {
+            var resetContainer = this.viewContainer.find(".reset-container");
+
+            new ss.forms.Button(
+                {
+                    css: "btn btn-blue btn-icon",
+                    icon: "fas fa-retweet",
+                    label: "",
+                    appendTo: resetContainer,
+                    onClick: $.proxy(function() {
+                        this.viewImage.cropper("reset");
+                    }, this)
+                }
+            );
+
+            return this;
         }
     }
 );
