@@ -97,11 +97,10 @@ class GetCreateFormController extends AbstractController
                     'name'  => 'language',
                     'list'  => $languageList
                 ],
-                'button'     => [
-                    'label'
-                        => $language->getMessage('site', 'createSiteButton'),
-                ]
-            ]
+            ],
+            'labels' => [
+                'button' => $language->getMessage('site', 'createSiteButton'),
+            ],
         ];
     }
 }
