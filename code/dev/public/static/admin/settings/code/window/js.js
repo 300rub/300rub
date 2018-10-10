@@ -1,5 +1,5 @@
 ss.add(
-    "adminSettingsUserList",
+    "adminSettingsCodeWindow",
     {
         /**
          * Parent

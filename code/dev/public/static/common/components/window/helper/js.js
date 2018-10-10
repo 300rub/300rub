@@ -28,6 +28,12 @@ ss.add(
         /**
          * Init
          */
+        init: function() {
+        },
+
+        /**
+         * Init
+         */
         create: function(options) {
             this.window = null;
             this.body = null;
