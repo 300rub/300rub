@@ -1,6 +1,7 @@
-ss.add(
-    "adminBlockImageAlbums",
-    {
+!function ($, ss) {
+    "use strict";
+
+    ss.add("adminBlockImageAlbums", {
         /**
          * Default options
          *
@@ -30,7 +31,7 @@ ss.add(
                 hasOperation: false,
                 label: null
             },
-            delete: {
+            remove: {
                 hasOperation: false,
                 label: null,
                 confirm: {
@@ -167,23 +168,23 @@ ss.add(
                 );
             }
 
-            if (this.getOption(["delete", "hasOperation"]) === true) {
+            if (this.getOption(["remove", "hasOperation"]) === true) {
                 ss.init(
                     "commonComponentsFormButton",
                     {
                         css: "btn btn-red",
                         icon: "fas fa-trash",
-                        label: this.getOption(["delete", "label"]),
+                        label: this.getOption(["remove", "label"]),
                         appendTo: buttons,
                         confirm: {
-                            text: this.getOption(["delete", "confirm", "text"]),
+                            text: this.getOption(["remove", "confirm", "text"]),
                             yes: {
                                 label: this.getOption([
-                                    "delete", "confirm", "yes"]
+                                    "remove", "confirm", "yes"]
                                 ),
                                 icon: "fas fa-trash"
                             },
-                            no: this.getOption(["delete", "confirm", "no"])
+                            no: this.getOption(["remove", "confirm", "no"])
                         },
                         ajax: {
                             data: {
@@ -205,5 +206,5 @@ ss.add(
 
             return this;
         }
-    }
-);
+    });
+}(window.jQuery, window.ss);
