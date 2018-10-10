@@ -106,7 +106,7 @@ ss.add(
          * @param {Object} jqXHR
          */
         displayError: function (jqXHR) {
-            ss.init("error").displayAjaxError(jqXHR);
+            ss.init("commonComponentsError").displayAjaxError(jqXHR);
         },
 
         /**
