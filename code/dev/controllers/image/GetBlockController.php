@@ -78,6 +78,7 @@ class GetBlockController extends AbstractController
                 'configureThumbCrop'   => $language->getMessage('image', 'configureThumbCrop'),
                 'thumbCropProportions' => $language->getMessage('image', 'thumbCropProportions'),
                 'hasThumbAutoCrop'     => $language->getMessage('image', 'hasThumbAutoCrop'),
+                'button'               => $language->getMessage('common', $buttonLabelKey),
             ],
             'forms'       => [
                 'name'              => [
@@ -129,9 +130,6 @@ class GetBlockController extends AbstractController
                     'name'  => 'thumbAutoCropType',
                     'list'  => $this->_imageModel->getAutoCropTypeList()
                 ],
-                'button'            => [
-                    'label' => $language->getMessage('common', $buttonLabelKey),
-                ]
             ]
         ];
     }
