@@ -2,7 +2,7 @@
 <project name="code">
     <target name="code-phpcs" description="Check code with PHP Code Sniffer">
         <exec executable="./vendor/squizlabs/php_codesniffer/bin/phpcs" failonerror="false">
-            <arg value="--ignore=docker/,public/*/lib,vendor,config/,public/css,public/*.min.*,views/test" />
+            <arg value="--ignore=docker/,public/*/lib,vendor,config/,public/css,public/static/min/,views/test" />
             <arg value="--standard=config/code/phpcs/generic.xml,config/code/phpcs/pear.xml,config/code/phpcs/psr1.xml,config/code/phpcs/psr2.xml,config/code/phpcs/squiz.xml,config/code/phpcs/zend.xml" />
             <arg path="${path}" />
         </exec>
@@ -10,7 +10,7 @@
 
     <target name="code-phpcbf" description="Fixing code with PHP Code Sniffer">
         <exec executable="./vendor/squizlabs/php_codesniffer/bin/phpcbf" failonerror="false">
-            <arg value="--ignore=docker/,public/*/lib,vendor,config/,public/css,public/*.min.*,views/test" />
+            <arg value="--ignore=docker/,public/*/lib,vendor,config/,public/css,public/static/min/,views/test" />
             <arg value="--standard=config/code/phpcs/generic.xml,config/code/phpcs/pear.xml,config/code/phpcs/psr1.xml,config/code/phpcs/psr2.xml,config/code/phpcs/squiz.xml,config/code/phpcs/zend.xml" />
             <arg path="${path}" />
         </exec>
