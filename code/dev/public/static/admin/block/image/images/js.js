@@ -311,7 +311,8 @@ ss.add(
                 return this;
             }
 
-            new ss.components.Upload(
+            ss.init(
+                "adminComponentsUpload",
                 {
                     data: {
                         group: this.getOption(["create", "group"]),

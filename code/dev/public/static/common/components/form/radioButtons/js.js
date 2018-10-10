@@ -24,7 +24,10 @@ ss.add(
 
             var name = this.getOption("name");
             if (name === null) {
-                name = "radio" + ss.components.Library.getUniqueId();
+                name = "radio";
+                name += Math.round(
+                    new Date().getTime() + (Math.random() * 100)
+                );
             }
 
             var labelElement = this.getForm().find(".label-text");
