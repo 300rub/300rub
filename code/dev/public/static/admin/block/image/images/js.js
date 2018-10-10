@@ -103,7 +103,258 @@ ss.add(
             this.uploadCountAll = null;
             this.files = [];
 
-            this.extendDefaultOptions(this.defaultOptions);
+            this
+                .extendDefaultOptions(this.defaultOptions)
+                .createContainer()
+                .setUploadContainer()
+                .setList()
+                .setSortable();
+        },
+
+        /**
+         * Creates container
+         */
+        createContainer: function () {
+            this.container = ss.init("template").get("image-sort-container");
+
+            if (this.getOption("appendTo") !== null) {
+                this.container.appendTo(this.getOption("appendTo"));
+            }
+
+            return this;
+        },
+
+        /**
+         * Sets upload container
+         */
+        setUploadContainer: function () {
+            if (this.getOption(["create", "hasOperation"]) !== true) {
+                return this;
+            }
+
+            this.uploadContainer = ss.init("template").get("image-upload-container");
+            this.uploadForm = this.uploadContainer.find(".image-add-form");
+            this.uploadProgress = this.uploadContainer.find(".progress");
+            this.uploadCountCurrent = this.uploadContainer.find(".count-container .current");
+            this.uploadCountAll = this.uploadContainer.find(".count-container .all");
+
+            if (this.getOption(["create", "isSingleton"]) !== true) {
+                this.uploadForm.attr("multiple", true);
+            }
+
+            var t = this;
+            this.uploadForm.on("change", function () {
+                t.uploadFiles(this.files);
+            });
+
+            this.uploadContainer.appendTo(this.container);
+
+            return this;
+        },
+
+        /**
+         * Sets List
+         */
+        setList: function () {
+            $.each(this.getOption("list", []), $.proxy(function(i, data) {
+                this.addItem(data);
+            }, this));
+
+            return this;
+        },
+
+        /**
+         * Sets sortable
+         */
+        setSortable: function () {
+            if (this.getOption("isSortable") !== true) {
+                return this;
+            }
+
+            this.container.sortable(
+                {
+                    items: ".image-sort-item"
+                }
+            );
+
+            return this;
+        },
+
+        /**
+         * Adds item
+         *
+         * @param {Object} data
+         */
+        addItem: function (data) {
+            if (data.id === 0) {
+                return this;
+            }
+
+            var itemElement = ss.init("template").get("image-sort-item");
+            itemElement.find("img").attr("src", data.url);
+
+            var buttons = itemElement.find(".buttons");
+
+            if (this.getOption(["update", "hasOperation"]) !== true
+                && this.getOption(["delete", "hasOperation"]) !== true
+            ) {
+                buttons.remove();
+                return this;
+            }
+
+            if (this.getOption(["update", "hasOperation"]) === true) {
+                ss.init(
+                    "commonComponentsFormButton",
+                    {
+                        css: "btn btn-blue btn-small edit",
+                        icon: "fas fa-edit",
+                        label: '',
+                        appendTo: buttons,
+                        onClick: $.proxy(function() {
+                            //new ss.window.blocks.image.Crop(
+                            //    {
+                            //        blockId: this._options.update.blockId,
+                            //        id: data.id,
+                            //        level: this._options.update.level,
+                            //        parent: this._options.update.parent
+                            //    }
+                            //);
+                        }, this)
+                    }
+                );
+            }
+
+            if (this.getOption(["delete", "hasOperation"]) === true) {
+                ss.init(
+                    "commonComponentsFormButton",
+                    {
+                        css: "btn btn-red btn-small remove",
+                        icon: "fas fa-trash",
+                        label: '',
+                        appendTo: buttons,
+                        confirm: {
+                            text: this.getOption(["delete", "confirm", "text"]),
+                            yes: {
+                                label: this.getOption(["delete", "confirm", "yes"]),
+                                icon: "fas fa-trash"
+                            },
+                            no: this.getOption(["delete", "confirm", "no"]),
+                        },
+                        ajax: {
+                            data: {
+                                group: this.getOption(["delete", "group"]),
+                                controller: this.getOption(["delete", "controller"]),
+                                data: $.extend(
+                                    {},
+                                    this.getOption(["delete", "data"], {}),
+                                    {
+                                        id: data.id
+                                    }
+                                )
+                            },
+                            type: "DELETE",
+                            success: function () {
+                                itemElement.remove();
+                            }
+                        }
+                    }
+                );
+            }
+
+            this.container.append(itemElement);
+
+            return this;
+        },
+
+        /**
+         * Refreshes sortable
+         */
+        refreshSortable: function () {
+            if (this.getOption("isSortable") !== true) {
+                return this;
+            }
+
+            this.container.sortable("refresh");
+            return this;
+        },
+
+        /**
+         * Uploads files
+         *
+         * @param {Array} files
+         */
+        uploadFiles: function (files) {
+            this.files = files;
+            this.uploadProgress.css("width", 0);
+            this.uploadCountCurrent.text(0);
+            this.uploadCountAll.text(this.files.length);
+            this.uploadForm.attr("disabled", true);
+
+            this.container.addClass("loading");
+
+            this.uploadFile(0);
+
+            return this;
+        },
+
+        /**
+         * Uploads file
+         *
+         * @param {int} number
+         */
+        uploadFile: function (number) {
+            var file = this.files[number];
+
+            if (this.files[number] === undefined) {
+                this.container.removeClass("loading");
+                this.uploadForm.attr("disabled", false);
+                return this;
+            }
+
+            new ss.components.Upload(
+                {
+                    data: {
+                        group: this.getOption(["create", "group"]),
+                        controller: this.getOption(["create", "controller"]),
+                        data: this.getOption(["create", "data"], {})
+                    },
+                    file: file,
+                    success: $.proxy(function(data) {
+                        this
+                            .addItem(data)
+                            .refreshSortable();
+                    }, this),
+                    xhr: $.proxy(this.uploadXhr, this),
+                    complete: $.proxy(function() {
+                        this.uploadFile(number + 1);
+                        this.uploadCountCurrent.text(number + 1);
+                    }, this)
+                }
+            );
+
+            return this;
+        },
+
+        /**
+         * Upload XHR
+         */
+        uploadXhr: function () {
+            var myXhr = $.ajaxSettings.xhr();
+
+            myXhr.upload.addEventListener('progress', $.proxy(function (event) {
+                if (event.lengthComputable === false) {
+                    return false;
+                }
+
+                var filesPercent = Math.ceil(event.loaded / event.total * 100);
+                if (filesPercent > 98) {
+                    filesPercent = 98;
+                }
+
+                this.uploadProgress.css("width", filesPercent + "%");
+            }, this), false);
+
+            return myXhr;
         }
     }
 );
