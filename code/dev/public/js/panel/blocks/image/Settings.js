@@ -1,68 +1,7 @@
 !function ($, ss) {
     'use strict';
 
-    /**
-     * Block text settings panel
-     *
-     * @param {int} blockId
-     *
-     * @type {Object}
-     */
-    ss.panel.blocks.image.Settings = function (blockId) {
-        if (blockId === undefined) {
-            blockId = 0;
-        }
-
-        ss.panel.Abstract.call(
-            this,
-            {
-                group: "image",
-                controller: "block",
-                data: {
-                    id: blockId
-                },
-                success: $.proxy(this._onLoadDataSuccess, this)
-            }
-        );
-
-        this._container = null;
-        this._blockId = blockId;
-        this._formData = {};
-        this._forms = {};
-        this._labels = {};
-    };
-
-    /**
-     * Prototype
-     *
-     * @type {Object}
-     */
-    ss.panel.blocks.image.Settings.prototype
-        = Object.create(ss.panel.Abstract.prototype);
-
-    /**
-     * Constructor
-     */
-    ss.panel.blocks.image.Settings.prototype.constructor
-        = ss.panel.blocks.image.Settings;
-
-    /**
-     * Auto crop data
-     *
-     * @type {Array}
-     */
-    ss.panel.blocks.image.Settings.prototype.autoCropData = [
-        {value: 1, icon: "fas fa-arrow-right", css: "deg-45"},
-        {value: 2, icon: "fas fa-arrow-down"},
-        {value: 3, icon: "fas fa-arrow-down", css: "deg-45"},
-        {value: 4, icon: "fas fa-arrow-right"},
-        {value: 5, icon: "fas fa-arrows-alt"},
-        {value: 6, icon: "fas fa-arrow-left"},
-        {value: 7, icon: "fas fa-arrow-up", css: "deg-45"},
-        {value: 8, icon: "fas fa-arrow-up"},
-        {value: 9, icon: "fas fa-arrow-left", css: "deg-45"}
-    ];
-
+    
     /**
      * On load window success
      *
@@ -70,92 +9,39 @@
      *
      * @private
      */
-    ss.panel.blocks.image.Settings.prototype._onLoadDataSuccess = function (
+    ss.panel.blocks.image.Settings.prototype.onLoadDataSuccess = function (
         data
     ) {
-        var type = "PUT";
-        var icon = "fas fa-save";
-        if (data.id === 0) {
-            type = "POST";
-            icon = "fas fa-plus";
-        }
+
 
         this
-            .setTitle(data.title)
-            .setDescription(data.description)
-            ._setContainer()
-            ._setLabels(data.labels)
-            ._setFormData(data.forms)
-            ._setButtons()
-            ._setName()
-            ._setType()
-            ._setUseAlbums()
-            ._setConfigureCrop()
-            ._setCropProportions()
-            ._setAutoCrop()
-            ._setThumbCropProportions()
-            ._setThumbAutoCrop()
-            .setBack(
-                function () {
-                    new ss.panel.blocks.image.List();
-                }
-            )
+            .setButtons()
+            .setName()
+            .setType()
+            .setUseAlbums()
+            .setConfigureCrop()
+            .setCropProportions()
+            .setAutoCrop()
+            .setThumbCropProportions()
+            .setThumbAutoCrop()
             .setSubmit(
                 {
                     label: data.forms.button.label,
                     icon: icon,
-                    forms: this._forms,
+                    forms: this.forms,
                     ajax: {
                         data: {
                             group: "image",
                             controller: "block",
                             data: {
-                                id: this._blockId
+                                id: this.getOption("blockId", 0)
                             }
                         },
                         type: type,
-                        success: $.proxy(this._onSendDataSuccess, this)
+                        success: $.proxy(this.onSendSuccess, this)
                     }
                 }
             );
-    };
-
-    /**
-     * Sets container
-     *
-     * @returns {ss.panel.blocks.image.Settings}
-     *
-     * @private
-     */
-    ss.panel.blocks.image.Settings.prototype._setContainer = function () {
-        this._container = ss.components.Template.get("image-settings-container");
-        this._container.appendTo(this.getBody());
-
-        return this;
-    };
-
-    /**
-     * Sets labels
-     *
-     * @returns {ss.panel.blocks.image.Settings}
-     *
-     * @private
-     */
-    ss.panel.blocks.image.Settings.prototype._setLabels = function (labels) {
-        this._labels = labels;
-        return this;
-    };
-
-    /**
-     * Sets form data
-     *
-     * @returns {ss.panel.blocks.image.Settings}
-     *
-     * @private
-     */
-    ss.panel.blocks.image.Settings.prototype._setFormData = function (forms) {
-        this._formData = forms;
-        return this;
     };
 
     /**
@@ -165,13 +51,13 @@
      *
      * @private
      */
-    ss.panel.blocks.image.Settings.prototype._setName = function () {
-        this._forms.name = new ss.forms.Text(
+    ss.panel.blocks.image.Settings.prototype.setName = function () {
+        this.forms.name = new ss.forms.Text(
             $.extend(
                 {},
-                this._formData.name,
+                this.getData(["forms", "name"], {}),
                 {
-                    appendTo: this._container
+                    appendTo: this.container
                 }
             )
         );
@@ -186,23 +72,23 @@
      *
      * @private
      */
-    ss.panel.blocks.image.Settings.prototype._setType = function () {
-        if (this._formData.type.value === 0) {
-            this._container.addClass("zoom");
+    ss.panel.blocks.image.Settings.prototype.setType = function () {
+        if (this.getData(["forms", "type", "value"], 0) === 0) {
+            this.container.addClass("zoom");
         }
 
-        this._forms.type = new ss.forms.Select(
+        this.forms.type = new ss.forms.Select(
             $.extend(
                 {},
-                this._formData.type,
+                this.getData(["forms", "type"], {}),
                 {
-                    appendTo: this._container,
+                    appendTo: this.container,
                     type: "int",
                     onChange: $.proxy(function (value) {
                         if (value === 0) {
-                            this._container.addClass("zoom");
+                            this.container.addClass("zoom");
                         } else {
-                            this._container.removeClass("zoom");
+                            this.container.removeClass("zoom");
                         }
                     }, this)
                 }
@@ -219,13 +105,13 @@
      *
      * @private
      */
-    ss.panel.blocks.image.Settings.prototype._setUseAlbums = function () {
-        this._forms.useAlbums = new ss.forms.CheckboxOnOff(
+    ss.panel.blocks.image.Settings.prototype.setUseAlbums = function () {
+        this.forms.useAlbums = new ss.forms.CheckboxOnOff(
             $.extend(
                 {},
-                this._formData.useAlbums,
+                this.getData(["forms", "useAlbums"], {}),
                 {
-                    appendTo: this._container
+                    appendTo: this.container
                 }
             )
         );
@@ -240,32 +126,32 @@
      *
      * @private
      */
-    ss.panel.blocks.image.Settings.prototype._setConfigureCrop = function () {
+    ss.panel.blocks.image.Settings.prototype.setConfigureCrop = function () {
         var useCrop = false;
-        if ((this._formData.cropX.value > 0
-            && this._formData.cropY.value > 0)
-            || (this._formData.thumbCropX.value > 0
-            && this._formData.thumbCropY.value > 0)
+        if ((this.getData(["forms", "cropX", "value"], 0) > 0
+            && this.getData(["forms", "cropY", "value"], 0) > 0)
+            || (this.getData(["forms", "thumbCropX", "value"], 0) > 0
+            && this.getData(["forms", "thumbCropY", "value"], 0) > 0)
         ) {
             useCrop = true;
-            this._container.addClass("use-crop");
+            this.container.addClass("use-crop");
         }
 
         new ss.forms.CheckboxOnOff(
             {
                 value: useCrop,
-                label: this._labels.configureCrop,
-                appendTo: this._container,
+                label: this.getLabel("configureCrop"),
+                appendTo: this.container,
                 onCheck: $.proxy(function() {
-                    this._container.addClass("use-crop");
+                    this.container.addClass("use-crop");
                 }, this),
                 onUnCheck: $.proxy(function() {
-                    this._container.removeClass("use-crop");
+                    this.container.removeClass("use-crop");
 
-                    this._forms.cropX.setValue(0);
-                    this._forms.cropY.setValue(0);
-                    this._forms.thumbCropX.setValue(0);
-                    this._forms.thumbCropY.setValue(0);
+                    this.forms.cropX.setValue(0);
+                    this.forms.cropY.setValue(0);
+                    this.forms.thumbCropX.setValue(0);
+                    this.forms.thumbCropY.setValue(0);
                 }, this)
             }
         );
@@ -280,14 +166,14 @@
      *
      * @private
      */
-    ss.panel.blocks.image.Settings.prototype._setCropProportions = function () {
+    ss.panel.blocks.image.Settings.prototype.setCropProportions = function () {
         var cropContainer = ss.components.Template.get("image-settings-crop-container");
-        cropContainer.find(".label-text").text(this._labels.cropProportions);
+        cropContainer.find(".label-text").text(this.getLabel("cropProportions"));
 
-        this._forms.cropX = new ss.forms.Spinner(
+        this.forms.cropX = new ss.forms.Spinner(
             $.extend(
                 {},
-                this._formData.cropX,
+                this.getData(["forms", "cropX"], {}),
                 {
                     appendTo: cropContainer.find(".crop-x"),
                     min: 0
@@ -295,10 +181,10 @@
             )
         );
 
-        this._forms.cropY = new ss.forms.Spinner(
+        this.forms.cropY = new ss.forms.Spinner(
             $.extend(
                 {},
-                this._formData.cropY,
+                this.getData(["forms", "cropY"], {}),
                 {
                     appendTo: cropContainer.find(".crop-y"),
                     min: 0
@@ -306,7 +192,7 @@
             )
         );
 
-        this._container.append(cropContainer);
+        this.container.append(cropContainer);
 
         return this;
     };
@@ -318,40 +204,40 @@
      *
      * @private
      */
-    ss.panel.blocks.image.Settings.prototype._setAutoCrop = function () {
+    ss.panel.blocks.image.Settings.prototype.setAutoCrop = function () {
         var hasAutoCrop = false;
-        if (this._formData.autoCropType.value > 0) {
+        if (this.getData(["forms", "autoCropType", "value"], 0) > 0) {
             hasAutoCrop = true;
-            this._container.addClass("auto-crop");
+            this.container.addClass("auto-crop");
         }
 
         new ss.forms.CheckboxOnOff(
             {
                 value: hasAutoCrop,
-                label: this._labels.hasAutoCrop,
+                label: this.getLabel("hasAutoCrop"),
                 css: "auto-crop-container",
-                appendTo: this._container,
+                appendTo: this.container,
                 onCheck: $.proxy(function() {
-                    this._container.addClass("auto-crop");
-                    this._forms.autoCropType.setValue(5);
+                    this.container.addClass("auto-crop");
+                    this.forms.autoCropType.setValue(5);
                 }, this),
                 onUnCheck: $.proxy(function() {
-                    this._container.removeClass("auto-crop");
-                    this._forms.autoCropType.setValue(0);
+                    this.container.removeClass("auto-crop");
+                    this.forms.autoCropType.setValue(0);
                 }, this)
             }
         );
 
-        this._forms.autoCropType = new ss.forms.RadioButtons(
+        this.forms.autoCropType = new ss.forms.RadioButtons(
             $.extend(
                 {},
-                this._formData.autoCropType,
+                this.getData(["forms", "autoCropType"], {}),
                 {
                     css: "auto-crop-type icon-buttons big",
                     grid: 3,
                     type: "int",
                     data: this.autoCropData,
-                    appendTo: this._container
+                    appendTo: this.container
                 }
             )
         );
@@ -366,17 +252,17 @@
      *
      * @private
      */
-    ss.panel.blocks.image.Settings.prototype._setThumbCropProportions = function () {
+    ss.panel.blocks.image.Settings.prototype.setThumbCropProportions = function () {
         var thumbCropContainer = ss.components.Template.get("image-settings-crop-container");
 
         thumbCropContainer.removeClass("image-settings-crop-container");
         thumbCropContainer.addClass("image-settings-thumb-crop-container");
-        thumbCropContainer.find(".label-text").text(this._labels.thumbCropProportions);
+        thumbCropContainer.find(".label-text").text(this.getLabel("thumbCropProportions"));
 
-        this._forms.thumbCropX = new ss.forms.Spinner(
+        this.forms.thumbCropX = new ss.forms.Spinner(
             $.extend(
                 {},
-                this._formData.thumbCropX,
+                this.getData(["forms", "thumbCropX"], {}),
                 {
                     appendTo: thumbCropContainer.find(".crop-x"),
                     min: 0
@@ -384,10 +270,10 @@
             )
         );
 
-        this._forms.thumbCropY =new ss.forms.Spinner(
+        this.forms.thumbCropY =new ss.forms.Spinner(
             $.extend(
                 {},
-                this._formData.thumbCropY,
+                this.getData(["forms", "thumbCropY"], {}),
                 {
                     appendTo: thumbCropContainer.find(".crop-y"),
                     min: 0
@@ -395,7 +281,7 @@
             )
         );
 
-        this._container.append(thumbCropContainer);
+        this.container.append(thumbCropContainer);
 
         return this;
     };
@@ -409,39 +295,39 @@
      *
      * @private
      */
-    ss.panel.blocks.image.Settings.prototype._setThumbAutoCrop = function (forms) {
+    ss.panel.blocks.image.Settings.prototype.setThumbAutoCrop = function (forms) {
         var hasThumbAutoCrop = false;
-        if (this._formData.thumbAutoCropType.value > 0) {
+        if (this.getData(["forms", "thumbAutoCropType", "value"], 0) > 0) {
             hasThumbAutoCrop = true;
-            this._container.addClass("thumb-auto-crop");
+            this.container.addClass("thumb-auto-crop");
         }
 
         new ss.forms.CheckboxOnOff(
             {
                 value: hasThumbAutoCrop,
-                label: this._labels.hasThumbAutoCrop,
+                label: this.getLabel("hasThumbAutoCrop"),
                 css: "thumb-auto-crop-container",
-                appendTo: this._container,
+                appendTo: this.container,
                 onCheck: $.proxy(function() {
-                    this._container.addClass("thumb-auto-crop");
-                    this._forms.thumbAutoCropType.setValue(5);
+                    this.container.addClass("thumb-auto-crop");
+                    this.forms.thumbAutoCropType.setValue(5);
                 }, this),
                 onUnCheck: $.proxy(function() {
-                    this._container.removeClass("thumb-auto-crop");
-                    this._forms.thumbAutoCropType.setValue(0);
+                    this.container.removeClass("thumb-auto-crop");
+                    this.forms.thumbAutoCropType.setValue(0);
                 }, this)
             }
         );
 
-        this._forms.thumbAutoCropType = new ss.forms.RadioButtons(
+        this.forms.thumbAutoCropType = new ss.forms.RadioButtons(
             $.extend(
                 {},
-                this._formData.thumbAutoCropType,
+                this.getData(["forms", "thumbAutoCropType"], {}),
                 {
                     css: "thumb-auto-crop-type icon-buttons big",
                     grid: 3,
                     data: this.autoCropData,
-                    appendTo: this._container
+                    appendTo: this.container
                 }
             )
         );
@@ -456,15 +342,15 @@
      *
      * @private
      */
-    ss.panel.blocks.image.Settings.prototype._setButtons = function () {
-        if (this._blockId === 0) {
+    ss.panel.blocks.image.Settings.prototype.setButtons = function () {
+        if (this.getOption("blockId", 0) === 0) {
             return this;
         }
 
         return this
             .addHeaderButton(
                 {
-                    label: this._labels.duplicate,
+                    label: this.getLabel("duplicate"),
                     icon: "fas fa-clone",
                     css: "btn btn-gray btn-small",
                     ajax: {
@@ -472,7 +358,7 @@
                             group: "image",
                             controller: "blockDuplication",
                             data: {
-                                id: this._blockId
+                                id: this.getOption("blockId", 0)
                             }
                         },
                         type: "POST",
@@ -484,29 +370,29 @@
             )
             .addHeaderButton(
                 {
-                    label: this._labels.delete,
+                    label: this.getLabel("delete"),
                     icon: "fas fa-trash",
                     css: "btn btn-red btn-small",
                     confirm: {
-                        text: this._labels.deleteConfirmText,
+                        text: this.getLabel("deleteConfirmText"),
                         yes: {
-                            label: this._labels.delete,
+                            label: this.getLabel("delete"),
                             icon: "fas fa-trash"
                         },
-                        no: this._labels.no
+                        no: this.getLabel("no")
                     },
                     ajax: {
                         data: {
                             group: "image",
                             controller: "block",
                             data: {
-                                id: this._blockId
+                                id: this.getOption("blockId", 0)
                             }
                         },
                         type: "DELETE",
                         success: $.proxy(function() {
                             new ss.panel.blocks.image.List();
-                            new ss.content.block.Delete([this._blockId]);
+                            new ss.content.block.Delete([this.getOption("blockId", 0)]);
                         }, this)
                     }
                 }
@@ -520,21 +406,21 @@
      *
      * @private
      */
-    ss.panel.blocks.image.Settings.prototype._onSendDataSuccess = function (
+    ss.panel.blocks.image.Settings.prototype.onSendSuccess = function (
         data
     ) {
         if ($.type(data.errors) === "object"
             && data.errors.name !== undefined
         ) {
-            this._forms.name
+            this.forms.name
                 .setError(data.errors.name)
                 .scrollTo()
                 .focus();
         } else {
-            if (this._blockId === 0) {
-                ss.system.App.setIsBlockSection(false);
+            if (this.getOption("blockId", 0) === 0) {
+                ss.init("app").setIsBlockSection(false);
             } else {
-                new ss.content.block.Update([this._blockId]);
+                new ss.content.block.Update([this.getOption("blockId", 0)]);
             }
 
             new ss.panel.blocks.image.List();
