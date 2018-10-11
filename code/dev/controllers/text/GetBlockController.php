@@ -81,6 +81,7 @@ class GetBlockController extends AbstractBlockController
                 'delete'            => $language->getMessage('common', 'delete'),
                 'deleteConfirmText' => $language->getMessage('text', 'deleteConfirmText'),
                 'no'                => $language->getMessage('common', 'no'),
+                'button'            => $language->getMessage('common', $buttonKey),
             ],
             'forms'       => [
                 'name'      => [
@@ -101,9 +102,6 @@ class GetBlockController extends AbstractBlockController
                     'label' => $language->getMessage('text', 'hasEditor'),
                     'value' => $hasEditor,
                 ],
-                'button'    => [
-                    'label' => $language->getMessage('common', $buttonKey),
-                ]
             ]
         ];
     }
