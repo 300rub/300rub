@@ -61,6 +61,7 @@ class GetSectionController extends AbstractController
                 'delete'            => $language->getMessage('common', 'delete'),
                 'deleteConfirmText' => $language->getMessage('section', 'deleteConfirmText'),
                 'no'                => $language->getMessage('common', 'no'),
+                'button'            => $language->getMessage('common', $buttonKey),
             ],
             'forms'       => [
                 'name'  => [
@@ -113,9 +114,6 @@ class GetSectionController extends AbstractController
                     'label' => $language->getMessage('common', 'published'),
                     'value' => $sectionModel->get('isPublished'),
                 ],
-                'button'    => [
-                    'label' => $language->getMessage('common', $buttonKey),
-                ]
             ]
         ];
     }
