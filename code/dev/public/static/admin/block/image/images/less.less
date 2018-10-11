@@ -1,25 +1,25 @@
 @import "../../../../common/components/window/abstract/less";
 
 .image-sort-container {
-  overflow: hidden;
   min-height: 120px;
+  overflow: hidden;
 
   .image-upload-container,
   .image-sort-item {
     .border-radius(4px);
-    width: 120px;
-    height: 120px;
-    float: left;
-    text-align: center;
-    overflow: hidden;
     border: 1px solid @grayBorderColor;
+    float: left;
+    height: 120px;
     margin: 10px;
+    overflow: hidden;
     position: relative;
+    text-align: center;
+    width: 120px;
   }
 
   .image-sort-item {
-    cursor: move;
     background: white;
+    cursor: move;
 
     img {
       height: 100%;
@@ -27,21 +27,21 @@
 
     .buttons {
       .transition(opacity);
-      position: absolute;
-      left: 0;
-      width: 100%;
       bottom: 0;
       height: 40px;
+      left: 0;
       opacity: 0;
+      position: absolute;
+      width: 100%;
 
       .background {
         .transition(height);
-        position: absolute;
-        left: 0;
+        background: rgba(255, 255, 255, 0.8);
         bottom: 0;
-        width: 100%;
         height: 0;
-        background: rgba(255, 255, 255, .8);
+        left: 0;
+        position: absolute;
+        width: 100%;
         z-index: 10;
       }
 
@@ -49,19 +49,19 @@
       .remove {
         .transition(font-size);
         color: white;
-        z-index: 20;
-        position: absolute;
-        top: 5px;
-        left: 50%;
-        width: 30px;
         height: 30px;
+        left: 50%;
         line-height: 30px;
-        text-align: center;
         padding: 0;
+        position: absolute;
+        text-align: center;
+        top: 5px;
+        width: 30px;
+        z-index: 20;
 
         .icons {
-          width: 100%;
           margin: 0;
+          width: 100%;
         }
       }
 
@@ -87,39 +87,39 @@
 
   .image-upload-container {
     .transition(background-color);
-    float: left;
     background-color: white;
+    float: left;
 
     .progress {
       .transition(width);
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 0;
-      height: 10px;
       background: @blueBackground;
       display: none;
+      height: 10px;
+      left: 0;
+      position: absolute;
+      top: 0;
+      width: 0;
     }
 
     .count-container {
       .transition(opacity);
-      position: absolute;
-      top: 20px;
       left: 0;
-      width: 100%;
-      text-align: center;
       opacity: 0;
+      position: absolute;
+      text-align: center;
+      top: 20px;
+      width: 100%;
     }
 
     .icons {
-      line-height: 30px;
-      position: absolute;
-      top: 50%;
-      margin-top: -15px;
-      left: 0;
-      width: 100%;
-      text-align: center;
       font-size: 24px;
+      left: 0;
+      line-height: 30px;
+      margin-top: -15px;
+      position: absolute;
+      text-align: center;
+      top: 50%;
+      width: 100%;
 
       .fa-camera {
         display: inline-block;
@@ -131,14 +131,14 @@
     }
 
     .image-add-form {
+      cursor: pointer;
+      height: 100%;
+      left: 0;
       opacity: 0;
       position: absolute;
-      left: 0;
       top: 0;
       width: 100%;
-      height: 100%;
       z-index: 10;
-      cursor: pointer;
     }
 
     &:hover {

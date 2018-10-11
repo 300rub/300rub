@@ -1,6 +1,9 @@
-ss.add(
-    "adminBlockImageContent",
-    {
+!function ($, ss) {
+    "use strict";
+
+    var name = "adminBlockImageContent";
+
+    var parameters = {
         /**
          * Parent
          *
@@ -11,7 +14,7 @@ ss.add(
         /**
          * Init
          */
-        init: function() {
+        init: function () {
             var data = {};
             if (this.getOption("groupId") !== null) {
                 data = {
@@ -40,7 +43,7 @@ ss.add(
         /**
          * On load success
          */
-        onLoadSuccess: function() {
+        onLoadSuccess: function () {
             if (this.getData("useAlbums") === false) {
                 this.setImages();
             } else {
@@ -92,7 +95,7 @@ ss.add(
                         level: 2,
                         parent: "image-content"
                     },
-                    delete: {
+                    remove: {
                         hasOperation: this.getData("canDelete"),
                         group: "image",
                         controller: "image",
@@ -113,7 +116,6 @@ ss.add(
          * Sets albums
          */
         setAlbums: function () {
-            //
         },
 
         /**
@@ -133,5 +135,7 @@ ss.add(
                 );
             }
         }
-    }
-);
+    };
+
+    ss.add(name, parameters);
+}(window.jQuery, window.ss);

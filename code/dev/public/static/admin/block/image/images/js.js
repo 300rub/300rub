@@ -1,6 +1,9 @@
-ss.add(
-    "adminBlockImageImages",
-    {
+!function ($, ss) {
+    "use strict";
+
+    var name = "adminBlockImageImages";
+
+    var parameters = {
         /**
          * Default options
          *
@@ -10,11 +13,7 @@ ss.add(
             appendTo: null,
             isSortable: false,
             list: [
-                {
-                    id: 0,
-                    url: "",
-                    name: ""
-                }
+                {id: 0, url: "", name: ""}
             ],
             create: {
                 hasOperation: false,
@@ -29,7 +28,7 @@ ss.add(
                 level: 2,
                 parent: ""
             },
-            delete: {
+            remove: {
                 hasOperation: false,
                 group: "",
                 controller: "",
@@ -115,7 +114,8 @@ ss.add(
          * Creates container
          */
         createContainer: function () {
-            this.container = ss.init("template").get("image-sort-container");
+            this.container
+                = ss.init("template", {}).get("image-sort-container");
 
             if (this.getOption("appendTo") !== null) {
                 this.container.appendTo(this.getOption("appendTo"));
@@ -132,20 +132,26 @@ ss.add(
                 return this;
             }
 
-            this.uploadContainer = ss.init("template").get("image-upload-container");
+            this.uploadContainer
+                = ss.init("template", {}).get("image-upload-container");
             this.uploadForm = this.uploadContainer.find(".image-add-form");
             this.uploadProgress = this.uploadContainer.find(".progress");
-            this.uploadCountCurrent = this.uploadContainer.find(".count-container .current");
-            this.uploadCountAll = this.uploadContainer.find(".count-container .all");
+            this.uploadCountCurrent
+                = this.uploadContainer.find(".count-container .current");
+            this.uploadCountAll
+                = this.uploadContainer.find(".count-container .all");
 
             if (this.getOption(["create", "isSingleton"]) !== true) {
                 this.uploadForm.attr("multiple", true);
             }
 
             var t = this;
-            this.uploadForm.on("change", function () {
-                t.uploadFiles(this.files);
-            });
+            this.uploadForm.on(
+                "change",
+                function () {
+                    t.uploadFiles(this.files);
+                }
+            );
 
             this.uploadContainer.appendTo(this.container);
 
@@ -156,9 +162,15 @@ ss.add(
          * Sets List
          */
         setList: function () {
-            $.each(this.getOption("list", []), $.proxy(function(i, data) {
-                this.addItem(data);
-            }, this));
+            $.each(
+                this.getOption("list", []),
+                $.proxy(
+                    function (i, data) {
+                        this.addItem(data);
+                    },
+                    this
+                )
+            );
 
             return this;
         },
@@ -190,19 +202,27 @@ ss.add(
                 return this;
             }
 
-            var itemElement = ss.init("template").get("image-sort-item");
+            var itemElement
+                = ss.init("template", {}).get("image-sort-item");
             itemElement.find("img").attr("src", data.url);
 
             var buttons = itemElement.find(".buttons");
 
             if (this.getOption(["update", "hasOperation"]) !== true
-                && this.getOption(["delete", "hasOperation"]) !== true
+                && this.getOption(["remove", "hasOperation"]) !== true
             ) {
                 buttons.remove();
                 return this;
             }
 
             if (this.getOption(["update", "hasOperation"]) === true) {
+                var updateOptions = {
+                    blockId: this.getOption(["update", "blockId"]),
+                    id: data.id,
+                    level: this.getOption(["update", "level"]),
+                    parent: this.getOption(["update", "parent"])
+                };
+
                 ss.init(
                     "commonComponentsFormButton",
                     {
@@ -210,21 +230,17 @@ ss.add(
                         icon: "fas fa-edit",
                         label: '',
                         appendTo: buttons,
-                        onClick: $.proxy(function() {
-                            //new ss.window.blocks.image.Crop(
-                            //    {
-                            //        blockId: this._options.update.blockId,
-                            //        id: data.id,
-                            //        level: this._options.update.level,
-                            //        parent: this._options.update.parent
-                            //    }
-                            //);
-                        }, this)
+                        onClick: $.proxy(
+                            function () {
+                                ss.init("adminBlockImageCrop", updateOptions);
+                            },
+                            this
+                        )
                     }
                 );
             }
 
-            if (this.getOption(["delete", "hasOperation"]) === true) {
+            if (this.getOption(["remove", "hasOperation"]) === true) {
                 ss.init(
                     "commonComponentsFormButton",
                     {
@@ -233,24 +249,28 @@ ss.add(
                         label: '',
                         appendTo: buttons,
                         confirm: {
-                            text: this.getOption(["delete", "confirm", "text"]),
+                            text: this.getOption(["remove", "confirm", "text"]),
                             yes: {
-                                label: this.getOption(["delete", "confirm", "yes"]),
-                                icon: "fas fa-trash"
+                                label: this.getOption(
+                                    ["remove", "confirm", "yes"]
+                                ),
+                            icon: "fas fa-trash"
                             },
-                            no: this.getOption(["delete", "confirm", "no"]),
+                            no: this.getOption(["remove", "confirm", "no"])
                         },
                         ajax: {
                             data: {
-                                group: this.getOption(["delete", "group"]),
-                                controller: this.getOption(["delete", "controller"]),
-                                data: $.extend(
-                                    {},
-                                    this.getOption(["delete", "data"], {}),
-                                    {
-                                        id: data.id
+                                group: this.getOption(["remove", "group"]),
+                                controller: this.getOption(
+                                    ["remove", "controller"]
+                                ),
+                            data: $.extend(
+                                {},
+                                this.getOption(["remove", "data"], {}),
+                                {
+                                    id: data.id
                                     }
-                                )
+                            )
                             },
                             type: "DELETE",
                             success: function () {
@@ -320,16 +340,22 @@ ss.add(
                         data: this.getOption(["create", "data"], {})
                     },
                     file: file,
-                    success: $.proxy(function(data) {
-                        this
+                    success: $.proxy(
+                        function (data) {
+                            this
                             .addItem(data)
                             .refreshSortable();
-                    }, this),
-                    xhr: $.proxy(this.uploadXhr, this),
-                    complete: $.proxy(function() {
-                        this.uploadFile(number + 1);
-                        this.uploadCountCurrent.text(number + 1);
-                    }, this)
+                        },
+                        this
+                    ),
+                xhr: $.proxy(this.uploadXhr, this),
+                complete: $.proxy(
+                    function () {
+                            this.uploadFile(number + 1);
+                            this.uploadCountCurrent.text(number + 1);
+                    },
+                    this
+                )
                 }
             );
 
@@ -342,20 +368,30 @@ ss.add(
         uploadXhr: function () {
             var myXhr = $.ajaxSettings.xhr();
 
-            myXhr.upload.addEventListener('progress', $.proxy(function (event) {
-                if (event.lengthComputable === false) {
-                    return false;
-                }
+            myXhr.upload.addEventListener(
+                'progress',
+                $.proxy(
+                    function (event) {
+                        if (event.lengthComputable === false) {
+                            return false;
+                        }
 
-                var filesPercent = Math.ceil(event.loaded / event.total * 100);
-                if (filesPercent > 98) {
-                    filesPercent = 98;
-                }
+                        var filesPercent
+                            = Math.ceil(event.loaded / event.total * 100);
+                        if (filesPercent > 98) {
+                            filesPercent = 98;
+                        }
 
-                this.uploadProgress.css("width", filesPercent + "%");
-            }, this), false);
+                        this.uploadProgress.css("width", filesPercent + "%");
+                    },
+                    this
+                ),
+                false
+            );
 
             return myXhr;
         }
-    }
-);
+    };
+
+    ss.add(name, parameters);
+}(window.jQuery, window.ss);

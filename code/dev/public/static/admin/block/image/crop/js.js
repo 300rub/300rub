@@ -1,6 +1,9 @@
-ss.add(
-    "adminBlockImageCrop",
-    {
+!function ($, ss) {
+    "use strict";
+
+    var name = "adminBlockImageCrop";
+
+    var parameters = {
         /**
          * Parent
          *
@@ -25,7 +28,7 @@ ss.add(
         /**
          * Init
          */
-        init: function() {
+        init: function () {
             this.viewContainer = null;
             this.viewImage = null;
 
@@ -45,7 +48,7 @@ ss.add(
         /**
          * On load success
          */
-        onLoadSuccess: function() {
+        onLoadSuccess: function () {
             this
                 .setContainers()
                 .setView()
@@ -63,23 +66,26 @@ ss.add(
                         data: {
                             group: "image",
                             controller: "content",
-                            data: $.proxy(function() {
-                                return {
-                                    blockId: this.getData("blockId"),
-                                    id: this.getData("id"),
-                                    isCover: false,
-                                    x1: 0,
-                                    y1: 0,
-                                    x2: 0,
-                                    y2: 0,
-                                    thumbX1: 0,
-                                    thumbY1: 0,
-                                    thumbX2: 0,
-                                    thumbY2: 0,
-                                    angle: 0,
-                                    flip: 0
-                                };
-                            }, this)
+                            data: $.proxy(
+                                function () {
+                                    return {
+                                        blockId: this.getData("blockId"),
+                                        id: this.getData("id"),
+                                        isCover: false,
+                                        x1: 0,
+                                        y1: 0,
+                                        x2: 0,
+                                        y2: 0,
+                                        thumbX1: 0,
+                                        thumbY1: 0,
+                                        thumbX2: 0,
+                                        thumbY2: 0,
+                                        angle: 0,
+                                        flip: 0
+                                    };
+                                },
+                                this
+                            )
                         },
                         type: "PUT",
                         success: $.proxy(this.onSendSuccess, this)
@@ -91,33 +97,36 @@ ss.add(
         /**
          * Sets container
          */
-        setContainers: function() {
-            this.viewContainer = ss.init("template").get("image-crop-container");
+        setContainers: function () {
+            this.viewContainer
+                = ss.init("template", {}).get("image-crop-container");
             this.getBody().append(this.viewContainer);
 
             return this;
         },
 
-        setView: function() {
+        setView: function () {
             this.viewImage = this.viewContainer.find(".view-image");
             this.viewImage.attr("src", this.getData("url"));
 
-            this.viewImage.cropper({
-                viewMode: 2,
-                preview: this.viewContainer.find(".preview"),
-                aspectRatio: 1,
-                autoCropArea: 1,
-                movable: false,
-                crop: function(event) {
-                    //console.log(event.detail.x);
-                    //console.log(event.detail.y);
-                    //console.log(event.detail.width);
-                    //console.log(event.detail.height);
-                    //console.log(event.detail.rotate);
-                    //console.log(event.detail.scaleX);
-                    //console.log(event.detail.scaleY);
+            this.viewImage.cropper(
+                {
+                    viewMode: 2,
+                    preview: this.viewContainer.find(".preview"),
+                    aspectRatio: 1,
+                    autoCropArea: 1,
+                    movable: false,
+                    crop: function (event) {
+                        // console.log(event.detail.x);
+                        // console.log(event.detail.y);
+                        // console.log(event.detail.width);
+                        // console.log(event.detail.height);
+                        // console.log(event.detail.rotate);
+                        // console.log(event.detail.scaleX);
+                        // console.log(event.detail.scaleY);
+                    }
                 }
-            });
+            );
 
             return this;
         },
@@ -125,7 +134,7 @@ ss.add(
         /**
          * Sets view rotate
          */
-        setViewRotate: function() {
+        setViewRotate: function () {
             var rotateContainer = this.viewContainer.find(".rotate-container");
 
             ss.init(
@@ -135,9 +144,12 @@ ss.add(
                     icon: "fas fa-undo",
                     label: '',
                     appendTo: rotateContainer,
-                    onClick: $.proxy(function() {
-                        this.viewImage.cropper("rotate", -45);
-                    }, this)
+                    onClick: $.proxy(
+                        function () {
+                            this.viewImage.cropper("rotate", -45);
+                        },
+                        this
+                    )
                 }
             );
 
@@ -148,9 +160,12 @@ ss.add(
                     icon: "fas fa-redo",
                     label: '',
                     appendTo: rotateContainer,
-                    onClick: $.proxy(function() {
-                        this.viewImage.cropper("rotate", 45);
-                    }, this)
+                    onClick: $.proxy(
+                        function () {
+                            this.viewImage.cropper("rotate", 45);
+                        },
+                        this
+                    )
                 }
             );
 
@@ -160,7 +175,7 @@ ss.add(
         /**
          * Sets view flip
          */
-        setViewFlip: function() {
+        setViewFlip: function () {
             var flipContainer = this.viewContainer.find(".flip-container");
 
             ss.init(
@@ -170,15 +185,18 @@ ss.add(
                     icon: "fas fa-arrows-alt-h",
                     label: '',
                     appendTo: flipContainer,
-                    onClick: $.proxy(function() {
-                        if (flipContainer.hasClass("flipped-x") === true) {
-                            this.viewImage.cropper("scaleX", 1);
-                            flipContainer.removeClass("flipped-x");
-                        } else {
-                            this.viewImage.cropper("scaleX", -1);
-                            flipContainer.addClass("flipped-x");
-                        }
-                    }, this)
+                    onClick: $.proxy(
+                        function () {
+                            if (flipContainer.hasClass("flipped-x") === true) {
+                                this.viewImage.cropper("scaleX", 1);
+                                flipContainer.removeClass("flipped-x");
+                            } else {
+                                this.viewImage.cropper("scaleX", -1);
+                                flipContainer.addClass("flipped-x");
+                            }
+                        },
+                        this
+                    )
                 }
             );
 
@@ -189,15 +207,18 @@ ss.add(
                     icon: "fas fa-arrows-alt-v",
                     label: '',
                     appendTo: flipContainer,
-                    onClick: $.proxy(function() {
-                        if (flipContainer.hasClass("flipped-y") === true) {
-                            this.viewImage.cropper("scaleY", 1);
-                            flipContainer.removeClass("flipped-y");
-                        } else {
-                            this.viewImage.cropper("scaleY",-1);
-                            flipContainer.addClass("flipped-y");
-                        }
-                    }, this)
+                    onClick: $.proxy(
+                        function () {
+                            if (flipContainer.hasClass("flipped-y") === true) {
+                                this.viewImage.cropper("scaleY", 1);
+                                flipContainer.removeClass("flipped-y");
+                            } else {
+                                this.viewImage.cropper("scaleY",-1);
+                                flipContainer.addClass("flipped-y");
+                            }
+                        },
+                        this
+                    )
                 }
             );
 
@@ -207,7 +228,7 @@ ss.add(
         /**
          * Sets view zoom
          */
-        setViewZoom: function() {
+        setViewZoom: function () {
             var zoomContainer = this.viewContainer.find(".zoom-container");
 
             ss.init(
@@ -217,9 +238,12 @@ ss.add(
                     icon: "fas fa-search-plus",
                     label: '',
                     appendTo: zoomContainer,
-                    onClick: $.proxy(function() {
-                        this.viewImage.cropper("zoom", 0.1);
-                    }, this)
+                    onClick: $.proxy(
+                        function () {
+                            this.viewImage.cropper("zoom", 0.1);
+                        },
+                        this
+                    )
                 }
             );
 
@@ -230,9 +254,12 @@ ss.add(
                     icon: "fas fa-search-minus",
                     label: '',
                     appendTo: zoomContainer,
-                    onClick: $.proxy(function() {
-                        this.viewImage.cropper("zoom", -0.1);
-                    }, this)
+                    onClick: $.proxy(
+                        function () {
+                            this.viewImage.cropper("zoom", -0.1);
+                        },
+                        this
+                    )
                 }
             );
 
@@ -242,7 +269,7 @@ ss.add(
         /**
          * Sets view aspect ratio
          */
-        setViewAspectRatio: function() {
+        setViewAspectRatio: function () {
             var userAspectRatio
                 = this.viewContainer.find(".user-aspect-container");
             var defaultAspectRatio
@@ -254,9 +281,13 @@ ss.add(
                     css: "btn btn-blue",
                     label: "1024:200",
                     appendTo: userAspectRatio,
-                    onClick: $.proxy(function() {
-                        this.viewImage.cropper("setAspectRatio", 1024 / 200);
-                    }, this)
+                    onClick: $.proxy(
+                        function () {
+                            this.viewImage
+                                .cropper("setAspectRatio", (1024 / 200));
+                        },
+                        this
+                    )
                 }
             );
 
@@ -266,9 +297,12 @@ ss.add(
                     css: "btn btn-blue",
                     label: "Free",
                     appendTo: userAspectRatio,
-                    onClick: $.proxy(function() {
-                        this.viewImage.cropper("setAspectRatio", NaN);
-                    }, this)
+                    onClick: $.proxy(
+                        function () {
+                            this.viewImage.cropper("setAspectRatio", NaN);
+                        },
+                        this
+                    )
                 }
             );
 
@@ -278,9 +312,12 @@ ss.add(
                     css: "btn btn-blue",
                     label: "16:9",
                     appendTo: defaultAspectRatio,
-                    onClick: $.proxy(function() {
-                        this.viewImage.cropper("setAspectRatio", 16 / 9);
-                    }, this)
+                    onClick: $.proxy(
+                        function () {
+                            this.viewImage.cropper("setAspectRatio", (16 / 9));
+                        },
+                        this
+                    )
                 }
             );
 
@@ -290,9 +327,12 @@ ss.add(
                     css: "btn btn-blue",
                     label: "4:3",
                     appendTo: defaultAspectRatio,
-                    onClick: $.proxy(function() {
-                        this.viewImage.cropper("setAspectRatio", 4 / 3);
-                    }, this)
+                    onClick: $.proxy(
+                        function () {
+                            this.viewImage.cropper("setAspectRatio", (4 / 3));
+                        },
+                        this
+                    )
                 }
             );
 
@@ -302,9 +342,12 @@ ss.add(
                     css: "btn btn-blue",
                     label: "1:1",
                     appendTo: defaultAspectRatio,
-                    onClick: $.proxy(function() {
-                        this.viewImage.cropper("setAspectRatio", 1);
-                    }, this)
+                    onClick: $.proxy(
+                        function () {
+                            this.viewImage.cropper("setAspectRatio", 1);
+                        },
+                        this
+                    )
                 }
             );
 
@@ -314,9 +357,12 @@ ss.add(
                     css: "btn btn-blue",
                     label: "2:3",
                     appendTo: defaultAspectRatio,
-                    onClick: $.proxy(function() {
-                        this.viewImage.cropper("setAspectRatio", 2 / 3);
-                    }, this)
+                    onClick: $.proxy(
+                        function () {
+                            this.viewImage.cropper("setAspectRatio", (2 / 3));
+                        },
+                        this
+                    )
                 }
             );
 
@@ -326,7 +372,7 @@ ss.add(
         /**
          * Sets view reset
          */
-        setViewReset: function() {
+        setViewReset: function () {
             var resetContainer = this.viewContainer.find(".reset-container");
 
             new ss.forms.Button(
@@ -335,9 +381,12 @@ ss.add(
                     icon: "fas fa-retweet",
                     label: "",
                     appendTo: resetContainer,
-                    onClick: $.proxy(function() {
-                        this.viewImage.cropper("reset");
-                    }, this)
+                    onClick: $.proxy(
+                        function () {
+                            this.viewImage.cropper("reset");
+                        },
+                        this
+                    )
                 }
             );
 
@@ -352,5 +401,7 @@ ss.add(
         onSendSuccess: function (data) {
             console.log(data);
         }
-    }
-);
+    };
+
+    ss.add(name, parameters);
+}(window.jQuery, window.ss);
