@@ -1,9 +1,9 @@
-/**
- * Abstract form
- */
-ss.add(
-    "adminComponentsPanel",
-    {
+!function ($, ss) {
+    "use strict";
+
+    var name = "adminComponentsPanel";
+
+    var parameters = {
         /**
          * Panel
          *
@@ -28,7 +28,7 @@ ss.add(
         /**
          * Init
          */
-        init: function() {
+        init: function () {
         },
 
         /**
@@ -36,7 +36,7 @@ ss.add(
          *
          * @param {Object} options
          */
-        create: function(options) {
+        create: function (options) {
             this
                 .setPanel()
                 .setBody()
@@ -51,24 +51,15 @@ ss.add(
         /**
          * Sets panel
          */
-        setPanel: function() {
-            this.panel = ss.init("template").get("panel");
+        setPanel: function () {
+            this.panel = ss.init("template", {}).get("panel");
             return this;
-        },
-
-        /**
-         * Gets instance
-         *
-         * @returns {Object}
-         */
-        getPanel: function () {
-            return this.panel;
         },
 
         /**
          * Sets body
          */
-        setBody: function() {
+        setBody: function () {
             this.body = this.panel.find(".body");
             return this;
         },
@@ -133,11 +124,11 @@ ss.add(
             if ($.type(onBack) !== "function") {
                 onBack = this.getOption("back");
             }
-            
+
             if ($.type(onBack) !== "function") {
                 return this;
             }
-            
+
             this.panel.find(".header .back")
                 .removeClass("hidden")
                 .on("click", onBack);
@@ -193,7 +184,7 @@ ss.add(
          */
         removePanel: function () {
             var controlButtons
-                = ss.init("app").getDomElement("controlButtons");
+                = ss.init("app", {}).getDomElement("controlButtons");
 
             this.panel.addClass("transparent");
             controlButtons.removeClass("hidden");
@@ -223,7 +214,7 @@ ss.add(
          * Adds element to DOM
          */
         addDomElement: function () {
-            var app = ss.init("app");
+            var app = ss.init("app", {});
             var controlButtons = app.getDomElement("controlButtons");
 
             app.remove("panel");
@@ -304,7 +295,7 @@ ss.add(
         /**
          * On load success
          */
-        onLoadSuccess: function() {
+        onLoadSuccess: function () {
         },
 
         /**
@@ -369,8 +360,8 @@ ss.add(
         /**
          * Shows block section switcher
          */
-        showBlockSectionSwitcher: function() {
-            var app = ss.init("app");
+        showBlockSectionSwitcher: function () {
+            var app = ss.init("app", {});
 
             ss.init(
                 "commonComponentsFormCheckboxOnOff",
@@ -379,22 +370,32 @@ ss.add(
                     label: this.getLabel("blockSection"),
                     css: "no-margin small",
                     appendTo: this.panel.find(".header .btn-group"),
-                    onCheck: $.proxy(function() {
-                        app.setIsBlockSection(true);
-                        this.reload({
-                            data: {
-                                blockSection: app.getSectionId()
-                            }
-                        });
-                    }, this),
-                    onUnCheck: $.proxy(function() {
-                        app.setIsBlockSection(false);
-                        this.reload({
-                            data: {
-                                blockSection: 0
-                            }
-                        });
-                    }, this)
+                    onCheck: $.proxy(
+                        function () {
+                            app.setIsBlockSection(true);
+                            this.reload(
+                                {
+                                    data: {
+                                        blockSection: app.getSectionId()
+                                    }
+                                }
+                            );
+                        },
+                        this
+                    ),
+                onUnCheck: $.proxy(
+                    function () {
+                            app.setIsBlockSection(false);
+                            this.reload(
+                                {
+                                    data: {
+                                        blockSection: 0
+                                    }
+                                }
+                            );
+                    },
+                    this
+                )
                 }
             );
 
@@ -406,8 +407,8 @@ ss.add(
          *
          * @returns {int}
          */
-        getBlockSection: function() {
-            var app = ss.init("app");
+        getBlockSection: function () {
+            var app = ss.init("app", {});
 
             if (app.getIsBlockSection() === false) {
                 return 0;
@@ -440,7 +441,7 @@ ss.add(
         /**
          * Sets footer
          */
-        setHasFooter: function() {
+        setHasFooter: function () {
             this.hasFooter = true;
 
             if (this.getOption("hasFooter") !== false) {
@@ -455,7 +456,7 @@ ss.add(
         /**
          * Removes footer
          */
-        removeFooter: function() {
+        removeFooter: function () {
             this.hasFooter = false;
             this.panel.find(".footer").remove();
 
@@ -481,18 +482,20 @@ ss.add(
          *
          * @param {Object} itemOptions
          */
-        addListItem: function(itemOptions) {
+        addListItem: function (itemOptions) {
             itemOptions = $.extend({}, itemOptions);
 
-            var listItem = ss.init("template").get("panel-list-item");
+            var listItem = ss.init("template", {}).get("panel-list-item");
 
             var item = listItem.find(".item");
             if (itemOptions.label !== undefined) {
                 item.find(".text").text(itemOptions.label);
             }
+
             if (itemOptions.icon !== undefined) {
                 item.find(".icon").addClass(itemOptions.icon);
             }
+
             if ($.type(itemOptions.open) === "function") {
                 item.on(
                     "click",
@@ -532,5 +535,7 @@ ss.add(
 
             this.body.append(listItem);
         }
-    }
-);
+    };
+
+    ss.add(name, parameters);
+}(window.jQuery, window.ss);
