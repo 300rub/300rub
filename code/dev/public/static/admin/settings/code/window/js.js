@@ -1,6 +1,9 @@
-ss.add(
-    "adminSettingsCodeWindow",
-    {
+!function ($, ss) {
+    "use strict";
+
+    var name = "adminSettingsCodeWindow";
+
+    var parameters = {
         /**
          * Parent
          *
@@ -18,7 +21,7 @@ ss.add(
         /**
          * Init
          */
-        init: function() {
+        init: function () {
             this.forms = {};
 
             this.create(
@@ -36,12 +39,12 @@ ss.add(
         /**
          * On load success
          */
-        onLoadSuccess: function() {
+        onLoadSuccess: function () {
             this.forms.value = ss.init(
                 "commonComponentsFormTextarea",
                 $.extend(
                     {},
-                    data.forms.value,
+                    this.getData(["forms", "value"], {}),
                     {
                         appendTo: this.getBody(),
                         rows: 15
@@ -72,8 +75,10 @@ ss.add(
         /**
          * On send success
          */
-        onSendSuccess: function() {
+        onSendSuccess: function () {
             window.location.reload();
         }
-    }
-);
+    };
+
+    ss.add(name, parameters);
+}(window.jQuery, window.ss);

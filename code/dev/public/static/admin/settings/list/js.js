@@ -1,6 +1,9 @@
-ss.add(
-    "adminSettingsList",
-    {
+!function ($, ss) {
+    "use strict";
+
+    var name = "adminSettingsList";
+
+    var parameters = {
         /**
          * Parent
          *
@@ -11,7 +14,7 @@ ss.add(
         /**
          * Init
          */
-        init: function() {
+        init: function () {
             this.create(
                 {
                     group: "settings",
@@ -24,7 +27,7 @@ ss.add(
         /**
          * On load success
          */
-        onLoadSuccess: function() {
+        onLoadSuccess: function () {
             $.each(
                 this.getData("list", {}),
                 $.proxy(
@@ -64,5 +67,7 @@ ss.add(
                 )
             );
         }
-    }
-);
+    };
+
+    ss.add(name, parameters);
+}(window.jQuery, window.ss);

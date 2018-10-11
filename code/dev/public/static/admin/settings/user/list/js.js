@@ -1,6 +1,9 @@
-ss.add(
-    "adminSettingsUserList",
-    {
+!function ($, ss) {
+    "use strict";
+
+    var name = "adminSettingsUserList";
+
+    var parameters = {
         /**
          * Parent
          *
@@ -11,7 +14,7 @@ ss.add(
         /**
          * Init
          */
-        init: function() {
+        init: function () {
             this.create(
                 {
                     group: "user",
@@ -25,16 +28,16 @@ ss.add(
         /**
          * On load success
          */
-        onLoadSuccess: function() {
-           this
-               .setTable()
-               .setAddButton();
+        onLoadSuccess: function () {
+            this
+                .setTable()
+                .setAddButton();
         },
 
         /**
          * Sets table
          */
-        setTable: function() {
+        setTable: function () {
             var table = ss.init("template").get("window-users-table");
             table.find(".name-label").text(this.getLabel("name"));
             table.find(".email-label").text(this.getLabel("email"));
@@ -94,6 +97,9 @@ ss.add(
                         }
 
                         if (user.canDelete === true) {
+                            var confirmText
+                                = this.getLabel("deleteUserConfirmText");
+
                             ss.init(
                                 "commonComponentsFormButton",
                                 {
@@ -102,7 +108,7 @@ ss.add(
                                     label: this.getLabel("deleteLabel"),
                                     appendTo: btnGroup,
                                     confirm: {
-                                        text: this.getLabel("deleteUserConfirmText"),
+                                        text: confirmText,
                                         yes: {
                                             label: this.getLabel("deleteLabel"),
                                             icon: "fas fa-user-times"
@@ -141,7 +147,7 @@ ss.add(
         /**
          * Sets Add button
          */
-        setAddButton: function() {
+        setAddButton: function () {
             if (this.getData("canAdd") === true) {
                 ss.init(
                     "commonComponentsFormButton",
@@ -164,5 +170,7 @@ ss.add(
 
             return this;
         }
-    }
-);
+    };
+
+    ss.add(name, parameters);
+}(window.jQuery, window.ss);

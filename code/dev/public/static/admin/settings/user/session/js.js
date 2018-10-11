@@ -1,6 +1,9 @@
-ss.add(
-    "adminSettingsUserSession",
-    {
+!function ($, ss) {
+    "use strict";
+
+    var name = "adminSettingsUserSession";
+
+    var parameters = {
         /**
          * Parent
          *
@@ -11,7 +14,7 @@ ss.add(
         /**
          * Init
          */
-        init: function() {
+        init: function () {
             this.create(
                 {
                     group: "user",
@@ -30,14 +33,16 @@ ss.add(
         /**
          * On load success
          */
-        onLoadSuccess: function() {
+        onLoadSuccess: function () {
             var table = ss.init("template").get(
                 "window-users-sessions-table"
             );
             table.find(".browser-label").text(this.getLabel("browser"));
             table.find(".current-label").text(this.getLabel("current"));
             table.find(".online-label").text(this.getLabel("online"));
-            table.find(".last-activity-label").text(this.getLabel("lastActivity"));
+            table.find(".last-activity-label").text(
+                this.getLabel("lastActivity")
+            );
             table.find(".platform-label").text(this.getLabel("platform"));
             table.find(".token-label").text(this.getLabel("token"));
 
@@ -51,7 +56,9 @@ ss.add(
                         tr.find(".browser-value").text(
                             session.browser + " " + session.version
                         );
-                        tr.find(".last-activity-value").text(session.lastActivity);
+                        tr.find(".last-activity-value").text(
+                            session.lastActivity
+                        );
                         tr.find(".ip-value").text(session.ip);
                         tr.find(".platform-value").text(session.platform);
                         if (session.isCurrent !== true) {
@@ -168,5 +175,7 @@ ss.add(
                 }
             );
         }
-    }
-);
+    };
+
+    ss.add(name, parameters);
+}(window.jQuery, window.ss);

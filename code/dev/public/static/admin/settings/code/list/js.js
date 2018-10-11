@@ -1,6 +1,9 @@
-ss.add(
-    "adminSettingsCodeList",
-    {
+!function ($, ss) {
+    "use strict";
+
+    var name = "adminSettingsCodeList";
+
+    var parameters = {
         /**
          * Parent
          *
@@ -11,13 +14,13 @@ ss.add(
         /**
          * Init
          */
-        init: function() {
+        init: function () {
             this.create(
                 {
                     group: "settings",
                     controller: "codeList",
                     hasFooter: false,
-                    back: function() {
+                    back: function () {
                         ss.init("adminSettingsList");
                     }
                 }
@@ -27,7 +30,7 @@ ss.add(
         /**
          * On load success
          */
-        onLoadSuccess: function() {
+        onLoadSuccess: function () {
             $.each(
                 this.getData("list", {}),
                 $.proxy(
@@ -36,7 +39,7 @@ ss.add(
                             {
                                 label: listItem.name,
                                 icon: "fas fa-code",
-                                open: function() {
+                                open: function () {
                                     ss.init(
                                         "adminSettingsUserList",
                                         {
@@ -51,5 +54,7 @@ ss.add(
                 )
             );
         }
-    }
-);
+    };
+
+    ss.add(name, parameters);
+}(window.jQuery, window.ss);

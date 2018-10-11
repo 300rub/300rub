@@ -1,6 +1,9 @@
-ss.add(
-    "adminSettingsUserForm",
-    {
+!function ($, ss) {
+    "use strict";
+
+    var name = "adminSettingsUserForm";
+
+    var parameters = {
         /**
          * Parent
          *
@@ -51,7 +54,7 @@ ss.add(
         /**
          * Init
          */
-        init: function() {
+        init: function () {
             this.forms = {};
             this.formContainer = {};
             this.autoIncrement = 0;
@@ -73,7 +76,7 @@ ss.add(
         /**
          * On load success
          */
-        onLoadSuccess: function() {
+        onLoadSuccess: function () {
             var type = "PUT";
             if (this.getData("id", 0) === 0) {
                 type = "POST";
@@ -109,7 +112,7 @@ ss.add(
         /**
          * Sets container
          */
-        setContainers: function() {
+        setContainers: function () {
             this.container = ss.init("template").get("users-form-container");
             this.formContainer = this.container.find(".text-forms-container");
 
@@ -120,7 +123,7 @@ ss.add(
         /**
          * Sets name form
          */
-        setNameForm: function() {
+        setNameForm: function () {
             this.forms.name = ss.init(
                 "commonComponentsFormText",
                 $.extend(
@@ -138,7 +141,7 @@ ss.add(
         /**
          * Sets login form
          */
-        setLoginForm: function() {
+        setLoginForm: function () {
             this.forms.login = ss.init(
                 "commonComponentsFormText",
                 $.extend(
@@ -156,7 +159,7 @@ ss.add(
         /**
          * Sets password form
          */
-        setPasswordForms: function() {
+        setPasswordForms: function () {
             var t = this;
 
             if (this.getData("id", 0) > 0) {
@@ -216,7 +219,7 @@ ss.add(
         /**
          * Sets email form
          */
-        setEmailForm: function() {
+        setEmailForm: function () {
             this.forms.email = ss.init(
                 "commonComponentsFormText",
                 $.extend(
@@ -234,7 +237,7 @@ ss.add(
         /**
          * Sets can change operations
          */
-        setCanChangeOperations: function() {
+        setCanChangeOperations: function () {
             var t = this;
 
             if (this.getData(["operations", "canChange"]) === true) {
@@ -272,7 +275,7 @@ ss.add(
         /**
          * Sets operations
          */
-        setOperations: function() {
+        setOperations: function () {
             this.operationsContainer
                 = this.container.find(".operations-container");
 
@@ -286,16 +289,19 @@ ss.add(
                 .setBlockOperations()
                 .setSettingsOperations();
 
-            ss.init("commonComponentsAccordion", {
-                tree: this.operationsTree,
-                container: this.operationsContainer
-            });
+            ss.init(
+                "commonComponentsAccordion",
+                {
+                    tree: this.operationsTree,
+                    container: this.operationsContainer
+                }
+            );
         },
 
         /**
          * Sets section operations
          */
-        setSectionOperations: function() {
+        setSectionOperations: function () {
             var children = [];
 
             var all = this.getData(
@@ -306,19 +312,22 @@ ss.add(
             var allBody = $("<div/>");
             $.each(
                 all.data,
-                $.proxy(function (key, formData) {
-                    this.forms[this.autoIncrement] = ss.init(
-                        "commonComponentsFormCheckboxOnOff",
-                        $.extend(
-                            {},
-                            formData,
-                            {
-                                appendTo: allBody
-                            }
-                        )
-                    );
-                    this.autoIncrement++;
-                }, this)
+                $.proxy(
+                    function (key, formData) {
+                        this.forms[this.autoIncrement] = ss.init(
+                            "commonComponentsFormCheckboxOnOff",
+                            $.extend(
+                                {},
+                                formData,
+                                {
+                                    appendTo: allBody
+                                }
+                            )
+                        );
+                        this.autoIncrement++;
+                    },
+                    this
+                )
             );
 
             children.push(
@@ -372,7 +381,7 @@ ss.add(
                     title: this.getData(
                         ["operations", "list", "SECTIONS", "title"]
                     ),
-                    children: children
+                children: children
                 }
             );
 
@@ -382,7 +391,7 @@ ss.add(
         /**
          * Sets block operations
          */
-        setBlockOperations: function() {
+        setBlockOperations: function () {
             var children = [];
 
             var t = this;
@@ -467,7 +476,7 @@ ss.add(
                     title: this.getData(
                         ["operations", "list", "BLOCKS", "title"]
                     ),
-                    children: children
+                children: children
                 }
             );
 
@@ -477,26 +486,29 @@ ss.add(
         /**
          * Sets settings operations
          */
-        setSettingsOperations: function() {
+        setSettingsOperations: function () {
             var body = $("<div/>");
             $.each(
                 this.getData(
                     ["operations", "list", "SETTINGS", "data"],
                     {}
                 ),
-                $.proxy(function (key, formData) {
-                    this.forms[this.autoIncrement] = ss.init(
-                        "commonComponentsFormCheckboxOnOff",
-                        $.extend(
-                            {},
-                            formData,
-                            {
-                                appendTo: body
-                            }
-                        )
-                    );
-                    this.autoIncrement++;
-                }, this)
+                $.proxy(
+                    function (key, formData) {
+                        this.forms[this.autoIncrement] = ss.init(
+                            "commonComponentsFormCheckboxOnOff",
+                            $.extend(
+                                {},
+                                formData,
+                                {
+                                    appendTo: body
+                                }
+                            )
+                        );
+                        this.autoIncrement++;
+                    },
+                    this
+                )
             );
 
             this.operationsTree.push(
@@ -504,7 +516,7 @@ ss.add(
                     title: this.getData(
                         ["operations", "list", "SETTINGS", "title"]
                     ),
-                    body: body
+                body: body
                 }
             );
 
@@ -543,5 +555,7 @@ ss.add(
                 this.remove(true);
             }
         }
-    }
-);
+    };
+
+    ss.add(name, parameters);
+}(window.jQuery, window.ss);
