@@ -1,9 +1,9 @@
-/**
- * Abstract form
- */
-ss.add(
-    "commonComponentsAccordion",
-    {
+!function ($, ss) {
+    "use strict";
+
+    var name = "commonComponentsAccordion";
+
+    var parameters = {
         /**
          * Container
          */
@@ -12,7 +12,7 @@ ss.add(
         /**
          * Init
          */
-        init: function() {
+        init: function () {
             this.container = this.getOption("container");
             if (this.container === null) {
                 return this;
@@ -31,23 +31,30 @@ ss.add(
          * @param {Array}  items
          * @param {Object} appendTo
          */
-        buildTree: function(items, appendTo) {
-            $.each(items, $.proxy(function(i, item) {
-                var element = ss.init("template").get("accordion-element");
-                element.appendTo(appendTo);
+        buildTree: function (items, appendTo) {
+            $.each(
+                items,
+                $.proxy(
+                    function (i, item) {
+                        var element
+                            = ss.init("template").get("accordion-element");
+                        element.appendTo(appendTo);
 
-                element.find(".accordion-title .text").text(item.title);
+                        element.find(".accordion-title .text").text(item.title);
 
-                var body = element.find(".accordion-body");
+                        var body = element.find(".accordion-body");
 
-                if (item.children !== undefined) {
-                    this.buildTree(item.children, body);
-                }
+                        if (item.children !== undefined) {
+                            this.buildTree(item.children, body);
+                        }
 
-                if (item.body !== undefined) {
-                    body.append(item.body);
-                }
-            }, this));
+                        if (item.body !== undefined) {
+                            body.append(item.body);
+                        }
+                    },
+                    this
+                )
+            );
 
             return this;
         },
@@ -55,7 +62,7 @@ ss.add(
         /**
          * Sets accordion
          */
-        setAccordion: function() {
+        setAccordion: function () {
             this.container.find(".accordion-title").off().on(
                 "click",
                 function () {
@@ -76,5 +83,7 @@ ss.add(
 
             return this;
         }
-    }
-);
+    };
+
+    ss.add(name, parameters);
+}(window.jQuery, window.ss);

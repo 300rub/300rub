@@ -1,6 +1,9 @@
-ss.add(
-    "commonUserLogin",
-    {
+!function ($, ss) {
+    "use strict";
+
+    var name = "commonUserLogin";
+
+    var parameters = {
         /**
          * Parent
          *
@@ -18,7 +21,7 @@ ss.add(
         /**
          * Init
          */
-        init: function() {
+        init: function () {
             this.forms = {};
 
             this.create(
@@ -33,7 +36,7 @@ ss.add(
         /**
          * On load success
          */
-        onLoadSuccess: function() {
+        onLoadSuccess: function () {
             this.forms.name = ss.init(
                 "commonComponentsFormText",
                 $.extend(
@@ -166,5 +169,7 @@ ss.add(
                 window.location = data.url;
             }
         }
-    }
-);
+    };
+
+    ss.add(name, parameters);
+}(window.jQuery, window.ss);

@@ -1,9 +1,9 @@
-/**
- * Abstract form
- */
-ss.add(
-    "commonComponentsConfirmation",
-    {
+!function ($, ss) {
+    "use strict";
+
+    var name = "commonComponentsConfirmation";
+
+    var parameters = {
         /**
          * Window
          *
@@ -21,7 +21,7 @@ ss.add(
         /**
          * Init
          */
-        init: function() {
+        init: function () {
             this
                 .setOverlay()
                 .setWindow()
@@ -32,7 +32,7 @@ ss.add(
         /**
          * Sets window
          */
-        setWindow: function() {
+        setWindow: function () {
             this.window = ss.init("template").get("confirmation-window");
             this.window.find(".text").text(this.getOption("text"));
             ss.init("app").append(this.window);
@@ -43,17 +43,20 @@ ss.add(
         /**
          * Sets overlay
          */
-        setOverlay: function() {
+        setOverlay: function () {
             this.overlay = ss.init("template").get("confirmation-overlay");
 
             ss.init("app").append(this.overlay);
 
             this.overlay.on(
                 "click",
-                $.proxy(function () {
-                    this.window.remove();
-                    this.overlay.remove();
-                }, this)
+                $.proxy(
+                    function () {
+                        this.window.remove();
+                        this.overlay.remove();
+                    },
+                    this
+                )
             );
 
             return this;
@@ -62,7 +65,7 @@ ss.add(
         /**
          * Sets buttons
          */
-        setButtons: function() {
+        setButtons: function () {
             var buttons = this.window.find(".buttons");
 
             if ($.type(this.getOption("ajax")) === "object") {
@@ -77,10 +80,13 @@ ss.add(
                             {},
                             this.getOption("ajax"),
                             {
-                                complete: $.proxy(function () {
-                                    this.window.remove();
-                                    this.overlay.remove();
-                                }, this)
+                                complete: $.proxy(
+                                    function () {
+                                        this.window.remove();
+                                        this.overlay.remove();
+                                    },
+                                    this
+                                )
                             }
                         )
                     }
@@ -93,15 +99,18 @@ ss.add(
                         icon: this.getOption(["yes", "icon"]),
                         label: this.getOption(["yes", "label"]),
                         appendTo: buttons,
-                        onClick: $.proxy(function() {
-                            var onClick = this.getOption("onClick");
-                            if ($.type(onClick) === "function") {
-                                onClick();
-                            }
+                        onClick: $.proxy(
+                            function () {
+                                var onClick = this.getOption("onClick");
+                                if ($.type(onClick) === "function") {
+                                    onClick();
+                                }
 
-                            this.window.remove();
-                            this.overlay.remove();
-                        }, this)
+                                this.window.remove();
+                                this.overlay.remove();
+                            },
+                            this
+                        )
                     }
                 );
             }
@@ -113,10 +122,13 @@ ss.add(
                     icon: "fas fa-ban",
                     label: this.getOption("no"),
                     appendTo: buttons,
-                    onClick: $.proxy(function () {
-                        this.window.remove();
-                        this.overlay.remove();
-                    }, this)
+                    onClick: $.proxy(
+                        function () {
+                            this.window.remove();
+                            this.overlay.remove();
+                        },
+                        this
+                    )
                 }
             );
 
@@ -126,7 +138,7 @@ ss.add(
         /**
          * Sets window position
          */
-        setPosition: function() {
+        setPosition: function () {
             var element = this.getOption("element");
             if (element === null) {
                 return this;
@@ -161,5 +173,7 @@ ss.add(
 
             return this;
         }
-    }
-);
+    };
+
+    ss.add(name, parameters);
+}(window.jQuery, window.ss);

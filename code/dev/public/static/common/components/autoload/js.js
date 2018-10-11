@@ -1,6 +1,9 @@
-ss.add(
-    "commonComponentsAutoload",
-    {
+!function ($, ss) {
+    "use strict";
+
+    var name = "commonComponentsAutoload";
+
+    var parameters = {
         /**
          * Page number
          *
@@ -65,32 +68,32 @@ ss.add(
                         },
                         this
                     ),
-                    success: $.proxy(
-                        function (data) {
+                success: $.proxy(
+                    function (data) {
                             var html = $.trim(data.html);
-                            if (html === "") {
-                                clearInterval(this.interval);
-                                this.getOption("element").remove();
-                            }
-
-                            this.getOption("container").append(html);
-                        },
-                        this
-                    ),
-                    error: $.proxy(
-                        function () {
+                        if (html === "") {
                             clearInterval(this.interval);
                             this.getOption("element").remove();
-                        },
-                        this
-                    ),
-                    complete: $.proxy(
-                        function () {
+                        }
+
+                            this.getOption("container").append(html);
+                    },
+                    this
+                ),
+                error: $.proxy(
+                    function () {
+                            clearInterval(this.interval);
+                            this.getOption("element").remove();
+                    },
+                    this
+                ),
+                complete: $.proxy(
+                    function () {
                             this.canLoad = true;
                             this.page++;
-                        },
-                        this
-                    )
+                    },
+                    this
+                )
                 }
             );
         },
@@ -109,5 +112,7 @@ ss.add(
 
             return ($(document).scrollTop() + $(window).height()) > top;
         }
-    }
-);
+    };
+
+    ss.add(name, parameters);
+}(window.jQuery, window.ss);
