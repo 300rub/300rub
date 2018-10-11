@@ -1,6 +1,9 @@
-ss.add(
-    "adminBlockTextList",
-    {
+!function ($, ss) {
+    "use strict";
+
+    var name = "adminBlockTextList";
+
+    var parameters = {
         /**
          * Parent
          *
@@ -11,12 +14,12 @@ ss.add(
         /**
          * Init
          */
-        init: function() {
+        init: function () {
             this.create(
                 {
                     group: "text",
                     controller: "blocks",
-                    back: function() {
+                    back: function () {
                         ss.init("adminBlockList");
                     },
                     hasBlockSectionSwitcher: true
@@ -27,16 +30,18 @@ ss.add(
         /**
          * On load success
          */
-        onLoadSuccess: function() {
+        onLoadSuccess: function () {
             if (this.getData("canAdd") === true) {
                 this
-                    .setFooterButton({
-                        label: this.getLabel("add"),
-                        icon: "fas fa-plus",
-                        onClick: function () {
-                            // new ss.panel.blocks.text.Settings();
+                    .setFooterButton(
+                        {
+                            label: this.getLabel("add"),
+                            icon: "fas fa-plus",
+                            onClick: function () {
+                                ss.init("adminBlockTextSettings", {});
+                            }
                         }
-                    });
+                    );
             } else {
                 this.removeFooter();
             }
@@ -48,35 +53,42 @@ ss.add(
                         var design = null;
                         if (itemData.canUpdateDesign === true) {
                             design = function () {
-                                //new ss.panel.design.Editor(
-                                //    {
-                                //        group: "text",
-                                //        controller: "design",
-                                //        id: itemData.id,
-                                //        success: function () {
-                                //            new ss.panel.blocks.text.List();
-                                //        }
-                                //    }
-                                //);
+                                // new ss.panel.design.Editor(
+                                // {
+                                // group: "text",
+                                // controller: "design",
+                                // id: itemData.id,
+                                // success: function () {
+                                // new ss.panel.blocks.text.List();
+                                // }
+                                // }
+                                // );
                             };
                         }
 
                         var settings = null;
                         if (itemData.canUpdateDesign === true) {
                             settings = function () {
-                                //new ss.panel.blocks.text.Settings(
-                                //    itemData.id
-                                //);
+                                ss.init(
+                                    "adminBlockTextSettings",
+                                    {
+                                        blockId: itemData.id
+                                    }
+                                );
                             };
                         }
 
                         var open = null;
                         if (itemData.canUpdateContent === true) {
                             open = function () {
-                                //new ss.window.blocks.text.Content(itemData.id);
+                                ss.init(
+                                    "adminBlockTextContent",
+                                    {
+                                        blockId: itemData.id
+                                    }
+                                );
                             };
                         }
-
 
                         this.addListItem(
                             {
@@ -92,5 +104,7 @@ ss.add(
                 )
             );
         }
-    }
-);
+    };
+
+    ss.add(name, parameters);
+}(window.jQuery, window.ss);

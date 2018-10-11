@@ -1,6 +1,9 @@
-ss.add(
-    "adminBlockList",
-    {
+!function ($, ss) {
+    "use strict";
+
+    var name = "adminBlockList";
+
+    var parameters = {
         /**
          * Parent
          *
@@ -11,7 +14,7 @@ ss.add(
         /**
          * Init
          */
-        init: function() {
+        init: function () {
             this.create(
                 {
                     group: "block",
@@ -25,7 +28,7 @@ ss.add(
         /**
          * On load success
          */
-        onLoadSuccess: function() {
+        onLoadSuccess: function () {
             $.each(
                 this.getData("list", {}),
                 $.proxy(
@@ -36,14 +39,14 @@ ss.add(
                         switch (itemData.type) {
                             case 1:
                                 icon = "fas fa-font";
-                                open = function() {
-                                    ss.init("adminBlockTextList");
+                                open = function () {
+                                    ss.init("adminBlockTextList", {});
                                 };
                                 break;
                             case 2:
                                 icon = "fas fa-images";
-                                open = function() {
-                                    ss.init("adminBlockImageList");
+                                open = function () {
+                                    ss.init("adminBlockImageList", {});
                                 };
                                 break;
                             case 3:
@@ -68,5 +71,7 @@ ss.add(
                 )
             );
         }
-    }
-);
+    };
+
+    ss.add(name, parameters);
+}(window.jQuery, window.ss);

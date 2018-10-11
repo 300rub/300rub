@@ -1,6 +1,9 @@
-ss.add(
-    "adminBlockTextSettings",
-    {
+!function ($, ss) {
+    "use strict";
+
+    var name = "adminBlockTextSettings";
+
+    var parameters = {
         /**
          * Parent
          *
@@ -18,7 +21,7 @@ ss.add(
         /**
          * Init
          */
-        init: function() {
+        init: function () {
             this.forms = {};
 
             this.create(
@@ -28,8 +31,8 @@ ss.add(
                     data: {
                         id: this.getOption("blockId", 0)
                     },
-                    back: function() {
-                        ss.init("adminBlockTextList");
+                    back: function () {
+                        ss.init("adminBlockTextList", {});
                     }
                 }
             );
@@ -38,7 +41,7 @@ ss.add(
         /**
          * On load success
          */
-        onLoadSuccess: function() {
+        onLoadSuccess: function () {
             this
                 .setForms()
                 .setButtons();
@@ -74,7 +77,8 @@ ss.add(
          * Sets forms
          */
         setForms: function () {
-            var container = ss.init("template").get("text-settings-container");
+            var container
+                = ss.init("template", {}).get("text-settings-container");
             container.appendTo(this.getBody());
 
             this.forms.name = ss.init(
@@ -96,7 +100,7 @@ ss.add(
                     {
                         appendTo: container,
                         type: "int",
-                        onChange: function(value) {
+                        onChange: function (value) {
                             if (value === 0) {
                                 container.removeClass("no-editor");
                             } else {
@@ -149,7 +153,7 @@ ss.add(
                                 }
                             },
                             type: "POST",
-                            success: function(data) {
+                            success: function (data) {
                                 ss.init(
                                     "adminBlockTextSettings",
                                     {
@@ -182,17 +186,20 @@ ss.add(
                                 }
                             },
                             type: "DELETE",
-                            success: $.proxy(function() {
-                                ss.init("adminBlockTextList");
-                                ss.init(
-                                    "commonContentBlockDelete",
-                                    {
-                                        list: [
+                            success: $.proxy(
+                                function () {
+                                    ss.init("adminBlockTextList", {});
+                                    ss.init(
+                                        "commonContentBlockDelete",
+                                        {
+                                            list: [
                                             this.getOption("blockId", 0)
-                                        ]
-                                    }
-                                );
-                            }, this)
+                                            ]
+                                        }
+                                    );
+                                },
+                                this
+                            )
                         }
                     }
                 );
@@ -213,7 +220,7 @@ ss.add(
                     .focus();
             } else {
                 if (this.getOption("blockId", 0) === 0) {
-                    ss.init("app").setIsBlockSection(false);
+                    ss.init("app", {}).setIsBlockSection(false);
                 } else {
                     ss.init(
                         "commonContentBlockUpdate",
@@ -225,8 +232,10 @@ ss.add(
                     );
                 }
 
-                ss.init("adminBlockTextList");
+                ss.init("adminBlockTextList", {});
             }
         }
-    }
-);
+    };
+
+    ss.add(name, parameters);
+}(window.jQuery, window.ss);
