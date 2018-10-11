@@ -99,7 +99,7 @@
          */
         setContainers: function () {
             this.viewContainer
-                = ss.init("template", {}).get("image-crop-container");
+                = ss.init("template").get("image-crop-container");
             this.getBody().append(this.viewContainer);
 
             return this;

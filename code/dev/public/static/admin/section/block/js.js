@@ -1,6 +1,9 @@
-ss.add(
-    "adminSectionBlock",
-    {
+!function ($, ss) {
+    "use strict";
+
+    var name = "adminSectionBlock";
+
+    var parameters = {
         /**
          * Parent
          *
@@ -11,7 +14,7 @@ ss.add(
         /**
          * Init
          */
-        init: function() {
+        init: function () {
             this.create(
                 {
                     name: "create-site"
@@ -19,27 +22,42 @@ ss.add(
             );
 
             var tree = [];
-            $.each(this.getOption("blocks", {}), $.proxy(function(i, blockGroup){
-                var body = ss.init("template").get(
-                    "section-structure-type-container"
-                );
+            $.each(
+                this.getOption("blocks", {}),
+                $.proxy(
+                    function (i, blockGroup) {
+                        var body = ss.init("template").get(
+                            "section-structure-type-container"
+                        );
 
-                $.each(blockGroup.blocks, $.proxy(function(i, blockData) {
-                    this.getBlock(blockData).appendTo(body);
-                }, this));
+                        $.each(
+                            blockGroup.blocks,
+                            $.proxy(
+                                function (i, blockData) {
+                                    this.getBlock(blockData).appendTo(body);
+                                },
+                                this
+                            )
+                        );
 
-                tree.push(
-                    {
-                        title: blockGroup.name,
-                        body: body
-                    }
-                );
-            }, this));
+                        tree.push(
+                            {
+                                title: blockGroup.name,
+                                body: body
+                            }
+                        );
+                    },
+                    this
+                )
+            );
 
-            ss.init("commonComponentsAccordion", {
-                tree: tree,
-                container: this.getBody()
-            });
+            ss.init(
+                "commonComponentsAccordion",
+                {
+                    tree: tree,
+                    container: this.getBody()
+                }
+            );
         },
 
         /**
@@ -80,22 +98,30 @@ ss.add(
                 iconElement.addClass(icon);
             }
 
-            blockElement.on("click", $.proxy(function() {
-                var callback = this.getOption("callback");
-                if ($.type(callback) === "function") {
-                    callback(
-                        {
-                            id: data.id,
-                            type: data.type,
-                            name: data.name
+            blockElement.on(
+                "click",
+                $.proxy(
+                    function () {
+                        var callback = this.getOption("callback");
+                        if ($.type(callback) === "function") {
+                            callback(
+                                {
+                                    id: data.id,
+                                    type: data.type,
+                                    name: data.name
+                                }
+                            );
                         }
-                    );
-                }
 
-                this.remove();
-            }, this));
+                        this.remove();
+                    },
+                    this
+                )
+            );
 
             return blockElement;
         }
-    }
-);
+    };
+
+    ss.add(name, parameters);
+}(window.jQuery, window.ss);

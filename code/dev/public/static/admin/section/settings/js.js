@@ -1,6 +1,9 @@
-ss.add(
-    "adminSectionSettings",
-    {
+!function ($, ss) {
+    "use strict";
+
+    var name = "adminSectionSettings";
+
+    var parameters = {
         /**
          * Parent
          *
@@ -18,7 +21,7 @@ ss.add(
         /**
          * Init
          */
-        init: function() {
+        init: function () {
             this.container = null;
             this.forms = {};
 
@@ -29,7 +32,7 @@ ss.add(
                     data: {
                         id: this.getOption("sectionId", 0)
                     },
-                    back: function() {
+                    back: function () {
                         ss.init("adminSectionList");
                     }
                 }
@@ -39,7 +42,7 @@ ss.add(
         /**
          * On load success
          */
-        onLoadSuccess: function() {
+        onLoadSuccess: function () {
             this
                 .setForms()
                 .setButtons();
@@ -132,8 +135,13 @@ ss.add(
                                 }
                             },
                             type: "POST",
-                            success: function(data) {
-                                //new ss.panel.section.Settings(data.id);
+                            success: function (data) {
+                                ss.init(
+                                    "adminSectionSettings",
+                                    {
+                                        sectionId: data.id
+                                    }
+                                );
                             }
                         }
                     }
@@ -160,8 +168,8 @@ ss.add(
                                 }
                             },
                             type: "DELETE",
-                            success: function() {
-                                //new ss.panel.section.List();
+                            success: function () {
+                                ss.init("adminSectionList");
                             }
                         }
                     }
@@ -219,16 +227,28 @@ ss.add(
                     return this;
                 }
             } else {
-                //new ss.panel.section.List();
+                ss.init("adminSectionList");
 
                 if (data.sectionId !== undefined) {
-                    //new ss.window.section.Structure(data.sectionId);
+                    ss.init(
+                        "adminSectionStructure",
+                        {
+                            sectionId: data.sectionId
+                        }
+                    );
                 }
 
                 if (data.dependentBlockIds !== undefined) {
-                    //new ss.content.block.Update(data.dependentBlockIds);
+                    ss.init(
+                        "commonContentBlockUpdate",
+                        {
+                            list: data.dependentBlockIds
+                        }
+                    );
                 }
             }
         }
-    }
-);
+    };
+
+    ss.add(name, parameters);
+}(window.jQuery, window.ss);

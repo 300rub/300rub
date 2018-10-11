@@ -1,10 +1,9 @@
-/**
- * User buttons
- */
-ss.add(
-    "adminControlButtons",
-    {
+!function ($, ss) {
+    "use strict";
 
+    var name = "adminControlButtons";
+
+    var parameters = {
         /**
          * Container
          *
@@ -15,7 +14,7 @@ ss.add(
         /**
          * Init
          */
-        init: function() {
+        init: function () {
             ss.init(
                 "ajax",
                 {
@@ -33,7 +32,7 @@ ss.add(
          *
          * @param {Object} data
          */
-        onLoadSuccess: function(data) {
+        onLoadSuccess: function (data) {
             this
                 .setData(data)
                 .setContainer()
@@ -49,16 +48,22 @@ ss.add(
         /**
          * Displays buttons
          */
-        display: function() {
+        display: function () {
             var app = ss.init("app");
 
             app
                 .append(this.container)
                 .addDomElement("controlButtons", this.container);
 
-            setTimeout($.proxy(function(){
-                this.container.removeClass("transparent");
-            }, this), 50);
+            setTimeout(
+                $.proxy(
+                    function () {
+                        this.container.removeClass("transparent");
+                    },
+                    this
+                ),
+                50
+            );
 
             return this;
         },
@@ -66,7 +71,7 @@ ss.add(
         /**
          * Sets container
          */
-        setContainer: function() {
+        setContainer: function () {
             this.container = ss.init("template").get("control-buttons");
             return this;
         },
@@ -97,7 +102,7 @@ ss.add(
             }
 
             var releaseInterval = setInterval(
-                function() {
+                function () {
                     ss.init(
                         "ajax",
                         {
@@ -112,7 +117,7 @@ ss.add(
                                 }
                             }
                         }
-                    )
+                    );
                 },
                 60000
             );
@@ -252,5 +257,7 @@ ss.add(
 
             return this;
         }
-    }
-);
+    };
+
+    ss.add(name, parameters);
+}(window.jQuery, window.ss);

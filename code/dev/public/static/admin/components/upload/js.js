@@ -1,9 +1,9 @@
-/**
- * Abstract form
- */
-ss.add(
-    "adminComponentsUpload",
-    {
+!function ($, ss) {
+    "use strict";
+
+    var name = "adminComponentsUpload";
+
+    var parameters = {
         /**
          * Init
          */
@@ -47,16 +47,22 @@ ss.add(
             formData.append("language", ss.init("app").getLanguage());
             formData.append("token", ss.init("app").getToken());
 
-            $.each(this.getOption("data", {}), function(key, value) {
-                if ($.type(value) === "object") {
-                    $.each(value, function(valueKey, valueValue) {
-                        var formattedKey = key + "[" + valueKey + "]";
-                        formData.append(formattedKey, valueValue);
-                    });
-                } else {
-                    formData.append(key, value);
+            $.each(
+                this.getOption("data", {}),
+                function (key, value) {
+                    if ($.type(value) === "object") {
+                        $.each(
+                            value,
+                            function (valueKey, valueValue) {
+                                var formattedKey = key + "[" + valueKey + "]";
+                                formData.append(formattedKey, valueValue);
+                            }
+                        );
+                    } else {
+                        formData.append(key, value);
+                    }
                 }
-            });
+            );
 
             return formData;
         },
@@ -138,7 +144,9 @@ ss.add(
         /**
          * Empty function
          */
-        emptyFunction: function() {
+        emptyFunction: function () {
         }
-    }
-);
+    };
+
+    ss.add(name, parameters);
+}(window.jQuery, window.ss);

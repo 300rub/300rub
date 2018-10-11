@@ -78,7 +78,7 @@
          */
         setForms: function () {
             var container
-                = ss.init("template", {}).get("text-settings-container");
+                = ss.init("template").get("text-settings-container");
             container.appendTo(this.getBody());
 
             this.forms.name = ss.init(
@@ -220,7 +220,7 @@
                     .focus();
             } else {
                 if (this.getOption("blockId", 0) === 0) {
-                    ss.init("app", {}).setIsBlockSection(false);
+                    ss.init("app").setIsBlockSection(false);
                 } else {
                     ss.init(
                         "commonContentBlockUpdate",

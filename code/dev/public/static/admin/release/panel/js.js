@@ -1,6 +1,9 @@
-ss.add(
-    "adminReleasePanel",
-    {
+!function ($, ss) {
+    "use strict";
+
+    var name = "adminReleasePanel";
+
+    var parameters = {
         /**
          * Parent
          *
@@ -11,7 +14,7 @@ ss.add(
         /**
          * Init
          */
-        init: function() {
+        init: function () {
             this.create(
                 {
                     group: "release",
@@ -23,7 +26,7 @@ ss.add(
         /**
          * On load success
          */
-        onLoadSuccess: function() {
+        onLoadSuccess: function () {
             this.setSubmit(
                 {
                     label: this.getLabel("button"),
@@ -43,7 +46,7 @@ ss.add(
                 {
                     label: this.getLabel("moreInfo"),
                     icon: "fas fa-info",
-                    open: function() {
+                    open: function () {
                         ss.init("adminReleaseWindow");
                     }
                 }
@@ -53,8 +56,10 @@ ss.add(
         /**
          * On send success
          */
-        onSendSuccess: function() {
+        onSendSuccess: function () {
             window.location.reload();
         }
-    }
-);
+    };
+
+    ss.add(name, parameters);
+}(window.jQuery, window.ss);

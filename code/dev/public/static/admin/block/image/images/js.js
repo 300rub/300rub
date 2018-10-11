@@ -115,7 +115,7 @@
          */
         createContainer: function () {
             this.container
-                = ss.init("template", {}).get("image-sort-container");
+                = ss.init("template").get("image-sort-container");
 
             if (this.getOption("appendTo") !== null) {
                 this.container.appendTo(this.getOption("appendTo"));
@@ -133,7 +133,7 @@
             }
 
             this.uploadContainer
-                = ss.init("template", {}).get("image-upload-container");
+                = ss.init("template").get("image-upload-container");
             this.uploadForm = this.uploadContainer.find(".image-add-form");
             this.uploadProgress = this.uploadContainer.find(".progress");
             this.uploadCountCurrent
@@ -203,7 +203,7 @@
             }
 
             var itemElement
-                = ss.init("template", {}).get("image-sort-item");
+                = ss.init("template").get("image-sort-item");
             itemElement.find("img").attr("src", data.url);
 
             var buttons = itemElement.find(".buttons");

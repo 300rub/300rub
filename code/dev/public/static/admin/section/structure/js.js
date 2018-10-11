@@ -1,6 +1,9 @@
-ss.add(
-    "adminSectionStructure",
-    {
+!function ($, ss) {
+    "use strict";
+
+    var name = "adminSectionStructure";
+
+    var parameters = {
         /**
          * Parent
          *
@@ -18,7 +21,7 @@ ss.add(
         /**
          * Init
          */
-        init: function() {
+        init: function () {
             this.container = null;
 
             this.create(
@@ -36,7 +39,7 @@ ss.add(
         /**
          * On load success
          */
-        onLoadSuccess: function() {
+        onLoadSuccess: function () {
             this
                 .setContainer()
                 .setStructure()
@@ -57,9 +60,15 @@ ss.add(
          * Sets structure
          */
         setStructure: function () {
-            $.each(this.getData("structure", {}), $.proxy(function(i, lineData) {
-                this.addLine(lineData);
-            }, this));
+            $.each(
+                this.getData("structure", {}),
+                $.proxy(
+                    function (i, lineData) {
+                        this.addLine(lineData);
+                    },
+                    this
+                )
+            );
 
             return this;
         },
@@ -75,9 +84,12 @@ ss.add(
                     icon: "fas fa-plus",
                     label: this.getLabel("addLine"),
                     appendTo: this.getWindow().find(".footer"),
-                    onClick: $.proxy(function () {
-                        this.addLine();
-                    }, this)
+                    onClick: $.proxy(
+                        function () {
+                            this.addLine();
+                        },
+                        this
+                    )
                 }
             );
 
@@ -97,7 +109,7 @@ ss.add(
                             group: "section",
                             controller: "structure",
                             data: $.proxy(
-                                function() {
+                                function () {
                                     return {
                                         id: this.getOption("sectionId"),
                                         structure: this.getStructure()
@@ -116,7 +128,7 @@ ss.add(
         /**
          * On send success
          */
-        onSendSuccess: function() {
+        onSendSuccess: function () {
             if (this.getOption("sectionId") === ss.init("app").getSectionId()) {
                 window.location.reload();
             } else {
@@ -164,9 +176,12 @@ ss.add(
                 iconElement.addClass(icon);
             }
 
-            blockElement.find(".remove").on("click", function(){
-                gridStack.removeWidget(blockElement);
-            });
+            blockElement.find(".remove").on(
+                "click",
+                function () {
+                    gridStack.removeWidget(blockElement);
+                }
+            );
 
             blockElement.attr("data-id", data.id);
 
@@ -210,28 +225,34 @@ ss.add(
             );
 
             var removeButton = lineElement.find(".remove-line");
-            removeButton.on("click", $.proxy(function() {
-                if (lineData.id === 0) {
-                    lineElement.remove();
-                    return false;
-                }
-
-                ss.init(
-                    "commonComponentsConfirmation",
-                    {
-                        element: removeButton,
-                        text: this.getLabel("deleteLineConfirmText"),
-                        yes: {
-                            label: this.getLabel("delete"),
-                            icon: "fas fa-trash"
-                        },
-                        no: this.getLabel("no"),
-                        onClick: function() {
+            removeButton.on(
+                "click",
+                $.proxy(
+                    function () {
+                        if (lineData.id === 0) {
                             lineElement.remove();
+                            return false;
                         }
-                    }
-                );
-            }, this));
+
+                        ss.init(
+                            "commonComponentsConfirmation",
+                            {
+                                element: removeButton,
+                                text: this.getLabel("deleteLineConfirmText"),
+                                yes: {
+                                    label: this.getLabel("delete"),
+                                    icon: "fas fa-trash"
+                                },
+                                no: this.getLabel("no"),
+                                onClick: function () {
+                                    lineElement.remove();
+                                }
+                            }
+                        );
+                    },
+                    this
+                )
+            );
 
             lineElement.attr("data-id", lineData.id);
 
@@ -241,19 +262,21 @@ ss.add(
 
             var gridStack = lineElement.find(".grid-stack");
 
-            gridStack.gridstack({
-                animate: true,
-                cellHeight: "60px",
-                width: 12,
-                verticalMargin: 10,
-                resizable: {
-                    handles: 'w, e',
-                    classes: {
-                        "ui-resizable-w": "fas fa-arrows-alt-h",
-                        "ui-resizable-e": "fas fa-arrows-alt-h"
+            gridStack.gridstack(
+                {
+                    animate: true,
+                    cellHeight: "60px",
+                    width: 12,
+                    verticalMargin: 10,
+                    resizable: {
+                        handles: 'w, e',
+                        classes: {
+                            "ui-resizable-w": "fas fa-arrows-alt-h",
+                            "ui-resizable-e": "fas fa-arrows-alt-h"
+                        }
                     }
                 }
-            });
+            );
 
             ss.init(
                 "commonComponentsFormButton",
@@ -262,18 +285,27 @@ ss.add(
                     icon: "fas fa-plus",
                     label: this.getLabel("addBlock"),
                     appendTo: lineElement.find(".line-footer"),
-                    onClick: $.proxy(function () {
-                        ss.init(
-                            "adminSectionBlock",
-                            {
-                                name: "section-blocks",
-                                blocks: this.getData("blocks"),
-                                callback: $.proxy(function(blockData) {
-                                    this.addBlock(blockData, gridStack.data('gridstack'));
-                                }, this)
-                            }
-                        );
-                    }, this)
+                    onClick: $.proxy(
+                        function () {
+                            ss.init(
+                                "adminSectionBlock",
+                                {
+                                    name: "section-blocks",
+                                    blocks: this.getData("blocks"),
+                                    callback: $.proxy(
+                                        function (blockData) {
+                                            this.addBlock(
+                                                blockData,
+                                                gridStack.data('gridstack')
+                                            );
+                                        },
+                                        this
+                                    )
+                                }
+                            );
+                        },
+                        this
+                    )
                 }
             );
 
@@ -286,9 +318,12 @@ ss.add(
                     icon: "fas fa-chevron-up",
                     label: "Up",
                     appendTo: btnGroup,
-                    onClick: $.proxy(function () {
-                        lineElement.prev().before(lineElement);
-                    }, this)
+                    onClick: $.proxy(
+                        function () {
+                            lineElement.prev().before(lineElement);
+                        },
+                        this
+                    )
                 }
             );
 
@@ -299,18 +334,36 @@ ss.add(
                     icon: "fas fa-chevron-down",
                     label: "Down",
                     appendTo: btnGroup,
-                    onClick: $.proxy(function () {
-                        lineElement.next().after(lineElement);
-                    }, this)
+                    onClick: $.proxy(
+                        function () {
+                            lineElement.next().after(lineElement);
+                        },
+                        this
+                    )
                 }
             );
 
             if (lineData.blocks !== undefined) {
-                setTimeout($.proxy(function(){
-                    $.each(lineData.blocks, $.proxy(function (i, blockData) {
-                        this.addBlock(blockData, gridStack.data('gridstack'));
-                    }, this));
-                }, this), 300);
+                setTimeout(
+                    $.proxy(
+                        function () {
+                            $.each(
+                                lineData.blocks,
+                                $.proxy(
+                                    function (i, blockData) {
+                                        this.addBlock(
+                                            blockData,
+                                            gridStack.data('gridstack')
+                                        );
+                                    },
+                                    this
+                                )
+                            );
+                        },
+                        this
+                    ),
+                    300
+                );
             }
 
             this.getBody().scrollTop(100000);
@@ -324,27 +377,35 @@ ss.add(
         getStructure: function () {
             var structure = [];
 
-            this.container.find(".section-structure-line").each(function() {
-                var grids = [];
+            this.container.find(".section-structure-line").each(
+                function () {
+                    var grids = [];
 
-                $(this).find(".grid-stack-item").each(function() {
-                    grids.push({
-                        blockId: $(this).data("id"),
-                        x: $(this).data("gs-x"),
-                        y: $(this).data("gs-y"),
-                        width: $(this).data("gs-width")
-                    });
-                });
+                    $(this).find(".grid-stack-item").each(
+                        function () {
+                            grids.push(
+                                {
+                                    blockId: $(this).data("id"),
+                                    x: $(this).data("gs-x"),
+                                    y: $(this).data("gs-y"),
+                                    width: $(this).data("gs-width")
+                                }
+                            );
+                        }
+                    );
 
-                structure.push(
-                    {
-                        id: $(this).data("id"),
-                        grids: grids
-                    }
-                );
-            });
+                    structure.push(
+                        {
+                            id: $(this).data("id"),
+                            grids: grids
+                        }
+                    );
+                }
+            );
 
             return structure;
         }
-    }
-);
+    };
+
+    ss.add(name, parameters);
+}(window.jQuery, window.ss);

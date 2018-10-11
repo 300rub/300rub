@@ -61,7 +61,7 @@
          */
         createContainer: function () {
             this.container
-                = ss.init("template", {}).get("image-group-sort-container");
+                = ss.init("template").get("image-group-sort-container");
 
             if (this.getOption("appendTo") !== null) {
                 this.container.appendTo(this.getOption("appendTo"));
@@ -80,7 +80,7 @@
                             return this;
                         }
 
-                        var itemElement = ss.init("template", {}).get(
+                        var itemElement = ss.init("template").get(
                             "image-group-sort-item"
                         );
 

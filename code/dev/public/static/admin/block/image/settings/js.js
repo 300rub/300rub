@@ -309,7 +309,7 @@
          */
         setCropProportions: function () {
             var cropContainer
-                = ss.init("template", {}).get("image-settings-crop-container");
+                = ss.init("template").get("image-settings-crop-container");
             cropContainer
                 .find(".label-text")
                 .text(this.getLabel("cropProportions"));
@@ -400,7 +400,7 @@
          */
         setThumbCropProportions: function () {
             var thumbCropContainer
-                = ss.init("template", {}).get("image-settings-crop-container");
+                = ss.init("template").get("image-settings-crop-container");
             thumbCropContainer.removeClass("image-settings-crop-container");
             thumbCropContainer.addClass("image-settings-thumb-crop-container");
             thumbCropContainer
@@ -502,7 +502,7 @@
                     .focus();
             } else {
                 if (this.getOption("blockId", 0) === 0) {
-                    ss.init("app", {}).setIsBlockSection(false);
+                    ss.init("app").setIsBlockSection(false);
                 } else {
                     ss.init(
                         "commonContentBlockUpdate",

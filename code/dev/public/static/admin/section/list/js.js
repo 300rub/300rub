@@ -1,6 +1,9 @@
-ss.add(
-    "adminSectionList",
-    {
+!function ($, ss) {
+    "use strict";
+
+    var name = "adminSectionList";
+
+    var parameters = {
         /**
          * Parent
          *
@@ -11,7 +14,7 @@ ss.add(
         /**
          * Init
          */
-        init: function() {
+        init: function () {
             this.create(
                 {
                     group: "section",
@@ -23,15 +26,17 @@ ss.add(
         /**
          * On load success
          */
-        onLoadSuccess: function() {
+        onLoadSuccess: function () {
             if (this.getData("canAdd") === true) {
-                this.setFooterButton({
-                    label: this.getLabel("add"),
-                    icon: "fas fa-plus",
-                    onClick: function () {
-                        //new ss.panel.section.Settings();
+                this.setFooterButton(
+                    {
+                        label: this.getLabel("add"),
+                        icon: "fas fa-plus",
+                        onClick: function () {
+                            ss.init("adminSectionSettings");
+                        }
                     }
-                });
+                );
             } else {
                 this.removeFooter();
             }
@@ -44,6 +49,7 @@ ss.add(
                         if (section.isPublished === false) {
                             icon = "far fa-eye-slash";
                         }
+
                         if (section.isMain === true) {
                             icon = "fas fa-home";
                         }
@@ -51,23 +57,30 @@ ss.add(
                         var settings = null;
                         if (section.canUpdateSettings === true) {
                             settings = function () {
-                                //new ss.panel.section.Settings(
-                                //    section.id
-                                //);
+                                ss.init(
+                                    "adminSectionSettings",
+                                    {
+                                        sectionId: section.id
+                                    }
+                                );
                             };
                         }
 
                         var design = null;
                         if (section.canUpdateDesign === true) {
                             design = function () {
-                                //
                             };
                         }
 
                         var open = null;
                         if (section.canUpdateContent === true) {
                             open = function () {
-                                //new ss.window.section.Structure(section.id);
+                                ss.init(
+                                    "adminSectionStructure",
+                                    {
+                                        sectionId: section.id
+                                    }
+                                );
                             };
                         }
 
@@ -85,5 +98,7 @@ ss.add(
                 )
             );
         }
-    }
-);
+    };
+
+    ss.add(name, parameters);
+}(window.jQuery, window.ss);

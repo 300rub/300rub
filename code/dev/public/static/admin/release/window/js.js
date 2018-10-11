@@ -1,6 +1,9 @@
-ss.add(
-    "adminReleaseWindow",
-    {
+!function ($, ss) {
+    "use strict";
+
+    var name = "adminReleaseWindow";
+
+    var parameters = {
         /**
          * Parent
          *
@@ -11,7 +14,7 @@ ss.add(
         /**
          * Init
          */
-        init: function() {
+        init: function () {
             this.create(
                 {
                     group: "release",
@@ -25,7 +28,7 @@ ss.add(
         /**
          * On load success
          */
-        onLoadSuccess: function() {
+        onLoadSuccess: function () {
             var table = ss.init("template").get("window-release-info-table");
 
             table.find(".name-label").text(this.getLabel("name"));
@@ -55,5 +58,7 @@ ss.add(
 
             this.getBody().append(table);
         }
-    }
-);
+    };
+
+    ss.add(name, parameters);
+}(window.jQuery, window.ss);

@@ -52,7 +52,7 @@
          * Sets panel
          */
         setPanel: function () {
-            this.panel = ss.init("template", {}).get("panel");
+            this.panel = ss.init("template").get("panel");
             return this;
         },
 
@@ -184,7 +184,7 @@
          */
         removePanel: function () {
             var controlButtons
-                = ss.init("app", {}).getDomElement("controlButtons");
+                = ss.init("app").getDomElement("controlButtons");
 
             this.panel.addClass("transparent");
             controlButtons.removeClass("hidden");
@@ -214,7 +214,7 @@
          * Adds element to DOM
          */
         addDomElement: function () {
-            var app = ss.init("app", {});
+            var app = ss.init("app");
             var controlButtons = app.getDomElement("controlButtons");
 
             app.remove("panel");
@@ -361,7 +361,7 @@
          * Shows block section switcher
          */
         showBlockSectionSwitcher: function () {
-            var app = ss.init("app", {});
+            var app = ss.init("app");
 
             ss.init(
                 "commonComponentsFormCheckboxOnOff",
@@ -408,7 +408,7 @@
          * @returns {int}
          */
         getBlockSection: function () {
-            var app = ss.init("app", {});
+            var app = ss.init("app");
 
             if (app.getIsBlockSection() === false) {
                 return 0;
@@ -485,7 +485,7 @@
         addListItem: function (itemOptions) {
             itemOptions = $.extend({}, itemOptions);
 
-            var listItem = ss.init("template", {}).get("panel-list-item");
+            var listItem = ss.init("template").get("panel-list-item");
 
             var item = listItem.find(".item");
             if (itemOptions.label !== undefined) {

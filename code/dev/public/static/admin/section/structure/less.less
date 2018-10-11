@@ -2,8 +2,8 @@
 
 .window-section-structure {
   left: 25px;
-  right: 25px;
   margin-left: 0;
+  right: 25px;
   width: auto;
 
   .body {
@@ -13,36 +13,36 @@
   .grid-stack-item {
     .grid-stack-item-content {
       .border-radius(4px);
-      left: 5px;
-      right: 5px;
-      border: 1px solid @grayBorderColor;
       background: white;
+      border: 1px solid @grayBorderColor;
       cursor: move;
       height: 60px;
+      left: 5px;
+      right: 5px;
 
       .remove {
         .transition(opacity);
-        position: absolute;
-        top: 0;
-        right: 0;
-        width: 20px;
         height: 20px;
         line-height: 20px;
-        text-align: center;
         opacity: 0;
+        position: absolute;
+        right: 0;
+        text-align: center;
+        top: 0;
+        width: 20px;
       }
     }
 
     .ui-resizable-handle {
       .transition(opacity);
-      top: auto;
       bottom: 0;
-      height: 20px;
-      width: 25px;
-      line-height: 20px;
-      font-size: 14px;
       display: block !important;
+      font-size: 14px;
+      height: 20px;
+      line-height: 20px;
       opacity: 0;
+      top: auto;
+      width: 25px;
     }
 
     .ui-resizable-w {
@@ -57,10 +57,10 @@
 
     .grid-stack-item-content {
       line-height: 58px;
-      white-space: nowrap;
       overflow: hidden;
-      text-overflow: ellipsis;
       text-align: center;
+      text-overflow: ellipsis;
+      white-space: nowrap;
     }
 
     &:hover {
@@ -76,27 +76,27 @@
       background: @lightGrayBackground;
       border: solid @grayBorderColor;
       border-width: 1px 0;
-      position: relative;
       margin: 10px 0;
       padding: 10px 15px;
+      position: relative;
 
       .line-header {
         padding-bottom: 15px;
 
         .remove-line {
-          position: absolute;
-          top: 0;
-          right: 0;
-          width: 30px;
+          font-size: 16px;
           height: 30px;
           line-height: 30px;
-          font-size: 16px;
+          position: absolute;
+          right: 0;
           text-align: center;
+          top: 0;
+          width: 30px;
         }
 
         .line-name {
-          margin-right: 10px;
           display: inline-block;
+          margin-right: 10px;
         }
 
         .btn-group {
@@ -134,10 +134,10 @@
 .window-section-blocks {
   .section-block {
     .border-radius(4px);
+    border: 1px solid @grayBorderColor;
     display: block;
     margin: 5px 0;
     padding: 5px 10px;
-    border: 1px solid @grayBorderColor;
 
     &:hover {
       background: @lightGrayBackground;
