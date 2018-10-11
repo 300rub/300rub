@@ -1,6 +1,9 @@
-ss.add(
-    "adminBlockImageList",
-    {
+!function ($, ss) {
+    "use strict";
+
+    var name = "adminBlockImageList";
+
+    var parameters = {
         /**
          * Parent
          *
@@ -11,12 +14,12 @@ ss.add(
         /**
          * Init
          */
-        init: function() {
+        init: function () {
             this.create(
                 {
                     group: "image",
                     controller: "blocks",
-                    back: function() {
+                    back: function () {
                         ss.init("adminBlockList");
                     },
                     hasBlockSectionSwitcher: true
@@ -27,16 +30,18 @@ ss.add(
         /**
          * On load success
          */
-        onLoadSuccess: function() {
+        onLoadSuccess: function () {
             if (this.getData("canAdd") === true) {
                 this
-                    .setFooterButton({
-                        label: this.getLabel("add"),
-                        icon: "fas fa-plus",
-                        onClick: function () {
-                            //new ss.panel.blocks.image.Settings();
+                    .setFooterButton(
+                        {
+                            label: this.getLabel("add"),
+                            icon: "fas fa-plus",
+                            onClick: function () {
+                                ss.init("adminBlockImageSettings", {});
+                            }
                         }
-                    });
+                    );
             } else {
                 this.removeFooter();
             }
@@ -48,36 +53,40 @@ ss.add(
                         var design = null;
                         if (itemData.canUpdateDesign === true) {
                             design = function () {
-                                //new ss.panel.design.Editor(
-                                //    {
-                                //        group: "image",
-                                //        controller: "design",
-                                //        id: itemData.id,
-                                //        success: function () {
-                                //            new ss.panel.blocks.image.List();
-                                //        }
-                                //    }
-                                //);
+                                // new ss.panel.design.Editor(
+                                // {
+                                // group: "image",
+                                // controller: "design",
+                                // id: itemData.id,
+                                // success: function () {
+                                // new ss.panel.blocks.image.List();
+                                // }
+                                // }
+                                // );
                             };
                         }
 
                         var settings = null;
                         if (itemData.canUpdateDesign === true) {
                             settings = function () {
-                                //new ss.panel.blocks.image.Settings(
-                                //    itemData.id
-                                //);
+                                ss.init(
+                                    "adminBlockImageSettings",
+                                    {
+                                        blockId: itemData.id
+                                    }
+                                );
                             };
                         }
 
                         var open = null;
                         if (itemData.canUpdateContent === true) {
                             open = function () {
-                                //new ss.window.blocks.image.Content(
-                                //    {
-                                //        blockId: itemData.id
-                                //    }
-                                //);
+                                ss.init(
+                                    "adminBlockImageContent",
+                                    {
+                                        blockId: itemData.id
+                                    }
+                                );
                             };
                         }
 
@@ -95,5 +104,7 @@ ss.add(
                 )
             );
         }
-    }
-);
+    };
+
+    ss.add(name, parameters);
+}(window.jQuery, window.ss);

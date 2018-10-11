@@ -1,6 +1,9 @@
-ss.add(
-    "adminBlockImageSettings",
-    {
+!function ($, ss) {
+    "use strict";
+
+    var name = "adminBlockImageSettings";
+
+    var parameters = {
         /**
          * Parent
          *
@@ -42,7 +45,7 @@ ss.add(
         /**
          * Init
          */
-        init: function() {
+        init: function () {
             this.container = null;
             this.forms = {};
 
@@ -53,8 +56,8 @@ ss.add(
                     data: {
                         id: this.getOption("blockId", 0)
                     },
-                    back: function() {
-                        ss.init("adminBlockImageList");
+                    back: function () {
+                        ss.init("adminBlockImageList", {});
                     }
                 }
             );
@@ -63,7 +66,7 @@ ss.add(
         /**
          * On load success
          */
-        onLoadSuccess: function() {
+        onLoadSuccess: function () {
             this
                 .setContainer()
                 .setButtons()
@@ -137,7 +140,7 @@ ss.add(
                                 }
                             },
                             type: "POST",
-                            success: function(data) {
+                            success: function (data) {
                                 ss.init(
                                     "adminBlockImageSettings",
                                     {
@@ -170,17 +173,20 @@ ss.add(
                                 }
                             },
                             type: "DELETE",
-                            success: $.proxy(function() {
-                                ss.init("adminBlockImageList");
-                                ss.init(
-                                    "commonContentBlockDelete",
-                                    {
-                                        list: [
+                            success: $.proxy(
+                                function () {
+                                    ss.init("adminBlockImageList", {});
+                                    ss.init(
+                                        "commonContentBlockDelete",
+                                        {
+                                            list: [
                                             this.getOption("blockId", 0)
-                                        ]
-                                    }
-                                );
-                            }, this)
+                                            ]
+                                        }
+                                    );
+                                },
+                                this
+                            )
                         }
                     }
                 );
@@ -220,13 +226,16 @@ ss.add(
                     {
                         appendTo: this.container,
                         type: "int",
-                        onChange: $.proxy(function (value) {
-                            if (value === 0) {
-                                this.container.addClass("zoom");
-                            } else {
-                                this.container.removeClass("zoom");
-                            }
-                        }, this)
+                        onChange: $.proxy(
+                            function (value) {
+                                if (value === 0) {
+                                    this.container.addClass("zoom");
+                                } else {
+                                    this.container.removeClass("zoom");
+                                }
+                            },
+                            this
+                        )
                     }
                 )
             );
@@ -272,17 +281,23 @@ ss.add(
                     value: useCrop,
                     label: this.getLabel("configureCrop"),
                     appendTo: this.container,
-                    onCheck: $.proxy(function() {
-                        this.container.addClass("use-crop");
-                    }, this),
-                    onUnCheck: $.proxy(function() {
+                    onCheck: $.proxy(
+                        function () {
+                            this.container.addClass("use-crop");
+                        },
+                        this
+                    ),
+                onUnCheck: $.proxy(
+                    function () {
                         this.container.removeClass("use-crop");
 
                         this.forms.cropX.setValue(0);
                         this.forms.cropY.setValue(0);
                         this.forms.thumbCropX.setValue(0);
                         this.forms.thumbCropY.setValue(0);
-                    }, this)
+                    },
+                    this
+                )
                 }
             );
 
@@ -293,8 +308,8 @@ ss.add(
          * Sets crop proportions
          */
         setCropProportions: function () {
-            var cropContainer =
-                ss.init("template").get("image-settings-crop-container");
+            var cropContainer
+                = ss.init("template", {}).get("image-settings-crop-container");
             cropContainer
                 .find(".label-text")
                 .text(this.getLabel("cropProportions"));
@@ -345,14 +360,20 @@ ss.add(
                     label: this.getLabel("hasAutoCrop"),
                     css: "auto-crop-container",
                     appendTo: this.container,
-                    onCheck: $.proxy(function() {
-                        this.container.addClass("auto-crop");
-                        this.forms.autoCropType.setValue(5);
-                    }, this),
-                    onUnCheck: $.proxy(function() {
-                        this.container.removeClass("auto-crop");
-                        this.forms.autoCropType.setValue(0);
-                    }, this)
+                    onCheck: $.proxy(
+                        function () {
+                            this.container.addClass("auto-crop");
+                            this.forms.autoCropType.setValue(5);
+                        },
+                        this
+                    ),
+                onUnCheck: $.proxy(
+                    function () {
+                            this.container.removeClass("auto-crop");
+                            this.forms.autoCropType.setValue(0);
+                    },
+                    this
+                )
                 }
             );
 
@@ -379,7 +400,7 @@ ss.add(
          */
         setThumbCropProportions: function () {
             var thumbCropContainer
-                = ss.init("template").get("image-settings-crop-container");
+                = ss.init("template", {}).get("image-settings-crop-container");
             thumbCropContainer.removeClass("image-settings-crop-container");
             thumbCropContainer.addClass("image-settings-thumb-crop-container");
             thumbCropContainer
@@ -432,14 +453,20 @@ ss.add(
                     label: this.getLabel("hasThumbAutoCrop"),
                     css: "thumb-auto-crop-container",
                     appendTo: this.container,
-                    onCheck: $.proxy(function() {
-                        this.container.addClass("thumb-auto-crop");
-                        this.forms.thumbAutoCropType.setValue(5);
-                    }, this),
-                    onUnCheck: $.proxy(function() {
+                    onCheck: $.proxy(
+                        function () {
+                            this.container.addClass("thumb-auto-crop");
+                            this.forms.thumbAutoCropType.setValue(5);
+                        },
+                        this
+                    ),
+                onUnCheck: $.proxy(
+                    function () {
                         this.container.removeClass("thumb-auto-crop");
                         this.forms.thumbAutoCropType.setValue(0);
-                    }, this)
+                    },
+                    this
+                )
                 }
             );
 
@@ -475,7 +502,7 @@ ss.add(
                     .focus();
             } else {
                 if (this.getOption("blockId", 0) === 0) {
-                    ss.init("app").setIsBlockSection(false);
+                    ss.init("app", {}).setIsBlockSection(false);
                 } else {
                     ss.init(
                         "commonContentBlockUpdate",
@@ -487,8 +514,10 @@ ss.add(
                     );
                 }
 
-                ss.init("adminBlockImageList");
+                ss.init("adminBlockImageList", {});
             }
         }
-    }
-);
+    };
+
+    ss.add(name, parameters);
+}(window.jQuery, window.ss);
