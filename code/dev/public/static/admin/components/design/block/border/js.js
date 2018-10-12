@@ -1,7 +1,7 @@
 !function ($, ss) {
     "use strict";
 
-    var name = "adminComponentsDesignBlockMargin";
+    var name = "adminComponentsDesignBlockBorder";
 
     var parameters = {
         /**
