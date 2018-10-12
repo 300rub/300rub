@@ -18,8 +18,8 @@
         ss.panel.design.AbstractGroup.call(
             this,
             {
-                designContainer: options.designContainer,
-                updateExampleEvent: "update-text-example",
+                editorContainer: options.editorContainer,
+                updateSampleEvent: "update-text-sample",
                 labels: options.labels,
                 namespace: options.namespace,
                 values: options.values

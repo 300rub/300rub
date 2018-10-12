@@ -25,10 +25,10 @@
         ss.panel.design.AbstractGroup.call(
             this,
             {
-                designContainer: options.designContainer,
-                groupContainerName: "padding-container",
+                editorContainer: options.editorContainer,
+                groupContainerSelector: ".padding-container",
                 title: options.labels.title,
-                updateExampleEvent: "update-padding-example",
+                updateSampleEvent: "update-padding-sample",
                 labels: options.labels,
                 namespace: options.namespace,
                 values: options.values

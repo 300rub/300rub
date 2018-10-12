@@ -16,8 +16,8 @@
         ss.panel.design.AbstractGroup.call(
             this,
             {
-                designContainer: options.designContainer,
-                updateExampleEvent: "update-text-example",
+                editorContainer: options.editorContainer,
+                updateSampleEvent: "update-text-sample",
                 labels: options.labels,
                 namespace: options.namespace,
                 values: options.values
@@ -94,7 +94,7 @@
             this
         );
 
-        var checkboxContainer = this.getDesignContainer()
+        var checkboxContainer = this.getEditorContainer()
             .find(".hover-checkbox-container");
 
         new ss.forms.CheckboxOnOff(

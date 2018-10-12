@@ -59,13 +59,18 @@
         init: function () {
         },
 
+        /**
+         * Creates editor
+         *
+         * @param {Options} options
+         */
         create: function(options) {
             this
                 .extendOptions(options)
+                .setLabels(this.getOption("labels"))
                 .setSelector()
                 .setCssContainer()
                 .setEditorContainer()
-                .setLabels(this.getOption("labels"))
                 .setValues()
                 .setNamespace()
                 .setUniqueId()
@@ -203,6 +208,15 @@
         rollback: function () {
             this.cssContainer.html(this.cssToRollback);
         },
+
+        /**
+         * Gets data
+         *
+         * @returns {Object}
+         */
+        getData: function () {
+            return {};
+        }
     };
 
     ss.add(name, parameters);

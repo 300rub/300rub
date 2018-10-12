@@ -10,16 +10,16 @@
      */
     ss.panel.design.block.Editor = function (options) {
         this._margin = null;
-        this._marginExample = null;
+        this._marginSample = null;
 
         this._padding = null;
-        this._paddingExample = null;
+        this._paddingSample = null;
 
         this._background = null;
-        this._backgroundExample = null;
+        this._backgroundSample = null;
 
         this._border = null;
-        this._borderExample = null;
+        this._borderSample = null;
 
         ss.panel.design.AbstractEditor.call(
             this,
@@ -48,47 +48,47 @@
      */
     ss.panel.design.block.Editor.prototype.init = function () {
         this
-            ._setExamples()
+            ._setSamples()
             ._setGroupEditors()
             ._setUpdateEvents();
     };
 
     /**
-     * Sets examples
+     * Sets samples
      *
      * @returns {ss.panel.design.block.Editor}
      *
      * @private
      */
-    ss.panel.design.block.Editor.prototype._setExamples = function () {
+    ss.panel.design.block.Editor.prototype._setSamples = function () {
         var selector;
 
-        selector = "margin-example-" + this.getUniqueId();
-        this.getDesignContainer().find(".margin-example").addClass(selector);
-        this._marginExample = this.getDesignContainer()
-            .find(".margin-container .styles-example-container")
+        selector = "margin-sample-" + this.getUniqueId();
+        this.getEditorContainer().find(".margin-sample").addClass(selector);
+        this._marginSample = this.getEditorContainer()
+            .find(".margin-container .styles-sample-container")
             .attr("data-selector", selector);
 
-        selector = "padding-example-" + this.getUniqueId();
-        this.getDesignContainer()
-            .find(".padding-example-container")
+        selector = "padding-sample-" + this.getUniqueId();
+        this.getEditorContainer()
+            .find(".padding-sample-container")
             .addClass(selector);
-        this._paddingExample = this.getDesignContainer()
-            .find(".padding-container .styles-example-container")
+        this._paddingSample = this.getEditorContainer()
+            .find(".padding-container .styles-sample-container")
             .attr("data-selector", selector);
 
-        selector = "background-example-" + this.getUniqueId();
-        this.getDesignContainer()
-            .find(".background-example")
+        selector = "background-sample-" + this.getUniqueId();
+        this.getEditorContainer()
+            .find(".background-sample")
             .addClass(selector);
-        this._backgroundExample = this.getDesignContainer()
-            .find(".background-container .styles-example-container")
+        this._backgroundSample = this.getEditorContainer()
+            .find(".background-container .styles-sample-container")
             .attr("data-selector", selector);
 
-        selector = "border-example-" + this.getUniqueId();
-        this.getDesignContainer().find(".border-example").addClass(selector);
-        this._borderExample = this.getDesignContainer()
-            .find(".border-container .styles-example-container")
+        selector = "border-sample-" + this.getUniqueId();
+        this.getEditorContainer().find(".border-sample").addClass(selector);
+        this._borderSample = this.getEditorContainer()
+            .find(".border-container .styles-sample-container")
             .attr("data-selector", selector);
 
         return this;
@@ -104,7 +104,7 @@
     ss.panel.design.block.Editor.prototype._setGroupEditors = function () {
         this._margin = new ss.panel.design.block.Margin(
             {
-                designContainer: this.getDesignContainer(),
+                editorContainer: this.getEditorContainer(),
                 labels: this.getLabels(),
                 values: this.getValues(),
                 namespace: this.getNamespace()
@@ -113,7 +113,7 @@
 
         this._padding = new ss.panel.design.block.Padding(
             {
-                designContainer: this.getDesignContainer(),
+                editorContainer: this.getEditorContainer(),
                 labels: this.getLabels(),
                 values: this.getValues(),
                 namespace: this.getNamespace()
@@ -122,7 +122,7 @@
 
         this._background = new ss.panel.design.block.Background(
             {
-                designContainer: this.getDesignContainer(),
+                editorContainer: this.getEditorContainer(),
                 labels: this.getLabels(),
                 values: this.getValues(),
                 namespace: this.getNamespace()
@@ -131,7 +131,7 @@
 
         this._border = new ss.panel.design.block.Border(
             {
-                designContainer: this.getDesignContainer(),
+                editorContainer: this.getEditorContainer(),
                 labels: this.getLabels(),
                 values: this.getValues(),
                 namespace: this.getNamespace()
@@ -149,24 +149,24 @@
      * @private
      */
     ss.panel.design.block.Editor.prototype._setUpdateEvents = function () {
-        this.getDesignContainer()
+        this.getEditorContainer()
             .on(
                 "update",
                 $.proxy(this._onUpdate, this)
             )
             .on(
-                "update-margin-example",
-                $.proxy(this._onUpdateMarginExample, this)
+                "update-margin-sample",
+                $.proxy(this._onUpdateMarginSample, this)
             )
             .on(
-                "update-padding-example",
-                $.proxy(this._onUpdatePaddingExample, this)
+                "update-padding-sample",
+                $.proxy(this._onUpdatePaddingSample, this)
             ).on(
-                "update-background-example",
-                $.proxy(this._onUpdateBackgroundExample, this)
+                "update-background-sample",
+                $.proxy(this._onUpdateBackgroundSample, this)
             ).on(
-                "update-border-example",
-                $.proxy(this._onUpdateBorderExample, this)
+                "update-border-sample",
+                $.proxy(this._onUpdateBorderSample, this)
             );
 
         return this;
@@ -190,11 +190,11 @@
     };
 
     /**
-     * On update margin example
+     * On update margin sample
      *
      * @private
      */
-    ss.panel.design.block.Editor.prototype._onUpdateMarginExample
+    ss.panel.design.block.Editor.prototype._onUpdateMarginSample
         = function () {
             var css = this._margin.generateCss(false);
             var cssHover = this._margin.generateCss(true);
@@ -210,7 +210,7 @@
                 cssHover += cssAnimation;
             }
 
-            var selector = "." + this._marginExample.data("selector");
+            var selector = "." + this._marginSample.data("selector");
 
             var html = "<style>";
 
@@ -220,15 +220,15 @@
 
             html += "</style>";
 
-            this._marginExample.html(html);
+            this._marginSample.html(html);
         };
 
     /**
-     * On update padding example
+     * On update padding sample
      *
      * @private
      */
-    ss.panel.design.block.Editor.prototype._onUpdatePaddingExample
+    ss.panel.design.block.Editor.prototype._onUpdatePaddingSample
         = function () {
             var css = this._padding.generateCss(false);
             var cssHover = this._padding.generateCss(true);
@@ -244,7 +244,7 @@
                 cssHover += cssAnimation;
             }
 
-            var selector = "." + this._paddingExample.data("selector");
+            var selector = "." + this._paddingSample.data("selector");
 
             var html = "<style>";
 
@@ -254,15 +254,15 @@
 
             html += "</style>";
 
-            this._paddingExample.html(html);
+            this._paddingSample.html(html);
         };
 
     /**
-     * On update background example
+     * On update background sample
      *
      * @private
      */
-    ss.panel.design.block.Editor.prototype._onUpdateBackgroundExample
+    ss.panel.design.block.Editor.prototype._onUpdateBackgroundSample
         = function () {
             var css = this._background.generateCss(false);
             var cssHover = this._background.generateCss(true);
@@ -278,7 +278,7 @@
                 cssHover += cssAnimation;
             }
 
-            var selector = "." + this._backgroundExample.data("selector");
+            var selector = "." + this._backgroundSample.data("selector");
 
             var html = "<style>";
 
@@ -288,15 +288,15 @@
 
             html += "</style>";
 
-            this._backgroundExample.html(html);
+            this._backgroundSample.html(html);
         };
 
     /**
-     * On update border example
+     * On update border sample
      *
      * @private
      */
-    ss.panel.design.block.Editor.prototype._onUpdateBorderExample
+    ss.panel.design.block.Editor.prototype._onUpdateBorderSample
         = function () {
             var css = this._border.generateCss(false);
             var cssHover = this._border.generateCss(true);
@@ -315,7 +315,7 @@
                 cssHover += cssAnimation;
             }
 
-            var selector = "." + this._borderExample.data("selector");
+            var selector = "." + this._borderSample.data("selector");
 
             var html = "<style>";
 
@@ -325,7 +325,7 @@
 
             html += "</style>";
 
-            this._borderExample.html(html);
+            this._borderSample.html(html);
         };
 
     /**

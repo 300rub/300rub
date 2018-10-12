@@ -9,7 +9,7 @@
      * @type {ss.panel.design.text.Editor}
      */
     ss.panel.design.text.Editor = function (options) {
-        this._example = null;
+        this._sample = null;
 
         this._size = null;
         this._family = null;
@@ -50,25 +50,25 @@
      */
     ss.panel.design.text.Editor.prototype.init = function () {
         this
-            ._setExample()
+            ._setSample()
             ._setEditors()
             ._setUpdateEvents();
     };
 
     /**
-     * Sets examples
+     * Sets samples
      *
      * @returns {ss.panel.design.text.Editor}
      *
      * @private
      */
-    ss.panel.design.text.Editor.prototype._setExample = function () {
+    ss.panel.design.text.Editor.prototype._setSample = function () {
         var selector;
 
-        selector = "text-example-" + this.getUniqueId();
-        this.getDesignContainer().find(".example").addClass(selector);
-        this._example = this.getDesignContainer()
-            .find(".styles-example-container")
+        selector = "text-sample-" + this.getUniqueId();
+        this.getEditorContainer().find(".sample").addClass(selector);
+        this._sample = this.getEditorContainer()
+            .find(".styles-sample-container")
             .attr("data-selector", selector);
 
         return this;
@@ -83,12 +83,12 @@
      */
     ss.panel.design.text.Editor.prototype._setEditors = function () {
         var commonContainer
-            = this.getDesignContainer().find(".common-container");
+            = this.getEditorContainer().find(".common-container");
         var hoverContainer
-            = this.getDesignContainer().find(".hover-container");
+            = this.getEditorContainer().find(".hover-container");
 
         var data = {
-            designContainer: this.getDesignContainer(),
+            editorContainer: this.getEditorContainer(),
             labels: this.getLabels(),
             values: this.getValues(),
             namespace: this.getNamespace(),
@@ -119,14 +119,14 @@
      * @private
      */
     ss.panel.design.text.Editor.prototype._setUpdateEvents = function () {
-        this.getDesignContainer()
+        this.getEditorContainer()
             .on(
                 "update",
                 $.proxy(this._onUpdate, this)
             )
             .on(
-                "update-text-example",
-                $.proxy(this._onUpdateTextExample, this)
+                "update-text-sample",
+                $.proxy(this._onUpdateTextSample, this)
             );
 
         return this;
@@ -153,11 +153,11 @@
     };
 
     /**
-     * On update margin example
+     * On update margin sample
      *
      * @private
      */
-    ss.panel.design.text.Editor.prototype._onUpdateTextExample
+    ss.panel.design.text.Editor.prototype._onUpdateTextSample
         = function () {
             var css = "";
             var cssHover = "";
@@ -184,12 +184,12 @@
                 cssHover += this._transform.generateCss(true);
             }
 
-            var selector = "." + this._example.data("selector");
+            var selector = "." + this._sample.data("selector");
             var html = "<style>";
             html += selector + "{" + css + "}";
             html += selector + ":hover{" + cssHover + "}";
             html += "</style>";
-            this._example.html(html);
+            this._sample.html(html);
         };
 
     /**

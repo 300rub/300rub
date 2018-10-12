@@ -25,10 +25,10 @@
         ss.panel.design.AbstractGroup.call(
             this,
             {
-                designContainer: options.designContainer,
-                groupContainerName: "margin-container",
+                editorContainer: options.editorContainer,
+                groupContainerSelector: ".margin-container",
                 title: options.labels.title,
-                updateExampleEvent: "update-margin-example",
+                updateSampleEvent: "update-margin-sample",
                 labels: options.labels,
                 namespace: options.namespace,
                 values: options.values

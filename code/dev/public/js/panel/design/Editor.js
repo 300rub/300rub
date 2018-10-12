@@ -155,7 +155,7 @@
                     new ss.components.accordion.Element(
                         {
                             title: options.title,
-                            body: design.getDesignContainer(),
+                            body: design.getEditorContainer(),
                             appendTo: groupContainer
                         }
 

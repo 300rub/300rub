@@ -24,10 +24,10 @@
         ss.panel.design.AbstractGroup.call(
             this,
             {
-                designContainer: options.designContainer,
-                groupContainerName: "background-container",
+                editorContainer: options.editorContainer,
+                groupContainerSelector: ".background-container",
                 title: options.labels.title,
-                updateExampleEvent: "update-background-example",
+                updateSampleEvent: "update-background-sample",
                 labels: options.labels,
                 namespace: options.namespace,
                 values: options.values

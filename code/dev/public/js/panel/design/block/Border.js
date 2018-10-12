@@ -37,10 +37,10 @@
         ss.panel.design.AbstractGroup.call(
             this,
             {
-                designContainer: options.designContainer,
-                groupContainerName: "border-container",
+                editorContainer: options.editorContainer,
+                groupContainerSelector: ".border-container",
                 title: options.labels.title,
-                updateExampleEvent: "update-border-example",
+                updateSampleEvent: "update-border-sample",
                 labels: options.labels,
                 namespace: options.namespace,
                 values: options.values
