@@ -62,7 +62,7 @@
         /**
          * Creates editor
          *
-         * @param {Options} options
+         * @param {Object} options
          */
         create: function(options) {
             this
