@@ -240,6 +240,17 @@
             );
 
             return data;
+        },
+
+        /**
+         * Gets int value
+         *
+         * @param {Number} value
+         *
+         * @returns {Number}
+         */
+        getIntValue: function(value) {
+            return parseInt(value, 10) || 0;
         }
     };
 
