@@ -12,6 +12,76 @@
         parent: "adminComponentsDesignAbstractGroup",
 
         /**
+         * Background color from
+         *
+         * @var {String}
+         */
+        backgroundColorFrom:  null,
+
+        /**
+         * Background color from hover
+         *
+         * @var {String}
+         */
+        backgroundColorFromHover: null,
+
+        /**
+         * Background color to
+         *
+         * @var {String}
+         */
+        backgroundColorTo: null,
+
+        /**
+         * Background color to hover
+         *
+         * @var {String}
+         */
+        backgroundColorToHover: null,
+
+        /**
+         * Background direction
+         *
+         * @var {int|null}
+         */
+        gradientDirection: null,
+
+        /**
+         * Background direction hover
+         *
+         * @var {int|null}
+         */
+        gradientDirectionHover: null,
+
+        /**
+         * Has Background Gradient
+         *
+         * @var {Boolean}
+         */
+        hasBackgroundGradient: false,
+
+        /**
+         * Has Background hover
+         *
+         * @var {Boolean}
+         */
+        hasBackgroundHover: false,
+
+        /**
+         * Has Background animation
+         *
+         * @var {Boolean}
+         */
+        hasBackgroundAnimation: false,
+
+        /**
+         * Relative container
+         *
+         * @var {Object}
+         */
+        relativeContainer: null,
+
+        /**
          * Fields
          *
          * @var {Array}
