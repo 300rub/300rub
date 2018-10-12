@@ -31,9 +31,9 @@ class DesignImageSimpleModel extends AbstractDesignImageSimpleModel
         }
 
         $language = App::getInstance()->getLanguage();
-        $cssId = App::getInstance()
+        $cssContainerId = App::getInstance()
             ->getView()
-            ->generateCssId($selector, self::TYPE);
+            ->generateCssContainerId($selector, self::TYPE);
 
         return [
             $this->get('containerDesignBlockModel')->getDesign(
@@ -50,7 +50,7 @@ class DesignImageSimpleModel extends AbstractDesignImageSimpleModel
             ),
             [
                 'selector'  => $selector,
-                'cssId'     => $cssId,
+                'cssContainerId'     => $cssContainerId,
                 'type'      => self::TYPE,
                 'title'     => $language->getMessage('design', 'image'),
                 'namespace' => $namespace,

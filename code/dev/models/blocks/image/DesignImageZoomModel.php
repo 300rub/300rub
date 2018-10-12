@@ -31,9 +31,9 @@ class DesignImageZoomModel extends AbstractDesignImageZoomModel
         }
 
         $language = App::getInstance()->getLanguage();
-        $cssId = App::getInstance()
+        $cssContainerId = App::getInstance()
             ->getView()
-            ->generateCssId($selector, self::TYPE);
+            ->generateCssContainerId($selector, self::TYPE);
 
         return [
             $this->get('designBlockModel')->getDesign(
@@ -44,7 +44,7 @@ class DesignImageZoomModel extends AbstractDesignImageZoomModel
             ),
             [
                 'selector'  => $selector,
-                'cssId'     => $cssId,
+                'cssContainerId'     => $cssContainerId,
                 'type'      => self::TYPE,
                 'title'     => $language->getMessage('design', 'image'),
                 'namespace' => $namespace,

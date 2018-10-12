@@ -70,7 +70,7 @@ class View
      *
      * @return string
      */
-    public function generateCssId($selector, $type)
+    public function generateCssContainerId($selector, $type)
     {
         return sprintf(
             '%s-%s',
@@ -103,10 +103,10 @@ class View
      */
     public function generateCss(AbstractDesignModel $model, $selector)
     {
-        $cssId = $this->generateCssId($selector, $model->getCssType());
+        $cssContainerId = $this->generateCssContainerId($selector, $model->getCssType());
 
         return [
-            $cssId => $model->generateCss($selector)
+            $cssContainerId => $model->generateCss($selector)
         ];
     }
 

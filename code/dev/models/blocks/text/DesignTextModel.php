@@ -72,9 +72,9 @@ class DesignTextModel extends AbstractDesignTextCssModel
 
         return [
             'selector'  => $selector,
-            'cssId'     => App::getInstance()
+            'cssContainerId'     => App::getInstance()
                 ->getView()
-                ->generateCssId($selector, self::TYPE),
+                ->generateCssContainerId($selector, self::TYPE),
             'type'      => self::TYPE,
             'title'     => $title,
             'namespace' => $namespace,
