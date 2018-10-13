@@ -34,7 +34,7 @@ ss.add(
          * Sets container
          */
         setContainer: function () {
-            this.container = ss.components.Template.get("form-container-seo");
+            this.container = ss.init("template").get("form-container-seo");
             return this;
         },
 
@@ -64,7 +64,8 @@ ss.add(
             }, this));
 
             if (this.getOption("name") !== null) {
-                this.forms.name = new ss.forms.Text(
+                this.forms.name = ss.init(
+                    "commonComponentsFormText",
                     $.extend(
                         {},
                         this.getOption("name"),
@@ -76,7 +77,8 @@ ss.add(
             }
 
             if (this.getOption("alias") !== null) {
-                this.forms.alias = new ss.forms.Text(
+                this.forms.alias = ss.init(
+                    "commonComponentsFormText",
                     $.extend(
                         {},
                         this.getOption("alias"),
@@ -88,7 +90,8 @@ ss.add(
             }
 
             if (this.getOption("title") !== null) {
-                this.forms.title = new ss.forms.Text(
+                this.forms.title = ss.init(
+                    "commonComponentsFormText",
                     $.extend(
                         {},
                         this.getOption("title"),
@@ -100,7 +103,8 @@ ss.add(
             }
 
             if (this.getOption("keywords") !== null) {
-                this.forms.keywords = new ss.forms.Text(
+                this.forms.keywords = ss.init(
+                    "commonComponentsFormText",
                     $.extend(
                         {},
                         this.getOption("keywords"),
@@ -112,7 +116,8 @@ ss.add(
             }
 
             if (this.getOption("description") !== null) {
-                this.forms.description = new ss.forms.Text(
+                this.forms.description = ss.init(
+                    "commonComponentsFormText",
                     $.extend(
                         {},
                         this.getOption("description"),

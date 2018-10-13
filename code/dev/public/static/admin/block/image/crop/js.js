@@ -375,7 +375,8 @@
         setViewReset: function () {
             var resetContainer = this.viewContainer.find(".reset-container");
 
-            new ss.forms.Button(
+            ss.init(
+                "commonComponentsFormButton",
                 {
                     css: "btn btn-blue btn-icon",
                     icon: "fas fa-retweet",

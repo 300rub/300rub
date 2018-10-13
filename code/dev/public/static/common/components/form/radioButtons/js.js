@@ -40,11 +40,11 @@ ss.add(
 
             var radioButtons = this.getForm().find(".radio-buttons");
             var radioButtonItem
-                = ss.components.Template.get("radio-button-item");
+                = ss.init("template").get("radio-button-item");
 
             var value = this.getOption("value");
 
-            var itemContainer = ss.components.Template.get(
+            var itemContainer = ss.init("template").get(
                 "radio-button-item-container"
             );
 
@@ -101,7 +101,7 @@ ss.add(
                         if (current >= grid) {
                             current = 0;
                             radioButtons.append(itemContainer);
-                            itemContainer = ss.components.Template.get(
+                            itemContainer = ss.init("template").get(
                                 "radio-button-item-container"
                             );
                         }

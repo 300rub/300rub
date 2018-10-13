@@ -68,7 +68,8 @@
             }
 
             if (this.colorHover !== null) {
-                new ss.forms.Color(
+                ss.init(
+                    "commonComponentsFormColor",
                     {
                         title: this.getLabel("color"),
                         value: this.colorHover,
