@@ -32,13 +32,7 @@
          */
         init: function () {
             this.hasHover = null;
-
-            this.create(
-                {
-                    updateSampleEvent: "update-text-sample"
-                }
-            );
-
+            this.create();
             this.setHover();
         },
 

@@ -104,13 +104,7 @@
          */
         init: function () {
             this.family = null;
-
-            this.create(
-                {
-                    updateSampleEvent: "update-text-sample"
-                }
-            );
-
+            this.create();
             this.setFamily();
         },
 

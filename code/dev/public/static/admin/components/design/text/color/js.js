@@ -41,13 +41,7 @@
         init: function () {
             this.color = null;
             this.colorHover = null;
-
-            this.create(
-                {
-                    updateSampleEvent: "update-text-sample"
-                }
-            );
-
+            this.create();
             this.setColor();
         },
 

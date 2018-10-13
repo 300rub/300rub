@@ -41,13 +41,7 @@
         init: function () {
             this.isItalic = null;
             this.isItalicHover = null;
-
-            this.create(
-                {
-                    updateSampleEvent: "update-text-sample"
-                }
-            );
-
+            this.create();
             this.setItalic();
         },
 

@@ -53,13 +53,7 @@
         init: function () {
             this.transform = null;
             this.transformHover = null;
-
-            this.create(
-                {
-                    updateSampleEvent: "update-text-sample"
-                }
-            );
-
+            this.create();
             this.setTransform();
         },
 

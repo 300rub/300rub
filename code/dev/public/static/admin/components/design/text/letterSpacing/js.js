@@ -41,13 +41,7 @@
         init: function () {
             this.letterSpacing = null;
             this.letterSpacingHover = null;
-
-            this.create(
-                {
-                    updateSampleEvent: "update-text-sample"
-                }
-            );
-
+            this.create();
             this.setLetterSpacing();
         },
 

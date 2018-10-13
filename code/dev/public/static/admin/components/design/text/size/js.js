@@ -41,13 +41,7 @@
         init: function () {
             this.size = null;
             this.sizeHover = null;
-
-            this.create(
-                {
-                    updateSampleEvent: "update-text-sample"
-                }
-            );
-
+            this.create();
             this.setSize();
         },
 

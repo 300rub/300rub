@@ -44,13 +44,7 @@
          */
         init: function () {
             this.align = null;
-
-            this.create(
-                {
-                    updateSampleEvent: "update-text-sample"
-                }
-            );
-
+            this.create();
             this.setAlign();
         },
 

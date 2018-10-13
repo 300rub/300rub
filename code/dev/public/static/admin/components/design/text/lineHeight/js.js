@@ -41,13 +41,7 @@
         init: function () {
             this.lineHeight = null;
             this.lineHeightHover = null;
-
-            this.create(
-                {
-                    updateSampleEvent: "update-text-sample"
-                }
-            );
-
+            this.create();
             this.setLineHeight();
         },
 

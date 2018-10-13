@@ -54,13 +54,7 @@
         init: function () {
             this.decoration = null;
             this.decorationHover = null;
-
-            this.create(
-                {
-                    updateSampleEvent: "update-text-sample"
-                }
-            );
-
+            this.create();
             this.setDecoration();
         },
 
