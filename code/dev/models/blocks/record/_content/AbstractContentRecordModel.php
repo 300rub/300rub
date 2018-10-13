@@ -141,7 +141,6 @@ abstract class AbstractContentRecordModel extends AbstractRecordModel
                     ->getViewTypeCss($this->_getViewType()),
                 'pagination'  => $pagination,
 
-
                 'blockId'     => $this->getBlockId(),
                 'instances'   => $this->getInstancesHtml(
                     $page,
@@ -183,14 +182,17 @@ abstract class AbstractContentRecordModel extends AbstractRecordModel
             if ($this->get('hasCover') === true
                 && $recordInstance->get('coverImageInstanceId') !== null
             ) {
-                $imageInstance = $recordInstance->get('coverImageInstanceModel');
+                $imageInstance
+                    = $recordInstance->get('coverImageInstanceModel');
 
                 if ($imageInstance !== null) {
                     $cover = [
                         'id'       => $imageInstance->getId(),
                         'alt'      => $imageInstance->get('alt'),
-                        'viewUrl'  => $imageInstance->get('viewFileModel')->getUrl(),
-                        'thumbUrl' => $imageInstance->get('thumbFileModel')->getUrl(),
+                        'viewUrl'
+                            => $imageInstance->get('viewFileModel')->getUrl(),
+                        'thumbUrl'
+                            => $imageInstance->get('thumbFileModel')->getUrl(),
                         'hasZoom'  => $this->get('hasCoverZoom'),
                     ];
                 }
@@ -210,7 +212,8 @@ abstract class AbstractContentRecordModel extends AbstractRecordModel
                 'content/record/shortCard',
                 [
                     'cover'       => $cover,
-                    'name'        => $recordInstance->get('seoModel')->get('name'),
+                    'name'
+                        => $recordInstance->get('seoModel')->get('name'),
                     'date'        => $date,
                     'description' => $description,
                     'uri'         => $link->generateLink(

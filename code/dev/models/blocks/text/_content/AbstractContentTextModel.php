@@ -16,7 +16,7 @@ abstract class AbstractContentTextModel extends AbstractTextModel
     /**
      * Tag list
      *
-     * @return array
+     * @var array
      */
     private $_tagList = [
         self::TYPE_DIV => 'div',

@@ -210,7 +210,7 @@ abstract class AbstractContentModel extends AbstractModel
      */
     private function _setCssList()
     {
-        $this->cssList = $this->_getContentModel()->generateCss();;
+        $this->cssList = $this->_getContentModel()->generateCss();
         return $this;
     }
 

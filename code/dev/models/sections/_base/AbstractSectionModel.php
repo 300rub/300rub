@@ -84,7 +84,7 @@ abstract class AbstractSectionModel extends AbstractDesignModel
         SectionModel::model()->updateMany(
             ['isMain' => 0],
             'id > 0'
-         );
+        );
 
         return true;
     }
