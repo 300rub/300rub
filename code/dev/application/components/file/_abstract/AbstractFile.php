@@ -13,6 +13,7 @@ abstract class AbstractFile
      */
     const TYPE_COMMON = 'common';
     const TYPE_ADMIN = 'admin';
+    const TYPE_SITE = 'site';
 
     /**
      * Type
@@ -51,11 +52,16 @@ abstract class AbstractFile
     {
         switch ($type) {
             case self::TYPE_ADMIN:
-                $this->_dirList = ['common', 'admin'];
+                $this->_dirList = [self::TYPE_COMMON, self::TYPE_ADMIN];
+                $this->_type = $type;
+                break;
+            case self::TYPE_SITE:
+                $this->_dirList = [self::TYPE_COMMON, self::TYPE_SITE];
                 $this->_type = $type;
                 break;
             default:
-                $this->_dirList = ['common'];
+                $this->_dirList = [self::TYPE_COMMON];
+                $this->_type = self::TYPE_COMMON;
                 break;
         }
     }

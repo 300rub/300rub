@@ -1,7 +1,7 @@
 !function ($, ss) {
     "use strict";
 
-    var name = "commonUserLogin";
+    var name = "siteCreate";
 
     var parameters = {
         /**

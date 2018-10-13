@@ -3,6 +3,10 @@
 namespace ss\controllers\site\_abstract;
 
 use ss\application\App;
+use ss\application\components\file\Css;
+use ss\application\components\file\Html;
+use ss\application\components\file\Js;
+use ss\application\components\file\Less;
 use ss\controllers\_abstract\AbstractDataController;
 
 /**
@@ -10,24 +14,6 @@ use ss\controllers\_abstract\AbstractDataController;
  */
 abstract class AbstractController extends AbstractDataController
 {
-
-    /**
-     * Static map
-     *
-     * @var array
-     */
-    private $_staticMap = [];
-
-    /**
-     * Sets static map
-     *
-     * @return void
-     */
-    private function _setStaticMap()
-    {
-        $this->_staticMap = include CODE_ROOT .
-            '/config/other/staticSite.php';
-    }
 
     /**
      * Gets site page
@@ -41,29 +27,21 @@ abstract class AbstractController extends AbstractDataController
      */
     protected function getPageHtml($content, $title, $keywords, $description)
     {
-        $this->_setStaticMap();
-
-        $layoutData = [];
-        $layoutData['content'] = $content;
-        $layoutData['title'] = $title;
-        $layoutData['keywords'] = $keywords;
-        $layoutData['description'] = $description;
-        $layoutData['css'] = $this->_getCss();
-        $layoutData['js'] = $this->_getJs();
-        $layoutData['less'] = $this->_getLess();
-        $layoutData['version'] = $this->_getVersion();
-        $layoutData['language']
-            = App::getInstance()->getLanguage()->getActiveId();
-        $layoutData['errorMessages']
-            = App::getInstance()->getValidator()->getErrorMessages();
-        $layoutData['templates'] = $this->render(
-            'site/templates',
+        return $this->render(
+            'layout/site',
             [
-                'isUser' => $this->_isUser()
+                'icon'        => '/img/favicon.ico',
+                'content'     => $content,
+                'title'       => $title,
+                'keywords'    => $keywords,
+                'description' => $description,
+                'css'         => $this->_getCss(),
+                'js'          => $this->_getJs(),
+                'html'        => $this->_getHtml(),
+                'less'        => $this->_getLess(),
+                'initJs'      => $this->_getInitJs(),
             ]
         );
-
-        return $this->render('site/layout', $layoutData);
     }
 
     /**
@@ -77,43 +55,18 @@ abstract class AbstractController extends AbstractDataController
     }
 
     /**
-     * If is user
-     *
-     * @return bool
-     */
-    private function _isUser()
-    {
-        return false;
-    }
-
-    /**
      * Gets CSS
      *
      * @return array
      */
     private function _getCss()
     {
-        $isUser = $this->_isUser();
+        $css = new Css(Css::TYPE_SITE);
+        $css
+            ->setVersion($this->_getVersion())
+            ->setHasMinimized($this->_isMinimized());
 
-        if ($this->_isMinimized() === true) {
-            $cssList = [];
-            $cssList[] = $this->_staticMap['common']['compiledCss'];
-            if ($isUser === true) {
-                $cssList[] = $this->_staticMap['admin']['compiledCss'];
-            }
-
-            return $cssList;
-        }
-
-        $cssList = $this->_staticMap['common']['libs']['css'];
-        if ($isUser === true) {
-            $cssList = array_merge(
-                $cssList,
-                $this->_staticMap['admin']['libs']['css']
-            );
-        }
-
-        return $cssList;
+        return $css->getCssList();
     }
 
     /**
@@ -123,40 +76,25 @@ abstract class AbstractController extends AbstractDataController
      */
     private function _getJs()
     {
-        $isUser = $this->_isUser();
+        $jsFile = new Js(Js::TYPE_SITE);
+        $jsFile
+            ->setVersion($this->_getVersion())
+            ->setHasMinimized($this->_isMinimized());
 
-        if ($this->_isMinimized() === true) {
-            $jsList = [];
-            $jsList[] = $this->_staticMap['common']['compiledJs'];
-            if ($isUser === true) {
-                $jsList[] = $this->_staticMap['admin']['compiledJs'];
-            }
+        return $jsFile->getJsList();
+    }
 
-            return $jsList;
-        }
+    /**
+     * Gets HTML
+     *
+     * @return string
+     */
+    private function _getHtml()
+    {
+        $html = new Html(Html::TYPE_SITE);
+        $html->setHasMinimized($this->_isMinimized());
 
-        $jsList = $this->_staticMap['common']['libs']['js'];
-
-        if ($isUser === true) {
-            $jsList = array_merge(
-                $jsList,
-                $this->_staticMap['admin']['libs']['js']
-            );
-        }
-
-        $jsList = array_merge(
-            $jsList,
-            $this->_staticMap['common']['js']
-        );
-
-        if ($isUser === false) {
-            return $jsList;
-        }
-
-        return array_merge(
-            $jsList,
-            $this->_staticMap['admin']['js']
-        );
+        return $html->getHtml();
     }
 
     /**
@@ -167,17 +105,10 @@ abstract class AbstractController extends AbstractDataController
     private function _getLess()
     {
         if ($this->_isMinimized() === true) {
-            return [];
+            return null;
         }
 
-        $less = [];
-
-        $less[] = $this->_staticMap['common']['less'];
-        if ($this->_isUser() === true) {
-            $less[] = $this->_staticMap['admin']['less'];
-        }
-
-        return $less;
+        return sprintf('/dev/less.php?type=%s', Less::TYPE_SITE);
     }
 
     /**
@@ -193,5 +124,23 @@ abstract class AbstractController extends AbstractDataController
         }
 
         return (int)file_get_contents($release);
+    }
+
+    /**
+     * Gets init JS
+     *
+     * @return string
+     */
+    private function _getInitJs()
+    {
+        return $this->render(
+            'layout/js/site',
+            [
+                'language'
+                    => App::getInstance()->getLanguage()->getActiveId(),
+                'errorMessages'
+                    => App::getInstance()->getValidator()->getErrorMessages(),
+            ]
+        );
     }
 }

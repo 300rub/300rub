@@ -31,9 +31,9 @@ abstract class AbstractPageController extends AbstractController
      */
     protected function getCss()
     {
-        $type = Less::TYPE_COMMON;
+        $type = Css::TYPE_COMMON;
         if ($this->isUser() === true) {
-            $type = Less::TYPE_ADMIN;
+            $type = Css::TYPE_ADMIN;
         }
 
         $css = new Css($type);
@@ -51,9 +51,9 @@ abstract class AbstractPageController extends AbstractController
      */
     protected function getJs()
     {
-        $type = Less::TYPE_COMMON;
+        $type = Js::TYPE_COMMON;
         if ($this->isUser() === true) {
-            $type = Less::TYPE_ADMIN;
+            $type = Js::TYPE_ADMIN;
         }
 
         $jsFile = new Js($type);
@@ -71,9 +71,9 @@ abstract class AbstractPageController extends AbstractController
      */
     protected function getHtml()
     {
-        $type = Less::TYPE_COMMON;
+        $type = Html::TYPE_COMMON;
         if ($this->isUser() === true) {
-            $type = Less::TYPE_ADMIN;
+            $type = Html::TYPE_ADMIN;
         }
 
         $html = new Html($type);
@@ -99,16 +99,6 @@ abstract class AbstractPageController extends AbstractController
         }
 
         return sprintf('/dev/less.php?type=%s', $type);
-    }
-
-    /**
-     * Gets templates
-     *
-     * @return string
-     */
-    protected function getTemplates()
-    {
-        return '';
     }
 
     /**
