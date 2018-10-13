@@ -47,7 +47,7 @@
         italic: null,
 
         /**
-         * bold
+         * Bold
          *
          * @var {Object}
          */

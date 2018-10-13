@@ -64,7 +64,7 @@
          *
          * @param {Object} options
          */
-        create: function(options) {
+        create: function (options) {
             this
                 .extendOptions(options)
                 .setLabels(this.getOption("labels"))

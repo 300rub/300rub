@@ -57,7 +57,7 @@
          *
          * @param {Options} options
          */
-        create: function(options) {
+        create: function (options) {
             this
                 .extendOptions(options)
                 .setLabels(this.getOption("labels"))
@@ -249,7 +249,7 @@
          *
          * @returns {Number}
          */
-        getIntValue: function(value) {
+        getIntValue: function (value) {
             return parseInt(value, 10) || 0;
         }
     };

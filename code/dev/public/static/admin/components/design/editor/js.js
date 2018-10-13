@@ -34,17 +34,23 @@
 
             this.create(
                 {
-                    back: $.proxy(function() {
-                        var onBack = this.getOption("back");
-                        if ($.type(onBack) === "function") {
-                            onBack();
-                        }
+                    back: $.proxy(
+                        function () {
+                            var onBack = this.getOption("back");
+                            if ($.type(onBack) === "function") {
+                                onBack();
+                            }
 
-                        this.rollback();
-                    }, this),
-                    closeEvents: $.proxy(function() {
-                        this.rollback();
-                    }, this)
+                            this.rollback();
+                        },
+                        this
+                    ),
+                closeEvents: $.proxy(
+                    function () {
+                            this.rollback();
+                    },
+                    this
+                )
                 }
             );
         },
@@ -109,7 +115,7 @@
         /**
          * Rolls back
          */
-        rollback: function() {
+        rollback: function () {
             $.each(
                 this.editors,
                 function (i, editor) {

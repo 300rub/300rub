@@ -63,7 +63,7 @@
         setTransform: function () {
             var hoverForm = null;
             if (this.transformHover !== null) {
-                hoverForm =  ss.init(
+                hoverForm = ss.init(
                     "commonComponentsFormRadioButtons",
                     {
                         value: this.transformHover,

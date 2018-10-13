@@ -47,7 +47,6 @@
             {value: 3, css: "overline", label: "O"}
         ],
 
-
         /**
          * Init
          */

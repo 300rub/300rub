@@ -192,12 +192,12 @@
                     "update-padding-sample",
                     $.proxy(this.onUpdatePaddingSample, this)
                 ).on(
-                "update-background-sample",
-                $.proxy(this.onUpdateBackgroundSample, this)
-            ).on(
-                "update-border-sample",
-                $.proxy(this.onUpdateBorderSample, this)
-            );
+                    "update-background-sample",
+                    $.proxy(this.onUpdateBackgroundSample, this)
+                ).on(
+                    "update-border-sample",
+                    $.proxy(this.onUpdateBorderSample, this)
+                );
 
             return this;
         },

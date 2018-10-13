@@ -16,7 +16,7 @@
          *
          * @var {String}
          */
-        backgroundColorFrom:  null,
+        backgroundColorFrom: null,
 
         /**
          * Background color from hover
@@ -192,7 +192,7 @@
         /**
          * Sets relative container
          */
-        setRelativeContainer: function() {
+        setRelativeContainer: function () {
             this.relativeContainer
                 = this.getGroupContainer().find(".relative-container");
             return this;

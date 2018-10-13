@@ -13,7 +13,7 @@
 
         /**
          * Border top left radius
-         * 
+         *
          * @var {int|null}
          */
         borderTopLeftRadius: null,
@@ -280,7 +280,7 @@
         /**
          * Sets relative container
          */
-        setRelativeContainer: function() {
+        setRelativeContainer: function () {
             this.relativeContainer
                 = this.getGroupContainer().find(".relative-container");
             return this;
@@ -293,9 +293,9 @@
             if (this.borderTopLeftRadius === null) {
                 return this;
             }
-    
+
             var borderTopLeftRadiusHover = null;
-    
+
             if (this.borderTopLeftRadiusHover !== null) {
                 borderTopLeftRadiusHover = ss.init(
                     "commonComponentsFormSpinner",
@@ -332,7 +332,7 @@
                                 this.borderTopLeftRadiusHover = value;
                                 borderTopLeftRadiusHover.setValue(value);
                             }
-    
+
                             this.borderTopLeftRadius = value;
                             this.update();
                         },
@@ -340,7 +340,7 @@
                     )
                 }
             );
-    
+
             return this;
         },
 
@@ -351,9 +351,9 @@
             if (this.borderTopRightRadius === null) {
                 return this;
             }
-    
+
             var borderTopRightRadiusHover = null;
-    
+
             if (this.borderTopRightRadiusHover !== null) {
                 borderTopRightRadiusHover = ss.init(
                     "commonComponentsFormSpinner",
@@ -390,7 +390,7 @@
                                 this.borderTopRightRadiusHover = value;
                                 borderTopRightRadiusHover.setValue(value);
                             }
-    
+
                             this.borderTopRightRadius = value;
                             this.update();
                         },
@@ -398,7 +398,7 @@
                     )
                 }
             );
-    
+
             return this;
         },
 
@@ -409,11 +409,11 @@
             if (this.borderBottomRightRadius === null) {
                 return this;
             }
-    
+
             var borderBottomRightRadiusHover = null;
-    
+
             if (this.borderBottomRightRadiusHover !== null) {
-                borderBottomRightRadiusHover =  ss.init(
+                borderBottomRightRadiusHover = ss.init(
                     "commonComponentsFormSpinner",
                     {
                         value: this.borderBottomRightRadiusHover,
@@ -448,7 +448,7 @@
                                 this.borderBottomRightRadiusHover = value;
                                 borderBottomRightRadiusHover.setValue(value);
                             }
-    
+
                             this.borderBottomRightRadius = value;
                             this.update();
                         },
@@ -456,7 +456,7 @@
                     )
                 }
             );
-    
+
             return this;
         },
 
@@ -467,9 +467,9 @@
             if (this.borderBottomLeftRadius === null) {
                 return this;
             }
-    
+
             var borderBottomLeftRadiusHover = null;
-    
+
             if (this.borderBottomLeftRadiusHover !== null) {
                 borderBottomLeftRadiusHover = ss.init(
                     "commonComponentsFormSpinner",
@@ -506,7 +506,7 @@
                                 this.borderBottomLeftRadiusHover = value;
                                 borderBottomLeftRadiusHover.setValue(value);
                             }
-    
+
                             this.borderBottomLeftRadius = value;
                             this.update();
                         },
@@ -514,7 +514,7 @@
                     )
                 }
             );
-    
+
             return this;
         },
 
@@ -525,9 +525,9 @@
             if (this.borderTopWidth === null) {
                 return this;
             }
-    
+
             var borderTopWidthHover = null;
-    
+
             if (this.borderTopWidthHover !== null) {
                 borderTopWidthHover = ss.init(
                     "commonComponentsFormSpinner",
@@ -563,7 +563,7 @@
                                 this.borderTopWidthHover = value;
                                 borderTopWidthHover.setValue(value);
                             }
-    
+
                             this.borderTopWidth = value;
                             this.update();
                         },
@@ -571,7 +571,7 @@
                     )
                 }
             );
-    
+
             return this;
         },
 
@@ -582,9 +582,9 @@
             if (this.borderRightWidth === null) {
                 return this;
             }
-    
+
             var borderRightWidthHover = null;
-    
+
             if (this.borderRightWidthHover !== null) {
                 borderRightWidthHover = ss.init(
                     "commonComponentsFormSpinner",
@@ -621,7 +621,7 @@
                                 this.borderRightWidthHover = value;
                                 borderRightWidthHover.setValue(value);
                             }
-    
+
                             this.borderRightWidth = value;
                             this.update();
                         },
@@ -629,7 +629,7 @@
                     )
                 }
             );
-    
+
             return this;
         },
 
@@ -640,9 +640,9 @@
             if (this.borderBottomWidth === null) {
                 return this;
             }
-    
+
             var borderBottomWidthHover = null;
-    
+
             if (this.borderBottomWidthHover !== null) {
                 borderBottomWidthHover = ss.init(
                     "commonComponentsFormSpinner",
@@ -679,7 +679,7 @@
                                 this.borderBottomWidthHover = value;
                                 borderBottomWidthHover.setValue(value);
                             }
-    
+
                             this.borderBottomWidth = value;
                             this.update();
                         },
@@ -687,7 +687,7 @@
                     )
                 }
             );
-    
+
             return this;
         },
 
@@ -698,9 +698,9 @@
             if (this.borderLeftWidth === null) {
                 return this;
             }
-    
+
             var borderLeftWidthHover = null;
-    
+
             if (this.borderLeftWidthHover !== null) {
                 borderLeftWidthHover = ss.init(
                     "commonComponentsFormSpinner",
@@ -730,13 +730,16 @@
                     appendTo: this.relativeContainer,
                     callback: $.proxy(
                         function (value) {
-                            if (this.borderLeftWidth === this.borderLeftWidthHover
+                            var width = this.borderLeftWidth;
+                            var widthHover = this.borderLeftWidthHover;
+
+                            if (width === widthHover
                                 && borderLeftWidthHover !== null
                             ) {
                                 this.borderLeftWidthHover = value;
                                 borderLeftWidthHover.setValue(value);
                             }
-    
+
                             this.borderLeftWidth = value;
                             this.update();
                         },
@@ -744,7 +747,7 @@
                     )
                 }
             );
-    
+
             return this;
         },
 
@@ -772,7 +775,7 @@
                     )
                 }
             );
-    
+
             return this;
         },
 
@@ -800,7 +803,7 @@
                     )
                 }
             );
-    
+
             return this;
         },
 
@@ -811,11 +814,11 @@
             if (this.hasBorderHover === null) {
                 return this;
             }
-    
+
             if (this.hasBorderHover === true) {
                 this.getGroupContainer().addClass("has-hover");
             }
-    
+
             var onCheck = $.proxy(
                 function () {
                     this.hasBorderHover = true;
@@ -824,7 +827,7 @@
                 },
                 this
             );
-    
+
             var onUnCheck = $.proxy(
                 function () {
                     this.hasBorderHover = false;
@@ -844,7 +847,7 @@
                     onUnCheck: onUnCheck
                 }
             );
-    
+
             return this;
         },
 
@@ -873,7 +876,7 @@
                     )
                 }
             );
-    
+
             return this;
         },
 
@@ -902,7 +905,7 @@
                     )
                 }
             );
-    
+
             return this;
         },
 
@@ -913,7 +916,7 @@
             if (this.hasBorderAnimation === null) {
                 return this;
             }
-    
+
             var onCheck = $.proxy(
                 function () {
                     this.hasBorderAnimation = true;
@@ -921,7 +924,7 @@
                 },
                 this
             );
-    
+
             var onUnCheck = $.proxy(
                 function () {
                     this.hasBorderAnimation = false;
@@ -941,7 +944,7 @@
                     onUnCheck: onUnCheck
                 }
             );
-    
+
             return this;
         },
 
@@ -962,12 +965,12 @@
                 borderBottomWidth,
                 borderLeftWidth,
                 borderColor;
-    
+
             if (isHover === true) {
                 if (this.hasBorderHover !== true) {
                     return "";
                 }
-    
+
                 borderTopLeftRadius = this.getIntVal(
                     this.borderTopLeftRadiusHover
                 );
@@ -980,7 +983,7 @@
                 borderBottomLeftRadius = this.getIntVal(
                     this.borderBottomLeftRadiusHover
                 );
-    
+
                 borderTopWidth = this.getIntVal(
                     this.borderTopWidthHover
                 );
@@ -993,7 +996,7 @@
                 borderLeftWidth = this.getIntVal(
                     this.borderLeftWidthHover
                 );
-    
+
                 borderColor = this.borderColorHover;
             } else {
                 borderTopLeftRadius = this.getIntVal(
@@ -1008,7 +1011,7 @@
                 borderBottomLeftRadius = this.getIntVal(
                     this.borderBottomLeftRadius
                 );
-    
+
                 borderTopWidth = this.getIntVal(
                     this.borderTopWidth
                 );
@@ -1021,28 +1024,28 @@
                 borderLeftWidth = this.getIntVal(
                     this.borderLeftWidth
                 );
-    
+
                 borderColor = this.borderColor;
             }
-    
+
             var css = this.generateBorderRadius(
                 borderTopLeftRadius,
                 borderTopRightRadius,
                 borderBottomRightRadius,
                 borderBottomLeftRadius
             );
-    
+
             css += this.generateBorderWidth(
                 borderTopWidth,
                 borderRightWidth,
                 borderBottomWidth,
                 borderLeftWidth
             );
-    
+
             css += this.generateBorderColor(borderColor);
-    
+
             css += "border-style:" + this.getBorderStyle(isHover) + ";";
-    
+
             return css;
         },
 

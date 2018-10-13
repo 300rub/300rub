@@ -59,7 +59,7 @@
                                         group: "text",
                                         controller: "design",
                                         id: itemData.id,
-                                        back: function() {
+                                        back: function () {
                                             ss.init("adminBlockTextList");
                                         },
                                         success: function () {

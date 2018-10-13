@@ -143,7 +143,7 @@
         /**
          * Sets relative container
          */
-        setRelativeContainer: function() {
+        setRelativeContainer: function () {
             this.relativeContainer
                 = this.getGroupContainer().find(".relative-container");
             return this;
@@ -214,9 +214,9 @@
             if (this.paddingRight === null) {
                 return this;
             }
-    
+
             var hover = null;
-    
+
             if (this.paddingRightHover !== null) {
                 hover = ss.init(
                     "commonComponentsFormSpinner",
@@ -254,7 +254,7 @@
                                 this.paddingRightHover = value;
                                 hover.setValue(value);
                             }
-    
+
                             this.paddingRight = value;
                             this.update();
                         },
@@ -262,7 +262,7 @@
                     )
                 }
             );
-    
+
             return this;
         },
 
@@ -273,11 +273,11 @@
             if (this.paddingBottom === null) {
                 return this;
             }
-    
+
             var hover = null;
-    
+
             if (this.paddingBottomHover !== null) {
-                hover =  ss.init(
+                hover = ss.init(
                     "commonComponentsFormSpinner",
                     {
                         value: this.paddingBottomHover,
@@ -313,7 +313,7 @@
                                 this.paddingBottomHover = value;
                                 hover.setValue(value);
                             }
-    
+
                             this.paddingBottom = value;
                             this.update();
                         },
@@ -321,7 +321,7 @@
                     )
                 }
             );
-    
+
             return this;
         },
 
@@ -332,11 +332,11 @@
             if (this.paddingLeft === null) {
                 return this;
             }
-    
+
             var hover = null;
-    
+
             if (this.paddingLeftHover !== null) {
-                hover =  ss.init(
+                hover = ss.init(
                     "commonComponentsFormSpinner",
                     {
                         value: this.paddingLeftHover,
@@ -372,7 +372,7 @@
                                 this.paddingLeftHover = value;
                                 hover.setValue(value);
                             }
-    
+
                             this.paddingLeft = value;
                             this.update();
                         },
@@ -380,7 +380,7 @@
                     )
                 }
             );
-    
+
             return this;
         },
 
@@ -391,11 +391,11 @@
             if (this.hasPaddingHover === true) {
                 this.getGroupContainer().addClass("has-hover");
             }
-    
+
             if (this.hasPaddingHover === false) {
                 return this;
             }
-    
+
             var onCheck = $.proxy(
                 function () {
                     this.hasPaddingHover = true;
@@ -404,7 +404,7 @@
                 },
                 this
             );
-    
+
             var onUnCheck = $.proxy(
                 function () {
                     this.hasPaddingHover = false;
@@ -424,7 +424,7 @@
                     appendTo: this.getGroupContainer()
                 }
             );
-    
+
             return this;
         },
 
@@ -435,7 +435,7 @@
             if (this.hasPaddingAnimation === false) {
                 return this;
             }
-    
+
             var onCheck = $.proxy(
                 function () {
                     this.hasPaddingAnimation = true;
@@ -443,7 +443,7 @@
                 },
                 this
             );
-    
+
             var onUnCheck = $.proxy(
                 function () {
                     this.hasPaddingAnimation = false;
@@ -463,7 +463,7 @@
                     appendTo: this.getGroupContainer()
                 }
             );
-    
+
             return this;
         },
 
@@ -475,7 +475,7 @@
                 if (this.hasPaddingHover !== true) {
                     return "";
                 }
-    
+
                 return this.getCss(
                     this.getIntVal(
                         this.paddingTopHover
@@ -491,7 +491,7 @@
                     )
                 );
             }
-    
+
             return this.getCss(
                 this.getIntVal(
                     this.paddingTop
@@ -511,38 +511,38 @@
         /**
          * Gets padding CSS
          *
-         * @param {Number|String} paddingTop
-         * @param {Number|String} paddingRight
-         * @param {Number|String} paddingBottom
-         * @param {Number|String} paddingLeft
+         * @param {Number|String} top
+         * @param {Number|String} right
+         * @param {Number|String} bottom
+         * @param {Number|String} left
          *
          * @returns {String}
          */
-        getCss: function (paddingTop, paddingRight, paddingBottom, paddingLeft) {
-            if (paddingTop !== 0) {
-                paddingTop += "px";
+        getCss: function (top, right, bottom, left) {
+            if (top !== 0) {
+                top += "px";
             }
 
-            if (paddingRight !== 0) {
-                paddingRight += "px";
+            if (right !== 0) {
+                right += "px";
             }
 
-            if (paddingBottom !== 0) {
-                paddingBottom += "px";
+            if (bottom !== 0) {
+                bottom += "px";
             }
 
-            if (paddingLeft !== 0) {
-                paddingLeft += "px";
+            if (left !== 0) {
+                left += "px";
             }
 
             var css = "padding:";
-            css += paddingTop;
+            css += top;
             css += " ";
-            css += paddingRight;
+            css += right;
             css += " ";
-            css += paddingBottom;
+            css += bottom;
             css += " ";
-            css += paddingLeft;
+            css += left;
             css += ";";
 
             return css;

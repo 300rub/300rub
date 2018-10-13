@@ -143,7 +143,7 @@
         /**
          * Sets relative container
          */
-        setRelativeContainer: function() {
+        setRelativeContainer: function () {
             this.relativeContainer
                 = this.getGroupContainer().find(".relative-container");
             return this;
@@ -214,9 +214,9 @@
             if (this.marginRight === null) {
                 return this;
             }
-    
+
             var hover = null;
-    
+
             if (this.marginRightHover !== null) {
                 hover = ss.init(
                     "commonComponentsFormSpinner",
@@ -254,7 +254,7 @@
                                 this.marginRightHover = value;
                                 hover.setValue(value);
                             }
-    
+
                             this.marginRight = value;
                             this.update();
                         },
@@ -262,7 +262,7 @@
                     )
                 }
             );
-    
+
             return this;
         },
 
@@ -273,11 +273,11 @@
             if (this.marginBottom === null) {
                 return this;
             }
-    
+
             var hover = null;
-    
+
             if (this.marginBottomHover !== null) {
-                hover =  ss.init(
+                hover = ss.init(
                     "commonComponentsFormSpinner",
                     {
                         value: this.marginBottomHover,
@@ -313,7 +313,7 @@
                                 this.marginBottomHover = value;
                                 hover.setValue(value);
                             }
-    
+
                             this.marginBottom = value;
                             this.update();
                         },
@@ -321,7 +321,7 @@
                     )
                 }
             );
-    
+
             return this;
         },
 
@@ -332,11 +332,11 @@
             if (this.marginLeft === null) {
                 return this;
             }
-    
+
             var hover = null;
-    
+
             if (this.marginLeftHover !== null) {
-                hover =  ss.init(
+                hover = ss.init(
                     "commonComponentsFormSpinner",
                     {
                         value: this.marginLeftHover,
@@ -372,7 +372,7 @@
                                 this.marginLeftHover = value;
                                 hover.setValue(value);
                             }
-    
+
                             this.marginLeft = value;
                             this.update();
                         },
@@ -380,7 +380,7 @@
                     )
                 }
             );
-    
+
             return this;
         },
 
@@ -391,11 +391,11 @@
             if (this.hasMarginHover === true) {
                 this.getGroupContainer().addClass("has-hover");
             }
-    
+
             if (this.hasMarginHover === false) {
                 return this;
             }
-    
+
             var onCheck = $.proxy(
                 function () {
                     this.hasMarginHover = true;
@@ -404,7 +404,7 @@
                 },
                 this
             );
-    
+
             var onUnCheck = $.proxy(
                 function () {
                     this.hasMarginHover = false;
@@ -424,7 +424,7 @@
                     appendTo: this.getGroupContainer()
                 }
             );
-    
+
             return this;
         },
 
@@ -435,7 +435,7 @@
             if (this.hasMarginAnimation === false) {
                 return this;
             }
-    
+
             var onCheck = $.proxy(
                 function () {
                     this.hasMarginAnimation = true;
@@ -443,7 +443,7 @@
                 },
                 this
             );
-    
+
             var onUnCheck = $.proxy(
                 function () {
                     this.hasMarginAnimation = false;
@@ -463,7 +463,7 @@
                     appendTo: this.getGroupContainer()
                 }
             );
-    
+
             return this;
         },
 
@@ -475,7 +475,7 @@
                 if (this.hasMarginHover !== true) {
                     return "";
                 }
-    
+
                 return this.getCss(
                     this.getIntVal(
                         this.marginTopHover
@@ -491,7 +491,7 @@
                     )
                 );
             }
-    
+
             return this.getCss(
                 this.getIntVal(
                     this.marginTop
