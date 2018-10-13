@@ -1,9 +1,9 @@
-/**
- * Abstract form
- */
-ss.add(
-    "commonComponentsFormAbstract",
-    {
+!function ($, ss) {
+    "use strict";
+
+    var name = "commonComponentsFormAbstract";
+
+    var parameters = {
         /**
          * Form
          *
@@ -28,13 +28,13 @@ ss.add(
         /**
          * Init
          */
-        init: function() {
+        init: function () {
         },
 
         /**
          * Sets form
          */
-        create: function(template) {
+        create: function (template) {
             this
                 .setForm(template)
                 .setInstance()
@@ -52,7 +52,7 @@ ss.add(
         /**
          * Sets form
          */
-        setForm: function(template) {
+        setForm: function (template) {
             this.form = ss.init("template").get(template);
             return this;
         },
@@ -69,7 +69,7 @@ ss.add(
         /**
          * Sets Instance
          */
-        setInstance: function() {
+        setInstance: function () {
             this.instance = this.form.find(".form-instance");
             return this;
         },
@@ -196,9 +196,15 @@ ss.add(
          * Sets on change
          */
         setOnChange: function () {
-            this.instance.on("change", $.proxy(function() {
-                this.instance.addClass("form-changed");
-            }, this));
+            this.instance.on(
+                "change",
+                $.proxy(
+                    function () {
+                        this.instance.addClass("form-changed");
+                    },
+                    this
+                )
+            );
 
             return this;
         },
@@ -233,7 +239,7 @@ ss.add(
          *
          * @param rules
          */
-        validateByRules: function(rules) {
+        validateByRules: function (rules) {
             this.errors = [];
 
             $.each(
@@ -318,7 +324,8 @@ ss.add(
             var pattern = new RegExp("^[0-9a-z-_]+$");
             if (!pattern.test($.trim(this.getValue()))) {
                 this.addError(
-                    ss.init("commonComponentsError").get("latinDigitUnderscoreHyphen")
+                    ss.init("commonComponentsError")
+                        .get("latinDigitUnderscoreHyphen")
                 );
             }
         },
@@ -362,7 +369,7 @@ ss.add(
          *
          * @returns {Number}
          */
-        getIntValue: function(value) {
+        getIntValue: function (value) {
             return parseInt(value, 10) || 0;
         },
 
@@ -468,5 +475,7 @@ ss.add(
             return (e.shiftKey || (e.keyCode < 48 || e.keyCode > 57))
                 && (e.keyCode < 96 || e.keyCode > 105);
         }
-    }
-);
+    };
+
+    ss.add(name, parameters);
+}(window.jQuery, window.ss);

@@ -12,8 +12,8 @@
     }
 
     .form-instance-container {
-      position: relative;
       display: block;
+      position: relative;
       width: 100%;
 
       i.error {
@@ -35,21 +35,17 @@
       display: table;
 
       .form-instance {
+        .border-top-left-radius(0);
+        .border-bottom-left-radius(0);
         display: table-cell;
-        -webkit-border-top-left-radius: 0;
-        -moz-border-top-left-radius: 0;
-        border-top-left-radius: 0;
-        -webkit-border-bottom-left-radius: 0;
-        -moz-border-bottom-left-radius: 0;
-        border-bottom-left-radius: 0;
       }
 
       .prefix {
         .border-radius(4px 0 0 4px);
+        background: @grayBackground;
         display: table-cell;
         padding: 0 5px;
         text-align: center;
-        background: @grayBackground;
       }
     }
 
@@ -57,25 +53,21 @@
       display: table;
 
       .form-instance {
+        .border-top-right-radius(0);
+        .border-bottom-right-radius(0);
         display: table-cell;
-        -webkit-border-top-right-radius: 0;
-        -moz-border-top-right-radius: 0;
-        border-top-right-radius: 0;
-        -webkit-border-bottom-right-radius: 0;
-        -moz-border-bottom-right-radius: 0;
-        border-bottom-right-radius: 0;
       }
 
       .postfix {
         .border-radius(0 4px 4px 0);
+        background: @grayBackground;
         display: table-cell;
         padding: 0 20px 0 5px;
         text-align: center;
-        background: @grayBackground;
       }
     }
 
-    span.error {
+    .error {
       color: @redTextColor;
       display: none;
       font-size: 12px;

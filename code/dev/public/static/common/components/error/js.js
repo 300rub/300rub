@@ -1,6 +1,9 @@
-ss.add(
-    "commonComponentsError",
-    {
+!function ($, ss) {
+    "use strict";
+
+    var name = "commonComponentsError";
+
+    var parameters = {
         /**
          * Singleton flag
          *
@@ -14,11 +17,11 @@ ss.add(
          * @var {Object}
          */
         errors: {},
-        
+
         /**
          * Init
          */
-        init: function() {
+        init: function () {
         },
 
         /**
@@ -135,5 +138,7 @@ ss.add(
                 7000
             );
         }
-    }
-);
+    };
+
+    ss.add(name, parameters);
+}(window.jQuery, window.ss);
