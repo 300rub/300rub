@@ -1,6 +1,9 @@
-ss.add(
-    "template",
-    {
+!function ($, ss) {
+    "use strict";
+
+    var name = "template";
+
+    var parameters = {
         /**
          * Singleton flag
          *
@@ -25,7 +28,7 @@ ss.add(
         /**
          * Init
          */
-        init: function() {
+        init: function () {
             this.container = null;
             this.templates = {};
         },
@@ -58,5 +61,7 @@ ss.add(
             this.templates[templateCssClass]
                 = this.container.find("." + templateCssClass);
         }
-    }
-);
+    };
+
+    ss.add(name, parameters);
+}(window.jQuery, window.ss);

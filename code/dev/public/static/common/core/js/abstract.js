@@ -1,9 +1,9 @@
-/**
- * Abstract instance
- */
-ss.add(
-    ss.constants.ABSTRACT,
-    {
+!function ($, ss) {
+    "use strict";
+
+    var name = ss.constants.ABSTRACT;
+
+    var parameters = {
         /**
          * Options
          *
@@ -28,7 +28,7 @@ ss.add(
         /**
          * Init
          */
-        init: function() {
+        init: function () {
             this.options = {};
             this.data = {};
             this.labels = {};
@@ -39,7 +39,7 @@ ss.add(
          *
          * @param {Object} options
          */
-        setOptions: function(options) {
+        setOptions: function (options) {
             this.options = $.extend({}, options);
             return this;
         },
@@ -49,7 +49,7 @@ ss.add(
          *
          * @param {Object} options
          */
-        extendOptions: function(options) {
+        extendOptions: function (options) {
             this.options = $.extend({}, this.options, options);
             return this;
         },
@@ -59,7 +59,7 @@ ss.add(
          *
          * @param {Object} options
          */
-        extendDefaultOptions: function(options) {
+        extendDefaultOptions: function (options) {
             this.options = $.extend({}, options, this.options);
             return this;
         },
@@ -70,7 +70,7 @@ ss.add(
          * @param {String} key
          * @param {*}      value
          */
-        addOption: function(key, value) {
+        addOption: function (key, value) {
             this.options[key] = value;
             return this;
         },
@@ -83,7 +83,7 @@ ss.add(
          *
          * @returns {*}
          */
-        getOption: function(pointer, defaultValue) {
+        getOption: function (pointer, defaultValue) {
             if (defaultValue === undefined) {
                 defaultValue = null;
             }
@@ -98,7 +98,7 @@ ss.add(
 
             var options = this.options;
             var number;
-            var last = pointer.length - 1;
+            var last = (pointer.length - 1);
             for (number = 0; number <= last; number++) {
                 if (number === last) {
                     if (options[pointer[number]] === undefined) {
@@ -123,7 +123,7 @@ ss.add(
          *
          * @returns {Object}
          */
-        getOptions: function() {
+        getOptions: function () {
             return this.options;
         },
 
@@ -132,7 +132,7 @@ ss.add(
          *
          * @param {Object} labels
          */
-        setLabels: function(labels) {
+        setLabels: function (labels) {
             this.labels = $.extend({}, labels);
             return this;
         },
@@ -144,7 +144,7 @@ ss.add(
          *
          * @returns {String}
          */
-        getLabel: function(key) {
+        getLabel: function (key) {
             if (this.labels[key] === undefined) {
                 return null;
             }
@@ -157,7 +157,7 @@ ss.add(
          *
          * @param {Object} data
          */
-        setData: function(data) {
+        setData: function (data) {
             this.data = $.extend({}, data);
 
             if (this.data.labels !== undefined) {
@@ -175,7 +175,7 @@ ss.add(
          *
          * @returns {*}
          */
-        getData: function(pointer, defaultValue) {
+        getData: function (pointer, defaultValue) {
             if (defaultValue === undefined) {
                 defaultValue = null;
             }
@@ -191,7 +191,7 @@ ss.add(
             var data = this.data;
 
             var number;
-            var last = pointer.length - 1;
+            var last = (pointer.length - 1);
             for (number = 0; number <= last; number++) {
                 if (number === last) {
                     if (data[pointer[number]] === undefined) {
@@ -210,5 +210,7 @@ ss.add(
 
             return data;
         }
-    }
-);
+    };
+
+    ss.add(name, parameters);
+}(window.jQuery, window.ss);

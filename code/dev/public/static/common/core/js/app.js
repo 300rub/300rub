@@ -1,6 +1,9 @@
-ss.add(
-    "app",
-    {
+!function ($, ss) {
+    "use strict";
+
+    var name = "app";
+
+    var parameters = {
         /**
          * Singleton flag
          *
@@ -53,7 +56,7 @@ ss.add(
         /**
          * Init
          */
-        init: function() {
+        init: function () {
             this.ajaxWrapper = null;
             this.language = 0;
             this.activeSectionId = 0;
@@ -177,7 +180,7 @@ ss.add(
          * @param {String} key
          * @param {Object} value
          */
-        addDomElement: function(key, value) {
+        addDomElement: function (key, value) {
             this.domElements[key] = value;
             return this;
         },
@@ -189,8 +192,10 @@ ss.add(
          *
          * @returns {*}
          */
-        getDomElement: function(key) {
+        getDomElement: function (key) {
             return this.domElements[key];
         }
-    }
-);
+    };
+
+    ss.add(name, parameters);
+}(window.jQuery, window.ss);

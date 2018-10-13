@@ -1,13 +1,16 @@
-ss.add(
-    "ajax",
-    {
+!function ($, ss) {
+    "use strict";
+
+    var name = "ajax";
+
+    var parameters = {
         /**
          * Init
          */
-        init: function() {
+        init: function () {
             setTimeout(
                 $.proxy(
-                    function() {
+                    function () {
                         $.ajax(
                             {
                                 url: "/api/",
@@ -72,7 +75,6 @@ ss.add(
                     return "GET";
             }
 
-            
         },
 
         /**
@@ -141,7 +143,9 @@ ss.add(
         /**
          * Empty function
          */
-        emptyFunction: function() {
+        emptyFunction: function () {
         }
-    }
-);
+    };
+
+    ss.add(name, parameters);
+}(window.jQuery, window.ss);
