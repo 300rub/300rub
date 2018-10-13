@@ -12,19 +12,19 @@
       ul {
         .transition-duration;
         .transition-property(opacity);
-        position: absolute;
         left: 0;
+        opacity: 0;
+        position: absolute;
         top: 100%;
         visibility: hidden;
-        opacity: 0;
 
         li {
           display: block;
 
           ul {
             left: 100%;
-            top: 0;
             right: auto;
+            top: 0;
           }
 
           .right {
@@ -40,8 +40,8 @@
       }
 
       &:hover > ul {
-        visibility: visible;
         opacity: 1;
+        visibility: visible;
       }
     }
   }

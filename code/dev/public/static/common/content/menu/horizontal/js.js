@@ -1,9 +1,9 @@
-/**
- * Abstract form
- */
-ss.add(
-    "commonContentMenuHorizontal",
-    {
+!function ($, ss) {
+    "use strict";
+
+    var name = "commonContentMenuHorizontal";
+
+    var parameters = {
         /**
          * Menu
          *
@@ -14,7 +14,7 @@ ss.add(
         /**
          * Init
          */
-        init: function() {
+        init: function () {
             this.menuElement = null;
 
             $(window).resize(
@@ -34,7 +34,7 @@ ss.add(
         /**
          * Sets menu element
          */
-        setMenuElement: function() {
+        setMenuElement: function () {
             this.menuElement = $(this.getOption("selector"));
             return this;
         },
@@ -80,5 +80,7 @@ ss.add(
                 }
             );
         }
-    }
-);
+    };
+
+    ss.add(name, parameters);
+}(window.jQuery, window.ss);
