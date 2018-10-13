@@ -12,8 +12,12 @@ return [
         Language::LANGUAGE_RU_ID => '',
     ],
     'unsavedWindow'  => [
-        Language::LANGUAGE_EN_ID => 'Are you sure to close the window? All unsaved changes will be lost.',
-        Language::LANGUAGE_RU_ID => 'Вы действительно хотите закрыть окно? Все несохраненные изменения будут потеряны.',
+        Language::LANGUAGE_EN_ID
+            => 'Are you sure to close the window? ' .
+                'All unsaved changes will be lost.',
+        Language::LANGUAGE_RU_ID
+            => 'Вы действительно хотите закрыть окно? ' .
+                'Все несохраненные изменения будут потеряны.',
     ],
     'unsavedWindowClose'  => [
         Language::LANGUAGE_EN_ID => 'Close',

@@ -97,24 +97,28 @@ return [
         Language::LANGUAGE_RU_ID => '',
     ],
     'imageDeleteConfirm'  => [
-        Language::LANGUAGE_EN_ID => "Are you sure to delete the image?",
-        Language::LANGUAGE_RU_ID => 'Вы действительно хотите удалить изображение?',
+        Language::LANGUAGE_EN_ID
+            => 'Are you sure to delete the image?',
+        Language::LANGUAGE_RU_ID
+            => 'Вы действительно хотите удалить изображение?',
     ],
     'albumDeleteConfirm'  => [
-        Language::LANGUAGE_EN_ID => "Are you sure to delete the album?",
+        Language::LANGUAGE_EN_ID => 'Are you sure to delete the album?',
         Language::LANGUAGE_RU_ID => 'Вы действительно хотите удалить альбом?',
     ],
     'cropNoun'  => [
-        Language::LANGUAGE_EN_ID => "Crop",
+        Language::LANGUAGE_EN_ID => 'Crop',
         Language::LANGUAGE_RU_ID => 'Обрезка',
     ],
     'cropVerb'  => [
-        Language::LANGUAGE_EN_ID => "Crop",
+        Language::LANGUAGE_EN_ID => 'Crop',
         Language::LANGUAGE_RU_ID => 'Обрезать',
     ],
     'deleteConfirmText' => [
-        Language::LANGUAGE_EN_ID => 'Are you sure to delete the image block?',
-        Language::LANGUAGE_RU_ID => 'Вы действительно хотите удалить блок изображения?',
+        Language::LANGUAGE_EN_ID
+            => 'Are you sure to delete the image block?',
+        Language::LANGUAGE_RU_ID
+            => 'Вы действительно хотите удалить блок изображения?',
     ],
     'hasAutoCrop' => [
         Language::LANGUAGE_EN_ID => 'Auto crop',
@@ -138,7 +142,8 @@ return [
     ],
     'hasThumbAutoCrop' => [
         Language::LANGUAGE_EN_ID => 'Thumb auto crop',
-        Language::LANGUAGE_RU_ID => 'Автоматически обрезать миниатюры при загрузке',
+        Language::LANGUAGE_RU_ID
+            => 'Автоматически обрезать миниатюры при загрузке',
     ],
     'addAlbum' => [
         Language::LANGUAGE_EN_ID => 'Add album',

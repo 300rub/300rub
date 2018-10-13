@@ -16,7 +16,7 @@ return [
         Language::LANGUAGE_RU_ID => 'Разделы',
     ],
     'panelDescription' => [
-        Language::LANGUAGE_EN_ID => "Description...",
+        Language::LANGUAGE_EN_ID => 'Description...',
         Language::LANGUAGE_RU_ID => '',
     ],
     'designDescription'   => [

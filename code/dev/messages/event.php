@@ -44,8 +44,10 @@ return [
         Language::LANGUAGE_RU_ID => 'Обновлены настройки для блока "%s"',
     ],
     'blockSettingsUpdatedNameChangedEventMask' => [
-        Language::LANGUAGE_EN_ID => 'Block name changed from "%s" to "%s". Updated settings.',
-        Language::LANGUAGE_RU_ID => 'Название блока изменено с "%s" на "%s". Настройки изменены',
+        Language::LANGUAGE_EN_ID
+            => 'Block name changed from "%s" to "%s". Updated settings.',
+        Language::LANGUAGE_RU_ID
+            => 'Название блока изменено с "%s" на "%s". Настройки изменены',
     ],
     'blockContentChangedEventMask' => [
         Language::LANGUAGE_EN_ID => 'Updated content for block "%s"',
