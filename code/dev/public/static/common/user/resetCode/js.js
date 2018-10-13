@@ -1,6 +1,9 @@
-ss.add(
-    "commonUserResetCode",
-    {
+!function ($, ss) {
+    "use strict";
+
+    var name = "commonUserResetCode";
+
+    var parameters = {
         /**
          * Parent
          *
@@ -18,7 +21,7 @@ ss.add(
         /**
          * Init
          */
-        init: function() {
+        init: function () {
             this.forms = {};
 
             this.create(
@@ -35,7 +38,7 @@ ss.add(
         /**
          * On load success
          */
-        onLoadSuccess: function() {
+        onLoadSuccess: function () {
             this.forms.code = ss.init(
                 "commonComponentsFormText",
                 $.extend(
@@ -88,5 +91,7 @@ ss.add(
 
             window.location.reload();
         }
-    }
-);
+    };
+
+    ss.add(name, parameters);
+}(window.jQuery, window.ss);

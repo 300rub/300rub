@@ -1,6 +1,9 @@
-ss.add(
-    "commonUserResetEmail",
-    {
+!function ($, ss) {
+    "use strict";
+
+    var name = "commonUserResetEmail";
+
+    var parameters = {
         /**
          * Parent
          *
@@ -18,7 +21,7 @@ ss.add(
         /**
          * Init
          */
-        init: function() {
+        init: function () {
             this.forms = {};
 
             this.create(
@@ -35,7 +38,7 @@ ss.add(
         /**
          * On load success
          */
-        onLoadSuccess: function() {
+        onLoadSuccess: function () {
             this.forms.email = ss.init(
                 "commonComponentsFormText",
                 $.extend(
@@ -85,5 +88,7 @@ ss.add(
 
             ss.init("commonUserResetCode", {id: data.id});
         }
-    }
-);
+    };
+
+    ss.add(name, parameters);
+}(window.jQuery, window.ss);
