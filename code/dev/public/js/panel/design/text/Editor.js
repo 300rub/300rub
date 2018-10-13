@@ -9,19 +9,7 @@
      * @type {ss.panel.design.text.Editor}
      */
     ss.panel.design.text.Editor = function (options) {
-        this._sample = null;
 
-        this._size = null;
-        this._family = null;
-        this._color = null;
-        this._align = null;
-        this._italic = null;
-        this._bold = null;
-        this._lineHeight = null;
-        this._decoration = null;
-        this._letterSpacing = null;
-        this._transform = null;
-        this._hover = null;
 
         ss.panel.design.AbstractEditor.call(
             this,
@@ -49,10 +37,7 @@
      * Init
      */
     ss.panel.design.text.Editor.prototype.init = function () {
-        this
-            ._setSample()
-            ._setEditors()
-            ._setUpdateEvents();
+
     };
 
     /**
@@ -62,12 +47,12 @@
      *
      * @private
      */
-    ss.panel.design.text.Editor.prototype._setSample = function () {
+    ss.panel.design.text.Editor.prototype.setSample = function () {
         var selector;
 
         selector = "text-sample-" + this.getUniqueId();
         this.getEditorContainer().find(".sample").addClass(selector);
-        this._sample = this.getEditorContainer()
+        this.sample = this.getEditorContainer()
             .find(".styles-sample-container")
             .attr("data-selector", selector);
 
@@ -81,7 +66,7 @@
      *
      * @private
      */
-    ss.panel.design.text.Editor.prototype._setEditors = function () {
+    ss.panel.design.text.Editor.prototype.setEditors = function () {
         var commonContainer
             = this.getEditorContainer().find(".common-container");
         var hoverContainer
@@ -96,17 +81,17 @@
             hoverContainer: hoverContainer
         };
 
-        this._size = new ss.panel.design.text.Size(data);
-        this._family = new ss.panel.design.text.Family(data);
-        this._color = new ss.panel.design.text.Color(data);
-        this._align = new ss.panel.design.text.Align(data);
-        this._italic = new ss.panel.design.text.Italic(data);
-        this._bold = new ss.panel.design.text.Bold(data);
-        this._lineHeight = new ss.panel.design.text.LineHeight(data);
-        this._decoration = new ss.panel.design.text.Decoration(data);
-        this._letterSpacing = new ss.panel.design.text.LetterSpacing(data);
-        this._transform = new ss.panel.design.text.Transform(data);
-        this._hover = new ss.panel.design.text.Hover(data);
+        this.size = new ss.panel.design.text.Size(data);
+        this.family = new ss.panel.design.text.Family(data);
+        this.color = new ss.panel.design.text.Color(data);
+        this.align = new ss.panel.design.text.Align(data);
+        this.italic = new ss.panel.design.text.Italic(data);
+        this.bold = new ss.panel.design.text.Bold(data);
+        this.lineHeight = new ss.panel.design.text.LineHeight(data);
+        this.decoration = new ss.panel.design.text.Decoration(data);
+        this.letterSpacing = new ss.panel.design.text.LetterSpacing(data);
+        this.transform = new ss.panel.design.text.Transform(data);
+        this.hover = new ss.panel.design.text.Hover(data);
 
         return this;
     };
@@ -118,15 +103,15 @@
      *
      * @private
      */
-    ss.panel.design.text.Editor.prototype._setUpdateEvents = function () {
+    ss.panel.design.text.Editor.prototype.setUpdateEvents = function () {
         this.getEditorContainer()
             .on(
                 "update",
-                $.proxy(this._onUpdate, this)
+                $.proxy(this.onUpdate, this)
             )
             .on(
                 "update-text-sample",
-                $.proxy(this._onUpdateTextSample, this)
+                $.proxy(this.onUpdateTextSample, this)
             );
 
         return this;
@@ -137,14 +122,14 @@
      *
      * @private
      */
-    ss.panel.design.text.Editor.prototype._onUpdate = function () {
+    ss.panel.design.text.Editor.prototype.onUpdate = function () {
         var html = "<style>";
 
-        html += this.getSelector() + "{" + this._generateCss(false) + "}";
+        html += this.getSelector() + "{" + this.generateCss(false) + "}";
 
-        if (this._hover.getHasHover() === true) {
+        if (this.hover.getHasHover() === true) {
             html += this.getSelector();
-            html += ":hover{" + this._generateCss(true) + "}";
+            html += ":hover{" + this.generateCss(true) + "}";
         }
 
         html += "</style>";
@@ -157,39 +142,39 @@
      *
      * @private
      */
-    ss.panel.design.text.Editor.prototype._onUpdateTextSample
+    ss.panel.design.text.Editor.prototype.onUpdateTextSample
         = function () {
             var css = "";
             var cssHover = "";
 
-            css += this._size.generateCss(false);
-            css += this._family.generateCss();
-            css += this._align.generateCss();
-            css += this._color.generateCss(false);
-            css += this._italic.generateCss(false);
-            css += this._bold.generateCss(false);
-            css += this._lineHeight.generateCss(false);
-            css += this._decoration.generateCss(false);
-            css += this._letterSpacing.generateCss(false);
-            css += this._transform.generateCss(false);
+            css += this.size.generateCss(false);
+            css += this.family.generateCss();
+            css += this.align.generateCss();
+            css += this.color.generateCss(false);
+            css += this.italic.generateCss(false);
+            css += this.bold.generateCss(false);
+            css += this.lineHeight.generateCss(false);
+            css += this.decoration.generateCss(false);
+            css += this.letterSpacing.generateCss(false);
+            css += this.transform.generateCss(false);
 
-            if (this._hover.getHasHover() === true) {
-                cssHover += this._size.generateCss(true);
-                cssHover += this._color.generateCss(true);
-                cssHover += this._italic.generateCss(true);
-                cssHover += this._bold.generateCss(true);
-                cssHover += this._lineHeight.generateCss(true);
-                cssHover += this._decoration.generateCss(true);
-                cssHover += this._letterSpacing.generateCss(true);
-                cssHover += this._transform.generateCss(true);
+            if (this.hover.getHasHover() === true) {
+                cssHover += this.size.generateCss(true);
+                cssHover += this.color.generateCss(true);
+                cssHover += this.italic.generateCss(true);
+                cssHover += this.bold.generateCss(true);
+                cssHover += this.lineHeight.generateCss(true);
+                cssHover += this.decoration.generateCss(true);
+                cssHover += this.letterSpacing.generateCss(true);
+                cssHover += this.transform.generateCss(true);
             }
 
-            var selector = "." + this._sample.data("selector");
+            var selector = "." + this.sample.data("selector");
             var html = "<style>";
             html += selector + "{" + css + "}";
             html += selector + ":hover{" + cssHover + "}";
             html += "</style>";
-            this._sample.html(html);
+            this.sample.html(html);
         };
 
     /**
@@ -201,21 +186,21 @@
      *
      * @private
      */
-    ss.panel.design.text.Editor.prototype._generateCss = function (
+    ss.panel.design.text.Editor.prototype.generateCss = function (
         isHover
     ) {
         var css = "";
 
-        css += this._size.generateCss(isHover);
-        css += this._family.generateCss();
-        css += this._color.generateCss(isHover);
-        css += this._align.generateCss();
-        css += this._italic.generateCss(isHover);
-        css += this._bold.generateCss(isHover);
-        css += this._lineHeight.generateCss(isHover);
-        css += this._decoration.generateCss(isHover);
-        css += this._letterSpacing.generateCss(isHover);
-        css += this._transform.generateCss(isHover);
+        css += this.size.generateCss(isHover);
+        css += this.family.generateCss();
+        css += this.color.generateCss(isHover);
+        css += this.align.generateCss();
+        css += this.italic.generateCss(isHover);
+        css += this.bold.generateCss(isHover);
+        css += this.lineHeight.generateCss(isHover);
+        css += this.decoration.generateCss(isHover);
+        css += this.letterSpacing.generateCss(isHover);
+        css += this.transform.generateCss(isHover);
 
         return css;
     };
@@ -228,17 +213,17 @@
     ss.panel.design.text.Editor.prototype.getData = function () {
         var data = {};
 
-        $.extend(data, this._size.getData());
-        $.extend(data, this._family.getData());
-        $.extend(data, this._color.getData());
-        $.extend(data, this._align.getData());
-        $.extend(data, this._italic.getData());
-        $.extend(data, this._bold.getData());
-        $.extend(data, this._lineHeight.getData());
-        $.extend(data, this._decoration.getData());
-        $.extend(data, this._letterSpacing.getData());
-        $.extend(data, this._transform.getData());
-        $.extend(data, this._hover.getData());
+        $.extend(data, this.size.getData());
+        $.extend(data, this.family.getData());
+        $.extend(data, this.color.getData());
+        $.extend(data, this.align.getData());
+        $.extend(data, this.italic.getData());
+        $.extend(data, this.bold.getData());
+        $.extend(data, this.lineHeight.getData());
+        $.extend(data, this.decoration.getData());
+        $.extend(data, this.letterSpacing.getData());
+        $.extend(data, this.transform.getData());
+        $.extend(data, this.hover.getData());
 
         return data;
     };
