@@ -1,9 +1,9 @@
-/**
- * Password
- */
-ss.add(
-    "commonComponentsFormPassword",
-    {
+!function ($, ss) {
+    "use strict";
+
+    var name = "commonComponentsFormPassword";
+
+    var parameters = {
         /**
          * Parent
          *
@@ -14,8 +14,10 @@ ss.add(
         /**
          * Init
          */
-        init: function() {
+        init: function () {
             this.create("form-container-password");
         }
-    }
-);
+    };
+
+    ss.add(name, parameters);
+}(window.jQuery, window.ss);

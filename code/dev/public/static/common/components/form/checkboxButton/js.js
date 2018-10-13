@@ -1,9 +1,9 @@
-/**
- * Checkbox Button
- */
-ss.add(
-    "commonComponentsFormCheckboxButton",
-    {
+!function ($, ss) {
+    "use strict";
+
+    var name = "commonComponentsFormCheckboxButton";
+
+    var parameters = {
         /**
          * Parent
          *
@@ -14,7 +14,7 @@ ss.add(
         /**
          * Init
          */
-        init: function() {
+        init: function () {
             this.create("checkbox-button");
 
             var t = this;
@@ -72,5 +72,7 @@ ss.add(
         getValue: function () {
             return this.getInstance().is(':checked');
         }
-    }
-);
+    };
+
+    ss.add(name, parameters);
+}(window.jQuery, window.ss);

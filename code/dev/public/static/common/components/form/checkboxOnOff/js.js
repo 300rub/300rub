@@ -1,9 +1,9 @@
-/**
- * Checkbox On Off
- */
-ss.add(
-    "commonComponentsFormCheckboxOnOff",
-    {
+!function ($, ss) {
+    "use strict";
+
+    var name = "commonComponentsFormCheckboxOnOff";
+
+    var parameters = {
         /**
          * Parent
          *
@@ -14,7 +14,7 @@ ss.add(
         /**
          * Init
          */
-        init: function() {
+        init: function () {
             this.create("form-container-checkbox-on-off");
 
             var t = this;
@@ -56,5 +56,7 @@ ss.add(
         getValue: function () {
             return this.getInstance().is(':checked');
         }
-    }
-);
+    };
+
+    ss.add(name, parameters);
+}(window.jQuery, window.ss);

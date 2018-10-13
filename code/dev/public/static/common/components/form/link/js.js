@@ -1,9 +1,9 @@
-/**
- * Link
- */
-ss.add(
-    "commonComponentsFormLink",
-    {
+!function ($, ss) {
+    "use strict";
+
+    var name = "commonComponentsFormLink";
+
+    var parameters = {
         /**
          * Parent
          *
@@ -14,7 +14,7 @@ ss.add(
         /**
          * Init
          */
-        init: function() {
+        init: function () {
             this.create("form-link");
 
             var onClick = this.getOption("onClick");
@@ -28,5 +28,7 @@ ss.add(
                 }
             }
         }
-    }
-);
+    };
+
+    ss.add(name, parameters);
+}(window.jQuery, window.ss);

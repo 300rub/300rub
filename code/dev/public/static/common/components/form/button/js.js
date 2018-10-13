@@ -1,9 +1,9 @@
-/**
- * Button
- */
-ss.add(
-    "commonComponentsFormButton",
-    {
+!function ($, ss) {
+    "use strict";
+
+    var name = "commonComponentsFormButton";
+
+    var parameters = {
         /**
          * Parent
          *
@@ -14,7 +14,7 @@ ss.add(
         /**
          * Init
          */
-        init: function() {
+        init: function () {
             this.create("form-button");
 
             var icon = this.getOption("icon");
@@ -59,7 +59,7 @@ ss.add(
         /**
          * Processes AJAX
          */
-        processAjax: function() {
+        processAjax: function () {
             var icon = this.getForm().find(".icons .icon");
             var spinner = this.getForm().find(".icons .fa-spin");
             this.getForm().attr("disabled", true);
@@ -214,5 +214,7 @@ ss.add(
 
             return object;
         }
-    }
-);
+    };
+
+    ss.add(name, parameters);
+}(window.jQuery, window.ss);

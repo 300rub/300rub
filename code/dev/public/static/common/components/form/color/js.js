@@ -1,9 +1,9 @@
-/**
- * Color picker
- */
-ss.add(
-    "commonComponentsFormColor",
-    {
+!function ($, ss) {
+    "use strict";
+
+    var name = "commonComponentsFormColor";
+
+    var parameters = {
         /**
          * Parent
          *
@@ -14,7 +14,7 @@ ss.add(
         /**
          * Init
          */
-        init: function() {
+        init: function () {
             this.create("color-picker-container");
 
             this.getInstance().val(this.getOption("value"));
@@ -63,5 +63,7 @@ ss.add(
                 }
             );
         }
-    }
-);
+    };
+
+    ss.add(name, parameters);
+}(window.jQuery, window.ss);
