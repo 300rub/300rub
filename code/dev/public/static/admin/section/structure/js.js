@@ -9,7 +9,7 @@
          *
          * @var {String}
          */
-        parent: "adminSettingsCodeWindow",
+        parent: "commonComponentsWindowAbstract",
 
         /**
          * Container
