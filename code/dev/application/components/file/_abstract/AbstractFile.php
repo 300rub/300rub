@@ -32,14 +32,14 @@ abstract class AbstractFile
     /**
      * Version
      *
-     * @var int
+     * @var integer
      */
     private $_version = 0;
 
     /**
      * Minimized flag
      *
-     * @var bool
+     * @var boolean
      */
     private $_hasMinimized = true;
 

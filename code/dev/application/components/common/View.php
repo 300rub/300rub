@@ -26,11 +26,11 @@ class View
     private function _getTwig()
     {
         if ($this->_twig === null) {
-            $this->_twig = new \Twig_Environment(
-                new \Twig_Loader_Filesystem(
-                    $this->_getViewsRootDir()
-                )
+            $fileSystem = new \Twig_Loader_Filesystem(
+                $this->_getViewsRootDir()
             );
+
+            $this->_twig = new \Twig_Environment($fileSystem);
         }
 
         return $this->_twig;
@@ -103,7 +103,8 @@ class View
      */
     public function generateCss(AbstractDesignModel $model, $selector)
     {
-        $cssContainerId = $this->generateCssContainerId($selector, $model->getCssType());
+        $cssContainerId
+            = $this->generateCssContainerId($selector, $model->getCssType());
 
         return [
             $cssContainerId => $model->generateCss($selector)

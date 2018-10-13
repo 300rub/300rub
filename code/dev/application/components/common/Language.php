@@ -3,7 +3,6 @@
 namespace ss\application\components\common;
 
 use ss\application\App;
-use ss\application\exceptions\CommonException;
 use ss\application\exceptions\NotFoundException;
 
 /**
@@ -93,6 +92,8 @@ class Language
      * @throws NotFoundException
      *
      * @return Language
+     *
+     * @SuppressWarnings(PMD.ExitExpression)
      */
     public function setIdByAlias($name)
     {
@@ -108,7 +109,7 @@ class Language
                 'name' => $name
             ]
         );
-        
+
         http_response_code(404);
         exit;
     }

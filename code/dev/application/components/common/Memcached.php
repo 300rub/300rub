@@ -21,7 +21,7 @@ class Memcached
     /**
      * The expiration time, defaults to 0.
      *
-     * @var int
+     * @var integer
      */
     private $_expiration = 0;
 
@@ -55,7 +55,8 @@ class Memcached
      *
      * @throws MemcacheException
      */
-    public function set($key, $value, $expiration = null) {
+    public function set($key, $value, $expiration = null)
+    {
         if ($this->_memcached === null) {
             return $this;
         }
