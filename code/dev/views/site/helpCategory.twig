@@ -1,0 +1,35 @@
+<div class="container">
+
+    {{ menu | raw }}
+
+    {{ breadcrumbs | raw }}
+
+    <h1>{{ name }}</h1>
+
+    <div class="content">{{ text | raw }}</div>
+
+    <div class="content">
+        {% if childCategories | length > 0 %}
+            <ul class="links-list">
+                {% for childCategory in childCategories %}
+                    <li>
+                        -
+                        <a href="{{ childCategory.uri }}">
+                            {{ childCategory.name }}
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+
+        {% if pages | length > 0 %}
+            <ul class="links-list">
+                {% for page in pages %}
+                    <li>
+                        - <a href="{{ page.uri }}">{{ page.name }}</a>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    </div>
+</div>
