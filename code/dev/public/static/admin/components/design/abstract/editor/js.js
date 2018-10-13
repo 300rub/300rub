@@ -191,14 +191,9 @@
 
         /**
          * Sets CSS to rollback
-         *
-         * @returns {ss.panel.design.AbstractEditor}
-         *
-         * @private
          */
         setCssToRollback: function () {
             this.cssToRollback = this.cssContainer.html();
-
             return this;
         },
 

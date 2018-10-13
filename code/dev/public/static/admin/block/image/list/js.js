@@ -53,16 +53,20 @@
                         var design = null;
                         if (itemData.canUpdateDesign === true) {
                             design = function () {
-                                // new ss.panel.design.Editor(
-                                // {
-                                // group: "image",
-                                // controller: "design",
-                                // id: itemData.id,
-                                // success: function () {
-                                // new ss.panel.blocks.image.List();
-                                // }
-                                // }
-                                // );
+                                ss.init(
+                                    "adminComponentsDesignEditor",
+                                    {
+                                        group: "image",
+                                        controller: "design",
+                                        id: itemData.id,
+                                        back: function() {
+                                            ss.init("adminBlockImageList");
+                                        },
+                                        success: function () {
+                                            ss.init("adminBlockImageList");
+                                        }
+                                    }
+                                );
                             };
                         }
 

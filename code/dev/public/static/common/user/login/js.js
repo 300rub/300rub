@@ -74,7 +74,7 @@ ss.add(
                     label: this.getLabel("forgotPassword"),
                     appendTo: this.getBody(),
                     onClick: function () {
-                        //new ss.window.users.ResetEmail();
+                        ss.init("commonUserResetEmail");
                     }
                 }
             );

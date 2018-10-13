@@ -53,16 +53,20 @@
                         var design = null;
                         if (itemData.canUpdateDesign === true) {
                             design = function () {
-                                // new ss.panel.design.Editor(
-                                // {
-                                // group: "text",
-                                // controller: "design",
-                                // id: itemData.id,
-                                // success: function () {
-                                // new ss.panel.blocks.text.List();
-                                // }
-                                // }
-                                // );
+                                ss.init(
+                                    "adminComponentsDesignEditor",
+                                    {
+                                        group: "text",
+                                        controller: "design",
+                                        id: itemData.id,
+                                        back: function() {
+                                            ss.init("adminBlockTextList");
+                                        },
+                                        success: function () {
+                                            ss.init("adminBlockTextList");
+                                        }
+                                    }
+                                );
                             };
                         }
 
