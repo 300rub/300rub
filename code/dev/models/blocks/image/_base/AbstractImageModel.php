@@ -3,10 +3,8 @@
 namespace ss\models\blocks\image\_base;
 
 use ss\application\App;
-
 use ss\application\components\valueGenerator\ValueGenerator;
 use ss\models\blocks\_abstract\AbstractContentModel;
-use ss\models\blocks\image\ImageInstanceModel;
 
 /**
  * Abstract model for working with table "images"

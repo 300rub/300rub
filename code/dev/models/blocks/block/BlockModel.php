@@ -38,6 +38,13 @@ class BlockModel extends AbstractBlockModel
     private $_js = [];
 
     /**
+     * URI
+     *
+     * @var string
+     */
+    private $_uri = '';
+
+    /**
      * Gets type names
      *
      * @return array

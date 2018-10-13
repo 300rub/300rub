@@ -26,6 +26,13 @@ abstract class AbstractContentModel extends AbstractModel
     private $_blockId = 0;
 
     /**
+     * URI
+     *
+     * @var string
+     */
+    private $_uri = '';
+
+    /**
      * HTML
      *
      * @var string
