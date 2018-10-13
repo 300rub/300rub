@@ -43,7 +43,7 @@
                 .extendOptions(options)
                 .setHasFooter()
                 .setBack(null)
-                .setCloseEvents(null)
+                .setCloseEvents(this.getOption("closeEvents"))
                 .addDomElement()
                 .load();
         },

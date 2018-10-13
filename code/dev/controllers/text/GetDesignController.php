@@ -53,8 +53,8 @@ class GetDesignController extends AbstractBlockController
 
         return [
             'id'          => $blockId,
-            'controller'  => 'text',
-            'action'      => 'design',
+            'group'       => 'text',
+            'controller'  => 'design',
             'title'       => $language->getMessage('text', 'designTitle'),
             'description' => $language->getMessage('text', 'designDescription'),
             'list'        => [
@@ -63,8 +63,8 @@ class GetDesignController extends AbstractBlockController
                     'data'  => [$blockDesign, $textDesign]
                 ]
             ],
-            'button'     => [
-                'label' => $language->getMessage('common', 'save'),
+            'labels'     => [
+                'button' => $language->getMessage('common', 'save'),
             ]
         ];
     }

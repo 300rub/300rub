@@ -381,7 +381,7 @@
                     title: this.getData(
                         ["operations", "list", "SECTIONS", "title"]
                     ),
-                children: children
+                    children: children
                 }
             );
 

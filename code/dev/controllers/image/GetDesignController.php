@@ -83,8 +83,8 @@ class GetDesignController extends AbstractController
 
         return [
             'id'          => $blockId,
-            'controller'  => 'image',
-            'action'      => 'design',
+            'group'       => 'image',
+            'controller'  => 'design',
             'title'       => $language->getMessage('image', 'designTitle'),
             'description'
                 => $language->getMessage('image', 'designDescription'),
@@ -94,8 +94,8 @@ class GetDesignController extends AbstractController
                     'data'  => $data
                 ]
             ],
-            'button'      => [
-                'label' => $language->getMessage('common', 'save'),
+            'labels'      => [
+                'button' => $language->getMessage('common', 'save'),
             ]
         ];
     }
