@@ -1,9 +1,9 @@
-/**
- * Abstract form
- */
-ss.add(
-    "commonContentBlockUpdate",
-    {
+!function ($, ss) {
+    "use strict";
+
+    var name = "commonContentBlockUpdate";
+
+    var parameters = {
         /**
          * Filtered list
          *
@@ -14,7 +14,7 @@ ss.add(
         /**
          * Init
          */
-        init: function() {
+        init: function () {
             this
                 .setFilteredIdList()
                 .loadContent();
@@ -26,11 +26,17 @@ ss.add(
         setFilteredIdList: function () {
             this.filteredIdList = [];
 
-            $.each(this._idList, $.proxy(function(i, blockId) {
-                if ($(".block-" + blockId).length > 0) {
-                    this.filteredIdList.push(blockId);
-                }
-            }, this));
+            $.each(
+                this.getOption("list", []),
+                $.proxy(
+                    function (i, blockId) {
+                        if ($(".block-" + blockId).length > 0) {
+                            this.filteredIdList.push(blockId);
+                        }
+                    },
+                    this
+                )
+            );
 
             return this;
         },
@@ -72,33 +78,55 @@ ss.add(
          * @param {Object} data
          */
         onSuccess: function (data) {
-            $.each(data.content, $.proxy(function(blockId, blockData) {
-                var blockElement = $(".block-" + blockId);
+            $.each(
+                data.content,
+                $.proxy(
+                    function (blockId, blockData) {
+                        var blockElement = $(".block-" + blockId);
 
-                if (blockElement.length === 0) {
-                    return false;
-                }
+                        if (blockElement.length === 0) {
+                            return false;
+                        }
 
-                var gridElement = blockElement.parent();
-                blockElement.remove();
-                gridElement.append(blockData.html);
+                        var gridElement = blockElement.parent();
+                        blockElement.remove();
+                        gridElement.append(blockData.html);
 
-                $.each(blockData.css, $.proxy(function(cssId, cssValue) {
-                    var cssElement = $("#" + cssId);
-                    if (cssElement.length === 0) {
-                        return false;
-                    }
+                        $.each(
+                            blockData.css,
+                            $.proxy(
+                                function (cssId, cssValue) {
+                                    var cssElement = $("#" + cssId);
+                                    if (cssElement.length === 0) {
+                                        return false;
+                                    }
 
-                    cssValue = "<style>" + cssValue + "</style>";
+                                    cssValue
+                                        = "<style>" + cssValue + "</style>";
 
-                    cssElement.html(cssValue);
-                }, this));
+                                    cssElement.html(cssValue);
+                                },
+                                this
+                            )
+                        );
 
-                $.each(blockData.js, $.proxy(function(i, jsValue) {
-                    var fullJs = "<script>!function(){" + jsValue + "}();</script>";
-                    ss.init("app").append(fullJs);
-                }, this));
-            }, this));
+                        $.each(
+                            blockData.js,
+                            $.proxy(
+                                function (i, jsValue) {
+                                    var fullJs = "<script>!function(){";
+                                    fullJs += jsValue + "}();</script>";
+                                    ss.init("app").append(fullJs);
+                                },
+                                this
+                            )
+                        );
+                    },
+                    this
+                )
+            );
         }
-    }
-);
+    };
+
+    ss.add(name, parameters);
+}(window.jQuery, window.ss);
