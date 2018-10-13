@@ -142,7 +142,7 @@
 
         html += this.getSelector() + "{" + this._generateCss(false) + "}";
 
-        if (this._hover.hasHover() === true) {
+        if (this._hover.getHasHover() === true) {
             html += this.getSelector();
             html += ":hover{" + this._generateCss(true) + "}";
         }
@@ -173,7 +173,7 @@
             css += this._letterSpacing.generateCss(false);
             css += this._transform.generateCss(false);
 
-            if (this._hover.hasHover() === true) {
+            if (this._hover.getHasHover() === true) {
                 cssHover += this._size.generateCss(true);
                 cssHover += this._color.generateCss(true);
                 cssHover += this._italic.generateCss(true);
