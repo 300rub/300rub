@@ -131,8 +131,7 @@ class CreateSiteController extends AbstractController
             [
             'login'    => $this->get('user'),
             'password' => $userModel->getPasswordHash(
-                $this->get('password'),
-                true
+                $this->get('password')
             ),
             'type'     => UserModel::TYPE_OWNER,
             'name'     => $this->get('userName'),

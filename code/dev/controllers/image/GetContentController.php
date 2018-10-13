@@ -81,16 +81,20 @@ class GetContentController extends AbstractController
         return [
             'id'     => $this->_blockModel->getId(),
             'labels' => [
-                "images" => $language->getMessage('image', 'images'),
-                "edit"   => $language->getMessage('common', 'edit'),
-                "delete" => $language->getMessage('common', 'delete'),
+                'images'
+                    => $language->getMessage('image', 'images'),
+                'edit'
+                    => $language->getMessage('common', 'edit'),
+                'delete'
+                    => $language->getMessage('common', 'delete'),
                 'deleteConfirm'
                     => $language->getMessage('image', 'albumDeleteConfirm'),
-                'no'     => $language->getMessage('common', 'no'),
-                'addAlbum'  => $language->getMessage('image', 'addAlbum'),
-                'button' => App::getInstance()
-                    ->getLanguage()
-                    ->getMessage('common', 'save')
+                'no'
+                    => $language->getMessage('common', 'no'),
+                'addAlbum'
+                    => $language->getMessage('image', 'addAlbum'),
+                'button'
+                    => $language->getMessage('common', 'save')
             ],
             'name'   => $this->_blockModel->get('name'),
             'useAlbums'      => true,
@@ -131,9 +135,8 @@ class GetContentController extends AbstractController
                     => $language->getMessage('common', 'delete'),
                 'no'
                     => $language->getMessage('common', 'no'),
-                'button' => App::getInstance()
-                    ->getLanguage()
-                    ->getMessage('common', 'save')
+                'button'
+                    => $language->getMessage('common', 'save')
             ],
             'name'      => $this->_blockModel->get('name'),
             'useAlbums' => false,

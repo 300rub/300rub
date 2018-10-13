@@ -3,7 +3,6 @@
 namespace ss\commands\db;
 
 use ss\application\App;
-use ss\application\components\db\Db;
 use ss\commands\_abstract\AbstractCommand;
 
 /**

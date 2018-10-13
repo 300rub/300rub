@@ -33,9 +33,11 @@ class GetShortInfoController extends AbstractController
         );
 
         return [
-            'title'         => $language->getMessage('release', 'panelTitle'),
-            'description'   => $language->getMessage('release', 'panelDescription'),
-            'labels'        => [
+            'title'
+                => $language->getMessage('release', 'panelTitle'),
+            'description'
+                => $language->getMessage('release', 'panelDescription'),
+            'labels' => [
                 'moreInfo' => $moreLabel,
                 'button'   => $language->getMessage('release', 'applyButton'),
             ],

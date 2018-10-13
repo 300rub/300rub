@@ -40,8 +40,9 @@ class GetCodeController extends AbstractController
                 'value'       => [
                     'name'  => 'value',
                     'value' => $settingsModel->get('value'),
-                    'validation'
-                           => $settingsModel->getValidationRulesForField('value'),
+                    'validation' => $settingsModel->getValidationRulesForField(
+                        'value'
+                    ),
                 ],
             ],
             'labels' => [

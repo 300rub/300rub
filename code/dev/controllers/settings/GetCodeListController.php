@@ -50,7 +50,8 @@ class GetCodeListController extends AbstractController
 
         return [
             'title'       => $language->getMessage('settings', 'codeListTitle'),
-            'description' => $language->getMessage('settings', 'codeListDescription'),
+            'description'
+                => $language->getMessage('settings', 'codeListDescription'),
             'list'        => $list
         ];
     }

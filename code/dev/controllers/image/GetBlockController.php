@@ -68,17 +68,28 @@ class GetBlockController extends AbstractController
             'title'       => $language->getMessage('image', $titleKey),
             'description' => $language->getMessage('image', $descriptionKey),
             'labels'      => [
-                'duplicate'            => $language->getMessage('common', 'duplicate'),
-                'delete'               => $language->getMessage('common', 'delete'),
-                'deleteConfirmText'    => $language->getMessage('image', 'deleteConfirmText'),
-                'no'                   => $language->getMessage('common', 'no'),
-                'configureCrop'        => $language->getMessage('image', 'configureCrop'),
-                'cropProportions'      => $language->getMessage('image', 'cropProportions'),
-                'hasAutoCrop'          => $language->getMessage('image', 'hasAutoCrop'),
-                'configureThumbCrop'   => $language->getMessage('image', 'configureThumbCrop'),
-                'thumbCropProportions' => $language->getMessage('image', 'thumbCropProportions'),
-                'hasThumbAutoCrop'     => $language->getMessage('image', 'hasThumbAutoCrop'),
-                'button'               => $language->getMessage('common', $buttonLabelKey),
+                'duplicate'
+                    => $language->getMessage('common', 'duplicate'),
+                'delete'
+                    => $language->getMessage('common', 'delete'),
+                'deleteConfirmText'
+                    => $language->getMessage('image', 'deleteConfirmText'),
+                'no'
+                    => $language->getMessage('common', 'no'),
+                'configureCrop'
+                    => $language->getMessage('image', 'configureCrop'),
+                'cropProportions'
+                    => $language->getMessage('image', 'cropProportions'),
+                'hasAutoCrop'
+                    => $language->getMessage('image', 'hasAutoCrop'),
+                'configureThumbCrop'
+                    => $language->getMessage('image', 'configureThumbCrop'),
+                'thumbCropProportions'
+                    => $language->getMessage('image', 'thumbCropProportions'),
+                'hasThumbAutoCrop'
+                    => $language->getMessage('image', 'hasThumbAutoCrop'),
+                'button'
+                    => $language->getMessage('common', $buttonLabelKey),
             ],
             'forms'       => [
                 'name'              => [

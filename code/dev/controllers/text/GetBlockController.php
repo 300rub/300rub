@@ -77,11 +77,16 @@ class GetBlockController extends AbstractBlockController
             'title'       => $language->getMessage('text', $titleKey),
             'description' => $language->getMessage('text', $descriptionKey),
             'labels'      => [
-                'duplicate'         => $language->getMessage('common', 'duplicate'),
-                'delete'            => $language->getMessage('common', 'delete'),
-                'deleteConfirmText' => $language->getMessage('text', 'deleteConfirmText'),
-                'no'                => $language->getMessage('common', 'no'),
-                'button'            => $language->getMessage('common', $buttonKey),
+                'duplicate'
+                    => $language->getMessage('common', 'duplicate'),
+                'delete'
+                    => $language->getMessage('common', 'delete'),
+                'deleteConfirmText'
+                    => $language->getMessage('text', 'deleteConfirmText'),
+                'no'
+                    => $language->getMessage('common', 'no'),
+                'button'
+                    => $language->getMessage('common', $buttonKey),
             ],
             'forms'       => [
                 'name'      => [

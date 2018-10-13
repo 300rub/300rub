@@ -215,11 +215,15 @@ class GetStructureController extends AbstractController
                 }
             }
 
+            $lineLabel = App::getInstance()
+                ->getLanguage()
+                ->getMessage('section', 'line');
+
             $this->_structure[] = [
                 'id'     => $gridLineModel->getId(),
                 'name'   => sprintf(
                     '%s %s',
-                    App::getInstance()->getLanguage()->getMessage('section', 'line'),
+                    $lineLabel,
                     $lineNumber
                 ),
                 'blocks' => $blocks

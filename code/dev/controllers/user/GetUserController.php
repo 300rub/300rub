@@ -115,6 +115,11 @@ class GetUserController extends AbstractController
 
         $this->_setValues($userId);
 
+        $typeList = App::getInstance()->getValueGenerator()->getValue(
+            ValueGenerator::ORDERED_ARRAY,
+            $userModel->getTypeList(true)
+        );
+
         return [
             'id'         => $userId,
             'title'      => $this->_title,
@@ -123,13 +128,15 @@ class GetUserController extends AbstractController
                     'label'      => $language->getMessage('common', 'name'),
                     'value'      => $this->_name,
                     'name'       => 'name',
-                    'validation' => $userModel->getValidationRulesForField('name'),
+                    'validation'
+                        => $userModel->getValidationRulesForField('name'),
                 ],
                 'login'      => [
                     'label'      => $language->getMessage('user', 'login'),
                     'value'      => $this->_login,
                     'name'       => 'login',
-                    'validation' => $userModel->getValidationRulesForField('login'),
+                    'validation'
+                        => $userModel->getValidationRulesForField('login'),
                 ],
                 'password'      => [
                     'label'      => $language->getMessage('user', 'password'),
@@ -146,16 +153,14 @@ class GetUserController extends AbstractController
                     'label'      => $language->getMessage('common', 'email'),
                     'value'      => $this->_email,
                     'name'       => 'email',
-                    'validation' => $userModel->getValidationRulesForField('email'),
+                    'validation'
+                        => $userModel->getValidationRulesForField('email'),
                 ],
                 'type'       => [
                     'label' => $language->getMessage('user', 'type'),
                     'value' => $this->_type,
                     'name'  => 'type',
-                    'list'  => App::getInstance()->getValueGenerator()->getValue(
-                        ValueGenerator::ORDERED_ARRAY,
-                        $userModel->getTypeList(true)
-                    )
+                    'list'  => $typeList
                 ],
             ],
             'operations' => [

@@ -14,7 +14,7 @@ abstract class AbstractBlockController extends AbstractController
     /**
      * Gets block created event
      *
-     * @param BlockModel $block
+     * @param BlockModel $block Block model
      *
      * @return string
      */
@@ -32,7 +32,7 @@ abstract class AbstractBlockController extends AbstractController
     /**
      * Gets block duplicated event
      *
-     * @param BlockModel $block
+     * @param BlockModel $block Block model
      *
      * @return string
      */
@@ -50,7 +50,7 @@ abstract class AbstractBlockController extends AbstractController
     /**
      * Gets block deleted event
      *
-     * @param BlockModel $block
+     * @param BlockModel $block Block model
      *
      * @return string
      */
@@ -68,8 +68,8 @@ abstract class AbstractBlockController extends AbstractController
     /**
      * Gets block settings updated event
      *
-     * @param BlockModel $oldBlock
-     * @param BlockModel $newBlock
+     * @param BlockModel $oldBlock Old block model
+     * @param BlockModel $newBlock New block model
      *
      * @return string
      */
@@ -98,7 +98,7 @@ abstract class AbstractBlockController extends AbstractController
     /**
      * Gets block content changed event
      *
-     * @param BlockModel $block
+     * @param BlockModel $block Block model
      *
      * @return string
      */
@@ -116,7 +116,7 @@ abstract class AbstractBlockController extends AbstractController
     /**
      * Gets block design changed event
      *
-     * @param BlockModel $block
+     * @param BlockModel $block Block model
      *
      * @return string
      */

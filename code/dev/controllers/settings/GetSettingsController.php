@@ -31,8 +31,12 @@ class GetSettingsController extends AbstractController
             $list['icon'] = $language->getMessage('settings', 'icon');
         }
 
-        if ($this->hasSettingsOperation(Operation::SETTINGS_HIDDEN_CODE) === true) {
-            $list['hiddenCode'] = $language->getMessage('settings', 'hiddenCode');
+        $hasOperation = $this->hasSettingsOperation(
+            Operation::SETTINGS_HIDDEN_CODE
+        );
+        if ($hasOperation === true) {
+            $list['hiddenCode']
+                = $language->getMessage('settings', 'hiddenCode');
         }
 
         return [

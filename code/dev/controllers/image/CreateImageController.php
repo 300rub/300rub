@@ -79,8 +79,8 @@ class CreateImageController extends AbstractController
                 'imageId' => $blockModel->get('contentId'),
                 'seoModel' => [
                     'name'  => App::getInstance()
-                        ->getLanguage()
-                        ->getMessage('common', 'default'),
+                    ->getLanguage()
+                    ->getMessage('common', 'default'),
                     'alias' => 'default'
                 ]
             ]

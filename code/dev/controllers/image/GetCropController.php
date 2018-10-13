@@ -71,7 +71,6 @@ class GetCropController extends AbstractController
 
         switch ($imageInstanceModel->get('flip')) {
             case ImageInstanceModel::FLIP_HORIZONTAL:
-
                 break;
         }
 
@@ -81,8 +80,8 @@ class GetCropController extends AbstractController
             'id'      => $this->get('id'),
             'labels'  => [
                 'button' => App::getInstance()
-                    ->getLanguage()
-                    ->getMessage('image', 'cropVerb')
+                ->getLanguage()
+                ->getMessage('image', 'cropVerb')
             ],
             'url'     => $fileModel->getUrl(),
             'width'   => $imageInstanceModel->get('width'),

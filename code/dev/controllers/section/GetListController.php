@@ -54,7 +54,8 @@ class GetListController extends AbstractController
 
             $list[] = [
                 'id'                => $sectionModel->getId(),
-                'name'              => $sectionModel->get('seoModel')->get('name'),
+                'name'
+                    => $sectionModel->get('seoModel')->get('name'),
                 'isMain'            => $sectionModel->get('isMain'),
                 'isPublished'       => $sectionModel->get('isPublished'),
                 'canUpdateSettings' => $canUpdateSettings,
@@ -70,7 +71,8 @@ class GetListController extends AbstractController
 
         return [
             'title'       => $language->getMessage('section', 'sections'),
-            'description' => $language->getMessage('section', 'panelDescription'),
+            'description'
+                => $language->getMessage('section', 'panelDescription'),
             'list'        => $list,
             'labels'      => [
                 'add' => $language->getMessage('common', 'add')

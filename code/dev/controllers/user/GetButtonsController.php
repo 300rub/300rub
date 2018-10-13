@@ -44,7 +44,7 @@ class GetButtonsController extends AbstractController
             }
         }
 
-        return  [
+        return [
             'canRelease'        => $canRelease,
             'isReadyToRelease'  => $isReadyToRelease,
             'isDisplaySections' => $this->hasAnySectionOperations(),
