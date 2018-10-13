@@ -30,7 +30,7 @@ abstract class AbstractController extends AbstractDataController
         return $this->render(
             'layout/site',
             [
-                'icon'        => '/img/favicon.ico',
+                'icon'        => '/static/common/core/img/favicon.ico',
                 'content'     => $content,
                 'title'       => $title,
                 'keywords'    => $keywords,

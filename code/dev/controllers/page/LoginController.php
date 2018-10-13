@@ -58,7 +58,7 @@ class LoginController extends AbstractPageController
         return $this->render(
             'layout/login',
             [
-                'icon'   => '/img/favicon.ico',
+                'icon'   => '/static/common/core/img/favicon.ico',
                 'title'  => $language->getMessage('user', 'loginTitle'),
                 'css'    => $this->getCss(),
                 'js'     => $this->getJs(),

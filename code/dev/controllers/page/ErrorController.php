@@ -153,7 +153,7 @@ class ErrorController extends AbstractPageController
         return $this->render(
             'layout/error',
             [
-                'icon'      => '/img/favicon.ico',
+                'icon'      => '/static/common/core/img/favicon.ico',
                 'isDev'     => $isDev,
                 'css'       => $this->getCss(),
                 'less'      => $this->getLess(),

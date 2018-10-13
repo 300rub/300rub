@@ -109,7 +109,7 @@ class PageController extends AbstractPageController
         return $this->render(
             'layout/page',
             [
-                'icon'           => '/img/favicon.ico',
+                'icon'           => '/static/common/core/img/favicon.ico',
                 'content'        => $content,
                 'title'          => 'Test title',
                 'keywords'       => 'Test keywords',
