@@ -45,29 +45,16 @@ class GetSectionController extends AbstractController
 
         $titleKey = 'editSettingsTitle';
         $descriptionKey = 'editSettingsDescription';
-        $buttonKey = 'update';
         if ($sectionId === 0) {
             $titleKey = 'addSettingsTitle';
             $descriptionKey = 'addSettingsDescription';
-            $buttonKey = 'add';
         }
 
         return [
             'id'          => $sectionId,
             'title'       => $language->getMessage('section', $titleKey),
             'description' => $language->getMessage('section', $descriptionKey),
-            'labels'      => [
-                'duplicate'
-                    => $language->getMessage('common', 'duplicate'),
-                'delete'
-                    => $language->getMessage('common', 'delete'),
-                'deleteConfirmText'
-                    => $language->getMessage('section', 'deleteConfirmText'),
-                'no'
-                    => $language->getMessage('common', 'no'),
-                'button'
-                    => $language->getMessage('common', $buttonKey),
-            ],
+            'labels'      => $this->_getLabels(),
             'forms'       => [
                 'name'  => [
                     'name'  => 'name',
@@ -120,6 +107,34 @@ class GetSectionController extends AbstractController
                     'value' => $sectionModel->get('isPublished'),
                 ],
             ]
+        ];
+    }
+
+    /**
+     * Gets labels
+     *
+     * @return array
+     */
+    private function _getLabels()
+    {
+        $language = App::getInstance()->getLanguage();
+
+        $buttonKey = 'update';
+        if ((int)$this->get('id') === 0) {
+            $buttonKey = 'add';
+        }
+
+        return [
+            'duplicate'
+            => $language->getMessage('common', 'duplicate'),
+            'delete'
+            => $language->getMessage('common', 'delete'),
+            'deleteConfirmText'
+            => $language->getMessage('section', 'deleteConfirmText'),
+            'no'
+            => $language->getMessage('common', 'no'),
+            'button'
+            => $language->getMessage('common', $buttonKey),
         ];
     }
 

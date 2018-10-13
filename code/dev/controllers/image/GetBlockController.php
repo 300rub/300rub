@@ -47,11 +47,9 @@ class GetBlockController extends AbstractController
 
         $titleKey = 'editBlockTitle';
         $descriptionKey = 'editBlockDescription';
-        $buttonLabelKey = 'update';
         if ($this->_blockId === 0) {
             $titleKey = 'addBlockTitle';
             $descriptionKey = 'addBlockDescription';
-            $buttonLabelKey = 'add';
         }
 
         $language = App::getInstance()->getLanguage();
@@ -67,30 +65,7 @@ class GetBlockController extends AbstractController
             'id'          => $this->_blockId,
             'title'       => $language->getMessage('image', $titleKey),
             'description' => $language->getMessage('image', $descriptionKey),
-            'labels'      => [
-                'duplicate'
-                    => $language->getMessage('common', 'duplicate'),
-                'delete'
-                    => $language->getMessage('common', 'delete'),
-                'deleteConfirmText'
-                    => $language->getMessage('image', 'deleteConfirmText'),
-                'no'
-                    => $language->getMessage('common', 'no'),
-                'configureCrop'
-                    => $language->getMessage('image', 'configureCrop'),
-                'cropProportions'
-                    => $language->getMessage('image', 'cropProportions'),
-                'hasAutoCrop'
-                    => $language->getMessage('image', 'hasAutoCrop'),
-                'configureThumbCrop'
-                    => $language->getMessage('image', 'configureThumbCrop'),
-                'thumbCropProportions'
-                    => $language->getMessage('image', 'thumbCropProportions'),
-                'hasThumbAutoCrop'
-                    => $language->getMessage('image', 'hasThumbAutoCrop'),
-                'button'
-                    => $language->getMessage('common', $buttonLabelKey),
-            ],
+            'labels'      => $this->_getLabels(),
             'forms'       => [
                 'name'              => [
                     'name'       => 'name',
@@ -142,6 +117,46 @@ class GetBlockController extends AbstractController
                     'list'  => $this->_imageModel->getAutoCropTypeList()
                 ],
             ]
+        ];
+    }
+
+    /**
+     * Gets labels
+     *
+     * @return array
+     */
+    private function _getLabels()
+    {
+        $language = App::getInstance()->getLanguage();
+
+        $buttonLabelKey = 'update';
+        if ($this->_blockId === 0) {
+            $buttonLabelKey = 'add';
+        }
+
+        return [
+            'duplicate'
+                => $language->getMessage('common', 'duplicate'),
+            'delete'
+                => $language->getMessage('common', 'delete'),
+            'deleteConfirmText'
+                => $language->getMessage('image', 'deleteConfirmText'),
+            'no'
+                => $language->getMessage('common', 'no'),
+            'configureCrop'
+                => $language->getMessage('image', 'configureCrop'),
+            'cropProportions'
+                => $language->getMessage('image', 'cropProportions'),
+            'hasAutoCrop'
+                => $language->getMessage('image', 'hasAutoCrop'),
+            'configureThumbCrop'
+                => $language->getMessage('image', 'configureThumbCrop'),
+            'thumbCropProportions'
+                => $language->getMessage('image', 'thumbCropProportions'),
+            'hasThumbAutoCrop'
+                => $language->getMessage('image', 'hasThumbAutoCrop'),
+            'button'
+                => $language->getMessage('common', $buttonLabelKey),
         ];
     }
 
