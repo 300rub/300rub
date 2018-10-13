@@ -376,11 +376,13 @@
                 }
             );
 
+            var title = this.getData(
+                ["operations", "list", "SECTIONS", "title"]
+            );
+
             this.operationsTree.push(
                 {
-                    title: this.getData(
-                        ["operations", "list", "SECTIONS", "title"]
-                    ),
+                    title: title,
                     children: children
                 }
             );
