@@ -1,9 +1,9 @@
-/**
- * Text form
- */
-ss.add(
-    "commonComponentsFormText",
-    {
+!function ($, ss) {
+    "use strict";
+
+    var name = "commonComponentsFormText";
+
+    var parameters = {
         /**
          * Parent
          *
@@ -14,7 +14,7 @@ ss.add(
         /**
          * Init
          */
-        init: function() {
+        init: function () {
             this.create("form-container-text");
 
             var container = this.getForm().find(".form-instance-container");
@@ -31,9 +31,9 @@ ss.add(
                     var prefixLength = prefixOption.length;
                     if (prefixLength > prefixMaxLength) {
                         prefixOption = "..." + prefixOption.substr(
-                                (prefixLength - prefixMaxLength),
-                                prefixMaxLength
-                            );
+                            (prefixLength - prefixMaxLength),
+                            prefixMaxLength
+                        );
                     }
                 }
 
@@ -51,5 +51,7 @@ ss.add(
 
             this.getInstance().val(this.getOption("value"));
         }
-    }
-);
+    };
+
+    ss.add(name, parameters);
+}(window.jQuery, window.ss);

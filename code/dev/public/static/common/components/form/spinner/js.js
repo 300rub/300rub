@@ -1,9 +1,9 @@
-/**
- * Spinner
- */
-ss.add(
-    "commonComponentsFormSpinner",
-    {
+!function ($, ss) {
+    "use strict";
+
+    var name = "commonComponentsFormSpinner";
+
+    var parameters = {
         /**
          * Parent
          *
@@ -14,7 +14,7 @@ ss.add(
         /**
          * Init
          */
-        init: function() {
+        init: function () {
             this
                 .addOption("type", "int")
                 .create("form-spinner");
@@ -23,11 +23,14 @@ ss.add(
             if ($.type(callback) === "function") {
                 this.getInstance().on(
                     "keyup",
-                    $.proxy(function () {
-                        callback(
-                            this.getIntValue($(this).val())
-                        );
-                    }, this)
+                    $.proxy(
+                        function () {
+                            callback(
+                                this.getIntValue($(this).val())
+                            );
+                        },
+                        this
+                    )
                 );
             }
 
@@ -47,19 +50,24 @@ ss.add(
             this.getInstance().spinner(
                 {
                     min: min,
-                    spin: $.proxy(function (event, ui) {
-                        if ($.type(callback) === "function") {
-                            callback(
-                                this.getIntValue(ui.value)
-                            );
-                        }
-                    }, this),
-                    icons: {
-                        up: "fa fa-chevron-up gray-blue-link",
-                        down: "fa fa-chevron-down gray-blue-link"
+                    spin: $.proxy(
+                        function (event, ui) {
+                            if ($.type(callback) === "function") {
+                                callback(
+                                    this.getIntValue(ui.value)
+                                );
+                            }
+                        },
+                        this
+                    ),
+                icons: {
+                    up: "fa fa-chevron-up gray-blue-link",
+                    down: "fa fa-chevron-down gray-blue-link"
                     }
                 }
             );
         }
-    }
-);
+    };
+
+    ss.add(name, parameters);
+}(window.jQuery, window.ss);

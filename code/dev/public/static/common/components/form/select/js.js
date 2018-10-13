@@ -1,9 +1,9 @@
-/**
- * Select form
- */
-ss.add(
-    "commonComponentsFormSelect",
-    {
+!function ($, ss) {
+    "use strict";
+
+    var name = "commonComponentsFormSelect";
+
+    var parameters = {
         /**
          * Parent
          *
@@ -14,7 +14,7 @@ ss.add(
         /**
          * Init
          */
-        init: function() {
+        init: function () {
             this.create("form-container-select");
 
             var t = this;
@@ -59,5 +59,7 @@ ss.add(
                 );
             }
         }
-    }
-);
+    };
+
+    ss.add(name, parameters);
+}(window.jQuery, window.ss);

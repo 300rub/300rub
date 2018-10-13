@@ -1,9 +1,9 @@
-/**
- * SEO form
- */
-ss.add(
-    "commonComponentsFormSeo",
-    {
+!function ($, ss) {
+    "use strict";
+
+    var name = "commonComponentsFormSeo";
+
+    var parameters = {
         /**
          * Forms
          *
@@ -21,7 +21,7 @@ ss.add(
         /**
          * Init
          */
-        init: function() {
+        init: function () {
             this.forms = {};
             this.container = null;
 
@@ -55,13 +55,19 @@ ss.add(
             var seoContainer = this.container.find(".seo");
             var toggleSeo = this.container.find(".toggle-seo");
 
-            toggleSeo.on("click", $.proxy(function() {
-                if (this.container.hasClass("opened") === true) {
-                    this.container.removeClass("opened");
-                } else {
-                    this.container.addClass("opened");
-                }
-            }, this));
+            toggleSeo.on(
+                "click",
+                $.proxy(
+                    function () {
+                        if (this.container.hasClass("opened") === true) {
+                            this.container.removeClass("opened");
+                        } else {
+                            this.container.addClass("opened");
+                        }
+                    },
+                    this
+                )
+            );
 
             if (this.getOption("name") !== null) {
                 this.forms.name = ss.init(
@@ -129,7 +135,7 @@ ss.add(
             }
 
             if (this.getOption(["title", "value"], "") !== ""
-                || this.getOption(["keywords", "value"], "")!== ""
+                || this.getOption(["keywords", "value"], "") !== ""
                 || this.getOption(["description", "value"], "") !== ""
             ) {
                 this.container.addClass("opened");
@@ -146,5 +152,7 @@ ss.add(
         getForms: function () {
             return this.forms;
         }
-    }
-);
+    };
+
+    ss.add(name, parameters);
+}(window.jQuery, window.ss);

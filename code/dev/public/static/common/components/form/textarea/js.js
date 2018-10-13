@@ -1,9 +1,9 @@
-/**
- * Textarea form
- */
-ss.add(
-    "commonComponentsFormTextarea",
-    {
+!function ($, ss) {
+    "use strict";
+
+    var name = "commonComponentsFormTextarea";
+
+    var parameters = {
         /**
          * Parent
          *
@@ -14,7 +14,7 @@ ss.add(
         /**
          * Init
          */
-        init: function() {
+        init: function () {
             this.create("form-container-textarea");
 
             this.getInstance().val(this.getOption("value"));
@@ -24,5 +24,7 @@ ss.add(
                 this.getInstance().attr("rows", rows);
             }
         }
-    }
-);
+    };
+
+    ss.add(name, parameters);
+}(window.jQuery, window.ss);

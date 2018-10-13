@@ -1,9 +1,9 @@
-/**
- * Radio Buttons
- */
-ss.add(
-    "commonComponentsFormRadioButtons",
-    {
+!function ($, ss) {
+    "use strict";
+
+    var name = "commonComponentsFormRadioButtons";
+
+    var parameters = {
         /**
          * Parent
          *
@@ -14,7 +14,7 @@ ss.add(
         /**
          * Init
          */
-        init: function() {
+        init: function () {
             this.create("form-container-radio-buttons");
 
             var dataOption = this.getOption("data");
@@ -137,14 +137,18 @@ ss.add(
          * @returns {*}
          */
         setValue: function (value) {
-            this.getInstance().each(function() {
-                if (parseInt($(this).attr("value")) === parseInt(value)) {
-                    $(this).prop("checked", true);
-                    $(this).click();
-                } else {
-                    $(this).prop("checked", false);
+            this.getInstance().each(
+                function () {
+                    var attrVal = parseInt($(this).attr("value"), 10);
+
+                    if (attrVal === parseInt(value, 10)) {
+                        $(this).prop("checked", true);
+                        $(this).click();
+                    } else {
+                        $(this).prop("checked", false);
+                    }
                 }
-            });
+            );
 
             return this;
         },
@@ -157,13 +161,17 @@ ss.add(
         getValue: function () {
             var value = 0;
 
-            this.getInstance().each(function() {
-                if ($(this).is(":checked") === true) {
-                    value = parseInt($(this).attr("value"));
+            this.getInstance().each(
+                function () {
+                    if ($(this).is(":checked") === true) {
+                        value = parseInt($(this).attr("value"), 10);
+                    }
                 }
-            });
+            );
 
             return value;
         }
-    }
-);
+    };
+
+    ss.add(name, parameters);
+}(window.jQuery, window.ss);
