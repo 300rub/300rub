@@ -1,9 +1,9 @@
-/**
- * Abstract window helper
- */
-ss.add(
-    "commonComponentsWindowHelper",
-    {
+!function ($, ss) {
+    "use strict";
+
+    var name = "commonComponentsWindowHelper";
+
+    var parameters = {
         /**
          * Window
          *
@@ -28,13 +28,13 @@ ss.add(
         /**
          * Init
          */
-        init: function() {
+        init: function () {
         },
 
         /**
          * Init
          */
-        create: function(options) {
+        create: function (options) {
             this.window = null;
             this.body = null;
             this.overlay = null;
@@ -167,5 +167,7 @@ ss.add(
                 )
             );
         }
-    }
-);
+    };
+
+    ss.add(name, parameters);
+}(window.jQuery, window.ss);

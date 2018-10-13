@@ -1,9 +1,9 @@
-/**
- * Abstract window
- */
-ss.add(
-    "commonComponentsWindowAbstract",
-    {
+!function ($, ss) {
+    "use strict";
+
+    var name = "commonComponentsWindowAbstract";
+
+    var parameters = {
         /**
          * Window
          *
@@ -35,7 +35,7 @@ ss.add(
         /**
          * Init
          */
-        init: function() {
+        init: function () {
         },
 
         /**
@@ -43,7 +43,7 @@ ss.add(
          *
          * @var {Object} options
          */
-        create: function(options) {
+        create: function (options) {
             this.hasFooter = true;
 
             this
@@ -63,7 +63,7 @@ ss.add(
         /**
          * Sets footer
          */
-        setHasFooter: function() {
+        setHasFooter: function () {
             this.hasFooter = true;
 
             if (this.getOption("hasFooter") !== false) {
@@ -79,7 +79,7 @@ ss.add(
         /**
          * Sets window
          */
-        setWindow: function() {
+        setWindow: function () {
             this.window = ss.init("template").get("window");
             return this;
         },
@@ -96,7 +96,7 @@ ss.add(
         /**
          * Sets body
          */
-        setBody: function() {
+        setBody: function () {
             this.body = this.window.find(".body");
             return this;
         },
@@ -113,7 +113,7 @@ ss.add(
         /**
          * Sets overlay
          */
-        setOverlay: function() {
+        setOverlay: function () {
             this.overlay = ss.init("template").get("window-overlay");
             return this;
         },
@@ -185,7 +185,7 @@ ss.add(
         /**
          * Checks unsaved
          */
-        checkUnsavedAndClose: function() {
+        checkUnsavedAndClose: function () {
             if (this.body.find(".form-changed").length === 0) {
                 this.remove(false);
                 return this;
@@ -210,9 +210,12 @@ ss.add(
                     icon: "fas fa-times",
                     label: buttons.data("close"),
                     appendTo: buttons,
-                    onClick: $.proxy(function () {
-                        this.remove(false);
-                    }, this)
+                    onClick: $.proxy(
+                        function () {
+                            this.remove(false);
+                        },
+                        this
+                    )
                 }
             );
 
@@ -223,9 +226,12 @@ ss.add(
                     icon: "fas fa-undo",
                     label: buttons.data("stay"),
                     appendTo: buttons,
-                    onClick: $.proxy(function () {
-                        confirmedWindow.remove();
-                    }, this)
+                    onClick: $.proxy(
+                        function () {
+                            confirmedWindow.remove();
+                        },
+                        this
+                    )
                 }
             );
 
@@ -369,7 +375,7 @@ ss.add(
                         data: this.getOption("data", {})
                     },
                     success: $.proxy(
-                        function(data) {
+                        function (data) {
                             this
                                 .setData(data)
                                 .setTitle();
@@ -380,14 +386,14 @@ ss.add(
                         },
                         this
                     ),
-                    error: $.proxy(
-                        function(jqXHR) {
+                error: $.proxy(
+                    function (jqXHR) {
                             ss.init("commonComponentsError")
                                 .displayAjaxError(jqXHR);
                             this.remove();
-                        },
-                        this
-                    )
+                    },
+                    this
+                )
                 }
             );
 
@@ -397,7 +403,7 @@ ss.add(
         /**
          * On load success
          */
-        onLoadSuccess: function() {
+        onLoadSuccess: function () {
         },
 
         /**
@@ -441,5 +447,7 @@ ss.add(
 
             return this;
         }
-    }
-);
+    };
+
+    ss.add(name, parameters);
+}(window.jQuery, window.ss);

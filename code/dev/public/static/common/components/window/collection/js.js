@@ -1,9 +1,9 @@
-/**
- *  Window Collection
- */
-ss.add(
-    "commonComponentsWindowCollection",
-    {
+!function ($, ss) {
+    "use strict";
+
+    var name = "commonComponentsWindowCollection";
+
+    var parameters = {
         /**
          * Singleton flag
          *
@@ -21,7 +21,7 @@ ss.add(
         /**
          * Init
          */
-        init: function() {
+        init: function () {
         },
 
         /**
@@ -60,5 +60,7 @@ ss.add(
 
             return this.instances[name];
         }
-    }
-);
+    };
+
+    ss.add(name, parameters);
+}(window.jQuery, window.ss);
