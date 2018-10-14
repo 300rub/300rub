@@ -20,17 +20,16 @@
                 .create("form-spinner");
 
             var callback = this.getOption("callback");
+            var t = this;
+
             if ($.type(callback) === "function") {
                 this.getInstance().on(
                     "keyup",
-                    $.proxy(
-                        function () {
-                            callback(
-                                this.getIntValue($(this).val())
-                            );
-                        },
-                        this
-                    )
+                    function () {
+                        callback(
+                            t.getIntValue($(this).val())
+                        );
+                    }
                 );
             }
 

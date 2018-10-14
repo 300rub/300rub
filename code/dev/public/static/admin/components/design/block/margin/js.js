@@ -138,8 +138,7 @@
                 .setMarginBottom()
                 .setMarginLeft()
                 .setMarginHover()
-                .setHasAnimation()
-                .updateSample();
+                .setHasAnimation();
         },
 
         /**
@@ -415,8 +414,6 @@
                 },
                 this
             );
-
-            console.log(this.getGroupContainer());
 
             ss.init(
                 "commonComponentsFormCheckboxOnOff",

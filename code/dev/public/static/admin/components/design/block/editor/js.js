@@ -88,7 +88,8 @@
             this
                 .setSamples()
                 .setGroupEditors()
-                .setUpdateEvents();
+                .setUpdateEvents()
+                .updateSamples();
         },
 
         /**
@@ -203,6 +204,17 @@
         },
 
         /**
+         * Updates samples
+         */
+        updateSamples: function () {
+            this
+                .onUpdateMarginSample()
+                .onUpdatePaddingSample()
+                .onUpdateBackgroundSample()
+                .onUpdateBorderSample();
+        },
+
+        /**
          * On update event
          */
         onUpdate: function () {
@@ -247,6 +259,8 @@
             html += "</style>";
 
             this.marginSample.html(html);
+
+            return this;
         },
 
         /**
@@ -278,6 +292,8 @@
             html += "</style>";
 
             this.paddingSample.html(html);
+
+            return this;
         },
 
         /**
@@ -309,6 +325,8 @@
             html += "</style>";
 
             this.backgroundSample.html(html);
+
+            return this;
         },
 
         /**
@@ -343,6 +361,8 @@
             html += "</style>";
 
             this.borderSample.html(html);
+
+            return this;
         },
 
         /**

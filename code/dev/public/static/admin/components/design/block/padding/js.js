@@ -70,16 +70,16 @@
         /**
          * Has padding hover
          *
-         * @var {boolean}
+         * @var {boolean|null}
          */
-        hasPaddingHover: false,
+        hasPaddingHover: null,
 
         /**
          * Has padding animation
          *
-         * @var {boolean}
+         * @var {boolean|null}
          */
-        hasPaddingAnimation: false,
+        hasPaddingAnimation: null,
 
         /**
          * Relative container
@@ -166,7 +166,7 @@
                     {
                         value: this.paddingTopHover,
                         css: "padding-top-hover",
-                        iconBefore: "fa-mouse-pointer",
+                        iconBefore: "fas fa-mouse-pointer",
                         appendTo: this.relativeContainer,
                         callback: $.proxy(
                             function (value) {
@@ -224,7 +224,7 @@
                     {
                         value: this.paddingRightHover,
                         css: "padding-right-hover",
-                        iconBefore: "fa-mouse-pointer",
+                        iconBefore: "fas fa-mouse-pointer",
                         appendTo: this.relativeContainer,
                         callback: $.proxy(
                             function (value) {
@@ -283,7 +283,7 @@
                     {
                         value: this.paddingBottomHover,
                         css: "padding-bottom-hover",
-                        iconBefore: "fa-mouse-pointer",
+                        iconBefore: "fas fa-mouse-pointer",
                         appendTo: this.relativeContainer,
                         callback: $.proxy(
                             function (value) {
@@ -342,7 +342,7 @@
                     {
                         value: this.paddingLeftHover,
                         css: "padding-left-hover",
-                        iconBefore: "fa-mouse-pointer",
+                        iconBefore: "fas fa-mouse-pointer",
                         appendTo: this.relativeContainer,
                         callback: $.proxy(
                             function (value) {
@@ -393,7 +393,7 @@
                 this.getGroupContainer().addClass("has-hover");
             }
 
-            if (this.hasPaddingHover === false) {
+            if (this.hasPaddingHover === null) {
                 return this;
             }
 
@@ -433,7 +433,7 @@
          * Sets padding animation
          */
         setHasAnimation: function () {
-            if (this.hasPaddingAnimation === false) {
+            if (this.hasPaddingAnimation === null) {
                 return this;
             }
 
@@ -512,38 +512,38 @@
         /**
          * Gets padding CSS
          *
-         * @param {Number|String} top
-         * @param {Number|String} right
-         * @param {Number|String} bottom
-         * @param {Number|String} left
+         * @param {Number|String} paddingTop
+         * @param {Number|String} paddingRight
+         * @param {Number|String} paddingBottom
+         * @param {Number|String} paddingLeft
          *
          * @returns {String}
          */
-        getCss: function (top, right, bottom, left) {
-            if (top !== 0) {
-                top += "px";
+        getCss: function (paddingTop, paddingRight, paddingBottom, paddingLeft) {
+            if (paddingTop !== 0) {
+                paddingTop += "px";
             }
 
-            if (right !== 0) {
-                right += "px";
+            if (paddingRight !== 0) {
+                paddingRight += "px";
             }
 
-            if (bottom !== 0) {
-                bottom += "px";
+            if (paddingBottom !== 0) {
+                paddingBottom += "px";
             }
 
-            if (left !== 0) {
-                left += "px";
+            if (paddingLeft !== 0) {
+                paddingLeft += "px";
             }
 
             var css = "padding:";
-            css += top;
+            css += paddingTop;
             css += " ";
-            css += right;
+            css += paddingRight;
             css += " ";
-            css += bottom;
+            css += paddingBottom;
             css += " ";
-            css += left;
+            css += paddingLeft;
             css += ";";
 
             return css;

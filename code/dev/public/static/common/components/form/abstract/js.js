@@ -347,8 +347,10 @@
         /**
          * Sets value
          */
-        setValue: function () {
-            var value = this.getOption("value");
+        setValue: function (value) {
+            if (value === undefined) {
+                value = this.getOption("value");
+            }
 
             switch (this.getOption("type")) {
                 case "int":
