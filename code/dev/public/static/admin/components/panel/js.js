@@ -42,6 +42,7 @@
                 .setBody()
                 .extendOptions(options)
                 .setHasFooter()
+                .setHasHeaderButtons()
                 .setBack(null)
                 .setCloseEvents(this.getOption("closeEvents"))
                 .addDomElement()
@@ -333,6 +334,17 @@
                     }
                 )
             );
+
+            return this;
+        },
+
+        /**
+         * Sets header buttons
+         */
+        setHasHeaderButtons: function () {
+            if (this.getOption("hasHeaderButtons") === false) {
+                this.panel.find(".header .btn-group").remove();
+            }
 
             return this;
         },

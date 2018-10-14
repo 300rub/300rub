@@ -79,7 +79,7 @@
          */
         setForms: function () {
             var seo = ss.init(
-                "commonComponentsFormCheckbox",
+                "commonComponentsFormSeo",
                 this.getData("forms", {})
             );
             seo.getContainer().appendTo(this.getBody());

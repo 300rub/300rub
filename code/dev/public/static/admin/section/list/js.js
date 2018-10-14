@@ -18,7 +18,8 @@
             this.create(
                 {
                     group: "section",
-                    controller: "list"
+                    controller: "list",
+                    hasHeaderButtons: false
                 }
             );
         },
