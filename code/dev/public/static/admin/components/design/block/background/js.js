@@ -104,10 +104,10 @@
          * @type {Array}
          */
         gradientDirections: [
-            {value: 0, icon: "fa-long-arrow-right"},
-            {value: 1, icon: "fa-long-arrow-down"},
-            {value: 2, icon: "fa-long-arrow-right", css: "deg-45"},
-            {value: 3, icon: "fa-long-arrow-up", css: "deg-45"}
+            {value: 0, icon: "fas fa-long-arrow-alt-right"},
+            {value: 1, icon: "fas fa-long-arrow-alt-down"},
+            {value: 2, icon: "fas fa-long-arrow-alt-right", css: "deg-45"},
+            {value: 3, icon: "fas fa-long-arrow-alt-up", css: "deg-45"}
         ],
 
         /**
