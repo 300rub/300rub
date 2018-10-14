@@ -33,7 +33,8 @@
                     },
                     back: function () {
                         ss.init("adminBlockTextList", {});
-                    }
+                    },
+                    hasHeaderButtons: this.getOption("blockId", 0) > 0
                 }
             );
         },

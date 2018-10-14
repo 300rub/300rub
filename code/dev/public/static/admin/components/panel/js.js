@@ -343,9 +343,17 @@
          */
         setHasHeaderButtons: function () {
             if (this.getOption("hasHeaderButtons") === false) {
-                this.panel.find(".header .btn-group").remove();
+                this.removeHeaderButtons();
             }
 
+            return this;
+        },
+
+        /**
+         * Removes header buttons
+         */
+        removeHeaderButtons: function () {
+            this.panel.find(".header .btn-group").remove();
             return this;
         },
 

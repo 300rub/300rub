@@ -48,7 +48,8 @@
                         this.getData(["forms", "text"], {}),
                         {
                             appendTo: this.getBody(),
-                            rows: 15
+                            rows: 15,
+                            label: null
                         }
                     )
                 );
@@ -59,7 +60,8 @@
                         {},
                         this.getData(["forms", "text"], {}),
                         {
-                            appendTo: this.getBody()
+                            appendTo: this.getBody(),
+                            label: null
                         }
                     )
                 );
