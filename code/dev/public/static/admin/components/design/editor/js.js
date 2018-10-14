@@ -35,7 +35,7 @@
             var back = function() {
                 this.rollback();
 
-                var onBack = this.getOption("back");
+                var onBack = this.getOption("onBack");
                 if ($.type(onBack) === "function") {
                     onBack();
                 }

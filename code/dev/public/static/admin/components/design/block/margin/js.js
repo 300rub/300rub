@@ -70,16 +70,16 @@
         /**
          * Has margin hover
          *
-         * @var {boolean}
+         * @var {boolean|null}
          */
-        hasMarginHover: false,
+        hasMarginHover: null,
 
         /**
          * Has margin animation
          *
-         * @var {boolean}
+         * @var {boolean|null}
          */
-        hasMarginAnimation: false,
+        hasMarginAnimation: null,
 
         /**
          * Relative container
@@ -126,7 +126,8 @@
             this.create(
                 {
                     groupContainerSelector: ".margin-container",
-                    updateSampleEventName: "update-margin-sample"
+                    updateSampleEventName: "update-margin-sample",
+                    title: this.getOption(["labels", "margin"])
                 }
             );
 
@@ -392,7 +393,7 @@
                 this.getGroupContainer().addClass("has-hover");
             }
 
-            if (this.hasMarginHover === false) {
+            if (this.hasMarginHover === null) {
                 return this;
             }
 
@@ -414,6 +415,8 @@
                 this
             );
 
+            console.log(this.getGroupContainer());
+
             ss.init(
                 "commonComponentsFormCheckboxOnOff",
                 {
@@ -432,7 +435,7 @@
          * Sets margin animation
          */
         setHasAnimation: function () {
-            if (this.hasMarginAnimation === false) {
+            if (this.hasMarginAnimation === null) {
                 return this;
             }
 

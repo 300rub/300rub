@@ -256,7 +256,8 @@
             this.create(
                 {
                     groupContainerSelector: ".border-container",
-                    updateSampleEventName: "update-border-sample"
+                    updateSampleEventName: "update-border-sample",
+                    title: this.getOption(["labels", "border"])
                 }
             );
 

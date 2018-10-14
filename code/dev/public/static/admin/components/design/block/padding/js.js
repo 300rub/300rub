@@ -126,7 +126,8 @@
             this.create(
                 {
                     groupContainerSelector: ".padding-container",
-                    updateSampleEventName: "update-padding-sample"
+                    updateSampleEventName: "update-padding-sample",
+                    title: this.getOption(["labels", "padding"])
                 }
             );
 

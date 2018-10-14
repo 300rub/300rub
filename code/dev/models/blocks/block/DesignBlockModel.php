@@ -49,7 +49,7 @@ class DesignBlockModel extends AbstractDesignBlockCssModel
             'type'      => self::TYPE,
             'title'     => $title,
             'namespace' => $namespace,
-            'labels'    => self::getLabels(),
+            'labels'    => $this->getLabels(),
             'values'    => $this->get(null, $except),
         ];
     }

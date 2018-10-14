@@ -61,7 +61,7 @@
                                         data: {
                                             id: itemData.id
                                         },
-                                        back: function () {
+                                        onBack: function () {
                                             ss.init("adminBlockTextList");
                                         },
                                         success: function () {

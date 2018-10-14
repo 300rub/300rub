@@ -149,12 +149,12 @@
          * Sets title
          */
         setTitle: function () {
-            if (this.getLabel("title") !== null
+            if (this.getOption("title") !== null
                 && this.groupContainer !== null
             ) {
                 this.groupContainer
                     .find(".category-title")
-                    .text(this.getLabel("title"));
+                    .text(this.getOption("title"));
             }
 
             return this;
