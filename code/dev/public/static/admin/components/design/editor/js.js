@@ -76,7 +76,7 @@
             this.setSubmit(
                 {
                     label: this.getLabel("button"),
-                    icon: "fa-check",
+                    icon: "fas fa-save",
                     ajax: {
                         data: {
                             group: this.getData("group"),

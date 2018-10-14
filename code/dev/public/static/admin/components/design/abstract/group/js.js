@@ -67,8 +67,7 @@
                 .checkValues()
                 .setTitle()
                 .setNamespace()
-                .setUpdateSampleEventName()
-                .updateSample();
+                .setUpdateSampleEventName();
         },
 
         /**

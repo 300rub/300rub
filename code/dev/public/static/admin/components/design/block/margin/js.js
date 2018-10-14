@@ -138,7 +138,8 @@
                 .setMarginBottom()
                 .setMarginLeft()
                 .setMarginHover()
-                .setHasAnimation();
+                .setHasAnimation()
+                .updateSample();
         },
 
         /**
@@ -166,7 +167,7 @@
                     {
                         value: this.marginTopHover,
                         css: "margin-top-hover",
-                        iconBefore: "fa-mouse-pointer",
+                        iconBefore: "fas fa-mouse-pointer",
                         appendTo: this.relativeContainer,
                         callback: $.proxy(
                             function (value) {
@@ -224,7 +225,7 @@
                     {
                         value: this.marginRightHover,
                         css: "margin-right-hover",
-                        iconBefore: "fa-mouse-pointer",
+                        iconBefore: "fas fa-mouse-pointer",
                         appendTo: this.relativeContainer,
                         callback: $.proxy(
                             function (value) {
@@ -283,7 +284,7 @@
                     {
                         value: this.marginBottomHover,
                         css: "margin-bottom-hover",
-                        iconBefore: "fa-mouse-pointer",
+                        iconBefore: "fas fa-mouse-pointer",
                         appendTo: this.relativeContainer,
                         callback: $.proxy(
                             function (value) {
@@ -342,7 +343,7 @@
                     {
                         value: this.marginLeftHover,
                         css: "margin-left-hover",
-                        iconBefore: "fa-mouse-pointer",
+                        iconBefore: "fas fa-mouse-pointer",
                         appendTo: this.relativeContainer,
                         callback: $.proxy(
                             function (value) {
