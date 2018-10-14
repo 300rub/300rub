@@ -65,6 +65,13 @@
                 )
             );
 
+            if (this.tree.length === 1
+                && $.type(this.tree[0]) === "object"
+                && this.tree[0].children !== undefined
+            ) {
+                this.tree = this.tree[0].children;
+            }
+
             ss.init(
                 "commonComponentsAccordion",
                 {
