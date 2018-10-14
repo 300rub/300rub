@@ -173,7 +173,7 @@
             this.create(
                 {
                     groupContainerSelector: ".background-container",
-                    updateSampleEvent: "update-background-sample"
+                    updateSampleEventName: "update-background-sample"
                 }
             );
 

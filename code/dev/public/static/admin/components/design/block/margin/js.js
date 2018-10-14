@@ -126,7 +126,7 @@
             this.create(
                 {
                     groupContainerSelector: ".margin-container",
-                    updateSampleEvent: "update-margin-sample"
+                    updateSampleEventName: "update-margin-sample"
                 }
             );
 
@@ -477,32 +477,32 @@
                 }
 
                 return this.getCss(
-                    this.getIntVal(
+                    this.getIntValue(
                         this.marginTopHover
                     ),
-                    this.getIntVal(
+                    this.getIntValue(
                         this.marginRightHover
                     ),
-                    this.getIntVal(
+                    this.getIntValue(
                         this.marginBottomHover
                     ),
-                    this.getIntVal(
+                    this.getIntValue(
                         this.marginLeftHover
                     )
                 );
             }
 
             return this.getCss(
-                this.getIntVal(
+                this.getIntValue(
                     this.marginTop
                 ),
-                this.getIntVal(
+                this.getIntValue(
                     this.marginRight
                 ),
-                this.getIntVal(
+                this.getIntValue(
                     this.marginBottom
                 ),
-                this.getIntVal(
+                this.getIntValue(
                     this.marginLeft
                 )
             );

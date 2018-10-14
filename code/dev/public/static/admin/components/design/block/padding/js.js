@@ -126,7 +126,7 @@
             this.create(
                 {
                     groupContainerSelector: ".padding-container",
-                    updateSampleEvent: "update-padding-sample"
+                    updateSampleEventName: "update-padding-sample"
                 }
             );
 
@@ -477,32 +477,32 @@
                 }
 
                 return this.getCss(
-                    this.getIntVal(
+                    this.getIntValue(
                         this.paddingTopHover
                     ),
-                    this.getIntVal(
+                    this.getIntValue(
                         this.paddingRightHover
                     ),
-                    this.getIntVal(
+                    this.getIntValue(
                         this.paddingBottomHover
                     ),
-                    this.getIntVal(
+                    this.getIntValue(
                         this.paddingLeftHover
                     )
                 );
             }
 
             return this.getCss(
-                this.getIntVal(
+                this.getIntValue(
                     this.paddingTop
                 ),
-                this.getIntVal(
+                this.getIntValue(
                     this.paddingRight
                 ),
-                this.getIntVal(
+                this.getIntValue(
                     this.paddingBottom
                 ),
-                this.getIntVal(
+                this.getIntValue(
                     this.paddingLeft
                 )
             );

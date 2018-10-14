@@ -256,7 +256,7 @@
             this.create(
                 {
                     groupContainerSelector: ".border-container",
-                    updateSampleEvent: "update-border-sample"
+                    updateSampleEventName: "update-border-sample"
                 }
             );
 
@@ -971,57 +971,57 @@
                     return "";
                 }
 
-                borderTopLeftRadius = this.getIntVal(
+                borderTopLeftRadius = this.getIntValue(
                     this.borderTopLeftRadiusHover
                 );
-                borderTopRightRadius = this.getIntVal(
+                borderTopRightRadius = this.getIntValue(
                     this.borderTopRightRadiusHover
                 );
-                borderBottomRightRadius = this.getIntVal(
+                borderBottomRightRadius = this.getIntValue(
                     this.borderBottomRightRadiusHover
                 );
-                borderBottomLeftRadius = this.getIntVal(
+                borderBottomLeftRadius = this.getIntValue(
                     this.borderBottomLeftRadiusHover
                 );
 
-                borderTopWidth = this.getIntVal(
+                borderTopWidth = this.getIntValue(
                     this.borderTopWidthHover
                 );
-                borderRightWidth = this.getIntVal(
+                borderRightWidth = this.getIntValue(
                     this.borderRightWidthHover
                 );
-                borderBottomWidth = this.getIntVal(
+                borderBottomWidth = this.getIntValue(
                     this.borderBottomWidthHover
                 );
-                borderLeftWidth = this.getIntVal(
+                borderLeftWidth = this.getIntValue(
                     this.borderLeftWidthHover
                 );
 
                 borderColor = this.borderColorHover;
             } else {
-                borderTopLeftRadius = this.getIntVal(
+                borderTopLeftRadius = this.getIntValue(
                     this.borderTopLeftRadius
                 );
-                borderTopRightRadius = this.getIntVal(
+                borderTopRightRadius = this.getIntValue(
                     this.borderTopRightRadius
                 );
-                borderBottomRightRadius = this.getIntVal(
+                borderBottomRightRadius = this.getIntValue(
                     this.borderBottomRightRadius
                 );
-                borderBottomLeftRadius = this.getIntVal(
+                borderBottomLeftRadius = this.getIntValue(
                     this.borderBottomLeftRadius
                 );
 
-                borderTopWidth = this.getIntVal(
+                borderTopWidth = this.getIntValue(
                     this.borderTopWidth
                 );
-                borderRightWidth = this.getIntVal(
+                borderRightWidth = this.getIntValue(
                     this.borderRightWidth
                 );
-                borderBottomWidth = this.getIntVal(
+                borderBottomWidth = this.getIntValue(
                     this.borderBottomWidth
                 );
-                borderLeftWidth = this.getIntVal(
+                borderLeftWidth = this.getIntValue(
                     this.borderLeftWidth
                 );
 

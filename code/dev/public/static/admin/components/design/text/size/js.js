@@ -1,7 +1,7 @@
 !function ($, ss) {
     "use strict";
 
-    var name = "adminComponentsDesignSize";
+    var name = "adminComponentsDesignTextSize";
 
     var parameters = {
         /**

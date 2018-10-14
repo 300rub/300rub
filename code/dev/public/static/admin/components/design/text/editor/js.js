@@ -152,7 +152,7 @@
                 namespace: this.getNamespace(),
                 commonContainer: commonContainer,
                 hoverContainer: hoverContainer,
-                updateSampleEvent: "update-text-sample"
+                updateSampleEventName: "update-text-sample"
             };
 
             this.size = ss.init(

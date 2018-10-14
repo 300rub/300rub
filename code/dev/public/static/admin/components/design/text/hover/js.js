@@ -1,7 +1,7 @@
 !function ($, ss) {
     "use strict";
 
-    var name = "adminComponentsDesignHover";
+    var name = "adminComponentsDesignTextHover";
 
     var parameters = {
         /**

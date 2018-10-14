@@ -32,25 +32,23 @@
             this.editors = [];
             this.tree = [];
 
+            var back = function() {
+                this.rollback();
+
+                var onBack = this.getOption("back");
+                if ($.type(onBack) === "function") {
+                    onBack();
+                }
+            };
+
+            var closeEvents = function () {
+                this.rollback();
+            };
+
             this.create(
                 {
-                    back: $.proxy(
-                        function () {
-                            var onBack = this.getOption("back");
-                            if ($.type(onBack) === "function") {
-                                onBack();
-                            }
-
-                            this.rollback();
-                        },
-                        this
-                    ),
-                closeEvents: $.proxy(
-                    function () {
-                            this.rollback();
-                    },
-                    this
-                )
+                    back: $.proxy(back, this),
+                    closeEvents: $.proxy(closeEvents, this)
                 }
             );
         },

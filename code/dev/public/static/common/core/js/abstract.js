@@ -153,6 +153,15 @@
         },
 
         /**
+         * Gets all labels
+         *
+         * @returns {Object}
+         */
+        getLabels: function () {
+            return this.labels;
+        },
+
+        /**
          * Sets data
          *
          * @param {Object} data
