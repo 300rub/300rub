@@ -60,7 +60,7 @@ class GetContentController extends AbstractBlockController
 
         return [
             'id'        => $blockModel->getId(),
-            'name'      => $blockModel->get('name'),
+            'title'     => $blockModel->get('name'),
             'type'      => $textModel->get('type'),
             'hasEditor' => $textModel->get('hasEditor'),
             'forms'     => [

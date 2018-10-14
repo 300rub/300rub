@@ -58,8 +58,8 @@
                             uri: uri
                         }
                     },
-                    error: $.proxy(this._onError, this),
-                    success: $.proxy(this._onSuccess, this)
+                    error: $.proxy(this.onError, this),
+                    success: $.proxy(this.onSuccess, this)
                 }
             );
 
