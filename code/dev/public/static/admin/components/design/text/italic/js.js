@@ -71,7 +71,7 @@
                     "commonComponentsFormCheckboxButton",
                     {
                         value: this.isItalicHover,
-                        icon: "fa-italic",
+                        icon: "fas fa-italic",
                         appendTo: this.getOption("hoverContainer"),
                         onCheck: onCheckHover,
                         onUnCheck: onUnCheckHover
@@ -114,7 +114,7 @@
                     "commonComponentsFormCheckboxButton",
                     {
                         value: this.isItalic,
-                        icon: "fa-italic",
+                        icon: "fas fa-italic",
                         appendTo: this.getOption("commonContainer"),
                         onCheck: onCheck,
                         onUnCheck: onUnCheck

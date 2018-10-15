@@ -30,7 +30,7 @@ abstract class AbstractDesignTextCssModel extends Hover
         ) {
             $this->css .= sprintf(
                 'font-family:%s;',
-                self::$familyList[$family]
+                self::$familyList[$family]['family']
             );
         }
 

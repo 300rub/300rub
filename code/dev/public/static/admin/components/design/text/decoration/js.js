@@ -43,7 +43,7 @@
         decorationList: [
             {value: 0, css: "none", label: "N"},
             {value: 1, css: "underline", label: "U"},
-            {value: 2, css: "line-through", label: "T"},
+            {value: 2, css: "line-through", label: "S"},
             {value: 3, css: "overline", label: "O"}
         ],
 

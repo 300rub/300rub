@@ -70,7 +70,7 @@
                     "commonComponentsFormCheckboxButton",
                     {
                         value: this.isBoldHover,
-                        icon: "fa-bold",
+                        icon: "fas fa-bold",
                         appendTo: this.getOption("hoverContainer"),
                         onCheck: onCheckHover,
                         onUnCheck: onUnCheckHover
@@ -113,7 +113,7 @@
                     "commonComponentsFormCheckboxButton",
                     {
                         value: this.isBold,
-                        icon: "fa-bold",
+                        icon: "fas fa-bold",
                         appendTo: this.getOption("commonContainer"),
                         onCheck: onCheck,
                         onUnCheck: onUnCheck

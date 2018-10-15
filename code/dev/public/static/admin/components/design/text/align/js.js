@@ -33,10 +33,10 @@
          * @var {Array}
          */
         alignList: [
-            {value: 0, css: "left", icon: "fa-align-left"},
-            {value: 1, css: "center", icon: "fa-align-center"},
-            {value: 2, css: "right", icon: "fa-align-right"},
-            {value: 3, css: "justify", icon: "fa-align-justify"}
+            {value: 0, css: "left", icon: "fas fa-align-left"},
+            {value: 1, css: "center", icon: "fas fa-align-center"},
+            {value: 2, css: "right", icon: "fas fa-align-right"},
+            {value: 3, css: "justify", icon: "fas fa-align-justify"}
         ],
 
         /**

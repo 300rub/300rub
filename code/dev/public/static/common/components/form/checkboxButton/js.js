@@ -32,7 +32,7 @@
             }
 
             var labelElement = t.getForm().find(".label");
-            var labelValue = t.getOption("icon");
+            var labelValue = t.getOption("label");
             if (labelValue !== null) {
                 labelElement.text(labelValue);
             } else {

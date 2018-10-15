@@ -75,7 +75,7 @@
                     {
                         value: this.lineHeight,
                         css: "line-height",
-                        iconBefore: "fa-arrows-v",
+                        iconBefore: "fas fa-arrows-alt-v",
                         appendTo: this.getOption("commonContainer"),
                         callback: $.proxy(
                             function (value) {

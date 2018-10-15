@@ -304,7 +304,7 @@
                         value: this.borderTopLeftRadiusHover,
                         css: "border-top-left-radius-hover",
                         min: 0,
-                        iconBefore: "fa-mouse-pointer",
+                        iconBefore: "fas fa-mouse-pointer",
                         appendTo: this.relativeContainer,
                         callback: $.proxy(
                             function (value) {
@@ -361,7 +361,7 @@
                     {
                         value: this.borderTopRightRadiusHover,
                         css: "border-top-right-radius-hover",
-                        iconBefore: "fa-mouse-pointer",
+                        iconBefore: "fas fa-mouse-pointer",
                         min: 0,
                         appendTo: this.relativeContainer,
                         callback: $.proxy(
@@ -420,7 +420,7 @@
                         value: this.borderBottomRightRadiusHover,
                         css: "border-bottom-right-radius-hover",
                         min: 0,
-                        iconBefore: "fa-mouse-pointer",
+                        iconBefore: "fas fa-mouse-pointer",
                         appendTo: this.relativeContainer,
                         callback: $.proxy(
                             function (value) {
@@ -477,7 +477,7 @@
                     {
                         value: this.borderBottomLeftRadiusHover,
                         css: "border-bottom-left-radius-hover",
-                        iconBefore: "fa-mouse-pointer",
+                        iconBefore: "fas fa-mouse-pointer",
                         min: 0,
                         appendTo: this.relativeContainer,
                         callback: $.proxy(
@@ -536,7 +536,7 @@
                         value: this.borderTopWidthHover,
                         css: "border-top-width-hover",
                         min: 0,
-                        iconBefore: "fa-mouse-pointer",
+                        iconBefore: "fas fa-mouse-pointer",
                         appendTo: this.relativeContainer,
                         callback: $.proxy(
                             function (value) {
@@ -593,7 +593,7 @@
                         value: this.borderRightWidthHover,
                         css: "border-right-width-hover",
                         min: 0,
-                        iconBefore: "fa-mouse-pointer",
+                        iconBefore: "fas fa-mouse-pointer",
                         appendTo: this.relativeContainer,
                         callback: $.proxy(
                             function (value) {
@@ -651,7 +651,7 @@
                         value: this.borderBottomWidthHover,
                         css: "border-bottom-width-hover",
                         min: 0,
-                        iconBefore: "fa-mouse-pointer",
+                        iconBefore: "fas fa-mouse-pointer",
                         appendTo: this.relativeContainer,
                         callback: $.proxy(
                             function (value) {
@@ -709,7 +709,7 @@
                         value: this.borderLeftWidthHover,
                         css: "border-left-width-hover",
                         min: 0,
-                        iconBefore: "fa-mouse-pointer",
+                        iconBefore: "fas fa-mouse-pointer",
                         appendTo: this.relativeContainer,
                         callback: $.proxy(
                             function (value) {

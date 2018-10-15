@@ -1,3 +1,4 @@
+@import "../../../../../common/components/form/radioButtons/less";
 @import "../../abstract/group/less";
 
 .design-block-container {
@@ -6,7 +7,7 @@
 
     .relative-container {
       .transition(height);
-      height: 180px;
+      height: 190px;
 
       .border-top-left-radius {
         left: 50%;
@@ -137,21 +138,6 @@
     }
 
     .color-picker-container {
-      border-bottom: 1px solid @grayBorderColor;
-      margin: 0 15px 0 15px;
-      padding: 5px 0 5px 0;
-      text-align: center;
-
-      .label-text {
-        display: block;
-        font-size: 12px;
-        margin-bottom: 5px;
-        text-align: center;
-      }
-    }
-
-    .form-container-radio-buttons {
-      border-bottom: 1px solid @grayBorderColor;
       display: block;
       margin: 0 15px 0 15px;
       padding: 5px 0 5px 0;
@@ -160,24 +146,42 @@
       .label-text {
         display: block;
         font-size: 12px;
+        font-weight: 400;
+        margin-bottom: 5px;
+        text-align: center;
+      }
+    }
+
+    .form-container-radio-buttons {
+      display: block;
+      margin: 0 15px 0 15px;
+      padding: 5px 0 5px 0;
+      text-align: center;
+
+      .label-text {
+        display: block;
+        font-size: 12px;
+        font-weight: 400;
         margin-bottom: 5px;
         text-align: center;
       }
 
-      .label-body {
-        height: 30px;
-        padding: 14px 0 0 7px;
+      .radio-button-item {
+        .label-body {
+          height: 30px;
+          padding: 14px 0 0 7px;
 
-        .label {
-          display: block;
-          height: 1px;
-          line-height: 1px;
-          width: 16px;
-        }
-
-        &:hover {
           .label {
-            border-bottom-color: white;
+            display: block;
+            height: 1px;
+            line-height: 1px;
+            width: 16px;
+          }
+
+          &:hover {
+            .label {
+              border-bottom-color: white;
+            }
           }
         }
       }
@@ -216,7 +220,7 @@
 
   .border-container.has-hover {
     .relative-container {
-      height: 250px;
+      height: 260px;
 
       .border-top-left-radius {
         top: 21px;

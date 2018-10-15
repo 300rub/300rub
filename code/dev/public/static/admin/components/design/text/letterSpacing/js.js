@@ -74,7 +74,7 @@
                     {
                         value: this.letterSpacing,
                         css: "letter-spacing",
-                        iconBefore: "fa-arrows-h",
+                        iconBefore: "fas fa-arrows-alt-h",
                         appendTo: this.getOption("commonContainer"),
                         callback: $.proxy(
                             function (value) {
