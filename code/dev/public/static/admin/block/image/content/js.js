@@ -78,7 +78,7 @@
                 {
                     appendTo: this.getBody(),
                     isSortable: true,
-                    list: this._data.list,
+                    list: this.getData("list", {}),
                     create: {
                         hasOperation: this.getData("canCreate"),
                         isSingleton: false,
