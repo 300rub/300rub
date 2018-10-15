@@ -100,7 +100,7 @@ class PageController extends AbstractPageController
 
         if ($sectionModel !== null) {
             $sectionModel->setStructureAndStatic();
-            $content = $this->_getCommonContent($sectionModel);
+            $content = $this->_getContent($sectionModel);
             $sectionCss = $sectionModel->getCss();
             $sectionJs = $sectionModel->getJs();
             $sectionId = $sectionModel->getId();
@@ -191,14 +191,24 @@ class PageController extends AbstractPageController
     }
 
     /**
-     * Gets common content
+     * Gets content
      *
      * @param SectionModel $sectionModel Section model
      *
      * @return string
      */
-    private function _getCommonContent($sectionModel)
+    private function _getContent($sectionModel)
     {
+        if (APP_ENV === ENV_DEV) {
+            $test = App::getInstance()
+                ->getSuperGlobalVariable()
+                ->getGetValue('test');
+
+            if ($test !== null) {
+                return $this->render('test/test');
+            }
+        }
+
         $structure = $sectionModel->getStructure();
 
         $lineHtml = '';
