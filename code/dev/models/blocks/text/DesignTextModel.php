@@ -21,15 +21,15 @@ class DesignTextModel extends AbstractDesignTextCssModel
      *
      * @return array
      */
-    public static function getLabels()
+    protected function getLabels()
     {
         $language = App::getInstance()->getLanguage();
 
         return [
             'mouseHoverEffect'
-            => $language->getMessage('design', 'mouseHoverEffect'),
-            'textExample'
-            => $language->getMessage('design', 'textExample'),
+                => $language->getMessage('design', 'mouseHoverEffect'),
+            'textSample'
+                => $language->getMessage('design', 'textSample'),
         ];
     }
 
@@ -78,7 +78,7 @@ class DesignTextModel extends AbstractDesignTextCssModel
             'type'      => self::TYPE,
             'title'     => $title,
             'namespace' => $namespace,
-            'labels'    => self::getLabels(),
+            'labels'    => $this->getLabels(),
             'values'    => $values,
         ];
     }

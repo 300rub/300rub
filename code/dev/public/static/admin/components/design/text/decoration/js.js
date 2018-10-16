@@ -41,11 +41,23 @@
          * @var {Array}
          */
         decorationList: [
-            {value: 0, css: "none", label: "N"},
-            {value: 1, css: "underline", label: "U"},
-            {value: 2, css: "line-through", label: "S"},
-            {value: 3, css: "overline", label: "O"}
+            {value: 0, icon: "fas fa-font"},
+            {value: 1, icon: "fas fa-underline"},
+            {value: 2, icon: "fas fa-strikethrough"},
+            {value: 3, css: "deg-180", icon: "fas fa-underline"}
         ],
+
+        /**
+         * Text decoration CSS list
+         *
+         * @var {Array}
+         */
+        decorationCssList: {
+            0: "none",
+            1: "underline",
+            2: "line-through",
+            3: "overline"
+        },
 
         /**
          * Init
@@ -126,10 +138,10 @@
                 decoration = this.decoration;
             }
 
-            if (this.decorationList[decoration] === undefined) {
-                decorationCss = this.decorationList[0].css;
+            if (this.decorationCssList[decoration] === undefined) {
+                decorationCss = this.decorationCssList[0];
             } else {
-                decorationCss = this.decorationList[decoration].css;
+                decorationCss = this.decorationCssList[decoration];
             }
 
             return "text-decoration:" + decorationCss + ";";

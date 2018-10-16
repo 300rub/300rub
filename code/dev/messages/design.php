@@ -71,7 +71,7 @@ return [
         Language::LANGUAGE_EN_ID => 'Border style on mouse-over',
         Language::LANGUAGE_RU_ID => '',
     ],
-    'textExample' => [
+    'textSample' => [
         Language::LANGUAGE_EN_ID
             => 'All their equipment and instruments are alive.',
         Language::LANGUAGE_RU_ID => '',

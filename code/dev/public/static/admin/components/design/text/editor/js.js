@@ -118,17 +118,21 @@
             this
                 .setSample()
                 .setEditors()
-                .setUpdateEvents();
+                .setUpdateEvents()
+                .onUpdateTextSample();
         },
 
         /**
          * Sets samples
          */
         setSample: function () {
-            var selector;
+            var selector = "text-sample-" + this.getUniqueId();
 
-            selector = "text-sample-" + this.getUniqueId();
-            this.getEditorContainer().find(".sample").addClass(selector);
+            this.getEditorContainer()
+                .find(".sample")
+                .addClass(selector)
+                .text(this.getLabel("textSample"));
+
             this.sample = this.getEditorContainer()
                 .find(".styles-sample-container")
                 .attr("data-selector", selector);

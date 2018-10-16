@@ -102,7 +102,7 @@ abstract class AbstractDesignBlockModel extends AbstractDesignModel
      *
      * @return array
      */
-    public function getLabels()
+    protected function getLabels()
     {
         $language = App::getInstance()->getLanguage();
 

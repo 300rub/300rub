@@ -41,7 +41,7 @@
          * @var {Array}
          */
         transformList: [
-            {value: 0, css: "none", label: "-"},
+            {value: 0, css: "none", icon: "fas fa-i-cursor"},
             {value: 1, css: "uppercase", label: "AA"},
             {value: 2, css: "lowercase", label: "aa"},
             {value: 3, css: "capitalize", label: "Aa"}
