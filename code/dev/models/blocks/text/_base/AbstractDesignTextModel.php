@@ -128,7 +128,7 @@ abstract class AbstractDesignTextModel extends AbstractDesignModel
             'name'   => 'Tahoma, Geneva'
         ],
         self::FAMILY_TIMES         => [
-            'family' => 'Times New Roman", Times, serif',
+            'family' => '"Times New Roman", Times, serif',
             'name'   => 'Times New Roman, Times'
         ],
         self::FAMILY_HELVETICA     => [

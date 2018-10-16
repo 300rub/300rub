@@ -126,7 +126,7 @@ class DesignTextModel extends AbstractDesignTextCssModel
         }
 
         if ($this->cssHover !== '') {
-            $css .= sprintf('%s:hover{%s}', $selector, $this->cssHover);
+            $css .= sprintf(' %s:hover{%s}', $selector, $this->cssHover);
         }
 
         return $css;

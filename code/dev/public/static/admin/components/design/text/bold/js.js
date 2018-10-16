@@ -132,7 +132,14 @@
          * @returns {String}
          */
         generateCss: function (isHover) {
+            var isBold;
             if (isHover === true) {
+                isBold = this.isBoldHover;
+            } else {
+                isBold = this.isBold;
+            }
+
+            if (isBold === true) {
                 return "font-weight: bold;";
             }
 

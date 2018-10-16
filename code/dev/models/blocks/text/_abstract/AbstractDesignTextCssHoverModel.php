@@ -68,7 +68,11 @@ abstract class AbstractDesignTextCssHoverModel extends AbstractDesignTextModel
     {
         $sizeHover = $this->get('sizeHover');
         if ($sizeHover !== $this->get('size')) {
-            $this->cssHover .= sprintf('font-size:%s;', $sizeHover);
+            if ($sizeHover === 0) {
+                $sizeHover = self::DEFAULT_SIZE;
+            }
+
+            $this->cssHover .= sprintf('font-size:%spx;', $sizeHover);
         }
 
         return $this;

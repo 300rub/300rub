@@ -133,7 +133,14 @@
          * @returns {String}
          */
         generateCss: function (isHover) {
+            var isItalic;
             if (isHover === true) {
+                isItalic = this.isItalicHover;
+            } else {
+                isItalic = this.isItalic;
+            }
+
+            if (isItalic === true) {
                 return "font-style: italic;";
             }
 
