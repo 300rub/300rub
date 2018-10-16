@@ -55,6 +55,7 @@
                     {
                         title: this.getLabel("color"),
                         value: this.color,
+                        css: "color",
                         appendTo: this.getOption("commonContainer"),
                         callback: $.proxy(
                             function (color) {
@@ -73,6 +74,7 @@
                     {
                         title: this.getLabel("color"),
                         value: this.colorHover,
+                        css: "color",
                         appendTo: this.getOption("hoverContainer"),
                         callback: $.proxy(
                             function (color) {

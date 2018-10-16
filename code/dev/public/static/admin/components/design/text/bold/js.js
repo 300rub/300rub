@@ -71,6 +71,7 @@
                     {
                         value: this.isBoldHover,
                         icon: "fas fa-bold",
+                        css: "bold",
                         appendTo: this.getOption("hoverContainer"),
                         onCheck: onCheckHover,
                         onUnCheck: onUnCheckHover
@@ -114,6 +115,7 @@
                     {
                         value: this.isBold,
                         icon: "fas fa-bold",
+                        css: "bold",
                         appendTo: this.getOption("commonContainer"),
                         onCheck: onCheck,
                         onUnCheck: onUnCheck

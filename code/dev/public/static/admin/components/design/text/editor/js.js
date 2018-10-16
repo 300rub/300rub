@@ -155,46 +155,56 @@
                 updateSampleEventName: "update-text-sample"
             };
 
-            this.size = ss.init(
-                "adminComponentsDesignTextSize",
-                options
-            );
             this.family = ss.init(
                 "adminComponentsDesignTextFamily",
                 options
             );
+
+            this.size = ss.init(
+                "adminComponentsDesignTextSize",
+                options
+            );
+
             this.color = ss.init(
                 "adminComponentsDesignTextColor",
                 options
             );
-            this.align = ss.init(
-                "adminComponentsDesignTextAlign",
-                options
-            );
+
             this.italic = ss.init(
                 "adminComponentsDesignTextItalic",
                 options
             );
+
             this.bold = ss.init(
                 "adminComponentsDesignTextBold",
                 options
             );
+
+            this.align = ss.init(
+                "adminComponentsDesignTextAlign",
+                options
+            );
+
             this.lineHeight = ss.init(
                 "adminComponentsDesignTextLineHeight",
                 options
             );
+
             this.decoration = ss.init(
                 "adminComponentsDesignTextDecoration",
                 options
             );
+
             this.letterSpacing = ss.init(
                 "adminComponentsDesignTextLetterSpacing",
                 options
             );
+
             this.transform = ss.init(
                 "adminComponentsDesignTextTransform",
                 options
             );
+
             this.hover = ss.init(
                 "adminComponentsDesignTextHover",
                 options

@@ -60,7 +60,7 @@
                     "commonComponentsFormSpinner",
                     {
                         value: this.sizeHover,
-                        css: "size-hover",
+                        css: "size",
                         min: 0,
                         appendTo: this.getOption("hoverContainer"),
                         callback: $.proxy(

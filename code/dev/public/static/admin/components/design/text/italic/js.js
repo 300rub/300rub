@@ -72,6 +72,7 @@
                     {
                         value: this.isItalicHover,
                         icon: "fas fa-italic",
+                        css: "italic",
                         appendTo: this.getOption("hoverContainer"),
                         onCheck: onCheckHover,
                         onUnCheck: onUnCheckHover
@@ -115,6 +116,7 @@
                     {
                         value: this.isItalic,
                         icon: "fas fa-italic",
+                        css: "italic",
                         appendTo: this.getOption("commonContainer"),
                         onCheck: onCheck,
                         onUnCheck: onUnCheck

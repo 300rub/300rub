@@ -1,12 +1,16 @@
 <script>
     !function ($, ss) {
         window.jQuery(document).ready(function() {
-            ss.init(
-                "adminBlockImageContent",
-                {
-                    blockId: 2
-                }
-            );
+            setTimeout(function(){
+                ss.init(
+                        "adminComponentsDesignEditor",
+                        {
+                            group: "text",
+                            controller: "design",
+                            id: 7
+                        }
+                );
+            }, 1000);
         });
     }(window.jQuery, window.ss);
 </script>
