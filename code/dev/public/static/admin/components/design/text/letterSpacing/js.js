@@ -57,6 +57,8 @@
                     {
                         value: this.letterSpacingHover,
                         appendTo: this.getOption("hoverContainer"),
+                        css: "letter-spacing",
+                        iconBefore: "fas fa-arrows-alt-h",
                         callback: $.proxy(
                             function (value) {
                                 this.letterSpacingHover = value;

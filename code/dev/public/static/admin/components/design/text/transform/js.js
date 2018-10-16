@@ -69,6 +69,7 @@
                         value: this.transformHover,
                         data: this.transformList,
                         appendTo: this.getOption("hoverContainer"),
+                        css: "transform",
                         onChange: $.proxy(
                             function (value) {
                                 this.transformHover = value;
@@ -87,6 +88,7 @@
                         value: this.transform,
                         data: this.transformList,
                         appendTo: this.getOption("commonContainer"),
+                        css: "transform",
                         onChange: $.proxy(
                             function (value) {
                                 if (hoverForm !== null

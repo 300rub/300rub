@@ -57,6 +57,8 @@
                     {
                         value: this.lineHeightHover,
                         appendTo: this.getOption("hoverContainer"),
+                        iconBefore: "fas fa-arrows-alt-v",
+                        css: "line-height",
                         callback: $.proxy(
                             function (value) {
                                 this.lineHeightHover = value;

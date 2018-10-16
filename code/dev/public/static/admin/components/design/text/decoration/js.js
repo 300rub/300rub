@@ -69,6 +69,7 @@
                         value: this.decorationHover,
                         data: this.decorationList,
                         appendTo: this.getOption("hoverContainer"),
+                        css: "decoration",
                         onChange: $.proxy(
                             function (value) {
                                 this.decorationHover = value;
