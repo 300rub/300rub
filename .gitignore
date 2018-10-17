@@ -13,10 +13,15 @@ releases/*
 
 code/dev/config/release
 code/dev/config/prod.php
+
 code/dev/public/static/*/lib
+code/dev/public/static/min/*
+!code/dev/public/static/min/.gitkeep
+
 code/dev/public/upload/dev
 code/dev/public/upload/phpunit
 code/dev/public/upload/selenium
+
 code/dev/vendor
 code/release*
 

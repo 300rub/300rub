@@ -2,6 +2,7 @@
 
 namespace ss\commands\files;
 
+use ss\application\components\file\_abstract\AbstractFile;
 use ss\application\components\file\Html;
 use ss\application\exceptions\FileException;
 use MatthiasMullie\Minify\CSS;
@@ -16,13 +17,6 @@ class GenerateStaticCommand extends AbstractCommand
 {
 
     /**
-     * Public dir
-     *
-     * @var string
-     */
-    private $_publicDir = '';
-
-    /**
      * Runs the command
      *
      * @throws FileException
@@ -31,14 +25,45 @@ class GenerateStaticCommand extends AbstractCommand
      */
     public function run()
     {
-        $htmlObject = new Html(Html::TYPE_COMMON);
+        $types = [
+            AbstractFile::TYPE_COMMON,
+            AbstractFile::TYPE_ADMIN,
+            AbstractFile::TYPE_SITE,
+        ];
+
+        foreach ($types as $type) {
+            $this
+                ->_generateHtml($type);
+        }
+    }
+
+    /**
+     * Generates HTML
+     *
+     * @param string $type Type
+     *
+     * @return GenerateStaticCommand
+     */
+    private function _generateHtml($type)
+    {
+        $htmlObject = new Html($type);
         $htmlObject->setHasMinimized(false);
         $html = $htmlObject->getHtml();
 
         $htmlMin = new HtmlMin();
         $html = $htmlMin->minify($html);
 
-        var_dump($html);
+        $path = $htmlObject->getMinimizedPath();
+
+        $handle = fopen($path, 'w');
+        fwrite($handle, $html);
+
+        return $this;
+    }
+
+    private function _generateCss($type)
+    {
+
     }
 
 //    /**

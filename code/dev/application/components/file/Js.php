@@ -16,6 +16,11 @@ class Js extends AbstractFile
     const MAIN_FILE = '/static/common/core/js/ss.js';
 
     /**
+     * File extension
+     */
+    const EXTENSION = 'js';
+
+    /**
      * Gets css list
      *
      * @return string[]
@@ -38,7 +43,7 @@ class Js extends AbstractFile
         }
 
         if ($this->hasMinimized() === true) {
-            $list[] = $this->getMinimizedUri('js');
+            $list[] = $this->getMinimizedUri();
         }
 
         if ($this->hasMinimized() === false) {

@@ -11,6 +11,11 @@ class Css extends AbstractFile
 {
 
     /**
+     * File extension
+     */
+    const EXTENSION = 'css';
+
+    /**
      * Gets css list
      *
      * @return string[]
@@ -51,7 +56,7 @@ class Css extends AbstractFile
         }
 
         if ($this->hasMinimized() === true) {
-            $list[] = $this->getMinimizedUri('css');
+            $list[] = $this->getMinimizedUri();
         }
 
         return $list;

@@ -11,6 +11,11 @@ class Html extends AbstractFile
 {
 
     /**
+     * File extension
+     */
+    const EXTENSION = 'html';
+
+    /**
      * Gets css list
      *
      * @return string[]
@@ -18,7 +23,7 @@ class Html extends AbstractFile
     public function getHtml()
     {
         if ($this->hasMinimized() === true) {
-            return file_get_contents($this->getMinimizedPath('html'));
+            return file_get_contents($this->getMinimizedPath());
         }
 
         $html = '';

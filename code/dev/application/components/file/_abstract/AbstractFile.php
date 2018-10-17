@@ -16,6 +16,11 @@ abstract class AbstractFile
     const TYPE_SITE = 'site';
 
     /**
+     * File extension
+     */
+    const EXTENSION = '';
+
+    /**
      * Type
      *
      * @var string
@@ -151,33 +156,29 @@ abstract class AbstractFile
     /**
      * Gets minimized URI
      *
-     * @param string $extension Extension
-     *
      * @return string
      */
-    protected function getMinimizedUri($extension)
+    protected function getMinimizedUri()
     {
         return sprintf(
             '/static/min/%s.min.%s',
             $this->_type,
-            $extension
+            static::EXTENSION
         );
     }
 
     /**
      * Gets minimized Path
      *
-     * @param string $extension Extension
-     *
      * @return string
      */
-    protected function getMinimizedPath($extension)
+    public function getMinimizedPath()
     {
         return sprintf(
             '%s/../../../../public/static/min/%s.min.%s',
             __DIR__,
             $this->_type,
-            $extension
+            static::EXTENSION
         );
     }
 
