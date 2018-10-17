@@ -4,11 +4,13 @@ namespace ss\commands\files;
 
 use ss\application\components\file\_abstract\AbstractFile;
 use ss\application\components\file\Html;
+use ss\application\components\file\Js;
+use ss\application\components\file\Less;
 use ss\application\exceptions\FileException;
-use MatthiasMullie\Minify\CSS;
-use MatthiasMullie\Minify\JS;
+use MatthiasMullie\Minify\CSS as CssMinimizer;
+use MatthiasMullie\Minify\JS as JsMinimizer;
 use ss\commands\_abstract\AbstractCommand;
-use voku\helper\HtmlMin;
+use voku\helper\HtmlMin as HtmlMinimizer;
 
 /**
  * Class for working with compress static
@@ -33,7 +35,9 @@ class GenerateStaticCommand extends AbstractCommand
 
         foreach ($types as $type) {
             $this
-                ->_generateHtml($type);
+                ->_generateHtml($type)
+                ->_generateCss($type)
+                ->_generateJs($type);
         }
     }
 
@@ -50,8 +54,8 @@ class GenerateStaticCommand extends AbstractCommand
         $htmlObject->setHasMinimized(false);
         $html = $htmlObject->getHtml();
 
-        $htmlMin = new HtmlMin();
-        $html = $htmlMin->minify($html);
+        $minimizer = new HtmlMinimizer();
+        $html = $minimizer->minify($html);
 
         $path = $htmlObject->getMinimizedPath();
 
@@ -61,9 +65,52 @@ class GenerateStaticCommand extends AbstractCommand
         return $this;
     }
 
+    /**
+     * Generates CSS
+     *
+     * @param string $type Type
+     *
+     * @return GenerateStaticCommand
+     */
     private function _generateCss($type)
     {
+        $lessObject = new Less($type);
+        $lessObject->setHasMinimized(false);
+        $css = $lessObject->getCss();
 
+        $minimizer = new CssMinimizer();
+        $minimizer->add($css);
+
+        $path = $lessObject->getMinimizedPath();
+
+        $minimizer->minify($path);
+
+        return $this;
+    }
+
+    /**
+     * Generates JS
+     *
+     * @param string $type Type
+     *
+     * @return GenerateStaticCommand
+     */
+    private function _generateJs($type)
+    {
+        $jsObject = new Js($type);
+        $jsObject->setHasMinimized(false);
+        $jsList = $jsObject->getFullPathFileList();
+
+        $minimizer = new JsMinimizer();
+        foreach ($jsList as $file) {
+            $minimizer->add($file);
+        }
+
+        $path = $jsObject->getMinimizedPath();
+
+        $minimizer->minify($path);
+
+        return $this;
     }
 
 //    /**

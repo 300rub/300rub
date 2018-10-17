@@ -54,9 +54,24 @@ class Js extends AbstractFile
     }
 
     /**
+     * Gets full path file list
+     *
+     * @return string[]
+     */
+    public function getFullPathFileList()
+    {
+        $list = [];
+        foreach ($this->getFileList() as $file) {
+            $list[] = $this->getPublicPath() . $file;
+        }
+
+        return $list;
+    }
+
+    /**
      * Gets file list
      *
-     * @return array
+     * @return string[]
      */
     protected function getFileList()
     {
