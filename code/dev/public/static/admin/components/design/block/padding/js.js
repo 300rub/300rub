@@ -512,38 +512,38 @@
         /**
          * Gets padding CSS
          *
-         * @param {Number|String} paddingTop
-         * @param {Number|String} paddingRight
-         * @param {Number|String} paddingBottom
-         * @param {Number|String} paddingLeft
+         * @param {Number|String} top
+         * @param {Number|String} right
+         * @param {Number|String} bottom
+         * @param {Number|String} left
          *
          * @returns {String}
          */
-        getCss: function (paddingTop, paddingRight, paddingBottom, paddingLeft) {
-            if (paddingTop !== 0) {
-                paddingTop += "px";
+        getCss: function (top, right, bottom, left) {
+            if (top !== 0) {
+                top += "px";
             }
 
-            if (paddingRight !== 0) {
-                paddingRight += "px";
+            if (right !== 0) {
+                right += "px";
             }
 
-            if (paddingBottom !== 0) {
-                paddingBottom += "px";
+            if (bottom !== 0) {
+                bottom += "px";
             }
 
-            if (paddingLeft !== 0) {
-                paddingLeft += "px";
+            if (left !== 0) {
+                left += "px";
             }
 
             var css = "padding:";
-            css += paddingTop;
+            css += top;
             css += " ";
-            css += paddingRight;
+            css += right;
             css += " ";
-            css += paddingBottom;
+            css += bottom;
             css += " ";
-            css += paddingLeft;
+            css += left;
             css += ";";
 
             return css;

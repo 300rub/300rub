@@ -125,12 +125,14 @@
                 return this;
             }
 
+            /*ignore jslint start */
             // this.addFooterButton(
             // {
             // label: this.getOption(["create", "label"]),
             // icon: "fas fa-plus"
             // }
             // );
+            /*jsl:end */
             return this;
         },
 

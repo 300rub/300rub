@@ -146,8 +146,8 @@
                     toolbar1: toolbar1,
                     toolbar2: toolbar2,
                     toolbar3: toolbar3,
-                    fontsize_formats: sizes,
-                    font_formats: fonts
+                    fontsize_formats: sizes, /* jshint ignore:line */
+                    font_formats: fonts /* jshint ignore:line */
                 }
             );
         },

@@ -109,6 +109,7 @@
             this.viewImage = this.viewContainer.find(".view-image");
             this.viewImage.attr("src", this.getData("url"));
 
+            /* jshint ignore:start */
             this.viewImage.cropper(
                 {
                     viewMode: 2,
@@ -117,6 +118,7 @@
                     autoCropArea: 1,
                     movable: false,
                     crop: function (event) {
+                        /*ignore jslint start */
                         // console.log(event.detail.x);
                         // console.log(event.detail.y);
                         // console.log(event.detail.width);
@@ -124,9 +126,11 @@
                         // console.log(event.detail.rotate);
                         // console.log(event.detail.scaleX);
                         // console.log(event.detail.scaleY);
+                        /*jsl:end */
                     }
                 }
             );
+            /* jshint ignore:end */
 
             return this;
         },

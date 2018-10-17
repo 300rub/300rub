@@ -32,14 +32,17 @@
             this.editors = [];
             this.tree = [];
 
-            var back = $.proxy(function() {
-                this.rollback();
+            var back = $.proxy(
+                function () {
+                    this.rollback();
 
-                var onBack = this.getOption("onBack");
-                if ($.type(onBack) === "function") {
-                    onBack();
-                }
-            }, this);
+                    var onBack = this.getOption("onBack");
+                    if ($.type(onBack) === "function") {
+                        onBack();
+                    }
+                },
+                this
+            );
 
             var closeEvents = function () {
                 this.rollback();
