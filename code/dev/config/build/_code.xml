@@ -36,6 +36,12 @@
         </exec>
     </target>
 
+    <target name="code-htmlhint" description="HTMLHint is a Static Code Analysis Tool for HTML, you can use it with IDE or in build system.">
+        <exec executable="htmlhint" failonerror="false">
+            <arg path="${path}" />
+        </exec>
+    </target>
+
     <target name="code-jshint" description="JSHint, a JavaScript Code Quality Tool">
         <exec executable="jshint" failonerror="false">
             <arg value="${path}" />

@@ -37,6 +37,7 @@ RUN apt-get install -y nodejs
 RUN npm install -g less lesshint
 RUN npm install -g lesshint-reporter-stylisher
 RUN npm install -g jshint
+RUN npm install -g htmlhint
 
 RUN apt-get install -y ant-contrib
 RUN apt-get install -y ant ant-optional
