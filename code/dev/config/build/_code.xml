@@ -39,6 +39,8 @@
     <target name="code-htmlhint" description="HTMLHint is a Static Code Analysis Tool for HTML, you can use it with IDE or in build system.">
         <exec executable="htmlhint" failonerror="false">
             <arg path="${path}" />
+            <arg value="--config" />
+            <arg path="config/code/htmlhint.json" />
         </exec>
     </target>
 
