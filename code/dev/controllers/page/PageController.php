@@ -7,6 +7,8 @@ use ss\application\exceptions\NotFoundException;
 use ss\controllers\page\_abstract\AbstractPageController;
 use ss\models\sections\SectionModel;
 use ss\models\settings\SettingsModel;
+use voku\helper\HtmlMin;
+use MatthiasMullie\Minify\JS;
 
 /**
  * PageController
@@ -72,6 +74,9 @@ class PageController extends AbstractPageController
         $html = $this->_getPageHtml();
 
         if ($this->_isUseMemcached() === true) {
+            $htmlMin = new HtmlMin();
+            $html = $htmlMin->minify($html);
+
             App::getInstance()->getMemcached()->set(
                 $this->_getMemcachedKey(),
                 $html
@@ -156,7 +161,7 @@ class PageController extends AbstractPageController
             $isBlockSection = true;
         }
 
-        return $this->render(
+        $jsCode = $this->render(
             'layout/js/page',
             [
                 'language'
@@ -169,6 +174,14 @@ class PageController extends AbstractPageController
                 'isBlockSection' => $isBlockSection,
             ]
         );
+
+        if ($this->_isUseMemcached() === true) {
+            $minimizer = new JS();
+            $minimizer->add($jsCode);
+            $jsCode = $minimizer->minify();
+        }
+
+        return $jsCode;
     }
 
     /**
