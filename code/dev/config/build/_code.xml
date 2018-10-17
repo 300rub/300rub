@@ -31,6 +31,8 @@
             <arg path="${path}" />
             <arg value="--config" />
             <arg path="config/code/lesshint.json" />
+            <arg value="--reporter" />
+            <arg value="lesshint-reporter-stylisher" />
         </exec>
     </target>
 
