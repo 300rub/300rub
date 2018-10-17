@@ -11,6 +11,11 @@ class Less extends AbstractFile
 {
 
     /**
+     * File extension
+     */
+    const EXTENSION = 'css';
+
+    /**
      * Parent map
      *
      * @var array
