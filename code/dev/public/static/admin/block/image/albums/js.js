@@ -10,6 +10,7 @@
          * @type {Object}
          */
         defaultOptions: {
+            blockId: 0,
             appendTo: null,
             list: [
                 {id: 0, name: null, cover: {url: null}}
@@ -125,14 +126,24 @@
                 return this;
             }
 
-            /*ignore jslint start */
-            // this.addFooterButton(
-            // {
-            // label: this.getOption(["create", "label"]),
-            // icon: "fas fa-plus"
-            // }
-            // );
-            /*jsl:end */
+            ss.init(
+                "commonComponentsFormButton",
+                {
+                    css: "btn btn-gray",
+                    icon: "fas fa-plus",
+                    label: this.getOption(["create", "label"]),
+                    appendTo: this.getOption(["create", "appendTo"]),
+                    onClick: $.proxy(function() {
+                        ss.init(
+                            "adminBlockImageAlbumAdd",
+                            {
+                                blockId: this.getOption("blockId")
+                            }
+                        );
+                    }, this)
+                }
+            );
+
             return this;
         },
 
@@ -154,7 +165,13 @@
                     appendTo: buttons,
                     onClick: $.proxy(
                         function () {
-
+                            ss.init(
+                                "adminBlockImageContent",
+                                {
+                                    groupId: itemData.id,
+                                    blockId: this.getOption("blockId")
+                                }
+                            );
                         },
                         this
                     )
@@ -171,7 +188,13 @@
                         appendTo: buttons,
                         onClick: $.proxy(
                             function () {
-
+                                ss.init(
+                                    "adminBlockImageAlbumUpdate",
+                                    {
+                                        groupId: itemData.id,
+                                        blockId: this.getOption("blockId")
+                                    }
+                                );
                             },
                             this
                         )
