@@ -19,6 +19,13 @@
         body: null,
 
         /**
+         * Footer
+         *
+         * @var {Object}
+         */
+        footer: null,
+
+        /**
          * Footer flag
          *
          * @var {Object}
@@ -40,6 +47,7 @@
             this
                 .setPanel()
                 .setBody()
+                .setFooter()
                 .extendOptions(options)
                 .setHasFooter()
                 .setHasHeaderButtons()
@@ -66,12 +74,29 @@
         },
 
         /**
+         * Sets body
+         */
+        setFooter: function () {
+            this.footer = this.panel.find(".footer");
+            return this;
+        },
+
+        /**
          * Gets body
          *
          * @returns {Object}
          */
         getBody: function () {
             return this.body;
+        },
+
+        /**
+         * Gets footer
+         *
+         * @returns {Object}
+         */
+        getFooter: function () {
+            return this.footer;
         },
 
         /**
@@ -96,7 +121,7 @@
          */
         setPanelMaxHeight: function () {
             var headerHeight = this.panel.find(".header").height();
-            var footerHeight = this.panel.find(".footer").height();
+            var footerHeight = this.footer.height();
 
             var minusHeight = 40;
             if (this.hasFooter === false) {
@@ -330,7 +355,7 @@
                     options,
                     {
                         css: "btn btn-blue",
-                        appendTo: this.panel.find(".footer")
+                        appendTo: this.footer
                     }
                 )
             );
@@ -450,7 +475,7 @@
                     options,
                     {
                         css: "btn btn-gray",
-                        appendTo: this.panel.find(".footer")
+                        appendTo: this.footer
                     }
                 )
             );
@@ -478,7 +503,7 @@
          */
         removeFooter: function () {
             this.hasFooter = false;
-            this.panel.find(".footer").remove();
+            this.footer.remove();
 
             this.setMaxHeight();
 

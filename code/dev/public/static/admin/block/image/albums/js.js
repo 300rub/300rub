@@ -67,6 +67,8 @@
             if (this.getOption("appendTo") !== null) {
                 this.container.appendTo(this.getOption("appendTo"));
             }
+
+            return this;
         },
 
         /**

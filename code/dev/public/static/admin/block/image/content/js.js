@@ -116,6 +116,36 @@
          * Sets albums
          */
         setAlbums: function () {
+            ss.init(
+                "adminBlockImageAlbums",
+                {
+                    blockId: this.getOption("blockId"),
+                    appendTo: this.getBody(),
+                    list: this.getData("list", {}),
+                    isSortable: true,
+                    images: {
+                        label: this.getLabel("images")
+                    },
+                    create: {
+                        hasOperation: this.getData("canCreate"),
+                        label: this.getLabel("addAlbum"),
+                        appendTo: this.getFooter()
+                    },
+                    update: {
+                        hasOperation: this.getData("canUpdate"),
+                        label: this.getLabel("edit")
+                    },
+                    remove: {
+                        hasOperation: this.getData("canDelete"),
+                        label: this.getLabel("delete"),
+                        confirm: {
+                            text: this.getLabel("deleteConfirm"),
+                            yes: this.getLabel("delete"),
+                            no: this.getLabel("no")
+                        }
+                    }
+                }
+            );
         },
 
         /**

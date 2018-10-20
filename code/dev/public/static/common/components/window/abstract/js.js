@@ -19,6 +19,13 @@
         body: null,
 
         /**
+         * Footer
+         *
+         * @var {Object}
+         */
+        footer: null,
+
+        /**
          * Overlay
          *
          * @var {Object}
@@ -49,6 +56,7 @@
             this
                 .setWindow()
                 .setBody()
+                .setFooter()
                 .setOverlay()
                 .extendOptions(options)
                 .setHasFooter()
@@ -71,7 +79,7 @@
             }
 
             this.hasFooter = false;
-            this.window.find(".footer").remove();
+            this.footer.remove();
 
             return this;
         },
@@ -102,12 +110,29 @@
         },
 
         /**
+         * Sets footer
+         */
+        setFooter: function () {
+            this.footer = this.window.find(".footer");
+            return this;
+        },
+
+        /**
          * Gets body
          *
          * @returns {Object}
          */
         getBody: function () {
             return this.body;
+        },
+
+        /**
+         * Gets footer
+         *
+         * @returns {Object}
+         */
+        getFooter: function () {
+            return this.footer;
         },
 
         /**
@@ -419,7 +444,7 @@
                     options,
                     {
                         css: "btn btn-big btn-blue submit",
-                        appendTo: this.window.find(".footer")
+                        appendTo: this.footer
                     }
                 )
             );
@@ -439,7 +464,7 @@
                     {},
                     {
                         css: "btn btn-gray button",
-                        appendTo: this.window.find(".footer")
+                        appendTo: this.footer
                     },
                     options
                 )
