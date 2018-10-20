@@ -84,7 +84,7 @@
                     if (hoverForm !== null
                         && this.isBold === this.isBoldHover
                     ) {
-                        hoverForm.getInstance().attr("checked", true);
+                        hoverForm.setValue(true);
                         this.isBoldHover = true;
                     }
 
@@ -99,7 +99,7 @@
                     if (hoverForm !== null
                         && this.isBold === this.isBoldHover
                     ) {
-                        hoverForm.getInstance().attr("checked", false);
+                        hoverForm.setValue(false);
                         this.isBoldHover = false;
                     }
 

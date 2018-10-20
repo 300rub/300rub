@@ -85,7 +85,7 @@
                     if (hoverForm !== null
                         && this.isItalic === this.isItalicHover
                     ) {
-                        hoverForm.getInstance().attr("checked", true);
+                        hoverForm.setValue(true);
                         this.isItalicHover = true;
                     }
 
@@ -100,7 +100,7 @@
                     if (hoverForm !== null
                         && this.isItalic === this.isItalicHover
                     ) {
-                        hoverForm.getInstance().attr("checked", false);
+                        hoverForm.setValue(false);
                         this.isItalicHover = false;
                     }
 

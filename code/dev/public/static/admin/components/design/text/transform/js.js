@@ -94,8 +94,8 @@
                                 if (hoverForm !== null
                                     && this.transform === this.transformHover
                                 ) {
-                                    this.transformHover = false;
-                                    hoverForm.getInstance().val(value).change();
+                                    this.transformHover = value;
+                                    hoverForm.setValue(value);
                                 }
 
                                 this.transform = value;

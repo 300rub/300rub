@@ -114,14 +114,18 @@
                 radioButtons.append(itemContainer);
             }
 
-            this.setInstance();
+            this
+                .setInstance()
+                .setValue();
 
             var onChange = this.getOption("onChange");
             if ($.type(onChange) === "function") {
                 this.getForm().find(".form-instance").on(
                     "change",
                     function () {
-                        onChange($(this).val());
+                        onChange(
+                            parseInt($(this).val(), 10)
+                        );
                     }
                 );
             }
@@ -137,13 +141,16 @@
          * @returns {*}
          */
         setValue: function (value) {
+            if (value === undefined) {
+                value = this.getOption("value");
+            }
+
             this.getInstance().each(
                 function () {
                     var attrVal = parseInt($(this).attr("value"), 10);
 
                     if (attrVal === parseInt(value, 10)) {
                         $(this).prop("checked", true);
-                        $(this).click();
                     } else {
                         $(this).prop("checked", false);
                     }

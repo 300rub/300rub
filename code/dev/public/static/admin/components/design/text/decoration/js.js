@@ -107,7 +107,7 @@
                                     && this.decoration === this.decorationHover
                                 ) {
                                     this.decorationHover = value;
-                                    hoverForm.getInstance().val(value).change();
+                                    hoverForm.setValue(value);
                                 }
 
                                 this.decoration = value;

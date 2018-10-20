@@ -70,7 +70,26 @@
          * @returns {Boolean}
          */
         getValue: function () {
-            return this.getInstance().is(':checked');
+            return this.getInstance().is(":checked");
+        },
+
+        /**
+         * Sets value
+         *
+         * @param {boolean} value
+         */
+        setValue: function(value) {
+            if (value === undefined) {
+                value = this.getOption("value", false);
+            }
+
+            if (value === true) {
+                this.getInstance().prop("checked", true);
+                return this;
+            }
+
+            this.getInstance().prop("checked", false);
+            return this;
         }
     };
 
