@@ -42,12 +42,18 @@ class GetDesignController extends AbstractBlockController
 
         $textModel = $this->_getTextModel($blockId);
         $cssSelector = sprintf('.block-%s', $blockId);
-        $blockDesign = $textModel
+
+        $data = [];
+
+        $data[] = $textModel
             ->getDesignBlockModel()
             ->getDesign($cssSelector);
-        $textDesign = $textModel
-            ->getDesignTextModel()
-            ->getDesign($cssSelector);
+
+        if ($textModel->get('hasEditor') === false) {
+            $data[] = $textModel
+                ->getDesignTextModel()
+                ->getDesign($cssSelector);
+        }
 
         $language = App::getInstance()->getLanguage();
 
@@ -60,7 +66,7 @@ class GetDesignController extends AbstractBlockController
             'list'        => [
                 [
                     'title' => $language->getMessage('text', 'designTitle'),
-                    'data'  => [$blockDesign, $textDesign]
+                    'data'  => $data
                 ]
             ],
             'labels'     => [

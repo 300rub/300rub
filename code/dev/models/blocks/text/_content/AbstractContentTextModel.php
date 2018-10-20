@@ -5,6 +5,7 @@ namespace ss\models\blocks\text\_content;
 use ss\application\App;
 use ss\application\exceptions\ModelException;
 use ss\models\blocks\text\_base\AbstractTextModel;
+use ss\models\blocks\text\DesignTextModel;
 use ss\models\blocks\text\TextInstanceModel;
 
 /**
@@ -70,15 +71,18 @@ abstract class AbstractContentTextModel extends AbstractTextModel
         $css = [];
         $view = App::getInstance()->getView();
 
+        $designTextModel = new DesignTextModel();
         if ($this->get('hasEditor') === false) {
-            $css = array_merge(
-                $css,
-                $view->generateCss(
-                    $this->get('designTextModel'),
-                    sprintf('.block-%s', $this->getBlockId())
-                )
-            );
+            $designTextModel = $this->get('designTextModel');
         }
+
+        $css = array_merge(
+            $css,
+            $view->generateCss(
+                $designTextModel,
+                sprintf('.block-%s', $this->getBlockId())
+            )
+        );
 
         $css = array_merge(
             $css,
