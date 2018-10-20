@@ -258,8 +258,8 @@ abstract class AbstractDesignBlockCssHoverModel extends AbstractDesignBlockModel
             $backgroundColorTo
         );
         $this->cssHover .= sprintf(
-            "filter:progid:DXImageTransform.Microsoft.gradient' .
-            '(startColorstr='%s', endColorstr='%s',GradientType=%s);",
+            'filter:progid:DXImageTransform.Microsoft.gradient' .
+            '(startColorstr="%s", endColorstr="%s",GradientType=%s);',
             $backgroundColorFrom,
             $backgroundColorTo,
             $gradientDirection['ie']
