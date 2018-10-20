@@ -55,6 +55,8 @@ abstract class AbstractAjax extends AbstractApplication
      */
     protected function processAjax()
     {
+        usleep(300 * 1000);
+
         try {
             $output = $this
                 ->_checkRequest()

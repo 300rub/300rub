@@ -8,30 +8,22 @@
          * Init
          */
         init: function () {
-            setTimeout(
-                $.proxy(
-                    function () {
-                        $.ajax(
-                            {
-                                url: "/api/",
-                                type: "POST",
-                                cache: false,
-                                contentType: false,
-                                processData: false,
-                                global: false,
-                                traditional: true,
-                                data: this.getAjaxData(),
-                                beforeSend: this.getBeforeSend(),
-                                success: this.onSuccess(),
-                                error: this.onError(),
-                                complete: this.onComplete(),
-                                xhr: this.getXhr()
-                            }
-                        );
-                    },
-                    this
-                ),
-                300
+            $.ajax(
+                {
+                    url: "/api/",
+                    type: "POST",
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    global: false,
+                    traditional: true,
+                    data: this.getAjaxData(),
+                    beforeSend: this.getBeforeSend(),
+                    success: this.onSuccess(),
+                    error: this.onError(),
+                    complete: this.onComplete(),
+                    xhr: this.getXhr()
+                }
             );
         },
 
