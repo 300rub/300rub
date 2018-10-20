@@ -111,7 +111,7 @@
          */
         setContainer: function () {
             this.container
-                = ss.get("template").get("image-settings-container");
+                = ss.init("template").get("image-settings-container");
             this.container.appendTo(this.getBody());
 
             return this;
