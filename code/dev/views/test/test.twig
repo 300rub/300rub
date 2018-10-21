@@ -1,16 +1,20 @@
+<style>
+    .control-buttons {
+        display: none !important;
+    }
+</style>
+
 <script>
     !function ($, ss) {
         window.jQuery(document).ready(function() {
             setTimeout(function(){
                 ss.init(
-                        "adminComponentsDesignEditor",
-                        {
-                            group: "text",
-                            controller: "design",
-                            id: 7
-                        }
+                    "adminBlockImageContent",
+                    {
+                        blockId: 2
+                    }
                 );
-            }, 1000);
+            }, 0);
         });
     }(window.jQuery, window.ss);
 </script>

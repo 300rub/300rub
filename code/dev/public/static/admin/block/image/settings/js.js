@@ -88,7 +88,7 @@
 
             this.setSubmit(
                 {
-                    label: this.getLabels("button"),
+                    label: this.getLabel("button"),
                     icon: icon,
                     forms: this.forms,
                     ajax: {

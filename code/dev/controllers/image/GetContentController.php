@@ -59,9 +59,8 @@ class GetContentController extends AbstractController
         $this->_imageModel = $this->_blockModel
             ->getContentModel(ImageModel::CLASS_NAME);
 
-        $groupId = (int)$this->get('groupId');
         if ($this->_imageModel->get('useAlbums') === true
-            && $groupId === 0
+            && (int)$this->get('groupId') === 0
         ) {
             return $this->_getAlbumsResponse();
         }
