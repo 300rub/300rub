@@ -2,6 +2,7 @@
 
 namespace ss\models\blocks\image;
 
+use ss\application\components\db\Table;
 use ss\models\blocks\image\_content\AbstractContentImageModel;
 
 /**
@@ -40,5 +41,42 @@ class ImageModel extends AbstractContentImageModel
         }
 
         parent::beforeDelete();
+    }
+
+    /**
+     * Finds model by image instance ID
+     *
+     * @param int $instanceId Instance ID
+     *
+     * @return ImageModel
+     */
+    public function findByImageInstanceId($instanceId)
+    {
+        $this->getTable()
+            ->addJoin(
+                Table::JOIN_TYPE_INNER,
+                'imageGroups',
+                'imageGroups',
+                'imageId',
+                Table::DEFAULT_ALIAS,
+                self::PK_FIELD
+            )
+            ->addJoin(
+                Table::JOIN_TYPE_INNER,
+                'imageInstances',
+                'imageInstances',
+                'imageGroupId',
+                'imageGroupId',
+                self::PK_FIELD
+            )
+            ->addWhere(
+                sprintf(
+                    'imageInstances.%s = :instanceId',
+                    self::PK_FIELD
+                )
+            )
+            ->addParameter('instanceId', $instanceId);
+
+        return $this->find();
     }
 }

@@ -3,13 +3,13 @@
 namespace ss\controllers\image;
 
 use ss\application\components\user\Operation;
-use ss\controllers\image\_abstract\AbstractCropImageController;
+use ss\controllers\image\_abstract\AbstractUpdateCropController;
 use ss\models\blocks\block\BlockModel;
 
 /**
  * Crops image
  */
-class UpdateCropController extends AbstractCropImageController
+class UpdateCropController extends AbstractUpdateCropController
 {
 
     /**

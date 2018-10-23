@@ -9,7 +9,7 @@ use ss\models\blocks\image\ImageInstanceModel;
 /**
  * Abstract class to crop images
  */
-abstract class AbstractCropImageController extends AbstractController
+abstract class AbstractUpdateCropController extends AbstractController
 {
 
     /**
