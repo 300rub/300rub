@@ -217,7 +217,7 @@
 
             this.container.append(itemElement);
 
-            if (this.getOption(["create", "isSingleton"]) !== true) {
+            if (this.getOption(["create", "isSingleton"]) === true) {
                 this.uploadContainer.addClass("hidden");
             }
 
@@ -366,7 +366,7 @@
                             var isSingleton = this.getOption(
                                 ["create", "isSingleton"]
                             );
-                            if (isSingleton !== true) {
+                            if (isSingleton === true) {
                                 this.uploadContainer.removeClass("hidden");
                             }
                         }, this)
@@ -429,6 +429,7 @@
                         group: this.getOption(["create", "group"]),
                         controller: this.getOption(["create", "controller"]),
                         data: {
+                            blockId: this.getOption("blockId"),
                             imageGroupId: this.getOption(
                                 ["create", "imageGroupId"]
                             )

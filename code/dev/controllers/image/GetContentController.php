@@ -43,18 +43,18 @@ class GetContentController extends AbstractController
     {
         $this->checkData(
             [
-                'id' => [self::NOT_EMPTY],
+                'blockId' => [self::NOT_EMPTY],
             ]
         );
 
         $this->checkBlockOperation(
             BlockModel::TYPE_IMAGE,
-            $this->get('id'),
+            $this->get('blockId'),
             Operation::IMAGE_UPDATE_CONTENT
         );
 
         $this->_blockModel = BlockModel::model()
-            ->getById($this->get('id'));
+            ->getById($this->get('blockId'));
 
         $this->_imageModel = $this->_blockModel
             ->getContentModel(ImageModel::CLASS_NAME);
@@ -99,17 +99,17 @@ class GetContentController extends AbstractController
             'useAlbums'      => true,
             'canCreate' => $this->hasBlockOperation(
                 BlockModel::TYPE_IMAGE,
-                $this->get('id'),
+                $this->get('blockId'),
                 Operation::IMAGE_CREATE_ALBUM
             ),
             'canUpdate' => $this->hasBlockOperation(
                 BlockModel::TYPE_IMAGE,
-                $this->get('id'),
+                $this->get('blockId'),
                 Operation::IMAGE_UPDATE_ALBUM
             ),
             'canDelete' => $this->hasBlockOperation(
                 BlockModel::TYPE_IMAGE,
-                $this->get('id'),
+                $this->get('blockId'),
                 Operation::IMAGE_DELETE_ALBUM
             ),
             'list' => $this->_getListWithAlbums()
@@ -142,17 +142,17 @@ class GetContentController extends AbstractController
             'groupId'   => (int)$this->get('groupId'),
             'canCreate' => $this->hasBlockOperation(
                 BlockModel::TYPE_IMAGE,
-                $this->get('id'),
+                $this->get('blockId'),
                 Operation::IMAGE_UPLOAD
             ),
             'canUpdate' => $this->hasBlockOperation(
                 BlockModel::TYPE_IMAGE,
-                $this->get('id'),
+                $this->get('blockId'),
                 Operation::IMAGE_UPDATE
             ),
             'canDelete' => $this->hasBlockOperation(
                 BlockModel::TYPE_IMAGE,
-                $this->get('id'),
+                $this->get('blockId'),
                 Operation::IMAGE_DELETE
             ),
             'list'      => $this->_getListWithoutAlbums()

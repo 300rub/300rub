@@ -22,6 +22,7 @@
                     parent: "image-content",
                     level: 2,
                     data: {
+                        blockId: this.getOption("blockId"),
                         groupId: this.getOption("groupId")
                     }
                 };
@@ -34,7 +35,7 @@
                         group: "image",
                         controller: "content",
                         data: {
-                            id: this.getOption("blockId")
+                            blockId: this.getOption("blockId")
                         },
                         name: "image-content"
                     },
