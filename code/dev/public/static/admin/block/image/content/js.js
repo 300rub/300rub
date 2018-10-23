@@ -89,8 +89,10 @@
                             imageGroupId: this.getData("groupId")
                         }
                     },
-                    update: {
+                    crop: {
                         hasOperation: this.getData("canUpdate"),
+                        group: "image",
+                        contrtoller: "crop",
                         blockId: this.getData("id"),
                         level: 2,
                         parent: "image-content"

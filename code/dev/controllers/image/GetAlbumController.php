@@ -96,6 +96,9 @@ class GetAlbumController extends AbstractController
             'blockId' => $blockId,
             'id'      => $groupId,
             'title'   => $language->getMessage('image', $titleKey),
+            'labels'  => [
+                'button' => $language->getMessage('common', $buttonKey),
+            ],
             'forms'   => [
                 'name'   => [
                     'name'       => 'name',
@@ -138,9 +141,6 @@ class GetAlbumController extends AbstractController
                         ),
                     'value'      => $this->_description,
                 ],
-                'button' => [
-                    'label' => $language->getMessage('common', $buttonKey),
-                ]
             ]
         ];
     }

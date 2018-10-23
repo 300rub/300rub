@@ -17,13 +17,15 @@
             ],
             create: {
                 hasOperation: false,
-                isSingleton: false,
                 group: "",
                 controller: "",
+                isSingleton: false,
                 data: {}
             },
-            update: {
+            crop: {
                 hasOperation: false,
+                group: "",
+                controller: "",
                 blockId: 0,
                 level: 2,
                 parent: ""
@@ -208,19 +210,21 @@
 
             var buttons = itemElement.find(".buttons");
 
-            if (this.getOption(["update", "hasOperation"]) !== true
+            if (this.getOption(["crop", "hasOperation"]) !== true
                 && this.getOption(["remove", "hasOperation"]) !== true
             ) {
                 buttons.remove();
                 return this;
             }
 
-            if (this.getOption(["update", "hasOperation"]) === true) {
-                var updateOptions = {
-                    blockId: this.getOption(["update", "blockId"]),
+            if (this.getOption(["crop", "hasOperation"]) === true) {
+                var cropOptions = {
+                    group: this.getOption(["crop", "group"]),
+                    controller: this.getOption(["crop", "controller"]),
+                    blockId: this.getOption(["crop", "blockId"]),
                     id: data.id,
-                    level: this.getOption(["update", "level"]),
-                    parent: this.getOption(["update", "parent"])
+                    level: this.getOption(["crop", "level"]),
+                    parent: this.getOption(["crop", "parent"])
                 };
 
                 ss.init(
@@ -232,7 +236,7 @@
                         appendTo: buttons,
                         onClick: $.proxy(
                             function () {
-                                ss.init("adminBlockImageCrop", updateOptions);
+                                ss.init("adminBlockImageCrop", cropOptions);
                             },
                             this
                         )

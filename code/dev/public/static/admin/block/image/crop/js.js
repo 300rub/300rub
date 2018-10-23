@@ -34,8 +34,8 @@
 
             this.create(
                 {
-                    group: "image",
-                    controller: "crop",
+                    group: this.getOption("group"),
+                    controller: this.getOption("controller"),
                     data: {
                         blockId: this.getOption("blockId"),
                         id: this.getOption("id")

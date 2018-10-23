@@ -3,13 +3,13 @@
 namespace ss\controllers\image;
 
 use ss\application\components\user\Operation;
-use ss\controllers\image\_abstract\AbstractUpdateImageController;
+use ss\controllers\image\_abstract\AbstractCropImageController;
 use ss\models\blocks\block\BlockModel;
 
 /**
- * Updates image
+ * Crops image
  */
-class UpdateImageController extends AbstractUpdateImageController
+class UpdateCropController extends AbstractCropImageController
 {
 
     /**
@@ -31,6 +31,6 @@ class UpdateImageController extends AbstractUpdateImageController
             Operation::IMAGE_UPDATE
         );
 
-        return $this->update();
+        return $this->crop();
     }
 }

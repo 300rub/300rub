@@ -3,23 +3,19 @@
 namespace ss\controllers\image;
 
 use ss\application\components\user\Operation;
-use ss\application\exceptions\NotFoundException;
-use ss\controllers\_abstract\AbstractController;
+use ss\controllers\image\_abstract\AbstractDeleteImageController;
 use ss\models\blocks\block\BlockModel;
-use ss\models\blocks\image\ImageInstanceModel;
 
 /**
  * Deletes the image
  */
-class DeleteImageController extends AbstractController
+class DeleteImageController extends AbstractDeleteImageController
 {
 
     /**
      * Runs controller
      *
      * @return array
-     *
-     * @throws NotFoundException
      */
     public function run()
     {
@@ -36,22 +32,6 @@ class DeleteImageController extends AbstractController
             Operation::IMAGE_UPLOAD
         );
 
-        $imageInstanceModel = ImageInstanceModel::model()
-            ->byId($this->get('id'))
-            ->find();
-        if ($imageInstanceModel instanceof ImageInstanceModel === false) {
-            throw new NotFoundException(
-                'Unable to find ImageInstanceModel by ID: {id}',
-                [
-                    'id' => $this->get('id')
-                ]
-            );
-        }
-
-        $imageInstanceModel->delete();
-
-        return [
-            'result' => true
-        ];
+        return $this->delete($this->get('id'));
     }
 }

@@ -32,15 +32,14 @@ abstract class AbstractUpdateModel extends AbstractUploadModel
      *
      * @return array
      */
-    public function update(array $data)
+    public function crop(array $data)
     {
         $viewName = $this->get('viewFileModel')->get('uniqueName');
         $thumbName = $this->get('thumbFileModel')->get('uniqueName');
 
         $this
             ->_updateView($data)
-            ->_updateThumb($data)
-            ->_updateImage($data);
+            ->_updateThumb($data);
 
         $file = new FileModel();
 
@@ -57,6 +56,31 @@ abstract class AbstractUpdateModel extends AbstractUploadModel
             'viewUrl'     => $this->get('viewFileModel')->getUrl(),
             'thumbUrl'    => $this->get('thumbFileModel')->getUrl(),
         ];
+    }
+
+    /**
+     * Updates the image
+     *
+     * @param array $data Request data
+     *
+     * @return AbstractUpdateModel
+     */
+    public function update(array $data)
+    {
+        if ($data['isCover'] !== $this->get('isCover')
+            && $data['isCover'] === true
+        ) {
+            $this->updateMany(
+                ['isCover' => 0],
+                'imageGroupId = :imageGroupId',
+                ['imageGroupId' => $this->get('imageGroupId')]
+            );
+        }
+
+        $this->set($data);
+        $this->save();
+
+        return $this;
     }
 
     /**
@@ -244,31 +268,6 @@ abstract class AbstractUpdateModel extends AbstractUploadModel
         $thumbFileModel->save();
 
         $this->_isThumbChanged = true;
-
-        return $this;
-    }
-
-    /**
-     * Updates the image
-     *
-     * @param array $data Request data
-     *
-     * @return AbstractUpdateModel
-     */
-    private function _updateImage(array $data)
-    {
-        if ($data['isCover'] !== $this->get('isCover')
-            && $data['isCover'] === true
-        ) {
-            $this->updateMany(
-                ['isCover' => 0],
-                'imageGroupId = :imageGroupId',
-                ['imageGroupId' => $this->get('imageGroupId')]
-            );
-        }
-
-        $this->set($data);
-        $this->save();
 
         return $this;
     }
