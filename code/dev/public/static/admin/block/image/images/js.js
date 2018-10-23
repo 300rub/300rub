@@ -10,6 +10,7 @@
          * @type {Object}
          */
         defaultOptions: {
+            blockId: 0,
             appendTo: null,
             isSortable: false,
             list: [
@@ -20,13 +21,19 @@
                 group: "",
                 controller: "",
                 isSingleton: false,
-                data: {}
+                imageGroupId: 0
             },
             crop: {
                 hasOperation: false,
                 group: "",
                 controller: "",
-                blockId: 0,
+                level: 2,
+                parent: ""
+            },
+            edit: {
+                hasOperation: false,
+                group: "",
+                controller: "",
                 level: 2,
                 parent: ""
             },
@@ -208,84 +215,164 @@
                 = ss.init("template").get("image-sort-item");
             itemElement.find("img").attr("src", data.url);
 
-            var buttons = itemElement.find(".buttons");
+            this.container.append(itemElement);
 
-            if (this.getOption(["crop", "hasOperation"]) !== true
+            if (this.getOption(["create", "isSingleton"]) !== true) {
+                this.uploadContainer.addClass("hidden");
+            }
+
+            var buttons = itemElement.find(".buttons");
+            if (this.getOption(["edit", "hasOperation"]) !== true
+                && this.getOption(["crop", "hasOperation"]) !== true
                 && this.getOption(["remove", "hasOperation"]) !== true
             ) {
                 buttons.remove();
                 return this;
             }
 
-            if (this.getOption(["crop", "hasOperation"]) === true) {
-                var cropOptions = {
-                    group: this.getOption(["crop", "group"]),
-                    controller: this.getOption(["crop", "controller"]),
-                    blockId: this.getOption(["crop", "blockId"]),
-                    id: data.id,
-                    level: this.getOption(["crop", "level"]),
-                    parent: this.getOption(["crop", "parent"])
-                };
+            this
+                .setEditButton(buttons, data.id)
+                .setCropButton(buttons, data.id)
+                .setRemoveButton(buttons, data.id, itemElement);
 
-                ss.init(
-                    "commonComponentsFormButton",
-                    {
-                        css: "btn btn-blue btn-small edit",
-                        icon: "fas fa-edit",
-                        label: '',
-                        appendTo: buttons,
-                        onClick: $.proxy(
-                            function () {
-                                ss.init("adminBlockImageCrop", cropOptions);
-                            },
-                            this
-                        )
-                    }
-                );
+            return this;
+        },
+
+        /**
+         * Sets Edit button
+         *
+         * @param {Object}  buttons
+         * @param {integer} instanceId
+         */
+        setEditButton: function(buttons, instanceId) {
+            if (this.getOption(["edit", "hasOperation"]) !== true) {
+                return this;
             }
 
-            if (this.getOption(["remove", "hasOperation"]) === true) {
-                ss.init(
-                    "commonComponentsFormButton",
-                    {
-                        css: "btn btn-red btn-small remove",
-                        icon: "fas fa-trash",
-                        label: '',
-                        appendTo: buttons,
-                        confirm: {
-                            text: this.getOption(["remove", "confirm", "text"]),
-                            yes: {
-                                label: this.getOption(
-                                    ["remove", "confirm", "yes"]
-                                ),
-                            icon: "fas fa-trash"
-                            },
-                            no: this.getOption(["remove", "confirm", "no"])
+            var editOptions = {
+                group: this.getOption(["edit", "group"]),
+                controller: this.getOption(["edit", "controller"]),
+                blockId: this.getOption("blockId"),
+                id: instanceId,
+                level: this.getOption(["edit", "level"]),
+                parent: this.getOption(["edit", "parent"])
+            };
+
+            ss.init(
+                "commonComponentsFormButton",
+                {
+                    css: "btn btn-blue btn-small edit",
+                    icon: "fas fa-edit",
+                    label: '',
+                    appendTo: buttons,
+                    onClick: $.proxy(
+                        function () {
+                            ss.init("adminBlockImageEditImage", editOptions);
                         },
-                        ajax: {
-                            data: {
-                                group: this.getOption(["remove", "group"]),
-                                controller: this.getOption(
-                                    ["remove", "controller"]
-                                ),
+                        this
+                    )
+                }
+            );
+
+            return this;
+        },
+
+        /**
+         * Sets Crop button
+         *
+         * @param {Object}  buttons
+         * @param {integer} instanceId
+         */
+        setCropButton: function(buttons, instanceId) {
+            if (this.getOption(["crop", "hasOperation"]) !== true) {
+                return this;
+            }
+
+            var cropOptions = {
+                group: this.getOption(["crop", "group"]),
+                controller: this.getOption(["crop", "controller"]),
+                blockId: this.getOption("blockId"),
+                id: instanceId,
+                level: this.getOption(["crop", "level"]),
+                parent: this.getOption(["crop", "parent"])
+            };
+
+            ss.init(
+                "commonComponentsFormButton",
+                {
+                    css: "btn btn-blue btn-small crop",
+                    icon: "fas fa-crop",
+                    label: '',
+                    appendTo: buttons,
+                    onClick: $.proxy(
+                        function () {
+                            ss.init("adminBlockImageCrop", cropOptions);
+                        },
+                        this
+                    )
+                }
+            );
+
+            return this;
+        },
+
+        /**
+         * Sets Remove button
+         *
+         * @param {Object}  buttons
+         * @param {integer} instanceId
+         * @param {Object}  itemElement
+         */
+        setRemoveButton: function(buttons, instanceId, itemElement) {
+            if (this.getOption(["remove", "hasOperation"]) !== true) {
+                return this;
+            }
+
+            ss.init(
+                "commonComponentsFormButton",
+                {
+                    css: "btn btn-red btn-small remove",
+                    icon: "fas fa-trash",
+                    label: '',
+                    appendTo: buttons,
+                    confirm: {
+                        text: this.getOption(["remove", "confirm", "text"]),
+                        yes: {
+                            label: this.getOption(
+                                ["remove", "confirm", "yes"]
+                            ),
+                            icon: "fas fa-trash"
+                        },
+                        no: this.getOption(["remove", "confirm", "no"])
+                    },
+                    ajax: {
+                        data: {
+                            group: this.getOption(["remove", "group"]),
+                            controller: this.getOption(
+                                ["remove", "controller"]
+                            ),
                             data: $.extend(
                                 {},
                                 this.getOption(["remove", "data"], {}),
                                 {
-                                    id: data.id
-                                    }
+                                    id: instanceId
+                                }
                             )
-                            },
-                            type: "DELETE",
-                            success: function () {
-                                itemElement.remove();
-                            }
-                        }
-                    }
-                );
-            }
+                        },
+                        type: "DELETE",
+                        success: $.proxy(function () {
+                            itemElement.remove();
 
-            this.container.append(itemElement);
+                            var isSingleton = this.getOption(
+                                ["create", "isSingleton"]
+                            );
+                            if (isSingleton !== true) {
+                                this.uploadContainer.removeClass("hidden");
+                            }
+                        }, this)
+                    }
+                }
+            );
 
             return this;
         },
@@ -341,7 +428,11 @@
                     data: {
                         group: this.getOption(["create", "group"]),
                         controller: this.getOption(["create", "controller"]),
-                        data: this.getOption(["create", "data"], {})
+                        data: {
+                            imageGroupId: this.getOption(
+                                ["create", "imageGroupId"]
+                            )
+                        }
                     },
                     file: file,
                     success: $.proxy(

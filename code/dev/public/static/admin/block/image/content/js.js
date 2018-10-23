@@ -20,7 +20,10 @@
                 data = {
                     name: "image-content-group",
                     parent: "image-content",
-                    level: 2
+                    level: 2,
+                    data: {
+                        groupId: this.getOption("groupId")
+                    }
                 };
             }
 
@@ -76,6 +79,7 @@
             ss.init(
                 "adminBlockImageImages",
                 {
+                    blockId: this.getData("id"),
                     appendTo: this.getBody(),
                     isSortable: true,
                     list: this.getData("list", {}),
@@ -84,16 +88,19 @@
                         isSingleton: false,
                         group: "image",
                         controller: "image",
-                        data: {
-                            blockId: this.getData("id"),
-                            imageGroupId: this.getData("groupId")
-                        }
+                        imageGroupId: this.getData("groupId")
+                    },
+                    edit: {
+                        hasOperation: this.getData("canUpdate"),
+                        group: "image",
+                        controller: "image",
+                        level: 2,
+                        parent: "image-content"
                     },
                     crop: {
                         hasOperation: this.getData("canUpdate"),
                         group: "image",
-                        contrtoller: "crop",
-                        blockId: this.getData("id"),
+                        controller: "crop",
                         level: 2,
                         parent: "image-content"
                     },
@@ -101,9 +108,6 @@
                         hasOperation: this.getData("canDelete"),
                         group: "image",
                         controller: "image",
-                        data: {
-                            blockId: this.getData("id")
-                        },
                         confirm: {
                             text: this.getLabel("deleteConfirm"),
                             yes: this.getLabel("delete"),
@@ -194,7 +198,7 @@
                         ss.init(
                             "adminBlockImageAlbumAdd",
                             {
-                                blockId: this.getOption("blockId"),
+                                blockId: this.getOption("blockId")
                             }
                         );
                     }, this)
