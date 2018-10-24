@@ -23,8 +23,12 @@ class CreateAlbumController extends AbstractController
     {
         $this->checkData(
             [
-                'blockId'  => [self::TYPE_INT, self::NOT_EMPTY],
-                'seoModel' => [self::TYPE_ARRAY],
+                'blockId'     => [self::TYPE_INT, self::NOT_EMPTY],
+                'name'        => [self::TYPE_STRING],
+                'alias'       => [self::TYPE_STRING],
+                'title'       => [self::TYPE_STRING],
+                'keywords'    => [self::TYPE_STRING],
+                'description' => [self::TYPE_STRING],
             ]
         );
 

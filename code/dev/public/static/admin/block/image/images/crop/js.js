@@ -1,7 +1,7 @@
 !function ($, ss) {
     "use strict";
 
-    var name = "adminBlockImageCrop";
+    var name = "adminBlockImageImagesCrop";
 
     var parameters = {
         /**

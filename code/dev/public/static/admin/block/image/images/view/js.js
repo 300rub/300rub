@@ -1,7 +1,7 @@
 !function ($, ss) {
     "use strict";
 
-    var name = "adminBlockImageImages";
+    var name = "adminBlockImageImagesView";
 
     var parameters = {
         /**
@@ -306,7 +306,7 @@
                     appendTo: buttons,
                     onClick: $.proxy(
                         function () {
-                            ss.init("adminBlockImageCrop", cropOptions);
+                            ss.init("adminBlockImageImagesCrop", cropOptions);
                         },
                         this
                     )
