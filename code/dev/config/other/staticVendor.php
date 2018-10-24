@@ -108,6 +108,8 @@ $adminFiles = [
         => "tinymce/tinymce/skins/lightgray/fonts/tinymce.woff",
     "tinymce/skins/lightgray/fonts/tinymce.ttf"
         => "tinymce/tinymce/skins/lightgray/fonts/tinymce.ttf",
+    "tinymce/skins/lightgray/img/loader.gif"
+        => 'tinymce/tinymce/skins/lightgray/img/loader.gif',
     "tinymce/plugins/textcolor/plugin.min.js"
         => "tinymce/tinymce/plugins/textcolor/plugin.min.js",
     "tinymce/plugins/link/plugin.min.js"

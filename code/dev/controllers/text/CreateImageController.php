@@ -1,6 +1,6 @@
 <?php
 
-namespace ss\controllers\image;
+namespace ss\controllers\text;
 
 use ss\application\components\user\Operation;
 use ss\controllers\image\_abstract\AbstractCreateImageController;
@@ -27,19 +27,16 @@ class CreateImageController extends AbstractCreateImageController
 
         $this->checkBlockOperation(
             BlockModel::TYPE_IMAGE,
-            $this->get('blockId'),
+            2,
             Operation::IMAGE_UPLOAD
         );
 
         $result = $this
-            ->setImageGroupId($this->get('imageGroupId'))
-            ->setBlockId($this->get('blockId'))
+            ->setBlockId(2)
             ->create();
 
         return [
-            'id'   => $result['id'],
-            'name' => $result['name'],
-            'url'  => $result['thumbUrl'],
+            'location' => $result['viewUrl'],
         ];
     }
 }
