@@ -26,9 +26,13 @@ class UpdateAlbumController extends AbstractController
     {
         $this->checkData(
             [
-                'blockId'  => [self::TYPE_INT, self::NOT_EMPTY],
-                'id'       => [self::TYPE_INT, self::NOT_EMPTY],
-                'seoModel' => [self::TYPE_ARRAY],
+                'blockId'     => [self::TYPE_INT, self::NOT_EMPTY],
+                'id'          => [self::TYPE_INT, self::NOT_EMPTY],
+                'name'        => [self::TYPE_STRING],
+                'alias'       => [self::TYPE_STRING],
+                'title'       => [self::TYPE_STRING],
+                'keywords'    => [self::TYPE_STRING],
+                'description' => [self::TYPE_STRING],
             ]
         );
 
@@ -61,7 +65,13 @@ class UpdateAlbumController extends AbstractController
 
         $imageGroupModel->set(
             [
-                'seoModel' => $this->get('seoModel'),
+                'seoModel' => [
+                    'name'        => $this->get('name'),
+                    'alias'       => $this->get('alias'),
+                    'title'       => $this->get('title'),
+                    'keywords'    => $this->get('keywords'),
+                    'description' => $this->get('description'),
+                ]
             ]
         );
         $imageGroupModel->save();

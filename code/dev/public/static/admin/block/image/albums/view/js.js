@@ -116,7 +116,7 @@
                     appendTo: this.getOption(["create", "appendTo"]),
                     onClick: $.proxy(function() {
                         ss.init(
-                            "adminBlockImageAlbumsCreate",
+                            "adminBlockImageAlbumsSettings",
                             {
                                 blockId: this.getOption("blockId")
                             }
@@ -170,10 +170,10 @@
                         onClick: $.proxy(
                             function () {
                                 ss.init(
-                                    "adminBlockImageAlbumUpdate",
+                                    "adminBlockImageAlbumsSettings",
                                     {
-                                        groupId: itemData.id,
-                                        blockId: this.getOption("blockId")
+                                        blockId: this.getOption("blockId"),
+                                        id: itemData.id
                                     }
                                 );
                             },

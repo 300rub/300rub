@@ -47,7 +47,13 @@ class CreateAlbumController extends AbstractController
         $imageGroupModel->set(
             [
                 'imageId'  => $imageModel->getId(),
-                'seoModel' => $this->get('seoModel'),
+                'seoModel' => [
+                    'name'        => $this->get('name'),
+                    'alias'       => $this->get('alias'),
+                    'title'       => $this->get('title'),
+                    'keywords'    => $this->get('keywords'),
+                    'description' => $this->get('description'),
+                ],
                 'sort'     => 10000,
             ]
         );
