@@ -49,21 +49,24 @@
             this.forms = $.extend({}, seo.getForms());
 
             var type = "POST";
+            var icon = "fas fa-plus";
             if (this.getData("id", 0) > 0) {
                 type = "PUT";
+                icon = "fas fa-save";
             }
 
             this.setSubmit(
                 {
                     label: this.getLabel("button"),
-                    icon: "fas fa-save",
+                    icon: icon,
+                    forms: this.forms,
                     ajax: {
                         data: {
                             group: "image",
                             controller: "album",
-                            forms: this.forms,
                             data: {
-                                blockId: this.getData("blockId")
+                                blockId: this.getData("blockId"),
+                                id: this.getData("id")
                             }
                         },
                         type: type,
