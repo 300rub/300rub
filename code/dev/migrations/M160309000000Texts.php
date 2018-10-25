@@ -45,6 +45,28 @@ class M160309000000Texts extends AbstractMigration
                 self::FK_CASCADE,
                 self::FK_CASCADE
             )
-            ->createFullTextIndex('textInstances', 'text');
+            ->createFullTextIndex('textInstances', 'text')
+            ->createTable(
+                'textInstanceFileMap',
+                [
+                    'id'             => self::TYPE_PK,
+                    'textInstanceId' => self::TYPE_FK,
+                    'fileId'         => self::TYPE_FK,
+                ]
+            )
+            ->createForeignKey(
+                'textInstanceFileMap',
+                'textInstanceId',
+                'textInstances',
+                self::FK_CASCADE,
+                self::FK_CASCADE
+            )
+            ->createForeignKey(
+                'textInstanceFileMap',
+                'fileId',
+                'files',
+                self::FK_CASCADE,
+                self::FK_CASCADE
+            );
     }
 }

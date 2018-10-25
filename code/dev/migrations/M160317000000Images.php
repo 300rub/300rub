@@ -301,7 +301,7 @@ class M160317000000Images extends AbstractMigration
                 'imageInstances',
                 [
                     'id'             => self::TYPE_PK,
-                    'imageGroupId'   => self::TYPE_FK,
+                    'imageGroupId'   => self::TYPE_FK_NULL,
                     'originalFileId' => self::TYPE_FK,
                     'viewFileId'     => self::TYPE_FK,
                     'thumbFileId'    => self::TYPE_FK,
@@ -336,6 +336,13 @@ class M160317000000Images extends AbstractMigration
             ->createForeignKey('imageInstances', 'viewFileId', 'files')
             ->createForeignKey('imageInstances', 'thumbFileId', 'files')
             ->createIndex('imageInstances', 'isCover')
-            ->createIndex('imageInstances', 'sort');
+            ->createIndex('imageInstances', 'sort')
+            ->createForeignKey(
+                'designBlocks',
+                'imageInstanceId',
+                'imageInstances',
+                self::FK_NULL,
+                self::FK_NULL
+            );
     }
 }

@@ -43,6 +43,62 @@ abstract class AbstractDesignBlockModel extends AbstractDesignModel
     const BORDER_STYLE_DASHED = 2;
 
     /**
+     * Background repeat
+     */
+    const BACKGROUND_REPEAT_NONE = 0;
+    const BACKGROUND_REPEAT_X = 1;
+    const BACKGROUND_REPEAT_Y = 2;
+    const BACKGROUND_REPEAT_ALL = 3;
+
+    /**
+     * Background position
+     */
+    const BACKGROUND_POSITION_LEFT_TOP = 0;
+    const BACKGROUND_POSITION_CENTER_TOP = 1;
+    const BACKGROUND_POSITION_RIGHT_TOP = 2;
+    const BACKGROUND_POSITION_LEFT_CENTER = 3;
+    const BACKGROUND_POSITION_CENTER_CENTER = 4;
+    const BACKGROUND_POSITION_RIGHT_CENTER = 5;
+    const BACKGROUND_POSITION_LEFT_BOTTOM = 6;
+    const BACKGROUND_POSITION_CENTER_BOTTOM = 7;
+    const BACKGROUND_POSITION_RIGHT_BOTTOM = 8;
+
+    /**
+     * Gets background repeat list
+     *
+     * @return array
+     */
+    protected function getBackgroundRepeatList()
+    {
+        return [
+            self::BACKGROUND_REPEAT_NONE => '',
+            self::BACKGROUND_REPEAT_X => '',
+            self::BACKGROUND_REPEAT_Y => '',
+            self::BACKGROUND_REPEAT_ALL => '',
+        ];
+    }
+
+    /**
+     * Gets background position list
+     *
+     * @return array
+     */
+    protected function getBackgroundPositionList()
+    {
+        return [
+            self::BACKGROUND_POSITION_LEFT_TOP => '',
+            self::BACKGROUND_POSITION_CENTER_TOP => '',
+            self::BACKGROUND_POSITION_RIGHT_TOP => '',
+            self::BACKGROUND_POSITION_LEFT_CENTER => '',
+            self::BACKGROUND_POSITION_CENTER_CENTER => '',
+            self::BACKGROUND_POSITION_RIGHT_CENTER => '',
+            self::BACKGROUND_POSITION_LEFT_BOTTOM => '',
+            self::BACKGROUND_POSITION_CENTER_BOTTOM => '',
+            self::BACKGROUND_POSITION_RIGHT_BOTTOM => '',
+        ];
+    }
+
+    /**
      * List of gradient directions options
      *
      * @var array
@@ -359,6 +415,32 @@ abstract class AbstractDesignBlockModel extends AbstractDesignModel
                 self::FIELD_TYPE => self::FIELD_TYPE_BOOL,
             ],
             'hasBackgroundAnimation'   => [
+                self::FIELD_TYPE => self::FIELD_TYPE_BOOL,
+            ],
+            'imageInstanceId'              => [
+                self::FIELD_RELATION_TO_PARENT
+                    => '\\ss\\models\\blocks\\image\\ImageInstanceModel',
+                self::FIELD_ALLOW_NULL => true,
+            ],
+            'backgroundPosition'           => [
+                self::FIELD_TYPE  => self::FIELD_TYPE_INT,
+                self::FIELD_VALUE => [
+                    ValueGenerator::ARRAY_KEY => [
+                        $this->getBackgroundPositionList(),
+                        self::BACKGROUND_POSITION_LEFT_TOP
+                    ]
+                ],
+            ],
+            'backgroundRepeat'             => [
+                self::FIELD_TYPE  => self::FIELD_TYPE_INT,
+                self::FIELD_VALUE => [
+                    ValueGenerator::ARRAY_KEY => [
+                        $this->getBackgroundRepeatList(),
+                        self::BACKGROUND_REPEAT_NONE
+                    ]
+                ],
+            ],
+            'isBackgroundCover'            => [
                 self::FIELD_TYPE => self::FIELD_TYPE_BOOL,
             ],
         ];

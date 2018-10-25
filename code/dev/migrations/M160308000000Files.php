@@ -7,7 +7,7 @@ use ss\migrations\_abstract\AbstractMigration;
 /**
  * Creates files table
  */
-class M160316000000Files extends AbstractMigration
+class M160308000000Files extends AbstractMigration
 {
 
     /**
@@ -28,6 +28,13 @@ class M160316000000Files extends AbstractMigration
                     'uniqueName'   => self::TYPE_STRING_25,
                 ]
             )
-            ->createUniqueIndex('files', 'files_uniqueName', 'uniqueName');
+            ->createUniqueIndex('files', 'files_uniqueName', 'uniqueName')
+            ->createTable(
+                'removedFiles',
+                [
+                    'id'         => self::TYPE_PK,
+                    'uniqueName' => self::TYPE_STRING,
+                ]
+            );
     }
 }

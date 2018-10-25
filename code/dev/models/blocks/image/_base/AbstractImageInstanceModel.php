@@ -88,6 +88,7 @@ abstract class AbstractImageInstanceModel extends AbstractModel
                 self::FIELD_RELATION_TO_PARENT
                     => '\\ss\\models\\blocks\\image\\ImageGroupModel',
                 self::FIELD_SKIP_DUPLICATION   => true,
+                self::FIELD_ALLOW_NULL => true,
             ],
             'originalFileId' => [
                 self::FIELD_RELATION
