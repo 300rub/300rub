@@ -43,12 +43,12 @@ return [
         Language::LANGUAGE_EN_ID => 'Mouse-over animation',
         Language::LANGUAGE_RU_ID => '',
     ],
-    'background'     => [
-        Language::LANGUAGE_EN_ID => 'Background',
-        Language::LANGUAGE_RU_ID => '',
-    ],
     'backgroundColor'     => [
         Language::LANGUAGE_EN_ID => 'Background color',
+        Language::LANGUAGE_RU_ID => '',
+    ],
+    'backgroundImage'     => [
+        Language::LANGUAGE_EN_ID => 'Background image',
         Language::LANGUAGE_RU_ID => '',
     ],
     'borderColor'     => [

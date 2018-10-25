@@ -40,18 +40,32 @@
         paddingSample: null,
 
         /**
-         * Background
+         * Background color
          *
          * @var {Object}
          */
-        background: null,
+        color: null,
 
         /**
-         * Background sample
+         * Background color sample
          *
          * @var {Object}
          */
-        backgroundSample: null,
+        colorSample: null,
+
+        /**
+         * Background image
+         *
+         * @var {Object}
+         */
+        image: null,
+
+        /**
+         * Background image sample
+         *
+         * @var {Object}
+         */
+        imageSample: null,
 
         /**
          * Border
@@ -77,8 +91,11 @@
             this.padding = null;
             this.paddingSample = null;
 
-            this.background = null;
-            this.backgroundSample = null;
+            this.color = null;
+            this.colorSample = null;
+
+            this.image = null;
+            this.imageSample = null;
 
             this.border = null;
             this.borderSample = null;
@@ -112,12 +129,20 @@
                 .find(".padding-container .styles-sample-container")
                 .attr("data-selector", selector);
 
-            selector = "background-sample-" + this.getUniqueId();
+            selector = "color-sample-" + this.getUniqueId();
             this.getEditorContainer()
-                .find(".background-sample")
+                .find(".color-sample")
                 .addClass(selector);
-            this.backgroundSample = this.getEditorContainer()
-                .find(".background-container .styles-sample-container")
+            this.colorSample = this.getEditorContainer()
+                .find(".color-container .styles-sample-container")
+                .attr("data-selector", selector);
+
+            selector = "image-sample-" + this.getUniqueId();
+            this.getEditorContainer()
+                .find(".image-sample")
+                .addClass(selector);
+            this.imageSample = this.getEditorContainer()
+                .find(".image-container .styles-sample-container")
                 .attr("data-selector", selector);
 
             selector = "border-sample-" + this.getUniqueId();
@@ -153,8 +178,18 @@
                 }
             );
 
-            this.background = ss.init(
-                "adminComponentsDesignBlockBackground",
+            this.color = ss.init(
+                "adminComponentsDesignBlockColor",
+                {
+                    editorContainer: this.getEditorContainer(),
+                    labels: this.getLabels(),
+                    values: this.getValues(),
+                    namespace: this.getNamespace()
+                }
+            );
+
+            this.image = ss.init(
+                "adminComponentsDesignBlockImage",
                 {
                     editorContainer: this.getEditorContainer(),
                     labels: this.getLabels(),
@@ -193,8 +228,11 @@
                     "update-padding-sample",
                     $.proxy(this.onUpdatePaddingSample, this)
                 ).on(
-                    "update-background-sample",
-                    $.proxy(this.onUpdateBackgroundSample, this)
+                    "update-color-sample",
+                    $.proxy(this.onUpdateColorSample, this)
+                ).on(
+                    "update-image-sample",
+                    $.proxy(this.onUpdateImageSample, this)
                 ).on(
                     "update-border-sample",
                     $.proxy(this.onUpdateBorderSample, this)
@@ -210,7 +248,8 @@
             this
                 .onUpdateMarginSample()
                 .onUpdatePaddingSample()
-                .onUpdateBackgroundSample()
+                .onUpdateColorSample()
+                .onUpdateImageSample()
                 .onUpdateBorderSample();
         },
 
@@ -297,13 +336,13 @@
         },
 
         /**
-         * On update background sample
+         * On update color sample
          */
-        onUpdateBackgroundSample: function () {
-            var css = this.background.generateCss(false);
-            var cssHover = this.background.generateCss(true);
+        onUpdateColorSample: function () {
+            var css = this.color.generateCss(false);
+            var cssHover = this.color.generateCss(true);
 
-            if (this.background.hasAnimation() === true) {
+            if (this.color.hasAnimation() === true) {
                 var cssAnimation = "";
                 cssAnimation += "-webkit-transition:background-color .3s;";
                 cssAnimation += "-ms-transition:background-color .3s;";
@@ -314,7 +353,7 @@
                 cssHover += cssAnimation;
             }
 
-            var selector = "." + this.backgroundSample.data("selector");
+            var selector = "." + this.colorSample.data("selector");
 
             var html = "<style>";
 
@@ -324,7 +363,16 @@
 
             html += "</style>";
 
-            this.backgroundSample.html(html);
+            this.colorSample.html(html);
+
+            return this;
+        },
+
+        /**
+         * On update image sample
+         */
+        onUpdateImageSample: function () {
+            console.log("Update image sample");
 
             return this;
         },
@@ -377,7 +425,8 @@
 
             css += this.margin.generateCss(isHover);
             css += this.padding.generateCss(isHover);
-            css += this.background.generateCss(isHover);
+            css += this.color.generateCss(isHover);
+            css += this.image.generateCss(isHover);
             css += this.border.generateCss(isHover);
 
             var animation = [];
@@ -390,7 +439,7 @@
                 animation.push("padding .3s");
             }
 
-            if (this.background.hasAnimation() === true) {
+            if (this.color.hasAnimation() === true) {
                 animation.push("background-color .3s");
             }
 
@@ -421,7 +470,8 @@
 
             $.extend(data, this.margin.getData());
             $.extend(data, this.padding.getData());
-            $.extend(data, this.background.getData());
+            $.extend(data, this.color.getData());
+            $.extend(data, this.image.getData());
             $.extend(data, this.border.getData());
 
             return data;

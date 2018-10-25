@@ -1,7 +1,7 @@
 !function ($, ss) {
     "use strict";
 
-    var name = "adminComponentsDesignBlockBackground";
+    var name = "adminComponentsDesignBlockColor";
 
     var parameters = {
         /**
@@ -172,9 +172,9 @@
 
             this.create(
                 {
-                    groupContainerSelector: ".background-container",
-                    updateSampleEventName: "update-background-sample",
-                    title: this.getOption(["labels", "background"])
+                    groupContainerSelector: ".color-container",
+                    updateSampleEventName: "update-color-sample",
+                    title: this.getOption(["labels", "backgroundColor"])
                 }
             );
 
@@ -247,7 +247,7 @@
                     title: this.getLabel("backgroundColor"),
                     value: this.backgroundColorFromHover,
                     css: "background-color-from-hover",
-                    iconBefore: "fa-mouse-pointer",
+                    iconBefore: "fas fa-mouse-pointer",
                     appendTo: this.relativeContainer,
                     callback: $.proxy(
                         function (color) {
@@ -297,7 +297,7 @@
                     title: this.getLabel("backgroundColor"),
                     value: this.backgroundColorToHover,
                     css: "background-color-to-hover",
-                    iconBefore: "fa-mouse-pointer",
+                    iconBefore: "fas fa-mouse-pointer",
                     appendTo: this.relativeContainer,
                     callback: $.proxy(
                         function (color) {

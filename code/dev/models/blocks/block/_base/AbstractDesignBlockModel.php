@@ -171,10 +171,10 @@ abstract class AbstractDesignBlockModel extends AbstractDesignModel
                 ->getMessage('design', 'mouseHoverEffect'),
             'mouseHoverAnimation'    => $language
                 ->getMessage('design', 'mouseHoverAnimation'),
-            'background'             => $language
-                ->getMessage('design', 'background'),
             'backgroundColor'        => $language
                 ->getMessage('design', 'backgroundColor'),
+            'backgroundImage'        => $language
+                ->getMessage('design', 'backgroundImage'),
             'borderColor'            => $language
                 ->getMessage('design', 'borderColor'),
             'borderColorHover'       => $language
