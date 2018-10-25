@@ -1,4 +1,4 @@
--- MySQL dump 10.13  Distrib 5.7.22, for Linux (x86_64)
+-- MySQL dump 10.13  Distrib 5.7.23, for Linux (x86_64)
 --
 -- Host: 127.0.0.1    Database: source
 -- ------------------------------------------------------
@@ -289,6 +289,10 @@ CREATE TABLE `designBlocks` (
   `hasBackgroundGradient` tinyint(1) unsigned NOT NULL,
   `hasBackgroundHover` tinyint(1) unsigned NOT NULL,
   `hasBackgroundAnimation` tinyint(1) unsigned NOT NULL,
+  `imageInstanceId` int(11) unsigned DEFAULT NULL,
+  `backgroundPosition` tinyint(3) unsigned NOT NULL,
+  `backgroundRepeat` tinyint(3) unsigned NOT NULL,
+  `isBackgroundCover` tinyint(1) unsigned NOT NULL,
   `borderTopLeftRadius` smallint(5) unsigned NOT NULL,
   `borderTopLeftRadiusHover` smallint(5) unsigned NOT NULL,
   `borderTopRightRadius` smallint(5) unsigned NOT NULL,
@@ -313,7 +317,9 @@ CREATE TABLE `designBlocks` (
   `hasBorderAnimation` tinyint(1) unsigned NOT NULL,
   `width` smallint(5) unsigned NOT NULL,
   `height` smallint(5) unsigned NOT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  KEY `designBlocks_imageInstanceId_fk` (`imageInstanceId`),
+  CONSTRAINT `designBlocks_imageInstanceId_fk` FOREIGN KEY (`imageInstanceId`) REFERENCES `imageInstances` (`id`) ON DELETE SET NULL ON UPDATE SET NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -1372,7 +1378,7 @@ DROP TABLE IF EXISTS `imageInstances`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `imageInstances` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `imageGroupId` int(11) unsigned NOT NULL,
+  `imageGroupId` int(11) unsigned DEFAULT NULL,
   `originalFileId` int(11) unsigned NOT NULL,
   `viewFileId` int(11) unsigned NOT NULL,
   `thumbFileId` int(11) unsigned NOT NULL,
@@ -1543,7 +1549,7 @@ CREATE TABLE `migrations` (
 
 LOCK TABLES `migrations` WRITE;
 /*!40000 ALTER TABLE `migrations` DISABLE KEYS */;
-INSERT INTO `migrations` VALUES (1,'M160301000000Sites'),(2,'M160301000010Domains'),(3,'M160301000020Help'),(4,'M160302000000Migrations'),(5,'M160302000005Blocks'),(6,'M160302000010DesignBlocks'),(7,'M160302000020DesignTexts'),(8,'M160303000000Seo'),(9,'M160305000000Sections'),(10,'M160307000000Users'),(11,'M160309000000Texts'),(12,'M160311000000Grids'),(13,'M160316000000Files'),(14,'M160317000000Images'),(15,'M160317001000Forms'),(16,'M160321000000Feedback'),(17,'M160321000100Records'),(18,'M160321000200Menu'),(19,'M160321000300SiteMaps'),(20,'M160321000400Search'),(21,'M160321000500Fields'),(22,'M160321000550Tabs'),(23,'M160321000700Catalogs'),(24,'M160321000800Settings');
+INSERT INTO `migrations` VALUES (1,'M160301000000Sites'),(2,'M160301000010Domains'),(3,'M160301000020Help'),(4,'M160302000000Migrations'),(5,'M160302000005Blocks'),(6,'M160302000010DesignBlocks'),(7,'M160302000020DesignTexts'),(8,'M160303000000Seo'),(9,'M160305000000Sections'),(10,'M160307000000Users'),(11,'M160308000000Files'),(12,'M160309000000Texts'),(13,'M160311000000Grids'),(14,'M160317000000Images'),(15,'M160317001000Forms'),(16,'M160321000000Feedback'),(17,'M160321000100Records'),(18,'M160321000200Menu'),(19,'M160321000300SiteMaps'),(20,'M160321000400Search'),(21,'M160321000500Fields'),(22,'M160321000550Tabs'),(23,'M160321000700Catalogs'),(24,'M160321000800Settings');
 /*!40000 ALTER TABLE `migrations` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1673,6 +1679,29 @@ CREATE TABLE `records` (
 LOCK TABLES `records` WRITE;
 /*!40000 ALTER TABLE `records` DISABLE KEYS */;
 /*!40000 ALTER TABLE `records` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `removedFiles`
+--
+
+DROP TABLE IF EXISTS `removedFiles`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `removedFiles` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `uniqueName` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `removedFiles`
+--
+
+LOCK TABLES `removedFiles` WRITE;
+/*!40000 ALTER TABLE `removedFiles` DISABLE KEYS */;
+/*!40000 ALTER TABLE `removedFiles` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -1970,6 +1999,34 @@ LOCK TABLES `tabs` WRITE;
 UNLOCK TABLES;
 
 --
+-- Table structure for table `textInstanceFileMap`
+--
+
+DROP TABLE IF EXISTS `textInstanceFileMap`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `textInstanceFileMap` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `textInstanceId` int(11) unsigned NOT NULL,
+  `fileId` int(11) unsigned NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `textInstanceFileMap_textInstanceId_fk` (`textInstanceId`),
+  KEY `textInstanceFileMap_fileId_fk` (`fileId`),
+  CONSTRAINT `textInstanceFileMap_fileId_fk` FOREIGN KEY (`fileId`) REFERENCES `files` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `textInstanceFileMap_textInstanceId_fk` FOREIGN KEY (`textInstanceId`) REFERENCES `textInstances` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `textInstanceFileMap`
+--
+
+LOCK TABLES `textInstanceFileMap` WRITE;
+/*!40000 ALTER TABLE `textInstanceFileMap` DISABLE KEYS */;
+/*!40000 ALTER TABLE `textInstanceFileMap` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `textInstances`
 --
 
@@ -2263,4 +2320,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-09-17 11:58:16
+-- Dump completed on 2018-10-25 14:05:46
