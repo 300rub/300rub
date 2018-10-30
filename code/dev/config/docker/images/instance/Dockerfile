@@ -10,7 +10,6 @@ RUN LC_ALL=C.UTF-8 add-apt-repository ppa:ondrej/php
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y tzdata
 
 RUN apt-get install -y php7.2
-
 RUN apt-get install -y php7.2-mysql
 RUN apt-get install -y php7.2-fpm
 RUN apt-get install -y php7.2-mbstring

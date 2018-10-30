@@ -32,8 +32,6 @@ RUN curl -sL https://deb.nodesource.com/setup_8.x -o nodesource_setup.sh
 RUN bash nodesource_setup.sh
 RUN apt-get install -y nodejs
 
-#RUN apt-get install -y npm
-
 RUN npm install -g less lesshint
 RUN npm install -g lesshint-reporter-stylisher
 RUN npm install -g jshint
