@@ -1,0 +1,133 @@
+@import "../abstract/less";
+
+.form-container-radio-buttons {
+  .radio-buttons {
+    display: inline-block;
+
+    .radio-button-item-container {
+      display: block;
+
+      .radio-button-item {
+        cursor: pointer;
+        display: inline-block;
+        float: left;
+        margin: 0;
+
+        .label-body {
+          .transition(background-color);
+          background-color: @grayBackground;
+          display: inline-block;
+          min-width: 30px;
+          padding: 0 10px;
+          text-align: center;
+
+          .label-icon,
+          .label {
+            height: 30px;
+            line-height: 30px;
+          }
+
+          &:hover {
+            background-color: @blueBackground;
+
+            .label-icon,
+            .label {
+              color: white;
+            }
+          }
+        }
+
+        .form-instance {
+          display: none;
+
+          &:checked + .label-body {
+            background-color: @blueBackground;
+            .box-shadow (@formGrayBoxShadow);
+            position: relative;
+            z-index: 10;
+
+            i,
+            span {
+              color: white;
+            }
+          }
+        }
+      }
+
+      &:first-child {
+        .radio-button-item {
+          &:first-child {
+            .label-body {
+              .border-top-left-radius;
+            }
+          }
+
+          &:last-child {
+            .label-body {
+              .border-top-right-radius;
+            }
+          }
+        }
+      }
+
+      &:last-child {
+        .radio-button-item {
+          &:first-child {
+            .label-body {
+              .border-bottom-left-radius;
+            }
+          }
+
+          &:last-child {
+            .label-body {
+              .border-bottom-right-radius;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .deg-45 {
+    .label-icon {
+      .transform(rotate(45deg));
+    }
+  }
+
+  .deg-180 {
+    .label-icon {
+      .transform(rotate(180deg));
+    }
+  }
+}
+
+.form-container-radio-buttons.icon-buttons {
+  .radio-buttons {
+    .radio-button-item-container {
+      .radio-button-item {
+        .label-body {
+          padding: 0;
+          width: 30px;
+        }
+      }
+    }
+  }
+}
+
+.form-container-radio-buttons.big {
+  .radio-buttons {
+    .radio-button-item-container {
+      .radio-button-item {
+        .label-body {
+          width: 40px;
+
+          .label-icon,
+          .label {
+            height: 40px;
+            line-height: 40px;
+          }
+        }
+      }
+    }
+  }
+}

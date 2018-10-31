@@ -1,0 +1,50 @@
+<div
+    id="slider-{{ uniqueId }}"
+    class="slider-container"
+    style="width:{{ width }}px;height:{{ height }}px;"
+>
+    <div
+        data-u="slides"
+        class="slides"
+        style="width:{{ width }}px;height:{{ height }}px;"
+    >
+        {{ imagesContent | raw }}
+    </div>
+
+    <div
+        data-u="thumbnavigator"
+        class="description-wrapper"
+        style="position:absolute;top:0;left:0;width:{{ width }}px;height:32px;"
+    >
+        <div data-u="slides">
+            <div
+                data-u="prototype"
+                style="position:absolute;top:0;left:0;width:{{ width }}px;height:32px;"
+            >
+                <div
+                    class="description"
+                    data-u="thumbnailtemplate"
+                    style="position:absolute;top:0;left:0;width:100%;height:100%;"
+                ></div>
+            </div>
+        </div>
+    </div>
+
+    <div data-u="navigator" style="position:absolute;bottom:12px;">
+        <div data-u="prototype" class="i" style="width:16px;height:16px;">
+            <div class="bullet"></div>
+        </div>
+    </div>
+
+    <div
+        data-u="arrowleft"
+        class="arrow"
+        style="position:absolute;width:60px;height:60px;left:0"
+    ><i class="fas fa-chevron-left"></i></div>
+
+    <div
+        data-u="arrowright"
+        class="arrow"
+        style="position:absolute;width:60px;height:60px;right:0"
+    ><i class="fas fa-chevron-right"></i></div>
+</div>

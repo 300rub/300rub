@@ -1,0 +1,24 @@
+<div class="pagination">
+    {% for item in tree %}
+        <a
+            href="{{ item.uri }}"
+            {% if item.isActive == true %}
+                class="active"
+            {% endif %}
+        >
+            {% if item.type == "first" %}
+                <i class="fas fa-chevron-left"></i>
+                <i class="fas fa-chevron-left"></i>
+            {% elseif item.type == "prev" %}
+                <i class="fas fa-chevron-left"></i>
+            {% elseif item.type == "next" %}
+                <i class="fas fa-chevron-right"></i>
+            {% elseif item.type == "last" %}
+                <i class="fas fa-chevron-right"></i>
+                <i class="fas fa-chevron-right"></i>
+            {% else %}
+                {{ item.value }}
+            {% endif %}
+        </a>
+    {% endfor %}
+</div>

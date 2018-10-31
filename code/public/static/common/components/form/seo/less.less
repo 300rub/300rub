@@ -1,0 +1,30 @@
+@import "../abstract/less";
+
+.form-container-seo {
+  .toggle-seo {
+    border-bottom: 1px dotted @grayBorderColor;
+    display: block;
+    margin: 15px;
+
+    .fas {
+      margin-right: 5px;
+      .transition(transform);
+    }
+  }
+
+  .seo {
+    display: none;
+  }
+}
+
+.form-container-seo.opened {
+  .toggle-seo {
+    .fas {
+      .transform(rotate(90deg));
+    }
+  }
+
+  .seo {
+    display: block;
+  }
+}

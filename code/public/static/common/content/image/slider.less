@@ -1,0 +1,40 @@
+@import "abstract";
+
+.slider-container {
+  overflow: hidden;
+  position: relative;
+
+  .slides {
+    left: 0;
+    overflow: hidden;
+    position: absolute;
+    top: 0;
+  }
+
+  .arrow {
+    cursor: pointer;
+    display: block;
+    text-align: center;
+
+    i {
+      line-height: 60px;
+    }
+  }
+
+  .i {
+    .bullet {
+      cursor: pointer;
+      height: 16px;
+      width: 16px;
+    }
+  }
+
+  .description-wrapper {
+    overflow: hidden;
+
+    .description {
+      line-height: 32px;
+      padding: 0 15px;
+    }
+  }
+}

@@ -1,0 +1,35 @@
+<style>
+    .control-buttons {
+        display: none !important;
+    }
+</style>
+
+<script>
+    !function ($, ss) {
+        window.jQuery(document).ready(function() {
+            setTimeout(function(){
+//                ss.init(
+//                    "adminBlockTextContent",
+//                    {
+//                        blockId: 8
+//                    }
+//                );
+
+                ss.init(
+                    "adminComponentsDesignEditor",
+                    {
+                        group: "text",
+                        controller: "design",
+                        id: 8,
+                        onBack: function () {
+
+                        },
+                        success: function () {
+
+                        }
+                    }
+                );
+            }, 500);
+        });
+    }(window.jQuery, window.ss);
+</script>

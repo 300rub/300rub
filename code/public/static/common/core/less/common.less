@@ -1,0 +1,102 @@
+@import "webkit";
+
+body,
+div,
+p,
+ul,
+li,
+input,
+textarea,
+span,
+a,
+button,
+label,
+img,
+code,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  .box-sizing;
+  color: @defaultTextColor;
+  font-family: "Open Sans", sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.4;
+  margin: 0;
+  outline: none;
+  padding: 0;
+}
+
+a,
+button {
+  cursor: pointer;
+}
+
+a {
+  text-decoration: none;
+}
+
+.transparent {
+  opacity: 0;
+}
+
+.hidden {
+  display: none !important; // lesshint-disable-line
+}
+
+.align-right {
+  text-align: right !important; // lesshint-disable-line
+}
+
+.align-left {
+  text-align: left !important; // lesshint-disable-line
+}
+
+.align-center {
+  text-align: center !important; // lesshint-disable-line
+}
+
+.margin-bottom-15 {
+  margin-bottom: 15px;
+}
+
+.clear {
+  clear: both;
+}
+
+.block {
+  display: block;
+}
+
+.float-left {
+  float: left;
+}
+
+.float-right {
+  float: right;
+}
+
+.scroll-container {
+  overflow-y: auto;
+
+  &::-webkit-scrollbar {
+    -webkit-appearance: none;
+    height: 8px;
+    width: 8px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: @grayBorderColor;
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background-color: @blueBorderColor;
+  }
+
+  &::-webkit-scrollbar-track-piece {
+    background-color: @grayBackground;
+  }
+}

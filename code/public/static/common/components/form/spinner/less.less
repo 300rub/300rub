@@ -1,0 +1,32 @@
+@import "../abstract/less";
+
+.form-spinner {
+  display: inline-block;
+  position: relative;
+
+  input {
+    width: 70px;
+  }
+
+  a {
+    .fa {
+      font-size: 0;
+      height: 15px;
+      line-height: 12px;
+      position: absolute;
+      right: 3px;
+
+      &:before {
+        font-size: 16px;
+      }
+    }
+
+    .fa-chevron-up {
+      top: 0;
+    }
+
+    .fa-chevron-down {
+      bottom: 0;
+    }
+  }
+}

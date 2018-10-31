@@ -1,0 +1,165 @@
+@import "../../abstract/group/less";
+
+.design-block-container {
+  .form-spinner {
+    position: absolute;
+  }
+
+  .padding-container {
+    padding-bottom: 5px;
+
+    .relative-container {
+      height: 155px;
+
+      .padding-top {
+        .transition(margin-left);
+        left: 50%;
+        margin-left: -35px;
+        top: 1px;
+      }
+
+      .padding-right {
+        .transition(top);
+        left: 50%;
+        margin-left: 57px;
+        top: 60px;
+      }
+
+      .padding-bottom {
+        .transition(margin-left);
+        left: 50%;
+        margin-left: -35px;
+        top: 119px;
+      }
+
+      .padding-left {
+        .transition(top);
+        left: 50%;
+        margin-left: -127px;
+        top: 60px;
+      }
+
+      .padding-top-hover,
+      .padding-right-hover,
+      .padding-bottom-hover,
+      .padding-left-hover {
+        visibility: hidden;
+      }
+
+      .padding-top-hover {
+        .transition(margin-left);
+        left: 50%;
+        margin-left: -35px;
+        top: 1px;
+      }
+
+      .padding-right-hover {
+        .transition(top);
+        left: 50%;
+        margin-left: 57px;
+        top: 60px;
+      }
+
+      .padding-bottom-hover {
+        .transition(margin-left);
+        left: 50%;
+        margin-left: -35px;
+        top: 119px;
+      }
+
+      .padding-left-hover {
+        .transition(top);
+        left: 50%;
+        margin-left: -127px;
+        top: 60px;
+      }
+
+      .padding-top-hover,
+      .padding-right-hover,
+      .padding-bottom-hover,
+      .padding-left-hover {
+        .icon-before {
+          font-size: 10px;
+          left: 50%;
+          margin-top: 10px;
+          position: absolute;
+          top: 50%;
+        }
+      }
+
+      .padding-sample-wrapper {
+        border: 2px solid @darkGrayBorderColor;
+        height: 80px;
+        left: 50%;
+        margin-left: -50px;
+        overflow: hidden;
+        position: absolute;
+        top: 35px;
+        width: 100px;
+
+        .padding-sample-container {
+          background: @lightGrayBackground;
+          height: 76px;
+          overflow: hidden;
+          position: relative;
+          width: 96px;
+
+          .padding-sample {
+            border: 1px solid @darkGrayBorderColor;
+            height: 100%;
+            position: relative;
+          }
+        }
+      }
+    }
+
+    .has-animation {
+      display: none;
+    }
+  }
+
+  .padding-container.has-hover {
+    .padding-top {
+      margin-left: -72px;
+    }
+
+    .padding-right {
+      top: 43px;
+    }
+
+    .padding-bottom {
+      margin-left: -72px;
+    }
+
+    .padding-left {
+      top: 43px;
+    }
+
+    .padding-top-hover,
+    .padding-right-hover,
+    .padding-bottom-hover,
+    .padding-left-hover {
+      visibility: visible;
+    }
+
+    .padding-top-hover {
+      margin-left: 2px;
+    }
+
+    .padding-right-hover {
+      top: 77px;
+    }
+
+    .padding-bottom-hover {
+      margin-left: 2px;
+    }
+
+    .padding-left-hover {
+      top: 77px;
+    }
+
+    .has-animation {
+      display: block;
+    }
+  }
+}

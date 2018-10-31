@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="code">
+    <target name="code-phpcs" description="Check code with PHP Code Sniffer">
+        <exec executable="./vendor/squizlabs/php_codesniffer/bin/phpcs" failonerror="false">
+            <arg value="--ignore=config,docker,vendor,views,public/static/fonts,public/static/*/lib" />
+            <arg value="--standard=config/code/phpcs/generic.xml,config/code/phpcs/pear.xml,config/code/phpcs/psr1.xml,config/code/phpcs/psr2.xml,config/code/phpcs/squiz.xml,config/code/phpcs/zend.xml" />
+            <arg path="${path}" />
+        </exec>
+    </target>
+
+    <target name="code-phpcbf" description="Fixing code with PHP Code Sniffer">
+        <exec executable="./vendor/squizlabs/php_codesniffer/bin/phpcbf" failonerror="false">
+            <arg value="--ignore=config,docker,vendor,views,public/static/fonts,public/static/*/lib" />
+            <arg value="--standard=config/code/phpcs/generic.xml,config/code/phpcs/pear.xml,config/code/phpcs/psr1.xml,config/code/phpcs/psr2.xml,config/code/phpcs/squiz.xml,config/code/phpcs/zend.xml" />
+            <arg path="${path}" />
+        </exec>
+    </target>
+
+    <target name="code-phpmd" description="PHPMD - PHP Mess Detector">
+        <exec executable="./vendor/phpmd/phpmd/src/bin/phpmd" failonerror="false">
+            <arg path="${path}" />
+            <arg value="text" />
+            <arg value="config/code/phpmd/cleancode.xml,config/code/phpmd/codesize.xml,config/code/phpmd/controversial.xml,config/code/phpmd/design.xml,config/code/phpmd/naming.xml,config/code/phpmd/unusedcode.xml" />
+            <arg value="--exclude" />
+            <arg value="public/*/lib,vendor,config/" />
+        </exec>
+    </target>
+
+    <target name="code-jshint" description="JSHint, a JavaScript Code Quality Tool">
+        <exec executable="jshint" failonerror="false">
+            <arg value="${path}" />
+            <arg value="--config" />
+            <arg path="config/code/jshint/config.json" />
+            <arg value="--exclude" />
+            <arg value="vendor,public/static/*/lib,public/static/min" />
+        </exec>
+    </target>
+
+    <target name="code-lesshint" description="Lesshint is a tool to aid you in writing clean and consistent Less.">
+        <exec executable="lesshint" failonerror="false">
+            <arg path="${path}" />
+            <arg value="--config" />
+            <arg path="config/code/lesshint/config.json" />
+            <arg value="--reporter" />
+            <arg value="lesshint-reporter-stylisher" />
+        </exec>
+    </target>
+
+    <target name="code-htmlhint" description="HTMLHint is a Static Code Analysis Tool for HTML, you can use it with IDE or in build system.">
+        <exec executable="htmlhint" failonerror="false">
+            <arg path="${path}" />
+            <arg value="--config" />
+            <arg path="config/code/htmlhint/config.json" />
+        </exec>
+    </target>
+
+    <target name="code-php-check" depends="code-phpcs, code-phpmd">
+    </target>
+
+    <target name="code-js-check" depends="code-phpcs, code-jshint">
+    </target>
+</project>

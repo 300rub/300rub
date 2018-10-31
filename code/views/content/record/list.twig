@@ -1,0 +1,13 @@
+<div class="record-list block-{{ blockId }}">
+    <div class="instances {{ typeCss }}">{{ instances | raw }}</div>
+
+    {% if pagination != "" %}
+        {{ pagination | raw }}
+    {% endif %}
+
+    {% if useAutoload == true %}
+        <div class="autoload">
+            <i class="fas fa-sync fa-spin"></i>
+        </div>
+    {% endif %}
+</div>

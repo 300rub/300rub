@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>{{ title }}</title>
+    <meta name="keywords" content="{{ keywords }}"/>
+    <meta name="description" content="{{ description }}"/>
+    <link rel="shortcut icon" href="{{ icon }}"/>
+
+    {% for fileName in css %}
+        <link rel="stylesheet" type="text/css" href="{{ fileName }}" />
+    {% endfor %}
+
+    {% if less is not empty %}
+        <link rel="stylesheet" type="text/css" href="{{ less }}" />
+    {% endif %}
+
+    {% if isUser == false %}
+        <style>{{ generatedCss | join | raw }}</style>
+    {% endif %}
+
+    {% for fileName in js %}
+        <script src="{{ fileName }}"></script>
+    {% endfor %}
+
+    {{ headerCode | raw }}
+
+    {% if initJs is not empty %}
+        {{ initJs | raw }}
+    {% endif %}
+</head>
+<body>
+    {{ bodyTopCode | raw }}
+
+    {% if isUser == true %}
+        {% for id, gCss in generatedCss %}
+            <div id="{{ id }}">
+                <style>{{ gCss | raw }}</style>
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    {{ content | raw }}
+
+    {{ generatedJs | join | raw }}
+
+    <div id="ajax-wrapper"></div>
+
+    {% if html is not empty %}
+        <div id="templates" class="hidden">
+            {{ html | raw }}
+        </div>
+    {% endif %}
+
+    {{ bodyBottomCode  | raw }}
+</body>
+</html>

@@ -1,0 +1,14 @@
+selenium:
+    build: ../build/selenium/2.48.2/
+    ports:
+        - "15900:5900"
+    environment:
+        SE_OPTS: "-maxSession 10"
+    extra_hosts:
+        - "dev.ss.local:172.17.0.1"
+        - "phpunit.ss.local:172.17.0.1"
+        - "selenium.ss.local:172.17.0.1"
+
+phpfpm:
+    links:
+        - selenium

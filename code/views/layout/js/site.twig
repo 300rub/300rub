@@ -1,0 +1,15 @@
+<script>
+    !function ($, ss) {
+        $(document).ready(
+            function () {
+                ss.init("app").setLanguage({{ language }});
+
+                {% for key, value in errorMessages %}
+                    ss
+                        .init("commonComponentsError")
+                        .set("{{ key }}", "{{ value }}");
+                {% endfor %}
+            }
+        );
+    }(window.jQuery, window.ss);
+</script>

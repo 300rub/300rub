@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="tools">
+    <property name="proxy" value="147.149.2.7:8080" />
+    <!--<property name="proxy" value="" />-->
+
+    <target name="tools-git-reset">
+        <exec executable="git" failonerror="true">
+            <env key="http_proxy" value="${proxy}" />
+            <env key="https_proxy" value="${proxy}" />
+            <arg value='fetch' />
+            <arg value='--all' />
+            <arg value='-p' />
+        </exec>
+        <exec executable="git" failonerror="true">
+            <env key="http_proxy" value="${proxy}" />
+            <env key="https_proxy" value="${proxy}" />
+            <arg value='add' />
+            <arg value='.' />
+        </exec>
+        <exec executable="git" failonerror="true">
+            <env key="http_proxy" value="${proxy}" />
+            <env key="https_proxy" value="${proxy}" />
+            <arg value='reset' />
+            <arg value='--hard' />
+            <arg value='origin/master' />
+        </exec>
+    </target>
+
+    <target name="tools-composer-install">
+        <exec executable="composer" failonerror="true">
+            <env key="COMPOSER" value="${basedir}/config/composer/composer.json" />
+            <env key="http_proxy" value="${proxy}" />
+            <env key="https_proxy" value="${proxy}" />
+            <arg value='install' />
+        </exec>
+    </target>
+
+    <target name="tools-composer-update">
+        <exec executable="composer" failonerror="true">
+            <env key="COMPOSER" value="${basedir}/config/composer/composer.json" />
+            <env key="http_proxy" value="${proxy}" />
+            <env key="https_proxy" value="${proxy}" />
+            <arg value='update' />
+            <arg value='-vvv' />
+        </exec>
+    </target>
+
+    <target name="tools-generate-static">
+        <exec executable="php" failonerror="true">
+            <arg value='commands/run' />
+            <arg value='files/GenerateStaticCommand' />
+        </exec>
+    </target>
+
+    <target name="tools-flush-memcached">
+        <exec executable="php" failonerror="true">
+            <arg value='commands/run' />
+            <arg value='common/FlushMemcachedCommand' />
+        </exec>
+    </target>
+
+    <target name="tools-public-vendor">
+        <exec executable="php" failonerror="true">
+            <arg value='commands/run' />
+            <arg value='files/PublicVendorCommand' />
+        </exec>
+    </target>
+</project>

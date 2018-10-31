@@ -1,0 +1,43 @@
+@import "../../core/less/common";
+
+.accordion-element {
+  margin: 5px 0;
+
+  .accordion-title {
+    .border-radius(4px);
+    .transition(background-color);
+    background: white;
+    border: 1px solid @grayBorderColor;
+    display: block;
+    line-height: 20px;
+    padding: 5px 15px 5px 12px;
+
+    .fas {
+      margin-right: 5px;
+      .transition(transform);
+    }
+
+    &:hover {
+      background-color: @lightGrayBackground;
+    }
+  }
+
+  .accordion-body {
+    display: none;
+    padding: 0 0 0 15px;
+
+    .form-container {
+      margin: 4px 0;
+    }
+  }
+}
+
+.accordion-element.opened > .accordion-body {
+  display: block;
+}
+
+.accordion-element.opened > .accordion-title {
+  .fas {
+    .transform(rotate(90deg));
+  }
+}
