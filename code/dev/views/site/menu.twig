@@ -1,9 +1,0 @@
-<ul class="menu">
-    {% for item in menu %}
-        <li {% if item.isActive == true %}class="active" {% endif %}>
-            <a href="{{ item.uri }}">
-                <span>{{ item.name }}</span>
-            </a>
-        </li>
-    {% endfor %}
-</ul>

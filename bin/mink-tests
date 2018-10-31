@@ -18,9 +18,9 @@ vncviewer localhost:15900 -passwd ./bin/files/vnc-password > /dev/null 2>&1 &
 VNC_PID=$!
 
 if [[ $path == "" ]]; then
-  docker exec -it ss_phpfpm_1 ant -file /var/www/code/live/config/build/build.xml $command
+  docker exec -it ss_phpfpm_1 ant -file /var/www/code/config/build/build.xml $command
 else
-  docker exec -it ss_phpfpm_1 ant -file /var/www/code/live/config/build/build.xml $command -Dpath=$path
+  docker exec -it ss_phpfpm_1 ant -file /var/www/code/config/build/build.xml $command -Dpath=$path
 fi
 
 kill $VNC_PID

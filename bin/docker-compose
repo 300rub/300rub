@@ -5,4 +5,4 @@ if [[ $command == "" ]]; then
     command='ps'
 fi
 
-docker-compose -f code/live/config/docker/compose/docker-compose.yml -f code/live/config/docker/compose/docker-compose-selenium.yml -f code/live/config/docker/compose/docker-compose-dev.yml -p ss $command
+docker-compose -f code/config/docker/compose/docker-compose.yml -f code/config/docker/compose/docker-compose-selenium.yml -f code/config/docker/compose/docker-compose-dev.yml -p ss $command

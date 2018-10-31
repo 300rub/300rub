@@ -11,18 +11,18 @@ mysql/*
 releases/*
 !releases/.gitkeep
 
-code/dev/config/release
-code/dev/config/prod.php
+code/config/release
+code/config/prod.php
 
-code/dev/public/static/*/lib
-code/dev/public/static/min/*
-!code/dev/public/static/min/.gitkeep
+code/public/static/*/lib
+code/public/static/min/*
+!code/public/static/min/.gitkeep
 
-code/dev/public/upload/dev
-code/dev/public/upload/phpunit
-code/dev/public/upload/selenium
+code/public/upload/dev
+code/public/upload/phpunit
+code/public/upload/selenium
 
-code/dev/vendor
+code/vendor
 code/release*
 
-code/live
+code
