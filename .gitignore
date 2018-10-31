@@ -2,8 +2,6 @@
 
 backups/*
 !backups/.gitkeep
-jenkins/*
-!jenkins/.gitkeep
 logs/*
 !logs/.gitkeep
 mysql/*
