@@ -8,7 +8,7 @@ do
     echo $imagePath
     IFS='/' read -r -a array <<< "$imagePath"
     arrayLen=${#array[@]}
-    imageName=ss/${array[$arrayLen-2]}:${array[$arrayLen-1]}
-    docker build --build-arg http_proxy=http://147.149.2.7:8080 --build-arg https_proxy=http://147.149.2.7:8080 -t $imageName $imagePath
-    #docker build -t $imageName $imagePath
+    imageName=ss/${array[$arrayLen-1]}
+    #docker build --build-arg http_proxy=http://147.149.2.7:8080 --build-arg https_proxy=http://147.149.2.7:8080 -t $imageName $imagePath
+    docker build -t $imageName $imagePath
 done

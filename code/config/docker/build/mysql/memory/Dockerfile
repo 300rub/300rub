@@ -1,1 +1,0 @@
-FROM ss/mysql:memory

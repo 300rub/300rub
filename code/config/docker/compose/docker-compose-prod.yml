@@ -1,24 +1,4 @@
-phpfpm:
-    net: "bridge"
-    ports:
-        - "7777:3306"
+instance:
+    build: ../build/instance-simple/
     environment:
         APP_ENV: prod
-    extra_hosts:
-        - "dev.ss.local:172.17.0.1"
-        - "phpunit.ss.local:172.17.0.1"
-        - "selenium.ss.local:172.17.0.1"
-
-db:
-    build: ../build/mysql/5.7.22/
-    privileged: true
-    net: "container:phpfpm"
-    environment:
-        MYSQL_ROOT_PASSWORD: root
-        MYSQL_SQL_TO_RUN: 'GRANT ALL ON *.* TO root@"%" IDENTIFIED BY "root";'
-    volumes:
-        - ./../../../../mysql:/var/lib/mysql
-
-memcached:
-    build: ../build/memcached/1.5/
-    net: "container:phpfpm"

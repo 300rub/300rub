@@ -1,14 +1,28 @@
-nginx:
-    build: ../build/nginx/1.14.0/
-    links:
-        - phpfpm
-    volumes_from:
-        - phpfpm
+instance:
+    net: "bridge"
+    environment:
+        SE_OPTS: "-maxSession 10"
     ports:
+        - "3306:3306"
         - "80:80"
-
-phpfpm:
-    build: ../build/php-fpm/7.2.6/
+        - "5900:5900"
+    extra_hosts:
+        - "dev.ss.local:172.17.0.1"
+        - "phpunit.ss.local:172.17.0.1"
+        - "selenium.ss.local:172.17.0.1"
     volumes:
         - "./../../../..:/var/www"
-        - "~/.ssh:/root/.ssh-tmp"
+
+db:
+    image: ss/mysql
+    privileged: true
+    net: "container:instance"
+    environment:
+        MYSQL_ROOT_PASSWORD: root
+        MYSQL_SQL_TO_RUN: 'GRANT ALL ON *.* TO root@"%" IDENTIFIED BY "root";'
+    volumes:
+        - ./../../../../mysql:/var/lib/mysql
+
+memcached:
+    image: ss/memcached
+    net: "container:instance"
