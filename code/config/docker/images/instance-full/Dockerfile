@@ -10,7 +10,7 @@ RUN apt-get install -y php7.2 php7.2-mysql php7.2-fpm php7.2-mbstring php7.2-xml
 RUN apt-get install -y nginx
 
 # Libs
-RUN apt-get install -y apt-utils python-pip gnupg git ant ant-contrib ant-optional libjsch-java zip unzip curl php7.2-zip
+RUN apt-get install -y apt-utils python-pip gnupg git ant ant-contrib ant-optional libjsch-java zip unzip curl php7.2-zip mysql-client
 
 # Composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
