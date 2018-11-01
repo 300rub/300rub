@@ -1,4 +1,4 @@
 instance:
     build: ../build/instance-simple/
     environment:
-        APP_ENV: prod
+        APP_ENV: dev_prod
