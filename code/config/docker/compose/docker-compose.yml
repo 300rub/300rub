@@ -13,7 +13,7 @@ instance:
     volumes:
         - "./../../../..:/var/www"
 
-db:
+mysql:
     image: ss/mysql
     privileged: true
     net: "container:instance"

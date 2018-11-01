@@ -68,7 +68,7 @@ server {
     location ~ \.php$ {
         root /var/www/code/public;
         try_files $uri $uri/ =404;
-        fastcgi_pass phpfpm:9000;
+        fastcgi_pass 0.0.0.0:9000;
         fastcgi_index index.php;
         fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
         include fastcgi_params;
@@ -147,7 +147,7 @@ server {
     location ~ \.php$ {
         root /var/www/code/public;
         try_files $uri $uri/ =404;
-        fastcgi_pass phpfpm:9000;
+        fastcgi_pass 0.0.0.0:9000;
         fastcgi_index site.php;
         fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
         include fastcgi_params;
