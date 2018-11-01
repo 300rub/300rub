@@ -6,4 +6,4 @@ docker-compose $files -p ss rm -f
 docker-compose $files -p ss build
 docker-compose $files -p ss up -d
 
-docker exec -it ss_phpfpm_1 ant -file /var/www/code/config/build/build.xml prod-setup
+docker exec -it ss_instance_1 ant -file /var/www/code/config/build/build.xml prod-setup

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="tools">
-    <property name="proxy" value="147.149.2.7:8080" />
-    <!--<property name="proxy" value="" />-->
+    <!--<property name="proxy" value="147.149.2.7:8080" />-->
+    <property name="proxy" value="" />
 
     <target name="tools-git-reset">
         <exec executable="git" failonerror="true">
@@ -41,7 +41,6 @@
             <env key="http_proxy" value="${proxy}" />
             <env key="https_proxy" value="${proxy}" />
             <arg value='update' />
-            <arg value='-vvv' />
         </exec>
     </target>
 

@@ -3,8 +3,8 @@
 path=${1/$PWD\/code\/dev\//}
 
 if [[ $path == "" ]]; then
-  docker exec -it ss_phpfpm_1 ant -file /var/www/code/config/build/build.xml code-lesshint -Dpath="public/static"
+  docker exec -it ss_instance_1 ant -file /var/www/code/config/build/build.xml code-lesshint -Dpath="public/static"
   exit 1
 fi
 
-docker exec -it ss_phpfpm_1 ant -file /var/www/code/config/build/build.xml code-lesshint -Dpath=$path
+docker exec -it ss_instance_1 ant -file /var/www/code/config/build/build.xml code-lesshint -Dpath=$path

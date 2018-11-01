@@ -1,9 +1,9 @@
 #!/bin/bash
 
 if [[ $1 != "" ]]; then
-  docker exec -it ss_phpfpm_1 ant -file /var/www/code/config/build/build.xml tools-composer-update
+  docker exec -it ss_instance_1 ant -file /var/www/code/config/build/build.xml tools-composer-update
 fi
 
 if [[ $1 == "" ]]; then
-  docker exec -it ss_phpfpm_1 ant -file /var/www/code/config/build/build.xml tools-composer-install
+  docker exec -it ss_instance_1 ant -file /var/www/code/config/build/build.xml tools-composer-install
 fi

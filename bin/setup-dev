@@ -7,5 +7,5 @@ docker-compose $files -p ss build
 docker-compose $files -p ss up -d
 
 if [[ $1 != "" ]]; then
-  docker exec -it ss_phpfpm_1 ant -file /var/www/code/config/build/build.xml dev-setup
+  docker exec -it ss_instance_1 ant -file /var/www/code/config/build/build.xml dev-setup
 fi

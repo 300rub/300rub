@@ -1,3 +1,3 @@
 #!/bin/bash
 
-docker exec -it ss_phpfpm_1 ant -file /var/www/code/config/build/build.xml db-export-sites
+docker exec -it ss_instance_1 ant -file /var/www/code/config/build/build.xml db-export-sites
