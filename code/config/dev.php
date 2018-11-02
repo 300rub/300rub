@@ -64,7 +64,7 @@ return [
         'expiration' => 1500,
     ],
     'file' => [
-        'pathMask' => __DIR__ . '/../public/upload/%s/%s',
+        'pathMask' => FILES_ROOT . '/upload/%s/%s',
         'urlMask'  => 'http://%s/upload/%s/%s'
     ],
     'email' => [

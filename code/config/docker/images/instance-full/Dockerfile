@@ -10,7 +10,7 @@ RUN apt-get install -y php7.2 php7.2-mysql php7.2-fpm php7.2-mbstring php7.2-xml
 RUN apt-get install -y nginx
 
 # Libs
-RUN apt-get install -y apt-utils python-pip gnupg git ant ant-contrib ant-optional libjsch-java zip unzip curl php7.2-zip mysql-client
+RUN apt-get install -y apt-utils python-pip gnupg git ant ant-contrib ant-optional libjsch-java zip unzip curl php7.2-zip mysql-client wget
 
 # Composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
@@ -26,3 +26,11 @@ RUN npm install -g less lesshint lesshint-reporter-stylisher jshint htmlhint
 # Selenium
 RUN apt-get install -y firefox xvfb
 RUN pip install selenium
+
+# Jenkins
+RUN wget -q -O - https://pkg.jenkins.io/debian/jenkins-ci.org.key | apt-key add -
+RUN sh -c 'echo deb http://pkg.jenkins.io/debian-stable binary/ > /etc/apt/sources.list.d/jenkins.list'
+RUN apt-get update
+RUN apt-get install -y jenkins
+
+RUN apt-get install -y nano
