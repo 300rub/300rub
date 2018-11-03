@@ -33,7 +33,7 @@ class GetContentControllerTest extends AbstractControllerTest
         $this->setUser($user);
 
         $data = [
-            'id' => $blockId
+            'blockId' => $blockId
         ];
         if ($groupId !== null) {
             $data['groupId'] = $groupId;
@@ -64,12 +64,12 @@ class GetContentControllerTest extends AbstractControllerTest
                 'blockId'  => 5,
                 'hasError' => false,
                 'expected' => [
-                    'labels'         => [],
-                    'useAlbums'      => true,
-                    'canCreateAlbum' => true,
-                    'canUpdateAlbum' => true,
-                    'canDeleteAlbum' => true,
-                    'list'           => [
+                    'labels'    => [],
+                    'useAlbums' => true,
+                    'canCreate' => true,
+                    'canUpdate' => true,
+                    'canDelete' => true,
+                    'list'      => [
                         [
                             'id'    => 4,
                             'name'  => 'Name 1',
