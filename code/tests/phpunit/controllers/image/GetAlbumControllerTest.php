@@ -60,6 +60,9 @@ class GetAlbumControllerTest extends AbstractControllerTest
         $expected = [
             'blockId' => $blockId,
             'title'   => $title,
+            'labels'  => [
+                'button' => $buttonLabel
+            ],
             'forms'   => [
                 'name'   => [
                     'name'       => 'name',
@@ -70,9 +73,6 @@ class GetAlbumControllerTest extends AbstractControllerTest
                     ],
                     'value'      => $name,
                 ],
-                'button' => [
-                    'label' => $buttonLabel,
-                ]
             ]
         ];
 
