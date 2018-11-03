@@ -59,10 +59,12 @@ class CreateAlbumControllerTest extends AbstractControllerTest
             'limitedEmpty'       => [
                 'user'      => self::TYPE_LIMITED,
                 'data'      => [
-                    'blockId' => 3,
-                    'seoModel' => [
-                        'name' => '',
-                    ],
+                    'blockId'     => 3,
+                    'name'        => '',
+                    'alias'       => '',
+                    'title'       => '',
+                    'keywords'    => '',
+                    'description' => '',
                 ],
                 'hasError'  => false,
                 'hasErrors' => true
@@ -71,9 +73,11 @@ class CreateAlbumControllerTest extends AbstractControllerTest
                 'user'      => self::TYPE_LIMITED,
                 'data'      => [
                     'blockId' => 3,
-                    'seoModel' => [
-                        'name' => $this->generateStringWithLength(256),
-                    ],
+                    'name'        => $this->generateStringWithLength(256),
+                    'alias'       => '',
+                    'title'       => '',
+                    'keywords'    => '',
+                    'description' => '',
                 ],
                 'hasError'  => false,
                 'hasErrors' => true
@@ -81,10 +85,12 @@ class CreateAlbumControllerTest extends AbstractControllerTest
             'limitedCorrect'            => [
                 'user'      => self::TYPE_LIMITED,
                 'data'      => [
-                    'blockId' => 3,
-                    'seoModel' => [
-                        'name' => 'New album name',
-                    ],
+                    'blockId'     => 3,
+                    'name'        => 'New album name',
+                    'alias'       => '',
+                    'title'       => '',
+                    'keywords'    => '',
+                    'description' => '',
                 ],
                 'hasError'  => false,
                 'hasErrors' => false
@@ -92,10 +98,12 @@ class CreateAlbumControllerTest extends AbstractControllerTest
             'limitedIncorrectBlockId'            => [
                 'user'      => self::TYPE_LIMITED,
                 'data'      => [
-                    'blockId' => 1,
-                    'seoModel' => [
-                        'name' => 'New album name',
-                    ],
+                    'blockId'     => 1,
+                    'name'        => 'New album name',
+                    'alias'       => '',
+                    'title'       => '',
+                    'keywords'    => '',
+                    'description' => '',
                 ],
                 'hasError'  => true,
                 'hasErrors' => false
@@ -103,10 +111,12 @@ class CreateAlbumControllerTest extends AbstractControllerTest
             'noOperation'              => [
                 'user'      => self::TYPE_NO_OPERATIONS_USER,
                 'data'      => [
-                    'blockId' => 3,
-                    'seoModel' => [
-                        'name' => 'New album name',
-                    ],
+                    'blockId'     => 3,
+                    'name'        => 'New album name',
+                    'alias'       => '',
+                    'title'       => '',
+                    'keywords'    => '',
+                    'description' => '',
                 ],
                 'hasError'  => true,
                 'hasErrors' => false
