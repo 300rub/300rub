@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="dev">
     <target name="dev-upload-prepare">
-        <delete dir="public/upload/dev" />
-        <mkdir dir="public/upload/dev" />
+        <delete dir="${basedir}/../upload/dev" />
+        <mkdir dir="${basedir}/../upload/dev" />
         <exec executable="chmod" failonerror="true">
-            <arg line="-R 0777 public/upload/dev" />
+            <arg line="-R 0777 ${basedir}/../upload/dev" />
         </exec>
     </target>
 

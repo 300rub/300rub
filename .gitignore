@@ -5,6 +5,7 @@ logs
 mysql
 jenkins
 releases
+upload
 
 code/config/release
 

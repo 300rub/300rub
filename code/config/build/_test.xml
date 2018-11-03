@@ -28,7 +28,7 @@
         </exec>
     </target>
 
-    <target name="test-phpunit" depends="tools-flush-memcached, test-import-phpunit-db">
+    <target name="test-phpunit" depends="test-import-phpunit-db">
         <property name="path" value="tests/phpunit"/>
 
         <exec executable="php" failonerror="true">
@@ -36,11 +36,9 @@
             <arg value='--bootstrap=tests/phpunit/bootstrap.php' />
             <arg value='${path}' />
         </exec>
-
-        <antcall target="tools-flush-memcached" />
     </target>
 
-    <target name="test-phpunit-reload-fixtures" depends="test-upload-phpunit-prepare, tools-flush-memcached, test-recreate-phpunit-database">
+    <target name="test-phpunit-reload-fixtures" depends="test-upload-phpunit-prepare, test-recreate-phpunit-database">
         <property name="path" value="tests/phpunit"/>
 
         <exec executable="php" failonerror="true">
@@ -48,8 +46,6 @@
             <arg value='--bootstrap=tests/phpunit/bootstrap.php' />
             <arg value='${path}' />
         </exec>
-
-        <antcall target="tools-flush-memcached" />
     </target>
 
     <target name="test-paratest">
@@ -63,11 +59,11 @@
     </target>
 
     <target name="test-upload-phpunit-prepare">
-        <delete dir="public/upload/phpunit" />
-        <mkdir dir="public/upload/phpunit" />
-        <exec executable="chmod" failonerror="true">
-            <arg line="-R 0777 public/upload/phpunit" />
-        </exec>
+        <!--<delete dir="public/upload/phpunit" />-->
+        <!--<mkdir dir="public/upload/phpunit" />-->
+        <!--<exec executable="chmod" failonerror="true">-->
+            <!--<arg line="-R 0777 public/upload/phpunit" />-->
+        <!--</exec>-->
     </target>
 
     <target name="test-upload-selenium-prepare">
@@ -78,9 +74,9 @@
         </exec>
     </target>
 
-    <target name="test-selenium" depends="tools-flush-memcached, test-import-selenium-db, test-paratest">
+    <target name="test-selenium" depends="test-import-selenium-db, test-paratest">
     </target>
 
-    <target name="test-selenium-reload-fixtures" depends="test-upload-selenium-prepare, tools-flush-memcached, test-recreate-selenium-database">
+    <target name="test-selenium-reload-fixtures" depends="test-upload-selenium-prepare, test-recreate-selenium-database">
     </target>
 </project>
