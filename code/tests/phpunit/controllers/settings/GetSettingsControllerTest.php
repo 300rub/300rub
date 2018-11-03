@@ -1,6 +1,6 @@
 <?php
 
-namespace ss\tests\phpunit\controllers\block;
+namespace ss\tests\phpunit\controllers\settings;
 
 use ss\tests\phpunit\controllers\_abstract\AbstractControllerTest;
 
@@ -31,7 +31,7 @@ class GetSettingsControllerTest extends AbstractControllerTest
             return true;
         }
 
-        $this->compareExpectedAndActual($expected, $this->getBody(), true);
+        $this->compareExpectedAndActual($expected, $this->getBody());
         return true;
     }
 
