@@ -161,7 +161,7 @@ class AbstractCatalogModelDuplicateTest extends AbstractDuplicateModelTest
                     'backgroundColorFromHover' => 'rgba(255,0,255,0.5)',
                 ],
                 'type'             => 1,
-                'hasEditor'        => true,
+                'hasEditor'        => false,
             ],
             'isShowEmpty'     => true,
             'isLazyLoad'      => true,
@@ -208,7 +208,7 @@ class AbstractCatalogModelDuplicateTest extends AbstractDuplicateModelTest
                 'marginTop' => 20
             ],
             'type'             => 1,
-            'hasEditor'        => true
+            'hasEditor'        => false
         ];
     }
 
@@ -389,7 +389,7 @@ class AbstractCatalogModelDuplicateTest extends AbstractDuplicateModelTest
     {
         return [
             'type'             => 1,
-            'hasEditor'        => true
+            'hasEditor'        => false
         ];
     }
 

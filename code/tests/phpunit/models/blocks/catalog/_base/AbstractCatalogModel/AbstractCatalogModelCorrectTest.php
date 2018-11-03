@@ -166,7 +166,7 @@ class AbstractCatalogModelCorrectTest extends AbstractCorrectModelTest
                     'backgroundColorFromHover' => 'rgba(255,0,255,0.5)',
                 ],
                 'type'             => 1,
-                'hasEditor'        => true,
+                'hasEditor'        => false,
             ],
             'isShowEmpty'     => true,
             'isLazyLoad'      => true,
@@ -213,7 +213,7 @@ class AbstractCatalogModelCorrectTest extends AbstractCorrectModelTest
                 'marginTop' => 20
             ],
             'type'             => 1,
-            'hasEditor'        => true
+            'hasEditor'        => false
         ];
     }
 
@@ -394,7 +394,7 @@ class AbstractCatalogModelCorrectTest extends AbstractCorrectModelTest
     {
         return [
             'type'             => 1,
-            'hasEditor'        => true
+            'hasEditor'        => false
         ];
     }
 
