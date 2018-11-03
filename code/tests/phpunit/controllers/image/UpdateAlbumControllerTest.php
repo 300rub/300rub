@@ -90,9 +90,11 @@ class UpdateAlbumControllerTest extends AbstractControllerTest
             'limitedIncorrectId' => [
                 'user'      => self::TYPE_LIMITED,
                 'data'      => [
-                    'seoModel' => [
-                        'name' => 'New album name',
-                    ],
+                    'name'        => 'New album name',
+                    'alias'       => '',
+                    'title'       => '',
+                    'keywords'    => '',
+                    'description' => '',
                 ],
                 'hasError'  => true,
                 'hasErrors' => false,
@@ -101,9 +103,11 @@ class UpdateAlbumControllerTest extends AbstractControllerTest
             'limitedEmpty'       => [
                 'user'      => self::TYPE_LIMITED,
                 'data'      => [
-                    'seoModel' => [
-                        'name' => '',
-                    ],
+                    'name'        => '',
+                    'alias'       => '',
+                    'title'       => '',
+                    'keywords'    => '',
+                    'description' => '',
                 ],
                 'hasError'  => false,
                 'hasErrors' => true,
@@ -112,9 +116,11 @@ class UpdateAlbumControllerTest extends AbstractControllerTest
             'limitedLongName'    => [
                 'user'      => self::TYPE_LIMITED,
                 'data'      => [
-                    'seoModel' => [
-                        'name' => $this->generateStringWithLength(256),
-                    ],
+                    'name'        => $this->generateStringWithLength(256),
+                    'alias'       => '',
+                    'title'       => '',
+                    'keywords'    => '',
+                    'description' => '',
                 ],
                 'hasError'  => false,
                 'hasErrors' => true,
@@ -123,9 +129,11 @@ class UpdateAlbumControllerTest extends AbstractControllerTest
             'limitedCorrect'     => [
                 'user'      => self::TYPE_LIMITED,
                 'data'      => [
-                    'seoModel' => [
-                        'name' => 'New album name',
-                    ],
+                    'name'        => 'New album name',
+                    'alias'       => '',
+                    'title'       => '',
+                    'keywords'    => '',
+                    'description' => '',
                 ],
                 'hasError'  => false,
                 'hasErrors' => false,
@@ -135,7 +143,11 @@ class UpdateAlbumControllerTest extends AbstractControllerTest
                 'user'      => self::TYPE_NO_OPERATIONS_USER,
                 'data'      => [
                     'seoModel' => [
-                        'name' => 'New album name',
+                        'name'        => 'New album name',
+                        'alias'       => '',
+                        'title'       => '',
+                        'keywords'    => '',
+                        'description' => '',
                     ],
                 ],
                 'hasError'  => true,
