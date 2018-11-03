@@ -54,8 +54,17 @@ class AbstractImageInstanceModelDuplicateTest extends AbstractDuplicateModelTest
                 'thumbX2'      => 35,
                 'thumbY2'      => 45,
             ],
-            [],
-            self::EXCEPTION_MODEL
+            [
+                'originalFileModel' => [
+                    'uniqueName' => ['required'],
+                ],
+                'viewFileModel' => [
+                    'uniqueName' => ['required'],
+                ],
+                'thumbFileModel' => [
+                    'uniqueName' => ['required'],
+                ],
+            ]
         );
     }
 }
