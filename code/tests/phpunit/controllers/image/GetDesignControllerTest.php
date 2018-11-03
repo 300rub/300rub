@@ -52,16 +52,16 @@ class GetDesignControllerTest extends AbstractControllerTest
                 'hasError' => false,
                 'expected' => [
                     'id'         => 3,
-                    'controller' => 'image',
-                    'action'     => 'design',
+                    'group'      => 'image',
+                    'controller' => 'design',
                     'list'       => [
                         [
                             'title' => 'Image design',
                             'data'  => $this->_userSimpleData()
                         ]
                     ],
-                    'button'     => [
-                        'label' => 'Save'
+                    'labels'     => [
+                        'button' => 'Save'
                     ]
                 ]
             ],
@@ -71,16 +71,16 @@ class GetDesignControllerTest extends AbstractControllerTest
                 'hasError' => false,
                 'expected' => [
                     'id'         => 5,
-                    'controller' => 'image',
-                    'action'     => 'design',
+                    'group'      => 'image',
+                    'controller' => 'design',
                     'list'       => [
                         [
                             'title' => 'Image design',
                             'data'  => $this->_userZoomData()
                         ]
                     ],
-                    'button'     => [
-                        'label' => 'Save'
+                    'labels'     => [
+                        'button' => 'Save'
                     ]
                 ]
             ],
@@ -102,39 +102,39 @@ class GetDesignControllerTest extends AbstractControllerTest
     {
         return [
             [
-                'selector' => '.block-3',
-                'cssId' => 'block-3-block',
-                'type' => 'block',
-                'namespace' => 'designBlockModel',
-                'values' => [
+                'selector'       => '.block-3',
+                'cssContainerId' => 'block-3-block',
+                'type'           => 'block',
+                'namespace'      => 'designBlockModel',
+                'values'         => [
                     'marginTop' => 0
                 ]
             ],
             [
-                'selector' => '.image-1',
-                'cssId' => 'image-1-block',
-                'type' => 'block',
+                'selector'       => '.image-1',
+                'cssContainerId' => 'image-1-block',
+                'type'           => 'block',
                 'namespace'
-                    => 'designImageSimpleModel.containerDesignBlockModel',
-                'values' => [
+                                 => 'designImageSimpleModel.containerDesignBlockModel',
+                'values'         => [
                     'marginTop' => 0
                 ]
             ],
             [
-                'selector' => '.image-1 .image-instance',
-                'cssId' => 'image-1-image-instance-block',
-                'type' => 'block',
-                'namespace' => 'designImageSimpleModel.imageDesignBlockModel',
-                'values' => [
+                'selector'       => '.image-1 .image-instance',
+                'cssContainerId' => 'image-1-image-instance-block',
+                'type'           => 'block',
+                'namespace'      => 'designImageSimpleModel.imageDesignBlockModel',
+                'values'         => [
                     'marginTop' => 0
                 ]
             ],
             [
-                'selector' => '.image-1',
-                'cssId' => 'image-1-image-simple',
-                'type' => 'image-simple',
-                'namespace' => 'designImageSimpleModel',
-                'values' => [
+                'selector'       => '.image-1',
+                'cssContainerId' => 'image-1-image-simple',
+                'type'           => 'image-simple',
+                'namespace'      => 'designImageSimpleModel',
+                'values'         => [
                     'alignment' => 0
                 ]
             ]
@@ -150,30 +150,30 @@ class GetDesignControllerTest extends AbstractControllerTest
     {
         return [
             [
-                'selector' => '.block-5',
-                'cssId' => 'block-5-block',
-                'type' => 'block',
-                'namespace' => 'designBlockModel',
-                'values' => [
+                'selector'       => '.block-5',
+                'cssContainerId' => 'block-5-block',
+                'type'           => 'block',
+                'namespace'      => 'designBlockModel',
+                'values'         => [
                     'marginTop' => 0
                 ]
             ],
             [
-                'selector' => '.image-3',
-                'cssId' => 'image-3-block',
-                'type' => 'block',
-                'namespace' => 'designImageZoomModel.designBlockModel',
-                'values' => [
+                'selector'       => '.image-3',
+                'cssContainerId' => 'image-3-block',
+                'type'           => 'block',
+                'namespace'      => 'designImageZoomModel.designBlockModel',
+                'values'         => [
                     'marginTop' => 0
                 ]
             ],
             [
-                'selector' => '.image-3',
-                'cssId' => 'image-3-image-zoom',
-                'type' => 'image-zoom',
-                'namespace' => 'designImageZoomModel',
-                'values' => [
-                    'effect'               => 0,
+                'selector'       => '.image-3',
+                'cssContainerId' => 'image-3-image-zoom',
+                'type'           => 'image-zoom',
+                'namespace'      => 'designImageZoomModel',
+                'values'         => [
+                    'effect' => 0,
                 ]
             ]
         ];
