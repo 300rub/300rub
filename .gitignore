@@ -1,13 +1,10 @@
 .idea
 
-backups/*
-!backups/.gitkeep
-logs/*
-!logs/.gitkeep
-mysql/*
-!mysql/.gitkeep
-releases/*
-!releases/.gitkeep
+backups
+logs
+mysql
+jenkins
+releases
 
 code/config/release
 

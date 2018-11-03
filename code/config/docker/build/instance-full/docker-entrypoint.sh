@@ -3,6 +3,7 @@
 mkdir -p -m 0777 /var/www/logs
 mkdir -p -m 0777 /var/www/backups
 mkdir -p -m 0777 /var/www/upload
+mkdir -p -m 0777 /var/www/jenkins
 
 env | sed "s/\(.*\)=\(.*\)/env[\1]='\2'/" >> /etc/php/7.2/fpm/php-fpm.conf
 
