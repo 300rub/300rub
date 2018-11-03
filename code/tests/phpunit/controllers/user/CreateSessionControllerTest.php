@@ -48,7 +48,7 @@ class CreateSessionControllerTest extends AbstractControllerTest
         }
 
         // Getting record by token from response.
-        $this->assertTrue(count($actualBody) === 1);
+        $this->assertTrue(count($actualBody) > 1);
         $token = $actualBody['token'];
         $userSessionModel = new UserSessionModel();
         $userSessionModel->byToken($token);
