@@ -68,10 +68,30 @@ class AbstractImageInstanceModelIncorrectTest extends AbstractIncorrectModelTest
                 'thumbX2'      => 'incorrect',
                 'thumbY2'      => 'incorrect',
             ],
-            [],
-            null,
-            null,
-            self::EXCEPTION_MODEL
+            [
+                'originalFileModel' => [
+                    'uniqueName' => 'incorrect',
+                ],
+                'viewFileModel' => [
+                    'uniqueName' => 'view_incorrect.jpg',
+                ],
+                'thumbFileModel' => [
+                    'uniqueName' => 'thumb_incorrect.jpg',
+                ],
+                'isCover'      => false,
+                'sort'         => 0,
+                'alt'          => 'incorrect',
+                'width'        => 0,
+                'height'       => 0,
+                'x1'           => 0,
+                'y1'           => 0,
+                'x2'           => 0,
+                'y2'           => 0,
+                'thumbX1'      => 0,
+                'thumbY1'      => 0,
+                'thumbX2'      => 0,
+                'thumbY2'      => 0,
+            ],
         ];
     }
 

@@ -31,10 +31,17 @@ class AbstractImageInstanceModelEmptyTest extends AbstractEmptyModelTest
         return [
             'empty1' => [
                 [],
-                [],
-                null,
-                null,
-                self::EXCEPTION_MODEL
+                [
+                    'originalFileModel' => [
+                        'uniqueName' => ['required'],
+                    ],
+                    'viewFileModel' => [
+                        'uniqueName' => ['required'],
+                    ],
+                    'thumbFileModel' => [
+                        'uniqueName' => ['required'],
+                    ]
+                ],
             ],
             'empty2' => [
                 [
@@ -56,10 +63,17 @@ class AbstractImageInstanceModelEmptyTest extends AbstractEmptyModelTest
                     'thumbX2'      => '',
                     'thumbY2'      => '',
                 ],
-                [],
-                null,
-                null,
-                self::EXCEPTION_MODEL
+                [
+                    'originalFileModel' => [
+                        'uniqueName' => ['required'],
+                    ],
+                    'viewFileModel' => [
+                        'uniqueName' => ['required'],
+                    ],
+                    'thumbFileModel' => [
+                        'uniqueName' => ['required'],
+                    ],
+                ],
             ],
             'empty3' => [
                 [
@@ -73,10 +87,30 @@ class AbstractImageInstanceModelEmptyTest extends AbstractEmptyModelTest
                         'uniqueName' => 'thumb_file7.jpg',
                     ]
                 ],
-                [],
-                null,
-                null,
-                self::EXCEPTION_MODEL
+                [
+                    'originalFileModel' => [
+                        'uniqueName' => 'file7.jpg',
+                    ],
+                    'viewFileModel' => [
+                        'uniqueName' => 'view_file7.jpg',
+                    ],
+                    'thumbFileModel' => [
+                        'uniqueName' => 'thumb_file7.jpg',
+                    ],
+                    'isCover'      => false,
+                    'sort'         => 0,
+                    'alt'          => '',
+                    'width'        => 0,
+                    'height'       => 0,
+                    'x1'           => 0,
+                    'y1'           => 0,
+                    'x2'           => 0,
+                    'y2'           => 0,
+                    'thumbX1'      => 0,
+                    'thumbY1'      => 0,
+                    'thumbX2'      => 0,
+                    'thumbY2'      => 0,
+                ],
             ],
             'empty4' => [
                 [
