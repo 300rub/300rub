@@ -47,22 +47,12 @@ server {
         rewrite  ^(.*)$ /index.php?$args last;
     }
 
-    location ~* \.(ico) {
-        access_log off;
-        try_files $uri @statics;
-        expires 14d;
-        add_header Access-Control-Allow-Origin *;
-        add_header Cache-Control public;
-        root /var/www/code/public;
+    location /static {
+        alias /var/www/code/public/static;
     }
 
-    location ~* \.(jpeg|ico|jpg|gif|png|css|less|js|pdf|txt|tar|gz|wof|csv|zip|xml|yml) {
-        access_log off;
-        try_files $uri @statics;
-        expires 14d;
-        add_header Access-Control-Allow-Origin *;
-        add_header Cache-Control public;
-        root /var/www/code/public;
+    location /upload {
+        alias /var/www/upload;
     }
 
     location ~ \.php$ {
@@ -126,22 +116,12 @@ server {
         rewrite  ^(.*)$ /site.php?$args last;
     }
 
-    location ~* \.(ico) {
-        access_log off;
-        try_files $uri @statics;
-        expires 14d;
-        add_header Access-Control-Allow-Origin *;
-        add_header Cache-Control public;
-        root /var/www/code/public;
+    location /static {
+        alias /var/www/code/public/static;
     }
 
-    location ~* \.(jpeg|ico|jpg|gif|png|css|less|js|pdf|txt|tar|gz|wof|csv|zip|xml|yml) {
-        access_log off;
-        try_files $uri @statics;
-        expires 14d;
-        add_header Access-Control-Allow-Origin *;
-        add_header Cache-Control public;
-        root /var/www/code/public;
+    location /upload {
+        alias /var/www/upload;
     }
 
     location ~ \.php$ {

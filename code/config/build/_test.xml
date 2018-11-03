@@ -59,11 +59,11 @@
     </target>
 
     <target name="test-upload-phpunit-prepare">
-        <!--<delete dir="public/upload/phpunit" />-->
-        <!--<mkdir dir="public/upload/phpunit" />-->
-        <!--<exec executable="chmod" failonerror="true">-->
-            <!--<arg line="-R 0777 public/upload/phpunit" />-->
-        <!--</exec>-->
+        <delete dir="${basedir}/../upload/phpunit" />
+        <mkdir dir="${basedir}/../upload/phpunit" />
+        <exec executable="chmod" failonerror="true">
+            <arg line="-R 0777 ${basedir}/../upload/phpunit" />
+        </exec>
     </target>
 
     <target name="test-upload-selenium-prepare">
