@@ -75,20 +75,12 @@ class GetImageControllerTest extends AbstractControllerTest
 
         $body = $this->getBody();
         $expected = [
+            'isCover' => false,
             'alt'     => 'Alt 1',
-            'width'   => 800,
-            'height'  => 600,
-            'x1'      => 10,
-            'y1'      => 30,
-            'x2'      => 70,
-            'y2'      => 80,
-            'thumbX1' => 5,
-            'thumbY1' => 15,
-            'thumbX2' => 35,
-            'thumbY2' => 45,
+            'link'    => '',
         ];
+
         $this->compareExpectedAndActual($expected, $body);
-        $this->assertTrue(strpos($body['url'], 'new_file.jpg') > 0);
 
         $imageInstanceModel->delete();
         return true;

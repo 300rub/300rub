@@ -38,7 +38,7 @@ abstract class AbstractGetImageController extends AbstractController
             );
         }
 
-        $isCover = null;
+        $isCover = false;
         if ($imageModel->get('useAlbums') === true) {
             $isCover = $imageInstanceModel->get('isCover');
         }

@@ -66,7 +66,7 @@ class ImageModel extends AbstractContentImageModel
                 'imageInstances',
                 'imageInstances',
                 'imageGroupId',
-                'imageGroupId',
+                'imageGroups',
                 self::PK_FIELD
             )
             ->addWhere(
