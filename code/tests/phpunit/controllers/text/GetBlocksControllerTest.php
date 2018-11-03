@@ -53,14 +53,6 @@ class GetBlocksControllerTest extends AbstractControllerTest
 
         $this->assertTrue(strlen($body['title']) > 0);
         $this->assertTrue(strlen($body['description']) > 0);
-        $this->assertSame('block', $body['back']['controller']);
-        $this->assertSame('blocks', $body['back']['action']);
-        $this->assertSame('text', $body['settings']['controller']);
-        $this->assertSame('block', $body['settings']['action']);
-        $this->assertSame('text', $body['design']['controller']);
-        $this->assertSame('design', $body['design']['action']);
-        $this->assertSame('text', $body['content']['controller']);
-        $this->assertSame('content', $body['content']['action']);
 
         $this->assertSame($canAdd, $body['canAdd']);
 

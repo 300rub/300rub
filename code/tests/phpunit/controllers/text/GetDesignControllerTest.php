@@ -41,8 +41,8 @@ class GetDesignControllerTest extends AbstractControllerTest
 
         $expected = [
             'id'          => $blockId,
-            'controller'  => 'text',
-            'action'      => 'design',
+            'group'       => 'text',
+            'controller'  => 'design',
             'title'       => 'Text design',
             'description' => "You can configure text's design",
             'list'        => [
@@ -51,7 +51,8 @@ class GetDesignControllerTest extends AbstractControllerTest
                     'data'  => [
                         [
                             'selector'  => sprintf('.block-%s', $blockId),
-                            'cssId'     => sprintf('block-%s-block', $blockId),
+                            'cssContainerId'
+                                => sprintf('block-%s-block', $blockId),
                             'type'      => 'block',
                             'title'     => 'Block design',
                             'namespace' => 'designBlockModel',
@@ -62,7 +63,8 @@ class GetDesignControllerTest extends AbstractControllerTest
                         ],
                         [
                             'selector'  => sprintf('.block-%s', $blockId),
-                            'cssId'     => sprintf('block-%s-text', $blockId),
+                            'cssContainerId'
+                                => sprintf('block-%s-text', $blockId),
                             'type'      => 'text',
                             'title'     => 'Text design',
                             'namespace' => 'designTextModel',
@@ -74,8 +76,8 @@ class GetDesignControllerTest extends AbstractControllerTest
                     ]
                 ]
             ],
-            'button'      => [
-                'label' => 'Save',
+            'labels'      => [
+                'button' => 'Save',
             ],
         ];
 

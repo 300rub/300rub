@@ -45,16 +45,18 @@ class GetContentControllerTest extends AbstractControllerTest
 
         $expected = [
             'id'        => $blockId,
-            'name'      => $name,
+            'title'     => $name,
             'type'      => $type,
             'hasEditor' => $hasEditor,
-            'text'      => [
-                'name'  => 'text',
-                'label' => 'Text',
-                'value' => $value,
+            'forms' => [
+                'text'      => [
+                    'name'  => 'text',
+                    'label' => 'Text',
+                    'value' => $value,
+                ],
             ],
-            'button'    => [
-                'label' => 'Update',
+            'labels'    => [
+                'button' => 'Update',
             ]
         ];
 
