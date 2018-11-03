@@ -78,11 +78,7 @@ class UpdateBlockControllerTest extends AbstractControllerTest
             return true;
         }
 
-        $this->assertArrayHasKey('html', $body);
-        $this->assertArrayHasKey('css', $body);
-        $this->assertArrayHasKey('js', $body);
         $this->assertTrue($body['result']);
-        $this->assertNotFalse(strpos($body['html'], 'test text'));
 
         $newTextModel = TextModel::model()
             ->byId($textModel->getId())
