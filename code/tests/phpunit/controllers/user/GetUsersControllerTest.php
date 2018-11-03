@@ -81,7 +81,7 @@ class GetUsersControllerTest extends AbstractControllerTest
                 'list'   => [
                     [
                         'id'              => 4,
-                        'name'            => 'User with no operations',
+                        'name'            => 'User with no operations (Me)',
                         'email'           => 'test-operation@email.com',
                         'access'          => 'Limited',
                         'canUpdate'       => true,
@@ -121,7 +121,7 @@ class GetUsersControllerTest extends AbstractControllerTest
                 'list'   => [
                     [
                         'id'              => 2,
-                        'name'            => 'Admin',
+                        'name'            => 'Admin (Me)',
                         'email'           => 'admin@email.com',
                         'access'          => 'Full',
                         'canUpdate'       => true,
