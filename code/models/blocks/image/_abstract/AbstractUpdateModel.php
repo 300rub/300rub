@@ -51,6 +51,8 @@ abstract class AbstractUpdateModel extends AbstractUploadModel
             $file->deleteByUniqueName($thumbName);
         }
 
+        $this->set($data)->save();
+
         return [
             'originalUrl' => $this->get('originalFileModel')->getUrl(),
             'viewUrl'     => $this->get('viewFileModel')->getUrl(),

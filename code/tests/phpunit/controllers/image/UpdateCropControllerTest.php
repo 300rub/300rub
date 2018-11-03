@@ -7,9 +7,9 @@ use ss\models\blocks\image\ImageInstanceModel;
 use ss\tests\phpunit\controllers\_abstract\AbstractControllerTest;
 
 /**
- * Tests for the controller UpdateImageController
+ * Tests for the controller UpdateCropController
  */
-class UpdateImageControllerTest extends AbstractControllerTest
+class UpdateCropControllerTest extends AbstractControllerTest
 {
 
     /**
@@ -42,29 +42,12 @@ class UpdateImageControllerTest extends AbstractControllerTest
 
         // Gets parameters of created.
         $body = $this->getBody();
+
         $resultId = $body['id'];
-        $originalFileName = explode('/', $body['originalUrl']);
-        $originalFileName = end($originalFileName);
-        $viewFileName = explode('/', $body['viewUrl']);
-        $viewFileName = end($viewFileName);
-        $thumbFileName = explode('/', $body['thumbUrl']);
+        $thumbFileName = explode('/', $body['url']);
         $thumbFileName = end($thumbFileName);
 
         // Make sure that files exist.
-        $this->assertFileExists(
-            sprintf(
-                $config->getValue(['file', 'pathMask']),
-                App::getInstance()->getSite()->get('name'),
-                $originalFileName
-            )
-        );
-        $this->assertFileExists(
-            sprintf(
-                $config->getValue(['file', 'pathMask']),
-                App::getInstance()->getSite()->get('name'),
-                $viewFileName
-            )
-        );
         $this->assertFileExists(
             sprintf(
                 $config->getValue(['file', 'pathMask']),
@@ -76,7 +59,7 @@ class UpdateImageControllerTest extends AbstractControllerTest
         // Update.
         $this->setUser($user);
         $data['id'] = $resultId;
-        $this->sendRequest('image', 'image', $data, 'PUT');
+        $this->sendRequest('image', 'crop', $data, 'PUT');
 
         if ($hasError === true) {
             $this->assertError();
@@ -84,13 +67,7 @@ class UpdateImageControllerTest extends AbstractControllerTest
             return true;
         }
 
-        $this->_checkResult(
-            $originalFileName,
-            $viewFileName,
-            $thumbFileName,
-            $resultId,
-            $data
-        );
+        $this->_checkResult($resultId, $data);
 
         return true;
     }
@@ -98,76 +75,16 @@ class UpdateImageControllerTest extends AbstractControllerTest
     /**
      * Checks the result
      *
-     * @param string  $originalFileName Original file name
-     * @param string  $viewFileName     View file name
-     * @param string  $thumbFileName    Thumb file name
-     * @param integer $resultId         Result ID
-     * @param array   $data             Data
+     * @param integer $resultId      Result ID
+     * @param array   $data          Data
      *
      * @return void
      */
-    private function _checkResult(
-        $originalFileName,
-        $viewFileName,
-        $thumbFileName,
-        $resultId,
-        $data
-    ) {
-        $config = App::getInstance()->getConfig();
-
-        // Compare.
-        $body = $this->getBody();
-        $newOriginalFileName = explode('/', $body['originalUrl']);
-        $newOriginalFileName = end($newOriginalFileName);
-        $updatedViewFileName = explode('/', $body['viewUrl']);
-        $updatedViewFileName = end($updatedViewFileName);
-        $updatedThumbFileName = explode('/', $body['thumbUrl']);
-        $updatedThumbFileName = end($updatedThumbFileName);
-        $this->assertSame($originalFileName, $newOriginalFileName);
-        $this->assertNotSame($viewFileName, $updatedViewFileName);
-        $this->assertNotSame($thumbFileName, $updatedThumbFileName);
-
-        // Make sure new files exist.
-        $this->assertFileExists(
-            sprintf(
-                $config->getValue(['file', 'pathMask']),
-                App::getInstance()->getSite()->get('name'),
-                $updatedViewFileName
-            )
-        );
-        $this->assertFileExists(
-            sprintf(
-                $config->getValue(['file', 'pathMask']),
-                App::getInstance()->getSite()->get('name'),
-                $updatedThumbFileName
-            )
-        );
-
-        // Make sure old files don't exist.
-        $this->assertFileNotExists(
-            sprintf(
-                $config->getValue(['file', 'pathMask']),
-                App::getInstance()->getSite()->get('name'),
-                $viewFileName
-            )
-        );
-        $this->assertFileNotExists(
-            sprintf(
-                $config->getValue(['file', 'pathMask']),
-                App::getInstance()->getSite()->get('name'),
-                $thumbFileName
-            )
-        );
-
+    private function _checkResult($resultId, $data) {
         // Check DB.
         $imageInstanceModel = ImageInstanceModel::model()
             ->byId($resultId)
             ->find();
-        $this->assertSame(
-            $data['isCover'],
-            $imageInstanceModel->get('isCover')
-        );
-        $this->assertSame($data['alt'], $imageInstanceModel->get('alt'));
         $this->assertSame($data['x1'], $imageInstanceModel->get('x1'));
         $this->assertSame($data['y1'], $imageInstanceModel->get('y1'));
         $this->assertSame($data['x2'], $imageInstanceModel->get('x2'));
@@ -213,8 +130,6 @@ class UpdateImageControllerTest extends AbstractControllerTest
                 'file'     => 'mediumImage.jpg',
                 [
                     'blockId' => 3,
-                    'isCover' => true,
-                    'alt'     => 'New alt',
                     'x1'      => 0,
                     'y1'      => 0,
                     'x2'      => 3000,
@@ -233,8 +148,6 @@ class UpdateImageControllerTest extends AbstractControllerTest
                 'file'     => 'mediumImage.png',
                 [
                     'blockId' => 3,
-                    'isCover' => true,
-                    'alt'     => 'New alt',
                     'x1'      => 0,
                     'y1'      => 0,
                     'x2'      => 3000,
@@ -253,8 +166,6 @@ class UpdateImageControllerTest extends AbstractControllerTest
                 'file'     => 'mediumImage.jpg',
                 [
                     'blockId' => 3,
-                    'isCover' => true,
-                    'alt'     => 'New alt',
                     'x1'      => 0,
                     'y1'      => 0,
                     'x2'      => 3000,
