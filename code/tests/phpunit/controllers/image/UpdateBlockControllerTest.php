@@ -61,9 +61,6 @@ class UpdateBlockControllerTest extends AbstractControllerTest
             return true;
         }
 
-        $this->assertArrayHasKey('html', $body);
-        $this->assertArrayHasKey('css', $body);
-        $this->assertArrayHasKey('js', $body);
         $this->assertTrue($body['result']);
 
         $imageId = $imageModel->getId();
