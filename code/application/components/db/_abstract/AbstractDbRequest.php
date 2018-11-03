@@ -187,8 +187,6 @@ abstract class AbstractDbRequest extends AbstractDbTransaction
             )
         );
 
-        chmod($path, 0777);
-
         return $this;
     }
 
