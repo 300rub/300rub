@@ -31,18 +31,18 @@ class AbstractSettingsModelCorrectTest extends AbstractCorrectModelTest
         return [
             'correct1' => [
                 [
-                    'type'  => 'icon',
+                    'type'  => 'ICON',
                     'value' => 'file_path.ico'
                 ],
                 [
-                    'type'  => 'icon',
+                    'type'  => 'ICON',
                     'value' => 'file_path.ico'
                 ],
                 [
                     'value' => 'new_file_path.ico'
                 ],
                 [
-                    'type'  => 'icon',
+                    'type'  => 'ICON',
                     'value' => 'new_file_path.ico'
                 ],
             ]

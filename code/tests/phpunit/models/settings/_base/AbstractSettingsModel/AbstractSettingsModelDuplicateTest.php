@@ -30,12 +30,11 @@ class AbstractSettingsModelDuplicateTest extends AbstractDuplicateModelTest
     {
         $this->duplicate(
             [
-                'type'  => 'icon',
+                'type'  => 'ICON',
                 'value' => 'icon_file_path.ico'
             ],
-            [
-                'value' => ['required']
-            ]
+            [],
+            self::EXCEPTION_MODEL
         );
     }
 }

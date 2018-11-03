@@ -67,19 +67,19 @@ class AbstractSettingsModelEmptyTest extends AbstractEmptyModelTest
             ],
             'empty5' => [
                 [
-                    'type' => 'icon',
+                    'type' => 'ICON',
                 ],
                 [
-                    'value' => ['required']
+                    'value' => ''
                 ],
             ],
             'empty6' => [
                 [
-                    'type'  => 'icon',
+                    'type'  => 'ICON',
                     'value' => '',
                 ],
                 [
-                    'value' => ['required']
+                    'value' => ''
                 ],
             ],
         ];
