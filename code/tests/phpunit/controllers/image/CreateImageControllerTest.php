@@ -50,25 +50,7 @@ class CreateImageControllerTest extends AbstractControllerTest
 
         $body = $this->getBody();
 
-        $originalFileExplode = explode('/', $body['originalUrl']);
-        $originalFile = $originalFileExplode[(count($originalFileExplode) - 1)];
-        $originalFilePath = sprintf(
-            App::getInstance()->getConfig()->getValue(['file', 'pathMask']),
-            App::getInstance()->getSite()->get('name'),
-            $originalFile
-        );
-        $this->assertTrue(file_exists($originalFilePath));
-
-        $viewFileExplode = explode('/', $body['viewUrl']);
-        $viewFile = $viewFileExplode[(count($viewFileExplode) - 1)];
-        $viewFilePath = sprintf(
-            App::getInstance()->getConfig()->getValue(['file', 'pathMask']),
-            App::getInstance()->getSite()->get('name'),
-            $viewFile
-        );
-        $this->assertTrue(file_exists($viewFilePath));
-
-        $thumbFileExplode = explode('/', $body['thumbUrl']);
+        $thumbFileExplode = explode('/', $body['url']);
         $thumbFile = $thumbFileExplode[(count($thumbFileExplode) - 1)];
         $thumbFilePath = sprintf(
             App::getInstance()->getConfig()->getValue(['file', 'pathMask']),
@@ -82,14 +64,6 @@ class CreateImageControllerTest extends AbstractControllerTest
             ->find();
         $this->assertNotNull($imageInstanceModel);
 
-        $this->assertSame(
-            $originalFile,
-            $imageInstanceModel->get('originalFileModel')->get('uniqueName')
-        );
-        $this->assertSame(
-            $viewFile,
-            $imageInstanceModel->get('viewFileModel')->get('uniqueName')
-        );
         $this->assertSame(
             $thumbFile,
             $imageInstanceModel->get('thumbFileModel')->get('uniqueName')
@@ -134,7 +108,7 @@ class CreateImageControllerTest extends AbstractControllerTest
                 'file'     => 'mediumImage.jpg',
                 'blockId'  => 3,
                 'albumId'  => 0,
-                'hasError' => true
+                'hasError' => false
             ],
             'userIncorrectFormat'     => [
                 'user'     => self::TYPE_LIMITED,
