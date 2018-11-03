@@ -41,11 +41,11 @@ class AbstractSettingsModelIncorrectTest extends AbstractIncorrectModelTest
             ],
             'incorrect2' => [
                 [
-                    'type'  => 'icon',
+                    'type'  => 'ICON',
                     'value' => 'icon_file_path.ico'
                 ],
                 [
-                    'type'  => 'icon',
+                    'type'  => 'ICON',
                     'value' => 'icon_file_path.ico'
                 ],
                 [
@@ -53,18 +53,9 @@ class AbstractSettingsModelIncorrectTest extends AbstractIncorrectModelTest
                     'value' => 'apple_icon_file_path.png'
                 ],
                 [
-                    'type'  => 'icon',
+                    'type'  => 'ICON',
                     'value' => 'apple_icon_file_path.png'
                 ]
-            ],
-            'incorrect3' => [
-                [
-                    'type'  => 'icon',
-                    'value' => $this->generateStringWithLength(256)
-                ],
-                [
-                    'value' => ['maxLength']
-                ],
             ],
         ];
     }
