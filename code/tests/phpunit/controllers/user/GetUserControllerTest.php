@@ -69,69 +69,69 @@ class GetUserControllerTest extends AbstractControllerTest
                 [
                     'id'         => 1,
                     'title'      => 'Edit user',
-                    'name'       => [
-                        'label'      => 'Name',
-                        'value'      => 'Owner',
-                        'name'       => 'name',
-                        'validation' => [
-                            'required' => 'required',
-                            'maxLength' => 100,
-                        ],
-                    ],
-                    'login'      => [
-                        'label'      => 'Login',
-                        'value'      => 'owner',
-                        'name'       => 'login',
-                        'validation' => [
-                            'required'
-                                => 'required',
-                            'minLength'
-                                => 3,
-                            'maxLength'
-                                => 50,
-                            'latinDigitUnderscoreHyphen'
-                                => 'latinDigitUnderscoreHyphen'
-                        ],
-                    ],
-                    'email'      => [
-                        'label'      => 'Email',
-                        'value'      => 'owner@email.com',
-                        'name'       => 'email',
-                        'validation' => [
-                            'required' => 'required',
-                            'email'    => 'email',
-                        ],
-                    ],
-                    'type'       => [
-                        'label' => 'Type',
-                        'value' => UserModel::TYPE_OWNER,
-                        'name'  => 'type',
-                        'list'  => [
-                            [
-                                'key'   => 0,
-                                'value' => 'Blocked'
+                    'forms' => [
+                        'name'       => [
+                            'label'      => 'Name',
+                            'value'      => 'Owner',
+                            'name'       => 'name',
+                            'validation' => [
+                                'required' => 'required',
+                                'maxLength' => 100,
                             ],
-                            [
-                                'key'   => 2,
-                                'value' => 'Full'
+                        ],
+                        'login'      => [
+                            'label'      => 'Login',
+                            'value'      => 'owner',
+                            'name'       => 'login',
+                            'validation' => [
+                                'required'
+                                    => 'required',
+                                'minLength'
+                                    => 3,
+                                'maxLength'
+                                    => 50,
+                                'latinDigitUnderscoreHyphen'
+                                    => 'latinDigitUnderscoreHyphen'
                             ],
-                            [
-                                'key'   => 3,
-                                'value' => 'Limited'
+                        ],
+                        'email'      => [
+                            'label'      => 'Email',
+                            'value'      => 'owner@email.com',
+                            'name'       => 'email',
+                            'validation' => [
+                                'required' => 'required',
+                                'email'    => 'email',
+                            ],
+                        ],
+                        'type'       => [
+                            'label' => 'Type',
+                            'value' => UserModel::TYPE_OWNER,
+                            'name'  => 'type',
+                            'list'  => [
+                                [
+                                    'key'   => 0,
+                                    'value' => 'Blocked'
+                                ],
+                                [
+                                    'key'   => 2,
+                                    'value' => 'Full'
+                                ],
+                                [
+                                    'key'   => 3,
+                                    'value' => 'Limited'
+                                ]
                             ]
-                        ]
+                        ],
                     ],
                     'operations' => [
                         'canChange' => false,
                         'limitedId' => 3,
                         'list'      => []
                     ],
-                    'button'     => [
-                        'label' => 'Update',
-                    ],
                     'labels' => [
                         'operations'       => 'Operations',
-                        'isChangePassword' => 'Change password'
+                        'isChangePassword' => 'Change password',
+                        'button' => 'Update',
                     ]
                 ]
             ],
@@ -151,17 +151,19 @@ class GetUserControllerTest extends AbstractControllerTest
                 3,
                 [
                     'id'         => 3,
-                    'name'       => [
-                        'value'      => 'User',
-                    ],
-                    'login'      => [
-                        'value'      => 'user',
-                    ],
-                    'email'      => [
-                        'value'      => 'user@email.com',
-                    ],
-                    'type'       => [
-                        'value' => UserModel::TYPE_LIMITED,
+                    'forms' => [
+                        'name'       => [
+                            'value'      => 'User',
+                        ],
+                        'login'      => [
+                            'value'      => 'user',
+                        ],
+                        'email'      => [
+                            'value'      => 'user@email.com',
+                        ],
+                        'type'       => [
+                            'value' => UserModel::TYPE_LIMITED,
+                        ],
                     ],
                     'operations'
                         => $this->_dataProviderAdminGetUserOperations(),
@@ -308,63 +310,63 @@ class GetUserControllerTest extends AbstractControllerTest
                 [
                     'id'         => 0,
                     'title'      => 'Add user',
-                    'name'       => [
-                        'label'      => 'Name',
-                        'value'      => '',
-                        'name'       => 'name',
-                        'validation' => [
-                            'required' => 'required',
-                            'maxLength' => 100,
-                        ],
-                    ],
-                    'login'      => [
-                        'label'      => 'Login',
-                        'value'      => '',
-                        'name'       => 'login',
-                        'validation' => [
-                            'required'                   => 'required',
-                            'minLength'                  => 3,
-                            'maxLength'                  => 50,
-                            'latinDigitUnderscoreHyphen'
-                                => 'latinDigitUnderscoreHyphen'
-                        ],
-                    ],
-                    'email'      => [
-                        'label'      => 'Email',
-                        'value'      => '',
-                        'name'       => 'email',
-                        'validation' => [
-                            'required' => 'required',
-                            'email'    => 'email',
-                        ],
-                    ],
-                    'type'       => [
-                        'label' => 'Type',
-                        'value' => 0,
-                        'name'  => 'type',
-                        'list'  => [
-                            [
-                                'key'   => 0,
-                                'value' => 'Blocked'
+                    'forms' => [
+                        'name'       => [
+                            'label'      => 'Name',
+                            'value'      => '',
+                            'name'       => 'name',
+                            'validation' => [
+                                'required' => 'required',
+                                'maxLength' => 100,
                             ],
-                            [
-                                'key'   => 2,
-                                'value' => 'Full'
+                        ],
+                        'login'      => [
+                            'label'      => 'Login',
+                            'value'      => '',
+                            'name'       => 'login',
+                            'validation' => [
+                                'required'                   => 'required',
+                                'minLength'                  => 3,
+                                'maxLength'                  => 50,
+                                'latinDigitUnderscoreHyphen'
+                                    => 'latinDigitUnderscoreHyphen'
                             ],
-                            [
-                                'key'   => 3,
-                                'value' => 'Limited'
+                        ],
+                        'email'      => [
+                            'label'      => 'Email',
+                            'value'      => '',
+                            'name'       => 'email',
+                            'validation' => [
+                                'required' => 'required',
+                                'email'    => 'email',
+                            ],
+                        ],
+                        'type'       => [
+                            'label' => 'Type',
+                            'value' => 0,
+                            'name'  => 'type',
+                            'list'  => [
+                                [
+                                    'key'   => 0,
+                                    'value' => 'Blocked'
+                                ],
+                                [
+                                    'key'   => 2,
+                                    'value' => 'Full'
+                                ],
+                                [
+                                    'key'   => 3,
+                                    'value' => 'Limited'
+                                ]
                             ]
-                        ]
+                        ],
                     ],
                     'operations' => [
                         'canChange' => true,
                     ],
-                    'button'     => [
-                        'label' => 'Add',
-                    ],
                     'labels' => [
                         'operations' => 'Operations',
+                        'button' => 'Add',
                     ]
                 ]
             ],
@@ -384,17 +386,19 @@ class GetUserControllerTest extends AbstractControllerTest
                 2,
                 [
                     'id'         => 2,
-                    'name'       => [
-                        'value'      => 'Admin',
-                    ],
-                    'login'      => [
-                        'value'      => 'admin',
-                    ],
-                    'email'      => [
-                        'value'      => 'admin@email.com',
-                    ],
-                    'type'       => [
-                        'value' => UserModel::TYPE_FULL,
+                    'forms' => [
+                        'name'       => [
+                            'value'      => 'Admin',
+                        ],
+                        'login'      => [
+                            'value'      => 'admin',
+                        ],
+                        'email'      => [
+                            'value'      => 'admin@email.com',
+                        ],
+                        'type'       => [
+                            'value' => UserModel::TYPE_FULL,
+                        ],
                     ],
                     'operations' => [
                         'canChange' => true,
@@ -406,17 +410,19 @@ class GetUserControllerTest extends AbstractControllerTest
                 3,
                 [
                     'id'         => 3,
-                    'name'       => [
-                        'value'      => 'User',
-                    ],
-                    'login'      => [
-                        'value'      => 'user',
-                    ],
-                    'email'      => [
-                        'value'      => 'user@email.com',
-                    ],
-                    'type'       => [
-                        'value' => UserModel::TYPE_LIMITED,
+                    'forms' => [
+                        'name'       => [
+                            'value'      => 'User',
+                        ],
+                        'login'      => [
+                            'value'      => 'user',
+                        ],
+                        'email'      => [
+                            'value'      => 'user@email.com',
+                        ],
+                        'type'       => [
+                            'value' => UserModel::TYPE_LIMITED,
+                        ],
                     ],
                     'operations' => [
                         'canChange' => true,
@@ -439,17 +445,19 @@ class GetUserControllerTest extends AbstractControllerTest
                 2,
                 [
                     'id'         => 2,
-                    'name'       => [
-                        'value'      => 'Admin',
-                    ],
-                    'login'      => [
-                        'value'      => 'admin',
-                    ],
-                    'email'      => [
-                        'value'      => 'admin@email.com',
-                    ],
-                    'type'       => [
-                        'value' => UserModel::TYPE_FULL,
+                    'forms' => [
+                        'name'       => [
+                            'value'      => 'Admin',
+                        ],
+                        'login'      => [
+                            'value'      => 'admin',
+                        ],
+                        'email'      => [
+                            'value'      => 'admin@email.com',
+                        ],
+                        'type'       => [
+                            'value' => UserModel::TYPE_FULL,
+                        ],
                     ],
                     'operations' => [
                         'canChange' => false,
@@ -462,17 +470,19 @@ class GetUserControllerTest extends AbstractControllerTest
                 [
                     'id'         => 0,
                     'title'      => 'Add user',
-                    'name'       => [
-                        'value'      => '',
-                    ],
-                    'login'      => [
-                        'value'      => '',
-                    ],
-                    'email'      => [
-                        'value'      => '',
-                    ],
-                    'type'       => [
-                        'value' => 0,
+                    'forms' => [
+                        'name'       => [
+                            'value'      => '',
+                        ],
+                        'login'      => [
+                            'value'      => '',
+                        ],
+                        'email'      => [
+                            'value'      => '',
+                        ],
+                        'type'       => [
+                            'value' => 0,
+                        ],
                     ],
                     'operations' => [
                         'canChange' => true,
@@ -484,17 +494,19 @@ class GetUserControllerTest extends AbstractControllerTest
                 3,
                 [
                     'id'         => 3,
-                    'name'       => [
-                        'value'      => 'User',
-                    ],
-                    'login'      => [
-                        'value'      => 'user',
-                    ],
-                    'email'      => [
-                        'value'      => 'user@email.com',
-                    ],
-                    'type'       => [
-                        'value' => UserModel::TYPE_LIMITED,
+                    'forms' => [
+                        'name'       => [
+                            'value'      => 'User',
+                        ],
+                        'login'      => [
+                            'value'      => 'user',
+                        ],
+                        'email'      => [
+                            'value'      => 'user@email.com',
+                        ],
+                        'type'       => [
+                            'value' => UserModel::TYPE_LIMITED,
+                        ],
                     ],
                     'operations' => [
                         'canChange' => false,
