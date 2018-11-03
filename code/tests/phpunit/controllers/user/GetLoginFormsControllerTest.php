@@ -89,10 +89,10 @@ class GetLoginFormsControllerTest extends AbstractControllerTest
                             'name'  => 'isRemember',
                             'label' => 'Remember me',
                         ],
+                    ],
+                    'labels' => [
                         'forgotPassword' => 'Forgot your password?',
-                        'button'     => [
-                            'label'      => 'Go',
-                        ]
+                        'button'         => 'Go',
                     ]
                 ],
                 false
