@@ -36,6 +36,8 @@ class AbstractSectionModelTest extends AbstractModelTest
                     'seoModel'         => [
                         'name'        => 'name',
                     ],
+                    'language'         => 1,
+                    'isPublished'      => true,
                     'isMain'           => true
                 ]
             );
@@ -49,14 +51,22 @@ class AbstractSectionModelTest extends AbstractModelTest
         $newModel->set(
             [
                 'seoModel'         => [
-                    'name'        => 'name',
+                    'name'        => 'new name',
                 ],
+                'language'         => 1,
+                'isPublished'      => true,
                 'isMain'           => true
             ]
         );
         $newModel->save();
 
-        $this->assertSame(true, $model->get('isMain'));
-        $this->assertSame(false, $newModel->get('isMain'));
+        $model = $this->getNewModel()->byId($model->getId())->find();
+        $newModel = $this->getNewModel()->byId($newModel->getId())->find();
+
+        $this->assertSame(false, $model->get('isMain'));
+        $this->assertSame(true, $newModel->get('isMain'));
+
+        $model->delete();
+        $newModel->delete();
     }
 }
