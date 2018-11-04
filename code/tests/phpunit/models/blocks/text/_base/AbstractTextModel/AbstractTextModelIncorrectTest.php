@@ -138,7 +138,7 @@ class AbstractTextModelIncorrectTest extends AbstractIncorrectModelTest
                 'designBlockModel' => [
                     'marginTop' => '45'
                 ],
-                'type'             => '1',
+                'type'             => '0',
                 'hasEditor'        => 'true',
             ],
             [
@@ -148,7 +148,7 @@ class AbstractTextModelIncorrectTest extends AbstractIncorrectModelTest
                 'designBlockModel' => [
                     'marginTop' => 45
                 ],
-                'type'             => 1,
+                'type'             => 0,
                 'hasEditor'        => true
             ],
             [
@@ -159,7 +159,7 @@ class AbstractTextModelIncorrectTest extends AbstractIncorrectModelTest
                     'marginTop' => '   10   '
                 ],
                 'type'             => 'incorrect',
-                'hasEditor'        => '  1   ',
+                'hasEditor'        => '  0   ',
             ],
             [
                 'designTextModel'  => [
@@ -169,7 +169,7 @@ class AbstractTextModelIncorrectTest extends AbstractIncorrectModelTest
                     'marginTop' => 10
                 ],
                 'type'             => 0,
-                'hasEditor'        => true
+                'hasEditor'        => false
             ]
         ];
     }
