@@ -63,7 +63,7 @@ class AbstractRecordCloneModelCorrectTest extends AbstractCorrectModelTest
                     'marginTop' => 10
                 ],
                 'type'             => 1,
-                'hasEditor'        => true
+                'hasEditor'        => false
             ],
             'designRecordCloneModel' => [
                 'containerDesignBlockModel' => [
@@ -103,7 +103,7 @@ class AbstractRecordCloneModelCorrectTest extends AbstractCorrectModelTest
                     'marginTop' => 10
                 ],
                 'type'             => 1,
-                'hasEditor'        => true
+                'hasEditor'        => false
             ],
             'designRecordCloneModel' => [
                 'containerDesignBlockModel' => [
