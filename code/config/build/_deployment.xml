@@ -21,7 +21,7 @@
     </target>
 
     <target name="deployment-release" depends="
-        deployment-prepare
+        deployment-prepare,
         deployment-update-release-number,
         tools-composer-install,
         tools-public-vendor,
