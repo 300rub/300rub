@@ -8,7 +8,7 @@
         <exec executable="tar" failonerror="true">
             <arg value="-zcf" />
             <arg value="${basedir}/../release.tar.gz" />
-            <arg value="." />
+            <arg value="${basedir}/../code" />
         </exec>
         <!--<exec executable="chmod" failonerror="true">-->
             <!--<arg value="0777" />-->
