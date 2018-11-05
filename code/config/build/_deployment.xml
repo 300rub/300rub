@@ -6,6 +6,7 @@
 
     <target name="deployment-archive">
         <exec executable="tar" failonerror="true">
+            <arg value="--exclude=.git" />
             <arg value="-zcf" />
             <arg value="${basedir}/../release.tar.gz" />
             <arg value="${basedir}/../code" />
