@@ -13,6 +13,8 @@ service php7.2-fpm start
 service nginx start
 service jenkins start
 
+java -Dwebdriver.chrome.driver=/usr/bin/chromedriver -jar selenium-server-standalone-3.8.1.jar
+
 node
 
 tail -f /dev/null

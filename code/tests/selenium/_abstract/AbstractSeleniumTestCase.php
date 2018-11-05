@@ -2,6 +2,8 @@
 
 namespace ss\tests\selenium\_abstract;
 
+use Facebook\WebDriver\Chrome\ChromeOptions;
+use Facebook\WebDriver\Remote\DesiredCapabilities;
 use Facebook\WebDriver\Remote\RemoteWebDriver;
 use Facebook\WebDriver\WebDriverBy;
 use Facebook\WebDriver\WebDriverExpectedCondition;
@@ -38,14 +40,14 @@ class AbstractSeleniumTestCase extends \PHPUnit_Framework_TestCase
      */
     private function _setWebDriver()
     {
-        $this->driver = RemoteWebDriver::create(
-            'http://127.0.0.1:4444/wd/hub',
-            [
-                'platform'    => 'WINDOWS',
-                'browserName' => 'firefox',
-                'version'     => 'latest'
-            ]
-        );
+        $host = 'http://127.0.0.1:4444/wd/hub';
+        $capabilities = DesiredCapabilities::chrome();
+
+        $chromeOptions = new ChromeOptions();
+        $chromeOptions->addArguments(['--no-sandbox']);
+        $capabilities->setCapability(ChromeOptions::CAPABILITY, $chromeOptions);
+
+        $this->driver = RemoteWebDriver::create($host, $capabilities);
 
         return $this;
     }
