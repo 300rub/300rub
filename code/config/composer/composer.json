@@ -115,7 +115,7 @@
 		}
 	],
 	"config": {
-		"vendor-dir": "/var/www/code/vendor",
+		"vendor-dir": "../../vendor",
 		"component-dir": "/tmp/components",
 		"discard-changes": true
 	}
