@@ -67,10 +67,10 @@
     </target>
 
     <target name="test-upload-selenium-prepare">
-        <delete dir="public/upload/selenium" />
-        <mkdir dir="public/upload/selenium" />
+        <delete dir="${basedir}/../upload/selenium" />
+        <mkdir dir="${basedir}/../upload/selenium" />
         <exec executable="chmod" failonerror="true">
-            <arg line="-R 0777 public/upload/selenium" />
+            <arg line="-R 0777 ${basedir}/../upload/selenium" />
         </exec>
     </target>
 

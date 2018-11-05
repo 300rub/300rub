@@ -18,32 +18,15 @@ class ImportSeleniumCommand extends AbstractCommand
      */
     public function run()
     {
-        $site = App::getInstance()->getConfig()->getValue(['db', 'selenium']);
+        $dbConfig = App::getInstance()
+            ->getConfig()
+            ->getValue(['db', 'selenium']);
 
-        $dbObject = App::getInstance()->getDb();
-
-        $dbObject
-            ->importDb(
-                $site['host'],
-                $dbObject->getWriteDbName(
-                    $site['name']
-                ),
-                $dbObject->getBackupPath(
-                    $dbObject->getWriteDbName(
-                        $site['name']
-                    )
-                )
+        App::getInstance()->getDb()->importDb(
+            $dbConfig['host'],
+            App::getInstance()->getDb()->getWriteDbName(
+                $dbConfig['name']
             )
-            ->importDb(
-                $site['host'],
-                $dbObject->getReadDbName(
-                    $site['name']
-                ),
-                $dbObject->getBackupPath(
-                    $dbObject->getReadDbName(
-                        $site['name']
-                    )
-                )
-            );
+        );
     }
 }

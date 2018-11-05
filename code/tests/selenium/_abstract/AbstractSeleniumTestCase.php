@@ -39,7 +39,7 @@ class AbstractSeleniumTestCase extends \PHPUnit_Framework_TestCase
     private function _setWebDriver()
     {
         $this->driver = RemoteWebDriver::create(
-            'http://selenium:4444/wd/hub',
+            'http://127.0.0.1:4444/wd/hub',
             [
                 'platform'    => 'WINDOWS',
                 'browserName' => 'firefox',
