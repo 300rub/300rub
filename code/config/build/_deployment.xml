@@ -7,7 +7,7 @@
     <target name="deployment-prepare">
         <exec executable="mkdir" failonerror="true">
             <arg value="-p" />
-            <arg value="${basedir}/../releases" />
+            <arg value="${basedir}/../release" />
         </exec>
     </target>
 

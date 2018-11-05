@@ -6,6 +6,7 @@ mysql
 jenkins
 releases
 upload
+release
 
 code/config/release
 
