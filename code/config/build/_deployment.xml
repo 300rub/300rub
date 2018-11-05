@@ -9,6 +9,10 @@
             <arg value="-p" />
             <arg value="${basedir}/../release" />
         </exec>
+        <exec executable="mkdir" failonerror="true">
+            <arg value="-p" />
+            <arg value="${basedir}/../logs" />
+        </exec>
     </target>
 
     <target name="deployment-archive">
