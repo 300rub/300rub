@@ -4,7 +4,7 @@
         <echo file="${basedir}/config/release" append="false">${env.BUILD_NUMBER}</echo>
     </target>
 
-    <target name="deployment-release" depends="">
+    <target name="deployment-release" depends="deployment-update-release-number">
         <echo>${env.BUILD_NUMBER}</echo>
     </target>
 </project>
