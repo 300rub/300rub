@@ -27,6 +27,7 @@
         tools-public-vendor,
         tools-generate-static
     ">
+        <antcall target="db-generate-source" />
         <antcall target="deployment-archive" />
 
         <echo>${env.BUILD_NUMBER}</echo>
