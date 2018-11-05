@@ -4,6 +4,13 @@
         <echo file="${basedir}/config/release" append="false">${env.BUILD_NUMBER}</echo>
     </target>
 
+    <target name="deployment-prepare">
+        <exec executable="mkdir" failonerror="true">
+            <arg value="-p" />
+            <arg value="${basedir}/../releases" />
+        </exec>
+    </target>
+
     <target name="deployment-archive">
         <exec executable="tar" failonerror="true">
             <arg value="--exclude=.git" />
@@ -11,13 +18,10 @@
             <arg value="${basedir}/../release/release.tar.gz" />
             <arg value="${basedir}/../code" />
         </exec>
-        <!--<exec executable="chmod" failonerror="true">-->
-            <!--<arg value="0777" />-->
-            <!--<arg value="${basedir}/../../releases/archives/release-${release}.tar.gz" />-->
-        <!--</exec>-->
     </target>
 
     <target name="deployment-release" depends="
+        deployment-prepare
         deployment-update-release-number,
         tools-composer-install,
         tools-public-vendor,
