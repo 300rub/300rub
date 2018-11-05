@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="release">
+    <target name="deployment-update-release-number">
+        <echo file="${basedir}/config/release" append="false">${env.BUILD_NUMBER}</echo>
+    </target>
+
     <target name="deployment-release" depends="">
         <echo>${env.BUILD_NUMBER}</echo>
     </target>
