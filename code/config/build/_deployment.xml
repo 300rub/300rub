@@ -4,12 +4,26 @@
         <echo file="${basedir}/config/release" append="false">${env.BUILD_NUMBER}</echo>
     </target>
 
+    <target name="deployment-archive">
+        <exec executable="tar" failonerror="true">
+            <arg value="-zcf" />
+            <arg value="${basedir}/../release.tar.gz" />
+            <arg value="." />
+        </exec>
+        <!--<exec executable="chmod" failonerror="true">-->
+            <!--<arg value="0777" />-->
+            <!--<arg value="${basedir}/../../releases/archives/release-${release}.tar.gz" />-->
+        <!--</exec>-->
+    </target>
+
     <target name="deployment-release" depends="
         deployment-update-release-number,
         tools-composer-install,
         tools-public-vendor,
         tools-generate-static
     ">
+        <antcall target="deployment-archive" />
+
         <echo>${env.BUILD_NUMBER}</echo>
     </target>
 </project>
