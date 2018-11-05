@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="release">
     <target name="deployment-release" depends="tools-composer-install">
-        <echo>Hello!</echo>
+        <echo>${env.BUILD_NUMBER}</echo>
     </target>
 </project>
