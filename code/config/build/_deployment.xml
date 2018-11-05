@@ -4,7 +4,11 @@
         <echo file="${basedir}/config/release" append="false">${env.BUILD_NUMBER}</echo>
     </target>
 
-    <target name="deployment-release" depends="deployment-update-release-number, tools-composer-install">
+    <target name="deployment-release" depends="
+        deployment-update-release-number,
+        tools-composer-install,
+        tools-public-vendor
+    ">
         <echo>${env.BUILD_NUMBER}</echo>
     </target>
 </project>
