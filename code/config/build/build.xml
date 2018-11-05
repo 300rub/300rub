@@ -6,9 +6,9 @@
 
     <import file="_code.xml"/>
     <import file="_db.xml"/>
-    <import file="_release.xml"/>
     <import file="_test.xml"/>
     <import file="_dev.xml"/>
     <import file="_prod.xml"/>
     <import file="_tools.xml"/>
+    <import file="_deployment.xml"/>
 </project>
