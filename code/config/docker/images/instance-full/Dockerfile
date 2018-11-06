@@ -34,19 +34,3 @@ RUN apt-get install -y nodejs
 
 # Static validators
 RUN npm install -g less lesshint lesshint-reporter-stylisher jshint htmlhint
-
-# Selenium
-RUN curl -sS -o - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add
-RUN echo "deb [arch=amd64]  http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list
-RUN apt-get -y update
-RUN apt-get -y install google-chrome-stable
-RUN wget http://selenium-release.storage.googleapis.com/3.8/selenium-server-standalone-3.8.1.jar
-RUN wget https://chromedriver.storage.googleapis.com/2.43/chromedriver_linux64.zip
-RUN unzip chromedriver_linux64.zip
-RUN mv chromedriver /usr/bin/chromedriver
-RUN chown root:root /usr/bin/chromedriver
-RUN chmod +x /usr/bin/chromedriver
-RUN chown root:root /usr/bin/google-chrome
-RUN chown root:root /usr/bin/google-chrome-stable
-RUN chmod +x /usr/bin/google-chrome
-RUN chmod +x /usr/bin/google-chrome-stable

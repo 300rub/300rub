@@ -41,15 +41,24 @@ class AbstractSeleniumTestCase extends \PHPUnit_Framework_TestCase
     private function _setWebDriver()
     {
         $host = 'http://127.0.0.1:4444/wd/hub';
+
         $capabilities = DesiredCapabilities::chrome();
 
-        $chromeOptions = new ChromeOptions();
-        $chromeOptions->addArguments(['--no-sandbox']);
-        $capabilities->setCapability(ChromeOptions::CAPABILITY, $chromeOptions);
+//        $capabilities->setCapability(
+//            'moz:firefoxOptions',
+//            ['args' => ['-headless']]
+//        );
 
         $this->driver = RemoteWebDriver::create($host, $capabilities);
-
         return $this;
+
+//        $chromeOptions = new ChromeOptions();
+//        $chromeOptions->addArguments(['--no-sandbox']);
+//        $capabilities->setCapability(ChromeOptions::CAPABILITY, $chromeOptions);
+//
+//        $this->driver = RemoteWebDriver::create($host, $capabilities);
+//
+//        return $this;
     }
 
     /**
