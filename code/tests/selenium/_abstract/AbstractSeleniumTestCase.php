@@ -40,7 +40,7 @@ class AbstractSeleniumTestCase extends \PHPUnit_Framework_TestCase
      */
     private function _setWebDriver()
     {
-        $host = 'http://127.0.0.1:4444/wd/hub';
+        $host = 'http://172.17.0.1:4444/wd/hub';
 
         $capabilities = DesiredCapabilities::chrome();
 

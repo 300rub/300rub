@@ -14,8 +14,8 @@ if [[ $2 == "-" ]]; then
   command="test-selenium-reload-fixtures"
 fi
 
-#vncviewer localhost:15900 -passwd ./bin/files/vnc-password > /dev/null 2>&1 &
-#VNC_PID=$!
+vncviewer localhost:5900 -passwd ./bin/files/vnc-password > /dev/null 2>&1 &
+VNC_PID=$!
 
 if [[ $path == "" ]]; then
   docker exec -it ss_instance_1 ant -file /var/www/code/config/build/build.xml $command
@@ -23,4 +23,4 @@ else
   docker exec -it ss_instance_1 ant -file /var/www/code/config/build/build.xml $command -Dpath=$path
 fi
 
-#kill $VNC_PID
+kill $VNC_PID

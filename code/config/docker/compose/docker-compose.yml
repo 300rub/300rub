@@ -5,18 +5,16 @@ instance:
     ports:
         - "3306:3306"
         - "80:80"
-        - "5900:5900"
         - "8080:8080"
     extra_hosts:
         - "dev.ss.local:172.17.0.1"
         - "phpunit.ss.local:172.17.0.1"
-        - "selenium.ss.local:172.17.0.1"
     volumes:
         - "./../../../..:/var/www"
         - "./../../../../jenkins:/var/lib/jenkins"
 
 mysql:
-    image: ss/mysql
+    image: mysql:5.7.22
     privileged: true
     net: "container:instance"
     environment:
@@ -26,5 +24,13 @@ mysql:
         - "./../../../../mysql:/var/lib/mysql"
 
 memcached:
-    image: ss/memcached
+    image: memcached:1.5
     net: "container:instance"
+
+selenium:
+    image: selenium/standalone-chrome-debug:3.141.0-actinium
+    ports:
+        - "4444:4444"
+        - "5900:5900"
+    extra_hosts:
+        - "selenium.ss.local:172.17.0.1"
