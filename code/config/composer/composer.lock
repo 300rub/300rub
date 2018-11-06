@@ -12,7 +12,7 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/IanLunn/Hover",
-                "reference": "master"
+                "reference": "7d89804"
             },
             "type": "library"
         },
@@ -260,7 +260,7 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/fengyuanchen/cropper",
-                "reference": "master"
+                "reference": "799ab63"
             },
             "type": "library"
         },
@@ -375,7 +375,7 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/jssor/slider",
-                "reference": "master"
+                "reference": "eaf6be4"
             },
             "type": "library"
         },
@@ -744,7 +744,7 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/vanderlee/colorpicker",
-                "reference": "master"
+                "reference": "e793ce8"
             },
             "type": "library"
         },
